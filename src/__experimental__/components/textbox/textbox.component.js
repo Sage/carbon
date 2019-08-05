@@ -16,12 +16,18 @@ const Textbox = ({
   leftChildren,
   formattedValue,
   value,
+  childOfForm,
+  isOptional,
   ...props
 }) => {
   removeParentProps(props);
 
   return (
-    <FormField { ...props }>
+    <FormField
+      childOfForm={ childOfForm }
+      isOptional={ isOptional }
+      { ...props }
+    >
       <InputPresentation type='text' { ...props }>
         { leftChildren }
         <Input
@@ -87,7 +93,11 @@ Textbox.propTypes = {
   /** List of warning validation functions */
   warnings: validationsPropTypes,
   /** List of info validation functions */
-  info: validationsPropTypes
+  info: validationsPropTypes,
+
+  childOfForm: PropTypes.bool,
+
+  isOptional: PropTypes.bool
 };
 
 Textbox.defaultProps = {

@@ -1,62 +1,64 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import I18n from 'i18n-js';
-import Service from '../../../utils/service';
-import FormButton from '../../../components/form/form-button';
-import FormSummary from '../../../components/form/form-summary';
-import AppWrapper from '../../../components/app-wrapper';
-import { validProps, generateKeysForChildren } from '../../../utils/ether';
-import tagComponent from '../../../utils/helpers/tags';
-import Browser from '../../../utils/helpers/browser';
-import { withValidations } from '../../../components/validations';
-import ElementResize from '../../../utils/helpers/element-resize';
-import StyledForm, { StyledFormFooter, StyledAdditionalFormAction } from '../../../components/form/form.style';
-
-const FormContext = React.createContext();
+import Serialize from 'form-serialize';
+import FormSummary from './form-summary';
+import FormButton from './form-button';
+import AppWrapper from '../app-wrapper/app-wrapper';
+import { validProps, generateKeysForChildren } from '../../utils/ether/ether';
+import tagComponent from '../../utils/helpers/tags/tags';
+import Browser from '../../utils/helpers/browser/browser';
+import { withValidations } from '../validations';
+import ElementResize from '../../utils/helpers/element-resize/element-resize';
+import StyledForm, { StyledFormFooter, StyledAdditionalFormAction } from './form.style';
 
 class FormWithoutValidations extends React.Component {
+  static childContextTypes = {
+    form: PropTypes.object
+  }
+
+  static contextTypes = {
+    modal: PropTypes.object
+  }
+
   state = {
     /** Tracks if the form is clean or dirty, used by unsavedWarning */
     isDirty: false,
+
     /** Tracks if the saveButton should be disabled */
     submitted: false
+
   }
 
-  stickyListener = false; // prevents multiple listeners being added/ removed
-
-  unsavedListener = false; // prevents multiple listeners being added/ removed
-
-  /* Runs once the component has mounted. */
+  /** Runs once the component has mounted. */
   componentDidMount() {
     if (this.props.stickyFooter) {
       this.addStickyFooterListeners();
     }
 
-    if (this.props.validateOnMount && this.props.validate) {
+    if (this.props.validateOnMount) {
       this.props.validate();
     }
 
     if (this.props.unsavedWarning) {
       this.addUnsavedWarningListener();
     }
-
-    if (this.props.redirectPath) this.redirectPath = this.props.redirectPath;
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.stickyListener && this.props.stickyFooter && !prevProps.stickyFooter) {
+    if (this.props.stickyFooter && !prevProps.stickyFooter) {
       this.addStickyFooterListeners();
     }
 
-    if (this.stickyListener && !this.props.stickyFooter && prevProps.stickyFooter) {
+    if (!this.props.stickyFooter && prevProps.stickyFooter) {
       this.removeStickyFooterListeners();
     }
 
-    if (!this.unsavedListener && this.props.unsavedWarning && !prevProps.unsavedWarning) {
+    if (this.props.unsavedWarning && !prevProps.unsavedWarning) {
       this.addUnsavedWarningListener();
     }
 
-    if (this.unsavedListener && !this.props.unsavedWarning && prevProps.unsavedWarning) {
+    if (!this.props.unsavedWarning && prevProps.unsavedWarning) {
       this.removeUnsavedWarningListener();
     }
   }
@@ -71,7 +73,7 @@ class FormWithoutValidations extends React.Component {
     }
   }
 
-  /* Gets the current active input. */
+  /** Gets the current active input. */
   getActiveInput = () => {
     return this.activeInput;
   }
@@ -84,14 +86,14 @@ class FormWithoutValidations extends React.Component {
     this.activeInput = input;
   }
 
-  /* Sets the form to Dirty */
+  /** Sets the form to Dirty */
   setIsDirty = () => {
     if (!this.state.isDirty) {
       this.setState({ isDirty: true });
     }
   }
 
-  /* Sets the form to Clean */
+  /**  Sets the form to Clean */
   resetIsDirty = () => {
     if (this.state.isDirty) {
       this.setState({ isDirty: false });
@@ -99,7 +101,6 @@ class FormWithoutValidations extends React.Component {
   }
 
   addStickyFooterListeners = () => {
-    this.stickyListener = true;
     this.checkStickyFooter();
     ElementResize.addListener(this._form, this.checkStickyFooter);
     this._window.addEventListener('resize', this.checkStickyFooter);
@@ -107,7 +108,6 @@ class FormWithoutValidations extends React.Component {
   }
 
   removeStickyFooterListeners = () => {
-    this.stickyListener = false;
     ElementResize.removeListener(this._form, this.checkStickyFooter);
     this._window.removeEventListener('resize', this.checkStickyFooter);
     this._window.removeEventListener('scroll', this.checkStickyFooter);
@@ -134,30 +134,16 @@ class FormWithoutValidations extends React.Component {
   }
 
   addUnsavedWarningListener = () => {
-    this.unsavedListener = true;
     this._window.addEventListener('beforeunload', this.checkIsFormDirty);
   }
 
   removeUnsavedWarningListener = () => {
-    this.unsavedListener = false;
     this._window.removeEventListener('beforeunload', this.checkIsFormDirty);
-  }
-
-  /** Returns true if any input has value */
-  checkFormDataExists() {
-    const { formInputs } = this.state;
-    if (!formInputs) return false;
-
-    return Object.keys(formInputs).some(id => Boolean(formInputs[id].length));
   }
 
   // This must return undefined for IE and Safari if we don't want a warning
   /* eslint-disable consistent-return */
   checkIsFormDirty = (ev) => {
-    if (this.state.formInputs) {
-      this.setState({ isDirty: this.checkFormDataExists() });
-    }
-
     if (this.state.isDirty) {
       // Confirmation message is usually overridden by browsers with a similar message
       const confirmationMessage = I18n.t('form.save_prompt',
@@ -168,22 +154,19 @@ class FormWithoutValidations extends React.Component {
   }
   /* eslint-enable consistent-return */
 
-  /* stores the document - allows us to override it different contexts, such as  when running tests. */
+  /**
+   * stores the document - allows us to override it different contexts, such as
+   * when running tests.
+   */
   _document = Browser.getDocument();
 
-  /* stores the window - allows us to override it different contexts, such as when running tests. */
+  /**
+   * stores the window - allows us to override it different contexts, such as
+   * when running tests.
+   */
   _window = Browser.getWindow();
 
-  /* Sets the page to load on submit of form. */
-  redirectPath = this._window.location.href;
-
-  /* CSRF values for request */
-  csrfValues = { ...calculateCsrfValues(this._document) };
-
-  /* Service instacne to make post request */
-  _service = new Service();
-
-  /* Handles submit and runs validation. */
+  /**  Handles submit and runs validation. */
   handleOnSubmit = async (ev) => {
     ev.preventDefault();
 
@@ -195,7 +178,7 @@ class FormWithoutValidations extends React.Component {
       this.props.beforeFormValidation(ev);
     }
 
-    const valid = this.props.validate ? await this.props.validate() : false;
+    const valid = await this.props.validate();
 
     if (this.props.afterFormValidation) {
       this.props.afterFormValidation(ev, valid, this.enableForm);
@@ -212,48 +195,23 @@ class FormWithoutValidations extends React.Component {
   triggerSubmit(ev, valid) {
     if (this.props.onSubmit) {
       this.props.onSubmit(ev, valid, this.enableForm);
-    } else if (this.state.formInputs) {
-      this.addOtherInputsToState();
     } else {
       this._form.submit();
     }
   }
 
-  /* Add all inputs to state so that all are submitted. */
-  addOtherInputsToState() {
-    Object.keys(this._form.elements).forEach((id) => {
-      const { name, value, type } = this._form.elements[id];
-      const isCsrfToken = (type === 'hidden' && id === '0');
-      const inputName = isCsrfToken ? 'csrf-token' : name;
-
-      if (!this.state.formInputs[inputName] && !['button', 'submit'].includes(type)) {
-        this.addInputDataToState(inputName, value);
-      }
-    });
-    this.submitControlledForm();
-  }
-
-  async submitControlledForm() {
-    const { csrFValue } = this.csrfValues;
-    Service.configure({ csrfToken: csrFValue });
-    this._service.setURL(this.props.formAction);
-    await this._service.post(
-      JSON.stringify(this.state.formInputs),
-      { onSuccess: this.clearFormData }
-    );
-  }
-
-  clearFormData = (data) => {
-    // stop gap solution to prevent double submission for the time being
-    this._window.location.href = this.redirectPath;
-    return data;
-  }
-
-  /* enables a form which has been disabled after being submitted. */
+  /** enables a form which has been disabled after being submitted. */
   enableForm = () => {
     this.setState({ submitted: false });
   }
 
+  /**
+   * Serializes the inputs in the form ready for submission via AJAX
+   * https://www.npmjs.com/package/form-serialize
+   */
+  serialize = (opts) => {
+    return Serialize(this._form, opts);
+  }
 
   /** Separates and returns HTML specific props */
   htmlProps = () => {
@@ -307,7 +265,7 @@ class FormWithoutValidations extends React.Component {
     );
   }
 
-  /** The default Save button for the form */
+  /** The default Save button for the form  */
   defaultSaveButton = () => {
     return (
       <FormButton
@@ -325,7 +283,7 @@ class FormWithoutValidations extends React.Component {
   saveButton = () => {
     if (!this.props.save) { return null; }
 
-    return this.props.customSaveButton || this.defaultSaveButton();
+    return this.props.customSaveButton ? this.props.customSaveButton : this.defaultSaveButton();
   }
 
   /** Returns a form summary */
@@ -368,18 +326,8 @@ class FormWithoutValidations extends React.Component {
     return this.props.buttonAlign === 'right' ? [this.cancelButton(), save] : [save, this.cancelButton()];
   }
 
-  /** Store children controlled data in state */
-  addInputDataToState = (name, value) => {
-    this.setState(prevState => ({
-      formInputs: {
-        ...prevState.formInputs,
-        [name]: value
-      }
-    }));
-  }
-
   /**  Returns form object to child components. */
-  getContext() {
+  getChildContext = () => {
     return {
       form: {
         getActiveInput: this.getActiveInput,
@@ -409,7 +357,6 @@ class FormWithoutValidations extends React.Component {
         ...child.props,
         key: this.childKeys[index],
         childOfForm: true,
-        addInputToFormState: this.addInputDataToState,
         labelAlign: isLabelRightAligned ? 'right' : 'left'
       });
     });
@@ -418,50 +365,43 @@ class FormWithoutValidations extends React.Component {
   /** Renders the component. */
   render() {
     const stickyFooter = this.props.stickyFooter && this.state.stickyFooter;
+
     return (
-      <FormContext.Provider value={ this.getContext() }>
-        <StyledForm
-          stickyFooter={ stickyFooter }
-          onSubmit={ this.handleOnSubmit }
-          fixedBottom={ this.props.fixedBottom }
-          { ...this.htmlProps() }
-          ref={ (form) => { this._form = form; } }
-          { ...tagComponent('form', this.props) }
-        >
-          { generateCSRFTokenInput(this.csrfValues) }
+      <StyledForm
+        stickyFooter={ stickyFooter }
+        onSubmit={ this.handleOnSubmit }
+        fixedBottom={ this.props.fixedBottom }
+        { ...this.htmlProps() }
+        ref={ (form) => { this._form = form; } }
+        { ...tagComponent('form', this.props) }
+      >
+        { generateCSRFToken(this._document) }
 
-          { this.renderChildren() }
+        { this.renderChildren() }
 
-          { this.formFooter() }
-        </StyledForm>
-      </FormContext.Provider>
+        { this.formFooter() }
+      </StyledForm>
     );
   }
 }
 
-/** Creates hidden CSRF input field */
-// eslint-disable-next-line react/prop-types
-function generateCSRFTokenInput({ csrfAttr, csrfValue }) {
-  return (
-    <input
-      type='hidden'
-      name={ csrfAttr }
-      value={ csrfValue }
-      readOnly
-    />
-  );
-}
-
-/** Calculates a CSRF token for document */
-function calculateCsrfValues(doc) {
+/** Creates and returns CSRF token for input field */
+function generateCSRFToken(doc) {
   const csrfParam = doc.querySelector('meta[name="csrf-param"]');
   const csrfToken = doc.querySelector('meta[name="csrf-token"]');
 
   const csrfAttr = csrfParam ? csrfParam.getAttribute('content') : '';
   const csrfValue = csrfToken ? csrfToken.getAttribute('content') : '';
 
-  return { csrfAttr, csrfValue };
+  return (
+    <input
+      type='hidden' name={ csrfAttr }
+      value={ csrfValue } readOnly
+    />
+  );
 }
+
+const Form = withValidations(FormWithoutValidations);
 
 FormWithoutValidations.propTypes = {
 
@@ -549,25 +489,6 @@ FormWithoutValidations.propTypes = {
   /** The total number of infos present in the form */
   infoCount: PropTypes.number,
 
-  /** Strores the state of controlled inputs */
-  formInputs: PropTypes.shape({
-    value: PropTypes.string,
-    name: PropTypes.string
-  }),
-
-  /** The action for the default form submission of controlled inputs */
-  formAction(props, propName) {
-    const propConditions = (
-      !props.onSubmit && (props[propName] === undefined || typeof (props[propName]) !== 'string')
-    );
-    if (propConditions) {
-      throw new Error('A form action is required if no onSubmit prop is passed');
-    }
-  },
-
-  /** Path to redirect after submit */
-  redirectPath: PropTypes.string,
-
   /** Passed down when Form parent is dialog */
   fixedBottom: PropTypes.bool,
 
@@ -585,8 +506,6 @@ FormWithoutValidations.defaultProps = {
   customSaveButton: null,
   showSummary: true
 };
-
-const Form = withValidations(FormWithoutValidations);
 
 export { FormWithoutValidations }; // export version without hoc if required
 export default Form;
