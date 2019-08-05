@@ -14,7 +14,7 @@ export const StyledAdditionalFormAction = styled.div`
 
     ${type !== 'leftAlignedActions' && css`
       display: inline-block;
-    `} 
+    `}
 
     ${StyledButton} {
       &:first-child {
@@ -25,8 +25,6 @@ export const StyledAdditionalFormAction = styled.div`
 `;
 
 export const StyledResponsiveFooterWrapper = styled.div`
-  max-width: 1600px;
-  min-width: 958px;
   margin: 0 auto;
   max-width: inherit;
   min-width: inherit;
@@ -34,6 +32,7 @@ export const StyledResponsiveFooterWrapper = styled.div`
   align-items: center;
   display: flex;
   margin-top: 20px;
+  ${({ borderWidth }) => borderWidth && css`border-width: ${borderWidth}`}
 
   div:first-of-type {
     ${StyledButton} {
@@ -106,7 +105,7 @@ const StyledForm = styled.form`
         padding: 0 40px;
       }
     }
-  `}  
+  `}
 `;
 
 StyledForm.defaultProps = {

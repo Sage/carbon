@@ -4,13 +4,17 @@ import I18n from 'i18n-js';
 import Serialize from 'form-serialize';
 import FormSummary from './form-summary';
 import FormButton from './form-button';
-import AppWrapper from '../app-wrapper/app-wrapper';
 import { validProps, generateKeysForChildren } from '../../utils/ether/ether';
 import tagComponent from '../../utils/helpers/tags/tags';
 import Browser from '../../utils/helpers/browser/browser';
 import { withValidations } from '../validations';
 import ElementResize from '../../utils/helpers/element-resize/element-resize';
-import StyledForm, { StyledFormFooter, StyledAdditionalFormAction } from './form.style';
+import StyledForm,
+{
+  StyledFormFooter,
+  StyledAdditionalFormAction,
+  StyledResponsiveFooterWrapper
+} from './form.style';
 
 class FormWithoutValidations extends React.Component {
   static childContextTypes = {
@@ -309,12 +313,12 @@ class FormWithoutValidations extends React.Component {
 
     return (
       <StyledFormFooter buttonAlign={ this.props.buttonAlign }>
-        <AppWrapper style={ { borderWidth: padding } }>
+        <StyledResponsiveFooterWrapper borderWidth={ padding }>
           { this.additionalActions('leftAlignedActions') }
           { this.additionalActions('rightAlignedActions') }
           { this.orderFormButtons() }
           { this.additionalActions('additionalActions') }
-        </AppWrapper>
+        </StyledResponsiveFooterWrapper>
       </StyledFormFooter>
     );
   }

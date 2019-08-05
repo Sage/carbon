@@ -124,8 +124,6 @@ exports[`Form When child is an html element it renders the child 1`] = `
 }
 
 .c4 {
-  max-width: 1600px;
-  min-width: 958px;
   margin: 0 auto;
   max-width: inherit;
   min-width: inherit;
@@ -145,6 +143,10 @@ exports[`Form When child is an html element it renders the child 1`] = `
   margin-left: 0;
 }
 
+.c12 div:first-of-type .c5 {
+  margin-left: 0;
+}
+
 .c2 {
   margin-top: 48px;
 }
@@ -156,7 +158,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
   justify-content: flex-end;
 }
 
-.c12.c12 .c5 {
+.c13.c13 .c5 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -181,21 +183,8 @@ exports[`Form When child is an html element it renders the child 1`] = `
   margin-left: 16px;
 }
 
-.c0.c0 .c15 {
+.c0.c0 .c16 {
   margin-bottom: 32px;
-}
-
-.c13.c13 .c5 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  margin-left: 16px;
-  margin-left: 15px;
 }
 
 .c14.c14 .c5 {
@@ -211,7 +200,20 @@ exports[`Form When child is an html element it renders the child 1`] = `
   margin-left: 15px;
 }
 
-.c14 .c1 {
+.c15.c15 .c5 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 16px;
+  margin-left: 15px;
+}
+
+.c15 .c1 {
   -webkit-animation: lhSDYf 0.25s ease-out;
   animation: lhSDYf 0.25s ease-out;
   background-color: #FFFFFF;
@@ -226,7 +228,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
   z-index: 1000;
 }
 
-.c14 .c1 .c3 {
+.c15 .c1 .c3 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -282,11 +284,6 @@ exports[`Form When child is an html element it renders the child 1`] = `
   >
     <div
       className="c3 c4"
-      style={
-        Object {
-          "borderWidth": undefined,
-        }
-      }
     >
       <div
         data-component="cancel"

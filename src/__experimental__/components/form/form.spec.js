@@ -547,8 +547,18 @@ describe('Form', () => {
   describe('stickyFooterPadding', () => {
     it('adds padding if defined', () => {
       wrapper = shallow(<Form formAction='foo' stickyFooterPadding='500' />);
-      const footer = wrapper.find(StyledResponsiveFooterWrapper);
-      expect(footer.props().style.borderWidth).toEqual('500px');
+      const footer = TestRenderer.create(wrapper.find(StyledResponsiveFooterWrapper));
+
+      assertStyleMatch({
+        margin: '0 auto',
+        maxWidth: 'inherit',
+        minWidth: 'inherit',
+        padding: '0',
+        alignItems: 'center',
+        display: 'flex',
+        marginTop: '20px',
+        borderWidth: '500px'
+      }, footer.toJSON());
     });
   });
 

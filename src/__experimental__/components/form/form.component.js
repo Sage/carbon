@@ -355,7 +355,7 @@ class FormWithoutValidations extends React.Component {
 
     return (
       <StyledFormFooter buttonAlign={ this.props.buttonAlign }>
-        <StyledResponsiveFooterWrapper style={ { borderWidth: padding } }>
+        <StyledResponsiveFooterWrapper borderWidth={ padding }>
           { this.additionalActions('leftAlignedActions') }
           { this.additionalActions('rightAlignedActions') }
           { this.orderFormButtons() }
