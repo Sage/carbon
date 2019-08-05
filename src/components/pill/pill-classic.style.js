@@ -52,12 +52,14 @@ export default (colorVariant, inFill, isDeletable, size) => {
   return css`
     border-radius: 10px; 
     display: inline-block;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 700;
-    line-height: 15px;
+    line-height: 10px;
     letter-spacing: 0.7px;
     position: relative;
     text-align: center;
+    padding: 0 20px 0 8px;
+    margin-top: 1px;
 
     .common-input & {
       font-size: 13px;
@@ -86,10 +88,8 @@ export default (colorVariant, inFill, isDeletable, size) => {
     `}
 
     ${!isDeletable && css`
-      padding: 2px 7px;
-
-      ${size === 'small' && css`
-        font-size: 10px;
+      ${size === 'S' && css`
+        padding: 0 8px;
 
         button {
           .carbon-icon {
@@ -100,25 +100,26 @@ export default (colorVariant, inFill, isDeletable, size) => {
         }
       `}
 
-      ${size === 'medium' && css`
-        font-size: 12px;
-        min-width: 38px;
-        padding: 4px 8px;
+      ${size === 'M' && css`
+        padding: 0 12px;
+        border-radius: 12px;
       `}
 
-      ${size === 'large' && css`
-        font-size: 14px;
-        min-width: 46px;
-        padding: 4px 8px;
+      ${size === 'L' && css`
+        padding: 0 16px;
+        border-radius: 13px;
+      `}
+
+      ${size === 'XL' && css`
+        padding: 0 20px;
+        border-radius: 15px;
       `}
     `}
 
     ${isDeletable && css`
-      padding: 2px 19px 2px 7px;
-
       button {
         -webkit-appearance: none;
-        border-radius: 0 9px 9px 0;
+        border-radius: 0 6px 6px 0;
         border: none;
         bottom: 0;
         font-size: 100%;
@@ -127,7 +128,7 @@ export default (colorVariant, inFill, isDeletable, size) => {
         position: absolute;
         right: 0;
         top: 0;
-        width: 17px;
+        width: 20px;
 
         ${inFill && css`
           background-color: ${colorSet.color};
@@ -144,16 +145,11 @@ export default (colorVariant, inFill, isDeletable, size) => {
         }
         
         .carbon-icon {
-          font-size: 14px;
-          margin-left: -1px;
+          padding: 0 7px;
 
           ${inFill && css`
             color: ${colorSet.color};
           `}
-
-          &:before {
-            font-size: 9px;
-          }
 
           &:hover,
           &:focus {
@@ -162,30 +158,30 @@ export default (colorVariant, inFill, isDeletable, size) => {
         }
       }
 
-      ${size === 'small' && css`
-        font-size: 10px;
-        padding: 2px 16px 2px 8px;
+      ${size === 'S' && css`
+        padding: 0 20px 0 8px;
 
         button {
           .carbon-icon {
-            font-size: 13px;
-
             &:before {
-              font-size: 8px;
+              font-size: 7px;
             }
           }
         }
       `}
 
-      ${size === 'medium' && css`
-        font-size: 12px;
-        min-width: 38px;
-        padding: 4px 10px 4px 4px;
+      ${size === 'M' && css`
+        padding: 0 28px 0 12px;
+        border-radius: 12px;
 
         button {
+          width: 24px;
+          border-radius: 0 8px 8px 0;
+
           .carbon-icon {
-            font-size: 13px;
-            
+            padding: 2px 7px 3px 7px;
+            margin-top: -1px;
+
             &:before {
               font-size: 10px;
             }
@@ -193,15 +189,40 @@ export default (colorVariant, inFill, isDeletable, size) => {
         }
       `}
 
-      ${size === 'large' && css`
-        font-size: 14px;
-        min-width: 46px;
-        padding: 4px 8px 4px 2px;
+      ${size === 'L' && css`
+        padding: 0 32px 0 16px;
+        border-radius: 13px;
 
         button {
+          width: 28px;
+          border-radius: 0 10px 10px 0;
+
           .carbon-icon {
+            padding: 3px 8px 4px 8px;
+            margin-top: -1px;
+
             &:before {
-              font-size: 11px;
+              font-size: 12px;
+            }
+          }
+        }
+      `}
+
+      ${size === 'XL' && css`
+        padding: 0 36px 0 20px;
+        border-radius: 15px;
+
+        button {
+          width: 32px;
+          padding: 0;
+          border-radius: 0 12px 12px 0;
+
+          .carbon-icon {
+            padding: 3px 9px 5px 9px;
+            margin-top: -1px;
+
+            &:before {
+              font-size: 13px;
             }
           }
         }

@@ -27,7 +27,7 @@ const getKnobs = (theme) => {
     fill: boolean('fill', Pill.defaultProps.fill),
     onDelete: boolean('onDelete', false),
     theme,
-    size: select('size', OptionsHelper.sizesRestricted, Pill.defaultProps.size)
+    size: select('size', OptionsHelper.pillSizesRestricted, Pill.defaultProps.size)
   };
 
   if (isClassic(theme)) {
