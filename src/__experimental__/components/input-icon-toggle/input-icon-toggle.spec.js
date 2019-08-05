@@ -56,27 +56,31 @@ describe('InputIconToggle', () => {
     it('when active', () => {
       assertStyleMatch({
         backgroundColor: '#e6ebed'
-      }, renderWithTheme({ type: 'dropdown' }, classicTheme).toJSON());
+      }, renderWithTheme({ inputIcon: 'dropdown' }, classicTheme).toJSON());
     });
 
     it('renders a narrow button when in a dropdown', () => {
       assertStyleMatch({
         width: '20px'
-      }, renderWithTheme({ type: 'dropdown' }, classicTheme).toJSON());
+      }, renderWithTheme({ inputIcon: 'dropdown' }, classicTheme).toJSON());
     });
   });
 });
 
 function render(props, renderer = shallow) {
+  const defaultProps = { inputIcon: 'settings' };
+
   return renderer(
-    <InputIconToggle inputIcon='settings' { ...props } />
+    <InputIconToggle { ...defaultProps } { ...props } />
   );
 }
 
 function renderWithTheme(props, theme, renderer = TestRenderer.create) {
+  const defaultProps = { inputIcon: 'settings' };
+
   return renderer(
     <ThemeProvider theme={ theme }>
-      <InputIconToggle inputIcon='settings' { ...props } />
+      <InputIconToggle { ...defaultProps } { ...props } />
     </ThemeProvider>
   );
 }

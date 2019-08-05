@@ -235,6 +235,7 @@ Object {
     />
     <span
       class="c3"
+      type="dropdown"
     >
       <span
         class="carbon-icon icon-dropdown"
