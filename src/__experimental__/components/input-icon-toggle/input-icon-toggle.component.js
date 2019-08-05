@@ -17,7 +17,13 @@ const InputIconToggle = ({
   if (disabled || readOnly) return null;
 
   if (hasFailedValidation(props)) {
-    return <ValidationIcon type={ type } tooltipMessage={ tooltipMessage } />;
+    return (
+      <ValidationIcon
+        type={ type }
+        tooltipMessage={ tooltipMessage }
+        size={ size }
+      />
+    );
   }
 
   return (

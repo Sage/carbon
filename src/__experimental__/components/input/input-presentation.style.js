@@ -31,10 +31,6 @@ const InputPresentationStyle = styled.div`
     border-color: ${theme.disabled.border};
     cursor: not-allowed;
   `}
-  ${({ readOnly }) => readOnly && css`
-    background: transparent !important;
-    border-color: transparent !important;
-  `}
 
   ${({ hasFocus, theme }) => hasFocus && css`
     && { 
@@ -46,7 +42,15 @@ const InputPresentationStyle = styled.div`
       position: relative;
     }
   `}
+  
   ${stylingForValidations}
+
+  ${({ readOnly }) => readOnly && css`
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none;
+  `}
+
   ${inputClassicStyling}
 
   input::-ms-clear {
