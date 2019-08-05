@@ -23,13 +23,6 @@ const StyledSelectPillContainer = styled.div`
     max-width: 170px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin: 0px;
-
-    ${({ theme }) => !isClassic(theme) && css`
-      .carbon-icon {
-        height: 0px;
-      }
-    `}
   }
 `;
 

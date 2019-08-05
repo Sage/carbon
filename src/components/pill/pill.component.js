@@ -73,8 +73,8 @@ Pill.propTypes = {
   /** Callback function to delete the component, when the added Icon is clicked. */
   onDelete: PropTypes.func,
 
-  /** Assigns a size to the button: "small" | "medium" | "large" */
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted)
+  /** Assigns a size to the button: "S" | "M" | "L" | "XL" */
+  size: PropTypes.oneOf(OptionsHelper.pillSizesRestricted)
 };
 
 Pill.defaultProps = {
@@ -83,7 +83,7 @@ Pill.defaultProps = {
   onClick: null,
   onDelete: null,
   pillRole: 'tag',
-  size: 'medium'
+  size: 'M'
 };
 
 export default Pill;
