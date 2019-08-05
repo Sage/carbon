@@ -16,7 +16,11 @@ export const StyledAdditionalFormAction = styled.div`
       display: inline-block;
     `}
 
-    ${StyledButton} {
+    margin-left: 16px;
+    ${({ theme }) => isClassic(theme) && css`margin-left: 15px;`}
+
+    && ${StyledButton} {
+      margin-left: 0px;
       &:first-child {
         margin-left: 0;
       }
@@ -32,12 +36,18 @@ export const StyledResponsiveFooterWrapper = styled.div`
   align-items: center;
   display: flex;
   margin-top: 20px;
-  ${({ borderWidth }) => borderWidth && css`border-width: ${borderWidth}`}
+  ${({ borderWidth }) => borderWidth && css`
+    border-width: ${borderWidth}
+  `}
 
   div:first-of-type {
     ${StyledButton} {
       margin-left: 0;
     }
+  }
+
+  ${StyledAdditionalFormAction}:first-of-type{ 
+    margin-left: 0;
   }
 `;
 
@@ -59,7 +69,7 @@ export const StyledFormFooter = styled.div`
 `;
 
 const StyledForm = styled.form`
-  && ${StyledButton} {
+  ${StyledButton} {
     align-items: center;
     display: flex;
     margin-left: 16px;

@@ -752,11 +752,12 @@ describe('Form', () => {
       describe.each(['additionalActions', 'leftAlignedActions', 'rightAlignedActions'])(
         'when an action is defined',
         (action) => {
-          const props = { [action]: <span /> };
           it(`returns the ${action}`, () => {
+            const props = { [action]: <span /> };
             wrapper = mount(
               <Form
-                formAction='foo' { ...props }
+                formAction='foo'
+                { ...props }
                 buttonAlign='left'
                 isLabelRightAligned
               >
@@ -766,6 +767,21 @@ describe('Form', () => {
             const additionalAction = wrapper.find(StyledAdditionalFormAction);
             expect(additionalAction.exists()).toEqual(true);
             expect(additionalAction.contains(<span />)).toBeTruthy();
+          });
+
+          it(`matches the expected style for ${action} with a classic theme`, () => {
+            const actionWrapper = TestRenderer.create(
+              <StyledAdditionalFormAction
+                type={ action }
+                theme={ Classic }
+              />
+            );
+
+            assertStyleMatch({
+              flexGrow: action === 'leftAlignedActions' ? '1' : undefined,
+              display: action !== 'leftAlignedActions' ? 'inline-block' : undefined,
+              marginLeft: '15px'
+            }, actionWrapper.toJSON());
           });
         }
       );
@@ -836,7 +852,7 @@ describe('Form', () => {
             display: 'flex',
             marginLeft: !isClassic(theme) ? '16px' : '15px'
           },
-          styledWrapper.toJSON(), { modifier: `&& ${StyledButton}` });
+          styledWrapper.toJSON(), { modifier: `${StyledButton}` });
         });
       }
     );

@@ -115,11 +115,35 @@ exports[`Form When child is an html element it renders the child 1`] = `
   margin-left: 16px;
 }
 
-.c10 .c5:first-child {
+.c10.c10 .c5 {
+  margin-left: 0px;
+}
+
+.c10.c10 .c5:first-child {
   margin-left: 0;
 }
 
-.c11 .c5:first-child {
+.c11.c11 .c5 {
+  margin-left: 0px;
+}
+
+.c11.c11 .c5:first-child {
+  margin-left: 0;
+}
+
+.c12.c12 .c5 {
+  margin-left: 0px;
+}
+
+.c12.c12 .c5:first-child {
+  margin-left: 0;
+}
+
+.c13.c13 .c5 {
+  margin-left: 0px;
+}
+
+.c13.c13 .c5:first-child {
   margin-left: 0;
 }
 
@@ -143,7 +167,11 @@ exports[`Form When child is an html element it renders the child 1`] = `
   margin-left: 0;
 }
 
-.c12 div:first-of-type .c5 {
+.c4 .c19:first-of-type {
+  margin-left: 0;
+}
+
+.c14 div:first-of-type .c5 {
   margin-left: 0;
 }
 
@@ -158,7 +186,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
   justify-content: flex-end;
 }
 
-.c13.c13 .c5 {
+.c15 .c5 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -171,7 +199,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
   margin-left: 15px;
 }
 
-.c0.c0 .c5 {
+.c0 .c5 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -183,11 +211,11 @@ exports[`Form When child is an html element it renders the child 1`] = `
   margin-left: 16px;
 }
 
-.c0.c0 .c16 {
+.c0.c0 .c18 {
   margin-bottom: 32px;
 }
 
-.c14.c14 .c5 {
+.c16 .c5 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -200,7 +228,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
   margin-left: 15px;
 }
 
-.c15.c15 .c5 {
+.c17 .c5 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -213,7 +241,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
   margin-left: 15px;
 }
 
-.c15 .c1 {
+.c17 .c1 {
   -webkit-animation: lhSDYf 0.25s ease-out;
   animation: lhSDYf 0.25s ease-out;
   background-color: #FFFFFF;
@@ -228,7 +256,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
   z-index: 1000;
 }
 
-.c15 .c1 .c3 {
+.c17 .c1 .c3 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
