@@ -19,6 +19,7 @@ const commonKnobs = (store) => {
   const filterable = boolean('filterable', Select.defaultProps.filterable);
   const typeAhead = filterable && boolean('typeAhead', Select.defaultProps.typeAhead);
   const label = text('label', '');
+  const autoFocus = boolean('autoFocus', false);
 
   const knobs = {
     disabled: boolean('disabled', false),
@@ -31,6 +32,7 @@ const commonKnobs = (store) => {
     size: select('size', OptionsHelper.sizesRestricted, OptionsHelper.sizesRestricted[1]),
     filterable,
     typeAhead,
+    autoFocus,
     label
   };
 

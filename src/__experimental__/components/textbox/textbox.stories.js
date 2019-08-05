@@ -99,6 +99,7 @@ function getCommonTextboxStoryProps(config = defaultStoryPropsConfig) {
   };
   const disabled = boolean('disabled', false);
   const readOnly = boolean('readOnly', false);
+  const autoFocus = boolean('autoFocus', false);
   const fieldHelp = text('fieldHelp');
   const label = text('label');
   const labelHelp = label ? text('labelHelp') : undefined;
@@ -111,6 +112,7 @@ function getCommonTextboxStoryProps(config = defaultStoryPropsConfig) {
   return {
     disabled,
     readOnly,
+    autoFocus,
     inputWidth,
     fieldHelp,
     label,

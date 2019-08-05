@@ -42,6 +42,7 @@ function defaultKnobs() {
     fieldHelp: text('fieldHelp', 'This text provides help for the input.'),
     fieldHelpInline: boolean('fieldHelpInline', false),
     reverse: boolean('reverse', false),
+    autoFocus: boolean('autoFocus', false),
     label: text('label', 'Example Checkbox'),
     labelHelp: text('labelHelp', 'This text provides more information for the label.'),
     inputWidth: number('inputWidth', 0, {

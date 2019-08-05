@@ -43,6 +43,7 @@ storiesOf('Experimental/Textarea', module)
       const rows = number('rows', 0, rangeOptions);
       const disabled = boolean('disabled', false);
       const readOnly = boolean('readOnly', false);
+      const autoFocus = boolean('autoFocus', false);
       const placeholder = text('placeholder', '');
       const fieldHelp = text('fieldHelp', '');
       const characterLimit = text('characterLimit', '');
@@ -71,6 +72,7 @@ storiesOf('Experimental/Textarea', module)
             rows={ rows }
             disabled={ disabled }
             readOnly={ readOnly }
+            autoFocus={ autoFocus }
             placeholder={ placeholder }
             fieldHelp={ fieldHelp }
             label={ label }

@@ -19,7 +19,8 @@ class Input extends React.Component {
     onBlur: PropTypes.func,
     onClick: PropTypes.func,
     onFocus: PropTypes.func,
-    type: PropTypes.string
+    type: PropTypes.string,
+    autoFocus: PropTypes.bool,
   };
 
   static contextType = InputPresentationContext;
@@ -29,6 +30,7 @@ class Input extends React.Component {
   componentDidMount() {
     if (this.props.inputRef) this.props.inputRef(this.input);
     if (this.context && this.context.inputRef) this.context.inputRef(this.input);
+    if (this.props.autoFocus && this.input.current) this.input.current.focus();
   }
 
   handleClick = (ev) => {

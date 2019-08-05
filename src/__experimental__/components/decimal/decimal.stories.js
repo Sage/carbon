@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import {
-  number, select
+    boolean, number, select
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
@@ -40,6 +40,7 @@ storiesOf('Experimental/Decimal Input', module)
       Decimal.defaultProps.align
     );
     const precision = number('precision', Decimal.defaultProps.precision, precisionRange);
+    const autoFocus = boolean('autoFocus', false);
 
     return (
       <State store={ store }>
@@ -49,6 +50,7 @@ storiesOf('Experimental/Decimal Input', module)
           precision={ precision }
           value={ store.get('value') }
           onChange={ setValue }
+          autoFocus={ autoFocus }
         />
       </State>
     );
