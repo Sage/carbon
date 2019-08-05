@@ -6,7 +6,6 @@ import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import Pill from './pill.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import { isClassic } from '../../utils/helpers/style-helper';
 import classic from '../../style/themes/classic';
 import { THEMES } from '../../style/themes';
 import { notes, Info } from './documentation';
