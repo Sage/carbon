@@ -2,26 +2,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../../../components/icon';
 import InputIconToggleStyle from './input-icon-toggle.style';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
-import extractProps from '../../../utils/helpers/extract-props';
 
 const InputIconToggle = ({
   children,
   disabled,
   readOnly,
+  size,
+  inputIcon: type,
+  tooltipMessage,
   ...props
 }) => {
-  const styleProps = extractProps(props, InputIconToggleStyle);
-
   if (disabled || readOnly) return null;
 
   if (hasFailedValidation(props)) {
-    return <ValidationIcon type={ props.inputIcon } tooltipMessage={ props.tooltipMessage } />;
+    return <ValidationIcon type={ type } tooltipMessage={ tooltipMessage } />;
   }
 
   return (
-    <InputIconToggleStyle key='label-icon' { ...styleProps }>
-      { children || <Icon type={ props.inputIcon } /> }
+    <InputIconToggleStyle
+      key='label-icon'
+      type={ type }
+      size={ size }
+    >
+      { children || <Icon type={ type } /> }
     </InputIconToggleStyle>
   );
 };
@@ -35,6 +40,7 @@ InputIconToggle.propTypes = {
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
   inputIcon: PropTypes.string,
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   tooltipMessage: PropTypes.string
 };
 
