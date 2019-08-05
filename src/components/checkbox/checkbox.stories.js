@@ -10,7 +10,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Checkbox.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /checkbox\.dgi/
+  /checkbox/
 );
 
 storiesOf('Checkbox', module)

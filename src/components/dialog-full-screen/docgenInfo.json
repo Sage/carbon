@@ -1,5 +1,5 @@
 {
-  "src/components/dialog-full-screen/dialog-full-screen.dgi.js": [
+  "src/components/dialog-full-screen/dialog-full-screen.js": [
     {
       "description": "",
       "displayName": "DialogFullScreen",

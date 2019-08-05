@@ -45,7 +45,7 @@
       }
     }
   ],
-  "src/components/pages/pages.dgi.js": [
+  "src/components/pages/pages.js": [
     {
       "description": "",
       "displayName": "Pages",

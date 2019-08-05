@@ -18,7 +18,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Dialog.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /dialog\.dgi/
+  /dialog/
 );
 
 const store = new Store({

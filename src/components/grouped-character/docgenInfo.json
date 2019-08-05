@@ -1,5 +1,5 @@
 {
-  "src/components/grouped-character/grouped-character.dgi.js": [
+  "src/components/grouped-character/grouped-character.js": [
     {
       "description": "",
       "displayName": "GroupedCharacter",

@@ -22,7 +22,7 @@
       }
     }
   ],
-  "src/components/sidebar/sidebar.component.dgi.js": [
+  "src/components/sidebar/sidebar.component.js": [
     {
       "description": "",
       "displayName": "Sidebar",

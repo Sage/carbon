@@ -17,7 +17,7 @@ Page.__docgenInfo = getDocGenInfo(
 
 Pages.__docgenInfo = getDocGenInfo(
   docgenInfo,
-  /pages\.dgi/
+  /pages/
 );
 
 const store = new Store({

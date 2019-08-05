@@ -1,5 +1,5 @@
 {
-  "src/components/table-ajax/table-ajax.dgi.js": [
+  "src/components/table-ajax/table-ajax.js": [
     {
       "description": "",
       "displayName": "TableAjax",
