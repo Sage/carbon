@@ -18,7 +18,6 @@ export default ({ theme, variant }) => theme.name === THEMES.classic && css`
   display: flex;
   margin-left: auto;
   margin-right: 15px;
-  margin-top: 0;
   justify-content: center;
   text-align: center;
   position: static;

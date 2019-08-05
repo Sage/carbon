@@ -55,7 +55,8 @@ const LinkStyle = styled.div`
 `;
 
 const StyledLinkContent = styled.span`
-  display: inline-block;
+  display: flex;
+  justify-content: flex-end;
 `;
 
 const StyledLinkContentText = styled.span`

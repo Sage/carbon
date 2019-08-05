@@ -9,10 +9,9 @@ import { THEMES } from '../../style/themes';
 
 const DismissButtonStyle = styled.div`
   border: none;
-  margin-top: -20px;
   position: absolute;
   right: 16px;
-  top: 50%;
+  top: 16px;
 
   ${StyledIcon} {
     &:before {

@@ -100,8 +100,9 @@ StyledIcon.defaultProps = {
 };
 
 const StyledSvgIconWrapper = styled.span`
-  ${({ fontSize }) => css`
-    display: inline-block;
+  ${({ fontSize, isFont }) => !isFont && css`
+    display: flex;
+    align-items: center;
 
     svg {
       fill: currentColor;
