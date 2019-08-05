@@ -17,11 +17,12 @@ Form.__docgenInfo = getDocGenInfo(
 storiesOf('Form', module)
   .addParameters({
     info: {
+      text: Info,
       propTablesExclude: [Textbox]
     }
   })
   .add('default', () => {
-    const unsavedWarning = boolean('unsavedWarning', false);
+    const unsavedWarning = boolean('unsavedWarning', true);
     const save = boolean('save', true);
     const cancel = boolean('cancel', true);
     const buttonAlign = select(
@@ -66,7 +67,6 @@ storiesOf('Form', module)
       </Form>
     );
   }, {
-    info: { text: Info },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
   });

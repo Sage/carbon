@@ -363,6 +363,7 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
     props.disabled = this.props.disabled;
     props.readOnly = this.props.readOnly;
 
+    delete props.childOfForm;
     delete props.autoFocus;
     delete props.internalValidations;
 

@@ -69,7 +69,7 @@ class AppLayout extends React.Component {
         </div>
 
         <div>
-          { activeTheme ? (<ThemeProvider theme={ themes[activeTheme] }>{children}</ThemeProvider>) : children };
+          { activeTheme ? (<ThemeProvider theme={ themes[activeTheme] }>{children}</ThemeProvider>) : children }
         </div>
       </StyledContainer>
     );

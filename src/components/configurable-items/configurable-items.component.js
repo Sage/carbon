@@ -11,7 +11,7 @@ import {
   ConfigurableItemsWrapper,
   ConfigurableItemsButtonReset
 } from './configurable-items.style';
-import Form from '../form/form';
+import Form from '../form';
 import { THEMES } from '../../style/themes';
 import baseTheme from '../../style/themes/base';
 
