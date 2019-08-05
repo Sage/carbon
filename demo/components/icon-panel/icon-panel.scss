@@ -4,6 +4,7 @@
 .demo-icon-panel {
   border-radius: 8px;
   box-sizing: border-box;
+  margin: 0 auto;
   color: $grey-dark-blue;
   display: flex;
   flex-direction: column;
@@ -28,6 +29,9 @@
 .demo-icon-panel {
   [data-component='icon'] {
     min-height: 32px;
+    height: 100%;
+    width: 100%;
+    
     svg {
       height: 32px;
       width: 32px;
