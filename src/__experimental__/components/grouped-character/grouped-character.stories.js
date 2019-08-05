@@ -11,7 +11,7 @@ import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 GroupedCharacter.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /grouped-character\.component/
+  /grouped-character\.component(?!spec)/
 );
 
 const groupedCharacterStore = new Store({

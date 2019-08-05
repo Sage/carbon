@@ -9,7 +9,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 DateRange.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /date-range/
+  /date-range(?!spec)/
 );
 
 const store = new Store({

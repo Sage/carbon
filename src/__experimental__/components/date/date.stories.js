@@ -14,12 +14,12 @@ import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 DateInput.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /date\.component/
+  /date\.component(?!spec)/
 );
 
 Textbox.__docgenInfo = getDocGenInfo(
   require('../textbox/docgenInfo.json'),
-  /textbox\.component/
+  /textbox\.component(?!spec)/
 );
 
 const store = new Store(

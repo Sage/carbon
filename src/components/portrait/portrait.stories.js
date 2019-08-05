@@ -11,7 +11,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Portrait.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /portrait\.component/
+  /portrait\.component(?!spec)/
 );
 
 function commonKnobs() {

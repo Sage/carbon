@@ -11,7 +11,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 const ProfileWrapper = () => (<Profile />);
 ProfileWrapper.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /profile\.component/
+  /profile\.component(?!spec)/
 );
 
 storiesOf('Profile', module)

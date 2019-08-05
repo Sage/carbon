@@ -33,7 +33,7 @@ describe('docgenInfo Helper', () => {
     it('__docgenInfo is null', () => {
       Aardvark.__docgenInfo = getDocGenInfo(
         dgiUndefined,
-        /aardvark\.component/
+        /aardvark\.component(?!spec)/
       );
       expect(Aardvark.__docgenInfo).toBeNull();
     });
@@ -43,7 +43,7 @@ describe('docgenInfo Helper', () => {
     it('__docgenInfo is null', () => {
       Aardvark.__docgenInfo = getDocGenInfo(
         dgiInvalid,
-        /aardvark\.component/
+        /aardvark\.component(?!spec)/
       );
       expect(Aardvark.__docgenInfo).toBeNull();
     });
@@ -53,7 +53,7 @@ describe('docgenInfo Helper', () => {
     beforeAll(() => {
       Aardvark.__docgenInfo = getDocGenInfo(
         docgenInfo,
-        /aardvark\.component/
+        /aardvark\.component(?!spec)/
       );
     });
 

@@ -10,12 +10,12 @@ import docgenInfo from './docgenInfo.json';
 
 Tabs.__docgenInfo = getDocGenInfo(
   docgenInfo,
-  /tabs\.component/
+  /tabs\.component(?!spec)/
 );
 
 Tab.__docgenInfo = getDocGenInfo(
   docgenInfo,
-  /tab\.component/
+  /tab\.component(?!spec)/
 );
 
 const store = new Store({

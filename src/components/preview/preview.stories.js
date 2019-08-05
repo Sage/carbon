@@ -7,7 +7,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Preview.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /preview\.component/
+  /preview\.component(?!spec)/
 );
 
 storiesOf('Preview', module).add(

@@ -11,7 +11,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Confirm.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /confirm\.component/
+  /confirm\.component(?!spec)/
 );
 
 const store = new Store({

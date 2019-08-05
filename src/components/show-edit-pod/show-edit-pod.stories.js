@@ -12,7 +12,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 ShowEditPod.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /show-edit-pod\.js/
+  /show-edit-pod\.js(?!spec)/
 );
 
 const store = new Store({

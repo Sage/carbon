@@ -10,7 +10,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 InlineInputs.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /inline-inputs\.component/
+  /inline-inputs\.component(?!spec)/
 );
 
 const singleSelectStore = new Store({

@@ -17,7 +17,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 DropdownFilter.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /dropdown-filter/
+  /dropdown-filter(?!spec)/
 );
 
 const store = new Store({

@@ -9,7 +9,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Rainbow.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /rainbow\.component/
+  /rainbow\.component(?!spec)/
 );
 
 global.Highcharts = Highcharts;

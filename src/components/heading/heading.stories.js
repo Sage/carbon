@@ -7,7 +7,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Heading.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /heading/
+  /heading(?!spec)/
 );
 
 storiesOf('Heading', module)

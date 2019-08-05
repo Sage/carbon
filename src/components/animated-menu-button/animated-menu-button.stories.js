@@ -11,7 +11,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 AnimatedMenuButton.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /animated-menu-button/
+  /animated-menu-button(?!spec)/
 );
 
 const Container = styled.div`

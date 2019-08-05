@@ -8,7 +8,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Filter.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /filter/
+  /filter(?!spec)/
 );
 
 storiesOf('Filter Component', module)

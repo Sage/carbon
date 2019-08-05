@@ -7,7 +7,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 SettingsRow.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /settings-row\.js/
+  /settings-row\.js(?!spec)/
 );
 
 storiesOf('SettingsRow', module).add(

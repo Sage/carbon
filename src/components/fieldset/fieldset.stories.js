@@ -8,7 +8,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Fieldset.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /fieldset/
+  /fieldset(?!spec)/
 );
 
 storiesOf('Fieldset', module)

@@ -8,7 +8,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 NavigationBar.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /navigation-bar\.js/
+  /navigation-bar\.js(?!spec)/
 );
 
 storiesOf('Navigation Bar', module)

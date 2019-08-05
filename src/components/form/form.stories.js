@@ -11,7 +11,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Form.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /form\.js/
+  /form\.js(?!spec)/
 );
 
 storiesOf('Form', module)

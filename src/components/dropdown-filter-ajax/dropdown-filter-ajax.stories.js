@@ -17,7 +17,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 DropdownFilterAjax.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /dropdown-filter-ajax/
+  /dropdown-filter-ajax(?!spec)/
 );
 
 const store = new Store({

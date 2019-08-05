@@ -9,7 +9,7 @@ import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 Fieldset.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /fieldset\.component/
+  /fieldset\.component(?!spec)/
 );
 
 storiesOf('Experimental/Fieldset', module)

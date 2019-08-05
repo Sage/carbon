@@ -13,7 +13,7 @@ import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 Form.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /form\.component/
+  /form\.component(?!spec)/
 );
 
 const additionalFormActions = (innerText) => {

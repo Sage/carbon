@@ -8,12 +8,12 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Row.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /row\.js/
+  /row\.js(?!spec)/
 );
 
 Column.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /column\.js/
+  /column\.js(?!spec)/
 );
 
 storiesOf('Row', module).add(

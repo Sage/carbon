@@ -10,7 +10,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Tooltip.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /tooltip\.component/
+  /tooltip\.component(?!spec)/
 );
 
 function validTooltip({ children, isVisible }) {

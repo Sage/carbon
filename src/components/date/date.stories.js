@@ -11,7 +11,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 DateInput.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /date\.component/
+  /date\.component(?!spec)/
 );
 
 const store = new Store(

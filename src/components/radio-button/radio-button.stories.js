@@ -8,7 +8,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 RadioButton.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /radio-button/
+  /radio-button(?!spec)/
 );
 
 storiesOf('Radio Button', module).add(

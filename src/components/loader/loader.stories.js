@@ -11,7 +11,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Loader.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /loader\.component/
+  /loader\.component(?!spec)/
 );
 
 const styles = {

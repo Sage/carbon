@@ -7,7 +7,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Create.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /create\.component/
+  /create\.component(?!spec)/
 );
 
 storiesOf('Create', module)

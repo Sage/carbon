@@ -11,7 +11,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 DialogFullScreen.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /dialog-full-screen/
+  /dialog-full-screen(?!spec)/
 );
 
 const store = new Store({

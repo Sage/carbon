@@ -13,7 +13,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Pill.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /pill\.component/
+  /pill\.component(?!spec)/
 );
 
 const getStatusKnobs = () => {

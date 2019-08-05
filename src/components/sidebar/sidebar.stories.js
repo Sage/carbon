@@ -12,12 +12,12 @@ import docgenInfo from './docgenInfo.json';
 
 Sidebar.__docgenInfo = getDocGenInfo(
   docgenInfo,
-  /sidebar\.component/
+  /sidebar\.component(?!spec)/
 );
 
 SidebarHeader.__docgenInfo = getDocGenInfo(
   docgenInfo,
-  /sidebar-header\.component/
+  /sidebar-header\.component(?!spec)/
 );
 
 const store = new Store({

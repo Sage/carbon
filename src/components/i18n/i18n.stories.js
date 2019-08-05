@@ -8,7 +8,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 I18nComponent.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /i18n\.js/
+  /i18n\.js(?!spec)/
 );
 
 // eslint-disable-next-line dot-notation

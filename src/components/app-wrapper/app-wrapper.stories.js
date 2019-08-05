@@ -7,7 +7,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 AppWrapper.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /app-wrapper/
+  /app-wrapper(?!spec)/
 );
 
 storiesOf('App Wrapper', module)

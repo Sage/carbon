@@ -12,7 +12,7 @@ import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 OriginalTextarea.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /textarea\.component/
+  /textarea\.component(?!spec)/
 );
 
 const store = new Store({

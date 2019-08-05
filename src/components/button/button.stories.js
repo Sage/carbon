@@ -11,7 +11,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 OriginalButton.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /button\.component/
+  /button\.component(?!spec)/
 );
 
 const getIconKnobs = () => {

@@ -11,7 +11,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Textarea.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /textarea/
+  /textarea(?!spec)/
 );
 
 const store = new Store({

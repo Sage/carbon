@@ -18,7 +18,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 FlashWithoutHOC.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /flash\.component/
+  /flash\.component(?!spec)/
 );
 
 

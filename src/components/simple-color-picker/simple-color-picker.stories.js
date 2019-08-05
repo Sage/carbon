@@ -9,7 +9,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 SimpleColorPicker.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /simple-color-picker\.js/
+  /simple-color-picker\.js(?!spec)/
 );
 
 const store = new Store({

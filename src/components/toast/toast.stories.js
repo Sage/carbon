@@ -17,7 +17,7 @@ const StyledToastStory = styled(Toast)`
 const ToastStory = () => (<StyledToastStory />);
 ToastStory.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /toast\.component/
+  /toast\.component(?!spec)/
 );
 
 storiesOf('Toast', module)

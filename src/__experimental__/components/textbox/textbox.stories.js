@@ -14,7 +14,7 @@ import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 OriginalTextbox.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /textbox\.component/
+  /textbox\.component(?!spec)/
 );
 
 // set the display name so the story source makes sense

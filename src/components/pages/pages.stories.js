@@ -12,12 +12,12 @@ import docgenInfo from './docgenInfo.json';
 
 Page.__docgenInfo = getDocGenInfo(
   docgenInfo,
-  /page\.js/
+  /page\.js(?!spec)/
 );
 
 Pages.__docgenInfo = getDocGenInfo(
   docgenInfo,
-  /pages/
+  /pages(?!spec)/
 );
 
 const store = new Store({

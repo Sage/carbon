@@ -9,7 +9,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Message.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /message\.component/
+  /message\.component(?!spec)/
 );
 
 storiesOf('Message', module).add(

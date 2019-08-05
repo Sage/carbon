@@ -10,7 +10,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Pager.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /pager-navigation\.component/
+  /pager-navigation\.component(?!spec)/
 );
 
 const store = new Store({

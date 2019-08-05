@@ -11,7 +11,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Textbox.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /textbox/
+  /textbox(?!spec)/
 );
 
 const store = new Store({

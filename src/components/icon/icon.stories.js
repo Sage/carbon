@@ -8,7 +8,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Icon.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /icon/
+  /icon(?!spec)/
 );
 
 storiesOf('Icon', module)

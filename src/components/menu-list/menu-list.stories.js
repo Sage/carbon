@@ -8,12 +8,12 @@ import docgenInfo from './docgenInfo.json';
 
 MenuList.__docgenInfo = getDocGenInfo(
   docgenInfo,
-  /menu-list\.js/
+  /menu-list\.js(?!spec)/
 );
 
 MenuListItem.__docgenInfo = getDocGenInfo(
   docgenInfo,
-  /menu-list-item\.js/
+  /menu-list-item\.js(?!spec)/
 );
 
 storiesOf('MenuList', module)

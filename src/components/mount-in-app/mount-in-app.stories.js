@@ -7,7 +7,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 MountInApp.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /mount-in-app.js/
+  /mount-in-app.js(?!spec)/
 );
 
 storiesOf('Mount In App', module)

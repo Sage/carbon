@@ -10,7 +10,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Pod.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /pod\.js/
+  /pod\.js(?!spec)/
 );
 
 storiesOf('Pod', module)

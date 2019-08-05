@@ -8,7 +8,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Content.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /content/
+  /content(?!spec)/
 );
 
 storiesOf('Content', module)

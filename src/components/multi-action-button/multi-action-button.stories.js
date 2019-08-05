@@ -12,7 +12,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 MultiActionButton.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /multi-action-button\.component/
+  /multi-action-button\.component(?!spec)/
 );
 
 const getIconKnobs = () => {

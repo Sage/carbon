@@ -13,7 +13,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 TableAjax.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /table-ajax/
+  /table-ajax(?!spec)/
 );
 
 const store = new Store({

@@ -19,22 +19,22 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 DraggableContext.__docgenInfo = getDocGenInfo(
   require('./draggable-context/docgenInfo.json'),
-  /draggable-context/
+  /draggable-context(?!spec)/
 );
 
 WithDrag.__docgenInfo = getDocGenInfo(
   require('./with-drag/docgenInfo.json'),
-  /with-drag/
+  /with-drag(?!spec)/
 );
 
 WithDrop.__docgenInfo = getDocGenInfo(
   require('./with-drop/docgenInfo.json'),
-  /with-drop/
+  /with-drop(?!spec)/
 );
 
 CustomDragLayer.__docgenInfo = getDocGenInfo(
   require('./custom-drag-layer/docgenInfo.json'),
-  /custom-drag-layer/
+  /custom-drag-layer(?!spec)/
 );
 
 const store = new Store({

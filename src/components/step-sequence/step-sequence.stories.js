@@ -8,12 +8,12 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 StepSequence.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /step-sequence\.component/
+  /step-sequence\.component(?!spec)/
 );
 
 StepSequenceItem.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /step-sequence-item\.component/
+  /step-sequence-item\.component(?!spec)/
 );
 
 storiesOf('Step Sequence', module).add('default', () => {

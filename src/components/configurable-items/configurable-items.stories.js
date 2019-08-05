@@ -10,12 +10,12 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 const ConfigurableItemsWrapper = () => (<ConfigurableItems />);
 ConfigurableItemsWrapper.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /configurable-items\.component/
+  /configurable-items\.component(?!spec)/
 );
 
 ConfigurableItemRow.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /configurable-item-row\.component/
+  /configurable-item-row\.component(?!spec)/
 );
 
 const defaultConfigurableItemsData = [

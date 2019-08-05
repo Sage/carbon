@@ -9,7 +9,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Link.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /link\.component/
+  /link\.component(?!spec)/
 );
 
 storiesOf('Link', module)

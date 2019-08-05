@@ -8,7 +8,7 @@ import docgenInfo from './docgenInfo.json';
 
 Carousel.__docgenInfo = getDocGenInfo(
   docgenInfo,
-  /carousel/
+  /carousel(?!spec)/
 );
 
 storiesOf('Carousel', module)

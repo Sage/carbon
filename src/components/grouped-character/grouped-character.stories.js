@@ -12,7 +12,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 GroupedCharacter.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /grouped-character/
+  /grouped-character(?!spec)/
 );
 
 storiesOf('GroupedCharacter', module)

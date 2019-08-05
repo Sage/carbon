@@ -11,12 +11,12 @@ import docgenInfo from './docgenInfo.json';
 
 Select.__docgenInfo = getDocGenInfo(
   docgenInfo,
-  /select\.component/
+  /select\.component(?!spec)/
 );
 
 Option.__docgenInfo = getDocGenInfo(
   docgenInfo,
-  /option\.component/
+  /option\.component(?!spec)/
 );
 
 const singleSelectStore = new Store({

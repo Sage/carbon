@@ -11,7 +11,7 @@ import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 Checkbox.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /checkbox\.component/
+  /checkbox\.component(?!spec)/
 );
 
 const formStore = new Store({

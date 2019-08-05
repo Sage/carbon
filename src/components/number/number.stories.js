@@ -14,7 +14,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Number.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /number/
+  /number(?!spec)/
 );
 
 storiesOf('Number Input', module)

@@ -12,7 +12,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Decimal.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /decimal/
+  /decimal(?!spec)/
 );
 
 const store = new Store({
