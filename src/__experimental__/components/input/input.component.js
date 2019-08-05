@@ -20,7 +20,7 @@ class Input extends React.Component {
     onClick: PropTypes.func,
     onFocus: PropTypes.func,
     type: PropTypes.string,
-    autoFocus: PropTypes.bool,
+    autoFocus: PropTypes.bool
   };
 
   static contextType = InputPresentationContext;
