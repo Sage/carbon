@@ -3,11 +3,23 @@ import PropTypes from 'prop-types';
 import baseTheme from '../../style/themes/base';
 import classicThemeForLinkAnchor from './link-classic.style';
 import { THEMES } from '../../style/themes';
+import { StyledIcon } from '../icon/icon.style';
 
 const LinkStyleAnchor = styled.a`
   font-size: 14px;
   text-decoration: underline;
   color: ${({ theme }) => theme.colors.primary};
+  display: inline-block;
+
+  ${StyledIcon} {
+    margin-right: 5px;
+    position: relative;
+  }
+
+  .carbon-link__icon--align-right {
+    margin-right: 0;
+    margin-left: 5px;
+  }
   
   &:hover {
     cursor: pointer;
@@ -42,6 +54,14 @@ const LinkStyle = styled.div`
 `}
 `;
 
+const StyledLinkContent = styled.span`
+  display: inline-block;
+`;
+
+const StyledLinkContentText = styled.span`
+  vertical-align: middle;
+`;
+
 LinkStyle.defaultProps = {
   theme: baseTheme,
   disabled: false
@@ -55,4 +75,6 @@ LinkStyleAnchor.defaultProps = {
   theme: baseTheme
 };
 
-export { LinkStyle, LinkStyleAnchor, LinkRouterStyle };
+export {
+  LinkStyle, LinkStyleAnchor, LinkRouterStyle, StyledLinkContent, StyledLinkContentText
+};

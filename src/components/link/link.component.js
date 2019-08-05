@@ -7,7 +7,9 @@ import Icon from '../icon';
 import { validProps } from '../../utils/ether';
 import Event from '../../utils/helpers/events';
 import tagComponent from '../../utils/helpers/tags';
-import { LinkStyle, LinkStyleAnchor } from './link.style';
+import {
+  LinkStyle, LinkStyleAnchor, StyledLinkContent, StyledLinkContentText
+} from './link.style';
 import './link.scss';
 
 class Link extends React.Component {
@@ -80,13 +82,13 @@ class Link extends React.Component {
    * */
   renderLinkContent() {
     return (
-      <span>
+      <StyledLinkContent>
         {this.renderLinkIcon()}
 
-        <span className='carbon-link__content'>{this.props.children}</span>
+        <StyledLinkContentText className='carbon-link__content'>{this.props.children}</StyledLinkContentText>
 
         {this.renderLinkIcon('right')}
-      </span>
+      </StyledLinkContent>
     );
   }
 
