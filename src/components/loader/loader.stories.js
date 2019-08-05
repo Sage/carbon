@@ -14,6 +14,11 @@ Loader.__docgenInfo = getDocGenInfo(
   /loader\.component(?!spec)/
 );
 
+Spinner.__docgenInfo = getDocGenInfo(
+  require('../spinner/docgenInfo.json'),
+  /spinner\.component(?!spec)/
+);
+
 const styles = {
   textAlign: 'left'
 };

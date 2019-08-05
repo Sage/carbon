@@ -57,7 +57,7 @@ const TableComponent = ({ propDefinitions }) => {
   );
 
   return (
-    <table>
+    <table className='info-table'>
       <thead>
         <tr style={ { textAlign: 'left' } }>
           <th>property</th>
