@@ -105,7 +105,6 @@ const PillStyle = styled.span`
           ${StyledIcon} {
             font-size: 12px;
             padding: 0 4px;
-            /* color: ${(variety === 'warning') ? text.color : colors.white}; */
 
             &:hover, 
             &:focus {
