@@ -24,7 +24,8 @@ const FormField = ({
   reverse,
   size,
   childOfForm,
-  isOptional
+  isOptional,
+  readOnly
 }) => (
   <FormFieldStyle inline={ labelInline }>
     {reverse && children}
@@ -33,6 +34,7 @@ const FormField = ({
       <Label
         align={ labelAlign }
         disabled={ disabled }
+        readOnly={ readOnly }
         hasError={ hasError }
         help={ labelHelp }
         helpId={ helpId }
@@ -88,6 +90,7 @@ FormField.propTypes = {
   labelInline: PropTypes.bool,
   labelWidth: PropTypes.number,
   name: PropTypes.string,
+  readOnly: PropTypes.bool,
   reverse: PropTypes.bool,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted)
 };
