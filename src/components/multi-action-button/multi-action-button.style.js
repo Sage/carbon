@@ -40,12 +40,7 @@ const StyledMultiActionButton = styled.div`
       }
     `}
   }
-
-  ${StyledIcon} {
-    margin-right: -4px;
-    top: 0px;
-  }
-
+  
   ${getMultiActionButtonClassicStyles}
 `;
 

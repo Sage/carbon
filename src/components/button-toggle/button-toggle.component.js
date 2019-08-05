@@ -25,7 +25,12 @@ const ButtonToggle = (props) => {
   let icon;
 
   if (buttonIcon) {
-    icon = <ButtonToggleIcon buttonIcon={ buttonIcon } buttonIconSize={ buttonIconSize } />;
+    icon = (
+      <ButtonToggleIcon
+        buttonIcon={ buttonIcon }
+        buttonIconSize={ buttonIconSize }
+        disabled={ disabled }
+      />);
   }
 
   return (

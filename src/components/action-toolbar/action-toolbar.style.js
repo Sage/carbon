@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { LinkStyleAnchor } from '../link/link.style';
-import { StyledSvgIconWrapper } from '../icon/icon.style';
+import { StyledSvgIconWrapper, StyledIcon } from '../icon/icon.style';
 import { isClassic } from '../../utils/helpers/style-helper';
 
 const StyledActionToolbar = styled.div`
@@ -46,6 +46,9 @@ const StyledActionToolbarActions = styled.div`
     && disabled
     && css`
       ${LinkStyleAnchor} {
+        ${StyledIcon} {
+          color: #b3c2c8;
+        }
         color: #b3c2c8;
       }
     `}

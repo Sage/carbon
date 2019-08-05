@@ -30,6 +30,10 @@ const StyledButtonToggleLabel = styled.label`
     input:checked ~ & {
       color: ${theme.colors.white};
       background-color: ${theme.colors.tertiary};
+
+      ${StyledIcon} {
+        color: ${theme.colors.white};
+      }
     }
 
     input:focus ~ & {
@@ -56,6 +60,10 @@ const StyledButtonToggleLabel = styled.label`
     background-color: ${theme.disabled.button} !important};
     border-color: ${theme.disabled.button} !important};
     color: ${theme.disabled.buttonText} !important};
+
+    ${StyledIcon} {
+      color: ${theme.disabled.buttonText} !important;
+    }
   `};
 
     ${StyledButtonToggleClassicLabel}

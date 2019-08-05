@@ -24,10 +24,6 @@ const getMultiActionButtonClassicStyles = ({ disabled, displayed, theme }) => (t
     }
   `}
 
-  ${StyledIcon} {
-    margin-right: 0;
-  }
-
   ${StyledSplitButtonChildrenContainer} {
     max-width: none;
     width: auto;

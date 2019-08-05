@@ -5,7 +5,11 @@ import Icon from '../icon';
 
 const ButtonToggleIcon = props => (
   <StyledButtonToggleIcon { ...props }>
-    <Icon type={ props.buttonIcon } />
+    <Icon
+      type={ props.buttonIcon }
+      { ...props }
+      bgTheme='none'
+    />
   </StyledButtonToggleIcon>
 );
 

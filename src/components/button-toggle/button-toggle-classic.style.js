@@ -12,6 +12,10 @@ const StyledButtonToggleClassicLabel = ({ theme }) => theme.name === THEMES.clas
   input:checked ~ & {
     color: ${theme.colors.white};
     background-color: #1573e6;
+
+    ${StyledIcon} {
+      color: ${theme.colors.white};
+    }
   }
 
   input:focus ~ & {
@@ -22,6 +26,10 @@ const StyledButtonToggleClassicLabel = ({ theme }) => theme.name === THEMES.clas
     border-color: #1e499f;
     color: ${theme.colors.white};
     background-color: #1e499f;
+
+    ${StyledIcon} {
+      color: ${theme.colors.white};
+    }
   }
 
   ${({ size }) => size === 'small' && css`
