@@ -4,6 +4,7 @@ import BaseTheme from '../../style/themes/base';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import CloseIconClassicStyling from './dismiss-button-classic.style';
 import Link from '../link';
+import { StyledIcon } from '../icon/icon.style';
 import { THEMES } from '../../style/themes';
 
 const DismissButtonStyle = styled.div`
@@ -13,7 +14,7 @@ const DismissButtonStyle = styled.div`
   right: 16px;
   top: 50%;
 
-  .icon-close {
+  ${StyledIcon} {
     &:before {
       color: ${({ theme }) => theme.colors.border};
     }

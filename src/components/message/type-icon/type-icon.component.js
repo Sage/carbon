@@ -10,7 +10,7 @@ const TypeIcon = ({ variant, roundedCorners, transparent }) => {
       variant={ variant } roundedCorners={ roundedCorners }
       transparent={ transparent }
     >
-      <Icon type={ variant } />
+      <Icon type={ variant } bgTheme='none' />
     </TypeIconStyle>
   );
 };
