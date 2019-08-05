@@ -12,8 +12,8 @@ const SwitchSlider = (props) => {
   const {
     theme, checked, loading
   } = props;
-  const on = isClassic(theme) ? <Icon type='tick' /> : 'ON';
-  const off = isClassic(theme) ? <Icon type='cross' /> : 'OFF';
+  const on = isClassic(theme) ? <Icon type='tick' bgTheme='none' /> : 'ON';
+  const off = isClassic(theme) ? <Icon type='cross' bgTheme='none' /> : 'OFF';
   const panelContent = checked ? on : off;
 
   const loaderProps = {
