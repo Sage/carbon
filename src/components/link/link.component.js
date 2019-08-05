@@ -10,7 +10,6 @@ import tagComponent from '../../utils/helpers/tags';
 import {
   LinkStyle, LinkStyleAnchor, StyledLinkContent, StyledLinkContentText
 } from './link.style';
-import './link.scss';
 
 class Link extends React.Component {
   static safeProps = ['onClick'];

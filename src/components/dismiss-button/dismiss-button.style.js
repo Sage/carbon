@@ -9,7 +9,7 @@ import { THEMES } from '../../style/themes';
 
 const DismissButtonStyle = styled.div`
   border: none;
-  margin-top: -10px;
+  margin-top: -20px;
   position: absolute;
   right: 16px;
   top: 50%;
