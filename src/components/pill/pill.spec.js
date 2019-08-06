@@ -131,9 +131,7 @@ describe('Pill', () => {
               assertStyleMatch({
                 fontWeight: '600',
                 position: 'relative',
-                top: '-1px',
-                padding: '4px 8px',
-                margin: '0px 8px 16px 0px',
+                padding: '0 28px 0 12px',
                 textAlign: 'center'
               }, wrapper);
             });
@@ -146,7 +144,7 @@ describe('Pill', () => {
                   theme
                 }, TestRenderer.create).toJSON();
                 assertStyleMatch({
-                  padding: '4px 10px 4px 2px'
+                  padding: '0 28px 0 12px'
                 }, wrapper);
               });
 
@@ -195,12 +193,11 @@ describe('Pill', () => {
                   const wrapper = render({
                     children: 'My Text',
                     onDelete: jest.fn(),
-                    size: 'small',
+                    size: 'S',
                     theme
                   }, TestRenderer.create).toJSON();
                   assertStyleMatch({
-                    minWidth: '38px',
-                    padding: '4px 7px 2px 2px'
+                    padding: '0 20px 0 8px'
                   }, wrapper);
                 });
               });
@@ -210,13 +207,13 @@ describe('Pill', () => {
                   const wrapper = render({
                     children: 'My Text',
                     onDelete: jest.fn(),
-                    size: 'medium',
+                    size: 'M',
                     theme
                   }, TestRenderer.create).toJSON();
                   assertStyleMatch({
                     fontSize: '12px',
-                    minWidth: '42px',
-                    padding: '4px 10px 4px 2px'
+                    padding: '0 28px 0 12px',
+                    borderRadius: '12px'
                   }, wrapper);
                 });
               });
@@ -226,13 +223,29 @@ describe('Pill', () => {
                   const wrapper = render({
                     children: 'My Text',
                     onDelete: jest.fn(),
-                    size: 'large',
+                    size: 'L',
                     theme
                   }, TestRenderer.create).toJSON();
                   assertStyleMatch({
                     fontSize: '14px',
-                    minWidth: '48px',
-                    padding: '4px 10px 4px 2px'
+                    padding: '0 32px 0 16px',
+                    borderRadius: '13px',
+                  }, wrapper);
+                });
+              });
+
+              describe('when the component size is extra large', () => {
+                it('matches the expected styles for a extra large deletable pill', () => {
+                  const wrapper = render({
+                    children: 'My Text',
+                    onDelete: jest.fn(),
+                    size: 'XL',
+                    theme
+                  }, TestRenderer.create).toJSON();
+                  assertStyleMatch({
+                    fontSize: '16px',
+                    padding: '0 36px 0 20px',
+                    borderRadius: '15px',
                   }, wrapper);
                 });
               });
@@ -312,9 +325,7 @@ describe('Pill', () => {
         fontSize: '12px',
         fontWeight: '600',
         position: 'relative',
-        top: '-1px',
-        padding: '4px 8px',
-        margin: '0px 8px 16px 0px'
+        padding: '0 28px 0 12px'
       }, wrapper);
     });
 
@@ -325,8 +336,7 @@ describe('Pill', () => {
       }, TestRenderer.create).toJSON();
       assertStyleMatch({
         borderRadius: '12px',
-        fontSize: '12px',
-        minWidth: '42px'
+        fontSize: '12px'
       }, wrapper);
     });
   });
@@ -342,9 +352,7 @@ describe('Pill', () => {
         fontSize: '12px',
         fontWeight: '600',
         position: 'relative',
-        top: '-1px',
-        padding: '4px 8px',
-        margin: '0px 8px 16px 0px',
+        padding: '0 28px 0 12px',
         textAlign: 'center'
       }, wrapper);
     });
@@ -353,12 +361,11 @@ describe('Pill', () => {
       it('matches the expected styles for a small pill', () => {
         const wrapper = render({
           children: 'My Text',
-          size: 'small',
+          size: 'S',
           theme: smallTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
-          minWidth: '38px',
-          padding: '4px 7px 3px 7px'
+          padding: '0 20px 0 8px'
         }, wrapper);
       });
     });
@@ -367,13 +374,12 @@ describe('Pill', () => {
       it('matches the expected styles for a medium pill', () => {
         const wrapper = render({
           children: 'My Text',
-          size: 'medium',
+          size: 'M',
           theme: smallTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '12px',
-          minWidth: '42px',
-          padding: '4px 8px'
+          padding: '0 28px 0 12px'
         }, wrapper);
       });
     });
@@ -382,13 +388,26 @@ describe('Pill', () => {
       it('matches the expected styles for a large pill', () => {
         const wrapper = render({
           children: 'My Text',
-          size: 'large',
+          size: 'L',
           theme: smallTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '14px',
-          minWidth: '48px',
-          padding: '4px 10px'
+          padding: '0 32px 0 16px'
+        }, wrapper);
+      });
+    });
+
+    describe('when the component size is extra large', () => {
+      it('matches the expected styles for a extra large pill', () => {
+        const wrapper = render({
+          children: 'My Text',
+          size: 'XL',
+          theme: smallTheme
+        }, TestRenderer.create).toJSON();
+        assertStyleMatch({
+          fontSize: '16px',
+          padding: '0 36px 0 20px'
         }, wrapper);
       });
     });
@@ -402,8 +421,7 @@ describe('Pill', () => {
       }, TestRenderer.create).toJSON();
       assertStyleMatch({
         borderRadius: '12px',
-        fontSize: '12px',
-        minWidth: '42px'
+        fontSize: '12px'
       }, wrapper);
     });
 
@@ -411,12 +429,11 @@ describe('Pill', () => {
       it('matches the expected styles for a small pill', () => {
         const wrapper = render({
           children: 'My Text',
-          size: 'small',
+          size: 'S',
           theme: smallTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
-          minWidth: '38px',
-          padding: '4px 7px 3px 7px'
+          padding: '0 20px 0 8px'
         }, wrapper);
       });
     });
@@ -425,13 +442,12 @@ describe('Pill', () => {
       it('matches the expected styles for a medium pill', () => {
         const wrapper = render({
           children: 'My Text',
-          size: 'medium',
+          size: 'M',
           theme: smallTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '12px',
-          minWidth: '42px',
-          padding: '4px 8px'
+          padding: '0 28px 0 12px'
         }, wrapper);
       });
     });
@@ -440,13 +456,26 @@ describe('Pill', () => {
       it('matches the expected styles for a large pill', () => {
         const wrapper = render({
           children: 'My Text',
-          size: 'large',
+          size: 'L',
           theme: smallTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '14px',
-          minWidth: '48px',
-          padding: '4px 10px'
+          padding: '0 32px 0 16px'
+        }, wrapper);
+      });
+    });
+
+    describe('when the component size is extra large', () => {
+      it('matches the expected styles for a extra large pill', () => {
+        const wrapper = render({
+          children: 'My Text',
+          size: 'XL',
+          theme: smallTheme
+        }, TestRenderer.create).toJSON();
+        assertStyleMatch({
+          fontSize: '16px',
+          padding: '0 36px 0 20px'
         }, wrapper);
       });
     });
@@ -460,8 +489,7 @@ describe('Pill', () => {
       }, TestRenderer.create).toJSON();
       assertStyleMatch({
         borderRadius: '12px',
-        fontSize: '12px',
-        minWidth: '42px'
+        fontSize: '12px'
       }, wrapper);
     });
 
@@ -469,12 +497,11 @@ describe('Pill', () => {
       it('matches the expected styles for a small pill', () => {
         const wrapper = render({
           children: 'My Text',
-          size: 'small',
+          size: 'S',
           theme: largeTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
-          minWidth: '38px',
-          padding: '4px 7px 3px 7px'
+          padding: '0 20px 0 8px'
         }, wrapper);
       });
     });
@@ -483,13 +510,12 @@ describe('Pill', () => {
       it('matches the expected styles for a medium pill', () => {
         const wrapper = render({
           children: 'My Text',
-          size: 'medium',
+          size: 'M',
           theme: largeTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '12px',
-          minWidth: '42px',
-          padding: '4px 8px'
+          padding: '0 28px 0 12px'
         }, wrapper);
       });
     });
@@ -498,13 +524,26 @@ describe('Pill', () => {
       it('matches the expected styles for a large pill', () => {
         const wrapper = render({
           children: 'My Text',
-          size: 'large',
+          size: 'L',
           theme: largeTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '14px',
-          minWidth: '48px',
-          padding: '4px 10px'
+          padding: '0 32px 0 16px'
+        }, wrapper);
+      });
+    });
+
+    describe('when the component size is extra large', () => {
+      it('matches the expected styles for a extra large pill', () => {
+        const wrapper = render({
+          children: 'My Text',
+          size: 'XL',
+          theme: largeTheme
+        }, TestRenderer.create).toJSON();
+        assertStyleMatch({
+          fontSize: '16px',
+          padding: '0 36px 0 20px'
         }, wrapper);
       });
     });
@@ -522,22 +561,20 @@ describe('Pill', () => {
         fontSize: '12px',
         fontWeight: '600',
         position: 'relative',
-        top: '-1px',
-        padding: '4px 8px',
-        margin: '0px 8px 16px 0px'
+        padding: '0 28px 0 12px'
       }, wrapper);
     });
 
     it('matches the expected styles for a default pill', () => {
       const wrapper = render({ children: 'My Text', theme: classicTheme }, TestRenderer.create).toJSON();
       assertStyleMatch({
-        borderRadius: '10px',
+        borderRadius: '12px',
         display: 'inline-block',
         fontSize: '12px',
         fontWeight: '700',
         letterSpacing: '0.7px',
-        lineHeight: '15px',
-        padding: '4px 8px',
+        lineHeight: '20px',
+        padding: '0 12px',
         position: 'relative',
         textAlign: 'center'
       }, wrapper);
@@ -551,7 +588,7 @@ describe('Pill', () => {
           theme: classicTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
-          padding: '4px 10px 4px 4px'
+          padding: '0 28px 0 12px'
         }, wrapper);
       });
 
@@ -577,12 +614,12 @@ describe('Pill', () => {
           const wrapper = render({
             children: 'My Text',
             onDelete: jest.fn(),
-            size: 'small',
+            size: 'S',
             theme: classicTheme
           }, TestRenderer.create).toJSON();
           assertStyleMatch({
             fontSize: '10px',
-            padding: '2px 16px 2px 8px'
+            padding: '0 20px 0 8px'
           }, wrapper);
         });
       });
@@ -592,13 +629,12 @@ describe('Pill', () => {
           const wrapper = render({
             children: 'My Text',
             onDelete: jest.fn(),
-            size: 'medium',
+            size: 'M',
             theme: classicTheme
           }, TestRenderer.create).toJSON();
           assertStyleMatch({
             fontSize: '12px',
-            minWidth: '38px',
-            padding: '4px 10px 4px 4px'
+            padding: '0 28px 0 12px'
           }, wrapper);
         });
       });
@@ -608,13 +644,27 @@ describe('Pill', () => {
           const wrapper = render({
             children: 'My Text',
             onDelete: jest.fn(),
-            size: 'large',
+            size: 'L',
             theme: classicTheme
           }, TestRenderer.create).toJSON();
           assertStyleMatch({
             fontSize: '14px',
-            minWidth: '46px',
-            padding: '4px 8px 4px 2px'
+            padding: '0 32px 0 16px'
+          }, wrapper);
+        });
+      });
+
+      describe('when the component size is extra large', () => {
+        it('matches the expected styles for a extra large deletable pill', () => {
+          const wrapper = render({
+            children: 'My Text',
+            onDelete: jest.fn(),
+            size: 'XL',
+            theme: classicTheme
+          }, TestRenderer.create).toJSON();
+          assertStyleMatch({
+            fontSize: '16px',
+            padding: '0 36px 0 20px'
           }, wrapper);
         });
       });
@@ -661,9 +711,8 @@ describe('Pill', () => {
         theme: classicTheme
       }, TestRenderer.create).toJSON();
       assertStyleMatch({
-        borderRadius: '10px',
-        fontSize: '12px',
-        minWidth: '38px'
+        borderRadius: '12px',
+        fontSize: '12px'
       }, wrapper);
     });
 
@@ -671,12 +720,12 @@ describe('Pill', () => {
       it('matches the expected styles for a small pill', () => {
         const wrapper = render({
           children: 'My Text',
-          size: 'small',
+          size: 'S',
           theme: classicTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '10px',
-          padding: '2px 7px'
+          padding: '0 8px'
         }, wrapper);
       });
     });
@@ -685,13 +734,12 @@ describe('Pill', () => {
       it('matches the expected styles for a medium pill', () => {
         const wrapper = render({
           children: 'My Text',
-          size: 'medium',
+          size: 'M',
           theme: classicTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '12px',
-          minWidth: '38px',
-          padding: '4px 8px'
+          padding: '0 12px'
         }, wrapper);
       });
     });
@@ -700,13 +748,26 @@ describe('Pill', () => {
       it('matches the expected styles for a large pill', () => {
         const wrapper = render({
           children: 'My Text',
-          size: 'large',
+          size: 'L',
           theme: classicTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '14px',
-          minWidth: '46px',
-          padding: '4px 8px'
+          padding: '0 16px'
+        }, wrapper);
+      });
+    });
+
+    describe('when the component size is extra large', () => {
+      it('matches the expected styles for a extra large pill', () => {
+        const wrapper = render({
+          children: 'My Text',
+          size: 'XL',
+          theme: classicTheme
+        }, TestRenderer.create).toJSON();
+        assertStyleMatch({
+          fontSize: '16px',
+          padding: '0 20px'
         }, wrapper);
       });
     });
