@@ -53,7 +53,7 @@ describe('Button', () => {
           }).dive();
 
           expect(
-            wrapper.contains(
+            wrapper.find(
               <Icon type='filter' />
             )
           ).toBeTruthy();

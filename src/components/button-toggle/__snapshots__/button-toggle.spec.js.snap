@@ -38,6 +38,10 @@ input:checked ~ .c2 {
   background-color: #003F2E;
 }
 
+input:checked ~ .c2 .c4 {
+  color: #FFFFFF;
+}
+
 input:focus ~ .c2 {
   outline: 3px solid #FFB500;
 }
@@ -52,6 +56,10 @@ input:checked ~ .c2 {
   background-color: #1573e6;
 }
 
+input:checked ~ .c2 .c4 {
+  color: #FFFFFF;
+}
+
 input:focus ~ .c2 {
   outline: 0;
 }
@@ -60,6 +68,10 @@ input:focus ~ .c2 {
   border-color: #1e499f;
   color: #FFFFFF;
   background-color: #1e499f;
+}
+
+.c2:hover .c4 {
+  color: #FFFFFF;
 }
 
 .c0 {
@@ -139,6 +151,10 @@ input:checked ~ .c3 {
   background-color: #003F2E;
 }
 
+input:checked ~ .c3 .c8 {
+  color: #FFFFFF;
+}
+
 input:focus ~ .c3 {
   outline: 3px solid #FFB500;
 }
@@ -153,6 +169,10 @@ input:checked ~ .c3 {
   background-color: #1573e6;
 }
 
+input:checked ~ .c3 .c8 {
+  color: #FFFFFF;
+}
+
 input:focus ~ .c3 {
   outline: 0;
 }
@@ -161,6 +181,10 @@ input:focus ~ .c3 {
   border-color: #1e499f;
   color: #FFFFFF;
   background-color: #1e499f;
+}
+
+.c3:hover .c8 {
+  color: #FFFFFF;
 }
 
 .c6 .c4 {
@@ -282,6 +306,10 @@ exports[`ButtonToggle Modern themes renders correctly with small theme 1`] = `
 input:checked ~ .c2 {
   color: #FFFFFF;
   background-color: #003F2E;
+}
+
+input:checked ~ .c2 .c6 {
+  color: #FFFFFF;
 }
 
 input:focus ~ .c2 {

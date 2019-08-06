@@ -46,6 +46,10 @@ input:checked ~ .c5 {
   background-color: #003F2E;
 }
 
+input:checked ~ .c5 .c7 {
+  color: #FFFFFF;
+}
+
 input:focus ~ .c5 {
   outline: 3px solid #FFB500;
 }
@@ -60,6 +64,10 @@ input:checked ~ .c5 {
   background-color: #1573e6;
 }
 
+input:checked ~ .c5 .c7 {
+  color: #FFFFFF;
+}
+
 input:focus ~ .c5 {
   outline: 0;
 }
@@ -68,6 +76,10 @@ input:focus ~ .c5 {
   border-color: #1e499f;
   color: #FFFFFF;
   background-color: #1e499f;
+}
+
+.c5:hover .c7 {
+  color: #FFFFFF;
 }
 
 .c3 {
@@ -86,7 +98,7 @@ input:focus ~ .c5 {
   opacity: 0;
 }
 
-.c2 .c7 {
+.c2 .c8 {
   display: inline-block;
   margin-left: 10px;
   margin-top: -4px;
@@ -197,6 +209,10 @@ input:checked ~ .c5 {
   background-color: #003F2E;
 }
 
+input:checked ~ .c5 .c8 {
+  color: #FFFFFF;
+}
+
 input:focus ~ .c5 {
   outline: 3px solid #FFB500;
 }
@@ -222,7 +238,7 @@ input:focus ~ .c5 {
   opacity: 0;
 }
 
-.c2 .c8 {
+.c2 .c9 {
   display: inline-block;
   margin-left: 10px;
   margin-top: -4px;
@@ -337,6 +353,10 @@ input:checked ~ .c6 {
   background-color: #003F2E;
 }
 
+input:checked ~ .c6 .c10 {
+  color: #FFFFFF;
+}
+
 input:focus ~ .c6 {
   outline: 3px solid #FFB500;
 }
@@ -366,7 +386,7 @@ input:focus ~ .c6 {
   border-color: #C7384F;
 }
 
-.c2 .c10 {
+.c2 .c11 {
   display: inline-block;
   margin-left: 10px;
   margin-top: -4px;

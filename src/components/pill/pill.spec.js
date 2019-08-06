@@ -186,7 +186,7 @@ describe('Pill', () => {
                   it(`matches the expected filled styling for ${style}`, () => {
                     assertStyleMatch({
                       backgroundColor: styleSet[style].color,
-                      color: theme.colors.black
+                      color: 'rgba(0,0,0,0.9)'
                     }, fillWrapper);
                   });
                 });

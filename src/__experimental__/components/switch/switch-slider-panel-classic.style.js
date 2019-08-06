@@ -11,6 +11,7 @@ export default ({ loading, theme }) => theme.name === THEMES.classic && css`
 
   &[type='off'] {
     margin-right: 9px;
+    color: ${theme.colors.white};
 
     ${loading && `
     margin-right: 3px;

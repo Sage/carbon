@@ -102,7 +102,7 @@ describe('SplitButton', () => {
 
     it('renders dropdown icon', () => {
       expect(
-        toggle.contains(
+        toggle.find(
           <Icon type='dropdown' />
         )
       ).toBeTruthy();
