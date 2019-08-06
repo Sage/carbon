@@ -54,15 +54,6 @@ const LinkStyle = styled.div`
 `}
 `;
 
-const StyledLinkContent = styled.span`
-  display: flex;
-  justify-content: flex-end;
-`;
-
-const StyledLinkContentText = styled.span`
-  vertical-align: middle;
-`;
-
 LinkStyle.defaultProps = {
   theme: baseTheme,
   disabled: false
@@ -77,5 +68,5 @@ LinkStyleAnchor.defaultProps = {
 };
 
 export {
-  LinkStyle, LinkStyleAnchor, LinkRouterStyle, StyledLinkContent, StyledLinkContentText
+  LinkStyle, LinkStyleAnchor, LinkRouterStyle
 };
