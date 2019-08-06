@@ -67,6 +67,7 @@ function defaultKnobs() {
       OptionsHelper.alignBinary,
       OptionsHelper.alignBinary[0]
     ),
-    size: select('size', OptionsHelper.sizesBinary, 'small')
+    size: select('size', OptionsHelper.sizesBinary, 'small'),
+    value: text('value', 'test-value')
   });
 }

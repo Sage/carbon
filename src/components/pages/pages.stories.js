@@ -25,9 +25,9 @@ const store = new Store({
   slideIndex: 0
 });
 
-const handleSlide = (ev) => {
+const handleSlide = (ev, pageIndex) => {
   action('slide')(ev);
-  store.set({ slideIndex: (ev.target.name || 0) });
+  store.set({ slideIndex: (pageIndex || 0) });
 };
 
 const handleOpen = () => {
@@ -71,13 +71,13 @@ storiesOf('Pages', module)
                 slideIndex={ store.get('slideIndex') }
               >
                 <Page title={ <Heading title='My First Page' /> }>
-                  <Button onClick={ handleSlide } name='1'>
+                  <Button onClick={ (ev) => { handleSlide(ev, 1); } }>
                     Go to next page.
                   </Button>
                 </Page>
 
-                <Page title={ <Heading title='My Second Page' backLink={ handleSlide } /> }>
-                  <Button onClick={ handleSlide } name='0'>
+                <Page title={ <Heading title='My Second Page' backLink={ (ev) => { handleSlide(ev, 0); } } /> }>
+                  <Button onClick={ (ev) => { handleSlide(ev, 0); } }>
                     Go to previous page.
                   </Button>
                 </Page>

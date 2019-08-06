@@ -91,7 +91,8 @@ function commonKnobs() {
       OptionsHelper.alignBinary,
       OptionsHelper.alignBinary[0]
     ),
-    reverse: boolean('reverse', Switch.defaultProps.reverse)
+    reverse: boolean('reverse', Switch.defaultProps.reverse),
+    value: text('value', 'test-value')
   });
 }
 

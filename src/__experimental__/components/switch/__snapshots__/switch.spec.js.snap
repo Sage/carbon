@@ -514,7 +514,6 @@ exports[`Switch base theme renders as expected 1`] = `
 >
   <div
     className="c1"
-    type="checkbox"
   >
     <div
       className="c2 c3"
@@ -527,6 +526,7 @@ exports[`Switch base theme renders as expected 1`] = `
           id="guid-12345"
           role="checkbox"
           type="checkbox"
+          value="test"
         />
         <span
           className="c8 c9"
