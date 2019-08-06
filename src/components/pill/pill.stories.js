@@ -8,7 +8,6 @@ import Pill from './pill.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { isClassic } from '../../utils/helpers/style-helper';
 import classic from '../../style/themes/classic';
-import { THEMES } from '../../style/themes';
 import { notes, Info } from './documentation';
 
 const getStatusKnobs = () => {
@@ -30,7 +29,7 @@ const getKnobs = (theme) => {
     size: select('size', OptionsHelper.pillSizesRestricted, Pill.defaultProps.size)
   };
 
-  if (isClassic(theme)) {
+  if (theme && isClassic(theme)) {
     knobs.as = select('as', [...OptionsHelper.colors, 'disabled'], Pill.defaultProps.as);
   } else {
     Object.assign(knobs, getStatusKnobs());
@@ -39,14 +38,14 @@ const getKnobs = (theme) => {
 };
 
 storiesOf('Pill', module)
-  .add(THEMES.classic, () => {
+  .add('classic', () => {
     const {
       children,
       as,
       fill,
       onDelete,
       size
-    } = getKnobs(THEMES.classic);
+    } = getKnobs(classic);
 
     return (
       <ThemeProvider theme={ classic }>
@@ -72,7 +71,7 @@ storiesOf('Pill', module)
       onDelete,
       pillRole,
       size
-    } = getKnobs(THEMES.classic);
+    } = getKnobs();
     return (
       <Pill
         colorVariant={ colorVariant }
