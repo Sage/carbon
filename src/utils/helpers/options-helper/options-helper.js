@@ -23,6 +23,17 @@ const OptionsHelper = {
     'top'
   ],
 
+  actionOptions: [
+    'Button',
+    'Link'
+  ],
+
+  additionalActionAlignments: [
+    'additionalActions',
+    'leftAlignedActions',
+    'rightAlignedActions'
+  ],
+
   buttonColors: [
     'blue',
     'grey',
@@ -318,6 +329,11 @@ const OptionsHelper = {
     'date',
     'decimal',
     'select'
+  ],
+
+  formButtonOptions: [
+    'save',
+    'cancel'
   ]
 };
 
