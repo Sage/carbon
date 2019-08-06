@@ -65,13 +65,13 @@ storiesOf('Pages', module)
               >
                 <Page title={ <Heading title='My First Page' /> }>
                   <Button onClick={ handleSlide } name='1'>
-                    Go to next page.
+                    Go to next page
                   </Button>
                 </Page>
 
                 <Page title={ <Heading title='My Second Page' backLink={ handleSlide } /> }>
                   <Button onClick={ handleSlide } name='0'>
-                    Go to previous page.
+                    Go to previous page
                   </Button>
                 </Page>
               </Pages>
