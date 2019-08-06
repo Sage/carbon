@@ -2,7 +2,7 @@ import React from 'react';
 import I18n from 'i18n-js';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import Dialog from '../dialog/dialog.component';
+import Dialog from '../dialog';
 import StyledConfirmButtons from './confirm.style';
 import Button from '../button/button.component';
 

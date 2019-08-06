@@ -19,6 +19,18 @@ const Text = {
     } else { // Chrome, Firefox, Safari, Edge
       window.getSelection().removeAllRanges();
     }
+  },
+
+  /**
+   * Capitalises the first letter of string paramater
+   */
+  titleCase(str) {
+    return str.replace(
+      /\w\S*/g,
+      (txt) => {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      }
+    );
   }
 };
 
