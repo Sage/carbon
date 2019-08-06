@@ -33,7 +33,7 @@ BaseCarousel.__docgenInfo = getDocGenInfo(
 storiesOf('Carousel', module)
   .addParameters({
     info: {
-      propTablesExclude: [Slide, Carousel, ExampleCustomElement, Carousel, ThemeProvider],
+      propTablesExclude: [Slide, Carousel, ExampleCustomElement, ThemeProvider],
       propTables: [BaseCarousel]
     }
   })
