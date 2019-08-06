@@ -14,8 +14,7 @@ const StyledToastStory = styled(Toast)`
   margin-top: 50px;
 `;
 
-const ToastStory = () => (<StyledToastStory />);
-ToastStory.__docgenInfo = getDocGenInfo(
+StyledToastStory.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
   /toast\.component(?!spec)/
 );
@@ -26,7 +25,8 @@ storiesOf('Toast', module)
     notes: { markdown: notes },
     info: {
       text: info,
-      propTablesExclude: [ThemeProvider]
+      propTables: [StyledToastStory],
+      propTablesExclude: [ThemeProvider, StyledToastStory]
     }
   })
   .add('Classic', () => {
@@ -41,12 +41,12 @@ storiesOf('Toast', module)
 
     return (
       <ThemeProvider theme={ classic }>
-        <ToastStory
+        <StyledToastStory
           variant={ variant }
           open={ open } onDismiss={ onDismiss ? handleChange : undefined }
         >
           {children}
-        </ToastStory>
+        </StyledToastStory>
       </ThemeProvider>
     );
   }).add('Default', () => {
@@ -57,11 +57,12 @@ storiesOf('Toast', module)
     const onDismissClick = onDismiss ? (evt) => { action('click')(evt); } : undefined;
 
     return (
-      <ToastStory
+      <StyledToastStory
         variant={ variant }
         open={ open } onDismiss={ onDismissClick }
       >
         {children}
-      </ToastStory>
+      </StyledToastStory>
+
     );
   });
