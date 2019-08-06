@@ -64,14 +64,14 @@ storiesOf('Pages', module)
                 slideIndex={ store.get('slideIndex') }
               >
                 <Page title={ <Heading title='My First Page' /> }>
-                  <Button onClick={ (ev) => { handleSlide(ev, 1); } }>
-                    Go to next page.
+                  <Button onClick={ handleSlide } name='1'>
+                    Go to next page
                   </Button>
                 </Page>
 
-                <Page title={ <Heading title='My Second Page' backLink={ (ev) => { handleSlide(ev, 0); } } /> }>
-                  <Button onClick={ (ev) => { handleSlide(ev, 0); } }>
-                    Go to previous page.
+                <Page title={ <Heading title='My Second Page' backLink={ handleSlide } /> }>
+                  <Button onClick={ handleSlide } name='0'>
+                    Go to previous page
                   </Button>
                 </Page>
               </Pages>
