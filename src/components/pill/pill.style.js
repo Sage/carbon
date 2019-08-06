@@ -99,7 +99,7 @@ const PillStyle = styled.span`
         }
 
         ${size === 'S' && css`
-          padding: 0 24px 0 8px;
+          padding: 0 24px 0 12px;
 
           button {
             padding: 0;
@@ -116,7 +116,7 @@ const PillStyle = styled.span`
         `}
 
         ${size === 'M' && css`
-          padding: 0 32px 0 12px;
+          padding: 0 32px 0 16px;
           border-radius: 12px;
 
           button {
@@ -136,7 +136,7 @@ const PillStyle = styled.span`
         `}
 
         ${size === 'L' && css`
-          padding: 0 36px 0 16px;
+          padding: 0 36px 0 20px;
           border-radius: 13px;
 
           button {
@@ -156,7 +156,7 @@ const PillStyle = styled.span`
         `}
 
         ${size === 'XL' && css`
-          padding: 0 40px 0 20px;
+          padding: 0 40px 0 24px;
           border-radius: 15px;
 
           button {
@@ -178,7 +178,7 @@ const PillStyle = styled.span`
 
       ${!isClassic(theme, colorVariant) && !isDeletable && css`
         ${size === 'S' && css`
-          padding: 0 24px 0 8px;
+          padding: 0 12px;
 
           button {
             padding: 0;
@@ -194,7 +194,7 @@ const PillStyle = styled.span`
         `}
 
         ${size === 'M' && css`
-          padding: 0 28px 0 12px;
+          padding: 0 16px;
           border-radius: 12px;
 
           button {
@@ -214,7 +214,7 @@ const PillStyle = styled.span`
         `}
 
         ${size === 'L' && css`
-          padding: 0 32px 0 16px;
+          padding: 0 20px;
           border-radius: 13px;
 
           button {
@@ -234,7 +234,7 @@ const PillStyle = styled.span`
         `}
 
         ${size === 'XL' && css`
-          padding: 0 36px 0 20px;
+          padding: 0 24px;
           border-radius: 15px;
 
           button {

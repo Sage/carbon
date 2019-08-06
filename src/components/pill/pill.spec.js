@@ -131,7 +131,7 @@ describe('Pill', () => {
               assertStyleMatch({
                 fontWeight: '600',
                 position: 'relative',
-                padding: '0 28px 0 12px',
+                padding: '0 16px',
                 textAlign: 'center'
               }, wrapper);
             });
@@ -144,7 +144,7 @@ describe('Pill', () => {
                   theme
                 }, TestRenderer.create).toJSON();
                 assertStyleMatch({
-                  padding: '0 32px 0 12px'
+                  padding: '0 32px 0 16px'
                 }, wrapper);
               });
 
@@ -197,7 +197,7 @@ describe('Pill', () => {
                     theme
                   }, TestRenderer.create).toJSON();
                   assertStyleMatch({
-                    padding: '0 24px 0 8px'
+                    padding: '0 24px 0 12px'
                   }, wrapper);
                 });
               });
@@ -212,7 +212,7 @@ describe('Pill', () => {
                   }, TestRenderer.create).toJSON();
                   assertStyleMatch({
                     fontSize: '12px',
-                    padding: '0 32px 0 12px',
+                    padding: '0 32px 0 16px',
                     borderRadius: '12px'
                   }, wrapper);
                 });
@@ -228,7 +228,7 @@ describe('Pill', () => {
                   }, TestRenderer.create).toJSON();
                   assertStyleMatch({
                     fontSize: '14px',
-                    padding: '0 36px 0 16px',
+                    padding: '0 36px 0 20px',
                     borderRadius: '13px'
                   }, wrapper);
                 });
@@ -244,7 +244,7 @@ describe('Pill', () => {
                   }, TestRenderer.create).toJSON();
                   assertStyleMatch({
                     fontSize: '16px',
-                    padding: '0 40px 0 20px',
+                    padding: '0 40px 0 24px',
                     borderRadius: '15px'
                   }, wrapper);
                 });
@@ -325,7 +325,7 @@ describe('Pill', () => {
         fontSize: '12px',
         fontWeight: '600',
         position: 'relative',
-        padding: '0 28px 0 12px'
+        padding: '0 16px'
       }, wrapper);
     });
 
@@ -352,7 +352,7 @@ describe('Pill', () => {
         fontSize: '12px',
         fontWeight: '600',
         position: 'relative',
-        padding: '0 28px 0 12px',
+        padding: '0 16px',
         textAlign: 'center'
       }, wrapper);
     });
@@ -365,7 +365,7 @@ describe('Pill', () => {
           theme: smallTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
-          padding: '0 24px 0 8px'
+          padding: '0 12px'
         }, wrapper);
       });
     });
@@ -379,7 +379,7 @@ describe('Pill', () => {
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '12px',
-          padding: '0 28px 0 12px'
+          padding: '0 16px'
         }, wrapper);
       });
     });
@@ -393,7 +393,7 @@ describe('Pill', () => {
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '14px',
-          padding: '0 32px 0 16px'
+          padding: '0 20px'
         }, wrapper);
       });
     });
@@ -407,7 +407,7 @@ describe('Pill', () => {
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '16px',
-          padding: '0 36px 0 20px'
+          padding: '0 24px'
         }, wrapper);
       });
     });
@@ -433,7 +433,7 @@ describe('Pill', () => {
           theme: smallTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
-          padding: '0 24px 0 8px'
+          padding: '0 12px'
         }, wrapper);
       });
     });
@@ -447,7 +447,7 @@ describe('Pill', () => {
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '12px',
-          padding: '0 28px 0 12px'
+          padding: '0 16px'
         }, wrapper);
       });
     });
@@ -461,7 +461,7 @@ describe('Pill', () => {
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '14px',
-          padding: '0 32px 0 16px'
+          padding: '0 20px'
         }, wrapper);
       });
     });
@@ -475,7 +475,7 @@ describe('Pill', () => {
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '16px',
-          padding: '0 36px 0 20px'
+          padding: '0 24px'
         }, wrapper);
       });
     });
@@ -501,7 +501,7 @@ describe('Pill', () => {
           theme: largeTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
-          padding: '0 24px 0 8px'
+          padding: '0 12px'
         }, wrapper);
       });
     });
@@ -515,7 +515,7 @@ describe('Pill', () => {
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '12px',
-          padding: '0 28px 0 12px'
+          padding: '0 16px'
         }, wrapper);
       });
     });
@@ -529,7 +529,7 @@ describe('Pill', () => {
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '14px',
-          padding: '0 32px 0 16px'
+          padding: '0 20px'
         }, wrapper);
       });
     });
@@ -543,7 +543,7 @@ describe('Pill', () => {
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '16px',
-          padding: '0 36px 0 20px'
+          padding: '0 24px'
         }, wrapper);
       });
     });
@@ -561,7 +561,7 @@ describe('Pill', () => {
         fontSize: '12px',
         fontWeight: '600',
         position: 'relative',
-        padding: '0 28px 0 12px'
+        padding: '0 16px'
       }, wrapper);
     });
 
@@ -574,7 +574,7 @@ describe('Pill', () => {
         fontWeight: '700',
         letterSpacing: '0.7px',
         lineHeight: '20px',
-        padding: '0 12px',
+        padding: '0 16px',
         position: 'relative',
         textAlign: 'center'
       }, wrapper);
@@ -588,7 +588,7 @@ describe('Pill', () => {
           theme: classicTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
-          padding: '0 28px 0 12px'
+          padding: '0 32px 0 16px'
         }, wrapper);
       });
 
@@ -619,7 +619,7 @@ describe('Pill', () => {
           }, TestRenderer.create).toJSON();
           assertStyleMatch({
             fontSize: '10px',
-            padding: '0 20px 0 8px'
+            padding: '0 24px 0 12px'
           }, wrapper);
         });
       });
@@ -634,7 +634,7 @@ describe('Pill', () => {
           }, TestRenderer.create).toJSON();
           assertStyleMatch({
             fontSize: '12px',
-            padding: '0 28px 0 12px'
+            padding: '0 32px 0 16px'
           }, wrapper);
         });
       });
@@ -649,7 +649,7 @@ describe('Pill', () => {
           }, TestRenderer.create).toJSON();
           assertStyleMatch({
             fontSize: '14px',
-            padding: '0 32px 0 16px'
+            padding: '0 36px 0 20px'
           }, wrapper);
         });
       });
@@ -664,7 +664,7 @@ describe('Pill', () => {
           }, TestRenderer.create).toJSON();
           assertStyleMatch({
             fontSize: '16px',
-            padding: '0 36px 0 20px'
+            padding: '0 40px 0 24px'
           }, wrapper);
         });
       });
@@ -725,7 +725,7 @@ describe('Pill', () => {
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '10px',
-          padding: '0 8px'
+          padding: '0 12px'
         }, wrapper);
       });
     });
@@ -739,7 +739,7 @@ describe('Pill', () => {
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '12px',
-          padding: '0 12px'
+          padding: '0 16px'
         }, wrapper);
       });
     });
@@ -753,7 +753,7 @@ describe('Pill', () => {
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '14px',
-          padding: '0 16px'
+          padding: '0 20px'
         }, wrapper);
       });
     });
@@ -767,7 +767,7 @@ describe('Pill', () => {
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '16px',
-          padding: '0 20px'
+          padding: '0 24px'
         }, wrapper);
       });
     });
