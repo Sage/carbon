@@ -9,6 +9,13 @@ function render(props) {
 
 describe('HiddenCheckableInput', () => {
   it('renders as expected', () => {
-    expect(render()).toMatchSnapshot();
+    expect(render({
+      checked: true,
+      helpId: 'test-help',
+      inputName: 'test-name',
+      inputType: 'test-type',
+      inputValue: 'test-value',
+      tabindex: '0'
+    })).toMatchSnapshot();
   });
 });
