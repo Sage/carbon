@@ -13,6 +13,9 @@
           "description": ""
         },
         "reverse": {
+          "type": {
+            "name": "bool"
+          },
           "defaultValue": {
             "value": "true",
             "computed": false
