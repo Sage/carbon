@@ -11,7 +11,10 @@ const Help = (props) => {
   const {
     className,
     href,
+    helpId,
     children,
+    tabIndexOverride,
+    tagTypeOverride,
     tooltipPosition,
     tooltipAlign
   } = props;
@@ -29,6 +32,8 @@ const Help = (props) => {
     tagType = 'a';
   }
 
+  tagType = tagTypeOverride || tagType;
+
   function handleKeyPress(ev) {
     if (Events.isEscKey(ev)) {
       helpElement.current.blur();
@@ -41,12 +46,15 @@ const Help = (props) => {
       className={ className }
       as={ tagType }
       href={ href }
+      id={ helpId }
       target='_blank'
       rel='noopener noreferrer'
       ref={ helpElement }
       onFocus={ () => updateTooltipVisible(true) }
       onBlur={ () => updateTooltipVisible(false) }
       { ...tagComponent('help', props) }
+      tabIndex={ tabIndexOverride }
+      value={ children }
     >
       <Icon
         type='help'
@@ -64,6 +72,12 @@ Help.propTypes = {
   className: PropTypes.string,
   /** Message to display in tooltip */
   children: PropTypes.string,
+  /** The unique id of the component (used with aria-describedby for accessibility) */
+  helpId: PropTypes.string,
+  /** Overrides the default tabindex of the component */
+  tabIndexOverride: PropTypes.string,
+  /** Overrides the default 'as' attribute of the Help component */
+  tagTypeOverride: PropTypes.string,
   /** Position of tooltip relative to target */
   tooltipPosition: PropTypes.string,
   /** Aligment of pointer */

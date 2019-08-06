@@ -77,9 +77,9 @@ const StyledCheckableInputWrapper = styled.div`
 StyledCheckableInputWrapper.propTypes = {
   disabled: PropTypes.bool,
   fieldHelpInline: PropTypes.bool,
-  inputWidth: PropTypes.number,
+  inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   labelAlign: PropTypes.string,
-  labelWidth: PropTypes.number,
+  labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   theme: PropTypes.object
 };
 
