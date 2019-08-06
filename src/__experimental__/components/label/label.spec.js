@@ -2,12 +2,12 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
-
 import Help from '../../../components/help';
 import Label from './label.component';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import classicTheme from '../../../style/themes/classic';
 import baseTheme from '../../../style/themes/base';
+import smallTheme from '../../../style/themes/small';
 
 function render(props, renderer = shallow) {
   return renderer(
@@ -45,6 +45,20 @@ describe('Label', () => {
         width: '30%'
       }, render({ inline: true, width: 0 }, TestRenderer.create).toJSON());
     });
+
+    it('applies styling for an inline "optional" label', () => {
+      assertStyleMatch({
+        content: "'(optional)'",
+        fontWeight: '350',
+        marginLeft: '4px'
+      }, render({
+        inline: true,
+        childOfForm: true,
+        optional: true,
+        theme: smallTheme
+      }, TestRenderer.create).toJSON(),
+      { modifier: '::after' });
+    });
   });
 
   describe('when disabled', () => {
@@ -77,6 +91,24 @@ describe('Label', () => {
           paddingLeft: '0',
           paddingRight: '8px'
         }, render({ theme: classicTheme, inline: true }, TestRenderer.create).toJSON());
+      });
+    });
+  });
+
+  describe('when attached to child of form', () => {
+    describe('when inline', () => {
+      it('applies styling for an inline label', () => {
+        assertStyleMatch({
+          marginLeft: '12px'
+        }, render({ childOfForm: true, inline: true, align: 'right' }, TestRenderer.create).toJSON());
+      });
+    });
+
+    describe('when not inline', () => {
+      it('applies styling for label', () => {
+        assertStyleMatch({
+          marginBottom: '12px'
+        }, render({ childOfForm: true }, TestRenderer.create).toJSON());
       });
     });
   });

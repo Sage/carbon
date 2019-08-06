@@ -1,18 +1,20 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
-import Icon from './../../icon';
-import FormSummary from './form-summary';
+import TestRenderer from 'react-test-renderer';
+import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs/tags-specs';
+import Icon from '../../icon/icon';
+import FormSummary from './form-summary.component';
+import 'jest-styled-components';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 
 describe('<FormSummary />', () => {
-  const block = '.carbon-form-summary';
   let wrapper;
 
   describe('errors renders', () => {
     beforeEach(() => { wrapper = shallow(<FormSummary errors={ 1 } warnings={ 0 } />); });
 
     it('a block for errors if errors are provided', () => {
-      expect(wrapper.find(`${block}__error-summary`).length).toEqual(1);
+      expect(wrapper.find('[data-element="errors"]').length).toEqual(1);
     });
 
     it('an error icon', () => {
@@ -21,7 +23,7 @@ describe('<FormSummary />', () => {
     });
 
     it('the correct translation wrapped in the text class', () => {
-      const text = wrapper.find(`${block}__text`).render().text();
+      const text = wrapper.find('[data-element="errors"]').render().text();
       expect(text).toContain('There is 1 error');
     });
   });
@@ -30,7 +32,7 @@ describe('<FormSummary />', () => {
     beforeEach(() => { wrapper = shallow(<FormSummary errors={ 0 } warnings={ 1 } />); });
 
     it('a block for warnings if warnings are provided', () => {
-      expect(wrapper.find(`${block}__warning-summary`).length).toEqual(1);
+      expect(wrapper.find('[data-element="warnings"]').length).toEqual(1);
     });
 
     it('a warning icon', () => {
@@ -39,7 +41,7 @@ describe('<FormSummary />', () => {
     });
 
     it('the correct translation wrapped in a class that brings accessible contrast', () => {
-      const text = wrapper.find(`${block}__text`).render().text();
+      const text = wrapper.find('[data-element="warnings"]').render().text();
       expect(text).toContain('There is 1 warning');
     });
   });
@@ -48,11 +50,11 @@ describe('<FormSummary />', () => {
     beforeEach(() => { wrapper = shallow(<FormSummary errors={ 1 } warnings={ 1 } />); });
 
     it('a block for errors if errors are provided', () => {
-      expect(wrapper.find(`${block}__error-summary`).length).toEqual(1);
+      expect(wrapper.find('[data-element="errors"]').length).toEqual(1);
     });
 
     it('a block for warnings if warnings are provided', () => {
-      expect(wrapper.find(`${block}__warning-summary`).length).toEqual(1);
+      expect(wrapper.find('[data-element="warnings"]').length).toEqual(1);
     });
 
     it('both icons', () => {
@@ -67,8 +69,22 @@ describe('<FormSummary />', () => {
     });
 
     it('renders with a default and invalid class', () => {
-      expect(wrapper.hasClass('carbon-form-summary')).toBeTruthy();
-      expect(wrapper.hasClass('carbon-form-summary--invalid')).toBeTruthy();
+      wrapper = TestRenderer.create(
+        <FormSummary errors={ 1 } warnings={ 0 } />
+      );
+
+      assertStyleMatch({
+        display: 'inline-flex',
+        alignItems: 'center',
+        fontSize: '13px',
+        fontWeight: '700',
+        margin: '-8px',
+        whiteSpace: 'nowrap',
+        padding: '8px',
+        borderRadius: '4px',
+        backgroundColor: '#F2F4F5',
+        marginLeft: '15px'
+      }, wrapper.toJSON());
     });
   });
 
