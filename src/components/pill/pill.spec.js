@@ -229,7 +229,7 @@ describe('Pill', () => {
                   assertStyleMatch({
                     fontSize: '14px',
                     padding: '0 32px 0 16px',
-                    borderRadius: '13px',
+                    borderRadius: '13px'
                   }, wrapper);
                 });
               });
@@ -245,7 +245,7 @@ describe('Pill', () => {
                   assertStyleMatch({
                     fontSize: '16px',
                     padding: '0 36px 0 20px',
-                    borderRadius: '15px',
+                    borderRadius: '15px'
                   }, wrapper);
                 });
               });
