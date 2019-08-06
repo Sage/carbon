@@ -13,9 +13,9 @@ const store = new Store({
   slideIndex: 0
 });
 
-const handleSlide = (ev) => {
+const handleSlide = (ev, pageIndex) => {
   action('slide')(ev);
-  store.set({ slideIndex: (ev.target.name || 0) });
+  store.set({ slideIndex: (pageIndex || 0) });
 };
 
 const handleOpen = () => {
