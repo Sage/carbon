@@ -29,7 +29,6 @@ storiesOf('Experimental/Number Input', module)
     const onChangeDeferredEnabled = boolean('Enable "onChangeDeferred" Action', false);
     const onKeyDownEnabled = boolean('Enable "onKeyDown" Action', false);
     const deferTimeout = onChangeDeferredEnabled ? number('deferTimeout') : undefined;
-    const autoFocus = boolean('autoFocus', false);
 
     return (
       <Number
@@ -39,7 +38,6 @@ storiesOf('Experimental/Number Input', module)
         onKeyDown={ onKeyDownEnabled ? action('onKeyDown') : undefined }
         onChangeDeferred={ onChangeDeferredEnabled ? action('onChangeDeferred') : undefined }
         deferTimeout={ deferTimeout }
-        autoFocus={ autoFocus }
       />
     );
   }, {
