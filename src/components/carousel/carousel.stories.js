@@ -8,10 +8,27 @@ import notes from './documentation';
 import BaseCarousel, { Carousel, Slide } from './carousel.component';
 import classic from '../../style/themes/classic';
 
+const styleElement = {
+  height: '400px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  margin: '0 auto'
+};
+
+const ExampleCustomElement = (props) => {
+  return (
+    <div style={ { ...styleElement, ...props.style } }>
+      {props.children}
+    </div>
+  );
+};
+
 storiesOf('Carousel', module)
   .addParameters({
     info: {
-      propTablesExclude: [Slide]
+      propTablesExclude: [Slide, Carousel, ExampleCustomElement],
+      propTables: [BaseCarousel]
     }
   })
   .add('classic', () => {
@@ -64,22 +81,6 @@ storiesOf('Carousel', module)
 
     const handleClick = () => {
       action('click')();
-    };
-
-    const styleElement = {
-      height: '400px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      margin: '0 auto'
-    };
-
-    const ExampleCustomElement = (props) => {
-      return (
-        <div style={ { ...styleElement, ...props.style } }>
-          {props.children}
-        </div>
-      );
     };
 
     return (
