@@ -162,6 +162,8 @@ export default (colorVariant, inFill, isDeletable, size) => {
         padding: 0 20px 0 8px;
 
         button {
+          border-radius: 0 7px 7px 0;
+
           .carbon-icon {
             &:before {
               font-size: 7px;

@@ -83,7 +83,7 @@ const PillStyle = styled.span`
           }
 
           &:hover {
-            background-color: ${styleSet[variety].color};
+            background-color: ${styleSet[variety].buttonFocus};
             color: ${(variety === 'warning') ? colors.black : styleSet.hoverColor};
             cursor: pointer;
           }
@@ -93,16 +93,17 @@ const PillStyle = styled.span`
 
             &:hover, 
             &:focus {
-              color: ${(variety === 'warning') ? colors.black : styleSet.hoverColor};
+              color: ${(variety === 'warning') ? colors.black : styleSet.buttonFocus};
             }
           }
         }
 
         ${size === 'S' && css`
-          padding: 0 20px 0 8px;
+          padding: 0 24px 0 8px;
 
           button {
             padding: 0;
+            border-radius: 0 8px 8px 0;
 
             .carbon-icon {
               padding: 0;
@@ -115,13 +116,13 @@ const PillStyle = styled.span`
         `}
 
         ${size === 'M' && css`
-          padding: 0 28px 0 12px;
+          padding: 0 32px 0 12px;
           border-radius: 12px;
 
           button {
             width: 24px;
             padding: 0;
-            border-radius: 0 8px 8px 0;
+            border-radius: 0 10px 10px 0;
 
             .carbon-icon {
               padding: 2px 7px 3px 7px;
@@ -135,13 +136,13 @@ const PillStyle = styled.span`
         `}
 
         ${size === 'L' && css`
-          padding: 0 32px 0 16px;
+          padding: 0 36px 0 16px;
           border-radius: 13px;
 
           button {
             width: 28px;
             padding: 0;
-            border-radius: 0 10px 10px 0;
+            border-radius: 0 11px 11px 0;
 
             .carbon-icon {
               padding: 3px 8px 4px 8px;
@@ -155,13 +156,13 @@ const PillStyle = styled.span`
         `}
 
         ${size === 'XL' && css`
-          padding: 0 36px 0 20px;
+          padding: 0 40px 0 20px;
           border-radius: 15px;
 
           button {
             width: 32px;
             padding: 0;
-            border-radius: 0 12px 12px 0;
+            border-radius: 0 14px 14px 0;
 
             .carbon-icon {
               padding: 3px 9px 5px 9px;
@@ -177,7 +178,7 @@ const PillStyle = styled.span`
 
       ${!isClassic(theme, colorVariant) && !isDeletable && css`
         ${size === 'S' && css`
-          padding: 0 20px 0 8px;
+          padding: 0 24px 0 8px;
 
           button {
             padding: 0;

@@ -144,7 +144,7 @@ describe('Pill', () => {
                   theme
                 }, TestRenderer.create).toJSON();
                 assertStyleMatch({
-                  padding: '0 28px 0 12px'
+                  padding: '0 32px 0 12px'
                 }, wrapper);
               });
 
@@ -197,7 +197,7 @@ describe('Pill', () => {
                     theme
                   }, TestRenderer.create).toJSON();
                   assertStyleMatch({
-                    padding: '0 20px 0 8px'
+                    padding: '0 24px 0 8px'
                   }, wrapper);
                 });
               });
@@ -212,7 +212,7 @@ describe('Pill', () => {
                   }, TestRenderer.create).toJSON();
                   assertStyleMatch({
                     fontSize: '12px',
-                    padding: '0 28px 0 12px',
+                    padding: '0 32px 0 12px',
                     borderRadius: '12px'
                   }, wrapper);
                 });
@@ -228,7 +228,7 @@ describe('Pill', () => {
                   }, TestRenderer.create).toJSON();
                   assertStyleMatch({
                     fontSize: '14px',
-                    padding: '0 32px 0 16px',
+                    padding: '0 36px 0 16px',
                     borderRadius: '13px'
                   }, wrapper);
                 });
@@ -244,7 +244,7 @@ describe('Pill', () => {
                   }, TestRenderer.create).toJSON();
                   assertStyleMatch({
                     fontSize: '16px',
-                    padding: '0 36px 0 20px',
+                    padding: '0 40px 0 20px',
                     borderRadius: '15px'
                   }, wrapper);
                 });
@@ -365,7 +365,7 @@ describe('Pill', () => {
           theme: smallTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
-          padding: '0 20px 0 8px'
+          padding: '0 24px 0 8px'
         }, wrapper);
       });
     });
@@ -433,7 +433,7 @@ describe('Pill', () => {
           theme: smallTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
-          padding: '0 20px 0 8px'
+          padding: '0 24px 0 8px'
         }, wrapper);
       });
     });
@@ -501,7 +501,7 @@ describe('Pill', () => {
           theme: largeTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
-          padding: '0 20px 0 8px'
+          padding: '0 24px 0 8px'
         }, wrapper);
       });
     });
