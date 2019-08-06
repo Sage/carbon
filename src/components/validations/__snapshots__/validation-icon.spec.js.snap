@@ -21,7 +21,10 @@ exports[`ValidationIcon renders with an icon for the given type 1`] = `
 >
   <Icon
     bgSize="small"
+    hasValidationTooltip={true}
+    isThemeModern={true}
     key="error-icon"
+    size="medium"
     tooltipAlign="center"
     tooltipPosition="right"
     tooltipType="error"
@@ -32,6 +35,7 @@ exports[`ValidationIcon renders with an icon for the given type 1`] = `
       data-component="icon"
       data-element="error"
       key="icon"
+      size="medium"
     />
   </Icon>
 </div>

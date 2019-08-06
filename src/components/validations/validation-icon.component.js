@@ -8,14 +8,21 @@ import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import { isClassic } from '../../utils/helpers/style-helper';
 import baseTheme from '../../style/themes/base';
 
-const ValidationIcon = ({ theme, type, tooltipMessage }) => {
-  let tooltipPositionProps = {};
+const ValidationIcon = ({
+  theme,
+  type,
+  size,
+  tooltipMessage
+}) => {
+  let modernTooltipProps = {};
 
   if (!isClassic(theme)) {
     // overrides default positioning for non legacy themes
-    tooltipPositionProps = {
+    modernTooltipProps = {
       tooltipPosition: 'right',
-      tooltipAlign: 'center'
+      tooltipAlign: 'center',
+      hasValidationTooltip: true,
+      isThemeModern: true
     };
   }
 
@@ -30,7 +37,8 @@ const ValidationIcon = ({ theme, type, tooltipMessage }) => {
               tooltipMessage={ tooltipMessage }
               tooltipVisible={ context && (context.hasFocus || context.hasMouseOver) }
               type={ type }
-              { ...tooltipPositionProps }
+              size={ size }
+              { ...modernTooltipProps }
             />
           </ValidationIconStyle>
         )
@@ -41,11 +49,13 @@ const ValidationIcon = ({ theme, type, tooltipMessage }) => {
 
 ValidationIcon.propTypes = {
   type: PropTypes.oneOf(OptionsHelper.validationTypes),
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   tooltipMessage: PropTypes.string,
   theme: PropTypes.object
 };
 
 ValidationIcon.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
+  size: 'medium'
 };
 export default withTheme(ValidationIcon);

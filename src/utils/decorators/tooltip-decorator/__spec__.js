@@ -1,7 +1,54 @@
 import React from 'react';
+import 'jest-styled-components';
 import TestUtils from 'react-dom/test-utils';
 import TooltipDecorator from './tooltip-decorator';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
+import Tooltip from '../../../components/tooltip';
+
+const mockPositionValues = {
+  horizontal: {
+    bottom: 80,
+    center: 90,
+    top: 100,
+  },
+  tooltipDistances: {
+    bottom: 105,
+    left: -5,
+    right: 105,
+    top: 45,
+  },
+  vertical: {
+    center: 65,
+    left: 95,
+    right: 30,
+  }
+};
+
+const expecterModernThemesPositionValues = {
+  small: {
+    top: '34px',
+    bottom: '116px',
+    left: '-18px',
+    right: '118px'
+  },
+  medium: {
+    top: '31px',
+    bottom: '119px',
+    left: '-21px',
+    right: '121px'
+  },
+  large: {
+    top: '27px',
+    bottom: '123px',
+    left: '-23px',
+    right: '123px'
+ }
+}
+
+jest.mock('./calculate-position', () => ({
+  __esModule: true,
+  default: () => (mockPositionValues)
+}));
 
 /* global jest */
 
@@ -26,7 +73,7 @@ class BasicClass extends React.Component {
 
   render() {
     return (
-      <div>
+      <div ref={ (comp) => { this._target = comp; } }>
         {this.tooltipHTML }
       </div>
     );
@@ -53,7 +100,7 @@ class StrippedClass extends React.Component {
 }
 
 describe('tooltip-decorator', () => {
-  let topTooltip, bottomTooltip, rightTooltip, leftTooltip, noTooltip, strippedTooltip,
+  let topTooltip, noTooltip, strippedTooltip,
       DecoratedClassOne, DecoratedClassTwo;
 
   beforeEach(() => {
@@ -61,9 +108,6 @@ describe('tooltip-decorator', () => {
     DecoratedClassTwo = TooltipDecorator(StrippedClass);
 
     topTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello' tooltipPosition='top' />);
-    bottomTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello' tooltipPosition='bottom' />);
-    rightTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello' tooltipPosition='right' />);
-    leftTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello' tooltipPosition='left' />);
     noTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne/>);
 
     strippedTooltip = TestUtils.renderIntoDocument(<DecoratedClassTwo />);
@@ -164,386 +208,34 @@ describe('tooltip-decorator', () => {
     });
   });
 
-  describe('positionTooltip', () => {
-    let getTarget;
-
-    beforeEach(() => {
-      getTarget = {
-        offsetWidth: 30,
-        offsetHeight: 30,
-        getBoundingClientRect: () => ({ top: 100, bottom: 100, left: 100, right: 100 })
-      }
+  describe('when there is no tooltip', () => {
+    it('hides the tooltip', () => {
+      noTooltip.onShow();
+      jest.runTimersToTime(100);
+      expect(noTooltip.state.isVisible).toBeFalsy();
     });
+  });
 
-    describe('when positioned above the target', () => {
-      beforeEach(()  => {
-        topTooltip = shallow(<DecoratedClassOne tooltipMessage='Hello' />).instance();
-        spyOn(topTooltip, 'getTarget').and.returnValue(getTarget);
-
-        spyOn(topTooltip, 'getTooltip').and.returnValue(
+  describe('when there is no target', () => {
+    beforeEach(()  => {
+      spyOn(topTooltip, 'getTarget').and.returnValue(null);
+      spyOn(topTooltip, 'getTooltip').and.returnValue({
+        offsetWidth: 100,
+        offsetHeight: 50,
+        style: {},
+        children: [
+          { foo: 'bar' },
           {
-            offsetWidth: 100,
-            offsetHeight: 50,
-            style: { left: 0, top: 0},
-            children:
-            [
-              { foo: 'bar' },
-              {
-                offsetHeight: 7
-              }
-            ]
+            offsetHeight: 7
           }
-        );
-      });
-
-      it('sets the top and left styles', () => {
-        topTooltip.onShow();
-        jest.runTimersToTime(100);
-        let tooltip = topTooltip.getTooltip();
-        let target = topTooltip.getTarget();
-        topTooltip.positionTooltip(tooltip, target);
-        expect(tooltip.style.left).toEqual('65px');
-        expect(tooltip.style.top).toEqual('43px');
-      });
-
-      describe('when the tooltip is offscreen', () => {
-        it('realigns to the right', () => {
-          topTooltip.onShow();
-          jest.runTimersToTime(100);
-          const tooltip = topTooltip.getTooltip();
-          const target = topTooltip.getTarget();
-          const innerWidth = window.innerWidth;
-          window.innerWidth = 0;
-          topTooltip.positionTooltip(tooltip, target);
-          expect(topTooltip.state.tooltipAlign).toEqual('right');
-          window.innerWidth = innerWidth;
-        });
-      });
-
-      describe('when the pointer is aligned to the right', () => {
-        let rightTopTooltip;
-
-        beforeEach(()  => {
-          let DecoratedClass = TooltipDecorator(BasicClass);
-          rightTopTooltip = shallow(
-            <DecoratedClass tooltipMessage='Hello' tooltipPosition='top' tooltipAlign='right'/>
-          ).instance();
-
-          spyOn(rightTopTooltip, 'getTarget').and.returnValue(getTarget);
-
-          spyOn(rightTopTooltip, 'getTooltip').and.returnValue(
-            {
-              offsetWidth: 100,
-              offsetHeight: 50,
-              style: { left: 0, top: 0},
-              children:
-                [
-                  { foo: 'bar' },
-                  {
-                    offsetHeight: 7
-                  }
-                ]
-            }
-          );
-        });
-
-        it('sets the correct top and left styles', () => {
-          rightTopTooltip.onShow();
-          jest.runTimersToTime(100);
-          let alignedTooltip = rightTopTooltip.getTooltip();
-          let target = rightTopTooltip.getTarget();
-          rightTopTooltip.positionTooltip(alignedTooltip, target);
-          expect(alignedTooltip.style.left).toEqual('30px');
-          expect(alignedTooltip.style.top).toEqual('43px');
-        });
-      });
-
-      describe('when the pointer is aligned to the left', () => {
-        let leftTopTooltip;
-
-        beforeEach(()  => {
-          let DecoratedClass = TooltipDecorator(BasicClass);
-          leftTopTooltip = shallow(
-            <DecoratedClass tooltipMessage='Hello' tooltipPosition='top' tooltipAlign='left'/>
-          ).instance();
-
-          spyOn(leftTopTooltip, 'getTarget').and.returnValue(getTarget);
-
-          spyOn(leftTopTooltip, 'getTooltip').and.returnValue(
-            {
-              offsetWidth: 100,
-              offsetHeight: 50,
-              style: { left: 0, top: 0},
-              children:
-                [
-                  { foo: 'bar' },
-                  {
-                    offsetHeight: 7
-                  }
-                ]
-            }
-          );
-        });
-
-        it('sets the correct top and left styles', () => {
-          leftTopTooltip.onShow();
-          jest.runTimersToTime(100);
-          let alignedTooltip = leftTopTooltip.getTooltip();
-          let target = leftTopTooltip.getTarget();
-          leftTopTooltip.positionTooltip(alignedTooltip, target);
-          expect(alignedTooltip.style.left).toEqual('93px');
-          expect(alignedTooltip.style.top).toEqual('43px');
-        });
+        ]
       });
     });
 
-    describe('when positioned below the target', () => {
-      beforeEach(()  => {
-        let DecoratedClass = TooltipDecorator(BasicClass);
-        bottomTooltip = shallow(
-          <DecoratedClass tooltipMessage='Hello' tooltipPosition='bottom'/>
-        ).instance();
-        spyOn(bottomTooltip, 'getTarget').and.returnValue(getTarget);
-
-        spyOn(bottomTooltip, 'getTooltip').and.returnValue(
-            {
-              offsetWidth: 100,
-              offsetHeight: 50,
-              style: {},
-              children:
-                [
-                  { foo: 'bar' },
-                  {
-                    offsetHeight: 7
-                  }
-                ]
-            }
-        );
-      });
-
-      it('sets the top and left styles', () => {
-        bottomTooltip.onShow();
-        jest.runTimersToTime(100);
-        let tooltip = bottomTooltip.getTooltip();
-        let target = bottomTooltip.getTarget();
-        bottomTooltip.positionTooltip(tooltip, target);
-        expect(tooltip.style.left).toEqual('65px');
-      });
-
-      describe('when the tooltip is offscreen', () => {
-        it('realigns to the right', () => {
-          bottomTooltip.onShow();
-          jest.runTimersToTime(100);
-          const tooltip = bottomTooltip.getTooltip();
-          const target = bottomTooltip.getTarget();
-          const innerWidth = window.innerWidth;
-          window.innerWidth = 0;
-          bottomTooltip.positionTooltip(tooltip, target);
-          expect(bottomTooltip.state.tooltipAlign).toEqual('right');
-          window.innerWidth = innerWidth;
-        });
-      });
-    });
-
-    describe('when positioned right of the target', () => {
-      beforeEach(()  => {
-        let DecoratedClass = TooltipDecorator(BasicClass);
-        rightTooltip = shallow(
-          <DecoratedClass tooltipMessage='Hello' tooltipPosition='right'/>
-        ).instance();
-        spyOn(rightTooltip, 'getTarget').and.returnValue(getTarget);
-
-        spyOn(rightTooltip, 'getTooltip').and.returnValue(
-            {
-              offsetWidth: 100,
-              offsetHeight: 50,
-              style: {},
-              children:
-                [
-                  { foo: 'bar' },
-                  {
-                    offsetHeight: 7
-                  }
-                ]
-            }
-        );
-      });
-
-      it('sets the top and left styles', () => {
-        rightTooltip.onShow();
-        jest.runTimersToTime(100);
-        let tooltip = rightTooltip.getTooltip();
-        let target = rightTooltip.getTarget();
-        rightTooltip.positionTooltip(tooltip, target);
-        expect(tooltip.style.left).toEqual('107px');
-        expect(tooltip.style.top).toEqual('90px');
-      });
-
-      describe('when the tooltip is offscreen', () => {
-        it('changes the toooltip position to "top" and alignment to "right"', () => {
-          rightTooltip.onShow();
-          jest.runTimersToTime(100);
-          const tooltip = rightTooltip.getTooltip();
-          const target = rightTooltip.getTarget();
-          const innerWidth = window.innerWidth;
-          window.innerWidth = 0;
-          rightTooltip.positionTooltip(tooltip, target);
-          expect(rightTooltip.state.tooltipPosition).toEqual('top');
-          expect(rightTooltip.state.tooltipAlign).toEqual('right');
-          window.innerWidth = innerWidth;
-        });
-      });
-
-      describe('when the pointer is aligned to the top', () => {
-        let topRightTooltip;
-
-        beforeEach(()  => {
-          let DecoratedClass = TooltipDecorator(BasicClass);
-          topRightTooltip = TestUtils.renderIntoDocument(
-            <DecoratedClass tooltipMessage='Hello' tooltipPosition='right' tooltipAlign='top'/>
-          );
-
-          spyOn(topRightTooltip, 'getTarget').and.returnValue(getTarget);
-
-          spyOn(topRightTooltip, 'getTooltip').and.returnValue(
-            {
-              offsetWidth: 100,
-              offsetHeight: 50,
-              style: { left: 0, top: 0},
-              children:
-                [
-                  { foo: 'bar' },
-                  {
-                    offsetHeight: 7
-                  }
-                ]
-            }
-          );
-        });
-
-        it('sets the correct top and left styles', () => {
-          topRightTooltip.onShow();
-          jest.runTimersToTime(100);
-          let alignedTooltip = topRightTooltip.getTooltip();
-          let target = topRightTooltip.getTarget();
-          topRightTooltip.positionTooltip(alignedTooltip, target);
-          expect(alignedTooltip.style.left).toEqual('107px');
-          expect(alignedTooltip.style.top).toEqual('100px');
-        });
-      });
-
-      describe('when the pointer is aligned to the bottom', () => {
-        let bottomRightTooltip;
-
-        beforeEach(()  => {
-          let DecoratedClass = TooltipDecorator(BasicClass);
-          bottomRightTooltip = shallow(
-            <DecoratedClass tooltipMessage='Hello' tooltipPosition='right' tooltipAlign='bottom'/>
-          ).instance();
-
-          spyOn(bottomRightTooltip, 'getTarget').and.returnValue(getTarget);
-
-          spyOn(bottomRightTooltip, 'getTooltip').and.returnValue(
-            {
-              offsetWidth: 100,
-              offsetHeight: 50,
-              style: { left: 0, top: 0},
-              children:
-                [
-                  { foo: 'bar' },
-                  {
-                    offsetHeight: 7
-                  }
-                ]
-            }
-          );
-        });
-
-        it('sets the correct top and left styles', () => {
-          bottomRightTooltip.onShow();
-          jest.runTimersToTime(100);
-          let alignedTooltip = bottomRightTooltip.getTooltip();
-          let target = bottomRightTooltip.getTarget();
-          bottomRightTooltip.positionTooltip(alignedTooltip, target);
-          expect(alignedTooltip.style.left).toEqual('107px');
-          expect(alignedTooltip.style.top).toEqual('80px');
-        });
-      });
-     });
-
-    describe('when positioned left of the target', () => {
-      beforeEach(()  => {
-        let DecoratedClass = TooltipDecorator(BasicClass);
-        leftTooltip = shallow(
-          <DecoratedClass tooltipMessage='Hello' tooltipPosition='left' />
-        ).instance();
-        spyOn(leftTooltip, 'getTarget').and.returnValue(getTarget);
-
-        spyOn(leftTooltip, 'getTooltip').and.returnValue(
-            {
-              offsetWidth: 100,
-              offsetHeight: 50,
-              style: {},
-              children:
-                [
-                  { foo: 'bar' },
-                  {
-                    offsetHeight: 7
-                  }
-                ]
-            }
-        );
-      });
-
-      it('sets the top and left styles', () => {
-        leftTooltip.onShow();
-        jest.runTimersToTime(100);
-        let tooltip = leftTooltip.getTooltip();
-        let target = leftTooltip.getTarget();
-        leftTooltip.positionTooltip(tooltip, target);
-        expect(tooltip.style.left).toEqual('-7px');
-        expect(tooltip.style.top).toEqual('90px');
-      });
-    });
-
-    describe('when isVisible is set to false', () => {
-      it('does not try to position the tooltip', () => {
-        spyOn(topTooltip, 'getTooltip')
-        topTooltip.onHide();
-        topTooltip.positionTooltip();
-        expect(topTooltip.getTooltip).not.toHaveBeenCalled();
-      });
-    });
-
-    describe('when there is no tooltip', () => {
-      it('hides the tooltip', () => {
-        noTooltip.onShow();
-        jest.runTimersToTime(100);
-        expect(noTooltip.state.isVisible).toBeFalsy();
-      });
-    });
-
-    describe('when there is no target', () => {
-      beforeEach(()  => {
-        spyOn(leftTooltip, 'getTarget').and.returnValue(null);
-        spyOn(leftTooltip, 'getTooltip').and.returnValue({
-          offsetWidth: 100,
-          offsetHeight: 50,
-          style: {},
-          children: [
-            { foo: 'bar' },
-            {
-              offsetHeight: 7
-            }
-          ]
-        });
-      });
-
-      it('hides the tooltip', () => {
-        leftTooltip.onShow();
-        jest.runTimersToTime(100);
-        expect(leftTooltip.state.isVisible).toBeFalsy();
-      });
+    it('hides the tooltip', () => {
+      topTooltip.onShow();
+      jest.runTimersToTime(100);
+      expect(topTooltip.state.isVisible).toBeFalsy();
     });
   });
 
@@ -684,3 +376,120 @@ describe('tooltip-decorator', () => {
     });
   });
 });
+
+// refactored tests
+describe('tooltip-decorator', () => {
+  describe.each([['top', '45px'], ['bottom', '105px']])('when the position prop is set to %s', (position, expectedVerticalValue) => {
+    describe.each([['left', '95px'], ['center', '65px'], ['right', '30px']])('and when the align prop is set to %s', (align, expectedHorizontalValue) => {
+      it('sets the correct "top" and "left" styles', () => {
+        const wrapper = render({
+          tooltipMessage: 'Hello',
+          tooltipPosition: position,
+          tooltipAlign: align
+        }, mount);
+        const tooltip = wrapper.find(Tooltip);
+  
+        expect(tooltip.getDOMNode().style.top).toBe(expectedVerticalValue);
+        expect(tooltip.getDOMNode().style.left).toBe(expectedHorizontalValue);
+      });
+    });
+  });
+
+  describe.each([['left', '-5px'], ['right', '105px']])('when the position prop is set to %s', (position, expectedHorizontalValue) => {
+    describe.each([['top', '100px'], ['center', '90px'], ['bottom', '80px']])('and when the align prop is set to %s', (align, expectedVerticalValue) => {
+      it('sets the correct "top" and "left" styles', () => {
+        const wrapper = render({
+          tooltipMessage: 'Hello',
+          tooltipPosition: position,
+          tooltipAlign: align
+        }, mount);
+        const tooltip = wrapper.find(Tooltip);
+  
+        expect(tooltip.getDOMNode().style.top).toBe(expectedVerticalValue);
+        expect(tooltip.getDOMNode().style.left).toBe(expectedHorizontalValue);
+      });
+    });
+  });
+
+  describe('when the tooltip is offscreen', () => {
+    const innerWidth = window.innerWidth;
+
+    beforeEach(() => {
+      window.innerWidth = 0;
+    });
+
+    describe('and positioned to the top with center align', () => {
+      it('realigns to the right', () => {
+        const wrapper = render({
+          tooltipMessage: 'Hello',
+          tooltipPosition: 'top',
+          tooltipAlign: 'center'
+        }, mount);
+        const tooltip = wrapper.find(Tooltip);
+        expect(tooltip.props().align).toBe('right');
+        window.innerWidth = innerWidth;
+      });
+    });
+
+    describe('and positioned to the right with center align', () => {
+      it('repositions to the top and realigns to the right', () => {
+        const wrapper = render({
+          tooltipMessage: 'Hello',
+          tooltipPosition: 'right',
+          tooltipAlign: 'center'
+        }, mount);
+        const tooltip = wrapper.find(Tooltip);
+        expect(tooltip.props().position).toBe('top');
+        expect(tooltip.props().align).toBe('right');
+      });
+    });
+
+    afterEach(() => {
+      window.innerWidth = innerWidth;
+    });
+  });
+
+  describe('when the tooltipVisible prop is set to false', () => {
+    it('then the tooltip should be not rendered', () => {
+      const wrapper = render({
+        tooltipMessage: 'Hello',
+        tooltipPosition: 'top',
+        tooltipAlign: 'center'
+      }, mount);
+      wrapper.setProps({ tooltipVisible: false });
+
+      const tooltip = wrapper.find(Tooltip);
+      expect(tooltip.exists()).toBe(false);
+    });
+  });
+});
+
+describe('tooltip-decorator Modern Themes', () => {
+  describe.each([['small'], ['medium'], ['large']])('when the size prop is set to %s', (size) => {
+    describe.each([
+      ['top', 'top'],
+      ['bottom', 'top'],
+      ['left', 'left'],
+      ['right', 'left']
+    ])('and when the position prop is set to %s', (position, styleProperty) => {
+      it(`sets the correct "${styleProperty}" style`, () => {
+        const wrapper = render({
+          size: size,
+          tooltipMessage: 'Hello',
+          tooltipPosition: position,
+          isThemeModern: true,
+          hasValidationTooltip: true
+        }, mount);
+        const tooltip = wrapper.find(Tooltip);
+
+        expect(tooltip.getDOMNode().style[styleProperty]).toBe(expecterModernThemesPositionValues[size][position]);
+      });
+    });
+  });
+})
+
+function render(props, renderer) {
+  const Decorated = TooltipDecorator(BasicClass);
+
+  return renderer(<Decorated tooltipVisible { ...props } />);
+};

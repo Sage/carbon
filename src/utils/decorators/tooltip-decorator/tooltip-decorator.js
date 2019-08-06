@@ -8,6 +8,7 @@ import chainFunctions from '../../helpers/chain-functions';
 import { styleElement } from '../../ether';
 import OptionsHelper from '../../helpers/options-helper';
 import calculatePosition from './calculate-position';
+import sizes from '../../../__experimental__/components/input/input-sizes.style';
 
 /**
  * TooltipDecorator.
@@ -87,7 +88,9 @@ const TooltipDecorator = (ComposedComponent) => {
     static propTypes = assign({}, ComposedComponent.propTypes, {
       tooltipMessage: PropTypes.node,
       tooltipPosition: PropTypes.oneOf(OptionsHelper.positions),
-      tooltipAlign: PropTypes.oneOf(OptionsHelper.alignAroundEdges)
+      tooltipAlign: PropTypes.oneOf(OptionsHelper.alignAroundEdges),
+      hasValidationTooltip: PropTypes.bool,
+      isThemeModern: PropTypes.bool
     });
 
     _showTooltipTimeout = null;
@@ -161,9 +164,6 @@ const TooltipDecorator = (ComposedComponent) => {
     }
 
     positionTooltip = () => {
-      if (!this.isVisible()) {
-        return;
-      }
       let topPosition, leftPosition;
       const tooltip = this.getTooltip();
       const target = this.getTarget();
@@ -172,7 +172,6 @@ const TooltipDecorator = (ComposedComponent) => {
         if (this.state.isVisible) this.setState({ isVisible: false });
         return;
       }
-
       const alignment = this.state.tooltipAlign || this.props.tooltipAlign || 'center';
       const position = this.state.tooltipPosition || this.props.tooltipPosition || 'top';
       const shifts = calculatePosition(tooltip, target);
@@ -183,11 +182,11 @@ const TooltipDecorator = (ComposedComponent) => {
       }
 
       if (position === 'top' || position === 'bottom') {
-        topPosition = shifts.tooltipDistances[position];
+        topPosition = shifts.tooltipDistances[position] + this.getTooltipDistanceOffset(position);
         leftPosition = shifts.vertical[alignment];
       } else {
         topPosition = shifts.horizontal[alignment];
-        leftPosition = shifts.tooltipDistances[position];
+        leftPosition = shifts.tooltipDistances[position] + this.getTooltipDistanceOffset(position);
       }
 
       styleElement(tooltip, 'top', `${topPosition}px`);
@@ -213,6 +212,25 @@ const TooltipDecorator = (ComposedComponent) => {
         this.setState({ tooltipPosition: 'top', tooltipAlign: 'right' });
       } else {
         this.setState({ tooltipAlign: 'right' });
+      }
+    }
+
+    getTooltipDistanceOffset = (position) => {
+      if (!this.props.isThemeModern || !this.props.hasValidationTooltip || !this.props.size) return 0;
+
+      const inputSizes = sizes[this.props.size];
+      const { tooltipTopOffset, tooltipRightOffset } = inputSizes;
+
+      switch (position) {
+        case 'top':
+          return -tooltipTopOffset;
+        case 'bottom':
+          return tooltipTopOffset;
+        case 'left':
+          return -tooltipRightOffset;
+        case 'right':
+        default:
+          return tooltipRightOffset;
       }
     }
 
