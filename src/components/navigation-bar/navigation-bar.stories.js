@@ -4,6 +4,12 @@ import { text, select } from '@storybook/addon-knobs';
 import NavigationBar from './navigation-bar';
 import notes from './notes.md';
 import './navigation-bar.stories.scss';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+NavigationBar.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /navigation-bar\.js(?!spec)/
+);
 
 storiesOf('Navigation Bar', module)
   .add('default', () => {

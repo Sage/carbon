@@ -6,6 +6,18 @@ import { Store, State } from '@sambego/storybook-state';
 import { Select, Option } from '.';
 import infoValidations from './documentation';
 import OptionsHelper from '../../../utils/helpers/options-helper';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
+import docgenInfo from './docgenInfo.json';
+
+Select.__docgenInfo = getDocGenInfo(
+  docgenInfo,
+  /select\.component(?!spec)/
+);
+
+Option.__docgenInfo = getDocGenInfo(
+  docgenInfo,
+  /option\.component(?!spec)/
+);
 
 const singleSelectStore = new Store({
   value: undefined

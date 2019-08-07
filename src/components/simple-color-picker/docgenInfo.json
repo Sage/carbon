@@ -1,0 +1,89 @@
+{
+  "src/components/simple-color-picker/simple-color-picker.js": [
+    {
+      "description": "",
+      "displayName": "SimpleColorPicker",
+      "methods": [
+        {
+          "name": "_isOptionChecked",
+          "docblock": "Returns true if the color passed as argument is currently\nchecked.\n\n@method isOptionChecked\n@private\n@return {Boolean}",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "color"
+            }
+          ],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "Boolean"
+            }
+          },
+          "description": "Returns true if the color passed as argument is currently\nchecked."
+        },
+        {
+          "name": "_colorOption",
+          "docblock": "Returns a ColorOption component for a given color\n\n@method colorOption\n@private\n@return {Object} JSX",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "color"
+            }
+          ],
+          "returns": {
+            "description": "JSX",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Returns a ColorOption component for a given color"
+        },
+        {
+          "name": "_colorOptions",
+          "docblock": "Returns ColorOption components for all available colors.\n\n@method colorOptions\n@private\n@return {Object} JSX",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": "JSX",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Returns ColorOption components for all available colors."
+        }
+      ],
+      "props": {
+        "availableColors": {
+          "type": {
+            "name": "array"
+          },
+          "required": false,
+          "description": "An array of color choices to display."
+        },
+        "selectedColor": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The currently selected color."
+        },
+        "name": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The name to apply to the input."
+        },
+        "onChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A callback triggered when a color is selected."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "src/components/multi-action-button/multi-action-button.component.js": [
+    {
+      "description": "",
+      "displayName": "MultiActionButton",
+      "methods": [
+        {
+          "name": "renderMainButton",
+          "docblock": "Returns the HTML for the main button.\n@override\n\n@method renderMainButton\n@return {Object}",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Returns the HTML for the main button."
+        },
+        {
+          "name": "componentTags",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        }
+      ],
+      "props": {
+        "as": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Customizes the appearance, can be set to 'primary', 'secondary' or 'transparent'."
+        },
+        "text": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": "The text to be displayed in the SplitButton."
+        },
+        "disabled": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Gives the button a disabled state."
+        },
+        "data-element": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A custom value for the data-element attribute"
+        },
+        "data-role": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A custom value for the data-element attribute"
+        },
+        "align": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Aligns the button's options, can be set to `right`."
+        }
+      }
+    }
+  ]
+}

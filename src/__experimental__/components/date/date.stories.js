@@ -10,6 +10,17 @@ import DateInput from './date.component';
 import Textbox from '../textbox';
 import getCommonTextboxStoryProps from '../textbox/textbox.stories';
 import { notes, info, infoValidations } from './documentation';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
+
+DateInput.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /date\.component(?!spec)/
+);
+
+Textbox.__docgenInfo = getDocGenInfo(
+  require('../textbox/docgenInfo.json'),
+  /textbox\.component(?!spec)/
+);
 
 const store = new Store(
   {

@@ -4,6 +4,17 @@ import { text, boolean, select } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { Row, Column } from './row';
 import { notes, info } from './documentation';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Row.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /row\.js(?!spec)/
+);
+
+Column.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /column\.js(?!spec)/
+);
 
 storiesOf('Row', module).add(
   'default',

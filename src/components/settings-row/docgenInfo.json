@@ -1,0 +1,81 @@
+{
+  "src/components/settings-row/settings-row.js": [
+    {
+      "description": "",
+      "displayName": "SettingsRow",
+      "methods": [
+        {
+          "name": "classes",
+          "docblock": "Return class names\n\n@method  classes\n@return  {String}",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "String"
+            }
+          },
+          "description": "Return class names"
+        },
+        {
+          "name": "heading",
+          "docblock": "Return heading\n\n@method  heading\n@return  {Object}  JSX",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": "JSX",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Return heading"
+        }
+      ],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "This component supports children."
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The CSS classes to apply to the component."
+        },
+        "title": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A title for this group of settings."
+        },
+        "description": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "A string or JSX object that provides a short description about the group of settings."
+        },
+        "divider": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Shows a divider below the component.",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        }
+      }
+    }
+  ]
+}

@@ -3,6 +3,12 @@ import { storiesOf } from '@storybook/react';
 import { boolean, text, number } from '@storybook/addon-knobs';
 import Preview from './preview.component';
 import info from './documentation';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Preview.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /preview\.component(?!spec)/
+);
 
 storiesOf('Preview', module).add(
   'default',

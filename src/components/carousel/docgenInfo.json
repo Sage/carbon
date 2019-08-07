@@ -1,0 +1,275 @@
+{
+  "src/components/carousel/carousel.component.js": [
+    {
+      "description": "",
+      "displayName": "Carousel",
+      "methods": [
+        {
+          "name": "onPreviousClick",
+          "docblock": "Handles clicking on the previous button",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Handles clicking on the previous button"
+        },
+        {
+          "name": "onNextClick",
+          "docblock": "Handles clicking on the next button",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Handles clicking on the next button"
+        },
+        {
+          "name": "onSlideSelection",
+          "docblock": "Handles clicking slide selector",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev"
+            }
+          ],
+          "returns": null,
+          "description": "Handles clicking slide selector"
+        },
+        {
+          "name": "verifyNewIndex",
+          "docblock": "Verifies the new index and corrects it if necessary",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "newIndex"
+            }
+          ],
+          "returns": null,
+          "description": "Verifies the new index and corrects it if necessary"
+        },
+        {
+          "name": "handleSlideChange",
+          "docblock": "Handle the slide change to the newIndex",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "newIndex"
+            }
+          ],
+          "returns": null,
+          "description": "Handle the slide change to the newIndex"
+        },
+        {
+          "name": "enableButtonsAfterTimeout",
+          "docblock": "Re-enables the next and previous buttons after timeout",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Re-enables the next and previous buttons after timeout"
+        },
+        {
+          "name": "previousButtonProps",
+          "docblock": "Gets the props for the previous button",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Gets the props for the previous button"
+        },
+        {
+          "name": "nextButtonProps",
+          "docblock": "Gets the props for the next button",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Gets the props for the next button"
+        },
+        {
+          "name": "numOfSlides",
+          "docblock": "Gets the number of slides",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Gets the number of slides"
+        },
+        {
+          "name": "visibleSlide",
+          "docblock": "Gets the currently visible slide",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Gets the currently visible slide"
+        },
+        {
+          "name": "visibleSlides",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "slideSelector",
+          "docblock": "Renders the slideSelector footer",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Renders the slideSelector footer"
+        },
+        {
+          "name": "previousButton",
+          "docblock": "Renders the previous button",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Renders the previous button"
+        },
+        {
+          "name": "nextButton",
+          "docblock": "Renders the next button",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Renders the next button"
+        },
+        {
+          "name": "transitionName",
+          "docblock": "Returns the current transition name",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Returns the current transition name"
+        }
+      ],
+      "props": {
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "[legacy] Custom className"
+        },
+        "initialSlideIndex": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "number"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "The selected tab on page load",
+          "defaultValue": {
+            "value": "0",
+            "computed": false
+          }
+        },
+        "slideIndex": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "number"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "The selected slide"
+        },
+        "children": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "array"
+              },
+              {
+                "name": "object"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Individual tabs"
+        },
+        "enableSlideSelector": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Enables the slide selector",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "enablePreviousButton": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Enables the previous button",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "enableNextButton": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Enables the next button",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "onSlideChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Action to be called on slide change"
+        },
+        "transition": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Controls which transition to use.",
+          "defaultValue": {
+            "value": "'slide'",
+            "computed": false
+          }
+        },
+        "theme": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "theme is used only to support legacy code",
+          "defaultValue": {
+            "value": "baseTheme",
+            "computed": true
+          }
+        }
+      }
+    }
+  ],
+  "src/components/carousel/carousel.stories.js": [
+    {
+      "description": "",
+      "displayName": "ExampleCustomElement",
+      "methods": []
+    }
+  ],
+  "src/components/carousel/slide/slide.component.js": [
+    {
+      "description": "",
+      "displayName": "Slide",
+      "methods": []
+    }
+  ]
+}
