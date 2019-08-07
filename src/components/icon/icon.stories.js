@@ -53,7 +53,13 @@ storiesOf('Icon', module)
       knobs: { escapeHTML: false }
     }
   )
-  .add('default', () => <Icon { ...commonKnobs() } { ...dlsKnobs() } />, {
+  .add('default', () => {
+    const props = dlsKnobs();
+
+    if (props.iconColor === 'on-dark-background') props.bgTheme = 'info';
+
+    return <Icon { ...commonKnobs() } { ...props } />;
+  }, {
     info: { text: Info },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
