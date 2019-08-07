@@ -47,6 +47,11 @@ export default (palette) => {
       invalid: palette.slateTint(95)
     },
 
+    carousel: {
+      activeSelectorBackground: palette.slateTint(40),
+      inactiveSelectorBackground: palette.slateTint(80)
+    },
+
     help: {
       color: blackWithOpacity(0.65),
       hover: blackWithOpacity(0.9)
