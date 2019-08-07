@@ -7,6 +7,10 @@ export default ({ theme, bgTheme, isFont }) => isClassic(theme) && css`
 
   ${bgTheme && css`
     background-color: ${classicConfig.backgroundColor[bgTheme]};
+    &:hover {
+      color: ${theme.icon.defaultHover};
+      background-color: ${classicConfig.backgroundColor[bgTheme]};
+    }
   `}
 
   ${isFont && css`
