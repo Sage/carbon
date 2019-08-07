@@ -5,6 +5,12 @@ import { Store, State } from '@sambego/storybook-state';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { RadioButton } from '../../__experimental__/components/radio-button';
 import { notes, info } from './documentation';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+RadioButton.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /radio-button(?!spec)/
+);
 
 const radioButtonsStore = new Store({
   selectedButton: ''

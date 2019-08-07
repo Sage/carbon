@@ -1,0 +1,32 @@
+{
+  "src/components/create/create.component.js": [
+    {
+      "description": "",
+      "displayName": "Create",
+      "methods": [],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Children elements"
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Custom className"
+        },
+        "linkProps": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "Props for the link"
+        }
+      }
+    }
+  ]
+}

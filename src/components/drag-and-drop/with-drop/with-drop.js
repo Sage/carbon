@@ -8,9 +8,6 @@ class WithDrop extends React.Component {
   static propTypes = {
     /**
      * The component that will have drop enabled
-     *
-     * @property children
-     * @type {Object}
      */
     children: PropTypes.node.isRequired,
 

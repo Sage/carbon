@@ -1,0 +1,100 @@
+{
+  "src/components/tooltip/tooltip.component.js": [
+    {
+      "description": "",
+      "displayName": "Tooltip",
+      "methods": [
+        {
+          "name": "tooltipHTML",
+          "docblock": null,
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null
+        }
+      ],
+      "props": {
+        "align": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.alignAroundEdges"
+          },
+          "required": false,
+          "description": "Sets alignment of pointer on tooltip",
+          "defaultValue": {
+            "value": "'center'",
+            "computed": false
+          }
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Children elements"
+        },
+        "id": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The id attribute to use for the tooltip"
+        },
+        "isVisible": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Whether to to show the Tooltip",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "position": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.positions"
+          },
+          "required": false,
+          "description": "Sets position of the tooltip",
+          "defaultValue": {
+            "value": "'top'",
+            "computed": false
+          }
+        },
+        "onMouseEnter": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Sets a onMouseEnter function"
+        },
+        "onMouseLeave": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Sets a onMouseLeave function"
+        },
+        "type": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Defines the message type"
+        }
+      }
+    }
+  ],
+  "src/components/tooltip/tooltip.stories.js": [
+    {
+      "description": "",
+      "displayName": "content",
+      "methods": []
+    }
+  ]
+}

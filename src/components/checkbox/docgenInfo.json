@@ -1,0 +1,153 @@
+{
+  "src/components/checkbox/checkbox.js": [
+    {
+      "description": "",
+      "displayName": "Checkbox",
+      "methods": [],
+      "props": {
+        "checked": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Set the value of the checkbox"
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "When provided will replace the checkbox sprite."
+        },
+        "fieldHelpInline": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Displays fieldHelp inline with the checkbox"
+        },
+        "reverse": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Reverses label and checkbox display"
+        },
+        "value": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Set the value of the checkbox"
+        },
+        "deferTimeout": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Integer to determine timeout for defered callback. Default: 750"
+        },
+        "onChangeDeferred": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Defered callback called after onChange event"
+        },
+        "label": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Either a string or false to turn the label off"
+        },
+        "labelInline": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Pass true to format the input/label inline"
+        },
+        "labelWidth": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "number"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Pass a percentage to define the width of the label when it\n is displayed inline."
+        },
+        "labelAlign": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Aligns label content to the right if set"
+        },
+        "labelHelp": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Text applied to tooptip of help icon"
+        },
+        "inputWidth": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "number"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Pass a percentage to define the width of the label when it\n is displayed inline"
+        },
+        "fieldHelp": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "A string representing a help message"
+        },
+        "validations": {
+          "type": {
+            "name": "array"
+          },
+          "required": false,
+          "description": "Array of validations to apply to this input"
+        },
+        "warnings": {
+          "type": {
+            "name": "array"
+          },
+          "required": false,
+          "description": "Array of warnings to apply to this input"
+        },
+        "info": {
+          "type": {
+            "name": "array"
+          },
+          "required": false,
+          "description": "Array of info to apply to this input"
+        },
+        "timeToDisappear": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Number which sets timing of when the message will disappear\nExpected time is set in miliseconds"
+        }
+      }
+    }
+  ]
+}

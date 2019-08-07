@@ -1,0 +1,317 @@
+{
+  "src/components/portrait/portrait-gravatar.component.js": [
+    {
+      "description": "",
+      "displayName": "PortraitGravatar",
+      "methods": [
+        {
+          "name": "gravatarSrc",
+          "docblock": "Generates the Gravatar URL for the specified email address and dimensions.",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Generates the Gravatar URL for the specified email address and dimensions."
+        }
+      ],
+      "props": {
+        "theme": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "The theme to use.",
+          "defaultValue": {
+            "value": "BaseTheme",
+            "computed": true
+          }
+        },
+        "gravatarEmail": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": "The user's email address for the Gravatar."
+        },
+        "size": {
+          "type": {
+            "name": "enum",
+            "value": [
+              {
+                "value": "...OptionsHelper.sizesFull",
+                "computed": true
+              },
+              {
+                "value": "...OptionsHelper.sizesPortrait",
+                "computed": true
+              }
+            ]
+          },
+          "required": true,
+          "description": "The size of the Gravatar."
+        },
+        "shape": {
+          "type": {
+            "name": "enum",
+            "value": [
+              {
+                "value": "...OptionsHelper.shapesVaried",
+                "computed": true
+              },
+              {
+                "value": "...OptionsHelper.shapesPortrait",
+                "computed": true
+              }
+            ]
+          },
+          "required": false,
+          "description": "The shape of the Gravatar.",
+          "defaultValue": {
+            "value": "'square'",
+            "computed": false
+          }
+        },
+        "alt": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The `alt` HTML string."
+        },
+        "errorCallback": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A callback to execute if the Gravatar image fails to load."
+        }
+      }
+    }
+  ],
+  "src/components/portrait/portrait-initials.component.js": [
+    {
+      "description": "",
+      "displayName": "PortraitInitials",
+      "methods": [
+        {
+          "name": "generateDataUrl",
+          "docblock": "Generates a graphic with initials.",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Generates a graphic with initials."
+        },
+        {
+          "name": "applyBackground",
+          "docblock": "Applies the background colour to the canvas.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "canvasContext"
+            },
+            {
+              "name": "dimensions"
+            },
+            {
+              "name": "bgColor"
+            }
+          ],
+          "returns": null,
+          "description": "Applies the background colour to the canvas."
+        },
+        {
+          "name": "applyText",
+          "docblock": "Applies the initials text to the canvas.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "canvasContext"
+            },
+            {
+              "name": "dimensions"
+            },
+            {
+              "name": "textColor"
+            }
+          ],
+          "returns": null,
+          "description": "Applies the initials text to the canvas."
+        }
+      ],
+      "props": {
+        "theme": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "The theme to use.",
+          "defaultValue": {
+            "value": "BaseTheme",
+            "computed": true
+          }
+        },
+        "initials": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": "The user's initials to render."
+        },
+        "size": {
+          "type": {
+            "name": "enum",
+            "value": [
+              {
+                "value": "...OptionsHelper.sizesFull",
+                "computed": true
+              },
+              {
+                "value": "...OptionsHelper.sizesPortrait",
+                "computed": true
+              }
+            ]
+          },
+          "required": true,
+          "description": "The size of the initials image."
+        },
+        "darkBackground": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Use a dark background."
+        },
+        "shape": {
+          "type": {
+            "name": "enum",
+            "value": [
+              {
+                "value": "...OptionsHelper.shapesVaried",
+                "computed": true
+              },
+              {
+                "value": "...OptionsHelper.shapesPortrait",
+                "computed": true
+              }
+            ]
+          },
+          "required": false,
+          "description": "The shape of the Portrait.",
+          "defaultValue": {
+            "value": "'square'",
+            "computed": false
+          }
+        },
+        "alt": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The `alt` HTML string."
+        }
+      }
+    }
+  ],
+  "src/components/portrait/portrait.component.js": [
+    {
+      "description": "",
+      "displayName": "Portrait",
+      "methods": [
+        {
+          "name": "externalImageLoadFailed",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        }
+      ],
+      "props": {
+        "size": {
+          "type": {
+            "name": "enum",
+            "value": [
+              {
+                "value": "...OptionsHelper.sizesFull",
+                "computed": true
+              },
+              {
+                "value": "...OptionsHelper.sizesPortrait",
+                "computed": true
+              }
+            ]
+          },
+          "required": false,
+          "description": "The size of the Portrait.",
+          "defaultValue": {
+            "value": "'M'",
+            "computed": false
+          }
+        },
+        "src": {
+          "type": {
+            "name": "custom",
+            "raw": "(props) => {\n  if (props.src && typeof props.src !== 'string') {\n    throw new Error(\n      `Invalid prop \\`src\\` of type \\`${typeof props.src}\\` supplied to \\`Portrait\\`, expected \\`string\\`.`\n    );\n  } else if (props.gravatar && props.src) {\n    throw new Error('Portrait requires a prop of \"src\" or \"gravatar\" but not both');\n  }\n}"
+          },
+          "required": false,
+          "description": "A custom image URL."
+        },
+        "gravatar": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "An email address registered with Gravatar."
+        },
+        "alt": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The `alt` HTML string.",
+          "defaultValue": {
+            "value": "''",
+            "computed": false
+          }
+        },
+        "shape": {
+          "type": {
+            "name": "enum",
+            "value": [
+              {
+                "value": "...OptionsHelper.shapesVaried",
+                "computed": true
+              },
+              {
+                "value": "...OptionsHelper.shapesPortrait",
+                "computed": true
+              }
+            ]
+          },
+          "required": false,
+          "description": "The shape of the Portrait.",
+          "defaultValue": {
+            "value": "'square'",
+            "computed": false
+          }
+        },
+        "initials": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The initials to render in the Portrait."
+        },
+        "darkBackground": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Use a dark background.",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        }
+      }
+    }
+  ]
+}

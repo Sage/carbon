@@ -5,6 +5,18 @@ import { action } from '@storybook/addon-actions';
 import { cloneDeep } from 'lodash';
 import notes from './documentation';
 import { ConfigurableItems, ConfigurableItemRow } from '.';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+const ConfigurableItemsWrapper = () => (<ConfigurableItems />);
+ConfigurableItemsWrapper.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /configurable-items\.component(?!spec)/
+);
+
+ConfigurableItemRow.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /configurable-item-row\.component(?!spec)/
+);
 
 const defaultConfigurableItemsData = [
   {
@@ -70,14 +82,9 @@ const rows = data => data.map((column, rowIndex) => {
 });
 
 storiesOf('Configurable Items', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [State]
-    }
-  })
   .add('default', () => {
     return (
-      <ConfigurableItems
+      <ConfigurableItemsWrapper
         onDrag={ handleDrag }
         onCancel={ action('canceled') }
         onReset={ handleReset }
@@ -88,9 +95,12 @@ storiesOf('Configurable Items', module)
             rows(state.configurableItemsData)
           ]}
         </State>
-      </ConfigurableItems>
+      </ConfigurableItemsWrapper>
     );
   },
   {
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    info: {
+      propTablesExclude: [State]
+    }
   });

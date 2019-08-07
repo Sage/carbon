@@ -7,6 +7,8 @@ import { ThemeProvider } from 'styled-components';
 import notes from './documentation';
 import BaseCarousel, { Carousel, Slide } from './carousel.component';
 import classic from '../../style/themes/classic';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+import docgenInfo from './docgenInfo.json';
 
 const styleElement = {
   height: '400px',
@@ -24,10 +26,14 @@ const ExampleCustomElement = (props) => {
   );
 };
 
+BaseCarousel.__docgenInfo = getDocGenInfo(
+  docgenInfo,
+  /carousel(?!spec)/
+);
 storiesOf('Carousel', module)
   .addParameters({
     info: {
-      propTablesExclude: [Slide, Carousel, ExampleCustomElement],
+      propTablesExclude: [Slide, Carousel, ExampleCustomElement, ThemeProvider],
       propTables: [BaseCarousel]
     }
   })

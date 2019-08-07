@@ -1,0 +1,322 @@
+{
+  "src/components/show-edit-pod/show-edit-pod.js": [
+    {
+      "description": "",
+      "displayName": "ShowEditPod",
+      "methods": [
+        {
+          "name": "onEdit",
+          "docblock": "Called when the edit button is clicked\nEmits callback when present\n\n@method onEdit",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev"
+            }
+          ],
+          "returns": null,
+          "description": "Called when the edit button is clicked\nEmits callback when present"
+        },
+        {
+          "name": "onSaveEditForm",
+          "docblock": "Emits the afterFormValidation Callback\nwhen valid\n\n@method onSaveEditForm",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev"
+            },
+            {
+              "name": "valid"
+            }
+          ],
+          "returns": null,
+          "description": "Emits the afterFormValidation Callback\nwhen valid"
+        },
+        {
+          "name": "onCancelEditForm",
+          "docblock": "Emits the onCancel Callback\n\n@method onCancelEditForm",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev"
+            }
+          ],
+          "returns": null,
+          "description": "Emits the onCancel Callback"
+        },
+        {
+          "name": "onKeyDown",
+          "docblock": "Handles key down events\n\n@method onKeyDown\n@return {Void}",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev"
+            }
+          ],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "Void"
+            }
+          },
+          "description": "Handles key down events"
+        },
+        {
+          "name": "stateControlled",
+          "docblock": "True if the component is controlled by state\n\n@method stateControlled\n@return {Boolean}",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "Boolean"
+            }
+          },
+          "description": "True if the component is controlled by state"
+        },
+        {
+          "name": "mainClasses",
+          "docblock": "Returns classes for top level div\n\n@method mainClasses",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns classes for top level div"
+        },
+        {
+          "name": "deleteButton",
+          "docblock": "Returns the delete button\n\n@method mainClasses",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns the delete button"
+        },
+        {
+          "name": "editContent",
+          "docblock": "Get the content for when the component is in edit mode\n\n@method editContent",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Get the content for when the component is in edit mode"
+        },
+        {
+          "name": "content",
+          "docblock": "Determines the content to render\n\n@method content",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Determines the content to render"
+        },
+        {
+          "name": "contentProps",
+          "docblock": "Determines props for show content\n\n@method content",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Determines props for show content"
+        },
+        {
+          "name": "editingProps",
+          "docblock": "Determines props for edit content\n\n@method content",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Determines props for edit content"
+        },
+        {
+          "name": "podProps",
+          "docblock": "Determines which props to return\n\n@method content",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Determines which props to return"
+        },
+        {
+          "name": "__focusOnPod",
+          "docblock": "Focuses on the pod component.\n\n@method __focusOnPod",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Focuses on the pod component."
+        }
+      ],
+      "props": {
+        "as": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A theme for the Pod.",
+          "defaultValue": {
+            "value": "'transparent'",
+            "computed": false
+          }
+        },
+        "border": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Enable/disable the border on the Pod.",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "This component supports children."
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Classes to apply to the component."
+        },
+        "editing": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Allows developers to control the editing state manually."
+        },
+        "onEdit": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Callback when edit button is clicked."
+        },
+        "onDelete": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A callback triggered when the delete action is clicked."
+        },
+        "editFields": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Define fields to be rendered in the edit state"
+        },
+        "transitionName": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Define a custom transition between show and edit states",
+          "defaultValue": {
+            "value": "'carbon-show-edit-pod__transition'",
+            "computed": false
+          }
+        },
+        "afterFormValidation": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A callback triggered after the validation has been ran on the form"
+        },
+        "beforeFormValidation": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A callback triggered before the validation has been ran on the form"
+        },
+        "buttonAlign": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Controls which direction the form buttons align",
+          "defaultValue": {
+            "value": "'right'",
+            "computed": false
+          }
+        },
+        "cancel": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Set to false to hide the cancel button",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "cancelText": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Supply custom text for the cancel button"
+        },
+        "onCancel": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A callback triggered when the form is cancelled"
+        },
+        "saveText": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Supply custom text for the save button"
+        },
+        "deleteText": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Supply custom text for the delete button"
+        },
+        "saving": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Can inform if the form is in a saving state (disables the save button)",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "validateOnMount": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Determines if validation should be ran on mount of the component",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        }
+      }
+    }
+  ]
+}

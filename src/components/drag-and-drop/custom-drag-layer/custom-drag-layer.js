@@ -18,9 +18,6 @@ class CustomDragLayer extends React.Component {
   static propTypes = {
     /**
      * The dom node being dragged.
-     *
-     * @property draggableNode
-     * @type {Node|Object}
      */
     draggableNode: PropTypes.oneOfType([
       PropTypes.object,
@@ -29,9 +26,6 @@ class CustomDragLayer extends React.Component {
 
     /**
      * Determine if the component is being dragged or not.
-     *
-     * @property isDragging
-     * @type {Boolean}
      */
     /* ESLint is not detecting that the prop is called via nextProps */
     /* eslint-disable react/no-unused-prop-types */

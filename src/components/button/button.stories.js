@@ -7,6 +7,12 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, Info, InfoClassic } from './documentation';
 import Button, { OriginalButton } from '.';
 import classic from '../../style/themes/classic';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+OriginalButton.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /button\.component(?!spec)/
+);
 
 const getIconKnobs = () => {
   const defaultPosition = Button.defaultProps.iconPosition;

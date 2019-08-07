@@ -1,0 +1,39 @@
+{
+  "src/components/rainbow/rainbow.component.js": [
+    {
+      "description": "",
+      "displayName": "Rainbow",
+      "methods": [],
+      "props": {
+        "title": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Supply a custom title for the chart."
+        },
+        "data": {
+          "type": {
+            "name": "object"
+          },
+          "required": true,
+          "description": "Supply data for the chart."
+        },
+        "config": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "Supply a custom config object to the Highcharts."
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "[legacy] Classes to apply to the component."
+        }
+      }
+    }
+  ]
+}
