@@ -185,7 +185,7 @@ class FormWithoutValidations extends React.Component {
   /* CSRF values for request */
   csrfValues = { ...calculateCsrfValues(this._document) };
 
-  /* Service instacne to make post request */
+  /* Service instance to make post request */
   _service = new Service();
 
   /* Handles submit and runs validation. */

@@ -7,11 +7,7 @@ import { isClassic } from '../../utils/helpers/style-helper';
 import baseTheme from '../../style/themes/base';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
-
-const applyButtonLeftMargin = ({ theme }) => {
-  if (isClassic(theme)) return 'margin-left: 15px;';
-  return 'margin-left: 16px;';
-};
+const applyButtonLeftMargin = ({ theme }) => ((isClassic(theme)) ? 'margin-left: 15px;' : 'margin-left: 16px;');
 
 export const StyledAdditionalFormAction = styled.div`
   ${({ type }) => type && css`
