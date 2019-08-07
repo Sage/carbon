@@ -51,8 +51,9 @@ describe('Icon component', () => {
       'white-tick'
     ];
 
-    describe('renderIcon', () => {
-      icons.forEach((icon) => {
+    describe.each(icons)(
+      'renderIcon',
+      (icon) => {
         it(`calls the render ${icon} icon method`, () => {
           instance = TestUtils.renderIntoDocument(<Icon type={ icon } />);
           // eslint-disable-next-line no-unused-expressions
@@ -61,39 +62,53 @@ describe('Icon component', () => {
           svg = span.children[0];
           expect(svg.getAttribute('class')).toEqual(`carbon-icon__svg--${icon}`);
         });
-      });
-    });
+      }
+    );
   });
 
-  describe('mismatched pairs of props and icons retrieved', () => {
-    const mismatchedPairs = [
-      { prop: 'help', rendersAs: 'question' },
-      { prop: 'maintenance', rendersAs: 'settings' },
-      { prop: 'new', rendersAs: 'gift' },
-      { prop: 'success', rendersAs: 'tick' }
-    ];
+  const mismatchedPairs = [
+    { prop: 'help', rendersAs: 'question' },
+    { prop: 'maintenance', rendersAs: 'settings' },
+    { prop: 'new', rendersAs: 'gift' },
+    { prop: 'success', rendersAs: 'tick' }
+  ];
 
-    mismatchedPairs.forEach((mismatchedPair) => {
+  describe.each(mismatchedPairs)(
+    'mismatched pairs of props and icons retrieved',
+    (mismatchedPair) => {
       it(`renders ${mismatchedPair.prop} as ${mismatchedPair.rendersAs}`, () => {
         const wrapper = render({ type: mismatchedPair.prop });
         expect(wrapper.find(`[data-element="${mismatchedPair.rendersAs}"]`)).toBeTruthy();
       });
-    });
-  });
+    }
+  );
 
-  describe('when in classic theme', () => {
-    OptionsHelper.colors.forEach((bgTheme) => {
+  describe.each(OptionsHelper.colors)(
+    'when in classic theme',
+    (bgTheme) => {
       it(`applies proper background color for ${bgTheme}`, () => {
-        const wrapper = renderStyles({ theme: classicTheme, bgTheme });
+        const wrapper = renderStyles({ theme: classicTheme, bgTheme, isFont: true });
         assertStyleMatch(
           {
             backgroundColor: classicConfig.backgroundColor[bgTheme]
           },
           wrapper.toJSON()
         );
+
+        assertStyleMatch(
+          {
+            fontSize: '16px',
+            fontStyle: 'normal',
+            fontWeight: 'normal',
+            lineHeight: '16px',
+            verticalAlign: 'middle'
+          },
+          wrapper.toJSON(),
+          { modifier: '&::before' }
+        );
       });
-    });
-  });
+    }
+  );
 
   describe('with custom class name', () => {
     it('renders with a custom classname', () => {
@@ -101,6 +116,7 @@ describe('Icon component', () => {
       expect(wrapper.find('.testClass').length).toEqual(1);
     });
   });
+
 
   describe('icon color', () => {
     it('renders proper icon color for disabled state', () => {
@@ -113,37 +129,43 @@ describe('Icon component', () => {
       );
     });
 
-    ['error', 'info', 'business'].forEach((whiteIconBackground) => {
-      it(`renders white icon on ${whiteIconBackground}`, () => {
-        const wrapper = renderStyles({ bgTheme: whiteIconBackground });
-        assertStyleMatch(
-          {
-            color: baseTheme.colors.white
-          },
-          wrapper.toJSON()
-        );
-      });
-    });
+    describe.each(['error', 'info', 'business'])(
+      'whent the background theme is %s',
+      (whiteIconBackground) => {
+        it('renders a white icon', () => {
+          const wrapper = renderStyles({ bgTheme: whiteIconBackground });
+          assertStyleMatch(
+            {
+              color: baseTheme.colors.white
+            },
+            wrapper.toJSON()
+          );
+        });
+      }
+    );
 
-    ['success', 'warning'].forEach((darkIconBackground) => {
-      it(`renders dark icon on ${darkIconBackground}`, () => {
-        const wrapper = renderStyles({ bgTheme: darkIconBackground });
-        assertStyleMatch(
-          {
-            color: baseTheme.icon.default
-          },
-          wrapper.toJSON()
-        );
+    describe.each(['success', 'warning'])(
+      'when the background theme is %s',
+      (darkIconBackground) => {
+        it('renders a dark icon', () => {
+          const wrapper = renderStyles({ bgTheme: darkIconBackground });
+          assertStyleMatch(
+            {
+              color: baseTheme.icon.default
+            },
+            wrapper.toJSON()
+          );
 
-        assertStyleMatch(
-          {
-            color: baseTheme.icon.defaultHover
-          },
-          wrapper.toJSON(),
-          { modifier: ':hover' }
-        );
-      });
-    });
+          assertStyleMatch(
+            {
+              color: baseTheme.icon.defaultHover
+            },
+            wrapper.toJSON(),
+            { modifier: ':hover' }
+          );
+        });
+      }
+    );
 
     describe('when bgTheme is set to none', () => {
       it('renders white icon when iconColor is set to onDarkBackground', () => {
@@ -219,8 +241,9 @@ describe('Icon component', () => {
       });
     });
 
-    describe('when bgTheme is set to one of the statuses', () => {
-      ['info', 'error', 'success', 'warning'].forEach((status) => {
+    describe.each(['info', 'error', 'success', 'warning'])(
+      'when bgTheme is set to one of the statuses',
+      (status) => {
         const wrapper = renderStyles({ bgTheme: status });
         const hoverColors = {
           info: '#005C9B',
@@ -244,8 +267,8 @@ describe('Icon component', () => {
             { modifier: ':hover' }
           );
         });
-      });
-    });
+      }
+    );
 
     describe('when bgTheme is set to business', () => {
       const wrapper = renderStyles({ bgTheme: 'business' });
@@ -278,8 +301,9 @@ describe('Icon component', () => {
       });
     });
 
-    describe('with bgSize prop provided', () => {
-      OptionsHelper.sizesRestricted.forEach((size) => {
+    describe.each(OptionsHelper.sizesRestricted)(
+      'with bgSize prop provided',
+      (size) => {
         it(`renders in the proper size for ${size}`, () => {
           const wrapper = renderStyles({ theme: classicTheme, bgSize: size });
           assertStyleMatch(
@@ -290,12 +314,13 @@ describe('Icon component', () => {
             wrapper.toJSON()
           );
         });
-      });
-    });
+      }
+    );
   });
 
-  describe('background shape', () => {
-    OptionsHelper.shapes.forEach((shape) => {
+  describe.each(OptionsHelper.shapes)(
+    'background shape',
+    (shape) => {
       it(`renders in the proper size for ${shape}`, () => {
         const wrapper = renderStyles({ theme: classicTheme, bgShape: shape });
         assertStyleMatch(
@@ -305,8 +330,8 @@ describe('Icon component', () => {
           wrapper.toJSON()
         );
       });
-    });
-  });
+    }
+  );
 
   describe('when passed a tooltipMessage', () => {
     it('renders a tooltip', () => {

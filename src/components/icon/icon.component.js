@@ -41,16 +41,7 @@ const Icon = TooltipDecorator(
 
     /** Return component props */
     get componentProps() {
-      const { ...props } = validProps(this);
-
-      delete props.className;
-      delete props.bgSize;
-      delete props.bgShape;
-      delete props.bgTheme;
-      delete props.tooltipType;
-      delete props.tooltipVisible;
-
-      return props;
+      return validProps(this);
     }
 
     /** Return Icon type with overrides */
