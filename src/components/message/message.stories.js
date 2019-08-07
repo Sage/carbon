@@ -5,6 +5,12 @@ import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation';
 import Message from './message.component';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Message.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /message\.component(?!spec)/
+);
 
 storiesOf('Message', module).add(
   'default',

@@ -9,6 +9,12 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import { isClassic } from '../../utils/helpers/style-helper';
 import classic from '../../style/themes/classic';
 import { notes, Info } from './documentation';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Pill.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /pill\.component(?!spec)/
+);
 
 const getStatusKnobs = () => {
   const pillRole = select('pillRole', [...OptionsHelper.pillRoles], 'tag');
@@ -60,7 +66,11 @@ storiesOf('Pill', module)
       </ThemeProvider>
     );
   }, {
-    info: { Pill, text: Info },
+    info: {
+      Pill,
+      text: Info,
+      propTablesExclude: [ThemeProvider]
+    },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
   }).add('default', () => {

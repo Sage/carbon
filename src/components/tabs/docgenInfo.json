@@ -1,0 +1,561 @@
+{
+  "src/components/tabs/tab/tab.component.js": [
+    {
+      "description": "",
+      "displayName": "Tab",
+      "methods": [
+        {
+          "name": "setValidity",
+          "docblock": "Sets valid state to passed param\nit notifies the parent context of the change\nand sets the current valid state to the new value",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "valid"
+            }
+          ],
+          "returns": null,
+          "description": "Sets valid state to passed param\nit notifies the parent context of the change\nand sets the current valid state to the new value"
+        },
+        {
+          "name": "setWarning",
+          "docblock": "Sets warning state to passed param\nit notifies the parent context of the change\nand sets the current warning state to the new value",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "warning"
+            }
+          ],
+          "returns": null,
+          "description": "Sets warning state to passed param\nit notifies the parent context of the change\nand sets the current warning state to the new value"
+        }
+      ],
+      "props": {
+        "title": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": ""
+        },
+        "tabId": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": ""
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": ""
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": ""
+        },
+        "isTabSelected": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": ""
+        },
+        "position": {
+          "type": {
+            "name": "enum",
+            "value": [
+              {
+                "value": "'top'",
+                "computed": false
+              },
+              {
+                "value": "'left'",
+                "computed": false
+              }
+            ]
+          },
+          "required": false,
+          "description": "",
+          "defaultValue": {
+            "value": "'top'",
+            "computed": false
+          }
+        },
+        "role": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "",
+          "defaultValue": {
+            "value": "'tabpanel'",
+            "computed": false
+          }
+        },
+        "ariaLabelledby": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": ""
+        }
+      },
+      "context": {
+        "tabs": {
+          "type": {
+            "name": "object"
+          },
+          "required": false
+        }
+      },
+      "childContext": {
+        "tab": {
+          "type": {
+            "name": "object"
+          },
+          "required": false
+        }
+      }
+    }
+  ],
+  "src/components/tabs/tab-title/tab-title.component.js": [
+    {
+      "description": "",
+      "displayName": "TabTitle",
+      "methods": [],
+      "props": {
+        "title": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": ""
+        },
+        "isTabSelected": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": ""
+        },
+        "position": {
+          "type": {
+            "name": "enum",
+            "value": [
+              {
+                "value": "'top'",
+                "computed": false
+              },
+              {
+                "value": "'left'",
+                "computed": false
+              }
+            ]
+          },
+          "required": false,
+          "description": "",
+          "defaultValue": {
+            "value": "'top'",
+            "computed": false
+          }
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": ""
+        },
+        "dataTabId": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": ""
+        },
+        "id": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": ""
+        },
+        "onClick": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": ""
+        },
+        "onKeyDown": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": ""
+        },
+        "tabIndex": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": ""
+        },
+        "tabHasError": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": ""
+        },
+        "tabHasWarning": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": ""
+        }
+      }
+    }
+  ],
+  "src/components/tabs/tabs-header/tabs-header.component.js": [
+    {
+      "description": "",
+      "displayName": "TabsHeader",
+      "methods": [],
+      "props": {
+        "align": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.alignBinary"
+          },
+          "required": false,
+          "description": "",
+          "defaultValue": {
+            "value": "'left'",
+            "computed": false
+          }
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": true,
+          "description": ""
+        },
+        "position": {
+          "type": {
+            "name": "enum",
+            "value": [
+              {
+                "value": "'top'",
+                "computed": false
+              },
+              {
+                "value": "'left'",
+                "computed": false
+              }
+            ]
+          },
+          "required": false,
+          "description": "",
+          "defaultValue": {
+            "value": "'top'",
+            "computed": false
+          }
+        },
+        "role": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": ""
+        }
+      }
+    }
+  ],
+  "src/components/tabs/tabs.component.js": [
+    {
+      "description": "",
+      "displayName": "Tabs",
+      "methods": [
+        {
+          "name": "changeValidity",
+          "docblock": "Sets the validity state of the given tab (id) to the\ngiven state (valid)",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "id"
+            },
+            {
+              "name": "valid"
+            }
+          ],
+          "returns": null,
+          "description": "Sets the validity state of the given tab (id) to the\ngiven state (valid)"
+        },
+        {
+          "name": "changeWarning",
+          "docblock": "Sets the warning state of the given tab (id)",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "id"
+            },
+            {
+              "name": "warning"
+            }
+          ],
+          "returns": null,
+          "description": "Sets the warning state of the given tab (id)"
+        },
+        {
+          "name": "handleTabClick",
+          "docblock": "Handles the changing of tabs with the mouse",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev"
+            }
+          ],
+          "returns": null,
+          "description": "Handles the changing of tabs with the mouse"
+        },
+        {
+          "name": "handleKeyDown",
+          "docblock": "Handles the keyboard navigation of tabs",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "index"
+            }
+          ],
+          "returns": null,
+          "description": "Handles the keyboard navigation of tabs"
+        },
+        {
+          "name": "goToTab",
+          "docblock": "Will trigger the tab at the given index.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "event"
+            },
+            {
+              "name": "index"
+            }
+          ],
+          "returns": null,
+          "description": "Will trigger the tab at the given index."
+        },
+        {
+          "name": "updateVisibleTab",
+          "docblock": "Updates the currently visible tab",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "tabid"
+            }
+          ],
+          "returns": null,
+          "description": "Updates the currently visible tab"
+        },
+        {
+          "name": "focusTab",
+          "docblock": "Focuses the tab for the reference specified",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ref"
+            }
+          ],
+          "returns": null,
+          "description": "Focuses the tab for the reference specified"
+        },
+        {
+          "name": "getTabValidationValues",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "tab",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "isTabSelected",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "tabId",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "children",
+          "docblock": "The children nodes converted into an Array",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "The children nodes converted into an Array"
+        },
+        {
+          "name": "tabIds",
+          "docblock": "Array of the tabIds for the child nodes",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Array of the tabIds for the child nodes"
+        },
+        {
+          "name": "tabHeaders",
+          "docblock": "Build the headers for the tab component",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Build the headers for the tab component"
+        },
+        {
+          "name": "visibleTab",
+          "docblock": "Builds the single currently selected tab",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Builds the single currently selected tab"
+        },
+        {
+          "name": "tabs",
+          "docblock": "Builds all tabs where non selected tabs have class of hidden",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Builds all tabs where non selected tabs have class of hidden"
+        },
+        {
+          "name": "isVertical",
+          "docblock": "Determines if the tab titles are in a vertical format.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "position"
+            }
+          ],
+          "returns": null,
+          "description": "Determines if the tab titles are in a vertical format."
+        }
+      ],
+      "props": {
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": ""
+        },
+        "renderHiddenTabs": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "selectedTabId": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": ""
+        },
+        "children": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "array"
+              },
+              {
+                "name": "object"
+              }
+            ]
+          },
+          "required": true,
+          "description": ""
+        },
+        "align": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.alignBinary"
+          },
+          "required": false,
+          "description": "",
+          "defaultValue": {
+            "value": "'left'",
+            "computed": false
+          }
+        },
+        "onTabChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": ""
+        },
+        "position": {
+          "type": {
+            "name": "enum",
+            "value": [
+              {
+                "value": "'top'",
+                "computed": false
+              },
+              {
+                "value": "'left'",
+                "computed": false
+              }
+            ]
+          },
+          "required": false,
+          "description": "",
+          "defaultValue": {
+            "value": "'top'",
+            "computed": false
+          }
+        }
+      },
+      "childContext": {
+        "tabs": {
+          "type": {
+            "name": "object"
+          },
+          "required": false
+        }
+      }
+    }
+  ]
+}

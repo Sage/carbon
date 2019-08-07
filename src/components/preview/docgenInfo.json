@@ -1,0 +1,46 @@
+{
+  "src/components/preview/preview.component.js": [
+    {
+      "description": "",
+      "displayName": "Preview",
+      "methods": [],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Children content to render in the component."
+        },
+        "height": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Classes to be applied to the component."
+        },
+        "lines": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "The number of lines to render."
+        },
+        "loading": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": ""
+        },
+        "width": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A custom width"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "src/components/content/content.js": [
+    {
+      "description": "",
+      "displayName": "Content",
+      "methods": [
+        {
+          "name": "classes",
+          "docblock": "Returns the HTML classes for the component.\n\n@method\n@return {String}",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "String"
+            }
+          },
+          "description": "Returns the HTML classes for the component."
+        },
+        {
+          "name": "titleStyle",
+          "docblock": "Returns styling for the title element.\n\n@method titleStyle\n@return {Object}",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Returns styling for the title element."
+        },
+        {
+          "name": "bodyStyle",
+          "docblock": "Returns styling for the body element.\n\n@method bodyStyle\n@return {Object}",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Returns styling for the body element."
+        }
+      ],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "The body of the content component."
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Custom className"
+        },
+        "title": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The title of the content component."
+        },
+        "as": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Applies a theme to the Content\nValue: primary, secondary",
+          "defaultValue": {
+            "value": "'primary'",
+            "computed": false
+          }
+        },
+        "inline": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Displays the content inline with it's title.",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "align": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Aligns the content (left, center or right).",
+          "defaultValue": {
+            "value": "'left'",
+            "computed": false
+          }
+        },
+        "titleWidth": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Sets a custom width for the title element."
+        },
+        "bodyFullWidth": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Over-rides the calculation of body width based on titleWidth\nSometimes we need the body to be full width while keeping a title width similar to other widths",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        }
+      }
+    }
+  ]
+}

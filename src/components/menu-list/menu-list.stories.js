@@ -3,6 +3,18 @@ import { storiesOf } from '@storybook/react';
 import { text, boolean } from '@storybook/addon-knobs';
 import notes from './documentation';
 import { MenuList, MenuListItem } from './menu-list';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+import docgenInfo from './docgenInfo.json';
+
+MenuList.__docgenInfo = getDocGenInfo(
+  docgenInfo,
+  /menu-list\.js(?!spec)/
+);
+
+MenuListItem.__docgenInfo = getDocGenInfo(
+  docgenInfo,
+  /menu-list-item\.js(?!spec)/
+);
 
 storiesOf('MenuList', module)
   .add('default', () => {

@@ -1,0 +1,76 @@
+{
+  "src/components/i18n/i18n.js": [
+    {
+      "description": "",
+      "displayName": "I18n",
+      "methods": [
+        {
+          "name": "marked",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "inline",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "renderMarkup",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "inline",
+              "type": null
+            },
+            {
+              "name": "props",
+              "type": null
+            },
+            {
+              "name": "translation",
+              "type": null
+            }
+          ],
+          "returns": null
+        }
+      ],
+      "props": {
+        "markdown": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Whether to compile the value as markdown"
+        },
+        "inline": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Whether to enclose the text in a <span> or a <div>",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "scope": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": "The key to lookup for a localised value"
+        },
+        "options": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "Additional options to pass to I18n"
+        }
+      }
+    }
+  ]
+}
