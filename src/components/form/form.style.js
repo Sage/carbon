@@ -43,7 +43,7 @@ export const StyledResponsiveFooterWrapper = styled.div`
   display: flex;
   margin-top: 20px;
   ${({ borderWidth }) => borderWidth && css`
-    border-width: ${borderWidth};
+    border-width: ${borderWidth} !important;
   `}
 
   div:first-of-type {

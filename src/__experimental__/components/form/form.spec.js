@@ -557,7 +557,7 @@ describe('Form', () => {
         alignItems: 'center',
         display: 'flex',
         marginTop: '20px',
-        borderWidth: '500px'
+        borderWidth: '500px !important'
       }, footer.toJSON());
     });
   });
