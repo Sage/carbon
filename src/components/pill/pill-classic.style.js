@@ -52,9 +52,7 @@ export default (colorVariant, inFill, isDeletable, size) => {
   return css`
     border-radius: 10px; 
     display: inline-block;
-    font-size: 10px;
     font-weight: 700;
-    line-height: 10px;
     letter-spacing: 0.7px;
     position: relative;
     text-align: center;

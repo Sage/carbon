@@ -254,8 +254,6 @@ const PillStyle = styled.span`
         `}
       `}
 
-      ${isClassic(theme, colorVariant) && classicThemeForPill(colorVariant, inFill, isDeletable, size)}
-
       ${size === 'S' && css`
         height: 16px;
         line-height: 16px;
@@ -279,6 +277,8 @@ const PillStyle = styled.span`
         line-height: 26px;
         font-size: 16px;
       `}
+
+      ${isClassic(theme, colorVariant) && classicThemeForPill(colorVariant, inFill, isDeletable, size)}
     `;
   }
 }
