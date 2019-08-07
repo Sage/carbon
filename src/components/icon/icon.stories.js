@@ -10,6 +10,7 @@ import classicTheme from '../../style/themes/classic';
 function commonKnobs() {
   const tooltipMessage = text('tooltipMessage', '');
   return {
+    tooltipMessage,
     type: select('type', OptionsHelper.icons, 'add'),
     tooltipPosition: tooltipMessage ? select('tooltipPosition', OptionsHelper.positions, 'top') : undefined,
     tooltipAlign: tooltipMessage ? select('tooltipAlign', OptionsHelper.alignAroundEdges, 'top') : undefined
