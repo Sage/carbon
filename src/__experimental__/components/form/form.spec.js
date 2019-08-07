@@ -738,6 +738,19 @@ describe('Form', () => {
           expect(wrapper.find('[data-element="save"]').length).toEqual(1);
         });
       });
+
+      describe('when the show summary is true and the wrapper has additional actions', () => {
+        it('applies the expected margin-left to the save button', () => {
+          const styledWrapper = TestRenderer.create(
+            <StyledResponsiveFooterWrapper
+              showSummary hasAdditionalActions
+              theme={ Classic }
+            />
+          ).toJSON();
+
+          expect(styledWrapper).toMatchSnapshot();
+        });
+      });
     });
 
     describe('additionalActions', () => {

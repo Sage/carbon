@@ -44,7 +44,7 @@ storiesOf('Experimental/Form', module)
     const additionalActions = select('additionalActions', formActionOptions, formActionOptions[0]);
     const leftAlignedActions = select('leftAlignedActions', formActionOptions, formActionOptions[0]);
     const rightAlignedActions = select('rightAlignedActions', formActionOptions, formActionOptions[0]);
-    const showSummary = boolean('showSummary', false);
+    const showSummary = boolean('showSummary', FormWithoutValidations.defaultProps.showSummary);
     const isLabelRightAligned = boolean('isLabelRightAligned', false);
     const inLineLabels = boolean('inLineLabels', false);
 

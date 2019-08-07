@@ -33,7 +33,7 @@ storiesOf('Form', module)
     const additionalActions = text('additionalActions', '');
     const leftAlignedActions = text('leftAlignedActions', '');
     const rightAlignedActions = text('rightAlignedActions', '');
-    const showSummary = boolean('showSummary', false);
+    const showSummary = boolean('showSummary', FormWithoutValidations.defaultProps.showSummary);
 
     return (
       <Form

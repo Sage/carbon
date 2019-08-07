@@ -2,9 +2,16 @@ import styled, { css, keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 import StyledFormField from '../../__experimental__/components/form-field/form-field.style';
 import StyledButton from '../button/button.style';
+import StyledFormSummary from './form-summary/form-summary.style';
 import { isClassic } from '../../utils/helpers/style-helper';
 import baseTheme from '../../style/themes/base';
 import OptionsHelper from '../../utils/helpers/options-helper';
+
+
+const applyButtonLeftMargin = ({ theme }) => {
+  if (isClassic(theme)) return 'margin-left: 15px;';
+  return 'margin-left: 16px;';
+};
 
 export const StyledAdditionalFormAction = styled.div`
   ${({ type }) => type && css`
@@ -16,8 +23,7 @@ export const StyledAdditionalFormAction = styled.div`
       display: inline-block;
     `}
 
-    margin-left: 16px;
-    ${({ theme }) => isClassic(theme) && css`margin-left: 15px;`}
+    ${applyButtonLeftMargin}
 
     && ${StyledButton} {
       margin-left: 0px;
@@ -37,7 +43,7 @@ export const StyledResponsiveFooterWrapper = styled.div`
   display: flex;
   margin-top: 20px;
   ${({ borderWidth }) => borderWidth && css`
-    border-width: ${borderWidth}
+    border-width: ${borderWidth};
   `}
 
   div:first-of-type {
@@ -46,7 +52,16 @@ export const StyledResponsiveFooterWrapper = styled.div`
     }
   }
 
-  ${StyledAdditionalFormAction}:first-of-type{ 
+  ${({ showSummary, buttonAlign, hasAdditionalActions }) => showSummary
+  && (buttonAlign === 'right' || hasAdditionalActions) && css`
+    && ${StyledFormSummary} {
+      ${StyledButton} {
+        ${applyButtonLeftMargin}
+      } 
+    }
+  `}
+
+  ${StyledAdditionalFormAction}:first-of-type { 
     margin-left: 0;
   }
 `;
@@ -72,8 +87,7 @@ const StyledForm = styled.form`
   ${StyledButton} {
     align-items: center;
     display: flex;
-    margin-left: 16px;
-    ${({ theme }) => isClassic(theme) && css`margin-left: 15px;`}
+    ${applyButtonLeftMargin}
   }
 
   ${({ theme }) => !isClassic(theme) && css`
@@ -145,6 +159,18 @@ StyledAdditionalFormAction.defaultProps = {
 StyledAdditionalFormAction.propTypes = {
   theme: PropTypes.object,
   type: PropTypes.oneOf(OptionsHelper.additionalActionAlignments)
+};
+
+StyledResponsiveFooterWrapper.propTypes = {
+  theme: PropTypes.object,
+  buttonAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
+  showSummary: PropTypes.bool,
+  borderWidth: PropTypes.string,
+  hasAdditionalActions: PropTypes.bool
+};
+
+StyledResponsiveFooterWrapper.defaultProps = {
+  theme: baseTheme
 };
 
 export default StyledForm;

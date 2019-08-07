@@ -15,6 +15,7 @@ import StyledForm,
   StyledAdditionalFormAction,
   StyledResponsiveFooterWrapper
 } from '../../../components/form/form.style';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const FormContext = React.createContext();
 
@@ -355,7 +356,14 @@ class FormWithoutValidations extends React.Component {
 
     return (
       <StyledFormFooter buttonAlign={ this.props.buttonAlign }>
-        <StyledResponsiveFooterWrapper borderWidth={ padding }>
+        <StyledResponsiveFooterWrapper
+          buttonAlign={ this.props.buttonAlign }
+          showSummary={ this.props.showSummary }
+          borderWidth={ padding }
+          hasAdditionalActions={
+            this.props.leftAlignedActions || this.props.rightAlignedActions || this.props.additionalActions
+          }
+        >
           { this.additionalActions('leftAlignedActions') }
           { this.additionalActions('rightAlignedActions') }
           { this.orderFormButtons() }
@@ -482,7 +490,7 @@ FormWithoutValidations.propTypes = {
   beforeFormValidation: PropTypes.func,
 
   /** Alignment of submit button */
-  buttonAlign: PropTypes.string,
+  buttonAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
 
   /** Determines if the form is in a saving state */
   saving: PropTypes.bool,

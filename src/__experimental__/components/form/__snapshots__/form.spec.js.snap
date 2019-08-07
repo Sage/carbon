@@ -57,7 +57,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
   margin-right: 8px;
 }
 
-.c8 {
+.c9 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -94,33 +94,42 @@ exports[`Form When child is an html element it renders the child 1`] = `
   padding-right: 24px;
 }
 
-.c8:focus {
+.c9:focus {
   outline: solid 3px #FFB500;
-}
-
-.c8 + .c5 {
-  margin-left: 16px;
-}
-
-.c8:hover {
-  background: #006300;
-}
-
-.c8 .carbon-icon {
-  margin-left: 0px;
-  margin-right: 8px;
 }
 
 .c9 + .c5 {
   margin-left: 16px;
 }
 
-.c10.c10 .c5 {
-  margin-left: 0px;
+.c9:hover {
+  background: #006300;
 }
 
-.c10.c10 .c5:first-child {
-  margin-left: 0;
+.c9 .carbon-icon {
+  margin-left: 0px;
+  margin-right: 8px;
+}
+
+.c10 + .c5 {
+  margin-left: 16px;
+}
+
+.c8 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 700;
+  margin: -8px;
+  white-space: nowrap;
+  padding: 8px;
+  border-radius: 4px;
 }
 
 .c11.c11 .c5 {
@@ -147,6 +156,14 @@ exports[`Form When child is an html element it renders the child 1`] = `
   margin-left: 0;
 }
 
+.c14.c14 .c5 {
+  margin-left: 0px;
+}
+
+.c14.c14 .c5:first-child {
+  margin-left: 0;
+}
+
 .c4 {
   margin: 0 auto;
   max-width: inherit;
@@ -167,12 +184,28 @@ exports[`Form When child is an html element it renders the child 1`] = `
   margin-left: 0;
 }
 
-.c4 .c19:first-of-type {
+.c4.c4 .c7 .c5 {
+  margin-left: 16px;
+}
+
+.c4 .c21:first-of-type {
   margin-left: 0;
 }
 
-.c14 div:first-of-type .c5 {
+.c15 div:first-of-type .c5 {
   margin-left: 0;
+}
+
+.c15.c15 .c7 .c5 {
+  margin-left: 16px;
+}
+
+.c16 div:first-of-type .c5 {
+  margin-left: 0;
+}
+
+.c16.c16 .c7 .c5 {
+  margin-left: 15px;
 }
 
 .c2 {
@@ -186,7 +219,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
   justify-content: flex-end;
 }
 
-.c15 .c5 {
+.c17 .c5 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -195,7 +228,6 @@ exports[`Form When child is an html element it renders the child 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin-left: 16px;
   margin-left: 15px;
 }
 
@@ -211,11 +243,11 @@ exports[`Form When child is an html element it renders the child 1`] = `
   margin-left: 16px;
 }
 
-.c0.c0 .c18 {
+.c0.c0 .c20 {
   margin-bottom: 32px;
 }
 
-.c16 .c5 {
+.c18 .c5 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -224,11 +256,10 @@ exports[`Form When child is an html element it renders the child 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin-left: 16px;
   margin-left: 15px;
 }
 
-.c17 .c5 {
+.c19 .c5 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -237,11 +268,10 @@ exports[`Form When child is an html element it renders the child 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin-left: 16px;
   margin-left: 15px;
 }
 
-.c17 .c1 {
+.c19 .c1 {
   -webkit-animation: lhSDYf 0.25s ease-out;
   animation: lhSDYf 0.25s ease-out;
   background-color: #FFFFFF;
@@ -256,7 +286,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
   z-index: 1000;
 }
 
-.c17 .c1 .c3 {
+.c19 .c1 .c3 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -274,23 +304,6 @@ exports[`Form When child is an html element it renders the child 1`] = `
   box-sizing: border-box;
   min-width: 450px;
   padding: 0 40px;
-}
-
-.c7 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  font-size: 13px;
-  font-weight: 700;
-  margin: -8px;
-  white-space: nowrap;
-  padding: 8px;
-  border-radius: 4px;
 }
 
 <form
@@ -337,7 +350,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
         </button>
       </div>
       <div
-        className="c7"
+        className="c7 c8"
         data-component="form-summary"
       >
         <div
@@ -345,7 +358,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
           data-element="save"
         >
           <button
-            className="c5 c8"
+            className="c5 c9"
             data-component="button"
             data-element="save"
             disabled={false}
@@ -365,4 +378,65 @@ exports[`Form When child is an html element it renders the child 1`] = `
     </div>
   </div>
 </form>
+`;
+
+exports[`Form render Save Button when the show summary is true and the wrapper has additional actions applies the expected margin-left to the save button 1`] = `
+.c1 {
+  margin: 0 auto;
+  max-width: inherit;
+  min-width: inherit;
+  padding: 0;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 20px;
+}
+
+.c1 div:first-of-type .c4 {
+  margin-left: 0;
+}
+
+.c1.c1 .c5 .c4 {
+  margin-left: 15px;
+}
+
+.c1 .c6:first-of-type {
+  margin-left: 0;
+}
+
+.c2 .c0 {
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.c3 .c7 .c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 0;
+  border-left-style: solid;
+  border-left-color: #FFFFFF;
+  border-right-style: solid;
+  border-right-color: #FFFFFF;
+  border-width: 0;
+  box-sizing: border-box;
+  min-width: 450px;
+  padding: 0 40px;
+}
+
+<div
+  className="c0 c1"
+/>
 `;
