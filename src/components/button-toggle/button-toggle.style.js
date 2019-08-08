@@ -21,7 +21,8 @@ const StyledButtonToggleLabel = styled.label`
   height: 38px;
   padding: 0 24px;
   font-weight: 600;
-
+  cursor: pointer;
+  
   ${({ theme }) => css`
     border: 1px solid ${theme.colors.border};
     font-size: ${theme.text.size};
@@ -64,6 +65,7 @@ const StyledButtonToggleLabel = styled.label`
     ${StyledIcon} {
       color: ${theme.disabled.buttonText} !important;
     }
+    cursor: not-allowed;
   `};
 
     ${StyledButtonToggleClassicLabel}

@@ -52,11 +52,8 @@ describe('Button', () => {
             iconPosition: position
           }).dive();
 
-          expect(
-            wrapper.contains(
-              <Icon type='filter' />
-            )
-          ).toBeTruthy();
+          const assertion = wrapper.find(Icon).exists() && wrapper.find(Icon).props().type === 'filter';
+          expect(assertion).toEqual(true);
         });
       }
     );
