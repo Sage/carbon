@@ -12,6 +12,7 @@ const ValidationIcon = ({
   theme,
   type,
   size,
+  isPartOfInput,
   tooltipMessage
 }) => {
   let modernTooltipProps = {};
@@ -21,8 +22,8 @@ const ValidationIcon = ({
     modernTooltipProps = {
       tooltipPosition: 'right',
       tooltipAlign: 'center',
-      hasValidationTooltip: true,
-      isThemeModern: true
+      isThemeModern: true,
+      isPartOfInput
     };
   }
 
@@ -51,11 +52,11 @@ ValidationIcon.propTypes = {
   type: PropTypes.oneOf(OptionsHelper.validationTypes),
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   tooltipMessage: PropTypes.string,
-  theme: PropTypes.object
+  theme: PropTypes.object,
+  isPartOfInput: PropTypes.bool
 };
 
 ValidationIcon.defaultProps = {
-  theme: baseTheme,
-  size: 'medium'
+  theme: baseTheme
 };
 export default withTheme(ValidationIcon);

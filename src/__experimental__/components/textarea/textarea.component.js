@@ -58,7 +58,12 @@ class Textarea extends React.Component {
 
   renderValidation() {
     if (hasFailedValidation(this.props)) {
-      return <ValidationIcon type={ this.props.inputIcon } tooltipMessage={ this.props.tooltipMessage } />;
+      return (
+        <ValidationIcon
+          type={ this.props.inputIcon }
+          tooltipMessage={ this.props.tooltipMessage }
+          isPartOfInput
+        />);
     }
 
     return null;

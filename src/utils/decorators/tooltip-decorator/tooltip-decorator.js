@@ -9,6 +9,7 @@ import { styleElement } from '../../ether';
 import OptionsHelper from '../../helpers/options-helper';
 import calculatePosition from './calculate-position';
 import sizes from '../../../__experimental__/components/input/input-sizes.style';
+import { pointerSideMargin } from '../../../components/tooltip/tooltip-pointer.style';
 
 /**
  * TooltipDecorator.
@@ -89,7 +90,7 @@ const TooltipDecorator = (ComposedComponent) => {
       tooltipMessage: PropTypes.node,
       tooltipPosition: PropTypes.oneOf(OptionsHelper.positions),
       tooltipAlign: PropTypes.oneOf(OptionsHelper.alignAroundEdges),
-      hasValidationTooltip: PropTypes.bool,
+      isPartOfInput: PropTypes.bool,
       isThemeModern: PropTypes.bool
     });
 
@@ -176,17 +177,18 @@ const TooltipDecorator = (ComposedComponent) => {
       const position = this.state.tooltipPosition || this.props.tooltipPosition || 'top';
       const shifts = calculatePosition(tooltip, target);
       const isTooltipOffScreenRight = this.isTooltipOffScreenRight(position, alignment, tooltip.offsetWidth, shifts);
+      const inputDistanceOffset = this.getInputDistanceOffset(position);
 
       if (isTooltipOffScreenRight) {
         this.realignOffscreenTooltip(position, alignment);
       }
 
       if (position === 'top' || position === 'bottom') {
-        topPosition = shifts.tooltipDistances[position] + this.getTooltipDistanceOffset(position);
-        leftPosition = shifts.vertical[alignment];
+        topPosition = shifts.tooltipDistances[position] + inputDistanceOffset;
+        leftPosition = shifts.vertical[alignment] + this.getHorizontalOffset();
       } else {
         topPosition = shifts.horizontal[alignment];
-        leftPosition = shifts.tooltipDistances[position] + this.getTooltipDistanceOffset(position);
+        leftPosition = shifts.tooltipDistances[position] + inputDistanceOffset;
       }
 
       styleElement(tooltip, 'top', `${topPosition}px`);
@@ -215,23 +217,30 @@ const TooltipDecorator = (ComposedComponent) => {
       }
     }
 
-    getTooltipDistanceOffset = (position) => {
-      if (!this.props.isThemeModern || !this.props.hasValidationTooltip || !this.props.size) return 0;
+    getInputDistanceOffset = (position) => {
+      if (!this.props.isPartOfInput || !this.props.isThemeModern || !this.props.size) return 0;
 
       const inputSizes = sizes[this.props.size];
-      const { tooltipTopOffset, tooltipRightOffset } = inputSizes;
+      const { tooltipVerticalOffset, tooltipHorizontalOffset } = inputSizes;
+      const inputGap = 2;
 
       switch (position) {
         case 'top':
-          return -tooltipTopOffset;
+          return -tooltipVerticalOffset - pointerSideMargin;
         case 'bottom':
-          return tooltipTopOffset;
+          return tooltipVerticalOffset + pointerSideMargin;
         case 'left':
-          return -tooltipRightOffset;
+          return -tooltipHorizontalOffset - pointerSideMargin - inputGap;
         case 'right':
         default:
-          return tooltipRightOffset;
+          return tooltipHorizontalOffset + pointerSideMargin + inputGap;
       }
+    }
+
+    getHorizontalOffset = () => {
+      if (!this.props.isThemeModern || !this.props.isPartOfInput || !this.props.size) return 0;
+
+      return sizes[this.props.size].tooltipHorizontalOffset;
     }
 
     get componentProps() {
@@ -259,7 +268,9 @@ const TooltipDecorator = (ComposedComponent) => {
               onMouseLeave={ this.onHide }
               position={ this.state.tooltipPosition || this.props.tooltipPosition }
               ref={ (comp) => { this._tooltip = comp; } }
+              size={ this.props.size }
               type={ this.props.tooltipType }
+              isPartOfInput={ this.props.isPartOfInput }
             >
               { this.props.tooltipMessage }
             </Tooltip>

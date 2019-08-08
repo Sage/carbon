@@ -22,6 +22,7 @@ const InputIconToggle = ({
         type={ type }
         tooltipMessage={ tooltipMessage }
         size={ size }
+        isPartOfInput
       />
     );
   }

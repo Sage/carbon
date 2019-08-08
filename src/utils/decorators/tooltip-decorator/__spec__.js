@@ -28,20 +28,20 @@ const expecterModernThemesPositionValues = {
   small: {
     top: '34px',
     bottom: '116px',
-    left: '-18px',
-    right: '118px'
+    left: '-16px',
+    right: '116px'
   },
   medium: {
     top: '31px',
     bottom: '119px',
-    left: '-21px',
-    right: '121px'
+    left: '-19px',
+    right: '119px'
   },
   large: {
     top: '27px',
     bottom: '123px',
-    left: '-23px',
-    right: '123px'
+    left: '-21px',
+    right: '121px'
  }
 }
 
@@ -478,7 +478,7 @@ describe('tooltip-decorator Modern Themes', () => {
           tooltipMessage: 'Hello',
           tooltipPosition: position,
           isThemeModern: true,
-          hasValidationTooltip: true
+          isPartOfInput: true
         }, mount);
         const tooltip = wrapper.find(Tooltip);
 
