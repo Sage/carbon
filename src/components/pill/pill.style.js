@@ -61,6 +61,7 @@ const PillStyle = styled.span`
           right: 0;
           top: 0;
           width: 20px;
+          margin: 0;
 
           ${inFill && css`
             background-color: ${styleSet[variety].color};
