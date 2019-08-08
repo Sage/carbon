@@ -92,6 +92,7 @@ const PillStyle = styled.span`
           top: 0;
           width: 20px;
           margin: 0;
+          line-height: 16px;
 
           ${inFill && css`
             background-color: ${styleSet[variety].color};
@@ -135,6 +136,7 @@ const PillStyle = styled.span`
           button {
             padding: 0;
             border-radius: 0 8px 8px 0;
+            line-height: 14px;
 
             .carbon-icon {
               padding: 0;
@@ -154,6 +156,7 @@ const PillStyle = styled.span`
             width: 24px;
             padding: 0;
             border-radius: 0 10px 10px 0;
+            line-height: 15px;
 
             .carbon-icon {
               padding: 2px 7px 3px 7px;
@@ -174,6 +177,7 @@ const PillStyle = styled.span`
             width: 28px;
             padding: 0;
             border-radius: 0 11px 11px 0;
+            line-height: 16px;
 
             .carbon-icon {
               padding: 3px 8px 4px 8px;
@@ -194,6 +198,7 @@ const PillStyle = styled.span`
             width: 32px;
             padding: 0;
             border-radius: 0 12px 12px 0;
+            line-height: 18px;
 
             .carbon-icon {
               padding: 3px 9px 5px 9px;
