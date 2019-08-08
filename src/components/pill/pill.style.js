@@ -255,25 +255,29 @@ const PillStyle = styled.span`
       `}
 
       ${size === 'S' && css`
-        height: 16px;
+        min-height: 16px;
+        height: auto;
         line-height: 16px;
         font-size: 10px;
       `}
 
       ${size === 'M' && css`
-        height: 20px;
+        min-height: 20px;
+        height: auto;
         line-height: 20px;
         font-size: 12px;
       `}
 
       ${size === 'L' && css`
-        height: 24px;
+        min-height: 24px;
+        height: auto;
         line-height: 24px;
         font-size: 14px;
       `}
 
       ${size === 'XL' && css`
-        height: 26px;
+        min-height: 26px;
+        height: auto;
         line-height: 26px;
         font-size: 16px;
       `}

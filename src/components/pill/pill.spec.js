@@ -197,7 +197,9 @@ describe('Pill', () => {
                     theme
                   }, TestRenderer.create).toJSON();
                   assertStyleMatch({
-                    padding: '0 24px 0 12px'
+                    padding: '0 24px 0 12px',
+                    minHeight: '16px',
+                    height: 'auto'
                   }, wrapper);
                 });
               });
@@ -213,7 +215,9 @@ describe('Pill', () => {
                   assertStyleMatch({
                     fontSize: '12px',
                     padding: '0 32px 0 16px',
-                    borderRadius: '12px'
+                    borderRadius: '12px',
+                    minHeight: '20px',
+                    height: 'auto'
                   }, wrapper);
                 });
               });
@@ -229,7 +233,9 @@ describe('Pill', () => {
                   assertStyleMatch({
                     fontSize: '14px',
                     padding: '0 36px 0 20px',
-                    borderRadius: '13px'
+                    borderRadius: '13px',
+                    minHeight: '24px',
+                    height: 'auto'
                   }, wrapper);
                 });
               });
@@ -245,7 +251,9 @@ describe('Pill', () => {
                   assertStyleMatch({
                     fontSize: '16px',
                     padding: '0 40px 0 24px',
-                    borderRadius: '15px'
+                    borderRadius: '15px',
+                    minHeight: '26px',
+                    height: 'auto'
                   }, wrapper);
                 });
               });
