@@ -199,7 +199,8 @@ describe('Pill', () => {
                   assertStyleMatch({
                     padding: '0 24px 0 7px',
                     minHeight: '16px',
-                    height: 'auto'
+                    height: 'auto',
+                    lineHeight: '16px'
                   }, wrapper);
                 });
               });
@@ -217,7 +218,8 @@ describe('Pill', () => {
                     padding: '0 32px 0 11px',
                     borderRadius: '12px',
                     minHeight: '20px',
-                    height: 'auto'
+                    height: 'auto',
+                    lineHeight: '20px'
                   }, wrapper);
                 });
               });
@@ -235,7 +237,8 @@ describe('Pill', () => {
                     padding: '0 36px 0 15px',
                     borderRadius: '13px',
                     minHeight: '24px',
-                    height: 'auto'
+                    height: 'auto',
+                    lineHeight: '24px'
                   }, wrapper);
                 });
               });
@@ -253,7 +256,8 @@ describe('Pill', () => {
                     padding: '0 41px 0 19px',
                     borderRadius: '15px',
                     minHeight: '26px',
-                    height: 'auto'
+                    height: 'auto',
+                    lineHeight: '26px'
                   }, wrapper);
                 });
               });
