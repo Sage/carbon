@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import baseTheme from '../../style/themes/base';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
+import sizes from '../../__experimental__/components/input/input-sizes.style';
 import {
   hasTheSameOrientation,
   isVertical,
@@ -17,18 +18,14 @@ const pointerDistances = {
   bottom: `top: -${pointerSize + 0.5}px;`,
   top: 'bottom: 0;'
 };
-const pointerAlignments = {
+const pointerCenterAlignments = {
   horizontalCenter: `left: calc(50% - ${pointerSize}px);`,
-  verticalCenter: `top: calc(50% - ${pointerSize}px);`,
-  left: `left: ${pointerSideMargin}px;`,
-  right: `right: ${2 * pointerSize + pointerSideMargin}px;`,
-  top: `top: ${pointerSideMargin}px`,
-  bottom: `bottom: ${2 * pointerSize + pointerSideMargin}px;`
+  verticalCenter: `top: calc(50% - ${pointerSize}px);`
 };
 
 const StyledTooltipPointer = styled.span`
   ${({
-    align: pointerAlign, position, theme, type
+    align: pointerAlign, position, theme, type, size, isPartOfInput
   }) => css`
     position: absolute;
 
@@ -40,7 +37,7 @@ const StyledTooltipPointer = styled.span`
     }
 
     ${!hasTheSameOrientation(position, pointerAlign) && css`
-      ${getPointerPosition(position, pointerAlign)}
+      ${getPointerPosition(position, pointerAlign, isPartOfInput, size)}
 
       &:before {
         ${getPointerBorderStyles(position, theme)}
@@ -55,16 +52,30 @@ const StyledTooltipPointer = styled.span`
   `}
 `;
 
-function getPointerPosition(tooltipPosition, pointerAlign) {
+function getPointerPosition(tooltipPosition, pointerAlign, isPartOfInput, size) {
   if (isVertical(tooltipPosition) && pointerAlign === 'center') {
-    return pointerAlignments.horizontalCenter;
+    return pointerCenterAlignments.horizontalCenter;
   }
 
   if (isHorizontal(tooltipPosition) && pointerAlign === 'center') {
-    return pointerAlignments.verticalCenter;
+    return pointerCenterAlignments.verticalCenter;
   }
 
-  return pointerAlignments[pointerAlign];
+  return getPointerAlignments(isPartOfInput, size)[pointerAlign];
+}
+
+function getPointerAlignments(isPartOfInput, size) {
+  const horizontalSizeOffset = (isPartOfInput && size) ? sizes[size].tooltipHorizontalOffset : 0;
+  const verticalSizeOffset = (isPartOfInput && size) ? sizes[size].tooltipVerticalOffset : 0;
+  const horizontalSideMargin = pointerSideMargin + horizontalSizeOffset;
+  const verticalSideMargin = pointerSideMargin + verticalSizeOffset;
+
+  return {
+    left: `left: ${horizontalSideMargin}px;`,
+    right: `right: ${2 * pointerSize + horizontalSideMargin}px;`,
+    top: `top: ${verticalSideMargin}px`,
+    bottom: `bottom: ${2 * pointerSize + verticalSideMargin}px;`
+  };
 }
 
 function getPointerBorderStyles(position, theme) {
@@ -98,7 +109,8 @@ StyledTooltipPointer.propTypes = {
   align: PropTypes.oneOf(OptionsHelper.alignAroundEdges),
   position: PropTypes.oneOf(OptionsHelper.positions),
   theme: PropTypes.object,
-  type: PropTypes.string
+  type: PropTypes.string,
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted)
 };
 
 export { pointerSize, pointerSideMargin };

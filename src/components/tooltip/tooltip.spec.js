@@ -9,6 +9,21 @@ import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import classicTheme from '../../style/themes/classic';
 
+jest.mock('../../__experimental__/components/input/input-sizes.style', () => ({
+  small: {
+    tooltipVerticalOffset: 3,
+    tooltipHorizontalOffset: 1
+  },
+  medium: {
+    tooltipVerticalOffset: 6,
+    tooltipHorizontalOffset: 4
+  },
+  large: {
+    tooltipVerticalOffset: 10,
+    tooltipHorizontalOffset: 6
+  }
+}));
+
 function render(props, renderer = TestRenderer.create) {
   return renderer(<Tooltip { ...props } />);
 }
@@ -384,6 +399,35 @@ describe('Tooltip', () => {
               { bottom: `${2 * pointerSize + pointerSideMargin}px` },
               renderPointer({ align: 'bottom', position: pos })
             );
+          });
+        });
+      });
+
+      describe('when the tooltip is a part of the input', () => {
+        const horizontalOffsets = {
+          small: 1,
+          medium: 4,
+          large: 6
+        };
+
+        describe.each(['small', 'medium', 'large'])('and the size prop is set to %s', (size) => {
+          describe('with the position prop set to top', () => {
+            describe.each([
+              ['left', `${8 + horizontalOffsets[size]}px`],
+              ['right', `${22 + horizontalOffsets[size]}px`]
+            ])('with the align prop set to %s', (align, expectedValue) => {
+              it('applies the correct styles', () => {
+                assertStyleMatch(
+                  { [align]: expectedValue },
+                  renderPointer({
+                    position: 'top',
+                    align,
+                    size,
+                    isPartOfInput: true
+                  })
+                );
+              });
+            });
           });
         });
       });
