@@ -53,8 +53,8 @@ storiesOf('Experimental/Form', module)
     const leftAlignedActions = select('leftAlignedActions', formActionOptions, formActionOptions[0]);
     const rightAlignedActions = select('rightAlignedActions', formActionOptions, formActionOptions[0]);
     const showSummary = boolean('showSummary', FormWithoutValidations.defaultProps.showSummary);
-    const isLabelRightAligned = boolean('isLabelRightAligned', false);
     const inLineLabels = boolean('inLineLabels', false);
+    const isLabelRightAligned = inLineLabels ? boolean('isLabelRightAligned', false) : undefined;
 
     return (
       <Form

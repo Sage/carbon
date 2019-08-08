@@ -319,7 +319,11 @@ class FormWithoutValidations extends React.Component {
           showSummary={ this.props.showSummary }
           borderWidth={ padding }
           hasAdditionalActions={
-            this.props.leftAlignedActions || this.props.rightAlignedActions || this.props.additionalActions
+            Boolean(
+              this.props.leftAlignedActions
+              || this.props.rightAlignedActions
+              || this.props.additionalActions
+            )
           }
         >
           { this.additionalActions('leftAlignedActions') }
