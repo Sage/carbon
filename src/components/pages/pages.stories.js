@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
-import { Pages, Page } from './pages';
+import { Pages, Page } from './pages.component';
 import DialogFullScreen from '../dialog-full-screen';
 import Heading from '../heading/heading';
 import Button from '../button';
@@ -68,6 +68,10 @@ function makeStory(name, themeSelector) {
           >
             <PageState>
               <Pages
+                initialSlideIndex={ 0 }
+                enableNextButton={ true }
+                enablePreviousButton={ true }
+                enableSlideSelector={ true }
                 slideIndex={ store.get('slideIndex') }
               >
                 <Page title={ <Heading title='My First Page' /> }>
