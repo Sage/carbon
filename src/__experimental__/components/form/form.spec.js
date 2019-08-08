@@ -550,15 +550,17 @@ describe('Form', () => {
       const footer = TestRenderer.create(wrapper.find(StyledResponsiveFooterWrapper));
 
       assertStyleMatch({
-        margin: '0 auto',
+        margin: '20px auto 0 auto',
         maxWidth: 'inherit',
         minWidth: 'inherit',
         padding: '0',
         alignItems: 'center',
-        display: 'flex',
-        marginTop: '20px',
-        borderWidth: '500px !important'
+        display: 'flex'
       }, footer.toJSON());
+
+      assertStyleMatch({
+        borderWidth: '500px'
+      }, footer.toJSON(), { modifier: '&&&&' });
     });
   });
 

@@ -165,7 +165,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
 }
 
 .c4 {
-  margin: 0 auto;
+  margin: 20px auto 0 auto;
   max-width: inherit;
   min-width: inherit;
   padding: 0;
@@ -177,7 +177,6 @@ exports[`Form When child is an html element it renders the child 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin-top: 20px;
 }
 
 .c4 div:first-of-type .c5 {
@@ -382,7 +381,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
 
 exports[`Form render Save Button when the show summary is true and the wrapper has additional actions applies the expected margin-left to the save button 1`] = `
 .c1 {
-  margin: 0 auto;
+  margin: 20px auto 0 auto;
   max-width: inherit;
   min-width: inherit;
   padding: 0;
@@ -394,7 +393,6 @@ exports[`Form render Save Button when the show summary is true and the wrapper h
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin-top: 20px;
 }
 
 .c1 div:first-of-type .c4 {

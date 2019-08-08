@@ -31,15 +31,16 @@ export const StyledAdditionalFormAction = styled.div`
 `;
 
 export const StyledResponsiveFooterWrapper = styled.div`
-  margin: 0 auto;
+  margin: 20px auto 0 auto;
   max-width: inherit;
   min-width: inherit;
   padding: 0;
   align-items: center;
   display: flex;
-  margin-top: 20px;
   ${({ borderWidth }) => borderWidth && css`
-    border-width: ${borderWidth} !important;
+    &&&& {
+      border-width: ${borderWidth};
+    }
   `}
 
   div:first-of-type {
@@ -48,8 +49,11 @@ export const StyledResponsiveFooterWrapper = styled.div`
     }
   }
 
-  ${({ showSummary, buttonAlign, hasAdditionalActions }) => showSummary
-  && (buttonAlign === 'right' || hasAdditionalActions) && css`
+  ${({
+    showSummary,
+    buttonAlign,
+    hasAdditionalActions
+  }) => showSummary && (buttonAlign === 'right' || hasAdditionalActions) && css`
     && ${StyledFormSummary} {
       ${StyledButton} {
         ${applyButtonLeftMargin}
