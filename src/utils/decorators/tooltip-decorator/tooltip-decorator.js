@@ -198,6 +198,10 @@ const TooltipDecorator = (ComposedComponent) => {
     isTooltipOffScreenRight = (position, alignment, tooltipWidth, shifts) => {
       let pointerX;
 
+      if (position === 'left') {
+        return false;
+      }
+
       if (position === 'right') {
         pointerX = shifts.tooltipDistances.right;
       } else {
