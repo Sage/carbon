@@ -1,11 +1,11 @@
 import { css } from 'styled-components';
-import { THEMES } from '../../style/themes';
+import { isClassic } from '../../utils/helpers/style-helper';
 import { StyledIcon } from '../icon/icon.style';
 
 export default ({
   theme
 }) => (
-  theme.name === THEMES.classic && css`
+  isClassic(theme) && css`
     cursor: pointer;
     font-weight: bold;
     text-decoration: none;

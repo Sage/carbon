@@ -6,7 +6,8 @@ import { Link as RouterLink } from 'react-router';
 import Link from './link.component';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import classicTheme from '../../style/themes/classic';
-import LinkClassic from './link-classic.style';
+import { LinkStyleAnchor } from './link.style';
+import { StyledIcon } from '../icon/icon.style';
 
 function renderLink(props, renderer = mount) {
   return renderer(<Link { ...props }>Link Component</Link>);
@@ -67,16 +68,29 @@ describe('Link', () => {
     });
 
     it('should render an `Icon` on the left side of the component by default', () => {
-      expect(wrapper.find('Icon').hasClass('carbon-link__icon--align-left')).toEqual(true);
+      assertStyleMatch({
+        marginRight: '5px',
+        position: 'relative'
+      }, TestRenderer.create(wrapper.find(LinkStyleAnchor)).toJSON(), { modifier: `${StyledIcon}` });
     });
 
-    describe('and component recevied an `iconAlign: right` prop', () => {
-      it('should render an `Icon` on the right side of the component', () => {
-        wrapper.setProps({ iconAlign: 'right' });
+    it('should render an `Icon` on the left side of the component by default', () => {
+      wrapper.setProps({ iconAlign: 'right' });
+      assertStyleMatch({
+        marginRight: '0',
+        marginLeft: '5px',
+        position: 'relative'
 
-        expect(wrapper.find('Icon').hasClass('carbon-link__icon--align-right')).toEqual(true);
-      });
+      }, TestRenderer.create(wrapper.find(LinkStyleAnchor)).toJSON(), { modifier: `${StyledIcon}` });
     });
+
+    // describe('and component recevied an `iconAlign: right` prop', () => {
+    //   it('should render an `Icon` on the right side of the component', () => {
+    //     wrapper.setProps({ iconAlign: 'right' });
+
+    //     expect(wrapper.find('Icon').hasClass('carbon-link__icon--align-right')).toEqual(true);
+    //   });
+    // });
   });
 
   describe('when the `onKeyDown` event is triggered', () => {
@@ -127,17 +141,5 @@ describe('Link', () => {
         expect(onClickFn).not.toHaveBeenCalled();
       });
     });
-  });
-});
-
-describe('Link', () => {
-  let wrapper;
-
-  beforeEach(() => {
-    wrapper = TestRenderer.create(<LinkClassic theme={ { name: 'classic' } } />);
-  });
-
-  it('should render as expected', () => {
-    expect(wrapper).toMatchSnapshot();
   });
 });

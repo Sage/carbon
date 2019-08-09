@@ -65,8 +65,7 @@ const StyledIcon = styled.span`
       background-color: ${getBackgroundColor(theme, bgTheme, disabled, true)};
     }
 
-    ${bgTheme !== 'none'
-      && css`
+    ${bgTheme !== 'none' && css`
         align-items: center;
         display: inline-flex;
         justify-content: center;
@@ -75,8 +74,7 @@ const StyledIcon = styled.span`
         border-radius: ${dlsConfig.backgroundShape[bgShape]};
       `}
 
-    ${isFont
-      && css`
+    ${isFont && css`
       &::before {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;

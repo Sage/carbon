@@ -75,7 +75,7 @@ const PillStyle = styled.span`
 
           ${inFill && css`
             background-color: ${styleSet[variety].color};
-            color: ${(variety === 'warning') ? text.color : styleSet.hoverColor};
+            color: ${(variety === 'warning') ? text.color : colors.white};
             ${StyledIcon} {
               color: ${(variety === 'warning') ? text.color : colors.white};
             }
@@ -90,7 +90,7 @@ const PillStyle = styled.span`
             outline: none;
             box-shadow: 0 0 0 3px ${styleSet.boxShadow};
             background-color: ${styleSet[variety].buttonFocus};
-            color: ${(variety === 'warning') ? text.color : styleSet.hoverColor} !important;
+            color: ${(variety === 'warning') ? text.color : colors.white} !important;
             ::-moz-focus-inner {
               border: 0;
             }
@@ -98,7 +98,7 @@ const PillStyle = styled.span`
 
           &:hover {
             background-color: ${styleSet[variety].buttonFocus};
-            color: ${(variety === 'warning') ? text.color : styleSet.hoverColor};
+            color: ${(variety === 'warning') ? text.color : colors.white};
             cursor: pointer;
           }
  
@@ -108,7 +108,7 @@ const PillStyle = styled.span`
 
             &:hover, 
             &:focus {
-              color: ${(variety === 'warning') ? text.color : styleSet.hoverColor};
+              color: ${(variety === 'warning') ? text.color : colors.white};
             }
             &:before {
               font-size: 12px;

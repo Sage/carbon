@@ -11,6 +11,7 @@ import classicTheme from '../../../style/themes/classic';
 import smallTheme from '../../../style/themes/small';
 import mediumTheme from '../../../style/themes/medium';
 import largeTheme from '../../../style/themes/large';
+import { StyledIcon } from '../../../components/icon/icon.style';
 
 function render(props) {
   return TestRenderer.create(<SwitchSliderPanel { ...props } />);
@@ -54,7 +55,7 @@ describe('SwitchSliderPanel', () => {
         const wrapper = render({ loading: false, theme: classicTheme }).toJSON();
 
         assertStyleMatch({
-          color: classicTheme.colors.white,
+          color: baseTheme.text.color,
           marginRight: '9px'
         }, wrapper, { modifier: "[type='off']" });
       });
@@ -72,6 +73,18 @@ describe('SwitchSliderPanel', () => {
           },
           render({ loading: true, theme: classicTheme }).toJSON(),
           { modifier: css`${`${StyledLoader} ${StyledLoaderSquare}`}` }
+        );
+      });
+    });
+
+    describe('Icon', () => {
+      it('applies the expected style', () => {
+        assertStyleMatch(
+          {
+            color: baseTheme.colors.white
+          },
+          render({ loading: true, theme: classicTheme }).toJSON(),
+          { modifier: css`${StyledIcon}` }
         );
       });
     });

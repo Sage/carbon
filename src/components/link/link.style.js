@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../style/themes/base';
 import classicThemeForLinkAnchor from './link-classic.style';
-import { THEMES } from '../../style/themes';
+import { isClassic } from '../../utils/helpers/style-helper';
 import { StyledIcon } from '../icon/icon.style';
 
 const LinkStyleAnchor = styled.a`
@@ -14,11 +14,10 @@ const LinkStyleAnchor = styled.a`
   ${StyledIcon} {
     margin-right: 5px;
     position: relative;
-  }
-
-  .carbon-link__icon--align-right {
-    margin-right: 0;
-    margin-left: 5px;
+    ${({ iconAlign }) => iconAlign === 'right' && css`
+      margin-right: 0;
+      margin-left: 5px;
+    `}
   }
   
   &:hover {
@@ -26,7 +25,7 @@ const LinkStyleAnchor = styled.a`
     color: ${({ theme }) => theme.colors.secondary};
   }
 
-  ${({ theme }) => theme.name !== THEMES.classic && css`
+  ${({ theme }) => !isClassic(theme) && css`
     &:focus {
       color: ${theme.text.color};
       cursor: default;
@@ -35,7 +34,7 @@ const LinkStyleAnchor = styled.a`
     }
   `}  
 
-  ${classicThemeForLinkAnchor};
+  ${classicThemeForLinkAnchor}
 `;
 
 const LinkRouterStyle = styled(LinkStyleAnchor);
@@ -48,8 +47,7 @@ const LinkStyle = styled.div`
     color: ${theme.disabled.text};
     pointer-events: none;
 
-  ${classicThemeForLinkAnchor};
-
+    ${classicThemeForLinkAnchor}
   }
 `}
 `;
