@@ -3,6 +3,12 @@ import { storiesOf } from '@storybook/react';
 import { text, boolean } from '@storybook/addon-knobs';
 import SettingsRow from './settings-row';
 import { notes, info } from './documentation';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+SettingsRow.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /settings-row\.js(?!spec)/
+);
 
 storiesOf('SettingsRow', module).add(
   'default',

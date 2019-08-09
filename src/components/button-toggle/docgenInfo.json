@@ -1,0 +1,131 @@
+{
+  "src/components/button-toggle/button-toggle-icon.component.js": [
+    {
+      "description": "",
+      "displayName": "ButtonToggleIcon",
+      "methods": [],
+      "props": {
+        "buttonIcon": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "buttonIcon to render."
+        }
+      }
+    }
+  ],
+  "src/components/button-toggle/button-toggle-input.component.js": [
+    {
+      "description": "",
+      "displayName": "ButtonToggleInput",
+      "methods": [],
+      "props": {
+        "name": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Name used on the hidden radio button."
+        },
+        "disabled": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Disable all user interaction."
+        },
+        "guid": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Unique ID attribute for input"
+        },
+        "value": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Value for the input"
+        }
+      }
+    }
+  ],
+  "src/components/button-toggle/button-toggle.component.js": [
+    {
+      "description": "",
+      "displayName": "ButtonToggle",
+      "methods": [],
+      "props": {
+        "name": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Name used on the hidden radio button."
+        },
+        "onChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Change handler passed in from parent."
+        },
+        "buttonIcon": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "buttonIcon to render."
+        },
+        "buttonIconSize": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Sets the size of the buttonIcon (eg. large)"
+        },
+        "size": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Sets the size of the button (padding, font-size). Only used in Classic theme.",
+          "defaultValue": {
+            "value": "'large'",
+            "computed": false
+          }
+        },
+        "grouped": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Remove spacing from between buttons."
+        },
+        "disabled": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Disable all user interaction."
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": true,
+          "description": "A required prop. This is the button text."
+        },
+        "value": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Value for the input"
+        }
+      }
+    }
+  ]
+}

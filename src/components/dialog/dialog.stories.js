@@ -14,6 +14,12 @@ import Modal from '../modal';
 import DateInput from '../date';
 import Dropdown from '../dropdown/dropdown';
 import Checkbox from '../checkbox/checkbox';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Dialog.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /dialog(?!spec)/
+);
 
 const store = new Store({
   open: false

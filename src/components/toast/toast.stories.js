@@ -7,11 +7,17 @@ import Toast from '.';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import { notes, info } from './documentation';
 import classic from '../../style/themes/classic';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 // This is for storybook example only
 const StyledToastStory = styled(Toast)`
   margin-top: 50px;
 `;
+
+StyledToastStory.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /toast\.component(?!spec)/
+);
 
 storiesOf('Toast', module)
   .addParameters({
@@ -19,7 +25,8 @@ storiesOf('Toast', module)
     notes: { markdown: notes },
     info: {
       text: info,
-      propTablesExclude: [ThemeProvider]
+      propTables: [StyledToastStory],
+      propTablesExclude: [ThemeProvider, StyledToastStory]
     }
   })
   .add('Classic', () => {
@@ -56,5 +63,6 @@ storiesOf('Toast', module)
       >
         {children}
       </StyledToastStory>
+
     );
   });

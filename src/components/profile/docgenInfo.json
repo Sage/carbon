@@ -1,0 +1,229 @@
+{
+  "src/components/profile/profile.component.js": [
+    {
+      "description": "",
+      "displayName": "Profile",
+      "methods": [
+        {
+          "name": "classes",
+          "docblock": "Returns the classes for the component.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns the classes for the component."
+        },
+        {
+          "name": "initials",
+          "docblock": "Returns the initials for the name.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns the initials for the name."
+        },
+        {
+          "name": "avatar",
+          "docblock": "Returns the avatar portion of the profile.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns the avatar portion of the profile."
+        },
+        {
+          "name": "text",
+          "docblock": "Returns the text portion of the profile.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns the text portion of the profile."
+        }
+      ],
+      "props": {
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "[Legacy] A custom class name for the component"
+        },
+        "name": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": "Define the name to display."
+        },
+        "email": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": "Define the email to use (will check Gravatar for image)."
+        },
+        "initials": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Define initials to display if there is no Gravatar image."
+        },
+        "large": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "[Legacy] Enable a larger theme for the name.",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "size": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Allow to setup size for the component"
+        },
+        "theme": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "theme to detect which component should be rendered",
+          "defaultValue": {
+            "value": "baseTheme",
+            "computed": true
+          }
+        }
+      }
+    }
+  ],
+  "src/components/profile/profile.js": [
+    {
+      "description": "",
+      "displayName": "Profile",
+      "methods": [
+        {
+          "name": "classes",
+          "docblock": "Returns the classes for the component.\n\n@method classes\n@return {String}",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "String"
+            }
+          },
+          "description": "Returns the classes for the component."
+        },
+        {
+          "name": "initials",
+          "docblock": "Returns the initials for the name.\n\n@method initials\n@return {String}",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "String"
+            }
+          },
+          "description": "Returns the initials for the name."
+        },
+        {
+          "name": "avatar",
+          "docblock": "Returns the avatar portion of the profile.\n\n@method avatar\n@return {Object} JSX",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": "JSX",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Returns the avatar portion of the profile."
+        },
+        {
+          "name": "text",
+          "docblock": "Returns the text portion of the profile.\n\n@method text\n@return {Object} JSX",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": "JSX",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Returns the text portion of the profile."
+        }
+      ],
+      "props": {
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A custom class name for the component."
+        },
+        "name": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": "Define the name to display."
+        },
+        "email": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": "Define the email to use (will check Gravatar for image)."
+        },
+        "initials": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Define initials to display if there is no Gravatar image."
+        },
+        "large": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Enable a larger theme for the name.",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "theme": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "",
+          "defaultValue": {
+            "value": "baseTheme",
+            "computed": true
+          }
+        }
+      }
+    }
+  ]
+}
