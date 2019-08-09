@@ -19,9 +19,7 @@ const StyledSelectPillContainer = styled.div`
   margin: 3px 2px 3px 0;
 
   && ${StyledPill} {
-    max-width: 170px;
     text-overflow: ellipsis;
-    white-space: nowrap;
   }
 `;
 
