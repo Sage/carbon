@@ -5,6 +5,7 @@ import {
   boolean, text, number, select
 } from '@storybook/addon-knobs';
 import { Store, State } from '@sambego/storybook-state';
+import Form from '../form';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import Checkbox from '.';
 import { info, notes, infoValidations } from './documentation';
@@ -15,26 +16,27 @@ Checkbox.__docgenInfo = getDocGenInfo(
   /checkbox\.component(?!spec)/
 );
 
-const formStore = new Store({
-  checked: false
-});
+const checkTypes = ['one', 'required', 'optional'];
+const checkboxes = {};
 
-const formStoreOne = new Store({
-  checked: true
-});
+checkTypes.forEach((type) => {
+  checkboxes[type] = {
+    store: new Store({ checked: false }),
 
-const formStoreTwo = new Store({
-  checked: true
-});
-
-const formStoreThree = new Store({
-  checked: true
+    validator: (value, props) => new Promise((resolve, reject) => {
+      if (value === 'required' && !props.checked) {
+        reject(new Error('This checkbox is required!'));
+      } else {
+        resolve();
+      }
+    })
+  };
 });
 
 storiesOf('Experimental/Checkbox', module)
   .add('default', () => {
     return (
-      <State store={ formStore }>
+      <State store={ checkboxes.one.store }>
         <Checkbox
           onChange={ ev => handleChange(ev) }
           { ...defaultKnobs() }
@@ -48,31 +50,22 @@ storiesOf('Experimental/Checkbox', module)
       excludedPropTypes: ['children']
     },
     notes: { markdown: notes }
-  }).add('validations', () => {
+  })
+  .add('validations', () => {
     return (
-      <div>
-        <State store={ formStoreOne }>
-          <Checkbox
-            validations={ errorValidator }
-            onChange={ ev => handleChange(ev) }
-            { ...defaultKnobs() }
-          />
-        </State>
-        <State store={ formStoreTwo }>
-          <Checkbox
-            warnings={ warningValidator }
-            onChange={ ev => handleChange(ev) }
-            { ...defaultKnobs() }
-          />
-        </State>
-        <State store={ formStoreThree }>
-          <Checkbox
-            info={ infoValidator }
-            onChange={ ev => handleChange(ev) }
-            { ...defaultKnobs() }
-          />
-        </State>
-      </div>
+      <Form onSubmit={ handleSubmit }>
+        {checkTypes.map(type => type !== 'one' && (
+          <State store={ checkboxes[type].store } key={ `check-state-${type}` }>
+            <Checkbox
+              key={ `checkbox-input-${type}` }
+              validations={ checkboxes[type].validator }
+              onChange={ ev => handleChange(ev, type) }
+              name={ `my-checkbox-${type}` }
+              { ...defaultKnobs(type) }
+            />
+          </State>
+        ))}
+      </Form>
     );
   }, {
     info: {
@@ -82,19 +75,24 @@ storiesOf('Experimental/Checkbox', module)
     }
   });
 
-function handleChange(ev) {
+function handleChange(ev, type = 'one') {
   action('change')();
-  formStore.set({ checked: ev.target.checked });
+
+  checkboxes[type].store.set({
+    checked: ev.target.checked
+  });
 }
 
-function defaultKnobs() {
+function defaultKnobs(type) {
+  const label = `${text('label', 'Example Checkbox')} (${type})`;
+
   return ({
     disabled: boolean('disabled', false),
     error: boolean('error', false),
     fieldHelp: text('fieldHelp', 'This text provides help for the input.'),
     fieldHelpInline: boolean('fieldHelpInline', false),
     reverse: boolean('reverse', false),
-    label: text('label', 'Example Checkbox'),
+    label,
     labelHelp: text('labelHelp', 'This text provides more information for the label.'),
     inputWidth: number('inputWidth', 0, {
       range: true,
@@ -114,36 +112,11 @@ function defaultKnobs() {
       OptionsHelper.alignBinary[0]
     ),
     size: select('size', OptionsHelper.sizesBinary, 'small'),
-    value: text('value', 'test-value')
+    value: type
   });
 }
 
-function errorValidator(value, props) {
-  return new Promise((resolve, reject) => {
-    if (props.checked) {
-      resolve();
-    } else {
-      reject(new Error('This value must not include the word "error"!'));
-    }
-  });
-}
-
-function warningValidator(value, props) {
-  return new Promise((resolve, reject) => {
-    if (props.checked) {
-      resolve();
-    } else {
-      reject(new Error('This value must not include the word "warning"!'));
-    }
-  });
-}
-
-function infoValidator(value, props) {
-  return new Promise((resolve, reject) => {
-    if (props.checked) {
-      resolve();
-    } else {
-      reject(Error('This value should be longer than 12 characters'));
-    }
-  });
+function handleSubmit(ev) {
+  ev.preventDefault();
+  action('submit')();
 }
