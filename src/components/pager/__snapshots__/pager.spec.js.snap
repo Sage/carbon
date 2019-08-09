@@ -629,6 +629,7 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
               onFocus={[Function]}
               onKeyDown={[Function]}
               onKeyUp={[Function]}
+              size="medium"
               type="text"
               value="1"
             />

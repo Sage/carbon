@@ -25,6 +25,7 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
     name="mocked-guid"
     onBlur={[Function]}
     onChange={[Function]}
+    size="medium"
     type="text"
     validations={Array []}
     warnings={Array []}
@@ -41,6 +42,7 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
       name="mocked-guid"
       onBlur={[Function]}
       onChange={[Function]}
+      size="medium"
       type="text"
       validations={Array []}
       value="foobar"
