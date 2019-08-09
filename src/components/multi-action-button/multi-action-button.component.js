@@ -8,23 +8,8 @@ import Button from '../button';
 class MultiActionButton extends SplitButton {
   /**
    * Returns the HTML for the main button.
-   * @override
-   *
-   * @method renderMainButton
-   * @return {Object}
    */
   get renderMainButton() {
-    const getIconColor = (backgroundType) => {
-      switch (backgroundType) {
-        case 'primary':
-          return 'on-dark-background';
-        case 'secondary':
-          return 'business-color';
-        default:
-          return null;
-      }
-    };
-
     return (
       <Button
         aria-haspopup='true'
@@ -41,7 +26,7 @@ class MultiActionButton extends SplitButton {
         <Icon
           type='dropdown'
           bgTheme='none'
-          iconColor={ getIconColor(this.props.buttonType) }
+          iconColor={ this.getIconColor(this.props.buttonType) }
           disabled={ this.toggleButtonProps.disabled }
         />
       </Button>

@@ -124,18 +124,21 @@ class SplitButton extends Component {
     this.additionalButtons[index] = ref;
   }
 
-  get renderMainButton() {
-    const getIconColor = (buttonType) => {
-      switch (buttonType) {
-        case 'primary':
-          return 'on-dark-background';
-        case 'secondary':
-          return 'business-color';
-        default:
-          return null;
-      }
-    };
+  getIconColor(buttonType) {
+    switch (buttonType) {
+      case 'primary':
+        return 'on-dark-background';
+      case 'secondary':
+        return 'business-color';
+      default:
+        return null;
+    }
+  }
 
+  /**
+   * Returns the HTML for the main button.
+   */
+  get renderMainButton() {
     return [
       <Button
         data-element='main-button'
@@ -156,7 +159,7 @@ class SplitButton extends Component {
         <Icon
           type='dropdown'
           bgTheme='none'
-          iconColor={ getIconColor(this.toggleButtonProps.buttonType) }
+          iconColor={ this.getIconColor(this.toggleButtonProps.buttonType) }
           disabled={ this.toggleButtonProps.disabled }
         />
       </StyledSplitButtonToggle>
