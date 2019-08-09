@@ -168,7 +168,6 @@ class Select extends React.Component {
 
   // returns the correct value to feed into the textbox component
   value(value) {
-    if (!this.props.filterable) return undefined;
     if (this.isMultiValue(value)) {
       return value; // if multi value the returns the full array
     }

@@ -7,7 +7,13 @@ import {
 import { Store, State } from '@sambego/storybook-state';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import Checkbox from '.';
-import { notes, info, infoValidations } from './documentation'
+import { info, notes, infoValidations } from './documentation';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
+
+Checkbox.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /checkbox\.component(?!spec)/
+);
 
 const formStore = new Store({
   checked: false
@@ -30,7 +36,7 @@ storiesOf('Experimental/Checkbox', module)
     return (
       <State store={ formStore }>
         <Checkbox
-          onChange={ (ev) => handleChange(ev, formStore) }
+          onChange={ ev => handleChange(ev) }
           { ...defaultKnobs() }
         />
       </State>
@@ -48,21 +54,21 @@ storiesOf('Experimental/Checkbox', module)
         <State store={ formStoreOne }>
           <Checkbox
             validations={ errorValidator }
-            onChange={ (ev) => handleChange(ev, formStoreOne) }
+            onChange={ ev => handleChange(ev) }
             { ...defaultKnobs() }
           />
         </State>
         <State store={ formStoreTwo }>
           <Checkbox
             warnings={ warningValidator }
-            onChange={ (ev) => handleChange(ev, formStoreTwo) }
+            onChange={ ev => handleChange(ev) }
             { ...defaultKnobs() }
           />
         </State>
         <State store={ formStoreThree }>
           <Checkbox
             info={ infoValidator }
-            onChange={ (ev) => handleChange(ev, formStoreThree) }
+            onChange={ ev => handleChange(ev) }
             { ...defaultKnobs() }
           />
         </State>
@@ -76,7 +82,7 @@ storiesOf('Experimental/Checkbox', module)
     }
   });
 
-function handleChange(ev, formStore) {
+function handleChange(ev) {
   action('change')();
   formStore.set({ checked: ev.target.checked });
 }
@@ -107,7 +113,8 @@ function defaultKnobs() {
       OptionsHelper.alignBinary,
       OptionsHelper.alignBinary[0]
     ),
-    size: select('size', OptionsHelper.sizesBinary, 'small')
+    size: select('size', OptionsHelper.sizesBinary, 'small'),
+    value: text('value', 'test-value')
   });
 }
 
@@ -137,6 +144,6 @@ function infoValidator(value, props) {
       resolve();
     } else {
       reject(Error('This value should be longer than 12 characters'));
-   }
+    }
   });
 }

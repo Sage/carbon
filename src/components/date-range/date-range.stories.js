@@ -5,6 +5,12 @@ import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import notes from './documentation';
 import DateRange from './date-range.js';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+DateRange.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /date-range(?!spec)/
+);
 
 const store = new Store({
   value: ['2016-10-01', '2016-10-30']

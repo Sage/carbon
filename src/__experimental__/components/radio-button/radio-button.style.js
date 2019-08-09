@@ -9,7 +9,6 @@ import ClassicRadioButtonStyles from './radio-button-classic.style';
 
 const RadioButtonStyle = styled(CheckboxStyle)`
   ${({
-    checked,
     disabled,
     fieldHelpInline,
     reverse,
@@ -50,12 +49,18 @@ const RadioButtonStyle = styled(CheckboxStyle)`
       r: 5;
     }
 
-    ${checked && css`
-      circle { fill: ${theme.colors.primary}; }
-    `}
+    ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle {
+      fill: ${theme.colors.primary};
+    }
 
     ${disabled && css`
-      circle { fill: ${(checked ? theme.disabled.border : theme.disabled.input)}; }
+      circle {
+        fill: ${theme.disabled.input};
+      }
+
+      ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle {
+        fill: ${theme.disabled.border};
+      }
     `}
 
     ${(fieldHelpInline || reverse) && `

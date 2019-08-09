@@ -264,7 +264,10 @@ const withValidation = (WrappedComponent) => {
   WithValidation.propTypes = {
     children: PropTypes.node, // Children elements
     name: PropTypes.string.isRequired, // Name to uniquely identify the component
-    value: PropTypes.string, // The current value of the component
+    value: PropTypes.oneOfType([ // The current value of the component
+      PropTypes.string,
+      PropTypes.array
+    ]),
     onBlur: PropTypes.func, // Custom function to be called when the component blurs
     onChange: PropTypes.func, // Custom function called when component value changes
     validations: validationsPropTypes,

@@ -1,0 +1,40 @@
+{
+  "src/__experimental__/components/grouped-character/grouped-character.component.js": [
+    {
+      "description": "",
+      "displayName": "GroupedCharacter",
+      "methods": [],
+      "props": {
+        "separator": {
+          "type": {
+            "name": "custom",
+            "raw": "(props, propName, componentName) => {\n  if (typeof props[propName] !== 'string' || props[propName].length > 1) {\n    return new Error(`Invalid prop ${propName} supplied to ${componentName}. Must be string of length 1.`);\n  }\n  return null;\n}"
+          },
+          "required": false,
+          "description": "character to be used as separator"
+        },
+        "groups": {
+          "type": {
+            "name": "array"
+          },
+          "required": false,
+          "description": "pattern by which input value should be grouped"
+        },
+        "value": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "input value"
+        },
+        "onChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "on change handler which will receive the input value without separators"
+        }
+      }
+    }
+  ]
+}

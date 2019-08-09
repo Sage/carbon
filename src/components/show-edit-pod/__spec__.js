@@ -396,7 +396,7 @@ describe('ShowEditPod', () => {
 
     describe('on internal elements', () => {
       const wrapper = mount(<ShowEditPod editing onEdit={ () => {} } />);
-      const form = wrapper.find('.carbon-form');
+      const form = wrapper.find('[data-component="form"]').hostNodes();
       expect(form.type()).toEqual('form');
       elementsTagTest(form, [
         'edit-form'

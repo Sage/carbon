@@ -1,0 +1,220 @@
+{
+  "src/components/menu/menu-item/menu-item.js": [
+    {
+      "description": "Renders a menu item for the menu component.",
+      "displayName": "MenuItem",
+      "methods": [
+        {
+          "name": "content",
+          "docblock": "Determines what content will be rendered for the menu item.\n\n@return {Object} JSX",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": "JSX",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Determines what content will be rendered for the menu item."
+        },
+        {
+          "name": "classes",
+          "docblock": "Returns the classes for the component.\n\n@method classes\n@return {String}",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "String"
+            }
+          },
+          "description": "Returns the classes for the component."
+        }
+      ],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": true,
+          "description": "Children elements"
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Custom className"
+        },
+        "onClick": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "onClick handler"
+        },
+        "icon": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Adds an icon to the menu item."
+        },
+        "submenuDirection": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Defines which direction the submenu will hang eg. left/right",
+          "defaultValue": {
+            "value": "'right'",
+            "computed": false
+          }
+        },
+        "selected": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Is the menu item the currently selected item."
+        },
+        "divide": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "(for submenus) renders with a divide between items."
+        },
+        "submenu": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "object"
+              }
+            ]
+          },
+          "required": false,
+          "description": "A title for the menu item that has a submenu."
+        },
+        "href": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The href to use for the menu item."
+        },
+        "to": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The to link to use for the menu item."
+        },
+        "target": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The target to use for the menu item."
+        }
+      }
+    }
+  ],
+  "src/components/menu/menu.js": [
+    {
+      "description": "",
+      "displayName": "Menu",
+      "methods": [
+        {
+          "name": "classes",
+          "docblock": "Returns the classes for the component.\n\n@method classes\n@return {String}",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "String"
+            }
+          },
+          "description": "Returns the classes for the component."
+        }
+      ],
+      "props": {
+        "as": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Defines the style of the component eg. primary/secondary",
+          "defaultValue": {
+            "value": "'primary'",
+            "computed": false
+          }
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Children elements"
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Custom className"
+        }
+      }
+    }
+  ],
+  "src/components/menu/submenu-block/submenu-block.js": [
+    {
+      "description": "Renders a menu block for inside of a submenu.",
+      "displayName": "SubmenuBlock",
+      "methods": [
+        {
+          "name": "classes",
+          "docblock": "Returns the classes for the component.\n\n@method classes\n@return {String}",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "String"
+            }
+          },
+          "description": "Returns the classes for the component."
+        }
+      ],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": true,
+          "description": "Children elements"
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Custom className"
+        }
+      }
+    }
+  ]
+}

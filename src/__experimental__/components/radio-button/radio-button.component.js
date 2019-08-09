@@ -18,29 +18,39 @@ function setTabIndex({ tabindex, checked }) {
   return tabindexOverride;
 }
 
-const RadioButton = ({ id, ...props }) => {
-  const { onChange, ...rest } = props;
-
+const RadioButton = ({
+  id, label, onChange, value, ...props
+}) => {
   const inputProps = {
-    ...rest,
+    ...props,
+    helpTabIndex: '-1',
+    helpTag: 'span',
+    inputId: id,
+    inputLabel: label,
+    inputValue: value,
+    inputType: 'radio',
     /**
      * Invert the reverse prop, to ensure the FormField component renders the components
      * in the desired order (other elements which use FormField render their sub-components the
      * opposite way around by default)
-    */
+     */
     reverse: !props.reverse
   };
+
+  function handleChange(ev) {
+    onChange(ev);
+    // specifically trigger focus, as Safari doesn't focus radioButtons on click by default
+    ev.target.focus();
+  }
 
   return (
     <RadioButtonStyle
       { ...tagComponent('radio-button', props) }
-      { ...rest }
+      { ...props }
     >
       <CheckableInput
-        type='radio'
         { ...inputProps }
-        inputId={ id }
-        onChange={ onChange }
+        onChange={ handleChange }
         tabindex={ setTabIndex(inputProps) }
       >
         <RadioButtonSvg />
@@ -62,6 +72,8 @@ RadioButton.propTypes = {
   id: PropTypes.string,
   /** Sets percentage-based input width */
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  /** The content of the label for the input */
+  label: PropTypes.string,
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
   labelAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
   /** Sets percentage-based label width */

@@ -1,5 +1,6 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
+import ReactTestUtils from 'react-dom/test-utils';
 import { shallow } from 'enzyme';
 import { ThemeProvider } from 'styled-components';
 import classicTheme from '../../style/themes/classic';
@@ -143,22 +144,9 @@ describe('PortraitComponent', () => {
     const testSuccess = element => renderFindTypeSuccess(element, StyledIcon, expectedProps);
     const testFail = element => renderFindTypeFail(element, StyledIcon);
 
-    it('renders icon when supplied with Gravatar but no src or initials', () => {
+    it('renders icon when not supplied with Gravatar or src or initials', () => {
       testSuccess(
         <Portrait
-          gravatar='example@example.com'
-          size='XXL'
-          shape='square'
-          darkBackground={ false }
-        />
-      );
-    });
-
-    it('renders icon when supplied with Gravatar and empty initials but no src', () => {
-      testSuccess(
-        <Portrait
-          gravatar='example@example.com'
-          initials=''
           size='XXL'
           shape='square'
           darkBackground={ false }
@@ -254,15 +242,9 @@ describe('PortraitComponent', () => {
     const testSuccess = element => renderFindTypeSuccess(element, PortraitInitials, expectedProps);
     const testFail = element => renderFindTypeFail(element, PortraitInitials);
 
-    it('renders initials when supplied with Gravatar and initials but no src', () => {
-      renderClassic(
-        <Portrait
-          gravatar='example@example.com'
-          initials='AB'
-          size='medium'
-        />
-      );
-      testSuccess(<Portrait gravatar='example@example.com' initials='AB' />);
+    it('renders initials when supplied with initials but no Gravatar or src', () => {
+      renderClassic(<Portrait initials='AB' size='medium' />);
+      testSuccess(<Portrait initials='AB' />);
     });
 
     it('renders empty alt attribute when alt prop is empty', () => {
@@ -364,6 +346,38 @@ describe('PortraitComponent', () => {
           src: imageUrl, alt: '', size: 'M', 'data-element': 'user-image'
         }
       );
+    });
+  });
+
+  describe('external images', () => {
+    it("can handle an error when the Gravatar doesn't exist", () => {
+      const rendered = ReactTestUtils.renderIntoDocument(<Portrait gravatar='example@example.com' />);
+      const img = ReactTestUtils.findRenderedDOMComponentWithTag(rendered, 'img'); // Finds <StyledPortraitGravatar>
+      expect(rendered.state.externalError).toBe(false);
+      ReactTestUtils.Simulate.error(img); // Triggers `onError` of <StyledPortraitGravatar>
+      expect(rendered.state.externalError).toBe(true);
+    });
+
+    it("can handle an error when the custom image doesn't exist", () => {
+      const rendered = ReactTestUtils.renderIntoDocument(<Portrait src='https://example.com/example.jpg' />);
+      const img = ReactTestUtils.findRenderedDOMComponentWithTag(rendered, 'img'); // Finds <StyledCustomImg>
+      expect(rendered.state.externalError).toBe(false);
+      ReactTestUtils.Simulate.error(img); // Triggers `onError` of <StyledCustomImg>
+      expect(rendered.state.externalError).toBe(true);
+    });
+
+    it('resets the error state when the Gravatar is changed', () => {
+      const wrapper = shallow(<Portrait gravatar='example@example.com' />);
+      wrapper.setState({ externalError: true });
+      wrapper.setProps({ gravatar: 'test@test.com' });
+      expect(wrapper.state().externalError).toBe(false);
+    });
+
+    it('resets the error state when the custom image src is changed', () => {
+      const wrapper = shallow(<Portrait src='https://example.com/example.jpg' />);
+      wrapper.setState({ externalError: true });
+      wrapper.setProps({ src: 'https://test.com/test.jpg' });
+      expect(wrapper.state().externalError).toBe(false);
     });
   });
 

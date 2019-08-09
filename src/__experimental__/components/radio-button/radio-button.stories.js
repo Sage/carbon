@@ -30,6 +30,7 @@ storiesOf('Experimental/RadioButton', module)
           { ...knobs }
         />
         <RadioButton
+          // id prop intentionally left off here, to demonstrate automatic GUID generation
           label={ text('radioThreeLabel', 'Example Annual Radio Button') }
           value={ text('radioThreeValue', 'annually') }
           { ...knobs }

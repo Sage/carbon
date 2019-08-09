@@ -4,6 +4,12 @@ import { select } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Filter from './filter';
 import Textbox from '../textbox';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Filter.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /filter(?!spec)/
+);
 
 storiesOf('Filter Component', module)
   .addParameters({

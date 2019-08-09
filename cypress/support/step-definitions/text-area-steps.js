@@ -75,7 +75,9 @@ Then('characterLimit is shown as {string}', (length) => {
 
 Then('characterLimit is not set to {string}', (length) => {
   textareaChildren().should('have.attr', 'maxlength', length);
-  characterLimit().should('have.text', 'NaN');
+  if (isNaN(length)) {
+    characterLimit().should('have.text', 'NaN');
+  }
 });
 
 Then('Textarea inputWidth is set to {string}', (width) => {

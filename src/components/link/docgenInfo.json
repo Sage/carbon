@@ -1,0 +1,177 @@
+{
+  "src/components/link/link.component.js": [
+    {
+      "description": "",
+      "displayName": "Link",
+      "methods": [
+        {
+          "name": "onKeyDown",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "renderLinkIcon",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "currentAlignment",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "icon",
+          "docblock": null,
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "tabIndex",
+          "docblock": null,
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "componentProps",
+          "docblock": null,
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "renderLinkContent",
+          "docblock": "className `@carbon-link__content` is related to `ShowEditPod` component",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "className `@carbon-link__content` is related to `ShowEditPod` component"
+        },
+        {
+          "name": "renderLink",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        }
+      ],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Child content to render in the link."
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Classes to apply to the component."
+        },
+        "disabled": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "The disabled state of the link."
+        },
+        "href": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "An href for an anchor tag."
+        },
+        "icon": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "An icon to display next to the link."
+        },
+        "iconAlign": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Which side of the link to the render the link.",
+          "defaultValue": {
+            "value": "'left'",
+            "computed": false
+          }
+        },
+        "onClick": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Function called when the mouse is clicked."
+        },
+        "onKeyDown": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Function called when a key is pressed."
+        },
+        "tabbable": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Whether to include the link in the tab order of the page",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "to": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Using `to` instead of `href` will create a React Router link rather than a web href."
+        },
+        "tooltipMessage": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A message to display as a tooltip to the link."
+        },
+        "tooltipPosition": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Positions the tooltip with the link."
+        },
+        "tooltipAlign": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Aligns the tooltip."
+        }
+      }
+    }
+  ]
+}

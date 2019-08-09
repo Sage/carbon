@@ -51,5 +51,18 @@ describe('Text', () => {
         expect(mockSelection.removeAllRanges).toHaveBeenCalled();
       });
     });
+
+    describe('titleCase', () => {
+      const isUpperCase = (str) => {
+        return str === str.toUpperCase();
+      }
+      
+      it('capitalises the first letter of a given string', () => {
+        const str = Text.titleCase('foo');
+
+        expect(isUpperCase(str.charAt(0))).toEqual(true);
+        expect(isUpperCase(str)).toEqual(false);
+      });
+    });
   });
 });

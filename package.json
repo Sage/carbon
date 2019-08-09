@@ -7,6 +7,7 @@
     "npm": "^6.0.0"
   },
   "scripts": {
+    "docgenInfo": "./script/generate-docgeninfo.sh",
     "gen-colors": "node -e \"require('./script/generate-demo-colors').default();\"",
     "gen-docs": "node -e \"require('./script/generate-docs').default();\"",
     "prep-deploy": "node -e \"require('./script/deploy').default();\"",
@@ -27,8 +28,6 @@
     "watch": "npm run clean-lib && npm run copy-files -- --watch & npm run babel -- --watch",
     "storybook": "./node_modules/.bin/start-storybook -p 9001 -c .storybook",
     "storybook-ci": "./node_modules/.bin/start-storybook -p 9001 -c .storybook --ci",
-    "storybook-cypress": "concurrently -k 'npm run storybook-ci' 'wait-on http://localhost:9001 && npm run test-cypress-build'",
-    "storybook-test": "npm run storybook-ci && wait-on http://localhost:9001 && npm run test-cypress-build </dev/null &>/dev/null",
     "babel": "cross-env NODE_ENV=production babel --stage 0 ./src --config-file ./babel.config.js --out-dir ./lib --ignore '**/*/__spec__.js','**/*.spec.js','**/__definition__.js' --quiet",
     "clean-lib": "rimraf ./lib",
     "copy-files": "cpx \"src/**/!(*.js|*.md|*.snap)\" lib",
@@ -71,8 +70,8 @@
     "core-js": "^3.1.4",
     "cpx": "^1.5.0",
     "cross-env": "^5.2.0",
-    "cypress": "3.4.0",
-    "cypress-cucumber-preprocessor": "1.12.0",
+    "cypress": "3.4.1",
+    "cypress-cucumber-preprocessor": "1.13.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "1.7.1",
     "eslint-plugin-cypress": "^2.0.1",
@@ -119,6 +118,12 @@
     "wait-on": "^3.2.0"
   },
   "cypress-cucumber-preprocessor": {
-    "step_definitions": "cypress/support/step-definitions/"
+    "step_definitions": "cypress/support/step-definitions/",
+    "cucumberJson": {
+      "generate": false,
+      "outputFolder": "cypress/cucumber-json",
+      "filePrefix": "",
+      "fileSuffix": ".cucumber"
+    }
   }
 }
