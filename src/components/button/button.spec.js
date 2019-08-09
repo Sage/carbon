@@ -8,9 +8,10 @@ import Button from './button.component';
 import StyledButton from './button.style';
 import BaseTheme from '../../style/themes/base';
 import classicTheme from '../../style/themes/classic';
-
+import OptionsHelper from '../../utils/helpers/options-helper';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import { StyledIcon } from '../icon/icon.style';
 
 const render = (props, renderer = shallow) => {
   return renderer(
@@ -45,16 +46,25 @@ describe('Button', () => {
     describe.each(['before', 'after'])(
       'when position is set to "%s"',
       (position) => {
-        it('contains an Icon', () => {
-          const wrapper = render({
-            children: 'foo',
-            iconType: 'filter',
-            iconPosition: position
-          }).dive();
+        describe.each(OptionsHelper.buttonTypes)(
+          'and the button type is %s',
+          (buttonType) => {
+            let wrapper;
+            beforeEach(() => {
+              wrapper = render({
+                children: 'foo',
+                iconType: 'filter',
+                iconPosition: position,
+                buttonType
+              }).dive();
+            });
 
-          const assertion = wrapper.find(Icon).exists() && wrapper.find(Icon).props().type === 'filter';
-          expect(assertion).toEqual(true);
-        });
+            it('contains an Icon', () => {
+              const assertion = (wrapper.find(Icon).exists() && wrapper.find(Icon).props().type === 'filter');
+              expect(assertion).toEqual(true);
+            });
+          }
+        );
       }
     );
   });

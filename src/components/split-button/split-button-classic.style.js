@@ -35,7 +35,6 @@ const getMainSplitButtonClassicStyles = ({ theme }) => (theme.name === THEMES.cl
   & > ${StyledButton}:focus {
     border: 1px solid #1e499f;
     margin: 0;
-
   }
 ` : '');
 

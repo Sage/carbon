@@ -55,7 +55,7 @@ describe('SwitchSliderPanel', () => {
         const wrapper = render({ loading: false, theme: classicTheme }).toJSON();
 
         assertStyleMatch({
-          color: baseTheme.text.color,
+          color: baseTheme.colors.white,
           marginRight: '9px'
         }, wrapper, { modifier: "[type='off']" });
       });

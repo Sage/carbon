@@ -86,23 +86,26 @@ function renderChildren(props) {
     }
   };
 
-  const icon = (
-    <Icon
-      type={ iconType }
-      disabled={ disabled }
-      bgTheme='none'
-      iconColor={ getIconColor(buttonType) }
-    />
-  );
-
   return (
     <>
-      { iconType && iconPosition === 'before' && icon}
+      { iconType && iconPosition === 'before' && (
+        <Icon
+          type={ iconType }
+          disabled={ disabled }
+          bgTheme='none'
+          iconColor={ getIconColor(buttonType) }
+        />) }
       <span>
         <span data-element='main-text'>{ children }</span>
         { size === 'large' && <StyledButtonSubtext data-element='subtext'>{ subtext }</StyledButtonSubtext> }
       </span>
-      { iconType && iconPosition === 'after' && icon}
+      { iconType && iconPosition === 'after' && (
+        <Icon
+          type={ iconType }
+          disabled={ disabled }
+          bgTheme='none'
+          iconColor={ getIconColor(buttonType) }
+        />) }
     </>
   );
 }
