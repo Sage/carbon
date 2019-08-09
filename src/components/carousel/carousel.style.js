@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import Icon from '../icon/icon';
+import Icon from '../icon';
 import { slideAnimation, fadeAnimation } from './slide.config';
 import { isClassic } from '../../utils/helpers/style-helper';
 import baseTheme from '../../style/themes/base';

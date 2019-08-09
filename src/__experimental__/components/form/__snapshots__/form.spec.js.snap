@@ -52,7 +52,11 @@ exports[`Form When child is an html element it renders the child 1`] = `
   color: #FFFFFF;
 }
 
-.c4 .carbon-icon {
+.c4:hover .c14 {
+  color: #FFFFFF;
+}
+
+.c4 .c14 {
   margin-left: 0px;
   margin-right: 8px;
 }
@@ -106,7 +110,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
   background: #006300;
 }
 
-.c6 .carbon-icon {
+.c6 .c14 {
   margin-left: 0px;
   margin-right: 8px;
 }

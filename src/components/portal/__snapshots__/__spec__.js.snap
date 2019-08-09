@@ -48,6 +48,10 @@ exports[`Portal when using default node to match snapshot  1`] = `
           onTouchEnd={[Function]}
           theme={
             Object {
+              "carousel": Object {
+                "activeSelectorBackground": "#668491",
+                "inactiveSelectorBackground": "#CCD6DA",
+              },
               "colors": Object {
                 "base": "#00A376",
                 "black": "#000000",
@@ -83,6 +87,9 @@ exports[`Portal when using default node to match snapshot  1`] = `
                 "input": "#F2F4F5",
                 "switch": "#E4E9EB",
                 "text": "rgba(0,0,0,0.3)",
+              },
+              "form": Object {
+                "invalid": "#F2F4F5",
               },
               "help": Object {
                 "color": "rgba(0,0,0,0.65)",
@@ -160,6 +167,10 @@ exports[`Portal when using default node to match snapshot  1`] = `
                 "$$typeof": Symbol(react.forward_ref),
                 "_foldedDefaultProps": Object {
                   "theme": Object {
+                    "carousel": Object {
+                      "activeSelectorBackground": "#668491",
+                      "inactiveSelectorBackground": "#CCD6DA",
+                    },
                     "colors": Object {
                       "base": "#00A376",
                       "black": "#000000",
@@ -195,6 +206,9 @@ exports[`Portal when using default node to match snapshot  1`] = `
                       "input": "#F2F4F5",
                       "switch": "#E4E9EB",
                       "text": "rgba(0,0,0,0.3)",
+                    },
+                    "form": Object {
+                      "invalid": "#F2F4F5",
                     },
                     "help": Object {
                       "color": "rgba(0,0,0,0.65)",
@@ -290,6 +304,10 @@ exports[`Portal when using default node to match snapshot  1`] = `
             onTouchEnd={[Function]}
             theme={
               Object {
+                "carousel": Object {
+                  "activeSelectorBackground": "#668491",
+                  "inactiveSelectorBackground": "#CCD6DA",
+                },
                 "colors": Object {
                   "base": "#00A376",
                   "black": "#000000",
@@ -325,6 +343,9 @@ exports[`Portal when using default node to match snapshot  1`] = `
                   "input": "#F2F4F5",
                   "switch": "#E4E9EB",
                   "text": "rgba(0,0,0,0.3)",
+                },
+                "form": Object {
+                  "invalid": "#F2F4F5",
                 },
                 "help": Object {
                   "color": "rgba(0,0,0,0.65)",

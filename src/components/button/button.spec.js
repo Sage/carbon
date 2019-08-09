@@ -11,7 +11,6 @@ import classicTheme from '../../style/themes/classic';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
-import { StyledIcon } from '../icon/icon.style';
 
 const render = (props, renderer = shallow) => {
   return renderer(
