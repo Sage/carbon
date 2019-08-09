@@ -2,6 +2,15 @@
 
 exports[`Dialog dialog headers when a props object title is passed wraps it within a div 1`] = `null`;
 
+exports[`Dialog renders children when they are a JSX component should render matched snpashot 1`] = `
+<Heading
+  divider={true}
+  separator={false}
+/>
+`;
+
+exports[`Dialog renders children when they are not a JSX component should render matched snpashot 1`] = `"foo"`;
+
 exports[`Dialog when fixedBottom and stickyFormFooter are passed to the DialogStyle should render matched snapshot 1`] = `
 .c0 {
   background-color: #F2F5F6;

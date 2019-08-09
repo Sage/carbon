@@ -1,9 +1,9 @@
 import React from 'react';
-import StyledCheckboxSvgWrapper from './checkbox-svg-wrapper.style';
+import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
 
 const CheckboxSvg = () => {
   return (
-    <StyledCheckboxSvgWrapper>
+    <StyledCheckableInputSvgWrapper>
       <svg
         width='12'
         height='10'
@@ -17,7 +17,7 @@ const CheckboxSvg = () => {
           fillRule='evenodd'
         />
       </svg>
-    </StyledCheckboxSvgWrapper>
+    </StyledCheckableInputSvgWrapper>
   );
 };
 

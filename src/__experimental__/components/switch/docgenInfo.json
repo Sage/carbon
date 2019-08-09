@@ -1,0 +1,158 @@
+{
+  "src/__experimental__/components/switch/switch-slider.component.js": [
+    {
+      "description": "",
+      "displayName": "SwitchSlider",
+      "methods": [],
+      "props": {
+        "checked": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": ""
+        },
+        "disabled": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": ""
+        },
+        "loading": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": ""
+        },
+        "theme": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "",
+          "defaultValue": {
+            "value": "baseTheme",
+            "computed": true
+          }
+        }
+      }
+    }
+  ],
+  "src/__experimental__/components/switch/switch.component.js": [
+    {
+      "description": "",
+      "displayName": "Switch",
+      "methods": [],
+      "props": {
+        "checked": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Set the value of the Switch"
+        },
+        "disabled": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Toggles disabling of input"
+        },
+        "fieldHelp": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Displays additional information below the input to provide help to the user."
+        },
+        "fieldHelpInline": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Displays fieldHelp inline with the checkbox"
+        },
+        "inputWidth": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Sets percentage-based input width"
+        },
+        "labelAlign": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Sets label alignment - accepted values: 'left' (default), 'right'"
+        },
+        "labelInline": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Displays label inline with the Switch",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "labelWidth": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Sets percentage-based label width"
+        },
+        "loading": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Triggers loading animation"
+        },
+        "onChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Accepts a callback function which can be used to update parent state on change"
+        },
+        "reverse": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Reverses label and Switch display",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "size": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Set the size of the Switch to 'small' (16x16 - default) or 'large' (24x24).\nNo effect when using Classic theme."
+        },
+        "theme": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": ""
+        }
+      }
+    }
+  ],
+  "src/__experimental__/components/switch/switch.stories.js": [
+    {
+      "description": "",
+      "displayName": "SwitchWrapper",
+      "methods": []
+    }
+  ]
+}

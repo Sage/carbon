@@ -105,6 +105,8 @@ const Checkbox = Input(InputLabel(InputValidation(class Checkbox extends React.C
     props.type = 'checkbox';
     props.value = true;
     delete props.children;
+    delete props.childOfForm;
+
     return props;
   }
 

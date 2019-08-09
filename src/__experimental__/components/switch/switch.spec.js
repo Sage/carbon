@@ -21,7 +21,7 @@ jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
 
 function render(props) {
-  return TestRenderer.create(<Switch { ...props } />);
+  return TestRenderer.create(<Switch value='test' { ...props } />);
 }
 
 describe('Switch', () => {

@@ -7,15 +7,22 @@ import notes from './documentation/notes.md';
 import Info from './documentation/Info';
 import Form, { FormWithoutValidations } from '.';
 import Textbox from '../textbox';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Form.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /form\.js(?!spec)/
+);
 
 storiesOf('Form', module)
   .addParameters({
     info: {
+      text: Info,
       propTablesExclude: [Textbox]
     }
   })
   .add('default', () => {
-    const unsavedWarning = boolean('unsavedWarning', false);
+    const unsavedWarning = boolean('unsavedWarning', true);
     const save = boolean('save', true);
     const cancel = boolean('cancel', true);
     const buttonAlign = select(
@@ -60,7 +67,6 @@ storiesOf('Form', module)
       </Form>
     );
   }, {
-    info: { text: Info },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
   });

@@ -9,6 +9,12 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import Switch from '.';
 import { info, legacyInfo, notes } from './documentation';
 import classic from '../../../style/themes/classic';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
+
+Switch.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /switch\.component(?!spec)/
+);
 
 const formStore = new Store({
   checked: false
@@ -85,7 +91,8 @@ function commonKnobs() {
       OptionsHelper.alignBinary,
       OptionsHelper.alignBinary[0]
     ),
-    reverse: boolean('reverse', Switch.defaultProps.reverse)
+    reverse: boolean('reverse', Switch.defaultProps.reverse),
+    value: text('value', 'test-value')
   });
 }
 

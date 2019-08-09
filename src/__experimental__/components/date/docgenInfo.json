@@ -1,0 +1,336 @@
+{
+  "src/__experimental__/components/date/date-picker.component.js": [
+    {
+      "description": "",
+      "displayName": "DatePicker",
+      "methods": [],
+      "props": {
+        "minDate": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Minimum possible date"
+        },
+        "maxDate": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Maximum possible date"
+        },
+        "inputElement": {
+          "type": {
+            "name": "object"
+          },
+          "required": true,
+          "description": "Element that the DatePicker will be displayed under"
+        },
+        "selectedDate": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "Currently selected date"
+        },
+        "handleDateSelect": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Callback to set selected date"
+        }
+      }
+    }
+  ],
+  "src/__experimental__/components/date/date.component.js": [
+    {
+      "description": "",
+      "displayName": "DateInput",
+      "methods": [
+        {
+          "name": "hasValueChanged",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "prevProps",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "assignInput",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "input",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "handleBlur",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "handleFocus",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "handleTabKeyDown",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "openDatePicker",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "reformatVisibleDate",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "closeDatePicker",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "handleDateSelect",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "selectedDate",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "updateVisibleValue",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "date",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "handleVisibleInputChange",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "updateSelectedDate",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "newValue",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "emitOnChangeCallback",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "stringDate",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "renderDatePicker",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "dateRangeProps",
+              "type": null
+            }
+          ],
+          "returns": null
+        }
+      ],
+      "props": {
+        "autoFocus": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Automatically focus on component mount"
+        },
+        "internalValidations": {
+          "type": {
+            "name": "array"
+          },
+          "required": false,
+          "description": "Used to provide additional validations on composed components",
+          "defaultValue": {
+            "value": "[new DateValidator()]",
+            "computed": false
+          }
+        },
+        "minDate": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Minimum possible date YYYY-MM-DD"
+        },
+        "maxDate": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Maximum possible date YYYY-MM-DD"
+        },
+        "onBlur": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Specify a callback triggered on blur"
+        },
+        "onChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Specify a callback triggered on change"
+        },
+        "onFocus": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Specify a callback triggered on focus"
+        },
+        "value": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The current date YYYY-MM-DD",
+          "defaultValue": {
+            "value": "DateHelper.todayFormatted()",
+            "computed": true
+          }
+        },
+        "forceUpdateTriggerToggle": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Triggers textbox validation when it's boolean value changes"
+        }
+      },
+      "composes": [
+        "../textbox"
+      ]
+    }
+  ],
+  "src/__experimental__/components/date/navbar/navbar.component.js": [
+    {
+      "description": "",
+      "displayName": "Navbar",
+      "methods": [],
+      "props": {
+        "onPreviousClick": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": ""
+        },
+        "onNextClick": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": ""
+        }
+      }
+    }
+  ],
+  "src/__experimental__/components/date/weekday/weekday.component.js": [
+    {
+      "description": "",
+      "displayName": "Weekday",
+      "methods": [],
+      "props": {
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": ""
+        },
+        "title": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": ""
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": ""
+        }
+      }
+    }
+  ]
+}

@@ -6,6 +6,12 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, Info } from './documentation';
 import Icon from '.';
 import classicTheme from '../../style/themes/classic';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Icon.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /icon(?!spec)/
+);
 
 function commonKnobs() {
   const tooltipMessage = text('tooltipMessage', '');

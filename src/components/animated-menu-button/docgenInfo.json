@@ -1,0 +1,173 @@
+{
+  "src/components/animated-menu-button/animated-menu-button.js": [
+    {
+      "description": "An AnimatedMenuButton widget.\n\n== How to use an AnimatedMenuButton in a component:\n\nIn your file\n\n  import AnimatedMenuButton from 'carbon-react/lib/components/animated-menu-button';\n\nTo render a AnimatedMenuButton, pass children to be rendered in the expanded menu:\n\n <AnimatedMenuButton>\n   <Row>\n     <div>\n       <h2 className=\"title\">Foo</h2>\n         <p><Link href='#'>Bar</Link></p>\n      </div>\n    </Row>\n </AnimatedMenuButton>\n\n@class AnimatedMenuButton\n@constructor",
+      "displayName": "AnimatedMenuButton",
+      "methods": [
+        {
+          "name": "labelHTML",
+          "docblock": "Getter for label HTML\n\n@method labelHTML\n@return {HTML} HTML for label.",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": "HTML for label.",
+            "type": {
+              "name": "HTML"
+            }
+          },
+          "description": "Getter for label HTML"
+        },
+        {
+          "name": "innerHTML",
+          "docblock": "Getter for inner HTML of menu\n\n@method innerHTML\n@return {HTML} HTML for menu contents.",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": "HTML for menu contents.",
+            "type": {
+              "name": "HTML"
+            }
+          },
+          "description": "Getter for inner HTML of menu"
+        },
+        {
+          "name": "mainClasses",
+          "docblock": "Getter for widget's main classes.\n\n@method mainClasses\n@return {String} Classnames",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": "Classnames",
+            "type": {
+              "name": "String"
+            }
+          },
+          "description": "Getter for widget's main classes."
+        },
+        {
+          "name": "componentProps",
+          "docblock": "A getter that returns any supplied custom props along with default props.\n\n@method componentProps\n@return {Object} props including class names & event handlers.",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": "props including class names & event handlers.",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "A getter that returns any supplied custom props along with default props."
+        },
+        {
+          "name": "closeIcon",
+          "docblock": "Returns a close icon with touch handler.\n\n@method closeIcon\n@return {HTML} html for close icon",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": "html for close icon",
+            "type": {
+              "name": "HTML"
+            }
+          },
+          "description": "Returns a close icon with touch handler."
+        },
+        {
+          "name": "openHandler",
+          "docblock": "Opens handler on event.\n\n@method openHandler\n@return {void}",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "void"
+            }
+          },
+          "description": "Opens handler on event."
+        },
+        {
+          "name": "closeHandler",
+          "docblock": "Closes menu on event.\n\n@method closeHandler\n@return {void}",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "event"
+            }
+          ],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "void"
+            }
+          },
+          "description": "Closes menu on event."
+        },
+        {
+          "name": "handleBlur",
+          "docblock": "Handles blur of expanded menu.\n\n@method handleBlur\n@return {void}",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "void"
+            }
+          },
+          "description": "Handles blur of expanded menu."
+        }
+      ],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Children elements\n\n@property children\n@type {Node}"
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Custom className\n\n@property className\n@type {String}"
+        },
+        "direction": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The direction in which the menu expands.\n\nOptions: right, left\n\n@property direction\n@type {String}\n@default left",
+          "defaultValue": {
+            "value": "'left'",
+            "computed": false
+          }
+        },
+        "label": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A label to display at the top of the expanded menu.\n\n@property label\n@type {String}e"
+        },
+        "size": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The size of the menu.\n\nOptions: small, smed, medium, mlarge, large\n\n@property size\n@type {String}\n@default medium",
+          "defaultValue": {
+            "value": "'medium'",
+            "computed": false
+          }
+        }
+      }
+    }
+  ],
+  "src/components/animated-menu-button/animated-menu-button.stories.js": [
+    {
+      "description": "",
+      "displayName": "AnimatedMenuButton",
+      "methods": [],
+      "composes": [
+        "./animated-menu-button"
+      ]
+    }
+  ]
+}

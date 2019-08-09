@@ -463,6 +463,7 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
     const { ...props } = validProps(this);
 
     delete props.autoFocus;
+    delete props.childOfForm;
 
     props.className = this.inputClasses;
     props.value = this.visibleValue || this.nameByID();

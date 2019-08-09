@@ -6,6 +6,12 @@ import {
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Checkbox from './checkbox.js';
 import { notes, info } from './documentation';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Checkbox.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /checkbox(?!spec)/
+);
 
 storiesOf('Checkbox', module)
   .add('default', () => {

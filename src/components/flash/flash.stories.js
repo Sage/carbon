@@ -14,6 +14,12 @@ import Info from './documentation/Info';
 import Flash, { FlashWithoutHOC } from './flash.component';
 import Button, { OriginalButton } from '../button/button.component';
 import classicTheme from '../../style/themes/classic';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+FlashWithoutHOC.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /flash\.component(?!spec)/
+);
 
 
 const store = new Store({
@@ -31,22 +37,14 @@ const openHandler = () => {
 };
 
 storiesOf('Flash', module)
-  .addParameters({
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false },
-    info: {
-      text: Info,
-      propTables: [FlashWithoutHOC],
-      propTablesExclude: [OriginalButton, State]
-    }
-  }).add('classic', () => {
+  .add('classic', () => {
     const message = text('message', 'This is a flash message');
     const timeout = number('timeout', 0);
     const as = select('as', OptionsHelper.colors, OptionsHelper.colors[0]);
 
     return (
       <ThemeProvider theme={ classicTheme }>
-        <>
+        <div>
           <Button onClick={ openHandler }>Open Flash</Button>
           <State store={ store }>
             <Flash
@@ -57,9 +55,17 @@ storiesOf('Flash', module)
               onDismiss={ handleClick }
             />
           </State>
-        </>
+        </div>
       </ThemeProvider>
     );
+  }, {
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false },
+    info: {
+      text: Info,
+      propTables: [FlashWithoutHOC, OriginalButton],
+      propTablesExclude: [State, ThemeProvider, Button, Flash]
+    }
   })
   .add('default', () => {
     const message = text('message', 'This is a flash message');
@@ -80,4 +86,12 @@ storiesOf('Flash', module)
         </State>
       </div>
     );
+  }, {
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false },
+    info: {
+      text: Info,
+      propTables: [FlashWithoutHOC, OriginalButton],
+      propTablesExclude: [State, ThemeProvider, Button, Flash]
+    }
   });

@@ -1,4 +1,5 @@
 import { omit, difference, includes } from 'lodash';
+import guid from '../helpers/guid/guid';
 
 /**
  * Ether
@@ -105,6 +106,15 @@ function filterOutInputEvents(props) {
   ]);
 }
 
+/**
+ * Dynamically creates some keys for children,
+ * E.g. children rendered using cloneElement etc.
+ *
+ */
+function generateKeysForChildren(array) {
+  return array.map(() => guid());
+}
+
 export {
-  acronymize, append, insertAt, styleElement, validProps, filterOutInputEvents
+  acronymize, append, insertAt, styleElement, validProps, filterOutInputEvents, generateKeysForChildren
 };
