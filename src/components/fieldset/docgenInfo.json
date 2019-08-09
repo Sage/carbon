@@ -1,0 +1,41 @@
+{
+  "src/components/fieldset/fieldset.js": [
+    {
+      "description": "",
+      "displayName": "Fieldset",
+      "methods": [
+        {
+          "name": "legend",
+          "docblock": "Returns the legend if on is defined.\n\n@method legend\n@return {Object} JSX",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": "JSX",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Returns the legend if on is defined."
+        }
+      ],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Children elements"
+        },
+        "legend": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A label for the fieldset."
+        }
+      }
+    }
+  ]
+}

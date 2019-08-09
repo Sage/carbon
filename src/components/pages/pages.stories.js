@@ -8,6 +8,18 @@ import { Pages, Page } from './pages.component';
 import DialogFullScreen from '../dialog-full-screen';
 import Heading from '../heading/heading';
 import Button from '../button';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+import docgenInfo from './docgenInfo.json';
+
+Page.__docgenInfo = getDocGenInfo(
+  docgenInfo,
+  /page\.js(?!spec)/
+);
+
+Pages.__docgenInfo = getDocGenInfo(
+  docgenInfo,
+  /pages(?!spec)/
+);
 
 const store = new Store({
   open: false,
@@ -45,11 +57,6 @@ const DialogState = props => new CustomState(props);
 const PageState = props => new CustomState(props);
 
 storiesOf('Pages', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [Button, DialogFullScreen, DialogState, PageState, State]
-    }
-  })
   .add('default', () => {
     return (
       <div>
@@ -85,5 +92,8 @@ storiesOf('Pages', module)
       </div>
     );
   }, {
-    info: { text: <p>Allows to slide to different pages in a full screen dialog.</p> }
+    info: {
+      text: <p>Allows to slide to different pages in a full screen dialog.</p>,
+      propTablesExclude: [Button, DialogFullScreen, DialogState, PageState, State]
+    }
   });

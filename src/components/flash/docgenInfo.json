@@ -1,0 +1,299 @@
+{
+  "src/components/flash/flash-legacy.component.js": [
+    {
+      "description": "",
+      "displayName": "Flash",
+      "methods": [
+        {
+          "name": "startTimeout",
+          "docblock": "Starts the timer to auto dismiss flash messages.",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Starts the timer to auto dismiss flash messages."
+        },
+        {
+          "name": "shouldStartTimeout",
+          "docblock": "Determines if the timeout should be started.",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Determines if the timeout should be started."
+        },
+        {
+          "name": "stopTimeout",
+          "docblock": "Stops the timer to auto dismiss flash messages.",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Stops the timer to auto dismiss flash messages."
+        },
+        {
+          "name": "toggleDialog",
+          "docblock": "Opens/closes the dialog for the given key.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "key"
+            }
+          ],
+          "returns": null,
+          "description": "Opens/closes the dialog for the given key."
+        },
+        {
+          "name": "formatDescription",
+          "docblock": "Given a description, format it accordingly.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "description"
+            }
+          ],
+          "returns": null,
+          "description": "Given a description, format it accordingly."
+        },
+        {
+          "name": "findMore",
+          "docblock": "Splits the string and sets additional content inside a dialog.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "text"
+            }
+          ],
+          "returns": null,
+          "description": "Splits the string and sets additional content inside a dialog."
+        },
+        {
+          "name": "iconType",
+          "docblock": "Returns the icon to display depending on type",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns the icon to display depending on type"
+        },
+        {
+          "name": "description",
+          "docblock": "Parses the message object to get the appropriate description",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Parses the message object to get the appropriate description"
+        },
+        {
+          "name": "flashHTML",
+          "docblock": "Returns the computed HTML for the flash.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns the computed HTML for the flash."
+        },
+        {
+          "name": "sliderHTML",
+          "docblock": "Returns the computed HTML for the slider.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns the computed HTML for the slider."
+        },
+        {
+          "name": "classes",
+          "docblock": "Returns the classes for the component.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns the classes for the component."
+        }
+      ],
+      "props": {
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Custom className"
+        },
+        "onDismiss": {
+          "type": {
+            "name": "func"
+          },
+          "required": true,
+          "description": "A custom close event handler"
+        },
+        "open": {
+          "type": {
+            "name": "bool"
+          },
+          "required": true,
+          "description": "Sets the open state of the flash."
+        },
+        "as": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Type of notification. (see the 'iconColorSets' for possible values)",
+          "defaultValue": {
+            "value": "'success'",
+            "computed": false
+          }
+        },
+        "message": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "object"
+              },
+              {
+                "name": "array"
+              }
+            ]
+          },
+          "required": true,
+          "description": "Contents of message."
+        },
+        "timeout": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "number"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Time for flash to remain on screen",
+          "defaultValue": {
+            "value": "0",
+            "computed": false
+          }
+        }
+      }
+    }
+  ],
+  "src/components/flash/flash.component.js": [
+    {
+      "description": "",
+      "displayName": "Flash",
+      "methods": [],
+      "props": {
+        "onDismiss": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "func"
+              },
+              {
+                "name": "bool"
+              }
+            ]
+          },
+          "required": true,
+          "description": "A custom close event handler. If the `onDismiss` is false then dismiss button isn't visible"
+        },
+        "open": {
+          "type": {
+            "name": "bool"
+          },
+          "required": true,
+          "description": "Sets the open state of the flash."
+        },
+        "as": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Type of notification. Legacy standard (see the 'iconColorSets' for possible values)",
+          "defaultValue": {
+            "value": "'success'",
+            "computed": false
+          }
+        },
+        "variant": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Type of notification with new DLS standard"
+        },
+        "message": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "object"
+              },
+              {
+                "name": "array"
+              }
+            ]
+          },
+          "required": true,
+          "description": "Contents of message."
+        },
+        "timeout": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "number"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Time for flash to remain on screen",
+          "defaultValue": {
+            "value": "0",
+            "computed": false
+          }
+        },
+        "theme": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "supporting legacy components. Theme help us pick up a right component",
+          "defaultValue": {
+            "value": "baseTheme",
+            "computed": true
+          }
+        },
+        "isCenter": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "allow to center keep flash component centered",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        }
+      }
+    }
+  ]
+}

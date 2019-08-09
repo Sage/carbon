@@ -7,6 +7,7 @@
     "npm": "^6.0.0"
   },
   "scripts": {
+    "docgenInfo": "./script/generate-docgeninfo.sh",
     "gen-colors": "node -e \"require('./script/generate-demo-colors').default();\"",
     "gen-docs": "node -e \"require('./script/generate-docs').default();\"",
     "prep-deploy": "node -e \"require('./script/deploy').default();\"",
