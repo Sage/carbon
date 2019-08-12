@@ -135,13 +135,23 @@ class Tabs extends React.Component {
      * @property position
      * @type {String}
      */
-    position: PropTypes.string
+    position: PropTypes.string,
+
+    /**
+     * Sets the selected tabId in the URL
+     *
+     * @property setLocation
+     * @type {Boolean}
+     * @default true
+     */
+    setLocation: PropTypes.bool
   }
 
   static defaultProps = {
     renderHiddenTabs: true,
     align: 'left',
-    position: 'top'
+    position: 'top',
+    setLocation: true
   }
 
   static childContextTypes = {
@@ -334,8 +344,10 @@ class Tabs extends React.Component {
    * @param {Number} tabid The id of the tab
    */
   updateVisibleTab(tabid) {
-    const url = `${this._window.location.origin}${this._window.location.pathname}#${tabid}`;
-    this._window.history.replaceState(null, 'change-tab', url);
+    if (this.props.setLocation) {
+      const url = `${this._window.location.origin}${this._window.location.pathname}#${tabid}`;
+      this._window.history.replaceState(null, 'change-tab', url);
+    }
 
     this.setState({ selectedTabId: tabid });
 
@@ -400,7 +412,8 @@ class Tabs extends React.Component {
         'carbon-tabs__headers__header--error': tabHasError,
         'carbon-tabs__headers__header--warning': tabHasWarning,
         'carbon-tabs__headers__header--selected': this.isTabSelected(tab.props.tabId)
-      }
+      },
+      tab.props.className
     );
   }
 

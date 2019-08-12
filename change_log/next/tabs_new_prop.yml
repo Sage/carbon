@@ -1,0 +1,1 @@
+Bug Fixes: "`Tabs` Component will not change the URL with the selected tabId if the `selLocation` prop is false"
