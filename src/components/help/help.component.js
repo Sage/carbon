@@ -4,6 +4,7 @@ import Icon from '../icon';
 import tagComponent from '../../utils/helpers/tags';
 import StyledHelp from './help.style';
 import Events from '../../utils/helpers/events/events';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 const Help = (props) => {
   const helpElement = useRef(null);
@@ -80,9 +81,9 @@ Help.propTypes = {
   /** Overrides the default 'as' attribute of the Help component */
   tagTypeOverride: PropTypes.string,
   /** Position of tooltip relative to target */
-  tooltipPosition: PropTypes.string,
+  tooltipPosition: PropTypes.oneOf(OptionsHelper.positions),
   /** Aligment of pointer */
-  tooltipAlign: PropTypes.string,
+  tooltipAlign: PropTypes.oneOf(OptionsHelper.alignAroundEdges),
   /** A path for the anchor */
   href: PropTypes.string
 };
