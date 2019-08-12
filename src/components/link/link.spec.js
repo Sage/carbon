@@ -74,7 +74,7 @@ describe('Link', () => {
       }, TestRenderer.create(wrapper.find(LinkStyleAnchor)).toJSON(), { modifier: `${StyledIcon}` });
     });
 
-    it('should render an `Icon` on the left side of the component by default', () => {
+    it('should render an `Icon` on the right', () => {
       wrapper.setProps({ iconAlign: 'right' });
       assertStyleMatch({
         marginRight: '0',
@@ -83,14 +83,6 @@ describe('Link', () => {
 
       }, TestRenderer.create(wrapper.find(LinkStyleAnchor)).toJSON(), { modifier: `${StyledIcon}` });
     });
-
-    // describe('and component recevied an `iconAlign: right` prop', () => {
-    //   it('should render an `Icon` on the right side of the component', () => {
-    //     wrapper.setProps({ iconAlign: 'right' });
-
-    //     expect(wrapper.find('Icon').hasClass('carbon-link__icon--align-right')).toEqual(true);
-    //   });
-    // });
   });
 
   describe('when the `onKeyDown` event is triggered', () => {

@@ -92,7 +92,6 @@ const Icon = TooltipDecorator(
       const icon = this.renderIcon;
       if (icon) {
         return <StyledSvgIconWrapper dangerouslySetInnerHTML={ icon } fontSize={ this.props.fontSize } />;
-        /* eslint-enable react/no-danger */
       }
 
       return null;

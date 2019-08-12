@@ -78,7 +78,8 @@ describe('Icon component', () => {
     (mismatchedPair) => {
       it(`renders ${mismatchedPair.prop} as ${mismatchedPair.rendersAs}`, () => {
         const wrapper = render({ type: mismatchedPair.prop });
-        expect(wrapper.find(`[data-element="${mismatchedPair.rendersAs}"]`)).toBeTruthy();
+        const elemExists = wrapper.find(`[data-element="${mismatchedPair.rendersAs}"]`).exists();
+        expect(elemExists).toEqual(true);
       });
     }
   );
