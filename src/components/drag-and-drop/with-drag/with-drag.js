@@ -8,9 +8,6 @@ class WithDrag extends React.Component {
   static propTypes = {
     /**
      * The component that will have drag enabled
-     *
-     * @property children
-     * @type {Object}
      */
     children: PropTypes.node.isRequired,
 
@@ -18,9 +15,6 @@ class WithDrag extends React.Component {
      * A function that returns the dom node being dragged.
      * It not used in this compnent but is passed to CustomDragLayer via the DragLayer higher order component
      * You cannot pass a ref directly as the prop because it is undefined until mounted.
-     *
-     * @property draggableNode
-     * @type {Function}
      */
     /* eslint-disable react/no-unused-prop-types */
     draggableNode: PropTypes.func,

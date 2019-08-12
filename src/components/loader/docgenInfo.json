@@ -1,0 +1,46 @@
+{
+  "src/components/loader/loader.component.js": [
+    {
+      "description": "",
+      "displayName": "Loader",
+      "methods": [],
+      "props": {
+        "size": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.sizesBinary"
+          },
+          "required": false,
+          "description": "Size of the loader.",
+          "defaultValue": {
+            "value": "'small'",
+            "computed": false
+          }
+        },
+        "isInsideButton": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Applies white color.",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "isActive": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Applies slate color. Available only when isInsideButton is true.",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        }
+      }
+    }
+  ]
+}

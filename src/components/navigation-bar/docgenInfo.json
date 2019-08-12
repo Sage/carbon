@@ -1,0 +1,52 @@
+{
+  "src/components/navigation-bar/navigation-bar.js": [
+    {
+      "description": "",
+      "displayName": "NavigationBar",
+      "methods": [
+        {
+          "name": "classes",
+          "docblock": "Returns the classes for the component.\n\n@method classes\n@return {String}",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "String"
+            }
+          },
+          "description": "Returns the classes for the component."
+        }
+      ],
+      "props": {
+        "as": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Determines the style of the component eg. primary/secondary",
+          "defaultValue": {
+            "value": "'primary'",
+            "computed": false
+          }
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "The rendered children of the component."
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Custom className"
+        }
+      }
+    }
+  ]
+}

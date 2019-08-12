@@ -3,6 +3,12 @@ import { storiesOf } from '@storybook/react';
 import { text, boolean } from '@storybook/addon-knobs';
 import notes from './documentation';
 import Heading from './heading';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Heading.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /heading(?!spec)/
+);
 
 storiesOf('Heading', module)
   .add('default', () => {

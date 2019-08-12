@@ -1,0 +1,25 @@
+{
+  "src/__experimental__/components/fieldset/fieldset.component.js": [
+    {
+      "description": "",
+      "displayName": "Fieldset",
+      "methods": [],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Child elements"
+        },
+        "legend": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The text for the fieldsets legend element."
+        }
+      }
+    }
+  ]
+}

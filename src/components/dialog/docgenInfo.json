@@ -1,0 +1,103 @@
+{
+  "src/components/dialog/dialog.js": [
+    {
+      "description": "",
+      "displayName": "Dialog",
+      "methods": [],
+      "props": {
+        "onCancel": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A custom close event handler"
+        },
+        "open": {
+          "type": {
+            "name": "bool"
+          },
+          "required": true,
+          "description": "Sets the open state of the modal"
+        },
+        "enableBackgroundUI": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Determines if the background is disabled when the modal is open"
+        },
+        "disableEscKey": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Determines if the Esc Key closes the modal"
+        },
+        "ariaRole": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The ARIA role to be applied to the modal"
+        },
+        "height": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Allows developers to specify a specific height for the dialog."
+        },
+        "title": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "object"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Title displayed at top of dialog"
+        },
+        "subtitle": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Subtitle displayed at top of dialog"
+        },
+        "size": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Size of dialog, default size is 750px"
+        },
+        "showCloseIcon": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Determines if the close icon is shown"
+        },
+        "autoFocus": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "If true then the dialog receives focus when it opens"
+        },
+        "stickyFormFooter": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Determines if the sticky footer is shown"
+        }
+      }
+    }
+  ]
+}

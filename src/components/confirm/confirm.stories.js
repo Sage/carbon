@@ -7,6 +7,12 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
 import Button from '../button';
 import Confirm from './confirm.component.js';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Confirm.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /confirm\.component(?!spec)/
+);
 
 const store = new Store({
   open: false
@@ -25,11 +31,6 @@ const handleConfirm = () => {
 };
 
 storiesOf('Confirm', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [State, Button]
-    }
-  })
   .add(
     'default',
     () => {
@@ -73,7 +74,10 @@ storiesOf('Confirm', module)
       );
     },
     {
-      info: { text: info },
+      info: {
+        propTablesExclude: [State, Button],
+        text: info
+      },
       notes: { markdown: notes }
     }
   );

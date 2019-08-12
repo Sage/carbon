@@ -31,10 +31,6 @@ const InputPresentationStyle = styled.div`
     border-color: ${theme.disabled.border};
     cursor: not-allowed;
   `}
-  ${({ readOnly }) => readOnly && css`
-    background: transparent !important;
-    border-color: transparent !important;
-  `}
 
   ${({ hasFocus, theme }) => hasFocus && css`
     && { 
@@ -46,7 +42,15 @@ const InputPresentationStyle = styled.div`
       position: relative;
     }
   `}
+  
   ${stylingForValidations}
+
+  ${({ readOnly }) => readOnly && css`
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none;
+  `}
+
   ${inputClassicStyling}
 
   input::-ms-clear {
@@ -82,6 +86,17 @@ function stylingForValidations({
   `;
 }
 
+InputPresentationStyle.safeProps = [
+  'disabled',
+  'hasFocus',
+  'inputWidth',
+  'readOnly',
+  'size',
+  'hasError',
+  'hasWarning',
+  'hasInfo'
+];
+
 InputPresentationStyle.defaultProps = {
   inputWidth: 100,
   size: 'medium',
@@ -91,6 +106,7 @@ InputPresentationStyle.defaultProps = {
 InputPresentationStyle.propTypes = {
   disabled: PropTypes.bool,
   hasFocus: PropTypes.bool,
+  inputWidth: PropTypes.number,
   readOnly: PropTypes.bool,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   hasError: PropTypes.bool,

@@ -4,6 +4,12 @@ import { text, select } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, Info } from './documentation';
 import Icon from './icon';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Icon.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /icon(?!spec)/
+);
 
 storiesOf('Icon', module)
   .add('default', () => {

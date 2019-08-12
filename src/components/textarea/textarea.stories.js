@@ -7,6 +7,12 @@ import { State, Store } from '@sambego/storybook-state';
 import Textarea from './textarea';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Textarea.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /textarea(?!spec)/
+);
 
 const store = new Store({
   value: ''

@@ -1,0 +1,69 @@
+{
+  "src/components/sidebar/sidebar-header/sidebar-header.component.js": [
+    {
+      "description": "",
+      "displayName": "SidebarHeader",
+      "methods": [],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "This component supports children."
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A custom class name."
+        }
+      }
+    }
+  ],
+  "src/components/sidebar/sidebar.component.js": [
+    {
+      "description": "",
+      "displayName": "Sidebar",
+      "methods": [],
+      "props": {
+        "onCancel": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": ""
+        },
+        "open": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "A boolean to track the open state of the dialog"
+        },
+        "enableBackgroundUI": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Set this prop to false to hide the translucent background when the dialog is open."
+        },
+        "position": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Sets the position of sidebar, either left or right."
+        },
+        "size": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Sets the size of the sidebar when open."
+        }
+      }
+    }
+  ]
+}

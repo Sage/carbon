@@ -1,0 +1,699 @@
+{
+  "src/components/form/cancel-button/cancel-button.js": [
+    {
+      "description": "",
+      "displayName": "CancelButton",
+      "methods": []
+    }
+  ],
+  "src/components/form/form-summary/form-summary.js": [
+    {
+      "description": "builds a summary in JSX\n\n@param {object} props\n@param {string} key\n@return {JSX}",
+      "displayName": "summary",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "FormSummary",
+      "methods": [],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": ""
+        },
+        "errors": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "number"
+              }
+            ]
+          },
+          "required": false,
+          "description": ""
+        },
+        "warnings": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "number"
+              }
+            ]
+          },
+          "required": false,
+          "description": ""
+        }
+      }
+    }
+  ],
+  "src/components/form/form.js": [
+    {
+      "description": "",
+      "displayName": "FormWithoutValidations",
+      "methods": [
+        {
+          "name": "getChildContext",
+          "docblock": "Returns form object to child components.\n\n@method getChildContext\n@return {void}",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "void"
+            }
+          },
+          "description": "Returns form object to child components."
+        },
+        {
+          "name": "getActiveInput",
+          "docblock": "Gets the current active input.\n\n@method getActiveInput\n@return {Object} the currently active component",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": "the currently active component",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Gets the current active input."
+        },
+        {
+          "name": "setActiveInput",
+          "docblock": "Sets the active input, calling the hide method if the input is\ndifferent from the last (so as to instantly) switch.\n\n@method setActiveInput\n@param {Input} input sends itself through\n@return {void}",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "input",
+              "description": "sends itself through",
+              "type": {
+                "name": "Input"
+              },
+              "optional": false
+            }
+          ],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "void"
+            }
+          },
+          "description": "Sets the active input, calling the hide method if the input is\ndifferent from the last (so as to instantly) switch."
+        },
+        {
+          "name": "setIsDirty",
+          "docblock": "Sets the form to Dirty\n\n@method setIsDirty\n@return {void}",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "void"
+            }
+          },
+          "description": "Sets the form to Dirty"
+        },
+        {
+          "name": "resetIsDirty",
+          "docblock": "Sets the form to Clean\n\n@method resetIsDirty\n@return {void}",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "void"
+            }
+          },
+          "description": "Sets the form to Clean"
+        },
+        {
+          "name": "addStickyFooterListeners",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "removeStickyFooterListeners",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "checkStickyFooter",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "addUnsavedWarningListener",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "removeUnsavedWarningListener",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "checkIsFormDirty",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "handleOnSubmit",
+          "docblock": "Handles submit and runs validation.\n\n@method handleOnSubmit\n@param {Object} ev event\n@return {void}",
+          "modifiers": [
+            "async"
+          ],
+          "params": [
+            {
+              "name": "ev",
+              "description": "event",
+              "type": {
+                "name": "Object"
+              },
+              "optional": false
+            }
+          ],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "void"
+            }
+          },
+          "description": "Handles submit and runs validation."
+        },
+        {
+          "name": "triggerSubmit",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            },
+            {
+              "name": "valid",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "enableForm",
+          "docblock": "enables a form which has been disabled after being submitted.\n\n@method enableForm\n@return {void}",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "void"
+            }
+          },
+          "description": "enables a form which has been disabled after being submitted."
+        },
+        {
+          "name": "serialize",
+          "docblock": "Serializes the inputs in the form ready for submission via AJAX\nhttps://www.npmjs.com/package/form-serialize\n\n@method serialize\n@param {Object} opts options to pass to serialize\n@return {Object} Serialized object of fields",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "opts",
+              "description": "options to pass to serialize",
+              "type": {
+                "name": "Object"
+              },
+              "optional": false
+            }
+          ],
+          "returns": {
+            "description": "Serialized object of fields",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Serializes the inputs in the form ready for submission via AJAX\nhttps://www.npmjs.com/package/form-serialize"
+        },
+        {
+          "name": "htmlProps",
+          "docblock": "Separates and returns HTML specific props\n\n@method htmlProps\n@return {Object} props for form element",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": "props for form element",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Separates and returns HTML specific props"
+        },
+        {
+          "name": "cancelForm",
+          "docblock": "Redirects to the previous page; uses React Router history, or uses modalcancel handler.\n\n@method cancelForm\n@return {void}",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "void"
+            }
+          },
+          "description": "Redirects to the previous page; uses React Router history, or uses modalcancel handler."
+        },
+        {
+          "name": "cancelButton",
+          "docblock": "Gets the cancel button for the form\n\n@method cancelButton\n@return {Object} JSX cancel button",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": "JSX cancel button",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Gets the cancel button for the form"
+        },
+        {
+          "name": "additionalActions",
+          "docblock": "Gets any additional actions passed into the form\n\n@method additionalActions\n@return {Object} JSX",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "type"
+            }
+          ],
+          "returns": {
+            "description": "JSX",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Gets any additional actions passed into the form"
+        },
+        {
+          "name": "defaultSaveButton",
+          "docblock": "The default Save button for the form\n\n@method defaultSaveButton\n@return {Object} JSX",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": "JSX",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "The default Save button for the form"
+        },
+        {
+          "name": "saveButton",
+          "docblock": "Returns a custom save button if passed in\nthe default if not\n\n@method saveButton\n@return {Object} JSX",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": "JSX",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Returns a custom save button if passed in\nthe default if not"
+        },
+        {
+          "name": "saveButtonWithSummary",
+          "docblock": "Returns a form summary\n\n@method saveButtonWithSummary\n@return {Object} JSX",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": "JSX",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Returns a form summary"
+        },
+        {
+          "name": "formFooter",
+          "docblock": "Returns the footer for the form\n\n@method footer\n@return {Object} JSX",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": "JSX",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Returns the footer for the form"
+        },
+        {
+          "name": "mainClasses",
+          "docblock": "Main class getter\n\n@method mainClasses\n@return {String} Main className",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": "Main className",
+            "type": {
+              "name": "String"
+            }
+          },
+          "description": "Main class getter"
+        },
+        {
+          "name": "footerClasses",
+          "docblock": "Button class getter\n\n@method buttonClasses\n@return {String} Main className",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": "Main className",
+            "type": {
+              "name": "String"
+            }
+          },
+          "description": "Button class getter"
+        }
+      ],
+      "props": {
+        "unsavedWarning": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Warning popup shown when trying to navigate away from an edited\nform if true",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "cancel": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Cancel button is shown if true",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "afterFormValidation": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Custom function that is called immediately\nafter the form validates"
+        },
+        "beforeFormValidation": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Custom function that is called immediately\nbefore the form validates"
+        },
+        "buttonAlign": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Alignment of submit button",
+          "defaultValue": {
+            "value": "'right'",
+            "computed": false
+          }
+        },
+        "saving": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Determines if the form is in a saving state",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "stickyFooter": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Enables the sticky footer."
+        },
+        "stickyFooterPadding": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Applies additional padding to the sticky footer, useful to align buttons."
+        },
+        "validateOnMount": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "If true, will validate the form on mount",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "autoDisable": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "If true, will disable the savebutton when clicked"
+        },
+        "cancelText": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Text for the cancel button"
+        },
+        "cancelButtonProps": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "Properties for the cancel button"
+        },
+        "saveText": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Text for the save button"
+        },
+        "saveButtonProps": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "Properties for the save button"
+        },
+        "onCancel": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Custom function for Cancel button onClick"
+        },
+        "save": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Hide or show the save button",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "additionalActions": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Additional actions rendered next to the save and cancel buttons"
+        },
+        "leftAlignedActions": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Additional actions rendered and aligned left to the save and cancel buttons"
+        },
+        "rightAlignedActions": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Additional actions rendered and aligned right to the save and cancel buttons"
+        },
+        "onSubmit": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Custom callback for when form will submit"
+        },
+        "customSaveButton": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Override Save Button",
+          "defaultValue": {
+            "value": "null",
+            "computed": false
+          }
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A custom class name for the component."
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Child elements"
+        },
+        "showSummary": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Hide or show the summary",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "validate": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A function used to handle form validation"
+        },
+        "isValidating": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Determines if the form is a validating state and should be disabled from submiting"
+        },
+        "errorCount": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "The total number of errors present in the form"
+        },
+        "warningCount": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "The total number of warnings present in the form"
+        },
+        "infoCount": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "The total number of infos present in the form"
+        }
+      },
+      "context": {
+        "modal": {
+          "type": {
+            "name": "object"
+          },
+          "required": false
+        }
+      },
+      "childContext": {
+        "form": {
+          "type": {
+            "name": "object"
+          },
+          "required": false
+        }
+      }
+    },
+    {
+      "description": "Creates and returns CSRF token for input field\n\n@private\n@method generateCSRFToken\n@param {Object} doc DOM object\n@return {Object} JSX hidden CSRF token",
+      "displayName": "generateCSRFToken",
+      "methods": []
+    }
+  ],
+  "src/components/form/save-button/save-button.js": [
+    {
+      "description": "",
+      "displayName": "SaveButton",
+      "methods": [],
+      "props": {
+        "errors": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "number"
+              }
+            ]
+          },
+          "required": false,
+          "description": ""
+        },
+        "warnings": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "number"
+              }
+            ]
+          },
+          "required": false,
+          "description": ""
+        }
+      }
+    }
+  ]
+}
