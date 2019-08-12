@@ -51,7 +51,9 @@
   }
 
   .carbon-table-row.carbon-table-row--dragged &,
-  .carbon-table-row:hover:not(.carbon-table-row--dragging):not(.carbon-table-row--selected) & {
+  .carbon-table-row:hover:not(.carbon-table-row--dragging)
+  :not(.carbon-table-row--selected)
+  :not(.carbon-table-row--passive) & {
     background-color: $row-hover-color;
   }
 

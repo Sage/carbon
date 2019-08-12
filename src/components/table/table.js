@@ -307,7 +307,13 @@ class Table extends React.Component {
      * @property theme
      * @type string
      */
-    theme: PropTypes.string
+    theme: PropTypes.string,
+
+    /**
+     * Set if data is passive and requires no added styling ie. hover, focus, highlighted etc
+     * Requires highlightable and selctable to be false to work
+     */
+    isPassiveData: PropTypes.bool
   }
 
   static childContextTypes = {
@@ -330,7 +336,8 @@ class Table extends React.Component {
     selectRow: PropTypes.func, // a callback function for when a row is selected
     highlightable: PropTypes.bool, // table can enable all rows to be highlightable
     sortOrder: PropTypes.string, // the current sort order applied
-    sortedColumn: PropTypes.string // the currently sorted column
+    sortedColumn: PropTypes.string, // the currently sorted column,
+    passiveData: PropTypes.bool // Renders data as passive, without hover styling etc
   }
 
   static defaultProps = {
@@ -361,7 +368,8 @@ class Table extends React.Component {
       selectAll: this.selectAll,
       selectRow: this.selectRow,
       sortedColumn: this.sortedColumn,
-      sortOrder: this.sortOrder
+      sortOrder: this.sortOrder,
+      passiveData: this.isPassive
     };
   }
 
@@ -893,6 +901,10 @@ class Table extends React.Component {
       return (<Pager { ...this.pagerProps } />);
     }
     return null;
+  }
+
+  get isPassive() {
+    return Boolean(this.props.isPassiveData && !this.props.highlightable && !this.props.selectable);
   }
 
   /**

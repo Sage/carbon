@@ -1019,6 +1019,23 @@ describe('Table', () => {
     });
   });
 
+  describe('isPassive', () => {
+    it('returns false if isPassiveData and highlightable are true and selectable is false or undefined', () => {
+      let instance = TestUtils.renderIntoDocument(<Table isPassiveData highlightable/>);
+      expect(instance.isPassive).toEqual(false);
+    });
+
+    it('returns false if isPassiveData and selectable are true and highlightable is false or undefined', () => {
+      let instance = TestUtils.renderIntoDocument(<Table isPassiveData selectable/>);
+      expect(instance.isPassive).toEqual(false);
+    });
+
+    it('returns true if isPassiveData is true and highlightable and selectable are false or undefined', () => {
+      let instance = TestUtils.renderIntoDocument(<Table isPassiveData />);
+      expect(instance.isPassive).toEqual(true);
+    });
+  });
+
   describe("tags on component", () => {
     it('include correct component, element and role data tags', () => {
       const wrapper = shallow(

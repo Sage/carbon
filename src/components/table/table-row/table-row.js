@@ -165,7 +165,8 @@ class TableRow extends React.Component {
     selectable: PropTypes.bool, // table can enable all rows to be multi-selectable
     selectRow: PropTypes.func, // a callback function for when a row is selected
     dragDropManager: PropTypes.object, // the React DND DragDropManager
-    dragAndDropActiveIndex: PropTypes.number // tracks the currently active index
+    dragAndDropActiveIndex: PropTypes.number, // tracks the currently active index
+    passiveData: PropTypes.bool
   }
 
   state = {
@@ -312,7 +313,8 @@ class TableRow extends React.Component {
         'carbon-table-row--selected': this.state.selected,
         'carbon-table-row--highlighted': (this.state.highlighted && !this.state.selected),
         'carbon-table-row--dragged': (this.draggingIsOccurring() && isDragIndexMatch),
-        'carbon-table-row--dragging': (this.draggingIsOccurring())
+        'carbon-table-row--dragging': (this.draggingIsOccurring()),
+        'carbon-table-row--passive': this.context.passiveData
       }
     );
   }
