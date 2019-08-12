@@ -1,0 +1,109 @@
+{
+  "src/components/toast/toast.component.js": [
+    {
+      "description": "",
+      "displayName": "Toast",
+      "methods": [
+        {
+          "name": "componentClasses",
+          "docblock": "Classes to be applied to the component.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Classes to be applied to the component."
+        },
+        {
+          "name": "dismissIcon",
+          "docblock": "Content rendered for dismiss X",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Content rendered for dismiss X"
+        },
+        {
+          "name": "toastContent",
+          "docblock": "Content rendered for the toast.",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Content rendered for the toast."
+        }
+      ],
+      "props": {
+        "variant": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.colors"
+          },
+          "required": false,
+          "description": "Customizes the appearance in the DLS theme"
+        },
+        "as": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.colors"
+          },
+          "required": false,
+          "description": "Customizes the appearance in a legacy theme through colour see the 'iconColorSets' for possible values)",
+          "defaultValue": {
+            "value": "'warning'",
+            "computed": false
+          }
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Custom className"
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "The rendered children of the component."
+        },
+        "open": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Determines if the toast is open.",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "onDismiss": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Callback for when dismissed.",
+          "defaultValue": {
+            "value": "null",
+            "computed": false
+          }
+        },
+        "isCenter": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "props used with flash component. Allow to center a component",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        }
+      }
+    }
+  ]
+}

@@ -13,17 +13,11 @@ class DraggableContext extends React.Component {
     /**
      * The element(s) where you want to apply drag
      * and drop functionality
-     *
-     * @property children
-     * @type {Object}
      */
     children: PropTypes.node.isRequired,
 
     /**
      * Optional CustomDragLayer to use for the ghost row when dragging & dropping
-     *
-     * @property customDragLayer
-     * @type {Object}
      */
     customDragLayer: PropTypes.node,
 
@@ -35,9 +29,6 @@ class DraggableContext extends React.Component {
 
     /**
      * Prop to enable/disable auto scroll on drag
-     *
-     * @property autoScroll
-     * @type {Bool}
      */
     autoScroll: PropTypes.bool
   }
@@ -45,9 +36,6 @@ class DraggableContext extends React.Component {
   /**
    * Defines a context object for child components of the draggable context component.
    * https://facebook.github.io/react/docs/context.html
-   *
-   * @property childContextTypes
-   * @type {Object}
    */
   static childContextTypes = {
     dragAndDropActiveIndex: PropTypes.number, // Tracks the currently dragged index

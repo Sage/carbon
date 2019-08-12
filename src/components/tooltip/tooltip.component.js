@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyledTooltipInner, StyledTooltipWrapper, StyledTooltipPointer } from './tooltip.style';
+import { StyledTooltipInner, StyledTooltipWrapper } from './tooltip.style';
+import StyledTooltipPointer from './tooltip-pointer.style';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import tagComponent from '../../utils/helpers/tags/tags';
 
@@ -35,18 +36,29 @@ class Tooltip extends React.Component {
   };
 
   get tooltipHTML() {
-    const { children, ...tooltipProps } = this.props;
+    const {
+      children,
+      onMouseEnter,
+      onMouseLeave,
+      ...commonProps
+    } = this.props;
 
     return (
       <StyledTooltipWrapper
         role='tooltip'
-        { ...tooltipProps }
+        onMouseEnter={ onMouseEnter }
+        onMouseLeave={ onMouseLeave }
+        { ...commonProps }
         { ...tagComponent('tooltip', this.props) }
       >
-        <StyledTooltipInner { ...tooltipProps }>
+        <StyledTooltipInner { ...commonProps }>
           <>
             {children}
-            <StyledTooltipPointer key='pointer' { ...tooltipProps } />
+            <StyledTooltipPointer
+              key='pointer'
+              { ...commonProps }
+              data-element='tooltip-pointer'
+            />
           </>
         </StyledTooltipInner>
       </StyledTooltipWrapper>

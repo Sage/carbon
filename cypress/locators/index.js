@@ -1,14 +1,15 @@
 import {
   INPUT_WIDTH_SLIDER, LABEL_WIDTH_SLIDER, HELP_ICON_PREVIEW, FIELD_HELP_PREVIEW, TOOLTIP_PREVIEW,
   FORM, STORY_ROOT, CLOSE_ICON_BUTTON, BACKGROUND_UI_LOCATOR, LINK, ICON, INPUT_WIDTH_PREVIEW,
-  COMMMON_DATA_ELEMENT_INPUT, LABEL,
+  COMMMON_DATA_ELEMENT_INPUT, LABEL, RERUN_TESTS_BUTTON,
 } from './locators';
 
 // actions locators
 export const clearButton = () => cy.get(FORM).find('button').contains('Clear');
 
 // accessibility locators
-export const reRunTestsButton = () => cy.get(FORM).find('button').contains('Rerun tests');
+// this timeout is only for docker accessibility tests
+export const reRunTestsButton = () => cy.get(RERUN_TESTS_BUTTON, { timeout: 15000 });
 
 // knobs locators
 export const getKnobsInput = propertyName => cy.get(`[name="${propertyName}"]`);

@@ -1,0 +1,222 @@
+{
+  "src/components/date-range/date-range.js": [
+    {
+      "description": "",
+      "displayName": "DateRange",
+      "methods": [
+        {
+          "name": "_onChange",
+          "docblock": "onChange function -triggers validations on both fields and updates opposing field when one changed.\n\n@property _onChange\n@type {func}\n@param{String} the date field that has changedDate\n@param{Object} ev the event containing the new date value",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "changedDate"
+            },
+            {
+              "name": "ev"
+            }
+          ],
+          "returns": null,
+          "description": "onChange function -triggers validations on both fields and updates opposing field when one changed."
+        },
+        {
+          "name": "startDate",
+          "docblock": "The startDate value\n\n@method startDate\n@return {String} the value of the start date",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": "the value of the start date",
+            "type": {
+              "name": "String"
+            }
+          },
+          "description": "The startDate value"
+        },
+        {
+          "name": "endDate",
+          "docblock": "The endDate value\n\n@method endDate\n@return {String} the value of the end date",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": "the value of the end date",
+            "type": {
+              "name": "String"
+            }
+          },
+          "description": "The endDate value"
+        },
+        {
+          "name": "startMessage",
+          "docblock": "The error message for the start message.\n\n@method startMessage\n@return {String}",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "String"
+            }
+          },
+          "description": "The error message for the start message."
+        },
+        {
+          "name": "endMessage",
+          "docblock": "The error message for the end message.\n\n@method endMessage\n@return {String}",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "String"
+            }
+          },
+          "description": "The error message for the end message."
+        },
+        {
+          "name": "focusStart",
+          "docblock": "Handle focus on start date field\n\n@method focusStart\n@return {Void}",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "Void"
+            }
+          },
+          "description": "Handle focus on start date field"
+        },
+        {
+          "name": "focusEnd",
+          "docblock": "Handle focus on end date field\n\n@method focusEnd\n@return {Void}",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "Void"
+            }
+          },
+          "description": "Handle focus on end date field"
+        },
+        {
+          "name": "startDateProps",
+          "docblock": "The startDate props\n\n@method startDateProps\n@return {Object} the props that are applied to the child start Date component",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": "the props that are applied to the child start Date component",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "The startDate props"
+        },
+        {
+          "name": "endDateProps",
+          "docblock": "The endDate props\n\n@method endDateProps\n@return {Object} the props that are applied to the child end Date component",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": "the props that are applied to the child end Date component",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "The endDate props"
+        },
+        {
+          "name": "dateProps",
+          "docblock": "The startDate/endDate props\n\n@method dateProps\n@return {Object} the props that are applied to the child Date components",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "propsKey"
+            },
+            {
+              "name": "defaultValidations"
+            }
+          ],
+          "returns": {
+            "description": "the props that are applied to the child Date components",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "The startDate/endDate props"
+        }
+      ],
+      "props": {
+        "endLabel": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Optional label for endDate field\neslint is disabled because the prop is used to determine the label in the dateProps function"
+        },
+        "onChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": true,
+          "description": "Custom callback - receives array of startDate and endDate"
+        },
+        "value": {
+          "type": {
+            "name": "array"
+          },
+          "required": true,
+          "description": "An array containing the value of startDate and endDate"
+        },
+        "startLabel": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Optional label for startDate field\neslint is disabled because the prop is used to determine the label in the dateProps function"
+        },
+        "startMessage": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Custom message for startDate field"
+        },
+        "endMessage": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Custom message for endDate field"
+        },
+        "labelsInline": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Display labels inline"
+        },
+        "startDateProps": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "Props for the child start Date component"
+        },
+        "endDateProps": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "Props for the child end Date component"
+        }
+      }
+    }
+  ]
+}

@@ -1,15 +1,36 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
+import { mount } from 'enzyme';
 import 'jest-styled-components';
 import { css } from 'styled-components';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import CheckableInput from '.';
 import FieldHelpStyle from '../field-help/field-help.style';
 import FormFieldStyle from '../form-field/form-field.style';
+import Help from '../../../components/help';
 import HiddenCheckableInputStyle from './hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';
 import { StyledCheckableInput, StyledCheckableInputWrapper } from './checkable-input.style';
-import StyledHelp from '../help/help.style';
+import StyledHelp from '../../../components/help/help.style';
 import baseTheme from '../../../style/themes/base';
+
+describe('CheckableInput', () => {
+  function mountInput(props) {
+    return mount(<CheckableInput { ...props } />);
+  }
+
+  describe('helpId', () => {
+    describe('when inputLabel and labelHelp props are present', () => {
+      it('returns an appropriate helpId property', () => {
+        const helpButton = mountInput({ inputId: 'foo', inputLabel: 'bar', labelHelp: 'baz' })
+          .find(Help)
+          .find('button');
+
+        expect(helpButton.props().id).toBe('foo-help');
+      });
+    });
+  });
+});
 
 function render(props) {
   return TestRenderer.create(<StyledCheckableInputWrapper { ...props } />);

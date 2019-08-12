@@ -38,6 +38,14 @@ Given('I open {string} component with button page in iframe', (component) => {
   visitComponentUrl(component, 'with_button', true);
 });
 
+Given('I open {string} component page multiple', (component) => {
+  visitComponentUrl(component, 'multiple');
+});
+
+Given('I open {string} component page validations', (component) => {
+  visitComponentUrl(component, 'validations');
+});
+
 When('I set {word} to {string}', (propertyName, text) => {
   getKnobsInput(propertyName).clear().type(text);
 });
@@ -182,4 +190,8 @@ Then('data-{word} {string} is present', (element, value) => {
 
 Then('text {string} color is set to {string}', (text, color) => {
   storyRoot().contains(text).should('have.css', 'color', color);
+});
+
+When('I click outside of the component', () => {
+  storyRoot().click();
 });

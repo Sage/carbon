@@ -1,0 +1,39 @@
+{
+  "src/components/app-wrapper/app-wrapper.js": [
+    {
+      "description": "Manages the width and containment of your application.",
+      "displayName": "AppWrapper",
+      "methods": [
+        {
+          "name": "classes",
+          "docblock": "Returns the classes for the component.",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "String"
+            }
+          },
+          "description": "Returns the classes for the component."
+        }
+      ],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Children elements"
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Custom className"
+        }
+      }
+    }
+  ]
+}

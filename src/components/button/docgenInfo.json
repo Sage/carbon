@@ -1,0 +1,160 @@
+{
+  "src/components/button/button.component.js": [
+    {
+      "description": "",
+      "displayName": "Button",
+      "methods": [],
+      "props": {
+        "buttonType": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.buttonTypes"
+          },
+          "required": false,
+          "description": "Color variants for new business themes: \"primary\" | \"secondary\" | \"tertiary\" | \"destructive\" | \"darkBackground\""
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": true,
+          "description": "The text the button displays"
+        },
+        "disabled": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Apply disabled state to the button",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "iconPosition": {
+          "type": {
+            "name": "enum",
+            "value": [
+              {
+                "value": "...OptionsHelper.buttonIconPositions",
+                "computed": true
+              }
+            ]
+          },
+          "required": false,
+          "description": "Defines an Icon position within the button: \"before\" | \"after\"",
+          "defaultValue": {
+            "value": "'before'",
+            "computed": false
+          }
+        },
+        "iconType": {
+          "type": {
+            "name": "enum",
+            "value": [
+              {
+                "value": "...OptionsHelper.icons",
+                "computed": true
+              },
+              {
+                "value": "''",
+                "computed": false
+              }
+            ]
+          },
+          "required": false,
+          "description": "Defines an Icon type within the button (see Icon for options)"
+        },
+        "size": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.sizesRestricted"
+          },
+          "required": false,
+          "description": "Assigns a size to the button: \"small\" | \"medium\" | \"large\"",
+          "defaultValue": {
+            "value": "'medium'",
+            "computed": false
+          }
+        },
+        "subtext": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Second text child, renders under main text, only when size is \"large\"",
+          "defaultValue": {
+            "value": "''",
+            "computed": false
+          }
+        },
+        "forwardRef": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Ref to be forwarded"
+        },
+        "as": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.themesBinary"
+          },
+          "required": false,
+          "description": "Button types for legacy theme: \"primary\" | \"secondary\"",
+          "defaultValue": {
+            "value": "'secondary'",
+            "computed": false
+          }
+        },
+        "theme": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.buttonColors"
+          },
+          "required": false,
+          "description": "Set this prop to pass in legacy theme color variants",
+          "defaultValue": {
+            "value": "'blue'",
+            "computed": false
+          }
+        },
+        "checkTheme": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": ""
+        },
+        "href": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Legacy - used to transfrom button into anchor"
+        },
+        "to": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Legacy - used to transfrom button into anchor"
+        }
+      }
+    },
+    {
+      "description": "",
+      "displayName": "renderStyledButton",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "renderChildren",
+      "methods": []
+    }
+  ]
+}

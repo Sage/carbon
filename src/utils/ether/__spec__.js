@@ -1,4 +1,6 @@
-import { append, styleElement, acronymize, validProps, insertAt, filterOutInputEvents } from './ether.js';
+import {
+  append, styleElement, acronymize, validProps, insertAt, generateKeysForChildren
+} from './ether.js';
 import React from 'react';
 import PropTypes from 'prop-types';
 import TestUtils from 'react-dom/test-utils';
@@ -97,30 +99,11 @@ describe('Ether', () => {
     });
   });
 
-  describe('filterOutInputEvents', () => {
-    const props = {
-      value: 'foo',
-      otherProp: 'bar',
-      children: <div />,
-      onFocus: () => {},
-      onBlur: () => {},
-      onChange: () => {},
-      onMouseDown: () => {},
-      onMouseUp: () => {},
-      onClick: () => {},
-      onKeyDown: () => {},
-      onKeyUp: () => {},
-      onKeyPress: () => {},
-    };
-
-    const filteredProps = {
-      value: props.value,
-      otherProp: props.otherProp,
-      children: props.children
-    };
-
-    it('returns properly filtered props', () => {
-      expect(filterOutInputEvents(props)).toEqual(filteredProps);
+  describe('generateKeysForChildren', () => {
+    it('creates an array of unique keys of the same length as a given array', () => {
+      const array = generateKeysForChildren(['foo', 'bar']);
+      expect(array.length).toEqual(2);
+      expect(array[0]).not.toEqual(array[1]);
     });
   });
 });

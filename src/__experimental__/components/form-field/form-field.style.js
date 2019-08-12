@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import BaseTheme from '../../../style/themes/base';
-import { THEMES } from '../../../style/themes';
+import { isClassic } from '../../../utils/helpers/style-helper';
 
 const FormFieldStyle = styled.div`
   ${({ inline }) => {
@@ -8,7 +8,6 @@ const FormFieldStyle = styled.div`
       return `
         align-items: baseline;
         display: flex;
-        flex-wrap: wrap;
       `;
     }
 
@@ -16,7 +15,7 @@ const FormFieldStyle = styled.div`
   }}
 
   & + & {
-    margin-top: ${({ theme }) => (theme.name === THEMES.classic ? '10px' : '16px')};
+    margin-top: ${({ theme }) => (isClassic(theme) ? '10px' : '16px')};
   }
 `;
 

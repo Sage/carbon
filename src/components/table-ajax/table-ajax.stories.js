@@ -9,6 +9,12 @@ import {
 import Button from '../button';
 import MultiActionButton from '../multi-action-button';
 import { info, notes } from './documentation';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+TableAjax.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /table-ajax(?!spec)/
+);
 
 const store = new Store({
   sortOrder: 'asc',

@@ -10,7 +10,6 @@ const presErr = new Error('this value is required!');
 const notZeroErr = new Error('this is zero!');
 const asyncErr = new Error('not foo!');
 const failErr = new Error("It's foo!");
-const mockMessage = 'mock message';
 
 const presence = value => new Promise((resolve, reject) => {
   if (value) {
@@ -89,40 +88,6 @@ describe('when the withValidations HOC wraps a component', () => {
     wrapper.setProps({ onBlur: spy });
     wrapper.instance().handleBlur();
     expect(spy).toHaveBeenCalled();
-  });
-
-  describe('when the component renders the validation icon', () => {
-    it('returns an Icon with info type when the state has info and no warning or validations', () => {
-      wrapper.setState({ infoMessage: mockMessage });
-      wrapper.instance().renderValidationMarkup();
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('returns an Icon with warning type when the state has warning and no validations', () => {
-      wrapper.setState({ infoMessage: mockMessage, warningMessage: mockMessage });
-      wrapper.instance().renderValidationMarkup();
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('returns an Icon with error type when the state has failed validations', () => {
-      wrapper.setState({ infoMessage: mockMessage, warningMessage: mockMessage, errorMessage: mockMessage });
-      wrapper.instance().renderValidationMarkup();
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('returns the children if no type has been set', () => {
-      wrapper.setProps({ children: <div /> });
-      const markup = wrapper.instance().renderValidationMarkup();
-      expect(markup).toEqual(null);
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('returns the Icon when the component has an array of children', () => {
-      wrapper.setState({ infoMessage: mockMessage, warningMessage: mockMessage, errorMessage: mockMessage });
-      wrapper.setProps({ children: [<div key='div1' />, 'foo', <div key='div2' />] });
-      wrapper.instance().renderValidationMarkup();
-      expect(wrapper).toMatchSnapshot();
-    });
   });
 
   describe('when it validates a subset of validations', () => {
@@ -386,6 +351,48 @@ describe('when the withValidations HOC wraps a component', () => {
       expect(wrapper.instance().state.warningMessage).toEqual('');
       expect(wrapper.instance().state.errorMessage).toEqual('');
       expect(spy).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('form state', () => {
+    it('passes state value to form when no value prop is passed', async () => {
+      const mockFunction = jest.fn();
+      wrapper = shallow(<InputComponent addInputToFormState={ mockFunction } name='foo' />, { context });
+
+      wrapper.setProps({
+        validations: [failValidation],
+        warnings: [failValidation],
+        info: failValidation
+      });
+      expect(mockFunction).toHaveBeenCalled();
+    });
+  });
+
+  describe('Using passed context during update of validation status', () => {
+    it('does not call adjust count when no context is provided but there is state', async () => {
+      wrapper = shallow(<InputComponent name='foo' />, {});
+      wrapper.setState({ errorMessage: true, infoMessage: true, warningMessage: true });
+
+      wrapper.setProps({
+        validations: [presence],
+        warnings: [presence],
+        info: presence,
+        value: 'foo'
+      });
+      const validate = await wrapper.instance().runValidation(types[0]);
+      expect(validate).toEqual(true);
+    });
+
+    it('does not call adjust count when no context is provided and there is no state', async () => {
+      wrapper = shallow(
+        <InputComponent
+          info={ presence } value=''
+          name='foo'
+        />,
+        {}
+      );
+      const validate = await wrapper.instance().runValidation(types[2]);
+      expect(validate).toEqual(false);
     });
   });
 });

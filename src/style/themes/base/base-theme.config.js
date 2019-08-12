@@ -43,8 +43,18 @@ export default (palette) => {
       }
     },
 
+    form: {
+      invalid: palette.slateTint(95)
+    },
+
+    carousel: {
+      activeSelectorBackground: palette.slateTint(40),
+      inactiveSelectorBackground: palette.slateTint(80)
+    },
+
     help: {
-      color: blackWithOpacity(0.65)
+      color: blackWithOpacity(0.65),
+      hover: blackWithOpacity(0.9)
     },
 
     text: {
@@ -100,6 +110,11 @@ export default (palette) => {
       neutralBackgroundFocus: palette.slateTint(10),
       warningButtonFocus: palette.carrotOrange,
       errorButtonFocus: palette.errorRedShade(20)
+    },
+
+    select: {
+      border: '#bfccd2',
+      selected: palette.slateTint(95)
     },
 
     shadows: {

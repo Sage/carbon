@@ -103,8 +103,10 @@ const Checkbox = Input(InputLabel(InputValidation(class Checkbox extends React.C
     props.className = this.inputClasses;
     props.onChange = this.handleOnChange;
     props.type = 'checkbox';
-    props.value = '1';
+    props.value = true;
     delete props.children;
+    delete props.childOfForm;
+
     return props;
   }
 
@@ -120,7 +122,7 @@ const Checkbox = Input(InputLabel(InputValidation(class Checkbox extends React.C
       readOnly: true,
       ref: 'hidden',
       type: 'hidden',
-      value: '0',
+      value: false,
       'data-element': 'hidden-input'
     };
 

@@ -3,9 +3,9 @@ import { THEMES } from '../../../style/themes';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
-import StyledCheckboxSvgWrapper from './checkbox-svg-wrapper.style';
+import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
 import LabelStyle from '../label/label.style';
-import StyledHelp from '../help/help.style';
+import StyledHelp from '../../../components/help/help.style';
 
 export default ({
   checked, disabled, fieldHelpInline, reverse, theme
@@ -15,14 +15,14 @@ export default ({
   }
 
   ${HiddenCheckableInputStyle},
-  ${StyledCheckboxSvgWrapper} > svg {
+  svg {
     padding: 1px;
   }
 
   ${StyledCheckableInput},
   ${HiddenCheckableInputStyle},
-  ${StyledCheckboxSvgWrapper},
-  ${StyledCheckboxSvgWrapper} > svg {
+  ${StyledCheckableInputSvgWrapper},
+  svg {
     height: 15px;
     width: 15px;
   }
@@ -52,15 +52,15 @@ export default ({
   }
 
   ${HiddenCheckableInputStyle}:not([disabled]) {
-    &:focus + ${StyledCheckboxSvgWrapper},
-    &:hover + ${StyledCheckboxSvgWrapper} {
-      outline: none;
+    &:focus + ${StyledCheckableInputSvgWrapper},
+    &:hover + ${StyledCheckableInputSvgWrapper} {
+      box-shadow: none;
     }
   }
 
   ${HiddenCheckableInputStyle}:not([disabled]) {
-    &:focus + ${StyledCheckboxSvgWrapper} > svg,
-    &:hover + ${StyledCheckboxSvgWrapper} > svg {
+    &:focus + ${StyledCheckableInputSvgWrapper} > svg,
+    &:hover + ${StyledCheckableInputSvgWrapper} > svg {
       border: 1px solid #1963f6;
       outline: none;
     }
@@ -76,11 +76,11 @@ export default ({
     }
 
     svg {
-      background-color: ${theme.disabled.disabled};
-      border: 1px solid ${theme.disabled.border};
+      background-color: #e6ebed;
+      border-color: #bfccd2;
     }
 
-    svg path { fill: ${checked ? theme.disabled.border : theme.disabled.disabled}; }
+    svg path { fill: #${checked ? '8099a4' : 'e6ebed'}; }
   `}
 
   ${(fieldHelpInline || reverse) && `

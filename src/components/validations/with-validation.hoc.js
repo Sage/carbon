@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { ValidationsContext } from './form-with-validations.hoc';
 import validator from '../../utils/validations/validator';
 import VALIDATION_TYPES from './validation-types.config';
-import ValidationIcon from './validation-icon.component';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 
 const { validationTypes } = OptionsHelper;
@@ -18,40 +17,23 @@ const validationsPropTypes = PropTypes.oneOfType([
 
 const withValidation = (WrappedComponent) => {
   class WithValidation extends React.Component {
-    static contextType = ValidationsContext;
-
-    static propTypes = {
-      children: PropTypes.node, // Children elements
-      name: PropTypes.string.isRequired, // Name to uniquely identify the component
-      value: PropTypes.string, // The current value of the component
-      onBlur: PropTypes.func, // Custom function to be called when the component blurs
-      onChange: PropTypes.func, // Custom function called when component value changes
-      validations: validationsPropTypes,
-      warnings: validationsPropTypes,
-      info: validationsPropTypes,
-      forceUpdateTriggerToggle: PropTypes.bool // triggers validation when it's boolean value changes
-    };
-
-    static defaultProps = {
-      validations: [],
-      warnings: [],
-      info: []
-    }
-
     state = {
       errorMessage: '',
       warningMessage: '',
-      infoMessage: ''
+      infoMessage: '',
+      value: ''
     };
 
     componentDidMount() {
+      this.updateFormState(this.props.value || this.state.value);
+
       if (this.checkValidations()) {
         this.context.addInput(this.props.name, this.validate);
       }
     }
 
     componentWillUnmount() {
-      if (this.context && this.context.removeInput) this.context.removeInput(this.props.name);
+      if (this.checkContext('removeInput')) this.context.removeInput(this.props.name);
     }
 
     componentDidUpdate(prevProps) {
@@ -59,6 +41,7 @@ const withValidation = (WrappedComponent) => {
 
       if (this.isUpdatedValidationProps(prevProps) && this.checkValidations()) {
         this.context.addInput(this.props.name, this.validate);
+        this.updateFormState(this.props.value || this.state.value);
       }
 
       if (isUpdateForced || prevProps.value !== this.props.value) {
@@ -75,7 +58,7 @@ const withValidation = (WrappedComponent) => {
     }
 
     checkValidations() {
-      if (!this.context || !this.context.addInput) return false;
+      if (!this.checkContext('addInput')) return false;
 
       let hasValidations = false;
       validationTypes.forEach((validationType) => {
@@ -90,6 +73,10 @@ const withValidation = (WrappedComponent) => {
       });
 
       return hasValidations;
+    }
+
+    checkContext(contextProp) {
+      return this.context && this.context[contextProp];
     }
 
     validate = (types = validationTypes, isOnSubmit) => {
@@ -157,7 +144,7 @@ const withValidation = (WrappedComponent) => {
 
       return new Promise((resolve) => {
         setTimeout(() => {
-          validator(this.props[type])(this.props.value, this.props)
+          validator(this.props[type])(this.props.value || this.state.value, this.props)
             .then(() => {
               this.updateValidationStatus(validationType);
               return resolve(true);
@@ -170,34 +157,24 @@ const withValidation = (WrappedComponent) => {
       });
     }
 
-    renderValidationMarkup() {
-      const validationIconProps = this.getValidationIconProps();
-
-      if (!validationIconProps) return null;
-
-      return (
-        <ValidationIcon { ...validationIconProps } />
-      );
-    }
-
     getValidationIconProps() {
       const { errorMessage, warningMessage, infoMessage } = this.state;
       let validationIconProps;
 
       if (errorMessage) {
         validationIconProps = {
-          type: 'error',
-          message: errorMessage
+          inputIcon: 'error',
+          tooltipMessage: errorMessage
         };
       } else if (warningMessage) {
         validationIconProps = {
-          type: 'warning',
-          message: warningMessage
+          inputIcon: 'warning',
+          tooltipMessage: warningMessage
         };
       } else if (infoMessage) {
         validationIconProps = {
-          type: 'info',
-          message: infoMessage
+          inputIcon: 'info',
+          tooltipMessage: infoMessage
         };
       }
 
@@ -214,6 +191,11 @@ const withValidation = (WrappedComponent) => {
     handleChange = (ev) => {
       this.blockValidation = true;
       this.resetValidation();
+
+      this.setState(
+        { value: ev.target.value },
+        () => this.updateFormState()
+      );
 
       if (this.props.onChange) {
         this.props.onChange(ev);
@@ -237,6 +219,12 @@ const withValidation = (WrappedComponent) => {
       }
     }
 
+    updateFormState(value = this.state.value) {
+      if (this.props.addInputToFormState) {
+        this.props.addInputToFormState(this.props.name, value);
+      }
+    }
+
     getValidationStatuses() {
       return {
         hasError: !!this.state.errorMessage,
@@ -252,13 +240,37 @@ const withValidation = (WrappedComponent) => {
           { ...this.props }
           onBlur={ this.handleBlur }
           onChange={ this.handleChange }
+          { ...this.getValidationIconProps() }
         >
           { this.props.children }
-          { this.renderValidationMarkup() }
         </WrappedComponent>
       );
     }
   }
+
+  WithValidation.contextType = ValidationsContext;
+
+  WithValidation.propTypes = {
+    children: PropTypes.node, // Children elements
+    name: PropTypes.string.isRequired, // Name to uniquely identify the component
+    value: PropTypes.oneOfType([ // The current value of the component
+      PropTypes.string,
+      PropTypes.array
+    ]),
+    onBlur: PropTypes.func, // Custom function to be called when the component blurs
+    onChange: PropTypes.func, // Custom function called when component value changes
+    validations: validationsPropTypes,
+    warnings: validationsPropTypes,
+    info: validationsPropTypes,
+    forceUpdateTriggerToggle: PropTypes.bool, // triggers validation when it's boolean value changes
+    addInputToFormState: PropTypes.func
+  };
+
+  WithValidation.defaultProps = {
+    validations: [],
+    warnings: [],
+    info: []
+  };
 
   const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
   WithValidation.displayName = `WithValidation(${displayName})`;

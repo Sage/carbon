@@ -5,7 +5,6 @@ Feature: Accessibility tests
   Scenario Outline: Component <component> page with button
     When I open "<component>" component page with button
       And I open Accessibility Tab
-      And I re-run violations tests
     Then "<component>" component has no violations in Accessibility section
     Examples:
       | component           |
@@ -16,7 +15,6 @@ Feature: Accessibility tests
   Scenario Outline: Component <component> without activation button
     When I open "<component>" component page
       And I open Accessibility Tab
-      And I re-run violations tests
     Then "<component>" component has no violations in Accessibility section
     Examples:
       | component            |
@@ -64,13 +62,13 @@ Feature: Accessibility tests
       | pages                |
       | pill                 |
       | pod                  |
-      # portrait component name should be fixed
       | portait              |
       | preview              |
       | profile              |
       | radio-button         |
       | rainbow              |
       | row                  |
+      # | select               | Commented until select will be merged-out from experimental
       | settingsrow          |
       | simplecolorpicker    |
       | split-button         |

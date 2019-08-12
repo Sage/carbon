@@ -4,10 +4,10 @@ import Number from './number.component';
 import Textbox from '../textbox';
 
 describe('Number Input', () => {
-  let wrapper, input, onChangeDeferredFn, onChangeFn, onKeyDownFn;
+  let wrapper, input, onChangeFn, onKeyDownFn;
   const selectionStart = 2;
   const selectionEnd = 4;
-  const inputValue = '123456789';
+  const defaultInputValue = '123456789';
 
   describe('when rendered', () => {
     it("should have the Textbox component as it's child", () => {
@@ -20,36 +20,17 @@ describe('Number Input', () => {
     describe.each([['an integer', '123456789'], ['a negative integer', '-123456789']])('%s', (desc, newValue) => {
       beforeEach(() => {
         onChangeFn = jest.fn();
-        onChangeDeferredFn = jest.fn();
         jest.useFakeTimers();
 
         wrapper = renderNumberInput({
-          value: inputValue,
-          onChange: onChangeFn,
-          onChangeDeferred: onChangeDeferredFn
+          value: defaultInputValue,
+          onChange: onChangeFn
         });
       });
 
       it('calls the onChange method', () => {
         simulateInputChange(wrapper, newValue);
         expect(onChangeFn).toHaveBeenCalled();
-      });
-
-      it('the onChangeDeferred only after a default deferTimeout', () => {
-        simulateInputChange(wrapper, newValue);
-        expect(onChangeDeferredFn).not.toHaveBeenCalled();
-        jest.runTimersToTime(750);
-        expect(onChangeDeferredFn).toHaveBeenCalled();
-      });
-
-      it('calls the onChangeDeferred handler only after the deferTimeout', () => {
-        const deferTimeoutVal = 1000;
-
-        wrapper.setProps({ deferTimeout: deferTimeoutVal });
-        simulateInputChange(wrapper, newValue);
-        expect(onChangeDeferredFn).not.toHaveBeenCalled();
-        jest.runTimersToTime(deferTimeoutVal);
-        expect(onChangeDeferredFn).toHaveBeenCalled();
       });
     });
 
@@ -77,7 +58,7 @@ describe('Number Input', () => {
           jest.useFakeTimers();
 
           wrapper = renderNumberInput({
-            value: inputValue,
+            value: defaultInputValue,
             onChange: onChangeFn
           });
 
@@ -94,7 +75,7 @@ describe('Number Input', () => {
 
         describe('and when the value prop is defined', () => {
           it('input value is the same as in the prop', () => {
-            expect(inputInstance.value).toEqual(inputValue);
+            expect(inputInstance.value).toEqual(defaultInputValue);
           });
 
           it("input's selection start and end are the same as set in the component", () => {
@@ -113,7 +94,7 @@ describe('Number Input', () => {
     beforeEach(() => {
       onKeyDownFn = jest.fn();
       wrapper = renderNumberInput({
-        value: inputValue
+        value: defaultInputValue
       });
       wrapperInstance = wrapper.instance();
       input = wrapper.find('input');
@@ -146,7 +127,5 @@ function simulateInputChange(wrapper, value) {
 }
 
 function setTextSelection(wrapper, selectionStart, selectionEnd) {
-  const wrapperInstance = wrapper.instance();
-  wrapperInstance.selectionStart = selectionStart;
-  wrapperInstance.selectionEnd = selectionEnd;
+  wrapper.find('input').simulate('keyDown', { target: { selectionStart, selectionEnd } });
 }

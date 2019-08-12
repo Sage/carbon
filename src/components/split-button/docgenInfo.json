@@ -1,0 +1,247 @@
+{
+  "src/components/split-button/split-button.component.js": [
+    {
+      "description": "",
+      "displayName": "SplitButton",
+      "methods": [
+        {
+          "name": "focusToggleButton",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "showButtons",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "hideButtons",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "handleClickOutside",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "isActiveElement",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "node",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "handleKeyDown",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "mainButtonProps",
+          "docblock": null,
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "toggleButtonProps",
+          "docblock": null,
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "componentTags",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "addRef",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ref",
+              "type": null
+            },
+            {
+              "name": "index",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "renderMainButton",
+          "docblock": null,
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "handleToggleButtonKeyDown",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "childrenWithProps",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "renderAdditionalButtons",
+          "docblock": null,
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null
+        }
+      ],
+      "props": {
+        "buttonType": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.themesBinary"
+          },
+          "required": false,
+          "description": "Button type: \"primary\" | \"secondary\""
+        },
+        "as": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.themesBinary"
+          },
+          "required": false,
+          "description": "Button type: \"primary\" | \"secondary\" for legacy theme",
+          "defaultValue": {
+            "value": "'secondary'",
+            "computed": false
+          }
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": true,
+          "description": "The additional button to display."
+        },
+        "data-element": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A custom value for the data-element attribute"
+        },
+        "data-role": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A custom value for the data-role attribute"
+        },
+        "disabled": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Gives the button a disabled state.",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "size": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.sizesRestricted"
+          },
+          "required": false,
+          "description": "The size of the buttons in the SplitButton.",
+          "defaultValue": {
+            "value": "'medium'",
+            "computed": false
+          }
+        },
+        "text": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": "The text to be displayed in the SplitButton."
+        },
+        "iconPosition": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.buttonIconPositions"
+          },
+          "required": false,
+          "description": "Defines an Icon position within the button: \"before\" | \"after\"",
+          "defaultValue": {
+            "value": "'before'",
+            "computed": false
+          }
+        },
+        "align": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.alignBinary"
+          },
+          "required": false,
+          "description": "Set align of the rendered content",
+          "defaultValue": {
+            "value": "'left'",
+            "computed": false
+          }
+        }
+      }
+    }
+  ]
+}

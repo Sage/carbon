@@ -6,19 +6,6 @@ import filterChildren from '../../../utils/filter-children';
 import { ScrollableList, ScrollableListItem } from '../../../components/scrollable-list';
 
 class SelectList extends React.Component {
-  static propTypes = {
-    alwaysHighlight: PropTypes.bool,
-    children: PropTypes.node,
-    customFilter: PropTypes.func,
-    filterValue: PropTypes.string,
-    onLazyLoad: PropTypes.func,
-    onMouseDown: PropTypes.func,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    onSelect: PropTypes.func,
-    target: PropTypes.object
-  }
-
   list = React.createRef();
 
   componentDidUpdate() {
@@ -64,8 +51,41 @@ class SelectList extends React.Component {
     });
   }
 
+  /**
+   * Find and highlights search terms in text
+   */
+  highlightMatches = (optionText, value) => {
+    if (!value.length || !optionText) return optionText;
+
+    const parsedOptionText = optionText.toLowerCase();
+    const valIndex = parsedOptionText.indexOf(value);
+
+    if (valIndex === -1) {
+      return optionText;
+    }
+
+    const beginning = optionText.substr(0, valIndex);
+    const middle = optionText.substr(valIndex, value.length);
+    let end = optionText.substr(valIndex + value.length, optionText.length);
+
+    // find end of string recursively
+    if (end.indexOf(value) !== -1) {
+      end = this.highlightMatches(end, value);
+    }
+
+    // build JSX object
+    const newValue = [
+      <span key='beginning'>{ beginning }</span>,
+      <strong key='middle'>{ middle }</strong>,
+      <span key='end'>{ end }</span>
+    ];
+
+    return newValue;
+  }
+
   render() {
     const {
+      id,
       alwaysHighlight,
       children,
       customFilter,
@@ -78,10 +98,10 @@ class SelectList extends React.Component {
     } = this.props;
 
     const filter = this.filter(filterValue, customFilter);
-
     return (
       <Portal onReposition={ this.positionList }>
         <div
+          id={ id }
           role='presentation'
           onMouseLeave={ onMouseLeave }
           onMouseEnter={ onMouseEnter }
@@ -95,14 +115,26 @@ class SelectList extends React.Component {
             keyNavigation
           >
             {
-              filter(children, child => (
-                <ScrollableListItem
-                  id={ this.itemId(child.props) }
-                  isSelectable={ child.props.isSelectable }
-                >
-                  { child }
-                </ScrollableListItem>
-              ))
+              filter(children, (child) => {
+                const { text, ...props } = child.props;
+                return (
+                  <ScrollableListItem
+                    id={ this.itemId(child.props) }
+                    isSelectable={ child.props.isSelectable }
+                  >
+                    {
+                      React.cloneElement(
+                        child,
+                        {
+                          children: this.highlightMatches(text, String(filterValue)),
+                          text,
+                          ...props
+                        }
+                      )
+                    }
+                  </ScrollableListItem>
+                );
+              })
             }
           </ScrollableList>
         </div>
@@ -110,5 +142,30 @@ class SelectList extends React.Component {
     );
   }
 }
+
+SelectList.propTypes = {
+  /** The ID for the parent <div> */
+  id: PropTypes.string,
+  /** Ensure that there's always a highlighted option? */
+  alwaysHighlight: PropTypes.bool,
+  /** Child components (such as <Option>) for the <ScrollableList> */
+  children: PropTypes.node,
+  /** A custom function to filter the children. Its interface is (text, value) => boolean */
+  customFilter: PropTypes.func,
+  /** The value to filter the children by */
+  filterValue: PropTypes.string,
+  /** A custom callback for when more data needs to be lazy-loaded when the user scrolls the dropdown menu list */
+  onLazyLoad: PropTypes.func,
+  /** A custom callback for the parent <div>'s MouseDown event */
+  onMouseDown: PropTypes.func,
+  /** A custom callback for the parent <div>'s MouseEnter event */
+  onMouseEnter: PropTypes.func,
+  /** A custom callback for the parent <div>'s MouseLeave event */
+  onMouseLeave: PropTypes.func,
+  /** A callback for when a child is selected */
+  onSelect: PropTypes.func,
+  /** Target DOM element to position the dropdown menu list relative to */
+  target: PropTypes.object
+};
 
 export default SelectList;

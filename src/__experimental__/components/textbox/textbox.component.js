@@ -5,6 +5,7 @@ import InputIconToggle from '../input-icon-toggle';
 import FormField from '../form-field';
 import { withValidation, validationsPropTypes } from '../../../components/validations';
 import withUniqueName from '../../../utils/helpers/with-unique-name';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 // This component is a working example of what a Textbox might look like
 // using only the new input componentry. It is still under development with
@@ -16,22 +17,38 @@ const Textbox = ({
   leftChildren,
   formattedValue,
   value,
+  childOfForm,
+  isOptional,
   ...props
 }) => {
+  removeParentProps(props);
+
   return (
-    <FormField { ...props }>
+    <FormField
+      childOfForm={ childOfForm }
+      isOptional={ isOptional }
+      { ...props }
+    >
       <InputPresentation type='text' { ...props }>
         { leftChildren }
         <Input
           { ...props }
+          aria-invalid={ props.hasError }
           value={ visibleValue(value, formattedValue) }
         />
         { children }
-        { inputIcon && <InputIconToggle { ...props } type={ inputIcon } /> }
+        { inputIcon && <InputIconToggle { ...props } inputIcon={ inputIcon } /> }
       </InputPresentation>
     </FormField>
   );
 };
+
+function removeParentProps(props) {
+  delete props['data-element'];
+  delete props['data-component'];
+  delete props['data-role'];
+  delete props.className;
+}
 
 function visibleValue(value, formattedValue) {
   return (typeof formattedValue === 'string') ? formattedValue : value;
@@ -43,7 +60,10 @@ Textbox.propTypes = {
    * real value is an ID but you want to show a human-readable version.
    */
   formattedValue: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array // Allows the textbox to be used in the Multi-Select component
+  ]),
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
   /** Event handler for the change event */
@@ -75,12 +95,25 @@ Textbox.propTypes = {
   /** List of warning validation functions */
   warnings: validationsPropTypes,
   /** List of info validation functions */
-  info: validationsPropTypes
+  info: validationsPropTypes,
+
+  childOfForm: PropTypes.bool,
+
+  isOptional: PropTypes.bool,
+  /** Status of error validations */
+  hasError: PropTypes.bool,
+  /** Status of warnings */
+  hasWarning: PropTypes.bool,
+  /** Status of info */
+  hasInfo: PropTypes.bool,
+  /** Size of an input */
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted)
 };
 
 Textbox.defaultProps = {
   labelWidth: 30,
-  inputWidth: 70
+  inputWidth: 70,
+  size: 'medium'
 };
 
 export { Textbox as OriginalTextbox };

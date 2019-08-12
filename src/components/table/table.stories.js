@@ -11,6 +11,12 @@ import { notes, info } from './documentation';
 import TableWrapper from './table-story-helpers/table-story-wrapper.component';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import { Table } from '.';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+TableWrapper.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /table\.component(?!spec)/
+);
 
 const commonKnobs = () => {
   const paginate = boolean('paginate', false);

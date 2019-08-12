@@ -1,9 +1,9 @@
-import Checkbox from './';
+import Checkbox from '../../__experimental__/components/checkbox';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('checkbox', Checkbox, {
-	description: `Selects more than one option.`,
-	designerNotes: `
+  description: `Selects more than one option.`,
+  designerNotes: `
 * Checkbox provides a way to efficiently select more than one item from a list.
 * Disabled or read-only checkboxes might be difficult for a user to distinguish visually, so try to avoid this.
 * Consider ‘smart default’ selections, based on what your user is likely to choose. But, users may well leave the defaults in place, so make sure any consequences are easy to undo, and not harmful.
@@ -16,12 +16,16 @@ let definition = new Definition('checkbox', Checkbox, {
  `,
   type: 'form',
   propValues: {
-    value: false
+    value: 'test-checkbox'
   },
   propTypes: {
     checked: 'Boolean',
+    disabled: 'Boolean',
+    error: 'Boolean',
+    fieldHelpInline: 'Boolean',
+    onChange: 'Function',
     reverse: 'Boolean',
-    value: 'Boolean'
+    value: 'String'
   },
   propDescriptions: {
     checked: 'Set the checkbox as checked',

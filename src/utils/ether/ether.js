@@ -1,4 +1,5 @@
 import { omit, difference, includes } from 'lodash';
+import guid from '../helpers/guid/guid';
 
 /**
  * Ether
@@ -44,7 +45,10 @@ function append(value, content) {
  * @return {Object} Styled Element
  */
 function styleElement(element, attribute, value) {
-  element.style[attribute] = value.toString();
+  if (element.style[attribute] !== value.toString()) {
+    element.style[attribute] = value.toString();
+  }
+
   return element.style[attribute];
 }
 
@@ -85,26 +89,16 @@ function insertAt(value, options) {
 
   return result;
 }
+
 /**
- * Filters out input events from the passed React props
+ * Dynamically creates some keys for children,
+ * E.g. children rendered using cloneElement etc.
  *
- * @param {Object} props
  */
-function filterOutInputEvents(props) {
-  return omit(props, [
-    'onFocus',
-    'onBlur',
-    'onChange',
-    'onMouseDown',
-    'onMouseUp',
-    'onClick',
-    'onKeyDown',
-    'onKeyUp',
-    'onKeyPress',
-    'onChangeDeferred'
-  ]);
+function generateKeysForChildren(array) {
+  return array.map(() => guid());
 }
 
 export {
-  acronymize, append, insertAt, styleElement, validProps, filterOutInputEvents
+  acronymize, append, insertAt, styleElement, validProps, generateKeysForChildren
 };

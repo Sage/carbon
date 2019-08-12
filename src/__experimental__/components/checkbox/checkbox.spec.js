@@ -7,8 +7,8 @@ import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';
-import StyledCheckboxSvgWrapper from './checkbox-svg-wrapper.style';
-import StyledHelp from '../help/help.style';
+import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
+import StyledHelp from '../../../components/help/help.style';
 import guid from '../../../utils/helpers/guid';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import classicTheme from '../../../style/themes/classic';
@@ -21,7 +21,7 @@ jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
 
 function render(props) {
-  return TestRenderer.create(<Checkbox { ...props } />);
+  return TestRenderer.create(<Checkbox value='test' { ...props } />);
 }
 
 describe('Checkbox', () => {
@@ -44,17 +44,17 @@ describe('Checkbox', () => {
 
         assertStyleMatch(styles, wrapper, { modifier: css`${HiddenCheckableInputStyle}` });
 
-        assertStyleMatch(styles, wrapper, { modifier: css`${`${StyledCheckboxSvgWrapper} > svg`}` });
+        assertStyleMatch(styles, wrapper, { modifier: 'svg' });
 
         assertStyleMatch({
           height: '24px'
-        }, wrapper, { modifier: (css`${StyledCheckboxSvgWrapper}`) });
+        }, wrapper, { modifier: (css`${StyledCheckableInputSvgWrapper}`) });
       });
 
       it('applies the correct CheckboxSvgWrapper styles', () => {
         assertStyleMatch({
           height: '24px'
-        }, wrapper, { modifier: (css`${StyledCheckboxSvgWrapper}`) });
+        }, wrapper, { modifier: (css`${StyledCheckableInputSvgWrapper}`) });
       });
 
       it('applies the appropriate FieldHelp styles', () => {
@@ -127,11 +127,11 @@ describe('Checkbox', () => {
         };
 
         it('applies the appropriate svg hover styles', () => {
-          assertStyleMatch(hoverFocusStyles, wrapper, { modifier: css`${`${StyledCheckboxSvgWrapper}:hover`}` });
+          assertStyleMatch(hoverFocusStyles, wrapper, { modifier: css`${`${StyledCheckableInputSvgWrapper}:hover`}` });
         });
 
         it('applies the appropriate svg focus styles', () => {
-          assertStyleMatch(hoverFocusStyles, wrapper, { modifier: css`${`${StyledCheckboxSvgWrapper}:focus`}` });
+          assertStyleMatch(hoverFocusStyles, wrapper, { modifier: css`${`${StyledCheckableInputSvgWrapper}:focus`}` });
         });
       });
     });
@@ -225,7 +225,7 @@ describe('Checkbox', () => {
         assertStyleMatch({
           height: '15px',
           width: '15px'
-        }, wrapper, { modifier: css`${`${StyledCheckboxSvgWrapper} > svg`}` });
+        }, wrapper, { modifier: 'svg' });
       });
 
       it('applies appropriate FieldHelp styles', () => {
@@ -272,17 +272,21 @@ describe('Checkbox', () => {
       describe('when hover / focus is applied', () => {
         it('applies the appropriate hidden input svg wrapper hover styles', () => {
           assertStyleMatch(
-            { outline: 'none' },
+            { boxShadow: 'none' },
             wrapper,
-            { modifier: css`${`${HiddenCheckableInputStyle}:not([disabled]):focus + ${StyledCheckboxSvgWrapper}`}` }
+            {
+              modifier: css`${`${HiddenCheckableInputStyle}:not([disabled]):focus + ${StyledCheckableInputSvgWrapper}`}`
+            }
           );
         });
 
         it('applies the appropriate hidden input svg wrapper focus styles', () => {
           assertStyleMatch(
-            { outline: 'none' },
+            { boxShadow: 'none' },
             wrapper,
-            { modifier: css`${`${HiddenCheckableInputStyle}:not([disabled]):hover + ${StyledCheckboxSvgWrapper}`}` }
+            {
+              modifier: css`${`${HiddenCheckableInputStyle}:not([disabled]):hover + ${StyledCheckableInputSvgWrapper}`}`
+            }
           );
         });
 
@@ -293,7 +297,9 @@ describe('Checkbox', () => {
           },
           wrapper,
           {
-            modifier: css`${`${HiddenCheckableInputStyle}:not([disabled]):focus + ${StyledCheckboxSvgWrapper} > svg`}`
+            modifier: css`
+              ${`${HiddenCheckableInputStyle}:not([disabled]):focus + ${StyledCheckableInputSvgWrapper} > svg`}
+            `
           });
         });
 
@@ -304,7 +310,9 @@ describe('Checkbox', () => {
           },
           wrapper,
           {
-            modifier: css`${`${HiddenCheckableInputStyle}:not([disabled]):hover + ${StyledCheckboxSvgWrapper} > svg`}`
+            modifier: css`
+              ${`${HiddenCheckableInputStyle}:not([disabled]):hover + ${StyledCheckableInputSvgWrapper} > svg`}
+            `
           });
         });
       });
@@ -324,7 +332,7 @@ describe('Checkbox', () => {
 
         it('renders the correct check colour', () => {
           assertStyleMatch({
-            fill: classicTheme.disabled.border
+            fill: '#8099a4'
           }, wrapper, { modifier: 'svg path' });
         });
       });
@@ -347,14 +355,14 @@ describe('Checkbox', () => {
 
       it('applies the appropriate svg wrapper styles', () => {
         assertStyleMatch({
-          backgroundColor: classicTheme.disabled.disabled,
+          backgroundColor: '#e6ebed',
           border: `1px solid ${classicTheme.disabled.border}`
         }, wrapper, { modifier: 'svg' });
       });
 
       it('applies the appropriate check styles', () => {
         assertStyleMatch({
-          fill: classicTheme.disabled.disabled
+          fill: '#e6ebed'
         }, wrapper, { modifier: 'svg path' });
       });
     });

@@ -1,10 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Select does not apply any events if disabled or readonly 1`] = `
-<Fragment>
-  <InputDecoratorBridge
-    className="carbon-select"
-    data-component="carbon-select"
+<styled.div
+  aria-controls=""
+  aria-expanded={false}
+  aria-haspopup="listbox"
+  data-component="carbon-select"
+  isAnyValueSelected={false}
+  role="combobox"
+  style={
+    Object {
+      "minWidth": 75,
+    }
+  }
+>
+  <WithUniqueName(WithValidation(Textbox))
+    aria-label="Please Select..."
     formattedValue=""
     inputIcon="dropdown"
     inputRef={[Function]}
@@ -14,15 +25,27 @@ exports[`Select does not apply any events if disabled or readonly 1`] = `
     onClick={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
+    placeholder="Please Select..."
   />
-</Fragment>
+</styled.div>
 `;
 
 exports[`Select does not apply any events if disabled or readonly 2`] = `
-<Fragment>
-  <InputDecoratorBridge
-    className="carbon-select"
-    data-component="carbon-select"
+<styled.div
+  aria-controls=""
+  aria-expanded={false}
+  aria-haspopup="listbox"
+  data-component="carbon-select"
+  isAnyValueSelected={false}
+  role="combobox"
+  style={
+    Object {
+      "minWidth": 75,
+    }
+  }
+>
+  <WithUniqueName(WithValidation(Textbox))
+    aria-label="Please Select..."
     formattedValue=""
     inputIcon="dropdown"
     inputRef={[Function]}
@@ -32,15 +55,27 @@ exports[`Select does not apply any events if disabled or readonly 2`] = `
     onClick={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
+    placeholder="Please Select..."
   />
-</Fragment>
+</styled.div>
 `;
 
-exports[`Select renders only the InputDecoratorBridge when closed 1`] = `
-<Fragment>
-  <InputDecoratorBridge
-    className="carbon-select"
-    data-component="carbon-select"
+exports[`Select renders only the Textbox when closed 1`] = `
+<styled.div
+  aria-controls=""
+  aria-expanded={false}
+  aria-haspopup="listbox"
+  data-component="carbon-select"
+  isAnyValueSelected={false}
+  role="combobox"
+  style={
+    Object {
+      "minWidth": 75,
+    }
+  }
+>
+  <WithUniqueName(WithValidation(Textbox))
+    aria-label="Please Select..."
     formattedValue=""
     inputIcon="dropdown"
     inputRef={[Function]}
@@ -50,8 +85,9 @@ exports[`Select renders only the InputDecoratorBridge when closed 1`] = `
     onClick={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
+    placeholder="Please Select..."
   />
-</Fragment>
+</styled.div>
 `;
 
 exports[`Select renders the SelectList with any given children when in an open state 1`] = `
@@ -70,11 +106,13 @@ Object {
   ],
   "customFilter": undefined,
   "filterValue": undefined,
+  "id": "listbox-2",
   "onLazyLoad": undefined,
   "onMouseEnter": [Function],
   "onMouseLeave": [Function],
   "onSelect": [Function],
   "open": true,
+  "role": "listbox",
   "target": .c3 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -178,20 +216,17 @@ Object {
 }
 
 <div
-    autocomplete="off"
     class="c0"
-    data-element="input"
-    name="guid-12345"
     role="presentation"
-    type="text"
   >
     <input
-      autocomplete="off"
+      aria-invalid="false"
+      aria-label="Please Select..."
       class="c1 c2"
-      data-component="input"
       data-element="input"
       id="guid-12345"
       name="guid-12345"
+      placeholder="Please Select..."
       type="text"
       value=""
     />
@@ -199,10 +234,7 @@ Object {
       data-portal-entrance="guid-12345"
     />
     <span
-      autocomplete="off"
       class="c3"
-      data-element="input"
-      name="guid-12345"
       type="dropdown"
     >
       <span
@@ -213,56 +245,4 @@ Object {
     </span>
   </div>,
 }
-`;
-
-exports[`Select when multi-value renders the the textbox with the following:
-        * formattedValue is empty
-        * value contains the array of values
-        * leftChildren contains the pills
-        * inputIcon is disabled
-        * placeholder is disabled 1`] = `
-Array [
-  <div
-    className="carbon-select__pill"
-  >
-    <Pill
-      as="default"
-      fill={false}
-      onClick={null}
-      onDelete={[Function]}
-      pillRole="tag"
-      title="Orange"
-    >
-      Orange
-    </Pill>
-  </div>,
-  <div
-    className="carbon-select__pill"
-  >
-    <Pill
-      as="default"
-      fill={false}
-      onClick={null}
-      onDelete={[Function]}
-      pillRole="tag"
-      title="Blue"
-    >
-      Blue
-    </Pill>
-  </div>,
-  <div
-    className="carbon-select__pill"
-  >
-    <Pill
-      as="default"
-      fill={false}
-      onClick={null}
-      onDelete={[Function]}
-      pillRole="tag"
-      title="Red"
-    >
-      Red
-    </Pill>
-  </div>,
-]
 `;

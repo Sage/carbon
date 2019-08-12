@@ -10,6 +10,12 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Button, { OriginalButton } from '../button';
 import { notes, info } from './documentation';
 import classic from '../../style/themes/classic';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+SplitButton.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /split-button\.component(?!spec)/
+);
 
 const getIconKnobs = () => {
   const defaultPosition = Button.defaultProps.iconPosition;
@@ -75,7 +81,7 @@ storiesOf('Split Button', module)
       );
     },
     {
-      info: { text: info, propTablesExclude: [OriginalButton] },
+      info: { text: info, propTablesExclude: [Button, OriginalButton] },
       notes: { markdown: notes }
     },
   )
@@ -113,6 +119,6 @@ storiesOf('Split Button', module)
       </ThemeProvider>
     );
   }, {
-    info: { text: info, propTablesExclude: [OriginalButton, ThemeProvider] },
+    info: { text: info, propTablesExclude: [Button, OriginalButton, ThemeProvider] },
     notes: { markdown: notes }
   });

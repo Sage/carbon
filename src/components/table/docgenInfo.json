@@ -1,0 +1,1347 @@
+{
+  "src/components/table/draggable-table-cell/draggable-table-cell.component.js": [
+    {
+      "description": "Creates a draggable table cell using WithDrag.",
+      "displayName": "DraggableTableCell",
+      "methods": [],
+      "props": {
+        "identifier": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "used to associate WithDrags and WithDrops"
+        },
+        "draggableNode": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A function that returns the dom node used as the ghost layer when dragging"
+        },
+        "canDrag": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "used to specify whether the dragging is currently allowed"
+        }
+      }
+    }
+  ],
+  "src/components/table/table-cell/table-cell.component.js": [
+    {
+      "description": "A TableCell widget.\n\n== How to use a TableCell in a component:\n\nSee documentation for Table component.\n\nYou can set a property of 'align' which should be a string. This will\nalign the content to either \"left\", \"center\" or \"right\".\n\nYou can set a property of 'action' which should be a boolean. This will\nset styling options for the cell used for action such as delete.",
+      "displayName": "TableCell",
+      "methods": [
+        {
+          "name": "childName",
+          "docblock": "Returns the child's name if there is one.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "child"
+            }
+          ],
+          "returns": null,
+          "description": "Returns the child's name if there is one."
+        },
+        {
+          "name": "checkChildrenInputType",
+          "docblock": "Returns if child element is Textarea.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns if child element is Textarea."
+        },
+        {
+          "name": "tableCellProps",
+          "docblock": "Returns props to be used on the TD element.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns props to be used on the TD element."
+        }
+      ],
+      "props": {
+        "action": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Defines the cell type to be an action - used for the delete cell."
+        },
+        "align": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.alignFull"
+          },
+          "required": false,
+          "description": "Defines the alignment of the cell (eg \"left\", \"center\" or \"right\").",
+          "defaultValue": {
+            "value": "'left'",
+            "computed": false
+          }
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Children elements"
+        },
+        "size": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.tableSizes"
+          },
+          "required": false,
+          "description": "Defines the height of a cell used to size an input for example"
+        }
+      }
+    }
+  ],
+  "src/components/table/table-header/table-header.component.js": [
+    {
+      "description": "A TableHeader widget.\n\n== How to use a TableHeader in a component:\n\nSee documentation for Table component.\n\nYou can set a property of 'align' which should be a string. This will\nalign the content to either \"left\", \"center\" or \"right\".\n\n== Sortable Columns:\n\nTo make a column sortable, pass a prop of 'sortable={ true }' to the corresponding\nTableHeader.\nSortable columns also require a 'name' prop which must correspond to the database key.\n\nYou can also provide a custom sortOrder - 'asc' (ascending) or 'desc' (descending).\nBy Default columns are sorted in ascending order.\n\nSee the Table documentation for more information on hooking up a change handler\nto setup sort functionality in your app.",
+      "displayName": "TableHeader",
+      "methods": [
+        {
+          "name": "onSortableColumnClick",
+          "docblock": "Event handler for clicks on the <a> tag used for activating\ncolumn sorting.\n\nUsed to prevent the default action of the <a> tag.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "event"
+            }
+          ],
+          "returns": null,
+          "description": "Event handler for clicks on the <a> tag used for activating\ncolumn sorting.\n\nUsed to prevent the default action of the <a> tag."
+        },
+        {
+          "name": "tableHeaderProps",
+          "docblock": "Returns props to be used on the TH element.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns props to be used on the TH element."
+        },
+        {
+          "name": "isCurrentSortedColumn",
+          "docblock": null,
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "sortIconHTML",
+          "docblock": "Returns sort icon HTML if column is sortable and has been sorted.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns sort icon HTML if column is sortable and has been sorted."
+        },
+        {
+          "name": "sorted",
+          "docblock": "Determines if this column is currently sorted.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Determines if this column is currently sorted."
+        },
+        {
+          "name": "sortDescription",
+          "docblock": "Returns descriptive text to describe the sortable column, and about\nwhat will happen when they next attempt to sort the column i.e. which\ndirection it will sort in.\n\nNB If the current sortOrder is undefined, assume the next sort order",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns descriptive text to describe the sortable column, and about\nwhat will happen when they next attempt to sort the column i.e. which\ndirection it will sort in.\n\nNB If the current sortOrder is undefined, assume the next sort order"
+        },
+        {
+          "name": "ariaAttributes",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "emitSortEvent",
+          "docblock": "Emits sort event to parent context - table.",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Emits sort event to parent context - table."
+        },
+        {
+          "name": "componentTags",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "props",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "styledComponent",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        }
+      ],
+      "props": {
+        "align": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.alignFull"
+          },
+          "required": false,
+          "description": "Aligns the content of the cell (can be \"left\", \"center\" or \"right\").",
+          "defaultValue": {
+            "value": "'left'",
+            "computed": false
+          }
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "The body of the content component.",
+          "defaultValue": {
+            "value": "null",
+            "computed": false
+          }
+        },
+        "name": {
+          "type": {
+            "name": "custom",
+            "raw": "function(props, propName) {\n  if (props.sortable) {\n    if (!props[propName]) {\n      throw new Error('Sortable columns require a prop of name of type String');\n    }\n    if (typeof props[propName] !== 'string') {\n      throw new Error('name must be a string');\n    }\n  }\n}"
+          },
+          "required": false,
+          "description": "Name of the column to sort. Should correspond to name in database.",
+          "defaultValue": {
+            "value": "''",
+            "computed": false
+          }
+        },
+        "sortable": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Whether column is sortable.",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "styledComponent": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Whether component is a subheader."
+        },
+        "width": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A width value to constrain a column eg 250."
+        }
+      },
+      "context": {
+        "onSort": {
+          "type": {
+            "name": "func"
+          },
+          "required": false
+        },
+        "sortedColumn": {
+          "type": {
+            "name": "string"
+          },
+          "required": false
+        },
+        "sortOrder": {
+          "type": {
+            "name": "string"
+          },
+          "required": false
+        }
+      }
+    }
+  ],
+  "src/components/table/table-row/table-row.component.js": [
+    {
+      "description": "A TableRow widget.\n\n== How to use a TableRow in a component:\n\nSee documentation for Table component.\n\nIf you add an onClick event to a Table Row, will display the cursor as a pointer\nwhen hovering over the row.",
+      "displayName": "TableRow",
+      "methods": [
+        {
+          "name": "onSelectAll",
+          "docblock": "Call the selectAll callback.",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Call the selectAll callback."
+        },
+        {
+          "name": "onRowClick",
+          "docblock": "Call the selectRow callback and call any custom event the developer may have set.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "...args"
+            }
+          ],
+          "returns": null,
+          "description": "Call the selectRow callback and call any custom event the developer may have set."
+        },
+        {
+          "name": "onSelect",
+          "docblock": "Call the selectRow callback.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev"
+            }
+          ],
+          "returns": null,
+          "description": "Call the selectRow callback."
+        },
+        {
+          "name": "mainClasses",
+          "docblock": "Classes to be applied to the table row component",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Classes to be applied to the table row component"
+        },
+        {
+          "name": "rowProps",
+          "docblock": "Sets additional props to the row.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Sets additional props to the row."
+        },
+        {
+          "name": "isHeader",
+          "docblock": "Determines if the developer has flagged this row as a header.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Determines if the developer has flagged this row as a header."
+        },
+        {
+          "name": "multiSelectCell",
+          "docblock": "Determines what kind of cell to render for the checkbox.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Determines what kind of cell to render for the checkbox."
+        },
+        {
+          "name": "multiSelect",
+          "docblock": "Returns the checkbox for the select action.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns the checkbox for the select action."
+        },
+        {
+          "name": "shouldHaveMultiSelectColumn",
+          "docblock": "Determines if the row should have a multi select column.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Determines if the row should have a multi select column."
+        },
+        {
+          "name": "requiresUniqueID",
+          "docblock": "Determines if the row requires a unique ID.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Determines if the row requires a unique ID."
+        },
+        {
+          "name": "draggingIsOccurring",
+          "docblock": "Determines if dragging is occurring within the current draggable context.",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Determines if dragging is occurring within the current draggable context."
+        },
+        {
+          "name": "renderDraggableCell",
+          "docblock": "Returns a draggable cell if required.",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Returns a draggable cell if required."
+        },
+        {
+          "name": "renderDraggableRow",
+          "docblock": "Returns the row wrapped in draggable functionality if required.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "row"
+            }
+          ],
+          "returns": null,
+          "description": "Returns the row wrapped in draggable functionality if required."
+        }
+      ],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Children elements"
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A custom class name for the component."
+        },
+        "onClick": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Allows developers to specify a callback after the row is clicked."
+        },
+        "selectable": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Enables multi-selectable table rows."
+        },
+        "highlightable": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Enables highlightable table rows."
+        },
+        "selected": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Allows developers to manually control selected state for the row."
+        },
+        "highlighted": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Allows developers to manually control highlighted state for the row."
+        },
+        "uniqueID": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Define a unique ID so the table can track the row (useful for highlightable or selectable rows)."
+        },
+        "as": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "What the row should be displayed as, set to 'header' to display as header"
+        },
+        "hideMultiSelect": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Whether to hide the multiSelect"
+        },
+        "selectAll": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Whether to select all"
+        },
+        "onHighlight": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Callback for when a row is highlighted"
+        },
+        "onSelect": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Callback for when a row is selected"
+        },
+        "index": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Used if this row is within a draggable context"
+        },
+        "dragAndDropIdentifier": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Optional to associate the drag and drag context."
+        },
+        "hideDrag": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Used to determine if line is empty or not"
+        },
+        "dragged": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Used to determine if line is dragged"
+        },
+        "dragging": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Used to determine if line is empty is dragging"
+        }
+      },
+      "context": {
+        "attachToTable": {
+          "type": {
+            "name": "func"
+          },
+          "required": false
+        },
+        "detachFromTable": {
+          "type": {
+            "name": "func"
+          },
+          "required": false
+        },
+        "checkSelection": {
+          "type": {
+            "name": "func"
+          },
+          "required": false
+        },
+        "highlightRow": {
+          "type": {
+            "name": "func"
+          },
+          "required": false
+        },
+        "selectAll": {
+          "type": {
+            "name": "func"
+          },
+          "required": false
+        },
+        "highlightable": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false
+        },
+        "selectable": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false
+        },
+        "selectRow": {
+          "type": {
+            "name": "func"
+          },
+          "required": false
+        },
+        "dragDropManager": {
+          "type": {
+            "name": "object"
+          },
+          "required": false
+        },
+        "dragAndDropActiveIndex": {
+          "type": {
+            "name": "number"
+          },
+          "required": false
+        }
+      }
+    }
+  ],
+  "src/components/table/table-story-helpers/table-story-wrapper.component.js": [
+    {
+      "description": "",
+      "displayName": "pickInput",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "buildRows",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "Wrapper",
+      "methods": []
+    }
+  ],
+  "src/components/table/table-subheader/table-subheader.component.js": [
+    {
+      "description": "A TableSubheader widget.\nAn extension of the TableHeader class which caters for differences in styling.",
+      "displayName": "TableSubheader",
+      "methods": []
+    }
+  ],
+  "src/components/table/table.component.js": [
+    {
+      "description": "",
+      "displayName": "Table",
+      "methods": [
+        {
+          "name": "getChildContext",
+          "docblock": "Returns table object to child components.",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Returns table object to child components."
+        },
+        {
+          "name": "onSort",
+          "docblock": "Handles what happens on sort.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "sortedColumn"
+            },
+            {
+              "name": "sortOrder"
+            }
+          ],
+          "returns": null,
+          "description": "Handles what happens on sort."
+        },
+        {
+          "name": "onPagination",
+          "docblock": "Handles when the pager emits a onChange event\nPasses data to emitOnChangeCallback in the correct\nformat",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "currentPage"
+            },
+            {
+              "name": "pageSize"
+            },
+            {
+              "name": "element"
+            }
+          ],
+          "returns": null,
+          "description": "Handles when the pager emits a onChange event\nPasses data to emitOnChangeCallback in the correct\nformat"
+        },
+        {
+          "name": "sortedColumn",
+          "docblock": "Returns the currently sorted column.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns the currently sorted column."
+        },
+        {
+          "name": "sortOrder",
+          "docblock": "Returns the current sort order.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns the current sort order."
+        },
+        {
+          "name": "pageSize",
+          "docblock": "Get pageSize for table",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Get pageSize for table"
+        },
+        {
+          "name": "emitOnChangeCallback",
+          "docblock": "Emit onChange event with options\nneeded to fetch the new data",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "element"
+            },
+            {
+              "name": "options"
+            }
+          ],
+          "returns": null,
+          "description": "Emit onChange event with options\nneeded to fetch the new data"
+        },
+        {
+          "name": "attachActionToolbar",
+          "docblock": "Attaches action toolbar to the table.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "comp"
+            }
+          ],
+          "returns": null,
+          "description": "Attaches action toolbar to the table."
+        },
+        {
+          "name": "detachActionToolbar",
+          "docblock": "Detaches action toolbar to the table.",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Detaches action toolbar to the table."
+        },
+        {
+          "name": "attachToTable",
+          "docblock": "Attaches a row to the table.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "id"
+            },
+            {
+              "name": "row"
+            }
+          ],
+          "returns": null,
+          "description": "Attaches a row to the table."
+        },
+        {
+          "name": "detachFromTable",
+          "docblock": "Detaches a row from the table.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "id"
+            }
+          ],
+          "returns": null,
+          "description": "Detaches a row from the table."
+        },
+        {
+          "name": "refresh",
+          "docblock": "Refreshes the grid and resets any selected rows.",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Refreshes the grid and resets any selected rows."
+        },
+        {
+          "name": "resetHighlightedRow",
+          "docblock": "Resets the highlighted row.",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Resets the highlighted row."
+        },
+        {
+          "name": "highlightRow",
+          "docblock": "Highlights the row in the table.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "id"
+            },
+            {
+              "name": "row"
+            }
+          ],
+          "returns": null,
+          "description": "Highlights the row in the table."
+        },
+        {
+          "name": "selectRow",
+          "docblock": "Selects the row in the table.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "id"
+            },
+            {
+              "name": "row"
+            },
+            {
+              "name": "state"
+            },
+            {
+              "name": "skipCallback"
+            }
+          ],
+          "returns": null,
+          "description": "Selects the row in the table."
+        },
+        {
+          "name": "selectAll",
+          "docblock": "Selects all the currently visible rows.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "row"
+            }
+          ],
+          "returns": null,
+          "description": "Selects all the currently visible rows."
+        },
+        {
+          "name": "checkSelection",
+          "docblock": "Checks the rows status using the table's stored checked rows and updates\nits status based on this.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "id"
+            },
+            {
+              "name": "row"
+            }
+          ],
+          "returns": null,
+          "description": "Checks the rows status using the table's stored checked rows and updates\nits status based on this."
+        },
+        {
+          "name": "resetTableHeight",
+          "docblock": "Reset the minHeight and tableHeight of the table",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Reset the minHeight and tableHeight of the table"
+        },
+        {
+          "name": "resizeTable",
+          "docblock": "Increase the minheight of the table if the new height\nis greater than the previous",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Increase the minheight of the table if the new height\nis greater than the previous"
+        },
+        {
+          "name": "shouldResetTableHeight",
+          "docblock": "Test if the table height should be reset to 0",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "prevProps"
+            }
+          ],
+          "returns": null,
+          "description": "Test if the table height should be reset to 0"
+        },
+        {
+          "name": "emitOptions",
+          "docblock": "Base Options to be emitted by onChange",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "props"
+            }
+          ],
+          "returns": null,
+          "description": "Base Options to be emitted by onChange"
+        },
+        {
+          "name": "pagerProps",
+          "docblock": "Props to pass to pager component",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Props to pass to pager component"
+        },
+        {
+          "name": "defaultPageSize",
+          "docblock": "Page size for page load",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Page size for page load"
+        },
+        {
+          "name": "pager",
+          "docblock": "Returns the pager if paginate is true",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns the pager if paginate is true"
+        },
+        {
+          "name": "thead",
+          "docblock": "Returns thead content wrapped in <thead>",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns thead content wrapped in <thead>"
+        },
+        {
+          "name": "actionToolbar",
+          "docblock": "Returns the component for the action toolbar.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns the component for the action toolbar."
+        },
+        {
+          "name": "configureLink",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "onConfigure",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "loadingRow",
+          "docblock": "Returns a row to be used for loading.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns a row to be used for loading."
+        },
+        {
+          "name": "emptyRow",
+          "docblock": "Returns a row to be used for no data.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns a row to be used for no data."
+        },
+        {
+          "name": "tableContent",
+          "docblock": "Works out what content to display in the table.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Works out what content to display in the table."
+        },
+        {
+          "name": "tbody",
+          "docblock": "Returns the content, wrapped in a tbody.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns the content, wrapped in a tbody."
+        },
+        {
+          "name": "dataState",
+          "docblock": "Placeholder function for defining the data state, intended to be overriden in subclasses",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Placeholder function for defining the data state, intended to be overriden in subclasses"
+        },
+        {
+          "name": "dataComponent",
+          "docblock": "The name used for the data-component attribute",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "The name used for the data-component attribute"
+        },
+        {
+          "name": "componentTags",
+          "docblock": "Data tags used for the data-component attribute",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "props"
+            }
+          ],
+          "returns": null,
+          "description": "Data tags used for the data-component attribute"
+        },
+        {
+          "name": "caption",
+          "docblock": "Returns the caption prop wrapped in a <caption> tag,\nor null if no caption prop was given.",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Returns the caption prop wrapped in a <caption> tag,\nor null if no caption prop was given."
+        }
+      ],
+      "props": {
+        "actions": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "The actions to display in the toolbar"
+        },
+        "actionToolbarChildren": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "The extra actions to display in the toolbar"
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Children elements"
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Custom className"
+        },
+        "customEmptyRow": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Custom empty row"
+        },
+        "filter": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "Data used to filter the data"
+        },
+        "onChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Emitted when table component changes e.g. Pager, sorting, filter"
+        },
+        "onConfigure": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Enable configure icon that triggers this callback on click"
+        },
+        "paginate": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Show the pagination footer"
+        },
+        "currentPage": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Pagination Current Visible Page"
+        },
+        "pageSize": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Pagination Page Size of grid (number of visible records)"
+        },
+        "pageSizeSelectionOptions": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "Pagination Options for pageSize default - 10, 25, 50"
+        },
+        "showPageSizeSelection": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Pagination Is the page size dropdown visible"
+        },
+        "selectable": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Enables multi-selectable table rows."
+        },
+        "highlightable": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Enables highlightable table rows."
+        },
+        "onSelect": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A callback for when a row is selected."
+        },
+        "onHighlight": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A callback for when a row is highlighted."
+        },
+        "onPageSizeChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A callback for when the page size changes."
+        },
+        "totalRecords": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Pagination Total number of records in the grid"
+        },
+        "shrink": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Allow table to shrink in size."
+        },
+        "sortedColumn": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The currently sorted column."
+        },
+        "sortOrder": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The current sort order applied."
+        },
+        "thead": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "TableRows to be wrapped in <thead>"
+        },
+        "tbody": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Determines if you want the table to automatically render a tbody."
+        },
+        "caption": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A string to render as the table's caption"
+        },
+        "aria-describedby": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The HTML id of the element that contains a description of this table."
+        },
+        "theme": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.tableThemes"
+          },
+          "required": false,
+          "description": "Renders as 'primary' / 'dark', 'secondary' / 'light', 'tertiary' / 'transparent'",
+          "defaultValue": {
+            "value": "OptionsHelper.tableThemes[0]",
+            "computed": true
+          }
+        },
+        "size": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.tableSizes"
+          },
+          "required": false,
+          "description": "Used to define the tables size Renders as:  'compact', 'small', 'medium' and 'large'",
+          "defaultValue": {
+            "value": "OptionsHelper.tableSizes[2]",
+            "computed": true
+          }
+        },
+        "isZebra": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Toggles the zebra striping for the table rows"
+        }
+      },
+      "childContext": {
+        "attachActionToolbar": {
+          "type": {
+            "name": "func"
+          },
+          "required": false
+        },
+        "detachActionToolbar": {
+          "type": {
+            "name": "func"
+          },
+          "required": false
+        },
+        "attachToTable": {
+          "type": {
+            "name": "func"
+          },
+          "required": false
+        },
+        "checkSelection": {
+          "type": {
+            "name": "func"
+          },
+          "required": false
+        },
+        "detachFromTable": {
+          "type": {
+            "name": "func"
+          },
+          "required": false
+        },
+        "highlightRow": {
+          "type": {
+            "name": "func"
+          },
+          "required": false
+        },
+        "selectable": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false
+        },
+        "onSort": {
+          "type": {
+            "name": "func"
+          },
+          "required": false
+        },
+        "selectAll": {
+          "type": {
+            "name": "func"
+          },
+          "required": false
+        },
+        "selectRow": {
+          "type": {
+            "name": "func"
+          },
+          "required": false
+        },
+        "highlightable": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false
+        },
+        "sortOrder": {
+          "type": {
+            "name": "string"
+          },
+          "required": false
+        },
+        "sortedColumn": {
+          "type": {
+            "name": "string"
+          },
+          "required": false
+        }
+      }
+    }
+  ]
+}

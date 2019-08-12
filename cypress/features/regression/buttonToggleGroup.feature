@@ -41,8 +41,8 @@ Feature: Button Toggle Group component
     Examples:
       | width | px  |
       | 1     | 10  |
-      | 10    | 98  |
-      | 100   | 981 |
+      | 10    | 86  |
+      | 100   | 272 |
 
   @negative
   Scenario Outline: Set out of scope characters to Button Toggle Group input width to <width>
