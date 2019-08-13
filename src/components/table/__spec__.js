@@ -1030,6 +1030,11 @@ describe('Table', () => {
       expect(instance.isPassive).toEqual(false);
     });
 
+    it('returns false if isPassiveData, selectable and highlightable are true', () => {
+      let instance = TestUtils.renderIntoDocument(<Table isPassiveData selectable hightlightable/>);
+      expect(instance.isPassive).toEqual(false);
+    });
+
     it('returns true if isPassiveData is true and highlightable and selectable are false or undefined', () => {
       let instance = TestUtils.renderIntoDocument(<Table isPassiveData />);
       expect(instance.isPassive).toEqual(true);

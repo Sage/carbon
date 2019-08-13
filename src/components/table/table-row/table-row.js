@@ -166,7 +166,7 @@ class TableRow extends React.Component {
     selectRow: PropTypes.func, // a callback function for when a row is selected
     dragDropManager: PropTypes.object, // the React DND DragDropManager
     dragAndDropActiveIndex: PropTypes.number, // tracks the currently active index
-    passiveData: PropTypes.bool
+    passiveData: PropTypes.bool // tracks if the data should be rendered passively
   }
 
   state = {
