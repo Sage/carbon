@@ -1,5 +1,5 @@
 import {
-  append, styleElement, acronymize, validProps, insertAt, filterOutInputEvents , generateKeysForChildren
+  append, styleElement, acronymize, validProps, insertAt, generateKeysForChildren
 } from './ether.js';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -96,33 +96,6 @@ describe('Ether', () => {
       it('ignores the invalid index', () => {
         expect(insertAt('1234567890', {insertionIndices: [3, 7, 15], separator:'/'})).toEqual('123/456/7890');
       });
-    });
-  });
-
-  describe('filterOutInputEvents', () => {
-    const props = {
-      value: 'foo',
-      otherProp: 'bar',
-      children: <div />,
-      onFocus: () => {},
-      onBlur: () => {},
-      onChange: () => {},
-      onMouseDown: () => {},
-      onMouseUp: () => {},
-      onClick: () => {},
-      onKeyDown: () => {},
-      onKeyUp: () => {},
-      onKeyPress: () => {},
-    };
-
-    const filteredProps = {
-      value: props.value,
-      otherProp: props.otherProp,
-      children: props.children
-    };
-
-    it('returns properly filtered props', () => {
-      expect(filterOutInputEvents(props)).toEqual(filteredProps);
     });
   });
 

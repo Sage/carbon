@@ -7,6 +7,7 @@ import FormField from '../form-field';
 import CharacterCount from './character-count';
 import TextareaInput from './textarea-input.component';
 import withValidations from '../../../components/validations/with-validation.hoc';
+import ValidationIcon from '../../../components/validations/validation-icon.component';
 
 const i18nNumberOpts = { precision: 0 };
 
@@ -53,6 +54,19 @@ class Textarea extends React.Component {
       // Set the height so all content is shown
       textarea.style.height = `${Math.max(textarea.scrollHeight, this.minHeight)}px`;
     }
+  }
+
+  renderValidation() {
+    if (hasFailedValidation(this.props)) {
+      return (
+        <ValidationIcon
+          type={ this.props.inputIcon }
+          tooltipMessage={ this.props.tooltipMessage }
+          isPartOfInput
+        />);
+    }
+
+    return null;
   }
 
   get overLimit() {
@@ -121,6 +135,7 @@ class Textarea extends React.Component {
               { ...props }
             />
             { children }
+            { this.renderValidation() }
           </InputPresentation>
         </FormField>
         {this.characterCount}
@@ -155,7 +170,15 @@ Textarea.propTypes = {
   /** The value of the Textarea */
   value: PropTypes.string,
   /** Whether to display the character count message in red */
-  warnOverLimit: PropTypes.bool
+  warnOverLimit: PropTypes.bool,
+  /** Status of error validations */
+  hasError: PropTypes.bool,
+  /** Status of warnings */
+  hasWarning: PropTypes.bool,
+  /** Status of info */
+  hasInfo: PropTypes.bool,
+  inputIcon: PropTypes.string,
+  tooltipMessage: PropTypes.string
 };
 
 Textarea.defaultProps = {
@@ -165,6 +188,10 @@ Textarea.defaultProps = {
   readOnly: false,
   warnOverLimit: false
 };
+
+function hasFailedValidation({ hasError, hasWarning, hasInfo }) {
+  return hasError || hasWarning || hasInfo;
+}
 
 export { Textarea as OriginalTextarea };
 export default withValidations(Textarea);
