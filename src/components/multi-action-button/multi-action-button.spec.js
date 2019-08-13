@@ -77,6 +77,14 @@ describe('MultiActionButton', () => {
     });
   });
 
+  describe('the main button', () => {
+    it('prevents an Icon being added even when the "iconType" and "iconPosition" props are passed', () => {
+      wrapper = render({ iconType: 'cross', iconPosition: 'before' });
+      expect(wrapper.instance().multiActionButtonProps.iconType).toEqual(undefined);
+      expect(wrapper.instance().multiActionButtonProps.iconPosition).toEqual(undefined);
+    });
+  });
+
   describe('with align prop set to "right"', () => {
     beforeEach(() => {
       wrapper = render({ align: 'right' }, mount);

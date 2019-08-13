@@ -7,19 +7,28 @@ import Button from '../button';
 
 class MultiActionButton extends SplitButton {
   /**
+   * Returns the props for the main button.
+   */
+  get multiActionButtonProps() {
+    const { iconType, iconPosition, ...props } = this.props;
+
+    props['aria-haspopup'] = 'true';
+    props['aria-expanded'] = this.state.showAdditionalButtons;
+    props['aria-label'] = 'Show more';
+    props['data-element'] = 'toggle-button';
+    props.key = 'toggle-button';
+    props.onKeyDown = this.handleToggleButtonKeyDown;
+
+    return props;
+  }
+
+  /**
    * Returns the HTML for the main button.
    */
   get renderMainButton() {
     return (
       <Button
-        aria-haspopup='true'
-        aria-expanded={ this.state.showAdditionalButtons }
-        aria-label='Show more'
-        data-element='toggle-button'
-        key='toggle-button'
-        onKeyDown={ this.handleToggleButtonKeyDown }
-        iconType={ this.props.iconType }
-        iconPosition={ this.props.iconPosition }
+        { ...this.multiActionButtonProps }
         { ...this.toggleButtonProps }
       >
         { this.props.text}
