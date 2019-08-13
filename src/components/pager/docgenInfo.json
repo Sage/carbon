@@ -1,0 +1,150 @@
+{
+  "src/components/pager/pager-navigation.component.js": [
+    {
+      "description": "",
+      "displayName": "PagerNavigation",
+      "methods": [],
+      "props": {
+        "currentPage": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": "Current visible page"
+        },
+        "totalRecords": {
+          "type": {
+            "name": "number"
+          },
+          "required": true,
+          "description": "Total number of records"
+        },
+        "pageSize": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Pagination page size"
+        },
+        "onPagination": {
+          "type": {
+            "name": "func"
+          },
+          "required": true,
+          "description": "Function called when pager changes (PageSize, Current Page)"
+        },
+        "setCurrentPage": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Sets the current page being shown"
+        },
+        "theme": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "Current theme",
+          "defaultValue": {
+            "value": "baseTheme",
+            "computed": true
+          }
+        },
+        "setCurrentThemeName": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Callback for the current theme name"
+        }
+      }
+    }
+  ],
+  "src/components/pager/pager.component.js": [
+    {
+      "description": "",
+      "displayName": "Pager",
+      "methods": [],
+      "props": {
+        "currentPage": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": "Current visible page"
+        },
+        "totalRecords": {
+          "type": {
+            "name": "number"
+          },
+          "required": true,
+          "description": "Total number of records"
+        },
+        "onPagination": {
+          "type": {
+            "name": "func"
+          },
+          "required": true,
+          "description": "Function called when pager changes (PageSize, Current Page)"
+        },
+        "pageSize": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Pagination page size",
+          "defaultValue": {
+            "value": "'10'",
+            "computed": false
+          }
+        },
+        "showPageSizeSelection": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Should the page size selection dropdown be shown",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "pageSizeSelectionOptions": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "Set of page size options",
+          "defaultValue": {
+            "value": "Immutable.fromJS([\n  { id: '10', name: 10 },\n  { id: '25', name: 25 },\n  { id: '50', name: 50 }\n])",
+            "computed": true
+          }
+        },
+        "theme": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "Current theme"
+        }
+      }
+    }
+  ],
+  "src/components/pager/pager.stories.js": [
+    {
+      "description": "",
+      "displayName": "TableComponent",
+      "methods": [],
+      "props": {
+        "propDefinitions": {
+          "type": {
+            "name": "array"
+          },
+          "required": false,
+          "description": ""
+        }
+      }
+    }
+  ]
+}

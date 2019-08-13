@@ -5,6 +5,7 @@ import InputIconToggle from '../input-icon-toggle';
 import FormField from '../form-field';
 import { withValidation, validationsPropTypes } from '../../../components/validations';
 import withUniqueName from '../../../utils/helpers/with-unique-name';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 // This component is a working example of what a Textbox might look like
 // using only the new input componentry. It is still under development with
@@ -32,10 +33,11 @@ const Textbox = ({
         { leftChildren }
         <Input
           { ...props }
+          aria-invalid={ props.hasError }
           value={ visibleValue(value, formattedValue) }
         />
         { children }
-        { inputIcon && <InputIconToggle { ...props } type={ inputIcon } /> }
+        { inputIcon && <InputIconToggle { ...props } inputIcon={ inputIcon } /> }
       </InputPresentation>
     </FormField>
   );
@@ -97,12 +99,21 @@ Textbox.propTypes = {
 
   childOfForm: PropTypes.bool,
 
-  isOptional: PropTypes.bool
+  isOptional: PropTypes.bool,
+  /** Status of error validations */
+  hasError: PropTypes.bool,
+  /** Status of warnings */
+  hasWarning: PropTypes.bool,
+  /** Status of info */
+  hasInfo: PropTypes.bool,
+  /** Size of an input */
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted)
 };
 
 Textbox.defaultProps = {
   labelWidth: 30,
-  inputWidth: 70
+  inputWidth: 70,
+  size: 'medium'
 };
 
 export { Textbox as OriginalTextbox };

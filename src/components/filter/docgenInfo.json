@@ -1,0 +1,50 @@
+{
+  "src/components/filter/filter.js": [
+    {
+      "description": "",
+      "displayName": "Filter",
+      "methods": [
+        {
+          "name": "handleSubmit",
+          "docblock": "Handles the submission of the form.\n\n@method handleSubmit\n@param {Object}",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev"
+            }
+          ],
+          "returns": null,
+          "description": "Handles the submission of the form."
+        },
+        {
+          "name": "classes",
+          "docblock": "Returns the classes for the filter.\n\n@method classes\n@return {String}",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "String"
+            }
+          },
+          "description": "Returns the classes for the filter."
+        }
+      ],
+      "props": {
+        "align": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Aligns the children in the filter.",
+          "defaultValue": {
+            "value": "'left'",
+            "computed": false
+          }
+        }
+      }
+    }
+  ]
+}

@@ -17,6 +17,7 @@ class TextareaInput extends Input {
 
     return (
       <StyledTextarea
+        aria-invalid={ props.hasError }
         as='textarea'
         ref={ this.input }
         onFocus={ this.handleFocus }

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyledTooltipInner, StyledTooltipWrapper, StyledTooltipPointer } from './tooltip.style';
+import { StyledTooltipInner, StyledTooltipWrapper } from './tooltip.style';
+import StyledTooltipPointer from './tooltip-pointer.style';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import tagComponent from '../../utils/helpers/tags/tags';
 

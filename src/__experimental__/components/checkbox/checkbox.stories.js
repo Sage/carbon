@@ -7,6 +7,12 @@ import { Store, State } from '@sambego/storybook-state';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import Checkbox from '.';
 import { info, notes } from './documentation';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
+
+Checkbox.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /checkbox\.component(?!spec)/
+);
 
 const formStore = new Store({
   checked: false
@@ -61,6 +67,7 @@ function defaultKnobs() {
       OptionsHelper.alignBinary,
       OptionsHelper.alignBinary[0]
     ),
-    size: select('size', OptionsHelper.sizesBinary, 'small')
+    size: select('size', OptionsHelper.sizesBinary, 'small'),
+    value: text('value', 'test-value')
   });
 }

@@ -7,6 +7,18 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import { Sidebar, SidebarHeader } from '.';
 import Button from '../button';
 import { notes, info } from './documentation';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+import docgenInfo from './docgenInfo.json';
+
+Sidebar.__docgenInfo = getDocGenInfo(
+  docgenInfo,
+  /sidebar\.component(?!spec)/
+);
+
+SidebarHeader.__docgenInfo = getDocGenInfo(
+  docgenInfo,
+  /sidebar-header\.component(?!spec)/
+);
 
 const store = new Store({
   open: false

@@ -1,0 +1,81 @@
+{
+  "src/components/detail/detail.js": [
+    {
+      "description": "",
+      "displayName": "Detail",
+      "methods": [
+        {
+          "name": "classes",
+          "docblock": "Returns the classes for the component.\n\n@method classes\n@return {String}",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "String"
+            }
+          },
+          "description": "Returns the classes for the component."
+        },
+        {
+          "name": "icon",
+          "docblock": "Returns the markup for the icon if one if specified.\n\n@method icon\n@return {Object} JSX",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": "JSX",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Returns the markup for the icon if one if specified."
+        },
+        {
+          "name": "footnote",
+          "docblock": "Returns the markup for the footnote if one if specified.\n\n@method footnote\n@return {Object} JSX",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": "JSX",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Returns the markup for the footnote if one if specified."
+        }
+      ],
+      "props": {
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Custom className"
+        },
+        "icon": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The type of icon to use."
+        },
+        "footnote": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A small detail to display under the main content."
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "The rendered children of the component."
+        }
+      }
+    }
+  ]
+}

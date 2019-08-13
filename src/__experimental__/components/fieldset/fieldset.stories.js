@@ -5,6 +5,13 @@ import notes from './documentation';
 import Fieldset from './fieldset.component';
 import Textbox from '../textbox';
 
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
+
+Fieldset.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /fieldset\.component(?!spec)/
+);
+
 storiesOf('Experimental/Fieldset', module)
   .addParameters({
     info: {

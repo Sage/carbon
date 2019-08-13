@@ -10,6 +10,12 @@ import Form, { FormWithoutValidations } from '.';
 import Textbox from '../textbox';
 import Button from '../../../components/button';
 import Link from '../../../components/link';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
+
+Form.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /form\.component(?!spec)/
+);
 
 const additionalFormActions = (innerText) => {
   return {

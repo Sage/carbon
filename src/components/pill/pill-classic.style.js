@@ -115,6 +115,7 @@ export default (colorVariant, inFill, isDeletable) => {
         `}
 
         &:hover {
+          cursor: pointer;
           background-color: ${colorSet.hoverBackgroundColor};
           color: ${colorSet.hoverColor};
         }

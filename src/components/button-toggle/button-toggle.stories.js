@@ -7,6 +7,12 @@ import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation';
 import ButtonToggle from './button-toggle.component';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+ButtonToggle.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /button-toggle\.component(?!spec)/
+);
 
 storiesOf('Button Toggle', module)
   .add('default', () => {

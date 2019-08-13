@@ -1,0 +1,95 @@
+{
+  "src/components/icon/icon.js": [
+    {
+      "description": "",
+      "displayName": "Icon",
+      "methods": [],
+      "props": {
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Add classes to this component"
+        },
+        "type": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": "Icon type"
+        },
+        "bgSize": {
+          "type": {
+            "name": "enum",
+            "value": [
+              {
+                "value": "'small'",
+                "computed": false
+              },
+              {
+                "value": "'medium'",
+                "computed": false
+              },
+              {
+                "value": "'large'",
+                "computed": false
+              }
+            ]
+          },
+          "required": false,
+          "description": "Background size"
+        },
+        "bgShape": {
+          "type": {
+            "name": "enum",
+            "value": [
+              {
+                "value": "'square'",
+                "computed": false
+              },
+              {
+                "value": "'rounded-rect'",
+                "computed": false
+              },
+              {
+                "value": "'circle'",
+                "computed": false
+              }
+            ]
+          },
+          "required": false,
+          "description": "Background shape"
+        },
+        "bgTheme": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Background color theme"
+        },
+        "tooltipMessage": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "The message for this tooltip"
+        },
+        "tooltipPosition": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The position of this tooltip: top, bottom, left or right"
+        },
+        "tooltipAlign": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The alignment of this tooltip: left, right or center"
+        }
+      }
+    }
+  ]
+}

@@ -4,6 +4,22 @@ import { select } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation';
 import { Menu, MenuItem, SubmenuBlock } from './menu';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Menu.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /menu(?!spec)/
+);
+
+MenuItem.__docgenInfo = getDocGenInfo(
+  require('./menu-item/docgenInfo.json'),
+  /menu-item(?!spec)/
+);
+
+SubmenuBlock.__docgenInfo = getDocGenInfo(
+  require('./submenu-block/docgenInfo.json'),
+  /submenu-block(?!spec)/
+);
 
 storiesOf('Menu', module)
   .add('default', () => {

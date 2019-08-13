@@ -1,0 +1,80 @@
+{
+  "src/components/drag-and-drop/with-drag/with-drag.js": [
+    {
+      "description": "",
+      "displayName": "WithDrag",
+      "methods": [
+        {
+          "name": "allowTextSelection",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "event",
+              "type": null
+            }
+          ],
+          "returns": null
+        }
+      ],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": true,
+          "description": "The component that will have drag enabled"
+        },
+        "draggableNode": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A function that returns the dom node being dragged.\nIt not used in this compnent but is passed to CustomDragLayer via the DragLayer higher order component\nYou cannot pass a ref directly as the prop because it is undefined until mounted."
+        },
+        "identifier": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": ""
+        },
+        "canDrag": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": ""
+        },
+        "beginDrag": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": ""
+        },
+        "endDrag": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": ""
+        }
+      },
+      "context": {
+        "dragAndDropBeginDrag": {
+          "type": {
+            "name": "func"
+          },
+          "required": false
+        },
+        "dragAndDropEndDrag": {
+          "type": {
+            "name": "func"
+          },
+          "required": false
+        }
+      }
+    }
+  ]
+}

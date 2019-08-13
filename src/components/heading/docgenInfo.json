@@ -1,0 +1,196 @@
+{
+  "src/components/heading/heading.js": [
+    {
+      "description": "",
+      "displayName": "Heading",
+      "methods": [
+        {
+          "name": "help",
+          "docblock": "Returns the help component.\n\n@method help\n@return {Object} JSX",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": "JSX",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Returns the help component."
+        },
+        {
+          "name": "back",
+          "docblock": "Returns the back button.\n\n@method back\n@return {Object} JSX",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": "JSX",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Returns the back button."
+        },
+        {
+          "name": "subheader",
+          "docblock": "Returns the subheader.\n\n@method subheader\n@return {Object} JSX",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": "JSX",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Returns the subheader."
+        },
+        {
+          "name": "classes",
+          "docblock": "Returns the classes for the component.\n\n@method classes\n@return {String}",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "String"
+            }
+          },
+          "description": "Returns the classes for the component."
+        },
+        {
+          "name": "separator",
+          "docblock": "Returns the separator if enabled and needed.\n\n@method separator\n@return {Object} JSX",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": "JSX",
+            "type": {
+              "name": "Object"
+            }
+          },
+          "description": "Returns the separator if enabled and needed."
+        }
+      ],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Children elements"
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Custom className"
+        },
+        "title": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "object"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Defines the title for the heading."
+        },
+        "titleId": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Defines the title id for the heading."
+        },
+        "subheader": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "object"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Defines the subheader for the heading."
+        },
+        "subtitleId": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Defines the subtitle id for the heading."
+        },
+        "help": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Defines the help text for the heading."
+        },
+        "helpLink": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Defines the help link for the heading."
+        },
+        "backLink": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "func"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Defines the a href for the back link."
+        },
+        "divider": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Adds a divider below the heading and the content.",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "separator": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Adds a separator between the title and the subheader.",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        }
+      }
+    }
+  ]
+}

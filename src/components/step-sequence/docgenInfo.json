@@ -1,0 +1,88 @@
+{
+  "src/components/step-sequence/step-sequence-item/step-sequence-item.component.js": [
+    {
+      "description": "",
+      "displayName": "StepSequenceItem",
+      "methods": [],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": true,
+          "description": "Text content for the step item"
+        },
+        "indicator": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": "Value to be displayed before text for uncomplete steps"
+        },
+        "ariaLabel": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Aria label"
+        },
+        "status": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.steps"
+          },
+          "required": false,
+          "description": "Status for the step",
+          "defaultValue": {
+            "value": "'incomplete'",
+            "computed": false
+          }
+        },
+        "hiddenCompleteLabel": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Hidden label to be displayed if item is complete"
+        },
+        "hiddenCurrentLabel": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Hidden label to be displayed if item is current"
+        }
+      }
+    }
+  ],
+  "src/components/step-sequence/step-sequence.component.js": [
+    {
+      "description": "",
+      "displayName": "StepSequence",
+      "methods": [],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Step sequence items to be rendered"
+        },
+        "orientation": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.orientation"
+          },
+          "required": false,
+          "description": "The direction that step sequence items should be rendered",
+          "defaultValue": {
+            "value": "'horizontal'",
+            "computed": false
+          }
+        }
+      }
+    }
+  ]
+}

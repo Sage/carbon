@@ -75,6 +75,22 @@ describe('Label', () => {
         color: baseTheme.colors.error
       }, render({ hasError: true }, TestRenderer.create).toJSON());
     });
+
+    describe('with readonly', () => {
+      it('applies disabled color', () => {
+        assertStyleMatch({
+          color: baseTheme.text.color
+        }, render({ hasError: true, readOnly: true }, TestRenderer.create).toJSON());
+      });
+    });
+
+    describe('with disabled', () => {
+      it('applies disabled color', () => {
+        assertStyleMatch({
+          color: baseTheme.disabled.disabled
+        }, render({ hasError: true, disabled: true }, TestRenderer.create).toJSON());
+      });
+    });
   });
 
   describe('classic theme', () => {
