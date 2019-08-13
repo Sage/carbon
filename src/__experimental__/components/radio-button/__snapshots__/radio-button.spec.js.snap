@@ -785,7 +785,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
 
 .c2 svg {
   background-color: #FFFFFF;
-  border: solid 1px #668491;
+  border: 1px solid #668491;
 }
 
 .c2 .c8,
