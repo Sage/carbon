@@ -33,5 +33,5 @@ export default create({
 
   brandTitle: 'Sage DLS in Carbon',
   brandUrl: 'https://carbon.sage.com',
-  brandImage: '/carbon-by-sage-logo.png',
+  brandImage: 'carbon-by-sage-logo.png',
 });
