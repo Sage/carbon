@@ -9,9 +9,23 @@ import LabelStyle from '../label/label.style';
 import checkBoxClassicStyle from './checkbox-classic.style';
 import ValidationIconStyle from '../../../components/validations/validation-icon.style';
 
+const svgBorderColor = ({
+  theme,
+  error,
+  hasError
+}) => {
+  let color = theme.colors.border;
+
+  if (error || hasError) {
+    color = theme.colors.error;
+  }
+
+  return `1px solid ${color}`;
+};
+
 const CheckboxStyle = styled.div`
   ${({
-    checked, disabled, error, fieldHelpInline, inputWidth, reverse, size, theme
+    checked, disabled, fieldHelpInline, inputWidth, reverse, size, theme
   }) => css`
     padding-top: 8px;
 
@@ -23,7 +37,7 @@ const CheckboxStyle = styled.div`
 
     svg {
       background-color: ${theme.colors.white};
-      border: solid 1px ${theme.colors.border};
+      border: ${svgBorderColor};
     }
 
     ${HiddenCheckableInputStyle},
@@ -114,12 +128,6 @@ const CheckboxStyle = styled.div`
       }
     `}
 
-    ${error && `
-      svg {
-        border: 1px solid ${theme.colors.error};
-      }
-    `}
-
     ${fieldHelpInline && `
       ${FieldHelpStyle} {
         margin: 0;
@@ -161,6 +169,7 @@ CheckboxStyle.defaultProps = {
 CheckboxStyle.propTypes = {
   disabled: PropTypes.bool,
   error: PropTypes.bool,
+  hasError: PropTypes.bool,
   fieldHelpInline: PropTypes.bool,
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   labelAlign: PropTypes.string,
