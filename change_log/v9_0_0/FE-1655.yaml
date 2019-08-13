@@ -1,0 +1,2 @@
+Component Update: Implemented medium and large styling for Pill component. Updated default and small styling of the component.
+Bug Fixes: If text on the pill would wrap into multi-line and isDeleteable was checked, the button for deleting pill would have arrow cursour instead of pointer cursor.

@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { boolean, text, select } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import PresenceValidation from '../../../utils/validations/presence';
 import notes from './documentation/notes.md';
@@ -18,8 +19,15 @@ Form.__docgenInfo = getDocGenInfo(
 
 const additionalFormActions = (innerText) => {
   return {
-    Button: <Button>{ innerText }</Button>,
-    Link: <Link href='./?path=/story/experimental-form--default'>{ innerText }</Link>
+    Button: <Button onClick={ ev => action(`${innerText} Button`)(ev) }>{ innerText }</Button>,
+    Link: (
+      <Link
+        onClick={ ev => action(`${innerText} Link`)(ev) }
+        href='./?path=/story/experimental-form--default'
+      >
+        { innerText }
+      </Link>
+    )
   };
 };
 
@@ -50,9 +58,9 @@ storiesOf('Experimental/Form', module)
     const additionalActions = select('additionalActions', formActionOptions, formActionOptions[0]);
     const leftAlignedActions = select('leftAlignedActions', formActionOptions, formActionOptions[0]);
     const rightAlignedActions = select('rightAlignedActions', formActionOptions, formActionOptions[0]);
-    const showSummary = boolean('showSummary', false);
-    const isLabelRightAligned = boolean('isLabelRightAligned', false);
+    const showSummary = boolean('showSummary', FormWithoutValidations.defaultProps.showSummary);
     const inLineLabels = boolean('inLineLabels', false);
+    const isLabelRightAligned = inLineLabels ? boolean('isLabelRightAligned', false) : undefined;
 
     return (
       <Form
