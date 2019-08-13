@@ -24,7 +24,7 @@ const setTheme = (theme) => {
 
 const PillStyle = styled.span`
  ${({
-    colorVariant, theme, inFill, isDeletable, pillRole
+    colorVariant, theme, inFill, isDeletable, pillRole, size
   }) => {
     const { colors, text } = baseTheme;
     const correctedThemeConfig = styleConfig(setTheme(theme));
@@ -39,39 +39,61 @@ const PillStyle = styled.span`
     return css`
       border: 2px solid ${styleSet[variety].color};
       border-radius: 12px;
-      font-size: 14px;
-      padding: 2px 7px;
+      font-size: 10px;
+      letter-spacing: 0.7px;
       font-weight: 600;
       position: relative;
-      top: -1px;
-      margin: 0px 8px 16px 0px;
-      min-height: 15px;
       display: inline-block;
+      text-align: center;
 
       ${inFill && css`
         background-color: ${styleSet[variety].color};
         color: ${(variety === 'warning') ? text.color : colors.white};
       `}
 
-      ${!isClassic(theme, colorVariant) && !isDeletable && css`
-        padding: 2px 8px 2px 8px;
+      ${!isClassic(theme, colorVariant) && css`
+        ${size === 'S' && css`
+          min-height: 16px;
+          height: auto;
+          line-height: 16px;
+          font-size: 10px;
+        `}
+
+        ${size === 'M' && css`
+          min-height: 20px;
+          height: auto;
+          line-height: 20px;
+          font-size: 12px;
+        `}
+
+        ${size === 'L' && css`
+          min-height: 24px;
+          height: auto;
+          line-height: 24px;
+          font-size: 14px;
+        `}
+
+        ${size === 'XL' && css`
+          min-height: 26px;
+          height: auto;
+          line-height: 26px;
+          font-size: 16px;
+        `}
       `}
 
       ${!isClassic(theme, colorVariant) && isDeletable && css`
-        padding: 2px 27px 2px 8px;
-
         button {
           -webkit-appearance: none;
-          border-radius: 0 9px 9px 0;
+          border-radius: 0 6px 6px 0;
           border: none;
           bottom: 0;
           font-size: 100%;
-          margin: 0;
-          padding: 0 22px 2px 0;
           position: absolute;
           right: 0;
           top: 0;
-          width: 17px;
+          width: 20px;
+          margin: 0;
+          line-height: 16px;
 
           ${inFill && css`
             background-color: ${styleSet[variety].color};
@@ -110,13 +132,170 @@ const PillStyle = styled.span`
             &:focus {
               color: ${(variety === 'warning') ? text.color : colors.white};
             }
-            &:before {
-              font-size: 12px;
+          }
+        }
+
+        ${size === 'S' && css`
+          padding: 0 24px 0 7px;
+
+          button {
+            padding: 0;
+            border-radius: 0 8px 8px 0;
+            line-height: 14px;
+
+            .carbon-icon {
+              padding: 0;
+
+              &:before {
+                font-size: 7px;
+              }
             }
           }
+        `}
+
+        ${size === 'M' && css`
+          padding: 0 32px 0 11px;
+          border-radius: 12px;
+
+          button {
+            width: 24px;
+            padding: 0;
+            border-radius: 0 10px 10px 0;
+            line-height: 15px;
+
+            .carbon-icon {
+              padding: 2px 7px 3px 7px;
+              margin-top: -1px;
+
+              &:before {
+                font-size: 10px;
+              }
+            }
+          }
+        `}
+
+        ${size === 'L' && css`
+          padding: 0 36px 0 15px;
+          border-radius: 13px;
+
+          button {
+            width: 28px;
+            padding: 0;
+            border-radius: 0 11px 11px 0;
+            line-height: 16px;
+
+            .carbon-icon {
+              padding: 3px 8px 4px 8px;
+              margin-top: -1px;
+
+              &:before {
+                font-size: 12px;
+              }
+            }
+          }
+        `}
+
+        ${size === 'XL' && css`
+          padding: 0 41px 0 19px;
+          border-radius: 15px;
+
+          button {
+            width: 32px;
+            padding: 0;
+            border-radius: 0 12px 12px 0;
+            line-height: 18px;
+
+            .carbon-icon {
+              padding: 3px 9px 5px 9px;
+              margin-top: -1px;
+
+              &:before {
+                font-size: 13px;
+              }
+            }
+          }
+        `}
       `}
 
-      ${isClassic(theme, colorVariant) && classicThemeForPill(colorVariant, inFill, isDeletable)}
+      ${!isClassic(theme, colorVariant) && !isDeletable && css`
+        ${size === 'S' && css`
+          padding: 0 7px;
+
+          button {
+            padding: 0;
+
+            .carbon-icon {
+              padding: 0;
+
+              &:before {
+                font-size: 7px;
+              }
+            }
+          }
+        `}
+
+        ${size === 'M' && css`
+          padding: 0 11px;
+          border-radius: 12px;
+
+          button {
+            width: 24px;
+            padding: 0;
+            border-radius: 0 8px 8px 0;
+
+            .carbon-icon {
+              padding: 2px 7px 3px 7px;
+              margin-top: -1px;
+
+              &:before {
+                font-size: 10px;
+              }
+            }
+          }
+        `}
+
+        ${size === 'L' && css`
+          padding: 0 15px;
+          border-radius: 13px;
+
+          button {
+            width: 28px;
+            padding: 0;
+            border-radius: 0 10px 10px 0;
+
+            .carbon-icon {
+              padding: 3px 8px 4px 8px;
+              margin-top: -1px;
+
+              &:before {
+                font-size: 12px;
+              }
+            }
+          }
+        `}
+
+        ${size === 'XL' && css`
+          padding: 0 19px;
+          border-radius: 15px;
+
+          button {
+            width: 32px;
+            padding: 0;
+            border-radius: 0 12px 12px 0;
+
+            .carbon-icon {
+              padding: 3px 9px 5px 9px;
+              margin-top: -1px;
+
+              &:before {
+                font-size: 13px;
+              }
+            }
+          }
+        `}
+      `}
+
+      ${isClassic(theme, colorVariant) && classicThemeForPill(colorVariant, inFill, isDeletable, size)}
     `;
   }
 }
@@ -140,7 +319,10 @@ PillStyle.defaultProps = {
 PillStyle.propTypes = {
   inFill: PropTypes.bool,
   colorVariant: PropTypes.string,
-  isDeletable: PropTypes.func
+  isDeletable: PropTypes.func,
+
+  /** Assigns a size to the pill */
+  size: PropTypes.oneOf(OptionsHelper.pillSizesRestricted)
 };
 
 export default PillStyle;
