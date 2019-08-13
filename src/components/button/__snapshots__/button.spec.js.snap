@@ -137,6 +137,10 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 0px;
 }
 
+.c1 span {
+  vertical-align: middle;
+}
+
 <button
   className="c0 c1"
   data-component="button"
@@ -272,6 +276,10 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 8px;
 }
 
+.c1 span {
+  vertical-align: middle;
+}
+
 <button
   className="c0 c1"
   data-component="button"
@@ -371,6 +379,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
 .c1 .c19 {
   margin-left: 8px;
   margin-right: 0px;
+}
+
+.c1 span {
+  vertical-align: middle;
 }
 
 .c2 + .c0 {
@@ -524,6 +536,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-right: 0px;
 }
 
+.c1 span {
+  vertical-align: middle;
+}
+
 .c2 + .c0 {
   margin-left: 16px;
 }
@@ -673,6 +689,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
 .c1 .c19 {
   margin-left: 8px;
   margin-right: 0px;
+}
+
+.c1 span {
+  vertical-align: middle;
 }
 
 .c2 + .c0 {
@@ -826,6 +846,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-right: 0px;
 }
 
+.c1 span {
+  vertical-align: middle;
+}
+
 .c2 + .c0 {
   margin-left: 16px;
 }
@@ -975,6 +999,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
 .c1 .c19 {
   margin-left: 8px;
   margin-right: 0px;
+}
+
+.c1 span {
+  vertical-align: middle;
 }
 
 .c2 + .c0 {
@@ -1128,6 +1156,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-right: 0px;
 }
 
+.c1 span {
+  vertical-align: middle;
+}
+
 .c2 + .c0 {
   margin-left: 16px;
 }
@@ -1277,6 +1309,10 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
 .c1 .c19 {
   margin-left: 8px;
   margin-right: 0px;
+}
+
+.c1 span {
+  vertical-align: middle;
 }
 
 .c2 + .c0 {
@@ -1430,6 +1466,10 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
   margin-right: 0px;
 }
 
+.c1 span {
+  vertical-align: middle;
+}
+
 .c2 + .c0 {
   margin-left: 16px;
 }
@@ -1579,6 +1619,10 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
 .c1 .c19 {
   margin-left: 8px;
   margin-right: 0px;
+}
+
+.c1 span {
+  vertical-align: middle;
 }
 
 .c2 + .c0 {
@@ -1732,6 +1776,10 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
   margin-right: 0px;
 }
 
+.c1 span {
+  vertical-align: middle;
+}
+
 .c2 + .c0 {
   margin-left: 16px;
 }
@@ -1883,6 +1931,10 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
   margin-right: 0px;
 }
 
+.c1 span {
+  vertical-align: middle;
+}
+
 .c2 + .c0 {
   margin-left: 16px;
 }
@@ -2032,6 +2084,10 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
 .c1 .c19 {
   margin-left: 8px;
   margin-right: 0px;
+}
+
+.c1 span {
+  vertical-align: middle;
 }
 
 .c2 + .c0 {

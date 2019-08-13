@@ -23,6 +23,9 @@ const StyledButton = styled.button`
       margin-left: ${iconPosition === 'before' ? '0px' : '8px'};
       margin-right: ${iconPosition === 'before' ? '8px' : '0px'};
     }
+    span {
+      vertical-align: middle;
+    }
   `}
 `;
 
