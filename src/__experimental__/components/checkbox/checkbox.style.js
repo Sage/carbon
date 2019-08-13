@@ -151,10 +151,6 @@ const CheckboxStyle = styled.div`
     margin-top: -4px;
     vertical-align: middle;
   }
-
-  svg {
-    ${stylingForValidations}
-  }
 `;
 
 CheckboxStyle.defaultProps = {
@@ -171,28 +167,5 @@ CheckboxStyle.propTypes = {
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   size: PropTypes.string
 };
-
-function stylingForValidations({
-  theme,
-  hasError,
-  hasWarning,
-  hasInfo
-}) {
-  let validationColor;
-
-  if (hasError) {
-    validationColor = theme.colors.error;
-  } else if (hasWarning) {
-    validationColor = theme.colors.warning;
-  } else if (hasInfo) {
-    validationColor = theme.colors.info;
-  } else {
-    return '';
-  }
-
-  return `
-    border-color: ${validationColor} !important;
-  `;
-}
 
 export default CheckboxStyle;
