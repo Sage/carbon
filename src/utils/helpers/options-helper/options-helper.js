@@ -70,6 +70,13 @@ const OptionsHelper = {
     'status'
   ],
 
+  pillSizesRestricted: [
+    'S',
+    'M',
+    'L',
+    'XL'
+  ],
+
   toast: [
     'success',
     'error'

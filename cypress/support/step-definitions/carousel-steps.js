@@ -74,6 +74,7 @@ Then('next button is not visible', () => {
 
 When('I set transition to {string}', (transition) => {
   transitionSelect().select(transition);
+  cy.wait(300); // required because of component refresh
 });
 
 Then('transition is set to {string} with {string}', (transition, direction) => {
