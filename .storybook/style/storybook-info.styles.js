@@ -3,21 +3,21 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const StoryHeader = styled.h1`
-  border-bottom: 1px solid rgb(238, 238, 238);
-  font-size: 25px;
-  margin: 20px 0px 0px;
+  border-bottom: 1px solid #E6EBED;
+  font-size: 24px;
+  margin: 24px 0px;
   padding: 0px 0px 5px;
 `;
 
 const StoryCode = styled.code`
-  background-color: rgb(250, 250, 250);
+  background-color: #EBEFF0;
   display: ${props => (props.block ? 'block' : 'inline')};
-  padding: ${props => (props.padded ? '0.5rem' : '0')};
+  padding: ${props => (props.padded ? '8px' : '0')};
 `;
 
 const StyledPre = styled.pre`
-  background-color: rgb(250, 250, 250);
-  padding: 0.5rem;
+  background-color: #EBEFF0;
+  padding: 32px;
 `;
 
 const StoryCodeBlock = ({ children }) => (
