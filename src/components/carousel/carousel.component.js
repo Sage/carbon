@@ -213,7 +213,7 @@ class Carousel extends React.Component {
     }
 
     return (
-      <CarouselSelectorWrapperStyle>
+      <CarouselSelectorWrapperStyle data-element='slide-selector'>
         { buttons }
       </CarouselSelectorWrapperStyle>
     );
