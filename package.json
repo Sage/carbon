@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "9.0.0-rc1",
+  "version": "9.0.0-rc2",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
   "engineStrict": true,
   "engines": {
@@ -12,7 +12,7 @@
     "gen-docs": "node -e \"require('./script/generate-docs').default();\"",
     "prep-deploy": "node -e \"require('./script/deploy').default();\"",
     "start": "npm run gen-colors && npm run gen-docs && npm run webpack-dev-server",
-    "build": "npm run gen-colors && npm run gen-docs && cross-env NODE_ENV=production npm run webpack && npm run prep-deploy",
+    "build": "npm run gen-colors && npm run gen-docs && cross-env NODE_ENV=production npm run webpack && npm run prep-deploy && npm run build-storybook",
     "test": "jest --config=./jest.conf.json",
     "test-update": "jest --config=./jest.conf.json --updateSnapshot",
     "test-cypress": "cypress open",
@@ -28,6 +28,7 @@
     "watch": "npm run clean-lib && npm run copy-files -- --watch & npm run babel -- --watch",
     "storybook": "./node_modules/.bin/start-storybook -p 9001 -c .storybook",
     "storybook-ci": "./node_modules/.bin/start-storybook -p 9001 -c .storybook --ci",
+    "build-storybook": "build-storybook -c .storybook -o storybook && mv storybook deploy/storybook",
     "babel": "cross-env NODE_ENV=production babel --stage 0 ./src --config-file ./babel.config.js --out-dir ./lib --ignore '**/*/__spec__.js','**/*.spec.js','**/__definition__.js' --quiet",
     "clean-lib": "rimraf ./lib",
     "copy-files": "cpx \"src/**/!(*.js|*.md|*.snap)\" lib",

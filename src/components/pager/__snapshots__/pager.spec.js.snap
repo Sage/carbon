@@ -708,15 +708,14 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
         >
           <div
             className="c10 c11"
-            name="guid-12345"
             onMouseDown={[Function]}
-            onMouseOut={[Function]}
-            onMouseOver={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
             role="presentation"
             size="medium"
-            type="text"
           >
             <input
+              aria-invalid={false}
               className="c12 c13"
               data-element="input"
               id="guid-12345"
@@ -727,6 +726,7 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
               onFocus={[Function]}
               onKeyDown={[Function]}
               onKeyUp={[Function]}
+              size="medium"
               type="text"
               value="1"
             />

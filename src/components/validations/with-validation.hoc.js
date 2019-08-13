@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { ValidationsContext } from './form-with-validations.hoc';
 import validator from '../../utils/validations/validator';
 import VALIDATION_TYPES from './validation-types.config';
-import ValidationIcon from './validation-icon.component';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 
 const { validationTypes } = OptionsHelper;
@@ -158,34 +157,24 @@ const withValidation = (WrappedComponent) => {
       });
     }
 
-    renderValidationMarkup() {
-      const validationIconProps = this.getValidationIconProps();
-
-      if (!validationIconProps) return null;
-
-      return (
-        <ValidationIcon { ...validationIconProps } />
-      );
-    }
-
     getValidationIconProps() {
       const { errorMessage, warningMessage, infoMessage } = this.state;
       let validationIconProps;
 
       if (errorMessage) {
         validationIconProps = {
-          type: 'error',
-          message: errorMessage
+          inputIcon: 'error',
+          tooltipMessage: errorMessage
         };
       } else if (warningMessage) {
         validationIconProps = {
-          type: 'warning',
-          message: warningMessage
+          inputIcon: 'warning',
+          tooltipMessage: warningMessage
         };
       } else if (infoMessage) {
         validationIconProps = {
-          type: 'info',
-          message: infoMessage
+          inputIcon: 'info',
+          tooltipMessage: infoMessage
         };
       }
 
@@ -251,9 +240,9 @@ const withValidation = (WrappedComponent) => {
           { ...this.props }
           onBlur={ this.handleBlur }
           onChange={ this.handleChange }
+          { ...this.getValidationIconProps() }
         >
           { this.props.children }
-          { this.renderValidationMarkup() }
         </WrappedComponent>
       );
     }

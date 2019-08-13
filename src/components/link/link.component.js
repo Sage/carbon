@@ -6,9 +6,8 @@ import Icon from '../icon';
 import { validProps } from '../../utils/ether';
 import Event from '../../utils/helpers/events';
 import tagComponent from '../../utils/helpers/tags';
-import {
-  LinkStyle, LinkStyleAnchor
-} from './link.style';
+import { LinkStyle, LinkStyleAnchor } from './link.style';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 class Link extends React.Component {
   static safeProps = ['onClick'];
@@ -138,9 +137,9 @@ Link.propTypes = {
   /** A message to display as a tooltip to the link. */
   tooltipMessage: PropTypes.string,
   /** Positions the tooltip with the link. */
-  tooltipPosition: PropTypes.string,
+  tooltipPosition: PropTypes.oneOf(OptionsHelper.positions),
   /** Aligns the tooltip. */
-  tooltipAlign: PropTypes.string
+  tooltipAlign: PropTypes.oneOf(OptionsHelper.alignAroundEdges)
 };
 
 Link.defaultProps = {

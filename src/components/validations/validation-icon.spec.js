@@ -6,6 +6,7 @@ import ValidationIconStyle from './validation-icon.style';
 import { InputPresentationContext } from '../../__experimental__/components/input';
 import ClassicTheme from '../../style/themes/classic';
 import 'jest-styled-components';
+import Icon from '../icon';
 
 describe('ValidationIcon', () => {
   it('renders with an icon for the given type', () => {
@@ -16,6 +17,20 @@ describe('ValidationIcon', () => {
   it('renders with an icon with classic styling', () => {
     const wrapper = TestRenderer.create(<ValidationIconStyle type='error' theme={ ClassicTheme } />);
     expect(wrapper).toMatchSnapshot();
+  });
+
+  it('"tooltipPosition" and "tooltipAlign" props in its icon should be "right" and "center" respectively', () => {
+    const wrapper = mount(<ValidationIcon type='error' />);
+    const iconProps = wrapper.find(Icon).props();
+    expect(iconProps.tooltipPosition).toBe('right');
+    expect(iconProps.tooltipAlign).toBe('center');
+  });
+
+  it('does not pass "tooltipPosition" and "tooltipAlign" props to its icon for the classic theme', () => {
+    const wrapper = mount(<ValidationIcon type='error' theme={ ClassicTheme } />);
+    const iconProps = wrapper.find(Icon).props();
+    expect(iconProps.tooltipPosition).toBe(undefined);
+    expect(iconProps.tooltipAlign).toBe(undefined);
   });
 
   it('shows the tooltip if context has focus', () => {

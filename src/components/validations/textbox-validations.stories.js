@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { boolean, select } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
 import { Row, Column } from '../row';
 import Textbox from '../../__experimental__/components/textbox';
@@ -8,16 +9,16 @@ import NumberInput from '../../__experimental__/components/number';
 import GroupedCharacter from '../../__experimental__/components/grouped-character';
 import Button, { OriginalButton } from '../button';
 import { StoryHeader } from '../../../.storybook/style/storybook-info.styles';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 const decimalStore = new Store({ value: '' });
 const numberInputStore = new Store({ value: '' });
 const groupedCharacterStore = new Store({ value: '' });
-
-const getTextboxProps = () => {
-  return {
-    labelInline: true
-  };
-};
+const getStoryProps = () => ({
+  disabled: boolean('disabled', false),
+  readOnly: boolean('readOnly', false),
+  size: select('size', OptionsHelper.sizesRestricted, 'medium')
+});
 
 storiesOf('Validations', module)
   .addParameters({
@@ -38,6 +39,8 @@ storiesOf('Validations', module)
     }
   })
   .add('textbox based', () => {
+    const storyProps = getStoryProps();
+
     return (
       <div>
         <Row>
@@ -50,7 +53,7 @@ storiesOf('Validations', module)
                 info={ numberInfoValidator }
                 onChange={ ev => decimalStore.set({ value: ev.target.value }) }
                 fieldHelp='Error: number lesser than "11.0", Warning: number equals "12.0", Info: number equals "13.0"'
-                { ...getTextboxProps() }
+                { ...storyProps }
               />
             </State>
           </Column>
@@ -64,7 +67,7 @@ storiesOf('Validations', module)
                 info={ numberInfoValidator }
                 onChange={ ev => numberInputStore.set({ value: ev.target.value }) }
                 fieldHelp='Error: number lesser than "11", Warning: number equals "12", Info: number equals "13"'
-                { ...getTextboxProps() }
+                { ...storyProps }
               />
             </State>
           </Column>
@@ -82,7 +85,7 @@ storiesOf('Validations', module)
                 info={ groupedCharacterInfoValidator }
                 onChange={ ev => groupedCharacterStore.set({ value: ev.target.value }) }
                 fieldHelp='Error: incomplete field, Warning: includes "ab", Info: includes "%"'
-                { ...getTextboxProps() }
+                { ...storyProps }
               />
             </State>
           </Column>
