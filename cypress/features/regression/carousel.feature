@@ -1,8 +1,8 @@
 Feature: Carousel component
   I want to change Carousel properties
 
-  Background: Open Carousel component page
-    Given I open "Carousel" component page
+  Background: Open Carousel component page classic
+    Given I open "Carousel" component page classic
 
   @positive
   Scenario: Initial slide title is Slide One
