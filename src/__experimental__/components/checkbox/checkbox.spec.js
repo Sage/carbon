@@ -22,7 +22,13 @@ jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
 
 function render(props) {
-  return TestRenderer.create(<Checkbox value='test' { ...props } />);
+  return TestRenderer.create(
+    <Checkbox
+      name='my-checkbox'
+      value='test'
+      { ...props }
+    />
+  );
 }
 
 describe('Checkbox', () => {

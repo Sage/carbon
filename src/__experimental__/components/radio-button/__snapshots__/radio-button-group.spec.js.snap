@@ -102,6 +102,13 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   padding-left: 6px;
 }
 
+.c4 .c17 {
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: -4px;
+  vertical-align: middle;
+}
+
 .c4 .c14 {
   margin-left: 32px;
 }
