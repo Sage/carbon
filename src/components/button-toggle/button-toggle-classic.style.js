@@ -1,8 +1,8 @@
 import { css } from 'styled-components';
-import { THEMES } from '../../style/themes';
 import { StyledIcon } from '../icon/icon.style';
+import { isClassic } from '../../utils/helpers/style-helper';
 
-const StyledButtonToggleClassicLabel = ({ theme }) => theme.name === THEMES.classic && css`
+const StyledButtonToggleClassicLabel = ({ theme }) => isClassic(theme) && css`
   height: auto;
   min-width: auto;
   padding: 15px 25px;
@@ -50,7 +50,7 @@ const StyledButtonToggleClassicLabel = ({ theme }) => theme.name === THEMES.clas
   `};
 `;
 
-const StyledButtonToggleClassicIcon = ({ theme }) => theme.name === THEMES.classic && css`
+const StyledButtonToggleClassicIcon = ({ theme }) => isClassic(theme) && css`
   display: inline;
 
   ${({ buttonIconSize }) => buttonIconSize === 'large' && css`

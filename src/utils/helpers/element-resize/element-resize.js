@@ -45,6 +45,7 @@ const ElementResize = {
         pointer-events: none;
         z-index: -1;
       `);
+      obj.setAttribute('aria-label', 'resizable element');
       // when the object is ready, add the event listener
       obj.onload = objectLoad(obj, element); // eslint-disable-line no-use-before-define
       obj.type = 'text/html';

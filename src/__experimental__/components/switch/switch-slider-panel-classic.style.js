@@ -14,7 +14,7 @@ export default ({ loading, theme }) => isClassic(theme) && css`
     color: ${theme.colors.white};
 
     ${loading && css`
-    margin-right: 3px;
-  `}
+      margin-right: 3px;
+    `}
   }
 `;
