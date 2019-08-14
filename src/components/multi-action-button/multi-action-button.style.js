@@ -45,10 +45,6 @@ const StyledMultiActionButton = styled.div`
   ${StyledIcon} {
     margin-right: 0px;
   }
-
-  span {
-    vertical-align: initial;
-  }
   
   ${getMultiActionButtonClassicStyles}
 `;

@@ -48,6 +48,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c7 .c5 {
   margin-left: 0px;
   margin-right: 8px;
+  height: 20px;
 }
 
 .c8 + .c1 {
@@ -61,6 +62,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c8 .c5 {
   margin-left: 0px;
   margin-right: 8px;
+  height: 20px;
 }
 
 .c9 + .c1 {
@@ -74,6 +76,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c9 .c5 {
   margin-left: 0px;
   margin-right: 8px;
+  height: 20px;
 }
 
 .c10 + .c1 {
@@ -87,6 +90,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c10 .c5 {
   margin-left: 0px;
   margin-right: 8px;
+  height: 20px;
 }
 
 .c11 + .c1 {
@@ -100,6 +104,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c11 .c5 {
   margin-left: 8px;
   margin-right: 0px;
+  height: 20px;
 }
 
 .c2 {
@@ -160,10 +165,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c2 .c5 {
   margin-left: 0px;
   margin-right: 8px;
-}
-
-.c2 span {
-  vertical-align: middle;
+  height: 20px;
 }
 
 .c12 > .c1 {
@@ -219,6 +221,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c13 .c5 {
   margin-left: 8px;
   margin-right: 0px;
+  height: 20px;
 }
 
 .c1 + .c13 {
@@ -262,6 +265,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c14 .c5 {
   margin-left: 8px;
   margin-right: 0px;
+  height: 20px;
 }
 
 .c14,
@@ -298,6 +302,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c15 .c5 {
   margin-left: 8px;
   margin-right: 0px;
+  height: 20px;
 }
 
 .c1 + .c15 {
@@ -323,6 +328,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c16 .c5 {
   margin-left: 8px;
   margin-right: 0px;
+  height: 20px;
 }
 
 .c16,
@@ -353,6 +359,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c17 .c5 {
   margin-left: 8px;
   margin-right: 0px;
+  height: 20px;
 }
 
 .c1 + .c17 {
@@ -378,6 +385,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c18 .c5 {
   margin-left: 8px;
   margin-right: 0px;
+  height: 20px;
 }
 
 .c18,
@@ -408,6 +416,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c19 .c5 {
   margin-left: 8px;
   margin-right: 0px;
+  height: 20px;
 }
 
 .c1 + .c19 {
@@ -433,6 +442,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c20 .c5 {
   margin-left: 8px;
   margin-right: 0px;
+  height: 20px;
 }
 
 .c20,
@@ -512,10 +522,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c4 .c5 {
   margin-left: 8px;
   margin-right: 0px;
-}
-
-.c4 span {
-  vertical-align: middle;
+  height: 20px;
 }
 
 .c1 + .c4 {
@@ -910,10 +917,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c2 .c5 {
   margin-left: 0px;
   margin-right: 8px;
-}
-
-.c2 span {
-  vertical-align: middle;
+  height: 20px;
 }
 
 .c7 + .c1 {
@@ -927,6 +931,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c7 .c5 {
   margin-left: 0px;
   margin-right: 8px;
+  height: 20px;
 }
 
 .c8 + .c1 {
@@ -940,6 +945,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c8 .c5 {
   margin-left: 0px;
   margin-right: 8px;
+  height: 20px;
 }
 
 .c9 + .c1 {
@@ -953,6 +959,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c9 .c5 {
   margin-left: 0px;
   margin-right: 8px;
+  height: 20px;
 }
 
 .c10 + .c1 {
@@ -966,6 +973,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c10 .c5 {
   margin-left: 8px;
   margin-right: 0px;
+  height: 20px;
 }
 
 .c11 + .c1 {
@@ -979,6 +987,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c11 .c5 {
   margin-left: 0px;
   margin-right: 8px;
+  height: 20px;
 }
 
 .c12 + .c1 {
@@ -988,6 +997,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c12 .c5 {
   margin-left: 0px;
   margin-right: 8px;
+  height: 20px;
 }
 
 .c13 + .c1 {
@@ -997,6 +1007,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c13 .c5 {
   margin-left: 0px;
   margin-right: 8px;
+  height: 20px;
 }
 
 .c14 + .c1 {
@@ -1006,6 +1017,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c14 .c5 {
   margin-left: 0px;
   margin-right: 8px;
+  height: 20px;
 }
 
 .c0 {
@@ -1121,10 +1133,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c4 .c5 {
   margin-left: 8px;
   margin-right: 0px;
-}
-
-.c4 span {
-  vertical-align: middle;
+  height: 20px;
 }
 
 .c1 + .c4 {
@@ -1168,6 +1177,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c16 .c5 {
   margin-left: 8px;
   margin-right: 0px;
+  height: 20px;
 }
 
 .c16,
@@ -1204,6 +1214,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c17 .c5 {
   margin-left: 8px;
   margin-right: 0px;
+  height: 20px;
 }
 
 .c1 + .c17 {
@@ -1229,6 +1240,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c18 .c5 {
   margin-left: 8px;
   margin-right: 0px;
+  height: 20px;
 }
 
 .c18,
@@ -1259,6 +1271,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c19 .c5 {
   margin-left: 8px;
   margin-right: 0px;
+  height: 20px;
 }
 
 .c1 + .c19 {
@@ -1284,6 +1297,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c20 .c5 {
   margin-left: 8px;
   margin-right: 0px;
+  height: 20px;
 }
 
 .c20,
@@ -1314,6 +1328,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c21 .c5 {
   margin-left: 8px;
   margin-right: 0px;
+  height: 20px;
 }
 
 .c1 + .c21 {
@@ -1339,6 +1354,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c22 .c5 {
   margin-left: 8px;
   margin-right: 0px;
+  height: 20px;
 }
 
 .c22,
@@ -1369,6 +1385,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c23 .c5 {
   margin-left: 8px;
   margin-right: 0px;
+  height: 20px;
 }
 
 .c1 + .c23 {
@@ -1390,6 +1407,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c24 .c5 {
   margin-left: 8px;
   margin-right: 0px;
+  height: 20px;
 }
 
 .c1 + .c24 {
@@ -1407,6 +1425,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c25 .c5 {
   margin-left: 8px;
   margin-right: 0px;
+  height: 20px;
 }
 
 .c1 + .c25 {
@@ -1424,6 +1443,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c26 .c5 {
   margin-left: 8px;
   margin-right: 0px;
+  height: 20px;
 }
 
 .c1 + .c26 {
