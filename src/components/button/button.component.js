@@ -69,21 +69,12 @@ function renderChildren(props) {
     buttonType
   } = props;
 
-  const getIconColor = (backgroundType) => {
-    switch (backgroundType) {
-      case 'primary':
-        return 'on-dark-background';
-      case 'secondary':
-        return 'business-color';
-      case 'tertiary':
-        return 'business-color';
-      case 'destructive':
-        return 'on-dark-background';
-      case 'darkBackground':
-        return 'business-color';
-      default:
-        return null;
-    }
+  const iconColorMap = {
+    primary: 'on-dark-background',
+    secondary: 'business-color',
+    tertiary: 'business-color',
+    destructive: 'on-dark-background',
+    darkBackground: 'business-color'
   };
 
   return (
@@ -93,7 +84,7 @@ function renderChildren(props) {
           type={ iconType }
           disabled={ disabled }
           bgTheme='none'
-          iconColor={ getIconColor(buttonType) }
+          iconColor={ iconColorMap[buttonType] }
         />) }
       <span>
         <span data-element='main-text'>{ children }</span>
@@ -104,7 +95,7 @@ function renderChildren(props) {
           type={ iconType }
           disabled={ disabled }
           bgTheme='none'
-          iconColor={ getIconColor(buttonType) }
+          iconColor={ iconColorMap[buttonType] }
         />) }
     </>
   );

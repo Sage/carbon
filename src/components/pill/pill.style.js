@@ -5,6 +5,7 @@ import classicThemeForPill from './pill-classic.style';
 import smallTheme from '../../style/themes/small';
 import styleConfig from './pill.style.config';
 import { THEMES } from '../../style/themes';
+import { isClassic as isClassicTheme } from '../../utils/helpers/style-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { StyledIcon } from '../icon/icon.style';
 
@@ -21,6 +22,19 @@ const setTheme = (theme) => {
       return theme;
   }
 };
+
+function addStyleToPillIcon(padding, fontSize, margin) {
+  return `
+    ${StyledIcon} {
+      padding: ${padding};
+      margin-top: ${margin};
+
+      &:before {
+        font-size: ${fontSize};
+      }
+    }
+  `;
+}
 
 const PillStyle = styled.span`
  ${({
@@ -112,9 +126,12 @@ const PillStyle = styled.span`
             outline: none;
             box-shadow: 0 0 0 3px ${styleSet.boxShadow};
             background-color: ${styleSet[variety].buttonFocus};
-            color: ${(variety === 'warning') ? text.color : colors.white} !important;
+            & { color: ${(variety === 'warning') ? text.color : colors.white} }
             ::-moz-focus-inner {
               border: 0;
+            }
+            ${StyledIcon} {
+              color: ${(variety === 'warning') ? text.color : colors.white};
             }
           }
 
@@ -122,6 +139,9 @@ const PillStyle = styled.span`
             background-color: ${styleSet[variety].buttonFocus};
             color: ${(variety === 'warning') ? text.color : colors.white};
             cursor: pointer;
+            ${StyledIcon} {
+              color: ${(variety === 'warning') ? text.color : colors.white};
+            }
           }
  
           ${StyledIcon} {
@@ -143,13 +163,7 @@ const PillStyle = styled.span`
             border-radius: 0 8px 8px 0;
             line-height: 14px;
 
-            .carbon-icon {
-              padding: 0;
-
-              &:before {
-                font-size: 7px;
-              }
-            }
+            ${addStyleToPillIcon('0', '7px')}
           }
         `}
 
@@ -163,14 +177,7 @@ const PillStyle = styled.span`
             border-radius: 0 10px 10px 0;
             line-height: 15px;
 
-            .carbon-icon {
-              padding: 2px 7px 3px 7px;
-              margin-top: -1px;
-
-              &:before {
-                font-size: 10px;
-              }
-            }
+            ${addStyleToPillIcon('2px 7px 3px 7px', '10px')}
           }
         `}
 
@@ -184,14 +191,7 @@ const PillStyle = styled.span`
             border-radius: 0 11px 11px 0;
             line-height: 16px;
 
-            .carbon-icon {
-              padding: 3px 8px 4px 8px;
-              margin-top: -1px;
-
-              &:before {
-                font-size: 12px;
-              }
-            }
+            ${addStyleToPillIcon('3px 8px 4px 8px', '12px', '1px')}
           }
         `}
 
@@ -205,14 +205,7 @@ const PillStyle = styled.span`
             border-radius: 0 12px 12px 0;
             line-height: 18px;
 
-            .carbon-icon {
-              padding: 3px 9px 5px 9px;
-              margin-top: -1px;
-
-              &:before {
-                font-size: 13px;
-              }
-            }
+            ${addStyleToPillIcon('3px 9px 5px 9px', '13px', '1px')}
           }
         `}
       `}
@@ -223,14 +216,6 @@ const PillStyle = styled.span`
 
           button {
             padding: 0;
-
-            .carbon-icon {
-              padding: 0;
-
-              &:before {
-                font-size: 7px;
-              }
-            }
           }
         `}
 
@@ -242,15 +227,6 @@ const PillStyle = styled.span`
             width: 24px;
             padding: 0;
             border-radius: 0 8px 8px 0;
-
-            .carbon-icon {
-              padding: 2px 7px 3px 7px;
-              margin-top: -1px;
-
-              &:before {
-                font-size: 10px;
-              }
-            }
           }
         `}
 
@@ -262,15 +238,6 @@ const PillStyle = styled.span`
             width: 28px;
             padding: 0;
             border-radius: 0 10px 10px 0;
-
-            .carbon-icon {
-              padding: 3px 8px 4px 8px;
-              margin-top: -1px;
-
-              &:before {
-                font-size: 12px;
-              }
-            }
           }
         `}
 
@@ -282,15 +249,6 @@ const PillStyle = styled.span`
             width: 32px;
             padding: 0;
             border-radius: 0 12px 12px 0;
-
-            .carbon-icon {
-              padding: 3px 9px 5px 9px;
-              margin-top: -1px;
-
-              &:before {
-                font-size: 13px;
-              }
-            }
           }
         `}
       `}
@@ -306,7 +264,7 @@ function isClassic(theme, colorVariant) {
   if (OptionsHelper.pillColors.includes(colorVariant)) {
     return false;
   }
-  return theme.name === THEMES.classic;
+  return isClassicTheme(theme);
 }
 
 PillStyle.defaultProps = {

@@ -5,14 +5,16 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import CloseIconClassicStyling from './dismiss-button-classic.style';
 import Link from '../link';
 import { StyledIcon } from '../icon/icon.style';
-import { THEMES } from '../../style/themes';
+import { isClassic } from '../../utils/helpers/style-helper';
 
 const DismissButtonStyle = styled.div`
   border: none;
   position: absolute;
   right: 16px;
-  top: 16px;
-
+  ${({ theme }) => !isClassic(theme) && css`
+    margin-top: -10px;
+    top: 50%;
+  `}
   ${StyledIcon} {
     &:before {
       color: ${({ theme }) => theme.colors.border};
@@ -27,7 +29,7 @@ const DismissButtonStyle = styled.div`
 `;
 
 const LinkStyle = styled(Link)`
-  ${({ theme }) => theme.name !== THEMES.classic && css`
+  ${({ theme }) => !isClassic(theme) && css`
     &:focus {
       outline: none;
       background-color: transparent;
@@ -44,8 +46,9 @@ const LinkStyle = styled(Link)`
     display: none;
   }
 
-  .carbon-link__icon {
+  ${StyledIcon} {
     margin-right: 0;
+    top: -2px;
   }
 `;
 

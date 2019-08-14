@@ -88,6 +88,7 @@ const FlashIconStyle = styled(Icon)`
   left: 0;
   position: absolute;
   width: 70px;
+  top: -3px;
 
   &:before {
     color: rgba(0, 0, 0, 0.85);

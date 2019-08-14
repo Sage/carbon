@@ -1,5 +1,5 @@
 import { css } from 'styled-components';
-import { THEMES } from '../../style/themes';
+import { isClassic } from '../../utils/helpers/style-helper';
 
 const colors = {
   warning: { color: '#FF7D00', backgroundColor: '#FFF8F2' },
@@ -12,7 +12,7 @@ const colors = {
   maintenance: { color: '#FF7D00', backgroundColor: '#FFF8F2' }
 };
 
-const classicToastTypeStyle = ({ theme, variant }) => theme.name === THEMES.classic && css`
+const classicToastTypeStyle = ({ theme, variant }) => isClassic(theme) && css`
   align-items: center;
   display: flex;
   height: 100%;
@@ -24,7 +24,7 @@ const classicToastTypeStyle = ({ theme, variant }) => theme.name === THEMES.clas
   background-color: ${colors[variant].color};
   border-radius: 0;
   
-  .svg {
+  svg {
     height: 24px;
     margin-top: -12px;
     width: 30px;
@@ -35,7 +35,7 @@ const classicToastTypeStyle = ({ theme, variant }) => theme.name === THEMES.clas
   }
 `;
 
-const classicToastStyle = ({ theme, variant }) => theme.name === THEMES.classic && css`
+const classicToastStyle = ({ theme, variant }) => isClassic(theme) && css`
   margin-top: 30px;
   position: fixed;
   right: 30px;
@@ -76,7 +76,7 @@ const classicToastStyle = ({ theme, variant }) => theme.name === THEMES.classic 
 
 `;
 
-const classicToastContentStyle = ({ theme }) => theme.name === THEMES.classic && css`
+const classicToastContentStyle = ({ theme }) => isClassic(theme) && css`
   padding: 15px 20px 15px 50px;
   white-space: pre-wrap;
 `;

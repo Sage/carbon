@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import ReactDOM from 'react-dom';
 import Portal from './portal';
 import Icon from './../icon';
@@ -27,6 +27,8 @@ describe('Portal', () => {
 
     afterEach(() => {
       if (wrapper.length) wrapper.unmount();
+
+      document.body.innerHTML = '';
     });
 
     it('will mount correctly on document', () => {
@@ -70,7 +72,17 @@ describe('Portal', () => {
     });
 
     it('to match snapshot ', () => {
-      expect(wrapper).toMatchSnapshot();
+      const wrapper2 = shallow(
+        <Portal>
+          <Icon
+            tooltipMessage='Test'
+            tooltipAlign='left'
+            tooltipPosition='top'
+            type='tick'
+          />
+        </Portal>
+      );
+      expect(wrapper2).toMatchSnapshot();
     });
   });
 
