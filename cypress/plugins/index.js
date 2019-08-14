@@ -17,11 +17,10 @@ const cucumber = require('cypress-cucumber-preprocessor').default;
 // this line is required to avoid memory leak
 require('events').EventEmitter.defaultMaxListeners = 80; // 80 regression features
 
-
 // eslint-disable-next-line no-unused-vars
 module.exports = (on, config) => {
   on('file:preprocessor', cucumber());
-  on('console', {
+  on('task', {
     log(message) {
       console.log(message);
       return null;
