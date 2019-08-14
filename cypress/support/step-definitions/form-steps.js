@@ -3,8 +3,6 @@ import {
   errorsSummary, errorMessage, inputValidation,
 } from '../../locators/form';
 
-const ALIGN_PREFIX = 'carbon-form__buttons--';
-
 Then('save button is visible', () => {
   saveButton().should('be.visible');
 });
@@ -22,7 +20,11 @@ Then('cancel button is not visible', () => {
 });
 
 Then('buttons are aligned to {string}', (direction) => {
-  buttons().should('have.class', `${ALIGN_PREFIX}${direction}`);
+  if (direction === 'right') {
+    buttons().should('have.css', 'justify-content', 'flex-end');
+  } else {
+    buttons().should('not.have.css', 'justify-content', 'flex-end');
+  }
 });
 
 Then('save button is disabled', () => {
