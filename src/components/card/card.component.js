@@ -1,11 +1,9 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import {
-  StyledCard,
-  StyledCardHeader,
-  StyledCardDescription,
-  StyledCardFooter
-} from './card.style';
+import StyledCard from './card.style';
+import CardDescription from './card-description';
+import CardHeader from './card-header';
+import CardFooter from './card-footer';
 
 const Card = ({
   border,
@@ -21,22 +19,22 @@ const Card = ({
     { ...props }
   >
     { header && (
-      <StyledCardHeader data-element='header'>
-        { header }
-      </StyledCardHeader>
+      <CardHeader
+        header={ header }
+        theme={ theme }
+      />
     )}
     { description && (
-      <StyledCardDescription data-element='description'>
-        { description }
-      </StyledCardDescription>
+      <CardDescription
+        description={ description }
+        theme={ theme }
+      />
     )}
     { footer && (
-      <StyledCardFooter
-        data-element='footer'
+      <CardFooter
+        footer={ footer }
         theme={ theme }
-      >
-        { footer }
-      </StyledCardFooter>
+      />
     )}
   </StyledCard>
 );

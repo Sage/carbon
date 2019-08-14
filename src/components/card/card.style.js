@@ -31,40 +31,4 @@ StyledCard.propTypes = {
   border: propTypes.bool
 };
 
-const StyledCardHeader = styled.div`
-  ${() => {
-    return css`
-      padding: 32px 32px 0;
-      margin-bottom: 24px;
-    `;
-  }
-}`;
-
-const StyledCardDescription = styled.div`
-${() => {
-    return css`
-      text-align: center;
-      margin-bottom: 32px;
-  `;
-  }
-}`;
-
-const StyledCardFooter = styled.div`
-${({ theme }) => {
-    return css`
-      background-color: ${theme.card.footerBackground};
-      border-top: ${theme.card.footerBorder};
-      height: 56px;
-      line-height: 56px;
-      padding: 0;
-      text-align: center;
-    `;
-  }
-}`;
-
-export {
-  StyledCard,
-  StyledCardHeader,
-  StyledCardDescription,
-  StyledCardFooter
-};
+export default StyledCard;

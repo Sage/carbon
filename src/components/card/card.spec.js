@@ -3,7 +3,6 @@ import { mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import Card from './card.component';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-import baseTheme from '../../style/themes/base';
 import smallTheme from '../../style/themes/small';
 import mediumTheme from '../../style/themes/medium';
 import largeTheme from '../../style/themes/large';
@@ -27,7 +26,7 @@ describe('Card', () => {
           );
 
           it('does not render a header', () => {
-            const elem = wrapper.find('[data-element="header"]');
+            const elem = wrapper.find('[data-element="card-header"]');
             expect(elem.exists()).toEqual(false);
           });
         });
@@ -36,21 +35,14 @@ describe('Card', () => {
           const headerText = 'header is passed as a prop';
           const wrapper = mount(
             <Card
-              theme={ theme }
               header={ headerText }
+              theme={ theme }
             />
           );
-          const elem = wrapper.find('[data-element="header"]');
+          const elem = wrapper.find('[data-element="card-header"]');
 
           it('renders a header', () => {
             expect(elem.exists()).toEqual(true);
-          });
-
-          it('matches the styles for a rendered header', () => {
-            assertStyleMatch({
-              padding: '32px 32px 0',
-              marginBottom: '24px'
-            }, elem);
           });
         });
 
@@ -62,7 +54,7 @@ describe('Card', () => {
           );
 
           it('does not render a description', () => {
-            const elem = wrapper.find('[data-element="description"]');
+            const elem = wrapper.find('[data-element="card-description"]');
             expect(elem.exists()).toEqual(false);
           });
         });
@@ -75,17 +67,10 @@ describe('Card', () => {
               description={ descText }
             />
           );
-          const elem = wrapper.find('[data-element="description"]');
+          const elem = wrapper.find('[data-element="card-description"]');
 
           it('renders a description', () => {
             expect(elem.exists()).toEqual(true);
-          });
-
-          it('matches the styles for a rendered description', () => {
-            assertStyleMatch({
-              textAlign: 'center',
-              marginBottom: '32px'
-            }, elem);
           });
         });
 
@@ -97,7 +82,7 @@ describe('Card', () => {
           );
 
           it('does not render a footer', () => {
-            const elem = wrapper.find('[data-element="footer"]');
+            const elem = wrapper.find('[data-element="card-footer"]');
             expect(elem.exists()).toEqual(false);
           });
         });
@@ -110,21 +95,10 @@ describe('Card', () => {
               footer={ footerText }
             />
           );
-          const elem = wrapper.find('[data-element="footer"]');
+          const elem = wrapper.find('[data-element="card-footer"]');
 
           it('renders a footer', () => {
             expect(elem.exists()).toEqual(true);
-          });
-
-          it('matches the styles for a rendered footer', () => {
-            assertStyleMatch({
-              backgroundColor: theme.card.footerBackground,
-              borderTop: theme.card.footerBorder,
-              height: '56px',
-              lineHeight: '56px',
-              padding: '0',
-              textAlign: 'center'
-            }, elem);
           });
         });
       });
