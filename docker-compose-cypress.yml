@@ -5,6 +5,7 @@ services:
     image: carbon_cypress
     container_name: cypress
     command: bash -c 'wait-on http://storybook:9001 && sleep 1000'
+    shm_size: '1g'
     environment:
       CYPRESS_baseUrl: http://storybook:9001/
     depends_on:

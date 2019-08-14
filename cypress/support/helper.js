@@ -67,3 +67,24 @@ export function pressTABKey(count) {
     cy.iFrame('body').trigger('tab', { force: true });
   }
 }
+
+// require('events').EventEmitter.defaultMaxListeners = 66;
+
+const event = require('events').EventEmitter;
+
+event.setMaxListeners = 66;
+
+const emitter = new event.EventEmitter();
+
+emitter.setMaxListeners = 66;
+
+emitter.on('event', () => {
+  console.log('an event occurred!');
+});
+emitter.emit('event');
+
+afterEach(() => {
+  cy.task('log', `getMaxListeners() >> ${emitter.getMaxListeners()}`);
+  cy.task('log', `listenerCount() >> ${emitter.listenerCount()}`);
+  cy.task('log', `eventNames() >> ${emitter.eventNames()}`);
+});
