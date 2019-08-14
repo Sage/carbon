@@ -15,6 +15,7 @@ const StyledMultiActionButton = styled.div`
       &,
       ${StyledIcon} {
         color: ${theme.colors.white};
+        margin-right: 0;
       }
 
       &:focus {
@@ -39,6 +40,14 @@ const StyledMultiActionButton = styled.div`
         text-align: right;
       }
     `}
+  }
+
+  ${StyledIcon} {
+    margin-right: 0px;
+  }
+
+  span {
+    vertical-align: initial;
   }
   
   ${getMultiActionButtonClassicStyles}
