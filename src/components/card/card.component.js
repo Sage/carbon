@@ -11,11 +11,14 @@ const Card = ({
   footer,
   header,
   theme,
+  cardWidth,
   ...props
 }) => (
   <StyledCard
+    data-element='card'
     border={ border }
     theme={ theme }
+    cardWidth={ cardWidth }
     { ...props }
   >
     { header && (
@@ -44,7 +47,8 @@ Card.propTypes = {
   description: propTypes.string,
   footer: propTypes.string,
   header: propTypes.string,
-  theme: propTypes.object
+  theme: propTypes.object,
+  cardWidth: propTypes.string
 };
 
 export default Card;
