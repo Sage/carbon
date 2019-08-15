@@ -42,7 +42,7 @@ const getMultiActionButtonClassicStyles = ({ disabled, displayed, theme }) => (t
       padding-top: 5px;
 
       &:hover {
-          background-color: #163777;
+        background-color: #163777;
       }
     }
   }

@@ -22,6 +22,7 @@ const StyledButton = styled.button`
     ${StyledIcon} {
       margin-left: ${iconPosition === 'before' ? '0px' : '8px'};
       margin-right: ${iconPosition === 'before' ? '8px' : '0px'};
+      height: 20px;
     }
   `}
 `;

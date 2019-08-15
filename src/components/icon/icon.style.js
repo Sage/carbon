@@ -98,7 +98,7 @@ const StyledIcon = styled.span`
 StyledIcon.propTypes = {
   theme: PropTypes.object,
   isFont: PropTypes.bool,
-  type: PropTypes.oneOf([...OptionsHelper.icons, 'help', 'maintenance', 'new', 'success']),
+  type: PropTypes.string,
   disabled: PropTypes.bool,
   bgSize: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   bgShape: PropTypes.oneOf(OptionsHelper.shapes),

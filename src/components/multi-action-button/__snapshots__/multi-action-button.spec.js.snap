@@ -83,6 +83,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 .c3 .c4 {
   margin-left: 0px;
   margin-right: 8px;
+  height: 20px;
 }
 
 .c1 {
@@ -106,6 +107,10 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   left: 0;
   right: auto;
   z-index: 12;
+}
+
+.c0 .c4 {
+  margin-right: 0px;
 }
 
 <div
@@ -205,6 +210,7 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
 .c7 .c5 {
   margin-left: 0px;
   margin-right: 8px;
+  height: 20px;
 }
 
 .c4 {
@@ -287,6 +293,7 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
 .c4 .c5 {
   margin-left: 0px;
   margin-right: 8px;
+  height: 20px;
 }
 
 .c8 > .c3 {
@@ -337,35 +344,52 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   background-color: #004400;
 }
 
-.c9 .c3 + .c12 .c3 {
+.c9 .c3 + .c13 .c3 {
   margin-top: 3px;
 }
 
-.c10 .c1 > .c3 {
+.c10 .c5 {
+  margin-right: 0px;
+}
+
+.c11 .c1 > .c3 {
   background-color: #006300;
   border-color: #006300;
 }
 
-.c10 .c1 > .c3,
-.c10 .c1 > .c3 .c5 {
+.c11 .c1 > .c3,
+.c11 .c1 > .c3 .c5 {
   color: #FFFFFF;
+  margin-right: 0;
 }
 
-.c10 .c1 > .c3:focus {
+.c11 .c1 > .c3:focus {
   border-color: #FFB500;
   margin: 0 -1px;
 }
 
-.c11 .c12 .c3 {
+.c11 .c5 {
+  margin-right: 0px;
+}
+
+.c12 .c13 .c3 {
   text-align: right;
 }
 
-.c0 .c12 {
+.c12 .c5 {
+  margin-right: 0px;
+}
+
+.c0 .c13 {
   min-width: 100%;
   white-space: nowrap;
   left: 0;
   right: auto;
   z-index: 12;
+}
+
+.c0 .c5 {
+  margin-right: 0px;
 }
 
 .c0 .c1 > .c3,
@@ -379,7 +403,7 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   border-color: #1e499f;
 }
 
-.c0 .c12 {
+.c0 .c13 {
   max-width: none;
   width: auto;
   padding-top: 5px;
@@ -387,7 +411,7 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   z-index: 12;
 }
 
-.c0 .c12 .c3 {
+.c0 .c13 .c3 {
   border: none;
   border-radius: 0;
   color: #fff;
@@ -398,7 +422,7 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   padding-top: 5px;
 }
 
-.c0 .c12 .c3:hover {
+.c0 .c13 .c3:hover {
   background-color: #163777;
 }
 
@@ -455,6 +479,10 @@ exports[`StyledMultiActionButton when rendered with "classic" theme should match
   left: 0;
   right: auto;
   z-index: 12;
+}
+
+.c0 .c1 {
+  margin-right: 0px;
 }
 
 .c0 .c3 > .c2,
