@@ -93,6 +93,10 @@ describe('Tile', () => {
           assertStyleMatch({ flexDirection: 'column' }, wrapper);
         });
 
+        it('sets the TileContent width to auto', () => {
+          assertStyleMatch({ width: 'auto' }, wrapper, { modifier: css`${TileContent}` });
+        });
+
         it('sets padding-bottom for all but the last TileContent', () => {
           assertStyleMatch(
             { paddingBottom: '16px' },
@@ -105,8 +109,7 @@ describe('Tile', () => {
           assertStyleMatch(
             {
               borderTop: 'solid 1px #E5EAEC',
-              paddingTop: '16px',
-              width: 'auto'
+              paddingTop: '16px'
             },
             wrapper, { modifier: css`${`${TileContent} + ${TileContent}`}` }
           );

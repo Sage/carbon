@@ -42,6 +42,8 @@ const StyledTile = styled.div`
 
       ${isHorizontal(orientation) && 'display: inline;'}
 
+      ${isVertical(orientation) && 'width: auto'}
+
       &:not(:last-of-type) {
         padding-${isHorizontal(orientation) ? 'right' : 'bottom'}: ${paddingSizes[padding]};
       }
@@ -57,7 +59,6 @@ const StyledTile = styled.div`
         ${isVertical(orientation) && css`
           border-top: solid 1px ${theme.tile.separator};
           padding-top: ${paddingSizes[padding]};
-          width: auto;
         `}
       }
     }
