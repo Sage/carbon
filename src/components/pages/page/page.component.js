@@ -1,28 +1,32 @@
 import React from 'react';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import tagComponent from '../../../utils/helpers/tags';
 import FullScreenHeading from '../../dialog-full-screen/full-screen-heading';
 import AppWrapper from '../../app-wrapper';
-import './page.scss';
+import StyledPage from './page.style';
 
 const pageClasses = (props) => {
   return classNames('carbon-page', props.className);
 };
 
-const Page = props => (
-  <article className={ pageClasses(props) } { ...tagComponent('page', props) }>
-    <FullScreenHeading>
-      { props.title }
-    </FullScreenHeading>
+class Page extends React.Component {
+  render() {
+    return(
+      <StyledPage className={ pageClasses(this.props) } { ...tagComponent('page', this.props) }>
+        <FullScreenHeading>
+          { this.props.title }
+        </FullScreenHeading>
 
-    <div className='carbon-page__content'>
-      <AppWrapper>
-        { props.children }
-      </AppWrapper>
-    </div>
-  </article>
-);
+        <div className='carbon-page__content'>
+          <AppWrapper>
+            { this.props.children }
+          </AppWrapper>
+        </div>
+      </StyledPage>
+    )
+  }
+}
 
 Page.propTypes = {
   /**

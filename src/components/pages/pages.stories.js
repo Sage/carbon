@@ -1,15 +1,20 @@
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
 import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-// import { Pages, Page } from './pages';
 import { Pages, Page } from './pages.component';
 import DialogFullScreen from '../dialog-full-screen';
+import { text, select, boolean } from '@storybook/addon-knobs';
+import OptionsHelper from '../../utils/helpers/options-helper';
 import Heading from '../heading/heading';
 import Button from '../button';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 import docgenInfo from './docgenInfo.json';
+import { THEMES } from '../../style/themes';
+import classic from '../../style/themes/classic';
+import { notes, Info } from './documentation';
 
 Page.__docgenInfo = getDocGenInfo(
   docgenInfo,
@@ -57,6 +62,59 @@ const DialogState = props => new CustomState(props);
 const PageState = props => new CustomState(props);
 
 storiesOf('Pages', module)
+  .add('classic', () => {
+    return (
+      <ThemeProvider theme={ classic }>
+        <div>
+          <Button onClick={ handleOpen }>Open Preview</Button>
+          <DialogState>
+            <DialogFullScreen
+              open={ store.get('open') }
+              onCancel={ handleCancel }
+            >
+              <PageState>
+                <Pages
+                  slideIndex={ store.get('slideIndex') }
+                >
+                  <Page title={ <Heading title='My First Page' /> }>
+                    <Button onClick={ (ev) => { handleSlide(ev, 1) } }>
+                      Go to second page
+                    </Button>
+                    <Button onClick={ (ev) => { handleSlide(ev, 2) } }>
+                      Go to third page
+                    </Button>
+                  </Page>
+
+                  <Page title={ <Heading title='My Second Page' /> }>
+                    <Button onClick={ (ev) => { handleSlide(ev, 0) } }>
+                      Go to first page
+                    </Button>
+                    <Button onClick={ (ev) => { handleSlide(ev, 2) } }>
+                      Go to third page
+                    </Button>
+                  </Page>
+
+                  <Page title={ <Heading title='My Third Page' /> }>
+                    <Button onClick={ (ev) => { handleSlide(ev, 1) } }>
+                      Go to second page
+                    </Button>
+                    <Button onClick={ (ev) => { handleSlide(ev, 0) } }>
+                      Go to first page
+                    </Button>
+                  </Page>
+                </Pages>
+              </PageState>
+            </DialogFullScreen>
+          </DialogState>
+        </div>
+      </ThemeProvider>
+    );
+  }, {
+    info: {
+      text: <p>Allows to slide to different pages in a full screen dialog.</p>,
+      propTablesExclude: [Button, DialogFullScreen, DialogState, PageState, State]
+    }
+  })
   .add('default', () => {
     return (
       <div>
@@ -68,10 +126,6 @@ storiesOf('Pages', module)
           >
             <PageState>
               <Pages
-                initialSlideIndex={ 0 }
-                enableNextButton={ true }
-                enablePreviousButton={ true }
-                enableSlideSelector={ true }
                 slideIndex={ store.get('slideIndex') }
               >
                 <Page title={ <Heading title='My First Page' /> }>
