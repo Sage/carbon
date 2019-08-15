@@ -7,6 +7,10 @@
   vertical-align: top;
 }
 
+.carbon-textarea:not(.common-input--label-inline) .carbon-icon.common-input__icon {
+  top: 37px;
+}
+
 .carbon-textarea__input {
   height: auto;
   min-height: $input-common-height;
