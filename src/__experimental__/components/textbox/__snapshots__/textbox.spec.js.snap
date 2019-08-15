@@ -25,12 +25,14 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
     name="mocked-guid"
     onBlur={[Function]}
     onChange={[Function]}
+    size="medium"
     type="text"
     validations={Array []}
     warnings={Array []}
   >
     southpaw children
     <Input
+      aria-invalid={false}
       hasError={false}
       hasInfo={false}
       hasWarning={false}
@@ -40,6 +42,7 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
       name="mocked-guid"
       onBlur={[Function]}
       onChange={[Function]}
+      size="medium"
       type="text"
       validations={Array []}
       value="foobar"

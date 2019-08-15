@@ -45,7 +45,12 @@ const LabelStyle = styled.label`
     }
   `}
   
-  ${({ hasError, theme }) => hasError && css`
+  ${({
+    hasError,
+    disabled,
+    readOnly,
+    theme
+  }) => hasError && !disabled && !readOnly && css`
     color: ${theme.colors.error};
   `}
 
@@ -85,7 +90,8 @@ LabelStyle.propTypes = {
   align: PropTypes.oneOf(OptionsHelper.alignBinary),
   inline: PropTypes.bool,
   inputSize: PropTypes.oneOf(OptionsHelper.sizesRestricted),
-  width: PropTypes.number
+  width: PropTypes.number,
+  readOnly: PropTypes.bool
 };
 
 export default LabelStyle;

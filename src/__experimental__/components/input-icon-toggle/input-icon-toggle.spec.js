@@ -1,17 +1,13 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
+import { ThemeProvider } from 'styled-components';
 import { shallow } from 'enzyme';
 import 'jest-styled-components';
 import Icon from 'components/icon';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
-
+import ValidationIcon from '../../../components/validations/validation-icon.component';
 import InputIconToggle from './input-icon-toggle.component';
-
-function render(props, renderer = shallow) {
-  return renderer(
-    <InputIconToggle type='settings' { ...props } />
-  );
-}
+import classicTheme from '../../../style/themes/classic';
 
 describe('InputIconToggle', () => {
   describe('when initiated with the disabled prop set to true', () => {
@@ -28,13 +24,21 @@ describe('InputIconToggle', () => {
 
   describe('when initiated without children', () => {
     it('renders an Icon component with an icon type that was specified in the props', () => {
-      expect(render({ type: 'settings' }).contains(<Icon type='settings' />)).toBeTruthy();
+      expect(render({ inputIcon: 'settings' }).contains(<Icon type='settings' />)).toBeTruthy();
     });
   });
 
   describe('when initiated with children', () => {
     it('renders as expected', () => {
       expect(render({ children: 'mock content' }, TestRenderer.create)).toMatchSnapshot();
+    });
+  });
+
+  describe.each(['hasError', 'hasWarning', 'hasInfo'])('when %s validation prop is true', (validationProp) => {
+    it('renders a validation icon', () => {
+      const wrapper = render({ children: 'mock content', [validationProp]: true });
+      const validationIcon = wrapper.find(ValidationIcon);
+      expect(validationIcon.exists()).toBe(true);
     });
   });
 
@@ -52,13 +56,31 @@ describe('InputIconToggle', () => {
     it('when active', () => {
       assertStyleMatch({
         backgroundColor: '#e6ebed'
-      }, render({ theme: { name: 'classic' } }, TestRenderer.create).toJSON());
+      }, renderWithTheme({ inputIcon: 'dropdown' }, classicTheme).toJSON());
     });
 
-    it('renders a narrow button when a dropdown', () => {
+    it('renders a narrow button when in a dropdown', () => {
       assertStyleMatch({
         width: '20px'
-      }, render({ type: 'dropdown', theme: { name: 'classic' } }, TestRenderer.create).toJSON());
+      }, renderWithTheme({ inputIcon: 'dropdown' }, classicTheme).toJSON());
     });
   });
 });
+
+function render(props, renderer = shallow) {
+  const defaultProps = { inputIcon: 'settings' };
+
+  return renderer(
+    <InputIconToggle { ...defaultProps } { ...props } />
+  );
+}
+
+function renderWithTheme(props, theme, renderer = TestRenderer.create) {
+  const defaultProps = { inputIcon: 'settings' };
+
+  return renderer(
+    <ThemeProvider theme={ theme }>
+      <InputIconToggle { ...defaultProps } { ...props } />
+    </ThemeProvider>
+  );
+}

@@ -6,8 +6,8 @@ import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import Pill from './pill.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import { isClassic } from '../../utils/helpers/style-helper';
 import classic from '../../style/themes/classic';
-import { THEMES } from '../../style/themes';
 import { notes, Info } from './documentation';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
@@ -31,9 +31,11 @@ const getKnobs = (theme) => {
     children: text('children', 'Pill'),
     fill: boolean('fill', Pill.defaultProps.fill),
     onDelete: boolean('onDelete', false),
-    theme
+    theme,
+    size: select('size', OptionsHelper.pillSizesRestricted, Pill.defaultProps.size)
   };
-  if (theme === THEMES.classic) {
+
+  if (theme && isClassic(theme)) {
     knobs.as = select('as', [...OptionsHelper.colors, 'disabled'], Pill.defaultProps.as);
   } else {
     Object.assign(knobs, getStatusKnobs());
@@ -42,13 +44,14 @@ const getKnobs = (theme) => {
 };
 
 storiesOf('Pill', module)
-  .add(THEMES.classic, () => {
+  .add('classic', () => {
     const {
       children,
       as,
       fill,
-      onDelete
-    } = getKnobs(THEMES.classic);
+      onDelete,
+      size
+    } = getKnobs(classic);
 
     return (
       <ThemeProvider theme={ classic }>
@@ -56,6 +59,7 @@ storiesOf('Pill', module)
           as={ as }
           fill={ fill }
           onDelete={ onDelete ? action('delete') : null }
+          size={ size }
         >
           {children}
         </Pill>
@@ -75,7 +79,8 @@ storiesOf('Pill', module)
       colorVariant,
       fill,
       onDelete,
-      pillRole
+      pillRole,
+      size
     } = getKnobs();
     return (
       <Pill
@@ -83,6 +88,7 @@ storiesOf('Pill', module)
         fill={ fill }
         onDelete={ onDelete ? action('delete') : null }
         pillRole={ pillRole }
+        size={ size }
       >
         { children }
       </Pill>
