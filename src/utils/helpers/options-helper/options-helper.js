@@ -310,6 +310,11 @@ const OptionsHelper = {
     'large'
   ],
 
+  tileThemes: [
+    'tile',
+    'transparent'
+  ],
+
   validationTypes: [
     'error',
     'warning',

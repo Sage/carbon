@@ -127,6 +127,11 @@ export default (palette) => {
 
     switch: {
       off: '#CCD6DB'
+    },
+
+    tile: {
+      border: palette.slateTint(80),
+      separator: palette.slateTint(90)
     }
   };
 };
