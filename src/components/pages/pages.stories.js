@@ -85,7 +85,7 @@ storiesOf('Pages', module)
                     </Button>
                   </Page>
 
-                  <Page title={ <Heading title='My Second Page' /> }>
+                  <Page title={ <Heading title='My Second Page' backLink={ (ev) => { handleSlide(ev, 0); } } /> }>
                     <Button onClick={ (ev) => { handleSlide(ev, 0) } }>
                       Go to first page
                     </Button>
