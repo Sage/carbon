@@ -41,6 +41,7 @@ exports[`Tile renders base styles 1`] = `
 
 .c3 .c1 {
   box-sizing: border-box;
+  width: auto;
 }
 
 .c3 .c1:not(:last-of-type) {
@@ -51,7 +52,6 @@ exports[`Tile renders base styles 1`] = `
   margin-top: 0;
   border-top: solid 1px #E5EAEC;
   padding-top: 16px;
-  width: auto;
 }
 
 <div
