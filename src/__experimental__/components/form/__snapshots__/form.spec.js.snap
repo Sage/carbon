@@ -59,7 +59,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
 .c6 .c21 {
   margin-left: 0px;
   margin-right: 8px;
-  height: 20px;
+  height: 18px;
 }
 
 .c9 {
@@ -114,7 +114,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
 .c9 .c21 {
   margin-left: 0px;
   margin-right: 8px;
-  height: 20px;
+  height: 18px;
 }
 
 .c10 + .c5 {

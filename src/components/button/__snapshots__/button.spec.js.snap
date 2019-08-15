@@ -76,7 +76,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c5 .c2 {
   margin-left: 0px;
   margin-right: 8px;
-  height: 20px;
+  height: 18px;
 }
 
 .c1 {
@@ -137,7 +137,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c1 .c2 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 20px;
+  height: 18px;
 }
 
 <button
@@ -274,7 +274,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c1 .c2 {
   margin-left: 0px;
   margin-right: 8px;
-  height: 20px;
+  height: 18px;
 }
 
 <button

@@ -83,7 +83,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 .c3 .c4 {
   margin-left: 0px;
   margin-right: 8px;
-  height: 20px;
+  height: 18px;
 }
 
 .c1 {
@@ -210,7 +210,7 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
 .c7 .c5 {
   margin-left: 0px;
   margin-right: 8px;
-  height: 20px;
+  height: 18px;
 }
 
 .c4 {

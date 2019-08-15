@@ -5,8 +5,8 @@ import buttonTypes from './button-types.style';
 import buttonSizes from './button-sizes.style';
 import buttonClasicStyle from './button-classic.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import { THEMES } from '../../style/themes';
 import { StyledIcon } from '../icon/icon.style';
+import { isClassic } from '../../utils/helpers/style-helper';
 
 const StyledButton = styled.button`
   align-items: center;
@@ -18,11 +18,11 @@ const StyledButton = styled.button`
   vertical-align: middle;
   ${addButtonStyle}
 
-  ${({ iconPosition }) => css`
+  ${({ iconPosition, theme }) => css`
     ${StyledIcon} {
       margin-left: ${iconPosition === 'before' ? '0px' : '8px'};
       margin-right: ${iconPosition === 'before' ? '8px' : '0px'};
-      height: 20px;
+      height: ${isClassic(theme) ? '20px' : '18px'};
     }
   `}
 `;
@@ -65,10 +65,9 @@ function stylingForType({
 }
 
 function isClassicButton({ theme, buttonType }) {
-  const isClassicTheme = (theme.name === THEMES.classic);
   const isClassicButtonType = OptionsHelper.themesBinary.includes(buttonType);
 
-  return isClassicTheme && isClassicButtonType;
+  return isClassic(theme) && isClassicButtonType;
 }
 
 StyledButton.defaultProps = {
