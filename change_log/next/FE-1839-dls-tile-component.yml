@@ -1,0 +1,2 @@
+Experimental: |
+  Adds a new component, Tile. This and the new Card component will eventually take the place of the legacy Pod component.
