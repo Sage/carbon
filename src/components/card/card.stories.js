@@ -9,6 +9,7 @@ storiesOf('Card', module)
     const header = text('header', 'this is a header');
     const footer = text('footer', 'this is a footer');
     const border = boolean('border', true);
+    const cardWidth = text('width', '500px');
 
 
     return (
@@ -17,6 +18,7 @@ storiesOf('Card', module)
         description={ description }
         header={ header }
         footer={ footer }
+        cardWidth={ cardWidth }
       />
     );
   });

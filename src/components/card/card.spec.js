@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import Card from './card.component';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
@@ -18,6 +18,50 @@ describe('Card', () => {
   describe('default themes', () => {
     describe.each(defaultThemes)('when the Card is rendered', (name, theme) => {
       describe(`${name} theme`, () => {
+        describe('when width is not passed as a prop', () => {
+          const wrapper = shallow(
+            <Card
+              theme={ theme }
+            />
+          );
+          const elem = wrapper.find('[data-element="card"]');
+          it('width fills containing element', () => {
+            expect(elem).not.toHaveStyleRule('width');
+          });
+        });
+
+        describe('when width is passed as a percentage value', () => {
+          const widthPct = '50%';
+          const wrapper = TestRenderer.create(
+            <Card
+              cardWidth={ widthPct }
+              theme={ theme }
+            />
+          ).toJSON();
+
+          it(`Card has style rule of width: ${widthPct}`, () => {
+            assertStyleMatch({
+              width: widthPct
+            }, wrapper);
+          });
+        });
+
+        describe('when width is passed as a pixel value', () => {
+          const widthPx = '500px';
+          const wrapper = TestRenderer.create(
+            <Card
+              cardWidth={ widthPx }
+              theme={ theme }
+            />
+          ).toJSON();
+
+          it(`Card has style rule of width: ${widthPx}`, () => {
+            assertStyleMatch({
+              width: widthPx
+            }, wrapper);
+          });
+        });
+
         describe('when a header is not passed as a prop', () => {
           const wrapper = mount(
             <Card
