@@ -69,17 +69,17 @@ describe('Card', () => {
             />
           );
 
-          it('does not render a header', () => {
+          it('renders a header', () => {
             const elem = wrapper.find('[data-element="card-header"]');
-            expect(elem.exists()).toEqual(false);
+            expect(elem.exists()).toEqual(true);
           });
         });
 
         describe('when a header is passed as a prop', () => {
-          const headerText = 'header is passed as a prop';
+          const headerProps = ['header is passed as a prop', 'this is a subtitle', '/path/to/icon.svg'];
           const wrapper = mount(
             <Card
-              header={ headerText }
+              header={ headerProps }
               theme={ theme }
             />
           );

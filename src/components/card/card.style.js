@@ -24,7 +24,7 @@ const StyledCard = styled.div`
 }`;
 
 StyledCard.defaultProps = {
-  border: true,
+  border: false,
   cardWidth: '500px',
   theme: baseTheme
 };

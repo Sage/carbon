@@ -1,14 +1,24 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { boolean, text } from '@storybook/addon-knobs';
+import { array, boolean, text } from '@storybook/addon-knobs';
 import Card from './card.component';
 
 storiesOf('Card', module)
   .add('default', () => {
-    const description = text('description', 'this is a description');
-    const header = text('header', 'this is a header');
+    const description = array('description',
+      [{
+        primary: 'primary description text',
+        secondary: 'secondary description text',
+        tertiary: 'tertiary description text'
+      }]);
+    const header = array('header',
+      [{
+        title: 'this is a title',
+        subtitle: 'this is a subtitle',
+        icon: '/path/to/icon.svg'
+      }]);
     const footer = text('footer', 'this is a footer');
-    const border = boolean('border', true);
+    const border = boolean('border', false);
     const cardWidth = text('width', '500px');
 
 
