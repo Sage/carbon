@@ -8,7 +8,7 @@ const info = (
     <p>Tile component</p>
     <StoryHeader> Implementation</StoryHeader>
     <StoryCode>
-      {'import Tile from "carbon-react/lib/components/checkbox"'}
+      {'import Tile from "carbon-react/lib/components/tile"'}
     </StoryCode>
 
     <p>
