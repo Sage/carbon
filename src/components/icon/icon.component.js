@@ -76,7 +76,7 @@ Icon.propTypes = {
   /** Add classes to this component */
   className: PropTypes.string,
   /** Icon type */
-  type: PropTypes.string.isRequired,
+  type: PropTypes.oneOf([...OptionsHelper.icons, 'help', 'maintenance', 'new', 'success']).isRequired,
   /** Background size */
   bgSize: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   /** Background shape */

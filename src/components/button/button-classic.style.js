@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
 import { StyledIcon } from '../icon/icon.style';
+import { makeColors } from './button-types.style';
 
 export const classicColorsSet = {
   blue: {
@@ -34,15 +35,6 @@ export const classicColorsSet = {
     active: '#e6ebed'
   }
 };
-
-function makeColors(color) {
-  return `
-  color: ${color};
-  ${StyledIcon} {
-    color: ${color};
-  }
-  `;
-}
 
 const buttonStyles = (() => {
   const {
@@ -144,7 +136,7 @@ const buttonStyles = (() => {
       white: `
         background: ${white.default};
         border: 1px solid transparent;
-        ${makeColors('rgba(0,0,0, 85)')}
+        ${makeColors('rgba(0,0,0, .85)')}
         &:active {
           background-color: ${white.active};
           border-color: ${white.active}

@@ -1,5 +1,14 @@
 import { StyledIcon } from '../icon/icon.style';
 
+export function makeColors(color) {
+  return `
+  color: ${color};
+  ${StyledIcon} {
+    color: ${color};
+  }
+  `;
+}
+
 export default ({ colors, disabled }, isDisabled) => ({
   primary: `
     background: ${colors.primary};
@@ -26,10 +35,7 @@ export default ({ colors, disabled }, isDisabled) => ({
       &:hover {
         background: ${colors.secondary};
         border-color: ${colors.secondary};
-        color: ${colors.white};
-        ${StyledIcon} {
-          color: ${colors.white};
-        }
+       ${makeColors(colors.white)}
       }
 
       ${isDisabled ? `
@@ -38,10 +44,7 @@ export default ({ colors, disabled }, isDisabled) => ({
         &:hover {
           background: transparent
           border-color: ${disabled.button};
-          color: ${disabled.text};
-          ${StyledIcon} {
-            color: ${disabled.text};
-          }
+          ${makeColors(disabled.text)}
         }
     ` : ''}
   `,
@@ -50,19 +53,13 @@ export default ({ colors, disabled }, isDisabled) => ({
     border-color: transparent;
     color: ${colors.primary};
     &:hover {
-      color: ${colors.secondary};
-      ${StyledIcon} {
-        color: ${colors.secondary};
-      }
+      ${makeColors(colors.secondary)}
     }
 
     ${isDisabled ? `
       color: ${disabled.text};
       &:hover {
-        color: ${disabled.text};
-        ${StyledIcon} {
-          color: ${disabled.text};
-        }
+        ${makeColors(disabled.text)}
       }
     ` : ''}
   `,
@@ -89,10 +86,7 @@ export default ({ colors, disabled }, isDisabled) => ({
     color: ${colors.primary};
     &:hover {
       background: ${colors.secondary};
-      color: ${colors.white};
-      ${StyledIcon} {
-        color: ${colors.white};
-      }
+      ${makeColors(colors.white)}
     }
 
     ${isDisabled ? `
@@ -100,10 +94,7 @@ export default ({ colors, disabled }, isDisabled) => ({
       color: ${disabled.text};
       &:hover {
         background: ${disabled.button};
-        color: ${disabled.text};
-        ${StyledIcon} {
-          color: ${disabled.text};
-        }
+        ${makeColors(disabled.text)}
       }
     ` : ''}
   `
