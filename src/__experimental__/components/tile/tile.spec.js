@@ -3,7 +3,7 @@ import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { mount } from 'enzyme';
 import { css } from 'styled-components';
-import Tile from './tile.component';
+import Tile from '.';
 import { TileContent } from './tile.style';
 import Content from '../../../components/content';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
