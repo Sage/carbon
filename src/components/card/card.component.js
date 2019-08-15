@@ -21,12 +21,12 @@ const Card = ({
     cardWidth={ cardWidth }
     { ...props }
   >
-    { header && (
-      <CardHeader
-        header={ header }
-        theme={ theme }
-      />
-    )}
+
+    <CardHeader
+      header={ header }
+      theme={ theme }
+    />
+
     { description && (
       <CardDescription
         description={ description }
@@ -44,9 +44,9 @@ const Card = ({
 
 Card.propTypes = {
   border: propTypes.bool,
-  description: propTypes.string,
+  description: propTypes.array,
   footer: propTypes.string,
-  header: propTypes.string,
+  header: propTypes.array,
   theme: propTypes.object,
   cardWidth: propTypes.string
 };

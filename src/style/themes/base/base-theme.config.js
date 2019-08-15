@@ -48,6 +48,9 @@ export default (palette) => {
     },
 
     card: {
+      descriptionPrimary: blackWithOpacity(0.74),
+      descriptionSecondary: blackWithOpacity(0.65),
+      descriptionTertiary: blackWithOpacity(0.55),
       footerBackground: palette.slateTint(95),
       footerBorder: palette.slateTint(80)
     },
