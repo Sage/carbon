@@ -1,13 +1,16 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import {
+  POSITION_FOOTER,
+  POSITION_HEADER,
+  POSITION_MIDDLE
+} from './card.const';
 import StyledCard from './card.style';
-import CardDescription from './card-description';
-import CardHeader from './card-header';
-import CardFooter from './card-footer';
+import CardSection from './card-section';
 
 const Card = ({
   border,
-  description,
+  middle,
   footer,
   header,
   theme,
@@ -21,22 +24,29 @@ const Card = ({
     cardWidth={ cardWidth }
     { ...props }
   >
-
-    <CardHeader
-      header={ header }
-      theme={ theme }
-    />
-
-    { description && (
-      <CardDescription
-        description={ description }
+    { header && (
+      <CardSection
+        positionType={ POSITION_HEADER }
         theme={ theme }
+        primary={ header[0].title }
+        secondary={ header[0].subtitle }
+      />
+    )
+    }
+    { middle && (
+      <CardSection
+        positionType={ POSITION_MIDDLE }
+        theme={ theme }
+        primary={ middle[0].primary }
+        secondary={ middle[0].secondary }
+        tertiary={ middle[0].tertiary }
       />
     )}
     { footer && (
-      <CardFooter
-        footer={ footer }
+      <CardSection
+        positionType={ POSITION_FOOTER }
         theme={ theme }
+        primary={ footer }
       />
     )}
   </StyledCard>
@@ -44,7 +54,7 @@ const Card = ({
 
 Card.propTypes = {
   border: propTypes.bool,
-  description: propTypes.array,
+  middle: propTypes.array,
   footer: propTypes.string,
   header: propTypes.array,
   theme: propTypes.object,
