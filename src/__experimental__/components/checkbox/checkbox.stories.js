@@ -16,22 +16,42 @@ Checkbox.__docgenInfo = getDocGenInfo(
   /checkbox\.component(?!spec)/
 );
 
-const checkTypes = ['one', 'required', 'optional'];
-const checkboxes = {};
-
-checkTypes.forEach((type) => {
-  checkboxes[type] = {
-    store: new Store({ checked: false }),
+const checkboxes = {
+  one: {}, required: {}, warning: {}, info: {}, optional: {}, mandatory: {}, example: {}
+};
+const checkboxKeys = Object.keys(checkboxes);
+checkboxKeys.forEach((id) => {
+  checkboxes[id] = {
+    store: new Store({
+      check: false
+    }),
 
     validator: (value, props) => new Promise((resolve, reject) => {
-      if (value === 'required' && !props.checked) {
+      if (['required', 'mandatory'].indexOf(value) !== -1 && !props.checked) {
         reject(new Error('This checkbox is required!'));
+      } else {
+        resolve();
+      }
+    }),
+
+    warning: value => new Promise((resolve, reject) => {
+      if (['warning', 'example'].indexOf(value) !== -1) {
+        reject(new Error('Show warning!'));
+      } else {
+        resolve();
+      }
+    }),
+
+    info: value => new Promise((resolve, reject) => {
+      if (value === 'info') {
+        reject(new Error('Show this information'));
       } else {
         resolve();
       }
     })
   };
 });
+const formCheckbox = checkboxKeys.filter(name => ['one', 'name', 'mandatory', 'example'].indexOf(name) === -1);
 
 storiesOf('Experimental/Checkbox', module)
   .add('default', () => {
@@ -54,11 +74,13 @@ storiesOf('Experimental/Checkbox', module)
   .add('validations', () => {
     return (
       <Form onSubmit={ handleSubmit }>
-        {checkTypes.map(type => type !== 'one' && (
+        {formCheckbox.map(type => (
           <State store={ checkboxes[type].store } key={ `check-state-${type}` }>
             <Checkbox
               key={ `checkbox-input-${type}` }
               validations={ checkboxes[type].validator }
+              warnings={ checkboxes[type].warning }
+              info={ checkboxes[type].info }
               onChange={ ev => handleChange(ev, type) }
               name={ `my-checkbox-${type}` }
               { ...defaultKnobs(type) }
@@ -75,10 +97,10 @@ storiesOf('Experimental/Checkbox', module)
     }
   });
 
-function handleChange(ev, type = 'one') {
+function handleChange(ev, id = 'one') {
   action('change')();
 
-  checkboxes[type].store.set({
+  checkboxes[id].store.set({
     checked: ev.target.checked
   });
 }
