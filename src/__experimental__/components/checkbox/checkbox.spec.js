@@ -154,15 +154,8 @@ describe('Checkbox', () => {
       });
     });
 
-    describe('when onBlur', () => {
+    describe('when using validation props', () => {
       let wrapper;
-      jest.useFakeTimers();
-
-      function testError() {
-        return new Promise((_, reject) => {
-          reject(new Error('Checkbox error!'));
-        });
-      }
 
       beforeEach(() => {
         wrapper = mount((
@@ -173,19 +166,40 @@ describe('Checkbox', () => {
         ));
       });
 
-      it('render correct color for warnings', () => {
-        wrapper.setProps({
-          warnings: [testError]
+      describe('when hasError=true', () => {
+        it('render correct color for errors', () => {
+          wrapper.setProps({
+            hasError: true
+          });
+
+          assertStyleMatch({
+            border: `1px solid ${baseTheme.colors.error}`
+          }, wrapper, { modifier: 'svg' });
         });
+      });
 
-        wrapper.find('input').simulate('blur');
+      describe('when hasWarning=true', () => {
+        it('render correct color for warnings', () => {
+          wrapper.setProps({
+            hasWarning: true
+          });
 
-        // Wait for pending timers
-        jest.runAllTimers();
+          assertStyleMatch({
+            border: `1px solid ${baseTheme.colors.warning}`
+          }, wrapper, { modifier: 'svg' });
+        });
+      });
 
-        assertStyleMatch({
-          border: `1px solid ${baseTheme.colors.warning}`
-        }, wrapper, { modifier: 'svg' });
+      describe('when hasInfo=true', () => {
+        it('render correct color for info', () => {
+          wrapper.setProps({
+            hasInfo: true
+          });
+
+          assertStyleMatch({
+            border: `1px solid ${baseTheme.colors.info}`
+          }, wrapper, { modifier: 'svg' });
+        });
       });
     });
 
