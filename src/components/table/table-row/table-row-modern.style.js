@@ -7,9 +7,11 @@ function applyModernRowStyling({ colors, table }) {
       padding-bottom: 0px;
       background-color: ${colors.white};
     }
-    &:hover {
-      ${StyledTableCell} {
-        background-color: ${table.primary};
+    &:not(.carbon-table-row--passive) {
+      &:hover {
+        ${StyledTableCell} {
+          background-color: ${table.primary};
+        }
       }
     }
   `;
