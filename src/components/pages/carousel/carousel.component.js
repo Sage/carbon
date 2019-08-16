@@ -4,7 +4,6 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { compact, assign } from 'lodash';
 import { withTheme } from 'styled-components';
 import tagComponent from '../../../utils/helpers/tags/tags';
-import Slide from './slide/slide.component';
 import {
   CarouselWrapperStyle,
   CarouselSliderWrapper
@@ -177,4 +176,4 @@ const CarouselWithHOC = withTheme(Carousel);
 
 export default Carousel;
 
-export { CarouselWithHOC as Carousel, Slide };
+export { CarouselWithHOC as Carousel };
