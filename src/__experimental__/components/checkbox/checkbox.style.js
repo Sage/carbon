@@ -12,12 +12,18 @@ import ValidationIconStyle from '../../../components/validations/validation-icon
 const svgBorderColor = ({
   theme,
   error,
-  hasError
+  hasError,
+  hasWarning,
+  hasInfo
 }) => {
   let color = theme.colors.border;
 
   if (error || hasError) {
     color = theme.colors.error;
+  } else if (hasWarning) {
+    color = theme.colors.warning;
+  } else if (hasInfo) {
+    color = theme.colors.info;
   }
 
   return `1px solid ${color}`;
@@ -71,6 +77,13 @@ const CheckboxStyle = styled.div`
       margin-left: 16px;
       margin-top: 0;
       padding-left: 6px;
+    }
+
+    ${ValidationIconStyle} {
+      display: inline-block;
+      margin-left: 10px;
+      margin-top: -4px;
+      vertical-align: middle;
     }
 
     ${size === 'large' && css`
@@ -152,13 +165,6 @@ const CheckboxStyle = styled.div`
 
     ${checkBoxClassicStyle}
   `}
-
-  ${ValidationIconStyle} {
-    display: inline-block;
-    margin-left: 10px;
-    margin-top: -4px;
-    vertical-align: middle;
-  }
 `;
 
 CheckboxStyle.defaultProps = {
