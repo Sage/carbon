@@ -29,7 +29,6 @@ class Carousel extends React.Component {
   }
 
   state = {
-    // previousSlideIndex: Number(this.props.slideIndex) || Number(this.props.initialSlideIndex), // Currently selected slide
     selectedSlideIndex: Number(this.props.slideIndex) || Number(this.props.initialSlideIndex), // Currently selected slide
   };
 
@@ -51,7 +50,6 @@ class Carousel extends React.Component {
     }
 
     this.setState({
-      // previousSlideIndex: prevProps.slideIndex, 
       selectedSlideIndex: newIndex
     });
   }
@@ -158,11 +156,6 @@ Carousel.propTypes = {
     PropTypes.number,
     PropTypes.string
   ]),
-  /** The previous slide */
-  // previousSlideIndex: PropTypes.oneOfType([
-  //   PropTypes.number,
-  //   PropTypes.string
-  // ]),
   /** Individual tabs */
   children: PropTypes.oneOfType([
     PropTypes.array,
