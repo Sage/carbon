@@ -70,7 +70,8 @@ describe('Icon component', () => {
     { prop: 'help', rendersAs: 'question' },
     { prop: 'maintenance', rendersAs: 'settings' },
     { prop: 'new', rendersAs: 'gift' },
-    { prop: 'success', rendersAs: 'tick' }
+    { prop: 'success', rendersAs: 'tick' },
+    { prop: 'messages', rendersAs: 'message' }
   ];
 
   describe.each(mismatchedPairs)(
