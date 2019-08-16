@@ -1,5 +1,6 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
+import { mount } from 'enzyme';
 import 'jest-styled-components';
 import { css } from 'styled-components';
 import Checkbox from './checkbox.component';
@@ -20,13 +21,14 @@ import baseTheme from '../../../style/themes/base';
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
 
-function render(props) {
-  return TestRenderer.create(
+function render(props, renderer = TestRenderer.create, options = {}) {
+  return renderer(
     <Checkbox
       name='my-checkbox'
       value='test'
       { ...props }
-    />
+    />,
+    options
   );
 }
 
@@ -148,6 +150,41 @@ describe('Checkbox', () => {
 
         assertStyleMatch({
           border: `1px solid ${baseTheme.colors.error}`
+        }, wrapper, { modifier: 'svg' });
+      });
+    });
+
+    describe('when onBlur', () => {
+      let wrapper;
+      jest.useFakeTimers();
+
+      function testError() {
+        return new Promise((_, reject) => {
+          reject(new Error('Checkbox error!'));
+        });
+      }
+
+      beforeEach(() => {
+        wrapper = mount((
+          <Checkbox
+            name='checkbox-warning'
+            value='my-value'
+          />
+        ));
+      });
+
+      it('render correct color for warnings', () => {
+        wrapper.setProps({
+          warnings: [testError]
+        });
+
+        wrapper.find('input').simulate('blur');
+
+        // Wait for pending timers
+        jest.runAllTimers();
+
+        assertStyleMatch({
+          border: `1px solid ${baseTheme.colors.warning}`
         }, wrapper, { modifier: 'svg' });
       });
     });
