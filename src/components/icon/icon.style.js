@@ -53,6 +53,12 @@ const getIconColor = (bgTheme, theme, iconColor, disabled, isHover) => {
   }
 };
 
+function adjustIconBgSize(fontSize, bgSize) {
+  if (fontSize === 'large' && bgSize === 'small') return iconSizeConfig.backgroundSize.medium;
+
+  return iconSizeConfig.backgroundSize[bgSize];
+}
+
 const StyledIcon = styled.span`
   ${({
     bgTheme, theme, iconColor, bgSize, bgShape, isFont, type, fontSize, disabled
@@ -68,13 +74,13 @@ const StyledIcon = styled.span`
     }
 
     ${bgTheme !== 'none' && css`
-        align-items: center;
-        display: inline-flex;
-        justify-content: center;
-        height: ${iconSizeConfig.backgroundSize[bgSize]};
-        width: ${iconSizeConfig.backgroundSize[bgSize]};
-        border-radius: ${iconSizeConfig.backgroundShape[bgShape]};
-      `}
+      align-items: center;
+      display: inline-flex;
+      justify-content: center;
+      height: ${adjustIconBgSize(fontSize, bgSize)};
+      width: ${adjustIconBgSize(fontSize, bgSize)};
+      border-radius: ${iconSizeConfig.backgroundShape[bgShape]};
+    `}
 
     ${isFont && css`
       &::before {
@@ -117,7 +123,7 @@ const StyledSvgIconWrapper = styled.span`
     
     svg {
       fill: currentColor;
-      width: ${iconSizeConfig.iconSize[fontSize]};
+      width: 90;
       height: ${iconSizeConfig.iconSize[fontSize]};
     }
   `}

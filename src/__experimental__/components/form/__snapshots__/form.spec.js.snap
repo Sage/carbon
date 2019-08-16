@@ -252,6 +252,10 @@ exports[`Form When child is an html element it renders the child 1`] = `
   margin-bottom: 32px;
 }
 
+.c0 [data-component='icon'].common-input__icon {
+  height: 19px;
+}
+
 .c18 .c5 {
   -webkit-align-items: center;
   -webkit-box-align: center;

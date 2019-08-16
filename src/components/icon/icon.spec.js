@@ -197,6 +197,19 @@ describe('Icon component', () => {
         );
       });
 
+      describe('fontSize is "large" and bgSize is "small"', () => {
+        it('adjusts bgSize to "medium"', () => {
+          const wrapper = renderStyles({ fontSize: 'large', bgTheme: 'foo', bgSize: 'small' });
+          assertStyleMatch(
+            {
+              height: '32px',
+              width: '32px'
+            },
+            wrapper.toJSON()
+          );
+        });
+      });
+
       it('renders dark icon when iconColor is set to business-color', () => {
         const wrapper = renderStyles({ iconColor: 'business-color', bgTheme: 'none' });
         assertStyleMatch(
