@@ -5,7 +5,7 @@ import Card from './card.component';
 
 storiesOf('Card', module)
   .add('default', () => {
-    const description = array('description',
+    const middle = array('middle',
       [{
         primary: 'primary description text',
         secondary: 'secondary description text',
@@ -25,7 +25,7 @@ storiesOf('Card', module)
     return (
       <Card
         border={ border }
-        description={ description }
+        middle={ middle }
         header={ header }
         footer={ footer }
         cardWidth={ cardWidth }
