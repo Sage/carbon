@@ -88,7 +88,7 @@ storiesOf('Pages', module)
                 <Pages
                   slideIndex={ store.get('slideIndex') }
                 >
-                  <Page title={ <Heading title='My First Page' backLink={ (ev) => { handlePreviousSlide(ev) } } /> }>
+                  <Page title={ <Heading title='My First Page' /> }>
                     <Button onClick={ (ev) => { handleSlide(ev, 1) } }>
                       Go to second page
                     </Button>
