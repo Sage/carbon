@@ -29,12 +29,24 @@ Pages.__docgenInfo = getDocGenInfo(
 
 const store = new Store({
   open: false,
-  slideIndex: 0
+  slideIndex: 0,
+  slideHistory: [],
+  previousSlideHistoryPointer: 0
 });
 
 const handleSlide = (ev, pageIndex) => {
   action('slide')(ev);
+  store.set({ slideHistory: [...store.get('slideHistory'), store.get('slideIndex')] });
   store.set({ slideIndex: (pageIndex || 0) });
+  store.set({ previousSlideHistoryPointer: store.get('slideHistory').length });
+};
+
+const handlePreviousSlide = (ev) => {
+  ev.preventDefault();
+  action('previous-slide')(ev);
+  let pointer = (store.get('previousSlideHistoryPointer') - 1) > 0 ? (store.get('previousSlideHistoryPointer') - 1) : 0;
+  store.set({ slideIndex: pointer });
+  store.set({ previousSlideHistoryPointer: pointer });
 };
 
 const handleOpen = () => {
