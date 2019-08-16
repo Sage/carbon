@@ -20,12 +20,7 @@ class Pages extends React.Component {
           className={ pagesClasses(this.props) }
           initialSlideIndex={ this.props.initialSlideIndex }
           slideIndex={ this.props.slideIndex }
-          enableSlideSelector={ this.props.enableSlideSelector }
-          enablePreviousButton={ this.props.enablePreviousButton }
-          enableNextButton={ this.props.enableNextButton }
           transition={ this.props.transition }
-          onNextClick={ this.props.onNextClickk }
-          onPreviousClick={ this.props.onPreviousClick }
           { ...tagComponent('pages', this.props) }
         >
           { this.props.children }
@@ -53,9 +48,6 @@ Pages.propTypes = {
 Pages.defaultProps = {
   initialSlideIndex: 0,
   slideIndex: 0,
-  enableSlideSelector: false,
-  enablePreviousButton: false,
-  enableNextButton: false,
   transition: 'slide',
   theme: baseTheme
 };

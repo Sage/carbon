@@ -28,12 +28,24 @@ Pages.__docgenInfo = getDocGenInfo(
 
 const store = new Store({
   open: false,
-  slideIndex: 0
+  slideIndex: 0,
+  slideHistory: [],
+  previousSlideHistoryPointer: 0
 });
 
 const handleSlide = (ev, pageIndex) => {
   action('slide')(ev);
+  store.set({ slideHistory: [...store.get('slideHistory'), store.get('slideIndex')] });
   store.set({ slideIndex: (pageIndex || 0) });
+  store.set({ previousSlideHistoryPointer: store.get('slideHistory').length });
+};
+
+const handlePreviousSlide = (ev) => {
+  ev.preventDefault();
+  action('previous-slide')(ev);
+  let pointer = (store.get('previousSlideHistoryPointer') - 1) > 0 ? (store.get('previousSlideHistoryPointer') - 1) : 0;
+  store.set({ slideIndex: pointer });
+  store.set({ previousSlideHistoryPointer: pointer });
 };
 
 const handleOpen = () => {
@@ -76,7 +88,7 @@ storiesOf('Pages', module)
                 <Pages
                   slideIndex={ store.get('slideIndex') }
                 >
-                  <Page title={ <Heading title='My First Page' /> }>
+                  <Page title={ <Heading title='My First Page' backLink={ (ev) => { handlePreviousSlide(ev) } } /> }>
                     <Button onClick={ (ev) => { handleSlide(ev, 1) } }>
                       Go to second page
                     </Button>
@@ -85,7 +97,7 @@ storiesOf('Pages', module)
                     </Button>
                   </Page>
 
-                  <Page title={ <Heading title='My Second Page' backLink={ (ev) => { handleSlide(ev, 0); } } /> }>
+                  <Page title={ <Heading title='My Second Page' backLink={ (ev) => { handlePreviousSlide(ev) } } /> }>
                     <Button onClick={ (ev) => { handleSlide(ev, 0) } }>
                       Go to first page
                     </Button>
@@ -94,12 +106,12 @@ storiesOf('Pages', module)
                     </Button>
                   </Page>
 
-                  <Page title={ <Heading title='My Third Page' /> }>
-                    <Button onClick={ (ev) => { handleSlide(ev, 1) } }>
-                      Go to second page
-                    </Button>
+                  <Page title={ <Heading title='My Third Page' backLink={ (ev) => { handlePreviousSlide(ev) } } /> }>
                     <Button onClick={ (ev) => { handleSlide(ev, 0) } }>
                       Go to first page
+                    </Button>
+                    <Button onClick={ (ev) => { handleSlide(ev, 1) } }>
+                      Go to second page
                     </Button>
                   </Page>
                 </Pages>
