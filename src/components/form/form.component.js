@@ -315,6 +315,7 @@ class FormWithoutValidations extends React.Component {
     return (
       <StyledFormFooter buttonAlign={ this.props.buttonAlign }>
         <StyledResponsiveFooterWrapper
+          data-element='form-footer'
           buttonAlign={ this.props.buttonAlign }
           showSummary={ this.props.showSummary }
           borderWidth={ padding }

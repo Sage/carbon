@@ -5,6 +5,8 @@ Feature: Configurable Items component
     Given I open "Configurable Items" component iframe
 
   @positive
+  @ignore
+  @FE-1915
   Scenario Outline: Drag record inside Configurable Items to <destinationId> position
     When I drag Configurable Items "<record>" to <destinationId>
     Then Configurable Items "<record>" is dragged to <destinationId>
