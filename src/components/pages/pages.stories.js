@@ -7,15 +7,11 @@ import { State, Store } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import { Pages, Page } from './pages.component';
 import DialogFullScreen from '../dialog-full-screen';
-import { text, select, boolean } from '@storybook/addon-knobs';
-import OptionsHelper from '../../utils/helpers/options-helper';
 import Heading from '../heading/heading';
 import Button from '../button';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 import docgenInfo from './docgenInfo.json';
-import { THEMES } from '../../style/themes';
 import classic from '../../style/themes/classic';
-import { notes, Info } from './documentation';
 
 Page.__docgenInfo = getDocGenInfo(
   docgenInfo,
@@ -36,17 +32,25 @@ const store = new Store({
 
 const handleSlide = (ev, pageIndex) => {
   action('slide')(ev);
-  store.set({ slideHistory: [...store.get('slideHistory'), store.get('slideIndex')] });
-  store.set({ slideIndex: (pageIndex || 0) });
-  store.set({ previousSlideHistoryPointer: store.get('slideHistory').length });
+  const newSlideHistory = [...store.get('slideHistory'), store.get('slideIndex')];
+
+  store.set({
+    slideHistory: newSlideHistory,
+    slideIndex: (pageIndex || 0),
+    previousSlideHistoryPointer: newSlideHistory.length
+  });
 };
 
 const handlePreviousSlide = (ev) => {
   ev.preventDefault();
   action('previous-slide')(ev);
-  let pointer = (store.get('previousSlideHistoryPointer') - 1) > 0 ? (store.get('previousSlideHistoryPointer') - 1) : 0;
-  store.set({ slideIndex: pointer });
-  store.set({ previousSlideHistoryPointer: pointer });
+  const previouHistoryPointer = store.get('previousSlideHistoryPointer');
+  const pointer = (previouHistoryPointer - 1) > 0 ? (previouHistoryPointer - 1) : 0;
+
+  store.set({
+    slideIndex: pointer,
+    previousSlideHistoryPointer: pointer
+  });
 };
 
 const handleOpen = () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Page } from './../pages';
+import { Page } from './page.component';
 import FullScreenHeading from './../../dialog-full-screen/full-screen-heading';
 import AppWrapper from './../../app-wrapper';
 

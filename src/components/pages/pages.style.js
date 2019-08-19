@@ -1,8 +1,5 @@
-import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
-import { isClassic } from '../../utils/helpers/style-helper';
+import styled from 'styled-components';
 import BaseTheme from '../../style/themes/base';
-import OptionsHelper from '../../utils/helpers/options-helper';
 
 const StyledPagesCarousel = styled.label`
   .carbon-pages {

@@ -2,8 +2,9 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { shallow, mount } from 'enzyme';
-import BaseCarousel, { Carousel, Slide } from './carousel.component';
-import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
+import BaseCarousel, { Carousel } from './carousel.component';
+import Page from '../page/page.component';
+import { rootTagTest } from '../../../utils/helpers/tags/tags-specs/tags-specs';
 import {
   CarouselStyledIconLeft,
   CarouselSelectorInputStyle,
@@ -17,8 +18,8 @@ import {
   CarouselSelectorInputWrapperStyle,
   CarouselNextButtonWrapperStyle
 } from './carousel.style';
-import classicTheme from '../../style/themes/classic';
-import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import classicTheme from '../../../style/themes/classic';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import 'jest-styled-components';
 /* global jest */
 
@@ -28,9 +29,9 @@ describe('BaseCarousel', () => {
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
       <BaseCarousel theme={ classicTheme } className='foobar'>
-        <Slide />
-        <Slide />
-        <Slide />
+        <Page />
+        <Page />
+        <Page />
       </BaseCarousel>
     );
   });
@@ -40,9 +41,9 @@ describe('BaseCarousel', () => {
       it('sets the intial slide to the prop', () => {
         const wrapper = shallow(
           <BaseCarousel slideIndex={ 1 }>
-            <Slide />
-            <Slide />
-            <Slide />
+            <Page />
+            <Page />
+            <Page />
           </BaseCarousel>
         );
 
@@ -54,9 +55,9 @@ describe('BaseCarousel', () => {
       it('sets the intial slide to the prop', () => {
         const wrapper = shallow(
           <BaseCarousel initialSlideIndex={ 2 }>
-            <Slide />
-            <Slide />
-            <Slide />
+            <Page />
+            <Page />
+            <Page />
           </BaseCarousel>
         );
 
@@ -68,9 +69,9 @@ describe('BaseCarousel', () => {
       it('defaults the initial slide to slide 0', () => {
         const wrapper = shallow(
           <BaseCarousel theme={ classicTheme }>
-            <Slide />
-            <Slide />
-            <Slide />
+            <Page />
+            <Page />
+            <Page />
           </BaseCarousel>
         );
 
@@ -83,9 +84,9 @@ describe('BaseCarousel', () => {
     const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
         wrapper = shallow(
           <BaseCarousel theme={ classicTheme } initialSlideIndex={ 0 }>
-            <Slide />
-            <Slide />
-            <Slide />
+            <Page />
+            <Page />
+            <Page />
           </BaseCarousel>
         );
 
@@ -175,9 +176,9 @@ describe('BaseCarousel', () => {
     const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
         wrapper = shallow(
           <BaseCarousel theme={ classicTheme } initialSlideIndex={ 0 }>
-            <Slide />
-            <Slide />
-            <Slide />
+            <Page />
+            <Page />
+            <Page />
           </BaseCarousel>
         );
 
@@ -227,9 +228,9 @@ describe('BaseCarousel', () => {
     const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
         wrapper = shallow(
           <BaseCarousel theme={ classicTheme } initialSlideIndex={ 0 }>
-            <Slide />
-            <Slide />
-            <Slide />
+            <Page />
+            <Page />
+            <Page />
           </BaseCarousel>
         );
 
@@ -279,9 +280,9 @@ describe('BaseCarousel', () => {
     const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
         wrapper = shallow(
           <BaseCarousel theme={ classicTheme } initialSlideIndex={ 0 }>
-            <Slide />
-            <Slide />
-            <Slide />
+            <Page />
+            <Page />
+            <Page />
           </BaseCarousel>
         );
 
@@ -353,7 +354,7 @@ describe('BaseCarousel', () => {
       it('returns 1', () => {
         instance = TestUtils.renderIntoDocument(
           <BaseCarousel theme={ classicTheme } className='foobar'>
-            <Slide />
+            <Page />
           </BaseCarousel>
         );
 
@@ -369,31 +370,31 @@ describe('BaseCarousel', () => {
   });
 
   describe('visibleSlides', () => {
-    let slide, wrapper;
+    let page, wrapper;
 
     beforeEach(() => {
       wrapper = shallow(
         <BaseCarousel theme={ classicTheme }>
-          <Slide />
+          <Page />
         </BaseCarousel>
       );
 
-      slide = wrapper.instance().visibleSlide();
+      page = wrapper.instance().visibleSlide();
     });
 
-    it('returns a slide instance', () => {
-      expect(slide.type).toEqual(Slide);
+    it('returns a page instance', () => {
+      expect(page.type).toEqual(Page);
     });
 
     it('adds an active and a padded classes', () => {
-      expect(wrapper.find(Slide).props().isPadded).toBe(true);
+      expect(wrapper.find(Page).props().isPadded).toBe(true);
     });
 
     describe('when the previous button is disabled', () => {
       it('adds a padded classes', () => {
         wrapper.setProps({ enablePreviousButton: false });
 
-        expect(wrapper.find(Slide).props().isPadded).toBe(true);
+        expect(wrapper.find(Page).props().isPadded).toBe(true);
       });
     });
 
@@ -401,7 +402,7 @@ describe('BaseCarousel', () => {
       it('adds a padded classes', () => {
         wrapper.setProps({ enableNextButton: false });
 
-        expect(wrapper.find(Slide).props().isPadded).toBe(true);
+        expect(wrapper.find(Page).props().isPadded).toBe(true);
       });
     });
   });
@@ -410,9 +411,9 @@ describe('BaseCarousel', () => {
     describe('when enableSlideSelector is set to true', () => {
       const wrapper = shallow(
         <BaseCarousel theme={ classicTheme } initialSlideIndex={ 0 }>
-          <Slide />
-          <Slide />
-          <Slide />
+          <Page />
+          <Page />
+          <Page />
         </BaseCarousel>
       );
 
@@ -430,7 +431,7 @@ describe('BaseCarousel', () => {
           theme={ classicTheme } initialSlideIndex={ 0 }
           enableSlideSelector={ false }
         >
-          <Slide />
+          <Page />
         </BaseCarousel>
       );
 
@@ -445,7 +446,7 @@ describe('BaseCarousel', () => {
     describe('when enablePreviousButton is set to true', () => {
       const wrapper = shallow(
         <BaseCarousel theme={ classicTheme } initialSlideIndex={ 0 }>
-          <Slide />
+          <Page />
         </BaseCarousel>
       );
 
@@ -461,7 +462,7 @@ describe('BaseCarousel', () => {
           theme={ classicTheme } initialSlideIndex={ 0 }
           enablePreviousButton={ false }
         >
-          <Slide />
+          <Page />
         </BaseCarousel>
       );
 
@@ -476,7 +477,7 @@ describe('BaseCarousel', () => {
     describe('when enableNextButton is set to true', () => {
       const wrapper = shallow(
         <BaseCarousel theme={ classicTheme } initialSlideIndex={ 0 }>
-          <Slide />
+          <Page />
         </BaseCarousel>
       );
 
@@ -492,7 +493,7 @@ describe('BaseCarousel', () => {
           theme={ classicTheme } initialSlideIndex={ 0 }
           enableNextButton={ false }
         >
-          <Slide />
+          <Page />
         </BaseCarousel>
       );
 
@@ -511,7 +512,7 @@ describe('BaseCarousel', () => {
           data-element='bar' data-role='baz'
           initialSlideIndex={ 0 }
         >
-          <Slide />
+          <Page />
         </BaseCarousel>
       );
 
@@ -523,7 +524,7 @@ describe('BaseCarousel', () => {
     describe('on internal elements', () => {
       const wrapper = mount(
         <BaseCarousel theme={ classicTheme } initialSlideIndex={ 0 }>
-          <Slide data-element='slide' />
+          <Page data-element='slide' />
         </BaseCarousel>
       );
 
@@ -538,7 +539,7 @@ describe('BaseCarousel', () => {
     it('uses a custom name if supplied', () => {
       const wrapper = shallow(
         <BaseCarousel theme={ classicTheme } transition='foo'>
-          <Slide />
+          <Page />
         </BaseCarousel>
       );
 
@@ -554,8 +555,8 @@ describe('When button get click', () => {
   it('should not change state of disabled', () => {
     wrapper = mount(
       <Carousel initialSlideIndex={ 0 }>
-        <Slide />
-        <Slide />
+        <Page />
+        <Page />
       </Carousel>
     );
     wrapper.find(CarouselButtonStyle).at(1).simulate('click');
@@ -670,7 +671,7 @@ describe('SlideStyle', () => {
   let wrapper;
 
   it('should render matched style', () => {
-    wrapper = mount(<Slide onClick={ () => {} } style={ classicTheme } />);
+    wrapper = mount(<Page onClick={ () => {} } style={ classicTheme } />);
     assertStyleMatch({
       transition: 'all 0.2s ease-in',
       transform: 'scale(1.02)',
