@@ -71,6 +71,11 @@ Tile.propTypes = {
    */
   padding: PropTypes.oneOf(OptionsHelper.sizesPod),
   /**
+   * Set a pixel with for the Tile component. If both are set to non-zero values, this
+   * takes precedence over the percentage-based "width" prop.
+   */
+  pixelWidth: PropTypes.number,
+  /**
    * Set a percentage-based width for the whole Tile component, relative to its parent.
    * If unset or zero, this will default to 100%.
    */

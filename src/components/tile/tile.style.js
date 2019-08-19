@@ -18,7 +18,7 @@ const TileContent = styled.div`
     position: relative;
     flex-grow: 1;
 
-    ${width && width !== 0 && `
+    ${Boolean(width && width !== 0) && `
       flex-grow: 0;
       width: ${width}%;
     `}
@@ -27,7 +27,7 @@ const TileContent = styled.div`
 
 const StyledTile = styled.div`
   ${({
-    orientation, padding, tileTheme, theme, width
+    orientation, padding, pixelWidth, tileTheme, theme, width
   }) => css`
     background-color: ${tileTheme === 'tile' ? theme.colors.white : 'transparent'};
     border: 1px solid ${theme.tile.border};
@@ -35,18 +35,17 @@ const StyledTile = styled.div`
     flex-direction: ${isHorizontal(orientation) ? 'row' : 'column'};
     padding: ${paddingSizes[padding]};
     position: relative;
-    width: ${(width && width !== 0) ? `${width}` : '100'}%;
+    width: 100%;
+
+    ${Boolean(width && width !== 0) && `width: ${width}%;`}
+    ${Boolean(pixelWidth && pixelWidth !== 0) && `width: ${pixelWidth}px;`}
 
     ${TileContent} {
       box-sizing: border-box;
 
       ${isHorizontal(orientation) && 'display: inline;'}
 
-<<<<<<< Updated upstream:src/components/tile/tile.style.js
-      ${isVertical(orientation) && 'width: auto'};
-=======
       ${isVertical(orientation) && 'width: auto;'}
->>>>>>> Stashed changes:src/components/tile/tile.style.js
 
       &:not(:last-of-type) {
         padding-${isHorizontal(orientation) ? 'right' : 'bottom'}: ${paddingSizes[padding]};
