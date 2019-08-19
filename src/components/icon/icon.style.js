@@ -94,6 +94,10 @@ const StyledIcon = styled.span`
         font-weight: normal;
         line-height: ${iconSizeConfig.iconSize[fontSize]};
         vertical-align: middle;
+
+        ${type === 'services' && css`
+          margin-top: ${fontSize === 'small' ? '-7px' : '-8px'};
+        `}
       }
     `}
 

@@ -112,6 +112,34 @@ describe('Icon component', () => {
     }
   );
 
+  describe('when the icon type is "sevices', () => {
+    it('it applies additional margin-top styling when the fontSize is "small"', () => {
+      const wrapper = renderStyles({
+        type: 'services', theme: classicTheme, isFont: true, fontSize: 'small'
+      });
+      assertStyleMatch(
+        {
+          marginTop: '-7px'
+        },
+        wrapper.toJSON(),
+        { modifier: '&::before' }
+      );
+    });
+
+    it('it applies additional margin-top styling when the fontSize is "large"', () => {
+      const wrapper = renderStyles({
+        type: 'services', theme: classicTheme, isFont: true, fontSize: 'large'
+      });
+      assertStyleMatch(
+        {
+          marginTop: '-8px'
+        },
+        wrapper.toJSON(),
+        { modifier: '&::before' }
+      );
+    });
+  });
+
   describe('with custom class name', () => {
     it('renders with a custom classname', () => {
       const wrapper = render({ className: 'testClass' });
