@@ -145,16 +145,6 @@ describe('Checkbox', () => {
       });
     });
 
-    describe('when error=true', () => {
-      it('renders the correct svg styles', () => {
-        const wrapper = render({ error: true }).toJSON();
-
-        assertStyleMatch({
-          border: `1px solid ${baseTheme.colors.error}`
-        }, wrapper, { modifier: 'svg' });
-      });
-    });
-
     describe('when using validation props', () => {
       let wrapper;
 
