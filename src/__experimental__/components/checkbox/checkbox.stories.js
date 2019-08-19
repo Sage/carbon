@@ -10,6 +10,7 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import Checkbox from '.';
 import { info, notes, infoValidations } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
+import CheckboxGroup from './checkbox-group.component';
 
 Checkbox.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -52,6 +53,7 @@ checkboxKeys.forEach((id) => {
   };
 });
 const formCheckbox = checkboxKeys.filter(name => ['one', 'name', 'mandatory', 'example'].indexOf(name) === -1);
+const groupCheckbox = checkboxKeys.filter(name => ['mandatory', 'example'].indexOf(name) !== -1);
 
 storiesOf('Experimental/Checkbox', module)
   .add('default', () => {
@@ -73,21 +75,42 @@ storiesOf('Experimental/Checkbox', module)
   })
   .add('validations', () => {
     return (
-      <Form onSubmit={ handleSubmit }>
-        {formCheckbox.map(type => (
-          <State store={ checkboxes[type].store } key={ `check-state-${type}` }>
+      <React.Fragment>
+        <h3>In Form</h3>
+        <Form onSubmit={ handleSubmit }>
+          {formCheckbox.map(type => (
+            <State store={ checkboxes[type].store } key={ `check-state-${type}` }>
+              <Checkbox
+                key={ `checkbox-input-${type}` }
+                validations={ checkboxes[type].validator }
+                warnings={ checkboxes[type].warning }
+                info={ checkboxes[type].info }
+                onChange={ ev => handleChange(ev, type) }
+                name={ `my-checkbox-${type}` }
+                { ...defaultKnobs(type) }
+              />
+            </State>
+          ))}
+        </Form>
+
+        <h3>In Group</h3>
+        <CheckboxGroup
+          groupName='checkbox-group'
+          label='What would you choose?'
+          validations={ checkboxes.one.validator }
+          warnings={ checkboxes.one.warning }
+          info={ checkboxes.one.info }
+        >
+          {groupCheckbox.map(id => (
             <Checkbox
-              key={ `checkbox-input-${type}` }
-              validations={ checkboxes[type].validator }
-              warnings={ checkboxes[type].warning }
-              info={ checkboxes[type].info }
-              onChange={ ev => handleChange(ev, type) }
-              name={ `my-checkbox-${type}` }
-              { ...defaultKnobs(type) }
+              key={ `checkbox-input-${id}` }
+              name={ `my-checkbox-${id}` }
+              onChange={ ev => handleChange(ev, id) }
+              { ...defaultKnobs(id) }
             />
-          </State>
-        ))}
-      </Form>
+          ))}
+        </CheckboxGroup>
+      </React.Fragment>
     );
   }, {
     info: {

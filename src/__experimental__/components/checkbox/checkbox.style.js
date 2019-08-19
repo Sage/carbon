@@ -11,14 +11,13 @@ import ValidationIconStyle from '../../../components/validations/validation-icon
 
 const svgBorderColor = ({
   theme,
-  error,
   hasError,
   hasWarning,
   hasInfo
 }) => {
   let color = theme.colors.border;
 
-  if (error || hasError) {
+  if (hasError) {
     color = theme.colors.error;
   } else if (hasWarning) {
     color = theme.colors.warning;
@@ -182,5 +181,13 @@ CheckboxStyle.propTypes = {
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   size: PropTypes.string
 };
+
+export const StyledCheckboxGroup = styled.div`
+  & > ${LabelStyle} {
+    cursor: default ;
+    margin-bottom: 16px;
+    padding: 0;
+  }
+`;
 
 export default CheckboxStyle;
