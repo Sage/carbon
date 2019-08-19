@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Pages, Page } from './pages';
+import { Pages, Page } from './pages.component';
 import { Carousel } from './../carousel';
 
 describe('Pages', () => {

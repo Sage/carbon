@@ -1,34 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Carousel } from './carousel/carousel.component';
 import { withTheme } from 'styled-components';
-import baseTheme from '../../style/themes/base';
 import classNames from 'classnames';
 import tagComponent from '../../utils/helpers/tags';
 import Page from './page/page.component';
 import StyledPagesCarousel from './pages.style';
+import { Carousel } from './carousel/carousel.component';
 
-const pagesClasses = (props) => {
-  return classNames('carbon-pages', props.className);
+const Pages = ({
+  className,
+  initialSlideIndex,
+  slideIndex,
+  transition,
+  children,
+  ...props
+}) => {
+  return (
+    <StyledPagesCarousel>
+      <Carousel
+        className={ classNames('carbon-pages', className) }
+        initialSlideIndex={ initialSlideIndex }
+        slideIndex={ slideIndex }
+        transition={ transition }
+        { ...tagComponent('pages', props) }
+      >
+        { children }
+      </Carousel>
+    </StyledPagesCarousel>
+  );
 };
-
-class Pages extends React.Component {
-  render() {
-    return(
-      <StyledPagesCarousel>
-        <Carousel
-          className={ pagesClasses(this.props) }
-          initialSlideIndex={ this.props.initialSlideIndex }
-          slideIndex={ this.props.slideIndex }
-          transition={ this.props.transition }
-          { ...tagComponent('pages', this.props) }
-        >
-          { this.props.children }
-        </Carousel>
-      </StyledPagesCarousel>
-    );
-  }
-}
 
 Pages.propTypes = {
   /**
@@ -42,14 +42,16 @@ Pages.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object
-  ])
+  ]),
+  initialSlideIndex: PropTypes.number,
+  slideIndex: PropTypes.number,
+  transition: PropTypes.string
 };
 
 Pages.defaultProps = {
   initialSlideIndex: 0,
   slideIndex: 0,
-  transition: 'slide',
-  theme: baseTheme
+  transition: 'slide'
 };
 
 const PagesWithHOC = withTheme(Pages);

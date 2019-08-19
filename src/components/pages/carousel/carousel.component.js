@@ -28,7 +28,8 @@ class Carousel extends React.Component {
   }
 
   state = {
-    selectedSlideIndex: Number(this.props.slideIndex) || Number(this.props.initialSlideIndex), // Currently selected slide
+    // Currently selected slide
+    selectedSlideIndex: Number(this.props.slideIndex) || Number(this.props.initialSlideIndex)
   };
 
   /** A lifecycle method that is called before re-render. */
@@ -48,6 +49,10 @@ class Carousel extends React.Component {
       this.transitionDirection = PREVIOUS;
     }
 
+    this.handleStateUpdate(newIndex);
+  }
+
+  handleStateUpdate(newIndex) {
     this.setState({
       selectedSlideIndex: newIndex
     });
