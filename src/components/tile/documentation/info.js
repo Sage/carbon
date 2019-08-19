@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   StoryHeader, StoryCode, StoryCodeBlock
-} from '../../../../../.storybook/style/storybook-info.styles';
+} from '../../../../.storybook/style/storybook-info.styles';
 
 const info = (
   <div>
