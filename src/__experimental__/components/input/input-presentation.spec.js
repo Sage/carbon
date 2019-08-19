@@ -1,8 +1,9 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
+import { ThemeProvider } from 'styled-components';
 import 'jest-styled-components';
 import { shallow, mount } from 'enzyme';
-import { InputPresentation, Input } from '.';
+import { InputPresentation } from '.';
 import InputPresentationStyle from './input-presentation.style';
 import baseTheme from '../../../style/themes/base';
 import sizes from './input-sizes.style';
@@ -10,21 +11,9 @@ import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import classicTheme from '../../../style/themes/classic';
 
-const mountRender = (props) => {
-  return mount(<InputPresentation { ...props }><Input /></InputPresentation>);
-};
-
 describe('InputPresentation', () => {
-  const shallowRender = (props, renderer = shallow) => {
-    return renderer(
-      <InputPresentation { ...props }>
-        sample children
-      </InputPresentation>
-    );
-  };
-
   it('renders presentational div and context provider for its children', () => {
-    expect(shallowRender({}, TestRenderer.create)).toMatchSnapshot();
+    expect(render({}, TestRenderer.create)).toMatchSnapshot();
   });
 
   describe('style', () => {
@@ -35,7 +24,7 @@ describe('InputPresentation', () => {
             minHeight: sizes[size].height,
             paddingLeft: sizes[size].padding,
             paddingRight: sizes[size].padding
-          }, mountRender({ size }));
+          }, render({ size }));
         });
       });
     });
@@ -44,7 +33,7 @@ describe('InputPresentation', () => {
       it('renders correctly with a custom width', () => {
         assertStyleMatch({
           flex: '0 0 54%'
-        }, mountRender({ inputWidth: 54 }));
+        }, render({ inputWidth: 54 }));
       });
     });
 
@@ -60,7 +49,7 @@ describe('InputPresentation', () => {
         assertStyleMatch({
           borderColor: `${baseTheme.colors[expectedColor]} !important`,
           boxShadow
-        }, mountRender({ [validationProp]: true }));
+        }, render({ [validationProp]: true }));
       });
     });
 
@@ -70,7 +59,7 @@ describe('InputPresentation', () => {
           background: baseTheme.disabled.input,
           borderColor: baseTheme.disabled.border,
           cursor: 'not-allowed'
-        }, mountRender({ disabled: true }));
+        }, render({ disabled: true }));
       });
     });
 
@@ -79,7 +68,7 @@ describe('InputPresentation', () => {
         assertStyleMatch({
           background: 'transparent !important',
           borderColor: 'transparent !important'
-        }, mountRender({ readOnly: true }));
+        }, render({ readOnly: true }));
       });
     });
 
@@ -87,7 +76,7 @@ describe('InputPresentation', () => {
       it('has the correct style rules', () => {
         assertStyleMatch({
           border: '1px solid #668491'
-        }, mountRender({ readOnly: true }));
+        }, render({ readOnly: true }));
       });
     });
   });
@@ -103,7 +92,7 @@ describe('InputPresentation', () => {
     );
 
     beforeAll(() => {
-      wrapper = shallowRender();
+      wrapper = render({}, shallow);
       context = getContext(wrapper);
     });
 
@@ -129,16 +118,16 @@ describe('InputPresentation', () => {
       expect(context.hasMouseOver).toEqual(false);
     });
 
-    it('enables hasMouseOver on mouse over', () => {
+    it('enables hasMouseOver on mouse enter', () => {
       expect(context.hasMouseOver).toEqual(false);
-      wrapper.find(InputPresentationStyle).simulate('mouseover');
+      wrapper.find(InputPresentationStyle).simulate('mouseenter');
       context = getContext(wrapper);
       expect(context.hasMouseOver).toEqual(true);
     });
 
-    it('disables hasMouseOver on mouse out', () => {
+    it('disables hasMouseOver on mouse leave', () => {
       expect(context.hasMouseOver).toEqual(true);
-      wrapper.find(InputPresentationStyle).simulate('mouseout');
+      wrapper.find(InputPresentationStyle).simulate('mouseleave');
       context = getContext(wrapper);
       expect(context.hasMouseOver).toEqual(false);
     });
@@ -164,14 +153,14 @@ describe('InputPresentation', () => {
 
   describe('classic theme', () => {
     it('applies custom styling', () => {
-      expect(shallowRender({ theme: classicTheme }, TestRenderer.create)).toMatchSnapshot();
+      expect(renderWithTheme({}, classicTheme, TestRenderer.create)).toMatchSnapshot();
     });
 
     it('applies custom border and outline on focus', () => {
       assertStyleMatch({
         outline: 'none',
         border: '1px solid #255BC7'
-      }, mountRender({ theme: classicTheme, hasFocus: true }), {
+      }, renderWithTheme({ hasFocus: true }, classicTheme), {
         modifier: '&&'
       });
     });
@@ -180,7 +169,19 @@ describe('InputPresentation', () => {
       assertStyleMatch({
         background: '#d9e0e4',
         borderColor: '#d9e0e4 !important'
-      }, mountRender({ theme: classicTheme, disabled: true }));
+      }, renderWithTheme({ disabled: true }, classicTheme));
     });
   });
 });
+
+function render(props, renderer = mount) {
+  return renderer(<InputPresentation { ...props }>sample children</InputPresentation>);
+}
+
+function renderWithTheme(props, theme, renderer = mount) {
+  return renderer(
+    <ThemeProvider theme={ theme }>
+      <InputPresentation { ...props }>sample children</InputPresentation>
+    </ThemeProvider>
+  );
+}

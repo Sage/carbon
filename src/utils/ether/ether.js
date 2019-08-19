@@ -45,7 +45,10 @@ function append(value, content) {
  * @return {Object} Styled Element
  */
 function styleElement(element, attribute, value) {
-  element.style[attribute] = value.toString();
+  if (element.style[attribute] !== value.toString()) {
+    element.style[attribute] = value.toString();
+  }
+
   return element.style[attribute];
 }
 
@@ -86,25 +89,6 @@ function insertAt(value, options) {
 
   return result;
 }
-/**
- * Filters out input events from the passed React props
- *
- * @param {Object} props
- */
-function filterOutInputEvents(props) {
-  return omit(props, [
-    'onFocus',
-    'onBlur',
-    'onChange',
-    'onMouseDown',
-    'onMouseUp',
-    'onClick',
-    'onKeyDown',
-    'onKeyUp',
-    'onKeyPress',
-    'onChangeDeferred'
-  ]);
-}
 
 /**
  * Dynamically creates some keys for children,
@@ -116,5 +100,5 @@ function generateKeysForChildren(array) {
 }
 
 export {
-  acronymize, append, insertAt, styleElement, validProps, filterOutInputEvents, generateKeysForChildren
+  acronymize, append, insertAt, styleElement, validProps, generateKeysForChildren
 };

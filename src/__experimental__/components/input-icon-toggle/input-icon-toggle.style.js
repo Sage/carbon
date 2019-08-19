@@ -43,13 +43,16 @@ function getWidth(size) {
   }
 }
 
+InputIconToggleStyle.safeProps = ['size', 'type'];
+
 InputIconToggleStyle.defaultProps = {
   size: 'medium',
   theme: BaseTheme
 };
 
 InputIconToggleStyle.propTypes = {
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted)
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  type: PropTypes.string
 };
 
 export default InputIconToggleStyle;

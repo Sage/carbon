@@ -4,13 +4,18 @@ import I18n from 'i18n-js';
 import Service from '../../../utils/service';
 import FormButton from '../../../components/form/form-button';
 import FormSummary from '../../../components/form/form-summary';
-import AppWrapper from '../../../components/app-wrapper';
 import { validProps, generateKeysForChildren } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
 import Browser from '../../../utils/helpers/browser';
 import { withValidations } from '../../../components/validations';
 import ElementResize from '../../../utils/helpers/element-resize';
-import StyledForm, { StyledFormFooter, StyledAdditionalFormAction } from '../../../components/form/form.style';
+import StyledForm,
+{
+  StyledFormFooter,
+  StyledAdditionalFormAction,
+  StyledResponsiveFooterWrapper
+} from '../../../components/form/form.style';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const FormContext = React.createContext();
 
@@ -180,7 +185,7 @@ class FormWithoutValidations extends React.Component {
   /* CSRF values for request */
   csrfValues = { ...calculateCsrfValues(this._document) };
 
-  /* Service instacne to make post request */
+  /* Service instance to make post request */
   _service = new Service();
 
   /* Handles submit and runs validation. */
@@ -351,12 +356,23 @@ class FormWithoutValidations extends React.Component {
 
     return (
       <StyledFormFooter buttonAlign={ this.props.buttonAlign }>
-        <AppWrapper style={ { borderWidth: padding } }>
+        <StyledResponsiveFooterWrapper
+          buttonAlign={ this.props.buttonAlign }
+          showSummary={ this.props.showSummary }
+          borderWidth={ padding }
+          hasAdditionalActions={
+            Boolean(
+              this.props.leftAlignedActions
+              || this.props.rightAlignedActions
+              || this.props.additionalActions
+            )
+          }
+        >
           { this.additionalActions('leftAlignedActions') }
           { this.additionalActions('rightAlignedActions') }
           { this.orderFormButtons() }
           { this.additionalActions('additionalActions') }
-        </AppWrapper>
+        </StyledResponsiveFooterWrapper>
       </StyledFormFooter>
     );
   }
@@ -478,7 +494,7 @@ FormWithoutValidations.propTypes = {
   beforeFormValidation: PropTypes.func,
 
   /** Alignment of submit button */
-  buttonAlign: PropTypes.string,
+  buttonAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
 
   /** Determines if the form is in a saving state */
   saving: PropTypes.bool,

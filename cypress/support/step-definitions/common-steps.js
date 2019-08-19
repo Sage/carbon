@@ -149,10 +149,12 @@ When('I enable {word} component', () => {
 });
 
 When('I check {word} checkbox', (checkboxName) => {
+  getKnobsInput(checkboxName).scrollIntoView();
   getKnobsInput(checkboxName).check();
 });
 
 When('I uncheck {word} checkbox', (checkboxName) => {
+  getKnobsInput(checkboxName).scrollIntoView();
   getKnobsInput(checkboxName).uncheck();
 });
 
