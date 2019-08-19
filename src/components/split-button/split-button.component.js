@@ -88,6 +88,7 @@ class SplitButton extends Component {
     props.onMouseEnter = this.hideButtons;
     props.onFocus = this.hideButtons;
     props.onTouchStart = this.hideButtons;
+    props.iconPosition = this.props.iconPosition;
 
     return props;
   }
