@@ -32,7 +32,6 @@ describe('Icon component', () => {
       'chevron',
       'completed',
       'dribbble',
-      'email',
       'external-link',
       'github',
       'individual',

@@ -31,6 +31,7 @@ class Icon extends React.Component {
       case 'success':
         return 'tick';
       case 'messages':
+      case 'email':
         return 'message';
       default:
         return this.props.type;
