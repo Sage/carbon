@@ -134,6 +134,12 @@ describe('Tile', () => {
 
           assertStyleMatch({ width: '25%' }, wrapper);
         });
+
+        it('is overridden when the pixelWidth prop is set', () => {
+          const wrapper = render({ pixelWidth: 500, width: 25 }).toJSON();
+
+          assertStyleMatch({ width: '500px' }, wrapper);
+        });
       });
 
       describe('padding', () => {
