@@ -1,3 +1,1 @@
-import Tile from './tile.component';
-
-export default Tile;
+export { default } from './tile.component';
