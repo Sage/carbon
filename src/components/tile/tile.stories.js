@@ -1,11 +1,11 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, number, select } from '@storybook/addon-knobs';
-import OptionsHelper from '../../../utils/helpers/options-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 import Tile from '.';
-import Content from '../../../components/content';
+import Content from '../content';
 import { info, notes } from './documentation';
-import getDocGenInfo from '../../../utils/helpers/docgen-info';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Tile.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),

@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import baseTheme from '../../../style/themes/base';
+import baseTheme from '../../style/themes/base';
 
 const paddingSizes = {
   'extra-small': '8px',
@@ -42,7 +42,11 @@ const StyledTile = styled.div`
 
       ${isHorizontal(orientation) && 'display: inline;'}
 
+<<<<<<< Updated upstream:src/components/tile/tile.style.js
       ${isVertical(orientation) && 'width: auto'};
+=======
+      ${isVertical(orientation) && 'width: auto;'}
+>>>>>>> Stashed changes:src/components/tile/tile.style.js
 
       &:not(:last-of-type) {
         padding-${isHorizontal(orientation) ? 'right' : 'bottom'}: ${paddingSizes[padding]};
