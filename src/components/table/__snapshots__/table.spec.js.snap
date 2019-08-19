@@ -31,7 +31,7 @@ exports[`Table when the table size is compact renders a table to match the expec
   background-color: #F2F4F5;
 }
 
-.c0.c0 .carbon-table-row:hover .c2 {
+.c0.c0 .carbon-table-row:not(.carbon-table-row--passive):hover .c2 {
   background-color: #F2F4F5;
 }
 
@@ -85,7 +85,7 @@ exports[`Table when the table size is compact renders a table to match the expec
   background-color: #FFFFFF;
 }
 
-.c0 .carbon-table-row:hover .c2 {
+.c0 .carbon-table-row:not(.carbon-table-row--passive):hover .c2 {
   background-color: #F2F4F5;
 }
 
@@ -213,7 +213,7 @@ exports[`Table when the table size is small renders a table to match the expecte
   background-color: #F2F4F5;
 }
 
-.c0.c0 .carbon-table-row:hover .c2 {
+.c0.c0 .carbon-table-row:not(.carbon-table-row--passive):hover .c2 {
   background-color: #F2F4F5;
 }
 
@@ -267,7 +267,7 @@ exports[`Table when the table size is small renders a table to match the expecte
   background-color: #FFFFFF;
 }
 
-.c0 .carbon-table-row:hover .c2 {
+.c0 .carbon-table-row:not(.carbon-table-row--passive):hover .c2 {
   background-color: #F2F4F5;
 }
 
