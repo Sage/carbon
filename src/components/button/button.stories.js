@@ -1,12 +1,11 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, Info, InfoClassic } from './documentation';
 import Button, { OriginalButton } from '.';
-import classic from '../../style/themes/classic';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 OriginalButton.__docgenInfo = getDocGenInfo(
@@ -65,6 +64,7 @@ storiesOf('Button', module)
   }, {
     info: { text: Info },
     notes: { markdown: notes },
+    themeSelector: dlsThemeSelector,
     knobs: {
       escapeHTML: false
     }
@@ -73,17 +73,16 @@ storiesOf('Button', module)
     const props = getKnobs(true);
     const { children } = props;
     return (
-      <ThemeProvider theme={ classic }>
-        <OriginalButton
-          { ...props }
-        >
-          { children }
-        </OriginalButton>
-      </ThemeProvider>
+      <OriginalButton
+        { ...props }
+      >
+        { children }
+      </OriginalButton>
     );
   }, {
     info: { text: InfoClassic },
     notes: { markdown: notes },
+    themeSelector: classicThemeSelector,
     knobs: {
       escapeHTML: false
     }
@@ -106,4 +105,6 @@ storiesOf('Button', module)
         </OriginalButton>
       </div>
     );
+  }, {
+    themeSelector: dlsThemeSelector
   });
