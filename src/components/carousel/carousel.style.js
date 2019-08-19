@@ -21,12 +21,11 @@ const CarouselPreviousButtonWrapperStyle = styled(CarouselNavigationStyle)`
 `;
 const CarouselNextButtonWrapperStyle = styled(CarouselNavigationStyle)`
   right: 0;
-  margin-right:  ${({ theme }) => (isClassic(theme) ? '0' : '2px')};
+  margin-right: ${({ theme }) => (isClassic(theme) ? '0' : '2px')};
 `;
 
 const CarouselStyledIcon = styled(Icon)`
   cursor: pointer;
-  display: inline-block;
 
   &&::before {
     font-size: ${({ theme }) => (isClassic(theme) ? '25px' : '16px')}
