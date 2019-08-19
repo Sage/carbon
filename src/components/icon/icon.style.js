@@ -127,7 +127,7 @@ const StyledSvgIconWrapper = styled.span`
     
     svg {
       fill: currentColor;
-      width: 90;
+      width: ${iconSizeConfig.iconSize[fontSize]};
       height: ${iconSizeConfig.iconSize[fontSize]};
     }
   `}
