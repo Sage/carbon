@@ -62,7 +62,7 @@ Tile.propTypes = {
   /** The orientation of the tile - set to either horizontal or vertical */
   orientation: PropTypes.oneOf(OptionsHelper.orientation),
   /**
-   * A string setting dictating the Tile padding. Accepted values are:
+   * Sets the Tile padding. Accepted values are:
    * 'extra-small' = 8px
    * 'small' = 12px
    * 'medium' = 16px
