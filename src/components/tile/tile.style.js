@@ -18,10 +18,10 @@ const TileContent = styled.div`
     position: relative;
     flex-grow: 1;
 
-    ${Boolean(width && width !== 0) && `
+    ${(width && width !== 0) ? `
       flex-grow: 0;
       width: ${width}%;
-    `}
+    ` : ''}
   `}
 `;
 
@@ -37,8 +37,8 @@ const StyledTile = styled.div`
     position: relative;
     width: 100%;
 
-    ${Boolean(width && width !== 0) && `width: ${width}%;`}
-    ${Boolean(pixelWidth && pixelWidth !== 0) && `width: ${pixelWidth}px;`}
+    ${(width && width !== 0) ? `width: ${width}%;` : ''}
+    ${(pixelWidth && pixelWidth !== 0) ? `width: ${pixelWidth}px;` : ''}
 
     ${TileContent} {
       box-sizing: border-box;
