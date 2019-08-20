@@ -50,6 +50,11 @@ const StyledButtonToggleClassicLabel = ({ theme }) => isClassic(theme) && css`
   `};
 `;
 
+const iconFontSizes = {
+  smallIcon: 16,
+  largeIcon: 60
+};
+
 const StyledButtonToggleClassicIcon = ({ theme }) => isClassic(theme) && css`
   display: inline;
 
@@ -58,7 +63,17 @@ const StyledButtonToggleClassicIcon = ({ theme }) => isClassic(theme) && css`
 
     ${StyledIcon} {
       margin-bottom: 0;
+      ::before {
+        font-size: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
+        line-height: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
+      }
     }
+
+    ${buttonIconSize === 'large' && css`
+      .carbon-icon__svg--credit-card-slash {
+        margin-left: 10px;
+      }
+    `}
   `};
 
   ${({ buttonIcon, buttonIconSize }) => buttonIcon && buttonIconSize === 'large' && css`

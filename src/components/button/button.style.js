@@ -18,11 +18,11 @@ const StyledButton = styled.button`
   vertical-align: middle;
   ${addButtonStyle}
 
-  ${({ iconPosition, theme, size }) => css`
+  ${({ iconPosition }) => css`
     ${StyledIcon} {
       margin-left: ${iconPosition === 'before' ? '0px' : '8px'};
       margin-right: ${iconPosition === 'before' ? '8px' : '0px'};
-      ${applyIconHeight(theme, size)}
+      height: ${applyIconHeight}
     }
   `}
 `;
@@ -33,10 +33,14 @@ export const StyledButtonSubtext = styled.span`
   display: block;
 `;
 
-function applyIconHeight(theme, size) {
-  if (isClassic(theme)) return `height: ${size === 'large' ? '20px' : '18px'}`;
+function applyIconHeight({ theme, size, iconType }) {
+  if (isClassic(theme)) {
+    if (iconType === 'services') return '22px;';
+    return `${size === 'large' ? '20px' : '18px'};`;
+  }
+  if (iconType === 'services') return `${size === 'large' ? '28px' : '24px'}`;
 
-  return `height: ${size === 'large' ? '22px' : '18px'}`;
+  return `${size === 'large' ? '22px' : '18px'};`;
 }
 
 function addButtonStyle(props) {
@@ -94,6 +98,8 @@ StyledButton.propTypes = {
   href: PropTypes.string,
   /** Defines an Icon position within the button */
   iconPosition: PropTypes.oneOf([...OptionsHelper.buttonIconPositions, '']),
+  /** Defines an Icon type within the button (see Icon for options) */
+  iconType: PropTypes.oneOf([...OptionsHelper.icons, '']),
   /** Assigns a size to the button */
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   /** Second text child, renders under main text, only when size is "large" */

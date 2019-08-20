@@ -11,6 +11,7 @@ import classicTheme from '../../style/themes/classic';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import { StyledIcon } from '../icon/icon.style';
 
 const render = (props, renderer = shallow) => {
   return renderer(
@@ -165,7 +166,12 @@ describe('Button', () => {
       'setting the color variant to "%s"',
       (variant) => {
         const wrapper = TestRenderer.create(
-          <StyledButton theme={ classicTheme } variant={ variant }>Foo</StyledButton>
+          <StyledButton
+            iconType='services'
+            theme={ classicTheme }
+            variant={ variant }
+          >Foo
+          </StyledButton>
         );
 
         it('matches the snapshot when default props are passed', () => {
@@ -331,6 +337,26 @@ describe('Button', () => {
       it('renders a Button inside a Router Link component', () => {
         expect(wrapper.type()).toEqual(RouterLink);
       });
+    });
+  });
+
+  describe('when the iconType is "services"', () => {
+    it('renders the default props and children to match the snapshot with the Icon before children', () => {
+      const buttonWithServiceIcon = render(
+        { children: 'foo', iconType: 'services', size: 'medium' }, TestRenderer.create
+      );
+      assertStyleMatch({
+        height: '24px'
+      }, buttonWithServiceIcon.toJSON(), { modifier: `${StyledIcon}` });
+    });
+
+    it('renders the default props and children to match the snapshot with the Icon after children', () => {
+      const buttonWithServiceIcon = render(
+        { children: 'foo', iconType: 'services', size: 'large' }, TestRenderer.create
+      );
+      assertStyleMatch({
+        height: '28px'
+      }, buttonWithServiceIcon.toJSON(), { modifier: `${StyledIcon}` });
     });
   });
 });

@@ -49,6 +49,7 @@ function renderStyledButton(buttonProps) {
       disabled={ disabled }
       role='button'
       legacyColorVariant={ theme }
+      iconType={ iconType }
       { ...tagComponent('button', buttonProps) }
       { ...styleProps }
       ref={ forwardRef }

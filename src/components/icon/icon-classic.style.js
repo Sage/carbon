@@ -2,7 +2,9 @@ import { css } from 'styled-components';
 import { isClassic } from '../../utils/helpers/style-helper';
 import classicConfig from './icon-classic-config';
 
-export default ({ theme, bgTheme, isFont }) => isClassic(theme) && css`
+export default ({
+  theme, bgTheme, isFont, type
+}) => isClassic(theme) && css`
   color: rgba(0, 0, 0, 0.85);
 
   ${bgTheme && css`
@@ -20,6 +22,7 @@ export default ({ theme, bgTheme, isFont }) => isClassic(theme) && css`
       font-weight: normal;
       line-height: 16px;
       vertical-align: middle;
+      ${type === 'services' && css` margin-top: -7px;`}
     }
   `}
   `;

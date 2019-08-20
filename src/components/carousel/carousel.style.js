@@ -26,7 +26,12 @@ const CarouselNextButtonWrapperStyle = styled(CarouselNavigationStyle)`
 
 const CarouselStyledIcon = styled(Icon)`
   cursor: pointer;
-
+  ${({ theme }) => theme.name && !isClassic(theme) && css`
+    color: ${theme.colors.white};
+    :hover {
+      color: ${theme.colors.white};
+    }
+  `}
   &&::before {
     font-size: ${({ theme }) => (isClassic(theme) ? '25px' : '16px')}
   }

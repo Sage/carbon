@@ -84,7 +84,7 @@ describe('ButtonToggle', () => {
         buttonIconSize: 'small'
       });
       assertStyleMatch({
-        marginRight: '3px'
+        marginRight: '8px'
       }, wrapper.find(StyledButtonToggleIcon));
     });
     it('renders correctly when grouped', () => {

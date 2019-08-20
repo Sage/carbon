@@ -131,7 +131,7 @@ describe('Icon component', () => {
       });
       assertStyleMatch(
         {
-          marginTop: '-8px'
+          marginTop: '-7px'
         },
         wrapper.toJSON(),
         { modifier: '&::before' }

@@ -6,7 +6,6 @@ import {
   StyledButtonToggleClassicIcon
 } from './button-toggle-classic.style';
 import { StyledIcon } from '../icon/icon.style';
-import { isClassic } from '../../utils/helpers/style-helper';
 
 const StyledButtonToggleContentWrapper = styled.div`
   display: flex;
@@ -74,14 +73,8 @@ const StyledButtonToggleLabel = styled.label`
 `;
 
 const iconFontSizes = {
-  classic: {
-    smallIcon: 16,
-    largeIcon: 60
-  },
-  modern: {
-    smallIcon: 16,
-    largeIcon: 32
-  }
+  smallIcon: 16,
+  largeIcon: 32
 };
 
 const StyledButtonToggleIcon = styled.div`
@@ -96,19 +89,14 @@ const StyledButtonToggleIcon = styled.div`
     }
 
     ${StyledIcon}::before {
-      font-size: ${`${iconFontSizes.modern[`${buttonIconSize}Icon`]}px`};
-      line-height: ${`${iconFontSizes.modern[`${buttonIconSize}Icon`]}px`};
+      font-size: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
+      line-height: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
+    }
+
+    .carbon-icon__svg--credit-card-slash {
+      margin-left: 6px;
     }
   `}
-
-  ${({ theme, buttonIconSize }) => isClassic(theme) && css`
-    margin-right: ${buttonIconSize === 'large' ? '0' : '3px'};
-  
-    ${StyledIcon}::before {
-      font-size: ${`${iconFontSizes.classic[`${buttonIconSize}Icon`]}px`};
-      line-height: ${`${iconFontSizes.classic[`${buttonIconSize}Icon`]}px`};
-    }
-  `};
 
   ${StyledButtonToggleClassicIcon}
 `;
