@@ -3,7 +3,7 @@ import TestRenderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import 'jest-styled-components';
 import { css } from 'styled-components';
-import { RadioButton } from '.';
+import { RadioButton, OriginalRadioButton } from '.';
 import FieldHelpStyle from '../field-help/field-help.style';
 import LabelStyle from '../label/label.style';
 import CheckableInput from '../checkable-input/checkable-input.component';
@@ -19,12 +19,19 @@ jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
 
 function render(props, renderer = TestRenderer.create) {
-  return renderer(<RadioButton value='test' { ...props } />);
+  return renderer(
+    <RadioButton
+      name='my-radio'
+      value='test'
+      { ...props }
+    />
+  );
 }
 
 function renderClassic(props) {
   return TestRenderer.create(
     <RadioButton
+      name='my-radio'
       theme={ classicTheme } value='test'
       { ...props }
     />
@@ -62,6 +69,13 @@ describe('RadioButton', () => {
     });
   });
 
+  describe('default props', () => {
+    it('onChange', () => {
+      const handleChange = OriginalRadioButton.defaultProps.onChange;
+
+      expect(handleChange()).toBeUndefined();
+    });
+  });
 
   describe('styles', () => {
     describe('base', () => {
