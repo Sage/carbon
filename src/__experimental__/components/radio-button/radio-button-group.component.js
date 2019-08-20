@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import Label from '../label';
 import { StyledRadioButtonGroup } from './radio-button.style';
+import withValidation from '../../../components/validations/with-validation.hoc';
 
 function initialTabIndex(childIndex) {
   return (childIndex > 0) ? -1 : 0;
@@ -13,13 +14,17 @@ function checkedTabIndex(checked) {
 }
 
 const RadioButtonGroup = (props) => {
-  const { children, groupName, label } = props;
+  const {
+    children,
+    groupName,
+    label,
+    hasError
+  } = props;
   const [selectedValue, setSelectedValue] = useState(null);
 
   const groupLabelId = `${groupName}-label`;
 
   const buttons = React.Children.map(children, (child, index) => {
-    const key = child.props.key || child.props.value;
     const checked = selectedValue === child.props.value;
     const tabindex = selectedValue ? checkedTabIndex(checked) : initialTabIndex(index);
 
@@ -33,13 +38,11 @@ const RadioButtonGroup = (props) => {
       {
         checked,
         inputName: groupName,
-        key,
         onChange: handleChange,
         tabindex
       }
     );
   });
-
 
   return (
     <StyledRadioButtonGroup
@@ -47,7 +50,7 @@ const RadioButtonGroup = (props) => {
       role='radiogroup'
       { ...tagComponent('radiogroup', props) }
     >
-      <Label id={ groupLabelId }>
+      <Label id={ groupLabelId } hasError={ hasError }>
         {label}
       </Label>
       {buttons}
@@ -61,7 +64,15 @@ RadioButtonGroup.propTypes = {
   /** Specifies the name prop to be applied to each button in the group */
   groupName: PropTypes.string.isRequired,
   /** The content for the RadioGroup Label */
-  label: PropTypes.string.isRequired
+  label: PropTypes.string.isRequired,
+  /** Prop to state if an error has occurred */
+  hasError: PropTypes.bool
 };
 
-export default RadioButtonGroup;
+RadioButtonGroup.defaultProps = {
+  hasError: false
+};
+
+export { RadioButtonGroup as OriginalRadioButtonGroup };
+
+export default withValidation(RadioButtonGroup);

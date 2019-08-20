@@ -4,9 +4,12 @@ import {
   boolean, text, number, select
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import { State, Store } from '@sambego/storybook-state';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import { RadioButton, RadioButtonGroup } from '.';
 import { info, notes } from './documentation';
+
+const radioToggleGroupStore = new Store({ value: '' });
 
 storiesOf('Experimental/RadioButton', module)
   .add('default', () => {
@@ -44,10 +47,54 @@ storiesOf('Experimental/RadioButton', module)
     },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
+  })
+  .add('validations', () => {
+    const values = ['yes', 'no', 'error'];
+
+    function testValidation(value) {
+      return new Promise((resolve, reject) => {
+        if (value === 'error') {
+          reject(new Error('Why happened?'));
+        } else {
+          resolve();
+        }
+      });
+    }
+
+    return (
+      <State store={ radioToggleGroupStore }>
+        <RadioButtonGroup
+          groupName='my-event'
+          label='Are you coming to the event?'
+          validations={ testValidation }
+          name='radio-button-group'
+        >
+          {values.map(value => (
+            <RadioButton
+              { ...defaultKnobs() }
+              key={ `key-${value}` }
+              id={ `id-${value}` }
+              name={ value }
+              label={ `Example Radion Button (${value})` }
+              value={ value }
+              onChange={ handleGroupChange }
+            />
+          ))}
+        </RadioButtonGroup>
+      </State>
+    );
   });
 
 function handleChange(event) {
   const { value } = event.target;
+  action(`Selected - ${value}`)(event);
+}
+
+function handleGroupChange(event) {
+  const { value } = event.target;
+
+  radioToggleGroupStore.set({ value });
+
   action(`Selected - ${value}`)(event);
 }
 

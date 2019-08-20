@@ -13,12 +13,21 @@ const buttonValues = ['test-1', 'test-2'];
 const groupName = 'test-group';
 
 function render(renderer = TestRenderer.create) {
-  const children = buttonValues.map(value => <RadioButton value={ value } />);
+  const children = buttonValues.map(value => (
+    <RadioButton
+      key={ `radio-key-${value}` }
+      name={ `radio-name-${value}` }
+      onChange={ jest.fn() }
+      value={ value }
+    />
+  ));
 
   return renderer(
     <RadioButtonGroup
       groupName={ groupName }
       label='Test RadioButtonGroup Label'
+      name='radio-button-group'
+      onChange={ jest.fn() }
     >
       {children}
     </RadioButtonGroup>
@@ -44,7 +53,7 @@ describe('RadioButtonGroup', () => {
 
       describe('key / value (both derived from value prop)', () => {
         const expectedValue = buttonValues[index];
-        const expectedKey = `${expectedValue}/.${index}`;
+        const expectedKey = `.$radio-key-${expectedValue}`;
 
         it(`sets the value to ${expectedValue}`, () => {
           expect(button.props.value).toEqual(expectedValue);
@@ -60,7 +69,7 @@ describe('RadioButtonGroup', () => {
           const buttonWrapper = buttons.at(buttonArray.indexOf(button));
           const input = getInputWrapper(buttonWrapper).instance();
 
-          expect(input.name).toEqual(groupName);
+          expect(input.name).toEqual(`radio-name-${input.value}`);
         });
       });
     });
@@ -74,7 +83,7 @@ describe('RadioButtonGroup', () => {
         });
       });
 
-      describe.each(buttonArray)('when buttons[%#] is changed', (button) => {
+      describe.each(buttonArray)('when buttons[%#] has changed', (button) => {
         const index = buttonArray.indexOf(button);
         const otherIndex = index ? 0 : 1;
         let buttonWrapper = buttons.at(index);
@@ -125,7 +134,6 @@ describe('RadioButtonGroup', () => {
       });
     });
   });
-
 
   describe('styles', () => {
     it('applies the correct Label styles', () => {
