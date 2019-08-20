@@ -26,6 +26,7 @@ const Card = ({
   >
     { header && (
       <CardPosition
+        alignment={ header[0].alignment }
         positionType={ POSITION_HEADER }
         theme={ theme }
         primary={ header[0].title }
@@ -35,6 +36,7 @@ const Card = ({
     }
     { middle && (
       <CardPosition
+        alignment={ middle[0].alignment }
         positionType={ POSITION_MIDDLE }
         theme={ theme }
         primary={ middle[0].primary }
@@ -44,6 +46,7 @@ const Card = ({
     )}
     { footer && (
       <CardPosition
+        alignment={ footer[0].alignment }
         positionType={ POSITION_FOOTER }
         theme={ theme }
         primary={ footer }
