@@ -1,0 +1,1 @@
+export { default } from './card-position.component';
