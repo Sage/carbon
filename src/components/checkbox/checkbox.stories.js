@@ -3,7 +3,6 @@ import { storiesOf } from '@storybook/react';
 import {
   boolean, text, number, select
 } from '@storybook/addon-knobs';
-import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Checkbox from './checkbox.js';
 import { notes, info } from './documentation';
@@ -14,8 +13,8 @@ Checkbox.__docgenInfo = getDocGenInfo(
   /checkbox(?!spec)/
 );
 
-function makeStory(name, themeSelector) {
-  const component = () => {
+storiesOf('Checkbox', module)
+  .add('default', () => {
     const reverse = boolean('reverse', Checkbox.defaultProps.reverse);
     const fieldHelpInline = boolean('fieldHelpInline', false);
     const label = text('label', 'Example Checkbox');
@@ -53,17 +52,7 @@ function makeStory(name, themeSelector) {
         fieldHelp={ fieldHelp }
       />
     );
-  };
-
-  const metadata = {
+  }, {
     info: { text: info },
-    notes: { markdown: notes },
-    themeSelector
-  };
-
-  return [name, component, metadata];
-}
-
-storiesOf('Checkbox', module)
-  .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+    notes: { markdown: notes }
+  });
