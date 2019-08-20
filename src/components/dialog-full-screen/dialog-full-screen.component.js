@@ -105,7 +105,7 @@ class DialogFullScreen extends Modal {
     }
 
     return (
-      <FullScreenHeading ref={ this.headingRef }>
+      <FullScreenHeading hasContent={ title } ref={ this.headingRef }>
         <StyledIcon
           data-element='close'
           onClick={ this.props.onCancel }

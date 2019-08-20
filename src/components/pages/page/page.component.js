@@ -17,7 +17,7 @@ const Page = ({
       className={ classNames('carbon-page', className) }
       { ...tagComponent('page', props) }
     >
-      <FullScreenHeading>
+      <FullScreenHeading hasContent={ title }>
         { title }
       </FullScreenHeading>
       <div className='carbon-page__content'>

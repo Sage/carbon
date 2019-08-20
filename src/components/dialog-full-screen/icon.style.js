@@ -10,8 +10,12 @@ const StyledIcon = styled(Icon)`
   right: 40px;
   top: 53px;
   z-index: 1002;
-  position: absolute;
-  display: block;
+
+  &, &.carbon-icon {
+    position: fixed;
+    float: right;
+    display: block;
+  }
   
   &::before {
     font-size: 24px;

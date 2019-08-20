@@ -1,22 +1,20 @@
 import styled from 'styled-components';
-import BaseTheme from '../../style/themes/base';
+import { slideAnimation, fadeAnimation } from './pages.config';
 
-const StyledPagesCarousel = styled.label`
-  .carbon-pages {
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
+const PagesWrapperStyle = styled.div`
+  .carbon-carousel__content {
+    overflow: hidden;
+    position: relative;
 
-    .carbon-carousel__content {
-      height: 100%;
+    .carbon-icon {
+      margin-top: -9px;
     }
   }
+
+  ${slideAnimation};
+  ${fadeAnimation};
 `;
 
-StyledPagesCarousel.defaultProps = {
-  theme: BaseTheme
+export {
+  PagesWrapperStyle
 };
-
-export default StyledPagesCarousel;
