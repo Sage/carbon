@@ -2,6 +2,7 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
+import { select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import { Pages, Page } from './pages.component';
@@ -24,31 +25,33 @@ Pages.__docgenInfo = getDocGenInfo(
 
 const store = new Store({
   open: false,
-  slideIndex: 0,
-  slideHistory: [],
-  previousSlideHistoryPointer: 0
+  pageIndex: 0,
+  pageHistory: [],
+  previouspageHistoryPointer: 0
 });
 
 const handleSlide = (ev, pageIndex) => {
   action('slide')(ev);
-  const newSlideHistory = [...store.get('slideHistory'), store.get('slideIndex')];
+  const newpageHistory = [...store.get('pageHistory'), pageIndex];
 
   store.set({
-    slideHistory: newSlideHistory,
-    slideIndex: (pageIndex || 0),
-    previousSlideHistoryPointer: newSlideHistory.length
+    pageHistory: newpageHistory,
+    pageIndex: (pageIndex || 0),
+    previouspageHistoryPointer: newpageHistory.length - 1
   });
+
+  return pageIndex;
 };
 
 const handlePreviousSlide = (ev) => {
   ev.preventDefault();
   action('previous-slide')(ev);
-  const previouHistoryPointer = store.get('previousSlideHistoryPointer');
+  const previouHistoryPointer = store.get('previouspageHistoryPointer');
   const pointer = (previouHistoryPointer - 1) > 0 ? (previouHistoryPointer - 1) : 0;
 
   store.set({
-    slideIndex: pointer,
-    previousSlideHistoryPointer: pointer
+    pageIndex: (store.get('pageHistory')[pointer] || 0),
+    previouspageHistoryPointer: pointer
   });
 };
 
@@ -59,7 +62,10 @@ const handleOpen = () => {
 
 const handleCancel = () => {
   action('cancel')();
-  store.set({ open: false });
+  store.set({
+    open: false,
+    pageHistory: [0]
+  });
 };
 
 const CustomState = (props) => {
@@ -79,6 +85,10 @@ const PageState = props => new CustomState(props);
 
 storiesOf('Pages', module)
   .add('classic', () => {
+    const indexConfig = [0, 1, 2];
+    const pageIndex = select('pageIndex', indexConfig, indexConfig[0]);
+    handleSlide(null, pageIndex);
+
     return (
       <ThemeProvider theme={ classic }>
         <div>
@@ -89,9 +99,7 @@ storiesOf('Pages', module)
               onCancel={ handleCancel }
             >
               <PageState>
-                <Pages
-                  slideIndex={ store.get('slideIndex') }
-                >
+                <Pages>
                   <Page title={ <Heading title='My First Page' /> }>
                     <Button onClick={ (ev) => { handleSlide(ev, 1); } }>
                       Go to second page
@@ -132,6 +140,9 @@ storiesOf('Pages', module)
     }
   })
   .add('default', () => {
+    const indexConfig = [0, 1, 2];
+    const pageIndex = select('pageIndex', indexConfig, indexConfig[0]);
+
     return (
       <div>
         <Button onClick={ handleOpen }>Open Preview</Button>
@@ -142,7 +153,7 @@ storiesOf('Pages', module)
           >
             <PageState>
               <Pages
-                slideIndex={ store.get('slideIndex') }
+                pageIndex={ handleSlide(null, pageIndex) }
               >
                 <Page title={ <Heading title='My First Page' /> }>
                   <Button onClick={ (ev) => { handleSlide(ev, 1); } }>

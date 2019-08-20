@@ -12,7 +12,8 @@ const StyledIcon = styled(Icon)`
   z-index: 1002;
 
   &, &.carbon-icon {
-    position: absolute;
+    position: fixed;
+    float: right;
     display: block;
   }
   

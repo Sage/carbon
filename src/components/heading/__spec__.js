@@ -114,7 +114,8 @@ describe('Heading', () => {
           wrapper = shallow(<Heading title='Test' backLink={ backLinkSpy } />),
           link = wrapper.find('[data-element="back"]');
 
-      expect(link.props().onClick).toEqual(backLinkSpy);
+      expect(link.props().onClick.toBeDefined);
+      expect(link.props().onClick()).toEqual(wrapper.props().backLink);
     });
   });
 
