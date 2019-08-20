@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import baseTheme from '../../style/themes/base';
 
 const paddingSizes = {
-  'extra-small': '8px',
-  small: '12px',
-  medium: '16px',
-  large: '32px',
-  'extra-large': '40px'
+  XS: '8px',
+  S: '12px',
+  M: '16px',
+  L: '32px',
+  XL: '40px'
 };
 
 const isHorizontal = orientation => orientation === 'horizontal';
