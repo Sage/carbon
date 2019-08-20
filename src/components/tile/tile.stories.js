@@ -12,7 +12,7 @@ Tile.__docgenInfo = getDocGenInfo(
   /tile\.component(?!spec)/
 );
 
-storiesOf('Experimental/Tile', module)
+storiesOf('Tile', module)
   .add('default', () => {
     const percentageOpts = {
       range: true,
