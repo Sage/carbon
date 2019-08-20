@@ -290,6 +290,14 @@ const OptionsHelper = {
     'large'
   ],
 
+  sizesTile: [
+    'XS',
+    'S',
+    'M',
+    'L',
+    'XL'
+  ],
+
   steps: [
     'complete',
     'current',

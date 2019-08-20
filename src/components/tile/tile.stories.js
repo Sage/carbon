@@ -64,5 +64,6 @@ storiesOf('Experimental/Tile', module)
       propTablesExclude: [Content],
       text: info
     },
+    knobs: { escapeHTML: false },
     notes: { markdown: notes }
   });

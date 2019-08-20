@@ -25,16 +25,37 @@ describe('Tile', () => {
   });
 
   describe('wrapping of children in TileContent components', () => {
-    const wrapper = render({}, mount);
-    const tileContents = wrapper.find(TileContent).getElements();
+    describe('standard', () => {
+      const wrapper = render({}, mount);
+      const tileContents = wrapper.find(TileContent).getElements();
 
-    it('contains one TileContent for each child', () => {
-      expect(tileContents.length).toBe(2);
+      it('contains one TileContent for each child', () => {
+        expect(tileContents.length).toBe(2);
+      });
+
+      it.each([0, 1])('TileContent[%i] contains the passed Content as its own child', (childIndex) => {
+        expect(tileContents[childIndex].props.children.type.name).toBe('Content');
+        expect(tileContents[childIndex].props.children.props.children).toBe(`Child ${childIndex + 1}`);
+      });
     });
 
-    it.each([0, 1])('TileContent[%i] contains the passed Content as its own child', (childIndex) => {
-      expect(tileContents[childIndex].props.children.type.name).toBe('Content');
-      expect(tileContents[childIndex].props.children.props.children).toBe(`Child ${childIndex + 1}`);
+    describe('when something causes a child element to return nothing', () => {
+      const children = [
+        <Content key='one'>Child 1</Content>,
+        undefined
+      ];
+
+      const wrapper = mount(
+        <Tile>
+          {children}
+        </Tile>
+      );
+
+      const tileContents = wrapper.find(TileContent).getElements();
+
+      it('only contains one TileContent', () => {
+        expect(tileContents.length).toBe(1);
+      });
     });
   });
 
@@ -144,11 +165,11 @@ describe('Tile', () => {
 
       describe('padding', () => {
         const paddingSizes = [
-          ['extra-small', '8px'],
-          ['small', '12px'],
-          ['medium', '16px'],
-          ['large', '32px'],
-          ['extra-large', '40px']
+          ['XS', '8px'],
+          ['S', '12px'],
+          ['M', '16px'],
+          ['L', '32px'],
+          ['XL', '40px']
         ];
 
         it.each(paddingSizes)('when %s, padding is set to %s', (option, value) => {

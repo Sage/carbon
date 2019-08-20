@@ -15,6 +15,8 @@ const Tile = (props) => {
   } = props;
 
   const wrappedChildren = React.Children.map(children, (child, index) => {
+    if (!child) { return null; }
+
     const { width: contentWidth, ...childProps } = child.props;
     const key = child.key || `tile-content-${index + 1}`;
 
@@ -45,7 +47,7 @@ const Tile = (props) => {
 Tile.defaultProps = {
   as: 'tile',
   orientation: 'horizontal',
-  padding: 'medium'
+  padding: 'M'
 };
 
 Tile.propTypes = {
@@ -63,13 +65,13 @@ Tile.propTypes = {
   orientation: PropTypes.oneOf(OptionsHelper.orientation),
   /**
    * Sets the Tile padding. Accepted values are:
-   * 'extra-small' = 8px
-   * 'small' = 12px
-   * 'medium' = 16px
-   * 'large' = 32px
-   * 'extra-large' = 40px
+   * 'XS' = 8px
+   * 'S' = 12px
+   * 'M' = 16px
+   * 'L' = 32px
+   * 'XL' = 40px
    */
-  padding: PropTypes.oneOf(OptionsHelper.sizesPod),
+  padding: PropTypes.oneOf(OptionsHelper.sizesTile),
   /**
    * Set a pixel with for the Tile component. If both are set to non-zero values, this
    * takes precedence over the percentage-based "width" prop.
