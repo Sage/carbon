@@ -6,7 +6,7 @@ import {
   POSITION_MIDDLE
 } from './card.const';
 import StyledCard from './card.style';
-import CardSection from './card-section';
+import CardPosition from './card-position';
 
 const Card = ({
   border,
@@ -25,7 +25,7 @@ const Card = ({
     { ...props }
   >
     { header && (
-      <CardSection
+      <CardPosition
         positionType={ POSITION_HEADER }
         theme={ theme }
         primary={ header[0].title }
@@ -34,7 +34,7 @@ const Card = ({
     )
     }
     { middle && (
-      <CardSection
+      <CardPosition
         positionType={ POSITION_MIDDLE }
         theme={ theme }
         primary={ middle[0].primary }
@@ -43,7 +43,7 @@ const Card = ({
       />
     )}
     { footer && (
-      <CardSection
+      <CardPosition
         positionType={ POSITION_FOOTER }
         theme={ theme }
         primary={ footer }

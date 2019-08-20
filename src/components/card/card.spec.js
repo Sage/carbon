@@ -5,10 +5,7 @@ import Card from './card.component';
 import {
   POSITION_FOOTER,
   POSITION_HEADER,
-  POSITION_MIDDLE,
-  TEXT_TYPE_PRIMARY,
-  TEXT_TYPE_SECONDARY,
-  TEXT_TYPE_TERTIARY
+  POSITION_MIDDLE
 } from './card.const';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import smallTheme from '../../style/themes/small';
@@ -18,8 +15,8 @@ import 'jest-styled-components';
 
 const defaultThemes = [
   ['small', smallTheme],
-  // ['medium', mediumTheme],
-  // ['large', largeTheme]
+  ['medium', mediumTheme],
+  ['large', largeTheme]
 ];
 
 describe('Card', () => {
@@ -78,7 +75,7 @@ describe('Card', () => {
           );
 
           it('does not renders a header', () => {
-            const elem = wrapper.find(`.${POSITION_HEADER}`);
+            const elem = wrapper.find(`[data-element="${POSITION_HEADER}"]`);
             expect(elem.exists()).toEqual(false);
           });
         });
@@ -91,7 +88,7 @@ describe('Card', () => {
               theme={ theme }
             />
           );
-          const elem = wrapper.find(`.${POSITION_HEADER}`);
+          const elem = wrapper.find(`[data-element="${POSITION_HEADER}"]`);
 
           it('renders a header', () => {
             expect(elem.exists()).toEqual(true);
@@ -106,7 +103,7 @@ describe('Card', () => {
           );
 
           it('does not render a description', () => {
-            const elem = wrapper.find(`.${POSITION_MIDDLE}`);
+            const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}"]`);
             expect(elem.exists()).toEqual(false);
           });
         });
@@ -123,7 +120,7 @@ describe('Card', () => {
               middle={ descProps }
             />
           );
-          const elem = wrapper.find(`.${POSITION_MIDDLE}`);
+          const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}"]`);
 
           it('renders a description', () => {
             expect(elem.exists()).toEqual(true);
@@ -138,7 +135,7 @@ describe('Card', () => {
           );
 
           it('does not render a footer', () => {
-            const elem = wrapper.find(`.${POSITION_FOOTER}`);
+            const elem = wrapper.find(`[data-element="${POSITION_FOOTER}"]`);
             expect(elem.exists()).toEqual(false);
           });
         });
@@ -151,7 +148,7 @@ describe('Card', () => {
               footer={ footerText }
             />
           );
-          const elem = wrapper.find(`.${POSITION_FOOTER}`);
+          const elem = wrapper.find(`[data-element="${POSITION_FOOTER}"]`);
 
           it('renders a footer', () => {
             expect(elem.exists()).toEqual(true);

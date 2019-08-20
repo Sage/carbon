@@ -1,13 +1,14 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import StyledCardSection from './card-section.style';
+import StyledCardPosition from './card-position.style';
+import StyledCardSection from '../card-section/card-section.style';
 import {
   TEXT_TYPE_PRIMARY,
   TEXT_TYPE_SECONDARY,
   TEXT_TYPE_TERTIARY
 } from '../card.const';
 
-const CardSection = ({
+const CardPosition = ({
   positionType,
   theme,
   primary,
@@ -15,11 +16,15 @@ const CardSection = ({
   tertiary
 }) => {
   return (
-    <div>
+    <StyledCardPosition
+      data-element={ positionType }
+      positionType={ positionType }
+      theme={ theme }
+    >
       {
         primary && (
           <StyledCardSection
-            data-element={ `${positionType}-${TEXT_TYPE_PRIMARY}` }
+            data-element={ TEXT_TYPE_PRIMARY }
             positionType={ positionType }
             primary
             theme={ theme }
@@ -31,7 +36,7 @@ const CardSection = ({
       {
         secondary && (
           <StyledCardSection
-            data-element={ `${positionType}-${TEXT_TYPE_SECONDARY}` }
+            data-element={ TEXT_TYPE_SECONDARY }
             positionType={ positionType }
             secondary
             theme={ theme }
@@ -43,7 +48,7 @@ const CardSection = ({
       {
         tertiary && (
           <StyledCardSection
-            data-element={ `${positionType}-${TEXT_TYPE_TERTIARY}` }
+            data-element={ TEXT_TYPE_TERTIARY }
             positionType={ positionType }
             tertiary
             theme={ theme }
@@ -52,11 +57,11 @@ const CardSection = ({
           </StyledCardSection>
         )
       }
-    </div>
+    </StyledCardPosition>
   );
 };
 
-CardSection.propTypes = {
+CardPosition.propTypes = {
   positionType: propTypes.string,
   theme: propTypes.object,
   primary: propTypes.string,
@@ -64,4 +69,4 @@ CardSection.propTypes = {
   tertiary: propTypes.string
 };
 
-export default CardSection;
+export default CardPosition;
