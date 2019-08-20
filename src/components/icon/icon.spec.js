@@ -226,7 +226,7 @@ describe('Icon component', () => {
       });
 
       describe('fontSize is "large" and bgSize is "small"', () => {
-        it('adjusts bgSize to "medium"', () => {
+        it('sets the height and width style properties of bgSize to same as "medium"', () => {
           const wrapper = renderStyles({ fontSize: 'large', bgTheme: 'foo', bgSize: 'small' });
           assertStyleMatch(
             {
