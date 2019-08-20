@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { array, boolean, text } from '@storybook/addon-knobs';
 import Card from './card.component';
+import { ALIGN_LEFT } from './card.const';
 
 storiesOf('Card', module)
   .add('default', () => {
@@ -15,7 +16,8 @@ storiesOf('Card', module)
       [{
         title: 'this is a title',
         subtitle: 'this is a subtitle',
-        icon: '/path/to/icon.svg'
+        icon: '/path/to/icon.svg',
+        alignment: ALIGN_LEFT
       }]);
     const footer = text('footer', 'this is a footer');
     const border = boolean('border', false);
