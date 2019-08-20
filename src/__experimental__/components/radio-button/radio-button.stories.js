@@ -4,13 +4,15 @@ import {
   boolean, text, number, select
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
+import { State, Store } from '@sambego/storybook-state';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import { RadioButton, RadioButtonGroup } from '.';
 import { info, notes } from './documentation';
 
-function makeStory(name, themeSelector) {
-  const component = () => {
+const radioToggleGroupStore = new Store({ value: '' });
+
+storiesOf('Experimental/RadioButton', module)
+  .add('default', () => {
     const knobs = defaultKnobs();
 
     return (
@@ -20,7 +22,6 @@ function makeStory(name, themeSelector) {
       >
         <RadioButton
           id='input-1'
-          checked
           label={ text('radioOneLabel', 'Example Weekly Radio Button') }
           value={ text('radioOneValue', 'weekly') }
           { ...knobs }
@@ -39,27 +40,61 @@ function makeStory(name, themeSelector) {
         />
       </RadioButtonGroup>
     );
-  };
-
-  const metadata = {
-    themeSelector,
+  }, {
     info: {
       text: info,
       excludedPropTypes: ['children']
     },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
-  };
+  })
+  .add('validations', () => {
+    const values = ['yes', 'no', 'error'];
 
-  return [name, component, metadata];
-}
+    function testValidation(value) {
+      return new Promise((resolve, reject) => {
+        if (value === 'error') {
+          reject(new Error('Why happened?'));
+        } else {
+          resolve();
+        }
+      });
+    }
 
-storiesOf('Experimental/RadioButton', module)
-  .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+    return (
+      <State store={ radioToggleGroupStore }>
+        <RadioButtonGroup
+          groupName='my-event'
+          label='Are you coming to the event?'
+          validations={ testValidation }
+          name='radio-button-group'
+        >
+          {values.map(value => (
+            <RadioButton
+              { ...defaultKnobs() }
+              key={ `key-${value}` }
+              id={ `id-${value}` }
+              name={ value }
+              label={ `Example Radion Button (${value})` }
+              value={ value }
+              onChange={ handleGroupChange }
+            />
+          ))}
+        </RadioButtonGroup>
+      </State>
+    );
+  });
 
 function handleChange(event) {
   const { value } = event.target;
+  action(`Selected - ${value}`)(event);
+}
+
+function handleGroupChange(event) {
+  const { value } = event.target;
+
+  radioToggleGroupStore.set({ value });
+
   action(`Selected - ${value}`)(event);
 }
 
