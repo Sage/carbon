@@ -18,11 +18,11 @@ const StyledButton = styled.button`
   vertical-align: middle;
   ${addButtonStyle}
 
-  ${({ iconPosition, theme }) => css`
+  ${({ iconPosition, theme, size }) => css`
     ${StyledIcon} {
       margin-left: ${iconPosition === 'before' ? '0px' : '8px'};
       margin-right: ${iconPosition === 'before' ? '8px' : '0px'};
-      height: ${isClassic(theme) ? '20px' : '18px'};
+      ${applyIconHeight(theme, size)}
     }
   `}
 `;
@@ -32,6 +32,12 @@ export const StyledButtonSubtext = styled.span`
   font-weight: 400;
   display: block;
 `;
+
+function applyIconHeight(theme, size) {
+  if (isClassic(theme)) return `height: ${size === 'large' ? '20px' : '18px'}`;
+
+  return `height: ${size === 'large' ? '22px' : '18px'}`;
+}
 
 function addButtonStyle(props) {
   if (isClassicButton(props)) return buttonClasicStyle(props);

@@ -293,7 +293,7 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
 .c4 .c5 {
   margin-left: 0px;
   margin-right: 8px;
-  height: 20px;
+  height: 18px;
 }
 
 .c8 > .c3 {

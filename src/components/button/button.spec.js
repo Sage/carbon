@@ -146,7 +146,12 @@ describe('Button', () => {
     'when the color variant is set to "%s"',
     (variant) => {
       const wrapper = TestRenderer.create(
-        <StyledButton theme={ classicTheme } variant={ variant }>Foo</StyledButton>
+        <StyledButton
+          size='large'
+          theme={ classicTheme }
+          variant={ variant }
+        >Foo
+        </StyledButton>
       );
 
       it('matches the snapshot with the default props', () => {

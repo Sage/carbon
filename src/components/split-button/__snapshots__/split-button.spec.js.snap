@@ -48,7 +48,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c7 .c5 {
   margin-left: 0px;
   margin-right: 8px;
-  height: 20px;
+  height: 18px;
 }
 
 .c8 + .c1 {
@@ -221,7 +221,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c13 .c5 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 20px;
+  height: 18px;
 }
 
 .c1 + .c13 {
@@ -265,7 +265,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c14 .c5 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 20px;
+  height: 18px;
 }
 
 .c14,
@@ -917,7 +917,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c2 .c5 {
   margin-left: 0px;
   margin-right: 8px;
-  height: 20px;
+  height: 18px;
 }
 
 .c7 + .c1 {
@@ -1133,7 +1133,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c4 .c5 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 20px;
+  height: 18px;
 }
 
 .c1 + .c4 {
@@ -1177,7 +1177,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c16 .c5 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 20px;
+  height: 18px;
 }
 
 .c16,

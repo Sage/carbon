@@ -65,15 +65,41 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   height: 20px;
 }
 
-.c5 + .c0 {
-  margin-left: 16px;
+.c5 .c2 {
+  color: #255bc7;
+}
+
+.c5:active .c2 {
+  color: #255bc7;
 }
 
 .c5:hover .c2 {
-  color: #FFFFFF;
+  color: #ffffff;
+}
+
+.c5:focus .c2 {
+  color: #ffffff;
+}
+
+.c5 + .c0 {
+  margin-left: 15px;
 }
 
 .c5 .c2 {
+  margin-left: 8px;
+  margin-right: 0px;
+  height: 18px;
+}
+
+.c6 + .c0 {
+  margin-left: 16px;
+}
+
+.c6:hover .c2 {
+  color: #FFFFFF;
+}
+
+.c6 .c2 {
   margin-left: 0px;
   margin-right: 8px;
   height: 18px;
@@ -216,6 +242,32 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   height: 20px;
 }
 
+.c5 .c2 {
+  color: #255bc7;
+}
+
+.c5:active .c2 {
+  color: #255bc7;
+}
+
+.c5:hover .c2 {
+  color: #ffffff;
+}
+
+.c5:focus .c2 {
+  color: #ffffff;
+}
+
+.c5 + .c0 {
+  margin-left: 15px;
+}
+
+.c5 .c2 {
+  margin-left: 8px;
+  margin-right: 0px;
+  height: 18px;
+}
+
 .c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -303,6 +355,10 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 `;
 
 exports[`Button when the classic theme is applied setting the color variant to "blue" matches the snapshot when default props are passed 1`] = `
+.c2 + .c0 {
+  margin-left: 15px;
+}
+
 .c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -333,7 +389,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   text-decoration: none;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   color: #255bc7;
 }
 
@@ -343,7 +399,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   color: #ffffff;
 }
 
-.c1:active .c19 {
+.c1:active .c20 {
   color: #255bc7;
 }
 
@@ -353,7 +409,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   color: #ffffff;
 }
 
-.c1:hover .c19 {
+.c1:hover .c20 {
   color: #ffffff;
 }
 
@@ -365,7 +421,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   color: #ffffff;
 }
 
-.c1:focus .c19 {
+.c1:focus .c20 {
   color: #ffffff;
 }
 
@@ -373,14 +429,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 15px;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 20px;
-}
-
-.c2 + .c0 {
-  margin-left: 16px;
+  height: 18px;
 }
 
 .c3 + .c0 {
@@ -444,6 +496,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c18 + .c0 {
+  margin-left: 16px;
+}
+
+.c19 + .c0 {
   margin-left: 16px;
 }
 
@@ -455,6 +511,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
 `;
 
 exports[`Button when the classic theme is applied setting the color variant to "grey" matches the snapshot when default props are passed 1`] = `
+.c2 + .c0 {
+  margin-left: 15px;
+}
+
 .c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -485,7 +545,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   text-decoration: none;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   color: #255bc7;
 }
 
@@ -495,7 +555,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   color: #ffffff;
 }
 
-.c1:active .c19 {
+.c1:active .c20 {
   color: #255bc7;
 }
 
@@ -505,7 +565,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   color: #ffffff;
 }
 
-.c1:hover .c19 {
+.c1:hover .c20 {
   color: #ffffff;
 }
 
@@ -517,7 +577,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   color: #ffffff;
 }
 
-.c1:focus .c19 {
+.c1:focus .c20 {
   color: #ffffff;
 }
 
@@ -525,14 +585,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 15px;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 20px;
-}
-
-.c2 + .c0 {
-  margin-left: 16px;
+  height: 18px;
 }
 
 .c3 + .c0 {
@@ -596,6 +652,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c18 + .c0 {
+  margin-left: 16px;
+}
+
+.c19 + .c0 {
   margin-left: 16px;
 }
 
@@ -607,6 +667,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
 `;
 
 exports[`Button when the classic theme is applied setting the color variant to "magenta" matches the snapshot when default props are passed 1`] = `
+.c2 + .c0 {
+  margin-left: 15px;
+}
+
 .c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -637,7 +701,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   text-decoration: none;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   color: #255bc7;
 }
 
@@ -647,7 +711,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   color: #ffffff;
 }
 
-.c1:active .c19 {
+.c1:active .c20 {
   color: #255bc7;
 }
 
@@ -657,7 +721,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   color: #ffffff;
 }
 
-.c1:hover .c19 {
+.c1:hover .c20 {
   color: #ffffff;
 }
 
@@ -669,7 +733,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   color: #ffffff;
 }
 
-.c1:focus .c19 {
+.c1:focus .c20 {
   color: #ffffff;
 }
 
@@ -677,14 +741,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 15px;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 20px;
-}
-
-.c2 + .c0 {
-  margin-left: 16px;
+  height: 18px;
 }
 
 .c3 + .c0 {
@@ -748,6 +808,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c18 + .c0 {
+  margin-left: 16px;
+}
+
+.c19 + .c0 {
   margin-left: 16px;
 }
 
@@ -759,6 +823,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
 `;
 
 exports[`Button when the classic theme is applied setting the color variant to "magenta-dull" matches the snapshot when default props are passed 1`] = `
+.c2 + .c0 {
+  margin-left: 15px;
+}
+
 .c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -789,7 +857,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   text-decoration: none;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   color: #255bc7;
 }
 
@@ -799,7 +867,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   color: #ffffff;
 }
 
-.c1:active .c19 {
+.c1:active .c20 {
   color: #255bc7;
 }
 
@@ -809,7 +877,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   color: #ffffff;
 }
 
-.c1:hover .c19 {
+.c1:hover .c20 {
   color: #ffffff;
 }
 
@@ -821,7 +889,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   color: #ffffff;
 }
 
-.c1:focus .c19 {
+.c1:focus .c20 {
   color: #ffffff;
 }
 
@@ -829,14 +897,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 15px;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 20px;
-}
-
-.c2 + .c0 {
-  margin-left: 16px;
+  height: 18px;
 }
 
 .c3 + .c0 {
@@ -900,6 +964,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c18 + .c0 {
+  margin-left: 16px;
+}
+
+.c19 + .c0 {
   margin-left: 16px;
 }
 
@@ -911,6 +979,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
 `;
 
 exports[`Button when the classic theme is applied setting the color variant to "red" matches the snapshot when default props are passed 1`] = `
+.c2 + .c0 {
+  margin-left: 15px;
+}
+
 .c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -941,7 +1013,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   text-decoration: none;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   color: #255bc7;
 }
 
@@ -951,7 +1023,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   color: #ffffff;
 }
 
-.c1:active .c19 {
+.c1:active .c20 {
   color: #255bc7;
 }
 
@@ -961,7 +1033,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   color: #ffffff;
 }
 
-.c1:hover .c19 {
+.c1:hover .c20 {
   color: #ffffff;
 }
 
@@ -973,7 +1045,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   color: #ffffff;
 }
 
-.c1:focus .c19 {
+.c1:focus .c20 {
   color: #ffffff;
 }
 
@@ -981,14 +1053,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 15px;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 20px;
-}
-
-.c2 + .c0 {
-  margin-left: 16px;
+  height: 18px;
 }
 
 .c3 + .c0 {
@@ -1052,6 +1120,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c18 + .c0 {
+  margin-left: 16px;
+}
+
+.c19 + .c0 {
   margin-left: 16px;
 }
 
@@ -1063,6 +1135,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
 `;
 
 exports[`Button when the classic theme is applied setting the color variant to "white" matches the snapshot when default props are passed 1`] = `
+.c2 + .c0 {
+  margin-left: 15px;
+}
+
 .c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -1093,7 +1169,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   text-decoration: none;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   color: #255bc7;
 }
 
@@ -1103,7 +1179,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   color: #ffffff;
 }
 
-.c1:active .c19 {
+.c1:active .c20 {
   color: #255bc7;
 }
 
@@ -1113,7 +1189,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   color: #ffffff;
 }
 
-.c1:hover .c19 {
+.c1:hover .c20 {
   color: #ffffff;
 }
 
@@ -1125,7 +1201,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   color: #ffffff;
 }
 
-.c1:focus .c19 {
+.c1:focus .c20 {
   color: #ffffff;
 }
 
@@ -1133,14 +1209,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 15px;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 20px;
-}
-
-.c2 + .c0 {
-  margin-left: 16px;
+  height: 18px;
 }
 
 .c3 + .c0 {
@@ -1204,6 +1276,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c18 + .c0 {
+  margin-left: 16px;
+}
+
+.c19 + .c0 {
   margin-left: 16px;
 }
 
@@ -1241,11 +1317,18 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
   background: transparent;
   border: 1px solid #255bc7;
   color: #255bc7;
+  border-radius: 0;
+  font-size: 14px;
+  height: 43px;
+  line-height: 16px;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0 20px;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   color: #255bc7;
 }
 
@@ -1255,7 +1338,7 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
   color: #ffffff;
 }
 
-.c1:active .c19 {
+.c1:active .c20 {
   color: #255bc7;
 }
 
@@ -1265,7 +1348,7 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
   color: #ffffff;
 }
 
-.c1:hover .c19 {
+.c1:hover .c20 {
   color: #ffffff;
 }
 
@@ -1277,7 +1360,7 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
   color: #ffffff;
 }
 
-.c1:focus .c19 {
+.c1:focus .c20 {
   color: #ffffff;
 }
 
@@ -1285,14 +1368,14 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
   margin-left: 15px;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
   height: 20px;
 }
 
 .c2 + .c0 {
-  margin-left: 16px;
+  margin-left: 15px;
 }
 
 .c3 + .c0 {
@@ -1359,8 +1442,13 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
   margin-left: 16px;
 }
 
+.c19 + .c0 {
+  margin-left: 16px;
+}
+
 <button
   className="c0 c1"
+  size="large"
 >
   Foo
 </button>
@@ -1393,11 +1481,18 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
   background: transparent;
   border: 1px solid #255bc7;
   color: #255bc7;
+  border-radius: 0;
+  font-size: 14px;
+  height: 43px;
+  line-height: 16px;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0 20px;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   color: #255bc7;
 }
 
@@ -1407,7 +1502,7 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
   color: #ffffff;
 }
 
-.c1:active .c19 {
+.c1:active .c20 {
   color: #255bc7;
 }
 
@@ -1417,7 +1512,7 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
   color: #ffffff;
 }
 
-.c1:hover .c19 {
+.c1:hover .c20 {
   color: #ffffff;
 }
 
@@ -1429,7 +1524,7 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
   color: #ffffff;
 }
 
-.c1:focus .c19 {
+.c1:focus .c20 {
   color: #ffffff;
 }
 
@@ -1437,14 +1532,14 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
   margin-left: 15px;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
   height: 20px;
 }
 
 .c2 + .c0 {
-  margin-left: 16px;
+  margin-left: 15px;
 }
 
 .c3 + .c0 {
@@ -1511,8 +1606,13 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
   margin-left: 16px;
 }
 
+.c19 + .c0 {
+  margin-left: 16px;
+}
+
 <button
   className="c0 c1"
+  size="large"
 >
   Foo
 </button>
@@ -1545,11 +1645,18 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
   background: transparent;
   border: 1px solid #255bc7;
   color: #255bc7;
+  border-radius: 0;
+  font-size: 14px;
+  height: 43px;
+  line-height: 16px;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0 20px;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   color: #255bc7;
 }
 
@@ -1559,7 +1666,7 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
   color: #ffffff;
 }
 
-.c1:active .c19 {
+.c1:active .c20 {
   color: #255bc7;
 }
 
@@ -1569,7 +1676,7 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
   color: #ffffff;
 }
 
-.c1:hover .c19 {
+.c1:hover .c20 {
   color: #ffffff;
 }
 
@@ -1581,7 +1688,7 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
   color: #ffffff;
 }
 
-.c1:focus .c19 {
+.c1:focus .c20 {
   color: #ffffff;
 }
 
@@ -1589,14 +1696,14 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
   margin-left: 15px;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
   height: 20px;
 }
 
 .c2 + .c0 {
-  margin-left: 16px;
+  margin-left: 15px;
 }
 
 .c3 + .c0 {
@@ -1663,8 +1770,13 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
   margin-left: 16px;
 }
 
+.c19 + .c0 {
+  margin-left: 16px;
+}
+
 <button
   className="c0 c1"
+  size="large"
 >
   Foo
 </button>
@@ -1697,11 +1809,18 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
   background: transparent;
   border: 1px solid #255bc7;
   color: #255bc7;
+  border-radius: 0;
+  font-size: 14px;
+  height: 43px;
+  line-height: 16px;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0 20px;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   color: #255bc7;
 }
 
@@ -1711,7 +1830,7 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
   color: #ffffff;
 }
 
-.c1:active .c19 {
+.c1:active .c20 {
   color: #255bc7;
 }
 
@@ -1721,7 +1840,7 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
   color: #ffffff;
 }
 
-.c1:hover .c19 {
+.c1:hover .c20 {
   color: #ffffff;
 }
 
@@ -1733,7 +1852,7 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
   color: #ffffff;
 }
 
-.c1:focus .c19 {
+.c1:focus .c20 {
   color: #ffffff;
 }
 
@@ -1741,14 +1860,14 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
   margin-left: 15px;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
   height: 20px;
 }
 
 .c2 + .c0 {
-  margin-left: 16px;
+  margin-left: 15px;
 }
 
 .c3 + .c0 {
@@ -1815,8 +1934,13 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
   margin-left: 16px;
 }
 
+.c19 + .c0 {
+  margin-left: 16px;
+}
+
 <button
   className="c0 c1"
+  size="large"
 >
   Foo
 </button>
@@ -1849,11 +1973,18 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
   background: transparent;
   border: 1px solid #255bc7;
   color: #255bc7;
+  border-radius: 0;
+  font-size: 14px;
+  height: 43px;
+  line-height: 16px;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0 20px;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   color: #255bc7;
 }
 
@@ -1863,7 +1994,7 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
   color: #ffffff;
 }
 
-.c1:active .c19 {
+.c1:active .c20 {
   color: #255bc7;
 }
 
@@ -1873,7 +2004,7 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
   color: #ffffff;
 }
 
-.c1:hover .c19 {
+.c1:hover .c20 {
   color: #ffffff;
 }
 
@@ -1885,7 +2016,7 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
   color: #ffffff;
 }
 
-.c1:focus .c19 {
+.c1:focus .c20 {
   color: #ffffff;
 }
 
@@ -1893,14 +2024,14 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
   margin-left: 15px;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
   height: 20px;
 }
 
 .c2 + .c0 {
-  margin-left: 16px;
+  margin-left: 15px;
 }
 
 .c3 + .c0 {
@@ -1967,8 +2098,13 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
   margin-left: 16px;
 }
 
+.c19 + .c0 {
+  margin-left: 16px;
+}
+
 <button
   className="c0 c1"
+  size="large"
 >
   Foo
 </button>
@@ -2001,11 +2137,18 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
   background: transparent;
   border: 1px solid #255bc7;
   color: #255bc7;
+  border-radius: 0;
+  font-size: 14px;
+  height: 43px;
+  line-height: 16px;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0 20px;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   color: #255bc7;
 }
 
@@ -2015,7 +2158,7 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
   color: #ffffff;
 }
 
-.c1:active .c19 {
+.c1:active .c20 {
   color: #255bc7;
 }
 
@@ -2025,7 +2168,7 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
   color: #ffffff;
 }
 
-.c1:hover .c19 {
+.c1:hover .c20 {
   color: #ffffff;
 }
 
@@ -2037,7 +2180,7 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
   color: #ffffff;
 }
 
-.c1:focus .c19 {
+.c1:focus .c20 {
   color: #ffffff;
 }
 
@@ -2045,14 +2188,14 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
   margin-left: 15px;
 }
 
-.c1 .c19 {
+.c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
   height: 20px;
 }
 
 .c2 + .c0 {
-  margin-left: 16px;
+  margin-left: 15px;
 }
 
 .c3 + .c0 {
@@ -2119,8 +2262,13 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
   margin-left: 16px;
 }
 
+.c19 + .c0 {
+  margin-left: 16px;
+}
+
 <button
   className="c0 c1"
+  size="large"
 >
   Foo
 </button>
