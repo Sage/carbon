@@ -24,7 +24,7 @@ storiesOf('Tile', module)
     const tileProps = {
       as: select('as', OptionsHelper.tileThemes, Tile.defaultProps.as, 'Tile'),
       orientation: select('orientation', OptionsHelper.orientation, Tile.defaultProps.orientation, 'Tile'),
-      padding: select('padding', OptionsHelper.sizesPod, Tile.defaultProps.padding, 'Tile'),
+      padding: select('padding', OptionsHelper.sizesTile, Tile.defaultProps.padding, 'Tile'),
       pixelWidth: number('pixelWidth', 0, { ...percentageOpts, max: 2000 }, 'Tile'),
       width: number('width', 0, percentageOpts, 'Tile')
     };
