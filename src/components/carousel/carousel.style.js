@@ -26,7 +26,7 @@ const CarouselNextButtonWrapperStyle = styled(CarouselNavigationStyle)`
 
 const CarouselStyledIcon = styled(Icon)`
   cursor: pointer;
-  ${({ theme }) => theme.name && !isClassic(theme) && css`
+  ${({ theme }) => !isClassic(theme) && css`
     color: ${theme.colors.white};
     :hover {
       color: ${theme.colors.white};
@@ -173,6 +173,22 @@ CarouselSelectorWrapperStyle.defaultProps = {
 };
 
 CarouselSelectorLabelStyle.defaultProps = {
+  theme: baseTheme
+};
+
+CarouselStyledIconLeft.defaultProps = {
+  theme: baseTheme
+};
+
+CarouselStyledIconRight.defaultProps = {
+  theme: baseTheme
+};
+
+CarouselPreviousButtonWrapperStyle.defaultProps = {
+  theme: baseTheme
+};
+
+CarouselNextButtonWrapperStyle.defaultProps = {
   theme: baseTheme
 };
 

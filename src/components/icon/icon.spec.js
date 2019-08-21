@@ -54,7 +54,7 @@ describe('Icon component', () => {
       'renderIcon',
       (icon) => {
         it(`calls the render ${icon} icon method`, () => {
-          instance = TestUtils.renderIntoDocument(<Icon type={ icon } />);
+          instance = TestUtils.renderIntoDocument(<Icon fontSize='large' type={ icon } />);
           // eslint-disable-next-line no-unused-expressions
           instance.renderIcon;
           span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
