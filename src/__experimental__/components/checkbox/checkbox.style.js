@@ -9,7 +9,7 @@ import LabelStyle from '../label/label.style';
 import checkBoxClassicStyle from './checkbox-classic.style';
 import ValidationIconStyle from '../../../components/validations/validation-icon.style';
 
-const svgBorderColor = ({
+const validationBorderColor = ({
   theme,
   hasError,
   hasWarning,
@@ -42,7 +42,7 @@ const CheckboxStyle = styled.div`
 
     svg {
       background-color: ${theme.colors.white};
-      border: ${svgBorderColor};
+      border: ${validationBorderColor};
     }
 
     ${HiddenCheckableInputStyle},
@@ -70,6 +70,18 @@ const CheckboxStyle = styled.div`
     ${LabelStyle} {
       padding: 0 6px;
       width: auto;
+
+      ${({ hasError }) => hasError && !disabled && css`
+        color: ${theme.colors.error};
+      `}
+
+      ${({ hasWarning }) => hasWarning && !disabled && css`
+        color: ${theme.colors.warning};
+      `}
+
+      ${({ hasInfo }) => hasInfo && !disabled && css`
+        color: ${theme.colors.info};
+      `}
     }
 
     ${FieldHelpStyle} {
@@ -182,29 +194,10 @@ CheckboxStyle.propTypes = {
   size: PropTypes.string
 };
 
-const groupSvgBorder = ({
-  theme,
-  hasError,
-  hasWarning,
-  hasInfo
-}) => {
-  let color = theme.colors.border;
-
-  if (hasError) {
-    color = theme.colors.error;
-  } else if (hasWarning) {
-    color = theme.colors.warning;
-  } else if (hasInfo) {
-    color = theme.colors.info;
-  }
-
-  return `1px solid ${color}`;
-};
-
 const StyledCheckboxGroup = styled.div`
   & ${StyledCheckableInputSvgWrapper} {
     svg {
-      border: ${groupSvgBorder};
+      border: ${validationBorderColor};
     }
   }
 
