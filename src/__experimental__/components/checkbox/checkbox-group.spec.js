@@ -5,13 +5,13 @@ import { css } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
 import CheckboxGroup from './checkbox-group.component';
 import Checkbox from './checkbox.component';
-import { StyledCheckboxGroup } from './checkbox.style';
 import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
-import Label from '../label';
 import LabelStyle from '../label/label.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import baseTheme from '../../../style/themes/base';
-import Help from '../../../components/help';
+import Icon from '../../../components/icon';
+import ValidationIconStyle from '../../../components/validations/validation-icon.style';
+import Label from '../label';
 
 const checkboxValues = ['required', 'optional'];
 const groupName = 'my-checkbox-group';
@@ -19,6 +19,7 @@ const groupName = 'my-checkbox-group';
 function render(props, renderer = TestRenderer.create) {
   const children = checkboxValues.map(value => (
     <Checkbox
+      id={ `cId-${value}` }
       key={ `cKey-${value}` }
       name={ `check-${value}` }
       onChange={ jest.fn() }
@@ -47,104 +48,63 @@ function getInput(wrapper) {
 }
 
 describe('CheckboxGroup', () => {
-  describe('child RadioButton prop / key mapping', () => {
+  it('renders as expected', () => {
+    expect(render()).toMatchSnapshot();
+  });
+
+  describe('group label', () => {
+    const labelText = 'My Label';
+    const wrapper = render({ label: labelText }, mount);
+    const label = wrapper.find(Label).first();
+
+    expect(label.text()).toEqual(labelText);
+  });
+
+  describe('change state', () => {
     const wrapper = render({}, mount);
-    const checkboxes = getCheckboxes(wrapper);
-    const checkboxArray = checkboxes.getElements();
+    let checkboxOne = getCheckboxes(wrapper).at(0);
+    let checkboxTwo = getCheckboxes(wrapper).at(1);
 
-    describe.each(checkboxArray)('buttons[%#]', (checkbox) => {
-      const index = checkboxArray.indexOf(checkbox);
+    const input = getInput(checkboxOne);
+    const target = input.instance();
 
-      describe('key / value (both derived from value prop)', () => {
-        const expectedValue = checkboxValues[index];
-        const expectedKey = `.$cKey-${expectedValue}`;
+    input.simulate('change', { target });
+    wrapper.update();
 
-        it(`sets the value to ${expectedValue}`, () => {
-          expect(checkbox.props.value).toEqual(expectedValue);
-        });
+    checkboxOne = getCheckboxes(wrapper).at(0);
+    checkboxTwo = getCheckboxes(wrapper).at(1);
 
-        it(`sets the key to ${expectedKey}`, () => {
-          expect(checkbox.key).toEqual(expectedKey);
-        });
-      });
-
-      describe('name', () => {
-        it('is set using the RadioButtonGroup groupName prop', () => {
-          const buttonWrapper = checkboxes.at(checkboxArray.indexOf(checkbox));
-          const input = getInput(buttonWrapper).instance();
-          const expectedValue = checkboxValues[index];
-
-          expect(input.name).toEqual(`check-${expectedValue}`);
-        });
-      });
-
-      describe('checkbox initial state', () => {
-        it('checked === false', () => {
-          expect(checkbox.props.checked).toBe(false);
-        });
-      });
+    it('sets checked === true when it is changed', () => {
+      expect(checkboxOne.prop('checked')).toBe(true);
+      expect(checkboxTwo.prop('checked')).toBe(false);
     });
 
-    describe('change state', () => {
-      let checkboxOne = getCheckboxes(wrapper).at(0);
-      let checkboxTwo = getCheckboxes(wrapper).at(1);
+    it('sets checked === false when the other button is selected', () => {
+      const otherInput = getInput(checkboxTwo);
+      const otherTarget = otherInput.instance();
 
-      const input = getInput(checkboxOne);
-      const target = input.instance();
-
-      input.simulate('change', { target });
+      otherInput.simulate('change', { target: otherTarget });
       wrapper.update();
 
       checkboxOne = getCheckboxes(wrapper).at(0);
       checkboxTwo = getCheckboxes(wrapper).at(1);
 
-      it('sets checked === true when it is changed', () => {
-        expect(checkboxOne.prop('checked')).toBe(true);
-        expect(checkboxTwo.prop('checked')).toBe(false);
-      });
+      expect(checkboxOne.prop('checked')).toBe(false);
+      expect(checkboxTwo.prop('checked')).toBe(true);
+    });
+  });
 
-      it('sets checked === false when the other button is selected', () => {
-        const otherInput = getInput(checkboxTwo);
-        const otherTarget = otherInput.instance();
+  describe('group icon messsage', () => {
+    const wrapper = render({}, mount);
+    const text = 'Choose an option';
 
-        otherInput.simulate('change', { target: otherTarget });
-        wrapper.update();
-
-        checkboxOne = getCheckboxes(wrapper).at(0);
-        checkboxTwo = getCheckboxes(wrapper).at(1);
-
-        expect(checkboxOne.prop('checked')).toBe(false);
-        expect(checkboxTwo.prop('checked')).toBe(true);
-      });
+    wrapper.setProps({
+      labelHelp: text
     });
 
-    describe('group label', () => {
-      const expectedLabelId = `${groupName}-label`;
+    const icon = wrapper.find(Icon);
 
-      it('sets an appropriate label id (derived from groupname)', () => {
-        const label = wrapper.find(Label).first();
-
-        expect(label.props().id).toEqual(expectedLabelId);
-      });
-
-      it('sets the aria-labelledby attribute to the labelId', () => {
-        const buttonGroup = wrapper.find(StyledCheckboxGroup).first();
-
-        expect(buttonGroup.props()['aria-labelledby']).toEqual(expectedLabelId);
-      });
-    });
-
-    describe('group help label', () => {
-      const text = 'Choose an option';
-
-      wrapper.setProps({
-        labelHelp: text
-      });
-
-      const help = wrapper.find(Help);
-
-      expect(help.prop('children')).toEqual(text);
-    });
+    expect(icon.prop('tooltipMessage')).toEqual(text);
   });
 
   describe('styles', () => {
@@ -183,14 +143,17 @@ describe('CheckboxGroup', () => {
           wrapper.setProps(props);
         });
 
-        it(`${type}=true`, () => {
-          expect(wrapper.prop(type)).toBe(true);
-        });
-
         it('has correct color', () => {
           assertStyleMatch({
             border: `1px solid ${validationTypes[type].color}`
           }, wrapper, { modifier: `${StyledCheckableInputSvgWrapper} svg` });
+        });
+
+        it('check icon type', () => {
+          const icon = wrapper.find(ValidationIconStyle);
+          const iconType = type.replace('has', '').toLowerCase();
+
+          expect(icon.prop('type')).toEqual(iconType);
         });
       });
     });

@@ -4,8 +4,8 @@ import tagComponent from '../../../utils/helpers/tags';
 import { StyledCheckboxGroup } from './checkbox.style';
 import { withValidation } from '../../../components/validations';
 import Label from '../label';
-import ValidationIcon from '../../../components/validations/validation-icon.component';
-import Help from '../../../components/help';
+import ValidationIconStyle from '../../../components/validations/validation-icon.style';
+import Icon from '../../../components/icon';
 
 function initialTabIndex(childIndex) {
   return (childIndex > 0) ? -1 : 0;
@@ -15,16 +15,38 @@ function checkedTabIndex(checked) {
   return checked ? 0 : -1;
 }
 
-const getValidationType = ({ hasError, hasWarning }) => {
-  let type = 'info';
+const getValidationType = ({ hasError, hasWarning, hasInfo }) => {
+  let type = 'help';
 
   if (hasError) {
     type = 'error';
   } else if (hasWarning) {
     type = 'warning';
+  } else if (hasInfo) {
+    type = 'info';
   }
 
   return type;
+};
+
+const getValidationMessage = (type, props) => {
+  const {
+    labelHelp,
+    errorMessage,
+    warningMessage,
+    infoMessage
+  } = props;
+
+  switch (type) {
+    case 'error':
+      return errorMessage;
+    case 'warning':
+      return warningMessage;
+    case 'info':
+      return infoMessage;
+    default:
+      return labelHelp;
+  }
 };
 
 const CheckboxGroup = (props) => {
@@ -34,8 +56,7 @@ const CheckboxGroup = (props) => {
     label,
     hasError,
     hasWarning,
-    hasInfo,
-    labelHelp
+    hasInfo
   } = props;
   const [selectedValue, setSelectedValue] = useState(null);
 
@@ -61,21 +82,18 @@ const CheckboxGroup = (props) => {
     );
   });
 
-  const tooltip = () => {
-    if (hasError || hasWarning || hasInfo) {
-      const bool = true;
-      const type = getValidationType(props);
+  const icon = () => {
+    const type = getValidationType(props);
+    const message = getValidationMessage(type, props);
 
-      return (
-        <ValidationIcon
+    return (
+      <ValidationIconStyle type={ type }>
+        <Icon
           type={ type }
-          size='small'
-          isPartOfInput={ bool }
+          tooltipMessage={ message }
         />
-      );
-    }
-
-    return labelHelp && <Help>{labelHelp}</Help>;
+      </ValidationIconStyle>
+    );
   };
 
   return (
@@ -89,7 +107,7 @@ const CheckboxGroup = (props) => {
     >
       <Label id={ groupLabelId }>
         {label}
-        {tooltip()}
+        {icon()}
       </Label>
       {buttons}
     </StyledCheckboxGroup>
