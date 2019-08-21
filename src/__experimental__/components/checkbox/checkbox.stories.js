@@ -7,8 +7,8 @@ import {
 import { Store, State } from '@sambego/storybook-state';
 import Form from '../form';
 import OptionsHelper from '../../../utils/helpers/options-helper';
-import Checkbox from '.';
-import { notes, info, infoValidations } from './documentation';
+import Checkbox, { OriginalCheckbox } from '.';
+import { info, notes, infoValidations } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 import CheckboxGroup from './checkbox-group.component';
 
@@ -21,39 +21,48 @@ const checkboxes = {
   one: {}, required: {}, warning: {}, info: {}, optional: {}, mandatory: {}, example: {}
 };
 const checkboxKeys = Object.keys(checkboxes);
+
+function testValidator(value, props) {
+  return new Promise((resolve, reject) => {
+    if (['required', 'mandatory'].indexOf(value) !== -1 && !props.checked) {
+      reject(new Error('This checkbox is required!'));
+    } else {
+      resolve();
+    }
+  });
+}
+
+function testWarning(value) {
+  return new Promise((resolve, reject) => {
+    if (['warning'].indexOf(value) !== -1) {
+      reject(new Error('Show warning!'));
+    } else {
+      resolve();
+    }
+  });
+}
+
+function testInfo(value) {
+  return new Promise((resolve, reject) => {
+    if (value === 'info') {
+      reject(new Error('Show this information'));
+    } else {
+      resolve();
+    }
+  });
+}
+
 checkboxKeys.forEach((id) => {
   checkboxes[id] = {
     store: new Store({
       check: false
-    }),
-
-    validator: (value, props) => new Promise((resolve, reject) => {
-      if (['required', 'mandatory'].indexOf(value) !== -1 && !props.checked) {
-        reject(new Error('This checkbox is required!'));
-      } else {
-        resolve();
-      }
-    }),
-
-    warning: value => new Promise((resolve, reject) => {
-      if (['warning', 'example'].indexOf(value) !== -1) {
-        reject(new Error('Show warning!'));
-      } else {
-        resolve();
-      }
-    }),
-
-    info: value => new Promise((resolve, reject) => {
-      if (value === 'info') {
-        reject(new Error('Show this information'));
-      } else {
-        resolve();
-      }
     })
   };
 });
 const formCheckbox = checkboxKeys.filter(name => ['one', 'name', 'mandatory', 'example'].indexOf(name) === -1);
-const groupCheckbox = checkboxKeys.filter(name => ['mandatory', 'example'].indexOf(name) !== -1);
+const groupCheckbox = checkboxKeys.filter(name => ['mandatory', 'warning', 'info', 'example'].indexOf(name) !== -1);
+
+const inGroupStore = new Store({ value: '' });
 
 storiesOf('Experimental/Checkbox', module)
   .add('default', () => {
@@ -82,9 +91,9 @@ storiesOf('Experimental/Checkbox', module)
             <State store={ checkboxes[type].store } key={ `check-state-${type}` }>
               <Checkbox
                 key={ `checkbox-input-${type}` }
-                validations={ checkboxes[type].validator }
-                warnings={ checkboxes[type].warning }
-                info={ checkboxes[type].info }
+                validations={ testValidator }
+                warnings={ testWarning }
+                info={ testInfo }
                 onChange={ ev => handleChange(ev, type) }
                 name={ `my-checkbox-${type}` }
                 { ...defaultKnobs(type) }
@@ -94,22 +103,26 @@ storiesOf('Experimental/Checkbox', module)
         </Form>
 
         <h3>In Group</h3>
-        <CheckboxGroup
-          groupName='checkbox-group'
-          label='What would you choose?'
-          validations={ checkboxes.one.validator }
-          warnings={ checkboxes.one.warning }
-          info={ checkboxes.one.info }
-        >
-          {groupCheckbox.map(id => (
-            <Checkbox
-              key={ `checkbox-input-${id}` }
-              name={ `my-checkbox-${id}` }
-              onChange={ ev => handleChange(ev, id) }
-              { ...defaultKnobs(id) }
-            />
-          ))}
-        </CheckboxGroup>
+        <State store={ inGroupStore }>
+          <CheckboxGroup
+            name='checkbox-group'
+            groupName='checkbox-group'
+            label='What would you choose?'
+            labelHelp='Returns error unless "Baz" value selected'
+            validations={ testValidator }
+            warnings={ testWarning }
+            info={ testInfo }
+          >
+            {groupCheckbox.map(id => (
+              <OriginalCheckbox
+                { ...defaultKnobs(id) }
+                key={ `checkbox-input-${id}` }
+                onChange={ ev => inGroupStore.set({ value: ev.target.value }) }
+                labelHelp=''
+              />
+            ))}
+          </CheckboxGroup>
+        </State>
       </React.Fragment>
     );
   }, {
