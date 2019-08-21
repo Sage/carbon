@@ -194,6 +194,19 @@ CheckboxStyle.propTypes = {
   size: PropTypes.string
 };
 
+const validationIconColor = ({
+  theme,
+  hasError,
+  hasWarning,
+  hasInfo
+}) => {
+  if (!hasError && !hasWarning && !hasInfo) {
+    return css`color: ${theme.help.color};`;
+  }
+
+  return null;
+};
+
 const StyledCheckboxGroup = styled.div`
   & ${StyledCheckableInputSvgWrapper} {
     svg {
@@ -206,6 +219,10 @@ const StyledCheckboxGroup = styled.div`
     margin-bottom: 16px;
     padding: 0;
     display: flex;
+
+    & ${ValidationIconStyle} {
+      ${validationIconColor}
+    }
   }
 `;
 
