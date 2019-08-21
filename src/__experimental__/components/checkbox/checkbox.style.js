@@ -182,12 +182,44 @@ CheckboxStyle.propTypes = {
   size: PropTypes.string
 };
 
-export const StyledCheckboxGroup = styled.div`
+const groupSvgBorder = ({
+  theme,
+  hasError,
+  hasWarning,
+  hasInfo
+}) => {
+  let color = theme.colors.border;
+
+  if (hasError) {
+    color = theme.colors.error;
+  } else if (hasWarning) {
+    color = theme.colors.warning;
+  } else if (hasInfo) {
+    color = theme.colors.info;
+  }
+
+  return `1px solid ${color}`;
+};
+
+const StyledCheckboxGroup = styled.div`
+  & ${StyledCheckableInputSvgWrapper} {
+    svg {
+      border: ${groupSvgBorder};
+    }
+  }
+
   & > ${LabelStyle} {
     cursor: default ;
     margin-bottom: 16px;
     padding: 0;
+    display: flex;
   }
 `;
+
+StyledCheckboxGroup.defaultProps = {
+  theme: baseTheme
+};
+
+export { StyledCheckboxGroup };
 
 export default CheckboxStyle;
