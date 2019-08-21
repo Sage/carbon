@@ -9,7 +9,6 @@ import {
 } from '../card.const';
 
 const CardPosition = ({
-  alignment,
   positionType,
   theme,
   primary,
@@ -25,7 +24,6 @@ const CardPosition = ({
       {
         primary && (
           <StyledCardSection
-            alignment={ alignment }
             data-element={ TEXT_TYPE_PRIMARY }
             positionType={ positionType }
             primary
@@ -64,7 +62,6 @@ const CardPosition = ({
 };
 
 CardPosition.propTypes = {
-  alignment: propTypes.string,
   positionType: propTypes.string,
   theme: propTypes.object,
   primary: propTypes.string,

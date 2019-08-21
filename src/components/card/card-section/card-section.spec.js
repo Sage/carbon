@@ -8,8 +8,7 @@ import {
   POSITION_MIDDLE,
   TEXT_TYPE_PRIMARY,
   TEXT_TYPE_SECONDARY,
-  TEXT_TYPE_TERTIARY,
-  ALIGN_LEFT
+  TEXT_TYPE_TERTIARY
 } from '../card.const';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import smallTheme from '../../../style/themes/small';
@@ -28,23 +27,6 @@ describe('CardSection', () => {
     describe.each(defaultThemes)('when the Card is rendered', (name, theme) => {
       describe(`${name} theme`, () => {
         describe('when section is rendered as a header', () => {
-          describe('when props include alignment', () => {
-            it('matches the style for an aligned section', () => {
-              const wrapper = TestRenderer.create(
-                <CardSection
-                  alignment={ ALIGN_LEFT }
-                  positionType={ POSITION_HEADER }
-                  primary='this is primary text'
-                  theme={ theme }
-                />
-              ).toJSON();
-              assertStyleMatch({
-                width: '50%',
-                textAlign: 'left'
-              }, wrapper.children[0]);
-            });
-          });
-
           describe('when props do not include primary text', () => {
             const wrapper = shallow(
               <CardSection
@@ -135,22 +117,6 @@ describe('CardSection', () => {
 
 
         describe('when section is rendered as a middle', () => {
-          describe('when props include alignment', () => {
-            it('matches the style for an aligned section', () => {
-              const wrapper = TestRenderer.create(
-                <CardSection
-                  alignment={ ALIGN_LEFT }
-                  positionType={ POSITION_MIDDLE }
-                  primary='this is primary text'
-                  theme={ theme }
-                />
-              ).toJSON();
-              assertStyleMatch({
-                width: '50%',
-                textAlign: 'left'
-              }, wrapper.children[0]);
-            });
-          });
           describe('when props do not include primary text', () => {
             const wrapper = shallow(
               <CardSection
@@ -294,22 +260,6 @@ describe('CardSection', () => {
         });
 
         describe('when section is rendered as a footer', () => {
-          describe('when props include alignment', () => {
-            it('matches the style for an aligned section', () => {
-              const wrapper = TestRenderer.create(
-                <CardSection
-                  alignment={ ALIGN_LEFT }
-                  positionType={ POSITION_FOOTER }
-                  primary='this is primary text'
-                  theme={ theme }
-                />
-              ).toJSON();
-              assertStyleMatch({
-                width: '50%',
-                textAlign: 'left'
-              }, wrapper.children[0]);
-            });
-          });
           describe('when a valid props are passed', () => {
             const wrapper = TestRenderer.create(
               <CardSection
