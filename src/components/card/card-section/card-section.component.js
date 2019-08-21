@@ -8,7 +8,6 @@ import {
 } from '../card.const';
 
 const CardSection = ({
-  alignment,
   positionType,
   theme,
   primary,
@@ -20,7 +19,6 @@ const CardSection = ({
       {
         primary && (
           <StyledCardSection
-            alignment={ alignment }
             data-element={ `${positionType}-${TEXT_TYPE_PRIMARY}` }
             positionType={ positionType }
             primary
@@ -33,7 +31,6 @@ const CardSection = ({
       {
         secondary && (
           <StyledCardSection
-            alignment={ alignment }
             data-element={ `${positionType}-${TEXT_TYPE_SECONDARY}` }
             positionType={ positionType }
             secondary
@@ -46,7 +43,6 @@ const CardSection = ({
       {
         tertiary && (
           <StyledCardSection
-            alignment={ alignment }
             data-element={ `${positionType}-${TEXT_TYPE_TERTIARY}` }
             positionType={ positionType }
             tertiary
@@ -61,7 +57,6 @@ const CardSection = ({
 };
 
 CardSection.propTypes = {
-  alignment: propTypes.string,
   positionType: propTypes.string,
   theme: propTypes.object,
   primary: propTypes.string,

@@ -23,6 +23,34 @@ describe('Card', () => {
   describe('default themes', () => {
     describe.each(defaultThemes)('when the Card is rendered', (name, theme) => {
       describe(`${name} theme`, () => {
+        describe('when border is not enabled', () => {
+          it(`matches the expected styles for a default ${name} Card`, () => {
+            const wrapper = TestRenderer.create(
+              <Card
+                border={ false }
+                theme={ theme }
+              />
+            ).toJSON();
+            assertStyleMatch({
+              border: 'none'
+            }, wrapper);
+          });
+        });
+
+        describe('when border is passed as a prop', () => {
+          it(`matches the expected styles for a default ${name} Card`, () => {
+            const wrapper = TestRenderer.create(
+              <Card
+                border
+                theme={ theme }
+              />
+            ).toJSON();
+            assertStyleMatch({
+              border: `1px solid ${theme.colors.border}`
+            }, wrapper);
+          });
+        });
+
         describe('when width is not passed as a prop', () => {
           const wrapper = shallow(
             <Card
@@ -152,53 +180,6 @@ describe('Card', () => {
 
           it('renders a footer', () => {
             expect(elem.exists()).toEqual(true);
-          });
-        });
-      });
-    });
-  });
-
-  // IAN move these into each section test above
-  xdescribe('default themes', () => {
-    describe.each(defaultThemes)('when the Card is rendered', (name, theme) => {
-      describe(`${name} theme`, () => {
-        describe('when border is disabled and there is no footer', () => {
-          it(`matches the expected styles for a default ${name} Card`, () => {
-            const testElem = TestRenderer.create(
-              <Card
-                border={ false }
-                description='border is disabled and there is no footer'
-                theme={ theme }
-              />
-            ).toJSON();
-            assertStyleMatch({
-              backgroundColor: theme.colors.white,
-              boxShadow: theme.shadows.cards,
-              marginBottom: '32px',
-              position: 'relative',
-              transition: 'all 0.3s ease-in-out',
-              border: 'none'
-            }, testElem);
-          });
-        });
-
-        describe('when border is enabled and there is no footer', () => {
-          it(`matches the expected styles for a default ${name} Card`, () => {
-            const testElem = TestRenderer.create(
-              <Card
-                border
-                description='border is enabled and there is no footer'
-                theme={ theme }
-              />
-            ).toJSON();
-            assertStyleMatch({
-              backgroundColor: theme.colors.white,
-              boxShadow: '0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)',
-              marginBottom: '32px',
-              position: 'relative',
-              transition: 'all 0.3s ease-in-out',
-              border: `1px solid ${theme.colors.border}`
-            }, testElem);
           });
         });
       });
