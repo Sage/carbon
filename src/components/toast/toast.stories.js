@@ -29,7 +29,7 @@ storiesOf('Toast', module)
       propTablesExclude: [ThemeProvider, StyledToastStory]
     }
   })
-  .add('Classic', () => {
+  .add('classic', () => {
     const variant = select('as', OptionsHelper.colors, OptionsHelper.colors[2]);
     const children = text('children', 'Talkie\'s the name, toasting\'s the game. Anyone like any toast?');
     const open = boolean('open', true);
@@ -49,7 +49,7 @@ storiesOf('Toast', module)
         </StyledToastStory>
       </ThemeProvider>
     );
-  }).add('Default', () => {
+  }).add('default', () => {
     const variant = select('variant', OptionsHelper.toast, OptionsHelper.toast[0]);
     const children = text('children', 'Talkie\'s the name, toasting\'s the game. Anyone like any toast?');
     const open = boolean('open', true);
