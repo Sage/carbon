@@ -7,7 +7,7 @@ import notes from './documentation';
 import { ConfigurableItems, ConfigurableItemRow } from '.';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
-const ConfigurableItemsWrapper = () => (<ConfigurableItems />);
+const ConfigurableItemsWrapper = props => (<ConfigurableItems { ...props } />);
 ConfigurableItemsWrapper.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
   /configurable-items\.component(?!spec)/
