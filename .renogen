@@ -3,6 +3,7 @@ default_headings:
   - Breaking Changes
   - New Features
   - New Components
+  - Deprecated Components
   - Styling Changes
   - Bug Fixes
   - Dependency Updates
