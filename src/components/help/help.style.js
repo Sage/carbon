@@ -30,7 +30,11 @@ const StyledHelp = styled.button`
   }
 
   &:focus{
-    outline: 2px solid ${({ theme }) => theme.colors.focus}
+    outline: 2px solid ${({ theme }) => theme.colors.focus};
+
+    ::-moz-focus-inner{
+      border: 0;
+    }
   }
 
   ${({ theme }) => isClassic(theme) && css`
@@ -43,6 +47,10 @@ const StyledHelp = styled.button`
 
     &:focus{
       outline: none;
+
+      ::-moz-focus-inner{
+        border: 1px dotted black;
+      }
     }
   `}
 `;
