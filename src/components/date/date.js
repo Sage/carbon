@@ -577,7 +577,7 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
     if (this.props.showPickerOnTop) {
       return {
         left: inputRect.left,
-        bottom: 2 - inputRect.top + offsetY
+        bottom: 2 - (offsetY + inputRect.top)
       };
     }
     return {
