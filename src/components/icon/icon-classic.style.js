@@ -21,7 +21,7 @@ export default ({
       font-style: normal;
       font-weight: normal;
       line-height: 16px;
-      vertical-align: middle;
+      ${type !== 'services' && css`vertical-align: middle;`}
       ${type === 'services' && css` margin-top: -7px;`}
     }
   `}

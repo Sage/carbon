@@ -93,8 +93,7 @@ const StyledIcon = styled.span`
         font-style: normal;
         font-weight: normal;
         line-height: ${iconSizeConfig.iconSize[fontSize]};
-        vertical-align: middle;
-
+        ${type !== 'services' && css`vertical-align: middle;`}
         ${type === 'services' && css`
           margin-top: ${fontSize === 'small' ? '-7px' : '-8px'};
         `}
@@ -129,6 +128,14 @@ const StyledSvgIconWrapper = styled.span`
       fill: currentColor;
       width: ${iconSizeConfig.iconSize[fontSize]};
       height: ${iconSizeConfig.iconSize[fontSize]};
+      ${fontSize !== 'large' && css`
+        margin-top: 2px;
+      `}
+
+      ${fontSize === 'large' && css`
+        margin-top: 10px;
+        margin-left: 8px;
+      `}
     }
   `}
 `;
