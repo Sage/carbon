@@ -77,7 +77,10 @@ const CheckboxGroup = (props) => {
         checked,
         inputName: groupName,
         onChange: handleChange,
-        tabindex
+        tabindex,
+        hasError,
+        hasWarning,
+        hasInfo
       }
     );
   });

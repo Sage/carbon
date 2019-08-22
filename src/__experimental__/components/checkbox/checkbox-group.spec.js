@@ -5,7 +5,6 @@ import { css } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
 import CheckboxGroup from './checkbox-group.component';
 import Checkbox from './checkbox.component';
-import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
 import LabelStyle from '../label/label.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import baseTheme from '../../../style/themes/base';
@@ -144,9 +143,11 @@ describe('CheckboxGroup', () => {
         });
 
         it('has correct color', () => {
+          const checkboxWrapper = wrapper.find(Checkbox).first();
+
           assertStyleMatch({
             border: `1px solid ${validationTypes[type].color}`
-          }, wrapper, { modifier: `${StyledCheckableInputSvgWrapper} svg` });
+          }, checkboxWrapper, { modifier: 'svg' });
         });
 
         it('check icon type', () => {

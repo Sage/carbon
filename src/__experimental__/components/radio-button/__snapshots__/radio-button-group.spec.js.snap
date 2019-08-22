@@ -68,7 +68,11 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 
 .c4 svg {
   background-color: #FFFFFF;
-  border: solid 1px #668491;
+  border: 1px solid #668491;
+}
+
+.c4 .c12 svg {
+  border: 1px solid #668491;
 }
 
 .c4 .c10,
@@ -152,6 +156,10 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 
 .c13 .c12 {
   height: 16px;
+}
+
+.c13 .c12 svg {
+  border: 1px solid #668491;
 }
 
 .c13 .c10,
