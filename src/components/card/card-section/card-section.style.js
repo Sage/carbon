@@ -75,7 +75,7 @@ const StyledCardSection = styled.div`
         text-align: ${align};
       `}
       ${!align && css`
-        text-align: left;
+        text-align: center;
       `}
     `;
   }
