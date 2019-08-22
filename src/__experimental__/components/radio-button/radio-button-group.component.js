@@ -4,6 +4,8 @@ import tagComponent from '../../../utils/helpers/tags';
 import Label from '../label';
 import { StyledRadioButtonGroup } from './radio-button.style';
 import withValidation from '../../../components/validations/with-validation.hoc';
+import ValidationIconStyle from '../../../components/validations/validation-icon.style';
+import Icon from '../../../components/icon';
 
 function initialTabIndex(childIndex) {
   return (childIndex > 0) ? -1 : 0;
@@ -13,12 +15,48 @@ function checkedTabIndex(checked) {
   return checked ? 0 : -1;
 }
 
+const getValidationType = ({ hasError, hasWarning, hasInfo }) => {
+  let type = 'help';
+
+  if (hasError) {
+    type = 'error';
+  } else if (hasWarning) {
+    type = 'warning';
+  } else if (hasInfo) {
+    type = 'info';
+  }
+
+  return type;
+};
+
+const getValidationMessage = (type, props) => {
+  const {
+    labelHelp,
+    errorMessage,
+    warningMessage,
+    infoMessage
+  } = props;
+
+  switch (type) {
+    case 'error':
+      return errorMessage;
+    case 'warning':
+      return warningMessage;
+    case 'info':
+      return infoMessage;
+    default:
+      return labelHelp;
+  }
+};
+
 const RadioButtonGroup = (props) => {
   const {
     children,
     groupName,
     label,
-    hasError
+    hasError,
+    hasWarning,
+    hasInfo
   } = props;
   const [selectedValue, setSelectedValue] = useState(null);
 
@@ -39,19 +77,40 @@ const RadioButtonGroup = (props) => {
         checked,
         inputName: groupName,
         onChange: handleChange,
-        tabindex
+        tabindex,
+        hasError,
+        hasWarning,
+        hasInfo
       }
     );
   });
+
+  const icon = () => {
+    const type = getValidationType(props);
+    const message = getValidationMessage(type, props);
+
+    return (
+      <ValidationIconStyle type={ type }>
+        <Icon
+          type={ type }
+          tooltipMessage={ message }
+        />
+      </ValidationIconStyle>
+    );
+  };
 
   return (
     <StyledRadioButtonGroup
       aria-labelledby={ groupLabelId }
       role='radiogroup'
+      hasError={ hasError }
+      hasWarning={ hasWarning }
+      hasInfo={ hasInfo }
       { ...tagComponent('radiogroup', props) }
     >
-      <Label id={ groupLabelId } hasError={ hasError }>
+      <Label id={ groupLabelId }>
         {label}
+        {icon()}
       </Label>
       {buttons}
     </StyledRadioButtonGroup>
@@ -65,12 +124,16 @@ RadioButtonGroup.propTypes = {
   groupName: PropTypes.string.isRequired,
   /** The content for the RadioGroup Label */
   label: PropTypes.string.isRequired,
-  /** Prop to state if an error has occurred */
-  hasError: PropTypes.bool
+  /** Validation indicators */
+  hasError: PropTypes.bool,
+  hasWarning: PropTypes.bool,
+  hasInfo: PropTypes.bool
 };
 
 RadioButtonGroup.defaultProps = {
-  hasError: false
+  hasError: false,
+  hasWarning: false,
+  hasInfo: false
 };
 
 export { RadioButtonGroup as OriginalRadioButtonGroup };
