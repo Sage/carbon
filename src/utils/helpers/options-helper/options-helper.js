@@ -48,6 +48,18 @@ const OptionsHelper = {
     'after'
   ],
 
+  cardSectionPositions: {
+    footer: 'footer',
+    header: 'header',
+    middle: 'middle'
+  },
+
+  cardTextTypes: {
+    primary: 'primary',
+    secondary: 'secondary',
+    tertiary: 'tertiary'
+  },
+
   colors: [
     'default',
     'error',

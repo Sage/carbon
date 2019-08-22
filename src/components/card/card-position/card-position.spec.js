@@ -2,14 +2,6 @@ import React from 'react';
 import { mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import CardPosition from './card-position.component';
-import {
-  POSITION_FOOTER,
-  POSITION_HEADER,
-  POSITION_MIDDLE,
-  TEXT_TYPE_PRIMARY,
-  TEXT_TYPE_SECONDARY,
-  TEXT_TYPE_TERTIARY
-} from '../card.const';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import smallTheme from '../../../style/themes/small';
 import mediumTheme from '../../../style/themes/medium';
@@ -30,7 +22,7 @@ describe('CardPosition', () => {
           describe('when props are not passed', () => {
             const wrapper = TestRenderer.create(
               <CardPosition
-                positionType={ POSITION_HEADER }
+                positionType='header'
                 theme={ theme }
               />
             ).toJSON();
@@ -46,7 +38,7 @@ describe('CardPosition', () => {
           describe('when a valid props are passed', () => {
             const wrapper = TestRenderer.create(
               <CardPosition
-                positionType={ POSITION_HEADER }
+                positionType='header'
                 theme={ theme }
                 primary='header is passed as a prop'
                 secondary='this is a subtitle'
@@ -65,12 +57,12 @@ describe('CardPosition', () => {
           describe('when props do not include primary text', () => {
             const wrapper = mount(
               <CardPosition
-                positionType={ POSITION_HEADER }
+                positionType='header'
                 theme={ theme }
                 secondary='this is secondary text'
               />
             );
-            const elem = wrapper.find(`[data-element="${POSITION_HEADER}-${TEXT_TYPE_PRIMARY}"]`);
+            const elem = wrapper.find('[data-element="header-primary"]');
             it('does not render a primary element', () => {
               expect(elem.exists()).toEqual(false);
             });
@@ -80,12 +72,12 @@ describe('CardPosition', () => {
             it('renders a primary element', () => {
               const wrapper = mount(
                 <CardPosition
-                  positionType={ POSITION_HEADER }
+                  positionType='header'
                   theme={ theme }
                   primary='this is primary text'
                 />
               );
-              const elem = wrapper.find(`[data-element="${POSITION_HEADER}-${TEXT_TYPE_PRIMARY}"]`);
+              const elem = wrapper.find('[data-element="header-primary"]');
               expect(elem.exists()).toEqual(true);
             });
           });
@@ -93,12 +85,12 @@ describe('CardPosition', () => {
           describe('when props do not include secondary text', () => {
             const wrapper = mount(
               <CardPosition
-                positionType={ POSITION_HEADER }
+                positionType='header'
                 theme={ theme }
                 primary='this is primary text'
               />
             );
-            const elem = wrapper.find(`[data-element="${POSITION_HEADER}-${TEXT_TYPE_SECONDARY}"]`);
+            const elem = wrapper.find('[data-element="header-secondary"]');
             it('does not render a secondary element', () => {
               expect(elem.exists()).toEqual(false);
             });
@@ -108,12 +100,12 @@ describe('CardPosition', () => {
             it('renders a secondary element', () => {
               const wrapper = mount(
                 <CardPosition
-                  positionType={ POSITION_HEADER }
+                  positionType='header'
                   theme={ theme }
                   secondary='this is secondary text'
                 />
               );
-              const elem = wrapper.find(`[data-element="${POSITION_HEADER}-${TEXT_TYPE_SECONDARY}"]`);
+              const elem = wrapper.find('[data-element="header-secondary"]');
               expect(elem.exists()).toEqual(true);
             });
           });
@@ -123,7 +115,7 @@ describe('CardPosition', () => {
           describe('when props are not passed', () => {
             const wrapper = TestRenderer.create(
               <CardPosition
-                positionType={ POSITION_MIDDLE }
+                positionType='middle'
                 theme={ theme }
               />
             ).toJSON();
@@ -139,7 +131,7 @@ describe('CardPosition', () => {
           describe('when a valid props are passed', () => {
             const wrapper = TestRenderer.create(
               <CardPosition
-                positionType={ POSITION_MIDDLE }
+                positionType='middle'
                 theme={ theme }
                 primary='this is primary text'
                 secondary='this is secondary text'
@@ -158,13 +150,13 @@ describe('CardPosition', () => {
           describe('when props do not include primary text', () => {
             const wrapper = mount(
               <CardPosition
-                positionType={ POSITION_MIDDLE }
+                positionType='middle'
                 theme={ theme }
                 secondary='this is secondary text'
                 tertiary='this is tertiary text'
               />
             );
-            const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}-${TEXT_TYPE_PRIMARY}"]`);
+            const elem = wrapper.find('[data-element="middle-primary"]');
             it('does not render a primary element', () => {
               expect(elem.exists()).toEqual(false);
             });
@@ -174,12 +166,12 @@ describe('CardPosition', () => {
             it('renders a primary element', () => {
               const wrapper = mount(
                 <CardPosition
-                  positionType={ POSITION_MIDDLE }
+                  positionType='middle'
                   theme={ theme }
                   primary='this is primary text'
                 />
               );
-              const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}-${TEXT_TYPE_PRIMARY}"]`);
+              const elem = wrapper.find('[data-element="middle-primary"]');
               expect(elem.exists()).toEqual(true);
             });
           });
@@ -187,12 +179,12 @@ describe('CardPosition', () => {
           describe('when props do not include secondary text', () => {
             const wrapper = mount(
               <CardPosition
-                positionType={ POSITION_MIDDLE }
+                positionType='middle'
                 theme={ theme }
                 primary='this is primary text'
               />
             );
-            const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}-${TEXT_TYPE_SECONDARY}"]`);
+            const elem = wrapper.find('[data-element="middle-secondary"]');
             it('does not render a secondary element', () => {
               expect(elem.exists()).toEqual(false);
             });
@@ -202,12 +194,12 @@ describe('CardPosition', () => {
             it('renders a secondary element', () => {
               const wrapper = mount(
                 <CardPosition
-                  positionType={ POSITION_MIDDLE }
+                  positionType='middle'
                   theme={ theme }
                   secondary='this is secondary text'
                 />
               );
-              const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}-${TEXT_TYPE_SECONDARY}"]`);
+              const elem = wrapper.find('[data-element="middle-secondary"]');
               expect(elem.exists()).toEqual(true);
             });
           });
@@ -215,13 +207,13 @@ describe('CardPosition', () => {
           describe('when props do not include tertiary text', () => {
             const wrapper = mount(
               <CardPosition
-                positionType={ POSITION_MIDDLE }
+                positionType='middle'
                 theme={ theme }
                 primary='this is primary text'
                 secondary='this is secondary text'
               />
             );
-            const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}-${TEXT_TYPE_TERTIARY}"]`);
+            const elem = wrapper.find('[data-element="middle-tertiary"]');
             it('does not render a secondary element', () => {
               expect(elem.exists()).toEqual(false);
             });
@@ -231,14 +223,14 @@ describe('CardPosition', () => {
             it('renders a tertiary element', () => {
               const wrapper = mount(
                 <CardPosition
-                  positionType={ POSITION_MIDDLE }
+                  positionType='middle'
                   theme={ theme }
                   primary='this is primary text'
                   secondary='this is secondary text'
                   tertiary='this is tertiary text'
                 />
               );
-              const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}-${TEXT_TYPE_TERTIARY}"]`);
+              const elem = wrapper.find('[data-element="middle-tertiary"]');
               expect(elem.exists()).toEqual(true);
             });
           });
@@ -248,7 +240,7 @@ describe('CardPosition', () => {
           describe('when props are not passed', () => {
             const wrapper = TestRenderer.create(
               <CardPosition
-                positionType={ POSITION_FOOTER }
+                positionType='footer'
                 theme={ theme }
               />
             ).toJSON();
@@ -267,7 +259,7 @@ describe('CardPosition', () => {
           describe('when a valid props are passed', () => {
             const wrapper = TestRenderer.create(
               <CardPosition
-                positionType={ POSITION_FOOTER }
+                positionType='footer'
                 theme={ theme }
                 primary='this is primary text'
               />
