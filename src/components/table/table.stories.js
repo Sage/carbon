@@ -21,12 +21,15 @@ TableWrapper.__docgenInfo = getDocGenInfo(
 const commonKnobs = () => {
   const paginate = boolean('paginate', false);
   const showPageSizeSelection = paginate && boolean('showPageSizeSelection', false);
+  const selectable = boolean('selectable', false);
+  const highlightable = boolean('highlightable', false);
 
   return {
     sortOrder: select('sortOrder', ['', 'asc', 'desc'], ''),
     sortColumn: select('sortColumn', ['', 'name', 'code'], ''),
-    selectable: boolean('selectable', false),
-    highlightable: boolean('highlightable', false),
+    highlightable,
+    selectable,
+    isPassiveData: !highlightable && !selectable ? boolean('isPassiveData', false) : undefined,
     shrink: boolean('shrink', false),
     caption: text('caption', 'Country and Country Codes'),
     totalRecords: number('totalRecords', 50),

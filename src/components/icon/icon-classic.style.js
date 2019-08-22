@@ -22,7 +22,6 @@ export default ({
       font-style: normal;
       font-weight: normal;
       line-height: 16px;
-      ${console.log(browserTypeCheck(window))}
       vertical-align: middle;
       ${type === 'services' && browserTypeCheck(window) && css`smargin-top: -7px;`}
     }
