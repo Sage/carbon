@@ -44,13 +44,20 @@ const RadioButton = ({
     ev.target.focus();
   }
 
+  const passInputProps = {
+    ...inputProps,
+    hasError: props.error || false,
+    hasWarning: false,
+    hasInfo: false
+  };
+
   return (
     <RadioButtonStyle
       { ...tagComponent('radio-button', props) }
       { ...props }
     >
       <CheckableInput
-        { ...inputProps }
+        { ...passInputProps }
         onChange={ handleChange }
         tabindex={ setTabIndex(inputProps) }
       >

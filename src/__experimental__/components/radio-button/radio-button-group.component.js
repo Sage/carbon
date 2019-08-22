@@ -17,7 +17,9 @@ const RadioButtonGroup = (props) => {
     children,
     groupName,
     legend,
-    hasError
+    hasError,
+    hasWarning,
+    hasInfo
   } = props;
   const [selectedValue, setSelectedValue] = useState(null);
   const groupLabelId = `${groupName}-label`;
@@ -38,7 +40,10 @@ const RadioButtonGroup = (props) => {
         checked,
         inputName: groupName,
         onChange: handleChange,
-        tabindex
+        tabindex,
+        hasError,
+        hasWarning,
+        hasInfo
       }
     );
   });
@@ -49,6 +54,8 @@ const RadioButtonGroup = (props) => {
       role='radiogroup'
       legend={ legend }
       hasError={ hasError }
+      hasWarning={ hasWarning }
+      hasInfo={ hasInfo }
       { ...tagComponent('radiogroup', props) }
     >
       {buttons}
@@ -63,12 +70,16 @@ RadioButtonGroup.propTypes = {
   groupName: PropTypes.string.isRequired,
   /** The content for the RadioGroup Legend */
   legend: PropTypes.string.isRequired,
-  /** Prop to state if an error has occurred */
-  hasError: PropTypes.bool
+  /** Validation indicators */
+  hasError: PropTypes.bool,
+  hasWarning: PropTypes.bool,
+  hasInfo: PropTypes.bool
 };
 
 RadioButtonGroup.defaultProps = {
-  hasError: false
+  hasError: false,
+  hasWarning: false,
+  hasInfo: false
 };
 
 export { RadioButtonGroup as OriginalRadioButtonGroup };
