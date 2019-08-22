@@ -42,7 +42,7 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
   padding-right: 11px;
 }
 
-.c0.c0 .carbon-table-row:hover .c1 {
+.c0.c0 .carbon-table-row:not(.carbon-table-row--passive):hover .c1 {
   background-color: #F2F4F5;
 }
 
@@ -96,7 +96,7 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
   background-color: #FFFFFF;
 }
 
-.c0 .carbon-table-row:hover .c1 {
+.c0 .carbon-table-row:not(.carbon-table-row--passive):hover .c1 {
   background-color: #F2F4F5;
 }
 
