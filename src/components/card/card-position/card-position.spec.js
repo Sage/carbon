@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import CardPosition from './card-position.component';
 import {
@@ -63,14 +63,14 @@ describe('CardPosition', () => {
           });
 
           describe('when props do not include primary text', () => {
-            const wrapper = shallow(
+            const wrapper = mount(
               <CardPosition
                 positionType={ POSITION_HEADER }
                 theme={ theme }
                 secondary='this is secondary text'
               />
             );
-            const elem = wrapper.find(`[data-element="${TEXT_TYPE_PRIMARY}"]`);
+            const elem = wrapper.find(`[data-element="${POSITION_HEADER}-${TEXT_TYPE_PRIMARY}"]`);
             it('does not render a primary element', () => {
               expect(elem.exists()).toEqual(false);
             });
@@ -85,20 +85,20 @@ describe('CardPosition', () => {
                   primary='this is primary text'
                 />
               );
-              const elem = wrapper.find(`[data-element="${TEXT_TYPE_PRIMARY}"]`);
+              const elem = wrapper.find(`[data-element="${POSITION_HEADER}-${TEXT_TYPE_PRIMARY}"]`);
               expect(elem.exists()).toEqual(true);
             });
           });
 
           describe('when props do not include secondary text', () => {
-            const wrapper = shallow(
+            const wrapper = mount(
               <CardPosition
                 positionType={ POSITION_HEADER }
                 theme={ theme }
                 primary='this is primary text'
               />
             );
-            const elem = wrapper.find(`[data-element="${TEXT_TYPE_SECONDARY}"]`);
+            const elem = wrapper.find(`[data-element="${POSITION_HEADER}-${TEXT_TYPE_SECONDARY}"]`);
             it('does not render a secondary element', () => {
               expect(elem.exists()).toEqual(false);
             });
@@ -106,14 +106,14 @@ describe('CardPosition', () => {
 
           describe('when props include secondary text', () => {
             it('renders a secondary element', () => {
-              const wrapper = shallow(
+              const wrapper = mount(
                 <CardPosition
                   positionType={ POSITION_HEADER }
                   theme={ theme }
                   secondary='this is secondary text'
                 />
               );
-              const elem = wrapper.find(`[data-element="${TEXT_TYPE_SECONDARY}"]`);
+              const elem = wrapper.find(`[data-element="${POSITION_HEADER}-${TEXT_TYPE_SECONDARY}"]`);
               expect(elem.exists()).toEqual(true);
             });
           });
@@ -130,7 +130,7 @@ describe('CardPosition', () => {
 
             it('matches the styles for a rendered middle', () => {
               assertStyleMatch({
-                textAlign: 'center',
+                padding: '0 32px',
                 marginBottom: '32px'
               }, wrapper);
             });
@@ -149,14 +149,14 @@ describe('CardPosition', () => {
 
             it('matches the styles for a rendered middle', () => {
               assertStyleMatch({
-                textAlign: 'center',
+                padding: '0 32px',
                 marginBottom: '32px'
               }, wrapper);
             });
           });
 
           describe('when props do not include primary text', () => {
-            const wrapper = shallow(
+            const wrapper = mount(
               <CardPosition
                 positionType={ POSITION_MIDDLE }
                 theme={ theme }
@@ -164,7 +164,7 @@ describe('CardPosition', () => {
                 tertiary='this is tertiary text'
               />
             );
-            const elem = wrapper.find(`[data-element="${TEXT_TYPE_PRIMARY}"]`);
+            const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}-${TEXT_TYPE_PRIMARY}"]`);
             it('does not render a primary element', () => {
               expect(elem.exists()).toEqual(false);
             });
@@ -179,20 +179,20 @@ describe('CardPosition', () => {
                   primary='this is primary text'
                 />
               );
-              const elem = wrapper.find(`[data-element="${TEXT_TYPE_PRIMARY}"]`);
+              const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}-${TEXT_TYPE_PRIMARY}"]`);
               expect(elem.exists()).toEqual(true);
             });
           });
 
           describe('when props do not include secondary text', () => {
-            const wrapper = shallow(
+            const wrapper = mount(
               <CardPosition
                 positionType={ POSITION_MIDDLE }
                 theme={ theme }
                 primary='this is primary text'
               />
             );
-            const elem = wrapper.find(`[data-element="${TEXT_TYPE_SECONDARY}"]`);
+            const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}-${TEXT_TYPE_SECONDARY}"]`);
             it('does not render a secondary element', () => {
               expect(elem.exists()).toEqual(false);
             });
@@ -200,20 +200,20 @@ describe('CardPosition', () => {
 
           describe('when props include secondary text', () => {
             it('renders a secondary element', () => {
-              const wrapper = shallow(
+              const wrapper = mount(
                 <CardPosition
                   positionType={ POSITION_MIDDLE }
                   theme={ theme }
                   secondary='this is secondary text'
                 />
               );
-              const elem = wrapper.find(`[data-element="${TEXT_TYPE_SECONDARY}"]`);
+              const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}-${TEXT_TYPE_SECONDARY}"]`);
               expect(elem.exists()).toEqual(true);
             });
           });
 
           describe('when props do not include tertiary text', () => {
-            const wrapper = shallow(
+            const wrapper = mount(
               <CardPosition
                 positionType={ POSITION_MIDDLE }
                 theme={ theme }
@@ -221,7 +221,7 @@ describe('CardPosition', () => {
                 secondary='this is secondary text'
               />
             );
-            const elem = wrapper.find(`.${TEXT_TYPE_TERTIARY}`);
+            const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}-${TEXT_TYPE_TERTIARY}"]`);
             it('does not render a secondary element', () => {
               expect(elem.exists()).toEqual(false);
             });
@@ -229,7 +229,7 @@ describe('CardPosition', () => {
 
           describe('when props include tertiary text', () => {
             it('renders a tertiary element', () => {
-              const wrapper = shallow(
+              const wrapper = mount(
                 <CardPosition
                   positionType={ POSITION_MIDDLE }
                   theme={ theme }
@@ -238,26 +238,8 @@ describe('CardPosition', () => {
                   tertiary='this is tertiary text'
                 />
               );
-              const elem = wrapper.find(`[data-element="${TEXT_TYPE_TERTIARY}"]`);
+              const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}-${TEXT_TYPE_TERTIARY}"]`);
               expect(elem.exists()).toEqual(true);
-            });
-
-            it('matches the style for a rendered tertiary element', () => {
-              const wrapper = TestRenderer.create(
-                <CardPosition
-                  positionType={ POSITION_MIDDLE }
-                  primary='this is primary text'
-                  secondary='this is secondary text'
-                  tertiary='this is tertiary text'
-                  theme={ theme }
-                />
-              ).toJSON();
-              assertStyleMatch({
-                color: theme.card.middleTertiary,
-                fontSize: '12px',
-                textAlign: 'center',
-                textTransform: 'uppercase'
-              }, wrapper.children[2]);
             });
           });
         });
@@ -277,8 +259,7 @@ describe('CardPosition', () => {
                 borderTop: theme.card.footerBorder,
                 height: '56px',
                 lineHeight: '56px',
-                padding: '0',
-                textAlign: 'center'
+                padding: '0 32px'
               }, wrapper);
             });
           });
@@ -298,8 +279,7 @@ describe('CardPosition', () => {
                 borderTop: theme.card.footerBorder,
                 height: '56px',
                 lineHeight: '56px',
-                padding: '0',
-                textAlign: 'center'
+                padding: '0 32px'
               }, wrapper);
             });
           });

@@ -1,33 +1,62 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { array, boolean, text } from '@storybook/addon-knobs';
+import { boolean, select, text } from '@storybook/addon-knobs';
 import Card from './card.component';
+import { ALIGN_LEFT, ALIGN_RIGHT, ALIGN_CENTER } from './card.const';
+
+const getKnobs = () => {
+  const knobs = {
+    header: boolean('include header', true),
+    headerPrimary: text('header primary', 'Header Primary'),
+    headerSecondary: text('header secondary', 'Header Secondary'),
+    headerAlign: select('header align', [ALIGN_LEFT, ALIGN_RIGHT, ALIGN_CENTER]),
+    middle: boolean('include middle', true),
+    middlePrimary: text('middle primary', 'Middle Primary'),
+    middleSecondary: text('middle secondary', 'Middle Secondary'),
+    middleTertiary: text('middle tertiary', 'Middle Tertiary'),
+    middleAlign: select('middle align', [ALIGN_LEFT, ALIGN_RIGHT, ALIGN_CENTER]),
+    footer: boolean('include footer', true),
+    footerPrimary: text('footer primary', 'Footer Primary'),
+    footerAlign: select('footer align', [ALIGN_LEFT, ALIGN_RIGHT, ALIGN_CENTER]),
+    border: boolean('border', false),
+    cardWidth: text('width', '500px')
+  };
+  return knobs;
+};
 
 storiesOf('Card', module)
   .add('default', () => {
-    const middle = array('middle',
-      [{
-        primary: 'primary description text',
-        secondary: 'secondary description text',
-        tertiary: 'tertiary description text'
-      }]);
-    const header = array('header',
-      [{
-        title: 'this is a title',
-        subtitle: 'this is a subtitle',
-        icon: '/path/to/icon.svg'
-      }]);
-    const footer = text('footer', 'this is a footer');
-    const border = boolean('border', false);
-    const cardWidth = text('width', '500px');
-
-
+    const {
+      header,
+      middle,
+      footer,
+      border,
+      headerPrimary,
+      headerSecondary,
+      headerAlign,
+      middlePrimary,
+      middleSecondary,
+      middleTertiary,
+      middleAlign,
+      footerPrimary,
+      footerAlign,
+      cardWidth
+    } = getKnobs();
     return (
       <Card
-        border={ border }
-        middle={ middle }
         header={ header }
+        middle={ middle }
         footer={ footer }
+        border={ border }
+        headerPrimary={ headerPrimary }
+        headerSecondary={ headerSecondary }
+        headerAlign={ headerAlign }
+        middlePrimary={ middlePrimary }
+        middleSecondary={ middleSecondary }
+        middleAlign={ middleAlign }
+        middleTertiary={ middleTertiary }
+        footerPrimary={ footerPrimary }
+        footerAlign={ footerAlign }
         cardWidth={ cardWidth }
       />
     );

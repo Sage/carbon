@@ -1,14 +1,10 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import StyledCardPosition from './card-position.style';
-import StyledCardSection from '../card-section/card-section.style';
-import {
-  TEXT_TYPE_PRIMARY,
-  TEXT_TYPE_SECONDARY,
-  TEXT_TYPE_TERTIARY
-} from '../card.const';
+import CardSection from '../card-section/card-section.component';
 
 const CardPosition = ({
+  align,
   positionType,
   theme,
   primary,
@@ -21,47 +17,20 @@ const CardPosition = ({
       positionType={ positionType }
       theme={ theme }
     >
-      {
-        primary && (
-          <StyledCardSection
-            data-element={ TEXT_TYPE_PRIMARY }
-            positionType={ positionType }
-            primary
-            theme={ theme }
-          >
-            { primary }
-          </StyledCardSection>
-        )
-      }
-      {
-        secondary && (
-          <StyledCardSection
-            data-element={ TEXT_TYPE_SECONDARY }
-            positionType={ positionType }
-            secondary
-            theme={ theme }
-          >
-            { primary }
-          </StyledCardSection>
-        )
-      }
-      {
-        tertiary && (
-          <StyledCardSection
-            data-element={ TEXT_TYPE_TERTIARY }
-            positionType={ positionType }
-            tertiary
-            theme={ theme }
-          >
-            { primary }
-          </StyledCardSection>
-        )
-      }
+      <CardSection
+        align={ align }
+        positionType={ positionType }
+        primary={ primary }
+        secondary={ secondary }
+        tertiary={ tertiary }
+        theme={ theme }
+      />
     </StyledCardPosition>
   );
 };
 
 CardPosition.propTypes = {
+  align: propTypes.string,
   positionType: propTypes.string,
   theme: propTypes.object,
   primary: propTypes.string,

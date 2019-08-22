@@ -109,10 +109,10 @@ describe('Card', () => {
         });
 
         describe('when a header is passed as a prop', () => {
-          const headerProps = ['header is passed as a prop', 'this is a subtitle', '/path/to/icon.svg'];
           const wrapper = mount(
             <Card
-              header={ headerProps }
+              header
+              headerPrimary='header is passed as a prop'
               theme={ theme }
             />
           );
@@ -123,34 +123,31 @@ describe('Card', () => {
           });
         });
 
-        describe('when a description is not passed as a prop', () => {
+        describe('when middle is not passed as a prop', () => {
           const wrapper = mount(
             <Card
               theme={ theme }
             />
           );
 
-          it('does not render a description', () => {
+          it('does not render any middle', () => {
             const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}"]`);
             expect(elem.exists()).toEqual(false);
           });
         });
 
-        describe('when description is passed as a prop', () => {
-          const descProps = [{
-            primary: 'primary description text',
-            secondary: 'secondary description text',
-            tertiary: 'tertiary description text'
-          }];
+        describe('when middle is passed as a prop', () => {
+          const primary = 'primary description text';
           const wrapper = mount(
             <Card
+              middle
               theme={ theme }
-              middle={ descProps }
+              middlePrimary={ primary }
             />
           );
           const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}"]`);
 
-          it('renders a description', () => {
+          it('renders a middle', () => {
             expect(elem.exists()).toEqual(true);
           });
         });
@@ -169,11 +166,12 @@ describe('Card', () => {
         });
 
         describe('when footer is passed as a prop', () => {
-          const footerText = 'footer is passed as a prop';
+          const primary = 'footer is passed as a prop';
           const wrapper = mount(
             <Card
+              footer
               theme={ theme }
-              footer={ footerText }
+              footerPrimary={ primary }
             />
           );
           const elem = wrapper.find(`[data-element="${POSITION_FOOTER}"]`);

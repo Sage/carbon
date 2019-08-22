@@ -8,7 +8,10 @@ import {
   POSITION_MIDDLE,
   TEXT_TYPE_PRIMARY,
   TEXT_TYPE_SECONDARY,
-  TEXT_TYPE_TERTIARY
+  TEXT_TYPE_TERTIARY,
+  ALIGN_LEFT,
+  ALIGN_RIGHT,
+  ALIGN_CENTER
 } from '../card.const';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import smallTheme from '../../../style/themes/small';
@@ -115,7 +118,6 @@ describe('CardSection', () => {
           });
         });
 
-
         describe('when section is rendered as a middle', () => {
           describe('when props do not include primary text', () => {
             const wrapper = shallow(
@@ -158,8 +160,7 @@ describe('CardSection', () => {
                 fontSize: '24px',
                 fontWeight: '700',
                 letterSpacing: '0.48px',
-                marginBottom: '10px',
-                textAlign: 'center'
+                marginBottom: '10px'
               }, wrapper.children[0]);
             });
           });
@@ -203,8 +204,7 @@ describe('CardSection', () => {
                 color: theme.card.middleSecondary,
                 fontSize: '14px',
                 fontWeight: '700',
-                marginBottom: '8px',
-                textAlign: 'center'
+                marginBottom: '8px'
               }, wrapper.children[0]);
             });
           });
@@ -252,7 +252,6 @@ describe('CardSection', () => {
               assertStyleMatch({
                 color: theme.card.middleTertiary,
                 fontSize: '12px',
-                textAlign: 'center',
                 textTransform: 'uppercase'
               }, wrapper.children[2]);
             });
@@ -281,7 +280,38 @@ describe('CardSection', () => {
           });
         });
 
-        xdescribe('when section is aligned', () => {
+
+        describe.each([ALIGN_LEFT, ALIGN_RIGHT, ALIGN_CENTER])('when props include alignment', (align) => {
+          describe(`${align} align`, () => {
+            const wrapper = TestRenderer.create(
+              <CardSection
+                positionType={ POSITION_HEADER }
+                theme={ theme }
+                align={ align }
+                primary='this is primary text'
+              />
+            ).toJSON();
+            it('matches the aligned styles', () => {
+              assertStyleMatch({
+                textAlign: align
+              }, wrapper);
+            });
+          });
+        });
+
+        describe('when props do not include alignment', () => {
+          const wrapper = TestRenderer.create(
+            <CardSection
+              positionType={ POSITION_HEADER }
+              theme={ theme }
+              primary='this is primary text'
+            />
+          ).toJSON();
+          it('is left aligned', () => {
+            assertStyleMatch({
+              textAlign: 'left'
+            }, wrapper);
+          });
         });
 
         xdescribe('when children include an Icon', () => {

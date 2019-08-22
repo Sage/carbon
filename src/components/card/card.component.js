@@ -9,12 +9,21 @@ import StyledCard from './card.style';
 import CardPosition from './card-position';
 
 const Card = ({
-  border,
+  header,
   middle,
   footer,
-  header,
-  theme,
+  border,
+  headerPrimary,
+  headerSecondary,
+  headerAlign,
+  middlePrimary,
+  middleSecondary,
+  middleTertiary,
+  middleAlign,
+  footerPrimary,
+  footerAlign,
   cardWidth,
+  theme,
   ...props
 }) => (
   <StyledCard
@@ -26,37 +35,49 @@ const Card = ({
   >
     { header && (
       <CardPosition
+        align={ headerAlign }
         positionType={ POSITION_HEADER }
         theme={ theme }
-        primary={ header[0].title }
-        secondary={ header[0].subtitle }
+        primary={ headerPrimary }
+        secondary={ headerSecondary }
       />
     )
     }
     { middle && (
       <CardPosition
+        align={ middleAlign }
         positionType={ POSITION_MIDDLE }
         theme={ theme }
-        primary={ middle[0].primary }
-        secondary={ middle[0].secondary }
-        tertiary={ middle[0].tertiary }
+        primary={ middlePrimary }
+        secondary={ middleSecondary }
+        tertiary={ middleTertiary }
       />
     )}
     { footer && (
       <CardPosition
+        align={ footerAlign }
         positionType={ POSITION_FOOTER }
         theme={ theme }
-        primary={ footer }
+        primary={ footerPrimary }
       />
     )}
   </StyledCard>
 );
 
 Card.propTypes = {
+  header: propTypes.bool,
+  middle: propTypes.bool,
+  footer: propTypes.bool,
   border: propTypes.bool,
-  middle: propTypes.array,
-  footer: propTypes.string,
-  header: propTypes.array,
+  headerPrimary: propTypes.string,
+  headerSecondary: propTypes.string,
+  headerAlign: propTypes.bool,
+  middlePrimary: propTypes.string,
+  middleSecondary: propTypes.string,
+  middleTertiary: propTypes.string,
+  middleAlign: propTypes.bool,
+  footerPrimary: propTypes.string,
+  footerAlign: propTypes.bool,
   theme: propTypes.object,
   cardWidth: propTypes.string
 };
