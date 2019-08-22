@@ -6,7 +6,8 @@ import { withTheme } from 'styled-components';
 import tagComponent from '../../utils/helpers/tags';
 import Page from './page/page.component';
 import {
-  PagesWrapperStyle
+  PagesWrapperStyle,
+  PagesContent
 } from './pages.style';
 import baseTheme from '../../style/themes/base';
 
@@ -104,7 +105,7 @@ class Pages extends React.Component {
   render() {
     return (
       <PagesWrapperStyle className={ this.props.className } { ...tagComponent('carousel', this.props) }>
-        <div className='carbon-carousel__content'>
+        <PagesContent className='carbon-carousel__content'>
           <CSSTransitionGroup
             component='div'
             className='carbon-carousel__transition'
@@ -114,7 +115,7 @@ class Pages extends React.Component {
           >
             { this.visiblePage() }
           </CSSTransitionGroup>
-        </div>
+        </PagesContent>
       </PagesWrapperStyle>
     );
   }
