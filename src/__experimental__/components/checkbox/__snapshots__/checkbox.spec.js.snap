@@ -116,6 +116,10 @@ exports[`Checkbox base theme renders as expected 1`] = `
   height: 16px;
 }
 
+.c13 .c8 svg {
+  border: 1px solid #668491;
+}
+
 .c13 .c6,
 .c13 svg {
   height: 16px;
@@ -160,6 +164,10 @@ exports[`Checkbox base theme renders as expected 1`] = `
 
 .c14 .c8 {
   height: 16px;
+}
+
+.c14 .c8 svg {
+  border: 1px solid #668491;
 }
 
 .c14 .c6,
@@ -276,6 +284,10 @@ exports[`Checkbox base theme renders as expected 1`] = `
   height: 16px;
 }
 
+.c17 .c8 svg {
+  border: 1px solid #668491;
+}
+
 .c17 .c6,
 .c17 svg {
   height: 16px;
@@ -304,6 +316,10 @@ exports[`Checkbox base theme renders as expected 1`] = `
   height: 16px;
 }
 
+.c18 .c8 svg {
+  border: 1px solid #668491;
+}
+
 .c18 .c6,
 .c18 svg {
   height: 16px;
@@ -330,6 +346,10 @@ exports[`Checkbox base theme renders as expected 1`] = `
 
 .c19 .c8 {
   height: 16px;
+}
+
+.c19 .c8 svg {
+  border: 1px solid #668491;
 }
 
 .c19 .c6,
@@ -362,6 +382,10 @@ exports[`Checkbox base theme renders as expected 1`] = `
 
 .c20 .c8 {
   height: 16px;
+}
+
+.c20 .c8 svg {
+  border: 1px solid #668491;
 }
 
 .c20 .c6,
@@ -550,6 +574,10 @@ exports[`Checkbox base theme renders as expected 1`] = `
 
 .c0 svg {
   background-color: #FFFFFF;
+  border: 1px solid #668491;
+}
+
+.c0 .c8 svg {
   border: 1px solid #668491;
 }
 

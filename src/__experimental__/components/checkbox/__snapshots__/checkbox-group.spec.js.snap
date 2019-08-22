@@ -87,6 +87,10 @@ exports[`CheckboxGroup renders as expected 1`] = `
   border: 1px solid #668491;
 }
 
+.c5 .c13 svg {
+  border: 1px solid #668491;
+}
+
 .c5 .c11,
 .c5 svg {
   height: 16px;
@@ -133,6 +137,10 @@ exports[`CheckboxGroup renders as expected 1`] = `
   height: 16px;
 }
 
+.c14 .c13 svg {
+  border: 1px solid #668491;
+}
+
 .c14 .c11,
 .c14 svg {
   height: 16px;
@@ -163,10 +171,6 @@ exports[`CheckboxGroup renders as expected 1`] = `
   margin-left: 10px;
   margin-top: -4px;
   vertical-align: middle;
-}
-
-.c0 .c13 svg {
-  border: 1px solid #668491;
 }
 
 .c0 > .c1 {
