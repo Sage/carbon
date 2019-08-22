@@ -8,6 +8,31 @@ import LabelStyle from '../label/label.style';
 import ClassicRadioButtonStyles from './radio-button-classic.style';
 import Fieldset from '../fieldset';
 import { LegendStyle } from '../fieldset/fieldset.style';
+import baseTheme from '../../../style/themes/base';
+
+const validationBorderColor = ({
+  theme,
+  hasError,
+  hasWarning,
+  hasInfo,
+  disabled
+}) => {
+  let color = theme.colors.border;
+
+  if (disabled) {
+    return null;
+  }
+
+  if (hasError) {
+    color = theme.colors.error;
+  } else if (hasWarning) {
+    color = theme.colors.warning;
+  } else if (hasInfo) {
+    color = theme.colors.info;
+  }
+
+  return css`border-color: ${color};`;
+};
 
 const RadioButtonStyle = styled(CheckboxStyle)`
   ${({
@@ -45,6 +70,10 @@ const RadioButtonStyle = styled(CheckboxStyle)`
 
     svg {
       padding: 1px;
+    }
+
+    ${StyledCheckableInputSvgWrapper} svg {
+      ${validationBorderColor};
     }
 
     circle {
@@ -109,6 +138,10 @@ const RadioButtonStyle = styled(CheckboxStyle)`
     ${ClassicRadioButtonStyles}
   `}
 `;
+
+RadioButtonStyle.defaultProps = {
+  theme: baseTheme
+};
 
 const RadioFieldsetStyle = styled(Fieldset)`
   ${LegendStyle} {

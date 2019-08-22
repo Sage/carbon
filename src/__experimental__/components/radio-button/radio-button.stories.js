@@ -49,16 +49,22 @@ storiesOf('Experimental/RadioButton', module)
     knobs: { escapeHTML: false }
   })
   .add('validations', () => {
-    const values = ['yes', 'no', 'error'];
+    const values = ['normal', 'error', 'warning', 'info'];
 
-    function testValidation(value) {
-      return new Promise((resolve, reject) => {
-        if (value === 'error') {
-          reject(new Error('Why happened?'));
-        } else {
-          resolve();
-        }
-      });
+    function testValidation(type) {
+      return (value) => {
+        return new Promise((resolve, reject) => {
+          if (type === 'valid' && value === 'error') {
+            reject(new Error('Some error occurred?'));
+          } else if (type === 'warn' && value === 'warning') {
+            reject(new Error('Watch out!'));
+          } else if (type === 'info' && value === 'info') {
+            reject(new Error('Let me tell you this...'));
+          } else {
+            resolve();
+          }
+        });
+      };
     }
 
     return (
@@ -66,7 +72,9 @@ storiesOf('Experimental/RadioButton', module)
         <RadioButtonGroup
           groupName='my-event'
           label='Are you coming to the event?'
-          validations={ testValidation }
+          validations={ testValidation('valid') }
+          warnings={ testValidation('warn') }
+          info={ testValidation('info') }
           name='radio-button-group'
         >
           {values.map(value => (
