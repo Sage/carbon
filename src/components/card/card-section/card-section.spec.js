@@ -8,12 +8,10 @@ import {
   POSITION_MIDDLE,
   TEXT_TYPE_PRIMARY,
   TEXT_TYPE_SECONDARY,
-  TEXT_TYPE_TERTIARY,
-  ALIGN_LEFT,
-  ALIGN_RIGHT,
-  ALIGN_CENTER
+  TEXT_TYPE_TERTIARY
 } from '../card.const';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 import smallTheme from '../../../style/themes/small';
 import mediumTheme from '../../../style/themes/medium';
 import largeTheme from '../../../style/themes/large';
@@ -280,8 +278,7 @@ describe('CardSection', () => {
           });
         });
 
-
-        describe.each([ALIGN_LEFT, ALIGN_RIGHT, ALIGN_CENTER])('when props include alignment', (align) => {
+        describe.each(OptionsHelper.alignFull)('when props include alignment', (align) => {
           describe(`${align} align`, () => {
             const wrapper = TestRenderer.create(
               <CardSection
