@@ -16,6 +16,7 @@ const StyledHelp = styled.button`
   margin-left: 8px;
   margin-top: 0;
   top: -1px;
+  padding: 1px;
 
   ${({ href }) => href && css`
     cursor: pointer;
@@ -28,12 +29,28 @@ const StyledHelp = styled.button`
     text-decoration: underline;
   }
 
+  &:focus{
+    outline: 2px solid ${({ theme }) => theme.colors.focus};
+
+    ::-moz-focus-inner{
+      border: 0;
+    }
+  }
+
   ${({ theme }) => isClassic(theme) && css`
     color: rgb(128, 153, 164);
 
     &:focus,
     &:hover {
       color: rgb(128, 153, 164);
+    }
+
+    &:focus{
+      outline: none;
+
+      ::-moz-focus-inner{
+        border: 1px dotted black;
+      }
     }
   `}
 `;
