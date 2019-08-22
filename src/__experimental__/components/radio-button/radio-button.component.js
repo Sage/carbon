@@ -35,7 +35,10 @@ const RadioButton = ({
      * in the desired order (other elements which use FormField render their sub-components the
      * opposite way around by default)
      */
-    reverse: !props.reverse
+    reverse: !props.reverse,
+    hasError: props.error || false,
+    hasWarning: false,
+    hasInfo: false
   };
 
   function handleChange(ev) {
@@ -44,20 +47,13 @@ const RadioButton = ({
     ev.target.focus();
   }
 
-  const passInputProps = {
-    ...inputProps,
-    hasError: props.error || false,
-    hasWarning: false,
-    hasInfo: false
-  };
-
   return (
     <RadioButtonStyle
       { ...tagComponent('radio-button', props) }
       { ...props }
     >
       <CheckableInput
-        { ...passInputProps }
+        { ...inputProps }
         onChange={ handleChange }
         tabindex={ setTabIndex(inputProps) }
       >
