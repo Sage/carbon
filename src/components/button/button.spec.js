@@ -197,6 +197,15 @@ describe('Button', () => {
     });
   });
 
+  describe('when not in classic theme', () => {
+    it('matches the applies the expected style to the icon', () => {
+      const wrapper = TestRenderer.create(<StyledButton iconType='plus' />);
+      assertStyleMatch({
+        height: '16px'
+      }, wrapper.toJSON(), { modifier: `${StyledIcon}` });
+    });
+  });
+
   describe('A primary button', () => {
     const primary = render({
       name: 'Primary Button',
@@ -341,21 +350,12 @@ describe('Button', () => {
   });
 
   describe('when the iconType is "services"', () => {
-    it('renders the default props and children to match the snapshot with the Icon before children', () => {
-      const buttonWithServiceIcon = render(
-        { children: 'foo', iconType: 'services', size: 'medium' }, TestRenderer.create
-      );
-      assertStyleMatch({
-        height: '24px'
-      }, buttonWithServiceIcon.toJSON(), { modifier: `${StyledIcon}` });
-    });
-
-    it('renders the default props and children to match the snapshot with the Icon after children', () => {
+    it('applies the expected style to the icon', () => {
       const buttonWithServiceIcon = render(
         { children: 'foo', iconType: 'services', size: 'large' }, TestRenderer.create
       );
       assertStyleMatch({
-        height: '28px'
+        height: '6px'
       }, buttonWithServiceIcon.toJSON(), { modifier: `${StyledIcon}` });
     });
   });

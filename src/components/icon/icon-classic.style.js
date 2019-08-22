@@ -23,7 +23,7 @@ export default ({
       font-weight: normal;
       line-height: 16px;
       vertical-align: middle;
-      ${type === 'services' && browserTypeCheck(window) && css`smargin-top: -7px;`}
+      ${type === 'services' && browserTypeCheck(window) && css`margin-top: -7px;`}
     }
   `}
   `;

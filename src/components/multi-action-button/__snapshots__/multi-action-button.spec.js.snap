@@ -84,7 +84,11 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 .c3 .c4 {
   margin-left: 0px;
   margin-right: 8px;
-  height: 18px;
+  height: 16px;
+}
+
+.c3 .c4 svg {
+  margin-top: 0;
 }
 
 .c1 {
@@ -212,7 +216,11 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
 .c7 .c5 {
   margin-left: 0px;
   margin-right: 8px;
-  height: 18px;
+  height: 16px;
+}
+
+.c7 .c5 svg {
+  margin-top: 0;
 }
 
 .c4 {
@@ -296,6 +304,10 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   margin-left: 0px;
   margin-right: 8px;
   height: 18px;
+}
+
+.c4 .c5 svg {
+  margin-top: 0;
 }
 
 .c8 > .c3 {

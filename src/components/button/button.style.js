@@ -22,7 +22,10 @@ const StyledButton = styled.button`
     ${StyledIcon} {
       margin-left: ${iconPosition === 'before' ? '0px' : '8px'};
       margin-right: ${iconPosition === 'before' ? '8px' : '0px'};
-      height: ${applyIconHeight};
+      height: ${additionalIconStyle};
+      svg { 
+        margin-top: 0;
+      }
     }
   `}
 `;
@@ -33,14 +36,14 @@ export const StyledButtonSubtext = styled.span`
   display: block;
 `;
 
-function applyIconHeight({ theme, size, iconType }) {
+function additionalIconStyle({ theme, iconType }) {
   if (isClassic(theme)) {
-    if (iconType === 'services') return '22px';
-    return `${size === 'large' ? '20px' : '18px'}`;
-  }
-  if (iconType === 'services') return `${size === 'large' ? '28px' : '24px'}`;
+    if (iconType === 'services') return '8px';
 
-  return `${size === 'large' ? '22px' : '18px'}`;
+    return '18px';
+  }
+  if (iconType === 'services') return '6px';
+  return '16px;';
 }
 
 function addButtonStyle(props) {

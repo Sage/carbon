@@ -63,7 +63,11 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c4 .c2 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 20px;
+  height: 18px;
+}
+
+.c4 .c2 svg {
+  margin-top: 0;
 }
 
 .c5 .c2 {
@@ -89,7 +93,11 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c5 .c2 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 22px;
+  height: 8px;
+}
+
+.c5 .c2 svg {
+  margin-top: 0;
 }
 
 .c6 + .c0 {
@@ -103,7 +111,11 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c6 .c2 {
   margin-left: 0px;
   margin-right: 8px;
-  height: 18px;
+  height: 16px;
+}
+
+.c6 .c2 svg {
+  margin-top: 0;
 }
 
 .c1 {
@@ -164,7 +176,11 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c1 .c2 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 18px;
+  height: 16px;
+}
+
+.c1 .c2 svg {
+  margin-top: 0;
 }
 
 <button
@@ -241,7 +257,11 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c4 .c2 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 20px;
+  height: 18px;
+}
+
+.c4 .c2 svg {
+  margin-top: 0;
 }
 
 .c5 .c2 {
@@ -267,7 +287,11 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c5 .c2 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 22px;
+  height: 8px;
+}
+
+.c5 .c2 svg {
+  margin-top: 0;
 }
 
 .c1 {
@@ -328,7 +352,11 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c1 .c2 {
   margin-left: 0px;
   margin-right: 8px;
-  height: 18px;
+  height: 16px;
+}
+
+.c1 .c2 svg {
+  margin-top: 0;
 }
 
 <button
@@ -434,7 +462,11 @@ exports[`Button when the classic theme is applied setting the color variant to "
 .c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 22px;
+  height: 8px;
+}
+
+.c1 .c20 svg {
+  margin-top: 0;
 }
 
 .c3 + .c0 {
@@ -590,7 +622,11 @@ exports[`Button when the classic theme is applied setting the color variant to "
 .c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 22px;
+  height: 8px;
+}
+
+.c1 .c20 svg {
+  margin-top: 0;
 }
 
 .c3 + .c0 {
@@ -746,7 +782,11 @@ exports[`Button when the classic theme is applied setting the color variant to "
 .c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 22px;
+  height: 8px;
+}
+
+.c1 .c20 svg {
+  margin-top: 0;
 }
 
 .c3 + .c0 {
@@ -902,7 +942,11 @@ exports[`Button when the classic theme is applied setting the color variant to "
 .c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 22px;
+  height: 8px;
+}
+
+.c1 .c20 svg {
+  margin-top: 0;
 }
 
 .c3 + .c0 {
@@ -1058,7 +1102,11 @@ exports[`Button when the classic theme is applied setting the color variant to "
 .c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 22px;
+  height: 8px;
+}
+
+.c1 .c20 svg {
+  margin-top: 0;
 }
 
 .c3 + .c0 {
@@ -1214,7 +1262,11 @@ exports[`Button when the classic theme is applied setting the color variant to "
 .c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 22px;
+  height: 8px;
+}
+
+.c1 .c20 svg {
+  margin-top: 0;
 }
 
 .c3 + .c0 {
@@ -1373,7 +1425,11 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
 .c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 20px;
+  height: 18px;
+}
+
+.c1 .c20 svg {
+  margin-top: 0;
 }
 
 .c2 + .c0 {
@@ -1537,7 +1593,11 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
 .c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 20px;
+  height: 18px;
+}
+
+.c1 .c20 svg {
+  margin-top: 0;
 }
 
 .c2 + .c0 {
@@ -1701,7 +1761,11 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
 .c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 20px;
+  height: 18px;
+}
+
+.c1 .c20 svg {
+  margin-top: 0;
 }
 
 .c2 + .c0 {
@@ -1865,7 +1929,11 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
 .c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 20px;
+  height: 18px;
+}
+
+.c1 .c20 svg {
+  margin-top: 0;
 }
 
 .c2 + .c0 {
@@ -2029,7 +2097,11 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
 .c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 20px;
+  height: 18px;
+}
+
+.c1 .c20 svg {
+  margin-top: 0;
 }
 
 .c2 + .c0 {
@@ -2193,7 +2265,11 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
 .c1 .c20 {
   margin-left: 8px;
   margin-right: 0px;
-  height: 20px;
+  height: 18px;
+}
+
+.c1 .c20 svg {
+  margin-top: 0;
 }
 
 .c2 + .c0 {
