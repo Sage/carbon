@@ -298,7 +298,7 @@ describe('CardSection', () => {
           ).toJSON();
           it('is left aligned', () => {
             assertStyleMatch({
-              textAlign: 'left'
+              textAlign: 'center'
             }, wrapper);
           });
         });
