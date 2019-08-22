@@ -30,6 +30,20 @@ describe('OptionsHelper', () => {
       'after'
     ]);
   });
+  it('cardSectionPositions', () => {
+    expect(OptionsHelper.cardSectionPositions).toEqual({
+      footer: 'footer',
+      header: 'header',
+      middle: 'middle'
+    });
+  });
+  it('cardTextTypes', () => {
+    expect(OptionsHelper.cardTextTypes).toEqual({
+      primary: 'primary',
+      secondary: 'secondary',
+      tertiary: 'tertiary'
+    });
+  });
   it('colors', () => {
     expect(OptionsHelper.colors).toEqual([
       'default',

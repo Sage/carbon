@@ -9,14 +9,9 @@ import {
   StyledMiddleTertiary,
   StyledFooterPrimary
 } from './card-section.style';
-import {
-  TEXT_TYPE_PRIMARY,
-  TEXT_TYPE_SECONDARY,
-  TEXT_TYPE_TERTIARY,
-  POSITION_HEADER,
-  POSITION_MIDDLE,
-  POSITION_FOOTER
-} from '../card.const';
+import OptionsHelper from '../../../utils/helpers/options-helper';
+
+const { cardSectionPositions, cardTextTypes } = OptionsHelper;
 
 const CardSection = ({
   align,
@@ -32,9 +27,9 @@ const CardSection = ({
       align={ align }
     >
       {
-        primary && positionType === POSITION_HEADER && (
+        primary && positionType === cardSectionPositions.header && (
           <StyledHeaderPrimary
-            data-element={ `${positionType}-${TEXT_TYPE_PRIMARY}` }
+            data-element={ `${positionType}-${cardTextTypes.primary}` }
             primary
             theme={ theme }
           >
@@ -43,9 +38,9 @@ const CardSection = ({
         )
       }
       {
-        secondary && positionType === POSITION_HEADER && (
+        secondary && positionType === cardSectionPositions.header && (
           <StyledHeaderSecondary
-            data-element={ `${positionType}-${TEXT_TYPE_SECONDARY}` }
+            data-element={ `${positionType}-${cardTextTypes.secondary}` }
             secondary
             theme={ theme }
           >
@@ -54,9 +49,9 @@ const CardSection = ({
         )
       }
       {
-        primary && positionType === POSITION_MIDDLE && (
+        primary && positionType === cardSectionPositions.middle && (
           <StyledMiddlePrimary
-            data-element={ `${positionType}-${TEXT_TYPE_PRIMARY}` }
+            data-element={ `${positionType}-${cardTextTypes.primary}` }
             primary
             theme={ theme }
           >
@@ -65,9 +60,9 @@ const CardSection = ({
         )
       }
       {
-        secondary && positionType === POSITION_MIDDLE && (
+        secondary && positionType === cardSectionPositions.middle && (
           <StyledMiddleSecondary
-            data-element={ `${positionType}-${TEXT_TYPE_SECONDARY}` }
+            data-element={ `${positionType}-${cardTextTypes.secondary}` }
             secondary
             theme={ theme }
           >
@@ -76,9 +71,9 @@ const CardSection = ({
         )
       }
       {
-        tertiary && positionType === POSITION_MIDDLE && (
+        tertiary && positionType === cardSectionPositions.middle && (
           <StyledMiddleTertiary
-            data-element={ `${positionType}-${TEXT_TYPE_TERTIARY}` }
+            data-element={ `${positionType}-${cardTextTypes.tertiary}` }
             tertiary
             theme={ theme }
           >
@@ -87,9 +82,9 @@ const CardSection = ({
         )
       }
       {
-        primary && positionType === POSITION_FOOTER && (
+        primary && positionType === cardSectionPositions.footer && (
           <StyledFooterPrimary
-            data-element={ `${positionType}-${TEXT_TYPE_PRIMARY}` }
+            data-element={ `${positionType}-${cardTextTypes.primary}` }
             primary
             theme={ theme }
           >

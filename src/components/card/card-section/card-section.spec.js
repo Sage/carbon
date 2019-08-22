@@ -2,16 +2,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import CardSection from './card-section.component';
-import {
-  POSITION_FOOTER,
-  POSITION_HEADER,
-  POSITION_MIDDLE,
-  TEXT_TYPE_PRIMARY,
-  TEXT_TYPE_SECONDARY,
-  TEXT_TYPE_TERTIARY
-} from '../card.const';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
-import OptionsHelper from '../../../utils/helpers/options-helper';
 import smallTheme from '../../../style/themes/small';
 import mediumTheme from '../../../style/themes/medium';
 import largeTheme from '../../../style/themes/large';
@@ -23,6 +14,7 @@ const defaultThemes = [
   ['large', largeTheme]
 ];
 
+
 describe('CardSection', () => {
   describe('default themes', () => {
     describe.each(defaultThemes)('when the Card is rendered', (name, theme) => {
@@ -31,12 +23,12 @@ describe('CardSection', () => {
           describe('when props do not include primary text', () => {
             const wrapper = shallow(
               <CardSection
-                positionType={ POSITION_HEADER }
+                positionType='header'
                 theme={ theme }
                 secondary='this is secondary text'
               />
             );
-            const elem = wrapper.find(`[data-element="${POSITION_HEADER}-${TEXT_TYPE_PRIMARY}"]`);
+            const elem = wrapper.find('[data-element="header-primary"]');
             it('does not render a primary element', () => {
               expect(elem.exists()).toEqual(false);
             });
@@ -46,19 +38,19 @@ describe('CardSection', () => {
             it('renders a primary element', () => {
               const wrapper = mount(
                 <CardSection
-                  positionType={ POSITION_HEADER }
+                  positionType='header'
                   theme={ theme }
                   primary='this is primary text'
                 />
               );
-              const elem = wrapper.find(`[data-element="${POSITION_HEADER}-${TEXT_TYPE_PRIMARY}"]`);
+              const elem = wrapper.find('[data-element="header-primary"]');
               expect(elem.exists()).toEqual(true);
             });
 
             it('matches the style for a rendered primary text', () => {
               const wrapper = TestRenderer.create(
                 <CardSection
-                  positionType={ POSITION_HEADER }
+                  positionType='header'
                   primary='this is primary text'
                   theme={ theme }
                 />
@@ -75,12 +67,12 @@ describe('CardSection', () => {
           describe('when props do not include secondary text', () => {
             const wrapper = shallow(
               <CardSection
-                positionType={ POSITION_HEADER }
+                positionType='header'
                 theme={ theme }
                 primary='this is primary text'
               />
             );
-            const elem = wrapper.find(`[data-element="${POSITION_HEADER}-${TEXT_TYPE_SECONDARY}"]`);
+            const elem = wrapper.find('[data-element="header-secondary"]');
             it('does not render a secondary element', () => {
               expect(elem.exists()).toEqual(false);
             });
@@ -90,19 +82,19 @@ describe('CardSection', () => {
             it('renders a secondary element', () => {
               const wrapper = shallow(
                 <CardSection
-                  positionType={ POSITION_HEADER }
+                  positionType='header'
                   theme={ theme }
                   secondary='this is secondary text'
                 />
               );
-              const elem = wrapper.find(`[data-element="${POSITION_HEADER}-${TEXT_TYPE_SECONDARY}"]`);
+              const elem = wrapper.find('[data-element="header-secondary"]');
               expect(elem.exists()).toEqual(true);
             });
 
             it('matches the style for a rendered secondary element', () => {
               const wrapper = TestRenderer.create(
                 <CardSection
-                  positionType={ POSITION_HEADER }
+                  positionType='header'
                   secondary='this is secondary text'
                   theme={ theme }
                 />
@@ -120,13 +112,13 @@ describe('CardSection', () => {
           describe('when props do not include primary text', () => {
             const wrapper = shallow(
               <CardSection
-                positionType={ POSITION_MIDDLE }
+                positionType='middle'
                 theme={ theme }
                 secondary='this is secondary text'
                 tertiary='this is tertiary text'
               />
             );
-            const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}-${TEXT_TYPE_PRIMARY}"]`);
+            const elem = wrapper.find('[data-element="middle-primary"]');
             it('does not render a primary element', () => {
               expect(elem.exists()).toEqual(false);
             });
@@ -136,19 +128,19 @@ describe('CardSection', () => {
             it('renders a primary element', () => {
               const wrapper = mount(
                 <CardSection
-                  positionType={ POSITION_MIDDLE }
+                  positionType='middle'
                   theme={ theme }
                   primary='this is primary text'
                 />
               );
-              const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}-${TEXT_TYPE_PRIMARY}"]`);
+              const elem = wrapper.find('[data-element="middle-primary"]');
               expect(elem.exists()).toEqual(true);
             });
 
             it('matches the style for a rendered primary text', () => {
               const wrapper = TestRenderer.create(
                 <CardSection
-                  positionType={ POSITION_MIDDLE }
+                  positionType='middle'
                   primary='this is primary text'
                   theme={ theme }
                 />
@@ -166,12 +158,12 @@ describe('CardSection', () => {
           describe('when props do not include secondary text', () => {
             const wrapper = shallow(
               <CardSection
-                positionType={ POSITION_MIDDLE }
+                positionType='middle'
                 theme={ theme }
                 primary='this is primary text'
               />
             );
-            const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}-${TEXT_TYPE_SECONDARY}"]`);
+            const elem = wrapper.find('[data-element="middle-secondary"]');
             it('does not render a secondary element', () => {
               expect(elem.exists()).toEqual(false);
             });
@@ -181,19 +173,19 @@ describe('CardSection', () => {
             it('renders a secondary element', () => {
               const wrapper = shallow(
                 <CardSection
-                  positionType={ POSITION_MIDDLE }
+                  positionType='middle'
                   theme={ theme }
                   secondary='this is secondary text'
                 />
               );
-              const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}-${TEXT_TYPE_SECONDARY}"]`);
+              const elem = wrapper.find('[data-element="middle-secondary"]');
               expect(elem.exists()).toEqual(true);
             });
 
             it('matches the style for a rendered secondary element', () => {
               const wrapper = TestRenderer.create(
                 <CardSection
-                  positionType={ POSITION_MIDDLE }
+                  positionType='middle'
                   secondary='this is secondary text'
                   theme={ theme }
                 />
@@ -210,13 +202,13 @@ describe('CardSection', () => {
           describe('when props do not include tertiary text', () => {
             const wrapper = shallow(
               <CardSection
-                positionType={ POSITION_MIDDLE }
+                positionType='middle'
                 theme={ theme }
                 primary='this is primary text'
                 secondary='this is secondary text'
               />
             );
-            const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}-${TEXT_TYPE_TERTIARY}"]`);
+            const elem = wrapper.find('[data-element="middle-tertiary"]');
             it('does not render a secondary element', () => {
               expect(elem.exists()).toEqual(false);
             });
@@ -226,21 +218,21 @@ describe('CardSection', () => {
             it('renders a tertiary element', () => {
               const wrapper = shallow(
                 <CardSection
-                  positionType={ POSITION_MIDDLE }
+                  positionType='middle'
                   theme={ theme }
                   primary='this is primary text'
                   secondary='this is secondary text'
                   tertiary='this is tertiary text'
                 />
               );
-              const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}-${TEXT_TYPE_TERTIARY}"]`);
+              const elem = wrapper.find('[data-element="middle-tertiary"]');
               expect(elem.exists()).toEqual(true);
             });
 
             it('matches the style for a rendered tertiary element', () => {
               const wrapper = TestRenderer.create(
                 <CardSection
-                  positionType={ POSITION_MIDDLE }
+                  positionType='middle'
                   primary='this is primary text'
                   secondary='this is secondary text'
                   tertiary='this is tertiary text'
@@ -260,7 +252,7 @@ describe('CardSection', () => {
           describe('when a valid props are passed', () => {
             const wrapper = TestRenderer.create(
               <CardSection
-                positionType={ POSITION_FOOTER }
+                positionType='footer'
                 theme={ theme }
                 primary='this is primary text'
               />
@@ -278,11 +270,11 @@ describe('CardSection', () => {
           });
         });
 
-        describe.each(OptionsHelper.alignFull)('when props include alignment', (align) => {
+        describe.each(['center', 'left', 'right'])('when props include alignment', (align) => {
           describe(`${align} align`, () => {
             const wrapper = TestRenderer.create(
               <CardSection
-                positionType={ POSITION_HEADER }
+                positionType='header'
                 theme={ theme }
                 align={ align }
                 primary='this is primary text'
@@ -299,7 +291,7 @@ describe('CardSection', () => {
         describe('when props do not include alignment', () => {
           const wrapper = TestRenderer.create(
             <CardSection
-              positionType={ POSITION_HEADER }
+              positionType='header'
               theme={ theme }
               primary='this is primary text'
             />

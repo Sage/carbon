@@ -1,12 +1,10 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import {
-  POSITION_FOOTER,
-  POSITION_HEADER,
-  POSITION_MIDDLE
-} from './card.const';
+import OptionsHelper from '../../utils/helpers/options-helper';
 import StyledCard from './card.style';
 import CardPosition from './card-position';
+
+const { cardSectionPositions } = OptionsHelper;
 
 const Card = ({
   header,
@@ -36,7 +34,7 @@ const Card = ({
     { header && (
       <CardPosition
         align={ headerAlign }
-        positionType={ POSITION_HEADER }
+        positionType={ cardSectionPositions.header }
         theme={ theme }
         primary={ headerPrimary }
         secondary={ headerSecondary }
@@ -46,7 +44,7 @@ const Card = ({
     { middle && (
       <CardPosition
         align={ middleAlign }
-        positionType={ POSITION_MIDDLE }
+        positionType={ cardSectionPositions.middle }
         theme={ theme }
         primary={ middlePrimary }
         secondary={ middleSecondary }
@@ -56,7 +54,7 @@ const Card = ({
     { footer && (
       <CardPosition
         align={ footerAlign }
-        positionType={ POSITION_FOOTER }
+        positionType={ cardSectionPositions.footer }
         theme={ theme }
         primary={ footerPrimary }
       />

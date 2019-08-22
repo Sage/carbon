@@ -2,11 +2,6 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import Card from './card.component';
-import {
-  POSITION_FOOTER,
-  POSITION_HEADER,
-  POSITION_MIDDLE
-} from './card.const';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import smallTheme from '../../style/themes/small';
 import mediumTheme from '../../style/themes/medium';
@@ -103,7 +98,7 @@ describe('Card', () => {
           );
 
           it('does not renders a header', () => {
-            const elem = wrapper.find(`[data-element="${POSITION_HEADER}"]`);
+            const elem = wrapper.find('[data-element="header"]');
             expect(elem.exists()).toEqual(false);
           });
         });
@@ -116,7 +111,7 @@ describe('Card', () => {
               theme={ theme }
             />
           );
-          const elem = wrapper.find(`[data-element="${POSITION_HEADER}"]`);
+          const elem = wrapper.find('[data-element="header"]');
 
           it('renders a header', () => {
             expect(elem.exists()).toEqual(true);
@@ -131,7 +126,7 @@ describe('Card', () => {
           );
 
           it('does not render any middle', () => {
-            const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}"]`);
+            const elem = wrapper.find('[data-element="middle"]');
             expect(elem.exists()).toEqual(false);
           });
         });
@@ -145,7 +140,7 @@ describe('Card', () => {
               middlePrimary={ primary }
             />
           );
-          const elem = wrapper.find(`[data-element="${POSITION_MIDDLE}"]`);
+          const elem = wrapper.find('[data-element="middle"]');
 
           it('renders a middle', () => {
             expect(elem.exists()).toEqual(true);
@@ -160,7 +155,7 @@ describe('Card', () => {
           );
 
           it('does not render a footer', () => {
-            const elem = wrapper.find(`[data-element="${POSITION_FOOTER}"]`);
+            const elem = wrapper.find('[data-element="footer"]');
             expect(elem.exists()).toEqual(false);
           });
         });
@@ -174,7 +169,7 @@ describe('Card', () => {
               footerPrimary={ primary }
             />
           );
-          const elem = wrapper.find(`[data-element="${POSITION_FOOTER}"]`);
+          const elem = wrapper.find('[data-element="footer"]');
 
           it('renders a footer', () => {
             expect(elem.exists()).toEqual(true);
