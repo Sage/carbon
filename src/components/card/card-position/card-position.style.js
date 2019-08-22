@@ -10,7 +10,7 @@ const StyledCardPosition = styled.div`
       `};
 
       ${positionType === POSITION_MIDDLE && css`
-        text-align: center;
+        padding: 0 32px;
         margin-bottom: 32px;
       `}
 
@@ -19,8 +19,7 @@ const StyledCardPosition = styled.div`
         border-top: ${theme.card.footerBorder};
         height: 56px;
         line-height: 56px;
-        padding: 0;
-        text-align: center;
+        padding: 0 32px;
       `}
     `;
   }

@@ -1,62 +1,92 @@
 import styled, { css } from 'styled-components';
-import { POSITION_HEADER, POSITION_MIDDLE, POSITION_FOOTER } from '../card.const';
 
-const StyledCardSection = styled.div`
+const StyledHeaderPrimary = styled.div`
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 26px;
+  margin: 0;
+`;
+
+const StyledHeaderSecondary = styled.div`
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  margin: 0;
+`;
+
+const StyledMiddlePrimary = styled.div`
   ${({
-    positionType,
-    primary,
-    secondary,
-    tertiary,
     theme
   }) => {
     return css`
-      ${primary && positionType === POSITION_HEADER && css`
-        font-size: 22px;
-        font-weight: 700;
-        line-height: 26px;
-        margin: 0;
-      `}
+      color: ${theme.card.middlePrimary};
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.48px;
+      margin-bottom: 10px;
+    `;
+  }
+}`;
 
-      ${secondary && positionType === POSITION_HEADER && css`
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 21px;
-        margin: 0;
-      `}
+const StyledMiddleSecondary = styled.div`
+  ${({
+    theme
+  }) => {
+    return css`
+      color: ${theme.card.middleSecondary};
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    `;
+  }
+}`;
 
-      ${primary && positionType === POSITION_MIDDLE && css`
-        color: ${theme.card.middlePrimary};
-        font-size: 24px;
-        font-weight: 700;
-        letter-spacing: 0.48px;
-        margin-bottom: 10px;
-        text-align: center; 
-      `}
+const StyledMiddleTertiary = styled.div`
+${({
+    theme
+  }) => {
+    return css`
+      color: ${theme.card.middleTertiary};
+      font-size: 12px;
+      text-transform: uppercase;
+    `;
+  }
+}`;
 
-      ${secondary && positionType === POSITION_MIDDLE && css`
-        color: ${theme.card.middleSecondary};
-        font-size: 14px;
-        font-weight: 700;
-        margin-bottom: 8px;
-        text-align: center;
-      `}
+const StyledFooterPrimary = styled.div`
+${({
+    theme
+  }) => {
+    return css`
+    line-height: 30px;
+    margin: 0;
+    color:${theme.card.footerText};
+    font-weight: 600;
+    padding: 12px 0;
+  `;
+  }
+}`;
 
-      ${tertiary && positionType === POSITION_MIDDLE && css`
-        color: ${theme.card.middleTertiary};
-        font-size: 12px;
-        text-align: center;
-        text-transform: uppercase;
+const StyledCardSection = styled.div`
+  ${({ align }) => {
+    return css`
+      width: 100%;
+      ${align && css`
+        text-align: ${align};
       `}
-
-      ${primary && positionType === POSITION_FOOTER && css`
-        line-height: 30px;
-        margin: 0;
-        color:${theme.card.footerText};
-        font-weight: 600;
-        padding: 12px 0;
+      ${!align && css`
+        text-align: left;
       `}
     `;
   }
 }`;
 
-export default StyledCardSection;
+export {
+  StyledCardSection,
+  StyledHeaderPrimary,
+  StyledHeaderSecondary,
+  StyledMiddlePrimary,
+  StyledMiddleSecondary,
+  StyledMiddleTertiary,
+  StyledFooterPrimary
+};
