@@ -109,7 +109,23 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
      * @property value
      * @type {String}
      */
-    value: PropTypes.string
+    value: PropTypes.string,
+
+    /**
+     * Display an empty input if the value is empty
+     *
+     * @property allowEmptyValue
+     * @type {Boolean}
+     */
+    allowEmptyValue: PropTypes.bool,
+
+    /**
+     * Display the date picker component on top of the input
+     *
+     * @property showPickerOnTop
+     * @type {Boolean}
+     */
+    showPickerOnTop: PropTypes.bool
   };
 
   static defaultProps = {
@@ -254,6 +270,10 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
     if (DateHelper.isValidDate(this.props.value)) {
       this.setState({
         datePickerValue: DateHelper.stringToDate(this.props.value)
+      });
+    } else if (this.props.allowEmptyValue) {
+      this.setState({
+        datePickerValue: DateHelper.stringToDate(today)
       });
     }
   }
@@ -554,6 +574,12 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
   get containerStyle() {
     const inputRect = this.getInputBoundingRect();
     const offsetY = window.pageYOffset;
+    if (this.props.showPickerOnTop) {
+      return {
+        left: inputRect.left,
+        bottom: 2 - (offsetY + inputRect.top)
+      };
+    }
     return {
       left: inputRect.left,
       top: inputRect.bottom + offsetY
@@ -647,6 +673,10 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
    * @return {String} formatted visible value
    */
   formatVisibleValue(value) {
+    if (this.props.allowEmptyValue && !value.length) {
+      return '';
+    }
+
     // Don't sanitize so it accepts the hidden format (with dash separators)
     return DateHelper.formatValue(
       value || today,
