@@ -1,6 +1,3 @@
-export const ALIGN_CENTER = 'center';
-export const ALIGN_LEFT = 'left';
-export const ALIGN_RIGHT = 'right';
 export const POSITION_FOOTER = 'positionfooter';
 export const POSITION_HEADER = 'positionheader';
 export const POSITION_MIDDLE = 'positionmiddle';
