@@ -57,6 +57,7 @@ const Help = (props) => {
       { ...tagComponent('help', props) }
       tabIndex={ tabIndexOverride }
       value={ children }
+      aria-label='additional help information'
     >
       <Icon
         type='help'
