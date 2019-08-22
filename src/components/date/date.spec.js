@@ -212,8 +212,10 @@ describe('Date', () => {
         it('calls set state setting the datePickerValue to be the date of today', () => {
           instance = TestUtils.renderIntoDocument(
             <Date
-              name='date' value=''
-              label='Date' allowEmptyValue
+              name='date'
+              value=''
+              label='Date'
+              allowEmptyValue
             />
           );
           spyOn(instance, 'setState');
