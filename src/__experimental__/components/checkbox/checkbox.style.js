@@ -13,9 +13,14 @@ const validationBorderColor = ({
   theme,
   hasError,
   hasWarning,
-  hasInfo
+  hasInfo,
+  disabled
 }) => {
   let color = theme.colors.border;
+
+  if (disabled) {
+    return null;
+  }
 
   if (hasError) {
     color = theme.colors.error;
@@ -42,6 +47,10 @@ const CheckboxStyle = styled.div`
 
     svg {
       background-color: ${theme.colors.white};
+      border: ${validationBorderColor};
+    }
+
+    ${StyledCheckableInputSvgWrapper} svg {
       border: ${validationBorderColor};
     }
 
@@ -208,11 +217,18 @@ const validationIconColor = ({
 };
 
 const StyledCheckboxGroup = styled.div`
-  & ${StyledCheckableInputSvgWrapper} {
-    svg {
-      border: ${validationBorderColor};
-    }
-  }
+  ${({
+    theme,
+    hasError,
+    hasWarning,
+    hasInfo
+  }) => css`
+      ${LabelStyle} {
+        ${(hasError || hasWarning || hasInfo) && css`
+          color: ${theme.text.color};
+        `}
+      }
+  `}
 
   & > ${LabelStyle} {
     cursor: default ;
