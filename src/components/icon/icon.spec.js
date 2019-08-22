@@ -13,6 +13,10 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import classicConfig from './icon-classic-config';
 import dlsConfig from './icon-config';
 import baseTheme from '../../style/themes/base';
+import browserTypeCheck from '../../utils/helpers/browser-type-check';
+
+jest.mock('../../utils/helpers/browser-type-check');
+browserTypeCheck.mockImplementation(() => true);
 
 function render(props) {
   return shallow(<Icon type='add' { ...props } />);
@@ -131,7 +135,7 @@ describe('Icon component', () => {
       });
       assertStyleMatch(
         {
-          marginTop: '-7px'
+          marginTop: '-8px'
         },
         wrapper.toJSON(),
         { modifier: '&::before' }

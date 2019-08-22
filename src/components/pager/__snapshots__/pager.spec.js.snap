@@ -191,6 +191,7 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
   font-weight: normal;
   line-height: 16px;
   vertical-align: middle;
+  display: block;
 }
 
 .c3::before {
@@ -611,6 +612,7 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   font-weight: normal;
   line-height: 16px;
   vertical-align: middle;
+  display: block;
 }
 
 .c9 {

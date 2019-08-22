@@ -251,6 +251,7 @@ Object {
   font-weight: normal;
   line-height: 16px;
   vertical-align: middle;
+  display: block;
 }
 
 <div

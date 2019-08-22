@@ -1,6 +1,7 @@
 import { css } from 'styled-components';
 import { isClassic } from '../../utils/helpers/style-helper';
 import classicConfig from './icon-classic-config';
+import browserTypeCheck from '../../utils/helpers/browser-type-check';
 
 export default ({
   theme, bgTheme, isFont, type
@@ -21,8 +22,9 @@ export default ({
       font-style: normal;
       font-weight: normal;
       line-height: 16px;
-      ${type !== 'services' && css`vertical-align: middle;`}
-      ${type === 'services' && css` margin-top: -7px;`}
+      ${console.log(browserTypeCheck(window))}
+      vertical-align: middle;
+      ${type === 'services' && browserTypeCheck(window) && css`smargin-top: -7px;`}
     }
   `}
   `;

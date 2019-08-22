@@ -23,6 +23,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   font-weight: normal;
   line-height: 16px;
   vertical-align: middle;
+  display: block;
 }
 
 .c7 .c5 {
@@ -822,6 +823,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   font-weight: normal;
   line-height: 16px;
   vertical-align: middle;
+  display: block;
 }
 
 .c6:hover {

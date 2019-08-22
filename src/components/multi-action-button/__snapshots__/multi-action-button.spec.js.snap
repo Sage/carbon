@@ -23,6 +23,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   font-weight: normal;
   line-height: 16px;
   vertical-align: middle;
+  display: block;
 }
 
 .c3 {
@@ -184,6 +185,7 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   font-weight: normal;
   line-height: 16px;
   vertical-align: middle;
+  display: block;
 }
 
 .c6:hover {
