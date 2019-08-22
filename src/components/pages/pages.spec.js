@@ -1,31 +1,30 @@
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { shallow, mount } from 'enzyme';
-import BasePages, { Pages, Page } from './pages.component';
-// import Page from '../page/page.component';
+import BasePages, { Page } from './pages.component';
+import Heading from '../heading/heading';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 import {
-  PagesButtonStyle,
-  PagesSliderWrapper,
-  PagesSelectorWrapperStyle,
-  PagesSelectorLabelStyle,
-  PagesSelectorInputWrapperStyle
+  PagesContent
 } from './pages.style';
+import StyledHeadingIcon from '../heading/heading.style';
 import classicTheme from '../../style/themes/classic';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import 'jest-styled-components';
-/* global jest */
 
 describe('BasePages', () => {
   let wrapper, page;
 
   beforeEach(() => {
     wrapper = shallow(
-      <BasePages theme={ classicTheme } className='foobar' initialPageIndex={ 0 }>
-        <Page title="Page One" />
-        <Page title="Page Two" />
-        <Page title="Page Three" />
+      <BasePages
+        theme={ classicTheme }
+        className='foobar'
+        initialPageIndex={ 0 }
+      >
+        <Page title='Page One' />
+        <Page title='Page Two' />
+        <Page title='Page Three' />
       </BasePages>
     );
 
@@ -35,9 +34,8 @@ describe('BasePages', () => {
   describe('componentWillMount', () => {
     describe('when pageIndex is passed', () => {
       it('sets the intial page to the prop', () => {
-        const wrapper = shallow(
+        wrapper = shallow(
           <BasePages pageIndex={ 1 }>
-            <Page />
             <Page />
             <Page />
           </BasePages>
@@ -49,8 +47,11 @@ describe('BasePages', () => {
 
     describe('when initialPageIndex is passed', () => {
       it('sets the intial page to the prop', () => {
-        const wrapper = shallow(
-          <BasePages initialPageIndex={ 2 } pageIndex={ 2 }>
+        wrapper = shallow(
+          <BasePages
+            initialPageIndex={ 2 }
+            pageIndex={ 2 }
+          >
             <Page />
             <Page />
             <Page />
@@ -63,10 +64,8 @@ describe('BasePages', () => {
 
     describe('when initialSelectedIndex is not passed', () => {
       it('defaults the initial page to page 0', () => {
-        const wrapper = shallow(
+        wrapper = shallow(
           <BasePages theme={ classicTheme }>
-            <Page />
-            <Page />
             <Page />
           </BasePages>
         );
@@ -78,13 +77,6 @@ describe('BasePages', () => {
 
   describe('componentDidUpdate', () => {
     it('navigates between slides correctly when the pageIndex prop changes', () => {
-      // const wrapper = shallow(
-      //   <BasePages theme={ classicTheme } initialPageIndex={ 0 }>
-      //     <Page />
-      //     <Page />
-      //     <Page />
-      //   </BasePages>
-      // );
       // Initial state
       expect(wrapper.state().pageIndex).toEqual(0);
       expect(wrapper.instance().numOfPages()).toEqual(3);
@@ -131,7 +123,11 @@ describe('BasePages', () => {
     describe('when one child', () => {
       it('returns 1', () => {
         wrapper = shallow(
-          <BasePages theme={ classicTheme } className='foobar' initialPageIndex={ 0 }>
+          <BasePages
+            theme={ classicTheme }
+            className='foobar'
+            initialPageIndex={ 0 }
+          >
             <Page />
           </BasePages>
         );
@@ -149,8 +145,12 @@ describe('BasePages', () => {
 
   describe('visiblePage', () => {
     const instance = shallow(
-      <BasePages theme={ classicTheme } className='foobar' initialPageIndex={ 0 }>
-        <Page title="abc" />
+      <BasePages
+        theme={ classicTheme }
+        className='foobar'
+        initialPageIndex={ 0 }
+      >
+        <Page title='Example Title A' />
       </BasePages>
     );
 
@@ -165,7 +165,7 @@ describe('BasePages', () => {
     });
 
     it('has correct title', () => {
-      expect(instance.find(Page).props().title).toEqual('abc');
+      expect(instance.find(Page).props().title).toEqual('Example Title A');
     });
   });
 
@@ -184,10 +184,11 @@ describe('BasePages', () => {
 
   describe('tags', () => {
     describe('on component', () => {
-      const wrapper = shallow(
+      const tag = shallow(
         <BasePages
           theme={ classicTheme }
-          data-element='bar' data-role='baz'
+          data-element='bar'
+          data-role='baz'
           initialPageIndex={ 0 }
         >
           <Page />
@@ -195,13 +196,16 @@ describe('BasePages', () => {
       );
 
       it('include correct component, element and role data tags', () => {
-        rootTagTest(wrapper, 'carousel', 'bar', 'baz');
+        rootTagTest(tag, 'carousel', 'bar', 'baz');
       });
     });
 
     describe('on internal elements', () => {
-      const wrapper = mount(
-        <BasePages theme={ classicTheme } initialPageIndex={ 0 }>
+      wrapper = mount(
+        <BasePages
+          theme={ classicTheme }
+          initialPageIndex={ 0 }
+        >
           <Page data-element='page' />
         </BasePages>
       );
@@ -215,14 +219,50 @@ describe('BasePages', () => {
 
   describe('transitionName', () => {
     it('uses a custom name if supplied', () => {
-      const wrapper = shallow(
-        <BasePages theme={ classicTheme } transition='foo'>
+      wrapper = shallow(
+        <BasePages
+          theme={ classicTheme }
+          transition='foo'
+        >
           <Page />
         </BasePages>
       );
 
       const transitionGroup = wrapper.find(CSSTransitionGroup);
       expect(transitionGroup.props().transitionName).toEqual('carousel-transition-foo');
+    });
+  });
+});
+
+describe('PagesWrapperStyle', () => {
+  const wrapper = mount(
+    <BasePages
+      theme={ classicTheme }
+      transition='foo'
+    >
+      <Page
+        title={ (
+          <Heading
+            title='My Second Page'
+            backLink='back link'
+          />
+        ) }
+      />
+    </BasePages>
+  ).find(PagesContent).first();
+
+  describe('PagesContent', () => {
+    it('should render matched styles for PagesContent', () => {
+      assertStyleMatch({
+        overflow: 'hidden',
+        position: 'relative'
+      }, wrapper);
+    });
+
+    it('should render the correct HeadingIcon styles within PagesContent', () => {
+      assertStyleMatch({
+        marginTop: '-9px'
+      }, wrapper, { modifier: `${StyledHeadingIcon}` });
     });
   });
 });
