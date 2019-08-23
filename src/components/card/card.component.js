@@ -63,21 +63,42 @@ const Card = ({
 );
 
 Card.propTypes = {
+  /** flag to indicate if a header is required */
   header: propTypes.bool,
+  /** flag to indicate if a middle is required */
   middle: propTypes.bool,
+  /** flag to indicate if a footer is required */
   footer: propTypes.bool,
+  /** flag to indicate if a border is required */
   border: propTypes.bool,
+  /** text value of the header primary element */
   headerPrimary: propTypes.string,
+  /** text value of the header secondary element */
   headerSecondary: propTypes.string,
-  headerAlign: propTypes.bool,
+  /** text alignment of the header text */
+  headerAlign: propTypes.oneOf(OptionsHelper.alignFull),
+  /** text value of the middle primary element */
   middlePrimary: propTypes.string,
+  /** text value of the middle secondary element */
   middleSecondary: propTypes.string,
+  /** text value of the middle tertiary element */
   middleTertiary: propTypes.string,
-  middleAlign: propTypes.bool,
+  /** text alignment of the middle text */
+  middleAlign: propTypes.oneOf(OptionsHelper.alignFull),
+  /** text value of the footer primary element */
   footerPrimary: propTypes.string,
-  footerAlign: propTypes.bool,
+  /** text alignment of the footer text */
+  footerAlign: propTypes.oneOf(OptionsHelper.alignFull),
+  /** theme object provided to the card */
   theme: propTypes.object,
+  /** style value for width of card */
   cardWidth: propTypes.string
 };
 
+Card.defaultProps = {
+  headerAlign: 'center',
+  middleAlign: 'center',
+  footerAlign: 'center',
+  border: false
+};
 export default Card;

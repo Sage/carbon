@@ -97,11 +97,17 @@ const CardSection = ({
 };
 
 CardSection.propTypes = {
-  align: propTypes.string,
-  positionType: propTypes.string,
+  /** text alignment of the card section text */
+  align: propTypes.oneOf(OptionsHelper.alignFull),
+  /** position of width in the card */
+  positionType: propTypes.oneOf(OptionsHelper.cardSectionPositions),
+  /** theme object provided to the card */
   theme: propTypes.object,
+  /** text value of the primary element */
   primary: propTypes.string,
+  /** text value of the secondary element */
   secondary: propTypes.string,
+  /** text value of the tertiary element */
   tertiary: propTypes.string
 };
 
