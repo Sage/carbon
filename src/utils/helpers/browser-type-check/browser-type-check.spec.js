@@ -1,5 +1,7 @@
 import browserCheck from '.';
-
+/**
+ * Check for Chrome or Firefox
+ */
 describe('browserTypeCheck', () => {
   it('returns true if "chrome" is true', () => {
     const _window = { chrome: true, sidebar: false };
@@ -13,7 +15,7 @@ describe('browserTypeCheck', () => {
     const _window = { chrome: true, sidebar: true };
     expect(browserCheck(_window)).toEqual(true);
   });
-  it('returns true if neither "chrome" or "sidebar" is true', () => {
+  it('returns false if neither "chrome" or "sidebar" is true', () => {
     const _window = { chrome: false, sidebar: false };
     expect(browserCheck(_window)).toEqual(false);
   });
