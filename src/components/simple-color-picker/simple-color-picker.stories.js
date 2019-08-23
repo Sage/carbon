@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { text, array } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
+import { classicThemeSelector } from '../../../.storybook/theme-selectors';
 import SimpleColorPicker from './simple-color-picker';
 import { notes, info } from './documentation';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
@@ -31,7 +32,7 @@ storiesOf('SimpleColorPicker', module)
   })
 
   .add(
-    'default',
+    'classic',
     () => {
       const name = text('name', 'basicPicker');
       const availableColors = array('availableColors', ['#00DC00', '#255BC7', '#ED1C5F']);
@@ -48,6 +49,7 @@ storiesOf('SimpleColorPicker', module)
     },
     {
       notes: { markdown: notes },
-      info: { text: info }
+      info: { text: info },
+      themeSelector: classicThemeSelector
     }
   );

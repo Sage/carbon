@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { boolean, text, select } from '@storybook/addon-knobs';
 import { Store, State } from '@sambego/storybook-state';
+import { classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { RadioButton } from '../../__experimental__/components/radio-button';
 import { notes, info } from './documentation';
@@ -21,7 +22,7 @@ function handleChange(ev) {
 }
 
 storiesOf('Radio Button', module).add(
-  'default',
+  'classic',
   () => {
     const fieldHelp = text('fieldHelp', 'Additional information below the input.');
     const fieldHelpInline = boolean('fieldHelpInline', RadioButton.defaultProps.fieldHelpInline);
@@ -74,6 +75,7 @@ storiesOf('Radio Button', module).add(
   },
   {
     notes: { markdown: notes },
-    info: { text: info }
+    info: { text: info },
+    themeSelector: classicThemeSelector
   }
 );

@@ -4,6 +4,7 @@ import { State, Store } from '@sambego/storybook-state';
 import {
   boolean, number, text, select
 } from '@storybook/addon-knobs';
+import { classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Textbox from './textbox';
 import { info, notes } from './documentation';
@@ -29,7 +30,7 @@ storiesOf('Textbox', module)
     }
   })
   .add(
-    'default',
+    'classic',
     () => {
       const rangeOptions = {
         range: true,
@@ -69,6 +70,7 @@ storiesOf('Textbox', module)
     },
     {
       info: { text: info },
-      notes: { markdown: notes }
+      notes: { markdown: notes },
+      themeSelector: classicThemeSelector
     }
   );
