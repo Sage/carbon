@@ -1,7 +1,5 @@
 import browserCheck from '.';
-/**
- * Check for Chrome or Firefox
- */
+
 describe('browserTypeCheck', () => {
   it('returns true if "chrome" is true', () => {
     const _window = { chrome: true, sidebar: false };

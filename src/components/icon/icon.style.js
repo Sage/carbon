@@ -7,7 +7,7 @@ import baseTheme from '../../style/themes/base';
 import generatePalette from '../../style/palette';
 import iconSizeConfig from './icon-config';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import browserTypeCheck from '../../utils/helpers/browser-type-check';
+import browserTypeCheck, { isSafari } from '../../utils/helpers/browser-type-check';
 
 const getBackgroundColor = (theme, bgTheme, disabled, isHover) => {
   if (bgTheme !== 'none') {
@@ -121,6 +121,7 @@ const StyledIcon = styled.span`
         ${type === 'services' && browserTypeCheck(window) && css`
           margin-top: ${fontSize === 'small' ? '-7px' : '-8px'};
         `}
+        ${type === 'services' && isSafari(navigator) && !browserTypeCheck(window) && css`margin-top: -6px;`}
         display: block;
       }
     `}

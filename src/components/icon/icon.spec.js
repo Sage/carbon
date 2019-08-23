@@ -13,10 +13,9 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import classicConfig from './icon-classic-config';
 import dlsConfig from './icon-config';
 import baseTheme from '../../style/themes/base';
-import browserTypeCheck from '../../utils/helpers/browser-type-check';
+import browserTypeCheck, { isSafari } from '../../utils/helpers/browser-type-check';
 
 jest.mock('../../utils/helpers/browser-type-check');
-browserTypeCheck.mockImplementation(() => true);
 
 function render(props) {
   return shallow(<Icon type='add' { ...props } />);
@@ -116,6 +115,11 @@ describe('Icon component', () => {
   );
 
   describe('when the icon type is "sevices', () => {
+    beforeEach(() => {
+      browserTypeCheck.mockImplementation(() => true);
+      isSafari.mockImplementation(() => true);
+    });
+
     it('it applies additional margin-top styling when the fontSize is "small"', () => {
       const wrapper = renderStyles({
         type: 'services', theme: classicTheme, isFont: true, fontSize: 'small'
@@ -136,6 +140,34 @@ describe('Icon component', () => {
       assertStyleMatch(
         {
           marginTop: '-7px'
+        },
+        wrapper.toJSON(),
+        { modifier: '&::before' }
+      );
+    });
+
+    it('it applies additional margin-top styling when the browser is safari and fontSize is "small"', () => {
+      browserTypeCheck.mockImplementation(() => false);
+      const wrapper = renderStyles({
+        type: 'services', theme: classicTheme, isFont: true, fontSize: 'small'
+      });
+      assertStyleMatch(
+        {
+          marginTop: '-4px'
+        },
+        wrapper.toJSON(),
+        { modifier: '&::before' }
+      );
+    });
+
+    it('it applies additional margin-top styling when the browser is safari and the fontSize is "large"', () => {
+      browserTypeCheck.mockImplementation(() => false);
+      const wrapper = renderStyles({
+        type: 'services', theme: baseTheme, isFont: true, fontSize: 'large'
+      });
+      assertStyleMatch(
+        {
+          marginTop: '-6px'
         },
         wrapper.toJSON(),
         { modifier: '&::before' }

@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
 import { isClassic } from '../../utils/helpers/style-helper';
 import classicConfig from './icon-classic-config';
-import browserTypeCheck from '../../utils/helpers/browser-type-check';
+import browserTypeCheck, { isSafari } from '../../utils/helpers/browser-type-check';
 
 export default ({
   theme, bgTheme, isFont, type
@@ -24,6 +24,7 @@ export default ({
       line-height: 16px;
       vertical-align: middle;
       ${type === 'services' && browserTypeCheck(window) && css`margin-top: -7px;`}
+      ${type === 'services' && isSafari(navigator) && !browserTypeCheck(window) && css`margin-top: -4px;`}
     }
   `}
   `;
