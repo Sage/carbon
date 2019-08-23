@@ -2,11 +2,13 @@ import classic from '../src/style/themes/classic';
 import small from '../src/style/themes/small';
 import medium from '../src/style/themes/medium';
 import large from '../src/style/themes/large';
+import none from '../src/style/themes/none';
 
 /** These are for use with https://www.npmjs.com/package/storybook-addon-styled-component-theme */
 
 export const dlsThemeSelector = {
-  themes: [small, medium, large]
+  themes: [small, medium, large, none],
+  buttonAttributes: ['data-theme']
 };
 
 export const classicThemeSelector = {
