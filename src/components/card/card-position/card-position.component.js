@@ -30,11 +30,17 @@ const CardPosition = ({
 };
 
 CardPosition.propTypes = {
+  /** text alignment of the card section text */
   align: propTypes.string,
+  /** position of width in the card */
   positionType: propTypes.string,
+  /** theme object provided to the card */
   theme: propTypes.object,
+  /** text value of the primary element */
   primary: propTypes.string,
+  /** text value of the secondary element */
   secondary: propTypes.string,
+  /** text value of the tertiary element */
   tertiary: propTypes.string
 };
 

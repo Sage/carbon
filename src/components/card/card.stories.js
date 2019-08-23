@@ -3,6 +3,13 @@ import { storiesOf } from '@storybook/react';
 import { boolean, select, text } from '@storybook/addon-knobs';
 import Card from './card.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import { notes, Info } from './documentation';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Card.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /card.component(?!spec)/
+);
 
 const getKnobs = () => {
   const knobs = {
@@ -60,4 +67,8 @@ storiesOf('Card', module)
         cardWidth={ cardWidth }
       />
     );
+  }, {
+    info: { text: Info },
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   });
