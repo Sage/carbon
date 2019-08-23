@@ -182,14 +182,12 @@ class TableAjax extends Table {
    * @return {Void}
    */
   componentDidMount() {
-    super.componentDidMount();
     this.emitOnChangeCallback('data', this.emitOptions(), 0);
   }
 
   /**
    * Lifecycle for after a update has happened
    * Retrieve the data when page size chagnes
-   * Resize the grid to fit new content
    *
    * @method componentDidUpdate
    * @param {Object} preProps The previos props passed down to the component
@@ -200,7 +198,6 @@ class TableAjax extends Table {
     if (this.state.pageSize !== prevState.pageSize) {
       this.emitOnChangeCallback('data', this.emitOptions());
     }
-    this.resizeTable();
   }
 
   /**
@@ -323,8 +320,7 @@ class TableAjax extends Table {
       this.selectAllComponent = null;
     }
 
-    const resetHeight = Number(options.pageSize) < Number(this.pageSize),
-        currentPage = (element === 'filter') ? '1' : options.currentPage;
+    const currentPage = (element === 'filter') ? '1' : options.currentPage;
 
     this.setState({
       currentPage,
@@ -356,7 +352,6 @@ class TableAjax extends Table {
       this._request.end((err, response) => {
         this._hasRetreivedData = true;
         this.handleResponse(err, response);
-        if (resetHeight) { this.resetTableHeight(); }
       });
     }, timeout);
   }

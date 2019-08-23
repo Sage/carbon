@@ -44,14 +44,6 @@ class Table extends React.Component {
   }
 
   /**
-   * Lifecycle for after mounting
-   * Resize the table to set the correct height on pageload
-   */
-  componentDidMount() {
-    this.resizeTable();
-  }
-
-  /**
    * Lifecycle for after a update has happened
    * If filter has changed then emit the on change event.
    */
@@ -72,19 +64,6 @@ class Table extends React.Component {
         this.selectRow(row.props.uniqueID, row, false);
       }
       this.selectedRows = {};
-    }
-  }
-
-  /**
-   * Lifecycle for after a update has happened
-   * If pageSize has updated to a smaller value - reset table height
-   * else resize table
-   */
-  componentDidUpdate(prevProps) {
-    if (this.shouldResetTableHeight(prevProps)) {
-      this.resetTableHeight();
-    } else {
-      this.resizeTable();
     }
   }
 
@@ -338,38 +317,6 @@ class Table extends React.Component {
   }
 
   /**
-   * Reset the minHeight and tableHeight of the table
-   */
-  resetTableHeight() {
-    this._wrapper.style.minHeight = '0';
-    this.tableHeight = 0;
-    setTimeout(() => {
-      this.resizeTable();
-    }, 0);
-  }
-
-  /**
-   * Increase the minheight of the table if the new height
-   * is greater than the previous
-   */
-  resizeTable() {
-    if (!this._table) { return; }
-    const shrink = this.props.shrink && this._table.offsetHeight < this.tableHeight;
-
-    if (shrink || this._table.offsetHeight > this.tableHeight) {
-      this.tableHeight = this._table.offsetHeight;
-      this._wrapper.style.minHeight = `${this.tableHeight - 1}px`;
-    }
-  }
-
-  /**
-   * Test if the table height should be reset to 0
-   */
-  shouldResetTableHeight(prevProps) {
-    return prevProps.size !== this.props.size || prevProps.pageSize > this.pageSize;
-  }
-
-  /**
    * Tracks the component used for select all.
    */
   selectAllComponent = null;
@@ -396,11 +343,6 @@ class Table extends React.Component {
    * The rows currently attached to the table.
    */
   rows = {};
-
-  /**
-   * Maintains the height of the table
-   */
-  tableHeight = 0;
 
   /**
    * Base Options to be emitted by onChange

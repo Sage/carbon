@@ -119,12 +119,6 @@ describe('TableAjax', () => {
       pageSizeInstance.componentDidUpdate({},{ pageSize: '20' });
       expect(pageSizeInstance.emitOnChangeCallback).toHaveBeenCalled();
     });
-
-    it('calls to resize the table', () => {
-      spyOn(instance, 'resizeTable');
-      instance.componentDidUpdate({},{});
-      expect(instance.resizeTable).toHaveBeenCalled();
-    });
   });
 
   describe('componentWillReceiveProps', () => {
@@ -259,30 +253,6 @@ describe('TableAjax', () => {
       expect(table.prop('aria-busy')).toBeFalsy();
     });
 
-    describe('when page size is less than previous page size', () => {
-      it('calls resetTableHeight on successful response', () => {
-        instance.resetTableHeight = jest.fn();
-        options = { currentPage: '1', pageSize: '5' }
-        Request.__setMockResponse({
-          status() {
-            return 200;
-          },
-          ok() {
-            return true;
-          },
-          body: {
-            data: 'foo'
-          }
-        });
-
-        instance.emitOnChangeCallback('data', options);
-        jest.runTimersToTime(251);
-        expect(Request.get).toHaveBeenLastCalledWith('/test');
-        expect(Request.query).toHaveBeenLastCalledWith("page=1&rows=5");
-        expect(instance.resetTableHeight).toBeCalled();
-      });
-    });
-
     describe('when postAction is true', () => {
       beforeEach(() => {
         spy = jasmine.createSpy('onChange spy');
@@ -308,32 +278,6 @@ describe('TableAjax', () => {
         instance.emitOnChangeCallback('data', options);
         expect(selectAllComponent.setState).toHaveBeenCalledWith({ selected: false });
         expect(instance.selectAllComponent).toBe(null);
-      });
-
-      describe('when page size is less than previous page size', () => {
-        it('calls resetTableHeight on successful response', () => {
-          instance.resetTableHeight = jest.fn();
-          options = { currentPage: '1', pageSize: '5' }
-          Request.withCredentials = jest.fn();
-          Request.__setMockResponse({
-            status() {
-              return 200;
-            },
-            ok() {
-              return true;
-            },
-            body: {
-              data: 'foo'
-            }
-          });
-
-          instance.emitOnChangeCallback('data', options);
-          jest.runTimersToTime(251);
-          expect(Request.post).toHaveBeenLastCalledWith('/test');
-          expect(Request.send).toHaveBeenLastCalledWith({ page: '1', rows: '5' });
-          expect(instance.resetTableHeight).toBeCalled();
-          expect(Request.withCredentials).not.toHaveBeenCalled();
-        });
       });
     });
 

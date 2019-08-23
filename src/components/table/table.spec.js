@@ -243,6 +243,20 @@ describe('Table', () => {
       });
     });
 
+    describe('if pageSize', () => {
+      it('it sets prop for the pageSize using defaultPageSize', () => {
+        const props = instancePager.pagerProps;
+        expect(props.pageSize).toEqual('10');
+      });
+
+      it('returns the prop pageSize', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Table path='/test' pageSize='123' />
+        );
+        expect(instance.pageSize).toEqual('123');
+      });
+    });
+
     describe('if highlight row', () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(<Table highlightable><TableRow uniqueID='foo' /></Table>);
@@ -483,133 +497,6 @@ describe('Table', () => {
         spyOn(instance, 'selectRow');
         instance.componentWillReceiveProps({ selectable: false });
         expect(instance.selectRow).toHaveBeenCalledWith('foo', instance.rows.foo, false);
-      });
-    });
-  });
-
-  describe('componentDidMount', () => {
-    it('calls to resize the table and set initial min height', () => {
-      spyOn(instance, 'resizeTable');
-      instance.componentDidMount();
-      expect(instance.resizeTable).toHaveBeenCalled();
-    });
-  });
-
-  describe('componentDidUpdate', () => {
-    describe('when table height should reset', () => {
-      it('calls to reset the table height', () => {
-        spyOn(instance, 'shouldResetTableHeight').and.returnValue(true);
-        spyOn(instance, 'resetTableHeight');
-
-        instance.componentDidUpdate();
-        expect(instance.resetTableHeight).toHaveBeenCalled();
-      });
-    });
-
-    describe('when table height should not reset', () => {
-      it('calls to resize the table', () => {
-        spyOn(instance, 'shouldResetTableHeight').and.returnValue(false);
-        spyOn(instance, 'resizeTable');
-
-        instance.componentDidUpdate();
-        expect(instance.resizeTable).toHaveBeenCalled();
-      });
-    });
-  });
-
-  describe('resetTableHeight', () => {
-    beforeEach(() => {
-      jest.useFakeTimers();
-    });
-
-    it('Resets the table wrapper height to the tableOffset', () => {
-      instance._wrapper = { style: { minHeight: '100px' } };
-      instance._table = { offsetHeight: '50' };
-
-      instance.tableHeight = 100;
-
-      instance.resetTableHeight();
-      jest.runTimersToTime(0);
-
-      expect(instance._wrapper.style.minHeight).toEqual('49px');
-      expect(instance.tableHeight).toEqual('50');
-    });
-  });
-
-  describe('resizeTable', () => {
-    describe('when offsetHeight is greater than table height', () => {
-      it('sets the table minHeight and tableHeight to the offsetHeight', () => {
-        instance._wrapper = { style: { minHeight: '10px' } };
-        instance._table = { offsetHeight: '50' };
-        instance.tableHeight = '10';
-
-        instance.resizeTable();
-
-        expect(instance._wrapper.style.minHeight).toEqual('49px');
-        expect(instance.tableHeight).toEqual('50');
-      });
-    });
-
-    describe('when offsetHeight is less than table height', () => {
-      it('maintains the current height', () => {
-        instance._wrapper = { style: { minHeight: '50px' } };
-        instance._table = { offsetHeight: '10' };
-        instance.tableHeight = '50';
-
-        instance.resizeTable();
-
-        expect(instance._wrapper.style.minHeight).toEqual('50px');
-        expect(instance.tableHeight).toEqual('50');
-      });
-    });
-
-    describe('when shrink is enabled', () => {
-      beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(
-          <Table shrink />
-        );
-      });
-
-      describe('when new height has not changed', () => {
-        it('does nothing', () => {
-          instance._wrapper = { style: { minHeight: '50px' } };
-          instance._table = { offsetHeight: '50' };
-          instance.tableHeight = '50';
-
-          instance.resizeTable();
-
-          expect(instance._wrapper.style.minHeight).toEqual('50px');
-          expect(instance.tableHeight).toEqual('50');
-        });
-      });
-
-      describe('when new height is less than old height', () => {
-        it('updates the height', () => {
-          instance._wrapper = { style: { minHeight: '50px' } };
-          instance._table = { offsetHeight: '10' };
-          instance.tableHeight = '50';
-
-          instance.resizeTable();
-
-          expect(instance._wrapper.style.minHeight).toEqual('9px');
-          expect(instance.tableHeight).toEqual('10');
-        });
-      });
-    });
-  });
-
-  describe('shouldResetTableHeight', () => {
-    describe('when new page size is smaller than previous', () => {
-      it('returns true', () => {
-        const prevProps = { pageSize: '100' };
-        expect(instancePager.shouldResetTableHeight(prevProps, {})).toEqual(true);
-      });
-    });
-
-    describe('when new page size is larger or equal to the previous', () => {
-      it('returns false', () => {
-        const prevProps = { pageSize: '1', size: 'medium' };
-        expect(instancePager.shouldResetTableHeight(prevProps, {})).toEqual(false);
       });
     });
   });
