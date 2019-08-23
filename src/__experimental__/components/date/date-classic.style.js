@@ -7,19 +7,39 @@ import { StyledIcon } from '../../../components/icon/icon.style';
 const dateClassicStyle = ({ theme }) => isClassic(theme) && css`
   & ${InputPresentationStyle} {
     width: 120px;
+    &:focus {
+      & ${InputIconToggleStyle} {
+        background-color: #1e499f;
+        border-color: #1e499f;
+      }
+      ${StyledIcon} {
+        color: #FFFFFF;
+      }
+    }
+    &:hover {
+      & ${InputIconToggleStyle} {
+        background-color: #255BC7;
+        border-color: #255BC7; 
+      }
+      ${StyledIcon} {
+        color: #FFFFFF;
+      }
+    }
   }
 
-  & ${InputIconToggleStyle} {
+  &&& ${InputIconToggleStyle} {
     border-left: 1px solid #bfccd2;
     box-sizing: border-box;
     width: 31px;
-  }
-
-  :hover {
-    ${StyledIcon} {
-      color: #FFFFFF;
+    &:hover {
+      background-color: #1e499f;
+      border-color: #1e499f;  
+      ${StyledIcon} {
+        color: #FFFFFF;
+      }
     }
   }
+  
 `;
 
 export default dateClassicStyle;
