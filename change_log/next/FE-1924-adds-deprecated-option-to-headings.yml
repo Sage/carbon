@@ -1,1 +1,2 @@
 Other: Updates `.renogen` headings to include a `Deprecated Components` option
+New Features: Adds `utils/helpers/warn-as-deprecated` function to warn of deprecated components
