@@ -5,6 +5,7 @@ import InputValidation from '../../utils/decorators/input-validation';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 import './textbox.scss';
+import warnOfDeprecation from '../../utils/helpers/warn-as-deprecated';
 
 const Textbox = Input(InputLabel(InputValidation(class Textbox extends React.Component {
   /**
@@ -46,6 +47,7 @@ const Textbox = Input(InputLabel(InputValidation(class Textbox extends React.Com
    * @return {Object} JSX
    */
   render() {
+    warnOfDeprecation('Textbox', '__exprimental__/components/textbox', process.env.NODE_ENV);
     return (
       <div
         className={ this.mainClasses }
@@ -60,5 +62,6 @@ const Textbox = Input(InputLabel(InputValidation(class Textbox extends React.Com
     );
   }
 })));
+
 
 export default Textbox;

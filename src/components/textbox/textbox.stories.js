@@ -39,7 +39,7 @@ storiesOf('Textbox', module)
       };
 
       const fieldHelpInline = boolean('fieldHelpInline', false);
-      const label = text('label', 'Example Textarea');
+      const label = text('label', 'Example Textbox');
       const labelInline = label ? boolean('labelInline', false) : undefined;
       const inputWidth = number('inputWidth', 0, rangeOptions);
       const labelWidth = labelInline ? number('labelWidth', 0, rangeOptions) : undefined;
