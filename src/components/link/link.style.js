@@ -18,6 +18,8 @@ const LinkStyleAnchor = styled.a`
       margin-right: 0;
       margin-left: 5px;
     `}
+    vertical-align: middle;
+    top: ${({ theme }) => (isClassic(theme) ? '-2px' : '')};
   }
   
   &:hover {

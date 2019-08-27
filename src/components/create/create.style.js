@@ -28,6 +28,10 @@ const CreateStyle = styled(Link)`
     font-size: 12px;
   }
 
+  ${StyledIcon} {
+    top: 0;
+  }
+
   ${createClassicStyle}
 `;
 

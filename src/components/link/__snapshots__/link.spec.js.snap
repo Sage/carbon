@@ -12,6 +12,7 @@ exports[`Link renders as expected 1`] = `
 .c0 .c1 {
   margin-right: 5px;
   position: relative;
+  vertical-align: middle;
 }
 
 .c0:hover {
@@ -65,6 +66,8 @@ exports[`Link when component has classic theme should render correct style 1`] =
 .c0 .c1 {
   margin-right: 5px;
   position: relative;
+  vertical-align: middle;
+  top: -2px;
 }
 
 .c0:hover {
