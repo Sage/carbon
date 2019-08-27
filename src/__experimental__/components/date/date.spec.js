@@ -214,6 +214,24 @@ describe('Date', () => {
     });
   });
 
+  describe('when there is more than one date input, and we switch between them ', () => {
+    it('we should see only one date picker visible ', () => {
+      wrapper = mount(<>
+        <DateInput />
+        <DateInput />
+      </>);
+
+      const getDateInput = wrapper.find(DateInput).at(0);
+      const getInput = getDateInput.find('input');
+      const mockedFunction = { currentTarget: {} };
+
+      getDateInput.instance().dateRef.current = undefined;
+      getInput.simulate('click', mockedFunction);
+
+      expect(getDateInput.instance().isCurrentDateFocused).toBe(false);
+    });
+  });
+
   describe('when the input value is changed', () => {
     let onChangeFn;
     const mockTodayDate = '2019-04-11';

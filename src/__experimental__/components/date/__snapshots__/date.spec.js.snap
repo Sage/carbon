@@ -1,6 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StyledDateInput renders correctly for default theme 1`] = `
+.c0 {
+  display: inline-block;
+}
+
 .c0 .c1 {
   -webkit-flex: none;
   -ms-flex: none;
@@ -14,6 +18,10 @@ exports[`StyledDateInput renders correctly for default theme 1`] = `
 `;
 
 exports[`StyledDateInput renders correctly for the "classic" theme 1`] = `
+.c0 {
+  display: inline-block;
+}
+
 .c0 .c3 {
   -webkit-flex: none;
   -ms-flex: none;

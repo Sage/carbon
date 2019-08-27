@@ -59,6 +59,48 @@ storiesOf('Experimental/Date Input', module)
     },
     notes: { markdown: notes }
   })
+  .add('multiple date', () => {
+    const autoFocus = boolean('autoFocus', true);
+    const minDate = text('minDate', '');
+    const maxDate = text('maxDate', '');
+
+    return (
+      <div style={ { display: 'flex', justifyContent: 'space-around' } }>
+        <DateInput
+          { ...getCommonTextboxStoryProps({ inputWidthEnabled: false }) }
+          autoFocus={ autoFocus }
+          minDate={ minDate }
+          maxDate={ maxDate }
+          value={ store.get('value') }
+          onChange={ setValue }
+        />
+        <DateInput
+          { ...getCommonTextboxStoryProps({ inputWidthEnabled: false }) }
+          autoFocus={ autoFocus }
+          minDate={ minDate }
+          maxDate={ maxDate }
+          value={ store.get('value') }
+          onChange={ setValue }
+        />
+        <DateInput
+          { ...getCommonTextboxStoryProps({ inputWidthEnabled: false }) }
+          autoFocus={ autoFocus }
+          minDate={ minDate }
+          maxDate={ maxDate }
+          value={ store.get('value') }
+          onChange={ setValue }
+        />
+      </div>
+    );
+  }, {
+    info: {
+      text: info,
+      propTables: [Textbox],
+      propTablesExclude: [State],
+      excludedPropTypes: ['children', 'leftChildren', 'inputIcon', 'placeholder', 'inputWidth']
+    },
+    notes: { markdown: notes }
+  })
   .add('validations', () => {
     return (
       <State store={ store }>
