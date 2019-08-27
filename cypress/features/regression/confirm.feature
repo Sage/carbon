@@ -136,29 +136,12 @@ Feature: Confirm component
       And I open component preview
     Then Close icon is not visible
 
-  # Tests are disabled until the stickyFormFooter will be fixed
-  # doesn't work on Carbon Site
-  @ignore
-  @positive
-  Scenario: StickyFormFooter enabled
-    When I check stickyFormFooter checkbox
-      And I open component preview
-    Then Confirm dialog has stickyFormFooter parameter enabled
-
-  @ignore
-  @negative
-  Scenario: StickyFormFooter disabled
-    When I uncheck stickyFormFooter checkbox
-      And I open component preview
-    Then Confirm dialog has no stickyFormFooter parameter
-
   @positive
   Scenario: Confirm dialog should dissapear after click onto cancelButton
     When I open component preview
       And I click on a cancelButton
     Then Confirm dialog is not visible
 
-  @ignore @FE-1487
   @positive
   Scenario: Confirm dialog should dissapear after click onto confirmButton
     When I open component preview
