@@ -11,9 +11,12 @@ function applyClassicRowStyling() {
         background-color: #ffffff;
       }
     }
-    &:hover {
-      ${StyledTableCell} {
-        background-color: #E7F1FC;
+
+    &:not(.carbon-table-row--passive) {
+      &:hover {
+        ${StyledTableCell} {
+          background-color: #E7F1FC;
+        }
       }
     }
   `;
