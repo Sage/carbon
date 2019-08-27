@@ -1,0 +1,1 @@
+Bug Fixes: Re-implements sticky footer in `Dialog`, replaces className with styled-component `StyledFormFooter`
