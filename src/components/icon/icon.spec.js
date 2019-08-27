@@ -262,12 +262,12 @@ describe('Icon component', () => {
       });
 
       describe('fontSize is "large" and bgSize is "small"', () => {
-        it('sets the height and width style properties of bgSize to same as "medium"', () => {
+        it('sets the height and width style properties of bgSize to same as "large"', () => {
           const wrapper = renderStyles({ fontSize: 'large', bgTheme: 'foo', bgSize: 'small' });
           assertStyleMatch(
             {
-              height: '32px',
-              width: '32px'
+              height: '40px',
+              width: '40px'
             },
             wrapper.toJSON()
           );

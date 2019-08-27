@@ -55,7 +55,9 @@ const getIconColor = (bgTheme, theme, iconColor, disabled, isHover) => {
 };
 
 function adjustIconBgSize(fontSize, bgSize) {
-  if (fontSize === 'large' && bgSize === 'small') return iconSizeConfig.backgroundSize.medium;
+  if (fontSize === 'large' && (bgSize === 'small' || bgSize === 'medium')) {
+    return iconSizeConfig.backgroundSize.large;
+  }
 
   return iconSizeConfig.backgroundSize[bgSize];
 }

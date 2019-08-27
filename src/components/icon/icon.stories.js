@@ -35,11 +35,11 @@ function classicKnobs() {
 function dlsKnobs() {
   const bgTheme = select('bgTheme', [...OptionsHelper.iconBackgrounds], 'none');
   const fontSize = select('fontSize', OptionsHelper.sizesBinary, Icon.defaultProps.fontSize);
-
+  const canSizeBg = bgTheme !== 'none' && fontSize !== ' large';
   return {
     bgTheme,
     fontSize,
-    bgSize: bgTheme !== 'none' ? select('bgSize', OptionsHelper.sizesRestricted, Icon.defaultProps.bgSize) : undefined,
+    bgSize: canSizeBg ? select('bgSize', OptionsHelper.sizesRestricted, Icon.defaultProps.bgSize) : undefined,
     bgShape: bgTheme !== 'none' ? select('bgShape', OptionsHelper.shapes, OptionsHelper.shapes[0]) : undefined,
     iconColor:
       bgTheme === 'none' ? select('iconColor', [...OptionsHelper.iconColors], OptionsHelper.iconColors[0]) : undefined,
