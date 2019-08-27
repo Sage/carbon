@@ -35,6 +35,7 @@ Then('Dialog is not visible', () => {
 });
 
 Then('stickyFormFooter is enabled', () => {
+  cy.wait(500); // storybook needs time to render properly stickyFormFooter
   dialogStickyFormFooter().should('be.visible');
 });
 
