@@ -13,14 +13,11 @@ const Page = ({
   ...props
 }) => {
   return (
-    <StyledPage
-      className={ classNames('carbon-page', className) }
-      { ...tagComponent('page', props) }
-    >
+    <StyledPage { ...tagComponent('page', props) }>
       <FullScreenHeading hasContent={ title }>
         { title }
       </FullScreenHeading>
-      <StyledPageContent className={ classNames('carbon-page__content', className) }>
+      <StyledPageContent data-element='carbon-page__content'>
         <AppWrapper>
           { children }
         </AppWrapper>
@@ -30,11 +27,6 @@ const Page = ({
 };
 
 Page.propTypes = {
-  /**
-   * A custom class name for the component.
-   */
-  className: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-
   /**
    * The title for the page, normally a Heading component.
    */
