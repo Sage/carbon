@@ -1,71 +1,62 @@
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
+import BaseTheme from '../../../style/themes/base';
 
-const StyledHeaderPrimary = styled.div`
-  font-size: 22px;
-  font-weight: 700;
-  line-height: 26px;
-  margin: 0;
+const CardContentConfig = (theme) => {
+  return {
+    header: {
+      primary: `
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 26px;
+        margin: 0;
+      `,
+      secondary: `
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 21px;
+        margin: 0;
+      `
+    },
+    middle: {
+      primary: `
+        color: ${theme.card.middlePrimary};
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: 0.48px;
+        margin-bottom: 10px;
+      `,
+      secondary: `
+        color: ${theme.card.middleSecondary};
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      `,
+      tertiary: `
+        color: ${theme.card.middleTertiary};
+        font-size: 12px;
+        text-transform: uppercase;
+      `
+    }
+  };
+};
+const applyContentStyle = ({ theme, positionType, styleType }) => {
+  if (positionType === 'footer') {
+    return `
+      line-height: 30px;
+      margin: 0;
+      color: ${theme.card.footerText};
+      font-weight: 600;
+      padding: 12px 0;
+    `;
+  }
+
+  return CardContentConfig(theme)[positionType][styleType];
+};
+
+const StyledCardContent = styled.div`
+  ${applyContentStyle}
 `;
-
-const StyledHeaderSecondary = styled.div`
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 21px;
-  margin: 0;
-`;
-
-const StyledMiddlePrimary = styled.div`
-  ${({
-    theme
-  }) => {
-    return css`
-      color: ${theme.card.middlePrimary};
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: 0.48px;
-      margin-bottom: 10px;
-    `;
-  }
-}`;
-
-const StyledMiddleSecondary = styled.div`
-  ${({
-    theme
-  }) => {
-    return css`
-      color: ${theme.card.middleSecondary};
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    `;
-  }
-}`;
-
-const StyledMiddleTertiary = styled.div`
-${({
-    theme
-  }) => {
-    return css`
-      color: ${theme.card.middleTertiary};
-      font-size: 12px;
-      text-transform: uppercase;
-    `;
-  }
-}`;
-
-const StyledFooterPrimary = styled.div`
-${({
-    theme
-  }) => {
-    return css`
-    line-height: 30px;
-    margin: 0;
-    color:${theme.card.footerText};
-    font-weight: 600;
-    padding: 12px 0;
-  `;
-  }
-}`;
 
 const StyledCardSection = styled.div`
   ${({ align }) => {
@@ -81,12 +72,11 @@ const StyledCardSection = styled.div`
   }
 }`;
 
+StyledCardSection.defaultProps = {
+  theme: BaseTheme
+};
+
 export {
   StyledCardSection,
-  StyledHeaderPrimary,
-  StyledHeaderSecondary,
-  StyledMiddlePrimary,
-  StyledMiddleSecondary,
-  StyledMiddleTertiary,
-  StyledFooterPrimary
+  StyledCardContent
 };

@@ -6,7 +6,6 @@ import CardSection from '../card-section/card-section.component';
 const CardPosition = ({
   align,
   positionType,
-  theme,
   primary,
   secondary,
   tertiary
@@ -15,7 +14,6 @@ const CardPosition = ({
     <StyledCardPosition
       data-element={ positionType }
       positionType={ positionType }
-      theme={ theme }
     >
       <CardSection
         align={ align }
@@ -23,7 +21,6 @@ const CardPosition = ({
         primary={ primary }
         secondary={ secondary }
         tertiary={ tertiary }
-        theme={ theme }
       />
     </StyledCardPosition>
   );
@@ -34,8 +31,6 @@ CardPosition.propTypes = {
   align: propTypes.string,
   /** position of width in the card */
   positionType: propTypes.string,
-  /** theme object provided to the card */
-  theme: propTypes.object,
   /** text value of the primary element */
   primary: propTypes.string,
   /** text value of the secondary element */

@@ -48,7 +48,7 @@ const OptionsHelper = {
     'after'
   ],
 
-  cardSectionPositions: {
+  cardSection: {
     footer: 'footer',
     header: 'header',
     middle: 'middle'
