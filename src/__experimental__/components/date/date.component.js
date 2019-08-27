@@ -41,9 +41,6 @@ class DateInput extends React.Component {
 
   isBlurBlocked = false;
 
-  // stops the blur callback from triggering (closing the list) when we don't want it to
-  dateRef = React.createRef()
-
   isCurrentDateFocused= false;
 
   state = {
@@ -219,7 +216,6 @@ class DateInput extends React.Component {
       <StyledDateInput
         onClick={ this.markCurrentDatepicker }
         role='presentation'
-        ref={ this.dateRef }
       >
         <Textbox
           { ...inputProps }
