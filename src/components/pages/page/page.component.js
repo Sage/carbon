@@ -15,7 +15,7 @@ const Page = ({
       <FullScreenHeading hasContent={ title }>
         { title }
       </FullScreenHeading>
-      <StyledPageContent data-element='carbon-page__content'>
+      <StyledPageContent data-element='carbon-page-content'>
         <AppWrapper>
           { children }
         </AppWrapper>
