@@ -2,6 +2,8 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { css } from 'styled-components';
+import { mount } from 'enzyme';
+import _capitalize from 'lodash/capitalize';
 import Switch from '.';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import FieldHelpStyle from '../field-help/field-help.style';
@@ -15,12 +17,20 @@ import classicTheme from '../../../style/themes/classic';
 import smallTheme from '../../../style/themes/small';
 import mediumTheme from '../../../style/themes/medium';
 import largeTheme from '../../../style/themes/large';
+import ValidationIconStyle from '../../../components/validations/validation-icon.style';
+import Icon from '../../../components/icon/icon';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
 
-function render(props) {
-  return TestRenderer.create(<Switch value='test' { ...props } />);
+function render(props, renderer = TestRenderer.create) {
+  return renderer(
+    <Switch
+      name='my-switch'
+      value='test'
+      { ...props }
+    />
+  );
 }
 
 describe('Switch', () => {
@@ -165,6 +175,53 @@ describe('Switch', () => {
               marginLeft: '88px'
             }, wrapper, { modifier: css`${FieldHelpStyle}` });
           });
+        });
+      });
+    });
+  });
+
+  describe('check icon when validating', () => {
+    const wrapper = render({
+      label: 'My Label',
+      labelHelp: 'Please help me?',
+      unblockValidation: true
+    }, mount);
+    const validationTypes = ['error', 'warning', 'info'];
+
+    beforeEach(() => {
+      const props = {
+        hasError: false,
+        hasWarning: false,
+        hasInfo: false
+      };
+
+      wrapper.setProps(props);
+    });
+
+    describe.each(validationTypes)('validation %s', (type) => {
+      it('check icon type', () => {
+        const propName = `has${_capitalize(type)}`;
+        wrapper.setProps({
+          [propName]: true
+        });
+
+        expect(wrapper.find(ValidationIconStyle).prop('type')).toEqual(type);
+      });
+
+      const tooltipVisibility = ['visable', 'hidden'];
+
+      describe.each(tooltipVisibility)('tooltip %s', (tState) => {
+        it(`is ${tState}`, () => {
+          const iconWrapper = wrapper.find(ValidationIconStyle);
+          const sim = tState === 'visable' ? 'focus' : 'blur';
+
+          iconWrapper.simulate(sim);
+          wrapper.update();
+
+          const icon = wrapper.find(Icon);
+          const value = tState === 'visable';
+
+          expect(icon.prop('tooltipVisible')).toEqual(value);
         });
       });
     });

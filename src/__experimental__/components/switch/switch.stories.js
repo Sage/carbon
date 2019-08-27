@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
 import {
   boolean, text, number, select
@@ -10,6 +11,7 @@ import Switch from '.';
 import { info, legacyInfo, notes } from './documentation';
 import classic from '../../../style/themes/classic';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
+import Form from '../../../components/form';
 
 Switch.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -20,15 +22,35 @@ const formStore = new Store({
   checked: false
 });
 
+const unblockValidation = true;
+const stores = {};
+const validationTypes = ['cookies', 't&cs', 'info'];
+
+validationTypes.forEach((type) => {
+  stores[type] = new Store({
+    checked: false,
+    forceUpdateTriggerToggle: false
+  });
+});
+
 const SwitchWrapper = (props) => {
   return (
-    <State store={ formStore }>
+    <State store={ props.store }>
       <Switch
-        onChange={ handleChange }
+        onChange={ handleChange() }
+        name='switch'
         { ...props }
       />
     </State>
   );
+};
+
+SwitchWrapper.propTypes = {
+  store: PropTypes.object
+};
+
+SwitchWrapper.defaultProps = {
+  store: formStore
 };
 
 storiesOf('Experimental/Switch', module)
@@ -59,11 +81,40 @@ storiesOf('Experimental/Switch', module)
       excludedPropTypes: ['children', 'theme']
     },
     notes: { markdown: notes }
-  });
+  })
+  .add('validations', () => (
+    <Form onSubmit={ handleSubmit }>
+      {validationTypes.map(type => (
+        <SwitchWrapper
+          { ...commonKnobs() }
+          { ...dlsKnobs() }
+          key={ `key-${type}` }
+          name={ `switch-${type}` }
+          label={ `Accept ${type}` }
+          value={ type }
+          store={ stores[type] }
+          onChange={ handleChange(stores[type]) }
+          validations={ testValidation('valid') }
+          warnings={ testValidation('warn') }
+          info={ testValidation('info') }
+          unblockValidation={ unblockValidation }
+        />
+      ))}
+    </Form>
+  ));
 
-function handleChange(ev) {
-  formStore.set({ checked: ev.target.checked });
-  action('checked')(ev.target.checked);
+function handleChange(store = formStore) {
+  return function (ev) {
+    const { checked } = ev.target;
+
+    store.set({ checked, forceUpdateTriggerToggle: checked });
+    action('checked')(checked);
+  };
+}
+
+function handleSubmit(ev) {
+  ev.preventDefault();
+  action('submit')();
 }
 
 function commonKnobs() {
@@ -100,5 +151,21 @@ function dlsKnobs() {
   return {
     disabled: boolean('disabled', false),
     size: select('size', OptionsHelper.sizesBinary, 'small')
+  };
+}
+
+function testValidation(type) {
+  return (value, { checked }) => {
+    return new Promise((resolve, reject) => {
+      if (type === 'valid' && value === 'cookies' && !checked) {
+        reject(new Error('Show error!'));
+      } else if (type === 'warn' && value === 't&cs' && !checked) {
+        reject(new Error('Show warning!'));
+      } else if (type === 'info' && value === 'info' && !checked) {
+        reject(new Error('Show info!'));
+      } else {
+        resolve();
+      }
+    });
   };
 }
