@@ -197,10 +197,8 @@ class DateInput extends React.Component {
     );
   }
 
-  handleClick = (ev) => {
-    if (ev.currentTarget === this.dateRef.current) {
-      this.isCurrentDateFocused = true;
-    }
+  markCurrentDatepicker = () => {
+    this.isCurrentDateFocused = true;
   }
 
   render() {
@@ -219,7 +217,7 @@ class DateInput extends React.Component {
 
     return (
       <StyledDateInput
-        onClick={ this.handleClick }
+        onClick={ this.markCurrentDatepicker }
         role='presentation'
         ref={ this.dateRef }
       >
