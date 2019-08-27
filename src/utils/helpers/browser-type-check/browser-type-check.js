@@ -6,7 +6,7 @@ function browserTypeCheck(_window) {
 }
 
 export function isSafari(navigator) {
-  return navigator.vendor === 'Apple Computer, Inc.';
+  return navigator.vendor.includes('Apple');
 }
 
 export default browserTypeCheck;

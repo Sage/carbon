@@ -138,9 +138,8 @@ const StyledIcon = styled.span`
             margin-left: 8px;
           `}
         }
-      `}
       }
-
+    `}
     ${classicIconStyles};
   `}
 `;
