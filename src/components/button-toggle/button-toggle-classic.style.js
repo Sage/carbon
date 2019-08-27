@@ -55,6 +55,13 @@ const iconFontSizes = {
   largeIcon: 60
 };
 
+function applyIconStyle(id) {
+  return `
+    font-size: ${`${iconFontSizes[id]}px`};
+    line-height: ${`${iconFontSizes[id]}px`};
+  `;
+}
+
 const StyledButtonToggleClassicIcon = ({ theme }) => isClassic(theme) && css`
   display: inline;
 
@@ -64,8 +71,7 @@ const StyledButtonToggleClassicIcon = ({ theme }) => isClassic(theme) && css`
     ${StyledIcon} {
       margin-bottom: 0;
       ::before {
-        font-size: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
-        line-height: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
+        ${applyIconStyle(`${buttonIconSize}Icon`)}
       }
     }
 
