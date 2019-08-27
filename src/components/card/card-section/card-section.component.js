@@ -2,24 +2,18 @@ import React from 'react';
 import propTypes from 'prop-types';
 import {
   StyledCardSection,
-  StyledHeaderPrimary,
-  StyledHeaderSecondary,
-  StyledMiddlePrimary,
-  StyledMiddleSecondary,
-  StyledMiddleTertiary,
-  StyledFooterPrimary
+  StyledCardContent
 } from './card-section.style';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
-const { cardSectionPositions, cardTextTypes } = OptionsHelper;
+const { cardSection, cardTextTypes } = OptionsHelper;
 
 const CardSection = ({
   align,
   positionType,
   primary,
   secondary,
-  tertiary,
-  theme
+  tertiary
 }) => {
   return (
     <StyledCardSection
@@ -27,69 +21,69 @@ const CardSection = ({
       align={ align }
     >
       {
-        primary && positionType === cardSectionPositions.header && (
-          <StyledHeaderPrimary
+        primary && positionType === cardSection.header && (
+          <StyledCardContent
             data-element={ `${positionType}-${cardTextTypes.primary}` }
-            primary
-            theme={ theme }
+            positionType={ positionType }
+            styleType='primary'
           >
             { primary }
-          </StyledHeaderPrimary>
+          </StyledCardContent>
         )
       }
       {
-        secondary && positionType === cardSectionPositions.header && (
-          <StyledHeaderSecondary
+        secondary && positionType === cardSection.header && (
+          <StyledCardContent
             data-element={ `${positionType}-${cardTextTypes.secondary}` }
-            secondary
-            theme={ theme }
+            positionType={ positionType }
+            styleType='secondary'
           >
             { secondary }
-          </StyledHeaderSecondary>
+          </StyledCardContent>
         )
       }
       {
-        primary && positionType === cardSectionPositions.middle && (
-          <StyledMiddlePrimary
+        primary && positionType === cardSection.middle && (
+          <StyledCardContent
             data-element={ `${positionType}-${cardTextTypes.primary}` }
-            primary
-            theme={ theme }
+            positionType={ positionType }
+            styleType='primary'
           >
             { primary }
-          </StyledMiddlePrimary>
+          </StyledCardContent>
         )
       }
       {
-        secondary && positionType === cardSectionPositions.middle && (
-          <StyledMiddleSecondary
+        secondary && positionType === cardSection.middle && (
+          <StyledCardContent
             data-element={ `${positionType}-${cardTextTypes.secondary}` }
-            secondary
-            theme={ theme }
+            positionType={ positionType }
+            styleType='secondary'
           >
             { secondary }
-          </StyledMiddleSecondary>
+          </StyledCardContent>
         )
       }
       {
-        tertiary && positionType === cardSectionPositions.middle && (
-          <StyledMiddleTertiary
+        tertiary && positionType === cardSection.middle && (
+          <StyledCardContent
             data-element={ `${positionType}-${cardTextTypes.tertiary}` }
-            tertiary
-            theme={ theme }
+            positionType={ positionType }
+            styeType='tertiary'
           >
             { tertiary }
-          </StyledMiddleTertiary>
+          </StyledCardContent>
         )
       }
       {
-        primary && positionType === cardSectionPositions.footer && (
-          <StyledFooterPrimary
+        primary && positionType === cardSection.footer && (
+          <StyledCardContent
             data-element={ `${positionType}-${cardTextTypes.primary}` }
-            primary
-            theme={ theme }
+            positionType={ positionType }
+            contentType='footer'
           >
             { primary }
-          </StyledFooterPrimary>
+          </StyledCardContent>
         )
       }
     </StyledCardSection>
@@ -100,9 +94,7 @@ CardSection.propTypes = {
   /** text alignment of the card section text */
   align: propTypes.oneOf(OptionsHelper.alignFull),
   /** position of width in the card */
-  positionType: propTypes.oneOf(OptionsHelper.cardSectionPositions),
-  /** theme object provided to the card */
-  theme: propTypes.object,
+  positionType: propTypes.oneOf(Object.keys(cardSection)),
   /** text value of the primary element */
   primary: propTypes.string,
   /** text value of the secondary element */

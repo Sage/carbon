@@ -13,16 +13,13 @@ Card.__docgenInfo = getDocGenInfo(
 
 const getKnobs = () => {
   const knobs = {
-    header: boolean('include header', true),
     headerPrimary: text('header primary', 'Header Primary'),
     headerSecondary: text('header secondary', 'Header Secondary'),
     headerAlign: select('header align', OptionsHelper.alignFull),
-    middle: boolean('include middle', true),
     middlePrimary: text('middle primary', 'Middle Primary'),
     middleSecondary: text('middle secondary', 'Middle Secondary'),
     middleTertiary: text('middle tertiary', 'Middle Tertiary'),
     middleAlign: select('middle align', OptionsHelper.alignFull),
-    footer: boolean('include footer', true),
     footerPrimary: text('footer primary', 'Footer Primary'),
     footerAlign: select('footer align', OptionsHelper.alignFull),
     border: boolean('border', false),
@@ -34,9 +31,6 @@ const getKnobs = () => {
 storiesOf('Card', module)
   .add('default', () => {
     const {
-      header,
-      middle,
-      footer,
       border,
       headerPrimary,
       headerSecondary,
@@ -49,21 +43,31 @@ storiesOf('Card', module)
       footerAlign,
       cardWidth
     } = getKnobs();
+
+    const headerProps = {
+      primary: headerPrimary,
+      secondary: headerSecondary,
+      align: headerAlign
+    };
+
+    const middleProps = {
+      primary: middlePrimary,
+      secondary: middleSecondary,
+      tertiary: middleTertiary,
+      align: middleAlign
+    };
+
+    const footerProps = {
+      primary: footerPrimary,
+      align: footerAlign
+    };
+
     return (
       <Card
-        header={ header }
-        middle={ middle }
-        footer={ footer }
         border={ border }
-        headerPrimary={ headerPrimary }
-        headerSecondary={ headerSecondary }
-        headerAlign={ headerAlign }
-        middlePrimary={ middlePrimary }
-        middleSecondary={ middleSecondary }
-        middleAlign={ middleAlign }
-        middleTertiary={ middleTertiary }
-        footerPrimary={ footerPrimary }
-        footerAlign={ footerAlign }
+        headerProps={ headerProps }
+        middleProps={ middleProps }
+        footerProps={ footerProps }
         cardWidth={ cardWidth }
       />
     );

@@ -1,62 +1,49 @@
 import React from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import StyledCard from './card.style';
 import CardPosition from './card-position';
+import BaseTheme from '../../style/themes/base';
 
-const { cardSectionPositions } = OptionsHelper;
+const { cardSection } = OptionsHelper;
+
+// check if props empty for bool flags
+
+function hasProps(props) {
+  return Object.keys(props).length;
+}
 
 const Card = ({
-  header,
-  middle,
-  footer,
   border,
-  headerPrimary,
-  headerSecondary,
-  headerAlign,
-  middlePrimary,
-  middleSecondary,
-  middleTertiary,
-  middleAlign,
-  footerPrimary,
-  footerAlign,
+  headerProps,
+  middleProps,
+  footerProps,
   cardWidth,
-  theme,
   ...props
 }) => (
   <StyledCard
     data-element='card'
     border={ border }
-    theme={ theme }
     cardWidth={ cardWidth }
     { ...props }
   >
-    { header && (
+    { hasProps(headerProps) && (
       <CardPosition
-        align={ headerAlign }
-        positionType={ cardSectionPositions.header }
-        theme={ theme }
-        primary={ headerPrimary }
-        secondary={ headerSecondary }
+        { ...headerProps }
+        positionType={ cardSection.header }
       />
     )
     }
-    { middle && (
+    { hasProps(middleProps) && (
       <CardPosition
-        align={ middleAlign }
-        positionType={ cardSectionPositions.middle }
-        theme={ theme }
-        primary={ middlePrimary }
-        secondary={ middleSecondary }
-        tertiary={ middleTertiary }
+        { ...middleProps }
+        positionType={ cardSection.middle }
       />
     )}
-    { footer && (
+    { hasProps(footerProps) && (
       <CardPosition
-        align={ footerAlign }
-        positionType={ cardSectionPositions.footer }
-        theme={ theme }
-        primary={ footerPrimary }
+        { ...footerProps }
+        positionType={ cardSection.footer }
       />
     )}
   </StyledCard>
@@ -64,41 +51,46 @@ const Card = ({
 
 Card.propTypes = {
   /** flag to indicate if a header is required */
-  header: propTypes.bool,
+  header: PropTypes.bool,
   /** flag to indicate if a middle is required */
-  middle: propTypes.bool,
+  middle: PropTypes.bool,
   /** flag to indicate if a footer is required */
-  footer: propTypes.bool,
+  footer: PropTypes.bool,
   /** flag to indicate if a border is required */
-  border: propTypes.bool,
+  border: PropTypes.bool,
   /** text value of the header primary element */
-  headerPrimary: propTypes.string,
-  /** text value of the header secondary element */
-  headerSecondary: propTypes.string,
-  /** text alignment of the header text */
-  headerAlign: propTypes.oneOf(OptionsHelper.alignFull),
-  /** text value of the middle primary element */
-  middlePrimary: propTypes.string,
-  /** text value of the middle secondary element */
-  middleSecondary: propTypes.string,
-  /** text value of the middle tertiary element */
-  middleTertiary: propTypes.string,
-  /** text alignment of the middle text */
-  middleAlign: propTypes.oneOf(OptionsHelper.alignFull),
-  /** text value of the footer primary element */
-  footerPrimary: propTypes.string,
-  /** text alignment of the footer text */
-  footerAlign: propTypes.oneOf(OptionsHelper.alignFull),
-  /** theme object provided to the card */
-  theme: propTypes.object,
+  headerProps: PropTypes.shape({
+    primary: PropTypes.string,
+    /** text value of the header secondary element */
+    secondary: PropTypes.string,
+    /** text alignment of the header text */
+    align: PropTypes.oneOf(OptionsHelper.alignFull)
+  }),
+  middleProps: PropTypes.shape({
+    primary: PropTypes.string,
+    /** text value of the middle secondary element */
+    secondary: PropTypes.string,
+    /** text value of the middle tertiary element */
+    tertiary: PropTypes.string,
+    /** text alignment of the middle text */
+    align: PropTypes.oneOf(OptionsHelper.alignFull)
+  }),
+  footerProps: PropTypes.shape({
+    /** text value of the footer primary element */
+    primary: PropTypes.string,
+    /** text alignment of the footer text */
+    align: PropTypes.oneOf(OptionsHelper.alignFull)
+  }),
+  theme: PropTypes.object,
   /** style value for width of card */
-  cardWidth: propTypes.string
+  cardWidth: PropTypes.string
 };
 
 Card.defaultProps = {
-  headerAlign: 'center',
-  middleAlign: 'center',
-  footerAlign: 'center',
-  border: false
+  headerProps: { align: 'center' },
+  middleProps: { align: 'center' },
+  footerProps: { align: 'center' },
+  border: false,
+  theme: BaseTheme
 };
 export default Card;
