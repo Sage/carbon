@@ -3,28 +3,23 @@ import { StoryHeader, StoryCode } from '../../../../.storybook/style/storybook-i
 
 const Info = (
   <div>
-    <p>A Pill component.</p>
+    <p>A Pages component.</p>
 
     <StoryHeader>Implementation</StoryHeader>
 
     <p>In your file</p>
 
     <StoryCode padded>
-      {'import Pill from "carbon-react/lib/components/pill.component"'}
+      {'import pages from "carbon-react/lib/components/pages.component"'}
     </StoryCode>
 
-    <p>To render a Pill:</p>
+    <p>To render a Pages:</p>
 
     <StoryCode padded>
-      {'<Pill as="warning">My warning text</Pill>'}
+      {'<Pages pageIndex="0"><Page></Page></Pages>'}
     </StoryCode>
 
-    <p>Additionally you can pass optional props to the Pill component</p>
-
-    <p>
-      &ndash; as: Customizes the appearence of the pill changing the colour
-      (see the iconColorSets for possible values).
-    </p>
+    <p>Additionally you can pass optional props to the Pages component</p>
   </div>
 );
 
