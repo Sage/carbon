@@ -16,11 +16,11 @@ const validationBorderColor = ({
   hasInfo,
   disabled
 }) => {
-  let color = theme.colors.border;
-
   if (disabled) {
     return null;
   }
+
+  let color = theme.colors.border;
 
   if (hasError) {
     color = theme.colors.error;
