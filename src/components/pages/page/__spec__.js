@@ -7,16 +7,16 @@ import AppWrapper from './../../app-wrapper';
 describe('Pages', () => {
   it('renders a page with a full screen heading', () => {
     const wrapper = shallow(
-      <Page title={ 'My Title' }>
+      <Page title={ 'My Title' } data-element='carbon-page__content'>
         My Content
       </Page>
     );
     const fullScrenHeading = wrapper.find(FullScreenHeading),
-        content = wrapper.find('.carbon-page__content');
+          content = wrapper.find('[data-element="carbon-page__content"]').first();
 
-    expect(wrapper.props().className).toEqual('carbon-page');
+    expect(wrapper.props()['data-element']).toEqual('carbon-page__content');
     expect(wrapper.props()['data-component']).toEqual('page');
     expect(fullScrenHeading.props().children).toEqual('My Title');
-    expect(content.props().children).toEqual(<AppWrapper>My Content</AppWrapper>);
+    expect(wrapper.props().children[1].props.children.props.children).toEqual('My Content');
   });
 });

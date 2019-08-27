@@ -1,26 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import tagComponent from '../../../utils/helpers/tags';
 import FullScreenHeading from '../../dialog-full-screen/full-screen-heading';
 import AppWrapper from '../../app-wrapper';
 import { StyledPage, StyledPageContent } from './page.style';
 
 const Page = ({
-  className,
   title,
   children,
   ...props
 }) => {
   return (
-    <StyledPage
-      className={ classNames('carbon-page', className) }
-      { ...tagComponent('page', props) }
-    >
+    <StyledPage { ...tagComponent('page', props) }>
       <FullScreenHeading hasContent={ title }>
         { title }
       </FullScreenHeading>
-      <StyledPageContent className={ classNames('carbon-page__content', className) }>
+      <StyledPageContent data-element='carbon-page__content'>
         <AppWrapper>
           { children }
         </AppWrapper>
@@ -30,11 +25,6 @@ const Page = ({
 };
 
 Page.propTypes = {
-  /**
-   * A custom class name for the component.
-   */
-  className: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-
   /**
    * The title for the page, normally a Heading component.
    */

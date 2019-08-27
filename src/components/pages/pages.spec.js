@@ -161,7 +161,7 @@ describe('BasePages', () => {
     });
 
     it('has correct class name', () => {
-      expect(instance.find(Page).at(0).dive().props().className).toEqual('carbon-page');
+      expect(instance.find(Page).at(0).dive().props()['data-element']).toEqual('visible-page');
     });
 
     it('has correct title', () => {
