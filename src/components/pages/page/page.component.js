@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import tagComponent from '../../../utils/helpers/tags';
 import FullScreenHeading from '../../dialog-full-screen/full-screen-heading';
 import AppWrapper from '../../app-wrapper';
-import StyledPage from './page.style';
+import { StyledPage, StyledPageContent } from './page.style';
 
 const Page = ({
   className,
@@ -20,11 +20,11 @@ const Page = ({
       <FullScreenHeading hasContent={ title }>
         { title }
       </FullScreenHeading>
-      <div className='carbon-page__content'>
+      <StyledPageContent className={ classNames('carbon-page__content', className) }>
         <AppWrapper>
           { children }
         </AppWrapper>
-      </div>
+      </StyledPageContent>
     </StyledPage>
   );
 };
