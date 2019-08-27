@@ -86,8 +86,6 @@ Feature: Dialog component
     Then closeIcon is not visible
 
   @positive
-  @FE-1918
-  @ignore
   Scenario: Enable StickyFormFooter
     When I check stickyFormFooter checkbox
       And I open component preview
