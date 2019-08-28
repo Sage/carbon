@@ -42,6 +42,23 @@
   top: 2px;
 }
 
+.carbon-heading__back {
+  margin-top: -7px;
+  top: 50%;
+  position: absolute;
+
+  .carbon-heading--has-divider & {
+    margin-top: -12px;
+  }
+
+  [data-component='icon'] {
+    color: $grey-dark-blue-30;
+
+    &:hover {
+      color: $blue;
+    }
+  }
+}
 .carbon-heading__separator {
   border-top: 2px solid $grey-dark-blue-20;
   margin: 10px 0 8px;

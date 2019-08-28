@@ -79,9 +79,6 @@ const DialogStyle = styled.div`
     &:hover {
       color: #255BC7;
     }
-    &.carbon-icon {
-      position: absolute;
-    }
   }
 `;
 
