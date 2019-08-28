@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TypeIconStyle from './type-icon.style';
-import Icon from '../../icon/icon';
+import Icon from '../../icon';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const TypeIcon = ({ variant, roundedCorners, transparent }) => {
@@ -10,7 +10,7 @@ const TypeIcon = ({ variant, roundedCorners, transparent }) => {
       variant={ variant } roundedCorners={ roundedCorners }
       transparent={ transparent }
     >
-      <Icon type={ variant } />
+      <Icon type={ variant } bgTheme='none' />
     </TypeIconStyle>
   );
 };

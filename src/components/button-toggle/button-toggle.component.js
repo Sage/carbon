@@ -8,6 +8,7 @@ import {
 import guid from '../../utils/helpers/guid';
 import ButtonToggleIcon from './button-toggle-icon.component';
 import ButtonToggleInput from './button-toggle-input.component';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 const ButtonToggle = (props) => {
   const {
@@ -25,7 +26,12 @@ const ButtonToggle = (props) => {
   let icon;
 
   if (buttonIcon) {
-    icon = <ButtonToggleIcon buttonIcon={ buttonIcon } buttonIconSize={ buttonIconSize } />;
+    icon = (
+      <ButtonToggleIcon
+        buttonIcon={ buttonIcon }
+        buttonIconSize={ buttonIconSize }
+        disabled={ disabled }
+      />);
   }
 
   return (
@@ -63,7 +69,7 @@ ButtonToggle.propTypes = {
   /** buttonIcon to render. */
   buttonIcon: PropTypes.string,
   /** Sets the size of the buttonIcon (eg. large) */
-  buttonIconSize: PropTypes.string,
+  buttonIconSize: PropTypes.oneOf(OptionsHelper.sizesBinary),
   /** Sets the size of the button (padding, font-size). Only used in Classic theme. */
   size: PropTypes.string,
   /** Remove spacing from between buttons. */
@@ -77,7 +83,8 @@ ButtonToggle.propTypes = {
 };
 
 ButtonToggle.defaultProps = {
-  size: 'large'
+  size: 'large',
+  buttonIconSize: 'small'
 };
 
 export default ButtonToggle;

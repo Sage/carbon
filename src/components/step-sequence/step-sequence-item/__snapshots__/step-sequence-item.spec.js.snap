@@ -40,7 +40,7 @@ exports[`StepSequenceItem Classic theme renders correctly 1`] = `
   background-color: #b3c2c8;
 }
 
-.c0 .carbon-icon {
+.c0 .c3 {
   position: relative;
   top: -2px;
   margin-right: 8px;
@@ -126,7 +126,7 @@ exports[`StepSequenceItem renders correctly 1`] = `
   background-color: rgba(0,0,0,0.55);
 }
 
-.c0 .carbon-icon {
+.c0 .c3 {
   position: relative;
   top: -2px;
   margin-right: 8px;

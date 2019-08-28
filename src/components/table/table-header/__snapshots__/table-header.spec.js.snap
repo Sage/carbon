@@ -31,6 +31,10 @@ exports[`TableHeader render renders the sort icon to match the snapshot 1`] = `
   background-color: #19475B;
 }
 
+.c1 .c3 {
+  color: #FFFFFF;
+}
+
 .c1 a:link,
 .c1 a:visited,
 .c1 a:hover,
@@ -50,7 +54,7 @@ exports[`TableHeader render renders the sort icon to match the snapshot 1`] = `
   width: 10px;
 }
 
-.c2.c2 .carbon-table-row .c3,
+.c2.c2 .carbon-table-row .c4,
 .c2.c2 .carbon-table-row .c0 {
   font-size: 14px;
   padding-left: 11px;

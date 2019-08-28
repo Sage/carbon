@@ -1,9 +1,14 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
+import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import Select from './select.component';
+import { StyledSelect } from './select.style';
 import guid from '../../../utils/helpers/guid';
 import Events from '../../../utils/helpers/events';
+import classic from '../../../style/themes/classic';
+import { StyledIcon } from '../../../components/icon/icon.style';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -360,6 +365,15 @@ describe('Select', () => {
       expect(listOf(wrapper).length).toEqual(0);
       textboxOf(wrapper).find('input').simulate('change', { target: { value: 'xxx' } });
       expect(listOf(wrapper).length).toEqual(1);
+    });
+  });
+
+  describe('when in classic theme', () => {
+    it('it applies expected icon styling', () => {
+      const styleWrapper = TestRenderer.create(
+        <StyledSelect theme={ classic }><StyledIcon type='dropdown' /></StyledSelect>
+      );
+      assertStyleMatch({ color: '#FFFFFF' }, styleWrapper.toJSON(), { modifier: `&:hover ${StyledIcon}` });
     });
   });
 });

@@ -7,7 +7,7 @@ import {
 import MessageStyle from '../message/message.style';
 import MessageContentStyle from '../message/message-content/message-content.style';
 import TypeIcon from '../message/type-icon/type-icon.style';
-import { THEMES } from '../../style/themes';
+import { isClassic } from '../../utils/helpers/style-helper';
 
 const animationName = '.toast';
 const ToastStyle = styled(MessageStyle)`
@@ -19,7 +19,7 @@ const ToastStyle = styled(MessageStyle)`
   right: ${({ isCenter }) => (isCenter ? '0px' : '30px')};
   top: 0;
 
-  ${({ theme }) => theme.name !== THEMES.classic && css`
+  ${({ theme }) => !isClassic(theme) && css`
     &${animationName}-appear,
     &${animationName}-enter {
       opacity: 0;
