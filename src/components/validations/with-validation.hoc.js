@@ -15,6 +15,20 @@ const validationsPropTypes = PropTypes.oneOfType([
   PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, validationShape]))
 ]);
 
+function getValidationType({ hasError, hasWarning, hasInfo }) {
+  let type = '';
+
+  if (hasError) {
+    type = 'error';
+  } else if (hasWarning) {
+    type = 'warning';
+  } else if (hasInfo) {
+    type = 'info';
+  }
+
+  return type;
+}
+
 const withValidation = (WrappedComponent) => {
   class WithValidation extends React.Component {
     state = {
@@ -189,7 +203,7 @@ const withValidation = (WrappedComponent) => {
     }
 
     handleChange = (ev) => {
-      this.blockValidation = true;
+      this.blockValidation = !this.props.unblockValidation;
       this.resetValidation();
 
       this.setState(
@@ -263,7 +277,8 @@ const withValidation = (WrappedComponent) => {
     warnings: validationsPropTypes,
     info: validationsPropTypes,
     forceUpdateTriggerToggle: PropTypes.bool, // triggers validation when it's boolean value changes
-    addInputToFormState: PropTypes.func
+    addInputToFormState: PropTypes.func,
+    unblockValidation: PropTypes.bool
   };
 
   WithValidation.defaultProps = {
@@ -278,5 +293,5 @@ const withValidation = (WrappedComponent) => {
   return WithValidation;
 };
 
-export { validationsPropTypes };
+export { validationsPropTypes, getValidationType };
 export default withValidation;

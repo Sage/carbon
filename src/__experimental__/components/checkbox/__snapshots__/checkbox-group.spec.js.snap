@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CheckboxGroup renders as expected 1`] = `
-.c9 {
+.c2 {
   display: block;
 }
 
-.c9 + .c8 {
+.c2 + .c1 {
   margin-top: 16px;
 }
 
-.c13 {
+.c10 {
   cursor: pointer;
   opacity: 0;
   margin: 0;
@@ -17,7 +17,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
   z-index: 999;
 }
 
-.c2 {
+.c4 {
   color: rgba(0,0,0,0.9);
   cursor: pointer;
   display: block;
@@ -26,12 +26,12 @@ exports[`CheckboxGroup renders as expected 1`] = `
   width: 100%;
 }
 
-.c11 {
+.c8 {
   display: inline-block;
   position: relative;
 }
 
-.c7 .c8 {
+.c6 .c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -41,190 +41,130 @@ exports[`CheckboxGroup renders as expected 1`] = `
   flex-wrap: wrap;
 }
 
-.c7 .c1 {
+.c6 .c3 {
   text-align: left;
   width: auto;
   white-space: nowrap;
   margin-top: -2px;
 }
 
-.c7 .c1 .c17 {
+.c6 .c3 .c14 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c7 .c1 .c17:hover,
-.c7 .c1 .c17:focus {
+.c6 .c3 .c14:hover,
+.c6 .c3 .c14:focus {
   color: rgba(0,0,0,0.9);
 }
 
 .c5 {
-  display: inline-block;
-  position: relative;
-  color: rgba(0,0,0,0.65);
-  background-color: transparent;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  height: 24px;
-  width: 24px;
-}
-
-.c5:hover {
-  color: rgba(0,0,0,0.90);
-  background-color: transparent;
-}
-
-.c5::before {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-family: CarbonIcons;
-  content: "\\e943";
-  font-size: 16px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 16px;
-  vertical-align: middle;
-  display: block;
-}
-
-.c4 {
-  cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding-left: 5px;
-}
-
-.c6 {
   padding-top: 8px;
 }
 
-.c6 .c10 {
+.c5 .c7 {
   padding-top: 1px;
 }
 
-.c6 .c14 {
+.c5 .c11 {
   height: 16px;
 }
 
-.c6 svg {
+.c5 svg {
   background-color: #FFFFFF;
   border: 1px solid #668491;
 }
 
-.c6 .c14 svg {
+.c5 .c11 svg {
   border: 1px solid #668491;
 }
 
-.c6 .c12,
-.c6 svg {
+.c5 .c9,
+.c5 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c6 .c10,
-.c6 .c12,
-.c6 .c14,
-.c6 svg {
+.c5 .c7,
+.c5 .c9,
+.c5 .c11,
+.c5 svg {
   box-sizing: border-box;
   width: 16px;
 }
 
-.c6 .c12:not([disabled]):focus + .c14,
-.c6 .c12:not([disabled]):hover + .c14 {
+.c5 .c9:not([disabled]):focus + .c11,
+.c5 .c9:not([disabled]):hover + .c11 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c6 .c1 {
+.c5 .c3 {
   padding: 0 6px;
   width: auto;
 }
 
-.c6 .c16 {
+.c5 .c13 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
 }
 
-.c6 .c3 {
+.c5 .c15 {
   display: inline-block;
   margin-left: 10px;
   margin-top: -4px;
   vertical-align: middle;
 }
 
-.c15 .c10 {
+.c12 .c7 {
   padding-top: 1px;
 }
 
-.c15 .c14 {
+.c12 .c11 {
   height: 16px;
 }
 
-.c15 .c14 svg {
+.c12 .c11 svg {
   border: 1px solid #668491;
 }
 
-.c15 .c12,
-.c15 svg {
+.c12 .c9,
+.c12 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c15 .c10,
-.c15 .c12,
-.c15 .c14,
-.c15 svg {
+.c12 .c7,
+.c12 .c9,
+.c12 .c11,
+.c12 svg {
   box-sizing: border-box;
   width: 16px;
 }
 
-.c15 .c12:not([disabled]):focus + .c14,
-.c15 .c12:not([disabled]):hover + .c14 {
+.c12 .c9:not([disabled]):focus + .c11,
+.c12 .c9:not([disabled]):hover + .c11 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c15 .c1 {
+.c12 .c3 {
   padding: 0 6px;
   width: auto;
 }
 
-.c15 .c3 {
-  display: inline-block;
-  margin-left: 10px;
-  margin-top: -4px;
-  vertical-align: middle;
-}
-
-.c0 > .c1 {
+.c0 > .c1 > .c3 {
   cursor: default;
   margin-bottom: 16px;
   padding: 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
 }
 
-.c0 > .c1 .c3 {
+.c0 > .c1 > .c3 .c15 {
+  margin-left: 8px;
+  padding: 1px;
+  display: inline-block;
   color: rgba(0,0,0,0.65);
 }
 
@@ -234,124 +174,115 @@ exports[`CheckboxGroup renders as expected 1`] = `
   data-component="checkboxgroup"
   role="checkbox"
 >
-  <label
-    className="c1 c2"
-    data-element="label"
-    id="my-checkbox-group-label"
-    width={30}
-  >
-    Test CheckboxGroup Label
-    <div
-      className="c3 c4"
-      type="help"
-    >
-      <span
-        className="c5"
-        data-component="icon"
-        data-element="question"
-        disabled={false}
-        fontSize="small"
-        type="question"
-      />
-    </div>
-  </label>
   <div
-    checked={false}
-    className="c6"
-    data-component="checkbox"
-    name="check-required"
-    onBlur={[Function]}
+    className="c1 c2"
   >
+    <label
+      className="c3 c4"
+      data-element="label"
+      htmlFor="group-radio-buttons"
+      width={30}
+    >
+      Test CheckboxGroup Label
+    </label>
     <div
       checked={false}
-      className="c7"
+      className="c5"
+      data-component="checkbox"
       name="check-required"
       onBlur={[Function]}
     >
       <div
-        className="c8 c9"
+        checked={false}
+        className="c6"
+        name="check-required"
+        onBlur={[Function]}
       >
         <div
-          className="c10 c11"
+          className="c1 c2"
         >
-          <input
-            aria-checked={false}
-            checked={false}
-            className="c12 c13"
-            id="cId-required"
-            name="check-required"
-            onBlur={[Function]}
-            onChange={[Function]}
-            role="checkbox"
-            tabIndex={0}
-            type="checkbox"
-            value="required"
-          />
           <div
-            className="c14 "
+            className="c7 c8"
           >
-            <svg
-              height="10"
-              viewBox="0 0 12 10"
-              width="12"
+            <input
+              aria-checked={false}
+              checked={false}
+              className="c9 c10"
+              id="cId-required"
+              name="check-required"
+              onBlur={[Function]}
+              onChange={[Function]}
+              role="checkbox"
+              tabIndex={0}
+              type="checkbox"
+              value="required"
+            />
+            <div
+              className="c11 "
             >
-              <path
-                d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
-                fill="#FFFFFF"
-                fillRule="evenodd"
-              />
-            </svg>
+              <svg
+                height="10"
+                viewBox="0 0 12 10"
+                width="12"
+              >
+                <path
+                  d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
+                  fill="#FFFFFF"
+                  fillRule="evenodd"
+                />
+              </svg>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    checked={false}
-    className="c6"
-    data-component="checkbox"
-    name="check-optional"
-    onBlur={[Function]}
-  >
     <div
       checked={false}
-      className="c7"
+      className="c5"
+      data-component="checkbox"
       name="check-optional"
       onBlur={[Function]}
     >
       <div
-        className="c8 c9"
+        checked={false}
+        className="c6"
+        name="check-optional"
+        onBlur={[Function]}
       >
         <div
-          className="c10 c11"
+          className="c1 c2"
         >
-          <input
-            aria-checked={false}
-            checked={false}
-            className="c12 c13"
-            id="cId-optional"
-            name="check-optional"
-            onBlur={[Function]}
-            onChange={[Function]}
-            role="checkbox"
-            tabIndex={-1}
-            type="checkbox"
-            value="optional"
-          />
           <div
-            className="c14 "
+            className="c7 c8"
           >
-            <svg
-              height="10"
-              viewBox="0 0 12 10"
-              width="12"
+            <input
+              aria-checked={false}
+              checked={false}
+              className="c9 c10"
+              id="cId-optional"
+              name="check-optional"
+              onBlur={[Function]}
+              onChange={[Function]}
+              role="checkbox"
+              tabIndex={-1}
+              type="checkbox"
+              value="optional"
+            />
+            <div
+              className="c11 "
             >
-              <path
-                d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
-                fill="#FFFFFF"
-                fillRule="evenodd"
-              />
-            </svg>
+              <svg
+                height="10"
+                viewBox="0 0 12 10"
+                width="12"
+              >
+                <path
+                  d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
+                  fill="#FFFFFF"
+                  fillRule="evenodd"
+                />
+              </svg>
+            </div>
           </div>
         </div>
       </div>
