@@ -19,7 +19,7 @@ import smallTheme from '../../../style/themes/small';
 import mediumTheme from '../../../style/themes/medium';
 import largeTheme from '../../../style/themes/large';
 import ValidationIconStyle from '../../../components/validations/validation-icon.style';
-import Icon from '../../../components/icon/icon';
+import Icon from '../../../components/icon';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
