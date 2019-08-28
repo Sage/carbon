@@ -11,6 +11,7 @@ import baseTheme from '../../../style/themes/base';
 import Icon from '../../../components/icon';
 import ValidationIconStyle from '../../../components/validations/validation-icon.style';
 import Label from '../label';
+import FormFieldStyle from '../form-field/form-field.style';
 
 const checkboxValues = ['required', 'optional'];
 const groupName = 'my-checkbox-group';
@@ -117,7 +118,7 @@ describe('CheckboxGroup', () => {
           padding: '0'
         },
         wrapper,
-        { modifier: css`${`> ${LabelStyle}`}` }
+        { modifier: css`${`> ${FormFieldStyle} > ${LabelStyle}`}` }
       );
     });
 

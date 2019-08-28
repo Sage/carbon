@@ -8,6 +8,7 @@ import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-s
 import LabelStyle from '../label/label.style';
 import checkBoxClassicStyle from './checkbox-classic.style';
 import ValidationIconStyle from '../../../components/validations/validation-icon.style';
+import FormFieldStyle from '../form-field/form-field.style';
 
 const validationBorderColor = ({
   theme,
@@ -203,19 +204,6 @@ CheckboxStyle.propTypes = {
   size: PropTypes.string
 };
 
-const validationIconColor = ({
-  theme,
-  hasError,
-  hasWarning,
-  hasInfo
-}) => {
-  if (!hasError && !hasWarning && !hasInfo) {
-    return css`color: ${theme.help.color};`;
-  }
-
-  return null;
-};
-
 const StyledCheckboxGroup = styled.div`
   ${({
     theme,
@@ -223,23 +211,34 @@ const StyledCheckboxGroup = styled.div`
     hasWarning,
     hasInfo
   }) => css`
-      ${LabelStyle} {
-        ${(hasError || hasWarning || hasInfo) && css`
+    ${LabelStyle} {
+      ${(hasError || hasWarning || hasInfo) && css`
+        color: ${theme.text.color};
+      `}
+    }
+
+    & > ${FormFieldStyle} {
+      & > ${LabelStyle} {
+        cursor: default ;
+        margin-bottom: 16px;
+        padding: 0;
+
+        ${hasError && css`
           color: ${theme.text.color};
         `}
+
+        & ${ValidationIconStyle} {
+          margin-left: 8px;
+          padding: 1px;
+          display: inline-block;
+
+          ${props => !props.hasError && !props.hasWarning && !props.hasInfo && css`
+            color: ${theme.help.color};
+          `}
+        }
       }
-  `}
-
-  & > ${LabelStyle} {
-    cursor: default ;
-    margin-bottom: 16px;
-    padding: 0;
-    display: flex;
-
-    & ${ValidationIconStyle} {
-      ${validationIconColor}
     }
-  }
+  `}
 `;
 
 StyledCheckboxGroup.defaultProps = {

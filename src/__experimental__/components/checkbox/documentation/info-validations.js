@@ -5,9 +5,9 @@ const info = (
   <div>
     <StoryHeader>Checkbox Component Validations</StoryHeader>
     <strong>In Form</strong>
-    <p>Tab off the first checkbox to show a <strong>error</strong> state.</p>
-    <p>Tab off the second checkbox to show a <strong>warning</strong> state.</p>
-    <p>Tab off the third checkbox to show a <strong>info</strong> state.</p>
+    <p>Uncheck the first checkbox to show a <strong>error</strong> state.</p>
+    <p>Uncheck the second checkbox to show a <strong>warning</strong> state.</p>
+    <p>Uncheck the third checkbox to show a <strong>info</strong> state.</p>
 
     <strong>In Group</strong>
     <p>Check first checkbox to see a <strong>warning</strong> state.</p>
