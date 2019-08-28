@@ -69,6 +69,8 @@ exports[`Switch renders a Switch component with reverse className 1`] = `
     >
       <Icon
         bgSize="small"
+        disabled={false}
+        fontSize="small"
         type="tick"
       />
     </div>
@@ -77,6 +79,8 @@ exports[`Switch renders a Switch component with reverse className 1`] = `
     >
       <Icon
         bgSize="small"
+        disabled={false}
+        fontSize="small"
         type="cross"
       />
     </div>

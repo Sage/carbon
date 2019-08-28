@@ -101,6 +101,22 @@ const OptionsHelper = {
     'warning'
   ],
 
+  iconBackgrounds: [
+    'info',
+    'error',
+    'success',
+    'warning',
+    'business',
+    'none'
+  ],
+
+  iconColors: [
+    'default',
+    'on-light-background',
+    'on-dark-background',
+    'business-color'
+  ],
+
   icons: [
     'add',
     'alert',

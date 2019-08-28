@@ -49,6 +49,7 @@ function renderStyledButton(buttonProps) {
       disabled={ disabled }
       role='button'
       legacyColorVariant={ theme }
+      iconType={ iconType }
       { ...tagComponent('button', buttonProps) }
       { ...styleProps }
       ref={ forwardRef }
@@ -64,17 +65,39 @@ function renderChildren(props) {
     iconPosition,
     size,
     subtext,
-    children
+    children,
+    disabled,
+    buttonType
   } = props;
+
+  const iconColorMap = {
+    primary: 'on-dark-background',
+    secondary: 'business-color',
+    tertiary: 'business-color',
+    destructive: 'on-dark-background',
+    darkBackground: 'business-color'
+  };
 
   return (
     <>
-      { iconType && iconPosition === 'before' && <Icon type={ iconType } /> }
+      { iconType && iconPosition === 'before' && (
+        <Icon
+          type={ iconType }
+          disabled={ disabled }
+          bgTheme='none'
+          iconColor={ iconColorMap[buttonType] }
+        />) }
       <span>
         <span data-element='main-text'>{ children }</span>
         { size === 'large' && <StyledButtonSubtext data-element='subtext'>{ subtext }</StyledButtonSubtext> }
       </span>
-      { iconType && iconPosition === 'after' && <Icon type={ iconType } /> }
+      { iconType && iconPosition === 'after' && (
+        <Icon
+          type={ iconType }
+          disabled={ disabled }
+          bgTheme='none'
+          iconColor={ iconColorMap[buttonType] }
+        />) }
     </>
   );
 }

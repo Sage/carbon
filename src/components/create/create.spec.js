@@ -5,7 +5,7 @@ import TestRenderer from 'react-test-renderer';
 import Create from './create.component';
 import classicTheme from '../../style/themes/classic';
 import baseTheme from '../../style/themes/base';
-import CreateClassicStyle from './create-classic.style';
+import CreateStyle from './create.style';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 
 function render(props) {
@@ -76,5 +76,7 @@ describe('Create', () => {
 });
 
 describe('Create classic', () => {
-  expect(TestRenderer.create(<CreateClassicStyle theme={ classicTheme } />)).toMatchSnapshot();
+  it('renders to match the expected style', () => {
+    expect(TestRenderer.create(<CreateStyle theme={ classicTheme } />).toJSON()).toMatchSnapshot();
+  });
 });

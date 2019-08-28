@@ -18,6 +18,7 @@ import {
   CarouselNextButtonWrapperStyle
 } from './carousel.style';
 import classicTheme from '../../style/themes/classic';
+import smallTheme from '../../style/themes/small';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import 'jest-styled-components';
 /* global jest */
@@ -573,11 +574,18 @@ describe('CarouselPreviousButtonWrapperStyle', () => {
 });
 
 describe('CarouselStyledIcon', () => {
-  const wrapper = mount(<CarouselStyledIcon theme={ classicTheme } />);
-  it('should render matched style', () => {
+  it('should render matched style when classic', () => {
+    const wrapper = mount(<CarouselStyledIcon theme={ classicTheme } />);
     assertStyleMatch({
       fontSize: '25px'
     }, wrapper, { modifier: '&&::before' });
+  });
+
+  it('should render matched style when modern themed', () => {
+    const wrapper = mount(<CarouselStyledIcon theme={ smallTheme } />);
+    assertStyleMatch({
+      color: '#FFFFFF'
+    }, wrapper);
   });
 });
 

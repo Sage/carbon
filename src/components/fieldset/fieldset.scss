@@ -5,10 +5,10 @@
   margin: 0;
   padding: 0;
 
-  .carbon-icon.carbon-input-icon,
+  [data-component='icon'].carbon-input-icon,
   .common-input__icon {
     z-index: 2;
-    &.icon-error {
+    [data-element='error'] {
       top: 5px;
     }
   }
