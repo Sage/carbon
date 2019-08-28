@@ -5,7 +5,13 @@ import BaseTheme from '../../../style/themes/base';
 
 const { cardSection } = OptionsHelper;
 
-const positionConfig = (theme) => {
+const marginSizes = {
+  small: '0 -24px -16px',
+  medium: '0 -32px -24px',
+  large: '0 -48px -32px'
+};
+
+const positionConfig = (size, { card }) => {
   return {
     header: `
       padding: 32px 32px;
@@ -16,19 +22,21 @@ const positionConfig = (theme) => {
       margin-bottom: 32px;
     `,
     footer: `
-      background-color: ${theme.card.footerBackground};
-      border-top: ${theme.card.footerBorder};
+      background-color: ${card.footerBackground};
+      border-top: ${card.footerBorder};
       height: 56px;
       line-height: 56px;
       padding: 0 32px;
+      margin: ${marginSizes[size]};
     `
   };
 };
 
 const StyledCardPosition = styled.div`
-  ${({ positionType, theme }) => {
+  ${({ positionType, size, theme }) => {
+    console.log(size);
     return css`
-      ${positionConfig(theme)[positionType]}
+      ${positionConfig(size, theme)[positionType]}
     `;
   }
 }`;

@@ -4,23 +4,19 @@ import StyledCardPosition from './card-position.style';
 import CardSection from '../card-section/card-section.component';
 
 const CardPosition = ({
-  align,
   positionType,
-  primary,
-  secondary,
-  tertiary
+  size,
+  ...props
 }) => {
   return (
     <StyledCardPosition
       data-element={ positionType }
       positionType={ positionType }
+      size={ size }
     >
       <CardSection
-        align={ align }
         positionType={ positionType }
-        primary={ primary }
-        secondary={ secondary }
-        tertiary={ tertiary }
+        { ...props }
       />
     </StyledCardPosition>
   );

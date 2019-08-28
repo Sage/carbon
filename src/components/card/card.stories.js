@@ -5,6 +5,8 @@ import Card from './card.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, Info } from './documentation';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
+import Icon from '../icon';
+import Link from '../link';
 
 Card.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -13,6 +15,7 @@ Card.__docgenInfo = getDocGenInfo(
 
 const getKnobs = () => {
   const knobs = {
+    cardSize: select('card size', OptionsHelper.sizesRestricted, Card.defaultProps.size),
     headerPrimary: text('header primary', 'Header Primary'),
     headerSecondary: text('header secondary', 'Header Secondary'),
     headerAlign: select('header align', OptionsHelper.alignFull),
@@ -28,9 +31,21 @@ const getKnobs = () => {
   return knobs;
 };
 
+const generateContentComponent = (content) => {
+  switch (content) {
+    case 'link':
+      return <Link href='nufc.com'>This is a link</Link>;
+    case 'icon':
+      return <Icon type='add' />;
+    default:
+      return content;
+  }
+};
+
 storiesOf('Card', module)
   .add('default', () => {
     const {
+      cardSize,
       border,
       headerPrimary,
       headerSecondary,
@@ -45,25 +60,26 @@ storiesOf('Card', module)
     } = getKnobs();
 
     const headerProps = {
-      primary: headerPrimary,
-      secondary: headerSecondary,
+      primary: generateContentComponent(headerPrimary),
+      secondary: generateContentComponent(headerSecondary),
       align: headerAlign
     };
 
     const middleProps = {
-      primary: middlePrimary,
-      secondary: middleSecondary,
-      tertiary: middleTertiary,
+      primary: generateContentComponent(middlePrimary),
+      secondary: generateContentComponent(middleSecondary),
+      tertiary: generateContentComponent(middleTertiary),
       align: middleAlign
     };
 
     const footerProps = {
-      primary: footerPrimary,
+      primary: generateContentComponent(footerPrimary),
       align: footerAlign
     };
 
     return (
       <Card
+        size={ cardSize }
         border={ border }
         headerProps={ headerProps }
         middleProps={ middleProps }
