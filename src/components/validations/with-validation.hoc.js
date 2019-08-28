@@ -213,7 +213,6 @@ const withValidation = (WrappedComponent, defaultProps = {}) => {
 
     handleChange = (ev) => {
       this.blockValidation = !this.props.unblockValidation;
-
       this.resetValidation();
 
       this.setState(

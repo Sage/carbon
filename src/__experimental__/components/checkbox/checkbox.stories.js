@@ -21,6 +21,7 @@ const checkboxes = {
   one: {}, required: {}, warning: {}, info: {}, optional: {}, mandatory: {}, example: {}
 };
 const checkboxKeys = Object.keys(checkboxes);
+const unblockValidation = true;
 
 function testValidator(value, props) {
   return new Promise((resolve, reject) => {
@@ -32,9 +33,9 @@ function testValidator(value, props) {
   });
 }
 
-function testWarning(value) {
+function testWarning(value, props) {
   return new Promise((resolve, reject) => {
-    if (['warning'].indexOf(value) !== -1) {
+    if (['warning'].indexOf(value) !== -1 && !props.checked) {
       reject(new Error('Show warning!'));
     } else {
       resolve();
@@ -42,9 +43,9 @@ function testWarning(value) {
   });
 }
 
-function testInfo(value) {
+function testInfo(value, props) {
   return new Promise((resolve, reject) => {
-    if (value === 'info') {
+    if (value === 'info' && !props.checked) {
       reject(new Error('Show this information'));
     } else {
       resolve();
@@ -55,7 +56,8 @@ function testInfo(value) {
 checkboxKeys.forEach((id) => {
   checkboxes[id] = {
     store: new Store({
-      check: false
+      check: false,
+      forceUpdateTriggerToggle: false
     })
   };
 });
@@ -96,6 +98,7 @@ storiesOf('Experimental/Checkbox', module)
                 info={ testInfo }
                 onChange={ ev => handleChange(ev, type) }
                 name={ `my-checkbox-${type}` }
+                unblockValidation={ unblockValidation }
                 { ...defaultKnobs(type) }
               />
             </State>
@@ -134,10 +137,13 @@ storiesOf('Experimental/Checkbox', module)
   });
 
 function handleChange(ev, id = 'one') {
-  action('change')();
+  const { checked } = ev.target;
+
+  action('change')(`checked: ${checked}`);
 
   checkboxes[id].store.set({
-    checked: ev.target.checked
+    checked,
+    forceUpdateTriggerToggle: !checked
   });
 }
 
