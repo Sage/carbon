@@ -4,6 +4,7 @@ import baseTheme from '../../../style/themes/base';
 import { isClassic } from '../../../utils/helpers/style-helper';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import tableSizes from '../table-sizes.style';
+import { StyledIcon } from '../../icon/icon.style';
 
 const StyledTableHeader = styled.th`
   ${({
@@ -32,7 +33,7 @@ const StyledTableHeader = styled.th`
         border-left: none;
       }
 
-      ${width ? `width: ${width}px;` : ''}
+      ${width && css`width: ${width}px;`}
 
       ${sortable && applySortableStyling(align, colors, table)}
     `;
@@ -45,6 +46,10 @@ function applySortableStyling(align, colors, table) {
 
     &:hover {
       background-color: ${table.tertiary};
+    }
+
+    ${StyledIcon} {
+      color: ${colors.white};
     }
 
     a {
@@ -64,7 +69,7 @@ function applySortableStyling(align, colors, table) {
           height: 11px;
           width: 10px;
         }
-      }    
+      }
     }
   `;
 }

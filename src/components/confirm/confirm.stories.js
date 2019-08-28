@@ -44,7 +44,6 @@ storiesOf('Confirm', module)
       const size = select('size', OptionsHelper.sizesFull, Confirm.defaultProps.size);
       const showCloseIcon = boolean('showCloseIcon', Confirm.defaultProps.showCloseIcon);
       const autoFocus = boolean('autoFocus', Confirm.defaultProps.autoFocus);
-      const stickyFormFooter = boolean('stickyFormFooter', false);
       const confirmLabel = text('confirmLabel', '');
       const cancelLabel = text('cancelLabel', '');
 
@@ -62,7 +61,6 @@ storiesOf('Confirm', module)
             size={ size }
             showCloseIcon={ showCloseIcon }
             autoFocus={ autoFocus }
-            stickyFormFooter={ stickyFormFooter }
             confirmLabel={ confirmLabel }
             cancelLabel={ cancelLabel }
             onConfirm={ handleConfirm }

@@ -25,10 +25,12 @@ const StyledCheckableInputWrapper = styled.div`
       text-align: ${labelAlign};
       width: auto;
       white-space: nowrap;
+      margin-top: -2px;
 
       & ${StyledHelp} {
         color: ${theme.help.color};
-        vertical-align: bottom;
+        vertical-align: middle;
+        top: -1px;
 
         &:hover, &:focus {
           color: ${theme.text.color};

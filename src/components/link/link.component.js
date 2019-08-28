@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { assign } from 'lodash';
 import { Link as RouterLink } from 'react-router';
 import Icon from '../icon';
@@ -9,7 +8,6 @@ import Event from '../../utils/helpers/events';
 import tagComponent from '../../utils/helpers/tags';
 import { LinkStyle, LinkStyleAnchor } from './link.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import './link.scss';
 
 class Link extends React.Component {
   static safeProps = ['onClick'];
@@ -37,18 +35,15 @@ class Link extends React.Component {
   }
 
   get icon() {
-    const classes = classNames(
-      'carbon-link__icon',
-      `carbon-link__icon--align-${this.props.iconAlign}`
-    );
-
     return (
       <Icon
         type={ this.props.icon }
-        className={ classes }
         tooltipMessage={ this.props.tooltipMessage }
         tooltipAlign={ this.props.tooltipAlign }
         tooltipPosition={ this.props.tooltipPosition }
+        bgTheme='none'
+        iconColor='business-color'
+        disabled={ this.props.disabled }
       />
     );
   }
@@ -69,7 +64,7 @@ class Link extends React.Component {
 
     props.className = this.props.className;
     props.onKeyDown = this.onKeyDown;
-
+    props.iconAlign = this.props.iconAlign;
     return props;
   }
 

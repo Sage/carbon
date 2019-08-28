@@ -51,7 +51,7 @@ exports[`StepSequence Classic theme renders correctly 1`] = `
   background-color: #b3c2c8;
 }
 
-.c1 .carbon-icon {
+.c1 .c4 {
   position: relative;
   top: -2px;
   margin-right: 8px;
@@ -170,7 +170,7 @@ exports[`StepSequence Classic theme renders correctly with vertical orientation 
   background-color: #b3c2c8;
 }
 
-.c1 .carbon-icon {
+.c1 .c5 {
   position: relative;
   top: -2px;
   margin-right: 8px;
@@ -294,7 +294,7 @@ exports[`StepSequence renders correctly 1`] = `
   background-color: rgba(0,0,0,0.55);
 }
 
-.c1 .carbon-icon {
+.c1 .c4 {
   position: relative;
   top: -2px;
   margin-right: 8px;
@@ -405,7 +405,7 @@ exports[`StepSequence renders correctly with vertical orientation 1`] = `
   background-color: rgba(0,0,0,0.55);
 }
 
-.c1 .carbon-icon {
+.c1 .c4 {
   position: relative;
   top: -2px;
   margin-right: 8px;
