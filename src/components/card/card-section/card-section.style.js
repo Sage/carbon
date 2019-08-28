@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
 
-const CardContentConfig = (theme) => {
+const CardContentConfig = ({ card }) => {
   return {
     header: {
       primary: `
@@ -20,26 +20,26 @@ const CardContentConfig = (theme) => {
     },
     middle: {
       primary: `
-        color: ${theme.card.middlePrimary};
+        color: ${card.middlePrimary};
         font-size: 24px;
         font-weight: 700;
-        letter-spacing: 0.48px;
         margin-bottom: 10px;
       `,
       secondary: `
-        color: ${theme.card.middleSecondary};
+        color: ${card.middleSecondary};
         font-size: 14px;
         font-weight: 700;
         margin-bottom: 8px;
       `,
       tertiary: `
-        color: ${theme.card.middleTertiary};
+        color: ${card.middleTertiary};
         font-size: 12px;
         text-transform: uppercase;
       `
     }
   };
 };
+
 const applyContentStyle = ({ theme, positionType, styleType }) => {
   if (positionType === 'footer') {
     return `
@@ -57,6 +57,10 @@ const applyContentStyle = ({ theme, positionType, styleType }) => {
 const StyledCardContent = styled.div`
   ${applyContentStyle}
 `;
+
+StyledCardContent.defaultProps = {
+  theme: BaseTheme
+};
 
 const StyledCardSection = styled.div`
   ${({ align }) => {

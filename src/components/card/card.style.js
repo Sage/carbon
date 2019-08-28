@@ -3,12 +3,14 @@ import propTypes from 'prop-types';
 import baseTheme from '../../style/themes/base';
 
 const StyledCard = styled.div`
-  ${({ border, theme, cardWidth }) => {
+  ${({
+    border, cardWidth, size, theme
+  }) => {
     return css`
       background-color: ${theme.colors.white};
       box-shadow: ${theme.shadows.cards};
       margin-bottom: 32px;
-      position: relative;
+      cursor: pointer;
       transition: all 0.3s ease-in-out;
       width: ${cardWidth};
 
@@ -18,6 +20,16 @@ const StyledCard = styled.div`
 
       ${!border && css`
         border: none;
+      `}
+
+      ${size === 'small' && css`
+        padding: 16px 24px;
+      `}
+      ${size === 'medium' && css`
+        padding: 24px 32px;
+      `}
+      ${size === 'large' && css`
+        padding: 32px 48px;
       `}
     `;
   }

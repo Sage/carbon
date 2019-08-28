@@ -5,12 +5,18 @@ import StyledCard from './card.style';
 import CardPosition from './card-position';
 import BaseTheme from '../../style/themes/base';
 
-const { cardSection } = OptionsHelper;
+const { header, middle, footer } = OptionsHelper.cardSection;
 
-// check if props empty for bool flags
-
-function hasProps(props) {
-  return Object.keys(props).length;
+function renderCardPosition(props, position, size) {
+  if (!Object.keys(props).length) return null;
+  
+  return (
+    <CardPosition
+      positionType={ position }
+      size={ size }
+      { ...props }
+    />
+  );
 }
 
 const Card = ({
@@ -19,43 +25,25 @@ const Card = ({
   middleProps,
   footerProps,
   cardWidth,
+  size,
   ...props
 }) => (
   <StyledCard
     data-element='card'
     border={ border }
     cardWidth={ cardWidth }
+    size={ size }
     { ...props }
   >
-    { hasProps(headerProps) && (
-      <CardPosition
-        { ...headerProps }
-        positionType={ cardSection.header }
-      />
-    )
-    }
-    { hasProps(middleProps) && (
-      <CardPosition
-        { ...middleProps }
-        positionType={ cardSection.middle }
-      />
-    )}
-    { hasProps(footerProps) && (
-      <CardPosition
-        { ...footerProps }
-        positionType={ cardSection.footer }
-      />
-    )}
+    { renderCardPosition(headerProps, header) }
+    { renderCardPosition(middleProps, middle) }
+    { renderCardPosition(footerProps, footer, size) }
   </StyledCard>
 );
 
 Card.propTypes = {
   /** flag to indicate if a header is required */
-  header: PropTypes.bool,
-  /** flag to indicate if a middle is required */
-  middle: PropTypes.bool,
-  /** flag to indicate if a footer is required */
-  footer: PropTypes.bool,
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   /** flag to indicate if a border is required */
   border: PropTypes.bool,
   /** text value of the header primary element */
@@ -87,6 +75,7 @@ Card.propTypes = {
 };
 
 Card.defaultProps = {
+  size: OptionsHelper.sizesRestricted[1],
   headerProps: { align: 'center' },
   middleProps: { align: 'center' },
   footerProps: { align: 'center' },

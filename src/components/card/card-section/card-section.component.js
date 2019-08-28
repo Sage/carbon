@@ -8,84 +8,37 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const { cardSection, cardTextTypes } = OptionsHelper;
 
+/** function to iterate over the section's props and render as content */
+function renderCardContent({
+  positionType,
+  inline,
+  ...props
+}) {
+  console.log(positionType, props);
+  return Object.keys(props).map((key) => {
+    return (
+      <StyledCardContent
+        data-element={ `${positionType}-${cardTextTypes[key]}` }
+        positionType={ positionType }
+        styleType={ key }
+      >
+        { props[key] }
+      </StyledCardContent>
+    );
+  });
+}
+
 const CardSection = ({
   align,
-  positionType,
-  primary,
-  secondary,
-  tertiary
+  ...props
 }) => {
+  console.log(props);
   return (
     <StyledCardSection
-      data-element='cardsection'
+      data-element='card-section'
       align={ align }
     >
-      {
-        primary && positionType === cardSection.header && (
-          <StyledCardContent
-            data-element={ `${positionType}-${cardTextTypes.primary}` }
-            positionType={ positionType }
-            styleType='primary'
-          >
-            { primary }
-          </StyledCardContent>
-        )
-      }
-      {
-        secondary && positionType === cardSection.header && (
-          <StyledCardContent
-            data-element={ `${positionType}-${cardTextTypes.secondary}` }
-            positionType={ positionType }
-            styleType='secondary'
-          >
-            { secondary }
-          </StyledCardContent>
-        )
-      }
-      {
-        primary && positionType === cardSection.middle && (
-          <StyledCardContent
-            data-element={ `${positionType}-${cardTextTypes.primary}` }
-            positionType={ positionType }
-            styleType='primary'
-          >
-            { primary }
-          </StyledCardContent>
-        )
-      }
-      {
-        secondary && positionType === cardSection.middle && (
-          <StyledCardContent
-            data-element={ `${positionType}-${cardTextTypes.secondary}` }
-            positionType={ positionType }
-            styleType='secondary'
-          >
-            { secondary }
-          </StyledCardContent>
-        )
-      }
-      {
-        tertiary && positionType === cardSection.middle && (
-          <StyledCardContent
-            data-element={ `${positionType}-${cardTextTypes.tertiary}` }
-            positionType={ positionType }
-            styeType='tertiary'
-          >
-            { tertiary }
-          </StyledCardContent>
-        )
-      }
-      {
-        primary && positionType === cardSection.footer && (
-          <StyledCardContent
-            data-element={ `${positionType}-${cardTextTypes.primary}` }
-            positionType={ positionType }
-            contentType='footer'
-          >
-            { primary }
-          </StyledCardContent>
-        )
-      }
+      { renderCardContent(props) }
     </StyledCardSection>
   );
 };
