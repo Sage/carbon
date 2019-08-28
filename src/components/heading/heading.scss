@@ -51,7 +51,7 @@
     margin-top: -12px;
   }
 
-  .carbon-icon {
+  [data-component='icon'] {
     color: $grey-dark-blue-30;
 
     &:hover {

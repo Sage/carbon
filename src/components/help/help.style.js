@@ -15,18 +15,16 @@ const StyledHelp = styled.button`
   margin-bottom: 0;
   margin-left: 8px;
   margin-top: 0;
-  top: -1px;
   padding: 1px;
 
   ${({ href }) => href && css`
     cursor: pointer;
-    text-decoration: none;
   `}
 
   &:focus,
   &:hover {
     color: ${({ theme }) => theme.help.hover};
-    text-decoration: underline;
+    text-decoration: none;
   }
 
   &:focus{

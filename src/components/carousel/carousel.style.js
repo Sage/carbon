@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import Icon from '../icon/icon';
+import Icon from '../icon';
 import { slideAnimation, fadeAnimation } from './slide.config';
 import { isClassic } from '../../utils/helpers/style-helper';
 import baseTheme from '../../style/themes/base';
@@ -21,13 +21,17 @@ const CarouselPreviousButtonWrapperStyle = styled(CarouselNavigationStyle)`
 `;
 const CarouselNextButtonWrapperStyle = styled(CarouselNavigationStyle)`
   right: 0;
-  margin-right:  ${({ theme }) => (isClassic(theme) ? '0' : '2px')};
+  margin-right: ${({ theme }) => (isClassic(theme) ? '0' : '2px')};
 `;
 
 const CarouselStyledIcon = styled(Icon)`
   cursor: pointer;
-  display: inline-block;
-
+  ${({ theme }) => !isClassic(theme) && css`
+    color: ${theme.colors.white};
+    :hover {
+      color: ${theme.colors.white};
+    }
+  `}
   &&::before {
     font-size: ${({ theme }) => (isClassic(theme) ? '25px' : '16px')}
   }
@@ -169,6 +173,22 @@ CarouselSelectorWrapperStyle.defaultProps = {
 };
 
 CarouselSelectorLabelStyle.defaultProps = {
+  theme: baseTheme
+};
+
+CarouselStyledIconLeft.defaultProps = {
+  theme: baseTheme
+};
+
+CarouselStyledIconRight.defaultProps = {
+  theme: baseTheme
+};
+
+CarouselPreviousButtonWrapperStyle.defaultProps = {
+  theme: baseTheme
+};
+
+CarouselNextButtonWrapperStyle.defaultProps = {
   theme: baseTheme
 };
 
