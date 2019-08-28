@@ -120,12 +120,12 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
     allowEmptyValue: PropTypes.bool,
 
     /**
-     * Display the date picker component on top of the input
+     * Choose where displayed the date picker
      *
-     * @property showPickerOnTop
+     * @property positionDatePicker
      * @type {Boolean}
      */
-    showPickerOnTop: PropTypes.bool
+    positionDatePicker: PropTypes.string
   };
 
   static defaultProps = {
@@ -574,18 +574,30 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
   get containerStyle() {
     const inputRect = this.getInputBoundingRect();
     const offsetY = window.pageYOffset;
-    if (this.props.showPickerOnTop) {
-      return {
-        left: inputRect.left,
-        bottom: 2 - (offsetY + inputRect.top)
-      };
+    switch (this.props.positionDatePicker) {
+      case 'top-left':
+        return {
+          right: -inputRect.right,
+          bottom: 2 - (offsetY + inputRect.top)
+        };
+      case 'top-right':
+        return {
+          left: inputRect.left,
+          bottom: 2 - (offsetY + inputRect.top)
+        };
+      case 'bottom-left':
+        return {
+          right: -inputRect.right,
+          top: inputRect.bottom + offsetY
+        };
+      default:
+        return {
+          left: inputRect.left,
+          top: inputRect.bottom + offsetY
+        };
     }
-    return {
-      left: inputRect.left,
-      top: inputRect.bottom + offsetY
-    };
   }
-
+  
   /**
    * Returns the props for the DayPicker container
    *
