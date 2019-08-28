@@ -17,7 +17,6 @@ const getIconColor = (color, theme) => {
 };
 
 const StyledTickIcon = styled(Icon)`
-  &.carbon-icon {
     height: 22px;
     width: 22px;
     pointer-events: none;
@@ -33,7 +32,6 @@ const StyledTickIcon = styled(Icon)`
         display: block;
       }
     `}
-  }
 `;
 
 StyledTickIcon.defaultProps = {

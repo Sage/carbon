@@ -15,16 +15,6 @@ MultiActionButton.__docgenInfo = getDocGenInfo(
   /multi-action-button\.component(?!spec)/
 );
 
-const getIconKnobs = () => {
-  const defaultPosition = Button.defaultProps.iconPosition;
-  const hasIcon = boolean('has icon', false);
-
-  return {
-    iconType: hasIcon ? select('iconType', [...OptionsHelper.icons, ''], '') : undefined,
-    iconPosition: hasIcon ? select('iconPosition', [...OptionsHelper.buttonIconPositions], defaultPosition) : undefined
-  };
-};
-
 const getKnobs = (isClassic) => {
   let as, buttonType, size, subtext;
 
@@ -64,7 +54,6 @@ storiesOf('Multi Action Button', module)
         text={ textContent }
         subtext={ subtext }
         { ...menuButtonProps }
-        { ...getIconKnobs() }
       >
         <Button { ...menuButtonProps }>Example Button</Button>
         <Button { ...menuButtonProps }>Example Button with long text</Button>

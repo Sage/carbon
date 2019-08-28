@@ -6,6 +6,7 @@ import LabelStyle from '../label/label.style';
 import StyledHelp from '../../../components/help/help.style';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import StyledSwitchSlider from './switch-slider.style';
+import { StyledIcon } from '../../../components/icon/icon.style';
 
 export default ({
   disabled, fieldHelpInline, labelInline, reverse, size, theme
@@ -35,7 +36,7 @@ export default ({
     }
   }
 
-  ${LabelStyle} .carbon-icon::before {
+  ${LabelStyle} ${StyledIcon}::before {
     content: '\\E943';
   }
 

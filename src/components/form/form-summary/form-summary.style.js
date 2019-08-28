@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
+import { StyledIcon } from '../../icon/icon.style';
 
 const StyledFormSummary = styled.div`
   display: inline-flex;
@@ -21,10 +22,13 @@ const StyledFormSummary = styled.div`
 export const StyledInternalSummary = styled.span`
   padding: 0 3px;
 
-  .carbon-form-summary__icon {
+  ${StyledIcon} {
     padding: 0 3px;
     position: relative;
     top: -2px;
+    vertical-align: middle;
+    ${({ type, theme }) => type === 'warning' && css`color: ${theme.colors.warning};`}
+    ${({ type, theme }) => type === 'error' && css`color: ${theme.colors.error};`}
   }
   ${({ type, theme }) => type === 'warning' && css`color: ${theme.colors.warning};`}
   ${({ type, theme }) => type === 'error' && css`color: ${theme.colors.error};`}

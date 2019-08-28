@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
 import { THEMES } from '../../style/themes';
+import { StyledIcon } from '../icon/icon.style';
 
 const colors = {
   error: '#c7384f',
@@ -22,7 +23,7 @@ export default ({ theme, variant }) => theme.name === THEMES.classic && css`
   position: static;
   min-width: 15px;
   
-  .icon-close {
+  ${StyledIcon} {
     &:before {
       color: ${colors[variant]};
       font-size:16px;

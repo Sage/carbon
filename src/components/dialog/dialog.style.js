@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import baseTheme from '../../style/themes/base';
+import { StyledFormFooter } from '../form/form.style';
 
 const dialogSizes = {
   'extra-small': '300px',
@@ -37,7 +38,7 @@ const DialogStyle = styled.div`
       padding-bottom: 80px;
     }
 
-    .carbon-form__footer-wrapper {
+    ${StyledFormFooter} {
       bottom: 0px;
       position: absolute;
       width: 100%;
@@ -50,7 +51,7 @@ const DialogStyle = styled.div`
   `}
 
   ${({ fixedBottom, stickyFormFooter, size }) => fixedBottom && stickyFormFooter && css`
-      .carbon-form__footer-wrapper {
+      ${StyledFormFooter} {
         box-sizing: border-box;
         animation: form-buttons-animate-in 0.25s ease-out;
         background-color: white;
@@ -59,7 +60,6 @@ const DialogStyle = styled.div`
         margin-left: -35px;
         box-shadow: 0 -4px 12px 0 rgba(0, 0, 0, 0.05);
         padding-bottom: 13px;
-        padding-top: 15px;
         padding-left: 35px;
         padding-right: 35px;
         position: fixed;
@@ -78,9 +78,6 @@ const DialogStyle = styled.div`
 
     &:hover {
       color: #255BC7;
-    }
-    &.carbon-icon {
-      position: absolute;
     }
   }
 `;
