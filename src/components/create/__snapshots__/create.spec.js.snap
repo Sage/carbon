@@ -1,22 +1,108 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[` 1`] = `
-"
-    border: 1px dashed #99adb6;
-    background-color: transparent;
-    
-    .carbon-icon::before {
-        font-size:16px;
-    }
+exports[`Create classic renders to match the expected style 1`] = `
+.c1 {
+  font-size: 14px;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #00805D;
+  display: inline-block;
+  font-weight: bold;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  cursor: pointer;
+  color: #255BC7;
+}
 
-    :hover{
-        background: #fff;
-    }
+.c1 .c2 {
+  margin-right: 5px;
+  position: relative;
+  vertical-align: middle;
+  top: -2px;
+}
 
-    :focus {
-        color: #255BC7;
-        border: 1px dashed #99adb6;
-        outline: -webkit-focus-ring-color auto 5px;
-    }
-"
+.c1:hover {
+  cursor: pointer;
+  color: #006045;
+}
+
+.c1 .c2 {
+  color: #255BC7;
+}
+
+.c1:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #004B87;
+}
+
+.c1:hover .c2 {
+  color: #004B87;
+}
+
+.c0 {
+  background-color: #1e499f;
+  border: 1px dashed #668491;
+  display: block;
+  padding: 12px 12px 10px;
+  text-align: center;
+  font-weight: 700;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  width: 100%;
+  border: 1px dashed #99adb6;
+  background-color: transparent;
+}
+
+.c0:hover {
+  background-color: #FFFFFF;
+}
+
+.c0:focus {
+  color: #00805D;
+  background-color: #FFFFFF;
+  outline: 3px solid #FFB500;
+}
+
+.c0 .c2::before {
+  font-size: 12px;
+}
+
+.c0 .c2 {
+  top: 0;
+}
+
+.c0 .c2::before {
+  font-size: 16px;
+}
+
+.c0:hover {
+  background: #fff;
+}
+
+.c0:focus {
+  color: #255BC7;
+  border: 1px dashed #99adb6;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+<div
+  className=""
+  data-component="link"
+  disabled={false}
+>
+  <a
+    className="c0 c1"
+    data-component="link"
+    onKeyDown={[Function]}
+    tabIndex="0"
+  >
+    <span>
+      <span
+        className="carbon-link__content"
+      />
+    </span>
+  </a>
+</div>
 `;

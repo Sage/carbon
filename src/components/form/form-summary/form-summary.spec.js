@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs/tags-specs';
-import Icon from '../../icon/icon';
+import Icon from '../../icon';
 import FormSummary from './form-summary.component';
 import 'jest-styled-components';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';

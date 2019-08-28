@@ -211,7 +211,12 @@ describe('Date', () => {
       describe('when date invalid with allowEmptyValue true', () => {
         it('calls set state setting the datePickerValue to be the date of today', () => {
           instance = TestUtils.renderIntoDocument(
-            <Date name='date' value='' label='Date' allowEmptyValue />
+            <Date
+              name='date'
+              value=''
+              label='Date'
+              allowEmptyValue
+            />
           );
           spyOn(instance, 'setState');
           instance.openDatePicker();
@@ -252,7 +257,10 @@ describe('Date', () => {
 
     it('if value is empty, visible value too', () => {
       instance = TestUtils.renderIntoDocument(
-        <Date name='date' label='Date' value='' allowEmptyValue/>
+        <Date
+          name='date' label='Date'
+          value='' allowEmptyValue
+        />
       );
 
       spyOn(instance, 'setState');
@@ -418,16 +426,19 @@ describe('Date', () => {
     describe('showPickerOnTop is true', () => {
       it('positions the date picker above the input', () => {
         wrapper = mount(
-          <Date name='date' label='Date' showPickerOnTop />
-        )
-        wrapper.instance().getInputBoundingRect = jest.fn( () => ({left: 5, top: 10}) );
+          <Date
+            name='date' label='Date'
+            showPickerOnTop
+          />
+        );
+        wrapper.instance().getInputBoundingRect = jest.fn(() => ({ left: 5, top: 10 }));
 
-        wrapper.setState({open: true})
+        wrapper.setState({ open: true });
         wrapper.update();
         portalContent = wrapper.find(Date);
         instance = wrapper.instance();
 
-        const style = portalContent.find('.DayPicker').props().style;
+        const { style } = portalContent.find('.DayPicker').props();
         expect(style.left).toEqual(5);
         expect(style.bottom).toEqual(-8);
       });

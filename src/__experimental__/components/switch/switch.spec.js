@@ -7,6 +7,7 @@ import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';
+import { StyledIcon } from '../../../components/icon/icon.style';
 import StyledSwitchSlider from './switch-slider.style';
 import guid from '../../../utils/helpers/guid';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
@@ -200,7 +201,7 @@ describe('Switch', () => {
       it('applies appropriate help icon', () => {
         assertStyleMatch({
           content: "'\\E943'"
-        }, wrapper, { modifier: css`${`${LabelStyle} .carbon-icon::before`}` });
+        }, wrapper, { modifier: css`${`${LabelStyle} ${StyledIcon}::before`}` });
       });
 
       it('applies appropriate SwitchSlider focus styles', () => {

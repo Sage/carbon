@@ -275,7 +275,11 @@ class AnimatedMenuButton extends React.Component {
 
     return (
       <div { ...this.componentProps() } { ...tagComponent('animated-menu-button', this.props) }>
-        <Icon type='add' data-element='open' />
+        <Icon
+          type='add'
+          data-element='open'
+          iconColor='on-dark-background'
+        />
 
         <CSSTransitionGroup
           component='div'
