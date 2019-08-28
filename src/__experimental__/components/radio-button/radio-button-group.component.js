@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
-import Label from '../label';
 import { StyledRadioButtonGroup } from './radio-button.style';
 import withValidation from '../../../components/validations/with-validation.hoc';
-import ValidationIconStyle from '../../../components/validations/validation-icon.style';
-import Icon from '../../../components/icon';
+import ValidationIcon from '../../../components/validations/validation-icon.component';
+import FormField from '../form-field';
 
 function initialTabIndex(childIndex) {
   return (childIndex > 0) ? -1 : 0;
@@ -29,31 +28,12 @@ const getValidationType = ({ hasError, hasWarning, hasInfo }) => {
   return type;
 };
 
-const getValidationMessage = (type, props) => {
-  const {
-    labelHelp,
-    errorMessage,
-    warningMessage,
-    infoMessage
-  } = props;
-
-  switch (type) {
-    case 'error':
-      return errorMessage;
-    case 'warning':
-      return warningMessage;
-    case 'info':
-      return infoMessage;
-    default:
-      return labelHelp;
-  }
-};
-
 const RadioButtonGroup = (props) => {
   const {
     children,
     groupName,
     label,
+    labelHelp,
     hasError,
     hasWarning,
     hasInfo
@@ -85,18 +65,26 @@ const RadioButtonGroup = (props) => {
     );
   });
 
-  const icon = () => {
-    const type = getValidationType(props);
-    const message = getValidationMessage(type, props);
-
+  const type = getValidationType(props);
+  const labelWithValidationIcon = () => {
     return (
-      <ValidationIconStyle type={ type }>
-        <Icon
-          type={ type }
-          tooltipMessage={ message }
-        />
-      </ValidationIconStyle>
+      <React.Fragment>
+        {label}
+        {type !== 'help' && (
+          <ValidationIcon
+            tooltipMessage={ labelHelp }
+            type={ type }
+            { ...props }
+          />
+        )}
+      </React.Fragment>
     );
+  };
+  const fieldProps = {
+    ...props,
+    label: labelWithValidationIcon(),
+    labelId: groupLabelId,
+    labelHelp: type === 'help' ? labelHelp : null
   };
 
   return (
@@ -108,11 +96,9 @@ const RadioButtonGroup = (props) => {
       hasInfo={ hasInfo }
       { ...tagComponent('radiogroup', props) }
     >
-      <Label id={ groupLabelId }>
-        {label}
-        {icon()}
-      </Label>
-      {buttons}
+      <FormField { ...fieldProps }>
+        {buttons}
+      </FormField>
     </StyledRadioButtonGroup>
   );
 };
@@ -124,6 +110,8 @@ RadioButtonGroup.propTypes = {
   groupName: PropTypes.string.isRequired,
   /** The content for the RadioGroup Label */
   label: PropTypes.string.isRequired,
+  /** Help text */
+  labelHelp: PropTypes.string,
   /** Validation indicators */
   hasError: PropTypes.bool,
   hasWarning: PropTypes.bool,

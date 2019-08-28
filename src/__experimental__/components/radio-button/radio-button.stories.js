@@ -72,6 +72,7 @@ storiesOf('Experimental/RadioButton', module)
         <RadioButtonGroup
           groupName='my-event'
           label='Are you coming to the event?'
+          labelHelp='Group label helper'
           validations={ testValidation('valid') }
           warnings={ testValidation('warn') }
           info={ testValidation('info') }

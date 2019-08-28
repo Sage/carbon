@@ -10,6 +10,7 @@ import LabelStyle from '../label/label.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import ValidationIconStyle from '../../../components/validations/validation-icon.style';
 import baseTheme from '../../../style/themes/base';
+import FormFieldStyle from '../form-field/form-field.style';
 
 const buttonValues = ['test-1', 'test-2'];
 const groupName = 'test-group';
@@ -137,7 +138,7 @@ describe('RadioButtonGroup', () => {
       it('sets an appropriate label id (derived from groupname)', () => {
         const label = wrapper.find(Label).first();
 
-        expect(label.props().id).toEqual(expectedLabelId);
+        expect(label.prop('id')).toEqual(expectedLabelId);
       });
 
       it('sets the aria-labelledby attribute to the labelId', () => {
@@ -157,7 +158,7 @@ describe('RadioButtonGroup', () => {
           padding: '0'
         },
         render().toJSON(),
-        { modifier: css`${`> ${LabelStyle}`}` }
+        { modifier: css`${`> ${FormFieldStyle} > ${LabelStyle}`}` }
       );
     });
 

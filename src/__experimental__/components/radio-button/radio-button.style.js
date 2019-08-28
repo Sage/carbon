@@ -8,6 +8,7 @@ import ValidationIconStyle from '../../../components/validations/validation-icon
 import LabelStyle from '../label/label.style';
 import ClassicRadioButtonStyles from './radio-button-classic.style';
 import baseTheme from '../../../style/themes/base';
+import FormFieldStyle from '../form-field/form-field.style';
 
 const validationBorderColor = ({
   theme,
@@ -138,30 +139,29 @@ const RadioButtonStyle = styled(CheckboxStyle)`
   `}
 `;
 
-const validationIconColor = ({
-  theme,
-  hasError,
-  hasWarning,
-  hasInfo
-}) => {
-  if (!hasError && !hasWarning && !hasInfo) {
-    return css`color: ${theme.help.color};`;
-  }
-
-  return null;
-};
-
 const StyledRadioButtonGroup = styled.div`
-  & > ${LabelStyle} {
-    cursor: default ;
-    margin-bottom: 16px;
-    padding: 0;
-    display: flex;
+  ${({ theme }) => css`
+    & > ${FormFieldStyle} {
+      & > ${LabelStyle} {
+        cursor: default ;
+        margin-bottom: 16px;
+        padding: 0;
+        ${({ hasError }) => hasError && css`
+          color: ${theme.text.color};
+        `}
 
-    & ${ValidationIconStyle} {
-      ${validationIconColor}
+        & ${ValidationIconStyle} {
+          margin-left: 8px;
+          padding: 1px;
+          display: inline-block;
+
+          ${props => !props.hasError && !props.hasWarning && !props.hasInfo && css`
+            color: ${theme.help.color};
+          `}
+        }
+      }
     }
-  }
+  `}
 `;
 
 StyledRadioButtonGroup.defaultProps = {
