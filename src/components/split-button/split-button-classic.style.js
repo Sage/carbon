@@ -55,10 +55,6 @@ const getSplitButtonToggleClassicStyles = ({
     && {
       background-color: #1e499f;
       border-color: #1e499f;
-
-      .carbon-icon {
-        color: #FFF;
-      }
     }
   ` : ''}
 

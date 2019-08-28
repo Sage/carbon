@@ -67,7 +67,7 @@ describe('StyledCheckableInputWrapper', () => {
       assertStyleMatch(
         {
           color: baseTheme.help.color,
-          verticalAlign: 'bottom'
+          verticalAlign: 'middle'
         },
         wrapper, { modifier: css`${`${LabelStyle} ${StyledHelp}`}` }
       );

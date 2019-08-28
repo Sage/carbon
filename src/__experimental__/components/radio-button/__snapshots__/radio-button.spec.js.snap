@@ -54,11 +54,13 @@ exports[`RadioButton styles base renders as expected 1`] = `
   text-align: left;
   width: auto;
   white-space: nowrap;
+  margin-top: -2px;
 }
 
 .c1 .c21 .c22 {
   color: rgba(0,0,0,0.65);
-  vertical-align: bottom;
+  vertical-align: middle;
+  top: -1px;
 }
 
 .c1 .c21 .c22:hover,
