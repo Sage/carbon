@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { boolean, text, select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import PresenceValidation from '../../../utils/validations/presence';
 import notes from './documentation/notes.md';
@@ -31,15 +32,8 @@ const additionalFormActions = (innerText) => {
   };
 };
 
-storiesOf('Experimental/Form', module)
-  .addParameters({
-    info: {
-      text: Info,
-      propTablesExclude: [Textbox],
-      includePropTables: [FormWithoutValidations]
-    }
-  })
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const formActionOptions = ['', ...OptionsHelper.actionOptions];
     const unsavedWarning = boolean('unsavedWarning', true);
     const save = boolean('save', true);
@@ -99,7 +93,24 @@ storiesOf('Experimental/Form', module)
         />
       </Form>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Experimental/Form', module)
+  .addParameters({
+    info: {
+      text: Info,
+      propTablesExclude: [Textbox],
+      includePropTables: [FormWithoutValidations]
+    }
+  })
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));
