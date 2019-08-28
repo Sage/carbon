@@ -34,7 +34,6 @@ const positionConfig = (size, { card }) => {
 
 const StyledCardPosition = styled.div`
   ${({ positionType, size, theme }) => {
-    console.log(size);
     return css`
       ${positionConfig(size, theme)[positionType]}
     `;

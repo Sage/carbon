@@ -6,7 +6,7 @@ import {
 } from './card-section.style';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
-const { cardSection, cardTextTypes } = OptionsHelper;
+const { cardSection } = OptionsHelper;
 
 /** function to iterate over the section's props and render as content */
 function renderCardContent({
@@ -14,11 +14,11 @@ function renderCardContent({
   inline,
   ...props
 }) {
-  console.log(positionType, props);
-  return Object.keys(props).map((key) => {
+  return Object.keys(props).map((key, index) => {
     return (
       <StyledCardContent
-        data-element={ `${positionType}-${cardTextTypes[key]}` }
+        key={ `${key}-${String(index)}` }
+        data-element={ `${positionType}-${key}` }
         positionType={ positionType }
         styleType={ key }
       >
@@ -32,7 +32,6 @@ const CardSection = ({
   align,
   ...props
 }) => {
-  console.log(props);
   return (
     <StyledCardSection
       data-element='card-section'

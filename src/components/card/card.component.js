@@ -9,7 +9,7 @@ const { header, middle, footer } = OptionsHelper.cardSection;
 
 function renderCardPosition(props, position, size) {
   if (!Object.keys(props).length) return null;
-  
+
   return (
     <CardPosition
       positionType={ position }
@@ -46,28 +46,29 @@ Card.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   /** flag to indicate if a border is required */
   border: PropTypes.bool,
-  /** text value of the header primary element */
   headerProps: PropTypes.shape({
-    primary: PropTypes.string,
-    /** text value of the header secondary element */
-    secondary: PropTypes.string,
+    /** children of the header */
+    children: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.node])),
     /** text alignment of the header text */
-    align: PropTypes.oneOf(OptionsHelper.alignFull)
+    align: PropTypes.oneOf(OptionsHelper.alignFull),
+    /** sets content siblings to display inline */
+    inline: PropTypes.bool
   }),
   middleProps: PropTypes.shape({
-    primary: PropTypes.string,
-    /** text value of the middle secondary element */
-    secondary: PropTypes.string,
-    /** text value of the middle tertiary element */
-    tertiary: PropTypes.string,
-    /** text alignment of the middle text */
-    align: PropTypes.oneOf(OptionsHelper.alignFull)
+    /** children of the header */
+    children: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.node])),
+    /** text alignment of the header text */
+    align: PropTypes.oneOf(OptionsHelper.alignFull),
+    /** sets content siblings to display inline */
+    inline: PropTypes.bool
   }),
   footerProps: PropTypes.shape({
-    /** text value of the footer primary element */
-    primary: PropTypes.string,
-    /** text alignment of the footer text */
-    align: PropTypes.oneOf(OptionsHelper.alignFull)
+    /** children of the header */
+    children: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.node])),
+    /** text alignment of the header text */
+    align: PropTypes.oneOf(OptionsHelper.alignFull),
+    /** sets content siblings to display inline */
+    inline: PropTypes.bool
   }),
   theme: PropTypes.object,
   /** style value for width of card */

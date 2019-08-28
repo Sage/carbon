@@ -13,6 +13,15 @@ Card.__docgenInfo = getDocGenInfo(
   /card.component(?!spec)/
 );
 
+// const cardProps = () => {
+//   return {
+//     key: 'one',
+//     size: select('card size', OptionsHelper.sizesRestricted, Card.defaultProps.size),
+//     border: boolean('border', false),
+//     cardWidth: text('width', '500px')
+//   };
+// };
+
 const getKnobs = () => {
   const knobs = {
     cardSize: select('card size', OptionsHelper.sizesRestricted, Card.defaultProps.size),
@@ -24,6 +33,7 @@ const getKnobs = () => {
     middleTertiary: text('middle tertiary', 'Middle Tertiary'),
     middleAlign: select('middle align', OptionsHelper.alignFull),
     footerPrimary: text('footer primary', 'Footer Primary'),
+    footerSecondary: text('footer primary', 'Footer Secondary'),
     footerAlign: select('footer align', OptionsHelper.alignFull),
     border: boolean('border', false),
     cardWidth: text('width', '500px')
@@ -42,8 +52,34 @@ const generateContentComponent = (content) => {
   }
 };
 
+// const headerProps = {
+//   children: [
+//     generateContentComponent(text('header primary', 'Header Primary', 'Header Content')),
+//     generateContentComponent(text('header secondary', 'Header Secondary', 'Header Content'))
+//   ],
+//   align: select('header align', OptionsHelper.alignFull, OptionsHelper.alignFull[0], 'Header Content')
+// };
+
+// const middleProps = {
+//   children: [
+//     generateContentComponent(text('middle primary', 'Middle Primary', 'Middle Content')),
+//     generateContentComponent(text('middle secondary', 'Middle Secondary', 'Middle Content')),
+//     generateContentComponent(text('middle tertiary', 'Middle Tertiary', 'Middle Content'))
+//   ],
+//   align: select('middle align', OptionsHelper.alignFull, OptionsHelper.alignFull[0], 'Middle Content')
+// };
+
+// const footerProps = {
+//   children: [
+//     generateContentComponent(text('footer primary', 'Footer Primary', 'Footer Content')),
+//     generateContentComponent(text('footer secondary', 'Footer Secondary', 'Footer Content'))
+//   ],
+//   align: select('footer align', OptionsHelper.alignFull, OptionsHelper.alignFull[0], 'Footer Content')
+// };
+
 storiesOf('Card', module)
   .add('default', () => {
+    // const { border, cardSize, size } = cardProps();
     const {
       cardSize,
       border,
@@ -55,35 +91,44 @@ storiesOf('Card', module)
       middleTertiary,
       middleAlign,
       footerPrimary,
+      footerSecondary,
       footerAlign,
       cardWidth
     } = getKnobs();
 
+
     const headerProps = {
-      primary: generateContentComponent(headerPrimary),
-      secondary: generateContentComponent(headerSecondary),
+      children: [
+        generateContentComponent(headerPrimary),
+        generateContentComponent(headerSecondary)
+      ],
       align: headerAlign
     };
 
     const middleProps = {
-      primary: generateContentComponent(middlePrimary),
-      secondary: generateContentComponent(middleSecondary),
-      tertiary: generateContentComponent(middleTertiary),
+      children: [
+        generateContentComponent(middlePrimary),
+        generateContentComponent(middleSecondary),
+        generateContentComponent(middleTertiary)
+      ],
       align: middleAlign
     };
 
     const footerProps = {
-      primary: generateContentComponent(footerPrimary),
+      children: [
+        generateContentComponent(footerPrimary),
+        generateContentComponent(footerSecondary)
+      ],
       align: footerAlign
     };
 
     return (
       <Card
-        size={ cardSize }
-        border={ border }
         headerProps={ headerProps }
         middleProps={ middleProps }
         footerProps={ footerProps }
+        size={ cardSize }
+        border={ border }
         cardWidth={ cardWidth }
       />
     );
