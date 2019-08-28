@@ -88,6 +88,8 @@ export function getColorsForInitials(theme, darkBackground) {
 
 
 export const StyledPortraitInitials = styled.div`
+  display: inline-block;
+  vertical-align: middle;
   box-sizing: border-box;
   ${stylingForSize}
   ${stylingForShape}
