@@ -597,7 +597,7 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
         };
     }
   }
-  
+
   /**
    * Returns the props for the DayPicker container
    *
