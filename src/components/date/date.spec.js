@@ -423,12 +423,31 @@ describe('Date', () => {
       expect(style.top).toEqual(10);
     });
 
-    describe('showPickerOnTop is true', () => {
-      it('positions the date picker above the input', () => {
+    describe('check positionDatePicker', () => {
+      it('positions the date picker top-left', () => {
         wrapper = mount(
           <Date
             name='date' label='Date'
-            showPickerOnTop
+            positionDatePicker='top-left'
+          />
+        );
+        wrapper.instance().getInputBoundingRect = jest.fn(() => ({ right: 5, top: 10 }));
+
+        wrapper.setState({ open: true });
+        wrapper.update();
+        portalContent = wrapper.find(Date);
+        instance = wrapper.instance();
+
+        const { style } = portalContent.find('.DayPicker').props();
+        expect(style.right).toEqual(-5);
+        expect(style.bottom).toEqual(-8);
+      });
+
+      it('positions the date picker top-right', () => {
+        wrapper = mount(
+          <Date
+            name='date' label='Date'
+            positionDatePicker='top-right'
           />
         );
         wrapper.instance().getInputBoundingRect = jest.fn(() => ({ left: 5, top: 10 }));
@@ -441,6 +460,44 @@ describe('Date', () => {
         const { style } = portalContent.find('.DayPicker').props();
         expect(style.left).toEqual(5);
         expect(style.bottom).toEqual(-8);
+      });
+
+      it('positions the date picker bottom-left', () => {
+        wrapper = mount(
+          <Date
+            name='date' label='Date'
+            positionDatePicker='bottom-left'
+          />
+        );
+        wrapper.instance().getInputBoundingRect = jest.fn(() => ({ right: 5, bottom: 10 }));
+
+        wrapper.setState({ open: true });
+        wrapper.update();
+        portalContent = wrapper.find(Date);
+        instance = wrapper.instance();
+
+        const { style } = portalContent.find('.DayPicker').props();
+        expect(style.right).toEqual(-5);
+        expect(style.top).toEqual(10);
+      });
+
+      it('positions the date picker bottom-right', () => {
+        wrapper = mount(
+          <Date
+            name='date' label='Date'
+            positionDatePicker='bottom-right'
+          />
+        );
+        wrapper.instance().getInputBoundingRect = jest.fn(() => ({ left: 5, bottom: 10 }));
+
+        wrapper.setState({ open: true });
+        wrapper.update();
+        portalContent = wrapper.find(Date);
+        instance = wrapper.instance();
+
+        const { style } = portalContent.find('.DayPicker').props();
+        expect(style.left).toEqual(5);
+        expect(style.top).toEqual(10);
       });
     });
   });

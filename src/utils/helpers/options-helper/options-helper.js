@@ -334,6 +334,13 @@ const OptionsHelper = {
   formButtonOptions: [
     'save',
     'cancel'
+  ],
+
+  positionDatePicker: [
+    'top-left',
+    'top-right',
+    'bottom-left',
+    'bottom-right'
   ]
 };
 
