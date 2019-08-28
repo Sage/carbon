@@ -13,6 +13,7 @@ const StyledPage = styled.article`
 
     ${({ theme }) => !isClassic(theme) && css`
       height: 25px;
+      margin-top: -12px !important;
     `}
 
     &:hover {
@@ -28,6 +29,11 @@ const StyledPage = styled.article`
       &:hover {
         color: #335B6D;
       }
+
+      ${({ theme }) => !isClassic(theme) && css`
+        margin-top: 0px;
+        top: 5px;
+      `}
     }
   }
 `;
