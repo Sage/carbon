@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../icon/icon';
+import Icon from '../icon';
 import Button from '../button';
 import StyledSplitButton from './split-button.style';
 import StyledSplitButtonToggle from './split-button-toggle.style';
@@ -88,6 +88,7 @@ class SplitButton extends Component {
     props.onMouseEnter = this.hideButtons;
     props.onFocus = this.hideButtons;
     props.onTouchStart = this.hideButtons;
+    props.iconPosition = this.props.iconPosition;
 
     return props;
   }
@@ -124,6 +125,20 @@ class SplitButton extends Component {
     this.additionalButtons[index] = ref;
   }
 
+  getIconColor(buttonType) {
+    switch (buttonType) {
+      case 'primary':
+        return 'on-dark-background';
+      case 'secondary':
+        return 'business-color';
+      default:
+        return null;
+    }
+  }
+
+  /**
+   * Returns the HTML for the main button.
+   */
   get renderMainButton() {
     return [
       <Button
@@ -142,7 +157,12 @@ class SplitButton extends Component {
         key='toggle-button'
         { ...this.toggleButtonProps }
       >
-        <Icon type='dropdown' />
+        <Icon
+          type='dropdown'
+          bgTheme='none'
+          iconColor={ this.getIconColor(this.toggleButtonProps.buttonType) }
+          disabled={ this.toggleButtonProps.disabled }
+        />
       </StyledSplitButtonToggle>
     ];
   }

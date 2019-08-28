@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyledButton from './button.style';
 import StyledNavbar from './navbar.style';
-import Icon from '../../icon/icon';
+import Icon from '../../icon';
 
 const Navbar = ({
   onPreviousClick,

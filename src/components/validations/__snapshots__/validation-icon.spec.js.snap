@@ -1,46 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ValidationIcon renders with an icon for the given type 1`] = `
-.c0 {
-  color: #C7384F;
-  cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding-left: 5px;
-}
-
-<div
-  className="c0"
-  type="error"
->
-  <Icon
-    bgSize="small"
-    isThemeModern={true}
-    key="error-icon"
-    tooltipAlign="center"
-    tooltipPosition="right"
-    tooltipType="error"
-    type="error"
-  >
-    <span
-      className="carbon-icon icon-error"
-      data-component="icon"
-      data-element="error"
-      key="icon"
-    />
-  </Icon>
-</div>
-`;
-
 exports[`ValidationIcon renders with an icon with classic styling 1`] = `
 .c0 {
-  color: #C7384F;
   cursor: pointer;
   display: -webkit-box;
   display: -webkit-flex;
@@ -55,7 +16,11 @@ exports[`ValidationIcon renders with an icon with classic styling 1`] = `
   margin-top: -1px;
 }
 
-.c0 .carbon-icon:before {
+.c0 .c1:before {
+  color: #C7384F;
+}
+
+.c0 .c1:before {
   font-size: 20px;
 }
 

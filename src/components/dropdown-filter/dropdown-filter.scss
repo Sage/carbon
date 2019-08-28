@@ -6,7 +6,7 @@
 }
 
 .carbon-dropdown-filter--writeable {
-  .carbon-icon.icon-error {
+  [data-component='icon'] {
     right: 6px;
   }
 }

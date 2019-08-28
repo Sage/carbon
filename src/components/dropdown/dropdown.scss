@@ -53,7 +53,7 @@ $dropdown-input-icon-width: 20px !default;
     right: 26px;
   }
 
-  .icon-dropdown {
+  [data-element='dropdown'] {
     line-height: 15px;
     width: $dropdown-input-icon-width;
   }
