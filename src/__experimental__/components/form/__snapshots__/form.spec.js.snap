@@ -52,9 +52,18 @@ exports[`Form When child is an html element it renders the child 1`] = `
   color: #FFFFFF;
 }
 
-.c6 .carbon-icon {
+.c6:hover .c21 {
+  color: #FFFFFF;
+}
+
+.c6 .c21 {
   margin-left: 0px;
   margin-right: 8px;
+  height: 16px;
+}
+
+.c6 .c21 svg {
+  margin-top: 0;
 }
 
 .c9 {
@@ -106,9 +115,14 @@ exports[`Form When child is an html element it renders the child 1`] = `
   background: #006300;
 }
 
-.c9 .carbon-icon {
+.c9 .c21 {
   margin-left: 0px;
   margin-right: 8px;
+  height: 16px;
+}
+
+.c9 .c21 svg {
+  margin-top: 0;
 }
 
 .c10 + .c5 {
@@ -187,7 +201,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
   margin-left: 16px;
 }
 
-.c4 .c21:first-of-type {
+.c4 .c22:first-of-type {
   margin-left: 0;
 }
 
@@ -244,6 +258,10 @@ exports[`Form When child is an html element it renders the child 1`] = `
 
 .c0.c0 .c20 {
   margin-bottom: 32px;
+}
+
+.c0 [data-component='icon'].common-input__icon {
+  height: 19px;
 }
 
 .c18 .c5 {

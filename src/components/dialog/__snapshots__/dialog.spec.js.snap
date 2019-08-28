@@ -25,7 +25,7 @@ exports[`Dialog when fixedBottom and stickyFormFooter are passed to the DialogSt
   outline: none;
 }
 
-.c0 .carbon-form__footer-wrapper {
+.c0 .c1 {
   box-sizing: border-box;
   -webkit-animation: form-buttons-animate-in 0.25s ease-out;
   animation: form-buttons-animate-in 0.25s ease-out;
@@ -35,7 +35,6 @@ exports[`Dialog when fixedBottom and stickyFormFooter are passed to the DialogSt
   margin-left: -35px;
   box-shadow: 0 -4px 12px 0 rgba(0,0,0,0.05);
   padding-bottom: 13px;
-  padding-top: 15px;
   padding-left: 35px;
   padding-right: 35px;
   position: fixed;
@@ -53,10 +52,6 @@ exports[`Dialog when fixedBottom and stickyFormFooter are passed to the DialogSt
 
 .c0 .carbon-dialog__close:hover {
   color: #255BC7;
-}
-
-.c0 .carbon-dialog__close.carbon-icon {
-  position: absolute;
 }
 
 <div

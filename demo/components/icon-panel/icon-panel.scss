@@ -4,6 +4,7 @@
 .demo-icon-panel {
   border-radius: 8px;
   box-sizing: border-box;
+  margin: 0 auto;
   color: $grey-dark-blue;
   display: flex;
   flex-direction: column;
@@ -26,9 +27,12 @@
 // NB, below this line are hacks
 // to cover Icon being both font and SVG currently
 .demo-icon-panel {
-  .carbon-icon {
+  [data-component='icon'] {
     min-height: 32px;
-    &__svg {
+    height: 100%;
+    width: 100%;
+    
+    svg {
       height: 32px;
       width: 32px;
     }

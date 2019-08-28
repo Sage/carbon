@@ -103,7 +103,14 @@ describe('SplitButton', () => {
     it('renders dropdown icon', () => {
       expect(
         toggle.contains(
-          <Icon type='dropdown' />
+          <Icon
+            type='dropdown'
+            bgTheme='none'
+            iconColor='business-color'
+            disabled={ false }
+            bgSize='small'
+            fontSize='small'
+          />
         )
       ).toBeTruthy();
     });
