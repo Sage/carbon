@@ -14,21 +14,25 @@ let definition = new Definition('date-input', DateInput, {
  `,
   type: 'form',
   propTypes: {
+    allowEmptyValue: "Boolean",
     autoFocus: "Boolean",
     disabled: "Boolean",
     minDate: "String",
     maxDate: "String",
     onBlur: "Function",
     readOnly: "Boolean",
+    showPickerOnTop: "Boolean",
     value: "String"
   },
   propDescriptions: {
+    allowEmptyValue: "Display an empty input if the value is empty.",
     autoFocus: "Automatically focus on component mount.",
     disabled: "Disable all user interaction.",
     minDate: "Set a minimum value for date.",
     maxDate: "Set a maximum value for date.",
     onBlur: "Specify a callback triggered on blur.",
     readOnly: "Display the currently selected value without displaying the input.",
+    showPickerOnTop: "Display the date picker component on top of the input",
     value: "The selected date."
   }
 });
