@@ -59,8 +59,10 @@ const handleChange = (data) => {
 storiesOf('Table Ajax', module)
   .addParameters({
     info: {
+      text: info,
       propTablesExclude: [State]
-    }
+    },
+    notes: { markdown: notes }
   })
   .add(
     'default',
@@ -101,9 +103,5 @@ storiesOf('Table Ajax', module)
           />
         </State>
       );
-    },
-    {
-      info: { text: info },
-      notes: { markdown: notes }
-    },
+    }
   );
