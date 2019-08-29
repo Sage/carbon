@@ -119,7 +119,8 @@ StyledPortraitInitialsImg.propTypes = {
 
 
 export const StyledPortraitGravatar = styled.img`
-  display: block;
+  display: inline-block;
+  vertical-align: middle;
   ${stylingForSize}
   ${stylingForShape}
 `;
