@@ -50,10 +50,10 @@ const getKnobs = (isClassic) => {
   };
 };
 
-storiesOf('Button', module)
-  .add('default', () => {
-    const props = getKnobs();
-    const { children } = props;
+function makeStandardStory(name, themeSelector, isClassic, infotext) {
+  const component = () => {
+    const props = getKnobs(isClassic);
+    const { children } = props; // eslint-disable-line react/prop-types
     return (
       <OriginalButton
         { ...props }
@@ -61,35 +61,24 @@ storiesOf('Button', module)
         { children }
       </OriginalButton>
     );
-  }, {
-    info: { text: Info },
+  };
+
+  const metadata = {
+    info: { text: infotext },
     notes: { markdown: notes },
-    themeSelector: dlsThemeSelector,
+    themeSelector,
     knobs: {
       escapeHTML: false
     }
-  })
-  .add('classic', () => {
-    const props = getKnobs(true);
-    const { children } = props;
-    return (
-      <OriginalButton
-        { ...props }
-      >
-        { children }
-      </OriginalButton>
-    );
-  }, {
-    info: { text: InfoClassic },
-    notes: { markdown: notes },
-    themeSelector: classicThemeSelector,
-    knobs: {
-      escapeHTML: false
-    }
-  })
-  .add('as a sibling', () => {
-    const props = getKnobs();
-    const { children } = props;
+  };
+
+  return [name, component, metadata];
+}
+
+function makeSiblingStory(name, themeSelector, isClassic) {
+  const component = () => {
+    const props = getKnobs(isClassic);
+    const { children } = props; // eslint-disable-line react/prop-types
     return (
       <div>
         <OriginalButton
@@ -105,6 +94,17 @@ storiesOf('Button', module)
         </OriginalButton>
       </div>
     );
-  }, {
-    themeSelector: dlsThemeSelector
-  });
+  };
+
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Button', module)
+  .add(...makeStandardStory('default', dlsThemeSelector, false, Info))
+  .add(...makeStandardStory('classic', classicThemeSelector, true, InfoClassic))
+  .add(...makeSiblingStory('as a sibling', dlsThemeSelector, false))
+  .add(...makeSiblingStory('as a sibling classic', classicThemeSelector, true));

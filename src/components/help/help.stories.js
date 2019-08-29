@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, select } from '@storybook/addon-knobs';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation';
 import Help from './help.component';
@@ -11,8 +12,8 @@ Help.__docgenInfo = getDocGenInfo(
   /help\.component(?!spec)/
 );
 
-storiesOf('Help', module)
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const children = text('children', 'This is help text');
     const tooltipPosition = children ? select(
       'tooltipPosition',
@@ -35,7 +36,18 @@ storiesOf('Help', module)
         {children}
       </Help>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+
+storiesOf('Help', module)
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));
