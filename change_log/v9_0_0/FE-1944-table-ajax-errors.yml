@@ -1,0 +1,2 @@
+Storybook Update: Fixed documentation 'info' and 'note' implementation to avoid duplication that was triggering not unique key console warning.
+Component Update: Fixed, totalRecords prop will now be accepted and passed as a Number not as a String.
