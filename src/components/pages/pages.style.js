@@ -9,6 +9,11 @@ const PagesContent = styled.div`
   ${StyledHeadingIcon} {
     margin-top: -9px;
   }
+
+  .carbon-app-wrapper {
+    min-width: auto;
+    max-width: 100%;
+  }
 `;
 
 const PagesWrapperStyle = styled.div`
