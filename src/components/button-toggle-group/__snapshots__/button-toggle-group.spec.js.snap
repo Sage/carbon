@@ -31,6 +31,7 @@ exports[`ButtonToggleGroup Classic theme renders correctly with default settings
   height: 38px;
   padding: 0 24px;
   font-weight: 600;
+  cursor: pointer;
   border: 1px solid #668491;
   font-size: 14px;
   background-color: #FFFFFF;
@@ -44,6 +45,10 @@ exports[`ButtonToggleGroup Classic theme renders correctly with default settings
 input:checked ~ .c5 {
   color: #FFFFFF;
   background-color: #003F2E;
+}
+
+input:checked ~ .c5 .c7 {
+  color: #FFFFFF;
 }
 
 input:focus ~ .c5 {
@@ -60,6 +65,10 @@ input:checked ~ .c5 {
   background-color: #1573e6;
 }
 
+input:checked ~ .c5 .c7 {
+  color: #FFFFFF;
+}
+
 input:focus ~ .c5 {
   outline: 0;
 }
@@ -68,6 +77,10 @@ input:focus ~ .c5 {
   border-color: #1e499f;
   color: #FFFFFF;
   background-color: #1e499f;
+}
+
+.c5:hover .c7 {
+  color: #FFFFFF;
 }
 
 .c3 {
@@ -86,7 +99,7 @@ input:focus ~ .c5 {
   opacity: 0;
 }
 
-.c2 .c7 {
+.c2 .c8 {
   display: inline-block;
   margin-left: 10px;
   margin-top: -4px;
@@ -187,6 +200,7 @@ exports[`ButtonToggleGroup Modern theme renders correctly with default settings 
   height: 38px;
   padding: 0 24px;
   font-weight: 600;
+  cursor: pointer;
   border: 1px solid #668491;
   font-size: 14px;
   background-color: #FFFFFF;
@@ -195,6 +209,10 @@ exports[`ButtonToggleGroup Modern theme renders correctly with default settings 
 input:checked ~ .c5 {
   color: #FFFFFF;
   background-color: #003F2E;
+}
+
+input:checked ~ .c5 .c8 {
+  color: #FFFFFF;
 }
 
 input:focus ~ .c5 {
@@ -222,7 +240,7 @@ input:focus ~ .c5 {
   opacity: 0;
 }
 
-.c2 .c8 {
+.c2 .c9 {
   display: inline-block;
   margin-left: 10px;
   margin-top: -4px;
@@ -327,6 +345,7 @@ exports[`ButtonToggleGroup When validating renders ButtonToggle errors correctly
   height: 38px;
   padding: 0 24px;
   font-weight: 600;
+  cursor: pointer;
   border: 1px solid #668491;
   font-size: 14px;
   background-color: #FFFFFF;
@@ -335,6 +354,10 @@ exports[`ButtonToggleGroup When validating renders ButtonToggle errors correctly
 input:checked ~ .c6 {
   color: #FFFFFF;
   background-color: #003F2E;
+}
+
+input:checked ~ .c6 .c10 {
+  color: #FFFFFF;
 }
 
 input:focus ~ .c6 {
@@ -366,7 +389,7 @@ input:focus ~ .c6 {
   border-color: #C7384F;
 }
 
-.c2 .c10 {
+.c2 .c11 {
   display: inline-block;
   margin-left: 10px;
   margin-top: -4px;

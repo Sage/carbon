@@ -130,6 +130,10 @@ const StyledForm = styled.form`
       }
     }
   `}
+
+  [data-component='icon'].common-input__icon {
+    height: 19px;
+  }
 `;
 
 StyledForm.defaultProps = {

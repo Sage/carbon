@@ -165,7 +165,46 @@ Object {
   box-shadow: none;
 }
 
-.c4 .c1 {
+.c4 {
+  display: inline-block;
+  position: relative;
+  color: rgba(0,0,0,0.65);
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c4:hover {
+  color: rgba(0,0,0,0.90);
+  background-color: transparent;
+}
+
+.c4::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e910";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c5 .c1 {
   height: calc(40px - 4px);
 }
 
@@ -203,7 +242,7 @@ Object {
   z-index: 2;
 }
 
-.c5 .c0.c0 {
+.c6 .c0.c0 {
   position: relative;
 }
 
@@ -238,9 +277,11 @@ Object {
       type="dropdown"
     >
       <span
-        class="carbon-icon icon-dropdown"
+        class="c4"
         data-component="icon"
         data-element="dropdown"
+        font-size="small"
+        type="dropdown"
       />
     </span>
   </div>,
