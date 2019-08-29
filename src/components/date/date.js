@@ -5,6 +5,7 @@ import DayPicker from 'react-day-picker';
 import LocaleUtils from 'react-day-picker/moment';
 import 'react-day-picker/lib/style.css';
 import './date.scss';
+import OptionsHelper from 'utils/helpers/options-helper';
 import Navbar from './navbar';
 import Portal from '../portal';
 import Browser from '../../utils/helpers/browser';
@@ -125,7 +126,7 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
      * @property positionDatePicker
      * @type {Boolean}
      */
-    positionDatePicker: PropTypes.string
+    positionDatePicker: PropTypes.oneOf(OptionsHelper.positionDatePicker)
   };
 
   static defaultProps = {
