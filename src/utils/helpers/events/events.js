@@ -312,8 +312,29 @@ const Events = {
   * */
   isMinusKey: (ev) => {
     return ev.which === 189;
-  }
+  },
 
+  /**
+  * Determines if the key pressed is the home key
+  *
+  * @method isHomeKey
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if home key
+  * */
+  isHomeKey: (ev) => {
+    return ev.which === 36;
+  },
+
+  /**
+  * Determines if the key pressed is the end key
+  *
+  * @method isEndKey
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if end key
+  * */
+  isEndKey: (ev) => {
+    return ev.which === 35;
+  }
 };
 
 export default Events;

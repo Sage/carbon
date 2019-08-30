@@ -336,4 +336,24 @@ describe('Events', () => {
       expect(Events.isMinusKey({ which: 189 })).toBeTruthy();
     });
   });
+
+  describe('isHomeKey', () => {
+    it('returns false when the home key is not pressed', () => {
+      expect(Events.isHomeKey({ which: 190 })).toBeFalsy();
+    });
+
+    it('returns true when the home key is pressed', () => {
+      expect(Events.isHomeKey({ which: 36 })).toBeTruthy();
+    });
+  });
+
+  describe('isEndKey', () => {
+    it('returns false when the end key is not pressed', () => {
+      expect(Events.isEndKey({ which: 190 })).toBeFalsy();
+    });
+
+    it('returns true when the end key is pressed', () => {
+      expect(Events.isEndKey({ which: 35 })).toBeTruthy();
+    });
+  });
 });
