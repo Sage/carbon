@@ -3,7 +3,7 @@ import { configure, addDecorator } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { withInfo } from '@storybook/addon-info';
 import { withA11y } from '@storybook/addon-a11y';
-import { withThemesProvider } from 'storybook-addon-styled-component-theme';
+import getThemeDecorator from './theme-decorators';
 import setupI18n from '../demo/i18n/config';
 import '../demo/i18n/en';
 import './style/story-root.scss';
@@ -38,6 +38,6 @@ function loadStories() {
 addDecorator(withKnobs);
 addDecorator(withInfo(infoOptions));
 addDecorator(withA11y);
-addDecorator(withThemesProvider());
+addDecorator(getThemeDecorator());
 
 configure(loadStories, module);
