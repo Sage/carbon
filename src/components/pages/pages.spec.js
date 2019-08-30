@@ -31,50 +31,6 @@ describe('BasePages', () => {
     page = wrapper.instance().visiblePage();
   });
 
-  describe('componentWillMount', () => {
-    describe('when pageIndex is passed', () => {
-      it('sets the intial page to the prop', () => {
-        wrapper = shallow(
-          <BasePages pageIndex={ 1 }>
-            <Page />
-            <Page />
-          </BasePages>
-        );
-
-        expect(wrapper.state('pageIndex')).toEqual(1);
-      });
-    });
-
-    describe('when initialPageIndex is passed', () => {
-      it('sets the intial page to the prop', () => {
-        wrapper = shallow(
-          <BasePages
-            initialPageIndex={ 2 }
-            pageIndex={ 2 }
-          >
-            <Page />
-            <Page />
-            <Page />
-          </BasePages>
-        );
-
-        expect(wrapper.state('pageIndex')).toEqual(2);
-      });
-    });
-
-    describe('when initialSelectedIndex is not passed', () => {
-      it('defaults the initial page to page 0', () => {
-        wrapper = shallow(
-          <BasePages theme={ classicTheme }>
-            <Page />
-          </BasePages>
-        );
-
-        expect(wrapper.state('pageIndex')).toEqual(0);
-      });
-    });
-  });
-
   describe('componentDidUpdate', () => {
     it('navigates between slides correctly when the pageIndex prop changes', () => {
       // Initial state
