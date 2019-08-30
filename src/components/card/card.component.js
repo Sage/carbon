@@ -5,29 +5,32 @@ import StyledCard from './card.style';
 import CardRow from './card-row';
 import BaseTheme from '../../style/themes/base';
 
-const { cardSection } = OptionsHelper;
+const { cardSection, sizesRestricted } = OptionsHelper;
 
 const Card = ({
   border,
   cardRows,
   cardWidth,
+  footerFilled,
   padding,
   ...props
 }) => {
   const renderCardRows = () => {
     return cardRows.map((row, index) => {
-      const { positionType, content } = row;
+      const {
+        positionType, content, inline, ...rowProps
+      } = row;
 
       if (!positionType || !content || !content.length) return null;
 
-      // if ()
-
       return positionType === cardSection[index] && (
         <CardRow
-          key={ `card-row-${index + 1}` }
+          key={ `card-row-${String(index)}` }
+          footerFilled={ footerFilled }
+          inlineRow={ inline }
           positionType={ positionType }
           size={ padding }
-          { ...props }
+          { ...rowProps }
         >
           { content }
         </CardRow>
@@ -50,17 +53,22 @@ const Card = ({
 
 Card.propTypes = {
   /** size of card for applying padding (small | medium | large) */
-  padding: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  padding: PropTypes.oneOf(sizesRestricted),
   /** flag to indicate if a border is required */
   border: PropTypes.bool,
+  /** flag to indicate if card is draggable */
   draggable: PropTypes.bool,
+  /** flag to indicate if card is interactive */
   clickable: PropTypes.bool,
+  /** card rows with content */
   cardRows: PropTypes.arrayOf(
     PropTypes.shape({
-      positionType: PropTypes.oneOf(OptionsHelper.cardSection),
-      content: PropTypes.arrayOf(PropTypes.node)
+      positionType: PropTypes.oneOf(cardSection).isRequired,
+      content: PropTypes.arrayOf(PropTypes.node).isRequired,
+      inline: PropTypes.bool
     })
   ),
+  footerFilled: PropTypes.bool,
   theme: PropTypes.object,
   /** style value for width of card */
   cardWidth: PropTypes.string

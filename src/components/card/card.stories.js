@@ -84,6 +84,7 @@ const getKnobs = () => {
         align: select('footer secondary align', OptionsHelper.alignFull, 'center')
       }
     },
+    footerFilled: boolean('footer background fill', false),
     border: boolean('border', false),
     cardWidth: text('width', '500px')
   };
@@ -116,8 +117,8 @@ const getKnobs = () => {
 // };
 
 const buildContnent = (config, props) => {
-  return Object.values(config).map(({ type, contentText }) => {
-    return generateContentComponent(type, contentText, { ...props });
+  return Object.values(config).map(({ type, contentText, align }) => {
+    return generateContentComponent(type, contentText, { align, ...props });
   });
 };
 
@@ -127,31 +128,27 @@ storiesOf('Card', module)
       cardSize,
       border,
       headerKnobs,
-      headerAlign,
       headerInline,
       middleKnobs,
-      middleAlign,
       middleInline,
       footerKnobs,
-      footerAlign,
+      footerFilled,
       cardWidth
     } = getKnobs();
 
     const headerProps = {
-      positionType: 'header',
-      align: headerAlign,
-      inline: headerInline
+      positionType: 'header'
+      // align: headerAlign
+      // add inline stuff for content as well as row?
     };
-
     const middleProps = {
-      positionType: 'middle',
-      align: middleAlign,
-      inline: middleInline
+      positionType: 'middle'
+      // align: middleAlign
     };
 
     const footerProps = {
-      positionType: 'footer',
-      align: footerAlign
+      positionType: 'footer'
+      // align: footerAlign
     };
 
     const header = buildContnent(headerKnobs, headerProps);
@@ -161,17 +158,18 @@ storiesOf('Card', module)
     const footer = buildContnent(footerKnobs, footerProps);
 
     const cardRows = [
-      { positionType: 'header', content: header },
-      { positionType: 'middle', content: middle },
+      { positionType: 'header', content: header, inline: headerInline },
+      { positionType: 'middle', content: middle, inline: middleInline },
       { positionType: 'footer', content: footer }
     ];
 
     return (
       <Card
-        size={ cardSize }
+        padding={ cardSize }
         border={ border }
         cardWidth={ cardWidth }
         cardRows={ cardRows }
+        footerFilled={ footerFilled }
       />
     );
   }, {
