@@ -7,6 +7,8 @@ import { notes, Info } from './documentation';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 import Icon from '../icon';
 import Link from '../link';
+import Heading from '../heading';
+import CardContent from './card-content';
 
 Card.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -22,34 +24,70 @@ Card.__docgenInfo = getDocGenInfo(
 //   };
 // };
 
+const generateContentComponent = (type, content, props) => {
+  switch (type.toLowerCase()) {
+    case 'link':
+      return <Link { ...props }>{ content }</Link>;
+    case 'icon':
+      return <Icon type='add' { ...props } />;
+    case 'heading':
+      return (
+        <Heading
+          title={ content }
+          divider={ false }
+          { ...props }
+        />
+      );
+    default:
+      return <CardContent { ...props }>{ content }</CardContent>;
+  }
+};
+
 const getKnobs = () => {
   const knobs = {
-    cardSize: select('card size', OptionsHelper.sizesRestricted, Card.defaultProps.size),
-    headerPrimary: text('header primary', 'Header Primary'),
-    headerSecondary: text('header secondary', 'Header Secondary'),
-    headerAlign: select('header align', OptionsHelper.alignFull),
-    middlePrimary: text('middle primary', 'Middle Primary'),
-    middleSecondary: text('middle secondary', 'Middle Secondary'),
-    middleTertiary: text('middle tertiary', 'Middle Tertiary'),
-    middleAlign: select('middle align', OptionsHelper.alignFull),
-    footerPrimary: text('footer primary', 'Footer Primary'),
-    footerSecondary: text('footer primary', 'Footer Secondary'),
-    footerAlign: select('footer align', OptionsHelper.alignFull),
+    cardSize: select('card size', OptionsHelper.sizesRestricted, Card.defaultProps.padding),
+    headerKnobs: {
+      headerPrimary: {
+        type: select('header primary type', ['link', 'heading', 'icon', 'content'], 'content'),
+        contentText: text('header primary text', 'Primary'),
+        align: select('header primary align', OptionsHelper.alignFull, 'center')
+      },
+      headerSecondary: {
+        type: select('header secondary type', ['link', 'heading', 'icon', 'content'], 'content'),
+        contentText: text('header secondary', 'Secondary'),
+        align: select('header secondary align', OptionsHelper.alignFull, 'center')
+      }
+    },
+    headerInline: boolean('header inline', false),
+    middleKnobs: {
+      middlePrimary: {
+        type: select('middle primary type', ['link', 'heading', 'icon', 'content'], 'content'),
+        contentText: text('middle primary text', 'Primary'),
+        align: select('middle primary align', OptionsHelper.alignFull, 'center')
+      },
+      middleSecondary: {
+        type: select('middle secondary type', ['link', 'heading', 'icon', 'content'], 'content'),
+        contentText: text('middle secondary', 'Secondary'),
+        align: select('middle secondary align', OptionsHelper.alignFull, 'center')
+      }
+    },
+    middleInline: boolean('middle inline', false),
+    footerKnobs: {
+      footerPrimary: {
+        type: select('footer primary type', ['link', 'heading', 'icon', 'content'], 'content'),
+        contentText: text('footer primary text', 'Primary'),
+        align: select('footer primary align', OptionsHelper.alignFull, 'center')
+      },
+      footerSecondary: {
+        type: select('footer secondary type', ['link', 'heading', 'icon', 'content'], 'content'),
+        contentText: text('footer secondary', 'Secondary'),
+        align: select('footer secondary align', OptionsHelper.alignFull, 'center')
+      }
+    },
     border: boolean('border', false),
     cardWidth: text('width', '500px')
   };
   return knobs;
-};
-
-const generateContentComponent = (content) => {
-  switch (content) {
-    case 'link':
-      return <Link href='nufc.com'>This is a link</Link>;
-    case 'icon':
-      return <Icon type='add' />;
-    default:
-      return content;
-  }
 };
 
 // const headerProps = {
@@ -77,59 +115,63 @@ const generateContentComponent = (content) => {
 //   align: select('footer align', OptionsHelper.alignFull, OptionsHelper.alignFull[0], 'Footer Content')
 // };
 
+const buildContnent = (config, props) => {
+  return Object.values(config).map(({ type, contentText }) => {
+    return generateContentComponent(type, contentText, { ...props });
+  });
+};
+
 storiesOf('Card', module)
   .add('default', () => {
-    // const { border, cardSize, size } = cardProps();
     const {
       cardSize,
       border,
-      headerPrimary,
-      headerSecondary,
+      headerKnobs,
       headerAlign,
-      middlePrimary,
-      middleSecondary,
-      middleTertiary,
+      headerInline,
+      middleKnobs,
       middleAlign,
-      footerPrimary,
-      footerSecondary,
+      middleInline,
+      footerKnobs,
       footerAlign,
       cardWidth
     } = getKnobs();
 
-
     const headerProps = {
-      children: [
-        generateContentComponent(headerPrimary),
-        generateContentComponent(headerSecondary)
-      ],
-      align: headerAlign
+      positionType: 'header',
+      align: headerAlign,
+      inline: headerInline
     };
 
     const middleProps = {
-      children: [
-        generateContentComponent(middlePrimary),
-        generateContentComponent(middleSecondary),
-        generateContentComponent(middleTertiary)
-      ],
-      align: middleAlign
+      positionType: 'middle',
+      align: middleAlign,
+      inline: middleInline
     };
 
     const footerProps = {
-      children: [
-        generateContentComponent(footerPrimary),
-        generateContentComponent(footerSecondary)
-      ],
+      positionType: 'footer',
       align: footerAlign
     };
 
+    const header = buildContnent(headerKnobs, headerProps);
+
+    const middle = buildContnent(middleKnobs, middleProps);
+
+    const footer = buildContnent(footerKnobs, footerProps);
+
+    const cardRows = [
+      { positionType: 'header', content: header },
+      { positionType: 'middle', content: middle },
+      { positionType: 'footer', content: footer }
+    ];
+
     return (
       <Card
-        headerProps={ headerProps }
-        middleProps={ middleProps }
-        footerProps={ footerProps }
         size={ cardSize }
         border={ border }
         cardWidth={ cardWidth }
+        cardRows={ cardRows }
       />
     );
   }, {
