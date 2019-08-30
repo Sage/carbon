@@ -30,19 +30,19 @@ describe('OptionsHelper', () => {
       'after'
     ]);
   });
-  it('cardSectionPositions', () => {
-    expect(OptionsHelper.cardSectionPositions).toEqual({
-      footer: 'footer',
-      header: 'header',
-      middle: 'middle'
-    });
+  it('cardSection', () => {
+    expect(OptionsHelper.cardSectionPositions).toEqual([
+      'header',
+      'middle',
+      'footer'
+    ]);
   });
   it('cardTextTypes', () => {
-    expect(OptionsHelper.cardTextTypes).toEqual({
-      primary: 'primary',
-      secondary: 'secondary',
-      tertiary: 'tertiary'
-    });
+    expect(OptionsHelper.cardTextTypes).toEqual([
+      'primary',
+      'secondary',
+      'tertiary'
+    ]);
   });
   it('colors', () => {
     expect(OptionsHelper.colors).toEqual([
