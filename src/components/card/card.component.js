@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import StyledCard from './card.style';
+import Icon from '../icon';
 import CardRow from './card-row';
 import BaseTheme from '../../style/themes/base';
 
@@ -11,6 +12,8 @@ const Card = ({
   border,
   cardRows,
   cardWidth,
+  clickable,
+  draggable,
   footerFilled,
   padding,
   ...props
@@ -43,23 +46,24 @@ const Card = ({
       data-element='card'
       border={ border }
       cardWidth={ cardWidth }
+      clickable={ clickable }
+      draggable={ draggable }
       size={ padding }
       { ...props }
     >
+      { draggable && <Icon type='drag' />}
       { cardRows && renderCardRows() }
     </StyledCard>
   );
 };
 
 Card.propTypes = {
-  /** size of card for applying padding (small | medium | large) */
-  padding: PropTypes.oneOf(sizesRestricted),
+  /** action to be executed when card is clicked or enter pressed */
+  action: PropTypes.func,
   /** flag to indicate if a border is required */
   border: PropTypes.bool,
-  /** flag to indicate if card is draggable */
-  draggable: PropTypes.bool,
-  /** flag to indicate if card is interactive */
-  clickable: PropTypes.bool,
+  /** style value for width of card */
+  cardWidth: PropTypes.string,
   /** card rows with content */
   cardRows: PropTypes.arrayOf(
     PropTypes.shape({
@@ -68,15 +72,19 @@ Card.propTypes = {
       inline: PropTypes.bool
     })
   ),
+  /** flag to indicate if card is interactive */
+  clickable: PropTypes.bool,
+  /** flag to indicate if card is draggable */
+  draggable: PropTypes.bool,
   footerFilled: PropTypes.bool,
-  theme: PropTypes.object,
-  /** style value for width of card */
-  cardWidth: PropTypes.string
+  /** size of card for applying padding (small | medium | large) */
+  padding: PropTypes.oneOf(sizesRestricted),
+  theme: PropTypes.object
 };
 
 Card.defaultProps = {
-  padding: OptionsHelper.sizesRestricted[1],
   border: false,
+  padding: OptionsHelper.sizesRestricted[1],
   theme: BaseTheme
 };
 export default Card;
