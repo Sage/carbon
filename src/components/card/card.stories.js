@@ -15,15 +15,6 @@ Card.__docgenInfo = getDocGenInfo(
   /card.component(?!spec)/
 );
 
-// const cardProps = () => {
-//   return {
-//     key: 'one',
-//     size: select('card size', OptionsHelper.sizesRestricted, Card.defaultProps.size),
-//     border: boolean('border', false),
-//     cardWidth: text('width', '500px')
-//   };
-// };
-
 const generateContentComponent = (type, content, props) => {
   switch (type.toLowerCase()) {
     case 'link':
@@ -43,81 +34,70 @@ const generateContentComponent = (type, content, props) => {
   }
 };
 
-const getKnobs = () => {
-  const knobs = {
-    cardSize: select('card size', OptionsHelper.sizesRestricted, Card.defaultProps.padding),
-    headerKnobs: {
-      headerPrimary: {
-        type: select('header primary type', ['link', 'heading', 'icon', 'content'], 'content'),
-        contentText: text('header primary text', 'Primary'),
-        align: select('header primary align', OptionsHelper.alignFull, 'center')
-      },
-      headerSecondary: {
-        type: select('header secondary type', ['link', 'heading', 'icon', 'content'], 'content'),
-        contentText: text('header secondary', 'Secondary'),
-        align: select('header secondary align', OptionsHelper.alignFull, 'center')
-      }
-    },
-    headerInline: boolean('header inline', false),
-    middleKnobs: {
-      middlePrimary: {
-        type: select('middle primary type', ['link', 'heading', 'icon', 'content'], 'content'),
-        contentText: text('middle primary text', 'Primary'),
-        align: select('middle primary align', OptionsHelper.alignFull, 'center')
-      },
-      middleSecondary: {
-        type: select('middle secondary type', ['link', 'heading', 'icon', 'content'], 'content'),
-        contentText: text('middle secondary', 'Secondary'),
-        align: select('middle secondary align', OptionsHelper.alignFull, 'center')
-      }
-    },
-    middleInline: boolean('middle inline', false),
-    footerKnobs: {
-      footerPrimary: {
-        type: select('footer primary type', ['link', 'heading', 'icon', 'content'], 'content'),
-        contentText: text('footer primary text', 'Primary'),
-        align: select('footer primary align', OptionsHelper.alignFull, 'center')
-      },
-      footerSecondary: {
-        type: select('footer secondary type', ['link', 'heading', 'icon', 'content'], 'content'),
-        contentText: text('footer secondary', 'Secondary'),
-        align: select('footer secondary align', OptionsHelper.alignFull, 'center')
-      }
-    },
-    footerFilled: boolean('footer background fill', false),
-    border: boolean('border', false),
-    cardWidth: text('width', '500px')
+const cardKnobs = () => {
+  return {
+    key: 'one',
+    cardSize: select('card size', OptionsHelper.sizesRestricted, Card.defaultProps.padding, 'Card Knobs'),
+    border: boolean('border', false, 'Card Knobs'),
+    cardWidth: text('width', '500px', 'Card Knobs'),
+    headerInline: boolean('header inline', false, 'Card Knobs'),
+    middleInline: boolean('middle inline', false, 'Card Knobs'),
+    footerFilled: boolean('footer background', false, 'Card Knobs'),
+    clickable: boolean('interactive card', false, 'Card Knobs')
   };
-  return knobs;
 };
 
-// const headerProps = {
-//   children: [
-//     generateContentComponent(text('header primary', 'Header Primary', 'Header Content')),
-//     generateContentComponent(text('header secondary', 'Header Secondary', 'Header Content'))
-//   ],
-//   align: select('header align', OptionsHelper.alignFull, OptionsHelper.alignFull[0], 'Header Content')
-// };
+const headerKnobs = () => {
+  return {
+    key: 'two',
+    headerPrimary: {
+      type: select('header primary type', ['link', 'heading', 'icon', 'content'], 'content', 'Header Knobs'),
+      contentText: text('header primary text', 'Primary', 'Header Knobs'),
+      align: select('header primary align', OptionsHelper.alignFull, 'center', 'Header Knobs')
+    },
+    headerSecondary: {
+      type: select('header secondary type', ['link', 'heading', 'icon', 'content'], 'content', 'Header Knobs'),
+      contentText: text('header secondary', 'Secondary', 'Header Knobs'),
+      align: select('header secondary align', OptionsHelper.alignFull, 'center', 'Header Knobs')
+    }
+  };
+};
 
-// const middleProps = {
-//   children: [
-//     generateContentComponent(text('middle primary', 'Middle Primary', 'Middle Content')),
-//     generateContentComponent(text('middle secondary', 'Middle Secondary', 'Middle Content')),
-//     generateContentComponent(text('middle tertiary', 'Middle Tertiary', 'Middle Content'))
-//   ],
-//   align: select('middle align', OptionsHelper.alignFull, OptionsHelper.alignFull[0], 'Middle Content')
-// };
+const middleKnobs = () => {
+  return {
+    key: 'three',
+    middlePrimary: {
+      type: select('middle primary type', ['link', 'heading', 'icon', 'content'], 'content', 'Middle Knobs'),
+      contentText: text('middle primary text', 'Primary', 'Middle Knobs'),
+      align: select('middle primary align', OptionsHelper.alignFull, 'center', 'Middle Knobs')
+    },
+    middleSecondary: {
+      type: select('middle secondary type', ['link', 'heading', 'icon', 'content'], 'content', 'Middle Knobs'),
+      contentText: text('middle secondary', 'Secondary', 'Middle Knobs'),
+      align: select('middle secondary align', OptionsHelper.alignFull, 'center', 'Middle Knobs')
+    }
+  };
+};
 
-// const footerProps = {
-//   children: [
-//     generateContentComponent(text('footer primary', 'Footer Primary', 'Footer Content')),
-//     generateContentComponent(text('footer secondary', 'Footer Secondary', 'Footer Content'))
-//   ],
-//   align: select('footer align', OptionsHelper.alignFull, OptionsHelper.alignFull[0], 'Footer Content')
-// };
+const footerKnobs = () => {
+  return {
+    key: 'four',
+    footerPrimary: {
+      type: select('footer primary type', ['link', 'heading', 'icon', 'content'], 'content', 'Footer Knobs'),
+      contentText: text('footer primary text', 'Primary', 'Footer Knobs'),
+      align: select('footer primary align', OptionsHelper.alignFull, 'center', 'Footer Knobs')
+    },
+    footerSecondary: {
+      type: select('footer secondary type', ['link', 'heading', 'icon', 'content'], 'content', 'Footer Knobs'),
+      contentText: text('footer secondary', 'Secondary', 'Footer Knobs'),
+      align: select('footer secondary align', OptionsHelper.alignFull, 'center', 'Footer Knobs')
+    }
+  };
+};
 
 const buildContnent = (config, props) => {
-  return Object.values(config).map(({ type, contentText, align }) => {
+  return Object.values(config).map((obj) => {
+    const { type, contentText, align } = obj;
     return generateContentComponent(type, contentText, { align, ...props });
   });
 };
@@ -127,35 +107,26 @@ storiesOf('Card', module)
     const {
       cardSize,
       border,
-      headerKnobs,
       headerInline,
-      middleKnobs,
       middleInline,
-      footerKnobs,
       footerFilled,
       cardWidth
-    } = getKnobs();
+    } = cardKnobs();
 
-    const headerProps = {
-      positionType: 'header'
-      // align: headerAlign
-      // add inline stuff for content as well as row?
-    };
-    const middleProps = {
-      positionType: 'middle'
-      // align: middleAlign
-    };
+    const header = buildContnent(
+      { headerPrimary: headerKnobs().headerPrimary, headerSecondary: headerKnobs().headerSecondary },
+      { positionType: 'header' }
+    );
 
-    const footerProps = {
-      positionType: 'footer'
-      // align: footerAlign
-    };
+    const middle = buildContnent(
+      { middlerimary: middleKnobs().middlePrimary, middleSecondary: middleKnobs().middleSecondary },
+      { positionType: 'middle' }
+    );
 
-    const header = buildContnent(headerKnobs, headerProps);
-
-    const middle = buildContnent(middleKnobs, middleProps);
-
-    const footer = buildContnent(footerKnobs, footerProps);
+    const footer = buildContnent(
+      { footerPrimary: footerKnobs().footerPrimary, footerSecondary: footerKnobs().footerSecondary },
+      { positionType: 'footer' }
+    );
 
     const cardRows = [
       { positionType: 'header', content: header, inline: headerInline },
