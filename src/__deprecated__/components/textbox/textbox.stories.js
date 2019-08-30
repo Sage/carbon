@@ -4,10 +4,10 @@ import { State, Store } from '@sambego/storybook-state';
 import {
   boolean, number, text, select
 } from '@storybook/addon-knobs';
-import OptionsHelper from '../../utils/helpers/options-helper';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 import Textbox from './textbox';
 import { info, notes } from './documentation';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 Textbox.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -22,7 +22,7 @@ const handleChange = ({ target: { value } }) => {
   store.set({ value });
 };
 
-storiesOf('Textbox', module)
+storiesOf('__deprecated__/Textbox', module)
   .addParameters({
     info: {
       propTablesExclude: [State]

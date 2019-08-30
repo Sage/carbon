@@ -1,11 +1,11 @@
 import React from 'react';
-import Input from '../../utils/decorators/input';
-import InputLabel from '../../utils/decorators/input-label';
-import InputValidation from '../../utils/decorators/input-validation';
-import { validProps } from '../../utils/ether';
-import tagComponent from '../../utils/helpers/tags';
+import Input from '../../../utils/decorators/input/input';
+import InputLabel from '../../../utils/decorators/input-label/input-label';
+import InputValidation from '../../../utils/decorators/input-validation/input-validation';
+import { validProps } from '../../../utils/ether/ether';
+import tagComponent from '../../../utils/helpers/tags/tags';
 import './textbox.scss';
-import warnOfDeprecation from '../../utils/helpers/warn-as-deprecated';
+import warnOfDeprecation from '../../../utils/helpers/warn-as-deprecated';
 
 const Textbox = Input(InputLabel(InputValidation(class Textbox extends React.Component {
   /**
@@ -47,7 +47,7 @@ const Textbox = Input(InputLabel(InputValidation(class Textbox extends React.Com
    * @return {Object} JSX
    */
   render() {
-    warnOfDeprecation('Textbox', '__exprimental__/components/textbox', process.env.NODE_ENV);
+    warnOfDeprecation('Textbox', '__exprimental__/components/textbox');
     return (
       <div
         className={ this.mainClasses }
