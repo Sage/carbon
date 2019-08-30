@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Icon from '../icon';
+import { StyledIcon } from '../icon/icon.style';
 import baseTheme from '../../style/themes/base';
 
 const StyledHeadingIcon = styled(Icon)`
@@ -13,13 +14,13 @@ const StyledHeadingIcon = styled(Icon)`
     margin-top: -8px;
   }
 
-  &, &.carbon-icon {
+  &, &.${StyledIcon} {
     position: absolute;
     display: block;
     color: ${({ theme }) => theme.icon};
   }
   
-  &:before, &.carbon-icon:before {
+  &:before, &${StyledIcon}:before {
     font-size: 24px;
   }
   
