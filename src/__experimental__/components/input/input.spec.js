@@ -7,7 +7,7 @@ import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 
 describe('Input', () => {
   const renderMount = (props, context) => {
-    let component = <Input onChange={ () => {} } { ...props } />;
+    let component = <Input { ...props } />;
 
     if (context) {
       component = (
@@ -51,6 +51,41 @@ describe('Input', () => {
     wrapper.find('input').simulate('blur');
     expect(onBlurProp).toHaveBeenCalled();
     expect(onBlurContext).toHaveBeenCalled();
+  });
+
+  it('triggers onChange if passed as prop', () => {
+    const onChangeProp = jest.fn();
+    const wrapper = renderMount({ onChange: onChangeProp });
+    wrapper.find('input').simulate('change');
+    expect(onChangeProp).toHaveBeenCalled();
+  });
+
+  describe('when onChangeDeferred is passed as a prop', () => {
+    describe('without deferTimeout prop', () => {
+      it('the prop is triggered after 750 ms', () => {
+        const onChangeDeferredProp = jest.fn();
+        const wrapper = renderMount({ onChangeDeferred: onChangeDeferredProp });
+        jest.useFakeTimers();
+        wrapper.find('input').simulate('change');
+        jest.runTimersToTime(500);
+        expect(onChangeDeferredProp).not.toHaveBeenCalled();
+        jest.runTimersToTime(750);
+        expect(onChangeDeferredProp).toHaveBeenCalled();
+      });
+    });
+    describe('with deferTimeout prop', () => {
+      it('the prop is triggered after specified time', () => {
+        const onChangeDeferredProp = jest.fn();
+        const deferTimeout = 100;
+        const wrapper = renderMount({ onChangeDeferred: onChangeDeferredProp, deferTimeout });
+        jest.useFakeTimers();
+        wrapper.find('input').simulate('change');
+        jest.runTimersToTime(50);
+        expect(onChangeDeferredProp).not.toHaveBeenCalled();
+        jest.runTimersToTime(100);
+        expect(onChangeDeferredProp).toHaveBeenCalled();
+      });
+    });
   });
 
   it('triggers onFocus if passed as prop or context', () => {
