@@ -8,7 +8,7 @@ import classicTheme from '../../style/themes/classic';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
-const ProfileWrapper = () => (<Profile />);
+const ProfileWrapper = props => (<Profile { ...props } />);
 ProfileWrapper.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
   /profile\.component(?!spec)/
