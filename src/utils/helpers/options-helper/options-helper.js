@@ -48,11 +48,11 @@ const OptionsHelper = {
     'after'
   ],
 
-  cardSection: {
-    footer: 'footer',
-    header: 'header',
-    middle: 'middle'
-  },
+  cardSection: [
+    'header',
+    'middle',
+    'footer'
+  ],
 
   cardTextTypes: {
     primary: 'primary',
