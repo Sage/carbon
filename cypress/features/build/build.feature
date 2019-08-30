@@ -87,6 +87,7 @@ Feature: Build tests
       | tabs                 | tabs                 |
       | textarea             | textarea             |
       | toast                | toast                |
+      | action-popover       | action-popover       |
 
   @build
   Scenario Outline: Deprecated component <component> iframe
