@@ -34,16 +34,24 @@ const generateContentComponent = (type, content, props) => {
   }
 };
 
+const buildContnent = (config, props) => {
+  return Object.values(config).map((obj) => {
+    const { type, contentText, align } = obj;
+    return generateContentComponent(type, contentText, { align, ...props });
+  });
+};
+
 const cardKnobs = () => {
   return {
     key: 'one',
-    cardSize: select('card size', OptionsHelper.sizesRestricted, Card.defaultProps.padding, 'Card Knobs'),
     border: boolean('border', false, 'Card Knobs'),
+    cardSize: select('card size', OptionsHelper.sizesRestricted, Card.defaultProps.padding, 'Card Knobs'),
     cardWidth: text('width', '500px', 'Card Knobs'),
+    clickable: boolean('interactive card', false, 'Card Knobs'),
+    draggable: boolean('draggable card', false, 'Card Knobs'),
     headerInline: boolean('header inline', false, 'Card Knobs'),
     middleInline: boolean('middle inline', false, 'Card Knobs'),
-    footerFilled: boolean('footer background', false, 'Card Knobs'),
-    clickable: boolean('interactive card', false, 'Card Knobs')
+    footerFilled: boolean('footer background', false, 'Card Knobs')
   };
 };
 
@@ -95,22 +103,18 @@ const footerKnobs = () => {
   };
 };
 
-const buildContnent = (config, props) => {
-  return Object.values(config).map((obj) => {
-    const { type, contentText, align } = obj;
-    return generateContentComponent(type, contentText, { align, ...props });
-  });
-};
 
 storiesOf('Card', module)
   .add('default', () => {
     const {
-      cardSize,
       border,
+      cardSize,
+      cardWidth,
+      clickable,
+      draggable,
       headerInline,
       middleInline,
-      footerFilled,
-      cardWidth
+      footerFilled
     } = cardKnobs();
 
     const header = buildContnent(
@@ -140,6 +144,8 @@ storiesOf('Card', module)
         border={ border }
         cardWidth={ cardWidth }
         cardRows={ cardRows }
+        clickable={ clickable }
+        draggable={ draggable }
         footerFilled={ footerFilled }
       />
     );
