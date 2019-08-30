@@ -71,6 +71,7 @@ class Input extends React.Component {
   render() {
     const {
       inputRef,
+      onChangeDeferred,
       ...props
     } = this.props;
     const eventHandlers = {
