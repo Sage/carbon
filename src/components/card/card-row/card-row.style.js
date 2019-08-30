@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import OptionsHelper from '../../../utils/helpers/options-helper/options-helper';
 import BaseTheme from '../../../style/themes/base';
 
-const { cardSection } = OptionsHelper;
+const { cardSection, sizesRestricted } = OptionsHelper;
 
 const marginSizes = {
   small: '0 -24px -16px',
@@ -11,38 +11,37 @@ const marginSizes = {
   large: '0 -48px -32px'
 };
 
-const rowConfig = (size, { card }) => {
-  return {
-    header: `
+const StyledCardRow = styled.div`
+  ${({
+    footerFilled, positionType, inlineRow, size, theme
+  }) => css`
+    ${positionType === 'header' && css`
       padding: 32px 32px;
       min-height: 48px;
-    `,
-    middle: `
+      ${inlineRow && css`display: flex;`}
+    `}
+    ${positionType === 'middle' && css`
       padding: 0 32px;
       margin-bottom: 32px;
-    `,
-    footer: `
-      background-color: ${card.footerBackground};
-      border-top: ${card.footerBorder};
+      ${inlineRow && css`display: flex;`}
+    `}
+    ${positionType === 'footer' && css`
+      background-color: ${footerFilled ? theme.card.footerBackground : 'transparent'};
+      border-top: ${theme.card.footerBorder};
       height: 56px;
       line-height: 56px;
       padding: 0 32px;
       margin: ${marginSizes[size]};
       display: flex;
-    `
-  };
-};
-
-const StyledCardRow = styled.div`
-  ${({ positionType, size, theme }) => {
-    return css`
-      ${rowConfig(size, theme)[positionType]}
-    `;
-  }
-}`;
+    `}
+  `}
+`;
 
 StyledCardRow.propTypes = {
-  positionType: PropTypes.oneOf(cardSection)
+  footerFilled: PropTypes.bool,
+  positionType: PropTypes.oneOf(cardSection),
+  inlineRow: PropTypes.bool,
+  size: PropTypes.oneOf(sizesRestricted)
 };
 
 StyledCardRow.defaultProps = {

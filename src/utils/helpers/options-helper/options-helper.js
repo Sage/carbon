@@ -54,11 +54,11 @@ const OptionsHelper = {
     'footer'
   ],
 
-  cardTextTypes: {
-    primary: 'primary',
-    secondary: 'secondary',
-    tertiary: 'tertiary'
-  },
+  cardTextTypes: [
+    'primary',
+    'secondary',
+    'tertiary'
+  ],
 
   colors: [
     'default',
