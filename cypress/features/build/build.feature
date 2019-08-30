@@ -36,22 +36,12 @@ Feature: Build tests
       | button toggle        | button-toggle        |
       | button               | button               |
       | carousel             | carousel             |
-      | checkbox             | checkbox             |
       | configurable-items   | configurable-items   |
       | content              | content              |
       | create               | link                 |
-      | date range           | date-range           |
-      | date input           | date                 |
-      | decimal              | decimal              |
       | detail               | detail               |
       | draggableContext     | table                |
-      | dropdownFilterAjax   | dropdown-filter-ajax |
-      | dropdown-filter      | dropdown-filter      |
-      | dropdown             | dropdown             |
-      | fieldset             | fieldset             |
       | filter component     | filter               |
-      | form                 | form                 |
-      | groupedcharacter     | grouped-character    |
       | heading              | heading              |
       | help                 | help                 |
       | i18ncomponent        | i18n                 |
@@ -65,26 +55,43 @@ Feature: Build tests
       | mount-in-app         | mount-in-app         |
       | multi-action-button  | multi-action-button  |
       | navigation-bar       | navigation-bar       |
-      | number-input         | number               |
       | pager                | pager                |
       | pill                 | pill                 |
       | pod                  | pod                  |
       | portrait             | portrait             |
       | preview              | preview              |
       | profile              | profile              |
-      | radio-button         | radio-button         |
       | rainbow              | rainbow              |
       | row                  | row                  |
       # | select               | select               | Commented until select will be merged-out from experimental
       | settingsrow          | settings-row         |
-      | simplecolorpicker    | simple-color-picker  |
       | split-button         | split-button         |
       | step-sequence-item   | step-sequence-item   |
       | step-sequence        | step-sequence        |
-      | switch               | checkbox             |
       | table-ajax           | table-ajax           |
       | table                | table                |
       | tabs                 | tabs                 |
+      | toast                | toast                |
+
+  @build
+  Scenario Outline: Classic component <component> without activation button
+    When I open classic "<component>" component iframe
+    Then "<data-component>" component is visible
+    Examples:
+      | component            | data-component       |
+      | checkbox             | checkbox             |
+      | date range           | date-range           |
+      | date input           | date                 |
+      | decimal              | decimal              |
+      | dropdownFilterAjax   | dropdown-filter-ajax |
+      | dropdown-filter      | dropdown-filter      |
+      | dropdown             | dropdown             |
+      | fieldset             | fieldset             |
+      | form                 | form                 |
+      | groupedcharacter     | grouped-character    |
+      | number-input         | number               |
+      | radio-button         | radio-button         |
+      | simplecolorpicker    | simple-color-picker  |
+      | switch               | checkbox             |
       | textarea             | textarea             |
       | textbox              | textbox              |
-      | toast                | toast                |

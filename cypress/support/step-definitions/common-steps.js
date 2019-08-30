@@ -34,6 +34,10 @@ Given('I open {string} component iframe', (component) => {
   visitComponentUrl(component, 'default', true);
 });
 
+Given('I open classic {string} component iframe', (component) => {
+  visitComponentUrl(component, 'classic', true);
+});
+
 Given('I open {string} component with button page in iframe', (component) => {
   visitComponentUrl(component, 'with_button', true);
 });
