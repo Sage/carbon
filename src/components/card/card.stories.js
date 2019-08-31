@@ -15,12 +15,14 @@ Card.__docgenInfo = getDocGenInfo(
   /card.component(?!spec)/
 );
 
+const { cardTextTypes } = OptionsHelper;
+
 const generateContentComponent = (type, content, props) => {
   switch (type.toLowerCase()) {
     case 'link':
       return <Link { ...props }>{ content }</Link>;
     case 'icon':
-      return <Icon type='add' { ...props } />;
+      return <Icon type={ content } { ...props } />;
     case 'heading':
       return (
         <Heading
@@ -30,14 +32,25 @@ const generateContentComponent = (type, content, props) => {
         />
       );
     default:
-      return <CardContent { ...props }>{ content }</CardContent>;
+      return content;
   }
 };
 
 const buildContnent = (config, props) => {
   return Object.values(config).map((obj) => {
-    const { type, contentText, align } = obj;
-    return generateContentComponent(type, contentText, { align, ...props });
+    const {
+      align, contentType, contentText
+    } = obj;
+    const { positionType, ...rest } = props;
+    return (
+      <CardContent
+        align={ align }
+        type={ { position: positionType, contentStyle: contentType } }
+        { ...rest }
+      >
+        { generateContentComponent(contentType, contentText, {}) }
+      </CardContent>
+    );
   });
 };
 
@@ -49,9 +62,9 @@ const cardKnobs = () => {
     cardWidth: text('width', '500px', 'Card Knobs'),
     clickable: boolean('interactive card', false, 'Card Knobs'),
     draggable: boolean('draggable card', false, 'Card Knobs'),
-    headerInline: boolean('header inline', false, 'Card Knobs'),
-    middleInline: boolean('middle inline', false, 'Card Knobs'),
-    footerFilled: boolean('footer background', false, 'Card Knobs')
+    headerInline: boolean('header inline', false, 'Header Knobs'),
+    middleInline: boolean('middle inline', false, 'Middle Knobs'),
+    footerFilled: boolean('footer background', false, 'Footer Knobs')
   };
 };
 
@@ -59,14 +72,18 @@ const headerKnobs = () => {
   return {
     key: 'two',
     headerPrimary: {
-      type: select('header primary type', ['link', 'heading', 'icon', 'content'], 'content', 'Header Knobs'),
-      contentText: text('header primary text', 'Primary', 'Header Knobs'),
-      align: select('header primary align', OptionsHelper.alignFull, 'center', 'Header Knobs')
+      contentType: select(
+        'header primary type', ['link', 'heading', 'icon', cardTextTypes[0], cardTextTypes[1]], 'primary', 'Header Knobs'
+      ),
+      contentText: text('header one text', 'Primary', 'Header Knobs'),
+      align: select('header one align', OptionsHelper.alignFull, 'center', 'Header Knobs')
     },
     headerSecondary: {
-      type: select('header secondary type', ['link', 'heading', 'icon', 'content'], 'content', 'Header Knobs'),
-      contentText: text('header secondary', 'Secondary', 'Header Knobs'),
-      align: select('header secondary align', OptionsHelper.alignFull, 'center', 'Header Knobs')
+      contentType: select(
+        'header two type', ['link', 'heading', 'icon', cardTextTypes[0], cardTextTypes[1]], 'primary', 'Header Knobs'
+      ),
+      contentText: text('header two text', 'Secondary', 'Header Knobs'),
+      align: select('header two align', OptionsHelper.alignFull, 'center', 'Header Knobs')
     }
   };
 };
@@ -75,14 +92,18 @@ const middleKnobs = () => {
   return {
     key: 'three',
     middlePrimary: {
-      type: select('middle primary type', ['link', 'heading', 'icon', 'content'], 'content', 'Middle Knobs'),
-      contentText: text('middle primary text', 'Primary', 'Middle Knobs'),
-      align: select('middle primary align', OptionsHelper.alignFull, 'center', 'Middle Knobs')
+      contentType: select(
+        'middle primary type', ['link', 'heading', 'icon', ...cardTextTypes], 'primary', 'Middle Knobs'
+      ),
+      contentText: text('middle one text', 'Primary', 'Middle Knobs'),
+      align: select('middle one align', OptionsHelper.alignFull, 'center', 'Middle Knobs')
     },
     middleSecondary: {
-      type: select('middle secondary type', ['link', 'heading', 'icon', 'content'], 'content', 'Middle Knobs'),
-      contentText: text('middle secondary', 'Secondary', 'Middle Knobs'),
-      align: select('middle secondary align', OptionsHelper.alignFull, 'center', 'Middle Knobs')
+      contentType: select(
+        'middle two type', ['link', 'heading', 'icon', ...cardTextTypes], 'primary', 'Middle Knobs'
+      ),
+      contentText: text('middle two text', 'Secondary', 'Middle Knobs'),
+      align: select('middle two align', OptionsHelper.alignFull, 'center', 'Middle Knobs')
     }
   };
 };
@@ -91,14 +112,16 @@ const footerKnobs = () => {
   return {
     key: 'four',
     footerPrimary: {
-      type: select('footer primary type', ['link', 'heading', 'icon', 'content'], 'content', 'Footer Knobs'),
-      contentText: text('footer primary text', 'Primary', 'Footer Knobs'),
-      align: select('footer primary align', OptionsHelper.alignFull, 'center', 'Footer Knobs')
+      contentType: select('footer one type', ['link', 'heading', 'icon', cardTextTypes[0]], 'primary', 'Footer Knobs'),
+      contentText: text('footer one text', 'Primary', 'Footer Knobs'),
+      align: select('footer one align', OptionsHelper.alignFull, 'center', 'Footer Knobs')
     },
     footerSecondary: {
-      type: select('footer secondary type', ['link', 'heading', 'icon', 'content'], 'content', 'Footer Knobs'),
-      contentText: text('footer secondary', 'Secondary', 'Footer Knobs'),
-      align: select('footer secondary align', OptionsHelper.alignFull, 'center', 'Footer Knobs')
+      contentType: select(
+        'footer two type', ['link', 'heading', 'icon', cardTextTypes[0]], 'primary', 'Footer Knobs'
+      ),
+      contentText: text('footer two text', 'Secondary', 'Footer Knobs'),
+      align: select('footer two align', OptionsHelper.alignFull, 'center', 'Footer Knobs')
     }
   };
 };

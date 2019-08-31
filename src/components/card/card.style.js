@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components';
-import propTypes from 'prop-types';
-import StyledIcon from '../icon/icon.style';
+import PropTypes from 'prop-types';
+import { StyledIcon } from '../icon/icon.style';
 import baseTheme from '../../style/themes/base';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 const StyledCard = styled.button`
   ${({
@@ -59,8 +60,14 @@ StyledCard.defaultProps = {
 };
 
 StyledCard.propTypes = {
-  border: propTypes.bool,
-  cardWidth: propTypes.string
+  border: PropTypes.bool,
+  cardWidth: PropTypes.string,
+  clickable: PropTypes.bool,
+  draggable: PropTypes.bool,
+  isDragging: PropTypes.bool,
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  theme: PropTypes.object
+
 };
 
 export default StyledCard;

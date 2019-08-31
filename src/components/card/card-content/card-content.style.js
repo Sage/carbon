@@ -1,91 +1,69 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
-
-// const CardContentConfig = ({ card }) => {
-//   return {
-//     header: `
-//         font-size: 22px;
-//         font-weight: 700;
-//         line-height: 26px;
-//         margin: 0;
-//       `,
-// secondary: `
-//   font-size: 14px;
-//   font-weight: 400;
-//   line-height: 21px;
-//   margin: 0;
-// `
-// },
-// middle: `
-//     color: ${card.middlePrimary};
-//     font-size: 24px;
-//     font-weight: 700;
-//     margin-bottom: 10px;
-//   `
-//   secondary: `
-//     color: ${card.middleSecondary};
-//     font-size: 14px;
-//     font-weight: 700;
-//     margin-bottom: 8px;
-//   `,
-//   tertiary: `
-//     color: ${card.middleTertiary};
-//     font-size: 12px;
-//     text-transform: uppercase;
-//   `
-// }
-//   };
-// };
-
-// const applyContentStyle = ({ theme, positionType, styleType }) => {
-//   if (positionType === 'footer') {
-//     return `
-//       line-height: 30px;
-//       margin: 0;
-//       color: ${theme.card.footerText};
-//       font-weight: 600;
-//       padding: 12px 0;
-//     `;
-//   }
-
-//   return CardContentConfig(theme)[positionType][styleType];
-// };
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const StyledCardContent = styled.div`
   width: 100%;
-  ${({ align, positionType, theme }) => css`
+  ${({
+    align, position, contentStyle, theme
+  }) => css`
     text-align: ${align};
 
-    ${positionType === 'header' && css`
-      &&& {
+    ${position === 'header' && css`
+      ${contentStyle === 'primary' && css`
         font-size: 22px;
         font-weight: 700;
         line-height: 26px;
         margin: 0;
-      }
+      `}
+      ${contentStyle === 'secondary' && css`
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 21px;
+        margin: 0;
+      `}
     `}
 
-    ${positionType === 'middle' && css`
-      &&& {
+    ${position === 'middle' && css`
+      ${contentStyle === 'primary' && css`
         color: ${theme.card.middlePrimary};
         font-size: 24px;
         font-weight: 700;
         margin-bottom: 10px;
-      }
+      `}
+      ${contentStyle === 'secondary' && css`
+        color: ${theme.card.middleSecondary};
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      `}
+      ${contentStyle === 'tertiary' && css`
+        color: ${theme.card.middleTertiary};
+        font-size: 12px;
+        text-transform: uppercase;
+      `}
     `}
 
-    ${positionType === 'footer' && css`
-      &&& {
-        line-height: 30px;
-        margin: 0;
-        color: ${theme.card.footerText};
-        font-weight: 600;
-        padding: 12px 0;
-      }
+    ${position === 'footer' && css`
+      line-height: 30px;
+      margin: 0;
+      color: ${theme.card.footerText};
+      font-weight: 600;
+      padding: 12px 0;
     `}
   `}
 `;
+
+StyledCardContent.propTypes = {
+  align: PropTypes.oneOf(OptionsHelper.alignFull),
+  /** applies styling based on the content's row position */
+  position: PropTypes.oneOf(OptionsHelper.cardSection),
+  /** add text styling based on type */
+  contentStyle: PropTypes.oneOf(OptionsHelper.cardTextTypes),
+  /** children of the content component */
+  theme: PropTypes.object
+};
 
 StyledCardContent.defaultProps = {
   align: 'center',

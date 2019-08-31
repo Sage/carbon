@@ -6,15 +6,14 @@ import OptionsHelper from '../../../utils/helpers/options-helper/options-helper'
 const CardContent = ({
   align,
   children,
-  positionType,
-  textType,
+  type,
   ...props
 }) => (
   <StyledCardContent
-    data-element={ `${positionType}-card-content` }
     align={ align }
-    positionType={ positionType }
-    textType={ textType }
+    data-element={ `${type.position}-card-content` }
+    position={ type.position }
+    contentStyle={ type.contentStyle }
     { ...props }
   >
     { children }
@@ -26,16 +25,22 @@ const { alignFull, cardSection, cardTextTypes } = OptionsHelper;
 CardContent.propTypes = {
   /** text alignment of the card section text */
   align: PropTypes.oneOf(alignFull),
-  /** applies styling based on the content's row position */
-  positionType: PropTypes.oneOf(cardSection).isRequired,
+  type: PropTypes.shape({
+    /** applies styling based on the content's row position */
+    position: PropTypes.oneOf(cardSection).isRequired,
+    /** add text styling based on type */
+    contentStyle: PropTypes.oneOf(cardTextTypes).isRequired
+  }),
   /** children of the content component */
-  children: PropTypes.node,
-  /** Add text styling based on type */
-  textType: PropTypes.oneOf(cardTextTypes)
+  children: PropTypes.node
 };
 
 CardContent.defaultProps = {
-  align: 'center'
+  align: 'center',
+  type: {
+    position: 'middle',
+    contentStyle: 'primary'
+  }
 };
 
 export default CardContent;
