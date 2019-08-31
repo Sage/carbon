@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import PropTypes from 'prop-types';
-import Icon from '../icon/icon';
+import Icon from '../icon';
 import tagComponent from '../../utils/helpers/tags/tags';
 import Portal from '../portal/portal';
 import {

@@ -79,7 +79,7 @@ $width: 55px;
     margin-left: 76px;
   }
 
-  .icon-cross:before {
+  [data-element='cross']:before {
     color: white;
   }
 
@@ -94,13 +94,13 @@ $width: 55px;
     opacity: 0.6;
 
     .carbon-switch__on {
-      .carbon-icon {
+      [data-component='icon'] {
         top: 2px;
       }
     }
 
     .carbon-switch__off {
-      .carbon-icon {
+      [data-component='icon'] {
         top: 1px;
       }
     }

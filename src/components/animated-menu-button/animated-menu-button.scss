@@ -22,11 +22,12 @@
     margin-bottom: 15px;
   }
 
-  .icon-add {
+  [data-element="add"] {
     display: inline-block;
     left: 15px;
     position: relative;
     top: 13px;
+    color: white;
   }
 
   .carbon-link__anchor {

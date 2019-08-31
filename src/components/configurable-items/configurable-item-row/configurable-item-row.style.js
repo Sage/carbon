@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import Icon from '../../icon/icon';
+import Icon from '../../icon';
 import { THEMES } from '../../../style/themes';
 import baseTheme from '../../../style/themes/base';
 import LabelStyle from '../../../__experimental__/components/label/label.style';
