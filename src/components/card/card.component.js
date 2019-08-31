@@ -9,6 +9,7 @@ import BaseTheme from '../../style/themes/base';
 const { cardSection, sizesRestricted } = OptionsHelper;
 
 const Card = ({
+  action,
   border,
   cardRows,
   cardWidth,
@@ -41,6 +42,12 @@ const Card = ({
     });
   };
 
+  const handleClick = (ev) => {
+    if (clickable && !draggable && action) {
+      action(ev);
+    }
+  };
+
   return (
     <StyledCard
       data-element='card'
@@ -48,6 +55,7 @@ const Card = ({
       cardWidth={ cardWidth }
       clickable={ clickable }
       draggable={ draggable }
+      onlick={ handleClick }
       size={ padding }
       { ...props }
     >

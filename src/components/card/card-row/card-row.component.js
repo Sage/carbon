@@ -16,25 +16,7 @@ const CardRow = ({
     if (!child) return null;
 
     const key = child.key || `card-content-${String(index)}`;
-    const tabIndex = '0';
-    if (child.type.displayName === 'CardContent') return React.cloneElement(child, { key, tabIndex, ...child.props });
-
-    const {
-      align,
-      inline,
-      positon,
-      ...rest
-    } = child.props;
-    return (
-      <CardContent
-        key={ key }
-        align={ align }
-        inline={ inline }
-        positionType={ positionType }
-      >
-        { React.cloneElement(child, { tabIndex, ...rest }) }
-      </CardContent>
-    );
+    return React.cloneElement(child, { key, ...child.props });
   });
 
   return (
