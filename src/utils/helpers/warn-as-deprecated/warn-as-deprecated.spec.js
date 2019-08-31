@@ -1,11 +1,18 @@
 import warnAsDeprecated from './warn-as-deprecated';
 
 describe('warnAsDeprecated', () => {
-  beforeAll(() => {
+  beforeEach(() => {
     jest.spyOn(console, 'warn').mockImplementation(() => {});
+    process.env.NODE_ENV = 'development';
   });
+
+  afterEach(() => {
+    delete process.env.NODE_ENV;
+  });
+
   it('does not call "console.warn" unless in "development" environment', () => {
-    warnAsDeprecated('foo', 'foo', 'foo');
+    process.env.NODE_ENV = 'production';
+    warnAsDeprecated('foo', 'foo');
     expect(console.warn.mock.calls.length).toBe(0);
   });
 
@@ -20,7 +27,7 @@ describe('warnAsDeprecated', () => {
   });
 
   it('calls "console.warn" when all conditions are met', () => {
-    warnAsDeprecated('foo', 'foo', 'development');
+    warnAsDeprecated('foo', 'foo');
     expect(console.warn.mock.calls.length).toBe(1);
   });
 });
