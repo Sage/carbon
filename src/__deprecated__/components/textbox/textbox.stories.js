@@ -25,8 +25,10 @@ const handleChange = ({ target: { value } }) => {
 storiesOf('__deprecated__/Textbox', module)
   .addParameters({
     info: {
-      propTablesExclude: [State]
-    }
+      propTablesExclude: [State],
+      text: info
+    },
+    notes: { markdown: notes }
   })
   .add(
     'default',
@@ -66,9 +68,5 @@ storiesOf('__deprecated__/Textbox', module)
           />
         </State>
       );
-    },
-    {
-      info: { text: info },
-      notes: { markdown: notes }
     }
   );

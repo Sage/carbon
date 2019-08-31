@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { text } from '@storybook/addon-knobs';
 import notes from './documentation/notes.md';
 import Fieldset from './fieldset';
-import Textbox from '../textbox';
+import Textbox from '../../__deprecated__/components/textbox';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Fieldset.__docgenInfo = getDocGenInfo(
