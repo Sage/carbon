@@ -62,7 +62,8 @@ storiesOf('Table Ajax', module)
       text: info,
       propTablesExclude: [State]
     },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   })
   .add(
     'default',
@@ -71,7 +72,8 @@ storiesOf('Table Ajax', module)
 
       const pageSize = text('pageSize', '5');
       const paginate = boolean('paginate', TableAjax.defaultProps.paginate);
-      const getCustomHeaders = text('getCustomHeaders');
+      const customHeaders = text('customHeaders', '{ "Accept": "application/json" }');
+      const customHeadersObject = JSON.parse(customHeaders);
 
       return (
         <State store={ store }>
@@ -98,7 +100,7 @@ storiesOf('Table Ajax', module)
             path='/countries'
             pageSize={ pageSize }
             paginate={ paginate }
-            getCustomHeaders={ () => ({}) }
+            getCustomHeaders={ () => customHeadersObject }
             onChange={ data => handleChange(data) }
           />
         </State>
