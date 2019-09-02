@@ -66,8 +66,8 @@ Tile.propTypes = {
   /**
    * Sets the Tile padding. Accepted values are:
    * 'XS' = 8px
-   * 'S' = 12px
-   * 'M' = 16px
+   * 'S' = 16px
+   * 'M' = 24px
    * 'L' = 32px
    * 'XL' = 40px
    */
