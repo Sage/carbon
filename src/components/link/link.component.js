@@ -19,7 +19,7 @@ class Link extends React.Component {
 
     // return early if there is no onClick or there is a href prop
     // or the event is not an enter key
-    if (this.props.href || !Event.isEnterKey(ev)) {
+    if (this.props.href || !Event.isEnterKey(ev) && !Event.isSpaceKey(ev)) {
       return;
     }
 
