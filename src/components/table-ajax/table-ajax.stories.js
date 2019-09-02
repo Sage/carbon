@@ -98,7 +98,7 @@ storiesOf('Table Ajax', module)
             path='/countries'
             pageSize={ pageSize }
             paginate={ paginate }
-            getCustomHeaders={ getCustomHeaders }
+            getCustomHeaders={ () => ({}) }
             onChange={ data => handleChange(data) }
           />
         </State>
