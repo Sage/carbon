@@ -99,6 +99,7 @@ class DateInput extends React.Component {
 
   handleTabKeyDown = (ev) => {
     if (Events.isTabKey(ev)) {
+      this.isOpening = false;
       this.closeDatePicker();
     }
   };

@@ -76,7 +76,6 @@ storiesOf('Experimental/Date Input', module)
         />
         <DateInput
           { ...getCommonTextboxStoryProps({ inputWidthEnabled: false }) }
-          autoFocus={ autoFocus }
           minDate={ minDate }
           maxDate={ maxDate }
           value={ store.get('value') }
@@ -84,7 +83,6 @@ storiesOf('Experimental/Date Input', module)
         />
         <DateInput
           { ...getCommonTextboxStoryProps({ inputWidthEnabled: false }) }
-          autoFocus={ autoFocus }
           minDate={ minDate }
           maxDate={ maxDate }
           value={ store.get('value') }
