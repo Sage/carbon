@@ -41,7 +41,7 @@ class DateInput extends React.Component {
 
   isBlurBlocked = false;
 
-  isOpen= false;
+  isOpening = false;
 
   state = {
     isDatePickerOpen: false,
@@ -119,8 +119,8 @@ class DateInput extends React.Component {
   }
 
   closeDatePicker = () => {
-    if (this.isOpen) {
-      this.isOpen = false;
+    if (this.isOpening) {
+      this.isOpening = false;
       return;
     }
     document.removeEventListener('click', this.closeDatePicker);
@@ -195,7 +195,7 @@ class DateInput extends React.Component {
   }
 
   markCurrentDatepicker = () => {
-    this.isOpen = true;
+    this.isOpening = true;
   }
 
   render() {
