@@ -6,10 +6,10 @@ import { select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
-import { Pages, Page } from './pages.component';
+import Page from './page/page.component';
 import DialogFullScreen from '../dialog-full-screen';
 import Heading from '../heading/heading';
-import Button from '../button';
+import Button, { OriginalButton } from '../button/button.component';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 import docgenInfo from './docgenInfo.json';
 import classic from '../../style/themes/classic';
@@ -90,7 +90,7 @@ function makeStory(name, themeSelector) {
   const component = () => {
     return (
       <div>
-        <Button onClick={ handleOpen }>Open Preview</Button>
+        <OriginalButton onClick={ handleOpen }>Open Preview</OriginalButton>
         <DialogState>
           <DialogFullScreen
             open={ store.get('open') }
@@ -123,7 +123,7 @@ function makeStory(name, themeSelector) {
     themeSelector,
     info: {
       text: <p>Allows to slide to different pages in a full screen dialog.</p>,
-      propTablesExclude: [Button, DialogFullScreen, DialogState, PageState, State]
+      propTablesExclude: [OriginalButton, DialogFullScreen, DialogState, PageState, State]
     }
   };
 
