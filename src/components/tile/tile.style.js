@@ -4,8 +4,8 @@ import baseTheme from '../../style/themes/base';
 
 const paddingSizes = {
   XS: '8px',
-  S: '12px',
-  M: '16px',
+  S: '16px',
+  M: '24px',
   L: '32px',
   XL: '40px'
 };
