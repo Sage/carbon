@@ -20,7 +20,7 @@ Feature: Build tests
       | component           | data-component     |
       | dialog-full-screen  | dialog-full-screen |
       | dialog              | dialog             |
-      | flash               | flash              |
+      | flash               | toast              |
       | pages               | page               |
       | confirm             | confirm            |
 
@@ -63,7 +63,7 @@ Feature: Build tests
       | profile              | profile              |
       | rainbow              | rainbow              |
       | row                  | row                  |
-      # | select               | select               | Commented until select will be merged-out from experimental
+      # | select               | carbon-select        | Commented until select will be merged-out from experimental
       | settingsrow          | settings-row         |
       | split-button         | split-button         |
       | step-sequence-item   | step-sequence-item   |
