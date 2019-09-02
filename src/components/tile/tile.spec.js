@@ -89,7 +89,7 @@ describe('Tile', () => {
         it('sets padding-right for all but the last TileContent', () => {
           assertStyleMatch(
             {
-              paddingRight: '16px'
+              paddingRight: '24px'
             },
             wrapper,
             { modifier: css`${`${TileContent}:not(:last-of-type)`}` }
@@ -100,7 +100,7 @@ describe('Tile', () => {
           assertStyleMatch(
             {
               borderLeft: 'solid 1px #E5EAEC',
-              paddingLeft: '16px'
+              paddingLeft: '24px'
             },
             wrapper, { modifier: css`${`${TileContent} + ${TileContent}`}` }
           );
@@ -120,7 +120,7 @@ describe('Tile', () => {
 
         it('sets padding-bottom for all but the last TileContent', () => {
           assertStyleMatch(
-            { paddingBottom: '16px' },
+            { paddingBottom: '24px' },
             wrapper,
             { modifier: css`${`${TileContent}:not(:last-of-type)`}` }
           );
@@ -130,7 +130,7 @@ describe('Tile', () => {
           assertStyleMatch(
             {
               borderTop: 'solid 1px #E5EAEC',
-              paddingTop: '16px'
+              paddingTop: '24px'
             },
             wrapper, { modifier: css`${`${TileContent} + ${TileContent}`}` }
           );
@@ -166,8 +166,8 @@ describe('Tile', () => {
       describe('padding', () => {
         const paddingSizes = [
           ['XS', '8px'],
-          ['S', '12px'],
-          ['M', '16px'],
+          ['S', '16px'],
+          ['M', '24px'],
           ['L', '32px'],
           ['XL', '40px']
         ];

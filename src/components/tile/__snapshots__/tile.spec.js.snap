@@ -19,7 +19,7 @@ exports[`Tile renders base styles 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  padding: 16px;
+  padding: 24px;
   position: relative;
   width: 100%;
 }
@@ -30,13 +30,13 @@ exports[`Tile renders base styles 1`] = `
 }
 
 .c0 .c1:not(:last-of-type) {
-  padding-right: 16px;
+  padding-right: 24px;
 }
 
 .c0 .c1 + .c1 {
   margin-top: 0;
   border-left: solid 1px #E5EAEC;
-  padding-left: 16px;
+  padding-left: 24px;
 }
 
 .c3 .c1 {
@@ -45,13 +45,13 @@ exports[`Tile renders base styles 1`] = `
 }
 
 .c3 .c1:not(:last-of-type) {
-  padding-bottom: 16px;
+  padding-bottom: 24px;
 }
 
 .c3 .c1 + .c1 {
   margin-top: 0;
   border-top: solid 1px #E5EAEC;
-  padding-top: 16px;
+  padding-top: 24px;
 }
 
 <div
