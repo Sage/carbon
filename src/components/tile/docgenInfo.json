@@ -45,7 +45,7 @@
             "value": "OptionsHelper.sizesPod"
           },
           "required": false,
-          "description": "Sets the Tile padding. Accepted values are:\n'extra-small' = 8px\n'small' = 12px\n'medium' = 16px\n'large' = 32px\n'extra-large' = 40px",
+          "description": "Sets the Tile padding. Accepted values are:\n'extra-small' = 8px\n'small' = 16px\n'medium' = 24px\n'large' = 32px\n'extra-large' = 40px",
           "defaultValue": {
             "value": "'medium'",
             "computed": false
