@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, boolean } from '@storybook/addon-knobs';
+import { text, boolean, object } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
 import { enableMock } from '../../../demo/xhr-mock';
 import {
@@ -59,8 +59,11 @@ const handleChange = (data) => {
 storiesOf('Table Ajax', module)
   .addParameters({
     info: {
+      text: info,
       propTablesExclude: [State]
-    }
+    },
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   })
   .add(
     'default',
@@ -69,7 +72,7 @@ storiesOf('Table Ajax', module)
 
       const pageSize = text('pageSize', '5');
       const paginate = boolean('paginate', TableAjax.defaultProps.paginate);
-      const getCustomHeaders = text('getCustomHeaders');
+      const customHeaders = object('customHeaders', { Accept: 'application/json' });
 
       return (
         <State store={ store }>
@@ -96,14 +99,10 @@ storiesOf('Table Ajax', module)
             path='/countries'
             pageSize={ pageSize }
             paginate={ paginate }
-            getCustomHeaders={ getCustomHeaders }
+            getCustomHeaders={ () => customHeaders }
             onChange={ data => handleChange(data) }
           />
         </State>
       );
-    },
-    {
-      info: { text: info },
-      notes: { markdown: notes }
-    },
+    }
   );

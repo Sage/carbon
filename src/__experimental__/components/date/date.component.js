@@ -39,7 +39,9 @@ class DateInput extends React.Component {
     internalValidations: [new DateValidator()]
   };
 
-  isBlurBlocked = false; // stops the blur callback from triggering (closing the list) when we don't want it to
+  isBlurBlocked = false;
+
+  isOpening = false;
 
   state = {
     isDatePickerOpen: false,
@@ -97,6 +99,7 @@ class DateInput extends React.Component {
 
   handleTabKeyDown = (ev) => {
     if (Events.isTabKey(ev)) {
+      this.isOpening = false;
       this.closeDatePicker();
     }
   };
@@ -117,6 +120,10 @@ class DateInput extends React.Component {
   }
 
   closeDatePicker = () => {
+    if (this.isOpening) {
+      this.isOpening = false;
+      return;
+    }
     document.removeEventListener('click', this.closeDatePicker);
     this.setState({ isDatePickerOpen: false });
   };
@@ -188,6 +195,10 @@ class DateInput extends React.Component {
     );
   }
 
+  markCurrentDatepicker = () => {
+    this.isOpening = true;
+  }
+
   render() {
     const { minDate, maxDate, ...inputProps } = this.props;
     let events = {};
@@ -204,7 +215,7 @@ class DateInput extends React.Component {
 
     return (
       <StyledDateInput
-        onClick={ stopClickPropagation }
+        onClick={ this.markCurrentDatepicker }
         role='presentation'
       >
         <Textbox
@@ -234,9 +245,6 @@ function formatDateToCurrentLocale(value) {
   return DateHelper.formatValue(value || DateHelper.todayFormatted(), visibleFormat);
 }
 
-function stopClickPropagation(ev) {
-  ev.nativeEvent.stopImmediatePropagation();
-}
 
 export { defaultDateFormat };
 export default DateInput;
