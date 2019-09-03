@@ -18,7 +18,7 @@ Checkbox.__docgenInfo = getDocGenInfo(
 );
 
 const checkboxes = {
-  one: {}, required: {}, warning: {}, info: {}, optional: {}, mandatory: {}, example: {}
+  one: {}, required: {}, warning: {}, alert: {}, info: {}, optional: {}, mandatory: {}, example: {}
 };
 const checkboxKeys = Object.keys(checkboxes);
 const unblockValidation = true;
@@ -26,6 +26,8 @@ const unblockValidation = true;
 function testValidator(value, props) {
   return new Promise((resolve, reject) => {
     if (['required', 'mandatory'].indexOf(value) !== -1 && !props.checked) {
+      reject(new Error('This checkbox is required!'));
+    } else if (props.name === 'checkbox-group' && value < 1) {
       reject(new Error('This checkbox is required!'));
     } else {
       resolve();
@@ -35,7 +37,9 @@ function testValidator(value, props) {
 
 function testWarning(value, props) {
   return new Promise((resolve, reject) => {
-    if (['warning'].indexOf(value) !== -1 && !props.checked) {
+    if (['warning', 'alert'].indexOf(value) !== -1 && !props.checked) {
+      reject(new Error('Show warning!'));
+    } else if (props.name === 'checkbox-group' && value === 1) {
       reject(new Error('Show warning!'));
     } else {
       resolve();
@@ -45,7 +49,9 @@ function testWarning(value, props) {
 
 function testInfo(value, props) {
   return new Promise((resolve, reject) => {
-    if (value === 'info' && !props.checked) {
+    if (['info', 'example'].indexOf(value) !== -1 && !props.checked) {
+      reject(new Error('Show this information'));
+    } else if (props.name === 'checkbox-group' && value === 2) {
       reject(new Error('Show this information'));
     } else {
       resolve();
@@ -61,10 +67,15 @@ checkboxKeys.forEach((id) => {
     })
   };
 });
-const formCheckbox = checkboxKeys.filter(name => ['one', 'name', 'mandatory', 'example'].indexOf(name) === -1);
-const groupCheckbox = checkboxKeys.filter(name => ['mandatory', 'warning', 'info', 'example'].indexOf(name) !== -1);
+const formCheckbox = checkboxKeys.filter(name => ['one', 'name', 'mandatory', 'alert', 'example'].indexOf(name) === -1);
+const groupCheckbox = checkboxKeys.filter(name => ['mandatory', 'alert', 'example'].indexOf(name) !== -1);
 
-const inGroupStore = new Store({ value: '' });
+const groupStore = new Store({
+  value: 0,
+  mandatory: false,
+  alert: false,
+  example: false
+});
 
 storiesOf('Experimental/Checkbox', module)
   .add('default', () => {
@@ -106,23 +117,25 @@ storiesOf('Experimental/Checkbox', module)
         </Form>
 
         <h3>In Group</h3>
-        <State store={ inGroupStore }>
+        <State store={ groupStore }>
           <CheckboxGroup
             name='checkbox-group'
             groupName='checkbox-group'
             label='What would you choose?'
-            labelHelp='Returns error unless "Baz" value selected'
+            labelHelp='Text for tooltip'
             validations={ testValidator }
             warnings={ testWarning }
             info={ testInfo }
           >
             {groupCheckbox.map(id => (
-              <OriginalCheckbox
-                { ...defaultKnobs(id) }
-                key={ `checkbox-input-${id}` }
-                onChange={ ev => inGroupStore.set({ value: ev.target.value }) }
-                labelHelp=''
-              />
+              <State store={ checkboxes[id].store } key={ `check-state-${id}` }>
+                <OriginalCheckbox
+                  { ...defaultKnobs(id) }
+                  key={ `checkbox-input-${id}` }
+                  onChange={ ev => handleGroupChange(ev, id) }
+                  labelHelp=''
+                />
+              </State>
             ))}
           </CheckboxGroup>
         </State>
@@ -145,6 +158,19 @@ function handleChange(ev, id = 'one') {
     checked,
     forceUpdateTriggerToggle: !checked
   });
+}
+
+function handleGroupChange(ev, id) {
+  const { checked } = ev.target;
+  const count = Number(groupStore.get('value'));
+  const value = checked ? count + 1 : count - 1;
+
+  groupStore.set({
+    value,
+    [id]: checked
+  });
+
+  handleChange(ev, id);
 }
 
 function defaultKnobs(type) {

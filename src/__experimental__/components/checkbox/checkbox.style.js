@@ -82,15 +82,7 @@ const CheckboxStyle = styled.div`
       width: auto;
 
       ${({ hasError }) => hasError && !disabled && css`
-        color: ${theme.colors.error};
-      `}
-
-      ${({ hasWarning }) => hasWarning && !disabled && css`
-        color: ${theme.colors.warning};
-      `}
-
-      ${({ hasInfo }) => hasInfo && !disabled && css`
-        color: ${theme.colors.info};
+        color: ${theme.text.color};
       `}
     }
 
@@ -102,8 +94,8 @@ const CheckboxStyle = styled.div`
 
     ${ValidationIconStyle} {
       display: inline-block;
-      margin-left: 10px;
-      margin-top: -4px;
+      margin-left: 8px;
+      padding: 1px;
       vertical-align: middle;
     }
 
@@ -211,10 +203,12 @@ const StyledCheckboxGroup = styled.div`
     hasWarning,
     hasInfo
   }) => css`
-    ${LabelStyle} {
-      ${(hasError || hasWarning || hasInfo) && css`
-        color: ${theme.text.color};
-      `}
+    & ${CheckboxStyle} {
+      svg {
+        ${hasInfo && css`border-color: ${theme.colors.info};`}
+        ${hasWarning && css`border-color: ${theme.colors.warning};`}
+        ${hasError && css`border-color: ${theme.colors.error};`}
+      }
     }
 
     & > ${FormFieldStyle} {
@@ -223,18 +217,10 @@ const StyledCheckboxGroup = styled.div`
         margin-bottom: 16px;
         padding: 0;
 
-        ${hasError && css`
-          color: ${theme.text.color};
-        `}
-
         & ${ValidationIconStyle} {
           margin-left: 8px;
           padding: 1px;
           display: inline-block;
-
-          ${props => !props.hasError && !props.hasWarning && !props.hasInfo && css`
-            color: ${theme.help.color};
-          `}
         }
       }
     }

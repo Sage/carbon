@@ -9,7 +9,7 @@ import LabelStyle from '../label/label.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import baseTheme from '../../../style/themes/base';
 import Icon from '../../../components/icon';
-import ValidationIconStyle from '../../../components/validations/validation-icon.style';
+import ValidationIcon from '../../../components/validations/validation-icon.component';
 import Label from '../label';
 import FormFieldStyle from '../form-field/form-field.style';
 
@@ -123,7 +123,10 @@ describe('CheckboxGroup', () => {
     });
 
     describe('checkbox group', () => {
-      const wrapper = render({}, mount);
+      const wrapper = render({
+        labelHelp: 'Text for tooltip',
+        tooltipMessage: 'Custom tooltip message'
+      }, mount);
       const validationTypes = {
         hasError: { color: baseTheme.colors.error },
         hasWarning: { color: baseTheme.colors.warning },
@@ -152,7 +155,7 @@ describe('CheckboxGroup', () => {
         });
 
         it('check icon type', () => {
-          const icon = wrapper.find(ValidationIconStyle);
+          const icon = wrapper.find(ValidationIcon);
           const iconType = type.replace('has', '').toLowerCase();
 
           expect(icon.prop('type')).toEqual(iconType);
