@@ -41,8 +41,10 @@ const afterFormValidation = () => {
 storiesOf('ShowEditPod', module)
   .addParameters({
     info: {
-      propTablesExclude: [Content, State]
-    }
+      propTablesExclude: [Content, State],
+      text: info
+    },
+    notes: { markdown: notes }
   })
   .add(
     'default',
@@ -105,9 +107,5 @@ storiesOf('ShowEditPod', module)
           </ShowEditPod>
         </State>
       );
-    },
-    {
-      notes: { markdown: notes },
-      info: { text: info }
     }
   );
