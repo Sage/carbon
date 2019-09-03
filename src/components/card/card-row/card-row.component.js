@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyledCardRow from './card-row.style';
-import CardContent from '../card-content';
 import OptionsHelper from '../../../utils/helpers/options-helper/options-helper';
 
 const CardRow = ({
@@ -25,7 +24,7 @@ const CardRow = ({
       footerFilled={ footerFilled }
       inlineRow={ inlineRow }
       positionType={ positionType }
-      size={ size }
+      marginSize={ size }
       { ...props }
     >
       { rowChildren }

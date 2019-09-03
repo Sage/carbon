@@ -13,7 +13,7 @@ const marginSizes = {
 
 const StyledCardRow = styled.div`
   ${({
-    footerFilled, positionType, inlineRow, size, theme
+    footerFilled, positionType, inlineRow, marginSize, theme
   }) => css`
     ${positionType === 'header' && css`
       padding: 32px 32px;
@@ -31,7 +31,7 @@ const StyledCardRow = styled.div`
       height: 56px;
       line-height: 56px;
       padding: 0 32px;
-      margin: ${marginSizes[size]};
+      margin: ${marginSizes[marginSize]};
       display: flex;
     `}
   `}
@@ -41,7 +41,7 @@ StyledCardRow.propTypes = {
   footerFilled: PropTypes.bool,
   positionType: PropTypes.oneOf(cardSection),
   inlineRow: PropTypes.bool,
-  size: PropTypes.oneOf(sizesRestricted)
+  marginSize: PropTypes.oneOf(sizesRestricted)
 };
 
 StyledCardRow.defaultProps = {
