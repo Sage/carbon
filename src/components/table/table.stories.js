@@ -85,8 +85,10 @@ const inputKnobs = () => {
 storiesOf('Table', module)
   .addParameters({
     info: {
+      text: info,
       propTablesExclude: [State]
-    }
+    },
+    notes: { markdown: notes }
   })
   .add('classic', () => {
     const tableProps = {
@@ -98,9 +100,7 @@ storiesOf('Table', module)
       <TableWrapper { ...tableProps } />
     );
   }, {
-    themeSelector: classicThemeSelector,
-    info: { text: info },
-    notes: { markdown: notes }
+    themeSelector: classicThemeSelector
   })
   .add(
     'default',
@@ -115,9 +115,7 @@ storiesOf('Table', module)
       );
     },
     {
-      themeSelector: dlsThemeSelector,
-      info: { text: info },
-      notes: { markdown: notes }
+      themeSelector: dlsThemeSelector
     },
   )
   .add(
@@ -134,9 +132,7 @@ storiesOf('Table', module)
       );
     },
     {
-      themeSelector: classicThemeSelector,
-      info: { text: info },
-      notes: { markdown: notes }
+      themeSelector: classicThemeSelector
     },
   )
   .add(
@@ -153,8 +149,6 @@ storiesOf('Table', module)
       );
     },
     {
-      themeSelector: dlsThemeSelector,
-      info: { text: info },
-      notes: { markdown: notes }
+      themeSelector: dlsThemeSelector
     },
   );

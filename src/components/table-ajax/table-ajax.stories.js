@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, boolean } from '@storybook/addon-knobs';
+import { text, boolean, object } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import { enableMock } from '../../../demo/xhr-mock';
@@ -62,7 +62,7 @@ function makeStory(name, themeSelector) {
 
     const pageSize = text('pageSize', '5');
     const paginate = boolean('paginate', TableAjax.defaultProps.paginate);
-    const getCustomHeaders = text('getCustomHeaders');
+    const customHeaders = object('customHeaders', { Accept: 'application/json' });
 
     return (
       <State store={ store }>
@@ -89,7 +89,7 @@ function makeStory(name, themeSelector) {
           path='/countries'
           pageSize={ pageSize }
           paginate={ paginate }
-          getCustomHeaders={ getCustomHeaders }
+          getCustomHeaders={ () => customHeaders }
           onChange={ data => handleChange(data) }
         />
       </State>
@@ -97,9 +97,7 @@ function makeStory(name, themeSelector) {
   };
 
   const metadata = {
-    themeSelector,
-    info: { text: info },
-    notes: { markdown: notes }
+    themeSelector
   };
 
   return [name, component, metadata];
@@ -108,8 +106,11 @@ function makeStory(name, themeSelector) {
 storiesOf('Table Ajax', module)
   .addParameters({
     info: {
+      text: info,
       propTablesExclude: [State]
-    }
+    },
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   })
   .add(...makeStory('default', dlsThemeSelector))
   .add(...makeStory('classic', classicThemeSelector));

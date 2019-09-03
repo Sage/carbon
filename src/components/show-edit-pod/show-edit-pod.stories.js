@@ -102,9 +102,7 @@ function makeStory(name, themeSelector) {
   };
 
   const metadata = {
-    themeSelector,
-    notes: { markdown: notes },
-    info: { text: info }
+    themeSelector
   };
 
   return [name, component, metadata];
@@ -113,8 +111,10 @@ function makeStory(name, themeSelector) {
 storiesOf('ShowEditPod', module)
   .addParameters({
     info: {
-      propTablesExclude: [Content, State]
-    }
+      propTablesExclude: [Content, State],
+      text: info
+    },
+    notes: { markdown: notes }
   })
   .add(...makeStory('default', dlsThemeSelector))
   .add(...makeStory('classic', classicThemeSelector));
