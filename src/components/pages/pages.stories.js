@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react';
 import { select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-import Pages from './pages.component';
+import DefaultPages from './pages.component';
 import Page from './page/page.component';
 import DialogFullScreen from '../dialog-full-screen';
 import Heading from '../heading/heading';
@@ -19,7 +19,7 @@ Page.__docgenInfo = getDocGenInfo(
   /page\.js(?!spec)/
 );
 
-Pages.__docgenInfo = getDocGenInfo(
+DefaultPages.__docgenInfo = getDocGenInfo(
   docgenInfo,
   /pages(?!spec)/
 );
@@ -100,7 +100,7 @@ storiesOf('Pages', module)
               onCancel={ handleCancel }
             >
               <PageState>
-                <Pages>
+                <DefaultPages>
                   <Page title={ <Heading title='My First Page' /> }>
                     <Button onClick={ (ev) => { handleSlide(ev, 1); } }>
                       Go to second page
@@ -127,7 +127,7 @@ storiesOf('Pages', module)
                       Go to second page
                     </Button>
                   </Page>
-                </Pages>
+                </DefaultPages>
               </PageState>
             </DialogFullScreen>
           </DialogState>
@@ -137,7 +137,7 @@ storiesOf('Pages', module)
   }, {
     info: {
       text: <p>Allows to slide to different pages in a full screen dialog.</p>,
-      propTablesExclude: [Button, DialogFullScreen, DialogState, PageState, Pages, Page, State]
+      propTablesExclude: [Button, DialogFullScreen, DialogState, PageState, DefaultPages, Page, State]
     }
   })
   .add('default', () => {
@@ -153,7 +153,7 @@ storiesOf('Pages', module)
             onCancel={ handleCancel }
           >
             <PageState>
-              <Pages
+              <DefaultPages
                 pageIndex={ handleSlide(null, pageIndex) }
               >
                 <Page title={ <Heading title='My First Page' /> }>
@@ -182,7 +182,7 @@ storiesOf('Pages', module)
                     Go to second page
                   </OriginalButton>
                 </Page>
-              </Pages>
+              </DefaultPages>
             </PageState>
           </DialogFullScreen>
         </DialogState>
@@ -191,6 +191,6 @@ storiesOf('Pages', module)
   }, {
     info: {
       text: <p>Allows to slide to different pages in a full screen dialog.</p>,
-      propTablesExclude: [OriginalButton, DialogFullScreen, DialogState, PageState, State]
+      propTablesExclude: [OriginalButton, DialogFullScreen, DialogState, PageState, DefaultPages, Page, State]
     }
   });

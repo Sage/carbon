@@ -7,7 +7,6 @@ import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 import {
   PagesContent
 } from './pages.style';
-import StyledHeadingIcon from '../heading/heading.style';
 import classicTheme from '../../style/themes/classic';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import 'jest-styled-components';
@@ -213,12 +212,6 @@ describe('PagesWrapperStyle', () => {
         overflow: 'hidden',
         position: 'relative'
       }, wrapper);
-    });
-
-    it('should render the correct HeadingIcon styles within PagesContent', () => {
-      assertStyleMatch({
-        marginTop: '-9px'
-      }, wrapper, { modifier: `${StyledHeadingIcon}` });
     });
   });
 });

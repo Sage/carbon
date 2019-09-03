@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { slideAnimation, fadeAnimation } from './pages.config';
 import StyledHeadingIcon from '../heading/heading.style';
 import { isClassic } from '../../utils/helpers/style-helper';
-import { LinkStyle, LinkStyleAnchor } from '../link/link.style';
+import { LinkStyleAnchor } from '../link/link.style';
 import BaseTheme from '../../style/themes/base';
 
 const PagesContent = styled.div`
