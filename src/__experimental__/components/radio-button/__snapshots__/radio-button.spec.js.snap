@@ -845,8 +845,8 @@ exports[`RadioButton styles base renders as expected 1`] = `
 
 .c2 .c24 {
   display: inline-block;
-  margin-left: 10px;
-  margin-top: -4px;
+  margin-left: 8px;
+  padding: 1px;
   vertical-align: middle;
 }
 
