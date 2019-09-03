@@ -4,6 +4,8 @@ import InputPresentationStyle from '../input/input-presentation.style';
 import dateClassicStyle from './date-classic.style';
 
 const StyledDateInput = styled.div`
+  display: inline-block;
+  
   & ${InputPresentationStyle} {
     flex: none;
     width: 135px;
