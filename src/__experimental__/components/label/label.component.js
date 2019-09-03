@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Help from '../../../components/help';
 import LabelStyle from './label.style';
+import ValidationIcon from '../../../components/validations/validation-icon.component';
+import { getValidationType } from '../../../components/validations/with-validation.hoc';
 
 const Label = ({
   children,
@@ -10,14 +12,27 @@ const Label = ({
   helpId,
   helpTag,
   helpTabIndex,
+  hasError,
+  hasWarning,
+  hasInfo,
+  tooltipMessage,
   ...props
 }) => (
   <LabelStyle
     data-element='label'
+    hasError={ hasError }
     { ...props }
   >
     {children}
-    {help && (
+
+    {(hasError || hasWarning || hasInfo) && tooltipMessage && (
+      <ValidationIcon
+        type={ getValidationType({ hasError, hasWarning, hasInfo }) }
+        tooltipMessage={ tooltipMessage }
+      />
+    )}
+
+    {!hasError && !hasWarning && !hasInfo && help && (
       <Help
         helpId={ helpId }
         tagTypeOverride={ helpTag }
@@ -35,7 +50,11 @@ Label.propTypes = {
   helpIcon: PropTypes.string,
   helpId: PropTypes.string,
   helpTag: PropTypes.string,
-  helpTabIndex: PropTypes.string
+  helpTabIndex: PropTypes.string,
+  hasError: PropTypes.bool,
+  hasWarning: PropTypes.bool,
+  hasInfo: PropTypes.bool,
+  tooltipMessage: PropTypes.string
 };
 
 export default Label;

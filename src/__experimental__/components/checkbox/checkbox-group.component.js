@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import { StyledCheckboxGroup } from './checkbox.style';
 import { withValidation } from '../../../components/validations';
-import { getValidationType } from '../../../components/validations/with-validation.hoc';
-import ValidationIcon from '../../../components/validations/validation-icon.component';
 import FormField from '../form-field';
 
 function initialTabIndex(childIndex) {
@@ -19,8 +17,6 @@ const CheckboxGroup = (props) => {
   const {
     children,
     groupName,
-    label,
-    labelHelp,
     hasError,
     hasWarning,
     hasInfo
@@ -52,28 +48,6 @@ const CheckboxGroup = (props) => {
     );
   });
 
-  const type = getValidationType(props);
-  const labelWithValidationIcon = () => {
-    return (
-      <React.Fragment>
-        {label}
-        {type !== '' && (
-          <ValidationIcon
-            tooltipMessage={ labelHelp }
-            type={ type }
-            { ...props }
-          />
-        )}
-      </React.Fragment>
-    );
-  };
-  const fieldProps = {
-    ...props,
-    label: labelWithValidationIcon(),
-    labelId: groupLabelId,
-    labelHelp: type === '' ? labelHelp : null
-  };
-
   return (
     <StyledCheckboxGroup
       aria-labelledby={ groupLabelId }
@@ -83,7 +57,7 @@ const CheckboxGroup = (props) => {
       hasInfo={ hasInfo }
       { ...tagComponent('checkboxgroup', props) }
     >
-      <FormField { ...fieldProps }>
+      <FormField { ...props }>
         {buttons}
       </FormField>
     </StyledCheckboxGroup>
@@ -95,10 +69,6 @@ CheckboxGroup.propTypes = {
   children: PropTypes.node.isRequired,
   /** Specifies the name prop to be applied to each button in the group */
   groupName: PropTypes.string.isRequired,
-  /** The content for the RadioGroup Label */
-  label: PropTypes.string.isRequired,
-  /** Text for help tooltip */
-  labelHelp: PropTypes.string,
   /** Validation indicators */
   hasError: PropTypes.bool,
   hasWarning: PropTypes.bool,

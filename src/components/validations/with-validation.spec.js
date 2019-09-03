@@ -1,9 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import PropTypes from 'prop-types';
+import _capitalize from 'lodash/capitalize';
 import { withValidation } from '.';
 import guid from '../../utils/helpers/guid';
 import VALIDATION_TYPES from './validation-types.config';
+import { getValidationType } from './with-validation.hoc';
 
 const presErr = new Error('this value is required!');
 
@@ -393,6 +395,30 @@ describe('when the withValidations HOC wraps a component', () => {
       );
       const validate = await wrapper.instance().runValidation(types[2]);
       expect(validate).toEqual(false);
+    });
+  });
+
+  describe('get validation type', () => {
+    const valTypes = ['error', 'warning', 'info', 'empty'];
+
+    describe.each(valTypes)('%s', (type) => {
+      it(`type should be ${type}`, () => {
+        const obj = {
+          hasError: false,
+          hasWarning: false,
+          hasInfo: false
+        };
+        const typeToKey = `has${_capitalize(type)}`;
+        let value = type;
+
+        if (Object.prototype.hasOwnProperty.call(obj, typeToKey)) {
+          obj[typeToKey] = true;
+        } else {
+          value = '';
+        }
+
+        expect(getValidationType(obj)).toEqual(value);
+      });
     });
   });
 });

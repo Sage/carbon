@@ -15,10 +15,7 @@ const Checkbox = ({
     inputLabel: label,
     inputValue: value,
     inputType: 'checkbox',
-    reverse: !props.reverse,
-    hasError: false,
-    hasWarning: false,
-    hasInfo: false
+    reverse: !props.reverse
   };
 
   return (

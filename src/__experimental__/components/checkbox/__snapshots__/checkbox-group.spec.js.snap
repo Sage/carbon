@@ -113,8 +113,8 @@ exports[`CheckboxGroup renders as expected 1`] = `
 
 .c5 .c15 {
   display: inline-block;
-  margin-left: 10px;
-  margin-top: -4px;
+  margin-left: 8px;
+  padding: 1px;
   vertical-align: middle;
 }
 
@@ -165,7 +165,6 @@ exports[`CheckboxGroup renders as expected 1`] = `
   margin-left: 8px;
   padding: 1px;
   display: inline-block;
-  color: rgba(0,0,0,0.65);
 }
 
 <div
