@@ -7,12 +7,8 @@ import { isClassic } from '../../utils/helpers/style-helper';
 
 const ProfileNameStyle = styled.span`
     font-weight: bold;
-    display: inline-block;
+    display: block;
     font-size: ${({ size }) => profileConfigSizes[size].nameSize};
-
-    ${({ theme }) => isClassic(theme) && css`
-      display: inline;
-    `};
 `;
 
 const ProfileEmailStyle = styled.span`
