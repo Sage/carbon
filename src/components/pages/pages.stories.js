@@ -6,6 +6,7 @@ import { select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
+import DefaultPages from './pages.component';
 import Page from './page/page.component';
 import DialogFullScreen from '../dialog-full-screen';
 import Heading from '../heading/heading';
@@ -19,7 +20,7 @@ Page.__docgenInfo = getDocGenInfo(
   /page\.js(?!spec)/
 );
 
-Pages.__docgenInfo = getDocGenInfo(
+DefaultPages.__docgenInfo = getDocGenInfo(
   docgenInfo,
   /pages(?!spec)/
 );
@@ -97,7 +98,7 @@ function makeStory(name, themeSelector) {
             onCancel={ handleCancel }
           >
             <PageState>
-              <Pages
+              <DefaultPages
                 pageIndex={ handleSlide(null, pageIndex) }
               >
                 <Page title={ <Heading title='My First Page' /> }>
@@ -111,7 +112,7 @@ function makeStory(name, themeSelector) {
                     Go to previous page.
                   </Button>
                 </Page>
-              </Pages>
+              </DefaultPages>
             </PageState>
           </DialogFullScreen>
         </DialogState>
@@ -123,7 +124,7 @@ function makeStory(name, themeSelector) {
     themeSelector,
     info: {
       text: <p>Allows to slide to different pages in a full screen dialog.</p>,
-      propTablesExclude: [OriginalButton, DialogFullScreen, DialogState, PageState, State]
+      propTablesExclude: [OriginalButton, DialogFullScreen, DialogState, PageState, DefaultPages, Page, State]
     }
   };
 
