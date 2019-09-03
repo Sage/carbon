@@ -16,7 +16,7 @@ const Card = ({
   clickable,
   draggable,
   footerFilled,
-  padding,
+  spacing,
   ...props
 }) => {
   const renderCardRows = () => {
@@ -33,7 +33,7 @@ const Card = ({
           footerFilled={ footerFilled }
           inlineRow={ inline }
           positionType={ positionType }
-          size={ padding }
+          marginSize={ spacing }
           { ...rowProps }
         >
           { content }
@@ -56,7 +56,7 @@ const Card = ({
       clickable={ clickable }
       draggable={ draggable }
       onlick={ handleClick }
-      size={ padding }
+      paddingSize={ spacing }
       { ...props }
     >
       { draggable && <Icon type='drag' />}
@@ -86,13 +86,13 @@ Card.propTypes = {
   draggable: PropTypes.bool,
   footerFilled: PropTypes.bool,
   /** size of card for applying padding (small | medium | large) */
-  padding: PropTypes.oneOf(sizesRestricted),
+  spacing: PropTypes.oneOf(sizesRestricted),
   theme: PropTypes.object
 };
 
 Card.defaultProps = {
   border: false,
-  padding: OptionsHelper.sizesRestricted[1],
+  spacing: OptionsHelper.sizesRestricted[1],
   theme: BaseTheme
 };
 export default Card;

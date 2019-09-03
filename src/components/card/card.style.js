@@ -6,7 +6,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 
 const StyledCard = styled.button`
   ${({
-    border, cardWidth, clickable, draggable, isDragging, size, theme
+    border, cardWidth, clickable, draggable, isDragging, paddingSize, theme
   }) => css`
     background-color: ${theme.colors.white};
     box-shadow: ${theme.shadows.cards};
@@ -34,15 +34,15 @@ const StyledCard = styled.button`
       border: none;
     `}
 
-    ${size === 'small' && css`
+    ${paddingSize === 'small' && css`
       padding: 16px 24px;
     `}
 
-    ${size === 'medium' && css`
+    ${paddingSize === 'medium' && css`
       padding: 24px 32px;
     `}
 
-    ${size === 'large' && css`
+    ${paddingSize === 'large' && css`
       padding: 32px 48px;
     `}
 
@@ -65,7 +65,7 @@ StyledCard.propTypes = {
   clickable: PropTypes.bool,
   draggable: PropTypes.bool,
   isDragging: PropTypes.bool,
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  paddingSize: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   theme: PropTypes.object
 
 };

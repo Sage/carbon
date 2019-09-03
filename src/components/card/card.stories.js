@@ -58,7 +58,7 @@ const cardKnobs = () => {
   return {
     key: 'one',
     border: boolean('border', false, 'Card Knobs'),
-    cardSize: select('card size', OptionsHelper.sizesRestricted, Card.defaultProps.padding, 'Card Knobs'),
+    cardSpacing: select('card spacing', OptionsHelper.sizesRestricted, Card.defaultProps.spacing, 'Card Knobs'),
     cardWidth: text('width', '500px', 'Card Knobs'),
     clickable: boolean('interactive card', false, 'Card Knobs'),
     draggable: boolean('draggable card', false, 'Card Knobs'),
@@ -73,7 +73,16 @@ const headerKnobs = () => {
     key: 'two',
     headerPrimary: {
       contentType: select(
-        'header primary type', ['link', 'heading', 'icon', cardTextTypes[0], cardTextTypes[1]], 'primary', 'Header Knobs'
+        'header primary type',
+        [
+          'link',
+          'heading',
+          'icon',
+          cardTextTypes[0],
+          cardTextTypes[1]
+        ],
+        'primary',
+        'Header Knobs'
       ),
       contentText: text('header one text', 'Primary', 'Header Knobs'),
       align: select('header one align', OptionsHelper.alignFull, 'center', 'Header Knobs')
@@ -131,7 +140,7 @@ storiesOf('Card', module)
   .add('default', () => {
     const {
       border,
-      cardSize,
+      cardSpacing,
       cardWidth,
       clickable,
       draggable,
@@ -163,7 +172,7 @@ storiesOf('Card', module)
 
     return (
       <Card
-        padding={ cardSize }
+        spacing={ cardSpacing }
         border={ border }
         cardWidth={ cardWidth }
         cardRows={ cardRows }
