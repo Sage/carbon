@@ -82,15 +82,21 @@ const StyledButtonToggleIcon = styled.div`
   
   ${({ buttonIconSize }) => buttonIconSize === 'large' && css`
     margin-right: 0;
-    
+
     ${StyledIcon} {
       margin-right: 0;
       margin-bottom: 8px;
-    }
 
-    ${StyledIcon}::before {
-      font-size: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
-      line-height: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
+      svg {
+        margin-top: 0;
+        width: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
+        height: ${`${iconFontSizes[`${buttonIconSize}Icon`] - 3}px`};
+      }
+
+      &::before {
+        font-size: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
+        line-height: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
+      }
     }
 
     .carbon-icon__svg--credit-card-slash {

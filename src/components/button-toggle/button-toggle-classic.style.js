@@ -55,6 +55,11 @@ const iconFontSizes = {
   largeIcon: 60
 };
 
+const svgIconSizes = {
+  smallIcon: iconFontSizes.smallIcon - 1,
+  largeIcon: iconFontSizes.largeIcon - 3
+};
+
 function applyIconStyle(id) {
   return `
     font-size: ${`${iconFontSizes[id]}px`};
@@ -65,11 +70,25 @@ function applyIconStyle(id) {
 const StyledButtonToggleClassicIcon = ({ theme }) => isClassic(theme) && css`
   display: inline;
 
+  ${StyledIcon} {
+    svg {
+      margin-top: 0;
+      width: ${iconFontSizes.smallIcon}px;
+      height: ${svgIconSizes.smallIcon}px;
+    }
+  }
+
   ${({ buttonIconSize }) => buttonIconSize === 'large' && css`
     display: block;
 
     ${StyledIcon} {
       margin-bottom: 0;
+
+      svg {
+        width: ${iconFontSizes.largeIcon}px;
+        height: ${svgIconSizes.largeIcon}px;
+      }
+
       ::before {
         ${applyIconStyle(`${buttonIconSize}Icon`)}
       }
