@@ -42,6 +42,9 @@ const Help = (props) => {
     }
   }
 
+  const handleFocus = () => updateTooltipVisible(true);
+  const handleBlur = () => updateTooltipVisible(false);
+
   return (
     <StyledHelp
       className={ className }
@@ -51,8 +54,10 @@ const Help = (props) => {
       target='_blank'
       rel='noopener noreferrer'
       ref={ helpElement }
-      onFocus={ () => updateTooltipVisible(true) }
-      onBlur={ () => updateTooltipVisible(false) }
+      onMouseOver={ handleFocus }
+      onMouseOut={ handleBlur }
+      onFocus={ handleFocus }
+      onBlur={ handleBlur }
       { ...tagComponent('help', props) }
       tabIndex={ tabIndexOverride }
       value={ children }
