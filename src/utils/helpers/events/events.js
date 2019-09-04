@@ -1,3 +1,4 @@
+import composedPath from './composedPath';
 /**
 * JavaScript Events
 *
@@ -334,6 +335,17 @@ const Events = {
   * */
   isEndKey: (ev) => {
     return ev.which === 35;
+  },
+
+  /**
+   * Gets the event's path which is an array of the objects on which listeners will be invoked.
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Event/composedPath
+   * @method composedPath
+   * @param {Event} ev A Javascript event
+   * @returns {EventTarget[]} objects representing the objects on which an event listener will be invoked
+   */
+  composedPath: (ev) => {
+    return ev.path || (ev.composedPath && ev.composedPath()) || composedPath(ev);
   }
 };
 

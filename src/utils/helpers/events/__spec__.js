@@ -356,4 +356,65 @@ describe('Events', () => {
       expect(Events.isEndKey({ which: 35 })).toBeTruthy();
     });
   });
+
+  describe('composedPath', () => {
+
+    it('returns the path from event.path if it is available', () => {
+      const path = Symbol('path');
+      const ev = new CustomEvent('click');
+      ev.path = path;
+      expect(Events.composedPath(ev)).toBe(path);
+    });
+
+    it('returns an empty array if there is no target', () => {
+      expect(Events.composedPath(new CustomEvent('click'))).toEqual([]);
+    });
+
+    it('returns an empty array if there is no parent element', () => {
+      const ev = {
+        target: document
+      };
+      
+      expect(Events.composedPath(ev)).toEqual([]);
+    });
+
+    it('returns the path from event.composedPath() if it is available', () => {
+      const path = Symbol('path');
+      const composedPath = jest.fn();
+      composedPath.mockReturnValue(path);
+      const ev = new CustomEvent('click');
+      ev.composedPath = composedPath;
+      expect(Events.composedPath(ev)).toBe(path);
+    });
+
+    it.each([
+      ['a DOMElement', (path, li) => {
+        const ev = {
+          target: li
+        }
+        
+        expect(Events.composedPath(ev)).toEqual(path);
+      }],
+      ['an Enzyme ReactWrapper', (path, li) => {
+        const ev = new CustomEvent('click', {
+          detail : {
+            enzymeTestingTarget: li
+          }
+        })
+        
+        expect(Events.composedPath(ev)).toEqual(path);
+      }],
+    ])('builds the path if it is not avaiable on the element from %s', (str, assertion) => {
+      const div = document.createElement('div');
+      const ul = document.createElement('ul');
+      const li = document.createElement('li');
+
+      ul.appendChild(li);
+      div.appendChild(ul);
+
+      const path = [div, ul, li];
+
+      assertion(path, li);
+    });
+  });
 });
