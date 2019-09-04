@@ -84,8 +84,10 @@ const inputKnobs = () => {
 storiesOf('Table', module)
   .addParameters({
     info: {
+      text: info,
       propTablesExclude: [State]
-    }
+    },
+    notes: { markdown: notes }
   })
   .add('classic', () => {
     const tableProps = {
@@ -96,9 +98,6 @@ storiesOf('Table', module)
     return (
       <TableWrapper { ...tableProps } />
     );
-  }, {
-    info: { text: info },
-    notes: { markdown: notes }
   })
   .add(
     'default',
@@ -111,11 +110,7 @@ storiesOf('Table', module)
       return (
         <TableWrapper { ...tableProps } />
       );
-    },
-    {
-      info: { text: info },
-      notes: { markdown: notes }
-    },
+    }
   )
   .add(
     'classic with inputs',
@@ -129,11 +124,7 @@ storiesOf('Table', module)
       return (
         <TableWrapper { ...tableProps } />
       );
-    },
-    {
-      info: { text: info },
-      notes: { markdown: notes }
-    },
+    }
   )
   .add(
     'default with inputs',
@@ -147,9 +138,5 @@ storiesOf('Table', module)
       return (
         <TableWrapper { ...tableProps } />
       );
-    },
-    {
-      info: { text: info },
-      notes: { markdown: notes }
-    },
+    }
   );
