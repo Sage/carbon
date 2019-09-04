@@ -129,6 +129,17 @@ describe('Help', () => {
   });
 });
 
+describe('when the component is clicked', () => {
+  it('simulate click event', () => {
+    const fakeFunction = jest.fn();
+    const wrapper = renderHelp();
+
+    wrapper.simulate('click', { preventDefault: fakeFunction });
+
+    expect(fakeFunction).toHaveBeenCalled();
+  });
+});
+
 describe('StyledHelp', () => {
   describe('when the Classic Theme is selected', () => {
     it('renders proper icon color', () => {

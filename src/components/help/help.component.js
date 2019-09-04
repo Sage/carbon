@@ -47,6 +47,7 @@ const Help = (props) => {
 
   return (
     <StyledHelp
+      type='button'
       className={ className }
       as={ tagType }
       href={ href }
@@ -54,6 +55,7 @@ const Help = (props) => {
       target='_blank'
       rel='noopener noreferrer'
       ref={ helpElement }
+      onClick={ ev => ev.preventDefault() }
       onMouseOver={ handleFocus }
       onMouseOut={ handleBlur }
       onFocus={ handleFocus }
