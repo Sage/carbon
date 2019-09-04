@@ -81,7 +81,7 @@ const selectValidation = value => validator(value, '2', '"Black" cannot be selec
 const selectWarning = value => validator(value, '3', 'Selecting "Blue" is not recommended');
 const selectInfo = value => validator(value, '4', 'You have selected "Brown"');
 
-function makeStandardStory(name, themeSelector) {
+function makeStory(name, themeSelector) {
   const component = () => {
     return (
       <State store={ singleSelectStore }>
@@ -153,8 +153,8 @@ storiesOf('Experimental/Select', module)
     },
     knobs: { escapeHTML: false }
   })
-  .add(...makeStandardStory('default', dlsThemeSelector))
-  .add(...makeStandardStory('classic', classicThemeSelector))
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector))
   .add(...makeMultipleStory('multiple', dlsThemeSelector))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
   .add(...makeValidationsStory('validations classic', classicThemeSelector));

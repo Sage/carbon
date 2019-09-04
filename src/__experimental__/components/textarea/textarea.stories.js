@@ -37,7 +37,7 @@ const percentageRange = {
   step: 1
 };
 
-function makeStandardStory(name, themeSelector) {
+function makeStory(name, themeSelector) {
   const component = () => {
     const expandable = boolean('expandable', Textarea.defaultProps.expandable);
     const cols = number('cols', 0, rangeOptions);
@@ -130,8 +130,8 @@ storiesOf('Experimental/Textarea', module)
       propTablesExclude: [State]
     }
   })
-  .add(...makeStandardStory('default', dlsThemeSelector))
-  .add(...makeStandardStory('classic', classicThemeSelector))
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
   .add(...makeValidationsStory('validations classic', classicThemeSelector));
 

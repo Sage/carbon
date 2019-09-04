@@ -34,7 +34,7 @@ const setValue = (ev) => {
   store.set({ value: ev.target.value });
 };
 
-function makeStandardStory(name, themeSelector) {
+function makeStory(name, themeSelector) {
   const component = () => {
     const autoFocus = boolean('autoFocus', true);
     const minDate = text('minDate', '');
@@ -96,8 +96,8 @@ function makeValidationsStory(name, themeSelector) {
 
 storiesOf('Experimental/Date Input', module)
   .addDecorator(StateDecorator(store))
-  .add(...makeStandardStory('default', dlsThemeSelector))
-  .add(...makeStandardStory('classic', classicThemeSelector))
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
   .add(...makeValidationsStory('validations classic', classicThemeSelector));
 

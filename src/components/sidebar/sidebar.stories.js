@@ -34,7 +34,7 @@ const openSidebar = () => {
   store.set({ open: true });
 };
 
-function makeStandardStory(name, themeSelector) {
+function makeStory(name, themeSelector) {
   const component = () => {
     const enableBackgroundUI = boolean('enableBackgroundUI', Sidebar.defaultProps.enableBackgroundUI);
     const position = select('position', OptionsHelper.alignBinary, Sidebar.defaultProps.position);
@@ -100,7 +100,7 @@ storiesOf('Sidebar', module)
       markdown: notes
     }
   })
-  .add(...makeStandardStory('default', dlsThemeSelector))
-  .add(...makeStandardStory('classic', classicThemeSelector))
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector))
   .add(...makeButtonStory('with button', dlsThemeSelector))
   .add(...makeButtonStory('with button classic', classicThemeSelector));

@@ -25,7 +25,7 @@ const defaultStoryPropsConfig = {
   inputWidthEnabled: true
 };
 
-function makeStandardStory(name, themeSelector) {
+function makeStory(name, themeSelector) {
   const component = () => {
     return (
       <Textbox
@@ -119,8 +119,8 @@ function makeValidationsStory(name, themeSelector) {
 }
 
 storiesOf('Experimental/Textbox', module)
-  .add(...makeStandardStory('default', dlsThemeSelector))
-  .add(...makeStandardStory('classic', classicThemeSelector))
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector))
   .add(...makeMultipleStory('multiple', dlsThemeSelector))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
   .add(...makeValidationsStory('validations classic', classicThemeSelector));

@@ -33,7 +33,7 @@ const handleClick = (evt) => {
   action('click')(evt);
 };
 
-function makeStandardStory(name, themeSelector) {
+function makeStory(name, themeSelector) {
   const component = () => {
     const title = text('title', 'Example Dialog');
     const subtitle = text('subtitle', 'Example Subtitle');
@@ -120,7 +120,7 @@ storiesOf('Dialog Full Screen', module)
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
   })
-  .add(...makeStandardStory('default', dlsThemeSelector))
-  .add(...makeStandardStory('classic', classicThemeSelector))
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector))
   .add(...makeStickyFooterStory('with sticky footer', dlsThemeSelector))
   .add(...makeStickyFooterStory('with sticky footer classic', classicThemeSelector));

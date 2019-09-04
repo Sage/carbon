@@ -24,7 +24,7 @@ const styles = {
   textAlign: 'left'
 };
 
-function makeStandardStory(name, themeSelector) {
+function makeStory(name, themeSelector) {
   const component = () => {
     const size = select('size', OptionsHelper.sizesBinary, Loader.defaultProps.size);
     const isInsideButton = boolean('isInsideButton', false);
@@ -73,7 +73,7 @@ function makeLegacySpinnerStory(name, themeSelector) {
 }
 
 storiesOf('Loader', module)
-  .add(...makeStandardStory('default', dlsThemeSelector))
-  .add(...makeStandardStory('classic', classicThemeSelector))
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector))
   .add(...makeLegacySpinnerStory('legacy spinner', dlsThemeSelector))
   .add(...makeLegacySpinnerStory('legacy spinner classic', classicThemeSelector));

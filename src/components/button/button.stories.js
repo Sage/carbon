@@ -50,7 +50,7 @@ const getKnobs = (isClassic) => {
   };
 };
 
-function makeStandardStory(name, themeSelector, isClassic, infotext) {
+function makeStory(name, themeSelector, isClassic, infotext) {
   const component = () => {
     const props = getKnobs(isClassic);
     const { children } = props; // eslint-disable-line react/prop-types
@@ -104,7 +104,7 @@ function makeSiblingStory(name, themeSelector, isClassic) {
 }
 
 storiesOf('Button', module)
-  .add(...makeStandardStory('default', dlsThemeSelector, false, Info))
-  .add(...makeStandardStory('classic', classicThemeSelector, true, InfoClassic))
+  .add(...makeStory('default', dlsThemeSelector, false, Info))
+  .add(...makeStory('classic', classicThemeSelector, true, InfoClassic))
   .add(...makeSiblingStory('as a sibling', dlsThemeSelector, false))
   .add(...makeSiblingStory('as a sibling classic', classicThemeSelector, true));

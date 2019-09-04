@@ -28,7 +28,7 @@ const handleOpen = () => {
   action('open')();
 };
 
-function makeStandardStory(name, themeSelector) {
+function makeStory(name, themeSelector) {
   const component = () => {
     const title = text('title', 'Attention');
     const subtitle = text('subtitle', '');
@@ -119,7 +119,7 @@ storiesOf('Alert', module)
     },
     notes: { markdown: notes }
   })
-  .add(...makeStandardStory('default', dlsThemeSelector))
-  .add(...makeStandardStory('classic', classicThemeSelector))
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector))
   .add(...makeButtonStory('with button', dlsThemeSelector))
   .add(...makeButtonStory('with button classic', classicThemeSelector));
