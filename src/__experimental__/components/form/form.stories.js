@@ -11,6 +11,7 @@ import Textbox from '../textbox';
 import Button from '../../../components/button';
 import Link from '../../../components/link';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
+import Fieldset from '../fieldset/fieldset.component';
 
 Form.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -37,7 +38,9 @@ storiesOf('Experimental/Form', module)
       text: Info,
       propTablesExclude: [Textbox],
       includePropTables: [FormWithoutValidations]
-    }
+    },
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   })
   .add('default', () => {
     const formActionOptions = ['', ...OptionsHelper.actionOptions];
@@ -99,7 +102,56 @@ storiesOf('Experimental/Form', module)
         />
       </Form>
     );
-  }, {
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false }
+  })
+  .add('fieldset > textbox', () => {
+    const legend = text('legend', '');
+
+    return (
+      <Form
+        onSubmit={ () => {
+          window.location.href = window.location.href;
+        } }
+      >
+        <Fieldset
+          legend={ legend }
+        >
+          <Textbox
+            label='First Name'
+            labelInline
+            labelAlign='right'
+            inputWidth={ 70 }
+          />
+          <Textbox
+            label='Last Name'
+            labelInline
+            labelAlign='right'
+            inputWidth={ 70 }
+          />
+          <Textbox
+            label='Address'
+            labelInline
+            labelAlign='right'
+            inputWidth={ 70 }
+          />
+          <Textbox
+            label='City'
+            labelInline
+            labelAlign='right'
+            inputWidth={ 70 }
+          />
+          <Textbox
+            label='Country'
+            labelInline
+            labelAlign='right'
+            inputWidth={ 70 }
+          />
+          <Textbox
+            label='Telephone'
+            labelInline
+            labelAlign='right'
+            inputWidth={ 70 }
+          />
+        </Fieldset>
+      </Form>
+    );
   });

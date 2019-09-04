@@ -150,9 +150,9 @@ class TableAjax extends Table {
      * Total number of records in the grid
      *
      * @property totalRecords
-     * @type {String}
+     * @type {Number}
      */
-    totalRecords: this.props.totalRecords || '0',
+    totalRecords: this.props.totalRecords || 0,
 
     /**
      * Sorting
@@ -388,7 +388,7 @@ class TableAjax extends Table {
     if (!err) {
       const data = this.props.formatResponse ? this.props.formatResponse(response.body) : response.body;
       this.props.onChange(data);
-      this.setState({ totalRecords: String(data.records), dataState: 'loaded', ariaBusy: false });
+      this.setState({ totalRecords: Number(data.records), dataState: 'loaded', ariaBusy: false });
     } else if (this.props.onAjaxError) {
       this.setComponentTagsErrored();
       this.props.onAjaxError(err, response);
