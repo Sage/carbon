@@ -21,9 +21,6 @@ class Pages extends React.Component {
 
     /** Direction of animation */
     this.transitionDirection = NEXT;
-    this.numOfPages = this.numOfPages.bind(this);
-    this.visiblePage = this.visiblePage.bind(this);
-    this.transitionName = this.transitionName.bind(this);
   }
 
   state = {
@@ -72,12 +69,12 @@ class Pages extends React.Component {
   }
 
   /** Gets the number of slides */
-  numOfPages() {
+  numOfPages = () => {
     return Array.isArray(this.props.children) ? compact(this.props.children).length : 1;
-  }
+  };
 
   /** Gets the currently visible page */
-  visiblePage() {
+  visiblePage = () => {
     let index = this.state.pageIndex;
 
     const visiblePage = compact(React.Children.toArray(this.props.children))[index];
@@ -90,16 +87,16 @@ class Pages extends React.Component {
     };
 
     return React.cloneElement(visiblePage, assign({}, visiblePage.props, additionalProps));
-  }
+  };
 
   /** Returns the current transition name */
-  transitionName() {
+  transitionName = () => {
     if (this.props.transition === 'slide') {
       return `slide-${this.transitionDirection}`;
     }
 
     return `carousel-transition-${this.props.transition}`;
-  }
+  };
 
   /** Renders the Slide Component */
   render() {
