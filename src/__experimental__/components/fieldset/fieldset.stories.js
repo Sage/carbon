@@ -62,9 +62,7 @@ function makeStory(name, themeSelector) {
   };
 
   const metadata = {
-    themeSelector,
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false }
+    themeSelector
   };
 
   return [name, component, metadata];
@@ -74,7 +72,9 @@ storiesOf('Experimental/Fieldset', module)
   .addParameters({
     info: {
       propTablesExclude: [Textbox]
-    }
+    },
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   })
   .add(...makeStory('default', dlsThemeSelector))
   .add(...makeStory('classic', classicThemeSelector));
