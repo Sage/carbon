@@ -7,8 +7,10 @@ import medium from '../src/style/themes/medium';
 import large from '../src/style/themes/large';
 import none from '../src/style/themes/none';
 
-// Detects whether the current window is the topmost window in the window hierarchy
-// (if not, then the current window is embedded in an <iframe>).
+/**
+ * Detects whether the current window is the topmost window in the window hierarchy
+ * (if not, then the current window is embedded in an <iframe>).
+ */
 function isStandalone() {
   return (window === window.top);
 }

@@ -47,7 +47,6 @@ function makeStory(name, themeSelector) {
   return [name, component, metadata];
 }
 
-
 storiesOf('Help', module)
   .add(...makeStory('default', dlsThemeSelector))
   .add(...makeStory('classic', classicThemeSelector));
