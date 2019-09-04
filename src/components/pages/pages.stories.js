@@ -110,7 +110,7 @@ storiesOf('Pages', module)
                     </Button>
                   </Page>
 
-                  <Page title={ <Heading title='My Second Page' backLink={ (ev) => { handlePreviousSlide(ev); } } /> }>
+                  <Page title={ <Heading title='My Second Page' backLink={ handlePreviousSlide } /> }>
                     <Button onClick={ (ev) => { handleSlide(ev, 0); } }>
                       Go to first page
                     </Button>
@@ -119,7 +119,7 @@ storiesOf('Pages', module)
                     </Button>
                   </Page>
 
-                  <Page title={ <Heading title='My Third Page' backLink={ (ev) => { handlePreviousSlide(ev); } } /> }>
+                  <Page title={ <Heading title='My Third Page' backLink={ handlePreviousSlide } /> }>
                     <Button onClick={ (ev) => { handleSlide(ev, 0); } }>
                       Go to first page
                     </Button>
@@ -165,7 +165,7 @@ storiesOf('Pages', module)
                   </OriginalButton>
                 </Page>
 
-                <Page title={ <Heading title='My Second Page' backLink={ (ev) => { handlePreviousSlide(ev); } } /> }>
+                <Page title={ <Heading title='My Second Page' backLink={ handlePreviousSlide } /> }>
                   <OriginalButton onClick={ (ev) => { handleSlide(ev, 0); } }>
                     Go to first page
                   </OriginalButton>
@@ -174,7 +174,7 @@ storiesOf('Pages', module)
                   </OriginalButton>
                 </Page>
 
-                <Page title={ <Heading title='My Third Page' backLink={ (ev) => { handlePreviousSlide(ev); } } /> }>
+                <Page title={ <Heading title='My Third Page' backLink={ handlePreviousSlide } /> }>
                   <OriginalButton onClick={ (ev) => { handleSlide(ev, 0); } }>
                     Go to first page
                   </OriginalButton>
