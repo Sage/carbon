@@ -103,19 +103,8 @@ function makeStory(name, themeSelector) {
   return [name, component, metadata];
 }
 
-storiesOf('Experimental/Form', module)
-  .addParameters({
-    info: {
-      text: Info,
-      propTablesExclude: [Textbox],
-      includePropTables: [FormWithoutValidations]
-    },
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false }
-  })
-  .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector))
-  .add('fieldset > textbox', () => {
+function makeFieldsetTextboxStory(name, themeSelector) {
+  const component = () => {
     const legend = text('legend', '');
 
     return (
@@ -166,4 +155,26 @@ storiesOf('Experimental/Form', module)
         </Fieldset>
       </Form>
     );
-  });
+  };
+
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Experimental/Form', module)
+  .addParameters({
+    info: {
+      text: Info,
+      propTablesExclude: [Textbox],
+      includePropTables: [FormWithoutValidations]
+    },
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
+  })
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector))
+  .add(...makeFieldsetTextboxStory('fieldset > textbox', dlsThemeSelector))
+  .add(...makeFieldsetTextboxStory('fieldset > textbox classic', classicThemeSelector));
