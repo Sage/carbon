@@ -10,25 +10,39 @@ const PagesContent = styled.div`
   position: relative;
 
   ${LinkStyleAnchor} {
+    height: 26px;
     background-color: transparent;
+    top: 50px;
+    margin-top: -5px;
 
     ${({ theme }) => !isClassic(theme) && css`
+      top: 17px;
+
       &:focus {
         outline: solid 3px ${theme.colors.focus};
       }
     `}
-  }
 
-  && ${StyledHeadingIcon} {
-    margin-top: -22px;
-    height: 26px;
-  }
+    > span {
+      display: block;
+      height: 26px;
 
-  ${({ theme }) => !isClassic(theme) && css`
-    && ${StyledHeadingIcon} {
-      margin-top: -5px;
+      > span {
+        display: block;
+        height: 26px;
+        
+        ${StyledHeadingIcon} {
+          margin-top: -9px;
+          top: 7px;
+          height: 26px;
+
+          &:before {
+            line-height: 26px;
+          }
+        }
+      }
     }
-  `}
+  }
 
   .carbon-app-wrapper {
     min-width: auto;
