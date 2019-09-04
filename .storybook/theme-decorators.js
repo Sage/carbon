@@ -25,15 +25,30 @@ export default function getThemeDecorator() {
   // We're running in a standalone environment ("iframe.html" only, so addons
   // are not available), so we'll create a decorator using <ThemeProvider>.
 
-  const themeName = (new URLSearchParams(window.location.search)).get('theme') || 'none';
+  const queryStringThemeName = (new URLSearchParams(window.location.search)).get('theme');
 
   const themesMap = { classic, small, medium, large, none };
 
-  const themeDecorator = story => (
-    <ThemeProvider theme={ themesMap[themeName] }>
-      {story()}
-    </ThemeProvider>
-  );
+  const themeDecorator = (story, storyArgs) => {
+    const storyThemeName = (
+      storyArgs &&
+      storyArgs.parameters &&
+      storyArgs.parameters.themeSelector &&
+      storyArgs.parameters.themeSelector.themes &&
+      storyArgs.parameters.themeSelector.themes.length > 0 &&
+      storyArgs.parameters.themeSelector.themes[0].name
+    );
+
+    // If no theme name was provided in the query string, then use the name of
+    // the first story-specific theme (if any), otherwise fallback to "none".
+    const themeName = queryStringThemeName || storyThemeName || 'none';
+
+    return (
+      <ThemeProvider theme={ themesMap[themeName] }>
+        {story()}
+      </ThemeProvider>
+    );
+  };
 
   return themeDecorator;
 }
