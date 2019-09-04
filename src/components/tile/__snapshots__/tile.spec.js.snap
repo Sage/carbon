@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tile renders base styles 1`] = `
+.c2 {
+  position: relative;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c0 {
+  background-color: #FFFFFF;
+  border: 1px solid #CCD6DA;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  padding: 24px;
+  position: relative;
+  width: 100%;
+}
+
+.c0 .c1 {
+  box-sizing: border-box;
+  display: inline;
+}
+
+.c0 .c1:not(:last-of-type) {
+  padding-right: 24px;
+}
+
+.c0 .c1 + .c1 {
+  margin-top: 0;
+  border-left: solid 1px #E5EAEC;
+  padding-left: 24px;
+}
+
+.c3 .c1 {
+  box-sizing: border-box;
+  width: auto;
+}
+
+.c3 .c1:not(:last-of-type) {
+  padding-bottom: 24px;
+}
+
+.c3 .c1 + .c1 {
+  margin-top: 0;
+  border-top: solid 1px #E5EAEC;
+  padding-top: 24px;
+}
+
+<div
+  className="c0"
+  data-component="tile"
+  orientation="horizontal"
+>
+  <div
+    className="c1 c2"
+  >
+    <div
+      className="carbon-content carbon-content--primary carbon-content--align-left"
+      data-component="content"
+    >
+      <div
+        className="carbon-content__title"
+        data-element="title"
+        style={Object {}}
+      />
+      <div
+        className="carbon-content__body"
+        data-element="body"
+        style={Object {}}
+      >
+        Child 1
+      </div>
+    </div>
+  </div>
+  <div
+    className="c1 c2"
+  >
+    <div
+      className="carbon-content carbon-content--primary carbon-content--align-left"
+      data-component="content"
+    >
+      <div
+        className="carbon-content__title"
+        data-element="title"
+        style={Object {}}
+      />
+      <div
+        className="carbon-content__body"
+        data-element="body"
+        style={Object {}}
+      >
+        Child 2
+      </div>
+    </div>
+  </div>
+</div>
+`;
