@@ -5,6 +5,7 @@ import DayPicker from 'react-day-picker';
 import LocaleUtils from 'react-day-picker/moment';
 import 'react-day-picker/lib/style.css';
 import './date.scss';
+import OptionsHelper from 'utils/helpers/options-helper';
 import Navbar from './navbar';
 import Portal from '../portal';
 import Browser from '../../utils/helpers/browser';
@@ -120,12 +121,12 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
     allowEmptyValue: PropTypes.bool,
 
     /**
-     * Display the date picker component on top of the input
+     * Choose where displayed the date picker
      *
-     * @property showPickerOnTop
+     * @property positionDatePicker
      * @type {Boolean}
      */
-    showPickerOnTop: PropTypes.bool
+    positionDatePicker: PropTypes.oneOf(OptionsHelper.positionDatePicker)
   };
 
   static defaultProps = {
@@ -574,16 +575,28 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
   get containerStyle() {
     const inputRect = this.getInputBoundingRect();
     const offsetY = window.pageYOffset;
-    if (this.props.showPickerOnTop) {
-      return {
-        left: inputRect.left,
-        bottom: 2 - (offsetY + inputRect.top)
-      };
+    switch (this.props.positionDatePicker) {
+      case 'top-left':
+        return {
+          right: -inputRect.right,
+          bottom: 2 - (offsetY + inputRect.top)
+        };
+      case 'top-right':
+        return {
+          left: inputRect.left,
+          bottom: 2 - (offsetY + inputRect.top)
+        };
+      case 'bottom-left':
+        return {
+          right: -inputRect.right,
+          top: inputRect.bottom + offsetY
+        };
+      default:
+        return {
+          left: inputRect.left,
+          top: inputRect.bottom + offsetY
+        };
     }
-    return {
-      left: inputRect.left,
-      top: inputRect.bottom + offsetY
-    };
   }
 
   /**

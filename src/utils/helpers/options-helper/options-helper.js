@@ -230,6 +230,13 @@ const OptionsHelper = {
     'tertiary',
     'tile',
     'transparent'
+  ],
+
+  positionDatePicker: [
+    'top-left',
+    'top-right',
+    'bottom-left',
+    'bottom-right'
   ]
 };
 
