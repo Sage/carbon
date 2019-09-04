@@ -121,7 +121,10 @@ const iconUnicodes = {
   video: '\\e95e',
   play: '\\e95f',
   ellipsis_horizontal: '\\e960',
-  ellipsis_vertical: '\\e961'
+  ellipsis_vertical: '\\e961',
+  in_transit: '\\e964',
+  arrow_left_small: '\\e963',
+  arrow_right_small: '\\e962'
 };
 
 export default iconUnicodes;
