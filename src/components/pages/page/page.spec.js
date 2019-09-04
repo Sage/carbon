@@ -1,18 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Page from './page.component';
-import FullScreenHeading from './../../dialog-full-screen/full-screen-heading';
-import AppWrapper from './../../app-wrapper';
+import FullScreenHeading from '../../dialog-full-screen/full-screen-heading';
 
 describe('Pages', () => {
   it('renders a page with a full screen heading', () => {
     const wrapper = shallow(
-      <Page title={ 'My Title' } data-element='carbon-page-content'>
+      <Page title='My Title' data-element='carbon-page-content'>
         My Content
       </Page>
     );
-    const fullScrenHeading = wrapper.find(FullScreenHeading),
-          content = wrapper.find('[data-element="carbon-page-content"]').first();
+    const fullScrenHeading = wrapper.find(FullScreenHeading);
 
     expect(wrapper.props()['data-element']).toEqual('carbon-page-content');
     expect(wrapper.props()['data-component']).toEqual('page');
