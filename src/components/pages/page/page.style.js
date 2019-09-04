@@ -9,15 +9,15 @@ const StyledPage = styled.article`
   height: 100%;
 
   ${LinkStyleAnchor} {
-    text-decoration: none !important;
+    text-decoration: none;
 
     ${({ theme }) => !isClassic(theme) && css`
       height: 25px;
-      margin-top: -12px !important;
+      margin-top: -12px;
     `}
 
     &:hover {
-      text-decoration: none !important;
+      text-decoration: none;
     }
 
     ${StyledIcon} {

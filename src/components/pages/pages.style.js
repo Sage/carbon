@@ -16,7 +16,7 @@ const PagesContent = styled.div`
     margin-top: -5px;
 
     ${({ theme }) => !isClassic(theme) && css`
-      top: 17px;
+      top: 12px;
 
       &:focus {
         outline: solid 3px ${theme.colors.focus};
