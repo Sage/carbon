@@ -16,7 +16,9 @@ storiesOf('Experimental/Fieldset', module)
   .addParameters({
     info: {
       propTablesExclude: [Textbox]
-    }
+    },
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   })
   .add('default', () => {
     const legend = text('legend', '');
@@ -63,7 +65,4 @@ storiesOf('Experimental/Fieldset', module)
         />
       </Fieldset>
     );
-  }, {
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false }
   });
