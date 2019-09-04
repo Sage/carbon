@@ -7,7 +7,7 @@ const FieldsetStyle = styled.fieldset`
   margin: 0;
   padding: 0;
 
-  ${FormFieldStyle} {
+  &&& ${FormFieldStyle} {
     margin-top: 0;
     margin-bottom: -1px;
   }
