@@ -190,6 +190,7 @@ const OptionsHelper = {
     'message',
     'messages',
     'minus',
+    'minus_large',
     'mobile',
     'pdf',
     'people',
@@ -197,7 +198,9 @@ const OptionsHelper = {
     'phone',
     'play',
     'plus',
+    'plus_large',
     'print',
+    'progress',
     'progressed',
     'question',
     'refresh',
@@ -218,8 +221,7 @@ const OptionsHelper = {
     'uploaded',
     'video',
     'view',
-    'warning',
-    'white-tick'
+    'warning'
   ],
 
   orientation: [
