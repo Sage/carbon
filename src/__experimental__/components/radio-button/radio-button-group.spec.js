@@ -8,9 +8,9 @@ import { StyledRadioButtonGroup } from './radio-button.style';
 import Label from '../label';
 import LabelStyle from '../label/label.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
-import ValidationIconStyle from '../../../components/validations/validation-icon.style';
+import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 import baseTheme from '../../../style/themes/base';
-import FormFieldStyle from '../form-field/form-field.style';
+import StyledFormField from '../form-field/form-field.style';
 
 const buttonValues = ['test-1', 'test-2'];
 const groupName = 'test-group';
@@ -158,7 +158,7 @@ describe('RadioButtonGroup', () => {
           padding: '0'
         },
         render().toJSON(),
-        { modifier: css`${`> ${FormFieldStyle} > ${LabelStyle}`}` }
+        { modifier: css`${`> ${StyledFormField} > ${LabelStyle}`}` }
       );
     });
 
@@ -184,7 +184,7 @@ describe('RadioButtonGroup', () => {
         });
 
         it('check icon type', () => {
-          const icon = wrapper.find(ValidationIconStyle);
+          const icon = wrapper.find(StyledValidationIcon);
           const iconType = getIconType(type);
 
           expect(icon.prop('type')).toEqual(iconType);
