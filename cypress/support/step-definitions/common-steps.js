@@ -23,7 +23,7 @@ Given('I open {string} component page basic', (component) => {
 });
 
 Given('I open {string} component page with button', (component) => {
-  visitComponentUrl(component, 'with-button');
+  visitComponentUrl(component, 'with_button');
 });
 
 Given('I open {string} component page legacy spinner', (component) => {
