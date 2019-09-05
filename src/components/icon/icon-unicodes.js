@@ -124,7 +124,16 @@ const iconUnicodes = {
   ellipsis_vertical: '\\e961',
   in_transit: '\\e964',
   arrow_left_small: '\\e963',
-  arrow_right_small: '\\e962'
+  arrow_right_small: '\\e962',
+  progress: '\\e965',
+  bin: '\\e90c',
+  basket: '\\e90a',
+  credit_card_slash: '\\e966',
+  plus_large: '\\e967',
+  minus_large: '\\e968',
+  remove: '\\e931',
+  grid: '\\e969',
+  location: '\\e93f'
 };
 
 export default iconUnicodes;
