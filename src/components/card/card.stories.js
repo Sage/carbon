@@ -8,7 +8,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 import Icon from '../icon';
 import Link from '../link';
 import Heading from '../heading';
-import CardContent from './card-content';
+import CardColumn from './card-column';
 
 Card.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -43,13 +43,13 @@ const buildContnent = (config, props) => {
     } = obj;
     const { positionType, ...rest } = props;
     return (
-      <CardContent
+      <CardColumn
         align={ align }
         type={ { position: positionType, contentStyle: contentType } }
         { ...rest }
       >
         { generateContentComponent(contentType, contentText, {}) }
-      </CardContent>
+      </CardColumn>
     );
   });
 };
