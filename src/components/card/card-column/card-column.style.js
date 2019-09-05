@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
-const StyledCardContent = styled.div`
+const StyledCardColumn = styled.div`
   width: 100%;
   ${({
     align, position, contentStyle, theme
@@ -55,7 +55,7 @@ const StyledCardContent = styled.div`
   `}
 `;
 
-StyledCardContent.propTypes = {
+StyledCardColumn.propTypes = {
   align: PropTypes.oneOf(OptionsHelper.alignFull),
   /** applies styling based on the content's row position */
   position: PropTypes.oneOf(OptionsHelper.cardSection),
@@ -65,9 +65,9 @@ StyledCardContent.propTypes = {
   theme: PropTypes.object
 };
 
-StyledCardContent.defaultProps = {
+StyledCardColumn.defaultProps = {
   align: 'center',
   theme: BaseTheme
 };
 
-export default StyledCardContent;
+export default StyledCardColumn;

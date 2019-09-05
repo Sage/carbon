@@ -1,28 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import StyledCardContent from './card-content.style';
+import StyledCardColumn from './card-column.style';
 import OptionsHelper from '../../../utils/helpers/options-helper/options-helper';
 
-const CardContent = ({
+const CardColumn = ({
   align,
   children,
   type,
   ...props
 }) => (
-  <StyledCardContent
+  <StyledCardColumn
     align={ align }
-    data-element={ `${type.position}-card-content` }
+    data-element={ `${type.position}-card-column` }
     position={ type.position }
     contentStyle={ type.contentStyle }
     { ...props }
   >
     { children }
-  </StyledCardContent>
+  </StyledCardColumn>
 );
 
 const { alignFull, cardSection, cardTextTypes } = OptionsHelper;
 
-CardContent.propTypes = {
+CardColumn.propTypes = {
   /** text alignment of the card section text */
   align: PropTypes.oneOf(alignFull),
   type: PropTypes.shape({
@@ -35,7 +35,7 @@ CardContent.propTypes = {
   children: PropTypes.node
 };
 
-CardContent.defaultProps = {
+CardColumn.defaultProps = {
   align: 'center',
   type: {
     position: 'middle',
@@ -43,4 +43,4 @@ CardContent.defaultProps = {
   }
 };
 
-export default CardContent;
+export default CardColumn;

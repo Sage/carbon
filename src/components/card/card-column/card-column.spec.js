@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import CardContent from './card-content.component';
+import CardColumn from './card-column.component';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import 'jest-styled-components';
 
@@ -52,14 +52,14 @@ const expectedStyle = {
   }
 };
 
-describe('CardContent', () => {
+describe('CardColumn', () => {
   describe.each(contentTypeVariants)('each row renders', (position, contentStyles) => {
     describe.each(contentStyles)('to match the expected style', (style) => {
       let wrapper;
 
       beforeEach(() => {
         wrapper = mount(
-          <CardContent
+          <CardColumn
             type={ { position, contentStyle: style } }
           />
         );
