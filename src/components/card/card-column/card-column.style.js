@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
 import OptionsHelper from '../../../utils/helpers/options-helper';
+import StyledCardHeader from '../card-header/card-header.style';
 
 const StyledCardColumn = styled.div`
   width: 100%;
@@ -9,21 +10,6 @@ const StyledCardColumn = styled.div`
     align, position, contentStyle, theme
   }) => css`
     text-align: ${align};
-
-    ${position === 'header' && css`
-      ${contentStyle === 'primary' && css`
-        font-size: 22px;
-        font-weight: 700;
-        line-height: 26px;
-        margin: 0;
-      `}
-      ${contentStyle === 'secondary' && css`
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 21px;
-        margin: 0;
-      `}
-    `}
 
     ${position === 'middle' && css`
       ${contentStyle === 'primary' && css`
@@ -45,13 +31,21 @@ const StyledCardColumn = styled.div`
       `}
     `}
 
-    ${position === 'footer' && css`
-      line-height: 30px;
-      margin: 0;
-      color: ${theme.card.footerText};
-      font-weight: 600;
-      padding: 12px 0;
-    `}
+
+    ${StyledCardHeader} & {
+        ${contentStyle === 'primary' && css`
+          font-size: 22px;
+          font-weight: 700;
+          line-height: 26px;
+        `}
+        ${contentStyle === 'secondary' && css`
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 21px;
+        `}
+
+        margin: 0;
+      }
   `}
 `;
 
@@ -61,7 +55,6 @@ StyledCardColumn.propTypes = {
   position: PropTypes.oneOf(OptionsHelper.cardSection),
   /** add text styling based on type */
   contentStyle: PropTypes.oneOf(OptionsHelper.cardTextTypes),
-  /** children of the content component */
   theme: PropTypes.object
 };
 
