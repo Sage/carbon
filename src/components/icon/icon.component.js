@@ -7,11 +7,6 @@ import { StyledIcon, StyledSvgIconWrapper } from './icon.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 class Icon extends React.Component {
-  /** Checks if we have an SVG available, otherwise will fall back to using the icon font. */
-  get renderIcon() {
-    return Icons[this.type];
-  }
-
   /** Return component props */
   get componentProps() {
     return validProps(this);
@@ -44,7 +39,7 @@ class Icon extends React.Component {
         bgSize={ this.props.bgSize }
         bgShape={ this.props.bgShape }
         bgTheme={ this.props.bgTheme }
-        isFont={ !this.renderIcon }
+        isFont={ true }
         fontSize={ this.props.fontSize }
         iconColor={ this.props.iconColor }
         disabled={ this.props.disabled }
@@ -58,20 +53,10 @@ class Icon extends React.Component {
         } }
         data-element={ this.type }
       >
-        {this.iconSvgHTML()}
       </StyledIcon>,
       this.tooltipHTML
     ];
   }
-
-  iconSvgHTML = () => {
-    const icon = this.renderIcon;
-    if (icon) {
-      return <StyledSvgIconWrapper dangerouslySetInnerHTML={ icon } fontSize={ this.props.fontSize } />;
-    }
-
-    return null;
-  };
 }
 
 Icon.propTypes = {
