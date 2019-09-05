@@ -1,5 +1,5 @@
 Feature: Build tests for classic stories
-  I want to check all components exists for classic
+  I want to check all components exists for classic stories
 
   @build
   Scenario Outline: Component <component> classic page with button
@@ -30,7 +30,7 @@ Feature: Build tests for classic stories
       | confirm             | confirm            |
 
   @build
-  Scenario Outline: Component <component> without activation button
+  Scenario Outline: Component <component> classic page without activation button
     When I open "<component>" component for classic story in iframe
     Then "<data-component>" component is visible
     Examples:
