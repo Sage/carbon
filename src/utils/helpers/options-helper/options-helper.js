@@ -139,6 +139,7 @@ const OptionsHelper = {
     'chevron_up',
     'clock',
     'close',
+    'coins',
     'collaborate',
     'copy',
     'connect',
