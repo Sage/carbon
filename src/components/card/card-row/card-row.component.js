@@ -6,7 +6,7 @@ import OptionsHelper from '../../../utils/helpers/options-helper/options-helper'
 const CardRow = ({
   children,
   footerFilled,
-  inlineRow,
+  inline,
   positionType,
   size,
   ...props
@@ -14,7 +14,7 @@ const CardRow = ({
   const rowChildren = React.Children.map(children, (child, index) => {
     if (!child) return null;
 
-    const key = child.key || `card-content-${String(index)}`;
+    const key = child.key || `card-content-${index}`;
     return React.cloneElement(child, { key, ...child.props });
   });
 
@@ -22,7 +22,7 @@ const CardRow = ({
     <StyledCardRow
       data-element={ `card-row-${positionType}` }
       footerFilled={ footerFilled }
-      inlineRow={ inlineRow }
+      inline={ inline }
       positionType={ positionType }
       marginSize={ size }
       { ...props }
@@ -39,7 +39,7 @@ CardRow.propTypes = {
   /** size of card for applying padding (small | medium | large) */
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   /** display card content inline */
-  inlineRow: PropTypes.bool,
+  inline: PropTypes.bool,
   /** prop to set background of footer */
   footerFilled: PropTypes.bool
 };
