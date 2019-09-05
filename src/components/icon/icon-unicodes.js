@@ -133,7 +133,8 @@ const iconUnicodes = {
   minus_large: '\\e968',
   remove: '\\e931',
   grid: '\\e969',
-  location: '\\e93f'
+  location: '\\e93f',
+  coins: '\\e96a'
 };
 
 export default iconUnicodes;
