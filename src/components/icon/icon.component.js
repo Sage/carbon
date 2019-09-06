@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import TooltipDecorator from '../../utils/decorators/tooltip-decorator';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
-import { StyledIcon, StyledSvgIconWrapper } from './icon.style';
+import { StyledIcon } from './icon.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 class Icon extends React.Component {
@@ -39,7 +39,6 @@ class Icon extends React.Component {
         bgSize={ this.props.bgSize }
         bgShape={ this.props.bgShape }
         bgTheme={ this.props.bgTheme }
-        isFont={ true }
         fontSize={ this.props.fontSize }
         iconColor={ this.props.iconColor }
         disabled={ this.props.disabled }
@@ -52,8 +51,7 @@ class Icon extends React.Component {
           this._target = comp;
         } }
         data-element={ this.type }
-      >
-      </StyledIcon>,
+      />,
       this.tooltipHTML
     ];
   }

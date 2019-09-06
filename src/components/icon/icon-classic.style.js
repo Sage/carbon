@@ -4,7 +4,7 @@ import classicConfig from './icon-classic-config';
 import browserTypeCheck, { isSafari } from '../../utils/helpers/browser-type-check';
 
 export default ({
-  theme, bgTheme, isFont, type
+  theme, bgTheme, type
 }) => isClassic(theme) && css`
   color: rgba(0, 0, 0, 0.85);
 
@@ -16,7 +16,7 @@ export default ({
     }
   `}
 
-  ${isFont && css`
+  ${css`
     &::before {
       font-size: 16px;
       font-style: normal;
