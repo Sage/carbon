@@ -1,6 +1,5 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import TestUtils from 'react-dom/test-utils';
 import { mount, shallow } from 'enzyme';
 import Tooltip from '../tooltip';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
