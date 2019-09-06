@@ -58,7 +58,7 @@ The following is a list of technologies Carbon utilises:
 
 ## Browser Support
 
-We support the following browsers:
+We support and test the Carbon Library against the latest versions of the following browsers:
 
 * [Google Chrome](https://www.google.com/chrome/)
 * [Firefox](https://www.mozilla.org/firefox/)
