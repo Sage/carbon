@@ -5,6 +5,10 @@
 .carbon-radio-button {
   padding-top: 8px;
 
+  .common-input__field{
+    vertical-align: middle;
+  }
+
   .common-input__field,
   .common-input__label {
     display: inline-block;
