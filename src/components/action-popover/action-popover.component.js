@@ -34,7 +34,7 @@ const ActionPopover = ({ children, id }) => {
       e.preventDefault();
       setOpen(true);
     }
-  }));
+  }), [isOpen]);
 
   const onKeyDown = useCallback(((e) => {
     if (Events.isTabKey(e) && Events.isShiftKey(e)) {
@@ -92,7 +92,7 @@ const ActionPopover = ({ children, id }) => {
         setFocusIndex(firstMatch);
       }
     }
-  }));
+  }), [focusIndex, items]);
 
   useEffect(() => {
     const handler = (e) => {
@@ -121,7 +121,7 @@ const ActionPopover = ({ children, id }) => {
       // Closing the menu should focus the MenuButton
       button.current.focus();
     }
-  });
+  }, [isOpen]);
 
   useEffect(() => {
     const itemsWithRef = [];
@@ -186,7 +186,7 @@ const MenuItem = React.forwardRef(({
     } else {
       e.stopPropagation();
     }
-  });
+  }, [disabled, onClickProp]);
 
   const onKeyDown = useCallback((e) => {
     if (Events.isEnterKey(e)) {
@@ -195,7 +195,7 @@ const MenuItem = React.forwardRef(({
       e.preventDefault();
       e.stopPropagation();
     }
-  });
+  }, [onClick]);
 
   return (
     <div
