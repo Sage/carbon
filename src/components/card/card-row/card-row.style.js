@@ -3,28 +3,24 @@ import PropTypes from 'prop-types';
 import OptionsHelper from '../../../utils/helpers/options-helper/options-helper';
 import BaseTheme from '../../../style/themes/base';
 
-const { cardSection } = OptionsHelper;
+const { sizesRestricted } = OptionsHelper;
+
+const marginSizes = {
+  small: '16px 0',
+  medium: '24px 0',
+  large: '32px 0'
+};
 
 const StyledCardRow = styled.div`
-  ${({
-    positionType, inline
-  }) => css`
-    ${positionType === 'header' && css`
-      padding: 32px 32px;
-      min-height: 48px;
-    `}
-    ${positionType === 'middle' && css`
-      padding: 0 32px;
-      margin-bottom: 32px;
-    `}
+  display: flex;
 
-    ${inline && css`display: flex;`}
+  ${({ spacing }) => css`
+    margin: ${marginSizes[spacing]};
   `}
 `;
 
 StyledCardRow.propTypes = {
-  positionType: PropTypes.oneOf(cardSection),
-  inline: PropTypes.bool
+  spacing: PropTypes.oneOf(sizesRestricted)
 };
 
 StyledCardRow.defaultProps = {

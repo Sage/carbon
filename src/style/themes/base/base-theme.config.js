@@ -50,7 +50,7 @@ export default (palette) => {
     card: {
       footerBackground: palette.slateTint(95),
       footerBorder: palette.slateTint(80),
-      footerText: palette.genericGreenShade(15),
+      footerText: palette.genericGreenTint(15),
       middlePrimary: blackWithOpacity(0.74),
       middleSecondary: blackWithOpacity(0.65),
       middleTertiary: blackWithOpacity(0.55)
