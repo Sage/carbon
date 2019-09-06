@@ -132,18 +132,10 @@ describe('Label', () => {
 
   describe('when hasError === true', () => {
     it('show validation icon', () => {
-      const wrapper = render({ hasError: true, tooltipMessage: 'Error!' }, mount);
+      const wrapper = render({ hasError: true, useValidationIcon: true, tooltipMessage: 'Error!' }, mount);
       const icon = wrapper.find(ValidationIcon);
 
       expect(icon.exists()).toEqual(true);
-    });
-  });
-
-  describe('when disableIcon === true', () => {
-    it('should only have 1 child', () => {
-      const wrapper = render({ disableIcon: true, help: 'Hi' }, TestRenderer.create).toJSON();
-
-      expect(wrapper.children).toHaveLength(1);
     });
   });
 });

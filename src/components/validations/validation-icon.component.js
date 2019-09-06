@@ -9,6 +9,7 @@ import { isClassic } from '../../utils/helpers/style-helper';
 import baseTheme from '../../style/themes/base';
 
 const ValidationIcon = ({
+  iconId,
   theme,
   type,
   size,
@@ -31,7 +32,7 @@ const ValidationIcon = ({
     <InputPresentationContext.Consumer>
       {
         context => (
-          <ValidationIconStyle type={ type }>
+          <ValidationIconStyle id={ iconId } type={ type }>
             <Icon
               key={ `${type}-icon` }
               tooltipType={ type }
@@ -51,6 +52,7 @@ const ValidationIcon = ({
 ValidationIcon.propTypes = {
   type: PropTypes.oneOf(OptionsHelper.validationTypes),
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  iconId: PropTypes.string,
   tooltipMessage: PropTypes.string,
   theme: PropTypes.object,
   isPartOfInput: PropTypes.bool

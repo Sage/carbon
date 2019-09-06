@@ -183,7 +183,8 @@ describe('Switch', () => {
     const wrapper = render({
       label: 'My Label',
       labelHelp: 'Please help me?',
-      unblockValidation: true
+      unblockValidation: true,
+      useValidationIcon: true
     }, mount);
     const validationTypes = ['error', 'warning', 'info'];
 

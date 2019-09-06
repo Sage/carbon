@@ -21,7 +21,7 @@ const formStore = new Store({
   checked: false
 });
 
-const unblockValidation = true;
+const trueBool = true;
 const stores = {};
 const validationTypes = ['cookies', 't&cs', 'info'];
 
@@ -96,7 +96,8 @@ storiesOf('Experimental/Switch', module)
           validations={ testValidation('valid') }
           warnings={ testValidation('warn') }
           info={ testValidation('info') }
-          unblockValidation={ unblockValidation }
+          unblockValidation={ trueBool }
+          useValidationIcon={ trueBool }
         />
       ))}
     </>

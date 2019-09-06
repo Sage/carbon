@@ -16,17 +16,14 @@ const Label = (props) => {
     helpTag,
     helpTabIndex,
     tooltipMessage,
-    disableIcon
+    useValidationIcon
   } = props;
 
   const icon = () => {
-    if (disableIcon) {
-      return null;
-    }
-
-    if (validationsPresent(props) && tooltipMessage) {
+    if (useValidationIcon && validationsPresent(props) && tooltipMessage) {
       return (
         <ValidationIcon
+          iconId={ helpId }
           type={ getValidationType(props) }
           tooltipMessage={ tooltipMessage }
         />
@@ -64,7 +61,11 @@ Label.propTypes = {
   helpTag: PropTypes.string,
   helpTabIndex: PropTypes.string,
   tooltipMessage: PropTypes.string,
-  disableIcon: PropTypes.bool
+  useValidationIcon: PropTypes.bool
+};
+
+Label.defaultProps = {
+  useValidationIcon: false
 };
 
 export default Label;

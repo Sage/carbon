@@ -49,9 +49,9 @@ const StyledSwitch = styled.div`
         vertical-align: middle;
       }
 
-      ${hasInfo && css`color: ${theme.colors.info};`}
-      ${hasWarning && css`color: ${theme.colors.warning};`}
-      ${hasError && css`color: ${theme.colors.error};`}
+      ${hasInfo && `color: ${theme.colors.info};`}
+      ${hasWarning && `color: ${theme.colors.warning};`}
+      ${hasError && `color: ${theme.colors.error};`}
 
       ${labelWidth && css`
         margin-right: ${100 - labelWidth}%;
