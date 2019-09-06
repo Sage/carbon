@@ -85,7 +85,7 @@ CustomState.propTypes = {
 const DialogState = props => new CustomState(props);
 const PageState = props => new CustomState(props);
 const indexConfig = [0, 1, 2];
-const pageIndex = select('pageIndex', indexConfig, indexConfig[0]);
+const pageIndex = () => select('pageIndex', indexConfig, indexConfig[0]);
 
 function makeStory(name, themeSelector) {
   const component = () => {
@@ -99,7 +99,7 @@ function makeStory(name, themeSelector) {
           >
             <PageState>
               <DefaultPages
-                pageIndex={ handleSlide(null, pageIndex) }
+                pageIndex={ handleSlide(null, pageIndex()) }
               >
                 <Page title={ <Heading title='My First Page' /> }>
                   <Button onClick={ (ev) => { handleSlide(ev, 1); } }>
