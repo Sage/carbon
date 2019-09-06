@@ -26,48 +26,6 @@ function renderStyles(props) {
 }
 
 describe('Icon component', () => {
-  describe('svg icon', () => {
-    let instance, span, svg;
-
-    const icons = [
-      'basket',
-      'bin',
-      'chevron',
-      'completed',
-      'dribbble',
-      'external-link',
-      'github',
-      'individual',
-      'location',
-      'minus',
-      'paperclip',
-      'payment',
-      'plus',
-      'processing',
-      'progress',
-      'remove',
-      'sort-down',
-      'sort-up',
-      'submitted',
-      'twitter',
-      'white-tick'
-    ];
-
-    describe.each(icons)(
-      'renderIcon',
-      (icon) => {
-        it(`calls the render ${icon} icon method`, () => {
-          instance = TestUtils.renderIntoDocument(<Icon fontSize='large' type={ icon } />);
-          // eslint-disable-next-line no-unused-expressions
-          instance.renderIcon;
-          span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
-          svg = span.children[0];
-          expect(svg.getAttribute('class')).toEqual(`carbon-icon__svg carbon-icon__svg--${icon}`);
-        });
-      }
-    );
-  });
-
   const mismatchedPairs = [
     { prop: 'help', rendersAs: 'question' },
     { prop: 'maintenance', rendersAs: 'settings' },
