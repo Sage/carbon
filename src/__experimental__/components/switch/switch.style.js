@@ -39,6 +39,8 @@ const StyledSwitch = styled.div`
       margin-right: 100%;
 
       ${StyledValidationIcon} {
+        position: relative;
+        top: -1px;
         display: inline-block;
         padding: 1px;
         margin-top: 0;

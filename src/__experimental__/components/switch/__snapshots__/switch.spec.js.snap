@@ -265,6 +265,8 @@ exports[`Switch base theme renders as expected 1`] = `
 }
 
 .c0 .c28 .c30 {
+  position: relative;
+  top: -1px;
   display: inline-block;
   padding: 1px;
   margin-top: 0;
