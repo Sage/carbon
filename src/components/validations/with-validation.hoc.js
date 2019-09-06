@@ -280,5 +280,19 @@ const withValidation = (WrappedComponent) => {
   return WithValidation;
 };
 
-export { validationsPropTypes };
+function getValidationType({ hasError, hasWarning, hasInfo }) {
+  let type = '';
+
+  if (hasError) {
+    type = 'error';
+  } else if (hasWarning) {
+    type = 'warning';
+  } else if (hasInfo) {
+    type = 'info';
+  }
+
+  return type;
+}
+
+export { validationsPropTypes, getValidationType };
 export default withValidation;

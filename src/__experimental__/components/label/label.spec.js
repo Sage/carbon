@@ -1,10 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import Help from '../../../components/help';
 import Label from './label.component';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import ValidationIcon from '../../../components/validations/validation-icon.component';
 import classicTheme from '../../../style/themes/classic';
 import baseTheme from '../../../style/themes/base';
 import smallTheme from '../../../style/themes/small';
@@ -126,6 +127,23 @@ describe('Label', () => {
           marginBottom: '12px'
         }, render({ childOfForm: true }, TestRenderer.create).toJSON());
       });
+    });
+  });
+
+  describe('when hasError === true', () => {
+    it('show validation icon', () => {
+      const wrapper = render({ hasError: true, tooltipMessage: 'Error!' }, mount);
+      const icon = wrapper.find(ValidationIcon);
+
+      expect(icon.exists()).toEqual(true);
+    });
+  });
+
+  describe('when disableIcon === true', () => {
+    it('should only have 1 child', () => {
+      const wrapper = render({ disableIcon: true, help: 'Hi' }, TestRenderer.create).toJSON();
+
+      expect(wrapper.children).toHaveLength(1);
     });
   });
 });

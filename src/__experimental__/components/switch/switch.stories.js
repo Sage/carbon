@@ -11,7 +11,6 @@ import Switch from '.';
 import { info, legacyInfo, notes } from './documentation';
 import classic from '../../../style/themes/classic';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
-import Form from '../../../components/form';
 
 Switch.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -83,7 +82,7 @@ storiesOf('Experimental/Switch', module)
     notes: { markdown: notes }
   })
   .add('validations', () => (
-    <Form onSubmit={ handleSubmit }>
+    <>
       {validationTypes.map(type => (
         <SwitchWrapper
           { ...commonKnobs() }
@@ -100,7 +99,7 @@ storiesOf('Experimental/Switch', module)
           unblockValidation={ unblockValidation }
         />
       ))}
-    </Form>
+    </>
   ));
 
 function handleChange(store = formStore) {
@@ -110,11 +109,6 @@ function handleChange(store = formStore) {
     store.set({ checked, forceUpdateTriggerToggle: checked });
     action('checked')(checked);
   };
-}
-
-function handleSubmit(ev) {
-  ev.preventDefault();
-  action('submit')();
 }
 
 function commonKnobs() {

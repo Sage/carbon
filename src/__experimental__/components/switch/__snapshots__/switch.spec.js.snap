@@ -266,7 +266,11 @@ exports[`Switch base theme renders as expected 1`] = `
 
 .c0 .c28 .c30 {
   display: inline-block;
-  color: rgba(0,0,0,0.65);
+  padding: 1px;
+  margin-top: 0;
+  margin-left: 8px;
+  margin-bottom: 0;
+  vertical-align: middle;
 }
 
 .c21 .c4,

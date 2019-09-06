@@ -9,7 +9,6 @@ import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';
-import { StyledIcon } from '../../../components/icon/icon.style';
 import StyledSwitchSlider from './switch-slider.style';
 import guid from '../../../utils/helpers/guid';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
@@ -18,8 +17,7 @@ import classicTheme from '../../../style/themes/classic';
 import smallTheme from '../../../style/themes/small';
 import mediumTheme from '../../../style/themes/medium';
 import largeTheme from '../../../style/themes/large';
-import ValidationIconStyle from '../../../components/validations/validation-icon.style';
-import Icon from '../../../components/icon';
+import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -191,6 +189,7 @@ describe('Switch', () => {
 
     beforeEach(() => {
       const props = {
+        tooltipMessage: 'The message',
         hasError: false,
         hasWarning: false,
         hasInfo: false
@@ -206,24 +205,7 @@ describe('Switch', () => {
           [propName]: true
         });
 
-        expect(wrapper.find(ValidationIconStyle).prop('type')).toEqual(type);
-      });
-
-      const tooltipVisibility = ['visable', 'hidden'];
-
-      describe.each(tooltipVisibility)('tooltip %s', (tState) => {
-        it(`is ${tState}`, () => {
-          const iconWrapper = wrapper.find(ValidationIconStyle);
-          const sim = tState === 'visable' ? 'focus' : 'blur';
-
-          iconWrapper.simulate(sim);
-          wrapper.update();
-
-          const icon = wrapper.find(Icon);
-          const value = tState === 'visable';
-
-          expect(icon.prop('tooltipVisible')).toEqual(value);
-        });
+        expect(wrapper.find(StyledValidationIcon).prop('type')).toEqual(type);
       });
     });
   });
@@ -253,12 +235,6 @@ describe('Switch', () => {
         assertStyleMatch({
           transition: 'box-shadow .1s linear'
         }, wrapper, { modifier: css`${StyledSwitchSlider}` });
-      });
-
-      it('applies appropriate help icon', () => {
-        assertStyleMatch({
-          content: "'\\E943'"
-        }, wrapper, { modifier: css`${`${LabelStyle} ${StyledIcon}::before`}` });
       });
 
       it('applies appropriate SwitchSlider focus styles', () => {

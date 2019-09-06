@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import SwitchStyle from './switch.style';
@@ -6,28 +6,11 @@ import CheckableInput from '../checkable-input';
 import SwitchSlider from './switch-slider.component';
 import { isClassic } from '../../../utils/helpers/style-helper';
 import withValidation from '../../../components/validations/with-validation.hoc';
-import ValidationIconStyle from '../../../components/validations/validation-icon.style';
-import Icon from '../../../components/icon';
-
-const getValidationType = ({ hasError, hasWarning, hasInfo }) => {
-  let type = 'help';
-
-  if (hasError) {
-    type = 'error';
-  } else if (hasWarning) {
-    type = 'warning';
-  } else if (hasInfo) {
-    type = 'info';
-  }
-
-  return type;
-};
 
 const Switch = ({
-  id, label, labelHelp, onChange, value, hasError, hasWarning, hasInfo, ...props
+  id, label, onChange, value, hasError, hasWarning, hasInfo, ...props
 }) => {
   const classicDisabled = props.theme && isClassic(props.theme) && props.loading;
-  const [isTooltipVisible, updateTooltipVisible] = useState(false);
 
   const switchProps = {
     disabled: props.disabled || classicDisabled,
@@ -37,53 +20,13 @@ const Switch = ({
     ...props
   };
 
-  const getLabelHelp = () => {
-    if (Object.prototype.hasOwnProperty.call(props, 'unblockValidation')) {
-      return '';
-    }
-
-    return label;
-  };
-
-  const labelAndIcon = () => {
-    const myProps = { hasError, hasWarning, hasInfo };
-
-    if (!Object.prototype.hasOwnProperty.call(props, 'unblockValidation')) {
-      return label;
-    }
-
-    const type = getValidationType(myProps);
-
-    return (
-      <React.Fragment>
-        {label}
-        {labelHelp && (
-          <ValidationIconStyle
-            type={ type }
-            onFocus={ () => updateTooltipVisible(true) }
-            onBlur={ () => updateTooltipVisible(false) }
-          >
-            <Icon
-              type={ type }
-              tooltipMessage={ labelHelp }
-              tooltipPosition='top'
-              tooltipAlign='center'
-              tooltipVisible={ isTooltipVisible }
-            />
-          </ValidationIconStyle>
-        )}
-      </React.Fragment>
-    );
-  };
-
   const inputProps = {
     ...switchProps,
     disabled: props.disabled || classicDisabled,
     inputId: id,
-    inputLabel: labelAndIcon(),
+    inputLabel: label,
     inputValue: value,
     inputType: 'checkbox',
-    labelHelp: getLabelHelp(),
     hasError,
     hasWarning,
     hasInfo

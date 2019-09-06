@@ -6,13 +6,13 @@ import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input
 import LabelStyle from '../label/label.style';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import StyledSwitchSlider from './switch-slider.style';
-import ValidationIconStyle from '../../../components/validations/validation-icon.style';
+import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 
 import ClassicSwitchStyles from './switch-classic.style';
 
 const StyledSwitch = styled.div`
   ${({
-    fieldHelpInline, labelInline, labelWidth, reverse, size, theme
+    fieldHelpInline, labelInline, labelWidth, reverse, size, theme, hasError, hasWarning, hasInfo
   }) => css`
     ${StyledCheckableInput}, ${HiddenCheckableInputStyle} {
       border: none;
@@ -38,18 +38,18 @@ const StyledSwitch = styled.div`
       margin-bottom: 8px;
       margin-right: 100%;
 
-      ${({ hasError, hasWarning, hasInfo }) => css`
-        ${() => hasInfo && css`color: ${theme.colors.info};`}
-        ${() => hasWarning && css`color: ${theme.colors.warning};`}
-        ${() => hasError && css`color: ${theme.colors.error};`}
-      `};
-
-      ${ValidationIconStyle} {
+      ${StyledValidationIcon} {
         display: inline-block;
-        ${({ hasError, hasWarning, hasInfo }) => !hasError && !hasWarning && !hasInfo && css`
-          color: ${theme.help.color};
-        `}
+        padding: 1px;
+        margin-top: 0;
+        margin-left: 8px;
+        margin-bottom: 0;
+        vertical-align: middle;
       }
+
+      ${hasInfo && css`color: ${theme.colors.info};`}
+      ${hasWarning && css`color: ${theme.colors.warning};`}
+      ${hasError && css`color: ${theme.colors.error};`}
 
       ${labelWidth && css`
         margin-right: ${100 - labelWidth}%;

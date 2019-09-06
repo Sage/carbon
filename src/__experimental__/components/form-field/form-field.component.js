@@ -11,6 +11,8 @@ const FormField = ({
   fieldHelp,
   fieldHelpInline,
   hasError,
+  hasWarning,
+  hasInfo,
   helpId,
   helpTag,
   helpTabIndex,
@@ -25,7 +27,8 @@ const FormField = ({
   size,
   childOfForm,
   isOptional,
-  readOnly
+  readOnly,
+  tooltipMessage
 }) => (
   <FormFieldStyle inline={ labelInline }>
     {reverse && children}
@@ -36,6 +39,8 @@ const FormField = ({
         disabled={ disabled }
         readOnly={ readOnly }
         hasError={ hasError }
+        hasWarning={ hasWarning }
+        hasInfo={ hasInfo }
         help={ labelHelp }
         helpId={ helpId }
         helpTag={ helpTag }
@@ -47,6 +52,7 @@ const FormField = ({
         width={ labelWidth }
         childOfForm={ childOfForm }
         optional={ isOptional }
+        tooltipMessage={ tooltipMessage }
       >
         {label}
       </Label>
@@ -79,6 +85,8 @@ FormField.propTypes = {
   fieldHelp: PropTypes.node,
   fieldHelpInline: PropTypes.bool,
   hasError: PropTypes.bool,
+  hasWarning: PropTypes.bool,
+  hasInfo: PropTypes.bool,
   helpId: PropTypes.string,
   helpTag: PropTypes.string,
   helpTabIndex: PropTypes.string,
@@ -92,7 +100,8 @@ FormField.propTypes = {
   name: PropTypes.string,
   readOnly: PropTypes.bool,
   reverse: PropTypes.bool,
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted)
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  tooltipMessage: PropTypes.string
 };
 
 export default FormField;
