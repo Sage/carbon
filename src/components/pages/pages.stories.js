@@ -10,7 +10,7 @@ import DefaultPages from './pages.component';
 import Page from './page/page.component';
 import DialogFullScreen from '../dialog-full-screen';
 import Heading from '../heading/heading';
-import Button, { OriginalButton } from '../button/button.component';
+import { OriginalButton } from '../button/button.component';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 import docgenInfo from './docgenInfo.json';
 import classic from '../../style/themes/classic';
