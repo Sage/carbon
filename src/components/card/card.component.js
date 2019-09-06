@@ -9,13 +9,10 @@ const { sizesRestricted } = OptionsHelper;
 
 const Card = ({
   action,
-  border,
   children,
-  cardFooter,
   cardWidth,
   clickable,
   draggable,
-  footerFilled,
   spacing,
   ...props
 }) => {
@@ -25,10 +22,13 @@ const Card = ({
     }
   };
 
+  const renderChildren = () => {
+    return React.Children.map(children, child => React.cloneElement(child, { spacing }));
+  };
+
   return (
     <StyledCard
       data-element='card'
-      border={ border }
       cardWidth={ cardWidth }
       clickable={ clickable }
       draggable={ draggable }
@@ -37,7 +37,7 @@ const Card = ({
       { ...props }
     >
       { draggable && <Icon type='drag' />}
-      { children }
+      { renderChildren() }
     </StyledCard>
   );
 };
@@ -45,24 +45,19 @@ const Card = ({
 Card.propTypes = {
   /** action to be executed when card is clicked or enter pressed */
   action: PropTypes.func,
-  /** flag to indicate if a border is required */
-  border: PropTypes.bool,
   children: PropTypes.node.isRequired,
   /** style value for width of card */
   cardWidth: PropTypes.string,
-  cardFooter: PropTypes.node,
   /** flag to indicate if card is interactive */
   clickable: PropTypes.bool,
   /** flag to indicate if card is draggable */
   draggable: PropTypes.bool,
-  footerFilled: PropTypes.bool,
   /** size of card for applying padding (small | medium | large) */
   spacing: PropTypes.oneOf(sizesRestricted),
   theme: PropTypes.object
 };
 
 Card.defaultProps = {
-  border: false,
   spacing: OptionsHelper.sizesRestricted[1],
   theme: BaseTheme
 };

@@ -7,36 +7,36 @@ import StyledCardColumn from '../card-column/card-column.style';
 const { sizesRestricted } = OptionsHelper;
 
 const marginSizes = {
-  small: '0 -24px -16px',
-  medium: '0 -32px -24px',
-  large: '0 -48px -32px'
+  small: '0 -24px',
+  medium: '0 -32px',
+  large: '0 -48px'
+};
+
+const paddingSizes = {
+  small: '16px 24px',
+  medium: '18px 32px',
+  large: '20px 48px'
 };
 
 const StyledCardFooter = styled.div`
-  ${({
-    footerFilled, marginSize, theme
-  }) => css`
-      background-color: ${footerFilled ? theme.card.footerBackground : 'transparent'};
+  ${({ spacing, theme }) => css`
+      background-color: ${theme.card.footerBackground};
       border-top: ${theme.card.footerBorder};
-      height: 56px;
-      line-height: 56px;
-      padding: 0 32px;
-      margin: ${marginSizes[marginSize]};
+      font-size: 14px;
+      font-weight: 600;
+      margin: ${marginSizes[spacing]};
       display: flex;
 
       ${StyledCardColumn} {
-        line-height: 30px;
         margin: 0;
         color: ${theme.card.footerText};
-        font-weight: 600;
-        padding: 12px 0;
+        padding: ${paddingSizes[spacing]};
       }
   `}
 `;
 
 StyledCardFooter.propTypes = {
-  footerFilled: PropTypes.bool,
-  marginSize: PropTypes.oneOf(sizesRestricted)
+  spacing: PropTypes.oneOf(sizesRestricted)
 };
 
 StyledCardFooter.defaultProps = {

@@ -4,6 +4,12 @@ import { StyledIcon } from '../icon/icon.style';
 import baseTheme from '../../style/themes/base';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
+const paddingSizes = {
+  small: '0 24px',
+  medium: '0 32px',
+  large: '0 48px'
+};
+
 const StyledCard = styled.button`
   ${({
     border, cardWidth, clickable, draggable, isDragging, spacing, theme
@@ -11,6 +17,7 @@ const StyledCard = styled.button`
     background-color: ${theme.colors.white};
     box-shadow: ${theme.shadows.cards};
     margin-bottom: 32px;
+    padding: ${paddingSizes[spacing]};
     ${clickable && css`cursor: pointer;`}
     ${draggable && css`
       cursor: move;
@@ -32,18 +39,6 @@ const StyledCard = styled.button`
 
     ${!border && css`
       border: none;
-    `}
-
-    ${spacing === 'small' && css`
-      padding: 16px 24px;
-    `}
-
-    ${spacing === 'medium' && css`
-      padding: 24px 32px;
-    `}
-
-    ${spacing === 'large' && css`
-      padding: 32px 48px;
     `}
 
     :hover, :focus {

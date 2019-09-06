@@ -15,7 +15,7 @@ const CardFooter = ({
       key='card-footer'
       data-element='card-footer'
       footerFilled={ footerFilled }
-      marginSize={ spacing }
+      spacing={ spacing }
       positionType='footer'
     >
       { children }
