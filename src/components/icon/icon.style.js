@@ -62,31 +62,9 @@ function adjustIconBgSize(fontSize, bgSize) {
   return iconSizeConfig.backgroundSize[bgSize];
 }
 
-const StyledSvgIconWrapper = styled.span`
-  ${({ fontSize, isFont }) => !isFont && css`
-    display: inline-block;
-    
-    svg {
-      fill: currentColor;
-      width: ${iconSizeConfig.iconSize[fontSize]};
-      height: ${iconSizeConfig.iconSize[fontSize]};
-    }
-  `}
-`;
-
-StyledSvgIconWrapper.propTypes = {
-  theme: PropTypes.object,
-  fontSize: PropTypes.oneOf(OptionsHelper.sizesBinary),
-  isFont: PropTypes.bool
-};
-
-StyledSvgIconWrapper.defaultProps = {
-  theme: baseTheme
-};
-
 const StyledIcon = styled.span`
   ${({
-    bgTheme, theme, iconColor, bgSize, bgShape, isFont, type, fontSize, disabled
+    bgTheme, theme, iconColor, bgSize, bgShape, type, fontSize, disabled
   }) => css`
 
     display: inline-block;
@@ -108,7 +86,7 @@ const StyledIcon = styled.span`
       border-radius: ${iconSizeConfig.backgroundShape[bgShape]};
     `}
 
-    ${isFont && css`
+    ${css`
       &::before {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -128,27 +106,12 @@ const StyledIcon = styled.span`
       }
     `}
 
-    ${!isFont && css`
-      ${StyledSvgIconWrapper} {
-        svg {
-          ${fontSize !== 'large' && css`
-            margin-top: 2px;
-          `}
-  
-          ${fontSize === 'large' && ['plus', 'minus'].includes(type) && css`
-            margin-top: 10px;
-            margin-left: 8px;
-          `}
-        }
-      }
-    `}
     ${classicIconStyles};
   `}
 `;
 
 StyledIcon.propTypes = {
   theme: PropTypes.object,
-  isFont: PropTypes.bool,
   type: PropTypes.string,
   disabled: PropTypes.bool,
   bgSize: PropTypes.oneOf(OptionsHelper.sizesRestricted),
@@ -162,4 +125,4 @@ StyledIcon.defaultProps = {
   theme: baseTheme
 };
 
-export { StyledIcon, StyledSvgIconWrapper };
+export { StyledIcon };

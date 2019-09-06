@@ -91,7 +91,7 @@ describe('Icon component', () => {
     'when in classic theme',
     (bgTheme) => {
       it(`applies proper background color for ${bgTheme}`, () => {
-        const wrapper = renderStyles({ theme: classicTheme, bgTheme, isFont: true });
+        const wrapper = renderStyles({ theme: classicTheme, bgTheme });
         assertStyleMatch(
           {
             backgroundColor: classicConfig.backgroundColor[bgTheme]
@@ -122,7 +122,7 @@ describe('Icon component', () => {
 
     it('it applies additional margin-top styling when the fontSize is "small"', () => {
       const wrapper = renderStyles({
-        type: 'services', theme: classicTheme, isFont: true, fontSize: 'small'
+        type: 'services', theme: classicTheme, fontSize: 'small'
       });
       assertStyleMatch(
         {
@@ -135,7 +135,7 @@ describe('Icon component', () => {
 
     it('it applies additional margin-top styling when the fontSize is "large"', () => {
       const wrapper = renderStyles({
-        type: 'services', theme: classicTheme, isFont: true, fontSize: 'large'
+        type: 'services', theme: classicTheme, fontSize: 'large'
       });
       assertStyleMatch(
         {
@@ -149,7 +149,7 @@ describe('Icon component', () => {
     it('it applies additional margin-top styling when the browser is safari and fontSize is "small"', () => {
       browserTypeCheck.mockImplementation(() => false);
       const wrapper = renderStyles({
-        type: 'services', theme: classicTheme, isFont: true, fontSize: 'small'
+        type: 'services', theme: classicTheme, fontSize: 'small'
       });
       assertStyleMatch(
         {
@@ -163,7 +163,7 @@ describe('Icon component', () => {
     it('it applies additional margin-top styling when the browser is safari and the fontSize is "large"', () => {
       browserTypeCheck.mockImplementation(() => false);
       const wrapper = renderStyles({
-        type: 'services', theme: baseTheme, isFont: true, fontSize: 'large'
+        type: 'services', theme: baseTheme, fontSize: 'large'
       });
       assertStyleMatch(
         {
