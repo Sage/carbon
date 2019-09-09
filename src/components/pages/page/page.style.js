@@ -40,7 +40,7 @@ const StyledPage = styled.article`
 
 const StyledPageContent = styled.div`
   box-sizing: content-box;
-  padding: 30px 0;
+  padding: 30px 40px;
   width: 100%;
   height: 100%;
   overflow-y: auto;

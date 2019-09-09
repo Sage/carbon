@@ -3,6 +3,10 @@ import Icon from '../icon';
 import { StyledIcon } from '../icon/icon.style';
 import baseTheme from '../../style/themes/base';
 
+const StyledHeading = styled.div`
+  width: 100%;
+`;
+
 const StyledHeadingIcon = styled(Icon)`
   color: ${({ theme }) => theme.colors.border};
   cursor: pointer;
@@ -33,4 +37,7 @@ StyledHeadingIcon.defaultProps = {
   theme: baseTheme
 };
 
-export default StyledHeadingIcon;
+export {
+  StyledHeadingIcon,
+  StyledHeading
+};

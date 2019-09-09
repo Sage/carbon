@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { slideAnimation, fadeAnimation } from './pages.config';
-import StyledHeadingIcon from '../heading/heading.style';
+import { StyledHeading, StyledHeadingIcon } from '../heading/heading.style';
 import { isClassic } from '../../utils/helpers/style-helper';
 import { LinkStyleAnchor } from '../link/link.style';
 import BaseTheme from '../../style/themes/base';
@@ -47,6 +47,10 @@ const PagesContent = styled.div`
   .carbon-app-wrapper {
     min-width: auto;
     max-width: 100%;
+  }
+
+  ${StyledHeading} {
+    padding-left: 40px;
   }
 `;
 

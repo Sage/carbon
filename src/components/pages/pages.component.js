@@ -13,7 +13,7 @@ import baseTheme from '../../style/themes/base';
 
 const NEXT = 'next';
 const PREVIOUS = 'previous';
-const TRANSITION_TIME = 250;
+const TRANSITION_TIME = 400;
 
 class Pages extends React.Component {
   constructor(...args) {
