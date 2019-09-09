@@ -5,6 +5,7 @@ import 'jest-styled-components';
 import TestUtils from 'react-dom/test-utils';
 import I18n from 'i18n-js';
 import DateRange from './date-range.component';
+import DateInput from '../date/date.component';
 import Date from '../date';
 import DateRangeValidator from '../../../utils/validations/date-range';
 import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
@@ -12,27 +13,31 @@ import StyledDateRange from './date-range.style';
 import StyledDateInput from '../date/date.style';
 
 describe('DateRange', () => {
-  let instance, customOnChange;
+  let wrapper, startInput, endInput, customOnChange;
 
   beforeEach(() => {
     customOnChange = jasmine.createSpy();
-    instance = TestUtils.renderIntoDocument(
+    wrapper = mount(
       <DateRange onChange={ customOnChange } value={ ['2016-10-10', '2016-11-11'] } />
     );
-    spyOn(instance._startDate, 'handleBlur');
-    spyOn(instance._endDate, 'handleBlur');
+    startInput = wrapper.find(DateInput).at(0).childAt(0);
+    endInput = wrapper.find(DateInput).at(1).childAt(0);
+
+    spyOn(startInput.instance(), 'handleBlur');
+    spyOn(endInput.instance(), 'handleBlur');
   });
 
   describe('_onChange', () => {
     describe('when the start date changes', () => {
       it('calls the passed in onChange function', () => {
-        instance._onChange('startDate', { target: { value: '2016-10-15' } });
+        startInput._onChange('startDate', { target: { value: '2016-10-15' } });
         expect(customOnChange).toHaveBeenCalledWith(['2016-10-15', '2016-11-11']);
       });
     });
 
     describe('when the end date changes', () => {
       it('calls the passed in onChange function', () => {
+        console.log(instance);
         instance._onChange('endDate', { target: { value: '2016-11-16' } });
         expect(customOnChange).toHaveBeenCalledWith(['2016-10-10', '2016-11-16']);
       });
