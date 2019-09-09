@@ -10,37 +10,16 @@ import Fieldset from '../fieldset';
 import { LegendStyle } from '../fieldset/fieldset.style';
 import baseTheme from '../../../style/themes/base';
 
-const validationBorderColor = ({
-  theme,
-  hasError,
-  hasWarning,
-  hasInfo,
-  disabled
-}) => {
-  if (disabled) {
-    return null;
-  }
-
-  let color = theme.colors.border;
-
-  if (hasError) {
-    color = theme.colors.error;
-  } else if (hasWarning) {
-    color = theme.colors.warning;
-  } else if (hasInfo) {
-    color = theme.colors.info;
-  }
-
-  return css`border-color: ${color};`;
-};
-
 const RadioButtonStyle = styled(CheckboxStyle)`
   ${({
     disabled,
     fieldHelpInline,
     reverse,
     size,
-    theme
+    theme,
+    hasError,
+    hasWarning,
+    hasInfo
   }) => css`
     margin-bottom: 12px;
 
@@ -73,7 +52,11 @@ const RadioButtonStyle = styled(CheckboxStyle)`
     }
 
     ${StyledCheckableInputSvgWrapper} svg {
-      ${validationBorderColor};
+      ${!disabled && css`
+        ${hasInfo && `border-color: ${theme.colors.info};`}
+        ${hasWarning && `border-color: ${theme.colors.warning};`}
+        ${hasError && `border-color: ${theme.colors.error};`}
+      `}
     }
 
     circle {

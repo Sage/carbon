@@ -34,18 +34,23 @@ const RadioButtonGroup = (props) => {
       setSelectedValue(ev.target.value);
     };
 
-    return React.cloneElement(
-      child,
-      {
-        checked,
-        inputName: groupName,
-        onChange: handleChange,
-        tabindex,
+    let childProps = {
+      checked,
+      tabindex,
+      inputName: groupName,
+      onChange: handleChange
+    };
+
+    if (checked) {
+      childProps = {
+        ...childProps,
         hasError,
         hasWarning,
         hasInfo
-      }
-    );
+      };
+    }
+
+    return React.cloneElement(child, childProps);
   });
 
   return (

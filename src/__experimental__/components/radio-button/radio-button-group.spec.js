@@ -6,8 +6,6 @@ import { css } from 'styled-components';
 import { RadioButton, RadioButtonGroup } from '.';
 import { LegendStyle } from '../fieldset/fieldset.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
-import ValidationIconStyle from '../../../components/validations/validation-icon.style';
-import baseTheme from '../../../style/themes/base';
 
 const buttonValues = ['test-1', 'test-2'];
 const groupName = 'test-group';
@@ -22,6 +20,7 @@ function render(renderer = TestRenderer.create) {
       value={ value }
     />
   ));
+  const trueBool = true;
 
   return renderer(
     <RadioButtonGroup
@@ -29,6 +28,7 @@ function render(renderer = TestRenderer.create) {
       legend='Test RadioButtonGroup Legend'
       name='radio-button-group'
       onChange={ jest.fn() }
+      useValidationIcon={ trueBool }
     >
       {children}
     </RadioButtonGroup>
@@ -41,12 +41,6 @@ function getButtons(wrapper) {
 
 function getInputWrapper(button) {
   return button.find('input');
-}
-
-function getIconType(name) {
-  const type = name.replace('has', '').toLowerCase();
-
-  return type;
 }
 
 describe('RadioButtonGroup', () => {
@@ -158,36 +152,6 @@ describe('RadioButtonGroup', () => {
         render().toJSON(),
         { modifier: css`${LegendStyle}` }
       );
-    });
-
-    describe('checkbox group', () => {
-      const wrapper = render(mount);
-      const validationTypes = {
-        hasError: { color: baseTheme.colors.error },
-        hasWarning: { color: baseTheme.colors.warning },
-        hasInfo: { color: baseTheme.colors.info }
-      };
-      const validationTypesArr = Object.keys(validationTypes);
-
-      describe.each(validationTypesArr)('group[%s]', (type) => {
-        beforeEach(() => {
-          const props = {
-            hasError: false,
-            hasWarning: false,
-            hasInfo: false
-          };
-          props[type] = true;
-
-          wrapper.setProps(props);
-        });
-
-        it('check icon type', () => {
-          const icon = wrapper.find(ValidationIconStyle);
-          const iconType = getIconType(type);
-
-          expect(icon.prop('type')).toEqual(iconType);
-        });
-      });
     });
   });
 });

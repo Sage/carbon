@@ -14,6 +14,7 @@ import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import guid from '../../../utils/helpers/guid';
 import baseTheme from '../../../style/themes/base';
 import classicTheme from '../../../style/themes/classic';
+import { getValidationType } from '../../../components/validations/with-validation.hoc';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -37,6 +38,8 @@ function renderClassic(props) {
     />
   );
 }
+
+const validationTypes = ['hasError', 'hasWarning', 'hasInfo'];
 
 describe('RadioButton', () => {
   describe('tabindex', () => {
@@ -244,6 +247,17 @@ describe('RadioButton', () => {
 
         it('applies the correct input styles', () => {
           assertStyleMatch({ marginLeft: '6px' }, wrapper, { modifier: css`${StyledCheckableInput}` });
+        });
+      });
+
+      describe.each(validationTypes)('%s === true', (type) => {
+        it('show correct color on radio', () => {
+          const vType = getValidationType({ [type]: true });
+          const wrapper = render({ [type]: true }).toJSON();
+
+          assertStyleMatch({
+            borderColor: `${baseTheme.colors[vType]}`
+          }, wrapper, { modifier: `${StyledCheckableInputSvgWrapper} svg` });
         });
       });
     });
