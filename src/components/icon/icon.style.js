@@ -125,4 +125,4 @@ StyledIcon.defaultProps = {
   theme: baseTheme
 };
 
-export { StyledIcon };
+export default StyledIcon;
