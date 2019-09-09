@@ -96,9 +96,15 @@ describe('Label', () => {
 
   describe('when warning', () => {
     it('applies warning color', () => {
+      const wrapper = render({
+        hasWarning: true,
+        useValidationIcon: true,
+        tooltipMessage: 'Warning!'
+      }, TestRenderer.create).toJSON();
+
       assertStyleMatch({
         color: baseTheme.colors.warning
-      }, render({ hasWarning: true, useValidationIcon: true, tooltipMessage: 'Warning!' }, TestRenderer.create).toJSON());
+      }, wrapper);
     });
   });
 
