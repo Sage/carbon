@@ -90,7 +90,8 @@ Help.propTypes = {
 
 Help.defaultProps = {
   tooltipPosition: 'top',
-  tooltipAlign: 'center'
+  tooltipAlign: 'center',
+  tabIndexOverride: 0
 };
 
 export default Help;
