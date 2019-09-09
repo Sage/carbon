@@ -1,4 +1,7 @@
+Deprecated Components: |
+  `Textbox` has been moved to `__deprecated__/components/textbox`,
+  to continue using it you will need to update the import path to `carbon-react/lib/__deprecated__/components/textbox`
 New Features: Adds `utils/helpers/warn-as-deprecated` function to warn of deprecated components
 Other: |
   Updates `.renogen` headings to include a `Deprecated Components` option
-  Creates a `__deprecated__` directory and moves and`Textbox` into it and updates paths
+  Creates a `__deprecated__` directory
