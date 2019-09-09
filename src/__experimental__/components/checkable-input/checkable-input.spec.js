@@ -24,7 +24,7 @@ describe('CheckableInput', () => {
       it('returns an appropriate helpId property', () => {
         const helpButton = mountInput({ inputId: 'foo', inputLabel: 'bar', labelHelp: 'baz' })
           .find(Help)
-          .find('button');
+          .find('div');
 
         expect(helpButton.props().id).toBe('foo-help');
       });
