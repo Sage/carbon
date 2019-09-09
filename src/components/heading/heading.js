@@ -5,7 +5,7 @@ import Help from '../help';
 import Link from '../link';
 import tagComponent from '../../utils/helpers/tags';
 import './heading.scss';
-import StyledHeadingIcon from './heading.style';
+import { StyledHeading, StyledHeadingIcon } from './heading.style';
 
 class Heading extends React.Component {
   static propTypes = {
@@ -180,7 +180,7 @@ class Heading extends React.Component {
     if (!this.props.title) { return null; }
 
     return (
-      <div className={ this.classes } { ...tagComponent('heading', this.props) }>
+      <StyledHeading className={ this.classes } { ...tagComponent('heading', this.props) }>
         <div className='carbon-heading__header'>
           { this.back }
 
@@ -202,7 +202,7 @@ class Heading extends React.Component {
         </div>
 
         { this.props.children }
-      </div>
+      </StyledHeading>
     );
   }
 }
