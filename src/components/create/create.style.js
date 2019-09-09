@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Link from '../link';
 import baseTheme from '../../style/themes/base';
 import createClassicStyle from './create-classic.style';
-import { StyledIcon } from '../icon/icon.style';
+import StyledIcon from '../icon/icon.style';
 
 const CreateStyle = styled(Link)`
   background-color: ${({ theme }) => theme.disabled.input};

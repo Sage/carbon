@@ -4,7 +4,7 @@ import baseTheme from '../../../style/themes/base';
 import { isClassic } from '../../../utils/helpers/style-helper';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import tableSizes from '../table-sizes.style';
-import { StyledIcon } from '../../icon/icon.style';
+import StyledIcon from '../../icon/icon.style';
 
 const StyledTableHeader = styled.th`
   ${({
