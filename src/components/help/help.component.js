@@ -19,7 +19,7 @@ const Help = (props) => {
     tooltipPosition,
     tooltipAlign
   } = props;
-  let tagType;
+  let tagType = 'button';
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyPress);
@@ -35,6 +35,8 @@ const Help = (props) => {
 
   tagType = tagTypeOverride || tagType;
 
+  const propsForType = tagType === 'button' ? { type: 'button' } : {};
+
   function handleKeyPress(ev) {
     if (Events.isEscKey(ev)) {
       helpElement.current.blur();
@@ -47,7 +49,7 @@ const Help = (props) => {
 
   return (
     <StyledHelp
-      type='button'
+      { ...propsForType }
       className={ className }
       as={ tagType }
       href={ href }
