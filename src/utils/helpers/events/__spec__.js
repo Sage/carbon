@@ -358,7 +358,6 @@ describe('Events', () => {
   });
 
   describe('composedPath', () => {
-
     it('returns the path from event.path if it is available', () => {
       const path = Symbol('path');
       const ev = new CustomEvent('click');
