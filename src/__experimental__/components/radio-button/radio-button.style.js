@@ -10,37 +10,16 @@ import ClassicRadioButtonStyles from './radio-button-classic.style';
 import baseTheme from '../../../style/themes/base';
 import FormFieldStyle from '../form-field/form-field.style';
 
-const validationBorderColor = ({
-  theme,
-  hasError,
-  hasWarning,
-  hasInfo,
-  disabled
-}) => {
-  if (disabled) {
-    return null;
-  }
-
-  let color = theme.colors.border;
-
-  if (hasError) {
-    color = theme.colors.error;
-  } else if (hasWarning) {
-    color = theme.colors.warning;
-  } else if (hasInfo) {
-    color = theme.colors.info;
-  }
-
-  return css`border-color: ${color};`;
-};
-
 const RadioButtonStyle = styled(CheckboxStyle)`
   ${({
     disabled,
     fieldHelpInline,
     reverse,
     size,
-    theme
+    theme,
+    hasError,
+    hasWarning,
+    hasInfo
   }) => css`
     margin-bottom: 12px;
 
@@ -73,7 +52,11 @@ const RadioButtonStyle = styled(CheckboxStyle)`
     }
 
     ${StyledCheckableInputSvgWrapper} svg {
-      ${validationBorderColor};
+      ${!disabled && css`
+        ${hasInfo && `border-color: ${theme.colors.info};`}
+        ${hasWarning && `border-color: ${theme.colors.warning};`}
+        ${hasError && `border-color: ${theme.colors.error};`}
+      `}
     }
 
     circle {
@@ -140,28 +123,23 @@ const RadioButtonStyle = styled(CheckboxStyle)`
 `;
 
 const StyledRadioButtonGroup = styled.div`
-  ${({ theme }) => css`
-    & > ${FormFieldStyle} {
-      & > ${LabelStyle} {
-        cursor: default ;
-        margin-bottom: 16px;
-        padding: 0;
-        ${({ hasError }) => hasError && css`
-          color: ${theme.text.color};
-        `}
+  & > ${FormFieldStyle} {
+    & > ${LabelStyle} {
+      cursor: default ;
+      margin-bottom: 16px;
+      padding: 0;
 
-        & ${ValidationIconStyle} {
-          margin-left: 8px;
-          padding: 1px;
-          display: inline-block;
+      & ${ValidationIconStyle} {
+        margin-top: 0;
+        margin-right: 0;
+        display: inline-block;
 
-          ${props => !props.hasError && !props.hasWarning && !props.hasInfo && css`
-            color: ${theme.help.color};
-          `}
+        & ::before {
+          font-size: 16px;
         }
       }
     }
-  `}
+  }
 `;
 
 StyledRadioButtonGroup.defaultProps = {

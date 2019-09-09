@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import { StyledRadioButtonGroup } from './radio-button.style';
 import withValidation from '../../../components/validations/with-validation.hoc';
-import ValidationIcon from '../../../components/validations/validation-icon.component';
 import FormField from '../form-field';
 
 function initialTabIndex(childIndex) {
@@ -14,26 +13,10 @@ function checkedTabIndex(checked) {
   return checked ? 0 : -1;
 }
 
-const getValidationType = ({ hasError, hasWarning, hasInfo }) => {
-  let type = 'help';
-
-  if (hasError) {
-    type = 'error';
-  } else if (hasWarning) {
-    type = 'warning';
-  } else if (hasInfo) {
-    type = 'info';
-  }
-
-  return type;
-};
-
 const RadioButtonGroup = (props) => {
   const {
     children,
     groupName,
-    label,
-    labelHelp,
     hasError,
     hasWarning,
     hasInfo
@@ -51,41 +34,24 @@ const RadioButtonGroup = (props) => {
       setSelectedValue(ev.target.value);
     };
 
-    return React.cloneElement(
-      child,
-      {
-        checked,
-        inputName: groupName,
-        onChange: handleChange,
-        tabindex,
+    let childProps = {
+      checked,
+      tabindex,
+      inputName: groupName,
+      onChange: handleChange
+    };
+
+    if (checked) {
+      childProps = {
+        ...childProps,
         hasError,
         hasWarning,
         hasInfo
-      }
-    );
-  });
+      };
+    }
 
-  const type = getValidationType(props);
-  const labelWithValidationIcon = () => {
-    return (
-      <React.Fragment>
-        {label}
-        {type !== 'help' && (
-          <ValidationIcon
-            tooltipMessage={ labelHelp }
-            type={ type }
-            { ...props }
-          />
-        )}
-      </React.Fragment>
-    );
-  };
-  const fieldProps = {
-    ...props,
-    label: labelWithValidationIcon(),
-    labelId: groupLabelId,
-    labelHelp: type === 'help' ? labelHelp : null
-  };
+    return React.cloneElement(child, childProps);
+  });
 
   return (
     <StyledRadioButtonGroup
@@ -96,7 +62,7 @@ const RadioButtonGroup = (props) => {
       hasInfo={ hasInfo }
       { ...tagComponent('radiogroup', props) }
     >
-      <FormField { ...fieldProps }>
+      <FormField { ...props } labelId={ groupLabelId }>
         {buttons}
       </FormField>
     </StyledRadioButtonGroup>

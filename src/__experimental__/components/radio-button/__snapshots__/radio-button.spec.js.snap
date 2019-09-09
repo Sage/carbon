@@ -226,10 +226,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
   width: 16px;
 }
 
-.c13 .c8 svg {
-  border-color: #668491;
-}
-
 .c13 .c6:checked + .c8 circle {
   fill: #26A826;
 }
@@ -311,10 +307,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
 .c14 svg {
   height: 16px;
   width: 16px;
-}
-
-.c14 .c8 svg {
-  border-color: #668491;
 }
 
 .c14 .c6:checked + .c8 circle {
@@ -412,10 +404,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
 .c15 svg {
   height: 16px;
   width: 16px;
-}
-
-.c15 .c8 svg {
-  border-color: #668491;
 }
 
 .c15 .c6:checked + .c8 circle {
@@ -638,10 +626,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
   width: 16px;
 }
 
-.c17 .c8 svg {
-  border-color: #668491;
-}
-
 .c17 .c6:checked + .c8 circle {
   fill: #00805D;
 }
@@ -749,10 +733,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
   width: 16px;
 }
 
-.c18 .c8 svg {
-  border-color: #668491;
-}
-
 .c18 .c6:checked + .c8 circle {
   fill: #00805D;
 }
@@ -830,10 +810,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
 .c19 svg {
   height: 16px;
   width: 16px;
-}
-
-.c19 .c8 svg {
-  border-color: #668491;
 }
 
 .c19 .c6:checked + .c8 circle {
@@ -916,10 +892,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
 
 .c0 svg {
   padding: 1px;
-}
-
-.c0 .c8 svg {
-  border-color: #668491;
 }
 
 .c0 circle {

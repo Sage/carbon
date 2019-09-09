@@ -137,10 +137,6 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   padding: 1px;
 }
 
-.c5 .c11 svg {
-  border-color: #668491;
-}
-
 .c5 circle {
   r: 5;
 }
@@ -203,10 +199,6 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   width: 16px;
 }
 
-.c12 .c11 svg {
-  border-color: #668491;
-}
-
 .c12 .c9:checked + .c11 circle {
   fill: #26A826;
 }
@@ -218,10 +210,13 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 }
 
 .c0 > .c1 > .c3 .c15 {
-  margin-left: 8px;
-  padding: 1px;
+  margin-top: 0;
+  margin-right: 0;
   display: inline-block;
-  color: rgba(0,0,0,0.65);
+}
+
+.c0 > .c1 > .c3 .c15 ::before {
+  font-size: 16px;
 }
 
 <div
