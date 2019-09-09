@@ -6,7 +6,7 @@ import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import 'jest-styled-components';
 import Icon from './icon.component';
-import { StyledIcon } from './icon.style';
+import StyledIcon from './icon.style';
 import classicTheme from '../../style/themes/classic';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import classicConfig from './icon-classic-config';

@@ -7,7 +7,7 @@ import { StyledSelect } from './select.style';
 import guid from '../../../utils/helpers/guid';
 import Events from '../../../utils/helpers/events';
 import classic from '../../../style/themes/classic';
-import { StyledIcon } from '../../../components/icon/icon.style';
+import StyledIcon from '../../../components/icon/icon.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 
 jest.mock('../../../utils/helpers/guid');

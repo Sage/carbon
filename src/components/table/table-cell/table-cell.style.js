@@ -6,7 +6,7 @@ import StyledInputPresentation from '../../../__experimental__/components/input/
 import StyledInput from '../../../__experimental__/components/input/input.style';
 import tableSizes from '../table-sizes.style.js';
 import { isClassic } from '../../../utils/helpers/style-helper';
-import { StyledIcon } from '../../icon/icon.style';
+import StyledIcon from '../../icon/icon.style';
 
 const StyledTableCell = styled.td`
   ${({

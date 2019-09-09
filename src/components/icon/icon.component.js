@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import TooltipDecorator from '../../utils/decorators/tooltip-decorator';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
-import { StyledIcon } from './icon.style';
+import StyledIcon from './icon.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 class Icon extends React.Component {

@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import StepSequenceItemClassicStyle from './step-sequence-item-classic.style';
 import baseTheme from '../../../style/themes/base';
-import { StyledIcon } from '../../icon/icon.style';
+import StyledIcon from '../../icon/icon.style';
 
 const StepSequenceItemStyle = styled.li`
   display: flex;
