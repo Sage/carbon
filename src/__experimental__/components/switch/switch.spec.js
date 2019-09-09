@@ -206,7 +206,7 @@ describe('Switch', () => {
           [propName]: true
         });
 
-        expect(wrapper.find(StyledValidationIcon).prop('type')).toEqual(type);
+        expect(wrapper.find(StyledValidationIcon).prop('data-validation-type')).toEqual(type);
       });
     });
   });

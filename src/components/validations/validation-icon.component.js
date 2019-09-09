@@ -32,7 +32,13 @@ const ValidationIcon = ({
     <InputPresentationContext.Consumer>
       {
         context => (
-          <ValidationIconStyle id={ iconId } type={ type }>
+          <ValidationIconStyle
+            id={ iconId }
+            type='button'
+            data-validation-type={ type }
+            validationType={ type }
+            aria-label='additional validation information'
+          >
             <Icon
               key={ `${type}-icon` }
               tooltipType={ type }
