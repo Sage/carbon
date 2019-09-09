@@ -85,7 +85,6 @@ Feature: Build tests
       | table-ajax           | table-ajax           |
       | table                | table                |
       | tabs                 | tabs                 |
-      | textarea             | textarea             |
       | toast                | toast                |
 
   @build
@@ -95,3 +94,4 @@ Feature: Build tests
     Examples:
       | component |
       | textbox   |
+      | textarea  |
