@@ -44,14 +44,18 @@ const LabelStyle = styled.label`
       border-color: #1e499f;
     }
   `}
-  
+
   ${({
     hasError,
+    hasWarning,
+    hasInfo,
     disabled,
     readOnly,
     theme
-  }) => hasError && !disabled && !readOnly && css`
-    color: ${theme.colors.error};
+  }) => !disabled && !readOnly && css`
+    ${hasInfo && `color: ${theme.colors.info};`}
+    ${hasWarning && `color: ${theme.colors.warning};`}
+    ${hasError && `color: ${theme.colors.error};`}
   `}
 
   ${({

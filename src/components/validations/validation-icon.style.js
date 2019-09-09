@@ -9,7 +9,9 @@ const ValidationIconStyle = styled.button`
   display: flex;
   align-items: center;
   padding: 1px;
-  padding-left: 5px;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 8px;
   border: 0;
   outline: none;
 
