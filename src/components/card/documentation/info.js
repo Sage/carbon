@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryHeader, StoryCode } from '../../../../.storybook/style/storybook-info.styles';
+import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../../.storybook/style/storybook-info.styles';
 
 const Info = (
   <div>
@@ -7,41 +7,35 @@ const Info = (
 
     <StoryHeader>How to use the Card component:</StoryHeader>
 
-    <p>
-      {'Card is rendered as...'}
-    </p>
-
     <p>In your file</p>
 
     <StoryCode padded>
       {'import Card from "carbon-react/lib/components/card";'}
     </StoryCode>
 
-    <p>To render a Card:</p>
+    <p>To render a simple Card:</p>
 
-    <StoryCode padded>
-      {'<Card />'}
-    </StoryCode>
+    <StoryCodeBlock padded>
+      {'<Card>'}
+      {'  content'}
+      {'<Card>'}
+    </StoryCodeBlock>
 
-    <p>
-      {'By default, the card renders with text-align:center'}
-    </p>
+    <p>CardRow and CardColumn components could be used to position the content.</p>
+    <p>CardFooter component could be used to render the Card Footer.</p>
 
-    <p>
-      More instructions to override defaults here.
-    </p>
+    <StoryCodeBlock padded>
+      {'<Card>'}
+      {'  <CardRow>'}
+      {'    <CardColumn />'}
+      {'    <CardColumn />'}
+      {'  </CardRow>'}
+      {'  <CardFooter>'}
+      {'    <CardColumn />'}
+      {'  </CardFooter>'}
+      {'<Card>'}
+    </StoryCodeBlock>
 
-    <StoryCode padded>
-      {'<Card headerAlign="left" middleAlign="right" footerAlign="left" border=true />'}
-    </StoryCode>
-
-    <p>The Card can also be rendered with the following:</p>
-
-    <ul>
-      <li>
-        {'list of things here'}
-      </li>
-    </ul>
   </div>
 );
 
