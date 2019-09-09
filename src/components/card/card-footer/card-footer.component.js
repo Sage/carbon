@@ -6,7 +6,6 @@ import StyledCardFooter from './card-footer.style';
 const { sizesRestricted } = OptionsHelper;
 
 const CardFooter = ({
-  footerFilled,
   spacing,
   children
 }) => {
@@ -14,7 +13,6 @@ const CardFooter = ({
     <StyledCardFooter
       key='card-footer'
       data-element='card-footer'
-      footerFilled={ footerFilled }
       spacing={ spacing }
       positionType='footer'
     >
@@ -24,10 +22,9 @@ const CardFooter = ({
 };
 
 CardFooter.propTypes = {
-  footerFilled: PropTypes.bool,
+  children: PropTypes.node.isRequired,
   /** size of card for applying padding (small | medium | large) */
-  spacing: PropTypes.oneOf(sizesRestricted),
-  children: PropTypes.node.isRequired
+  spacing: PropTypes.oneOf(sizesRestricted)
 };
 
 CardFooter.defaultProps = {
