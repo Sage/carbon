@@ -9,180 +9,101 @@ import Icon from '../icon';
 import Link from '../link';
 import Heading from '../heading';
 import CardColumn from './card-column';
+import CardFooter from './card-footer/card-footer.component';
+import CardRow from './card-row';
 
 Card.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
   /card.component(?!spec)/
 );
 
-const { cardTextTypes } = OptionsHelper;
-
-const generateContentComponent = (type, content, props) => {
-  switch (type.toLowerCase()) {
-    case 'link':
-      return <Link { ...props }>{ content }</Link>;
-    case 'icon':
-      return <Icon type={ content } { ...props } />;
-    case 'heading':
-      return (
-        <Heading
-          title={ content }
-          divider={ false }
-          { ...props }
-        />
-      );
-    default:
-      return content;
-  }
-};
-
-const buildContnent = (config, props) => {
-  return Object.values(config).map((obj) => {
-    const {
-      align, contentType, contentText
-    } = obj;
-    const { positionType, ...rest } = props;
-    return (
-      <CardColumn
-        align={ align }
-        type={ { position: positionType, contentStyle: contentType } }
-        { ...rest }
-      >
-        { generateContentComponent(contentType, contentText, {}) }
-      </CardColumn>
-    );
-  });
-};
-
 const cardKnobs = () => {
   return {
     key: 'one',
-    border: boolean('border', false, 'Card Knobs'),
-    cardSpacing: select('card spacing', OptionsHelper.sizesRestricted, Card.defaultProps.spacing, 'Card Knobs'),
-    cardWidth: text('width', '500px', 'Card Knobs'),
-    clickable: boolean('interactive card', false, 'Card Knobs'),
-    draggable: boolean('draggable card', false, 'Card Knobs'),
-    headerInline: boolean('header inline', false, 'Header Knobs'),
-    middleInline: boolean('middle inline', false, 'Middle Knobs'),
-    footerFilled: boolean('footer background', false, 'Footer Knobs')
+    cardSpacing: select('card spacing', OptionsHelper.sizesRestricted, Card.defaultProps.spacing),
+    cardWidth: text('width', '500px'),
+    clickable: boolean('interactive card', false),
+    draggable: boolean('draggable card', false)
   };
 };
-
-const headerKnobs = () => {
-  return {
-    key: 'two',
-    headerPrimary: {
-      contentType: select(
-        'header primary type',
-        [
-          'link',
-          'heading',
-          'icon',
-          cardTextTypes[0],
-          cardTextTypes[1]
-        ],
-        'primary',
-        'Header Knobs'
-      ),
-      contentText: text('header one text', 'Primary', 'Header Knobs'),
-      align: select('header one align', OptionsHelper.alignFull, 'center', 'Header Knobs')
-    },
-    headerSecondary: {
-      contentType: select(
-        'header two type', ['link', 'heading', 'icon', cardTextTypes[0], cardTextTypes[1]], 'primary', 'Header Knobs'
-      ),
-      contentText: text('header two text', 'Secondary', 'Header Knobs'),
-      align: select('header two align', OptionsHelper.alignFull, 'center', 'Header Knobs')
-    }
-  };
-};
-
-const middleKnobs = () => {
-  return {
-    key: 'three',
-    middlePrimary: {
-      contentType: select(
-        'middle primary type', ['link', 'heading', 'icon', ...cardTextTypes], 'primary', 'Middle Knobs'
-      ),
-      contentText: text('middle one text', 'Primary', 'Middle Knobs'),
-      align: select('middle one align', OptionsHelper.alignFull, 'center', 'Middle Knobs')
-    },
-    middleSecondary: {
-      contentType: select(
-        'middle two type', ['link', 'heading', 'icon', ...cardTextTypes], 'primary', 'Middle Knobs'
-      ),
-      contentText: text('middle two text', 'Secondary', 'Middle Knobs'),
-      align: select('middle two align', OptionsHelper.alignFull, 'center', 'Middle Knobs')
-    }
-  };
-};
-
-const footerKnobs = () => {
-  return {
-    key: 'four',
-    footerPrimary: {
-      contentType: select('footer one type', ['link', 'heading', 'icon', cardTextTypes[0]], 'primary', 'Footer Knobs'),
-      contentText: text('footer one text', 'Primary', 'Footer Knobs'),
-      align: select('footer one align', OptionsHelper.alignFull, 'center', 'Footer Knobs')
-    },
-    footerSecondary: {
-      contentType: select(
-        'footer two type', ['link', 'heading', 'icon', cardTextTypes[0]], 'primary', 'Footer Knobs'
-      ),
-      contentText: text('footer two text', 'Secondary', 'Footer Knobs'),
-      align: select('footer two align', OptionsHelper.alignFull, 'center', 'Footer Knobs')
-    }
-  };
-};
-
 
 storiesOf('Card', module)
   .add('default', () => {
-    const {
-      border,
-      cardSpacing,
-      cardWidth,
-      clickable,
-      draggable,
-      headerInline,
-      middleInline,
-      footerFilled
-    } = cardKnobs();
+    const knobs = cardKnobs();
 
-    const header = buildContnent(
-      { headerPrimary: headerKnobs().headerPrimary, headerSecondary: headerKnobs().headerSecondary },
-      { positionType: 'header' }
-    );
-
-    const middle = buildContnent(
-      { middlerimary: middleKnobs().middlePrimary, middleSecondary: middleKnobs().middleSecondary },
-      { positionType: 'middle' }
-    );
-
-    const footer = buildContnent(
-      { footerPrimary: footerKnobs().footerPrimary, footerSecondary: footerKnobs().footerSecondary },
-      { positionType: 'footer' }
-    );
-
-    const cardRows = [
-      { positionType: 'header', content: header, inline: headerInline },
-      { positionType: 'middle', content: middle, inline: middleInline },
-      { positionType: 'footer', content: footer }
-    ];
-
-    return (
-      <Card
-        spacing={ cardSpacing }
-        border={ border }
-        cardWidth={ cardWidth }
-        cardRows={ cardRows }
-        clickable={ clickable }
-        draggable={ draggable }
-        footerFilled={ footerFilled }
-      />
-    );
+    return [getCard(knobs), getSmallCard(knobs)];
   }, {
-    info: { text: Info },
+    info: { text: Info, propTablesExclude: [Icon, Link, Heading] },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
   });
+
+function getCard(knobs) {
+  const {
+    cardSpacing,
+    cardWidth,
+    clickable,
+    draggable
+  } = knobs;
+
+  return (
+    <Card
+      spacing={ cardSpacing }
+      cardWidth={ cardWidth }
+      clickable={ clickable }
+      draggable={ draggable }
+    >
+      <CardRow>
+        <CardColumn align='left'>
+          <Heading title='Stripe - [account name]' divider={ false } />
+          <div style={ { fontSize: '16px' } }>user.name@sage.com</div>
+        </CardColumn>
+        <CardColumn align='right'>
+          <Icon type='image' />
+        </CardColumn>
+      </CardRow>
+      <CardRow>
+        <CardColumn>
+          <div style={ { fontWeight: 'bold', fontSize: '16px' } }>Stripe Balance</div>
+          <Heading title='£ 0.00' divider={ false } />
+          <div style={ { fontSize: '12px' } }>LAST ENTRY: 15 DAYS AGO</div>
+        </CardColumn>
+      </CardRow>
+      <CardFooter>
+        <CardColumn><Link icon='link' href='https://carbon.sage.com/'>View Stripe Dashboard</Link></CardColumn>
+      </CardFooter>
+    </Card>
+  );
+}
+
+function getSmallCard(knobs) {
+  const {
+    border,
+    cardSpacing,
+    cardWidth,
+    clickable,
+    draggable
+  } = knobs;
+
+  return (
+    <Card
+      spacing={ cardSpacing }
+      border={ border }
+      cardWidth={ cardWidth }
+      clickable={ clickable }
+      draggable={ draggable }
+    >
+      <CardRow>
+        <CardColumn align='left'>
+          <div align='left' style={ { fontWeight: 'bold', fontSize: '16px', marginBottom: '10px' } }>Accounting</div>
+          <span style={ { fontWeight: 'bold', fontSize: '12px' } }>£ 6.50 </span>
+          <span style={ { fontSize: '12px' } }>paid by client monthly</span>
+        </CardColumn>
+      </CardRow>
+      <CardFooter>
+        <CardColumn align='left'>Promo code</CardColumn>
+        <CardColumn align='right'>Manage</CardColumn>
+      </CardFooter>
+    </Card>
+  );
+}
