@@ -32,9 +32,10 @@ const ActionPopover = ({ children, id }) => {
       }
     } else if (Events.isUpKey(e)) {
       e.preventDefault();
+      setFocusIndex(items.length - 1);
       setOpen(true);
     }
-  }), [isOpen]);
+  }), [isOpen, items]);
 
   const onKeyDown = useCallback(((e) => {
     if (Events.isTabKey(e) && Events.isShiftKey(e)) {

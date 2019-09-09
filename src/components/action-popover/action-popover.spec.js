@@ -273,26 +273,20 @@ describe('ActionPopover', () => {
         ['DownArrow', 'Space', 'Enter']
       )('Pressing %s key selects the first item', (key) => {
         render();
-        const { menubutton } = getElements();
+        const { menubutton, items } = getElements();
 
         simulate.keydown[`press${key}`](menubutton);
 
-        const { items } = getElements();
         expect(items.first()).toBeFocused();
       });
 
-      it('Pressing UpArrow re-selects the previously selected item', () => {
+      it('Pressing UpArrow selects the last item', () => {
         render();
-        const { menubutton } = getElements();
-        simulate.keydown.pressDownArrow(menubutton);
-        const { items } = getElements();
-        simulate.keydown.pressDownArrow(items.first());
-        simulate.keydown.pressDownArrow(items.at(1));
-        simulate.keydown.pressEscape(items.at(2));
+        const { menubutton, items } = getElements();
 
         simulate.keydown.pressUpArrow(menubutton);
 
-        expect(items.at(2)).toBeFocused();
+        expect(items.last()).toBeFocused();
       });
     });
 
