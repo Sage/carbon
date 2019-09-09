@@ -3,14 +3,18 @@ import BaseTheme from '../../style/themes/base';
 import { StyledIcon } from '../icon/icon.style';
 import { isClassic } from '../../utils/helpers/style-helper';
 
-const ValidationIconStyle = styled.div`
+const ValidationIconStyle = styled.button`
+  background: none;
   cursor: pointer;
   display: flex;
   align-items: center;
+  padding: 1px;
   padding-left: 5px;
+  border: 0;
+  outline: none;
 
   ${StyledIcon}:before {
-    color: ${({ type, theme }) => theme.colors[type]};
+    color: ${({ validationType, theme }) => theme.colors[validationType]};
   }
 
   ${({ theme }) => isClassic(theme) && css`
@@ -24,7 +28,7 @@ const ValidationIconStyle = styled.div`
 `;
 
 ValidationIconStyle.defaultProps = {
-  type: 'error',
+  validationType: 'error',
   theme: BaseTheme
 };
 
