@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import OptionsHelper from '../../../utils/helpers/options-helper/options-helper';
 import BaseTheme from '../../../style/themes/base';
 import StyledCardColumn from '../card-column/card-column.style';
+import { StyledIcon } from '../../icon/icon.style';
 
 const { sizesRestricted } = OptionsHelper;
 
@@ -31,6 +32,10 @@ const StyledCardFooter = styled.div`
         margin: 0;
         color: ${theme.card.footerText};
         padding: ${paddingSizes[spacing]};
+      }
+
+      ${StyledIcon} {
+        color: ${theme.card.footerText};
       }
   `}
 `;
