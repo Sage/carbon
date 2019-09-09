@@ -5,10 +5,8 @@ import OptionsHelper from '../../../utils/helpers/options-helper/options-helper'
 
 const CardRow = ({
   children,
-  footerFilled,
   inline,
-  positionType,
-  size,
+  spacing,
   ...props
 }) => {
   const rowChildren = React.Children.map(children, (child, index) => {
@@ -20,11 +18,9 @@ const CardRow = ({
 
   return (
     <StyledCardRow
-      data-element={ `card-row-${positionType}` }
-      footerFilled={ footerFilled }
+      data-element='card-row'
       inline={ inline }
-      positionType={ positionType }
-      marginSize={ size }
+      spacing={ spacing }
       { ...props }
     >
       { rowChildren }
@@ -33,15 +29,11 @@ const CardRow = ({
 };
 
 CardRow.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.node),
-  /** position of width in the card */
-  positionType: PropTypes.string,
-  /** size of card for applying padding (small | medium | large) */
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  children: PropTypes.node.isRequired,
+  /** size of card for applying margin (small | medium | large) */
+  spacing: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   /** display card content inline */
-  inline: PropTypes.bool,
-  /** prop to set background of footer */
-  footerFilled: PropTypes.bool
+  inline: PropTypes.bool
 };
 
 export default CardRow;
