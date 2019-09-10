@@ -59,9 +59,15 @@ Feature: Icon component
       | duplicate         |
       | edit              |
       | edited            |
-      | email             |
       | error             |
       | favourite         |
       | favourite_lined   |
       | fax               |
-      
+
+  @positive
+  Scenario Outline: Change type to <type>
+    When I select type to "<type>"
+    Then icon on preview is "<type>"
+    Examples:
+      | iconName          | iconDataElement |
+      | email             | message         |
