@@ -18,24 +18,32 @@ const ActionPopover = ({ children, id }) => {
   const [guid] = useState(createGuid());
   const button = useRef();
 
+
+  const onButtonClick = useCallback(() => {
+    const isOpening = !isOpen;
+    setOpen(isOpening);
+    if (isOpening) {
+      // Opening the menu should focus the first MenuItem
+      setFocusIndex(0);
+    } else {
+      // Closing the menu should focus the MenuButton
+      button.current.focus();
+    }
+  }, [isOpen]);
+
   // Keyboard commands implemented as reccomended by WAI-ARIA best practices
   // https://www.w3.org/TR/wai-aria-practices/examples/menu-button/menu-button-actions.html
 
   const onButtonKeyDown = useCallback(((e) => {
     if (Events.isSpaceKey(e) || Events.isDownKey(e) || Events.isEnterKey(e)) {
       e.preventDefault();
-      setOpen(!isOpen);
-      if (isOpen) {
-        button.current.focus();
-      } else {
-        setFocusIndex(0);
-      }
+      onButtonClick();
     } else if (Events.isUpKey(e)) {
       e.preventDefault();
       setFocusIndex(items.length - 1);
       setOpen(true);
     }
-  }), [isOpen, items]);
+  }), [isOpen, items, onButtonClick]);
 
   const onKeyDown = useCallback(((e) => {
     if (Events.isTabKey(e) && Events.isShiftKey(e)) {
@@ -111,18 +119,6 @@ const ActionPopover = ({ children, id }) => {
       document.removeEventListener(event, handler);
     };
   });
-
-  const onButtonClick = useCallback(() => {
-    const isOpening = !isOpen;
-    setOpen(isOpening);
-    if (isOpening) {
-      // Opening the menu should focus the first MenuItem
-      setFocusIndex(0);
-    } else {
-      // Closing the menu should focus the MenuButton
-      button.current.focus();
-    }
-  }, [isOpen]);
 
   useEffect(() => {
     const itemsWithRef = [];
