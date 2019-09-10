@@ -51,6 +51,7 @@ const Help = (props) => {
       target='_blank'
       rel='noopener noreferrer'
       ref={ helpElement }
+      onClick={ e => e.preventDefault() }
       onFocus={ () => updateTooltipVisible(true) }
       onBlur={ () => updateTooltipVisible(false) }
       { ...tagComponent('help', props) }
