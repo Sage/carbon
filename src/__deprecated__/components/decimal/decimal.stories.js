@@ -5,10 +5,10 @@ import {
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-import OptionsHelper from '../../utils/helpers/options-helper';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
 import Decimal from './decimal.js';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 Decimal.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -24,7 +24,7 @@ const handleChange = (event) => {
   store.set({ value: event.target.value });
 };
 
-storiesOf('Decimal', module)
+storiesOf('__deprecated__/Decimal', module)
   .addParameters({
     info: {
       propTablesExclude: [State]

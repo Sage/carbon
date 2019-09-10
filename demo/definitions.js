@@ -16,7 +16,7 @@ export default {
   create: require('components/create/__definition__').default,
   'date-input': require('components/date/__definition__').default,
   'date-range': require('components/date-range/__definition__').default,
-  decimal: require('components/decimal/__definition__').default,
+  decimal: require('__deprecated__/components/decimal/__definition__').default,
   detail: require('components/detail/__definition__').default,
   dialog: require('components/dialog/__definition__').default,
   'dialog-full-screen': require('components/dialog-full-screen/__definition__').default,

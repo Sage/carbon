@@ -42,7 +42,6 @@ Feature: Build tests
       | create               | link                 |
       | date range           | date-range           |
       | date input           | date                 |
-      | decimal              | decimal              |
       | detail               | detail               |
       | draggableContext     | table                |
       | dropdownFilterAjax   | dropdown-filter-ajax |
@@ -95,3 +94,4 @@ Feature: Build tests
       | textbox      |
       | textarea     |
       | number-input |
+      | decimal      |
