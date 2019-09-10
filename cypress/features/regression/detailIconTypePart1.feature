@@ -64,9 +64,16 @@ Feature: Detail component
       | duplicate         |
       | edit              |
       | edited            |
-      | email             |
       | error             |
       | favourite         |
       | favourite_lined   |
       | fax               |
-      
+
+  @positive
+  Scenario Outline: Change Detail icon to <iconName>
+    When I set detail icon to "<iconName>"
+    Then icon on preview is "<iconName>"
+    Examples:
+      | iconName          | iconDataElement |
+      | email             | message         |
+
