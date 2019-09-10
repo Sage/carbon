@@ -6,35 +6,44 @@ import Icon from '../icon';
 import BaseTheme from '../../style/themes/base';
 
 const { sizesRestricted } = OptionsHelper;
+const enterKeyCode = 13;
 
 const Card = ({
   action,
   children,
   cardWidth,
-  clickable,
+  interactive,
   draggable,
   spacing,
   ...props
 }) => {
   const handleClick = (ev) => {
-    if (clickable && !draggable && action) {
+    if (!draggable) {
       action(ev);
     }
+  };
+  const handleEnterKeyDown = (ev) => {
+    if (ev.which === enterKeyCode) action(ev);
   };
 
   const renderChildren = () => {
     return React.Children.map(children, child => React.cloneElement(child, { spacing }));
   };
 
+  const interactiveProps = interactive && action ? {
+    onClick: handleClick,
+    onKeyDown: handleEnterKeyDown
+  } : {};
+
   return (
     <StyledCard
       data-element='card'
       cardWidth={ cardWidth }
-      clickable={ clickable }
+      interactive={ interactive }
       draggable={ draggable }
-      onlick={ handleClick }
       spacing={ spacing }
       { ...props }
+      { ...interactiveProps }
     >
       { draggable && <Icon type='drag' />}
       { renderChildren() }
@@ -49,7 +58,7 @@ Card.propTypes = {
   /** style value for width of card */
   cardWidth: PropTypes.string,
   /** flag to indicate if card is interactive */
-  clickable: PropTypes.bool,
+  interactive: PropTypes.bool,
   /** flag to indicate if card is draggable */
   draggable: PropTypes.bool,
   /** size of card for applying padding (small | medium | large) */

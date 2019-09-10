@@ -22,7 +22,7 @@ const cardKnobs = () => {
     key: 'one',
     cardSpacing: select('card spacing', OptionsHelper.sizesRestricted, Card.defaultProps.spacing),
     cardWidth: text('width', '500px'),
-    clickable: boolean('interactive card', false),
+    interactive: boolean('interactive card', false),
     draggable: boolean('draggable card', false)
   };
 };
@@ -42,7 +42,7 @@ function getCard(knobs) {
   const {
     cardSpacing,
     cardWidth,
-    clickable,
+    interactive,
     draggable
   } = knobs;
 
@@ -50,7 +50,7 @@ function getCard(knobs) {
     <Card
       spacing={ cardSpacing }
       cardWidth={ cardWidth }
-      clickable={ clickable }
+      interactive={ interactive }
       draggable={ draggable }
     >
       <CardRow>
@@ -81,7 +81,7 @@ function getSmallCard(knobs) {
     border,
     cardSpacing,
     cardWidth,
-    clickable,
+    interactive,
     draggable
   } = knobs;
 
@@ -90,7 +90,7 @@ function getSmallCard(knobs) {
       spacing={ cardSpacing }
       border={ border }
       cardWidth={ cardWidth }
-      clickable={ clickable }
+      interactive={ interactive }
       draggable={ draggable }
     >
       <CardRow>
