@@ -59,9 +59,15 @@ Feature: Link component
       | duplicate         |
       | edit              |
       | edited            |
-      | email             |
       | error             |
       | favourite         |
       | favourite_lined   |
       | fax               |
-      
+
+  @positive
+  Scenario Outline: Change type of icon for a Link component to <icon>
+    When I select icon to "<icon>"
+    Then icon on link componenent preview is "<icon>"
+    Examples:
+      | iconName          | iconDataElement |
+      | email             | message         |
