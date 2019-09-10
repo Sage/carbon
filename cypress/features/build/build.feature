@@ -86,12 +86,12 @@ Feature: Build tests
   @build
   Scenario Outline: Deprecated component <component> iframe
     When I open deprecated "<component>" component iframe
-    Then "<component>" component is visible
+    Then "<data-component>" component is visible
     Examples:
-      | component        |
-      | textbox          |
-      | textarea         |
-      | number           |
-      | decimal          |
-      | fieldset         |
-      | grouped-character |
+      | component          | data-component     |
+      | textbox            | textbox            |
+      | textarea           | textarea           |
+      | number-input       | number             |
+      | decimal            | decimal            |
+      | fieldset           | fieldset           |
+      | groupedcharacter   | grouped-character  |
