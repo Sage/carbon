@@ -5,34 +5,32 @@ import LabelStyle from './label.style';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
 import { getValidationType } from '../../../components/validations/with-validation.hoc';
 
-const Label = ({
-  children,
-  help,
-  helpIcon,
-  helpId,
-  helpTag,
-  helpTabIndex,
-  hasError,
-  hasWarning,
-  hasInfo,
-  tooltipMessage,
-  ...props
-}) => (
-  <LabelStyle
-    data-element='label'
-    hasError={ hasError }
-    { ...props }
-  >
-    {children}
+const validationsPresent = ({ hasError, hasWarning, hasInfo }) => hasError || hasWarning || hasInfo;
 
-    {(hasError || hasWarning || hasInfo) && tooltipMessage && (
-      <ValidationIcon
-        type={ getValidationType({ hasError, hasWarning, hasInfo }) }
-        tooltipMessage={ tooltipMessage }
-      />
-    )}
+const Label = (props) => {
+  const {
+    children,
+    help,
+    helpIcon,
+    helpId,
+    helpTag,
+    helpTabIndex,
+    tooltipMessage,
+    useValidationIcon
+  } = props;
 
-    {!hasError && !hasWarning && !hasInfo && help && (
+  const icon = () => {
+    if (useValidationIcon && validationsPresent(props) && tooltipMessage) {
+      return (
+        <ValidationIcon
+          iconId={ helpId }
+          type={ getValidationType(props) }
+          tooltipMessage={ tooltipMessage }
+        />
+      );
+    }
+
+    return help && (
       <Help
         helpId={ helpId }
         tagTypeOverride={ helpTag }
@@ -40,9 +38,20 @@ const Label = ({
         type={ helpIcon }
       >
         {help}
-      </Help>)}
-  </LabelStyle>
-);
+      </Help>
+    );
+  };
+
+  return (
+    <LabelStyle
+      data-element='label'
+      { ...props }
+    >
+      {children}
+      {icon()}
+    </LabelStyle>
+  );
+};
 
 Label.propTypes = {
   children: PropTypes.node,
@@ -51,10 +60,12 @@ Label.propTypes = {
   helpId: PropTypes.string,
   helpTag: PropTypes.string,
   helpTabIndex: PropTypes.string,
-  hasError: PropTypes.bool,
-  hasWarning: PropTypes.bool,
-  hasInfo: PropTypes.bool,
-  tooltipMessage: PropTypes.string
+  tooltipMessage: PropTypes.string,
+  useValidationIcon: PropTypes.bool
+};
+
+Label.defaultProps = {
+  useValidationIcon: false
 };
 
 export default Label;

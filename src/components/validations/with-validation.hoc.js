@@ -15,20 +15,6 @@ const validationsPropTypes = PropTypes.oneOfType([
   PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, validationShape]))
 ]);
 
-function getValidationType({ hasError, hasWarning, hasInfo }) {
-  let type = '';
-
-  if (hasError) {
-    type = 'error';
-  } else if (hasWarning) {
-    type = 'warning';
-  } else if (hasInfo) {
-    type = 'info';
-  }
-
-  return type;
-}
-
 const withValidation = (WrappedComponent) => {
   class WithValidation extends React.Component {
     state = {
@@ -204,6 +190,7 @@ const withValidation = (WrappedComponent) => {
 
     handleChange = (ev) => {
       this.blockValidation = !this.props.unblockValidation;
+
       this.resetValidation();
 
       this.setState(
@@ -292,6 +279,22 @@ const withValidation = (WrappedComponent) => {
 
   return WithValidation;
 };
+
+function getValidationType({ hasError, hasWarning, hasInfo }) {
+  if (hasError) {
+    return 'error';
+  }
+
+  if (hasWarning) {
+    return 'warning';
+  }
+
+  if (hasInfo) {
+    return 'info';
+  }
+
+  return '';
+}
 
 export { validationsPropTypes, getValidationType };
 export default withValidation;

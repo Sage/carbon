@@ -28,7 +28,8 @@ const FormField = ({
   childOfForm,
   isOptional,
   readOnly,
-  tooltipMessage
+  tooltipMessage,
+  useValidationIcon
 }) => (
   <FormFieldStyle inline={ labelInline }>
     {reverse && children}
@@ -53,6 +54,7 @@ const FormField = ({
         childOfForm={ childOfForm }
         optional={ isOptional }
         tooltipMessage={ tooltipMessage }
+        useValidationIcon={ useValidationIcon }
       >
         {label}
       </Label>
@@ -101,7 +103,8 @@ FormField.propTypes = {
   readOnly: PropTypes.bool,
   reverse: PropTypes.bool,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
-  tooltipMessage: PropTypes.string
+  tooltipMessage: PropTypes.string,
+  useValidationIcon: PropTypes.bool
 };
 
 export default FormField;

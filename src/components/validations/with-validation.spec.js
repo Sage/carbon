@@ -409,12 +409,10 @@ describe('when the withValidations HOC wraps a component', () => {
           hasInfo: false
         };
         const typeToKey = `has${_capitalize(type)}`;
-        let value = type;
+        const value = type === 'empty' ? '' : type;
 
         if (Object.prototype.hasOwnProperty.call(obj, typeToKey)) {
           obj[typeToKey] = true;
-        } else {
-          value = '';
         }
 
         expect(getValidationType(obj)).toEqual(value);
