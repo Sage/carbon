@@ -6,16 +6,16 @@ import {
   select
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import OptionsHelper from '../../utils/helpers/options-helper';
+import OptionsHelper from '../../../utils/helpers/options-helper/options-helper';
 import GroupedCharacter from './grouped-character';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
+import getDocGenInfo from '../../../utils/helpers/docgen-info/docgen-info';
 
 GroupedCharacter.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
   /grouped-character(?!spec)/
 );
 
-storiesOf('GroupedCharacter', module)
+storiesOf('__deprecated__/GroupedCharacter', module)
   .add('default', () => {
     const inputWidth = text('inputWidth', '');
     const separator = text('separator', GroupedCharacter.defaultProps.separator);

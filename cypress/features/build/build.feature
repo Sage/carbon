@@ -49,7 +49,6 @@ Feature: Build tests
       | dropdown             | dropdown             |
       | filter component     | filter               |
       | form                 | form                 |
-      | groupedcharacter     | grouped-character    |
       | heading              | heading              |
       | help                 | help                 |
       | i18ncomponent        | i18n                 |
@@ -89,9 +88,10 @@ Feature: Build tests
     When I open deprecated "<component>" component iframe
     Then "<component>" component is visible
     Examples:
-      | component    |
-      | textbox      |
-      | textarea     |
-      | number-input |
-      | decimal      |
-      | fieldset     |
+      | component        |
+      | textbox          |
+      | textarea         |
+      | number-input     |
+      | decimal          |
+      | fieldset         |
+      | groupedcharacter |
