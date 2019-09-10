@@ -22,13 +22,6 @@ describe('Heading', () => {
     );
   });
 
-  it('renders with main classes', () => {
-    const div = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-heading');
-    expect(div.className).toEqual(
-      'carbon-heading custom carbon-heading--has-subheader carbon-heading--has-back carbon-heading--has-divider'
-    );
-  });
-
   it('renders a h1 with the title', () => {
     const div = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-heading__title');
     expect(div.textContent).toEqual('foo');

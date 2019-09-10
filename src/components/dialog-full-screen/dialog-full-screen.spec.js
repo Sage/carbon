@@ -220,13 +220,13 @@ describe('Styled StyledContent', () => {
         />
       );
       assertStyleMatch({
-        paddingTop: '30px',
+        paddingTop: '0',
         paddingBottom: '30px'
       }, wrapper);
 
       assertStyleMatch({
-        maxWidth: '1600px',
-        padding: '0 40px'
+        maxWidth: '100%',
+        padding: '0'
       }, wrapper, { modifier: '.carbon-app-wrapper' });
     });
   });
