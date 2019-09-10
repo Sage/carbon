@@ -47,7 +47,6 @@ Feature: Build tests
       | dropdownFilterAjax   | dropdown-filter-ajax |
       | dropdown-filter      | dropdown-filter      |
       | dropdown             | dropdown             |
-      | fieldset             | fieldset             |
       | filter component     | filter               |
       | form                 | form                 |
       | groupedcharacter     | grouped-character    |
@@ -95,3 +94,4 @@ Feature: Build tests
       | textarea     |
       | number-input |
       | decimal      |
+      | fieldset     |

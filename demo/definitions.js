@@ -24,7 +24,7 @@ export default {
   dropdown: require('components/dropdown/__definition__').default,
   'dropdown-filter': require('components/dropdown-filter/__definition__').default,
   'dropdown-filter-ajax': require('components/dropdown-filter-ajax/__definition__').default,
-  fieldset: require('components/fieldset/__definition__').default,
+  fieldset: require('__deprecated__/components/fieldset/__definition__').default,
   filter: require('components/filter/__definition__').default,
   flash: require('components/flash/__definition__').default,
   form: require('components/form/__definition__').default,
