@@ -12,7 +12,7 @@ import ClassicSwitchStyles from './switch-classic.style';
 
 const StyledSwitch = styled.div`
   ${({
-    fieldHelpInline, labelInline, labelWidth, reverse, size, theme, hasError, hasWarning, hasInfo
+    fieldHelpInline, labelInline, labelWidth, reverse, size, theme
   }) => css`
     ${StyledCheckableInput}, ${HiddenCheckableInputStyle} {
       border: none;
@@ -48,10 +48,6 @@ const StyledSwitch = styled.div`
         margin-bottom: 0;
         vertical-align: middle;
       }
-
-      ${hasInfo && `color: ${theme.colors.info};`}
-      ${hasWarning && `color: ${theme.colors.warning};`}
-      ${hasError && `color: ${theme.colors.error};`}
 
       ${labelWidth && css`
         margin-right: ${100 - labelWidth}%;
