@@ -51,11 +51,13 @@ const Help = (props) => {
       target='_blank'
       rel='noopener noreferrer'
       ref={ helpElement }
+      onClick={ e => e.preventDefault() }
       onFocus={ () => updateTooltipVisible(true) }
       onBlur={ () => updateTooltipVisible(false) }
       { ...tagComponent('help', props) }
       tabIndex={ tabIndexOverride }
       value={ children }
+      aria-label='additional help information'
     >
       <Icon
         type='help'
@@ -89,7 +91,8 @@ Help.propTypes = {
 
 Help.defaultProps = {
   tooltipPosition: 'top',
-  tooltipAlign: 'center'
+  tooltipAlign: 'center',
+  tabIndexOverride: 0
 };
 
 export default Help;

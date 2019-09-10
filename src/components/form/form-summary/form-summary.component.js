@@ -97,7 +97,7 @@ const summary = (props, key) => {
   if (props[pluralize(key)] > 0) {
     return (
       <StyledInternalSummary type={ key }>
-        <Icon className='carbon-form-summary__icon' type={ key } />
+        <Icon type={ key } />
         <StyledSummaryText
           type={ key }
           data-element={ pluralize(key) }

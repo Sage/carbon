@@ -1,17 +1,19 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import I18n from 'i18n-js';
+import TestRenderer from 'react-test-renderer';
+import 'jest-styled-components';
 import PropTypes from 'prop-types';
 import { mount, shallow } from 'enzyme';
 import FormWithValidations, { FormWithoutValidations as Form } from './form.component';
-import { StyledAdditionalFormAction } from './form.style';
+import { StyledAdditionalFormAction, StyledResponsiveFooterWrapper } from './form.style';
 import Textbox from '../textbox';
 import Validation from '../../utils/validations/presence';
 import Dialog from '../dialog';
 import FormSummary from './form-summary';
+import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import Button from '../button';
 import ElementResize from '../../utils/helpers/element-resize';
-import AppWrapper from '../app-wrapper';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 /* global jest */
@@ -518,8 +520,20 @@ describe('Form', () => {
   describe('stickyFooterPadding', () => {
     it('adds padding if defined', () => {
       wrapper = shallow(<Form formAction='foo' stickyFooterPadding='500' />);
-      const footer = wrapper.find(AppWrapper);
-      expect(footer.props().style.borderWidth).toEqual('500px');
+      const footer = TestRenderer.create(wrapper.find(StyledResponsiveFooterWrapper));
+
+      assertStyleMatch({
+        margin: '20px auto 0 auto',
+        maxWidth: 'inherit',
+        minWidth: 'inherit',
+        padding: '0',
+        alignItems: 'center',
+        display: 'flex'
+      }, footer.toJSON());
+
+      assertStyleMatch({
+        borderWidth: '500px'
+      }, footer.toJSON(), { modifier: '&&&&' });
     });
   });
 

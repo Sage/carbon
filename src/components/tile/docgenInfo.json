@@ -1,0 +1,64 @@
+{
+  "src/__experimental__/components/tile/tile.component.js": [
+    {
+      "description": "",
+      "displayName": "Tile",
+      "methods": [],
+      "props": {
+        "as": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.tileThemes"
+          },
+          "required": false,
+          "description": "Sets the theme of the tile - either 'tile' or 'transparent'",
+          "defaultValue": {
+            "value": "'tile'",
+            "computed": false
+          }
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "The content to render within the tile. Each child will be wrapped with\na TileContent wrapper, which allows any individual child component to take a\npercentage-based width prop, dictating the percentage of the tile width it will take up.\n\nWidth will have no effect on a child component if the tile orientation is set to 'vertical'."
+        },
+        "orientation": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.orientation"
+          },
+          "required": false,
+          "description": "The orientation of the tile - set to either horizontal or vertical",
+          "defaultValue": {
+            "value": "'horizontal'",
+            "computed": false
+          }
+        },
+        "padding": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.sizesPod"
+          },
+          "required": false,
+          "description": "Sets the Tile padding. Accepted values are:\n'extra-small' = 8px\n'small' = 16px\n'medium' = 24px\n'large' = 32px\n'extra-large' = 40px",
+          "defaultValue": {
+            "value": "'medium'",
+            "computed": false
+          }
+        },
+        "width": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Set a percentage-based width for the whole Tile component, relative to its parent.\nIf unset or zero, this will default to 100%."
+        }
+      }
+    }
+  ]
+}

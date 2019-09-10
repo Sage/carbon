@@ -70,6 +70,13 @@ const OptionsHelper = {
     'status'
   ],
 
+  pillSizesRestricted: [
+    'S',
+    'M',
+    'L',
+    'XL'
+  ],
+
   toast: [
     'success',
     'error'
@@ -80,6 +87,22 @@ const OptionsHelper = {
     'error',
     'success',
     'warning'
+  ],
+
+  iconBackgrounds: [
+    'info',
+    'error',
+    'success',
+    'warning',
+    'business',
+    'none'
+  ],
+
+  iconColors: [
+    'default',
+    'on-light-background',
+    'on-dark-background',
+    'business-color'
   ],
 
   icons: [
@@ -267,6 +290,14 @@ const OptionsHelper = {
     'large'
   ],
 
+  sizesTile: [
+    'XS',
+    'S',
+    'M',
+    'L',
+    'XL'
+  ],
+
   steps: [
     'complete',
     'current',
@@ -308,6 +339,11 @@ const OptionsHelper = {
     'small',
     'medium',
     'large'
+  ],
+
+  tileThemes: [
+    'tile',
+    'transparent'
   ],
 
   validationTypes: [

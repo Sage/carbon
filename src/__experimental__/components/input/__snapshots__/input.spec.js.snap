@@ -39,6 +39,7 @@ exports[`Input renders with an input 1`] = `
   className="c0"
   data-element="input"
   onBlur={[Function]}
+  onChange={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
   type="text"

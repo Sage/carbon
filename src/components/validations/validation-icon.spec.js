@@ -6,12 +6,12 @@ import ValidationIconStyle from './validation-icon.style';
 import { InputPresentationContext } from '../../__experimental__/components/input';
 import ClassicTheme from '../../style/themes/classic';
 import 'jest-styled-components';
-import Icon from '../icon/icon';
+import Icon from '../icon';
 
 describe('ValidationIcon', () => {
   it('renders with an icon for the given type', () => {
     const wrapper = mount(<ValidationIcon type='error' />).find('div');
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.props().type).toEqual('error');
   });
 
   it('renders with an icon with classic styling', () => {

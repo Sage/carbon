@@ -56,7 +56,7 @@ describe('Tabs', () => {
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
-      <Tabs>
+      <Tabs setLocation>
         <Tab
           title='Tab Title 1' tabId='uniqueid1'
           className='class1' headerClassName='headerClass1'
@@ -334,6 +334,32 @@ describe('Tabs', () => {
       expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#foo');
     });
 
+    it('does not set the location', () => {
+      const replaceSpy = jasmine.createSpy('replaceState');
+
+      const foo = TestUtils.renderIntoDocument(
+        <Tabs setLocation={ false }>
+          <Tab title='Tab Title 1' tabId='foo'>
+            <Textbox name='foo' />
+          </Tab>
+        </Tabs>
+      );
+
+      foo._window = {
+        history: {
+          replaceState: replaceSpy
+        },
+        location: {
+          origin: 'foo',
+          pathname: 'bar'
+        }
+      };
+
+      foo.handleTabClick({ target: { dataset: { tabid: 'foo' } } });
+      expect(replaceSpy).not.toHaveBeenCalledWith(null, 'change-tab', 'foobar#foo');
+    });
+
+
     describe('when a onTabChange prop is passed', () => {
       it('calls the prop', () => {
         const clickSpy = jasmine.createSpy('tabClick');
@@ -503,7 +529,7 @@ describe('Tabs', () => {
     describe('when the orientation is horizontal', () => {
       beforeEach(() => {
         wrapper = mount(
-          <Tabs>
+          <Tabs setLocation>
             <Tab tabId='tab1' title='Test 1' />
             <Tab tabId='tab2' title='Test 2' />
             <Tab tabId='tab3' title='Test 3' />
@@ -613,7 +639,7 @@ describe('Tabs', () => {
     describe('when the orientation is vertical', () => {
       beforeEach(() => {
         wrapper = mount(
-          <Tabs position='left'>
+          <Tabs position='left' setLocation>
             <Tab tabId='tab1' title='Test 1' />
             <Tab tabId='tab2' title='Test 2' />
             <Tab tabId='tab3' title='Test 3' />

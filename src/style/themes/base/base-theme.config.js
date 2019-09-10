@@ -95,7 +95,11 @@ export default (palette) => {
     },
 
     icon: {
-      focus: palette.slateTint(20)
+      default: 'rgba(0,0,0,0.65)',
+      defaultHover: 'rgba(0,0,0,0.90)',
+      onLightBackground: palette.slateTint(40),
+      onLightBackgroundHover: palette.slateTint(20),
+      disabled: 'rgba(0,0,0,0.30)'
     },
 
     portrait: {
@@ -127,6 +131,11 @@ export default (palette) => {
 
     switch: {
       off: '#CCD6DB'
+    },
+
+    tile: {
+      border: palette.slateTint(80),
+      separator: palette.slateTint(90)
     }
   };
 };

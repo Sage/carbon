@@ -7,6 +7,12 @@ cache:
 node_js:
   - 8.11.3
 
+addons:
+   apt:
+     packages:
+       # Ubuntu 16+ does not install this dependency by default, so we need to install it ourselves
+       - libgconf-2-4
+
 install:
   - npm install -g npm@6.1.0
   - npm install -g gulp
@@ -14,6 +20,7 @@ install:
 
 script:
   - npm run storybook-ci </dev/null &>/dev/null &
+  - npm run test-carbon-build
   - npm run lint ./src && npm test -- --maxWorkers=2
   - npm run test-storybook-smoke
   - wait-on http://localhost:9001

@@ -13,7 +13,7 @@ import TableHeader from './table-header';
 import TableSubheader from './table-subheader';
 import DraggableTableCell from './draggable-table-cell';
 import Pager from '../pager';
-import Spinner from '../spinner/spinner.component';
+import Spinner from '../spinner';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 class Table extends React.Component {
@@ -38,7 +38,8 @@ class Table extends React.Component {
       selectAll: this.selectAll,
       selectRow: this.selectRow,
       sortedColumn: this.sortedColumn,
-      sortOrder: this.sortOrder
+      sortOrder: this.sortOrder,
+      passiveData: this.isPassive
     };
   }
 
@@ -458,6 +459,10 @@ class Table extends React.Component {
     return null;
   }
 
+  get isPassive() {
+    return Boolean(this.props.isPassiveData && !this.props.highlightable && !this.props.selectable);
+  }
+
   /**
    * Returns thead content wrapped in <thead>
    */
@@ -749,7 +754,10 @@ Table.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.tableSizes),
 
   /** Toggles the zebra striping for the table rows */
-  isZebra: PropTypes.bool
+  isZebra: PropTypes.bool,
+
+  /** Set if data is passive and requires no hover added styling */
+  isPassiveData: PropTypes.bool
 };
 
 Table.childContextTypes = {
@@ -769,7 +777,8 @@ Table.childContextTypes = {
   selectRow: PropTypes.func, // a callback function for when a row is selected
   highlightable: PropTypes.bool, // table can enable all rows to be highlightable
   sortOrder: PropTypes.string, // the current sort order applied
-  sortedColumn: PropTypes.string // the currently sorted column
+  sortedColumn: PropTypes.string, // the currently sorted column
+  passiveData: PropTypes.bool // Renders data as passive, without hover styling etc
 };
 
 Table.defaultProps = {

@@ -21,12 +21,15 @@ TableWrapper.__docgenInfo = getDocGenInfo(
 const commonKnobs = () => {
   const paginate = boolean('paginate', false);
   const showPageSizeSelection = paginate && boolean('showPageSizeSelection', false);
+  const selectable = boolean('selectable', false);
+  const highlightable = boolean('highlightable', false);
 
   return {
     sortOrder: select('sortOrder', ['', 'asc', 'desc'], ''),
     sortColumn: select('sortColumn', ['', 'name', 'code'], ''),
-    selectable: boolean('selectable', false),
-    highlightable: boolean('highlightable', false),
+    highlightable,
+    selectable,
+    isPassiveData: !highlightable && !selectable ? boolean('isPassiveData', false) : undefined,
     shrink: boolean('shrink', false),
     caption: text('caption', 'Country and Country Codes'),
     totalRecords: number('totalRecords', 50),
@@ -81,8 +84,10 @@ const inputKnobs = () => {
 storiesOf('Table', module)
   .addParameters({
     info: {
+      text: info,
       propTablesExclude: [State]
-    }
+    },
+    notes: { markdown: notes }
   })
   .add('classic', () => {
     const tableProps = {
@@ -93,9 +98,6 @@ storiesOf('Table', module)
     return (
       <TableWrapper { ...tableProps } />
     );
-  }, {
-    info: { text: info },
-    notes: { markdown: notes }
   })
   .add(
     'default',
@@ -108,11 +110,7 @@ storiesOf('Table', module)
       return (
         <TableWrapper { ...tableProps } />
       );
-    },
-    {
-      info: { text: info },
-      notes: { markdown: notes }
-    },
+    }
   )
   .add(
     'classic with inputs',
@@ -126,11 +124,7 @@ storiesOf('Table', module)
       return (
         <TableWrapper { ...tableProps } />
       );
-    },
-    {
-      info: { text: info },
-      notes: { markdown: notes }
-    },
+    }
   )
   .add(
     'default with inputs',
@@ -144,9 +138,5 @@ storiesOf('Table', module)
       return (
         <TableWrapper { ...tableProps } />
       );
-    },
-    {
-      info: { text: info },
-      notes: { markdown: notes }
-    },
+    }
   );

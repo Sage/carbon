@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import baseTheme from '../../style/themes/base';
 import { isClassic } from '../../utils/helpers/style-helper';
 
-const StyledHelp = styled.button`
+const StyledHelp = styled.div`
   background: none;
   color: ${({ theme }) => theme.help.color};
   cursor: default;
@@ -15,17 +15,24 @@ const StyledHelp = styled.button`
   margin-bottom: 0;
   margin-left: 8px;
   margin-top: 0;
-  top: -1px;
+  padding: 1px;
 
   ${({ href }) => href && css`
     cursor: pointer;
-    text-decoration: none;
   `}
 
   &:focus,
   &:hover {
     color: ${({ theme }) => theme.help.hover};
-    text-decoration: underline;
+    text-decoration: none;
+  }
+
+  &:focus{
+    outline: 2px solid ${({ theme }) => theme.colors.focus};
+
+    ::-moz-focus-inner{
+      border: 0;
+    }
   }
 
   ${({ theme }) => isClassic(theme) && css`
@@ -34,6 +41,14 @@ const StyledHelp = styled.button`
     &:focus,
     &:hover {
       color: rgb(128, 153, 164);
+    }
+
+    &:focus{
+      outline: none;
+
+      ::-moz-focus-inner{
+        border: 1px dotted black;
+      }
     }
   `}
 `;

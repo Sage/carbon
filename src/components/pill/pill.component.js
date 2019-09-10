@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyledPill from './pill.style';
-import Icon from '../icon/icon';
+import Icon from '../icon';
 import { validProps } from '../../utils/ether/ether';
 import tagComponent from '../../utils/helpers/tags/tags';
 import OptionsHelper from '../../utils/helpers/options-helper';
@@ -18,7 +18,11 @@ class Pill extends React.Component {
         data-element='close'
         aria-label='close'
       >
-        <Icon type='cross' bgSize='small' />
+        <Icon
+          type='cross'
+          bgSize='small'
+          bgTheme='none'
+        />
       </button>
     );
   }
@@ -30,7 +34,8 @@ class Pill extends React.Component {
       onDelete,
       colorVariant,
       pillRole,
-      children
+      children,
+      size
     } = this.props;
     return (
       <StyledPill
@@ -39,6 +44,7 @@ class Pill extends React.Component {
         colorVariant={ colorVariant || as }
         isDeletable={ onDelete }
         pillRole={ pillRole }
+        size={ size }
         { ...tagComponent('pill', this.props) }
       >
         { children }
@@ -69,7 +75,10 @@ Pill.propTypes = {
   onClick: PropTypes.func,
 
   /** Callback function to delete the component, when the added Icon is clicked. */
-  onDelete: PropTypes.func
+  onDelete: PropTypes.func,
+
+  /** Assigns a size to the button: "S" | "M" | "L" | "XL" */
+  size: PropTypes.oneOf(OptionsHelper.pillSizesRestricted)
 };
 
 Pill.defaultProps = {
@@ -77,7 +86,8 @@ Pill.defaultProps = {
   fill: false,
   onClick: null,
   onDelete: null,
-  pillRole: 'tag'
+  pillRole: 'tag',
+  size: 'M'
 };
 
 export default Pill;

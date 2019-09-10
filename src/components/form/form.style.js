@@ -2,9 +2,12 @@ import styled, { css, keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 import StyledFormField from '../../__experimental__/components/form-field/form-field.style';
 import StyledButton from '../button/button.style';
+import StyledFormSummary from './form-summary/form-summary.style';
 import { isClassic } from '../../utils/helpers/style-helper';
 import baseTheme from '../../style/themes/base';
 import OptionsHelper from '../../utils/helpers/options-helper';
+
+const applyButtonLeftMargin = ({ theme }) => ((isClassic(theme)) ? 'margin-left: 15px;' : 'margin-left: 16px;');
 
 export const StyledAdditionalFormAction = styled.div`
   ${({ type }) => type && css`
@@ -16,12 +19,51 @@ export const StyledAdditionalFormAction = styled.div`
       display: inline-block;
     `}
 
-    ${StyledButton} {
+    ${applyButtonLeftMargin}
+
+    && ${StyledButton} {
+      margin-left: 0px;
       &:first-child {
         margin-left: 0;
       }
     }
   `}
+`;
+
+export const StyledResponsiveFooterWrapper = styled.div`
+  margin: 20px auto 0 auto;
+  max-width: inherit;
+  min-width: inherit;
+  padding: 0;
+  align-items: center;
+  display: flex;
+  ${({ borderWidth }) => borderWidth && css`
+    &&&& {
+      border-width: ${borderWidth};
+    }
+  `}
+
+  div:first-of-type {
+    ${StyledButton} {
+      margin-left: 0;
+    }
+  }
+
+  ${({
+    showSummary,
+    buttonAlign,
+    hasAdditionalActions
+  }) => showSummary && (buttonAlign === 'right' || hasAdditionalActions) && css`
+    && ${StyledFormSummary} {
+      ${StyledButton} {
+        ${applyButtonLeftMargin}
+      } 
+    }
+  `}
+
+  ${StyledAdditionalFormAction}:first-of-type { 
+    margin-left: 0;
+  }
 `;
 
 const FormButtonAnimation = keyframes`
@@ -35,18 +77,17 @@ export const StyledFormFooter = styled.div`
   `}
 
   ${({ buttonAlign }) => buttonAlign === 'right' && css`
-    .carbon-app-wrapper{
+    ${StyledResponsiveFooterWrapper} {
       justify-content: flex-end;
     }
   `}
 `;
 
 const StyledForm = styled.form`
-  && ${StyledButton} {
+  ${StyledButton} {
     align-items: center;
     display: flex;
-    margin-left: 16px;
-    ${({ theme }) => isClassic(theme) && css`margin-left: 15px;`}
+    ${applyButtonLeftMargin}
   }
 
   ${({ theme }) => !isClassic(theme) && css`
@@ -74,7 +115,7 @@ const StyledForm = styled.form`
       width: 100%;
       z-index: 1000;
       
-      .carbon-app-wrapper {
+      ${StyledResponsiveFooterWrapper} {
         align-items: center;
         display: flex;
         margin-top: 0;
@@ -84,22 +125,15 @@ const StyledForm = styled.form`
         border-right-color: ${theme.colors.white};
         border-width: 0;
         box-sizing: border-box;
+        min-width: 450px;
+        padding: 0 40px;
       }
     }
   `}
-  
-  ${({ stickyFooter }) => !stickyFooter && css`
-    ${StyledFormFooter} {
-      .carbon-app-wrapper {
-        max-width: inherit;
-        min-width: inherit;
-        padding: 0;
-        align-items: center;
-        display: flex;
-        margin-top: 20px;
-      }
-    }
-  `}  
+
+  [data-component='icon'].common-input__icon {
+    height: 19px;
+  }
 `;
 
 StyledForm.defaultProps = {
@@ -129,6 +163,18 @@ StyledAdditionalFormAction.defaultProps = {
 StyledAdditionalFormAction.propTypes = {
   theme: PropTypes.object,
   type: PropTypes.oneOf(OptionsHelper.additionalActionAlignments)
+};
+
+StyledResponsiveFooterWrapper.propTypes = {
+  theme: PropTypes.object,
+  buttonAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
+  showSummary: PropTypes.bool,
+  borderWidth: PropTypes.string,
+  hasAdditionalActions: PropTypes.bool
+};
+
+StyledResponsiveFooterWrapper.defaultProps = {
+  theme: baseTheme
 };
 
 export default StyledForm;
