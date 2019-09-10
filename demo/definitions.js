@@ -41,7 +41,7 @@ export default {
   'mount-in-app': require('components/mount-in-app/__definition__').default,
   'multi-action-button': require('components/multi-action-button/__definition__').default,
   'navigation-bar': require('components/navigation-bar/__definition__').default,
-  'number-input': require('components/number/__definition__').default,
+  'number-input': require('__deprecated__/components/number/__definition__').default,
   pager: require('components/pager/__definition__').default,
   pages: require('components/pages/__definition__').default,
   pill: require('components/pill/__definition__').default,

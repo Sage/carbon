@@ -5,7 +5,7 @@ import Checkbox from 'components/checkbox';
 import DropdownFilter from 'components/dropdown-filter';
 import Textarea from '__deprecated__/components/textarea';
 import Textbox from '__deprecated__/components/textbox';
-import Number from 'components/number';
+import Number from '__deprecated__/components/number';
 import ComponentActions from '../../../../../actions/component';
 import ComponentStore from '../../../../../stores/component';
 

@@ -8,9 +8,9 @@ import {
 } from '@storybook/addon-knobs';
 import Number from './number';
 import notes from './notes.md';
-import OptionsHelper from '../../utils/helpers/options-helper';
-import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
+import OptionsHelper from '../../../utils/helpers/options-helper';
+import { StoryHeader, StoryCode } from '../../../../.storybook/style/storybook-info.styles';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 Number.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),

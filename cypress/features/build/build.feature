@@ -65,7 +65,6 @@ Feature: Build tests
       | mount-in-app         | mount-in-app         |
       | multi-action-button  | multi-action-button  |
       | navigation-bar       | navigation-bar       |
-      | number-input         | number               |
       | pager                | pager                |
       | pill                 | pill                 |
       | pod                  | pod                  |
@@ -92,6 +91,7 @@ Feature: Build tests
     When I open deprecated "<component>" component iframe
     Then "<component>" component is visible
     Examples:
-      | component |
-      | textbox   |
-      | textarea  |
+      | component    |
+      | textbox      |
+      | textarea     |
+      | number-input |
