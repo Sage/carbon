@@ -5,7 +5,7 @@ Deprecated Components: |
   to continue using it you will need to update the import path to `carbon-react/lib/__deprecated__/components/number`
   `Decimal` has been moved to `__deprecated__/components/decimal`,
   to continue using it you will need to update the import path to `carbon-react/lib/__deprecated__/components/decimal`
-  `FormField` has been moved to `__deprecated__/components/form-field`,
-  to continue using it you will need to update the import path to `carbon-react/lib/__deprecated__/components/form-field`
+  `FieldSet` has been moved to `__deprecated__/components/fieldset`,
+  to continue using it you will need to update the import path to `carbon-react/lib/__deprecated__/components/fieldset`
   `GroupedCharacter` has been moved to `__deprecated__/components/grouped-character`,
   to continue using it you will need to update the import path to `carbon-react/lib/__deprecated__/components/grouped-character`
