@@ -3,7 +3,7 @@ import BaseTheme from '../../style/themes/base';
 import { StyledIcon } from '../icon/icon.style';
 import { isClassic } from '../../utils/helpers/style-helper';
 
-const ValidationIconStyle = styled.button`
+const ValidationIconStyle = styled.div`
   background: none;
   cursor: pointer;
   display: flex;
