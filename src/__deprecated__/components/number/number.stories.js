@@ -17,7 +17,7 @@ Number.__docgenInfo = getDocGenInfo(
   /number(?!spec)/
 );
 
-storiesOf('Number Input', module)
+storiesOf('__deprecated__/Number Input', module)
   .add('default', () => {
     const inputWidth = text('inputWidth', '');
     const timeToDisappear = number('timeToDisappear', 0);

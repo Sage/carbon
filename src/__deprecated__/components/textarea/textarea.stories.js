@@ -29,7 +29,7 @@ const rangeOptions = {
   step: 1
 };
 
-storiesOf('Textarea', module)
+storiesOf('__deprecated__/Textarea', module)
   .addParameters({
     info: {
       propTablesExclude: [State]
