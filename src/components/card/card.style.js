@@ -12,13 +12,13 @@ const paddingSizes = {
 
 const StyledCard = styled.button`
   ${({
-    border, cardWidth, clickable, draggable, isDragging, spacing, theme
+    border, cardWidth, interactive, draggable, isDragging, spacing, theme
   }) => css`
     background-color: ${theme.colors.white};
     box-shadow: ${theme.shadows.cards};
     margin-bottom: 32px;
     padding: ${paddingSizes[spacing]};
-    ${clickable && css`cursor: pointer;`}
+    ${interactive && css`cursor: pointer;`}
     ${draggable && css`
       cursor: move;
       &${StyledIcon} {
@@ -57,7 +57,7 @@ StyledCard.defaultProps = {
 StyledCard.propTypes = {
   border: PropTypes.bool,
   cardWidth: PropTypes.string,
-  clickable: PropTypes.bool,
+  interactive: PropTypes.bool,
   draggable: PropTypes.bool,
   isDragging: PropTypes.bool,
   spacing: PropTypes.oneOf(OptionsHelper.sizesRestricted),
