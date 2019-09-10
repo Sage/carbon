@@ -91,7 +91,7 @@ Feature: Build tests
       | component        |
       | textbox          |
       | textarea         |
-      | number-input     |
+      | number           |
       | decimal          |
       | fieldset         |
-      | groupedcharacter |
+      | grouped-character |
