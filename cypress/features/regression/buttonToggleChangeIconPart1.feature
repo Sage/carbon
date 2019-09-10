@@ -68,4 +68,11 @@ Feature: Button Toggle component - set all possible icon and verify
       | error             |
       | favourite         |
       | favourite_lined   |
-      
+
+  @positive
+  Scenario Outline: Change Button Toggle icon to <iconName>
+    When I select buttonIcon to "<iconName>"
+    Then Button icon on preview is "<iconName>"
+    Examples:
+      | iconName          | iconDataElement |
+      | email             | message         |
