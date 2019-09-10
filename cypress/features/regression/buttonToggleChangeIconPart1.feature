@@ -64,7 +64,6 @@ Feature: Button Toggle component - set all possible icon and verify
       | duplicate         |
       | edit              |
       | edited            |
-      | email             |
       | error             |
       | favourite         |
       | favourite_lined   |
