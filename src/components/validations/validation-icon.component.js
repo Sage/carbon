@@ -44,6 +44,7 @@ const ValidationIcon = ({
               tooltipVisible={ context && (context.hasFocus || context.hasMouseOver) }
               type={ type }
               size={ size }
+              tabIndex='0'
               { ...modernTooltipProps }
             />
           </ValidationIconStyle>
