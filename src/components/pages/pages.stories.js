@@ -29,18 +29,29 @@ const store = new Store({
   open: false,
   pageIndex: 0,
   pageHistory: [],
-  previouspageHistoryPointer: 0
+  previouspageHistoryPointer: 0,
+  isDisabled: false,
+  transitionTime: 600
 });
 
 const handleSlide = (ev, pageIndex) => {
+  const isDisabled = store.get('isDisabled');
+  const transitionTime = store.get('transitionTime');
+  if (isDisabled) return store.get('previouspageHistoryPointer');
+
   action('slide')(ev);
   const newpageHistory = [...store.get('pageHistory'), pageIndex];
 
   store.set({
+    isDisabled: true,
     pageHistory: newpageHistory,
     pageIndex: (pageIndex || 0),
     previouspageHistoryPointer: newpageHistory.length - 1
   });
+
+  setTimeout(() => {
+    store.set({ isDisabled: false });
+  }, transitionTime);
 
   return pageIndex;
 };
