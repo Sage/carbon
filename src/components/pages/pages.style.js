@@ -4,15 +4,10 @@ import { StyledHeading, StyledHeadingIcon } from '../heading/heading.style';
 import { isClassic } from '../../utils/helpers/style-helper';
 import { LinkStyleAnchor } from '../link/link.style';
 import BaseTheme from '../../style/themes/base';
-import { StyledPage } from './page/page.style';
 
 const PagesContent = styled.div`
   overflow: hidden;
   position: relative;
-
-  && ${StyledPage} {
-    position: fixed;
-  }
 
   ${LinkStyleAnchor} {
     height: 26px;
@@ -59,7 +54,7 @@ const PagesContent = styled.div`
   }
 
   && .slide-next-enter {
-    opacity: 0.01;
+    opacity: 0;
   }
 
   && .slide-next-enter.slide-next-enter-active {
@@ -72,25 +67,31 @@ const PagesContent = styled.div`
   }
 
   && .slide-next-leave {
-    opacity: 0.01;
+    opacity: 0;
     transition: all .5s cubic-bezier(.34,1.1,.69,1.01);
   }
 
   && .slide-previous-enter {
-    opacity: 0.01;
+    opacity: 0;
+    left: -100%;
+    position: absolute;
   }
 
   && .slide-previous-enter.slide-previous-enter-active {
     opacity: 1;
+    left: 0;
     transition: all .5s cubic-bezier(.34,1.1,.69,1.01);
   }
 
   && .slide-previous-leave {
     opacity: 1;
+    left: 0;
+    position: relative;
   }
 
   && .slide-previous-leave.slide-previous-leave-active {
-    opacity: 0.01;
+    opacity: 0;
+    left: 100%;
     transition: all .5s cubic-bezier(.34,1.1,.69,1.01);
   }
 `;
