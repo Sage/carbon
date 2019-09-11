@@ -18,7 +18,6 @@ const ActionPopover = ({ children, id }) => {
   const [guid] = useState(createGuid());
   const button = useRef();
 
-
   const onButtonClick = useCallback(() => {
     const isOpening = !isOpen;
     setOpen(isOpening);
