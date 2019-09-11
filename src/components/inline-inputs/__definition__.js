@@ -1,5 +1,5 @@
 import InlineInputs from './';
-import TextboxDefinition from './../textbox/__definition__';
+import TextboxDefinition from './../../__deprecated__/components/textbox/__definition__';
 import DecimalDefinition from './../decimal/__definition__';
 import DropdownFilterAjaxDefintion from './../dropdown-filter-ajax/__definition__';
 import Definition from './../../../demo/utils/definition';

@@ -8,7 +8,7 @@ import {
 import { action } from '@storybook/addon-actions';
 import Form from '../form';
 import Textbox from '../../__experimental__/components/textbox';
-import TextboxLegacy from '../textbox';
+import TextboxLegacy from '../../__deprecated__/components/textbox';
 import ButtonToggleGroup from '../button-toggle-group';
 import ButtonToggle from '../button-toggle';
 import { Select, Option } from '../../__experimental__/components/select';
