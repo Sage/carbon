@@ -66,6 +66,13 @@ describe('Help', () => {
     });
   });
 
+  it('calls preventDefault to prevent clicking interacting with the input', () => {
+    wrapper = renderHelp();
+    const preventDefault = jest.fn();
+    wrapper.prop('onClick')({ preventDefault });
+    expect(preventDefault).toHaveBeenCalled();
+  });
+
   describe('when the Help component is focused', () => {
     beforeEach(() => {
       wrapper = renderHelp({}, mount);
