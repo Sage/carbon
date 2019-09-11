@@ -86,25 +86,23 @@ const StyledIcon = styled.span`
       border-radius: ${iconSizeConfig.backgroundShape[bgShape]};
     `}
 
-    ${css`
-      &::before {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
+    &::before {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
 
-        font-family: CarbonIcons;
-        content: "${iconUnicodes[type]}";
-        font-size: ${iconSizeConfig.iconSize[fontSize]};
-        font-style: normal;
-        font-weight: normal;
-        line-height: ${iconSizeConfig.iconSize[fontSize]};
-        vertical-align: middle;
-        ${type === 'services' && browserTypeCheck(window) && css`
-          margin-top: ${fontSize === 'small' ? '-7px' : '-8px'};
-        `}
-        ${type === 'services' && isSafari(navigator) && !browserTypeCheck(window) && css`margin-top: -6px;`}
-        display: block;
-      }
-    `}
+      font-family: CarbonIcons;
+      content: "${iconUnicodes[type]}";
+      font-size: ${iconSizeConfig.iconSize[fontSize]};
+      font-style: normal;
+      font-weight: normal;
+      line-height: ${iconSizeConfig.iconSize[fontSize]};
+      vertical-align: middle;
+      ${type === 'services' && browserTypeCheck(window) && css`
+        margin-top: ${fontSize === 'small' ? '-7px' : '-8px'};
+      `}
+      ${type === 'services' && isSafari(navigator) && !browserTypeCheck(window) && css`margin-top: -6px;`}
+      display: block;
+    }
 
     ${classicIconStyles};
   `}
