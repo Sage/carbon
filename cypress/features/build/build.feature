@@ -7,9 +7,9 @@ Feature: Build tests
       And I open component preview no iframe
     Then "<component>" component is visible
     Examples:
-      | component           |
-      | alert               |
-      | sidebar             |
+      | component |
+      | alert     |
+      | sidebar   |
 
   @build
   Scenario Outline: Component <component> page and open preview
@@ -17,12 +17,12 @@ Feature: Build tests
       And I open component preview no iframe
     Then "<data-component>" component is visible
     Examples:
-      | component           | data-component     |
-      | dialog-full-screen  | dialog-full-screen |
-      | dialog              | dialog             |
-      | flash               | toast              |
-      | pages               | page               |
-      | confirm             | confirm            |
+      | component          | data-component     |
+      | dialog-full-screen | dialog-full-screen |
+      | dialog             | dialog             |
+      | flash              | toast              |
+      | pages              | page               |
+      | confirm            | confirm            |
 
   @build
   Scenario Outline: Component <component> without activation button
@@ -63,7 +63,7 @@ Feature: Build tests
       | profile              | profile              |
       | rainbow              | rainbow              |
       | row                  | row                  |
-      # | select               | carbon-select        | Commented until select will be merged-out from experimental
+      # | select               | select               | Commented until select will be merged-out from experimental
       | settingsrow          | settings-row         |
       | split-button         | split-button         |
       | step-sequence-item   | step-sequence-item   |
@@ -94,4 +94,11 @@ Feature: Build tests
       | simplecolorpicker    | simple-color-picker  |
       | switch               | checkbox             |
       | textarea             | textarea             |
-      | textbox              | textbox              |
+
+  @build
+  Scenario Outline: Deprecated component <component> iframe
+    When I open deprecated "<component>" component iframe
+    Then "<component>" component is visible
+    Examples:
+      | component |
+      | textbox   |

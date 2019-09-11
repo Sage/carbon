@@ -9,7 +9,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
 import Dialog from './dialog.component';
 import Form from '../form';
-import Textbox from '../textbox';
+import Textbox from '../../__deprecated__/components/textbox';
 import Button from '../button';
 import Modal from '../modal';
 import DateInput from '../date';

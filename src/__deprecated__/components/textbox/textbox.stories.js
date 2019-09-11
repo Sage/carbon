@@ -4,11 +4,11 @@ import { State, Store } from '@sambego/storybook-state';
 import {
   boolean, number, text, select
 } from '@storybook/addon-knobs';
-import { classicThemeSelector } from '../../../.storybook/theme-selectors';
-import OptionsHelper from '../../utils/helpers/options-helper';
+import { classicThemeSelector } from '../../../../.storybook/theme-selectors';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 import Textbox from './textbox';
 import { info, notes } from './documentation';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 Textbox.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -23,14 +23,17 @@ const handleChange = ({ target: { value } }) => {
   store.set({ value });
 };
 
-storiesOf('Textbox', module)
+storiesOf('__deprecated__/Textbox', module)
   .addParameters({
     info: {
-      propTablesExclude: [State]
-    }
+      propTablesExclude: [State],
+      text: info
+    },
+    notes: { markdown: notes },
+    themeSelector: classicThemeSelector
   })
   .add(
-    'classic',
+    'default',
     () => {
       const rangeOptions = {
         range: true,
@@ -40,7 +43,7 @@ storiesOf('Textbox', module)
       };
 
       const fieldHelpInline = boolean('fieldHelpInline', false);
-      const label = text('label', 'Example Textarea');
+      const label = text('label', 'Example Textbox');
       const labelInline = label ? boolean('labelInline', false) : undefined;
       const inputWidth = number('inputWidth', 0, rangeOptions);
       const labelWidth = labelInline ? number('labelWidth', 0, rangeOptions) : undefined;
@@ -67,10 +70,5 @@ storiesOf('Textbox', module)
           />
         </State>
       );
-    },
-    {
-      info: { text: info },
-      notes: { markdown: notes },
-      themeSelector: classicThemeSelector
     }
   );

@@ -1,5 +1,5 @@
 import Textbox from './';
-import Definition from './../../../demo/utils/definition';
+import Definition from '../../../../demo/utils/definition';
 
 let definition = new Definition('textbox', Textbox, {
   description: `Captures a single line of text.`,
