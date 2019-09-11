@@ -30,20 +30,6 @@ describe('OptionsHelper', () => {
       'after'
     ]);
   });
-  it('cardSection', () => {
-    expect(OptionsHelper.cardSectionPositions).toEqual([
-      'header',
-      'middle',
-      'footer'
-    ]);
-  });
-  it('cardTextTypes', () => {
-    expect(OptionsHelper.cardTextTypes).toEqual([
-      'primary',
-      'secondary',
-      'tertiary'
-    ]);
-  });
   it('colors', () => {
     expect(OptionsHelper.colors).toEqual([
       'default',
