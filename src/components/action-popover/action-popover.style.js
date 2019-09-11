@@ -35,7 +35,8 @@ const MenuItemFactory = button => styled(button)`
     ${({ disabled }) => (!disabled && css`background-color: ${({ theme }) => theme.menu.focus};`)}
   }
   &:focus {
-    outline: 2px solid ${({ theme }) => theme.colors.focus};
+    outline: none;
+    box-shadow: inset 0px 0px 0px 2px ${({ theme }) => theme.colors.focus};
   }
 `;
 
