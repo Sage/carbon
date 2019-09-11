@@ -67,32 +67,6 @@ describe('Card', () => {
         expect(action).toHaveBeenCalled();
       });
 
-      describe('and a key is pressed', () => {
-        it('then the method passed in the "action" prop should be called if the key is "enter"', () => {
-          const action = jest.fn();
-          const wrapper = render({
-            interactive: true,
-            action
-          });
-
-          wrapper.simulate('keyDown', { which: 13 });
-
-          expect(action).toHaveBeenCalled();
-        });
-
-        it('then the method passed in the "action" prop should be not called if the key is other than "enter"', () => {
-          const action = jest.fn();
-          const wrapper = render({
-            interactive: true,
-            action
-          });
-
-          wrapper.simulate('keyDown', { which: 10 });
-
-          expect(action).not.toHaveBeenCalled();
-        });
-      });
-
       describe('and with the "draggable" prop set to true', () => {
         it('then the method passed in the "action" prop should not be called', () => {
           const action = jest.fn();
