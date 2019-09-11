@@ -9,13 +9,6 @@ const CardRow = ({
   spacing,
   ...props
 }) => {
-  const rowChildren = React.Children.map(children, (child, index) => {
-    if (!child) return null;
-
-    const key = child.key || `card-content-${index}`;
-    return React.cloneElement(child, { key, ...child.props });
-  });
-
   return (
     <StyledCardRow
       data-element='card-row'
@@ -23,7 +16,7 @@ const CardRow = ({
       spacing={ spacing }
       { ...props }
     >
-      { rowChildren }
+      { children }
     </StyledCardRow>
   );
 };

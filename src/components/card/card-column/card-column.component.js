@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import StyledCardColumn from './card-column.style';
 import OptionsHelper from '../../../utils/helpers/options-helper/options-helper';
 
+const { alignFull } = OptionsHelper;
+
 const CardColumn = ({
   align,
   children,
@@ -17,7 +19,6 @@ const CardColumn = ({
   </StyledCardColumn>
 );
 
-const { alignFull } = OptionsHelper;
 
 CardColumn.propTypes = {
   /** text alignment of the card section text */
