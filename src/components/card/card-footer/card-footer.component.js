@@ -28,6 +28,7 @@ CardFooter.propTypes = {
 };
 
 CardFooter.defaultProps = {
-  spacing: OptionsHelper.sizesRestricted[1]
+  spacing: 'medium'
 };
+
 export default CardFooter;

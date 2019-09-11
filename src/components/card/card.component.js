@@ -57,6 +57,7 @@ Card.propTypes = {
 };
 
 Card.defaultProps = {
-  spacing: OptionsHelper.sizesRestricted[1]
+  spacing: 'medium'
 };
+
 export default Card;

@@ -1,106 +1,90 @@
 {
-  "src/components/card/card-position/card-position.component.js": [
+  "src/components/card/card-column/card-column.component.js": [
     {
       "description": "",
-      "displayName": "CardPosition",
+      "displayName": "CardColumn",
       "methods": [],
       "props": {
         "align": {
           "type": {
-            "name": "string"
+            "name": "enum",
+            "computed": true,
+            "value": "alignFull"
           },
           "required": false,
-          "description": "text alignment of the card section text"
+          "description": "text alignment of the card section text",
+          "defaultValue": {
+            "value": "'center'",
+            "computed": false
+          }
         },
-        "positionType": {
+        "children": {
           "type": {
-            "name": "string"
+            "name": "node"
           },
           "required": false,
-          "description": "position of width in the card"
-        },
-        "theme": {
-          "type": {
-            "name": "object"
-          },
-          "required": false,
-          "description": "theme object provided to the card"
-        },
-        "primary": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "text value of the primary element"
-        },
-        "secondary": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "text value of the secondary element"
-        },
-        "tertiary": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "text value of the tertiary element"
+          "description": "children of the content component"
         }
       }
     }
   ],
-  "src/components/card/card-section/card-section.component.js": [
+  "src/components/card/card-footer/card-footer.component.js": [
     {
       "description": "",
-      "displayName": "CardSection",
+      "displayName": "CardFooter",
       "methods": [],
       "props": {
-        "align": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": true,
+          "description": ""
+        },
+        "spacing": {
           "type": {
             "name": "enum",
             "computed": true,
-            "value": "OptionsHelper.alignFull"
+            "value": "sizesRestricted"
           },
           "required": false,
-          "description": "text alignment of the card section text"
+          "description": "size of card for applying padding (small | medium | large)",
+          "defaultValue": {
+            "value": "OptionsHelper.sizesRestricted[1]",
+            "computed": true
+          }
+        }
+      }
+    }
+  ],
+  "src/components/card/card-row/card-row.component.js": [
+    {
+      "description": "",
+      "displayName": "CardRow",
+      "methods": [],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": true,
+          "description": ""
         },
-        "positionType": {
+        "spacing": {
           "type": {
             "name": "enum",
             "computed": true,
-            "value": "OptionsHelper.cardSectionPositions"
+            "value": "OptionsHelper.sizesRestricted"
           },
           "required": false,
-          "description": "position of width in the card"
+          "description": "size of card for applying margin (small | medium | large)"
         },
-        "theme": {
+        "inline": {
           "type": {
-            "name": "object"
+            "name": "bool"
           },
           "required": false,
-          "description": "theme object provided to the card"
-        },
-        "primary": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "text value of the primary element"
-        },
-        "secondary": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "text value of the secondary element"
-        },
-        "tertiary": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "text value of the tertiary element"
+          "description": "display card content inline"
         }
       }
     }
@@ -111,109 +95,19 @@
       "displayName": "Card",
       "methods": [],
       "props": {
-        "header": {
+        "action": {
           "type": {
-            "name": "bool"
+            "name": "func"
           },
           "required": false,
-          "description": "flag to indicate if a header is required"
+          "description": "action to be executed when card is clicked or enter pressed"
         },
-        "middle": {
+        "children": {
           "type": {
-            "name": "bool"
+            "name": "node"
           },
-          "required": false,
-          "description": "flag to indicate if a middle is required"
-        },
-        "footer": {
-          "type": {
-            "name": "bool"
-          },
-          "required": false,
-          "description": "flag to indicate if a footer is required"
-        },
-        "border": {
-          "type": {
-            "name": "bool"
-          },
-          "required": false,
-          "description": "flag to indicate if a border is required"
-        },
-        "headerPrimary": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "text value of the header primary element"
-        },
-        "headerSecondary": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "text value of the header secondary element"
-        },
-        "headerAlign": {
-          "type": {
-            "name": "enum",
-            "computed": true,
-            "value": "OptionsHelper.alignFull"
-          },
-          "required": false,
-          "description": "text alignment of the header text"
-        },
-        "middlePrimary": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "text value of the middle primary element"
-        },
-        "middleSecondary": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "text value of the middle secondary element"
-        },
-        "middleTertiary": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "text value of the middle tertiary element"
-        },
-        "middleAlign": {
-          "type": {
-            "name": "enum",
-            "computed": true,
-            "value": "OptionsHelper.alignFull"
-          },
-          "required": false,
-          "description": "text alignment of the middle text"
-        },
-        "footerPrimary": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "text value of the footer primary element"
-        },
-        "footerAlign": {
-          "type": {
-            "name": "enum",
-            "computed": true,
-            "value": "OptionsHelper.alignFull"
-          },
-          "required": false,
-          "description": "text alignment of the footer text"
-        },
-        "theme": {
-          "type": {
-            "name": "object"
-          },
-          "required": false,
-          "description": "theme object provided to the card"
+          "required": true,
+          "description": ""
         },
         "cardWidth": {
           "type": {
@@ -221,8 +115,47 @@
           },
           "required": false,
           "description": "style value for width of card"
+        },
+        "interactive": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "flag to indicate if card is interactive"
+        },
+        "draggable": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "flag to indicate if card is draggable"
+        },
+        "spacing": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "sizesRestricted"
+          },
+          "required": false,
+          "description": "size of card for applying padding (small | medium | large)",
+          "defaultValue": {
+            "value": "medium",
+            "computed": true
+          }
         }
       }
+    }
+  ],
+  "src/components/card/card.stories.js": [
+    {
+      "description": "",
+      "displayName": "getCard",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "getSmallCard",
+      "methods": []
     }
   ]
 }

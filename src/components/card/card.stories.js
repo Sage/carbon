@@ -18,6 +18,21 @@ Card.__docgenInfo = getDocGenInfo(
   /card.component(?!spec)/
 );
 
+CardColumn.__docgenInfo = getDocGenInfo(
+  require('./card-column/docgenInfo.json'),
+  /card-column.component(?!spec)/
+);
+
+CardFooter.__docgenInfo = getDocGenInfo(
+  require('./card-footer/docgenInfo.json'),
+  /card-footer.component(?!spec)/
+);
+
+CardRow.__docgenInfo = getDocGenInfo(
+  require('./card-row/docgenInfo.json'),
+  /card-row.component(?!spec)/
+);
+
 const cardKnobs = () => {
   return {
     key: 'one',
