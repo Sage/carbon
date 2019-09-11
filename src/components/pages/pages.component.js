@@ -13,7 +13,7 @@ import baseTheme from '../../style/themes/base';
 
 const NEXT = 'next';
 const PREVIOUS = 'previous';
-const TRANSITION_TIME = 400;
+const TRANSITION_TIME = 500;
 
 class Pages extends React.Component {
   constructor(...args) {
@@ -31,7 +31,6 @@ class Pages extends React.Component {
   /** A lifecycle method that is called before re-render. */
   componentDidUpdate(prevProps) {
     if (this.props.pageIndex === prevProps.pageIndex) return;
-
     if (typeof this.props.pageIndex === 'undefined') return;
 
     const newIndex = this.verifyNewIndex(this.props.pageIndex);
