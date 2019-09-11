@@ -30,7 +30,7 @@ exports[`ValidationIcon renders with an icon with classic styling 1`] = `
   font-size: 20px;
 }
 
-<button
+<div
   className="c0"
   type="error"
 />

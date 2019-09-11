@@ -10,7 +10,7 @@ import Icon from '../icon';
 
 describe('ValidationIcon', () => {
   it('renders with an icon for the given type', () => {
-    const wrapper = mount(<ValidationIcon type='error' />).find('button');
+    const wrapper = mount(<ValidationIcon type='error' />).find('div');
     expect(wrapper.prop('data-validation-type')).toEqual('error');
   });
 

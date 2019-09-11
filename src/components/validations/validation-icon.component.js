@@ -33,19 +33,19 @@ const ValidationIcon = ({
       {
         context => (
           <ValidationIconStyle
-            id={ iconId }
-            type='button'
             data-validation-type={ type }
             validationType={ type }
-            aria-label='additional validation information'
           >
             <Icon
+              id={ iconId }
               key={ `${type}-icon` }
+              role='tooltip'
               tooltipType={ type }
               tooltipMessage={ tooltipMessage }
               tooltipVisible={ context && (context.hasFocus || context.hasMouseOver) }
               type={ type }
               size={ size }
+              aria-label={ tooltipMessage || 'additional validation information' }
               { ...modernTooltipProps }
             />
           </ValidationIconStyle>
