@@ -14,12 +14,12 @@ class CheckableInput extends React.Component {
 
   render() {
     const { children, onChange, ...rest } = this.props;
-    const helpId = rest.labelHelp ? `${this.inputId}-help` : undefined;
     const id = this.inputId;
+    const labelId = `${id}-label`;
 
     const formFieldProps = {
       ...validProps(this, ['fieldHelp', 'fieldHelpInline', 'labelHelp', 'reverse']),
-      helpId,
+      labelId,
       label: rest.inputLabel,
       labelHelpIcon: 'info',
       name: id
@@ -29,7 +29,7 @@ class CheckableInput extends React.Component {
       fieldHelp, labelHelp, ...inputProps
     } = {
       ...validProps(this, ['checked', 'disabled', 'inputType', 'onChange', 'tabindex']),
-      helpId,
+      labelId,
       id
     };
 

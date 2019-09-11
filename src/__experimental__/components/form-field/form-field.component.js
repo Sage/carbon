@@ -13,10 +13,10 @@ const FormField = ({
   hasError,
   hasWarning,
   hasInfo,
-  helpId,
   helpTag,
   helpTabIndex,
   label,
+  labelId,
   labelAlign,
   labelHelp,
   labelHelpIcon,
@@ -36,6 +36,7 @@ const FormField = ({
 
     {label && (
       <Label
+        labelId={ labelId }
         align={ labelAlign }
         disabled={ disabled }
         readOnly={ readOnly }
@@ -43,7 +44,6 @@ const FormField = ({
         hasWarning={ hasWarning }
         hasInfo={ hasInfo }
         help={ labelHelp }
-        helpId={ helpId }
         helpTag={ helpTag }
         helpTabIndex={ helpTabIndex }
         htmlFor={ name }
@@ -89,11 +89,11 @@ FormField.propTypes = {
   hasError: PropTypes.bool,
   hasWarning: PropTypes.bool,
   hasInfo: PropTypes.bool,
-  helpId: PropTypes.string,
   helpTag: PropTypes.string,
   helpTabIndex: PropTypes.string,
   isOptional: PropTypes.bool,
   label: PropTypes.node,
+  labelId: PropTypes.string,
   labelAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
   labelHelp: PropTypes.node,
   labelHelpIcon: PropTypes.string,

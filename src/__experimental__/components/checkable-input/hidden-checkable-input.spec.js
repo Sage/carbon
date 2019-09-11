@@ -15,7 +15,7 @@ describe('HiddenCheckableInput', () => {
       inputName: 'test-name',
       inputType: 'test-type',
       inputValue: 'test-value',
-      tabindex: '0'
+      tabindex: 0
     })).toMatchSnapshot();
   });
 });

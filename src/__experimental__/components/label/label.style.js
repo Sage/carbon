@@ -6,13 +6,17 @@ import sizes from '../input/input-sizes.style';
 import InputIconToggleStyle from '../input-icon-toggle/input-icon-toggle.style';
 import { isClassic } from '../../../utils/helpers/style-helper';
 
-const LabelStyle = styled.label`
+const LabelStyle = styled.div`
   color: ${({ theme }) => theme.text.color};
   cursor: pointer;
   display: block;
   font-weight: 600;
   padding-bottom: 8px;
   width: 100%;
+
+  label {
+    vertical-align: middle;
+  }
 
   ${({
     align, inline, inputSize, width
