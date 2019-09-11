@@ -6,9 +6,9 @@ import {
   select
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import OptionsHelper from '../../../utils/helpers/options-helper/options-helper';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 import GroupedCharacter from './grouped-character';
-import getDocGenInfo from '../../../utils/helpers/docgen-info/docgen-info';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 GroupedCharacter.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),

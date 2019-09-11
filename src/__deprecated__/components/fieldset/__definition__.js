@@ -1,6 +1,6 @@
 import Fieldset from '.';
-import OptionsHelper from '../../../utils/helpers/options-helper/options-helper';
-import Definition from '../../../../demo/utils/definition/definition';
+import OptionsHelper from '../../../utils/helpers/options-helper';
+import Definition from '../../../../demo/utils/definition';
 import textboxDefinition from '../textbox/__definition__';
 
 let definition = new Definition('fieldset', Fieldset, {
