@@ -448,6 +448,20 @@ describe('ActionPopover', () => {
     });
   });
 
+  describe('styles', () => {
+    it('renders the button with a white background when the menu is open', () => {
+      render();
+
+      const { menubutton } = getElements();
+
+      expect(menubutton).not.toHaveStyleRule('background-color');
+
+      simulate.keydown.pressDownArrow(menubutton);
+
+      expect(getElements().menubutton).toHaveStyleRule('background-color', theme.colors.white);
+    });
+  });
+
   it('validates the children prop', () => {
     jest.spyOn(global.console, 'error').mockImplementation(() => {});
     ReactDOM.render(

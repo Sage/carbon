@@ -155,7 +155,7 @@ const ActionPopover = ({ children, id }) => {
       aria-controls={ menuID }
       aria-expanded={ isOpen }
       tabIndex={ isOpen ? '-1' : '0' }
-      { ...{ onKeyDown: onButtonKeyDown, onClick: onButtonClick } }
+      { ...{ onKeyDown: onButtonKeyDown, onClick: onButtonClick, isOpen } }
       ref={ button }
     >
       <ButtonIcon type='ellipsis_vertical' />

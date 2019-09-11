@@ -22,7 +22,7 @@ storiesOf('Action Popover', module)
   .add('default', () => {
     return (
       <ThemeProvider theme={ small }>
-        <Table>
+        <Table isZebra>
           <TableRow>
             <TableHeader>First Name</TableHeader>
             <TableHeader>Last Name</TableHeader>
@@ -49,6 +49,15 @@ storiesOf('Action Popover', module)
           <TableRow>
             <TableCell>Jane</TableCell>
             <TableCell>Smith</TableCell>
+            <TableCell>
+              <ActionPopover>
+                <ActionPopover.Item icon='csv' onClick={ action('csv') }>Download CSV</ActionPopover.Item>
+              </ActionPopover>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Bob</TableCell>
+            <TableCell>Jones</TableCell>
             <TableCell>
               <ActionPopover>
                 <ActionPopover.Item icon='csv' onClick={ action('csv') }>Download CSV</ActionPopover.Item>

@@ -12,7 +12,7 @@ const Menu = styled.div`
   box-shadow: ${({ theme }) => theme.shadows.depth1};
   position: absolute;
   right: 0;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.colors.white};
   z-index: 1;
 `;
 
@@ -50,8 +50,9 @@ const MenuButton = styled.div`
   cursor: pointer;
   width: 24px;
   margin: auto;
+  ${({ isOpen, theme }) => (isOpen && `background-color: ${theme.colors.white}`)}
   &:hover, &:focus {
-    background-color: #fff;
+    background-color: ${({ theme }) => theme.colors.white};
   }
   &:focus {
     outline: 2px solid ${({ theme }) => theme.colors.focus};
