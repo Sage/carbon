@@ -6,45 +6,38 @@ import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import 'jest-styled-components';
 import Icon from '../icon';
 
-function render(props = {}, renderer = shallow) {
-  const children = props.children || <div />;
-
-  return renderer(
-    <Card { ...props }>
-      { children }
-    </Card>
-  );
-}
-
 describe('Card', () => {
   describe('when the content is added as children', () => {
     it('then that content should be rendered inside the component', () => {
       const content = (
         <div><span>content</span></div>
       );
-      const wrapper = render({
+      const wrapper = renderCard({
         children: content
       });
 
       expect(wrapper.containsMatchingElement(content)).toBe(true);
     });
 
-    it('then all children should have the "spacing" prop added and set to "medium"', () => {
-      const content = [
-        <div className='mockedContent' key='content1'>content</div>,
-        <div className='mockedContent' key='content2'>content2</div>
-      ];
-      const wrapper = render({
-        children: content
+    describe.each(['small', 'medium', 'large'])('and the "spacing" prop is set to %s', (spacing) => {
+      it(`then all children should have the "spacing" prop added and set to "${spacing}"`, () => {
+        const content = [
+          <div className='mockedContent' key='content1'>content</div>,
+          <div className='mockedContent' key='content2'>content2</div>
+        ];
+        const wrapper = renderCard({
+          children: content,
+          spacing
+        });
+        expect(wrapper.find('.mockedContent').at(0).props().spacing).toBe(spacing);
+        expect(wrapper.find('.mockedContent').at(1).props().spacing).toBe(spacing);
       });
-      expect(wrapper.find('.mockedContent').at(0).props().spacing).toBe('medium');
-      expect(wrapper.find('.mockedContent').at(1).props().spacing).toBe('medium');
     });
   });
 
   describe('when the "draggable" prop is set to true', () => {
     it('then a "drag" icon should be rendered', () => {
-      const wrapper = render({
+      const wrapper = renderCard({
         draggable: true
       });
 
@@ -57,7 +50,7 @@ describe('Card', () => {
     describe('with the "interactive" prop set to true', () => {
       it('then the method passed in the "action" prop should be called after click is triggered', () => {
         const action = jest.fn();
-        const wrapper = render({
+        const wrapper = renderCard({
           interactive: true,
           action
         });
@@ -70,7 +63,7 @@ describe('Card', () => {
       describe('and with the "draggable" prop set to true', () => {
         it('then the method passed in the "action" prop should not be called', () => {
           const action = jest.fn();
-          const wrapper = render({
+          const wrapper = renderCard({
             interactive: true,
             draggable: true,
             action
@@ -86,7 +79,7 @@ describe('Card', () => {
     describe('with the "interactive" prop not set', () => {
       it('then the method passed in the "action" prop should not be called', () => {
         const action = jest.fn();
-        const wrapper = render({
+        const wrapper = renderCard({
           action
         });
 
@@ -98,7 +91,7 @@ describe('Card', () => {
   });
 
   describe('when width is not passed as a prop', () => {
-    const wrapper = render();
+    const wrapper = renderCard();
     const elem = wrapper.find('[data-element="card"]');
     it('width fills containing element', () => {
       expect(elem).not.toHaveStyleRule('width');
@@ -107,7 +100,7 @@ describe('Card', () => {
 
   describe('when width is passed as a percentage value', () => {
     const widthPct = '50%';
-    const wrapper = render({ cardWidth: widthPct }, TestRenderer.create);
+    const wrapper = renderCard({ cardWidth: widthPct }, TestRenderer.create);
 
     it(`Card has style rule of width: ${widthPct}`, () => {
       assertStyleMatch({
@@ -118,7 +111,7 @@ describe('Card', () => {
 
   describe('when width is passed as a pixel value', () => {
     const widthPx = '500px';
-    const wrapper = render({ cardWidth: widthPx }, TestRenderer.create);
+    const wrapper = renderCard({ cardWidth: widthPx }, TestRenderer.create);
 
     it(`Card has style rule of width: ${widthPx}`, () => {
       assertStyleMatch({
@@ -126,4 +119,52 @@ describe('Card', () => {
       }, wrapper.toJSON());
     });
   });
+
+  describe('when the "interactive" prop is set to true', () => {
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = renderCard({ interactive: true }, TestRenderer.create);
+    });
+
+    it('then the cursor when hovered over the Card should change to pointer', () => {
+      assertStyleMatch({
+        cursor: 'pointer'
+      }, wrapper.toJSON());
+    });
+
+    it.each([
+      ['hovered over', ':hover'],
+      ['focused', ':focus']
+    ])('then the Card when %s should have a specific box-shadow and no outline', (description, selector) => {
+      assertStyleMatch({
+        boxShadow: '0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)',
+        outline: 'none'
+      }, wrapper.toJSON(), selector);
+    });
+  });
+
+  describe('when the "draggable" prop is set to true', () => {
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = renderCard({ draggable: true }, TestRenderer.create);
+    });
+
+    it('then the cursor when hovered over the Card should change to move', () => {
+      assertStyleMatch({
+        cursor: 'move'
+      }, wrapper.toJSON());
+    });
+  });
 });
+
+function renderCard(props = {}, renderer = shallow) {
+  const children = props.children || <div />;
+
+  return renderer(
+    <Card { ...props }>
+      { children }
+    </Card>
+  );
+}
