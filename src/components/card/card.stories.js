@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { boolean, select, text } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 import Card from './card.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, Info } from './documentation';
@@ -22,8 +23,7 @@ const cardKnobs = () => {
     key: 'one',
     cardSpacing: select('card spacing', OptionsHelper.sizesRestricted, Card.defaultProps.spacing),
     cardWidth: text('width', '500px'),
-    interactive: boolean('interactive card', false),
-    draggable: boolean('draggable card', false)
+    interactive: boolean('interactive card', false)
   };
 };
 
@@ -42,8 +42,7 @@ function getCard(knobs) {
   const {
     cardSpacing,
     cardWidth,
-    interactive,
-    draggable
+    interactive
   } = knobs;
 
   return (
@@ -51,7 +50,7 @@ function getCard(knobs) {
       spacing={ cardSpacing }
       cardWidth={ cardWidth }
       interactive={ interactive }
-      draggable={ draggable }
+      action={ action('action prop triggered') }
     >
       <CardRow>
         <CardColumn align='left'>
@@ -81,8 +80,7 @@ function getSmallCard(knobs) {
     border,
     cardSpacing,
     cardWidth,
-    interactive,
-    draggable
+    interactive
   } = knobs;
 
   return (
@@ -91,7 +89,7 @@ function getSmallCard(knobs) {
       border={ border }
       cardWidth={ cardWidth }
       interactive={ interactive }
-      draggable={ draggable }
+      action={ action('action prop triggered') }
     >
       <CardRow>
         <CardColumn align='left'>
