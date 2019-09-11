@@ -19,7 +19,7 @@ describe('CardColumn', () => {
     });
   });
 
-  fdescribe.each(['left', 'center', 'right'])('when the "align" prop is set to %s', (align) => {
+  describe.each(['left', 'center', 'right'])('when the "align" prop is set to %s', (align) => {
     it(`then the text-align should be set to ${align}`, () => {
       const wrapper = renderCardColumn({ align }, TestRenderer.create);
 
