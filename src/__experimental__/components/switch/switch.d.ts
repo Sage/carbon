@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { withValidationProps } from '../../../components/validations/with-validation';
+import { WithValidationProps } from '../../../components/validations/with-validation';
 
 export interface SwitchProps {
   checked?: boolean;
@@ -24,10 +24,8 @@ export interface SwitchProps {
   hasInfo?: boolean;
 }
 
-type OriginalSwitchType = React.FunctionComponent<SwitchProps>;
+declare const OriginalSwitch: React.FunctionComponent<SwitchProps>;
 
-declare const OriginalSwitch: OriginalSwitchType;
-
-declare function Switch<withValidationProps>(Component: OriginalSwitchType): React.FunctionComponent;
+declare const Switch: React.ComponentClass<WithValidationProps & SwitchProps>;
 
 export { Switch as default, OriginalSwitch };

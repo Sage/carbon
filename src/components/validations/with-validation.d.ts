@@ -9,7 +9,7 @@ type ValidationsPropType = () => any | [() => any, ValidationShape];
 
 type ValuePropType = string | any[];
 
-export interface withValidationProps {
+export interface WithValidationProps {
   children?: React.ReactNode;
   name: string;
   value?: string | any[];
@@ -25,6 +25,6 @@ export interface withValidationProps {
 
 type ComponentPropType = React.ComponentClass | React.FunctionComponent;
 
-declare function withValidation<ComponentPropType>(): React.ComponentClass<withValidationProps>;
+declare function withValidation(C: ComponentPropType): React.ComponentClass<WithValidationProps>;
 
 export default withValidation;
