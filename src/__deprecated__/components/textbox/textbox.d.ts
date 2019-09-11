@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { InputProps } from '../input-definition';
+import { InputProps } from '../../../components/input-definition';
 
 export interface TextboxProps extends InputProps {
     value?: string;

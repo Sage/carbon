@@ -2,7 +2,7 @@ import React from 'react';
 import 'jest-styled-components';
 import { shallow, mount } from 'enzyme';
 import Sidebar from './sidebar.component';
-import Textbox from '../textbox/textbox';
+import Textbox from '../../__deprecated__/components/textbox';
 import { SidebarStyle, SidebarCloseStyle } from './sidebar.style';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import classicTheme from '../../style/themes/classic';

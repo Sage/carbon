@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { select } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Filter from './filter';
-import Textbox from '../textbox';
+import Textbox from '../../__deprecated__/components/textbox';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Filter.__docgenInfo = getDocGenInfo(
