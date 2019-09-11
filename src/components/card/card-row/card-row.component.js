@@ -29,4 +29,8 @@ CardRow.propTypes = {
   inline: PropTypes.bool
 };
 
+CardRow.defaultProps = {
+  spacing: 'medium'
+};
+
 export default CardRow;

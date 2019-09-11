@@ -23,8 +23,7 @@ const CardColumn = ({
 CardColumn.propTypes = {
   /** text alignment of the card section text */
   align: PropTypes.oneOf(alignFull),
-  /** children of the content component */
-  children: PropTypes.node
+  children: PropTypes.node.isRequired
 };
 
 CardColumn.defaultProps = {
