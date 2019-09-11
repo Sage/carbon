@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { validProps } from '../../../utils/ether/ether';
-import tagComponent from '../../../utils/helpers/tags/tags';
+import { validProps } from '../../../utils/ether';
+import tagComponent from '../../../utils/helpers/tags';
 import './fieldset.scss';
 
 class Fieldset extends React.Component {

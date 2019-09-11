@@ -1,9 +1,9 @@
 import React from 'react';
-import Input from '../../../utils/decorators/input/input';
-import InputLabel from '../../../utils/decorators/input-label/input-label';
-import InputValidation from '../../../utils/decorators/input-validation/input-validation';
-import { validProps } from '../../../utils/ether/ether';
-import tagComponent from '../../../utils/helpers/tags/tags';
+import Input from '../../../utils/decorators/input';
+import InputLabel from '../../../utils/decorators/input-label';
+import InputValidation from '../../../utils/decorators/input-validation';
+import { validProps } from '../../../utils/ether';
+import tagComponent from '../../../utils/helpers/tags';
 import './textbox.scss';
 
 const Textbox = Input(InputLabel(InputValidation(class Textbox extends React.Component {

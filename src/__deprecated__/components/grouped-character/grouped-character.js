@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { sum, includes } from 'lodash';
 
-import Input from '../../../utils/decorators/input/input';
-import InputLabel from '../../../utils/decorators/input-label/input-label';
-import InputValidation from '../../../utils/decorators/input-validation/input-validation';
-import Events from '../../../utils/helpers/events/events';
-import { validProps, insertAt } from '../../../utils/ether/ether';
+import Input from '../../../utils/decorators/input';
+import InputLabel from '../../../utils/decorators/input-label';
+import InputValidation from '../../../utils/decorators/input-validation';
+import Events from '../../../utils/helpers/events';
+import { validProps, insertAt } from '../../../utils/ether';
 
 import tagComponent from '../../../utils/helpers/tags/tags';
 
