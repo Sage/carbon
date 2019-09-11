@@ -418,7 +418,7 @@ class FormWithoutValidations extends React.Component {
       this.childKeys = generateKeysForChildren(childrenArray);
     }
 
-    return childrenArray.map((child, index) => {
+    return childrenArray.filter(Boolean).map((child, index) => {
       if (typeof child.type !== 'function') return child;
 
       return React.cloneElement((child), {

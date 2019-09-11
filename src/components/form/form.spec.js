@@ -502,6 +502,12 @@ describe('Form', () => {
       });
     });
 
+    describe('when children are undefined', () => {
+      it('it does not throw an error', () => {
+        expect(() => shallow(<Form validate={ () => true } formAction='foo' />)).not.toThrow();
+      });
+    });
+
     describe('when an onCancel prop is passed', () => {
       it('calls onCancel', () => {
         const spy = jasmine.createSpy('spy');
