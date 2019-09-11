@@ -123,3 +123,5 @@ export type IconTypes =
 | 'white-tick';
 
 export type AlignBinaryType = 'left' | 'right';
+
+export type SizesType = 'small' | 'large';
