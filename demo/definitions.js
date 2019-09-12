@@ -65,7 +65,7 @@ export default {
   'table-ajax':           require('components/table-ajax/__definition__').default,
   'tabs':                 require('components/tabs/__definition__').default,
   'textarea':             require('components/textarea/__definition__').default,
-  'textbox':              require('components/textbox/__definition__').default,
+  'textbox':              require('__deprecated__/components/textbox/__definition__').default,
   'toast':                require('components/toast/__definition__').default,
   'tooltip':              require('components/tooltip/__definition__').default
 };

@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import {
   boolean, text, number, select
 } from '@storybook/addon-knobs';
+import { classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Checkbox from './checkbox.js';
 import { notes, info } from './documentation';
@@ -14,7 +15,7 @@ Checkbox.__docgenInfo = getDocGenInfo(
 );
 
 storiesOf('Checkbox', module)
-  .add('default', () => {
+  .add('classic', () => {
     const reverse = boolean('reverse', Checkbox.defaultProps.reverse);
     const fieldHelpInline = boolean('fieldHelpInline', false);
     const label = text('label', 'Example Checkbox');
@@ -54,5 +55,6 @@ storiesOf('Checkbox', module)
     );
   }, {
     info: { text: info },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    themeSelector: classicThemeSelector
   });

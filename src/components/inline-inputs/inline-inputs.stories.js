@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import InlineInputs from '.';
 import Textbox from '../../__experimental__/components/textbox';
 import Decimal from '../../__experimental__/components/decimal';
@@ -33,14 +34,8 @@ const handleSelectChange = (ev) => {
   });
 };
 
-storiesOf('InlineInputs', module)
-  .addParameters({
-    info: {
-      propTables: [InlineInputs],
-      propTablesExclude: [State]
-    }
-  })
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const label = text('label', 'Inline Inputs');
 
     return (
@@ -66,6 +61,22 @@ storiesOf('InlineInputs', module)
         )}
       </State>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     knobs: { escapeHTML: false }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('InlineInputs', module)
+  .addParameters({
+    info: {
+      propTables: [InlineInputs],
+      propTablesExclude: [State]
+    }
+  })
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));
