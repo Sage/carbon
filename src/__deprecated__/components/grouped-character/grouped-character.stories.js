@@ -17,7 +17,7 @@ GroupedCharacter.__docgenInfo = getDocGenInfo(
 );
 
 storiesOf('__deprecated__/GroupedCharacter', module)
-  .add('default', () => {
+  .add('classic', () => {
     const inputWidth = text('inputWidth', '');
     const separator = text('separator', GroupedCharacter.defaultProps.separator);
     const label = text('label', 'Example Grouped Character');

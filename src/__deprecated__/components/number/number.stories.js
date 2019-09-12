@@ -19,7 +19,7 @@ Number.__docgenInfo = getDocGenInfo(
 );
 
 storiesOf('__deprecated__/Number Input', module)
-  .add('default', () => {
+  .add('classic', () => {
     const inputWidth = text('inputWidth', '');
     const timeToDisappear = number('timeToDisappear', 0);
     const fieldHelp = text('fieldHelp', 'This text provides help for the input.');
