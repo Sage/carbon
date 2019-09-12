@@ -34,6 +34,10 @@ Given('I open {string} component iframe', (component) => {
   visitComponentUrl(component, 'default', true);
 });
 
+Given('I open classic {string} component iframe', (component) => {
+  visitComponentUrl(component, 'classic', true);
+});
+
 Given('I open deprecated {string} component iframe', (component) => {
   visitComponentUrl(component, 'default', true, 'deprecated-');
 });
