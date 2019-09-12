@@ -57,14 +57,17 @@ exports[`RadioButton styles base renders as expected 1`] = `
   margin-top: -2px;
 }
 
-.c1 .c21 .c22 {
+.c1 .c21 .c22,
+.c1 .c21 .sc-htoDjs {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
 .c1 .c21 .c22:hover,
-.c1 .c21 .c22:focus {
+.c1 .c21 .sc-htoDjs:hover,
+.c1 .c21 .c22:focus,
+.c1 .c21 .sc-htoDjs:focus {
   color: rgba(0,0,0,0.9);
 }
 

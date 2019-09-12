@@ -18,8 +18,6 @@ exports[`ValidationIcon renders with an icon with classic styling 1`] = `
   margin-left: 8px;
   border: 0;
   outline: none;
-  margin-right: -2px;
-  margin-top: -1px;
 }
 
 .c0 .c1:before {

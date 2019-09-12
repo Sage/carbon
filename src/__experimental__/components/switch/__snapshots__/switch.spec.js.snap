@@ -43,14 +43,17 @@ exports[`Switch base theme renders as expected 1`] = `
   margin-top: -2px;
 }
 
-.c1 .c28 .c29 {
+.c1 .c28 .c29,
+.c1 .c28 .sc-htoDjs {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
 .c1 .c28 .c29:hover,
-.c1 .c28 .c29:focus {
+.c1 .c28 .sc-htoDjs:hover,
+.c1 .c28 .c29:focus,
+.c1 .c28 .sc-htoDjs:focus {
   color: rgba(0,0,0,0.9);
 }
 
