@@ -17,6 +17,11 @@ Feature: Build tests
     Then "button" component is visible
 
   @build
+  Scenario: Component <component> as sibling
+    When I open "button" component page as sibling in iframe
+    Then "button" component is visible
+
+  @build
   Scenario Outline: Component <component> page and open preview
     When I open "<component>" component iframe
       And I open component preview no iframe
