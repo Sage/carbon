@@ -27,11 +27,12 @@ const Info = (
     <StoryCodeBlock padded>
       {'<Card>'}
       {'  <CardRow>'}
-      {'    <CardColumn />'}
-      {'    <CardColumn />'}
+      {'    <CardColumn>content1</CardColumn>'}
+      {'    <CardColumn>content2</CardColumn>'}
       {'  </CardRow>'}
       {'  <CardFooter>'}
-      {'    <CardColumn />'}
+      {'    <CardColumn>footer content 1</CardColumn>'}
+      {'    <CardColumn>footer content 2</CardColumn>'}
       {'  </CardFooter>'}
       {'<Card>'}
     </StoryCodeBlock>

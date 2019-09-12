@@ -12,6 +12,7 @@ import Heading from '../heading';
 import CardColumn from './card-column';
 import CardFooter from './card-footer/card-footer.component';
 import CardRow from './card-row';
+import { dlsThemeSelector } from '../../../.storybook/theme-selectors';
 
 Card.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -41,17 +42,6 @@ const cardKnobs = () => {
     interactive: boolean('interactive card', false)
   };
 };
-
-storiesOf('Card', module)
-  .add('default', () => {
-    const knobs = cardKnobs();
-
-    return [getCard(knobs), getSmallCard(knobs)];
-  }, {
-    info: { text: Info, propTablesExclude: [Icon, Link, Heading] },
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false }
-  });
 
 function getCard(knobs) {
   const {
@@ -120,3 +110,22 @@ function getSmallCard(knobs) {
     </Card>
   );
 }
+
+function makeStory(name, themeSelector) {
+  const knobs = cardKnobs();
+  const component = () => {
+    return ([getCard(knobs), getSmallCard(knobs)]);
+  };
+
+  const metadata = {
+    themeSelector,
+    info: { text: Info, propTablesExclude: [Icon, Link, Heading] },
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Card', module)
+  .add(...makeStory('default', dlsThemeSelector));
