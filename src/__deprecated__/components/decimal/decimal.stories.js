@@ -5,8 +5,8 @@ import {
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-import { classicThemeSelector } from '../../../.storybook/theme-selectors';
-import OptionsHelper from '../../utils/helpers/options-helper';
+import { classicThemeSelector } from '../../../../.storybook/theme-selectors';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
 import Decimal from './decimal.js';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';

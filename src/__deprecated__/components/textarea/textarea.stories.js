@@ -4,7 +4,7 @@ import {
   boolean, number, text, select
 } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
-import { classicThemeSelector } from '../../../.storybook/theme-selectors';
+import { classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import Textarea from './textarea';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import { notes, info } from './documentation';

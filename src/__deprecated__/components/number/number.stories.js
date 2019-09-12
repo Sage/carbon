@@ -6,7 +6,7 @@ import {
   select,
   boolean
 } from '@storybook/addon-knobs';
-import { classicThemeSelector } from '../../../.storybook/theme-selectors';
+import { classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import Number from './number';
 import notes from './notes.md';
 import OptionsHelper from '../../../utils/helpers/options-helper';
