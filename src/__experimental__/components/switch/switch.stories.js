@@ -90,7 +90,7 @@ storiesOf('Experimental/Switch', module)
           { ...dlsKnobs() }
           key={ `key-${type}` }
           name={ `switch-${type}` }
-          label={ `Accept ${type}` }
+          label={ `Please read our ${type}` }
           value={ type }
           store={ stores[type] }
           onChange={ handleChange(stores[type]) }
@@ -102,7 +102,16 @@ storiesOf('Experimental/Switch', module)
         />
       ))}
     </>
-  ));
+  ), {
+    info: {
+      text: info,
+      propTables: [Switch],
+      propTablesExclude: [State, SwitchWrapper],
+      excludedPropTypes: ['children', 'theme']
+    },
+    themeSelector: dlsThemeSelector,
+    notes: { markdown: notes }
+  });
 
 function handleChange(store = formStore) {
   return function (ev) {

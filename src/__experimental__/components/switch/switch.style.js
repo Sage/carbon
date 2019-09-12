@@ -40,13 +40,7 @@ const StyledSwitch = styled.div`
 
       ${StyledValidationIcon} {
         position: relative;
-        top: -1px;
         display: inline-block;
-        padding: 1px;
-        margin-top: 0;
-        margin-left: 8px;
-        margin-bottom: 0;
-        vertical-align: middle;
       }
 
       ${labelWidth && css`
