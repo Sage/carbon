@@ -20,9 +20,6 @@ const ValidationIconStyle = styled.div`
   }
 
   ${({ theme }) => isClassic(theme) && css`
-    margin-right: -2px;
-    margin-top: -1px;
-
     ${StyledIcon}:before {
       font-size: 20px;
     }

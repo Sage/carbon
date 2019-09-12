@@ -9,7 +9,6 @@ import { Store, State } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import Switch from '.';
-import { info, legacyInfo, notes } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 Switch.__docgenInfo = getDocGenInfo(
@@ -52,66 +51,54 @@ SwitchWrapper.defaultProps = {
   store: formStore
 };
 
+function makeStory(name, themeSelector, component) {
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+const switchClassic = () => (
+  <SwitchWrapper
+    { ...commonKnobs() }
+  />
+);
+
+const switchComponent = () => (
+  <SwitchWrapper
+    { ...commonKnobs() }
+    { ...dlsKnobs() }
+  />
+);
+
+const switchComponentValidation = () => (
+  <>
+    {validationTypes.map(type => (
+      <SwitchWrapper
+        { ...commonKnobs() }
+        { ...dlsKnobs() }
+        key={ `key-${type}` }
+        name={ `switch-${type}` }
+        label={ `Please read our ${type}` }
+        value={ type }
+        store={ stores[type] }
+        onChange={ handleChange(stores[type]) }
+        validations={ testValidation('valid') }
+        warnings={ testValidation('warn') }
+        info={ testValidation('info') }
+        unblockValidation={ trueBool }
+        useValidationIcon={ trueBool }
+      />
+    ))}
+  </>
+);
+
 storiesOf('Experimental/Switch', module)
-  .add('classic', () => (
-    <SwitchWrapper
-      { ...commonKnobs() }
-    />
-  ), {
-    info: {
-      text: legacyInfo,
-      propTables: [Switch],
-      propTablesExclude: [State, SwitchWrapper],
-      excludedPropTypes: ['children', 'disabled', 'size', 'theme']
-    },
-    themeSelector: classicThemeSelector,
-    notes: { markdown: notes }
-  })
-  .add('default', () => (
-    <SwitchWrapper
-      { ...commonKnobs() }
-      { ...dlsKnobs() }
-    />
-  ), {
-    info: {
-      text: info,
-      propTables: [Switch],
-      propTablesExclude: [State, SwitchWrapper],
-      excludedPropTypes: ['children', 'theme']
-    },
-    themeSelector: dlsThemeSelector,
-    notes: { markdown: notes }
-  })
-  .add('validations', () => (
-    <>
-      {validationTypes.map(type => (
-        <SwitchWrapper
-          { ...commonKnobs() }
-          { ...dlsKnobs() }
-          key={ `key-${type}` }
-          name={ `switch-${type}` }
-          label={ `Please read our ${type}` }
-          value={ type }
-          store={ stores[type] }
-          onChange={ handleChange(stores[type]) }
-          validations={ testValidation('valid') }
-          warnings={ testValidation('warn') }
-          info={ testValidation('info') }
-          unblockValidation={ trueBool }
-          useValidationIcon={ trueBool }
-        />
-      ))}
-    </>
-  ), {
-    info: {
-      text: info,
-      propTables: [Switch],
-      propTablesExclude: [State, SwitchWrapper],
-      excludedPropTypes: ['children', 'theme']
-    },
-    themeSelector: dlsThemeSelector,
-    notes: { markdown: notes }
-  });
+  .add(...makeStory('default', dlsThemeSelector, switchComponent))
+  .add(...makeStory('classic', classicThemeSelector, switchClassic))
+  .add(...makeStory('validations', dlsThemeSelector, switchComponentValidation))
+  .add(...makeStory('validations classic', classicThemeSelector, switchComponentValidation));
 
 function handleChange(store = formStore) {
   return function (ev) {
