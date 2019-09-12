@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import baseTheme from '../../style/themes/base';
 import { isClassic } from '../../utils/helpers/style-helper';
 
-const StyledHelp = styled.button`
+const StyledHelp = styled.div`
   background: none;
   color: ${({ theme }) => theme.help.color};
   cursor: default;

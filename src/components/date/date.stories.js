@@ -4,6 +4,7 @@ import { StateDecorator, Store, State } from '@sambego/storybook-state';
 import {
   boolean, number, text, select
 } from '@storybook/addon-knobs';
+import { classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
 import DateInput from '.';
@@ -26,7 +27,7 @@ const setValue = (ev) => {
 
 storiesOf('Date Input', module)
   .addDecorator(StateDecorator(store))
-  .add('default', () => {
+  .add('classic', () => {
     const autoFocus = boolean('autoFocus', true);
     const disabled = boolean('disabled', false);
     const minDate = text('minDate', '');
@@ -71,5 +72,6 @@ storiesOf('Date Input', module)
     );
   }, {
     info: { text: info, propTablesExclude: [State] },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    themeSelector: classicThemeSelector
   });

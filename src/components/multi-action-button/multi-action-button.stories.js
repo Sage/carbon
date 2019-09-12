@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { ThemeProvider } from 'styled-components';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import MultiActionButton from './multi-action-button.component';
 import Button, { OriginalButton } from '../button';
 import OptionsHelper from '../../utils/helpers/options-helper';
@@ -61,6 +62,7 @@ storiesOf('Multi Action Button', module)
       </MultiActionButton>
     );
   }, {
+    themeSelector: dlsThemeSelector,
     info: { text: info, propTablesExclude: [OriginalButton, ThemeProvider, Button] },
     notes: { markdown: notes }
   })
@@ -86,6 +88,7 @@ storiesOf('Multi Action Button', module)
       </ThemeProvider>
     );
   }, {
+    themeSelector: classicThemeSelector,
     info: { text: info, propTablesExclude: [OriginalButton, ThemeProvider, Button] },
     notes: { markdown: notes }
   });

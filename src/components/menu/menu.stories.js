@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { select } from '@storybook/addon-knobs';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation';
 import { Menu, MenuItem, SubmenuBlock } from './menu';
@@ -21,8 +22,8 @@ SubmenuBlock.__docgenInfo = getDocGenInfo(
   /submenu-block(?!spec)/
 );
 
-storiesOf('Menu', module)
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const as = select('as', OptionsHelper.themesBinary, Menu.defaultProps.as);
 
     return (
@@ -48,6 +49,16 @@ storiesOf('Menu', module)
         </MenuItem>
       </Menu>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     notes: { markdown: notes }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Menu', module)
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));

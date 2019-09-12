@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { boolean, select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { Sidebar, SidebarHeader } from '.';
 import Button from '../button';
@@ -33,17 +34,8 @@ const openSidebar = () => {
   store.set({ open: true });
 };
 
-storiesOf('Sidebar', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [Button, State],
-      text: info
-    },
-    notes: {
-      markdown: notes
-    }
-  })
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const enableBackgroundUI = boolean('enableBackgroundUI', Sidebar.defaultProps.enableBackgroundUI);
     const position = select('position', OptionsHelper.alignBinary, Sidebar.defaultProps.position);
     const size = select('size', OptionsHelper.sizesFull, Sidebar.defaultProps.size);
@@ -59,9 +51,17 @@ storiesOf('Sidebar', module)
         Main Content
       </Sidebar>
     );
-  })
+  };
 
-  .add('with button', () => {
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+function makeButtonStory(name, themeSelector) {
+  const component = () => {
     const enableBackgroundUI = boolean('enableBackgroundUI', Sidebar.defaultProps.enableBackgroundUI);
     const position = select('position', OptionsHelper.alignBinary, Sidebar.defaultProps.position);
     const size = select('size', OptionsHelper.sizesFull, Sidebar.defaultProps.size);
@@ -81,4 +81,26 @@ storiesOf('Sidebar', module)
         </Sidebar>
       </State>
     );
-  });
+  };
+
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Sidebar', module)
+  .addParameters({
+    info: {
+      propTablesExclude: [Button, State],
+      text: info
+    },
+    notes: {
+      markdown: notes
+    }
+  })
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector))
+  .add(...makeButtonStory('with button', dlsThemeSelector))
+  .add(...makeButtonStory('with button classic', classicThemeSelector));
