@@ -8,6 +8,7 @@ import {
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import { ThemeProvider } from 'styled-components';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
@@ -59,6 +60,7 @@ storiesOf('Flash', module)
       </ThemeProvider>
     );
   }, {
+    themeSelector: classicThemeSelector,
     notes: { markdown: notes },
     knobs: { escapeHTML: false },
     info: {
@@ -87,6 +89,7 @@ storiesOf('Flash', module)
       </div>
     );
   }, {
+    themeSelector: dlsThemeSelector,
     notes: { markdown: notes },
     knobs: { escapeHTML: false },
     info: {

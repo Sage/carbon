@@ -6,6 +6,7 @@ import {
   select
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import { classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import GroupedCharacter from './grouped-character';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
@@ -16,7 +17,7 @@ GroupedCharacter.__docgenInfo = getDocGenInfo(
 );
 
 storiesOf('GroupedCharacter', module)
-  .add('default', () => {
+  .add('classic', () => {
     const inputWidth = text('inputWidth', '');
     const separator = text('separator', GroupedCharacter.defaultProps.separator);
     const label = text('label', 'Example Grouped Character');
@@ -49,5 +50,6 @@ storiesOf('GroupedCharacter', module)
   }, {
     knobs: {
       escapeHTML: false
-    }
+    },
+    themeSelector: classicThemeSelector
   });

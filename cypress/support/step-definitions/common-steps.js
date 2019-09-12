@@ -30,8 +30,16 @@ Given('I open {string} component page legacy spinner', (component) => {
   visitComponentUrl(component, 'legacy_spinner');
 });
 
+Given('I open {string} component page legacy spinner', (component) => {
+  visitComponentUrl(component, 'legacy_spinner_classic');
+});
+
 Given('I open {string} component iframe', (component) => {
   visitComponentUrl(component, 'default', true);
+});
+
+Given('I open {string} component for classic story in iframe', (component) => {
+  visitComponentUrl(component, 'classic', true);
 });
 
 Given('I open deprecated {string} component iframe', (component) => {
@@ -42,12 +50,32 @@ Given('I open {string} component with button page in iframe', (component) => {
   visitComponentUrl(component, 'with_button', true);
 });
 
+Given('I open {string} component for classic story with button page in iframe', (component) => {
+  visitComponentUrl(component, 'with_button_classic', true);
+});
+
 Given('I open {string} component page multiple', (component) => {
   visitComponentUrl(component, 'multiple');
 });
 
+Given('I open {string} component for classic story page multiple', (component) => {
+  visitComponentUrl(component, 'multiple_classic');
+});
+
+Given('I open {string} component page as sibling in iframe', (component) => {
+  visitComponentUrl(component, 'as_a_sibling', true);
+});
+
+Given('I open {string} component for classic story as sibling in iframe', (component) => {
+  visitComponentUrl(component, 'as_a_sibling_classic', true);
+});
+
 Given('I open {string} component page validations', (component) => {
   visitComponentUrl(component, 'validations');
+});
+
+Given('I open {string} component page validations', (component) => {
+  visitComponentUrl(component, 'validations_classic');
 });
 
 When('I set {word} to {string}', (propertyName, text) => {
