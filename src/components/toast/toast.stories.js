@@ -3,6 +3,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import { select, text, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import Toast from '.';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import { notes, info } from './documentation';
@@ -49,6 +50,8 @@ storiesOf('Toast', module)
         </StyledToastStory>
       </ThemeProvider>
     );
+  }, {
+    themeSelector: classicThemeSelector
   }).add('default', () => {
     const variant = select('variant', OptionsHelper.toast, OptionsHelper.toast[0]);
     const children = text('children', 'Talkie\'s the name, toasting\'s the game. Anyone like any toast?');
@@ -65,4 +68,6 @@ storiesOf('Toast', module)
       </StyledToastStory>
 
     );
+  }, {
+    themeSelector: dlsThemeSelector
   });

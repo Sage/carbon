@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import { Pages, Page } from './pages';
 import DialogFullScreen from '../dialog-full-screen';
 import Heading from '../heading/heading';
@@ -55,9 +56,8 @@ CustomState.propTypes = {
 const DialogState = props => new CustomState(props);
 const PageState = props => new CustomState(props);
 
-
-storiesOf('Pages', module)
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     return (
       <div>
         <Button onClick={ handleOpen }>Open Preview</Button>
@@ -87,9 +87,19 @@ storiesOf('Pages', module)
         </DialogState>
       </div>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     info: {
       text: <p>Allows to slide to different pages in a full screen dialog.</p>,
       propTablesExclude: [Button, DialogFullScreen, DialogState, PageState, State]
     }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Pages', module)
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));

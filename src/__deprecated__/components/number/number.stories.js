@@ -6,6 +6,7 @@ import {
   select,
   boolean
 } from '@storybook/addon-knobs';
+import { classicThemeSelector } from '../../../.storybook/theme-selectors';
 import Number from './number';
 import notes from './notes.md';
 import OptionsHelper from '../../../utils/helpers/options-helper';
@@ -70,5 +71,6 @@ storiesOf('__deprecated__/Number Input', module)
         </div>
       )
     },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    themeSelector: classicThemeSelector
   });

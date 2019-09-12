@@ -4,6 +4,7 @@ import {
   boolean, number, text, select
 } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
+import { classicThemeSelector } from '../../../.storybook/theme-selectors';
 import Textarea from './textarea';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
@@ -35,7 +36,7 @@ storiesOf('__deprecated__/Textarea', module)
       propTablesExclude: [State]
     }
   }).add(
-    'default',
+    'classic',
     () => {
       const { alignBinary } = OptionsHelper;
       const warnOverLimit = boolean('warnOverLimit', Textarea.defaultProps.warnOverLimit);
@@ -80,6 +81,7 @@ storiesOf('__deprecated__/Textarea', module)
     },
     {
       info: { text: info },
-      notes: { markdown: notes }
+      notes: { markdown: notes },
+      themeSelector: classicThemeSelector
     },
   );

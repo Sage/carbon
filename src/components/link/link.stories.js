@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, Info } from './documentation';
 import Link from './link.component';
@@ -12,8 +13,8 @@ Link.__docgenInfo = getDocGenInfo(
   /link\.component(?!spec)/
 );
 
-storiesOf('Link', module)
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const children = text('children', 'Link');
     const disabled = boolean('disabled', false);
     const href = text('href');
@@ -53,8 +54,18 @@ storiesOf('Link', module)
         {children}
       </Link>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     info: { text: Info },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Link', module)
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));
