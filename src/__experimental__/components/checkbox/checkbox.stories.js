@@ -4,6 +4,7 @@ import {
   boolean, text, number, select
 } from '@storybook/addon-knobs';
 import { Store, State } from '@sambego/storybook-state';
+import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import Checkbox from '.';
 import { info, notes } from './documentation';
@@ -18,8 +19,8 @@ const formStore = new Store({
   checked: false
 });
 
-storiesOf('Experimental/Checkbox', module)
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     return (
       <State store={ formStore }>
         <Checkbox
@@ -28,14 +29,24 @@ storiesOf('Experimental/Checkbox', module)
         />
       </State>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     info: {
       text: info,
       propTablesExclude: [State],
       excludedPropTypes: ['children']
     },
     notes: { markdown: notes }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Experimental/Checkbox', module)
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));
 
 function handleChange(ev) {
   formStore.set({ checked: ev.target.checked });
