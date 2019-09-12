@@ -4,11 +4,12 @@ import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import { fromJS } from 'immutable';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
 import Dialog from './dialog.component';
 import Form from '../form';
-import Textbox from '../textbox';
+import Textbox from '../../__deprecated__/components/textbox';
 import Button from '../button';
 import Modal from '../modal';
 import DateInput from '../date';
@@ -39,8 +40,8 @@ const handleClick = (evt) => {
   action('click')(evt);
 };
 
-storiesOf('Dialog', module)
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const height = text('height', '400');
     const title = text('title', 'Example Dialog');
     const subtitle = text('subtitle', 'Example Subtitle');
@@ -114,7 +115,10 @@ storiesOf('Dialog', module)
         </State>
       </div>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     info: {
       propTablesExclude: [
         Button,
@@ -129,4 +133,11 @@ storiesOf('Dialog', module)
     },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Dialog', module)
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));

@@ -1,9 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text } from '@storybook/addon-knobs';
+import { classicThemeSelector } from '../../../.storybook/theme-selectors';
 import notes from './documentation/notes.md';
 import Fieldset from './fieldset';
-import Textbox from '../textbox';
+import Textbox from '../../__deprecated__/components/textbox';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Fieldset.__docgenInfo = getDocGenInfo(
@@ -17,7 +18,7 @@ storiesOf('Fieldset', module)
       propTablesExclude: [Textbox]
     }
   })
-  .add('default', () => {
+  .add('classic', () => {
     const legend = text('legend', '');
 
     return (
@@ -58,5 +59,6 @@ storiesOf('Fieldset', module)
     );
   }, {
     notes: { markdown: notes },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    themeSelector: classicThemeSelector
   });

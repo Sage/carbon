@@ -90,5 +90,4 @@ Feature: Build tests for classic stories
       | table                | table                |
       | tabs                 | tabs                 |
       | textarea             | textarea             |
-      | textbox              | textbox              |
       | toast                | toast                |

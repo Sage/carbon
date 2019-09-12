@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Fieldset from './fieldset';
-import Textbox from './../textbox';
+import Textbox from './../../__deprecated__/components/textbox';
 import { shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 

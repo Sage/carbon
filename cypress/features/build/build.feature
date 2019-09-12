@@ -7,9 +7,14 @@ Feature: Build tests
       And I open component preview no iframe
     Then "<component>" component is visible
     Examples:
-      | component           |
-      | alert               |
-      | sidebar             |
+      | component |
+      | alert     |
+      | sidebar   |
+
+  @build
+  Scenario: Component button as sibling
+    When I open "button" component page as sibling in iframe
+    Then "button" component is visible
 
   @build
   Scenario: Component <component> as sibling
@@ -91,3 +96,13 @@ Feature: Build tests
       # | textbox              | textbox              | Commented until textbox will be merged-out from experimental
       | tile                 | tile                 |
       | toast                | toast                |
+
+
+  @build
+  Scenario Outline: Deprecated component <component> iframe
+    When I open deprecated "<component>" component iframe
+    Then "<component>" component is visible
+    Examples:
+      | component |
+      | textbox   |
+
