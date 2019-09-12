@@ -17,7 +17,7 @@
     "test-update": "jest --config=./jest.conf.json --updateSnapshot",
     "test-carbon-build": "npm run gen-colors && npm run gen-docs && npm run webpack",
     "test-cypress": "cypress open",
-    "test-cypress-build": "cypress run --spec ./cypress/features/build/build.feature",
+    "test-cypress-build": "cypress run --spec ./cypress/features/build/build*.feature",
     "test-cypress-accessibility": "cypress run --spec ./cypress/features/accessibility/accessibility.feature",
     "test-cypress-regression": "cypress run --spec './cypress/features/regression/*.feature'",
     "test-storybook-smoke": "./node_modules/.bin/start-storybook -p 9009 -c .storybook --ci --smoke-test",
