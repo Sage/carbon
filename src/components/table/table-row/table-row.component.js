@@ -266,15 +266,12 @@ class TableRow extends React.Component {
     this.setState({ highlighted });
   }
 
-  /**
-   * Renders the component
-   */
-  render() {
-    // When a table has an ActionPopover, the opening and closing the ActionPopover should control the highlight
-    // state of the row
-    const content = [React.Children.map(this.props.children, (td) => {
+  getChildrenWithStateUpdaters() {
+    return React.Children.map(this.props.children, (td) => {
       let hasActionPopover = false;
       const childrenWithProps = React.Children.map(td.props.children, (child) => {
+        // When a table has an ActionPopover, the opening and closing the ActionPopover should control the highlight
+        // state of the row
         if (child.type === ActionPopover) {
           hasActionPopover = true;
           const props = {
@@ -293,7 +290,14 @@ class TableRow extends React.Component {
       });
 
       return hasActionPopover ? React.cloneElement(td, { children: childrenWithProps }) : td;
-    })];
+    });
+  }
+
+  /**
+   * Renders the component
+   */
+  render() {
+    const content = [this.getChildrenWithStateUpdaters()];
 
     if (this.shouldHaveMultiSelectColumn) {
       content.unshift(this.multiSelectCell);
