@@ -19,7 +19,6 @@ const Help = (props) => {
     tooltipPosition,
     tooltipAlign
   } = props;
-  const ariaLabel = !children ? 'additional help information' : children;
   let tagType;
 
   useEffect(() => {
@@ -59,7 +58,7 @@ const Help = (props) => {
       { ...tagComponent('help', props) }
       tabIndex={ tabIndexOverride }
       value={ children }
-      aria-label={ ariaLabel }
+      aria-label={ children }
     >
       <Icon
         type='help'

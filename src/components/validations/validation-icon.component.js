@@ -12,6 +12,7 @@ const ValidationIcon = ({
   theme,
   type,
   size,
+  iconId,
   isPartOfInput,
   tooltipMessage
 }) => {
@@ -32,6 +33,7 @@ const ValidationIcon = ({
       {
         context => (
           <ValidationIconStyle
+            id={ iconId }
             data-validation-type={ type }
             validationType={ type }
             role='tooltip'

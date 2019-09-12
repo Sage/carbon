@@ -16,10 +16,12 @@ class CheckableInput extends React.Component {
     const { children, onChange, ...rest } = this.props;
     const id = this.inputId;
     const labelId = `${id}-label`;
+    const helpId = `${id}-help`;
 
     const formFieldProps = {
       ...validProps(this, ['fieldHelp', 'fieldHelpInline', 'labelHelp', 'reverse']),
       labelId,
+      helpId,
       label: rest.inputLabel,
       labelHelpIcon: 'info',
       name: id
@@ -30,6 +32,7 @@ class CheckableInput extends React.Component {
     } = {
       ...validProps(this, ['checked', 'disabled', 'inputType', 'onChange', 'tabindex']),
       labelId,
+      helpId,
       id
     };
 

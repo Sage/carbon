@@ -8,6 +8,7 @@ import { filterByProps } from '../../../utils/ether';
 
 const labelPropTypes = {
   labelId: PropTypes.string,
+  helpId: PropTypes.string,
   children: PropTypes.node,
   help: PropTypes.string,
   helpIcon: PropTypes.string,
@@ -26,6 +27,7 @@ const validationsPresent = ({ hasError, hasWarning, hasInfo }) => hasError || ha
 const Label = (props) => {
   const {
     labelId,
+    helpId,
     children,
     help,
     helpIcon,
@@ -50,6 +52,7 @@ const Label = (props) => {
     if (useValidationIcon && validationsPresent(props) && tooltipMessage) {
       return (
         <ValidationIcon
+          iconId={ helpId }
           type={ getValidationType(props) }
           tooltipMessage={ tooltipMessage }
         />
@@ -58,6 +61,7 @@ const Label = (props) => {
 
     return help && (
       <Help
+        helpId={ helpId }
         tagTypeOverride={ helpTag }
         tabIndexOverride={ helpTabIndex }
         type={ helpIcon }

@@ -11,6 +11,7 @@ exports[`HiddenCheckableInput renders as expected 1`] = `
 
 <input
   aria-checked={true}
+  aria-describedby="test-help"
   checked={true}
   className="c0"
   name="test-name"

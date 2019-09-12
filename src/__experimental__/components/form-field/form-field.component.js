@@ -13,6 +13,7 @@ const FormField = ({
   hasError,
   hasWarning,
   hasInfo,
+  helpId,
   helpTag,
   helpTabIndex,
   label,
@@ -44,6 +45,7 @@ const FormField = ({
         hasWarning={ hasWarning }
         hasInfo={ hasInfo }
         help={ labelHelp }
+        helpId={ helpId }
         helpTag={ helpTag }
         helpTabIndex={ helpTabIndex }
         htmlFor={ name }
@@ -88,6 +90,7 @@ FormField.propTypes = {
   fieldHelpInline: PropTypes.bool,
   hasError: PropTypes.bool,
   hasWarning: PropTypes.bool,
+  helpId: PropTypes.string,
   hasInfo: PropTypes.bool,
   helpTag: PropTypes.string,
   helpTabIndex: PropTypes.string,
