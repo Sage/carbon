@@ -1,19 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Button when no props other than children are passed into the component renders the default props and children to match the snapshot 1`] = `
-<Button
-  as="secondary"
-  disabled={false}
-  forwardRef={null}
-  iconPosition="before"
-  size="medium"
-  subtext=""
-  theme="blue"
->
-  foo
-</Button>
-`;
-
 exports[`Button when only the "iconPosition" and "iconType" props are passed into the component renders the default props and children to match the snapshot with the Icon after children 1`] = `
 .c3 {
   display: inline-block;

@@ -1,18 +1,21 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, Info, InfoClassic } from './documentation';
-import Button, { OriginalButton } from '.';
+import Button from '.';
+import StyledButton from './button.style';
 import classic from '../../style/themes/classic';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
-OriginalButton.__docgenInfo = getDocGenInfo(
+Button.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
   /button\.component(?!spec)/
 );
+
+const StyledComponent = styled('div')``.render().type;
 
 const getIconKnobs = () => {
   const defaultPosition = Button.defaultProps.iconPosition;
@@ -56,14 +59,17 @@ storiesOf('Button', module)
     const props = getKnobs();
     const { children } = props;
     return (
-      <OriginalButton
+      <Button
         { ...props }
       >
         { children }
-      </OriginalButton>
+      </Button>
     );
   }, {
-    info: { text: Info },
+    info: {
+      text: Info,
+      propTablesExclude: [StyledComponent, StyledButton, ThemeProvider]
+    },
     notes: { markdown: notes },
     knobs: {
       escapeHTML: false
@@ -74,15 +80,18 @@ storiesOf('Button', module)
     const { children } = props;
     return (
       <ThemeProvider theme={ classic }>
-        <OriginalButton
+        <Button
           { ...props }
         >
           { children }
-        </OriginalButton>
+        </Button>
       </ThemeProvider>
     );
   }, {
-    info: { text: InfoClassic },
+    info: {
+      text: InfoClassic,
+      propTablesExclude: [StyledComponent, StyledButton, ThemeProvider]
+    },
     notes: { markdown: notes },
     knobs: {
       escapeHTML: false
@@ -93,17 +102,21 @@ storiesOf('Button', module)
     const { children } = props;
     return (
       <div>
-        <OriginalButton
+        <Button
           { ...props }
         >
           { children }
-        </OriginalButton>
+        </Button>
 
-        <OriginalButton
+        <Button
           { ...props }
         >
           { children }
-        </OriginalButton>
+        </Button>
       </div>
     );
+  }, {
+    info: {
+      propTablesExclude: [StyledComponent, StyledButton, ThemeProvider]
+    }
   });

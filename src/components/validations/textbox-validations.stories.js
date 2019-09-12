@@ -7,7 +7,7 @@ import Textbox from '../../__experimental__/components/textbox';
 import Decimal from '../../__experimental__/components/decimal';
 import NumberInput from '../../__experimental__/components/number';
 import GroupedCharacter from '../../__experimental__/components/grouped-character';
-import Button, { OriginalButton } from '../button';
+import Button from '../button';
 import { StoryHeader } from '../../../.storybook/style/storybook-info.styles';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
@@ -26,7 +26,7 @@ storiesOf('Validations', module)
       text: (<StoryHeader>Validations for simple Textbox based Components</StoryHeader>),
       propTablesExclude: [
         Button,
-        OriginalButton,
+        Button,
         Column,
         Row,
         Textbox,

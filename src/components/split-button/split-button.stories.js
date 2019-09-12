@@ -7,7 +7,7 @@ import { action } from '@storybook/addon-actions';
 import { ThemeProvider } from 'styled-components';
 import SplitButton from './split-button.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import Button, { OriginalButton } from '../button';
+import Button from '../button';
 import { notes, info } from './documentation';
 import classic from '../../style/themes/classic';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
@@ -81,7 +81,7 @@ storiesOf('Split Button', module)
       );
     },
     {
-      info: { text: info, propTablesExclude: [Button, OriginalButton] },
+      info: { text: info, propTablesExclude: [Button, Button] },
       notes: { markdown: notes }
     },
   )
@@ -119,6 +119,6 @@ storiesOf('Split Button', module)
       </ThemeProvider>
     );
   }, {
-    info: { text: info, propTablesExclude: [Button, OriginalButton, ThemeProvider] },
+    info: { text: info, propTablesExclude: [Button, Button, ThemeProvider] },
     notes: { markdown: notes }
   });

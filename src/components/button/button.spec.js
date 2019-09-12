@@ -25,10 +25,13 @@ const classicColorVariants = ['blue', 'grey', 'magenta', 'magenta-dull', 'red', 
 
 describe('Button', () => {
   describe('when no props other than children are passed into the component', () => {
-    it('renders the default props and children to match the snapshot', () => {
+    it('renders the default props and children', () => {
       const wrapper = render({ children: 'foo' });
       expect(wrapper.contains(<Icon type='filter' />)).toBeFalsy();
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.props().buttonType).toEqual('secondary');
+      expect(wrapper.props().size).toEqual('medium');
+      expect(wrapper.props().disabled).toEqual(false);
+      expect(wrapper.props().legacyColorVariant).toEqual('blue');
     });
   });
 
@@ -330,7 +333,7 @@ describe('Button', () => {
       const wrapper = render({
         href: '/foo',
         children: 'Anchor'
-      }).dive();
+      });
 
       it('renders an anchor element instead of a button', () => {
         expect(wrapper.find(StyledButton).props().as).toEqual('a');
@@ -341,7 +344,7 @@ describe('Button', () => {
       const wrapper = render({
         to: '/foo',
         children: 'To'
-      }).dive();
+      });
 
       it('renders a Button inside a Router Link component', () => {
         expect(wrapper.type()).toEqual(RouterLink);

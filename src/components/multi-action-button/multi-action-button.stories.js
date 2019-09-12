@@ -4,7 +4,7 @@ import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { ThemeProvider } from 'styled-components';
 import MultiActionButton from './multi-action-button.component';
-import Button, { OriginalButton } from '../button';
+import Button from '../button';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
 import classic from '../../style/themes/classic';
@@ -61,7 +61,7 @@ storiesOf('Multi Action Button', module)
       </MultiActionButton>
     );
   }, {
-    info: { text: info, propTablesExclude: [OriginalButton, ThemeProvider, Button] },
+    info: { text: info, propTablesExclude: [Button, ThemeProvider, Button] },
     notes: { markdown: notes }
   })
   .add('classic', () => {
@@ -86,6 +86,6 @@ storiesOf('Multi Action Button', module)
       </ThemeProvider>
     );
   }, {
-    info: { text: info, propTablesExclude: [OriginalButton, ThemeProvider, Button] },
+    info: { text: info, propTablesExclude: [Button, ThemeProvider, Button] },
     notes: { markdown: notes }
   });
