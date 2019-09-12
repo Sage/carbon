@@ -6,10 +6,10 @@ import {
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { Store, State } from '@sambego/storybook-state';
+import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import Switch from '.';
 import { info, legacyInfo, notes } from './documentation';
-import classic from '../../../style/themes/classic';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 Switch.__docgenInfo = getDocGenInfo(
@@ -56,7 +56,6 @@ storiesOf('Experimental/Switch', module)
   .add('classic', () => (
     <SwitchWrapper
       { ...commonKnobs() }
-      theme={ classic }
     />
   ), {
     info: {
@@ -65,6 +64,7 @@ storiesOf('Experimental/Switch', module)
       propTablesExclude: [State, SwitchWrapper],
       excludedPropTypes: ['children', 'disabled', 'size', 'theme']
     },
+    themeSelector: classicThemeSelector,
     notes: { markdown: notes }
   })
   .add('default', () => (
@@ -79,6 +79,7 @@ storiesOf('Experimental/Switch', module)
       propTablesExclude: [State, SwitchWrapper],
       excludedPropTypes: ['children', 'theme']
     },
+    themeSelector: dlsThemeSelector,
     notes: { markdown: notes }
   })
   .add('validations', () => (

@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { text, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
+import { classicThemeSelector } from '../../../.storybook/theme-selectors';
 import notes from './documentation';
 import DateRange from './date-range.js';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
@@ -26,7 +27,7 @@ storiesOf('Date Range', module)
       propTablesExclude: [State]
     }
   })
-  .add('default', () => {
+  .add('classic', () => {
     const endLabel = text('endLabel', '');
     const startLabel = text('startLabel', '');
     const startMessage = text('startMessage', 'Start date must not be later than the end date');
@@ -47,5 +48,6 @@ storiesOf('Date Range', module)
       </State>
     );
   }, {
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    themeSelector: classicThemeSelector
   });

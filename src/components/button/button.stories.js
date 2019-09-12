@@ -1,12 +1,11 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, Info, InfoClassic } from './documentation';
 import Button, { OriginalButton } from '.';
-import classic from '../../style/themes/classic';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 OriginalButton.__docgenInfo = getDocGenInfo(
@@ -51,10 +50,10 @@ const getKnobs = (isClassic) => {
   };
 };
 
-storiesOf('Button', module)
-  .add('default', () => {
-    const props = getKnobs();
-    const { children } = props;
+function makeStory(name, themeSelector, isClassic, infotext) {
+  const component = () => {
+    const props = getKnobs(isClassic);
+    const { children } = props; // eslint-disable-line react/prop-types
     return (
       <OriginalButton
         { ...props }
@@ -62,35 +61,24 @@ storiesOf('Button', module)
         { children }
       </OriginalButton>
     );
-  }, {
-    info: { text: Info },
+  };
+
+  const metadata = {
+    info: { text: infotext },
     notes: { markdown: notes },
+    themeSelector,
     knobs: {
       escapeHTML: false
     }
-  })
-  .add('classic', () => {
-    const props = getKnobs(true);
-    const { children } = props;
-    return (
-      <ThemeProvider theme={ classic }>
-        <OriginalButton
-          { ...props }
-        >
-          { children }
-        </OriginalButton>
-      </ThemeProvider>
-    );
-  }, {
-    info: { text: InfoClassic },
-    notes: { markdown: notes },
-    knobs: {
-      escapeHTML: false
-    }
-  })
-  .add('as a sibling', () => {
-    const props = getKnobs();
-    const { children } = props;
+  };
+
+  return [name, component, metadata];
+}
+
+function makeSiblingStory(name, themeSelector, isClassic) {
+  const component = () => {
+    const props = getKnobs(isClassic);
+    const { children } = props; // eslint-disable-line react/prop-types
     return (
       <div>
         <OriginalButton
@@ -106,4 +94,17 @@ storiesOf('Button', module)
         </OriginalButton>
       </div>
     );
-  });
+  };
+
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Button', module)
+  .add(...makeStory('default', dlsThemeSelector, false, Info))
+  .add(...makeStory('classic', classicThemeSelector, true, InfoClassic))
+  .add(...makeSiblingStory('as a sibling', dlsThemeSelector, false))
+  .add(...makeSiblingStory('as a sibling classic', classicThemeSelector, true));

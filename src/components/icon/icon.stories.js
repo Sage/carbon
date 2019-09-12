@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { ThemeProvider } from 'styled-components';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, Info } from './documentation';
 import Icon from '.';
@@ -56,6 +57,7 @@ storiesOf('Icon', module)
       </ThemeProvider>
     ),
     {
+      themeSelector: classicThemeSelector,
       info: { text: Info },
       notes: { markdown: notes },
       knobs: { escapeHTML: false }
@@ -68,6 +70,7 @@ storiesOf('Icon', module)
 
     return <Icon { ...commonKnobs() } { ...props } />;
   }, {
+    themeSelector: dlsThemeSelector,
     info: { text: Info },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
