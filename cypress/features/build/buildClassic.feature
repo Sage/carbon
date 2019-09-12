@@ -86,3 +86,16 @@ Feature: Build tests for classic stories
       | table                | table                |
       | tabs                 | tabs                 |
       | toast                | toast                |
+
+  @build
+  Scenario Outline: Deprecated component <component> iframe
+    When I open deprecated "<component>" component iframe
+    Then "<data-component>" component is visible
+    Examples:
+      | component          | data-component     |
+      | textbox            | textbox            |
+      | textarea           | textarea           |
+      | number-input       | number             |
+      | decimal            | decimal            |
+      | fieldset           | fieldset           |
+      | groupedcharacter   | grouped-character  |

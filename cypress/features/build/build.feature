@@ -91,16 +91,3 @@ Feature: Build tests
       # | textbox              | textbox              | Commented until textbox will be merged-out from experimental
       | tile                 | tile                 |
       | toast                | toast                |
-
-  @build
-  Scenario Outline: Deprecated component <component> iframe
-    When I open deprecated "<component>" component iframe
-    Then "<data-component>" component is visible
-    Examples:
-      | component          | data-component     |
-      | textbox            | textbox            |
-      | textarea           | textarea           |
-      | number-input       | number             |
-      | decimal            | decimal            |
-      | fieldset           | fieldset           |
-      | groupedcharacter   | grouped-character  |
