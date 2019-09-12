@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation';
 import Content from './content.js';
@@ -11,8 +12,8 @@ Content.__docgenInfo = getDocGenInfo(
   /content(?!spec)/
 );
 
-storiesOf('Content', module)
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const children = text('children', 'An example of some content.');
     const title = text('title', 'Content Component');
     const knobAs = select('as', OptionsHelper.themesBinary, Content.defaultProps.as);
@@ -33,6 +34,16 @@ storiesOf('Content', module)
         {children}
       </Content>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     notes: { markdown: notes }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Content', module)
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));

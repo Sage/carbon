@@ -4,6 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import Pill from './pill.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { isClassic } from '../../utils/helpers/style-helper';
@@ -66,6 +67,7 @@ storiesOf('Pill', module)
       </ThemeProvider>
     );
   }, {
+    themeSelector: classicThemeSelector,
     info: {
       Pill,
       text: Info,
@@ -94,6 +96,7 @@ storiesOf('Pill', module)
       </Pill>
     );
   }, {
+    themeSelector: dlsThemeSelector,
     info: { Pill, text: Info },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }

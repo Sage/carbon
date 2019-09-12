@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, boolean } from '@storybook/addon-knobs';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import notes from './documentation';
 import { MenuList, MenuListItem } from './menu-list';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
@@ -16,8 +17,8 @@ MenuListItem.__docgenInfo = getDocGenInfo(
   /menu-list-item\.js(?!spec)/
 );
 
-storiesOf('MenuList', module)
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const title = text('title', '');
     const collapsible = title ? boolean('collapsible', true) : undefined;
     const filterPlaceholder = text('filterPlaceholder', '');
@@ -58,7 +59,17 @@ storiesOf('MenuList', module)
         </MenuListItem>
       </MenuList>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('MenuList', module)
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));

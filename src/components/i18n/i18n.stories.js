@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, boolean } from '@storybook/addon-knobs';
 import i18n from 'i18n-js';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import { notes, Info } from './documentation';
 import I18nComponent from './i18n';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
@@ -16,8 +17,8 @@ i18n.translations.en['my'] = {
   example: '# My __example__ translation.'
 };
 
-storiesOf('I18nComponent', module)
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const markdown = boolean('markdown', true);
     const inline = markdown ? boolean('inline', I18nComponent.defaultProps.inline) : undefined;
     const scope = text('scope', 'my.example');
@@ -28,8 +29,18 @@ storiesOf('I18nComponent', module)
         scope={ scope }
       />
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     info: { text: Info },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('I18nComponent', module)
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));
