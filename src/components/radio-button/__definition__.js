@@ -1,6 +1,5 @@
-import { RadioButton } from '../../__experimental__/components/radio-button';
+import RadioButton from './';
 import Definition from './../../../demo/utils/definition';
-import OptionsHelper from '../../utils/helpers/options-helper';
 
 let definition = new Definition('radio-button', RadioButton, {
   description: `Selects one option from a longer list.`,
@@ -17,26 +16,16 @@ let definition = new Definition('radio-button', RadioButton, {
   type: 'form',
   numberOfExamples: 2,
   propTypes: {
-    checked: 'Boolean',
-    disabled: 'Boolean',
-    error: 'Boolean',
-    fieldHelpInline: 'Boolean',
-    onChange: 'Function',
+    className: "String",
     reverse: 'Boolean'
   },
   propValues: {
-    name: "example",
-    value: 'test-radio'
+    name: "example"
   },
   propDescriptions: {
     className: "Classes to apply to the component.",
     reverse: 'Flips the input and label render order'
-  },
-  propOptions: {
-    labelAlign: OptionsHelper.alignBinary,
-    size: OptionsHelper.sizesBinary
-  },
-  hiddenProps: ['checked', 'onChange', 'size']
+  }
 });
 
 definition.isAnInput();

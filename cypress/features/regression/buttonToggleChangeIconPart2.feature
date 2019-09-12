@@ -34,7 +34,6 @@ Feature: Button Toggle component - set all possible icon and verify
       | logout            |
       | marker            |
       | message           |
-      | messages          |
       | minus             |
       | mobile            |
       | pdf               |
@@ -64,3 +63,11 @@ Feature: Button Toggle component - set all possible icon and verify
       | view              |
       | warning           |
       | white-tick        |
+
+  @positive
+  Scenario Outline: Change Button Toggle icon to <iconName>
+    When I select buttonIcon to "<iconName>"
+    Then Button icon on preview is "<iconName>"
+    Examples:
+      | iconName          | iconDetaElement |
+      | messages          | message         |

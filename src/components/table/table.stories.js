@@ -7,6 +7,7 @@ import {
   select,
   number
 } from '@storybook/addon-knobs';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import { notes, info } from './documentation';
 import TableWrapper from './table-story-helpers/table-story-wrapper.component';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
@@ -98,6 +99,8 @@ storiesOf('Table', module)
     return (
       <TableWrapper { ...tableProps } />
     );
+  }, {
+    themeSelector: classicThemeSelector
   })
   .add(
     'default',
@@ -110,7 +113,10 @@ storiesOf('Table', module)
       return (
         <TableWrapper { ...tableProps } />
       );
-    }
+    },
+    {
+      themeSelector: dlsThemeSelector
+    },
   )
   .add(
     'classic with inputs',
@@ -124,7 +130,10 @@ storiesOf('Table', module)
       return (
         <TableWrapper { ...tableProps } />
       );
-    }
+    },
+    {
+      themeSelector: classicThemeSelector
+    },
   )
   .add(
     'default with inputs',
@@ -138,5 +147,8 @@ storiesOf('Table', module)
       return (
         <TableWrapper { ...tableProps } />
       );
-    }
+    },
+    {
+      themeSelector: dlsThemeSelector
+    },
   );
