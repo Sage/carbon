@@ -1,5 +1,4 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
 import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
 import { select } from '@storybook/addon-knobs';
@@ -13,7 +12,6 @@ import Heading from '../heading/heading';
 import { OriginalButton } from '../button/button.component';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 import docgenInfo from './docgenInfo.json';
-import classic from '../../style/themes/classic';
 
 Page.__docgenInfo = getDocGenInfo(
   docgenInfo,
