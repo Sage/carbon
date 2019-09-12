@@ -1,37 +1,37 @@
-Feature: Build tests
-  I want to check all components exists
+Feature: Build tests for classic stories
+  I want to check all components exists for classic stories
 
   @build
-  Scenario Outline: Component <component> page with button
-    When I open "<component>" component with button page in iframe
+  Scenario Outline: Component <component> classic page with button
+    When I open "<component>" component for classic story with button page in iframe
       And I open component preview no iframe
     Then "<component>" component is visible
     Examples:
-      | component |
-      | alert     |
-      | sidebar   |
+      | component           |
+      | alert               |
+      | sidebar             |
 
   @build
-  Scenario: Component button as sibling
-    When I open "button" component page as sibling in iframe
+  Scenario: Component button classic page as sibling
+    When I open "button" component for classic story as sibling in iframe
     Then "button" component is visible
 
   @build
-  Scenario Outline: Component <component> page and open preview
-    When I open "<component>" component iframe
+  Scenario Outline: Component <component> classic page and open preview
+    When I open "<component>" component for classic story in iframe
       And I open component preview no iframe
     Then "<data-component>" component is visible
     Examples:
       | component           | data-component     |
       | dialog-full-screen  | dialog-full-screen |
       | dialog              | dialog             |
-      | flash               | toast              |
+      | flash               | flash              |
       | pages               | page               |
       | confirm             | confirm            |
 
   @build
-  Scenario Outline: Component <component> without activation button
-    When I open "<component>" component iframe
+  Scenario Outline: Component <component> classic page without activation button
+    When I open "<component>" component for classic story in iframe
     Then "<data-component>" component is visible
     Examples:
       | component            | data-component       |
@@ -41,19 +41,22 @@ Feature: Build tests
       | button toggle        | button-toggle        |
       | button               | button               |
       | carousel             | carousel             |
-      # | checkbox             | checkbox             | Commented until checkbox will be merged-out from experimental
+      | checkbox             | checkbox             |
       | configurable-items   | configurable-items   |
       | content              | content              |
       | create               | link                 |
-      # | date range           | date-range           | Commented until date-range will be merged-out from experimental
-      # | date input           | date                 | Commented until date input will be merged-out from experimental
-      # | decimal              | decimal              | Commented until decimal will be merged-out from experimental
+      | date range           | date-range           |
+      | date input           | date                 |
+      | decimal              | decimal              |
       | detail               | detail               |
       | draggableContext     | table                |
-      # | fieldset             | fieldset             | Commented until fieldset will be merged-out from experimental
+      | dropdownFilterAjax   | dropdown-filter-ajax |
+      | dropdown-filter      | dropdown-filter      |
+      | dropdown             | dropdown             |
+      | fieldset             | fieldset             |
       | filter component     | filter               |
-      # | form                 | form                 | Commented until form will be merged-out from experimental
-      # | groupedcharacter     | grouped-character    | Commented until grouped-character will be merged-out from experimental
+      | form                 | form                 |
+      | groupedcharacter     | grouped-character    |
       | heading              | heading              |
       | help                 | help                 |
       | i18ncomponent        | i18n                 |
@@ -67,36 +70,24 @@ Feature: Build tests
       | mount-in-app         | mount-in-app         |
       | multi-action-button  | multi-action-button  |
       | navigation-bar       | navigation-bar       |
-      # | number-input         | number               | Commented until number-input will be merged-out from experimental
+      | number-input         | number               |
       | pager                | pager                |
       | pill                 | pill                 |
       | pod                  | pod                  |
       | portrait             | portrait             |
       | preview              | preview              |
       | profile              | profile              |
-      # | radio-button         | radio-button         | Commented until radio-button will be merged-out from experimental
+      | radio-button         | radio-button         |
       | rainbow              | rainbow              |
       | row                  | row                  |
-      # | select               | select               | Commented until select will be merged-out from experimental
       | settingsrow          | settings-row         |
-      # | simple-color-picker  | simple-color-picker  | Commented until simple-color-picker will be merged-out from experimental
+      | simplecolorpicker    | simple-color-picker  |
       | split-button         | split-button         |
       | step-sequence-item   | step-sequence-item   |
       | step-sequence        | step-sequence        |
-      # | switch               | checkbox             | Commented until switch will be merged-out from experimental
+      | switch               | checkbox             |
       | table-ajax           | table-ajax           |
       | table                | table                |
       | tabs                 | tabs                 |
-      # | textarea             | textarea             | Commented until textarea will be merged-out from experimental
-      # | textbox              | textbox              | Commented until textbox will be merged-out from experimental
-      | tile                 | tile                 |
+      | textarea             | textarea             |
       | toast                | toast                |
-      | action-popover       | action-popover       |
-
-  @build
-  Scenario Outline: Deprecated component <component> iframe
-    When I open deprecated "<component>" component iframe
-    Then "<component>" component is visible
-    Examples:
-      | component |
-      | textbox   |

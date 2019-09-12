@@ -6,6 +6,7 @@ import {
   select,
   boolean
 } from '@storybook/addon-knobs';
+import { classicThemeSelector } from '../../../.storybook/theme-selectors';
 import Number from './number';
 import notes from './notes.md';
 import OptionsHelper from '../../utils/helpers/options-helper';
@@ -18,7 +19,7 @@ Number.__docgenInfo = getDocGenInfo(
 );
 
 storiesOf('Number Input', module)
-  .add('default', () => {
+  .add('classic', () => {
     const inputWidth = text('inputWidth', '');
     const timeToDisappear = number('timeToDisappear', 0);
     const fieldHelp = text('fieldHelp', 'This text provides help for the input.');
@@ -70,5 +71,6 @@ storiesOf('Number Input', module)
         </div>
       )
     },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    themeSelector: classicThemeSelector
   });

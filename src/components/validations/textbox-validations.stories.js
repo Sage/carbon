@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { boolean, select } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import { Row, Column } from '../row';
 import Textbox from '../../__experimental__/components/textbox';
 import Decimal from '../../__experimental__/components/decimal';
@@ -20,25 +21,8 @@ const getStoryProps = () => ({
   size: select('size', OptionsHelper.sizesRestricted, 'medium')
 });
 
-storiesOf('Validations', module)
-  .addParameters({
-    info: {
-      text: (<StoryHeader>Validations for simple Textbox based Components</StoryHeader>),
-      propTablesExclude: [
-        Button,
-        OriginalButton,
-        Column,
-        Row,
-        Textbox,
-        State,
-        Decimal,
-        NumberInput,
-        GroupedCharacter
-      ],
-      source: false
-    }
-  })
-  .add('textbox based', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const storyProps = getStoryProps();
 
     return (
@@ -100,7 +84,35 @@ storiesOf('Validations', module)
         </Row>
       </div>
     );
-  });
+  };
+
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Validations', module)
+  .addParameters({
+    info: {
+      text: (<StoryHeader>Validations for simple Textbox based Components</StoryHeader>),
+      propTablesExclude: [
+        Button,
+        OriginalButton,
+        Column,
+        Row,
+        Textbox,
+        State,
+        Decimal,
+        NumberInput,
+        GroupedCharacter
+      ],
+      source: false
+    }
+  })
+  .add(...makeStory('textbox based', dlsThemeSelector))
+  .add(...makeStory('textbox based classic', classicThemeSelector));
 
 function numberErrorValidator(value) {
   return new Promise((resolve, reject) => {
