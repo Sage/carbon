@@ -44,6 +44,7 @@ const Help = (props) => {
 
   return (
     <StyledHelp
+      role='tooltip'
       className={ className }
       as={ tagType }
       href={ href }
@@ -57,7 +58,7 @@ const Help = (props) => {
       { ...tagComponent('help', props) }
       tabIndex={ tabIndexOverride }
       value={ children }
-      aria-label='additional help information'
+      aria-label={ children }
     >
       <Icon
         type='help'
@@ -78,7 +79,7 @@ Help.propTypes = {
   /** The unique id of the component (used with aria-describedby for accessibility) */
   helpId: PropTypes.string,
   /** Overrides the default tabindex of the component */
-  tabIndexOverride: PropTypes.string,
+  tabIndexOverride: PropTypes.number,
   /** Overrides the default 'as' attribute of the Help component */
   tagTypeOverride: PropTypes.string,
   /** Position of tooltip relative to target */

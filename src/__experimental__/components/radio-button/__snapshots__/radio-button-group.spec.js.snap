@@ -26,6 +26,10 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   width: 100%;
 }
 
+.c4 label {
+  vertical-align: middle;
+}
+
 .c8 {
   display: inline-block;
   position: relative;
@@ -228,15 +232,18 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   <div
     className="c1 c2"
   >
-    <label
+    <div
       className="c3 c4"
       data-element="label"
-      htmlFor="radio-button-group"
-      id="test-group-label"
       width={30}
     >
-      Test RadioButtonGroup Label
-    </label>
+      <label
+        htmlFor="radio-button-group"
+        id="test-group-label"
+      >
+        Test RadioButtonGroup Label
+      </label>
+    </div>
     <div
       checked={false}
       className="c5"
@@ -258,6 +265,8 @@ exports[`RadioButtonGroup renders as expected 1`] = `
           >
             <input
               aria-checked={false}
+              aria-describedby="rId-0-help"
+              aria-labelledby="rId-0-label"
               checked={false}
               className="c9 c10"
               id="rId-0"
@@ -316,6 +325,8 @@ exports[`RadioButtonGroup renders as expected 1`] = `
           >
             <input
               aria-checked={false}
+              aria-describedby="rId-1-help"
+              aria-labelledby="rId-1-label"
               checked={false}
               className="c9 c10"
               id="rId-1"

@@ -524,6 +524,8 @@ exports[`Switch base theme renders as expected 1`] = `
         className="c4 c5"
       >
         <input
+          aria-describedby="guid-12345-help"
+          aria-labelledby="guid-12345-label"
           className="c6 c7"
           id="guid-12345"
           role="checkbox"

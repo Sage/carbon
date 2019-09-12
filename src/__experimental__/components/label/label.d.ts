@@ -2,6 +2,7 @@ import * as React from 'react';
 
 export interface LabelPropTypes {
   children?: React.ReactNode;
+  labelId?: string;
   help?: string;
   helpIcon?: string;
   helpId?: string;

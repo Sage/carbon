@@ -130,7 +130,9 @@ describe('RadioButtonGroup', () => {
       const expectedLabelId = `${groupName}-label`;
 
       it('sets an appropriate label id (derived from groupname)', () => {
-        const label = wrapper.find(Label).first();
+        const label = wrapper.find(Label)
+          .first()
+          .find('label');
 
         expect(label.prop('id')).toEqual(expectedLabelId);
       });
