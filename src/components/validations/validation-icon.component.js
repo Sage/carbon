@@ -14,8 +14,7 @@ const ValidationIcon = ({
   size,
   iconId,
   isPartOfInput,
-  tooltipMessage,
-  tabIndexOverride
+  tooltipMessage
 }) => {
   let modernTooltipProps = {};
 
@@ -35,6 +34,7 @@ const ValidationIcon = ({
         context => (
           <ValidationIconStyle
             id={ iconId }
+            data-validation-type={ type }
             validationType={ type }
             role='tooltip'
             aria-label={ tooltipMessage }
@@ -46,7 +46,7 @@ const ValidationIcon = ({
               tooltipVisible={ context && (context.hasFocus || context.hasMouseOver) }
               type={ type }
               size={ size }
-              tabIndex={ tabIndexOverride }
+              tabIndex='0'
               { ...modernTooltipProps }
             />
           </ValidationIconStyle>
@@ -74,8 +74,7 @@ ValidationIcon.propTypes = {
 };
 
 ValidationIcon.defaultProps = {
-  theme: baseTheme,
-  tabIndexOverride: -1
+  theme: baseTheme
 };
 
 export default withTheme(ValidationIcon);
