@@ -39,6 +39,12 @@ class DateRange extends React.Component {
     forceUpdateTriggerToggle: false
   }
 
+  constructor(props) {
+    super(props);
+    this.startDateInputRef = React.createRef();
+    this.endDateInputRef = React.createRef();
+  }
+
   /** onChange function -triggers validations on both fields and updates opposing field when one changed. */
   _onChange = (changedDate, ev) => {
     const newValue = ev.target.value;
@@ -87,12 +93,12 @@ class DateRange extends React.Component {
 
   /** Handle focus on start date field */
   focusStart = () => {
-    this._endDate.closeDatePicker();
+    this.endDateInputRef.current.closeDatePicker();
   }
 
   /** Handle focus on end date field */
   focusEnd = () => {
-    this._startDate.closeDatePicker();
+    this.startDateInputRef.current.closeDatePicker();
   }
 
   startDateProps() {
@@ -137,10 +143,12 @@ class DateRange extends React.Component {
         <Date
           { ...this.startDateProps() } onFocus={ this.focusStart }
           data-element='start-date'
+          ref={ this.startDateInputRef }
         />
         <Date
           { ...this.endDateProps() } onFocus={ this.focusEnd }
           data-element='end-date'
+          ref={ this.endDateInputRef }
         />
       </StyledDateRange>
     );

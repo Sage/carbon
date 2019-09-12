@@ -7,7 +7,7 @@ import {
   text
 } from '@storybook/addon-knobs';
 import DateInput from './date.component';
-import Textbox from '../textbox';
+import { OriginalTextbox } from '../textbox';
 import getCommonTextboxStoryProps from '../textbox/textbox.stories';
 import { notes, info, infoValidations } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
@@ -17,7 +17,7 @@ DateInput.__docgenInfo = getDocGenInfo(
   /date\.component(?!spec)/
 );
 
-Textbox.__docgenInfo = getDocGenInfo(
+OriginalTextbox.__docgenInfo = getDocGenInfo(
   require('../textbox/docgenInfo.json'),
   /textbox\.component(?!spec)/
 );
@@ -53,7 +53,7 @@ storiesOf('Experimental/Date Input', module)
   }, {
     info: {
       text: info,
-      propTables: [Textbox],
+      propTables: [OriginalTextbox],
       propTablesExclude: [State],
       excludedPropTypes: ['children', 'leftChildren', 'inputIcon', 'placeholder', 'inputWidth']
     },
@@ -76,7 +76,8 @@ storiesOf('Experimental/Date Input', module)
     info: {
       source: false,
       text: infoValidations,
-      propTablesExclude: [DateInput, State]
+      propTables: [OriginalTextbox],
+      propTablesExclude: [State]
     }
   });
 

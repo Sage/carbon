@@ -37,15 +37,12 @@ describe('DateRange', () => {
 
     describe('when the end date changes', () => {
       it('calls the passed in onChange function', () => {
-        console.log(instance);
-        instance._onChange('endDate', { target: { value: '2016-11-16' } });
+        wrapper._onChange('endDate', { target: { value: '2016-11-16' } });
         expect(customOnChange).toHaveBeenCalledWith(['2016-10-10', '2016-11-16']);
       });
     });
 
     describe.each([['start-date'], ['end-date']])('when changed to an invalid date', (date) => {
-      let wrapper;
-
       beforeEach(() => {
         wrapper = renderDateRange({}, mount);
       });
@@ -60,8 +57,6 @@ describe('DateRange', () => {
     });
 
     describe.each([['start-date'], ['end-date']])('when changed to a valid date', (date) => {
-      let wrapper;
-
       beforeEach(() => {
         wrapper = renderDateRange({}, mount);
       });
@@ -78,13 +73,13 @@ describe('DateRange', () => {
 
   describe('startDate getter', () => {
     it('returns the start date', () => {
-      expect(instance.startDate).toEqual('2016-10-10');
+      expect(wrapper.startDate).toEqual('2016-10-10');
     });
   });
 
   describe('endDate getter', () => {
     it('returns the end date', () => {
-      expect(instance.endDate).toEqual('2016-11-11');
+      expect(wrapper.endDate).toEqual('2016-11-11');
     });
   });
 
@@ -100,7 +95,7 @@ describe('DateRange', () => {
         }
       };
 
-      expect(instance.startMessage).toEqual(I18n.t('errors.messages.date_range'));
+      expect(wrapper.startMessage).toEqual(I18n.t('errors.messages.date_range'));
     });
 
     describe('when a custom message is provided', () => {
@@ -143,7 +138,7 @@ describe('DateRange', () => {
         }
       };
 
-      expect(instance.endMessage).toEqual(I18n.t('errors.messages.date_range'));
+      expect(wrapper.endMessage).toEqual(I18n.t('errors.messages.date_range'));
     });
 
     describe('when a custom message is provided', () => {
@@ -176,17 +171,17 @@ describe('DateRange', () => {
 
   describe('focusStart', () => {
     it('closes the other datepicker', () => {
-      spyOn(instance._endDate, 'closeDatePicker');
-      instance.focusStart();
-      expect(instance._endDate.closeDatePicker).toHaveBeenCalled();
+      spyOn(wrapper._endDate, 'closeDatePicker');
+      wrapper.focusStart();
+      expect(wrapper._endDate.closeDatePicker).toHaveBeenCalled();
     });
   });
 
   describe('endDate', () => {
     it('closes the other datepicker', () => {
-      spyOn(instance._startDate, 'closeDatePicker');
-      instance.focusEnd();
-      expect(instance._startDate.closeDatePicker).toHaveBeenCalled();
+      spyOn(wrapper._startDate, 'closeDatePicker');
+      wrapper.focusEnd();
+      expect(wrapper._startDate.closeDatePicker).toHaveBeenCalled();
     });
   });
 
@@ -194,7 +189,7 @@ describe('DateRange', () => {
     let dates;
 
     beforeAll(() => {
-      dates = TestUtils.scryRenderedComponentsWithType(instance, Date);
+      dates = TestUtils.scryRenderedComponentsWithType(wrapper, Date);
     });
 
     it('renders 2 date components', () => {
@@ -321,7 +316,7 @@ describe('DateRange', () => {
 
   describe('tags', () => {
     describe('on component', () => {
-      const wrapper = renderDateRange({
+      wrapper = renderDateRange({
         'data-element': 'bar',
         'data-role': 'baz'
       });
@@ -332,7 +327,7 @@ describe('DateRange', () => {
     });
 
     describe('on internal elements', () => {
-      const wrapper = renderDateRange({});
+      wrapper = renderDateRange({});
 
       elementsTagTest(wrapper, [
         'start-date',
