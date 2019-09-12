@@ -7,6 +7,7 @@ import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import DefaultPages from './pages.component';
 import Page from './page/page.component';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import DialogFullScreen from '../dialog-full-screen';
 import Heading from '../heading/heading';
 import { OriginalButton } from '../button/button.component';
@@ -94,65 +95,11 @@ CustomState.propTypes = {
 
 const DialogState = props => new CustomState(props);
 const PageState = props => new CustomState(props);
-
 const indexConfig = [0, 1, 2];
 const pageIndex = () => select('pageIndex', indexConfig, indexConfig[0]);
 
-storiesOf('Pages', module)
-  .add('classic', () => {
-    return (
-      <ThemeProvider theme={ classic }>
-        <div>
-          <OriginalButton onClick={ handleOpen }>Open Preview</OriginalButton>
-          <DialogState>
-            <DialogFullScreen
-              open={ store.get('open') }
-              onCancel={ handleCancel }
-            >
-              <PageState>
-                <DefaultPages
-                  pageIndex={ handleSlide(null, pageIndex()) }
-                >
-                  <Page title={ <Heading title='My First Page' /> }>
-                    <OriginalButton onClick={ (ev) => { handleSlide(ev, 1); } }>
-                      Go to second page
-                    </OriginalButton>
-                    <OriginalButton onClick={ (ev) => { handleSlide(ev, 2); } }>
-                      Go to third page
-                    </OriginalButton>
-                  </Page>
-
-                  <Page title={ <Heading title='My Second Page' backLink={ handlePreviousSlide } /> }>
-                    <OriginalButton onClick={ (ev) => { handleSlide(ev, 0); } }>
-                      Go to first page
-                    </OriginalButton>
-                    <OriginalButton onClick={ (ev) => { handleSlide(ev, 2); } }>
-                      Go to third page
-                    </OriginalButton>
-                  </Page>
-
-                  <Page title={ <Heading title='My Third Page' backLink={ handlePreviousSlide } /> }>
-                    <OriginalButton onClick={ (ev) => { handleSlide(ev, 0); } }>
-                      Go to first page
-                    </OriginalButton>
-                    <OriginalButton onClick={ (ev) => { handleSlide(ev, 1); } }>
-                      Go to second page
-                    </OriginalButton>
-                  </Page>
-                </DefaultPages>
-              </PageState>
-            </DialogFullScreen>
-          </DialogState>
-        </div>
-      </ThemeProvider>
-    );
-  }, {
-    info: {
-      text: <p>Allows to slide to different pages in a full screen dialog.</p>,
-      propTablesExclude: [OriginalButton, DialogFullScreen, DialogState, PageState, DefaultPages, Page, State]
-    }
-  })
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     return (
       <div>
         <OriginalButton onClick={ handleOpen }>Open Preview</OriginalButton>
@@ -197,9 +144,19 @@ storiesOf('Pages', module)
         </DialogState>
       </div>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     info: {
       text: <p>Allows to slide to different pages in a full screen dialog.</p>,
       propTablesExclude: [OriginalButton, DialogFullScreen, DialogState, PageState, DefaultPages, Page, State]
     }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Pages', module)
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));

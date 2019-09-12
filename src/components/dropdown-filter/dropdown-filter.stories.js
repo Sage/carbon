@@ -8,6 +8,7 @@ import {
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
+import { classicThemeSelector } from '../../../.storybook/theme-selectors';
 import ImmutableHelper from '../../utils/helpers/immutable';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
@@ -65,7 +66,7 @@ storiesOf('Dropdown Filter', module)
       propTablesExclude: [State]
     }
   })
-  .add('default', () => {
+  .add('classic', () => {
     const props = defaultKnobs();
 
     return (
@@ -79,7 +80,8 @@ storiesOf('Dropdown Filter', module)
     );
   }, {
     info: { text: Info },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    themeSelector: classicThemeSelector
   })
   .add('with Create', () => {
     const props = defaultKnobs();
@@ -102,5 +104,6 @@ storiesOf('Dropdown Filter', module)
   }, {
     info: { text: Info },
     notes: { markdown: notes },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    themeSelector: classicThemeSelector
   });

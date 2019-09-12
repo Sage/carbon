@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, boolean, select } from '@storybook/addon-knobs';
 import { ThemeProvider } from 'styled-components';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import Profile, { OriginalProfile } from './profile.component';
 import { info, notes } from './documentation';
 import classicTheme from '../../style/themes/classic';
@@ -31,6 +32,7 @@ storiesOf('Profile', module)
     );
   },
   {
+    themeSelector: dlsThemeSelector,
     info: { text: info, propTablesExclude: [ThemeProvider] },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
@@ -53,6 +55,7 @@ storiesOf('Profile', module)
     );
   },
   {
+    themeSelector: classicThemeSelector,
     info: { text: info, propTablesExclude: [ThemeProvider] },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
