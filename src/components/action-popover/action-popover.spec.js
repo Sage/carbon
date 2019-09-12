@@ -24,6 +24,8 @@ describe('ActionPopover', () => {
   };
 
   const onClick = jest.fn();
+  const onOpen = jest.fn();
+  const onClose = jest.fn();
   const onClickWrapper = arg => () => onClick(arg);
 
   function render(props = {}, renderer = mount) {
@@ -39,6 +41,8 @@ describe('ActionPopover', () => {
         <ActionPopover.Divider />,
         <ActionPopover.Item icon='csv' { ...{ onClick: onClickWrapper('csv') } }>Download CSV</ActionPopover.Item>
       ],
+      onOpen,
+      onClose,
       ...props
     };
 
@@ -70,14 +74,19 @@ describe('ActionPopover', () => {
   beforeEach(() => {
     container.current = document.createElement('div');
     document.body.appendChild(container.current);
+    onClick.mockReset();
+    onOpen.mockReset();
+    onClose.mockReset();
   });
 
 
   afterEach(() => {
     document.body.removeChild(container.current);
     container.current = null;
-    wrapper.current = null;
-    onClick.mockReset();
+    if (wrapper.current) {
+      wrapper.current.unmount();
+      wrapper.current = null;
+    }
   });
 
   it('renders in ReactDOM', () => {
@@ -97,13 +106,23 @@ describe('ActionPopover', () => {
     expect(menubutton.prop('aria-label')).toBe('actions');
   });
 
-
   it('renders with the menu closed by default', () => {
     render();
     const { menu } = getElements();
     assertStyleMatch({
       display: 'none'
     }, menu);
+    expect(onOpen).not.toHaveBeenCalledTimes(1);
+    expect(onClose).not.toHaveBeenCalledTimes(1);
+  });
+
+  it('renders when there is no onOpen, onClose provided', () => {
+    expect(() => {
+      render({ onOpen: undefined, onClose: undefined });
+      const { menubutton } = getElements();
+      menubutton.simulate('click');
+      menubutton.simulate('click');
+    }).not.toThrow();
   });
 
   describe.each([
@@ -132,6 +151,7 @@ describe('ActionPopover', () => {
         assertStyleMatch({
           display: 'none'
         }, menu);
+        expect(onClose).toHaveBeenCalledTimes(1);
       });
 
       it(`${prefix} focuses the Menubutton`, () => {
@@ -156,6 +176,7 @@ describe('ActionPopover', () => {
         assertStyleMatch({
           display: 'block'
         }, menu);
+        expect(onClose).not.toHaveBeenCalled();
       });
 
       it(`${prefix} does not focus the Menubutton`, () => {
@@ -179,6 +200,7 @@ describe('ActionPopover', () => {
         assertStyleMatch({
           display: 'block'
         }, menu);
+        expect(onOpen).toHaveBeenCalledTimes(1);
       });
 
       it('Clicking focuses the first element', () => {
@@ -189,17 +211,23 @@ describe('ActionPopover', () => {
 
       it('Clicking closes the menu', () => {
         const { menubutton } = getElements();
-        menubutton.simulate('click');
+        act(() => {
+          menubutton.simulate('click');
+        });
 
+        act(() => {
+          wrapper.current.update();
+        });
         const { menu } = getElements();
         assertStyleMatch({
           display: 'none'
         }, menu);
+        expect(onClose).toHaveBeenCalledTimes(1);
       });
     });
 
     describe('document', () => {
-      it('Clicking on the component does not closes the menu using the document listener', () => {
+      it('Clicking on the component does not close the menu using the document listener', () => {
         // This test doesn't really replicate the functionality but it is useful to check that the document listener
         // is filtering based on what element is clicked
         // In a normal situation the React SynteticEvent will bubble and trigger a handler which will close the menu
@@ -225,6 +253,7 @@ describe('ActionPopover', () => {
         assertStyleMatch({
           display: 'block'
         }, menu);
+        expect(onClose).toHaveBeenCalledTimes(0);
       });
 
       it('Clicking elsewhere on the document closes the menu', () => {
@@ -249,6 +278,7 @@ describe('ActionPopover', () => {
         assertStyleMatch({
           display: 'none'
         }, menu);
+        expect(onClose).toHaveBeenCalledTimes(1);
       });
     });
   });
@@ -267,6 +297,7 @@ describe('ActionPopover', () => {
         assertStyleMatch({
           display: 'block'
         }, menu);
+        expect(onOpen).toHaveBeenCalledTimes(1);
       });
 
       it.each(
@@ -318,6 +349,7 @@ describe('ActionPopover', () => {
         assertStyleMatch({
           display: 'none'
         }, menu);
+        expect(onClose).toHaveBeenCalledTimes(1);
         // FIXME: Test pressing Tab moves focus to the next element
         // FIXME: Test pressing Shift+Tab moves focus to the previous element
         // It's not possible to test this in enzyme because JSDOM does not support user events. It's also not

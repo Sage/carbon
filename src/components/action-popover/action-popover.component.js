@@ -10,13 +10,25 @@ import Events from '../../utils/helpers/events';
 import createGuid from '../../utils/helpers/guid';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
-const ActionPopover = ({ children, id }) => {
-  const [isOpen, setOpen] = useState(false);
+const ActionPopover = ({
+  children, id, onOpen, onClose
+}) => {
+  const [isOpen, setOpenState] = useState(false);
   const [focusIndex, setFocusIndex] = useState(0);
   const [childrenWithRef, setChildrenWithRef] = useState();
   const [items, setItems] = useState();
   const [guid] = useState(createGuid());
   const button = useRef();
+
+  const setOpen = useCallback((value) => {
+    if (value && !isOpen) {
+      onOpen();
+    }
+    if (!value && isOpen) {
+      onClose();
+    }
+    setOpenState(value);
+  }, [isOpen, onOpen, onClose, setOpenState]);
 
   const onButtonClick = useCallback(() => {
     const isOpening = !isOpen;
@@ -28,7 +40,7 @@ const ActionPopover = ({ children, id }) => {
       // Closing the menu should focus the MenuButton
       button.current.focus();
     }
-  }, [isOpen]);
+  }, [setOpen, isOpen]);
 
   // Keyboard commands implemented as reccomended by WAI-ARIA best practices
   // https://www.w3.org/TR/wai-aria-practices/examples/menu-button/menu-button-actions.html
@@ -42,7 +54,7 @@ const ActionPopover = ({ children, id }) => {
       setFocusIndex(items.length - 1);
       setOpen(true);
     }
-  }), [isOpen, items, onButtonClick]);
+  }), [items, onButtonClick, setOpen]);
 
   const onKeyDown = useCallback(((e) => {
     if (Events.isTabKey(e) && Events.isShiftKey(e)) {
@@ -100,7 +112,7 @@ const ActionPopover = ({ children, id }) => {
         setFocusIndex(firstMatch);
       }
     }
-  }), [focusIndex, items]);
+  }), [focusIndex, items, setOpen]);
 
   useEffect(() => {
     const handler = (e) => {
@@ -117,7 +129,7 @@ const ActionPopover = ({ children, id }) => {
     return function cleanup() {
       document.removeEventListener(event, handler);
     };
-  });
+  }, [setOpen]);
 
   useEffect(() => {
     const itemsWithRef = [];
@@ -227,6 +239,8 @@ ActionPopover.Divider.displayName = 'ActionPopover.Divider';
 
 ActionPopover.propTypes = {
   id: PropTypes.string,
+  onOpen: PropTypes.func,
+  onClose: PropTypes.func,
   children (props, propName, componentName) {
     let error;
     const prop = props[propName];
@@ -242,6 +256,8 @@ ActionPopover.propTypes = {
   }
 };
 ActionPopover.defaultProps = {
-  id: null
+  id: null,
+  onOpen: () => {},
+  onClose: () => {}
 };
 export default ActionPopover;

@@ -3,6 +3,8 @@ import { IconTypes } from '../../utils/helpers/options-helper/options-helper';
 
 export interface ActionPopoverProps {
   id?: string;
+  onOpen?: () => void;
+  onClose?: () => void;
 }
 
 export interface ActionPopoverPropsItemProps {
