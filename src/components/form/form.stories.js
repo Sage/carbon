@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { boolean, text, select } from '@storybook/addon-knobs';
+import { classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import PresenceValidation from '../../utils/validations/presence';
 import notes from './documentation/notes.md';
@@ -21,7 +22,7 @@ storiesOf('Form', module)
       propTablesExclude: [Textbox]
     }
   })
-  .add('default', () => {
+  .add('classic', () => {
     const unsavedWarning = boolean('unsavedWarning', true);
     const save = boolean('save', true);
     const cancel = boolean('cancel', true);
@@ -68,5 +69,6 @@ storiesOf('Form', module)
     );
   }, {
     notes: { markdown: notes },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    themeSelector: classicThemeSelector
   });
