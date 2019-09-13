@@ -24,6 +24,7 @@ StyledCardRow.propTypes = {
 };
 
 StyledCardRow.defaultProps = {
+  spacing: 'medium',
   theme: BaseTheme
 };
 

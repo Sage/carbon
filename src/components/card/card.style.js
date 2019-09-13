@@ -38,6 +38,7 @@ const StyledCard = styled.button`
 
 StyledCard.defaultProps = {
   cardWidth: '500px',
+  spacing: 'medium',
   theme: baseTheme
 };
 

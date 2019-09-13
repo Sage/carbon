@@ -22,24 +22,24 @@ const paddingSizes = {
 
 const StyledCardFooter = styled.div`
   ${({ spacing, theme }) => css`
-      background-color: ${theme.card.footerBackground};
-      border-top: ${theme.card.footerBorder};
-      font-size: 14px;
-      font-weight: 600;
-      margin: ${marginSizes[spacing]};
-      display: flex;
+    background-color: ${theme.card.footerBackground};
+    border-top: ${theme.card.footerBorder};
+    font-size: 14px;
+    font-weight: 600;
+    margin: ${marginSizes[spacing]};
+    display: flex;
 
-      ${StyledCardColumn} {
-        margin: 0;
-        color: ${theme.card.footerText};
-        padding: ${paddingSizes[spacing]};
-      }
+    ${StyledCardColumn} {
+      margin: 0;
+      color: ${theme.card.footerText};
+      padding: ${paddingSizes[spacing]};
+    }
 
-      ${LinkStyleAnchor},
-      ${StyledIcon},
-      ${StyledIcon}:before {
-        color: ${theme.card.footerText};
-      }
+    ${LinkStyleAnchor},
+    ${StyledIcon},
+    ${StyledIcon}:before {
+      color: ${theme.card.footerText};
+    }
   `}
 `;
 
@@ -48,6 +48,7 @@ StyledCardFooter.propTypes = {
 };
 
 StyledCardFooter.defaultProps = {
+  spacing: 'medium',
   theme: BaseTheme
 };
 
