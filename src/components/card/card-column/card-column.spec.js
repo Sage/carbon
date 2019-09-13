@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import CardColumn from './card-column.component';
+import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import 'jest-styled-components';
 
@@ -19,7 +20,7 @@ describe('CardColumn', () => {
     });
   });
 
-  describe.each(['left', 'center', 'right'])('when the "align" prop is set to %s', (align) => {
+  describe.each(OptionsHelper.alignFull)('when the "align" prop is set to %s', (align) => {
     it(`then the text-align should be set to ${align}`, () => {
       const wrapper = renderCardColumn({ align }, TestRenderer.create);
 

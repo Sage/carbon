@@ -22,9 +22,7 @@ const CardRow = ({
 CardRow.propTypes = {
   children: PropTypes.node.isRequired,
   /** size of card for applying margin (small | medium | large) */
-  spacing: PropTypes.oneOf(OptionsHelper.sizesRestricted),
-  /** display card content inline */
-  inline: PropTypes.bool
+  spacing: PropTypes.oneOf(OptionsHelper.sizesRestricted)
 };
 
 export default CardRow;
