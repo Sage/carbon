@@ -129,6 +129,10 @@ const StyledRadioButtonGroup = styled.div`
       margin-bottom: 16px;
       padding: 0;
 
+      > label {
+        vertical-align: middle;
+      }
+
       & ${ValidationIconStyle} {
         margin-top: 0;
         margin-right: 0;

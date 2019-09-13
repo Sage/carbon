@@ -26,7 +26,6 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   width: 100%;
 }
 
-.c4 label,
 .c4 .c14,
 .c4 .c15 {
   vertical-align: middle;
@@ -216,6 +215,10 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   cursor: default;
   margin-bottom: 16px;
   padding: 0;
+}
+
+.c0 > .c1 > .c3 > label {
+  vertical-align: middle;
 }
 
 .c0 > .c1 > .c3 .c15 {
