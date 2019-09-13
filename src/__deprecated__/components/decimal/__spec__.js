@@ -3,10 +3,10 @@ import I18n from 'i18n-js';
 import { shallow } from 'enzyme';
 import TestUtils from 'react-dom/test-utils';
 import Decimal from './decimal';
-import Events from './../../utils/helpers/events';
-import I18nHelper from './../../utils/helpers/i18n';
-import PropTypesHelper from '../../utils/helpers/prop-types';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import Events from './../../../utils/helpers/events';
+import I18nHelper from './../../../utils/helpers/i18n';
+import PropTypesHelper from '../../../utils/helpers/prop-types';
+import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 
 describe('Decimal', () => {
   let instance;

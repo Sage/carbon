@@ -1,18 +1,18 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text } from '@storybook/addon-knobs';
-import { classicThemeSelector } from '../../../.storybook/theme-selectors';
+import { classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import notes from './documentation/notes.md';
 import Fieldset from './fieldset';
-import Textbox from '../../__deprecated__/components/textbox';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
+import Textbox from '../textbox';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 Fieldset.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
   /fieldset(?!spec)/
 );
 
-storiesOf('Fieldset', module)
+storiesOf('__deprecated__/Fieldset', module)
   .addParameters({
     info: {
       propTablesExclude: [Textbox]
