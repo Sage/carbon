@@ -2,7 +2,7 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Number from './number';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 
 describe('Number', () => {
   let instance, input,

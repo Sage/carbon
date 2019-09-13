@@ -1,5 +1,5 @@
 import GroupedCharacter from './';
-import Definition from './../../../demo/utils/definition';
+import Definition from './../../../../demo/utils/definition';
 
 let definition = new Definition('grouped-character', GroupedCharacter, {
   hiddenProps: ["groups"],
