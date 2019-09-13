@@ -33,7 +33,7 @@ storiesOf('__deprecated__/Textbox', module)
     themeSelector: classicThemeSelector
   })
   .add(
-    'default',
+    'classic',
     () => {
       const rangeOptions = {
         range: true,

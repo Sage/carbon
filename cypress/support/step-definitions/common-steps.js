@@ -43,7 +43,7 @@ Given('I open {string} component for classic story in iframe', (component) => {
 });
 
 Given('I open deprecated {string} component iframe', (component) => {
-  visitComponentUrl(component, 'default', true, 'deprecated-');
+  visitComponentUrl(component, 'classic', true, 'deprecated-');
 });
 
 Given('I open {string} component with button page in iframe', (component) => {

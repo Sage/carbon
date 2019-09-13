@@ -6,19 +6,19 @@ import {
   select,
   boolean
 } from '@storybook/addon-knobs';
-import { classicThemeSelector } from '../../../.storybook/theme-selectors';
+import { classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import Number from './number';
 import notes from './notes.md';
-import OptionsHelper from '../../utils/helpers/options-helper';
-import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
+import OptionsHelper from '../../../utils/helpers/options-helper';
+import { StoryHeader, StoryCode } from '../../../../.storybook/style/storybook-info.styles';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 Number.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
   /number(?!spec)/
 );
 
-storiesOf('Number Input', module)
+storiesOf('__deprecated__/Number Input', module)
   .add('classic', () => {
     const inputWidth = text('inputWidth', '');
     const timeToDisappear = number('timeToDisappear', 0);

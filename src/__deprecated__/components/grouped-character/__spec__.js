@@ -1,7 +1,7 @@
 import React from 'react';
 import GroupedCharacter from './grouped-character';
 import { mount, shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 
 describe('GroupedCharacter', () => {
   let wrapper, input;
