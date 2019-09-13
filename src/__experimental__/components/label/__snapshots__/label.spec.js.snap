@@ -10,7 +10,9 @@ exports[`Label renders the label 1`] = `
   width: 100%;
 }
 
-.c0 label {
+.c0 label,
+.c0 .sc-EHOje,
+.c0 .sc-gzVnrw {
   vertical-align: middle;
 }
 

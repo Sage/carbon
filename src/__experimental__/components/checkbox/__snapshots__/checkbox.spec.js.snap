@@ -32,24 +32,24 @@ exports[`Checkbox base theme renders as expected 1`] = `
   flex-wrap: wrap;
 }
 
-.c1 .c24 {
+.c1 .c25 {
   text-align: left;
   width: auto;
   white-space: nowrap;
   margin-top: -2px;
 }
 
-.c1 .c24 .c25,
-.c1 .c24 .sc-htoDjs {
+.c1 .c25 .c24,
+.c1 .c25 .sc-gzVnrw {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c1 .c24 .c25:hover,
-.c1 .c24 .sc-htoDjs:hover,
-.c1 .c24 .c25:focus,
-.c1 .c24 .sc-htoDjs:focus {
+.c1 .c25 .c24:hover,
+.c1 .c25 .sc-gzVnrw:hover,
+.c1 .c25 .c24:focus,
+.c1 .c25 .sc-gzVnrw:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -74,9 +74,9 @@ exports[`Checkbox base theme renders as expected 1`] = `
 }
 
 .c10 .c6:hover,
-.c10 .c24:hover,
+.c10 .c25:hover,
 .c10 .c6:focus,
-.c10 .c24:focus {
+.c10 .c25:focus {
   outline: none;
   cursor: not-allowed;
 }
@@ -106,9 +106,9 @@ exports[`Checkbox base theme renders as expected 1`] = `
 }
 
 .c12 .c6:hover,
-.c12 .c24:hover,
+.c12 .c25:hover,
 .c12 .c6:focus,
-.c12 .c24:focus {
+.c12 .c25:focus {
   outline: none;
   cursor: not-allowed;
 }
@@ -578,7 +578,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c0 .c24 {
+.c0 .c25 {
   padding: 0 6px;
   width: auto;
 }
