@@ -18,7 +18,7 @@ export function visitComponentUrl(component, suffix = 'default', iFrameOnly = fa
 }
 
 export function visitComponentUrlByTheme(component, theme, sufix = '') {
-  cy.visit(`${prepareUrl(component, 'default', true)}&theme=${theme}${sufix}`);
+  cy.visit(`${prepareUrl(component, 'default', true, '')}&theme=${theme}${sufix}`);
 }
 
 export function clickActionsTab(iFrameOnly = false) {
