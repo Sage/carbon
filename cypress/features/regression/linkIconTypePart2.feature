@@ -64,9 +64,9 @@ Feature: Link component
       | white-tick        |
 
   @positive
-  Scenario Outline: Change type of icon for a Link component to <icon>
-    When I select icon to "<icon>"
-    Then icon on link componenent preview is "<icon>"
+  Scenario Outline: Change type of icon for a Link component to <iconName>
+    When I select icon to "<iconName>"
+    Then icon on link componenent preview is "<iconDataElement>"
     Examples:
       | iconName          | iconDetaElement |
       | messages          | message         |
