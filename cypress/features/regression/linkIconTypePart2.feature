@@ -68,5 +68,5 @@ Feature: Link component
     When I select icon to "<iconName>"
     Then icon on link componenent preview is "<iconDataElement>"
     Examples:
-      | iconName          | iconDetaElement |
+      | iconName          | iconDataElement |
       | messages          | message         |

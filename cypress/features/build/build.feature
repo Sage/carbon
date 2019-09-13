@@ -40,6 +40,7 @@ Feature: Build tests
     Then "<data-component>" component is visible
     Examples:
       | component            | data-component       |
+      | action-popover       | action-popover       |
       | animated menu button | animated-menu-button |
       | app wrapper          | app-wrapper          |
       | button toggle group  | button-toggle-group  |
