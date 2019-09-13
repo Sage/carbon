@@ -2,13 +2,8 @@ import React from 'react';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { shallow, mount } from 'enzyme';
 import BasePages, { Page } from './pages.component';
-import Heading from '../heading/heading';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
-import {
-  PagesContent
-} from './pages.style';
 import classicTheme from '../../style/themes/classic';
-import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import 'jest-styled-components';
 
 describe('BasePages', () => {
@@ -185,33 +180,6 @@ describe('BasePages', () => {
 
       const transitionGroup = wrapper.find(CSSTransitionGroup);
       expect(transitionGroup.props().transitionName).toEqual('carousel-transition-foo');
-    });
-  });
-});
-
-describe('PagesWrapperStyle', () => {
-  const wrapper = mount(
-    <BasePages
-      theme={ classicTheme }
-      transition='foo'
-    >
-      <Page
-        title={ (
-          <Heading
-            title='My Second Page'
-            backLink='back link'
-          />
-        ) }
-      />
-    </BasePages>
-  ).find(PagesContent).first();
-
-  describe('PagesContent', () => {
-    it('should render matched styles for PagesContent', () => {
-      assertStyleMatch({
-        overflow: 'hidden',
-        position: 'relative'
-      }, wrapper);
     });
   });
 });

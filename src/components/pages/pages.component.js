@@ -80,7 +80,6 @@ class Pages extends React.Component {
     index = visiblePage.props.id || index;
 
     const additionalProps = {
-      className: visiblePage.props.className,
       'data-element': 'visible-page',
       key: `carbon-page-${index}`
     };
