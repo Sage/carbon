@@ -14,7 +14,6 @@ const CardFooter = ({
       key='card-footer'
       data-element='card-footer'
       spacing={ spacing }
-      positionType='footer'
     >
       { children }
     </StyledCardFooter>
@@ -25,10 +24,6 @@ CardFooter.propTypes = {
   children: PropTypes.node.isRequired,
   /** size of card for applying padding (small | medium | large) */
   spacing: PropTypes.oneOf(sizesRestricted)
-};
-
-CardFooter.defaultProps = {
-  spacing: 'medium'
 };
 
 export default CardFooter;

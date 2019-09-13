@@ -15,7 +15,7 @@ const Card = ({
   spacing
 }) => {
   const handleClick = (ev) => {
-    if (!draggable) {
+    if (!draggable && action) {
       action(ev);
     }
   };
@@ -24,7 +24,7 @@ const Card = ({
     return React.Children.map(children, child => React.cloneElement(child, { spacing }));
   };
 
-  const onClickHandler = (interactive && action) ? handleClick : null;
+  const onClickHandler = (interactive) ? handleClick : null;
 
   return (
     <StyledCard
@@ -54,10 +54,6 @@ Card.propTypes = {
   draggable: PropTypes.bool,
   /** size of card for applying padding (small | medium | large) */
   spacing: PropTypes.oneOf(sizesRestricted)
-};
-
-Card.defaultProps = {
-  spacing: 'medium'
 };
 
 export default Card;

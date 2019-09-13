@@ -5,14 +5,12 @@ import OptionsHelper from '../../../utils/helpers/options-helper/options-helper'
 
 const CardRow = ({
   children,
-  inline,
   spacing,
   ...props
 }) => {
   return (
     <StyledCardRow
       data-element='card-row'
-      inline={ inline }
       spacing={ spacing }
       { ...props }
     >
@@ -27,10 +25,6 @@ CardRow.propTypes = {
   spacing: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   /** display card content inline */
   inline: PropTypes.bool
-};
-
-CardRow.defaultProps = {
-  spacing: 'medium'
 };
 
 export default CardRow;
