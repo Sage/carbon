@@ -1,0 +1,34 @@
+{
+  "src/components/action-popover/action-popover.component.js": [
+    {
+      "description": "",
+      "displayName": "ActionPopover",
+      "methods": [],
+      "props": {
+        "id": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "",
+          "defaultValue": {
+            "value": "null",
+            "computed": false
+          }
+        },
+        "children": {
+          "type": {
+            "name": "custom",
+            "raw": "function(props, propName, componentName) {\n  let error;\n  const prop = props[propName];\n\n  React.Children.forEach(prop, (child) => {\n    if (![ActionPopover.Item.displayName, ActionPopover.Divider.displayName].includes(child.type.displayName)) {\n      error = new Error(`\\`${componentName}\\` only accepts children of type \\`${ActionPopover.Item.displayName}\\` and \n      \\`${ActionPopover.Divider.displayName}\\`.`);\n    }\n  });\n\n  return error;\n}"
+          },
+          "required": false,
+          "description": ""
+        }
+      }
+    },
+    {
+      "description": "",
+      "methods": []
+    }
+  ]
+}
