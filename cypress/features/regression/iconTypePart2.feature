@@ -64,9 +64,9 @@ Feature: Icon component
       | white-tick        |
 
   @positive
-  Scenario Outline: Change type to <type>
-    When I select type to "<type>"
-    Then icon on preview is "<type>"
+  Scenario Outline: Change type to <iconName>
+    When I select type to "<iconName>"
+    Then icon on preview is "<iconDetaElement>"
     Examples:
       | iconName          | iconDetaElement |
       | messages          | message         |
