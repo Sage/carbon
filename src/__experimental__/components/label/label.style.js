@@ -4,6 +4,8 @@ import BaseTheme from '../../../style/themes/base';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import sizes from '../input/input-sizes.style';
 import InputIconToggleStyle from '../input-icon-toggle/input-icon-toggle.style';
+import StyledHelpIcon from '../../../components/help/help.style';
+import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 import { isClassic } from '../../../utils/helpers/style-helper';
 
 const LabelStyle = styled.div`
@@ -14,7 +16,9 @@ const LabelStyle = styled.div`
   padding-bottom: 8px;
   width: 100%;
 
-  label {
+  label,
+  ${StyledHelpIcon},
+  ${StyledValidationIcon} {
     vertical-align: middle;
   }
 
