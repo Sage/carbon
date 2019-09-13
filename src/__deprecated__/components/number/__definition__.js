@@ -1,5 +1,5 @@
 import NumberInput from './';
-import Definition from './../../../demo/utils/definition';
+import Definition from './../../../../demo/utils/definition';
 
 const definition = new Definition('number-input', NumberInput, {
   description: 'Captures a whole number (not a decimal or currency value).',
