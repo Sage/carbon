@@ -1,5 +1,5 @@
 import Textarea from './';
-import Definition from './../../../demo/utils/definition';
+import Definition from '../../../../demo/utils/definition';
 
 let definition = new Definition('textarea', Textarea, {
   description: `Captures more than one line of text.`,

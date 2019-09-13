@@ -10,7 +10,7 @@ import {
   PagerLinkStyles
 } from './pager.styles';
 import Icon from '../icon';
-import NumberComponent from '../number';
+import NumberComponent from '../../__deprecated__/components/number';
 import NumberInput from '../../__experimental__/components/number';
 import Events from '../../utils/helpers/events';
 import baseTheme from '../../style/themes/base';
