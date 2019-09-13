@@ -5,6 +5,7 @@ import Browser from '../../utils/helpers/browser';
 import Icon from '../icon';
 import Modal from '../modal';
 import Heading from '../heading';
+import Form from '../form';
 import ElementResize from '../../utils/helpers/element-resize';
 import { generateKeysForChildren } from '../../utils/ether';
 import {
@@ -181,23 +182,15 @@ class Dialog extends Modal {
     return null;
   }
 
-  /** Clone the children, pass in value of appliedFixedBottom to toggle style if child is form */
   renderChildren() {
-    const { children } = this.props;
+    return React.Children.map(this.props.children, (child) => {
+      if (child && child.type === Form) {
+        return React.cloneElement(child, {
+          fixedBottom: this.appliedFixedBottom
+        });
+      }
 
-    if (!children) return null;
-
-    if (typeof children !== 'object') return children;
-
-    const childrenArray = Array.isArray(children) ? children : [children];
-    this.childKeys = generateKeysForChildren(childrenArray);
-
-    return childrenArray.filter(Boolean).map((child, index) => {
-      return React.cloneElement(child, {
-        ...child.props,
-        key: this.childKeys[index],
-        fixedBottom: this.appliedFixedBottom
-      });
+      return child;
     });
   }
 
