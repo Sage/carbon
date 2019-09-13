@@ -88,13 +88,12 @@ exports[`Create classic renders to match the expected style 1`] = `
 }
 
 <div
-  className=""
+  className="c0 "
   data-component="link"
   disabled={false}
 >
   <a
-    className="c0 c1"
-    data-component="link"
+    className="c1"
     onKeyDown={[Function]}
     tabIndex="0"
   >

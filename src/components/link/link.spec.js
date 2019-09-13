@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import 'jest-styled-components';
+import { ThemeProvider } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
 import { Link as RouterLink } from 'react-router';
 import Link from './link.component';
@@ -17,6 +18,14 @@ const render = (props) => {
   return TestRenderer.create(<Link { ...props }>test</Link>);
 };
 
+function renderWithTheme(props, theme, renderer = TestRenderer.create) {
+  return renderer(
+    <ThemeProvider theme={ theme }>
+      <Link { ...props }>test</Link>
+    </ThemeProvider>
+  );
+}
+
 describe('Link', () => {
   let wrapper;
 
@@ -30,7 +39,7 @@ describe('Link', () => {
 
   describe('when component has classic theme', () => {
     it('should render correct style', () => {
-      expect(render({ theme: classicTheme })).toMatchSnapshot();
+      expect(renderWithTheme({}, classicTheme)).toMatchSnapshot();
     });
   });
 

@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { assign } from 'lodash';
 import { Link as RouterLink } from 'react-router';
 import Icon from '../icon';
-import { validProps } from '../../utils/ether';
 import Event from '../../utils/helpers/events';
-import tagComponent from '../../utils/helpers/tags';
 import { LinkStyle, LinkStyleAnchor } from './link.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
@@ -53,19 +50,17 @@ class Link extends React.Component {
   }
 
   get componentProps() {
-    let { ...props } = validProps(this);
-    props.tabIndex = this.tabIndex;
+    const {
+      disabled,
+      iconAlign
+    } = this.props;
 
-    props = assign({}, props, tagComponent('link', this.props));
-
-    delete props.href;
-    delete props.tabbable;
-    delete props.to;
-
-    props.className = this.props.className;
-    props.onKeyDown = this.onKeyDown;
-    props.iconAlign = this.props.iconAlign;
-    return props;
+    return {
+      disabled,
+      iconAlign,
+      onKeyDown: this.onKeyDown,
+      tabIndex: this.tabIndex
+    };
   }
 
   /**
@@ -84,10 +79,16 @@ class Link extends React.Component {
   }
 
   renderLink() {
+    const {
+      href,
+      to
+    } = this.props;
+
     if (this.props.to) {
       return (
         <LinkStyleAnchor
-          as={ RouterLink } to={ this.props.to }
+          as={ RouterLink }
+          to={ to }
           { ...this.componentProps }
         >
           {this.renderLinkContent()}
@@ -96,16 +97,24 @@ class Link extends React.Component {
     }
 
     return (
-      <LinkStyleAnchor href={ this.props.href } { ...this.componentProps }>
+      <LinkStyleAnchor
+        href={ href }
+        { ...this.componentProps }
+      >
         {this.renderLinkContent()}
       </LinkStyleAnchor>
     );
   }
 
   render() {
+    const { disabled, className, onClick } = this.props;
+
     return (
       <LinkStyle
-        data-component='link' disabled={ this.props.disabled }
+        data-component='link'
+        disabled={ disabled }
+        className={ className }
+        onClick={ onClick }
       >
         {this.renderLink()}
       </LinkStyle>
