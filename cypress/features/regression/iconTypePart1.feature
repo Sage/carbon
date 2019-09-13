@@ -65,9 +65,9 @@ Feature: Icon component
       | fax               |
 
   @positive
-  Scenario Outline: Change type to <type>
-    When I select type to "<type>"
-    Then icon on preview is "<type>"
+  Scenario Outline: Change type to <iconName>
+    When I select type to "<iconName>"
+    Then icon on preview is "<iconDataElement>"
     Examples:
       | iconName          | iconDataElement |
       | email             | message         |

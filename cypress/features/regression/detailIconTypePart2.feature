@@ -66,7 +66,7 @@ Feature: Detail component
   @positive
   Scenario Outline: Change Detail icon to <iconName>
     When I set detail icon to "<iconName>"
-    Then icon on preview is "<iconName>"
+    Then icon on preview is "<iconDetaElement>"
     Examples:
       | iconName          | iconDetaElement |
       | messages          | message         |
