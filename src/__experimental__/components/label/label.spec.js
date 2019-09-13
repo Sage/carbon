@@ -10,6 +10,8 @@ import classicTheme from '../../../style/themes/classic';
 import baseTheme from '../../../style/themes/base';
 import smallTheme from '../../../style/themes/small';
 
+const validationTypes = ['hasError', 'hasWarning', 'hasInfo'];
+
 function render(props, renderer = shallow) {
   return renderer(
     <Label { ...props }>
@@ -70,49 +72,19 @@ describe('Label', () => {
     });
   });
 
-  describe('when error', () => {
-    it('applies error color', () => {
+  describe('with readonly', () => {
+    it('applies disabled color', () => {
       assertStyleMatch({
-        color: baseTheme.colors.error
-      }, render({ hasError: true }, TestRenderer.create).toJSON());
-    });
-
-    describe('with readonly', () => {
-      it('applies disabled color', () => {
-        assertStyleMatch({
-          color: baseTheme.text.color
-        }, render({ hasError: true, readOnly: true }, TestRenderer.create).toJSON());
-      });
-    });
-
-    describe('with disabled', () => {
-      it('applies disabled color', () => {
-        assertStyleMatch({
-          color: baseTheme.disabled.disabled
-        }, render({ hasError: true, disabled: true }, TestRenderer.create).toJSON());
-      });
+        color: baseTheme.text.color
+      }, render({ hasError: true, readOnly: true }, TestRenderer.create).toJSON());
     });
   });
 
-  describe('when warning', () => {
-    it('applies warning color', () => {
-      const wrapper = render({
-        hasWarning: true,
-        useValidationIcon: true,
-        tooltipMessage: 'Warning!'
-      }, TestRenderer.create).toJSON();
-
+  describe('with disabled', () => {
+    it('applies disabled color', () => {
       assertStyleMatch({
-        color: baseTheme.colors.warning
-      }, wrapper);
-    });
-  });
-
-  describe('when info', () => {
-    it('applies info color', () => {
-      assertStyleMatch({
-        color: baseTheme.colors.info
-      }, render({ hasInfo: true, useValidationIcon: true, tooltipMessage: 'Info' }, TestRenderer.create).toJSON());
+        color: baseTheme.disabled.disabled
+      }, render({ hasError: true, disabled: true }, TestRenderer.create).toJSON());
     });
   });
 
@@ -152,9 +124,9 @@ describe('Label', () => {
     });
   });
 
-  describe('when hasError === true', () => {
+  describe.each(validationTypes)('when prop %s === true', (vType) => {
     it('show validation icon', () => {
-      const wrapper = render({ hasError: true, useValidationIcon: true, tooltipMessage: 'Error!' }, mount);
+      const wrapper = render({ [vType]: true, useValidationIcon: true, tooltipMessage: 'Message!' }, mount);
       const icon = wrapper.find(ValidationIcon);
 
       expect(icon.exists()).toEqual(true);

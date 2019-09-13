@@ -16,7 +16,7 @@ exports[`HiddenCheckableInput renders as expected 1`] = `
   className="c0"
   name="test-name"
   role="test-type"
-  tabIndex="0"
+  tabIndex={0}
   type="test-type"
   value="test-value"
 />

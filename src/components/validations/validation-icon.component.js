@@ -9,10 +9,10 @@ import { isClassic } from '../../utils/helpers/style-helper';
 import baseTheme from '../../style/themes/base';
 
 const ValidationIcon = ({
-  iconId,
   theme,
   type,
   size,
+  iconId,
   isPartOfInput,
   tooltipMessage
 }) => {
@@ -34,10 +34,10 @@ const ValidationIcon = ({
         context => (
           <ValidationIconStyle
             id={ iconId }
-            type='button'
             data-validation-type={ type }
             validationType={ type }
-            aria-label='additional validation information'
+            role='tooltip'
+            aria-label={ tooltipMessage }
           >
             <Icon
               key={ `${type}-icon` }
@@ -46,6 +46,7 @@ const ValidationIcon = ({
               tooltipVisible={ context && (context.hasFocus || context.hasMouseOver) }
               type={ type }
               size={ size }
+              tabIndex='0'
               { ...modernTooltipProps }
             />
           </ValidationIconStyle>

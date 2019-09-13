@@ -33,9 +33,9 @@ exports[`RadioButton styles base renders as expected 1`] = `
 }
 
 .c9 .c6:hover,
-.c9 .c21:hover,
+.c9 .c23:hover,
 .c9 .c6:focus,
-.c9 .c21:focus {
+.c9 .c23:focus {
   outline: none;
   cursor: not-allowed;
 }
@@ -50,21 +50,24 @@ exports[`RadioButton styles base renders as expected 1`] = `
   flex-wrap: wrap;
 }
 
-.c1 .c21 {
+.c1 .c23 {
   text-align: left;
   width: auto;
   white-space: nowrap;
   margin-top: -2px;
 }
 
-.c1 .c21 .c22 {
+.c1 .c23 .c21,
+.c1 .c23 .c22 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c1 .c21 .c22:hover,
-.c1 .c21 .c22:focus {
+.c1 .c23 .c21:hover,
+.c1 .c23 .c22:hover,
+.c1 .c23 .c21:focus,
+.c1 .c23 .c22:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -79,9 +82,9 @@ exports[`RadioButton styles base renders as expected 1`] = `
 }
 
 .c10 .c6:hover,
-.c10 .c21:hover,
+.c10 .c23:hover,
 .c10 .c6:focus,
-.c10 .c21:focus {
+.c10 .c23:focus {
   outline: none;
   cursor: not-allowed;
 }
@@ -882,7 +885,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c0 .c21 {
+.c0 .c23 {
   padding: 0 6px;
   width: auto;
 }
@@ -893,7 +896,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
   padding-left: 6px;
 }
 
-.c0 .c23 {
+.c0 .c22 {
   display: inline-block;
   margin-left: 8px;
   padding: 1px;
@@ -951,6 +954,8 @@ exports[`RadioButton styles base renders as expected 1`] = `
         className="c4 c5"
       >
         <input
+          aria-describedby="guid-12345-help"
+          aria-labelledby="guid-12345-label"
           className="c6 c7"
           id="guid-12345"
           onChange={[Function]}

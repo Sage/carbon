@@ -3,7 +3,7 @@ import BaseTheme from '../../style/themes/base';
 import { StyledIcon } from '../icon/icon.style';
 import { isClassic } from '../../utils/helpers/style-helper';
 
-const ValidationIconStyle = styled.button`
+const ValidationIconStyle = styled.div`
   background: none;
   cursor: pointer;
   display: flex;
@@ -20,9 +20,6 @@ const ValidationIconStyle = styled.button`
   }
 
   ${({ theme }) => isClassic(theme) && css`
-    margin-right: -2px;
-    margin-top: -1px;
-
     ${StyledIcon}:before {
       font-size: 20px;
     }

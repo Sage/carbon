@@ -26,6 +26,11 @@ exports[`CheckboxGroup renders as expected 1`] = `
   width: 100%;
 }
 
+.c4 .c14,
+.c4 .c15 {
+  vertical-align: middle;
+}
+
 .c8 {
   display: inline-block;
   position: relative;
@@ -48,14 +53,17 @@ exports[`CheckboxGroup renders as expected 1`] = `
   margin-top: -2px;
 }
 
-.c6 .c3 .c14 {
+.c6 .c3 .c14,
+.c6 .c3 .c15 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
 .c6 .c3 .c14:hover,
-.c6 .c3 .c14:focus {
+.c6 .c3 .c15:hover,
+.c6 .c3 .c14:focus,
+.c6 .c3 .c15:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -176,14 +184,17 @@ exports[`CheckboxGroup renders as expected 1`] = `
   <div
     className="c1 c2"
   >
-    <label
+    <div
       className="c3 c4"
       data-element="label"
-      htmlFor="group-radio-buttons"
       width={30}
     >
-      Test CheckboxGroup Label
-    </label>
+      <label
+        htmlFor="group-radio-buttons"
+      >
+        Test CheckboxGroup Label
+      </label>
+    </div>
     <div
       checked={false}
       className="c5"
@@ -205,6 +216,8 @@ exports[`CheckboxGroup renders as expected 1`] = `
           >
             <input
               aria-checked={false}
+              aria-describedby="cId-required-help"
+              aria-labelledby="cId-required-label"
               checked={false}
               className="c9 c10"
               id="cId-required"
@@ -256,6 +269,8 @@ exports[`CheckboxGroup renders as expected 1`] = `
           >
             <input
               aria-checked={false}
+              aria-describedby="cId-optional-help"
+              aria-labelledby="cId-optional-label"
               checked={false}
               className="c9 c10"
               id="cId-optional"

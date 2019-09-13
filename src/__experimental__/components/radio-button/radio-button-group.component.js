@@ -19,7 +19,6 @@ const RadioButtonGroup = (props) => {
   const groupLabelId = `${groupName}-label`;
 
   const buttons = React.Children.map(children, (child, index) => {
-    const key = child.props.key || child.props.value;
     const checked = selectedValue === child.props.value;
     const tabindex = selectedValue ? checkedTabIndex(checked) : initialTabIndex(index);
 
@@ -33,7 +32,6 @@ const RadioButtonGroup = (props) => {
       {
         checked,
         inputName: groupName,
-        key,
         onChange: handleChange,
         tabindex
       }

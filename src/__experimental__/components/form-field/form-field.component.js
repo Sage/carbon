@@ -17,6 +17,7 @@ const FormField = ({
   helpTag,
   helpTabIndex,
   label,
+  labelId,
   labelAlign,
   labelHelp,
   labelHelpIcon,
@@ -36,6 +37,7 @@ const FormField = ({
 
     {label && (
       <Label
+        labelId={ labelId }
         align={ labelAlign }
         disabled={ disabled }
         readOnly={ readOnly }
@@ -88,12 +90,13 @@ FormField.propTypes = {
   fieldHelpInline: PropTypes.bool,
   hasError: PropTypes.bool,
   hasWarning: PropTypes.bool,
-  hasInfo: PropTypes.bool,
   helpId: PropTypes.string,
+  hasInfo: PropTypes.bool,
   helpTag: PropTypes.string,
   helpTabIndex: PropTypes.string,
   isOptional: PropTypes.bool,
   label: PropTypes.node,
+  labelId: PropTypes.string,
   labelAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
   labelHelp: PropTypes.node,
   labelHelpIcon: PropTypes.string,
