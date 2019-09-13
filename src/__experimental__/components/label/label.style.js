@@ -16,7 +16,6 @@ const LabelStyle = styled.div`
   padding-bottom: 8px;
   width: 100%;
 
-  label,
   ${StyledHelpIcon},
   ${StyledValidationIcon} {
     vertical-align: middle;
