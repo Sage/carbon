@@ -47,16 +47,13 @@ Feature: Build tests for classic stories
       | create               | link                 |
       | date range           | date-range           |
       | date input           | date                 |
-      | decimal              | decimal              |
       | detail               | detail               |
       | draggableContext     | table                |
       | dropdownFilterAjax   | dropdown-filter-ajax |
       | dropdown-filter      | dropdown-filter      |
       | dropdown             | dropdown             |
-      | fieldset             | fieldset             |
       | filter component     | filter               |
       | form                 | form                 |
-      | groupedcharacter     | grouped-character    |
       | heading              | heading              |
       | help                 | help                 |
       | i18ncomponent        | i18n                 |
@@ -70,7 +67,6 @@ Feature: Build tests for classic stories
       | mount-in-app         | mount-in-app         |
       | multi-action-button  | multi-action-button  |
       | navigation-bar       | navigation-bar       |
-      | number-input         | number               |
       | pager                | pager                |
       | pill                 | pill                 |
       | pod                  | pod                  |
@@ -89,5 +85,17 @@ Feature: Build tests for classic stories
       | table-ajax           | table-ajax           |
       | table                | table                |
       | tabs                 | tabs                 |
-      | textarea             | textarea             |
       | toast                | toast                |
+
+  @build
+  Scenario Outline: Deprecated component <component> iframe
+    When I open deprecated "<component>" component iframe
+    Then "<data-component>" component is visible
+    Examples:
+      | component          | data-component     |
+      | textbox            | textbox            |
+      | textarea           | textarea           |
+      | number-input       | number             |
+      | decimal            | decimal            |
+      | fieldset           | fieldset           |
+      | groupedcharacter   | grouped-character  |
