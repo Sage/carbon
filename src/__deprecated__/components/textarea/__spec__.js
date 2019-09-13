@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 import Textarea from './textarea';
 
 describe('Textarea', () => {

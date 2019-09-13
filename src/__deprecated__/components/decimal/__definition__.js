@@ -1,6 +1,6 @@
 import Decimal from './';
-import Definition from './../../../demo/utils/definition';
-import OptionsHelper from './../../utils/helpers/options-helper';
+import Definition from './../../../../demo/utils/definition';
+import OptionsHelper from './../../../utils/helpers/options-helper';
 
 const definition = new Definition('decimal', Decimal, {
   description: 'Captures a number with a decimal point, or a currency value.',
