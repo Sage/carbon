@@ -5,6 +5,7 @@ import Card from './card.component';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import 'jest-styled-components';
 import Icon from '../icon';
+import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 
 describe('Card', () => {
   describe('when the content is added as children', () => {
@@ -19,7 +20,7 @@ describe('Card', () => {
       expect(wrapper.containsMatchingElement(content)).toBe(true);
     });
 
-    describe.each(['small', 'medium', 'large'])('and the "spacing" prop is set to %s', (spacing) => {
+    describe.each(OptionsHelper.alignFull)('and the "spacing" prop is set to %s', (spacing) => {
       it(`then all children should have the "spacing" prop added and set to "${spacing}"`, () => {
         const content = [
           <div className='mockedContent' key='content1'>content</div>,
