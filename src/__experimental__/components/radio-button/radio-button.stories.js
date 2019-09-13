@@ -112,7 +112,8 @@ const radioComponentWithValidation = () => {
 storiesOf('Experimental/RadioButton', module)
   .add(...makeStory('default', dlsThemeSelector, radioComponent))
   .add(...makeStory('classic', classicThemeSelector, radioComponent))
-  .add(...makeStory('validations', dlsThemeSelector, radioComponentWithValidation));
+  .add(...makeStory('validations', dlsThemeSelector, radioComponentWithValidation))
+  .add(...makeStory('validations classic', classicThemeSelector, radioComponentWithValidation));
 
 function handleChange(event) {
   const { value } = event.target;
