@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import WithDrag from '../../drag-and-drop/with-drag';
 import Icon from '../../icon';
-import TableCell from '../table-cell';
+import StyledDraggableTableCell from './draggable-table-cell.style';
 
 const iconHTML = (
   <div>
@@ -26,14 +26,14 @@ const DraggableTableCell = (props) => {
       draggableNode={ props.draggableNode }
       canDrag={ () => { return canDrag; } }
     >
-      { canDrag ? iconHTML : <span /> }
+      {canDrag ? iconHTML : <span />}
     </WithDrag>
   );
 
   return (
-    <TableCell className='draggable-table-cell'>
-      { icon }
-    </TableCell>
+    <StyledDraggableTableCell className='draggable-table-cell'>
+      {icon}
+    </StyledDraggableTableCell>
   );
 };
 

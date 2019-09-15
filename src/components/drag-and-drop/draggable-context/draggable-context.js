@@ -205,11 +205,10 @@ class DraggableContext extends React.Component {
   render() {
     return (
       <div
-        className='carbon-draggable-context'
-        onMouseMove={ (this.props.autoScroll && this.state.activeIndex !== null) ? this.checkAutoScroll : undefined }
+        onMouseMove={(this.props.autoScroll && this.state.activeIndex !== null) ? this.checkAutoScroll : undefined}
       >
-        { this.props.children }
-        { this.props.customDragLayer }
+        {this.props.children}
+        {this.props.customDragLayer}
       </div>
     );
   }

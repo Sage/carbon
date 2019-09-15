@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { DragLayer } from 'react-dnd';
-import './custom-drag-layer.scss';
+import { StyledDragContainer, c, StyledDragWrapper } from './custom-drag-layer.style';
 
 const collect = (monitor) => {
   const item = monitor.getItem();
@@ -82,13 +82,14 @@ class CustomDragLayer extends React.Component {
 
   render() {
     return (
-      <div className={ this.getClassName(this.props) }>
-        <div
-          className='custom-drag-layer__container'
+      <StyledDragWrapper
+        className={ this.getClassName(this.props) }
+      >
+        <StyledDragContainer
           ref={ (node) => { this._container = node; } }
           style={ this.getItemStyles(this.props) }
         />
-      </div>
+      </StyledDragWrapper>
     );
   }
 }

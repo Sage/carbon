@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import TableCell from '../table-cell';
 import TableHeader from '../table-header';
-import Checkbox from '../../checkbox/checkbox';
+import Checkbox from '../../../__experimental__/components/checkbox';
 import guid from '../../../utils/helpers/guid/guid';
 import WithDrop from '../../drag-and-drop/with-drop/with-drop';
 import DraggableTableCell from '../draggable-table-cell';
+import StyledTableRow from './table-row.style';
 import { validProps } from '../../../utils/ether/ether';
 import tagComponent from '../../../utils/helpers/tags/tags';
 
@@ -22,6 +22,7 @@ import tagComponent from '../../../utils/helpers/tags/tags';
  */
 class TableRow extends React.Component {
   state = {
+    rowNode: null,
     /**
      * Internal state to track if the row is currently highlighted.
      */
@@ -31,6 +32,11 @@ class TableRow extends React.Component {
      * Internal state to track if the row is currently selected.
      */
     selected: false
+  }
+
+  constructor(props) {
+    super(props);
+    this._row = React.createRef();
   }
 
   componentWillMount() {
@@ -87,6 +93,10 @@ class TableRow extends React.Component {
     }
   }
 
+  componentDidMount() {
+    if (this._row.current) this.setState({ rowNode: this._row.current });
+  }
+
   /**
    * Call the selectAll callback.
    */
@@ -123,30 +133,18 @@ class TableRow extends React.Component {
   }
 
   /**
-   * Classes to be applied to the table row component
-   */
-  get mainClasses() {
-    const isDragIndexMatch = this.context.dragAndDropActiveIndex === this.props.index;
-    return classNames(
-      'carbon-table-row',
-      this.props.className, {
-        'carbon-table-row--clickable': this.props.onClick || this.props.highlightable || this.context.highlightable,
-        'carbon-table-row--selected': this.state.selected,
-        'carbon-table-row--highlighted': (this.state.highlighted && !this.state.selected),
-        'carbon-table-row--dragged': (this.draggingIsOccurring() && isDragIndexMatch),
-        'carbon-table-row--dragging': (this.draggingIsOccurring()),
-        'carbon-table-row--passive': this.context.passiveData
-      }
-    );
-  }
-
-  /**
    * Sets additional props to the row.
    */
   get rowProps() {
     const { ...props } = validProps(this);
 
-    props.className = this.mainClasses;
+    props.isClickable = this.props.onClick || this.props.highlightable || this.context.highlightable;
+    props.isDragged = (this.draggingIsOccurring() && this.context.dragAndDropActiveIndex === this.props.index);
+    props.isDragging = this.draggingIsOccurring();
+    props.isHighlighted = this.state.highlighted;
+    props.isPassive = this.context.passiveData;
+    props.isSelected = this.state.selected;
+    props.isSelectable = this.shouldHaveMultiSelectColumn;
 
     if (this.context.highlightable || this.props.highlightable) {
       props.onClick = this.onRowClick;
@@ -170,7 +168,7 @@ class TableRow extends React.Component {
     const cell = this.isHeader ? TableHeader : TableCell;
 
     return React.createElement(cell, {
-      key: 'select', className: 'carbon-table-cell--select'
+      key: 'select', 'data-component': 'selectable-cell'
     }, this.multiSelect);
   }
 
@@ -212,7 +210,7 @@ class TableRow extends React.Component {
    */
   get requiresUniqueID() {
     const highlightable = this.props.highlightable !== false
-                          && (this.props.highlightable || this.context.highlightable),
+      && (this.props.highlightable || this.context.highlightable),
         selectable = this.props.selectable !== false && (this.props.selectable || this.context.selectable);
 
     return highlightable || selectable;
@@ -236,7 +234,7 @@ class TableRow extends React.Component {
     return (
       <DraggableTableCell
         identifier={ this.props.dragAndDropIdentifier }
-        draggableNode={ () => { return this._row; } }
+        draggableNode={ () => { return this.state.rowNode; } }
         canDrag={ !this.props.hideDrag }
       />
     );
@@ -255,8 +253,9 @@ class TableRow extends React.Component {
         identifier={ this.props.dragAndDropIdentifier }
         index={ this.props.index }
         canDrop={ () => { return !this.props.hideDrag; } }
+        droppableNode={ () => { return this.state.rowNode; } }
       >
-        { row }
+        {row}
       </WithDrop>
     );
   }
@@ -272,15 +271,15 @@ class TableRow extends React.Component {
     }
 
     return this.renderDraggableRow(
-      <tr
+      <StyledTableRow
         { ...this.rowProps }
         { ...tagComponent('table-row', this.props) }
-        ref={ (node) => { this._row = node; } }
+        ref={ this._row }
       >
-        { this.renderDraggableCell() }
+        {this.renderDraggableCell()}
+        {content}
+      </StyledTableRow>
 
-        { content }
-      </tr>
     );
   }
 }

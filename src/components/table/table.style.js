@@ -8,11 +8,11 @@ import {
   applyModernTableStyling,
   applyModernInternalStyling
 } from './table-modern.style.js';
-import tableRowStyling from './table-row/table-row.style';
 import {
   LinkStyle as StyledLink,
   LinkStyleAnchor as StyledLinkAnchor
 } from '../link/link.style';
+import StyledTableRow from './table-row/table-row.style';
 import baseTheme from '../../style/themes/base';
 import { isClassic } from '../../utils/helpers/style-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
@@ -41,15 +41,13 @@ const StyledTable = styled.table`
     top: -99999px;
   }
 
-  .carbon-table-row:last-child ${StyledTableCell} {
+  ${StyledTableRow}:last-child ${StyledTableCell} {
     border-bottom-color: transparent;
   }
 
   ${({ paginate }) => {
     return paginate && applyPaginationStyle;
   }}
-
-  ${tableRowStyling}
 `;
 
 function applyPaginationStyle() {
@@ -93,7 +91,7 @@ export const StyledInternalTableWrapper = styled.div`
           color: ${theme.colors.white};
         }
     
-        :first-child {
+        &:first-child {
           height: 19px;
           margin-right: -4px;
           z-index: 3;

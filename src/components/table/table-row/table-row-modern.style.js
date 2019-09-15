@@ -1,30 +1,47 @@
+import { css } from 'styled-components';
 import StyledTableCell from '../table-cell/table-cell.style';
+import StyledTableHeader from '../table-header/table-header.style';
+import { StyledIcon } from '../../icon/icon.style';
 
-function applyModernRowStyling({ colors, table }) {
-  return `   
+function applyModernRowStyling(isPassive, { colors, table }) {
+  return css`   
     ${StyledTableCell} {
-      padding-top: 0px;
-      padding-bottom: 0px;
       background-color: ${colors.white};
+
+      ${StyledIcon}::before {
+        transform: rotate(90deg);
+      }
     }
-    &:not(.carbon-table-row--passive) {
+
+    ${StyledTableHeader} {
+      padding: 10px 8px;
+    }
+
+    ${!isPassive && css`
       &:hover {
         ${StyledTableCell} {
           background-color: ${table.primary};
         }
       }
-    }
+    `}
   `;
 }
 
 function applyModernSelectedStyling({ table }) {
   return `
-    background-color: ${table.selected} !important;
-    border-bottom-color: ${table.selected} !important;
+    background-color: ${table.selected};
+    border-bottom-color: ${table.selected};
+  `;
+}
+
+function applyModernDraggedStyling() {
+  return css`
+    border: 1px solid #000A0E; 
   `;
 }
 
 export {
+  applyModernDraggedStyling,
   applyModernRowStyling,
   applyModernSelectedStyling
 };

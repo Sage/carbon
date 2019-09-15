@@ -1,6 +1,7 @@
 import { css } from 'styled-components';
 import StyledTableCell from './table-cell/table-cell.style';
 import StyledTableHeader from './table-header/table-header.style';
+import StyledTableRow from './table-row/table-row.style';
 import tableSizes from './table-sizes.style';
 
 function convertTableType(type) {
@@ -26,7 +27,7 @@ function applyModernTableStyling({
   const { height, fontSize, paddingSize } = tableSizes[size];
   return css`
     background-color: ${type === 'tertiary' ? 'transparent' : theme.colors.white};
-    && .carbon-table-row {
+    & ${StyledTableRow} {
       height: ${height};
       ${StyledTableCell}, ${StyledTableHeader} {
         font-size: ${fontSize};
