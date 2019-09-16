@@ -1,3 +1,4 @@
+import composedPath from './composedPath';
 /**
 * JavaScript Events
 *
@@ -312,8 +313,40 @@ const Events = {
   * */
   isMinusKey: (ev) => {
     return ev.which === 189;
-  }
+  },
 
+  /**
+  * Determines if the key pressed is the home key
+  *
+  * @method isHomeKey
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if home key
+  * */
+  isHomeKey: (ev) => {
+    return ev.which === 36;
+  },
+
+  /**
+  * Determines if the key pressed is the end key
+  *
+  * @method isEndKey
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if end key
+  * */
+  isEndKey: (ev) => {
+    return ev.which === 35;
+  },
+
+  /**
+   * Gets the event's path which is an array of the objects on which listeners will be invoked.
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Event/composedPath
+   * @method composedPath
+   * @param {Event} ev A Javascript event
+   * @returns {EventTarget[]} objects representing the objects on which an event listener will be invoked
+   */
+  composedPath: (ev) => {
+    return ev.path || (ev.composedPath && ev.composedPath()) || composedPath(ev);
+  }
 };
 
 export default Events;

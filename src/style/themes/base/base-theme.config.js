@@ -43,6 +43,13 @@ export default (palette) => {
       }
     },
 
+    menu: {
+      focus: palette.slateTint(95),
+      divider: palette.slateTint(90),
+      itemColor: blackWithOpacity(0.9),
+      itemColorDisabled: blackWithOpacity(0.3)
+    },
+
     form: {
       invalid: palette.slateTint(95)
     },
