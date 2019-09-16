@@ -32,7 +32,7 @@ const numberConfig = {
   step: 1
 };
 
-storiesOf('Switch', module)
+storiesOf('__deprecated__/Switch', module)
   .addParameters({
     info: {
       propTablesExclude: [State]

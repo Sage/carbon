@@ -14,7 +14,7 @@ Checkbox.__docgenInfo = getDocGenInfo(
   /checkbox(?!spec)/
 );
 
-storiesOf('Checkbox', module)
+storiesOf('__deprecated__/Checkbox', module)
   .add('classic', () => {
     const reverse = boolean('reverse', Checkbox.defaultProps.reverse);
     const fieldHelpInline = boolean('fieldHelpInline', false);
