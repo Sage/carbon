@@ -24,6 +24,8 @@ const StyledCardFooter = styled.div`
   ${({ spacing, theme }) => css`
     background-color: ${theme.card.footerBackground};
     border-top: ${theme.card.footerBorder};
+    border-top-width: 1px;
+    border-top-style: solid;
     font-size: 14px;
     font-weight: 600;
     margin: ${marginSizes[spacing]};
