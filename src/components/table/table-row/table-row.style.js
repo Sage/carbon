@@ -127,7 +127,7 @@ function dragRowStyling({ isDragged, isDragging, theme }) {
 
     ${isDragged && css`
       &&&&& {
-        ${isClassic(theme) ? applyClassicDraggedStyling() : applyModernDraggedStyling()}
+        ${isClassic(theme) ? applyClassicDraggedStyling(StyledTableRow) : applyModernDraggedStyling()}
       }
     `}
   `;

@@ -205,7 +205,7 @@ class DraggableContext extends React.Component {
   render() {
     return (
       <div
-        onMouseMove={(this.props.autoScroll && this.state.activeIndex !== null) ? this.checkAutoScroll : undefined}
+        onMouseMove={ (this.props.autoScroll && this.state.activeIndex !== null) ? this.checkAutoScroll : undefined }
       >
         {this.props.children}
         {this.props.customDragLayer}

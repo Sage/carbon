@@ -1,6 +1,5 @@
 import { css } from 'styled-components';
 import StyledTableCell from '../table-cell/table-cell.style';
-import StyledTableRow from "./table-row.style";
 
 function applyClassicRowStyling(isPassive, isSelected) {
   return css`
@@ -47,7 +46,12 @@ function applyClassicHighlightStyling() {
   `;
 }
 
-function applyClassicDraggedStyling() {
+/**
+ * Note: `StyledTableRow` is supplied as parameter
+ * instead of being `import`ed, to avoid a dependency cycle
+ * between `table-row.style.js` and `table-row-classic.style.js`.
+ */
+function applyClassicDraggedStyling(StyledTableRow) {
   return css`
     ${StyledTableCell} {
       visibility: hidden;

@@ -32,14 +32,14 @@ class WithDrop extends React.Component {
     // this.props.connectDragSource comes from react-dnd DragSource higher
     // order component, so disable the react/prop-types ESLint rule on the line
     // below
-    const { children, connectDropTarget, droppableNode } = this.props;
+    const { children, connectDropTarget, droppableNode } = this.props; // eslint-disable-line react/prop-types
 
     if (droppableNode) {
       connectDropTarget(droppableNode());
       return children;
     }
 
-    return connectDropTarget(children); // eslint-disable-line react/prop-types
+    return connectDropTarget(children);
   }
 }
 
