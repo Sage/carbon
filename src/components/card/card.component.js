@@ -41,6 +41,9 @@ const Card = ({
     </StyledCard>
   );
 };
+Card.defaultProps = {
+  spacing: 'medium'
+};
 
 Card.propTypes = {
   /** action to be executed when card is clicked or enter pressed */
