@@ -60,7 +60,7 @@ const defaultKnobs = () => {
   };
 };
 
-storiesOf('Dropdown Filter', module)
+storiesOf('__deprecated__/Dropdown Filter', module)
   .addParameters({
     info: {
       propTablesExclude: [State]

@@ -66,7 +66,7 @@ const defaultKnobs = () => {
   };
 };
 
-storiesOf('DropdownFilterAjax', module)
+storiesOf('__deprecated__/DropdownFilterAjax', module)
   .addParameters({
     info: {
       propTablesExclude: [State]

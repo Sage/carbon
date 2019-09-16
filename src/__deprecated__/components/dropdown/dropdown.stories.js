@@ -30,7 +30,7 @@ const handleChange = (evt) => {
   action('change')(evt);
 };
 
-storiesOf('Dropdown', module)
+storiesOf('__deprecated__/Dropdown', module)
   .addParameters({
     info: {
       propTablesExclude: [State]
