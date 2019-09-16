@@ -112,8 +112,9 @@ function getSmallCard(knobs) {
 }
 
 function makeStory(name, themeSelector) {
-  const knobs = cardKnobs();
   const component = () => {
+    const knobs = cardKnobs();
+
     return ([getCard(knobs), getSmallCard(knobs)]);
   };
 
