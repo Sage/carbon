@@ -39,8 +39,6 @@ Checkbox.propTypes = {
   checked: PropTypes.bool,
   /** Toggles disabling of input */
   disabled: PropTypes.bool,
-  /** Toggles error styles */
-  error: PropTypes.bool,
   /** Displays fieldHelp inline with the checkbox */
   fieldHelpInline: PropTypes.bool,
   /** Unique Identifier for the input. Will use a randomly generated GUID if none is provided */
