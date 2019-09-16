@@ -9,6 +9,7 @@ import WithDrop from '../../drag-and-drop/with-drop/with-drop';
 import DraggableTableCell from '../draggable-table-cell';
 import { validProps } from '../../../utils/ether/ether';
 import tagComponent from '../../../utils/helpers/tags/tags';
+import ActionPopover from '../../action-popover';
 
 /**
  * A TableRow widget.
@@ -261,11 +262,42 @@ class TableRow extends React.Component {
     );
   }
 
+  set highlighted(highlighted) {
+    this.setState({ highlighted });
+  }
+
+  getChildrenWithStateUpdaters() {
+    return React.Children.map(this.props.children, (td) => {
+      let hasActionPopover = false;
+      const childrenWithProps = React.Children.map(td.props.children, (child) => {
+        // When a table has an ActionPopover, the opening and closing the ActionPopover should control the highlight
+        // state of the row
+        if (child.type === ActionPopover) {
+          hasActionPopover = true;
+          const props = {
+            onOpen: () => {
+              this.highlighted = true;
+              child.props.onOpen();
+            },
+            onClose: () => {
+              this.highlighted = false;
+              child.props.onClose();
+            }
+          };
+          return React.cloneElement(child, props);
+        }
+        return child;
+      });
+
+      return hasActionPopover ? React.cloneElement(td, { children: childrenWithProps }) : td;
+    });
+  }
+
   /**
    * Renders the component
    */
   render() {
-    const content = [this.props.children];
+    const content = [this.getChildrenWithStateUpdaters()];
 
     if (this.shouldHaveMultiSelectColumn) {
       content.unshift(this.multiSelectCell);

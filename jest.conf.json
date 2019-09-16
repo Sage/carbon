@@ -4,5 +4,11 @@
   "setupFiles": [
     "raf/polyfill",
     "./src/__spec_helper__/index.js"
+  ],
+  "setupFilesAfterEnv": [
+    "./src/__spec_helper__/expect.js"
+  ],
+  "snapshotSerializers": [
+    "enzyme-to-json/serializer"
   ]
 }
