@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Checkbox from '../checkbox';
-import Icon from '../icon';
+import Icon from '../../../components/icon';
 import './switch.scss';
 
 const switchClasses = (props) => {

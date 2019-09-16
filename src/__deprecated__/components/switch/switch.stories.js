@@ -5,14 +5,14 @@ import {
   text, boolean, number, select
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import { classicThemeSelector } from '../../../.storybook/theme-selectors';
+import { classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import Switch from './switch';
-import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 Switch.__docgenInfo = getDocGenInfo(
-  require('./docgenInfo.json'),
+  require('./docgenInfo.json.js'),
   /switch(?!spec)/
 );
 
