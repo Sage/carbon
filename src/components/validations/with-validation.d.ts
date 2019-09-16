@@ -5,7 +5,7 @@ interface ValidationShape {
   validate: () => any;
 }
 
-type ValidationsPropType = () => any | [() => any, ValidationShape];
+type ValidationsPropType = () => any | (() => any | ValidationShape)[];
 
 type ValuePropType = string | any[];
 
@@ -15,8 +15,8 @@ export interface WithValidationProps {
   value?: string | any[];
   onBlur?: () => void;
   onChange?: () => void;
-  validations?: ValidationsPropType,
-  warnings?: ValidationsPropType,
+  validations?: ValidationsPropType;
+  warnings?: ValidationsPropType;
   info?: ValidationsPropType;
   forceUpdateTriggerToggle?: boolean;
   addInputToFormState?: (name: string, value: ValuePropType) => void;
