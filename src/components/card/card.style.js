@@ -33,6 +33,13 @@ const StyledCard = styled.button`
     ${draggable && css`
       cursor: move;
     `}
+
+    /* Fix for IE specific box-shadow display */
+    @media all and (-ms-high-contrast: none) {
+      box-shadow: ${theme.shadows.cardsIE};
+    }
+
+    ::-moz-focus-inner {border:0;}
   `}
 `;
 

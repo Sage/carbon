@@ -28,7 +28,7 @@ const Card = ({
 
   return (
     <StyledCard
-      data-element='card'
+      data-component='card'
       cardWidth={ cardWidth }
       interactive={ interactive }
       draggable={ draggable }
