@@ -1,19 +1,19 @@
 import React from 'react';
 import { includes, startCase } from 'lodash';
 import ImmutableHelper from 'utils/helpers/immutable';
-import ComponentStore from './../../../../../stores/component';
-import ComponentActions from './../../../../../actions/component';
 import Checkbox from 'components/checkbox';
 import DropdownFilter from 'components/dropdown-filter';
-import Textarea from 'components/textarea';
-import Textbox from 'components/textbox';
-import Number from 'components/number';
+import Textarea from '__deprecated__/components/textarea';
+import Textbox from '__deprecated__/components/textbox';
+import Number from '__deprecated__/components/number';
+import ComponentActions from '../../../../../actions/component';
+import ComponentStore from '../../../../../stores/component';
 
 export default props => (
   <form className='demo-component-preview__controls'>
     { buildFields(props) }
   </form>
-)
+);
 
 /**
  * builds fields for dynamically editing props
@@ -24,7 +24,7 @@ export default props => (
  * @return {String} code string
  */
 const buildFields = (props) => {
-  let fieldObj = [],
+  const fieldObj = [],
       demoProps = props.definition.get('props'),
       propOptions = props.definition.get('propOptions'),
       values = props.definition.get('propValues'),
@@ -37,19 +37,19 @@ const buildFields = (props) => {
   demoProps.forEach((prop) => {
     let value = values.get(prop);
 
-    if (typeof value === "undefined") {
-      if (typeof defaultProps.get(prop) === "undefined") {
-        value = "";
+    if (typeof value === 'undefined') {
+      if (typeof defaultProps.get(prop) === 'undefined') {
+        value = '';
       } else {
         value = defaultProps.get(prop);
       }
     }
 
-    let options = propOptions ? propOptions.get(prop) : null,
+    const options = propOptions ? propOptions.get(prop) : null,
         requirement = propRequires.get(prop);
 
     if (!hiddenProps.contains(prop) && !hiddenType(prop, propTypes.get(prop))) {
-      let type = propTypes.get(prop),
+      const type = propTypes.get(prop),
           field = chooseField(type, prop, value, options);
 
       fieldObj.push(fieldComponent(props.name, prop, value, field, options, requirement));
@@ -61,7 +61,7 @@ const buildFields = (props) => {
   });
 
   return fieldObj;
-}
+};
 
 /**
  * creates a simple field
@@ -75,19 +75,19 @@ const buildFields = (props) => {
  * @return {Component}
  */
 const fieldComponent = (name, prop, value, field, options, requirement) => {
-  let commonfieldProps = {
-        key: name + prop,
-        label: createFieldLabel(prop),
-        onChange: ComponentActions.updateDefinition.bind(this, name, prop),
-        value: value,
-        labelInline: true,
-        labelWidth: 40
-      };
+  const commonfieldProps = {
+    key: name + prop,
+    label: createFieldLabel(prop),
+    onChange: ComponentActions.updateDefinition.bind(this, name, prop),
+    value,
+    labelInline: true,
+    labelWidth: 40
+  };
 
   if (requirement) {
-    let disabled = !ComponentStore.data.getIn([name, 'propValues', requirement]);
+    const disabled = !ComponentStore.data.getIn([name, 'propValues', requirement]);
     commonfieldProps.disabled = disabled;
-    commonfieldProps.fieldHelp = "requires " + requirement;
+    commonfieldProps.fieldHelp = `requires ${requirement}`;
   }
 
   if (field !== Checkbox) {
@@ -105,12 +105,12 @@ const fieldComponent = (name, prop, value, field, options, requirement) => {
   if (field) {
     return React.createElement(field, commonfieldProps);
   }
-}
+};
 
 const createFieldLabel = (prop) => {
-  let tmp = startCase(prop).replace(/\s+/g, '');
+  const tmp = startCase(prop).replace(/\s+/g, '');
   return tmp[0].toLowerCase() + tmp.substring(1);
-}
+};
 
 /**
  * gets options
@@ -124,7 +124,7 @@ const getOptions = (options) => {
   return options.map((option) => {
     return ImmutableHelper.parseJSON({ id: option, name: option });
   });
-}
+};
 
 /**
  * uses the propKey to fiugure out what sort of fiewld should be used
@@ -144,23 +144,22 @@ const chooseField = (type, prop, value, options) => {
     return Textarea;
   }
 
-  if (type === "Boolean") {
+  if (type === 'Boolean') {
     return Checkbox;
   }
 
-  if (type === "Number") {
+  if (type === 'Number') {
     return Number;
   }
 
   if (prop !== 'children') {
     return Textbox;
   }
-}
+};
 
 const hiddenType = (prop, type) => {
-  if (prop === "children") {
+  if (prop === 'children') {
     return false;
-  } else {
-    return includes(["Function", "Node"], type) || includes(["className"], prop);
   }
-}
+  return includes(['Function', 'Node'], type) || includes(['className'], prop);
+};

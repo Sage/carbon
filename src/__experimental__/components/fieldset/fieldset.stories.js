@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text } from '@storybook/addon-knobs';
+import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import notes from './documentation';
 import Fieldset from './fieldset.component';
 import Textbox from '../textbox';
@@ -12,15 +13,8 @@ Fieldset.__docgenInfo = getDocGenInfo(
   /fieldset\.component(?!spec)/
 );
 
-storiesOf('Experimental/Fieldset', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [Textbox]
-    },
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false }
-  })
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const legend = text('legend', '');
 
     return (
@@ -65,4 +59,22 @@ storiesOf('Experimental/Fieldset', module)
         />
       </Fieldset>
     );
-  });
+  };
+
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Experimental/Fieldset', module)
+  .addParameters({
+    info: {
+      propTablesExclude: [Textbox]
+    },
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
+  })
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));

@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import ShowEditPod from './show-edit-pod';
 import Form from '../form';
 import Link from '../link';
-import Textbox from '../textbox';
+import Textbox from '../../__deprecated__/components/textbox';
 import Pod from '../pod';
 import Events from '../../utils/helpers/events';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';

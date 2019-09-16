@@ -6,9 +6,10 @@ import {
   select
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import Form from '../form';
 import Textbox from '../../__experimental__/components/textbox';
-import TextboxLegacy from '../textbox';
+import TextboxLegacy from '../../__deprecated__/components/textbox';
 import ButtonToggleGroup from '../button-toggle-group';
 import ButtonToggle from '../button-toggle';
 import { Select, Option } from '../../__experimental__/components/select';
@@ -59,13 +60,8 @@ const asyncValidator = value => new Promise((resolve, reject) => {
   }, 2000);
 });
 
-storiesOf('Validations', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [ButtonToggle, ButtonToggleGroup, Column, Row, Form, Textbox, State, Textarea]
-    }
-  })
-  .add('Basic', () => {
+function makeBasicStory(name, themeSelector) {
+  const component = () => {
     return (
       <Form>
         <Row>
@@ -177,8 +173,17 @@ storiesOf('Validations', module)
         </Row>
       </Form>
     );
-  })
-  .add('ButtonToggleGroup', () => {
+  };
+
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+function makeButtonToggleGroupStory(name, themeSelector) {
+  const component = () => {
     const test = value => new Promise((resolve, reject) => {
       if (value === 'baz') return resolve(true);
       return reject(Error('Baz is required!'));
@@ -209,7 +214,25 @@ storiesOf('Validations', module)
         </State>
       </Form>
     );
-  });
+  };
+
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Validations', module)
+  .addParameters({
+    info: {
+      propTablesExclude: [ButtonToggle, ButtonToggleGroup, Column, Row, Form, Textbox, State, Textarea]
+    }
+  })
+  .add(...makeBasicStory('Basic', dlsThemeSelector))
+  .add(...makeBasicStory('Basic classic', classicThemeSelector))
+  .add(...makeButtonToggleGroupStory('ButtonToggleGroup', dlsThemeSelector))
+  .add(...makeButtonToggleGroupStory('ButtonToggleGroup classic', classicThemeSelector));
 
 function handleSubmit(ev) {
   ev.preventDefault();
