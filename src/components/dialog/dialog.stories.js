@@ -13,8 +13,8 @@ import Textbox from '../../__deprecated__/components/textbox';
 import Button from '../button';
 import Modal from '../modal';
 import DateInput from '../date';
-import Dropdown from '../dropdown/dropdown';
-import Checkbox from '../checkbox/checkbox';
+import Dropdown from '../dropdown';
+import Checkbox from '../../__deprecated__/components/checkbox';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Dialog.__docgenInfo = getDocGenInfo(

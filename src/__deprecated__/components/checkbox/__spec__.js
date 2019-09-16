@@ -2,7 +2,7 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Checkbox from './checkbox';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 
 describe('Checkbox', () => {
   let instance;

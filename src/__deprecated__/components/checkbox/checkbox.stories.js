@@ -3,11 +3,11 @@ import { storiesOf } from '@storybook/react';
 import {
   boolean, text, number, select
 } from '@storybook/addon-knobs';
-import { classicThemeSelector } from '../../../.storybook/theme-selectors';
-import OptionsHelper from '../../utils/helpers/options-helper';
-import Checkbox from './checkbox.js';
+import { classicThemeSelector } from '../../../../.storybook/theme-selectors';
+import OptionsHelper from '../../../utils/helpers/options-helper';
+import Checkbox from './checkbox';
 import { notes, info } from './documentation';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 Checkbox.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
