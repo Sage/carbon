@@ -17,7 +17,7 @@ import Dropdown from './dropdown';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 Dropdown.__docgenInfo = getDocGenInfo(
-  require('./docgenInfo.json.js'),
+  require('./docgenInfo.json'),
   /dropdown(?!spec)/
 );
 
