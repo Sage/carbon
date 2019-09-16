@@ -20,7 +20,7 @@ describe('Card', () => {
       expect(wrapper.containsMatchingElement(content)).toBe(true);
     });
 
-    describe.each(OptionsHelper.alignFull)('and the "spacing" prop is set to %s', (spacing) => {
+    describe.each(OptionsHelper.sizesRestricted)('and the "spacing" prop is set to %s', (spacing) => {
       it(`then all children should have the "spacing" prop added and set to "${spacing}"`, () => {
         const content = [
           <div className='mockedContent' key='content1'>content</div>,
