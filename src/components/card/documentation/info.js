@@ -18,7 +18,7 @@ const Info = (
     <StoryCodeBlock padded>
       {'<Card>'}
       {'  content'}
-      {'<Card>'}
+      {'</Card>'}
     </StoryCodeBlock>
 
     <p>CardRow and CardColumn components could be used to position the content.</p>
@@ -34,7 +34,7 @@ const Info = (
       {'    <CardColumn>footer content 1</CardColumn>'}
       {'    <CardColumn>footer content 2</CardColumn>'}
       {'  </CardFooter>'}
-      {'<Card>'}
+      {'</Card>'}
     </StoryCodeBlock>
 
   </div>
