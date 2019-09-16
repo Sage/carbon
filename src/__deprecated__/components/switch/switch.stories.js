@@ -12,7 +12,7 @@ import { notes, info } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 Switch.__docgenInfo = getDocGenInfo(
-  require('./docgenInfo.json.js'),
+  require('./docgenInfo.json'),
   /switch(?!spec)/
 );
 
