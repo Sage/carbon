@@ -1,17 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import { StyledCheckboxGroup } from './checkbox.style';
 import { withValidation } from '../../../components/validations';
 import FormField from '../form-field';
-
-function initialTabIndex(childIndex) {
-  return (childIndex > 0) ? -1 : 0;
-}
-
-function checkedTabIndex(checked) {
-  return checked ? 0 : -1;
-}
 
 const CheckboxGroup = (props) => {
   const {
@@ -21,31 +13,29 @@ const CheckboxGroup = (props) => {
     hasWarning,
     hasInfo
   } = props;
-  const [selectedValue, setSelectedValue] = useState(null);
 
   const groupLabelId = `${groupName}-label`;
 
-  const buttons = React.Children.map(children, (child, index) => {
-    const checked = selectedValue === child.props.value;
-    const tabindex = selectedValue ? checkedTabIndex(checked) : initialTabIndex(index);
-
+  const buttons = React.Children.map(children, (child) => {
     const handleChange = (ev) => {
       child.props.onChange(ev);
-      setSelectedValue(ev.target.value);
     };
 
-    return React.cloneElement(
-      child,
-      {
-        checked,
-        inputName: groupName,
-        onChange: handleChange,
-        tabindex,
+    let childProps = {
+      inputName: groupName,
+      onChange: handleChange
+    };
+
+    if (!child.props.checked) {
+      childProps = {
+        ...childProps,
         hasError,
         hasWarning,
         hasInfo
-      }
-    );
+      };
+    }
+
+    return React.cloneElement(child, childProps);
   });
 
   return (
