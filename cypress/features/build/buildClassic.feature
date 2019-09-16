@@ -51,7 +51,6 @@ Feature: Build tests for classic stories
       | draggableContext     | table                |
       | dropdownFilterAjax   | dropdown-filter-ajax |
       | dropdown-filter      | dropdown-filter      |
-      | dropdown             | dropdown             |
       | filter component     | filter               |
       | form                 | form                 |
       | heading              | heading              |
@@ -97,5 +96,6 @@ Feature: Build tests for classic stories
       | textarea           | textarea           |
       | number-input       | number             |
       | decimal            | decimal            |
+      | dropdown           | dropdown           |
       | fieldset           | fieldset           |
       | groupedcharacter   | grouped-character  |
