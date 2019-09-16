@@ -17,6 +17,16 @@ function applyModernRowStyling(isPassive, { colors, table }) {
       padding: 10px 8px;
     }
 
+    .custom-drag-layer && {
+      background-color: ${table.dragging};
+      display: block;
+
+      ${StyledTableCell} {
+        background-color: ${table.dragging};
+        border: none;
+      }
+    }
+
     ${!isPassive && css`
       &:hover {
         ${StyledTableCell} {

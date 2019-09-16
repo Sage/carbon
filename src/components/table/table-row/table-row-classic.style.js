@@ -13,6 +13,16 @@ function applyClassicRowStyling(isPassive, isSelected) {
       }
     }
 
+    .custom-drag-layer && {
+      background-color: #E6EBED;
+      display: block;
+
+      ${StyledTableCell} {
+        background-color: #E6EBED;
+        border: none;
+      }
+    }
+
     ${!(isPassive || isSelected) && `
       &:hover {
         ${StyledTableCell} {

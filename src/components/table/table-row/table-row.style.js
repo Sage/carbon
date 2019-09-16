@@ -26,16 +26,6 @@ const StyledTableRow = styled.tr`
 
 function applyRowStyling({ isPassive, isSelected, theme }) {
   return css`
-    .custom-drag-layer && {
-      background-color: ${theme.table.dragging};
-      display: block;
-
-      ${StyledTableCell} {
-        background-color: ${theme.table.dragging};
-        border: none;
-      }
-    }
-
     ${isClassic(theme) ? applyClassicRowStyling(isPassive, isSelected) : applyModernRowStyling(isPassive, theme)}
     ${selectableRowStyling}
     ${highlightRowStyling}
