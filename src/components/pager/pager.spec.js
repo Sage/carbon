@@ -10,7 +10,7 @@ import classicTheme from '../../style/themes/classic';
 import smallTheme from '../../style/themes/small';
 import baseTheme from '../../style/themes/base';
 import Pager from './pager.component';
-import Dropdown from '../dropdown';
+import Dropdown from '../../__deprecated__/components/dropdown';
 
 jest.mock('../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
