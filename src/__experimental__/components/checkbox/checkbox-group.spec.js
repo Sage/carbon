@@ -1,28 +1,26 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import 'jest-styled-components';
-import { css } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
 import CheckboxGroup from './checkbox-group.component';
-import Checkbox from './checkbox.component';
-import LabelStyle from '../label/label.style';
+import { OriginalCheckbox } from './checkbox.component';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import baseTheme from '../../../style/themes/base';
 import Icon from '../../../components/icon';
 import Label from '../label';
-import FormFieldStyle from '../form-field/form-field.style';
 
 const checkboxValues = ['required', 'optional'];
 const groupName = 'my-checkbox-group';
 
-function render(props, renderer = TestRenderer.create) {
+function render(props, childProps, renderer = mount) {
   const children = checkboxValues.map(value => (
-    <Checkbox
+    <OriginalCheckbox
       id={ `cId-${value}` }
       key={ `cKey-${value}` }
       name={ `check-${value}` }
       onChange={ jest.fn() }
       value={ value }
+      { ...childProps }
     />
   ));
 
@@ -38,63 +36,21 @@ function render(props, renderer = TestRenderer.create) {
   );
 }
 
-function getCheckboxes(wrapper) {
-  return wrapper.find(Checkbox);
-}
-
-function getInput(wrapper) {
-  return wrapper.find('input');
-}
-
 describe('CheckboxGroup', () => {
   it('renders as expected', () => {
-    expect(render()).toMatchSnapshot();
+    expect(render({}, {}, TestRenderer.create)).toMatchSnapshot();
   });
 
   describe('group label', () => {
     const labelText = 'My Label';
-    const wrapper = render({ label: labelText }, mount);
+    const wrapper = render({ label: labelText });
     const label = wrapper.find(Label).first();
 
     expect(label.text()).toEqual(labelText);
   });
 
-  describe('change state', () => {
-    const wrapper = render({}, mount);
-    let checkboxOne = getCheckboxes(wrapper).at(0);
-    let checkboxTwo = getCheckboxes(wrapper).at(1);
-
-    const input = getInput(checkboxOne);
-    const target = input.instance();
-
-    input.simulate('change', { target });
-    wrapper.update();
-
-    checkboxOne = getCheckboxes(wrapper).at(0);
-    checkboxTwo = getCheckboxes(wrapper).at(1);
-
-    it('sets checked === true when it is changed', () => {
-      expect(checkboxOne.prop('checked')).toBe(true);
-      expect(checkboxTwo.prop('checked')).toBe(false);
-    });
-
-    it('sets checked === false when the other button is selected', () => {
-      const otherInput = getInput(checkboxTwo);
-      const otherTarget = otherInput.instance();
-
-      otherInput.simulate('change', { target: otherTarget });
-      wrapper.update();
-
-      checkboxOne = getCheckboxes(wrapper).at(0);
-      checkboxTwo = getCheckboxes(wrapper).at(1);
-
-      expect(checkboxOne.prop('checked')).toBe(false);
-      expect(checkboxTwo.prop('checked')).toBe(true);
-    });
-  });
-
   describe('group icon messsage', () => {
-    const wrapper = render({}, mount);
+    const wrapper = render();
     const text = 'Choose an option';
 
     wrapper.setProps({
@@ -106,26 +62,22 @@ describe('CheckboxGroup', () => {
     expect(icon.prop('tooltipMessage')).toEqual(text);
   });
 
-  describe('styles', () => {
-    it('applies the correct Label styles', () => {
-      const wrapper = render().toJSON();
+  describe('onChange', () => {
+    it('should be called', () => {
+      const fakeFunction = jest.fn();
+      const wrapper = render({}, {
+        onChange: fakeFunction
+      });
+      const checkbox = wrapper.find(OriginalCheckbox).first();
 
-      assertStyleMatch(
-        {
-          cursor: 'default',
-          marginBottom: '16px',
-          padding: '0'
-        },
-        wrapper,
-        { modifier: css`${`> ${FormFieldStyle} > ${LabelStyle}`}` }
-      );
+      checkbox.prop('onChange')();
+
+      expect(fakeFunction).toBeCalledTimes(1);
     });
+  });
 
+  describe('styles', () => {
     describe('checkbox group', () => {
-      const wrapper = render({
-        labelHelp: 'Text for tooltip',
-        tooltipMessage: 'Custom tooltip message'
-      }, mount);
       const validationTypes = {
         hasError: { color: baseTheme.colors.error },
         hasWarning: { color: baseTheme.colors.warning },
@@ -134,6 +86,11 @@ describe('CheckboxGroup', () => {
       const validationTypesArr = Object.keys(validationTypes);
 
       describe.each(validationTypesArr)('group[%s]', (type) => {
+        const wrapper = render({
+          labelHelp: 'Text for tooltip',
+          tooltipMessage: 'Custom tooltip message'
+        });
+
         beforeEach(() => {
           const props = {
             hasError: false,
@@ -146,11 +103,26 @@ describe('CheckboxGroup', () => {
         });
 
         it('has correct color', () => {
-          const checkboxWrapper = wrapper.find(Checkbox).first();
+          const checkboxWrapper = wrapper.find(OriginalCheckbox).first();
 
           assertStyleMatch({
             border: `1px solid ${validationTypes[type].color}`
           }, checkboxWrapper, { modifier: 'svg' });
+        });
+      });
+
+      describe('pass validation props', () => {
+        const wrapper = render({}, { checked: true });
+
+        it('checked === false', () => {
+          wrapper.setProps({
+            hasError: true
+          });
+
+          const checkboxWrapper = wrapper.find(OriginalCheckbox).first();
+
+          expect(checkboxWrapper.prop('checked')).toBe(true);
+          expect(checkboxWrapper.prop('hasError')).toBeUndefined();
         });
       });
     });

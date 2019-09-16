@@ -170,10 +170,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
   height: 16px;
 }
 
-.c13 .c8 svg {
-  border: 1px solid #668491;
-}
-
 .c13 .c6,
 .c13 svg {
   height: 16px;
@@ -255,10 +251,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
 
 .c14 .c8 {
   height: 16px;
-}
-
-.c14 .c8 svg {
-  border: 1px solid #668491;
 }
 
 .c14 .c6,
@@ -346,10 +338,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
 
 .c15 .c8 {
   height: 16px;
-}
-
-.c15 .c8 svg {
-  border: 1px solid #668491;
 }
 
 .c15 .c6,
@@ -572,10 +560,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
   height: 16px;
 }
 
-.c17 .c8 svg {
-  border: 1px solid #668491;
-}
-
 .c17 .c6,
 .c17 svg {
   height: 16px;
@@ -681,10 +665,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
 
 .c18 .c8 {
   height: 16px;
-}
-
-.c18 .c8 svg {
-  border: 1px solid #668491;
 }
 
 .c18 .c6,
@@ -794,10 +774,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
   height: 16px;
 }
 
-.c19 .c8 svg {
-  border: 1px solid #668491;
-}
-
 .c19 .c6,
 .c19 svg {
   height: 16px;
@@ -861,10 +837,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
   border: 1px solid #668491;
 }
 
-.c0 .c8 svg {
-  border: 1px solid #668491;
-}
-
 .c0 .c6,
 .c0 svg {
   height: 16px;
@@ -897,10 +869,8 @@ exports[`RadioButton styles base renders as expected 1`] = `
 }
 
 .c0 .c22 {
+  position: relative;
   display: inline-block;
-  margin-left: 8px;
-  padding: 1px;
-  vertical-align: middle;
 }
 
 .c0 .c20 {
