@@ -49,8 +49,6 @@ Feature: Build tests for classic stories
       | date input           | date                 |
       | detail               | detail               |
       | draggableContext     | table                |
-      | dropdownFilterAjax   | dropdown-filter-ajax |
-      | dropdown-filter      | dropdown-filter      |
       | filter component     | filter               |
       | form                 | form                 |
       | heading              | heading              |
@@ -91,11 +89,13 @@ Feature: Build tests for classic stories
     When I open deprecated "<component>" component iframe
     Then "<data-component>" component is visible
     Examples:
-      | component          | data-component     |
-      | textbox            | textbox            |
-      | textarea           | textarea           |
-      | number-input       | number             |
-      | decimal            | decimal            |
-      | dropdown           | dropdown           |
-      | fieldset           | fieldset           |
-      | groupedcharacter   | grouped-character  |
+      | component           | data-component       |
+      | textbox             | textbox              |
+      | textarea            | textarea             |
+      | number-input        | number               |
+      | decimal             | decimal              |
+      | dropdownFilterAjax  | dropdown-filter-ajax |
+      | dropdown-filter     | dropdown-filter      |
+      | dropdown            | dropdown             |
+      | fieldset            | fieldset             |
+      | groupedcharacter    | grouped-character    |
