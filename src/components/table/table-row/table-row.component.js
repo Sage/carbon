@@ -9,6 +9,7 @@ import DraggableTableCell from '../draggable-table-cell';
 import StyledTableRow from './table-row.style';
 import { validProps } from '../../../utils/ether/ether';
 import tagComponent from '../../../utils/helpers/tags/tags';
+import baseTheme from '../../../style/themes/base';
 
 /**
  * A TableRow widget.
@@ -285,6 +286,8 @@ class TableRow extends React.Component {
 }
 
 TableRow.propTypes = {
+  theme: PropTypes.object,
+
   /**  Children elements */
   children: PropTypes.node,
 
@@ -340,7 +343,14 @@ TableRow.propTypes = {
   dragging: PropTypes.func
 };
 
-TableRow.safeProps = ['onClick'];
+TableRow.defaultProps = {
+  theme: baseTheme
+};
+
+TableRow.safeProps = [
+  'onClick',
+  'theme'
+];
 
 TableRow.contextTypes = {
   attachToTable: PropTypes.func, // attach the row to the table
