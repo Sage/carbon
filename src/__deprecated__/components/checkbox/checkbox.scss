@@ -5,7 +5,11 @@
 .carbon-checkbox {
   padding-top: 8px;
 
-  .common-input__field,
+  .common-input__field {
+    top: 2px;
+    display: inline-block;
+  }
+  
   .common-input__label {
     display: inline-block;
   }

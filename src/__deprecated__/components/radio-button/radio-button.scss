@@ -9,6 +9,7 @@
   .common-input__label {
     display: inline-block;
     vertical-align: middle;
+    margin-top: -2px;
   }
 
   .common-input__label {
@@ -19,6 +20,7 @@
 
   &.common-input--has-field-help {
     .common-input__label {
+      vertical-align: unset;
       padding-bottom: 0px;
     }
 
