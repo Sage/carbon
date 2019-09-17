@@ -12,7 +12,7 @@ import Form from '../form';
 import Textbox from '../../__deprecated__/components/textbox';
 import Button from '../button';
 import Modal from '../modal';
-import DateInput from '../date';
+import DateInput from '../../__deprecated__/components/date';
 import Dropdown from '../dropdown/dropdown';
 import Checkbox from '../checkbox/checkbox';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
