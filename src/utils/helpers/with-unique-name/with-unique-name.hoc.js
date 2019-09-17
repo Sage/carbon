@@ -7,7 +7,7 @@ const withUniqueName = (WrappedComponent) => {
     name = guid();
 
     static propTypes = {
-      forwardedRef: PropTypes.func
+      forwardedRef: PropTypes.object
     };
 
     render() {
