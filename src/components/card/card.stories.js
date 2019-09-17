@@ -115,18 +115,25 @@ function makeStory(name, themeSelector) {
   const component = () => {
     const knobs = cardKnobs();
 
-    return ([getCard(knobs), getSmallCard(knobs)]);
+    return (
+      <div>
+        { getCard(knobs) }
+        { getSmallCard(knobs) }
+      </div>
+    );
   };
 
   const metadata = {
-    themeSelector,
-    info: { text: Info, propTablesExclude: [Icon, Link, Heading] },
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false }
+    themeSelector
   };
 
   return [name, component, metadata];
 }
 
 storiesOf('Card', module)
+  .addParameters({
+    info: { text: Info, propTablesExclude: [Icon, Link, Heading] },
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
+  })
   .add(...makeStory('default', dlsThemeSelector));
