@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 import { THEMES } from '../../style/themes';
-import { StyledIcon } from '../icon/icon.style';
+import StyledIcon from '../icon/icon.style';
 
 const colors = {
   error: '#c7384f',

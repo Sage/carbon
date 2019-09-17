@@ -11,7 +11,7 @@ import classicTheme from '../../../style/themes/classic';
 import smallTheme from '../../../style/themes/small';
 import mediumTheme from '../../../style/themes/medium';
 import largeTheme from '../../../style/themes/large';
-import { StyledIcon } from '../../../components/icon/icon.style';
+import StyledIcon from '../../../components/icon/icon.style';
 
 function render(props) {
   return TestRenderer.create(<SwitchSliderPanel { ...props } />);
