@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Input from '../../../utils/decorators/input/input';
-import InputLabel from '../../../utils/decorators/input-label/input-label';
-import InputValidation from '../../../utils/decorators/input-validation/input-validation';
-import tagComponent from '../../../utils/helpers/tags/tags';
-import { validProps } from '../../../utils/ether/ether';
+import Input from '../../../utils/decorators/input';
+import InputLabel from '../../../utils/decorators/input-label';
+import InputValidation from '../../../utils/decorators/input-validation';
+import tagComponent from '../../../utils/helpers/tags';
+import { validProps } from '../../../utils/ether';
 import './checkbox.scss';
 
 const Checkbox = Input(InputLabel(InputValidation(class Checkbox extends React.Component {

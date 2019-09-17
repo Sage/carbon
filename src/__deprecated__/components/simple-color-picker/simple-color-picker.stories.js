@@ -24,7 +24,7 @@ const onChange = (e) => {
   action('select')();
 };
 
-storiesOf('SimpleColorPicker', module)
+storiesOf('__deprecated__/SimpleColorPicker', module)
   .addParameters({
     info: {
       propTablesExclude: [State]
