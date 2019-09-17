@@ -11,8 +11,8 @@ import StyledDayPicker from './day-picker.style';
 import DateHelper from '../../../utils/helpers/date';
 import Date from './date.component';
 import Events from '../../../utils/helpers/events';
-import { elementsTagTest, rootTagTest } from '../../../../utils/helpers/tags/tags-specs';
-import classicTheme from '../../style/themes/classic';
+import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
+import classicTheme from '../../../style/themes/classic';
 
 describe('Date', () => {
   let instance;
