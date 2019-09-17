@@ -68,6 +68,9 @@ const withValidations = (WrappedComponent) => {
             warningCount={ this.state.warningCount }
             infoCount={ this.state.infoCount }
             { ...this.props }
+            innerRef={ (form) => {
+              this._form = form;
+            } }
           >
             { this.props.children }
           </WrappedComponent>

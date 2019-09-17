@@ -389,7 +389,12 @@ class FormWithoutValidations extends React.Component {
         onSubmit={ this.handleOnSubmit }
         fixedBottom={ this.props.fixedBottom }
         { ...this.htmlProps() }
-        ref={ (form) => { this._form = form; } }
+        ref={ (form) => {
+          this._form = form;
+          if (this.props.innerRef) {
+            this.props.innerRef(form);
+          }
+        } }
         { ...tagComponent('form', this.props) }
       >
         { generateCSRFToken(this._document) }
@@ -510,7 +515,10 @@ FormWithoutValidations.propTypes = {
   fixedBottom: PropTypes.bool,
 
   /** Sets children's label alignment */
-  isLabelRightAligned: PropTypes.bool
+  isLabelRightAligned: PropTypes.bool,
+
+  /** A ref function to pass to the form */
+  innerRef: PropTypes.func
 };
 
 FormWithoutValidations.defaultProps = {
