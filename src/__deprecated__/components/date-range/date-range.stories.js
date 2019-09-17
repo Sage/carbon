@@ -3,10 +3,10 @@ import { storiesOf } from '@storybook/react';
 import { text, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-import { classicThemeSelector } from '../../../.storybook/theme-selectors';
+import { classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import notes from './documentation';
 import DateRange from './date-range.js';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 DateRange.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -21,7 +21,7 @@ const handleChange = (newDate) => {
   action('changed')(newDate);
 };
 
-storiesOf('Date Range', module)
+storiesOf('__deprecated__/Date Range', module)
   .addParameters({
     info: {
       propTablesExclude: [State]

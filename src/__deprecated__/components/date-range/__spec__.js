@@ -3,9 +3,9 @@ import TestUtils from 'react-dom/test-utils';
 import I18n from 'i18n-js';
 import DateRange from './date-range';
 import Date from './../date';
-import DateRangeValidator from './../../utils/validations/date-range';
+import DateRangeValidator from './../../../utils/validations/date-range';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 
 describe('DateRange', () => {
   let instance, customOnChange;

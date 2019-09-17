@@ -45,7 +45,6 @@ Feature: Build tests for classic stories
       | configurable-items   | configurable-items   |
       | content              | content              |
       | create               | link                 |
-      | date range           | date-range           |
       | detail               | detail               |
       | draggableContext     | table                |
       | dropdownFilterAjax   | dropdown-filter-ajax |
@@ -93,6 +92,7 @@ Feature: Build tests for classic stories
     Examples:
       | component            | data-component      |
       | date input           | date                |
+      | date range           | date-range          |
       | decimal              | decimal             |
       | fieldset             | fieldset            |
       | groupedcharacter     | grouped-character   |
