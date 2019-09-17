@@ -3,7 +3,7 @@ import ColorOption from './color-option';
 import SimpleColorPicker from './';
 import { mount, shallow } from 'enzyme';
 import { findIndex } from 'lodash';
-import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 
 describe('SimpleColorPicker', () => {
   let wrapper, selectedColor;

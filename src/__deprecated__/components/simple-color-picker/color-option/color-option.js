@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { trim, startsWith } from 'lodash';
 
-import Icon from '../../icon';
-import Input from '../../../utils/decorators/input';
-import tagComponent from '../../../utils/helpers/tags';
+import Icon from '../../../../components/icon';
+import Input from '../../../../utils/decorators/input/input';
+import tagComponent from '../../../../utils/helpers/tags/tags';
 import './color-option.scss';
 
 /**

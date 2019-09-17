@@ -2,7 +2,7 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import RadioButton from './radio-button';
 import { shallow } from 'enzyme';
-import { rootTagTest } from '../../../utils/helpers/tags';
+import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 
 describe('RadioButton', () => {
   let instance;

@@ -3,10 +3,10 @@ import { storiesOf } from '@storybook/react';
 import { text, array } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-import { classicThemeSelector } from '../../../.storybook/theme-selectors';
+import { classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import SimpleColorPicker from './simple-color-picker';
 import { notes, info } from './documentation';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 SimpleColorPicker.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
