@@ -262,7 +262,9 @@ class FormWithoutValidations extends React.Component {
 
   /** Separates and returns HTML specific props */
   htmlProps = () => {
-    const { onSubmit, fixedBottom, ...props } = validProps(this);
+    const {
+      onSubmit, fixedBottom, innerRef, ...props
+    } = validProps(this);
     return props;
   }
 
