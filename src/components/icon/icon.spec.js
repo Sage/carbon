@@ -1,13 +1,12 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import TestUtils from 'react-dom/test-utils';
 import { mount, shallow } from 'enzyme';
 import Tooltip from '../tooltip';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import 'jest-styled-components';
 import Icon from './icon.component';
-import { StyledIcon } from './icon.style';
+import StyledIcon from './icon.style';
 import classicTheme from '../../style/themes/classic';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import classicConfig from './icon-classic-config';
@@ -26,48 +25,6 @@ function renderStyles(props) {
 }
 
 describe('Icon component', () => {
-  describe('svg icon', () => {
-    let instance, span, svg;
-
-    const icons = [
-      'basket',
-      'bin',
-      'chevron',
-      'completed',
-      'dribbble',
-      'external-link',
-      'github',
-      'individual',
-      'location',
-      'minus',
-      'paperclip',
-      'payment',
-      'plus',
-      'processing',
-      'progress',
-      'remove',
-      'sort-down',
-      'sort-up',
-      'submitted',
-      'twitter',
-      'white-tick'
-    ];
-
-    describe.each(icons)(
-      'renderIcon',
-      (icon) => {
-        it(`calls the render ${icon} icon method`, () => {
-          instance = TestUtils.renderIntoDocument(<Icon fontSize='large' type={ icon } />);
-          // eslint-disable-next-line no-unused-expressions
-          instance.renderIcon;
-          span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
-          svg = span.children[0];
-          expect(svg.getAttribute('class')).toEqual(`carbon-icon__svg carbon-icon__svg--${icon}`);
-        });
-      }
-    );
-  });
-
   const mismatchedPairs = [
     { prop: 'help', rendersAs: 'question' },
     { prop: 'maintenance', rendersAs: 'settings' },
@@ -91,7 +48,7 @@ describe('Icon component', () => {
     'when in classic theme',
     (bgTheme) => {
       it(`applies proper background color for ${bgTheme}`, () => {
-        const wrapper = renderStyles({ theme: classicTheme, bgTheme, isFont: true });
+        const wrapper = renderStyles({ theme: classicTheme, bgTheme });
         assertStyleMatch(
           {
             backgroundColor: classicConfig.backgroundColor[bgTheme]
@@ -122,7 +79,7 @@ describe('Icon component', () => {
 
     it('it applies additional margin-top styling when the fontSize is "small"', () => {
       const wrapper = renderStyles({
-        type: 'services', theme: classicTheme, isFont: true, fontSize: 'small'
+        type: 'services', theme: classicTheme, fontSize: 'small'
       });
       assertStyleMatch(
         {
@@ -135,7 +92,7 @@ describe('Icon component', () => {
 
     it('it applies additional margin-top styling when the fontSize is "large"', () => {
       const wrapper = renderStyles({
-        type: 'services', theme: classicTheme, isFont: true, fontSize: 'large'
+        type: 'services', theme: classicTheme, fontSize: 'large'
       });
       assertStyleMatch(
         {
@@ -149,7 +106,7 @@ describe('Icon component', () => {
     it('it applies additional margin-top styling when the browser is safari and fontSize is "small"', () => {
       browserTypeCheck.mockImplementation(() => false);
       const wrapper = renderStyles({
-        type: 'services', theme: classicTheme, isFont: true, fontSize: 'small'
+        type: 'services', theme: classicTheme, fontSize: 'small'
       });
       assertStyleMatch(
         {
@@ -163,7 +120,7 @@ describe('Icon component', () => {
     it('it applies additional margin-top styling when the browser is safari and the fontSize is "large"', () => {
       browserTypeCheck.mockImplementation(() => false);
       const wrapper = renderStyles({
-        type: 'services', theme: baseTheme, isFont: true, fontSize: 'large'
+        type: 'services', theme: baseTheme, fontSize: 'large'
       });
       assertStyleMatch(
         {
