@@ -1,5 +1,5 @@
 import Switch from './';
-import Definition from './../../../demo/utils/definition';
+import Definition from '../../../../demo/utils/definition';
 
 let definition = new Definition('switch', Switch, {
 	description: `Selects more than one option.`,

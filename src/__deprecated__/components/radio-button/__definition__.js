@@ -1,5 +1,5 @@
 import RadioButton from './';
-import Definition from './../../../demo/utils/definition';
+import Definition from '../../../../demo/utils/definition';
 
 let definition = new Definition('radio-button', RadioButton, {
   description: `Selects one option from a longer list.`,

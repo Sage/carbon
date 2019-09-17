@@ -1,7 +1,6 @@
 import SimpleColorPicker from './';
-import OptionsHelper from './../../utils/helpers/options-helper';
-import Definition from './../../../demo/utils/definition';
-import ComponentActions from './../../../demo/actions/component';
+import Definition from '../../../../demo/utils/definition';
+import ComponentActions from '../../../../demo/actions/component';
 
 let definition = new Definition('simple-color-picker', SimpleColorPicker, {
   description: `A small number of pre-set colour options to select from.`,

@@ -1,5 +1,5 @@
-import Checkbox from '../../__experimental__/components/checkbox';
-import Definition from './../../../demo/utils/definition';
+import Checkbox from '../../../__experimental__/components/checkbox';
+import Definition from '../../../../demo/utils/definition';
 
 let definition = new Definition('checkbox', Checkbox, {
   description: `Selects more than one option.`,
