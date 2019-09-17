@@ -42,24 +42,28 @@ describe('CheckboxGroup', () => {
   });
 
   describe('group label', () => {
-    const labelText = 'My Label';
-    const wrapper = render({ label: labelText });
-    const label = wrapper.find(Label).first();
+    it('should have the correct text', () => {
+      const labelText = 'My Label';
+      const wrapper = render({ label: labelText });
+      const label = wrapper.find(Label).first();
 
-    expect(label.text()).toEqual(labelText);
+      expect(label.text()).toEqual(labelText);
+    });
   });
 
   describe('group icon messsage', () => {
-    const wrapper = render();
-    const text = 'Choose an option';
+    it('should have the correct text', () => {
+      const wrapper = render();
+      const text = 'Choose an option';
 
-    wrapper.setProps({
-      labelHelp: text
+      wrapper.setProps({
+        labelHelp: text
+      });
+
+      const icon = wrapper.find(Icon);
+
+      expect(icon.prop('tooltipMessage')).toEqual(text);
     });
-
-    const icon = wrapper.find(Icon);
-
-    expect(icon.prop('tooltipMessage')).toEqual(text);
   });
 
   describe('onChange', () => {
