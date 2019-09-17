@@ -312,9 +312,9 @@ describe('TableRow', () => {
   );
 
   describe('if the row is clickable', () => {
-    it('adds a clickable class', () => {
+    it('uses a "pointer" (clickable) cursor', () => {
       const tr = TestUtils.findRenderedDOMComponentWithTag(clickableInstance, 'tr');
-      expect(tr.className).toMatch('carbon-table-row--clickable');
+      assertStyleMatch({ cursor: 'pointer' }, tr);
     });
   });
 
