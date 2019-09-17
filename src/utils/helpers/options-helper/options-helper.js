@@ -290,6 +290,14 @@ const OptionsHelper = {
     'large'
   ],
 
+  sizesTile: [
+    'XS',
+    'S',
+    'M',
+    'L',
+    'XL'
+  ],
+
   steps: [
     'complete',
     'current',
@@ -331,6 +339,11 @@ const OptionsHelper = {
     'small',
     'medium',
     'large'
+  ],
+
+  tileThemes: [
+    'tile',
+    'transparent'
   ],
 
   validationTypes: [

@@ -7,6 +7,7 @@ import {
   select,
   number
 } from '@storybook/addon-knobs';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import { notes, info } from './documentation';
 import TableWrapper from './table-story-helpers/table-story-wrapper.component';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
@@ -84,8 +85,10 @@ const inputKnobs = () => {
 storiesOf('Table', module)
   .addParameters({
     info: {
+      text: info,
       propTablesExclude: [State]
-    }
+    },
+    notes: { markdown: notes }
   })
   .add('classic', () => {
     const tableProps = {
@@ -97,8 +100,7 @@ storiesOf('Table', module)
       <TableWrapper { ...tableProps } />
     );
   }, {
-    info: { text: info },
-    notes: { markdown: notes }
+    themeSelector: classicThemeSelector
   })
   .add(
     'default',
@@ -113,8 +115,7 @@ storiesOf('Table', module)
       );
     },
     {
-      info: { text: info },
-      notes: { markdown: notes }
+      themeSelector: dlsThemeSelector
     },
   )
   .add(
@@ -131,8 +132,7 @@ storiesOf('Table', module)
       );
     },
     {
-      info: { text: info },
-      notes: { markdown: notes }
+      themeSelector: classicThemeSelector
     },
   )
   .add(
@@ -149,7 +149,6 @@ storiesOf('Table', module)
       );
     },
     {
-      info: { text: info },
-      notes: { markdown: notes }
+      themeSelector: dlsThemeSelector
     },
   );

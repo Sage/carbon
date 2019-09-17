@@ -5,6 +5,7 @@ import {
   text, boolean, number, select
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import { classicThemeSelector } from '../../../.storybook/theme-selectors';
 import Switch from './switch';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import { notes, info } from './documentation';
@@ -38,7 +39,7 @@ storiesOf('Switch', module)
     }
   })
   .add(
-    'default',
+    'classic',
     () => {
       const fieldHelp = text('fieldHelp', 'This text provides help for the input.');
       const fieldHelpInline = boolean('fieldHelpInline', false);
@@ -74,6 +75,7 @@ storiesOf('Switch', module)
     },
     {
       info: { text: info },
-      notes: { markdown: notes }
+      notes: { markdown: notes },
+      themeSelector: classicThemeSelector
     },
   );

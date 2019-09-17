@@ -1,7 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, boolean } from '@storybook/addon-knobs';
+import { text, boolean, object } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import { enableMock } from '../../../demo/xhr-mock';
 import {
   TableAjax, TableRow, TableCell, TableHeader
@@ -55,55 +56,61 @@ const handleChange = (data) => {
   }, 500);
 };
 
+function makeStory(name, themeSelector) {
+  const component = () => {
+    enableMock();
+
+    const pageSize = text('pageSize', '5');
+    const paginate = boolean('paginate', TableAjax.defaultProps.paginate);
+    const customHeaders = object('customHeaders', { Accept: 'application/json' });
+
+    return (
+      <State store={ store }>
+        <TableAjax
+          actions={ {
+            delete: { icon: 'bin' },
+            settings: { icon: 'settings' }
+          } }
+          actionToolbarChildren={ (context) => {
+            return [
+              <Button disabled={ context.disabled } key='single-action'>
+                Test Action
+              </Button>,
+              <MultiActionButton
+                text='Actions' disabled={ context.disabled }
+                key='multi-actions'
+              >
+                <Button>foo</Button>
+                <Button>bar</Button>
+                <Button>qux</Button>
+              </MultiActionButton>
+            ];
+          } }
+          path='/countries'
+          pageSize={ pageSize }
+          paginate={ paginate }
+          getCustomHeaders={ () => customHeaders }
+          onChange={ data => handleChange(data) }
+        />
+      </State>
+    );
+  };
+
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
 
 storiesOf('Table Ajax', module)
   .addParameters({
     info: {
+      text: info,
       propTablesExclude: [State]
-    }
+    },
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   })
-  .add(
-    'default',
-    () => {
-      enableMock();
-
-      const pageSize = text('pageSize', '5');
-      const paginate = boolean('paginate', TableAjax.defaultProps.paginate);
-      const getCustomHeaders = text('getCustomHeaders');
-
-      return (
-        <State store={ store }>
-          <TableAjax
-            actions={ {
-              delete: { icon: 'bin' },
-              settings: { icon: 'settings' }
-            } }
-            actionToolbarChildren={ (context) => {
-              return [
-                <Button disabled={ context.disabled } key='single-action'>
-                  Test Action
-                </Button>,
-                <MultiActionButton
-                  text='Actions' disabled={ context.disabled }
-                  key='multi-actions'
-                >
-                  <Button>foo</Button>
-                  <Button>bar</Button>
-                  <Button>qux</Button>
-                </MultiActionButton>
-              ];
-            } }
-            path='/countries'
-            pageSize={ pageSize }
-            paginate={ paginate }
-            getCustomHeaders={ getCustomHeaders }
-            onChange={ data => handleChange(data) }
-          />
-        </State>
-      );
-    },
-    {
-      info: { text: info },
-      notes: { markdown: notes }
-    },
-  );
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));

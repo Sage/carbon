@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, boolean, select } from '@storybook/addon-knobs';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { Row, Column } from './row';
 import { notes, info } from './documentation';
@@ -16,9 +17,8 @@ Column.__docgenInfo = getDocGenInfo(
   /column\.js(?!spec)/
 );
 
-storiesOf('Row', module).add(
-  'default',
-  () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     // row
     const columnDivide = boolean('columnDivide', true);
     const gutter = select('gutter', OptionsHelper.sizesFull, Row.defaultProps.gutter);
@@ -56,9 +56,17 @@ storiesOf('Row', module).add(
         </Column>
       </Row>
     );
-  },
-  {
+  };
+
+  const metadata = {
+    themeSelector,
     notes: { markdown: notes },
     info: { text: info }
-  }
-);
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Row', module)
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));

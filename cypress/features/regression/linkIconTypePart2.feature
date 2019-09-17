@@ -33,7 +33,6 @@ Feature: Link component
       | logout            |
       | marker            |
       | message           |
-      | messages          |
       | minus             |
       | mobile            |
       | pdf               |
@@ -63,3 +62,11 @@ Feature: Link component
       | view              |
       | warning           |
       | white-tick        |
+
+  @positive
+  Scenario Outline: Change type of icon for a Link component to <iconName>
+    When I select icon to "<iconName>"
+    Then icon on link componenent preview is "<iconDataElement>"
+    Examples:
+      | iconName          | iconDataElement |
+      | messages          | message         |

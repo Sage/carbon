@@ -33,7 +33,6 @@ Feature: Detail component
       | logout            |
       | marker            |
       | message           |
-      | messages          |
       | minus             |
       | mobile            |
       | pdf               |
@@ -63,3 +62,11 @@ Feature: Detail component
       | view              |
       | warning           |
       | white-tick        |
+
+  @positive
+  Scenario Outline: Change Detail icon to <iconName>
+    When I set detail icon to "<iconName>"
+    Then icon on preview is "<iconDataElement>"
+    Examples:
+      | iconName          | iconDataElement |
+      | messages          | message         |
