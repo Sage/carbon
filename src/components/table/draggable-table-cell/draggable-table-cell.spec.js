@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import DraggableTableCell from '.';
-import TableCell from '../table-cell';
 import WithDrag from '../../drag-and-drop/with-drag';
+import StyledDraggableTableCell from './draggable-table-cell.style';
 import Icon from '../../icon';
 
 describe('DraggableTableCell', () => {
@@ -15,7 +15,7 @@ describe('DraggableTableCell', () => {
   });
 
   it('renders a table cell', () => {
-    const cell = wrapper.find(TableCell);
+    const cell = wrapper.find(StyledDraggableTableCell);
     expect(cell.props().className).toEqual('draggable-table-cell');
   });
 
