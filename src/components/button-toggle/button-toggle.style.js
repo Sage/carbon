@@ -5,7 +5,7 @@ import {
   StyledButtonToggleClassicLabel,
   StyledButtonToggleClassicIcon
 } from './button-toggle-classic.style';
-import { StyledIcon } from '../icon/icon.style';
+import StyledIcon from '../icon/icon.style';
 
 const StyledButtonToggleContentWrapper = styled.div`
   display: flex;

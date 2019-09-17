@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import StyledButton from '../button/button.style';
 import { getSplitButtonToggleClassicStyles } from './split-button-classic.style';
-import { StyledIcon } from '../icon/icon.style';
+import StyledIcon from '../icon/icon.style';
 
 const horizontalPaddingSizes = {
   small: 5,
