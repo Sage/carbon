@@ -59,9 +59,11 @@ CheckboxGroup.propTypes = {
   children: PropTypes.node.isRequired,
   /** Specifies the name prop to be applied to each button in the group */
   groupName: PropTypes.string.isRequired,
-  /** Validation indicators */
+  /** Prop to indicate that an error has occurred */
   hasError: PropTypes.bool,
+  /** Prop to indicate that a warning has occurred */
   hasWarning: PropTypes.bool,
+  /** Prop to indicate additional information  */
   hasInfo: PropTypes.bool
 };
 
