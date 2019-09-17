@@ -16,9 +16,11 @@ const StyledCard = styled.button`
     background-color: ${theme.colors.white};
     border: none;
     box-shadow: ${theme.shadows.cards};
+    color: ${theme.text.color};
     margin: 25px;
     padding: ${paddingSizes[spacing]};
     transition: all 0.3s ease-in-out;
+    vertical-align: top;
     width: ${cardWidth};
     outline: none;
 
