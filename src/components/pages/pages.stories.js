@@ -32,12 +32,13 @@ const store = new Store({
   transitionTime: 600
 });
 
-const handleSlide = (ev, pageIndex) => {
+const handleSlide = (_, pageIndex) => {
+  action('slide')(`Page index: ${pageIndex}`);
+
   const isDisabled = store.get('isDisabled');
   const transitionTime = store.get('transitionTime');
   if (isDisabled) return store.get('previouspageHistoryPointer');
 
-  action('slide')(ev);
   const newpageHistory = [...store.get('pageHistory'), pageIndex];
 
   store.set({
@@ -111,28 +112,28 @@ function makeStory(name, themeSelector) {
                 pageIndex={ handleSlide(null, pageIndex()) }
               >
                 <Page title={ <Heading title='My First Page' /> }>
-                  <OriginalButton onClick={ (ev) => { handleSlide(ev, 1); } }>
+                  <OriginalButton onClick={ ev => handleSlide(ev, 1) }>
                     Go to second page
                   </OriginalButton>
-                  <OriginalButton onClick={ (ev) => { handleSlide(ev, 2); } }>
+                  <OriginalButton onClick={ ev => handleSlide(ev, 2) }>
                     Go to third page
                   </OriginalButton>
                 </Page>
 
                 <Page title={ <Heading title='My Second Page' backLink={ handlePreviousSlide } /> }>
-                  <OriginalButton onClick={ (ev) => { handleSlide(ev, 0); } }>
+                  <OriginalButton onClick={ ev => handleSlide(ev, 0) }>
                     Go to first page
                   </OriginalButton>
-                  <OriginalButton onClick={ (ev) => { handleSlide(ev, 2); } }>
+                  <OriginalButton onClick={ ev => handleSlide(ev, 2) }>
                     Go to third page
                   </OriginalButton>
                 </Page>
 
                 <Page title={ <Heading title='My Third Page' backLink={ handlePreviousSlide } /> }>
-                  <OriginalButton onClick={ (ev) => { handleSlide(ev, 0); } }>
+                  <OriginalButton onClick={ ev => handleSlide(ev, 0) }>
                     Go to first page
                   </OriginalButton>
-                  <OriginalButton onClick={ (ev) => { handleSlide(ev, 1); } }>
+                  <OriginalButton onClick={ ev => handleSlide(ev, 1) }>
                     Go to second page
                   </OriginalButton>
                 </Page>
