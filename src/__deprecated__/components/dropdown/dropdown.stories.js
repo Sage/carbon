@@ -8,13 +8,13 @@ import {
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-import { classicThemeSelector } from '../../../.storybook/theme-selectors';
-import ImmutableHelper from '../../utils/helpers/immutable';
-import OptionsHelper from '../../utils/helpers/options-helper';
+import { classicThemeSelector } from '../../../../.storybook/theme-selectors';
+import ImmutableHelper from '../../../utils/helpers/immutable/immutable';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
 import Dropdown from './dropdown';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 Dropdown.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -30,7 +30,7 @@ const handleChange = (evt) => {
   action('change')(evt);
 };
 
-storiesOf('Dropdown', module)
+storiesOf('__deprecated__/Dropdown', module)
   .addParameters({
     info: {
       propTablesExclude: [State]
