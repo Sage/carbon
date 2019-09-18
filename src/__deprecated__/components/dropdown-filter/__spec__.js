@@ -3,8 +3,8 @@ import TestUtils from 'react-dom/test-utils';
 import DropdownFilter from './dropdown-filter';
 import Immutable from 'immutable';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
-import ImmutableHelper from './../../utils/helpers/immutable';
+import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
+import ImmutableHelper from '../../../utils/helpers/immutable';
 
 
 describe('DropdownFilter', () => {

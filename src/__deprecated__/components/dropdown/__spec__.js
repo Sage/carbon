@@ -3,10 +3,10 @@ import TestUtils from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 import Immutable from 'immutable';
 import Dropdown from './dropdown';
-import Events from './../../utils/helpers/events';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
-import ImmutableHelper from './../../utils/helpers/immutable';
-import Portal from './../portal';
+import Events from '../../../utils/helpers/events';
+import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
+import ImmutableHelper from '../../../utils/helpers/immutable';
+import Portal from '../../../components/portal';
 
 /* global jest */
 describe('Dropdown', () => {

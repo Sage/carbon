@@ -1,6 +1,6 @@
 import Dropdown from './';
-import OptionsHelper from '../../utils/helpers/options-helper';
-import Definition from './../../../demo/utils/definition';
+import OptionsHelper from '../../../utils/helpers/options-helper';
+import Definition from '../../../../demo/utils/definition';
 
 let definition = new Definition('dropdown', Dropdown, {
   description: `Selects one option from a very long list.`,
