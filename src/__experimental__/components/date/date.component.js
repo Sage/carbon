@@ -29,6 +29,8 @@ class DateInput extends React.Component {
     onChange: PropTypes.func,
     /** Specify a callback triggered on focus */
     onFocus: PropTypes.func,
+    /** Name of the input */
+    name: PropTypes.string,
     /** The current date YYYY-MM-DD */
     value: PropTypes.string,
     /** Triggers textbox validation when it's boolean value changes */
@@ -178,7 +180,7 @@ class DateInput extends React.Component {
   };
 
   emitOnChangeCallback = (stringDate) => {
-    const changePayload = { target: { value: stringDate } };
+    const changePayload = { target: { name: this.props.name, value: stringDate } };
 
     if (this.props.onChange) this.props.onChange(changePayload);
   };

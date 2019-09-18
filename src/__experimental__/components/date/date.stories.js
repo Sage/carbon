@@ -43,6 +43,7 @@ function makeStory(name, themeSelector) {
     return (
       <DateInput
         { ...getCommonTextboxStoryProps({ inputWidthEnabled: false }) }
+        name='dateinput'
         autoFocus={ autoFocus }
         minDate={ minDate }
         maxDate={ maxDate }

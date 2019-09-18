@@ -500,6 +500,50 @@ describe('Form', () => {
     });
   });
 
+  describe('when addOtherInputsToState is called', () => {
+    describe('and it is new formInput and not of type (button, submit)', () => {
+      it('it executes addInputDataToState for each form element', () => {
+        const spy = jasmine.createSpy('spy');
+        wrapper = mount(
+          <Form
+            validate={ () => true }
+            formAction='foo'
+          />
+        );
+        wrapper.setState({ formInputs: {} });
+        wrapper.instance()._form = {
+          elements: [
+            {
+              name: 'abc',
+              value: 'abc-value',
+              type: 'text'
+            },
+            {
+              name: 'cba',
+              value: 'cba-value',
+              type: 'text'
+            }
+          ]
+        };
+
+        const spyAddInputDataToState = spyOn(wrapper.instance(), 'addInputDataToState');
+        wrapper.instance().addOtherInputsToState();
+        expect(spyAddInputDataToState).toHaveBeenCalledTimes(2);
+      });
+    });
+
+    it('it executes submitControlledForm', async () => {
+      const spy = jasmine.createSpy('spy');
+      wrapper = mount(
+        <Form validate={ () => true } formAction='foo' />
+      );
+      wrapper.setState({ formInputs: {} });
+      const spySubmitControlledForm = spyOn(wrapper.instance(), 'submitControlledForm');
+      wrapper.instance().addOtherInputsToState();
+      expect(spySubmitControlledForm).toHaveBeenCalled();
+    });
+  });
+
   describe('class Names', () => {
     it('allows custom classes to be added to the Form', () => {
       wrapper = shallow(<Form formAction='foo' className='foo' />);

@@ -217,14 +217,16 @@ describe('Date', () => {
   describe('when the input value is changed', () => {
     let onChangeFn;
     const mockTodayDate = '2019-04-11';
+    const name = 'abc';
 
     beforeEach(() => {
       jest.spyOn(DateHelper, 'todayFormatted').mockImplementation(() => mockTodayDate);
       onChangeFn = jest.fn();
-      wrapper = render({ onChange: onChangeFn });
+      wrapper = render({ onChange: onChangeFn, name: name });
     });
 
     describe('to a valid date', () => {
+      
       const validDate = '1 apr 2019';
       const isoDate = '2019-04-01';
       const visibleDate = '01/04/2019';
@@ -237,7 +239,7 @@ describe('Date', () => {
 
       it('then the "onChange" prop should have been called with ISO formatted date in payload value', () => {
         simulateChangeOnInput(wrapper, validDate);
-        expect(onChangeFn).toHaveBeenCalledWith({ target: { value: isoDate } });
+        expect(onChangeFn).toHaveBeenCalledWith({ target: { name: name, value: isoDate } });
       });
 
       it('then the "selectedDate" prop with proper Date Object should be passed to the DatePicker component', () => {
