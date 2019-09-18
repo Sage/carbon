@@ -18,3 +18,14 @@ Feature: Card component
   Scenario: Enable interactive card checkbox
     When I check interactive card checkbox
     Then Card component is interactive
+
+  @positive
+  Scenario: Verify the shadow whithout interactive card
+    # When I open "Card" component page
+    Then Card component has non-interactive shadow
+
+  @positive
+  Scenario: Verify the interactive card shadow
+    When I check interactive card checkbox
+      And I hover mouse onto Card component
+    Then Card component has interactive shadow
