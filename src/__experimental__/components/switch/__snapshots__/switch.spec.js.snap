@@ -44,16 +44,16 @@ exports[`Switch base theme renders as expected 1`] = `
 }
 
 .c1 .c29 .c28,
-.c1 .c29 .sc-bZQynM {
+.c1 .c29 .sc-EHOje {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
 .c1 .c29 .c28:hover,
-.c1 .c29 .sc-bZQynM:hover,
+.c1 .c29 .sc-EHOje:hover,
 .c1 .c29 .c28:focus,
-.c1 .c29 .sc-bZQynM:focus {
+.c1 .c29 .sc-EHOje:focus {
   color: rgba(0,0,0,0.9);
 }
 

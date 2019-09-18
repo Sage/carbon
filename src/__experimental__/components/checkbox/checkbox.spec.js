@@ -8,7 +8,7 @@ import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';
-import { StyledIcon } from '../../../components/icon/icon.style';
+import StyledIcon from '../../../components/icon/icon.style';
 import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
 import StyledHelp from '../../../components/help/help.style';
 import guid from '../../../utils/helpers/guid';

@@ -1,5 +1,5 @@
 import { css } from 'styled-components';
-import { StyledIcon } from '../icon/icon.style';
+import StyledIcon from '../icon/icon.style';
 import { isClassic } from '../../utils/helpers/style-helper';
 
 export default ({ theme }) => isClassic(theme) && css`
