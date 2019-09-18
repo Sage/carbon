@@ -53,7 +53,6 @@ Feature: Build tests for classic stories
       | dropdown-filter      | dropdown-filter      |
       | dropdown             | dropdown             |
       | filter component     | filter               |
-      | form                 | form                 |
       | heading              | heading              |
       | help                 | help                 |
       | i18ncomponent        | i18n                 |
@@ -69,7 +68,6 @@ Feature: Build tests for classic stories
       | navigation-bar       | navigation-bar       |
       | pager                | pager                |
       | pill                 | pill                 |
-      | pod                  | pod                  |
       | portrait             | portrait             |
       | preview              | preview              |
       | profile              | profile              |
@@ -99,3 +97,5 @@ Feature: Build tests for classic stories
       | decimal            | decimal            |
       | fieldset           | fieldset           |
       | groupedcharacter   | grouped-character  |
+      | pod                | pod                |
+      | form               | form               |
