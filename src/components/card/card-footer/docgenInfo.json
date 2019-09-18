@@ -1,0 +1,31 @@
+{
+  "src/components/card/card-footer/card-footer.component.js": [
+    {
+      "description": "",
+      "displayName": "CardFooter",
+      "methods": [],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": true,
+          "description": ""
+        },
+        "spacing": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "sizesRestricted"
+          },
+          "required": false,
+          "description": "size of card for applying padding (small | medium | large)",
+          "defaultValue": {
+            "value": "medium",
+            "computed": true
+          }
+        }
+      }
+    }
+  ]
+}

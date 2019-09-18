@@ -5,7 +5,7 @@ import buttonTypes from './button-types.style';
 import buttonSizes from './button-sizes.style';
 import buttonClasicStyle from './button-classic.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import { StyledIcon } from '../icon/icon.style';
+import StyledIcon from '../icon/icon.style';
 import { isClassic } from '../../utils/helpers/style-helper';
 
 const StyledButton = styled.button`
