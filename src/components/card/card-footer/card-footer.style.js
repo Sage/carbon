@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import OptionsHelper from '../../../utils/helpers/options-helper/options-helper';
 import BaseTheme from '../../../style/themes/base';
 import StyledCardColumn from '../card-column/card-column.style';
-import { StyledIcon } from '../../icon/icon.style';
+import StyledIcon from '../../icon/icon.style';
 import { LinkStyleAnchor } from '../../link/link.style';
 
 const { sizesRestricted } = OptionsHelper;

@@ -58,16 +58,16 @@ exports[`RadioButton styles base renders as expected 1`] = `
 }
 
 .c1 .c22 .c21,
-.c1 .c22 .sc-gzVnrw {
+.c1 .c22 .sc-bZQynM {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
 .c1 .c22 .c21:hover,
-.c1 .c22 .sc-gzVnrw:hover,
+.c1 .c22 .sc-bZQynM:hover,
 .c1 .c22 .c21:focus,
-.c1 .c22 .sc-gzVnrw:focus {
+.c1 .c22 .sc-bZQynM:focus {
   color: rgba(0,0,0,0.9);
 }
 
