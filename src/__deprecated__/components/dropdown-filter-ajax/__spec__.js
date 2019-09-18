@@ -1,9 +1,8 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import DropdownFilterAjax from './dropdown-filter-ajax';
-import Immutable from 'immutable';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
-import ImmutableHelper from './../../utils/helpers/immutable';
+import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
+import ImmutableHelper from '../../../utils/helpers/immutable';
 import { mount, shallow } from 'enzyme';
 import Request from 'superagent';
 
