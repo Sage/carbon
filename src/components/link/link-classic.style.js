@@ -4,7 +4,6 @@ import { StyledIcon } from '../icon/icon.style';
 
 function addStyle(color) {
   return `
-    cursor: pointer;
     color: ${color};
     ${StyledIcon} {
       color: ${color};
@@ -13,7 +12,7 @@ function addStyle(color) {
 }
 
 export default ({
-  theme
+  disabled, theme
 }) => (
   isClassic(theme) && css`
     font-weight: bold;
@@ -22,7 +21,22 @@ export default ({
   
     &:hover {
       text-decoration: underline;
+      cursor: pointer;
       ${addStyle('#004B87')}
     }
+
+    &:focus {
+      outline: none;
+    }
+
+    ${disabled && css`
+      pointer-events: none;
+
+      &:hover {
+        text-decoration: none;
+        cursor: default;
+        ${addStyle('#255BC7')}
+      }
+    `}
   `
 );

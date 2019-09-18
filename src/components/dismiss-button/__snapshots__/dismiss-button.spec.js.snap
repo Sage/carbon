@@ -134,23 +134,20 @@ exports[`LinkStyle applies peoper styling when focused 1`] = `
   top: -2px;
 }
 
-<div
-  className="c0 "
+<a
+  className="c0 c1"
   data-component="link"
   disabled={false}
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  tabIndex="0"
 >
-  <a
-    className="c1"
-    onKeyDown={[Function]}
-    tabIndex="0"
-  >
-    <span>
-      <span
-        className="carbon-link__content"
-      />
-    </span>
-  </a>
-</div>
+  <span>
+    <span
+      className="carbon-link__content"
+    />
+  </span>
+</a>
 `;
 
 exports[`when in classic mode when rendered as default should match the snapshot 1`] = `

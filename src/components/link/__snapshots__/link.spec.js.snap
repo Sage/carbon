@@ -27,25 +27,22 @@ exports[`Link renders as expected 1`] = `
   outline: none;
 }
 
-<div
-  className=""
+<a
+  className="c0"
   data-component="link"
   disabled={false}
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  tabIndex="0"
 >
-  <a
-    className="c0"
-    onKeyDown={[Function]}
-    tabIndex="0"
-  >
-    <span>
-      <span
-        className="carbon-link__content"
-      >
-        test
-      </span>
+  <span>
+    <span
+      className="carbon-link__content"
+    >
+      test
     </span>
-  </a>
-</div>
+  </span>
+</a>
 `;
 
 exports[`Link when component has classic theme should render correct style 1`] = `
@@ -58,7 +55,6 @@ exports[`Link when component has classic theme should render correct style 1`] =
   font-weight: bold;
   -webkit-text-decoration: none;
   text-decoration: none;
-  cursor: pointer;
   color: #255BC7;
 }
 
@@ -89,23 +85,24 @@ exports[`Link when component has classic theme should render correct style 1`] =
   color: #004B87;
 }
 
-<div
-  className=""
+.c0:focus {
+  outline: none;
+}
+
+<a
+  className="c0"
   data-component="link"
   disabled={false}
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  tabIndex="0"
 >
-  <a
-    className="c0"
-    onKeyDown={[Function]}
-    tabIndex="0"
-  >
-    <span>
-      <span
-        className="carbon-link__content"
-      >
-        test
-      </span>
+  <span>
+    <span
+      className="carbon-link__content"
+    >
+      test
     </span>
-  </a>
-</div>
+  </span>
+</a>
 `;

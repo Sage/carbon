@@ -10,7 +10,6 @@ exports[`Create classic renders to match the expected style 1`] = `
   font-weight: bold;
   -webkit-text-decoration: none;
   text-decoration: none;
-  cursor: pointer;
   color: #255BC7;
 }
 
@@ -39,6 +38,10 @@ exports[`Create classic renders to match the expected style 1`] = `
 
 .c1:hover .c2 {
   color: #004B87;
+}
+
+.c1:focus {
+  outline: none;
 }
 
 .c0 {
@@ -87,21 +90,18 @@ exports[`Create classic renders to match the expected style 1`] = `
   outline: -webkit-focus-ring-color auto 5px;
 }
 
-<div
-  className="c0 "
+<a
+  className="c0 c1"
   data-component="link"
   disabled={false}
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  tabIndex="0"
 >
-  <a
-    className="c1"
-    onKeyDown={[Function]}
-    tabIndex="0"
-  >
-    <span>
-      <span
-        className="carbon-link__content"
-      />
-    </span>
-  </a>
-</div>
+  <span>
+    <span
+      className="carbon-link__content"
+    />
+  </span>
+</a>
 `;

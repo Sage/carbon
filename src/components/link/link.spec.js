@@ -7,7 +7,7 @@ import { Link as RouterLink } from 'react-router';
 import Link from './link.component';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import classicTheme from '../../style/themes/classic';
-import { LinkStyleAnchor } from './link.style';
+import LinkStyle from './link.style';
 import { StyledIcon } from '../icon/icon.style';
 
 function renderLink(props, renderer = mount) {
@@ -47,7 +47,7 @@ describe('Link', () => {
     it('should matches the expected style', () => {
       assertStyleMatch({
         cursor: 'not-allowed'
-      }, render({ disabled: true }).toJSON());
+      }, render({ disabled: true }).toJSON(), { modifier: ':hover' });
     });
   });
 
@@ -80,7 +80,7 @@ describe('Link', () => {
       assertStyleMatch({
         marginRight: '5px',
         position: 'relative'
-      }, TestRenderer.create(wrapper.find(LinkStyleAnchor)).toJSON(), { modifier: `${StyledIcon}` });
+      }, TestRenderer.create(wrapper.find(LinkStyle)).toJSON(), { modifier: `${StyledIcon}` });
     });
 
     it('should render an `Icon` on the right', () => {
@@ -90,7 +90,7 @@ describe('Link', () => {
         marginLeft: '5px',
         position: 'relative'
 
-      }, TestRenderer.create(wrapper.find(LinkStyleAnchor)).toJSON(), { modifier: `${StyledIcon}` });
+      }, TestRenderer.create(wrapper.find(LinkStyle)).toJSON(), { modifier: `${StyledIcon}` });
     });
   });
 

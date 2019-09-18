@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router';
 import Icon from '../icon';
 import Event from '../../utils/helpers/events';
-import { LinkStyle, LinkStyleAnchor } from './link.style';
+import LinkStyle from './link.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import tagComponent from '../../utils/helpers/tags/tags';
 
@@ -51,18 +51,30 @@ class Link extends React.Component {
   }
 
   get componentProps() {
-    const {
-      disabled,
-      iconAlign
-    } = this.props;
-
-    return {
-      disabled,
-      iconAlign,
+    const props = {
+      disabled: this.props.disabled,
+      iconAlign: this.props.iconAlign,
       onKeyDown: this.onKeyDown,
       tabIndex: this.tabIndex
     };
+
+    if (this.props.to) {
+      props.as = RouterLink;
+      props.to = this.props.to;
+    } else {
+      props.href = this.props.href;
+    }
+
+    return props;
   }
+
+  handleClick = (ev) => {
+    if (this.props.disabled) {
+      ev.preventDefault();
+    } else if (this.props.onClick) {
+      this.props.onClick(ev);
+    }
+  };
 
   /**
    * className `@carbon-link__content` is related to `ShowEditPod` component
@@ -79,45 +91,18 @@ class Link extends React.Component {
     );
   }
 
-  renderLink() {
-    const {
-      href,
-      to
-    } = this.props;
-
-    if (this.props.to) {
-      return (
-        <LinkStyleAnchor
-          as={ RouterLink }
-          to={ to }
-          { ...this.componentProps }
-        >
-          {this.renderLinkContent()}
-        </LinkStyleAnchor>
-      );
-    }
-
-    return (
-      <LinkStyleAnchor
-        href={ href }
-        { ...this.componentProps }
-      >
-        {this.renderLinkContent()}
-      </LinkStyleAnchor>
-    );
-  }
-
   render() {
-    const { disabled, className, onClick } = this.props;
+    const { disabled, className } = this.props;
 
     return (
       <LinkStyle
         disabled={ disabled }
         className={ className }
-        onClick={ onClick }
+        onClick={ this.handleClick }
         { ...tagComponent('link', this.props) }
+        { ...this.componentProps }
       >
-        {this.renderLink()}
+        {this.renderLinkContent()}
       </LinkStyle>
     );
   }
