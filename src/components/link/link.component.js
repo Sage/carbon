@@ -5,6 +5,7 @@ import Icon from '../icon';
 import Event from '../../utils/helpers/events';
 import { LinkStyle, LinkStyleAnchor } from './link.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import tagComponent from '../../utils/helpers/tags/tags';
 
 class Link extends React.Component {
   static safeProps = ['onClick'];
@@ -111,10 +112,10 @@ class Link extends React.Component {
 
     return (
       <LinkStyle
-        data-component='link'
         disabled={ disabled }
         className={ className }
         onClick={ onClick }
+        { ...tagComponent('link', this.props) }
       >
         {this.renderLink()}
       </LinkStyle>
