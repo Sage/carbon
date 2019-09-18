@@ -1,4 +1,4 @@
-import { StyledIcon } from '../icon/icon.style';
+import StyledIcon from '../icon/icon.style';
 
 export function makeColors(color) {
   return `

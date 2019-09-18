@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 import { isClassic } from '../../../utils/helpers/style-helper';
-import { StyledIcon } from '../../../components/icon/icon.style';
+import StyledIcon from '../../../components/icon/icon.style';
 
 export default ({ loading, theme }) => isClassic(theme) && css`
   margin-top: 5px;

@@ -62,31 +62,9 @@ function adjustIconBgSize(fontSize, bgSize) {
   return iconSizeConfig.backgroundSize[bgSize];
 }
 
-const StyledSvgIconWrapper = styled.span`
-  ${({ fontSize, isFont }) => !isFont && css`
-    display: inline-block;
-    
-    svg {
-      fill: currentColor;
-      width: ${iconSizeConfig.iconSize[fontSize]};
-      height: ${iconSizeConfig.iconSize[fontSize]};
-    }
-  `}
-`;
-
-StyledSvgIconWrapper.propTypes = {
-  theme: PropTypes.object,
-  fontSize: PropTypes.oneOf(OptionsHelper.sizesBinary),
-  isFont: PropTypes.bool
-};
-
-StyledSvgIconWrapper.defaultProps = {
-  theme: baseTheme
-};
-
 const StyledIcon = styled.span`
   ${({
-    bgTheme, theme, iconColor, bgSize, bgShape, isFont, type, fontSize, disabled
+    bgTheme, theme, iconColor, bgSize, bgShape, type, fontSize, disabled
   }) => css`
 
     display: inline-block;
@@ -108,47 +86,30 @@ const StyledIcon = styled.span`
       border-radius: ${iconSizeConfig.backgroundShape[bgShape]};
     `}
 
-    ${isFont && css`
-      &::before {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
+    &::before {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
 
-        font-family: CarbonIcons;
-        content: "${iconUnicodes[type]}";
-        font-size: ${iconSizeConfig.iconSize[fontSize]};
-        font-style: normal;
-        font-weight: normal;
-        line-height: ${iconSizeConfig.iconSize[fontSize]};
-        vertical-align: middle;
-        ${type === 'services' && browserTypeCheck(window) && css`
-          margin-top: ${fontSize === 'small' ? '-7px' : '-8px'};
-        `}
-        ${type === 'services' && isSafari(navigator) && !browserTypeCheck(window) && css`margin-top: -6px;`}
-        display: block;
-      }
-    `}
+      font-family: CarbonIcons;
+      content: "${iconUnicodes[type]}";
+      font-size: ${iconSizeConfig.iconSize[fontSize]};
+      font-style: normal;
+      font-weight: normal;
+      line-height: ${iconSizeConfig.iconSize[fontSize]};
+      vertical-align: middle;
+      ${type === 'services' && browserTypeCheck(window) && css`
+        margin-top: ${fontSize === 'small' ? '-7px' : '-8px'};
+      `}
+      ${type === 'services' && isSafari(navigator) && !browserTypeCheck(window) && css`margin-top: -6px;`}
+      display: block;
+    }
 
-    ${!isFont && css`
-      ${StyledSvgIconWrapper} {
-        svg {
-          ${fontSize !== 'large' && css`
-            margin-top: 2px;
-          `}
-  
-          ${fontSize === 'large' && ['plus', 'minus'].includes(type) && css`
-            margin-top: 10px;
-            margin-left: 8px;
-          `}
-        }
-      }
-    `}
     ${classicIconStyles};
   `}
 `;
 
 StyledIcon.propTypes = {
   theme: PropTypes.object,
-  isFont: PropTypes.bool,
   type: PropTypes.string,
   disabled: PropTypes.bool,
   bgSize: PropTypes.oneOf(OptionsHelper.sizesRestricted),
@@ -162,4 +123,4 @@ StyledIcon.defaultProps = {
   theme: baseTheme
 };
 
-export { StyledIcon, StyledSvgIconWrapper };
+export default StyledIcon;

@@ -4,7 +4,7 @@ import BaseTheme from '../../style/themes/base';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import CloseIconClassicStyling from './dismiss-button-classic.style';
 import Link from '../link';
-import { StyledIcon } from '../icon/icon.style';
+import StyledIcon from '../icon/icon.style';
 import { isClassic } from '../../utils/helpers/style-helper';
 
 const DismissButtonStyle = styled.div`
