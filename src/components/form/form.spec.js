@@ -5,7 +5,7 @@ import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import PropTypes from 'prop-types';
 import { mount, shallow } from 'enzyme';
-import FormWithValidations, { FormWithoutValidations as Form } from './form.component';
+import FormWithValidations, { BasicForm as Form } from './form.component';
 import { StyledAdditionalFormAction, StyledResponsiveFooterWrapper } from './form.style';
 import Textbox from '../textbox';
 import Validation from '../../utils/validations/presence';

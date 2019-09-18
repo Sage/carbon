@@ -5,7 +5,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import PresenceValidation from '../../utils/validations/presence';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
-import Form, { FormWithoutValidations } from '.';
+import Form, { BasicForm } from '.';
 import Textbox from '../textbox';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
@@ -28,7 +28,7 @@ storiesOf('Form', module)
     const buttonAlign = select(
       'buttonAlign',
       OptionsHelper.alignBinary,
-      FormWithoutValidations.defaultProps.buttonAlign
+      BasicForm.defaultProps.buttonAlign
     );
     const saving = boolean('saving', false);
     const cancelText = text('cancelText', '');
@@ -39,7 +39,7 @@ storiesOf('Form', module)
     const additionalActions = text('additionalActions', '');
     const leftAlignedActions = text('leftAlignedActions', '');
     const rightAlignedActions = text('rightAlignedActions', '');
-    const showSummary = boolean('showSummary', FormWithoutValidations.defaultProps.showSummary);
+    const showSummary = boolean('showSummary', BasicForm.defaultProps.showSummary);
 
     return (
       <Form

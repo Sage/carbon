@@ -17,7 +17,7 @@ import StyledForm,
 } from './form.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
-class FormWithoutValidations extends React.Component {
+class BasicForm extends React.Component {
   static childContextTypes = {
     form: PropTypes.object
   }
@@ -423,9 +423,7 @@ function generateCSRFToken(doc) {
   );
 }
 
-const Form = withValidations(FormWithoutValidations);
-
-FormWithoutValidations.propTypes = {
+BasicForm.propTypes = {
 
   /** Warning popup shown when trying to navigate away from an edited form if true */
   unsavedWarning: PropTypes.bool,
@@ -521,7 +519,7 @@ FormWithoutValidations.propTypes = {
   innerRef: PropTypes.func
 };
 
-FormWithoutValidations.defaultProps = {
+BasicForm.defaultProps = {
   buttonAlign: 'right',
   cancel: true,
   unsavedWarning: true,
@@ -532,5 +530,5 @@ FormWithoutValidations.defaultProps = {
   showSummary: true
 };
 
-export { FormWithoutValidations }; // export version without hoc if required
-export default Form;
+export { BasicForm }; // export version without hoc if required
+export default withValidations(BasicForm);
