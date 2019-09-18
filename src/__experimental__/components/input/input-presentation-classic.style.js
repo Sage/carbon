@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 import { THEMES } from '../../../style/themes';
 import InputIconToggleStyle from '../input-icon-toggle/input-icon-toggle.style';
 import StyledInput from './input.style';
-import { StyledIcon } from '../../../components/icon/icon.style';
+import StyledIcon from '../../../components/icon/icon.style';
 
 export default ({ disabled, hasFocus, theme }) => theme.name === THEMES.classic && css`
   border-color: #ccd6db;

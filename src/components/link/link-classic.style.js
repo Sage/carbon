@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 import { isClassic } from '../../utils/helpers/style-helper';
-import { StyledIcon } from '../icon/icon.style';
+import StyledIcon from '../icon/icon.style';
 
 function addStyle(color) {
   return `
