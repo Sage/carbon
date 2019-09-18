@@ -79,7 +79,7 @@ Feature: Button component
       | magenta      | rgb(237, 28, 95)   | rgb(255, 255, 255) |
       | magenta-dull | rgb(202, 42, 96)   | rgb(255, 255, 255) |
       | red          | rgb(199, 56, 79)   | rgb(255, 255, 255) |
-      | white        | rgb(255, 255, 255) | rgb(0, 0, 0)       |
+      | white        | rgb(255, 255, 255) | rgb(0, 0, 0, 0.85) |
 
   @positive
   Scenario Outline: Set Button theme to <theme> and as to secondary

@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "9.0.0-rc2",
+  "version": "9.0.0-rc3",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
   "engineStrict": true,
   "engines": {
@@ -17,7 +17,7 @@
     "test-update": "jest --config=./jest.conf.json --updateSnapshot",
     "test-carbon-build": "npm run gen-colors && npm run gen-docs && npm run webpack",
     "test-cypress": "cypress open",
-    "test-cypress-build": "cypress run --spec ./cypress/features/build/build.feature",
+    "test-cypress-build": "cypress run --spec ./cypress/features/build/build*.feature",
     "test-cypress-accessibility": "cypress run --spec ./cypress/features/accessibility/accessibility.feature",
     "test-cypress-regression": "cypress run --spec './cypress/features/regression/*.feature'",
     "test-storybook-smoke": "./node_modules/.bin/start-storybook -p 9009 -c .storybook --ci --smoke-test",
@@ -58,6 +58,7 @@
     "@storybook/addon-info": "^5.1.8",
     "@storybook/addon-knobs": "^5.1.8",
     "@storybook/addon-notes": "^5.1.8",
+    "storybook-addon-styled-component-theme": "Sage/storybook-addon-styled-component-theme#storyspecific-themes",
     "@storybook/addon-viewport": "^5.1.8",
     "@storybook/react": "^5.1.8",
     "@types/enzyme": "^3.10.3",
@@ -76,6 +77,7 @@
     "cypress-cucumber-preprocessor": "1.13.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-to-json": "^3.4.0",
     "eslint-plugin-cypress": "^2.0.1",
     "events": "~1.1.1",
     "flux": "^3.1.1",

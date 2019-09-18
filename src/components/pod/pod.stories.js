@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import Pod from './pod';
 import notes from './notes.md';
 import OptionsHelper from '../../utils/helpers/options-helper';
@@ -13,8 +14,8 @@ Pod.__docgenInfo = getDocGenInfo(
   /pod\.js(?!spec)/
 );
 
-storiesOf('Pod', module)
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const border = boolean('border', Pod.defaultProps.border);
     const children = text('children', 'This is some example content for a Pod');
     const padding = select('padding', OptionsHelper.sizesPod, Pod.defaultProps.padding);
@@ -49,7 +50,10 @@ storiesOf('Pod', module)
         { children }
       </Pod>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     info: {
       text: (
         <div>
@@ -74,4 +78,11 @@ storiesOf('Pod', module)
       )
     },
     notes: { markdown: notes }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Pod', module)
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));

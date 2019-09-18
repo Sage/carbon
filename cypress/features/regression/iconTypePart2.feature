@@ -33,7 +33,6 @@ Feature: Icon component
       | logout            |
       | marker            |
       | message           |
-      | messages          |
       | minus             |
       | mobile            |
       | pdf               |
@@ -63,3 +62,11 @@ Feature: Icon component
       | view              |
       | warning           |
       | white-tick        |
+
+  @positive
+  Scenario Outline: Change type to <iconName>
+    When I select type to "<iconName>"
+    Then icon on preview is "<iconDetaElement>"
+    Examples:
+      | iconName          | iconDetaElement |
+      | messages          | message         |
