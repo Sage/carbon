@@ -1,6 +1,6 @@
 import Spinner from './spinner.component';
-import OptionsHelper from './../../utils/helpers/options-helper';
-import Definition from './../../../demo/utils/definition';
+import OptionsHelper from '../../../utils/helpers/options-helper';
+import Definition from '../../../../demo/utils/definition';
 
 let definition = new Definition('spinner', Spinner, {
   description: `Represents an activity in progress.`,
