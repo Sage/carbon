@@ -1,5 +1,5 @@
 import Pod from './';
-import OptionsHelper from '../../../utils/helpers/options-helper'
+import OptionsHelper from '../../../utils/helpers/options-helper';
 import Definition from '../../../../demo/utils/definition';
 
 let definition = new Definition('pod', Pod, {

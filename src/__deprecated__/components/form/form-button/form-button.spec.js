@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import 'jest-styled-components';
 import { rootTagTest } from '../../../../utils/helpers/tags/tags-specs/tags-specs';
 import FormButton from './form-button.component';
-import Button from '../../../../components/button/button.component';
+import Button from '../../../../components/button';
 
 const renderFormButton = (props, render = shallow) => {
   return render(
