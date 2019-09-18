@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
 import StyledTableCell from '../table-cell/table-cell.style';
 import StyledTableHeader from '../table-header/table-header.style';
-import { StyledIcon } from '../../icon/icon.style';
+import StyledIcon from '../../icon/icon.style';
 
 function applyModernRowStyling(isPassive, { colors, table }) {
   return css`   

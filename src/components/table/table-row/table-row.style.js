@@ -12,7 +12,7 @@ import {
   applyModernRowStyling,
   applyModernSelectedStyling
 } from './table-row-modern.style';
-import { StyledIcon } from '../../icon/icon.style';
+import StyledIcon from '../../icon/icon.style';
 import CheckboxStyle from '../../../__experimental__/components/checkbox/checkbox.style';
 import { isClassic } from '../../../utils/helpers/style-helper';
 

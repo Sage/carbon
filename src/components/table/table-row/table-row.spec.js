@@ -2,14 +2,15 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
 import TestUtils from 'react-dom/test-utils';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { Table, TableCell } from '..';
 import TableRow from './table-row.component';
 import TableHeader from '../table-header';
 import StyledTableCell from '../table-cell/table-cell.style';
 import DraggableTableCell from '../draggable-table-cell';
 import StyledTable from '../table.style';
-import Checkbox from '../../checkbox';
+import StyledIcon from '../../icon/icon.style';
+import Checkbox from '../../../__experimental__/components/checkbox';
 import BaseTheme from '../../../style/themes/base';
 import ClassicTheme from '../../../style/themes/classic';
 import SmallTheme from '../../../style/themes/small';
@@ -431,40 +432,43 @@ describe('TableRow', () => {
 
     describe('with selectAll', () => {
       it('renders a select all cell', () => {
-        instance = TestUtils.renderIntoDocument(<Table><TableRow selectAll><td /><td /></TableRow></Table>);
-        row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
-        const tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
-        const checkbox = TestUtils.findRenderedComponentWithType(instance, Checkbox);
-        expect(row.children.length).toEqual(3);
-        expect(checkbox.props.onChange).toEqual(tr.onSelectAll);
+        instance = mount(<Table><TableRow selectAll><td /><td /></TableRow></Table>);
+
+        const tr = instance.find(TableRow);
+        const selectAllCell = instance.find(TableCell);
+        const checkbox = selectAllCell.find(Checkbox);
+
+        expect(selectAllCell.exists()).toBeTruthy();
+        expect(checkbox.exists()).toBeTruthy();
+        expect(checkbox.props().onChange).toEqual(tr.instance().onSelectAll);
       });
     });
 
     describe('with selectable via context', () => {
       it('renders a multi select cell', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Table selectable><TableRow uniqueID='foo'><td /><td /></TableRow></Table>
-        );
-        row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
-        const tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
-        const checkbox = TestUtils.findRenderedComponentWithType(instance, Checkbox);
-        expect(row.children.length).toEqual(3);
-        expect(checkbox.props.onChange).toEqual(tr.onSelect);
+        instance = mount(<Table selectable><TableRow uniqueID='foo'><td /><td /></TableRow></Table>);
+
+        const tr = instance.find(TableRow);
+        const selectAllCell = instance.find(TableCell);
+        const checkbox = selectAllCell.find(Checkbox);
+
+        expect(selectAllCell.exists()).toBeTruthy();
+        expect(checkbox.exists()).toBeTruthy();
+        expect(checkbox.props().onChange).toEqual(tr.instance().onSelect);
       });
     });
 
     describe('with selectable via prop', () => {
       it('renders a multi select cell', () => {
+        instance = mount(<Table><TableRow selectable uniqueID='foo'><td /><td /></TableRow></Table>);
+
         const spy = jasmine.createSpy();
-        instance = TestUtils.renderIntoDocument(
-          <Table><TableRow selectable uniqueID='foo'><td /><td /></TableRow></Table>
-        );
-        row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
-        const tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
-        const checkbox = TestUtils.findRenderedComponentWithType(instance, Checkbox);
-        expect(row.children.length).toEqual(3);
-        expect(checkbox.props.onChange).toEqual(tr.onSelect);
-        checkbox.props.onClick({ stopPropagation: spy });
+        const tr = instance.find(TableRow);
+        const selectAllCell = instance.find(TableCell);
+        const checkbox = selectAllCell.find(Checkbox);
+
+        expect(checkbox.props().onChange).toEqual(tr.instance().onSelect);
+        checkbox.props().onClick({ stopPropagation: spy });
         expect(spy).toHaveBeenCalled();
       });
     });
@@ -558,10 +562,15 @@ describe('TableRow', () => {
       });
 
       it('renders a draggable cell', () => {
-        const cell = wrapper.find(TableRow).find(DraggableTableCell);
+        const draggableRow = wrapper.find(TableRow);
+        const cell = draggableRow.find(DraggableTableCell);
         expect(cell.props().identifier).toEqual('foo');
-        expect(cell.props().draggableNode().getAttribute('class')).toEqual('carbon-table-row');
         expect(cell.props().canDrag).toEqual(true);
+
+        assertStyleMatch({
+          cursor: 'move'
+        },
+        draggableRow, { modifier: `${StyledIcon}` });
       });
 
       it('renders a WithDrop component', () => {
@@ -572,16 +581,34 @@ describe('TableRow', () => {
       });
 
       it('renders a dragging class', () => {
-        const row1 = wrapper.find(TableRow);
-        row1.instance().context.dragAndDropActiveIndex = 1;
-        expect(row1.instance().mainClasses).toEqual('carbon-table-row carbon-table-row--dragging');
+        const context = {};
+        const row1 = shallow(
+          <TableRow index={ 0 } dragAndDropIdentifier='foo'>
+            <TableCell>foo</TableCell>
+          </TableRow>,
+          { context }
+        );
+        row1.setContext({ dragAndDropActiveIndex: 1 });
+
+        assertStyleMatch({
+          border: '1px solid #000A0E'
+        },
+        row1, { modifier: '&&&&&' });
       });
 
       it('renders a dragged class if the index matches', () => {
-        const row1 = wrapper.find(TableRow);
-        row1.instance().context.dragAndDropActiveIndex = 0;
-        expect(row1.instance().mainClasses)
-          .toEqual('carbon-table-row carbon-table-row--dragged carbon-table-row--dragging');
+        const context = {};
+        const row1 = shallow(
+          <TableRow index={ 0 } dragAndDropIdentifier='foo'>
+            <TableCell>foo</TableCell>
+          </TableRow>,
+          { context }
+        );
+        row1.setContext({ dragAndDropActiveIndex: 0 });
+        assertStyleMatch({
+          userSelect: 'none'
+        },
+        row1);
       });
     });
   });
