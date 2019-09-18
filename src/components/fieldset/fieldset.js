@@ -39,7 +39,9 @@ class Fieldset extends React.Component {
    * @method render
    */
   render() {
-    const { className, ...props } = validProps(this);
+    const {
+      className, labelAlign, childOfForm, ...props
+    } = validProps(this);
     const classes = classNames('carbon-fieldset', className);
 
     return (
