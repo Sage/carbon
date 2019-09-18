@@ -19,7 +19,7 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const FormContext = React.createContext();
 
-class FormWithoutValidations extends React.Component {
+class Form extends React.Component {
   state = {
     /** Tracks if the form is clean or dirty, used by unsavedWarning */
     isDirty: false,
@@ -479,7 +479,7 @@ function calculateCsrfValues(doc) {
   return { csrfAttr, csrfValue };
 }
 
-FormWithoutValidations.propTypes = {
+Form.propTypes = {
 
   /** Warning popup shown when trying to navigate away from an edited form if true */
   unsavedWarning: PropTypes.bool,
@@ -591,7 +591,7 @@ FormWithoutValidations.propTypes = {
   isLabelRightAligned: PropTypes.bool
 };
 
-FormWithoutValidations.defaultProps = {
+Form.defaultProps = {
   buttonAlign: 'right',
   cancel: true,
   unsavedWarning: true,
@@ -602,7 +602,7 @@ FormWithoutValidations.defaultProps = {
   showSummary: true
 };
 
-const Form = withValidations(FormWithoutValidations);
+const FormWithValidations = withValidations(Form);
 
-export { FormWithoutValidations }; // export version without hoc if required
+export { FormWithValidations }; // export version without hoc if required
 export default Form;

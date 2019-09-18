@@ -8,7 +8,7 @@ import 'jest-styled-components';
 import {
   StyledAdditionalFormAction, StyledFormFooter, StyledResponsiveFooterWrapper
 } from '../../../components/form/form.style';
-import FormWithValidations, { FormWithoutValidations as Form } from './form.component';
+import Form, { FormWithValidations } from './form.component';
 import Textbox from '../textbox';
 import Validation from '../../../utils/validations/presence';
 import Dialog from '../../../components/dialog';
@@ -457,6 +457,27 @@ describe('Form', () => {
 
           const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
           TestUtils.Simulate.submit(form);
+        });
+
+        describe('and formInputs are set', () => {
+          it('calls addOtherInputsToState', async() => {
+            const spy = jasmine.createSpy('spy');
+            wrapper = mount(
+              <Form validate={ () => true } formAction='foo'>
+                <Textbox
+                  validations={ [new Validation()] }
+                  name='foo'
+                  value='foo'
+                  onSubmit={ spy }
+                />
+              </Form>
+            );
+
+            wrapper.setState({ formInputs: { abc: 'ccc' } });
+            const spyAddOtherInputsToState = spyOn(wrapper.instance(), 'addOtherInputsToState');
+            await wrapper.childAt(0).simulate('submit');
+            expect(spyAddOtherInputsToState).toHaveBeenCalled();
+          });
         });
       });
 
