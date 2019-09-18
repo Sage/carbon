@@ -6,6 +6,7 @@ import { mount } from 'enzyme';
 import { Table, TableCell } from '..';
 import TableRow from './table-row.component';
 import TableHeader from '../table-header';
+import StyledTableCell from '../table-cell/table-cell.style';
 import DraggableTableCell from '../draggable-table-cell';
 import StyledTable from '../table.style';
 import Checkbox from '../../checkbox';
@@ -84,7 +85,7 @@ describe('TableRow', () => {
     describe('if neither highlightable or selectable', () => {
       it('does not throw error', () => {
         const render = function() {
-          TestUtils.renderIntoDocument(<Table><TableRow /></Table>);
+          TestUtils.renderIntoDocument(<Table><TableRow uniqueID='foo' /></Table>);
         };
         expect(render).not.toThrowError();
       });
@@ -122,7 +123,7 @@ describe('TableRow', () => {
 
     describe('if selected via props', () => {
       it('calls setState', () => {
-        instance = TestUtils.renderIntoDocument(<Table><TableRow selected /></Table>);
+        instance = TestUtils.renderIntoDocument(<Table><TableRow selected uniqueID='foo' /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
         row.componentWillMount();
@@ -132,7 +133,7 @@ describe('TableRow', () => {
 
     describe('if highlighted via props', () => {
       it('calls setState', () => {
-        instance = TestUtils.renderIntoDocument(<Table><TableRow highlighted /></Table>);
+        instance = TestUtils.renderIntoDocument(<Table><TableRow highlighted uniqueID='foo' /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
         row.componentWillMount();
@@ -319,40 +320,26 @@ describe('TableRow', () => {
   });
 
   describe('when selected', () => {
-    it('renders the selected class', () => {
-      instance = TestUtils.renderIntoDocument(
-        <Table>
-          <TableRow
-            selected
-            uniqueID='foo'
-          >
-            <TableCell />
-          </TableRow>
-        </Table>
-      );
-      const tr = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
-      expect(tr.className).toMatch('carbon-table-row--selected');
-    });
-
     describe.each(themeNames)(
       'and the theme is %s',
       (name) => {
         it('renders the element to match the expected style', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Table>
-              <TableRow
-                uniqueID='foo'
-                selectable
-                selected
-                theme={ name === 'classic' ? ClassicTheme : SmallTheme }
-              >
-                <TableCell />
-              </TableRow>
-            </Table>
+          instance = mount(
+            <TableRow
+              uniqueID='foo'
+              selectable
+              selected
+              theme={ name === 'classic' ? ClassicTheme : SmallTheme }
+            >
+              <TableCell />
+            </TableRow>
           );
-          const tr = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
 
-          expect(tr.className).toEqual('carbon-table-row carbon-table-row--selected');
+          assertStyleMatch({
+            backgroundColor: name === 'classic' ? '#1573E6' : '#D8E0E3',
+            borderBottomColor: name === 'classic' ? '#255BC7' : '#D8E0E3',
+            color: name === 'classic' ? '#ffffff' : undefined
+          }, instance, { modifier: `&&&&:hover ${StyledTableCell}` });
         });
       }
     );
@@ -360,37 +347,46 @@ describe('TableRow', () => {
 
   describe('when highlighted', () => {
     it('renders the highlighted class', () => {
-      instance = TestUtils.renderIntoDocument(
-        <Table>
-          <TableRow
-            highlighted
-            uniqueID='foo'
-          >
-            <TableCell />
-          </TableRow>
-        </Table>
+      instance = mount(
+        <TableRow
+          highlighted
+          uniqueID='foo'
+        >
+          <TableCell />
+        </TableRow>
       );
-      const tr = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
-      expect(tr.className).toMatch('carbon-table-row--highlighted');
+      assertStyleMatch({
+        backgroundColor: '#D8E0E3',
+        borderBottomColor: '#D8E0E3'
+      }, instance, { modifier: `&&&& ${StyledTableCell}` });
+
+      assertStyleMatch({
+        content: '""',
+        height: '1px',
+        left: '0',
+        position: 'absolute',
+        top: '-1px',
+        width: '100%'
+      }, instance, { modifier: `&&&& ${StyledTableCell}:before` });
     });
   });
 
   describe('when highlighted and selected', () => {
-    it('only renders the selected class', () => {
-      instance = TestUtils.renderIntoDocument(
-        <Table>
-          <TableRow
-            highlighted
-            selected
-            uniqueID='foo'
-          >
-            <TableCell />
-          </TableRow>
-        </Table>
+    it('renders expected styles', () => {
+      instance = mount(
+        <TableRow
+          selected
+          highlighted
+          uniqueID='foo'
+        >
+          <TableCell />
+        </TableRow>
       );
-      const tr = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
-      expect(tr.className).toMatch('carbon-table-row--selected');
-      expect(tr.className).not.toMatch('carbon-table-row--highlighted');
+      assertStyleMatch({
+        backgroundColor: '#D8E0E3',
+        borderBottomColor: '#D8E0E3',
+        position: 'relative'
+      }, instance, { modifier: `&&&& ${StyledTableCell}` });
     });
   });
 
@@ -424,7 +420,7 @@ describe('TableRow', () => {
     describe('without selectability on the table but disabled on the row', () => {
       it('renders its children', () => {
         instance = TestUtils.renderIntoDocument(
-          <Table selectable><TableRow selectable={ false }><td /><td /></TableRow></Table>
+          <Table selectable><TableRow uniquieID='foo' selectable={ false }><td /><td /></TableRow></Table>
         );
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         expect(row.children.length).toEqual(2);
