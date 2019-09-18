@@ -49,9 +49,6 @@ Feature: Build tests for classic stories
       | date input           | date                 |
       | detail               | detail               |
       | draggableContext     | table                |
-      | dropdownFilterAjax   | dropdown-filter-ajax |
-      | dropdown-filter      | dropdown-filter      |
-      | dropdown             | dropdown             |
       | filter component     | filter               |
       | heading              | heading              |
       | help                 | help                 |
