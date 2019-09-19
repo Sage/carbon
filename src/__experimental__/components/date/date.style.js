@@ -1,7 +1,9 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
 import InputPresentationStyle from '../input/input-presentation.style';
 import dateClassicStyle from './date-classic.style';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const StyledDateInput = styled.div`
   display: inline-block;
@@ -12,6 +14,10 @@ const StyledDateInput = styled.div`
 
   ${dateClassicStyle}
 `;
+
+StyledDateInput.propTypes = {
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted)
+};
 
 StyledDateInput.defaultProps = {
   theme: baseTheme
