@@ -1,11 +1,11 @@
 import styled, { css, keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
-import StyledFormField from '../../__experimental__/components/form-field/form-field.style';
-import StyledButton from '../button/button.style';
+import StyledFormField from '../../../__experimental__/components/form-field/form-field.style';
+import StyledButton from '../../../components/button/button.style';
 import StyledFormSummary from './form-summary/form-summary.style';
-import { isClassic } from '../../utils/helpers/style-helper';
-import baseTheme from '../../style/themes/base';
-import OptionsHelper from '../../utils/helpers/options-helper';
+import { isClassic } from '../../../utils/helpers/style-helper';
+import baseTheme from '../../../style/themes/base';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const applyButtonLeftMargin = ({ theme }) => ((isClassic(theme)) ? 'margin-left: 15px;' : 'margin-left: 16px;');
 

@@ -7,7 +7,7 @@ import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/them
 import { notes, info } from './documentation';
 import DialogFullScreen from '.';
 import Button from '../button';
-import Form from '../form';
+import Form from '../../__deprecated__/components/form';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 DialogFullScreen.__docgenInfo = getDocGenInfo(

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../../.storybook/style/storybook-info.styles';
+import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../../../.storybook/style/storybook-info.styles';
 
 const Info = (
   <div>

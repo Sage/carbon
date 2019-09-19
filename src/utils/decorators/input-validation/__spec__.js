@@ -5,7 +5,7 @@ import { shallow, mount } from 'enzyme';
 import InputValidation from './input-validation';
 import InputLabel from './../input-label';
 import Dialog from './../../../components/dialog';
-import Form from './../../../components/form';
+import Form from '../../../__deprecated__/components/form';
 import Browser from './../../helpers/browser';
 import { ValidationsContext } from '../../../components/validations';
 
