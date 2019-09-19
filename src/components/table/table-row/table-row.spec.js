@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
 import TestUtils from 'react-dom/test-utils';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { Table, TableCell } from '..';
 import TableRow from './table-row.component';
 import StyledTableRow from './table-row.style';
@@ -20,6 +20,24 @@ import { DraggableContext, WithDrop } from '../../drag-and-drop';
 import { THEMES } from '../../../style/themes';
 import ActionPopover from '../../action-popover';
 import { MenuButton } from '../../action-popover/action-popover.style';
+
+jest.mock('../draggable-table-cell', () => {
+  const React = require('react'); // eslint-disable-line no-shadow, global-require
+  const PropTypes = require('prop-types'); // eslint-disable-line global-require
+  class MockDraggableTableCell extends React.Component {
+    componentDidMount() {
+      this.props.draggableNode();
+    }
+
+    render() {
+      return React.createElement('td');
+    }
+  }
+  MockDraggableTableCell.propTypes = {
+    draggableNode: PropTypes.func
+  };
+  return MockDraggableTableCell;
+});
 
 const themeNames = [THEMES.classic, THEMES.small];
 const elements = ['th', 'td'];
