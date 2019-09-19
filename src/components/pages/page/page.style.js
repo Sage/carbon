@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import BaseTheme from '../../../style/themes/base';
 import { LinkStyleAnchor } from '../../link/link.style';
-import { StyledIcon } from '../../icon/icon.style';
+import StyledIcon from '../../icon/icon.style';
 import { isClassic } from '../../../utils/helpers/style-helper';
 
 const StyledPage = styled.article`
