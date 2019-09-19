@@ -4,10 +4,10 @@ import { shallow, mount } from 'enzyme';
 import 'jest-styled-components';
 import ReactDOM from 'react-dom';
 import ShowEditPod from './show-edit-pod';
-import Form from '../form';
+import Form from '../../__deprecated__/components/form';
 import Link from '../link';
 import Textbox from '../../__deprecated__/components/textbox';
-import Pod from '../pod';
+import Pod from '../../__deprecated__/components/pod';
 import Events from '../../utils/helpers/events';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 

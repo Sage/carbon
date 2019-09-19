@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import baseTheme from '../../../style/themes/base';
-import StyledIcon from '../../icon/icon.style';
+import baseTheme from '../../../../style/themes/base';
+import StyledIcon from '../../../../components/icon/icon.style';
 
 const StyledFormSummary = styled.div`
   display: inline-flex;

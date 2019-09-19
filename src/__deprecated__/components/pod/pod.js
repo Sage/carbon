@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import I18n from 'i18n-js';
-import Icon from '../icon';
-import Link from '../link';
-import Event from '../../utils/helpers/events';
-import { validProps } from '../../utils/ether';
-import tagComponent from '../../utils/helpers/tags';
+import Icon from '../../../components/icon';
+import Link from '../../../components/link';
+import Event from '../../../utils/helpers/events';
+import { validProps } from '../../../utils/ether';
+import tagComponent from '../../../utils/helpers/tags';
+import warnOfDeprecation from '../../../utils/helpers/warn-as-deprecated';
 import './pod.scss';
 
 class Pod extends React.Component {
@@ -118,6 +119,8 @@ class Pod extends React.Component {
     padding: 'medium',
     alignTitle: 'left'
   }
+
+  deprecatedWarnTriggered = false;
 
   /**
    * A lifecycle called immediatly before initial render
@@ -443,6 +446,7 @@ class Pod extends React.Component {
   render() {
     let content,
         hoverOverEditEvents = {};
+
     const { ...props } = validProps(this);
 
     delete props.className;
@@ -452,6 +456,11 @@ class Pod extends React.Component {
     if (this.shouldContentHaveEditProps) {
       hoverOverEditEvents = this.hoverOverEditEvents;
       hoverOverEditEvents.tabIndex = '0';
+    }
+
+    if (!this.deprecatedWarnTriggered) {
+      this.deprecatedWarnTriggered = true;
+      warnOfDeprecation('Pod', '/components/tile and /components/card');
     }
 
     return (
