@@ -368,29 +368,35 @@ describe('TableRow', () => {
   });
 
   describe('when highlighted', () => {
-    it('renders the highlighted class', () => {
-      instance = mount(
-        <TableRow
-          highlighted
-          uniqueID='foo'
-        >
-          <TableCell />
-        </TableRow>
-      );
-      assertStyleMatch({
-        backgroundColor: '#D8E0E3',
-        borderBottomColor: '#D8E0E3'
-      }, instance, { modifier: `&&&& ${StyledTableCell}` });
+    describe.each(themeNames)(
+      'and the theme is %s',
+      (name) => {
+        it('renders the element to match the expected style', () => {
+          instance = mount(
+            <TableRow
+              highlighted
+              uniqueID='foo'
+              theme={ name === 'classic' ? ClassicTheme : SmallTheme }
+            >
+              <TableCell />
+            </TableRow>
+          );
+          assertStyleMatch({
+            backgroundColor: name === 'classic' ? '#D0E3FA' : '#D8E0E3',
+            borderBottomColor: name === 'classic' ? '#1573E6' : '#D8E0E3'
+          }, instance, { modifier: `&&&& ${StyledTableCell}` });
 
-      assertStyleMatch({
-        content: '""',
-        height: '1px',
-        left: '0',
-        position: 'absolute',
-        top: '-1px',
-        width: '100%'
-      }, instance, { modifier: `&&&& ${StyledTableCell}:before` });
-    });
+          assertStyleMatch({
+            content: '""',
+            height: '1px',
+            left: '0',
+            position: 'absolute',
+            top: '-1px',
+            width: '100%'
+          }, instance, { modifier: `&&&& ${StyledTableCell}:before` });
+        });
+      }
+    );
   });
 
   describe('when highlighted and selected', () => {
