@@ -419,7 +419,7 @@ class Form extends React.Component {
     }
 
     return childrenArray.map((child, index) => {
-      if (typeof child.type !== 'function') return child;
+      if (typeof child.type !== 'function' && typeof child.type.render !== 'function') return child;
 
       return React.cloneElement((child), {
         ...child.props,
