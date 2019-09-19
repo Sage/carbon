@@ -4,7 +4,7 @@ import {
 import React from 'react';
 import PropTypes from 'prop-types';
 import TestUtils from 'react-dom/test-utils';
-import Pod from 'components/pod';
+import Pod from '../../__deprecated__/components/pod';
 
 describe('Ether', () => {
   let element;

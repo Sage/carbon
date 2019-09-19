@@ -1,10 +1,10 @@
 import React from 'react';
 import I18n from 'i18n-js';
 import PropTypes from 'prop-types';
-import tagComponent from '../../../utils/helpers/tags/tags';
-import Button from '../../button';
-import OptionsHelper from '../../../utils/helpers/options-helper';
-import Text from '../../../utils/helpers/text';
+import tagComponent from '../../../../utils/helpers/tags/tags';
+import Button from '../../../../components/button';
+import OptionsHelper from '../../../../utils/helpers/options-helper';
+import Text from '../../../../utils/helpers/text';
 
 const text = (props) => {
   const { formButtonName } = props;

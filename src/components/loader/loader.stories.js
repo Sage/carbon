@@ -4,10 +4,10 @@ import { select, boolean } from '@storybook/addon-knobs';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Loader from './loader.component';
-import Spinner from '../spinner';
+import Spinner from '../../__deprecated__/components/spinner';
 import { OriginalButton } from '../button/button.component';
 import { notes, info } from './documentation';
-import { notesSpinner, infoSpinner } from '../spinner/documentation';
+import { notesSpinner, infoSpinner } from '../../__deprecated__/components/spinner/documentation';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Loader.__docgenInfo = getDocGenInfo(
@@ -16,7 +16,7 @@ Loader.__docgenInfo = getDocGenInfo(
 );
 
 Spinner.__docgenInfo = getDocGenInfo(
-  require('../spinner/docgenInfo.json'),
+  require('../../__deprecated__/components/spinner/docgenInfo.json'),
   /spinner\.component(?!spec)/
 );
 

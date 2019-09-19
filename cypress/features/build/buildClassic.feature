@@ -48,7 +48,6 @@ Feature: Build tests for classic stories
       | detail               | detail               |
       | draggableContext     | table                |
       | filter component     | filter               |
-      | form                 | form                 |
       | heading              | heading              |
       | help                 | help                 |
       | i18ncomponent        | i18n                 |
@@ -64,7 +63,6 @@ Feature: Build tests for classic stories
       | navigation-bar       | navigation-bar       |
       | pager                | pager                |
       | pill                 | pill                 |
-      | pod                  | pod                  |
       | portrait             | portrait             |
       | preview              | preview              |
       | profile              | profile              |
@@ -91,12 +89,13 @@ Feature: Build tests for classic stories
       | date input           | date                |
       | date range           | date-range          |
       | decimal              | decimal             |
-      | dropdownFilterAjax  | dropdown-filter-ajax |
-      | dropdown-filter     | dropdown-filter      |
-      | dropdown            | dropdown             |
+      | dropdownFilterAjax   | dropdown-filter-ajax|
+      | dropdown-filter      | dropdown-filter     |
+      | dropdown             | dropdown            |
       | fieldset             | fieldset            |
+      | form                 | form                |
       | groupedcharacter     | grouped-character   |
       | number-input         | number              |
+      | pod                  | pod                 |
       | textarea             | textarea            |
       | textbox              | textbox             |
-      

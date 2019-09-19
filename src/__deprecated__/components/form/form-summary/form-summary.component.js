@@ -2,8 +2,8 @@ import React from 'react';
 import I18n from 'i18n-js';
 import PropTypes from 'prop-types';
 import StyledFormSummary, { StyledInternalSummary, StyledSummaryText } from './form-summary.style';
-import tagComponent from '../../../utils/helpers/tags';
-import Icon from '../../icon';
+import tagComponent from '../../../../utils/helpers/tags';
+import Icon from '../../../../components/icon';
 
 /**
  * Adds an 's' to pluralise (keys will always be error or warning)
