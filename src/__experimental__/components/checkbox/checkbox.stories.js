@@ -34,7 +34,7 @@ function testWarning(value, props) {
   return new Promise((resolve, reject) => {
     if (['warning', 'alert'].indexOf(value) !== -1 && !props.checked) {
       reject(new Error('Show warning!'));
-    } else if (props.name === 'checkbox-group' && value === 1) {
+    } else if (props.name === 'checkbox-group' && value === '1') {
       reject(new Error('Show warning!'));
     } else {
       resolve();
@@ -46,7 +46,7 @@ function testInfo(value, props) {
   return new Promise((resolve, reject) => {
     if (['info', 'example'].indexOf(value) !== -1 && !props.checked) {
       reject(new Error('Show this information'));
-    } else if (props.name === 'checkbox-group' && value === 2) {
+    } else if (props.name === 'checkbox-group' && value === '2') {
       reject(new Error('Show this information'));
     } else {
       resolve();
@@ -72,7 +72,7 @@ const formCheckbox = checkboxKeys.filter(name => ['required', 'warning', 'info',
 const groupCheckbox = checkboxKeys.filter(name => ['mandatory', 'alert', 'example'].indexOf(name) !== -1);
 
 const groupStore = new Store({
-  value: 0,
+  value: '0',
   mandatory: false,
   alert: false,
   example: false
@@ -142,7 +142,7 @@ function handleGroupChange(ev, id) {
   const value = checked ? count + 1 : count - 1;
 
   groupStore.set({
-    value,
+    value: value.toString(),
     [id]: checked,
     forceUpdateTriggerToggle: checked
   });
@@ -156,9 +156,9 @@ function handleSubmit(ev) {
 const checkboxComponent = () => {
   return (
     <State store={ checkboxes.one.store }>
-      <Checkbox
-        onChange={ ev => handleChange(ev) }
-        { ...defaultKnobs() }
+      <OriginalCheckbox
+        onChange={ ev => handleChange(ev, 'one') }
+        { ...defaultKnobs('value-one') }
       />
     </State>
   );
@@ -189,6 +189,7 @@ const checkboxGroupComponent = () => (
     <State store={ groupStore }>
       {state => [
         <CheckboxGroup
+          key='checkbox-group'
           name='checkbox-group'
           groupName='checkbox-group'
           label='What would you choose?'
@@ -205,6 +206,7 @@ const checkboxGroupComponent = () => (
               checked={ state[id] }
               key={ `checkbox-input-${id}` }
               onChange={ ev => handleGroupChange(ev, id) }
+              label='Example Checkbox'
               labelHelp=''
             />
           ))}
