@@ -49,7 +49,6 @@ const Help = (props) => {
       as={ tagType }
       href={ href }
       id={ helpId }
-      type='button'
       target='_blank'
       rel='noopener noreferrer'
       ref={ helpElement }

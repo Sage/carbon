@@ -7,12 +7,16 @@ import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import CheckableInput from '.';
 import FieldHelpStyle from '../field-help/field-help.style';
 import FormFieldStyle from '../form-field/form-field.style';
-import Label from '../label/label.component';
+import Label from '../label';
 import HiddenCheckableInputStyle from './hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';
 import { StyledCheckableInput, StyledCheckableInputWrapper } from './checkable-input.style';
 import StyledHelp from '../../../components/help/help.style';
 import baseTheme from '../../../style/themes/base';
+
+function render(props) {
+  return TestRenderer.create(<StyledCheckableInputWrapper { ...props } />);
+}
 
 describe('CheckableInput', () => {
   function mountInput(props) {
@@ -38,10 +42,6 @@ describe('CheckableInput', () => {
     });
   });
 });
-
-function render(props) {
-  return TestRenderer.create(<StyledCheckableInputWrapper { ...props } />);
-}
 
 describe('StyledCheckableInputWrapper', () => {
   const states = ['focus', 'hover'];

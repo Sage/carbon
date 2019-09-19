@@ -176,7 +176,6 @@ const StyledCheckboxGroup = styled.div`
         line-height: 21px;
       }
     }
-
   }
 
   & > ${StyledFormField} {
