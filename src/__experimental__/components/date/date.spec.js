@@ -241,7 +241,14 @@ describe('Date', () => {
 
       it('then the "onChange" prop should have been called with ISO formatted date in payload value', () => {
         simulateChangeOnInput(wrapper, validDate);
-        expect(onChangeFn).toHaveBeenCalledWith({ target: { name: componentName, value: isoDate } });
+        expect(onChangeFn).toHaveBeenCalledWith(
+          {
+            target: {
+              name: componentName,
+              value: isoDate
+            }
+          }
+        );
       });
 
       it('then the "selectedDate" prop with proper Date Object should be passed to the DatePicker component', () => {

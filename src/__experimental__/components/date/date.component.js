@@ -180,7 +180,12 @@ class DateInput extends React.Component {
   };
 
   emitOnChangeCallback = (stringDate) => {
-    const changePayload = { target: { name: this.props.name, value: stringDate } };
+    const changePayload = {
+      target: {
+        name: this.props.name,
+        value: stringDate
+      }
+    };
 
     if (this.props.onChange) this.props.onChange(changePayload);
   };
