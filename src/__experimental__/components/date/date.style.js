@@ -5,10 +5,9 @@ import dateClassicStyle from './date-classic.style';
 
 const StyledDateInput = styled.div`
   display: inline-block;
-  
   & ${InputPresentationStyle} {
     flex: none;
-    width: 135px;
+    width: ${({ size }) => (size === 'large' ? '140px' : '135px')};
   }
 
   ${dateClassicStyle}
