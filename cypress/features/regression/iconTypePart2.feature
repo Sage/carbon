@@ -34,13 +34,17 @@ Feature: Icon component
       | marker            |
       | message           |
       | minus             |
+      | minus_large       |
       | mobile            |
       | pdf               |
       | people            |
       | person            |
       | phone             |
+      | play              |
       | plus              |
+      | plus_large        |
       | print             |
+      | progress          |
       | progressed        |
       | question          |
       | refresh           |
@@ -59,14 +63,15 @@ Feature: Icon component
       | unlocked          |
       | upload            |
       | uploaded          |
+      | video             |
       | view              |
       | warning           |
-      | white-tick        |
 
   @positive
   Scenario Outline: Change type to <iconName>
     When I select type to "<iconName>"
-    Then icon on preview is "<iconDetaElement>"
+    Then icon on preview is "<iconDataElement>"
     Examples:
-      | iconName          | iconDetaElement |
+      | iconName          | iconDataElement |
       | messages          | message         |
+      | help              | question        |
