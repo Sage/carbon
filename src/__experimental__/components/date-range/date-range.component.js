@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
 import { assign } from 'lodash';
-import DateInput from '../date/date.component';
+import DateInput from '../date';
 import DateRangeValidator from '../../../utils/validations/date-range';
 import tagComponent from '../../../utils/helpers/tags';
 import StyledDateRange from './date-range.style';

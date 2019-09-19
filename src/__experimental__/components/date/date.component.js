@@ -253,6 +253,5 @@ function formatDateToCurrentLocale(value) {
   return DateHelper.formatValue(value || DateHelper.todayFormatted(), visibleFormat);
 }
 
-
 export { defaultDateFormat };
 export default withUniqueName(DateInput);
