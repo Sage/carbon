@@ -621,21 +621,39 @@ describe('TableRow', () => {
         row1.find(StyledTableRow));
       });
 
-      it('renders a dragged class if the index matches', () => {
-        const context = {};
-        const row1 = mount(
-          <TableRow index={ 0 } dragAndDropIdentifier='foo'>
-            <TableCell>foo</TableCell>
-          </TableRow>,
-          { context }
-        );
-        row1.setContext({ dragAndDropActiveIndex: 0 });
+      describe.each(themeNames)(
+        'and the theme is %s',
+        (name) => {
+          it('renders a dragged class if the index matches', () => {
+            const context = {};
+            const row1 = mount(
+              <TableRow
+                index={ 0 }
+                dragAndDropIdentifier='foo'
+                theme={ name === 'classic' ? ClassicTheme : SmallTheme }
+              >
+                <TableCell>foo</TableCell>
+              </TableRow>,
+              { context }
+            );
+            row1.setContext({ dragAndDropActiveIndex: 0 });
 
-        assertStyleMatch({
-          border: '1px solid #000A0E'
-        },
-        row1.find(StyledTableRow), { modifier: '&&&&&' });
-      });
+            if (name === 'classic') {
+              assertStyleMatch(
+                { visibility: 'hidden' },
+                row1.find(StyledTableRow),
+                { modifier: `&&&&& ${StyledTableCell}` }
+              );
+            } else {
+              assertStyleMatch(
+                { border: '1px solid #000A0E' },
+                row1.find(StyledTableRow),
+                { modifier: '&&&&&' }
+              );
+            }
+          });
+        }
+      );
     });
   });
 });
