@@ -25,7 +25,7 @@ const NEXT = 'next';
 const PREVIOUS = 'previous';
 const TRANSITION_TIME = 750;
 
-class Carousel extends React.Component {
+class BaseCarousel extends React.Component {
   constructor(...args) {
     super(...args);
 
@@ -308,7 +308,7 @@ class Carousel extends React.Component {
   }
 }
 
-Carousel.propTypes = {
+BaseCarousel.propTypes = {
   /** [legacy] Custom className */
   className: PropTypes.string,
   /** The selected tab on page load */
@@ -340,7 +340,7 @@ Carousel.propTypes = {
   theme: PropTypes.object
 };
 
-Carousel.defaultProps = {
+BaseCarousel.defaultProps = {
   initialSlideIndex: 0,
   enableSlideSelector: true,
   enablePreviousButton: true,
@@ -349,8 +349,9 @@ Carousel.defaultProps = {
   theme: baseTheme
 };
 
-const CarouselWithHOC = withTheme(Carousel);
+const Carousel = withTheme(BaseCarousel);
+Carousel.displayName = 'Carousel';
 
-export default Carousel;
+export default BaseCarousel;
 
-export { CarouselWithHOC as Carousel, Slide };
+export { Carousel, Slide };
