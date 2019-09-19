@@ -24,7 +24,7 @@ Feature: Card component
       | 700px |
       | 999px |
 
-  @positive
+  @negative
   Scenario Outline: Set the width of Card component to outOfScope <width>
     When I set width to "<width>"
     Then Card component has not set width to "<width>"
