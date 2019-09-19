@@ -57,7 +57,6 @@ const handleSlide = (_, pageIndex) => {
 
 const handlePreviousSlide = (ev) => {
   ev.preventDefault();
-  action('previous-slide')(ev);
   const previouHistoryPointer = store.get('previouspageHistoryPointer');
   const pointer = (previouHistoryPointer - 1) > 0 ? (previouHistoryPointer - 1) : 0;
 
