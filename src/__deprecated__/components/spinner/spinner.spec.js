@@ -4,8 +4,8 @@ import 'jest-styled-components';
 import { shallow } from 'enzyme';
 import Spinner from './spinner.component';
 import StyledSpinner from './spinner.style';
-import OptionsHelper from '../../utils/helpers/options-helper';
-import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import OptionsHelper from '../../../utils/helpers/options-helper';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import { classicSpinnerColors, classicSpinnerSizes } from './classicSpinnerConfig';
 
 function render(props) {

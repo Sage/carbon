@@ -7,7 +7,7 @@ import {
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
-import Form from '../form';
+import Form from '../../__deprecated__/components/form';
 import Textbox from '../../__experimental__/components/textbox';
 import TextboxLegacy from '../../__deprecated__/components/textbox';
 import ButtonToggleGroup from '../button-toggle-group';

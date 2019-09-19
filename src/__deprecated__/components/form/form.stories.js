@@ -1,21 +1,21 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { boolean, text, select } from '@storybook/addon-knobs';
-import { classicThemeSelector } from '../../../.storybook/theme-selectors';
-import OptionsHelper from '../../utils/helpers/options-helper';
-import PresenceValidation from '../../utils/validations/presence';
+import { classicThemeSelector } from '../../../../.storybook/theme-selectors';
+import OptionsHelper from '../../../utils/helpers/options-helper';
+import PresenceValidation from '../../../utils/validations/presence';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
 import Form, { FormWithoutValidations } from '.';
-import Textbox from '../../__deprecated__/components/textbox';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
+import Textbox from '../textbox';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 Form.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
   /form\.js(?!spec)/
 );
 
-storiesOf('Form', module)
+storiesOf('__deprecated__/Form', module)
   .addParameters({
     info: {
       text: Info,
