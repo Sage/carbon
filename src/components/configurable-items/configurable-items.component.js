@@ -11,7 +11,7 @@ import {
   ConfigurableItemsWrapper,
   ConfigurableItemsButtonReset
 } from './configurable-items.style';
-import Form from '../form';
+import Form from '../../__deprecated__/components/form';
 import { THEMES } from '../../style/themes';
 import baseTheme from '../../style/themes/base';
 

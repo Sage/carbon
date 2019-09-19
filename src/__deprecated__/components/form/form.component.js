@@ -4,18 +4,18 @@ import I18n from 'i18n-js';
 import Serialize from 'form-serialize';
 import FormSummary from './form-summary';
 import FormButton from './form-button';
-import { validProps, generateKeysForChildren } from '../../utils/ether/ether';
-import tagComponent from '../../utils/helpers/tags/tags';
-import Browser from '../../utils/helpers/browser/browser';
-import { withValidations } from '../validations';
-import ElementResize from '../../utils/helpers/element-resize/element-resize';
+import { validProps, generateKeysForChildren } from '../../../utils/ether/ether';
+import tagComponent from '../../../utils/helpers/tags/tags';
+import Browser from '../../../utils/helpers/browser/browser';
+import { withValidations } from '../../../components/validations';
+import ElementResize from '../../../utils/helpers/element-resize/element-resize';
 import StyledForm,
 {
   StyledFormFooter,
   StyledAdditionalFormAction,
   StyledResponsiveFooterWrapper
 } from './form.style';
-import OptionsHelper from '../../utils/helpers/options-helper';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 class FormWithoutValidations extends React.Component {
   static childContextTypes = {

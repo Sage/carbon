@@ -5,7 +5,7 @@ import DocumentStore from './../../../stores/document';
 import DocumentActions from './../../../actions/document';
 import marked from 'marked';
 import InformationStyles from '../../common/information-styles';
-import Spinner from 'components/spinner';
+import Spinner from '../../../../src/__deprecated__/components/spinner';
 import Row from 'components/row';
 import Highlight from 'react-highlight';
 import classNames from 'classnames';

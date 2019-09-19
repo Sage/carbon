@@ -1,6 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
-import OptionsHelper from '../../utils/helpers/options-helper';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 import { classicSpinnerColors, classicSpinnerSizes } from './classicSpinnerConfig';
 
 const spinnerAnimation = keyframes`
