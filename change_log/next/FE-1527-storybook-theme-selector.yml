@@ -1,3 +1,2 @@
-Storybook Updates: Replaces the theme dropdown menu with a new "Themes" panel
-Storybook Updates: Changes the "default" story to "classic" for all deprecated components
-Storybook Updates: Adds a "classic" story for all other components
+New Features: "Replaces the theme dropdown menu with a new `Themes` panel. Added a `classic` story for all non-deprecated components."
+Deprecated Components: "Changes the `default` story to `classic` for all deprecated components."
