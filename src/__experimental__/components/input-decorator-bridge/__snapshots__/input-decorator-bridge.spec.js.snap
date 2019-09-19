@@ -10,7 +10,7 @@ exports[`InputDecoratorBridge renders the Textbox component with:
   <div
     className="common-input__field"
   >
-    <WithUniqueName(WithValidation(Textbox))
+    <Textbox
       autoComplete="off"
       data-element="input"
       fieldHelp="please help!"
@@ -20,7 +20,7 @@ exports[`InputDecoratorBridge renders the Textbox component with:
       value="1"
     >
       normal children
-    </WithUniqueName(WithValidation(Textbox))>
+    </Textbox>
   </div>
 </div>
 `;
@@ -32,7 +32,7 @@ exports[`InputDecoratorBridge renders with an inputIcon if one is supplied 1`] =
   <div
     className="common-input__field"
   >
-    <WithUniqueName(WithValidation(Textbox))
+    <Textbox
       autoComplete="off"
       data-element="input"
       inputIcon="dropdown"

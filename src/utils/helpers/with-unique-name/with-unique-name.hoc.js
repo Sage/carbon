@@ -11,8 +11,8 @@ const withUniqueName = (WrappedComponent) => {
       );
     }
   }
-  const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
-  WithUniqueName.displayName = `WithUniqueName(${displayName})`;
+  const displayName = WrappedComponent.displayName || WrappedComponent.name || 'WithUniqueName(Unknown)';
+  WithUniqueName.displayName = displayName.replace('Base', '');
 
   return WithUniqueName;
 };

@@ -4,7 +4,7 @@ import FormField from '../../__experimental__/components/form-field';
 import ButtonToggleGroupStyle from './button-toggle-group.style';
 import withValidations from '../validations/with-validation.hoc';
 
-const ButtonToggleGroup = withValidations((props) => {
+const BaseButtonToggleGroup = ((props) => {
   const {
     inputWidth,
     errorMessage,
@@ -29,7 +29,7 @@ const ButtonToggleGroup = withValidations((props) => {
   );
 });
 
-ButtonToggleGroup.propTypes = {
+BaseButtonToggleGroup.propTypes = {
   /** Children to be rendered (ButtonToggle). */
   children: PropTypes.node.isRequired,
   /** Text for the label. */
@@ -50,4 +50,6 @@ ButtonToggleGroup.propTypes = {
   labelAlign: PropTypes.string
 };
 
-export default ButtonToggleGroup;
+BaseButtonToggleGroup.displayName = 'BaseButtonToggleGroup';
+
+export default withValidations(BaseButtonToggleGroup);
