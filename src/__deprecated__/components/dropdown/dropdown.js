@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Browser from '../../utils/helpers/browser';
-import Input from '../../utils/decorators/input';
-import InputLabel from '../../utils/decorators/input-label';
-import InputValidation from '../../utils/decorators/input-validation';
-import InputIcon from '../../utils/decorators/input-icon';
-import Events from '../../utils/helpers/events';
-import { validProps } from '../../utils/ether';
-import Portal from '../portal';
+import Browser from '../../../utils/helpers/browser/browser';
+import Input from '../../../utils/decorators/input/input';
+import InputLabel from '../../../utils/decorators/input-label/input-label';
+import InputValidation from '../../../utils/decorators/input-validation/input-validation';
+import InputIcon from '../../../utils/decorators/input-icon/input-icon';
+import Events from '../../../utils/helpers/events/events';
+import { validProps } from '../../../utils/ether/ether';
+import Portal from '../../../components/portal/portal';
 import './dropdown.scss';
+import warnOfDeprecation from '../../../utils/helpers/warn-as-deprecated';
 
 const window = Browser.getWindow();
 
@@ -71,6 +72,8 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
   static defaultProps = {
     cacheVisibleValue: false
   }
+
+  deprecatedWarnTriggered = false;
 
   /**
    * @constructor
@@ -691,6 +694,14 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
    * @method render
    */
   render() {
+    if (!this.deprecatedWarnTriggered) {
+      this.deprecatedWarnTriggered = true;
+      warnOfDeprecation(
+        'DropDown, DropdownFilter and DropdownFilterAjax',
+        'carbon-react/lib/_experimental_/components/select and carbon-react/lib/_experimental_/components/select-async'
+      );
+    }
+
     return (
       <div
         className={ this.mainClasses }

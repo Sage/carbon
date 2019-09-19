@@ -8,41 +8,35 @@ import {
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-import { classicThemeSelector } from '../../../.storybook/theme-selectors';
-import OptionsHelper from '../../utils/helpers/options-helper';
+import { classicThemeSelector } from '../../../../.storybook/theme-selectors';
+import ImmutableHelper from '../../../utils/helpers/immutable';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
-import DropdownFilterAjax from './dropdown-filter-ajax';
-import { enableMock } from '../../../demo/xhr-mock';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
+import DropdownFilter from './dropdown-filter';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
-DropdownFilterAjax.__docgenInfo = getDocGenInfo(
+DropdownFilter.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /dropdown-filter-ajax(?!spec)/
+  /dropdown-filter(?!spec)/
 );
 
 const store = new Store({
-  value: '',
-  visibleValue: ''
+  value: ''
 });
-
-enableMock();
 
 // Shared Props
 const onChange = (evt) => {
-  store.set({
-    visibleValue: evt.target.visibleValue,
-    value: evt.target.visibleValue
-  });
+  store.set({ value: evt.target.value });
   action('change')(evt);
 };
 
 const defaultKnobs = () => {
-  const labelInline = boolean('labelInline');
+  const labelInline = boolean('labelInline', false);
 
   return {
     autoFocus: boolean('autoFocus'),
-    cacheVisibleValue: boolean('cacheVisibleValue'),
+    cacheVisibleValue: boolean('cacheVisibleValue', true),
     disabled: boolean('disabled'),
     readOnly: boolean('readOnly'),
     timeToDisappear: number('timeToDisappear'),
@@ -56,17 +50,17 @@ const defaultKnobs = () => {
     fieldHelpInline: boolean('fieldHelpInline'),
     suggest: boolean('suggest'),
     freetext: boolean('freetext'),
-    path: text('path', '/countries'),
-    acceptHeader: text('acceptHeader', DropdownFilterAjax.defaultProps.acceptHeader),
-    rowsPerRequest: number('rowsPerRequest', DropdownFilterAjax.defaultProps.rowsPerRequest),
-    dataRequestTimeout: number(
-      'dataRequestTimeout',
-      DropdownFilterAjax.defaultProps.dataRequestTimeout
-    )
+    options: ImmutableHelper.parseJSON([
+      {
+        id: 1, name: 'Orange'
+      }, {
+        id: 2, name: 'Blue'
+      }
+    ])
   };
 };
 
-storiesOf('DropdownFilterAjax', module)
+storiesOf('__deprecated__/Dropdown Filter', module)
   .addParameters({
     info: {
       propTablesExclude: [State]
@@ -77,10 +71,10 @@ storiesOf('DropdownFilterAjax', module)
 
     return (
       <State store={ store }>
-        <DropdownFilterAjax
+        <DropdownFilter
           { ...props }
-          getCustomHeaders={ () => ({}) }
           onChange={ onChange }
+          value={ store.get('value') }
         />
       </State>
     );
@@ -89,21 +83,21 @@ storiesOf('DropdownFilterAjax', module)
     notes: { markdown: notes },
     themeSelector: classicThemeSelector
   })
-  .add('withCreate', () => {
+  .add('with Create', () => {
     const props = defaultKnobs();
-    const create = (evt, component) => component.state.filter;
+    const create = (_evt, component) => component.state.filter;
     const createText = text('createText');
     const createIconType = select('createIconType', OptionsHelper.icons, OptionsHelper.icons[0]);
 
     return (
       <State store={ store }>
-        <DropdownFilterAjax
+        <DropdownFilter
           { ...props }
           create={ create }
           createText={ createText }
           createIconType={ createIconType }
-          getCustomHeaders={ () => ({}) }
           onChange={ onChange }
+          value={ store.get('value') }
         />
       </State>
     );
