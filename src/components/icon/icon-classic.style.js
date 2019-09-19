@@ -4,7 +4,7 @@ import classicConfig from './icon-classic-config';
 import browserTypeCheck, { isSafari } from '../../utils/helpers/browser-type-check';
 
 export default ({
-  theme, bgTheme, isFont, type
+  theme, bgTheme, type
 }) => isClassic(theme) && css`
   color: rgba(0, 0, 0, 0.85);
 
@@ -16,15 +16,13 @@ export default ({
     }
   `}
 
-  ${isFont && css`
-    &::before {
-      font-size: 16px;
-      font-style: normal;
-      font-weight: normal;
-      line-height: 16px;
-      vertical-align: middle;
-      ${type === 'services' && browserTypeCheck(window) && css`margin-top: -7px;`}
-      ${type === 'services' && isSafari(navigator) && !browserTypeCheck(window) && css`margin-top: -4px;`}
-    }
-  `}
-  `;
+  &::before {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 16px;
+    vertical-align: middle;
+    ${type === 'services' && browserTypeCheck(window) && css`margin-top: -7px;`}
+    ${type === 'services' && isSafari(navigator) && !browserTypeCheck(window) && css`margin-top: -4px;`}
+  }
+`;

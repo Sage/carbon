@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
 import StyledPill from '../../../components/pill/pill.style';
 import StyledInput from '../input/input.style';
-import { StyledIcon } from '../../../components/icon/icon.style';
+import StyledIcon from '../../../components/icon/icon.style';
 import { isClassic } from '../../../utils/helpers/style-helper';
 
 const StyledSelect = styled.div`
