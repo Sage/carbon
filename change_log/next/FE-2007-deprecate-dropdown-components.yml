@@ -5,4 +5,3 @@ Deprecated Components: |
   to continue using it you will need to update the import path to `carbon-react/lib/__deprecated__/components/dropdown-filter`
   `DropdownFilterAjax` has been moved to `__deprecated__/components/dropdown-filter-ajax`,
   to continue using it you will need to update the import path to `carbon-react/lib/__deprecated__/components/dropdown-filter-ajax`
- 

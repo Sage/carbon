@@ -1,1 +1,0 @@
-Component Fix: Story fixed, page slide no longer relies on name property to switch between slides. It works of Store proprty called slideIndex that points to the current slide. In onClick passing target slideIndex.
