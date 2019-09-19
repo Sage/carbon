@@ -6,7 +6,6 @@ import TestUtils from 'react-dom/test-utils';
 import I18n from 'i18n-js';
 import DateRange from './date-range.component';
 import DateInput from '../date/date.component';
-import Date from '../date';
 import DateRangeValidator from '../../../utils/validations/date-range';
 import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 import StyledDateRange from './date-range.style';
@@ -191,15 +190,18 @@ describe('DateRange', () => {
   });
 
   describe('render', () => {
-    const wrapper = renderDateRange({
-      onChange: customOnChange,
-      startDateProps: { label: 'From' },
-      endDateProps: { label: 'To' }
-    }, mount);
+    beforeEach(() => {
+      customOnChange = jasmine.createSpy();
+      wrapper = renderDateRange({
+        onChange: customOnChange,
+        startDateProps: { label: 'From' },
+        endDateProps: { label: 'To' }
+      }, mount);
 
-    const startInput = wrapper.find(DateInput).at(0).childAt(0).childAt(0);
-    const endInput = wrapper.find(DateInput).at(1).childAt(0).childAt(0);
-    
+      startInput = wrapper.find(DateInput).at(0).childAt(0).childAt(0);
+      endInput = wrapper.find(DateInput).at(1).childAt(0).childAt(0);
+    });
+
     it('renders 2 date components', () => {
       expect(wrapper.find(DateInput).length).toEqual(2);
     });
@@ -217,85 +219,85 @@ describe('DateRange', () => {
 
   describe('start and end date props', () => {
     it('dates are enabled by default', () => {
-      const wrapper = renderDateRange({
+      wrapper = renderDateRange({
         onChange: customOnChange,
         value: ['2016-10-10', '2016-11-11']
       }, mount);
-      const startInput = wrapper.find(DateInput).at(0).childAt(0).childAt(0);
-      const endInput = wrapper.find(DateInput).at(1).childAt(0).childAt(0);
+      startInput = wrapper.find(DateInput).at(0).childAt(0).childAt(0);
+      endInput = wrapper.find(DateInput).at(1).childAt(0).childAt(0);
       expect(startInput.props().disabled).toBeUndefined();
       expect(endInput.props().disabled).toBeUndefined();
     });
 
     it('dates can be disabled by passing startDateProps and endDateProps to DateRange', () => {
-      const wrapper = renderDateRange({
+      wrapper = renderDateRange({
         onChange: customOnChange,
         startDateProps: { disabled: true },
         endDateProps: { disabled: true },
         value: []
       }, mount);
-      const startInput = wrapper.find(DateInput).at(0).childAt(0).childAt(0);
-      const endInput = wrapper.find(DateInput).at(1).childAt(0).childAt(0);
+      startInput = wrapper.find(DateInput).at(0).childAt(0).childAt(0);
+      endInput = wrapper.find(DateInput).at(1).childAt(0).childAt(0);
       expect(startInput.props().disabled).toEqual(true);
       expect(endInput.props().disabled).toEqual(true);
     });
 
     it('Date values can be set via startDateProps and endDateProps', () => {
-      const wrapper = renderDateRange({
+      wrapper = renderDateRange({
         onChange: customOnChange,
         startDateProps: { value: '2016-10-10' },
         endDateProps: { value: '2016-11-11' },
         value: []
       }, mount);
-      const startInput = wrapper.find(DateInput).at(0).childAt(0).childAt(0);
-      const endInput = wrapper.find(DateInput).at(1).childAt(0).childAt(0);
+      startInput = wrapper.find(DateInput).at(0).childAt(0).childAt(0);
+      endInput = wrapper.find(DateInput).at(1).childAt(0).childAt(0);
       expect(startInput.props().value).toEqual('2016-10-10');
       expect(endInput.props().value).toEqual('2016-11-11');
     });
 
     it('value prop is retained for backward compatibility', () => {
-      const wrapper = renderDateRange({
+      wrapper = renderDateRange({
         onChange: customOnChange,
-        value: ['2015-10-10', '2015-11-11'],
+        value: ['2015-10-10', '2015-11-11']
       }, mount);
-      const startInput = wrapper.find(DateInput).at(0).childAt(0).childAt(0);
-      const endInput = wrapper.find(DateInput).at(1).childAt(0).childAt(0);
+      startInput = wrapper.find(DateInput).at(0).childAt(0).childAt(0);
+      endInput = wrapper.find(DateInput).at(1).childAt(0).childAt(0);
       expect(startInput.props().value).toEqual('2015-10-10');
       expect(endInput.props().value).toEqual('2015-11-11');
     });
 
     it('value prop is overriden by startDateProps.value and endDateProps.value', () => {
-      const wrapper = renderDateRange({
+      wrapper = renderDateRange({
         onChange: customOnChange,
         startDateProps: { value: '2016-10-10' },
         endDateProps: { value: '2016-11-11' }
       }, mount);
-      const startInput = wrapper.find(DateInput).at(0).childAt(0).childAt(0);
-      const endInput = wrapper.find(DateInput).at(1).childAt(0).childAt(0);
+      startInput = wrapper.find(DateInput).at(0).childAt(0).childAt(0);
+      endInput = wrapper.find(DateInput).at(1).childAt(0).childAt(0);
       expect(startInput.props().value).toEqual('2016-10-10');
       expect(endInput.props().value).toEqual('2016-11-11');
     });
 
     it('class names can be added to dates by passing startDateProps and endDateProps to DateRange', () => {
-      const wrapper = renderDateRange({
+      wrapper = renderDateRange({
         onChange: customOnChange,
         startDateProps: { className: 'custom-start-class' },
         endDateProps: { className: 'custom-end-class' }
       }, mount);
-      const startInput = wrapper.find(DateInput).at(0).childAt(0).childAt(0);
-      const endInput = wrapper.find(DateInput).at(1).childAt(0).childAt(0);
+      startInput = wrapper.find(DateInput).at(0).childAt(0).childAt(0);
+      endInput = wrapper.find(DateInput).at(1).childAt(0).childAt(0);
       expect(startInput.props().className).toEqual('custom-start-class');
       expect(endInput.props().className).toEqual('custom-end-class');
     });
 
     it('validations can be added to dates by passing startDateProps and endDateProps to DateRange', () => {
       const mockValidationFunction = () => {};
-      const wrapper = renderDateRange({
+      wrapper = renderDateRange({
         onChange: customOnChange,
         startDateProps: { validations: [mockValidationFunction] }
       }, mount);
-      const startInput = wrapper.find(DateInput).at(0).childAt(0).childAt(0);
-      const endInput = wrapper.find(DateInput).at(1).childAt(0).childAt(0);
+      startInput = wrapper.find(DateInput).at(0).childAt(0).childAt(0);
+      endInput = wrapper.find(DateInput).at(1).childAt(0).childAt(0);
 
       expect(startInput.props().validations.length).toEqual(2);
       expect(startInput.props().validations[1]).toEqual(mockValidationFunction);
@@ -311,7 +313,8 @@ describe('DateRange', () => {
     });
 
     describe('on internal elements', () => {
-      const wrapper = renderDateRange({ onChange: customOnChange });
+      customOnChange = jasmine.createSpy();
+      wrapper = renderDateRange({ onChange: customOnChange });
 
       elementsTagTest(wrapper, [
         'start-date',

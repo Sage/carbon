@@ -503,7 +503,6 @@ describe('Form', () => {
   describe('when addOtherInputsToState is called', () => {
     describe('and it is new formInput and not of type (button, submit)', () => {
       it('it executes addInputDataToState for each form element', () => {
-        const spy = jasmine.createSpy('spy');
         wrapper = mount(
           <Form
             validate={ () => true }
@@ -533,7 +532,6 @@ describe('Form', () => {
     });
 
     it('it executes submitControlledForm', async () => {
-      const spy = jasmine.createSpy('spy');
       wrapper = mount(
         <Form validate={ () => true } formAction='foo' />
       );

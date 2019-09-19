@@ -412,7 +412,23 @@ class Form extends React.Component {
 
     if (!children) return null;
 
-    return Array.isArray(children) ? children : [children];
+    const childrenArray = Array.isArray(children) ? children : [children];
+
+    if (!this.childKeys || this.childKeys.length !== childrenArray.length) {
+      this.childKeys = generateKeysForChildren(childrenArray);
+    }
+
+    return childrenArray.map((child, index) => {
+      if (typeof child.type !== 'function') return child;
+
+      return React.cloneElement((child), {
+        ...child.props,
+        key: this.childKeys[index],
+        childOfForm: true,
+        addInputToFormState: this.addInputDataToState,
+        labelAlign: isLabelRightAligned ? 'right' : 'left'
+      });
+    });
   }
 
   /** Renders the component. */
