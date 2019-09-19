@@ -13,7 +13,7 @@ import TableHeader from './table-header';
 import TableSubheader from './table-subheader';
 import DraggableTableCell from './draggable-table-cell';
 import Pager from '../pager';
-import Spinner from '../spinner';
+import Spinner from '../../__deprecated__/components/spinner';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 class Table extends React.Component {

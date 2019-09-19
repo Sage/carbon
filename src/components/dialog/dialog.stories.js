@@ -8,12 +8,12 @@ import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/them
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
 import Dialog from './dialog.component';
-import Form from '../form';
+import Form from '../../__deprecated__/components/form';
 import Textbox from '../../__deprecated__/components/textbox';
 import Button from '../button';
 import Modal from '../modal';
 import DateInput from '../date';
-import Dropdown from '../dropdown/dropdown';
+import Dropdown from '../../__deprecated__/components/dropdown';
 import Checkbox from '../checkbox/checkbox';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
