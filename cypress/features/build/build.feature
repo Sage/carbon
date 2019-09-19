@@ -17,11 +17,6 @@ Feature: Build tests
     Then "button" component is visible
 
   @build
-  Scenario: Component <component> as sibling
-    When I open "button" component page as sibling in iframe
-    Then "button" component is visible
-
-  @build
   Scenario Outline: Component <component> page and open preview
     When I open "<component>" component iframe
       And I open component preview no iframe
@@ -47,6 +42,7 @@ Feature: Build tests
       | button toggle        | button-toggle        |
       | button               | button               |
       | carousel             | carousel             |
+      | card                 | card                 |
       # | checkbox             | checkbox             | Commented until checkbox will be merged-out from experimental
       | configurable-items   | configurable-items   |
       | content              | content              |
@@ -76,7 +72,6 @@ Feature: Build tests
       # | number-input         | number               | Commented until number-input will be merged-out from experimental
       | pager                | pager                |
       | pill                 | pill                 |
-      | pod                  | pod                  |
       | portrait             | portrait             |
       | preview              | preview              |
       | profile              | profile              |
