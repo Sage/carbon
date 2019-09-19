@@ -14,6 +14,10 @@ import { StyledCheckableInput, StyledCheckableInputWrapper } from './checkable-i
 import StyledHelp from '../../../components/help/help.style';
 import baseTheme from '../../../style/themes/base';
 
+function render(props) {
+  return TestRenderer.create(<StyledCheckableInputWrapper { ...props } />);
+}
+
 describe('CheckableInput', () => {
   function mountInput(props) {
     return mount(
@@ -38,10 +42,6 @@ describe('CheckableInput', () => {
     });
   });
 });
-
-function render(props) {
-  return TestRenderer.create(<StyledCheckableInputWrapper { ...props } />);
-}
 
 describe('StyledCheckableInputWrapper', () => {
   const states = ['focus', 'hover'];
