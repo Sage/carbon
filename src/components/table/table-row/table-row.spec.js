@@ -5,6 +5,7 @@ import TestUtils from 'react-dom/test-utils';
 import { mount, shallow } from 'enzyme';
 import { Table, TableCell } from '..';
 import TableRow from './table-row.component';
+import StyledTableRow from './table-row.style';
 import TableHeader from '../table-header';
 import StyledTableCell from '../table-cell/table-cell.style';
 import DraggableTableCell from '../draggable-table-cell';
@@ -582,7 +583,7 @@ describe('TableRow', () => {
 
       it('renders a dragging class', () => {
         const context = {};
-        const row1 = shallow(
+        const row1 = mount(
           <TableRow index={ 0 } dragAndDropIdentifier='foo'>
             <TableCell>foo</TableCell>
           </TableRow>,
@@ -591,24 +592,25 @@ describe('TableRow', () => {
         row1.setContext({ dragAndDropActiveIndex: 1 });
 
         assertStyleMatch({
-          border: '1px solid #000A0E'
+          userSelect: 'none'
         },
-        row1, { modifier: '&&&&&' });
+        row1.find(StyledTableRow));
       });
 
       it('renders a dragged class if the index matches', () => {
         const context = {};
-        const row1 = shallow(
+        const row1 = mount(
           <TableRow index={ 0 } dragAndDropIdentifier='foo'>
             <TableCell>foo</TableCell>
           </TableRow>,
           { context }
         );
         row1.setContext({ dragAndDropActiveIndex: 0 });
+
         assertStyleMatch({
-          userSelect: 'none'
+          border: '1px solid #000A0E'
         },
-        row1);
+        row1.find(StyledTableRow), { modifier: '&&&&&' });
       });
     });
   });
