@@ -62,6 +62,7 @@ const handlePreviousSlide = (ev) => {
   const pointer = (previouHistoryPointer - 1) > 0 ? (previouHistoryPointer - 1) : 0;
 
   store.set({
+    pageHistory: store.get('pageHistory').slice(0, -1),
     pageIndex: (store.get('pageHistory')[pointer] || 0),
     previouspageHistoryPointer: pointer
   });
