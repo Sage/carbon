@@ -4,7 +4,6 @@ import { shallow, mount } from 'enzyme';
 import BasePages, { Page } from './pages.component';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 import classicTheme from '../../style/themes/classic';
-import 'jest-styled-components';
 
 describe('BasePages', () => {
   let wrapper, page;

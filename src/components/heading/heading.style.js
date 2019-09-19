@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Icon from '../icon';
-import { StyledIcon } from '../icon/icon.style';
+import StyledIcon from '../icon/icon.style';
 import baseTheme from '../../style/themes/base';
 
 const StyledHeading = styled.div`

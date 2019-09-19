@@ -81,7 +81,8 @@ class Pages extends React.Component {
 
     const additionalProps = {
       'data-element': 'visible-page',
-      key: `carbon-page-${index}`
+      key: `carbon-page-${index}`,
+      className: visiblePage.props.className
     };
 
     return React.cloneElement(visiblePage, assign({}, visiblePage.props, additionalProps));
