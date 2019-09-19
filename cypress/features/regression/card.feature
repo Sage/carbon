@@ -15,6 +15,26 @@ Feature: Card component
       | large   | 48      | 32     |
 
   @positive
+  Scenario Outline: Set the width of Card component to <width>
+    When I set width to "<width>"
+    Then Card component has set width to "<width>"
+    Examples:
+      | width |
+      | 550px |
+      | 700px |
+      | 999px |
+
+  @positive
+  Scenario Outline: Set the width of Card component to outOfScope <width>
+    When I set width to "<width>"
+    Then Card component has not set width to "<width>"
+    Examples:
+      | width |
+      | -10px |
+      | -999px|
+      | test  |
+
+  @positive
   Scenario: Enable interactive card checkbox
     When I check interactive card checkbox
     Then Card component is interactive
