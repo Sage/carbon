@@ -34,13 +34,17 @@ Feature: Detail component
       | marker            |
       | message           |
       | minus             |
+      | minus_large       |
       | mobile            |
       | pdf               |
       | people            |
       | person            |
       | phone             |
+      | play              |
       | plus              |
+      | plus_large        |
       | print             |
+      | progress          |
       | progressed        |
       | question          |
       | refresh           |
@@ -59,9 +63,9 @@ Feature: Detail component
       | unlocked          |
       | upload            |
       | uploaded          |
+      | video             |
       | view              |
       | warning           |
-      | white-tick        |
 
   @positive
   Scenario Outline: Change Detail icon to <iconName>
@@ -70,3 +74,4 @@ Feature: Detail component
     Examples:
       | iconName          | iconDataElement |
       | messages          | message         |
+      | help              | question        |
