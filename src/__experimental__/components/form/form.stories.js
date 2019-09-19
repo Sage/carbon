@@ -7,7 +7,7 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import PresenceValidation from '../../../utils/validations/presence';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
-import Form from '.';
+import Form, { FormWithoutValidations } from '.';
 import Textbox from '../textbox';
 import Button from '../../../components/button';
 import Link from '../../../components/link';
@@ -42,7 +42,7 @@ function makeStory(name, themeSelector) {
     const buttonAlign = select(
       'buttonAlign',
       OptionsHelper.alignBinary,
-      Form.defaultProps.buttonAlign
+      FormWithoutValidations.defaultProps.buttonAlign
     );
     const saving = boolean('saving', false);
     const cancelText = text('cancelText', '');
@@ -53,7 +53,7 @@ function makeStory(name, themeSelector) {
     const additionalActions = select('additionalActions', formActionOptions, formActionOptions[0]);
     const leftAlignedActions = select('leftAlignedActions', formActionOptions, formActionOptions[0]);
     const rightAlignedActions = select('rightAlignedActions', formActionOptions, formActionOptions[0]);
-    const showSummary = boolean('showSummary', Form.defaultProps.showSummary);
+    const showSummary = boolean('showSummary', FormWithoutValidations.defaultProps.showSummary);
     const inLineLabels = boolean('inLineLabels', false);
     const isLabelRightAligned = inLineLabels ? boolean('isLabelRightAligned', false) : undefined;
 

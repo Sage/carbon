@@ -8,7 +8,7 @@ import 'jest-styled-components';
 import {
   StyledAdditionalFormAction, StyledFormFooter, StyledResponsiveFooterWrapper
 } from '../../../__deprecated__/components/form/form.style';
-import Form, { FormWithValidations } from './form.component';
+import FormWithValidations, { FormWithoutValidations as Form } from './form.component';
 import Textbox from '../textbox';
 import Validation from '../../../utils/validations/presence';
 import Dialog from '../../../components/dialog';
