@@ -120,6 +120,7 @@ class Heading extends React.Component {
 
     return (
       <Link
+        onMouseDown={ e => e.currentTarget.focus() }
         className='carbon-heading__back'
         data-element='back'
         { ...props }
