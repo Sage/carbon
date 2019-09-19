@@ -1,6 +1,6 @@
 import DropdownFilter from './';
-import OptionsHelper from '../../utils/helpers/options-helper';
-import Definition from './../../../demo/utils/definition';
+import OptionsHelper from '../../../utils/helpers/options-helper';
+import Definition from '../../../../demo/utils/definition';
 
 let definition = new Definition('dropdown-filter', DropdownFilter, {
   description: `Selects one option from a very long list, with the ability to filter and create new items.`,

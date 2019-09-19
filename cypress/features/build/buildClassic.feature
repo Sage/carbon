@@ -47,9 +47,6 @@ Feature: Build tests for classic stories
       | create               | link                 |
       | detail               | detail               |
       | draggableContext     | table                |
-      | dropdownFilterAjax   | dropdown-filter-ajax |
-      | dropdown-filter      | dropdown-filter      |
-      | dropdown             | dropdown             |
       | filter component     | filter               |
       | form                 | form                 |
       | heading              | heading              |
@@ -94,6 +91,9 @@ Feature: Build tests for classic stories
       | date input           | date                |
       | date range           | date-range          |
       | decimal              | decimal             |
+      | dropdownFilterAjax  | dropdown-filter-ajax |
+      | dropdown-filter     | dropdown-filter      |
+      | dropdown            | dropdown             |
       | fieldset             | fieldset            |
       | groupedcharacter     | grouped-character   |
       | number-input         | number              |
