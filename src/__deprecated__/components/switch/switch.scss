@@ -4,6 +4,7 @@
 
 .carbon-loading-dots {
   text-align: center;
+  vertical-align: baseline;
 
   .carbon-loading-dots__bounce {
     border-radius: 100%;
@@ -101,7 +102,7 @@ $width: 55px;
 
     .carbon-switch__off {
       [data-component='icon'] {
-        top: 1px;
+        top: 4px;
       }
     }
   }
@@ -151,8 +152,8 @@ $width: 55px;
 
       .carbon-loading-dots {
         position: relative;
-        top: -2px;
-        right: -2px;
+        top: 0;
+        right: 2px;
       }
     }
   }
