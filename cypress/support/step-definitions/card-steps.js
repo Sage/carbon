@@ -10,6 +10,16 @@ Then('Card component is interactive', () => {
   card().should('have.css', 'cursor', 'pointer');
 });
 
+Then('Card component has set width to {string}', (width) => {
+  cy.wait(200); // needed to be here due to animation
+  card().should('have.css', 'width', `${width}`);
+});
+
+Then('Card component has not set width to {string}', (width) => {
+  cy.wait(200); // needed to be here due to animation
+  card().should('not.have.css', 'width', `${width}`);
+});
+
 When('I select card spacing to {string}', (selection) => {
   getKnobsInput('card spacing').select(selection);
 });
