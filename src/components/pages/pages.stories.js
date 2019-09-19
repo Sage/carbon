@@ -32,12 +32,13 @@ const store = new Store({
   transitionTime: 600
 });
 
-const handleSlide = (ev, pageIndex) => {
+const handleSlide = (_, pageIndex) => {
+  action('slide')(`Page index: ${pageIndex}`);
+
   const isDisabled = store.get('isDisabled');
   const transitionTime = store.get('transitionTime');
   if (isDisabled) return store.get('previouspageHistoryPointer');
 
-  action('slide')(ev);
   const newpageHistory = [...store.get('pageHistory'), pageIndex];
 
   store.set({
