@@ -1,6 +1,5 @@
-import DropdownFilterAjax from './';
-import OptionsHelper from '../../utils/helpers/options-helper';
-import Definition from './../../../demo/utils/definition';
+import DropdownFilterAjax from '.';
+import Definition from '../../../../demo/utils/definition/definition';
 
 let definition = new Definition('dropdown-filter-ajax', DropdownFilterAjax, {
   description: `Ajax control: Selects one option from a very long list, with the ability to filter and create new items.`,
