@@ -15,11 +15,18 @@ $date__picker__background-color: $white;
   }
 }
 
+.carbon-date {
+  .common-input__label--inline {
+    margin: 8px 0 0;
+  }
+}
+
 .carbon-date .common-input__field {
   box-sizing: content-box;
   /* i have to stop this being over-ridden by a prop that sets a style on the element */
   /* this does have the benefit of removing inline and filter related styles */
   width: 120px !important;
+  padding-left: 0px !important;
 }
 
 .carbon-date.common-input--with-icon .common-input__icon--error {
