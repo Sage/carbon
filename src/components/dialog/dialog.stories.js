@@ -8,7 +8,7 @@ import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/them
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
 import Dialog from './dialog.component';
-import Form from '../form';
+import Form from '../../__deprecated__/components/form';
 import Textbox from '../../__deprecated__/components/textbox';
 import Button from '../button';
 import Modal from '../modal';

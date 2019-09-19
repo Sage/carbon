@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
 import Service from '../../../utils/service';
-import FormButton from '../../../components/form/form-button';
-import FormSummary from '../../../components/form/form-summary';
+import FormButton from '../../../__deprecated__/components/form/form-button';
+import FormSummary from '../../../__deprecated__/components/form/form-summary';
 import { validProps, generateKeysForChildren } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
 import Browser from '../../../utils/helpers/browser';
@@ -14,7 +14,7 @@ import StyledForm,
   StyledFormFooter,
   StyledAdditionalFormAction,
   StyledResponsiveFooterWrapper
-} from '../../../components/form/form.style';
+} from '../../../__deprecated__/components/form/form.style';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const FormContext = React.createContext();

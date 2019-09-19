@@ -50,7 +50,6 @@ Feature: Build tests for classic stories
       | detail               | detail               |
       | draggableContext     | table                |
       | filter component     | filter               |
-      | form                 | form                 |
       | heading              | heading              |
       | help                 | help                 |
       | i18ncomponent        | i18n                 |
@@ -66,7 +65,6 @@ Feature: Build tests for classic stories
       | navigation-bar       | navigation-bar       |
       | pager                | pager                |
       | pill                 | pill                 |
-      | pod                  | pod                  |
       | portrait             | portrait             |
       | preview              | preview              |
       | profile              | profile              |
@@ -89,13 +87,12 @@ Feature: Build tests for classic stories
     When I open deprecated "<component>" component iframe
     Then "<data-component>" component is visible
     Examples:
-      | component           | data-component       |
-      | textbox             | textbox              |
-      | textarea            | textarea             |
-      | number-input        | number               |
-      | decimal             | decimal              |
-      | dropdownFilterAjax  | dropdown-filter-ajax |
-      | dropdown-filter     | dropdown-filter      |
-      | dropdown            | dropdown             |
-      | fieldset            | fieldset             |
-      | groupedcharacter    | grouped-character    |
+      | component          | data-component     |
+      | textbox            | textbox            |
+      | textarea           | textarea           |
+      | number-input       | number             |
+      | decimal            | decimal            |
+      | fieldset           | fieldset           |
+      | groupedcharacter   | grouped-character  |
+      | pod                | pod                |
+      | form               | form               |

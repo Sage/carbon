@@ -7,14 +7,14 @@ import PropTypes from 'prop-types';
 import { mount, shallow } from 'enzyme';
 import FormWithValidations, { FormWithoutValidations as Form } from './form.component';
 import { StyledAdditionalFormAction, StyledResponsiveFooterWrapper } from './form.style';
-import Textbox from '../../__deprecated__/components/textbox';
-import Validation from '../../utils/validations/presence';
-import Dialog from '../dialog';
+import Textbox from '../textbox';
+import Validation from '../../../utils/validations/presence';
+import Dialog from '../../../components/dialog';
 import FormSummary from './form-summary';
-import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-import Button from '../button';
-import ElementResize from '../../utils/helpers/element-resize';
-import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import Button from '../../../components/button';
+import ElementResize from '../../../utils/helpers/element-resize';
+import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 
 /* global jest */
 
