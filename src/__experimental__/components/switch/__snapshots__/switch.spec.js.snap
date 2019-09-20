@@ -274,6 +274,10 @@ exports[`Switch base theme renders as expected 1`] = `
   outline: none;
 }
 
+.c21 .c4 .c30 {
+  top: 1px;
+}
+
 .c22 .c4,
 .c22 .c6 {
   border: none;
@@ -308,6 +312,10 @@ exports[`Switch base theme renders as expected 1`] = `
   outline: none;
 }
 
+.c22 .c4 .c30 {
+  top: 1px;
+}
+
 .c23 .c4,
 .c23 .c6 {
   border: none;
@@ -340,6 +348,10 @@ exports[`Switch base theme renders as expected 1`] = `
 .c23 .c6:not([disabled]):focus + .c8,
 .c23 .c6:not([disabled]):hover + .c8 {
   outline: none;
+}
+
+.c23 .c4 .c30 {
+  top: 1px;
 }
 
 .c24 .c4,
@@ -381,6 +393,10 @@ exports[`Switch base theme renders as expected 1`] = `
 .c24 .c6:not([disabled]):focus + .c8,
 .c24 .c6:not([disabled]):hover + .c8 {
   outline: none;
+}
+
+.c24 .c4 .c30 {
+  top: 1px;
 }
 
 .c24 .c4,
@@ -431,6 +447,10 @@ exports[`Switch base theme renders as expected 1`] = `
   outline: none;
 }
 
+.c25 .c4 .c30 {
+  top: 1px;
+}
+
 .c25 .c4,
 .c25 .c6,
 .c25 .c8 {
@@ -477,6 +497,10 @@ exports[`Switch base theme renders as expected 1`] = `
 .c26 .c6:not([disabled]):focus + .c8,
 .c26 .c6:not([disabled]):hover + .c8 {
   outline: none;
+}
+
+.c26 .c4 .c30 {
+  top: 1px;
 }
 
 .c26 .c4,
