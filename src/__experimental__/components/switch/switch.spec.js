@@ -3,7 +3,7 @@ import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { css } from 'styled-components';
 import { mount } from 'enzyme';
-import _capitalize from 'lodash/capitalize';
+import text from '../../../utils/helpers/text/text';
 import Switch from '.';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import FieldHelpStyle from '../field-help/field-help.style';
@@ -201,7 +201,7 @@ describe('Switch', () => {
 
     describe.each(validationTypes)('validation %s', (type) => {
       it('check icon type', () => {
-        const propName = `has${_capitalize(type)}`;
+        const propName = `has${text.titleCase(type)}`;
         wrapper.setProps({
           [propName]: true
         });
