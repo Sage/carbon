@@ -593,7 +593,7 @@ describe('TableRow', () => {
         expect(cell.props().canDrag).toEqual(true);
 
         assertStyleMatch({
-          cursor: 'move'
+          cursor: 'grab'
         },
         draggableRow, { modifier: `${StyledIcon}` });
       });
