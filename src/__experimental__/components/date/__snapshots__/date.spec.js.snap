@@ -9,11 +9,12 @@ exports[`StyledDateInput renders correctly for default theme 1`] = `
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
-  width: 135px;
+  width: 140px;
 }
 
 <div
   className="c0"
+  size="large"
 />
 `;
 
@@ -30,7 +31,7 @@ exports[`StyledDateInput renders correctly for the "classic" theme 1`] = `
 }
 
 .c0 .c3 {
-  width: 120px;
+  width: 122px;
 }
 
 .c0 .c3:focus .c2 {
