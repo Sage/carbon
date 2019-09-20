@@ -36,24 +36,24 @@ exports[`Switch base theme renders as expected 1`] = `
   flex-wrap: wrap;
 }
 
-.c1 .c30 {
+.c1 .c31 {
   text-align: left;
   width: auto;
   white-space: nowrap;
   margin-top: -2px;
 }
 
-.c1 .c30 .c28,
-.c1 .c30 .c29 {
+.c1 .c31 .c28,
+.c1 .c31 .c30 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c1 .c30 .c28:hover,
-.c1 .c30 .c29:hover,
-.c1 .c30 .c28:focus,
-.c1 .c30 .c29:focus {
+.c1 .c31 .c28:hover,
+.c1 .c31 .c30:hover,
+.c1 .c31 .c28:focus,
+.c1 .c31 .c30:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -261,13 +261,13 @@ exports[`Switch base theme renders as expected 1`] = `
   margin-top: 5px;
 }
 
-.c0 .c30 {
+.c0 .c31 {
   padding: 0;
   margin-bottom: 8px;
   margin-right: 100%;
 }
 
-.c0 .c30 .c29 {
+.c0 .c31 .c30 {
   position: relative;
   display: inline-block;
 }
@@ -306,6 +306,10 @@ exports[`Switch base theme renders as expected 1`] = `
   outline: none;
 }
 
+.c21 .c4 .c29 {
+  top: 1px;
+}
+
 .c22 .c4,
 .c22 .c6 {
   border: none;
@@ -340,6 +344,10 @@ exports[`Switch base theme renders as expected 1`] = `
   outline: none;
 }
 
+.c22 .c4 .c29 {
+  top: 1px;
+}
+
 .c23 .c4,
 .c23 .c6 {
   border: none;
@@ -372,6 +380,10 @@ exports[`Switch base theme renders as expected 1`] = `
 .c23 .c6:not([disabled]):focus + .c8,
 .c23 .c6:not([disabled]):hover + .c8 {
   outline: none;
+}
+
+.c23 .c4 .c29 {
+  top: 1px;
 }
 
 .c24 .c4,
@@ -413,6 +425,10 @@ exports[`Switch base theme renders as expected 1`] = `
 .c24 .c6:not([disabled]):focus + .c8,
 .c24 .c6:not([disabled]):hover + .c8 {
   outline: none;
+}
+
+.c24 .c4 .c29 {
+  top: 1px;
 }
 
 .c24 .c4,
@@ -463,6 +479,10 @@ exports[`Switch base theme renders as expected 1`] = `
   outline: none;
 }
 
+.c25 .c4 .c29 {
+  top: 1px;
+}
+
 .c25 .c4,
 .c25 .c6,
 .c25 .c8 {
@@ -509,6 +529,10 @@ exports[`Switch base theme renders as expected 1`] = `
 .c26 .c6:not([disabled]):focus + .c8,
 .c26 .c6:not([disabled]):hover + .c8 {
   outline: none;
+}
+
+.c26 .c4 .c29 {
+  top: 1px;
 }
 
 .c26 .c4,
