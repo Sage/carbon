@@ -368,7 +368,7 @@ class BaseForm extends React.Component {
     }
 
     return childrenArray.filter(Boolean).map((child, index) => {
-      if (typeof child.type !== 'function') return child;
+      if (typeof child.type !== 'function' && child.type.render !== 'function') return child;
 
       return React.cloneElement((child), {
         ...child.props,
