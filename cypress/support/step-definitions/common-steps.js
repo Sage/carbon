@@ -46,6 +46,10 @@ Given('I open deprecated {string} component iframe', (component) => {
   visitComponentUrl(component, 'classic', true, 'deprecated-');
 });
 
+Given('I open deprecated {string} component page', (component) => {
+  visitComponentUrl(component, 'classic', false, 'deprecated-');
+});
+
 Given('I open {string} component with button page in iframe', (component) => {
   visitComponentUrl(component, 'with_button', true);
 });

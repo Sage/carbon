@@ -62,7 +62,7 @@ Feature: Button component
       And Button width is "<width>"
     Examples:
       | size   | height | width |
-      | small  | 25px   | 106px |
+      | small  | 25px   | 108px |
       | medium | 31px   | 138px |
       | large  | 43px   | 142px |
 
@@ -73,13 +73,13 @@ Feature: Button component
     Then Button background color is "<background-color>"
       And Button font color is "<font-color>"
     Examples:
-      | theme        | background-color   | font-color         |
-      | blue         | rgb(37, 91, 199)   | rgb(255, 255, 255) |
-      | grey         | rgb(51, 92, 109)   | rgb(255, 255, 255) |
-      | magenta      | rgb(237, 28, 95)   | rgb(255, 255, 255) |
-      | magenta-dull | rgb(202, 42, 96)   | rgb(255, 255, 255) |
-      | red          | rgb(199, 56, 79)   | rgb(255, 255, 255) |
-      | white        | rgb(255, 255, 255) | rgb(0, 0, 0, 0.85) |
+      | theme        | background-color   | font-color          |
+      | blue         | rgb(37, 91, 199)   | rgb(255, 255, 255)  |
+      | grey         | rgb(51, 92, 109)   | rgb(255, 255, 255)  |
+      | magenta      | rgb(237, 28, 95)   | rgb(255, 255, 255)  |
+      | magenta-dull | rgb(202, 42, 96)   | rgb(255, 255, 255)  |
+      | red          | rgb(199, 56, 79)   | rgb(255, 255, 255)  |
+      | white        | rgb(255, 255, 255) | rgba(0, 0, 0, 0.85) |
 
   @positive
   Scenario Outline: Set Button theme to <theme> and as to secondary
