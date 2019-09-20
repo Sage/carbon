@@ -34,21 +34,26 @@ const radioComponent = () => {
     <RadioButtonGroup
       groupName='frequency'
       label={ text('groupLabel', 'Please select a frequency from the options below') }
+      initialValue='weekly'
+      name='radio-button-group'
     >
       <RadioButton
         id='input-1'
+        name='input-1'
         label={ text('radioOneLabel', 'Example Weekly Radio Button') }
         value={ text('radioOneValue', 'weekly') }
         { ...knobs }
       />
       <RadioButton
         id='input-2'
+        name='input-2'
         label={ text('radioTwoLabel', 'Example Monthly Radio Button') }
         value={ text('radioTwoValue', 'monthly') }
         { ...knobs }
       />
       <RadioButton
         // id prop intentionally left off here, to demonstrate automatic GUID generation
+        name='input-2'
         label={ text('radioThreeLabel', 'Example Annual Radio Button') }
         value={ text('radioThreeValue', 'annually') }
         { ...knobs }

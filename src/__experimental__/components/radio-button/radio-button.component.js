@@ -24,7 +24,7 @@ const RadioButton = ({
 }) => {
   const inputProps = {
     ...props,
-    helpTabIndex: '-1',
+    helpTabIndex: -1,
     helpTag: 'span',
     inputId: id,
     inputLabel: label,
