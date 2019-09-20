@@ -21,6 +21,9 @@ $date__picker__background-color: $white;
     width: auto;
     padding-right: 5px;
   }
+  label div span {
+    height: auto;
+  }
 }
 
 .carbon-date .common-input__field {
