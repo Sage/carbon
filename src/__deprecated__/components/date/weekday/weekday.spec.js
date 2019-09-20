@@ -1,7 +1,7 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
-import classicTheme from '../../../style/themes/classic';
+import classicTheme from '../../../../style/themes/classic';
 import Weekday from './weekday.component';
 
 describe('Weekday', () => {

@@ -44,8 +44,6 @@ Feature: Build tests for classic stories
       | configurable-items   | configurable-items   |
       | content              | content              |
       | create               | link                 |
-      | date range           | date-range           |
-      | date input           | date                 |
       | detail               | detail               |
       | draggableContext     | table                |
       | filter component     | filter               |
@@ -83,16 +81,21 @@ Feature: Build tests for classic stories
     When I open deprecated "<component>" component iframe
     Then "<data-component>" component is visible
     Examples:
-      | component           | data-component       |
-      | checkbox            | checkbox             |
-      | decimal             | decimal              |
-      | number-input        | number               |
-      | fieldset            | fieldset             |
-      | form                | form                 |
-      | groupedcharacter    | grouped-character    |
-      | pod                 | pod                  |
-      | radio-button        | radio-button         |
-      | simplecolorpicker   | simple-color-picker  |
-      | switch              | checkbox             |
-      | textarea            | textarea             |
-      | textbox             | textbox              |
+      | component            | data-component      |
+      | checkbox             | checkbox            |
+      | date input           | date                |
+      | date range           | date-range          |
+      | decimal              | decimal             |
+      | dropdownFilterAjax   | dropdown-filter-ajax|
+      | dropdown-filter      | dropdown-filter     |
+      | dropdown             | dropdown            |
+      | fieldset             | fieldset            |
+      | form                 | form                |
+      | groupedcharacter     | grouped-character   |
+      | number-input         | number              |
+      | pod                  | pod                 |
+      | radio-button         | radio-button        |
+      | simplecolorpicker    | simple-color-picker |
+      | switch               | checkbox            |
+      | textarea             | textarea            |
+      | textbox              | textbox             |

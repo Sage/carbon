@@ -4,9 +4,9 @@ import I18n from 'i18n-js';
 import { assign } from 'lodash';
 import classNames from 'classnames';
 import Date from '../date';
-import DateRangeValidator from '../../utils/validations/date-range';
-import DateHelper from '../../utils/helpers/date';
-import tagComponent from '../../utils/helpers/tags';
+import DateRangeValidator from '../../../utils/validations/date-range/date-range';
+import DateHelper from '../../../utils/helpers/date/date';
+import tagComponent from '../../../utils/helpers/tags/tags';
 import './date-range.scss';
 
 class DateRange extends React.Component {

@@ -4,11 +4,11 @@ import { StateDecorator, Store, State } from '@sambego/storybook-state';
 import {
   boolean, number, text, select
 } from '@storybook/addon-knobs';
-import { classicThemeSelector } from '../../../.storybook/theme-selectors';
-import OptionsHelper from '../../utils/helpers/options-helper';
+import { classicThemeSelector } from '../../../../.storybook/theme-selectors';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
 import DateInput from '.';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 DateInput.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -25,7 +25,7 @@ const setValue = (ev) => {
   store.set({ value: ev.target.value });
 };
 
-storiesOf('Date Input', module)
+storiesOf('__deprecated__/Date Input', module)
   .addDecorator(StateDecorator(store))
   .add('classic', () => {
     const autoFocus = boolean('autoFocus', true);
