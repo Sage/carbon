@@ -18,6 +18,8 @@ $date__picker__background-color: $white;
 .carbon-date {
   .common-input__label--inline {
     margin: 8px 0 0;
+    width: auto;
+    padding-right: 5px;
   }
 }
 

@@ -32,7 +32,8 @@ storiesOf('__deprecated__/Date Range', module)
     const startLabel = text('startLabel', '');
     const startMessage = text('startMessage', 'Start date must not be later than the end date');
     const endMessage = text('endMessage', 'End date cannot be earlier than the start date');
-    const labelsInline = boolean('labelsInline', false);
+    const labelLength = (startLabel.length || endLabel.length);
+    const labelsInline = labelLength ? boolean('labelsInline', false) : undefined;
 
     return (
       <State store={ store }>
