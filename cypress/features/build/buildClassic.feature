@@ -82,20 +82,20 @@ Feature: Build tests for classic stories
     Then "<data-component>" component is visible
     Examples:
       | component            | data-component      |
-      | checkbox            | checkbox             |
+      | checkbox             | checkbox            |
       | date input           | date                |
       | date range           | date-range          |
       | decimal              | decimal             |
-      | dropdownFilterAjax  | dropdown-filter-ajax |
-      | dropdown-filter     | dropdown-filter      |
-      | dropdown            | dropdown             |
+      | dropdownFilterAjax   | dropdown-filter-ajax|
+      | dropdown-filter      | dropdown-filter     |
+      | dropdown             | dropdown            |
       | fieldset             | fieldset            |
-      | form                | form                 |
+      | form                 | form                |
       | groupedcharacter     | grouped-character   |
       | number-input         | number              |
-      | pod                 | pod                  |
-      | radio-button        | radio-button         |
-      | simplecolorpicker   | simple-color-picker  |
-      | switch              | checkbox             |
+      | pod                  | pod                 |
+      | radio-button         | radio-button        |
+      | simplecolorpicker    | simple-color-picker |
+      | switch               | checkbox            |
       | textarea             | textarea            |
       | textbox              | textbox             |
