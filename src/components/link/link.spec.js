@@ -41,13 +41,40 @@ describe('Link', () => {
     it('should render correct style', () => {
       expect(renderWithTheme({}, classicTheme)).toMatchSnapshot();
     });
+
+    it('should render correct style when disabled', () => {
+      expect(renderWithTheme({ disabled: true }, classicTheme)).toMatchSnapshot();
+    });
   });
 
-  describe('when component received a `disabled` prop', () => {
-    it('should matches the expected style', () => {
+  describe('The `disabled` prop', () => {
+    it('should matches the expected style when true', () => {
       assertStyleMatch({
         cursor: 'not-allowed'
       }, render({ disabled: true }).toJSON(), { modifier: ':hover' });
+    });
+
+    it('should call the events preventDefault function when true and clicked', () => {
+      const spy = jest.fn();
+      const event = { preventDefault: spy };
+      wrapper = renderLink({ disabled: true }, mount);
+      wrapper.instance().handleClick(event);
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('should not call the events preventDefault function when false and clicked', () => {
+      const spy = jest.fn();
+      const event = { preventDefault: spy };
+      wrapper = renderLink({ disabled: false }, mount);
+      wrapper.instance().handleClick(event);
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should not call passed onClick function when disabled is false and link is clicked', () => {
+      const spy = jest.fn();
+      wrapper = renderLink({ disabled: false, onClick: spy }, mount);
+      wrapper.instance().handleClick();
+      expect(spy).toHaveBeenCalled();
     });
   });
 

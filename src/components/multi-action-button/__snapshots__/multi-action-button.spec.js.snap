@@ -116,6 +116,8 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 
 .c0 .c4 {
   margin-right: 0px;
+  top: 2px;
+  left: 8px;
 }
 
 <div
@@ -364,6 +366,8 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
 
 .c10 .c5 {
   margin-right: 0px;
+  top: 2px;
+  left: 8px;
 }
 
 .c11 .c1 > .c3 {
@@ -375,6 +379,8 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
 .c11 .c1 > .c3 .c5 {
   color: #FFFFFF;
   margin-right: 0;
+  top: 2px;
+  left: 8px;
 }
 
 .c11 .c1 > .c3:focus {
@@ -384,6 +390,8 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
 
 .c11 .c5 {
   margin-right: 0px;
+  top: 2px;
+  left: 8px;
 }
 
 .c12 .c13 .c3 {
@@ -392,6 +400,8 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
 
 .c12 .c5 {
   margin-right: 0px;
+  top: 2px;
+  left: 8px;
 }
 
 .c0 .c13 {
@@ -404,13 +414,15 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
 
 .c0 .c5 {
   margin-right: 0px;
+  top: 2px;
+  left: 6px;
 }
 
 .c0 .c1 > .c3,
 .c0 .c1 > .c3:focus {
   margin: 0;
   height: 31px;
-  padding: 7px 14px 7px 18px;
+  padding: 6px 14px 7px 18px;
 }
 
 .c0 .c1 > .c3:focus {
@@ -497,13 +509,15 @@ exports[`StyledMultiActionButton when rendered with "classic" theme should match
 
 .c0 .c1 {
   margin-right: 0px;
+  top: 2px;
+  left: 6px;
 }
 
 .c0 .c3 > .c2,
 .c0 .c3 > .c2:focus {
   margin: 0;
   height: 31px;
-  padding: 7px 14px 7px 18px;
+  padding: 6px 14px 7px 18px;
 }
 
 .c0 .c3 > .c2:focus {
