@@ -13,7 +13,7 @@ import StyledFormField from '../form-field/form-field.style';
 const buttonValues = ['test-1', 'test-2'];
 const groupName = 'test-group';
 
-function render(renderer = TestRenderer.create) {
+function render(renderer = TestRenderer.create, props) {
   const children = buttonValues.map((value, index) => (
     <RadioButton
       id={ `rId-${index}` }
@@ -32,6 +32,7 @@ function render(renderer = TestRenderer.create) {
       name='radio-button-group'
       onChange={ jest.fn() }
       useValidationIcon={ trueBool }
+      { ...props }
     >
       {children}
     </RadioButtonGroup>
@@ -142,6 +143,17 @@ describe('RadioButtonGroup', () => {
 
         expect(buttonGroup.props()['aria-labelledby']).toEqual(expectedLabelId);
       });
+    });
+  });
+
+  describe('initial value', () => {
+    it('should check the revelant radio button', () => {
+      const wrapper = render(mount, {
+        initialValue: 'test-2'
+      });
+      const radioButton = wrapper.find(RadioButton).last();
+
+      expect(radioButton.prop('checked')).toBe(true);
     });
   });
 

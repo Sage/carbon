@@ -6,22 +6,6 @@ import ValidationIcon from '../../../components/validations/validation-icon.comp
 import { getValidationType } from '../../../components/validations/with-validation.hoc';
 import { filterByProps } from '../../../utils/ether';
 
-const labelPropTypes = {
-  labelId: PropTypes.string,
-  helpId: PropTypes.string,
-  children: PropTypes.node,
-  help: PropTypes.string,
-  helpIcon: PropTypes.string,
-  helpTag: PropTypes.string,
-  helpTabIndex: PropTypes.string,
-  tooltipMessage: PropTypes.string,
-  useValidationIcon: PropTypes.bool,
-  htmlFor: PropTypes.string,
-  hasError: PropTypes.bool,
-  hasWarning: PropTypes.bool,
-  hasInfo: PropTypes.bool
-};
-
 const validationsPresent = ({ hasError, hasWarning, hasInfo }) => hasError || hasWarning || hasInfo;
 
 const Label = (props) => {
@@ -84,7 +68,28 @@ const Label = (props) => {
   );
 };
 
-Label.propTypes = labelPropTypes;
+Label.propTypes = {
+  /** The unique id of the label element */
+  labelId: PropTypes.string,
+  /** The unique id of the Help component */
+  helpId: PropTypes.string,
+  /** Children elements */
+  children: PropTypes.node,
+  /** A message that the Help component will display */
+  help: PropTypes.string,
+  /** Icon type */
+  helpIcon: PropTypes.string,
+  /** Overrides the default 'as' attribute of the Help component */
+  helpTag: PropTypes.string,
+  /** Overrides the default tabindex of the Help component */
+  helpTabIndex: PropTypes.number,
+  /** A message that the ValidationIcon component will display */
+  tooltipMessage: PropTypes.string,
+  /** Whether to show the validation icon */
+  useValidationIcon: PropTypes.bool,
+  /** A string that represents the ID of another form element */
+  htmlFor: PropTypes.string
+};
 
 Label.defaultProps = {
   useValidationIcon: false

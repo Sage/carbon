@@ -17,11 +17,16 @@ const RadioButtonGroup = (props) => {
   const {
     children,
     groupName,
+    initialValue,
     hasError,
     hasWarning,
     hasInfo
   } = props;
   const [selectedValue, setSelectedValue] = useState(null);
+
+  if (!selectedValue && initialValue) {
+    setSelectedValue(initialValue);
+  }
 
   const groupLabelId = `${groupName}-label`;
 
@@ -78,9 +83,13 @@ RadioButtonGroup.propTypes = {
   label: PropTypes.string.isRequired,
   /** Help text */
   labelHelp: PropTypes.string,
-  /** Validation indicators */
+  /** Predefined value that would check the relevant radio button */
+  initialValue: PropTypes.string,
+  /** Prop to indicate that an error has occurred */
   hasError: PropTypes.bool,
+  /** Prop to indicate that a warning has occurred */
   hasWarning: PropTypes.bool,
+  /** Prop to indicate additional information  */
   hasInfo: PropTypes.bool
 };
 

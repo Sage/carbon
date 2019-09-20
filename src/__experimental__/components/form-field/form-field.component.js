@@ -93,7 +93,7 @@ FormField.propTypes = {
   helpId: PropTypes.string,
   hasInfo: PropTypes.bool,
   helpTag: PropTypes.string,
-  helpTabIndex: PropTypes.string,
+  helpTabIndex: PropTypes.number,
   isOptional: PropTypes.bool,
   label: PropTypes.node,
   labelId: PropTypes.string,
