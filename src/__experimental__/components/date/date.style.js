@@ -5,11 +5,17 @@ import InputPresentationStyle from '../input/input-presentation.style';
 import dateClassicStyle from './date-classic.style';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
+const datePickerWidth = {
+  large: '140px',
+  medium: '135px',
+  small: '120px'
+};
+
 const StyledDateInput = styled.div`
   display: inline-block;
   & ${InputPresentationStyle} {
     flex: none;
-    width: ${({ size }) => (size === 'large' ? '140px' : '135px')};
+    width: ${({ size }) => (size ? datePickerWidth[size] : '135px')};
   }
 
   ${dateClassicStyle}
