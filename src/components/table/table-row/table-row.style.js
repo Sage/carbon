@@ -101,7 +101,12 @@ function highlightRowStyling({ isClickable, isHighlighted, theme }) {
   `;
 }
 
-function dragRowStyling({ isDragged, isDragging, theme }) {
+function dragRowStyling({
+  isDragged,
+  isDragging,
+  theme,
+  isDraggedElementOver
+}) {
   return css`
     ${StyledIcon} {
       cursor: grab;
@@ -120,6 +125,10 @@ function dragRowStyling({ isDragged, isDragging, theme }) {
         ${isClassic(theme) ? applyClassicDraggedStyling(StyledTableRow) : applyModernDraggedStyling()}
       }
     `}
+
+    ${StyledTableCell} {
+      background-color: ${isDraggedElementOver ? 'yellow' : ''};
+    }
   `;
 }
 export default StyledTableRow;

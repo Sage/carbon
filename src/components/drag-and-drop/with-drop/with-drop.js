@@ -50,12 +50,14 @@ class WithDrop extends React.Component {
     // below
     const { children, connectDropTarget, droppableNode } = this.props; // eslint-disable-line react/prop-types
 
+    const childrenWithProps = React.cloneElement(children, { isDraggedElementOver: this.state.isDraggedElementOver });
+
     if (droppableNode) {
       connectDropTarget(droppableNode());
-      return children;
+      return childrenWithProps;
     }
 
-    return connectDropTarget(children);
+    return connectDropTarget(childrenWithProps);
   }
 }
 
