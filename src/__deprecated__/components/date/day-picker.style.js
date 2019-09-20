@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import baseTheme from '../../style/themes/base';
+import baseTheme from '../../../style/themes/base';
 import dayPickerClassicStyle from './day-picker-classic.style';
 
 const StyledDayPicker = styled.div`
