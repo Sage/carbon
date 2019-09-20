@@ -41,7 +41,6 @@ Feature: Build tests for classic stories
       | button toggle        | button-toggle        |
       | button               | button               |
       | carousel             | carousel             |
-      | checkbox             | checkbox             |
       | configurable-items   | configurable-items   |
       | content              | content              |
       | create               | link                 |
@@ -68,15 +67,12 @@ Feature: Build tests for classic stories
       | portrait             | portrait             |
       | preview              | preview              |
       | profile              | profile              |
-      | radio-button         | radio-button         |
       | rainbow              | rainbow              |
       | row                  | row                  |
       | settingsrow          | settings-row         |
-      | simplecolorpicker    | simple-color-picker  |
       | split-button         | split-button         |
       | step-sequence-item   | step-sequence-item   |
       | step-sequence        | step-sequence        |
-      | switch               | checkbox             |
       | table-ajax           | table-ajax           |
       | table                | table                |
       | tabs                 | tabs                 |
@@ -87,12 +83,16 @@ Feature: Build tests for classic stories
     When I open deprecated "<component>" component iframe
     Then "<data-component>" component is visible
     Examples:
-      | component          | data-component     |
-      | textbox            | textbox            |
-      | textarea           | textarea           |
-      | number-input       | number             |
-      | decimal            | decimal            |
-      | fieldset           | fieldset           |
-      | groupedcharacter   | grouped-character  |
-      | pod                | pod                |
-      | form               | form               |
+      | component           | data-component       |
+      | checkbox            | checkbox             |
+      | decimal             | decimal              |
+      | number-input        | number               |
+      | fieldset            | fieldset             |
+      | form                | form                 |
+      | groupedcharacter    | grouped-character    |
+      | pod                 | pod                  |
+      | radio-button        | radio-button         |
+      | simplecolorpicker   | simple-color-picker  |
+      | switch              | checkbox             |
+      | textarea            | textarea             |
+      | textbox             | textbox              |
