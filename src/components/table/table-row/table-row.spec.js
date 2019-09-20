@@ -8,7 +8,7 @@ import TableRow from './table-row.component';
 import TableHeader from '../table-header';
 import DraggableTableCell from '../draggable-table-cell';
 import StyledTable from '../table.style';
-import Checkbox from '../../checkbox';
+import Checkbox from '../../../__deprecated__/components/checkbox';
 import BaseTheme from '../../../style/themes/base';
 import ClassicTheme from '../../../style/themes/classic';
 import SmallTheme from '../../../style/themes/small';

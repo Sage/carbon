@@ -1,0 +1,50 @@
+@import "../../../style-config/colors";
+@import "../../../style-config/z-index";
+@import "../../../style-config/mixins";
+
+$date__picker__header-color: $white;
+$date__picker__header-height: 40px;
+$date__picker__header-border-color: $grey-dark-blue-80;
+$date__picker__background-color: $white;
+
+.carbon-date {
+  .icon-calendar:before {
+    position: relative;
+    right: -1px;
+    top: -1px;
+  }
+}
+
+.carbon-date {
+  .common-input__label--inline {
+    margin: 8px 0 0;
+    width: auto;
+    padding-right: 5px;
+  }
+  label div span {
+    height: auto;
+  }
+}
+
+.carbon-date .common-input__field {
+  box-sizing: content-box;
+  /* i have to stop this being over-ridden by a prop that sets a style on the element */
+  /* this does have the benefit of removing inline and filter related styles */
+  width: 120px !important;
+  padding-left: 0px !important;
+}
+
+.carbon-date.common-input--with-icon .common-input__icon--error {
+  right: 5px;
+  top: 5px;
+}
+
+.carbon-date.common-input--with-icon .common-input__icon--info {
+  right: 5px;
+  top: 5px;
+}
+
+.carbon-date.common-input--with-icon .common-input__icon--warning {
+  right: 3px;
+  top: 6px;
+}
