@@ -8,18 +8,18 @@ import './date.scss';
 import Navbar from './navbar/navbar.component';
 import StyledDayPicker from './day-picker.style';
 import Weekday from './weekday/weekday.component';
-import Portal from '../portal';
-import Browser from '../../utils/helpers/browser';
-import Input from '../../utils/decorators/input';
-import InputLabel from '../../utils/decorators/input-label';
-import InputValidation from '../../utils/decorators/input-validation';
-import InputIcon from '../../utils/decorators/input-icon';
-import Events from '../../utils/helpers/events';
-import DateHelper from '../../utils/helpers/date';
-import DateValidator from '../../utils/validations/date';
-import chainFunctions from '../../utils/helpers/chain-functions';
-import { validProps } from '../../utils/ether';
-import tagComponent from '../../utils/helpers/tags';
+import Portal from '../../../components/portal';
+import Browser from '../../../utils/helpers/browser';
+import Input from '../../../utils/decorators/input';
+import InputLabel from '../../../utils/decorators/input-label';
+import InputValidation from '../../../utils/decorators/input-validation';
+import InputIcon from '../../../utils/decorators/input-icon';
+import Events from '../../../utils/helpers/events';
+import DateHelper from '../../../utils/helpers/date';
+import DateValidator from '../../../utils/validations/date';
+import chainFunctions from '../../../utils/helpers/chain-functions';
+import { validProps } from '../../../utils/ether';
+import tagComponent from '../../../utils/helpers/tags';
 
 /**
  * Stores a reference to the current date in the given format,
