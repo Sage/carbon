@@ -104,7 +104,7 @@ function highlightRowStyling({ isClickable, isHighlighted, theme }) {
 function dragRowStyling({ isDragged, isDragging, theme }) {
   return css`
     ${StyledIcon} {
-      cursor: move;
+      cursor: grab;
     }
 
     .custom-drag-layer && ${StyledIcon} {
