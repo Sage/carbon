@@ -11,6 +11,7 @@ import DefaultPages from '../pages/pages.component'
 import Page from '../pages/page/page.component'
 import { PagesContent } from '../pages/pages.style';
 import { LinkStyleAnchor } from '../link/link.style';
+import smallTheme from '../../style/themes/small'
 
 describe('Heading', () => {
   let instance;
@@ -61,7 +62,7 @@ describe('Heading', () => {
     link.find('a').simulate('mousedown');
 
     assertStyleMatch({
-      outline: 'solid 3px #FFB500'
+      outline: `solid 3px ${smallTheme.colors.focus}`
     }, wrapper.find(PagesContent), { modifier: `${LinkStyleAnchor}:focus` })
   })
 
