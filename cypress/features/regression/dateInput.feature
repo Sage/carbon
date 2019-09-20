@@ -1,7 +1,7 @@
 Feature: Date Input component
   I want to change Date Input component properties
 
-# Added Experimental untill the component will be merged with master
+  # Added Experimental untill the component will be merged with master
   Background: Open Date Input component page
     Given I open "Experimental Date Input" component page
 
@@ -32,32 +32,32 @@ Feature: Date Input component
     When I set fieldHelp to "<fieldHelp>"
     Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
-      | fieldHelp                |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      # @ignore because of FE-1447
-      # | <>                       |
+      | fieldHelp               |
+      | Sample text             |
+      | 1234567890              |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario Outline: Change DateInput label to <label>
     When I set label to "<label>"
     Then label on preview is "<label>"
     Examples:
-      | label                    |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      # @ignore because of FE-1447
-      # | <>                       |
+      | label                   |
+      | Sample text             |
+      | 1234567890              |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario: Enable label inline checkbox for Date Input component
-   When I set label to "labelSample"
+    When I set label to "labelSample"
       And I check labelInline checkbox
     Then label is set to inline
 
@@ -69,9 +69,9 @@ Feature: Date Input component
       And I select labelAlign to "<labelAlign>"
     Then label align on preview is set to "<labelAlign>"
     Examples:
-      | label        | labelAlign |
-      | Sample text  |  left      |
-      | Sample text  |  right     |
+      | label       | labelAlign |
+      | Sample text | left       |
+      | Sample text | right      |
 
   @positive
   Scenario Outline: Change Date Input component label width to <width>
@@ -81,10 +81,10 @@ Feature: Date Input component
     Then label width on preview is <width>
     Examples:
       | label       | width |
-      | Sample text |  0    |
-      | Sample text |  10   |
-      | Sample text |  50   |
-      | Sample text |  100  |
+      | Sample text | 0     |
+      | Sample text | 10    |
+      | Sample text | 50    |
+      | Sample text | 100   |
 
   @positive
   Scenario: Change Date Input component minDate
@@ -110,10 +110,10 @@ Feature: Date Input component
     Then label width on preview is <width>
     Examples:
       | width |
-      |  0    |
-      |  10   |
-      |  50   |
-      |  100  |
+      | 0     |
+      | 10    |
+      | 50    |
+      | 100   |
 
   @positive
   Scenario: Check Date Input today date
