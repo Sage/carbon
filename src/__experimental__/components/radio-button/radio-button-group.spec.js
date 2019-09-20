@@ -146,14 +146,24 @@ describe('RadioButtonGroup', () => {
     });
   });
 
-  describe('initial value', () => {
-    it('should check the revelant radio button', () => {
-      const wrapper = render(mount, {
-        initialValue: 'test-2'
-      });
-      const radioButton = wrapper.find(RadioButton).last();
+  describe('defaultChecked', () => {
+    it('sets a child radio button to checked when the prop is set programatically', () => {
+      const radioGroup = mount(
+        <RadioButtonGroup
+          groupName={ groupName }
+          name={ groupName }
+          label='Test RadioButtonGroup Label'
+        >
+          <RadioButton
+            checked
+            name='foo'
+            value='foo'
+          />
+        </RadioButtonGroup>
+      );
 
-      expect(radioButton.prop('checked')).toBe(true);
+      const button = getButtons(radioGroup);
+      expect(button.prop('checked')).toBe(true);
     });
   });
 

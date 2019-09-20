@@ -17,21 +17,17 @@ const RadioButtonGroup = (props) => {
   const {
     children,
     groupName,
-    initialValue,
     hasError,
     hasWarning,
     hasInfo
   } = props;
   const [selectedValue, setSelectedValue] = useState(null);
 
-  if (!selectedValue && initialValue) {
-    setSelectedValue(initialValue);
-  }
-
   const groupLabelId = `${groupName}-label`;
 
   const buttons = React.Children.map(children, (child, index) => {
-    const checked = selectedValue === child.props.value;
+    const isDefaultChecked = child.props.checked && !selectedValue;
+    const checked = isDefaultChecked || selectedValue === child.props.value;
     const tabindex = selectedValue ? checkedTabIndex(checked) : initialTabIndex(index);
 
     const handleChange = (ev) => {
@@ -83,8 +79,6 @@ RadioButtonGroup.propTypes = {
   label: PropTypes.string.isRequired,
   /** Help text */
   labelHelp: PropTypes.string,
-  /** Predefined value that would check the relevant radio button */
-  initialValue: PropTypes.string,
   /** Prop to indicate that an error has occurred */
   hasError: PropTypes.bool,
   /** Prop to indicate that a warning has occurred */

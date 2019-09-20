@@ -34,12 +34,12 @@ const radioComponent = () => {
     <RadioButtonGroup
       groupName='frequency'
       label={ text('groupLabel', 'Please select a frequency from the options below') }
-      initialValue='weekly'
       name='radio-button-group'
     >
       <RadioButton
         id='input-1'
         name='input-1'
+        checked
         label={ text('radioOneLabel', 'Example Weekly Radio Button') }
         value={ text('radioOneValue', 'weekly') }
         { ...knobs }
