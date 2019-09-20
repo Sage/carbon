@@ -20,6 +20,7 @@ function makeStory(name, themeSelector) {
       >
         <RadioButton
           id='input-1'
+          checked
           label={ text('radioOneLabel', 'Example Weekly Radio Button') }
           value={ text('radioOneValue', 'weekly') }
           { ...knobs }
