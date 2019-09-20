@@ -28,6 +28,22 @@ class WithDrop extends React.Component {
     dragAndDropHover: PropTypes.func
   }
 
+  state = {
+    isDraggedElementOver: false
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.isOver && nextProps.isOver) { // eslint-disable-line react/prop-types
+      // Equivalent of `mouseover` / `mouseenter`
+      this.setState({ isDraggedElementOver: true });
+    }
+
+    if (this.props.isOver && !nextProps.isOver) {
+      // Equivalent of `mouseout` / `mouseleave`
+      this.setState({ isDraggedElementOver: false });
+    }
+  }
+
   render() {
     // this.props.connectDragSource comes from react-dnd DragSource higher
     // order component, so disable the react/prop-types ESLint rule on the line
@@ -58,7 +74,8 @@ const ItemTarget = {
 };
 
 WithDrop = DropTarget( // eslint-disable-line no-class-assign
-  ItemTypes.getItemType, ItemTarget, connect => ({
+  ItemTypes.getItemType, ItemTarget, (connect, monitor) => ({
+    isOver: monitor.isOver(),
     connectDropTarget: connect.dropTarget()
   })
 )(WithDrop);
