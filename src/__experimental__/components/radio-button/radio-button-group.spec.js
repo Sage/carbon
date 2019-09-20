@@ -1,6 +1,6 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import 'jest-styled-components';
 import { css } from 'styled-components';
 import { RadioButton, RadioButtonGroup } from '.';
@@ -71,6 +71,22 @@ describe('RadioButtonGroup', () => {
           buttonArray.forEach((button) => {
             expect(button.props.checked).toBe(false);
           });
+        });
+      });
+
+      describe('defaultChecked', () => {
+        it('sets a child radio button to checked when the prop is set programatically', () => {
+          const radioGroup = shallow(
+            <RadioButtonGroup
+              groupName={ groupName }
+              label='Test RadioButtonGroup Label'
+            >
+              <RadioButton checked value='foo' />
+            </RadioButtonGroup>
+          );
+
+          const button = getButtons(radioGroup);
+          expect(button.props().checked).toBe(true);
         });
       });
 
