@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import PropTypes from 'prop-types';
-import _capitalize from 'lodash/capitalize';
+import text from '../../utils/helpers/text/text';
 import { withValidation } from '.';
 import guid from '../../utils/helpers/guid';
 import VALIDATION_TYPES from './validation-types.config';
@@ -408,7 +408,7 @@ describe('when the withValidations HOC wraps a component', () => {
           hasWarning: false,
           hasInfo: false
         };
-        const typeToKey = `has${_capitalize(type)}`;
+        const typeToKey = `has${text.titleCase(type)}`;
         const value = type === 'empty' ? '' : type;
 
         if (Object.prototype.hasOwnProperty.call(obj, typeToKey)) {
