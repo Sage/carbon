@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCell from '../table-cell';
 import TableHeader from '../table-header';
-import Checkbox from '../../checkbox/checkbox';
-import guid from '../../../utils/helpers/guid/guid';
-import WithDrop from '../../drag-and-drop/with-drop/with-drop';
+import Checkbox from '../../../__deprecated__/components/checkbox';
+import guid from '../../../utils/helpers/guid';
+import WithDrop from '../../drag-and-drop/with-drop';
 import DraggableTableCell from '../draggable-table-cell';
-import { validProps } from '../../../utils/ether/ether';
-import tagComponent from '../../../utils/helpers/tags/tags';
+import { validProps } from '../../../utils/ether';
+import tagComponent from '../../../utils/helpers/tags';
 import ActionPopover from '../../action-popover';
 
 /**
