@@ -120,8 +120,8 @@ class Heading extends React.Component {
 
     return (
       <Link
-        // this event allow en element to be focusable on cick event on IE
-        onMouseDown={ (e) => { e.currentTarget.focus(); } }
+        // this event allows an element to be focusable on click event on IE
+        onMouseDown={ e => e.currentTarget.focus() }
         className='carbon-heading__back'
         data-element='back'
         { ...props }
