@@ -7,7 +7,7 @@ import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import CheckableInput from '.';
 import FieldHelpStyle from '../field-help/field-help.style';
 import FormFieldStyle from '../form-field/form-field.style';
-import Label from '../label/label.component';
+import Label from '../label';
 import HiddenCheckableInputStyle from './hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';
 import { StyledCheckableInput, StyledCheckableInputWrapper } from './checkable-input.style';
