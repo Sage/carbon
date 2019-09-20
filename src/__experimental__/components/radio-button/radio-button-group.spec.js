@@ -10,7 +10,7 @@ import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 const buttonValues = ['test-1', 'test-2'];
 const groupName = 'test-group';
 
-function render(renderer = TestRenderer.create) {
+function render(renderer = TestRenderer.create, props) {
   const children = buttonValues.map((value, index) => (
     <RadioButton
       id={ `rId-${index}` }
@@ -29,6 +29,7 @@ function render(renderer = TestRenderer.create) {
       name='radio-button-group'
       onChange={ jest.fn() }
       useValidationIcon={ trueBool }
+      { ...props }
     >
       {children}
     </RadioButtonGroup>
@@ -137,6 +138,17 @@ describe('RadioButtonGroup', () => {
           expect(otherButtonWrapper.props().checked).toBe(true);
         });
       });
+    });
+  });
+
+  describe('initial value', () => {
+    it('should check the revelant radio button', () => {
+      const wrapper = render(mount, {
+        initialValue: 'test-2'
+      });
+      const radioButton = wrapper.find(RadioButton).last();
+
+      expect(radioButton.prop('checked')).toBe(true);
     });
   });
 
