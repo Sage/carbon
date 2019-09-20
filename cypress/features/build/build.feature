@@ -72,7 +72,6 @@ Feature: Build tests
       # | number-input         | number               | Commented until number-input will be merged-out from experimental
       | pager                | pager                |
       | pill                 | pill                 |
-      | pod                  | pod                  |
       | portrait             | portrait             |
       | preview              | preview              |
       | profile              | profile              |

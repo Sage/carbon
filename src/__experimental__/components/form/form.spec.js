@@ -7,12 +7,12 @@ import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import {
   StyledAdditionalFormAction, StyledFormFooter, StyledResponsiveFooterWrapper
-} from '../../../components/form/form.style';
+} from '../../../__deprecated__/components/form/form.style';
 import FormWithValidations, { FormWithoutValidations as Form } from './form.component';
 import Textbox from '../textbox';
 import Validation from '../../../utils/validations/presence';
 import Dialog from '../../../components/dialog';
-import FormSummary from '../../../components/form/form-summary';
+import FormSummary from '../../../__deprecated__/components/form/form-summary';
 import Button from '../../../components/button';
 import ElementResize from '../../../utils/helpers/element-resize';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';

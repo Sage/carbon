@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import baseTheme from '../../style/themes/base';
-import { StyledFormFooter } from '../form/form.style';
+import { StyledFormFooter } from '../../__deprecated__/components/form/form.style';
 
 const dialogSizes = {
   'extra-small': '300px',

@@ -41,14 +41,12 @@ Feature: Build tests for classic stories
       | button toggle        | button-toggle        |
       | button               | button               |
       | carousel             | carousel             |
-      | checkbox             | checkbox             |
       | configurable-items   | configurable-items   |
       | content              | content              |
       | create               | link                 |
       | detail               | detail               |
       | draggableContext     | table                |
       | filter component     | filter               |
-      | form                 | form                 |
       | heading              | heading              |
       | help                 | help                 |
       | i18ncomponent        | i18n                 |
@@ -64,19 +62,15 @@ Feature: Build tests for classic stories
       | navigation-bar       | navigation-bar       |
       | pager                | pager                |
       | pill                 | pill                 |
-      | pod                  | pod                  |
       | portrait             | portrait             |
       | preview              | preview              |
       | profile              | profile              |
-      | radio-button         | radio-button         |
       | rainbow              | rainbow              |
       | row                  | row                  |
       | settingsrow          | settings-row         |
-      | simplecolorpicker    | simple-color-picker  |
       | split-button         | split-button         |
       | step-sequence-item   | step-sequence-item   |
       | step-sequence        | step-sequence        |
-      | switch               | checkbox             |
       | table-ajax           | table-ajax           |
       | table                | table                |
       | tabs                 | tabs                 |
@@ -88,6 +82,7 @@ Feature: Build tests for classic stories
     Then "<data-component>" component is visible
     Examples:
       | component            | data-component      |
+      | checkbox            | checkbox             |
       | date input           | date                |
       | date range           | date-range          |
       | decimal              | decimal             |
@@ -95,8 +90,12 @@ Feature: Build tests for classic stories
       | dropdown-filter     | dropdown-filter      |
       | dropdown            | dropdown             |
       | fieldset             | fieldset            |
+      | form                | form                 |
       | groupedcharacter     | grouped-character   |
       | number-input         | number              |
+      | pod                 | pod                  |
+      | radio-button        | radio-button         |
+      | simplecolorpicker   | simple-color-picker  |
+      | switch              | checkbox             |
       | textarea             | textarea            |
       | textbox              | textbox             |
-      

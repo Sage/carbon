@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { mount } from 'enzyme';
-import Form from './../../../components/form';
 import Browser from './browser';
 
 describe('Browser', () => {
