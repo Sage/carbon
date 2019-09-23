@@ -14,7 +14,7 @@ moment.suppressDeprecationWarnings = true;
 
 describe('StyledDateInput', () => {
   it('renders correctly for default theme', () => {
-    const wrapper = TestRenderer.create(<StyledDateInput />);
+    const wrapper = TestRenderer.create(<StyledDateInput size='large' />);
     expect(wrapper).toMatchSnapshot();
   });
 

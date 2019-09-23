@@ -225,6 +225,7 @@ class DateInput extends React.Component {
       <StyledDateInput
         onClick={ this.markCurrentDatepicker }
         role='presentation'
+        size={ inputProps.size }
       >
         <Textbox
           { ...inputProps }
