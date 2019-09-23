@@ -92,6 +92,7 @@ describe('WithDrop', () => {
       it('calls the hover from context', () => {
         backend.simulateBeginDrag([handlerId]);
         backend.simulateHover([targetId]);
+        backend.simulateEndDrag();
         expect(hoverPropSpy).not.toHaveBeenCalled();
         expect(hoverContextSpy).toHaveBeenCalled();
       });
