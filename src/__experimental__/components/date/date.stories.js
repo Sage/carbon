@@ -8,7 +8,7 @@ import {
 } from '@storybook/addon-knobs';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import DateInput from './date.component';
-import Textbox from '../textbox';
+import { OriginalTextbox } from '../textbox';
 import getCommonTextboxStoryProps from '../textbox/textbox.stories';
 import { notes, info, infoValidations } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
@@ -18,7 +18,7 @@ DateInput.__docgenInfo = getDocGenInfo(
   /date\.component(?!spec)/
 );
 
-Textbox.__docgenInfo = getDocGenInfo(
+OriginalTextbox.__docgenInfo = getDocGenInfo(
   require('../textbox/docgenInfo.json'),
   /textbox\.component(?!spec)/
 );
@@ -43,6 +43,7 @@ function makeStory(name, themeSelector) {
     return (
       <DateInput
         { ...getCommonTextboxStoryProps({ inputWidthEnabled: false }) }
+        name='dateinput'
         autoFocus={ autoFocus }
         minDate={ minDate }
         maxDate={ maxDate }
@@ -56,7 +57,7 @@ function makeStory(name, themeSelector) {
     themeSelector,
     info: {
       text: info,
-      propTables: [Textbox],
+      propTables: [OriginalTextbox],
       propTablesExclude: [State],
       excludedPropTypes: ['children', 'leftChildren', 'inputIcon', 'placeholder', 'inputWidth']
     },
@@ -87,7 +88,8 @@ function makeValidationsStory(name, themeSelector) {
     info: {
       source: false,
       text: infoValidations,
-      propTablesExclude: [DateInput, State]
+      propTables: [OriginalTextbox],
+      propTablesExclude: [State]
     }
   };
 
