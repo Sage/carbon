@@ -12,7 +12,7 @@ import { Row, Column } from '../row/row';
 import ElementResize from '../../utils/helpers/element-resize/element-resize';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import classicTheme from '../../style/themes/classic';
-import Form from '../form';
+import Form from '../../__deprecated__/components/form';
 
 /* global jest */
 

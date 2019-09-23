@@ -4,8 +4,8 @@ import StyledSplitButtonChildrenContainer from '../split-button/split-button-chi
 import baseTheme from '../../style/themes/base';
 import StyledSplitButton from '../split-button/split-button.style';
 import getMultiActionButtonClassicStyles from './multi-action-button-classic.style';
-import { StyledIcon } from '../icon/icon.style';
 import { isClassic } from '../../utils/helpers/style-helper';
+import StyledIcon from '../icon/icon.style';
 
 const StyledMultiActionButton = styled.div`
   ${({ disabled, displayed, theme }) => (!disabled && displayed) && css`

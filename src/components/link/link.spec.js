@@ -8,7 +8,7 @@ import Link from './link.component';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import classicTheme from '../../style/themes/classic';
 import LinkStyle from './link.style';
-import { StyledIcon } from '../icon/icon.style';
+import StyledIcon from '../icon/icon.style';
 
 function renderLink(props, renderer = mount) {
   return renderer(<Link { ...props }>Link Component</Link>);

@@ -2,8 +2,8 @@ import { css } from 'styled-components';
 import StyledSplitButton from '../split-button/split-button.style';
 import StyledButton from '../button/button.style';
 import StyledSplitButtonChildrenContainer from '../split-button/split-button-children.style';
-import { StyledIcon } from '../icon/icon.style';
 import { isClassic } from '../../utils/helpers/style-helper';
+import StyledIcon from '../icon/icon.style';
 
 const getMultiActionButtonClassicStyles = ({ disabled, displayed, theme }) => (isClassic(theme) ? css`
   ${StyledSplitButton} > ${StyledButton},

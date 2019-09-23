@@ -3,7 +3,7 @@ import { classify } from 'underscore.string';
 import inputDefinition from './input-definition';
 import modalDefinition from './modal-definition';
 import tableDefinition from './table-definition';
-import ComponentActions from './../../actions/component';
+import ComponentActions from '../../actions/component';
 
 class Definition {
   constructor(name, component, data) {
@@ -64,16 +64,16 @@ class Definition {
       this.propValues.children = [];
     }
 
-    let child = cloneDeep(definition);
+    const child = cloneDeep(definition);
     assign(child.propValues, propValues);
 
-    this.propValues.children.push(child)
+    this.propValues.children.push(child);
   }
 
   stubAction = (action, prop, value) => {
-    let func = "";
+    let func = '';
 
-    let update = ComponentActions.updateDefinition;
+    const update = ComponentActions.updateDefinition;
 
     func += `
 (function stubbedAction(ev) {

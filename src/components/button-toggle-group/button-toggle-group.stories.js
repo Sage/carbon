@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import {
   text, number, boolean, select, percentageRange
 } from '@storybook/addon-knobs';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation';
 import ButtonToggle from '../button-toggle/button-toggle.component';
@@ -14,13 +15,8 @@ ButtonToggleGroup.__docgenInfo = getDocGenInfo(
   /button-toggle-group\.component(?!spec)/
 );
 
-storiesOf('Button Toggle Group', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [ButtonToggle],
-      propTables: [ButtonToggleGroup]
-    }
-  }).add('default', () => {
+function makeStory(storyName, themeSelector) {
+  const component = () => {
     const label = text('label', 'Example ButtonToggleGroup');
     const labelInline = boolean('labelInline', false);
     const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
@@ -65,6 +61,22 @@ storiesOf('Button Toggle Group', module)
         { renderButtons() }
       </ButtonToggleGroup>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     notes: { markdown: notes }
-  });
+  };
+
+  return [storyName, component, metadata];
+}
+
+storiesOf('Button Toggle Group', module)
+  .addParameters({
+    info: {
+      propTablesExclude: [ButtonToggle],
+      propTables: [ButtonToggleGroup]
+    }
+  })
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));

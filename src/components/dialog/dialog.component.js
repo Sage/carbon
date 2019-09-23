@@ -5,7 +5,7 @@ import Browser from '../../utils/helpers/browser';
 import Icon from '../icon';
 import Modal from '../modal';
 import Heading from '../heading';
-import Form from '../form';
+import Form from '../../__deprecated__/components/form';
 import ElementResize from '../../utils/helpers/element-resize';
 import {
   DialogStyle,

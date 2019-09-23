@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import baseTheme from '../../style/themes/base';
 import classicThemeForLinkAnchor from './link-classic.style';
 import { isClassic } from '../../utils/helpers/style-helper';
-import { StyledIcon } from '../icon/icon.style';
+import StyledIcon from '../icon/icon.style';
 
 const LinkStyle = styled.a`
   font-size: 14px;

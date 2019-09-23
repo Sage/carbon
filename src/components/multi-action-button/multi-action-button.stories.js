@@ -2,12 +2,11 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import { ThemeProvider } from 'styled-components';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import MultiActionButton from './multi-action-button.component';
 import Button from '../button';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
-import classic from '../../style/themes/classic';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 MultiActionButton.__docgenInfo = getDocGenInfo(
@@ -61,7 +60,8 @@ storiesOf('Multi Action Button', module)
       </MultiActionButton>
     );
   }, {
-    info: { text: info, propTablesExclude: [Button, ThemeProvider, Button] },
+    themeSelector: dlsThemeSelector,
+    info: { text: info, propTablesExclude: [Button] },
     notes: { markdown: notes }
   })
   .add('classic', () => {
@@ -73,19 +73,18 @@ storiesOf('Multi Action Button', module)
     } = props;
 
     return (
-      <ThemeProvider theme={ classic }>
-        <MultiActionButton
-          as={ as }
-          text={ textContent }
-          { ...menuButtonProps }
-        >
-          <Button { ...menuButtonProps }>Example Button</Button>
-          <Button { ...menuButtonProps }>Example Button with long text</Button>
-          <Button { ...menuButtonProps }>Short</Button>
-        </MultiActionButton>
-      </ThemeProvider>
+      <MultiActionButton
+        as={ as }
+        text={ textContent }
+        { ...menuButtonProps }
+      >
+        <Button { ...menuButtonProps }>Example Button</Button>
+        <Button { ...menuButtonProps }>Example Button with long text</Button>
+        <Button { ...menuButtonProps }>Short</Button>
+      </MultiActionButton>
     );
   }, {
-    info: { text: info, propTablesExclude: [Button, ThemeProvider, Button] },
+    themeSelector: classicThemeSelector,
+    info: { text: info, propTablesExclude: [Button] },
     notes: { markdown: notes }
   });
