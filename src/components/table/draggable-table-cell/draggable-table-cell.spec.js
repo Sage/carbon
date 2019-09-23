@@ -1,8 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import TestRenderer from 'react-test-renderer';
 import DraggableTableCell from '.';
 import WithDrag from '../../drag-and-drop/with-drag';
 import StyledDraggableTableCell from './draggable-table-cell.style';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import Icon from '../../icon';
 
 describe('DraggableTableCell', () => {
@@ -28,6 +30,13 @@ describe('DraggableTableCell', () => {
   it('renders an icon', () => {
     const icon = wrapper.find(Icon);
     expect(icon.props().type).toEqual('drag_vertical');
+  });
+
+  it('styles the icon cursor', () => {
+    const component = TestRenderer.create(<StyledDraggableTableCell identifier='foo' />);
+    assertStyleMatch({
+      cursor: 'move'
+    }, component.toJSON(), { modifier: '.draggable-table-cell__icon' });
   });
 
   it('does not render on last row', () => {
