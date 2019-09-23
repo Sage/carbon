@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
-import { THEMES } from '../../style/themes';
+import { isClassic } from '../../utils/helpers/style-helper';
 
-export default ({ theme, hasHeader }) => theme.name === THEMES.classic && css`
+export default ({ theme, hasHeader }) => isClassic(theme) && css`
   padding-top: 30px;
   padding-bottom: 30px;
 
