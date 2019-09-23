@@ -217,11 +217,15 @@ describe('Date', () => {
   describe('when the input value is changed', () => {
     let onChangeFn;
     const mockTodayDate = '2019-04-11';
+    const componentName = 'abc';
 
     beforeEach(() => {
       jest.spyOn(DateHelper, 'todayFormatted').mockImplementation(() => mockTodayDate);
       onChangeFn = jest.fn();
-      wrapper = render({ onChange: onChangeFn });
+      wrapper = render({
+        onChange: onChangeFn,
+        name: componentName
+      });
     });
 
     describe('to a valid date', () => {
@@ -237,7 +241,14 @@ describe('Date', () => {
 
       it('then the "onChange" prop should have been called with ISO formatted date in payload value', () => {
         simulateChangeOnInput(wrapper, validDate);
-        expect(onChangeFn).toHaveBeenCalledWith({ target: { value: isoDate } });
+        expect(onChangeFn).toHaveBeenCalledWith(
+          {
+            target: {
+              name: componentName,
+              value: isoDate
+            }
+          }
+        );
       });
 
       it('then the "selectedDate" prop with proper Date Object should be passed to the DatePicker component', () => {
@@ -350,7 +361,7 @@ describe('Date', () => {
       it('then the visible value should not change', () => {
         const mockDate = getFormattedDate(moment('2012-02-01'));
         wrapper = mount(<DateInput value={ mockDate } />);
-        wrapper.instance().closeDatePicker();
+        wrapper.find('DateInput').instance().closeDatePicker();
         const input = wrapper.find('input');
 
         expect(input.instance().value).toBe(mockDate);
@@ -364,7 +375,7 @@ describe('Date', () => {
     describe('as a function', () => {
       it('then these validations should be passed with internal validations to the Textbox Component', () => {
         wrapper = render({ validations: mockValidationFunction });
-        const { internalValidations } = wrapper.instance().props;
+        const { internalValidations } = wrapper.find('DateInput').instance().props;
         expect(wrapper.find(Textbox).props().validations).toEqual([mockValidationFunction, ...internalValidations]);
       });
     });
@@ -372,7 +383,7 @@ describe('Date', () => {
     describe('as an array', () => {
       it('then these validations should be passed with internal validations to the Textbox Component', () => {
         wrapper = render({ validations: [mockValidationFunction] });
-        const { internalValidations } = wrapper.instance().props;
+        const { internalValidations } = wrapper.find('DateInput').instance().props;
         expect(wrapper.find(Textbox).props().validations).toEqual([mockValidationFunction, ...internalValidations]);
       });
     });
