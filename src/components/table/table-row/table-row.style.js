@@ -5,12 +5,14 @@ import {
   applyClassicDraggedStyling,
   applyClassicRowStyling,
   applyClassicSelectedStyling,
-  applyClassicHighlightStyling
+  applyClassicHighlightStyling,
+  applyClassicDropTargetStyling
 } from './table-row-classic.style';
 import {
   applyModernDraggedStyling,
   applyModernRowStyling,
-  applyModernSelectedStyling
+  applyModernSelectedStyling,
+  applyModernDropTargetStyling
 } from './table-row-modern.style';
 import StyledIcon from '../../icon/icon.style';
 import CheckboxStyle from '../../../__experimental__/components/checkbox/checkbox.style';
@@ -127,7 +129,8 @@ function dragRowStyling({
     `}
 
     ${StyledTableCell} {
-      background-color: ${isDraggedElementOver ? 'yellow' : ''};
+      ${isClassic(theme) && applyClassicDropTargetStyling(isDraggedElementOver)}
+      ${!isClassic(theme) && applyModernDropTargetStyling(isDraggedElementOver, theme)}
     }
   `;
 }

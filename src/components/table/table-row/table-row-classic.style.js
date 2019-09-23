@@ -75,9 +75,14 @@ function applyClassicDraggedStyling(StyledTableRow) {
   `;
 }
 
+function applyClassicDropTargetStyling(isDraggedElementOver) {
+  return isDraggedElementOver ? css`visibility: hidden;` : css``;
+}
+
 export {
   applyClassicDraggedStyling,
   applyClassicRowStyling,
   applyClassicSelectedStyling,
-  applyClassicHighlightStyling
+  applyClassicHighlightStyling,
+  applyClassicDropTargetStyling
 };

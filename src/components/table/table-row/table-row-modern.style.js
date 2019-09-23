@@ -50,8 +50,31 @@ function applyModernDraggedStyling() {
   `;
 }
 
+function applyModernDropTargetStyling(isDraggedElementOver, { table }) {
+  if (!isDraggedElementOver) {
+    return null;
+  }
+
+  const border = `1px solid ${table.header}`;
+
+  return css`
+    background-color: ${table.dragging};
+    border-top:       ${border};
+    border-bottom:    ${border};
+
+    &:first-child {
+      border-left: ${border};
+    }
+
+    &:last-child {
+      border-right: ${border};
+    }
+  `;
+}
+
 export {
   applyModernDraggedStyling,
   applyModernRowStyling,
-  applyModernSelectedStyling
+  applyModernSelectedStyling,
+  applyModernDropTargetStyling
 };
