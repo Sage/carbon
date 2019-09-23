@@ -1,5 +1,6 @@
 import DateInput from './';
 import Definition from '../../../../demo/utils/definition';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 let definition = new Definition('date-input', DateInput, {
   description: `Captures a single date.`,
@@ -20,8 +21,11 @@ let definition = new Definition('date-input', DateInput, {
     maxDate: "String",
     onBlur: "Function",
     readOnly: "Boolean",
-    showPickerOnTop: "Boolean",
+    positionDatePicker: "String",
     value: "String"
+  },
+  propOptions: {
+    positionDatePicker: OptionsHelper.positionDatePicker
   },
   propDescriptions: {
     allowEmptyValue: "Display an empty input if the value is empty.",
@@ -31,8 +35,8 @@ let definition = new Definition('date-input', DateInput, {
     maxDate: "Set a maximum value for date.",
     onBlur: "Specify a callback triggered on blur.",
     readOnly: "Display the currently selected value without displaying the input.",
-    showPickerOnTop: "Display the date picker component on top of the input",
-    value: "The selected date."
+    value: "The selected date.",
+    positionDatePicker: "Choose where displayed the date picker"
   }
 });
 
