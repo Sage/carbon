@@ -99,7 +99,6 @@ storiesOf('Validations', module)
       text: (<StoryHeader>Validations for simple Textbox based Components</StoryHeader>),
       propTablesExclude: [
         Button,
-        OriginalButton,
         Column,
         Row,
         Textbox,
