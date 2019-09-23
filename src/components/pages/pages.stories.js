@@ -126,9 +126,7 @@ function makeStory(name, themeSelector) {
                     Go to third page
                   </OriginalButton>
                 </Page>
-
-                <Page title={ <Heading title='My Third Page' backLink={ handlePreviousSlide } /> }>
-                </Page>
+                <Page title={ <Heading title='My Third Page' backLink={ handlePreviousSlide } /> } />
               </DefaultPages>
             </PageState>
           </DialogFullScreen>
