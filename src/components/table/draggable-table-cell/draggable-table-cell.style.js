@@ -10,6 +10,10 @@ const StyledDraggableTableCell = styled(StyledTableCell)`
   ${StyledTableCell}:first-child {
     padding-left: 0;
   }
+
+  .draggable-table-cell__icon {
+    cursor: move;
+  }
 `;
 
 StyledDraggableTableCell.defaultProps = {

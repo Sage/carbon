@@ -9,7 +9,6 @@ import DraggableTableCell from '../draggable-table-cell';
 import StyledTableRow from './table-row.style';
 import { validProps } from '../../../utils/ether/ether';
 import tagComponent from '../../../utils/helpers/tags/tags';
-import baseTheme from '../../../style/themes/base';
 import ActionPopover from '../../action-popover';
 
 /**
@@ -373,10 +372,6 @@ TableRow.propTypes = {
 
   /** Used to determine if line is empty is dragging */
   dragging: PropTypes.func
-};
-
-TableRow.defaultProps = {
-  theme: baseTheme
 };
 
 TableRow.safeProps = [
