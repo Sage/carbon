@@ -458,6 +458,27 @@ describe('Form', () => {
           const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
           TestUtils.Simulate.submit(form);
         });
+
+        describe('and formInputs are set', () => {
+          it('calls addOtherInputsToState', async() => {
+            const spy = jasmine.createSpy('spy');
+            wrapper = mount(
+              <Form validate={ () => true } formAction='foo'>
+                <Textbox
+                  validations={ [new Validation()] }
+                  name='foo'
+                  value='foo'
+                  onSubmit={ spy }
+                />
+              </Form>
+            );
+
+            wrapper.setState({ formInputs: { abc: 'ccc' } });
+            const spyAddOtherInputsToState = spyOn(wrapper.instance(), 'addOtherInputsToState');
+            await wrapper.childAt(0).simulate('submit');
+            expect(spyAddOtherInputsToState).toHaveBeenCalled();
+          });
+        });
       });
 
       describe('and the form is invalid', () => {
@@ -476,6 +497,48 @@ describe('Form', () => {
           expect(spy).not.toHaveBeenCalled();
         });
       });
+    });
+  });
+
+  describe('when addOtherInputsToState is called', () => {
+    describe('and it is new formInput and not of type (button, submit)', () => {
+      it('it executes addInputDataToState for each form element', () => {
+        wrapper = mount(
+          <Form
+            validate={ () => true }
+            formAction='foo'
+          />
+        );
+        wrapper.setState({ formInputs: {} });
+        wrapper.instance()._form = {
+          elements: [
+            {
+              name: 'abc',
+              value: 'abc-value',
+              type: 'text'
+            },
+            {
+              name: 'cba',
+              value: 'cba-value',
+              type: 'text'
+            }
+          ]
+        };
+
+        const spyAddInputDataToState = spyOn(wrapper.instance(), 'addInputDataToState');
+        wrapper.instance().addOtherInputsToState();
+        expect(spyAddInputDataToState).toHaveBeenCalledTimes(2);
+      });
+    });
+
+    it('it executes submitControlledForm', async () => {
+      wrapper = mount(
+        <Form validate={ () => true } formAction='foo' />
+      );
+      wrapper.setState({ formInputs: {} });
+      const spySubmitControlledForm = spyOn(wrapper.instance(), 'submitControlledForm');
+      wrapper.instance().addOtherInputsToState();
+      expect(spySubmitControlledForm).toHaveBeenCalled();
     });
   });
 

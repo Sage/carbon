@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import withUniqueName from '.';
 
 const MockComponent = props => <input { ...props } />;
@@ -18,8 +18,11 @@ describe('withUniqueName HOC', () => {
   it('adds a name prop to a component passed as a paramater', () => {
     wrapper = shallow(<MockComponent />);
     expect(wrapper.props().name).toEqual(undefined);
-    wrapper = shallow(<InputComponent />);
-    expect(wrapper.props().name).not.toEqual(undefined);
+    wrapper = mount(<InputComponent />);
+    expect(
+      wrapper.find(InputComponent).first().childAt(0).childAt(0)
+        .props().name
+    ).not.toEqual(undefined);
   });
 
   it('either allows the name prop to be overriden or randomnly generates one', () => {
@@ -29,8 +32,11 @@ describe('withUniqueName HOC', () => {
 
   it('the generated name prop is persisted even after re-render', () => {
     wrapper = shallow(<InputComponent value='foo' />);
-    const wrapper2 = shallow(<InputComponent value='foo' />);
-    expect(wrapper2.props().name).not.toEqual(wrapper.props().name);
+    const wrapper2 = mount(<InputComponent value='foo' />);
+    expect(
+      wrapper2.find(InputComponent).first().childAt(0).childAt(0)
+        .props().name
+    ).not.toEqual(wrapper.props().name);
 
     const { name } = wrapper.props();
     for (let i = 0; i < 5; i++) {
