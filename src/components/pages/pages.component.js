@@ -101,7 +101,7 @@ class Pages extends React.Component {
   render() {
     return (
       <PagesWrapperStyle className={ this.props.className } { ...tagComponent('carousel', this.props) }>
-        <PagesContent className='carbon-carousel__content'>
+        <PagesContent className='carbon-carousel__content' theme={ this.props.theme }>
           <CSSTransitionGroup
             component='div'
             className='carbon-carousel__transition'
