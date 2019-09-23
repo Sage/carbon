@@ -35,9 +35,7 @@ const store = new Store({
 const handleSlide = (_, pageIndex) => {
   action('slide')(`Page index: ${pageIndex}`);
 
-  const isDisabled = store.get('isDisabled');
-  const transitionTime = store.get('transitionTime');
-  if (isDisabled) return store.get('previouspageHistoryPointer');
+  if (store.get('isDisabled')) return store.get('previouspageHistoryPointer');
 
   const newpageHistory = [...store.get('pageHistory'), pageIndex];
 
@@ -50,21 +48,27 @@ const handleSlide = (_, pageIndex) => {
 
   setTimeout(() => {
     store.set({ isDisabled: false });
-  }, transitionTime);
+  }, store.get('transitionTime'));
 
   return pageIndex;
 };
 
 const handlePreviousSlide = (ev) => {
   ev.preventDefault();
+  if (store.get('isDisabled')) return;
   const previouHistoryPointer = store.get('previouspageHistoryPointer');
   const pointer = (previouHistoryPointer - 1) > 0 ? (previouHistoryPointer - 1) : 0;
 
   store.set({
+    isDisabled: true,
     pageHistory: store.get('pageHistory').slice(0, -1),
     pageIndex: (store.get('pageHistory')[pointer] || 0),
     previouspageHistoryPointer: pointer
   });
+
+  setTimeout(() => {
+    store.set({ isDisabled: false });
+  }, store.get('transitionTime'));
 };
 
 const handleOpen = () => {
