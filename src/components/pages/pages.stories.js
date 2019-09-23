@@ -122,9 +122,6 @@ function makeStory(name, themeSelector) {
                 </Page>
 
                 <Page title={ <Heading title='My Second Page' backLink={ handlePreviousSlide } /> }>
-                  <OriginalButton onClick={ (ev) => { handleSlide(ev, 0); } }>
-                    Go to first page
-                  </OriginalButton>
                   <OriginalButton onClick={ (ev) => { handleSlide(ev, 2); } }>
                     Go to third page
                   </OriginalButton>
