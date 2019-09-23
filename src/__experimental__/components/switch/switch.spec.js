@@ -200,13 +200,13 @@ describe('Switch', () => {
     });
 
     describe.each(validationTypes)('validation %s', (type) => {
-      it('check icon type', () => {
+      it(`displays ${type} icon`, () => {
         const propName = `has${text.titleCase(type)}`;
         wrapper.setProps({
           [propName]: true
         });
 
-        expect(wrapper.find(StyledValidationIcon).prop('data-validation-type')).toEqual(type);
+        expect(wrapper.find(StyledValidationIcon).prop('validationType')).toEqual(type);
       });
     });
   });

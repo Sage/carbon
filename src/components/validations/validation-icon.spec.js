@@ -10,8 +10,8 @@ import Icon from '../icon';
 
 describe('ValidationIcon', () => {
   it('renders with an icon for the given type', () => {
-    const wrapper = mount(<ValidationIcon type='error' />).find('div');
-    expect(wrapper.prop('data-validation-type')).toEqual('error');
+    const wrapper = mount(<ValidationIcon type='error' />);
+    expect(wrapper.find(ValidationIconStyle).prop('validationType')).toEqual('error');
   });
 
   it('renders with an icon with classic styling', () => {

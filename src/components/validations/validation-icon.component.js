@@ -34,7 +34,6 @@ const ValidationIcon = ({
         context => (
           <ValidationIconStyle
             id={ iconId }
-            data-validation-type={ type }
             validationType={ type }
             role='tooltip'
             aria-label={ tooltipMessage }
