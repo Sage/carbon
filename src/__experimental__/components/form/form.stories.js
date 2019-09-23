@@ -169,7 +169,7 @@ storiesOf('Experimental/Form', module)
     info: {
       text: Info,
       propTablesExclude: [Textbox],
-      includePropTables: [FormWithoutValidations]
+      includePropTables: [Form]
     },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
