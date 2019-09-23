@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 import StyledTableCell from '../table-cell/table-cell.style';
 import StyledTableHeader from '../table-header/table-header.style';
 import {
@@ -12,6 +13,7 @@ import {
   applyModernRowStyling,
   applyModernSelectedStyling
 } from './table-row-modern.style';
+import baseTheme from '../../../style/themes/base';
 import StyledIcon from '../../icon/icon.style';
 import CheckboxStyle from '../../../__experimental__/components/checkbox/checkbox.style';
 import { isClassic } from '../../../utils/helpers/style-helper';
@@ -122,4 +124,13 @@ function dragRowStyling({ isDragged, isDragging, theme }) {
     `}
   `;
 }
+
+StyledTableRow.propTypes = {
+  theme: PropTypes.object
+};
+
+StyledTableRow.defaultProps = {
+  theme: baseTheme
+};
+
 export default StyledTableRow;

@@ -49,7 +49,9 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 }
 
 .c2 .c14 {
-  cursor: move;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: grab;
 }
 
 .custom-drag-layer .c2.c2 .c14 {
