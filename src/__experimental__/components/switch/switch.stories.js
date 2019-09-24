@@ -46,6 +46,7 @@ function switchWrapper(wrapperProps) {
 function makeStory(name, themeSelector, component) {
   const metadata = {
     themeSelector,
+    knobs: { escapeHTML: false },
     info: {
       text: name.search('validations') !== -1 ? infoValidations : info
     },
