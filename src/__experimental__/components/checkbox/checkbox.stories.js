@@ -119,7 +119,8 @@ function makeStory(name, themeSelector, component) {
       propTablesExclude: [State],
       excludedPropTypes: ['children']
     },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   };
 
   return [name, component, metadata];
