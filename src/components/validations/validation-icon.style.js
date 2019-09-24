@@ -4,7 +4,7 @@ import StyledIcon from '../icon/icon.style';
 import { isClassic } from '../../utils/helpers/style-helper';
 
 const ValidationIconStyle = styled.div`
-  ${({ theme }) => css`
+  ${({ theme, showOutline }) => css`
     background: none;
     cursor: pointer;
     display: flex;
@@ -16,9 +16,11 @@ const ValidationIconStyle = styled.div`
     border: 0;
     outline: none;
 
-    :focus {
-      outline: 2px solid ${theme.colors.focus};
-    }
+    ${showOutline && `
+      :focus {
+        outline: 2px solid ${theme.colors.focus};
+      }
+    `}
 
     ${StyledIcon}:before {
       color: ${({ validationType }) => theme.colors[validationType]};
@@ -38,7 +40,8 @@ const ValidationIconStyle = styled.div`
 
 ValidationIconStyle.defaultProps = {
   validationType: 'error',
-  theme: BaseTheme
+  theme: BaseTheme,
+  showOutline: true
 };
 
 export default ValidationIconStyle;

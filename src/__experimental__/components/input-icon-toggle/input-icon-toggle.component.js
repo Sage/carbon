@@ -23,6 +23,8 @@ const InputIconToggle = ({
         tooltipMessage={ tooltipMessage }
         size={ size }
         isPartOfInput
+        showOutline={ false }
+        tabIndexOverride={ -1 }
       />
     );
   }
