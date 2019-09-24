@@ -51,16 +51,15 @@ function applyModernDraggedStyling() {
 }
 
 function applyModernDropTargetStyling(isDraggedElementOver, { table }) {
-  if (!isDraggedElementOver) {
-    return null;
-  }
-
-  const border = `1px solid ${table.header}`;
+  const border = `1px solid ${isDraggedElementOver ? table.header : 'transparent'}`;
 
   return css`
-    background-color: ${table.dragging};
-    border-top:       ${border};
-    border-bottom:    ${border};
+    ${isDraggedElementOver && `
+      background-color: ${table.dragging};
+      border-bottom:    ${border} !important;
+    `}
+
+    border-top: ${border};
 
     &:first-child {
       border-left: ${border};
