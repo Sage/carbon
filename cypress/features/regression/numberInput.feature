@@ -2,7 +2,7 @@ Feature: Number Input component
   I want to change Number Input component properties
 
   Background: Open Number Input component page
-    Given I open "Number Input" component page
+    Given I open deprecated "Number Input" component page
 
   @positive
   Scenario Outline: Set input width to <inputWidth>

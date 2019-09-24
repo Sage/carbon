@@ -1,8 +1,8 @@
 Feature: Pager component
   I want to change Pager component properties
 
-  Background: Open Pager component page
-    Given I open "Pager" component page
+  Background: Open Pager component page classic
+    Given I open "Pager" component page classic
 
   @positive
   Scenario Outline: Set totalRecords to <totalRecords>
