@@ -79,6 +79,7 @@ const handleOpen = () => {
 const handleCancel = () => {
   action('cancel')();
   store.set({
+    pageIndex: 0,
     open: false,
     pageHistory: [0]
   });
