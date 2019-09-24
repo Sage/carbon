@@ -67,31 +67,58 @@ const switchComponent = () => switchWrapper({
   store: formStore
 });
 
-const switchComponentValidation = () => (
-  <>
-    {validationTypes.map(type => switchWrapper({
-      ...commonKnobs(),
-      ...dlsKnobs(),
-      key: `key-${type}`,
-      name: `switch-${type}`,
-      label: `Please read our ${type}`,
-      value: type,
-      store: stores[type],
-      onChange: handleChange(stores[type]),
-      validations: testValidation('valid'),
-      warnings: testValidation('warn'),
-      info: testValidation('info'),
-      unblockValidation: trueBool,
-      useValidationIcon: trueBool
-    }))}
-  </>
-);
+const switchComponentValidation = (props = { excludeKnobs: false }) => {
+  const { excludeKnobs } = props;
+  const knobs = excludeKnobs ? {} : { ...commonKnobs(), ...dlsKnobs() };
+  return (
+    <>
+      {validationTypes.map(type => switchWrapper({
+        ...knobs,
+        key: `key-${type}`,
+        name: `switch-${type}`,
+        label: `Please read our ${type}`,
+        value: type,
+        store: stores[type],
+        onChange: handleChange(stores[type]),
+        validations: testValidation('valid'),
+        warnings: testValidation('warn'),
+        info: testValidation('info'),
+        unblockValidation: trueBool,
+        useValidationIcon: trueBool
+      }))}
+    </>
+  );
+};
 
 storiesOf('Experimental/Switch', module)
-  .add(...makeStory('default', dlsThemeSelector, switchComponent))
-  .add(...makeStory('classic', classicThemeSelector, switchClassic))
-  .add(...makeStory('validations', dlsThemeSelector, switchComponentValidation))
-  .add(...makeStory('validations classic', classicThemeSelector, switchComponentValidation));
+  .add(
+    ...makeStory(
+      'default',
+      dlsThemeSelector,
+      switchComponent
+    )
+  )
+  .add(
+    ...makeStory(
+      'classic',
+      classicThemeSelector,
+      switchClassic
+    )
+  )
+  .add(
+    ...makeStory(
+      'validations',
+      dlsThemeSelector,
+      () => switchComponentValidation({ excludeKnobs: true })
+    )
+  )
+  .add(
+    ...makeStory(
+      'validations classic',
+      classicThemeSelector,
+      () => switchComponentValidation({ excludeKnobs: true })
+    )
+  );
 
 function handleChange(store = formStore) {
   return function (ev) {
