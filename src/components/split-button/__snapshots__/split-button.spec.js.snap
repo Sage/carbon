@@ -8,6 +8,10 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   background-color: transparent;
 }
 
+.c6:focus {
+  outline: none;
+}
+
 .c6:hover {
   color: #1E861E;
   background-color: transparent;
@@ -866,6 +870,10 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   background-color: transparent;
   color: rgba(0,0,0,0.85);
   background-color: transparent;
+}
+
+.c6:focus {
+  outline: none;
 }
 
 .c6:hover {

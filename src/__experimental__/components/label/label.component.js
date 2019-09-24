@@ -5,6 +5,10 @@ import StyledLabel from './label.style';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
 import { getValidationType } from '../../../components/validations/with-validation.hoc';
 import { filterByProps } from '../../../utils/ether';
+import {
+  ValidationIconPresentation,
+  ValidationIconContext
+} from '../../../components/validations/validation-icon-presentation.component';
 
 const validationsPresent = ({ hasError, hasWarning, hasInfo }) => hasError || hasWarning || hasInfo;
 
@@ -35,11 +39,14 @@ const Label = (props) => {
   const icon = () => {
     if (useValidationIcon && validationsPresent(props) && tooltipMessage) {
       return (
-        <ValidationIcon
-          iconId={ helpId }
-          type={ getValidationType(props) }
-          tooltipMessage={ tooltipMessage }
-        />
+        <ValidationIconPresentation>
+          <ValidationIcon
+            iconId={ helpId }
+            type={ getValidationType(props) }
+            tooltipMessage={ tooltipMessage }
+            overrideContext={ ValidationIconContext }
+          />
+        </ValidationIconPresentation>
       );
     }
 

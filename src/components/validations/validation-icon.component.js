@@ -14,7 +14,9 @@ const ValidationIcon = ({
   size,
   iconId,
   isPartOfInput,
-  tooltipMessage
+  tooltipMessage,
+  tabIndexOverride,
+  overrideContext
 }) => {
   let modernTooltipProps = {};
 
@@ -28,8 +30,10 @@ const ValidationIcon = ({
     };
   }
 
+  const Context = overrideContext || InputPresentationContext;
+
   return (
-    <InputPresentationContext.Consumer>
+    <Context.Consumer>
       {
         context => (
           <ValidationIconStyle
@@ -37,6 +41,9 @@ const ValidationIcon = ({
             validationType={ type }
             role='tooltip'
             aria-label={ tooltipMessage }
+            tabIndex={ tabIndexOverride || 0 }
+            onFocus={ context && context.onFocus }
+            onBlur={ context && context.onBlur }
           >
             <Icon
               key={ `${type}-icon` }
@@ -45,13 +52,12 @@ const ValidationIcon = ({
               tooltipVisible={ context && (context.hasFocus || context.hasMouseOver) }
               type={ type }
               size={ size }
-              tabIndex='0'
               { ...modernTooltipProps }
             />
           </ValidationIconStyle>
         )
       }
-    </InputPresentationContext.Consumer>
+    </Context.Consumer>
   );
 };
 
@@ -61,7 +67,9 @@ ValidationIcon.propTypes = {
   iconId: PropTypes.string,
   tooltipMessage: PropTypes.string,
   theme: PropTypes.object,
-  isPartOfInput: PropTypes.bool
+  isPartOfInput: PropTypes.bool,
+  tabIndexOverride: PropTypes.number,
+  overrideContext: PropTypes.object
 };
 
 ValidationIcon.defaultProps = {

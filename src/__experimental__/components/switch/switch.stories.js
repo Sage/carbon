@@ -31,9 +31,9 @@ validationTypes.forEach((type) => {
   });
 });
 
-function switchWrapper(wrapperProps) {
+function switchWrapper(wrapperProps, stateProps) {
   return (
-    <State store={ wrapperProps.store }>
+    <State store={ wrapperProps.store } { ...stateProps }>
       <Switch
         onChange={ handleChange() }
         name='switch'
@@ -83,6 +83,8 @@ const switchComponentValidation = () => (
       info: testValidation('info'),
       unblockValidation: trueBool,
       useValidationIcon: trueBool
+    }, {
+      key: `sKey-${type}`
     }))}
   </>
 );
