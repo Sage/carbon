@@ -53,7 +53,8 @@ SwitchWrapper.defaultProps = {
 
 function makeStory(name, themeSelector, component) {
   const metadata = {
-    themeSelector
+    themeSelector,
+    knobs: { escapeHTML: false }
   };
 
   return [name, component, metadata];
