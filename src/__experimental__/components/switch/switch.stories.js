@@ -76,7 +76,7 @@ const switchComponentValidation = (props = { excludeKnobs: false }) => {
         ...knobs,
         key: `key-${type}`,
         name: `switch-${type}`,
-        label: `Please read our ${type}`,
+        label: text(`label ${type}`, `Please read our ${type}`),
         value: type,
         store: stores[type],
         onChange: handleChange(stores[type]),
