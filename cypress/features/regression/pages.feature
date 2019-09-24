@@ -1,10 +1,11 @@
+# Tests are ignore due to development waiting phase. Scenarios need to be refactor after merge FE-1587
 Feature: Pages component
   I want to test Pages component
 
   Background: Open Pages component
     Given I open "Pages" component page
 
-  @positive
+  @ignore @positive
   Scenario: Open first page
     When I open component preview
     Then My First Page is visible
@@ -16,13 +17,13 @@ Feature: Pages component
     Then My First Page is not visible
       And My Second Page is not visible
 
-  @positive
+  @ignore @positive
   Scenario: Open second page
     When I open component preview
       And I go to second page
     Then My Second Page is visible
 
-  @positive
+  @ignore @positive
   Scenario: Open and close second page
     When I open component preview
       And I go to second page
@@ -30,7 +31,7 @@ Feature: Pages component
     Then My First Page is not visible
       And My Second Page is not visible
 
-  @positive
+  @ignore @positive
   Scenario: Open and close third page
     When I open component preview
       And I go to third page
@@ -38,7 +39,7 @@ Feature: Pages component
     Then My First Page is not visible
       And My Third Page is not visible
 
-  @positive
+  @ignore @positive
   Scenario: Go back to first page
     When I open component preview
       And I go to third page
@@ -46,7 +47,7 @@ Feature: Pages component
       And I go to first page
       And My First Page is visible
 
-  @positive
+  @ignore @positive
   Scenario Outline: Change Pages component pageIndex to <pageIndex>
     When I select pageIndex to "<pageIndex>"
       And I open component preview

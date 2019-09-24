@@ -2,7 +2,7 @@ Feature: Pod component
   I want to test Pod component
 
   Background: Open Pod component page
-    Given I open "Pod" component page
+    Given I open deprecated "Pod" component page
 
   @positive
   Scenario: Enable border checkbox for a Pod component

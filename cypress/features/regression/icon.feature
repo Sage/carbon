@@ -2,32 +2,44 @@ Feature: Icon component
   I want to change Heading component properties
 
   Background: Open Icon component page
-    Given I open "Icon" component page
+    Given I open "Icon" component page classic
 
   @positive
   Scenario Outline: Change background theme to <bgTheme>
     When I select bgTheme to "<bgTheme>"
-    Then bgTheme is set to "<bgTheme>"
+    Then background color is set to "<color>"
     Examples:
-      | bgTheme     |
-      | error       |
-      | help        |
-      | info        |
-      | maintenance |
-      | new         |
-      | success     |
-      | warning     |
-      | default     |
+      | bgTheme     | color             |
+      | error       | rgb(199, 56, 79)  |
+      | help        | rgb(255, 171, 0)  |
+      | info        | rgb(21, 115, 230) |
+      | maintenance | rgb(255, 125, 0)  |
+      | new         | rgb(102, 51, 153) |
+      | success     | rgb(80, 184, 72)  |
+      | warning     | rgb(255, 125, 0)  |
+      | default     | rgb(51, 92, 109)  |
+
+  @positive
+  Scenario Outline: Change background size to <bgSize>
+    Given I select bgTheme to "default"
+    When I select bgSize to "<bgSize>"
+    Then Icon height is set to "<height>"
+    Examples:
+      | bgSize | height |
+      | small  | 24px   |
+      | medium | 32px   |
+      | large  | 40px   |
 
   @positive
   Scenario Outline: Change background shape to <bgShape>
+    Given I select bgTheme to "default"
     When I select bgShape to "<bgShape>"
-    Then bgShape is set to "<bgShape>"
+    Then radius is set to "<radius>"
     Examples:
-      | bgShape      |
-      | circle       |
-      | rounded-rect |
-      | square       |
+      | bgShape      | radius |
+      | circle       | 50%    |
+      | rounded-rect | 20%    |
+      | square       | 0%     |
 
   @positive
   Scenario Outline: Change tooltip message to <tooltipMessage>
