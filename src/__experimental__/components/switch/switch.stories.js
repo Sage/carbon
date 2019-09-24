@@ -80,7 +80,7 @@ const switchComponentValidation = () => (
         { ...dlsKnobs() }
         key={ `key-${type}` }
         name={ `switch-${type}` }
-        label={ `Please read our ${type}` }
+        label={ text(`label ${type}`, `Please read our ${type}`) }
         value={ type }
         store={ stores[type] }
         onChange={ handleChange(stores[type]) }
@@ -113,7 +113,6 @@ function commonKnobs() {
   return ({
     fieldHelp: text('fieldHelp', 'This text provides help for the input.'),
     fieldHelpInline: boolean('fieldHelpInline', false),
-    label: text('label', 'Switch on this component?'),
     labelHelp: text('labelHelp', 'Switch off and on this component.'),
     labelInline: boolean('labelInline', Switch.defaultProps.labelInline),
     loading: boolean('loading', false),
