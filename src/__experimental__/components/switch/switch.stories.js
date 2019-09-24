@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
 import {
   boolean, text, number, select
@@ -9,6 +8,7 @@ import { Store, State } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import Switch from '.';
+import { info, infoValidations, notes } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 Switch.__docgenInfo = getDocGenInfo(
@@ -31,67 +31,59 @@ validationTypes.forEach((type) => {
   });
 });
 
-const SwitchWrapper = (props) => {
+function switchWrapper(wrapperProps) {
   return (
-    <State store={ props.store }>
+    <State store={ wrapperProps.store }>
       <Switch
         onChange={ handleChange() }
         name='switch'
-        { ...props }
+        { ...wrapperProps }
       />
     </State>
   );
-};
-
-SwitchWrapper.propTypes = {
-  store: PropTypes.object
-};
-
-SwitchWrapper.defaultProps = {
-  store: formStore
-};
+}
 
 function makeStory(name, themeSelector, component) {
   const metadata = {
     themeSelector,
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    info: {
+      text: name.search('validations') !== -1 ? infoValidations : info
+    },
+    notes: { markdown: notes }
   };
 
   return [name, component, metadata];
 }
 
-const switchClassic = () => (
-  <SwitchWrapper
-    { ...commonKnobs() }
-  />
-);
+const switchClassic = () => switchWrapper({
+  ...commonKnobs(),
+  store: formStore
+});
 
-const switchComponent = () => (
-  <SwitchWrapper
-    { ...commonKnobs() }
-    { ...dlsKnobs() }
-  />
-);
+const switchComponent = () => switchWrapper({
+  ...commonKnobs(),
+  ...dlsKnobs(),
+  store: formStore
+});
 
 const switchComponentValidation = () => (
   <>
-    {validationTypes.map(type => (
-      <SwitchWrapper
-        { ...commonKnobs() }
-        { ...dlsKnobs() }
-        key={ `key-${type}` }
-        name={ `switch-${type}` }
-        label={ `Please read our ${type}` }
-        value={ type }
-        store={ stores[type] }
-        onChange={ handleChange(stores[type]) }
-        validations={ testValidation('valid') }
-        warnings={ testValidation('warn') }
-        info={ testValidation('info') }
-        unblockValidation={ trueBool }
-        useValidationIcon={ trueBool }
-      />
-    ))}
+    {validationTypes.map(type => switchWrapper({
+      ...commonKnobs(),
+      ...dlsKnobs(),
+      key: `key-${type}`,
+      name: `switch-${type}`,
+      label: `Please read our ${type}`,
+      value: type,
+      store: stores[type],
+      onChange: handleChange(stores[type]),
+      validations: testValidation('valid'),
+      warnings: testValidation('warn'),
+      info: testValidation('info'),
+      unblockValidation: trueBool,
+      useValidationIcon: trueBool
+    }))}
   </>
 );
 
