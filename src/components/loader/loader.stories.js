@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { select, boolean } from '@storybook/addon-knobs';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import Loader from './loader.component';
+import Loader from '.';
 import Button from '../button';
 import Spinner from '../../__deprecated__/components/spinner';
 import { notes, info } from './documentation';
