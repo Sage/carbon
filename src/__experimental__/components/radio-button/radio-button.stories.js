@@ -64,6 +64,7 @@ const radioComponent = () => {
 
 const radioComponentWithValidation = () => {
   const validationTypes = ['error', 'warning', 'info'];
+  const labelHelp = text('labelHelp', 'Group label helper');
 
   function testValidation(type) {
     return (value) => {
@@ -90,7 +91,7 @@ const radioComponentWithValidation = () => {
       <RadioButtonGroup
         groupName='my-event'
         label='Are you coming to the event?'
-        labelHelp='Group label helper'
+        labelHelp={ labelHelp }
         validations={ testValidation('valid') }
         warnings={ testValidation('warn') }
         info={ testValidation('info') }
