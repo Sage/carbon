@@ -426,7 +426,7 @@ class FormWithoutValidations extends React.Component {
     }
 
     return childrenArray.filter(Boolean).map((child, index) => {
-      if (this.isHTMLElement(child)) {
+      if (!isElement(child) || this.isHTMLElement(child)) {
         return child;
       }
 

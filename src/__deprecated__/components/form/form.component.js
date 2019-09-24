@@ -372,7 +372,7 @@ class BaseForm extends React.Component {
       this.childKeys = generateKeysForChildren(childrenArray);
     }
     return childrenArray.filter(Boolean).map((child, index) => {
-      if (this.isHTMLElement(child)) {
+      if (!isElement(child) || this.isHTMLElement(child)) {
         return child;
       }
 
