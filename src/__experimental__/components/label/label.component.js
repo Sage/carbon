@@ -45,6 +45,7 @@ const Label = (props) => {
             type={ getValidationType(props) }
             tooltipMessage={ tooltipMessage }
             overrideContext={ ValidationIconContext }
+            tabIndexOverride={ helpTabIndex }
           />
         </ValidationIconPresentation>
       );

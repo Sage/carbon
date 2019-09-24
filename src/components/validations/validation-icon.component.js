@@ -41,7 +41,7 @@ const ValidationIcon = ({
             validationType={ type }
             role='tooltip'
             aria-label={ tooltipMessage }
-            tabIndex={ tabIndexOverride || 0 }
+            tabIndex={ tabIndexOverride }
             onFocus={ context && context.onFocus }
             onBlur={ context && context.onBlur }
           >
@@ -62,17 +62,26 @@ const ValidationIcon = ({
 };
 
 ValidationIcon.propTypes = {
+  /** A string to represent the type of validation */
   type: PropTypes.oneOf(OptionsHelper.validationTypes),
+  /** A small string to indicate the size of the icon */
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  /** The unique id of the component (used with aria-describedby for accessibility) */
   iconId: PropTypes.string,
+  /** A message that the ValidationIcon component will display */
   tooltipMessage: PropTypes.string,
+  /** Properties related to the theme */
   theme: PropTypes.object,
+  /** A boolean to indicate if the icon is part of an input */
   isPartOfInput: PropTypes.bool,
+  /** Overrides the default tabindex of the component */
   tabIndexOverride: PropTypes.number,
+  /** Overrides the default context of the component */
   overrideContext: PropTypes.object
 };
 
 ValidationIcon.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
+  tabIndexOverride: 0
 };
 export default withTheme(ValidationIcon);
