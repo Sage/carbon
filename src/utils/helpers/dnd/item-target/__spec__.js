@@ -99,28 +99,6 @@ describe('ItemTargetHelper', () => {
         ItemTargetHelper.onHoverUpDown(props, monitor, component);
         expect(props.onDrag).not.toHaveBeenCalled();
       });
-
-      it('dragging down and not above 50% of the item height', () => {
-        props.index = 1;
-        clientOffset.y = 70;
-
-        spyOn(props, 'onDrag');
-        ItemTargetHelper.onHoverUpDown(props, monitor, component);
-
-        expect(props.onDrag).not.toHaveBeenCalled();
-      });
-
-      it('dragging up and not above 50% of the item height', () => {
-        props.index = 0;
-
-        clientOffset.y = 76;
-        monitorItem.index = 1;
-
-        spyOn(props, 'onDrag');
-        ItemTargetHelper.onHoverUpDown(props, monitor, component);
-
-        expect(props.onDrag).not.toHaveBeenCalled();
-      });
     });
   });
 });
