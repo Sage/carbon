@@ -33,6 +33,17 @@ describe('Form', () => {
     );
   });
 
+  describe('When child is an html element', () => {
+    it('it renders the child', () => {
+      wrapper = TestRenderer.create(
+        <Form validate={ () => true } formAction='foo'>
+          <div>Foo</div>
+        </Form>
+      );
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
+
   describe('componentWillReceiveProps', () => {
     describe('when stickyFooter is enabled', () => {
       it('adds the listeners', () => {
@@ -505,6 +516,12 @@ describe('Form', () => {
     describe('when children are undefined', () => {
       it('it does not throw an error', () => {
         expect(() => shallow(<Form validate={ () => true } formAction='foo' />)).not.toThrow();
+      });
+
+      it('does not render a null cell', () => {
+        expect(() => shallow(
+          <Form validate={ () => true } formAction='foo'>{ null }</Form>
+        )).not.toThrow();
       });
     });
 

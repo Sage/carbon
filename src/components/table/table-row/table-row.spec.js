@@ -495,6 +495,17 @@ describe('TableRow', () => {
       });
     });
 
+    describe('when a child is null', () => {
+      it('does not render a null cell', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Table selectable><TableRow as='header' uniqueID='foo'><td />{ null }</TableRow></Table>
+        );
+        row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
+        const th = TestUtils.findRenderedComponentWithType(instance, TableHeader);
+        expect(th).toBeTruthy();
+      });
+    });
+
     describe('if is not classic theme', () => {
       it('renders a row to match the snapshot', () => {
         const wrapper = TestRenderer.create(

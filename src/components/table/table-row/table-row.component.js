@@ -269,6 +269,11 @@ class TableRow extends React.Component {
   getChildrenWithStateUpdaters() {
     return React.Children.map(this.props.children, (td) => {
       let hasActionPopover = false;
+
+      if (!td) {
+        return td;
+      }
+
       const childrenWithProps = React.Children.map(td.props.children, (child) => {
         // When a table has an ActionPopover, the opening and closing the ActionPopover should control the highlight
         // state of the row

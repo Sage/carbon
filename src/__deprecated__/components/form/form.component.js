@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { isElement } from 'react-is';
 import I18n from 'i18n-js';
 import Serialize from 'form-serialize';
 import FormSummary from './form-summary';
@@ -355,6 +356,10 @@ class BaseForm extends React.Component {
     };
   }
 
+  isHTMLElement(child) {
+    return isElement(child) && typeof child.type === 'string';
+  }
+
   /** Clone the children, pass in callback to allow form to store controlled data */
   renderChildren() {
     const { children, isLabelRightAligned } = this.props;
@@ -366,9 +371,10 @@ class BaseForm extends React.Component {
     if (!this.childKeys || this.childKeys.length !== childrenArray.length) {
       this.childKeys = generateKeysForChildren(childrenArray);
     }
-
     return childrenArray.filter(Boolean).map((child, index) => {
-      if (typeof child.type !== 'function' && child.type.render !== 'function') return child;
+      if (this.isHTMLElement(child)) {
+        return child;
+      }
 
       return React.cloneElement((child), {
         ...child.props,

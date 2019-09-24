@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isElement } from 'react-is';
 import I18n from 'i18n-js';
 import Service from '../../../utils/service';
 import FormButton from '../../../__deprecated__/components/form/form-button';
@@ -408,6 +409,10 @@ class FormWithoutValidations extends React.Component {
     };
   }
 
+  isHTMLElement(child) {
+    return isElement(child) && typeof child.type === 'string';
+  }
+
   /** Clone the children, pass in callback to allow form to store controlled data */
   renderChildren() {
     const { children, isLabelRightAligned } = this.props;
@@ -421,7 +426,9 @@ class FormWithoutValidations extends React.Component {
     }
 
     return childrenArray.filter(Boolean).map((child, index) => {
-      if (typeof child.type !== 'function') return child;
+      if (this.isHTMLElement(child)) {
+        return child;
+      }
 
       return React.cloneElement((child), {
         ...child.props,
