@@ -123,7 +123,7 @@ storiesOf('Experimental/RadioButton', module)
 
 function handleChange(event) {
   const { value } = event.target;
-  action(`Selected - ${value}`)(event);
+  action('Selected')(value);
 }
 
 function handleGroupChange(event) {
@@ -131,7 +131,7 @@ function handleGroupChange(event) {
 
   radioToggleGroupStore.set({ value });
 
-  action(`Selected - ${value}`)(event);
+  action('Selected')(value);
 }
 
 function defaultKnobs() {
