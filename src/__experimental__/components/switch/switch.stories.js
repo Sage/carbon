@@ -67,31 +67,82 @@ const switchComponent = () => switchWrapper({
   store: formStore
 });
 
-const switchComponentValidation = () => (
+const validationGroupedKnobs = (type, themeName) => {
+  return {
+    key: type,
+    label: text(`${type}LabelProp`, `Accept ${type}`, `${type} switch`),
+    disabled: boolean(`${type}DisabledProp`, false, `${type} switch`),
+    size: (
+      themeName !== 'classic' ? select(
+        `${type}SizeProp`, OptionsHelper.sizesBinary, 'small', `${type} switch`
+      ) : undefined
+    ),
+    fieldHelp: text(`${type}FieldHelpProp`, 'This text provides help for the input', `${type} switch`),
+    fieldHelpInline: boolean(`${type}FieldHelpInlineProp`, false, `${type} switch`)
+  };
+};
+
+const validationKnobs = (type, themeName) => {
+  return {
+    ...validationGroupedKnobs(type, themeName),
+    labelHelp: text('labelHelp', 'Switch off and on this component.'),
+    labelInline: boolean('labelInline', Switch.defaultProps.labelInline),
+    loading: boolean('loading', false),
+    inputWidth: number('inputWidth', 0, {
+      range: true,
+      min: 0,
+      max: 100,
+      step: 1
+    }),
+    labelWidth: number('labelWidth', 0, {
+      range: true,
+      min: 0,
+      max: 100,
+      step: 1
+    }),
+    labelAlign: select(
+      'labelAlign',
+      OptionsHelper.alignBinary,
+      OptionsHelper.alignBinary[0]
+    ),
+    reverse: boolean('reverse', Switch.defaultProps.reverse),
+    name: `switch-${type}`,
+    value: type,
+    store: stores[type],
+    onChange: handleChange(stores[type]),
+    validations: testValidation('valid'),
+    warnings: testValidation('warn'),
+    info: testValidation('info'),
+    unblockValidation: trueBool,
+    useValidationIcon: trueBool
+  };
+};
+
+const switchComponentDLSValidation = () => {
+  return (
   <>
     {validationTypes.map(type => switchWrapper({
-      ...commonKnobs(),
-      ...dlsKnobs(),
-      key: `key-${type}`,
-      name: `switch-${type}`,
-      label: text(`label ${type}`, `Please read our ${type}`),
-      value: type,
-      store: stores[type],
-      onChange: handleChange(stores[type]),
-      validations: testValidation('valid'),
-      warnings: testValidation('warn'),
-      info: testValidation('info'),
-      unblockValidation: trueBool,
-      useValidationIcon: trueBool
+      ...validationKnobs(type)
     }))}
   </>
-);
+  );
+};
+
+const switchComponentClassicValidation = () => {
+  return (
+  <>
+    {validationTypes.map(type => switchWrapper({
+      ...validationKnobs(type, 'classic')
+    }))}
+  </>
+  );
+};
 
 storiesOf('Experimental/Switch', module)
   .add(...makeStory('default', dlsThemeSelector, switchComponent))
   .add(...makeStory('classic', classicThemeSelector, switchClassic))
-  .add(...makeStory('validations', dlsThemeSelector, switchComponentValidation))
-  .add(...makeStory('validations classic', classicThemeSelector, switchComponentValidation));
+  .add(...makeStory('validations', dlsThemeSelector, switchComponentDLSValidation))
+  .add(...makeStory('validations classic', classicThemeSelector, switchComponentClassicValidation));
 
 function handleChange(store = formStore) {
   return function (ev) {
