@@ -1,7 +1,7 @@
 import React from 'react';
 import { includes, startCase } from 'lodash';
 import ImmutableHelper from 'utils/helpers/immutable';
-import Checkbox from 'components/checkbox';
+import Checkbox from '__deprecated__/components/checkbox';
 import DropdownFilter from '__deprecated__/components/dropdown-filter';
 import Textarea from '__deprecated__/components/textarea';
 import Textbox from '__deprecated__/components/textbox';

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
 import { assign } from 'lodash';
-import Date from '../date';
+import DateInput from '../date';
 import DateRangeValidator from '../../../utils/validations/date-range';
 import tagComponent from '../../../utils/helpers/tags';
 import StyledDateRange from './date-range.style';
@@ -30,13 +30,19 @@ class DateRange extends React.Component {
     /** Display labels inline */
     labelsInline: PropTypes.bool,
     /** Props for the child start Date component */
-    startDateProps: PropTypes.shape({ ...Date.propTypes, value: PropTypes.string }),
+    startDateProps: PropTypes.shape({ ...DateInput.propTypes, value: PropTypes.string }),
     /** Props for the child end Date component */
-    endDateProps: PropTypes.shape({ ...Date.propTypes, value: PropTypes.string })
+    endDateProps: PropTypes.shape({ ...DateInput.propTypes, value: PropTypes.string })
   };
 
   state = {
     forceUpdateTriggerToggle: false
+  }
+
+  constructor(props) {
+    super(props);
+    this.startDateInputRef = React.createRef();
+    this.endDateInputRef = React.createRef();
   }
 
   /** onChange function -triggers validations on both fields and updates opposing field when one changed. */
@@ -87,12 +93,12 @@ class DateRange extends React.Component {
 
   /** Handle focus on start date field */
   focusStart = () => {
-    this._endDate.closeDatePicker();
+    this.endDateInputRef.current.closeDatePicker();
   }
 
   /** Handle focus on end date field */
   focusEnd = () => {
-    this._startDate.closeDatePicker();
+    this.startDateInputRef.current.closeDatePicker();
   }
 
   startDateProps() {
@@ -120,7 +126,6 @@ class DateRange extends React.Component {
       label: this.props[`${propsKey}Label`],
       labelInline: this.props.labelsInline,
       onChange: this._onChange.bind(null, `${propsKey}Date`),
-      ref: (c) => { this[`_${propsKey}Date`] = c; },
       value: this[`${propsKey}Date`]
     }, dateProps);
 
@@ -134,13 +139,15 @@ class DateRange extends React.Component {
   render () {
     return (
       <StyledDateRange { ...tagComponent('date-range', this.props) } labelsInline={ this.props.labelsInline }>
-        <Date
+        <DateInput
           { ...this.startDateProps() } onFocus={ this.focusStart }
           data-element='start-date'
+          ref={ this.startDateInputRef }
         />
-        <Date
+        <DateInput
           { ...this.endDateProps() } onFocus={ this.focusEnd }
           data-element='end-date'
+          ref={ this.endDateInputRef }
         />
       </StyledDateRange>
     );
