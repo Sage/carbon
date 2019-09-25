@@ -4,7 +4,7 @@ import StyledIcon from '../icon/icon.style';
 import { isClassic } from '../../utils/helpers/style-helper';
 
 const ValidationIconStyle = styled.div`
-  ${({ theme, showOutline }) => css`
+  ${({ theme }) => css`
     background: none;
     cursor: pointer;
     display: flex;
@@ -16,8 +16,8 @@ const ValidationIconStyle = styled.div`
     border: 0;
     outline: none;
 
-    ${showOutline && `
-      :focus {
+    ${!isClassic(theme) && css`
+      ${StyledIcon}:focus {
         outline: 2px solid ${theme.colors.focus};
       }
     `}

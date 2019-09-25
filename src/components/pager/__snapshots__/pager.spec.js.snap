@@ -23,10 +23,6 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
   color: rgba(0,0,0,0.85);
 }
 
-.c3:focus {
-  outline: none;
-}
-
 .c3:hover {
   color: rgba(0,0,0,0.90);
   background-color: transparent;
@@ -397,10 +393,6 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   justify-content: center;
   height: 24px;
   width: 24px;
-}
-
-.c3:focus {
-  outline: none;
 }
 
 .c3:hover {

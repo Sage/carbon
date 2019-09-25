@@ -71,10 +71,6 @@ const StyledIcon = styled.span`
     position: relative;
     color: ${getIconColor(bgTheme, theme, iconColor, disabled, false)};
     background-color: ${getBackgroundColor(theme, bgTheme, disabled, false)};
-    
-    :focus {
-      outline: none;
-    }
 
     &:hover {
       color: ${getIconColor(bgTheme, theme, iconColor, disabled, true)};

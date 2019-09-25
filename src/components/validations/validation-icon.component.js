@@ -15,9 +15,7 @@ const ValidationIcon = ({
   iconId,
   isPartOfInput,
   tooltipMessage,
-  tabIndexOverride,
-  overrideContext,
-  showOutline
+  tabIndexOverride
 }) => {
   let modernTooltipProps = {};
 
@@ -31,10 +29,8 @@ const ValidationIcon = ({
     };
   }
 
-  const Context = overrideContext || InputPresentationContext;
-
   return (
-    <Context.Consumer>
+    <InputPresentationContext.Consumer>
       {
         context => (
           <ValidationIconStyle
@@ -42,10 +38,6 @@ const ValidationIcon = ({
             validationType={ type }
             role='tooltip'
             aria-label={ tooltipMessage }
-            tabIndex={ tabIndexOverride }
-            onFocus={ context && context.onFocus }
-            onBlur={ context && context.onBlur }
-            showOutline={ showOutline }
           >
             <Icon
               key={ `${type}-icon` }
@@ -54,12 +46,13 @@ const ValidationIcon = ({
               tooltipVisible={ context && (context.hasFocus || context.hasMouseOver) }
               type={ type }
               size={ size }
+              tabIndex={ tabIndexOverride }
               { ...modernTooltipProps }
             />
           </ValidationIconStyle>
         )
       }
-    </Context.Consumer>
+    </InputPresentationContext.Consumer>
   );
 };
 
@@ -77,17 +70,12 @@ ValidationIcon.propTypes = {
   /** A boolean to indicate if the icon is part of an input */
   isPartOfInput: PropTypes.bool,
   /** Overrides the default tabindex of the component */
-  tabIndexOverride: PropTypes.number,
-  /** Overrides the default context of the component */
-  overrideContext: PropTypes.object,
-  /** Toggle outline colour */
-  showOutline: PropTypes.bool
+  tabIndexOverride: PropTypes.number
 };
 
 ValidationIcon.defaultProps = {
   theme: baseTheme,
-  tabIndexOverride: 0,
-  showOutline: true
+  tabIndexOverride: 0
 };
 
 export default withTheme(ValidationIcon);

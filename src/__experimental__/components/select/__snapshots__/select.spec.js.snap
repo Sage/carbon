@@ -186,10 +186,6 @@ Object {
   width: 24px;
 }
 
-.c4:focus {
-  outline: none;
-}
-
 .c4:hover {
   color: rgba(0,0,0,0.90);
   background-color: transparent;
