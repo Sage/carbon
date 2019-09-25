@@ -1,7 +1,6 @@
 Feature: Decimal component
   I want to change Decimal component properties
 
-  # Added Experimental untill the component will be merged with master
   Background: Open Decimal component page
     Given I open "Experimental-Decimal-Input" component page
 

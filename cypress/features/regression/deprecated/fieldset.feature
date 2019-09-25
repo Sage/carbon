@@ -1,7 +1,7 @@
 Feature: Fieldset component
   I want to change Fieldset component properties
 
-  Background: Open Fieldset component page
+  Background: Open deprecated Fieldset component page
     Given I open deprecated "Fieldset" component page
 
   @positive

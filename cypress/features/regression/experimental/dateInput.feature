@@ -1,7 +1,6 @@
 Feature: Date Input component
   I want to change Date Input component properties
 
-  # Added Experimental untill the component will be merged with master
   Background: Open Date Input component page
     Given I open "Experimental Date Input" component page
 

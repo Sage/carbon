@@ -1,8 +1,8 @@
 Feature: Radio Button component
   I want to change Radio Button component properties
 
-  Background: Open Radio Button component page
-    Given I open "Radio Button" component page
+  Background: Open deprecated Radio Button component page
+    Given I open deprecated "Radio Button" component page
 
   @positive
   Scenario Outline: Set fieldHelp to <fieldHelp>

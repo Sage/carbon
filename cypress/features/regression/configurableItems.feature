@@ -1,7 +1,7 @@
 Feature: Configurable Items component
   I want to change Configurable Items component
 
-  Background: Open Configurable Items component page
+  Background: Open Configurable Items component iframe
     Given I open "Configurable Items" component iframe
 
   @positive

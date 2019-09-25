@@ -1,7 +1,7 @@
 Feature: Checkbox component
   I want to change Checkbox, reverse, fieldHelpInline, label, help label, input width, field help, labelInline, labelWidth, labelAlign properties
 
-  Background: Open Checkbox component page classic
+  Background: Open deprecated Checkbox component page
     Given I open deprecated "Checkbox" component page
 
   @positive

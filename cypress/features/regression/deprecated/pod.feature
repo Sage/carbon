@@ -1,7 +1,7 @@
 Feature: Pod component
   I want to test Pod component
 
-  Background: Open Pod component page
+  Background: Open deprecated Pod component page
     Given I open deprecated "Pod" component page
 
   @positive

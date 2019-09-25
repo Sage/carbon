@@ -1,7 +1,7 @@
 Feature: Pill component
   I want to test Pill component
 
-  Background: Open Pill component page
+  Background: Open Pill component page classic
     Given I open "Pill" component page classic
 
   @positive

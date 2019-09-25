@@ -1,8 +1,8 @@
 Feature: Simple Color Picker component
   I want to test Simple Color Picker component
 
-  Background: Open Simple Color Picker component page
-    Given I open "SimpleColorPicker" component page
+  Background: Open deprecated Simple Color Picker component page
+    Given I open deprecated "SimpleColorPicker" component page
 
   @positive
   Scenario Outline: Change Simple Color Picker name to <name>
@@ -15,8 +15,8 @@ Feature: Simple Color Picker component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                       |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @ignore
   # this functionality doesn't work on Electron / IE
