@@ -75,7 +75,7 @@ ValidationIcon.propTypes = {
 
 ValidationIcon.defaultProps = {
   theme: baseTheme,
-  tabIndexOverride: 0
+  tabIndexOverride: -1
 };
 
 export default withTheme(ValidationIcon);
