@@ -40,8 +40,7 @@ const ValidationIconStyle = styled.div`
 
 ValidationIconStyle.defaultProps = {
   validationType: 'error',
-  theme: BaseTheme,
-  showOutline: true
+  theme: BaseTheme
 };
 
 export default ValidationIconStyle;
