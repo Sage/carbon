@@ -23,6 +23,9 @@ import ActionPopover from '../../action-popover';
  */
 class TableRow extends React.Component {
   state = {
+    /**
+     * Internal state to store this table row's DOM node (for drag-and-drop functionality).
+     */
     rowNode: null,
     /**
      * Internal state to track if the row is currently highlighted.

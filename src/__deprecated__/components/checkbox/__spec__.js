@@ -12,7 +12,7 @@ describe('Checkbox', () => {
       <Checkbox
         name='checkbox'
         label='checkbox'
-        checked={ true }
+        checked
       />
     );
   });
