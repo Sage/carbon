@@ -10,7 +10,7 @@ describe('Textbox', () => {
       <Textbox value='foobar' leftChildren='southpaw children'>
         normal children
       </Textbox>
-    ).dive().dive();
+    ).dive().dive().dive();
     expect(wrapper).toMatchSnapshot();
   });
 });

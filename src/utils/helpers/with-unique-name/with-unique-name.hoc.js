@@ -1,20 +1,35 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import guid from '../guid';
 
 const withUniqueName = (WrappedComponent) => {
   class WithUniqueName extends React.Component {
-    name = guid()
+    name = guid();
+
+    static propTypes = {
+      forwardedRef: PropTypes.object
+    };
 
     render() {
+      const {
+        forwardedRef,
+        ...props
+      } = this.props;
       return (
-        <WrappedComponent name={ this.name } { ...this.props } />
+        <WrappedComponent
+          name={ this.name }
+          ref={ forwardedRef }
+          { ...props }
+        />
       );
     }
   }
   const displayName = WrappedComponent.displayName || WrappedComponent.name || 'WithUniqueName(Unknown)';
   WithUniqueName.displayName = displayName.replace('Base', '');
 
-  return WithUniqueName;
+  return React.forwardRef((props, ref) => {
+    return <WithUniqueName { ...props } forwardedRef={ ref } />;
+  });
 };
 
 export default withUniqueName;
