@@ -117,7 +117,7 @@ function makeStory(name, themeSelector) {
                 pageIndex={ handleSlide(null, pageIndex()) }
               >
                 <Page title={ <Heading title='My First Page' /> }>
-                  <OriginalButton onClick={ (ev) => handleSlide(ev, 1) }>
+                  <OriginalButton onClick={ (ev) => { handleSlide(ev, 1); } }>
                     Go to second page
                   </OriginalButton>
                 </Page>
