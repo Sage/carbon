@@ -106,7 +106,6 @@ function commonKnobs() {
   return ({
     fieldHelp: text('fieldHelp', 'This text provides help for the input.'),
     fieldHelpInline: boolean('fieldHelpInline', false),
-    label: text('label', 'Switch on this component?'),
     labelHelp: text('labelHelp', 'Switch off and on this component.'),
     labelInline: boolean('labelInline', Switch.defaultProps.labelInline),
     loading: boolean('loading', false),
