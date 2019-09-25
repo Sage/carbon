@@ -41,19 +41,12 @@ Feature: Build tests for classic stories
       | button toggle        | button-toggle        |
       | button               | button               |
       | carousel             | carousel             |
-      | checkbox             | checkbox             |
       | configurable-items   | configurable-items   |
       | content              | content              |
       | create               | link                 |
-      | date range           | date-range           |
-      | date input           | date                 |
       | detail               | detail               |
       | draggableContext     | table                |
-      | dropdownFilterAjax   | dropdown-filter-ajax |
-      | dropdown-filter      | dropdown-filter      |
-      | dropdown             | dropdown             |
       | filter component     | filter               |
-      | form                 | form                 |
       | heading              | heading              |
       | help                 | help                 |
       | i18ncomponent        | i18n                 |
@@ -69,19 +62,15 @@ Feature: Build tests for classic stories
       | navigation-bar       | navigation-bar       |
       | pager                | pager                |
       | pill                 | pill                 |
-      | pod                  | pod                  |
       | portrait             | portrait             |
       | preview              | preview              |
       | profile              | profile              |
-      | radio-button         | radio-button         |
       | rainbow              | rainbow              |
       | row                  | row                  |
       | settingsrow          | settings-row         |
-      | simplecolorpicker    | simple-color-picker  |
       | split-button         | split-button         |
       | step-sequence-item   | step-sequence-item   |
       | step-sequence        | step-sequence        |
-      | switch               | checkbox             |
       | table-ajax           | table-ajax           |
       | table                | table                |
       | tabs                 | tabs                 |
@@ -92,10 +81,21 @@ Feature: Build tests for classic stories
     When I open deprecated "<component>" component iframe
     Then "<data-component>" component is visible
     Examples:
-      | component          | data-component     |
-      | textbox            | textbox            |
-      | textarea           | textarea           |
-      | number-input       | number             |
-      | decimal            | decimal            |
-      | fieldset           | fieldset           |
-      | groupedcharacter   | grouped-character  |
+      | component            | data-component      |
+      | checkbox             | checkbox            |
+      | date input           | date                |
+      | date range           | date-range          |
+      | decimal              | decimal             |
+      | dropdownFilterAjax   | dropdown-filter-ajax|
+      | dropdown-filter      | dropdown-filter     |
+      | dropdown             | dropdown            |
+      | fieldset             | fieldset            |
+      | form                 | form                |
+      | groupedcharacter     | grouped-character   |
+      | number-input         | number              |
+      | pod                  | pod                 |
+      | radio-button         | radio-button        |
+      | simplecolorpicker    | simple-color-picker |
+      | switch               | checkbox            |
+      | textarea             | textarea            |
+      | textbox              | textbox             |

@@ -6,14 +6,15 @@ import Tile from '.';
 import Content from '../content';
 import { info, notes } from './documentation';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
+import { dlsThemeSelector } from '../../../.storybook/theme-selectors';
 
 Tile.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
   /tile\.component(?!spec)/
 );
 
-storiesOf('Tile', module)
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const percentageOpts = {
       range: true,
       min: 0,
@@ -59,11 +60,22 @@ storiesOf('Tile', module)
     return (
       <Tile { ...tileProps }>{tileContent}</Tile>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Tile', module)
+  .addParameters({
     info: {
       propTablesExclude: [Content],
       text: info
     },
     knobs: { escapeHTML: false },
     notes: { markdown: notes }
-  });
+  })
+  .add(...makeStory('default', dlsThemeSelector));

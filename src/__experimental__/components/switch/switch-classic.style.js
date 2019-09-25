@@ -1,5 +1,4 @@
 import { css } from 'styled-components';
-import { THEMES } from '../../../style/themes';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';
@@ -7,10 +6,11 @@ import StyledHelp from '../../../components/help/help.style';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import StyledSwitchSlider from './switch-slider.style';
 import StyledIcon from '../../../components/icon/icon.style';
+import { isClassic } from '../../../utils/helpers/style-helper';
 
 export default ({
   disabled, fieldHelpInline, labelInline, reverse, size, theme
-}) => theme.name === THEMES.classic && css`
+}) => isClassic(theme) && css`
   ${StyledCheckableInput}, ${HiddenCheckableInputStyle} {
     border-radius: 24px;
     height: 28px;
@@ -38,6 +38,10 @@ export default ({
 
   ${LabelStyle} ${StyledIcon}::before {
     content: '\\E943';
+  }
+
+  ${StyledCheckableInput} ${StyledIcon}{
+    top: 1px;
   }
 
   ${labelInline && css`
