@@ -1,7 +1,7 @@
 Feature: Icon component
   I want to change Heading component properties
 
-  Background: Open Icon component page
+  Background: Open Icon component page classic
     Given I open "Icon" component page classic
 
   @positive

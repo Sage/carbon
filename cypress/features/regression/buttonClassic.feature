@@ -1,7 +1,7 @@
 Feature: Button component
   I want to change Button label, theme, size and subtext properties
 
-  Background: Open Button component page
+  Background: Open Button component page classic
     Given I open "Button" component page classic
 
   @positive

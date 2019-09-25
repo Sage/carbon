@@ -1,10 +1,10 @@
 Feature: Show Edit Pod component
   I want to test Show Edit Pod component
 
-  Background: Open Show Edit Pod component page
-    Given I open "ShowEditPod" component page
+  Background: Open ShowEditPod component page classic
+    Given I open "ShowEditPod" component page classic
 
- @positive
+  @positive
   Scenario: Verify the inner content of the component
     # When I open "ShowEditPod" component page
     Then Show Edit Pod component has proper content inside itself
@@ -21,8 +21,8 @@ Feature: Show Edit Pod component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                       |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario Outline: Change Show Edit Pod deleteText to <deleteText>
@@ -36,8 +36,8 @@ Feature: Show Edit Pod component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                       |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario Outline: Change Show Edit Pod saveText to <saveText>
@@ -51,8 +51,8 @@ Feature: Show Edit Pod component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                       |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario Outline: Change Show Edit Pod title to <title>
@@ -65,8 +65,8 @@ Feature: Show Edit Pod component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                       |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario: Enable border checkbox for a Show Edit Pod component
@@ -134,7 +134,7 @@ Feature: Show Edit Pod component
   Scenario Outline: Set Show Edit Pod buttonAlign to <buttonAlign>
     When I select buttonAlign to "<buttonAlign>"
       And I edit Show Edit Pod component
-    Then Show Edit Pod buttonAlign value is set to "<buttonAlign>"
+    Then Show Edit Pod buttons are aligned <buttonAlign>
     Examples:
       | buttonAlign |
       | right       |

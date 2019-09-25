@@ -3,7 +3,7 @@
 Feature: Dropdown component
   I want to change Dropdown component properties
 
-  Background: Open Dropdown component page
+  Background: Open deprecated Dropdown component page
     Given I open deprecated "Dropdown" component page
 
   @positive

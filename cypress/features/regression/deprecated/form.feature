@@ -1,7 +1,7 @@
 Feature: Form component
   I want to change Form component properties
 
-  Background: Open Form component page
+  Background: Open deprecated Form component page
     Given I open deprecated "Form" component page
 
   @positive

@@ -2,7 +2,7 @@
 Feature: Pages component
   I want to test Pages component
 
-  Background: Open Pages component
+  Background: Open Pages component page
     Given I open "Pages" component page
 
   @ignore @positive
