@@ -4,9 +4,9 @@ import { storiesOf } from '@storybook/react';
 import { select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import DefaultPages from './pages.component';
 import Page from './page/page.component';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import DialogFullScreen from '../dialog-full-screen';
 import Heading from '../heading/heading';
 import { OriginalButton } from '../button/button.component';
@@ -117,7 +117,7 @@ function makeStory(name, themeSelector) {
                 pageIndex={ handleSlide(null, pageIndex()) }
               >
                 <Page title={ <Heading title='My First Page' /> }>
-                  <OriginalButton onClick={ ev => handleSlide(ev, 1) }>
+                  <OriginalButton onClick={ (ev) => handleSlide(ev, 1) }>
                     Go to second page
                   </OriginalButton>
                 </Page>
