@@ -10,7 +10,6 @@ import {
   applyClassicDropTargetStyling
 } from './table-row-classic.style';
 import {
-  applyModernDraggedStyling,
   applyModernRowStyling,
   applyModernSelectedStyling,
   applyModernDropTargetStyling
@@ -126,7 +125,7 @@ function dragRowStyling({
 
     ${isDragged && css`
       &&&&& {
-        ${isClassic(theme) ? applyClassicDraggedStyling(StyledTableRow) : applyModernDraggedStyling()}
+        ${isClassic(theme) && applyClassicDraggedStyling(StyledTableRow)}
       }
     `}
 

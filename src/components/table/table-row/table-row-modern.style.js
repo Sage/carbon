@@ -44,12 +44,6 @@ function applyModernSelectedStyling({ table }) {
   `;
 }
 
-function applyModernDraggedStyling() {
-  return css`
-    border: 1px solid #000A0E; 
-  `;
-}
-
 function applyModernDropTargetStyling(isDraggedElementOver, { table }) {
   const border = `1px solid ${isDraggedElementOver ? table.header : 'transparent'}`;
 
@@ -72,7 +66,6 @@ function applyModernDropTargetStyling(isDraggedElementOver, { table }) {
 }
 
 export {
-  applyModernDraggedStyling,
   applyModernRowStyling,
   applyModernSelectedStyling,
   applyModernDropTargetStyling
