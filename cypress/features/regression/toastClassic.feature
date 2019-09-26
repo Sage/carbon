@@ -1,13 +1,13 @@
 Feature: Toast component
   I want to change Toast component properties
 
-  Background: Open Toast component component page
+  Background: Open Toast component page classic
     Given I open "Toast" component page classic
 
   @positive
   Scenario Outline: Change Toast as <as> property
     When I select as to "<as>"
-    Then Toast as is set to "<as>" and icon is set to "<icon>"
+    Then Toast icon is set to "<icon>"
     Examples:
       | as          | icon     |
       | error       | error    |

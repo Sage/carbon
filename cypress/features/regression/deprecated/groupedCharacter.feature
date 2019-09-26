@@ -1,8 +1,8 @@
 Feature: GroupedCharacter component
   I want to change Grouped character component properties
 
-  Background: Open GroupedCharacter component page
-    Given I open "GroupedCharacter" component page
+  Background: Open deprecated GroupedCharacter component page
+    Given I open deprecated "GroupedCharacter" component page
 
   @positive
   Scenario Outline: Set input width to <inputWidth>
