@@ -27,11 +27,25 @@ function makeStory(name, themeSelector, component) {
   return [name, component, metadata];
 }
 
-const radioComponent = () => {
-  const knobs = defaultKnobs();
+const groupedKnobs = (type, themeName) => {
+  return {
+    key: type,
+    label: text(`${type} label`, `Example ${type} radio button`, type),
+    labelHelp: text(`${type} labelHelp`, 'This text provides more information for the label.', type),
+    value: text(`${type} value`, type, type),
+    disabled: boolean(`${type} disabled`, false, type),
+    reverse: boolean(`${type} reverse`, false, type),
+    size: themeName !== 'classic' ? select('size', OptionsHelper.sizesBinary, 'small', type) : undefined
+  };
+};
+
+const radioComponent = themeName => () => {
+  const knobs = defaultKnobs(themeName);
+  const labelHelp = text('labelHelp', 'Group label helper');
 
   return (
     <RadioButtonGroup
+      labelHelp={ labelHelp }
       groupName='frequency'
       label={ text('groupLabel', 'Please select a frequency from the options below') }
       name='radio-button-group'
@@ -40,29 +54,27 @@ const radioComponent = () => {
         id='input-1'
         name='input-1'
         checked
-        label={ text('radioOneLabel', 'Example Weekly Radio Button') }
-        value={ text('radioOneValue', 'weekly') }
         { ...knobs }
+        { ...groupedKnobs('weekly', themeName) }
       />
       <RadioButton
         id='input-2'
         name='input-2'
-        label={ text('radioTwoLabel', 'Example Monthly Radio Button') }
-        value={ text('radioTwoValue', 'monthly') }
         { ...knobs }
+        { ...groupedKnobs('monthly', themeName) }
       />
       <RadioButton
         // id prop intentionally left off here, to demonstrate automatic GUID generation
         name='input-2'
-        label={ text('radioThreeLabel', 'Example Annual Radio Button') }
-        value={ text('radioThreeValue', 'annually') }
+        key='Radio Three'
         { ...knobs }
+        { ...groupedKnobs('yearly', themeName) }
       />
     </RadioButtonGroup>
   );
 };
 
-const radioComponentWithValidation = () => {
+const radioComponentWithValidation = themeName => () => {
   const validationTypes = ['error', 'warning', 'info'];
   const labelHelp = text('labelHelp', 'Group label helper');
 
@@ -100,12 +112,11 @@ const radioComponentWithValidation = () => {
       >
         {validationTypes.map(vType => (
           <RadioButton
-            { ...defaultKnobs() }
-            key={ `key-${vType}` }
+            { ...groupedKnobs(vType, themeName) }
+            { ...defaultKnobs(themeName) }
             id={ `id-${vType}` }
             name={ vType }
             label={ `Example Radion Button (${vType})` }
-            value={ vType }
             onChange={ handleGroupChange }
             labelHelp=''
           />
@@ -116,10 +127,10 @@ const radioComponentWithValidation = () => {
 };
 
 storiesOf('Experimental/RadioButton', module)
-  .add(...makeStory('default', dlsThemeSelector, radioComponent))
-  .add(...makeStory('classic', classicThemeSelector, radioComponent))
-  .add(...makeStory('validations', dlsThemeSelector, radioComponentWithValidation))
-  .add(...makeStory('validations classic', classicThemeSelector, radioComponentWithValidation));
+  .add(...makeStory('default', dlsThemeSelector, radioComponent()))
+  .add(...makeStory('classic', classicThemeSelector, radioComponent('classic')))
+  .add(...makeStory('validations', dlsThemeSelector, radioComponentWithValidation()))
+  .add(...makeStory('validations classic', classicThemeSelector, radioComponentWithValidation('classic')));
 
 function handleChange(event) {
   const { value } = event.target;
@@ -134,14 +145,11 @@ function handleGroupChange(event) {
   action(`Selected - ${value}`)(event);
 }
 
-function defaultKnobs() {
+function defaultKnobs(themeName) {
   return ({
-    disabled: boolean('disabled', false),
-    error: boolean('error', false),
+    error: themeName === 'classic' ? boolean('error', false) : undefined,
     fieldHelp: text('fieldHelp', 'This text provides help for the input.'),
     fieldHelpInline: boolean('fieldHelpInline', false),
-    reverse: boolean('reverse', false),
-    labelHelp: text('labelHelp', 'This text provides more information for the label.'),
     inputWidth: number('inputWidth', 0, {
       range: true,
       min: 0,
@@ -159,7 +167,6 @@ function defaultKnobs() {
       OptionsHelper.alignBinary,
       OptionsHelper.alignBinary[0]
     ),
-    size: select('size', OptionsHelper.sizesBinary, 'small'),
     onChange: handleChange
   });
 }
