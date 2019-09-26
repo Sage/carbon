@@ -95,12 +95,12 @@ Then('Show Edit Pod as value is set to {string}', (property) => {
     .should('have.class', `${SHOW_EDIT_POD_CONTENT}${property}`);
 });
 
-Then('Show Edit Pod buttons are aligned left', () => {
-  showEditPodFooter().children().first().should('have.text', 'Save');
+Then('Show Edit Pod buttons are aligned to left', () => {
+  showEditPodFooter().first().should('have.text', 'Save');
 });
 
-Then('Show Edit Pod buttons are aligned right', () => {
-  showEditPodFooter().children().first().should('have.text', 'Cancel');
+Then('Show Edit Pod buttons are aligned to right', () => {
+  showEditPodFooter().first().should('have.text', 'Cancel');
 });
 
 When('I click delete button', () => {

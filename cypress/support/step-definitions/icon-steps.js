@@ -12,5 +12,5 @@ Then('radius is set to {string}', (radius) => {
   icon().should('have.css', 'border-bottom-left-radius', radius);
   icon().should('have.css', 'border-bottom-right-radius', radius);
   icon().should('have.css', 'border-top-left-radius', radius);
-  icon().should('have.css', 'border-top-left-radius', radius);
+  icon().should('have.css', 'border-top-right-radius', radius);
 });
