@@ -86,8 +86,6 @@ Switch.propTypes = {
   theme: PropTypes.object,
   /** the value of the checkbox, passed on form submit */
   value: PropTypes.string.isRequired,
-  /** Custom function to be called when the component blurs */
-  onBlur: PropTypes.func,
   /** Prop to indicate that an error has occurred */
   hasError: PropTypes.bool,
   /** Prop to indicate that a warning has occurred */
