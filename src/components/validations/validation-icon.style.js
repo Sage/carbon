@@ -20,12 +20,15 @@ const ValidationIconStyle = styled.div`
   }
 
   ${StyledIcon}:focus {
-    outline: ${({ theme }) => (isClassic(theme) ? 'none' : `2px solid ${theme.colors.focus}`)}
+    outline: ${({ theme }) => `2px solid ${theme.colors.focus}`};
   }
 
   ${({ theme }) => isClassic(theme) && css`
     ${StyledIcon}:before {
       font-size: 20px;
+    }
+    ${StyledIcon}:focus {
+      outline: none;
     }
   `}
 `;
