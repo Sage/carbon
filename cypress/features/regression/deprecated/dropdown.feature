@@ -1,10 +1,10 @@
-# This componet will be depecated and replaced by Select,
+# This componet is deprecated and will be replaced by Select,
 # that's why not all cases are covered and common methods are not isolated.
 Feature: Dropdown component
   I want to change Dropdown component properties
 
-  Background: Open Dropdown component page
-    Given I open "Dropdown" component page
+  Background: Open deprecated Dropdown component page
+    Given I open deprecated "Dropdown" component page
 
   @positive
   Scenario: Disable Dropdown

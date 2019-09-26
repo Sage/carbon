@@ -1,7 +1,7 @@
 Feature: Table component
   I want to change Table component properties
 
-  Background: Open Table component page
+  Background: Open Table component page classic
     Given I open "Table" component page classic
 
   @positive

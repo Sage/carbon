@@ -1,7 +1,7 @@
 Feature: Multi Action Button component
   I want to change Multi Action Button component properties
 
-  Background: Open Multi Action Button component page
+  Background: Open Multi Action Button component page classic
     Given I open "Multi Action Button" component page classic
 
   @positive
