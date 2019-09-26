@@ -10,7 +10,7 @@ const StyledIcon = styled(Icon)`
   right: 40px;
   top: 53px;
   z-index: 1002;
-  position: absolute;
+  position: fixed;
   display: block;
   
   &::before {
