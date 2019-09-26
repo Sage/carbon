@@ -71,6 +71,17 @@ const renderWithTheme = (mainProps = {}, childButtons = singleButton, renderer =
   );
 };
 
+const renderWithNoChildren = (mainProps = {}, renderer = shallow) => {
+  return renderer(
+    <SplitButton
+      { ...mainProps }
+      text='Split button'
+      data-element='bar'
+      data-role='baz'
+    />
+  );
+};
+
 const buildSizeConfig = (name, size) => {
   const sizeObj = {};
   sizeObj.fontSizze = size === 'large' ? '16px' : '14px';
@@ -117,6 +128,12 @@ describe('SplitButton', () => {
 
     afterEach(() => {
       wrapper.unmount();
+    });
+  });
+
+  describe('when there are no children', () => {
+    it('does not throw an error', () => {
+      expect(() => renderWithNoChildren()).not.toThrow();
     });
   });
 
