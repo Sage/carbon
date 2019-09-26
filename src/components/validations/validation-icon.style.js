@@ -4,37 +4,29 @@ import StyledIcon from '../icon/icon.style';
 import { isClassic } from '../../utils/helpers/style-helper';
 
 const ValidationIconStyle = styled.div`
-  ${({ theme }) => css`
-    background: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    padding: 1px;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 8px;
-    border: 0;
-    outline: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 1px;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 8px;
+  border: 0;
+  outline: none;
 
-    ${!isClassic(theme) && css`
-      ${StyledIcon}:focus {
-        outline: 2px solid ${theme.colors.focus};
-      }
-    `}
+  ${StyledIcon}:before {
+    color: ${({ validationType, theme }) => theme.colors[validationType]};
+  }
 
+  ${StyledIcon}:focus {
+    outline: ${({ theme }) => (isClassic(theme) ? 'none' : `2px solid ${theme.colors.focus}`)}
+  }
+
+  ${({ theme }) => isClassic(theme) && css`
     ${StyledIcon}:before {
-      color: ${({ validationType }) => theme.colors[validationType]};
+      font-size: 20px;
     }
-
-    ${isClassic(theme) && css`
-      &:focus {
-        outline: none;
-      }
-
-      ${StyledIcon}:before {
-        font-size: 20px;
-      }
-    `}
   `}
 `;
 
