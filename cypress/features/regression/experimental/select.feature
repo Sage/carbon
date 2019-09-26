@@ -1,7 +1,7 @@
 Feature: Select component
   I want to change Select component properties
 
-  Background: Open Select component page
+  Background: Open Experimental Select component page
     Given I open "Experimental Select" component page
 
   @positive
@@ -17,7 +17,7 @@ Feature: Select component
       And Type "aaa" text into input
     Then Select input has "aaa" value
 
- @positive
+  @positive
   Scenario: Disable typeAhead for Select component
     Given I check typeAhead checkbox
     When I uncheck typeAhead checkbox
@@ -26,21 +26,21 @@ Feature: Select component
   @positive
   Scenario: Enable typeAhead for Select component
     When I check typeAhead checkbox
-    Then Select typeAhead is enabled 
-  
+    Then Select typeAhead is enabled
+
   @positive
   Scenario Outline: Set Select label to <label>
     When I set label to "<label>"
     Then label is set to "<label>"
     Examples:
-      | label                    |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
-  
+      | label                   |
+      | Sample text             |
+      | 1234567890              |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+      | <>                      |
+
   @positive
   Scenario: Disable Select
     When I check disabled checkbox
@@ -68,13 +68,13 @@ Feature: Select component
     When I set placeholder to "<placeholder>"
     Then Select placeholder on preview is set to "<placeholder>"
     Examples:
-      | placeholder              |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | placeholder             |
+      | Sample text             |
+      | 1234567890              |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+      | <>                      |
 
   @ignore
   # ignored because this functionality works only for modern theme
@@ -87,7 +87,7 @@ Feature: Select component
       | medium |
       | large  |
 
- @positive
+  @positive
   Scenario Outline: Verify the inner context of Select component typing <text> and getting <result>
     When Type "<text>" text into input and select the value
     Then Select input has "<result>" value
@@ -97,7 +97,7 @@ Feature: Select component
       | Bla  | Black  |
       | Gre  | Green  |
 
- @positive
+  @positive
   Scenario: Check the change function call for Select component
     Given clear all actions in Actions Tab
     When Type "Black" text into input and select the value

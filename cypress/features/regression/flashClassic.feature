@@ -1,7 +1,7 @@
 Feature: Flash component
   I want to change Flash component properties
 
-  Background: Open Flash component component page
+  Background: Open Flash component page classic
     Given I open "Flash" component page classic
 
   @positive

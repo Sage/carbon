@@ -1,4 +1,5 @@
 import { animatedMenuButtonPreview, animatedMenuButtonLabel } from '../../locators/animated-menu-button';
+import { DEBUG_FLAG } from '..';
 
 const CLASS_PREFIX = 'carbon-animated-menu-button--';
 
@@ -11,7 +12,7 @@ Then('Animated Menu Button label on preview is {string}', (text) => {
 });
 
 Then('Animated Menu Button direction on preview is {string}', (direction) => {
-  cy.wait(300); // required because of storybook slow detach attach
+  cy.wait(300, { log: DEBUG_FLAG }); // required because of storybook slow detach attach
   animatedMenuButtonPreview().should('have.class', CLASS_PREFIX + direction);
 });
 

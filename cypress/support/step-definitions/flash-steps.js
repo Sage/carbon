@@ -1,11 +1,9 @@
 import { flashPreview, messagePreview } from '../../locators/flash';
-import { getDataElementByValue, icon } from '../../locators';
-
-const FLASH_PREFIX = 'icon-';
+import { getDataElementByValue } from '../../locators';
+import { DEBUG_FLAG } from '..';
 
 Then('Flash as is set to {string} and icon is set to {string}', (as, iconValue) => {
   flashPreview().should('exist');
-  icon().should('have.class', `${FLASH_PREFIX}${iconValue}`);
   getDataElementByValue(iconValue).should('exist');
 });
 
@@ -14,7 +12,7 @@ Then('Flash message is set to {string}', (message) => {
 });
 
 When('I wait {int}', (timeout) => {
-  cy.wait(timeout);
+  cy.wait(timeout, { log: DEBUG_FLAG });
 });
 
 Then('Flash is not visible', () => {

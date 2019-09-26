@@ -1,9 +1,8 @@
 Feature: Textbox component
   I want to change Textbox component properties
 
-# Added Experimental untill the component will be merged with master
   Background: Open Textbox component page
-    Given I open "Experimental Textbox" component page
+    Given I open "Experimental Textbox" component page classic
 
   @positive
   Scenario Outline: Set placeholder to <placeholder>
