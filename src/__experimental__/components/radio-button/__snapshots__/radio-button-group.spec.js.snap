@@ -257,13 +257,11 @@ exports[`RadioButtonGroup renders as expected 1`] = `
       className="c5"
       data-component="radio-button"
       name="radio-name-test-1"
-      onBlur={[Function]}
     >
       <div
         checked={false}
         className="c6"
         name="radio-name-test-1"
-        onBlur={[Function]}
       >
         <div
           className="c1 c2"
@@ -279,7 +277,6 @@ exports[`RadioButtonGroup renders as expected 1`] = `
               className="c9 c10"
               id="rId-0"
               name="radio-name-test-1"
-              onBlur={[Function]}
               onChange={[Function]}
               role="radio"
               tabIndex={0}
@@ -317,13 +314,11 @@ exports[`RadioButtonGroup renders as expected 1`] = `
       className="c5"
       data-component="radio-button"
       name="radio-name-test-2"
-      onBlur={[Function]}
     >
       <div
         checked={false}
         className="c6"
         name="radio-name-test-2"
-        onBlur={[Function]}
       >
         <div
           className="c1 c2"
@@ -339,7 +334,6 @@ exports[`RadioButtonGroup renders as expected 1`] = `
               className="c9 c10"
               id="rId-1"
               name="radio-name-test-2"
-              onBlur={[Function]}
               onChange={[Function]}
               role="radio"
               tabIndex={-1}

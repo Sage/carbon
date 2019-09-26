@@ -909,12 +909,10 @@ exports[`RadioButton styles base renders as expected 1`] = `
   className="c0"
   data-component="radio-button"
   name="my-radio"
-  onBlur={[Function]}
 >
   <div
     className="c1"
     name="my-radio"
-    onBlur={[Function]}
   >
     <div
       className="c2 c3"
@@ -928,7 +926,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
           className="c6 c7"
           id="guid-12345"
           name="my-radio"
-          onBlur={[Function]}
           onChange={[Function]}
           role="radio"
           tabIndex={-1}
