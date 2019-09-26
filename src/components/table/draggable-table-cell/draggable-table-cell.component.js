@@ -7,7 +7,6 @@ import StyledDraggableTableCell from './draggable-table-cell.style';
 const iconHTML = (
   <div>
     <Icon
-      className='draggable-table-cell__icon'
       type='drag_vertical'
     />
   </div>
