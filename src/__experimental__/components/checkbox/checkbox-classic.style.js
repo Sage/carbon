@@ -5,7 +5,6 @@ import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input
 import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
 import LabelStyle from '../label/label.style';
 import StyledHelp from '../../../components/help/help.style';
-import StyledIcon from '../../../components/icon/icon.style';
 import { isClassic } from '../../../utils/helpers/style-helper';
 
 export default ({
@@ -36,10 +35,6 @@ export default ({
     &, &:hover, &:focus {
       color: #8099a4;
     }
-  }
-
-  ${LabelStyle} ${StyledIcon}::before {
-    content: '\\E943';
   }
 
   ${LabelStyle} {
