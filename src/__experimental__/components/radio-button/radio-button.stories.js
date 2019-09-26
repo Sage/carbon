@@ -35,7 +35,27 @@ const groupedKnobs = (type, themeName) => {
     value: text(`${type} value`, type, type),
     disabled: boolean(`${type} disabled`, false, type),
     reverse: boolean(`${type} reverse`, false, type),
-    size: themeName !== 'classic' ? select('size', OptionsHelper.sizesBinary, 'small', type) : undefined
+    size: themeName !== 'classic' ? select(`${type} size`, OptionsHelper.sizesBinary, 'small', type) : undefined,
+    fieldHelp: text(`${type} fieldHelp`, 'This text provides help for the input.', type),
+    fieldHelpInline: boolean(`${type} fieldHelpInline`, false, type),
+    inputWidth: number(`${type} inputWidth`, 0, {
+      range: true,
+      min: 0,
+      max: 100,
+      step: 1
+    }, type),
+    labelWidth: number(`${type} labelWidth`, 0, {
+      range: true,
+      min: 0,
+      max: 100,
+      step: 1
+    }, type),
+    labelAlign: select(
+      `${type} labelAlign`,
+      OptionsHelper.alignBinary,
+      OptionsHelper.alignBinary[0],
+      type
+    )
   };
 };
 
@@ -58,7 +78,6 @@ const radioComponent = themeName => () => {
         { ...groupedKnobs('weekly', themeName) }
       />
       <RadioButton
-        id='input-2'
         name='input-2'
         { ...knobs }
         { ...groupedKnobs('monthly', themeName) }
@@ -66,7 +85,6 @@ const radioComponent = themeName => () => {
       <RadioButton
         // id prop intentionally left off here, to demonstrate automatic GUID generation
         name='input-2'
-        key='Radio Three'
         { ...knobs }
         { ...groupedKnobs('yearly', themeName) }
       />
@@ -116,9 +134,7 @@ const radioComponentWithValidation = themeName => () => {
             { ...defaultKnobs(themeName) }
             id={ `id-${vType}` }
             name={ vType }
-            label={ `Example Radion Button (${vType})` }
             onChange={ handleGroupChange }
-            labelHelp=''
           />
         ))}
       </RadioButtonGroup>
@@ -148,25 +164,6 @@ function handleGroupChange(event) {
 function defaultKnobs(themeName) {
   return ({
     error: themeName === 'classic' ? boolean('error', false) : undefined,
-    fieldHelp: text('fieldHelp', 'This text provides help for the input.'),
-    fieldHelpInline: boolean('fieldHelpInline', false),
-    inputWidth: number('inputWidth', 0, {
-      range: true,
-      min: 0,
-      max: 100,
-      step: 1
-    }),
-    labelWidth: number('labelWidth', 0, {
-      range: true,
-      min: 0,
-      max: 100,
-      step: 1
-    }),
-    labelAlign: select(
-      'labelAlign',
-      OptionsHelper.alignBinary,
-      OptionsHelper.alignBinary[0]
-    ),
     onChange: handleChange
   });
 }
