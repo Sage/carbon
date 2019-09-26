@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { UndecoratedCustomDragLayer, collect } from './custom-drag-layer';
-import { StyledDragContainer } from './custom-drag-layer.style';
+import StyledDragContainer from './custom-drag-layer.style';
 import CustomDragLayer from './custom-drag-layer';
 import DraggableContext from './../draggable-context';
 import Browser from './../../../utils/helpers/browser';
