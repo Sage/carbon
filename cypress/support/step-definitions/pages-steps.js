@@ -22,7 +22,7 @@ Then('I go back', () => {
   cy.wait(1000, { log: DEBUG_FLAG }); // wait was added due to changing animation
 });
 
-Then('other pages but {word} Page are not visible', (word) => {
+Then('other pages except {word} Page are not visible', (word) => {
   switch (word) {
     case 'First':
       title().should('not.have.text', 'My Second Page');

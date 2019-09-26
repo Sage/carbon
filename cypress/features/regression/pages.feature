@@ -34,7 +34,7 @@ Feature: Pages component
     When I open component preview
       And I go to second page
     Then My Second Page is visible
-      And other pages but Second Page are not visible
+      And other pages except Second Page are not visible
 
   @positive
   Scenario: Go to third page
@@ -42,7 +42,7 @@ Feature: Pages component
       And I go to second page
       And I go to third page
     Then My Third Page is visible
-      And other pages but Third Page are not visible
+      And other pages except Third Page are not visible
 
   @positive
   Scenario: Go back from second page to first page
@@ -52,7 +52,7 @@ Feature: Pages component
       And I wait 500
     When I go back
     Then My First Page is visible
-      And other pages but First Page are not visible
+      And other pages except First Page are not visible
 
   @positive
   Scenario: Go back from third page to first page
@@ -62,5 +62,5 @@ Feature: Pages component
       And I wait 500
     When I go back
     Then My First Page is visible
-      And other pages but First Page are not visible
+      And other pages except First Page are not visible
 
