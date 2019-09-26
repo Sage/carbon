@@ -24,12 +24,16 @@ exports[`ValidationIcon renders with an icon with classic styling 1`] = `
   color: #C7384F;
 }
 
-.c0:focus {
-  outline: none;
+.c0 .c1:focus {
+  outline: 2px solid #FFB500;
 }
 
 .c0 .c1:before {
   font-size: 20px;
+}
+
+.c0 .c1:focus {
+  outline: none;
 }
 
 <div
