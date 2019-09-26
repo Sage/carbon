@@ -33,16 +33,20 @@ Feature: Pages component
   @positive
   Scenario: Open and close third page
     When I open component preview
+      And I go to second page
       And I go to third page
       And I close page
     Then My First Page is not visible
+      And My Second Page is not visible
       And My Third Page is not visible
 
   @positive
   Scenario: Go back to first page
     When I open component preview
+      And I go to second page
       And I go to third page
     Then My Third Page is visible
+      And I go to second page
       And I go to first page
       And My First Page is visible
 

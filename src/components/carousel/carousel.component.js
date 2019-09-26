@@ -45,18 +45,10 @@ class Carousel extends React.Component {
   }
 
   state = {
-    selectedSlideIndex: null, // Currently selected slide
+    // Currently selected slide
+    selectedSlideIndex: Number(this.props.slideIndex) || Number(this.props.initialSlideIndex),
     disabled: false // Next/Previous buttons disabled state
   };
-
-  /**
-   * A lifecycle method that is called after before initial render.
-   * Can set up state of component without causing a re-render
-   */
-  componentWillMount() {
-    const selectedIndex = Number(this.props.slideIndex) || Number(this.props.initialSlideIndex);
-    this.setState({ selectedSlideIndex: selectedIndex });
-  }
 
   /** A lifecycle method that is called before re-render. */
   componentDidUpdate(prevProps) {
