@@ -105,6 +105,4 @@ Switch.defaultProps = {
   helpTabIndex: 0
 };
 
-export { Switch as OriginalSwitch };
-
 export default withValidation(Switch);

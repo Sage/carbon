@@ -1,1 +1,1 @@
-export { default, OriginalSwitch } from './switch.component';
+export { default } from './switch.component';
