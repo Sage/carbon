@@ -68,24 +68,25 @@ const switchComponent = () => switchWrapper({
 });
 
 const validationGroupedKnobs = (type, themeName) => {
+  const group = `${type} switch`;
   return {
     key: type,
-    label: text(`${type}LabelProp`, `Accept ${type}`, `${type} switch`),
-    disabled: boolean(`${type}DisabledProp`, false, `${type} switch`),
+    label: text(`${type} label`, `Accept ${type}`, group),
+    labelHelp: text(`${type} labelHelp`, `Switch off and on ${type} component.`, group),
+    disabled: boolean(`${type} disabled`, false, group),
     size: (
       themeName !== 'classic' ? select(
-        `${type}SizeProp`, OptionsHelper.sizesBinary, 'small', `${type} switch`
+        `${type} size`, OptionsHelper.sizesBinary, 'small', group
       ) : undefined
     ),
-    fieldHelp: text(`${type}FieldHelpProp`, 'This text provides help for the input', `${type} switch`),
-    fieldHelpInline: boolean(`${type}FieldHelpInlineProp`, false, `${type} switch`)
+    fieldHelp: text(`${type} fieldHelp`, 'This text provides help for the input', group),
+    fieldHelpInline: boolean(`${type} fieldHelpInline`, false, group)
   };
 };
 
 const validationKnobs = (type, themeName) => {
   return {
     ...validationGroupedKnobs(type, themeName),
-    labelHelp: text('labelHelp', 'Switch off and on this component.'),
     labelInline: boolean('labelInline', Switch.defaultProps.labelInline),
     loading: boolean('loading', false),
     inputWidth: number('inputWidth', 0, {
@@ -148,7 +149,6 @@ function commonKnobs() {
     fieldHelp: text('fieldHelp', 'This text provides help for the input.'),
     fieldHelpInline: boolean('fieldHelpInline', false),
     label: text('label', 'Switch on this component?'),
-    labelHelp: text('labelHelp', 'Switch off and on this component.'),
     labelInline: boolean('labelInline', Switch.defaultProps.labelInline),
     loading: boolean('loading', false),
     inputWidth: number('inputWidth', 0, {
