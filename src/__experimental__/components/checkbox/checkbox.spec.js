@@ -283,12 +283,6 @@ describe('Checkbox', () => {
         }, wrapper, { modifier: css`${FieldHelpStyle}` });
       });
 
-      it('applies appropriate Icon styles', () => {
-        assertStyleMatch({
-          content: "'\\E943'"
-        }, wrapper, { modifier: css`${`${LabelStyle} ${StyledIcon}::before`}` });
-      });
-
       it('applies appropriate Label styles', () => {
         assertStyleMatch({
           paddingLeft: '6px',
