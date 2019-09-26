@@ -118,21 +118,11 @@ const validationKnobs = (type, themeName) => {
   };
 };
 
-const switchComponentDLSValidation = () => {
+const switchComponentValidation = themeName => () => {
   return (
   <>
     {validationTypes.map(type => switchWrapper({
-      ...validationKnobs(type)
-    }))}
-  </>
-  );
-};
-
-const switchComponentClassicValidation = () => {
-  return (
-  <>
-    {validationTypes.map(type => switchWrapper({
-      ...validationKnobs(type, 'classic')
+      ...validationKnobs(type, themeName)
     }))}
   </>
   );
@@ -141,8 +131,8 @@ const switchComponentClassicValidation = () => {
 storiesOf('Experimental/Switch', module)
   .add(...makeStory('default', dlsThemeSelector, switchComponent))
   .add(...makeStory('classic', classicThemeSelector, switchClassic))
-  .add(...makeStory('validations', dlsThemeSelector, switchComponentDLSValidation))
-  .add(...makeStory('validations classic', classicThemeSelector, switchComponentClassicValidation));
+  .add(...makeStory('validations', dlsThemeSelector, switchComponentValidation()))
+  .add(...makeStory('validations classic', classicThemeSelector, switchComponentValidation('classic')));
 
 function handleChange(store = formStore) {
   return function (ev) {
