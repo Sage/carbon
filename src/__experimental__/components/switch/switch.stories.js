@@ -80,33 +80,34 @@ const validationGroupedKnobs = (type, themeName) => {
       ) : undefined
     ),
     fieldHelp: text(`${type} fieldHelp`, 'This text provides help for the input', group),
-    fieldHelpInline: boolean(`${type} fieldHelpInline`, false, group)
+    fieldHelpInline: boolean(`${type} fieldHelpInline`, false, group),
+    labelInline: boolean(`${type} labelInline`, Switch.defaultProps.labelInline, group),
+    loading: boolean(`${type} loading`, false, group),
+    inputWidth: number(`${type} inputWidth`, 0, {
+      range: true,
+      min: 0,
+      max: 100,
+      step: 1
+    }, group),
+    labelWidth: number(`${type} labelWidth`, 0, {
+      range: true,
+      min: 0,
+      max: 100,
+      step: 1
+    }, group),
+    labelAlign: select(
+      `${type} labelAlign`,
+      OptionsHelper.alignBinary,
+      OptionsHelper.alignBinary[0],
+      group
+    ),
+    reverse: boolean(`${type} reverse`, Switch.defaultProps.reverse, group)
   };
 };
 
 const validationKnobs = (type, themeName) => {
   return {
     ...validationGroupedKnobs(type, themeName),
-    labelInline: boolean('labelInline', Switch.defaultProps.labelInline),
-    loading: boolean('loading', false),
-    inputWidth: number('inputWidth', 0, {
-      range: true,
-      min: 0,
-      max: 100,
-      step: 1
-    }),
-    labelWidth: number('labelWidth', 0, {
-      range: true,
-      min: 0,
-      max: 100,
-      step: 1
-    }),
-    labelAlign: select(
-      'labelAlign',
-      OptionsHelper.alignBinary,
-      OptionsHelper.alignBinary[0]
-    ),
-    reverse: boolean('reverse', Switch.defaultProps.reverse),
     name: `switch-${type}`,
     value: type,
     store: stores[type],
