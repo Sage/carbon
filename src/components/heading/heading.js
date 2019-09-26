@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Help from '../help';
 import Link from '../link';
-import Icon from '../icon';
 import tagComponent from '../../utils/helpers/tags';
 import './heading.scss';
+import { StyledHeading, StyledHeadingIcon } from './heading.style';
 
 class Heading extends React.Component {
   static propTypes = {
@@ -120,11 +120,13 @@ class Heading extends React.Component {
 
     return (
       <Link
+        // this event allows an element to be focusable on click event on IE
+        onMouseDown={ e => e.currentTarget.focus() }
         className='carbon-heading__back'
         data-element='back'
         { ...props }
       >
-        <Icon type='chevron_left' />
+        <StyledHeadingIcon type='chevron_left' />
       </Link>
     );
   }
@@ -180,7 +182,7 @@ class Heading extends React.Component {
     if (!this.props.title) { return null; }
 
     return (
-      <div className={ this.classes } { ...tagComponent('heading', this.props) }>
+      <StyledHeading className={ this.classes } { ...tagComponent('heading', this.props) }>
         <div className='carbon-heading__header'>
           { this.back }
 
@@ -202,7 +204,7 @@ class Heading extends React.Component {
         </div>
 
         { this.props.children }
-      </div>
+      </StyledHeading>
     );
   }
 }
