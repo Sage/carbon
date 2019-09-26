@@ -1,8 +1,8 @@
 Feature: Fieldset component
   I want to change Fieldset component properties
 
-  Background: Open Fieldset component page
-    Given I open "Fieldset" component page
+  Background: Open deprecated Fieldset component page
+    Given I open deprecated "Fieldset" component page
 
   @positive
   Scenario Outline: Change legend in Fieldset to <legend>

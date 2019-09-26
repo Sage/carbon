@@ -1,8 +1,8 @@
 Feature: Checkbox component
   I want to change Checkbox, reverse, fieldHelpInline, label, help label, input width, field help, labelInline, labelWidth, labelAlign properties
 
-  Background: Open Checkbox component page
-    Given I open "Checkbox" component page
+  Background: Open deprecated Checkbox component page
+    Given I open deprecated "Checkbox" component page
 
   @positive
   Scenario: Enable reverse checkbox
@@ -31,14 +31,14 @@ Feature: Checkbox component
     When I set label to "<label>"
     Then label on preview is "<label>"
     Examples:
-      | label                    |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      # @ignore because of FE-1447
-      # | <>                       |
+      | label                   |
+      | Sample text             |
+      | 1234567890              |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario Outline: Change Checkbox component label help to <labelHelp>
@@ -46,14 +46,14 @@ Feature: Checkbox component
       And I hover mouse onto help icon
     Then tooltipPreview on preview is set to "<labelHelp>"
     Examples:
-      | labelHelp                |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      # @ignore because of FE-1447
-      # | <>                       |
+      | labelHelp               |
+      | Sample text             |
+      | 1234567890              |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario Outline: Change Checkbox input width to <width>
@@ -81,14 +81,14 @@ Feature: Checkbox component
     When I set fieldHelp to "<fieldHelp>"
     Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
-      | fieldHelp                |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      # @ignore because of FE-1447
-      # | <>                       |
+      | fieldHelp               |
+      | Sample text             |
+      | 1234567890              |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario: Enable label inline checkbox

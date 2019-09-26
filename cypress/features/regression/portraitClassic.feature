@@ -1,10 +1,11 @@
+# This feature require separate task for update
 Feature: Portrait component
   I want to test Portrait component
 
-  Background: Open Portrait component page
+  Background: Open Portrait component page classic
     Given I open "Portrait" component page classic
 
-  @positive
+  @ignore @positive
   Scenario Outline: Change Portrait alt to <alt>
     When I set alt to "<alt>"
     Then Portrait alt on preview is set to "<alt>"
@@ -18,29 +19,29 @@ Feature: Portrait component
       # @ignore because of FE-1447
       # | <>                       |
 
-  @positive
+  @ignore @positive
   Scenario: Enable darkBackground checkbox for a Portrait component
     When I check darkBackground checkbox
     Then Portrait initials value is set to "AZ_DARK"
 
-  @positive
+  @ignore @positive
   Scenario: Enable and disable darkBackground checkbox for a Portrait component
     When I check darkBackground checkbox
       And I uncheck darkBackground checkbox
     Then Portrait initials value is set to "AZ"
 
-  @positive
+  @ignore @positive
   Scenario: Set Portrait source to src
     When I select source to "src"
     Then Portrait source is set to "src"
 
-  @positive
+  @ignore @positive
   Scenario: Set Portrait source to gravatar
     When I select source to "gravatar"
       And I set gravatar to "ABC"
     Then Portrait source is set to "https://www.gravatar.com/avatar/900150983cd24fb0d6963f7d28e17f72?s=60&d=blank"
 
-  @positive
+  @ignore @positive
   Scenario Outline: Set Portrait src to <source>
     When I select source to "src"
       And I set src to "<source>"
@@ -55,7 +56,7 @@ Feature: Portrait component
       # @ignore because of FE-1447
       # | <>                       |
 
-  @positive
+  @ignore @positive
   Scenario Outline: Change Portrait initials to <initials>
     When I set initials to "<initials>"
     Then Portrait initials value is set to "<initials>"
@@ -65,7 +66,7 @@ Feature: Portrait component
       | BC       |
       | DEF      |
 
-  @positive
+  @ignore @positive
   Scenario Outline: Set Portrait gravatar to <gravatar>
     When I select source to "gravatar"
       And I set gravatar to "<gravatar>"
@@ -76,7 +77,7 @@ Feature: Portrait component
       | BC       | https://www.gravatar.com/avatar/5360af35bde9ebd8f01f492dc059593c?s=60&d=blank |
       | DEF      | https://www.gravatar.com/avatar/4ed9407630eb1000c0f6b63842defa7d?s=60&d=blank |
 
-  @positive
+  @ignore @positive
   Scenario Outline: Set Portrait shape to <shape>
     When I select shape to "<shape>"
     Then Portrait shape value is set to "<shape>"
@@ -86,7 +87,7 @@ Feature: Portrait component
       | circle   |
       | leaf     |
 
-  @positive
+  @ignore @positive
   Scenario Outline: Set Portrait size to <size>
     When I select size to "<size>"
     Then Portrait size has "<sizeInPx>"

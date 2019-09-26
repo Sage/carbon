@@ -1,8 +1,8 @@
 Feature: Switch component
   I want to change Switch properties
 
-  Background: Open Switch component page
-    Given I open "Switch" component page
+  Background: Open deprecated Switch component page
+    Given I open deprecated "Switch" component page
 
   @positive
   Scenario Outline: Change Switch component field help to <fieldHelp>
