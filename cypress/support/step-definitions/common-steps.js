@@ -7,6 +7,7 @@ import {
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
+import { DEBUG_FLAG } from '..';
 
 const LABEL_INPUT_INLINE_CLASS = 'common-input__label--inline';
 
@@ -119,7 +120,7 @@ When('I hover mouse onto help icon', () => {
 });
 
 When('I hover mouse onto icon', () => {
-  cy.wait(100); // required becasue element might be reloaded
+  cy.wait(100, { log: DEBUG_FLAG }); // required becasue element might be reloaded
   icon().trigger('mouseover');
 });
 

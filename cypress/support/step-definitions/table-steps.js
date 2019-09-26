@@ -1,6 +1,7 @@
 import {
   rows, checkboxCell, rowByNumber, caption, tableHeader,
 } from '../../locators/table';
+import { DEBUG_FLAG } from '..';
 
 const CLICKABLE = 'carbon-table-row--clickable';
 const HIGHLIGHTED = 'carbon-table-row--highlighted';
@@ -22,12 +23,12 @@ When('I click row by number {int}', (rowNumber) => {
 });
 
 When('row number {int} is clickable', (rowNumber) => {
-  cy.wait(500); // required because we wait for class change inside iFrame
+  cy.wait(500, { log: DEBUG_FLAG }); // required because we wait for class change inside iFrame
   rowByNumber(rowNumber).should('have.class', CLICKABLE);
 });
 
 When('row number {int} is not clickable', (rowNumber) => {
-  cy.wait(500); // required because we wait for class change inside iFrame
+  cy.wait(500, { log: DEBUG_FLAG }); // required because we wait for class change inside iFrame
   rowByNumber(rowNumber).should('not.have.class', CLICKABLE);
 });
 
