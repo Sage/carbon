@@ -93,6 +93,4 @@ RadioButtonGroup.defaultProps = {
   hasInfo: false
 };
 
-export { RadioButtonGroup as OriginalRadioButtonGroup };
-
 export default withValidation(RadioButtonGroup);

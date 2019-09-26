@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { AlignBinaryType, SizesType } from '../../../utils/helpers/options-helper/options-helper';
-import { WithValidationProps } from '../../../components/validations/with-validation';
 
 export interface RadioButtonProps {
   checked?: boolean;
@@ -19,8 +18,6 @@ export interface RadioButtonProps {
   value: string
 }
 
-declare const OriginalRadioButton: React.FunctionComponent<RadioButtonProps>;
+declare const RadioButton: React.FunctionComponent<RadioButtonProps>;
 
-declare const RadioButton: React.ComponentClass<WithValidationProps & RadioButtonProps>;
-
-export { RadioButton as default, OriginalRadioButton };
+export { RadioButton as default };
