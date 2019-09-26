@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
+import { select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
+import DefaultPages from './pages.component';
+import Page from './page/page.component';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
-import { Pages, Page } from './pages';
 import DialogFullScreen from '../dialog-full-screen';
 import Heading from '../heading/heading';
-import Button from '../button';
+import { OriginalButton } from '../button/button.component';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 import docgenInfo from './docgenInfo.json';
 
@@ -16,19 +18,57 @@ Page.__docgenInfo = getDocGenInfo(
   /page\.js(?!spec)/
 );
 
-Pages.__docgenInfo = getDocGenInfo(
+DefaultPages.__docgenInfo = getDocGenInfo(
   docgenInfo,
   /pages(?!spec)/
 );
 
 const store = new Store({
   open: false,
-  slideIndex: 0
+  pageIndex: 0,
+  pageHistory: [],
+  previouspageHistoryPointer: 0,
+  isDisabled: false,
+  transitionTime: 600
 });
 
-const handleSlide = (ev, pageIndex) => {
-  action('slide')(ev);
-  store.set({ slideIndex: (pageIndex || 0) });
+const handleSlide = (_, pageIndex) => {
+  action('slide')(`Page index: ${pageIndex}`);
+
+  if (store.get('isDisabled')) return store.get('previouspageHistoryPointer');
+
+  const newpageHistory = [...store.get('pageHistory'), pageIndex];
+
+  store.set({
+    isDisabled: true,
+    pageHistory: newpageHistory,
+    pageIndex: (pageIndex || 0),
+    previouspageHistoryPointer: newpageHistory.length - 1
+  });
+
+  setTimeout(() => {
+    store.set({ isDisabled: false });
+  }, store.get('transitionTime'));
+
+  return pageIndex;
+};
+
+const handlePreviousSlide = (ev) => {
+  ev.preventDefault();
+  if (store.get('isDisabled')) return;
+  const previouHistoryPointer = store.get('previouspageHistoryPointer');
+  const pointer = (previouHistoryPointer - 1) > 0 ? (previouHistoryPointer - 1) : 0;
+
+  store.set({
+    isDisabled: true,
+    pageHistory: store.get('pageHistory').slice(0, -1),
+    pageIndex: (store.get('pageHistory')[pointer] || 0),
+    previouspageHistoryPointer: pointer
+  });
+
+  setTimeout(() => {
+    store.set({ isDisabled: false });
+  }, store.get('transitionTime'));
 };
 
 const handleOpen = () => {
@@ -38,7 +78,11 @@ const handleOpen = () => {
 
 const handleCancel = () => {
   action('cancel')();
-  store.set({ open: false });
+  store.set({
+    pageIndex: 0,
+    open: false,
+    pageHistory: [0]
+  });
 };
 
 const CustomState = (props) => {
@@ -55,33 +99,36 @@ CustomState.propTypes = {
 
 const DialogState = props => new CustomState(props);
 const PageState = props => new CustomState(props);
+const indexConfig = [0, 1, 2];
+const pageIndex = () => select('pageIndex', indexConfig, indexConfig[0]);
 
 function makeStory(name, themeSelector) {
   const component = () => {
     return (
       <div>
-        <Button onClick={ handleOpen }>Open Preview</Button>
+        <OriginalButton onClick={ handleOpen }>Open Preview</OriginalButton>
         <DialogState>
           <DialogFullScreen
             open={ store.get('open') }
             onCancel={ handleCancel }
           >
             <PageState>
-              <Pages
-                slideIndex={ store.get('slideIndex') }
+              <DefaultPages
+                pageIndex={ handleSlide(null, pageIndex()) }
               >
                 <Page title={ <Heading title='My First Page' /> }>
-                  <Button onClick={ (ev) => { handleSlide(ev, 1); } }>
-                    Go to next page.
-                  </Button>
+                  <OriginalButton onClick={ (ev) => { handleSlide(ev, 1); } }>
+                    Go to second page
+                  </OriginalButton>
                 </Page>
 
-                <Page title={ <Heading title='My Second Page' backLink={ (ev) => { handleSlide(ev, 0); } } /> }>
-                  <Button onClick={ (ev) => { handleSlide(ev, 0); } }>
-                    Go to previous page.
-                  </Button>
+                <Page title={ <Heading title='My Second Page' backLink={ handlePreviousSlide } /> }>
+                  <OriginalButton onClick={ (ev) => { handleSlide(ev, 2); } }>
+                    Go to third page
+                  </OriginalButton>
                 </Page>
-              </Pages>
+                <Page title={ <Heading title='My Third Page' backLink={ handlePreviousSlide } /> } />
+              </DefaultPages>
             </PageState>
           </DialogFullScreen>
         </DialogState>
@@ -93,7 +140,7 @@ function makeStory(name, themeSelector) {
     themeSelector,
     info: {
       text: <p>Allows to slide to different pages in a full screen dialog.</p>,
-      propTablesExclude: [Button, DialogFullScreen, DialogState, PageState, State]
+      propTablesExclude: [OriginalButton, DialogFullScreen, DialogState, PageState, DefaultPages, Page, State]
     }
   };
 

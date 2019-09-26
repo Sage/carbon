@@ -13,6 +13,7 @@ Then('My {word} Page is not visible', () => {
 });
 
 When('I go to {word} page', (word) => {
+  cy.wait(500);
   dataComponentButtonByText(`Go to ${word} page`).click();
 });
 
