@@ -6,6 +6,7 @@ import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-s
 import LabelStyle from '../label/label.style';
 import StyledHelp from '../../../components/help/help.style';
 import { isClassic } from '../../../utils/helpers/style-helper';
+import StyledIcon from '../../../components/icon/icon.style';
 
 export default ({
   checked, disabled, fieldHelpInline, reverse, theme
@@ -35,6 +36,10 @@ export default ({
     &, &:hover, &:focus {
       color: #8099a4;
     }
+  }
+
+  ${LabelStyle} ${StyledIcon}::before {
+    font-size: 16px;
   }
 
   ${LabelStyle} {
