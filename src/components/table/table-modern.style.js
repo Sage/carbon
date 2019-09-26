@@ -45,10 +45,8 @@ function applyModernTableStyling({
           background-color: ${table.primary};
         }
       `}
-      &:not(.carbon-table-row--passive) {
-        &:hover ${StyledTableCell} {
-          background-color: ${table.primary};
-        }
+      &:hover ${StyledTableCell} {
+        background-color: ${table.primary};
       }
     }
     ${type !== 'primary' && additionalThemeStyling(type, theme)}
