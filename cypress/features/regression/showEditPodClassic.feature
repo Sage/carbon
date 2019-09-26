@@ -134,7 +134,7 @@ Feature: Show Edit Pod component
   Scenario Outline: Set Show Edit Pod buttonAlign to <buttonAlign>
     When I select buttonAlign to "<buttonAlign>"
       And I edit Show Edit Pod component
-    Then Show Edit Pod buttons are aligned <buttonAlign>
+    Then Show Edit Pod buttons are aligned to <buttonAlign>
     Examples:
       | buttonAlign |
       | right       |

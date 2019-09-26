@@ -16,4 +16,4 @@ export const showEditPodSecondaryBlock = () => cy.iFrame(SHOW_EDIT_POD_SECONDARY
 export const showEditPodSecondaryWrapper = () => cy.iFrame(SHOW_EDIT_POD_SECONDARY_WRAPPER);
 export const showEditPodCollapsibleInnerContent = (index, element) => cy.iFrame(SHOW_EDIT_POD_COLLAPSIBLE_CONTENT)
   .find(`div:nth-child(${index})`).find(`[data-element=${element}]`);
-export const showEditPodFooter = () => cy.iFrame(SHOW_EDIT_POD_FOOTER);
+export const showEditPodFooter = () => cy.iFrame(SHOW_EDIT_POD_FOOTER).children();
