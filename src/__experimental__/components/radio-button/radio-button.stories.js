@@ -35,7 +35,7 @@ const groupedKnobs = (type, themeName) => {
     value: text(`${type} value`, type, type),
     disabled: boolean(`${type} disabled`, false, type),
     reverse: boolean(`${type} reverse`, false, type),
-    size: themeName !== 'classic' ? select(`${type} size`, OptionsHelper.sizesBinary, 'small', type) : undefined,
+    size: themeName === 'classic' ? undefined : select(`${type} size`, OptionsHelper.sizesBinary, 'small', type),
     fieldHelp: text(`${type} fieldHelp`, 'This text provides help for the input.', type),
     fieldHelpInline: boolean(`${type} fieldHelpInline`, false, type),
     inputWidth: number(`${type} inputWidth`, 0, {
