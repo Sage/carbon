@@ -5,7 +5,6 @@ import { RadioButtonStyle } from './radio-button.style';
 import CheckableInput from '../checkable-input/checkable-input.component';
 import RadioButtonSvg from './radio-button-svg.component';
 import OptionsHelper from '../../../utils/helpers/options-helper';
-import withValidation from '../../../components/validations/with-validation.hoc';
 
 function setTabIndex({ tabindex, checked }) {
   let tabindexOverride;
@@ -115,6 +114,4 @@ RadioButton.defaultProps = {
   reverse: false
 };
 
-export { RadioButton as OriginalRadioButton };
-
-export default withValidation(RadioButton);
+export default RadioButton;

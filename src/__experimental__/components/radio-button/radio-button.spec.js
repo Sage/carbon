@@ -3,7 +3,7 @@ import TestRenderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import 'jest-styled-components';
 import { css } from 'styled-components';
-import { RadioButton, OriginalRadioButton } from '.';
+import { RadioButton } from '.';
 import FieldHelpStyle from '../field-help/field-help.style';
 import LabelStyle from '../label/label.style';
 import CheckableInput from '../checkable-input/checkable-input.component';
@@ -74,7 +74,7 @@ describe('RadioButton', () => {
 
   describe('default props', () => {
     it('onChange', () => {
-      const handleChange = OriginalRadioButton.defaultProps.onChange;
+      const handleChange = RadioButton.defaultProps.onChange;
 
       expect(handleChange()).toBeUndefined();
     });
