@@ -1,5 +1,4 @@
 import React from 'react';
-// import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
@@ -13,8 +12,6 @@ Button.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
   /button\.component(?!spec)/
 );
-
-// const StyledComponent = styled('div')``.render().type;
 
 const getIconKnobs = () => {
   const defaultPosition = Button.defaultProps.iconPosition;
@@ -58,11 +55,7 @@ function makeStory(name, themeSelector, isClassic, infotext) {
     const props = getKnobs(isClassic);
     const { children } = props; // eslint-disable-line react/prop-types
     return (
-      <Button
-        { ...props }
-      >
-        { children }
-      </Button>
+      <Button { ...props }>{ children }</Button>
     );
   };
 
@@ -84,17 +77,8 @@ function makeSiblingStory(name, themeSelector, isClassic) {
     const { children } = props; // eslint-disable-line react/prop-types
     return (
       <div>
-        <Button
-          { ...props }
-        >
-          { children }
-        </Button>
-
-        <Button
-          { ...props }
-        >
-          { children }
-        </Button>
+        <Button { ...props }>{ children }</Button>
+        <Button { ...props }>{ children }</Button>
       </div>
     );
   };
