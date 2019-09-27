@@ -9,7 +9,7 @@ import Page from './page/page.component';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import DialogFullScreen from '../dialog-full-screen';
 import Heading from '../heading/heading';
-import { OriginalButton } from '../button/button.component';
+import Button from '../button';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 import docgenInfo from './docgenInfo.json';
 
@@ -106,7 +106,7 @@ function makeStory(name, themeSelector) {
   const component = () => {
     return (
       <div>
-        <OriginalButton onClick={ handleOpen }>Open Preview</OriginalButton>
+        <Button onClick={ handleOpen }>Open Preview</Button>
         <DialogState>
           <DialogFullScreen
             open={ store.get('open') }
@@ -117,15 +117,15 @@ function makeStory(name, themeSelector) {
                 pageIndex={ handleSlide(null, pageIndex()) }
               >
                 <Page title={ <Heading title='My First Page' /> }>
-                  <OriginalButton onClick={ (ev) => { handleSlide(ev, 1); } }>
+                  <Button onClick={ (ev) => { handleSlide(ev, 1); } }>
                     Go to second page
-                  </OriginalButton>
+                  </Button>
                 </Page>
 
                 <Page title={ <Heading title='My Second Page' backLink={ handlePreviousSlide } /> }>
-                  <OriginalButton onClick={ (ev) => { handleSlide(ev, 2); } }>
+                  <Button onClick={ (ev) => { handleSlide(ev, 2); } }>
                     Go to third page
-                  </OriginalButton>
+                  </Button>
                 </Page>
                 <Page title={ <Heading title='My Third Page' backLink={ handlePreviousSlide } /> } />
               </DefaultPages>
@@ -140,7 +140,7 @@ function makeStory(name, themeSelector) {
     themeSelector,
     info: {
       text: <p>Allows to slide to different pages in a full screen dialog.</p>,
-      propTablesExclude: [OriginalButton, DialogFullScreen, DialogState, PageState, DefaultPages, Page, State]
+      propTablesExclude: [Button, DialogFullScreen, DialogState, PageState, DefaultPages, Page, State]
     }
   };
 
