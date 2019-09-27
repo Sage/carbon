@@ -67,31 +67,74 @@ const switchComponent = () => switchWrapper({
   store: formStore
 });
 
-const switchComponentValidation = () => (
+const validationGroupedKnobs = (type, themeName) => {
+  const group = `${type} switch`;
+  return {
+    key: type,
+    label: text(`${type} label`, `Accept ${type}`, group),
+    labelHelp: text(`${type} labelHelp`, `Switch off and on ${type} component.`, group),
+    disabled: boolean(`${type} disabled`, false, group),
+    size: (
+      themeName !== 'classic' ? select(
+        `${type} size`, OptionsHelper.sizesBinary, 'small', group
+      ) : undefined
+    ),
+    fieldHelp: text(`${type} fieldHelp`, 'This text provides help for the input', group),
+    fieldHelpInline: boolean(`${type} fieldHelpInline`, false, group),
+    labelInline: boolean(`${type} labelInline`, Switch.defaultProps.labelInline, group),
+    loading: boolean(`${type} loading`, false, group),
+    inputWidth: number(`${type} inputWidth`, 0, {
+      range: true,
+      min: 0,
+      max: 100,
+      step: 1
+    }, group),
+    labelWidth: number(`${type} labelWidth`, 0, {
+      range: true,
+      min: 0,
+      max: 100,
+      step: 1
+    }, group),
+    labelAlign: select(
+      `${type} labelAlign`,
+      OptionsHelper.alignBinary,
+      OptionsHelper.alignBinary[0],
+      group
+    ),
+    reverse: boolean(`${type} reverse`, Switch.defaultProps.reverse, group)
+  };
+};
+
+const validationKnobs = (type, themeName) => {
+  return {
+    ...validationGroupedKnobs(type, themeName),
+    name: `switch-${type}`,
+    value: type,
+    store: stores[type],
+    onChange: handleChange(stores[type]),
+    validations: testValidation('valid'),
+    warnings: testValidation('warn'),
+    info: testValidation('info'),
+    unblockValidation: trueBool,
+    useValidationIcon: trueBool
+  };
+};
+
+const switchComponentValidation = themeName => () => {
+  return (
   <>
     {validationTypes.map(type => switchWrapper({
-      ...commonKnobs(),
-      ...dlsKnobs(),
-      key: `key-${type}`,
-      name: `switch-${type}`,
-      label: text(`label ${type}`, `Please read our ${type}`),
-      value: type,
-      store: stores[type],
-      onChange: handleChange(stores[type]),
-      validations: testValidation('valid'),
-      warnings: testValidation('warn'),
-      info: testValidation('info'),
-      unblockValidation: trueBool,
-      useValidationIcon: trueBool
+      ...validationKnobs(type, themeName)
     }))}
   </>
-);
+  );
+};
 
 storiesOf('Experimental/Switch', module)
   .add(...makeStory('default', dlsThemeSelector, switchComponent))
   .add(...makeStory('classic', classicThemeSelector, switchClassic))
-  .add(...makeStory('validations', dlsThemeSelector, switchComponentValidation))
-  .add(...makeStory('validations classic', classicThemeSelector, switchComponentValidation));
+  .add(...makeStory('validations', dlsThemeSelector, switchComponentValidation()))
+  .add(...makeStory('validations classic', classicThemeSelector, switchComponentValidation('classic')));
 
 function handleChange(store = formStore) {
   return function (ev) {
@@ -106,6 +149,7 @@ function commonKnobs() {
   return ({
     fieldHelp: text('fieldHelp', 'This text provides help for the input.'),
     fieldHelpInline: boolean('fieldHelpInline', false),
+    label: text('label', 'Switch on this component?'),
     labelHelp: text('labelHelp', 'Switch off and on this component.'),
     labelInline: boolean('labelInline', Switch.defaultProps.labelInline),
     loading: boolean('loading', false),
