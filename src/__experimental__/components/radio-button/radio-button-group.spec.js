@@ -7,14 +7,15 @@ import { RadioButton, RadioButtonGroup } from '.';
 import { StyledRadioButtonGroup } from './radio-button.style';
 import Label from '../label';
 import LabelStyle from '../label/label.style';
-import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import { simulate, assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import StyledFormField from '../form-field/form-field.style';
+import HiddenCheckableInput from '../checkable-input/hidden-checkable-input.component';
 
 const buttonValues = ['test-1', 'test-2'];
 const groupName = 'test-group';
 
-function render(renderer = TestRenderer.create, props) {
-  const children = buttonValues.map((value, index) => (
+function render(renderer = TestRenderer.create, props, button = buttonValues) {
+  const children = button.map((value, index) => (
     <RadioButton
       id={ `rId-${index}` }
       key={ `radio-key-${value}` }
@@ -178,6 +179,195 @@ describe('RadioButtonGroup', () => {
         render().toJSON(),
         { modifier: css`${`> ${StyledFormField} > ${LabelStyle}`}` }
       );
+    });
+  });
+
+  describe('handleKeyDown', () => {
+    const wrapper = render(mount, {}, ['test-1', 'test-2', 'test-3']);
+    const buttonGroup = wrapper.find(StyledRadioButtonGroup).first();
+    let inputs;
+
+    it('then first radio button should not be focused after render', () => {
+      const focusedElement = document.activeElement;
+      simulate.keydown.pressEnter(buttonGroup);
+      expect(inputs.at(0).getDOMNode()).not.toBe(focusedElement);
+    });
+
+    describe('when document has focus', () => {
+      it('then first radio button should be focused after render', () => {
+        inputs.at(0).getDOMNode().focus();
+        const focusedElement = document.activeElement;
+        expect(inputs.at(0).getDOMNode()).toBe(focusedElement);
+      });
+    });
+
+    describe('keyboard events change radio button selection', () => {
+      it('first radio button is selected', () => {
+        expect(inputs.at(1).props('checked')).toBeTruthy();
+      });
+
+      describe('on spacebar key press', () => {
+        it('should change radio button selection to the second radio button', () => {
+          inputs.at(0).getDOMNode().focus();
+          simulate.keydown.pressDownArrow(buttonGroup);
+          expect(inputs.at(1)).toBeFocused();
+          simulate.keydown.pressSpace(buttonGroup);
+          expect(inputs.at(1).props('checked')).toBeTruthy();
+        });
+      });
+    });
+
+    describe('keyboard events change radio buttons focus', () => {
+      describe('keyboard events change radio buttons focus', () => {
+        describe('when first radio button is in focus', () => {
+          inputs = buttonGroup.find(HiddenCheckableInput);
+          beforeEach(() => {
+            inputs.at(0).getDOMNode().focus();
+          });
+
+          describe('when down arrow key is pressed twice', () => {
+            describe('on one down arrow key press', () => {
+              it('should change the focus to the second radio button', () => {
+                simulate.keydown.pressDownArrow(buttonGroup);
+                expect(inputs.at(1)).toBeFocused();
+              });
+            });
+            describe('on two down arrow key presses', () => {
+              it('should change the focus to the first radio button', () => {
+                simulate.keydown.pressDownArrow(buttonGroup);
+                simulate.keydown.pressDownArrow(buttonGroup);
+                expect(inputs.at(2)).toBeFocused();
+              });
+            });
+          });
+
+          describe('when right arrow key is pressed', () => {
+            describe('on one right arrow key press', () => {
+              it('should change the focus to the second radio button', () => {
+                simulate.keydown.pressRightArrow(buttonGroup);
+                expect(inputs.at(1)).toBeFocused();
+              });
+            });
+
+            describe('on two right arrow key presses', () => {
+              it('should change the focus to the first radio button', () => {
+                simulate.keydown.pressRightArrow(buttonGroup);
+                simulate.keydown.pressRightArrow(buttonGroup);
+                expect(inputs.at(2)).toBeFocused();
+              });
+            });
+          });
+
+          describe('when up arrow key is pressed', () => {
+            describe('on one up arrow key press', () => {
+              it('should change the focus to the second radio button', () => {
+                simulate.keydown.pressUpArrow(buttonGroup);
+                expect(inputs.at(2)).toBeFocused();
+              });
+            });
+
+            describe('on two up arrow key presses', () => {
+              it('should change the focus to the first radio button', () => {
+                simulate.keydown.pressUpArrow(buttonGroup);
+                simulate.keydown.pressUpArrow(buttonGroup);
+                expect(inputs.at(1)).toBeFocused();
+              });
+            });
+          });
+
+          describe('when left arrow key is pressed', () => {
+            describe('on one left arrow key press', () => {
+              it('should change the focus to the second radio button', () => {
+                simulate.keydown.pressLeftArrow(buttonGroup);
+                expect(inputs.at(2)).toBeFocused();
+              });
+            });
+
+            describe('on two left arrow key press', () => {
+              it('should change the focus to the first radio button', () => {
+                simulate.keydown.pressLeftArrow(buttonGroup);
+                simulate.keydown.pressLeftArrow(buttonGroup);
+                expect(inputs.at(1)).toBeFocused();
+              });
+            });
+          });
+        });
+
+        describe('when second radio button is in focus', () => {
+          inputs = buttonGroup.find(HiddenCheckableInput);
+          beforeEach(() => {
+            inputs.at(1).getDOMNode().focus();
+          });
+
+          describe('when down arrow key is pressed twice', () => {
+            describe('on one down arrow key press', () => {
+              it('should change the focus to the second radio button', () => {
+                simulate.keydown.pressDownArrow(buttonGroup);
+                expect(inputs.at(2)).toBeFocused();
+              });
+            });
+
+            describe('on two down arrow key presses', () => {
+              it('should change the focus to the first radio button', () => {
+                simulate.keydown.pressDownArrow(buttonGroup);
+                simulate.keydown.pressDownArrow(buttonGroup);
+                expect(inputs.at(0)).toBeFocused();
+              });
+            });
+          });
+
+          describe('when right arrow key is pressed twice', () => {
+            describe('on one right arrow key press', () => {
+              it('should change the focus to the second radio button', () => {
+                simulate.keydown.pressRightArrow(buttonGroup);
+                expect(inputs.at(2)).toBeFocused();
+              });
+            });
+
+            describe('on two right arrow key presses', () => {
+              it('should change the focus to the first radio button', () => {
+                simulate.keydown.pressRightArrow(buttonGroup);
+                simulate.keydown.pressRightArrow(buttonGroup);
+                expect(inputs.at(0)).toBeFocused();
+              });
+            });
+          });
+
+          describe('when up arrow key is pressed twice', () => {
+            describe('on one up arrow key press', () => {
+              it('should change the focus to the second radio button', () => {
+                simulate.keydown.pressUpArrow(buttonGroup);
+                expect(inputs.at(0)).toBeFocused();
+              });
+            });
+
+            describe('on two up arrow key presses', () => {
+              it('should change the focus to the first radio button', () => {
+                simulate.keydown.pressUpArrow(buttonGroup);
+                simulate.keydown.pressUpArrow(buttonGroup);
+                expect(inputs.at(2)).toBeFocused();
+              });
+            });
+          });
+
+          describe('when left arrow key is pressed twice', () => {
+            describe('on one left arrow key press', () => {
+              it('should change the focus to the second radio button', () => {
+                simulate.keydown.pressLeftArrow(buttonGroup);
+                expect(inputs.at(0)).toBeFocused();
+              });
+            });
+
+            describe('on two left arrow key presses', () => {
+              it('should change the focus to the first radio button', () => {
+                simulate.keydown.pressLeftArrow(buttonGroup);
+                simulate.keydown.pressLeftArrow(buttonGroup);
+                expect(inputs.at(2)).toBeFocused();
+              });
+            });
+          });
+        });
+      });
     });
   });
 });

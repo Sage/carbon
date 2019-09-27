@@ -4,6 +4,7 @@ import tagComponent from '../../../utils/helpers/tags';
 import { StyledRadioButtonGroup } from './radio-button.style';
 import withValidation from '../../../components/validations/with-validation.hoc';
 import FormField from '../form-field';
+import Events from '../../../utils/helpers/events';
 
 function initialTabIndex(childIndex) {
   return (childIndex > 0) ? -1 : 0;
@@ -22,8 +23,9 @@ const RadioButtonGroup = (props) => {
     hasInfo
   } = props;
   const [selectedValue, setSelectedValue] = useState(null);
-
+  const refCollection = [];
   const groupLabelId = `${groupName}-label`;
+  let radioFocusIndex = 0;
 
   const buttons = React.Children.map(children, (child, index) => {
     const isDefaultChecked = child.props.checked && !selectedValue;
@@ -35,11 +37,15 @@ const RadioButtonGroup = (props) => {
       setSelectedValue(ev.target.value);
     };
 
+    const inputRef = child.ref || React.createRef();
+    refCollection.push(inputRef);
+
     let childProps = {
       checked,
       tabindex,
       inputName: groupName,
-      onChange: handleChange
+      onChange: handleChange,
+      inputRef
     };
 
     if (checked) {
@@ -54,6 +60,42 @@ const RadioButtonGroup = (props) => {
     return React.cloneElement(child, childProps);
   });
 
+  const handleKeyDown = (ev) => {
+    ev.preventDefault();
+    const numOfChildren = children.length;
+
+    /**
+     * if focus exists in document on element, then set focus index to that element
+     * This synchronises component element focus with document focus to allow for fluid continuity
+     */
+    if (document.activeElement) {
+      refCollection.find((e, index) => {
+        if (e.current === document.activeElement) {
+          radioFocusIndex = index;
+        }
+
+        return;
+      });
+    }
+
+    if (Events.isSpaceKey(ev)) {
+      refCollection[radioFocusIndex].current.click();
+    }
+
+    if (Events.isUpKey(ev) || Events.isLeftKey(ev)) {
+      radioFocusIndex = radioFocusIndex <= 0 ? numOfChildren - 1 : radioFocusIndex - 1;
+
+      refCollection[radioFocusIndex].current.focus();
+      return;
+    }
+
+    if (Events.isDownKey(ev) || Events.isRightKey(ev)) {
+      radioFocusIndex = radioFocusIndex >= (numOfChildren - 1) ? 0 : radioFocusIndex + 1;
+
+      refCollection[radioFocusIndex].current.focus();
+    }
+  };
+
   return (
     <StyledRadioButtonGroup
       aria-labelledby={ groupLabelId }
@@ -61,6 +103,7 @@ const RadioButtonGroup = (props) => {
       hasError={ hasError }
       hasWarning={ hasWarning }
       hasInfo={ hasInfo }
+      onKeyDown={ handleKeyDown }
       { ...tagComponent('radiogroup', props) }
     >
       <FormField { ...props } labelId={ groupLabelId }>
