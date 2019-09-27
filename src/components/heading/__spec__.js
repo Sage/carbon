@@ -59,12 +59,12 @@ describe('Heading', () => {
       </DefaultPages>)
 
     const link = wrapper.find(Link);
-    link.find('a').simulate('mousedown');
+    link.simulate('mousedown');
 
     assertStyleMatch({
       outline: `solid 3px ${smallTheme.colors.focus}`
     }, wrapper.find(PagesContent), { modifier: `${LinkStyleAnchor}:focus` })
-  })
+  });
 
   it('renders a subheader', () => {
     const div = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-heading__subheader');

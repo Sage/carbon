@@ -55,7 +55,8 @@ class Link extends React.Component {
       disabled: this.props.disabled,
       iconAlign: this.props.iconAlign,
       onKeyDown: this.onKeyDown,
-      tabIndex: this.tabIndex
+      tabIndex: this.tabIndex,
+      onMouseDown: this.props.onMouseDown
     };
 
     if (this.props.to) {
@@ -93,7 +94,6 @@ class Link extends React.Component {
 
   render() {
     const { disabled, className } = this.props;
-
     return (
       <LinkStyle
         disabled={ disabled }
@@ -125,6 +125,8 @@ Link.propTypes = {
   onClick: PropTypes.func,
   /** Function called when a key is pressed. */
   onKeyDown: PropTypes.func,
+  /** Function called when a mouse down event triggers. */
+  onMouseDown: PropTypes.func,
   /** Whether to include the link in the tab order of the page */
   tabbable: PropTypes.bool,
   /** Using `to` instead of `href` will create a React Router link rather than a web href. */
