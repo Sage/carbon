@@ -8,13 +8,15 @@ import StyledDraggableTableCell from './draggable-table-cell.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import Icon from '../../icon';
 import StyledIcon from '../../icon/icon.style';
+import smallTheme from '../../../style/themes/small';
+import classicTheme from '../../../style/themes/classic';
 
 describe('DraggableTableCell', () => {
   let wrapper;
 
   beforeEach(() => {
     wrapper = shallow(
-      <DraggableTableCell identifier='foo' />
+      <DraggableTableCell identifier='foo' theme={ smallTheme } />
     );
   });
 
@@ -29,7 +31,15 @@ describe('DraggableTableCell', () => {
     expect(wd.props().canDrag()).toEqual(true);
   });
 
-  it('renders an icon', () => {
+  it('renders the correct icon for Modern theme', () => {
+    const icon = wrapper.find(Icon);
+    expect(icon.props().type).toEqual('drag');
+  });
+
+  it('renders the correct icon for Classic theme', () => {
+    wrapper = shallow(
+      <DraggableTableCell identifier='foo' theme={ classicTheme } />
+    );
     const icon = wrapper.find(Icon);
     expect(icon.props().type).toEqual('drag_vertical');
   });
@@ -43,7 +53,11 @@ describe('DraggableTableCell', () => {
 
   it('does not render on last row', () => {
     wrapper = shallow(
-      <DraggableTableCell identifier='foo' canDrag={ false } />
+      <DraggableTableCell
+        identifier='foo'
+        canDrag={ false }
+        theme={ smallTheme }
+      />
     );
     const icon = wrapper.find(Icon);
     expect(icon.exists()).toEqual(false);
