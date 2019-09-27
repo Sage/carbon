@@ -22,7 +22,6 @@ const Textbox = ({
   ...props
 }) => {
   removeParentProps(props);
-
   return (
     <FormField
       childOfForm={ childOfForm }
@@ -33,6 +32,7 @@ const Textbox = ({
         { leftChildren }
         <Input
           { ...props }
+          placeholder={ props.disabled ? '' : props.placeholder }
           aria-invalid={ props.hasError }
           value={ visibleValue(value, formattedValue) }
         />
@@ -107,7 +107,9 @@ Textbox.propTypes = {
   /** Status of info */
   hasInfo: PropTypes.bool,
   /** Size of an input */
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted)
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  /** Placeholder string to be displayed in input */
+  placeholder: PropTypes.string
 };
 
 Textbox.defaultProps = {
