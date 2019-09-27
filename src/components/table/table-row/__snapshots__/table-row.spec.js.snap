@@ -24,12 +24,6 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
   background-color: #FFFFFF;
 }
 
-.c2 .c3 .c14::before {
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-
 .c2 .c15 {
   padding: 10px 8px;
 }
@@ -76,12 +70,6 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
   background-color: #FFFFFF;
 }
 
-.c5 .c3 .c14::before {
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-
 .custom-drag-layer .c5.c5 .c3 {
   background-color: #E5EAEC;
   border: none;
@@ -105,12 +93,6 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 
 .c6 .c3 {
   background-color: #FFFFFF;
-}
-
-.c6 .c3 .c14::before {
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
 }
 
 .custom-drag-layer .c6.c6 .c3 {
@@ -140,12 +122,6 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 
 .c7 .c3 {
   background-color: #FFFFFF;
-}
-
-.c7 .c3 .c14::before {
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
 }
 
 .custom-drag-layer .c7.c7 .c3 {
@@ -178,12 +154,6 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 
 .c8 .c3 {
   background-color: #FFFFFF;
-}
-
-.c8 .c3 .c14::before {
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
 }
 
 .custom-drag-layer .c8.c8 .c3 {
@@ -228,12 +198,6 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 
 .c9 .c3 {
   background-color: #FFFFFF;
-}
-
-.c9 .c3 .c14::before {
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
 }
 
 .custom-drag-layer .c9.c9 .c3 {
@@ -312,12 +276,6 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
   background-color: #FFFFFF;
 }
 
-.c11 .c3 .c14::before {
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-
 .custom-drag-layer .c11.c11 .c3 {
   background-color: #E5EAEC;
   border: none;
@@ -388,12 +346,6 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 
 .c13 .c3 {
   background-color: #FFFFFF;
-}
-
-.c13 .c3 .c14::before {
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
 }
 
 .custom-drag-layer .c13.c13 .c3 {
