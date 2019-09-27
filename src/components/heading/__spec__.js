@@ -10,7 +10,7 @@ import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import DefaultPages from '../pages/pages.component'
 import Page from '../pages/page/page.component'
 import { PagesContent } from '../pages/pages.style';
-import { LinkStyleAnchor } from '../link/link.style';
+import LinkStyleAnchor from '../link/link.style';
 import smallTheme from '../../style/themes/small'
 
 describe('Heading', () => {
