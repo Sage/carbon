@@ -32,6 +32,8 @@ const BaseButtonToggleGroup = ((props) => {
 BaseButtonToggleGroup.propTypes = {
   /** Children to be rendered (ButtonToggle). */
   children: PropTypes.node.isRequired,
+  /** Message displaye on error */
+  errorMessage: PropTypes.string,
   /** Text for the label. */
   label: PropTypes.string,
   /** Text for the labels help tooltip. */
@@ -47,7 +49,9 @@ BaseButtonToggleGroup.propTypes = {
   /** The percentage width of the label. */
   labelWidth: PropTypes.number,
   /** The alignment for the text in the label. */
-  labelAlign: PropTypes.string
+  labelAlign: PropTypes.string,
+  /** callback to handle change event */
+  onChange: PropTypes.func
 };
 
 BaseButtonToggleGroup.displayName = 'BaseButtonToggleGroup';
