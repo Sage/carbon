@@ -1,5 +1,6 @@
 import { card } from '../../locators/card';
 import { getKnobsInput } from '../../locators';
+import { DEBUG_FLAG } from '..';
 
 Then('Card component has {int} padding and {int} margin', (leftRight, topBottom) => {
   card().should('have.css', 'padding', `0px ${leftRight}px`);
@@ -11,12 +12,12 @@ Then('Card component is interactive', () => {
 });
 
 Then('Card component has set width to {string}', (width) => {
-  cy.wait(200); // needed to be here due to animation
+  cy.wait(200, { log: DEBUG_FLAG }); // needed to be here due to animation
   card().should('have.css', 'width', `${width}`);
 });
 
 Then('Card component has not set width to {string}', (width) => {
-  cy.wait(200); // needed to be here due to animation
+  cy.wait(200, { log: DEBUG_FLAG }); // needed to be here due to animation
   card().should('not.have.css', 'width', `${width}`);
 });
 

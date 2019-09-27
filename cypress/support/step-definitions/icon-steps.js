@@ -1,7 +1,16 @@
 import { icon } from '../../locators';
 
-const ICON_PREFIX = 'carbon-icon--';
+Then('background color is set to {string}', (color) => {
+  icon().should('have.css', 'background-color', color);
+});
 
-Then('bg{word} is set to {string}', (word, bg) => {
-  icon().should('have.class', `${ICON_PREFIX}${bg}`);
+Then('Icon height is set to {string}', (height) => {
+  icon().should('have.css', 'height', height);
+});
+
+Then('radius is set to {string}', (radius) => {
+  icon().should('have.css', 'border-bottom-left-radius', radius);
+  icon().should('have.css', 'border-bottom-right-radius', radius);
+  icon().should('have.css', 'border-top-left-radius', radius);
+  icon().should('have.css', 'border-top-right-radius', radius);
 });
