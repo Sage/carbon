@@ -192,7 +192,7 @@ class Dialog extends Modal {
     const childrenArray = Array.isArray(children) ? children : [children];
     this.childKeys = generateKeysForChildren(childrenArray);
 
-    return childrenArray.map((child, index) => {
+    return childrenArray.filter(Boolean).map((child, index) => {
       return React.cloneElement(child, {
         ...child.props,
         key: this.childKeys[index],
