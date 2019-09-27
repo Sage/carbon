@@ -177,7 +177,7 @@ class SplitButton extends Component {
     const { children } = this.props;
     const childArray = Array.isArray(children) ? children : [children];
 
-    return childArray.map((child, index) => {
+    return childArray.filter(Boolean).map((child, index) => {
       const props = {
         key: index.toString(),
         role: 'menu-item',
