@@ -94,6 +94,7 @@ const radioComponent = themeName => () => {
 
 const radioComponentWithValidation = themeName => () => {
   const validationTypes = ['error', 'warning', 'info'];
+  const label = text('label', 'Are you coming to the event?');
   const labelHelp = text('labelHelp', 'Group label helper');
 
   function testValidation(type) {
@@ -120,7 +121,7 @@ const radioComponentWithValidation = themeName => () => {
     <State store={ radioToggleGroupStore }>
       <RadioButtonGroup
         groupName='my-event'
-        label='Are you coming to the event?'
+        label={ label }
         labelHelp={ labelHelp }
         validations={ testValidation('valid') }
         warnings={ testValidation('warn') }
