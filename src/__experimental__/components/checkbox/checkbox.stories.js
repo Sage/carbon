@@ -207,7 +207,6 @@ const checkboxGroupComponent = () => (
               checked={ state[id] }
               key={ `checkbox-input-${id}` }
               onChange={ ev => handleGroupChange(ev, id) }
-              label='Example Checkbox'
               labelHelp=''
             />
           ))}
