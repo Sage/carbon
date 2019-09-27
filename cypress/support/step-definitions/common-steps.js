@@ -7,6 +7,7 @@ import {
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
+import { DEBUG_FLAG } from '..';
 
 const LABEL_INPUT_INLINE_CLASS = 'common-input__label--inline';
 
@@ -44,6 +45,10 @@ Given('I open {string} component for classic story in iframe', (component) => {
 
 Given('I open deprecated {string} component iframe', (component) => {
   visitComponentUrl(component, 'classic', true, 'deprecated-');
+});
+
+Given('I open deprecated {string} component page', (component) => {
+  visitComponentUrl(component, 'classic', false, 'deprecated-');
 });
 
 Given('I open {string} component with button page in iframe', (component) => {
@@ -115,7 +120,7 @@ When('I hover mouse onto help icon', () => {
 });
 
 When('I hover mouse onto icon', () => {
-  cy.wait(100); // required becasue element might be reloaded
+  cy.wait(100, { log: DEBUG_FLAG }); // required becasue element might be reloaded
   icon().trigger('mouseover');
 });
 

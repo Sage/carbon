@@ -60,7 +60,11 @@ class DialogFullScreen extends Modal {
       >
         { this.dialogTitle() }
 
-        <StyledContent headingHeight={ this.state.headingHeight } data-element='content'>
+        <StyledContent
+          hasHeader={ this.props.title !== undefined }
+          headingHeight={ this.state.headingHeight }
+          data-element='content'
+        >
           <AppWrapper>
             { this.props.children }
           </AppWrapper>
@@ -105,7 +109,7 @@ class DialogFullScreen extends Modal {
     }
 
     return (
-      <FullScreenHeading ref={ this.headingRef }>
+      <FullScreenHeading hasContent={ title } ref={ this.headingRef }>
         <StyledIcon
           data-element='close'
           onClick={ this.props.onCancel }

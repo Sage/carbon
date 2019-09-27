@@ -5,4 +5,4 @@ export const simpleColorPickerPreview = () => cy.iFrame(SIMPLE_COLOR_PICKER_PREV
 export const simpleColorPickerInput = index => cy.iFrame(SIMPLE_COLOR_PICKER_PREVIEW)
   .find(`li:nth-child(${index}) > div > input`);
 export const simpleColorPickerDiv = index => cy.iFrame(SIMPLE_COLOR_PICKER_PREVIEW)
-  .find(`li:nth-child(${index}) > div > div`);
+  .find(`li:nth-child(${index}) > div > div > span`);
