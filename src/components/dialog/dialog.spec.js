@@ -197,6 +197,25 @@ describe('Dialog', () => {
     });
   });
 
+  it('renders when a child is undefined', () => {
+    expect(() => {
+      shallow(
+        <Dialog
+          onCancel={ () => { } }
+          onConfirm={ () => { } }
+          showCloseIcon
+          open
+          subtitle='Test'
+          title='Test'
+          ariaRole='dialog'
+        >
+          {undefined}
+          Hello world
+        </Dialog>
+      );
+    }).not.toThrow();
+  });
+
   describe('renders children when they are a JSX component', () => {
     it('should render matched snpashot', () => {
       const wrapper = shallow(
