@@ -7,6 +7,7 @@ import CharacterCount from './character-count';
 import Textarea from '.';
 import baseTheme from '../../../style/themes/base';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
+import TextareaInput from './textarea-input.component';
 
 describe('Textarea', () => {
   let wrapper;
@@ -83,6 +84,11 @@ describe('Textarea', () => {
 
     it('should render default', () => {
       expect(renderTextarea({}, TestRenderer.create)).toMatchSnapshot();
+    });
+
+    it('should only have a placeholder if not disabled', () => {
+      wrapper = renderTextarea({ placeholder: 'foo', disabled: true });
+      expect(wrapper.find(TextareaInput).props().placeholder).toEqual('');
     });
 
     describe('and when characterLimit prop is defined', () => {
