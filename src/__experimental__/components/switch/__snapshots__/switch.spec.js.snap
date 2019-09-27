@@ -265,6 +265,7 @@ exports[`Switch base theme renders as expected 1`] = `
   padding: 0;
   margin-bottom: 8px;
   margin-right: 100%;
+  margin-top: 1px;
 }
 
 .c0 .c31 .c30 {

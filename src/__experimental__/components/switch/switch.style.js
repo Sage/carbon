@@ -37,6 +37,7 @@ const StyledSwitch = styled.div`
       padding: 0;
       margin-bottom: 8px;
       margin-right: 100%;
+      margin-top: 1px;
 
       ${StyledValidationIcon} {
         position: relative;
