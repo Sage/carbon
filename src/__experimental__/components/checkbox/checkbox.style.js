@@ -9,6 +9,7 @@ import StyledLabel from '../label/label.style';
 import styledCheckBoxClassic from './checkbox-classic.style';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 import StyledFormField from '../form-field/form-field.style';
+import StyledIcon from '../../../components/icon/icon.style';
 
 const CheckboxStyle = styled.div`
   ${({
@@ -168,6 +169,10 @@ CheckboxStyle.propTypes = {
 };
 
 const StyledCheckboxGroup = styled.div`
+  ${StyledIcon}::before {
+    font-size: 16px;
+  }
+  
   & ${CheckboxStyle} {
     padding-top: 12px;
 
