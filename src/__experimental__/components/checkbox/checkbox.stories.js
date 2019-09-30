@@ -8,10 +8,9 @@ import { Store, State } from '@sambego/storybook-state';
 import Form from '../form';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import OptionsHelper from '../../../utils/helpers/options-helper';
-import Checkbox, { OriginalCheckbox } from '.';
+import { Checkbox, CheckboxGroup } from '.';
 import { info, notes, infoValidations } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
-import CheckboxGroup from './checkbox-group.component';
 import Text from '../../../utils/helpers/text';
 
 Checkbox.__docgenInfo = getDocGenInfo(
@@ -162,7 +161,7 @@ function handleSubmit(ev) {
 const checkboxComponent = () => {
   return (
     <State store={ checkboxes.default.store }>
-      <OriginalCheckbox
+      <Checkbox
         onChange={ ev => handleChange(ev, 'default') }
         { ...defaultKnobs('default') }
       />
@@ -206,7 +205,7 @@ const checkboxGroupComponent = () => (
           value={ state.value }
         >
           {groupCheckbox.map(id => (
-            <OriginalCheckbox
+            <Checkbox
               checked={ state[id] }
               key={ `checkbox-input-${id}` }
               onChange={ ev => handleGroupChange(ev, id) }
