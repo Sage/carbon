@@ -60,7 +60,6 @@ const groupedKnobs = (type, themeName) => {
 };
 
 const radioComponent = themeName => () => {
-  const knobs = defaultKnobs(themeName);
   const labelHelp = text('labelHelp', 'Group label helper');
 
   return (
@@ -74,18 +73,18 @@ const radioComponent = themeName => () => {
         id='input-1'
         name='input-1'
         checked
-        { ...knobs }
+        onChange={ handleChange }
         { ...groupedKnobs('weekly', themeName) }
       />
       <RadioButton
         name='input-2'
-        { ...knobs }
+        onChange={ handleChange }
         { ...groupedKnobs('monthly', themeName) }
       />
       <RadioButton
         // id prop intentionally left off here, to demonstrate automatic GUID generation
         name='input-2'
-        { ...knobs }
+        onChange={ handleChange }
         { ...groupedKnobs('yearly', themeName) }
       />
     </RadioButtonGroup>
@@ -132,7 +131,6 @@ const radioComponentWithValidation = themeName => () => {
         {validationTypes.map(vType => (
           <RadioButton
             { ...groupedKnobs(vType, themeName) }
-            { ...defaultKnobs(themeName) }
             id={ `id-${vType}` }
             name={ vType }
             onChange={ handleGroupChange }
@@ -160,11 +158,4 @@ function handleGroupChange(event) {
   radioToggleGroupStore.set({ value });
 
   action('Selected')(value);
-}
-
-function defaultKnobs(themeName) {
-  return ({
-    error: themeName === 'classic' ? boolean('error', false) : undefined,
-    onChange: handleChange
-  });
 }
