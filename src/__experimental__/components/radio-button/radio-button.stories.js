@@ -8,7 +8,7 @@ import { State, Store } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import { RadioButton, RadioButtonGroup } from '.';
-import { info, notes } from './documentation';
+import { info, infoValidations, notes } from './documentation';
 
 const trueBool = true;
 const radioToggleGroupStore = new Store({ value: '' });
@@ -17,7 +17,7 @@ function makeStory(name, themeSelector, component) {
   const metadata = {
     themeSelector,
     info: {
-      text: info,
+      text: name.search('validations') !== -1 ? infoValidations : info,
       excludedPropTypes: ['children']
     },
     notes: { markdown: notes },
