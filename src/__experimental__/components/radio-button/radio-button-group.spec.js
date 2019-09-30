@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { act } from 'react-dom/test-utils';
 import TestRenderer from 'react-test-renderer';
 import { mount } from 'enzyme';
-import 'jest-styled-components';
 import { css } from 'styled-components';
+import PropTypes from 'prop-types';
 import { RadioButton, RadioButtonGroup } from '.';
 import { StyledRadioButtonGroup } from './radio-button.style';
 import Label from '../label';
 import LabelStyle from '../label/label.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import StyledFormField from '../form-field/form-field.style';
+import Button from '../../../components/button';
 
 const buttonValues = ['test-1', 'test-2'];
 const groupName = 'test-group';
@@ -39,8 +41,12 @@ function render(renderer = TestRenderer.create, props) {
   );
 }
 
-function getButtons(wrapper) {
+function getRadioButtons(wrapper) {
   return wrapper.find(RadioButton);
+}
+
+function getButtons(wrapper) {
+  return wrapper.find(Button);
 }
 
 function getInputWrapper(button) {
@@ -54,7 +60,7 @@ describe('RadioButtonGroup', () => {
 
   describe('child RadioButton prop / key mapping', () => {
     const wrapper = render(mount);
-    const buttons = getButtons(wrapper);
+    const buttons = getRadioButtons(wrapper);
     const buttonArray = buttons.getElements();
 
     describe.each(buttonArray)('buttons[%#]', (button) => {
@@ -103,8 +109,8 @@ describe('RadioButtonGroup', () => {
         inputWrapper.simulate('change', { target });
         wrapper.update();
 
-        buttonWrapper = getButtons(wrapper).at(index);
-        otherButtonWrapper = getButtons(wrapper).at(otherIndex);
+        buttonWrapper = getRadioButtons(wrapper).at(index);
+        otherButtonWrapper = getRadioButtons(wrapper).at(otherIndex);
 
         it('sets checked === true when it is changed', () => {
           expect(buttonWrapper.props().checked).toBe(true);
@@ -118,8 +124,8 @@ describe('RadioButtonGroup', () => {
           otherInputWrapper.simulate('change', { target: otherTarget });
           wrapper.update();
 
-          buttonWrapper = getButtons(wrapper).at(index);
-          otherButtonWrapper = getButtons(wrapper).at(otherIndex);
+          buttonWrapper = getRadioButtons(wrapper).at(index);
+          otherButtonWrapper = getRadioButtons(wrapper).at(otherIndex);
 
           expect(buttonWrapper.props().checked).toBe(false);
           expect(otherButtonWrapper.props().checked).toBe(true);
@@ -162,7 +168,7 @@ describe('RadioButtonGroup', () => {
         </RadioButtonGroup>
       );
 
-      const button = getButtons(radioGroup);
+      const button = getRadioButtons(radioGroup);
       expect(button.prop('checked')).toBe(true);
     });
   });
@@ -178,6 +184,102 @@ describe('RadioButtonGroup', () => {
         render().toJSON(),
         { modifier: css`${`> ${StyledFormField} > ${LabelStyle}`}` }
       );
+    });
+  });
+
+  fdescribe('controlled', () => {
+    const Controller = (props) => {
+      const [value, setValue] = useState();
+      return (
+        <React.Fragment>
+          <RadioButtonGroup
+            groupName={ groupName }
+            label='Test RadioButtonGroup Label'
+            name='radio-button-group'
+            onChange={ (e) => {
+              setValue(e.target.value);
+            } }
+            useValidationIcon
+            value={ value }
+            { ...props.groupProps }
+          >
+            <RadioButton
+              name='one'
+              value='one'
+            />
+            <RadioButton
+              name='two'
+              value='two'
+              { ...props.radioProps }
+            />
+            <RadioButton
+              name='three'
+              value='three'
+            />
+          </RadioButtonGroup>
+          <Button onClick={ () => {
+            setValue('one');
+          } }
+          >Set One
+          </Button>
+          <Button onClick={ () => {
+            setValue('two');
+          } }
+          >Set Two
+          </Button>
+        </React.Fragment>
+      );
+    };
+    Controller.propTypes = {
+      groupProps: PropTypes.any,
+      radioProps: PropTypes.any
+    };
+    const renderControlled = (groupProps = {}, radioProps = {}) => {
+      return mount(<Controller { ...{ groupProps, radioProps } } />);
+    };
+
+    it('none of the radio buttons are checked by default', () => {
+      const wrapper = renderControlled();
+      const radio = getRadioButtons(wrapper);
+      expect(radio.at(0).prop('checked')).toBe(false);
+      expect(radio.at(1).prop('checked')).toBe(false);
+      expect(radio.at(2).prop('checked')).toBe(false);
+    });
+
+    it('changing the value checks the appropraite radio button', () => {
+      const wrapper = renderControlled();
+      const buttons = getButtons(wrapper);
+
+      buttons.at(0).simulate('click');
+
+      const radio = getRadioButtons(wrapper);
+      expect(radio.at(0).prop('checked')).toBe(true);
+      expect(radio.at(1).prop('checked')).toBe(false);
+      expect(radio.at(2).prop('checked')).toBe(false);
+    });
+
+    it('onChange handler is called when a radio button is clicked', () => {
+      const onChange = jest.fn();
+      const wrapper = renderControlled({ onChange });
+
+      const radio = getRadioButtons(wrapper);
+
+      act(() => {
+        radio.at(0).props().onChange({ target: radio.at(0).getDOMNode() });
+      });
+
+      expect(onChange).toHaveBeenCalled();
+    });
+
+    it('setting a radio button as checked, checks the radio button', () => {
+      const onChange = jest.fn();
+      const wrapper = renderControlled({ onChange }, { checked: true });
+
+      const radio = getRadioButtons(wrapper);
+
+      expect(radio.at(1).prop('checked')).toBe(true);
+
+      expect(onChange).not.toHaveBeenCalled();
     });
   });
 });

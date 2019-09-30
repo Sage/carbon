@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import { StyledRadioButtonGroup } from './radio-button.style';
@@ -19,39 +19,53 @@ const RadioButtonGroup = (props) => {
     groupName,
     hasError,
     hasWarning,
-    hasInfo
+    hasInfo,
+    onChange,
+    value
   } = props;
-  const [selectedValue, setSelectedValue] = useState(null);
-
   const groupLabelId = `${groupName}-label`;
 
+  const anyChecked = useMemo(() => {
+    let result = false;
+    React.Children.map(children, (child) => {
+      if (Object.prototype.hasOwnProperty.call(child.props, 'checked')) {
+        result = true;
+      }
+    });
+    return result;
+  }, [children]);
+
+  const isControled = value !== undefined;
+
+  const [checkedValue, setCheckedValue] = useState(false);
+  const onChangeProp = useCallback((e) => {
+    onChange(e);
+    setCheckedValue(e.target.value);
+  }, [onChange, setCheckedValue]);
+
   const buttons = React.Children.map(children, (child, index) => {
-    const isDefaultChecked = child.props.checked && !selectedValue;
-    const checked = isDefaultChecked || selectedValue === child.props.value;
-    const tabindex = selectedValue ? checkedTabIndex(checked) : initialTabIndex(index);
+    let tabindex;
+    let checked;
+    if (isControled) {
+      // The user is controlling the input via the value prop
+      checked = value === child.props.value;
+      tabindex = checkedTabIndex(checked);
+    } else if (!checkedValue && anyChecked) {
+      // Uncontrolled and the user has not made a selection, but at least one has a checked prop
+      checked = child.props.checked || false;
+      tabindex = checkedTabIndex(checked);
+    } else {
+      // Uncontrolled, existing selection or none marked as checked
+      checked = checkedValue === child.props.value;
+      tabindex = initialTabIndex(index);
+    }
 
-    const handleChange = (ev) => {
-      child.props.onChange(ev);
-      setSelectedValue(ev.target.value);
-    };
-
-    let childProps = {
+    return React.cloneElement(child, {
       checked,
       tabindex,
       inputName: groupName,
-      onChange: handleChange
-    };
-
-    if (checked) {
-      childProps = {
-        ...childProps,
-        hasError,
-        hasWarning,
-        hasInfo
-      };
-    }
-
-    return React.cloneElement(child, childProps);
+      onChange: onChangeProp
+    });
   });
 
   return (
@@ -84,7 +98,9 @@ RadioButtonGroup.propTypes = {
   /** Prop to indicate that a warning has occurred */
   hasWarning: PropTypes.bool,
   /** Prop to indicate additional information  */
-  hasInfo: PropTypes.bool
+  hasInfo: PropTypes.bool,
+  onChange: PropTypes.func,
+  value: PropTypes.string
 };
 
 RadioButtonGroup.defaultProps = {
@@ -93,4 +109,4 @@ RadioButtonGroup.defaultProps = {
   hasInfo: false
 };
 
-export default withValidation(RadioButtonGroup);
+export default withValidation(RadioButtonGroup, { unblockValidation: true });

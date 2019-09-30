@@ -1,15 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RadioButton styles base renders as expected 1`] = `
-.c3 {
+.c2 {
   display: block;
 }
 
-.c3 + .c2 {
+.c2 + .c1 {
   margin-top: 16px;
 }
 
-.c7 {
+.c10 + .c1 {
+  margin-top: 10px;
+}
+
+.c8 {
   cursor: pointer;
   opacity: 0;
   margin: 0;
@@ -17,12 +21,12 @@ exports[`RadioButton styles base renders as expected 1`] = `
   z-index: 999;
 }
 
-.c5 {
+.c6 {
   display: inline-block;
   position: relative;
 }
 
-.c9 .c2 {
+.c11 .c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -32,15 +36,15 @@ exports[`RadioButton styles base renders as expected 1`] = `
   flex-wrap: wrap;
 }
 
-.c9 .c6:hover,
-.c9 .c22:hover,
-.c9 .c6:focus,
-.c9 .c22:focus {
+.c11 .c7:hover,
+.c11 .c25:hover,
+.c11 .c7:focus,
+.c11 .c25:focus {
   outline: none;
   cursor: not-allowed;
 }
 
-.c1 .c2 {
+.c4 .c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -50,28 +54,28 @@ exports[`RadioButton styles base renders as expected 1`] = `
   flex-wrap: wrap;
 }
 
-.c1 .c22 {
+.c4 .c25 {
   text-align: left;
   width: auto;
   white-space: nowrap;
   margin-top: -2px;
 }
 
-.c1 .c22 .c21,
-.c1 .c22 .sc-bZQynM {
+.c4 .c25 .c23,
+.c4 .c25 .c24 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c1 .c22 .c21:hover,
-.c1 .c22 .sc-bZQynM:hover,
-.c1 .c22 .c21:focus,
-.c1 .c22 .sc-bZQynM:focus {
+.c4 .c25 .c23:hover,
+.c4 .c25 .c24:hover,
+.c4 .c25 .c23:focus,
+.c4 .c25 .c24:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c10 .c2 {
+.c12 .c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -81,15 +85,15 @@ exports[`RadioButton styles base renders as expected 1`] = `
   flex-wrap: wrap;
 }
 
-.c10 .c6:hover,
-.c10 .c22:hover,
-.c10 .c6:focus,
-.c10 .c22:focus {
+.c12 .c7:hover,
+.c12 .c25:hover,
+.c12 .c7:focus,
+.c12 .c25:focus {
   outline: none;
   cursor: not-allowed;
 }
 
-.c11 .c2 {
+.c13 .c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -99,863 +103,3344 @@ exports[`RadioButton styles base renders as expected 1`] = `
   flex-wrap: wrap;
 }
 
-.c12 .c4 {
+.c14 .c5 {
   padding-top: 1px;
 }
 
-.c12 .c8 {
+.c14 .c9 {
   height: 16px;
 }
 
-.c12 .c6,
-.c12 svg {
+.c14 .c7,
+.c14 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c12 .c4,
-.c12 .c6,
-.c12 .c8,
-.c12 svg {
+.c14 .c5,
+.c14 .c7,
+.c14 .c9,
+.c14 svg {
   box-sizing: border-box;
   width: 16px;
 }
 
-.c12 .c6:not([disabled]):focus + .c8,
-.c12 .c6:not([disabled]):hover + .c8 {
+.c14 .c7:not([disabled]):focus + .c9,
+.c14 .c7:not([disabled]):hover + .c9 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c12 .c8:hover,
-.c12 .c8:focus {
+.c14 .c9:hover,
+.c14 .c9:focus {
   outline: none;
   cursor: not-allowed;
 }
 
-.c12 .c4 {
+.c14 .c5 {
   margin-right: 16px;
 }
 
-.c12 .c8 {
+.c14 .c9 {
   padding: 0;
 }
 
-.c12 .c8,
-.c12 svg {
+.c14 .c9,
+.c14 svg {
   border-radius: 50%;
 }
 
-.c12 .c4,
-.c12 .c6,
-.c12 .c8,
-.c12 svg {
+.c14 .c5,
+.c14 .c7,
+.c14 .c9,
+.c14 svg {
   height: 16px;
   width: 16px;
 }
 
-.c12 .c6:checked + .c8 circle {
-  fill: #26A826;
+.c14 .c7:checked + .c9 circle {
+  fill: #00805D;
 }
 
-.c12 .c6:checked + .c8 circle {
+.c14 .c7:checked + .c9 circle {
   fill: #CCD6DA;
 }
 
-.c13 .c4 {
+.c15 .c5 {
   padding-top: 1px;
 }
 
-.c13 .c8 {
+.c15 .c9 {
   height: 16px;
 }
 
-.c13 .c6,
-.c13 svg {
+.c15 .c7,
+.c15 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c13 .c4,
-.c13 .c6,
-.c13 .c8,
-.c13 svg {
+.c15 .c5,
+.c15 .c7,
+.c15 .c9,
+.c15 svg {
   box-sizing: border-box;
   width: 16px;
 }
 
-.c13 .c6:not([disabled]):focus + .c8,
-.c13 .c6:not([disabled]):hover + .c8 {
+.c15 .c7:not([disabled]):focus + .c9,
+.c15 .c7:not([disabled]):hover + .c9 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c13 .c8 {
+.c15 .c9 {
   height: 24px;
 }
 
-.c13 .c4,
-.c13 .c6,
-.c13 svg {
+.c15 .c5,
+.c15 .c7,
+.c15 svg {
   padding: 2px;
 }
 
-.c13 .c4,
-.c13 .c6,
-.c13 .c8,
-.c13 svg {
+.c15 .c5,
+.c15 .c7,
+.c15 .c9,
+.c15 svg {
   height: 24px;
   width: 24px;
 }
 
-.c13 .c4 {
+.c15 .c5 {
   margin-right: 16px;
 }
 
-.c13 .c8 {
+.c15 .c9 {
   padding: 0;
 }
 
-.c13 .c8,
-.c13 svg {
+.c15 .c9,
+.c15 svg {
   border-radius: 50%;
 }
 
-.c13 .c4,
-.c13 .c6,
-.c13 .c8,
-.c13 svg {
+.c15 .c5,
+.c15 .c7,
+.c15 .c9,
+.c15 svg {
   height: 16px;
   width: 16px;
 }
 
-.c13 .c6:checked + .c8 circle {
-  fill: #26A826;
+.c15 .c7:checked + .c9 circle {
+  fill: #00805D;
 }
 
-.c13 .c4 {
+.c15 .c5 {
   margin-right: 14px;
 }
 
-.c13 .c4,
-.c13 .c6,
-.c13 .c8,
-.c13 svg {
+.c15 .c5,
+.c15 .c7,
+.c15 .c9,
+.c15 svg {
   height: 24px;
   width: 24px;
 }
 
-.c14 .c4 {
+.c16 .c5 {
   padding-top: 1px;
 }
 
-.c14 .c8 {
+.c16 .c9 {
   height: 16px;
 }
 
-.c14 .c6,
-.c14 svg {
+.c16 .c7,
+.c16 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c14 .c4,
-.c14 .c6,
-.c14 .c8,
-.c14 svg {
+.c16 .c5,
+.c16 .c7,
+.c16 .c9,
+.c16 svg {
   box-sizing: border-box;
   width: 16px;
 }
 
-.c14 .c6:not([disabled]):focus + .c8,
-.c14 .c6:not([disabled]):hover + .c8 {
+.c16 .c7:not([disabled]):focus + .c9,
+.c16 .c7:not([disabled]):hover + .c9 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c14 .c8 {
+.c16 .c9 {
   height: 24px;
 }
 
-.c14 .c4,
-.c14 .c6,
-.c14 svg {
+.c16 .c5,
+.c16 .c7,
+.c16 svg {
   padding: 2px;
 }
 
-.c14 .c4,
-.c14 .c6,
-.c14 .c8,
-.c14 svg {
+.c16 .c5,
+.c16 .c7,
+.c16 .c9,
+.c16 svg {
   height: 24px;
   width: 24px;
 }
 
-.c14 .c4 {
+.c16 .c5 {
   margin-right: 16px;
 }
 
-.c14 .c8 {
+.c16 .c9 {
   padding: 0;
 }
 
-.c14 .c8,
-.c14 svg {
+.c16 .c9,
+.c16 svg {
   border-radius: 50%;
 }
 
-.c14 .c4,
-.c14 .c6,
-.c14 .c8,
-.c14 svg {
+.c16 .c5,
+.c16 .c7,
+.c16 .c9,
+.c16 svg {
   height: 16px;
   width: 16px;
 }
 
-.c14 .c6:checked + .c8 circle {
-  fill: #26A826;
+.c16 .c7:checked + .c9 circle {
+  fill: #00805D;
 }
 
-.c14 .c4 {
+.c16 .c5 {
   margin-right: 14px;
 }
 
-.c14 .c4,
-.c14 .c6,
-.c14 .c8,
-.c14 svg {
+.c16 .c5,
+.c16 .c7,
+.c16 .c9,
+.c16 svg {
   height: 24px;
   width: 24px;
 }
 
-.c14 .c4 {
+.c16 .c5 {
   margin-left: 6px;
 }
 
-.c15 .c4 {
+.c17 .c5 {
   padding-top: 1px;
 }
 
-.c15 .c8 {
+.c17 .c9 {
   height: 16px;
 }
 
-.c15 .c6,
-.c15 svg {
+.c17 .c7,
+.c17 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c15 .c4,
-.c15 .c6,
-.c15 .c8,
-.c15 svg {
+.c17 .c5,
+.c17 .c7,
+.c17 .c9,
+.c17 svg {
   box-sizing: border-box;
   width: 16px;
 }
 
-.c15 .c6:not([disabled]):focus + .c8,
-.c15 .c6:not([disabled]):hover + .c8 {
+.c17 .c7:not([disabled]):focus + .c9,
+.c17 .c7:not([disabled]):hover + .c9 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c15 .c4 {
+.c17 .c5 {
   padding: 1px 0 0 0;
 }
 
-.c15 .c6,
-.c15 svg {
+.c17 .c7,
+.c17 svg {
   padding: 1px;
 }
 
-.c15 .c4,
-.c15 .c6,
-.c15 .c8,
-.c15 svg {
+.c17 .c5,
+.c17 .c7,
+.c17 .c9,
+.c17 svg {
   height: 15px;
   width: 15px;
 }
 
-.c15 .c6:not([disabled]):focus + .c8,
-.c15 .c6:not([disabled]):hover + .c8 {
+.c17 .c7:not([disabled]):focus + .c9,
+.c17 .c7:not([disabled]):hover + .c9 {
   box-shadow: none;
 }
 
-.c15 .c6:not([disabled]):focus + .c8 > svg,
-.c15 .c6:not([disabled]):hover + .c8 > svg {
+.c17 .c7:not([disabled]):focus + .c9 > svg,
+.c17 .c7:not([disabled]):hover + .c9 > svg {
   border: 1px solid #1963f6;
   outline: none;
 }
 
-.c15 .c4 {
+.c17 .c5 {
   margin-right: 16px;
 }
 
-.c15 .c8 {
+.c17 .c9 {
   padding: 0;
 }
 
-.c15 .c8,
-.c15 svg {
+.c17 .c9,
+.c17 svg {
   border-radius: 50%;
 }
 
-.c15 .c4,
-.c15 .c6,
-.c15 .c8,
-.c15 svg {
+.c17 .c5,
+.c17 .c7,
+.c17 .c9,
+.c17 svg {
   height: 16px;
   width: 16px;
 }
 
-.c15 .c6:checked + .c8 circle {
+.c17 .c7:checked + .c9 circle {
   fill: #00805D;
 }
 
-.c15 .c4,
-.c15 .c6,
-.c15 .c8,
-.c15 svg {
+.c17 .c5,
+.c17 .c7,
+.c17 .c9,
+.c17 svg {
   height: 15px;
   width: 15px;
 }
 
-.c15 .c4 {
+.c17 .c5 {
   margin-right: 6px;
 }
 
-.c15 .c6:not([disabled]):focus + .c8 > svg {
+.c17 .c7:not([disabled]):focus + .c9 > svg {
   box-shadow: 0 0 6px rgba(25,99,246,0.6);
   -webkit-transition: box-shadow 0.1s linear;
   transition: box-shadow 0.1s linear;
 }
 
-.c15 .c6:checked + .c8 circle {
+.c17 .c7:checked + .c9 circle {
   fill: rgba(0,0,0,0.85);
 }
 
-.c16 .c4 {
+.c18 .c5 {
   padding-top: 1px;
 }
 
-.c16 .c8 {
+.c18 .c9 {
   height: 16px;
 }
 
-.c16 .c6,
-.c16 svg {
+.c18 .c7,
+.c18 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c16 .c4,
-.c16 .c6,
-.c16 .c8,
-.c16 svg {
+.c18 .c5,
+.c18 .c7,
+.c18 .c9,
+.c18 svg {
   box-sizing: border-box;
   width: 16px;
 }
 
-.c16 .c6:not([disabled]):focus + .c8,
-.c16 .c6:not([disabled]):hover + .c8 {
+.c18 .c7:not([disabled]):focus + .c9,
+.c18 .c7:not([disabled]):hover + .c9 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c16 .c8:hover,
-.c16 .c8:focus {
+.c18 .c9:hover,
+.c18 .c9:focus {
   outline: none;
   cursor: not-allowed;
 }
 
-.c16 .c4 {
+.c18 .c5 {
   padding: 1px 0 0 0;
 }
 
-.c16 .c6,
-.c16 svg {
+.c18 .c7,
+.c18 svg {
   padding: 1px;
 }
 
-.c16 .c4,
-.c16 .c6,
-.c16 .c8,
-.c16 svg {
+.c18 .c5,
+.c18 .c7,
+.c18 .c9,
+.c18 svg {
   height: 15px;
   width: 15px;
 }
 
-.c16 .c6:not([disabled]):focus + .c8,
-.c16 .c6:not([disabled]):hover + .c8 {
+.c18 .c7:not([disabled]):focus + .c9,
+.c18 .c7:not([disabled]):hover + .c9 {
   box-shadow: none;
 }
 
-.c16 .c6:not([disabled]):focus + .c8 > svg,
-.c16 .c6:not([disabled]):hover + .c8 > svg {
+.c18 .c7:not([disabled]):focus + .c9 > svg,
+.c18 .c7:not([disabled]):hover + .c9 > svg {
   border: 1px solid #1963f6;
   outline: none;
 }
 
-.c16 .c4 {
+.c18 .c5 {
   margin-right: 16px;
 }
 
-.c16 .c8 {
+.c18 .c9 {
   padding: 0;
 }
 
-.c16 .c8,
-.c16 svg {
+.c18 .c9,
+.c18 svg {
   border-radius: 50%;
 }
 
-.c16 .c4,
-.c16 .c6,
-.c16 .c8,
-.c16 svg {
+.c18 .c5,
+.c18 .c7,
+.c18 .c9,
+.c18 svg {
   height: 16px;
   width: 16px;
 }
 
-.c16 .c6:checked + .c8 circle {
+.c18 .c7:checked + .c9 circle {
   fill: #00805D;
 }
 
-.c16 .c6:checked + .c8 circle {
+.c18 .c7:checked + .c9 circle {
   fill: #4d7080;
 }
 
-.c16 .c4,
-.c16 .c6,
-.c16 .c8,
-.c16 svg {
+.c18 .c5,
+.c18 .c7,
+.c18 .c9,
+.c18 svg {
   height: 15px;
   width: 15px;
 }
 
-.c16 .c4 {
+.c18 .c5 {
   margin-right: 6px;
 }
 
-.c16 .c6:not([disabled]):focus + .c8 > svg {
+.c18 .c7:not([disabled]):focus + .c9 > svg {
   box-shadow: 0 0 6px rgba(25,99,246,0.6);
   -webkit-transition: box-shadow 0.1s linear;
   transition: box-shadow 0.1s linear;
 }
 
-.c16 .c6:checked + .c8 circle {
+.c18 .c7:checked + .c9 circle {
   fill: rgba(0,0,0,0.85);
 }
 
-.c16 .c6:checked + .c8 circle {
+.c18 .c7:checked + .c9 circle {
   fill: #8099a4;
 }
 
-.c17 .c4 {
+.c19 .c5 {
   padding-top: 1px;
 }
 
-.c17 .c8 {
+.c19 .c9 {
   height: 16px;
 }
 
-.c17 .c6,
-.c17 svg {
+.c19 .c7,
+.c19 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c17 .c4,
-.c17 .c6,
-.c17 .c8,
-.c17 svg {
+.c19 .c5,
+.c19 .c7,
+.c19 .c9,
+.c19 svg {
   box-sizing: border-box;
   width: 16px;
 }
 
-.c17 .c6:not([disabled]):focus + .c8,
-.c17 .c6:not([disabled]):hover + .c8 {
+.c19 .c7:not([disabled]):focus + .c9,
+.c19 .c7:not([disabled]):hover + .c9 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c17 .c4 {
+.c19 .c5 {
   padding: 1px 0 0 0;
 }
 
-.c17 .c6,
-.c17 svg {
+.c19 .c7,
+.c19 svg {
   padding: 1px;
 }
 
-.c17 .c4,
-.c17 .c6,
-.c17 .c8,
-.c17 svg {
+.c19 .c5,
+.c19 .c7,
+.c19 .c9,
+.c19 svg {
   height: 15px;
   width: 15px;
 }
 
-.c17 .c6:not([disabled]):focus + .c8,
-.c17 .c6:not([disabled]):hover + .c8 {
+.c19 .c7:not([disabled]):focus + .c9,
+.c19 .c7:not([disabled]):hover + .c9 {
   box-shadow: none;
 }
 
-.c17 .c6:not([disabled]):focus + .c8 > svg,
-.c17 .c6:not([disabled]):hover + .c8 > svg {
+.c19 .c7:not([disabled]):focus + .c9 > svg,
+.c19 .c7:not([disabled]):hover + .c9 > svg {
   border: 1px solid #1963f6;
   outline: none;
 }
 
-.c17 .c4 {
+.c19 .c5 {
   margin-right: 16px;
 }
 
-.c17 .c8 {
+.c19 .c9 {
   padding: 0;
 }
 
-.c17 .c8,
-.c17 svg {
+.c19 .c9,
+.c19 svg {
   border-radius: 50%;
 }
 
-.c17 .c4,
-.c17 .c6,
-.c17 .c8,
-.c17 svg {
+.c19 .c5,
+.c19 .c7,
+.c19 .c9,
+.c19 svg {
   height: 16px;
   width: 16px;
 }
 
-.c17 .c6:checked + .c8 circle {
+.c19 .c7:checked + .c9 circle {
   fill: #00805D;
 }
 
-.c17 .c4,
-.c17 .c6,
-.c17 .c8,
-.c17 svg {
+.c19 .c5,
+.c19 .c7,
+.c19 .c9,
+.c19 svg {
   height: 15px;
   width: 15px;
 }
 
-.c17 .c4 {
+.c19 .c5 {
   margin-right: 6px;
 }
 
-.c17 .c6:not([disabled]):focus + .c8 > svg {
+.c19 .c7:not([disabled]):focus + .c9 > svg {
   box-shadow: 0 0 6px rgba(25,99,246,0.6);
   -webkit-transition: box-shadow 0.1s linear;
   transition: box-shadow 0.1s linear;
 }
 
-.c17 .c6:checked + .c8 circle {
+.c19 .c7:checked + .c9 circle {
   fill: rgba(0,0,0,0.85);
 }
 
-.c17 .c4 {
+.c19 .c5 {
   margin-left: 6px;
 }
 
-.c18 .c4 {
+.c20 .c5 {
   padding-top: 1px;
 }
 
-.c18 .c8 {
+.c20 .c9 {
   height: 16px;
 }
 
-.c18 .c6,
-.c18 svg {
+.c20 .c7,
+.c20 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c18 .c4,
-.c18 .c6,
-.c18 .c8,
-.c18 svg {
+.c20 .c5,
+.c20 .c7,
+.c20 .c9,
+.c20 svg {
   box-sizing: border-box;
   width: 16px;
 }
 
-.c18 .c6:not([disabled]):focus + .c8,
-.c18 .c6:not([disabled]):hover + .c8 {
+.c20 .c7:not([disabled]):focus + .c9,
+.c20 .c7:not([disabled]):hover + .c9 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c18 .c4 {
+.c20 .c5 {
   padding: 1px 0 0 0;
 }
 
-.c18 .c6,
-.c18 svg {
+.c20 .c7,
+.c20 svg {
   padding: 1px;
 }
 
-.c18 .c4,
-.c18 .c6,
-.c18 .c8,
-.c18 svg {
+.c20 .c5,
+.c20 .c7,
+.c20 .c9,
+.c20 svg {
   height: 15px;
   width: 15px;
 }
 
-.c18 .c6:not([disabled]):focus + .c8,
-.c18 .c6:not([disabled]):hover + .c8 {
+.c20 .c7:not([disabled]):focus + .c9,
+.c20 .c7:not([disabled]):hover + .c9 {
   box-shadow: none;
 }
 
-.c18 .c6:not([disabled]):focus + .c8 > svg,
-.c18 .c6:not([disabled]):hover + .c8 > svg {
+.c20 .c7:not([disabled]):focus + .c9 > svg,
+.c20 .c7:not([disabled]):hover + .c9 > svg {
   border: 1px solid #1963f6;
   outline: none;
 }
 
-.c18 .c4 {
+.c20 .c5 {
   margin-right: 16px;
 }
 
-.c18 .c8 {
+.c20 .c9 {
   padding: 0;
 }
 
-.c18 .c8,
-.c18 svg {
+.c20 .c9,
+.c20 svg {
   border-radius: 50%;
 }
 
-.c18 .c4,
-.c18 .c6,
-.c18 .c8,
-.c18 svg {
+.c20 .c5,
+.c20 .c7,
+.c20 .c9,
+.c20 svg {
   height: 16px;
   width: 16px;
 }
 
-.c18 .c6:checked + .c8 circle {
+.c20 .c7:checked + .c9 circle {
   fill: #00805D;
 }
 
-.c18 .c4,
-.c18 .c6,
-.c18 .c8,
-.c18 svg {
+.c20 .c5,
+.c20 .c7,
+.c20 .c9,
+.c20 svg {
   height: 15px;
   width: 15px;
 }
 
-.c18 .c4 {
+.c20 .c5 {
   margin-right: 6px;
 }
 
-.c18 .c6:not([disabled]):focus + .c8 > svg {
+.c20 .c7:not([disabled]):focus + .c9 > svg {
   box-shadow: 0 0 6px rgba(25,99,246,0.6);
   -webkit-transition: box-shadow 0.1s linear;
   transition: box-shadow 0.1s linear;
 }
 
-.c18 .c6:checked + .c8 circle {
+.c20 .c7:checked + .c9 circle {
   fill: rgba(0,0,0,0.85);
 }
 
-.c18 .c4 {
+.c20 .c5 {
   margin-left: 6px;
 }
 
-.c19 .c4 {
+.c21 .c5 {
   padding-top: 1px;
 }
 
-.c19 .c8 {
+.c21 .c9 {
   height: 16px;
 }
 
-.c19 .c6,
-.c19 svg {
+.c21 .c7,
+.c21 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c19 .c4,
-.c19 .c6,
-.c19 .c8,
-.c19 svg {
+.c21 .c5,
+.c21 .c7,
+.c21 .c9,
+.c21 svg {
   box-sizing: border-box;
   width: 16px;
 }
 
-.c19 .c6:not([disabled]):focus + .c8,
-.c19 .c6:not([disabled]):hover + .c8 {
+.c21 .c7:not([disabled]):focus + .c9,
+.c21 .c7:not([disabled]):hover + .c9 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c19 .c4 {
+.c21 .c5 {
   margin-right: 16px;
 }
 
-.c19 .c8 {
+.c21 .c9 {
   padding: 0;
 }
 
-.c19 .c8,
-.c19 svg {
+.c21 .c9,
+.c21 svg {
   border-radius: 50%;
 }
 
-.c19 .c4,
-.c19 .c6,
-.c19 .c8,
-.c19 svg {
+.c21 .c5,
+.c21 .c7,
+.c21 .c9,
+.c21 svg {
   height: 16px;
   width: 16px;
 }
 
-.c19 .c6:checked + .c8 circle {
-  fill: #26A826;
+.c21 .c7:checked + .c9 circle {
+  fill: #00805D;
 }
 
-.c0 {
+.c3 {
   padding-top: 8px;
   margin-bottom: 12px;
 }
 
-.c0 .c4 {
+.c3 .c5 {
   padding-top: 1px;
 }
 
-.c0 .c8 {
+.c3 .c9 {
   height: 16px;
 }
 
-.c0 svg {
+.c3 svg {
   background-color: #FFFFFF;
   border: solid 1px #668491;
 }
 
-.c0 .c6,
-.c0 svg {
+.c3 .c7,
+.c3 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c0 .c4,
-.c0 .c6,
-.c0 .c8,
-.c0 svg {
+.c3 .c5,
+.c3 .c7,
+.c3 .c9,
+.c3 svg {
   box-sizing: border-box;
   width: 16px;
 }
 
-.c0 .c6:not([disabled]):focus + .c8,
-.c0 .c6:not([disabled]):hover + .c8 {
+.c3 .c7:not([disabled]):focus + .c9,
+.c3 .c7:not([disabled]):hover + .c9 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c0 .c22 {
+.c3 .c25 {
   padding: 0 6px;
   width: auto;
 }
 
-.c0 .c20 {
+.c3 .c22 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
 }
 
-.c0 .c20 {
+.c3 .c22 {
   margin-left: 32px;
 }
 
-.c0 .c4 {
+.c3 .c5 {
   margin-right: 16px;
 }
 
-.c0 .c8 {
+.c3 .c9 {
   padding: 0;
 }
 
-.c0 .c8,
-.c0 svg {
+.c3 .c9,
+.c3 svg {
   border-radius: 50%;
 }
 
-.c0 .c4,
-.c0 .c6,
-.c0 .c8,
-.c0 svg {
+.c3 .c5,
+.c3 .c7,
+.c3 .c9,
+.c3 svg {
   height: 16px;
   width: 16px;
 }
 
-.c0 svg {
+.c3 svg {
   padding: 1px;
 }
 
-.c0 circle {
+.c3 circle {
   r: 5;
 }
 
-.c0 .c6:checked + .c8 circle {
-  fill: #26A826;
+.c3 .c7:checked + .c9 circle {
+  fill: #00805D;
 }
 
-<div
-  className="c0"
-  data-component="radio-button"
-  name="my-radio"
+.c0 > .c1 > .c25 {
+  cursor: default;
+  margin-bottom: 16px;
+  padding: 0;
+}
+
+.c0 > .c1 > .c25 > label {
+  vertical-align: middle;
+}
+
+.c0 > .c1 > .c25 .c24 {
+  margin-top: 0;
+  margin-right: 0;
+  display: inline-block;
+}
+
+.c0 > .c1 > .c25 .c24 ::before {
+  font-size: 16px;
+}
+
+<ThemeProvider
+  theme={
+    Object {
+      "card": Object {
+        "footerBackground": "#F2F4F5",
+        "footerBorder": "#E5EAEC",
+        "footerText": "#00805D",
+      },
+      "carousel": Object {
+        "activeSelectorBackground": "#668491",
+        "inactiveSelectorBackground": "#CCD6DA",
+      },
+      "colors": Object {
+        "base": "#00A376",
+        "black": "#000000",
+        "border": "#668491",
+        "brand": "#00DC00",
+        "destructive": Object {
+          "hover": "#9F2C3F",
+        },
+        "disabled": "#66C7AC",
+        "error": "#C7384F",
+        "focus": "#FFB500",
+        "focusedIcon": "#335B6D",
+        "focusedLinkBackground": "#FFDA7F",
+        "hoveredTabKeyline": "#4CBE9F",
+        "info": "#0073C2",
+        "previewBackground": "#BFCCD1",
+        "primary": "#00805D",
+        "secondary": "#006045",
+        "slate": "#003349",
+        "success": "#00B000",
+        "tertiary": "#003F2E",
+        "warning": "#E96400",
+        "white": "#FFFFFF",
+        "whiteMix": "#E5F5F1",
+        "withOpacity": "rgba(0,163,118,0.55)",
+      },
+      "disabled": Object {
+        "background": "#E5EAEC",
+        "border": "#CCD6DA",
+        "button": "#E5EAEC",
+        "buttonText": "rgba(0,0,0,.2)",
+        "disabled": "rgba(0,0,0,0.55)",
+        "input": "#F2F4F5",
+        "switch": "#E4E9EB",
+        "text": "rgba(0,0,0,0.3)",
+      },
+      "form": Object {
+        "invalid": "#F2F4F5",
+      },
+      "help": Object {
+        "color": "rgba(0,0,0,0.65)",
+        "hover": "rgba(0,0,0,0.9)",
+      },
+      "icon": Object {
+        "default": "rgba(0,0,0,0.65)",
+        "defaultHover": "rgba(0,0,0,0.90)",
+        "disabled": "rgba(0,0,0,0.30)",
+        "onLightBackground": "#668491",
+        "onLightBackgroundHover": "#335B6D",
+      },
+      "menu": Object {
+        "divider": "#E5EAEC",
+        "focus": "#F2F4F5",
+        "itemColor": "rgba(0,0,0,0.9)",
+        "itemColorDisabled": "rgba(0,0,0,0.3)",
+      },
+      "name": "small",
+      "pager": Object {
+        "active": "rgba(0,0,0,0.74)",
+        "disabled": "rgba(0,0,0,0.55)",
+        "hover": "rgba(0,0,0,0.90)",
+      },
+      "pill": Object {
+        "errorButtonFocus": "#9F2C3F",
+        "neutral": "#4C707F",
+        "neutralBackgroundFocus": "#19475B",
+        "warning": "#ED8333",
+        "warningButtonFocus": "#E96400",
+      },
+      "portrait": Object {
+        "background": "#F2F4F5",
+        "border": "#7F99A4",
+        "initials": "rgba(0,0,0,0.65)",
+      },
+      "rainbow": Object {
+        "textColor": "#003349",
+      },
+      "select": Object {
+        "border": "#bfccd2",
+        "selected": "#F2F4F5",
+      },
+      "shadows": Object {
+        "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+        "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+      },
+      "switch": Object {
+        "off": "#CCD6DB",
+      },
+      "table": Object {
+        "header": "#335B6D",
+        "hover": "#E5EAEC",
+        "primary": "#F2F4F5",
+        "secondary": "#CCD6DA",
+        "selected": "#D8E0E3",
+        "tertiary": "#19475B",
+        "zebra": "#F9FAFB",
+      },
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+      "tile": Object {
+        "border": "#CCD6DA",
+        "separator": "#E5EAEC",
+      },
+    }
+  }
 >
-  <div
-    className="c1"
-    name="my-radio"
+  <WithValidation(RadioButtonGroup)
+    info={Array []}
+    unblockValidation={true}
+    validations={Array []}
+    warnings={Array []}
   >
-    <div
-      className="c2 c3"
+    <RadioButtonGroup
+      hasError={false}
+      hasInfo={false}
+      hasWarning={false}
+      info={Array []}
+      onBlur={[Function]}
+      onChange={[Function]}
+      unblockValidation={true}
+      validations={Array []}
+      warnings={Array []}
     >
-      <div
-        className="c4 c5"
+      <styled.div
+        aria-labelledby="undefined-label"
+        data-component="radiogroup"
+        hasError={false}
+        hasInfo={false}
+        hasWarning={false}
+        role="radiogroup"
+        theme={
+          Object {
+            "card": Object {
+              "footerBackground": "#F2F4F5",
+              "footerBorder": "#E5EAEC",
+              "footerText": "#00805D",
+            },
+            "carousel": Object {
+              "activeSelectorBackground": "#668491",
+              "inactiveSelectorBackground": "#CCD6DA",
+            },
+            "colors": Object {
+              "base": "#00A376",
+              "black": "#000000",
+              "border": "#668491",
+              "brand": "#00DC00",
+              "destructive": Object {
+                "hover": "#9F2C3F",
+              },
+              "disabled": "#66C166",
+              "error": "#C7384F",
+              "focus": "#FFB500",
+              "focusedIcon": "#335B6D",
+              "focusedLinkBackground": "#FFDA7F",
+              "hoveredTabKeyline": "#4CB74C",
+              "info": "#0073C2",
+              "previewBackground": "#BFCCD1",
+              "primary": "#26A826",
+              "secondary": "#006300",
+              "slate": "#003349",
+              "success": "#00B000",
+              "tertiary": "#004400",
+              "warning": "#E96400",
+              "white": "#FFFFFF",
+              "whiteMix": "#E5F4E5",
+              "withOpacity": "rgba(0,163,118,0.55)",
+            },
+            "disabled": Object {
+              "background": "#E5EAEC",
+              "border": "#CCD6DA",
+              "button": "#E5EAEC",
+              "buttonText": "rgba(0,0,0,.2)",
+              "disabled": "rgba(0,0,0,0.55)",
+              "input": "#F2F4F5",
+              "switch": "#E4E9EB",
+              "text": "rgba(0,0,0,0.3)",
+            },
+            "form": Object {
+              "invalid": "#F2F4F5",
+            },
+            "help": Object {
+              "color": "rgba(0,0,0,0.65)",
+              "hover": "rgba(0,0,0,0.9)",
+            },
+            "icon": Object {
+              "default": "rgba(0,0,0,0.65)",
+              "defaultHover": "rgba(0,0,0,0.90)",
+              "disabled": "rgba(0,0,0,0.30)",
+              "onLightBackground": "#668491",
+              "onLightBackgroundHover": "#335B6D",
+            },
+            "menu": Object {
+              "divider": "#E5EAEC",
+              "focus": "#F2F4F5",
+              "itemColor": "rgba(0,0,0,0.9)",
+              "itemColorDisabled": "rgba(0,0,0,0.3)",
+            },
+            "name": "base",
+            "pager": Object {
+              "active": "rgba(0,0,0,0.74)",
+              "disabled": "rgba(0,0,0,0.55)",
+              "hover": "rgba(0,0,0,0.90)",
+            },
+            "pill": Object {
+              "errorButtonFocus": "#9F2C3F",
+              "neutral": "#4C707F",
+              "neutralBackgroundFocus": "#19475B",
+              "warning": "#ED8333",
+              "warningButtonFocus": "#E96400",
+            },
+            "portrait": Object {
+              "background": "#F2F4F5",
+              "border": "#7F99A4",
+              "initials": "rgba(0,0,0,0.65)",
+            },
+            "rainbow": Object {
+              "textColor": "#003349",
+            },
+            "select": Object {
+              "border": "#bfccd2",
+              "selected": "#F2F4F5",
+            },
+            "shadows": Object {
+              "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+              "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+            },
+            "switch": Object {
+              "off": "#CCD6DB",
+            },
+            "table": Object {
+              "header": "#335B6D",
+              "hover": "#E5EAEC",
+              "primary": "#F2F4F5",
+              "secondary": "#CCD6DA",
+              "selected": "#D8E0E3",
+              "tertiary": "#19475B",
+              "zebra": "#F9FAFB",
+            },
+            "text": Object {
+              "color": "rgba(0,0,0,0.9)",
+              "placeholder": "rgba(0,0,0,0.3)",
+              "size": "14px",
+            },
+            "tile": Object {
+              "border": "#CCD6DA",
+              "separator": "#E5EAEC",
+            },
+          }
+        }
       >
-        <input
-          aria-describedby="guid-12345-help"
-          aria-labelledby="guid-12345-label"
-          className="c6 c7"
-          id="guid-12345"
-          name="my-radio"
-          onChange={[Function]}
-          role="radio"
-          tabIndex={-1}
-          type="radio"
-          value="test"
-        />
-        <div
-          className="c8 "
+        <StyledComponent
+          aria-labelledby="undefined-label"
+          data-component="radiogroup"
+          forwardedComponent={
+            Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "_foldedDefaultProps": Object {
+                "theme": Object {
+                  "card": Object {
+                    "footerBackground": "#F2F4F5",
+                    "footerBorder": "#E5EAEC",
+                    "footerText": "#00805D",
+                  },
+                  "carousel": Object {
+                    "activeSelectorBackground": "#668491",
+                    "inactiveSelectorBackground": "#CCD6DA",
+                  },
+                  "colors": Object {
+                    "base": "#00A376",
+                    "black": "#000000",
+                    "border": "#668491",
+                    "brand": "#00DC00",
+                    "destructive": Object {
+                      "hover": "#9F2C3F",
+                    },
+                    "disabled": "#66C166",
+                    "error": "#C7384F",
+                    "focus": "#FFB500",
+                    "focusedIcon": "#335B6D",
+                    "focusedLinkBackground": "#FFDA7F",
+                    "hoveredTabKeyline": "#4CB74C",
+                    "info": "#0073C2",
+                    "previewBackground": "#BFCCD1",
+                    "primary": "#26A826",
+                    "secondary": "#006300",
+                    "slate": "#003349",
+                    "success": "#00B000",
+                    "tertiary": "#004400",
+                    "warning": "#E96400",
+                    "white": "#FFFFFF",
+                    "whiteMix": "#E5F4E5",
+                    "withOpacity": "rgba(0,163,118,0.55)",
+                  },
+                  "disabled": Object {
+                    "background": "#E5EAEC",
+                    "border": "#CCD6DA",
+                    "button": "#E5EAEC",
+                    "buttonText": "rgba(0,0,0,.2)",
+                    "disabled": "rgba(0,0,0,0.55)",
+                    "input": "#F2F4F5",
+                    "switch": "#E4E9EB",
+                    "text": "rgba(0,0,0,0.3)",
+                  },
+                  "form": Object {
+                    "invalid": "#F2F4F5",
+                  },
+                  "help": Object {
+                    "color": "rgba(0,0,0,0.65)",
+                    "hover": "rgba(0,0,0,0.9)",
+                  },
+                  "icon": Object {
+                    "default": "rgba(0,0,0,0.65)",
+                    "defaultHover": "rgba(0,0,0,0.90)",
+                    "disabled": "rgba(0,0,0,0.30)",
+                    "onLightBackground": "#668491",
+                    "onLightBackgroundHover": "#335B6D",
+                  },
+                  "menu": Object {
+                    "divider": "#E5EAEC",
+                    "focus": "#F2F4F5",
+                    "itemColor": "rgba(0,0,0,0.9)",
+                    "itemColorDisabled": "rgba(0,0,0,0.3)",
+                  },
+                  "name": "base",
+                  "pager": Object {
+                    "active": "rgba(0,0,0,0.74)",
+                    "disabled": "rgba(0,0,0,0.55)",
+                    "hover": "rgba(0,0,0,0.90)",
+                  },
+                  "pill": Object {
+                    "errorButtonFocus": "#9F2C3F",
+                    "neutral": "#4C707F",
+                    "neutralBackgroundFocus": "#19475B",
+                    "warning": "#ED8333",
+                    "warningButtonFocus": "#E96400",
+                  },
+                  "portrait": Object {
+                    "background": "#F2F4F5",
+                    "border": "#7F99A4",
+                    "initials": "rgba(0,0,0,0.65)",
+                  },
+                  "rainbow": Object {
+                    "textColor": "#003349",
+                  },
+                  "select": Object {
+                    "border": "#bfccd2",
+                    "selected": "#F2F4F5",
+                  },
+                  "shadows": Object {
+                    "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+                    "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+                    "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                    "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                    "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                    "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                  },
+                  "switch": Object {
+                    "off": "#CCD6DB",
+                  },
+                  "table": Object {
+                    "header": "#335B6D",
+                    "hover": "#E5EAEC",
+                    "primary": "#F2F4F5",
+                    "secondary": "#CCD6DA",
+                    "selected": "#D8E0E3",
+                    "tertiary": "#19475B",
+                    "zebra": "#F9FAFB",
+                  },
+                  "text": Object {
+                    "color": "rgba(0,0,0,0.9)",
+                    "placeholder": "rgba(0,0,0,0.3)",
+                    "size": "14px",
+                  },
+                  "tile": Object {
+                    "border": "#CCD6DA",
+                    "separator": "#E5EAEC",
+                  },
+                },
+              },
+              "attrs": Array [],
+              "componentStyle": ComponentStyle {
+                "componentId": "sc-VigVT",
+                "isStatic": false,
+                "lastClassName": "c0",
+                "rules": Array [
+                  "
+",
+                  [Function],
+                  "
+
+  & > ",
+                  ".c1",
+                  " {
+    & > ",
+                  ".c25",
+                  " {
+      cursor: default ;
+      margin-bottom: 16px;
+      padding: 0;
+
+      > label {
+        vertical-align: middle;
+      }
+
+      & ",
+                  ".c24",
+                  " {
+        margin-top: 0;
+        margin-right: 0;
+        display: inline-block;
+
+        & ::before {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+",
+                ],
+              },
+              "displayName": "styled.div",
+              "foldedComponentIds": Array [],
+              "render": [Function],
+              "styledComponentId": "sc-VigVT",
+              "target": "div",
+              "toString": [Function],
+              "warnTooManyClasses": [Function],
+              "withComponent": [Function],
+            }
+          }
+          forwardedRef={null}
+          hasError={false}
+          hasInfo={false}
+          hasWarning={false}
+          role="radiogroup"
+          theme={
+            Object {
+              "card": Object {
+                "footerBackground": "#F2F4F5",
+                "footerBorder": "#E5EAEC",
+                "footerText": "#00805D",
+              },
+              "carousel": Object {
+                "activeSelectorBackground": "#668491",
+                "inactiveSelectorBackground": "#CCD6DA",
+              },
+              "colors": Object {
+                "base": "#00A376",
+                "black": "#000000",
+                "border": "#668491",
+                "brand": "#00DC00",
+                "destructive": Object {
+                  "hover": "#9F2C3F",
+                },
+                "disabled": "#66C166",
+                "error": "#C7384F",
+                "focus": "#FFB500",
+                "focusedIcon": "#335B6D",
+                "focusedLinkBackground": "#FFDA7F",
+                "hoveredTabKeyline": "#4CB74C",
+                "info": "#0073C2",
+                "previewBackground": "#BFCCD1",
+                "primary": "#26A826",
+                "secondary": "#006300",
+                "slate": "#003349",
+                "success": "#00B000",
+                "tertiary": "#004400",
+                "warning": "#E96400",
+                "white": "#FFFFFF",
+                "whiteMix": "#E5F4E5",
+                "withOpacity": "rgba(0,163,118,0.55)",
+              },
+              "disabled": Object {
+                "background": "#E5EAEC",
+                "border": "#CCD6DA",
+                "button": "#E5EAEC",
+                "buttonText": "rgba(0,0,0,.2)",
+                "disabled": "rgba(0,0,0,0.55)",
+                "input": "#F2F4F5",
+                "switch": "#E4E9EB",
+                "text": "rgba(0,0,0,0.3)",
+              },
+              "form": Object {
+                "invalid": "#F2F4F5",
+              },
+              "help": Object {
+                "color": "rgba(0,0,0,0.65)",
+                "hover": "rgba(0,0,0,0.9)",
+              },
+              "icon": Object {
+                "default": "rgba(0,0,0,0.65)",
+                "defaultHover": "rgba(0,0,0,0.90)",
+                "disabled": "rgba(0,0,0,0.30)",
+                "onLightBackground": "#668491",
+                "onLightBackgroundHover": "#335B6D",
+              },
+              "menu": Object {
+                "divider": "#E5EAEC",
+                "focus": "#F2F4F5",
+                "itemColor": "rgba(0,0,0,0.9)",
+                "itemColorDisabled": "rgba(0,0,0,0.3)",
+              },
+              "name": "base",
+              "pager": Object {
+                "active": "rgba(0,0,0,0.74)",
+                "disabled": "rgba(0,0,0,0.55)",
+                "hover": "rgba(0,0,0,0.90)",
+              },
+              "pill": Object {
+                "errorButtonFocus": "#9F2C3F",
+                "neutral": "#4C707F",
+                "neutralBackgroundFocus": "#19475B",
+                "warning": "#ED8333",
+                "warningButtonFocus": "#E96400",
+              },
+              "portrait": Object {
+                "background": "#F2F4F5",
+                "border": "#7F99A4",
+                "initials": "rgba(0,0,0,0.65)",
+              },
+              "rainbow": Object {
+                "textColor": "#003349",
+              },
+              "select": Object {
+                "border": "#bfccd2",
+                "selected": "#F2F4F5",
+              },
+              "shadows": Object {
+                "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+                "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+                "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+              },
+              "switch": Object {
+                "off": "#CCD6DB",
+              },
+              "table": Object {
+                "header": "#335B6D",
+                "hover": "#E5EAEC",
+                "primary": "#F2F4F5",
+                "secondary": "#CCD6DA",
+                "selected": "#D8E0E3",
+                "tertiary": "#19475B",
+                "zebra": "#F9FAFB",
+              },
+              "text": Object {
+                "color": "rgba(0,0,0,0.9)",
+                "placeholder": "rgba(0,0,0,0.3)",
+                "size": "14px",
+              },
+              "tile": Object {
+                "border": "#CCD6DA",
+                "separator": "#E5EAEC",
+              },
+            }
+          }
         >
-          <svg
-            viewBox="0 0 15 15"
+          <div
+            aria-labelledby="undefined-label"
+            className="c0"
+            data-component="radiogroup"
+            role="radiogroup"
           >
-            <g
-              fill="none"
-              fillRule="evenodd"
-              stroke="none"
-              strokeWidth="1"
+            <FormField
+              hasError={false}
+              hasInfo={false}
+              hasWarning={false}
+              info={Array []}
+              labelId="undefined-label"
+              onBlur={[Function]}
+              onChange={[Function]}
+              size="medium"
+              unblockValidation={true}
+              validations={Array []}
+              warnings={Array []}
             >
-              <circle
-                className="radio-button-check"
-                cx="7.5"
-                cy="7.5"
-                fill="#FFFFFF"
-                r="5"
-              />
-            </g>
-          </svg>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+              <styled.div
+                theme={
+                  Object {
+                    "card": Object {
+                      "footerBackground": "#F2F4F5",
+                      "footerBorder": "#E5EAEC",
+                      "footerText": "#00805D",
+                    },
+                    "carousel": Object {
+                      "activeSelectorBackground": "#668491",
+                      "inactiveSelectorBackground": "#CCD6DA",
+                    },
+                    "colors": Object {
+                      "base": "#00A376",
+                      "black": "#000000",
+                      "border": "#668491",
+                      "brand": "#00DC00",
+                      "destructive": Object {
+                        "hover": "#9F2C3F",
+                      },
+                      "disabled": "#66C166",
+                      "error": "#C7384F",
+                      "focus": "#FFB500",
+                      "focusedIcon": "#335B6D",
+                      "focusedLinkBackground": "#FFDA7F",
+                      "hoveredTabKeyline": "#4CB74C",
+                      "info": "#0073C2",
+                      "previewBackground": "#BFCCD1",
+                      "primary": "#26A826",
+                      "secondary": "#006300",
+                      "slate": "#003349",
+                      "success": "#00B000",
+                      "tertiary": "#004400",
+                      "warning": "#E96400",
+                      "white": "#FFFFFF",
+                      "whiteMix": "#E5F4E5",
+                      "withOpacity": "rgba(0,163,118,0.55)",
+                    },
+                    "disabled": Object {
+                      "background": "#E5EAEC",
+                      "border": "#CCD6DA",
+                      "button": "#E5EAEC",
+                      "buttonText": "rgba(0,0,0,.2)",
+                      "disabled": "rgba(0,0,0,0.55)",
+                      "input": "#F2F4F5",
+                      "switch": "#E4E9EB",
+                      "text": "rgba(0,0,0,0.3)",
+                    },
+                    "form": Object {
+                      "invalid": "#F2F4F5",
+                    },
+                    "help": Object {
+                      "color": "rgba(0,0,0,0.65)",
+                      "hover": "rgba(0,0,0,0.9)",
+                    },
+                    "icon": Object {
+                      "default": "rgba(0,0,0,0.65)",
+                      "defaultHover": "rgba(0,0,0,0.90)",
+                      "disabled": "rgba(0,0,0,0.30)",
+                      "onLightBackground": "#668491",
+                      "onLightBackgroundHover": "#335B6D",
+                    },
+                    "menu": Object {
+                      "divider": "#E5EAEC",
+                      "focus": "#F2F4F5",
+                      "itemColor": "rgba(0,0,0,0.9)",
+                      "itemColorDisabled": "rgba(0,0,0,0.3)",
+                    },
+                    "name": "base",
+                    "pager": Object {
+                      "active": "rgba(0,0,0,0.74)",
+                      "disabled": "rgba(0,0,0,0.55)",
+                      "hover": "rgba(0,0,0,0.90)",
+                    },
+                    "pill": Object {
+                      "errorButtonFocus": "#9F2C3F",
+                      "neutral": "#4C707F",
+                      "neutralBackgroundFocus": "#19475B",
+                      "warning": "#ED8333",
+                      "warningButtonFocus": "#E96400",
+                    },
+                    "portrait": Object {
+                      "background": "#F2F4F5",
+                      "border": "#7F99A4",
+                      "initials": "rgba(0,0,0,0.65)",
+                    },
+                    "rainbow": Object {
+                      "textColor": "#003349",
+                    },
+                    "select": Object {
+                      "border": "#bfccd2",
+                      "selected": "#F2F4F5",
+                    },
+                    "shadows": Object {
+                      "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+                      "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+                      "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                      "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                      "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                      "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                    },
+                    "switch": Object {
+                      "off": "#CCD6DB",
+                    },
+                    "table": Object {
+                      "header": "#335B6D",
+                      "hover": "#E5EAEC",
+                      "primary": "#F2F4F5",
+                      "secondary": "#CCD6DA",
+                      "selected": "#D8E0E3",
+                      "tertiary": "#19475B",
+                      "zebra": "#F9FAFB",
+                    },
+                    "text": Object {
+                      "color": "rgba(0,0,0,0.9)",
+                      "placeholder": "rgba(0,0,0,0.3)",
+                      "size": "14px",
+                    },
+                    "tile": Object {
+                      "border": "#CCD6DA",
+                      "separator": "#E5EAEC",
+                    },
+                  }
+                }
+              >
+                <StyledComponent
+                  forwardedComponent={
+                    Object {
+                      "$$typeof": Symbol(react.forward_ref),
+                      "_foldedDefaultProps": Object {
+                        "theme": Object {
+                          "card": Object {
+                            "footerBackground": "#F2F4F5",
+                            "footerBorder": "#E5EAEC",
+                            "footerText": "#00805D",
+                          },
+                          "carousel": Object {
+                            "activeSelectorBackground": "#668491",
+                            "inactiveSelectorBackground": "#CCD6DA",
+                          },
+                          "colors": Object {
+                            "base": "#00A376",
+                            "black": "#000000",
+                            "border": "#668491",
+                            "brand": "#00DC00",
+                            "destructive": Object {
+                              "hover": "#9F2C3F",
+                            },
+                            "disabled": "#66C166",
+                            "error": "#C7384F",
+                            "focus": "#FFB500",
+                            "focusedIcon": "#335B6D",
+                            "focusedLinkBackground": "#FFDA7F",
+                            "hoveredTabKeyline": "#4CB74C",
+                            "info": "#0073C2",
+                            "previewBackground": "#BFCCD1",
+                            "primary": "#26A826",
+                            "secondary": "#006300",
+                            "slate": "#003349",
+                            "success": "#00B000",
+                            "tertiary": "#004400",
+                            "warning": "#E96400",
+                            "white": "#FFFFFF",
+                            "whiteMix": "#E5F4E5",
+                            "withOpacity": "rgba(0,163,118,0.55)",
+                          },
+                          "disabled": Object {
+                            "background": "#E5EAEC",
+                            "border": "#CCD6DA",
+                            "button": "#E5EAEC",
+                            "buttonText": "rgba(0,0,0,.2)",
+                            "disabled": "rgba(0,0,0,0.55)",
+                            "input": "#F2F4F5",
+                            "switch": "#E4E9EB",
+                            "text": "rgba(0,0,0,0.3)",
+                          },
+                          "form": Object {
+                            "invalid": "#F2F4F5",
+                          },
+                          "help": Object {
+                            "color": "rgba(0,0,0,0.65)",
+                            "hover": "rgba(0,0,0,0.9)",
+                          },
+                          "icon": Object {
+                            "default": "rgba(0,0,0,0.65)",
+                            "defaultHover": "rgba(0,0,0,0.90)",
+                            "disabled": "rgba(0,0,0,0.30)",
+                            "onLightBackground": "#668491",
+                            "onLightBackgroundHover": "#335B6D",
+                          },
+                          "menu": Object {
+                            "divider": "#E5EAEC",
+                            "focus": "#F2F4F5",
+                            "itemColor": "rgba(0,0,0,0.9)",
+                            "itemColorDisabled": "rgba(0,0,0,0.3)",
+                          },
+                          "name": "base",
+                          "pager": Object {
+                            "active": "rgba(0,0,0,0.74)",
+                            "disabled": "rgba(0,0,0,0.55)",
+                            "hover": "rgba(0,0,0,0.90)",
+                          },
+                          "pill": Object {
+                            "errorButtonFocus": "#9F2C3F",
+                            "neutral": "#4C707F",
+                            "neutralBackgroundFocus": "#19475B",
+                            "warning": "#ED8333",
+                            "warningButtonFocus": "#E96400",
+                          },
+                          "portrait": Object {
+                            "background": "#F2F4F5",
+                            "border": "#7F99A4",
+                            "initials": "rgba(0,0,0,0.65)",
+                          },
+                          "rainbow": Object {
+                            "textColor": "#003349",
+                          },
+                          "select": Object {
+                            "border": "#bfccd2",
+                            "selected": "#F2F4F5",
+                          },
+                          "shadows": Object {
+                            "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+                            "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+                            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                          },
+                          "switch": Object {
+                            "off": "#CCD6DB",
+                          },
+                          "table": Object {
+                            "header": "#335B6D",
+                            "hover": "#E5EAEC",
+                            "primary": "#F2F4F5",
+                            "secondary": "#CCD6DA",
+                            "selected": "#D8E0E3",
+                            "tertiary": "#19475B",
+                            "zebra": "#F9FAFB",
+                          },
+                          "text": Object {
+                            "color": "rgba(0,0,0,0.9)",
+                            "placeholder": "rgba(0,0,0,0.3)",
+                            "size": "14px",
+                          },
+                          "tile": Object {
+                            "border": "#CCD6DA",
+                            "separator": "#E5EAEC",
+                          },
+                        },
+                      },
+                      "attrs": Array [],
+                      "componentStyle": ComponentStyle {
+                        "componentId": "c1",
+                        "isStatic": false,
+                        "lastClassName": "c2",
+                        "rules": Array [
+                          "
+  ",
+                          [Function],
+                          "
+
+  & + & {
+    margin-top: ",
+                          [Function],
+                          ";
+  }
+",
+                        ],
+                      },
+                      "displayName": "styled.div",
+                      "foldedComponentIds": Array [],
+                      "render": [Function],
+                      "styledComponentId": "c1",
+                      "target": "div",
+                      "toString": [Function],
+                      "warnTooManyClasses": [Function],
+                      "withComponent": [Function],
+                    }
+                  }
+                  forwardedRef={null}
+                  theme={
+                    Object {
+                      "card": Object {
+                        "footerBackground": "#F2F4F5",
+                        "footerBorder": "#E5EAEC",
+                        "footerText": "#00805D",
+                      },
+                      "carousel": Object {
+                        "activeSelectorBackground": "#668491",
+                        "inactiveSelectorBackground": "#CCD6DA",
+                      },
+                      "colors": Object {
+                        "base": "#00A376",
+                        "black": "#000000",
+                        "border": "#668491",
+                        "brand": "#00DC00",
+                        "destructive": Object {
+                          "hover": "#9F2C3F",
+                        },
+                        "disabled": "#66C166",
+                        "error": "#C7384F",
+                        "focus": "#FFB500",
+                        "focusedIcon": "#335B6D",
+                        "focusedLinkBackground": "#FFDA7F",
+                        "hoveredTabKeyline": "#4CB74C",
+                        "info": "#0073C2",
+                        "previewBackground": "#BFCCD1",
+                        "primary": "#26A826",
+                        "secondary": "#006300",
+                        "slate": "#003349",
+                        "success": "#00B000",
+                        "tertiary": "#004400",
+                        "warning": "#E96400",
+                        "white": "#FFFFFF",
+                        "whiteMix": "#E5F4E5",
+                        "withOpacity": "rgba(0,163,118,0.55)",
+                      },
+                      "disabled": Object {
+                        "background": "#E5EAEC",
+                        "border": "#CCD6DA",
+                        "button": "#E5EAEC",
+                        "buttonText": "rgba(0,0,0,.2)",
+                        "disabled": "rgba(0,0,0,0.55)",
+                        "input": "#F2F4F5",
+                        "switch": "#E4E9EB",
+                        "text": "rgba(0,0,0,0.3)",
+                      },
+                      "form": Object {
+                        "invalid": "#F2F4F5",
+                      },
+                      "help": Object {
+                        "color": "rgba(0,0,0,0.65)",
+                        "hover": "rgba(0,0,0,0.9)",
+                      },
+                      "icon": Object {
+                        "default": "rgba(0,0,0,0.65)",
+                        "defaultHover": "rgba(0,0,0,0.90)",
+                        "disabled": "rgba(0,0,0,0.30)",
+                        "onLightBackground": "#668491",
+                        "onLightBackgroundHover": "#335B6D",
+                      },
+                      "menu": Object {
+                        "divider": "#E5EAEC",
+                        "focus": "#F2F4F5",
+                        "itemColor": "rgba(0,0,0,0.9)",
+                        "itemColorDisabled": "rgba(0,0,0,0.3)",
+                      },
+                      "name": "base",
+                      "pager": Object {
+                        "active": "rgba(0,0,0,0.74)",
+                        "disabled": "rgba(0,0,0,0.55)",
+                        "hover": "rgba(0,0,0,0.90)",
+                      },
+                      "pill": Object {
+                        "errorButtonFocus": "#9F2C3F",
+                        "neutral": "#4C707F",
+                        "neutralBackgroundFocus": "#19475B",
+                        "warning": "#ED8333",
+                        "warningButtonFocus": "#E96400",
+                      },
+                      "portrait": Object {
+                        "background": "#F2F4F5",
+                        "border": "#7F99A4",
+                        "initials": "rgba(0,0,0,0.65)",
+                      },
+                      "rainbow": Object {
+                        "textColor": "#003349",
+                      },
+                      "select": Object {
+                        "border": "#bfccd2",
+                        "selected": "#F2F4F5",
+                      },
+                      "shadows": Object {
+                        "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+                        "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+                        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                      },
+                      "switch": Object {
+                        "off": "#CCD6DB",
+                      },
+                      "table": Object {
+                        "header": "#335B6D",
+                        "hover": "#E5EAEC",
+                        "primary": "#F2F4F5",
+                        "secondary": "#CCD6DA",
+                        "selected": "#D8E0E3",
+                        "tertiary": "#19475B",
+                        "zebra": "#F9FAFB",
+                      },
+                      "text": Object {
+                        "color": "rgba(0,0,0,0.9)",
+                        "placeholder": "rgba(0,0,0,0.3)",
+                        "size": "14px",
+                      },
+                      "tile": Object {
+                        "border": "#CCD6DA",
+                        "separator": "#E5EAEC",
+                      },
+                    }
+                  }
+                >
+                  <div
+                    className="c1 c2"
+                  >
+                    <RadioButton
+                      checked={false}
+                      key=".0"
+                      name="my-radio"
+                      onChange={[Function]}
+                      reverse={false}
+                      tabindex={0}
+                      value="test"
+                    >
+                      <Styled(styled.div)
+                        checked={false}
+                        data-component="radio-button"
+                        labelAlign="left"
+                        name="my-radio"
+                        reverse={false}
+                        tabindex={0}
+                        theme={
+                          Object {
+                            "card": Object {
+                              "footerBackground": "#F2F4F5",
+                              "footerBorder": "#E5EAEC",
+                              "footerText": "#00805D",
+                            },
+                            "carousel": Object {
+                              "activeSelectorBackground": "#668491",
+                              "inactiveSelectorBackground": "#CCD6DA",
+                            },
+                            "colors": Object {
+                              "base": "#00A376",
+                              "black": "#000000",
+                              "border": "#668491",
+                              "brand": "#00DC00",
+                              "destructive": Object {
+                                "hover": "#9F2C3F",
+                              },
+                              "disabled": "#66C166",
+                              "error": "#C7384F",
+                              "focus": "#FFB500",
+                              "focusedIcon": "#335B6D",
+                              "focusedLinkBackground": "#FFDA7F",
+                              "hoveredTabKeyline": "#4CB74C",
+                              "info": "#0073C2",
+                              "previewBackground": "#BFCCD1",
+                              "primary": "#26A826",
+                              "secondary": "#006300",
+                              "slate": "#003349",
+                              "success": "#00B000",
+                              "tertiary": "#004400",
+                              "warning": "#E96400",
+                              "white": "#FFFFFF",
+                              "whiteMix": "#E5F4E5",
+                              "withOpacity": "rgba(0,163,118,0.55)",
+                            },
+                            "disabled": Object {
+                              "background": "#E5EAEC",
+                              "border": "#CCD6DA",
+                              "button": "#E5EAEC",
+                              "buttonText": "rgba(0,0,0,.2)",
+                              "disabled": "rgba(0,0,0,0.55)",
+                              "input": "#F2F4F5",
+                              "switch": "#E4E9EB",
+                              "text": "rgba(0,0,0,0.3)",
+                            },
+                            "form": Object {
+                              "invalid": "#F2F4F5",
+                            },
+                            "help": Object {
+                              "color": "rgba(0,0,0,0.65)",
+                              "hover": "rgba(0,0,0,0.9)",
+                            },
+                            "icon": Object {
+                              "default": "rgba(0,0,0,0.65)",
+                              "defaultHover": "rgba(0,0,0,0.90)",
+                              "disabled": "rgba(0,0,0,0.30)",
+                              "onLightBackground": "#668491",
+                              "onLightBackgroundHover": "#335B6D",
+                            },
+                            "menu": Object {
+                              "divider": "#E5EAEC",
+                              "focus": "#F2F4F5",
+                              "itemColor": "rgba(0,0,0,0.9)",
+                              "itemColorDisabled": "rgba(0,0,0,0.3)",
+                            },
+                            "name": "base",
+                            "pager": Object {
+                              "active": "rgba(0,0,0,0.74)",
+                              "disabled": "rgba(0,0,0,0.55)",
+                              "hover": "rgba(0,0,0,0.90)",
+                            },
+                            "pill": Object {
+                              "errorButtonFocus": "#9F2C3F",
+                              "neutral": "#4C707F",
+                              "neutralBackgroundFocus": "#19475B",
+                              "warning": "#ED8333",
+                              "warningButtonFocus": "#E96400",
+                            },
+                            "portrait": Object {
+                              "background": "#F2F4F5",
+                              "border": "#7F99A4",
+                              "initials": "rgba(0,0,0,0.65)",
+                            },
+                            "rainbow": Object {
+                              "textColor": "#003349",
+                            },
+                            "select": Object {
+                              "border": "#bfccd2",
+                              "selected": "#F2F4F5",
+                            },
+                            "shadows": Object {
+                              "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+                              "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+                              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                            },
+                            "switch": Object {
+                              "off": "#CCD6DB",
+                            },
+                            "table": Object {
+                              "header": "#335B6D",
+                              "hover": "#E5EAEC",
+                              "primary": "#F2F4F5",
+                              "secondary": "#CCD6DA",
+                              "selected": "#D8E0E3",
+                              "tertiary": "#19475B",
+                              "zebra": "#F9FAFB",
+                            },
+                            "text": Object {
+                              "color": "rgba(0,0,0,0.9)",
+                              "placeholder": "rgba(0,0,0,0.3)",
+                              "size": "14px",
+                            },
+                            "tile": Object {
+                              "border": "#CCD6DA",
+                              "separator": "#E5EAEC",
+                            },
+                          }
+                        }
+                      >
+                        <StyledComponent
+                          checked={false}
+                          data-component="radio-button"
+                          forwardedComponent={
+                            Object {
+                              "$$typeof": Symbol(react.forward_ref),
+                              "_foldedDefaultProps": Object {
+                                "labelAlign": "left",
+                                "theme": Object {
+                                  "card": Object {
+                                    "footerBackground": "#F2F4F5",
+                                    "footerBorder": "#E5EAEC",
+                                    "footerText": "#00805D",
+                                  },
+                                  "carousel": Object {
+                                    "activeSelectorBackground": "#668491",
+                                    "inactiveSelectorBackground": "#CCD6DA",
+                                  },
+                                  "colors": Object {
+                                    "base": "#00A376",
+                                    "black": "#000000",
+                                    "border": "#668491",
+                                    "brand": "#00DC00",
+                                    "destructive": Object {
+                                      "hover": "#9F2C3F",
+                                    },
+                                    "disabled": "#66C166",
+                                    "error": "#C7384F",
+                                    "focus": "#FFB500",
+                                    "focusedIcon": "#335B6D",
+                                    "focusedLinkBackground": "#FFDA7F",
+                                    "hoveredTabKeyline": "#4CB74C",
+                                    "info": "#0073C2",
+                                    "previewBackground": "#BFCCD1",
+                                    "primary": "#26A826",
+                                    "secondary": "#006300",
+                                    "slate": "#003349",
+                                    "success": "#00B000",
+                                    "tertiary": "#004400",
+                                    "warning": "#E96400",
+                                    "white": "#FFFFFF",
+                                    "whiteMix": "#E5F4E5",
+                                    "withOpacity": "rgba(0,163,118,0.55)",
+                                  },
+                                  "disabled": Object {
+                                    "background": "#E5EAEC",
+                                    "border": "#CCD6DA",
+                                    "button": "#E5EAEC",
+                                    "buttonText": "rgba(0,0,0,.2)",
+                                    "disabled": "rgba(0,0,0,0.55)",
+                                    "input": "#F2F4F5",
+                                    "switch": "#E4E9EB",
+                                    "text": "rgba(0,0,0,0.3)",
+                                  },
+                                  "form": Object {
+                                    "invalid": "#F2F4F5",
+                                  },
+                                  "help": Object {
+                                    "color": "rgba(0,0,0,0.65)",
+                                    "hover": "rgba(0,0,0,0.9)",
+                                  },
+                                  "icon": Object {
+                                    "default": "rgba(0,0,0,0.65)",
+                                    "defaultHover": "rgba(0,0,0,0.90)",
+                                    "disabled": "rgba(0,0,0,0.30)",
+                                    "onLightBackground": "#668491",
+                                    "onLightBackgroundHover": "#335B6D",
+                                  },
+                                  "menu": Object {
+                                    "divider": "#E5EAEC",
+                                    "focus": "#F2F4F5",
+                                    "itemColor": "rgba(0,0,0,0.9)",
+                                    "itemColorDisabled": "rgba(0,0,0,0.3)",
+                                  },
+                                  "name": "base",
+                                  "pager": Object {
+                                    "active": "rgba(0,0,0,0.74)",
+                                    "disabled": "rgba(0,0,0,0.55)",
+                                    "hover": "rgba(0,0,0,0.90)",
+                                  },
+                                  "pill": Object {
+                                    "errorButtonFocus": "#9F2C3F",
+                                    "neutral": "#4C707F",
+                                    "neutralBackgroundFocus": "#19475B",
+                                    "warning": "#ED8333",
+                                    "warningButtonFocus": "#E96400",
+                                  },
+                                  "portrait": Object {
+                                    "background": "#F2F4F5",
+                                    "border": "#7F99A4",
+                                    "initials": "rgba(0,0,0,0.65)",
+                                  },
+                                  "rainbow": Object {
+                                    "textColor": "#003349",
+                                  },
+                                  "select": Object {
+                                    "border": "#bfccd2",
+                                    "selected": "#F2F4F5",
+                                  },
+                                  "shadows": Object {
+                                    "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+                                    "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+                                    "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                    "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                    "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                    "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                  },
+                                  "switch": Object {
+                                    "off": "#CCD6DB",
+                                  },
+                                  "table": Object {
+                                    "header": "#335B6D",
+                                    "hover": "#E5EAEC",
+                                    "primary": "#F2F4F5",
+                                    "secondary": "#CCD6DA",
+                                    "selected": "#D8E0E3",
+                                    "tertiary": "#19475B",
+                                    "zebra": "#F9FAFB",
+                                  },
+                                  "text": Object {
+                                    "color": "rgba(0,0,0,0.9)",
+                                    "placeholder": "rgba(0,0,0,0.3)",
+                                    "size": "14px",
+                                  },
+                                  "tile": Object {
+                                    "border": "#CCD6DA",
+                                    "separator": "#E5EAEC",
+                                  },
+                                },
+                              },
+                              "attrs": Array [],
+                              "componentStyle": ComponentStyle {
+                                "componentId": "sc-gqjmRU",
+                                "isStatic": false,
+                                "lastClassName": "c3",
+                                "rules": Array [
+                                  "
+  ",
+                                  [Function],
+                                  "
+",
+                                  "
+  ",
+                                  [Function],
+                                  "
+",
+                                ],
+                              },
+                              "displayName": "Styled(styled.div)",
+                              "foldedComponentIds": Array [
+                                "sc-gZMcBi",
+                              ],
+                              "propTypes": Object {
+                                "disabled": [Function],
+                                "error": [Function],
+                                "fieldHelpInline": [Function],
+                                "inputWidth": [Function],
+                                "labelAlign": [Function],
+                                "labelWidth": [Function],
+                                "size": [Function],
+                              },
+                              "render": [Function],
+                              "styledComponentId": "sc-gqjmRU",
+                              "target": "div",
+                              "toString": [Function],
+                              "warnTooManyClasses": [Function],
+                              "withComponent": [Function],
+                            }
+                          }
+                          forwardedRef={null}
+                          labelAlign="left"
+                          name="my-radio"
+                          reverse={false}
+                          tabindex={0}
+                          theme={
+                            Object {
+                              "card": Object {
+                                "footerBackground": "#F2F4F5",
+                                "footerBorder": "#E5EAEC",
+                                "footerText": "#00805D",
+                              },
+                              "carousel": Object {
+                                "activeSelectorBackground": "#668491",
+                                "inactiveSelectorBackground": "#CCD6DA",
+                              },
+                              "colors": Object {
+                                "base": "#00A376",
+                                "black": "#000000",
+                                "border": "#668491",
+                                "brand": "#00DC00",
+                                "destructive": Object {
+                                  "hover": "#9F2C3F",
+                                },
+                                "disabled": "#66C166",
+                                "error": "#C7384F",
+                                "focus": "#FFB500",
+                                "focusedIcon": "#335B6D",
+                                "focusedLinkBackground": "#FFDA7F",
+                                "hoveredTabKeyline": "#4CB74C",
+                                "info": "#0073C2",
+                                "previewBackground": "#BFCCD1",
+                                "primary": "#26A826",
+                                "secondary": "#006300",
+                                "slate": "#003349",
+                                "success": "#00B000",
+                                "tertiary": "#004400",
+                                "warning": "#E96400",
+                                "white": "#FFFFFF",
+                                "whiteMix": "#E5F4E5",
+                                "withOpacity": "rgba(0,163,118,0.55)",
+                              },
+                              "disabled": Object {
+                                "background": "#E5EAEC",
+                                "border": "#CCD6DA",
+                                "button": "#E5EAEC",
+                                "buttonText": "rgba(0,0,0,.2)",
+                                "disabled": "rgba(0,0,0,0.55)",
+                                "input": "#F2F4F5",
+                                "switch": "#E4E9EB",
+                                "text": "rgba(0,0,0,0.3)",
+                              },
+                              "form": Object {
+                                "invalid": "#F2F4F5",
+                              },
+                              "help": Object {
+                                "color": "rgba(0,0,0,0.65)",
+                                "hover": "rgba(0,0,0,0.9)",
+                              },
+                              "icon": Object {
+                                "default": "rgba(0,0,0,0.65)",
+                                "defaultHover": "rgba(0,0,0,0.90)",
+                                "disabled": "rgba(0,0,0,0.30)",
+                                "onLightBackground": "#668491",
+                                "onLightBackgroundHover": "#335B6D",
+                              },
+                              "menu": Object {
+                                "divider": "#E5EAEC",
+                                "focus": "#F2F4F5",
+                                "itemColor": "rgba(0,0,0,0.9)",
+                                "itemColorDisabled": "rgba(0,0,0,0.3)",
+                              },
+                              "name": "base",
+                              "pager": Object {
+                                "active": "rgba(0,0,0,0.74)",
+                                "disabled": "rgba(0,0,0,0.55)",
+                                "hover": "rgba(0,0,0,0.90)",
+                              },
+                              "pill": Object {
+                                "errorButtonFocus": "#9F2C3F",
+                                "neutral": "#4C707F",
+                                "neutralBackgroundFocus": "#19475B",
+                                "warning": "#ED8333",
+                                "warningButtonFocus": "#E96400",
+                              },
+                              "portrait": Object {
+                                "background": "#F2F4F5",
+                                "border": "#7F99A4",
+                                "initials": "rgba(0,0,0,0.65)",
+                              },
+                              "rainbow": Object {
+                                "textColor": "#003349",
+                              },
+                              "select": Object {
+                                "border": "#bfccd2",
+                                "selected": "#F2F4F5",
+                              },
+                              "shadows": Object {
+                                "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+                                "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+                                "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                              },
+                              "switch": Object {
+                                "off": "#CCD6DB",
+                              },
+                              "table": Object {
+                                "header": "#335B6D",
+                                "hover": "#E5EAEC",
+                                "primary": "#F2F4F5",
+                                "secondary": "#CCD6DA",
+                                "selected": "#D8E0E3",
+                                "tertiary": "#19475B",
+                                "zebra": "#F9FAFB",
+                              },
+                              "text": Object {
+                                "color": "rgba(0,0,0,0.9)",
+                                "placeholder": "rgba(0,0,0,0.3)",
+                                "size": "14px",
+                              },
+                              "tile": Object {
+                                "border": "#CCD6DA",
+                                "separator": "#E5EAEC",
+                              },
+                            }
+                          }
+                        >
+                          <div
+                            checked={false}
+                            className="c3"
+                            data-component="radio-button"
+                            name="my-radio"
+                          >
+                            <CheckableInput
+                              checked={false}
+                              helpTabIndex={-1}
+                              helpTag="span"
+                              inputType="radio"
+                              inputValue="test"
+                              name="my-radio"
+                              onChange={[Function]}
+                              reverse={true}
+                              tabindex={0}
+                            >
+                              <styled.div
+                                checked={false}
+                                helpTabIndex={-1}
+                                helpTag="span"
+                                inputType="radio"
+                                inputValue="test"
+                                labelAlign="left"
+                                name="my-radio"
+                                reverse={true}
+                                tabindex={0}
+                                theme={
+                                  Object {
+                                    "card": Object {
+                                      "footerBackground": "#F2F4F5",
+                                      "footerBorder": "#E5EAEC",
+                                      "footerText": "#00805D",
+                                    },
+                                    "carousel": Object {
+                                      "activeSelectorBackground": "#668491",
+                                      "inactiveSelectorBackground": "#CCD6DA",
+                                    },
+                                    "colors": Object {
+                                      "base": "#00A376",
+                                      "black": "#000000",
+                                      "border": "#668491",
+                                      "brand": "#00DC00",
+                                      "destructive": Object {
+                                        "hover": "#9F2C3F",
+                                      },
+                                      "disabled": "#66C166",
+                                      "error": "#C7384F",
+                                      "focus": "#FFB500",
+                                      "focusedIcon": "#335B6D",
+                                      "focusedLinkBackground": "#FFDA7F",
+                                      "hoveredTabKeyline": "#4CB74C",
+                                      "info": "#0073C2",
+                                      "previewBackground": "#BFCCD1",
+                                      "primary": "#26A826",
+                                      "secondary": "#006300",
+                                      "slate": "#003349",
+                                      "success": "#00B000",
+                                      "tertiary": "#004400",
+                                      "warning": "#E96400",
+                                      "white": "#FFFFFF",
+                                      "whiteMix": "#E5F4E5",
+                                      "withOpacity": "rgba(0,163,118,0.55)",
+                                    },
+                                    "disabled": Object {
+                                      "background": "#E5EAEC",
+                                      "border": "#CCD6DA",
+                                      "button": "#E5EAEC",
+                                      "buttonText": "rgba(0,0,0,.2)",
+                                      "disabled": "rgba(0,0,0,0.55)",
+                                      "input": "#F2F4F5",
+                                      "switch": "#E4E9EB",
+                                      "text": "rgba(0,0,0,0.3)",
+                                    },
+                                    "form": Object {
+                                      "invalid": "#F2F4F5",
+                                    },
+                                    "help": Object {
+                                      "color": "rgba(0,0,0,0.65)",
+                                      "hover": "rgba(0,0,0,0.9)",
+                                    },
+                                    "icon": Object {
+                                      "default": "rgba(0,0,0,0.65)",
+                                      "defaultHover": "rgba(0,0,0,0.90)",
+                                      "disabled": "rgba(0,0,0,0.30)",
+                                      "onLightBackground": "#668491",
+                                      "onLightBackgroundHover": "#335B6D",
+                                    },
+                                    "menu": Object {
+                                      "divider": "#E5EAEC",
+                                      "focus": "#F2F4F5",
+                                      "itemColor": "rgba(0,0,0,0.9)",
+                                      "itemColorDisabled": "rgba(0,0,0,0.3)",
+                                    },
+                                    "name": "base",
+                                    "pager": Object {
+                                      "active": "rgba(0,0,0,0.74)",
+                                      "disabled": "rgba(0,0,0,0.55)",
+                                      "hover": "rgba(0,0,0,0.90)",
+                                    },
+                                    "pill": Object {
+                                      "errorButtonFocus": "#9F2C3F",
+                                      "neutral": "#4C707F",
+                                      "neutralBackgroundFocus": "#19475B",
+                                      "warning": "#ED8333",
+                                      "warningButtonFocus": "#E96400",
+                                    },
+                                    "portrait": Object {
+                                      "background": "#F2F4F5",
+                                      "border": "#7F99A4",
+                                      "initials": "rgba(0,0,0,0.65)",
+                                    },
+                                    "rainbow": Object {
+                                      "textColor": "#003349",
+                                    },
+                                    "select": Object {
+                                      "border": "#bfccd2",
+                                      "selected": "#F2F4F5",
+                                    },
+                                    "shadows": Object {
+                                      "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+                                      "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+                                      "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                      "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                      "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                      "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                    },
+                                    "switch": Object {
+                                      "off": "#CCD6DB",
+                                    },
+                                    "table": Object {
+                                      "header": "#335B6D",
+                                      "hover": "#E5EAEC",
+                                      "primary": "#F2F4F5",
+                                      "secondary": "#CCD6DA",
+                                      "selected": "#D8E0E3",
+                                      "tertiary": "#19475B",
+                                      "zebra": "#F9FAFB",
+                                    },
+                                    "text": Object {
+                                      "color": "rgba(0,0,0,0.9)",
+                                      "placeholder": "rgba(0,0,0,0.3)",
+                                      "size": "14px",
+                                    },
+                                    "tile": Object {
+                                      "border": "#CCD6DA",
+                                      "separator": "#E5EAEC",
+                                    },
+                                  }
+                                }
+                              >
+                                <StyledComponent
+                                  checked={false}
+                                  forwardedComponent={
+                                    Object {
+                                      "$$typeof": Symbol(react.forward_ref),
+                                      "_foldedDefaultProps": Object {
+                                        "labelAlign": "left",
+                                        "theme": Object {
+                                          "card": Object {
+                                            "footerBackground": "#F2F4F5",
+                                            "footerBorder": "#E5EAEC",
+                                            "footerText": "#00805D",
+                                          },
+                                          "carousel": Object {
+                                            "activeSelectorBackground": "#668491",
+                                            "inactiveSelectorBackground": "#CCD6DA",
+                                          },
+                                          "colors": Object {
+                                            "base": "#00A376",
+                                            "black": "#000000",
+                                            "border": "#668491",
+                                            "brand": "#00DC00",
+                                            "destructive": Object {
+                                              "hover": "#9F2C3F",
+                                            },
+                                            "disabled": "#66C166",
+                                            "error": "#C7384F",
+                                            "focus": "#FFB500",
+                                            "focusedIcon": "#335B6D",
+                                            "focusedLinkBackground": "#FFDA7F",
+                                            "hoveredTabKeyline": "#4CB74C",
+                                            "info": "#0073C2",
+                                            "previewBackground": "#BFCCD1",
+                                            "primary": "#26A826",
+                                            "secondary": "#006300",
+                                            "slate": "#003349",
+                                            "success": "#00B000",
+                                            "tertiary": "#004400",
+                                            "warning": "#E96400",
+                                            "white": "#FFFFFF",
+                                            "whiteMix": "#E5F4E5",
+                                            "withOpacity": "rgba(0,163,118,0.55)",
+                                          },
+                                          "disabled": Object {
+                                            "background": "#E5EAEC",
+                                            "border": "#CCD6DA",
+                                            "button": "#E5EAEC",
+                                            "buttonText": "rgba(0,0,0,.2)",
+                                            "disabled": "rgba(0,0,0,0.55)",
+                                            "input": "#F2F4F5",
+                                            "switch": "#E4E9EB",
+                                            "text": "rgba(0,0,0,0.3)",
+                                          },
+                                          "form": Object {
+                                            "invalid": "#F2F4F5",
+                                          },
+                                          "help": Object {
+                                            "color": "rgba(0,0,0,0.65)",
+                                            "hover": "rgba(0,0,0,0.9)",
+                                          },
+                                          "icon": Object {
+                                            "default": "rgba(0,0,0,0.65)",
+                                            "defaultHover": "rgba(0,0,0,0.90)",
+                                            "disabled": "rgba(0,0,0,0.30)",
+                                            "onLightBackground": "#668491",
+                                            "onLightBackgroundHover": "#335B6D",
+                                          },
+                                          "menu": Object {
+                                            "divider": "#E5EAEC",
+                                            "focus": "#F2F4F5",
+                                            "itemColor": "rgba(0,0,0,0.9)",
+                                            "itemColorDisabled": "rgba(0,0,0,0.3)",
+                                          },
+                                          "name": "base",
+                                          "pager": Object {
+                                            "active": "rgba(0,0,0,0.74)",
+                                            "disabled": "rgba(0,0,0,0.55)",
+                                            "hover": "rgba(0,0,0,0.90)",
+                                          },
+                                          "pill": Object {
+                                            "errorButtonFocus": "#9F2C3F",
+                                            "neutral": "#4C707F",
+                                            "neutralBackgroundFocus": "#19475B",
+                                            "warning": "#ED8333",
+                                            "warningButtonFocus": "#E96400",
+                                          },
+                                          "portrait": Object {
+                                            "background": "#F2F4F5",
+                                            "border": "#7F99A4",
+                                            "initials": "rgba(0,0,0,0.65)",
+                                          },
+                                          "rainbow": Object {
+                                            "textColor": "#003349",
+                                          },
+                                          "select": Object {
+                                            "border": "#bfccd2",
+                                            "selected": "#F2F4F5",
+                                          },
+                                          "shadows": Object {
+                                            "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+                                            "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+                                            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                          },
+                                          "switch": Object {
+                                            "off": "#CCD6DB",
+                                          },
+                                          "table": Object {
+                                            "header": "#335B6D",
+                                            "hover": "#E5EAEC",
+                                            "primary": "#F2F4F5",
+                                            "secondary": "#CCD6DA",
+                                            "selected": "#D8E0E3",
+                                            "tertiary": "#19475B",
+                                            "zebra": "#F9FAFB",
+                                          },
+                                          "text": Object {
+                                            "color": "rgba(0,0,0,0.9)",
+                                            "placeholder": "rgba(0,0,0,0.3)",
+                                            "size": "14px",
+                                          },
+                                          "tile": Object {
+                                            "border": "#CCD6DA",
+                                            "separator": "#E5EAEC",
+                                          },
+                                        },
+                                      },
+                                      "attrs": Array [],
+                                      "componentStyle": ComponentStyle {
+                                        "componentId": "sc-dnqmqq",
+                                        "isStatic": false,
+                                        "lastClassName": "c4",
+                                        "rules": Array [
+                                          "
+  ",
+                                          [Function],
+                                          "
+",
+                                        ],
+                                      },
+                                      "displayName": "styled.div",
+                                      "foldedComponentIds": Array [],
+                                      "propTypes": Object {
+                                        "disabled": [Function],
+                                        "fieldHelpInline": [Function],
+                                        "inputWidth": [Function],
+                                        "labelAlign": [Function],
+                                        "labelWidth": [Function],
+                                        "theme": [Function],
+                                      },
+                                      "render": [Function],
+                                      "styledComponentId": "sc-dnqmqq",
+                                      "target": "div",
+                                      "toString": [Function],
+                                      "warnTooManyClasses": [Function],
+                                      "withComponent": [Function],
+                                    }
+                                  }
+                                  forwardedRef={null}
+                                  helpTabIndex={-1}
+                                  helpTag="span"
+                                  inputType="radio"
+                                  inputValue="test"
+                                  labelAlign="left"
+                                  name="my-radio"
+                                  reverse={true}
+                                  tabindex={0}
+                                  theme={
+                                    Object {
+                                      "card": Object {
+                                        "footerBackground": "#F2F4F5",
+                                        "footerBorder": "#E5EAEC",
+                                        "footerText": "#00805D",
+                                      },
+                                      "carousel": Object {
+                                        "activeSelectorBackground": "#668491",
+                                        "inactiveSelectorBackground": "#CCD6DA",
+                                      },
+                                      "colors": Object {
+                                        "base": "#00A376",
+                                        "black": "#000000",
+                                        "border": "#668491",
+                                        "brand": "#00DC00",
+                                        "destructive": Object {
+                                          "hover": "#9F2C3F",
+                                        },
+                                        "disabled": "#66C166",
+                                        "error": "#C7384F",
+                                        "focus": "#FFB500",
+                                        "focusedIcon": "#335B6D",
+                                        "focusedLinkBackground": "#FFDA7F",
+                                        "hoveredTabKeyline": "#4CB74C",
+                                        "info": "#0073C2",
+                                        "previewBackground": "#BFCCD1",
+                                        "primary": "#26A826",
+                                        "secondary": "#006300",
+                                        "slate": "#003349",
+                                        "success": "#00B000",
+                                        "tertiary": "#004400",
+                                        "warning": "#E96400",
+                                        "white": "#FFFFFF",
+                                        "whiteMix": "#E5F4E5",
+                                        "withOpacity": "rgba(0,163,118,0.55)",
+                                      },
+                                      "disabled": Object {
+                                        "background": "#E5EAEC",
+                                        "border": "#CCD6DA",
+                                        "button": "#E5EAEC",
+                                        "buttonText": "rgba(0,0,0,.2)",
+                                        "disabled": "rgba(0,0,0,0.55)",
+                                        "input": "#F2F4F5",
+                                        "switch": "#E4E9EB",
+                                        "text": "rgba(0,0,0,0.3)",
+                                      },
+                                      "form": Object {
+                                        "invalid": "#F2F4F5",
+                                      },
+                                      "help": Object {
+                                        "color": "rgba(0,0,0,0.65)",
+                                        "hover": "rgba(0,0,0,0.9)",
+                                      },
+                                      "icon": Object {
+                                        "default": "rgba(0,0,0,0.65)",
+                                        "defaultHover": "rgba(0,0,0,0.90)",
+                                        "disabled": "rgba(0,0,0,0.30)",
+                                        "onLightBackground": "#668491",
+                                        "onLightBackgroundHover": "#335B6D",
+                                      },
+                                      "menu": Object {
+                                        "divider": "#E5EAEC",
+                                        "focus": "#F2F4F5",
+                                        "itemColor": "rgba(0,0,0,0.9)",
+                                        "itemColorDisabled": "rgba(0,0,0,0.3)",
+                                      },
+                                      "name": "base",
+                                      "pager": Object {
+                                        "active": "rgba(0,0,0,0.74)",
+                                        "disabled": "rgba(0,0,0,0.55)",
+                                        "hover": "rgba(0,0,0,0.90)",
+                                      },
+                                      "pill": Object {
+                                        "errorButtonFocus": "#9F2C3F",
+                                        "neutral": "#4C707F",
+                                        "neutralBackgroundFocus": "#19475B",
+                                        "warning": "#ED8333",
+                                        "warningButtonFocus": "#E96400",
+                                      },
+                                      "portrait": Object {
+                                        "background": "#F2F4F5",
+                                        "border": "#7F99A4",
+                                        "initials": "rgba(0,0,0,0.65)",
+                                      },
+                                      "rainbow": Object {
+                                        "textColor": "#003349",
+                                      },
+                                      "select": Object {
+                                        "border": "#bfccd2",
+                                        "selected": "#F2F4F5",
+                                      },
+                                      "shadows": Object {
+                                        "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+                                        "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+                                        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                      },
+                                      "switch": Object {
+                                        "off": "#CCD6DB",
+                                      },
+                                      "table": Object {
+                                        "header": "#335B6D",
+                                        "hover": "#E5EAEC",
+                                        "primary": "#F2F4F5",
+                                        "secondary": "#CCD6DA",
+                                        "selected": "#D8E0E3",
+                                        "tertiary": "#19475B",
+                                        "zebra": "#F9FAFB",
+                                      },
+                                      "text": Object {
+                                        "color": "rgba(0,0,0,0.9)",
+                                        "placeholder": "rgba(0,0,0,0.3)",
+                                        "size": "14px",
+                                      },
+                                      "tile": Object {
+                                        "border": "#CCD6DA",
+                                        "separator": "#E5EAEC",
+                                      },
+                                    }
+                                  }
+                                >
+                                  <div
+                                    checked={false}
+                                    className="c4"
+                                    name="my-radio"
+                                  >
+                                    <FormField
+                                      helpId="guid-12345-help"
+                                      helpTabIndex={-1}
+                                      helpTag="span"
+                                      inputValue="test"
+                                      labelHelpIcon="info"
+                                      labelId="guid-12345-label"
+                                      name="guid-12345"
+                                      reverse={true}
+                                      size="medium"
+                                      tabindex={0}
+                                    >
+                                      <styled.div
+                                        theme={
+                                          Object {
+                                            "card": Object {
+                                              "footerBackground": "#F2F4F5",
+                                              "footerBorder": "#E5EAEC",
+                                              "footerText": "#00805D",
+                                            },
+                                            "carousel": Object {
+                                              "activeSelectorBackground": "#668491",
+                                              "inactiveSelectorBackground": "#CCD6DA",
+                                            },
+                                            "colors": Object {
+                                              "base": "#00A376",
+                                              "black": "#000000",
+                                              "border": "#668491",
+                                              "brand": "#00DC00",
+                                              "destructive": Object {
+                                                "hover": "#9F2C3F",
+                                              },
+                                              "disabled": "#66C166",
+                                              "error": "#C7384F",
+                                              "focus": "#FFB500",
+                                              "focusedIcon": "#335B6D",
+                                              "focusedLinkBackground": "#FFDA7F",
+                                              "hoveredTabKeyline": "#4CB74C",
+                                              "info": "#0073C2",
+                                              "previewBackground": "#BFCCD1",
+                                              "primary": "#26A826",
+                                              "secondary": "#006300",
+                                              "slate": "#003349",
+                                              "success": "#00B000",
+                                              "tertiary": "#004400",
+                                              "warning": "#E96400",
+                                              "white": "#FFFFFF",
+                                              "whiteMix": "#E5F4E5",
+                                              "withOpacity": "rgba(0,163,118,0.55)",
+                                            },
+                                            "disabled": Object {
+                                              "background": "#E5EAEC",
+                                              "border": "#CCD6DA",
+                                              "button": "#E5EAEC",
+                                              "buttonText": "rgba(0,0,0,.2)",
+                                              "disabled": "rgba(0,0,0,0.55)",
+                                              "input": "#F2F4F5",
+                                              "switch": "#E4E9EB",
+                                              "text": "rgba(0,0,0,0.3)",
+                                            },
+                                            "form": Object {
+                                              "invalid": "#F2F4F5",
+                                            },
+                                            "help": Object {
+                                              "color": "rgba(0,0,0,0.65)",
+                                              "hover": "rgba(0,0,0,0.9)",
+                                            },
+                                            "icon": Object {
+                                              "default": "rgba(0,0,0,0.65)",
+                                              "defaultHover": "rgba(0,0,0,0.90)",
+                                              "disabled": "rgba(0,0,0,0.30)",
+                                              "onLightBackground": "#668491",
+                                              "onLightBackgroundHover": "#335B6D",
+                                            },
+                                            "menu": Object {
+                                              "divider": "#E5EAEC",
+                                              "focus": "#F2F4F5",
+                                              "itemColor": "rgba(0,0,0,0.9)",
+                                              "itemColorDisabled": "rgba(0,0,0,0.3)",
+                                            },
+                                            "name": "base",
+                                            "pager": Object {
+                                              "active": "rgba(0,0,0,0.74)",
+                                              "disabled": "rgba(0,0,0,0.55)",
+                                              "hover": "rgba(0,0,0,0.90)",
+                                            },
+                                            "pill": Object {
+                                              "errorButtonFocus": "#9F2C3F",
+                                              "neutral": "#4C707F",
+                                              "neutralBackgroundFocus": "#19475B",
+                                              "warning": "#ED8333",
+                                              "warningButtonFocus": "#E96400",
+                                            },
+                                            "portrait": Object {
+                                              "background": "#F2F4F5",
+                                              "border": "#7F99A4",
+                                              "initials": "rgba(0,0,0,0.65)",
+                                            },
+                                            "rainbow": Object {
+                                              "textColor": "#003349",
+                                            },
+                                            "select": Object {
+                                              "border": "#bfccd2",
+                                              "selected": "#F2F4F5",
+                                            },
+                                            "shadows": Object {
+                                              "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+                                              "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+                                              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                            },
+                                            "switch": Object {
+                                              "off": "#CCD6DB",
+                                            },
+                                            "table": Object {
+                                              "header": "#335B6D",
+                                              "hover": "#E5EAEC",
+                                              "primary": "#F2F4F5",
+                                              "secondary": "#CCD6DA",
+                                              "selected": "#D8E0E3",
+                                              "tertiary": "#19475B",
+                                              "zebra": "#F9FAFB",
+                                            },
+                                            "text": Object {
+                                              "color": "rgba(0,0,0,0.9)",
+                                              "placeholder": "rgba(0,0,0,0.3)",
+                                              "size": "14px",
+                                            },
+                                            "tile": Object {
+                                              "border": "#CCD6DA",
+                                              "separator": "#E5EAEC",
+                                            },
+                                          }
+                                        }
+                                      >
+                                        <StyledComponent
+                                          forwardedComponent={
+                                            Object {
+                                              "$$typeof": Symbol(react.forward_ref),
+                                              "_foldedDefaultProps": Object {
+                                                "theme": Object {
+                                                  "card": Object {
+                                                    "footerBackground": "#F2F4F5",
+                                                    "footerBorder": "#E5EAEC",
+                                                    "footerText": "#00805D",
+                                                  },
+                                                  "carousel": Object {
+                                                    "activeSelectorBackground": "#668491",
+                                                    "inactiveSelectorBackground": "#CCD6DA",
+                                                  },
+                                                  "colors": Object {
+                                                    "base": "#00A376",
+                                                    "black": "#000000",
+                                                    "border": "#668491",
+                                                    "brand": "#00DC00",
+                                                    "destructive": Object {
+                                                      "hover": "#9F2C3F",
+                                                    },
+                                                    "disabled": "#66C166",
+                                                    "error": "#C7384F",
+                                                    "focus": "#FFB500",
+                                                    "focusedIcon": "#335B6D",
+                                                    "focusedLinkBackground": "#FFDA7F",
+                                                    "hoveredTabKeyline": "#4CB74C",
+                                                    "info": "#0073C2",
+                                                    "previewBackground": "#BFCCD1",
+                                                    "primary": "#26A826",
+                                                    "secondary": "#006300",
+                                                    "slate": "#003349",
+                                                    "success": "#00B000",
+                                                    "tertiary": "#004400",
+                                                    "warning": "#E96400",
+                                                    "white": "#FFFFFF",
+                                                    "whiteMix": "#E5F4E5",
+                                                    "withOpacity": "rgba(0,163,118,0.55)",
+                                                  },
+                                                  "disabled": Object {
+                                                    "background": "#E5EAEC",
+                                                    "border": "#CCD6DA",
+                                                    "button": "#E5EAEC",
+                                                    "buttonText": "rgba(0,0,0,.2)",
+                                                    "disabled": "rgba(0,0,0,0.55)",
+                                                    "input": "#F2F4F5",
+                                                    "switch": "#E4E9EB",
+                                                    "text": "rgba(0,0,0,0.3)",
+                                                  },
+                                                  "form": Object {
+                                                    "invalid": "#F2F4F5",
+                                                  },
+                                                  "help": Object {
+                                                    "color": "rgba(0,0,0,0.65)",
+                                                    "hover": "rgba(0,0,0,0.9)",
+                                                  },
+                                                  "icon": Object {
+                                                    "default": "rgba(0,0,0,0.65)",
+                                                    "defaultHover": "rgba(0,0,0,0.90)",
+                                                    "disabled": "rgba(0,0,0,0.30)",
+                                                    "onLightBackground": "#668491",
+                                                    "onLightBackgroundHover": "#335B6D",
+                                                  },
+                                                  "menu": Object {
+                                                    "divider": "#E5EAEC",
+                                                    "focus": "#F2F4F5",
+                                                    "itemColor": "rgba(0,0,0,0.9)",
+                                                    "itemColorDisabled": "rgba(0,0,0,0.3)",
+                                                  },
+                                                  "name": "base",
+                                                  "pager": Object {
+                                                    "active": "rgba(0,0,0,0.74)",
+                                                    "disabled": "rgba(0,0,0,0.55)",
+                                                    "hover": "rgba(0,0,0,0.90)",
+                                                  },
+                                                  "pill": Object {
+                                                    "errorButtonFocus": "#9F2C3F",
+                                                    "neutral": "#4C707F",
+                                                    "neutralBackgroundFocus": "#19475B",
+                                                    "warning": "#ED8333",
+                                                    "warningButtonFocus": "#E96400",
+                                                  },
+                                                  "portrait": Object {
+                                                    "background": "#F2F4F5",
+                                                    "border": "#7F99A4",
+                                                    "initials": "rgba(0,0,0,0.65)",
+                                                  },
+                                                  "rainbow": Object {
+                                                    "textColor": "#003349",
+                                                  },
+                                                  "select": Object {
+                                                    "border": "#bfccd2",
+                                                    "selected": "#F2F4F5",
+                                                  },
+                                                  "shadows": Object {
+                                                    "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+                                                    "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+                                                    "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                                    "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                                    "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                                    "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                                  },
+                                                  "switch": Object {
+                                                    "off": "#CCD6DB",
+                                                  },
+                                                  "table": Object {
+                                                    "header": "#335B6D",
+                                                    "hover": "#E5EAEC",
+                                                    "primary": "#F2F4F5",
+                                                    "secondary": "#CCD6DA",
+                                                    "selected": "#D8E0E3",
+                                                    "tertiary": "#19475B",
+                                                    "zebra": "#F9FAFB",
+                                                  },
+                                                  "text": Object {
+                                                    "color": "rgba(0,0,0,0.9)",
+                                                    "placeholder": "rgba(0,0,0,0.3)",
+                                                    "size": "14px",
+                                                  },
+                                                  "tile": Object {
+                                                    "border": "#CCD6DA",
+                                                    "separator": "#E5EAEC",
+                                                  },
+                                                },
+                                              },
+                                              "attrs": Array [],
+                                              "componentStyle": ComponentStyle {
+                                                "componentId": "c1",
+                                                "isStatic": false,
+                                                "lastClassName": "c2",
+                                                "rules": Array [
+                                                  "
+  ",
+                                                  [Function],
+                                                  "
+
+  & + & {
+    margin-top: ",
+                                                  [Function],
+                                                  ";
+  }
+",
+                                                ],
+                                              },
+                                              "displayName": "styled.div",
+                                              "foldedComponentIds": Array [],
+                                              "render": [Function],
+                                              "styledComponentId": "c1",
+                                              "target": "div",
+                                              "toString": [Function],
+                                              "warnTooManyClasses": [Function],
+                                              "withComponent": [Function],
+                                            }
+                                          }
+                                          forwardedRef={null}
+                                          theme={
+                                            Object {
+                                              "card": Object {
+                                                "footerBackground": "#F2F4F5",
+                                                "footerBorder": "#E5EAEC",
+                                                "footerText": "#00805D",
+                                              },
+                                              "carousel": Object {
+                                                "activeSelectorBackground": "#668491",
+                                                "inactiveSelectorBackground": "#CCD6DA",
+                                              },
+                                              "colors": Object {
+                                                "base": "#00A376",
+                                                "black": "#000000",
+                                                "border": "#668491",
+                                                "brand": "#00DC00",
+                                                "destructive": Object {
+                                                  "hover": "#9F2C3F",
+                                                },
+                                                "disabled": "#66C166",
+                                                "error": "#C7384F",
+                                                "focus": "#FFB500",
+                                                "focusedIcon": "#335B6D",
+                                                "focusedLinkBackground": "#FFDA7F",
+                                                "hoveredTabKeyline": "#4CB74C",
+                                                "info": "#0073C2",
+                                                "previewBackground": "#BFCCD1",
+                                                "primary": "#26A826",
+                                                "secondary": "#006300",
+                                                "slate": "#003349",
+                                                "success": "#00B000",
+                                                "tertiary": "#004400",
+                                                "warning": "#E96400",
+                                                "white": "#FFFFFF",
+                                                "whiteMix": "#E5F4E5",
+                                                "withOpacity": "rgba(0,163,118,0.55)",
+                                              },
+                                              "disabled": Object {
+                                                "background": "#E5EAEC",
+                                                "border": "#CCD6DA",
+                                                "button": "#E5EAEC",
+                                                "buttonText": "rgba(0,0,0,.2)",
+                                                "disabled": "rgba(0,0,0,0.55)",
+                                                "input": "#F2F4F5",
+                                                "switch": "#E4E9EB",
+                                                "text": "rgba(0,0,0,0.3)",
+                                              },
+                                              "form": Object {
+                                                "invalid": "#F2F4F5",
+                                              },
+                                              "help": Object {
+                                                "color": "rgba(0,0,0,0.65)",
+                                                "hover": "rgba(0,0,0,0.9)",
+                                              },
+                                              "icon": Object {
+                                                "default": "rgba(0,0,0,0.65)",
+                                                "defaultHover": "rgba(0,0,0,0.90)",
+                                                "disabled": "rgba(0,0,0,0.30)",
+                                                "onLightBackground": "#668491",
+                                                "onLightBackgroundHover": "#335B6D",
+                                              },
+                                              "menu": Object {
+                                                "divider": "#E5EAEC",
+                                                "focus": "#F2F4F5",
+                                                "itemColor": "rgba(0,0,0,0.9)",
+                                                "itemColorDisabled": "rgba(0,0,0,0.3)",
+                                              },
+                                              "name": "base",
+                                              "pager": Object {
+                                                "active": "rgba(0,0,0,0.74)",
+                                                "disabled": "rgba(0,0,0,0.55)",
+                                                "hover": "rgba(0,0,0,0.90)",
+                                              },
+                                              "pill": Object {
+                                                "errorButtonFocus": "#9F2C3F",
+                                                "neutral": "#4C707F",
+                                                "neutralBackgroundFocus": "#19475B",
+                                                "warning": "#ED8333",
+                                                "warningButtonFocus": "#E96400",
+                                              },
+                                              "portrait": Object {
+                                                "background": "#F2F4F5",
+                                                "border": "#7F99A4",
+                                                "initials": "rgba(0,0,0,0.65)",
+                                              },
+                                              "rainbow": Object {
+                                                "textColor": "#003349",
+                                              },
+                                              "select": Object {
+                                                "border": "#bfccd2",
+                                                "selected": "#F2F4F5",
+                                              },
+                                              "shadows": Object {
+                                                "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+                                                "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+                                                "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                                "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                                "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                                "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                              },
+                                              "switch": Object {
+                                                "off": "#CCD6DB",
+                                              },
+                                              "table": Object {
+                                                "header": "#335B6D",
+                                                "hover": "#E5EAEC",
+                                                "primary": "#F2F4F5",
+                                                "secondary": "#CCD6DA",
+                                                "selected": "#D8E0E3",
+                                                "tertiary": "#19475B",
+                                                "zebra": "#F9FAFB",
+                                              },
+                                              "text": Object {
+                                                "color": "rgba(0,0,0,0.9)",
+                                                "placeholder": "rgba(0,0,0,0.3)",
+                                                "size": "14px",
+                                              },
+                                              "tile": Object {
+                                                "border": "#CCD6DA",
+                                                "separator": "#E5EAEC",
+                                              },
+                                            }
+                                          }
+                                        >
+                                          <div
+                                            className="c1 c2"
+                                          >
+                                            <styled.div>
+                                              <StyledComponent
+                                                forwardedComponent={
+                                                  Object {
+                                                    "$$typeof": Symbol(react.forward_ref),
+                                                    "attrs": Array [],
+                                                    "componentStyle": ComponentStyle {
+                                                      "componentId": "c5",
+                                                      "isStatic": true,
+                                                      "lastClassName": "c6",
+                                                      "rules": Array [
+                                                        "
+  display: inline-block;
+  position: relative;
+",
+                                                      ],
+                                                    },
+                                                    "displayName": "styled.div",
+                                                    "foldedComponentIds": Array [],
+                                                    "render": [Function],
+                                                    "styledComponentId": "c5",
+                                                    "target": "div",
+                                                    "toString": [Function],
+                                                    "warnTooManyClasses": [Function],
+                                                    "withComponent": [Function],
+                                                  }
+                                                }
+                                                forwardedRef={null}
+                                              >
+                                                <div
+                                                  className="c5 c6"
+                                                >
+                                                  <Memo(HiddenCheckableInput)
+                                                    checked={false}
+                                                    helpId="guid-12345-help"
+                                                    helpTabIndex={-1}
+                                                    helpTag="span"
+                                                    id="guid-12345"
+                                                    inputType="radio"
+                                                    inputValue="test"
+                                                    labelId="guid-12345-label"
+                                                    name="my-radio"
+                                                    onChange={[Function]}
+                                                    tabindex={0}
+                                                  >
+                                                    <styled.input
+                                                      aria-checked={false}
+                                                      aria-describedby="guid-12345-help"
+                                                      aria-labelledby="guid-12345-label"
+                                                      checked={false}
+                                                      helpTabIndex={-1}
+                                                      helpTag="span"
+                                                      id="guid-12345"
+                                                      name="my-radio"
+                                                      onChange={[Function]}
+                                                      role="radio"
+                                                      tabIndex={0}
+                                                      type="radio"
+                                                      value="test"
+                                                    >
+                                                      <StyledComponent
+                                                        aria-checked={false}
+                                                        aria-describedby="guid-12345-help"
+                                                        aria-labelledby="guid-12345-label"
+                                                        checked={false}
+                                                        forwardedComponent={
+                                                          Object {
+                                                            "$$typeof": Symbol(react.forward_ref),
+                                                            "attrs": Array [],
+                                                            "componentStyle": ComponentStyle {
+                                                              "componentId": "c7",
+                                                              "isStatic": true,
+                                                              "lastClassName": "c8",
+                                                              "rules": Array [
+                                                                "
+  cursor: pointer;
+  opacity: 0;
+  margin: 0;
+  position: relative;
+  z-index: 999;
+",
+                                                              ],
+                                                            },
+                                                            "displayName": "styled.input",
+                                                            "foldedComponentIds": Array [],
+                                                            "render": [Function],
+                                                            "styledComponentId": "c7",
+                                                            "target": "input",
+                                                            "toString": [Function],
+                                                            "warnTooManyClasses": [Function],
+                                                            "withComponent": [Function],
+                                                          }
+                                                        }
+                                                        forwardedRef={null}
+                                                        helpTabIndex={-1}
+                                                        helpTag="span"
+                                                        id="guid-12345"
+                                                        name="my-radio"
+                                                        onChange={[Function]}
+                                                        role="radio"
+                                                        tabIndex={0}
+                                                        type="radio"
+                                                        value="test"
+                                                      >
+                                                        <input
+                                                          aria-checked={false}
+                                                          aria-describedby="guid-12345-help"
+                                                          aria-labelledby="guid-12345-label"
+                                                          checked={false}
+                                                          className="c7 c8"
+                                                          id="guid-12345"
+                                                          name="my-radio"
+                                                          onChange={[Function]}
+                                                          role="radio"
+                                                          tabIndex={0}
+                                                          type="radio"
+                                                          value="test"
+                                                        />
+                                                      </StyledComponent>
+                                                    </styled.input>
+                                                  </Memo(HiddenCheckableInput)>
+                                                  <RadioButtonSvg>
+                                                    <styled.div>
+                                                      <StyledComponent
+                                                        forwardedComponent={
+                                                          Object {
+                                                            "$$typeof": Symbol(react.forward_ref),
+                                                            "attrs": Array [],
+                                                            "componentStyle": ComponentStyle {
+                                                              "componentId": "c9",
+                                                              "isStatic": true,
+                                                              "lastClassName": "jQhHGA",
+                                                              "rules": Array [],
+                                                            },
+                                                            "displayName": "styled.div",
+                                                            "foldedComponentIds": Array [],
+                                                            "render": [Function],
+                                                            "styledComponentId": "c9",
+                                                            "target": "div",
+                                                            "toString": [Function],
+                                                            "warnTooManyClasses": [Function],
+                                                            "withComponent": [Function],
+                                                          }
+                                                        }
+                                                        forwardedRef={null}
+                                                      >
+                                                        <div
+                                                          className="c9 "
+                                                        >
+                                                          <svg
+                                                            viewBox="0 0 15 15"
+                                                          >
+                                                            <g
+                                                              fill="none"
+                                                              fillRule="evenodd"
+                                                              stroke="none"
+                                                              strokeWidth="1"
+                                                            >
+                                                              <circle
+                                                                className="radio-button-check"
+                                                                cx="7.5"
+                                                                cy="7.5"
+                                                                fill="#FFFFFF"
+                                                                r="5"
+                                                              />
+                                                            </g>
+                                                          </svg>
+                                                        </div>
+                                                      </StyledComponent>
+                                                    </styled.div>
+                                                  </RadioButtonSvg>
+                                                </div>
+                                              </StyledComponent>
+                                            </styled.div>
+                                          </div>
+                                        </StyledComponent>
+                                      </styled.div>
+                                    </FormField>
+                                  </div>
+                                </StyledComponent>
+                              </styled.div>
+                            </CheckableInput>
+                          </div>
+                        </StyledComponent>
+                      </Styled(styled.div)>
+                    </RadioButton>
+                  </div>
+                </StyledComponent>
+              </styled.div>
+            </FormField>
+          </div>
+        </StyledComponent>
+      </styled.div>
+    </RadioButtonGroup>
+  </WithValidation(RadioButtonGroup)>
+</ThemeProvider>
 `;
