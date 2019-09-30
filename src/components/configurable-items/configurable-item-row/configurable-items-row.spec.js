@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { ConfigurableItemRowWithoutHOC } from './configurable-item-row.component';
-import Checkbox from '../../../__experimental__/components/checkbox';
+import { Checkbox } from '../../../__experimental__/components/checkbox';
 import CheckboxLegacy from '../../../__deprecated__/components/checkbox';
 import 'jest-styled-components';
 import Icon from '../../icon';
