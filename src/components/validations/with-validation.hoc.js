@@ -265,13 +265,15 @@ const withValidation = (WrappedComponent) => {
     info: validationsPropTypes,
     forceUpdateTriggerToggle: PropTypes.bool, // triggers validation when it's boolean value changes
     addInputToFormState: PropTypes.func,
-    unblockValidation: PropTypes.bool
+    unblockValidation: PropTypes.bool,
+    useValidationIcon: PropTypes.bool
   };
 
   WithValidation.defaultProps = {
     validations: [],
     warnings: [],
-    info: []
+    info: [],
+    useValidationIcon: true
   };
 
   const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
