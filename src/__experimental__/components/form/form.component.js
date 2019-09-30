@@ -409,6 +409,7 @@ class FormWithoutValidations extends React.Component {
     };
   }
 
+  // catches instances where child is a string of text
   isHTMLElement(child) {
     return isElement(child) && typeof child.type === 'string';
   }

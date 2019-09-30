@@ -96,7 +96,7 @@ Textbox.propTypes = {
   warnings: validationsPropTypes,
   /** List of info validation functions */
   info: validationsPropTypes,
-  /** Flag to cofigure component when in a Form */
+  /** Flag to configure component when in a Form */
   childOfForm: PropTypes.bool,
   /** Flag to configure component as optional in Form */
   isOptional: PropTypes.bool,

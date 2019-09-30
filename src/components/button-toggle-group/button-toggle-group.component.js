@@ -32,7 +32,7 @@ const BaseButtonToggleGroup = ((props) => {
 BaseButtonToggleGroup.propTypes = {
   /** Children to be rendered (ButtonToggle). */
   children: PropTypes.node.isRequired,
-  /** Message displaye on error */
+  /** Message displayed on error */
   errorMessage: PropTypes.string,
   /** Text for the label. */
   label: PropTypes.string,
