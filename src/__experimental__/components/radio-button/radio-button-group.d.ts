@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { WithValidationProps } from '../../../components/validations/with-validation';
 
 export interface RadioButtonGroupProps {
@@ -13,4 +13,4 @@ export interface RadioButtonGroupProps {
 
 declare const RadioButtonGroup: React.ComponentClass<WithValidationProps & RadioButtonGroupProps>;
 
-export { RadioButtonGroup as default };
+export { RadioButtonGroup };

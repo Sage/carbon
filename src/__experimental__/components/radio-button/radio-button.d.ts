@@ -20,4 +20,4 @@ export interface RadioButtonProps {
 
 declare const RadioButton: React.FunctionComponent<RadioButtonProps>;
 
-export { RadioButton as default };
+export { RadioButton };
