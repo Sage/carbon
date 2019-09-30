@@ -73,6 +73,4 @@ CheckboxGroup.defaultProps = {
   hasInfo: false
 };
 
-export { CheckboxGroup as OriginalCheckboxGroup };
-
 export default withValidation(CheckboxGroup);
