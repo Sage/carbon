@@ -81,7 +81,9 @@ const groupStore = new Store({
 
 function defaultKnobs(type) {
   const knobGroup = `Checkbox ${type}`;
-  const nameWithGroup = name => `${Text.titleCase(type)} ${name}`;
+  const nameWithGroup = (name) => {
+    return (type === 'default') ? name : `${Text.titleCase(type)} ${name}`;
+  };
   const label = `${text(nameWithGroup('label'), 'Example Checkbox', knobGroup)} (${type})`;
 
   return ({
@@ -162,7 +164,7 @@ const checkboxComponent = () => {
     <State store={ checkboxes.default.store }>
       <OriginalCheckbox
         onChange={ ev => handleChange(ev, 'default') }
-        { ...defaultKnobs('value-default') }
+        { ...defaultKnobs('default') }
       />
     </State>
   );
