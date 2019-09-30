@@ -83,7 +83,6 @@ function defaultKnobs(type) {
 
   return ({
     disabled: boolean('disabled', false),
-    error: boolean('error', false),
     fieldHelp: text('fieldHelp', 'This text provides help for the input.'),
     fieldHelpInline: boolean('fieldHelpInline', false),
     reverse: boolean('reverse', false),
