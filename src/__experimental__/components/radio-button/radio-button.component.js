@@ -35,7 +35,7 @@ const RadioButton = ({
      * opposite way around by default)
      */
     reverse: !props.reverse,
-    hasError: props.error || false,
+    hasError: false,
     hasWarning: false,
     hasInfo: false
   };
@@ -67,8 +67,6 @@ RadioButton.propTypes = {
   checked: PropTypes.bool,
   /** Toggles disabling of input */
   disabled: PropTypes.bool,
-  /** Toggles error styles */
-  error: PropTypes.bool,
   /** Displays fieldHelp inline with the radio button */
   fieldHelpInline: PropTypes.bool,
   /** Unique Identifier for the input. Will use a randomly generated GUID if none is provided */
