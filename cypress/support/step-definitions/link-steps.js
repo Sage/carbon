@@ -1,6 +1,6 @@
-import { linkPreview, linkChildren, linkIcon } from '../../locators/link';
-
-const LINK_ICON_ALIGN = 'carbon-link__icon--align-';
+import {
+  linkPreview, linkChildren, linkIcon, linkFirstSpan,
+} from '../../locators/link';
 
 Then('children on preview is {string}', (children) => {
   linkChildren().should('have.text', children);
@@ -25,9 +25,12 @@ Then('icon on link componenent preview is {string}', (iconName) => {
     .should('have.attr', 'data-element', iconName);
 });
 
-Then('icon align is set to {string}', (iconAlign) => {
-  linkIcon()
-    .should('have.class', `${LINK_ICON_ALIGN}${iconAlign}`);
+Then('icon align is set to left', () => {
+  linkFirstSpan().should('have.attr', 'data-component', 'icon');
+});
+
+Then('icon align is set to right', () => {
+  linkFirstSpan().should('have.class', 'carbon-link__content').and('have.text', 'Link');
 });
 
 Then('Link is tabbable', () => {

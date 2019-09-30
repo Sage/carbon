@@ -4,12 +4,13 @@ import {
   boolean, text, number, select
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import { RadioButton, RadioButtonGroup } from '.';
 import { info, notes } from './documentation';
 
-storiesOf('Experimental/RadioButton', module)
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const knobs = defaultKnobs();
 
     return (
@@ -19,6 +20,7 @@ storiesOf('Experimental/RadioButton', module)
       >
         <RadioButton
           id='input-1'
+          checked
           label={ text('radioOneLabel', 'Example Weekly Radio Button') }
           value={ text('radioOneValue', 'weekly') }
           { ...knobs }
@@ -37,14 +39,24 @@ storiesOf('Experimental/RadioButton', module)
         />
       </RadioButtonGroup>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     info: {
       text: info,
       excludedPropTypes: ['children']
     },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Experimental/RadioButton', module)
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));
 
 function handleChange(event) {
   const { value } = event.target;

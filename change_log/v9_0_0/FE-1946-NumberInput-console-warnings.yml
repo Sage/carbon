@@ -1,2 +1,2 @@
-Bug Fixes: "Fixes console warnings in the NumberInput component story"
-Bug Fixes: "Re-implements missing onChangeDeferred method in the Input component"
+Bug Fixes: "Fixes console warnings. (Component: NumberInput)"
+Bug Fixes: "Re-implements missing onChangeDeferred method. (Component: Input component)"

@@ -6,8 +6,9 @@ import {
   boolean,
   text
 } from '@storybook/addon-knobs';
+import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import DateInput from './date.component';
-import Textbox from '../textbox';
+import { OriginalTextbox } from '../textbox';
 import getCommonTextboxStoryProps from '../textbox/textbox.stories';
 import { notes, info, infoValidations } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
@@ -17,7 +18,7 @@ DateInput.__docgenInfo = getDocGenInfo(
   /date\.component(?!spec)/
 );
 
-Textbox.__docgenInfo = getDocGenInfo(
+OriginalTextbox.__docgenInfo = getDocGenInfo(
   require('../textbox/docgenInfo.json'),
   /textbox\.component(?!spec)/
 );
@@ -33,9 +34,8 @@ const setValue = (ev) => {
   store.set({ value: ev.target.value });
 };
 
-storiesOf('Experimental/Date Input', module)
-  .addDecorator(StateDecorator(store))
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const autoFocus = boolean('autoFocus', true);
     const minDate = text('minDate', '');
     const maxDate = text('maxDate', '');
@@ -43,6 +43,7 @@ storiesOf('Experimental/Date Input', module)
     return (
       <DateInput
         { ...getCommonTextboxStoryProps({ inputWidthEnabled: false }) }
+        name='dateinput'
         autoFocus={ autoFocus }
         minDate={ minDate }
         maxDate={ maxDate }
@@ -50,16 +51,24 @@ storiesOf('Experimental/Date Input', module)
         onChange={ setValue }
       />
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     info: {
       text: info,
-      propTables: [Textbox],
+      propTables: [OriginalTextbox],
       propTablesExclude: [State],
       excludedPropTypes: ['children', 'leftChildren', 'inputIcon', 'placeholder', 'inputWidth']
     },
     notes: { markdown: notes }
-  })
-  .add('validations', () => {
+  };
+
+  return [name, component, metadata];
+}
+
+function makeValidationsStory(name, themeSelector) {
+  const component = () => {
     return (
       <State store={ store }>
         <DateInput
@@ -72,13 +81,27 @@ storiesOf('Experimental/Date Input', module)
         />
       </State>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     info: {
       source: false,
       text: infoValidations,
-      propTablesExclude: [DateInput, State]
+      propTables: [OriginalTextbox],
+      propTablesExclude: [State]
     }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Experimental/Date Input', module)
+  .addDecorator(StateDecorator(store))
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector))
+  .add(...makeValidationsStory('validations', dlsThemeSelector))
+  .add(...makeValidationsStory('validations classic', classicThemeSelector));
 
 function isNotFirstApr(value) {
   return new Promise((resolve, reject) => {

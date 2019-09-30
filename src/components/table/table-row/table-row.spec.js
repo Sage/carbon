@@ -1,5 +1,5 @@
 import React from 'react';
-import 'jest-styled-components';
+import { ThemeProvider } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
 import TestUtils from 'react-dom/test-utils';
 import { mount } from 'enzyme';
@@ -8,13 +8,15 @@ import TableRow from './table-row.component';
 import TableHeader from '../table-header';
 import DraggableTableCell from '../draggable-table-cell';
 import StyledTable from '../table.style';
-import Checkbox from '../../checkbox';
+import Checkbox from '../../../__deprecated__/components/checkbox';
 import BaseTheme from '../../../style/themes/base';
 import ClassicTheme from '../../../style/themes/classic';
 import SmallTheme from '../../../style/themes/small';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import { DraggableContext, WithDrop } from '../../drag-and-drop';
 import { THEMES } from '../../../style/themes';
+import ActionPopover from '../../action-popover';
+import { MenuButton } from '../../action-popover/action-popover.style';
 
 const themeNames = [THEMES.classic, THEMES.small];
 const elements = ['th', 'td'];
@@ -584,6 +586,95 @@ describe('TableRow', () => {
         row1.instance().context.dragAndDropActiveIndex = 0;
         expect(row1.instance().mainClasses)
           .toEqual('carbon-table-row carbon-table-row--dragged carbon-table-row--dragging');
+      });
+    });
+  });
+});
+
+describe('TableRow', () => {
+  const container = { current: null };
+  const wrapper = { current: null };
+
+  const onOpen = jest.fn();
+  const onClose = jest.fn();
+
+  function render() {
+    wrapper.current = mount(
+      <ThemeProvider { ...{ theme: SmallTheme } }>
+        <Table>
+          <TableRow>
+            <TableHeader>First Name</TableHeader>
+            <TableHeader>Last Name</TableHeader>
+            <TableHeader>&nbsp;</TableHeader>
+          </TableRow>
+          <TableRow>
+            <TableCell>John</TableCell>
+            <TableCell>Doe</TableCell>
+            <TableCell>
+              <ActionPopover { ... { onOpen, onClose } }>
+                <ActionPopover.Item icon='email'>
+              Email Invoice
+                </ActionPopover.Item>
+              </ActionPopover>
+            </TableCell>
+          </TableRow>
+        </Table>
+      </ThemeProvider>, { attachTo: container.current }
+    );
+  }
+
+  function getMenuButton() {
+    return wrapper.current.find(MenuButton);
+  }
+
+  function getRow() {
+    return wrapper.current.find(TableRow).at(1);
+  }
+
+  beforeEach(() => {
+    container.current = document.createElement('div');
+    document.body.appendChild(container.current);
+    onOpen.mockReset();
+    onClose.mockReset();
+  });
+
+
+  afterEach(() => {
+    document.body.removeChild(container.current);
+    container.current = null;
+    if (wrapper.current) {
+      wrapper.current.unmount();
+      wrapper.current = null;
+    }
+  });
+
+  describe('with a ActionPopover', () => {
+    beforeEach(() => {
+      render();
+    });
+    describe('Opening the ActionPopover', () => {
+      beforeEach(() => {
+        getMenuButton().simulate('click');
+      });
+      it('marks the row as highlighted', () => {
+        expect(getRow().state('highlighted')).toBe(true);
+      });
+
+      it('calls the provided onOpen handler', () => {
+        expect(onOpen).toHaveBeenCalled();
+      });
+    });
+    describe('Closing the ActionPopover', () => {
+      beforeEach(() => {
+        getMenuButton().simulate('click');
+        getMenuButton().simulate('click');
+      });
+      it('removes row highlight', () => {
+        expect(getRow().state('highlighted')).toBe(false);
+      });
+
+      it('calls the provided onClose handler', () => {
+        expect(onClose).toHaveBeenCalled();
       });
     });
   });

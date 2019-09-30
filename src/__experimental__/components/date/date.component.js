@@ -8,6 +8,7 @@ import tagComponent from '../../../utils/helpers/tags';
 import DatePicker from './date-picker.component';
 import StyledDateInput from './date.style';
 import Textbox from '../textbox';
+import withUniqueName from '../../../utils/helpers/with-unique-name';
 
 const defaultDateFormat = 'DD/MM/YYYY';
 
@@ -28,6 +29,8 @@ class DateInput extends React.Component {
     onChange: PropTypes.func,
     /** Specify a callback triggered on focus */
     onFocus: PropTypes.func,
+    /** Name of the input */
+    name: PropTypes.string,
     /** The current date YYYY-MM-DD */
     value: PropTypes.string,
     /** Triggers textbox validation when it's boolean value changes */
@@ -177,7 +180,12 @@ class DateInput extends React.Component {
   };
 
   emitOnChangeCallback = (stringDate) => {
-    const changePayload = { target: { value: stringDate } };
+    const changePayload = {
+      target: {
+        name: this.props.name,
+        value: stringDate
+      }
+    };
 
     if (this.props.onChange) this.props.onChange(changePayload);
   };
@@ -217,6 +225,7 @@ class DateInput extends React.Component {
       <StyledDateInput
         onClick={ this.markCurrentDatepicker }
         role='presentation'
+        size={ inputProps.size }
       >
         <Textbox
           { ...inputProps }
@@ -245,6 +254,5 @@ function formatDateToCurrentLocale(value) {
   return DateHelper.formatValue(value || DateHelper.todayFormatted(), visibleFormat);
 }
 
-
 export { defaultDateFormat };
-export default DateInput;
+export default withUniqueName(DateInput);

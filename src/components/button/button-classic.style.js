@@ -1,5 +1,5 @@
 import { css } from 'styled-components';
-import { StyledIcon } from '../icon/icon.style';
+import StyledIcon from '../icon/icon.style';
 import { makeColors } from './button-types.style';
 
 export const classicColorsSet = {

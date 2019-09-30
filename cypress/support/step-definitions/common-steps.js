@@ -7,6 +7,7 @@ import {
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
+import { DEBUG_FLAG } from '..';
 
 const LABEL_INPUT_INLINE_CLASS = 'common-input__label--inline';
 
@@ -30,20 +31,56 @@ Given('I open {string} component page legacy spinner', (component) => {
   visitComponentUrl(component, 'legacy_spinner');
 });
 
+Given('I open {string} component page legacy spinner', (component) => {
+  visitComponentUrl(component, 'legacy_spinner_classic');
+});
+
 Given('I open {string} component iframe', (component) => {
   visitComponentUrl(component, 'default', true);
+});
+
+Given('I open {string} component for classic story in iframe', (component) => {
+  visitComponentUrl(component, 'classic', true);
+});
+
+Given('I open deprecated {string} component iframe', (component) => {
+  visitComponentUrl(component, 'classic', true, 'deprecated-');
+});
+
+Given('I open deprecated {string} component page', (component) => {
+  visitComponentUrl(component, 'classic', false, 'deprecated-');
 });
 
 Given('I open {string} component with button page in iframe', (component) => {
   visitComponentUrl(component, 'with_button', true);
 });
 
+Given('I open {string} component for classic story with button page in iframe', (component) => {
+  visitComponentUrl(component, 'with_button_classic', true);
+});
+
 Given('I open {string} component page multiple', (component) => {
   visitComponentUrl(component, 'multiple');
 });
 
+Given('I open {string} component for classic story page multiple', (component) => {
+  visitComponentUrl(component, 'multiple_classic');
+});
+
+Given('I open {string} component page as sibling in iframe', (component) => {
+  visitComponentUrl(component, 'as_a_sibling', true);
+});
+
+Given('I open {string} component for classic story as sibling in iframe', (component) => {
+  visitComponentUrl(component, 'as_a_sibling_classic', true);
+});
+
 Given('I open {string} component page validations', (component) => {
   visitComponentUrl(component, 'validations');
+});
+
+Given('I open {string} component page validations', (component) => {
+  visitComponentUrl(component, 'validations_classic');
 });
 
 When('I set {word} to {string}', (propertyName, text) => {
@@ -83,7 +120,7 @@ When('I hover mouse onto help icon', () => {
 });
 
 When('I hover mouse onto icon', () => {
-  cy.wait(100); // required becasue element might be reloaded
+  cy.wait(100, { log: DEBUG_FLAG }); // required becasue element might be reloaded
   icon().trigger('mouseover');
 });
 

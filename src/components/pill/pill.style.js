@@ -7,7 +7,7 @@ import styleConfig from './pill.style.config';
 import { THEMES } from '../../style/themes';
 import { isClassic as isClassicTheme } from '../../utils/helpers/style-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import { StyledIcon } from '../icon/icon.style';
+import StyledIcon from '../icon/icon.style';
 
 // all DLS themes currently default to Small, as others are introduced this
 // function should be updated to correctly allow them.

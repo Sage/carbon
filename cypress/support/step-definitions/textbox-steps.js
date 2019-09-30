@@ -4,7 +4,6 @@ import { label } from '../../locators';
 const TEXT_ALIGN = 'text-align';
 
 Then('Textbox placeholder is set to {string}', (text) => {
-  textbox().should('have.attr', 'placeholder', text);
   textbox().children().should('have.attr', 'placeholder', text);
 });
 

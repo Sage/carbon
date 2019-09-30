@@ -32,12 +32,17 @@ Feature: Table Ajax component
       | <>                      |
 
   @positive
+  @ignore
+  # ignored because it require default adjustment
   Scenario: I enable pagination
     When I uncheck paginate checkbox
       And I check paginate checkbox
     Then pagination is visible
 
   @positive
+  @ignore
+  # ignored because it require default adjustment
+  Scenario: I enable pagination
   Scenario: I disable pagination
     When I uncheck paginate checkbox
     Then pagination is not visible

@@ -5,6 +5,7 @@ import {
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
+import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import Decimal from './decimal.component';
 import Textbox, { OriginalTextbox } from '../textbox';
 import getTextboxStoryProps from '../textbox/textbox.stories';
@@ -20,14 +21,8 @@ const setValue = (ev) => {
   store.set({ value: ev.target.value });
 };
 
-storiesOf('Experimental/Decimal Input', module)
-  .addParameters({
-    info: {
-      text: info,
-      propTablesExclude: [State, Textbox],
-      propTables: [OriginalTextbox]
-    }
-  }).add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const precisionRange = {
       range: true,
       min: 0,
@@ -52,7 +47,24 @@ storiesOf('Experimental/Decimal Input', module)
         />
       </State>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Experimental/Decimal Input', module)
+  .addParameters({
+    info: {
+      text: info,
+      propTablesExclude: [State, Textbox],
+      propTables: [OriginalTextbox]
+    }
+  })
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));

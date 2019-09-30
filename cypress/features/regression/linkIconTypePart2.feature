@@ -34,13 +34,17 @@ Feature: Link component
       | marker            |
       | message           |
       | minus             |
+      | minus_large       |
       | mobile            |
       | pdf               |
       | people            |
       | person            |
       | phone             |
+      | play              |
       | plus              |
+      | plus_large        |
       | print             |
+      | progress          |
       | progressed        |
       | question          |
       | refresh           |
@@ -59,14 +63,15 @@ Feature: Link component
       | unlocked          |
       | upload            |
       | uploaded          |
+      | video             |
       | view              |
       | warning           |
-      | white-tick        |
 
   @positive
-  Scenario Outline: Change type of icon for a Link component to <icon>
-    When I select icon to "<icon>"
-    Then icon on link componenent preview is "<icon>"
+  Scenario Outline: Change type of icon for a Link component to <iconName>
+    When I select icon to "<iconName>"
+    Then icon on link componenent preview is "<iconDataElement>"
     Examples:
-      | iconName          | iconDetaElement |
+      | iconName          | iconDataElement |
       | messages          | message         |
+      | help              | question        |

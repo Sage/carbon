@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { boolean, text, select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import PresenceValidation from '../../../utils/validations/presence';
 import notes from './documentation/notes.md';
@@ -32,17 +33,8 @@ const additionalFormActions = (innerText) => {
   };
 };
 
-storiesOf('Experimental/Form', module)
-  .addParameters({
-    info: {
-      text: Info,
-      propTablesExclude: [Textbox],
-      includePropTables: [FormWithoutValidations]
-    },
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false }
-  })
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const formActionOptions = ['', ...OptionsHelper.actionOptions];
     const unsavedWarning = boolean('unsavedWarning', true);
     const save = boolean('save', true);
@@ -102,8 +94,17 @@ storiesOf('Experimental/Form', module)
         />
       </Form>
     );
-  })
-  .add('fieldset > textbox', () => {
+  };
+
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+function makeFieldsetTextboxStory(name, themeSelector) {
+  const component = () => {
     const legend = text('legend', '');
 
     return (
@@ -154,4 +155,26 @@ storiesOf('Experimental/Form', module)
         </Fieldset>
       </Form>
     );
-  });
+  };
+
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Experimental/Form', module)
+  .addParameters({
+    info: {
+      text: Info,
+      propTablesExclude: [Textbox],
+      includePropTables: [Form]
+    },
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
+  })
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector))
+  .add(...makeFieldsetTextboxStory('fieldset > textbox', dlsThemeSelector))
+  .add(...makeFieldsetTextboxStory('fieldset > textbox classic', classicThemeSelector));
