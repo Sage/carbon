@@ -59,7 +59,7 @@ const RadioButtonGroup = (props) => {
     return React.cloneElement(child, childProps);
   });
 
-  function activeElement() {
+  function activeElementIndex() {
     const activeIndex = refCollection.findIndex(ref => ref.current && ref.current === document.activeElement);
 
     return activeIndex === -1 ? 0 : activeIndex;
@@ -69,7 +69,7 @@ const RadioButtonGroup = (props) => {
     ev.preventDefault();
     const numOfChildren = children.length;
 
-    let radioFocusIndex = activeElement();
+    let radioFocusIndex = activeElementIndex();
 
     if (Events.isTabKey(ev)) {
       refCollection[radioFocusIndex].current.blur();
