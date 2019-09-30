@@ -25,7 +25,6 @@ const RadioButtonGroup = (props) => {
   const [selectedValue, setSelectedValue] = useState(null);
   const refCollection = [];
   const groupLabelId = `${groupName}-label`;
-  const buttonGroupRef = useRef(null);
 
   const buttons = React.Children.map(children, (child, index) => {
     const isDefaultChecked = child.props.checked && !selectedValue;
@@ -72,7 +71,7 @@ const RadioButtonGroup = (props) => {
 
     let radioFocusIndex = activeElement();
 
-    if (Events.isShiftKey(ev)) {
+    if (Events.isTabKey(ev)) {
       refCollection[radioFocusIndex].current.blur();
     }
 
@@ -96,7 +95,6 @@ const RadioButtonGroup = (props) => {
 
   return (
     <StyledRadioButtonGroup
-      ref={ buttonGroupRef }
       aria-labelledby={ groupLabelId }
       role='radiogroup'
       hasError={ hasError }
