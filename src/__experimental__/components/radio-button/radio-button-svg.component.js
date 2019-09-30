@@ -26,4 +26,4 @@ const RadioButtonSvg = () => {
   );
 };
 
-export default RadioButtonSvg;
+export default React.memo(RadioButtonSvg, () => true);

@@ -31,4 +31,4 @@ HiddenCheckableInput.propTypes = {
   tabindex: PropTypes.number
 };
 
-export default HiddenCheckableInput;
+export default React.memo(HiddenCheckableInput);
