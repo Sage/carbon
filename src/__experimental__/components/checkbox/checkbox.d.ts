@@ -16,8 +16,6 @@ interface CheckboxProps {
   value: string;
 }
 
-declare const OriginalCheckbox: React.FunctionComponent<CheckboxProps>;
-
 declare const Checkbox: React.ComponentClass<WithValidationProps & CheckboxProps>;
 
-export { Checkbox, OriginalCheckbox };
+export { Checkbox };
