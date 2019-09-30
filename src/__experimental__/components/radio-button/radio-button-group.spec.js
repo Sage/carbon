@@ -199,6 +199,14 @@ describe('RadioButtonGroup', () => {
         const focusedElement = document.activeElement;
         expect(inputs.at(0).getDOMNode()).toBe(focusedElement);
       });
+
+      it('should lose focus when keyPress is tab', () => {
+        inputs.at(0).getDOMNode().focus();
+        const focusedElement = document.activeElement;
+        const spy = spyOn(focusedElement, 'blur');
+        simulate.keydown.pressTab(buttonGroup);
+        expect(spy).toHaveBeenCalled();
+      });
     });
 
     describe('keyboard events change radio button selection', () => {

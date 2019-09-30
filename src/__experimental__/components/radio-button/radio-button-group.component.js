@@ -25,7 +25,6 @@ const RadioButtonGroup = (props) => {
   const [selectedValue, setSelectedValue] = useState(null);
   const refCollection = [];
   const groupLabelId = `${groupName}-label`;
-  let radioFocusIndex = 0;
 
   const buttons = React.Children.map(children, (child, index) => {
     const isDefaultChecked = child.props.checked && !selectedValue;
@@ -60,25 +59,23 @@ const RadioButtonGroup = (props) => {
     return React.cloneElement(child, childProps);
   });
 
+  function activeElement() {
+    const activeIndex = refCollection.findIndex(ref => ref.current && ref.current === document.activeElement);
+
+    return activeIndex === -1 ? 0 : activeIndex;
+  }
+
   const handleKeyDown = (ev) => {
     ev.preventDefault();
     const numOfChildren = children.length;
 
-    /**
-     * if focus exists in document on element, then set focus index to that element
-     * This synchronises component element focus with document focus to allow for fluid continuity
-     */
-    if (document.activeElement) {
-      refCollection.find((e, index) => {
-        if (e.current === document.activeElement) {
-          radioFocusIndex = index;
-        }
+    let radioFocusIndex = activeElement();
 
-        return;
-      });
+    if (Events.isTabKey(ev)) {
+      refCollection[radioFocusIndex].current.blur();
     }
 
-    if (Events.isSpaceKey(ev)) {
+    if (Events.isSpaceKey(ev) || Events.isEnterKey(ev)) {
       refCollection[radioFocusIndex].current.click();
     }
 
