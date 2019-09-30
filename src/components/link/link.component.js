@@ -5,7 +5,7 @@ import Icon from '../icon';
 import Event from '../../utils/helpers/events';
 import LinkStyle from './link.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import tagComponent from '../../utils/helpers/tags/tags';
+import tagComponent from '../../utils/helpers/tags';
 
 class Link extends React.Component {
   static safeProps = ['onClick'];
