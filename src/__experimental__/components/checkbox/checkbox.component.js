@@ -68,5 +68,4 @@ Checkbox.defaultProps = {
   reverse: false
 };
 
-export { Checkbox as OriginalCheckbox };
 export default withValidations(Checkbox);
