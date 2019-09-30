@@ -309,7 +309,7 @@ describe('RadioButtonGroup', () => {
 
           describe('when down arrow key is pressed twice', () => {
             describe('on one down arrow key press', () => {
-              it('should change the focus to the second radio button', () => {
+              it('should change the focus to the last radio button', () => {
                 simulate.keydown.pressDownArrow(buttonGroup);
                 expect(inputs.at(2)).toBeFocused();
               });
@@ -326,7 +326,7 @@ describe('RadioButtonGroup', () => {
 
           describe('when right arrow key is pressed twice', () => {
             describe('on one right arrow key press', () => {
-              it('should change the focus to the second radio button', () => {
+              it('should change the focus to the last radio button', () => {
                 simulate.keydown.pressRightArrow(buttonGroup);
                 expect(inputs.at(2)).toBeFocused();
               });
@@ -343,14 +343,14 @@ describe('RadioButtonGroup', () => {
 
           describe('when up arrow key is pressed twice', () => {
             describe('on one up arrow key press', () => {
-              it('should change the focus to the second radio button', () => {
+              it('should change the focus to the first radio button', () => {
                 simulate.keydown.pressUpArrow(buttonGroup);
                 expect(inputs.at(0)).toBeFocused();
               });
             });
 
             describe('on two up arrow key presses', () => {
-              it('should change the focus to the first radio button', () => {
+              it('should change the focus to the last radio button', () => {
                 simulate.keydown.pressUpArrow(buttonGroup);
                 simulate.keydown.pressUpArrow(buttonGroup);
                 expect(inputs.at(2)).toBeFocused();
@@ -360,14 +360,14 @@ describe('RadioButtonGroup', () => {
 
           describe('when left arrow key is pressed twice', () => {
             describe('on one left arrow key press', () => {
-              it('should change the focus to the second radio button', () => {
+              it('should change the focus to the first radio button', () => {
                 simulate.keydown.pressLeftArrow(buttonGroup);
                 expect(inputs.at(0)).toBeFocused();
               });
             });
 
             describe('on two left arrow key presses', () => {
-              it('should change the focus to the first radio button', () => {
+              it('should change the focus to the last radio button', () => {
                 simulate.keydown.pressLeftArrow(buttonGroup);
                 simulate.keydown.pressLeftArrow(buttonGroup);
                 expect(inputs.at(2)).toBeFocused();
