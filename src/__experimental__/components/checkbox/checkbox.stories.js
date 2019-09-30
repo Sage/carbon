@@ -22,7 +22,7 @@ function testValidator(value, props) {
   return new Promise((resolve, reject) => {
     if (['required', 'mandatory'].indexOf(value) !== -1 && !props.checked) {
       reject(new Error('This checkbox is required!'));
-    } else if (props.name === 'checkbox-group' && value === '3') {
+    } else if (props.name === 'checkbox-group' && value === '0') {
       reject(new Error('This checkbox is required!'));
     } else {
       resolve();
