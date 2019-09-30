@@ -273,7 +273,7 @@ const withValidation = (WrappedComponent) => {
   };
 
   const displayName = WrappedComponent.displayName || WrappedComponent.name || 'WithValidation(Unknown)';
-  WithValidation.displayName = displayName.replace('Base', '');
+  WithValidation.displayName = displayName.replace(/^Base/, '');
 
   return WithValidation;
 };
