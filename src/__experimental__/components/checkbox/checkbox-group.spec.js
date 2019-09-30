@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import 'jest-styled-components';
 import TestRenderer from 'react-test-renderer';
 import CheckboxGroup from './checkbox-group.component';
-import { OriginalCheckbox } from './checkbox.component';
+import { Checkbox } from '.';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import baseTheme from '../../../style/themes/base';
 import Icon from '../../../components/icon';
@@ -14,7 +14,7 @@ const groupName = 'my-checkbox-group';
 
 function render(props, childProps, renderer = mount) {
   const children = checkboxValues.map(value => (
-    <OriginalCheckbox
+    <Checkbox
       id={ `cId-${value}` }
       key={ `cKey-${value}` }
       name={ `check-${value}` }
@@ -72,7 +72,7 @@ describe('CheckboxGroup', () => {
       const wrapper = render({}, {
         onChange: fakeFunction
       });
-      const checkbox = wrapper.find(OriginalCheckbox).first();
+      const checkbox = wrapper.find(Checkbox).first();
 
       checkbox.prop('onChange')();
 
@@ -107,7 +107,7 @@ describe('CheckboxGroup', () => {
         });
 
         it('has correct color', () => {
-          const checkboxWrapper = wrapper.find(OriginalCheckbox).first();
+          const checkboxWrapper = wrapper.find(Checkbox).first();
 
           assertStyleMatch({
             border: `1px solid ${validationTypes[type].color}`
@@ -123,7 +123,7 @@ describe('CheckboxGroup', () => {
             hasError: true
           });
 
-          const checkboxWrapper = wrapper.find(OriginalCheckbox).first();
+          const checkboxWrapper = wrapper.find(Checkbox).first();
 
           expect(checkboxWrapper.prop('checked')).toBe(true);
           expect(checkboxWrapper.prop('hasError')).toBeUndefined();

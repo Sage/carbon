@@ -201,10 +201,12 @@ exports[`CheckboxGroup renders as expected 1`] = `
       className="c5 c6"
       data-component="checkbox"
       name="check-required"
+      onBlur={[Function]}
     >
       <div
         className="c7"
         name="check-required"
+        onBlur={[Function]}
       >
         <div
           className="c1 c2"
@@ -218,6 +220,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
               className="c10 c11"
               id="cId-required"
               name="check-required"
+              onBlur={[Function]}
               onChange={[Function]}
               role="checkbox"
               type="checkbox"
@@ -246,10 +249,12 @@ exports[`CheckboxGroup renders as expected 1`] = `
       className="c5 c6"
       data-component="checkbox"
       name="check-optional"
+      onBlur={[Function]}
     >
       <div
         className="c7"
         name="check-optional"
+        onBlur={[Function]}
       >
         <div
           className="c1 c2"
@@ -263,6 +268,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
               className="c10 c11"
               id="cId-optional"
               name="check-optional"
+              onBlur={[Function]}
               onChange={[Function]}
               role="checkbox"
               type="checkbox"
