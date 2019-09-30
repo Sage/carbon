@@ -12,6 +12,7 @@ import Checkbox, { OriginalCheckbox } from '.';
 import { info, notes, infoValidations } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 import CheckboxGroup from './checkbox-group.component';
+import Text from '../../../utils/helpers/text';
 
 Checkbox.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -22,7 +23,7 @@ function testValidator(value, props) {
   return new Promise((resolve, reject) => {
     if (['required', 'mandatory'].indexOf(value) !== -1 && !props.checked) {
       reject(new Error('This checkbox is required!'));
-    } else if (props.name === 'checkbox-group' && value === '3') {
+    } else if (props.name === 'checkbox-group' && value === '0') {
       reject(new Error('This checkbox is required!'));
     } else {
       resolve();
@@ -55,7 +56,7 @@ function testInfo(value, props) {
 }
 
 const checkboxes = {
-  one: {}, required: {}, warning: {}, alert: {}, info: {}, optional: {}, mandatory: {}, example: {}
+  default: {}, required: {}, warning: {}, info: {}, optional: {}, one: {}, two: {}, three: {}
 };
 const checkboxKeys = Object.keys(checkboxes);
 const trueBool = true;
@@ -69,7 +70,7 @@ checkboxKeys.forEach((id) => {
   };
 });
 const formCheckbox = checkboxKeys.filter(name => ['required', 'warning', 'info', 'optional'].indexOf(name) !== -1);
-const groupCheckbox = checkboxKeys.filter(name => ['mandatory', 'alert', 'example'].indexOf(name) !== -1);
+const groupCheckbox = checkboxKeys.filter(name => ['one', 'two', 'three'].indexOf(name) !== -1);
 
 const groupStore = new Store({
   value: '0',
@@ -79,34 +80,39 @@ const groupStore = new Store({
 });
 
 function defaultKnobs(type) {
-  const label = `${text('label', 'Example Checkbox')} (${type})`;
+  const knobGroup = `Checkbox ${type}`;
+  const nameWithGroup = (name) => {
+    return (type === 'default') ? name : `${Text.titleCase(type)} ${name}`;
+  };
+  const label = `${text(nameWithGroup('label'), 'Example Checkbox', knobGroup)} (${type})`;
 
   return ({
-    disabled: boolean('disabled', false),
-    fieldHelp: text('fieldHelp', 'This text provides help for the input.'),
-    fieldHelpInline: boolean('fieldHelpInline', false),
-    reverse: boolean('reverse', false),
+    disabled: boolean(nameWithGroup('disabled'), false, knobGroup),
+    fieldHelp: text(nameWithGroup('fieldHelp'), 'This text provides help for the input.', knobGroup),
+    fieldHelpInline: boolean(nameWithGroup('fieldHelpInline'), false, knobGroup),
+    reverse: boolean(nameWithGroup('reverse'), false, knobGroup),
     label,
-    labelHelp: text('labelHelp', 'This text provides more information for the label.'),
-    inputWidth: number('inputWidth', 0, {
+    labelHelp: text(nameWithGroup('labelHelp'), 'This text provides more information for the label.', knobGroup),
+    inputWidth: number(nameWithGroup('inputWidth'), 0, {
       range: true,
       min: 0,
       max: 100,
       step: 1
-    }),
-    labelWidth: number('labelWidth', 0, {
+    }, knobGroup),
+    labelWidth: number(nameWithGroup('labelWidth'), 0, {
       range: true,
       min: 0,
       max: 100,
       step: 1
-    }),
+    }, knobGroup),
     labelAlign: select(
-      'labelAlign',
+      nameWithGroup('labelAlign'),
       OptionsHelper.alignBinary,
-      OptionsHelper.alignBinary[0]
+      OptionsHelper.alignBinary[0],
+      knobGroup
     ),
-    size: select('size', OptionsHelper.sizesBinary, 'small'),
-    value: type
+    size: select(nameWithGroup('size'), OptionsHelper.sizesBinary, 'small', knobGroup),
+    value: text(nameWithGroup('value'), type, knobGroup)
   });
 }
 
@@ -155,10 +161,10 @@ function handleSubmit(ev) {
 
 const checkboxComponent = () => {
   return (
-    <State store={ checkboxes.one.store }>
+    <State store={ checkboxes.default.store }>
       <OriginalCheckbox
-        onChange={ ev => handleChange(ev, 'one') }
-        { ...defaultKnobs('value-one') }
+        onChange={ ev => handleChange(ev, 'default') }
+        { ...defaultKnobs('default') }
       />
     </State>
   );
@@ -178,7 +184,6 @@ const checkboxGroupComponent = () => (
             onChange={ ev => handleChange(ev, type) }
             name={ `my-checkbox-${type}` }
             unblockValidation={ trueBool }
-            useValidationIcon={ trueBool }
             { ...defaultKnobs(type) }
           />
         </State>
@@ -192,22 +197,21 @@ const checkboxGroupComponent = () => (
           key='checkbox-group'
           name='checkbox-group'
           groupName='checkbox-group'
-          label='What would you choose?'
-          labelHelp={ defaultKnobs().labelHelp }
+          label={ text('label', 'What would you choose?', 'group') }
+          labelHelp={ text('labelHelp', 'Some helpful information', 'group') }
           validations={ testValidator }
           warnings={ testWarning }
           info={ testInfo }
-          useValidationIcon={ trueBool }
+          useValidationIcon={ boolean('useValidationIcon', true, 'group') }
           value={ state.value }
         >
           {groupCheckbox.map(id => (
             <OriginalCheckbox
-              { ...defaultKnobs(id) }
               checked={ state[id] }
               key={ `checkbox-input-${id}` }
               onChange={ ev => handleGroupChange(ev, id) }
-              label='Example Checkbox'
-              labelHelp=''
+              labelHelp={ text(`${Text.titleCase(id)} labelHelp`, '', `Checkbox ${id}`) }
+              { ...defaultKnobs(id) }
             />
           ))}
         </CheckboxGroup>

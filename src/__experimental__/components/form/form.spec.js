@@ -978,6 +978,12 @@ describe('Form', () => {
     });
   });
 
+  describe('when children are undefined', () => {
+    it('it does not throw an error', () => {
+      expect(() => shallow(<Form validate={ () => true } formAction='foo' />)).not.toThrow();
+    });
+  });
+
   describe('tags', () => {
     describe('on component', () => {
       const wrapper2 = shallow(
