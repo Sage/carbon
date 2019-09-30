@@ -252,20 +252,32 @@ const withValidation = (WrappedComponent) => {
   WithValidation.contextType = ValidationsContext;
 
   WithValidation.propTypes = {
-    children: PropTypes.node, // Children elements
-    name: PropTypes.string.isRequired, // Name to uniquely identify the component
-    value: PropTypes.oneOfType([ // The current value of the component
+    /** Children elements */
+    children: PropTypes.node,
+    /** Name to uniquely identify the component */
+    name: PropTypes.string.isRequired,
+    /** The current value of the component */
+    value: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.array
     ]),
-    onBlur: PropTypes.func, // Custom function to be called when the component blurs
-    onChange: PropTypes.func, // Custom function called when component value changes
+    /** Custom function to be called when the component blurs */
+    onBlur: PropTypes.func,
+    /** Custom function called when component value changes */
+    onChange: PropTypes.func,
+    /** Method or array of methods, that when an error is throw the tooltipMessage prop contains a message */
     validations: validationsPropTypes,
+    /** Method or array of methods, that when an error is throw the tooltipMessage prop contains a message */
     warnings: validationsPropTypes,
+    /** Method or array of methods, that when an error is throw the tooltipMessage prop contains a message */
     info: validationsPropTypes,
-    forceUpdateTriggerToggle: PropTypes.bool, // triggers validation when it's boolean value changes
+    /** Triggers validation when it's boolean value changes */
+    forceUpdateTriggerToggle: PropTypes.bool,
+    /** Custom function to be called */
     addInputToFormState: PropTypes.func,
+    /** Run or block validations */
     unblockValidation: PropTypes.bool,
+    /** Show or hide validation icon in child element */
     useValidationIcon: PropTypes.bool
   };
 
