@@ -183,6 +183,7 @@ class DraggableContext extends React.Component {
   handleBeginDrag = (props) => {
     return {
       index: props.index,
+      offsetDiffY: 0,
       ...props
     };
   }
