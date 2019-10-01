@@ -46,6 +46,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
   padding-bottom: 1px;
   -webkit-text-decoration: none;
   text-decoration: none;
+  margin-right: 16px;
   background: transparent;
   border-color: #26A826;
   color: #26A826;
@@ -57,10 +58,6 @@ exports[`Form When child is an html element it renders the child 1`] = `
 
 .c5:focus {
   outline: solid 3px #FFB500;
-}
-
-.c5 + .c4 {
-  margin-left: 16px;
 }
 
 .c5:hover {
@@ -111,6 +108,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
   padding-bottom: 1px;
   -webkit-text-decoration: none;
   text-decoration: none;
+  margin-right: 16px;
   background: #26A826;
   border-color: transparent;
   color: #FFFFFF;
@@ -122,10 +120,6 @@ exports[`Form When child is an html element it renders the child 1`] = `
 
 .c8:focus {
   outline: solid 3px #FFB500;
-}
-
-.c8 + .c4 {
-  margin-left: 16px;
 }
 
 .c8:hover {
