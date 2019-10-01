@@ -16,7 +16,7 @@ const ItemTargetHelper = {
 
     const newOffsetDiff = monitor.getDifferenceFromInitialOffset();
 
-    //prevents flickering
+    // prevents flickering
     if (item.offsetDiffY && Math.abs(item.offsetDiffY - newOffsetDiff.y) <= 1) {
       return;
     }
