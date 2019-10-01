@@ -189,7 +189,7 @@ describe('RadioButtonGroup', () => {
 
     it('then first radio button should not be focused after render', () => {
       const focusedElement = document.activeElement;
-      simulate.keydown.pressEnter(buttonGroup);
+      simulate.keydown.pressDownArrow(buttonGroup);
       expect(inputs.at(0).getDOMNode()).not.toBe(focusedElement);
     });
 

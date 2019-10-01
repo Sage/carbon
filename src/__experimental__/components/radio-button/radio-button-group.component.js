@@ -60,9 +60,13 @@ const RadioButtonGroup = (props) => {
   });
 
   function activeElementIndex() {
-    const activeIndex = refCollection.findIndex(ref => ref.current && ref.current === document.activeElement);
-
-    return activeIndex === -1 ? 0 : activeIndex;
+    let activeIndex;
+    refCollection.forEach((ref, index) => {
+      if (ref && ref.current === document.activeElement) {
+        activeIndex = index;
+      }
+    });
+    return activeIndex || 0;
   }
 
   const handleKeyDown = (ev) => {
