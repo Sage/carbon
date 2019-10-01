@@ -21,6 +21,8 @@ const StyledSwitch = styled.div`
       width: 60px;
     }
 
+    margin-bottom: 24px;
+
     ${HiddenCheckableInputStyle}:not([disabled]) {
       &:focus + ${StyledSwitchSlider},
       &:hover + ${StyledSwitchSlider} {
