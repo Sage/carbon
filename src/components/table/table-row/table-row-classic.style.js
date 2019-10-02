@@ -61,7 +61,7 @@ function applyClassicHighlightStyling() {
  * instead of being `import`ed, to avoid a dependency cycle
  * between `table-row.style.js` and `table-row-classic.style.js`.
  */
-function applyClassicDraggedStyling(StyledTableRow) {
+function applyClassicDraggedStyling() {
   return css`
     ${StyledTableCell} {
       background-color: #F2F4F5;
