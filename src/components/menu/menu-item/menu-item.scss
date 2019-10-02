@@ -23,6 +23,7 @@
   .carbon-menu--primary &:hover {
     background-color: $white;
     color: $grey-dark-blue;
+    text-decoration: none;
 
     [data-component='icon'] {
       color: $grey-dark-blue;
@@ -100,7 +101,16 @@
 
     &.carbon-menu-item--has-link:hover {
       cursor: pointer;
+      text-decoration: none;
+
+      .carbon-link__content {
+        cursor: pointer;
+      }
     }
+  }
+
+  a:hover {
+    text-decoration: none;
   }
 
   .carbon-menu-item:after {
@@ -110,6 +120,13 @@
   &.carbon-menu-item--has-submenu {
     .carbon-menu-item__submenu-title {
       background-color: transparent;
+      &:not(.carbon-menu-item--has-link) {
+        cursor: default;
+
+        .carbon-link__content {
+          cursor: text;
+        }
+      }
     }
   }
 }
@@ -122,6 +139,7 @@
     right: 15px;
     top: 50%;
     margin-top: -2px;
+    margin-right: -2px;
     position: absolute;
     z-index: 2;
 
@@ -149,7 +167,7 @@
   padding: 0;
   position: absolute;
   z-index: $z-dropdown-list;
-
+  
   [data-component='icon'] {
     line-height: 16px;
     margin: 0 10px 0 0;
@@ -176,7 +194,7 @@
       color: $green-bright-dull;
     }
   }
-
+ 
   .carbon-menu--secondary & {
     background-color: $grey-dark-plus;
 
@@ -226,6 +244,7 @@
 
       &.carbon-menu-item--has-link:hover {
         background-color: $grey-dark-blue-90;
+        text-decoration: none;
 
         [data-component='icon'] {
           color: $white;
