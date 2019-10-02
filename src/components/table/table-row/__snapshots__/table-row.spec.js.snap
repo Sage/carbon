@@ -272,6 +272,18 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
   background-color: #255BC7;
 }
 
+.c10 .c3 {
+  border-top: 1px solid transparent;
+}
+
+.c10 .c3:first-child {
+  border-left: 1px solid transparent;
+}
+
+.c10 .c3:last-child {
+  border-right: 1px solid transparent;
+}
+
 .c11 .c3 {
   background-color: #FFFFFF;
 }
@@ -342,6 +354,18 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 
 .c12.c12.c12.c12:hover .c3 {
   background-color: #D0E3FA;
+}
+
+.c12 .c3 {
+  border-top: 1px solid transparent;
+}
+
+.c12 .c3:first-child {
+  border-left: 1px solid transparent;
+}
+
+.c12 .c3:last-child {
+  border-right: 1px solid transparent;
 }
 
 .c13 .c3 {
