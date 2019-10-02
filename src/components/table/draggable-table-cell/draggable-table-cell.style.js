@@ -13,7 +13,7 @@ const StyledDraggableTableCell = styled(StyledTableCell)`
   }
 
   ${StyledIcon} {
-    cursor: move;
+    cursor: grab;
   }
 `;
 

@@ -47,7 +47,7 @@ describe('DraggableTableCell', () => {
   it('styles the icon cursor', () => {
     const component = TestRenderer.create(<StyledDraggableTableCell identifier='foo' />);
     assertStyleMatch({
-      cursor: 'move'
+      cursor: 'grab'
     }, component.toJSON(), { modifier: css`${StyledIcon}` });
   });
 
