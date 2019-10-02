@@ -71,7 +71,7 @@ Switch.propTypes = {
   /** Sets percentage-based label width */
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Override tab index on the validation and help icon */
-  helpTabIndex: PropTypes.number,
+  helpTabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Triggers loading animation */
   loading: PropTypes.bool,
   /** Accepts a callback function which can be used to update parent state on change */
