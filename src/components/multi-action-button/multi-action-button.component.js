@@ -32,7 +32,7 @@ class MultiActionButton extends SplitButton {
         <Icon
           type='dropdown'
           bgTheme='none'
-          iconColor={ this.getIconColor(this.props.buttonType) }
+          iconColor={ this.getIconColor(this.props.buttonType || this.props.as) }
           disabled={ this.toggleButtonProps.disabled }
         />
       </Button>

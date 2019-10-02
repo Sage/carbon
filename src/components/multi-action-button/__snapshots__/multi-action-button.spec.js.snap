@@ -4,12 +4,12 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 .c5 {
   display: inline-block;
   position: relative;
-  color: rgba(0,0,0,0.65);
+  color: #26A826;
   background-color: transparent;
 }
 
 .c5:hover {
-  color: rgba(0,0,0,0.90);
+  color: #1E861E;
   background-color: transparent;
 }
 
@@ -168,14 +168,14 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
 .c6 {
   display: inline-block;
   position: relative;
-  color: rgba(0,0,0,0.65);
+  color: #00805D;
   background-color: transparent;
   color: rgba(0,0,0,0.85);
   background-color: transparent;
 }
 
 .c6:hover {
-  color: rgba(0,0,0,0.90);
+  color: #00664A;
   background-color: transparent;
 }
 
