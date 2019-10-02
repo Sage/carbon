@@ -6,8 +6,7 @@ import {
   applyClassicDraggedStyling,
   applyClassicRowStyling,
   applyClassicSelectedStyling,
-  applyClassicHighlightStyling,
-  applyClassicDropTargetStyling
+  applyClassicHighlightStyling
 } from './table-row-classic.style';
 import {
   applyModernRowStyling,
@@ -130,8 +129,7 @@ function dragRowStyling({
     `}
 
     ${StyledTableCell} {
-      ${isClassic(theme) && applyClassicDropTargetStyling(isDraggedElementOver)}
-      ${!isClassic(theme) && applyModernDropTargetStyling(isDraggedElementOver, theme)}
+      ${applyModernDropTargetStyling(isDraggedElementOver, theme)}
     }
   `;
 }

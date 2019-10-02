@@ -64,25 +64,14 @@ function applyClassicHighlightStyling() {
 function applyClassicDraggedStyling(StyledTableRow) {
   return css`
     ${StyledTableCell} {
-      visibility: hidden;
-    }
-    
-    + ${StyledTableRow} {
-      ${StyledTableCell} {
-        border-top: 1px solid #000A0E;
-      }
+      background-color: #F2F4F5;
     }
   `;
-}
-
-function applyClassicDropTargetStyling(isDraggedElementOver) {
-  return isDraggedElementOver ? css`visibility: hidden;` : css``;
 }
 
 export {
   applyClassicDraggedStyling,
   applyClassicRowStyling,
   applyClassicSelectedStyling,
-  applyClassicHighlightStyling,
-  applyClassicDropTargetStyling
+  applyClassicHighlightStyling
 };

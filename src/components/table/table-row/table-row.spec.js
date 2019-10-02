@@ -655,7 +655,7 @@ describe('TableRow', () => {
         row1.setContext({ dragAndDropActiveIndex: 0 });
 
         assertStyleMatch(
-          { visibility: 'hidden' },
+          { backgroundColor: '#F2F4F5' },
           row1.find(StyledTableRow),
           { modifier: `&&&&& ${StyledTableCell}` }
         );
@@ -666,7 +666,7 @@ describe('TableRow', () => {
       it('renders the correct styles for a drop-target row for the Classic theme', () => {
         wrapper = mount(<StyledTableRow theme={ ClassicTheme } isDraggedElementOver />);
         assertStyleMatch(
-          { visibility: 'hidden' },
+          { backgroundColor: '#E5EAEC' },
           wrapper,
           { modifier: `${StyledTableCell}` }
         );
