@@ -16,10 +16,7 @@ const RadioButtonStyle = styled(CheckboxStyle)`
     fieldHelpInline,
     reverse,
     size,
-    theme,
-    hasError,
-    hasWarning,
-    hasInfo
+    theme
   }) => css`
     margin-bottom: 12px;
 
@@ -49,14 +46,6 @@ const RadioButtonStyle = styled(CheckboxStyle)`
 
     svg {
       padding: 1px;
-    }
-
-    ${StyledCheckableInputSvgWrapper} svg {
-      ${!disabled && css`
-        ${hasInfo && `border-color: ${theme.colors.info};`}
-        ${hasWarning && `border-color: ${theme.colors.warning};`}
-        ${hasError && `border-color: ${theme.colors.error};`}
-      `}
     }
 
     circle {
@@ -123,6 +112,18 @@ const RadioButtonStyle = styled(CheckboxStyle)`
 `;
 
 const StyledRadioButtonGroup = styled.div`
+${({
+    theme, disabled, hasError, hasWarning, hasInfo
+  }) => css`
+  ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} svg {
+        ${!disabled && css`
+          ${hasInfo && `border-color: ${theme.colors.info};`}
+          ${hasWarning && `border-color: ${theme.colors.warning};`}
+          ${hasError && `border-color: ${theme.colors.error};`}
+        `}
+      }
+    `}
+
   & > ${FormFieldStyle} {
     & > ${LabelStyle} {
       cursor: default ;

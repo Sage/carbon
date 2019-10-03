@@ -1,9 +1,9 @@
 import React from 'react';
-import TestRenderer from 'react-test-renderer';
+import { act } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
-import 'jest-styled-components';
-import { css } from 'styled-components';
-import { RadioButton, OriginalRadioButton } from '.';
+import { css, ThemeProvider } from 'styled-components';
+import TestRenderer from 'react-test-renderer';
+import { RadioButton, RadioButtonGroup } from '.';
 import FieldHelpStyle from '../field-help/field-help.style';
 import LabelStyle from '../label/label.style';
 import CheckableInput from '../checkable-input/checkable-input.component';
@@ -13,31 +13,36 @@ import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-s
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import guid from '../../../utils/helpers/guid';
 import baseTheme from '../../../style/themes/base';
-import classicTheme from '../../../style/themes/classic';
+import classic from '../../../style/themes/classic';
 import { getValidationType } from '../../../components/validations/with-validation.hoc';
+import small from '../../../style/themes/small';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
 
-function render(props, renderer = TestRenderer.create) {
+function render(props = {}, theme = small, renderer = mount) {
+  const {
+    hasError, hasInfo, hasWarning, ...buttonProps
+  } = props;
+  const groupProps = {
+    hasError, hasInfo, hasWarning
+  };
   return renderer(
-    <RadioButton
-      name='my-radio'
-      value='test'
-      { ...props }
-    />
+    <ThemeProvider theme={ theme }>
+      <RadioButtonGroup { ...groupProps }>
+        <RadioButton
+          name='my-radio'
+          value='test'
+          { ...buttonProps }
+        />
+      </RadioButtonGroup>
+    </ThemeProvider>
   );
 }
 
-function renderClassic(props) {
-  return TestRenderer.create(
-    <RadioButton
-      name='my-radio'
-      theme={ classicTheme } value='test'
-      { ...props }
-    />
-  );
-}
+const getRadioButton = wrapper => wrapper.find(RadioButton);
+
+const renderClassic = props => render(props, classic);
 
 const validationTypes = ['hasError', 'hasWarning', 'hasInfo'];
 
@@ -45,7 +50,7 @@ describe('RadioButton', () => {
   describe('tabindex', () => {
     describe('when checked === true', () => {
       it('sets the tabindex attribute to 0', () => {
-        const input = render({ checked: true }, mount).find(CheckableInput);
+        const input = render({ checked: true }).find(CheckableInput);
 
         expect(input.props().tabindex).toEqual(0);
       });
@@ -53,7 +58,8 @@ describe('RadioButton', () => {
 
     describe('when checked === false', () => {
       it('sets the tabindex attribute to -1', () => {
-        const input = render({ checked: false }, mount).find(CheckableInput);
+        const wrapper = render({ checked: false });
+        const input = wrapper.find(CheckableInput);
 
         expect(input.props().tabindex).toEqual(-1);
       });
@@ -62,30 +68,34 @@ describe('RadioButton', () => {
 
   describe('default props', () => {
     it('onChange', () => {
-      const handleChange = OriginalRadioButton.defaultProps.onChange;
-
-      expect(handleChange()).toBeUndefined();
+      const button = getRadioButton(render());
+      const e = {
+        target: button.getDOMNode()
+      };
+      act(() => {
+        expect(button.prop('onChange')(e)).toBeUndefined();
+      });
     });
   });
 
   describe('styles', () => {
     describe('base', () => {
       it('renders as expected', () => {
-        expect(render()).toMatchSnapshot();
+        expect(render({}, small, TestRenderer.create).toJSON()).toMatchSnapshot();
       });
     });
 
     describe('when disabled === true', () => {
       describe('default', () => {
-        const wrapper = render({ disabled: true }).toJSON();
+        const wrapper = render({ disabled: true });
 
         it('applies the correct circle styles', () => {
-          assertStyleMatch({ fill: baseTheme.disabled.input }, wrapper, { modifier: 'circle' });
+          assertStyleMatch({ fill: baseTheme.disabled.input }, getRadioButton(wrapper), { modifier: 'circle' });
         });
 
         it('renders the correct checked colour', () => {
           assertStyleMatch(
-            { fill: baseTheme.disabled.border }, wrapper,
+            { fill: baseTheme.disabled.border }, getRadioButton(wrapper),
             {
               modifier: css`${`${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle`}`
             }
@@ -96,7 +106,7 @@ describe('RadioButton', () => {
 
     describe('when size === "large"', () => {
       describe('default', () => {
-        const wrapper = render({ size: 'large' }).toJSON();
+        const wrapper = getRadioButton(render({ size: 'large' }));
         const dimensions = { height: '24px', width: '24px' };
 
         it('applies the correct Label styles', () => {
@@ -126,7 +136,7 @@ describe('RadioButton', () => {
 
       describe('and reverse === true', () => {
         describe('default', () => {
-          const wrapper = render({ reverse: true, size: 'large' }).toJSON();
+          const wrapper = getRadioButton(render({ reverse: true, size: 'large' }));
 
           it('applies the correct input styles', () => {
             assertStyleMatch({ marginLeft: '6px' }, wrapper, { modifier: css`${StyledCheckableInput}` });
@@ -139,9 +149,8 @@ describe('RadioButton', () => {
 
         describe('and fieldHelpInline === true', () => {
           it('does not apply padding changes to FieldHelp', () => {
-            const wrapper = render({ fieldHelpInline: true, reverse: true, size: 'large' }).toJSON();
-
-            assertStyleMatch({ padding: undefined }, wrapper, { modifier: css`${FieldHelpStyle}` });
+            const wrapper = render({ fieldHelpInline: true, reverse: true, size: 'large' });
+            assertStyleMatch({ padding: undefined }, getRadioButton(wrapper), { modifier: css`${FieldHelpStyle}` });
           });
         });
       });
@@ -149,7 +158,7 @@ describe('RadioButton', () => {
 
     describe('Classic theme', () => {
       describe('default', () => {
-        const wrapper = renderClassic().toJSON();
+        const wrapper = getRadioButton(renderClassic());
         const dimensions = { height: '15px', width: '15px' };
 
         it('applies the correct checked styles', () => {
@@ -206,7 +215,7 @@ describe('RadioButton', () => {
       });
 
       describe('when disabled=true', () => {
-        const wrapper = renderClassic({ disabled: true }).toJSON();
+        const wrapper = getRadioButton(renderClassic({ disabled: true }));
 
         it('applies the appropriate circle styles', () => {
           assertStyleMatch({
@@ -227,7 +236,7 @@ describe('RadioButton', () => {
       describe.each(['fieldHelpInline', 'reverse'])('when %s === true', (prop) => {
         const opts = {};
         opts[prop] = true;
-        const wrapper = renderClassic(opts).toJSON();
+        const wrapper = getRadioButton(renderClassic(opts));
 
         it('applies the correct FieldHelp styles', () => {
           assertStyleMatch({ marginLeft: '0', marginRight: '6px' }, wrapper, { modifier: css`${FieldHelpStyle}` });
@@ -241,11 +250,11 @@ describe('RadioButton', () => {
       describe.each(validationTypes)('%s === true', (type) => {
         it('show correct color on radio', () => {
           const vType = getValidationType({ [type]: true });
-          const wrapper = render({ [type]: true }).toJSON();
+          const wrapper = render({ [type]: true });
 
           assertStyleMatch({
             borderColor: `${baseTheme.colors[vType]}`
-          }, wrapper, { modifier: `${StyledCheckableInputSvgWrapper} svg` });
+          }, wrapper, { modifier: css`${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} svg` });
         });
       });
     });

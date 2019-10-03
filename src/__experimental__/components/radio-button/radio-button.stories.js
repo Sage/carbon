@@ -8,7 +8,7 @@ import { State, Store } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import { RadioButton, RadioButtonGroup } from '.';
-import { info, notes } from './documentation';
+import { info, infoValidations, notes } from './documentation';
 
 const trueBool = true;
 const radioToggleGroupStore = new Store({ value: '' });
@@ -17,7 +17,7 @@ function makeStory(name, themeSelector, component) {
   const metadata = {
     themeSelector,
     info: {
-      text: info,
+      text: name.search('validations') !== -1 ? infoValidations : info,
       excludedPropTypes: ['children']
     },
     notes: { markdown: notes },
@@ -27,11 +27,44 @@ function makeStory(name, themeSelector, component) {
   return [name, component, metadata];
 }
 
-const radioComponent = () => {
-  const knobs = defaultKnobs();
+const groupedKnobs = (type, themeName) => {
+  return {
+    key: type,
+    label: text(`${type} label`, `Example ${type} radio button`, type),
+    labelHelp: text(`${type} labelHelp`, 'This text provides more information for the label.', type),
+    value: text(`${type} value`, type, type),
+    disabled: boolean(`${type} disabled`, false, type),
+    reverse: boolean(`${type} reverse`, false, type),
+    size: themeName === 'classic' ? undefined : select(`${type} size`, OptionsHelper.sizesBinary, 'small', type),
+    fieldHelp: text(`${type} fieldHelp`, 'This text provides help for the input.', type),
+    fieldHelpInline: boolean(`${type} fieldHelpInline`, false, type),
+    inputWidth: number(`${type} inputWidth`, 0, {
+      range: true,
+      min: 0,
+      max: 100,
+      step: 1
+    }, type),
+    labelWidth: number(`${type} labelWidth`, 0, {
+      range: true,
+      min: 0,
+      max: 100,
+      step: 1
+    }, type),
+    labelAlign: select(
+      `${type} labelAlign`,
+      OptionsHelper.alignBinary,
+      OptionsHelper.alignBinary[0],
+      type
+    )
+  };
+};
+
+const radioComponent = themeName => () => {
+  const labelHelp = text('labelHelp', 'Group label helper');
 
   return (
     <RadioButtonGroup
+      labelHelp={ labelHelp }
       groupName='frequency'
       label={ text('groupLabel', 'Please select a frequency from the options below') }
       name='radio-button-group'
@@ -40,30 +73,27 @@ const radioComponent = () => {
         id='input-1'
         name='input-1'
         checked
-        label={ text('radioOneLabel', 'Example Weekly Radio Button') }
-        value={ text('radioOneValue', 'weekly') }
-        { ...knobs }
+        onChange={ handleChange }
+        { ...groupedKnobs('weekly', themeName) }
       />
       <RadioButton
-        id='input-2'
         name='input-2'
-        label={ text('radioTwoLabel', 'Example Monthly Radio Button') }
-        value={ text('radioTwoValue', 'monthly') }
-        { ...knobs }
+        onChange={ handleChange }
+        { ...groupedKnobs('monthly', themeName) }
       />
       <RadioButton
         // id prop intentionally left off here, to demonstrate automatic GUID generation
         name='input-2'
-        label={ text('radioThreeLabel', 'Example Annual Radio Button') }
-        value={ text('radioThreeValue', 'annually') }
-        { ...knobs }
+        onChange={ handleChange }
+        { ...groupedKnobs('yearly', themeName) }
       />
     </RadioButtonGroup>
   );
 };
 
-const radioComponentWithValidation = () => {
+const radioComponentWithValidation = themeName => () => {
   const validationTypes = ['error', 'warning', 'info'];
+  const label = text('label', 'Are you coming to the event?');
   const labelHelp = text('labelHelp', 'Group label helper');
 
   function testValidation(type) {
@@ -90,7 +120,7 @@ const radioComponentWithValidation = () => {
     <State store={ radioToggleGroupStore }>
       <RadioButtonGroup
         groupName='my-event'
-        label='Are you coming to the event?'
+        label={ label }
         labelHelp={ labelHelp }
         validations={ testValidation('valid') }
         warnings={ testValidation('warn') }
@@ -100,14 +130,10 @@ const radioComponentWithValidation = () => {
       >
         {validationTypes.map(vType => (
           <RadioButton
-            { ...defaultKnobs() }
-            key={ `key-${vType}` }
+            { ...groupedKnobs(vType, themeName) }
             id={ `id-${vType}` }
             name={ vType }
-            label={ `Example Radion Button (${vType})` }
-            value={ vType }
             onChange={ handleGroupChange }
-            labelHelp=''
           />
         ))}
       </RadioButtonGroup>
@@ -116,14 +142,14 @@ const radioComponentWithValidation = () => {
 };
 
 storiesOf('Experimental/RadioButton', module)
-  .add(...makeStory('default', dlsThemeSelector, radioComponent))
-  .add(...makeStory('classic', classicThemeSelector, radioComponent))
-  .add(...makeStory('validations', dlsThemeSelector, radioComponentWithValidation))
-  .add(...makeStory('validations classic', classicThemeSelector, radioComponentWithValidation));
+  .add(...makeStory('default', dlsThemeSelector, radioComponent()))
+  .add(...makeStory('classic', classicThemeSelector, radioComponent('classic')))
+  .add(...makeStory('validations', dlsThemeSelector, radioComponentWithValidation()))
+  .add(...makeStory('validations classic', classicThemeSelector, radioComponentWithValidation('classic')));
 
 function handleChange(event) {
   const { value } = event.target;
-  action(`Selected - ${value}`)(event);
+  action('Selected')(value);
 }
 
 function handleGroupChange(event) {
@@ -131,35 +157,5 @@ function handleGroupChange(event) {
 
   radioToggleGroupStore.set({ value });
 
-  action(`Selected - ${value}`)(event);
-}
-
-function defaultKnobs() {
-  return ({
-    disabled: boolean('disabled', false),
-    error: boolean('error', false),
-    fieldHelp: text('fieldHelp', 'This text provides help for the input.'),
-    fieldHelpInline: boolean('fieldHelpInline', false),
-    reverse: boolean('reverse', false),
-    labelHelp: text('labelHelp', 'This text provides more information for the label.'),
-    inputWidth: number('inputWidth', 0, {
-      range: true,
-      min: 0,
-      max: 100,
-      step: 1
-    }),
-    labelWidth: number('labelWidth', 0, {
-      range: true,
-      min: 0,
-      max: 100,
-      step: 1
-    }),
-    labelAlign: select(
-      'labelAlign',
-      OptionsHelper.alignBinary,
-      OptionsHelper.alignBinary[0]
-    ),
-    size: select('size', OptionsHelper.sizesBinary, 'small'),
-    onChange: handleChange
-  });
+  action('Selected')(value);
 }

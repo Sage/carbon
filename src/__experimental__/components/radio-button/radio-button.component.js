@@ -1,23 +1,10 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import { RadioButtonStyle } from './radio-button.style';
 import CheckableInput from '../checkable-input/checkable-input.component';
 import RadioButtonSvg from './radio-button-svg.component';
 import OptionsHelper from '../../../utils/helpers/options-helper';
-import withValidation from '../../../components/validations/with-validation.hoc';
-
-function setTabIndex({ tabindex, checked }) {
-  let tabindexOverride;
-
-  if (tabindex !== undefined) {
-    tabindexOverride = tabindex;
-  } else {
-    tabindexOverride = checked ? 0 : -1;
-  }
-
-  return tabindexOverride;
-}
 
 const RadioButton = ({
   id, label, onChange, value, ...props
@@ -35,17 +22,14 @@ const RadioButton = ({
      * in the desired order (other elements which use FormField render their sub-components the
      * opposite way around by default)
      */
-    reverse: !props.reverse,
-    hasError: props.error || false,
-    hasWarning: false,
-    hasInfo: false
+    reverse: !props.reverse
   };
 
-  function handleChange(ev) {
+  const handleChange = useCallback((ev) => {
     onChange(ev);
     // specifically trigger focus, as Safari doesn't focus radioButtons on click by default
     ev.target.focus();
-  }
+  }, [onChange]);
 
   return (
     <RadioButtonStyle
@@ -55,7 +39,6 @@ const RadioButton = ({
       <CheckableInput
         { ...inputProps }
         onChange={ handleChange }
-        tabindex={ setTabIndex(inputProps) }
       >
         <RadioButtonSvg />
       </CheckableInput>
@@ -68,8 +51,6 @@ RadioButton.propTypes = {
   checked: PropTypes.bool,
   /** Toggles disabling of input */
   disabled: PropTypes.bool,
-  /** Toggles error styles */
-  error: PropTypes.bool,
   /** Displays fieldHelp inline with the radio button */
   fieldHelpInline: PropTypes.bool,
   /** Unique Identifier for the input. Will use a randomly generated GUID if none is provided */
@@ -100,11 +81,9 @@ RadioButton.propTypes = {
   value: PropTypes.string.isRequired
 };
 
-RadioButton.defaultProps = {
-  onChange: () => { },
+const Component = React.memo(RadioButton);
+Component.defaultProps = {
   reverse: false
 };
 
-export { RadioButton as OriginalRadioButton };
-
-export default withValidation(RadioButton);
+export default Component;

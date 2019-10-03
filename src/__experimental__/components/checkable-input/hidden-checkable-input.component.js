@@ -33,4 +33,4 @@ HiddenCheckableInput.propTypes = {
   inputRef: PropTypes.object
 };
 
-export default HiddenCheckableInput;
+export default React.memo(HiddenCheckableInput);
