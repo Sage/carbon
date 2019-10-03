@@ -84,20 +84,17 @@ const RadioButtonGroup = (props) => {
   }
 
   const handleKeyDown = (ev) => {
-    ev.preventDefault();
     const numOfChildren = children.length;
 
     let radioFocusIndex = activeElementIndex();
 
-    if (Events.isTabKey(ev)) {
-      refCollection[radioFocusIndex].current.blur();
-    }
-
     if (Events.isSpaceKey(ev) || Events.isEnterKey(ev)) {
+      ev.preventDefault();
       refCollection[radioFocusIndex].current.click();
     }
 
     if (Events.isUpKey(ev) || Events.isLeftKey(ev)) {
+      ev.preventDefault();
       radioFocusIndex = radioFocusIndex <= 0 ? numOfChildren - 1 : radioFocusIndex - 1;
 
       refCollection[radioFocusIndex].current.focus();
@@ -105,6 +102,7 @@ const RadioButtonGroup = (props) => {
     }
 
     if (Events.isDownKey(ev) || Events.isRightKey(ev)) {
+      ev.preventDefault();
       radioFocusIndex = radioFocusIndex >= (numOfChildren - 1) ? 0 : radioFocusIndex + 1;
 
       refCollection[radioFocusIndex].current.focus();
