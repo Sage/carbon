@@ -5,7 +5,7 @@ import classicThemeForLinkAnchor from './link-classic.style';
 import { isClassic } from '../../utils/helpers/style-helper';
 import StyledIcon from '../icon/icon.style';
 
-const LinkStyleAnchor = styled.a`
+const LinkStyle = styled.a`
   font-size: 14px;
   text-decoration: underline;
   color: ${({ theme }) => theme.colors.primary};
@@ -34,24 +34,19 @@ const LinkStyleAnchor = styled.a`
       background-color: ${theme.colors.focusedLinkBackground};
       outline: none;
     }
-  `}  
+  `}
+
+  ${({ disabled, theme }) => disabled && css`
+    color: ${theme.disabled.text};
+
+    &:hover,
+    &:focus {
+      cursor: not-allowed;
+      color: ${theme.disabled.text};
+    }
+  `}
 
   ${classicThemeForLinkAnchor}
-`;
-
-const LinkRouterStyle = styled(LinkStyleAnchor);
-
-const LinkStyle = styled.div`
-  ${({ disabled, theme }) => disabled && css`
-    cursor: not-allowed;
-
-  ${LinkStyleAnchor} { 
-    color: ${theme.disabled.text};
-    pointer-events: none;
-
-    ${classicThemeForLinkAnchor}
-  }
-`}
 `;
 
 LinkStyle.defaultProps = {
@@ -63,10 +58,4 @@ LinkStyle.propTypes = {
   disabled: PropTypes.bool
 };
 
-LinkStyleAnchor.defaultProps = {
-  theme: baseTheme
-};
-
-export {
-  LinkStyle, LinkStyleAnchor, LinkRouterStyle
-};
+export default LinkStyle;

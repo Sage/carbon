@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { isElement } from 'react-is';
 import I18n from 'i18n-js';
 import Serialize from 'form-serialize';
 import FormSummary from './form-summary';
@@ -17,7 +18,7 @@ import StyledForm,
 } from './form.style';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
-class FormWithoutValidations extends React.Component {
+class BaseForm extends React.Component {
   static childContextTypes = {
     form: PropTypes.object
   }
@@ -355,6 +356,11 @@ class FormWithoutValidations extends React.Component {
     };
   }
 
+  // catches instances where child is a string of text
+  isHTMLElement(child) {
+    return isElement(child) && typeof child.type === 'string';
+  }
+
   /** Clone the children, pass in callback to allow form to store controlled data */
   renderChildren() {
     const { children, isLabelRightAligned } = this.props;
@@ -366,9 +372,10 @@ class FormWithoutValidations extends React.Component {
     if (!this.childKeys || this.childKeys.length !== childrenArray.length) {
       this.childKeys = generateKeysForChildren(childrenArray);
     }
-
     return childrenArray.filter(Boolean).map((child, index) => {
-      if (typeof child.type !== 'function') return child;
+      if (!isElement(child) || this.isHTMLElement(child)) {
+        return child;
+      }
 
       return React.cloneElement((child), {
         ...child.props,
@@ -389,7 +396,12 @@ class FormWithoutValidations extends React.Component {
         onSubmit={ this.handleOnSubmit }
         fixedBottom={ this.props.fixedBottom }
         { ...this.htmlProps() }
-        ref={ (form) => { this._form = form; } }
+        ref={ (form) => {
+          this._form = form;
+          if (this.props.innerRef) {
+            this.props.innerRef(form);
+          }
+        } }
         { ...tagComponent('form', this.props) }
       >
         { generateCSRFToken(this._document) }
@@ -418,9 +430,7 @@ function generateCSRFToken(doc) {
   );
 }
 
-const Form = withValidations(FormWithoutValidations);
-
-FormWithoutValidations.propTypes = {
+BaseForm.propTypes = {
 
   /** Warning popup shown when trying to navigate away from an edited form if true */
   unsavedWarning: PropTypes.bool,
@@ -510,10 +520,13 @@ FormWithoutValidations.propTypes = {
   fixedBottom: PropTypes.bool,
 
   /** Sets children's label alignment */
-  isLabelRightAligned: PropTypes.bool
+  isLabelRightAligned: PropTypes.bool,
+
+  /** A ref function to pass to the form */
+  innerRef: PropTypes.func
 };
 
-FormWithoutValidations.defaultProps = {
+BaseForm.defaultProps = {
   buttonAlign: 'right',
   cancel: true,
   unsavedWarning: true,
@@ -524,5 +537,5 @@ FormWithoutValidations.defaultProps = {
   showSummary: true
 };
 
-export { FormWithoutValidations }; // export version without hoc if required
-export default Form;
+export { BaseForm }; // export version without hoc if required
+export default withValidations(BaseForm);

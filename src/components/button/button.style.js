@@ -68,9 +68,8 @@ function stylingForType({
     &:focus {
       outline: solid 3px ${theme.colors.focus};
     }
-    & + & {
-      margin-left: 16px;
-    }
+    
+    margin-right: 16px;
 
     ${buttonTypes(theme, disabled)[buttonType]};
     ${buttonSizes(theme)[size]}

@@ -5,10 +5,10 @@ import { action } from '@storybook/addon-actions';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, Info, InfoClassic } from './documentation';
-import Button, { OriginalButton } from '.';
+import Button from '.';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
-OriginalButton.__docgenInfo = getDocGenInfo(
+Button.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
   /button\.component(?!spec)/
 );
@@ -55,11 +55,7 @@ function makeStory(name, themeSelector, isClassic, infotext) {
     const props = getKnobs(isClassic);
     const { children } = props; // eslint-disable-line react/prop-types
     return (
-      <OriginalButton
-        { ...props }
-      >
-        { children }
-      </OriginalButton>
+      <Button { ...props }>{ children }</Button>
     );
   };
 
@@ -81,17 +77,8 @@ function makeSiblingStory(name, themeSelector, isClassic) {
     const { children } = props; // eslint-disable-line react/prop-types
     return (
       <div>
-        <OriginalButton
-          { ...props }
-        >
-          { children }
-        </OriginalButton>
-
-        <OriginalButton
-          { ...props }
-        >
-          { children }
-        </OriginalButton>
+        <Button { ...props }>{ children }</Button>
+        <Button { ...props }>{ children }</Button>
       </div>
     );
   };
