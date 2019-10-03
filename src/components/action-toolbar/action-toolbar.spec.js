@@ -5,10 +5,10 @@ import TestUtils from 'react-dom/test-utils';
 import { shallow } from 'enzyme';
 import ActionToolbar from '.';
 import { StyledActionToolbarActions } from './action-toolbar.style';
-import { LinkStyleAnchor } from '../link/link.style';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import classicTheme from '../../style/themes/classic';
+import StyledLink from '../link/link.style';
 
 describe('action toolbar', () => {
   let instance, spy, wrapper;
@@ -116,7 +116,7 @@ describe('action toolbar', () => {
       );
       assertStyleMatch({
         color: '#b3c2c8'
-      }, wrapper.toJSON(), { modifier: `${LinkStyleAnchor}` });
+      }, wrapper.toJSON(), { modifier: `${StyledLink}` });
     });
   });
 

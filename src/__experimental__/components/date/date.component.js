@@ -12,7 +12,7 @@ import withUniqueName from '../../../utils/helpers/with-unique-name';
 
 const defaultDateFormat = 'DD/MM/YYYY';
 
-class DateInput extends React.Component {
+class BaseDateInput extends React.Component {
   static propTypes = {
     ...Textbox.propTypes,
     /** Automatically focus on component mount */
@@ -254,5 +254,7 @@ function formatDateToCurrentLocale(value) {
   return DateHelper.formatValue(value || DateHelper.todayFormatted(), visibleFormat);
 }
 
-export { defaultDateFormat };
-export default withUniqueName(DateInput);
+const DateInput = withUniqueName(BaseDateInput);
+
+export { defaultDateFormat, BaseDateInput };
+export default DateInput;
