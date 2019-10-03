@@ -83,7 +83,7 @@ const DialogStyle = styled.div`
 `;
 
 const DialogTitleStyle = styled.div`
-  padding: 23px 55px 0 35px;
+  padding: 23px 35px 0;
   border-bottom: 1px solid #ccd6db;
 
   .carbon-heading--has-divider .carbon-heading__header {
@@ -92,6 +92,7 @@ const DialogTitleStyle = styled.div`
   }
 
   .carbon-heading__title {
+    margin-right: 50px;
     color: ${({ theme }) => theme.text.color};
     display: block;
     overflow: hidden;
