@@ -11,6 +11,7 @@ import LabelStyle from '../label/label.style';
 import { simulate, assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import StyledFormField from '../form-field/form-field.style';
 import Button from '../../../components/button';
+import HiddenCheckableInput from '../checkable-input/hidden-checkable-input.component';
 
 const buttonValues = ['test-1', 'test-2'];
 const groupName = 'test-group';
@@ -192,6 +193,10 @@ describe('RadioButtonGroup', () => {
     const buttonGroup = wrapper.find(StyledRadioButtonGroup).first();
     let inputs;
 
+    beforeEach(() => {
+      inputs = buttonGroup.find(HiddenCheckableInput);
+    });
+
     it('then first radio button should not be focused after render', () => {
       const focusedElement = document.activeElement;
       simulate.keydown.pressDownArrow(buttonGroup);
@@ -200,13 +205,13 @@ describe('RadioButtonGroup', () => {
 
     describe('when document has focus', () => {
       it('then first radio button should be focused after render', () => {
-        inputs.at(0).getDOMNode().focus();
+        inputs.at(0).find('input').getDOMNode().focus();
         const focusedElement = document.activeElement;
-        expect(inputs.at(0).getDOMNode()).toBe(focusedElement);
+        expect(inputs.at(0).find('input').getDOMNode()).toBe(focusedElement);
       });
 
       it('should lose focus when keyPress is tab', () => {
-        inputs.at(0).getDOMNode().focus();
+        inputs.at(0).find('input').getDOMNode().focus();
         const focusedElement = document.activeElement;
         const spy = spyOn(focusedElement, 'blur');
         simulate.keydown.pressTab(buttonGroup);
@@ -221,11 +226,11 @@ describe('RadioButtonGroup', () => {
 
       describe('on spacebar key press', () => {
         it('should change radio button selection to the second radio button', () => {
-          inputs.at(0).getDOMNode().focus();
+          inputs.at(0).find('input').getDOMNode().focus();
           simulate.keydown.pressDownArrow(buttonGroup);
-          expect(inputs.at(1)).toBeFocused();
+          expect(inputs.at(1).find('input')).toBeFocused();
           simulate.keydown.pressSpace(buttonGroup);
-          expect(inputs.at(1).props('checked')).toBeTruthy();
+          expect(inputs.at(1).find('input').props('checked')).toBeTruthy();
         });
       });
     });
@@ -235,21 +240,21 @@ describe('RadioButtonGroup', () => {
         describe('when first radio button is in focus', () => {
           inputs = buttonGroup.find(HiddenCheckableInput);
           beforeEach(() => {
-            inputs.at(0).getDOMNode().focus();
+            inputs.at(0).find('input').getDOMNode().focus();
           });
 
           describe('when down arrow key is pressed twice', () => {
             describe('on one down arrow key press', () => {
               it('should change the focus to the second radio button', () => {
                 simulate.keydown.pressDownArrow(buttonGroup);
-                expect(inputs.at(1)).toBeFocused();
+                expect(inputs.at(1).find('input')).toBeFocused();
               });
             });
             describe('on two down arrow key presses', () => {
               it('should change the focus to the last radio button', () => {
                 simulate.keydown.pressDownArrow(buttonGroup);
                 simulate.keydown.pressDownArrow(buttonGroup);
-                expect(inputs.at(2)).toBeFocused();
+                expect(inputs.at(2).find('input')).toBeFocused();
               });
             });
           });
@@ -258,7 +263,7 @@ describe('RadioButtonGroup', () => {
             describe('on one right arrow key press', () => {
               it('should change the focus to the second radio button', () => {
                 simulate.keydown.pressRightArrow(buttonGroup);
-                expect(inputs.at(1)).toBeFocused();
+                expect(inputs.at(1).find('input')).toBeFocused();
               });
             });
 
@@ -266,7 +271,7 @@ describe('RadioButtonGroup', () => {
               it('should change the focus to the last radio button', () => {
                 simulate.keydown.pressRightArrow(buttonGroup);
                 simulate.keydown.pressRightArrow(buttonGroup);
-                expect(inputs.at(2)).toBeFocused();
+                expect(inputs.at(2).find('input')).toBeFocused();
               });
             });
           });
@@ -275,7 +280,7 @@ describe('RadioButtonGroup', () => {
             describe('on one up arrow key press', () => {
               it('should change the focus to the second radio button', () => {
                 simulate.keydown.pressUpArrow(buttonGroup);
-                expect(inputs.at(2)).toBeFocused();
+                expect(inputs.at(2).find('input')).toBeFocused();
               });
             });
 
@@ -283,7 +288,7 @@ describe('RadioButtonGroup', () => {
               it('should change the focus to the first radio button', () => {
                 simulate.keydown.pressUpArrow(buttonGroup);
                 simulate.keydown.pressUpArrow(buttonGroup);
-                expect(inputs.at(1)).toBeFocused();
+                expect(inputs.at(1).find('input')).toBeFocused();
               });
             });
           });
@@ -292,7 +297,7 @@ describe('RadioButtonGroup', () => {
             describe('on one left arrow key press', () => {
               it('should change the focus to the second radio button', () => {
                 simulate.keydown.pressLeftArrow(buttonGroup);
-                expect(inputs.at(2)).toBeFocused();
+                expect(inputs.at(2).find('input')).toBeFocused();
               });
             });
 
@@ -300,7 +305,7 @@ describe('RadioButtonGroup', () => {
               it('should change the focus to the first radio button', () => {
                 simulate.keydown.pressLeftArrow(buttonGroup);
                 simulate.keydown.pressLeftArrow(buttonGroup);
-                expect(inputs.at(1)).toBeFocused();
+                expect(inputs.at(1).find('input')).toBeFocused();
               });
             });
           });
@@ -309,14 +314,14 @@ describe('RadioButtonGroup', () => {
         describe('when second radio button is in focus', () => {
           inputs = buttonGroup.find(HiddenCheckableInput);
           beforeEach(() => {
-            inputs.at(1).getDOMNode().focus();
+            inputs.at(1).find('input').getDOMNode().focus();
           });
 
           describe('when down arrow key is pressed twice', () => {
             describe('on one down arrow key press', () => {
               it('should change the focus to the last radio button', () => {
                 simulate.keydown.pressDownArrow(buttonGroup);
-                expect(inputs.at(2)).toBeFocused();
+                expect(inputs.at(2).find('input')).toBeFocused();
               });
             });
 
@@ -324,7 +329,7 @@ describe('RadioButtonGroup', () => {
               it('should change the focus to the first radio button', () => {
                 simulate.keydown.pressDownArrow(buttonGroup);
                 simulate.keydown.pressDownArrow(buttonGroup);
-                expect(inputs.at(0)).toBeFocused();
+                expect(inputs.at(0).find('input')).toBeFocused();
               });
             });
           });
@@ -333,7 +338,7 @@ describe('RadioButtonGroup', () => {
             describe('on one right arrow key press', () => {
               it('should change the focus to the last radio button', () => {
                 simulate.keydown.pressRightArrow(buttonGroup);
-                expect(inputs.at(2)).toBeFocused();
+                expect(inputs.at(2).find('input')).toBeFocused();
               });
             });
 
@@ -341,7 +346,7 @@ describe('RadioButtonGroup', () => {
               it('should change the focus to the first radio button', () => {
                 simulate.keydown.pressRightArrow(buttonGroup);
                 simulate.keydown.pressRightArrow(buttonGroup);
-                expect(inputs.at(0)).toBeFocused();
+                expect(inputs.at(0).find('input')).toBeFocused();
               });
             });
           });
@@ -350,7 +355,7 @@ describe('RadioButtonGroup', () => {
             describe('on one up arrow key press', () => {
               it('should change the focus to the first radio button', () => {
                 simulate.keydown.pressUpArrow(buttonGroup);
-                expect(inputs.at(0)).toBeFocused();
+                expect(inputs.at(0).find('input')).toBeFocused();
               });
             });
 
@@ -358,7 +363,7 @@ describe('RadioButtonGroup', () => {
               it('should change the focus to the last radio button', () => {
                 simulate.keydown.pressUpArrow(buttonGroup);
                 simulate.keydown.pressUpArrow(buttonGroup);
-                expect(inputs.at(2)).toBeFocused();
+                expect(inputs.at(2).find('input')).toBeFocused();
               });
             });
           });
@@ -367,7 +372,7 @@ describe('RadioButtonGroup', () => {
             describe('on one left arrow key press', () => {
               it('should change the focus to the first radio button', () => {
                 simulate.keydown.pressLeftArrow(buttonGroup);
-                expect(inputs.at(0)).toBeFocused();
+                expect(inputs.at(0).find('input')).toBeFocused();
               });
             });
 
@@ -375,7 +380,7 @@ describe('RadioButtonGroup', () => {
               it('should change the focus to the last radio button', () => {
                 simulate.keydown.pressLeftArrow(buttonGroup);
                 simulate.keydown.pressLeftArrow(buttonGroup);
-                expect(inputs.at(2)).toBeFocused();
+                expect(inputs.at(2).find('input')).toBeFocused();
               });
             });
           });

@@ -933,6 +933,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
   aria-labelledby="undefined-label"
   className="c0"
   data-component="radiogroup"
+  onKeyDown={[Function]}
   role="radiogroup"
 >
   <div
