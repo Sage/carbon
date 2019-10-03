@@ -17,6 +17,7 @@ import Pager from '../pager';
 import BaseTheme from '../../style/themes/base';
 import ClassicTheme from '../../style/themes/classic';
 import SmallTheme from '../../style/themes/small';
+import Link from '../link';
 
 describe('Table', () => {
   let instance, instancePager, instanceSortable, instanceCustomSort, spy, row;
@@ -693,9 +694,10 @@ describe('Table', () => {
   });
 
   describe('onConfigure', () => {
-    const onConfigureSpy = jasmine.createSpy();
+    let onConfigureSpy;
     let wrapper;
     beforeEach(() => {
+      onConfigureSpy = jasmine.createSpy();
       wrapper = mount(
         <Table
           className='foo'
@@ -712,7 +714,8 @@ describe('Table', () => {
     });
 
     it('adds configure link that triggers the onConfigure callback', () => {
-      const configureLink = wrapper.find('a');
+      const configureLink = wrapper.find(Link);
+
       expect(configureLink.length).toEqual(1);
       configureLink.simulate('click', { preventDefault: () => {} });
       expect(onConfigureSpy).toHaveBeenCalled();
@@ -1191,7 +1194,11 @@ describe('Table', () => {
   describe('pagination', () => {
     it('renders to match the expected style for a table with a pager', () => {
       const wrapper = mount(
-        <Table paginate />
+        <Table
+          paginate
+          currentPage='1'
+          totalRecords={ 100 }
+        />
       );
 
       assertStyleMatch({

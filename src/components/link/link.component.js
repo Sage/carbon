@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { assign } from 'lodash';
 import { Link as RouterLink } from 'react-router';
 import Icon from '../icon';
-import { validProps } from '../../utils/ether';
 import Event from '../../utils/helpers/events';
-import tagComponent from '../../utils/helpers/tags';
-import { LinkStyle, LinkStyleAnchor } from './link.style';
+import LinkStyle from './link.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import tagComponent from '../../utils/helpers/tags';
 
 class Link extends React.Component {
   static safeProps = ['onClick'];
@@ -53,20 +51,31 @@ class Link extends React.Component {
   }
 
   get componentProps() {
-    let { ...props } = validProps(this);
-    props.tabIndex = this.tabIndex;
+    const props = {
+      disabled: this.props.disabled,
+      iconAlign: this.props.iconAlign,
+      onKeyDown: this.onKeyDown,
+      tabIndex: this.tabIndex,
+      onMouseDown: this.props.onMouseDown
+    };
 
-    props = assign({}, props, tagComponent('link', this.props));
+    if (this.props.to) {
+      props.as = RouterLink;
+      props.to = this.props.to;
+    } else {
+      props.href = this.props.href;
+    }
 
-    delete props.href;
-    delete props.tabbable;
-    delete props.to;
-
-    props.className = this.props.className;
-    props.onKeyDown = this.onKeyDown;
-    props.iconAlign = this.props.iconAlign;
     return props;
   }
+
+  handleClick = (ev) => {
+    if (this.props.disabled) {
+      ev.preventDefault();
+    } else if (this.props.onClick) {
+      this.props.onClick(ev);
+    }
+  };
 
   /**
    * className `@carbon-link__content` is related to `ShowEditPod` component
@@ -83,31 +92,17 @@ class Link extends React.Component {
     );
   }
 
-  renderLink() {
-    if (this.props.to) {
-      return (
-        <LinkStyleAnchor
-          as={ RouterLink } to={ this.props.to }
-          { ...this.componentProps }
-        >
-          {this.renderLinkContent()}
-        </LinkStyleAnchor>
-      );
-    }
-
-    return (
-      <LinkStyleAnchor href={ this.props.href } { ...this.componentProps }>
-        {this.renderLinkContent()}
-      </LinkStyleAnchor>
-    );
-  }
-
   render() {
+    const { disabled, className } = this.props;
     return (
       <LinkStyle
-        data-component='link' disabled={ this.props.disabled }
+        disabled={ disabled }
+        className={ className }
+        onClick={ this.handleClick }
+        { ...tagComponent('link', this.props) }
+        { ...this.componentProps }
       >
-        {this.renderLink()}
+        {this.renderLinkContent()}
       </LinkStyle>
     );
   }
@@ -130,6 +125,8 @@ Link.propTypes = {
   onClick: PropTypes.func,
   /** Function called when a key is pressed. */
   onKeyDown: PropTypes.func,
+  /** Function called when a mouse down event triggers. */
+  onMouseDown: PropTypes.func,
   /** Whether to include the link in the tab order of the page */
   tabbable: PropTypes.bool,
   /** Using `to` instead of `href` will create a React Router link rather than a web href. */

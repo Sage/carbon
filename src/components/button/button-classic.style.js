@@ -348,8 +348,9 @@ export default ({
       font-weight: 700;
       ${buttonStyles.disabled}
       ${buttonStyles[size]}
-        & + & {
-        margin-left: 15px;
+      margin-right: 15px;
+      &:last-child {
+        margin-right: 0;
       }
     `;
   }
@@ -360,9 +361,9 @@ export default ({
     ${buttonStyles[buttonType][legacyColorVariant]}
     ${buttonStyles[size]}
     text-decoration: none;
-    
-    & + & {
-      margin-left: 15px;
+    margin-right: 15px;
+    &:last-child {
+      margin-right: 0;
     }
   `;
 };
