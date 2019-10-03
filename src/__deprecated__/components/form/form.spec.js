@@ -5,7 +5,7 @@ import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import PropTypes from 'prop-types';
 import { mount, shallow } from 'enzyme';
-import FormWithValidations, { FormWithoutValidations as Form } from './form.component';
+import FormWithValidations, { BaseForm as Form } from './form.component';
 import { StyledAdditionalFormAction, StyledResponsiveFooterWrapper } from './form.style';
 import Textbox from '../textbox';
 import Validation from '../../../utils/validations/presence';
@@ -31,6 +31,17 @@ describe('Form', () => {
     instance = TestUtils.renderIntoDocument(
       <Form validate={ validate } />
     );
+  });
+
+  describe('When child is an html element', () => {
+    it('it renders the child', () => {
+      wrapper = TestRenderer.create(
+        <Form validate={ () => true } formAction='foo'>
+          <div>Foo</div>
+        </Form>
+      );
+      expect(wrapper).toMatchSnapshot();
+    });
   });
 
   describe('componentWillReceiveProps', () => {
@@ -505,6 +516,12 @@ describe('Form', () => {
     describe('when children are undefined', () => {
       it('it does not throw an error', () => {
         expect(() => shallow(<Form validate={ () => true } formAction='foo' />)).not.toThrow();
+      });
+
+      it('does not render a null cell', () => {
+        expect(() => shallow(
+          <Form validate={ () => true } formAction='foo'>{ null }</Form>
+        )).not.toThrow();
       });
     });
 

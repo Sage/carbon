@@ -29,3 +29,9 @@
 .carbon-textarea__input--disable-scroll {
   overflow: hidden;
 }
+
+.carbon-textarea {
+  [data-component='icon'].common-input__icon {
+    height: 35px;
+  }
+}

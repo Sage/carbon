@@ -4,6 +4,7 @@ import Icon from '../icon';
 import SplitButton from '../split-button';
 import StyledMultiActionButton from './multi-action-button.style';
 import Button from '../button';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 class MultiActionButton extends SplitButton {
   get multiActionButtonProps() {
@@ -87,9 +88,9 @@ MultiActionButton.propTypes = {
   'data-role': PropTypes.string,
 
   /**
-   * Aligns the button's options, can be set to `right`.
+   * Aligns the button's options
    */
-  align: PropTypes.string
+  align: PropTypes.oneOf(OptionsHelper.alignBinary)
 };
 
 export default MultiActionButton;

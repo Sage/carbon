@@ -1,7 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Form When child is an html element it renders the child 1`] = `
-.c6 {
+.c7 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 700;
+  margin: -8px;
+  white-space: nowrap;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.c5 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -39,31 +56,31 @@ exports[`Form When child is an html element it renders the child 1`] = `
   padding-right: 24px;
 }
 
-.c6:focus {
+.c5:focus {
   outline: solid 3px #FFB500;
 }
 
-.c6:hover {
+.c5:hover {
   background: #006300;
   border-color: #006300;
   color: #FFFFFF;
 }
 
-.c6:hover .c20 {
+.c5:hover .c9 {
   color: #FFFFFF;
 }
 
-.c6 .c20 {
+.c5 .c9 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c6 .c20 svg {
+.c5 .c9 svg {
   margin-top: 0;
 }
 
-.c9 {
+.c8 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -101,74 +118,25 @@ exports[`Form When child is an html element it renders the child 1`] = `
   padding-right: 24px;
 }
 
-.c9:focus {
+.c8:focus {
   outline: solid 3px #FFB500;
 }
 
-.c9:hover {
+.c8:hover {
   background: #006300;
 }
 
-.c9 .c20 {
+.c8 .c9 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c9 .c20 svg {
+.c8 .c9 svg {
   margin-top: 0;
 }
 
-.c8 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  font-size: 13px;
-  font-weight: 700;
-  margin: -8px;
-  white-space: nowrap;
-  padding: 8px;
-  border-radius: 4px;
-}
-
-.c10.c10 .c5 {
-  margin-left: 0px;
-}
-
-.c10.c10 .c5:first-child {
-  margin-left: 0;
-}
-
-.c11.c11 .c5 {
-  margin-left: 0px;
-}
-
-.c11.c11 .c5:first-child {
-  margin-left: 0;
-}
-
-.c12.c12 .c5 {
-  margin-left: 0px;
-}
-
-.c12.c12 .c5:first-child {
-  margin-left: 0;
-}
-
-.c13.c13 .c5 {
-  margin-left: 0px;
-}
-
-.c13.c13 .c5:first-child {
-  margin-left: 0;
-}
-
-.c4 {
+.c3 {
   margin: 20px auto 0 auto;
   max-width: inherit;
   min-width: inherit;
@@ -183,58 +151,30 @@ exports[`Form When child is an html element it renders the child 1`] = `
   display: flex;
 }
 
-.c4 div:first-of-type .c5 {
+.c3 div:first-of-type .c4 {
   margin-left: 0;
 }
 
-.c4.c4 .c7 .c5 {
+.c3.c3 .c6 .c4 {
   margin-left: 16px;
 }
 
-.c4 .c21:first-of-type {
+.c3 .c11:first-of-type {
   margin-left: 0;
 }
 
-.c14 div:first-of-type .c5 {
-  margin-left: 0;
-}
-
-.c14.c14 .c7 .c5 {
-  margin-left: 16px;
-}
-
-.c15 div:first-of-type .c5 {
-  margin-left: 0;
-}
-
-.c15.c15 .c7 .c5 {
-  margin-left: 15px;
-}
-
-.c2 {
+.c1 {
   margin-top: 48px;
 }
 
-.c2 .c3 {
+.c1 .c2 {
   -webkit-box-pack: end;
   -webkit-justify-content: flex-end;
   -ms-flex-pack: end;
   justify-content: flex-end;
 }
 
-.c16 .c5 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  margin-left: 15px;
-}
-
-.c0 .c5 {
+.c0 .c4 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -246,7 +186,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
   margin-left: 16px;
 }
 
-.c0.c0 .c19 {
+.c0.c0 .c10 {
   margin-bottom: 32px;
 }
 
@@ -254,91 +194,34 @@ exports[`Form When child is an html element it renders the child 1`] = `
   height: 19px;
 }
 
-.c17 .c5 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  margin-left: 15px;
-}
-
-.c18 .c5 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  margin-left: 15px;
-}
-
-.c18 .c1 {
-  -webkit-animation: lhSDYf 0.25s ease-out;
-  animation: lhSDYf 0.25s ease-out;
-  background-color: #FFFFFF;
-  bottom: 0;
-  box-shadow: 0 -4px 12px 0 rgba(0,0,0,0.05);
-  box-sizing: content-box;
-  left: 0;
-  padding-bottom: 13px;
-  padding-top: 15px;
-  position: fixed;
-  width: 100%;
-  z-index: 1000;
-}
-
-.c18 .c1 .c3 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  margin-top: 0;
-  border-left-style: solid;
-  border-left-color: #FFFFFF;
-  border-right-style: solid;
-  border-right-color: #FFFFFF;
-  border-width: 0;
-  box-sizing: border-box;
-  min-width: 450px;
-  padding: 0 40px;
-}
-
 <form
   className="c0"
   data-component="form"
+  formAction="foo"
   onSubmit={[Function]}
 >
   <input
-    name="csrf-token"
+    name=""
     readOnly={true}
     type="hidden"
-    value="csrf-token"
+    value=""
   />
   <div>
     Foo
   </div>
   <div
-    className="c1 c2"
+    className="c1"
   >
     <div
-      className="c3 c4"
+      className="c2 c3"
+      data-element="form-footer"
     >
       <div
         data-component="cancel"
         data-element="cancel"
       >
         <button
-          className="c5 c6"
+          className="c4 c5"
           data-component="button"
           data-element="cancel"
           disabled={false}
@@ -357,7 +240,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
         </button>
       </div>
       <div
-        className="c7 c8"
+        className="c6 c7"
         data-component="form-summary"
       >
         <div
@@ -365,7 +248,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
           data-element="save"
         >
           <button
-            className="c5 c9"
+            className="c4 c8"
             data-component="button"
             data-element="save"
             disabled={false}
@@ -385,64 +268,4 @@ exports[`Form When child is an html element it renders the child 1`] = `
     </div>
   </div>
 </form>
-`;
-
-exports[`Form render Save Button when the show summary is true and the wrapper has additional actions applies the expected margin-left to the save button 1`] = `
-.c1 {
-  margin: 20px auto 0 auto;
-  max-width: inherit;
-  min-width: inherit;
-  padding: 0;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.c1 div:first-of-type .c4 {
-  margin-left: 0;
-}
-
-.c1.c1 .c5 .c4 {
-  margin-left: 15px;
-}
-
-.c1 .c6:first-of-type {
-  margin-left: 0;
-}
-
-.c2 .c0 {
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-}
-
-.c3 .c7 .c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  margin-top: 0;
-  border-left-style: solid;
-  border-left-color: #FFFFFF;
-  border-right-style: solid;
-  border-right-color: #FFFFFF;
-  border-width: 0;
-  box-sizing: border-box;
-  min-width: 450px;
-  padding: 0 40px;
-}
-
-<div
-  className="c0 c1"
-/>
 `;

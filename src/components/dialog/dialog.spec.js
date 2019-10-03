@@ -12,6 +12,7 @@ import { Row, Column } from '../row/row';
 import ElementResize from '../../utils/helpers/element-resize/element-resize';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import classicTheme from '../../style/themes/classic';
+import Form from '../../__deprecated__/components/form';
 
 /* global jest */
 
@@ -33,7 +34,7 @@ describe('Dialog', () => {
       describe('when dialog is open', () => {
         it('centers the dialog', () => {
           instance = TestUtils.renderIntoDocument(
-            <Dialog open onCancel={ onCancel } />
+            <Dialog open onCancel={ onCancel }><Form /></Dialog>
           );
           spyOn(instance, 'centerDialog');
           instance.componentDidMount();

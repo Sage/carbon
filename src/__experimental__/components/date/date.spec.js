@@ -3,7 +3,7 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { mount } from 'enzyme';
-import DateInput, { defaultDateFormat } from './date.component';
+import DateInput, { defaultDateFormat, BaseDateInput } from './date.component';
 import DatePicker from './date-picker.component';
 import Textbox from '../textbox';
 import StyledDateInput from './date.style';
@@ -361,7 +361,7 @@ describe('Date', () => {
       it('then the visible value should not change', () => {
         const mockDate = getFormattedDate(moment('2012-02-01'));
         wrapper = mount(<DateInput value={ mockDate } />);
-        wrapper.find('DateInput').instance().closeDatePicker();
+        wrapper.find(BaseDateInput).instance().closeDatePicker();
         const input = wrapper.find('input');
 
         expect(input.instance().value).toBe(mockDate);
@@ -375,7 +375,7 @@ describe('Date', () => {
     describe('as a function', () => {
       it('then these validations should be passed with internal validations to the Textbox Component', () => {
         wrapper = render({ validations: mockValidationFunction });
-        const { internalValidations } = wrapper.find('DateInput').instance().props;
+        const { internalValidations } = wrapper.find(BaseDateInput).instance().props;
         expect(wrapper.find(Textbox).props().validations).toEqual([mockValidationFunction, ...internalValidations]);
       });
     });
@@ -383,7 +383,7 @@ describe('Date', () => {
     describe('as an array', () => {
       it('then these validations should be passed with internal validations to the Textbox Component', () => {
         wrapper = render({ validations: [mockValidationFunction] });
-        const { internalValidations } = wrapper.find('DateInput').instance().props;
+        const { internalValidations } = wrapper.find(BaseDateInput).instance().props;
         expect(wrapper.find(Textbox).props().validations).toEqual([mockValidationFunction, ...internalValidations]);
       });
     });
