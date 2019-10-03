@@ -14,7 +14,7 @@ exports[`Select does not apply any events if disabled or readonly 1`] = `
     }
   }
 >
-  <ForwardRef
+  <Textbox
     aria-label="Please Select..."
     formattedValue=""
     inputIcon="dropdown"
@@ -44,7 +44,7 @@ exports[`Select does not apply any events if disabled or readonly 2`] = `
     }
   }
 >
-  <ForwardRef
+  <Textbox
     aria-label="Please Select..."
     formattedValue=""
     inputIcon="dropdown"
@@ -74,7 +74,7 @@ exports[`Select renders only the Textbox when closed 1`] = `
     }
   }
 >
-  <ForwardRef
+  <Textbox
     aria-label="Please Select..."
     formattedValue=""
     inputIcon="dropdown"

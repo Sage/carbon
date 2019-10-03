@@ -9,10 +9,7 @@ import {
   applyModernInternalStyling
 } from './table-modern.style.js';
 import tableRowStyling from './table-row/table-row.style';
-import {
-  LinkStyle as StyledLink,
-  LinkStyleAnchor as StyledLinkAnchor
-} from '../link/link.style';
+import StyledLink from '../link/link.style';
 import baseTheme from '../../style/themes/base';
 import { isClassic } from '../../utils/helpers/style-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
@@ -76,28 +73,26 @@ export const StyledInternalTableWrapper = styled.div`
       top: -1px;
       width: 25px;
 
-      ${StyledLinkAnchor} {
-        align-items: center;
-        background-color: ${theme.table.header};
-        border: 1px solid ${theme.table.secondary};
-        border-right: none;
-        border-radius: 25px 0 0 25px;
-        box-sizing: content-box;
-        color: ${theme.colors.white};
-        display: flex;
-        height: 100%;
-        justify-content: center;
+      align-items: center;
+      background-color: ${theme.table.header};
+      border: 1px solid ${theme.table.secondary};
+      border-right: none;
+      border-radius: 25px 0 0 25px;
+      box-sizing: content-box;
+      color: ${theme.colors.white};
+      display: flex;
+      height: 100%;
+      justify-content: center;
 
-        &:hover {
-          background-color: #19475A;
-          color: ${theme.colors.white};
-        }
-    
-        :first-child {
-          height: 19px;
-          margin-right: -4px;
-          z-index: 3;
-        }
+      &:hover {
+        background-color: #19475A;
+        color: ${theme.colors.white};
+      }
+  
+      :first-child {
+        height: 19px;
+        margin-right: -4px;
+        z-index: 3;
       }
     }
   `}

@@ -9,6 +9,7 @@ import Events from '../../../utils/helpers/events';
 import classic from '../../../style/themes/classic';
 import StyledIcon from '../../../components/icon/icon.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import TextBox from '../textbox';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -44,7 +45,7 @@ describe('Select', () => {
 
   // utility functions to fetch various elements from the wrapper
   const listOf = wrapper => wrapper.find('SelectList');
-  const textboxOf = wrapper => wrapper.find('Textbox');
+  const textboxOf = wrapper => wrapper.find(TextBox);
   const pillsOf = wrapper => wrapper.find('Pill');
 
   // open the list for the select component and returns the wrapper
