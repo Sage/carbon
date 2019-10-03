@@ -177,7 +177,7 @@ describe('RadioButtonGroup', () => {
     const Controller = (props) => {
       const [value, setValue] = useState();
       return (
-        <React.Fragment>
+        <>
           <RadioButtonGroup
             groupName={ groupName }
             label='Test RadioButtonGroup Label'
@@ -213,7 +213,7 @@ describe('RadioButtonGroup', () => {
           } }
           >Set Two
           </Button>
-        </React.Fragment>
+        </>
       );
     };
     Controller.propTypes = {
