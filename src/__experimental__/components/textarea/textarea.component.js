@@ -129,7 +129,7 @@ class Textarea extends React.Component {
               onChange={ onChange }
               disabled={ disabled }
               readOnly={ readOnly }
-              placeholder={ placeholder }
+              placeholder={ disabled ? '' : placeholder }
               rows={ rows }
               cols={ cols }
               { ...props }

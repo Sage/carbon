@@ -76,14 +76,14 @@ describe('Toast', () => {
       expect(wrapper.find(DismissButton).exists).toBeTruthy();
     });
 
-    it('calls onDismiss method when clicking close', () => {
+    it('calls onDismiss method when Dismiss Button is toggled', () => {
       const spy = jest.fn();
       const wrapper = mount(<Toast
         open
         onDismiss={ spy }
       />);
 
-      wrapper.find('a').simulate('click');
+      wrapper.find(DismissButton).prop('onDismiss')();
       expect(spy).toHaveBeenCalled();
     });
   });

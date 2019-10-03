@@ -6,7 +6,7 @@ import StyledButton, { StyledButtonSubtext } from './button.style';
 import tagComponent from '../../utils/helpers/tags';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
-const Button = (props) => {
+const Button = React.forwardRef((props, ref) => {
   const { disabled, to, iconType } = props;
 
   if (props.subtext.length > 0 && props.size !== 'large') {
@@ -17,22 +17,21 @@ const Button = (props) => {
   if (!disabled && to) {
     return (
       <RouterLink to={ to } type={ iconType }>
-        {renderStyledButton(props)}
+        {renderStyledButton(ref, props)}
       </RouterLink>
     );
   }
 
-  return renderStyledButton(props);
-};
+  return renderStyledButton(ref, props);
+});
 
-function renderStyledButton(buttonProps) {
+function renderStyledButton(forwardRef, buttonProps) {
   const {
     as,
     disabled,
     buttonType,
     iconType,
     theme,
-    forwardRef,
     href,
     ...styleProps
   } = buttonProps;
@@ -140,15 +139,5 @@ Button.defaultProps = {
   subtext: ''
 };
 
-/** HOC created as a workaround for a Storybook rendering wrong PropTables and Story Source when forwarding a ref */
-const withForwardRef = () => {
-  const ForwardRefButton = React.forwardRef((props, ref) => <Button forwardRef={ ref } { ...props } />);
-
-  ForwardRefButton.displayName = 'Button';
-  ForwardRefButton.defaultProps = Button.defaultProps;
-
-  return ForwardRefButton;
-};
-
-export { Button as OriginalButton };
-export default withForwardRef(Button);
+Button.displayName = 'Button';
+export default Button;

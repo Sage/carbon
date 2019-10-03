@@ -47,8 +47,8 @@ const Label = (props) => {
     return help && (
       <Help
         helpId={ helpId }
-        tagTypeOverride={ helpTag }
-        tabIndexOverride={ helpTabIndex }
+        as={ helpTag }
+        tabIndex={ helpTabIndex }
         type={ helpIcon }
       >
         {help}

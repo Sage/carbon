@@ -22,7 +22,6 @@ const Textbox = ({
   ...props
 }) => {
   removeParentProps(props);
-
   return (
     <FormField
       childOfForm={ childOfForm }
@@ -33,6 +32,7 @@ const Textbox = ({
         { leftChildren }
         <Input
           { ...props }
+          placeholder={ props.disabled ? '' : props.placeholder }
           aria-invalid={ props.hasError }
           value={ visibleValue(value, formattedValue) }
         />
@@ -96,9 +96,9 @@ Textbox.propTypes = {
   warnings: validationsPropTypes,
   /** List of info validation functions */
   info: validationsPropTypes,
-
+  /** Flag to configure component when in a Form */
   childOfForm: PropTypes.bool,
-
+  /** Flag to configure component as optional in Form */
   isOptional: PropTypes.bool,
   /** Status of error validations */
   hasError: PropTypes.bool,
@@ -107,7 +107,9 @@ Textbox.propTypes = {
   /** Status of info */
   hasInfo: PropTypes.bool,
   /** Size of an input */
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted)
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  /** Placeholder string to be displayed in input */
+  placeholder: PropTypes.string
 };
 
 Textbox.defaultProps = {
