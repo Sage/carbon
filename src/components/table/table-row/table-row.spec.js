@@ -683,6 +683,26 @@ describe('TableRow', () => {
           { modifier: `${StyledTableCell}` }
         );
       });
+
+      describe('when isDraggedElementOver is true and inDeadZone is true', () => {
+        it('renders the correct styles for a drop-target row for the Modern theme', () => {
+          wrapper = mount(
+            <StyledTableRow
+              theme={ SmallTheme }
+              isDraggedElementOver
+              inDeadZone
+            />
+          );
+          assertStyleMatch(
+            {
+              backgroundColor: 'none',
+              borderTop: 'none'
+            },
+            wrapper,
+            { modifier: `${StyledTableCell}` }
+          );
+        });
+      });
     });
   });
 });

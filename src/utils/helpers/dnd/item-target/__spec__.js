@@ -14,6 +14,7 @@ describe('ItemTargetHelper', () => {
 
     beforeEach(() => {
       component = document.createElement('div');
+      component.setState = () => {};
       rect = {
         bottom: 100,
         height: 50, 
@@ -117,10 +118,12 @@ describe('ItemTargetHelper', () => {
           monitorItem.offsetDiffY = 10;
           offsetDiff.y = 11;
 
+          spyOn(component, 'setState');
           spyOn(props, 'onDrag');
           ItemTargetHelper.onHoverUpDown(props, monitor, component);
 
           expect(props.onDrag).not.toHaveBeenCalled();
+          expect(component.setState).toHaveBeenCalled();
         });
       });
 
