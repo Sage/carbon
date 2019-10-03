@@ -5,7 +5,9 @@ import 'jest-styled-components';
 import { mount, shallow } from 'enzyme';
 import Browser from '../../utils/helpers/browser/browser';
 import Dialog from './dialog.component';
-import { DialogStyle, DialogContentStyle, DialogInnerContentStyle } from './dialog.style';
+import {
+  DialogStyle, DialogContentStyle, DialogInnerContentStyle, DialogTitleStyle
+} from './dialog.style';
 import Button from '../button';
 import Heading from '../heading/heading';
 import { Row, Column } from '../row/row';
@@ -506,7 +508,7 @@ describe('Dialog', () => {
 
     describe('when title, subtitle, and ariaRole are not set', () => {
       it(`does not render a role attribute from the ariaRole prop,
-      aria-labelledby pointing at the title element or 
+      aria-labelledby pointing at the title element or
       an aria-describedby attribute pointing at the subtitle element`, () => {
         wrapper = mount(
           <Dialog
@@ -627,6 +629,20 @@ describe('Dialog', () => {
       assertStyleMatch({
         minHeight: '360px'
       }, TestRenderer.create(<DialogInnerContentStyle height={ 400 } fixedBottom />).toJSON());
+    });
+  });
+
+  describe('when showCloseIcon prop is true', () => {
+    it('DialogTitleStyle should have padding-right: 85px', () => {
+      const wrapper = mount(<Dialog
+        showCloseIcon
+        title='Heading'
+        open
+      />);
+
+      const DialogTitle = wrapper.find(DialogTitleStyle);
+
+      assertStyleMatch({ paddingRight: '85px' }, DialogTitle);
     });
   });
 });
