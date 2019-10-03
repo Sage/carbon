@@ -2,6 +2,7 @@ import React from 'react';
 import { act } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
 import { css, ThemeProvider } from 'styled-components';
+import TestRenderer from 'react-test-renderer';
 import { RadioButton, RadioButtonGroup } from '.';
 import FieldHelpStyle from '../field-help/field-help.style';
 import LabelStyle from '../label/label.style';
@@ -19,14 +20,14 @@ import small from '../../../style/themes/small';
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
 
-function render(props = {}, theme = small) {
+function render(props = {}, theme = small, renderer = mount) {
   const {
     hasError, hasInfo, hasWarning, ...buttonProps
   } = props;
   const groupProps = {
     hasError, hasInfo, hasWarning
   };
-  return mount(
+  return renderer(
     <ThemeProvider theme={ theme }>
       <RadioButtonGroup { ...groupProps }>
         <RadioButton
@@ -80,7 +81,7 @@ describe('RadioButton', () => {
   describe('styles', () => {
     describe('base', () => {
       it('renders as expected', () => {
-        expect(render()).toMatchSnapshot();
+        expect(render({}, small, TestRenderer.create).toJSON()).toMatchSnapshot();
       });
     });
 
