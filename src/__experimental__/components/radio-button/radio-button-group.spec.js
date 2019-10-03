@@ -173,7 +173,7 @@ describe('RadioButtonGroup', () => {
     });
   });
 
-  fdescribe('controlled', () => {
+  describe('controlled', () => {
     const Controller = (props) => {
       const [value, setValue] = useState();
       return (
