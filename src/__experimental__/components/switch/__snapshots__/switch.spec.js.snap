@@ -243,6 +243,10 @@ exports[`Switch base theme renders as expected 1`] = `
   width: 78px;
 }
 
+.c0 {
+  margin-bottom: 24px;
+}
+
 .c0 .c4,
 .c0 .c6 {
   border: none;
@@ -265,6 +269,7 @@ exports[`Switch base theme renders as expected 1`] = `
   padding: 0;
   margin-bottom: 8px;
   margin-right: 100%;
+  margin-top: 1px;
 }
 
 .c0 .c31 .c30 {

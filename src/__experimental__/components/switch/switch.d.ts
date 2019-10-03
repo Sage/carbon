@@ -24,8 +24,6 @@ export interface SwitchProps {
   hasInfo?: boolean;
 }
 
-declare const OriginalSwitch: React.FunctionComponent<SwitchProps>;
-
 declare const Switch: React.ComponentClass<WithValidationProps & SwitchProps>;
 
-export { Switch as default, OriginalSwitch };
+export { Switch as default };

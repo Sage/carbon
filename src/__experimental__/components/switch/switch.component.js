@@ -70,6 +70,8 @@ Switch.propTypes = {
   labelInline: PropTypes.bool,
   /** Sets percentage-based label width */
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  /** Override tab index on the validation and help icon */
+  helpTabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Triggers loading animation */
   loading: PropTypes.bool,
   /** Accepts a callback function which can be used to update parent state on change */
@@ -84,9 +86,11 @@ Switch.propTypes = {
   theme: PropTypes.object,
   /** the value of the checkbox, passed on form submit */
   value: PropTypes.string.isRequired,
-  /** Validation indicators */
+  /** Prop to indicate that an error has occurred */
   hasError: PropTypes.bool,
+  /** Prop to indicate that a warning has occurred */
   hasWarning: PropTypes.bool,
+  /** Prop to indicate additional information  */
   hasInfo: PropTypes.bool
 };
 
@@ -95,9 +99,8 @@ Switch.defaultProps = {
   reverse: false,
   hasError: false,
   hasWarning: false,
-  hasInfo: false
+  hasInfo: false,
+  helpTabIndex: 0
 };
-
-export { Switch as OriginalSwitch };
 
 export default withValidation(Switch);

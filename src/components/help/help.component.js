@@ -42,6 +42,13 @@ const Help = (props) => {
     }
   }
 
+  function handleFocusBlur(bool) {
+    return (ev) => {
+      ev.stopPropagation();
+      updateTooltipVisible(bool);
+    };
+  }
+
   return (
     <StyledHelp
       role='tooltip'
@@ -52,9 +59,12 @@ const Help = (props) => {
       target='_blank'
       rel='noopener noreferrer'
       ref={ helpElement }
-      onClick={ e => e.preventDefault() }
-      onFocus={ () => updateTooltipVisible(true) }
-      onBlur={ () => updateTooltipVisible(false) }
+      onClick={ (e) => {
+        e.preventDefault();
+        helpElement.current.focus();
+      } }
+      onFocus={ handleFocusBlur(true) }
+      onBlur={ handleFocusBlur(false) }
       { ...tagComponent('help', props) }
       tabIndex={ tabIndexOverride }
       value={ children }
