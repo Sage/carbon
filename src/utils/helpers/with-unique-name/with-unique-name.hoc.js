@@ -24,12 +24,15 @@ const withUniqueName = (WrappedComponent) => {
       );
     }
   }
-  const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
-  WithUniqueName.displayName = `WithUniqueName(${displayName})`;
 
-  return React.forwardRef((props, ref) => {
+  const Component = React.forwardRef((props, ref) => {
     return <WithUniqueName { ...props } forwardedRef={ ref } />;
   });
+
+  const displayName = WrappedComponent.displayName || WrappedComponent.name || 'WithUniqueName(Unknown)';
+  Component.displayName = displayName.replace(/^Base/, '');
+
+  return Component;
 };
 
 export default withUniqueName;

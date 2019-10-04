@@ -116,6 +116,7 @@
     "react-dnd": "^2.6.0",
     "react-dnd-touch-backend": "0.2.7",
     "react-highcharts": "^15.0.0",
+    "react-is": "16.8.2",
     "react-router": "^3.0.0",
     "react-transition-group": "^1.2.1",
     "regenerator-runtime": "^0.13.2",

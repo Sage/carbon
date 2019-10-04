@@ -1,12 +1,13 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import 'jest-styled-components';
+import { ThemeProvider } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
 import { Link as RouterLink } from 'react-router';
 import Link from './link.component';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import classicTheme from '../../style/themes/classic';
-import { LinkStyleAnchor } from './link.style';
+import LinkStyle from './link.style';
 import StyledIcon from '../icon/icon.style';
 
 function renderLink(props, renderer = mount) {
@@ -16,6 +17,14 @@ function renderLink(props, renderer = mount) {
 const render = (props) => {
   return TestRenderer.create(<Link { ...props }>test</Link>);
 };
+
+function renderWithTheme(props, theme, renderer = TestRenderer.create) {
+  return renderer(
+    <ThemeProvider theme={ theme }>
+      <Link { ...props }>test</Link>
+    </ThemeProvider>
+  );
+}
 
 describe('Link', () => {
   let wrapper;
@@ -30,15 +39,42 @@ describe('Link', () => {
 
   describe('when component has classic theme', () => {
     it('should render correct style', () => {
-      expect(render({ theme: classicTheme })).toMatchSnapshot();
+      expect(renderWithTheme({}, classicTheme)).toMatchSnapshot();
+    });
+
+    it('should render correct style when disabled', () => {
+      expect(renderWithTheme({ disabled: true }, classicTheme)).toMatchSnapshot();
     });
   });
 
-  describe('when component received a `disabled` prop', () => {
-    it('should matches the expected style', () => {
+  describe('The `disabled` prop', () => {
+    it('should matches the expected style when true', () => {
       assertStyleMatch({
         cursor: 'not-allowed'
-      }, render({ disabled: true }).toJSON());
+      }, render({ disabled: true }).toJSON(), { modifier: ':hover' });
+    });
+
+    it('should call the events preventDefault function when true and clicked', () => {
+      const spy = jest.fn();
+      const event = { preventDefault: spy };
+      wrapper = renderLink({ disabled: true }, mount);
+      wrapper.instance().handleClick(event);
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('should not call the events preventDefault function when false and clicked', () => {
+      const spy = jest.fn();
+      const event = { preventDefault: spy };
+      wrapper = renderLink({ disabled: false }, mount);
+      wrapper.instance().handleClick(event);
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should not call passed onClick function when disabled is false and link is clicked', () => {
+      const spy = jest.fn();
+      wrapper = renderLink({ disabled: false, onClick: spy }, mount);
+      wrapper.instance().handleClick();
+      expect(spy).toHaveBeenCalled();
     });
   });
 
@@ -71,7 +107,7 @@ describe('Link', () => {
       assertStyleMatch({
         marginRight: '5px',
         position: 'relative'
-      }, TestRenderer.create(wrapper.find(LinkStyleAnchor)).toJSON(), { modifier: `${StyledIcon}` });
+      }, TestRenderer.create(wrapper.find(LinkStyle)).toJSON(), { modifier: `${StyledIcon}` });
     });
 
     it('should render an `Icon` on the right', () => {
@@ -81,7 +117,7 @@ describe('Link', () => {
         marginLeft: '5px',
         position: 'relative'
 
-      }, TestRenderer.create(wrapper.find(LinkStyleAnchor)).toJSON(), { modifier: `${StyledIcon}` });
+      }, TestRenderer.create(wrapper.find(LinkStyle)).toJSON(), { modifier: `${StyledIcon}` });
     });
   });
 

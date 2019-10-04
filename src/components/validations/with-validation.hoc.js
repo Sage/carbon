@@ -272,8 +272,8 @@ const withValidation = (WrappedComponent) => {
     info: []
   };
 
-  const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
-  WithValidation.displayName = `WithValidation(${displayName})`;
+  const displayName = WrappedComponent.displayName || WrappedComponent.name || 'WithValidation(Unknown)';
+  WithValidation.displayName = displayName.replace(/^Base/, '');
 
   return WithValidation;
 };

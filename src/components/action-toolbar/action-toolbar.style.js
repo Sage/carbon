@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { LinkStyleAnchor } from '../link/link.style';
+import LinkStyleAnchor from '../link/link.style';
 import StyledIcon from '../icon/icon.style';
 import { isClassic } from '../../utils/helpers/style-helper';
 

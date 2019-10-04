@@ -126,14 +126,11 @@ class SplitButton extends Component {
   }
 
   getIconColor(buttonType) {
-    switch (buttonType) {
-      case 'primary':
-        return 'on-dark-background';
-      case 'secondary':
-        return 'business-color';
-      default:
-        return null;
-    }
+    const colorsMap = {
+      primary: 'on-dark-background',
+      secondary: 'business-color'
+    };
+    return colorsMap[buttonType];
   }
 
   /**

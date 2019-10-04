@@ -1,1 +1,1 @@
-export { FormWithoutValidations, default } from './form.component';
+export { BaseForm, default } from './form.component';
