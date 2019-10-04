@@ -127,13 +127,13 @@ const radioComponentWithValidation = themeName => () => {
         info={ testValidation('info') }
         name='radio-button-group'
         useValidationIcon={ trueBool }
+        onChange={ handleGroupChange }
       >
         {validationTypes.map(vType => (
           <RadioButton
             { ...groupedKnobs(vType, themeName) }
             id={ `id-${vType}` }
             name={ vType }
-            onChange={ handleGroupChange }
           />
         ))}
       </RadioButtonGroup>
