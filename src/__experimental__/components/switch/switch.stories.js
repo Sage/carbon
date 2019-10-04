@@ -81,7 +81,7 @@ const validationGroupedKnobs = (type, themeName) => {
     ),
     fieldHelp: text(`${type} fieldHelp`, 'This text provides help for the input', group),
     fieldHelpInline: boolean(`${type} fieldHelpInline`, false, group),
-    labelInline: boolean(`${type} labelInline`, Switch.defaultProps.labelInline, group),
+    labelInline: boolean(`${type} labelInline`, false, group),
     loading: boolean(`${type} loading`, false, group),
     inputWidth: number(`${type} inputWidth`, 0, {
       range: true,
@@ -101,7 +101,7 @@ const validationGroupedKnobs = (type, themeName) => {
       OptionsHelper.alignBinary[0],
       group
     ),
-    reverse: boolean(`${type} reverse`, Switch.defaultProps.reverse, group)
+    reverse: boolean(`${type} reverse`, false, group)
   };
 };
 
@@ -151,7 +151,7 @@ function commonKnobs() {
     fieldHelpInline: boolean('fieldHelpInline', false),
     label: text('label', 'Switch on this component?'),
     labelHelp: text('labelHelp', 'Switch off and on this component.'),
-    labelInline: boolean('labelInline', Switch.defaultProps.labelInline),
+    labelInline: boolean('labelInline', false),
     loading: boolean('loading', false),
     inputWidth: number('inputWidth', 0, {
       range: true,
@@ -170,7 +170,7 @@ function commonKnobs() {
       OptionsHelper.alignBinary,
       OptionsHelper.alignBinary[0]
     ),
-    reverse: boolean('reverse', Switch.defaultProps.reverse),
+    reverse: boolean('reverse', false),
     value: text('value', 'test-value')
   });
 }
