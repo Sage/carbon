@@ -1,13 +1,16 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import Help from '../../../components/help';
 import Label from './label.component';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import ValidationIcon from '../../../components/validations/validation-icon.component';
 import classicTheme from '../../../style/themes/classic';
 import baseTheme from '../../../style/themes/base';
 import smallTheme from '../../../style/themes/small';
+
+const validationTypes = ['hasError', 'hasWarning', 'hasInfo'];
 
 function render(props, renderer = shallow) {
   return renderer(
@@ -69,27 +72,19 @@ describe('Label', () => {
     });
   });
 
-  describe('when error', () => {
-    it('applies error color', () => {
+  describe('with readonly', () => {
+    it('applies disabled color', () => {
       assertStyleMatch({
-        color: baseTheme.colors.error
-      }, render({ hasError: true }, TestRenderer.create).toJSON());
+        color: baseTheme.text.color
+      }, render({ hasError: true, readOnly: true }, TestRenderer.create).toJSON());
     });
+  });
 
-    describe('with readonly', () => {
-      it('applies disabled color', () => {
-        assertStyleMatch({
-          color: baseTheme.text.color
-        }, render({ hasError: true, readOnly: true }, TestRenderer.create).toJSON());
-      });
-    });
-
-    describe('with disabled', () => {
-      it('applies disabled color', () => {
-        assertStyleMatch({
-          color: baseTheme.disabled.disabled
-        }, render({ hasError: true, disabled: true }, TestRenderer.create).toJSON());
-      });
+  describe('with disabled', () => {
+    it('applies disabled color', () => {
+      assertStyleMatch({
+        color: baseTheme.disabled.disabled
+      }, render({ hasError: true, disabled: true }, TestRenderer.create).toJSON());
     });
   });
 
@@ -126,6 +121,15 @@ describe('Label', () => {
           marginBottom: '12px'
         }, render({ childOfForm: true }, TestRenderer.create).toJSON());
       });
+    });
+  });
+
+  describe.each(validationTypes)('when prop %s === true', (vType) => {
+    it('show validation icon', () => {
+      const wrapper = render({ [vType]: true, useValidationIcon: true, tooltipMessage: 'Message!' }, mount);
+      const icon = wrapper.find(ValidationIcon);
+
+      expect(icon.exists()).toEqual(true);
     });
   });
 });
