@@ -39,11 +39,11 @@ function applyModernSelectedStyling({ table }) {
   `;
 }
 
-function applyModernDropTargetStyling(isDraggedElementOver, { table }) {
+function applyModernDropTargetStyling(isDraggedElementOver, { table }, inDeadZone) {
   const border = `1px solid ${isDraggedElementOver ? table.header : 'transparent'}`;
 
   return css`
-    ${isDraggedElementOver && `
+    ${isDraggedElementOver && !inDeadZone && `
       background-color: ${table.dragging};
       border-bottom:    ${border} !important;
     `}
@@ -57,6 +57,21 @@ function applyModernDropTargetStyling(isDraggedElementOver, { table }) {
     &:last-child {
       border-right: ${border};
     }
+
+    ${isDraggedElementOver && inDeadZone && `
+      background-color: none;
+      border-bottom: 1px solid ${table.selected} !important;
+
+      border-top: none;
+
+      &:first-child {
+        border-left: none;
+      }
+
+      &:last-child {
+        border-right: none;
+      }
+    `}
   `;
 }
 

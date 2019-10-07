@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
 import TestUtils from 'react-dom/test-utils';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { Table, TableCell } from '..';
 import TableRow from './table-row.component';
 import StyledTableRow from './table-row.style';
@@ -520,6 +520,25 @@ describe('TableRow', () => {
       });
     });
 
+    describe('when a child is null', () => {
+      it('does not render a null cell', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Table selectable><TableRow as='header' uniqueID='foo'><td />{ null }</TableRow></Table>
+        );
+        row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
+        const th = TestUtils.findRenderedComponentWithType(instance, TableHeader);
+        expect(th).toBeTruthy();
+      });
+    });
+
+    describe('when a child of td is null', () => {
+      it('does not render a null cell', () => {
+        expect(() => shallow(
+          <Table selectable><TableRow as='header' uniqueID='foo'><td /><td>{ null }</td></TableRow></Table>
+        )).not.toThrow();
+      });
+    });
+
     describe('if is not classic theme', () => {
       it('renders a row to match the snapshot', () => {
         const wrapper = TestRenderer.create(
@@ -663,6 +682,26 @@ describe('TableRow', () => {
           wrapper,
           { modifier: `${StyledTableCell}` }
         );
+      });
+
+      describe('when isDraggedElementOver is true and inDeadZone is true', () => {
+        it('renders the correct styles for a drop-target row for the Modern theme', () => {
+          wrapper = mount(
+            <StyledTableRow
+              theme={ SmallTheme }
+              isDraggedElementOver
+              inDeadZone
+            />
+          );
+          assertStyleMatch(
+            {
+              backgroundColor: 'none',
+              borderTop: 'none'
+            },
+            wrapper,
+            { modifier: `${StyledTableCell}` }
+          );
+        });
       });
     });
   });

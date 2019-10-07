@@ -13,7 +13,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
 import Flash, { FlashWithoutHOC } from './flash.component';
-import Button, { OriginalButton } from '../button/button.component';
+import Button from '../button/button.component';
 import classicTheme from '../../style/themes/classic';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
@@ -65,7 +65,7 @@ storiesOf('Flash', module)
     knobs: { escapeHTML: false },
     info: {
       text: Info,
-      propTables: [FlashWithoutHOC, OriginalButton],
+      propTables: [FlashWithoutHOC, Button],
       propTablesExclude: [State, ThemeProvider, Button, Flash]
     }
   })
@@ -94,7 +94,7 @@ storiesOf('Flash', module)
     knobs: { escapeHTML: false },
     info: {
       text: Info,
-      propTables: [FlashWithoutHOC, OriginalButton],
+      propTables: [FlashWithoutHOC, Button],
       propTablesExclude: [State, ThemeProvider, Button, Flash]
     }
   });

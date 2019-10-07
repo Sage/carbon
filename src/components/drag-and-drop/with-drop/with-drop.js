@@ -29,7 +29,8 @@ class WithDrop extends React.Component {
   }
 
   state = {
-    isDraggedElementOver: false
+    isDraggedElementOver: false,
+    inDeadZone: false
   }
 
   componentWillReceiveProps(nextProps) {
@@ -50,7 +51,10 @@ class WithDrop extends React.Component {
     // below
     const { children, connectDropTarget, droppableNode } = this.props; // eslint-disable-line react/prop-types
 
-    const childrenWithProps = React.cloneElement(children, { isDraggedElementOver: this.state.isDraggedElementOver });
+    const childrenWithProps = React.cloneElement(children, {
+      isDraggedElementOver: this.state.isDraggedElementOver,
+      inDeadZone: this.state.inDeadZone
+    });
 
     if (droppableNode) {
       connectDropTarget(droppableNode());

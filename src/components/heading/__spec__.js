@@ -10,7 +10,7 @@ import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import DefaultPages from '../pages/pages.component'
 import Page from '../pages/page/page.component'
 import { PagesContent } from '../pages/pages.style';
-import { LinkStyleAnchor } from '../link/link.style';
+import LinkStyleAnchor from '../link/link.style';
 import smallTheme from '../../style/themes/small'
 
 describe('Heading', () => {
@@ -59,12 +59,12 @@ describe('Heading', () => {
       </DefaultPages>)
 
     const link = wrapper.find(Link);
-    link.find('a').simulate('mousedown');
+    link.simulate('mousedown');
 
     assertStyleMatch({
       outline: `solid 3px ${smallTheme.colors.focus}`
     }, wrapper.find(PagesContent), { modifier: `${LinkStyleAnchor}:focus` })
-  })
+  });
 
   it('renders a subheader', () => {
     const div = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-heading__subheader');

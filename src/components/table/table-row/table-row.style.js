@@ -107,7 +107,8 @@ function dragRowStyling({
   isDragged,
   isDragging,
   theme,
-  isDraggedElementOver
+  isDraggedElementOver,
+  inDeadZone
 }) {
   return css`
     ${StyledIcon} {
@@ -127,9 +128,9 @@ function dragRowStyling({
         ${isClassic(theme) && applyClassicDraggedStyling()}
       }
     `}
-
+    
     ${StyledTableCell} {
-      ${applyModernDropTargetStyling(isDraggedElementOver, theme)}
+      ${applyModernDropTargetStyling(isDraggedElementOver, theme, inDeadZone)}
     }
   `;
 }

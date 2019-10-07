@@ -3,9 +3,9 @@ import { storiesOf } from '@storybook/react';
 import { select, boolean } from '@storybook/addon-knobs';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import Loader from './loader.component';
+import Loader from '.';
+import Button from '../button';
 import Spinner from '../../__deprecated__/components/spinner';
-import { OriginalButton } from '../button/button.component';
 import { notes, info } from './documentation';
 import { notesSpinner, infoSpinner } from '../../__deprecated__/components/spinner/documentation';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
@@ -32,12 +32,12 @@ function makeStory(name, themeSelector) {
 
     if (isInsideButton) {
       return (
-        <OriginalButton buttonType='primary' disabled={ !isActive }>
+        <Button buttonType='primary' disabled={ !isActive }>
           <Loader
             size={ size } isInsideButton={ isInsideButton }
             isActive={ isActive }
           />
-        </OriginalButton>
+        </Button>
       );
     }
     return <Loader size={ size } style={ styles } />;
@@ -47,7 +47,7 @@ function makeStory(name, themeSelector) {
     themeSelector,
     info: {
       text: info,
-      propTablesExclude: [OriginalButton]
+      propTablesExclude: [Button]
     },
     notes: { markdown: notes }
   };

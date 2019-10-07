@@ -68,6 +68,9 @@ const withValidations = (WrappedComponent) => {
             warningCount={ this.state.warningCount }
             infoCount={ this.state.infoCount }
             { ...this.props }
+            innerRef={ (form) => {
+              this._form = form;
+            } }
           >
             { this.props.children }
           </WrappedComponent>
@@ -80,8 +83,7 @@ const withValidations = (WrappedComponent) => {
     children: PropTypes.node // Children elements
   };
 
-  const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
-  WithValidations.displayName = `WithValidations(${displayName})`;
+  WithValidations.displayName = 'Form';
 
   return WithValidations;
 };

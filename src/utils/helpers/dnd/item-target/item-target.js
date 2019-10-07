@@ -18,6 +18,7 @@ const ItemTargetHelper = {
 
     // prevents flickering
     if (item.offsetDiffY && Math.abs(item.offsetDiffY - newOffsetDiff.y) <= 1) {
+      component.setState({ inDeadZone: true });
       return;
     }
 
