@@ -5,6 +5,7 @@ import LabelStyle from '../label/label.style';
 import StyledHelp from '../../../components/help/help.style';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import StyledSwitchSlider from './switch-slider.style';
+import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 import StyledIcon from '../../../components/icon/icon.style';
 import { isClassic } from '../../../utils/helpers/style-helper';
 
@@ -30,14 +31,18 @@ export default ({
     }
   }
 
-  ${LabelStyle} ${StyledHelp} {
-    &, &:hover, &:focus {
-      color: #8099a4;
+  ${LabelStyle} {
+    & ${StyledValidationIcon} {
+      & ${StyledIcon}::before {
+        font-size: 16px;
+      }
     }
-  }
 
-  ${LabelStyle} ${StyledIcon}::before {
-    content: '\\E943';
+    ${StyledHelp} {
+      &, &:hover, &:focus {
+        color: #8099a4;
+      }
+    }
   }
 
   ${StyledCheckableInput} ${StyledIcon}{

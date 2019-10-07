@@ -37,8 +37,16 @@ const Help = (props) => {
     }
   }
 
+  function handleFocusBlur(bool) {
+    return (ev) => {
+      ev.stopPropagation();
+      updateTooltipVisible(bool);
+    };
+  }
+
   return (
     <StyledHelp
+      role='tooltip'
       className={ className }
       as={ tagType }
       href={ href }
@@ -46,13 +54,16 @@ const Help = (props) => {
       target='_blank'
       rel='noopener noreferrer'
       ref={ helpElement }
-      onClick={ e => e.preventDefault() }
-      onFocus={ () => updateTooltipVisible(true) }
-      onBlur={ () => updateTooltipVisible(false) }
+      onClick={ (e) => {
+        e.preventDefault();
+        helpElement.current.focus();
+      } }
+      onFocus={ handleFocusBlur(true) }
+      onBlur={ handleFocusBlur(false) }
       { ...tagComponent('help', props) }
       tabIndex={ tabIndex }
       value={ children }
-      aria-label='additional help information'
+      aria-label={ children }
     >
       <Icon
         type='help'

@@ -6,6 +6,7 @@ import HiddenCheckableInputStyle from './hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';
 import StyledHelp from '../../../components/help/help.style';
 import baseTheme from '../../../style/themes/base';
+import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 
 const StyledCheckableInput = styled.div`
   display: inline-block;
@@ -27,7 +28,8 @@ const StyledCheckableInputWrapper = styled.div`
       white-space: nowrap;
       margin-top: -2px;
 
-      & ${StyledHelp} {
+      & ${StyledHelp},
+      & ${StyledValidationIcon} {
         color: ${theme.help.color};
         vertical-align: middle;
         top: -1px;

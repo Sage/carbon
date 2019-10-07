@@ -2,12 +2,13 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { css } from 'styled-components';
+import { mount } from 'enzyme';
+import text from '../../../utils/helpers/text/text';
 import Switch from '.';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';
-import StyledIcon from '../../../components/icon/icon.style';
 import StyledSwitchSlider from './switch-slider.style';
 import guid from '../../../utils/helpers/guid';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
@@ -16,12 +17,19 @@ import classicTheme from '../../../style/themes/classic';
 import smallTheme from '../../../style/themes/small';
 import mediumTheme from '../../../style/themes/medium';
 import largeTheme from '../../../style/themes/large';
+import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
 
-function render(props) {
-  return TestRenderer.create(<Switch value='test' { ...props } />);
+function render(props, renderer = TestRenderer.create) {
+  return renderer(
+    <Switch
+      name='my-switch'
+      value='test'
+      { ...props }
+    />
+  );
 }
 
 describe('Switch', () => {
@@ -171,6 +179,38 @@ describe('Switch', () => {
     });
   });
 
+  describe('check icon when validating', () => {
+    const wrapper = render({
+      label: 'My Label',
+      labelHelp: 'Please help me?',
+      unblockValidation: true,
+      useValidationIcon: true
+    }, mount);
+    const validationTypes = ['error', 'warning', 'info'];
+
+    beforeEach(() => {
+      const props = {
+        tooltipMessage: 'The message',
+        hasError: false,
+        hasWarning: false,
+        hasInfo: false
+      };
+
+      wrapper.setProps(props);
+    });
+
+    describe.each(validationTypes)('validation %s', (type) => {
+      it(`displays ${type} icon`, () => {
+        const propName = `has${text.titleCase(type)}`;
+        wrapper.setProps({
+          [propName]: true
+        });
+
+        expect(wrapper.find(StyledValidationIcon).prop('validationType')).toEqual(type);
+      });
+    });
+  });
+
   describe('Classic theme', () => {
     const opts = { theme: classicTheme };
     const classicSize = { height: '28px', width: '55px' };
@@ -196,12 +236,6 @@ describe('Switch', () => {
         assertStyleMatch({
           transition: 'box-shadow .1s linear'
         }, wrapper, { modifier: css`${StyledSwitchSlider}` });
-      });
-
-      it('applies appropriate help icon', () => {
-        assertStyleMatch({
-          content: "'\\E943'"
-        }, wrapper, { modifier: css`${`${LabelStyle} ${StyledIcon}::before`}` });
       });
 
       it('applies appropriate SwitchSlider focus styles', () => {
