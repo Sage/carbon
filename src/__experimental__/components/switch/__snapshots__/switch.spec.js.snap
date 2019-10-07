@@ -36,24 +36,24 @@ exports[`Switch base theme renders as expected 1`] = `
   flex-wrap: wrap;
 }
 
-.c1 .c30 {
+.c1 .c31 {
   text-align: left;
   width: auto;
   white-space: nowrap;
   margin-top: -2px;
 }
 
-.c1 .c30 .c28,
-.c1 .c30 .sc-EHOje {
+.c1 .c31 .c28,
+.c1 .c31 .c30 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c1 .c30 .c28:hover,
-.c1 .c30 .sc-EHOje:hover,
-.c1 .c30 .c28:focus,
-.c1 .c30 .sc-EHOje:focus {
+.c1 .c31 .c28:hover,
+.c1 .c31 .c30:hover,
+.c1 .c31 .c28:focus,
+.c1 .c31 .c30:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -545,30 +545,6 @@ exports[`Switch base theme renders as expected 1`] = `
 .c26 .c8 {
   height: 28px;
   width: 55px;
-}
-
-.c0 .c4,
-.c0 .c6 {
-  border: none;
-  box-sizing: border-box;
-  height: 24px;
-  width: 60px;
-}
-
-.c0 .c6:not([disabled]):focus + .c8,
-.c0 .c6:not([disabled]):hover + .c8 {
-  outline: solid 3px #FFB500;
-}
-
-.c0 .c27 {
-  margin-left: 0px;
-  margin-top: 5px;
-}
-
-.c0 .c30 {
-  padding: 0;
-  margin-bottom: 8px;
-  margin-right: 100%;
 }
 
 <div
