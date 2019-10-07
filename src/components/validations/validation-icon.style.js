@@ -23,6 +23,9 @@ const ValidationIconStyle = styled.div`
     ${StyledIcon}:before {
       font-size: 20px;
     }
+    ${StyledIcon}:focus {
+      outline: none;
+    }
   `}
 `;
 

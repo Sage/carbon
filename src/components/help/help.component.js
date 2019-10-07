@@ -14,12 +14,11 @@ const Help = (props) => {
     href,
     helpId,
     children,
-    tabIndexOverride,
-    tagTypeOverride,
+    tabIndex,
+    as,
     tooltipPosition,
     tooltipAlign
   } = props;
-  let tagType;
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyPress);
@@ -29,17 +28,20 @@ const Help = (props) => {
     };
   });
 
-  if (href) {
-    tagType = 'a';
-  }
-
-  tagType = tagTypeOverride || tagType;
+  const tagType = as || (href && 'a');
 
   function handleKeyPress(ev) {
     if (Events.isEscKey(ev)) {
       helpElement.current.blur();
       updateTooltipVisible(false);
     }
+  }
+
+  function handleFocusBlur(bool) {
+    return (ev) => {
+      ev.stopPropagation();
+      updateTooltipVisible(bool);
+    };
   }
 
   return (
@@ -52,11 +54,14 @@ const Help = (props) => {
       target='_blank'
       rel='noopener noreferrer'
       ref={ helpElement }
-      onClick={ e => e.preventDefault() }
-      onFocus={ () => updateTooltipVisible(true) }
-      onBlur={ () => updateTooltipVisible(false) }
+      onClick={ (e) => {
+        e.preventDefault();
+        helpElement.current.focus();
+      } }
+      onFocus={ handleFocusBlur(true) }
+      onBlur={ handleFocusBlur(false) }
       { ...tagComponent('help', props) }
-      tabIndex={ tabIndexOverride }
+      tabIndex={ tabIndex }
       value={ children }
       aria-label={ children }
     >
@@ -79,9 +84,9 @@ Help.propTypes = {
   /** The unique id of the component (used with aria-describedby for accessibility) */
   helpId: PropTypes.string,
   /** Overrides the default tabindex of the component */
-  tabIndexOverride: PropTypes.number,
+  tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Overrides the default 'as' attribute of the Help component */
-  tagTypeOverride: PropTypes.string,
+  as: PropTypes.string,
   /** Position of tooltip relative to target */
   tooltipPosition: PropTypes.oneOf(OptionsHelper.positions),
   /** Aligment of pointer */
@@ -93,7 +98,7 @@ Help.propTypes = {
 Help.defaultProps = {
   tooltipPosition: 'top',
   tooltipAlign: 'center',
-  tabIndexOverride: 0
+  tabIndex: 0
 };
 
 export default Help;

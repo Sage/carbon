@@ -243,6 +243,40 @@ exports[`Switch base theme renders as expected 1`] = `
   width: 78px;
 }
 
+.c0 {
+  margin-bottom: 24px;
+}
+
+.c0 .c4,
+.c0 .c6 {
+  border: none;
+  box-sizing: border-box;
+  height: 24px;
+  width: 60px;
+}
+
+.c0 .c6:not([disabled]):focus + .c8,
+.c0 .c6:not([disabled]):hover + .c8 {
+  outline: solid 3px #FFB500;
+}
+
+.c0 .c27 {
+  margin-left: 0px;
+  margin-top: 5px;
+}
+
+.c0 .c31 {
+  padding: 0;
+  margin-bottom: 8px;
+  margin-right: 100%;
+  margin-top: 1px;
+}
+
+.c0 .c31 .c30 {
+  position: relative;
+  display: inline-block;
+}
+
 .c21 .c4,
 .c21 .c6 {
   border: none;
@@ -540,9 +574,13 @@ exports[`Switch base theme renders as expected 1`] = `
 <div
   className="c0"
   data-component="Switch"
+  name="my-switch"
+  onBlur={[Function]}
 >
   <div
     className="c1"
+    name="my-switch"
+    onBlur={[Function]}
   >
     <div
       className="c2 c3"
@@ -555,15 +593,22 @@ exports[`Switch base theme renders as expected 1`] = `
           aria-labelledby="guid-12345-label"
           className="c6 c7"
           id="guid-12345"
+          name="my-switch"
+          onBlur={[Function]}
+          onChange={[Function]}
           role="checkbox"
           type="checkbox"
           value="test"
         />
         <span
           className="c8 c9"
+          name="my-switch"
+          onBlur={[Function]}
         >
           <div
             className="c10"
+            name="my-switch"
+            onBlur={[Function]}
             type="off"
           >
             OFF
