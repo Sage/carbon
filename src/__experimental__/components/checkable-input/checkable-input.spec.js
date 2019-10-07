@@ -7,7 +7,7 @@ import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import CheckableInput from '.';
 import FieldHelpStyle from '../field-help/field-help.style';
 import FormFieldStyle from '../form-field/form-field.style';
-import Help from '../../../components/help';
+import Label from '../label/label.component';
 import HiddenCheckableInputStyle from './hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';
 import { StyledCheckableInput, StyledCheckableInputWrapper } from './checkable-input.style';
@@ -16,17 +16,24 @@ import baseTheme from '../../../style/themes/base';
 
 describe('CheckableInput', () => {
   function mountInput(props) {
-    return mount(<CheckableInput { ...props } />);
+    return mount(
+      <CheckableInput
+        inputType='text'
+        inputValue=''
+        onChange={ () => null }
+        { ...props }
+      />
+    );
   }
 
   describe('helpId', () => {
     describe('when inputLabel and labelHelp props are present', () => {
       it('returns an appropriate helpId property', () => {
-        const helpButton = mountInput({ inputId: 'foo', inputLabel: 'bar', labelHelp: 'baz' })
-          .find(Help)
-          .find('div');
+        const labelWrapper = mountInput({ inputId: 'foo', inputLabel: 'bar', labelHelp: 'baz' })
+          .find(Label)
+          .find('label');
 
-        expect(helpButton.props().id).toBe('foo-help');
+        expect(labelWrapper.prop('id')).toBe('foo-label');
       });
     });
   });

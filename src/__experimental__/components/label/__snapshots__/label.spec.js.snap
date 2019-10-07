@@ -10,11 +10,18 @@ exports[`Label renders the label 1`] = `
   width: 100%;
 }
 
-<label
+.c0 .c1,
+.c0 .sc-bZQynM {
+  vertical-align: middle;
+}
+
+<div
   className="c0"
   data-element="label"
   width={30}
 >
-  Name:
-</label>
+  <label>
+    Name:
+  </label>
+</div>
 `;

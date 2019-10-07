@@ -13,7 +13,7 @@ const buttonValues = ['test-1', 'test-2'];
 const groupName = 'test-group';
 
 function render(renderer = TestRenderer.create) {
-  const children = buttonValues.map(value => <RadioButton value={ value } />);
+  const children = buttonValues.map(value => <RadioButton key={ `k-${value}` } value={ value } />);
 
   return renderer(
     <RadioButtonGroup
@@ -44,7 +44,7 @@ describe('RadioButtonGroup', () => {
 
       describe('key / value (both derived from value prop)', () => {
         const expectedValue = buttonValues[index];
-        const expectedKey = `${expectedValue}/.${index}`;
+        const expectedKey = `.$k-${expectedValue}`;
 
         it(`sets the value to ${expectedValue}`, () => {
           expect(button.props.value).toEqual(expectedValue);

@@ -4,15 +4,22 @@ import BaseTheme from '../../../style/themes/base';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import sizes from '../input/input-sizes.style';
 import InputIconToggleStyle from '../input-icon-toggle/input-icon-toggle.style';
+import StyledHelpIcon from '../../../components/help/help.style';
+import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 import { isClassic } from '../../../utils/helpers/style-helper';
 
-const LabelStyle = styled.label`
+const LabelStyle = styled.div`
   color: ${({ theme }) => theme.text.color};
   cursor: pointer;
   display: block;
   font-weight: 600;
   padding-bottom: 8px;
   width: 100%;
+
+  ${StyledHelpIcon},
+  ${StyledValidationIcon} {
+    vertical-align: middle;
+  }
 
   ${({
     align, inline, inputSize, width
@@ -43,15 +50,6 @@ const LabelStyle = styled.label`
       background-color: #1e499f;
       border-color: #1e499f;
     }
-  `}
-  
-  ${({
-    hasError,
-    disabled,
-    readOnly,
-    theme
-  }) => hasError && !disabled && !readOnly && css`
-    color: ${theme.colors.error};
   `}
 
   ${({

@@ -5,14 +5,18 @@ import SwitchStyle from './switch.style';
 import CheckableInput from '../checkable-input';
 import SwitchSlider from './switch-slider.component';
 import { isClassic } from '../../../utils/helpers/style-helper';
+import withValidation from '../../../components/validations/with-validation.hoc';
 
 const Switch = ({
-  id, label, onChange, value, ...props
+  id, label, onChange, value, hasError, hasWarning, hasInfo, ...props
 }) => {
   const classicDisabled = props.theme && isClassic(props.theme) && props.loading;
 
   const switchProps = {
     disabled: props.disabled || classicDisabled,
+    hasError,
+    hasWarning,
+    hasInfo,
     ...props
   };
 
@@ -22,7 +26,10 @@ const Switch = ({
     inputId: id,
     inputLabel: label,
     inputValue: value,
-    inputType: 'checkbox'
+    inputType: 'checkbox',
+    hasError,
+    hasWarning,
+    hasInfo
   };
 
   return (
@@ -55,12 +62,16 @@ Switch.propTypes = {
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** The content of the label for the input */
   label: PropTypes.string,
+  /** Help text */
+  labelHelp: PropTypes.string,
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
   labelAlign: PropTypes.string,
   /** Displays label inline with the Switch */
   labelInline: PropTypes.bool,
   /** Sets percentage-based label width */
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  /** Override tab index on the validation and help icon */
+  helpTabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Triggers loading animation */
   loading: PropTypes.bool,
   /** Accepts a callback function which can be used to update parent state on change */
@@ -74,12 +85,22 @@ Switch.propTypes = {
   size: PropTypes.string,
   theme: PropTypes.object,
   /** the value of the checkbox, passed on form submit */
-  value: PropTypes.string.isRequired
+  value: PropTypes.string.isRequired,
+  /** Prop to indicate that an error has occurred */
+  hasError: PropTypes.bool,
+  /** Prop to indicate that a warning has occurred */
+  hasWarning: PropTypes.bool,
+  /** Prop to indicate additional information  */
+  hasInfo: PropTypes.bool
 };
 
 Switch.defaultProps = {
   labelInline: false,
-  reverse: false
+  reverse: false,
+  hasError: false,
+  hasWarning: false,
+  hasInfo: false,
+  helpTabIndex: 0
 };
 
-export default Switch;
+export default withValidation(Switch);

@@ -189,7 +189,8 @@ const withValidation = (WrappedComponent) => {
     }
 
     handleChange = (ev) => {
-      this.blockValidation = true;
+      this.blockValidation = !this.props.unblockValidation;
+
       this.resetValidation();
 
       this.setState(
@@ -263,7 +264,8 @@ const withValidation = (WrappedComponent) => {
     warnings: validationsPropTypes,
     info: validationsPropTypes,
     forceUpdateTriggerToggle: PropTypes.bool, // triggers validation when it's boolean value changes
-    addInputToFormState: PropTypes.func
+    addInputToFormState: PropTypes.func,
+    unblockValidation: PropTypes.bool
   };
 
   WithValidation.defaultProps = {
@@ -278,5 +280,21 @@ const withValidation = (WrappedComponent) => {
   return WithValidation;
 };
 
-export { validationsPropTypes };
+function getValidationType({ hasError, hasWarning, hasInfo }) {
+  if (hasError) {
+    return 'error';
+  }
+
+  if (hasWarning) {
+    return 'warning';
+  }
+
+  if (hasInfo) {
+    return 'info';
+  }
+
+  return '';
+}
+
+export { validationsPropTypes, getValidationType };
 export default withValidation;

@@ -6,6 +6,7 @@ import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input
 import LabelStyle from '../label/label.style';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import StyledSwitchSlider from './switch-slider.style';
+import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 
 import ClassicSwitchStyles from './switch-classic.style';
 
@@ -19,6 +20,8 @@ const StyledSwitch = styled.div`
       height: 24px;
       width: 60px;
     }
+
+    margin-bottom: 24px;
 
     ${HiddenCheckableInputStyle}:not([disabled]) {
       &:focus + ${StyledSwitchSlider},
@@ -36,8 +39,14 @@ const StyledSwitch = styled.div`
       padding: 0;
       margin-bottom: 8px;
       margin-right: 100%;
+      margin-top: 1px;
 
-      ${labelWidth && `
+      ${StyledValidationIcon} {
+        position: relative;
+        display: inline-block;
+      }
+
+      ${labelWidth && css`
         margin-right: ${100 - labelWidth}%;
       `}
     }
