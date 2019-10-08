@@ -11,7 +11,16 @@ import { RadioButton, RadioButtonGroup } from '.';
 import { info, infoValidations, notes } from './documentation';
 
 const trueBool = true;
-const radioToggleGroupStore = new Store({ value: '' });
+const radioToggleGroupStore = new Store({ value: undefined });
+const validationRadioToggleGroupStore = new Store({ value: undefined });
+const handleGroupChangeFactory = store => (event) => {
+  const { value } = event.target;
+
+  store.set({ value });
+
+  action('Selected')(value);
+};
+
 
 function makeStory(name, themeSelector, component) {
   const metadata = {
@@ -63,32 +72,26 @@ const radioComponent = themeName => () => {
   const labelHelp = text('labelHelp', 'Group label helper');
 
   return (
-    <RadioButtonGroup
-      labelHelp={ labelHelp }
-      groupName='frequency'
-      label={ text('groupLabel', 'Please select a frequency from the options below') }
-      initialValue='weekly'
-      name='radio-button-group'
-    >
-      <RadioButton
-        id='input-1'
-        name='input-1'
-        checked
-        onChange={ handleChange }
-        { ...groupedKnobs('weekly', themeName) }
-      />
-      <RadioButton
-        name='input-2'
-        onChange={ handleChange }
-        { ...groupedKnobs('monthly', themeName) }
-      />
-      <RadioButton
+    <State store={ radioToggleGroupStore }>
+      <RadioButtonGroup
+        labelHelp={ labelHelp }
+        groupName='frequency'
+        label={ text('groupLabel', 'Please select a frequency from the options below') }
+        onChange={ handleGroupChangeFactory(radioToggleGroupStore) }
+      >
+        <RadioButton
+          id='input-1'
+          { ...groupedKnobs('weekly', themeName) }
+        />
+        <RadioButton
+          { ...groupedKnobs('monthly', themeName) }
+        />
+        <RadioButton
         // id prop intentionally left off here, to demonstrate automatic GUID generation
-        name='input-2'
-        onChange={ handleChange }
-        { ...groupedKnobs('yearly', themeName) }
-      />
-    </RadioButtonGroup>
+          { ...groupedKnobs('yearly', themeName) }
+        />
+      </RadioButtonGroup>
+    </State>
   );
 };
 
@@ -118,23 +121,21 @@ const radioComponentWithValidation = themeName => () => {
   }
 
   return (
-    <State store={ radioToggleGroupStore }>
+    <State store={ validationRadioToggleGroupStore }>
       <RadioButtonGroup
-        groupName='my-event'
+        groupName='radio-button-group'
         label={ label }
         labelHelp={ labelHelp }
         validations={ testValidation('valid') }
         warnings={ testValidation('warn') }
         info={ testValidation('info') }
-        name='radio-button-group'
         useValidationIcon={ trueBool }
-        onChange={ handleGroupChange }
+        onChange={ handleGroupChangeFactory(validationRadioToggleGroupStore) }
       >
         {validationTypes.map(vType => (
           <RadioButton
             { ...groupedKnobs(vType, themeName) }
             id={ `id-${vType}` }
-            name={ vType }
           />
         ))}
       </RadioButtonGroup>
@@ -147,16 +148,3 @@ storiesOf('Experimental/RadioButton', module)
   .add(...makeStory('classic', classicThemeSelector, radioComponent('classic')))
   .add(...makeStory('validations', dlsThemeSelector, radioComponentWithValidation()))
   .add(...makeStory('validations classic', classicThemeSelector, radioComponentWithValidation('classic')));
-
-function handleChange(event) {
-  const { value } = event.target;
-  action('Selected')(value);
-}
-
-function handleGroupChange(event) {
-  const { value } = event.target;
-
-  radioToggleGroupStore.set({ value });
-
-  action('Selected')(value);
-}
