@@ -34,6 +34,10 @@ class WithDrop extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (this.props.didDrop) {
+      this.setState({ inDeadZone: false });
+    }
+
     if (!this.props.isOver && nextProps.isOver) { // eslint-disable-line react/prop-types
       // Equivalent of `mouseover` / `mouseenter`
       this.setState({ isDraggedElementOver: true });
@@ -82,6 +86,7 @@ const ItemTarget = {
 WithDrop = DropTarget( // eslint-disable-line no-class-assign
   ItemTypes.getItemType, ItemTarget, (connect, monitor) => ({
     isOver: monitor.isOver(),
+    didDrop: monitor.didDrop(),
     connectDropTarget: connect.dropTarget()
   })
 )(WithDrop);
