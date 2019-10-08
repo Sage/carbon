@@ -17,7 +17,7 @@ const DialogStyle = styled.div`
   box-shadow: ${({ theme }) => theme.shadows.depth3};
   position: fixed;
   top: 50%;
-  
+
   &:focus {
     outline: none;
   }
@@ -85,14 +85,19 @@ const DialogStyle = styled.div`
 const DialogTitleStyle = styled.div`
   padding: 23px 35px 0;
   border-bottom: 1px solid #ccd6db;
+  ${({ showCloseIcon }) => showCloseIcon && 'padding-right: 85px'};
 
   .carbon-heading--has-divider .carbon-heading__header {
     border-bottom: none;
     padding-bottom: 0;
   }
-  
+
   .carbon-heading__title {
-    color: ${({ theme }) => theme.text.color}
+    color: ${({ theme }) => theme.text.color};
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 `;
 
