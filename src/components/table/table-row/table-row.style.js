@@ -110,6 +110,8 @@ function dragRowStyling({
   isDraggedElementOver,
   inDeadZone
 }) {
+  const border = css`1px solid ${theme.table.header} !important`;
+
   return css`
     ${StyledIcon} {
       cursor: grab;
@@ -124,6 +126,22 @@ function dragRowStyling({
     `}
 
     ${isDragged && css`
+      ${inDeadZone && isDraggedElementOver} {
+        ${StyledTableCell} {
+          background-color: ${theme.table.dragging};
+          border-top: ${border};
+          border-bottom: ${border};
+
+          &:first-child {
+            border-left: ${border};
+          }
+
+          &:last-child {
+            border-right: ${border};
+          }
+        }
+      }
+
       &&&&& {
         ${isClassic(theme) && applyClassicDraggedStyling()}
       }
