@@ -6,7 +6,6 @@ import TestRenderer from 'react-test-renderer';
 import { RadioButton, RadioButtonGroup } from '.';
 import FieldHelpStyle from '../field-help/field-help.style';
 import LabelStyle from '../label/label.style';
-import CheckableInput from '../checkable-input/checkable-input.component';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
