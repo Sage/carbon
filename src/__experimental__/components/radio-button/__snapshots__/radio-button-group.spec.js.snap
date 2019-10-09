@@ -279,7 +279,6 @@ exports[`RadioButtonGroup renders as expected 1`] = `
               name="radio-name-test-1"
               onChange={[Function]}
               role="radio"
-              tabIndex={0}
               type="radio"
               value="test-1"
             />
@@ -336,7 +335,6 @@ exports[`RadioButtonGroup renders as expected 1`] = `
               name="radio-name-test-2"
               onChange={[Function]}
               role="radio"
-              tabIndex={-1}
               type="radio"
               value="test-2"
             />

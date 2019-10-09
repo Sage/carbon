@@ -5,14 +5,6 @@ import { StyledRadioButtonGroup } from './radio-button.style';
 import withValidation from '../../../components/validations/with-validation.hoc';
 import FormField from '../form-field';
 
-function initialTabIndex(childIndex) {
-  return (childIndex > 0) ? -1 : 0;
-}
-
-function checkedTabIndex(checked) {
-  return checked ? 0 : -1;
-}
-
 const RadioButtonGroup = (props) => {
   const {
     children,
@@ -40,29 +32,26 @@ const RadioButtonGroup = (props) => {
   const [checkedValue, setCheckedValue] = useState(false);
   const onChangeProp = useCallback((e) => {
     onChange(e);
-    setCheckedValue(e.target.value);
-  }, [onChange, setCheckedValue]);
+    if (!isControled) {
+      setCheckedValue(e.target.value);
+    }
+  }, [onChange, setCheckedValue, isControled]);
 
-  const buttons = React.Children.map(children, (child, index) => {
-    let tabindex;
+  const buttons = React.Children.map(children, (child) => {
     let checked;
     if (isControled) {
       // The user is controlling the input via the value prop
       checked = value === child.props.value;
-      tabindex = checkedTabIndex(checked);
     } else if (!checkedValue && anyChecked) {
       // Uncontrolled and the user has not made a selection, but at least one has a checked prop
       checked = child.props.checked || false;
-      tabindex = checkedTabIndex(checked);
     } else {
       // Uncontrolled, existing selection or none marked as checked
       checked = checkedValue === child.props.value;
-      tabindex = initialTabIndex(index);
     }
 
     return React.cloneElement(child, {
       checked,
-      tabindex,
       inputName: groupName,
       onChange: onChangeProp
     });

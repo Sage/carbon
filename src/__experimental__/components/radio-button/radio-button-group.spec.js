@@ -165,10 +165,14 @@ describe('RadioButtonGroup', () => {
             name='foo'
             value='foo'
           />
+          <RadioButton
+            name='bar'
+            value='bar'
+          />
         </RadioButtonGroup>
       );
 
-      const button = getRadioButtons(radioGroup);
+      const button = getRadioButtons(radioGroup).at(0);
       expect(button.prop('checked')).toBe(true);
     });
   });
@@ -187,65 +191,108 @@ describe('RadioButtonGroup', () => {
     });
   });
 
-  describe('controlled', () => {
-    const Controller = (props) => {
-      const [value, setValue] = useState();
-      return (
-        <>
-          <RadioButtonGroup
-            groupName={ groupName }
-            label='Test RadioButtonGroup Label'
-            name='radio-button-group'
-            onChange={ (e) => {
-              setValue(e.target.value);
-            } }
-            useValidationIcon
-            value={ value }
-            { ...props.groupProps }
-          >
-            <RadioButton
-              name='one'
-              value='one'
-            />
-            <RadioButton
-              name='two'
-              value='two'
-              { ...props.radioProps }
-            />
-            <RadioButton
-              name='three'
-              value='three'
-            />
-          </RadioButtonGroup>
-          <Button onClick={ () => {
-            setValue('one');
-          } }
-          >Set One
-          </Button>
-          <Button onClick={ () => {
-            setValue('two');
-          } }
-          >Set Two
-          </Button>
-        </>
-      );
-    };
-    Controller.propTypes = {
-      groupProps: PropTypes.any,
-      radioProps: PropTypes.any
-    };
-    const renderControlled = (groupProps = {}, radioProps = {}) => {
-      return mount(<Controller { ...{ groupProps, radioProps } } />);
-    };
 
+  const renderUncontrolled = (groupProps, radioProps) => mount(
+    <RadioButtonGroup
+      groupName={ groupName }
+      label='Test RadioButtonGroup Label'
+      name='radio-button-group'
+      { ...groupProps }
+    >
+      <RadioButton
+        name='one'
+        value='one'
+      />
+      <RadioButton
+        name='two'
+        value='two'
+        { ...radioProps }
+      />
+      <RadioButton
+        name='three'
+        value='three'
+      />
+    </RadioButtonGroup>
+  );
+
+  const Controller = (props) => {
+    const [value, setValue] = useState(null);
+    return (
+      <>
+        <RadioButtonGroup
+          groupName={ groupName }
+          label='Test RadioButtonGroup Label'
+          name='radio-button-group'
+          onChange={ (e) => {
+            setValue(e.target.value);
+          } }
+          useValidationIcon
+          value={ value }
+          { ...props.groupProps }
+        >
+          <RadioButton
+            name='one'
+            value='one'
+          />
+          <RadioButton
+            name='two'
+            value='two'
+            { ...props.radioProps }
+          />
+          <RadioButton
+            name='three'
+            value='three'
+          />
+        </RadioButtonGroup>
+        <Button onClick={ () => {
+          setValue('one');
+        } }
+        >Set One
+        </Button>
+        <Button onClick={ () => {
+          setValue('two');
+        } }
+        >Set Two
+        </Button>
+      </>
+    );
+  };
+  Controller.propTypes = {
+    groupProps: PropTypes.any,
+    radioProps: PropTypes.any
+  };
+  const renderControlled = (groupProps = {}, radioProps = {}) => {
+    return mount(<Controller { ...{ groupProps, radioProps } } />);
+  };
+
+
+  describe.each([
+    ['controlled', renderControlled],
+    ['uncontrolled', renderUncontrolled]
+  ])('%s', (type, renderer) => {
     it('none of the radio buttons are checked by default', () => {
-      const wrapper = renderControlled();
+      const wrapper = renderer();
       const radio = getRadioButtons(wrapper);
       expect(radio.at(0).prop('checked')).toBe(false);
       expect(radio.at(1).prop('checked')).toBe(false);
       expect(radio.at(2).prop('checked')).toBe(false);
     });
 
+    it('onChange handler is called when a radio button is clicked', () => {
+      const onChange = jest.fn();
+      const wrapper = renderer({ onChange });
+
+      const radio = getRadioButtons(wrapper);
+
+      act(() => {
+        radio.at(0).props().onChange({ target: radio.at(0).getDOMNode() });
+      });
+
+      expect(onChange).toHaveBeenCalled();
+    });
+  });
+
+  describe('controlled', () => {
     it('changing the value checks the appropraite radio button', () => {
       const wrapper = renderControlled();
       const buttons = getButtons(wrapper);
@@ -257,29 +304,19 @@ describe('RadioButtonGroup', () => {
       expect(radio.at(1).prop('checked')).toBe(false);
       expect(radio.at(2).prop('checked')).toBe(false);
     });
+  });
 
-    it('onChange handler is called when a radio button is clicked', () => {
-      const onChange = jest.fn();
-      const wrapper = renderControlled({ onChange });
+  describe('uncontrolled', () => {
+    it('clicking a value checks the appropraite radio button', () => {
+      const wrapper = renderUncontrolled();
+      let radio = getRadioButtons(wrapper);
 
-      const radio = getRadioButtons(wrapper);
+      radio.at(0).find('input').simulate('change');
 
-      act(() => {
-        radio.at(0).props().onChange({ target: radio.at(0).getDOMNode() });
-      });
-
-      expect(onChange).toHaveBeenCalled();
-    });
-
-    it('setting a radio button as checked, checks the radio button', () => {
-      const onChange = jest.fn();
-      const wrapper = renderControlled({ onChange }, { checked: true });
-
-      const radio = getRadioButtons(wrapper);
-
-      expect(radio.at(1).prop('checked')).toBe(true);
-
-      expect(onChange).not.toHaveBeenCalled();
+      radio = getRadioButtons(wrapper);
+      expect(radio.at(0).prop('checked')).toBe(true);
+      expect(radio.at(1).prop('checked')).toBe(false);
+      expect(radio.at(2).prop('checked')).toBe(false);
     });
   });
 });
