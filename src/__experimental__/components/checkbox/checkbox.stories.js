@@ -141,14 +141,14 @@ function handleChange(ev, id) {
   action('change')(`checked: ${checked}`);
 }
 
-function handleGroupChange(ev, id) {
+function handleGroupChange(ev) {
   const { checked } = ev.target;
   const count = Number(groupStore.get('value'));
   const value = checked ? count + 1 : count - 1;
 
   groupStore.set({
     value: value.toString(),
-    [id]: checked,
+    [ev.target.id]: checked,
     forceUpdateTriggerToggle: checked
   });
 }
@@ -202,13 +202,12 @@ const checkboxGroupComponent = () => (
           warnings={ testWarning }
           info={ testInfo }
           useValidationIcon={ boolean('useValidationIcon', true, 'group') }
-          value={ state.value }
+          onChange={ ev => handleGroupChange(ev) }
         >
           {groupCheckbox.map(id => (
             <Checkbox
               checked={ state[id] }
               key={ `checkbox-input-${id}` }
-              onChange={ ev => handleGroupChange(ev, id) }
               labelHelp={ text(`${Text.titleCase(id)} labelHelp`, '', `Checkbox ${id}`) }
               { ...defaultKnobs(id) }
             />
