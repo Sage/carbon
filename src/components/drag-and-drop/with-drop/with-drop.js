@@ -43,6 +43,10 @@ class WithDrop extends React.Component {
       // Equivalent of `mouseout` / `mouseleave`
       this.setState({ isDraggedElementOver: false });
     }
+
+    if (this.props.didDrop) {
+      this.setState({ inDeadZone: false });
+    }
   }
 
   render() {
@@ -82,7 +86,8 @@ const ItemTarget = {
 WithDrop = DropTarget( // eslint-disable-line no-class-assign
   ItemTypes.getItemType, ItemTarget, (connect, monitor) => ({
     isOver: monitor.isOver(),
-    connectDropTarget: connect.dropTarget()
+    connectDropTarget: connect.dropTarget(),
+    didDrop: monitor.didDrop()
   })
 )(WithDrop);
 
