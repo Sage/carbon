@@ -37,9 +37,9 @@ exports[`RadioButton styles base renders as expected 1`] = `
 }
 
 .c11 .c7:hover,
-.c11 .c25:hover,
+.c11 .c24:hover,
 .c11 .c7:focus,
-.c11 .c25:focus {
+.c11 .c24:focus {
   outline: none;
   cursor: not-allowed;
 }
@@ -54,24 +54,24 @@ exports[`RadioButton styles base renders as expected 1`] = `
   flex-wrap: wrap;
 }
 
-.c4 .c25 {
+.c4 .c24 {
   text-align: left;
   width: auto;
   white-space: nowrap;
   margin-top: -2px;
 }
 
-.c4 .c25 .c23,
-.c4 .c25 .c24 {
+.c4 .c24 .c22,
+.c4 .c24 .c23 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c4 .c25 .c23:hover,
-.c4 .c25 .c24:hover,
-.c4 .c25 .c23:focus,
-.c4 .c25 .c24:focus {
+.c4 .c24 .c22:hover,
+.c4 .c24 .c23:hover,
+.c4 .c24 .c22:focus,
+.c4 .c24 .c23:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -86,9 +86,9 @@ exports[`RadioButton styles base renders as expected 1`] = `
 }
 
 .c12 .c7:hover,
-.c12 .c25:hover,
+.c12 .c24:hover,
 .c12 .c7:focus,
-.c12 .c25:focus {
+.c12 .c24:focus {
   outline: none;
   cursor: not-allowed;
 }
@@ -770,59 +770,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
   margin-left: 6px;
 }
 
-.c21 .c5 {
-  padding-top: 1px;
-}
-
-.c21 .c9 {
-  height: 16px;
-}
-
-.c21 .c7,
-.c21 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c21 .c5,
-.c21 .c7,
-.c21 .c9,
-.c21 svg {
-  box-sizing: border-box;
-  width: 16px;
-}
-
-.c21 .c7:not([disabled]):focus + .c9,
-.c21 .c7:not([disabled]):hover + .c9 {
-  box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c21 .c5 {
-  margin-right: 16px;
-}
-
-.c21 .c9 {
-  padding: 0;
-}
-
-.c21 .c9,
-.c21 svg {
-  border-radius: 50%;
-}
-
-.c21 .c5,
-.c21 .c7,
-.c21 .c9,
-.c21 svg {
-  height: 16px;
-  width: 16px;
-}
-
-.c21 .c7:checked + .c9 circle {
-  fill: #00805D;
-}
-
 .c3 {
   padding-top: 8px;
   margin-bottom: 12px;
@@ -861,18 +808,18 @@ exports[`RadioButton styles base renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c3 .c25 {
+.c3 .c24 {
   padding: 0 6px;
   width: auto;
 }
 
-.c3 .c22 {
+.c3 .c21 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
 }
 
-.c3 .c22 {
+.c3 .c21 {
   margin-left: 32px;
 }
 
@@ -909,23 +856,23 @@ exports[`RadioButton styles base renders as expected 1`] = `
   fill: #00805D;
 }
 
-.c0 > .c1 > .c25 {
+.c0 > .c1 > .c24 {
   cursor: default;
   margin-bottom: 16px;
   padding: 0;
 }
 
-.c0 > .c1 > .c25 > label {
+.c0 > .c1 > .c24 > label {
   vertical-align: middle;
 }
 
-.c0 > .c1 > .c25 .c24 {
+.c0 > .c1 > .c24 .c23 {
   margin-top: 0;
   margin-right: 0;
   display: inline-block;
 }
 
-.c0 > .c1 > .c25 .c24 ::before {
+.c0 > .c1 > .c24 .c23 ::before {
   font-size: 16px;
 }
 
@@ -965,7 +912,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
               name="my-radio"
               onChange={[Function]}
               role="radio"
-              tabIndex={0}
               type="radio"
               value="test"
             />

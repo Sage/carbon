@@ -11,8 +11,8 @@ import { RadioButton, RadioButtonGroup } from '.';
 import { info, infoValidations, notes } from './documentation';
 
 const trueBool = true;
-const radioToggleGroupStore = new Store({ value: undefined });
-const validationRadioToggleGroupStore = new Store({ value: undefined });
+const radioToggleGroupStore = new Store({ value: null });
+const validationRadioToggleGroupStore = new Store({ value: null });
 const handleGroupChangeFactory = store => (event) => {
   const { value } = event.target;
 
@@ -20,7 +20,6 @@ const handleGroupChangeFactory = store => (event) => {
 
   action('Selected')(value);
 };
-
 
 function makeStory(name, themeSelector, component) {
   const metadata = {

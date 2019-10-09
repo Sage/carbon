@@ -295,8 +295,21 @@ exports[`RadioButtonGroup renders as expected 1`] = `
           <div
             className="c13 "
           >
-            <svg
-              viewBox="0 0 15 15"
+            <input
+              aria-checked={false}
+              aria-describedby="rId-0-help"
+              aria-labelledby="rId-0-label"
+              checked={false}
+              className="c9 c10"
+              id="rId-0"
+              name="radio-name-test-1"
+              onChange={[Function]}
+              role="radio"
+              type="radio"
+              value="test-1"
+            />
+            <div
+              className="c11 "
             >
               <g
                 fill="none"
@@ -353,8 +366,21 @@ exports[`RadioButtonGroup renders as expected 1`] = `
           <div
             className="c13 "
           >
-            <svg
-              viewBox="0 0 15 15"
+            <input
+              aria-checked={false}
+              aria-describedby="rId-1-help"
+              aria-labelledby="rId-1-label"
+              checked={false}
+              className="c9 c10"
+              id="rId-1"
+              name="radio-name-test-2"
+              onChange={[Function]}
+              role="radio"
+              type="radio"
+              value="test-2"
+            />
+            <div
+              className="c11 "
             >
               <g
                 fill="none"
