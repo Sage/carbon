@@ -148,7 +148,7 @@ function dragRowStyling({
     `}
     
     ${StyledTableCell} {
-      ${applyModernDropTargetStyling(isDraggedElementOver, theme, inDeadZone)}
+      ${applyModernDropTargetStyling()}
     }
   `;
 }
