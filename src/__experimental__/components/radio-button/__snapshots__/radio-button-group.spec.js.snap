@@ -286,6 +286,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
               className="c11 "
             >
               <svg
+                focusable="false"
                 viewBox="0 0 15 15"
               >
                 <g
@@ -342,6 +343,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
               className="c11 "
             >
               <svg
+                focusable="false"
                 viewBox="0 0 15 15"
               >
                 <g

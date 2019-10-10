@@ -919,6 +919,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
               className="c9 "
             >
               <svg
+                focusable="false"
                 viewBox="0 0 15 15"
               >
                 <g
