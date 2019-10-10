@@ -1,5 +1,4 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
 import 'jest-styled-components';
 import TestRenderer from 'react-test-renderer';
@@ -69,41 +68,16 @@ describe('CheckboxGroup', () => {
 
   describe('onChange', () => {
     it('should be called', () => {
-      const onChange = jest.fn();
-      const wrapper = render({ onChange });
+      const fakeFunction = jest.fn();
+      const wrapper = render({}, {
+        onChange: fakeFunction
+      });
       const checkbox = wrapper.find(Checkbox).first();
 
-      act(() => {
-        checkbox.props().onChange({ target: checkbox.getDOMNode() });
-      });
+      checkbox.prop('onChange')();
 
-      expect(onChange).toHaveBeenCalled();
+      expect(fakeFunction).toBeCalledTimes(1);
     });
-
-    describe('when value is undefined', () => {
-      it('confirms that the isController is false', () => {
-        const wrapper = render({ value: undefined });
-        const checkboxGroup = wrapper.find(CheckboxGroup).first();
-        expect(checkboxGroup.props().value).toEqual(undefined);
-        expect(checkboxGroup.props().isControled).toEqual(undefined);
-      });
-    });
-
-    describe('when isControled is true', () => {
-      it('confirms that the isController is true', () => {
-        const onChange = jest.fn();
-        const wrapper = render({ value: 'one', onChange });
-        const checkboxGroup = wrapper.find(CheckboxGroup).first();
-        const checkbox = wrapper.find(Checkbox).first();
-
-        act(() => {
-          checkbox.props().onChange({ target: checkbox.getDOMNode() });
-        });
-
-        expect(onChange).toHaveBeenCalled();
-        expect(checkboxGroup.props().value).toEqual('one');
-      });
-    });  
   });
 
   describe('styles', () => {
@@ -138,6 +112,21 @@ describe('CheckboxGroup', () => {
           assertStyleMatch({
             border: `1px solid ${validationTypes[type].color}`
           }, checkboxWrapper, { modifier: 'svg' });
+        });
+      });
+
+      describe('pass validation props', () => {
+        const wrapper = render({}, { checked: true });
+
+        it('checked === false', () => {
+          wrapper.setProps({
+            hasError: true
+          });
+
+          const checkboxWrapper = wrapper.find(Checkbox).first();
+
+          expect(checkboxWrapper.prop('checked')).toBe(true);
+          expect(checkboxWrapper.prop('hasError')).toBeUndefined();
         });
       });
     });
