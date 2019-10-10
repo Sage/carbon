@@ -661,49 +661,6 @@ describe('TableRow', () => {
         );
       });
     });
-
-    describe('drop-target', () => {
-      it('renders the correct styles for a drop-target row for the Classic theme', () => {
-        wrapper = mount(<StyledTableRow theme={ ClassicTheme } isDraggedElementOver />);
-        assertStyleMatch(
-          { backgroundColor: '#E5EAEC' },
-          wrapper,
-          { modifier: `${StyledTableCell}` }
-        );
-      });
-
-      it('renders the correct styles for a drop-target row for the Modern theme', () => {
-        wrapper = mount(<StyledTableRow theme={ SmallTheme } isDraggedElementOver />);
-        assertStyleMatch(
-          {
-            backgroundColor: SmallTheme.table.dragging,
-            borderTop: `1px solid ${SmallTheme.table.header}`
-          },
-          wrapper,
-          { modifier: `${StyledTableCell}` }
-        );
-      });
-
-      describe('when isDraggedElementOver is true and inDeadZone is true', () => {
-        it('renders the correct styles for a drop-target row for the Modern theme', () => {
-          wrapper = mount(
-            <StyledTableRow
-              theme={ SmallTheme }
-              isDraggedElementOver
-              inDeadZone
-            />
-          );
-          assertStyleMatch(
-            {
-              backgroundColor: 'none',
-              borderTop: 'none'
-            },
-            wrapper,
-            { modifier: `${StyledTableCell}` }
-          );
-        });
-      });
-    });
   });
 });
 
