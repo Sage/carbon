@@ -6,7 +6,7 @@ import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-spec
 import AnimatedMenuButton from './animated-menu-button';
 import Row from 'components/row';
 import Button from 'components/button';
-import Pod from '../../__deprecated__/components/pod';
+import Pod from '../../components/pod';
 import Device from 'utils/helpers/devices';
 import Icon from 'components/icon';
 

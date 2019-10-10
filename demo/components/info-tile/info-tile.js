@@ -2,7 +2,7 @@ import css from 'utils/css';
 import React from 'react';
 
 // Carbon
-import Pod from '../../../src/__deprecated__/components/pod';
+import Pod from '../../../src/components/pod';
 import Portrait from 'components/portrait';
 import './info-tile.scss';
 

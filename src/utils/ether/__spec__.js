@@ -4,7 +4,7 @@ import {
 import React from 'react';
 import PropTypes from 'prop-types';
 import TestUtils from 'react-dom/test-utils';
-import Pod from '../../__deprecated__/components/pod';
+import Pod from '../../components/pod';
 
 describe('Ether', () => {
   let element;
@@ -56,9 +56,9 @@ describe('Ether', () => {
         foo: PropTypes.bool,
         bar: PropTypes.bool
       };
-      
+
       static safeProps = ['foo'];
-      
+
       render() {
         return <div />;
       }
