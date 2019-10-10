@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import { StyledCheckboxGroup } from './checkbox.style';
@@ -11,52 +11,22 @@ const CheckboxGroup = (props) => {
     groupName,
     hasError,
     hasWarning,
-    hasInfo,
-    onChange,
-    value
+    hasInfo
   } = props;
 
   const groupLabelId = `${groupName}-label`;
-  const isControled = value !== undefined;
-  const [checkedValues, setCheckedValues] = useState([]);
-
-  const onChangeProp = useCallback((e) => {
-    onChange(e);
-    if (!isControled) {
-      if (checkedValues.length) {
-        if (checkedValues.includes(e.target.value)) {
-          checkedValues.splice(checkedValues.indexOf(e.target.value), 1);
-          setCheckedValues([...checkedValues]);
-        } else {
-          setCheckedValues([...checkedValues, e.target.value]);
-        }
-      } else {
-        setCheckedValues([e.target.value]);
-      }
-    }
-  }, [onChange, checkedValues, setCheckedValues, isControled]);
 
   const buttons = React.Children.map(children, (child) => {
-    let checked;
-    if (isControled) {
-      // The user is controlling the input via the value prop
-      checked = value === child.props.value;
-    } else if (checkedValues.length && checkedValues.includes(child.props.value)) {
-      // Uncontrolled and the user has not made a selection, but at least one has a checked prop
-      // checked = child.props.checked || false;
-      checked = true;
-    } else {
-      // Uncontrolled, existing selection or none marked as checked
-      checked = checkedValues === child.props.value;
-    }
-
-    let childProps = {
-      checked,
-      inputName: groupName,
-      onChange: onChangeProp
+    const handleChange = (ev) => {
+      child.props.onChange(ev);
     };
 
-    if (!checked) {
+    let childProps = {
+      inputName: groupName,
+      onChange: handleChange
+    };
+
+    if (!child.props.checked) {
       childProps = {
         ...childProps,
         hasError,
@@ -75,7 +45,6 @@ const CheckboxGroup = (props) => {
       hasError={ hasError }
       hasWarning={ hasWarning }
       hasInfo={ hasInfo }
-      checkedValues={ checkedValues }
       { ...tagComponent('checkboxgroup', props) }
     >
       <FormField { ...props }>
@@ -95,9 +64,7 @@ CheckboxGroup.propTypes = {
   /** Prop to indicate that a warning has occurred */
   hasWarning: PropTypes.bool,
   /** Prop to indicate additional information  */
-  hasInfo: PropTypes.bool,
-  onChange: PropTypes.func,
-  value: PropTypes.string
+  hasInfo: PropTypes.bool
 };
 
 CheckboxGroup.defaultProps = {
