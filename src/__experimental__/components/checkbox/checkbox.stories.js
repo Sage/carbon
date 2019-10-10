@@ -75,7 +75,10 @@ const groupStore = new Store({
   value: '0',
   mandatory: false,
   alert: false,
-  example: false
+  example: false,
+  one: false,
+  two: false,
+  three: false
 });
 
 function defaultKnobs(type) {
@@ -207,6 +210,7 @@ const checkboxGroupComponent = () => (
           {groupCheckbox.map(id => (
             <Checkbox
               checked={ state[id] }
+              name={ `checkbox-input-${id}` }
               key={ `checkbox-input-${id}` }
               onChange={ ev => handleGroupChange(ev, id) }
               labelHelp={ text(`${Text.titleCase(id)} labelHelp`, '', `Checkbox ${id}`) }
