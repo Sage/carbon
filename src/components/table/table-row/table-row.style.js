@@ -114,10 +114,12 @@ function dragRowStyling({
 
   return css`
     ${StyledIcon} {
+      cursor: move;
       cursor: grab;
     }
 
     .custom-drag-layer && ${StyledIcon} {
+      cursor: move;
       cursor: grabbing;
     }
 
