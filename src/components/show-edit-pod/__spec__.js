@@ -7,7 +7,7 @@ import ShowEditPod from './show-edit-pod';
 import Form from '../../__deprecated__/components/form';
 import Link from '../link';
 import Textbox from '../../__deprecated__/components/textbox';
-import Pod from '../../__deprecated__/components/pod';
+import Pod from '../../components/pod';
 import Events from '../../utils/helpers/events';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
@@ -26,7 +26,7 @@ describe('ShowEditPod', () => {
 
     instance = TestUtils.renderIntoDocument(
       <ShowEditPod
-        afterFormValidation={ spy } 
+        afterFormValidation={ spy }
         onCancel={ cancelSpy }
         editFields={ editFields }
       />
@@ -34,9 +34,9 @@ describe('ShowEditPod', () => {
 
     externalInstance = TestUtils.renderIntoDocument(
       <ShowEditPod
-        afterFormValidation={ spy } 
+        afterFormValidation={ spy }
         onCancel={ cancelSpy }
-        editFields={ editFields } 
+        editFields={ editFields }
         editing={ false }
       />
     );
@@ -62,9 +62,9 @@ describe('ShowEditPod', () => {
       it('does not focus on the pod', () => {
         instance = TestUtils.renderIntoDocument(
           <ShowEditPod
-            afterFormValidation={ spy } 
+            afterFormValidation={ spy }
             onCancel={ cancelSpy }
-            editFields={ editFields } 
+            editFields={ editFields }
             editing={ false }
           />
         );
@@ -77,9 +77,9 @@ describe('ShowEditPod', () => {
       it('focuses on the pod', () => {
         instance = TestUtils.renderIntoDocument(
           <ShowEditPod
-            afterFormValidation={ spy } 
+            afterFormValidation={ spy }
             onCancel={ cancelSpy }
-            editFields={ editFields } 
+            editFields={ editFields }
             editing = { true }
           />
         );
@@ -110,8 +110,8 @@ describe('ShowEditPod', () => {
           const editSpy = jasmine.createSpy('editSpy');
 
           instance = TestUtils.renderIntoDocument(
-            <ShowEditPod 
-              onEdit={ editSpy } 
+            <ShowEditPod
+              onEdit={ editSpy }
             />
           );
           instance.onEdit();
@@ -249,9 +249,9 @@ describe('ShowEditPod', () => {
         const deleteSpy = jasmine.createSpy('delete');
 
         instance = TestUtils.renderIntoDocument(
-          <ShowEditPod 
-            onDelete={ deleteSpy } 
-            deleteText='foo' 
+          <ShowEditPod
+            onDelete={ deleteSpy }
+            deleteText='foo'
           />
         );
 
@@ -259,7 +259,7 @@ describe('ShowEditPod', () => {
         const deleteLink = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-show-edit-pod__delete');
         expect(deleteLink.textContent).toEqual('foo');
       });
-    });  
+    });
   });
 
   describe('editContent', () => {
@@ -279,9 +279,9 @@ describe('ShowEditPod', () => {
       beforeEach(() => {
         externalInstance = TestUtils.renderIntoDocument(
           <ShowEditPod
-            afterFormValidation={ spy } 
+            afterFormValidation={ spy }
             onCancel={ cancelSpy }
-            editFields={ editFields } 
+            editFields={ editFields }
             editing = { true }
           />
         );

@@ -2,12 +2,12 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import Pod from './pod';
 import notes from './notes.md';
-import OptionsHelper from '../../../utils/helpers/options-helper';
-import { StoryHeader, StoryCode } from '../../../../.storybook/style/storybook-info.styles';
-import getDocGenInfo from '../../../utils/helpers/docgen-info';
+import OptionsHelper from '../../utils/helpers/options-helper';
+import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Pod.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -83,6 +83,6 @@ function makeStory(name, themeSelector) {
   return [name, component, metadata];
 }
 
-storiesOf('__deprecated__/Pod', module)
+storiesOf('Pod', module)
   .add(...makeStory('default', dlsThemeSelector))
   .add(...makeStory('classic', classicThemeSelector));

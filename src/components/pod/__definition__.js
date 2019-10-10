@@ -1,6 +1,6 @@
 import Pod from './';
-import OptionsHelper from '../../../utils/helpers/options-helper';
-import Definition from '../../../../demo/utils/definition';
+import OptionsHelper from '../../utils/helpers/options-helper';
+import Definition from '../../../demo/utils/definition';
 
 let definition = new Definition('pod', Pod, {
   description: `A set of content that’s grouped together visually.`,
