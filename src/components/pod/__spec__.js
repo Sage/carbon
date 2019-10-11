@@ -1,10 +1,10 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Pod from './pod';
-import Button from '../../../components/button';
-import Link from '../../../components/link';
+import Button from '../button';
+import Link from '../link';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Pod', () => {
   let instance;

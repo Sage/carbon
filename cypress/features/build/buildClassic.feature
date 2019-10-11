@@ -62,6 +62,7 @@ Feature: Build tests for classic stories
       | navigation-bar       | navigation-bar       |
       | pager                | pager                |
       | pill                 | pill                 |
+      | pod                  | pod                  |
       | portrait             | portrait             |
       | preview              | preview              |
       | profile              | profile              |
@@ -93,7 +94,6 @@ Feature: Build tests for classic stories
       | form                 | form                |
       | groupedcharacter     | grouped-character   |
       | number-input         | number              |
-      | pod                  | pod                 |
       | radio-button         | radio-button        |
       | simplecolorpicker    | simple-color-picker |
       | switch               | checkbox            |
