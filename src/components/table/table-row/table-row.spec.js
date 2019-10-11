@@ -67,7 +67,7 @@ describe('TableRow', () => {
     describe('if highlightable via context', () => {
       describe('if no unique id', () => {
         it('throws error', () => {
-          const render = function() {
+          const render = function () {
             TestUtils.renderIntoDocument(<Table highlightable><TableRow /></Table>);
           };
           expect(render).toThrowError('A TableRow which is selectable or highlightable should provide a uniqueID.');
@@ -76,7 +76,7 @@ describe('TableRow', () => {
 
       describe('if unique id', () => {
         it('does not throw error', () => {
-          const render = function() {
+          const render = function () {
             TestUtils.renderIntoDocument(<Table highlightable><TableRow uniqueID='foo' /></Table>);
           };
           expect(render).not.toThrowError();
@@ -87,7 +87,7 @@ describe('TableRow', () => {
     describe('if selectable via context', () => {
       describe('if no unique id', () => {
         it('throws error', () => {
-          const render = function() {
+          const render = function () {
             TestUtils.renderIntoDocument(<Table selectable><TableRow /></Table>);
           };
           expect(render).toThrowError('A TableRow which is selectable or highlightable should provide a uniqueID.');
@@ -96,7 +96,7 @@ describe('TableRow', () => {
 
       describe('if unique id', () => {
         it('does not throw error', () => {
-          const render = function() {
+          const render = function () {
             TestUtils.renderIntoDocument(<Table selectable><TableRow uniqueID='foo' /></Table>);
           };
           expect(render).not.toThrowError();
@@ -106,7 +106,7 @@ describe('TableRow', () => {
 
     describe('if neither highlightable or selectable', () => {
       it('does not throw error', () => {
-        const render = function() {
+        const render = function () {
           TestUtils.renderIntoDocument(<Table><TableRow uniqueID='foo' /></Table>);
         };
         expect(render).not.toThrowError();
@@ -523,7 +523,7 @@ describe('TableRow', () => {
     describe('when a child is null', () => {
       it('does not render a null cell', () => {
         instance = TestUtils.renderIntoDocument(
-          <Table selectable><TableRow as='header' uniqueID='foo'><td />{ null }</TableRow></Table>
+          <Table selectable><TableRow as='header' uniqueID='foo'><td />{null}</TableRow></Table>
         );
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         const th = TestUtils.findRenderedComponentWithType(instance, TableHeader);
@@ -534,7 +534,7 @@ describe('TableRow', () => {
     describe('when a child of td is null', () => {
       it('does not render a null cell', () => {
         expect(() => shallow(
-          <Table selectable><TableRow as='header' uniqueID='foo'><td /><td>{ null }</td></TableRow></Table>
+          <Table selectable><TableRow as='header' uniqueID='foo'><td /><td>{null}</td></TableRow></Table>
         )).not.toThrow();
       });
     });
@@ -580,7 +580,7 @@ describe('TableRow', () => {
       it('throws an error if no index is provided', () => {
         expect(() => {
           mount(
-            <DraggableContext onDrag={ () => {} }>
+            <DraggableContext onDrag={ () => { } }>
               <Table>
                 <TableRow dragAndDropIdentifier='foo'>
                   <TableCell>foo</TableCell>
@@ -595,7 +595,10 @@ describe('TableRow', () => {
     describe('with drag and drop context', () => {
       beforeEach(() => {
         wrapper = mount(
-          <DraggableContext onDrag={ () => {} } canDrop={ () => { return true; } }>
+          <DraggableContext
+            onDrag={ () => { } }
+            canDrop={ () => { return true; } }
+          >
             <Table>
               <TableRow index={ 0 } dragAndDropIdentifier='foo'>
                 <TableCell>foo</TableCell>
@@ -603,6 +606,22 @@ describe('TableRow', () => {
             </Table>
           </DraggableContext>
         );
+      });
+
+      describe('when StyledTableRow get inDeadZone and isDragged props', () => {
+        it('should render correct background color', () => {
+          wrapper = mount(
+            <StyledTableRow
+              theme={ SmallTheme }
+              isDragged
+              inDeadZone
+            />
+          );
+
+          assertStyleMatch({
+            backgroundColor: `${SmallTheme.table.dragging}`
+          }, wrapper, { modifier: `${StyledTableCell}` });
+        });
       });
 
       it('renders a draggable cell', () => {
@@ -686,7 +705,7 @@ describe('TableRow', () => {
             <TableCell>
               <ActionPopover { ... { onOpen, onClose } }>
                 <ActionPopover.Item icon='email'>
-              Email Invoice
+                  Email Invoice
                 </ActionPopover.Item>
               </ActionPopover>
             </TableCell>
