@@ -40,12 +40,8 @@ const StyledHelp = styled.div`
       color: rgb(128, 153, 164);
     }
 
-    &:focus{
+    &:focus ${StyledIcon} {
       outline: none;
-
-      ::-moz-focus-inner{
-        border: 1px dotted black;
-      }
     }
   `}
 `;
