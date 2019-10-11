@@ -208,6 +208,7 @@ class SplitButton extends Component {
 
   componentWillUnmount() {
     document.removeEventListener(this.userInputType, this.handleClickOutside);
+    document.removeEventListener('keydown', this.handleKeyDown);
   }
 
   render() {
