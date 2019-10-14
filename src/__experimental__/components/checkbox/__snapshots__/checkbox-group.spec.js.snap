@@ -26,7 +26,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
   width: 100%;
 }
 
-.c4 .c15,
+.c4 .c16,
 .c4 .c17 {
   vertical-align: middle;
 }
@@ -53,16 +53,16 @@ exports[`CheckboxGroup renders as expected 1`] = `
   margin-top: -2px;
 }
 
-.c7 .c3 .c15,
+.c7 .c3 .c16,
 .c7 .c3 .c17 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c7 .c3 .c15:hover,
+.c7 .c3 .c16:hover,
 .c7 .c3 .c17:hover,
-.c7 .c3 .c15:focus,
+.c7 .c3 .c16:focus,
 .c7 .c3 .c17:focus {
   color: rgba(0,0,0,0.9);
 }
@@ -153,7 +153,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
   width: auto;
 }
 
-.c0 .c16::before {
+.c0 .c15::before {
   font-size: 16px;
 }
 
