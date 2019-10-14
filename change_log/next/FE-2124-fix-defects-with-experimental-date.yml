@@ -1,0 +1,1 @@
+Bug Fixes: "Fixes an issue that prevented the experimental `Date` component being controlled using the value prop (Component: Date)"
