@@ -19,8 +19,9 @@ class WithDrop extends React.Component {
     index: PropTypes.number.isRequired, // identifies the index for this item
     hover: PropTypes.func, // an optional callback to trigger when the item is hovered
     onDrag: PropTypes.func, // an optional callback to trigger when dragging occurs
-    canDrop: PropTypes.func // an optional callback to determine if this item can be dropped on
+    canDrop: PropTypes.func, // an optional callback to determine if this item can be dropped on
     /* eslint-enable react/no-unused-prop-types */
+    didDrop: PropTypes.func
   }
 
   static contextTypes = {
