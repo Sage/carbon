@@ -79,7 +79,7 @@ Given('I open {string} component page validations', (component) => {
   visitComponentUrl(component, 'validations');
 });
 
-Given('I open {string} component page validations', (component) => {
+Given('I open {string} component page validations classic', (component) => {
   visitComponentUrl(component, 'validations_classic');
 });
 
