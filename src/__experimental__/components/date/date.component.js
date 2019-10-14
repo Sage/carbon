@@ -46,6 +46,8 @@ class BaseDateInput extends React.Component {
 
   isOpening = false;
 
+  inputHasFocus = this.props.autoFocus || false
+
   state = {
     isDatePickerOpen: false,
     /** Date object to pass to the DatePicker */
@@ -65,6 +67,9 @@ class BaseDateInput extends React.Component {
     if (this.isBlurBlocked && this.hasValueChanged(prevProps)) {
       this.isBlurBlocked = false;
       this.handleBlur();
+    } else if (!this.inputHasFocus && this.hasValueChanged(prevProps)) {
+      this.updateVisibleValue(this.props.value);
+      this.updateSelectedDate(this.props.value);
     }
   }
 
@@ -77,6 +82,7 @@ class BaseDateInput extends React.Component {
   };
 
   handleBlur = (ev) => {
+    this.inputHasFocus = false;
     const { disabled, readOnly } = this.props;
 
     if (disabled || readOnly || this.isBlurBlocked) return;
@@ -87,6 +93,7 @@ class BaseDateInput extends React.Component {
   }
 
   handleFocus = (ev) => {
+    this.inputHasFocus = true;
     const { disabled, readOnly } = this.props;
 
     if (disabled || readOnly) return;
