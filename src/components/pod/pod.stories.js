@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
-import Pod from './pod';
+import Pod from './pod.component';
 import notes from './notes.md';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
