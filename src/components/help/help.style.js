@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import baseTheme from '../../style/themes/base';
+import StyledIcon from '../icon/icon.style';
 import { isClassic } from '../../utils/helpers/style-helper';
 
 const StyledHelp = styled.div`
@@ -27,12 +28,8 @@ const StyledHelp = styled.div`
     text-decoration: none;
   }
 
-  &:focus{
-    outline: 2px solid ${({ theme }) => theme.colors.focus};
-
-    ::-moz-focus-inner{
-      border: 0;
-    }
+  &:focus ${StyledIcon} {
+    outline: ${({ theme }) => `2px solid ${theme.colors.focus}`};
   }
 
   ${({ theme }) => isClassic(theme) && css`
@@ -43,12 +40,8 @@ const StyledHelp = styled.div`
       color: rgb(128, 153, 164);
     }
 
-    &:focus{
+    &:focus ${StyledIcon} {
       outline: none;
-
-      ::-moz-focus-inner{
-        border: 1px dotted black;
-      }
     }
   `}
 `;
