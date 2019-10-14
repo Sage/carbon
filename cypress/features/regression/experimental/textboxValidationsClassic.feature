@@ -4,7 +4,7 @@ Feature: Textbox validations component
     Background: Open Textbox validations classic component page
         Given I open "Experimental Textbox" component page validations classic
 
-    @positive
+    @positive @validations
     Scenario Outline: Verify the <state> validation of Textbox component
         Given Type "<keyWord>" text into input
             And I click outside of the component
