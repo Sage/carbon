@@ -43,16 +43,16 @@ exports[`Switch base theme renders as expected 1`] = `
   margin-top: -2px;
 }
 
-.c1 .c31 .c28,
+.c1 .c31 .c29,
 .c1 .c31 .c30 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c1 .c31 .c28:hover,
+.c1 .c31 .c29:hover,
 .c1 .c31 .c30:hover,
-.c1 .c31 .c28:focus,
+.c1 .c31 .c29:focus,
 .c1 .c31 .c30:focus {
   color: rgba(0,0,0,0.9);
 }
@@ -311,7 +311,7 @@ exports[`Switch base theme renders as expected 1`] = `
   outline: none;
 }
 
-.c21 .c4 .c29 {
+.c21 .c4 .c28 {
   top: 1px;
 }
 
@@ -349,7 +349,7 @@ exports[`Switch base theme renders as expected 1`] = `
   outline: none;
 }
 
-.c22 .c4 .c29 {
+.c22 .c4 .c28 {
   top: 1px;
 }
 
@@ -387,7 +387,7 @@ exports[`Switch base theme renders as expected 1`] = `
   outline: none;
 }
 
-.c23 .c4 .c29 {
+.c23 .c4 .c28 {
   top: 1px;
 }
 
@@ -432,7 +432,7 @@ exports[`Switch base theme renders as expected 1`] = `
   outline: none;
 }
 
-.c24 .c4 .c29 {
+.c24 .c4 .c28 {
   top: 1px;
 }
 
@@ -484,7 +484,7 @@ exports[`Switch base theme renders as expected 1`] = `
   outline: none;
 }
 
-.c25 .c4 .c29 {
+.c25 .c4 .c28 {
   top: 1px;
 }
 
@@ -536,7 +536,7 @@ exports[`Switch base theme renders as expected 1`] = `
   outline: none;
 }
 
-.c26 .c4 .c29 {
+.c26 .c4 .c28 {
   top: 1px;
 }
 
