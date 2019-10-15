@@ -39,15 +39,10 @@ function applyModernSelectedStyling({ table }) {
   `;
 }
 
-function applyModernDropTargetStyling(isDraggedElementOver, { table }, inDeadZone) {
-  const border = `1px solid ${isDraggedElementOver ? table.header : 'transparent'}`;
+function applyModernDropTargetStyling() {
+  const border = '1px solid transparent';
 
   return css`
-    ${isDraggedElementOver && !inDeadZone && `
-      background-color: ${table.dragging};
-      border-bottom:    ${border} !important;
-    `}
-
     border-top: ${border};
 
     &:first-child {
@@ -57,21 +52,6 @@ function applyModernDropTargetStyling(isDraggedElementOver, { table }, inDeadZon
     &:last-child {
       border-right: ${border};
     }
-
-    ${isDraggedElementOver && inDeadZone && `
-      background-color: none;
-      border-bottom: 1px solid ${table.selected} !important;
-
-      border-top: none;
-
-      &:first-child {
-        border-left: none;
-      }
-
-      &:last-child {
-        border-right: none;
-      }
-    `}
   `;
 }
 

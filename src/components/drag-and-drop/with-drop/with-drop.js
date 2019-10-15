@@ -19,8 +19,9 @@ class WithDrop extends React.Component {
     index: PropTypes.number.isRequired, // identifies the index for this item
     hover: PropTypes.func, // an optional callback to trigger when the item is hovered
     onDrag: PropTypes.func, // an optional callback to trigger when dragging occurs
-    canDrop: PropTypes.func // an optional callback to determine if this item can be dropped on
+    canDrop: PropTypes.func, // an optional callback to determine if this item can be dropped on
     /* eslint-enable react/no-unused-prop-types */
+    didDrop: PropTypes.func
   }
 
   static contextTypes = {
@@ -42,6 +43,10 @@ class WithDrop extends React.Component {
     if (this.props.isOver && !nextProps.isOver) {
       // Equivalent of `mouseout` / `mouseleave`
       this.setState({ isDraggedElementOver: false });
+    }
+
+    if (this.props.didDrop) {
+      this.setState({ inDeadZone: false });
     }
   }
 
@@ -82,7 +87,8 @@ const ItemTarget = {
 WithDrop = DropTarget( // eslint-disable-line no-class-assign
   ItemTypes.getItemType, ItemTarget, (connect, monitor) => ({
     isOver: monitor.isOver(),
-    connectDropTarget: connect.dropTarget()
+    connectDropTarget: connect.dropTarget(),
+    didDrop: monitor.didDrop()
   })
 )(WithDrop);
 
