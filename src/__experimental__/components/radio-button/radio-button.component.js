@@ -94,7 +94,7 @@ RadioButton.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesBinary),
   /** the value of the Radio Button, passed on form submit */
   value: PropTypes.string.isRequired,
-  children(props, propName, componentName) {
+  children: (props, propName, componentName) => {
     if (props[propName]) {
       return new Error(
         `Forbidden prop \`${propName}\` supplied to \`${componentName}\`. `
@@ -102,7 +102,7 @@ RadioButton.propTypes = {
           + 'You should probably use the label prop instead.'
       );
     }
-    return '';
+    return null;
   }
 };
 
