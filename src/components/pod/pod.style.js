@@ -10,6 +10,10 @@ const StyledPod = styled.div`
   display: flex;
   text-align: ${({ alignTitle }) => alignTitle};
   ${({ internalEditButton }) => internalEditButton && 'position: relative'};
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const blockBackgrounds = (podTheme, theme) => ({
@@ -23,17 +27,17 @@ const blockBackgrounds = (podTheme, theme) => ({
 const StyledBlock = styled.div`
   box-sizing: border-box;
   background-color: ${({ theme, podTheme }) => blockBackgrounds(podTheme, theme)};
+  ${({ podTheme }) => podTheme === 'tile' && 'box-shadow: 0 2px 3px 0 rgba(2, 18, 36, 0.2)'};
   border: 1px solid ${({ theme }) => theme.pod.border};
   ${({ noBorder }) => noBorder && 'border: none'};
   width: ${({ editable, fullWidth, internalEditButton }) => {
     return editable && (fullWidth || internalEditButton) ? '100%' : 'auto';
   }};
-  ${({ isHovered }) => isHovered && 'cursor: pointer'};
-  ${({ podTheme }) => podTheme === 'tile' && 'box-shadow: 0 2px 3px 0 rgba(2, 18, 36, 0.2)'};
+  ${({ contentTriggersEdit }) => contentTriggersEdit && 'cursor: pointer'};
   ${({
-    contentTriggersEdit, isHovered, theme, internalEditButton, podTheme
+    contentTriggersEdit, isHovered, isFocused, theme, internalEditButton, podTheme
   }) => {
-    if (isHovered) {
+    if (isHovered || isFocused) {
       if (internalEditButton) {
         return podTheme === 'tile' ? 'background-color: transparent' : '';
       }
@@ -54,9 +58,9 @@ const StyledBlock = styled.div`
 
   ${({
     isFocused, internalEditButton, contentTriggersEdit, noBorder, theme
-  }) => isFocused
+  }) => !isClassic(theme)
+    && isFocused
     && (!internalEditButton || contentTriggersEdit)
-    && !isClassic(theme)
     && css`
       outline: 3px solid ${theme.colors.focus};
       border: none;
@@ -142,6 +146,7 @@ const editBackgrounds = (podTheme, theme) => ({
 
 const StyledEditAction = styled(Link)`
 && {
+  cursor: pointer;
   background-color: ${({ theme, podTheme }) => editBackgrounds(podTheme, theme)};
   border: 1px solid ${({ theme }) => theme.pod.border};
   box-sizing: content-box;
@@ -165,7 +170,9 @@ const StyledEditAction = styled(Link)`
 
   ${({ displayOnlyOnHover, isHovered }) => displayOnlyOnHover && !isHovered && 'display: none'}
 
-  ${({ isHovered, theme, internalEditButton }) => isHovered
+  ${({
+    isHovered, isFocused, theme, internalEditButton
+  }) => (isHovered || isFocused)
     && !internalEditButton
     && css`
       background-color: ${theme.colors.primary};
