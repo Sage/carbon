@@ -93,7 +93,17 @@ RadioButton.propTypes = {
    */
   size: PropTypes.oneOf(OptionsHelper.sizesBinary),
   /** the value of the Radio Button, passed on form submit */
-  value: PropTypes.string.isRequired
+  value: PropTypes.string.isRequired,
+  children(props, propName, componentName) {
+    if (props[propName]) {
+      return new Error(
+        `Forbidden prop \`${propName}\` supplied to \`${componentName}\`. `
+          + 'This component is meant to be used as a self-closing tag. '
+          + 'You should probably use the label prop instead.'
+      );
+    }
+    return '';
+  }
 };
 
 RadioButton.defaultProps = {
