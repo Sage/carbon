@@ -119,7 +119,9 @@ class Pod extends React.Component {
   };
 
   state = {
-    collapsed: this.props.collapsed
+    isCollapsed: this.props.collapsed,
+    isHovered: false,
+    isFocused: false
   };
 
   // eslint-disable-next-line camelcase
@@ -132,37 +134,57 @@ class Pod extends React.Component {
     }
   }
 
+  toggleCollapse = () => {
+    this.setState(prevState => ({ isCollapsed: !prevState.isCollapsed }));
+  };
+
+  toggleHoverState = (val) => {
+    this.setState({ isHovered: val });
+  };
+
+  toggleFocusState = (val) => {
+    this.setState({ isFocused: val });
+  };
+
   podHeader() {
-    if (!this.props.title) {
+    const {
+      title, alignTitle, internalEditButton, padding, subtitle
+    } = this.props;
+
+    const { isCollapsed } = this.state;
+
+    if (!title) {
       return null;
     }
 
-    const isCollapsable = this.state.collapsed !== undefined;
+    const isCollapsable = isCollapsed !== undefined;
 
     return (
       <StyledHeader
-        alignTitle={ this.props.alignTitle }
-        internalEditButton={ this.props.internalEditButton }
-        padding={ this.props.padding }
-        isCollapsed={ this.state.collapsed }
+        alignTitle={ alignTitle }
+        internalEditButton={ internalEditButton }
+        padding={ padding }
+        isCollapsed={ isCollapsed }
         onClick={ isCollapsable && this.toggleCollapse }
       >
-        <StyledTitle data-element='title'>{this.props.title}</StyledTitle>
-        {this.props.subtitle && <StyledSubtitle data-element='subtitle'>{this.props.subtitle}</StyledSubtitle>}
-        {isCollapsable && <StyledArrow isCollapsed={ this.state.collapsed } />}
+        <StyledTitle data-element='title'>{title}</StyledTitle>
+        {subtitle && <StyledSubtitle data-element='subtitle'>{subtitle}</StyledSubtitle>}
+        {isCollapsable && <StyledArrow isCollapsed={ isCollapsed } />}
       </StyledHeader>
     );
   }
 
   podDescription() {
-    if (this.props.description) {
-      return <StyledDescription data-element='description'>{this.props.description}</StyledDescription>;
+    const { description } = this.props;
+
+    if (description) {
+      return <StyledDescription data-element='description'>{description}</StyledDescription>;
     }
     return null;
   }
 
   podContent() {
-    if (!this.state.collapsed) {
+    if (!this.state.isCollapsed) {
       return (
         <StyledCollapsibleContent>
           {this.podDescription()}
@@ -173,22 +195,17 @@ class Pod extends React.Component {
     return null;
   }
 
-  toggleCollapse = () => {
-    this.setState(prevState => ({ collapsed: !prevState.collapsed }));
-  };
-
   footer() {
-    const { footer, padding } = this.props;
+    const { footer, padding, as } = this.props;
 
-    if (!this.props.footer) {
+    if (!footer) {
       return null;
     }
 
     return (
       <StyledFooter
-        data-element='footer'
-        padding={ padding }
-        podTheme={ this.props.as }
+        data-element='footer' padding={ padding }
+        podTheme={ as }
       >
         {footer}
       </StyledFooter>
@@ -197,8 +214,16 @@ class Pod extends React.Component {
 
   edit() {
     const {
-      onEdit, internalEditButton, as, padding, border, displayEditButtonOnHover
+      onEdit,
+      internalEditButton,
+      as,
+      padding,
+      border,
+      displayEditButtonOnHover,
+      triggerEditOnContent
     } = this.props;
+
+    const { isFocused, isHovered } = this.state;
 
     if (!onEdit) {
       return null;
@@ -207,13 +232,13 @@ class Pod extends React.Component {
     return (
       <StyledEditContainer { ...this.hoverOverEditEvents() } internalEditButton={ internalEditButton }>
         <StyledEditAction
-          contentTriggersEdit={ this.props.triggerEditOnContent }
+          contentTriggersEdit={ triggerEditOnContent }
           data-element='edit'
           displayOnlyOnHover={ displayEditButtonOnHover }
           icon='edit'
           internalEditButton={ internalEditButton }
-          isFocused={ this.state.isFocused }
-          isHovered={ this.state.isHovered }
+          isFocused={ isFocused }
+          isHovered={ isHovered }
           noBorder={ !border }
           padding={ padding }
           podTheme={ as }
@@ -255,7 +280,8 @@ class Pod extends React.Component {
   }
 
   shouldContentHaveEditProps() {
-    return (this.props.triggerEditOnContent || this.props.displayEditButtonOnHover) && this.props.onEdit;
+    const { triggerEditOnContent, displayEditButtonOnHover, onEdit } = this.props;
+    return (triggerEditOnContent || displayEditButtonOnHover) && onEdit;
   }
 
   processPodEditEvent = (ev) => {
@@ -265,42 +291,37 @@ class Pod extends React.Component {
     }
   };
 
-  toggleHoverState = (val) => {
-    this.setState({ isHovered: val });
-  };
-
-  toggleFocusState = (val) => {
-    this.setState({ isFocused: val });
-    this.setState({ isHovered: val });
-  };
-
   render() {
     const { ...props } = validProps(this);
 
+    const {
+      as, border, editContentFullWidth, internalEditButton, onEdit, padding
+    } = this.props;
+
+    const { isFocused, isHovered } = this.state;
+
     return (
       <StyledPod
-        { ...props }
-        internalEditButton={ this.props.internalEditButton }
+        { ...props } internalEditButton={ internalEditButton }
         { ...tagComponent('pod', this.props) }
       >
         <StyledBlock
           contentTriggersEdit={ this.shouldContentHaveEditProps() }
-          editable={ this.props.onEdit }
-          fullWidth={ this.props.editContentFullWidth }
-          internalEditButton={ this.props.internalEditButton }
-          isFocused={ this.state.isFocused }
-          isHovered={ this.state.isHovered }
-          noBorder={ !this.props.border }
-          podTheme={ this.props.as }
+          editable={ onEdit }
+          fullWidth={ editContentFullWidth }
+          internalEditButton={ internalEditButton }
+          isFocused={ isFocused }
+          isHovered={ isHovered }
+          noBorder={ !border }
+          podTheme={ as }
           { ...(this.shouldContentHaveEditProps() ? this.hoverOverEditEvents() : {}) }
         >
-          <StyledContent data-element='content' padding={ this.props.padding }>
+          <StyledContent data-element='content' padding={ padding }>
             {this.podHeader()}
             {this.podContent()}
           </StyledContent>
           {this.footer()}
         </StyledBlock>
-
         {this.edit()}
       </StyledPod>
     );
