@@ -1,5 +1,5 @@
 Feature: Date Input validations classic component
-    I want to change Data Input validations classic component properties
+    I want to change Date Input validations classic component properties
 
     Background: Open Date Input validations classic component page
         Given I open "Experimental Date Input" component page validations classic
