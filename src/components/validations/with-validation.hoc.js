@@ -96,43 +96,49 @@ const withValidation = (WrappedComponent, defaultProps = {}) => {
       if (results.length === 0) {
         return true;
       }
-      const { pass: result, state } = results.reduce((acc, { pass, type, error }) => {
+
+      const { pass: result, state } = results.reduce((acc, validation) => {
+        const { pass, type, errorMessage } = validation;
+        const hasValidationPassed = acc.pass && pass;
+        const combinedState = { ...acc.state, ...this.getValidationStatus(type, errorMessage) };
+
         return {
-          ...acc,
-          ...(acc.pass && !pass && { pass }),
-          state: { ...acc.state, ...this.updateValidationStatus(type, error) }
+          pass: hasValidationPassed,
+          state: combinedState
         };
       }, { pass: true });
+
+      this.adjustAllCounts(results);
       this.setState(state);
+
       return result;
     }
 
-    updateValidationStatus(type, newMessage) {
+    getValidationStatus(type, newMessage) {
       if (type === 'error') {
-        return this.updateErrorStatus(newMessage);
+        return { errorMessage: newMessage };
       }
       if (type === 'warning') {
-        return this.updateWarningStatus(newMessage);
+        return { warningMessage: newMessage };
       }
-      return this.updateInfoStatus(newMessage);
-    }
-
-    updateErrorStatus(newMessage) {
-      this.adjustFormValidationCount('error', newMessage, this.state.errorMessage);
-      return { errorMessage: newMessage };
-    }
-
-    updateWarningStatus(newMessage) {
-      this.adjustFormValidationCount('warning', newMessage, this.state.warningMessage);
-      return { warningMessage: newMessage };
-    }
-
-    updateInfoStatus(newMessage) {
-      this.adjustFormValidationCount('info', newMessage, this.state.infoMessage);
       return { infoMessage: newMessage };
     }
 
-    adjustFormValidationCount(type, newMessage, hasExistingMessage) {
+    adjustAllCounts(validationResults) {
+      if (validationResults) {
+        validationResults.forEach(({ type, errorMessage }) => {
+          this.adjustFormValidationCount(type, errorMessage);
+        });
+      } else {
+        validationTypes.forEach((type) => {
+          this.adjustFormValidationCount(type);
+        });
+      }
+    }
+
+    adjustFormValidationCount(type, newMessage) {
+      const hasExistingMessage = this.hasExistingMessage(type);
+
       if (!this.context || !this.context.adjustCount) return;
 
       if (newMessage && !hasExistingMessage) {
@@ -142,20 +148,34 @@ const withValidation = (WrappedComponent, defaultProps = {}) => {
       }
     }
 
-    runValidation(type) {
-      const validationTypePropName = VALIDATION_TYPES[type];
-      if (typeof this.props[validationTypePropName] === 'undefined') return null;
-      if (Array.isArray(this.props[validationTypePropName]) && this.props[validationTypePropName].length === 0) {
-        return null;
+    hasExistingMessage(type) {
+      if (type === 'error') {
+        return !!this.state.errorMessage;
+      }
+      if (type === 'warning') {
+        return !!this.state.warningMessage;
       }
 
+      return !!this.state.infoMessage;
+    }
+
+    runValidation(type) {
+      const validationTypePropName = VALIDATION_TYPES[type];
+      const validationProp = this.props[validationTypePropName];
+
+      if (typeof validationProp === 'undefined') return null;
+
+      const isValidationPropEmpty = Array.isArray(validationProp) && validationProp.length === 0;
+
+      if (isValidationPropEmpty) return null;
+
       return new Promise((resolve) => {
-        validator(this.props[validationTypePropName])(this.props.value || this.state.value, this.props)
+        validator(validationProp)(this.props.value || this.state.value, this.props)
           .then(() => {
             return resolve({ pass: true, type });
           })
           .catch((error) => {
-            return resolve({ pass: false, type, error: error.message });
+            return resolve({ pass: false, type, errorMessage: error.message });
           });
       });
     }
@@ -207,11 +227,11 @@ const withValidation = (WrappedComponent, defaultProps = {}) => {
     }
 
     resetValidation() {
-      this.setState({
-        ...this.updateErrorStatus(),
-        ...this.updateWarningStatus(),
-        ...this.updateInfoStatus()
-      });
+      const cleanedValidationState = validationTypes.reduce((acc, validationType) => {
+        return { ...acc, ...this.getValidationStatus(validationType) };
+      }, {});
+      this.adjustAllCounts();
+      this.setState(cleanedValidationState);
     }
 
     updateFormState(value = this.state.value) {

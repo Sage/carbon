@@ -342,16 +342,6 @@ describe('when the withValidations HOC wraps a component', () => {
       expect(wrapper.instance().state.warningMessage).toEqual(undefined);
       expect(wrapper.instance().state.errorMessage).toEqual(undefined);
     });
-
-    it('does nothing when the validation status is already empty', () => {
-      wrapper.setState({ infoMessage: '', warningMessage: '', errorMessage: '' });
-      const spy = spyOn(wrapper.instance(), 'updateValidationStatus');
-      wrapper.instance().handleChange(mockEvent);
-      expect(wrapper.instance().state.infoMessage).toEqual(undefined);
-      expect(wrapper.instance().state.warningMessage).toEqual(undefined);
-      expect(wrapper.instance().state.errorMessage).toEqual(undefined);
-      expect(spy).not.toHaveBeenCalled();
-    });
   });
 
   describe('form state', () => {
