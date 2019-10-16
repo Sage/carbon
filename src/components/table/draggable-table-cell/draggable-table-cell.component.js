@@ -1,17 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ThemeContext } from 'styled-components';
 import WithDrag from '../../drag-and-drop/with-drag';
 import Icon from '../../icon';
-import TableCell from '../table-cell';
-
-const iconHTML = (
-  <div>
-    <Icon
-      className='draggable-table-cell__icon'
-      type='drag_vertical'
-    />
-  </div>
-);
+import { isClassic } from '../../../utils/helpers/style-helper';
+import StyledDraggableTableCell from './draggable-table-cell.style';
 
 /**
  * Creates a draggable table cell using WithDrag.
@@ -19,25 +12,41 @@ const iconHTML = (
  */
 const DraggableTableCell = (props) => {
   const canDrag = props.canDrag !== false;
+  const theme = React.useContext(ThemeContext) || props.theme;
 
+  /**
+   * Note: the <div> wrapper is required, otherwise ReactDnD throws an error:
+   * "Only native element nodes can now be passed to ReactDnD connectors."
+   */
   const icon = (
+    <div>
+      <Icon
+        type={ isClassic(theme) ? 'drag_vertical' : 'drag' }
+      />
+    </div>
+  );
+
+  const iconWithDrag = (
     <WithDrag
       identifier={ props.identifier }
       draggableNode={ props.draggableNode }
       canDrag={ () => { return canDrag; } }
     >
-      { canDrag ? iconHTML : <span /> }
+      {canDrag ? icon : <span />}
     </WithDrag>
   );
 
   return (
-    <TableCell className='draggable-table-cell'>
-      { icon }
-    </TableCell>
+    <StyledDraggableTableCell className='draggable-table-cell'>
+      {iconWithDrag}
+    </StyledDraggableTableCell>
   );
 };
 
 DraggableTableCell.propTypes = {
+  /** Theme to use when rendering the DraggableTableCell */
+  theme: PropTypes.object,
+
   /** used to associate WithDrags and WithDrops */
   identifier: PropTypes.string,
 

@@ -8,7 +8,7 @@ import {
   applyModernTableStyling,
   applyModernInternalStyling
 } from './table-modern.style.js';
-import tableRowStyling from './table-row/table-row.style';
+import StyledTableRow from './table-row/table-row.style';
 import StyledLink from '../link/link.style';
 import baseTheme from '../../style/themes/base';
 import { isClassic } from '../../utils/helpers/style-helper';
@@ -38,15 +38,13 @@ const StyledTable = styled.table`
     top: -99999px;
   }
 
-  .carbon-table-row:last-child ${StyledTableCell} {
+  ${StyledTableRow}:last-child ${StyledTableCell} {
     border-bottom-color: transparent;
   }
 
   ${({ paginate }) => {
     return paginate && applyPaginationStyle;
   }}
-
-  ${tableRowStyling}
 `;
 
 function applyPaginationStyle() {
@@ -87,12 +85,20 @@ export const StyledInternalTableWrapper = styled.div`
       &:hover {
         background-color: #19475A;
         color: ${theme.colors.white};
-      }
-  
-      :first-child {
-        height: 19px;
-        margin-right: -4px;
-        z-index: 3;
+        display: flex;
+        height: 100%;
+        justify-content: center;
+
+        &:hover {
+          background-color: #19475A;
+          color: ${theme.colors.white};
+        }
+    
+        &:first-child {
+          height: 19px;
+          margin-right: -4px;
+          z-index: 3;
+        }
       }
     }
   `}

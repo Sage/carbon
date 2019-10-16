@@ -31,7 +31,7 @@ exports[`TableHeader render renders the sort icon to match the snapshot 1`] = `
   background-color: #19475B;
 }
 
-.c1 .c3 {
+.c1 .c4 {
   color: #FFFFFF;
 }
 
@@ -54,19 +54,15 @@ exports[`TableHeader render renders the sort icon to match the snapshot 1`] = `
   width: 10px;
 }
 
-.c2.c2 .carbon-table-row .c4,
-.c2.c2 .carbon-table-row .c0 {
+.c2 .c0 {
+  padding: 10px 8px;
+}
+
+.c3 .c6 .c5,
+.c3 .c6 .c0 {
   font-size: 14px;
   padding-left: 11px;
   padding-right: 11px;
-}
-
-.c2 .carbon-table-row:first-child .c0:first-child {
-  border-radius: 0px 0 0 0;
-}
-
-.c2 .carbon-table-row:first-child .c0:last-child {
-  border-radius: 0 0px 0 0;
 }
 
 <th
