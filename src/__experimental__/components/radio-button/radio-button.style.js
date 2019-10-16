@@ -6,6 +6,8 @@ import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
 import LabelStyle from '../label/label.style';
 import ClassicRadioButtonStyles from './radio-button-classic.style';
+import Fieldset from '../fieldset';
+import { LegendStyle } from '../fieldset/fieldset.style';
 
 const RadioButtonStyle = styled(CheckboxStyle)`
   ${({
@@ -116,4 +118,13 @@ const StyledRadioButtonGroup = styled.div`
   }
 `;
 
-export { RadioButtonStyle, StyledRadioButtonGroup };
+const RadioFieldsetStyle = styled(Fieldset)`
+  ${LegendStyle} {
+    font-size: 14px;
+    line-height: 17px;
+    margin-bottom: 16px;
+    margin-left: -2px;
+  }
+`;
+
+export { RadioButtonStyle, StyledRadioButtonGroup, RadioFieldsetStyle };

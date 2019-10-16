@@ -4,9 +4,7 @@ import { mount, shallow } from 'enzyme';
 import 'jest-styled-components';
 import { css } from 'styled-components';
 import { RadioButton, RadioButtonGroup } from '.';
-import { StyledRadioButtonGroup } from './radio-button.style';
-import Label from '../label';
-import LabelStyle from '../label/label.style';
+import { LegendStyle } from '../fieldset/fieldset.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 
 const buttonValues = ['test-1', 'test-2'];
@@ -18,7 +16,7 @@ function render(renderer = TestRenderer.create) {
   return renderer(
     <RadioButtonGroup
       groupName={ groupName }
-      label='Test RadioButtonGroup Label'
+      legend='Test RadioButtonGroup Label'
     >
       {children}
     </RadioButtonGroup>
@@ -79,7 +77,7 @@ describe('RadioButtonGroup', () => {
           const radioGroup = shallow(
             <RadioButtonGroup
               groupName={ groupName }
-              label='Test RadioButtonGroup Label'
+              legend='Test RadioButtonGroup Label'
             >
               <RadioButton checked value='foo' />
             </RadioButtonGroup>
@@ -124,35 +122,20 @@ describe('RadioButtonGroup', () => {
         });
       });
     });
-
-    describe('group label', () => {
-      const expectedLabelId = `${groupName}-label`;
-
-      it('sets an appropriate label id (derived from groupname)', () => {
-        const label = wrapper.find(Label).first();
-
-        expect(label.props().id).toEqual(expectedLabelId);
-      });
-
-      it('sets the aria-labelledby attribute to the labelId', () => {
-        const buttonGroup = wrapper.find(StyledRadioButtonGroup).first();
-
-        expect(buttonGroup.props()['aria-labelledby']).toEqual(expectedLabelId);
-      });
-    });
   });
 
 
   describe('styles', () => {
-    it('applies the correct Label styles', () => {
+    it('applies the correct Legend styles', () => {
       assertStyleMatch(
         {
-          cursor: 'default',
+          fontSize: '14px',
+          lineHeight: '17px',
           marginBottom: '16px',
-          padding: '0'
+          marginLeft: '-2px'
         },
         render().toJSON(),
-        { modifier: css`${`> ${LabelStyle}`}` }
+        { modifier: css`${LegendStyle}` }
       );
     });
   });
