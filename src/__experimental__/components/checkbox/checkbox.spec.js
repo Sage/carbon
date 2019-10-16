@@ -97,7 +97,7 @@ describe('Checkbox', () => {
         const wrapper = render({ checked: true }).toJSON();
 
         assertStyleMatch({
-          fill: baseTheme.colors.primary
+          fill: baseTheme.checkable.checked
         }, wrapper, { modifier: 'svg path' });
       });
 
@@ -425,7 +425,7 @@ describe('Checkbox', () => {
         const wrapper = render({ theme: smallTheme, checked: true }).toJSON();
 
         assertStyleMatch({
-          fill: smallTheme.colors.primary
+          fill: smallTheme.checkable.checked
         }, wrapper, { modifier: 'svg path' });
       });
     });
@@ -435,7 +435,7 @@ describe('Checkbox', () => {
         const wrapper = render({ theme: mediumTheme, checked: true }).toJSON();
 
         assertStyleMatch({
-          fill: mediumTheme.colors.primary
+          fill: mediumTheme.checkable.checked
         }, wrapper, { modifier: 'svg path' });
       });
     });
@@ -445,7 +445,7 @@ describe('Checkbox', () => {
         const wrapper = render({ theme: largeTheme, checked: true }).toJSON();
 
         assertStyleMatch({
-          fill: largeTheme.colors.primary
+          fill: largeTheme.checkable.checked
         }, wrapper, { modifier: 'svg path' });
       });
     });
