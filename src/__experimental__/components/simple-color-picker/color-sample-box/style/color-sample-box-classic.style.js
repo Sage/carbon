@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
-import { THEMES } from '../../../../../style/themes';
+import { isClassic } from '../../../../../utils/helpers/style-helper';
 
-export default ({ theme }) => theme.name === THEMES.classic && css`
+export default ({ theme }) => isClassic(theme) && css`
   border: 1px solid transparent;
   ${({ color }) => (color === 'transparent' || color === 'none') && css`
     border-color: #b3c2c8;

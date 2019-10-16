@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from 'styled-components';
-import { THEMES } from '../../style/themes';
 import Toast from '../toast';
 import FlashLegacy from './flash-legacy.component';
 import baseTheme from '../../style/themes/base';
+import { isClassic } from '../../utils/helpers/style-helper';
 
 const Flash = (props) => {
-  if (props.theme.name === THEMES.classic) {
+  if (isClassic(props.theme)) {
     return (
       <FlashLegacy { ...props } />
     );

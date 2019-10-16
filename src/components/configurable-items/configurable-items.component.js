@@ -12,8 +12,8 @@ import {
   ConfigurableItemsButtonReset
 } from './configurable-items.style';
 import Form from '../../__deprecated__/components/form';
-import { THEMES } from '../../style/themes';
 import baseTheme from '../../style/themes/base';
+import { isClassic } from '../../utils/helpers/style-helper';
 
 
 class ConfigurableItems extends React.Component {
@@ -24,7 +24,7 @@ class ConfigurableItems extends React.Component {
 
   additionalActions = () => {
     if (!this.props.onReset) return null;
-    if (this.props.theme.name === THEMES.classic) {
+    if (isClassic(this.props.theme)) {
       return (
         <Button
           data-element='configurable-items-reset-button' buttonType='secondary'
@@ -63,7 +63,7 @@ class ConfigurableItems extends React.Component {
   }
 
   render() {
-    const saveText = this.props.theme.name === THEMES.classic ? 'Save' : 'Done';
+    const saveText = isClassic(this.props.theme) ? 'Save' : 'Done';
     return (
       <ConfigurableItemsStyle className={ this.classes } { ...tagComponent('configurable-items', this.props) }>
         <DraggableContext onDrag={ this.props.onDrag }>
@@ -71,7 +71,7 @@ class ConfigurableItems extends React.Component {
             leftAlignedActions={ this.additionalActions() }
             onSubmit={ this.props.onSave }
             onCancel={ this.props.onCancel }
-            cancel={ this.props.theme.name === THEMES.classic }
+            cancel={ isClassic(this.props.theme) }
             saveText={ saveText }
           >
             { this.rows() }

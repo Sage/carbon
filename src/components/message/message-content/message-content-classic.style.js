@@ -1,8 +1,8 @@
 import { css } from 'styled-components';
-import { THEMES } from '../../../style/themes';
 import classicThemeColors from '../message-classic-theme-colors';
+import { isClassic } from '../../../utils/helpers/style-helper';
 
-export default ({ theme, variant }) => theme.name === THEMES.classic && css`
+export default ({ theme, variant }) => isClassic(theme) && css`
      padding: 15px 20px;
 
     .carbon-content__title {
