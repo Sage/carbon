@@ -1,5 +1,5 @@
 Feature: Deprecated Form component
-  I want to change Form component properties
+  I want to change deprecated Form component properties
 
   Background: Open deprecated Form component page
     Given I open deprecated "Form" component page
