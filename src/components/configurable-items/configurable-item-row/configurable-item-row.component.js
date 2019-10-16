@@ -11,8 +11,8 @@ import {
   ConfigurableItemRowContentWrapperStyle,
   ConfigurableItemRowIconStyle
 } from './configurable-item-row.style';
-import { THEMES } from '../../../style/themes';
 import baseTheme from '../../../style/themes/base';
+import { isClassic } from '../../../utils/helpers/style-helper';
 
 class ConfigurableItemRow extends React.Component {
   static contextTypes = {
@@ -21,7 +21,7 @@ class ConfigurableItemRow extends React.Component {
   };
 
   checkbox(enabled, locked, name, onChange) {
-    if (this.props.theme.name === THEMES.classic) {
+    if (isClassic(this.props.theme)) {
       return (
         <CheckboxLegacy
           value={ enabled }

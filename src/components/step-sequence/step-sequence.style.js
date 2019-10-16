@@ -1,7 +1,7 @@
 
 import styled, { css } from 'styled-components';
-import { THEMES } from '../../style/themes';
 import StepSequenceClassicStyle from './step-sequence-classic.style';
+import { isClassic } from '../../utils/helpers/style-helper';
 
 const StepSequenceStyle = styled.ol`
   display: flex;
@@ -14,7 +14,7 @@ const StepSequenceStyle = styled.ol`
     padding: 0;
   `};
   
-  ${({ theme }) => theme.name === THEMES.classic && css`
+  ${({ theme }) => isClassic(theme) && css`
     ${StepSequenceClassicStyle}
   `};
 `;
