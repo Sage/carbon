@@ -45,7 +45,7 @@ export default {
   'pager':                require('components/pager/__definition__').default,
   'pages':                require('components/pages/__definition__').default,
   'pill':                 require('components/pill/__definition__').default,
-  'pod':                  require('__deprecated__/components/pod/__definition__').default,
+  'pod':                  require('components/pod/__definition__').default,
   'portrait':             require('components/portrait/__definition__').default,
   'preview':              require('components/preview/__definition__').default,
   'profile':              require('components/profile/__definition__').default,
