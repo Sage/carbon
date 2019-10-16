@@ -107,7 +107,7 @@ const CheckboxStyle = styled.div`
 
     ${checked && `
       svg path {
-        fill: ${theme.colors.primary};
+        fill: ${theme.checkable.checked};
       }
     `}
 
