@@ -81,7 +81,6 @@ describe('<FormSummary />', () => {
         margin: '-8px',
         whiteSpace: 'nowrap',
         padding: '8px',
-        borderRadius: '4px',
         backgroundColor: '#F2F4F5',
         marginLeft: '15px'
       }, wrapper.toJSON());

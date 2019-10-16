@@ -15,7 +15,6 @@ exports[`Form When child is an html element it renders the child 1`] = `
   margin: -8px;
   white-space: nowrap;
   padding: 8px;
-  border-radius: 4px;
 }
 
 .c5 {
