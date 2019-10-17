@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { UndecoratedCustomDragLayer, collect } from './custom-drag-layer';
+import StyledDragContainer from './custom-drag-layer.style';
 import CustomDragLayer from './custom-drag-layer';
 import DraggableContext from './../draggable-context';
 import Browser from './../../../utils/helpers/browser';
@@ -29,7 +30,7 @@ describe('CustomDragLayer', () => {
 
     it('transforms the component position by the currentOffset and creates the ghost layer', () => {
       expect(wrapper.instance()._container.appendChild).toHaveBeenCalledWith(clonedNode)
-      const container = wrapper.find('.custom-drag-layer__container');
+      const container = wrapper.find(StyledDragContainer);
       expect(container.length).toEqual(1);
       const style = container.props().style;
       expect(style.WebkitTransform).toEqual('translate(1px, 2px)');
@@ -52,7 +53,7 @@ describe('CustomDragLayer', () => {
 
     it('does not add the ghost layer', () => {
       expect(wrapper.getElement()._container).toBeUndefined();
-      const container = wrapper.find('.custom-drag-layer__container');
+      const container = wrapper.find(StyledDragContainer);
       expect(container.length).toEqual(1);
     });
   });
@@ -73,7 +74,7 @@ describe('CustomDragLayer', () => {
       wrapper.setProps({ draggableNode: newDraggableNode })
     })
     it('sets the cloned child width', () => {
-      const container = wrapper.find('.custom-drag-layer__container');
+      const container = wrapper.find(StyledDragContainer);
       expect(container.length).toEqual(1);
       const style = container.props().style
       expect(style.WebkitTransform).toEqual('translate(1px, 2px)');
@@ -137,7 +138,7 @@ describe('CustomDragLayer', () => {
     });
 
     it('sets container to display: none', () => {
-      const container = instance.find('.custom-drag-layer__container');
+      const container = instance.find(StyledDragContainer);
       expect(container.length).toEqual(1);
       const style = container.props().style;
       expect(style.display).toEqual('none');
@@ -155,7 +156,7 @@ describe('CustomDragLayer', () => {
     });
 
     it('does not set the width style', () => {
-      const container = wrapper.find('.custom-drag-layer__container');
+      const container = wrapper.find(StyledDragContainer);
       expect(container.length).toEqual(1);
       const style = container.props().style;
       expect(style.WebkitTransform).toEqual('translate(1px, 2px)');
@@ -176,7 +177,7 @@ describe('CustomDragLayer', () => {
     });
 
     it('hides the dragLayer component', () => {
-      const container = instance.find('.custom-drag-layer__container');
+      const container = instance.find(StyledDragContainer);
       expect(container.length).toEqual(1);
       const style = container.props().style;
       expect(style.display).toEqual('none');
