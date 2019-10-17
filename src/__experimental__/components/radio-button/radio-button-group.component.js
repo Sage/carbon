@@ -37,13 +37,8 @@ const RadioButtonGroup = (props) => {
   });
 
   return (
-    <RadioFieldsetStyle legend={ legend }>
-      <div
-        role='radiogroup'
-        { ...tagComponent('radiogroup', props) }
-      >
-        {buttons}
-      </div>
+    <RadioFieldsetStyle legend={ legend } { ...tagComponent('radiogroup', props) }>
+      {buttons}
     </RadioFieldsetStyle>
   );
 };
