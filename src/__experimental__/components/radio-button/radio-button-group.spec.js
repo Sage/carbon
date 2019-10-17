@@ -16,7 +16,7 @@ function render(renderer = TestRenderer.create) {
   return renderer(
     <RadioButtonGroup
       groupName={ groupName }
-      legend='Test RadioButtonGroup Label'
+      legend='Test RadioButtonGroup Legend'
     >
       {children}
     </RadioButtonGroup>
@@ -77,7 +77,7 @@ describe('RadioButtonGroup', () => {
           const radioGroup = shallow(
             <RadioButtonGroup
               groupName={ groupName }
-              legend='Test RadioButtonGroup Label'
+              legend='Test RadioButtonGroup Legend'
             >
               <RadioButton checked value='foo' />
             </RadioButtonGroup>
