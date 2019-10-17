@@ -1,9 +1,7 @@
 import {
   dateInput, dayPickerDay, minDate, maxDate,
 } from '../../locators/date-input/index';
-import { labelPreview } from '../../locators';
 
-const TEXT_ALIGN = 'text-align';
 const DAY_PICKER_PREFIX = 'DayPicker-Day--';
 const TODAY_CALENDAR = Cypress.moment().format('ddd MMM D, YYYY');
 const YESTERDAY_CALENDAR = Cypress.moment().subtract(1, 'days').format('ddd MMM D, YYYY');
@@ -31,8 +29,20 @@ Then('Date input component is not readOnly', () => {
     .should('not.have.attr', 'readonly');
 });
 
-Then('label is set to inline', () => {
-  labelPreview().should('have.css', TEXT_ALIGN, 'left');
+Then('Date input is disabled for deprecated component', () => {
+  dateInput().should('have.attr', 'disabled');
+});
+
+Then('Date input is enabled for deprecated component', () => {
+  dateInput().should('not.have.attr', 'disabled');
+});
+
+Then('Date input component is readOnly for deprecated component', () => {
+  dateInput().should('have.attr', 'readonly');
+});
+
+Then('Date input component is not readOnly for deprecated component', () => {
+  dateInput().should('not.have.attr', 'readonly');
 });
 
 When('I set minDate to today', () => {

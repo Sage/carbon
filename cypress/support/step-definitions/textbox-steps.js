@@ -1,5 +1,5 @@
-import { textbox } from '../../locators/textbox';
-import { label } from '../../locators';
+import { textbox, textboxDataComponent } from '../../locators/textbox';
+import { label, commonDataElementInputPreview } from '../../locators';
 
 const TEXT_ALIGN = 'text-align';
 
@@ -48,8 +48,18 @@ When('I input {string} into Textbox', (text) => {
   textbox().children().clear().type(text);
 });
 
+When('I input {string} into Textbox for deprecated component', (text) => {
+  commonDataElementInputPreview().clear().type(text);
+});
+
 Then('Textbox input on preview is set to {string}', () => {
   textbox().children().invoke('text').then(((text) => {
+    expect(text.trim()).to.eq(text);
+  }));
+});
+
+Then('Textbox input on preview is set to {string} for deprecated component', () => {
+  textboxDataComponent().children().invoke('text').then(((text) => {
     expect(text.trim()).to.eq(text);
   }));
 });

@@ -1,7 +1,7 @@
 import {
   INPUT_WIDTH_SLIDER, LABEL_WIDTH_SLIDER, HELP_ICON_PREVIEW, FIELD_HELP_PREVIEW, TOOLTIP_PREVIEW,
   FORM, STORY_ROOT, CLOSE_ICON_BUTTON, BACKGROUND_UI_LOCATOR, LINK, ICON, INPUT_WIDTH_PREVIEW,
-  COMMMON_DATA_ELEMENT_INPUT, LABEL, RERUN_TESTS_BUTTON,
+  COMMMON_DATA_ELEMENT_INPUT, LABEL, RERUN_TESTS_BUTTON, PRECISION_SLIDER, CHARACTER_LIMIT,
 } from './locators';
 
 // actions locators
@@ -19,6 +19,8 @@ export const accessibilityTab = () => cy.get(FORM).find('button').contains('Acce
 export const eventInAction = event => cy.get(FORM).find('span').contains(event);
 export const inputWidthSlider = () => cy.get(INPUT_WIDTH_SLIDER);
 export const labelWidthSlider = () => cy.get(LABEL_WIDTH_SLIDER);
+export const precisionSlider = () => cy.get(PRECISION_SLIDER);
+export const characterLimitSlider = () => cy.get(CHARACTER_LIMIT);
 
 // component preview locators
 export const storyRoot = () => cy.iFrame(STORY_ROOT);
