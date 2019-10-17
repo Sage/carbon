@@ -1,10 +1,11 @@
-Feature: GroupedCharacter component
-  I want to change Grouped character component properties
+Feature: Deprecated GroupedCharacter component
+  I want to change deprecated Grouped character component properties
 
   Background: Open deprecated GroupedCharacter component page
     Given I open deprecated "GroupedCharacter" component page
 
   @positive
+  @deprecated
   Scenario Outline: Set input width to <inputWidth>
     When I set inputWidth to "<inputWidth>"
     Then inputWidth is set to "<inputWidth>"
@@ -16,6 +17,7 @@ Feature: GroupedCharacter component
       | 100        |
 
   @negative
+  @deprecated
   Scenario Outline: Set input width out of scope to <inputWidth>
     When I set inputWidth to "<inputWidth>"
     Then inputWidth is not set
@@ -28,6 +30,7 @@ Feature: GroupedCharacter component
       | <>                      |
 
   @positive
+  @deprecated
   Scenario Outline: Set separator to <separator>
     When I set separator to "<separator>"
       And I put "<text>" example grouped character
@@ -45,6 +48,7 @@ Feature: GroupedCharacter component
       | *         | 123456 | 12*34*56 |
 
   @positive
+  @deprecated
   Scenario Outline: Verify default separator while <text> the separator should be <result>
     When I put "<text>" example grouped character
     Then example grouped character is "<result>"
@@ -54,6 +58,7 @@ Feature: GroupedCharacter component
       | abcdef | ab-cd-ef |
 
   @positive
+  @deprecated
   Scenario Outline: Set label to <label>
     When I set label to "<label>"
     Then label on preview is "<label>"
@@ -67,17 +72,20 @@ Feature: GroupedCharacter component
       | <>                      |
 
   @positive
+  @deprecated
   Scenario: Enable label inline
     When I check labelInline checkbox
     Then GroupedCharacter labelInline is enabled
 
   @positive
+  @deprecated
   Scenario: Disable label inline
     When I check labelInline checkbox
       And I uncheck labelInline checkbox
     Then GroupedCharacter labelInline is disabled
 
   @positive
+  @deprecated
   Scenario Outline: Set label width <labelWidth>
     When I check labelInline checkbox
       And I set labelWidth to "<labelWidth>"
@@ -90,6 +98,7 @@ Feature: GroupedCharacter component
       | 100        |
 
   @positive
+  @deprecated
   Scenario Outline: Set label align to <labelAlign>
     When I check labelInline checkbox
       And I select labelAlign to "<labelAlign>"
@@ -100,6 +109,7 @@ Feature: GroupedCharacter component
       | left       |
 
   @positive
+  @deprecated
   Scenario Outline: Change labelHelp text to <labelHelp>
     When I set labelHelp to "<labelHelp>"
       And I hover mouse onto help icon
@@ -114,6 +124,7 @@ Feature: GroupedCharacter component
       | <>                      |
 
   @positive
+  @deprecated
   Scenario Outline: Change fieldHelp text to <fieldHelp>
     When I set fieldHelp to "<fieldHelp>"
     Then fieldHelp on preview is set to "<fieldHelp>"

@@ -1,6 +1,8 @@
 // knobs locators
 export const INPUT_WIDTH_SLIDER = 'input[name="inputWidth"]';
 export const LABEL_WIDTH_SLIDER = 'input[name="labelWidth"]';
+export const PRECISION_SLIDER = 'input[name="precision"]';
+export const CHARACTER_LIMIT = 'input[name="characterLimit"]';
 export const FORM = '#storybook-panel-root';
 export const CLOSE_ICON_BUTTON = 'span[data-element="close"]';
 

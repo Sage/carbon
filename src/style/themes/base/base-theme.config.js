@@ -94,7 +94,8 @@ export default (palette) => {
       header: palette.slateTint(20),
       hover: palette.slateTint(90),
       selected: palette.slateTint(85),
-      zebra: palette.slateTint(98)
+      zebra: palette.slateTint(98),
+      dragging: palette.slateTint(90)
     },
 
     pager: {
