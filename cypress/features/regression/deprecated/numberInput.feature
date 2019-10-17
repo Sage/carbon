@@ -1,10 +1,11 @@
-Feature: Number Input component
-  I want to change Number Input component properties
+Feature: Deprecated Number Input component
+  I want to change deprecated Number Input component properties
 
   Background: Open deprecated Number Input component page
     Given I open deprecated "Number Input" component page
 
   @positive
+  @deprecated
   Scenario Outline: Set input width to <inputWidth>
     When I set inputWidth to "<inputWidth>"
     Then inputWidth is set to "<inputWidth>"
@@ -16,6 +17,7 @@ Feature: Number Input component
       | 100        |
 
   @negative
+  @deprecated
   Scenario Outline: Set input width out of scope to <inputWidth>
     When I set inputWidth to "<inputWidth>"
     Then inputWidth is not set
@@ -34,6 +36,7 @@ Feature: Number Input component
     Then component disappears after "<timeToDisappear>"
 
   @positive
+  @deprecated
   Scenario Outline: Change field help text to <fieldHelp>
     When I set fieldHelp to "<fieldHelp>"
     Then fieldHelp on preview is set to "<fieldHelp>"
@@ -44,8 +47,8 @@ Feature: Number Input component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                       |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @ignore
   # not working on storybook neither carbon demo site
@@ -61,6 +64,7 @@ Feature: Number Input component
     Then fieldHelpInline is disabled
 
   @positive
+  @deprecated
   Scenario Outline: Set label to <label>
     When I set label to "<label>"
     Then label on preview is "<label>"
@@ -71,21 +75,24 @@ Feature: Number Input component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                       |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
+  @deprecated
   Scenario: Enable label inline
     When I check labelInline checkbox
     Then NumberInput labelInline is enabled
 
   @positive
+  @deprecated
   Scenario: Disable label inline
     When I check labelInline checkbox
       And I uncheck labelInline checkbox
     Then NumberInput labelInline is disabled
 
   @positive
+  @deprecated
   Scenario Outline: Set label width to <labelWidth>
     When I check labelInline checkbox
       And I set labelWidth to "<labelWidth>"
@@ -98,6 +105,7 @@ Feature: Number Input component
       | 100        |
 
   @positive
+  @deprecated
   Scenario Outline: Set label align to <labelAlign>
     When I check labelInline checkbox
       And I select labelAlign to "<labelAlign>"
@@ -107,6 +115,8 @@ Feature: Number Input component
       | right      |
       | left       |
 
+  @positive
+  @deprecated
   Scenario Outline: Change label help text to <labelHelp>
     When I set LabelHelp to "<labelHelp>"
       And I hover mouse onto help icon
@@ -118,5 +128,5 @@ Feature: Number Input component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                       |
+# @ignore because of FE-1447
+# | <>                       |

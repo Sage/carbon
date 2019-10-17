@@ -1,5 +1,7 @@
 import { css } from 'styled-components';
 import StyledTableHeader from './table-header/table-header.style';
+import StyledTableRow from './table-row/table-row.style';
+import StyledTableCell from './table-cell/table-cell.style';
 
 function applyClassicInternalStyling() {
   return css`
@@ -30,6 +32,16 @@ function applyClassicTableStyling(props) {
           color: #003349;
         }
       }
+
+      ${StyledTableRow} {        
+        ${StyledTableCell} {
+          background-color: #ffffff;
+        }
+
+        &:hover ${StyledTableCell} {
+          background-color: #E7F1FC;
+        }
+      } 
     `}
   `;
 }

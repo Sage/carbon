@@ -1,10 +1,11 @@
-Feature: Simple Color Picker component
-  I want to test Simple Color Picker component
+Feature: Deprecated Simple Color Picker component
+  I want to test deprecated Simple Color Picker component
 
   Background: Open deprecated Simple Color Picker component page
     Given I open deprecated "SimpleColorPicker" component page
 
   @positive
+  @deprecated
   Scenario Outline: Change Simple Color Picker name to <name>
     When I set name to "<name>"
     Then Simple Color Picker name on preview is set to "<name>"
@@ -31,6 +32,7 @@ Feature: Simple Color Picker component
       | #7DBE27,#273B0C,#00FF0080     | rgb(125, 190, 39);rgb(39, 59, 12);rgba(0, 255, 0, 0.5)                     |
 
   @positive
+  @deprecated
   Scenario Outline: Change Simple Color Picker availableColors to <availableColors> and check the length of elements
     When I set availableColors to "<availableColors>"
     Then Simple Color Picker availableColors on preview is set to "<length>"
@@ -41,6 +43,7 @@ Feature: Simple Color Picker component
       | #AAAAAA,#255BC7,#ED1C5F | 3      |
 
   @positive
+  @deprecated
   Scenario Outline: Check the Simple Color Picker <position> element was selected
     When clear all actions in Actions Tab
       And I pick <position> color
