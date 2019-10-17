@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import SwitchStyle from './switch.style';
@@ -8,20 +8,35 @@ import { isClassic } from '../../../utils/helpers/style-helper';
 import withValidation from '../../../components/validations/with-validation.hoc';
 
 const Switch = ({
-  id, label, onChange, value, hasError, hasWarning, hasInfo, ...props
+  id, label, onChange, value, checked, hasError, hasWarning, hasInfo, ...props
 }) => {
   const classicDisabled = props.theme && isClassic(props.theme) && props.loading;
+
+  const [isChecked, setIsChecked] = useState(checked || false);
+
+  useLayoutEffect(() => {
+    if (checked !== undefined && checked !== isChecked) {
+      setIsChecked(checked);
+    }
+  }, [checked]);
+
+  const onChangeInternal = (e) => {
+    setIsChecked(e.target.checked);
+    onChange(e);
+  };
 
   const switchProps = {
     disabled: props.disabled || classicDisabled,
     hasError,
     hasWarning,
     hasInfo,
+    checked: isChecked,
     ...props
   };
 
   const inputProps = {
     ...switchProps,
+    onChange: onChangeInternal,
     disabled: props.disabled || classicDisabled,
     inputId: id,
     inputLabel: label,
@@ -37,10 +52,7 @@ const Switch = ({
       { ...tagComponent('Switch', props) }
       { ...switchProps }
     >
-      <CheckableInput
-        { ...inputProps }
-        onChange={ onChange }
-      >
+      <CheckableInput { ...inputProps }>
         <SwitchSlider { ...switchProps } />
       </CheckableInput>
     </SwitchStyle>
