@@ -14,7 +14,7 @@ const Help = (props) => {
     href,
     helpId,
     children,
-    tabIndexOverride,
+    tabIndex,
     as,
     tooltipPosition,
     tooltipAlign
@@ -61,7 +61,7 @@ const Help = (props) => {
       onFocus={ handleFocusBlur(true) }
       onBlur={ handleFocusBlur(false) }
       { ...tagComponent('help', props) }
-      tabIndex={ tabIndexOverride }
+      tabIndex={ tabIndex }
       value={ children }
       aria-label={ children }
     >
@@ -84,7 +84,7 @@ Help.propTypes = {
   /** The unique id of the component (used with aria-describedby for accessibility) */
   helpId: PropTypes.string,
   /** Overrides the default tabindex of the component */
-  tabIndexOverride: PropTypes.number,
+  tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Overrides the default 'as' attribute of the Help component */
   as: PropTypes.string,
   /** Position of tooltip relative to target */
@@ -98,7 +98,7 @@ Help.propTypes = {
 Help.defaultProps = {
   tooltipPosition: 'top',
   tooltipAlign: 'center',
-  tabIndexOverride: 0
+  tabIndex: 0
 };
 
 export default Help;

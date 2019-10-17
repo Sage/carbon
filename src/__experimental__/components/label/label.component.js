@@ -39,7 +39,7 @@ const Label = (props) => {
           iconId={ helpId }
           type={ getValidationType(props) }
           tooltipMessage={ tooltipMessage }
-          tabIndexOverride={ helpTabIndex }
+          tabIndex={ helpTabIndex }
         />
       );
     }
