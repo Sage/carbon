@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
-import { StyledRadioButtonGroup, RadioFieldsetStyle } from './radio-button.style';
+import { RadioFieldsetStyle } from './radio-button.style';
 
 function initialTabIndex(childIndex) {
   return (childIndex > 0) ? -1 : 0;
@@ -38,12 +38,12 @@ const RadioButtonGroup = (props) => {
 
   return (
     <RadioFieldsetStyle legend={ legend }>
-      <StyledRadioButtonGroup
+      <div
         role='radiogroup'
         { ...tagComponent('radiogroup', props) }
       >
         {buttons}
-      </StyledRadioButtonGroup>
+      </div>
     </RadioFieldsetStyle>
   );
 };
@@ -53,7 +53,7 @@ RadioButtonGroup.propTypes = {
   children: PropTypes.node.isRequired,
   /** Specifies the name prop to be applied to each button in the group */
   groupName: PropTypes.string.isRequired,
-  /** The content for the RadioGroup Label */
+  /** The content for the RadioGroup Legend */
   legend: PropTypes.string.isRequired
 };
 

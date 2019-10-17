@@ -110,14 +110,6 @@ const RadioButtonStyle = styled(CheckboxStyle)`
   `}
 `;
 
-const StyledRadioButtonGroup = styled.div`
-  & > ${LabelStyle} {
-    cursor: default ;
-    margin-bottom: 16px;
-    padding: 0;
-  }
-`;
-
 const RadioFieldsetStyle = styled(Fieldset)`
   ${LegendStyle} {
     font-size: 14px;
@@ -127,4 +119,4 @@ const RadioFieldsetStyle = styled(Fieldset)`
   }
 `;
 
-export { RadioButtonStyle, StyledRadioButtonGroup, RadioFieldsetStyle };
+export { RadioButtonStyle, RadioFieldsetStyle };
