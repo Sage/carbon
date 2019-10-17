@@ -3,7 +3,7 @@ import { act } from 'react-dom/test-utils';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { css } from 'styled-components';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import text from '../../../utils/helpers/text/text';
 import Switch from '.';
 import CheckableInput from '../checkable-input';
