@@ -18,7 +18,7 @@ const info = (
 
     <p>To render the button group:</p>
     <StoryCodeBlock>
-      {'<RadioButtonGroup groupName="frequency" label="Please select a frequency from the options below">'}
+      {'<RadioButtonGroup groupName="frequency" legend="Please select a frequency from the options below">'}
       {'  <RadioButton value="weekly" label="Weekly"/>'}
       {'  <RadioButton value="monthly" label="Monthly"/>'}
       {'  <RadioButton value="annually" label="Annually"/>'}

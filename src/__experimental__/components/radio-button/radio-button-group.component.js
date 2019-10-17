@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
-import Label from '../label';
-import { StyledRadioButtonGroup } from './radio-button.style';
+import { RadioFieldsetStyle } from './radio-button.style';
 
 function initialTabIndex(childIndex) {
   return (childIndex > 0) ? -1 : 0;
@@ -13,10 +12,8 @@ function checkedTabIndex(checked) {
 }
 
 const RadioButtonGroup = (props) => {
-  const { children, groupName, label } = props;
+  const { children, groupName, legend } = props;
   const [selectedValue, setSelectedValue] = useState(null);
-
-  const groupLabelId = `${groupName}-label`;
 
   const buttons = React.Children.map(children, (child, index) => {
     const isDefaultChecked = child.props.checked && !selectedValue;
@@ -39,18 +36,10 @@ const RadioButtonGroup = (props) => {
     );
   });
 
-
   return (
-    <StyledRadioButtonGroup
-      aria-labelledby={ groupLabelId }
-      role='radiogroup'
-      { ...tagComponent('radiogroup', props) }
-    >
-      <Label id={ groupLabelId }>
-        {label}
-      </Label>
+    <RadioFieldsetStyle legend={ legend } { ...tagComponent('radiogroup', props) }>
       {buttons}
-    </StyledRadioButtonGroup>
+    </RadioFieldsetStyle>
   );
 };
 
@@ -59,8 +48,8 @@ RadioButtonGroup.propTypes = {
   children: PropTypes.node.isRequired,
   /** Specifies the name prop to be applied to each button in the group */
   groupName: PropTypes.string.isRequired,
-  /** The content for the RadioGroup Label */
-  label: PropTypes.string.isRequired
+  /** The content for the RadioGroup Legend */
+  legend: PropTypes.string.isRequired
 };
 
 export default RadioButtonGroup;
