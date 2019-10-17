@@ -35,8 +35,32 @@ function render(props, renderer = TestRenderer.create) {
 }
 
 describe('Switch', () => {
-  describe('controllable behaviour', () => {
+  describe('uncontrolled behaviour', () => {
     it('sets proper default internal state', () => {
+      const wrapper = render({ defaultChecked: true }, mount);
+      expect(wrapper.find(CheckableInput).prop('checked')).toBe(true);
+    });
+
+    it('changes internal state and passess event to the provided onChange prop when change is triggered', () => {
+      const onChangeMock = jest.fn();
+      const event = {
+        target: {
+          checked: true,
+          name: 'some_name'
+        }
+      };
+      const wrapper = render({ onChange: onChangeMock }, mount);
+      act(() => {
+        wrapper.find(CheckableInput).prop('onChange')(event);
+      });
+      expect(onChangeMock).toHaveBeenCalledWith(event);
+      wrapper.update();
+      expect(wrapper.find(CheckableInput).prop('checked')).toBe(true);
+    });
+  });
+
+  describe('controlled behaviour', () => {
+    it('passes checked value to the CheckableInput', () => {
       const wrapper = render({ checked: true }, mount);
       expect(wrapper.find(CheckableInput).prop('checked')).toBe(true);
     });
@@ -51,7 +75,7 @@ describe('Switch', () => {
       expect(wrapper.find(CheckableInput).prop('checked')).toBe(false);
     });
 
-    it('changes internal state and passess event to the provided onChange prop when change is triggered', () => {
+    it('passess event to the provided onChange prop when change is triggered', () => {
       const onChangeMock = jest.fn();
       const event = {
         target: {
@@ -64,8 +88,6 @@ describe('Switch', () => {
         wrapper.find(CheckableInput).prop('onChange')(event);
       });
       expect(onChangeMock).toHaveBeenCalledWith(event);
-      wrapper.update();
-      expect(wrapper.find(CheckableInput).prop('checked')).toBe(true);
     });
   });
 
