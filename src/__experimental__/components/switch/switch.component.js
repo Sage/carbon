@@ -4,7 +4,6 @@ import tagComponent from '../../../utils/helpers/tags';
 import SwitchStyle from './switch.style';
 import CheckableInput from '../checkable-input';
 import SwitchSlider from './switch-slider.component';
-import { isClassic } from '../../../utils/helpers/style-helper';
 import withValidation from '../../../components/validations/with-validation.hoc';
 
 const Switch = ({
@@ -22,8 +21,6 @@ const Switch = ({
   theme,
   ...props
 }) => {
-  const classicDisabled = theme && isClassic(theme) && loading;
-
   const isControlled = checked !== undefined;
 
   const [checkedInternal, setCheckedInternal] = useState(defaultChecked || false);
@@ -34,7 +31,7 @@ const Switch = ({
   };
 
   const switchProps = {
-    disabled: disabled || classicDisabled,
+    disabled: disabled || loading,
     hasError,
     hasWarning,
     hasInfo,
