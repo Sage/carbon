@@ -14,7 +14,8 @@ const ValidationIcon = ({
   size,
   iconId,
   isPartOfInput,
-  tooltipMessage
+  tooltipMessage,
+  tabIndex
 }) => {
   let modernTooltipProps = {};
 
@@ -34,7 +35,6 @@ const ValidationIcon = ({
         context => (
           <ValidationIconStyle
             id={ iconId }
-            data-validation-type={ type }
             validationType={ type }
             role='tooltip'
             aria-label={ tooltipMessage }
@@ -46,7 +46,7 @@ const ValidationIcon = ({
               tooltipVisible={ context && (context.hasFocus || context.hasMouseOver) }
               type={ type }
               size={ size }
-              tabIndex='0'
+              tabIndex={ tabIndex }
               { ...modernTooltipProps }
             />
           </ValidationIconStyle>
@@ -70,11 +70,12 @@ ValidationIcon.propTypes = {
   /** A boolean to indicate if the icon is part of an input */
   isPartOfInput: PropTypes.bool,
   /** Overrides the default tabindex of the component */
-  tabIndexOverride: PropTypes.number
+  tabIndex: PropTypes.number
 };
 
 ValidationIcon.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
+  tabIndex: -1
 };
 
 export default withTheme(ValidationIcon);
