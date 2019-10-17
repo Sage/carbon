@@ -5,6 +5,7 @@ import {
   commonButtonPreview, labelPreview, helpIcon, inputWidthSlider, fieldHelpPreview,
   labelWidthSlider, backgroundUILocator, closeIconButton, tooltipPreview, getKnobsInput,
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
+  precisionSlider,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
@@ -138,6 +139,10 @@ Then('fieldHelp on preview is set to {string}', (text) => {
 
 When('I set label width slider to {int}', (width) => {
   setSlidebar(labelWidthSlider(), width);
+});
+
+When('I set precision slider to {int}', (width) => {
+  setSlidebar(precisionSlider(), width);
 });
 
 Then('labelAlign on preview is {string}', (direction) => {

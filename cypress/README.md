@@ -45,6 +45,7 @@ Use scenario tags:
 6. `@build` for pipeline - each build is verified by those tests
 7. `@accessibility` tests verifies accessibility violations
 8. `@validations` tests verify validation components
+9. `@deprecated` tests verifies deprecated components
 
 ## Files structure
 ```
