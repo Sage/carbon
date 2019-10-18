@@ -41,7 +41,7 @@ describe('Switch', () => {
       expect(wrapper.find(CheckableInput).prop('checked')).toBe(true);
     });
 
-    it('changes internal state and passess event to the provided onChange prop when change is triggered', () => {
+    it('changes internal state and passes event to the provided onChange prop when change is triggered', () => {
       const onChangeMock = jest.fn();
       const event = {
         target: {
