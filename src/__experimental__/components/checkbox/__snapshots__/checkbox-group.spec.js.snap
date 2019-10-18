@@ -231,6 +231,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
               className="c12 "
             >
               <svg
+                focusable="false"
                 height="10"
                 viewBox="0 0 12 10"
                 width="12"
@@ -280,6 +281,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
               className="c12 "
             >
               <svg
+                focusable="false"
                 height="10"
                 viewBox="0 0 12 10"
                 width="12"
