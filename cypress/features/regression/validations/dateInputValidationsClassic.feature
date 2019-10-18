@@ -7,11 +7,11 @@ Feature: Date Input validations classic component
 	@positive
 	@validations
 	Scenario Outline: Verify the <state> validation of Date Input component
-		When I type specific date "<date>"
-			And I click onto specific day "<specificDay>" via DayPicker for validation component
-			And I hover mouse onto icon
-		Then tooltipPreview on preview is set to "<text>"
-			And icon on preview is "<state>"
+		When I type specific date "<date>" in iFrame
+			And I click onto specific day "<specificDay>" via DayPicker for validation component into iFrame
+			And I hover mouse onto icon into iFrame
+		Then tooltipPreview on preview into iFrame is set to "<text>"
+			And icon name on preview is "<state>"
 		Examples:
 			| state   | date | specificDay     | text                                        |
 			| error   | 01   | Mon Apr 1, 2019 | April 1st 2019 cannot be selected!          |

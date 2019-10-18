@@ -5,10 +5,11 @@ import {
   commonButtonPreview, labelPreview, helpIcon, inputWidthSlider, fieldHelpPreview,
   labelWidthSlider, backgroundUILocator, closeIconButton, tooltipPreview, getKnobsInput,
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
-  precisionSlider,
+  precisionSlider, iconNoIframe, storyRootNoIframe, tooltipPreviewNoIframe,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
+import { getElementNoIframe } from '../../locators/build';
 
 const LABEL_INPUT_INLINE_CLASS = 'common-input__label--inline';
 
@@ -77,11 +78,11 @@ Given('I open {string} component for classic story as sibling in iframe', (compo
 });
 
 Given('I open {string} component page validations', (component) => {
-  visitComponentUrl(component, 'validations');
+  visitComponentUrl(component, 'validations', true);
 });
 
 Given('I open {string} component page validations classic', (component) => {
-  visitComponentUrl(component, 'validations_classic');
+  visitComponentUrl(component, 'validations_classic', true);
 });
 
 When('I set {word} to {string}', (propertyName, text) => {
@@ -125,8 +126,21 @@ When('I hover mouse onto icon', () => {
   icon().trigger('mouseover');
 });
 
+When('I hover mouse onto icon into iFrame', () => {
+  cy.wait(100, { log: DEBUG_FLAG }); // required becasue element might be reloaded
+  iconNoIframe().trigger('mouseover');
+});
+
+Then('I hover mouse onto {string} icon', (name) => {
+  getElementNoIframe(name).trigger('mouseover');
+});
+
 Then('tooltipPreview on preview is set to {string}', (text) => {
   tooltipPreview().should('have.text', text);
+});
+
+Then('tooltipPreview on preview into iFrame is set to {string}', (text) => {
+  tooltipPreviewNoIframe().should('have.text', text);
 });
 
 When('I set inputWidth slider to {int}', (width) => {
@@ -238,4 +252,8 @@ Then('text {string} color is set to {string}', (text, color) => {
 
 When('I click outside of the component', () => {
   storyRoot().click();
+});
+
+When('I click above of the component into iFrame', () => {
+  storyRootNoIframe().click('top');
 });
