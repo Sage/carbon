@@ -8,7 +8,6 @@ import StyledContent from './content.style';
 import StyledIcon from './icon.style';
 import Browser from '../../utils/helpers/browser';
 
-
 class DialogFullScreen extends Modal {
   constructor(props) {
     super(props);

@@ -21,23 +21,22 @@ const Textbox = ({
   isOptional,
   ...props
 }) => {
-  removeParentProps(props);
   return (
     <FormField
       childOfForm={ childOfForm }
       isOptional={ isOptional }
       { ...props }
     >
-      <InputPresentation type='text' { ...props }>
+      <InputPresentation type='text' { ...removeParentProps(props) }>
         { leftChildren }
         <Input
-          { ...props }
+          { ...removeParentProps(props) }
           placeholder={ props.disabled ? '' : props.placeholder }
           aria-invalid={ props.hasError }
           value={ visibleValue(value, formattedValue) }
         />
         { children }
-        { inputIcon && <InputIconToggle { ...props } inputIcon={ inputIcon } /> }
+        { inputIcon && <InputIconToggle { ...removeParentProps(props) } inputIcon={ inputIcon } /> }
       </InputPresentation>
     </FormField>
   );
@@ -48,6 +47,7 @@ function removeParentProps(props) {
   delete props['data-component'];
   delete props['data-role'];
   delete props.className;
+  return props;
 }
 
 function visibleValue(value, formattedValue) {
