@@ -1,4 +1,4 @@
-import { switchPreview, switchProperties, switchInput } from '../../locators/switch';
+import { switchPreview, switchProperties, switchInput, switchDataComponent } from '../../locators/switch';
 import { label } from '../../locators';
 
 const COMMON_INPUT = 'common-input';
@@ -39,4 +39,12 @@ Then('Switch component is not loading', () => {
     .and('not.have.class', `${COMMON_INPUT}--disabled`);
   switchInput().should('not.have.attr', 'disabled');
   switchInput().should('not.have.attr', 'readonly');
+});
+
+Then('I click onto {int} switch', (position) => {
+  switchDataComponent(position).click();
+});
+
+Then('I click onto {int} switch again', (position) => {
+  switchDataComponent(position).click();
 });

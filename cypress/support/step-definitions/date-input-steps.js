@@ -1,5 +1,6 @@
 import {
-  dateInput, dayPickerDay, minDate, maxDate, dayPickerWrapper,
+  dateInput, dayPickerDay, minDate, maxDate, dayPickerWrapper, dateInputNoIframe,
+  dayPickerDayNoIframe,
 } from '../../locators/date-input/index';
 
 const DAY_PICKER_PREFIX = 'DayPicker-Day--';
@@ -79,12 +80,20 @@ When('I type specific date {string}', (day) => {
   dateInput().clear().type(`${day}${VALIDATION_DATE}`);
 });
 
+When('I type specific date {string} in iFrame', (day) => {
+  dateInputNoIframe().clear().type(`${day}${VALIDATION_DATE}`);
+});
+
 Then('the date is set to today', () => {
   dayPickerDay(TODAY_CALENDAR).should('have.attr', 'aria-label').should('contains', TODAY_CALENDAR);
   dayPickerDay(TODAY_CALENDAR).should('have.attr', 'class').should('contains', `${DAY_PICKER_PREFIX}today`);
   dayPickerDay(TODAY_CALENDAR).should('have.attr', 'class').should('contains', `${DAY_PICKER_PREFIX}selected`);
 });
 
-And('I click onto specific day {string} via DayPicker for validation component', (specificDay) => {
+Then('I click onto specific day {string} via DayPicker for validation component', (specificDay) => {
   dayPickerDay(`${specificDay}`).click();
-})
+});
+
+Then('I click onto specific day {string} via DayPicker for validation component into iFrame', (specificDay) => {
+  dayPickerDayNoIframe(`${specificDay}`).click();
+});
