@@ -49,7 +49,7 @@ Feature: Pages component
     Given I select pageIndex to "1"
       And I open component preview
       # wait because of animation
-      And I wait 500
+      And I wait 1000
     When I go back
     Then My First Page is visible
       And other pages except First Page are not visible
@@ -59,7 +59,7 @@ Feature: Pages component
     Given I select pageIndex to "2"
       And I open component preview
       # wait because of animation
-      And I wait 500
+      And I wait 1000
     When I go back
     Then My First Page is visible
       And other pages except First Page are not visible

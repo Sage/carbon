@@ -4,12 +4,12 @@ import { label } from '../../locators';
 const TEXT_ALIGN = 'text-align';
 
 Then('Button Toggle Group component has label-inline property', () => {
-  label().should('have.css', 'alignSelf', 'center');
+  label().should('have.css', 'align-self', 'center');
   label().should('have.css', 'text-align', 'left');
 });
 
 Then('Button Toggle Group component do not have label-inline property', () => {
-  label().should('not.have.css', 'alignSelf', 'center');
+  label().should('not.have.css', 'align-self', 'center');
   label().should('not.have.css', 'text-align', 'left');
 });
 
