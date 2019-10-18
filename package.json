@@ -19,7 +19,7 @@
     "test-cypress": "cypress open",
     "test-cypress-build": "cypress run --spec ./cypress/features/build/build*.feature",
     "test-cypress-accessibility": "cypress run --spec ./cypress/features/accessibility/accessibility.feature",
-    "test-cypress-regression": "cypress run --spec './cypress/features/regression/**/*.feature' && cypress run --spec './cypress/features/themes/themes.feature'",
+    "test-cypress-regression": "cypress run --spec './cypress/features/regression/**/*.feature', './cypress/features/themes/themes.feature'",
     "test-storybook-smoke": "./node_modules/.bin/start-storybook -p 9009 -c .storybook --ci --smoke-test",
     "debug": "node --inspect ./node_modules/jest-cli/bin/jest --watch --config=./jest.conf.json",
     "lint": "./node_modules/.bin/eslint",
