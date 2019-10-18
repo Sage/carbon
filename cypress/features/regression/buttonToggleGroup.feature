@@ -40,9 +40,9 @@ Feature: Button Toggle Group component
     Then input width is set to "<px>"
     Examples:
       | width | px  |
-      | 1     | 10  |
+      | 1     | 11  |
       | 10    | 83  |
-      | 100   | 303 |
+      | 100   | 304 |
 
   @negative
   Scenario Outline: Set out of scope characters to Button Toggle Group input width to <width>
