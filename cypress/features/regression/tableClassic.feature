@@ -45,7 +45,6 @@ Feature: Table component
   @positive
   Scenario Outline: Row <rowNumber> is highlighted
     When I check highlightable checkbox
-      And row number <rowNumber> is clickable
       And I click row by number <rowNumber>
     Then row number <rowNumber> is highlighted
     Examples:
@@ -58,7 +57,6 @@ Feature: Table component
   Scenario Outline: Row <rowNumber> is not highlighted
     When I check highlightable checkbox
       And I uncheck highlightable checkbox
-      And row number <rowNumber> is not clickable
       And I click row by number <rowNumber>
     Then row number <rowNumber> is not highlighted
     Examples:
