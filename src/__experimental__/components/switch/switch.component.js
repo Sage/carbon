@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import SwitchStyle from './switch.style';
@@ -25,10 +25,13 @@ const Switch = ({
 
   const [checkedInternal, setCheckedInternal] = useState(defaultChecked || false);
 
-  const onChangeInternal = (e) => {
-    setCheckedInternal(e.target.checked);
-    onChange(e);
-  };
+  const onChangeInternal = useCallback(
+    (e) => {
+      setCheckedInternal(e.target.checked);
+      onChange(e);
+    },
+    [setCheckedInternal, onChange]
+  );
 
   const switchProps = {
     disabled: disabled || loading,
