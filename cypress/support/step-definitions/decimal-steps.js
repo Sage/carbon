@@ -1,4 +1,4 @@
-import { labelPreview, inputPrecisionSlider, decimalPreview } from '../../locators/decimal/index';
+import { inputPrecisionSlider, decimalPreview } from '../../locators/decimal/index';
 import { setSlidebar } from '../helper';
 import { label, inputWidthPreview, commonDataElementInputPreview } from '../../locators';
 
