@@ -707,6 +707,7 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
       <label>
         <div
           className="c8 c9"
+          data-element="current-page"
         >
           <div
             className="c10 c11"
