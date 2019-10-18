@@ -226,13 +226,13 @@ class BaseDateInput extends React.Component {
         onClick={ this.markCurrentDatepicker }
         role='presentation'
         size={ inputProps.size }
+        { ...tagComponent('date', this.props) }
       >
         <Textbox
           { ...inputProps }
           inputIcon='calendar'
           value={ this.state.visibleValue }
           inputRef={ this.assignInput }
-          { ...tagComponent('date', this.props) }
           { ...events }
         />
         {this.renderDatePicker({ minDate, maxDate }) }

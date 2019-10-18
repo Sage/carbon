@@ -4,6 +4,7 @@ import FormFieldStyle from './form-field.style';
 import Label from '../label';
 import FieldHelp from '../field-help';
 import OptionsHelper from '../../../utils/helpers/options-helper';
+import tagComponent from '../../../utils/helpers/tags';
 
 const FormField = ({
   children,
@@ -30,9 +31,10 @@ const FormField = ({
   isOptional,
   readOnly,
   tooltipMessage,
-  useValidationIcon
+  useValidationIcon,
+  ...props
 }) => (
-  <FormFieldStyle inline={ labelInline }>
+  <FormFieldStyle inline={ labelInline } { ...tagComponent(props['data-component'], props) }>
     {reverse && children}
 
     {label && (
@@ -86,6 +88,7 @@ FormField.propTypes = {
   children: PropTypes.node,
   childOfForm: PropTypes.bool,
   disabled: PropTypes.bool,
+  'data-component': PropTypes.string,
   fieldHelp: PropTypes.node,
   fieldHelpInline: PropTypes.bool,
   hasError: PropTypes.bool,

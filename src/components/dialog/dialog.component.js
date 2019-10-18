@@ -13,6 +13,7 @@ import {
   DialogContentStyle,
   DialogInnerContentStyle
 } from './dialog.style';
+import tagComponent from '../../utils/helpers/tags';
 
 class Dialog extends Modal {
   constructor(args) {
@@ -234,7 +235,7 @@ class Dialog extends Modal {
       <DialogStyle
         ref={ (dialog) => { this._dialog = dialog; } }
         { ...dialogProps }
-        data-element='dialog'
+        { ...tagComponent('dialog', { 'data-element': 'dialog', 'data-role': this.props['data-role'] }) }
         onBlur={ this.onDialogBlur }
       >
         { this.dialogTitle }
