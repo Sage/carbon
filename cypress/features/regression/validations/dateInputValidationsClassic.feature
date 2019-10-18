@@ -13,7 +13,7 @@ Feature: Date Input validations classic component
     Then tooltipPreview on preview into iFrame is set to "<text>"
       And icon name on preview is "<state>"
     Examples:
-		  | state   | date | specificDay     | text                                        |
-	 		| error   | 01   | Mon Apr 1, 2019 | April 1st 2019 cannot be selected!          |
-	 		| warning | 02   | Tue Apr 2, 2019 | Selecting April 2nd 2019 is not recommended |
-	 		| info    | 03   | Wed Apr 3, 2019 | You have selected April 3rd 2019            |
+      | state   | date | specificDay     | text                                        |
+      | error   | 01   | Mon Apr 1, 2019 | April 1st 2019 cannot be selected!          |
+      | warning | 02   | Tue Apr 2, 2019 | Selecting April 2nd 2019 is not recommended |
+      | info    | 03   | Wed Apr 3, 2019 | You have selected April 3rd 2019            |
