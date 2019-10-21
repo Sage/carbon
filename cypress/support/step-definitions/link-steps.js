@@ -15,14 +15,11 @@ Then('Link is enabled', () => {
 });
 
 Then('Link on preview href is set to {string}', (href) => {
-  linkPreview()
-    .children()
-    .should('have.attr', 'href', `${href}`);
+  linkPreview().should('have.attr', 'href', `${href}`);
 });
 
 Then('icon on link componenent preview is {string}', (iconName) => {
-  linkIcon()
-    .should('have.attr', 'data-element', iconName);
+  linkIcon().should('have.attr', 'data-element', iconName);
 });
 
 Then('icon align is set to left', () => {
@@ -34,15 +31,11 @@ Then('icon align is set to right', () => {
 });
 
 Then('Link is tabbable', () => {
-  linkPreview()
-    .children()
-    .should('have.attr', 'tabindex', '0');
+  linkPreview().should('have.attr', 'tabindex', '0');
 });
 
 Then('Link is not tabbable', () => {
-  linkPreview()
-    .children()
-    .should('have.attr', 'tabindex', '-1');
+  linkPreview().should('have.attr', 'tabindex', '-1');
 });
 
 Then('Link component is focused', () => {
