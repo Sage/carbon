@@ -5,13 +5,22 @@ import I18nHelper from '../../../utils/helpers/i18n';
 import Logger from '../../../utils/logger';
 
 class Decimal extends React.Component {
+  state = {
+    value: this.props.defaultValue
+  }
+
   input = null;
 
   // Create ref to document for tests
   _document = document;
 
+  isControlled = this.props.value !== undefined
+
   formatValue = () => {
-    const { value } = this.props;
+    const { value: propValue = '0.00' } = this.props;
+    const { value: stateValue = '0.00' } = this.state;
+    const value = this.isControlled ? propValue : stateValue;
+
     const { input } = this;
 
     // Return unformatted value if component has not mounted
@@ -70,6 +79,9 @@ class Decimal extends React.Component {
     const isValid = this.isValidDecimal(value);
 
     if (isValid) {
+      if (!this.isControlled) {
+        this.setState({ value });
+      }
       this.props.onChange(ev);
     } else {
       const newPosition = selectionEnd - 1;
@@ -117,11 +129,15 @@ Decimal.propTypes = {
    */
   inputWidth: PropTypes.number,
   /**
-   * The value of the input
+   * The default value of the input if it's meant to be used as an uncontrolled component
+   */
+  defaultValue: PropTypes.string,
+  /**
+   * The value of the input if it's used as a controlled component
    */
   value: PropTypes.string,
   /**
-   * Handler for change event
+   * Handler for change event if input is meant to be used as a controlled component
    */
   onChange: PropTypes.func,
   /**
@@ -133,8 +149,7 @@ Decimal.propTypes = {
 Decimal.defaultProps = {
   align: 'right',
   precision: 2,
-  maxPrecision: 15,
-  value: '0.00'
+  maxPrecision: 15
 };
 
 export default Decimal;
