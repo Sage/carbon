@@ -16,7 +16,7 @@ export const LINK = 'a[data-component="link"][tabindex=0]';
 export const ICON = '[data-component="icon"]';
 export const INPUT_WIDTH_PREVIEW = '.common-input__field';
 export const COMMMON_DATA_ELEMENT_INPUT = 'input[data-element="input"]';
-export const LABEL = 'label[data-element="label"]';
+export const LABEL = '[data-element="label"]';
 
 // accessibility locators
 export const RERUN_TESTS_BUTTON = `${FORM} :nth-child(2) > div > button`;
