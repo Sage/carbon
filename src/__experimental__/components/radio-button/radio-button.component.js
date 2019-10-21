@@ -91,9 +91,8 @@ RadioButton.propTypes = {
   }
 };
 
-const Component = React.memo(RadioButton);
-Component.defaultProps = {
+RadioButton.defaultProps = {
   reverse: false
 };
 
-export default Component;
+export default React.memo(RadioButton);

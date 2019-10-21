@@ -10,7 +10,6 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import { RadioButton, RadioButtonGroup } from '.';
 import { info, infoValidations, notes } from './documentation';
 
-const trueBool = true;
 const radioToggleGroupStore = new Store({ value: null });
 const validationRadioToggleGroupStore = new Store({ value: null });
 const handleGroupChangeFactory = store => (event) => {
@@ -128,7 +127,7 @@ const radioComponentWithValidation = themeName => () => {
         validations={ testValidation('valid') }
         warnings={ testValidation('warn') }
         info={ testValidation('info') }
-        useValidationIcon={ trueBool }
+        useValidationIcon
         onChange={ handleGroupChangeFactory(validationRadioToggleGroupStore) }
       >
         {validationTypes.map(vType => (

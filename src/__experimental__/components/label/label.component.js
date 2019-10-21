@@ -92,10 +92,8 @@ Label.propTypes = {
   htmlFor: PropTypes.string
 };
 
-const Component = React.memo(Label);
-Component.displayName = 'Label';
-Component.defaultProps = {
+Label.defaultProps = {
   useValidationIcon: false
 };
 
-export default Component;
+export default React.memo(Label);
