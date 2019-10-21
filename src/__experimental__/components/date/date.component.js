@@ -64,12 +64,13 @@ class BaseDateInput extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.isBlurBlocked && this.hasValueChanged(prevProps)) {
-      this.isBlurBlocked = false;
-      this.handleBlur();
-    } else if (!this.inputHasFocus && this.hasValueChanged(prevProps)) {
+    if (!this.inputHasFocus && this.hasValueChanged(prevProps)) {
       this.updateVisibleValue(this.props.value);
       this.updateSelectedDate(this.props.value);
+      this.handleBlur();
+    } else if (this.isBlurBlocked && this.hasValueChanged(prevProps)) {
+      this.isBlurBlocked = false;
+      this.handleBlur();
     }
   }
 
