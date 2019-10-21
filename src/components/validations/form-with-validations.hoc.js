@@ -54,7 +54,7 @@ const withValidations = (WrappedComponent) => {
       });
       return Promise.all(promises).then((isValid) => {
         this.setState({ formIsValidating: false });
-        return Promise.resolve(!isValid.includes(false));
+        return !isValid.includes(false);
       });
     }
 

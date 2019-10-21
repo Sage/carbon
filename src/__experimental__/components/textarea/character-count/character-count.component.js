@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from 'styled-components';
-import { THEMES } from '../../../../style/themes';
 import baseTheme from '../../../../style/themes/base';
 import StyledCharacterCount from './character-count.style';
 import ClassicCharacterCount from './classic-character-count.component';
+import { isClassic } from '../../../../utils/helpers/style-helper';
 
 const CharacterCount = ({
   value, limit, theme, ...props
 }) => {
-  if (theme.name === THEMES.classic) {
+  if (isClassic(theme)) {
     return (
       <ClassicCharacterCount
         value={ value }

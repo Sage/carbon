@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
-import { THEMES } from '../../style/themes';
 import StyledButton from '../button/button.style';
+import { isClassic } from '../../utils/helpers/style-helper';
 
 const classicColors = {
   active: '#1963f6',
@@ -9,7 +9,7 @@ const classicColors = {
   tertiary: '#163777'
 };
 
-const getSplitButtonChildrenClassicStyles = ({ theme }) => (theme.name === THEMES.classic ? css`
+const getSplitButtonChildrenClassicStyles = ({ theme }) => (isClassic(theme) ? css`
   background-color: ${classicColors.secondary};
   max-width: 100%;
   min-width: 100%;
@@ -31,7 +31,7 @@ const getSplitButtonChildrenClassicStyles = ({ theme }) => (theme.name === THEME
   }
 ` : '');
 
-const getMainSplitButtonClassicStyles = ({ theme }) => (theme.name === THEMES.classic ? css`
+const getMainSplitButtonClassicStyles = ({ theme }) => (isClassic(theme) ? css`
   & > ${StyledButton}:focus {
     border: 1px solid #1e499f;
     margin: 0;
@@ -43,7 +43,7 @@ const getSplitButtonToggleClassicStyles = ({
   disabled,
   displayed,
   buttonType
-}) => (theme.name === THEMES.classic ? css`
+}) => (isClassic(theme) ? css`
   z-index: 20;
 
   ${!disabled && displayed ? css`
