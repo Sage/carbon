@@ -90,10 +90,6 @@ Then('the date is set to today', () => {
   dayPickerDay(TODAY_CALENDAR).should('have.attr', 'class').should('contains', `${DAY_PICKER_PREFIX}selected`);
 });
 
-Then('I click onto specific day {string} via DayPicker for validation component', (specificDay) => {
-  dayPickerDay(`${specificDay}`).click();
-});
-
 Then('I click onto specific day {string} via DayPicker for validation component into iFrame', (specificDay) => {
-  dayPickerDayNoIframe(`${specificDay}`).click();
+  dayPickerDayNoIframe(specificDay).click();
 });

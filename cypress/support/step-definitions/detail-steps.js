@@ -22,6 +22,6 @@ Then('icon on preview is {string}', (iconName) => {
   icon().should('have.attr', 'data-element', iconName);
 });
 
-Then('icon name on preview is {string}', (iconName) => {
+Then('icon name into iFrame on preview is {string}', (iconName) => {
   getElementNoIframe(iconName);
 });

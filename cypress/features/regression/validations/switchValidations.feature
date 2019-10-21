@@ -7,11 +7,10 @@ Feature: Switch validations component
   @positive
   @validations
   Scenario Outline: Verify the <state> validation of Switch component
-    When I click onto <position> switch
-      And I click onto <position> switch again
-      And I hover mouse onto "<state>" icon
+    When I toggle onto <position> switch 2 times
+      And I hover mouse onto "<state>" icon into iFrame
     Then tooltipPreview on preview into iFrame is set to "<text>"
-      And icon name on preview is "<state>"
+      And icon name into iFrame on preview is "<state>"
     Examples:
       | state   | position | text          |
       | error   | 0        | Show error!   |
