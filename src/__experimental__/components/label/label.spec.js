@@ -1,4 +1,5 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
@@ -9,6 +10,7 @@ import ValidationIcon from '../../../components/validations/validation-icon.comp
 import classicTheme from '../../../style/themes/classic';
 import baseTheme from '../../../style/themes/base';
 import smallTheme from '../../../style/themes/small';
+import IconWrapperStyle from './icon-wrapper.style';
 
 const validationTypes = ['hasError', 'hasWarning', 'hasInfo'];
 
@@ -28,7 +30,7 @@ describe('Label', () => {
   describe('when initiated with the help prop', () => {
     it('contains Help component with the content specified in that prop', () => {
       const wrapper = render({ help: 'Help me!' });
-      expect(wrapper.contains(<Help>Help me!</Help>)).toBeTruthy();
+      expect(wrapper.find(Help).contains('Help me!')).toBe(true);
     });
   });
 
@@ -120,6 +122,41 @@ describe('Label', () => {
         assertStyleMatch({
           marginBottom: '12px'
         }, render({ childOfForm: true }, TestRenderer.create).toJSON());
+      });
+    });
+
+    describe('when IconWrapperStyle', () => {
+      let wrapper;
+
+      beforeEach(() => {
+        wrapper = render({
+          useValidationIcon: true,
+          hasError: true,
+          tooltipMessage: 'test'
+        }, mount);
+      });
+
+      describe('will run `onFocus` event', () => {
+        it('should change `isFocused` to be true', () => {
+          act(() => {
+            wrapper.find(IconWrapperStyle).simulate('focus');
+          });
+          wrapper.update();
+
+          expect(wrapper.find(ValidationIcon).props().isFocused).toBe(true);
+        });
+      });
+
+      describe('will run `onBlur` event', () => {
+        it('should change `isFocused` to be false', () => {
+          act(() => {
+            wrapper.find(IconWrapperStyle).simulate('blur');
+          });
+
+          wrapper.update();
+
+          expect(wrapper.find(ValidationIcon).props().isFocused).toBe(false);
+        });
       });
     });
   });

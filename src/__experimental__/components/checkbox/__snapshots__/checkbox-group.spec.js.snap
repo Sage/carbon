@@ -9,7 +9,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
   margin-top: 16px;
 }
 
-.c11 {
+.c12 {
   cursor: pointer;
   opacity: 0;
   margin: 0;
@@ -26,17 +26,17 @@ exports[`CheckboxGroup renders as expected 1`] = `
   width: 100%;
 }
 
-.c4 .c16,
-.c4 .c17 {
+.c4 .c17,
+.c4 .c18 {
   vertical-align: middle;
 }
 
-.c9 {
+.c10 {
   display: inline-block;
   position: relative;
 }
 
-.c7 .c1 {
+.c8 .c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -46,122 +46,122 @@ exports[`CheckboxGroup renders as expected 1`] = `
   flex-wrap: wrap;
 }
 
-.c7 .c3 {
+.c8 .c3 {
   text-align: left;
   width: auto;
   white-space: nowrap;
   margin-top: -2px;
 }
 
-.c7 .c3 .c16,
-.c7 .c3 .c17 {
+.c8 .c3 .c17,
+.c8 .c3 .c18 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c7 .c3 .c16:hover,
-.c7 .c3 .c17:hover,
-.c7 .c3 .c16:focus,
-.c7 .c3 .c17:focus {
+.c8 .c3 .c17:hover,
+.c8 .c3 .c18:hover,
+.c8 .c3 .c17:focus,
+.c8 .c3 .c18:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c6 {
+.c7 {
   padding-top: 8px;
 }
 
-.c6 .c8 {
+.c7 .c9 {
   padding-top: 1px;
 }
 
-.c6 .c12 {
+.c7 .c13 {
   height: 16px;
 }
 
-.c6 svg {
+.c7 svg {
   background-color: #FFFFFF;
   border: 1px solid #668491;
 }
 
-.c6 .c10,
-.c6 svg {
+.c7 .c11,
+.c7 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c6 .c8,
-.c6 .c10,
-.c6 .c12,
-.c6 svg {
+.c7 .c9,
+.c7 .c11,
+.c7 .c13,
+.c7 svg {
   box-sizing: border-box;
   width: 16px;
 }
 
-.c6 .c10:not([disabled]):focus + .c12,
-.c6 .c10:not([disabled]):hover + .c12 {
+.c7 .c11:not([disabled]):focus + .c13,
+.c7 .c11:not([disabled]):hover + .c13 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c6 .c3 {
+.c7 .c3 {
   padding: 0 6px;
   width: auto;
 }
 
-.c6 .c14 {
+.c7 .c15 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
 }
 
-.c6 .c17 {
+.c7 .c18 {
   position: relative;
   display: inline-block;
 }
 
-.c13 .c8 {
+.c14 .c9 {
   padding-top: 1px;
 }
 
-.c13 .c12 {
+.c14 .c13 {
   height: 16px;
 }
 
-.c13 .c10,
-.c13 svg {
+.c14 .c11,
+.c14 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c13 .c8,
-.c13 .c10,
-.c13 .c12,
-.c13 svg {
+.c14 .c9,
+.c14 .c11,
+.c14 .c13,
+.c14 svg {
   box-sizing: border-box;
   width: 16px;
 }
 
-.c13 .c10:not([disabled]):focus + .c12,
-.c13 .c10:not([disabled]):hover + .c12 {
+.c14 .c11:not([disabled]):focus + .c13,
+.c14 .c11:not([disabled]):hover + .c13 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c13 .c3 {
+.c14 .c3 {
   padding: 0 6px;
   width: auto;
 }
 
-.c0 .c15::before {
+.c0 .c16::before {
   font-size: 16px;
 }
 
-.c0 .c5 {
+.c0 .c6 {
   padding-top: 12px;
 }
 
-.c0 .c5 .c1 .c3 {
+.c0 .c6 .c1 .c3 {
   line-height: 21px;
 }
 
@@ -173,8 +173,29 @@ exports[`CheckboxGroup renders as expected 1`] = `
   vertical-align: middle;
 }
 
-.c0 > .c1 > .c3 .c17 {
+.c0 > .c1 > .c3 .c18 {
   display: inline-block;
+}
+
+.c5 {
+  display: inline-block;
+  margin: 0;
+  margin-left: 8px;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  top: -1px;
+}
+
+.c5:focus {
+  outline: 2px solid #FFB500;
+}
+
+.c5 .c18,
+.c5 .c17 {
+  margin-left: 0;
+  padding: 0;
+  position: static;
 }
 
 <div
@@ -196,15 +217,21 @@ exports[`CheckboxGroup renders as expected 1`] = `
       >
         Test CheckboxGroup Label
       </label>
+      <div
+        className="c5"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        tabIndex={0}
+      />
     </div>
     <div
-      className="c5 c6"
+      className="c6 c7"
       data-component="checkbox"
       name="check-required"
       onBlur={[Function]}
     >
       <div
-        className="c7"
+        className="c8"
         name="check-required"
         onBlur={[Function]}
       >
@@ -212,12 +239,12 @@ exports[`CheckboxGroup renders as expected 1`] = `
           className="c1 c2"
         >
           <div
-            className="c8 c9"
+            className="c9 c10"
           >
             <input
               aria-describedby="cId-required-help"
               aria-labelledby="cId-required-label"
-              className="c10 c11"
+              className="c11 c12"
               id="cId-required"
               name="check-required"
               onBlur={[Function]}
@@ -227,7 +254,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
               value="required"
             />
             <div
-              className="c12 "
+              className="c13 "
             >
               <svg
                 focusable="false"
@@ -247,13 +274,13 @@ exports[`CheckboxGroup renders as expected 1`] = `
       </div>
     </div>
     <div
-      className="c5 c6"
+      className="c6 c7"
       data-component="checkbox"
       name="check-optional"
       onBlur={[Function]}
     >
       <div
-        className="c7"
+        className="c8"
         name="check-optional"
         onBlur={[Function]}
       >
@@ -261,12 +288,12 @@ exports[`CheckboxGroup renders as expected 1`] = `
           className="c1 c2"
         >
           <div
-            className="c8 c9"
+            className="c9 c10"
           >
             <input
               aria-describedby="cId-optional-help"
               aria-labelledby="cId-optional-label"
-              className="c10 c11"
+              className="c11 c12"
               id="cId-optional"
               name="check-optional"
               onBlur={[Function]}
@@ -276,7 +303,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
               value="optional"
             />
             <div
-              className="c12 "
+              className="c13 "
             >
               <svg
                 focusable="false"
