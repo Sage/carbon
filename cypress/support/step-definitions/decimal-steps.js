@@ -1,12 +1,12 @@
-import { labelPreview, inputPrecisionSlider, decimalPreview } from '../../locators/decimal/index';
+import { inputPrecisionSlider, decimalPreview } from '../../locators/decimal/index';
 import { setSlidebar } from '../helper';
-import { label, inputWidthPreview } from '../../locators';
+import { label, inputWidthPreview, commonDataElementInputPreview } from '../../locators';
 
 const TEXT_ALIGN = 'text-align';
 const COMMON_INPUT_CLASS = 'common-input--';
 
 Then('input direction is {string}', (direction) => {
-  labelPreview().children('input').should('have.css', TEXT_ALIGN, `${direction}`);
+  commonDataElementInputPreview().should('have.css', TEXT_ALIGN, `${direction}`);
 });
 
 Then('input direction is {string} for deprecated component', (direction) => {
@@ -14,19 +14,23 @@ Then('input direction is {string} for deprecated component', (direction) => {
 });
 
 Then('Decimal component is disabled', () => {
-  labelPreview().should('have.attr', 'disabled');
+  commonDataElementInputPreview().should('have.attr', 'disabled');
+  commonDataElementInputPreview().parent().should('have.attr', 'disabled');
 });
 
 Then('Decimal component is enabled', () => {
-  labelPreview().should('not.have.attr', 'disabled');
+  commonDataElementInputPreview().should('not.have.attr', 'disabled');
+  commonDataElementInputPreview().parent().should('not.have.attr', 'disabled');
 });
 
 Then('Decimal component is readOnly', () => {
-  labelPreview().should('have.attr', 'readonly');
+  commonDataElementInputPreview().should('have.attr', 'readonly');
+  commonDataElementInputPreview().parent().should('have.attr', 'readonly');
 });
 
 Then('Decimal component is not readOnly', () => {
-  labelPreview().should('not.have.attr', 'readonly');
+  commonDataElementInputPreview().should('not.have.attr', 'readonly');
+  commonDataElementInputPreview().parent().should('not.have.attr', 'readonly');
 });
 
 When('label width on preview is {int}', (width) => {
@@ -34,27 +38,27 @@ When('label width on preview is {int}', (width) => {
 });
 
 When('inputWidth on preview is {int}', (width) => {
-  labelPreview().should('have.css', 'flex').should('contain', `${width}`);
+  commonDataElementInputPreview().parent().should('have.css', 'flex').should('contain', `${width}%`);
 });
 
 Then('label align on preview is set to {string}', (labelAlign) => {
   label().should('have.css', TEXT_ALIGN, `${labelAlign}`);
 });
 
-When('I set label Input to {string}', (labelInput) => {
-  labelPreview().children().clear().type(labelInput);
+When('I set Decimal input to {string}', (labelInput) => {
+  commonDataElementInputPreview().clear().type(labelInput);
 });
 
 When('I set Input to {string} for deprecated component', (labelInput) => {
   inputWidthPreview().children().clear().type(labelInput);
 });
 
-Then('Decimal labelInput is set to {string}', (labelInput) => {
-  labelPreview().children().should('have.attr', 'value').should('contain', `${labelInput}`);
+Then('Decimal Input is set to {string}', (labelInput) => {
+  commonDataElementInputPreview().should('have.attr', 'value').should('contain', `${labelInput}`);
 });
 
 Then('Decimal label is not set to {string}', (labelInput) => {
-  labelPreview().children().should('have.attr', 'value').should('not.contain', `${labelInput}`);
+  commonDataElementInputPreview().should('have.attr', 'value').should('not.contain', `${labelInput}`);
 });
 
 Then('Decimal label is not set to {string} for deprecated component', (labelInput) => {

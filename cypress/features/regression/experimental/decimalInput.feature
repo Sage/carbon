@@ -79,33 +79,31 @@ Feature: Decimal component
 
   @positive
   Scenario Outline: Change Decimal component input width to <width>
-    When I set label to "<label>"
-      And I set labelHelp to "<label>"
+    When I set label to "label"
       And I check labelInline checkbox
       And I set inputWidth slider to <width>
     Then inputWidth on preview is <width>
     Examples:
-      | label                    | width |
-      | Sample text              |  0    |
-      | 1234567890               |  10   |
-      | áéíóú¿¡üñ                |  50   |
-      | !@#$%^*()_+-=~[];:.,?{}  |  100  |
+      | width |
+      |  1    |
+      |  10   |
+      |  50   |
+      |  100  |
 
   @positive
   Scenario Outline: Change Decimal component label align to <labelAlign>
-    When I set label to "<label>"
-      And I set labelHelp to "<label>"
+    When I set label to "label"
       And I check labelInline checkbox
       And I select labelAlign to "<labelAlign>"
     Then label align on preview is set to "<labelAlign>"
     Examples:
-      | label                    | labelAlign |
-      | áéíóú¿¡üñ                |  left      |
-      | 1234567890               |  right     |
+      | labelAlign |
+      |  left      |
+      |  right     |
 
   @positive
   Scenario Outline: Check Decimal component input field will not accept characters except numbers to <label>
-    When I set label to "<label>"
+    When I set Decimal input to "<label>"
     Then Decimal label is not set to "<label>"
     Examples:
       | label                    |

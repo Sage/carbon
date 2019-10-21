@@ -7,9 +7,9 @@ Feature: Decimal component
  @positive
   Scenario Outline: Check Decimal component input field with precision <precision> and input <labelInput>
     When I set input precision slider to <precision>
-      And I set label Input to "<labelInput>"
+      And I set Decimal input to "<labelInput>"
     Then input precision slider is set to <precision>
-      And Decimal labelInput is set to "<fieldHelpOutput>"
+      And Decimal Input is set to "<fieldHelpOutput>"
     Examples:
       | labelInput        | precision | fieldHelpOutput   |
       | 150               |  0        | 150               |
