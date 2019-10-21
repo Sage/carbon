@@ -10,9 +10,30 @@ exports[`Label renders the label 1`] = `
   width: 100%;
 }
 
-.c0 .c1,
-.c0 .sc-bZQynM {
+.c0 .c2,
+.c0 .c3 {
   vertical-align: middle;
+}
+
+.c1 {
+  display: inline-block;
+  margin: 0;
+  margin-left: 8px;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  top: -1px;
+}
+
+.c1:focus {
+  outline: 2px solid #FFB500;
+}
+
+.c1 .c3,
+.c1 .c2 {
+  margin-left: 0;
+  padding: 0;
+  position: static;
 }
 
 <div
@@ -23,5 +44,11 @@ exports[`Label renders the label 1`] = `
   <label>
     Name:
   </label>
+  <div
+    className="c1"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    tabIndex={0}
+  />
 </div>
 `;
