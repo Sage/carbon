@@ -7,7 +7,7 @@ import withValidation from '../../../components/validations/with-validation.hoc'
 const RadioButtonGroup = (props) => {
   const {
     children,
-    groupName,
+    name,
     legend,
     hasError,
     hasWarning,
@@ -15,7 +15,7 @@ const RadioButtonGroup = (props) => {
     onChange,
     value
   } = props;
-  const groupLabelId = `${groupName}-label`;
+  const groupLabelId = `${name}-label`;
 
   const anyChecked = useMemo(() => {
     let result = false;
@@ -52,7 +52,7 @@ const RadioButtonGroup = (props) => {
 
     return React.cloneElement(child, {
       checked,
-      inputName: groupName,
+      name,
       onChange: onChangeProp
     });
   });
@@ -76,7 +76,7 @@ RadioButtonGroup.propTypes = {
   /** The RadioButton objects to be rendered in the group */
   children: PropTypes.node.isRequired,
   /** Specifies the name prop to be applied to each button in the group */
-  groupName: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   /** The content for the RadioGroup Legend */
   legend: PropTypes.string.isRequired,
   /** Help text */

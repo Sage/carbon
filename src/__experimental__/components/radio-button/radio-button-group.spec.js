@@ -10,14 +10,13 @@ import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import Button from '../../../components/button';
 
 const buttonValues = ['test-1', 'test-2'];
-const groupName = 'test-group';
+const name = 'test-group';
 
 function render(renderer = TestRenderer.create, props) {
   const children = buttonValues.map((value, index) => (
     <RadioButton
       id={ `rId-${index}` }
       key={ `radio-key-${value}` }
-      name={ `radio-name-${value}` }
       onChange={ jest.fn() }
       value={ value }
     />
@@ -25,9 +24,8 @@ function render(renderer = TestRenderer.create, props) {
 
   return renderer(
     <RadioButtonGroup
-      groupName={ groupName }
+      name={ name }
       legend='Test RadioButtonGroup Legend'
-      name='radio-button-group'
       onChange={ jest.fn() }
       useValidationIcon
       { ...props }
@@ -76,11 +74,11 @@ describe('RadioButtonGroup', () => {
       });
 
       describe('name', () => {
-        it('is set using the RadioButtonGroup groupName prop', () => {
+        it('is set using the RadioButtonGroup name prop', () => {
           const buttonWrapper = buttons.at(buttonArray.indexOf(button));
           const input = getInputWrapper(buttonWrapper).instance();
 
-          expect(input.name).toEqual(`radio-name-${input.value}`);
+          expect(input.name).toEqual(name);
         });
       });
     });
@@ -98,8 +96,7 @@ describe('RadioButtonGroup', () => {
         it('sets a child radio button to checked when the prop is set programatically', () => {
           const radioGroup = shallow(
             <RadioButtonGroup
-              groupName={ groupName }
-              name={ groupName }
+              name={ name }
               legend='Test RadioButtonGroup Legend'
             >
               <RadioButton checked value='foo' />
@@ -151,8 +148,7 @@ describe('RadioButtonGroup', () => {
     it('sets a child radio button to checked when the prop is set programatically', () => {
       const radioGroup = mount(
         <RadioButtonGroup
-          groupName={ groupName }
-          name={ groupName }
+          name={ name }
           legend='Test RadioButtonGroup Legend'
         >
           <RadioButton
@@ -190,7 +186,6 @@ describe('RadioButtonGroup', () => {
 
   const renderUncontrolled = (groupProps, radioProps) => mount(
     <RadioButtonGroup
-      groupName={ groupName }
       legend='Test RadioButtonGroup Legend'
       name='radio-button-group'
       { ...groupProps }
@@ -216,9 +211,8 @@ describe('RadioButtonGroup', () => {
     return (
       <>
         <RadioButtonGroup
-          groupName={ groupName }
+          name={ name }
           legend='Test RadioButtonGroup Legend'
-          name='radio-button-group'
           onChange={ (e) => {
             setValue(e.target.value);
           } }
