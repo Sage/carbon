@@ -78,10 +78,7 @@ RadioButton.propTypes = {
   labelAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
   /** Sets percentage-based label width */
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  /**
-   * The name of the group containing the RadioButton (can also be set via
-   * the 'groupName' prop of the RadioButtonGroup component)
-   */
+  /** The name of the the RadioButton (can also be set via the 'name' prop of the RadioButtonGroup component) */
   name: PropTypes.string,
   /** Accepts a callback function which can be used to update parent state on change */
   onChange: PropTypes.func,

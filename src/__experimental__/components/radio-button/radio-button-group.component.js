@@ -12,9 +12,8 @@ function checkedTabIndex(checked) {
 }
 
 const RadioButtonGroup = (props) => {
-  const { children, groupName, legend } = props;
+  const { children, name, legend } = props;
   const [selectedValue, setSelectedValue] = useState(null);
-
   const buttons = React.Children.map(children, (child, index) => {
     const isDefaultChecked = child.props.checked && !selectedValue;
     const checked = isDefaultChecked || selectedValue === child.props.value;
@@ -29,7 +28,7 @@ const RadioButtonGroup = (props) => {
       child,
       {
         checked,
-        inputName: groupName,
+        name,
         onChange: handleChange,
         tabindex
       }
@@ -47,7 +46,7 @@ RadioButtonGroup.propTypes = {
   /** The RadioButton objects to be rendered in the group */
   children: PropTypes.node.isRequired,
   /** Specifies the name prop to be applied to each button in the group */
-  groupName: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   /** The content for the RadioGroup Legend */
   legend: PropTypes.string.isRequired
 };

@@ -15,8 +15,8 @@ function makeStory(name, themeSelector) {
 
     return (
       <RadioButtonGroup
-        groupName='frequency'
         legend={ text('legend', 'Please select a frequency from the options below') }
+        name={ text('name', 'Group Name') }
       >
         <RadioButton
           id='input-1'

@@ -8,14 +8,14 @@ import { LegendStyle } from '../fieldset/fieldset.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 
 const buttonValues = ['test-1', 'test-2'];
-const groupName = 'test-group';
+const name = 'test-group';
 
 function render(renderer = TestRenderer.create) {
   const children = buttonValues.map(value => <RadioButton key={ `k-${value}` } value={ value } />);
 
   return renderer(
     <RadioButtonGroup
-      groupName={ groupName }
+      name={ name }
       legend='Test RadioButtonGroup Legend'
     >
       {children}
@@ -54,11 +54,11 @@ describe('RadioButtonGroup', () => {
       });
 
       describe('name', () => {
-        it('is set using the RadioButtonGroup groupName prop', () => {
+        it('is set using the RadioButtonGroup name prop', () => {
           const buttonWrapper = buttons.at(buttonArray.indexOf(button));
           const input = getInputWrapper(buttonWrapper).instance();
 
-          expect(input.name).toEqual(groupName);
+          expect(input.name).toEqual(name);
         });
       });
     });
@@ -76,7 +76,7 @@ describe('RadioButtonGroup', () => {
         it('sets a child radio button to checked when the prop is set programatically', () => {
           const radioGroup = shallow(
             <RadioButtonGroup
-              groupName={ groupName }
+              name={ name }
               legend='Test RadioButtonGroup Legend'
             >
               <RadioButton checked value='foo' />

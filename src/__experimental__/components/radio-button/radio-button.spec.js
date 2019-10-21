@@ -62,7 +62,6 @@ describe('RadioButton', () => {
     });
   });
 
-
   describe('styles', () => {
     describe('base', () => {
       it('renders as expected', () => {
