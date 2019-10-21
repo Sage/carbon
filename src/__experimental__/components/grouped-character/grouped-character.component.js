@@ -4,12 +4,24 @@ import Textbox from '../textbox';
 import { generateGroups, toSum, toIndexSteps } from './grouped-character.utils';
 import Events from '../../../utils/helpers/events';
 
-const GroupedCharacter = (props) => {
+const GroupedCharacter = ({
+  groups,
+  value: externalValue,
+  defaultValue,
+  onChange,
+  separator: rawSeparator,
+  ...rest
+}) => {
   const [pressedKey, updatePressedKey] = useState(null);
 
-  const { groups, value } = props;
+  const [internalValue, setInternalValue] = useState(defaultValue || '');
+
+  const isControlled = externalValue !== undefined;
+
+  const value = isControlled ? externalValue : internalValue;
+
   const stepIndices = groups.reduce(toIndexSteps, []);
-  const separator = props.separator.substring(0, 1); // Ensure max length is 1
+  const separator = rawSeparator.substring(0, 1); // Ensure max length is 1
   stepIndices.pop();
 
   const handleChange = (ev) => {
@@ -27,7 +39,10 @@ const GroupedCharacter = (props) => {
 
     const reProcessedInputValue = ev.target.value.split(separator).join('');
 
-    props.onChange({ target: { value: reProcessedInputValue } });
+    onChange({ target: { value: reProcessedInputValue } });
+    if (!isControlled) {
+      setInternalValue(reProcessedInputValue);
+    }
     setTimeout(() => eventRef.setSelectionRange(newCursorPos, newCursorPos));
   };
 
@@ -43,7 +58,7 @@ const GroupedCharacter = (props) => {
 
   return (
     <Textbox
-      { ...props }
+      { ...rest }
       formattedValue={ generateGroups(groups, value).join(separator) }
       onChange={ handleChange }
       onKeyDown={ ({ which }) => updatePressedKey(which) }
@@ -51,7 +66,6 @@ const GroupedCharacter = (props) => {
     />
   );
 };
-
 
 GroupedCharacter.propTypes = {
   /** character to be used as separator */
@@ -63,8 +77,10 @@ GroupedCharacter.propTypes = {
   }),
   /** pattern by which input value should be grouped */
   groups: PropTypes.array,
-  /** input value */
+  /** Input value if component is meant to be used as a controlled component */
   value: PropTypes.string,
+  /** Default input value if component is meant to be used as an uncontrolled component */
+  defaultValue: PropTypes.string,
   /** on change handler which will receive the input value without separators */
   onChange: PropTypes.func
 };

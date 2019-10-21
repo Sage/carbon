@@ -14,9 +14,30 @@ const BACKSPACE_KEY_CODE = 8;
 
 describe('GroupedCharacter', () => {
   jest.useFakeTimers();
-  const basicGroupConfig = [2, 2, 4],
-      separator = '-',
-      valueString = '12345678';
+  const basicGroupConfig = [2, 2, 4];
+  const separator = '-';
+  const valueString = '12345678';
+
+  describe('uncontrolled behaviour', () => {
+    let instance, input, onChange;
+    beforeEach(() => {
+      onChange = jest.fn();
+
+      instance = mountComponent({
+        separator, defaultValue: 'aabbcccc', groups: basicGroupConfig, onChange
+      });
+      input = instance.find('input');
+    });
+
+    it('sets default input value same as defaultValue provided', () => {
+      expect(input.props().value).toEqual('aa-bb-cccc');
+    });
+
+    it('invokes provided onChange handler with proper value', () => {
+      input.simulate('change', { target: { value: 'ccaaaabb', setSelectionRange: () => {} } });
+      expect(onChange).toHaveBeenCalledWith({ target: { value: 'ccaaaabb' } });
+    });
+  });
 
   describe('functionality', () => {
     let instance, input, onChange;
