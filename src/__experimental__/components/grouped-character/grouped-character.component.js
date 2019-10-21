@@ -39,7 +39,7 @@ const GroupedCharacter = ({
 
     const reProcessedInputValue = ev.target.value.split(separator).join('');
 
-    onChange({ target: { value: reProcessedInputValue } });
+    onChange(ev, reProcessedInputValue);
     if (!isControlled) {
       setInternalValue(reProcessedInputValue);
     }
@@ -81,7 +81,7 @@ GroupedCharacter.propTypes = {
   value: PropTypes.string,
   /** Default input value if component is meant to be used as an uncontrolled component */
   defaultValue: PropTypes.string,
-  /** on change handler which will receive the input value without separators */
+  /** on change handler which receives the event as first argument and value without separators as second argument */
   onChange: PropTypes.func
 };
 
