@@ -73,8 +73,8 @@ const radioComponent = themeName => () => {
     <State store={ radioToggleGroupStore }>
       <RadioButtonGroup
         labelHelp={ labelHelp }
-        groupName='frequency'
-        label={ text('groupLabel', 'Please select a frequency from the options below') }
+        name='frequency'
+        legend={ text('groupLabel', 'Please select a frequency from the options below') }
         onChange={ handleGroupChangeFactory(radioToggleGroupStore) }
       >
         <RadioButton
@@ -95,7 +95,7 @@ const radioComponent = themeName => () => {
 
 const radioComponentWithValidation = themeName => () => {
   const validationTypes = ['error', 'warning', 'info'];
-  const label = text('label', 'Are you coming to the event?');
+  const legend = text('label', 'Are you coming to the event?');
   const labelHelp = text('labelHelp', 'Group label helper');
 
   function testValidation(type) {
@@ -121,8 +121,8 @@ const radioComponentWithValidation = themeName => () => {
   return (
     <State store={ validationRadioToggleGroupStore }>
       <RadioButtonGroup
-        groupName='radio-button-group'
-        label={ label }
+        name={ text('name', 'Group Name') }
+        legend={ legend }
         labelHelp={ labelHelp }
         validations={ testValidation('valid') }
         warnings={ testValidation('warn') }

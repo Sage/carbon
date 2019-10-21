@@ -46,25 +46,6 @@ const renderClassic = props => render(props, classic);
 const validationTypes = ['hasError', 'hasWarning', 'hasInfo'];
 
 describe('RadioButton', () => {
-  describe('tabindex', () => {
-    describe('when checked === true', () => {
-      it('sets the tabindex attribute to 0', () => {
-        const input = render({ checked: true }).find(CheckableInput);
-
-        expect(input.props().tabindex).toEqual(0);
-      });
-    });
-
-    describe('when checked === false', () => {
-      it('sets the tabindex attribute to -1', () => {
-        const wrapper = render({ checked: false });
-        const input = wrapper.find(CheckableInput);
-
-        expect(input.props().tabindex).toEqual(-1);
-      });
-    });
-  });
-
   describe('propTypes', () => {
     it('does not allow a children prop', () => {
       spyOn(console, 'error');
