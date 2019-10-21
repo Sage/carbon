@@ -30,7 +30,7 @@ describe('FormField', () => {
         size: 'small'
       }).children()).toMatchSnapshot();
     });
-    
+
     it('passes the id to the Label htmlFor prop', () => {
       const comp = render({
         id: 'foo',
