@@ -22,7 +22,6 @@ function render(renderer = TestRenderer.create, props) {
       value={ value }
     />
   ));
-  const trueBool = true;
 
   return renderer(
     <RadioButtonGroup
@@ -30,7 +29,7 @@ function render(renderer = TestRenderer.create, props) {
       legend='Test RadioButtonGroup Legend'
       name='radio-button-group'
       onChange={ jest.fn() }
-      useValidationIcon={ trueBool }
+      useValidationIcon
       { ...props }
     >
       {children}
@@ -100,13 +99,14 @@ describe('RadioButtonGroup', () => {
           const radioGroup = shallow(
             <RadioButtonGroup
               groupName={ groupName }
+              name={ groupName }
               legend='Test RadioButtonGroup Legend'
             >
               <RadioButton checked value='foo' />
             </RadioButtonGroup>
           );
 
-          const button = getButtons(radioGroup);
+          const button = radioGroup.find(RadioButton);
           expect(button.props().checked).toBe(true);
         });
       });
@@ -153,7 +153,7 @@ describe('RadioButtonGroup', () => {
         <RadioButtonGroup
           groupName={ groupName }
           name={ groupName }
-          label='Test RadioButtonGroup Label'
+          legend='Test RadioButtonGroup Legend'
         >
           <RadioButton
             checked
@@ -191,7 +191,7 @@ describe('RadioButtonGroup', () => {
   const renderUncontrolled = (groupProps, radioProps) => mount(
     <RadioButtonGroup
       groupName={ groupName }
-      label='Test RadioButtonGroup Label'
+      legend='Test RadioButtonGroup Legend'
       name='radio-button-group'
       { ...groupProps }
     >
@@ -217,7 +217,7 @@ describe('RadioButtonGroup', () => {
       <>
         <RadioButtonGroup
           groupName={ groupName }
-          label='Test RadioButtonGroup Label'
+          legend='Test RadioButtonGroup Legend'
           name='radio-button-group'
           onChange={ (e) => {
             setValue(e.target.value);

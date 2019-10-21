@@ -97,7 +97,7 @@ describe('when the withValidations HOC wraps a component', () => {
       expect(await wrapper.instance().validate(type)).toEqual(true);
     });
 
-    it('returns null when the a given validation type is undefined', async() => {
+    it('returns null when the given validation type is undefined', async() => {
       wrapper.setProps({
         foo: undefined
       });

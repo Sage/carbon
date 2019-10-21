@@ -65,16 +65,15 @@ exports[`FormField default renders children with styling 1`] = `
 
 exports[`FormField with a label renders the label component above the childen 1`] = `
 Array [
-  <Label
+  <Memo(Label)
     align="left"
     help="Help me!"
     inline={true}
     inputSize="small"
-    useValidationIcon={false}
     width={20}
   >
     Name
-  </Label>,
+  </Memo(Label)>,
   <input />,
 ]
 `;
