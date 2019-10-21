@@ -41,10 +41,8 @@ Then('Switch component is not loading', () => {
   switchInput().should('not.have.attr', 'readonly');
 });
 
-Then('I click onto {int} switch', (position) => {
-  switchDataComponent(position).click();
-});
-
-Then('I click onto {int} switch again', (position) => {
-  switchDataComponent(position).click();
+Then('I toggle onto {int} switch {int} times', (position, times) => {
+  for (let i = 0; i < times; i++) {
+    switchDataComponent(position, times).click();
+  }
 });

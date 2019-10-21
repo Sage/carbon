@@ -126,12 +126,7 @@ When('I hover mouse onto icon', () => {
   icon().trigger('mouseover');
 });
 
-When('I hover mouse onto icon into iFrame', () => {
-  cy.wait(100, { log: DEBUG_FLAG }); // required becasue element might be reloaded
-  iconNoIframe().trigger('mouseover');
-});
-
-Then('I hover mouse onto {string} icon', (name) => {
+Then('I hover mouse onto {string} icon into iFrame', (name) => {
   getElementNoIframe(name).trigger('mouseover');
 });
 
