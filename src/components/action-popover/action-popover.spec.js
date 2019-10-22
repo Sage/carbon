@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { mount as enzymeMount } from 'enzyme';
 import { simulate, assertStyleMatch } from '../../__spec_helper__/test-utils';
 import theme from '../../style/themes/small';
-import ActionPopover, { ActionPopoverDivider, ActionPopoverItem } from './index';
+import { ActionPopover, ActionPopoverDivider, ActionPopoverItem } from './index';
 import { MenuButton, Menu } from './action-popover.style';
 import Icon from '../icon';
 

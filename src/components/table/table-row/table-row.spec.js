@@ -18,7 +18,7 @@ import SmallTheme from '../../../style/themes/small';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import { DraggableContext, WithDrop } from '../../drag-and-drop';
 import { THEMES } from '../../../style/themes';
-import ActionPopover, { ActionPopoverItem } from '../../action-popover';
+import { ActionPopover, ActionPopoverItem } from '../../action-popover';
 import { MenuButton } from '../../action-popover/action-popover.style';
 
 jest.mock('../draggable-table-cell', () => {
