@@ -34,8 +34,9 @@ describe('GroupedCharacter', () => {
     });
 
     it('invokes provided onChange handler with proper value', () => {
-      input.simulate('change', { target: { value: 'ccaaaabb', setSelectionRange: () => {} } });
-      expect(onChange).toHaveBeenCalledWith({ target: { value: 'ccaaaabb' } });
+      input.simulate('change', { target: { value: 'cc-aa-aabb', setSelectionRange: () => {} } });
+      expect(onChange.mock.calls[0][0].target.value).toBe('cc-aa-aabb');
+      expect(onChange.mock.calls[0][1]).toBe('ccaaaabb');
     });
   });
 
@@ -57,7 +58,8 @@ describe('GroupedCharacter', () => {
     it('emits an unformatted string', () => {
       input.simulate('change', { target: { value: '123456', setSelectionRange: () => {} } });
       jest.runAllTimers();
-      expect(onChange).toHaveBeenCalledWith({ target: { value: '123456' } });
+      expect(onChange.mock.calls[0][0].target.value).toBe('123456');
+      expect(onChange.mock.calls[0][1]).toBe('123456');
     });
 
     it('does not allow a separator string containing multiple characters', () => {

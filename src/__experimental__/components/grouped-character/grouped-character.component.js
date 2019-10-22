@@ -25,8 +25,8 @@ const GroupedCharacter = ({
   stepIndices.pop();
 
   const handleChange = (ev) => {
-    const eventRef = ev.target;
-    const { selectionEnd } = ev.target;
+    const { target } = ev;
+    const { selectionEnd } = target;
     let newCursorPos = selectionEnd;
     const isAtOneBeyondSeparator = stepIndices.includes(selectionEnd - 1),
         backspacePressed = Events.isBackspaceKey({ which: pressedKey });
@@ -37,13 +37,12 @@ const GroupedCharacter = ({
       newCursorPos += 1;
     }
 
-    const reProcessedInputValue = ev.target.value.split(separator).join('');
-
+    const reProcessedInputValue = target.value.split(separator).join('');
     onChange(ev, reProcessedInputValue);
     if (!isControlled) {
       setInternalValue(reProcessedInputValue);
     }
-    setTimeout(() => eventRef.setSelectionRange(newCursorPos, newCursorPos));
+    setTimeout(() => target.setSelectionRange(newCursorPos, newCursorPos));
   };
 
   const handleKeyPress = (ev) => {
