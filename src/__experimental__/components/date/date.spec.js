@@ -239,16 +239,9 @@ describe('Date', () => {
         mockedStringToDate = jest.spyOn(DateHelper, 'stringToDate').mockImplementation(() => jsDateObject);
       });
 
-      it('then the "onChange" prop should have been called with ISO formatted date in payload value', () => {
+      it('then the "onChange" prop should have been called', () => {
         simulateChangeOnInput(wrapper, validDate);
-        expect(onChangeFn).toHaveBeenCalledWith(
-          {
-            target: {
-              name: componentName,
-              value: isoDate
-            }
-          }
-        );
+        expect(onChangeFn).toHaveBeenCalled();
       });
 
       it('then the "selectedDate" prop with proper Date Object should be passed to the DatePicker component', () => {
