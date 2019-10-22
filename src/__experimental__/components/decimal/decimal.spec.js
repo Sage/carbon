@@ -36,6 +36,14 @@ describe('Decimal', () => {
       expect(onChange).toHaveBeenCalledWith({ target: { value: '14.79' } });
     });
 
+    it('invokes onBlur passed as a prop', () => {
+      const onBlur = jest.fn();
+      const wrapper = shallow(<Decimal onBlur={ onBlur } onChange={ () => true } />);
+      const input = wrapper.find(Textbox);
+      input.simulate('blur', { target: { value: '0.00' } });
+      expect(onBlur).toHaveBeenCalledWith({ target: { value: '0.00' } }, '0.00');
+    });
+
     it('input value defaults to 0.00 if none provided', () => {
       const wrapper = render({});
       assertCorrectTextboxVal(wrapper, '0.00');
