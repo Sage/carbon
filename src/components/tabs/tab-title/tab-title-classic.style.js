@@ -1,5 +1,5 @@
 import { css } from 'styled-components';
-import { THEMES } from '../../../style/themes';
+import { isClassic } from '../../../utils/helpers/style-helper';
 
 export default ({
   theme,
@@ -7,7 +7,7 @@ export default ({
   tabHasError,
   isTabSelected,
   position
-}) => theme.name === THEMES.classic && css`
+}) => isClassic(theme) && css`
   background-color: #f5f6f7;
   border-bottom: 2px solid #ccd6da;
   color: #003349;

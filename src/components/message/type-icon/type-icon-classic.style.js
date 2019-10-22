@@ -1,8 +1,8 @@
 import { css } from 'styled-components';
-import { THEMES } from '../../../style/themes';
 import classicThemeColors from '../message-classic-theme-colors';
+import { isClassic } from '../../../utils/helpers/style-helper';
 
-export default ({ theme, variant, roundedCorners }) => theme.name === THEMES.classic && css`
+export default ({ theme, variant, roundedCorners }) => isClassic(theme) && css`
   border-radius: ${roundedCorners ? '3px 0 0 3px' : '0px'};
   background-color: ${classicThemeColors[variant].main};
 
