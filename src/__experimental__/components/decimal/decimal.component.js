@@ -16,10 +16,15 @@ class Decimal extends React.Component {
 
   isControlled = this.props.value !== undefined
 
-  formatValue = () => {
+  getValue = () => {
     const { value: propValue = '0.00' } = this.props;
     const { value: stateValue = '0.00' } = this.state;
     const value = this.isControlled ? propValue : stateValue;
+    return value;
+  }
+
+  formatValue = () => {
+    const value = this.getValue();
 
     const { input } = this;
 
