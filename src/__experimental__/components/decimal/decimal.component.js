@@ -23,6 +23,15 @@ class Decimal extends React.Component {
     return value;
   }
 
+  getUndelimitedValue = () => {
+    const value = this.getValue();
+    const format = I18nHelper.format();
+    const delimiter = `\\${format.delimiter}`;
+    const delimiterMatcher = new RegExp(`[${delimiter}]*`, 'g');
+    const noDelimiters = value.replace(delimiterMatcher, '');
+    return noDelimiters;
+  }
+
   formatValue = () => {
     const value = this.getValue();
 
@@ -39,10 +48,7 @@ class Decimal extends React.Component {
 
     // Only format value if input is not active
     // Strip delimiters otherwise formatDecimal Helper goes nuts
-    const format = I18nHelper.format();
-    const delimiter = `\\${format.delimiter}`;
-    const delimiterMatcher = new RegExp(`[${delimiter}]*`, 'g');
-    const noDelimiters = value.replace(delimiterMatcher, '');
+    const noDelimiters = this.getUndelimitedValue();
 
     return I18nHelper.formatDecimal(
       noDelimiters,
