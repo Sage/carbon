@@ -88,22 +88,6 @@ describe('Label', () => {
     });
   });
 
-  describe('when warning', () => {
-    it('applies warning color', () => {
-      assertStyleMatch({
-        color: baseTheme.colors.warning
-      }, render({ hasWarning: true, useValidationIcon: true, tooltipMessage: 'Warning!' }, TestRenderer.create).toJSON());
-    });
-  });
-
-  describe('when info', () => {
-    it('applies info color', () => {
-      assertStyleMatch({
-        color: baseTheme.colors.info
-      }, render({ hasInfo: true, useValidationIcon: true, tooltipMessage: 'Info' }, TestRenderer.create).toJSON());
-    });
-  });
-
   describe('classic theme', () => {
     it('renders with custom padding', () => {
       assertStyleMatch({

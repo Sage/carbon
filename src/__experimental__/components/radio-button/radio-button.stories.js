@@ -95,7 +95,7 @@ const radioComponent = themeName => () => {
 
 const radioComponentWithValidation = themeName => () => {
   const validationTypes = ['error', 'warning', 'info'];
-  const legend = text('label', 'Are you coming to the event?');
+  const legend = text('legend', 'Are you coming to the event?');
   const labelHelp = text('labelHelp', 'Group label helper');
 
   function testValidation(type) {
