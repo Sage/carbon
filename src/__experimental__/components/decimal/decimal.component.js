@@ -102,8 +102,11 @@ class Decimal extends React.Component {
     }
   }
 
-  onBlur = () => {
+  onBlur = (ev) => {
     this.forceUpdate();
+    if (this.props.onBlur) {
+      this.props.onBlur(ev, this.getUndelimitedValue());
+    }
   }
 
   dataComponent = () => {
@@ -151,6 +154,10 @@ Decimal.propTypes = {
    * Handler for change event if input is meant to be used as a controlled component
    */
   onChange: PropTypes.func,
+  /**
+   * Handler for blur event
+   */
+  onBlur: PropTypes.func,
   /**
    * Maximum value for precision
    */
