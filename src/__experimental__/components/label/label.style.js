@@ -53,19 +53,6 @@ const LabelStyle = styled.div`
   `}
 
   ${({
-    hasError,
-    hasWarning,
-    hasInfo,
-    disabled,
-    readOnly,
-    theme
-  }) => !disabled && !readOnly && css`
-    ${hasInfo && `color: ${theme.colors.info};`}
-    ${hasWarning && `color: ${theme.colors.warning};`}
-    ${hasError && `color: ${theme.colors.error};`}
-  `}
-
-  ${({
     childOfForm,
     inline,
     align,

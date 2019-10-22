@@ -83,7 +83,7 @@ Label.propTypes = {
   /** Overrides the default 'as' attribute of the Help component */
   helpTag: PropTypes.string,
   /** Overrides the default tabindex of the Help component */
-  helpTabIndex: PropTypes.number,
+  helpTabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** A message that the ValidationIcon component will display */
   tooltipMessage: PropTypes.string,
   /** Whether to show the validation icon */
