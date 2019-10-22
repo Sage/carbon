@@ -13,35 +13,6 @@ import withUniqueName from '../../../utils/helpers/with-unique-name';
 const defaultDateFormat = 'DD/MM/YYYY';
 
 class BaseDateInput extends React.Component {
-  static propTypes = {
-    ...Textbox.propTypes,
-    /** Automatically focus on component mount */
-    autoFocus: PropTypes.bool,
-    /** Used to provide additional validations on composed components */
-    internalValidations: PropTypes.array,
-    /** Minimum possible date YYYY-MM-DD */
-    minDate: PropTypes.string,
-    /** Maximum possible date YYYY-MM-DD */
-    maxDate: PropTypes.string,
-    /** Specify a callback triggered on blur */
-    onBlur: PropTypes.func,
-    /** Specify a callback triggered on change */
-    onChange: PropTypes.func,
-    /** Specify a callback triggered on focus */
-    onFocus: PropTypes.func,
-    /** Name of the input */
-    name: PropTypes.string,
-    /** The current date YYYY-MM-DD */
-    value: PropTypes.string,
-    /** Triggers textbox validation when it's boolean value changes */
-    forceUpdateTriggerToggle: PropTypes.bool
-  };
-
-  static defaultProps = {
-    value: DateHelper.todayFormatted(),
-    internalValidations: [new DateValidator()]
-  };
-
   isBlurBlocked = false;
 
   isOpening = false;
@@ -261,6 +232,34 @@ function formatDateToCurrentLocale(value) {
 
   return DateHelper.formatValue(value || DateHelper.todayFormatted(), visibleFormat);
 }
+
+BaseDateInput.propTypes = {
+  ...Textbox.propTypes,
+  /** Automatically focus on component mount */
+  autoFocus: PropTypes.bool,
+  /** Used to provide additional validations on composed components */
+  internalValidations: PropTypes.array,
+  /** Minimum possible date YYYY-MM-DD */
+  minDate: PropTypes.string,
+  /** Maximum possible date YYYY-MM-DD */
+  maxDate: PropTypes.string,
+  /** Specify a callback triggered on blur */
+  onBlur: PropTypes.func,
+  /** Specify a callback triggered on change */
+  onChange: PropTypes.func,
+  /** Specify a callback triggered on focus */
+  onFocus: PropTypes.func,
+  /** Name of the input */
+  name: PropTypes.string,
+  /** The current date YYYY-MM-DD */
+  value: PropTypes.string,
+  /** Triggers textbox validation when it's boolean value changes */
+  forceUpdateTriggerToggle: PropTypes.bool
+};
+
+BaseDateInput.defaultProps = {
+  internalValidations: [new DateValidator()]
+};
 
 const DateInput = withUniqueName(BaseDateInput);
 
