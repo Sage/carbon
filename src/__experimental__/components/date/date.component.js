@@ -103,12 +103,8 @@ class BaseDateInput extends React.Component {
     if (DateHelper.isValidDate(visibleValue)) {
       this.setState({ visibleValue: formatDateToCurrentLocale(visibleValue) }, () => {
         if (this.props.onBlur) {
-          const dateWithSlashes = DateHelper.sanitizeDateInput(this.input.value);
-          const isValidDate = DateHelper.isValidDate(dateWithSlashes);
-
-          if (isValidDate) {
-            this.props.onBlur({ target: this.input }, DateHelper.formatValue(dateWithSlashes));
-          }
+          const dateWithSlashes = DateHelper.sanitizeDateInput(visibleValue);
+          this.props.onBlur({ target: this.input }, DateHelper.formatValue(dateWithSlashes));
         }
       });
     }
