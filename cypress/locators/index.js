@@ -43,3 +43,4 @@ export const getDataElementByNameAndValue = (name, value) => cy.iFrame(`[data-${
 export const storyRootNoIframe = () => cy.get(STORY_ROOT);
 export const tooltipPreviewNoIframe = () => cy.get(TOOLTIP_PREVIEW);
 export const iconNoIframe = () => cy.get(ICON);
+export const getDataElementByValueNoIframe = element => cy.get(`[data-element="${element}"]`);
