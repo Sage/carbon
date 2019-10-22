@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import LabelStyle from '../../__experimental__/components/label/label.style';
-import { THEMES } from '../../style/themes';
 import baseTheme from '../../style/themes/base';
+import { isClassic } from '../../utils/helpers/style-helper';
 
 const StyledInlineInputs = styled.div`
   display: flex;
@@ -29,7 +29,7 @@ const StyledInlineInputs = styled.div`
     margin-left: -1px;
   }
 
-  ${({ theme }) => theme.name === THEMES.classic && css`
+  ${({ theme }) => isClassic(theme) && css`
     ${LabelStyle} {
       padding-right: 0;
     }
