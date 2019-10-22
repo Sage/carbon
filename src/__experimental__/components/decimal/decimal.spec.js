@@ -124,35 +124,35 @@ describe('Decimal', () => {
       const wrapper = render({ value: '99.99' }, mount);
 
       wrapper.setProps({ precision: 4 });
-      assertCorrectTextboxVal(wrapper, '99.9900');
+      assertCorrectTextboxVal(wrapper, '0.9999');
     });
 
     it('updates the value after decreasing the precison', () => {
       const wrapper = render({ value: '234.1234567' }, mount);
 
       wrapper.setProps({ precision: 4 });
-      assertCorrectTextboxVal(wrapper, '234.1235');
+      assertCorrectTextboxVal(wrapper, '234,123.4567');
     });
 
     it('does not allow the precison to be greater than the max precision', () => {
       const wrapper = render({ value: '4.1234', maxPrecision: 15 }, mount);
 
       wrapper.setProps({ precision: 20 });
-      assertCorrectTextboxVal(wrapper, '4.123400000000000');
+      assertCorrectTextboxVal(wrapper, '0.000000000000000');
     });
 
     it('uses the defaultProp if precision is an empty string', () => {
       const wrapper = render({ value: '5.1234' }, mount);
 
       wrapper.setProps({ precision: '' });
-      assertCorrectTextboxVal(wrapper, '5.12');
+      assertCorrectTextboxVal(wrapper, '51,234.00');
     });
 
     it('uses the defaultProp if precision is not positive', () => {
       const wrapper = render({ value: '6.1234' }, mount);
 
       wrapper.setProps({ precision: -3 });
-      assertCorrectTextboxVal(wrapper, '6.12');
+      assertCorrectTextboxVal(wrapper, '61,234,000.00');
     });
   });
 

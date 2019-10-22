@@ -36,6 +36,7 @@ class Decimal extends React.Component {
     const value = this.getValue();
 
     const { input } = this;
+    const { precision } = this.props;
 
     // Return unformatted value if component has not mounted
     if (!input) {
@@ -48,10 +49,15 @@ class Decimal extends React.Component {
 
     // Only format value if input is not active
     // Strip delimiters otherwise formatDecimal Helper goes nuts
-    const noDelimiters = this.getUndelimitedValue();
+    let unDelimitedValue = this.getUndelimitedValue();
+
+    if (unDelimitedValue.indexOf('.') !== -1) {
+      const wholeNuber = unDelimitedValue.replace('.', '');
+      unDelimitedValue = wholeNuber / (10 ** precision);
+    }
 
     return I18nHelper.formatDecimal(
-      noDelimiters,
+      unDelimitedValue,
       this.validatePrecision()
     );
   }
@@ -75,11 +81,10 @@ class Decimal extends React.Component {
   }
 
   isValidDecimal = (value) => {
-    const { precision } = this.props;
     const format = I18nHelper.format();
     const delimiter = `\\${format.delimiter}`;
     const seperator = `\\${format.separator}`;
-    const validDecimalMatcher = new RegExp(`^[-]?[\\d${delimiter}]*[${seperator}]?\\d{0,${precision}}?$`);
+    const validDecimalMatcher = new RegExp(`^[-]?[\\d${delimiter}]*[${seperator}]?\\d*$`);
 
     return validDecimalMatcher.test(value);
   }
