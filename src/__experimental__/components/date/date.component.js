@@ -17,14 +17,20 @@ class BaseDateInput extends React.Component {
 
   isOpening = false;
 
-  inputHasFocus = this.props.autoFocus || false
+  inputHasFocus = this.props.autoFocus || false;
+
+  isControlled = this.props.value !== undefined;
+
+  defaultValue = DateHelper.isValidDate(this.props.value) ? this.props.value : DateHelper.todayFormatted();
+
+  initialVisibleValue = this.isControlled ? this.defaultValue : this.props.defaultValue;
 
   state = {
     isDatePickerOpen: false,
     /** Date object to pass to the DatePicker */
-    selectedDate: DateHelper.stringToDate(this.props.value),
+    selectedDate: DateHelper.stringToDate(this.initialVisibleValue),
     /** Displayed value, format dependent on a region */
-    visibleValue: formatDateToCurrentLocale(this.props.value)
+    visibleValue: formatDateToCurrentLocale(this.initialVisibleValue)
   };
 
   componentDidMount() {
@@ -35,10 +41,9 @@ class BaseDateInput extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.inputHasFocus && this.hasValueChanged(prevProps)) {
+    if (this.isControlled && !this.inputHasFocus && this.hasValueChanged(prevProps)) {
       this.updateVisibleValue(this.props.value);
       this.updateSelectedDate(this.props.value);
-      this.handleBlur();
     } else if (this.isBlurBlocked && this.hasValueChanged(prevProps)) {
       this.isBlurBlocked = false;
       this.handleBlur();
@@ -190,7 +195,8 @@ class BaseDateInput extends React.Component {
     const { minDate, maxDate, ...inputProps } = this.props;
     let events = {};
     delete inputProps.autoFocus;
-
+    delete inputProps.defaultValue;
+    delete inputProps.value;
     inputProps.validations = concatAllValidations(inputProps);
 
     events = {
