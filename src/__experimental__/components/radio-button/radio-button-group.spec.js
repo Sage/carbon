@@ -173,7 +173,8 @@ describe('RadioButtonGroup', () => {
       assertStyleMatch(
         {
           fontSize: '14px',
-          lineHeight: '17px',
+          height: '24px',
+          lineHeight: '24px',
           marginBottom: '16px',
           marginLeft: '-2px'
         },

@@ -13,7 +13,8 @@ const RadioButtonGroup = (props) => {
     hasWarning,
     hasInfo,
     onChange,
-    value
+    value,
+    tooltipMessage
   } = props;
   const groupLabelId = `${name}-label`;
 
@@ -65,6 +66,7 @@ const RadioButtonGroup = (props) => {
       hasError={ hasError }
       hasWarning={ hasWarning }
       hasInfo={ hasInfo }
+      tooltipMessage={ tooltipMessage }
       { ...tagComponent('radiogroup', props) }
     >
       {buttons}
@@ -88,7 +90,8 @@ RadioButtonGroup.propTypes = {
   /** Prop to indicate additional information  */
   hasInfo: PropTypes.bool,
   onChange: PropTypes.func,
-  value: PropTypes.string
+  value: PropTypes.string,
+  tooltipMessage: PropTypes.string
 };
 
 RadioButtonGroup.defaultProps = {

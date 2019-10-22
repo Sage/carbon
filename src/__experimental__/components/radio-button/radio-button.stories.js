@@ -102,7 +102,7 @@ const radioComponentWithValidation = themeName => () => {
     return (value) => {
       return new Promise((resolve, reject) => {
         if (type === 'valid' && value === 'error') {
-          reject(new Error('Some error occurred?'));
+          reject(new Error('An error has occurred!'));
         }
 
         if (type === 'warn' && value === 'warning') {

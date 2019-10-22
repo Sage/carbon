@@ -129,8 +129,11 @@ const RadioFieldsetStyle = styled(Fieldset)`
   `}
 
   ${LegendStyle} {
+    display: flex;
+    align-items: center;
     font-size: 14px;
-    line-height: 17px;
+    height: 24px;
+    line-height: 24px;
     margin-bottom: 16px;
     margin-left: -2px;
   }
