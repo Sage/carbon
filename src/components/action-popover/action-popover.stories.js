@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { notes, Info } from './documentation';
-import ActionPopover, { ActionPopoverDivider, ActionPopoverItem } from '.';
+import { ActionPopover, ActionPopoverDivider, ActionPopoverItem } from '.';
 import { MenuButton } from './action-popover.style';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 import { dlsThemeSelector } from '../../../.storybook/theme-selectors';

@@ -9,7 +9,8 @@ const Info = (
     <p>Import the component</p>
 
     <StoryCode padded>
-      {'import ActionPopover from "carbon-react/lib/components/action-popover";'}
+      {'import {ActionPopover, ActionPopoverItem, ActionPopoverDivider} from '}
+      {'"carbon-react/lib/components/action-popover";'}
     </StoryCode>
 
     <p>See the story source for an example on how to define a ActionPopover</p>
