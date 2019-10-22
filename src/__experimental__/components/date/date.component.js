@@ -58,13 +58,11 @@ class BaseDateInput extends React.Component {
     this.input = input.current;
   };
 
-  handleBlur = (ev) => {
+  handleBlur = () => {
     this.inputHasFocus = false;
     const { disabled, readOnly } = this.props;
 
     if (disabled || readOnly || this.isBlurBlocked) return;
-
-    if (this.props.onBlur) this.props.onBlur(ev);
 
     this.reformatVisibleDate();
   }
@@ -81,7 +79,9 @@ class BaseDateInput extends React.Component {
       this.openDatePicker();
     }
 
-    if (this.props.onFocus) this.props.onFocus(ev);
+    if (this.props.onFocus) {
+      this.props.onFocus(ev);
+    }
   };
 
   handleTabKeyDown = (ev) => {
@@ -100,9 +100,17 @@ class BaseDateInput extends React.Component {
 
   reformatVisibleDate = () => {
     const { visibleValue } = this.state;
-
     if (DateHelper.isValidDate(visibleValue)) {
-      this.setState({ visibleValue: formatDateToCurrentLocale(visibleValue) });
+      this.setState({ visibleValue: formatDateToCurrentLocale(visibleValue) }, () => {
+        if (this.props.onBlur) {
+          const dateWithSlashes = DateHelper.sanitizeDateInput(this.input.value);
+          const isValidDate = DateHelper.isValidDate(dateWithSlashes);
+
+          if (isValidDate) {
+            this.props.onBlur({ target: this.input }, DateHelper.formatValue(dateWithSlashes));
+          }
+        }
+      });
     }
   }
 
@@ -117,19 +125,24 @@ class BaseDateInput extends React.Component {
 
   handleDateSelect = (selectedDate) => {
     const stringDateIso = DateHelper.formatDateString(selectedDate);
-
     this.isBlurBlocked = true;
     this.closeDatePicker();
-    this.updateVisibleValue(stringDateIso);
-    this.emitOnChangeCallback(stringDateIso);
+    this.updateVisibleValue(stringDateIso, true);
   };
 
-  updateVisibleValue = (date) => {
+  updateVisibleValue = (date, pickerUsed) => {
     const visibleValue = formatDateToCurrentLocale(date);
 
     this.setState({
       selectedDate: date,
       visibleValue
+    }, () => {
+      if (pickerUsed) {
+        const event = {
+          target: this.input
+        };
+        this.emitOnChangeCallback(event, date);
+      }
     });
   };
 
@@ -146,7 +159,7 @@ class BaseDateInput extends React.Component {
     if (isValidDate) {
       isoDateString = DateHelper.formatValue(dateWithSlashes);
       this.updateSelectedDate(isoDateString);
-      this.emitOnChangeCallback(isoDateString);
+      this.emitOnChangeCallback(ev, isoDateString);
     }
 
     this.setState({ visibleValue: ev.target.value });
@@ -163,15 +176,10 @@ class BaseDateInput extends React.Component {
     this.setState({ selectedDate: newDate });
   };
 
-  emitOnChangeCallback = (stringDate) => {
-    const changePayload = {
-      target: {
-        name: this.props.name,
-        value: stringDate
-      }
-    };
-
-    if (this.props.onChange) this.props.onChange(changePayload);
+  emitOnChangeCallback = (ev, isoFormattedValue) => {
+    if (this.props.onChange) {
+      this.props.onChange(ev, isoFormattedValue);
+    }
   };
 
   renderDatePicker = (dateRangeProps) => {
@@ -197,6 +205,7 @@ class BaseDateInput extends React.Component {
     delete inputProps.autoFocus;
     delete inputProps.defaultValue;
     delete inputProps.value;
+
     inputProps.validations = concatAllValidations(inputProps);
 
     events = {
@@ -239,6 +248,8 @@ function formatDateToCurrentLocale(value) {
   return DateHelper.formatValue(value || DateHelper.todayFormatted(), visibleFormat);
 }
 
+const DateInput = withUniqueName(BaseDateInput);
+
 BaseDateInput.propTypes = {
   ...Textbox.propTypes,
   /** Automatically focus on component mount */
@@ -266,8 +277,6 @@ BaseDateInput.propTypes = {
 BaseDateInput.defaultProps = {
   internalValidations: [new DateValidator()]
 };
-
-const DateInput = withUniqueName(BaseDateInput);
 
 export { defaultDateFormat, BaseDateInput };
 export default DateInput;
