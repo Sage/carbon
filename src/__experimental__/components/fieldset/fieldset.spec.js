@@ -6,9 +6,10 @@ import Textbox from '../textbox';
 import { LegendStyle } from './fieldset.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import classicTheme from '../../../style/themes/classic';
+import ValidationIcon from '../../../components/validations/validation-icon.component';
 
-function render(props) {
-  return shallow(
+function render(props, renderer = shallow) {
+  return renderer(
     <Fieldset { ...props }>
       <Textbox />
     </Fieldset>
@@ -16,6 +17,7 @@ function render(props) {
 }
 
 const basicWrapper = render();
+const validationTypes = ['hasError', 'hasWarning', 'hasInfo'];
 
 describe('Fieldset', () => {
   it('renders correctly', () => {
@@ -41,6 +43,15 @@ describe('Fieldset', () => {
         margin: '0 0 8px 0',
         padding: '0 6px'
       }, mount(<LegendStyle theme={ classicTheme } />));
+    });
+  });
+
+  describe.each(validationTypes)('when prop %s === true', (vType) => {
+    it('show validation icon', () => {
+      const wrapper = render({ legend: 'Legend', [vType]: true, tooltipMessage: 'Message!' }, mount);
+      const icon = wrapper.find(ValidationIcon);
+
+      expect(icon.exists()).toEqual(true);
     });
   });
 });
