@@ -35,6 +35,7 @@ const Flash = (props) => {
       open={ props.open }
       variant={ props.variant || props.as }
       onDismiss={ props.timeout ? null : props.onDismiss }
+      data-component='flash'
     >
       {props.message}
     </Toast>
