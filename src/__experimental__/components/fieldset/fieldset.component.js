@@ -15,6 +15,7 @@ const Fieldset = (props) => {
         <ValidationIcon
           type={ getValidationType(props) }
           tooltipMessage={ props.tooltipMessage }
+          tabIndex={ 0 }
         />
       );
     }

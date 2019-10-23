@@ -32,24 +32,24 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   flex-wrap: wrap;
 }
 
-.c5 .c16 {
+.c5 .c18 {
   text-align: left;
   width: auto;
   white-space: nowrap;
   margin-top: -2px;
 }
 
-.c5 .c16 .c15,
-.c5 .c16 .sc-bZQynM {
+.c5 .c18 .c16,
+.c5 .c18 .c17 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c5 .c16 .c15:hover,
-.c5 .c16 .sc-bZQynM:hover,
-.c5 .c16 .c15:focus,
-.c5 .c16 .sc-bZQynM:focus {
+.c5 .c18 .c16:hover,
+.c5 .c18 .c17:hover,
+.c5 .c18 .c16:focus,
+.c5 .c18 .c17:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -91,7 +91,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c4 .c16 {
+.c4 .c18 {
   padding: 0 6px;
   width: auto;
 }
@@ -219,6 +219,10 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
+}
+
+.c3 .c17 .c15:focus {
+  outline: 2px solid #FFB500;
 }
 
 .c0 .c2 {
