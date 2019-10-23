@@ -4,7 +4,7 @@ import Flash from './flash.component';
 import FlashLegacy from './flash-legacy.component';
 import classic from '../../style/themes/classic';
 import Toast from '../toast';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Flash', () => {
   let wrapper;
