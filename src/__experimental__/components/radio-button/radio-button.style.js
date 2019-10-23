@@ -6,8 +6,6 @@ import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
 import LabelStyle from '../label/label.style';
 import ClassicRadioButtonStyles from './radio-button-classic.style';
-import Fieldset from '../fieldset';
-import { LegendStyle } from '../fieldset/fieldset.style';
 import baseTheme from '../../../style/themes/base';
 
 const RadioButtonStyle = styled(CheckboxStyle)`
@@ -115,28 +113,4 @@ RadioButtonStyle.defaultProps = {
   theme: baseTheme
 };
 
-const RadioFieldsetStyle = styled(Fieldset)`
-  ${({
-    theme, disabled, hasError, hasWarning, hasInfo
-  }) => css`
-    ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} svg {
-      ${!disabled && css`
-        ${hasInfo && `border-color: ${theme.colors.info};`}
-        ${hasWarning && `border-color: ${theme.colors.warning};`}
-        ${hasError && `border-color: ${theme.colors.error};`}
-      `}
-    }
-  `}
-
-  ${LegendStyle} {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    height: 24px;
-    line-height: 24px;
-    margin-bottom: 16px;
-    margin-left: -2px;
-  }
-`;
-
-export { RadioButtonStyle, RadioFieldsetStyle };
+export default RadioButtonStyle;
