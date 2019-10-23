@@ -5,7 +5,7 @@ import { shallow, mount } from 'enzyme';
 import { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { RadioButton, RadioButtonGroup } from '.';
-import { LegendStyle } from '../fieldset/fieldset.style';
+import { LegendContainerStyle } from '../fieldset/fieldset.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import Button from '../../../components/button';
 
@@ -169,17 +169,25 @@ describe('RadioButtonGroup', () => {
   });
 
   describe('styles', () => {
-    it('applies the correct Legend styles', () => {
+    it('applies the correct Legend Container styles', () => {
+      assertStyleMatch(
+        {
+          height: '26px',
+          marginBottom: '16px'
+        },
+        render().toJSON(),
+        { modifier: css`${LegendContainerStyle}` }
+      );
+    });
+
+    it('applies the correct legend styles', () => {
       assertStyleMatch(
         {
           fontSize: '14px',
-          height: '24px',
-          lineHeight: '24px',
-          marginBottom: '16px',
           marginLeft: '-2px'
         },
         render().toJSON(),
-        { modifier: css`${LegendStyle}` }
+        { modifier: css`${LegendContainerStyle} legend` }
       );
     });
   });

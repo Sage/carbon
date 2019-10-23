@@ -13,16 +13,21 @@ const FieldsetStyle = styled.fieldset`
   }
 `;
 
-const LegendStyle = styled.legend`
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 24px;
+const LegendContainerStyle = styled.div`
+  display: flex;
+  align-items: center;
   margin-bottom: 32px;
 
-  ${fieldsetClassicStyle}
+  legend {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+
+    ${fieldsetClassicStyle}
+  }
 `;
 
 export {
   FieldsetStyle,
-  LegendStyle
+  LegendContainerStyle
 };

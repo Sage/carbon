@@ -204,13 +204,6 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 }
 
 .c3 {
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 24px;
-  margin-bottom: 32px;
-}
-
-.c0 .c2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -219,10 +212,22 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  font-size: 14px;
-  height: 24px;
+  margin-bottom: 32px;
+}
+
+.c3 legend {
+  font-size: 20px;
+  font-weight: 600;
   line-height: 24px;
+}
+
+.c0 .c2 {
   margin-bottom: 16px;
+  height: 26px;
+}
+
+.c0 .c2 legend {
+  font-size: 14px;
   margin-left: -2px;
 }
 
@@ -232,12 +237,15 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   data-component="radiogroup"
   role="radiogroup"
 >
-  <legend
+  <div
     className="c2 c3"
-    data-element="legend"
   >
-    Test RadioButtonGroup Legend
-  </legend>
+    <legend
+      data-element="legend"
+    >
+      Test RadioButtonGroup Legend
+    </legend>
+  </div>
   <div
     checked={false}
     className="c4"
