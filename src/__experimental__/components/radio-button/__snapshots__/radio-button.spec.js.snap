@@ -159,7 +159,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
 }
 
 .c15 .c8:checked + .c10 circle {
-  fill: #00805D;
+  fill: rgba(0,0,0,0.9);
 }
 
 .c15 .c8:checked + .c10 circle {
@@ -234,7 +234,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
 }
 
 .c16 .c8:checked + .c10 circle {
-  fill: #00805D;
+  fill: rgba(0,0,0,0.9);
 }
 
 .c16 .c6 {
@@ -317,7 +317,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
 }
 
 .c17 .c8:checked + .c10 circle {
-  fill: #00805D;
+  fill: rgba(0,0,0,0.9);
 }
 
 .c17 .c6 {
@@ -414,7 +414,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
 }
 
 .c18 .c8:checked + .c10 circle {
-  fill: #00805D;
+  fill: rgba(0,0,0,0.9);
 }
 
 .c18 .c6,
@@ -523,7 +523,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
 }
 
 .c19 .c8:checked + .c10 circle {
-  fill: #00805D;
+  fill: rgba(0,0,0,0.9);
 }
 
 .c19 .c8:checked + .c10 circle {
@@ -634,7 +634,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
 }
 
 .c20 .c8:checked + .c10 circle {
-  fill: #00805D;
+  fill: rgba(0,0,0,0.9);
 }
 
 .c20 .c6,
@@ -741,7 +741,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
 }
 
 .c21 .c8:checked + .c10 circle {
-  fill: #00805D;
+  fill: rgba(0,0,0,0.9);
 }
 
 .c21 .c6,
@@ -853,7 +853,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
 }
 
 .c2 .c8:checked + .c10 circle {
-  fill: #00805D;
+  fill: rgba(0,0,0,0.9);
 }
 
 .c1 {
