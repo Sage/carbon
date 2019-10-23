@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { validProps } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
-import { FieldsetStyle, LegendStyle } from './fieldset.style';
+import { FieldsetStyle, LegendContainerStyle } from './fieldset.style';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
 import { getValidationType } from '../../../components/validations/with-validation.hoc';
 
@@ -26,10 +26,12 @@ const Fieldset = (props) => {
     if (!props.legend) return null;
 
     return (
-      <LegendStyle data-element='legend'>
-        { props.legend }
+      <LegendContainerStyle>
+        <legend data-element='legend'>
+          { props.legend }
+        </legend>
         { validationIcon() }
-      </LegendStyle>
+      </LegendContainerStyle>
     );
   };
 
