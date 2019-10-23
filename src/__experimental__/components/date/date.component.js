@@ -21,9 +21,9 @@ class BaseDateInput extends React.Component {
 
   isControlled = this.props.value !== undefined;
 
-  defaultValue = DateHelper.isValidDate(this.props.value) ? this.props.value : DateHelper.todayFormatted();
+  adjustedValue = DateHelper.isValidDate(this.props.value) ? this.props.value : DateHelper.todayFormatted();
 
-  initialVisibleValue = this.isControlled ? this.defaultValue : this.props.defaultValue;
+  initialVisibleValue = this.isControlled ? this.adjustedValue : this.props.defaultValue;
 
   state = {
     isDatePickerOpen: false,
