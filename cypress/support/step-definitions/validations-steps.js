@@ -1,10 +1,20 @@
-import { commonButtonPreviewNoIframe } from '../../locators/build';
-import { roleTooltipNoIframe } from '../../locators/validations';
+import { getDataElementByValueNoIframe } from '../../locators';
 
-When('I click {string} button into iFrame', (text) => {
-  commonButtonPreviewNoIframe().contains(text).click();
-});
+const FIRST_SWITCH = '0';
+const SECOND_SWITCH = '1';
+const THIRD_SWITCH = '2';
 
-Then('tooltipPreview on preview for validations component into iFrame is set to {string}', (text) => {
-  roleTooltipNoIframe().should('have.text', text);
+Then('I hover mouse onto {string} {string} icon for validations component into iFrame', (position, name) => {
+  switch (position) {
+    case 'first':
+      getDataElementByValueNoIframe(name).eq(FIRST_SWITCH).trigger('mouseover');
+      break;
+    case 'second':
+      getDataElementByValueNoIframe(name).eq(SECOND_SWITCH).trigger('mouseover');
+      break;
+    case 'third':
+      getDataElementByValueNoIframe(name).eq(THIRD_SWITCH).trigger('mouseover');
+      break;
+    default: throw new Error('There are only three validation icons elements on the page');
+  }
 });

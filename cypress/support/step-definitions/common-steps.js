@@ -5,16 +5,11 @@ import {
   commonButtonPreview, labelPreview, helpIcon, inputWidthSlider, fieldHelpPreview,
   labelWidthSlider, backgroundUILocator, closeIconButton, tooltipPreview, getKnobsInput,
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
-  precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, iconNoIframe,
+  precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
-import { getElementNoIframe, getComponentNoIframe } from '../../locators/build';
-import { roleTooltipNoIframe } from '../../locators/validations';
-
-const FIRST = '0';
-const SECOND = '1';
-const THIRD = '2';
+import { getElementNoIframe, commonButtonPreviewNoIframe } from '../../locators/build';
 
 const LABEL_INPUT_INLINE_CLASS = 'common-input__label--inline';
 
@@ -139,22 +134,6 @@ Then('I hover mouse onto {string} icon into iFrame', (name) => {
   getElementNoIframe(name).trigger('mouseover');
 });
 
-Then('I hover mouse onto error icon for validations component into iFrame', () => {
-  iconNoIframe().each().trigger('mouseover');
-  /* switch (position) {
-    case 'first':
-      iconNoIframe(FIRST).trigger('mouseover');
-      break;
-    case 'second':
-      iconNoIframe(SECOND).trigger('mouseover');
-      break;
-    case 'third':
-      iconNoIframe(THIRD).trigger('mouseover');
-      break;
-    default: throw new Error('There are only three switch elements on the page');
-  } */
-});
-
 Then('tooltipPreview on preview is set to {string}', (text) => {
   tooltipPreview().should('have.text', text);
 });
@@ -202,6 +181,10 @@ Then('closeIcon is visible', () => {
 
 Then('I click closeIcon', () => {
   closeIconButton().click();
+});
+
+When('I click {string} button into iFrame', (text) => {
+  commonButtonPreviewNoIframe().contains(text).click();
 });
 
 Then('closeIcon is not visible', () => {
