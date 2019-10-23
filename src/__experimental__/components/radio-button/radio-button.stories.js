@@ -17,7 +17,7 @@ const handleGroupChangeFactory = store => (event) => {
 
   store.set({ value });
 
-  action('Selected')(value);
+  action('onChange')(value);
 };
 
 function makeStory(name, themeSelector, component) {
