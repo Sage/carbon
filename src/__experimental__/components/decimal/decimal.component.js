@@ -42,10 +42,6 @@ class Decimal extends React.Component {
     if (!input) {
       return value;
     }
-    // Return unformatted value if input is being used
-    if (input && this._document.activeElement === input.current) {
-      return value;
-    }
 
     // Only format value if input is not active
     // Strip delimiters otherwise formatDecimal Helper goes nuts
