@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
-import { RadioButtonStyle } from './radio-button.style';
+import RadioButtonStyle from './radio-button.style';
 import CheckableInput from '../checkable-input/checkable-input.component';
 import RadioButtonSvg from './radio-button-svg.component';
 import OptionsHelper from '../../../utils/helpers/options-helper';

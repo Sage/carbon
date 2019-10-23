@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
-import { RadioFieldsetStyle } from './radio-button.style';
+import RadioButtonFieldsetStyle from './radio-button-fieldset.style';
 import withValidation from '../../../components/validations/with-validation.hoc';
 
 const RadioButtonGroup = (props) => {
@@ -59,7 +59,7 @@ const RadioButtonGroup = (props) => {
   });
 
   return (
-    <RadioFieldsetStyle
+    <RadioButtonFieldsetStyle
       aria-labelledby={ groupLabelId }
       role='radiogroup'
       legend={ legend }
@@ -70,7 +70,7 @@ const RadioButtonGroup = (props) => {
       { ...tagComponent('radiogroup', props) }
     >
       {buttons}
-    </RadioFieldsetStyle>
+    </RadioButtonFieldsetStyle>
   );
 };
 
