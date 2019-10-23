@@ -51,7 +51,7 @@ const RadioButtonStyle = styled(CheckboxStyle)`
     }
 
     ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle {
-      fill: ${theme.colors.primary};
+      fill: ${theme.text.color};
     }
 
     ${disabled && css`

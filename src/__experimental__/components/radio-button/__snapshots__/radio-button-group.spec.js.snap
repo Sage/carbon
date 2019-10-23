@@ -136,7 +136,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 }
 
 .c4 .c10:checked + .c12 circle {
-  fill: #26A826;
+  fill: rgba(0,0,0,0.9);
 }
 
 .c13 .c8 {
@@ -189,7 +189,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 }
 
 .c13 .c10:checked + .c12 circle {
-  fill: #26A826;
+  fill: rgba(0,0,0,0.9);
 }
 
 .c1 {
