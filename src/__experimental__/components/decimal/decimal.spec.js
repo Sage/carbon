@@ -115,7 +115,7 @@ describe('Decimal', () => {
         activeElement: wrapper.instance().input.current
       };
       wrapper.setProps({ value: '1234.00' });
-      assertCorrectTextboxVal(wrapper, '1234.00');
+      assertCorrectTextboxVal(wrapper, '1,234.00');
     });
   });
 
