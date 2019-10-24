@@ -44,3 +44,4 @@ export const storyRootNoIframe = () => cy.get(STORY_ROOT);
 export const tooltipPreviewNoIframe = () => cy.get(TOOLTIP_PREVIEW);
 export const iconNoIframe = () => cy.get(ICON);
 export const getDataElementByValueNoIframe = element => cy.get(`[data-element="${element}"]`);
+export const commonDataElementInputPreviewNoIframe = () => cy.get(COMMMON_DATA_ELEMENT_INPUT);
