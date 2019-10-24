@@ -7,7 +7,6 @@ import { Checkbox } from '.';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import baseTheme from '../../../style/themes/base';
 import Icon from '../../../components/icon';
-import ValidationIcon from '../../../components/validations/validation-icon.component';
 import Label from '../label';
 
 const checkboxValues = ['required', 'optional'];
@@ -113,13 +112,6 @@ describe('CheckboxGroup', () => {
           assertStyleMatch({
             border: `1px solid ${validationTypes[type].color}`
           }, checkboxWrapper, { modifier: 'svg' });
-        });
-
-        it('check icon type', () => {
-          const icon = wrapper.find(ValidationIcon);
-          const iconType = type.replace('has', '').toLowerCase();
-
-          expect(icon.prop('type')).toEqual(iconType);
         });
       });
 

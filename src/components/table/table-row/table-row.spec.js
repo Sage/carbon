@@ -11,7 +11,7 @@ import StyledTableCell from '../table-cell/table-cell.style';
 import DraggableTableCell from '../draggable-table-cell';
 import StyledTable from '../table.style';
 import StyledIcon from '../../icon/icon.style';
-import Checkbox from '../../../__experimental__/components/checkbox';
+import { Checkbox } from '../../../__experimental__/components/checkbox';
 import BaseTheme from '../../../style/themes/base';
 import ClassicTheme from '../../../style/themes/classic';
 import SmallTheme from '../../../style/themes/small';
