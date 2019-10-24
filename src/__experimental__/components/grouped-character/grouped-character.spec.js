@@ -35,18 +35,18 @@ describe('GroupedCharacter', () => {
 
     it('invokes provided onChange handler with proper value', () => {
       input.simulate('change', { target: { value: 'cc-aa-aabb', setSelectionRange: () => {} } });
-      expect(onChange.mock.calls[0][0].target.value).toBe('cc-aa-aabb');
-      expect(onChange.mock.calls[0][1]).toBe('ccaaaabb');
+      expect(onChange.mock.calls[0][0].target.value).toEqual({ formattedValue: 'cc-aa-aabb', rawValue: 'ccaaaabb' });
     });
   });
 
   describe('functionality', () => {
-    let instance, input, onChange;
+    let instance, input, onChange, onBlur;
     beforeEach(() => {
       onChange = jest.fn();
+      onBlur = jest.fn();
 
       instance = mountComponent({
-        separator, groups: basicGroupConfig, value: valueString, onChange
+        separator, groups: basicGroupConfig, value: valueString, onChange, onBlur
       });
       input = instance.find('input');
     });
@@ -55,11 +55,32 @@ describe('GroupedCharacter', () => {
       expect(input.props().value).toEqual('12-34-5678');
     });
 
-    it('emits an unformatted string', () => {
+    it('emits a formatted string on change event', () => {
       input.simulate('change', { target: { value: '123456', setSelectionRange: () => {} } });
       jest.runAllTimers();
-      expect(onChange.mock.calls[0][0].target.value).toBe('123456');
-      expect(onChange.mock.calls[0][1]).toBe('123456');
+
+      expect(onChange.mock.calls[0][0].target.value).toEqual({ formattedValue: '12-34-56', rawValue: '123456' });
+    });
+
+    it('invokes provided onChange handler with proper event target name and id if those are provided', () => {
+      input.simulate('change', {
+        target: {
+          value: 'cc-aa-aabb', id: 'unique_id', name: 'nice_name', setSelectionRange: () => {}
+        }
+      });
+      expect(onChange.mock.calls[0][0].target.id).toBe('unique_id');
+      expect(onChange.mock.calls[0][0].target.name).toBe('nice_name');
+    });
+
+    it('emits a formatted string on blur event', () => {
+      input.simulate('blur', { target: { value: '123456' } });
+      expect(onBlur.mock.calls[0][0].target.value).toEqual({ formattedValue: '12-34-56', rawValue: '123456' });
+    });
+
+    it('does nothing if onBlur is not provided', () => {
+      instance.setProps({ onBlur: undefined });
+      input.simulate('blur', { target: { value: '123456' } });
+      expect(onBlur.mock.calls[1]).toBe(undefined);
     });
 
     it('does not allow a separator string containing multiple characters', () => {
