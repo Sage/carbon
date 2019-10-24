@@ -363,9 +363,9 @@ describe('Date', () => {
 
     describe('controlled vs uncontrolled input', () => {
       it('supports being used as an controlled input via passing of a value prop', () => {
-        wrapper = render({ value: '27rd Feb 01' });
+        wrapper = render({ value: '27th Feb 01' });
         expect(wrapper.find(BaseDateInput).instance().isControlled).toEqual(true);
-        expect(wrapper.find(BaseDateInput).instance().initialVisibleValue).toEqual('27rd Feb 01');
+        expect(wrapper.find(BaseDateInput).instance().initialVisibleValue).toEqual('27th Feb 01');
       });
 
       it('supports being used as an uncontrolled input via passing of a defaultValue prop', () => {
@@ -375,9 +375,9 @@ describe('Date', () => {
       });
 
       it('acts as a controlled input when value and default are passed and does not throw', () => {
-        wrapper = render({ defaultValue: '23rd Feb 09', value: '27rd Feb 01' });
+        wrapper = render({ defaultValue: '23rd Feb 09', value: '27th Feb 01' });
         expect(wrapper.find(BaseDateInput).instance().isControlled).toEqual(true);
-        expect(wrapper.find(BaseDateInput).instance().initialVisibleValue).toEqual('27rd Feb 01');
+        expect(wrapper.find(BaseDateInput).instance().initialVisibleValue).toEqual('27th Feb 01');
       });
     });
   });
