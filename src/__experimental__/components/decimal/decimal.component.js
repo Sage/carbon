@@ -16,10 +16,24 @@ class Decimal extends React.Component {
 
   isControlled = this.props.value !== undefined
 
-  formatValue = () => {
+  getValue = () => {
     const { value: propValue = '0.00' } = this.props;
     const { value: stateValue = '0.00' } = this.state;
     const value = this.isControlled ? propValue : stateValue;
+    return value;
+  }
+
+  getUndelimitedValue = () => {
+    const value = this.getValue();
+    const format = I18nHelper.format();
+    const delimiter = `\\${format.delimiter}`;
+    const delimiterMatcher = new RegExp(`[${delimiter}]*`, 'g');
+    const noDelimiters = value.replace(delimiterMatcher, '');
+    return noDelimiters;
+  }
+
+  formatValue = () => {
+    const value = this.getValue();
 
     const { input } = this;
 
@@ -34,10 +48,7 @@ class Decimal extends React.Component {
 
     // Only format value if input is not active
     // Strip delimiters otherwise formatDecimal Helper goes nuts
-    const format = I18nHelper.format();
-    const delimiter = `\\${format.delimiter}`;
-    const delimiterMatcher = new RegExp(`[${delimiter}]*`, 'g');
-    const noDelimiters = value.replace(delimiterMatcher, '');
+    const noDelimiters = this.getUndelimitedValue();
 
     return I18nHelper.formatDecimal(
       noDelimiters,
@@ -91,8 +102,11 @@ class Decimal extends React.Component {
     }
   }
 
-  onBlur = () => {
+  onBlur = (ev) => {
     this.forceUpdate();
+    if (this.props.onBlur) {
+      this.props.onBlur(ev, this.getUndelimitedValue());
+    }
   }
 
   dataComponent = () => {
@@ -140,6 +154,10 @@ Decimal.propTypes = {
    * Handler for change event if input is meant to be used as a controlled component
    */
   onChange: PropTypes.func,
+  /**
+   * Handler for blur event
+   */
+  onBlur: PropTypes.func,
   /**
    * Maximum value for precision
    */

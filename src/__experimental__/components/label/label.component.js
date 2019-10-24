@@ -39,7 +39,7 @@ const Label = (props) => {
           iconId={ helpId }
           type={ getValidationType(props) }
           tooltipMessage={ tooltipMessage }
-          tabIndexOverride={ helpTabIndex }
+          tabIndex={ helpTabIndex }
         />
       );
     }
@@ -96,4 +96,4 @@ Label.defaultProps = {
   useValidationIcon: false
 };
 
-export default Label;
+export default React.memo(Label);

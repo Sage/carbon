@@ -4,6 +4,7 @@ import Flash from './flash.component';
 import FlashLegacy from './flash-legacy.component';
 import classic from '../../style/themes/classic';
 import Toast from '../toast';
+import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Flash', () => {
   let wrapper;
@@ -11,10 +12,15 @@ describe('Flash', () => {
   beforeEach(() => {
     jest.clearAllTimers();
 
-    wrapper = mount(<Flash
-      message='test message' open
-      onDismiss={ () => {} }
-    />);
+    wrapper = mount(
+      <Flash
+        data-component='foo'
+        data-element='bar'
+        data-role='wiz'
+        message='test message' open
+        onDismiss={ () => {} }
+      />
+    );
   });
 
   it('should render FlashLegacy component when classic theme is passed', () => {
@@ -35,5 +41,13 @@ describe('Flash', () => {
   it('should pass correct variant to Toast Component', () => {
     wrapper.setProps({ variant: 'success' });
     expect(wrapper.find(Toast).props({ variant: 'success' })).toBeTruthy();
+  });
+
+  describe('tags', () => {
+    describe('on component', () => {
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper, 'foo', 'bar', 'wiz');
+      });
+    });
   });
 });

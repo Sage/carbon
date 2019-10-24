@@ -15,7 +15,7 @@ const ValidationIcon = ({
   iconId,
   isPartOfInput,
   tooltipMessage,
-  tabIndexOverride
+  tabIndex
 }) => {
   let modernTooltipProps = {};
 
@@ -46,7 +46,7 @@ const ValidationIcon = ({
               tooltipVisible={ context && (context.hasFocus || context.hasMouseOver) }
               type={ type }
               size={ size }
-              tabIndex={ tabIndexOverride }
+              tabIndex={ tabIndex }
               { ...modernTooltipProps }
             />
           </ValidationIconStyle>
@@ -70,12 +70,12 @@ ValidationIcon.propTypes = {
   /** A boolean to indicate if the icon is part of an input */
   isPartOfInput: PropTypes.bool,
   /** Overrides the default tabindex of the component */
-  tabIndexOverride: PropTypes.number
+  tabIndex: PropTypes.number
 };
 
 ValidationIcon.defaultProps = {
   theme: baseTheme,
-  tabIndexOverride: -1
+  tabIndex: -1
 };
 
 export default withTheme(ValidationIcon);

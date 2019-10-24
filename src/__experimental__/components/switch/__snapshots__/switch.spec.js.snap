@@ -548,12 +548,14 @@ exports[`Switch base theme renders as expected 1`] = `
 }
 
 <div
+  checked={false}
   className="c0"
   data-component="Switch"
   name="my-switch"
   onBlur={[Function]}
 >
   <div
+    checked={false}
     className="c1"
     name="my-switch"
     onBlur={[Function]}
@@ -565,8 +567,10 @@ exports[`Switch base theme renders as expected 1`] = `
         className="c4 c5"
       >
         <input
+          aria-checked={false}
           aria-describedby="guid-12345-help"
           aria-labelledby="guid-12345-label"
+          checked={false}
           className="c6 c7"
           id="guid-12345"
           name="my-switch"
@@ -577,11 +581,13 @@ exports[`Switch base theme renders as expected 1`] = `
           value="test"
         />
         <span
+          checked={false}
           className="c8 c9"
           name="my-switch"
           onBlur={[Function]}
         >
           <div
+            checked={false}
             className="c10"
             name="my-switch"
             onBlur={[Function]}

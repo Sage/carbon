@@ -9,14 +9,15 @@ const Info = (
     <p>Import the component</p>
 
     <StoryCode padded>
-      {'import ActionPopover from "carbon-react/lib/components/action-popover";'}
+      {'import {ActionPopover, ActionPopoverItem, ActionPopoverDivider} from '}
+      {'"carbon-react/lib/components/action-popover";'}
     </StoryCode>
 
-    <p>See the story source for an example on how to define a ActionPopover.</p>
+    <p>See the story source for an example on how to define a ActionPopover</p>
     <ul>
-      <li>ActionPopover.Item&apos;s can be disabled</li>
-      <li>Use ActionPopover.Divider to display a divider</li>
-      <li>ActionPopover and ActionPopover.Item have extensive keyboard support
+      <li>ActionPopoverItem&apos;s can be disabled</li>
+      <li>Use ActionPopoverDivider to display a divider</li>
+      <li>ActionPopover and ActionPopoverItem have extensive keyboard support
         <ul>
           <li>ActionPopover
             <ul>
@@ -24,7 +25,7 @@ const Info = (
               <li>UpArrow opens the menu and selects the previously selected item</li>
             </ul>
           </li>
-          <li>ActionPopover.Item
+          <li>ActionPopoverItem
             <ul>
               <li>Enter calls the onClick handler, closes the menu and focuses ActionPopover unless Item is disabled
               </li>
