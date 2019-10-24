@@ -12,6 +12,7 @@ function render(props, renderType = shallow) {
       value={ props.value }
       precision={ props.precision }
       maxPrecision={ props.maxPrecision }
+      defaultValue={ props.defaultValue }
     />
   );
 }
@@ -21,6 +22,34 @@ function assertCorrectTextboxVal(wrapper, value) {
 }
 
 describe('Decimal', () => {
+  describe('Uncontrolled behaviour', () => {
+    it('renders the correct default value when defaultValue prop passed', () => {
+      const wrapper = render({ defaultValue: '9.87' });
+      assertCorrectTextboxVal(wrapper, '9.87');
+    });
+
+    it('invokes onChange passed as a prop', () => {
+      const onChange = jest.fn();
+      const wrapper = render({ onChange });
+      const input = wrapper.find(Textbox);
+      input.simulate('change', { target: { value: '14.79' } });
+      expect(onChange).toHaveBeenCalledWith({ target: { value: '14.79' } });
+    });
+
+    it('invokes onBlur passed as a prop', () => {
+      const onBlur = jest.fn();
+      const wrapper = shallow(<Decimal onBlur={ onBlur } onChange={ () => true } />);
+      const input = wrapper.find(Textbox);
+      input.simulate('blur', { target: { value: '0.00' } });
+      expect(onBlur).toHaveBeenCalledWith({ target: { value: '0.00' } }, '0.00');
+    });
+
+    it('input value defaults to 0.00 if none provided', () => {
+      const wrapper = render({});
+      assertCorrectTextboxVal(wrapper, '0.00');
+    });
+  });
+
   describe('Input validation', () => {
     it('renders the correct value', () => {
       const wrapper = render({ value: '9.87' });

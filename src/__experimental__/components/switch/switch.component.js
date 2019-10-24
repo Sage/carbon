@@ -1,28 +1,52 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import SwitchStyle from './switch.style';
 import CheckableInput from '../checkable-input';
 import SwitchSlider from './switch-slider.component';
-import { isClassic } from '../../../utils/helpers/style-helper';
 import withValidation from '../../../components/validations/with-validation.hoc';
 
 const Switch = ({
-  id, label, onChange, value, hasError, hasWarning, hasInfo, ...props
+  id,
+  label,
+  onChange,
+  value,
+  checked,
+  hasError,
+  hasWarning,
+  hasInfo,
+  defaultChecked,
+  disabled,
+  loading,
+  theme,
+  ...props
 }) => {
-  const classicDisabled = props.theme && isClassic(props.theme) && props.loading;
+  const isControlled = checked !== undefined;
+
+  const [checkedInternal, setCheckedInternal] = useState(defaultChecked || false);
+
+  const onChangeInternal = useCallback(
+    (e) => {
+      setCheckedInternal(e.target.checked);
+      onChange(e);
+    },
+    [setCheckedInternal, onChange]
+  );
 
   const switchProps = {
-    disabled: props.disabled || classicDisabled,
+    disabled: disabled || loading,
     hasError,
     hasWarning,
     hasInfo,
+    checked: isControlled ? checked : checkedInternal,
+    loading,
+    theme,
     ...props
   };
 
   const inputProps = {
     ...switchProps,
-    disabled: props.disabled || classicDisabled,
+    onChange: isControlled ? onChange : onChangeInternal,
     inputId: id,
     inputLabel: label,
     inputValue: value,
@@ -37,10 +61,7 @@ const Switch = ({
       { ...tagComponent('Switch', props) }
       { ...switchProps }
     >
-      <CheckableInput
-        { ...inputProps }
-        onChange={ onChange }
-      >
+      <CheckableInput { ...inputProps }>
         <SwitchSlider { ...switchProps } />
       </CheckableInput>
     </SwitchStyle>
@@ -48,8 +69,10 @@ const Switch = ({
 };
 
 Switch.propTypes = {
-  /** Set the value of the Switch */
+  /** Set the value of the Switch if component is meant to be used as controlled */
   checked: PropTypes.bool,
+  /** Set the default value of the Switch if component is meant to be used as uncontrolled */
+  defaultChecked: PropTypes.bool,
   /** Toggles disabling of input */
   disabled: PropTypes.bool,
   /** Displays additional information below the input to provide help to the user. */

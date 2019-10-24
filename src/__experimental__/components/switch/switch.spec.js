@@ -1,10 +1,12 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { css } from 'styled-components';
 import { mount } from 'enzyme';
 import text from '../../../utils/helpers/text/text';
 import Switch from '.';
+import CheckableInput from '../checkable-input';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
@@ -33,6 +35,62 @@ function render(props, renderer = TestRenderer.create) {
 }
 
 describe('Switch', () => {
+  describe('uncontrolled behaviour', () => {
+    it('sets proper default internal state', () => {
+      const wrapper = render({ defaultChecked: true }, mount);
+      expect(wrapper.find(CheckableInput).prop('checked')).toBe(true);
+    });
+
+    it('changes internal state and passes event to the provided onChange prop when change is triggered', () => {
+      const onChangeMock = jest.fn();
+      const event = {
+        target: {
+          checked: true,
+          name: 'some_name'
+        }
+      };
+      const wrapper = render({ onChange: onChangeMock }, mount);
+      act(() => {
+        wrapper.find(CheckableInput).prop('onChange')(event);
+      });
+      expect(onChangeMock).toHaveBeenCalledWith(event);
+      wrapper.update();
+      expect(wrapper.find(CheckableInput).prop('checked')).toBe(true);
+    });
+  });
+
+  describe('controlled behaviour', () => {
+    it('passes checked value to the CheckableInput', () => {
+      const wrapper = render({ checked: true }, mount);
+      expect(wrapper.find(CheckableInput).prop('checked')).toBe(true);
+    });
+
+    it('reacts properly to checked prop change', () => {
+      const wrapper = render({ checked: true }, mount);
+      expect(wrapper.find(CheckableInput).prop('checked')).toBe(true);
+      act(() => {
+        wrapper.setProps({ checked: false });
+      });
+      wrapper.update();
+      expect(wrapper.find(CheckableInput).prop('checked')).toBe(false);
+    });
+
+    it('passess event to the provided onChange prop when change is triggered', () => {
+      const onChangeMock = jest.fn();
+      const event = {
+        target: {
+          checked: true,
+          name: 'some_name'
+        }
+      };
+      const wrapper = render({ checked: false, onChange: onChangeMock }, mount);
+      act(() => {
+        wrapper.find(CheckableInput).prop('onChange')(event);
+      });
+      expect(onChangeMock).toHaveBeenCalledWith(event);
+    });
+  });
+
   describe('base theme', () => {
     it('renders as expected', () => {
       expect(render()).toMatchSnapshot();
