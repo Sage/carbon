@@ -239,11 +239,11 @@ class FormWithoutValidations extends React.Component {
     this.submitControlledForm();
   }
 
-  async submitControlledForm() {
+  submitControlledForm() {
     const { csrFValue } = this.csrfValues;
     Service.configure({ csrfToken: csrFValue });
     this._service.setURL(this.props.formAction);
-    await this._service.post(
+    this._service.post(
       JSON.stringify(this.state.formInputs),
       { onSuccess: this.clearFormData }
     );

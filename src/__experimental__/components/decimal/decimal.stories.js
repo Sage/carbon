@@ -44,6 +44,7 @@ function makeStory(name, themeSelector) {
           precision={ precision }
           value={ store.get('value') }
           onChange={ setValue }
+          onBlur={ (ev, undelimitedValue) => action('onBlur')(ev, undelimitedValue) }
         />
       </State>
     );

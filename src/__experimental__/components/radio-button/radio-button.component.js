@@ -1,29 +1,17 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
-import { RadioButtonStyle } from './radio-button.style';
+import RadioButtonStyle from './radio-button.style';
 import CheckableInput from '../checkable-input/checkable-input.component';
 import RadioButtonSvg from './radio-button-svg.component';
 import OptionsHelper from '../../../utils/helpers/options-helper';
-
-function setTabIndex({ tabindex, checked }) {
-  let tabindexOverride;
-
-  if (tabindex !== undefined) {
-    tabindexOverride = tabindex;
-  } else {
-    tabindexOverride = checked ? 0 : -1;
-  }
-
-  return tabindexOverride;
-}
 
 const RadioButton = ({
   id, label, onChange, value, ...props
 }) => {
   const inputProps = {
     ...props,
-    helpTabIndex: '-1',
+    helpTabIndex: 0,
     helpTag: 'span',
     inputId: id,
     inputLabel: label,
@@ -37,11 +25,11 @@ const RadioButton = ({
     reverse: !props.reverse
   };
 
-  function handleChange(ev) {
+  const handleChange = useCallback((ev) => {
     onChange(ev);
     // specifically trigger focus, as Safari doesn't focus radioButtons on click by default
     ev.target.focus();
-  }
+  }, [onChange]);
 
   return (
     <RadioButtonStyle
@@ -51,7 +39,6 @@ const RadioButton = ({
       <CheckableInput
         { ...inputProps }
         onChange={ handleChange }
-        tabindex={ setTabIndex(inputProps) }
       >
         <RadioButtonSvg />
       </CheckableInput>
@@ -64,8 +51,6 @@ RadioButton.propTypes = {
   checked: PropTypes.bool,
   /** Toggles disabling of input */
   disabled: PropTypes.bool,
-  /** Toggles error styles */
-  error: PropTypes.bool,
   /** Displays fieldHelp inline with the radio button */
   fieldHelpInline: PropTypes.bool,
   /** Unique Identifier for the input. Will use a randomly generated GUID if none is provided */
@@ -78,10 +63,7 @@ RadioButton.propTypes = {
   labelAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
   /** Sets percentage-based label width */
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  /**
-   * The name of the group containing the RadioButton (can also be set via
-   * the 'groupName' prop of the RadioButtonGroup component)
-   */
+  /** The name of the the RadioButton (can also be set via the 'name' prop of the RadioButtonGroup component) */
   name: PropTypes.string,
   /** Accepts a callback function which can be used to update parent state on change */
   onChange: PropTypes.func,
@@ -107,8 +89,7 @@ RadioButton.propTypes = {
 };
 
 RadioButton.defaultProps = {
-  onChange: () => { },
   reverse: false
 };
 
-export default RadioButton;
+export default React.memo(RadioButton);

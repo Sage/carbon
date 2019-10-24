@@ -1,10 +1,10 @@
 import { css } from 'styled-components';
-import { THEMES } from '../../../style/themes';
 import InputIconToggleStyle from '../input-icon-toggle/input-icon-toggle.style';
 import StyledInput from './input.style';
 import StyledIcon from '../../../components/icon/icon.style';
+import { isClassic } from '../../../utils/helpers/style-helper';
 
-export default ({ disabled, hasFocus, theme }) => theme.name === THEMES.classic && css`
+export default ({ disabled, hasFocus, theme }) => isClassic(theme) && css`
   border-color: #ccd6db;
   box-shadow: none;
   min-height: 31px;

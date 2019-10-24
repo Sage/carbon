@@ -10,6 +10,7 @@ const StyledSplitButtonChildrenContainer = styled.div`
     background-color: ${theme.colors.secondary};
     min-width: 75%;
     white-space: nowrap;
+    z-index: 100;
 
     ${StyledButton} {
       background-color: ${theme.colors.secondary};

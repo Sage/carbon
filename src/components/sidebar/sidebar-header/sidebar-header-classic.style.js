@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
-import { THEMES } from '../../../style/themes';
+import { isClassic } from '../../../utils/helpers/style-helper';
 
-const sidebarHeaderClassicStyle = ({ theme }) => theme.name === THEMES.classic && css`
+const sidebarHeaderClassicStyle = ({ theme }) => isClassic(theme) && css`
     border-bottom: solid 4px #e4e9ec;
     padding: 20px;
     font-size: 14px;

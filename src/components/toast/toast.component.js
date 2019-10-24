@@ -42,7 +42,7 @@ class Toast extends React.Component {
           isCenter={ this.props.isCenter }
           variant={ this.props.variant || this.props.as }
           className={ this.componentClasses }
-          { ...tagComponent('toast', this.props) }
+          { ...tagComponent((this.props['data-component'] || 'toast'), this.props) }
         >
           <ToastTypeStyle variant={ this.props.variant || this.props.as }>
             <Icon type={ this.props.variant || this.props.as } />
@@ -87,6 +87,8 @@ Toast.propTypes = {
   as: PropTypes.oneOf(OptionsHelper.colors),
   /** Custom className */
   className: PropTypes.string,
+  /** Component name */
+  'data-component': PropTypes.string,
   /** The rendered children of the component. */
   children: PropTypes.node,
   /** Determines if the toast is open. */
