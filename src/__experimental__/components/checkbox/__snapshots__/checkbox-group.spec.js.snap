@@ -207,7 +207,6 @@ exports[`CheckboxGroup renders as expected 1`] = `
         className="c7"
         name="check-required"
         onBlur={[Function]}
-        type="checkbox"
       >
         <div
           className="c1 c2"
@@ -257,7 +256,6 @@ exports[`CheckboxGroup renders as expected 1`] = `
         className="c7"
         name="check-optional"
         onBlur={[Function]}
-        type="checkbox"
       >
         <div
           className="c1 c2"
