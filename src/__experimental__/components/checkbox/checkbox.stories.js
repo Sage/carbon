@@ -58,7 +58,6 @@ const checkboxes = {
   default: {}, required: {}, warning: {}, info: {}, optional: {}, one: {}, two: {}, three: {}
 };
 const checkboxKeys = Object.keys(checkboxes);
-const trueBool = true;
 
 checkboxKeys.forEach((id) => {
   checkboxes[id] = {
@@ -185,7 +184,7 @@ const checkboxGroupComponent = () => (
             info={ testInfo }
             onChange={ ev => handleChange(ev, type) }
             name={ `my-checkbox-${type}` }
-            unblockValidation={ trueBool }
+            unblockValidation
             { ...defaultKnobs(type) }
           />
         </State>
@@ -204,7 +203,7 @@ const checkboxGroupComponent = () => (
           validations={ testValidator }
           warnings={ testWarning }
           info={ testInfo }
-          useValidationIcon={ boolean('useValidationIcon', true, 'group') }
+          useValidationIcon
           value={ state.value }
         >
           {groupCheckbox.map(id => (
