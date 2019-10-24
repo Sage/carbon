@@ -68,7 +68,7 @@ class BaseDateInput extends React.Component {
 
     if (this.props.onBlur) {
       const dateWithSlashes = DateHelper.sanitizeDateInput(this.state.visibleValue);
-      const event = this.buildCustomTarget({ target: this.input }, DateHelper.formatValue(dateWithSlashes));
+      const event = this.buildCustomEvent({ target: this.input }, DateHelper.formatValue(dateWithSlashes));
       this.props.onBlur(event);
     }
   }
@@ -172,12 +172,12 @@ class BaseDateInput extends React.Component {
 
   emitOnChangeCallback = (ev, isoFormattedValue) => {
     if (this.props.onChange) {
-      const event = this.buildCustomTarget(ev, isoFormattedValue);
+      const event = this.buildCustomEvent(ev, isoFormattedValue);
       this.props.onChange(event);
     }
   };
 
-  buildCustomTarget = (ev, isoFormattedValue) => {
+  buildCustomEvent = (ev, isoFormattedValue) => {
     const { id, name, value } = ev.target;
 
     ev.target = {
