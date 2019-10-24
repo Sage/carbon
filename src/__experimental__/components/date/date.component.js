@@ -100,7 +100,7 @@ class BaseDateInput extends React.Component {
   openDatePicker = () => {
     this.isBlurBlocked = true;
     document.addEventListener('click', this.closeDatePicker);
-    this.updateSelectedDate(this.props.value);
+    this.updateSelectedDate(this.props.value || this.state.visibleValue);
     this.setState({ isDatePickerOpen: true });
   };
 
@@ -156,7 +156,7 @@ class BaseDateInput extends React.Component {
       this.emitOnChangeCallback(ev, isoDateString);
     }
 
-    this.setState({ visibleValue: ev.target.value });
+    this.setState({ visibleValue: ev.target.value.displayText || ev.target.value });
   };
 
   updateSelectedDate = (newValue) => {
@@ -180,17 +180,16 @@ class BaseDateInput extends React.Component {
   buildCustomTarget = (ev, isoFormattedValue) => {
     const { id, name, value } = ev.target;
 
-    return {
-      target: {
-        ...(name && { name }),
-        ...(id && { id }),
-        value:
-          {
-            displayText: formatDateToCurrentLocale(value),
-            optionValue: isoFormattedValue
-          }
-      }
+    ev.target = {
+      ...(name && { name }),
+      ...(id && { id }),
+      value:
+        {
+          displayText: formatDateToCurrentLocale(value),
+          optionValue: isoFormattedValue
+        }
     };
+    return ev;
   }
 
   renderDatePicker = (dateRangeProps) => {
