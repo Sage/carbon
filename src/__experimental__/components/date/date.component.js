@@ -65,6 +65,12 @@ class BaseDateInput extends React.Component {
     if (disabled || readOnly || this.isBlurBlocked) return;
 
     this.reformatVisibleDate();
+
+    if (this.props.onBlur) {
+      const dateWithSlashes = DateHelper.sanitizeDateInput(this.state.visibleValue);
+      const event = this.buildCustomTarget({ target: this.input }, DateHelper.formatValue(dateWithSlashes));
+      this.props.onBlur(event);
+    }
   }
 
   handleFocus = (ev) => {
@@ -101,12 +107,7 @@ class BaseDateInput extends React.Component {
   reformatVisibleDate = () => {
     const { visibleValue } = this.state;
     if (DateHelper.isValidDate(visibleValue)) {
-      this.setState({ visibleValue: formatDateToCurrentLocale(visibleValue) }, () => {
-        if (this.props.onBlur) {
-          const dateWithSlashes = DateHelper.sanitizeDateInput(visibleValue);
-          this.props.onBlur({ target: this.input }, DateHelper.formatValue(dateWithSlashes));
-        }
-      });
+      this.setState({ visibleValue: formatDateToCurrentLocale(visibleValue) });
     }
   }
 
@@ -129,17 +130,14 @@ class BaseDateInput extends React.Component {
   updateVisibleValue = (date, pickerUsed) => {
     const visibleValue = formatDateToCurrentLocale(date);
 
-    this.setState({
-      selectedDate: date,
-      visibleValue
-    }, () => {
-      if (pickerUsed) {
-        const event = {
-          target: this.input
-        };
-        this.emitOnChangeCallback(event, date);
-      }
-    });
+    this.setState({ selectedDate: date, visibleValue },
+      () => {
+        if (pickerUsed) {
+          const event = { target: this.input };
+          event.target.value = this.state.selectedDate;
+          this.emitOnChangeCallback(event, date);
+        }
+      });
   };
 
   handleVisibleInputChange = (ev) => {
@@ -162,7 +160,7 @@ class BaseDateInput extends React.Component {
   };
 
   updateSelectedDate = (newValue) => {
-    let newDate = DateHelper.stringToDate(newValue);
+    let newDate = DateHelper.stringToDate(DateHelper.formatValue(newValue));
     const isNewDateInvalid = !newDate.getDate();
 
     if (isNewDateInvalid) {
@@ -174,9 +172,26 @@ class BaseDateInput extends React.Component {
 
   emitOnChangeCallback = (ev, isoFormattedValue) => {
     if (this.props.onChange) {
-      this.props.onChange(ev, isoFormattedValue);
+      const event = this.buildCustomTarget(ev, isoFormattedValue);
+      this.props.onChange(event);
     }
   };
+
+  buildCustomTarget = (ev, isoFormattedValue) => {
+    const { id, name, value } = ev.target;
+
+    return {
+      target: {
+        ...(name && { name }),
+        ...(id && { id }),
+        value:
+          {
+            displayText: formatDateToCurrentLocale(value),
+            optionValue: isoFormattedValue
+          }
+      }
+    };
+  }
 
   renderDatePicker = (dateRangeProps) => {
     if (!this.state.isDatePickerOpen) return null;
