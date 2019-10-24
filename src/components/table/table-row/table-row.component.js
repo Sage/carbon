@@ -9,7 +9,7 @@ import DraggableTableCell from '../draggable-table-cell';
 import StyledTableRow from './table-row.style';
 import { validProps } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
-import ActionPopover from '../../action-popover';
+import { ActionPopover } from '../../action-popover';
 
 /**
  * A TableRow widget.
