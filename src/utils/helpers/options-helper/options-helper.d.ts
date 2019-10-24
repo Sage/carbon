@@ -128,3 +128,5 @@ export type IconTypes =
 | 'warning';
 
 export type AlignBinaryType = 'left' | 'right';
+
+export type SizesType = 'small' | 'large';

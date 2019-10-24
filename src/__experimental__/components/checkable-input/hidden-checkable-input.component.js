@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import HiddenCheckableInputStyle from './hidden-checkable-input.style';
 
 const HiddenCheckableInput = ({
-  helpId, labelId, inputName, inputType, inputValue, role, tabindex, ...props
+  helpId, labelId, name, inputType, inputValue, role, tabindex, ...props
 }) => {
   return (
     <HiddenCheckableInputStyle
       aria-checked={ props.checked }
       aria-labelledby={ labelId }
       aria-describedby={ helpId }
-      name={ inputName }
+      name={ name }
       role={ role || inputType }
       tabIndex={ tabindex }
       type={ inputType }
@@ -24,11 +24,11 @@ HiddenCheckableInput.propTypes = {
   checked: PropTypes.bool,
   labelId: PropTypes.string,
   helpId: PropTypes.string,
-  inputName: PropTypes.string,
+  name: PropTypes.string,
   inputType: PropTypes.string.isRequired,
   inputValue: PropTypes.string.isRequired,
   role: PropTypes.string,
   tabindex: PropTypes.number
 };
 
-export default HiddenCheckableInput;
+export default React.memo(HiddenCheckableInput);

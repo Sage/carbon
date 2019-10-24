@@ -20,7 +20,6 @@ const formStore = new Store({
   checked: false
 });
 
-const trueBool = true;
 const stores = {};
 const validationTypes = ['cookies', 't&cs', 'info'];
 
@@ -115,8 +114,8 @@ const validationKnobs = (type, themeName) => {
     validations: testValidation('valid'),
     warnings: testValidation('warn'),
     info: testValidation('info'),
-    unblockValidation: trueBool,
-    useValidationIcon: trueBool
+    unblockValidation: true,
+    useValidationIcon: true
   };
 };
 
