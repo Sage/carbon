@@ -25,7 +25,7 @@ Feature: Build tests
       | component           | data-component     |
       | dialog-full-screen  | dialog-full-screen |
       | dialog              | dialog             |
-      | flash               | toast              |
+      | flash               | flash              |
       | pages               | page               |
       | confirm             | confirm            |
 
