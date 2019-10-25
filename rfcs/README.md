@@ -86,7 +86,7 @@ become 'active'.
 Once an RFC becomes active, then authors may implement it and submit the
 feature as a pull request to the Carbon repo. Becoming 'active' is not a rubber
 stamp, and in particular still does not mean the feature will ultimately
-be merged; it does mean that the core team has agreed to it in principle
+be merged; it does mean that the Carbon core team has agreed to it in principle
 and are amenable to merging it.
 
 Furthermore, the fact that a given RFC has been accepted and is
@@ -113,11 +113,9 @@ feel free to ask (e.g. by leaving a comment on the associated issue).
 
 ## Reviewing RFCs
 
-Each week the team will attempt to review some set of open RFC
-pull requests.
+Every two weeks the Carbon core team will attempt to review some set of open RFC pull requests.
 
-Every accepted feature should have a core team champion,
-who will represent the feature and its progress.
+Every accepted feature should have a Carbon core team champion, who will represent the feature and its progress.
 
 **Carbon's RFC process owes its inspiration to the [React RFC process], [Yarn RFC process], [Rust RFC process], and [Ember RFC process]**.
 
