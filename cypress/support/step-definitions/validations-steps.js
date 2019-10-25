@@ -1,5 +1,6 @@
 import { getDataElementByValueNoIframe, commonDataElementInputPreviewNoIframe } from '../../locators';
 import { asyncWaitForIcon } from '../helper';
+import { errorMessageNoIframe, inputValidationNoIframe } from '../../locators/validations';
 
 const FIRST_ELEMENT = '0';
 const SECOND_ELEMENT = '1';
@@ -65,4 +66,12 @@ Then('I click onto {string} input for validations component into iFrame', (posit
 
 Then('I wait on async {string} icon', (name) => {
   asyncWaitForIcon(name);
+});
+
+Then('I hover mouse onto validated input into iFrame', () => {
+  inputValidationNoIframe().trigger('mouseover');
+});
+
+Then('Error message for deprecated input is {string}', (text) => {
+  errorMessageNoIframe().should('have.text', text);
 });

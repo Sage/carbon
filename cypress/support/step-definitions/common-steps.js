@@ -65,6 +65,10 @@ Given('I open {string} textbox based classic component page in iframe', (compone
   visitComponentUrl(component, 'textbox_based_classic', true);
 });
 
+Given('I open {string} basic classic component page in iframe', (component) => {
+  visitComponentUrl(component, 'basic_classic', true);
+});
+
 Given('I open {string} component with button page in iframe', (component) => {
   visitComponentUrl(component, 'with_button', true);
 });
