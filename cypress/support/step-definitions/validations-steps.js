@@ -1,4 +1,5 @@
 import { getDataElementByValueNoIframe, commonDataElementInputPreviewNoIframe } from '../../locators';
+import { asyncWaitForIcon } from '../helper';
 
 const FIRST_ELEMENT = '0';
 const SECOND_ELEMENT = '1';
@@ -60,4 +61,8 @@ Then('I click onto {string} input for validations component into iFrame', (posit
       break;
     default: throw new Error('There are only three validation icons elements on the page');
   }
+});
+
+Then('I wait on async {string} icon', (name) => {
+  asyncWaitForIcon(name);
 });
