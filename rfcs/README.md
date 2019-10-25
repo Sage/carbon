@@ -58,7 +58,7 @@ into Carbon.
 * * If you have access, you may clone the repo and submit a PR from a branch.
 * Copy `rfcs/template.md` to `rfcs/text/my-feature.md` (where 'my-feature' is descriptive).
 * Fill in the RFC. Put care into the details: **RFCs that do not
-present convincing motivation, demonstrate understanding of the
+present convincing motivation, do not demonstrate understanding of the
 impact of the design, or are disingenuous about the drawbacks or
 alternatives, tend to be poorly-received**.
 * Submit a pull request. The RFC will receive design
