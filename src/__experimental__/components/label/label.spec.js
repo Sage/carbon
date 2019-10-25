@@ -3,6 +3,7 @@ import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
+import { ThemeProvider } from 'styled-components';
 import Help from '../../../components/help';
 import Label from './label.component';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
@@ -13,14 +14,6 @@ import smallTheme from '../../../style/themes/small';
 import IconWrapperStyle from './icon-wrapper.style';
 
 const validationTypes = ['hasError', 'hasWarning', 'hasInfo'];
-
-function render(props, renderer = shallow) {
-  return renderer(
-    <Label { ...props }>
-      Name:
-    </Label>
-  );
-}
 
 describe('Label', () => {
   it('renders the label', () => {
@@ -90,6 +83,18 @@ describe('Label', () => {
     });
   });
 
+  describe('when the help icon is focused', () => {
+    it('then the IconWrapper outline should have the expected value', () => {
+      const wrapper = renderWithTheme({ help: 'help message' }, baseTheme).find(IconWrapperStyle);
+      wrapper.simulate('focus');
+
+      assertStyleMatch({
+        outline: `2px solid ${baseTheme.colors.focus}`
+      },
+      wrapper, { modifier: ':focus' });
+    });
+  });
+
   describe('classic theme', () => {
     it('renders with custom padding', () => {
       assertStyleMatch({
@@ -104,6 +109,18 @@ describe('Label', () => {
           paddingLeft: '0',
           paddingRight: '8px'
         }, render({ theme: classicTheme, inline: true }, TestRenderer.create).toJSON());
+      });
+    });
+
+    describe('when the help icon is focused', () => {
+      it('then the IconWrapper outline should be set to none', () => {
+        const wrapper = renderWithTheme({ help: 'help message' }, classicTheme).find(IconWrapperStyle);
+        wrapper.simulate('focus');
+
+        assertStyleMatch({
+          outline: 'none'
+        },
+        wrapper, { modifier: ':focus' });
       });
     });
   });
@@ -170,3 +187,21 @@ describe('Label', () => {
     });
   });
 });
+
+function render(props, renderer = shallow) {
+  return renderer(
+    <Label { ...props }>
+      Name:
+    </Label>
+  );
+}
+
+function renderWithTheme(props = {}, theme, renderer = mount) {
+  return renderer(
+    <ThemeProvider theme={ theme }>
+      <Label { ...props }>
+        Name:
+      </Label>
+    </ThemeProvider>
+  );
+}
