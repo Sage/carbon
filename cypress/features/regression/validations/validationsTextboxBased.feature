@@ -7,38 +7,38 @@ Feature: Validations textbox based component
   @positive
   @validations
   Scenario Outline: Verify the error validation of Validations textbox based component
-    When I click "Trigger Errors" button into iFrame
-      And I hover mouse onto "<position>" "error" icon for validations component into iFrame
+    Given I click "Trigger Errors" button into iFrame
+    When I hover mouse onto "<position>" "error" icon for validations component into iFrame
     Then tooltipPreview on preview into iFrame is set to '<text>'
       And icon name into iFrame on preview is "error"
     Examples:
-      | text                                | position |
-      | The number must be greater than 11! | first    |
-      | The number must be greater than 11! | second   |
-      | Incomplete field!                   | third    |
+      |  position | text                                |
+      |  first    | The number must be greater than 11! |
+      |  second   | The number must be greater than 11! |
+      |  third    | Incomplete field!                   |
 
   @positive
   @validations
   Scenario Outline: Verify the warning validation of Validations textbox based component
-    When I click "Trigger Warnings" button into iFrame
-      And I hover mouse onto "<position>" "warning" icon for validations component into iFrame
+    Given I click "Trigger Warnings" button into iFrame
+    When I hover mouse onto "<position>" "warning" icon for validations component into iFrame
     Then tooltipPreview on preview into iFrame is set to '<text>'
       And icon name into iFrame on preview is "warning"
     Examples:
-      | text                     | position |
-      | The number cannot be 12! | first    |
-      | The number cannot be 12! | second   |
-      | Must not include "ab"!   | third    |
+      |  position | text                     |
+      |  first    | The number cannot be 12! |
+      |  second   | The number cannot be 12! |
+      |  third    | Must not include "ab"!   |
 
   @positive
   @validations
   Scenario Outline: Verify the info validation of Validations textbox based component
-    When I click "Trigger Info" button into iFrame
-      And I hover mouse onto "<position>" "info" icon for validations component into iFrame
+    Given I click "Trigger Info" button into iFrame
+    When I hover mouse onto "<position>" "info" icon for validations component into iFrame
     Then tooltipPreview on preview into iFrame is set to '<text>'
       And icon name into iFrame on preview is "info"
     Examples:
-      | text                                      | position |
-      | Number "13" is not recommended            | first    |
-      | Number "13" is not recommended            | second   |
-      | Usage of "%" character is not recommended | third    |
+      |  position | text                                      |
+      |  first    | Number "13" is not recommended            |
+      |  second   | Number "13" is not recommended            |
+      |  third    | Usage of "%" character is not recommended |

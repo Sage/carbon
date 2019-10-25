@@ -2,7 +2,7 @@ Feature: Textarea validations component
   I want to change Textarea validations component properties
 
   Background: Open Textarea validations component page
-    Given I open "Experimental Textarea" component page validations
+    Given I open "Experimental Textarea" component page validations in iframe
 
   @positive
   @validations

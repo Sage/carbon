@@ -93,11 +93,11 @@ Given('I open {string} component for classic story as sibling in iframe', (compo
   visitComponentUrl(component, 'as_a_sibling_classic', true);
 });
 
-Given('I open {string} component page validations', (component) => {
+Given('I open {string} component page validations in iframe', (component) => {
   visitComponentUrl(component, 'validations', true);
 });
 
-Given('I open {string} component page validations classic', (component) => {
+Given('I open {string} component page validations classic in iframe', (component) => {
   visitComponentUrl(component, 'validations_classic', true);
 });
 

@@ -2,13 +2,13 @@ import { getDataElementByValueNoIframe, commonDataElementInputPreviewNoIframe } 
 import { asyncWaitForIcon } from '../helper';
 import { errorMessageNoIframe, inputValidationNoIframe } from '../../locators/validations';
 
-const FIRST_ELEMENT = '0';
-const SECOND_ELEMENT = '1';
-const THIRD_ELEMENT = '2';
-const FOURTH_ELEMENT = '3';
-const FIFTH_ELEMENT = '4';
-const SIXTH_ELEMENT = '5';
-const SEVENTH_ELEMENT = '6';
+const FIRST_ELEMENT = 0;
+const SECOND_ELEMENT = 1;
+const THIRD_ELEMENT = 2;
+const FOURTH_ELEMENT = 3;
+const FIFTH_ELEMENT = 4;
+const SIXTH_ELEMENT = 5;
+const SEVENTH_ELEMENT = 6;
 
 Then('I hover mouse onto {string} {string} icon for validations component into iFrame', (position, name) => {
   switch (position) {
@@ -33,7 +33,7 @@ Then('I hover mouse onto {string} {string} icon for validations component into i
     case 'seventh':
       getDataElementByValueNoIframe(name).eq(SEVENTH_ELEMENT).trigger('mouseover');
       break;
-    default: throw new Error('There are only three validation icons elements on the page');
+    default: throw new Error('There are only seven validation icons elements on the page');
   }
 });
 
@@ -60,7 +60,7 @@ Then('I click onto {string} input for validations component into iFrame', (posit
     case 'seventh':
       commonDataElementInputPreviewNoIframe().eq(SEVENTH_ELEMENT).click();
       break;
-    default: throw new Error('There are only three validation icons elements on the page');
+    default: throw new Error('There are only seven validation icons elements on the page');
   }
 });
 

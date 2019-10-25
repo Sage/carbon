@@ -3,12 +3,13 @@ Feature: Validations basic classic component
 
   Background: Open Validations basic classic component page
     Given I open "Validations" basic classic component page in iframe
+    
   @positive
   @validations
   Scenario Outline: Verify the error validation of Validations basic classic component
-    When I click onto "<position>" input for validations component into iFrame
+    Given I click onto "<position>" input for validations component into iFrame
       And I click above of the component into iFrame
-      And I hover mouse onto "error" icon into iFrame
+    When I hover mouse onto "error" icon into iFrame
     Then tooltipPreview on preview into iFrame is set to "<text>"
       And icon name into iFrame on preview is "error"
     Examples:
@@ -20,9 +21,9 @@ Feature: Validations basic classic component
   @positive
   @validations
   Scenario Outline: Verify the <state> validation of Validations basic classic component
-    When I click onto "<position>" input for validations component into iFrame
+    Given I click onto "<position>" input for validations component into iFrame
       And I click above of the component into iFrame
-      And I hover mouse onto "<state>" icon into iFrame
+    When I hover mouse onto "<state>" icon into iFrame
     Then tooltipPreview on preview into iFrame is set to '<text>'
       And icon name into iFrame on preview is "<state>"
     Examples:
@@ -32,24 +33,18 @@ Feature: Validations basic classic component
 
   @positive
   @validations
-  Scenario Outline: Verify the "error" async validator input of Validations basic classic component
-    When I click onto "<position>" input for validations component into iFrame
+  Scenario: Verify the "error" async validator input of Validations basic classic component
+    Given I click onto "second" input for validations component into iFrame
       And I click above of the component into iFrame
       And I wait on async "error" icon
-      And I hover mouse onto "error" icon into iFrame
-    Then tooltipPreview on preview into iFrame is set to '<text>'
+    When I hover mouse onto "error" icon into iFrame
+    Then tooltipPreview on preview into iFrame is set to 'This value must include the word "valid"!'
       And icon name into iFrame on preview is "error"
-    Examples:
-      | position | text                                      |
-      | second   | This value must include the word "valid"! |
 
   @positive
   @validations
-  Scenario Outline: Verify the "error" deprecated Legacy Validation input of Validations basic classic component
-    When I click onto "<position>" input for validations component into iFrame
+  Scenario: Verify the "error" deprecated Legacy Validation input of Validations basic classic component
+    Given I click onto "seventh" input for validations component into iFrame
       And I click above of the component into iFrame
-      And I hover mouse onto validated input into iFrame
-    Then Error message for deprecated input is "<text>"
-    Examples:
-      | position | text                    |
-      | seventh  | This field is required. |
+    When I hover mouse onto validated input into iFrame
+    Then Error message for deprecated input is "This field is required."
