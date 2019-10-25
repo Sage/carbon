@@ -129,12 +129,13 @@ class BaseDateInput extends React.Component {
 
   updateVisibleValue = (date, pickerUsed) => {
     const visibleValue = formatDateToCurrentLocale(date);
+    const newDate = this.getDateObject(date);
 
-    this.setState({ selectedDate: date, visibleValue },
+    this.setState({ selectedDate: newDate, visibleValue },
       () => {
         if (pickerUsed) {
           const event = { target: this.input };
-          event.target.value = this.state.selectedDate;
+          event.target.value = visibleValue;
           this.emitOnChangeCallback(event, date);
         }
       });
@@ -161,6 +162,12 @@ class BaseDateInput extends React.Component {
   };
 
   updateSelectedDate = (newValue) => {
+    const newDate = this.getDateObject(newValue);
+
+    this.setState({ selectedDate: newDate });
+  };
+
+  getDateObject = (newValue) => {
     let newDate = DateHelper.stringToDate(DateHelper.formatValue(newValue));
     const isNewDateInvalid = !newDate.getDate();
 
@@ -168,7 +175,7 @@ class BaseDateInput extends React.Component {
       newDate = DateHelper.stringToDate(DateHelper.todayFormatted());
     }
 
-    this.setState({ selectedDate: newDate });
+    return newDate;
   };
 
   emitOnChangeCallback = (ev, isoFormattedValue) => {
