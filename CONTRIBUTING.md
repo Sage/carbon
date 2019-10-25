@@ -12,7 +12,7 @@ For any feature requests, please use the [issue tracker](https://github.com/sage
 
 ## Defining Features
 
-For features that you have a proposed solution for, please write a [RFC](./rfcs/README.md).
+For features that you have a proposed solution for, please write an [RFC](./rfcs/README.md).
 
 ## Pull Request Guidelines
 
