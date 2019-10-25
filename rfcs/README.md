@@ -1,6 +1,6 @@
 # Carbon RFCs
 
-Many changes, including bug fixes and documentation improvements can be
+Many changes, including bug fixes and documentation improvements, can be
 implemented and reviewed via the normal GitHub pull request workflow.
 
 Some changes though are "substantial", and we ask that these be put
@@ -24,10 +24,10 @@ from an RFC are:
 
    - A new component
    - The removal of a component that has been shipped
-   - Modification the interface/props of a component that would be a breaking change
-   - The additon of runtime exceptions
-   - Changes to the way carbon is imported
-   - Changes to the way carbon is built
+   - Breaking changes to the interface/props of a component
+   - The addition of runtime exceptions
+   - Changes to the way Carbon is imported
+   - Changes to the way Carbon is built
 
 The RFC process is a great opportunity to get more eyeballs on your proposal
 before it becomes a part of a released version of Carbon. Quite often, even
@@ -41,7 +41,7 @@ implemented.
 
 Some changes do not require an RFC:
 
-  - Rephrasing, reorganizing or refactoring carbon internals
+  - Rephrasing, reorganising or refactoring Carbon internals
   - Addition or removal of warnings
   - Additions or modifications that don't change the external Carbon interface
   - Additions only likely to be _noticed by_ other implementors-of-Carbon,
@@ -54,14 +54,14 @@ the RFC merged into the repo as a markdown file. At that point the RFC
 is 'active' and may be implemented with the goal of eventual inclusion
 into Carbon.
 
-* Fork the repo http://github.com/sage/carbon
-* * If you have access you may clone the repo and submit a PR from a branch
+* Fork the repo – http://github.com/sage/carbon
+* * If you have access, you may clone the repo and submit a PR from a branch.
 * Copy `rfcs/template.md` to `rfcs/text/my-feature.md` (where 'my-feature' is descriptive).
 * Fill in the RFC. Put care into the details: **RFCs that do not
 present convincing motivation, demonstrate understanding of the
 impact of the design, or are disingenuous about the drawbacks or
-alternatives tend to be poorly-received**.
-* Submit a pull request. As a pull request the RFC will receive design
+alternatives, tend to be poorly-received**.
+* Submit a pull request. The RFC will receive design
 feedback from the larger community, and the author should be prepared
 to revise it in response.
 * Build consensus and integrate feedback. RFCs that have broad support
@@ -71,14 +71,14 @@ comments.
 for inclusion in Carbon.
 * RFCs that are candidates for inclusion in Carbon will enter a "final comment
 period" lasting 3 calendar days. The beginning of this period will be signaled with a
-comment and tag on the RFCs pull request.
+comment and tag on the RFC's pull request.
 * An RFC can be modified based upon feedback from the team and community.
-Significant modifications may trigger a new final comment period.
+Significant modifications may trigger a new "final comment period".
 * An RFC may be rejected by the team after public discussion has settled
-and comments have been made summarizing the rationale for rejection. A member of
-the team should then close the RFCs associated pull request.
+and comments have been made summarising the rationale for rejection. A member of
+the team should then close the RFC's associated pull request.
 * An RFC may be accepted at the close of its final comment period. A team
-member will merge the RFCs associated pull request, at which point the RFC will
+member will merge the RFC's associated pull request, at which point the RFC will
 become 'active'.
 
 ## The RFC life-cycle
@@ -94,7 +94,7 @@ Furthermore, the fact that a given RFC has been accepted and is
 implementation, nor whether anybody is currently working on it.
 
 Modifications to active RFCs can be done in followup PRs. We strive
-to write each RFC in a manner that it will reflect the final design of
+to write each RFC in a manner that will reflect the final design of
 the feature; but the nature of the process means that we cannot expect
 every merged RFC to actually reflect what the end result will be at
 the time of the next major release; therefore we try to keep each RFC
@@ -119,9 +119,9 @@ pull requests.
 Every accepted feature should have a core team champion,
 who will represent the feature and its progress.
 
-**Carbons's RFC process owes its inspiration to the [React RFC process], [Yarn RFC process], [Rust RFC process], and [Ember RFC process]**.
+**Carbon's RFC process owes its inspiration to the [React RFC process], [Yarn RFC process], [Rust RFC process], and [Ember RFC process]**.
 
-[React RFC process]: https://github.com/react/rfcs
+[React RFC process]: https://github.com/reactjs/rfcs
 [Yarn RFC process]: https://github.com/yarnpkg/rfcs
 [Rust RFC process]: https://github.com/rust-lang/rfcs
 [Ember RFC process]: https://github.com/emberjs/rfcs
