@@ -72,7 +72,7 @@ ValidationIcon.propTypes = {
   isPartOfInput: PropTypes.bool,
   /** Overrides the default tabindex of the component */
   tabIndex: PropTypes.number,
-  /** A boolean recived from IconWrapper */
+  /** A boolean received from IconWrapper */
   isFocused: PropTypes.bool
 };
 
