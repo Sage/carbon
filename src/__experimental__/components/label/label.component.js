@@ -36,28 +36,39 @@ const Label = (props) => {
   ]);
 
   const icon = () => {
+    const wrapperProps = {
+      tabIndex,
+      onFocus: () => setFocus(true),
+      onBlur: () => setFocus(false)
+    };
+
     if (useValidationIcon && validationsPresent(props) && tooltipMessage) {
       return (
-        <ValidationIcon
-          iconId={ helpId }
-          type={ getValidationType(props) }
-          tooltipMessage={ tooltipMessage }
-          tabIndex={ helpTabIndex }
-          isFocused={ isFocused }
-        />
+        <IconWrapperStyle { ...wrapperProps }>
+          <ValidationIcon
+            iconId={ helpId }
+            type={ getValidationType(props) }
+            tooltipMessage={ tooltipMessage }
+            tabIndex={ helpTabIndex }
+            isFocused={ isFocused }
+          />
+        </IconWrapperStyle>
+
       );
     }
 
     return help && (
-      <Help
-        helpId={ helpId }
-        as={ helpTag }
-        tabIndex={ -1 }
-        type={ helpIcon }
-        isFocused={ isFocused }
-      >
-        {help}
-      </Help>
+      <IconWrapperStyle { ...wrapperProps }>
+        <Help
+          helpId={ helpId }
+          as={ helpTag }
+          tabIndex={ -1 }
+          type={ helpIcon }
+          isFocused={ isFocused }
+        >
+          {help}
+        </Help>
+      </IconWrapperStyle>
     );
   };
 
@@ -69,13 +80,7 @@ const Label = (props) => {
       {/* eslint jsx-a11y/label-has-for: ["error", { every: ["id"], allowChildren: true } ] */}
       <label id={ labelId } htmlFor={ htmlFor }>{children}</label>
       {/* eslint-enable jsx-a11y/label-has-for */}
-      <IconWrapperStyle
-        tabIndex={ tabIndex }
-        onFocus={ () => setFocus(true) }
-        onBlur={ () => setFocus(false) }
-      >
-        {icon()}
-      </IconWrapperStyle>
+      {icon()}
     </StyledLabel>
   );
 };

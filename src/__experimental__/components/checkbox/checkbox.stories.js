@@ -203,7 +203,6 @@ const checkboxGroupComponent = () => (
           validations={ testValidator }
           warnings={ testWarning }
           info={ testInfo }
-          useValidationIcon
           value={ state.value }
         >
           {groupCheckbox.map(id => (
