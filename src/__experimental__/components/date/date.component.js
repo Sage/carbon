@@ -100,7 +100,7 @@ class BaseDateInput extends React.Component {
   openDatePicker = () => {
     this.isBlurBlocked = true;
     document.addEventListener('click', this.closeDatePicker);
-    this.updateSelectedDate(this.props.value || this.state.visibleValue);
+    this.updateSelectedDate(this.props.value || DateHelper.formatValue(this.state.visibleValue));
     this.setState({ isDatePickerOpen: true });
   };
 
@@ -142,7 +142,8 @@ class BaseDateInput extends React.Component {
 
   handleVisibleInputChange = (ev) => {
     const { disabled, readOnly } = this.props;
-    const dateWithSlashes = DateHelper.sanitizeDateInput(ev.target.value);
+    const value = ev.target.value.displayText || ev.target.value;
+    const dateWithSlashes = DateHelper.sanitizeDateInput(value);
     const isValidDate = DateHelper.isValidDate(dateWithSlashes);
     let isoDateString;
 
@@ -156,7 +157,7 @@ class BaseDateInput extends React.Component {
       this.emitOnChangeCallback(ev, isoDateString);
     }
 
-    this.setState({ visibleValue: ev.target.value.displayText || ev.target.value });
+    this.setState({ visibleValue: value });
   };
 
   updateSelectedDate = (newValue) => {
