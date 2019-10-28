@@ -5,6 +5,7 @@ import { shallow } from 'enzyme';
 import FormField from '.';
 import FormFieldStyle from './form-field.style';
 import classicTheme from '../../../style/themes/classic';
+import Label from '../label/label.component';
 
 function render(props, renderer = shallow) {
   return renderer(
@@ -36,7 +37,7 @@ describe('FormField', () => {
         id: 'foo',
         label: 'Name'
       });
-      expect(comp.find('Label').props().htmlFor).toEqual('foo');
+      expect(comp.find(Label).props().htmlFor).toEqual('foo');
     });
   });
 
