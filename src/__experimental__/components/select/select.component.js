@@ -189,9 +189,21 @@ class Select extends React.Component {
     if (this.props.onOpen) this.props.onOpen();
   }
 
+  /**
+   * Changes the component's currently-selected option(s). This can be caused by:
+   *
+   *   - The user clicking an <Option> in the <SelectList>, to select/add that option.
+   *   - The user pressing the backspace key, to clear the selected option (or delete a chosen option).
+   *   - The user clicking the "X" (delete) button on a <Pill> (when in multi-select mode).
+   *
+   * The `value` argument refers to the `value` prop(s) of the chosen <Option> component(s):
+   *
+   *   - In single-select mode, the `value` argument is a single string.
+   *   - In  multi-select mode, the `value` argument is an array of strings.
+   */
   triggerChange(value) {
     const newState = {};
-    if (!this.isMultiValue(value)) {
+    if (!this.isMultiSelectEnabled()) {
       // only closes the dropdown if not multi-value
       newState.open = false;
       this.unblockBlur();
@@ -200,7 +212,28 @@ class Select extends React.Component {
     newState.filter = undefined;
     this.setState(newState);
 
-    if (this.props.onChange) this.props.onChange({ target: { value } });
+    if (!this.props.onChange) {
+      return;
+    }
+
+    const { name, id } = this.props;
+
+    const strings = (this.isMultiValue(value) ? value : [value]);
+
+    const objects = strings.map(stringValue => ({
+      optionValue: stringValue,
+      optionText: this.getTextForValue(stringValue)
+    }));
+
+    const customEvent = {
+      target: {
+        ...(name && { name }),
+        ...(id && { id }),
+        value: objects
+      }
+    };
+
+    this.props.onChange(customEvent);
   }
 
   /**
