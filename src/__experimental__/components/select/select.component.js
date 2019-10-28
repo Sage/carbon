@@ -112,17 +112,30 @@ class Select extends React.Component {
     return this.props.value; // Guaranteed to be an array.
   }
 
-  handleChange = (newValue) => {
-    let updatedValue = newValue;
+  /**
+   * This handler is attached to `SelectList.onSelect()`, which is attached to `ScrollableList.onSelect()`,
+   * which passes `selectedItem.props.id` as the parameter to this handler.
+   *
+   * `selectedItem` is a <ScrollableListItem> instance, and its `id` prop is an object with this data structure:
+   *     { value, text, ...options }
+   * which is constructed from the props of the chosen <Option> child of this <Select> component.
+   *
+   * So this handler's `optionProps` argument object contains:
+   *
+   *   - `text`  - The option's visible text, displayed in the browser.
+   *   - `value` - The option's invisible internal value.
+   */
+  handleChange = (optionProps) => {
     // if the component is multi value then we need to push the new value into the array of values
-    if (this.isMultiValue(this.props.value)) {
+    if (this.isMultiSelectEnabled()) {
+      const multiSelectValues = this.getMultiSelectValues();
       // do not allow the same value twice
-      if (this.props.value.find(item => item.value === newValue.value)) return;
-      const value = this.props.value.slice();
-      value.push(newValue);
-      updatedValue = value;
+      if (!multiSelectValues.includes(optionProps.value)) {
+        this.triggerChange([...multiSelectValues, optionProps.value]);
+      }
+    } else {
+      this.triggerChange(optionProps.value);
     }
-    this.triggerChange(updatedValue);
   }
 
   handleFilter = (ev) => {
