@@ -228,7 +228,9 @@ class Select extends React.Component {
   formattedValue(filterValue, value) {
     let visibleValue = '';
     // if not multi-value then fetch the text key on the value
-    if (!this.isMultiValue(value) && value) visibleValue = value.text;
+    if (!this.isMultiSelectEnabled() && value) {
+      visibleValue = this.getTextForValue(value);
+    }
     // if there is a filter then return that over the selected visible value
     return (typeof filterValue === 'string') ? filterValue : visibleValue;
   }
