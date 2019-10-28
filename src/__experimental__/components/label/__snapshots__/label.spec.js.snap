@@ -10,6 +10,10 @@ exports[`Label renders the label 1`] = `
   width: 100%;
 }
 
+.c0 label:hover {
+  cursor: inherit;
+}
+
 .c0 .c1,
 .c0 .sc-bZQynM {
   vertical-align: middle;
