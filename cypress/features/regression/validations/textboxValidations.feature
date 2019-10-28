@@ -2,7 +2,7 @@ Feature: Textbox validations component
   I want to change Textbox validations component properties
 
   Background: Open Textbox validations component page
-    Given I open "Experimental Textbox" component page validations
+    Given I open "Experimental Textbox" component page validations in iframe
 
   @positive
   @validations

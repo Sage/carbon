@@ -2,7 +2,7 @@ Feature: Switch validations component
   I want to change Switch validations component properties
 
   Background: Open Switch validations component page
-    Given I open "Experimental Switch" component page validations
+    Given I open "Experimental Switch" component page validations in iframe
 
   @positive
   @validations

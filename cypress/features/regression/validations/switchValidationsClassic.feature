@@ -2,7 +2,7 @@ Feature: Switch validations classic component
   I want to change Switch validations classic component properties
 
   Background: Open Switch validations classic component page
-    Given I open "Experimental Switch" component page validations classic
+    Given I open "Experimental Switch" component page validations classic in iframe
 
   @positive
   @validations

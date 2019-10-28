@@ -5,11 +5,11 @@ import {
   commonButtonPreview, labelPreview, helpIcon, inputWidthSlider, fieldHelpPreview,
   labelWidthSlider, backgroundUILocator, closeIconButton, tooltipPreview, getKnobsInput,
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
-  precisionSlider, iconNoIframe, storyRootNoIframe, tooltipPreviewNoIframe,
+  precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
-import { getElementNoIframe } from '../../locators/build';
+import { getElementNoIframe, commonButtonPreviewNoIframe } from '../../locators/build';
 
 const LABEL_INPUT_INLINE_CLASS = 'common-input__label--inline';
 
@@ -23,6 +23,14 @@ Given('I open {string} component page classic', (component) => {
 
 Given('I open {string} component page basic', (component) => {
   visitComponentUrl(component, 'basic');
+});
+
+Given('I open {string} component page basic in iframe', (component) => {
+  visitComponentUrl(component, 'basic', true);
+});
+
+Given('I open {string} basic classic component page in iframe', (component) => {
+  visitComponentUrl(component, 'basic_classic', true);
 });
 
 Given('I open {string} component page with button', (component) => {
@@ -53,6 +61,14 @@ Given('I open deprecated {string} component page', (component) => {
   visitComponentUrl(component, 'classic', false, 'deprecated-');
 });
 
+Given('I open {string} textbox based component page in iframe', (component) => {
+  visitComponentUrl(component, 'textbox_based', true);
+});
+
+Given('I open {string} textbox based classic component page in iframe', (component) => {
+  visitComponentUrl(component, 'textbox_based_classic', true);
+});
+
 Given('I open {string} component with button page in iframe', (component) => {
   visitComponentUrl(component, 'with_button', true);
 });
@@ -77,11 +93,11 @@ Given('I open {string} component for classic story as sibling in iframe', (compo
   visitComponentUrl(component, 'as_a_sibling_classic', true);
 });
 
-Given('I open {string} component page validations', (component) => {
+Given('I open {string} component page validations in iframe', (component) => {
   visitComponentUrl(component, 'validations', true);
 });
 
-Given('I open {string} component page validations classic', (component) => {
+Given('I open {string} component page validations classic in iframe', (component) => {
   visitComponentUrl(component, 'validations_classic', true);
 });
 
@@ -177,6 +193,10 @@ Then('closeIcon is visible', () => {
 
 Then('I click closeIcon', () => {
   closeIconButton().click();
+});
+
+When('I click {string} button into iFrame', (text) => {
+  commonButtonPreviewNoIframe().contains(text).click();
 });
 
 Then('closeIcon is not visible', () => {
