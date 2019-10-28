@@ -346,6 +346,8 @@ Select.propTypes = {
   placeholder: PropTypes.string,
   /** Is the component read-only? */
   readOnly: PropTypes.bool,
+  /** Should multi-select mode be enabled? */
+  enableMultiSelect: PropTypes.bool,
   /** The current value */
   value: PropTypes.oneOfType([
     PropTypes.string,
