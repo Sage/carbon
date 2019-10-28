@@ -11,8 +11,10 @@ const SimpleColor = (props) => {
   } = props;
   return (
     <StyledSimpleColor
-      color={ color } checked={ checked }
-      className={ className } { ...tagComponent('color-option', props) }
+      color={ color }
+      checked={ checked }
+      className={ className }
+      { ...tagComponent('simple-color', props) }
     >
       <StyledSimpleColorInput
         onChange={ onChange }
