@@ -86,7 +86,7 @@ class Select extends React.Component {
     invariant(
       enableMultiSelect === isValuePropAnArray,
       `Controlled component: Mismatch between props: \`enableMultiSelect\` (${enableMultiSelect
-        }) and \`value\` (${isValuePropAnArray ? 'is an array' : 'is not an array'})`
+      }) and \`value\` (${isValuePropAnArray ? 'is an array' : 'is not an array'})`
     );
 
     return enableMultiSelect;
@@ -460,6 +460,10 @@ Select.propTypes = {
     PropTypes.string, // Single-select mode
     PropTypes.arrayOf(PropTypes.string) // Multi-select mode
   ]),
+  /** ID attribute of the component */
+  id: PropTypes.string,
+  /** Name attribute of the component */
+  name: PropTypes.string,
   /** Name of the component */
   'data-component': PropTypes.string,
   /** Are >=3 characters required to trigger the dropdown menu? */

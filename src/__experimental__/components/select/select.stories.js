@@ -108,7 +108,11 @@ function makeMultipleStory(name, themeSelector) {
   const component = () => {
     return (
       <State store={ multiSelectStore }>
-        <Select ariaLabel='multiSelect' enableMultiSelect={ true } { ...commonKnobs(multiSelectStore, true) }>
+        <Select
+          ariaLabel='multiSelect'
+          enableMultiSelect
+          { ...commonKnobs(multiSelectStore, true) }
+        >
           { selectOptions }
         </Select>
       </State>
