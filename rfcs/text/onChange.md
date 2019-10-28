@@ -56,6 +56,7 @@ and multiple select (controlled by a separate prop), the `value` prop **MUST** b
 * Components **MUST NOT** iterate over or replace props on the original `SyntheticEvent.target`
 * Components **MAY** reference values from the original `SyntheticEvent.target` or use `SyntheticEvent.nativeEvent.target` as they
 are synonymous.
+* Components **MUST** accept the unformatted or raw value as the `value` prop when being controlled. 
 
 The approach suggested would modify the `SyntheticEvent` object that React's `EventPool` uses for performance optimisation.
 
@@ -74,12 +75,13 @@ approach that they have adopted](https://github.com/mui-org/material-ui/blob/v4.
 
 ## Other considerations
 
-We currently have components that are controlled by a non-input field, for example `Date`. This is where a 3rd party date
-picker changes the underlying `value` of the `<input>`. There is an [outstanding bug in React](https://github.com/facebook/react/issues/13424) which means that `onChange` events attached to `<input>` won't trigger when changing the `value` with `setState`.
-
+1. We currently have components that are controlled by a non-input field, for example `Date`. This is where a 3rd party date
+picker changes the underlying `value` of the `<input>`. There is an [outstanding bug in React](https://github.com/facebook/react/issues/13424) which means that `onChange` events attached to `<input>` won't trigger when changing the `value` with `setState`.  
 For this reason, when programmatically setting `value` the event **MUST** be a plain object and not a `SyntheticEvent`.
-It *MUST* follow all the other requirements above.
+It **MUST* follow all the other requirements above.
+
 For example:
+
 ```js
 const internalChange = value => {
   const e = {
@@ -94,6 +96,9 @@ const internalChange = value => {
   onChange(e);
   };
 ```
+2. React have renamed the `SyntheticEvent` package to `legacy-events` and introduced `react-ui` which was renamed to
+`react-interaction/events`. There is an [issue](https://github.com/facebook/react/issues/15257) tracking the process of the new event system codenamed React Flare. At this time we don't know of any breaking changes and all proposed
+changes are considered for internal (Facebook) use only.
 
 # Drawbacks
 
@@ -124,5 +129,4 @@ This RFC will be committed to the `sage/carbon` repository where people can revi
 
 # Unresolved questions
 
-- React have renamed the `SyntheticEvent` package to `legacy-events` and introduced `react-ui` which was renamed to
-`react-interaction/events`. Could this be a sign that the react event system is going to change in the future?
+None.
