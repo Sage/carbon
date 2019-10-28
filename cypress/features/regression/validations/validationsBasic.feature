@@ -33,7 +33,7 @@ Feature: Validations basic component
 
   @positive
   @validations
-  Scenario: Verify the "error" async validator input of Validations basic component
+  Scenario: Verify the error async validator input of Validations basic component
     Given I click onto "second" input for validations component into iFrame
       And I click above of the component into iFrame
       And I wait on async "error" icon
@@ -43,7 +43,7 @@ Feature: Validations basic component
  
   @positive
   @validations
-  Scenario: Verify the "error" deprecated Legacy Validation input of Validations basic component
+  Scenario: Verify the error deprecated Legacy Validation input of Validations basic component
     Given I click onto "seventh" input for validations component into iFrame
       And I click above of the component into iFrame
     When I hover mouse onto validated input into iFrame
