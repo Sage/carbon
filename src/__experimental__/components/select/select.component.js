@@ -250,12 +250,12 @@ class Select extends React.Component {
 
     return (
       values.map((value, index) => (
-        <StyledSelectPillContainer key={ value.value }>
+        <StyledSelectPillContainer key={ value }>
           <Pill
             onDelete={ canDelete ? () => this.removeMultiItem(index) : undefined }
-            title={ value.text }
+            title={ this.getTextForValue(value) }
           >
-            { value.text }
+            { this.getTextForValue(value) }
           </Pill>
         </StyledSelectPillContainer>
       ))
