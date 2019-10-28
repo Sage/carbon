@@ -361,11 +361,6 @@ class Select extends React.Component {
   }
 }
 
-const optionShape = PropTypes.shape({
-  value: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired
-});
-
 Select.propTypes = {
   ariaLabel: PropTypes.string,
   /** Child components (such as <Option>) for the <SelectList> */
@@ -394,11 +389,10 @@ Select.propTypes = {
   readOnly: PropTypes.bool,
   /** Should multi-select mode be enabled? */
   enableMultiSelect: PropTypes.bool,
-  /** The current value */
+  /** The selected value(s), when the component is operating in controlled mode */
   value: PropTypes.oneOfType([
-    PropTypes.string,
-    optionShape,
-    PropTypes.arrayOf(optionShape)
+    PropTypes.string, // Single-select mode
+    PropTypes.arrayOf(PropTypes.string) // Multi-select mode
   ]),
   /** Name of the component */
   'data-component': PropTypes.string,
