@@ -282,7 +282,7 @@ class Select extends React.Component {
       placeholder
     } = this.props;
 
-    const placeholderText = this.placeholder(placeholder, value);
+    const placeholderText = this.placeholder(placeholder);
 
     const props = {
       inputIcon: this.inputIcon(typeAhead),
