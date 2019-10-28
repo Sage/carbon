@@ -1,12 +1,11 @@
 import styled, { css } from 'styled-components';
-import { isClassic } from '../../../../../utils/helpers/style-helper';
+import { isClassic } from '../../../../utils/helpers/style-helper';
 
-const StyledColorOption = styled.li`
+const StyledSimpleColor = styled.div`
   width: 56px;
   height: 56px;
   margin-right: 2px;
   margin-bottom: 2px;
-  list-style: none;
 
   &:hover {
     cursor: pointer;
@@ -18,4 +17,4 @@ const StyledColorOption = styled.li`
   `};
 `;
 
-export default StyledColorOption;
+export default StyledSimpleColor;

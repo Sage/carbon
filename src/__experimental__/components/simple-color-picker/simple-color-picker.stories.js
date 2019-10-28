@@ -4,7 +4,7 @@ import { text, array } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
-import SimpleColorPicker from '.';
+import { SimpleColorPicker, SimpleColor } from '.';
 import { notes, info } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
@@ -18,10 +18,11 @@ const store = new Store({
 });
 
 const onChange = (e) => {
+  const { value } = e.target;
   store.set({
-    selectedColor: e.target.value
+    selectedColor: value
   });
-  action('select')();
+  action(`Selected - ${value}`)(e);
 };
 
 function makeStory(storyName, themeSelector) {
@@ -44,10 +45,19 @@ function makeStory(storyName, themeSelector) {
     return (
       <State store={ store }>
         <SimpleColorPicker
-          availableColors={ availableColors }
           name={ name }
           onChange={ onChange }
-        />
+        >
+          {availableColors.map(color => (
+            <SimpleColor
+              color={ color }
+              key={ color }
+              aria-label={ color }
+              id={ color }
+              defaultChecked={ color === '#582C83' }
+            />
+          ))}
+        </SimpleColorPicker>
       </State>
     );
   };
