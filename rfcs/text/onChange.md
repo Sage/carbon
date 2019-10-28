@@ -25,11 +25,11 @@ const internalChange = e => {
 
 # Motivation
 
-Currently the `onChange` and `onBlur` handers in Carbon use a mix of custom objects `{value: "my-value"}` and React's `SyntheticEvent`.
+Currently the `onChange` and `onBlur` handlers in Carbon use a mix of custom objects `{value: "my-value"}` and React's `SyntheticEvent`.
 
-In the custom objects `name` or `id` are passed inconsistently.
+In the custom objects, `name` or `id` are passed inconsistently.
 
-The purpose of this RFC is to standardise the approach so users can rely upon the interface between Carbon their application.
+The purpose of this RFC is to standardise the approach, so users can rely upon the interface between Carbon and their application.
 
 The approach that we choose should be consistent across components so users familiar with the interface of one component can easily use another component.
 
@@ -40,19 +40,19 @@ Users who implement this should be familiar with React's [SyntheticEvent](https:
 When writing a Carbon component the user should wrap the user provided `onChange`/`onBlur` callback with code similar to that in
 the basic example.
 
-* Components **MUST** replace `SyntheticEvent.target` to steer users from upon the component implementation details.
+* Components **MUST** replace `SyntheticEvent.target`, to steer users away from depending upon the component's implementation details.
 * `SyntheticEvent.target` **MUST** be an object with the properties `name`, `id`, `value`.
-* `SyntheticEvent.target` **MUST** include the `name` and `id` of the component.
-```js
+* `SyntheticEvent.target` **MUST** include the `name` and `id` of the component (if the component has these props).
+```jsx
 <Select id="foo" name="foo">
   <Option id="bar" name="bar" value="bar">Bar</Option>
 </Select>
 ```
-> In the example above the `SyntheticEvent.target` **MAY** be the follow `{"id": "foo", "name":"foo", "value": {"optionValue": "bar", "optionText": "Bar"}}`
+> In the example above, the `SyntheticEvent.target` **MAY** be the following object: `{"id": "foo", "name": "foo", "value": {"optionValue": "bar", "optionText": "Bar"}}`
 
-* `SyntheticEvent.target` **MUST** have a value property, that property can be any value **UNLESS** the component supports
-multiple select, in that case the property must be an `Array` of values. If the component supports both single select
-and multiple select controlled by a prop the property **MUST** be an `Array`.
+* `SyntheticEvent.target` **MUST** have a `value` property, which can be any value, **UNLESS** the component supports
+multiple select, in which case the property must be an `Array` of values. If the component supports both single select
+and multiple select (controlled by a separate prop), the `value` prop **MUST** be an `Array`.
 * Components **MUST NOT** iterate over or replace props on the original `SyntheticEvent.target`
 * Components **MAY** reference values from the original `SyntheticEvent.target` or use `SyntheticEvent.nativeEvent.target` as they
 are synonymous.
