@@ -203,9 +203,16 @@ class Select extends React.Component {
     }
   }
 
+  /**
+   * Removes this component's current single-select item.
+   * Should only be called when the component is in single-select mode.
+   */
   removeSingleItem() {
-    if (this.state.filter) return;
-    this.triggerChange('');
+    invariant(!this.isMultiSelectEnabled(), 'Cannot remove single-select item: Component not in single-select mode');
+
+    if (!this.state.filter) {
+      this.triggerChange('');
+    }
   }
 
   // returns the human readable value for the user
