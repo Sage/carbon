@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import guid from '../guid';
 
-const withUniqueProp = (WrappedComponent) => {
-  class WithUniqueProp extends React.Component {
+const withUniqueIdProps = (WrappedComponent) => {
+  class WithUniqueIdProps extends React.Component {
     id = guid();
 
     name = guid();
@@ -29,13 +29,13 @@ const withUniqueProp = (WrappedComponent) => {
   }
 
   const Component = React.forwardRef((props, ref) => {
-    return <WithUniqueProp { ...props } forwardedRef={ ref } />;
+    return <WithUniqueIdProps { ...props } forwardedRef={ ref } />;
   });
 
-  const displayName = WrappedComponent.displayName || WrappedComponent.name || 'WithUniqueProp(Unknown)';
+  const displayName = WrappedComponent.displayName || WrappedComponent.name || 'WithUniqueIdProps(Unknown)';
   Component.displayName = displayName.replace(/^Base/, '');
 
   return Component;
 };
 
-export default withUniqueProp;
+export default withUniqueIdProps;

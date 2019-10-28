@@ -1,14 +1,14 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import withUniqueProp from '.';
+import withUniqueIdProps from '.';
 
 const MockComponent = props => <input { ...props } />;
 
-const WithNoProp = withUniqueProp(() => <input />);
+const WithNoProp = withUniqueIdProps(() => <input />);
 
-describe('withUniqueProp HOC', () => {
+describe('withUniqueIdProps HOC', () => {
   let wrapper;
-  const InputComponent = withUniqueProp(MockComponent);
+  const InputComponent = withUniqueIdProps(MockComponent);
 
   it('matches the snapshot when the it is passed an anonymous component with no name or display name', () => {
     wrapper = shallow(<WithNoProp name='foo' />);
