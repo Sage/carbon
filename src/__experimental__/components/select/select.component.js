@@ -153,8 +153,11 @@ class Select extends React.Component {
     }
     // if backspace key and multi value and no filter, remove the last item in the array
     if (Events.isBackspaceKey(ev)) {
-      if (this.isMultiValue(this.props.value)) this.removeMultiItem(this.props.value.length - 1);
-      else this.removeSingleItem();
+      if (this.isMultiSelectEnabled()) {
+        this.removeMultiItem(this.getMultiSelectValues().length - 1);
+      } else {
+        this.removeSingleItem();
+      }
     }
 
     if (!this.props.filterable) ev.preventDefault();
