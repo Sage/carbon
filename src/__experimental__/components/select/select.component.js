@@ -102,6 +102,16 @@ class Select extends React.Component {
     return this.props.value; // Guaranteed to be a single value.
   }
 
+  /**
+   * Gets this component's current multi-select values.
+   * Should only be called when the component is in multi-select mode.
+   */
+  getMultiSelectValues = () => {
+    invariant(this.props.enableMultiSelect, 'Cannot get multi-select value: `enableMultiSelect` prop is falsy');
+    invariant(this.isMultiValue(this.props.value), 'Cannot get multi-select value: `value` prop is not an array');
+    return this.props.value; // Guaranteed to be an array.
+  }
+
   handleChange = (newValue) => {
     let updatedValue = newValue;
     // if the component is multi value then we need to push the new value into the array of values
