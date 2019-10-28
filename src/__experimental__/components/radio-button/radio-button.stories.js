@@ -127,7 +127,6 @@ const radioComponentWithValidation = themeName => () => {
         validations={ testValidation('valid') }
         warnings={ testValidation('warn') }
         info={ testValidation('info') }
-        useValidationIcon
         onChange={ handleGroupChangeFactory(validationRadioToggleGroupStore) }
       >
         {validationTypes.map(vType => (

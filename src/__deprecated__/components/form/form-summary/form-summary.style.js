@@ -11,7 +11,6 @@ const StyledFormSummary = styled.div`
   margin: -8px;
   white-space: nowrap;
   padding: 8px;
-  border-radius: 4px;
  
   ${({ isInvalid, theme }) => isInvalid && css`
     background-color: ${theme.form.invalid};

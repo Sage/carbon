@@ -32,24 +32,24 @@ exports[`Checkbox base theme renders as expected 1`] = `
   flex-wrap: wrap;
 }
 
-.c1 .c25 {
+.c1 .c26 {
   text-align: left;
   width: auto;
   white-space: nowrap;
   margin-top: -2px;
 }
 
-.c1 .c25 .c24,
-.c1 .c25 .sc-bZQynM {
+.c1 .c26 .c24,
+.c1 .c26 .c25 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c1 .c25 .c24:hover,
-.c1 .c25 .sc-bZQynM:hover,
-.c1 .c25 .c24:focus,
-.c1 .c25 .sc-bZQynM:focus {
+.c1 .c26 .c24:hover,
+.c1 .c26 .c25:hover,
+.c1 .c26 .c24:focus,
+.c1 .c26 .c25:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -74,9 +74,9 @@ exports[`Checkbox base theme renders as expected 1`] = `
 }
 
 .c10 .c6:hover,
-.c10 .c25:hover,
+.c10 .c26:hover,
 .c10 .c6:focus,
-.c10 .c25:focus {
+.c10 .c26:focus {
   outline: none;
   cursor: not-allowed;
 }
@@ -106,9 +106,9 @@ exports[`Checkbox base theme renders as expected 1`] = `
 }
 
 .c12 .c6:hover,
-.c12 .c25:hover,
+.c12 .c26:hover,
 .c12 .c6:focus,
-.c12 .c25:focus {
+.c12 .c26:focus {
   outline: none;
   cursor: not-allowed;
 }
@@ -555,7 +555,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
 
 .c0 svg {
   background-color: #FFFFFF;
-  border: solid 1px #668491;
+  border: 1px solid #668491;
 }
 
 .c0 .c6,
@@ -578,7 +578,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c0 .c25 {
+.c0 .c26 {
   padding: 0 6px;
   width: auto;
 }
@@ -589,12 +589,21 @@ exports[`Checkbox base theme renders as expected 1`] = `
   padding-left: 6px;
 }
 
+.c0 .c25 {
+  position: relative;
+  display: inline-block;
+}
+
 <div
   className="c0"
   data-component="checkbox"
+  name="my-checkbox"
+  onBlur={[Function]}
 >
   <div
     className="c1"
+    name="my-checkbox"
+    onBlur={[Function]}
   >
     <div
       className="c2 c3"
@@ -607,6 +616,9 @@ exports[`Checkbox base theme renders as expected 1`] = `
           aria-labelledby="guid-12345-label"
           className="c6 c7"
           id="guid-12345"
+          name="my-checkbox"
+          onBlur={[Function]}
+          onChange={[Function]}
           role="checkbox"
           type="checkbox"
           value="test"
@@ -615,6 +627,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
           className="c8 "
         >
           <svg
+            focusable="false"
             height="10"
             viewBox="0 0 12 10"
             width="12"
