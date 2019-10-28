@@ -289,7 +289,7 @@ class Select extends React.Component {
       inputRef: this.assignInput,
       placeholder: placeholderText,
       'aria-label': placeholderText,
-      leftChildren: this.isMultiValue(value) && this.renderMultiValues(value),
+      leftChildren: this.isMultiSelectEnabled() && this.renderMultiValues(value),
       value: this.value(value),
       formattedValue: this.formattedValue(this.state.filter, value)
     };
@@ -330,7 +330,7 @@ class Select extends React.Component {
         aria-expanded={ open }
         aria-controls={ open ? this.listboxId : '' }
         aria-label={ ariaLabel }
-        isAnyValueSelected={ this.isMultiValue(value) && (value.length >= 1) }
+        isAnyValueSelected={ this.isMultiSelectEnabled() && (this.getMultiSelectValues().length >= 1) }
       >
         <Textbox
           { ...props } // this needs to send all of the original props
