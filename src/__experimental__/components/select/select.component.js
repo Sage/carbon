@@ -187,11 +187,20 @@ class Select extends React.Component {
     if (this.props.onChange) this.props.onChange({ target: { value } });
   }
 
+  /**
+   * Removes the specified multi-select item.
+   * Should only be called when the component is in multi-select mode.
+   */
   removeMultiItem(index) {
-    if (this.state.filter || !this.props.value.length) return;
-    const newValue = this.props.value.slice(); // copies the array first to not mutate original value
-    newValue.splice(index, 1);
-    this.triggerChange(newValue);
+    invariant(this.isMultiSelectEnabled(), 'Cannot remove multi-select item: Component not in multi-select mode');
+
+    const multiSelectValues = this.getMultiSelectValues();
+
+    if (!this.state.filter && multiSelectValues.length > 0) {
+      const newValues = [...multiSelectValues]; // copies the array first to not mutate original value
+      newValues.splice(index, 1);
+      this.triggerChange(newValues);
+    }
   }
 
   removeSingleItem() {
