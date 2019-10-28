@@ -123,6 +123,7 @@ class BaseDateInput extends React.Component {
   handleDateSelect = (selectedDate) => {
     const stringDateIso = DateHelper.formatDateString(selectedDate);
     this.isBlurBlocked = true;
+    this.isOpening = false;
     this.closeDatePicker();
     this.updateVisibleValue(stringDateIso, true);
   };
