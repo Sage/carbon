@@ -2,7 +2,7 @@ Feature: Select validations component
   I want to change Select validations component properties
 
   Background: Open Select validations component page
-    Given I open "Experimental Select" component page validations
+    Given I open "Experimental Select" component page validations in iframe
 
   @positive
   @validations

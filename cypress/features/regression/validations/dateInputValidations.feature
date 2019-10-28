@@ -2,7 +2,7 @@ Feature: Date Input validations component
   I want to change Date Input validations component properties
 
   Background: Open Date Input validations component page
-    Given I open "Experimental Date Input" component page validations
+    Given I open "Experimental Date Input" component page validations in iframe
 
   @positive
   @validations
