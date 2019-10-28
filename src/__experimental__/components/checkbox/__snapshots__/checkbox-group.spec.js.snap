@@ -1,0 +1,300 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckboxGroup renders as expected 1`] = `
+.c2 {
+  display: block;
+}
+
+.c2 + .c1 {
+  margin-top: 16px;
+}
+
+.c11 {
+  cursor: pointer;
+  opacity: 0;
+  margin: 0;
+  position: relative;
+  z-index: 999;
+}
+
+.c4 {
+  color: rgba(0,0,0,0.9);
+  cursor: pointer;
+  display: block;
+  font-weight: 600;
+  padding-bottom: 8px;
+  width: 100%;
+}
+
+.c4 .c16,
+.c4 .c17 {
+  vertical-align: middle;
+}
+
+.c9 {
+  display: inline-block;
+  position: relative;
+}
+
+.c7 .c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c7 .c3 {
+  text-align: left;
+  width: auto;
+  white-space: nowrap;
+  margin-top: -2px;
+}
+
+.c7 .c3 .c16,
+.c7 .c3 .c17 {
+  color: rgba(0,0,0,0.65);
+  vertical-align: middle;
+  top: -1px;
+}
+
+.c7 .c3 .c16:hover,
+.c7 .c3 .c17:hover,
+.c7 .c3 .c16:focus,
+.c7 .c3 .c17:focus {
+  color: rgba(0,0,0,0.9);
+}
+
+.c6 {
+  padding-top: 8px;
+}
+
+.c6 .c8 {
+  padding-top: 1px;
+}
+
+.c6 .c12 {
+  height: 16px;
+}
+
+.c6 svg {
+  background-color: #FFFFFF;
+  border: 1px solid #668491;
+}
+
+.c6 .c10,
+.c6 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c6 .c8,
+.c6 .c10,
+.c6 .c12,
+.c6 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c6 .c10:not([disabled]):focus + .c12,
+.c6 .c10:not([disabled]):hover + .c12 {
+  box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c6 .c3 {
+  padding: 0 6px;
+  width: auto;
+}
+
+.c6 .c14 {
+  margin-left: 16px;
+  margin-top: 0;
+  padding-left: 6px;
+}
+
+.c6 .c17 {
+  position: relative;
+  display: inline-block;
+}
+
+.c13 .c8 {
+  padding-top: 1px;
+}
+
+.c13 .c12 {
+  height: 16px;
+}
+
+.c13 .c10,
+.c13 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c13 .c8,
+.c13 .c10,
+.c13 .c12,
+.c13 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c13 .c10:not([disabled]):focus + .c12,
+.c13 .c10:not([disabled]):hover + .c12 {
+  box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c13 .c3 {
+  padding: 0 6px;
+  width: auto;
+}
+
+.c0 .c15::before {
+  font-size: 16px;
+}
+
+.c0 .c5 {
+  padding-top: 12px;
+}
+
+.c0 .c5 .c1 .c3 {
+  line-height: 21px;
+}
+
+.c0 > .c1 > .c3 {
+  padding-bottom: 4px;
+}
+
+.c0 > .c1 > .c3 label {
+  vertical-align: middle;
+}
+
+.c0 > .c1 > .c3 .c17 {
+  display: inline-block;
+}
+
+<div
+  aria-labelledby="my-checkbox-group-label"
+  className="c0"
+  data-component="checkboxgroup"
+  role="checkbox"
+>
+  <div
+    className="c1 c2"
+  >
+    <div
+      className="c3 c4"
+      data-element="label"
+      width={30}
+    >
+      <label
+        htmlFor="group-radio-buttons"
+      >
+        Test CheckboxGroup Label
+      </label>
+    </div>
+    <div
+      className="c5 c6"
+      data-component="checkbox"
+      name="check-required"
+      onBlur={[Function]}
+    >
+      <div
+        className="c7"
+        name="check-required"
+        onBlur={[Function]}
+      >
+        <div
+          className="c1 c2"
+        >
+          <div
+            className="c8 c9"
+          >
+            <input
+              aria-describedby="cId-required-help"
+              aria-labelledby="cId-required-label"
+              className="c10 c11"
+              id="cId-required"
+              name="check-required"
+              onBlur={[Function]}
+              onChange={[Function]}
+              role="checkbox"
+              type="checkbox"
+              value="required"
+            />
+            <div
+              className="c12 "
+            >
+              <svg
+                focusable="false"
+                height="10"
+                viewBox="0 0 12 10"
+                width="12"
+              >
+                <path
+                  d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
+                  fill="#FFFFFF"
+                  fillRule="evenodd"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="c5 c6"
+      data-component="checkbox"
+      name="check-optional"
+      onBlur={[Function]}
+    >
+      <div
+        className="c7"
+        name="check-optional"
+        onBlur={[Function]}
+      >
+        <div
+          className="c1 c2"
+        >
+          <div
+            className="c8 c9"
+          >
+            <input
+              aria-describedby="cId-optional-help"
+              aria-labelledby="cId-optional-label"
+              className="c10 c11"
+              id="cId-optional"
+              name="check-optional"
+              onBlur={[Function]}
+              onChange={[Function]}
+              role="checkbox"
+              type="checkbox"
+              value="optional"
+            />
+            <div
+              className="c12 "
+            >
+              <svg
+                focusable="false"
+                height="10"
+                viewBox="0 0 12 10"
+                width="12"
+              >
+                <path
+                  d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
+                  fill="#FFFFFF"
+                  fillRule="evenodd"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

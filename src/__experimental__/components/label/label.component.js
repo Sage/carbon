@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Help from '../../../components/help';
 import StyledLabel from './label.style';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
 import { getValidationType } from '../../../components/validations/with-validation.hoc';
 import { filterByProps } from '../../../utils/ether';
+import IconWrapperStyle from './icon-wrapper.style';
 
 const validationsPresent = ({ hasError, hasWarning, hasInfo }) => hasError || hasWarning || hasInfo;
 
 const Label = (props) => {
+  const [isFocused, setFocus] = useState(false);
   const {
     labelId,
     helpId,
@@ -19,7 +21,8 @@ const Label = (props) => {
     helpTabIndex,
     tooltipMessage,
     useValidationIcon,
-    htmlFor
+    htmlFor,
+    tabIndex
   } = props;
   const labelProps = filterByProps(props, [
     'theme',
@@ -33,26 +36,39 @@ const Label = (props) => {
   ]);
 
   const icon = () => {
+    const wrapperProps = {
+      tabIndex,
+      onFocus: () => setFocus(true),
+      onBlur: () => setFocus(false)
+    };
+
     if (useValidationIcon && validationsPresent(props) && tooltipMessage) {
       return (
-        <ValidationIcon
-          iconId={ helpId }
-          type={ getValidationType(props) }
-          tooltipMessage={ tooltipMessage }
-          tabIndex={ helpTabIndex }
-        />
+        <IconWrapperStyle { ...wrapperProps }>
+          <ValidationIcon
+            iconId={ helpId }
+            type={ getValidationType(props) }
+            tooltipMessage={ tooltipMessage }
+            tabIndex={ helpTabIndex }
+            isFocused={ isFocused }
+          />
+        </IconWrapperStyle>
+
       );
     }
 
     return help && (
-      <Help
-        helpId={ helpId }
-        as={ helpTag }
-        tabIndex={ helpTabIndex }
-        type={ helpIcon }
-      >
-        {help}
-      </Help>
+      <IconWrapperStyle { ...wrapperProps }>
+        <Help
+          helpId={ helpId }
+          as={ helpTag }
+          tabIndex={ -1 }
+          type={ helpIcon }
+          isFocused={ isFocused }
+        >
+          {help}
+        </Help>
+      </IconWrapperStyle>
     );
   };
 
@@ -89,11 +105,16 @@ Label.propTypes = {
   /** Whether to show the validation icon */
   useValidationIcon: PropTypes.bool,
   /** A string that represents the ID of another form element */
-  htmlFor: PropTypes.string
+  htmlFor: PropTypes.string,
+  /** Set focus possibilities to an <IconWrapperStyle /> element.
+   *  More information: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex
+  */
+  tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 Label.defaultProps = {
-  useValidationIcon: false
+  useValidationIcon: false,
+  tabIndex: 0
 };
 
 export default React.memo(Label);

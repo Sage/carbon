@@ -27,7 +27,6 @@ function render(renderer = TestRenderer.create, props) {
       name={ name }
       legend='Test RadioButtonGroup Legend'
       onChange={ jest.fn() }
-      useValidationIcon
       { ...props }
     >
       {children}
@@ -225,7 +224,6 @@ describe('RadioButtonGroup', () => {
           onChange={ (e) => {
             setValue(e.target.value);
           } }
-          useValidationIcon
           value={ value }
           { ...props.groupProps }
         >

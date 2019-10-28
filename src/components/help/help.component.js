@@ -17,7 +17,8 @@ const Help = (props) => {
     tabIndex,
     as,
     tooltipPosition,
-    tooltipAlign
+    tooltipAlign,
+    isFocused
   } = props;
 
   useEffect(() => {
@@ -70,7 +71,7 @@ const Help = (props) => {
         tooltipMessage={ children }
         tooltipPosition={ tooltipPosition }
         tooltipAlign={ tooltipAlign }
-        tooltipVisible={ isTooltipVisible }
+        tooltipVisible={ isFocused || isTooltipVisible }
       />
     </StyledHelp>
   );
@@ -92,7 +93,9 @@ Help.propTypes = {
   /** Aligment of pointer */
   tooltipAlign: PropTypes.oneOf(OptionsHelper.alignAroundEdges),
   /** A path for the anchor */
-  href: PropTypes.string
+  href: PropTypes.string,
+  /** A boolean recived from IconWrapper */
+  isFocused: PropTypes.bool
 };
 
 Help.defaultProps = {
