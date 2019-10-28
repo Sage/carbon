@@ -40,7 +40,7 @@ Users who implement this should be familiar with React's [SyntheticEvent](https:
 When writing a Carbon component the user should wrap the user provided `onChange`/`onBlur` callback with code similar to that in
 the basic example.
 
-* Components **MUST** replace `SyntheticEvent.target`, to steer users away from depending upon the component's implementation details.
+* Components that provide a formatted value **MUST** replace `SyntheticEvent.target`.
 * `SyntheticEvent.target` **MUST** be an object with the properties `name`, `id`, `value`.
 * `SyntheticEvent.target` **MUST** include the `name` and `id` of the component (if the component has these props).
 ```jsx
