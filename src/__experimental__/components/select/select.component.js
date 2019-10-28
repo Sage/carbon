@@ -284,16 +284,6 @@ class Select extends React.Component {
     return (typeof filterValue === 'string') ? filterValue : visibleValue;
   }
 
-  // returns the correct value to feed into the textbox component
-  value(value) {
-    if (this.isMultiValue(value)) {
-      return value; // if multi value the returns the full array
-    }
-    if (value) return value.value; // if single value then returns the id/value
-
-    return undefined; // otherwise return undefined
-  }
-
   renderMultiValues(values) {
     const canDelete = !this.props.disabled && !this.props.readOnly;
 
@@ -366,7 +356,7 @@ class Select extends React.Component {
       placeholder: placeholderText,
       'aria-label': placeholderText,
       leftChildren: this.isMultiSelectEnabled() && this.renderMultiValues(value),
-      value: this.value(value),
+      value,
       formattedValue: this.formattedValue(this.state.filter, value)
     };
 
