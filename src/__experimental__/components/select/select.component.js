@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
+import invariant from 'invariant';
 import SelectList from './select-list.component';
 import Textbox from '../textbox';
 import Pill from '../../../components/pill';
@@ -69,6 +70,27 @@ class Select extends React.Component {
   handleMouseLeave = () => this.unblockBlur()
 
   handleClick = () => this.openList()
+
+  /**
+   * Is the component currently in multi-select mode? (If not, then it's in single-select mode.)
+   */
+  isMultiSelectEnabled = () => {
+    const enableMultiSelect = Boolean(this.props.enableMultiSelect);
+
+    if (this.props.value === undefined || this.props.value === null) {
+      return enableMultiSelect; // Component is uncontrolled, so simply return `enableMultiSelect`.
+    }
+
+    const isValuePropAnArray = this.isMultiValue(this.props.value);
+
+    invariant(
+      enableMultiSelect === isValuePropAnArray,
+      `Controlled component: Mismatch between props: \`enableMultiSelect\` (${enableMultiSelect
+        }) and \`value\` (${isValuePropAnArray ? 'is an array' : 'is not an array'})`
+    );
+
+    return enableMultiSelect;
+  }
 
   handleChange = (newValue) => {
     let updatedValue = newValue;
@@ -193,6 +215,10 @@ class Select extends React.Component {
     );
   }
 
+  /**
+   * Determines whether `value` indicates a single value (when the component is operating in single-select mode)
+   * or multiple values (when the component is operating in multi-select mode).
+   */
   isMultiValue(value) { return Array.isArray(value); }
 
   placeholder(placeholder) {
