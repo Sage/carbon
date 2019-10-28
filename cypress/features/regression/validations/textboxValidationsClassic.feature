@@ -1,5 +1,5 @@
 Feature: Textbox validations classic component
-  I want to change Textbox validations component properties
+  I want to change Textbox validations classic component properties
   
   Background: Open Textbox validations classic component page
     Given I open "Experimental Textbox" component page validations classic in iframe
