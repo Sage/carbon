@@ -61,16 +61,16 @@ The approach suggested would modify the `SyntheticEvent` object that React's `Ev
 
 When validating this approach it was important to ensure that we didn't adversely affect the `EventPool`.
 
-* `SyntheticEvent` is constructed from a object in the `pool` [SyntheticEvent.js#L94](https://github.com/facebook/react/blob/ab1a4f249e61045d523ddbbfb840e868afbbf785/packages/react-dom/src/events/ChangeEventPlugin.js#L53)
+* `SyntheticEvent` is constructed from a object in the `pool` [SyntheticEvent.js#L94](https://github.com/facebook/react/blob/16.8.6/packages/react-dom/src/events/ChangeEventPlugin.js#L53)
 * `SyntheticEvent.target` is a pointer to `SyntheticEvent.nativeEvent.target` [SyntheticEvent.js#L94](
-https://github.com/facebook/react/blob/b1a03dfdc8e42d075422556553ffe59868150e95/packages/legacy-events/SyntheticEvent.js#L94)
+https://github.com/facebook/react/blob/16.8.6/packages/legacy-events/SyntheticEvent.js#L94)
 
-* React "nullifies" the event properties when released back to the pool [EventBatching.js#L34](https://github.com/facebook/react/blob/b1a03dfdc8e42d075422556553ffe59868150e95/packages/legacy-events/EventBatching.js#L34) => [SyntheticEvent.js#L179](https://github.com/facebook/react/blob/b1a03dfdc8e42d075422556553ffe59868150e95/packages/legacy-events/SyntheticEvent.js#L179)
+* React "nullifies" the event properties when released back to the pool [EventBatching.js#L34](https://github.com/facebook/react/blob/16.8.6/packages/legacy-events/EventBatching.js#L34) => [SyntheticEvent.js#L179](https://github.com/facebook/react/blob/16.8.6/packages/legacy-events/SyntheticEvent.js#L179)
 
 I could see no references to `.target` in the [legacy-events](https://github.com/facebook/react/search?q=target+path%3Apackages%2Flegacy-events&unscoped_q=target+path%3Apackages%2Flegacy-events) package.
 
 When validating this approach I reviewed the code of another popular component library, MaterialUI. [This is the same
-approach that they have adopted](https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/Select/SelectInput.js#L130).
+approach that they have adopted](https://github.com/mui-org/material-ui/blob/v4.5.1/packages/material-ui/src/Select/SelectInput.js#L130).
 
 ## Other considerations
 
