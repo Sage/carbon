@@ -5,13 +5,20 @@ import {
   commonButtonPreview, labelPreview, helpIcon, inputWidthSlider, fieldHelpPreview,
   labelWidthSlider, backgroundUILocator, closeIconButton, tooltipPreview, getKnobsInput,
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
-  precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe,
+  precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
 import { getElementNoIframe, commonButtonPreviewNoIframe } from '../../locators/build';
 
 const LABEL_INPUT_INLINE_CLASS = 'common-input__label--inline';
+const FIRST_ELEMENT = 0;
+const SECOND_ELEMENT = 1;
+const THIRD_ELEMENT = 2;
+const FOURTH_ELEMENT = 3;
+const FIFTH_ELEMENT = 4;
+const SIXTH_ELEMENT = 5;
+const SEVENTH_ELEMENT = 6;
 
 Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
@@ -144,6 +151,33 @@ When('I hover mouse onto icon', () => {
 
 Then('I hover mouse onto {string} icon into iFrame', (name) => {
   getElementNoIframe(name).trigger('mouseover');
+});
+
+Then('I hover mouse onto {string} {string} icon for validations component into iFrame', (position, name) => {
+  switch (position) {
+    case 'first':
+      getDataElementByValueNoIframe(name).eq(FIRST_ELEMENT).trigger('mouseover');
+      break;
+    case 'second':
+      getDataElementByValueNoIframe(name).eq(SECOND_ELEMENT).trigger('mouseover');
+      break;
+    case 'third':
+      getDataElementByValueNoIframe(name).eq(THIRD_ELEMENT).trigger('mouseover');
+      break;
+    case 'fourth':
+      getDataElementByValueNoIframe(name).eq(FOURTH_ELEMENT).trigger('mouseover');
+      break;
+    case 'fifth':
+      getDataElementByValueNoIframe(name).eq(FIFTH_ELEMENT).trigger('mouseover');
+      break;
+    case 'sixth':
+      getDataElementByValueNoIframe(name).eq(SIXTH_ELEMENT).trigger('mouseover');
+      break;
+    case 'seventh':
+      getDataElementByValueNoIframe(name).eq(SEVENTH_ELEMENT).trigger('mouseover');
+      break;
+    default: throw new Error('There are only seven validation icons elements on the page');
+  }
 });
 
 Then('tooltipPreview on preview is set to {string}', (text) => {
