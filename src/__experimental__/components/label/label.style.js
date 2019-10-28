@@ -16,6 +16,12 @@ const LabelStyle = styled.div`
   padding-bottom: 8px;
   width: 100%;
 
+  label {
+    &:hover {
+      cursor: inherit;
+    }
+  }
+
   ${StyledHelpIcon},
   ${StyledValidationIcon} {
     vertical-align: middle;

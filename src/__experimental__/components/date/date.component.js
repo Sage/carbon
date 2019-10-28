@@ -8,7 +8,7 @@ import tagComponent from '../../../utils/helpers/tags';
 import DatePicker from './date-picker.component';
 import StyledDateInput from './date.style';
 import Textbox from '../textbox';
-import withUniqueName from '../../../utils/helpers/with-unique-name';
+import withUniqueProp from '../../../utils/helpers/with-unique-prop';
 
 const defaultDateFormat = 'DD/MM/YYYY';
 
@@ -254,7 +254,7 @@ function formatDateToCurrentLocale(value) {
   return DateHelper.formatValue(value || DateHelper.todayFormatted(), visibleFormat);
 }
 
-const DateInput = withUniqueName(BaseDateInput);
+const DateInput = withUniqueProp(BaseDateInput);
 
 export { defaultDateFormat, BaseDateInput };
 export default DateInput;
