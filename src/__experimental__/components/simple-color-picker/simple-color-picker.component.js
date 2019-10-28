@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags/tags';
 
 import SimpleColor from './simple-color';
-import { StyledSimpleColorPicker, StyledColorOptions } from './simple-color-picker.style';
+import { SimpleColorFieldset, StyledColorOptions } from './simple-color-picker.style';
 
 const SimpleColorPicker = (props) => {
   const {
-    children, name, onChange, value
+    children, name, legend, onChange, value
   } = props;
 
   const isControlled = value !== undefined;
@@ -45,9 +45,13 @@ const SimpleColorPicker = (props) => {
   });
 
   return (
-    <StyledSimpleColorPicker { ...tagComponent('simple-color-picker', props) }>
+    <SimpleColorFieldset
+      role='radiogroup'
+      legend={ legend }
+      { ...tagComponent('simple-color-picker', props) }
+    >
       <StyledColorOptions>{colors}</StyledColorOptions>
-    </StyledSimpleColorPicker>
+    </SimpleColorFieldset>
   );
 };
 
@@ -65,6 +69,8 @@ SimpleColorPicker.propTypes = {
 
     return error;
   },
+  /** The content for the RadioGroup Legend */
+  legend: PropTypes.string.isRequired,
   /** The currently selected color. */
   value: PropTypes.string,
   /** The name to apply to the input. */

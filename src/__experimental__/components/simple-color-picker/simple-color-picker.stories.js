@@ -28,6 +28,7 @@ const onChange = (e) => {
 function makeStory(storyName, themeSelector) {
   const component = () => {
     const name = text('name', 'basicPicker');
+    const legend = text('legend', 'Pick a color');
     const demoColors = [
       '#00A376',
       '#0073C1',
@@ -46,6 +47,7 @@ function makeStory(storyName, themeSelector) {
       <State store={ store }>
         <SimpleColorPicker
           name={ name }
+          legend={ legend }
           onChange={ onChange }
         >
           {availableColors.map(color => (
