@@ -3,14 +3,6 @@ import { mount } from 'enzyme';
 import GroupedCharacter from './grouped-character.component';
 
 const mountComponent = props => mount(<GroupedCharacter { ...props } />);
-const setCursorOn = (node, setSelectionRange) => (
-  selectionEnd => node.simulate('change', { target: { selectionEnd, value: '123', setSelectionRange } })
-);
-
-const assertSelectionRangeCalled = selectionFn => (
-  position => expect(selectionFn).toHaveBeenCalledWith(position, position)
-);
-const BACKSPACE_KEY_CODE = 8;
 
 describe('GroupedCharacter', () => {
   jest.useFakeTimers();
@@ -120,6 +112,14 @@ describe('GroupedCharacter', () => {
   });
 
   describe('keydown events', () => {
+    const setCursorOn = (node, setSelectionRange) => (
+      (selectionEnd, value) => node.simulate('change', { target: { selectionEnd, value, setSelectionRange } })
+    );
+
+    const assertSelectionRangeCalled = selectionFn => (
+      position => expect(selectionFn).toHaveBeenCalledWith(position, position)
+    );
+
     let setInputCursorTo, assertInputCursorAt, setSelectionRange, instance, input, onChange;
 
     beforeEach(() => {
@@ -134,18 +134,42 @@ describe('GroupedCharacter', () => {
       assertInputCursorAt = assertSelectionRangeCalled(setSelectionRange);
     });
 
-    it('pressing a character at the point where a separator should appear adjusts the cursor positon forwards', () => {
-      setInputCursorTo(3);
-      jest.runAllTimers();
-      assertInputCursorAt(4);
+    describe('cursor positioned at the end of input', () => {
+      it('pressing a character at the point where a separator should appear moves cursor forward', () => {
+        setInputCursorTo(3, '123');
+        jest.runAllTimers();
+        assertInputCursorAt(4);
+
+        setInputCursorTo(6, '12-345');
+        jest.runAllTimers();
+        assertInputCursorAt(7);
+      });
+
+      it('pressing backspace after a separating character moves cursor backwards', () => {
+        setInputCursorTo(6, '12-34-');
+        jest.runAllTimers();
+        assertInputCursorAt(5);
+
+        setInputCursorTo(3, '12-');
+        jest.runAllTimers();
+        assertInputCursorAt(2);
+      });
     });
 
-    it('pressing backspace after a separating character adjusts the cursor position backwards', () => {
-      input.simulate('keydown', { which: BACKSPACE_KEY_CODE });
+    describe('cursor positioned in the middle of input value', () => {
+      it('pressing a character at the point where a separator should appear moves cursor forward', () => {
+        instance.setProps({ value: '1222212' });
+        setInputCursorTo(6, '12-223-212');
+        jest.runAllTimers();
+        assertInputCursorAt(7);
+      });
 
-      setInputCursorTo(3);
-      jest.runAllTimers();
-      assertInputCursorAt(2);
+      it('pressing backspace after a separating character moves cursor backwards', () => {
+        instance.setProps({ value: '122122' });
+        setInputCursorTo(3, '12-2-12');
+        jest.runAllTimers();
+        assertInputCursorAt(2);
+      });
     });
   });
 });

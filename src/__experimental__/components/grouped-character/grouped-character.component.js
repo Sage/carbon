@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Textbox from '../textbox';
-import { generateGroups, toSum, toIndexSteps } from './grouped-character.utils';
-import Events from '../../../utils/helpers/events';
+import { generateGroups, toSum } from './grouped-character.utils';
+
+const buildCustomTarget = ({ target }, value) => {
+  const { name, id } = target;
+  return {
+    ...(name && { name }),
+    ...(id && { id }),
+    value
+  };
+};
 
 const GroupedCharacter = ({
   defaultValue,
@@ -13,52 +21,48 @@ const GroupedCharacter = ({
   value: externalValue,
   ...rest
 }) => {
-  const [pressedKey, updatePressedKey] = useState(null);
-
   const [internalValue, setInternalValue] = useState(defaultValue || '');
 
   const isControlled = externalValue !== undefined;
 
-  const stepIndices = groups.reduce(toIndexSteps, []);
-  stepIndices.pop();
   const separator = rawSeparator.substring(0, 1); // Ensure max length is 1
 
+  const maxRawLength = groups.reduce(toSum);
+
   const formatValue = val => generateGroups(groups, val).join(separator);
-  const sanitizeValue = val => val.split(separator).join('');
+
+  const sanitizeValue = val => val
+    .split(separator)
+    .join('')
+    .substring(0, maxRawLength);
 
   const value = isControlled ? externalValue : internalValue;
-
-  const buildCustomTarget = ({ target }) => {
-    const { name, id } = target;
-    const rawValue = sanitizeValue(target.value);
-    const formattedValue = formatValue(rawValue);
-
-    return {
-      ...(name && { name }),
-      ...(id && { id }),
-      value: {
-        rawValue,
-        formattedValue
-      }
-    };
-  };
 
   const handleChange = (ev) => {
     const { target } = ev;
     const { selectionEnd } = target;
     let newCursorPos = selectionEnd;
-    const isAtOneBeyondSeparator = stepIndices.includes(selectionEnd - 1);
-    const backspacePressed = Events.isBackspaceKey({ which: pressedKey });
-
-    if (isAtOneBeyondSeparator && backspacePressed) {
-      newCursorPos -= 1;
-    } else if (isAtOneBeyondSeparator) {
-      newCursorPos += 1;
-    }
 
     const rawValue = sanitizeValue(target.value);
+    const formattedValue = formatValue(rawValue);
 
-    ev.target = buildCustomTarget(ev);
+    const isLastPosition = target.value.length === newCursorPos;
+    const isAtOneBeyondSeparator = formattedValue[selectionEnd - 1] === separator;
+
+    if (isLastPosition) {
+      const targetValSeparatorCount = target.value.split(separator).length - 1;
+      const formatValSeparatorCount = formattedValue.split(separator).length - 1;
+      const separatorDiff = formatValSeparatorCount - targetValSeparatorCount;
+      newCursorPos += separatorDiff;
+    } else if (isAtOneBeyondSeparator) {
+      const isDeleting = value.length > rawValue.length;
+      newCursorPos += isDeleting ? -1 : 1;
+    }
+
+    ev.target = buildCustomTarget(ev, {
+      rawValue,
+      formattedValue
+    });
 
     onChange(ev);
     if (!isControlled) {
@@ -69,17 +73,23 @@ const GroupedCharacter = ({
 
   const handleBlur = (ev) => {
     if (onBlur) {
-      ev.target = buildCustomTarget(ev);
+      const { target } = ev;
+      const rawValue = sanitizeValue(target.value);
+      const formattedValue = formatValue(rawValue);
+
+      ev.target = buildCustomTarget(ev, {
+        rawValue,
+        formattedValue
+      });
       onBlur(ev);
     }
   };
 
   const handleKeyPress = (ev) => {
     const { selectionStart, selectionEnd } = ev.target;
-    const expectedLength = groups.reduce(toSum);
     const hasSelection = selectionEnd - selectionStart > 0;
 
-    if (expectedLength === value.length && !hasSelection) {
+    if (maxRawLength === value.length && !hasSelection) {
       ev.preventDefault();
     }
   };
@@ -90,7 +100,6 @@ const GroupedCharacter = ({
       formattedValue={ formatValue(value) }
       onChange={ handleChange }
       onBlur={ handleBlur }
-      onKeyDown={ ({ which }) => updatePressedKey(which) }
       onKeyPress={ handleKeyPress }
     />
   );
