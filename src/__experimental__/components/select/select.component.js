@@ -254,10 +254,10 @@ class Select extends React.Component {
     return tagComponent(this.props['data-component'], this.props);
   }
 
-  inputIcon(typeAhead, value) {
+  inputIcon(typeAhead) {
     if (this.openWhenTypeAhead(typeAhead, this.state.filter)) return 'cross';
     if (typeAhead) return 'search';
-    return this.isMultiValue(value) ? undefined : 'dropdown';
+    return this.isMultiSelectEnabled() ? undefined : 'dropdown';
   }
 
   eventProps() {
@@ -285,7 +285,7 @@ class Select extends React.Component {
     const placeholderText = this.placeholder(placeholder, value);
 
     const props = {
-      inputIcon: this.inputIcon(typeAhead, value),
+      inputIcon: this.inputIcon(typeAhead),
       inputRef: this.assignInput,
       placeholder: placeholderText,
       'aria-label': placeholderText,
