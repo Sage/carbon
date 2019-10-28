@@ -26,6 +26,7 @@ function render(renderer = TestRenderer.create, props) {
     <RadioButtonGroup
       name={ name }
       legend='Test RadioButtonGroup Legend'
+      onBlur={ jest.fn() }
       onChange={ jest.fn() }
       { ...props }
     >
@@ -221,6 +222,9 @@ describe('RadioButtonGroup', () => {
         <RadioButtonGroup
           name={ name }
           legend='Test RadioButtonGroup Legend'
+          onBlur={ (e) => {
+            setValue(e.target.value);
+          } }
           onChange={ (e) => {
             setValue(e.target.value);
           } }
@@ -273,6 +277,19 @@ describe('RadioButtonGroup', () => {
       expect(radio.at(0).prop('checked')).toBe(false);
       expect(radio.at(1).prop('checked')).toBe(false);
       expect(radio.at(2).prop('checked')).toBe(false);
+    });
+
+    it('onBlur handler is called when a radio button is blurred', () => {
+      const onBlur = jest.fn();
+      const wrapper = renderer({ onBlur });
+
+      const radio = getRadioButtons(wrapper);
+
+      act(() => {
+        radio.at(0).props().onBlur({ target: radio.at(0).getDOMNode() });
+      });
+
+      expect(onBlur).toHaveBeenCalled();
     });
 
     it('onChange handler is called when a radio button is clicked', () => {
