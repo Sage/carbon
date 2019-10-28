@@ -44,11 +44,12 @@ the basic example.
 * `SyntheticEvent.target` **MUST** be an object with the properties `name`, `id`, `value`.
 * `SyntheticEvent.target` **MUST** include the `name` and `id` of the component (if the component has these props).
 ```jsx
-<Select id="foo" name="foo">
-  <Option id="bar" name="bar" value="bar">Bar</Option>
+<Select id="country_id" name="country_name">
+  <Option value="UK">United Kingdom</Option>
+  <Option value="US">United States</Option>
 </Select>
 ```
-> In the example above, the `SyntheticEvent.target` **MAY** be the following object: `{"id": "foo", "name": "foo", "value": {"optionValue": "bar", "optionText": "Bar"}}`
+> In the example above, the `SyntheticEvent.target` **MAY** be the following object: `{"id": "country_id", "name": "country_name", "value": {"optionValue": "UK", "optionText": "United Kingdom"}}`
 
 * `SyntheticEvent.target` **MUST** have a `value` property, which can be any value, **UNLESS** the component supports
 multiple select, in which case the property must be an `Array` of values. If the component supports both single select
