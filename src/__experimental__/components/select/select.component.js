@@ -215,6 +215,15 @@ class Select extends React.Component {
     }
   }
 
+  /**
+   * Finds the <Option> child with the specified `value` prop, and returns its `text` prop.
+   */
+  getTextForValue = (value) => {
+    const optionsComponents = this.props.children;
+    const matchingOption = optionsComponents.find(option => (option.props.value === value));
+    return matchingOption ? matchingOption.props.text : '';
+  }
+
   // returns the human readable value for the user
   formattedValue(filterValue, value) {
     let visibleValue = '';
