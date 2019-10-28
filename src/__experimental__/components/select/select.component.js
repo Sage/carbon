@@ -92,6 +92,16 @@ class Select extends React.Component {
     return enableMultiSelect;
   }
 
+  /**
+   * Gets this component's current single-select value.
+   * Should only be called when the component is in single-select mode.
+   */
+  getSingleSelectValue = () => {
+    invariant(!this.props.enableMultiSelect, 'Cannot get single-select value: `enableMultiSelect` prop is truthy');
+    invariant(!this.isMultiValue(this.props.value), 'Cannot get single-select value: `value` prop is an array');
+    return this.props.value; // Guaranteed to be a single value.
+  }
+
   handleChange = (newValue) => {
     let updatedValue = newValue;
     // if the component is multi value then we need to push the new value into the array of values
