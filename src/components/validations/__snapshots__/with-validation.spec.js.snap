@@ -9,6 +9,7 @@ exports[`when the withValidations HOC wraps a component matches the snapshot whe
   name="foo"
   onBlur={[Function]}
   onChange={[Function]}
+  useValidationIcon={true}
   validations={Array []}
   warnings={Array []}
 />
@@ -23,6 +24,7 @@ exports[`when the withValidations HOC wraps a component matches the snapshot wit
   name="foo "
   onBlur={[Function]}
   onChange={[Function]}
+  useValidationIcon={true}
   validations={Array []}
   warnings={Array []}
 />

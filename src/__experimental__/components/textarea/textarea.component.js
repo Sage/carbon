@@ -116,6 +116,7 @@ class Textarea extends React.Component {
           label={ label }
           disabled={ disabled }
           { ...props }
+          useValidationIcon={ false }
         >
           <InputPresentation
             type='text'

@@ -7,6 +7,7 @@ import CharacterCount from './character-count';
 import Textarea from '.';
 import baseTheme from '../../../style/themes/base';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
+import Label from '../label';
 import TextareaInput from './textarea-input.component';
 
 describe('Textarea', () => {
@@ -40,6 +41,14 @@ describe('Textarea', () => {
       wrapper = renderTextarea({ children: 'mock content', [validationProp]: true });
       const validationIcon = wrapper.find(ValidationIcon);
       expect(validationIcon.exists()).toBe(true);
+    });
+
+    it('doesnt render a validation icon in the label', () => {
+      wrapper = renderTextarea({
+        label: 'foo', tooltipMessage: 'bar', children: 'mock content', [validationProp]: true
+      });
+      const validationIcon = wrapper.find(Label).find(ValidationIcon);
+      expect(validationIcon.exists()).toBe(false);
     });
   });
 
