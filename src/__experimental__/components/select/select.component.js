@@ -109,7 +109,7 @@ class Select extends React.Component {
    */
   isMultiSelectEnabled = () => {
     if (this.isComponentControlled()) {
-      verifyControlledIntegrity();
+      this.verifyControlledIntegrity();
     }
     return Boolean(this.props.enableMultiSelect);
   }
@@ -120,7 +120,7 @@ class Select extends React.Component {
    */
   getValue = () => {
     if (this.isComponentControlled()) {
-      verifyControlledIntegrity();
+      this.verifyControlledIntegrity();
       return this.props.value;
     } else {
       return this.state.value;
