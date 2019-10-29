@@ -20,7 +20,7 @@ const groupedCharacterStore = new Store({
 });
 
 const onChange = (ev) => {
-  groupedCharacterStore.set({ value: ev.target.value });
+  groupedCharacterStore.set({ value: ev.target.value.rawValue });
   action('change')(ev);
 };
 
