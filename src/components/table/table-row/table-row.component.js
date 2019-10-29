@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TableCell from '../table-cell';
 import TableHeader from '../table-header';
-import Checkbox from '../../../__experimental__/components/checkbox';
+import { Checkbox } from '../../../__experimental__/components/checkbox';
 import guid from '../../../utils/helpers/guid';
 import WithDrop from '../../drag-and-drop/with-drop';
 import DraggableTableCell from '../draggable-table-cell';
 import StyledTableRow from './table-row.style';
 import { validProps } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
-import ActionPopover from '../../action-popover';
+import { ActionPopover } from '../../action-popover';
 
 /**
  * A TableRow widget.

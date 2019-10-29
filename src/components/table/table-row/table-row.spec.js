@@ -11,14 +11,14 @@ import StyledTableCell from '../table-cell/table-cell.style';
 import DraggableTableCell from '../draggable-table-cell';
 import StyledTable from '../table.style';
 import StyledIcon from '../../icon/icon.style';
-import Checkbox from '../../../__experimental__/components/checkbox';
+import { Checkbox } from '../../../__experimental__/components/checkbox';
 import BaseTheme from '../../../style/themes/base';
 import ClassicTheme from '../../../style/themes/classic';
 import SmallTheme from '../../../style/themes/small';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import { DraggableContext, WithDrop } from '../../drag-and-drop';
 import { THEMES } from '../../../style/themes';
-import ActionPopover from '../../action-popover';
+import { ActionPopover, ActionPopoverItem } from '../../action-popover';
 import { MenuButton } from '../../action-popover/action-popover.style';
 
 jest.mock('../draggable-table-cell', () => {
@@ -704,9 +704,9 @@ describe('TableRow', () => {
             <TableCell>Doe</TableCell>
             <TableCell>
               <ActionPopover { ... { onOpen, onClose } }>
-                <ActionPopover.Item icon='email'>
+                <ActionPopoverItem icon='email'>
                   Email Invoice
-                </ActionPopover.Item>
+                </ActionPopoverItem>
               </ActionPopover>
             </TableCell>
           </TableRow>

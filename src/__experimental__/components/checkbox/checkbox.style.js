@@ -2,15 +2,18 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
-import FieldHelpStyle from '../field-help/field-help.style';
-import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
+import StyledFieldHelp from '../field-help/field-help.style';
+import StyledHiddenCheckableInput from '../checkable-input/hidden-checkable-input.style';
 import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
-import LabelStyle from '../label/label.style';
-import checkBoxClassicStyle from './checkbox-classic.style';
+import StyledLabel from '../label/label.style';
+import styledCheckBoxClassic from './checkbox-classic.style';
+import StyledValidationIcon from '../../../components/validations/validation-icon.style';
+import StyledFormField from '../form-field/form-field.style';
+import StyledIcon from '../../../components/icon/icon.style';
 
 const CheckboxStyle = styled.div`
   ${({
-    checked, disabled, error, fieldHelpInline, inputWidth, reverse, size, theme
+    checked, disabled, hasError, hasWarning, hasInfo, fieldHelpInline, inputWidth, reverse, size, theme
   }) => css`
     padding-top: 8px;
 
@@ -22,10 +25,16 @@ const CheckboxStyle = styled.div`
 
     svg {
       background-color: ${theme.colors.white};
-      border: solid 1px ${theme.colors.border};
+      ${!disabled && css`
+        border: 1px solid ${theme.colors.border};
+
+        ${hasInfo && `border: 1px solid ${theme.colors.info};`}
+        ${hasWarning && `border: 1px solid ${theme.colors.warning};`}
+        ${hasError && `border: 1px solid ${theme.colors.error};`}
+      `}
     }
 
-    ${HiddenCheckableInputStyle},
+    ${StyledHiddenCheckableInput},
     svg {
       height: 16px;
       position: absolute;
@@ -33,59 +42,64 @@ const CheckboxStyle = styled.div`
     }
 
     ${StyledCheckableInput},
-    ${HiddenCheckableInputStyle},
+    ${StyledHiddenCheckableInput},
     ${StyledCheckableInputSvgWrapper},
     svg {
       box-sizing: border-box;
       width: 16px;
     }
 
-    ${HiddenCheckableInputStyle}:not([disabled]) {
+    ${StyledHiddenCheckableInput}:not([disabled]) {
       &:focus + ${StyledCheckableInputSvgWrapper},
       &:hover + ${StyledCheckableInputSvgWrapper} {
         box-shadow: 0 0 0 3px ${theme.colors.focus};
       }
     }
 
-    ${LabelStyle} {
+    ${StyledLabel} {
       padding: 0 6px;
       width: auto;
     }
 
-    ${FieldHelpStyle} {
+    ${StyledFieldHelp} {
       margin-left: 16px;
       margin-top: 0;
       padding-left: 6px;
+    }
+
+    ${StyledValidationIcon} {
+      position: relative;
+      display: inline-block;
     }
 
     ${size === 'large' && css`
       ${StyledCheckableInputSvgWrapper} { height: 24px; }
 
       ${StyledCheckableInput},
-      ${HiddenCheckableInputStyle},
+      ${StyledHiddenCheckableInput},
       svg {
         padding: 2px;
       }
 
       ${StyledCheckableInput},
-      ${HiddenCheckableInputStyle},
+      ${StyledHiddenCheckableInput},
       ${StyledCheckableInputSvgWrapper},
       svg {
         height: 24px;
         width: 24px;
       }
 
-      ${FieldHelpStyle} {
+      ${StyledFieldHelp} {
         margin-left: 24px;
       }
 
-      ${FieldHelpStyle},
-      ${LabelStyle} {
+      ${StyledFieldHelp},
+      ${StyledLabel} {
         padding-left: 8px;
       }
 
-      ${fieldHelpInline && `${FieldHelpStyle},`}
-      ${LabelStyle} {
+      ${fieldHelpInline && `${StyledFieldHelp},`}
+      ${StyledLabel} {
         padding-top: 4px;
         padding-bottom: 4px;
       }
@@ -93,7 +107,7 @@ const CheckboxStyle = styled.div`
 
     ${checked && `
       svg path {
-        fill: ${theme.colors.primary};
+        fill: ${theme.checkable.checked};
       }
     `}
 
@@ -113,26 +127,20 @@ const CheckboxStyle = styled.div`
       }
     `}
 
-    ${error && `
-      svg {
-        border: 1px solid ${theme.colors.error};
-      }
-    `}
-
     ${fieldHelpInline && `
-      ${FieldHelpStyle} {
+      ${StyledFieldHelp} {
         margin: 0;
       }
     `}
 
     ${inputWidth !== undefined && inputWidth !== 0 && `
-      ${FieldHelpStyle} {
+      ${StyledFieldHelp} {
         ${reverse ? 'margin-right' : 'margin-left'}: ${inputWidth}% !important;
       }
     `}
 
     ${reverse && `
-      ${FieldHelpStyle} {
+      ${StyledFieldHelp} {
         margin-left: 0;
       }
     `}
@@ -141,7 +149,7 @@ const CheckboxStyle = styled.div`
       ${StyledCheckableInput} { margin-right: 8px; }
     `}
 
-    ${checkBoxClassicStyle}
+    ${styledCheckBoxClassic}
   `}
 `;
 
@@ -152,12 +160,48 @@ CheckboxStyle.defaultProps = {
 
 CheckboxStyle.propTypes = {
   disabled: PropTypes.bool,
-  error: PropTypes.bool,
+  hasError: PropTypes.bool,
   fieldHelpInline: PropTypes.bool,
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   labelAlign: PropTypes.string,
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   size: PropTypes.string
 };
+
+const StyledCheckboxGroup = styled.div`
+  ${StyledIcon}::before {
+    font-size: 16px;
+  }
+  
+  & ${CheckboxStyle} {
+    padding-top: 12px;
+
+    & ${StyledFormField} {
+      & ${StyledLabel} {
+        line-height: 21px;
+      }
+    }
+  }
+
+  & > ${StyledFormField} {
+    & > ${StyledLabel} {
+      padding-bottom: 4px;
+
+      label {
+        vertical-align: middle;
+      }
+
+      ${StyledValidationIcon} {
+        display: inline-block;
+      }
+    }
+  }
+`;
+
+StyledCheckboxGroup.defaultProps = {
+  theme: baseTheme
+};
+
+export { StyledCheckboxGroup };
 
 export default CheckboxStyle;

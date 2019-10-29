@@ -4,11 +4,12 @@ import React, {
 import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
 import {
-  Menu, MenuItemFactory, MenuButton, ButtonIcon, MenuItemIcon, MenuItemDivider
+  Menu, MenuButton, ButtonIcon
 } from './action-popover.style';
 import Events from '../../utils/helpers/events';
 import createGuid from '../../utils/helpers/guid';
-import OptionsHelper from '../../utils/helpers/options-helper';
+import ActionPopoverItem from './action-popover-item.component';
+import ActionPopoverDivider from './action-popover-divider.component';
 
 const ActionPopover = ({
   children, id, onOpen, onClose
@@ -135,7 +136,7 @@ const ActionPopover = ({
     const itemsWithRef = [];
     // childrenWith a clone of children with refs added so we can focus the dom element
     setChildrenWithRef(React.Children.map(children, (child) => {
-      if (child.type === ActionPopover.Item) {
+      if (child.type === ActionPopoverItem) {
         const itemWithRef = React.cloneElement(child, { ref: React.createRef() });
         itemsWithRef.push(itemWithRef);
         return itemWithRef;
@@ -185,58 +186,6 @@ const ActionPopover = ({
   );
 };
 
-const MenuItem = React.forwardRef(({
-  children, icon, disabled, onClick: onClickProp, ...rest
-}, ref) => {
-  const onClick = useCallback((e) => {
-    if (!disabled) {
-      onClickProp();
-    } else {
-      e.stopPropagation();
-    }
-  }, [disabled, onClickProp]);
-
-  const onKeyDown = useCallback((e) => {
-    if (Events.isEnterKey(e)) {
-      onClick(e);
-    } else if (Events.isSpaceKey(e)) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  }, [onClick]);
-
-  return (
-    <div
-      { ...rest }
-      { ...{ ref, onClick, onKeyDown } }
-      { ...disabled && { 'aria-disabled': true } }
-      type='button'
-      tabIndex='0'
-      role='menuitem'
-    >
-      <MenuItemIcon type={ icon } />{children}
-    </div>
-  );
-});
-
-ActionPopover.Item = MenuItemFactory(MenuItem);
-ActionPopover.Item.displayName = 'ActionPopover.Item';
-ActionPopover.Item.propTypes = {
-  /** The name of the icon to display next to the label */
-  icon: PropTypes.oneOf(OptionsHelper.icons).isRequired,
-  /** The text label to display for this Item */
-  children: PropTypes.string.isRequired,
-  disabled: PropTypes.bool,
-  onClick: PropTypes.func.isRequired
-};
-
-ActionPopover.Item.defaultProps = {
-  disabled: false
-};
-
-ActionPopover.Divider = MenuItemDivider;
-ActionPopover.Divider.displayName = 'ActionPopover.Divider';
-
 ActionPopover.propTypes = {
   id: PropTypes.string,
   onOpen: PropTypes.func,
@@ -246,9 +195,9 @@ ActionPopover.propTypes = {
     const prop = props[propName];
 
     React.Children.forEach(prop, (child) => {
-      if (![ActionPopover.Item.displayName, ActionPopover.Divider.displayName].includes(child.type.displayName)) {
-        error = new Error(`\`${componentName}\` only accepts children of type \`${ActionPopover.Item.displayName}\``
-        + ` and \`${ActionPopover.Divider.displayName}\`.`);
+      if (![ActionPopoverItem.displayName, ActionPopoverDivider.displayName].includes(child.type.displayName)) {
+        error = new Error(`\`${componentName}\` only accepts children of type \`${ActionPopoverItem.displayName}\``
+        + ` and \`${ActionPopoverDivider.displayName}\`.`);
       }
     });
 

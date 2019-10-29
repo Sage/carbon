@@ -68,7 +68,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 
 .c4 svg {
   background-color: #FFFFFF;
-  border: solid 1px #668491;
+  border: 1px solid #668491;
 }
 
 .c4 .c10,
@@ -100,6 +100,11 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
+}
+
+.c4 .c17 {
+  position: relative;
+  display: inline-block;
 }
 
 .c4 .c14 {
@@ -255,11 +260,13 @@ exports[`RadioButtonGroup renders as expected 1`] = `
     className="c4"
     data-component="radio-button"
     name="test-group"
+    onBlur={[Function]}
   >
     <div
       checked={false}
       className="c5"
       name="test-group"
+      onBlur={[Function]}
     >
       <div
         className="c6 c7"
@@ -275,6 +282,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
             className="c10 c11"
             id="rId-0"
             name="test-group"
+            onBlur={[Function]}
             onChange={[Function]}
             role="radio"
             type="radio"
@@ -312,11 +320,13 @@ exports[`RadioButtonGroup renders as expected 1`] = `
     className="c4"
     data-component="radio-button"
     name="test-group"
+    onBlur={[Function]}
   >
     <div
       checked={false}
       className="c5"
       name="test-group"
+      onBlur={[Function]}
     >
       <div
         className="c6 c7"
@@ -332,6 +342,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
             className="c10 c11"
             id="rId-1"
             name="test-group"
+            onBlur={[Function]}
             onChange={[Function]}
             role="radio"
             type="radio"

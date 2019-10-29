@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { notes, Info } from './documentation';
-import ActionPopover from '.';
+import { ActionPopover, ActionPopoverDivider, ActionPopoverItem } from '.';
 import { MenuButton } from './action-popover.style';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 import { dlsThemeSelector } from '../../../.storybook/theme-selectors';
@@ -31,16 +31,16 @@ function makeStory(storyName, themeSelector) {
         <TableCell>Doe</TableCell>
         <TableCell>
           <ActionPopover>
-            <ActionPopover.Item icon='email' onClick={ action('email') }>Email Invoice</ActionPopover.Item>
-            <ActionPopover.Item
+            <ActionPopoverItem icon='email' onClick={ action('email') }>Email Invoice</ActionPopoverItem>
+            <ActionPopoverItem
               disabled icon='print'
               onClick={ action('print') }
             >Print Invoice
-            </ActionPopover.Item>
-            <ActionPopover.Item icon='pdf' onClick={ action('pdf') }>Download PDF</ActionPopover.Item>
-            <ActionPopover.Item icon='csv' onClick={ action('csv') }>Download CSV</ActionPopover.Item>
-            <ActionPopover.Divider />
-            <ActionPopover.Item icon='delete' onClick={ action('delete') }>Delete</ActionPopover.Item>
+            </ActionPopoverItem>
+            <ActionPopoverItem icon='pdf' onClick={ action('pdf') }>Download PDF</ActionPopoverItem>
+            <ActionPopoverItem icon='csv' onClick={ action('csv') }>Download CSV</ActionPopoverItem>
+            <ActionPopoverDivider />
+            <ActionPopoverItem icon='delete' onClick={ action('delete') }>Delete</ActionPopoverItem>
           </ActionPopover>
         </TableCell>
       </TableRow>
@@ -49,7 +49,7 @@ function makeStory(storyName, themeSelector) {
         <TableCell>Smith</TableCell>
         <TableCell>
           <ActionPopover>
-            <ActionPopover.Item icon='csv' onClick={ action('csv') }>Download CSV</ActionPopover.Item>
+            <ActionPopoverItem icon='csv' onClick={ action('csv') }>Download CSV</ActionPopoverItem>
           </ActionPopover>
         </TableCell>
       </TableRow>
@@ -58,7 +58,7 @@ function makeStory(storyName, themeSelector) {
         <TableCell>Jones</TableCell>
         <TableCell>
           <ActionPopover>
-            <ActionPopover.Item icon='csv' onClick={ action('csv') }>Download CSV</ActionPopover.Item>
+            <ActionPopoverItem icon='csv' onClick={ action('csv') }>Download CSV</ActionPopoverItem>
           </ActionPopover>
         </TableCell>
       </TableRow>

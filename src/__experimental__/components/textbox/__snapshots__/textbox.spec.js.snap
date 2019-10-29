@@ -12,6 +12,7 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
   onBlur={[Function]}
   onChange={[Function]}
   size="medium"
+  useValidationIcon={false}
   validations={Array []}
   warnings={Array []}
 >
@@ -27,6 +28,7 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
     onChange={[Function]}
     size="medium"
     type="text"
+    useValidationIcon={true}
     validations={Array []}
     warnings={Array []}
   >
@@ -44,6 +46,7 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
       onChange={[Function]}
       size="medium"
       type="text"
+      useValidationIcon={true}
       validations={Array []}
       value="foobar"
       warnings={Array []}

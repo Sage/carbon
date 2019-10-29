@@ -4,6 +4,7 @@ import tagComponent from '../../../utils/helpers/tags';
 import CheckboxStyle from './checkbox.style';
 import CheckableInput from '../checkable-input/checkable-input.component';
 import CheckboxSvg from './checkbox-svg.component';
+import withValidations from '../../../components/validations/with-validation.hoc';
 
 const Checkbox = ({
   id, label, onChange, value, ...props
@@ -37,8 +38,6 @@ Checkbox.propTypes = {
   checked: PropTypes.bool,
   /** Toggles disabling of input */
   disabled: PropTypes.bool,
-  /** Toggles error styles */
-  error: PropTypes.bool,
   /** Displays fieldHelp inline with the checkbox */
   fieldHelpInline: PropTypes.bool,
   /** Unique Identifier for the input. Will use a randomly generated GUID if none is provided */
@@ -61,11 +60,11 @@ Checkbox.propTypes = {
    */
   size: PropTypes.string,
   /** the value of the checkbox, passed on form submit */
-  value: PropTypes.string.isRequired
+  value: PropTypes.string
 };
 
 Checkbox.defaultProps = {
   reverse: false
 };
 
-export default Checkbox;
+export default withValidations(Checkbox);

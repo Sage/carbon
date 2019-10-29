@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { mount as enzymeMount } from 'enzyme';
 import { simulate, assertStyleMatch } from '../../__spec_helper__/test-utils';
 import theme from '../../style/themes/small';
-import ActionPopover from './index';
+import { ActionPopover, ActionPopoverDivider, ActionPopoverItem } from './index';
 import { MenuButton, Menu } from './action-popover.style';
 import Icon from '../icon';
 
@@ -31,15 +31,15 @@ describe('ActionPopover', () => {
   function render(props = {}, renderer = mount) {
     const defaultProps = {
       children: [
-        <ActionPopover.Item icon='email' { ...{ onClick: onClickWrapper('email') } }>Email Invoice</ActionPopover.Item>,
-        <ActionPopover.Item icon='print' { ...{ onClick: onClickWrapper('print') } }>Print Invoice</ActionPopover.Item>,
-        <ActionPopover.Item
+        <ActionPopoverItem icon='email' { ...{ onClick: onClickWrapper('email') } }>Email Invoice</ActionPopoverItem>,
+        <ActionPopoverItem icon='print' { ...{ onClick: onClickWrapper('print') } }>Print Invoice</ActionPopoverItem>,
+        <ActionPopoverItem
           icon='pdf' { ...{ onClick: onClickWrapper('pdf') } }
           disabled
         >Download PDF
-        </ActionPopover.Item>,
-        <ActionPopover.Divider />,
-        <ActionPopover.Item icon='csv' { ...{ onClick: onClickWrapper('csv') } }>Download CSV</ActionPopover.Item>
+        </ActionPopoverItem>,
+        <ActionPopoverDivider />,
+        <ActionPopoverItem icon='csv' { ...{ onClick: onClickWrapper('csv') } }>Download CSV</ActionPopoverItem>
       ],
       onOpen,
       onClose,
@@ -61,7 +61,7 @@ describe('ActionPopover', () => {
     const cw = wrapper.current;
     if (cw) {
       return {
-        items: cw.find(ActionPopover.Item),
+        items: cw.find(ActionPopoverItem),
         menubutton: cw.find(MenuButton),
         menu: cw.find(Menu)
       };
@@ -502,7 +502,7 @@ describe('ActionPopover', () => {
       </ThemeProvider>, container.current
     );
     expect(console.error).toHaveBeenCalledWith('Warning: Failed prop type: `ActionPopover` only accepts children of'
-    + ' type `ActionPopover.Item` and `ActionPopover.Divider`.\n    in ActionPopover');
+    + ' type `ActionPopoverItem` and `ActionPopoverDivider`.\n    in ActionPopover');
     global.console.error.mockReset();
   });
 });
