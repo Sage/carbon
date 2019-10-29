@@ -108,6 +108,19 @@ class Select extends React.Component {
   }
 
   /**
+   * Gets this component's current value.
+   * This will be either a string (single-select mode) or an array of strings (multi-select mode).
+   */
+  getValue = () => {
+    if (this.isComponentControlled()) {
+      verifyControlledIntegrity();
+      return this.props.value;
+    } else {
+      return this.state.value;
+    }
+  }
+
+  /**
    * Gets this component's current single-select value.
    * Should only be called when the component is in single-select mode.
    */
