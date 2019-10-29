@@ -276,7 +276,7 @@ describe('SimpleColorPicker', () => {
   });
 
   describe('controlled', () => {
-    it('changing the value checks the appropraite radio button', () => {
+    it('changing the value checks the appropriate radio button', () => {
       const wrapper = renderControlled();
       const buttons = getButtons(wrapper);
 
@@ -290,7 +290,7 @@ describe('SimpleColorPicker', () => {
   });
 
   describe('uncontrolled', () => {
-    it('clicking a value checks the appropraite radio button', () => {
+    it('clicking a value checks the appropriate radio button', () => {
       const wrapper = renderUncontrolled();
       let radio = getSimpleColors(wrapper);
 
