@@ -79,6 +79,25 @@ class Select extends React.Component {
   }
 
   /**
+   * Verifies the integrity of the props `enableMultiSelect` and `value` (if this component is currently controlled).
+   * `invariant()` will throw an error if verification fails.
+   */
+  verifyControlledIntegrity = () => {
+    if (!this.isComponentControlled()) {
+      return;
+    }
+
+    const enableMultiSelect = Boolean(this.props.enableMultiSelect);
+    const isValuePropAnArray = this.isMultiValue(this.props.value);
+
+    invariant(
+      enableMultiSelect === isValuePropAnArray,
+      `Controlled component: Mismatch between props: \`enableMultiSelect\` (${enableMultiSelect
+      }) and \`value\` (${isValuePropAnArray ? 'is an array' : 'is not an array'})`
+    );
+  }
+
+  /**
    * Is the component currently in multi-select mode? (If not, then it's in single-select mode.)
    */
   isMultiSelectEnabled = () => {
