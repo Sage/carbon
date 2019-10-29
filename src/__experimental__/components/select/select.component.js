@@ -33,9 +33,18 @@ class Select extends React.Component {
     this.listboxId = uniqueId('listbox-');
   }
 
+  getInitialStateValue = () => {
+    if (this.isComponentControlled()) {
+      return this.props.value;
+    }
+    if (this.props.defaultValue !== undefined && this.props.defaultValue !== null) {
+      return this.props.defaultValue;
+    }
+    return (this.props.enableMultiSelect ? [] : '');
+  }
+
   state = {
-    // eslint-disable-next-line no-nested-ternary
-    value: this.isComponentControlled() ? this.props.value : (this.props.enableMultiSelect ? [] : ''),
+    value: this.getInitialStateValue(),
     filter: undefined,
     open: false
   }
@@ -410,6 +419,7 @@ class Select extends React.Component {
       customFilter,
       placeholder,
       value,
+      defaultValue,
       onLazyLoad,
       onFilter,
       onOpen,
@@ -462,6 +472,11 @@ class Select extends React.Component {
   }
 }
 
+const valuePropType = PropTypes.oneOfType([
+  PropTypes.string, // Single-select mode
+  PropTypes.arrayOf(PropTypes.string) // Multi-select mode
+]);
+
 Select.propTypes = {
   ariaLabel: PropTypes.string,
   /** Child components (such as <Option>) for the <SelectList> */
@@ -491,10 +506,9 @@ Select.propTypes = {
   /** Should multi-select mode be enabled? */
   enableMultiSelect: PropTypes.bool,
   /** The selected value(s), when the component is operating in controlled mode */
-  value: PropTypes.oneOfType([
-    PropTypes.string, // Single-select mode
-    PropTypes.arrayOf(PropTypes.string) // Multi-select mode
-  ]),
+  value: valuePropType,
+  /** The default selected value(s), when the component is operating in uncontrolled mode */
+  defaultValue: valuePropType,
   /** ID attribute of the component */
   id: PropTypes.string,
   /** Name attribute of the component */
