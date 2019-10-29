@@ -6,6 +6,7 @@ import DateInput from '../date';
 import DateRangeValidator from '../../../utils/validations/date-range';
 import tagComponent from '../../../utils/helpers/tags';
 import StyledDateRange from './date-range.style';
+import DateHelper from '../../../utils/helpers/date';
 
 class DateRange extends React.Component {
   static propTypes = {
@@ -32,11 +33,21 @@ class DateRange extends React.Component {
     /** Props for the child start Date component */
     startDateProps: PropTypes.shape({ ...DateInput.propTypes, value: PropTypes.string }),
     /** Props for the child end Date component */
-    endDateProps: PropTypes.shape({ ...DateInput.propTypes, value: PropTypes.string })
+    endDateProps: PropTypes.shape({ ...DateInput.propTypes, value: PropTypes.string }),
+    name: PropTypes.string,
+    id: PropTypes.string
   };
 
   state = {
-    forceUpdateTriggerToggle: false
+    forceUpdateTriggerToggle: false,
+    startDateValue: {
+      formattedValue: DateHelper.formatDateToCurrentLocale(this.startDate),
+      rawValue: DateHelper.formatValue(this.startDate)
+    },
+    endDateValue: {
+      formattedValue: DateHelper.formatDateToCurrentLocale(this.endDate),
+      rawValue: DateHelper.formatValue(this.endDate)
+    }
   }
 
   constructor(props) {
@@ -47,19 +58,39 @@ class DateRange extends React.Component {
 
   /** onChange function -triggers validations on both fields and updates opposing field when one changed. */
   _onChange = (changedDate, ev) => {
-    const newValue = ev.target.value;
+    const { value } = ev.target;
 
     if (changedDate === 'startDate') {
-      this.props.onChange([newValue, this.endDate]);
-    }
-
-    if (changedDate === 'endDate') {
-      this.props.onChange([this.startDate, newValue]);
+      this.setState({ startDateValue: { ...value } },
+        () => {
+          const event = this.buildCustomEvent();
+          this.props.onChange(event);
+        });
+    } else if (changedDate === 'endDate') {
+      this.setState({ endDateValue: { ...value } },
+        () => {
+          const event = this.buildCustomEvent();
+          this.props.onChange(event);
+        });
     }
 
     this.setState(prevState => ({
       forceUpdateTriggerToggle: !prevState.forceUpdateTriggerToggle
     }));
+  }
+
+  buildCustomEvent = () => {
+    const { startDateValue, endDateValue } = this.state;
+    const { name, id } = this.props;
+
+    const ev = {};
+
+    ev.target = {
+      ...(name && { name }),
+      ...(id && { id }),
+      value: [startDateValue, endDateValue]
+    };
+    return ev;
   }
 
   /** The startDate value */
@@ -104,7 +135,7 @@ class DateRange extends React.Component {
   startDateProps() {
     return this.dateProps('start', [
       new DateRangeValidator({
-        endDate: this.endDate,
+        endDate: this.state.endDateValue.rawValue,
         messageText: this.startMessage
       })
     ]);
@@ -113,7 +144,7 @@ class DateRange extends React.Component {
   endDateProps() {
     return this.dateProps('end', [
       new DateRangeValidator({
-        startDate: this.startDate,
+        startDate: this.state.startDateValue.rawValue,
         messageText: this.endMessage
       })
     ]);
@@ -126,7 +157,7 @@ class DateRange extends React.Component {
       label: this.props[`${propsKey}Label`],
       labelInline: this.props.labelsInline,
       onChange: this._onChange.bind(null, `${propsKey}Date`),
-      value: this[`${propsKey}Date`]
+      value: this.state[`${propsKey}DateValue`].rawValue
     }, dateProps);
 
     props.className = dateProps.className;
