@@ -28,7 +28,7 @@ const onChange = (e) => {
 function makeStory(storyName, themeSelector) {
   const component = () => {
     const name = text('name', 'basicPicker');
-    const legend = text('legend', 'Pick a color');
+    const legend = text('legend', 'Pick a colour');
     const demoColors = [
       '#00A376',
       '#0073C1',
