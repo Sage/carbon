@@ -34,6 +34,7 @@ class Select extends React.Component {
   }
 
   state = {
+    // eslint-disable-next-line no-nested-ternary
     value: this.isComponentControlled() ? this.props.value : (this.props.enableMultiSelect ? [] : ''),
     filter: undefined,
     open: false
@@ -122,9 +123,8 @@ class Select extends React.Component {
     if (this.isComponentControlled()) {
       this.verifyControlledIntegrity();
       return this.props.value;
-    } else {
-      return this.state.value;
     }
+    return this.state.value;
   }
 
   /**
