@@ -237,7 +237,7 @@ class Select extends React.Component {
    *   - In  multi-select mode, the `value` argument is an array of strings.
    */
   triggerChange(value) {
-    const newState = {};
+    const newState = { value };
     if (!this.isMultiSelectEnabled()) {
       // only closes the dropdown if not multi-value
       newState.open = false;
