@@ -43,6 +43,12 @@ class Select extends React.Component {
 
   input = {} // this will store a reference to the input html element
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value !== this.props.value) {
+      this.setState({ value: this.props.value });
+    }
+  }
+
   assignInput = (input) => { this.input = input; }
 
   blockBlur() {
