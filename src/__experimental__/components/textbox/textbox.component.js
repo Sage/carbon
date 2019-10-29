@@ -26,6 +26,7 @@ const Textbox = ({
       childOfForm={ childOfForm }
       isOptional={ isOptional }
       { ...props }
+      useValidationIcon={ false }
     >
       <InputPresentation type='text' { ...removeParentProps(props) }>
         { leftChildren }
