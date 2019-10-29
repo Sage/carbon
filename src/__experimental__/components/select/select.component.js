@@ -370,11 +370,9 @@ class Select extends React.Component {
   }
 
   textboxProps() {
-    const {
-      typeAhead,
-      value,
-      placeholder
-    } = this.props;
+    const { typeAhead, placeholder } = this.props;
+
+    const value = this.getValue();
 
     const placeholderText = this.placeholder(placeholder);
 
