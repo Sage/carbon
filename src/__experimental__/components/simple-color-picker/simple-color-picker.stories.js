@@ -50,7 +50,6 @@ function makeStory(storyName, themeSelector) {
           legend={ legend }
           onChange={ onChange }
         >
-        <p>MORDOOO</p>
           {availableColors.map(color => (
             <SimpleColor
               color={ color }
