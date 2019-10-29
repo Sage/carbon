@@ -144,7 +144,7 @@ class BaseDateInput extends React.Component {
 
   handleVisibleInputChange = (ev) => {
     const { disabled, readOnly } = this.props;
-    const value = ev.target.value.displayText || ev.target.value;
+    const value = ev.target.value.formattedValue || ev.target.value;
     const dateWithSlashes = DateHelper.sanitizeDateInput(value);
     const isValidDate = DateHelper.isValidDate(dateWithSlashes);
     let isoDateString;
@@ -194,8 +194,8 @@ class BaseDateInput extends React.Component {
       ...(id && { id }),
       value:
         {
-          displayText: formatDateToCurrentLocale(value),
-          optionValue: isoFormattedValue
+          formattedValue: formatDateToCurrentLocale(value),
+          rawValue: isoFormattedValue
         }
     };
     return ev;
