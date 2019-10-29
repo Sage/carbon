@@ -72,6 +72,13 @@ class Select extends React.Component {
   handleClick = () => this.openList()
 
   /**
+   * Is this component currently controlled (by the `value` prop)?
+   */
+  isComponentControlled() {
+    return (this.props.value !== undefined && this.props.value !== null);
+  }
+
+  /**
    * Is the component currently in multi-select mode? (If not, then it's in single-select mode.)
    */
   isMultiSelectEnabled = () => {
