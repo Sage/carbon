@@ -34,6 +34,7 @@ class Select extends React.Component {
   }
 
   state = {
+    value: this.isComponentControlled() ? this.props.value : (this.props.enableMultiSelect ? [] : ''),
     filter: undefined,
     open: false
   }
