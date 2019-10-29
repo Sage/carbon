@@ -12,6 +12,7 @@ const RadioButtonGroup = (props) => {
     hasError,
     hasWarning,
     hasInfo,
+    onBlur,
     onChange,
     value,
     tooltipMessage
@@ -28,19 +29,19 @@ const RadioButtonGroup = (props) => {
     return result;
   }, [children]);
 
-  const isControled = value !== undefined;
+  const isControlled = value !== undefined;
 
   const [checkedValue, setCheckedValue] = useState(false);
   const onChangeProp = useCallback((e) => {
     onChange(e);
-    if (!isControled) {
+    if (!isControlled) {
       setCheckedValue(e.target.value);
     }
-  }, [onChange, setCheckedValue, isControled]);
+  }, [onChange, setCheckedValue, isControlled]);
 
   const buttons = React.Children.map(children, (child) => {
     let checked;
-    if (isControled) {
+    if (isControlled) {
       // The user is controlling the input via the value prop
       checked = value === child.props.value;
     } else if (!checkedValue && anyChecked) {
@@ -54,6 +55,7 @@ const RadioButtonGroup = (props) => {
     return React.cloneElement(child, {
       checked,
       name,
+      onBlur,
       onChange: onChangeProp
     });
   });
@@ -89,6 +91,7 @@ RadioButtonGroup.propTypes = {
   hasWarning: PropTypes.bool,
   /** Prop to indicate additional information  */
   hasInfo: PropTypes.bool,
+  onBlur: PropTypes.func,
   onChange: PropTypes.func,
   value: PropTypes.string,
   tooltipMessage: PropTypes.string
