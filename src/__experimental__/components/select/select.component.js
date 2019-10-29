@@ -407,7 +407,6 @@ class Select extends React.Component {
       children,
       customFilter,
       placeholder,
-      value,
       onLazyLoad,
       onFilter,
       onOpen,
