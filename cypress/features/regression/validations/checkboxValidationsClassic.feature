@@ -8,7 +8,7 @@ Feature: Checkbox validations classic component
   @validations
   Scenario Outline: Verify the <state> validation of Checkbox in form classic component
     Given I check "<position>" checkbox 2 times
-    When I hover mouse onto "<state>" icon into iFrame
+    When I hover mouse onto "<state>" icon in iFrame
     Then tooltipPreview on preview into iFrame is set to "<text>"
       And icon name into iFrame on preview is "<state>"
     Examples:
@@ -29,7 +29,7 @@ Feature: Checkbox validations classic component
   @validations
   Scenario: Verify the warning validation of Checkbox in group classic component
     Given I check "sixth" checkbox
-    When I hover mouse onto "warning" icon into iFrame
+    When I hover mouse onto "warning" icon in iFrame
     Then tooltipPreview on preview into iFrame is set to "Show warning!"
       And icon name into iFrame on preview is "warning"
 
@@ -38,7 +38,7 @@ Feature: Checkbox validations classic component
   Scenario: Verify the info validation of Checkbox in group classic component
     Given I check "sixth" checkbox
       And I check "seventh" checkbox
-    When I hover mouse onto "info" icon into iFrame
+    When I hover mouse onto "info" icon in iFrame
     Then tooltipPreview on preview into iFrame is set to "Show this information"
       And icon name into iFrame on preview is "info"
 
@@ -46,6 +46,6 @@ Feature: Checkbox validations classic component
   @validations
   Scenario: Verify the error validation of Checkbox in group classic component
     Given I check "sixth" checkbox 2 times
-    When I hover mouse onto "error" icon into iFrame
+    When I hover mouse onto "error" icon in iFrame
     Then tooltipPreview on preview into iFrame is set to "This checkbox is required!"
       And icon name into iFrame on preview is "error"

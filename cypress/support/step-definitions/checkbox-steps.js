@@ -68,7 +68,7 @@ Given('I check {string} checkbox', (position) => {
     case 'seventh':
       checkbox(SEVENTH_CHECKBOX).click();
       break;
-    default: throw new Error('There are only seven checkboxes elements on the page');
+    default: throw new Error('There are only seven checkbox elements on the page');
   }
 });
 
@@ -96,7 +96,7 @@ When('I check {string} checkbox {int} times', (position, times) => {
       case 'seventh':
         checkbox(SEVENTH_CHECKBOX, times).click();
         break;
-      default: throw new Error('There are only seven checkboxes elements on the page');
+      default: throw new Error('There are only seven checkbox elements on the page');
     }
   }
 });

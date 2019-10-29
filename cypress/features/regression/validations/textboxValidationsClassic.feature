@@ -9,7 +9,7 @@ Feature: Textbox validations classic component
   Scenario Outline: Verify the <state> validation of Textbox component
     When Type "<state>" text into input into iFrame
       And I click above of the component into iFrame
-      And I hover mouse onto "<state>" icon into iFrame
+      And I hover mouse onto "<state>" icon in iFrame
     Then tooltipPreview on preview into iFrame is set to '<text>'
       And icon name into iFrame on preview is "<state>"
     Examples:

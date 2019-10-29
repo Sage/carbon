@@ -149,7 +149,7 @@ When('I hover mouse onto icon', () => {
   icon().trigger('mouseover');
 });
 
-Then('I hover mouse onto {string} icon into iFrame', (name) => {
+Then('I hover mouse onto {string} icon in iFrame', (name) => {
   getElementNoIframe(name).trigger('mouseover');
 });
 
@@ -176,7 +176,7 @@ Then('I hover mouse onto {string} {string} icon for validations component into i
     case 'seventh':
       getDataElementByValueNoIframe(name).eq(SEVENTH_ELEMENT).trigger('mouseover');
       break;
-    default: throw new Error('There are only seven validation icons elements on the page');
+    default: throw new Error('There are only seven validation icon elements on the page');
   }
 });
 

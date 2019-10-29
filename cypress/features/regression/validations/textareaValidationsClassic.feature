@@ -9,7 +9,7 @@ Feature: Textarea validations classic component
   Scenario Outline: Verify the <state> validation of Textarea component
     When Type "<state>" into Textarea into iFrame
       And I click above of the component into iFrame
-      And I hover mouse onto "<state>" icon into iFrame
+      And I hover mouse onto "<state>" icon in iFrame
     Then tooltipPreview on preview into iFrame is set to '<text>'
       And icon name into iFrame on preview is "<state>"
     Examples:
