@@ -31,7 +31,7 @@ const store = new Store(
 
 const setValue = (ev) => {
   action('onChange')(ev);
-  store.set({ value: ev.target.value.displayText });
+  store.set({ value: ev.target.value.formattedValue });
 };
 
 function makeStory(name, themeSelector) {
