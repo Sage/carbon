@@ -101,21 +101,10 @@ class Select extends React.Component {
    * Is the component currently in multi-select mode? (If not, then it's in single-select mode.)
    */
   isMultiSelectEnabled = () => {
-    const enableMultiSelect = Boolean(this.props.enableMultiSelect);
-
-    if (this.props.value === undefined || this.props.value === null) {
-      return enableMultiSelect; // Component is uncontrolled, so simply return `enableMultiSelect`.
+    if (this.isComponentControlled()) {
+      verifyControlledIntegrity();
     }
-
-    const isValuePropAnArray = this.isMultiValue(this.props.value);
-
-    invariant(
-      enableMultiSelect === isValuePropAnArray,
-      `Controlled component: Mismatch between props: \`enableMultiSelect\` (${enableMultiSelect
-      }) and \`value\` (${isValuePropAnArray ? 'is an array' : 'is not an array'})`
-    );
-
-    return enableMultiSelect;
+    return Boolean(this.props.enableMultiSelect);
   }
 
   /**
