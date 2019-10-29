@@ -49,4 +49,5 @@ SimpleColor.propTypes = {
   className: PropTypes.string
 };
 
+SimpleColor.displayName = 'SimpleColor';
 export default SimpleColor;

@@ -57,7 +57,7 @@ const SimpleColorPicker = (props) => {
 
 SimpleColorPicker.propTypes = {
   /** The SimpleColor components to be rendered in the group */
-  children(props, propName, componentName) {
+  children: (props, propName, componentName) => {
     let error;
     const prop = props[propName];
 

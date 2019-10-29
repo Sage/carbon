@@ -43,7 +43,7 @@ describe('ColorOption', () => {
   describe('tags on component', () => {
     it('include correct component, element and role data tags', () => {
       wrapper = shallow(<SimpleColor data-element='bar' data-role='baz' />);
-      rootTagTest(wrapper, 'color-option', 'bar', 'baz');
+      rootTagTest(wrapper, 'simple-color', 'bar', 'baz');
     });
   });
 
