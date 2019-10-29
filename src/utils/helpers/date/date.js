@@ -176,7 +176,16 @@ const DateHelper = {
   */
   _dateFormats: () => {
     return I18n.t('date.formats.inputs', { defaultValue: DateHelper._defaultDateFormats() });
+  },
+
+  formatDateToCurrentLocale(value) {
+    const defaultDateFormat = 'DD/MM/YYYY';
+
+    const visibleFormat = I18n.t('date.formats.javascript', { defaultValue: defaultDateFormat }).toUpperCase();
+
+    return DateHelper.formatValue(value || DateHelper.todayFormatted(), visibleFormat);
   }
+
 };
 
 export default DateHelper;
