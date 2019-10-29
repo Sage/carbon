@@ -1,4 +1,4 @@
-import { select, selectInput, selectPill } from '../../locators/select';
+import { select, selectInput, selectInputNoIframe, selectPill } from '../../locators/select';
 
 Then('Select typeAhead is disabled', () => {
   select().should('have.attr', 'placeholder', 'Please Select...');
@@ -10,6 +10,10 @@ Then('Select typeAhead is enabled', () => {
 
 When('Type {string} text into input', (text) => {
   selectInput().clear().type(text);
+});
+
+When('Type {string} text into input into iFrame', (text) => {
+  selectInputNoIframe().clear().type(text);
 });
 
 Then('Select input has {string} value', (text) => {
@@ -63,4 +67,8 @@ Then('Select is not readOnly', () => {
 
 When('Type {string} text into input and select the value', (text) => {
   selectInput().type(`${text}{downarrow}{enter}`);
+});
+
+When('Type {string} text into input and select the value into iFrame', (text) => {
+  selectInputNoIframe().type(`${text}{downarrow}{enter}`);
 });
