@@ -5,12 +5,20 @@ import {
   commonButtonPreview, labelPreview, helpIcon, inputWidthSlider, fieldHelpPreview,
   labelWidthSlider, backgroundUILocator, closeIconButton, tooltipPreview, getKnobsInput,
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
-  precisionSlider,
+  precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
+import { getElementNoIframe, commonButtonPreviewNoIframe } from '../../locators/build';
 
 const LABEL_INPUT_INLINE_CLASS = 'common-input__label--inline';
+const FIRST_ELEMENT = 0;
+const SECOND_ELEMENT = 1;
+const THIRD_ELEMENT = 2;
+const FOURTH_ELEMENT = 3;
+const FIFTH_ELEMENT = 4;
+const SIXTH_ELEMENT = 5;
+const SEVENTH_ELEMENT = 6;
 
 Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
@@ -22,6 +30,14 @@ Given('I open {string} component page classic', (component) => {
 
 Given('I open {string} component page basic', (component) => {
   visitComponentUrl(component, 'basic');
+});
+
+Given('I open {string} component page basic in iframe', (component) => {
+  visitComponentUrl(component, 'basic', true);
+});
+
+Given('I open {string} basic classic component page in iframe', (component) => {
+  visitComponentUrl(component, 'basic_classic', true);
 });
 
 Given('I open {string} component page with button', (component) => {
@@ -52,6 +68,14 @@ Given('I open deprecated {string} component page', (component) => {
   visitComponentUrl(component, 'classic', false, 'deprecated-');
 });
 
+Given('I open {string} textbox based component page in iframe', (component) => {
+  visitComponentUrl(component, 'textbox_based', true);
+});
+
+Given('I open {string} textbox based classic component page in iframe', (component) => {
+  visitComponentUrl(component, 'textbox_based_classic', true);
+});
+
 Given('I open {string} component with button page in iframe', (component) => {
   visitComponentUrl(component, 'with_button', true);
 });
@@ -76,12 +100,12 @@ Given('I open {string} component for classic story as sibling in iframe', (compo
   visitComponentUrl(component, 'as_a_sibling_classic', true);
 });
 
-Given('I open {string} component page validations', (component) => {
-  visitComponentUrl(component, 'validations');
+Given('I open {string} component page validations in iframe', (component) => {
+  visitComponentUrl(component, 'validations', true);
 });
 
-Given('I open {string} component page validations', (component) => {
-  visitComponentUrl(component, 'validations_classic');
+Given('I open {string} component page validations classic in iframe', (component) => {
+  visitComponentUrl(component, 'validations_classic', true);
 });
 
 When('I set {word} to {string}', (propertyName, text) => {
@@ -125,8 +149,43 @@ When('I hover mouse onto icon', () => {
   icon().trigger('mouseover');
 });
 
+Then('I hover mouse onto {string} icon in iFrame', (name) => {
+  getElementNoIframe(name).trigger('mouseover');
+});
+
+Then('I hover mouse onto {string} {string} icon for validations component into iFrame', (position, name) => {
+  switch (position) {
+    case 'first':
+      getDataElementByValueNoIframe(name).eq(FIRST_ELEMENT).trigger('mouseover');
+      break;
+    case 'second':
+      getDataElementByValueNoIframe(name).eq(SECOND_ELEMENT).trigger('mouseover');
+      break;
+    case 'third':
+      getDataElementByValueNoIframe(name).eq(THIRD_ELEMENT).trigger('mouseover');
+      break;
+    case 'fourth':
+      getDataElementByValueNoIframe(name).eq(FOURTH_ELEMENT).trigger('mouseover');
+      break;
+    case 'fifth':
+      getDataElementByValueNoIframe(name).eq(FIFTH_ELEMENT).trigger('mouseover');
+      break;
+    case 'sixth':
+      getDataElementByValueNoIframe(name).eq(SIXTH_ELEMENT).trigger('mouseover');
+      break;
+    case 'seventh':
+      getDataElementByValueNoIframe(name).eq(SEVENTH_ELEMENT).trigger('mouseover');
+      break;
+    default: throw new Error('There are only seven validation icon elements on the page');
+  }
+});
+
 Then('tooltipPreview on preview is set to {string}', (text) => {
   tooltipPreview().should('have.text', text);
+});
+
+Then('tooltipPreview on preview into iFrame is set to {string}', (text) => {
+  tooltipPreviewNoIframe().should('have.text', text);
 });
 
 When('I set inputWidth slider to {int}', (width) => {
@@ -168,6 +227,10 @@ Then('closeIcon is visible', () => {
 
 Then('I click closeIcon', () => {
   closeIconButton().click();
+});
+
+When('I click {string} button into iFrame', (text) => {
+  commonButtonPreviewNoIframe().contains(text).click();
 });
 
 Then('closeIcon is not visible', () => {
@@ -238,4 +301,8 @@ Then('text {string} color is set to {string}', (text, color) => {
 
 When('I click outside of the component', () => {
   storyRoot().click();
+});
+
+When('I click above of the component into iFrame', () => {
+  storyRootNoIframe().click('top');
 });

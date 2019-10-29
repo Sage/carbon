@@ -17,6 +17,7 @@ export const ICON = '[data-component="icon"]';
 export const INPUT_WIDTH_PREVIEW = '.common-input__field';
 export const COMMMON_DATA_ELEMENT_INPUT = 'input[data-element="input"]';
 export const LABEL = '[data-element="label"]';
+export const COMMON_INPUT = '.common-input__';
 
 // accessibility locators
 export const RERUN_TESTS_BUTTON = `${FORM} :nth-child(2) > div > button`;
