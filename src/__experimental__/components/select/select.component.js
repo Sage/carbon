@@ -133,8 +133,9 @@ class Select extends React.Component {
    */
   getSingleSelectValue = () => {
     invariant(!this.props.enableMultiSelect, 'Cannot get single-select value: `enableMultiSelect` prop is truthy');
-    invariant(!this.isMultiValue(this.props.value), 'Cannot get single-select value: `value` prop is an array');
-    return this.props.value; // Guaranteed to be a single value.
+    const value = this.getValue();
+    invariant(!this.isMultiValue(value), 'Cannot get single-select value: value is an array');
+    return value; // Guaranteed to be a single value.
   }
 
   /**
@@ -143,8 +144,9 @@ class Select extends React.Component {
    */
   getMultiSelectValues = () => {
     invariant(this.props.enableMultiSelect, 'Cannot get multi-select value: `enableMultiSelect` prop is falsy');
-    invariant(this.isMultiValue(this.props.value), 'Cannot get multi-select value: `value` prop is not an array');
-    return this.props.value; // Guaranteed to be an array.
+    const value = this.getValue();
+    invariant(this.isMultiValue(value), 'Cannot get multi-select value: value is not an array');
+    return value; // Guaranteed to be an array.
   }
 
   /**
