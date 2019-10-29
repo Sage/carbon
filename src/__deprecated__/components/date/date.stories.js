@@ -4,6 +4,7 @@ import { StateDecorator, Store, State } from '@sambego/storybook-state';
 import {
   boolean, number, text, select
 } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 import { classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
@@ -23,6 +24,7 @@ const store = new Store(
 
 const setValue = (ev) => {
   store.set({ value: ev.target.value });
+  action('onChange')(ev);
 };
 
 storiesOf('__deprecated__/Date Input', module)
