@@ -2,6 +2,7 @@ import {
   knobsTab, actionsTab, clearButton, accessibilityTab,
 } from '../locators';
 import { DEBUG_FLAG } from '.';
+import { getElementNoIframe } from '../locators/build';
 
 function prepareUrl(component, suffix, iFrameOnly, prefix) {
   let url = Cypress.config().baseUrl;
@@ -72,4 +73,8 @@ export function pressTABKey(count) {
   for (let i = 0; i < count; i++) {
     cy.iFrame('body').trigger('tab', { force: true });
   }
+}
+
+export async function asyncWaitForIcon(name) {
+  await getElementNoIframe(name);
 }
