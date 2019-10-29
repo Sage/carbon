@@ -25,6 +25,6 @@ When('I click onto {string} radioButton for validations component into iFrame', 
     case 'third':
       radioButton().eq(THIRD_ELEMENT).click();
       break;
-    default: throw new Error('There are only three validation icons elements on the page');
+    default: throw new Error('There are only three validation icon elements on the page');
   }
 });

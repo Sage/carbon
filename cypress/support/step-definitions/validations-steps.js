@@ -41,7 +41,7 @@ Then('I wait on async {string} icon', (name) => {
   asyncWaitForIcon(name);
 });
 
-Then('I hover mouse onto validated input into iFrame', () => {
+Then('I hover mouse onto validated input in iFrame', () => {
   inputValidationNoIframe().trigger('mouseover');
 });
 

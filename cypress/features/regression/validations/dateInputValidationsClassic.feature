@@ -9,7 +9,7 @@ Feature: Date Input validations classic component
   Scenario Outline: Verify the <state> validation of Date Input component
     When I type specific date "<date>" in iFrame
       And I click onto specific day "<specificDay>" via DayPicker for validation component into iFrame
-      And I hover mouse onto "<state>" icon into iFrame
+      And I hover mouse onto "<state>" icon in iFrame
     Then tooltipPreview on preview into iFrame is set to "<text>"
       And icon name into iFrame on preview is "<state>"
     Examples:
