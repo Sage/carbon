@@ -12,7 +12,8 @@ const IconWrapperStyle = styled.div`
   height: 24px;
   position: relative;
   top: -1px;
-  
+  vertical-align: middle;
+
   :focus{
     outline: ${({ theme }) => (isClassic(theme) ? 'none' : `2px solid ${theme.colors.focus}`)};
   }
