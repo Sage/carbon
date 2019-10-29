@@ -13,3 +13,6 @@ export const textareaChildren = () => cy.iFrame(TEXTAREA)
 export const characterLimit = () => cy.iFrame(CHARACTER_LIMIT)
   .find('span:nth-child(2)');
 export const textareaInput = () => cy.iFrame(TEXTAREA_INPUT);
+
+// component preview locators into iFrame
+export const textareaChildrenNoIframe = () => cy.get(TEXTAREA).find('textarea');
