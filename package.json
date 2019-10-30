@@ -34,7 +34,8 @@
     "clean-lib": "rimraf ./lib",
     "copy-files": "cpx \"src/**/!(*.js|*.md|*.snap)\" lib",
     "webpack": "node_modules/.bin/webpack",
-    "webpack-dev-server": "node_modules/.bin/webpack-dev-server"
+    "webpack-dev-server": "node_modules/.bin/webpack-dev-server",
+    "fixtures" : "webpack-dev-server --config fixtures/webpack.config.js"
   },
   "repository": {
     "type": "git",
