@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Textbox from '../textbox';
 import I18nHelper from '../../../utils/helpers/i18n';
 import Logger from '../../../utils/logger';
+import createEvent from '../../../utils/helpers/createEvent';
 
 class Decimal extends React.Component {
   state = {
@@ -23,8 +24,7 @@ class Decimal extends React.Component {
     return value;
   }
 
-  getUndelimitedValue = () => {
-    const value = this.getValue();
+  removeDelimiters = (value) => {
     const format = I18nHelper.format();
     const delimiter = `\\${format.delimiter}`;
     const delimiterMatcher = new RegExp(`[${delimiter}]*`, 'g');
@@ -32,7 +32,14 @@ class Decimal extends React.Component {
     return noDelimiters;
   }
 
-  formatValue = () => {
+  formatValue = (value) => {
+    return I18nHelper.formatDecimal(
+      value,
+      this.validatePrecision()
+    );
+  }
+
+  renderValue = () => {
     const value = this.getValue();
 
     const { input } = this;
@@ -47,13 +54,7 @@ class Decimal extends React.Component {
     }
 
     // Only format value if input is not active
-    // Strip delimiters otherwise formatDecimal Helper goes nuts
-    const noDelimiters = this.getUndelimitedValue();
-
-    return I18nHelper.formatDecimal(
-      noDelimiters,
-      this.validatePrecision()
-    );
+    return this.formatValue(this.removeDelimiters(this.getValue()));
   }
 
   validatePrecision = () => {
@@ -84,6 +85,15 @@ class Decimal extends React.Component {
     return validDecimalMatcher.test(value);
   }
 
+  createEvent = (ev) => {
+    return createEvent(ev, {
+      value: {
+        rawValue: this.removeDelimiters(ev.target.value),
+        formattedValue: this.formatValue(ev.target.value)
+      }
+    });
+  }
+
   onChange = (ev) => {
     const { target } = ev;
     const { value, selectionEnd } = ev.target;
@@ -93,7 +103,7 @@ class Decimal extends React.Component {
       if (!this.isControlled) {
         this.setState({ value });
       }
-      this.props.onChange(ev);
+      this.props.onChange(this.createEvent(ev));
     } else {
       const newPosition = selectionEnd - 1;
       setTimeout(() => {
@@ -105,7 +115,7 @@ class Decimal extends React.Component {
   onBlur = (ev) => {
     this.forceUpdate();
     if (this.props.onBlur) {
-      this.props.onBlur(ev, this.getUndelimitedValue());
+      this.props.onBlur(this.createEvent(ev));
     }
   }
 
@@ -121,7 +131,7 @@ class Decimal extends React.Component {
         { ...this.props }
         onChange={ this.onChange }
         onBlur={ this.onBlur }
-        value={ this.formatValue() }
+        value={ this.renderValue() }
         inputRef={ (input) => { this.input = input; } }
         { ...this.dataComponent() }
       />
