@@ -168,3 +168,13 @@ Then('Checkbox is disabled', () => {
   checkboxDataComponent().children().should('have.attr', 'disabled');
   checkboxRole().should('have.attr', 'disabled');
 });
+
+When('I mark checkbox on preview', () => {
+  checkboxRole().check();
+});
+
+Then('Checkbox tick has color {string}', (color) => {
+  checkboxRole().parent()
+    .find('div > svg > path')
+    .should('have.css', 'fill', color);
+});

@@ -107,3 +107,8 @@ Feature: Experimental Checkbox classic component
       | direction |
       | left      |
       | right     |
+
+  @positive
+  Scenario: Change Checkbox tick color
+    When I mark checkbox on preview
+    Then Checkbox tick has color "rgba(0, 0, 0, 0.85)"
