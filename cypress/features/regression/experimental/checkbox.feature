@@ -116,3 +116,8 @@ Feature: Experimental Checkbox component
       | size  |
       | small |
       | large |
+
+  @positive
+  Scenario: Change Checkbox tick color
+    When I mark checkbox on preview
+    Then Checkbox tick has color "rgba(0, 0, 0, 0.9)"
