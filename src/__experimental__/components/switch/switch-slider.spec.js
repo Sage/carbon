@@ -11,7 +11,6 @@ import baseTheme from '../../../style/themes/base';
 import classicTheme from '../../../style/themes/classic';
 import smallTheme from '../../../style/themes/small';
 import mediumTheme from '../../../style/themes/medium';
-import largeTheme from '../../../style/themes/large';
 
 function render(props) {
   return TestRenderer.create(<SwitchSlider { ...props } />);
@@ -346,68 +345,6 @@ describe('SwitchSlider', () => {
       it('applies the correct SwitchSliderPanel styles', () => {
         assertStyleMatch({
           color: mediumTheme.colors.white
-        }, wrapper, { modifier: css`${SwitchSliderPanel}` });
-      });
-    });
-  });
-
-  describe('Large theme', () => {
-    const opts = { theme: largeTheme };
-
-    describe('default', () => {
-      const wrapper = render(opts).toJSON();
-
-      it('applies the correct base styles', () => {
-        assertStyleMatch({
-          backgroundColor: largeTheme.switch.off
-        }, wrapper);
-      });
-
-      it('applies the correct ::before styles', () => {
-        assertStyleMatch({
-          backgroundColor: largeTheme.colors.white
-        }, wrapper, { modifier: '::before' });
-      });
-    });
-
-    describe('and checked=true', () => {
-      const wrapper = render({ checked: true, ...opts }).toJSON();
-
-      it('applies the correct base styles', () => {
-        assertStyleMatch({
-          backgroundColor: largeTheme.colors.primary
-        }, wrapper);
-      });
-    });
-
-    describe('and disabled=true', () => {
-      const wrapper = render({ disabled: true, ...opts }).toJSON();
-
-      it('applies the correct base styles', () => {
-        assertStyleMatch({
-          backgroundColor: largeTheme.disabled.background
-        }, wrapper);
-      });
-
-      it('applies the correct SwitchSliderPanel styles', () => {
-        assertStyleMatch({
-          color: largeTheme.disabled.disabled
-        }, wrapper, { modifier: css`${SwitchSliderPanel}` });
-      });
-    });
-
-    describe('when checked=true && disabled=true', () => {
-      const wrapper = render({ checked: true, disabled: true, ...opts }).toJSON();
-
-      it('applies the correct base styles', () => {
-        assertStyleMatch({
-          backgroundColor: largeTheme.colors.disabled
-        }, wrapper);
-      });
-
-      it('applies the correct SwitchSliderPanel styles', () => {
-        assertStyleMatch({
-          color: largeTheme.colors.white
         }, wrapper, { modifier: css`${SwitchSliderPanel}` });
       });
     });
