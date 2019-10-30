@@ -12,15 +12,20 @@ import StyledDateRange from './date-range.style';
 import StyledDateInput from '../date/date.style';
 
 describe('DateRange', () => {
-  let wrapper, startInput, endInput, customOnChange, wrapperInstance;
+  let wrapper, startInput, endInput, customOnChange, customOnBlur, wrapperInstance;
 
   beforeEach(() => {
     customOnChange = jasmine.createSpy();
+    customOnBlur = jasmine.createSpy();
+
     wrapper = renderDateRange({
       onChange: customOnChange,
+      onBlur: customOnBlur,
       value: ['2016-10-10', '2016-11-11'],
       'data-element': 'bar',
-      'data-role': 'baz'
+      'data-role': 'baz',
+      name: 'foo',
+      id: 'bar'
     }, mount);
     startInput = wrapper.find(BaseDateInput).at(0);
     endInput = wrapper.find(BaseDateInput).at(1);
@@ -31,18 +36,74 @@ describe('DateRange', () => {
     spyOn(endInput.instance(), 'handleBlur');
   });
 
-  describe('_onChange', () => {
+  describe('onChange', () => {
     describe('when the start date changes', () => {
       it('calls the passed in onChange function', () => {
-        wrapperInstance._onChange('startDate', { target: { value: '2016-10-15' } });
-        expect(customOnChange).toHaveBeenCalledWith(['2016-10-15', '2016-11-11']);
+        wrapper.find(BaseDateInput).at(0).find('input').simulate('change', { target: { value: '2016-10-15' } });
+        expect(customOnChange).toHaveBeenCalledWith({
+          target: {
+            id: 'bar',
+            name: 'foo',
+            value: [
+              { formattedValue: '15/10/2016', rawValue: '2016-10-15' },
+              { formattedValue: '11/11/2016', rawValue: '2016-11-11' }
+            ]
+          }
+        });
       });
     });
 
     describe('when the end date changes', () => {
       it('calls the passed in onChange function', () => {
-        wrapperInstance._onChange('endDate', { target: { value: '2016-11-16' } });
-        expect(customOnChange).toHaveBeenCalledWith(['2016-10-10', '2016-11-16']);
+        wrapper.find(BaseDateInput).at(1).find('input').simulate('change', { target: { value: '2016-11-16' } });
+
+        expect(customOnChange).toHaveBeenCalledWith(
+          {
+            target: {
+              id: 'bar',
+              name: 'foo',
+              value: [
+                { formattedValue: '10/10/2016', rawValue: '2016-10-10' },
+                { formattedValue: '16/11/2016', rawValue: '2016-11-16' }
+              ]
+            }
+          }
+        );
+      });
+
+      describe('when no onChange prop is passed in', () => {
+        it('it does not call the passed in onChange function', () => {
+          wrapper.setProps({ onChange: undefined });
+          const spy = spyOn(wrapperInstance, 'buildCustomEvent');
+          wrapper.find(BaseDateInput).at(0).find('input').simulate('change', { target: { value: '2016-11-16' } });
+
+          expect(spy).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('when no onBlur prop is passed in', () => {
+        it('it does not call the passed in onChange function', () => {
+          wrapper.setProps({ onBlur: undefined });
+          const spy = spyOn(wrapperInstance, 'buildCustomEvent');
+          wrapperInstance._onBlur();
+          expect(spy).not.toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe('when the user updates the startDate textbox', () => {
+      it('calls the passed in onBlur function', () => {
+        wrapper.find(BaseDateInput).at(0).find('input').simulate('blur', { target: { value: '2016-10-15' } });
+
+        expect(customOnBlur).toHaveBeenCalled();
+      });
+    });
+
+    describe('when the user updates the endDate textbox', () => {
+      it('calls the passed in onBlur function', () => {
+        wrapper.find(BaseDateInput).at(1).find('input').simulate('blur', { target: { value: '2016-10-15' } });
+
+        expect(customOnBlur).toHaveBeenCalled();
       });
     });
 
@@ -339,7 +400,6 @@ describe('StyledDateRange', () => {
 function renderDateRange(props, renderer = shallow) {
   return renderer(
     <DateRange
-      onChange={ () => {} }
       value={ ['2016-10-10', '2016-11-11'] }
       { ...props }
     />
