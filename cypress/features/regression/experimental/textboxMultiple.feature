@@ -1,7 +1,7 @@
-Feature: Textbox multiple component
-  I want to change Textbox multiple component properties
+Feature: Experimental Textbox multiple component
+  I want to change Experimental Textbox multiple component properties
 
-  Background: Open Textbox multiple component page
+  Background: Open Experimental Textbox multiple component page
     Given I open "Experimental Textbox" component page multiple
  
   @positive

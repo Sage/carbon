@@ -115,14 +115,6 @@ Then('Textarea inputWidth is set to {string}', (width) => {
   textarea().should('have.css', 'flex', `0 0 ${width}%`);
 });
 
-Then('label is set to {string}', (text) => {
-  label().should('have.text', text);
-});
-
-Then('label is set to {string}', (text) => {
-  label().should('have.text', text);
-});
-
 Then('Textarea component is labelInline', () => {
   label().should('have.css', TEXT_ALIGN, 'left');
 });

@@ -1,7 +1,7 @@
-Feature: Textbox component
-  I want to change Textbox component properties
+Feature: Experimental Textbox component
+  I want to change Experimental Textbox component properties
 
-  Background: Open Textbox component page
+  Background: Open Experimental Textbox component page
     Given I open "Experimental Textbox" component page
 
   @positive
