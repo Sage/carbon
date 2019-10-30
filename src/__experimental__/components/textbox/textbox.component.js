@@ -66,9 +66,9 @@ Textbox.propTypes = {
     PropTypes.string,
     PropTypes.array // Allows the textbox to be used in the Multi-Select component
   ]),
-  /** Flag indicating disabled state */
+  /** If true, the component will be disabled */
   disabled: PropTypes.bool,
-  /** Flag indicting read-only state */
+  /** If true, the component will be read-only */
   readOnly: PropTypes.bool,
   /** Event handler for the change event */
   onChange: PropTypes.func,

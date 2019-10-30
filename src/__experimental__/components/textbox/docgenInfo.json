@@ -32,14 +32,14 @@
             "name": "bool"
           },
           "required": false,
-          "description": "Flag indicating disabled state"
+          "description": "If true, the component will be disabled"
         },
         "readOnly": {
           "type": {
             "name": "bool"
           },
           "required": false,
-          "description": "Flag indicting read-only state"
+          "description": "If true, the component will be read-only"
         },
         "onChange": {
           "type": {
