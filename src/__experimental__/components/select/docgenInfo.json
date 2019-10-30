@@ -10,28 +10,28 @@
             "name": "string"
           },
           "required": true,
-          "description": ""
+          "description": "used to filter the item"
         },
         "children": {
           "type": {
             "name": "node"
           },
           "required": false,
-          "description": ""
+          "description": "optional, if different to props.text"
         },
         "value": {
           "type": {
             "name": "string"
           },
           "required": true,
-          "description": ""
+          "description": "sent on select of an item"
         },
         "options": {
           "type": {
             "name": "object"
           },
           "required": false,
-          "description": ""
+          "description": "optional additional params to be sent on select"
         }
       }
     }
