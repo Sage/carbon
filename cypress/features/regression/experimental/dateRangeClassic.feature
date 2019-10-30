@@ -1,8 +1,8 @@
-Feature: Date Range component
-  I want to change Date Range component properties
+Feature: Date Range component classic page
+  I want to change Date Range component properties for classic page
 
-  Background: Open Date Range component page
-    Given I open "Experimental Date Range" component page
+  Background: Open Date Range component classic page
+    Given I open "Experimental Date Range" component page classic
 
   @positive
   Scenario Outline: Change Date Range start label to <label>
@@ -38,6 +38,7 @@ Feature: Date Range component
       And I set endLabel to "label"
       And I check labelsInline checkbox
     Then labels are set to inline
+
 
   @positive
   Scenario: Enable and disable labels inline checkbox
