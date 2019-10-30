@@ -32,8 +32,12 @@ describe('Decimal', () => {
       const onChange = jest.fn();
       const wrapper = render({ onChange });
       const input = wrapper.find(Textbox);
-      input.simulate('change', { target: { value: '14.79' } });
-      expect(onChange).toHaveBeenCalledWith({ target: { value: '14.79' } });
+      input.simulate('change', { persist: jest.fn(), target: { value: '14.79' } });
+      expect(onChange).toHaveBeenCalledWith(expect.objectContaining({
+        target: {
+          value: { rawValue: '14.79', formattedValue: '14.79' }
+        }
+      }));
     });
 
     it('invokes onBlur passed as a prop', () => {
@@ -41,7 +45,11 @@ describe('Decimal', () => {
       const wrapper = shallow(<Decimal onBlur={ onBlur } onChange={ () => true } />);
       const input = wrapper.find(Textbox);
       input.simulate('blur', { target: { value: '0.00' } });
-      expect(onBlur).toHaveBeenCalledWith({ target: { value: '0.00' } }, '0.00');
+      expect(onBlur).toHaveBeenCalledWith(expect.objectContaining({
+        target: {
+          value: { rawValue: '0.00', formattedValue: '0.00' }
+        }
+      }));
     });
 
     it('input value defaults to 0.00 if none provided', () => {
@@ -70,8 +78,12 @@ describe('Decimal', () => {
       const onChange = jest.fn();
       const wrapper = render({ onChange });
       const input = wrapper.find(Textbox);
-      input.simulate('change', { target: { value: '14.79' } });
-      expect(onChange).toHaveBeenCalledWith({ target: { value: '14.79' } });
+      input.simulate('change', { persist: jest.fn(), target: { value: '14.79' } });
+      expect(onChange).toHaveBeenCalledWith(expect.objectContaining({
+        target: {
+          value: { rawValue: '14.79', formattedValue: '14.79' }
+        }
+      }));
     });
 
     it('does not allow the user to enter letters or special characters', () => {
@@ -83,9 +95,14 @@ describe('Decimal', () => {
 
     it('allows the user to enter values without letters or special characters', () => {
       const onChange = jest.fn();
-      const wrapper = render({ value: '212.34', onChange });
-      wrapper.instance().onChange({ target: { value: '1234.56' } });
-      expect(onChange).toHaveBeenCalledWith({ target: { value: '1234.56' } });
+      const wrapper = render({ value: '1234.56', onChange });
+      const input = wrapper.find(Textbox);
+      input.simulate('change', { persist: jest.fn(), target: { value: '54321.00' } });
+      expect(onChange).toHaveBeenCalledWith(expect.objectContaining({
+        target: {
+          value: { rawValue: '54321.00', formattedValue: '54,321.00' }
+        }
+      }));
     });
 
     it('does not allow the user to enter commas after the decimal point', () => {
