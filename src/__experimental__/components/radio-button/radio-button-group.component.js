@@ -91,9 +91,13 @@ RadioButtonGroup.propTypes = {
   hasWarning: PropTypes.bool,
   /** Prop to indicate additional information  */
   hasInfo: PropTypes.bool,
+  /** The onBlur event */
   onBlur: PropTypes.func,
+  /** The onChange event */
   onChange: PropTypes.func,
+  /** The formatted value */
   value: PropTypes.string,
+  /** String to be displayed in a Tooltip */
   tooltipMessage: PropTypes.string
 };
 

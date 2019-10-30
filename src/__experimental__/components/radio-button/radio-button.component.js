@@ -92,4 +92,5 @@ RadioButton.defaultProps = {
   reverse: false
 };
 
+export { RadioButton as OriginalRadioButton };
 export default React.memo(RadioButton);
