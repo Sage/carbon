@@ -158,9 +158,13 @@ Textarea.propTypes = {
   enforceCharacterLimit: PropTypes.bool,
   /** Allows the Textareas Height to change based on user input */
   expandable: PropTypes.bool,
+  /** The content of the label for the input */
   label: PropTypes.string,
+  /** Name of the input */
   name: PropTypes.string,
+  /** Specify a callback triggered on change */
   onChange: PropTypes.func,
+  /** Placeholder text for the component */
   placeholder: PropTypes.string,
   /** Adds readOnly property */
   readOnly: PropTypes.bool,
@@ -178,7 +182,9 @@ Textarea.propTypes = {
   hasWarning: PropTypes.bool,
   /** Status of info */
   hasInfo: PropTypes.bool,
+  /** Icon associated with this component */
   inputIcon: PropTypes.string,
+  /** A message to display as a tooltip to the component. */
   tooltipMessage: PropTypes.string
 };
 
