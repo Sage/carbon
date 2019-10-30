@@ -16,7 +16,9 @@ class DateRange extends React.Component {
      */
     endLabel: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
     /** Custom callback - receives array of startDate and endDate */
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
+    /** Custom callback - receives array of startDate and endDate */
+    onBlur: PropTypes.func,
     /** An array containing the value of startDate and endDate */
     value: PropTypes.array.isRequired,
     /**
@@ -58,39 +60,37 @@ class DateRange extends React.Component {
 
   /** onChange function -triggers validations on both fields and updates opposing field when one changed. */
   _onChange = (changedDate, ev) => {
-    const { value } = ev.target;
-
-    if (changedDate === 'startDate') {
-      this.setState({ startDateValue: { ...value } },
-        () => {
+    this.setState({ [`${changedDate}Value`]: { ...ev.target.value } },
+      () => {
+        if (this.props.onChange) {
           const event = this.buildCustomEvent();
           this.props.onChange(event);
-        });
-    } else if (changedDate === 'endDate') {
-      this.setState({ endDateValue: { ...value } },
-        () => {
-          const event = this.buildCustomEvent();
-          this.props.onChange(event);
-        });
-    }
+        }
+      });
 
     this.setState(prevState => ({
       forceUpdateTriggerToggle: !prevState.forceUpdateTriggerToggle
     }));
   }
 
+  _onBlur = () => {
+    if (this.props.onBlur) {
+      const event = this.buildCustomEvent();
+      this.props.onBlur(event);
+    }
+  }
+
   buildCustomEvent = () => {
     const { startDateValue, endDateValue } = this.state;
     const { name, id } = this.props;
 
-    const ev = {};
-
-    ev.target = {
-      ...(name && { name }),
-      ...(id && { id }),
-      value: [startDateValue, endDateValue]
+    return {
+      target: {
+        ...(name && { name }),
+        ...(id && { id }),
+        value: [startDateValue, endDateValue]
+      }
     };
-    return ev;
   }
 
   /** The startDate value */
@@ -120,7 +120,6 @@ class DateRange extends React.Component {
     return this.props.endMessage
      || I18n.t('errors.messages.date_range', { defaultValue: 'End date cannot be earlier than the start date' });
   }
-
 
   /** Handle focus on start date field */
   focusStart = () => {
@@ -157,6 +156,7 @@ class DateRange extends React.Component {
       label: this.props[`${propsKey}Label`],
       labelInline: this.props.labelsInline,
       onChange: this._onChange.bind(null, `${propsKey}Date`),
+      onBlur: this._onBlur.bind(null),
       value: this.state[`${propsKey}DateValue`].rawValue
     }, dateProps);
 
