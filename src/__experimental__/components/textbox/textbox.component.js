@@ -92,7 +92,7 @@ Textbox.propTypes = {
   fieldHelp: PropTypes.node,
   /** Type of the icon that will be rendered next to the input */
   children: PropTypes.node,
-  /** Icon associated with this component */
+  /** Icon to display inside of the Textbox */
   inputIcon: PropTypes.string,
   /** Adds additional child elements before the input */
   leftChildren: PropTypes.node,
