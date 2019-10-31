@@ -1,10 +1,12 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
+import MockDate from 'mockdate';
 import 'jest-styled-components';
 import TestUtils from 'react-dom/test-utils';
 import I18n from 'i18n-js';
 import DateRange from './date-range.component';
+import Textbox from '../textbox/textbox.component';
 import { BaseDateInput } from '../date';
 import DateRangeValidator from '../../../utils/validations/date-range';
 import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
@@ -382,6 +384,32 @@ describe('DateRange', () => {
         'end-date'
       ]);
     });
+  });
+});
+
+describe('DateRange Uncontrolled behaviour', () => {
+  const mockedTodayDate = '2019-04-01';
+
+  beforeAll(() => {
+    MockDate.set(mockedTodayDate);
+  });
+
+  afterAll(() => {
+    MockDate.reset();
+  });
+
+  it('renders the correct default value when defaultValue prop passed', () => {
+    const defaultValue = ['2019-02-01', '2019-02-02'];
+    const wrapper = renderDateRange({ value: undefined, defaultValue }, mount);
+
+    expect(wrapper.find(Textbox).at(0).prop('rawValue')).toBe(defaultValue[0]);
+    expect(wrapper.find(Textbox).at(1).prop('rawValue')).toBe(defaultValue[1]);
+  });
+
+  it('input values of both Date Inputs defaults to today date if none provided', () => {
+    const wrapper = renderDateRange({ value: undefined }, mount);
+    expect(wrapper.find(Textbox).at(0).prop('rawValue')).toBe(mockedTodayDate);
+    expect(wrapper.find(Textbox).at(1).prop('rawValue')).toBe(mockedTodayDate);
   });
 });
 
