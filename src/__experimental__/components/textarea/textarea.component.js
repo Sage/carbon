@@ -162,7 +162,7 @@ Textarea.propTypes = {
   label: PropTypes.string,
   /** Name of the input */
   name: PropTypes.string,
-  /** Specify a callback triggered on change */
+  /** Callback fired when the user types in the Textarea */
   onChange: PropTypes.func,
   /** Placeholder text for the component */
   placeholder: PropTypes.string,
