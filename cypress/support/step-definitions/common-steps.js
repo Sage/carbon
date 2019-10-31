@@ -2,9 +2,10 @@ import {
   visitComponentUrl, setSlidebar, pressESCKey, pressTABKey,
 } from '../helper';
 import {
-  commonButtonPreview, labelPreview, helpIcon, inputWidthSlider, fieldHelpPreview,
-  labelWidthSlider, backgroundUILocator, closeIconButton, tooltipPreview, getKnobsInput,
-  icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
+  commonButtonPreview, labelPreview, helpIcon, helpIconByPosition, inputWidthSlider,
+  fieldHelpPreview, labelWidthSlider, backgroundUILocator,
+  closeIconButton, tooltipPreview, getKnobsInput, icon,
+  inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
   precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
@@ -140,8 +141,24 @@ Then('label on preview is {string}', (text) => {
   labelPreview().should('have.text', text);
 });
 
+Then('label is set to {string}', (text) => {
+  label().should('have.text', text);
+});
+
 When('I hover mouse onto help icon', () => {
   helpIcon().trigger('mouseover');
+});
+
+When('I hover mouse onto {string} help icon', (position) => {
+  switch (position) {
+    case 'first':
+      helpIconByPosition(FIRST_ELEMENT).trigger('mouseover');
+      break;
+    case 'second':
+      helpIconByPosition(SECOND_ELEMENT).trigger('mouseover');
+      break;
+    default: throw new Error('There are only two help icons on the page');
+  }
 });
 
 When('I hover mouse onto icon', () => {

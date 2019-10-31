@@ -1,8 +1,8 @@
-Feature: Experimental Date Input component
-  I want to change Experimental Date Input component properties
+Feature: Experimental Date Input classic component
+  I want to change Experimental Date Input classic component properties
 
-  Background: Open Experimental Date Input component page
-    Given I open "Experimental Date Input" component page
+  Background: Open Experimental Date Input classic component page
+    Given I open "Experimental Date Input" component page classic
 
   @positive
   Scenario: Disable Date Input
