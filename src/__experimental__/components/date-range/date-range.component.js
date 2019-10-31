@@ -9,6 +9,8 @@ import StyledDateRange from './date-range.style';
 import DateHelper from '../../../utils/helpers/date';
 
 class DateRange extends React.Component {
+  isControlled = this.props.value !== undefined;
+
   static propTypes = {
     /**
      * Optional label for endDate field
@@ -20,7 +22,9 @@ class DateRange extends React.Component {
     /** Custom callback - receives array of startDate and endDate */
     onBlur: PropTypes.func,
     /** An array containing the value of startDate and endDate */
-    value: PropTypes.array.isRequired,
+    value: PropTypes.arrayOf(PropTypes.string),
+    /* The default value of the input if it's meant to be used as an uncontrolled component */
+    defaultValue: PropTypes.arrayOf(PropTypes.string),
     /**
      * Optional label for startDate field
      * eslint is disabled because the prop is used to determine the label in the dateProps function
@@ -95,18 +99,23 @@ class DateRange extends React.Component {
 
   /** The startDate value */
   get startDate() {
+    const value = this.isControlled ? this.props.value : this.props.defaultValue;
+
     if (this.props.startDateProps && this.props.startDateProps.value) {
       return this.props.startDateProps.value;
     }
-    return this.props.value[0];
+
+    return value ? value[0] : undefined;
   }
 
   /** The endDate value */
   get endDate() {
+    const value = this.isControlled ? this.props.value : this.props.defaultValue;
+
     if (this.props.endDateProps && this.props.endDateProps.value) {
       return this.props.endDateProps.value;
     }
-    return this.props.value[1];
+    return value ? value[1] : undefined;
   }
 
   /** The error message for the start message. */
