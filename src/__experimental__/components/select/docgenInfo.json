@@ -10,28 +10,28 @@
             "name": "string"
           },
           "required": true,
-          "description": ""
+          "description": "if children is undefined, text will be rendered as the Option content"
         },
         "children": {
           "type": {
             "name": "node"
           },
           "required": false,
-          "description": ""
+          "description": "if defined, children will be rendered as the Option content"
         },
         "value": {
           "type": {
             "name": "string"
           },
           "required": true,
-          "description": ""
+          "description": "the value of the Option"
         },
         "options": {
           "type": {
             "name": "object"
           },
           "required": false,
-          "description": ""
+          "description": "if defined, this object can be used to provide optional extra properties"
         }
       }
     }

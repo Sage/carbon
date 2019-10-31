@@ -9,7 +9,6 @@ Feature: Theming addon
       | theme  |
       | small  |
       | medium |
-      | large  |
       | none   |
 
   @positive
@@ -21,7 +20,6 @@ Feature: Theming addon
       | theme  |
       | small  |
       | medium |
-      | large  |
       | none   |
 
   @positive
@@ -32,7 +30,6 @@ Feature: Theming addon
       | theme  |
       | small  |
       | medium |
-      | large  |
       | none   |
 
   @positive
@@ -43,7 +40,6 @@ Feature: Theming addon
       | theme  |
       | small  |
       | medium |
-      | large  |
       | none   |
 
   @positive
@@ -54,7 +50,6 @@ Feature: Theming addon
       | theme  |
       | small  |
       | medium |
-      | large  |
       | none   |
 
   @positive
@@ -66,7 +61,6 @@ Feature: Theming addon
       | theme  |
       | small  |
       | medium |
-      | large  |
       | none   |
 
   @positive
@@ -77,7 +71,6 @@ Feature: Theming addon
       | theme  |
       | small  |
       | medium |
-      | large  |
       | none   |
 
   @positive
@@ -88,7 +81,6 @@ Feature: Theming addon
       | theme  |
       | small  |
       | medium |
-      | large  |
       | none   |
 
   @positive
@@ -100,7 +92,6 @@ Feature: Theming addon
       | theme  |
       | small  |
       | medium |
-      | large  |
       | none   |
 
   @positive
@@ -111,7 +102,6 @@ Feature: Theming addon
       | theme  |
       | small  |
       | medium |
-      | large  |
       | none   |
 
   @positive
@@ -122,5 +112,4 @@ Feature: Theming addon
       | theme  |
       | small  |
       | medium |
-      | large  |
       | none   |

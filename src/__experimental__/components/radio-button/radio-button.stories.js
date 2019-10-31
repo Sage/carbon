@@ -7,8 +7,19 @@ import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import OptionsHelper from '../../../utils/helpers/options-helper';
-import { RadioButton, RadioButtonGroup } from '.';
+import { RadioButton, RadioButtonGroup, PrivateRadioButton } from '.';
 import { info, infoValidations, notes } from './documentation';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
+
+RadioButtonGroup.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /radio-button-group\.component(?!spec)/
+);
+
+PrivateRadioButton.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /radio-button\.component.(?!spec)/
+);
 
 const radioToggleGroupStore = new Store({ value: null });
 const validationRadioToggleGroupStore = new Store({ value: null });

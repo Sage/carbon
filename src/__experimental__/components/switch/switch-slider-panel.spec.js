@@ -10,7 +10,6 @@ import baseTheme from '../../../style/themes/base';
 import classicTheme from '../../../style/themes/classic';
 import smallTheme from '../../../style/themes/small';
 import mediumTheme from '../../../style/themes/medium';
-import largeTheme from '../../../style/themes/large';
 import StyledIcon from '../../../components/icon/icon.style';
 
 function render(props) {
@@ -118,22 +117,6 @@ describe('SwitchSliderPanel', () => {
     it('applies the correct off panel styles', () => {
       assertStyleMatch({
         color: mediumTheme.text.color
-      }, wrapper, { modifier: "[type='off']" });
-    });
-  });
-
-  describe('Large theme', () => {
-    const wrapper = render({ theme: largeTheme }).toJSON();
-
-    it('applies the correct base styles', () => {
-      assertStyleMatch({
-        color: largeTheme.colors.white
-      }, wrapper);
-    });
-
-    it('applies the correct off panel styles', () => {
-      assertStyleMatch({
-        color: largeTheme.text.color
       }, wrapper, { modifier: "[type='off']" });
     });
   });
