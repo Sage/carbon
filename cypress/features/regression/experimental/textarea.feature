@@ -1,14 +1,14 @@
-Feature: Experimental Textarea classic component
-  I want to change Experimental Textarea classic component properties
+Feature: Experimental Textarea component
+  I want to change Experimental Textarea component properties
 
-  Background: Open Experimental Textarea component page classic
-    Given I open "Experimental Textarea" component page classic
+  Background: Open Experimental Textarea component page
+    Given I open "Experimental Textarea" component page
 
   @positive
   Scenario: Enable expandable checkbox for a Textarea component
     When I check expandable checkbox
     Then Textarea component is expandable
-
+ 
   @positive
   Scenario: Enable and disable expandable checkbox for a Textarea component
     When I check expandable checkbox
@@ -25,7 +25,7 @@ Feature: Experimental Textarea classic component
       | 115  |
       | 299  |
       | 300  |
-
+  
   @positive
   Scenario Outline: Set rows to <rows>
     When I set rows slider to <rows>
@@ -36,7 +36,7 @@ Feature: Experimental Textarea classic component
       | 115  |
       | 299  |
       | 300  |
-
+ 
   @positive
   Scenario: Check disabled checkbox for a Textarea component
     When I check disabled checkbox
@@ -47,7 +47,7 @@ Feature: Experimental Textarea classic component
     When I check disabled checkbox
       And I uncheck disabled checkbox
     Then Textarea component is not disabled
-
+ 
   @positive
   Scenario: Enable readOnly checkbox for a Textarea component
     When I check readOnly checkbox
@@ -58,7 +58,7 @@ Feature: Experimental Textarea classic component
     When I check readOnly checkbox
       And I uncheck readOnly checkbox
     Then Textarea component is not readOnly
-
+ 
   @positive
   Scenario Outline: Set placeholder to <placeholder>
     When I set placeholder to "<placeholder>"
@@ -91,16 +91,16 @@ Feature: Experimental Textarea classic component
   Scenario Outline: Set characterLimit to <characterLimit>
     When I set characterLimit to "<characterLimit>"
     Then characterLimit is set to "<characterLimit>"
-      And characterLimit is shown as "<result>"
+      And characterLimit is shown as "<characterLimit>"
     Examples:
-      | characterLimit | result  |
-      | -1000          | -1,000  |
-      | -1             | -1      |
-      | 0              | 0       |
-      | 1              | 1       |
-      | 100            | 100     |
-      | 1000           | 1,000   |
-      | 555555         | 555,555 |
+      | characterLimit |
+      | -1000          |
+      | -1             |
+      | 0              |
+      | 1              |
+      | 100            |
+      | 1000           |
+      | 555555         |
 
   @negative
   Scenario Outline: Set characterLimit out of scope to <characterLimit>
@@ -127,7 +127,7 @@ Feature: Experimental Textarea classic component
       | 35         |
       | 50         |
       | 100        |
-
+ 
   @positive
   Scenario Outline: Set label to <label>
     When I set label to "<label>"
@@ -141,7 +141,7 @@ Feature: Experimental Textarea classic component
       | ÄÖÜßäöüß                |
   # @ignore because of FE-1447
   # | <> |
-
+ 
   @positive
   Scenario Outline: Set labelHelp to <labelHelp>
     When I set label to "label"
@@ -206,10 +206,10 @@ Feature: Experimental Textarea classic component
       And I input "<text>" into Textarea
     Then Textarea component has warnOverLimit and used characters <characters> of <limit>
     Examples:
-      | text             | characters | limit |
-      | 12345            | 5          | 0     |
-      | áéíóú¿¡üñ        | 9          | 5     |
-      | testTestTextTest | 16         | 10    |
+      | limit | text            | characters | 
+      | 0     | 12345           |     5      | 
+      | 5     |áéíóú¿¡üñ        |     9      |
+      | 10    |testTestTextTest |    16      |
 
   #double checking / unchecking warnOverLimit/enforceCharacterLimit should be fixed in FE-1778 and should be deleted
   @positive
@@ -222,24 +222,24 @@ Feature: Experimental Textarea classic component
       And I input "<text>" into Textarea
     Then Textarea component has no warnOverLimit and used characters <characters> of <limit>
     Examples:
-      | text              | characters | limit |
-      | !!                | 2          | 0     |
-      | 123456            | 6          | 3     |
-      | áéíóú¿¡üñą       | 10         | 5     |
-      | testTestTextTest! | 17         | 10    |
-
+      | limit | text              | characters |
+      | 0     | !!                | 2          |
+      | 3     | 123456            | 6          |
+      | 5     | áéíóú¿¡üñą        | 10         |
+      | 10    | testTestTextTest! | 17         |
+ 
   @positive
   Scenario Outline: Enable enforceCharacterLimit checkbox for a Textarea component and check the warning
     When I set characterLimit to "<limit>"
       And I input "<text>" into Textarea
     Then Textarea component has enforceCharacterLimit enabled and used characters <characters> are equal to limit <limit>
     Examples:
-      | text             | characters | limit |
-      | ?                | 1          | -1    |
-      | !!!              | 2          | 2     |
-      | testText         | 5          | 5     |
-      | áéíóú¿¡üñ        | 7          | 7     |
-      | testTestTextTest | 10         | 10    |
+      | limit | text             | characters |
+      | -1    | ?                | 1          |
+      | 2     | !!!              | 2          |
+      | 5     | testText         | 5          |
+      | 7     | áéíóú¿¡üñ        | 7          |
+      | 10    | testTestTextTest | 10         |
 
   #double checking / unchecking warnOverLimit/enforceCharacterLimit should be fixed in FE-1778 and should be deleted
   @positive
@@ -250,13 +250,13 @@ Feature: Experimental Textarea classic component
       And I input "<text>" into Textarea
     Then Textarea component has enforceCharacterLimit disabled and used characters <characters> are more than limit <limit>
     Examples:
-      | text             | characters | limit |
-      | testText         | 8          | -1    |
-      | !                | 1          | 0     |
-      | 12345            | 5          | 3     |
-      | áéíóú¿¡üñ        | 9          | 5     |
-      | testTestTextTest | 16         | 10    |
-
+      | limit | text             | characters |
+      | -1    | testText         | 8          |
+      | 0     | !                | 1          |
+      | 3     | 12345            | 5          |
+      | 5     | áéíóú¿¡üñ        | 9          |
+      | 10    | testTestTextTest | 16         |
+ 
   @positive
   Scenario Outline: Verify input of Textarea component
     When I input "<input>" into Textarea

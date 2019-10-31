@@ -1,5 +1,5 @@
-Feature: Select component
-  I want to change Select component properties
+Feature: Experimental Select component
+  I want to change Experimental Select component properties
 
   Background: Open Experimental Select component page
     Given I open "Experimental Select" component page
