@@ -95,7 +95,7 @@ RadioButtonGroup.propTypes = {
   onBlur: PropTypes.func,
   /** The onChange event */
   onChange: PropTypes.func,
-  /** The formatted value */
+  /** value of the selected RadioButton */
   value: PropTypes.string,
   /** String to be displayed in a Tooltip */
   tooltipMessage: PropTypes.string
