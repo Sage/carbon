@@ -11,6 +11,17 @@ import Textbox, { OriginalTextbox } from '../textbox';
 import getTextboxStoryProps from '../textbox/textbox.stories';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import { info, notes } from './documentation';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
+
+OriginalTextbox.__docgenInfo = getDocGenInfo(
+  require('../textbox/docgenInfo.json'),
+  /textbox\.component(?!spec)/
+);
+
+Decimal.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /decimal\.component(?!spec)/
+);
 
 const store = new Store({
   value: Decimal.defaultProps.value

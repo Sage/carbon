@@ -1,0 +1,151 @@
+{
+  "src/__experimental__/components/decimal/decimal.component.js": [
+    {
+      "description": "",
+      "displayName": "Decimal",
+      "methods": [
+        {
+          "name": "getValue",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "getUndelimitedValue",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "formatValue",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "validatePrecision",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "isValidDecimal",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "value",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "onChange",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "onBlur",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "dataComponent",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        }
+      ],
+      "props": {
+        "align": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The default value alignment on the input",
+          "defaultValue": {
+            "value": "'right'",
+            "computed": false
+          }
+        },
+        "precision": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "The decimal precision of the value in the input",
+          "defaultValue": {
+            "value": "2",
+            "computed": false
+          }
+        },
+        "inputWidth": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "The width of the input as a percentage"
+        },
+        "defaultValue": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The default value of the input if it's meant to be used as an uncontrolled component"
+        },
+        "value": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The value of the input if it's used as a controlled component"
+        },
+        "onChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Handler for change event if input is meant to be used as a controlled component"
+        },
+        "onBlur": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Handler for blur event"
+        },
+        "maxPrecision": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Maximum value for precision",
+          "defaultValue": {
+            "value": "15",
+            "computed": false
+          }
+        }
+      }
+    }
+  ]
+}
