@@ -61,7 +61,7 @@ Textbox.propTypes = {
    * real value is an ID but you want to show a human-readable version.
    */
   formattedValue: PropTypes.string,
-  /** The formatted value of the field */
+  /** The value of the Textbox */
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.array // Allows the textbox to be used in the Multi-Select component
