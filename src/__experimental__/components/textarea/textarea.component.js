@@ -8,7 +8,6 @@ import CharacterCount from './character-count';
 import TextareaInput from './textarea-input.component';
 import withValidations from '../../../components/validations/with-validation.hoc';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
-import withUniqueIdProps from '../../../utils/helpers/with-unique-id-props';
 import guid from '../../../utils/helpers/guid/guid';
 
 const i18nNumberOpts = { precision: 0 };
