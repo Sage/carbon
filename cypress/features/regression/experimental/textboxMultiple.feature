@@ -18,38 +18,33 @@ Feature: Experimental Textbox multiple component
       | ÄÖÜßäöüß                |
       # @ignore because of FE-1447
       # | <>                    |
- 
+
   @positive
   Scenario: Check disabled checkbox for a Textbox multiple component
     When I check disabled checkbox
-    Then "First" textbox component is disabled
-      And "Second" textbox component is disabled
-
+    Then Multiple Textbox component is disabled
+ 
   @positive
   Scenario: Uncheck disabled checkbox for a Textbox multiple component
     When I check disabled checkbox
       And I uncheck disabled checkbox
-    Then "First" textbox component is not disabled
-      And "Second" textbox component is not disabled
-
+    Then Multiple Textbox component is not disabled
+   
   @positive
   Scenario: Enable readOnly checkbox for a Textbox multiple component
     When I check readOnly checkbox
-    Then "First" textbox component is readOnly
-      And "Second" textbox component is readOnly
-
+    Then Multiple Textbox component is readOnly
+  
   @positive
   Scenario: Disable readOnly checkbox for a Textbox multiple component
     When I check readOnly checkbox
       And I uncheck readOnly checkbox
-    Then "First" textbox component is not readOnly
-      And "Second" textbox component is not readOnly
-
+    Then Multiple Textbox component is not readOnly
+ 
   @positive
   Scenario Outline: Set fieldHelp to <fieldHelp>
     When I set fieldHelp to "<fieldHelp>"
-    Then "First" fieldHelp on preview is set to "<fieldHelp>"
-      And "Second" fieldHelp on preview is set to "<fieldHelp>"
+    Then Multiple fieldHelp on preview is set to "<fieldHelp>"
       Examples:
       | fieldHelp               |
       | Sample text             |
@@ -57,14 +52,13 @@ Feature: Experimental Textbox multiple component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-  #     # @ignore because of FE-1447
-  #     # | <>                  |
+       # @ignore because of FE-1447
+       # | <>                  |
 
   @positive
   Scenario Outline: Set label to <label>
     When I set label to "<label>"
-    Then "First" label is set to "<label>"
-      And "Second" label is set to "<label>"
+    Then Multiple label is set to "<label>"
     Examples:
       | label                   |
       | Sample text             |
@@ -81,8 +75,7 @@ Feature: Experimental Textbox multiple component
       And I set labelHelp to "<labelHelp>"
     When I hover mouse onto "first" help icon
       And I hover mouse onto "second" help icon
-    Then "First" tooltipPreview on preview is set to "<labelHelp>"
-      And "Second" tooltipPreview on preview is set to "<labelHelp>"
+    Then Multiple tooltipPreview on preview is set to "<labelHelp>"
     Examples:
       | labelHelp               |
       | Sample text             |
@@ -97,24 +90,21 @@ Feature: Experimental Textbox multiple component
   Scenario: Enable labelInline checkbox for a Textbox multiple component
     When I set label to "label"
       And I check labelInline checkbox
-    Then "First" textbox component is labelInline
-      And "Second" textbox component is labelInline
+    Then Multiple Textbox component is labelInline
 
   @positive
   Scenario: Enable and disable labelInline checkbox for a Textbox multiple component
     When I set label to "label"
       And I check labelInline checkbox
       And I uncheck labelInline checkbox
-    Then "First" textbox component is not labelInline
-      And "Second" textbox component is not labelInline
+    Then Multiple Textbox component is not labelInline
 
- @positive
+  @positive
   Scenario Outline: Set labelWidth to <labelWidth>
     When I set label to "label"
       And I check labelInline checkbox
       And I set label width slider to <labelWidth>
-    Then "First" label width is set to "<labelWidth>"
-      And "Second" label width is set to "<labelWidth>"
+    Then Multiple label width is set to "<labelWidth>"
     Examples:
       | labelWidth |
       | 0          |
@@ -128,8 +118,7 @@ Feature: Experimental Textbox multiple component
     When I set label to "label"
       And I check labelInline checkbox
       And I set inputWidth slider to <inputWidth>
-    Then "First" Textbox inputWidth is set to "<inputWidth>"
-      And "Second" Textbox inputWidth is set to "<inputWidth>"
+    Then Multiple Textbox inputWidth is set to "<inputWidth>"
     Examples:
       | inputWidth |
       | 0          |
@@ -138,13 +127,12 @@ Feature: Experimental Textbox multiple component
       | 50         |
       | 100        |
 
- @positive
+  @positive
   Scenario Outline: Set labelAlign to <labelAlign>
     When I set label to "label"
       And I check labelInline checkbox
       And I select labelAlign to "<labelAlign>"
-    Then "First" label Align on preview is "<labelAlign>"
-      And "Second" label Align on preview is "<labelAlign>"
+    Then Multiple label Align on preview is "<labelAlign>"
     Examples:
       | labelAlign |
       | left       |
@@ -154,8 +142,7 @@ Feature: Experimental Textbox multiple component
   Scenario Outline: Verify input of Textbox multiple component
     When I input "<input>" into "first" Textbox
       And I input "<input>" into "second" Textbox
-    Then "First" textbox input on preview is set to "<input>"
-      And "Second" textbox input on preview is set to "<input>"
+    Then Multiple textbox input on preview is set to "<input>"
     Examples:
       | input                   |
       | Sample text             |
@@ -165,3 +152,14 @@ Feature: Experimental Textbox multiple component
       | ÄÖÜßäöüß                |
       # @ignore because of FE-1447
       # | <>                     |
+
+  @positive
+  Scenario Outline: Set label size to <size>
+    When I select size to "<size>"
+    Then Multiple Textbox height is "<height>"
+      And Multiple Textbox width is "<width>"
+    Examples:
+      | size   | height | width |
+      | small  | 28px   | 1041px |
+      | medium | 36px   | 1035px |
+      | large  | 44px   | 1031px |
