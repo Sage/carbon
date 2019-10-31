@@ -91,9 +91,13 @@ RadioButtonGroup.propTypes = {
   hasWarning: PropTypes.bool,
   /** Prop to indicate additional information  */
   hasInfo: PropTypes.bool,
+  /** Callback fired when each RadioButton is blurred */
   onBlur: PropTypes.func,
+  /** Callback fired when the user selects a RadioButton */
   onChange: PropTypes.func,
+  /** value of the selected RadioButton */
   value: PropTypes.string,
+  /** Message to be displayed in a Tooltip when the user hovers over the help icon */
   tooltipMessage: PropTypes.string
 };
 
