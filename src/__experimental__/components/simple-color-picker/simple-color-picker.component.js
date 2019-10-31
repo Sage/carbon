@@ -1,48 +1,15 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import tagComponent from '../../../utils/helpers/tags/tags';
 
+import tagComponent from '../../../utils/helpers/tags/tags';
 import SimpleColor from './simple-color';
+import RadioButtonMapper from '../radio-button/radio-button-mapper.component';
 import { SimpleColorFieldset, StyledColorOptions } from './simple-color-picker.style';
 
 const SimpleColorPicker = (props) => {
   const {
-    children, name, legend, onChange, value
+    children, name, legend, onChange, onBlur, value
   } = props;
-
-  const isControlled = value !== undefined;
-
-  const [checkedValue, setCheckedValue] = useState(false);
-  const onChangeProp = useCallback(
-    (e) => {
-      onChange(e);
-      if (!isControlled) {
-        setCheckedValue(e.target.value);
-      }
-    },
-    [onChange, setCheckedValue, isControlled]
-  );
-
-  const colors = React.Children.map(children, (child) => {
-    let checked;
-    if (isControlled) {
-      // The user is controlling the input via the value prop
-      checked = value === child.props.color;
-    } else if (!checkedValue) {
-      // Uncontrolled and the user has not made a selection, check if any is default
-      checked = child.props.defaultChecked;
-    } else {
-      // Uncontrolled, existing selection or none marked as checked
-      checked = checkedValue === child.props.color;
-    }
-
-    return React.cloneElement(child, {
-      defaultChecked: undefined,
-      checked,
-      name,
-      onChange: onChangeProp
-    });
-  });
 
   return (
     <SimpleColorFieldset
@@ -50,7 +17,16 @@ const SimpleColorPicker = (props) => {
       legend={ legend }
       { ...tagComponent('simple-color-picker', props) }
     >
-      <StyledColorOptions>{colors}</StyledColorOptions>
+      <StyledColorOptions>
+        <RadioButtonMapper
+          name={ name }
+          onBlur={ onBlur }
+          onChange={ onChange }
+          value={ value }
+        >
+          {children}
+        </RadioButtonMapper>
+      </StyledColorOptions>
     </SimpleColorFieldset>
   );
 };
@@ -76,7 +52,9 @@ SimpleColorPicker.propTypes = {
   /** The name to apply to the input. */
   name: PropTypes.string,
   /** A callback triggered when a color is selected. */
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  /** A callback triggered when a color is selected. */
+  onBlur: PropTypes.func
 };
 
 export default SimpleColorPicker;

@@ -19,8 +19,8 @@ const info = (
     <p>To render the SimpleColorPicker:</p>
     <StoryCodeBlock padded>
       { '<SimpleColorPicker name="colorPicker" legend="Pick a colour" onChange={ onChange }>' }
-      { "  <SimpleColor color='#00A376' aria-label='#00A376' id='#00A376' defaultChecked />" }
-      { "  <SimpleColor color='#0073C1' aria-label='#0073C1' id='#0073C1' />" }
+      { "  <SimpleColor color='#00A376' aria-label='green' defaultChecked />" }
+      { "  <SimpleColor color='#0073C1' aria-label='blue' />" }
       { '</SimpleColorPicker>' }
     </StoryCodeBlock>
   </div>
