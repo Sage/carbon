@@ -132,7 +132,10 @@ describe('Select', () => {
     });
 
     it('triggers onChange with the item added when choosing an item', () => {
-      const props = { value: multiValueProp, onChange: jest.fn(), enableMultiSelect: true };
+      const idAndName = { id: 'test-id', name: 'test-name' };
+      const props = {
+        ...idAndName, value: multiValueProp, onChange: jest.fn(), enableMultiSelect: true
+      };
       const newValue = { text: 'New Value!', value: 'new' };
 
       const optionsWithNew = [...options, newValue];
@@ -151,7 +154,7 @@ describe('Select', () => {
       list.props().onSelect(newValue);
 
       expect(props.onChange).toHaveBeenCalledWith({
-        target: { value: [...multiValueReturn, { optionText: 'New Value!', optionValue: 'new' }] }
+        target: { ...idAndName, value: [...multiValueReturn, { optionText: 'New Value!', optionValue: 'new' }] }
       });
     });
 
@@ -267,6 +270,20 @@ describe('Select', () => {
       const props = { value: singleValue };
       const list = listOf(openList(renderWrapper({ props })));
       expect(() => list.props().onSelect({ value: 'new!' })).not.toThrowError();
+    });
+  });
+
+  describe('when uncontrolled', () => {
+    it('can accept a default value', () => {
+      const props = { defaultValue: options[0].value };
+      const textbox = textboxOf(renderWrapper({ props }));
+      expect(textbox.props().value).toEqual(options[0].value);
+    });
+
+    it('can operate in multi-select mode', () => {
+      const props = { enableMultiSelect: true };
+      const wrapper = renderWrapper({ props });
+      expect(wrapper.state().value).toEqual([]);
     });
   });
 

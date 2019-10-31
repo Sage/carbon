@@ -100,10 +100,6 @@ class Select extends React.Component {
    * `invariant()` will throw an error if verification fails.
    */
   verifyControlledIntegrity = () => {
-    if (!this.isComponentControlled()) {
-      return;
-    }
-
     const enableMultiSelect = Boolean(this.props.enableMultiSelect);
     const isValuePropAnArray = this.isMultiValue(this.props.value);
 
