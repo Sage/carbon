@@ -31,24 +31,22 @@ const ControlledRadioButton = () => {
                 name='controlled_radio_button' legend='Controlled Example'
                 onChange={ onChange(setCheckedValue) }
                 onBlur={ onBlur }
+                value={ checkedValue }
               >
                 <RadioButton
                   id='controlled_radio_button_one'
                   value='value one'
                   label='label one'
-                  checked={ checkedValue === 'value one' }
                 />
                 <RadioButton
                   id='controlled_radio_button_two'
                   value='value two'
                   label='label two'
-                  checked={ checkedValue === 'value two' }
                 />
                 <RadioButton
                   id='controlled_radio_button_three'
                   value='value three'
                   label='label three'
-                  checked={ checkedValue === 'value three' }
                 />
               </RadioButtonGroup>
             </div>
@@ -61,24 +59,22 @@ const ControlledRadioButton = () => {
                 name='controlled_radio_button_checked' legend='Controlled Example default'
                 onChange={ onChange(setCheckedValueExampleTwo) }
                 onBlur={ onBlur }
+                value={ checkedValueExampleTwo }
               >
                 <RadioButton
                   id='controlled_radio_button_checked_one'
                   value='value one'
                   label='label one'
-                  checked={ checkedValueExampleTwo === 'value one' }
                 />
                 <RadioButton
                   id='controlled_radio_button_checked_two'
                   value='value two'
                   label='label two'
-                  checked={ checkedValueExampleTwo === 'value two' }
                 />
                 <RadioButton
                   id='controlled_radio_button_checked_three'
                   value='value three'
                   label='label three'
-                  checked={ checkedValueExampleTwo === 'value three' }
                 />
               </RadioButtonGroup>
             </div>

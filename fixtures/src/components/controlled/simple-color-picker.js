@@ -33,9 +33,9 @@ const ControlledSimpleColorPicker = () => {
                 label='Controlled SimpleColorPicker'
                 value={ state }
               >
-                <SimpleColor color='transparent' />
-                <SimpleColor color='#ff0102' />
-                <SimpleColor color='#34ff01' />
+                <SimpleColor value='transparent' aria-label='transparent' />
+                <SimpleColor value='#ff0102' aria-label='red' />
+                <SimpleColor value='#34ff01' aria-label='green' />
               </SimpleColorPicker>
             </div>
           </React.Fragment>

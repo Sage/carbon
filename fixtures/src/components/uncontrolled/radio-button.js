@@ -59,7 +59,7 @@ const UncontrolledRadioButton = () => {
                   id='uncontrolled_radio_button_default_two'
                   value='value two'
                   label='label two'
-                  checked
+                  defaultChecked
                 />
                 <RadioButton
                   id='uncontrolled_radio_button_default_three'
