@@ -182,7 +182,7 @@ Textarea.propTypes = {
   hasWarning: PropTypes.bool,
   /** Status of info */
   hasInfo: PropTypes.bool,
-  /** Icon associated with this component */
+  /** Icon to display inside of the Textarea */
   inputIcon: PropTypes.string,
   /** Message to be displayed in a Tooltip when the user hovers over the help icon */
   tooltipMessage: PropTypes.string
