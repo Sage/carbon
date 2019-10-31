@@ -150,7 +150,7 @@ const handleGroupChange = groupStore => (event) => {
   
   groupStore.set({ value: oldGroupStore });
   
-  action('onChange')(`checked: ${checked}`);
+  action('onChange')(`${value + ' checked: ' + checked}`);
 };
 
 function handleSubmit(ev) {
