@@ -51,8 +51,8 @@ Feature: Experimental Textbox classic component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-  #     # @ignore because of FE-1447
-  #     # | <>                  |
+       # @ignore because of FE-1447
+       # | <>                  |
 
   @positive
   Scenario Outline: Set label to <label>

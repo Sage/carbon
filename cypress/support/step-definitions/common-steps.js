@@ -3,9 +3,9 @@ import {
 } from '../helper';
 import {
   commonButtonPreview, labelPreview, helpIcon, helpIconByPosition, inputWidthSlider,
-  fieldHelpPreview, fieldHelpPreviewByPosition, labelWidthSlider, backgroundUILocator,
-  closeIconButton, tooltipPreview, tooltipPreviewByPosition, getKnobsInput, icon,
-  inputWidthPreview, label, labelByPosition, eventInAction, getDataElementByNameAndValue, storyRoot,
+  fieldHelpPreview, labelWidthSlider, backgroundUILocator,
+  closeIconButton, tooltipPreview, getKnobsInput, icon,
+  inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
   precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
@@ -13,7 +13,6 @@ import { DEBUG_FLAG } from '..';
 import { getElementNoIframe, commonButtonPreviewNoIframe } from '../../locators/build';
 
 const LABEL_INPUT_INLINE_CLASS = 'common-input__label--inline';
-const TEXT_ALIGN = 'text-align';
 const FIRST_ELEMENT = 0;
 const SECOND_ELEMENT = 1;
 const THIRD_ELEMENT = 2;
@@ -146,42 +145,6 @@ Then('label is set to {string}', (text) => {
   label().should('have.text', text);
 });
 
-Then('{string} label is set to {string}', (position, text) => {
-  switch (position) {
-    case 'First':
-      labelByPosition(FIRST_ELEMENT).should('have.text', text);
-      break;
-    case 'Second':
-      labelByPosition(SECOND_ELEMENT).should('have.text', text);
-      break;
-    default: throw new Error('There are only two label elements on the page');
-  }
-});
-
-Then('{string} label width is set to {string}', (position, width) => {
-  switch (position) {
-    case 'First':
-      labelByPosition(FIRST_ELEMENT).should('have.attr', 'width', `${width}`);
-      break;
-    case 'Second':
-      labelByPosition(SECOND_ELEMENT).should('have.attr', 'width', `${width}`);
-      break;
-    default: throw new Error('There are only two label elements on the page');
-  }
-});
-
-Then('{string} label Align on preview is {string}', (position, direction) => {
-  switch (position) {
-    case 'First':
-      labelByPosition(FIRST_ELEMENT).should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
-      break;
-    case 'Second':
-      labelByPosition(SECOND_ELEMENT).should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
-      break;
-    default: throw new Error('There are only two label elements on the page');
-  }
-});
-
 When('I hover mouse onto help icon', () => {
   helpIcon().trigger('mouseover');
 });
@@ -238,18 +201,6 @@ Then('tooltipPreview on preview is set to {string}', (text) => {
   tooltipPreview().should('have.text', text);
 });
 
-Then('{string} tooltipPreview on preview is set to {string}', (position, text) => {
-  switch (position) {
-    case 'First':
-      tooltipPreviewByPosition(FIRST_ELEMENT).should('have.text', text);
-      break;
-    case 'Second':
-      tooltipPreviewByPosition(SECOND_ELEMENT).should('have.text', text);
-      break;
-    default: throw new Error('There are only two tooltipPreview elements on the page');
-  }
-});
-
 Then('tooltipPreview on preview into iFrame is set to {string}', (text) => {
   tooltipPreviewNoIframe().should('have.text', text);
 });
@@ -260,18 +211,6 @@ When('I set inputWidth slider to {int}', (width) => {
 
 Then('fieldHelp on preview is set to {string}', (text) => {
   fieldHelpPreview().should('have.text', text);
-});
-
-Then('{string} fieldHelp on preview is set to {string}', (position, text) => {
-  switch (position) {
-    case 'First':
-      fieldHelpPreviewByPosition(FIRST_ELEMENT).should('have.text', text);
-      break;
-    case 'Second':
-      fieldHelpPreviewByPosition(SECOND_ELEMENT).should('have.text', text);
-      break;
-    default: throw new Error('There are only two field helps elements on the page');
-  }
 });
 
 When('I set label width slider to {int}', (width) => {

@@ -25,6 +25,7 @@ export const characterLimitSlider = () => cy.get(CHARACTER_LIMIT);
 // component preview locators
 export const storyRoot = () => cy.iFrame(STORY_ROOT);
 export const commonButtonPreview = () => storyRoot().find('button');
+export const commonInputPreview = () => storyRoot().find('input');
 export const labelPreview = () => storyRoot().find('label').first();
 export const label = () => cy.iFrame(LABEL);
 export const labelByPosition = position => cy.iFrame(LABEL).eq(position);

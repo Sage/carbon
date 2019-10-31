@@ -51,8 +51,8 @@ Feature: Experimental Textbox component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-  #     # @ignore because of FE-1447
-  #     # | <>                  |
+       # @ignore because of FE-1447
+       # | <>                  |
 
   @positive
   Scenario Outline: Set label to <label>
@@ -149,3 +149,14 @@ Feature: Experimental Textbox component
       | ÄÖÜßäöüß                |
       # @ignore because of FE-1447
       # | <>                     |
+
+  @positive
+  Scenario Outline: Set label size to <size>
+    When I select size to "<size>"
+    Then Textbox height is "<height>"
+      And Textbox width is "<width>"
+    Examples:
+      | size   | height | width |
+      | small  | 28px   | 1041px |
+      | medium | 36px   | 1035px |
+      | large  | 44px   | 1031px |
