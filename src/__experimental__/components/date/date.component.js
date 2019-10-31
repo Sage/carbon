@@ -30,7 +30,12 @@ class BaseDateInput extends React.Component {
     /** Date object to pass to the DatePicker */
     selectedDate: DateHelper.stringToDate(this.initialVisibleValue),
     /** Displayed value, format dependent on a region */
-    visibleValue: formatDateToCurrentLocale(this.initialVisibleValue)
+    visibleValue: formatDateToCurrentLocale(this.initialVisibleValue),
+
+    lastValidEventValues: {
+      formattedValue: formatDateToCurrentLocale(this.initialVisibleValue),
+      rawValue: DateHelper.formatValue(this.initialVisibleValue)
+    }
   };
 
   componentDidMount() {
@@ -66,7 +71,7 @@ class BaseDateInput extends React.Component {
 
     this.reformatVisibleDate();
 
-    if (this.props.onBlur) {
+    if (this.props.onBlur && !this.state.isDatePickerOpen) {
       const dateWithSlashes = DateHelper.sanitizeDateInput(this.state.visibleValue);
       const event = this.buildCustomEvent({ target: this.input }, DateHelper.formatValue(dateWithSlashes));
       this.props.onBlur(event);
@@ -117,7 +122,7 @@ class BaseDateInput extends React.Component {
       return;
     }
     document.removeEventListener('click', this.closeDatePicker);
-    this.setState({ isDatePickerOpen: false });
+    this.setState({ isDatePickerOpen: false }, () => this.handleBlur() );
   };
 
   handleDateSelect = (selectedDate) => {
@@ -132,7 +137,14 @@ class BaseDateInput extends React.Component {
     const visibleValue = formatDateToCurrentLocale(date);
     const newDate = this.getDateObject(date);
 
-    this.setState({ selectedDate: newDate, visibleValue },
+    this.setState({
+      selectedDate: newDate,
+      visibleValue,
+      lastValidEventValues: {
+        formattedValue: visibleValue,
+        rawValue: DateHelper.formatValue(visibleValue)
+      } 
+    },
       () => {
         if (pickerUsed) {
           const event = { target: this.input };
@@ -188,14 +200,16 @@ class BaseDateInput extends React.Component {
 
   buildCustomEvent = (ev, isoFormattedValue) => {
     const { id, name, value } = ev.target;
-
+    const { lastValidEventValues } = this.state;
+    const validRawValue = DateHelper.isValidDate(isoFormattedValue);
+   
     ev.target = {
       ...(name && { name }),
       ...(id && { id }),
       value:
         {
-          formattedValue: formatDateToCurrentLocale(value),
-          rawValue: isoFormattedValue
+          formattedValue: validRawValue ? formatDateToCurrentLocale(value) : lastValidEventValues.formattedValue,
+          rawValue: validRawValue ? isoFormattedValue : lastValidEventValues.rawValue
         }
     };
     return ev;

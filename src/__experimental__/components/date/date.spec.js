@@ -178,11 +178,27 @@ describe('Date', () => {
       });
 
       describe('and with DatePicker opened', () => {
-        it('then onBlur prop should have been called', () => {
+        it('then onBlur prop should not have been called', () => {
           simulateFocusOnInput(wrapper);
           wrapper.setProps({ value: secondDate });
           expect(wrapper.find(DatePicker).exists()).toBe(true);
-          expect(onBlurFn).toHaveBeenCalled();
+          expect(onBlurFn).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('and the rawValue is invalid', () => {
+        it('then onBlur prop should not have been called', () => {
+          simulateFocusOnInput(wrapper);
+          const event = {
+            target: {
+              name: 'foo',
+              id: 'foo',
+              value: '21/12/122'
+            }
+          };
+          expect(wrapper.find(BaseDateInput).instance()
+          .buildCustomEvent(event, 'foo').target.value)
+          .toEqual({ 'formattedValue': '12/08/2019', 'rawValue': '2019-08-12' });
         });
       });
     });
