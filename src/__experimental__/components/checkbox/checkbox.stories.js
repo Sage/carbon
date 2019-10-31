@@ -173,26 +173,6 @@ const validationTypes = ['error', 'warning', 'info'];
 const legend = text('legend', 'Are you coming to the event?');
 const labelHelp = text('labelHelp', 'Group label helper');
 
-function testValidation(type) {
-  return (value) => {
-    return new Promise((resolve, reject) => {
-      if (type === 'valid' && value === 'one') {
-        reject(new Error('An error has occurred!'));
-      }
-
-      if (type === 'warn' && value === 'two') {
-        reject(new Error('Watch out!'));
-      }
-
-      if (type === 'info' && value === 'three') {
-        reject(new Error('Let me tell you this...'));
-      }
-
-      resolve();
-    });
-  };
-}
-
 const checkboxGroupComponent = () => (
   <div>
     <h3>In Form</h3>
@@ -219,9 +199,9 @@ const checkboxGroupComponent = () => (
         name='checkbox-group'
         label={ text('label', 'What would you choose?', 'group') }
         labelHelp={ text('labelHelp', 'Some helpful information', 'group') }
-        validations={ testValidation('valid') }
-        warnings={ testValidation('warn') }
-        info={ testValidation('info') }
+        validations={ testValidator }
+        warnings={ testWarning }
+        info={ testInfo }
         onChange={ handleGroupChange(groupStore) }
       >
         {groupCheckbox.map(id => (
