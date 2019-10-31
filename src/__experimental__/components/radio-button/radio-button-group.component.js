@@ -97,7 +97,7 @@ RadioButtonGroup.propTypes = {
   onChange: PropTypes.func,
   /** value of the selected RadioButton */
   value: PropTypes.string,
-  /** String to be displayed in a Tooltip */
+  /** Message to be displayed in a Tooltip when the user hovers over the help icon */
   tooltipMessage: PropTypes.string
 };
 
