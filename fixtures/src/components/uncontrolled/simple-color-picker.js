@@ -30,9 +30,13 @@ const UncontrolledSimpleColorPicker = () => {
                 name='uncontrolled_picker_name'
                 legend='Controlled SimpleColorPicker'
               >
-                <SimpleColor color='transparent' defaultChecked />
-                <SimpleColor color='#ff0102' />
-                <SimpleColor color='#34ff01' />
+                <SimpleColor
+                  value='transparent'
+                  aria-label='transparent'
+                  defaultChecked
+                />
+                <SimpleColor value='#ff0102' aria-label='red' />
+                <SimpleColor value='#34ff01' aria-label='green' />
               </SimpleColorPicker>
             </div>
           </React.Fragment>
