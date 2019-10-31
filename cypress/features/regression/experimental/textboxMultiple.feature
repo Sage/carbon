@@ -7,8 +7,7 @@ Feature: Experimental Textbox multiple component
   @positive
   Scenario Outline: Set placeholder to <placeholder>
     When I set placeholder to "<placeholder>"
-    Then "First" textbox placeholder is set to "<placeholder>"
-      And "Second" textbox placeholder is set to "<placeholder>"
+    Then Multiple Textbox placeholder is set to "<placeholder>"
       Examples:
       | placeholder             |
       | Sample text             |
