@@ -81,15 +81,15 @@ const PagerNavigation = (props) => {
         destination: '1'
       },
       last: {
-        text: 'Last',
+        text: I18n.t('pager.nav.last', { defaultValue: 'Last' }),
         destination: String(maxPages())
       },
       next: {
-        text: 'Next',
+        text: I18n.t('pager.nav.next', { defaultValue: 'Next' }),
         destination: String(currentPage + 1)
       },
       back: {
-        text: 'Previous',
+        text: I18n.t('pager.nav.previous', { defaultValue: 'Previous' }),
         destination: String(currentPage - 1)
       }
     };
