@@ -94,7 +94,7 @@ Textbox.propTypes = {
   children: PropTypes.node,
   /** Icon to display inside of the Textbox */
   inputIcon: PropTypes.string,
-  /** Adds additional child elements before the input */
+  /** Additional child elements to display before the input */
   leftChildren: PropTypes.node,
   /** List of error validation functions */
   validations: validationsPropTypes,
