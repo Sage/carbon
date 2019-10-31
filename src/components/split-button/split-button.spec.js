@@ -11,7 +11,6 @@ import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-spec
 import ClassicTheme from '../../style/themes/classic';
 import SmallTheme from '../../style/themes/small';
 import MediumTheme from '../../style/themes/medium';
-import LargeTheme from '../../style/themes/large';
 import {
   assertStyleMatch,
   keyboard
@@ -27,8 +26,7 @@ const sizes = ['small', 'medium', 'large'];
 
 const businessThemes = [
   ['small', SmallTheme],
-  ['medium', MediumTheme],
-  ['large', LargeTheme]
+  ['medium', MediumTheme]
 ];
 
 const themes = [
@@ -204,8 +202,7 @@ describe('SplitButton', () => {
         const themeColors = {
           classic: '#1e499f',
           small: '#006045',
-          medium: '#005B9A',
-          large: '#4F2775'
+          medium: '#005B9A'
         };
 
         assertStyleMatch({
@@ -224,8 +221,7 @@ describe('SplitButton', () => {
         const themeColors = {
           classic: '#163777',
           small: '#003F2E',
-          medium: '#004372',
-          large: '#3D1E5B'
+          medium: '#004372'
         };
 
         themedWrapper.find('button').simulate('focus');
