@@ -91,7 +91,7 @@ RadioButtonGroup.propTypes = {
   hasWarning: PropTypes.bool,
   /** Prop to indicate additional information  */
   hasInfo: PropTypes.bool,
-  /** The onBlur event */
+  /** Callback fired when each RadioButton is blurred */
   onBlur: PropTypes.func,
   /** The onChange event */
   onChange: PropTypes.func,
