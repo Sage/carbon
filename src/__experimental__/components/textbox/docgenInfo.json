@@ -25,21 +25,21 @@
             ]
           },
           "required": false,
-          "description": ""
+          "description": "The formatted value of the field"
         },
         "disabled": {
           "type": {
             "name": "bool"
           },
           "required": false,
-          "description": ""
+          "description": "If true, the component will be disabled"
         },
         "readOnly": {
           "type": {
             "name": "bool"
           },
           "required": false,
-          "description": ""
+          "description": "If true, the component will be read-only"
         },
         "onChange": {
           "type": {
@@ -131,14 +131,14 @@
             "name": "string"
           },
           "required": false,
-          "description": ""
+          "description": "Icon associated with this component"
         },
         "leftChildren": {
           "type": {
             "name": "node"
           },
           "required": false,
-          "description": ""
+          "description": "Adds additional child elements before the input"
         },
         "validations": {
           "type": {
@@ -163,6 +163,61 @@
           },
           "required": false,
           "description": "List of info validation functions"
+        },
+        "childOfForm": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Flag to configure component when in a Form"
+        },
+        "isOptional": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Flag to configure component as optional in Form"
+        },
+        "hasError": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Status of error validations"
+        },
+        "hasWarning": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Status of warnings"
+        },
+        "hasInfo": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Status of info"
+        },
+        "size": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.sizesRestricted"
+          },
+          "required": false,
+          "description": "Size of an input",
+          "defaultValue": {
+            "value": "'medium'",
+            "computed": false
+          }
+        },
+        "placeholder": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Placeholder string to be displayed in input"
         }
       }
     }

@@ -61,11 +61,14 @@ Textbox.propTypes = {
    * real value is an ID but you want to show a human-readable version.
    */
   formattedValue: PropTypes.string,
+  /** The value of the Textbox */
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.array // Allows the textbox to be used in the Multi-Select component
   ]),
+  /** If true, the component will be disabled */
   disabled: PropTypes.bool,
+  /** If true, the component will be read-only */
   readOnly: PropTypes.bool,
   /** Event handler for the change event */
   onChange: PropTypes.func,
@@ -89,7 +92,9 @@ Textbox.propTypes = {
   fieldHelp: PropTypes.node,
   /** Type of the icon that will be rendered next to the input */
   children: PropTypes.node,
+  /** Icon to display inside of the Textbox */
   inputIcon: PropTypes.string,
+  /** Additional child elements to display before the input */
   leftChildren: PropTypes.node,
   /** List of error validation functions */
   validations: validationsPropTypes,
