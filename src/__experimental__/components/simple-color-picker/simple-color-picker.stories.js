@@ -30,16 +30,16 @@ function makeStory(storyName, themeSelector) {
     const name = text('name', 'basicPicker');
     const legend = text('legend', 'Pick a colour');
     const demoColors = [
-      '#00A376',
-      '#0073C1',
-      '#582C83',
-      '#E96400',
-      '#99ADB6',
-      '#C7384F',
-      '#004500',
-      '#FFB500',
-      '#335C6D',
-      '#00DC00'
+      { color: '#00A376', label: 'green' },
+      { color: '#0073C1', label: 'blue' },
+      { color: '#582C83', label: 'purple' },
+      { color: '#E96400', label: 'orange' },
+      { color: '#99ADB6', label: 'gray' },
+      { color: '#C7384F', label: 'flush mahogany' },
+      { color: '#004500', label: 'dark green' },
+      { color: '#FFB500', label: 'yellow' },
+      { color: '#335C6D', label: 'dark blue' },
+      { color: '#00DC00', label: 'light blue' }
     ];
     const availableColors = array('availableColors', demoColors, '/');
 
@@ -50,11 +50,11 @@ function makeStory(storyName, themeSelector) {
           legend={ legend }
           onChange={ onChange }
         >
-          {availableColors.map(color => (
+          {availableColors.map(({ color, label }) => (
             <SimpleColor
-              color={ color }
+              value={ color }
               key={ color }
-              aria-label={ color }
+              aria-label={ label }
               id={ color }
               defaultChecked={ color === '#582C83' }
             />

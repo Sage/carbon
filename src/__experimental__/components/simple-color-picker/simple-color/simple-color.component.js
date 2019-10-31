@@ -7,11 +7,11 @@ import StyledSimpleColorInput from '../simple-color-input/simple-color-input.sty
 
 const SimpleColor = (props) => {
   const {
-    onChange, color, name, checked, className, ...rest
+    onChange, value, name, checked, className, ...rest
   } = props;
   return (
     <StyledSimpleColor
-      color={ color }
+      color={ value }
       checked={ checked }
       className={ className }
       { ...tagComponent('simple-color', props) }
@@ -22,11 +22,11 @@ const SimpleColor = (props) => {
         name={ name }
         type='radio'
         role='radio'
-        value={ color }
+        value={ value }
         aria-checked={ checked }
         { ...rest }
       />
-      <ColorSampleBox color={ props.color } checked={ props.checked } />
+      <ColorSampleBox color={ value } checked={ checked } />
     </StyledSimpleColor>
   );
 };
@@ -38,7 +38,7 @@ SimpleColor.defaultProps = {
 
 SimpleColor.propTypes = {
   /** the value of the color that is represented by this SimpleColor */
-  color: PropTypes.string,
+  value: PropTypes.string,
   /** the input name */
   name: PropTypes.string,
   /** called when the user selects or deselects this color option */
