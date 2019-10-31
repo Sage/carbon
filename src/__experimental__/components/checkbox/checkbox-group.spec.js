@@ -10,7 +10,7 @@ import Icon from '../../../components/icon';
 import Label from '../label';
 
 const checkboxValues = ['required', 'optional'];
-const groupName = 'my-checkbox-group';
+const name = 'my-checkbox-group';
 
 function render(props, childProps, renderer = mount) {
   const children = checkboxValues.map(value => (
@@ -27,7 +27,7 @@ function render(props, childProps, renderer = mount) {
   return renderer(
     <CheckboxGroup
       name='group-radio-buttons'
-      groupName={ groupName }
+      name={ name }
       label='Test CheckboxGroup Label'
       { ...props }
     >

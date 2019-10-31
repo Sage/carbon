@@ -20,7 +20,7 @@ Checkbox.__docgenInfo = getDocGenInfo(
 
 function testValidator(value, props) {
   return new Promise((resolve, reject) => {
-    if (['required', 'mandatory'].indexOf(value) !== -1 && !props.checked) {
+    if (['required', 'mandatory', 'one'].indexOf(value) !== -1 && !props.checked) {
       reject(new Error('This checkbox is required!'));
     } else if (props.name === 'checkbox-group' && value === '0') {
       reject(new Error('This checkbox is required!'));
@@ -32,7 +32,7 @@ function testValidator(value, props) {
 
 function testWarning(value, props) {
   return new Promise((resolve, reject) => {
-    if (['warning', 'alert'].indexOf(value) !== -1 && !props.checked) {
+    if (['warning', 'alert', 'two'].indexOf(value) !== -1 && !props.checked) {
       reject(new Error('Show warning!'));
     } else if (props.name === 'checkbox-group' && value === '1') {
       reject(new Error('Show warning!'));
@@ -44,7 +44,7 @@ function testWarning(value, props) {
 
 function testInfo(value, props) {
   return new Promise((resolve, reject) => {
-    if (['info', 'example'].indexOf(value) !== -1 && !props.checked) {
+    if (['info', 'example', 'three'].indexOf(value) !== -1 && !props.checked) {
       reject(new Error('Show this information'));
     } else if (props.name === 'checkbox-group' && value === '2') {
       reject(new Error('Show this information'));
@@ -70,15 +70,7 @@ checkboxKeys.forEach((id) => {
 const formCheckbox = checkboxKeys.filter(name => ['required', 'warning', 'info', 'optional'].indexOf(name) !== -1);
 const groupCheckbox = checkboxKeys.filter(name => ['one', 'two', 'three'].indexOf(name) !== -1);
 
-const groupStore = new Store({
-  value: '0',
-  mandatory: false,
-  alert: false,
-  example: false,
-  one: false,
-  two: false,
-  three: false
-});
+const groupStore = new Store({ value: [] });
 
 function defaultKnobs(type) {
   const knobGroup = `Checkbox ${type}`;
@@ -143,17 +135,23 @@ function handleChange(ev, id) {
   action('change')(`checked: ${checked}`);
 }
 
-function handleGroupChange(ev, id) {
-  const { checked } = ev.target;
-  const count = Number(groupStore.get('value'));
-  const value = checked ? count + 1 : count - 1;
+const handleGroupChange = groupStore => (event) => {
+  const { value } = event.target;
+  const oldGroupStore = groupStore.get('value');
+  const checkboxIndex = oldGroupStore.indexOf(value);
+  let checked = false;
 
-  groupStore.set({
-    value: value.toString(),
-    [id]: checked,
-    forceUpdateTriggerToggle: checked
-  });
-}
+  if (checkboxIndex !== -1) {
+    oldGroupStore.splice(checkboxIndex, 1);
+  } else {
+    oldGroupStore.push(value);
+    checked = true;
+  }
+  
+  groupStore.set({ value: oldGroupStore });
+  
+  action('onChange')(`checked: ${checked}`);
+};
 
 function handleSubmit(ev) {
   ev.preventDefault();
@@ -171,6 +169,30 @@ const checkboxComponent = () => {
   );
 };
 
+const validationTypes = ['error', 'warning', 'info'];
+const legend = text('legend', 'Are you coming to the event?');
+const labelHelp = text('labelHelp', 'Group label helper');
+
+function testValidation(type) {
+  return (value) => {
+    return new Promise((resolve, reject) => {
+      if (type === 'valid' && value === 'one') {
+        reject(new Error('An error has occurred!'));
+      }
+
+      if (type === 'warn' && value === 'two') {
+        reject(new Error('Watch out!'));
+      }
+
+      if (type === 'info' && value === 'three') {
+        reject(new Error('Let me tell you this...'));
+      }
+
+      resolve();
+    });
+  };
+}
+
 const checkboxGroupComponent = () => (
   <div>
     <h3>In Form</h3>
@@ -184,7 +206,6 @@ const checkboxGroupComponent = () => (
             info={ testInfo }
             onChange={ ev => handleChange(ev, type) }
             name={ `my-checkbox-${type}` }
-            unblockValidation
             { ...defaultKnobs(type) }
           />
         </State>
@@ -193,30 +214,25 @@ const checkboxGroupComponent = () => (
 
     <h3>In Group</h3>
     <State store={ groupStore }>
-      {state => [
-        <CheckboxGroup
-          key='checkbox-group'
-          name='checkbox-group'
-          groupName='checkbox-group'
-          label={ text('label', 'What would you choose?', 'group') }
-          labelHelp={ text('labelHelp', 'Some helpful information', 'group') }
-          validations={ testValidator }
-          warnings={ testWarning }
-          info={ testInfo }
-          value={ state.value }
-        >
-          {groupCheckbox.map(id => (
-            <Checkbox
-              checked={ state[id] }
-              name={ `checkbox-input-${id}` }
-              key={ `checkbox-input-${id}` }
-              onChange={ ev => handleGroupChange(ev, id) }
-              labelHelp={ text(`${Text.titleCase(id)} labelHelp`, '', `Checkbox ${id}`) }
-              { ...defaultKnobs(id) }
-            />
-          ))}
-        </CheckboxGroup>
-      ]}
+      <CheckboxGroup
+        key='checkbox-group'
+        name='checkbox-group'
+        label={ text('label', 'What would you choose?', 'group') }
+        labelHelp={ text('labelHelp', 'Some helpful information', 'group') }
+        validations={ testValidation('valid') }
+        warnings={ testValidation('warn') }
+        info={ testValidation('info') }
+        onChange={ handleGroupChange(groupStore) }
+      >
+        {groupCheckbox.map(id => (
+          <Checkbox
+            name={ `checkbox-input-${id}` }
+            key={ `checkbox-input-${id}` }
+            labelHelp={ text(`${Text.titleCase(id)} labelHelp`, '', `Checkbox ${id}`) }
+            { ...defaultKnobs(id) }
+          />
+        ))}
+      </CheckboxGroup>
     </State>
   </div>
 );
