@@ -62,7 +62,7 @@ Feature: Experimental Date Input classic component
 
   @positive
   Scenario Outline: Change Date Input component label align to <labelAlign>
-    When I set label to "<label>"
+    When I set label to "label"
       And I set labelHelp to "label"
       And I check labelInline checkbox
       And I select labelAlign to "<labelAlign>"

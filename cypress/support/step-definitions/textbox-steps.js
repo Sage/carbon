@@ -10,16 +10,9 @@ Then('Textbox placeholder is set to {string}', (text) => {
   textbox().children().should('have.attr', 'placeholder', text);
 });
 
-Then('{string} textbox placeholder is set to {string}', (position, text) => {
-  switch (position) {
-    case 'First':
-      textbox(FIRST_ELEMENT).children().should('have.attr', 'placeholder', text);
-      break;
-    case 'Second':
-      textbox(SECOND_ELEMENT).children().should('have.attr', 'placeholder', text);
-      break;
-    default: throw new Error('There are only two textbox elements on the page');
-  }
+Then('Multiple Textbox placeholder is set to {string}', (text) => {
+  textbox(FIRST_ELEMENT).children().should('have.attr', 'placeholder', text);
+  textbox(SECOND_ELEMENT).children().should('have.attr', 'placeholder', text);
 });
 
 Then('Textbox component is disabled', () => {
