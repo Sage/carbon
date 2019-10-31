@@ -18,18 +18,29 @@ const CheckboxGroup = (props) => {
 
   const groupLabelId = `${name}-label`;
   const [checkedValue, setCheckedValue] = useState([]);
+  const isControlled = value !== undefined;
 
   const onChangeProp = useCallback((e) => {
     onChange(e);
-    if (value !== checkedValue) {
+
+    if (!isControlled) {
+      if (
+          checkedValue !== e.target.value &&
+          (checkedValue.indexOf(e.target.value) === -1)
+         ) {
+        checkedValue.push(e.target.value);
+      } else {
+        checkedValue.splice(e.target.value, 1);
+      }
+
+      setCheckedValue(checkedValue);
+    } else {
       setCheckedValue(value);
     }
-  }, [onChange, value, setCheckedValue]);
+  }, [onChange, value, checkedValue, setCheckedValue]);
 
   const buttons = React.Children.map(children, (child) => {
-    let checked;
-
-    checked = (value.indexOf(child.props.value) !== -1);
+    const checked = (checkedValue.indexOf(child.props.value) !== -1);
 
     let childProps = {
       name,
@@ -77,7 +88,10 @@ CheckboxGroup.propTypes = {
   /** Prop to indicate additional information  */
   hasInfo: PropTypes.bool,
   onChange: PropTypes.func,
-  value: PropTypes.array
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array
+  ])
 };
 
 CheckboxGroup.defaultProps = {
