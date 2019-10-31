@@ -85,6 +85,13 @@
           "returns": null
         },
         {
+          "name": "renderValidation",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
           "name": "overLimit",
           "docblock": null,
           "modifiers": [
@@ -175,28 +182,28 @@
             "name": "string"
           },
           "required": false,
-          "description": ""
+          "description": "The content of the label for the input"
         },
         "name": {
           "type": {
             "name": "string"
           },
           "required": false,
-          "description": ""
+          "description": "Name of the input"
         },
         "onChange": {
           "type": {
             "name": "func"
           },
           "required": false,
-          "description": ""
+          "description": "Specify a callback triggered on change"
         },
         "placeholder": {
           "type": {
             "name": "string"
           },
           "required": false,
-          "description": ""
+          "description": "Placeholder text for the component"
         },
         "readOnly": {
           "type": {
@@ -242,6 +249,41 @@
             "value": "false",
             "computed": false
           }
+        },
+        "hasError": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Status of error validations"
+        },
+        "hasWarning": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Status of warnings"
+        },
+        "hasInfo": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Status of info"
+        },
+        "inputIcon": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Icon associated with this component"
+        },
+        "tooltipMessage": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A message to display as a tooltip to the component."
         }
       }
     }

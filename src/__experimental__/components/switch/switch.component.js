@@ -106,6 +106,7 @@ Switch.propTypes = {
    * No effect when using Classic theme.
    */
   size: PropTypes.string,
+  /** Theme to apply */
   theme: PropTypes.object,
   /** the value of the checkbox, passed on form submit */
   value: PropTypes.string.isRequired,
