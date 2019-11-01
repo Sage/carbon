@@ -79,7 +79,7 @@ approach that they have adopted](https://github.com/mui-org/material-ui/blob/v4.
 1. We currently have components that are controlled by a non-input field, for example `Date`. This is where a 3rd party date
 picker changes the underlying `value` of the `<input>`. There is an [outstanding bug in React](https://github.com/facebook/react/issues/13424) which means that `onChange` events attached to `<input>` won't trigger when changing the `value` with `setState`.  
 For this reason, when programmatically setting `value` the event **MUST** be a plain object and not a `SyntheticEvent`.
-It **MUST* follow all the other requirements above.  
+It **MUST** follow all the other requirements above.  
 For example:
 
 ```js
