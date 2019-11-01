@@ -33,8 +33,10 @@ class Select extends React.Component {
     this.listboxId = uniqueId('listbox-');
   }
 
+  isComponentControlled = (this.props.value !== undefined && this.props.value !== null);
+
   getInitialStateValue = () => {
-    if (this.isComponentControlled()) {
+    if (this.isComponentControlled) {
       return this.props.value;
     }
     if (this.props.defaultValue !== undefined && this.props.defaultValue !== null) {
@@ -89,13 +91,6 @@ class Select extends React.Component {
   handleClick = () => this.openList()
 
   /**
-   * Is this component currently controlled (by the `value` prop)?
-   */
-  isComponentControlled() {
-    return (this.props.value !== undefined && this.props.value !== null);
-  }
-
-  /**
    * Verifies the integrity of the props `enableMultiSelect` and `value` (if this component is currently controlled).
    * `invariant()` will throw an error if verification fails.
    */
@@ -114,7 +109,7 @@ class Select extends React.Component {
    * Is the component currently in multi-select mode? (If not, then it's in single-select mode.)
    */
   isMultiSelectEnabled = () => {
-    if (this.isComponentControlled()) {
+    if (this.isComponentControlled) {
       this.verifyControlledIntegrity();
     }
     return Boolean(this.props.enableMultiSelect);
@@ -125,7 +120,7 @@ class Select extends React.Component {
    * This will be either a string (single-select mode) or an array of strings (multi-select mode).
    */
   getValue = () => {
-    if (this.isComponentControlled()) {
+    if (this.isComponentControlled) {
       this.verifyControlledIntegrity();
       return this.props.value;
     }
