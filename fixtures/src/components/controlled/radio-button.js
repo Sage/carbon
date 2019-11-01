@@ -24,7 +24,7 @@ const ControlledRadioButton = () => {
                 <li>onBlur handler should update the log when each radio is blurred</li>
                 <li>each radio button has props value, name, id which should be reflected in both events</li>
                 <li>the onChange handler sets the checked value, then each radio checks this value to see if the checked
-                  prop should truthy
+                  prop should be truthy
                 </li>
               </ul>
               <RadioButtonGroup
