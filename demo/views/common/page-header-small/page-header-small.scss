@@ -19,7 +19,7 @@
     line-height: 1.22em;
     margin: 0 0 10px;
 
-    .carbon-pill {
+    [data-component='pill'] {
       margin-left: 15px;
       margin-top: 10px;
       text-transform: uppercase;

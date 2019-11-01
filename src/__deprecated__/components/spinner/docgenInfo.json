@@ -1,0 +1,44 @@
+{
+  "src/components/spinner/spinner.component.js": [
+    {
+      "description": "",
+      "displayName": "Spinner",
+      "methods": [],
+      "props": {
+        "as": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.colors"
+          },
+          "required": false,
+          "description": "Sets the theme for the component.",
+          "defaultValue": {
+            "value": "'info'",
+            "computed": false
+          }
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Custom className"
+        },
+        "size": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.sizesFull"
+          },
+          "required": false,
+          "description": "Size of the spinner",
+          "defaultValue": {
+            "value": "'medium'",
+            "computed": false
+          }
+        }
+      }
+    }
+  ]
+}

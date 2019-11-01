@@ -1,8 +1,10 @@
-import { append, styleElement, acronymize, validProps, insertAt } from './ether.js';
+import {
+  append, styleElement, acronymize, validProps, insertAt, generateKeysForChildren
+} from './ether.js';
 import React from 'react';
 import PropTypes from 'prop-types';
 import TestUtils from 'react-dom/test-utils';
-import Pod from 'components/pod';
+import Pod from '../../components/pod';
 
 describe('Ether', () => {
   let element;
@@ -49,27 +51,30 @@ describe('Ether', () => {
 
   describe('validProps', () => {
 
-    class Foo {
-
-      constructor() {
-        this.props = { foo: 'foo', bar: 'bar', quux: 'quux'};
-      }
-
+    class Foo extends React.Component {
       static propTypes = {
         foo: PropTypes.bool,
         bar: PropTypes.bool
       };
 
       static safeProps = ['foo'];
+
+      render() {
+        return <div />;
+      }
     }
 
+    const instance = new Foo({
+      foo: 'foo',
+      bar: 'bar',
+      quux: 'quux'
+    });
+
     it('creates valid props', () => {
-      const instance = new Foo();
       expect(validProps(instance)).toEqual({ foo: 'foo', quux: 'quux' });
     });
 
     it('creates valid props with explicit safeProps', () => {
-      const instance = new Foo();
       expect(validProps(instance, ['bar'])).toEqual({ bar: 'bar', quux: 'quux' });
     });
   });
@@ -91,6 +96,14 @@ describe('Ether', () => {
       it('ignores the invalid index', () => {
         expect(insertAt('1234567890', {insertionIndices: [3, 7, 15], separator:'/'})).toEqual('123/456/7890');
       });
+    });
+  });
+
+  describe('generateKeysForChildren', () => {
+    it('creates an array of unique keys of the same length as a given array', () => {
+      const array = generateKeysForChildren(['foo', 'bar']);
+      expect(array.length).toEqual(2);
+      expect(array[0]).not.toEqual(array[1]);
     });
   });
 });

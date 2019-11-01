@@ -51,7 +51,7 @@
     margin-top: -12px;
   }
 
-  .carbon-icon {
+  [data-component='icon'] {
     color: $grey-dark-blue-30;
 
     &:hover {
@@ -59,7 +59,6 @@
     }
   }
 }
-
 .carbon-heading__separator {
   border-top: 2px solid $grey-dark-blue-20;
   margin: 10px 0 8px;

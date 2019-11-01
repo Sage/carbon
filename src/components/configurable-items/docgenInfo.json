@@ -1,0 +1,256 @@
+{
+  "src/components/configurable-items/configurable-item-row/configurable-item-row.component.js": [
+    {
+      "description": "",
+      "displayName": "ConfigurableItemRow",
+      "methods": [
+        {
+          "name": "checkbox",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "enabled",
+              "type": null
+            },
+            {
+              "name": "locked",
+              "type": null
+            },
+            {
+              "name": "name",
+              "type": null
+            },
+            {
+              "name": "onChange",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "iconHTML",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "icon",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "classes",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "dragged",
+          "docblock": "Determines if the item has been dragged.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "dragAndDropActiveIndex"
+            },
+            {
+              "name": "index"
+            }
+          ],
+          "returns": null,
+          "description": "Determines if the item has been dragged."
+        },
+        {
+          "name": "draggingIsOccurring",
+          "docblock": "Determines if dragging is occurring within the current draggable context.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "dragAndDropActiveIndex"
+            }
+          ],
+          "returns": null,
+          "description": "Determines if dragging is occurring within the current draggable context."
+        },
+        {
+          "name": "listItemHTML",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        }
+      ],
+      "props": {
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A custom class name for the component."
+        },
+        "enabled": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "The checked value for the checkbox."
+        },
+        "locked": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "The disabled value for the checkbox."
+        },
+        "name": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The label for the row."
+        },
+        "onChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Callback triggered when the checkbox checked value is updated."
+        },
+        "rowIndex": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "The unique index for the row."
+        },
+        "theme": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "An internal prop. Helpful to detect which component should be rendered",
+          "defaultValue": {
+            "value": "baseTheme",
+            "computed": true
+          }
+        }
+      },
+      "context": {
+        "dragDropManager": {
+          "type": {
+            "name": "object"
+          },
+          "required": false
+        },
+        "dragAndDropActiveIndex": {
+          "type": {
+            "name": "number"
+          },
+          "required": false
+        }
+      }
+    }
+  ],
+  "src/components/configurable-items/configurable-items.component.js": [
+    {
+      "description": "",
+      "displayName": "ConfigurableItems",
+      "methods": [
+        {
+          "name": "onReset",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "event",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "additionalActions",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "rows",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "classes",
+          "docblock": null,
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null
+        }
+      ],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Children elements."
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A custom class name for the component."
+        },
+        "onCancel": {
+          "type": {
+            "name": "func"
+          },
+          "required": true,
+          "description": "Callback triggered when the form is canceled."
+        },
+        "onDrag": {
+          "type": {
+            "name": "func"
+          },
+          "required": true,
+          "description": "Callback triggered when an item is dragged."
+        },
+        "onReset": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Callback triggered when when the reset button is pressed."
+        },
+        "onSave": {
+          "type": {
+            "name": "func"
+          },
+          "required": true,
+          "description": "Callback triggered when the form is saved."
+        },
+        "theme": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "An internal prop. Helpful to detect which component should be rendered",
+          "defaultValue": {
+            "value": "baseTheme",
+            "computed": true
+          }
+        }
+      }
+    }
+  ]
+}

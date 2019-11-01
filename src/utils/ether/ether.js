@@ -1,4 +1,5 @@
 import { omit, difference, includes } from 'lodash';
+import guid from '../helpers/guid/guid';
 
 /**
  * Ether
@@ -44,7 +45,10 @@ function append(value, content) {
  * @return {Object} Styled Element
  */
 function styleElement(element, attribute, value) {
-  element.style[attribute] = value.toString();
+  if (element.style[attribute] !== value.toString()) {
+    element.style[attribute] = value.toString();
+  }
+
   return element.style[attribute];
 }
 
@@ -57,10 +61,10 @@ function styleElement(element, attribute, value) {
  * @param {Array?} _safeProps
  * @return {Object} props
  */
-function validProps(instance, safeProps) {
-  const klass = instance.constructor;
+function validProps(input, safeProps) {
+  const klass = input.isReactComponent ? input.constructor : input;
   const unsafeProps = difference(Object.keys(klass.propTypes), safeProps || klass.safeProps || []);
-  return omit(instance.props, unsafeProps);
+  return omit(input.props, unsafeProps);
 }
 
 /**
@@ -86,10 +90,26 @@ function insertAt(value, options) {
   return result;
 }
 
+/**
+ * Dynamically creates some keys for children,
+ * E.g. children rendered using cloneElement etc.
+ *
+ */
+function generateKeysForChildren(array) {
+  return array.map(() => guid());
+}
+
+/**
+ * Filter by prop names
+ * @param {Object} props
+ * @param {Array} filterBy
+ * @return {Object}
+ */
+function filterByProps(props, filterBy) {
+  const filtered = difference(Object.keys(props), filterBy);
+  return omit(props, filtered);
+}
+
 export {
-  acronymize,
-  append,
-  insertAt,
-  styleElement,
-  validProps
+  acronymize, append, insertAt, styleElement, validProps, generateKeysForChildren, filterByProps
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { InputPresentationContext } from './input-presentation.component';
-import './input.style.scss';
+import StyledInput from './input.style';
 
 // This is a component in progress to incrementally remove the reliance
 // on the input decorators. For now we still rely on inputProps being
@@ -10,12 +10,94 @@ import './input.style.scss';
 // will add additional supported on the decorated features without the need
 // for the decorators themselves.
 
-// Switch the old class for the new one until we refactor out the input decorators
-const classNamesForInput = className => (
-  className ? className.replace('common-input__input', 'carbon-input') : 'carbon-input'
-);
+class Input extends React.Component {
+  static propTypes = {
+    className: PropTypes.string,
+    id: PropTypes.string,
+    inputRef: PropTypes.func, // a callback to retrieve the input reference
+    name: PropTypes.string,
+    onBlur: PropTypes.func,
+    onClick: PropTypes.func,
+    onKeyDown: PropTypes.func,
+    onFocus: PropTypes.func,
+    onChange: PropTypes.func,
+    onChangeDeferred: PropTypes.func,
+    deferTimeout: PropTypes.number,
+    type: PropTypes.string
+  };
 
-const selectTextOnFocus = (input) => {
+  static contextType = InputPresentationContext;
+
+  input = React.createRef();
+
+  componentDidMount() {
+    if (this.props.inputRef) this.props.inputRef(this.input);
+    if (this.context && this.context.inputRef) this.context.inputRef(this.input);
+  }
+
+  handleClick = (ev) => {
+    if (this.props.onClick) this.props.onClick(ev);
+    this.input.current.focus();
+  };
+
+  handleFocus = (ev) => {
+    if (this.props.onFocus) this.props.onFocus(ev);
+    if (this.context && this.context.onFocus) this.context.onFocus(ev);
+    if (this.props.type === 'text') selectTextOnFocus(this.input);
+  };
+
+  handleBlur = (ev) => {
+    if (this.props.onBlur) this.props.onBlur(ev);
+    if (this.context && this.context.onBlur) this.context.onBlur(ev);
+  };
+
+  handleChange = (ev) => {
+    if (this.props.onChange) {
+      this.props.onChange(ev);
+    }
+
+    this.handleDeferred(ev);
+  }
+
+  handleDeferred = ({ currentTarget, target }) => {
+    if (this.props.onChangeDeferred) {
+      clearTimeout(this.deferredTimeout);
+      this.deferredTimeout = setTimeout(() => {
+        this.props.onChangeDeferred({ currentTarget, target });
+      }, (this.props.deferTimeout || 750));
+    }
+  }
+
+  render() {
+    const {
+      inputRef,
+      onChangeDeferred,
+      ...props
+    } = this.props;
+    const eventHandlers = {
+      onFocus: this.handleFocus,
+      onBlur: this.handleBlur,
+      onClick: this.handleClick,
+      onChange: this.handleChange
+    };
+
+    return (
+      <StyledInput
+        { ...props }
+        id={ this.props.id || this.props.name }
+        ref={ this.input }
+        data-element='input'
+        { ...eventHandlers }
+      />
+    );
+  }
+}
+
+Input.defaultProps = {
+  type: 'text'
+};
+
+function selectTextOnFocus(input) {
   // setTimeout is required so the dom has a chance to place the cursor in the input
   setTimeout(() => {
     const { length } = input.current.value;
@@ -26,60 +108,6 @@ const selectTextOnFocus = (input) => {
       input.current.setSelectionRange(0, length);
     }
   });
-};
-
-class Input extends React.Component {
-  static propTypes = {
-    className: PropTypes.string,
-    inputRef: PropTypes.func, // a callback to retrieve the input reference
-    onBlur: PropTypes.func,
-    onClick: PropTypes.func,
-    onFocus: PropTypes.func
-  }
-
-  static contextType = InputPresentationContext
-
-  input = React.createRef()
-
-  componentDidMount() {
-    if (this.props.inputRef) this.props.inputRef(this.input);
-    if (this.context && this.context.inputRef) this.context.inputRef(this.input);
-  }
-
-  handleClick = (ev) => {
-    if (this.props.onClick) this.props.onClick(ev);
-    this.input.current.focus();
-  }
-
-  handleFocus = (ev) => {
-    if (this.props.onFocus) this.props.onFocus(ev);
-    if (this.context && this.context.onFocus) this.context.onFocus(ev);
-    selectTextOnFocus(this.input);
-  };
-
-  handleBlur = (ev) => {
-    if (this.props.onBlur) this.props.onBlur(ev);
-    if (this.context && this.context.onBlur) this.context.onBlur(ev);
-  };
-
-  render() {
-    const {
-      className,
-      inputRef,
-      ...props
-    } = this.props;
-
-    return (
-      <input
-        { ...props }
-        ref={ this.input }
-        className={ classNamesForInput(className) }
-        onFocus={ this.handleFocus }
-        onBlur={ this.handleBlur }
-        onClick={ this.handleClick }
-      />
-    );
-  }
 }
 
 export default Input;

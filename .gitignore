@@ -7,9 +7,13 @@ demo/utils/generated/*.js
 demo/utils/generated/**/*
 deploy/assets/**/*
 deploy/docs
+deploy/storybook
 .DS_Store
 .browser-preferences/
 .idea
 yarn.lock
 lib
 src/style-config/assets.scss
+cypress/fixtures/example*
+cypress/screenshots
+.vscode/

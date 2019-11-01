@@ -8,53 +8,16 @@ import CustomDragLayer from '../custom-drag-layer';
 import Browser from '../../../utils/helpers/browser';
 import ScrollableParent from '../../../utils/helpers/scrollable-parent';
 
-/**
- * A draggable context component
- *
- * == How to use a draggable context in a component:
- *
- * In your file
- *
- *   import { DraggableContext, WithDrop, WithDrag } from 'carbon-react/lib/components/drag-and-drop'
- *
- * A draggable context is used to define an area in the page where drag and drop can be used on
- * one or more elements (you also need to use WithDrop and WithDrag):
- *
- *   <DraggableContext onDrag={ onItemMoved }>
- *     <ol>
- *       {
- *         items.map((item, index) => {
- *           return (
- *             <WithDrop index={ index }>
- *               <li>
- *                 <WithDrag><span>{ item.content }</span></WithDrag>
- *               </li>
- *             </WithDrop>
- *           );
- *         })
- *       }
- *     </ol>
- *   </DraggableContext>
- *
- * @class DraggableContext
- * @constructor
- */
 class DraggableContext extends React.Component {
   static propTypes = {
     /**
      * The element(s) where you want to apply drag
      * and drop functionality
-     *
-     * @property children
-     * @type {Object}
      */
     children: PropTypes.node.isRequired,
 
     /**
      * Optional CustomDragLayer to use for the ghost row when dragging & dropping
-     *
-     * @property customDragLayer
-     * @type {Object}
      */
     customDragLayer: PropTypes.node,
 
@@ -66,9 +29,6 @@ class DraggableContext extends React.Component {
 
     /**
      * Prop to enable/disable auto scroll on drag
-     *
-     * @property autoScroll
-     * @type {Bool}
      */
     autoScroll: PropTypes.bool
   }
@@ -76,9 +36,6 @@ class DraggableContext extends React.Component {
   /**
    * Defines a context object for child components of the draggable context component.
    * https://facebook.github.io/react/docs/context.html
-   *
-   * @property childContextTypes
-   * @type {Object}
    */
   static childContextTypes = {
     dragAndDropActiveIndex: PropTypes.number, // Tracks the currently dragged index
@@ -226,6 +183,7 @@ class DraggableContext extends React.Component {
   handleBeginDrag = (props) => {
     return {
       index: props.index,
+      offsetDiffY: 0,
       ...props
     };
   }
@@ -248,11 +206,10 @@ class DraggableContext extends React.Component {
   render() {
     return (
       <div
-        className='carbon-draggable-context'
         onMouseMove={ (this.props.autoScroll && this.state.activeIndex !== null) ? this.checkAutoScroll : undefined }
       >
-        { this.props.children }
-        { this.props.customDragLayer }
+        {this.props.children}
+        {this.props.customDragLayer}
       </div>
     );
   }

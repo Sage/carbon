@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navbar Navbar Button renders presentational div and context provider for its children 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: block;
+  border: none;
+  background: none;
+  box-shadow: none;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  padding: 0;
+}
+
+<button
+  className="c0"
+>
+  sample children
+</button>
+`;

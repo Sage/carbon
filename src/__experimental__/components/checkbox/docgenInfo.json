@@ -1,0 +1,85 @@
+{
+  "src/__experimental__/components/checkbox/checkbox-svg.component.js": [
+    {
+      "description": "",
+      "displayName": "CheckboxSvg",
+      "methods": []
+    }
+  ],
+  "src/__experimental__/components/checkbox/checkbox.component.js": [
+    {
+      "description": "",
+      "displayName": "Checkbox",
+      "methods": [],
+      "props": {
+        "checked": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Set the value of the checkbox"
+        },
+        "disabled": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Toggles disabling of input"
+        },
+        "fieldHelpInline": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Displays fieldHelp inline with the checkbox"
+        },
+        "inputWidth": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Sets percentage-based input width"
+        },
+        "labelAlign": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Sets label alignment - accepted values: 'left' (default), 'right'"
+        },
+        "labelWidth": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Sets percentage-based label width"
+        },
+        "onChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Accepts a callback function which can be used to update parent state on change"
+        },
+        "reverse": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Reverses label and checkbox display",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "size": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Set the size of the checkbox to 'small' (16x16 - default) or 'large' (24x24).\nNo effect when using Classic theme."
+        }
+      }
+    }
+  ]
+}

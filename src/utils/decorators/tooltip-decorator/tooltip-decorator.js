@@ -1,11 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { startCase, assign } from 'lodash';
+import { assign } from 'lodash';
 import Tooltip from '../../../components/tooltip';
 import Portal from '../../../components/portal';
 import chainFunctions from '../../helpers/chain-functions';
-import { styleElement, append } from '../../ether';
+import { styleElement } from '../../ether';
+import OptionsHelper from '../../helpers/options-helper';
+import calculatePosition from './calculate-position';
+import sizes from '../../../__experimental__/components/input/input-sizes.style';
+import { pointerSideMargin } from '../../../components/tooltip/tooltip-pointer.style';
 
 /**
  * TooltipDecorator.
@@ -83,114 +87,57 @@ import { styleElement, append } from '../../ether';
 const TooltipDecorator = (ComposedComponent) => {
   class Component extends ComposedComponent {
     static propTypes = assign({}, ComposedComponent.propTypes, {
-
-      /**
-       * The message for this tooltip
-       *
-       * @property
-       * @type {Node}
-       */
       tooltipMessage: PropTypes.node,
-
-      /**
-       * The position of this tooltip: top, bottom, left or right
-       *
-       * @property
-       * @default top
-       * @type {String}
-       */
-      tooltipPosition: PropTypes.string,
-
-      /**
-       * The alignment of this tooltip: left, right or center
-       *
-       * @property
-       * @default center
-       * @type {String}
-       */
-      tooltipAlign: PropTypes.string
+      tooltipPosition: PropTypes.oneOf(OptionsHelper.positions),
+      tooltipAlign: PropTypes.oneOf(OptionsHelper.alignAroundEdges),
+      isPartOfInput: PropTypes.bool,
+      isThemeModern: PropTypes.bool
     });
 
-    /**
-     * Timeout for firing ajax request for showing the tooltip
-     *
-     * @property _showTooltipTimeout
-     */
     _showTooltipTimeout = null;
 
-    /**
-     * Timeout for firing ajax request for hiding the tooltip
-     *
-     * @property _hideTooltipTimeout
-     */
     _hideTooltipTimeout = null;
 
-    /**
-     * Cache the shifts calculations (used for positioning)
-     *
-     * @property _memoizedShifts
-     */
-    _memoizedShifts = null;
-
-    /**
-     * @method componentWillUpdate
-     * @return {Void}
-     */
-    componentWillUpdate(nextProps, nextState) {
-      if (super.componentWillUpdate) { super.componentWillUpdate(nextProps, nextState); }
-
-      if (nextProps.tooltipMessage !== this.props.tooltipMessage
-          || nextProps.tooltipPosition !== this.props.tooltipPosition
-          || nextProps.tooltipAlign !== this.props.tooltipAlign) {
-        this._memoizedShifts = null;
-      }
+    componentDidMount() {
+      if (super.componentDidMount) super.componentDidMount();
+      if (this.props.tooltipVisible) this.positionTooltip();
     }
 
-    /**
-     * @method componentDidUpdate
-     * @return {Void}
-     */
+    componentWillUpdate(nextProps, nextState) {
+      if (super.componentWillUpdate) { super.componentWillUpdate(nextProps, nextState); }
+    }
+
     componentDidUpdate(prevProps) {
       if (super.componentDidUpdate) { super.componentDidUpdate(prevProps); }
 
-      if (this.props.tooltipMessage && !this._memoizedShifts && this.state.isVisible) {
+      if (this.props.tooltipMessage && this.isVisible()) {
         this.positionTooltip();
       }
     }
 
-    /**
-     * A lifecycle called immediatly before new props cause a re-render
-     * Resets the hover state if active
-     *
-     * @method componentWillReceiveProps
-     */
     componentWillReceiveProps(nextProps) {
       if (super.componentWillReceiveProps) { super.componentWillReceiveProps(nextProps); }
 
-      if (this.state.isVisible) {
-        this.setState({ isVisible: false });
+      if (nextProps.tooltipPosition !== this.props.tooltipPosition) {
+        this.setState({ tooltipPosition: '', tooltipAlign: '' });
       }
     }
 
     state = {
-      /**
-       * Whether tooltip currently showing
-       *
-       * @property isVisible
-       * @type {Boolean}
-       * @default false
-       */
-      isVisible: false
+      isVisible: false,
+      tooltipAlign: '',
+      tooltipPosition: ''
     };
 
-    /**
-     * Shows tooltip
-     *
-     * @method onShow
-     * @return {void}
-     */
+    isVisible = () => {
+      return this.state.isVisible || this.props.tooltipVisible;
+    }
+
     onShow = () => {
+      clearTimeout(this._showTooltipTimeout);
       clearTimeout(this._hideTooltipTimeout);
+
+      if (this.state.isVisible) return;
 
       this._showTooltipTimeout = setTimeout(() => {
         this.setState({ isVisible: true });
@@ -198,136 +145,108 @@ const TooltipDecorator = (ComposedComponent) => {
       }, 100);
     };
 
-    /**
-     * Hides tooltip
-     *
-     * @method onHide
-     * @return {void}
-     */
     onHide = () => {
       clearTimeout(this._showTooltipTimeout);
+      clearTimeout(this._hideTooltipTimeout);
+
+      if (!this.state.isVisible) return;
 
       this._hideTooltipTimeout = setTimeout(() => {
         this.setState({ isVisible: false });
       }, 100);
     };
 
-    /**
-     * Returns the DOM node of the target.
-     *
-     * @method getTarget
-     * @return {DOM node}
-     */
     getTarget = () => {
       return ReactDOM.findDOMNode(this._target); // eslint-disable-line react/no-find-dom-node
     }
 
-    /**
-     * Returns the DOM node of the tooltip.
-     *
-     * @method getTooltip
-     * @return {DOM node}
-     */
     getTooltip = () => {
       return ReactDOM.findDOMNode(this._tooltip); // eslint-disable-line react/no-find-dom-node
     }
 
-    /**
-     * Calculates position for tooltip, first result cached.
-     *
-     * @method calculatePosition
-     * @param {Object} tooltip
-     * @param {Object} target
-     * @return {Object} shifts calculated
-     */
-    calculatePosition = (tooltip, target) => {
-      if (this._memoizedShifts) { return this._memoizedShifts; }
-
-      const tooltipWidth = tooltip.offsetWidth,
-          tooltipHeight = tooltip.offsetHeight,
-          pointerDimension = 15,
-          // hardcode height & width since span has no dimensions
-          pointerOffset = 11,
-          targetWidth = target.offsetWidth,
-          targetHeight = target.offsetHeight,
-          targetRect = target.getBoundingClientRect(),
-          offsetY = window.pageYOffset,
-          targetTop = targetRect.top + offsetY,
-          targetBottom = targetRect.bottom + offsetY,
-          targetLeft = targetRect.left,
-          targetRight = targetRect.right;
-
-      return {
-        verticalY: targetTop - tooltipHeight - (pointerDimension * 0.5),
-        verticalBottomY: targetBottom + (pointerDimension * 0.5),
-        verticalCenter: (targetLeft - (tooltipWidth * 0.5)) + (targetWidth * 0.5),
-        verticalRight: (targetLeft + pointerDimension + pointerOffset) - tooltipWidth,
-        verticalLeft: targetLeft - (pointerDimension * 0.5),
-        rightHorizontal: targetRight + (0.5 * pointerDimension),
-        leftHorizontal: targetLeft - (pointerDimension * 0.5) - tooltipWidth,
-        sideTop: targetTop - pointerOffset,
-        sideBottom: (targetTop - tooltipHeight) + targetHeight + pointerOffset,
-        sideCenter: (targetTop + (targetHeight * 0.5)) - (tooltipHeight * 0.5)
-      };
-    };
-
-    /**
-     * Positions tooltip relative to target
-     *
-     * @method positionTooltip
-     * @param {Object} tooltip
-     * @param {Object} target
-     * @return {Void}
-     */
     positionTooltip = () => {
-      if (this.state.isVisible) {
-        const tooltip = this.getTooltip(),
-            target = this.getTarget();
-        if (!tooltip || !target) {
-          // Can't find the tooltip or target so hide
-          this.setState({ isVisible: false });
-          return;
-        }
+      let topPosition, leftPosition;
+      const tooltip = this.getTooltip();
+      const target = this.getTarget();
 
-        const alignment = this.props.tooltipAlign || 'center',
-            position = this.props.tooltipPosition || 'top',
-            shifts = this.calculatePosition(tooltip, target);
-
-        switch (position) {
-          case 'top':
-            styleElement(tooltip, 'top', append(shifts.verticalY, 'px'));
-            styleElement(tooltip, 'right', 'auto');
-            styleElement(tooltip, 'bottom', 'auto');
-            styleElement(tooltip, 'left', append(shifts[`vertical${startCase(alignment)}`], 'px'));
-            break;
-
-          case 'bottom':
-            styleElement(tooltip, 'top', append(shifts.verticalBottomY, 'px'));
-            styleElement(tooltip, 'bottom', 'auto');
-            styleElement(tooltip, 'left', append(shifts[`vertical${startCase(alignment)}`], 'px'));
-            break;
-
-          case 'left':
-            styleElement(tooltip, 'top', append(shifts[`side${startCase(alignment)}`], 'px'));
-            styleElement(tooltip, 'bottom', 'auto');
-            styleElement(tooltip, 'left', append(shifts[`${position}Horizontal`], 'px'));
-            break;
-
-          case 'right':
-          default:
-            styleElement(tooltip, 'top', append(shifts[`side${startCase(alignment)}`], 'px'));
-            styleElement(tooltip, 'bottom', 'auto');
-            styleElement(tooltip, 'left', append(shifts[`${position}Horizontal`], 'px'));
-        }
+      if (!tooltip || !target) {
+        if (this.state.isVisible) this.setState({ isVisible: false });
+        return;
       }
+      const alignment = this.state.tooltipAlign || this.props.tooltipAlign || 'center';
+      const position = this.state.tooltipPosition || this.props.tooltipPosition || 'top';
+      const shifts = calculatePosition(tooltip, target);
+      const isTooltipOffScreenRight = this.isTooltipOffScreenRight(position, alignment, tooltip.offsetWidth, shifts);
+      const inputDistanceOffset = this.getInputDistanceOffset(position);
+
+      if (isTooltipOffScreenRight) {
+        this.realignOffscreenTooltip(position, alignment);
+      }
+
+      if (position === 'top' || position === 'bottom') {
+        topPosition = shifts.tooltipDistances[position] + inputDistanceOffset;
+        leftPosition = shifts.vertical[alignment] + this.getHorizontalOffset();
+      } else {
+        topPosition = shifts.horizontal[alignment];
+        leftPosition = shifts.tooltipDistances[position] + inputDistanceOffset;
+      }
+
+      styleElement(tooltip, 'top', `${topPosition}px`);
+      styleElement(tooltip, 'left', `${leftPosition}px`);
     };
 
-    /**
-     * Additional Props for decorated component
-     *
-     * @method componentProps
-     * @return {Object} props
-     */
+    isTooltipOffScreenRight = (position, alignment, tooltipWidth, shifts) => {
+      let pointerX;
+
+      if (position === 'left') {
+        return false;
+      }
+
+      if (position === 'right') {
+        pointerX = shifts.tooltipDistances.right;
+      } else {
+        pointerX = shifts.vertical[alignment];
+      }
+
+      return window.innerWidth < pointerX + tooltipWidth;
+    }
+
+    realignOffscreenTooltip = (position, alignment) => {
+      if (alignment === 'right' || position === 'left') return;
+
+      if (position === 'right') {
+        this.setState({ tooltipPosition: 'top', tooltipAlign: 'right' });
+      } else {
+        this.setState({ tooltipAlign: 'right' });
+      }
+    }
+
+    getInputDistanceOffset = (position) => {
+      if (!this.props.isPartOfInput || !this.props.isThemeModern || !this.props.size) return 0;
+
+      const inputSizes = sizes[this.props.size];
+      const { tooltipVerticalOffset, tooltipHorizontalOffset } = inputSizes;
+      const inputGap = 2;
+
+      switch (position) {
+        case 'top':
+          return -tooltipVerticalOffset - pointerSideMargin;
+        case 'bottom':
+          return tooltipVerticalOffset + pointerSideMargin;
+        case 'left':
+          return -tooltipHorizontalOffset - pointerSideMargin - inputGap;
+        case 'right':
+        default:
+          return tooltipHorizontalOffset + pointerSideMargin + inputGap;
+      }
+    }
+
+    getHorizontalOffset = () => {
+      if (!this.props.isThemeModern || !this.props.isPartOfInput || !this.props.size) return 0;
+
+      return sizes[this.props.size].tooltipHorizontalOffset;
+    }
+
     get componentProps() {
       const props = super.componentProps || {};
 
@@ -336,29 +255,26 @@ const TooltipDecorator = (ComposedComponent) => {
         props.onMouseLeave = chainFunctions(this.onHide, props.onMouseLeave);
         props.onFocus = chainFunctions(this.onShow, props.onFocus);
         props.onBlur = chainFunctions(this.onHide, props.onBlur);
-        props.onTouchEnd = this.state.isVisible ? this.onHide : this.onShow;
+        props.onTouchEnd = this.isVisible() ? this.onHide : this.onShow;
       }
       return props;
     }
 
-    /**
-     * Supplies the HTML for tooltip
-     *
-     * @method tooltipHTML
-     * @return {Object} JSX for tooltip
-     */
     get tooltipHTML() {
       return (
-        (this.props.tooltipMessage && this.state.isVisible) && (
+        (this.props.tooltipMessage && this.isVisible()) && (
           <Portal key='tooltip'>
             <Tooltip
-              align={ this.props.tooltipAlign }
+              align={ this.state.tooltipAlign || this.props.tooltipAlign }
               data-element='tooltip'
-              isVisible={ this.state.isVisible }
+              isVisible={ this.isVisible() }
               onMouseEnter={ this.onShow }
               onMouseLeave={ this.onHide }
-              position={ this.props.tooltipPosition }
+              position={ this.state.tooltipPosition || this.props.tooltipPosition }
               ref={ (comp) => { this._tooltip = comp; } }
+              size={ this.props.size }
+              type={ this.props.tooltipType }
+              isPartOfInput={ this.props.isPartOfInput }
             >
               { this.props.tooltipMessage }
             </Tooltip>

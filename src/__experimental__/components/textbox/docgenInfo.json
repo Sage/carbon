@@ -1,0 +1,225 @@
+{
+  "src/__experimental__/components/textbox/textbox.component.js": [
+    {
+      "description": "",
+      "displayName": "Textbox",
+      "methods": [],
+      "props": {
+        "formattedValue": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "An optional alternative for props.value, this is useful if the\nreal value is an ID but you want to show a human-readable version."
+        },
+        "value": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "array"
+              }
+            ]
+          },
+          "required": false,
+          "description": "The formatted value of the field"
+        },
+        "disabled": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "If true, the component will be disabled"
+        },
+        "readOnly": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "If true, the component will be read-only"
+        },
+        "onChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Event handler for the change event"
+        },
+        "onKeyDown": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Event handler for the keyDown event"
+        },
+        "onChangeDeferred": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Defered callback called after the onChange event"
+        },
+        "deferTimeout": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Integer to determine timeout for defered callback"
+        },
+        "label": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Label"
+        },
+        "labelHelp": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Text applied to label help tooltip"
+        },
+        "labelInline": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "When true, label is placed in line an input"
+        },
+        "labelWidth": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Width of a label in percentage. Works only when labelInline is true",
+          "defaultValue": {
+            "value": "30",
+            "computed": false
+          }
+        },
+        "inputWidth": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Width of an input in percentage. Works only when labelInline is true",
+          "defaultValue": {
+            "value": "70",
+            "computed": false
+          }
+        },
+        "fieldHelp": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Help content to be displayed under an input"
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Type of the icon that will be rendered next to the input"
+        },
+        "inputIcon": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Icon associated with this component"
+        },
+        "leftChildren": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Adds additional child elements before the input"
+        },
+        "validations": {
+          "type": {
+            "name": "custom",
+            "raw": "validationsPropTypes"
+          },
+          "required": false,
+          "description": "List of error validation functions"
+        },
+        "warnings": {
+          "type": {
+            "name": "custom",
+            "raw": "validationsPropTypes"
+          },
+          "required": false,
+          "description": "List of warning validation functions"
+        },
+        "info": {
+          "type": {
+            "name": "custom",
+            "raw": "validationsPropTypes"
+          },
+          "required": false,
+          "description": "List of info validation functions"
+        },
+        "childOfForm": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Flag to configure component when in a Form"
+        },
+        "isOptional": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Flag to configure component as optional in Form"
+        },
+        "hasError": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Status of error validations"
+        },
+        "hasWarning": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Status of warnings"
+        },
+        "hasInfo": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Status of info"
+        },
+        "size": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.sizesRestricted"
+          },
+          "required": false,
+          "description": "Size of an input",
+          "defaultValue": {
+            "value": "'medium'",
+            "computed": false
+          }
+        },
+        "placeholder": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Placeholder string to be displayed in input"
+        }
+      }
+    }
+  ]
+}

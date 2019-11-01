@@ -24,6 +24,12 @@ describe('OptionsHelper', () => {
       'white'
     ]);
   });
+  it('buttonIconPositions', () => {
+    expect(OptionsHelper.buttonIconPositions).toEqual([
+      'before',
+      'after'
+    ]);
+  });
   it('colors', () => {
     expect(OptionsHelper.colors).toEqual([
       'default',
@@ -36,6 +42,13 @@ describe('OptionsHelper', () => {
       'warning'
     ]);
   });
+  it('pillColors', () => {
+    expect(OptionsHelper.pillColors).toEqual([
+      'neutral',
+      'negative',
+      'positive'
+    ]);
+  });
   it('icons', () => {
     expect(OptionsHelper.icons).toEqual([
       'add',
@@ -43,7 +56,9 @@ describe('OptionsHelper', () => {
       'analysis',
       'arrow_down',
       'arrow_left',
+      'arrow_left_small',
       'arrow_right',
+      'arrow_right_small',
       'arrow_up',
       'attach',
       'basket',
@@ -69,6 +84,7 @@ describe('OptionsHelper', () => {
       'chevron_up',
       'clock',
       'close',
+      'coins',
       'collaborate',
       'copy',
       'connect',
@@ -120,6 +136,7 @@ describe('OptionsHelper', () => {
       'message',
       'messages',
       'minus',
+      'minus_large',
       'mobile',
       'pdf',
       'people',
@@ -127,7 +144,9 @@ describe('OptionsHelper', () => {
       'phone',
       'play',
       'plus',
+      'plus_large',
       'print',
+      'progress',
       'progressed',
       'question',
       'refresh',
@@ -148,8 +167,7 @@ describe('OptionsHelper', () => {
       'uploaded',
       'video',
       'view',
-      'warning',
-      'white-tick'
+      'warning'
     ]);
   });
   it('pageSizes', () => {
@@ -198,10 +216,19 @@ describe('OptionsHelper', () => {
       'large'
     ]);
   });
+  it('buttonTypes', () => {
+    expect(OptionsHelper.buttonTypes).toEqual([
+      'primary',
+      'secondary',
+      'tertiary',
+      'destructive',
+      'darkBackground'
+    ]);
+  });
   it('themesBinary', () => {
     expect(OptionsHelper.themesBinary).toEqual([
       'primary',
-      'secondary'
+      'secondary',
     ]);
   });
   it('themesFull', () => {
@@ -211,6 +238,25 @@ describe('OptionsHelper', () => {
       'tertiary',
       'tile',
       'transparent'
+    ]);
+  });
+  it('formButtonOptions', () => {
+    expect(OptionsHelper.formButtonOptions).toEqual([
+      'save',
+      'cancel'
+    ]);
+  });
+  it('additionalActionAlignments', () => {
+    expect(OptionsHelper.actionOptions).toEqual([
+      'Button',
+      'Link'
+    ]);
+  });
+  it('additionalActionAlignments', () => {
+    expect(OptionsHelper.additionalActionAlignments).toEqual([
+      'additionalActions',
+      'leftAlignedActions',
+      'rightAlignedActions'
     ]);
   });
 });

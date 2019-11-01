@@ -1,0 +1,150 @@
+{
+  "src/__experimental__/components/simple-color-picker/color-option/color-option.component.js": [
+    {
+      "description": "",
+      "displayName": "ColorOption",
+      "methods": [],
+      "props": {
+        "color": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "the value of the color that is represented by this ColorOption"
+        },
+        "name": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "the input name"
+        },
+        "onChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "called when the user selects or deselects this color option",
+          "defaultValue": {
+            "value": "null",
+            "computed": false
+          }
+        },
+        "checked": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "determines if this color option is selected or unselected",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "[Legacy] Custom classname"
+        }
+      }
+    }
+  ],
+  "src/__experimental__/components/simple-color-picker/color-sample-box/color-sample-box.component.js": [
+    {
+      "description": "",
+      "displayName": "ColorSampleBox",
+      "methods": [],
+      "props": {
+        "checked": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": ""
+        },
+        "color": {
+          "type": {
+            "name": "custom",
+            "raw": "colorSampleBoxCheck"
+          },
+          "required": false,
+          "description": ""
+        }
+      }
+    }
+  ],
+  "src/__experimental__/components/simple-color-picker/simple-color-picker.component.js": [
+    {
+      "description": "",
+      "displayName": "SimpleColorPicker",
+      "methods": [
+        {
+          "name": "isOptionChecked",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "color",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "getSingleOption",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "color",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "getColorOptions",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        }
+      ],
+      "props": {
+        "availableColors": {
+          "type": {
+            "name": "arrayOf",
+            "value": {
+              "name": "string"
+            }
+          },
+          "required": false,
+          "description": "An array of color choices to display."
+        },
+        "selectedColor": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The currently selected color."
+        },
+        "name": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The name to apply to the input."
+        },
+        "onChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A callback triggered when a color is selected."
+        }
+      }
+    }
+  ]
+}
