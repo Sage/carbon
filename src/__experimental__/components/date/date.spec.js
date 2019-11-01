@@ -1,7 +1,6 @@
 import moment from 'moment';
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import 'jest-styled-components';
 import { mount } from 'enzyme';
 import DateInput, { defaultDateFormat, BaseDateInput } from './date.component';
 import DatePicker from './date-picker.component';
@@ -197,8 +196,8 @@ describe('Date', () => {
             }
           };
           expect(wrapper.find(BaseDateInput).instance()
-          .buildCustomEvent(event, 'foo').target.value)
-          .toEqual({ 'formattedValue': '12/08/2019', 'rawValue': '2019-08-12' });
+            .buildCustomEvent(event, 'foo').target.value)
+            .toEqual({ formattedValue: '12/08/2019', rawValue: '2019-08-12' });
         });
       });
     });

@@ -28,10 +28,10 @@ class BaseDateInput extends React.Component {
   state = {
     isDatePickerOpen: false,
     /** Date object to pass to the DatePicker */
-    selectedDate: DateHelper.stringToDate(this.initialVisibleValue),
+    selectedDate: DateHelper.stringToDate(DateHelper.formatValue(this.initialVisibleValue)),
     /** Displayed value, format dependent on a region */
     visibleValue: formatDateToCurrentLocale(this.initialVisibleValue),
-
+    /** Stores last valid values to be emitted onBlur if current input is invalid */
     lastValidEventValues: {
       formattedValue: formatDateToCurrentLocale(this.initialVisibleValue),
       rawValue: DateHelper.formatValue(this.initialVisibleValue)
@@ -112,7 +112,13 @@ class BaseDateInput extends React.Component {
   reformatVisibleDate = () => {
     const { visibleValue } = this.state;
     if (DateHelper.isValidDate(visibleValue)) {
-      this.setState({ visibleValue: formatDateToCurrentLocale(visibleValue) });
+      this.setState({
+        visibleValue: formatDateToCurrentLocale(visibleValue),
+        lastValidEventValues: {
+          formattedValue: formatDateToCurrentLocale(visibleValue),
+          rawValue: DateHelper.formatValue(visibleValue)
+        }
+      });
     }
   }
 
@@ -122,14 +128,18 @@ class BaseDateInput extends React.Component {
       return;
     }
     document.removeEventListener('click', this.closeDatePicker);
-    this.setState({ isDatePickerOpen: false }, () => this.handleBlur() );
+    this.setState({ isDatePickerOpen: false }, () => {
+      this.isBlurBlocked = false;
+      if (this.input !== document.activeElement) {
+        this.handleBlur();
+      }
+    });
   };
 
   handleDateSelect = (selectedDate) => {
     const stringDateIso = DateHelper.formatDateString(selectedDate);
     this.isBlurBlocked = true;
     this.isOpening = false;
-    this.closeDatePicker();
     this.updateVisibleValue(stringDateIso, true);
   };
 
@@ -143,15 +153,17 @@ class BaseDateInput extends React.Component {
       lastValidEventValues: {
         formattedValue: visibleValue,
         rawValue: DateHelper.formatValue(visibleValue)
-      } 
+      }
     },
-      () => {
-        if (pickerUsed) {
-          const event = { target: this.input };
-          event.target.value = visibleValue;
-          this.emitOnChangeCallback(event, date);
-        }
-      });
+    () => {
+      if (pickerUsed) {
+        const event = { target: this.input };
+        event.target.value = visibleValue;
+        this.emitOnChangeCallback(event, date);
+        this.input.focus();
+        this.closeDatePicker();
+      }
+    });
   };
 
   handleVisibleInputChange = (ev) => {
@@ -202,7 +214,7 @@ class BaseDateInput extends React.Component {
     const { id, name, value } = ev.target;
     const { lastValidEventValues } = this.state;
     const validRawValue = DateHelper.isValidDate(isoFormattedValue);
-   
+
     ev.target = {
       ...(name && { name }),
       ...(id && { id }),
