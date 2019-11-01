@@ -861,23 +861,23 @@ exports[`RadioButton styles base renders as expected 1`] = `
   fill: rgba(0,0,0,0.9);
 }
 
-.c0 {
+.c1 {
   border: none;
   margin: 0;
   padding: 0;
 }
 
-.c0.c0.c0 .c4 {
+.c1.c1.c1 .c4 {
   margin-top: 0;
   margin-bottom: -1px;
 }
 
-.c1 .c26 {
+.c0 .c26 {
   margin-bottom: 16px;
   height: 26px;
 }
 
-.c1 .c26 legend {
+.c0 .c26 legend {
   font-size: 14px;
   margin-left: -2px;
 }
