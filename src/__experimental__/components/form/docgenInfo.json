@@ -1,0 +1,563 @@
+{
+  "src/__experimental__/components/form/form.component.js": [
+    {
+      "description": "",
+      "displayName": "FormWithoutValidations",
+      "methods": [
+        {
+          "name": "getActiveInput",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "setActiveInput",
+          "docblock": "Sets the active input, calling the hide method if the input is\ndifferent from the last (so as to instantly) switch.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "input"
+            }
+          ],
+          "returns": null,
+          "description": "Sets the active input, calling the hide method if the input is\ndifferent from the last (so as to instantly) switch."
+        },
+        {
+          "name": "setIsDirty",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "resetIsDirty",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "addStickyFooterListeners",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "removeStickyFooterListeners",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "checkStickyFooter",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "addUnsavedWarningListener",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "removeUnsavedWarningListener",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "checkFormDataExists",
+          "docblock": "Returns true if any input has value",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Returns true if any input has value"
+        },
+        {
+          "name": "checkIsFormDirty",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "handleOnSubmit",
+          "docblock": null,
+          "modifiers": [
+            "async"
+          ],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "triggerSubmit",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            },
+            {
+              "name": "valid",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "addOtherInputsToState",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "submitControlledForm",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "clearFormData",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "data",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "enableForm",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "htmlProps",
+          "docblock": "Separates and returns HTML specific props",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Separates and returns HTML specific props"
+        },
+        {
+          "name": "cancelForm",
+          "docblock": "Redirects to the previous page; uses React Router history, or uses modalcancel handler.",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Redirects to the previous page; uses React Router history, or uses modalcancel handler."
+        },
+        {
+          "name": "cancelButton",
+          "docblock": "Gets the cancel button for the form",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Gets the cancel button for the form"
+        },
+        {
+          "name": "additionalActions",
+          "docblock": "Gets any additional actions passed into the form",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "type"
+            }
+          ],
+          "returns": null,
+          "description": "Gets any additional actions passed into the form"
+        },
+        {
+          "name": "defaultSaveButton",
+          "docblock": "The default Save button for the form",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "The default Save button for the form"
+        },
+        {
+          "name": "saveButton",
+          "docblock": "Returns a custom save button if passed in the default if not",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Returns a custom save button if passed in the default if not"
+        },
+        {
+          "name": "saveButtonWithSummary",
+          "docblock": "Returns a form summary",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Returns a form summary"
+        },
+        {
+          "name": "formFooter",
+          "docblock": "Returns the footer for the form",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Returns the footer for the form"
+        },
+        {
+          "name": "orderFormButtons",
+          "docblock": "Orders the Save and Cancel Buttons based on alignment prop",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Orders the Save and Cancel Buttons based on alignment prop"
+        },
+        {
+          "name": "addInputDataToState",
+          "docblock": "Store children controlled data in state",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "name"
+            },
+            {
+              "name": "value"
+            }
+          ],
+          "returns": null,
+          "description": "Store children controlled data in state"
+        },
+        {
+          "name": "getContext",
+          "docblock": "Returns form object to child components.",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Returns form object to child components."
+        },
+        {
+          "name": "isHTMLElement",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "child",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "renderChildren",
+          "docblock": "Clone the children, pass in callback to allow form to store controlled data",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Clone the children, pass in callback to allow form to store controlled data"
+        }
+      ],
+      "props": {
+        "unsavedWarning": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Warning popup shown when trying to navigate away from an edited form if true",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "cancel": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Cancel button is shown if true",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "afterFormValidation": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Custom function that is called immediately after the form validates"
+        },
+        "beforeFormValidation": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Custom function that is called immediately before the form validates"
+        },
+        "buttonAlign": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.alignBinary"
+          },
+          "required": false,
+          "description": "Alignment of submit button",
+          "defaultValue": {
+            "value": "'right'",
+            "computed": false
+          }
+        },
+        "saving": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Determines if the form is in a saving state",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "stickyFooter": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Enables the sticky footer."
+        },
+        "stickyFooterPadding": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Applies additional padding to the sticky footer, useful to align buttons."
+        },
+        "validateOnMount": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "If true, will validate the form on mount",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "autoDisable": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "If true, will disable the savebutton when clicked"
+        },
+        "cancelText": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Text for the cancel button"
+        },
+        "cancelButtonProps": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "Properties for the cancel button"
+        },
+        "saveText": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Text for the save button"
+        },
+        "saveButtonProps": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "Properties for the save button"
+        },
+        "onCancel": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Custom function for Cancel button onClick"
+        },
+        "save": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Hide or show the save button",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "additionalActions": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Additional actions rendered next to the save and cancel buttons"
+        },
+        "leftAlignedActions": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Additional actions rendered and aligned left to the save and cancel buttons"
+        },
+        "rightAlignedActions": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Additional actions rendered and aligned right to the save and cancel buttons"
+        },
+        "onSubmit": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Custom callback for when form will submit"
+        },
+        "customSaveButton": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Override Save Button",
+          "defaultValue": {
+            "value": "null",
+            "computed": false
+          }
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Child elements"
+        },
+        "showSummary": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Hide or show the summary",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "validate": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A function used to handle form validation"
+        },
+        "isValidating": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Determines if the form is a validating state and should be disabled from submiting"
+        },
+        "errorCount": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "The total number of errors present in the form"
+        },
+        "warningCount": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "The total number of warnings present in the form"
+        },
+        "infoCount": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "The total number of infos present in the form"
+        },
+        "formInputs": {
+          "type": {
+            "name": "shape",
+            "value": {
+              "value": {
+                "name": "string",
+                "required": false
+              },
+              "name": {
+                "name": "string",
+                "required": false
+              }
+            }
+          },
+          "required": false,
+          "description": "Strores the state of controlled inputs"
+        },
+        "formAction": {
+          "type": {
+            "name": "custom",
+            "raw": "function(props, propName) {\n  const propConditions = (\n    !props.onSubmit && (props[propName] === undefined || typeof (props[propName]) !== 'string')\n  );\n  if (propConditions) {\n    throw new Error('A form action is required if no onSubmit prop is passed');\n  }\n}"
+          },
+          "required": false,
+          "description": "The action for the default form submission of controlled inputs"
+        },
+        "redirectPath": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Path to redirect after submit"
+        },
+        "fixedBottom": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Passed down when Form parent is dialog"
+        },
+        "isLabelRightAligned": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Sets children's label alignment"
+        }
+      }
+    },
+    {
+      "description": "Creates hidden CSRF input field",
+      "displayName": "generateCSRFTokenInput",
+      "methods": []
+    }
+  ]
+}

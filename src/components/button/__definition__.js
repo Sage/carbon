@@ -1,6 +1,14 @@
-import Button from './';
+import Button from './button.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
+import PropTypes from 'prop-types';
+
+// Removing Carbon DLS specific props from the legacy demo
+delete Button.propTypes.checkTheme;
+delete Button.propTypes.forwardRef;
+delete Button.propTypes.buttonType;
+delete Button.propTypes.iconPosition;
+delete Button.propTypes.iconType;
 
 let definition = new Definition('button', Button, {
   description: `Performs an action.`,

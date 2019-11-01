@@ -32,7 +32,7 @@
     text-align: left;
   }
 
-  .carbon-icon.common-input__icon {
+  [data-component='icon'].common-input__icon {
     left: auto;
     right: 0;
   }
@@ -43,18 +43,18 @@
     text-align: right;
   }
 
-  .carbon-icon.common-input__icon {
+  [data-component='icon'].common-input__icon {
     left: 5px;
     right: auto;
   }
 }
 
 .common-input--align-right.common-input--label-inline {
-  .carbon-icon.common-input__icon {
+  [data-component='icon'].common-input__icon {
     left: auto;
     margin: 7px -40px;
     right: 70%;
-    &.icon-error {
+    [data-element='error'] {
       top: 0;
     }
   }
@@ -98,7 +98,7 @@
   &[disabled] {
     background-color: $slate-tint-85 !important; // this is the correct use of !important
     border-color: $slate-tint-85 !important; // this is the correct use of !important
-    color: $black-20 !important; // this is the correct use of !important
+    color: $black-60 !important; // this is the correct use of !important
 
     &:active,
     &:focus,
@@ -136,7 +136,7 @@
   min-width: 50px;
   padding: 10px;
   position: absolute;
-  text-align: center;
+  text-align: left;
   width: 100%;
   width: fit-content;
   z-index: $z-validation-message;
@@ -169,7 +169,7 @@
   }
 }
 
-.carbon-icon.common-input__icon {
+[data-component='icon'].common-input__icon {
   height: 15px;
   position: absolute;
   right: 5px;
@@ -182,7 +182,7 @@
 }
 
 .common-input--label-inline {
-  .icon-error {
+  [data-element='error'] {
     right: 5px;
     top: 6px;
   }
@@ -234,7 +234,7 @@
 }
 
 @mixin common-input-theme($type, $color) {
-  .carbon-icon.common-input__icon.common-input__icon--#{$type} {
+  [data-component='icon'].common-input__icon.common-input__icon--#{$type} {
     color: $color;
   }
 
@@ -260,7 +260,7 @@
 
 .common-input--error,
 .common-input--warning {
-  .carbon-icon {
+  [data-component='icon'] {
     z-index: 1;
   }
 }

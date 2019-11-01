@@ -1,0 +1,54 @@
+{
+  "src/components/help/help.component.js": [
+    {
+      "description": "",
+      "displayName": "Help",
+      "methods": [],
+      "props": {
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "[Legacy] A custom class name for the component."
+        },
+        "children": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Message to display in tooltip"
+        },
+        "tooltipPosition": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Position of tooltip relative to target",
+          "defaultValue": {
+            "value": "'top'",
+            "computed": false
+          }
+        },
+        "tooltipAlign": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Aligment of pointer",
+          "defaultValue": {
+            "value": "'center'",
+            "computed": false
+          }
+        },
+        "href": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A path for the anchor"
+        }
+      }
+    }
+  ]
+}

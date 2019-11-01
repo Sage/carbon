@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FieldHelp renders as expected 1`] = `
+.c0 {
+  display: block;
+  margin-top: 8px;
+  white-space: pre-wrap;
+  width: 100%;
+}
+
+<span
+  className="c0"
+  data-element="help"
+>
+  help text
+</span>
+`;

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { DragLayer } from 'react-dnd';
-import './custom-drag-layer.scss';
+import StyledDragContainer from './custom-drag-layer.style';
 
 const collect = (monitor) => {
   const item = monitor.getItem();
@@ -18,9 +18,6 @@ class CustomDragLayer extends React.Component {
   static propTypes = {
     /**
      * The dom node being dragged.
-     *
-     * @property draggableNode
-     * @type {Node|Object}
      */
     draggableNode: PropTypes.oneOfType([
       PropTypes.object,
@@ -29,9 +26,6 @@ class CustomDragLayer extends React.Component {
 
     /**
      * Determine if the component is being dragged or not.
-     *
-     * @property isDragging
-     * @type {Boolean}
      */
     /* ESLint is not detecting that the prop is called via nextProps */
     /* eslint-disable react/no-unused-prop-types */
@@ -89,8 +83,7 @@ class CustomDragLayer extends React.Component {
   render() {
     return (
       <div className={ this.getClassName(this.props) }>
-        <div
-          className='custom-drag-layer__container'
+        <StyledDragContainer
           ref={ (node) => { this._container = node; } }
           style={ this.getItemStyles(this.props) }
         />

@@ -1,0 +1,949 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RadioButton styles base renders as expected 1`] = `
+.c5 {
+  display: block;
+}
+
+.c5 + .c4 {
+  margin-top: 16px;
+}
+
+.c11 + .c4 {
+  margin-top: 10px;
+}
+
+.c9 {
+  cursor: pointer;
+  opacity: 0;
+  margin: 0;
+  position: relative;
+  z-index: 999;
+}
+
+.c7 {
+  display: inline-block;
+  position: relative;
+}
+
+.c12 .c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c12 .c8:hover,
+.c12 .c25:hover,
+.c12 .c8:focus,
+.c12 .c25:focus {
+  outline: none;
+  cursor: not-allowed;
+}
+
+.c3 .c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c3 .c25 {
+  text-align: left;
+  width: auto;
+  white-space: nowrap;
+  margin-top: -2px;
+}
+
+.c3 .c25 .c23,
+.c3 .c25 .c24 {
+  color: rgba(0,0,0,0.65);
+  vertical-align: middle;
+  top: -1px;
+}
+
+.c3 .c25 .c23:hover,
+.c3 .c25 .c24:hover,
+.c3 .c25 .c23:focus,
+.c3 .c25 .c24:focus {
+  color: rgba(0,0,0,0.9);
+}
+
+.c13 .c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c13 .c8:hover,
+.c13 .c25:hover,
+.c13 .c8:focus,
+.c13 .c25:focus {
+  outline: none;
+  cursor: not-allowed;
+}
+
+.c14 .c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c15 .c6 {
+  padding-top: 1px;
+}
+
+.c15 .c10 {
+  height: 16px;
+}
+
+.c15 .c8,
+.c15 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c15 .c6,
+.c15 .c8,
+.c15 .c10,
+.c15 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c15 .c8:not([disabled]):focus + .c10,
+.c15 .c8:not([disabled]):hover + .c10 {
+  box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c15 .c10:hover,
+.c15 .c10:focus {
+  outline: none;
+  cursor: not-allowed;
+}
+
+.c15 .c6 {
+  margin-right: 16px;
+}
+
+.c15 .c10 {
+  padding: 0;
+}
+
+.c15 .c10,
+.c15 svg {
+  border-radius: 50%;
+}
+
+.c15 .c6,
+.c15 .c8,
+.c15 .c10,
+.c15 svg {
+  height: 16px;
+  width: 16px;
+}
+
+.c15 .c8:checked + .c10 circle {
+  fill: rgba(0,0,0,0.9);
+}
+
+.c15 .c8:checked + .c10 circle {
+  fill: #CCD6DA;
+}
+
+.c16 .c6 {
+  padding-top: 1px;
+}
+
+.c16 .c10 {
+  height: 16px;
+}
+
+.c16 .c8,
+.c16 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c16 .c6,
+.c16 .c8,
+.c16 .c10,
+.c16 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c16 .c8:not([disabled]):focus + .c10,
+.c16 .c8:not([disabled]):hover + .c10 {
+  box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c16 .c10 {
+  height: 24px;
+}
+
+.c16 .c6,
+.c16 .c8,
+.c16 svg {
+  padding: 2px;
+}
+
+.c16 .c6,
+.c16 .c8,
+.c16 .c10,
+.c16 svg {
+  height: 24px;
+  width: 24px;
+}
+
+.c16 .c6 {
+  margin-right: 16px;
+}
+
+.c16 .c10 {
+  padding: 0;
+}
+
+.c16 .c10,
+.c16 svg {
+  border-radius: 50%;
+}
+
+.c16 .c6,
+.c16 .c8,
+.c16 .c10,
+.c16 svg {
+  height: 16px;
+  width: 16px;
+}
+
+.c16 .c8:checked + .c10 circle {
+  fill: rgba(0,0,0,0.9);
+}
+
+.c16 .c6 {
+  margin-right: 14px;
+}
+
+.c16 .c6,
+.c16 .c8,
+.c16 .c10,
+.c16 svg {
+  height: 24px;
+  width: 24px;
+}
+
+.c17 .c6 {
+  padding-top: 1px;
+}
+
+.c17 .c10 {
+  height: 16px;
+}
+
+.c17 .c8,
+.c17 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c17 .c6,
+.c17 .c8,
+.c17 .c10,
+.c17 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c17 .c8:not([disabled]):focus + .c10,
+.c17 .c8:not([disabled]):hover + .c10 {
+  box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c17 .c10 {
+  height: 24px;
+}
+
+.c17 .c6,
+.c17 .c8,
+.c17 svg {
+  padding: 2px;
+}
+
+.c17 .c6,
+.c17 .c8,
+.c17 .c10,
+.c17 svg {
+  height: 24px;
+  width: 24px;
+}
+
+.c17 .c6 {
+  margin-right: 16px;
+}
+
+.c17 .c10 {
+  padding: 0;
+}
+
+.c17 .c10,
+.c17 svg {
+  border-radius: 50%;
+}
+
+.c17 .c6,
+.c17 .c8,
+.c17 .c10,
+.c17 svg {
+  height: 16px;
+  width: 16px;
+}
+
+.c17 .c8:checked + .c10 circle {
+  fill: rgba(0,0,0,0.9);
+}
+
+.c17 .c6 {
+  margin-right: 14px;
+}
+
+.c17 .c6,
+.c17 .c8,
+.c17 .c10,
+.c17 svg {
+  height: 24px;
+  width: 24px;
+}
+
+.c17 .c6 {
+  margin-left: 6px;
+}
+
+.c18 .c6 {
+  padding-top: 1px;
+}
+
+.c18 .c10 {
+  height: 16px;
+}
+
+.c18 .c8,
+.c18 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c18 .c6,
+.c18 .c8,
+.c18 .c10,
+.c18 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c18 .c8:not([disabled]):focus + .c10,
+.c18 .c8:not([disabled]):hover + .c10 {
+  box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c18 .c6 {
+  padding: 1px 0 0 0;
+}
+
+.c18 .c8,
+.c18 svg {
+  padding: 1px;
+}
+
+.c18 .c6,
+.c18 .c8,
+.c18 .c10,
+.c18 svg {
+  height: 15px;
+  width: 15px;
+}
+
+.c18 .c8:not([disabled]):focus + .c10,
+.c18 .c8:not([disabled]):hover + .c10 {
+  box-shadow: none;
+}
+
+.c18 .c8:not([disabled]):focus + .c10 > svg,
+.c18 .c8:not([disabled]):hover + .c10 > svg {
+  border: 1px solid #1963f6;
+  outline: none;
+}
+
+.c18 .c6 {
+  margin-right: 16px;
+}
+
+.c18 .c10 {
+  padding: 0;
+}
+
+.c18 .c10,
+.c18 svg {
+  border-radius: 50%;
+}
+
+.c18 .c6,
+.c18 .c8,
+.c18 .c10,
+.c18 svg {
+  height: 16px;
+  width: 16px;
+}
+
+.c18 .c8:checked + .c10 circle {
+  fill: rgba(0,0,0,0.9);
+}
+
+.c18 .c6,
+.c18 .c8,
+.c18 .c10,
+.c18 svg {
+  height: 15px;
+  width: 15px;
+}
+
+.c18 .c6 {
+  margin-right: 6px;
+}
+
+.c18 .c8:not([disabled]):focus + .c10 > svg {
+  box-shadow: 0 0 6px rgba(25,99,246,0.6);
+  -webkit-transition: box-shadow 0.1s linear;
+  transition: box-shadow 0.1s linear;
+}
+
+.c18 .c8:checked + .c10 circle {
+  fill: rgba(0,0,0,0.85);
+}
+
+.c19 .c6 {
+  padding-top: 1px;
+}
+
+.c19 .c10 {
+  height: 16px;
+}
+
+.c19 .c8,
+.c19 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c19 .c6,
+.c19 .c8,
+.c19 .c10,
+.c19 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c19 .c8:not([disabled]):focus + .c10,
+.c19 .c8:not([disabled]):hover + .c10 {
+  box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c19 .c10:hover,
+.c19 .c10:focus {
+  outline: none;
+  cursor: not-allowed;
+}
+
+.c19 .c6 {
+  padding: 1px 0 0 0;
+}
+
+.c19 .c8,
+.c19 svg {
+  padding: 1px;
+}
+
+.c19 .c6,
+.c19 .c8,
+.c19 .c10,
+.c19 svg {
+  height: 15px;
+  width: 15px;
+}
+
+.c19 .c8:not([disabled]):focus + .c10,
+.c19 .c8:not([disabled]):hover + .c10 {
+  box-shadow: none;
+}
+
+.c19 .c8:not([disabled]):focus + .c10 > svg,
+.c19 .c8:not([disabled]):hover + .c10 > svg {
+  border: 1px solid #1963f6;
+  outline: none;
+}
+
+.c19 .c6 {
+  margin-right: 16px;
+}
+
+.c19 .c10 {
+  padding: 0;
+}
+
+.c19 .c10,
+.c19 svg {
+  border-radius: 50%;
+}
+
+.c19 .c6,
+.c19 .c8,
+.c19 .c10,
+.c19 svg {
+  height: 16px;
+  width: 16px;
+}
+
+.c19 .c8:checked + .c10 circle {
+  fill: rgba(0,0,0,0.9);
+}
+
+.c19 .c8:checked + .c10 circle {
+  fill: #4d7080;
+}
+
+.c19 .c6,
+.c19 .c8,
+.c19 .c10,
+.c19 svg {
+  height: 15px;
+  width: 15px;
+}
+
+.c19 .c6 {
+  margin-right: 6px;
+}
+
+.c19 .c8:not([disabled]):focus + .c10 > svg {
+  box-shadow: 0 0 6px rgba(25,99,246,0.6);
+  -webkit-transition: box-shadow 0.1s linear;
+  transition: box-shadow 0.1s linear;
+}
+
+.c19 .c8:checked + .c10 circle {
+  fill: rgba(0,0,0,0.85);
+}
+
+.c19 .c8:checked + .c10 circle {
+  fill: #8099a4;
+}
+
+.c20 .c6 {
+  padding-top: 1px;
+}
+
+.c20 .c10 {
+  height: 16px;
+}
+
+.c20 .c8,
+.c20 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c20 .c6,
+.c20 .c8,
+.c20 .c10,
+.c20 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c20 .c8:not([disabled]):focus + .c10,
+.c20 .c8:not([disabled]):hover + .c10 {
+  box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c20 .c6 {
+  padding: 1px 0 0 0;
+}
+
+.c20 .c8,
+.c20 svg {
+  padding: 1px;
+}
+
+.c20 .c6,
+.c20 .c8,
+.c20 .c10,
+.c20 svg {
+  height: 15px;
+  width: 15px;
+}
+
+.c20 .c8:not([disabled]):focus + .c10,
+.c20 .c8:not([disabled]):hover + .c10 {
+  box-shadow: none;
+}
+
+.c20 .c8:not([disabled]):focus + .c10 > svg,
+.c20 .c8:not([disabled]):hover + .c10 > svg {
+  border: 1px solid #1963f6;
+  outline: none;
+}
+
+.c20 .c6 {
+  margin-right: 16px;
+}
+
+.c20 .c10 {
+  padding: 0;
+}
+
+.c20 .c10,
+.c20 svg {
+  border-radius: 50%;
+}
+
+.c20 .c6,
+.c20 .c8,
+.c20 .c10,
+.c20 svg {
+  height: 16px;
+  width: 16px;
+}
+
+.c20 .c8:checked + .c10 circle {
+  fill: rgba(0,0,0,0.9);
+}
+
+.c20 .c6,
+.c20 .c8,
+.c20 .c10,
+.c20 svg {
+  height: 15px;
+  width: 15px;
+}
+
+.c20 .c6 {
+  margin-right: 6px;
+}
+
+.c20 .c8:not([disabled]):focus + .c10 > svg {
+  box-shadow: 0 0 6px rgba(25,99,246,0.6);
+  -webkit-transition: box-shadow 0.1s linear;
+  transition: box-shadow 0.1s linear;
+}
+
+.c20 .c8:checked + .c10 circle {
+  fill: rgba(0,0,0,0.85);
+}
+
+.c20 .c6 {
+  margin-left: 6px;
+}
+
+.c21 .c6 {
+  padding-top: 1px;
+}
+
+.c21 .c10 {
+  height: 16px;
+}
+
+.c21 .c8,
+.c21 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c21 .c6,
+.c21 .c8,
+.c21 .c10,
+.c21 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c21 .c8:not([disabled]):focus + .c10,
+.c21 .c8:not([disabled]):hover + .c10 {
+  box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c21 .c6 {
+  padding: 1px 0 0 0;
+}
+
+.c21 .c8,
+.c21 svg {
+  padding: 1px;
+}
+
+.c21 .c6,
+.c21 .c8,
+.c21 .c10,
+.c21 svg {
+  height: 15px;
+  width: 15px;
+}
+
+.c21 .c8:not([disabled]):focus + .c10,
+.c21 .c8:not([disabled]):hover + .c10 {
+  box-shadow: none;
+}
+
+.c21 .c8:not([disabled]):focus + .c10 > svg,
+.c21 .c8:not([disabled]):hover + .c10 > svg {
+  border: 1px solid #1963f6;
+  outline: none;
+}
+
+.c21 .c6 {
+  margin-right: 16px;
+}
+
+.c21 .c10 {
+  padding: 0;
+}
+
+.c21 .c10,
+.c21 svg {
+  border-radius: 50%;
+}
+
+.c21 .c6,
+.c21 .c8,
+.c21 .c10,
+.c21 svg {
+  height: 16px;
+  width: 16px;
+}
+
+.c21 .c8:checked + .c10 circle {
+  fill: rgba(0,0,0,0.9);
+}
+
+.c21 .c6,
+.c21 .c8,
+.c21 .c10,
+.c21 svg {
+  height: 15px;
+  width: 15px;
+}
+
+.c21 .c6 {
+  margin-right: 6px;
+}
+
+.c21 .c8:not([disabled]):focus + .c10 > svg {
+  box-shadow: 0 0 6px rgba(25,99,246,0.6);
+  -webkit-transition: box-shadow 0.1s linear;
+  transition: box-shadow 0.1s linear;
+}
+
+.c21 .c8:checked + .c10 circle {
+  fill: rgba(0,0,0,0.85);
+}
+
+.c21 .c6 {
+  margin-left: 6px;
+}
+
+.c2 {
+  padding-top: 8px;
+  margin-bottom: 12px;
+}
+
+.c2 .c6 {
+  padding-top: 1px;
+}
+
+.c2 .c10 {
+  height: 16px;
+}
+
+.c2 svg {
+  background-color: #FFFFFF;
+  border: 1px solid #668491;
+}
+
+.c2 .c8,
+.c2 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c2 .c6,
+.c2 .c8,
+.c2 .c10,
+.c2 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c2 .c8:not([disabled]):focus + .c10,
+.c2 .c8:not([disabled]):hover + .c10 {
+  box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c2 .c25 {
+  padding: 0 6px;
+  width: auto;
+}
+
+.c2 .c22 {
+  margin-left: 16px;
+  margin-top: 0;
+  padding-left: 6px;
+}
+
+.c2 .c24 {
+  position: relative;
+  display: inline-block;
+}
+
+.c2 .c22 {
+  margin-left: 32px;
+}
+
+.c2 .c6 {
+  margin-right: 16px;
+}
+
+.c2 .c10 {
+  padding: 0;
+}
+
+.c2 .c10,
+.c2 svg {
+  border-radius: 50%;
+}
+
+.c2 .c6,
+.c2 .c8,
+.c2 .c10,
+.c2 svg {
+  height: 16px;
+  width: 16px;
+}
+
+.c2 svg {
+  padding: 1px;
+}
+
+.c2 circle {
+  r: 5;
+}
+
+.c2 .c8:checked + .c10 circle {
+  fill: rgba(0,0,0,0.9);
+}
+
+.c1 {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.c1.c1.c1 .c4 {
+  margin-top: 0;
+  margin-bottom: -1px;
+}
+
+.c0 .c26 {
+  margin-bottom: 16px;
+  height: 26px;
+}
+
+.c0 .c26 legend {
+  font-size: 14px;
+  margin-left: -2px;
+}
+
+<fieldset
+  aria-labelledby="undefined-label"
+  className="c0 c1"
+  data-component="radiogroup"
+  role="radiogroup"
+>
+  <div
+    checked={false}
+    className="c2"
+    data-component="radio-button"
+    onBlur={[Function]}
+  >
+    <div
+      checked={false}
+      className="c3"
+      onBlur={[Function]}
+    >
+      <div
+        className="c4 c5"
+      >
+        <div
+          className="c6 c7"
+        >
+          <input
+            aria-checked={false}
+            aria-describedby="guid-12345-help"
+            aria-labelledby="guid-12345-label"
+            checked={false}
+            className="c8 c9"
+            id="guid-12345"
+            onBlur={[Function]}
+            onChange={[Function]}
+            role="radio"
+            type="radio"
+            value="test"
+          />
+          <div
+            className="c10 "
+          >
+            <svg
+              focusable="false"
+              viewBox="0 0 15 15"
+            >
+              <g
+                fill="none"
+                fillRule="evenodd"
+                stroke="none"
+                strokeWidth="1"
+              >
+                <circle
+                  className="radio-button-check"
+                  cx="7.5"
+                  cy="7.5"
+                  fill="#FFFFFF"
+                  r="5"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</fieldset>
+`;

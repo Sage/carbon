@@ -1,4 +1,4 @@
-@import "./../../style-config/colors";
+@import "../../style-config/colors.scss";
 
 .carbon-pod__block {
   background-color: $white;
@@ -36,11 +36,15 @@
     background-color: $blue-dark;
     color: $white;
 
+    [data-component='icon'] {
+      color: $white
+    }
+
     * {
       color: $white;
     }
 
-    .carbon-portrait .carbon-icon__svg path {
+    .carbon-portrait svg path {
       color: $grey-dark-blue-50;
     }
   }
@@ -247,6 +251,28 @@
 
   .carbon-pod__edit-action {
     border: none;
+  }
+
+  &.carbon-pod--right {
+    .carbon-pod__content--padding {
+      &-extra-small {
+        .carbon-pod__header.carbon-pod__header--right {
+          margin-right: 20px;
+        }
+      }
+
+      &-small {
+        .carbon-pod__header.carbon-pod__header--right {
+          margin-right: 25px;
+        }
+      }
+
+      &-medium, &-large, &-extra-large {
+        .carbon-pod__header.carbon-pod__header--right {
+          margin-right: 30px;
+        }
+      }
+    }
   }
 
   &.carbon-pod--is-hovered.carbon-pod--is-hovered {

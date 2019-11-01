@@ -5,75 +5,41 @@ exports[`InputDecoratorBridge renders the Textbox component with:
          * markup for label, validation and field help
          * children and left children 1`] = `
 <div
-  className=" common-input--error common-input--has-field-help common-input"
+  className="common-input"
 >
   <div
     className="common-input__field"
-    onMouseOut={[Function]}
-    onMouseOver={[Function]}
   >
     <Textbox
       autoComplete="off"
       data-element="input"
-      id="mocked-guid"
+      fieldHelp="please help!"
       inputRef={[Function]}
       leftChildren="southpaw children"
-      onBlur={[Function]}
       onChange={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
       value="1"
     >
       normal children
     </Textbox>
   </div>
-  <Icon
-    bgSize="small"
-    className="common-input__icon common-input__icon--error"
-    key="0"
-    style={Object {}}
-    type="error"
-  />
-  <span
-    className="common-input__help-text"
-    data-element="help"
-    style={Object {}}
-  >
-    please help!
-  </span>
 </div>
 `;
 
 exports[`InputDecoratorBridge renders with an inputIcon if one is supplied 1`] = `
 <div
-  className="common-input--with-icon common-input"
+  className="common-input"
 >
   <div
     className="common-input__field"
-    onMouseOut={[Function]}
-    onMouseOver={[Function]}
   >
     <Textbox
       autoComplete="off"
       data-element="input"
-      id="mocked-guid"
+      inputIcon="dropdown"
       inputRef={[Function]}
-      onBlur={[Function]}
       onChange={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
       value="1"
     />
-    <label
-      htmlFor="mocked-guid"
-      key="label-icon"
-    >
-      <Icon
-        bgSize="small"
-        className="carbon-input-icon"
-        type="dropdown"
-      />
-    </label>
   </div>
 </div>
 `;

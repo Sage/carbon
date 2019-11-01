@@ -1,22 +1,9 @@
-import { assertIsSubset, baseThemeConfig, palette } from '../test-utils';
+import { assertIsSubset } from '../test-utils';
 import classicTheme from '.';
-
+import baseTheme from '../base';
 
 describe('classicTheme', () => {
   it('contains the base theme', () => {
-    assertIsSubset(baseThemeConfig, classicTheme);
-  });
-
-  it('contains the classicTheme config', () => {
-    const classicThemeConfig = {
-      colors: {
-        base: palette.productGreen,
-        primary: palette.productGreenShade(21),
-        secondary: palette.productGreenShade(41),
-        tertiary: palette.productGreenShade(61)
-      }
-    };
-
-    assertIsSubset(classicThemeConfig, classicTheme);
+    assertIsSubset(baseTheme, classicTheme);
   });
 });

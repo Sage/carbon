@@ -3,10 +3,17 @@ import { storiesOf } from '@storybook/react';
 import { boolean, text, select } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
 import { action } from '@storybook/addon-actions';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import Button from '../button/button';
-import Alert from './alert';
-import notes from './notes.md';
+import Button from '../button';
+import Alert from '.';
+import { notes, info } from './documentation';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Alert.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /alert\.component(?!spec)/
+);
 
 const store = new Store({
   open: false
@@ -21,8 +28,8 @@ const handleOpen = () => {
   action('open')();
 };
 
-storiesOf('Alert', module)
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const title = text('title', 'Attention');
     const subtitle = text('subtitle', '');
     const children = text('children', 'This is an example of a alert.');
@@ -31,7 +38,7 @@ storiesOf('Alert', module)
     const ariaRole = text('ariaRole', 'dialog');
     const height = text('height', '');
     const showCloseIcon = boolean('showCloseIcon', true);
-    const size = select('size', OptionsHelper.sizesFull, OptionsHelper.sizesFull[0]);
+    const size = select('size', OptionsHelper.sizesFull, Alert.defaultProps.size);
     const stickyFormFooter = boolean('stickyFormFooter', false);
     const open = boolean('open', false);
 
@@ -52,10 +59,17 @@ storiesOf('Alert', module)
         {children}
       </Alert>
     );
-  }, {
-    notes: { markdown: notes }
-  })
-  .add('with button', () => {
+  };
+
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+function makeButtonStory(name, themeSelector) {
+  const component = () => {
     const title = text('title', 'Attention');
     const subtitle = text('subtitle', '');
     const children = text('children', 'This is an example of a alert.');
@@ -64,7 +78,7 @@ storiesOf('Alert', module)
     const ariaRole = text('ariaRole', 'dialog');
     const height = text('height', '');
     const showCloseIcon = boolean('showCloseIcon', true);
-    const size = select('size', OptionsHelper.sizesFull, OptionsHelper.sizesFull[0]);
+    const size = select('size', OptionsHelper.sizesFull, Alert.defaultProps.size);
     const stickyFormFooter = boolean('stickyFormFooter', false);
 
     return (
@@ -88,6 +102,24 @@ storiesOf('Alert', module)
         </Alert>
       </State>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Alert', module)
+  .addParameters({
+    info: {
+      text: info,
+      propTablesExclude: [State, Button]
+    },
     notes: { markdown: notes }
-  });
+  })
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector))
+  .add(...makeButtonStory('with button', dlsThemeSelector))
+  .add(...makeButtonStory('with button classic', classicThemeSelector));

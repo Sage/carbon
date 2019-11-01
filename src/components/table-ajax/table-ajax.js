@@ -6,25 +6,6 @@ import {
 } from '../table';
 import Logger from '../../utils/logger';
 
-/**
- * A Table Ajax Widget
- *
- * == How to use a Table Ajax in a component
- *
- * In your file
- *
- *   import Table from 'carbon-react/lib/components/table-ajax';
- *   import { TableRow, TableCell, TableHeader } from 'carbon-react/lib/components/table';
- *
- * To render a Table please see the Table Component
- *
- * TableAjax requires a path to be provided
- *
- * <TableAjax
- *    path='./path'
- * >
- *
- */
 class TableAjax extends Table {
   /**
    * Timeout for firing ajax request
@@ -169,9 +150,9 @@ class TableAjax extends Table {
      * Total number of records in the grid
      *
      * @property totalRecords
-     * @type {String}
+     * @type {Number}
      */
-    totalRecords: this.props.totalRecords || '0',
+    totalRecords: this.props.totalRecords || 0,
 
     /**
      * Sorting
@@ -407,7 +388,7 @@ class TableAjax extends Table {
     if (!err) {
       const data = this.props.formatResponse ? this.props.formatResponse(response.body) : response.body;
       this.props.onChange(data);
-      this.setState({ totalRecords: String(data.records), dataState: 'loaded', ariaBusy: false });
+      this.setState({ totalRecords: Number(data.records), dataState: 'loaded', ariaBusy: false });
     } else if (this.props.onAjaxError) {
       this.setComponentTagsErrored();
       this.props.onAjaxError(err, response);

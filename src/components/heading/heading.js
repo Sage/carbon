@@ -3,36 +3,24 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Help from '../help';
 import Link from '../link';
-import Icon from '../icon';
 import tagComponent from '../../utils/helpers/tags';
 import './heading.scss';
+import { StyledHeading, StyledHeadingIcon } from './heading.style';
 
-/**
- * UI for a heading header.
- */
 class Heading extends React.Component {
   static propTypes = {
     /**
      * Children elements
-     *
-     * @property children
-     * @type {Node}
      */
     children: PropTypes.node,
 
     /**
      * Custom className
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * Defines the title for the heading.
-     *
-     * @property title
-     * @type {String|Object}
      */
     title: PropTypes.oneOfType([
       PropTypes.string,
@@ -41,17 +29,11 @@ class Heading extends React.Component {
 
     /**
      * Defines the title id for the heading.
-     *
-     * @property titleId
-     * @type {String}
      */
     titleId: PropTypes.string,
 
     /**
      * Defines the subheader for the heading.
-     *
-     * @property subheader
-     * @type {String|Object}
      */
     subheader: PropTypes.oneOfType([
       PropTypes.string,
@@ -60,33 +42,21 @@ class Heading extends React.Component {
 
     /**
      * Defines the subtitle id for the heading.
-     *
-     * @property subtitleId
-     * @type {String}
      */
     subtitleId: PropTypes.string,
 
     /**
      * Defines the help text for the heading.
-     *
-     * @property help
-     * @type {String}
      */
     help: PropTypes.string,
 
     /**
      * Defines the help link for the heading.
-     *
-     * @property helpLink
-     * @type {String}
      */
     helpLink: PropTypes.string,
 
     /**
      * Defines the a href for the back link.
-     *
-     * @property backLink
-     * @type {String}
      */
     backLink: PropTypes.oneOfType([
       PropTypes.string,
@@ -95,19 +65,11 @@ class Heading extends React.Component {
 
     /**
      * Adds a divider below the heading and the content.
-     *
-     * @property divider
-     * @type {Boolean}
-     * @default true
      */
     divider: PropTypes.bool,
 
     /**
      * Adds a separator between the title and the subheader.
-     *
-     * @property separator
-     * @type {Boolean}
-     * @default false
      */
     separator: PropTypes.bool
   }
@@ -158,11 +120,13 @@ class Heading extends React.Component {
 
     return (
       <Link
+        // this event allows an element to be focusable on click event on IE
+        onMouseDown={ e => e.currentTarget.focus() }
         className='carbon-heading__back'
         data-element='back'
         { ...props }
       >
-        <Icon type='chevron_left' />
+        <StyledHeadingIcon type='chevron_left' />
       </Link>
     );
   }
@@ -218,7 +182,7 @@ class Heading extends React.Component {
     if (!this.props.title) { return null; }
 
     return (
-      <div className={ this.classes } { ...tagComponent('heading', this.props) }>
+      <StyledHeading className={ this.classes } { ...tagComponent('heading', this.props) }>
         <div className='carbon-heading__header'>
           { this.back }
 
@@ -240,7 +204,7 @@ class Heading extends React.Component {
         </div>
 
         { this.props.children }
-      </div>
+      </StyledHeading>
     );
   }
 }

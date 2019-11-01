@@ -1,10 +1,17 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import { shallow } from 'enzyme';
+import 'jest-styled-components';
+import { shallow, mount } from 'enzyme';
 import Heading from './heading';
 import Help from './../help';
 import Link from './../link';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import DefaultPages from '../pages/pages.component'
+import Page from '../pages/page/page.component'
+import { PagesContent } from '../pages/pages.style';
+import LinkStyleAnchor from '../link/link.style';
+import smallTheme from '../../style/themes/small'
 
 describe('Heading', () => {
   let instance;
@@ -22,28 +29,41 @@ describe('Heading', () => {
     );
   });
 
-  it('renders with main classes', () => {
-    const div = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-heading');
-    expect(div.className).toEqual(
-      'carbon-heading custom carbon-heading--has-subheader carbon-heading--has-back carbon-heading--has-divider'
-    );
-  });
-
   it('renders a h1 with the title', () => {
     const div = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-heading__title');
     expect(div.textContent).toEqual('foo');
   });
 
   it('renders a help component', () => {
-    const help = TestUtils.findRenderedComponentWithType(instance, Help);
-    expect(help.props.className).toEqual('carbon-heading__help');
-    expect(help.props.href).toEqual('/bar');
+    const wrapper = mount(<Heading title='Test' help='bar' helpLink='/bar' />);
+    const help = wrapper.find(Help);
+
+    expect(help.props().className).toEqual('carbon-heading__help');
+    expect(help.props().href).toEqual('/bar');
   });
 
   it('renders a back link', () => {
     const link = TestUtils.findRenderedComponentWithType(instance, Link);
     expect(link.props.className).toEqual('carbon-heading__back');
     expect(link.props.href).toEqual('/foobar');
+  });
+
+  it('renders a back link with focus support on Internet Explorer', () => {
+    const wrapper = mount(
+      <DefaultPages>
+        <Page title={
+          <Heading title='My Second Page' backLink={() => { }} />
+        }
+        >test
+          </Page>
+      </DefaultPages>)
+
+    const link = wrapper.find(Link);
+    link.simulate('mousedown');
+
+    assertStyleMatch({
+      outline: `solid 3px ${smallTheme.colors.focus}`
+    }, wrapper.find(PagesContent), { modifier: `${LinkStyleAnchor}:focus` })
   });
 
   it('renders a subheader', () => {
@@ -63,7 +83,7 @@ describe('Heading', () => {
   describe('no divider', () => {
     it('returns nothing', () => {
       instance = TestUtils.renderIntoDocument(
-        <Heading title='foo' divider={ false } />
+        <Heading title='foo' divider={false} />
       );
       expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-heading--has-divider').length).toEqual(0);
     });
@@ -89,12 +109,11 @@ describe('Heading', () => {
 
   describe('no help text but a help link', () => {
     it('still renders the help icon', () => {
-      instance = TestUtils.renderIntoDocument(
-        <Heading title='foo' helpLink='/bar' />
-      );
-      const help = TestUtils.findRenderedComponentWithType(instance, Help);
-      expect(help.props.className).toEqual('carbon-heading__help');
-      expect(help.props.href).toEqual('/bar');
+      const wrapper = mount(<Heading title='Test' helpLink='/bar' />);
+      const help = wrapper.find(Help);
+
+      expect(help.props().className).toEqual('carbon-heading__help');
+      expect(help.props().href).toEqual('/bar');
     });
   });
 
@@ -110,10 +129,11 @@ describe('Heading', () => {
   describe('when the backLink is a function', () => {
     it('sets it as the link onClick prop', () => {
       const backLinkSpy = jasmine.createSpy(),
-          wrapper = shallow(<Heading title='Test' backLink={ backLinkSpy } />),
-          link = wrapper.find('[data-element="back"]');
+        wrapper = shallow(<Heading title='Test' backLink={backLinkSpy} />),
+        link = wrapper.find('[data-element="back"]');
 
-      expect(link.props().onClick).toEqual(backLinkSpy);
+      expect(link.props().onClick.toBeDefined);
+      expect(link.props().onClick()).toEqual(wrapper.props().backLink);
     });
   });
 

@@ -1,0 +1,114 @@
+{
+  "src/components/pill/pill.component.js": [
+    {
+      "description": "",
+      "displayName": "Pill",
+      "methods": [
+        {
+          "name": "renderCloseIcon",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        }
+      ],
+      "props": {
+        "as": {
+          "type": {
+            "name": "enum",
+            "value": [
+              {
+                "value": "...OptionsHelper.colors",
+                "computed": true
+              },
+              {
+                "value": "'disabled'",
+                "computed": false
+              }
+            ]
+          },
+          "required": false,
+          "description": "Sets the theme of the notification [legacy].",
+          "defaultValue": {
+            "value": "'default'",
+            "computed": false
+          }
+        },
+        "colorVariant": {
+          "type": {
+            "name": "enum",
+            "value": [
+              {
+                "value": "...OptionsHelper.pillColors",
+                "computed": true
+              },
+              {
+                "value": "'warning'",
+                "computed": false
+              }
+            ]
+          },
+          "required": false,
+          "description": "Sets the theme of the notification."
+        },
+        "children": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": "This component supports children."
+        },
+        "fill": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Fills the pill background with colour. When fill is false only the border is coloured.",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "pillRole": {
+          "type": {
+            "name": "enum",
+            "value": [
+              {
+                "value": "...OptionsHelper.pillRoles",
+                "computed": true
+              }
+            ]
+          },
+          "required": false,
+          "description": "Sets the type of pill in use.",
+          "defaultValue": {
+            "value": "'tag'",
+            "computed": false
+          }
+        },
+        "onClick": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Callback function for when the pill is clicked.",
+          "defaultValue": {
+            "value": "null",
+            "computed": false
+          }
+        },
+        "onDelete": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Callback function to delete the component, when the added Icon is clicked.",
+          "defaultValue": {
+            "value": "null",
+            "computed": false
+          }
+        }
+      }
+    }
+  ]
+}

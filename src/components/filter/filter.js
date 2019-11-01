@@ -1,22 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Form from '../form';
+import Form from '../../__deprecated__/components/form';
 import tagComponent from '../../utils/helpers/tags';
 import './filter.scss';
 
-/**
- * @class Filter
- * @constructor
- */
 class Filter extends Form {
   static propTypes = {
     /**
      * Aligns the children in the filter.
-     *
-     * @property align
-     * @type {String}
-     * @default left
      */
     align: PropTypes.string
   }

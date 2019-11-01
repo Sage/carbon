@@ -9,33 +9,21 @@ class Detail extends React.Component {
   static propTypes = {
     /**
      * Custom className
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * The type of icon to use.
-     *
-     * @property icon
-     * @type {Object}
      */
     icon: PropTypes.string,
 
     /**
      * A small detail to display under the main content.
-     *
-     * @property footnote
-     * @type {String}
      */
     footnote: PropTypes.string,
 
     /**
      * The rendered children of the component.
-     *
-     * @property children
-     * @type {Node}
      */
     children: PropTypes.node
   }

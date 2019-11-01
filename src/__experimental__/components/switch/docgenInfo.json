@@ -1,0 +1,271 @@
+{
+  "src/__experimental__/components/switch/switch-slider.component.js": [
+    {
+      "description": "",
+      "displayName": "SwitchSlider",
+      "methods": [],
+      "props": {
+        "checked": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": ""
+        },
+        "disabled": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": ""
+        },
+        "loading": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": ""
+        },
+        "theme": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "",
+          "defaultValue": {
+            "value": "baseTheme",
+            "computed": true
+          }
+        }
+      }
+    }
+  ],
+  "src/__experimental__/components/switch/switch.component.js": [
+    {
+      "description": "",
+      "displayName": "Switch",
+      "methods": [],
+      "props": {
+        "checked": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Set the value of the Switch if component is meant to be used as controlled"
+        },
+        "defaultChecked": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Set the default value of the Switch if component is meant to be used as uncontrolled"
+        },
+        "disabled": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Toggles disabling of input"
+        },
+        "fieldHelp": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Displays additional information below the input to provide help to the user."
+        },
+        "fieldHelpInline": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Displays fieldHelp inline with the checkbox"
+        },
+        "id": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Unique Identifier for the input. Will use a randomly generated GUID if none is provided"
+        },
+        "inputWidth": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "number"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Sets percentage-based input width"
+        },
+        "label": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The content of the label for the input"
+        },
+        "labelHelp": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Help text"
+        },
+        "labelAlign": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Sets label alignment - accepted values: 'left' (default), 'right'"
+        },
+        "labelInline": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Displays label inline with the Switch",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "labelWidth": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "number"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Sets percentage-based label width"
+        },
+        "helpTabIndex": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "number"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Override tab index on the validation and help icon",
+          "defaultValue": {
+            "value": "0",
+            "computed": false
+          }
+        },
+        "loading": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Triggers loading animation"
+        },
+        "onChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Accepts a callback function which can be used to update parent state on change"
+        },
+        "reverse": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Reverses label and Switch display",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "size": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Set the size of the Switch to 'small' (16x16 - default) or 'large' (24x24).\nNo effect when using Classic theme."
+        },
+        "theme": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "Current theme"
+        },
+        "value": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": "the value of the checkbox, passed on form submit"
+        },
+        "hasError": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Prop to indicate that an error has occurred",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "hasWarning": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Prop to indicate that a warning has occurred",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "hasInfo": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Prop to indicate additional information",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        }
+      }
+    }
+  ],
+  "src/__experimental__/components/switch/switch.stories.js": [
+    {
+      "description": "",
+      "displayName": "switchWrapper",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "switchClassic",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "switchComponent",
+      "methods": []
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 import InlineInputs from './';
-import TextboxDefinition from './../textbox/__definition__';
-import DecimalDefinition from './../decimal/__definition__';
-import DropdownFilterAjaxDefintion from './../dropdown-filter-ajax/__definition__';
-import Definition from './../../../demo/utils/definition';
+import TextboxDefinition from '../../__deprecated__/components/textbox/__definition__';
+import DecimalDefinition from '../../__deprecated__/components/decimal/__definition__';
+import DropdownFilterAjaxDefintion from '../../__deprecated__/components/dropdown-filter-ajax/__definition__';
+import Definition from '../../../demo/utils/definition';
 
 let definition = new Definition('inline-inputs', InlineInputs, {
   description: 'Edits a set of closely related inputs that are grouped together.',

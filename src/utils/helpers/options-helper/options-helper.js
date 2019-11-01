@@ -23,6 +23,17 @@ const OptionsHelper = {
     'top'
   ],
 
+  actionOptions: [
+    'Button',
+    'Link'
+  ],
+
+  additionalActionAlignments: [
+    'additionalActions',
+    'leftAlignedActions',
+    'rightAlignedActions'
+  ],
+
   buttonColors: [
     'blue',
     'grey',
@@ -30,6 +41,11 @@ const OptionsHelper = {
     'magenta-dull',
     'red',
     'white'
+  ],
+
+  buttonIconPositions: [
+    'before',
+    'after'
   ],
 
   colors: [
@@ -43,13 +59,61 @@ const OptionsHelper = {
     'warning'
   ],
 
+  pillColors: [
+    'neutral',
+    'negative',
+    'positive'
+  ],
+
+  pillRoles: [
+    'tag',
+    'status'
+  ],
+
+  pillSizesRestricted: [
+    'S',
+    'M',
+    'L',
+    'XL'
+  ],
+
+  toast: [
+    'success',
+    'error'
+  ],
+
+  messages: [
+    'info',
+    'error',
+    'success',
+    'warning'
+  ],
+
+  iconBackgrounds: [
+    'info',
+    'error',
+    'success',
+    'warning',
+    'business',
+    'none'
+  ],
+
+  iconColors: [
+    'default',
+    'on-light-background',
+    'on-dark-background',
+    'business-color'
+  ],
+
   icons: [
     'add',
     'alert',
     'analysis',
     'arrow_down',
     'arrow_left',
+    'arrow_left_small',
     'arrow_right',
+    'arrow_right_small',
     'arrow_up',
     'attach',
     'basket',
@@ -75,6 +139,7 @@ const OptionsHelper = {
     'chevron_up',
     'clock',
     'close',
+    'coins',
     'collaborate',
     'copy',
     'connect',
@@ -126,6 +191,7 @@ const OptionsHelper = {
     'message',
     'messages',
     'minus',
+    'minus_large',
     'mobile',
     'pdf',
     'people',
@@ -133,7 +199,9 @@ const OptionsHelper = {
     'phone',
     'play',
     'plus',
+    'plus_large',
     'print',
+    'progress',
     'progressed',
     'question',
     'refresh',
@@ -154,8 +222,7 @@ const OptionsHelper = {
     'uploaded',
     'video',
     'view',
-    'warning',
-    'white-tick'
+    'warning'
   ],
 
   orientation: [
@@ -182,6 +249,21 @@ const OptionsHelper = {
     'standard',
     'circle',
     'leaf'
+  ],
+
+  shapesPortrait: [
+    'circle',
+    'square'
+  ],
+
+  sizesPortrait: [
+    'XS',
+    'S',
+    'M',
+    'ML',
+    'L',
+    'XL',
+    'XXL'
   ],
 
   sizesFull: [
@@ -213,10 +295,26 @@ const OptionsHelper = {
     'large'
   ],
 
+  sizesTile: [
+    'XS',
+    'S',
+    'M',
+    'L',
+    'XL'
+  ],
+
   steps: [
     'complete',
     'current',
     'incomplete'
+  ],
+
+  buttonTypes: [
+    'primary',
+    'secondary',
+    'tertiary',
+    'destructive',
+    'darkBackground'
   ],
 
   themesBinary: [
@@ -230,6 +328,46 @@ const OptionsHelper = {
     'tertiary',
     'tile',
     'transparent'
+  ],
+
+  tableThemes: [
+    'primary',
+    'secondary',
+    'tertiary',
+    'dark',
+    'light',
+    'transparent'
+  ],
+
+  tableSizes: [
+    'compact',
+    'small',
+    'medium',
+    'large'
+  ],
+
+  tileThemes: [
+    'tile',
+    'transparent'
+  ],
+
+  validationTypes: [
+    'error',
+    'warning',
+    'info'
+  ],
+
+  inputTypes: [
+    'textbox',
+    'textarea',
+    'date',
+    'decimal',
+    'select'
+  ],
+
+  formButtonOptions: [
+    'save',
+    'cancel'
   ],
 
   positionDatePicker: [

@@ -1,0 +1,41 @@
+{
+  "src/components/menu/submenu-block/submenu-block.js": [
+    {
+      "description": "Renders a menu block for inside of a submenu.",
+      "displayName": "SubmenuBlock",
+      "methods": [
+        {
+          "name": "classes",
+          "docblock": "Returns the classes for the component.\n\n@method classes\n@return {String}",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "String"
+            }
+          },
+          "description": "Returns the classes for the component."
+        }
+      ],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": true,
+          "description": "Children elements"
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Custom className"
+        }
+      }
+    }
+  ]
+}

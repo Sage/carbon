@@ -1,0 +1,47 @@
+{
+  "src/components/inline-inputs/inline-inputs.component.js": [
+    {
+      "description": "",
+      "displayName": "InlineInputs",
+      "methods": [],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Children elements",
+          "defaultValue": {
+            "value": "null",
+            "computed": false
+          }
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "[Legacy prop] A custom class name for the component.",
+          "defaultValue": {
+            "value": "''",
+            "computed": false
+          }
+        },
+        "label": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Defines the label text for the heading."
+        },
+        "htmlFor": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The id of the corresponding input control for the label"
+        }
+      }
+    }
+  ]
+}

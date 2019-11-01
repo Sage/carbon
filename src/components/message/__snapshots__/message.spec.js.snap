@@ -1,0 +1,241 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Message when in classic mode when rendered should match the snapshot 1`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid;
+  background-color: #FFFFFF;
+  min-height: 38px;
+  border: none;
+  background-color: #335c6d;
+  border-radius: 3px;
+  border: 1px solid #335c6d;
+}
+
+<div
+  className="c0"
+>
+  Message
+</div>
+`;
+
+exports[`Message when in classic mode when rendered should match the snapshot 2`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #C7384F;
+  background-color: #FFFFFF;
+  min-height: 38px;
+  border: none;
+  background-color: #fdf5f5;
+  border-radius: 3px;
+  border: 1px solid #f7d9d9;
+}
+
+<div
+  className="c0"
+>
+  Message
+</div>
+`;
+
+exports[`Message when in classic mode when rendered should match the snapshot 3`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid;
+  background-color: #FFFFFF;
+  min-height: 38px;
+  border: none;
+  background-color: #fffbf2;
+  border-radius: 3px;
+  border: 1px solid #fec;
+}
+
+<div
+  className="c0"
+>
+  Message
+</div>
+`;
+
+exports[`Message when in classic mode when rendered should match the snapshot 4`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #0073C2;
+  background-color: #FFFFFF;
+  min-height: 38px;
+  border: none;
+  background-color: #f3f8fe;
+  border-radius: 3px;
+  border: 1px solid #d0e3fa;
+}
+
+<div
+  className="c0"
+>
+  Message
+</div>
+`;
+
+exports[`Message when in classic mode when rendered should match the snapshot 5`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid;
+  background-color: #FFFFFF;
+  min-height: 38px;
+  border: none;
+  background-color: #fff8f2;
+  border-radius: 3px;
+  border: 1px solid #ffe4cc;
+}
+
+<div
+  className="c0"
+>
+  Message
+</div>
+`;
+
+exports[`Message when in classic mode when rendered should match the snapshot 6`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid;
+  background-color: #FFFFFF;
+  min-height: 38px;
+  border: none;
+  background-color: #f7f5fa;
+  border-radius: 3px;
+  border: 1px solid #e0d6eb;
+}
+
+<div
+  className="c0"
+>
+  Message
+</div>
+`;
+
+exports[`Message when in classic mode when rendered should match the snapshot 7`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #00B000;
+  background-color: #FFFFFF;
+  min-height: 38px;
+  border: none;
+  background-color: #f6fbf6;
+  border-radius: 3px;
+  border: 1px solid #dcf1da;
+}
+
+<div
+  className="c0"
+>
+  Message
+</div>
+`;
+
+exports[`Message when in classic mode when rendered should match the snapshot 8`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #FFB500;
+  background-color: #FFFFFF;
+  min-height: 38px;
+  border: none;
+  background-color: #fff8f2;
+  border-radius: 3px;
+  border: 1px solid #ffe4cc;
+}
+
+<div
+  className="c0"
+>
+  Message
+</div>
+`;

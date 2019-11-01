@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Input from './input';
-import Form from './../../../components/form';
+import { BaseForm as Form } from '../../../__deprecated__/components/form';
 import Icon from './../../../components/icon';
 import Help from './../../../components/help';
 import { shallow } from 'enzyme';
@@ -401,7 +401,7 @@ describe('Input', () => {
     });
 
     it('returns a div with a icon', () => {
-      expect(inputHelp.props().className).toEqual('carbon-help common-input__input-help');
+      expect(inputHelp.props().className).toEqual('common-input__input-help');
       let help = inputHelp.props().children;
       expect(help.props.tooltipMessage).toEqual('Here is some help');
       expect(help.props.tooltipPosition).toEqual('top');

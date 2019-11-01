@@ -1,0 +1,622 @@
+{
+  "src/__experimental__/components/select/option.component.js": [
+    {
+      "description": "",
+      "displayName": "Option",
+      "methods": [],
+      "props": {
+        "text": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": "if children is undefined, text will be rendered as the Option content"
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "if defined, children will be rendered as the Option content"
+        },
+        "value": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": "the value of the Option"
+        },
+        "options": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "if defined, this object can be used to provide optional extra properties"
+        }
+      }
+    }
+  ],
+  "src/__experimental__/components/select/select-list.component.js": [
+    {
+      "description": "",
+      "displayName": "SelectList",
+      "methods": [
+        {
+          "name": "positionList",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "itemId",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "{ value, text, options }",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "noResultsText",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "value",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "filter",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "value",
+              "type": null
+            },
+            {
+              "name": "filter",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "highlightMatches",
+          "docblock": "Find and highlights search terms in text",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "optionText"
+            },
+            {
+              "name": "value"
+            }
+          ],
+          "returns": null,
+          "description": "Find and highlights search terms in text"
+        }
+      ],
+      "props": {
+        "id": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The ID for the parent <div>"
+        },
+        "alwaysHighlight": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Ensure that there's always a highlighted option?"
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Child components (such as <Option>) for the <ScrollableList>"
+        },
+        "customFilter": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A custom function to filter the children. Its interface is (text, value) => boolean"
+        },
+        "filterValue": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The value to filter the children by"
+        },
+        "onLazyLoad": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A custom callback for when more data needs to be lazy-loaded when the user scrolls the dropdown menu list"
+        },
+        "onMouseDown": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A custom callback for the parent <div>'s MouseDown event"
+        },
+        "onMouseEnter": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A custom callback for the parent <div>'s MouseEnter event"
+        },
+        "onMouseLeave": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A custom callback for the parent <div>'s MouseLeave event"
+        },
+        "onSelect": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A callback for when a child is selected"
+        },
+        "target": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "Target DOM element to position the dropdown menu list relative to"
+        }
+      }
+    }
+  ],
+  "src/__experimental__/components/select/select.component.js": [
+    {
+      "description": "Basic example:\n\n  <Select>\n    <Option text='Approve' />\n    <Option text='Configure' />\n    <Option text='Deny' />\n  </Select>\n\nCustom JSX:\n\n  <Select>\n    <Option text='Approve'><Icon type='tick' /></Option>\n    <Option text='Configure'><Icon type='settings' /></Option>\n    <Option text='Deny'><Icon type='cross' /></Option>\n  </Select>",
+      "displayName": "Select",
+      "methods": [
+        {
+          "name": "assignInput",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "input",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "blockBlur",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "unblockBlur",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "handleBlur",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "handleFocus",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "handleMouseEnter",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "handleMouseLeave",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "handleClick",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "handleChange",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "newValue",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "handleFilter",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "handleKeyDown",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "openWhenTypeAhead",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "typeAhead",
+              "type": null
+            },
+            {
+              "name": "value",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "openList",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "triggerChange",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "value",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "removeMultiItem",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "index",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "removeSingleItem",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "formattedValue",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "filterValue",
+              "type": null
+            },
+            {
+              "name": "value",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "value",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "value",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "renderMultiValues",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "values",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "isMultiValue",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "value",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "placeholder",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "placeholder",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "dataAttributes",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "inputIcon",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "typeAhead",
+              "type": null
+            },
+            {
+              "name": "value",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "eventProps",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "textboxProps",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "listDisplayable",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "isTypeAhead",
+              "type": null
+            }
+          ],
+          "returns": null
+        }
+      ],
+      "props": {
+        "ariaLabel": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": ""
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Child components (such as <Option>) for the <SelectList>"
+        },
+        "customFilter": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A custom function to filter the child components. Its interface is (text, value) => boolean"
+        },
+        "disabled": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Is the component disabled?"
+        },
+        "label": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Label text for the <Textbox>"
+        },
+        "onBlur": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A custom callback for the <Textbox>'s Blur event"
+        },
+        "onChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A custom callback for when changes occur"
+        },
+        "onFocus": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A custom callback for the <Textbox>'s Focus event"
+        },
+        "onOpen": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A custom callback for when the dropdown menu opens"
+        },
+        "onLazyLoad": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A custom callback for when more data needs to be lazy-loaded when the user scrolls the dropdown menu list"
+        },
+        "onFilter": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A custom callback for the <Textbox>'s Change event"
+        },
+        "placeholder": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Placeholder text for the <Textbox>"
+        },
+        "readOnly": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Is the component read-only?"
+        },
+        "value": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "custom",
+                "raw": "optionShape"
+              },
+              {
+                "name": "arrayOf",
+                "value": {
+                  "name": "custom",
+                  "raw": "optionShape"
+                }
+              }
+            ]
+          },
+          "required": false,
+          "description": "The current value"
+        },
+        "data-component": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Name of the component"
+        },
+        "typeAhead": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Are >=3 characters required to trigger the dropdown menu?",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "filterable": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Can the user type a value in the <Textbox> to filter the dropdown menu options?",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "isAnyValueSelected": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": ""
+        }
+      }
+    }
+  ]
+}

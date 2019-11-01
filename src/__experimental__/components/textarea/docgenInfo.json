@@ -1,0 +1,291 @@
+{
+  "src/__experimental__/components/textarea/character-count/character-count.component.js": [
+    {
+      "description": "",
+      "displayName": "CharacterCount",
+      "methods": [],
+      "props": {
+        "value": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": ""
+        },
+        "limit": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": ""
+        },
+        "theme": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "",
+          "defaultValue": {
+            "value": "baseTheme",
+            "computed": true
+          }
+        }
+      }
+    }
+  ],
+  "src/__experimental__/components/textarea/character-count/classic-character-count.component.js": [
+    {
+      "description": "",
+      "displayName": "ClassicCharacterCount",
+      "methods": [],
+      "props": {
+        "value": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": ""
+        },
+        "limit": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": ""
+        }
+      }
+    }
+  ],
+  "src/__experimental__/components/textarea/textarea-input.component.js": [
+    {
+      "description": "",
+      "displayName": "TextareaInput",
+      "methods": [],
+      "props": {
+        "maxLength": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": ""
+        }
+      }
+    }
+  ],
+  "src/__experimental__/components/textarea/textarea.component.js": [
+    {
+      "description": "",
+      "displayName": "Textarea",
+      "methods": [
+        {
+          "name": "expandTextarea",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "renderValidation",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "overLimit",
+          "docblock": null,
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "characterCount",
+          "docblock": null,
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "inputRefCallback",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "inputRef",
+              "type": null
+            }
+          ],
+          "returns": null
+        }
+      ],
+      "props": {
+        "characterLimit": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Character limit of the textarea"
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Type of the icon that will be rendered next to the input"
+        },
+        "cols": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "The visible width of the text control, in average character widths"
+        },
+        "disabled": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Adds disabled property",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "enforceCharacterLimit": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Stop the user typing over the characterLimit",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "expandable": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Allows the Textareas Height to change based on user input",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "label": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The content of the label for the input"
+        },
+        "name": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Name of the input"
+        },
+        "onChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Specify a callback triggered on change"
+        },
+        "placeholder": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Placeholder text for the component"
+        },
+        "readOnly": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Adds readOnly property",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "rows": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "The number of visible text lines for the control"
+        },
+        "size": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.sizesRestricted"
+          },
+          "required": false,
+          "description": "One of type of size to apply to the textarea"
+        },
+        "value": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The value of the Textarea"
+        },
+        "warnOverLimit": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Whether to display the character count message in red",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "hasError": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Status of error validations"
+        },
+        "hasWarning": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Status of warnings"
+        },
+        "hasInfo": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Status of info"
+        },
+        "inputIcon": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Icon associated with this component"
+        },
+        "tooltipMessage": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A message to display as a tooltip to the component."
+        }
+      }
+    }
+  ]
+}
