@@ -26,7 +26,7 @@ HiddenCheckableInput.propTypes = {
   helpId: PropTypes.string,
   name: PropTypes.string,
   inputType: PropTypes.string.isRequired,
-  inputValue: PropTypes.string.isRequired,
+  inputValue: PropTypes.string,
   role: PropTypes.string,
   tabindex: PropTypes.number
 };

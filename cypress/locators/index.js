@@ -38,3 +38,10 @@ export const inputWidthPreview = () => cy.iFrame(INPUT_WIDTH_PREVIEW);
 export const commonDataElementInputPreview = () => cy.iFrame(COMMMON_DATA_ELEMENT_INPUT);
 export const getDataElementByValue = element => cy.iFrame(`[data-element="${element}"]`);
 export const getDataElementByNameAndValue = (name, value) => cy.iFrame(`[data-${name}="${value}"]`);
+
+// component preview locators into iFrame
+export const storyRootNoIframe = () => cy.get(STORY_ROOT);
+export const tooltipPreviewNoIframe = () => cy.get(TOOLTIP_PREVIEW);
+export const iconNoIframe = () => cy.get(ICON);
+export const getDataElementByValueNoIframe = element => cy.get(`[data-element="${element}"]`);
+export const commonDataElementInputPreviewNoIframe = () => cy.get(COMMMON_DATA_ELEMENT_INPUT);

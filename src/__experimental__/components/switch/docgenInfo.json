@@ -51,7 +51,14 @@
             "name": "bool"
           },
           "required": false,
-          "description": "Set the value of the Switch"
+          "description": "Set the value of the Switch if component is meant to be used as controlled"
+        },
+        "defaultChecked": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Set the default value of the Switch if component is meant to be used as uncontrolled"
         },
         "disabled": {
           "type": {
@@ -74,12 +81,41 @@
           "required": false,
           "description": "Displays fieldHelp inline with the checkbox"
         },
+        "id": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Unique Identifier for the input. Will use a randomly generated GUID if none is provided"
+        },
         "inputWidth": {
           "type": {
-            "name": "number"
+            "name": "union",
+            "value": [
+              {
+                "name": "number"
+              },
+              {
+                "name": "string"
+              }
+            ]
           },
           "required": false,
           "description": "Sets percentage-based input width"
+        },
+        "label": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The content of the label for the input"
+        },
+        "labelHelp": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Help text"
         },
         "labelAlign": {
           "type": {
@@ -101,10 +137,37 @@
         },
         "labelWidth": {
           "type": {
-            "name": "number"
+            "name": "union",
+            "value": [
+              {
+                "name": "number"
+              },
+              {
+                "name": "string"
+              }
+            ]
           },
           "required": false,
           "description": "Sets percentage-based label width"
+        },
+        "helpTabIndex": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "number"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Override tab index on the validation and help icon",
+          "defaultValue": {
+            "value": "0",
+            "computed": false
+          }
         },
         "loading": {
           "type": {
@@ -143,7 +206,47 @@
             "name": "object"
           },
           "required": false,
-          "description": ""
+          "description": "Current theme"
+        },
+        "value": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": "the value of the checkbox, passed on form submit"
+        },
+        "hasError": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Prop to indicate that an error has occurred",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "hasWarning": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Prop to indicate that a warning has occurred",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "hasInfo": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Prop to indicate additional information",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
         }
       }
     }
@@ -151,7 +254,17 @@
   "src/__experimental__/components/switch/switch.stories.js": [
     {
       "description": "",
-      "displayName": "SwitchWrapper",
+      "displayName": "switchWrapper",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "switchClassic",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "switchComponent",
       "methods": []
     }
   ]

@@ -7,3 +7,6 @@ export const selectInput = () => cy.iFrame(SELECT_INPUT);
 export const selectPill = index => cy.iFrame(SELECT)
   .find(`div:nth-child(${index})`)
   .find(PILL_PREVIEW);
+
+// component preview locators into iFrame
+export const selectInputNoIframe = () => cy.get(SELECT_INPUT);

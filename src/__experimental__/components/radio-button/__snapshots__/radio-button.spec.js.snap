@@ -37,9 +37,9 @@ exports[`RadioButton styles base renders as expected 1`] = `
 }
 
 .c12 .c8:hover,
-.c12 .c24:hover,
+.c12 .c25:hover,
 .c12 .c8:focus,
-.c12 .c24:focus {
+.c12 .c25:focus {
   outline: none;
   cursor: not-allowed;
 }
@@ -54,24 +54,24 @@ exports[`RadioButton styles base renders as expected 1`] = `
   flex-wrap: wrap;
 }
 
-.c3 .c24 {
+.c3 .c25 {
   text-align: left;
   width: auto;
   white-space: nowrap;
   margin-top: -2px;
 }
 
-.c3 .c24 .c23,
-.c3 .c24 .sc-bZQynM {
+.c3 .c25 .c23,
+.c3 .c25 .c24 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c3 .c24 .c23:hover,
-.c3 .c24 .sc-bZQynM:hover,
-.c3 .c24 .c23:focus,
-.c3 .c24 .sc-bZQynM:focus {
+.c3 .c25 .c23:hover,
+.c3 .c25 .c24:hover,
+.c3 .c25 .c23:focus,
+.c3 .c25 .c24:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -86,9 +86,9 @@ exports[`RadioButton styles base renders as expected 1`] = `
 }
 
 .c13 .c8:hover,
-.c13 .c24:hover,
+.c13 .c25:hover,
 .c13 .c8:focus,
-.c13 .c24:focus {
+.c13 .c25:focus {
   outline: none;
   cursor: not-allowed;
 }
@@ -785,7 +785,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
 
 .c2 svg {
   background-color: #FFFFFF;
-  border: solid 1px #668491;
+  border: 1px solid #668491;
 }
 
 .c2 .c8,
@@ -808,7 +808,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c2 .c24 {
+.c2 .c25 {
   padding: 0 6px;
   width: auto;
 }
@@ -817,6 +817,11 @@ exports[`RadioButton styles base renders as expected 1`] = `
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
+}
+
+.c2 .c24 {
+  position: relative;
+  display: inline-block;
 }
 
 .c2 .c22 {
@@ -867,12 +872,12 @@ exports[`RadioButton styles base renders as expected 1`] = `
   margin-bottom: -1px;
 }
 
-.c0 .c25 {
+.c0 .c26 {
   margin-bottom: 16px;
   height: 26px;
 }
 
-.c0 .c25 legend {
+.c0 .c26 legend {
   font-size: 14px;
   margin-left: -2px;
 }
@@ -887,10 +892,12 @@ exports[`RadioButton styles base renders as expected 1`] = `
     checked={false}
     className="c2"
     data-component="radio-button"
+    onBlur={[Function]}
   >
     <div
       checked={false}
       className="c3"
+      onBlur={[Function]}
     >
       <div
         className="c4 c5"
@@ -905,6 +912,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
             checked={false}
             className="c8 c9"
             id="guid-12345"
+            onBlur={[Function]}
             onChange={[Function]}
             role="radio"
             type="radio"

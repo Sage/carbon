@@ -87,6 +87,10 @@ export default (palette) => {
       switch: palette.slateTint(89.5)
     },
 
+    checkable: {
+      checked: 'rgba(0,0,0,0.90)'
+    },
+
     table: {
       primary: palette.slateTint(95),
       secondary: palette.slateTint(80),
