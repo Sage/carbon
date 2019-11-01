@@ -18,7 +18,6 @@ import baseTheme from '../../../style/themes/base';
 import classicTheme from '../../../style/themes/classic';
 import smallTheme from '../../../style/themes/small';
 import mediumTheme from '../../../style/themes/medium';
-import largeTheme from '../../../style/themes/large';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 
 jest.mock('../../../utils/helpers/guid');
@@ -435,32 +434,6 @@ describe('Switch', () => {
 
       describe('input hover / focus styles', () => {
         const hoverFocusStyles = { outline: `solid 3px ${mediumTheme.colors.focus}` };
-
-        it('applies the correct focus styles', () => {
-          assertStyleMatch(
-            hoverFocusStyles,
-            wrapper,
-            { modifier: css`${`${HiddenCheckableInputStyle}:not([disabled]):focus + ${StyledSwitchSlider}`}` }
-          );
-        });
-
-        it('applies the correct hover styles', () => {
-          assertStyleMatch(
-            hoverFocusStyles,
-            wrapper,
-            { modifier: css`${`${HiddenCheckableInputStyle}:not([disabled]):hover + ${StyledSwitchSlider}`}` }
-          );
-        });
-      });
-    });
-  });
-
-  describe('Large theme', () => {
-    describe('default', () => {
-      const wrapper = render({ theme: largeTheme }).toJSON();
-
-      describe('input hover / focus styles', () => {
-        const hoverFocusStyles = { outline: `solid 3px ${largeTheme.colors.focus}` };
 
         it('applies the correct focus styles', () => {
           assertStyleMatch(
