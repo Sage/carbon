@@ -83,6 +83,8 @@ const generateMenu = () => {
     menu.push(menuItems);
   }
 
+  menu.push(createMenuLink('Component Library', '/storybook'));
+
   return menu;
 }
 
