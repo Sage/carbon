@@ -186,7 +186,7 @@ describe('Date', () => {
       });
 
       describe('and the rawValue is invalid', () => {
-        it('then onBlur prop should not have been called', () => {
+        it('then it should return the previous valid date values', () => {
           simulateFocusOnInput(wrapper);
           const event = {
             target: {
@@ -197,7 +197,7 @@ describe('Date', () => {
           };
           expect(wrapper.find(BaseDateInput).instance()
             .buildCustomEvent(event, 'foo').target.value)
-            .toEqual({ formattedValue: '12/08/2019', rawValue: '2019-08-12' });
+            .toEqual({ formattedValue: firstDate, rawValue: '2019-08-12' });
         });
       });
     });
