@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Textbox from '../textbox';
 import I18nHelper from '../../../utils/helpers/i18n';
 import Logger from '../../../utils/logger';
-import createEvent from '../../../utils/helpers/createEvent';
+import { createEvent } from '../../../utils/helpers';
 
 class Decimal extends React.Component {
   state = {

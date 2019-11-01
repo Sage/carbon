@@ -4,7 +4,7 @@
  * to provide a name or value that does no appear in the DOM e.g. a component that has two controls associated with one
  * input.
  */
-export default (event, overrides) => {
+export default function createEvent(event, overrides) {
   if (!event) {
     throw new Error('Unable to extend event because event does not exist');
   }
@@ -22,4 +22,4 @@ export default (event, overrides) => {
   };
 
   return event;
-};
+}
