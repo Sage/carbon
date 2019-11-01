@@ -240,7 +240,7 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
             htmlFor="guid-12345"
           >
             <span
-              className="carbon-input-icon c3"
+              className="c3 carbon-input-icon"
               data-component="icon"
               data-element="dropdown"
               disabled={false}
@@ -661,7 +661,7 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
             htmlFor="guid-12345"
           >
             <span
-              className="carbon-input-icon c3"
+              className="c3 carbon-input-icon"
               data-component="icon"
               data-element="dropdown"
               disabled={false}

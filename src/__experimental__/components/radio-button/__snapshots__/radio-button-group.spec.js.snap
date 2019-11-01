@@ -197,13 +197,13 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   fill: rgba(0,0,0,0.9);
 }
 
-.c1 {
+.c0 {
   border: none;
   margin: 0;
   padding: 0;
 }
 
-.c1.c1.c1 .c6 {
+.c0.c0.c0 .c6 {
   margin-top: 0;
   margin-bottom: -1px;
 }
@@ -230,12 +230,12 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   outline: 2px solid #FFB500;
 }
 
-.c0 .c2 {
+.c1 .c2 {
   margin-bottom: 16px;
   height: 26px;
 }
 
-.c0 .c2 legend {
+.c1 .c2 legend {
   font-size: 14px;
   margin-left: -2px;
 }
