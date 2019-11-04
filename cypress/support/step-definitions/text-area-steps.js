@@ -9,6 +9,7 @@ import {
 
 const TEXT_ALIGN = 'text-align';
 const TEXTAREA_CLASS = 'carbon-textarea__input';
+export const DEBUG_FLAG = false;
 
 Then('Textarea component is expandable', () => {
   textareaChildren()
@@ -60,6 +61,13 @@ When('I set cols slider to {int}', (colsValue) => {
 
 When('I set rows slider to {int}', (rowsValue) => {
   setSlidebar(rowsSlider(), rowsValue);
+});
+
+Then('Textarea classic component is disabled', () => {
+  textareaChildren().should('be.disabled');
+  textareaChildren()
+    .should('have.css', 'color', 'rgb(179, 194, 200)')
+    .and('have.css', 'cursor', 'not-allowed');
 });
 
 Then('Textarea component is disabled', () => {
@@ -154,28 +162,56 @@ When('I input {string} into Textarea for deprecated component', (text) => {
   textareaInput().clear().type(text);
 });
 
-Then('Textarea component has warnOverLimit and used characters {int} of {int}', (overCharacterLimit, limit) => {
+Then('Textarea classic component has warnOverLimit and used characters {int} of {int}', (overCharacterLimit, limit) => {
+  cy.wait(200, { log: DEBUG_FLAG }); // required because docker might neee it
   characterLimit().parent()
     .should('have.text', `You have used ${overCharacterLimit} of ${limit} characters`)
     .and('have.css', 'color', 'rgb(199, 56, 79)');
 });
 
+Then('Textarea component has warnOverLimit and used characters {int} of {int}', (overCharacterLimit, limit) => {
+  cy.wait(200, { log: DEBUG_FLAG }); // required because docker might need it
+  characterLimitDefaultTextarea().should('have.text', `${overCharacterLimit}/${limit}`)
+    .and('have.css', 'color', 'rgb(199, 56, 79)');
+});
+
+Then('Textarea classic component has no warnOverLimit and used characters {int} of {int}', (charactersUsed, limit) => {
+  cy.wait(200, { log: DEBUG_FLAG }); // required because docker might need it
+  characterLimit().parent()
+    .should('have.text', `You have used ${charactersUsed} of ${limit} characters`)
+    .and('have.css', 'color', 'rgba(0, 0, 0, 0.85)');
+});
+
 Then('Textarea component has no warnOverLimit and used characters {int} of {int}', (charactersUsed, limit) => {
+  cy.wait(200, { log: DEBUG_FLAG }); // required because docker might need it
+  characterLimitDefaultTextarea().should('have.text', `${charactersUsed}/${limit}`)
+    .and('have.css', 'color', 'rgba(0, 0, 0, 0.55)');
+});
+
+Then('Textarea classic component has enforceCharacterLimit enabled and used characters {int} are equal to limit {int}', (charactersUsed, limit) => {
+  cy.wait(200, { log: DEBUG_FLAG }); // required because docker might need it
   characterLimit().parent()
     .should('have.text', `You have used ${charactersUsed} of ${limit} characters`)
     .and('have.css', 'color', 'rgba(0, 0, 0, 0.85)');
 });
 
 Then('Textarea component has enforceCharacterLimit enabled and used characters {int} are equal to limit {int}', (charactersUsed, limit) => {
+  cy.wait(200, { log: DEBUG_FLAG }); // required because docker might need it
+  characterLimitDefaultTextarea().should('have.text', `${charactersUsed}/${limit}`)
+    .and('have.css', 'color', 'rgba(0, 0, 0, 0.55)');
+});
+
+Then('Textarea classic component has enforceCharacterLimit disabled and used characters {int} are more than limit {int}', (charactersUsed, limit) => {
+  cy.wait(200, { log: DEBUG_FLAG }); // required because docker might need it
   characterLimit().parent()
     .should('have.text', `You have used ${charactersUsed} of ${limit} characters`)
     .and('have.css', 'color', 'rgba(0, 0, 0, 0.85)');
 });
 
 Then('Textarea component has enforceCharacterLimit disabled and used characters {int} are more than limit {int}', (charactersUsed, limit) => {
-  characterLimit().parent()
-    .should('have.text', `You have used ${charactersUsed} of ${limit} characters`)
-    .and('have.css', 'color', 'rgba(0, 0, 0, 0.85)');
+  cy.wait(200, { log: DEBUG_FLAG }); // required because docker might need it
+  characterLimitDefaultTextarea().should('have.text', `${charactersUsed}/${limit}`)
+    .and('have.css', 'color', 'rgba(0, 0, 0, 0.55)');
 });
 
 When('I input {string} into Textarea', (text) => {

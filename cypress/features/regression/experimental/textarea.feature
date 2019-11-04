@@ -3,18 +3,18 @@ Feature: Experimental Textarea component
 
   Background: Open Experimental Textarea component page
     Given I open "Experimental Textarea" component page
-@ignore
+
   @positive
   Scenario: Enable expandable checkbox for a Textarea component
     When I check expandable checkbox
     Then Textarea component is expandable
- @ignore
+
   @positive
   Scenario: Enable and disable expandable checkbox for a Textarea component
     When I check expandable checkbox
       And I uncheck expandable checkbox
     Then Textarea component is not expandable
-@ignore
+
   @positive
   Scenario Outline: Set cols to <cols>
     When I set cols slider to <cols>
@@ -25,7 +25,7 @@ Feature: Experimental Textarea component
       | 115  |
       | 299  |
       | 300  |
-  @ignore
+  
   @positive
   Scenario Outline: Set rows to <rows>
     When I set rows slider to <rows>
@@ -36,29 +36,29 @@ Feature: Experimental Textarea component
       | 115  |
       | 299  |
       | 300  |
- @ignore
+ 
   @positive
   Scenario: Check disabled checkbox for a Textarea component
     When I check disabled checkbox
     Then Textarea component is disabled
-@ignore
+
   @positive
   Scenario: Uncheck disabled checkbox for a Textarea component
     When I check disabled checkbox
       And I uncheck disabled checkbox
     Then Textarea component is not disabled
- @ignore
+
   @positive
   Scenario: Enable readOnly checkbox for a Textarea component
     When I check readOnly checkbox
     Then Textarea component is readOnly
-@ignore
+
   @positive
   Scenario: Disable readOnly checkbox for a Textarea component
     When I check readOnly checkbox
       And I uncheck readOnly checkbox
     Then Textarea component is not readOnly
- @ignore
+ 
   @positive
   Scenario Outline: Set placeholder to <placeholder>
     When I set placeholder to "<placeholder>"
@@ -72,7 +72,7 @@ Feature: Experimental Textarea component
       | ÄÖÜßäöüß                |
   # @ignore because of FE-1447
   # | <> |
-@ignore
+
   @positive
   Scenario Outline: Set fieldHelp to <fieldHelp>
     When I set fieldHelp to "<fieldHelp>"
@@ -86,7 +86,7 @@ Feature: Experimental Textarea component
       | ÄÖÜßäöüß                |
   # @ignore because of FE-1447
   # | <> |
-@ignore
+
   @positive
   Scenario Outline: Set characterLimit to <characterLimit>
     When I set characterLimit to "<characterLimit>"
@@ -101,7 +101,7 @@ Feature: Experimental Textarea component
       | 100            | 100     |
       | 1000           | 1,000   |
       | 555555         | 555,555 |
-@ignore
+
   @negative
   Scenario Outline: Set characterLimit out of scope to <characterLimit>
     When I set characterLimit to "<characterLimit>"
@@ -115,7 +115,7 @@ Feature: Experimental Textarea component
       | -1                      |
       | -0,112                  |
       | 0.1112333               |
-@ignore
+
   @positive
   Scenario Outline: Set inputWidth to <inputWidth>
     When I set inputWidth slider to <inputWidth>
@@ -127,7 +127,7 @@ Feature: Experimental Textarea component
       | 35         |
       | 50         |
       | 100        |
- @ignore
+ 
   @positive
   Scenario Outline: Set label to <label>
     When I set label to "<label>"
@@ -141,7 +141,7 @@ Feature: Experimental Textarea component
       | ÄÖÜßäöüß                |
   # @ignore because of FE-1447
   # | <> |
- @ignore
+ 
   @positive
   Scenario Outline: Set labelHelp to <labelHelp>
     When I set label to "label"
@@ -157,20 +157,20 @@ Feature: Experimental Textarea component
       | ÄÖÜßäöüß                |
   # @ignore because of FE-1447
   # | <> |
-@ignore
+
   @positive
   Scenario: Enable labelInline checkbox for a Textarea component
     When I set label to "label"
       And I check labelInline checkbox
     Then Textarea component is labelInline
-@ignore
+
   @positive
   Scenario: Enable and disable labelInline checkbox for a Textarea component
     When I set label to "label"
       And I check labelInline checkbox
       And I uncheck labelInline checkbox
     Then Textarea component is not labelInline
-@ignore
+
   @positive
   Scenario Outline: Set labelWidth to <labelWidth>
     When I set label to "label"
@@ -184,7 +184,7 @@ Feature: Experimental Textarea component
       | 25         |
       | 75         |
       | 100        |
-@ignore
+
   @positive
   Scenario Outline: Set labelAlign to <labelAlign>
     When I set label to "label"
@@ -210,7 +210,7 @@ Feature: Experimental Textarea component
       | 0     | 12345           |     5      | 
       | 5     |áéíóú¿¡üñ        |     9      |
       | 10    |testTestTextTest |    16      |
-@ignore
+
   #double checking / unchecking warnOverLimit/enforceCharacterLimit should be fixed in FE-1778 and should be deleted
   @positive
   Scenario Outline: Disable warnOverLimit checkbox for a Textarea component and allow to input more characters than allowed
@@ -227,7 +227,7 @@ Feature: Experimental Textarea component
       | 3     | 123456            | 6          |
       | 5     | áéíóú¿¡üñą        | 10         |
       | 10    | testTestTextTest! | 17         |
- @ignore
+ 
   @positive
   Scenario Outline: Enable enforceCharacterLimit checkbox for a Textarea component and check the warning
     When I set characterLimit to "<limit>"
@@ -240,7 +240,7 @@ Feature: Experimental Textarea component
       | 5     | testText         | 5          |
       | 7     | áéíóú¿¡üñ        | 7          |
       | 10    | testTestTextTest | 10         |
-@ignore
+
   #double checking / unchecking warnOverLimit/enforceCharacterLimit should be fixed in FE-1778 and should be deleted
   @positive
   Scenario Outline: Disable enforceCharacterLimit checkbox for a Textarea component and allow to input more characters than allowed
@@ -256,7 +256,7 @@ Feature: Experimental Textarea component
       | 3     | 12345            | 5          |
       | 5     | áéíóú¿¡üñ        | 9          |
       | 10    | testTestTextTest | 16         |
- @ignore
+ 
   @positive
   Scenario Outline: Verify input of Textarea component
     When I input "<input>" into Textarea
