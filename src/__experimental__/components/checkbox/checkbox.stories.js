@@ -19,8 +19,6 @@ Checkbox.__docgenInfo = getDocGenInfo(
 );
 
 function testValidator(value, props) {
-  console.log('value: ' + value);
-  console.log(props.checked);
   return new Promise((resolve, reject) => {
     if (value === 'one' && !props.checked) {
       reject(new Error('This checkbox is required!'));
@@ -159,6 +157,26 @@ const checkboxComponent = () => {
   );
 };
 
+function testValidation(type) {
+  return (value) => {
+    return new Promise((resolve, reject) => {
+      if (type === 'valid' && value === 'one') {
+        reject(new Error('An error has occurred!'));
+      }
+
+      if (type === 'warn' && value === 'two') {
+        reject(new Error('Watch out!'));
+      }
+
+      if (type === 'info' && value === 'three') {
+        reject(new Error('Let me tell you this...'));
+      }
+
+      resolve();
+    });
+  };
+}
+
 const checkboxGroupComponent = () => (
   <div>
     <h3>In Form</h3>
@@ -185,10 +203,11 @@ const checkboxGroupComponent = () => (
         name='checkbox-group'
         label={ text('label', 'What would you choose?', 'group') }
         labelHelp={ text('labelHelp', 'Some helpful information', 'group') }
-        validations={ testValidator }
-        warnings={ testWarning }
-        info={ testInfo }
+        validations={ testValidation('valid') }
+        warnings={ testValidation('warn') }
+        info={ testValidation('info') }
         onChange={ handleGroupChange(groupStore) }
+        forceUpdateTriggerToggle={ true }
       >
         {groupCheckbox.map(id => (
           <Checkbox
