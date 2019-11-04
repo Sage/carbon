@@ -1,6 +1,6 @@
 import {
   textarea, textareaChildren, colsSlider, rowsSlider,
-  characterLimit, textareaInput, textareaChildrenNoIframe,
+  characterLimit, characterLimitDefaultTextarea, textareaInput, textareaChildrenNoIframe,
 } from '../../locators/textarea';
 import { setSlidebar } from '../helper';
 import {
@@ -104,10 +104,21 @@ Then('characterLimit is shown as {string}', (length) => {
   characterLimit().should('have.text', length);
 });
 
+Then('characterLimit for default Textarea is shown as {string}', (length) => {
+  characterLimitDefaultTextarea().contains(length);
+});
+
 Then('characterLimit is not set to {string}', (length) => {
   textareaChildren().should('have.attr', 'maxlength', length);
   if (isNaN(length)) {
     characterLimit().should('have.text', 'NaN');
+  }
+});
+
+Then('characterLimit for default Textarea is not set to {string}', (length) => {
+  textareaChildren().should('have.attr', 'maxlength', length);
+  if (isNaN(length)) {
+    characterLimitDefaultTextarea().contains('NaN');
   }
 });
 
