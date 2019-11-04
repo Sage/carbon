@@ -28,10 +28,7 @@ import { StyledSelect, StyledSelectPillContainer } from './select.style';
  */
 
 class Select extends React.Component {
-  constructor(props) {
-    super(props);
-    this.listboxId = uniqueId('listbox-');
-  }
+  listboxId = uniqueId('listbox-');
 
   isComponentControlled = (this.props.value !== undefined && this.props.value !== null);
 
