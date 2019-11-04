@@ -26,7 +26,6 @@ function render(props, childProps, renderer = mount) {
 
   return renderer(
     <CheckboxGroup
-      name='group-radio-buttons'
       name={ name }
       label='Test CheckboxGroup Label'
       { ...props }

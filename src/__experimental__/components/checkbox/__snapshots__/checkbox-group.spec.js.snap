@@ -56,17 +56,17 @@ exports[`CheckboxGroup renders as expected 1`] = `
   margin-top: -2px;
 }
 
-.c7 .c3 .c16,
-.c7 .c3 .c17 {
+.c7 .c3 .c15,
+.c7 .c3 .c16 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
+.c7 .c3 .c15:hover,
 .c7 .c3 .c16:hover,
-.c7 .c3 .c17:hover,
-.c7 .c3 .c16:focus,
-.c7 .c3 .c17:focus {
+.c7 .c3 .c15:focus,
+.c7 .c3 .c16:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -112,51 +112,18 @@ exports[`CheckboxGroup renders as expected 1`] = `
   width: auto;
 }
 
-.c6 .c14 {
+.c6 .c13 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
 }
 
-.c6 .c17 {
+.c6 .c16 {
   position: relative;
   display: inline-block;
 }
 
-.c13 .c8 {
-  padding-top: 1px;
-}
-
-.c13 .c12 {
-  height: 16px;
-}
-
-.c13 .c10,
-.c13 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c13 .c8,
-.c13 .c10,
-.c13 .c12,
-.c13 svg {
-  box-sizing: border-box;
-  width: 16px;
-}
-
-.c13 .c10:not([disabled]):focus + .c12,
-.c13 .c10:not([disabled]):hover + .c12 {
-  box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c13 .c3 {
-  padding: 0 6px;
-  width: auto;
-}
-
-.c0 .c15::before {
+.c0 .c14::before {
   font-size: 16px;
 }
 
@@ -176,7 +143,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
   vertical-align: middle;
 }
 
-.c0 > .c1 > .c3 .c17 {
+.c0 > .c1 > .c3 .c16 {
   display: inline-block;
 }
 
@@ -195,20 +162,22 @@ exports[`CheckboxGroup renders as expected 1`] = `
       width={30}
     >
       <label
-        htmlFor="group-radio-buttons"
+        htmlFor="my-checkbox-group"
       >
         Test CheckboxGroup Label
       </label>
     </div>
     <div
+      checked={false}
       className="c5 c6"
       data-component="checkbox"
-      name="check-required"
+      name="my-checkbox-group"
       onBlur={[Function]}
     >
       <div
+        checked={false}
         className="c7"
-        name="check-required"
+        name="my-checkbox-group"
         onBlur={[Function]}
       >
         <div
@@ -218,11 +187,13 @@ exports[`CheckboxGroup renders as expected 1`] = `
             className="c8 c9"
           >
             <input
+              aria-checked={false}
               aria-describedby="cId-required-help"
               aria-labelledby="cId-required-label"
+              checked={false}
               className="c10 c11"
               id="cId-required"
-              name="check-required"
+              name="my-checkbox-group"
               onBlur={[Function]}
               onChange={[Function]}
               role="checkbox"
@@ -250,14 +221,16 @@ exports[`CheckboxGroup renders as expected 1`] = `
       </div>
     </div>
     <div
+      checked={false}
       className="c5 c6"
       data-component="checkbox"
-      name="check-optional"
+      name="my-checkbox-group"
       onBlur={[Function]}
     >
       <div
+        checked={false}
         className="c7"
-        name="check-optional"
+        name="my-checkbox-group"
         onBlur={[Function]}
       >
         <div
@@ -267,11 +240,13 @@ exports[`CheckboxGroup renders as expected 1`] = `
             className="c8 c9"
           >
             <input
+              aria-checked={false}
               aria-describedby="cId-optional-help"
               aria-labelledby="cId-optional-label"
+              checked={false}
               className="c10 c11"
               id="cId-optional"
-              name="check-optional"
+              name="my-checkbox-group"
               onBlur={[Function]}
               onChange={[Function]}
               role="checkbox"

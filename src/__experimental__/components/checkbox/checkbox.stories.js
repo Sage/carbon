@@ -19,8 +19,10 @@ Checkbox.__docgenInfo = getDocGenInfo(
 );
 
 function testValidator(value, props) {
+  console.log('value: ' + value);
+  console.log(props.checked);
   return new Promise((resolve, reject) => {
-    if (['required', 'mandatory', 'one'].indexOf(value) !== -1 && !props.checked) {
+    if (value === 'one' && !props.checked) {
       reject(new Error('This checkbox is required!'));
     } else if (props.name === 'checkbox-group' && value === '0') {
       reject(new Error('This checkbox is required!'));
@@ -32,7 +34,7 @@ function testValidator(value, props) {
 
 function testWarning(value, props) {
   return new Promise((resolve, reject) => {
-    if (['warning', 'alert', 'two'].indexOf(value) !== -1 && !props.checked) {
+    if (value.indexOf('two') !== -1 && !props.checked) {
       reject(new Error('Show warning!'));
     } else if (props.name === 'checkbox-group' && value === '1') {
       reject(new Error('Show warning!'));
@@ -44,7 +46,7 @@ function testWarning(value, props) {
 
 function testInfo(value, props) {
   return new Promise((resolve, reject) => {
-    if (['info', 'example', 'three'].indexOf(value) !== -1 && !props.checked) {
+    if (value.indexOf('three') !== -1 && !props.checked) {
       reject(new Error('Show this information'));
     } else if (props.name === 'checkbox-group' && value === '2') {
       reject(new Error('Show this information'));
@@ -135,22 +137,10 @@ function handleChange(ev, id) {
   action('change')(`checked: ${checked}`);
 }
 
-const handleGroupChange = groupStore => (event) => {
+const handleGroupChange = store => (event) => {
   const { value } = event.target;
-  const oldGroupStore = groupStore.get('value');
-  const checkboxIndex = oldGroupStore.indexOf(value);
-  let checked = false;
-
-  if (checkboxIndex !== -1) {
-    oldGroupStore.splice(checkboxIndex, 1);
-  } else {
-    oldGroupStore.push(value);
-    checked = true;
-  }
-  
-  groupStore.set({ value: oldGroupStore });
-  
-  action('onChange')(`${value + ' checked: ' + checked}`);
+  store.set({ value });
+  action('onChange')(value);
 };
 
 function handleSubmit(ev) {
@@ -168,10 +158,6 @@ const checkboxComponent = () => {
     </State>
   );
 };
-
-const validationTypes = ['error', 'warning', 'info'];
-const legend = text('legend', 'Are you coming to the event?');
-const labelHelp = text('labelHelp', 'Group label helper');
 
 const checkboxGroupComponent = () => (
   <div>

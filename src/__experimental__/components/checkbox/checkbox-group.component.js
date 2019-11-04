@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import { StyledCheckboxGroup } from './checkbox.style';
@@ -21,23 +21,18 @@ const CheckboxGroup = (props) => {
   const isControlled = value !== undefined;
 
   const onChangeProp = useCallback((e) => {
-    onChange(e);
+    const checkedCheckboxes = [...checkedValue];
+    const checkedIndex = checkedCheckboxes.indexOf(e.target.value);
 
-    if (!isControlled) {
-      if (
-          checkedValue !== e.target.value &&
-          (checkedValue.indexOf(e.target.value) === -1)
-         ) {
-        checkedValue.push(e.target.value);
-      } else {
-        checkedValue.splice(e.target.value, 1);
-      }
-
-      setCheckedValue(checkedValue);
+    if (checkedIndex === -1) {
+      checkedCheckboxes.push(e.target.value);
     } else {
-      setCheckedValue(value);
+      checkedCheckboxes.splice(checkedIndex, 1);
     }
-  }, [onChange, value, checkedValue, setCheckedValue]);
+
+    setCheckedValue(checkedCheckboxes);
+    onChange(e);
+  }, [onChange, checkedValue]);
 
   const buttons = React.Children.map(children, (child) => {
     const checked = (checkedValue.indexOf(child.props.value) !== -1);
@@ -48,7 +43,7 @@ const CheckboxGroup = (props) => {
       checked
     };
 
-    if (!child.props.checked) {
+    if (!checked) {
       childProps = {
         ...childProps,
         hasError,
