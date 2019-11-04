@@ -1,4 +1,4 @@
-import Checkbox from '../../../__experimental__/components/checkbox';
+import Checkbox from './';
 import Definition from '../../../../demo/utils/definition';
 
 let definition = new Definition('checkbox', Checkbox, {
