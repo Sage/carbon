@@ -161,7 +161,7 @@ const ActionPopover = ({
   return (
     <MenuButton
       id={ buttonID }
-      data-component='action-popover'
+      data-component='action-popover-button'
       role='button'
       aria-haspopup='true'
       aria-label={ I18n.t('actionpopover.aria-label', { defaultValue: 'actions' }) }
@@ -172,13 +172,13 @@ const ActionPopover = ({
       ref={ button }
     >
       <ButtonIcon type='ellipsis_vertical' />
-      <Menu { ...{
-        isOpen,
-        onKeyDown,
-        id: menuID,
-        'aria-labelledby': buttonID,
-        role: 'menu'
-      } }
+      <Menu
+        data-component='action-popover'
+        isOpen={ isOpen }
+        onKeyDown={ onKeyDown }
+        id={ menuID }
+        aria-labelledby={ buttonID }
+        role='menu'
       >
         {childrenWithRef}
       </Menu>
