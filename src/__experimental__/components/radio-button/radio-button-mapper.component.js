@@ -57,8 +57,11 @@ RadioButtonMapper.propTypes = {
   children: PropTypes.node.isRequired,
   /** Specifies the name prop to be applied to each button in the group */
   name: PropTypes.string.isRequired,
+  /** Callback fired when each RadioButton is blurred */
   onBlur: PropTypes.func,
+  /** Callback fired when the user selects a RadioButton */
   onChange: PropTypes.func,
+  /** Value of the selected RadioButton */
   value: PropTypes.string
 };
 
