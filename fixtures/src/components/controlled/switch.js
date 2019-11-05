@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Switch from 'carbon-react/lib/__experimental__/components/switch';
 import { LogConsumer } from '../log';
 
-const ControlledRadioButton = () => {
+const ControlledSwitch = () => {
   const [state, setState] = useState({
     controlled_switch_name: false,
     controlled_switch_checked_name: true
