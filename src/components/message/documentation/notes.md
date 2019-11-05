@@ -14,7 +14,7 @@
 - **Help**
 - **Maintenance**
 - **New**
-- Classic theme supports two additional props: border (default: true) and roundedCorners (default: true) which are not available in small/medium/large theme.
+- Classic theme supports two additional props: border (default: true) and roundedCorners (default: true) which are not available in small/medium theme.
 
 # Related Components
 

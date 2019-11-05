@@ -4,7 +4,6 @@ import { withThemesProvider } from 'storybook-addon-styled-component-theme';
 import classic from '../src/style/themes/classic';
 import small from '../src/style/themes/small';
 import medium from '../src/style/themes/medium';
-import large from '../src/style/themes/large';
 import none from '../src/style/themes/none';
 
 /**
@@ -27,7 +26,7 @@ export default function getThemeDecorator() {
 
   const queryStringThemeName = (new URLSearchParams(window.location.search)).get('theme');
 
-  const themesMap = { classic, small, medium, large, none };
+  const themesMap = { classic, small, medium, none };
 
   const themeDecorator = (story, storyArgs) => {
     const storyThemeName = (
