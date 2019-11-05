@@ -23,7 +23,7 @@ const ControlledCheckbox = () => {
             <h2>Unchecked</h2>
             <div id='controlled_checkbox_group'>
               <ul>
-                <li>onChange handler should update the log when each checkbox is checked</li>
+                <li>onChange handler should update the log when each checkbox is changed/toggled</li>
                 <li>onBlur handler should update the log when each checkbox is blurred</li>
                 <li>each checkbox button has props value, name, id which should be reflected in both events</li>
               </ul>
