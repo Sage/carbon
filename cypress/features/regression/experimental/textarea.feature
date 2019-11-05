@@ -25,7 +25,7 @@ Feature: Experimental Textarea component
       | 115  |
       | 299  |
       | 300  |
-  
+
   @positive
   Scenario Outline: Set rows to <rows>
     When I set rows slider to <rows>
@@ -36,7 +36,7 @@ Feature: Experimental Textarea component
       | 115  |
       | 299  |
       | 300  |
- 
+
   @positive
   Scenario: Check disabled checkbox for a Textarea component
     When I check disabled checkbox
@@ -58,7 +58,7 @@ Feature: Experimental Textarea component
     When I check readOnly checkbox
       And I uncheck readOnly checkbox
     Then Textarea component is not readOnly
- 
+
   @positive
   Scenario Outline: Set placeholder to <placeholder>
     When I set placeholder to "<placeholder>"
@@ -112,7 +112,6 @@ Feature: Experimental Textarea component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      | -1                      |
       | -0,112                  |
       | 0.1112333               |
 
@@ -127,7 +126,7 @@ Feature: Experimental Textarea component
       | 35         |
       | 50         |
       | 100        |
- 
+
   @positive
   Scenario Outline: Set label to <label>
     When I set label to "<label>"
@@ -141,7 +140,7 @@ Feature: Experimental Textarea component
       | ÄÖÜßäöüß                |
   # @ignore because of FE-1447
   # | <> |
- 
+
   @positive
   Scenario Outline: Set labelHelp to <labelHelp>
     When I set label to "label"

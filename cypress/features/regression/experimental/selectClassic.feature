@@ -1,5 +1,5 @@
 Feature: Experimental Select classic component
-  I want to change Select component properties
+  I want to change Select classic component properties
 
   Background: Open Experimental Select component page classic
     Given I open "Experimental Select" component page classic

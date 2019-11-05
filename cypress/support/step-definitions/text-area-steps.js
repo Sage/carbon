@@ -6,10 +6,10 @@ import { setSlidebar } from '../helper';
 import {
   fieldHelpPreview, label, inputWidthPreview, characterLimitSlider,
 } from '../../locators';
+import { DEBUG_FLAG } from '..';
 
 const TEXT_ALIGN = 'text-align';
 const TEXTAREA_CLASS = 'carbon-textarea__input';
-export const DEBUG_FLAG = false;
 
 Then('Textarea component is expandable', () => {
   textareaChildren()

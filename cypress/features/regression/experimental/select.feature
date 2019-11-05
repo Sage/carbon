@@ -76,11 +76,10 @@ Feature: Experimental Select component
       | ÄÖÜßäöüß                |
       | <>                      |
 
-  @ignore
-  # ignored because this functionality works only for modern theme
+  @positive
   Scenario Outline: Change Select size to <size>
     When I select size to "<size>"
-    Then Select size on preview is set to "<size>"
+    Then Select classic size on preview is set to "<size>"
     Examples:
       | size   |
       | small  |
