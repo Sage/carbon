@@ -79,7 +79,7 @@ Feature: Experimental Select component
   @positive
   Scenario Outline: Change Select size to <size>
     When I select size to "<size>"
-    Then Select classic size on preview is set to "<size>"
+    Then Select size on preview for default component is set to "<size>"
     Examples:
       | size   |
       | small  |
