@@ -3,7 +3,7 @@ import { Checkbox } from 'carbon-react/lib/__experimental__/components/checkbox'
 import { LogConsumer } from '../log';
 
 const ControlledCheckbox = () => {
-  const [checked, setState] = useState(false);
+  const [checked, setChecked] = useState(false);
   const [checkedExampleTwo, setCheckedExampleTwo] = useState(true);
   return (
     <LogConsumer>
