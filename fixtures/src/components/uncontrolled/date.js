@@ -6,9 +6,9 @@ const UncontrolledDate = () => {
   return (
     <LogConsumer>
       {(log) => {
-        const onChange = (e, formattedValue) => log(e, { method: 'onChange', iso: formattedValue });
+        const onChange = e => log(e, { method: 'onChange' });
 
-        const onBlur = (e, formattedValue) => log(e, { method: 'onBlur', iso: formattedValue });
+        const onBlur = e => log(e, { method: 'onBlur' });
 
         return (
           <React.Fragment>

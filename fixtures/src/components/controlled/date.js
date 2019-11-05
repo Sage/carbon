@@ -8,7 +8,7 @@ const ControlledDate = () => {
     <LogConsumer>
       {(log) => {
         const onChange = (e) => {
-          setState(e.target.value.displayText);
+          setState(e.target.value.rawValue);
           log(e, { method: 'onChange' });
         };
         const onBlur = e => log(e, { method: 'onBlur' });
