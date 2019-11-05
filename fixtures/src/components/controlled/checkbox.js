@@ -39,7 +39,7 @@ const ControlledCheckbox = () => {
               </ul>
               <Checkbox
                 id='controlled_checkbox_two'
-                label='label one'
+                label='label two'
                 onChange={ onChange(setStateExampleTwo) }
                 onBlur={ onBlur }
                 checked={ checkedExampleTwo }
