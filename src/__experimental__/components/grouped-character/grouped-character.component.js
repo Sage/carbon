@@ -97,6 +97,7 @@ const GroupedCharacter = ({
   return (
     <Textbox
       { ...rest }
+      value={ value }
       formattedValue={ formatValue(value) }
       onChange={ handleChange }
       onBlur={ handleBlur }
