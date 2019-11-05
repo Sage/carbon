@@ -51,7 +51,7 @@ Then('Select size on preview is set to {string}', (size) => {
   }
 });
 
-Then('Select classic size on preview is set to {string}', (size) => {
+Then('Select size on preview for default component is set to {string}', (size) => {
   switch (size) {
     case 'small':
       select().should('have.css', 'height', '28px')
