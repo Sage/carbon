@@ -1,7 +1,7 @@
-Feature: Experimental Fieldset component
-  I want to change Experimental Fieldset component properties
+Feature: Experimental Fieldset component classic page
+  I want to change Experimental Fieldset classic component properties
 
-  Background: Open Experimental Fieldset component page
+  Background: Open Experimental Fieldset classic component page
     Given I open "Experimental Fieldset" component page classic
 
   @positive
