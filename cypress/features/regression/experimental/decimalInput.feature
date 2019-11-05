@@ -41,9 +41,9 @@ Feature: Decimal component
 
   @positive
   Scenario Outline: Change Decimal component label help to <label>
-    When I set label to "<label>"
+    Given I set label to "<label>"
       And I set labelHelp to "<label>"
-      And I hover mouse onto help icon
+    When I hover mouse onto help icon
     Then tooltipPreview on preview is set to "<label>"
     Examples:
       | label                    |
@@ -55,33 +55,30 @@ Feature: Decimal component
       | <>                       |
 
   @positive
-  Scenario Outline: Change Decimal component label inline
-    When I set label to "<label>"
+  Scenario: Change Decimal component label inline
+    When I set label to "label"
       And I check labelInline checkbox
     Then label is set to inline
-    Examples:
-      | label                    |
-      | Sample text              |
 
   @positive
   Scenario Outline: Change Decimal component label width to <width>
-    When I set label to "<label>"
-      And I set labelHelp to "<label>"
+    Given I set label to "label"
+      And I set labelHelp to "label"
       And I check labelInline checkbox
-      And I set label width slider to <width>
+    When I set label width slider to <width>
     Then label width on preview is <width>
     Examples:
-      | label       | width |
-      | Sample text |  0    |
-      | Sample text |  10   |
-      | Sample text |  50   |
-      | Sample text |  100  |
+      | width |
+      |  0    |
+      |  10   |
+      |  50   |
+      |  100  |
 
   @positive
   Scenario Outline: Change Decimal component input width to <width>
-    When I set label to "label"
+    Given I set label to "label"
       And I check labelInline checkbox
-      And I set inputWidth slider to <width>
+    When I set inputWidth slider to <width>
     Then inputWidth on preview is <width>
     Examples:
       | width |
@@ -92,9 +89,9 @@ Feature: Decimal component
 
   @positive
   Scenario Outline: Change Decimal component label align to <labelAlign>
-    When I set label to "label"
+    Given I set label to "label"
       And I check labelInline checkbox
-      And I select labelAlign to "<labelAlign>"
+    When I select labelAlign to "<labelAlign>"
     Then label align on preview is set to "<labelAlign>"
     Examples:
       | labelAlign |
