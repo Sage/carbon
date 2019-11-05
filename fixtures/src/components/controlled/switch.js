@@ -36,7 +36,7 @@ const ControlledSwitch = () => {
               <Switch
                 onChange={ onChange }
                 onBlur={ onBlur }
-                id='controlled_siwtch_id'
+                id='controlled_switch_id'
                 name='controlled_switch_name'
                 label='Controlled Switch'
                 value='Controlled Switch Value'
