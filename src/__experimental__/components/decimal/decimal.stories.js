@@ -29,7 +29,7 @@ const store = new Store({
 
 const setValue = (ev) => {
   action('onChange')(ev);
-  store.set({ value: ev.target.value });
+  store.set({ value: ev.target.value.rawValue });
 };
 
 function makeStory(name, themeSelector) {
@@ -46,16 +46,14 @@ function makeStory(name, themeSelector) {
       Decimal.defaultProps.align
     );
     const precision = number('precision', Decimal.defaultProps.precision, precisionRange);
-
     return (
       <State store={ store }>
         <Decimal
           { ...getTextboxStoryProps() }
           align={ align }
           precision={ precision }
-          value={ store.get('value') }
           onChange={ setValue }
-          onBlur={ (ev, undelimitedValue) => action('onBlur')(ev, undelimitedValue) }
+          onBlur={ action('onBlur') }
         />
       </State>
     );
