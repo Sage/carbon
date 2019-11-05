@@ -4,7 +4,7 @@ import { LogConsumer } from '../log';
 
 const ControlledCheckbox = () => {
   const [checked, setState] = useState(false);
-  const [checkedExampleTwo, setStateExampleTwo] = useState(true);
+  const [checkedExampleTwo, setCheckedExampleTwo] = useState(true);
   return (
     <LogConsumer>
       {(log) => {
