@@ -162,6 +162,7 @@ class BaseDateInput extends React.Component {
         event.target.value = visibleValue;
         this.emitOnChangeCallback(event, date);
         this.input.focus();
+        this.isAutoFocused = true;
         this.closeDatePicker();
       }
     });
@@ -243,6 +244,7 @@ class BaseDateInput extends React.Component {
 
   markCurrentDatepicker = () => {
     this.isOpening = true;
+    this.openDatePicker();
   }
 
   render() {
