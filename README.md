@@ -22,6 +22,7 @@ See the [demo and documentation site](https://carbon.sage.com/) for live example
 * [Services](docs/guides/services.md)
 * [Integrating Carbon with other UI](docs/guides/integrating-with-other-ui.md)
 * [Testing changes to Carbon in your project](docs/guides/installing-unreleased-changes.md)
+* [Testing components using Cypress.io](cypress/README.md)
 * [Releasing Carbon](docs/guides/releasing.md)
 
 #### Testing
@@ -43,8 +44,9 @@ As Carbon is just React components, we support any test suite you prefer to use.
 * Use [renogen](https://github.com/DDAZZA/renogen), or add a yml file manually to `./changelog/next` e.g. `./changelog/next/my-update.yml`.
 * Update or add an appropriate heading in the style shown below for each change:
 ```
-Bug Fixes: "Modal: The Modal is now centered in the browser."
+Bug Fixes: "Fixes browser position. (Component: Modal)"
 ```
+> Note: The [.renogen](.renogen) file in the project root holds a list of commit message types that can be used.
 
 ## Technologies
 
