@@ -15,7 +15,6 @@ import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import classicTheme from '../../../style/themes/classic';
 import smallTheme from '../../../style/themes/small';
 import mediumTheme from '../../../style/themes/medium';
-import largeTheme from '../../../style/themes/large';
 import baseTheme from '../../../style/themes/base';
 
 jest.mock('../../../utils/helpers/guid');
@@ -436,16 +435,6 @@ describe('Checkbox', () => {
 
         assertStyleMatch({
           fill: mediumTheme.checkable.checked
-        }, wrapper, { modifier: 'svg path' });
-      });
-    });
-
-    describe('Large theme', () => {
-      it('sets the appropriate check colour', () => {
-        const wrapper = render({ theme: largeTheme, checked: true }).toJSON();
-
-        assertStyleMatch({
-          fill: largeTheme.checkable.checked
         }, wrapper, { modifier: 'svg path' });
       });
     });
