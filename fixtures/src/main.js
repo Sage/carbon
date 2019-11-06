@@ -79,10 +79,14 @@ const routes = {
 startRouter(
   [
     <Route
-      path='/' component={ Index }
+      key='0' path='/'
+      component={ Index }
       routes={ routes }
     />,
-    <Route path='/' component={ Chrome }>
+    <Route
+      key='1' path='/'
+      component={ Chrome }
+    >
       {Object.keys(routes).reduce(((acc, key) => {
         if (routes[key].controlled) {
           const path = `/controlled/${key}`;
