@@ -75,4 +75,4 @@ const UncontrolledCheckbox = () => {
   );
 };
 
-export default React.memo(UncontrolledCheckbox, () => false);
+export default UncontrolledCheckbox;
