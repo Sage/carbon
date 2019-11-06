@@ -4,7 +4,12 @@ import { LogConsumer } from '../log';
 
 const ControlledCheckbox = () => {
   const [checked, setChecked] = useState({
-    controlled_checkbox_group_default_two: true
+    controlled_checkbox_group_one: false,
+    controlled_checkbox_group_two: false,
+    controlled_checkbox_group_three: false,
+    controlled_checkbox_group_default_one: false,
+    controlled_checkbox_group_default_two: true,
+    controlled_checkbox_group_default_three: false
   });
   return (
     <LogConsumer>
@@ -90,4 +95,4 @@ const ControlledCheckbox = () => {
   );
 };
 
-export default React.memo(ControlledCheckbox, () => false);
+export default ControlledCheckbox;
