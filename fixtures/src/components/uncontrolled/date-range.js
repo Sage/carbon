@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import DateRange from 'carbon-react/lib/__experimental__/components/date-range';
 import { LogConsumer } from '../log';
@@ -16,8 +15,8 @@ const UncontrolledDateRange = () => {
             <div id='uncontrolled_date_range'>
               <h1>Uncontrolled Date Range</h1>
               <ul>
-                <li>onChange handler should update the log when the value is changed, e.target.value should be the
-                  user's input
+                <li>onChange handler should update the log when the value is changed, e.target.value should be an array
+                  that contains the &#123; formattedValue, rawValue &#125; the Date input&apos;s
                 </li>
                 <li>onBlur handler should update the log when the date is blurred
                 </li>
