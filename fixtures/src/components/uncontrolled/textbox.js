@@ -37,4 +37,4 @@ const UncontrolledTextbox = () => {
   );
 };
 
-export default React.memo(UncontrolledTextbox, () => false);
+export default UncontrolledTextbox;
