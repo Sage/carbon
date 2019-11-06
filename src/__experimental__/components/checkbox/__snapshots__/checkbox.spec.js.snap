@@ -22,20 +22,44 @@ exports[`Checkbox base theme renders as expected 1`] = `
   position: relative;
 }
 
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+}
+
 .c1 .c2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
 }
 
 .c1 .c26 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 calc(100% - 28px);
+  -ms-flex: 1 1 calc(100% - 28px);
+  flex: 1 1 calc(100% - 28px);
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
   text-align: left;
   width: auto;
-  white-space: nowrap;
+  white-space: normal;
   margin-top: -2px;
 }
 
@@ -53,14 +77,40 @@ exports[`Checkbox base theme renders as expected 1`] = `
   color: rgba(0,0,0,0.9);
 }
 
+.c1 .c4,
+.c1 .c6,
+.c1 .c8,
+.c1 svg {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 0 1 16px;
+  -ms-flex: 0 1 16px;
+  flex: 0 1 16px;
+}
+
 .c9 .c2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+.c9 .c4,
+.c9 .c6,
+.c9 .c8,
+.c9 svg {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 0 1 16px;
+  -ms-flex: 0 1 16px;
+  flex: 0 1 16px;
 }
 
 .c10 .c2 {
@@ -68,9 +118,22 @@ exports[`Checkbox base theme renders as expected 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+.c10 .c4,
+.c10 .c6,
+.c10 .c8,
+.c10 svg {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 0 1 16px;
+  -ms-flex: 0 1 16px;
+  flex: 0 1 16px;
 }
 
 .c10 .c6:hover,
@@ -86,9 +149,22 @@ exports[`Checkbox base theme renders as expected 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+.c11 .c4,
+.c11 .c6,
+.c11 .c8,
+.c11 svg {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 0 1 16px;
+  -ms-flex: 0 1 16px;
+  flex: 0 1 16px;
 }
 
 .c11 .c4 {
@@ -100,9 +176,22 @@ exports[`Checkbox base theme renders as expected 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+.c12 .c4,
+.c12 .c6,
+.c12 .c8,
+.c12 svg {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 0 1 16px;
+  -ms-flex: 0 1 16px;
+  flex: 0 1 16px;
 }
 
 .c12 .c6:hover,

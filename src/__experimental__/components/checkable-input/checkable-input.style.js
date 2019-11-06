@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import FieldHelpStyle from '../field-help/field-help.style';
 import FormFieldStyle from '../form-field/form-field.style';
 import HiddenCheckableInputStyle from './hidden-checkable-input.style';
+import StyledCheckableInputSvgWrapper from './checkable-input-svg-wrapper.style';
 import LabelStyle from '../label/label.style';
 import StyledHelp from '../../../components/help/help.style';
 import baseTheme from '../../../style/themes/base';
@@ -19,13 +20,17 @@ const StyledCheckableInputWrapper = styled.div`
   }) => css`
     ${FormFieldStyle} {
       display: flex;
-      flex-wrap: wrap;
+      flex-flow: row wrap;
     }
 
     ${LabelStyle} {
+      display: flex;
+      flex: 1 1 calc(100% - 28px);
+      justify-content: flex-start;
+      flex-flow: row wrap;
       text-align: ${labelAlign};
       width: auto;
-      white-space: nowrap;
+      white-space: normal;
       margin-top: -2px;
 
       & ${StyledHelp},
@@ -39,6 +44,19 @@ const StyledCheckableInputWrapper = styled.div`
         }
       }
     }
+
+    ${StyledCheckableInput},
+    ${HiddenCheckableInputStyle},
+    ${StyledCheckableInputSvgWrapper},
+    svg {
+      display: flex;
+      flex: 0 1 16px;
+    }
+
+    ${FieldHelpStyle && css`
+      display: flex;
+      flex: 1 1 100%;
+    `}
 
     ${disabled && css`
       ${LabelStyle} {
