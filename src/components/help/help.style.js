@@ -10,6 +10,7 @@ const StyledHelp = styled.div`
   border: none;
   outline: none;
   display: inline-block;
+  vertical-align: middle;
   font-size: 14px;
   padding: 0;
   position: relative;
