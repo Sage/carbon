@@ -37,4 +37,4 @@ const UncontrolledTextArea = () => {
   );
 };
 
-export default React.memo(UncontrolledTextArea, () => false);
+export default UncontrolledTextArea;
