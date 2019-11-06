@@ -17,8 +17,8 @@ const ControlledDate = () => {
             <div id='controlled_date'>
               <h1>Controlled Date</h1>
               <ul>
-                <li>onChange handler should update the log when the value is changed, e.target.value should be the
-                  users input
+                <li>onChange handler should update the log when the value is changed, e.target.value should contain
+                 &#123; formattedValue, rawValue &#125; based on the user&apos;s input
                 </li>
                 <li>onBlur handler should update the log when the date is blurred
                 </li>
@@ -41,4 +41,4 @@ const ControlledDate = () => {
   );
 };
 
-export default React.memo(ControlledDate, () => false);
+export default ControlledDate;
