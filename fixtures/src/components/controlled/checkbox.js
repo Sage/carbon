@@ -21,12 +21,12 @@ const ControlledCheckbox = () => {
               <ul>
                 <li>onChange handler should update the log when each checkbox is checked</li>
                 <li>onBlur handler should update the log when each checkbox is blurred</li>
-                <li>each checkbox button has props value, name, id which should be reflected in both events</li>
+                <li>each checkbox button has props name, id which should be reflected in both events</li>
               </ul>
               <Checkbox
                 id='controlled_checkbox_one'
                 label='label one'
-                onChange={ onChange(setState) }
+                onChange={ onChange(setChecked) }
                 onBlur={ onBlur }
                 checked={ checked }
                 name='controlled_checkbox_one'
@@ -40,7 +40,7 @@ const ControlledCheckbox = () => {
               <Checkbox
                 id='controlled_checkbox_two'
                 label='label two'
-                onChange={ onChange(setStateExampleTwo) }
+                onChange={ onChange(setCheckedExampleTwo) }
                 onBlur={ onBlur }
                 checked={ checkedExampleTwo }
                 name='controlled_checkbox_two'
@@ -53,4 +53,4 @@ const ControlledCheckbox = () => {
   );
 };
 
-export default React.memo(ControlledCheckbox, () => false);
+export default ControlledCheckbox;
