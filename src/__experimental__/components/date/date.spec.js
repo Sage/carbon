@@ -17,7 +17,7 @@ describe('StyledDateInput', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('renders the expected styles correctly for the "classic" theme', () => {
+  it('renders correctly for the "classic" theme', () => {
     const mockTheme = {
       name: THEMES.classic
     };
