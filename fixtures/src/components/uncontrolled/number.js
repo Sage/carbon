@@ -37,4 +37,4 @@ const UncontrolledNumber = () => {
   );
 };
 
-export default React.memo(UncontrolledNumber, () => false);
+export default UncontrolledNumber;
