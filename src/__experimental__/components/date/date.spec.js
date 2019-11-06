@@ -1,7 +1,6 @@
 import moment from 'moment';
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import 'jest-styled-components';
 import { mount } from 'enzyme';
 import DateInput, { defaultDateFormat, BaseDateInput } from './date.component';
 import DatePicker from './date-picker.component';
@@ -18,7 +17,7 @@ describe('StyledDateInput', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('renders correctly for the "classic" theme', () => {
+  it('renders the expected styles correctly for the "classic" theme', () => {
     const mockTheme = {
       name: THEMES.classic
     };
