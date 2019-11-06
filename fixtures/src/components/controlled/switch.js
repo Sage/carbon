@@ -66,4 +66,4 @@ const ControlledSwitch = () => {
   );
 };
 
-export default React.memo(ControlledRadioButton, () => false);
+export default ControlledSwitch;
