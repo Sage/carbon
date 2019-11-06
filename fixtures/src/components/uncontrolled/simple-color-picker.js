@@ -16,7 +16,7 @@ const UncontrolledSimpleColorPicker = () => {
               <h1>Uncontrolled SimpleColorPicker</h1>
               <ul>
                 <li>onChange handler should update the log when the value is changed, e.target.value should be the
-                  users input
+                  user&quot;s input
                 </li>
                 <li>onBlur handler should update the log when the picker is blurred
                 </li>
@@ -46,4 +46,4 @@ const UncontrolledSimpleColorPicker = () => {
   );
 };
 
-export default React.memo(UncontrolledSimpleColorPicker, () => false);
+export default UncontrolledSimpleColorPicker;
