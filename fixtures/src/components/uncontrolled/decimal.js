@@ -13,8 +13,8 @@ const UncontrolledDecimal = () => {
             <div id='uncontrolled_decimal'>
               <h1>Uncontrolled Decimal</h1>
               <ul>
-                <li>onChange handler should update the log when the value is changed, e.target.value should be the
-                  users input
+                <li>onChange handler should update the log when the value is changed, e.target.value should be an array
+                  that contains the &#123; formattedValue, rawValue &#125; the Date input&apos;s
                 </li>
                 <li>onBlur handler should update the log when the decimal is blurred, e.target.value should be the
                   formatted value
@@ -37,4 +37,4 @@ const UncontrolledDecimal = () => {
   );
 };
 
-export default React.memo(UncontrolledDecimal, () => false);
+export default UncontrolledDecimal;
