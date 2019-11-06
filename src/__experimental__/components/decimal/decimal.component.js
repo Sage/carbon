@@ -89,7 +89,7 @@ class Decimal extends React.Component {
     return createEvent(ev, {
       value: {
         rawValue: this.removeDelimiters(ev.target.value),
-        formattedValue: this.formatValue(ev.target.value)
+        formattedValue: this.formatValue(this.removeDelimiters(ev.target.value))
       }
     });
   }
@@ -119,12 +119,6 @@ class Decimal extends React.Component {
     }
   }
 
-  dataComponent = () => {
-    return {
-      'data-component': 'decimal'
-    };
-  }
-
   render() {
     return (
       <Textbox
@@ -133,44 +127,28 @@ class Decimal extends React.Component {
         onBlur={ this.onBlur }
         value={ this.renderValue() }
         inputRef={ (input) => { this.input = input; } }
-        { ...this.dataComponent() }
+        data-component='decimal'
       />
     );
   }
 }
 
 Decimal.propTypes = {
-  /**
-   * The default value alignment on the input
-   */
+  /** The default value alignment on the input */
   align: PropTypes.string,
-  /**
-   * The decimal precision of the value in the input
-   */
+  /** The decimal precision of the value in the input */
   precision: PropTypes.number,
-  /**
-   * The width of the input as a percentage
-   */
+  /** The width of the input as a percentage */
   inputWidth: PropTypes.number,
-  /**
-   * The default value of the input if it's meant to be used as an uncontrolled component
-   */
+  /** The default value of the input if it's meant to be used as an uncontrolled component */
   defaultValue: PropTypes.string,
-  /**
-   * The value of the input if it's used as a controlled component
-   */
+  /** The value of the input if it's used as a controlled component */
   value: PropTypes.string,
-  /**
-   * Handler for change event if input is meant to be used as a controlled component
-   */
+  /** Handler for change event if input is meant to be used as a controlled component */
   onChange: PropTypes.func,
-  /**
-   * Handler for blur event
-   */
+  /** Handler for blur event */
   onBlur: PropTypes.func,
-  /**
-   * Maximum value for precision
-   */
+  /** Maximum value for precision */
   maxPrecision: PropTypes.number
 };
 
