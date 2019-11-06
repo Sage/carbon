@@ -31,9 +31,22 @@ exports[`RadioButton styles base renders as expected 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+.c12 .c6,
+.c12 .c8,
+.c12 .c10,
+.c12 svg {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 0 1 16px;
+  -ms-flex: 0 1 16px;
+  flex: 0 1 16px;
 }
 
 .c12 .c8:hover,
@@ -44,20 +57,44 @@ exports[`RadioButton styles base renders as expected 1`] = `
   cursor: not-allowed;
 }
 
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+}
+
 .c3 .c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
 }
 
 .c3 .c25 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 calc(100% - 28px);
+  -ms-flex: 1 1 calc(100% - 28px);
+  flex: 1 1 calc(100% - 28px);
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
   text-align: left;
   width: auto;
-  white-space: nowrap;
+  white-space: normal;
   margin-top: -2px;
 }
 
@@ -75,14 +112,40 @@ exports[`RadioButton styles base renders as expected 1`] = `
   color: rgba(0,0,0,0.9);
 }
 
+.c3 .c6,
+.c3 .c8,
+.c3 .c10,
+.c3 svg {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 0 1 16px;
+  -ms-flex: 0 1 16px;
+  flex: 0 1 16px;
+}
+
 .c13 .c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+.c13 .c6,
+.c13 .c8,
+.c13 .c10,
+.c13 svg {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 0 1 16px;
+  -ms-flex: 0 1 16px;
+  flex: 0 1 16px;
 }
 
 .c13 .c8:hover,
@@ -98,9 +161,22 @@ exports[`RadioButton styles base renders as expected 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+.c14 .c6,
+.c14 .c8,
+.c14 .c10,
+.c14 svg {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 0 1 16px;
+  -ms-flex: 0 1 16px;
+  flex: 0 1 16px;
 }
 
 .c15 .c6 {
