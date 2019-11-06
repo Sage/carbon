@@ -7,6 +7,7 @@ import { simulate, assertStyleMatch } from '../../__spec_helper__/test-utils';
 import theme from '../../style/themes/small';
 import { ActionPopover, ActionPopoverDivider, ActionPopoverItem } from './index';
 import { MenuButton, Menu } from './action-popover.style';
+import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Icon from '../icon';
 
 jest.useFakeTimers();
@@ -63,7 +64,8 @@ describe('ActionPopover', () => {
       return {
         items: cw.find(ActionPopoverItem),
         menubutton: cw.find(MenuButton),
-        menu: cw.find(Menu)
+        menu: cw.find(Menu),
+        divider: cw.find(ActionPopoverDivider)
       };
     }
     const button = document.querySelector('div[id^=ActionPopoverButton]');
@@ -98,6 +100,14 @@ describe('ActionPopover', () => {
     const { menubutton } = getElements();
     const icon = menubutton.find(Icon).first();
     expect(icon.prop('type')).toBe('ellipsis_vertical');
+  });
+
+  it('has proper data attributes applied to elements', () => {
+    render();
+    const { menubutton, menu, divider } = getElements();
+    rootTagTest(menubutton, 'action-popover-button');
+    rootTagTest(menu, 'action-popover');
+    expect(divider.getDOMNode().getAttribute('data-element')).toBe('action-popover-divider');
   });
 
   it('has a default aria-label', () => {

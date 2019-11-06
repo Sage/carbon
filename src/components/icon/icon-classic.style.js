@@ -8,6 +8,11 @@ export default ({
 }) => isClassic(theme) && css`
   color: rgba(0, 0, 0, 0.85);
 
+  .common-input__label--help & {
+    width: auto;
+    height: auto;
+  }
+
   ${bgTheme && css`
     background-color: ${classicConfig.backgroundColor[bgTheme]};
     &:hover {
