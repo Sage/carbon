@@ -15,8 +15,8 @@ const UncontrolledDate = () => {
             <div id='uncontrolled_date'>
               <h1>Uncontrolled Date</h1>
               <ul>
-                <li>onChange handler should update the log when the value is changed, e.target.value should be the
-                  users input
+                <li>onChange handler should update the log when the value is changed, e.target.value should contain
+                 &#123; formattedValue, rawValue &#125; based on the user&apos;s input
                 </li>
                 <li>onBlur handler should update the log when the date is blurred
                 </li>
@@ -39,4 +39,4 @@ const UncontrolledDate = () => {
   );
 };
 
-export default React.memo(UncontrolledDate, () => false);
+export default UncontrolledDate;
