@@ -75,4 +75,4 @@ const UncontrolledRadioButton = () => {
   );
 };
 
-export default React.memo(UncontrolledRadioButton, () => false);
+export default UncontrolledRadioButton;

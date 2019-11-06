@@ -10,7 +10,7 @@ const ControlledRadioButton = () => {
       {(log) => {
         const onChange = setter => (e) => {
           log(e, { method: 'onChange' });
-          setter(e.target.name);
+          setter(e.target.value);
         };
         const onBlur = e => log(e, { method: 'onBlur' });
 
@@ -85,4 +85,4 @@ const ControlledRadioButton = () => {
   );
 };
 
-export default React.memo(ControlledRadioButton, () => false);
+export default ControlledRadioButton;
