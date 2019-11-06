@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Select, Option } from 'carbon-react/lib/__experimental__/components/select';
 import { LogConsumer } from '../log';
 
@@ -74,4 +74,4 @@ const UnControlledSelect = () => {
   );
 };
 
-export default React.memo(UnControlledSelect, () => false);
+export default UnControlledSelect;
