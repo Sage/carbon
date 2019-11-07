@@ -49,7 +49,7 @@ const ControlledSelect = () => {
             <div id='controlled_select_selected'>
               <h2>Default Selected</h2>
               <ul>
-                <li>value two is selected by default</li>
+                <li>option &quot;Black&quot; should be selected by default</li>
               </ul>
               <Select
                 onChange={ onChange(setSelectedValueExampleTwo) }

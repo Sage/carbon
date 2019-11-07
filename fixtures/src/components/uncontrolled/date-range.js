@@ -20,7 +20,7 @@ const UncontrolledDateRange = () => {
                 </li>
                 <li>onBlur handler should update the log when the date is blurred
                 </li>
-                <li>date range has props value, name, id which should be reflected in both events</li>
+                <li>date range has props name, id which should be reflected in both events</li>
               </ul>
 
               <DateRange
