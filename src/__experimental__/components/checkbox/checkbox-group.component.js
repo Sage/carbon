@@ -12,13 +12,11 @@ const CheckboxGroup = (props) => {
     hasError,
     hasWarning,
     hasInfo,
-    onChange,
-    value
+    onChange
   } = props;
 
   const groupLabelId = `${name}-label`;
   const [checkedValue, setCheckedValue] = useState([]);
-  const isControlled = value !== undefined;
 
   const onChangeProp = useCallback((e) => {
     const checkedCheckboxes = [...checkedValue];
@@ -31,6 +29,15 @@ const CheckboxGroup = (props) => {
     }
 
     setCheckedValue(checkedCheckboxes);
+
+    const { id } = props;
+
+    e.target = {
+      ...(name && { name }),
+      ...(id && { id }),
+      value: checkedCheckboxes
+    };
+
     onChange(e);
   }, [onChange, checkedValue]);
 
