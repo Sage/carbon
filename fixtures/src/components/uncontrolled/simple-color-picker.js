@@ -26,9 +26,9 @@ const UncontrolledSimpleColorPicker = () => {
               <SimpleColorPicker
                 onChange={ onChange }
                 onBlur={ onBlur }
-                id='uncontrolled_picker_id'
-                name='uncontrolled_picker_name'
-                legend='Controlled SimpleColorPicker'
+                id='uncontrolled_color_picker_id'
+                name='uncontrolled_color_picker_name'
+                legend='Uncontrolled SimpleColorPicker'
               >
                 <SimpleColor
                   value='transparent'

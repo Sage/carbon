@@ -19,7 +19,7 @@ const UncontrolledDecimal = () => {
                 <li>onBlur handler should update the log when the decimal is blurred, e.target.value should be the
                   formatted value
                 </li>
-                <li>decimal has props value, name, id which should be reflected in both events</li>
+                <li>decimal has props name, id which should be reflected in both events</li>
               </ul>
 
               <Decimal

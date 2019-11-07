@@ -28,9 +28,9 @@ const ControlledSimpleColorPicker = () => {
               <SimpleColorPicker
                 onChange={ onChange }
                 onBlur={ onBlur }
-                id='controlled_picker_id'
-                name='controlled_picker_name'
-                label='Controlled SimpleColorPicker'
+                id='controlled_color_picker_id'
+                name='controlled_color_picker_name'
+                legend='Controlled SimpleColorPicker'
                 value={ state }
               >
                 <SimpleColor value='transparent' aria-label='transparent' />
