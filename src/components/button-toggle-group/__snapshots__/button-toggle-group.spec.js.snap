@@ -120,9 +120,10 @@ input:focus ~ .c5 {
       data-component="button-toggle"
     >
       <input
+        checked={false}
         className="c4"
         id="guid-12345"
-        name="button-toggle-group"
+        onChange={[Function]}
         type="radio"
         value="foo"
       />
@@ -143,9 +144,10 @@ input:focus ~ .c5 {
       data-component="button-toggle"
     >
       <input
+        checked={false}
         className="c4"
         id="guid-12345"
-        name="button-toggle-group"
+        onChange={[Function]}
         type="radio"
         value="bar"
       />
@@ -261,9 +263,10 @@ input:focus ~ .c5 {
       data-component="button-toggle"
     >
       <input
+        checked={false}
         className="c4"
         id="guid-12345"
-        name="button-toggle-group"
+        onChange={[Function]}
         type="radio"
         value="foo"
       />
@@ -284,9 +287,10 @@ input:focus ~ .c5 {
       data-component="button-toggle"
     >
       <input
+        checked={false}
         className="c4"
         id="guid-12345"
-        name="button-toggle-group"
+        onChange={[Function]}
         type="radio"
         value="bar"
       />
@@ -410,9 +414,10 @@ input:focus ~ .c6 {
       data-component="button-toggle"
     >
       <input
+        checked={false}
         className="c4"
         id="guid-12345"
-        name="button-toggle-group"
+        onChange={[Function]}
         type="radio"
         value="foo"
       />
@@ -433,9 +438,10 @@ input:focus ~ .c6 {
       data-component="button-toggle"
     >
       <input
+        checked={false}
         className="c4"
         id="guid-12345"
-        name="button-toggle-group"
+        onChange={[Function]}
         type="radio"
         value="bar"
       />
