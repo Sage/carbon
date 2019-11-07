@@ -20,7 +20,7 @@ const StyledCheckableInputWrapper = styled.div`
   }) => css`
     ${FormFieldStyle} {
       display: flex;
-      flex-flow: row wrap;
+      flex-wrap: wrap;
     }
 
     ${LabelStyle} {
@@ -30,7 +30,6 @@ const StyledCheckableInputWrapper = styled.div`
       flex-flow: row wrap;
       text-align: ${labelAlign};
       width: auto;
-      white-space: normal;
       margin-top: -2px;
 
       & ${StyledHelp},
@@ -50,7 +49,7 @@ const StyledCheckableInputWrapper = styled.div`
     ${StyledCheckableInputSvgWrapper},
     svg {
       display: flex;
-      flex: 0 1 16px;
+      flex-basis: 16px;
     }
 
     ${FieldHelpStyle && css`
