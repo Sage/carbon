@@ -31,7 +31,7 @@ const store = new Store(
 
 const setValue = (ev) => {
   action('onChange')(ev);
-  store.set({ value: ev.target.value });
+  store.set({ value: ev.target.value.formattedValue });
 };
 
 function makeStory(name, themeSelector) {
@@ -49,6 +49,7 @@ function makeStory(name, themeSelector) {
         maxDate={ maxDate }
         value={ store.get('value') }
         onChange={ setValue }
+        onBlur={ ev => action('onBlur')(ev) }
       />
     );
   };
