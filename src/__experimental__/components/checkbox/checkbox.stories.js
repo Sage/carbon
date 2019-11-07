@@ -19,39 +19,24 @@ Checkbox.__docgenInfo = getDocGenInfo(
 );
 
 function testValidator(value, props) {
-  return new Promise((resolve, reject) => {
-    if (value === 'one' && !props.checked) {
-      reject(new Error('This checkbox is required!'));
-    } else if (props.name === 'checkbox-group' && value === '0') {
-      reject(new Error('This checkbox is required!'));
-    } else {
-      resolve();
-    }
-  });
+  if (value === 'required' && !props.checked) {
+    return Promise.reject(new Error('This checkbox is required!'));
+  }
+  return Promise.resolve();
 }
 
 function testWarning(value, props) {
-  return new Promise((resolve, reject) => {
-    if (value.indexOf('two') !== -1 && !props.checked) {
-      reject(new Error('Show warning!'));
-    } else if (props.name === 'checkbox-group' && value === '1') {
-      reject(new Error('Show warning!'));
-    } else {
-      resolve();
-    }
-  });
+  if (value === 'warning' && !props.checked) {
+    return Promise.reject(new Error('Show warning!'));
+  }
+  return Promise.resolve();
 }
 
 function testInfo(value, props) {
-  return new Promise((resolve, reject) => {
-    if (value.indexOf('three') !== -1 && !props.checked) {
-      reject(new Error('Show this information'));
-    } else if (props.name === 'checkbox-group' && value === '2') {
-      reject(new Error('Show this information'));
-    } else {
-      resolve();
-    }
-  });
+  if (value === 'info' && !props.checked) {
+    return Promise.reject(new Error('Show this information'));
+  }
+  return Promise.resolve();
 }
 
 const checkboxes = {
