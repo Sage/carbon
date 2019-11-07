@@ -17,9 +17,10 @@ DateRange.__docgenInfo = getDocGenInfo(
 const store = new Store({
   value: ['2016-10-01', '2016-10-30']
 });
-const handleChange = (newDate) => {
-  store.set({ value: newDate });
-  action('changed')(newDate);
+const handleChange = (evt) => {
+  const newValue = [evt.target.value[0].rawValue, evt.target.value[1].rawValue];
+  store.set({ value: newValue });
+  action('changed')(newValue);
 };
 
 function makeStory(name, themeSelector) {
