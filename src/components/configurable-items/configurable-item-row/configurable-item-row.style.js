@@ -5,7 +5,13 @@ import LabelStyle from '../../../__experimental__/components/label/label.style';
 import { isClassic } from '../../../utils/helpers/style-helper';
 
 const ConfigurableItemRowIconStyle = styled(Icon)`
-  cursor: move;
+  cursor: grab;
+
+  /* Provides backup cursor view for IE11 */
+  @media all and (-ms-high-contrast: none) {
+    cursor: move;
+  }
+
   padding-right: 12px;
 
   ${({ theme }) => isClassic(theme) && css`
