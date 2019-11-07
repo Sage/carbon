@@ -13,6 +13,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 const ButtonToggle = (props) => {
   const {
     name,
+    checked,
     grouped,
     children,
     disabled,
@@ -36,14 +37,16 @@ const ButtonToggle = (props) => {
 
   return (
     <StyledButtonToggle
-      data-component='button-toggle' grouped={ grouped }
-      onChange={ onChange }
+      data-component='button-toggle'
+      grouped={ grouped }
     >
       <ButtonToggleInput
         name={ name }
+        checked={ checked }
         disabled={ disabled }
         guid={ inputGuid }
         value={ value }
+        onChange={ onChange }
       />
       <StyledButtonToggleLabel
         buttonIcon={ buttonIcon }
@@ -62,6 +65,8 @@ const ButtonToggle = (props) => {
 };
 
 ButtonToggle.propTypes = {
+  /** Set the checked value of the radio button */
+  checked: PropTypes.bool,
   /** Name used on the hidden radio button. */
   name: PropTypes.string,
   /** Change handler passed in from parent. */
