@@ -94,23 +94,24 @@ startRouter(
       key='1' path='/'
       component={ Chrome }
     >
-      {Object.keys(routes).reduce(((acc, key) => {
-        if (routes[key].controlled) {
-          const path = `/controlled/${key}`;
-          acc.push(<Route
+      {Object.keys(routes).filter(key => routes[key].controlled).map((key) => {
+        const path = `/controlled/${key}`;
+        return (
+          <Route
             key={ path } path={ path }
             component={ routes[key].controlled }
-          />);
-        }
-        if (routes[key].uncontrolled) {
-          const path = `/uncontrolled/${key}`;
-          acc.push(<Route
+          />
+        );
+      })}
+      {Object.keys(routes).filter(key => routes[key].uncontrolled).map((key) => {
+        const path = `/uncontrolled/${key}`;
+        return (
+          <Route
             key={ path } path={ path }
             component={ routes[key].uncontrolled }
-          />);
-        }
-        return acc;
-      }), [])}
+          />
+        );
+      })}
     </Route>
   ]
 );
