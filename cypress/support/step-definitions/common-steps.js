@@ -4,9 +4,10 @@ import {
 import {
   commonButtonPreview, labelPreview, helpIcon, helpIconByPosition, inputWidthSlider,
   fieldHelpPreview, labelWidthSlider, backgroundUILocator,
-  closeIconButton, tooltipPreview, getKnobsInput, icon,
-  inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
+  closeIconButton, tooltipPreview, getKnobsInput, getKnobsInputWithName,
+  icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
   precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
+  knobsNameTab, fieldHelpPreviewByPosition,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
@@ -109,8 +110,17 @@ Given('I open {string} component page validations classic in iframe', (component
   visitComponentUrl(component, 'validations_classic', true);
 });
 
+When('I open {word} tab', (text) => {
+  cy.wait(1000, DEBUG_FLAG);
+  knobsNameTab(text).click();
+});
+
 When('I set {word} to {string}', (propertyName, text) => {
   getKnobsInput(propertyName).clear().type(text);
+});
+
+When('I set {word} {word} to {string}', (propertyName, fieldName, text) => {
+  getKnobsInputWithName(propertyName, fieldName).clear().type(text);
 });
 
 When('I set {word}-{word} to {string}', (word1, word2, text) => {
@@ -123,6 +133,10 @@ When('I set {word} to empty', (propertyName) => {
 
 When('I select {word} to {string}', (propertyName, selection) => {
   getKnobsInput(propertyName).select(selection);
+});
+
+When('I select {word} {word} to {string}', (propertyName, text, selection) => {
+  getKnobsInputWithName(propertyName, text).select(selection);
 });
 
 When('I open component preview', () => {
@@ -213,6 +227,21 @@ Then('fieldHelp on preview is set to {string}', (text) => {
   fieldHelpPreview().should('have.text', text);
 });
 
+Then('{string} fieldHelp on preview is set to {string}', (position, text) => {
+  switch (position) {
+    case 'First':
+      fieldHelpPreviewByPosition(FIRST_ELEMENT).should('have.text', text);
+      break;
+    case 'Second':
+      fieldHelpPreviewByPosition(SECOND_ELEMENT).should('have.text', text);
+      break;
+    case 'Third':
+      fieldHelpPreviewByPosition(THIRD_ELEMENT).should('have.text', text);
+      break;
+    default: throw new Error('There are only three field help elements on the page');
+  }
+});
+
 When('I set label width slider to {int}', (width) => {
   setSlidebar(labelWidthSlider(), width);
 });
@@ -273,6 +302,11 @@ When('I enable {word} component', () => {
 When('I check {word} checkbox', (checkboxName) => {
   getKnobsInput(checkboxName).scrollIntoView();
   getKnobsInput(checkboxName).check();
+});
+
+When('I check {word} {word} checkbox', (checkboxName, text) => {
+  getKnobsInputWithName(checkboxName, text).scrollIntoView();
+  getKnobsInputWithName(checkboxName, text).check();
 });
 
 When('I uncheck {word} checkbox', (checkboxName) => {
