@@ -2,6 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import 'jest-styled-components';
 import TestRenderer from 'react-test-renderer';
+import TestUtils from 'react-dom/test-utils';
 import CheckboxGroup from './checkbox-group.component';
 import { Checkbox } from '.';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
@@ -68,13 +69,9 @@ describe('CheckboxGroup', () => {
   describe('onChange', () => {
     it('should be called', () => {
       const fakeFunction = jest.fn();
-      const wrapper = render({}, {
-        onChange: fakeFunction
-      });
-      const checkbox = wrapper.find(Checkbox).first();
-
-      checkbox.prop('onChange')();
-
+      const wrapper = render({ onChange: fakeFunction });
+      const checkboxInputElement = wrapper.find('input').first().getDOMNode();
+      TestUtils.Simulate.change(checkboxInputElement);
       expect(fakeFunction).toBeCalledTimes(1);
     });
   });
