@@ -17,7 +17,7 @@ const Menu = styled.div`
 `;
 
 const MenuItemFactory = button => styled(button)`
-  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')}
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   box-sizing: border-box;
   padding: 0 24px;
   line-height: 40px;
@@ -40,7 +40,7 @@ const MenuItemFactory = button => styled(button)`
   }
 `;
 
-const MenuItemDivider = styled.div`
+const MenuItemDivider = styled.div.attrs({ 'data-element': 'action-popover-divider' })`
   background-color: ${({ theme }) => theme.menu.divider};
   height: 1px;
   margin: 9px;
