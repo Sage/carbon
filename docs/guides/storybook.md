@@ -1,6 +1,6 @@
-# Themeing
+# Theming
 
-Themeing functionality is covered by additional storybook addon. Included in `devDependencies` of `package.json`
+Theming functionality is covered by additional storybook addon. Included in `devDependencies` of `package.json`
 `"storybook-addon-styled-component-theme": "Sage/storybook-addon-styled-component-theme#storyspecific-themes",`
 
 ## Notice

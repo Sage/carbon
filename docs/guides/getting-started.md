@@ -57,7 +57,6 @@ in Carbon v9 the following components have been deprecated and can now be found 
 * Form
 * GroupedCharacter
 * Number
-* Pod
 * RadioButton
 * SimpleColorPicker
 * Spinner
