@@ -9,6 +9,8 @@ import StyledDateRange from './date-range.style';
 import DateHelper from '../../../utils/helpers/date';
 
 class DateRange extends React.Component {
+  today = DateHelper.todayFormatted('YYYY-MM-DD');
+
   isControlled = this.props.value !== undefined;
 
   static propTypes = {
@@ -48,11 +50,11 @@ class DateRange extends React.Component {
     forceUpdateTriggerToggle: false,
     startDateValue: {
       formattedValue: DateHelper.formatDateToCurrentLocale(this.startDate),
-      rawValue: DateHelper.formatValue(this.startDate)
+      rawValue: DateHelper.formatValue(this.startDate || this.today)
     },
     endDateValue: {
       formattedValue: DateHelper.formatDateToCurrentLocale(this.endDate),
-      rawValue: DateHelper.formatValue(this.endDate)
+      rawValue: DateHelper.formatValue(this.endDate || this.today)
     }
   }
 
