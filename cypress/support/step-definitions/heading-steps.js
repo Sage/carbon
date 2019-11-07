@@ -22,7 +22,7 @@ Then('link on preview is {string}', (helpLink) => {
 });
 
 Then('backLink on preview is {string}', (backLink) => {
-  link().should('have.attr', 'href', backLink);
+  link().children().should('have.attr', 'href', backLink);
 });
 
 Then('divider is visible', () => {
