@@ -142,24 +142,30 @@ const checkboxComponent = () => {
   );
 };
 
-function testValidation(type) {
-  return (value) => {
-    return new Promise((resolve, reject) => {
-      if (type === 'valid' && value === 'one') {
-        reject(new Error('An error has occurred!'));
-      }
+let allBeenChecked = false;
 
-      if (type === 'warn' && value === 'two') {
-        reject(new Error('Watch out!'));
-      }
+function testErrorGroup(checkedValues) {
+  if (checkedValues.length === groupCheckbox.length) {
+    allBeenChecked = true;
+  }
+  if (checkedValues.length === 0 && allBeenChecked) {
+    return Promise.reject(new Error('Show error!'));
+  }
+  return Promise.resolve();
+}
 
-      if (type === 'info' && value === 'three') {
-        reject(new Error('Let me tell you this...'));
-      }
+function testWarningGroup(checkedValues) {
+  if (checkedValues.length === 1) {
+    return Promise.reject(new Error('Show warning!'));
+  }
+  return Promise.resolve();
+}
 
-      resolve();
-    });
-  };
+function testInfoGroup(checkedValues) {
+  if (checkedValues.length === 2) {
+    return Promise.reject(new Error('Show this information'));
+  }
+  return Promise.resolve();
 }
 
 const checkboxGroupComponent = () => (
@@ -188,11 +194,11 @@ const checkboxGroupComponent = () => (
         name='checkbox-group'
         label={ text('label', 'What would you choose?', 'group') }
         labelHelp={ text('labelHelp', 'Some helpful information', 'group') }
-        validations={ testValidation('valid') }
-        warnings={ testValidation('warn') }
-        info={ testValidation('info') }
+        validations={ testErrorGroup }
+        warnings={ testWarningGroup }
+        info={ testInfoGroup }
         onChange={ handleGroupChange(groupStore) }
-        forceUpdateTriggerToggle={ true }
+        forceUpdateTriggerToggle
       >
         {groupCheckbox.map(id => (
           <Checkbox
