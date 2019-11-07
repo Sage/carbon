@@ -114,7 +114,7 @@ function handleChange(ev, id) {
 
   checkboxes[id].store.set({
     checked,
-    forceUpdateTriggerToggle: !checked
+    forceUpdateTriggerToggle: checked
   });
 
   action('change')(`checked: ${checked}`);
