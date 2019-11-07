@@ -34,8 +34,8 @@ const UncontrolledCheckbox = () => {
               </ul>
               <Checkbox
                 id='uncontrolled_checkbox_two'
-                value='value one'
-                label='label one'
+                value='value two'
+                label='label two'
                 onChange={ onChange }
                 onBlur={ onBlur }
                 name='uncontrolled_checkbox_two'
