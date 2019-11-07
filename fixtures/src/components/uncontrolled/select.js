@@ -50,7 +50,7 @@ const UnControlledSelect = () => {
                 onChange={ onChange }
                 onBlur={ onBlur }
                 label='Uncontrolled Example Default Selected'
-                defaultValue={ ['2'] }
+                defaultValue='2'
                 id='uncontrolled_select_selected_id'
                 name='uncontrolled_select_selected_name'
               >

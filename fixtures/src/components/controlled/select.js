@@ -10,7 +10,7 @@ const ControlledSelect = () => {
       {(log) => {
         const onChange = setter => (e) => {
           log(e, { method: 'onChange' });
-          setter(e.target.value.map(o => o.optionValue));
+          setter(e.target.value[0].optionValue);
         };
         const onBlur = e => log(e, { method: 'onBlur' });
 
