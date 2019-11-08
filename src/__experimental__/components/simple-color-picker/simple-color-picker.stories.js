@@ -66,7 +66,8 @@ function makeStory(storyName, themeSelector) {
 
   const metadata = {
     themeSelector,
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   };
 
   return [storyName, component, metadata];
