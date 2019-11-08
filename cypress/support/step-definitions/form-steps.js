@@ -1,6 +1,7 @@
 import {
   saveButton, cancelButton, leftAlignedActions, rightAlignedActions,
   errorsSummary, errorMessage, inputValidation, buttons, errorTooltip,
+  additionalActions,
 } from '../../locators/form';
 import { DEBUG_FLAG } from '..';
 import { tooltipPreview } from '../../locators/help';
@@ -57,6 +58,10 @@ Then('cancel button text is set to {string}', (text) => {
 
 Then('save button text is set to {string}', (text) => {
   saveButton().should('have.text', text);
+});
+
+Then('additional actions text is set to {string}', (text) => {
+  additionalActions().should('have.text', text);
 });
 
 Then('additionalAction button is set to {string} and has text {string}', (buttonState, text) => {
