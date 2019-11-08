@@ -300,7 +300,7 @@ function isoFormattedValueString(valueToFormat) {
   return DateHelper.formatValue(valueToFormat);
 }
 
-const DateInput = withUniqueName(BaseDateInput);
+const DateInput = withUniqueIdProps(BaseDateInput);
 
 BaseDateInput.propTypes = {
   ...Textbox.propTypes,
