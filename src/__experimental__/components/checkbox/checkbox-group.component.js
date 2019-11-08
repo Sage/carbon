@@ -12,11 +12,13 @@ const CheckboxGroup = (props) => {
     hasError,
     hasWarning,
     hasInfo,
-    onChange
+    onChange,
+    value
   } = props;
 
+  const checkboxGroupValue = (value !== undefined) ? value : [];
   const groupLabelId = `${name}-label`;
-  const [checkedValue, setCheckedValue] = useState([]);
+  const [checkedValue, setCheckedValue] = useState(checkboxGroupValue);
 
   const onChangeProp = useCallback((e) => {
     const checkedCheckboxes = [...checkedValue];
@@ -90,10 +92,7 @@ CheckboxGroup.propTypes = {
   /** Prop to indicate additional information  */
   hasInfo: PropTypes.bool,
   onChange: PropTypes.func,
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array
-  ])
+  value: PropTypes.array
 };
 
 CheckboxGroup.defaultProps = {

@@ -27,6 +27,7 @@ function render(props, childProps, renderer = mount) {
 
   return renderer(
     <CheckboxGroup
+      id={ name }
       name={ name }
       label='Test CheckboxGroup Label'
       { ...props }
@@ -74,6 +75,44 @@ describe('CheckboxGroup', () => {
       TestUtils.Simulate.change(checkboxInputElement);
       expect(fakeFunction).toBeCalledTimes(1);
     });
+
+    describe('when checkboxes are unchecked', () => {
+      const fakeFunction = jest.fn();
+      const wrapper = render({ onChange: fakeFunction });
+
+      it.each(checkboxValues)(
+        'validates that checkbox with id: cId-%s is unchecked',
+        (checkbox) => {
+          expect(wrapper.find(`#cId-${checkbox}`).first().prop('checked')).toBe(false);
+        }
+      );
+
+      it('should check the first checkbox', () => {
+        expect(wrapper.find('input').first().prop('checked')).toBe(false);
+        expect(wrapper.find('input').last().prop('checked')).toBe(false);
+        const input = wrapper.find('input').first().getDOMNode();
+        TestUtils.Simulate.change(input, { target: { value: input.value, id: input.id } });
+        wrapper.update();
+        expect(fakeFunction).toHaveBeenCalledTimes(1);
+        expect(wrapper.find('input').first().prop('checked')).toBe(true);
+        expect(wrapper.find('input').last().prop('checked')).toBe(false);
+      });
+    });
+
+    describe('when checkboxes are checked', () => {
+      it('should uncheck the first checkbox', () => {
+        const fakeFunction = jest.fn();
+        const wrapper = render({ value: checkboxValues, onChange: fakeFunction });
+        expect(wrapper.find('input').first().prop('checked')).toBe(true);
+        expect(wrapper.find('input').last().prop('checked')).toBe(true);
+        const input = wrapper.find('input').first().getDOMNode();
+        TestUtils.Simulate.change(input, { target: { value: input.value, id: input.id } });
+        wrapper.update();
+        expect(fakeFunction).toHaveBeenCalledTimes(1);
+        expect(wrapper.find('input').first().prop('checked')).toBe(false);
+        expect(wrapper.find('input').last().prop('checked')).toBe(true);
+      });
+    });
   });
 
   describe('styles', () => {
@@ -112,7 +151,7 @@ describe('CheckboxGroup', () => {
       });
 
       describe('pass validation props', () => {
-        const wrapper = render({}, { checked: true });
+        const wrapper = render({ value: ['optional'] });
 
         it('checked === false', () => {
           wrapper.setProps({
@@ -121,8 +160,15 @@ describe('CheckboxGroup', () => {
 
           const checkboxWrapper = wrapper.find(Checkbox).first();
 
+          expect(checkboxWrapper.prop('checked')).toBe(false);
+          expect(checkboxWrapper.prop('hasError')).toBe(true);
+        });
+
+        it('checked === true', () => {
+          const checkboxWrapper = wrapper.find(Checkbox).last();
+
           expect(checkboxWrapper.prop('checked')).toBe(true);
-          expect(checkboxWrapper.prop('hasError')).toBeUndefined();
+          expect(checkboxWrapper.prop('hasError')).toBeFalsy();
         });
       });
     });

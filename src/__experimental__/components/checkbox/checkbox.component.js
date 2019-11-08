@@ -4,7 +4,7 @@ import tagComponent from '../../../utils/helpers/tags';
 import CheckboxStyle from './checkbox.style';
 import CheckableInput from '../checkable-input/checkable-input.component';
 import CheckboxSvg from './checkbox-svg.component';
-import withValidations from '../../../components/validations/with-validation.hoc';
+import withValidation from '../../../components/validations/with-validation.hoc';
 
 const Checkbox = ({
   id, label, onChange, value, ...props
@@ -67,4 +67,4 @@ Checkbox.defaultProps = {
   reverse: false
 };
 
-export default withValidations(Checkbox, { unblockValidation: true });
+export default withValidation(Checkbox, { unblockValidation: true });

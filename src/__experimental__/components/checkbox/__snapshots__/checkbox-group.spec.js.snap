@@ -56,17 +56,17 @@ exports[`CheckboxGroup renders as expected 1`] = `
   margin-top: -2px;
 }
 
-.c7 .c3 .c15,
-.c7 .c3 .c16 {
+.c7 .c3 .c16,
+.c7 .c3 .c17 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c7 .c3 .c15:hover,
 .c7 .c3 .c16:hover,
-.c7 .c3 .c15:focus,
-.c7 .c3 .c16:focus {
+.c7 .c3 .c17:hover,
+.c7 .c3 .c16:focus,
+.c7 .c3 .c17:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -112,18 +112,51 @@ exports[`CheckboxGroup renders as expected 1`] = `
   width: auto;
 }
 
-.c6 .c13 {
+.c6 .c14 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
 }
 
-.c6 .c16 {
+.c6 .c17 {
   position: relative;
   display: inline-block;
 }
 
-.c0 .c14::before {
+.c13 .c8 {
+  padding-top: 1px;
+}
+
+.c13 .c12 {
+  height: 16px;
+}
+
+.c13 .c10,
+.c13 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c13 .c8,
+.c13 .c10,
+.c13 .c12,
+.c13 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c13 .c10:not([disabled]):focus + .c12,
+.c13 .c10:not([disabled]):hover + .c12 {
+  box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c13 .c3 {
+  padding: 0 6px;
+  width: auto;
+}
+
+.c0 .c15::before {
   font-size: 16px;
 }
 
@@ -143,7 +176,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
   vertical-align: middle;
 }
 
-.c0 > .c1 > .c3 .c16 {
+.c0 > .c1 > .c3 .c17 {
   display: inline-block;
 }
 
