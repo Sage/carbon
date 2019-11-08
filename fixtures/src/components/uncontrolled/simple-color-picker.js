@@ -26,17 +26,25 @@ const UncontrolledSimpleColorPicker = () => {
               <SimpleColorPicker
                 onChange={ onChange }
                 onBlur={ onBlur }
-                id='uncontrolled_color_picker_id'
                 name='uncontrolled_color_picker_name'
                 legend='Uncontrolled SimpleColorPicker'
               >
                 <SimpleColor
-                  value='transparent'
-                  aria-label='transparent'
+                  value='#000000'
+                  aria-label='black'
                   defaultChecked
+                  id='#000000'
                 />
-                <SimpleColor value='#ff0102' aria-label='red' />
-                <SimpleColor value='#34ff01' aria-label='green' />
+                <SimpleColor
+                  value='#ff0102'
+                  aria-label='red'
+                  id='#ff0102'
+                />
+                <SimpleColor
+                  value='#34ff01'
+                  aria-label='green'
+                  id='#34ff01'
+                />
               </SimpleColorPicker>
             </div>
           </React.Fragment>

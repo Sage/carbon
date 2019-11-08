@@ -28,14 +28,25 @@ const ControlledSimpleColorPicker = () => {
               <SimpleColorPicker
                 onChange={ onChange }
                 onBlur={ onBlur }
-                id='controlled_color_picker_id'
                 name='controlled_color_picker_name'
                 legend='Controlled SimpleColorPicker'
                 value={ state }
               >
-                <SimpleColor value='transparent' aria-label='transparent' />
-                <SimpleColor value='#ff0102' aria-label='red' />
-                <SimpleColor value='#34ff01' aria-label='green' />
+                <SimpleColor
+                  value='#000000'
+                  aria-label='black'
+                  id='#000000'
+                />
+                <SimpleColor
+                  value='#ff0102'
+                  aria-label='red'
+                  id='#ff0102'
+                />
+                <SimpleColor
+                  value='#34ff01'
+                  aria-label='green'
+                  id='#34ff01'
+                />
               </SimpleColorPicker>
             </div>
           </React.Fragment>
