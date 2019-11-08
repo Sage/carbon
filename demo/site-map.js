@@ -3,7 +3,6 @@ import Icons from './views/pages/style/icons';
 import SiteMapHelper from './utils/site-map-helper';
 
 const guidesPath = '/docs/guides';
-
 // Available options per route:
 //  * component (will render that component for the route)
 //  * items (a hash of sub-routes)
