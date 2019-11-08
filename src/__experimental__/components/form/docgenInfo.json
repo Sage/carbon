@@ -5,13 +5,6 @@
       "displayName": "FormWithoutValidations",
       "methods": [
         {
-          "name": "getChildContext",
-          "docblock": null,
-          "modifiers": [],
-          "params": [],
-          "returns": null
-        },
-        {
           "name": "getActiveInput",
           "docblock": null,
           "modifiers": [],
@@ -80,6 +73,14 @@
           "returns": null
         },
         {
+          "name": "checkFormDataExists",
+          "docblock": "Returns true if any input has value",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Returns true if any input has value"
+        },
+        {
           "name": "checkIsFormDirty",
           "docblock": null,
           "modifiers": [],
@@ -131,9 +132,7 @@
         {
           "name": "submitControlledForm",
           "docblock": null,
-          "modifiers": [
-            "async"
-          ],
+          "modifiers": [],
           "params": [],
           "returns": null
         },
@@ -155,18 +154,6 @@
           "modifiers": [],
           "params": [],
           "returns": null
-        },
-        {
-          "name": "serialize",
-          "docblock": "Serializes the inputs in the form ready for submission via AJAX\nhttps://www.npmjs.com/package/form-serialize",
-          "modifiers": [],
-          "params": [
-            {
-              "name": "opts"
-            }
-          ],
-          "returns": null,
-          "description": "Serializes the inputs in the form ready for submission via AJAX\nhttps://www.npmjs.com/package/form-serialize"
         },
         {
           "name": "htmlProps",
@@ -237,24 +224,12 @@
           "description": "Returns the footer for the form"
         },
         {
-          "name": "mainClasses",
-          "docblock": "Main class getter",
-          "modifiers": [
-            "get"
-          ],
+          "name": "orderFormButtons",
+          "docblock": "Orders the Save and Cancel Buttons based on alignment prop",
+          "modifiers": [],
           "params": [],
           "returns": null,
-          "description": "Main class getter"
-        },
-        {
-          "name": "footerClasses",
-          "docblock": "Button class getter",
-          "modifiers": [
-            "get"
-          ],
-          "params": [],
-          "returns": null,
-          "description": "Button class getter"
+          "description": "Orders the Save and Cancel Buttons based on alignment prop"
         },
         {
           "name": "addInputDataToState",
@@ -270,6 +245,26 @@
           ],
           "returns": null,
           "description": "Store children controlled data in state"
+        },
+        {
+          "name": "getContext",
+          "docblock": "Returns form object to child components.",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Returns form object to child components."
+        },
+        {
+          "name": "isHTMLElement",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "child",
+              "type": null
+            }
+          ],
+          "returns": null
         },
         {
           "name": "renderChildren",
@@ -319,7 +314,9 @@
         },
         "buttonAlign": {
           "type": {
-            "name": "string"
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.alignBinary"
           },
           "required": false,
           "description": "Alignment of submit button",
@@ -456,13 +453,6 @@
             "computed": false
           }
         },
-        "className": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "A custom class name for the component."
-        },
         "children": {
           "type": {
             "name": "node"
@@ -546,23 +536,21 @@
             "name": "string"
           },
           "required": false,
-          "description": ""
-        }
-      },
-      "context": {
-        "modal": {
+          "description": "Path to redirect after submit"
+        },
+        "fixedBottom": {
           "type": {
-            "name": "object"
+            "name": "bool"
           },
-          "required": false
-        }
-      },
-      "childContext": {
-        "form": {
+          "required": false,
+          "description": "Passed down when Form parent is dialog"
+        },
+        "isLabelRightAligned": {
           "type": {
-            "name": "object"
+            "name": "bool"
           },
-          "required": false
+          "required": false,
+          "description": "Sets children's label alignment"
         }
       }
     },

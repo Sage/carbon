@@ -26,19 +26,19 @@ describe('Create', () => {
       textAlign: 'center',
       fontWeight: '700'
     },
-    wrapper.find(CreateStyle));
+    wrapper.find(CreateStyle), { modifier: 'a' });
 
     assertStyleMatch({
       backgroundColor: baseTheme.colors.white
     },
-    wrapper.find(CreateStyle), { modifier: ':hover' });
+    wrapper.find(CreateStyle), { modifier: 'a:hover' });
 
     assertStyleMatch({
       color: baseTheme.colors.primary,
       backgroundColor: baseTheme.colors.white,
       outline: `3px solid ${baseTheme.colors.focus}`
     },
-    wrapper.find(CreateStyle), { modifier: ':focus' });
+    wrapper.find(CreateStyle), { modifier: 'a:focus' });
   });
 
   describe('when `custom class` is provided to component', () => {

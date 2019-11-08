@@ -892,10 +892,12 @@ exports[`RadioButton styles base renders as expected 1`] = `
     checked={false}
     className="c2"
     data-component="radio-button"
+    onBlur={[Function]}
   >
     <div
       checked={false}
       className="c3"
+      onBlur={[Function]}
     >
       <div
         className="c4 c5"
@@ -910,6 +912,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
             checked={false}
             className="c8 c9"
             id="guid-12345"
+            onBlur={[Function]}
             onChange={[Function]}
             role="radio"
             type="radio"

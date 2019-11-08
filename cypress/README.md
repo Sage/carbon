@@ -44,7 +44,8 @@ Use scenario tags:
 5. `@ignore` and `@[bug-number]` should be removed after bug fix
 6. `@build` for pipeline - each build is verified by those tests
 7. `@accessibility` tests verifies accessibility violations
-8. `@deprecated` tests verifies deprecated components
+8. `@validations` tests verify validation components
+9. `@deprecated` tests verifies deprecated components
 
 ## Files structure
 ```

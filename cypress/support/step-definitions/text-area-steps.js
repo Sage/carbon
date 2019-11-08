@@ -1,6 +1,6 @@
 import {
   textarea, textareaChildren, colsSlider, rowsSlider,
-  characterLimit, textareaInput,
+  characterLimit, textareaInput, textareaChildrenNoIframe,
 } from '../../locators/textarea';
 import { setSlidebar } from '../helper';
 import {
@@ -133,6 +133,10 @@ Then('Textarea component is not labelInline', () => {
 
 When('I input {string} into Textarea', (text) => {
   textareaChildren().clear().type(text);
+});
+
+When('Type {string} into Textarea into iFrame', (text) => {
+  textareaChildrenNoIframe().clear().type(text);
 });
 
 When('I input {string} into Textarea for deprecated component', (text) => {
