@@ -227,6 +227,16 @@ describe('Date', () => {
     it('should update the input element to reflect the passed date', () => {
       expect(wrapper.update().find('input').prop('value')).toBe(getFormattedDate(mockDate));
     });
+
+    it('should return focus to the date input and the picker should not open', () => {
+      const instance = wrapper.find(BaseDateInput).instance();
+      expect(instance.inputFocusedViaPicker).toEqual(true);
+      const spy = spyOn(instance, 'updateSelectedDate');
+      const stateSpy = spyOn(instance, 'setState');
+      instance.openDatePicker();
+      expect(spy).not.toHaveBeenCalled();
+      expect(stateSpy).not.toHaveBeenCalled();
+    });
   });
 
   describe('when the input value is changed', () => {
