@@ -30,7 +30,6 @@ const StyledCheckableInputWrapper = styled.div`
       flex-flow: row wrap;
       text-align: ${labelAlign};
       width: auto;
-      margin-top: -2px;
 
       & ${StyledHelp},
       & ${StyledValidationIcon} {
@@ -49,7 +48,6 @@ const StyledCheckableInputWrapper = styled.div`
     ${StyledCheckableInputSvgWrapper},
     svg {
       display: flex;
-      flex-basis: 16px;
     }
 
     ${FieldHelpStyle && css`
