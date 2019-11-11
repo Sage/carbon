@@ -172,7 +172,11 @@ const StyledCheckboxGroup = styled.div`
   ${StyledIcon}::before {
     font-size: 16px;
   }
-  
+
+  ${StyledLabel} {
+    margin-top: -2px;
+  }
+
   & ${CheckboxStyle} {
     padding-top: 12px;
 

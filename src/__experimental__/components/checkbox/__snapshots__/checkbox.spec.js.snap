@@ -59,7 +59,6 @@ exports[`Checkbox base theme renders as expected 1`] = `
   flex-flow: row wrap;
   text-align: left;
   width: auto;
-  margin-top: -2px;
 }
 
 .c1 .c26 .c24,
@@ -84,9 +83,6 @@ exports[`Checkbox base theme renders as expected 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-basis: 16px;
-  -ms-flex-preferred-size: 16px;
-  flex-basis: 16px;
 }
 
 .c9 .c2 {
@@ -107,9 +103,6 @@ exports[`Checkbox base theme renders as expected 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-basis: 16px;
-  -ms-flex-preferred-size: 16px;
-  flex-basis: 16px;
 }
 
 .c10 .c2 {
@@ -130,9 +123,6 @@ exports[`Checkbox base theme renders as expected 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-basis: 16px;
-  -ms-flex-preferred-size: 16px;
-  flex-basis: 16px;
 }
 
 .c10 .c6:hover,
@@ -161,9 +151,6 @@ exports[`Checkbox base theme renders as expected 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-basis: 16px;
-  -ms-flex-preferred-size: 16px;
-  flex-basis: 16px;
 }
 
 .c11 .c4 {
@@ -188,9 +175,6 @@ exports[`Checkbox base theme renders as expected 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-basis: 16px;
-  -ms-flex-preferred-size: 16px;
-  flex-basis: 16px;
 }
 
 .c12 .c6:hover,

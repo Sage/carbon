@@ -44,9 +44,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-basis: 16px;
-  -ms-flex-preferred-size: 16px;
-  flex-basis: 16px;
 }
 
 .c12 .c8:hover,
@@ -94,7 +91,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
   flex-flow: row wrap;
   text-align: left;
   width: auto;
-  margin-top: -2px;
 }
 
 .c3 .c25 .c23,
@@ -119,9 +115,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-basis: 16px;
-  -ms-flex-preferred-size: 16px;
-  flex-basis: 16px;
 }
 
 .c13 .c4 {
@@ -142,9 +135,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-basis: 16px;
-  -ms-flex-preferred-size: 16px;
-  flex-basis: 16px;
 }
 
 .c13 .c8:hover,
@@ -173,9 +163,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-basis: 16px;
-  -ms-flex-preferred-size: 16px;
-  flex-basis: 16px;
 }
 
 .c15 .c6 {
@@ -930,6 +917,12 @@ exports[`RadioButton styles base renders as expected 1`] = `
 
 .c2 circle {
   r: 5;
+}
+
+.c2 .c25 {
+  -webkit-flex: 1 1 calc(100% - 44px);
+  -ms-flex: 1 1 calc(100% - 44px);
+  flex: 1 1 calc(100% - 44px);
 }
 
 .c2 .c8:checked + .c10 circle {

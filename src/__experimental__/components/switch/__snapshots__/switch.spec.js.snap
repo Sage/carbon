@@ -71,7 +71,6 @@ exports[`Switch base theme renders as expected 1`] = `
   flex-flow: row wrap;
   text-align: left;
   width: auto;
-  margin-top: -2px;
 }
 
 .c1 .c33 .c31,
@@ -96,9 +95,6 @@ exports[`Switch base theme renders as expected 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-basis: 16px;
-  -ms-flex-preferred-size: 16px;
-  flex-basis: 16px;
 }
 
 .c14 .c2 {
@@ -119,9 +115,6 @@ exports[`Switch base theme renders as expected 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-basis: 16px;
-  -ms-flex-preferred-size: 16px;
-  flex-basis: 16px;
 }
 
 .c10 {
@@ -325,8 +318,11 @@ exports[`Switch base theme renders as expected 1`] = `
 .c0 .c33 {
   padding: 0;
   margin-bottom: 8px;
-  margin-right: 100%;
   margin-top: 1px;
+}
+
+.c0 .c33 label {
+  margin-top: 2px;
 }
 
 .c0 .c33 .c32 {

@@ -76,7 +76,6 @@ exports[`CheckboxGroup renders as expected 1`] = `
   flex-flow: row wrap;
   text-align: left;
   width: auto;
-  margin-top: -2px;
 }
 
 .c7 .c3 .c16,
@@ -101,9 +100,6 @@ exports[`CheckboxGroup renders as expected 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-basis: 16px;
-  -ms-flex-preferred-size: 16px;
-  flex-basis: 16px;
 }
 
 .c6 {
@@ -194,6 +190,10 @@ exports[`CheckboxGroup renders as expected 1`] = `
 
 .c0 .c15::before {
   font-size: 16px;
+}
+
+.c0 .c3 {
+  margin-top: -2px;
 }
 
 .c0 .c5 {

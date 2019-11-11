@@ -59,7 +59,6 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   flex-flow: row wrap;
   text-align: left;
   width: auto;
-  margin-top: -2px;
 }
 
 .c5 .c17 .c15,
@@ -84,9 +83,6 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-basis: 16px;
-  -ms-flex-preferred-size: 16px;
-  flex-basis: 16px;
 }
 
 .c4 {
@@ -174,6 +170,12 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 
 .c4 circle {
   r: 5;
+}
+
+.c4 .c18 {
+  -webkit-flex: 1 1 calc(100% - 44px);
+  -ms-flex: 1 1 calc(100% - 44px);
+  flex: 1 1 calc(100% - 44px);
 }
 
 .c4 .c10:checked + .c12 circle {
