@@ -18,7 +18,7 @@ const ControlledSimpleColorPicker = () => {
               <h1>Controlled SimpleColorPicker</h1>
               <ul>
                 <li>onChange handler should update the log when the value is changed, e.target.value should be the
-                  users input
+                  user&quot;s input
                 </li>
                 <li>onBlur handler should update the log when the picker is blurred
                 </li>
@@ -28,9 +28,9 @@ const ControlledSimpleColorPicker = () => {
               <SimpleColorPicker
                 onChange={ onChange }
                 onBlur={ onBlur }
-                id='controlled_picker_id'
-                name='controlled_picker_name'
-                label='Controlled SimpleColorPicker'
+                id='controlled_color_picker_id'
+                name='controlled_color_picker_name'
+                legend='Controlled SimpleColorPicker'
                 value={ state }
               >
                 <SimpleColor value='transparent' aria-label='transparent' />
@@ -45,4 +45,4 @@ const ControlledSimpleColorPicker = () => {
   );
 };
 
-export default React.memo(ControlledSimpleColorPicker, () => false);
+export default ControlledSimpleColorPicker;

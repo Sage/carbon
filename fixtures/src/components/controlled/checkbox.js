@@ -3,8 +3,8 @@ import { Checkbox } from 'carbon-react/lib/__experimental__/components/checkbox'
 import { LogConsumer } from '../log';
 
 const ControlledCheckbox = () => {
-  const [checked, setState] = useState(false);
-  const [checkedExampleTwo, setStateExampleTwo] = useState(true);
+  const [checked, setChecked] = useState(false);
+  const [checkedExampleTwo, setCheckedExampleTwo] = useState(true);
   return (
     <LogConsumer>
       {(log) => {
@@ -21,12 +21,12 @@ const ControlledCheckbox = () => {
               <ul>
                 <li>onChange handler should update the log when each checkbox is checked</li>
                 <li>onBlur handler should update the log when each checkbox is blurred</li>
-                <li>each checkbox button has props value, name, id which should be reflected in both events</li>
+                <li>each checkbox button has props name, id which should be reflected in both events</li>
               </ul>
               <Checkbox
                 id='controlled_checkbox_one'
                 label='label one'
-                onChange={ onChange(setState) }
+                onChange={ onChange(setChecked) }
                 onBlur={ onBlur }
                 checked={ checked }
                 name='controlled_checkbox_one'
@@ -39,8 +39,8 @@ const ControlledCheckbox = () => {
               </ul>
               <Checkbox
                 id='controlled_checkbox_two'
-                label='label one'
-                onChange={ onChange(setStateExampleTwo) }
+                label='label two'
+                onChange={ onChange(setCheckedExampleTwo) }
                 onBlur={ onBlur }
                 checked={ checkedExampleTwo }
                 name='controlled_checkbox_two'
@@ -53,4 +53,4 @@ const ControlledCheckbox = () => {
   );
 };
 
-export default React.memo(ControlledCheckbox, () => false);
+export default ControlledCheckbox;

@@ -12,11 +12,11 @@ const UncontrolledGroupedCharacter = () => {
         const onBlur = e => log(e, { method: 'onBlur' });
         return (
           <React.Fragment>
-            <div id='controlled_grouped_character'>
+            <div id='uncontrolled_grouped_character'>
               <h1>Uncontrolled GroupedCharacter</h1>
               <ul>
-                <li>onChange handler should update the log when the value is changed, e.target.value should be the
-                  users input
+                <li>onChange handler should update the log when the value is changed, e.target.value should contain
+                 &#123; formattedValue, rawValue &#125; based on the user&apos;s input
                 </li>
                 <li>onBlur handler should update the log when the groupedcharacter is blurred
                 </li>
@@ -41,4 +41,4 @@ const UncontrolledGroupedCharacter = () => {
   );
 };
 
-export default React.memo(UncontrolledGroupedCharacter, () => false);
+export default UncontrolledGroupedCharacter;

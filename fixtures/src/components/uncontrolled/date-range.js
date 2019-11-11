@@ -15,12 +15,12 @@ const UncontrolledDateRange = () => {
             <div id='uncontrolled_date_range'>
               <h1>Uncontrolled Date Range</h1>
               <ul>
-                <li>onChange handler should update the log when the value is changed, e.target.value should be the
-                  users input
+                <li>onChange handler should update the log when the value is changed, e.target.value should be an array
+                  that contains the &#123; formattedValue, rawValue &#125; the Date input&apos;s
                 </li>
                 <li>onBlur handler should update the log when the date is blurred
                 </li>
-                <li>date range has props value, name, id which should be reflected in both events</li>
+                <li>date range has props name, id which should be reflected in both events</li>
               </ul>
 
               <DateRange
@@ -39,4 +39,4 @@ const UncontrolledDateRange = () => {
   );
 };
 
-export default React.memo(UncontrolledDateRange, () => false);
+export default UncontrolledDateRange;

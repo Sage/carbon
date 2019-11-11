@@ -17,8 +17,8 @@ const ControlledDecimal = () => {
             <div id='controlled_decimal'>
               <h1>Controlled Decimal</h1>
               <ul>
-                <li>onChange handler should update the log when the value is changed, e.target.value should be the
-                  users input
+                <li>onChange handler should update the log when the value is changed, e.target.value should be an object
+                  that contains &#123; formattedValue, rawValue &#125;
                 </li>
                 <li>onBlur handler should update the log when the decimal is blurred, e.target.value should be the
                   formatted value
@@ -42,4 +42,4 @@ const ControlledDecimal = () => {
   );
 };
 
-export default React.memo(ControlledDecimal, () => false);
+export default ControlledDecimal;

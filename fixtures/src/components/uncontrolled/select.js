@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Select, Option } from 'carbon-react/lib/__experimental__/components/select';
 import { LogConsumer } from '../log';
 
@@ -17,7 +17,7 @@ const UnControlledSelect = () => {
               <h1>Uncontrolled Select</h1>
               <h2>Unselected</h2>
               <ul>
-                <li>onChange handler should update the log when the selection is changes</li>
+                <li>onChange handler should update the log when the selection is changed</li>
                 <li>onBlur handler should update the log when the selection blurred</li>
                 <li>each option has props value, name, id which should be reflected in both events</li>
               </ul>
@@ -44,7 +44,7 @@ const UnControlledSelect = () => {
             <div id='uncontrolled_select_selected'>
               <h2>Default Selected</h2>
               <ul>
-                <li>value two is selected by default</li>
+                <li>option &quot;Black&quot; should be selected by default</li>
               </ul>
               <Select
                 onChange={ onChange }
@@ -74,4 +74,4 @@ const UnControlledSelect = () => {
   );
 };
 
-export default React.memo(UnControlledSelect, () => false);
+export default UnControlledSelect;

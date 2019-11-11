@@ -10,7 +10,7 @@ const ControlledSelect = () => {
       {(log) => {
         const onChange = setter => (e) => {
           log(e, { method: 'onChange' });
-          setter(e.target.name);
+          setter(e.target.value[0].optionValue);
         };
         const onBlur = e => log(e, { method: 'onBlur' });
 
@@ -20,7 +20,7 @@ const ControlledSelect = () => {
               <h1>Controlled Select</h1>
               <h2>Unselected</h2>
               <ul>
-                <li>onChange handler should update the log when the selection is changes</li>
+                <li>onChange handler should update the log when the selection is changed</li>
                 <li>onBlur handler should update the log when the selection blurred</li>
                 <li>each option has props value, name, id which should be reflected in both events</li>
                 <li>the onChange handler sets the selected value</li>
@@ -49,7 +49,7 @@ const ControlledSelect = () => {
             <div id='controlled_select_selected'>
               <h2>Default Selected</h2>
               <ul>
-                <li>value two is selected by default</li>
+                <li>option &quot;Black&quot; should be selected by default</li>
               </ul>
               <Select
                 onChange={ onChange(setSelectedValueExampleTwo) }
@@ -79,4 +79,4 @@ const ControlledSelect = () => {
   );
 };
 
-export default React.memo(ControlledSelect, () => false);
+export default ControlledSelect;

@@ -26,8 +26,10 @@ import ControlledSimpleColorPicker from './components/controlled/simple-color-pi
 import UncontrolledSimpleColorPicker from './components/uncontrolled/simple-color-picker';
 import ControlledDate from './components/controlled/date';
 import UncontrolledDate from './components/uncontrolled/date';
-import ControlledSelect from './components/controlled/select';
-import UnControlledSelect from './components/uncontrolled/select';
+import ControlledSingleSelect from './components/controlled/select';
+import UnControlledSingleSelect from './components/uncontrolled/select';
+import ControlledMultiSelect from './components/controlled/multi-select';
+import UnControlledMultiSelect from './components/uncontrolled/multi-select';
 import ControlledDateRange from './components/controlled/date-range';
 import UncontrolledDateRange from './components/uncontrolled/date-range';
 import UncontrolledCheckboxGroup from './components/uncontrolled/checkbox-group';
@@ -58,10 +60,15 @@ const routes = {
     controlled: ControlledSimpleColorPicker,
     uncontrolled: UncontrolledSimpleColorPicker
   },
-  select: {
-    description: 'Select',
-    controlled: ControlledSelect,
-    uncontrolled: UnControlledSelect
+  'single-select': {
+    description: 'Single-Select',
+    controlled: ControlledSingleSelect,
+    uncontrolled: UnControlledSingleSelect
+  },
+  'multi-select': {
+    description: 'Multi-Select',
+    controlled: ControlledMultiSelect,
+    uncontrolled: UnControlledMultiSelect
   },
   checkboxgroup: {
     description: 'Checkbox Group',
@@ -79,27 +86,32 @@ const routes = {
 startRouter(
   [
     <Route
-      path='/' component={ Index }
+      key='0' path='/'
+      component={ Index }
       routes={ routes }
     />,
-    <Route path='/' component={ Chrome }>
-      {Object.keys(routes).reduce(((acc, key) => {
-        if (routes[key].controlled) {
-          const path = `/controlled/${key}`;
-          acc.push(<Route
+    <Route
+      key='1' path='/'
+      component={ Chrome }
+    >
+      {Object.keys(routes).filter(key => routes[key].controlled).map((key) => {
+        const path = `/controlled/${key}`;
+        return (
+          <Route
             key={ path } path={ path }
             component={ routes[key].controlled }
-          />);
-        }
-        if (routes[key].uncontrolled) {
-          const path = `/uncontrolled/${key}`;
-          acc.push(<Route
+          />
+        );
+      })}
+      {Object.keys(routes).filter(key => routes[key].uncontrolled).map((key) => {
+        const path = `/uncontrolled/${key}`;
+        return (
+          <Route
             key={ path } path={ path }
             component={ routes[key].uncontrolled }
-          />);
-        }
-        return acc;
-      }), [])}
+          />
+        );
+      })}
     </Route>
   ]
 );

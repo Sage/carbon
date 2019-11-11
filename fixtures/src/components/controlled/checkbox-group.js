@@ -4,7 +4,12 @@ import { LogConsumer } from '../log';
 
 const ControlledCheckbox = () => {
   const [checked, setChecked] = useState({
-    controlled_checkbox_group_default_two: true
+    controlled_checkbox_group_one: false,
+    controlled_checkbox_group_two: false,
+    controlled_checkbox_group_three: false,
+    controlled_checkbox_group_default_one: false,
+    controlled_checkbox_group_default_two: true,
+    controlled_checkbox_group_default_three: false
   });
   return (
     <LogConsumer>
@@ -23,7 +28,7 @@ const ControlledCheckbox = () => {
             <h2>Unchecked</h2>
             <div id='controlled_checkbox_group'>
               <ul>
-                <li>onChange handler should update the log when each checkbox is checked</li>
+                <li>onChange handler should update the log when each checkbox is changed/toggled</li>
                 <li>onBlur handler should update the log when each checkbox is blurred</li>
                 <li>each checkbox button has props value, name, id which should be reflected in both events</li>
               </ul>
@@ -90,4 +95,4 @@ const ControlledCheckbox = () => {
   );
 };
 
-export default React.memo(ControlledCheckbox, () => false);
+export default ControlledCheckbox;

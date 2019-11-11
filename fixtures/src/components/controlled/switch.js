@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Switch from 'carbon-react/lib/__experimental__/components/switch';
 import { LogConsumer } from '../log';
 
-const ControlledRadioButton = () => {
+const ControlledSwitch = () => {
   const [state, setState] = useState({
     controlled_switch_name: false,
     controlled_switch_checked_name: true
@@ -36,7 +36,7 @@ const ControlledRadioButton = () => {
               <Switch
                 onChange={ onChange }
                 onBlur={ onBlur }
-                id='controlled_siwtch_id'
+                id='controlled_switch_id'
                 name='controlled_switch_name'
                 label='Controlled Switch'
                 value='Controlled Switch Value'
@@ -52,7 +52,7 @@ const ControlledRadioButton = () => {
               <Switch
                 onChange={ onChange }
                 onBlur={ onBlur }
-                id='controlled_siwtch_checked_id'
+                id='controlled_switch_checked_id'
                 name='controlled_switch_checked_name'
                 label='Controlled Switch Checked'
                 value='Controlled Switch Checked Value'
@@ -66,4 +66,4 @@ const ControlledRadioButton = () => {
   );
 };
 
-export default React.memo(ControlledRadioButton, () => false);
+export default ControlledSwitch;

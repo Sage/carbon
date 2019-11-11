@@ -18,7 +18,7 @@ const ControlledNumber = () => {
               <h1>Controlled Number</h1>
               <ul>
                 <li>onChange handler should update the log when the value is changed, e.target.value should be the
-                  users input
+                  user&quot;s input
                 </li>
                 <li>onBlur handler should update the log when the number is blurred
                 </li>
@@ -41,4 +41,4 @@ const ControlledNumber = () => {
   );
 };
 
-export default React.memo(ControlledNumber, () => false);
+export default ControlledNumber;

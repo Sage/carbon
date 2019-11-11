@@ -41,4 +41,4 @@ const ControlledTextArea = () => {
   );
 };
 
-export default React.memo(ControlledTextArea, () => false);
+export default ControlledTextArea;

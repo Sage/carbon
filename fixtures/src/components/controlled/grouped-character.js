@@ -17,8 +17,8 @@ const ControlledGroupedCharacter = () => {
             <div id='controlled_grouped_character'>
               <h1>Controlled GroupedCharacter</h1>
               <ul>
-                <li>onChange handler should update the log when the value is changed, e.target.value should be the
-                  users input
+                <li>onChange handler should update the log when the value is changed, e.target.value should contain
+                 &#123; formattedValue, rawValue &#125; based on the user&apos;s input
                 </li>
                 <li>onBlur handler should update the log when the groupedcharacter is blurred
                 </li>
@@ -43,4 +43,4 @@ const ControlledGroupedCharacter = () => {
   );
 };
 
-export default React.memo(ControlledGroupedCharacter, () => false);
+export default ControlledGroupedCharacter;

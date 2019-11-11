@@ -41,4 +41,4 @@ const ControlledTextbox = () => {
   );
 };
 
-export default React.memo(ControlledTextbox, () => false);
+export default ControlledTextbox;
