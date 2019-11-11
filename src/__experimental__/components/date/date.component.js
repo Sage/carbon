@@ -51,9 +51,6 @@ class BaseDateInput extends React.Component {
     if (this.isControlled && !this.inputHasFocus && this.hasValueChanged(prevProps)) {
       this.updateVisibleValue(this.props.value);
       this.updateSelectedDate(this.props.value);
-    } else if (this.isBlurBlocked && this.hasValueChanged(prevProps)) {
-      this.isBlurBlocked = false;
-      this.handleBlur();
     }
   }
 
@@ -69,7 +66,10 @@ class BaseDateInput extends React.Component {
     this.inputHasFocus = false;
     const { disabled, readOnly } = this.props;
 
-    if (disabled || readOnly || this.isBlurBlocked) return;
+    if (disabled || readOnly || this.isBlurBlocked || this.inputFocusedViaPicker) {
+      this.inputFocusedViaPicker = false;
+      return;
+    }
 
     this.reformatVisibleDate();
     if (this.props.onBlur && !this.state.isDatePickerOpen) {
@@ -164,12 +164,18 @@ class BaseDateInput extends React.Component {
         const event = { target: this.input };
         event.target.value = visibleValue;
         this.emitOnChangeCallback(event, date);
-        this.inputFocusedViaPicker = true;
-        this.input.focus();
-        this.closeDatePicker();
+        this.focusInput();
       }
     });
   };
+
+  focusInput = () => {
+    this.inputFocusedViaPicker = true;
+    this.isOpening = false;
+    this.closeDatePicker();
+    this.input.focus();
+    this.isBlurBlocked = false;
+  }
 
   handleVisibleInputChange = (ev) => {
     const { disabled, readOnly } = this.props;
