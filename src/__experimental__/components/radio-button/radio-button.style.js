@@ -50,6 +50,10 @@ const RadioButtonStyle = styled(CheckboxStyle)`
       r: 5;
     }
 
+    ${LabelStyle} {
+      flex: 1 1 auto;
+    }
+
     ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle {
       fill: ${theme.text.color};
     }
