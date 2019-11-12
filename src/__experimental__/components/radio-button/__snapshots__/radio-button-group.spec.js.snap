@@ -32,24 +32,24 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   flex-wrap: wrap;
 }
 
-.c5 .c18 {
+.c5 .c17 {
   text-align: left;
   width: auto;
   white-space: nowrap;
   margin-top: -2px;
 }
 
-.c5 .c18 .c16,
-.c5 .c18 .c17 {
+.c5 .c17 .c15,
+.c5 .c17 .c16 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c5 .c18 .c16:hover,
-.c5 .c18 .c17:hover,
-.c5 .c18 .c16:focus,
-.c5 .c18 .c17:focus {
+.c5 .c17 .c15:hover,
+.c5 .c17 .c16:hover,
+.c5 .c17 .c15:focus,
+.c5 .c17 .c16:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -91,23 +91,23 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c4 .c18 {
+.c4 .c17 {
   padding: 0 6px;
   width: auto;
 }
 
-.c4 .c14 {
+.c4 .c13 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
 }
 
-.c4 .c17 {
+.c4 .c16 {
   position: relative;
   display: inline-block;
 }
 
-.c4 .c14 {
+.c4 .c13 {
   margin-left: 32px;
 }
 
@@ -144,59 +144,6 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   fill: rgba(0,0,0,0.9);
 }
 
-.c13 .c8 {
-  padding-top: 1px;
-}
-
-.c13 .c12 {
-  height: 16px;
-}
-
-.c13 .c10,
-.c13 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c13 .c8,
-.c13 .c10,
-.c13 .c12,
-.c13 svg {
-  box-sizing: border-box;
-  width: 16px;
-}
-
-.c13 .c10:not([disabled]):focus + .c12,
-.c13 .c10:not([disabled]):hover + .c12 {
-  box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c13 .c8 {
-  margin-right: 16px;
-}
-
-.c13 .c12 {
-  padding: 0;
-}
-
-.c13 .c12,
-.c13 svg {
-  border-radius: 50%;
-}
-
-.c13 .c8,
-.c13 .c10,
-.c13 .c12,
-.c13 svg {
-  height: 16px;
-  width: 16px;
-}
-
-.c13 .c10:checked + .c12 circle {
-  fill: rgba(0,0,0,0.9);
-}
-
 .c1 {
   border: none;
   margin: 0;
@@ -226,7 +173,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   line-height: 24px;
 }
 
-.c3 .c17 .c15:focus {
+.c3 .c16 .c14:focus {
   outline: 2px solid #FFB500;
 }
 
