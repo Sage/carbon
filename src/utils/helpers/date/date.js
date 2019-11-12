@@ -183,7 +183,7 @@ const DateHelper = {
 
     const visibleFormat = I18n.t('date.formats.javascript', { defaultValue: defaultDateFormat }).toUpperCase();
 
-    return DateHelper.formatValue(value || DateHelper.todayFormatted(), visibleFormat);
+    return DateHelper.formatValue(value, visibleFormat);
   }
 
 };
