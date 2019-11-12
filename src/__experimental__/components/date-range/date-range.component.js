@@ -13,38 +13,9 @@ class DateRange extends React.Component {
 
   isControlled = this.props.value !== undefined;
 
-  static propTypes = {
-    /**
-     * Optional label for endDate field
-     * eslint is disabled because the prop is used to determine the label in the dateProps function
-     */
-    endLabel: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-    /** Custom callback - receives array of startDate and endDate */
-    onChange: PropTypes.func,
-    /** Custom callback - receives array of startDate and endDate */
-    onBlur: PropTypes.func,
-    /** An array containing the value of startDate and endDate */
-    value: PropTypes.arrayOf(PropTypes.string),
-    /* The default value of the input if it's meant to be used as an uncontrolled component */
-    defaultValue: PropTypes.arrayOf(PropTypes.string),
-    /**
-     * Optional label for startDate field
-     * eslint is disabled because the prop is used to determine the label in the dateProps function
-     */
-    startLabel: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-    /** Custom message for startDate field */
-    startMessage: PropTypes.string,
-    /** Custom message for endDate field */
-    endMessage: PropTypes.string,
-    /** Display labels inline */
-    labelsInline: PropTypes.bool,
-    /** Props for the child start Date component */
-    startDateProps: PropTypes.shape({ ...DateInput.propTypes, value: PropTypes.string }),
-    /** Props for the child end Date component */
-    endDateProps: PropTypes.shape({ ...DateInput.propTypes, value: PropTypes.string }),
-    name: PropTypes.string,
-    id: PropTypes.string
-  };
+  startDateInputRef = React.createRef();
+
+  endDateInputRef = React.createRef();
 
   state = {
     forceUpdateTriggerToggle: false,
@@ -56,12 +27,6 @@ class DateRange extends React.Component {
       formattedValue: DateHelper.formatDateToCurrentLocale(this.endDate),
       rawValue: DateHelper.formatValue(this.endDate || this.today)
     }
-  }
-
-  constructor(props) {
-    super(props);
-    this.startDateInputRef = React.createRef();
-    this.endDateInputRef = React.createRef();
   }
 
   /** onChange function -triggers validations on both fields and updates opposing field when one changed. */
@@ -195,5 +160,40 @@ class DateRange extends React.Component {
     );
   }
 }
+
+DateRange.propTypes = {
+  /**
+   * Optional label for endDate field
+   * eslint is disabled because the prop is used to determine the label in the dateProps function
+   */
+  endLabel: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  /** Custom callback - receives array of startDate and endDate */
+  onChange: PropTypes.func,
+  /** Custom callback - receives array of startDate and endDate */
+  onBlur: PropTypes.func,
+  /** An array containing the value of startDate and endDate */
+  value: PropTypes.arrayOf(PropTypes.string),
+  /* The default value of the input if it's meant to be used as an uncontrolled component */
+  defaultValue: PropTypes.arrayOf(PropTypes.string),
+  /**
+   * Optional label for startDate field
+   * eslint is disabled because the prop is used to determine the label in the dateProps function
+   */
+  startLabel: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  /** Custom message for startDate field */
+  startMessage: PropTypes.string,
+  /** Custom message for endDate field */
+  endMessage: PropTypes.string,
+  /** Display labels inline */
+  labelsInline: PropTypes.bool,
+  /** Props for the child start Date component */
+  startDateProps: PropTypes.shape({ ...DateInput.propTypes, value: PropTypes.string }),
+  /** Props for the child end Date component */
+  endDateProps: PropTypes.shape({ ...DateInput.propTypes, value: PropTypes.string }),
+  /** An optional string prop to privide a name to the component */
+  name: PropTypes.string,
+  /** An optional string prop to privide an id to the component */
+  id: PropTypes.string
+};
 
 export default DateRange;
