@@ -21,14 +21,14 @@ Option.__docgenInfo = getDocGenInfo(
 );
 
 const singleSelectStore = new Store({
-  value: undefined
+  value: ''
 });
 
 const multiSelectStore = new Store({
   value: []
 });
 
-const commonKnobs = (store) => {
+const commonKnobs = (store, enableMultiSelect = false) => {
   const filterable = boolean('filterable', Select.defaultProps.filterable);
   const typeAhead = filterable && boolean('typeAhead', Select.defaultProps.typeAhead);
   const label = text('label', '');
@@ -36,7 +36,12 @@ const commonKnobs = (store) => {
   const knobs = {
     disabled: boolean('disabled', false),
     onChange: (ev) => {
-      store.set({ value: ev.target.value });
+      const optionsObjects = ev.target.value;
+      let value = optionsObjects.map(optionObject => optionObject.optionValue);
+      if (!enableMultiSelect) {
+        value = value[0];
+      }
+      store.set({ value });
       action('change')(ev);
     },
     placeholder: text('placeholder', ''),
@@ -103,7 +108,11 @@ function makeMultipleStory(name, themeSelector) {
   const component = () => {
     return (
       <State store={ multiSelectStore }>
-        <Select ariaLabel='multiSelect' { ...commonKnobs(multiSelectStore) }>
+        <Select
+          ariaLabel='multiSelect'
+          enableMultiSelect
+          { ...commonKnobs(multiSelectStore, true) }
+        >
           { selectOptions }
         </Select>
       </State>
