@@ -1,0 +1,1 @@
+Bug Fixes: "Adds fix to prevent picker opening when switching browser tabs and to prevetn an extra onBlur event when input icon clicked (Component: Date)"
