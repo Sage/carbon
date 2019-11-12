@@ -17,8 +17,9 @@ class Decimal extends React.Component {
   isControlled = this.props.value !== undefined
 
   getValue = () => {
-    const { value: propValue = '0.00' } = this.props;
-    const { value: stateValue = '0.00' } = this.state;
+    const defaultValue = this.props.isEmptyOnInit ? '' : '0.00';
+    const { value: propValue = defaultValue } = this.props;
+    const { value: stateValue = defaultValue } = this.state;
     const value = this.isControlled ? propValue : stateValue;
     return value;
   }
@@ -161,7 +162,9 @@ Decimal.propTypes = {
   /**
    * Maximum value for precision
    */
-  maxPrecision: PropTypes.number
+  maxPrecision: PropTypes.number,
+  /** To be used when the initial value should be empty */
+  isEmptyOnInit: PropTypes.bool
 };
 
 Decimal.defaultProps = {

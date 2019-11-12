@@ -8,11 +8,8 @@ function render(props, renderType = shallow) {
 
   return renderType(
     <Decimal
+      { ...props }
       onChange={ onChange }
-      value={ props.value }
-      precision={ props.precision }
-      maxPrecision={ props.maxPrecision }
-      defaultValue={ props.defaultValue }
     />
   );
 }
@@ -44,9 +41,18 @@ describe('Decimal', () => {
       expect(onBlur).toHaveBeenCalledWith({ target: { value: '0.00' } }, '0.00');
     });
 
-    it('input value defaults to 0.00 if none provided', () => {
-      const wrapper = render({});
-      assertCorrectTextboxVal(wrapper, '0.00');
+    describe('when no value is provided', () => {
+      it('input value defaults to 0.00', () => {
+        const wrapper = render({});
+        assertCorrectTextboxVal(wrapper, '0.00');
+      });
+
+      describe('and isEmptyOnInit prop is set', () => {
+        it('input value defaults to an empty string', () => {
+          const wrapper = render({ isEmptyOnInit: true });
+          assertCorrectTextboxVal(wrapper, '');
+        });
+      });
     });
   });
 

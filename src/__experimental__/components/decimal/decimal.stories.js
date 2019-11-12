@@ -56,6 +56,7 @@ function makeStory(name, themeSelector) {
           value={ store.get('value') }
           onChange={ setValue }
           onBlur={ (ev, undelimitedValue) => action('onBlur')(ev, undelimitedValue) }
+          isEmptyOnInit
         />
       </State>
     );
