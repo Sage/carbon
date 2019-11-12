@@ -55,6 +55,9 @@ const PagerNavigation = (props) => {
     };
 
     function disabled() {
+      if (maxPages() === 1) {
+        return true;
+      }
       if (step === -1) {
         return props.currentPage === '1';
       }
@@ -101,6 +104,9 @@ const PagerNavigation = (props) => {
     };
 
     function disabled() {
+      if (maxPages() === 1) {
+        return true;
+      }
       if (currentPage === 1) {
         return type === 'back' || type === 'first';
       }

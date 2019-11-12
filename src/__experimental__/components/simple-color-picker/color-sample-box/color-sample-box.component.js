@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import StyledColorSampleBox from './style/color-sample-box.style';
+import StyledColorSampleBox from './color-sample-box.style';
 import StyledTickIcon from '../tick-icon/tick-icon.style';
 
 const ColorSampleBox = ({ color, checked }) => {
