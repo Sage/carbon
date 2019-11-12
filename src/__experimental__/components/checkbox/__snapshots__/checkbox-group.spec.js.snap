@@ -194,9 +194,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
       data-element="label"
       width={30}
     >
-      <label
-        htmlFor="my-checkbox-group"
-      >
+      <label>
         Test CheckboxGroup Label
       </label>
     </div>

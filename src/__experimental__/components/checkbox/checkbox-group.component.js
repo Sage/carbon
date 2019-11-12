@@ -7,8 +7,8 @@ import FormField from '../form-field';
 
 const CheckboxGroup = (props) => {
   const {
+    id,
     children,
-    name,
     hasError,
     hasWarning,
     hasInfo,
@@ -17,7 +17,7 @@ const CheckboxGroup = (props) => {
   } = props;
 
   const checkboxGroupValue = (value !== undefined) ? value : [];
-  const groupLabelId = `${name}-label`;
+  const groupLabelId = `${id}-label`;
   const [checkedValue, setCheckedValue] = useState(checkboxGroupValue);
 
   const onChangeProp = useCallback((e) => {
@@ -32,11 +32,11 @@ const CheckboxGroup = (props) => {
 
     setCheckedValue(checkedCheckboxes);
 
-    const { id } = props;
+    const name = (id && { id });
 
     e.target = {
-      ...(name && { name }),
       ...(id && { id }),
+      ...name,
       value: checkedCheckboxes
     };
 
@@ -47,7 +47,7 @@ const CheckboxGroup = (props) => {
     const checked = (checkedValue.indexOf(child.props.value) !== -1);
 
     let childProps = {
-      name,
+      name: id,
       onChange: onChangeProp,
       checked
     };
@@ -81,10 +81,9 @@ const CheckboxGroup = (props) => {
 };
 
 CheckboxGroup.propTypes = {
+  id: PropTypes.string,
   /** The RadioButton objects to be rendered in the group */
   children: PropTypes.node.isRequired,
-  /** Specifies the name prop to be applied to each button in the group */
-  name: PropTypes.string.isRequired,
   /** Prop to indicate that an error has occurred */
   hasError: PropTypes.bool,
   /** Prop to indicate that a warning has occurred */
