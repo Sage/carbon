@@ -83,6 +83,8 @@ ButtonToggle.propTypes = {
   disabled: PropTypes.bool,
   /** A required prop. This is the button text. */
   children: PropTypes.node.isRequired,
+  /** Set the default value of the Group if component is meant to be used as uncontrolled. */
+  defaultChecked: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
   /** Value for the input */
   value: PropTypes.string
 };

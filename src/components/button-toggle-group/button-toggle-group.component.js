@@ -25,7 +25,6 @@ const BaseButtonToggleGroup = ((props) => {
         role='group'
         inputWidth={ inputWidth }
         errorMessage={ errorMessage }
-        onChange={ onChange }
       >
         <RadioButtonMapper
           name={ name }
