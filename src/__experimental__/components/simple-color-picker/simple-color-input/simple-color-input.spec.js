@@ -2,16 +2,16 @@ import React from 'react';
 import 'jest-styled-components';
 import TestRenderer from 'react-test-renderer';
 import { assertStyleMatch } from '../../../../__spec_helper__/test-utils';
-import StyledColorOptionInput from './style/color-option-input.style';
-import StyledColorSampleBox from '../color-sample-box/style/color-sample-box.style';
+import StyledSimpleColorInput from './simple-color-input.style';
+import StyledColorSampleBox from '../color-sample-box/color-sample-box.style';
 import baseTheme from '../../../../style/themes/base';
 import classicTheme from '../../../../style/themes/classic';
 
 function render(props) {
-  return TestRenderer.create(<StyledColorOptionInput { ...props } />);
+  return TestRenderer.create(<StyledSimpleColorInput { ...props } />);
 }
 
-describe('ColorOptionInput', () => {
+describe('SimpleColorInput', () => {
   let wrapper;
 
   describe('when focused', () => {
