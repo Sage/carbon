@@ -13,6 +13,7 @@ const CheckboxGroup = (props) => {
     hasWarning,
     hasInfo,
     onChange,
+    onBlur,
     value
   } = props;
 
@@ -49,6 +50,7 @@ const CheckboxGroup = (props) => {
     let childProps = {
       name: id,
       onChange: onChangeProp,
+      onBlur,
       checked
     };
 
@@ -91,6 +93,8 @@ CheckboxGroup.propTypes = {
   /** Prop to indicate additional information  */
   hasInfo: PropTypes.bool,
   onChange: PropTypes.func,
+  /** Callback fired when each RadioButton is blurred */
+  onBlur: PropTypes.func,
   value: PropTypes.array
 };
 
