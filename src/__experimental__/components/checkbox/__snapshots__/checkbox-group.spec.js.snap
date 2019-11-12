@@ -19,11 +19,14 @@ exports[`CheckboxGroup renders as expected 1`] = `
 
 .c4 {
   color: rgba(0,0,0,0.9);
-  cursor: pointer;
   display: block;
   font-weight: 600;
   padding-bottom: 8px;
   width: 100%;
+}
+
+.c4 label {
+  cursor: pointer;
 }
 
 .c4 .c16,

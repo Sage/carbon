@@ -172,7 +172,7 @@ const checkboxComponent = () => {
 };
 
 const checkboxGroupComponent = () => (
-  <>
+  <div>
     <h3>In Form</h3>
     <Form onSubmit={ handleSubmit }>
       {formCheckbox.map(type => (
@@ -218,7 +218,7 @@ const checkboxGroupComponent = () => (
         </CheckboxGroup>
       ]}
     </State>
-  </>
+  </div>
 );
 
 storiesOf('Experimental/Checkbox', module)
