@@ -87,9 +87,23 @@ const generateMenu = () => {
     menu.push(menuItems);
   }
 
-  menu.push(createMenuLink('Component Library', '/storybook', false, false, true));
+  menu.push(createStorybookLink());
 
   return menu;
+};
+
+const createStorybookLink = () => {
+  const classes = ['demo-menu__link'];
+  const linkProp = { href: '/storybook' };
+  const name = 'Component Library';
+
+  return (
+    <MenuListItem key={ name } name={ humanName(name) }>
+      <Link className={ classes } { ...linkProp }>
+        { humanName(name) }
+      </Link>
+    </MenuListItem>
+  );
 };
 
 export default () => {
