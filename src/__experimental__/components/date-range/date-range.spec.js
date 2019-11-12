@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import MockDate from 'mockdate';
-import 'jest-styled-components';
 import TestUtils from 'react-dom/test-utils';
 import I18n from 'i18n-js';
 import DateRange from './date-range.component';
@@ -90,6 +89,27 @@ describe('DateRange', () => {
           wrapperInstance._onBlur();
           expect(spy).not.toHaveBeenCalled();
         });
+      });
+    });
+
+    describe('when the user interacts with a date input', () => {
+      it('does not fire an onBlur event when the startDate is clicked', () => {
+        // const spy = spyOn(wrapper.instance(), '_onBlur');
+        wrapper.find(BaseDateInput).at(0).simulate('click');
+        // expect(spy).toHaveBeenCalled();
+        expect(customOnBlur).not.toHaveBeenCalled();
+      });
+
+      fit('does not fire an onBlur event when the endDate is clicked', () => {
+        wrapper.find(BaseDateInput).at(1).simulate('focus');
+      });
+
+      it('does not fire an onBlur event when the startDate is focused', () => {
+        wrapper.find(BaseDateInput).at(0).simulate('click');
+      });
+
+      it('does not fire an onBlur event when the endtDate is clicked', () => {
+        wrapper.find(BaseDateInput).at(1).simulate('focus');
       });
     });
 

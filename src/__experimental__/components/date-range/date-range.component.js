@@ -45,10 +45,19 @@ class DateRange extends React.Component {
   }
 
   _onBlur = () => {
+    console.log('blur');
+    if (this.isBlurBlocked()) {
+      return;
+    }
+
     if (this.props.onBlur) {
       const event = this.buildCustomEvent();
       this.props.onBlur(event);
     }
+  }
+
+  isBlurBlocked = () => {
+    return this.startDateInputRef.current.isBlurBlocked || this.endDateInputRef.current.isBlurBlocked;
   }
 
   buildCustomEvent = () => {
