@@ -241,12 +241,14 @@ class BaseDateInput extends React.Component {
   renderDatePicker = (dateRangeProps) => {
     if (!this.state.isDatePickerOpen) return null;
 
+    const { visibleValue, lastValidEventValues } = this.state;
+    const inputDate = DateHelper.isValidDate(visibleValue) ? visibleValue : lastValidEventValues.formattedValue;
     return (
       <DatePicker
         inputElement={ this.input && this.input.parentElement }
         selectedDate={ this.state.selectedDate }
         handleDateSelect={ this.handleDateSelect }
-        inputDate={ this.state.visibleValue }
+        inputDate={ inputDate }
         { ...dateRangeProps }
       />
     );

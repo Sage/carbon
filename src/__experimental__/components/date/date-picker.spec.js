@@ -96,15 +96,7 @@ describe('DatePicker', () => {
     const selectedDate = moment(firstDate).toDate();
 
     beforeEach(() => {
-      wrapper = render({ inputElement }, mount);
-    });
-
-    it('then "showMonth" method on the "DayPicker" should have been called with the same date', () => {
-      const dayPicker = wrapper.find(DayPicker).instance();
-      const showMonthSpy = spyOn(dayPicker, 'showMonth');
-      wrapper.setProps({ selectedDate });
-      wrapper.setProps({ selectedDate }); // called twice to ensure the useEffect hook update (Enzyme issue)
-      expect(showMonthSpy).toHaveBeenCalledWith(selectedDate);
+      wrapper = render({ inputElement, selectedDate }, mount);
     });
   });
 });
