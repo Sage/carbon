@@ -160,6 +160,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   disabled={false}
   role="button"
   size="medium"
+  type="button"
 >
   <span>
     <span
@@ -325,6 +326,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   disabled={false}
   role="button"
   size="medium"
+  type="button"
 >
   <span
     className="c1 c2"
