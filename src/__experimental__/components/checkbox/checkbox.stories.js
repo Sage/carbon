@@ -191,7 +191,7 @@ const checkboxGroupComponent = () => (
     <State store={ groupStore }>
       <CheckboxGroup
         key='checkbox-group'
-        id='checkbox-group'
+        name='checkbox-group'
         label={ text('label', 'What would you choose?', 'group') }
         labelHelp={ text('labelHelp', 'Some helpful information', 'group') }
         validations={ testErrorGroup }

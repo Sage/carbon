@@ -208,7 +208,6 @@ Array [
     <div
       checked={false}
       className="c1"
-      name="test-group"
       onBlur={[MockFunction]}
     >
       <div
@@ -464,7 +463,6 @@ Array [
     <div
       checked={false}
       className="c1"
-      name="test-group"
       onBlur={[MockFunction]}
     >
       <div

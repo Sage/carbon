@@ -185,6 +185,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
   className="c0"
   data-component="checkboxgroup"
   role="checkbox"
+  value={Array []}
 >
   <div
     className="c1 c2"
@@ -222,6 +223,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
               checked={false}
               className="c10 c11"
               id="cId-required"
+              name="check-required"
               onBlur={[Function]}
               onChange={[Function]}
               role="checkbox"
@@ -272,6 +274,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
               checked={false}
               className="c10 c11"
               id="cId-optional"
+              name="check-optional"
               onBlur={[Function]}
               onChange={[Function]}
               role="checkbox"

@@ -12,7 +12,7 @@ const Checkbox = ({
   const inputProps = {
     ...props,
     inputId: id,
-    inputName: name,
+    name,
     inputLabel: label,
     inputValue: value,
     inputType: 'checkbox',
@@ -35,6 +35,7 @@ const Checkbox = ({
 };
 
 Checkbox.propTypes = {
+  name: PropTypes.string,
   /** Set the value of the checkbox */
   checked: PropTypes.bool,
   /** Toggles disabling of input */

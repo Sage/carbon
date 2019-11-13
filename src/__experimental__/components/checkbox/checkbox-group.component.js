@@ -14,10 +14,12 @@ const CheckboxGroup = (props) => {
     hasInfo,
     onChange,
     onBlur,
-    value
+    value,
+    defaultValue
   } = props;
 
-  const checkboxGroupValue = (value !== undefined) ? value : [];
+  const defaultChecked = (defaultValue !== undefined) ? defaultValue : [];
+  const checkboxGroupValue = (value !== undefined) ? value : defaultChecked;
   const groupLabelId = `${id}-label`;
   const [checkedValue, setCheckedValue] = useState(checkboxGroupValue);
 
@@ -63,6 +65,8 @@ const CheckboxGroup = (props) => {
     return React.cloneElement(child, childProps);
   });
 
+  const { name, ...rest } = { ...props };
+
   return (
     <StyledCheckboxGroup
       aria-labelledby={ groupLabelId }
@@ -70,9 +74,10 @@ const CheckboxGroup = (props) => {
       hasError={ hasError }
       hasWarning={ hasWarning }
       hasInfo={ hasInfo }
+      value={ checkedValue }
       { ...tagComponent('checkboxgroup', props) }
     >
-      <FormField { ...props }>
+      <FormField { ...rest }>
         {buttons}
       </FormField>
     </StyledCheckboxGroup>
@@ -92,7 +97,8 @@ CheckboxGroup.propTypes = {
   onChange: PropTypes.func,
   /** Callback fired when each RadioButton is blurred */
   onBlur: PropTypes.func,
-  value: PropTypes.array
+  value: PropTypes.array,
+  defaultValue: PropTypes.array
 };
 
 CheckboxGroup.defaultProps = {

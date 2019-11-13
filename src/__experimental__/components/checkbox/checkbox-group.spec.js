@@ -29,6 +29,7 @@ function render(props, childProps, renderer = mount) {
     <CheckboxGroup
       id={ id }
       label='Test CheckboxGroup Label'
+      name={ id }
       { ...props }
     >
       {children}
@@ -63,6 +64,20 @@ describe('CheckboxGroup', () => {
       const icon = wrapper.find(Icon);
 
       expect(icon.prop('tooltipMessage')).toEqual(text);
+    });
+  });
+
+  describe('controlled vs uncontrolled input', () => {
+    it('supports being used as an controlled input via passing of a value prop', () => {
+      const wrapper = render({ value: ['one', 'three'] });
+      const checkboxGroup = wrapper.find(CheckboxGroup).first().childAt(0);
+      expect(checkboxGroup.getDOMNode().getAttribute('value')).toEqual('one,three');
+    });
+
+    it('supports being used as an uncontrolled input via passing of a defaultValue prop', () => {
+      const wrapper = render({ defaultValue: ['two', 'three'] });
+      const checkboxGroup = wrapper.find(CheckboxGroup).first().childAt(0);
+      expect(checkboxGroup.getDOMNode().getAttribute('value')).toEqual('two,three');
     });
   });
 

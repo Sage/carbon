@@ -23,6 +23,7 @@ guid.mockImplementation(() => 'guid-12345');
 function render(props, renderer = TestRenderer.create, options = {}) {
   return renderer(
     <Checkbox
+      id='my-checkbox'
       name='my-checkbox'
       value='test'
       { ...props }
@@ -149,6 +150,7 @@ describe('Checkbox', () => {
       beforeEach(() => {
         wrapper = mount((
           <Checkbox
+            id='checkbox-warning'
             name='checkbox-warning'
             value='my-value'
           />

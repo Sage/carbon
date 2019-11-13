@@ -13,7 +13,12 @@ class CheckableInput extends React.Component {
   }
 
   render() {
-    const { children, onChange, ...rest } = this.props;
+    const {
+      children,
+      onChange,
+      name,
+      ...rest
+    } = this.props;
     const id = this.inputId;
     const labelId = `${id}-label`;
     const helpId = `${id}-help`;
@@ -50,6 +55,7 @@ class CheckableInput extends React.Component {
 }
 
 CheckableInput.propTypes = {
+  name: PropTypes.string,
   /** Set the value of the CheckableInput */
   checked: PropTypes.bool,
   /** Used to set the visible aspect of the input (i.e. the checkbox sprite, input slider etc) */
