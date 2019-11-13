@@ -14,10 +14,14 @@ import StyledDayPicker from './day-picker.style';
 const DatePicker = (props) => {
   const window = Browser.getWindow();
   const [containerPosition, setContainerPosition] = useState(() => getContainerPosition(window, props.inputElement));
+  const [currentInputDate, setCurrentInputDate] = useState(isoFormattedValueString(props.inputDate));
   const containerProps = {
     style: containerPosition
   };
   const datepicker = useRef(null);
+
+  // Having this in state causes the picker to jump when the user pauses
+  let currentSelectedDate = props.selectedDate;
 
   const datePickerProps = {
     disabledDays: getDisabledDays(props.minDate, props.maxDate),
@@ -45,7 +49,14 @@ const DatePicker = (props) => {
 
   useEffect(() => {
     if (props.selectedDate && monthOrYearHasChanged(datepicker, props.selectedDate)) {
-      datepicker.current.showMonth(props.selectedDate);
+      if (props.selectedDate && currentDateHasChanged(currentSelectedDate, props.selectedDate)) {
+        currentSelectedDate = props.selectedDate;
+        datepicker.current.showMonth(props.selectedDate);
+      } else if (props.inputDate && currentDateHasChanged(currentInputDate, isoFormattedValueString(props.inputDate))) {
+        datepicker.current.showMonth(DateHelper.stringToDate(isoFormattedValueString(props.inputDate)));
+        setCurrentInputDate(isoFormattedValueString(props.inputDate));
+        currentSelectedDate = DateHelper.stringToDate(isoFormattedValueString(props.inputDate));
+      }
     }
   }, [props.selectedDate]);
 
@@ -71,6 +82,8 @@ DatePicker.propTypes = {
   minDate: PropTypes.string,
   /** Maximum possible date */
   maxDate: PropTypes.string,
+  /* The string value in the date input */
+  inputDate: PropTypes.string,
   /** Element that the DatePicker will be displayed under */
   inputElement: PropTypes.object.isRequired,
   /** Currently selected date */
@@ -86,6 +99,14 @@ function monthOrYearHasChanged(datepicker, newDate) {
   const currentDate = datepicker.current.state.currentMonth;
 
   return currentDate.getMonth() !== newDate.getMonth() || currentDate.getYear() !== newDate.getYear();
+}
+
+function currentDateHasChanged(currentDate, newDate) {
+  return currentDate !== newDate;
+}
+
+function isoFormattedValueString(valueToFormat) {
+  return DateHelper.formatValue(valueToFormat);
 }
 
 /**
