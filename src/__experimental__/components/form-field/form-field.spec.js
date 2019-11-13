@@ -34,7 +34,7 @@ describe('FormField', () => {
 
     it('passes the id to the Label htmlFor prop', () => {
       const comp = render({
-        id: 'foo',
+        name: 'foo',
         label: 'Name'
       });
       expect(comp.find(Label).props().htmlFor).toEqual('foo');
