@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
+import invariant from 'invariant';
 import SelectList from './select-list.component';
 import Textbox from '../textbox';
 import Pill from '../../../components/pill';
@@ -27,12 +28,22 @@ import { StyledSelect, StyledSelectPillContainer } from './select.style';
  */
 
 class Select extends React.Component {
-  constructor(props) {
-    super(props);
-    this.listboxId = uniqueId('listbox-');
+  listboxId = uniqueId('listbox-');
+
+  isComponentControlled = (this.props.value !== undefined && this.props.value !== null);
+
+  getInitialStateValue = () => {
+    if (this.isComponentControlled) {
+      return this.props.value;
+    }
+    if (this.props.defaultValue !== undefined && this.props.defaultValue !== null) {
+      return this.props.defaultValue;
+    }
+    return (this.props.enableMultiSelect ? [] : '');
   }
 
   state = {
+    value: this.getInitialStateValue(),
     filter: undefined,
     open: false
   }
@@ -70,17 +81,78 @@ class Select extends React.Component {
 
   handleClick = () => this.openList()
 
-  handleChange = (newValue) => {
-    let updatedValue = newValue;
-    // if the component is multi value then we need to push the new value into the array of values
-    if (this.isMultiValue(this.props.value)) {
-      // do not allow the same value twice
-      if (this.props.value.find(item => item.value === newValue.value)) return;
-      const value = this.props.value.slice();
-      value.push(newValue);
-      updatedValue = value;
+  /**
+   * Verifies the integrity of the props `enableMultiSelect` and `value` (if this component is currently controlled).
+   * `invariant()` will throw an error if verification fails.
+   */
+  verifyControlledIntegrity = () => {
+    const enableMultiSelect = Boolean(this.props.enableMultiSelect);
+    const isValuePropAnArray = this.isMultiValue(this.props.value);
+
+    invariant(
+      enableMultiSelect === isValuePropAnArray,
+      `Controlled component: Mismatch between props: \`enableMultiSelect\` (${enableMultiSelect
+      }) and \`value\` (${isValuePropAnArray ? 'is an array' : 'is not an array'})`
+    );
+  }
+
+  /**
+   * Is the component currently in multi-select mode? (If not, then it's in single-select mode.)
+   */
+  isMultiSelectEnabled = () => {
+    if (this.isComponentControlled) {
+      this.verifyControlledIntegrity();
     }
-    this.triggerChange(updatedValue);
+    return Boolean(this.props.enableMultiSelect);
+  }
+
+  /**
+   * Gets this component's current value.
+   * This will be either a string (single-select mode) or an array of strings (multi-select mode).
+   */
+  getValue = () => {
+    if (this.isComponentControlled) {
+      this.verifyControlledIntegrity();
+      return this.props.value;
+    }
+    return this.state.value;
+  }
+
+  /**
+   * Gets this component's current multi-select values.
+   * Should only be called when the component is in multi-select mode.
+   */
+  getMultiSelectValues = () => {
+    invariant(this.props.enableMultiSelect, 'Cannot get multi-select value: `enableMultiSelect` prop is falsy');
+    const value = this.getValue();
+    invariant(this.isMultiValue(value), 'Cannot get multi-select value: value is not an array');
+    return value; // Guaranteed to be an array.
+  }
+
+  /**
+   * This handler is attached to `SelectList.onSelect()`, which is attached to `ScrollableList.onSelect()`,
+   * which passes `selectedItem.props.id` as the parameter to this handler.
+   *
+   * `selectedItem` is a <ScrollableListItem> instance, and its `id` prop is an object with this data structure:
+   *     { value, text, ...options }
+   * which is constructed from the props of the chosen <Option> child of this <Select> component.
+   *
+   * So this handler's `optionProps` argument object contains:
+   *
+   *   - `text`  - The option's visible text, displayed in the browser.
+   *   - `value` - The option's invisible internal value.
+   */
+  handleChange = (optionProps) => {
+    // if the component is multi value then we need to push the new value into the array of values
+    if (this.isMultiSelectEnabled()) {
+      const multiSelectValues = this.getMultiSelectValues();
+      // do not allow the same value twice
+      if (!multiSelectValues.includes(optionProps.value)) {
+        this.triggerChange([...multiSelectValues, optionProps.value]);
+      }
+    } else {
+      this.triggerChange(optionProps.value);
+    }
   }
 
   handleFilter = (ev) => {
@@ -111,8 +183,11 @@ class Select extends React.Component {
     }
     // if backspace key and multi value and no filter, remove the last item in the array
     if (Events.isBackspaceKey(ev)) {
-      if (this.isMultiValue(this.props.value)) this.removeMultiItem(this.props.value.length - 1);
-      else this.removeSingleItem();
+      if (this.isMultiSelectEnabled()) {
+        this.removeMultiItem(this.getMultiSelectValues().length - 1);
+      } else {
+        this.removeSingleItem();
+      }
     }
 
     if (!this.props.filterable) ev.preventDefault();
@@ -131,9 +206,21 @@ class Select extends React.Component {
     if (this.props.onOpen) this.props.onOpen();
   }
 
+  /**
+   * Changes the component's currently-selected option(s). This can be caused by:
+   *
+   *   - The user clicking an <Option> in the <SelectList>, to select/add that option.
+   *   - The user pressing the backspace key, to clear the selected option (or delete a chosen option).
+   *   - The user clicking the "X" (delete) button on a <Pill> (when in multi-select mode).
+   *
+   * The `value` argument refers to the `value` prop(s) of the chosen <Option> component(s):
+   *
+   *   - In single-select mode, the `value` argument is a single string.
+   *   - In  multi-select mode, the `value` argument is an array of strings.
+   */
   triggerChange(value) {
-    const newState = {};
-    if (!this.isMultiValue(value)) {
+    const newState = { value };
+    if (!this.isMultiSelectEnabled()) {
       // only closes the dropdown if not multi-value
       newState.open = false;
       this.unblockBlur();
@@ -142,38 +229,76 @@ class Select extends React.Component {
     newState.filter = undefined;
     this.setState(newState);
 
-    if (this.props.onChange) this.props.onChange({ target: { value } });
+    if (!this.props.onChange) {
+      return;
+    }
+
+    const { name, id } = this.props;
+
+    const strings = (this.isMultiValue(value) ? value : [value]);
+
+    const objects = strings.map(stringValue => ({
+      optionValue: stringValue,
+      optionText: this.getTextForValue(stringValue)
+    }));
+
+    const customEvent = {
+      target: {
+        ...(name && { name }),
+        ...(id && { id }),
+        value: objects
+      }
+    };
+
+    this.props.onChange(customEvent);
   }
 
+  /**
+   * Removes the specified multi-select item.
+   * Should only be called when the component is in multi-select mode.
+   */
   removeMultiItem(index) {
-    if (this.state.filter || !this.props.value.length) return;
-    const newValue = this.props.value.slice(); // copies the array first to not mutate original value
-    newValue.splice(index, 1);
-    this.triggerChange(newValue);
+    invariant(this.isMultiSelectEnabled(), 'Cannot remove multi-select item: Component not in multi-select mode');
+
+    const multiSelectValues = this.getMultiSelectValues();
+
+    if (!this.state.filter && multiSelectValues.length > 0) {
+      const newValues = [...multiSelectValues]; // copies the array first to not mutate original value
+      newValues.splice(index, 1);
+      this.triggerChange(newValues);
+    }
   }
 
+  /**
+   * Removes this component's current single-select item.
+   * Should only be called when the component is in single-select mode.
+   */
   removeSingleItem() {
-    if (this.state.filter) return;
-    this.triggerChange('');
+    invariant(!this.isMultiSelectEnabled(), 'Cannot remove single-select item: Component not in single-select mode');
+
+    if (!this.state.filter) {
+      this.triggerChange('');
+    }
+  }
+
+  /**
+   * Finds the <Option> child with the specified `value` prop, and returns its `text` prop.
+   */
+  getTextForValue = (value) => {
+    const optionsComponents = this.props.children;
+    const matchingOption = optionsComponents.find(option => (option.props.value === value));
+    return matchingOption ? matchingOption.props.text : '';
   }
 
   // returns the human readable value for the user
   formattedValue(filterValue, value) {
     let visibleValue = '';
     // if not multi-value then fetch the text key on the value
-    if (!this.isMultiValue(value) && value) visibleValue = value.text;
+    if (!this.isMultiSelectEnabled() && value) {
+      visibleValue = this.getTextForValue(value);
+    }
     // if there is a filter then return that over the selected visible value
     return (typeof filterValue === 'string') ? filterValue : visibleValue;
-  }
-
-  // returns the correct value to feed into the textbox component
-  value(value) {
-    if (this.isMultiValue(value)) {
-      return value; // if multi value the returns the full array
-    }
-    if (value) return value.value; // if single value then returns the id/value
-
-    return undefined; // otherwise return undefined
   }
 
   renderMultiValues(values) {
@@ -181,18 +306,22 @@ class Select extends React.Component {
 
     return (
       values.map((value, index) => (
-        <StyledSelectPillContainer key={ value.value }>
+        <StyledSelectPillContainer key={ value }>
           <Pill
             onDelete={ canDelete ? () => this.removeMultiItem(index) : undefined }
-            title={ value.text }
+            title={ this.getTextForValue(value) }
           >
-            { value.text }
+            { this.getTextForValue(value) }
           </Pill>
         </StyledSelectPillContainer>
       ))
     );
   }
 
+  /**
+   * Determines whether `value` indicates a single value (when the component is operating in single-select mode)
+   * or multiple values (when the component is operating in multi-select mode).
+   */
   isMultiValue(value) { return Array.isArray(value); }
 
   placeholder(placeholder) {
@@ -208,10 +337,10 @@ class Select extends React.Component {
     return tagComponent(this.props['data-component'], this.props);
   }
 
-  inputIcon(typeAhead, value) {
+  inputIcon(typeAhead) {
     if (this.openWhenTypeAhead(typeAhead, this.state.filter)) return 'cross';
     if (typeAhead) return 'search';
-    return this.isMultiValue(value) ? undefined : 'dropdown';
+    return this.isMultiSelectEnabled() ? undefined : 'dropdown';
   }
 
   eventProps() {
@@ -230,21 +359,19 @@ class Select extends React.Component {
   }
 
   textboxProps() {
-    const {
-      typeAhead,
-      value,
-      placeholder
-    } = this.props;
+    const { typeAhead, placeholder } = this.props;
 
-    const placeholderText = this.placeholder(placeholder, value);
+    const value = this.getValue();
+
+    const placeholderText = this.placeholder(placeholder);
 
     const props = {
-      inputIcon: this.inputIcon(typeAhead, value),
+      inputIcon: this.inputIcon(typeAhead),
       inputRef: this.assignInput,
       placeholder: placeholderText,
       'aria-label': placeholderText,
-      leftChildren: this.isMultiValue(value) && this.renderMultiValues(value),
-      value: this.value(value),
+      leftChildren: this.isMultiSelectEnabled() && this.renderMultiValues(value),
+      value,
       formattedValue: this.formattedValue(this.state.filter, value)
     };
 
@@ -263,6 +390,7 @@ class Select extends React.Component {
       customFilter,
       placeholder,
       value,
+      defaultValue,
       onLazyLoad,
       onFilter,
       onOpen,
@@ -284,7 +412,7 @@ class Select extends React.Component {
         aria-expanded={ open }
         aria-controls={ open ? this.listboxId : '' }
         aria-label={ ariaLabel }
-        isAnyValueSelected={ this.isMultiValue(value) && (value.length >= 1) }
+        isAnyValueSelected={ this.isMultiSelectEnabled() && (this.getMultiSelectValues().length >= 1) }
       >
         <Textbox
           { ...props } // this needs to send all of the original props
@@ -315,10 +443,10 @@ class Select extends React.Component {
   }
 }
 
-const optionShape = PropTypes.shape({
-  value: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired
-});
+const valuePropType = PropTypes.oneOfType([
+  PropTypes.string, // Single-select mode
+  PropTypes.arrayOf(PropTypes.string) // Multi-select mode
+]);
 
 Select.propTypes = {
   ariaLabel: PropTypes.string,
@@ -346,12 +474,16 @@ Select.propTypes = {
   placeholder: PropTypes.string,
   /** Is the component read-only? */
   readOnly: PropTypes.bool,
-  /** The current value */
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    optionShape,
-    PropTypes.arrayOf(optionShape)
-  ]),
+  /** Should multi-select mode be enabled? */
+  enableMultiSelect: PropTypes.bool,
+  /** The selected value(s), when the component is operating in controlled mode */
+  value: valuePropType,
+  /** The default selected value(s), when the component is operating in uncontrolled mode */
+  defaultValue: valuePropType,
+  /** ID attribute of the component */
+  id: PropTypes.string,
+  /** Name attribute of the component */
+  name: PropTypes.string,
   /** Name of the component */
   'data-component': PropTypes.string,
   /** Are >=3 characters required to trigger the dropdown menu? */
