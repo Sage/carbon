@@ -24,7 +24,7 @@ const FormField = ({
   labelHelpIcon,
   labelInline,
   labelWidth,
-  id,
+  name,
   reverse,
   size,
   childOfForm,
@@ -50,7 +50,7 @@ const FormField = ({
         helpId={ helpId }
         helpTag={ helpTag }
         helpTabIndex={ helpTabIndex }
-        htmlFor={ id }
+        htmlFor={ name }
         helpIcon={ labelHelpIcon }
         inline={ labelInline }
         inputSize={ size }
@@ -97,7 +97,7 @@ FormField.propTypes = {
   hasInfo: PropTypes.bool,
   helpTag: PropTypes.string,
   helpTabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  id: PropTypes.string,
+  name: PropTypes.string,
   isOptional: PropTypes.bool,
   label: PropTypes.node,
   labelId: PropTypes.string,
