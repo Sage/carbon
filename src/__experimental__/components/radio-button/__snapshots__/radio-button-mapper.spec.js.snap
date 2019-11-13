@@ -202,7 +202,6 @@ Array [
     checked={false}
     className="c0"
     data-component="radio-button"
-    name="test-group"
     onBlur={[MockFunction]}
   >
     <div
@@ -457,7 +456,6 @@ Array [
     checked={false}
     className="c0"
     data-component="radio-button"
-    name="test-group"
     onBlur={[MockFunction]}
   >
     <div

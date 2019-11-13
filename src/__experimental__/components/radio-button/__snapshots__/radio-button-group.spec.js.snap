@@ -206,7 +206,6 @@ exports[`RadioButtonGroup renders as expected 1`] = `
     checked={false}
     className="c4"
     data-component="radio-button"
-    name="test-group"
     onBlur={[Function]}
   >
     <div
@@ -265,7 +264,6 @@ exports[`RadioButtonGroup renders as expected 1`] = `
     checked={false}
     className="c4"
     data-component="radio-button"
-    name="test-group"
     onBlur={[Function]}
   >
     <div

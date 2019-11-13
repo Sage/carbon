@@ -7,13 +7,14 @@ import RadioButtonSvg from './radio-button-svg.component';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const RadioButton = ({
-  id, label, onChange, value, ...props
+  id, name, label, onChange, value, ...props
 }) => {
   const inputProps = {
     ...props,
     helpTabIndex: 0,
     helpTag: 'span',
     inputId: id,
+    name,
     inputLabel: label,
     inputValue: value,
     inputType: 'radio',

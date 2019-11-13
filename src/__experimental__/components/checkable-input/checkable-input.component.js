@@ -38,7 +38,8 @@ class CheckableInput extends React.Component {
       ...validProps(this, ['checked', 'disabled', 'inputType', 'onChange', 'tabindex']),
       labelId,
       helpId,
-      id
+      id,
+      name
     };
 
     return (
