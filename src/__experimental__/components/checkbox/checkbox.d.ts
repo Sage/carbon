@@ -6,6 +6,7 @@ interface CheckboxProps {
   disabled?: boolean;
   fieldHelpInline?: boolean;
   id?: string;
+  name?: string;
   inputWidth?: number | string;
   label?: string;
   labelAlign?: string;

@@ -3,7 +3,6 @@ import { WithValidationProps } from '../../../components/validations/with-valida
 
 interface CheckboxGroupProps {
   children: React.FunctionComponent | React.ComponentClass;
-  name: string;
   hasError: boolean;
   hasWarning: boolean;
   hasInfo: boolean;

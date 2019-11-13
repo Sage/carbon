@@ -7,11 +7,12 @@ import CheckboxSvg from './checkbox-svg.component';
 import withValidation from '../../../components/validations/with-validation.hoc';
 
 const Checkbox = ({
-  id, label, onChange, value, ...props
+  id, name, label, onChange, value, ...props
 }) => {
   const inputProps = {
     ...props,
     inputId: id,
+    inputName: name,
     inputLabel: label,
     inputValue: value,
     inputType: 'checkbox',

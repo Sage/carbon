@@ -33,11 +33,8 @@ const CheckboxGroup = (props) => {
 
     setCheckedValue(checkedCheckboxes);
 
-    const name = (id && { id });
-
     e.target = {
-      ...(id && { id }),
-      ...name,
+      id,
       value: checkedCheckboxes
     };
 
@@ -48,7 +45,7 @@ const CheckboxGroup = (props) => {
     const checked = (checkedValue.indexOf(child.props.value) !== -1);
 
     let childProps = {
-      name: id,
+      name: child.props.name,
       onChange: onChangeProp,
       onBlur,
       checked
