@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import buildPrevNextFromDefinition from './build-prev-next-from-definition';
 import buildPrevNextFromReactRouter from './build-prev-next-from-react-router';
 import ArrowLink from './../../../components/arrow-link';
 import './sub-page-navigation.scss';
@@ -16,7 +15,7 @@ import './sub-page-navigation.scss';
  */
 export default props => (
   <nav className='demo-sub-page-navigation'>
-    { _buildLinks(props.definition, props.availableRoutes, props.currentLocation) }
+    { _buildLinks(props.availableRoutes, props.currentLocation) }
   </nav>
 );
 
@@ -55,9 +54,7 @@ const _classnames = (classSuffix) => {
 const _buildLinks = (definition, availableRoutes, currentLocation) => {
   let urls;
 
-  if (definition) {
-    urls = buildPrevNextFromDefinition(definition);
-  } else {
+  if (!definition) {
     urls = buildPrevNextFromReactRouter(availableRoutes, currentLocation);
   }
 
