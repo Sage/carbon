@@ -16,7 +16,7 @@ const propsForButton = (props) => {
   return ({
     save: {
       as: 'primary',
-      type: undefined,
+      type: 'submit',
       disabled: props.saving,
       ...props.saveButtonProps
     },
