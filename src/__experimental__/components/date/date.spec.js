@@ -183,6 +183,14 @@ describe('Date', () => {
           expect(wrapper.find(DatePicker).exists()).toBe(true);
           expect(onBlurFn).not.toHaveBeenCalled();
         });
+
+        it('when the visibleValue is invalid it passes the previously valid value to picker', () => {
+          simulateFocusOnInput(wrapper);
+          wrapper.find(BaseDateInput).setState({ visibleValue: 'foo' });
+          const picker = wrapper.find(DatePicker);
+          expect(picker.exists()).toBe(true);
+          expect(picker.props().inputDate).toEqual(firstDate);
+        });
       });
 
       describe('and the rawValue is invalid', () => {

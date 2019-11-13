@@ -20,9 +20,6 @@ const DatePicker = (props) => {
   };
   const datepicker = useRef(null);
 
-  // Having this in state causes the picker to jump when the user pauses
-  let currentSelectedDate = props.selectedDate;
-
   const datePickerProps = {
     disabledDays: getDisabledDays(props.minDate, props.maxDate),
     enableOutsideDays: true,
@@ -48,17 +45,11 @@ const DatePicker = (props) => {
   };
 
   useEffect(() => {
-    if (props.selectedDate && monthOrYearHasChanged(datepicker, props.selectedDate)) {
-      if (props.selectedDate && currentDateHasChanged(currentSelectedDate, props.selectedDate)) {
-        currentSelectedDate = props.selectedDate;
-        datepicker.current.showMonth(props.selectedDate);
-      } else if (props.inputDate && currentDateHasChanged(currentInputDate, isoFormattedValueString(props.inputDate))) {
-        datepicker.current.showMonth(DateHelper.stringToDate(isoFormattedValueString(props.inputDate)));
-        setCurrentInputDate(isoFormattedValueString(props.inputDate));
-        currentSelectedDate = DateHelper.stringToDate(isoFormattedValueString(props.inputDate));
-      }
+    if (hasComponentUpdated(currentInputDate, isoFormattedValueString(props.inputDate))) {
+      datepicker.current.showMonth(DateHelper.stringToDate(isoFormattedValueString(props.inputDate)));
+      setCurrentInputDate(isoFormattedValueString(props.inputDate));
     }
-  }, [props.selectedDate]);
+  }, [props.selectedDate, props.inputDate]);
 
   function handleDayClick(selectedDate, modifiers) {
     if (!modifiers.disabled) props.handleDateSelect(selectedDate);
@@ -92,21 +83,16 @@ DatePicker.propTypes = {
   handleDateSelect: PropTypes.func
 };
 
-/**
- * Determines if the new date's month or year has changed from the currently selected.
- */
-function monthOrYearHasChanged(datepicker, newDate) {
-  const currentDate = datepicker.current.state.currentMonth;
-
-  return currentDate.getMonth() !== newDate.getMonth() || currentDate.getYear() !== newDate.getYear();
-}
-
 function currentDateHasChanged(currentDate, newDate) {
   return currentDate !== newDate;
 }
 
 function isoFormattedValueString(valueToFormat) {
   return DateHelper.formatValue(valueToFormat);
+}
+
+function hasComponentUpdated(propDate, currentDate) {
+  return propDate && currentDateHasChanged(currentDate, propDate);
 }
 
 /**
