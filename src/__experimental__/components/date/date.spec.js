@@ -342,6 +342,12 @@ describe('Date', () => {
       simulateChangeOnInput(wrapper, validDate);
       expect(onChangeFn).not.toHaveBeenCalled();
     });
+
+    it('then the date picker should not open on click', () => {
+      simulateClickOnInput(wrapper);
+      expect(wrapper.find(DatePicker).exists()).toBe(false);
+      expect(onBlurFn).not.toHaveBeenCalled();
+    });
   });
 
   describe('when the "click" event is triggered with the DatePicker open', () => {

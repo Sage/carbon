@@ -41,9 +41,10 @@ class BaseDateInput extends React.Component {
   };
 
   componentDidMount() {
-    if (this.props.autoFocus) {
+    if (this.props.autoFocus && !this.props.disabled && !this.props.readOnly) {
       this.isAutoFocused = true;
       this.input.focus();
+      this.openDatePicker();
     }
   }
 
@@ -104,9 +105,8 @@ class BaseDateInput extends React.Component {
   };
 
   openDatePicker = () => {
-    this.isBlurBlocked = true;
     document.addEventListener('click', this.closeDatePicker);
-    if (this.inputFocusedViaPicker) {
+    if (this.inputFocusedViaPicker || this.isAutoFocused) {
       return;
     }
     this.updateSelectedDate(this.props.value || isoFormattedValueString(this.state.visibleValue));
@@ -246,14 +246,17 @@ class BaseDateInput extends React.Component {
         inputElement={ this.input && this.input.parentElement }
         selectedDate={ this.state.selectedDate }
         handleDateSelect={ this.handleDateSelect }
+        inputDate={ this.state.visibleValue }
         { ...dateRangeProps }
       />
     );
   }
 
   markCurrentDatepicker = () => {
+    if (this.props.disabled || this.props.readOnly) return;
     this.isOpening = true;
     this.inputFocusedViaPicker = false;
+    this.isBlurBlocked = true;
     this.openDatePicker();
   }
 
