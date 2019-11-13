@@ -8,11 +8,11 @@ const Option = ({ text, children, ...props }) => (
 );
 
 Option.propTypes = {
-  /** if children is undefined, text will be rendered as the Option content */
+  /** The option's visible text, displayed within <Textbox> of <Select>, and used for filtering */
   text: PropTypes.string.isRequired,
-  /** if defined, children will be rendered as the Option content */
+  /** Optional: alternative rendered content, displayed within <SelectList> of <Select> (eg: an icon, an image, etc) */
   children: PropTypes.node,
-  /** the value of the Option */
+  /** The option's invisible internal value */
   value: PropTypes.string.isRequired,
   /** if defined, this object can be used to provide optional extra properties */
   options: PropTypes.object
