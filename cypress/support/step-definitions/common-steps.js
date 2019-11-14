@@ -1,5 +1,5 @@
 import {
-  visitComponentUrl, setSlidebar, pressESCKey, pressTABKey,
+  visitComponentUrl, setSlidebar, pressESCKey, pressTABKey, asyncWaitForKnobs,
 } from '../helper';
 import {
   commonButtonPreview, labelPreview, helpIcon, helpIconByPosition, inputWidthSlider,
@@ -7,7 +7,7 @@ import {
   closeIconButton, tooltipPreview, getKnobsInput, getKnobsInputWithName,
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
   precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
-  knobsNameTab, fieldHelpPreviewByPosition,
+  knobsNameTab, fieldHelpPreviewByPosition, labelByPosition, knobsNameInSecondTabList,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
@@ -21,6 +21,8 @@ const FOURTH_ELEMENT = 3;
 const FIFTH_ELEMENT = 4;
 const SIXTH_ELEMENT = 5;
 const SEVENTH_ELEMENT = 6;
+const SECOND_TAB_LIST = 1;
+const TEXT_ALIGN = 'text-align';
 
 Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
@@ -111,7 +113,7 @@ Given('I open {string} component page validations classic in iframe', (component
 });
 
 When('I open {word} tab', (text) => {
-  cy.wait(1000, DEBUG_FLAG);
+  cy.wait(1000, { log: DEBUG_FLAG });
   knobsNameTab(text).click();
 });
 
@@ -119,7 +121,8 @@ When('I set {word} to {string}', (propertyName, text) => {
   getKnobsInput(propertyName).clear().type(text);
 });
 
-When('I set {word} {word} to {string}', (propertyName, fieldName, text) => {
+When('I set {string} {string} to {string}', (propertyName, fieldName, text) => {
+  asyncWaitForKnobs(propertyName, fieldName);
   getKnobsInputWithName(propertyName, fieldName).clear().type(text);
 });
 
@@ -171,12 +174,15 @@ When('I hover mouse onto {string} help icon', (position) => {
     case 'second':
       helpIconByPosition(SECOND_ELEMENT).trigger('mouseover');
       break;
-    default: throw new Error('There are only two help icons on the page');
+    case 'third':
+      helpIconByPosition(THIRD_ELEMENT).trigger('mouseover');
+      break;
+    default: throw new Error('There are only three help icons on the page');
   }
 });
 
 When('I hover mouse onto icon', () => {
-  cy.wait(100, { log: DEBUG_FLAG }); // required becasue element might be reloaded
+  cy.wait(100, { log: DEBUG_FLAG }); // required because element might be reloaded
   icon().trigger('mouseover');
 });
 
@@ -259,6 +265,21 @@ Then('labelAlign on preview is {string}', (direction) => {
   }
 });
 
+Then('{string} label Align on preview is {string}', (position, direction) => {
+  switch (position) {
+    case 'First':
+      labelByPosition(FIRST_ELEMENT).should('have.css', TEXT_ALIGN, `${direction}`);
+      break;
+    case 'Second':
+      labelByPosition(SECOND_ELEMENT).should('have.css', TEXT_ALIGN, `${direction}`);
+      break;
+    case 'Third':
+      labelByPosition(THIRD_ELEMENT).should('have.css', TEXT_ALIGN, `${direction}`);
+      break;
+    default: throw new Error('There are only three label elements on the page');
+  }
+});
+
 Then('Background UI is enabled', () => {
   backgroundUILocator().should('not.exist');
 });
@@ -314,6 +335,11 @@ When('I uncheck {word} checkbox', (checkboxName) => {
   getKnobsInput(checkboxName).uncheck();
 });
 
+When('I uncheck {word} {word} checkbox', (checkboxName, text) => {
+  getKnobsInputWithName(checkboxName, text).scrollIntoView();
+  getKnobsInputWithName(checkboxName, text).uncheck();
+});
+
 Then('inputWidth is set to {string}', (width) => {
   inputWidthPreview().should('have.attr', 'style').should('contain', `width: ${width}%`);
 });
@@ -356,4 +382,19 @@ When('I click outside of the component', () => {
 
 When('I click above of the component into iFrame', () => {
   storyRootNoIframe().click('top');
+});
+
+Then('{string} tab in {string} tab list is visible', (knobsName, position) => {
+  cy.wait(3000, { log: DEBUG_FLAG });
+  switch (position) {
+    case 'first':
+      knobsNameTab(knobsName, FIRST_ELEMENT).should('be.visible')
+        .and('have.css', 'visibility', 'visible');
+      break;
+    case 'second':
+      knobsNameTab(knobsName, SECOND_ELEMENT).should('be.visible')
+        .and('have.css', 'visibility', 'visible');
+      break;
+    default: throw new Error('There are only two tab list elements on the page');
+  }
 });

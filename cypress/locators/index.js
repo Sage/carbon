@@ -18,10 +18,12 @@ export const getKnobsInputWithName = (propertyName, name) => cy.get(`[name="${pr
 export const knobsTab = () => cy.get(FORM).find('button').contains('Knobs');
 export const actionsTab = () => cy.get(FORM).find('button').contains('Actions');
 export const knobsNameTab = name => cy.get(TAB_LIST).eq(1).find('button').contains(name);
+export const knobsNameInSecondTabList = name => cy.get(TAB_LIST).eq(2).find('button').contains(name);
 export const accessibilityTab = () => cy.get(FORM).find('button').contains('Accessibility');
 export const eventInAction = event => cy.get(FORM).find('span').contains(event);
 export const inputWidthSlider = () => cy.get(INPUT_WIDTH_SLIDER);
 export const labelWidthSlider = () => cy.get(LABEL_WIDTH_SLIDER);
+export const labelWidthSliderByName = (propertyName, name) => cy.get(`input[name="${propertyName} ${name}"]`);
 export const precisionSlider = () => cy.get(PRECISION_SLIDER);
 export const characterLimitSlider = () => cy.get(CHARACTER_LIMIT);
 
