@@ -41,7 +41,7 @@ class BaseDateInput extends React.Component {
   };
 
   componentDidMount() {
-    if (this.props.autoFocus && !this.props.disabled && !this.props.readOnly) {
+    if (this.props.autoFocus) {
       this.isAutoFocused = true;
       this.input.focus();
       this.openDatePicker();
