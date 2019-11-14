@@ -1,0 +1,518 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RadioButtonMapper renders as expected 1`] = `
+Array [
+  .c3 {
+  display: block;
+}
+
+.c3 + .c2 {
+  margin-top: 16px;
+}
+
+.c7 {
+  cursor: pointer;
+  opacity: 0;
+  margin: 0;
+  position: relative;
+  z-index: 999;
+}
+
+.c5 {
+  display: inline-block;
+  position: relative;
+}
+
+.c1 .c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c1 .c13 {
+  text-align: left;
+  width: auto;
+  white-space: nowrap;
+  margin-top: -2px;
+}
+
+.c1 .c13 .c11,
+.c1 .c13 .c12 {
+  color: rgba(0,0,0,0.65);
+  vertical-align: middle;
+  top: -1px;
+}
+
+.c1 .c13 .c11:hover,
+.c1 .c13 .c12:hover,
+.c1 .c13 .c11:focus,
+.c1 .c13 .c12:focus {
+  color: rgba(0,0,0,0.9);
+}
+
+.c0 {
+  padding-top: 8px;
+  margin-bottom: 12px;
+}
+
+.c0 .c4 {
+  padding-top: 1px;
+}
+
+.c0 .c8 {
+  height: 16px;
+}
+
+.c0 svg {
+  background-color: #FFFFFF;
+  border: 1px solid #668491;
+}
+
+.c0 .c6,
+.c0 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c0 .c4,
+.c0 .c6,
+.c0 .c8,
+.c0 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c0 .c6:not([disabled]):focus + .c8,
+.c0 .c6:not([disabled]):hover + .c8 {
+  box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c0 .c13 {
+  padding: 0 6px;
+  width: auto;
+}
+
+.c0 .c10 {
+  margin-left: 16px;
+  margin-top: 0;
+  padding-left: 6px;
+}
+
+.c0 .c12 {
+  position: relative;
+  display: inline-block;
+}
+
+.c0 .c10 {
+  margin-left: 32px;
+}
+
+.c0 .c4 {
+  margin-right: 16px;
+}
+
+.c0 .c8 {
+  padding: 0;
+}
+
+.c0 .c8,
+.c0 svg {
+  border-radius: 50%;
+}
+
+.c0 .c4,
+.c0 .c6,
+.c0 .c8,
+.c0 svg {
+  height: 16px;
+  width: 16px;
+}
+
+.c0 svg {
+  padding: 1px;
+}
+
+.c0 circle {
+  r: 5;
+}
+
+.c0 .c6:checked + .c8 circle {
+  fill: rgba(0,0,0,0.9);
+}
+
+.c9 .c4 {
+  padding-top: 1px;
+}
+
+.c9 .c8 {
+  height: 16px;
+}
+
+.c9 .c6,
+.c9 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c9 .c4,
+.c9 .c6,
+.c9 .c8,
+.c9 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c9 .c6:not([disabled]):focus + .c8,
+.c9 .c6:not([disabled]):hover + .c8 {
+  box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c9 .c4 {
+  margin-right: 16px;
+}
+
+.c9 .c8 {
+  padding: 0;
+}
+
+.c9 .c8,
+.c9 svg {
+  border-radius: 50%;
+}
+
+.c9 .c4,
+.c9 .c6,
+.c9 .c8,
+.c9 svg {
+  height: 16px;
+  width: 16px;
+}
+
+.c9 .c6:checked + .c8 circle {
+  fill: rgba(0,0,0,0.9);
+}
+
+<div
+    checked={false}
+    className="c0"
+    data-component="radio-button"
+    name="test-group"
+    onBlur={[MockFunction]}
+  >
+    <div
+      checked={false}
+      className="c1"
+      name="test-group"
+      onBlur={[MockFunction]}
+    >
+      <div
+        className="c2 c3"
+      >
+        <div
+          className="c4 c5"
+        >
+          <input
+            aria-checked={false}
+            aria-describedby="rId-0-help"
+            aria-labelledby="rId-0-label"
+            checked={false}
+            className="c6 c7"
+            id="rId-0"
+            name="test-group"
+            onBlur={[MockFunction]}
+            onChange={[Function]}
+            role="radio"
+            type="radio"
+            value="test-1"
+          />
+          <div
+            className="c8 "
+          >
+            <svg
+              focusable="false"
+              viewBox="0 0 15 15"
+            >
+              <g
+                fill="none"
+                fillRule="evenodd"
+                stroke="none"
+                strokeWidth="1"
+              >
+                <circle
+                  className="radio-button-check"
+                  cx="7.5"
+                  cy="7.5"
+                  fill="#FFFFFF"
+                  r="5"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  .c3 {
+  display: block;
+}
+
+.c3 + .c2 {
+  margin-top: 16px;
+}
+
+.c7 {
+  cursor: pointer;
+  opacity: 0;
+  margin: 0;
+  position: relative;
+  z-index: 999;
+}
+
+.c5 {
+  display: inline-block;
+  position: relative;
+}
+
+.c1 .c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c1 .c13 {
+  text-align: left;
+  width: auto;
+  white-space: nowrap;
+  margin-top: -2px;
+}
+
+.c1 .c13 .c11,
+.c1 .c13 .c12 {
+  color: rgba(0,0,0,0.65);
+  vertical-align: middle;
+  top: -1px;
+}
+
+.c1 .c13 .c11:hover,
+.c1 .c13 .c12:hover,
+.c1 .c13 .c11:focus,
+.c1 .c13 .c12:focus {
+  color: rgba(0,0,0,0.9);
+}
+
+.c0 {
+  padding-top: 8px;
+  margin-bottom: 12px;
+}
+
+.c0 .c4 {
+  padding-top: 1px;
+}
+
+.c0 .c8 {
+  height: 16px;
+}
+
+.c0 svg {
+  background-color: #FFFFFF;
+  border: 1px solid #668491;
+}
+
+.c0 .c6,
+.c0 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c0 .c4,
+.c0 .c6,
+.c0 .c8,
+.c0 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c0 .c6:not([disabled]):focus + .c8,
+.c0 .c6:not([disabled]):hover + .c8 {
+  box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c0 .c13 {
+  padding: 0 6px;
+  width: auto;
+}
+
+.c0 .c10 {
+  margin-left: 16px;
+  margin-top: 0;
+  padding-left: 6px;
+}
+
+.c0 .c12 {
+  position: relative;
+  display: inline-block;
+}
+
+.c0 .c10 {
+  margin-left: 32px;
+}
+
+.c0 .c4 {
+  margin-right: 16px;
+}
+
+.c0 .c8 {
+  padding: 0;
+}
+
+.c0 .c8,
+.c0 svg {
+  border-radius: 50%;
+}
+
+.c0 .c4,
+.c0 .c6,
+.c0 .c8,
+.c0 svg {
+  height: 16px;
+  width: 16px;
+}
+
+.c0 svg {
+  padding: 1px;
+}
+
+.c0 circle {
+  r: 5;
+}
+
+.c0 .c6:checked + .c8 circle {
+  fill: rgba(0,0,0,0.9);
+}
+
+.c9 .c4 {
+  padding-top: 1px;
+}
+
+.c9 .c8 {
+  height: 16px;
+}
+
+.c9 .c6,
+.c9 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c9 .c4,
+.c9 .c6,
+.c9 .c8,
+.c9 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c9 .c6:not([disabled]):focus + .c8,
+.c9 .c6:not([disabled]):hover + .c8 {
+  box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c9 .c4 {
+  margin-right: 16px;
+}
+
+.c9 .c8 {
+  padding: 0;
+}
+
+.c9 .c8,
+.c9 svg {
+  border-radius: 50%;
+}
+
+.c9 .c4,
+.c9 .c6,
+.c9 .c8,
+.c9 svg {
+  height: 16px;
+  width: 16px;
+}
+
+.c9 .c6:checked + .c8 circle {
+  fill: rgba(0,0,0,0.9);
+}
+
+<div
+    checked={false}
+    className="c0"
+    data-component="radio-button"
+    name="test-group"
+    onBlur={[MockFunction]}
+  >
+    <div
+      checked={false}
+      className="c1"
+      name="test-group"
+      onBlur={[MockFunction]}
+    >
+      <div
+        className="c2 c3"
+      >
+        <div
+          className="c4 c5"
+        >
+          <input
+            aria-checked={false}
+            aria-describedby="rId-1-help"
+            aria-labelledby="rId-1-label"
+            checked={false}
+            className="c6 c7"
+            id="rId-1"
+            name="test-group"
+            onBlur={[MockFunction]}
+            onChange={[Function]}
+            role="radio"
+            type="radio"
+            value="test-2"
+          />
+          <div
+            className="c8 "
+          >
+            <svg
+              focusable="false"
+              viewBox="0 0 15 15"
+            >
+              <g
+                fill="none"
+                fillRule="evenodd"
+                stroke="none"
+                strokeWidth="1"
+              >
+                <circle
+                  className="radio-button-check"
+                  cx="7.5"
+                  cy="7.5"
+                  fill="#FFFFFF"
+                  r="5"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;

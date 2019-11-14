@@ -1,13 +1,5 @@
 import React from 'react';
-import { StoryHeader, StoryCode } from '../../../../../.storybook/style/storybook-info.styles';
-
-const code = `
-<SimpleColorPicker
-  availableColors={["transparent", "#ff0102", "#34ff01"]}
-  selectedColor="#34ff01"
-  name="Picker"
-/>
-`;
+import { StoryHeader, StoryCodeBlock } from '../../../../../.storybook/style/storybook-info.styles';
 
 const info = (
   <div>
@@ -17,12 +9,20 @@ const info = (
     <StoryHeader>Implementation</StoryHeader>
 
     <p>Import the component:</p>
-    <StoryCode>
-      import SimpleColorPicker from {'"carbon-react/lib/components/simple-color-picker"'}
-    </StoryCode>
+    <StoryCodeBlock padded>
+      {
+        // eslint-disable-next-line max-len
+        'import { SimpleColorPicker, SimpleColor } from "carbon-react/lib/__experimental__/components/simple-color-picker"'
+      }
+    </StoryCodeBlock>
 
     <p>To render the SimpleColorPicker:</p>
-    <StoryCode>{code}</StoryCode>
+    <StoryCodeBlock padded>
+      { '<SimpleColorPicker name="colorPicker" legend="Pick a colour" onChange={ onChange }>' }
+      { "  <SimpleColor color='#00A376' aria-label='green' defaultChecked />" }
+      { "  <SimpleColor color='#0073C1' aria-label='blue' />" }
+      { '</SimpleColorPicker>' }
+    </StoryCodeBlock>
   </div>
 );
 

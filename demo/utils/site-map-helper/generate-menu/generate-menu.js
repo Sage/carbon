@@ -1,18 +1,22 @@
 import React from 'react';
-import SiteMap from './../../../site-map';
 import Link from 'components/link';
 import { MenuListItem, MenuList } from 'components/menu-list';
 import { humanize, titleize } from 'underscore.string';
 import { startsWith } from 'lodash';
+import SiteMap from '../../../site-map';
 import './generate-menu.scss';
 
-export default () => {
-  return generateMenu();
-}
+const humanName = (key) => {
+  return titleize(humanize(key.replace('/', '')));
+};
 
-const createMenuLink = (name, url, active, external) => {
-  let classes = active ? "demo-menu__link--active" : null,
-      linkProp = external ? { href: url, target: "_blank" } : { to: url };
+const createMenuLink = (name, url, active, external, isMainLink) => {
+  const classes = [];
+
+  if (active) classes.push('demo-menu__link--active');
+  if (isMainLink) classes.push('demo-menu__link');
+
+  const linkProp = external ? { href: url, target: '_blank' } : { to: url };
 
   return (
     <MenuListItem key={ name } name={ humanName(name) }>
@@ -21,34 +25,34 @@ const createMenuLink = (name, url, active, external) => {
       </Link>
     </MenuListItem>
   );
-}
+};
 
 const createSubmenu = (url, value) => {
-  let submenuItems = [],
-      initiallyOpen = false;
+  const submenuItems = [];
+  let initiallyOpen = false;
 
-  for (let index in value.items) {
+  for (const index in value.items) {
     let name, link = value.items[index], external = false;
 
-    if (typeof link === "string" && startsWith(link, "http")) {
+    if (typeof link === 'string' && startsWith(link, 'http')) {
       name = index;
       external = true;
-    } else if (url.indexOf(":name") > -1) {
+    } else if (url.indexOf(':name') > -1) {
       name = value.items[index];
-      link = url.replace(":name", name);
+      link = url.replace(':name', name);
     } else {
       name = index;
-      link = url + "/" + name;
+      link = `${url}/${name}`;
     }
 
-    let active = (window.location.pathname === link);
+    const active = (window.location.pathname === link);
     submenuItems.push(createMenuLink(name, link, active, external));
   }
 
   let title = url.replace(/\//g, '');
   title = titleize(humanize(title.replace(':name', '')));
 
-  if (url.split("/")[1] === window.location.pathname.split("/")[1]) {
+  if (url.split('/')[1] === window.location.pathname.split('/')[1]) {
     initiallyOpen = true;
   }
 
@@ -64,13 +68,13 @@ const createSubmenu = (url, value) => {
       </MenuList>
     </MenuListItem>
   );
-}
+};
 
 const generateMenu = () => {
-  let menu = [];
+  const menu = [];
 
-  for (let key in SiteMap.config) {
-    let url = key,
+  for (const key in SiteMap.config) {
+    const url = key,
         value = SiteMap.config[key],
         menuItems = [];
 
@@ -83,9 +87,25 @@ const generateMenu = () => {
     menu.push(menuItems);
   }
 
-  return menu;
-}
+  menu.push(createStorybookLink());
 
-const humanName = (key) => {
-  return titleize(humanize(key.replace("/", "")));
-}
+  return menu;
+};
+
+const createStorybookLink = () => {
+  const classes = ['demo-menu__link'];
+  const linkProp = { href: '/storybook' };
+  const name = 'Component Library';
+
+  return (
+    <MenuListItem key={ name } name={ humanName(name) }>
+      <Link className={ classes } { ...linkProp }>
+        { humanName(name) }
+      </Link>
+    </MenuListItem>
+  );
+};
+
+export default () => {
+  return generateMenu();
+};

@@ -26,6 +26,7 @@ exports[`Select does not apply any events if disabled or readonly 1`] = `
     onFocus={[Function]}
     onKeyDown={[Function]}
     placeholder="Please Select..."
+    value=""
   />
 </styled.div>
 `;
@@ -56,6 +57,7 @@ exports[`Select does not apply any events if disabled or readonly 2`] = `
     onFocus={[Function]}
     onKeyDown={[Function]}
     placeholder="Please Select..."
+    value=""
   />
 </styled.div>
 `;
@@ -86,6 +88,7 @@ exports[`Select renders only the Textbox when closed 1`] = `
     onFocus={[Function]}
     onKeyDown={[Function]}
     placeholder="Please Select..."
+    value=""
   />
 </styled.div>
 `;
@@ -94,15 +97,18 @@ exports[`Select renders the SelectList with any given children when in an open s
 Object {
   "alwaysHighlight": false,
   "children": Array [
-    <div>
-      1
-    </div>,
-    <div>
-      2
-    </div>,
-    <div>
-      3
-    </div>,
+    <Option
+      text="Orange"
+      value="1"
+    />,
+    <Option
+      text="Blue"
+      value="2"
+    />,
+    <Option
+      text="Red"
+      value="3"
+    />,
   ],
   "customFilter": undefined,
   "filterValue": undefined,
