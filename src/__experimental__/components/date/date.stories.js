@@ -79,6 +79,7 @@ function makeValidationsStory(name, themeSelector) {
           warnings={ [isNotSecondApr] }
           info={ [isNotThirdApr] }
           onChange={ setValue }
+          onBlur={ ev => action('onBlur')(ev) }
         />
       </State>
     );
