@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { ThemeProvider } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
-import 'jest-styled-components';
 import { mount as enzymeMount } from 'enzyme';
 import { simulate, assertStyleMatch } from '../../__spec_helper__/test-utils';
 import theme from '../../style/themes/small';
@@ -511,7 +510,7 @@ describe('ActionPopover', () => {
       const MenuStyle = TestRenderer.create(<Menu theme={ classic } />);
       expect(MenuStyle).toMatchSnapshot();
 
-      const MenuItem = MenuItemFactory(props => <div { ...props } />);
+      const MenuItem = MenuItemFactory(({ className }) => <div className={ className } />);
       const MenuItemStyle = TestRenderer.create(<MenuItem theme={ classic } />);
       expect(MenuItemStyle).toMatchSnapshot();
 
