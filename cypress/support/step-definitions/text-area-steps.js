@@ -6,6 +6,7 @@ import { setSlidebar } from '../helper';
 import {
   fieldHelpPreview, label, inputWidthPreview, characterLimitSlider,
 } from '../../locators';
+import { DEBUG_FLAG } from '..';
 
 const TEXT_ALIGN = 'text-align';
 const TEXTAREA_CLASS = 'carbon-textarea__input';
@@ -144,24 +145,28 @@ When('I input {string} into Textarea for deprecated component', (text) => {
 });
 
 Then('Textarea component has warnOverLimit and used characters {int} of {int}', (overCharacterLimit, limit) => {
+  cy.wait(250, { log: DEBUG_FLAG }); // added because of Docker needs
   characterLimit().parent()
     .should('have.text', `You have used ${overCharacterLimit} of ${limit} characters`)
     .and('have.css', 'color', 'rgb(199, 56, 79)');
 });
 
 Then('Textarea component has no warnOverLimit and used characters {int} of {int}', (charactersUsed, limit) => {
+  cy.wait(250, { log: DEBUG_FLAG }); // added because of Docker needs
   characterLimit().parent()
     .should('have.text', `You have used ${charactersUsed} of ${limit} characters`)
     .and('have.css', 'color', 'rgba(0, 0, 0, 0.85)');
 });
 
 Then('Textarea component has enforceCharacterLimit enabled and used characters {int} are equal to limit {int}', (charactersUsed, limit) => {
+  cy.wait(250, { log: DEBUG_FLAG }); // added because of Docker needs
   characterLimit().parent()
     .should('have.text', `You have used ${charactersUsed} of ${limit} characters`)
     .and('have.css', 'color', 'rgba(0, 0, 0, 0.85)');
 });
 
 Then('Textarea component has enforceCharacterLimit disabled and used characters {int} are more than limit {int}', (charactersUsed, limit) => {
+  cy.wait(250, { log: DEBUG_FLAG }); // added because of Docker needs
   characterLimit().parent()
     .should('have.text', `You have used ${charactersUsed} of ${limit} characters`)
     .and('have.css', 'color', 'rgba(0, 0, 0, 0.85)');
