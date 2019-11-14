@@ -97,7 +97,7 @@ Feature: Experimental Number Input component for classic page
   # | <>                       |
 
   @positive
-  Scenario Outline: Checke the <size> of Number Input and nothing should be changed
+  Scenario Outline: Check the <size> of Number Input and nothing should be changed
     When I select size to "<size>"
     Then Number input component size is set to "<size>" and has min-height set to 31 and paddings set to 6
     Examples:
