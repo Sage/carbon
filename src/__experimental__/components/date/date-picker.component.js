@@ -45,14 +45,20 @@ const DatePicker = (props) => {
   };
 
   useEffect(() => {
-    if (hasComponentUpdated(currentInputDate, isoFormattedValueString(props.inputDate))) {
-      datepicker.current.showMonth(DateHelper.stringToDate(isoFormattedValueString(props.inputDate)));
-      setCurrentInputDate(isoFormattedValueString(props.inputDate));
+    if (hasComponentUpdated()) {
+      const updatedDate = isoFormattedValueString(props.inputDate);
+      datepicker.current.showMonth(DateHelper.stringToDate(updatedDate));
+      setCurrentInputDate(updatedDate);
     }
   }, [props.selectedDate, props.inputDate]);
 
   function handleDayClick(selectedDate, modifiers) {
     if (!modifiers.disabled) props.handleDateSelect(selectedDate);
+  }
+
+  function hasComponentUpdated() {
+    const propDate = isoFormattedValueString(props.inputDate);
+    return props.inputDate && currentDateHasChanged(currentInputDate, propDate);
   }
 
   return (
@@ -89,10 +95,6 @@ function currentDateHasChanged(currentDate, newDate) {
 
 function isoFormattedValueString(valueToFormat) {
   return DateHelper.formatValue(valueToFormat);
-}
-
-function hasComponentUpdated(propDate, currentDate) {
-  return propDate && currentDateHasChanged(currentDate, propDate);
 }
 
 /**

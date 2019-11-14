@@ -239,11 +239,13 @@ describe('Date', () => {
     it('should return focus to the date input and the picker should not open', () => {
       const instance = wrapper.find(BaseDateInput).instance();
       expect(instance.inputFocusedViaPicker).toEqual(true);
-      const spy = spyOn(instance, 'updateSelectedDate');
-      const stateSpy = spyOn(instance, 'setState');
       instance.openDatePicker();
-      expect(spy).not.toHaveBeenCalled();
-      expect(stateSpy).not.toHaveBeenCalled();
+      expect(
+        wrapper
+          .update()
+          .find(DatePicker)
+          .exists()
+      ).toBe(false);
     });
   });
 
