@@ -3,6 +3,8 @@ import { storiesOf } from '@storybook/react';
 import {
   text, number, boolean, select, percentageRange
 } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
+import { State, Store } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation';
@@ -14,6 +16,15 @@ ButtonToggleGroup.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
   /button-toggle-group\.component(?!spec)/
 );
+
+const handleGroupChangeFactory = store => (event) => {
+  const { value } = event.target;
+
+  store.set({ value });
+
+  action('onChange')(value);
+};
+const radioToggleGroupStore = new Store({ value: 'Bar' });
 
 function makeStory(storyName, themeSelector) {
   const component = () => {
@@ -48,18 +59,22 @@ function makeStory(storyName, themeSelector) {
     }
 
     return (
-      <ButtonToggleGroup
-        label={ label }
-        labelInline={ labelInline }
-        labelWidth={ labelWidth }
-        labelAlign={ labelAlign }
-        labelHelp={ labelHelp }
-        inputWidth={ inputWidth }
-        fieldHelp={ fieldHelp }
-        fieldHelpInline={ fieldHelpInline }
-      >
-        { renderButtons() }
-      </ButtonToggleGroup>
+      <State store={ radioToggleGroupStore }>
+        <ButtonToggleGroup
+          label={ label }
+          labelInline={ labelInline }
+          labelWidth={ labelWidth }
+          labelAlign={ labelAlign }
+          labelHelp={ labelHelp }
+          inputWidth={ inputWidth }
+          fieldHelp={ fieldHelp }
+          fieldHelpInline={ fieldHelpInline }
+          name='button-toggle-group'
+          onChange={ handleGroupChangeFactory(radioToggleGroupStore) }
+        >
+          { renderButtons() }
+        </ButtonToggleGroup>
+      </State>
     );
   };
 
