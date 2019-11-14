@@ -45,7 +45,6 @@ class DateRange extends React.Component {
   }
 
   _onBlur = () => {
-    console.log('blur');
     if (this.isBlurBlocked()) {
       return;
     }
