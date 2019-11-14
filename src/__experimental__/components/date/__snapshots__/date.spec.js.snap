@@ -39,7 +39,7 @@ exports[`StyledDateInput renders correctly for the "classic" theme 1`] = `
 }
 
 .c0 .c4 {
-  width: 122px;
+  width: 125px;
 }
 
 .c0 .c4:focus .c2 {
