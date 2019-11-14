@@ -68,6 +68,9 @@ class BaseDateInput extends React.Component {
     const { disabled, readOnly } = this.props;
 
     if (disabled || readOnly || this.isBlurBlocked || this.inputFocusedViaPicker) {
+      if (!this.isBlurBlocked && this.inputFocusedViaPicker) {
+        this.inputFocusedViaPicker = false;
+      }
       return;
     }
 
