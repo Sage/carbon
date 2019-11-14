@@ -23,6 +23,16 @@ Array [
   position: relative;
 }
 
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+}
+
 .c1 .c2 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -34,10 +44,22 @@ Array [
 }
 
 .c1 .c13 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 calc(100% - 28px);
+  -ms-flex: 1 1 calc(100% - 28px);
+  flex: 1 1 calc(100% - 28px);
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
   text-align: left;
   width: auto;
-  white-space: nowrap;
-  margin-top: -2px;
 }
 
 .c1 .c13 .c11,
@@ -52,6 +74,16 @@ Array [
 .c1 .c13 .c11:focus,
 .c1 .c13 .c12:focus {
   color: rgba(0,0,0,0.9);
+}
+
+.c1 .c4,
+.c1 .c6,
+.c1 .c8,
+.c1 svg {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .c0 {
@@ -139,6 +171,12 @@ Array [
 
 .c0 circle {
   r: 5;
+}
+
+.c0 .c13 {
+  -webkit-flex: 1 1 calc(100% - 44px);
+  -ms-flex: 1 1 calc(100% - 44px);
+  flex: 1 1 calc(100% - 44px);
 }
 
 .c0 .c6:checked + .c8 circle {
@@ -279,6 +317,16 @@ Array [
   position: relative;
 }
 
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+}
+
 .c1 .c2 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -290,10 +338,22 @@ Array [
 }
 
 .c1 .c13 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 calc(100% - 28px);
+  -ms-flex: 1 1 calc(100% - 28px);
+  flex: 1 1 calc(100% - 28px);
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
   text-align: left;
   width: auto;
-  white-space: nowrap;
-  margin-top: -2px;
 }
 
 .c1 .c13 .c11,
@@ -308,6 +368,16 @@ Array [
 .c1 .c13 .c11:focus,
 .c1 .c13 .c12:focus {
   color: rgba(0,0,0,0.9);
+}
+
+.c1 .c4,
+.c1 .c6,
+.c1 .c8,
+.c1 svg {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .c0 {
@@ -395,6 +465,12 @@ Array [
 
 .c0 circle {
   r: 5;
+}
+
+.c0 .c13 {
+  -webkit-flex: 1 1 calc(100% - 44px);
+  -ms-flex: 1 1 calc(100% - 44px);
+  flex: 1 1 calc(100% - 44px);
 }
 
 .c0 .c6:checked + .c8 circle {
