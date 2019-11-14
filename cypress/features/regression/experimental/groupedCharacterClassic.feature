@@ -81,7 +81,7 @@ Feature: Experimental GroupedCharacter component classic page
       | <>                      |
 
   @positive
-  Scenario Outline: Checke the <size> of GroupedCharacter Input and nothing should be changed
+  Scenario Outline: Check the <size> of GroupedCharacter Input and nothing should be changed
     When I select size to "<size>"
     Then GroupedCharacter input component size is set to "<size>" and has min-height set to 31 and paddings set to 6
     Examples:
