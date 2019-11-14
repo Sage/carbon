@@ -42,7 +42,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   flex-wrap: wrap;
 }
 
-.c5 .c18 {
+.c5 .c17 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -172,7 +172,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   r: 5;
 }
 
-.c4 .c18 {
+.c4 .c17 {
   -webkit-flex: 1 1 calc(100% - 44px);
   -ms-flex: 1 1 calc(100% - 44px);
   flex: 1 1 calc(100% - 44px);
