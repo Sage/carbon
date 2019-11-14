@@ -4,7 +4,7 @@ import { text, array } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
-import SimpleColorPicker from '.';
+import { SimpleColorPicker, SimpleColor } from '.';
 import { notes, info } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
@@ -18,43 +18,56 @@ const store = new Store({
 });
 
 const onChange = (e) => {
+  const { value } = e.target;
   store.set({
-    selectedColor: e.target.value
+    selectedColor: value
   });
-  action('select')();
+  action(`Selected - ${value}`)(e);
 };
 
 function makeStory(storyName, themeSelector) {
   const component = () => {
     const name = text('name', 'basicPicker');
+    const legend = text('legend', 'Pick a colour');
     const demoColors = [
-      '#00A376',
-      '#0073C1',
-      '#582C83',
-      '#E96400',
-      '#99ADB6',
-      '#C7384F',
-      '#004500',
-      '#FFB500',
-      '#335C6D',
-      '#00DC00'
+      { color: '#00A376', label: 'green' },
+      { color: '#0073C1', label: 'blue' },
+      { color: '#582C83', label: 'purple' },
+      { color: '#E96400', label: 'orange' },
+      { color: '#99ADB6', label: 'gray' },
+      { color: '#C7384F', label: 'flush mahogany' },
+      { color: '#004500', label: 'dark green' },
+      { color: '#FFB500', label: 'yellow' },
+      { color: '#335C6D', label: 'dark blue' },
+      { color: '#00DC00', label: 'light blue' }
     ];
     const availableColors = array('availableColors', demoColors, '/');
 
     return (
       <State store={ store }>
         <SimpleColorPicker
-          availableColors={ availableColors }
           name={ name }
+          legend={ legend }
           onChange={ onChange }
-        />
+        >
+          {availableColors.map(({ color, label }) => (
+            <SimpleColor
+              value={ color }
+              key={ color }
+              aria-label={ label }
+              id={ color }
+              defaultChecked={ color === '#582C83' }
+            />
+          ))}
+        </SimpleColorPicker>
       </State>
     );
   };
 
   const metadata = {
     themeSelector,
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   };
 
   return [storyName, component, metadata];

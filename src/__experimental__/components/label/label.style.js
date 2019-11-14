@@ -10,11 +10,14 @@ import { isClassic } from '../../../utils/helpers/style-helper';
 
 const LabelStyle = styled.div`
   color: ${({ theme }) => theme.text.color};
-  cursor: pointer;
   display: block;
   font-weight: 600;
   padding-bottom: 8px;
   width: 100%;
+
+  label {
+    cursor: pointer;
+  }
 
   ${StyledHelpIcon},
   ${StyledValidationIcon} {
