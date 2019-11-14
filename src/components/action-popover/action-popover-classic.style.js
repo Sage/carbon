@@ -12,7 +12,7 @@ export const MenuClassic = ({ theme }) => isClassic(theme) && css`
 export const MenuItemClassic = ({ theme }) => isClassic(theme) && css`
   &:focus {
     outline: none;
-    box-shadow: inset 0px 0px 0px 2px #255BC7;
+    box-shadow: inset 0px 0px 0px 1px #255BC7;
   }
 
   line-height: 35px;
@@ -23,7 +23,7 @@ export const MenuButtonClassic = ({ theme, isOpen }) => isClassic(theme) && css`
   background-color: transparent;
 
   &:focus {
-    outline: 2px solid #255BC7;
+    outline: 1px solid #255BC7;
   }
 
   &:hover,
