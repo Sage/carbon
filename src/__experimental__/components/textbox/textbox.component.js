@@ -4,7 +4,7 @@ import { Input, InputPresentation } from '../input';
 import InputIconToggle from '../input-icon-toggle';
 import FormField from '../form-field';
 import { withValidation, validationsPropTypes } from '../../../components/validations';
-import withUniqueName from '../../../utils/helpers/with-unique-name';
+import withUniqueIdProps from '../../../utils/helpers/with-unique-id-props';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
 // This component is a working example of what a Textbox might look like
@@ -125,4 +125,4 @@ Textbox.defaultProps = {
 };
 
 export { Textbox as OriginalTextbox };
-export default withUniqueName(withValidation(Textbox));
+export default withUniqueIdProps(withValidation(Textbox));
