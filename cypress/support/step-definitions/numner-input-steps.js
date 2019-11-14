@@ -17,7 +17,7 @@ When('I press keyboard {string} keys into NumberInput input component', (key) =>
   commonDataElementInputPreview().clear().type(`{${key}}`);
 });
 
-Then('Number input component is {word}', (parameter) => {
+Then('{word} input component is {word}', (componentName, parameter) => {
   if (parameter === 'disabled') {
     commonDataElementInputPreview().should(`be.${parameter}`)
       .and('have.attr', parameter);
@@ -28,7 +28,7 @@ Then('Number input component is {word}', (parameter) => {
   }
 });
 
-Then('Number input component is not {word}', (parameter) => {
+Then('{word} input component is not {word}', (parameter) => {
   if (parameter === 'disabled') {
     commonDataElementInputPreview().should(`not.be.${parameter}`)
       .and('not.have.attr', parameter);
@@ -40,13 +40,13 @@ Then('Number input component is not {word}', (parameter) => {
   }
 });
 
-Then('Number input component size is set to {string} and has min-height set to {int} and paddings set to {int}', (size, minHeight, px) => {
+Then('{word} input component size is set to {string} and has min-height set to {int} and paddings set to {int}', (componentName, size, minHeight, px) => {
   commonDataElementInputPreview().parent().should('have.css', 'min-height', `${minHeight}px`)
     .and('have.css', 'padding-left', `${px}px`)
     .and('have.css', 'padding-right', `${px}px`);
 });
 
-Then('NumberInput component labelInline is enabled {string}', (classicStory) => {
+Then('{word} component labelInline is enabled {string}', (componentName, classicStory) => {
   switch (classicStory) {
     case 'true':
       label().should('have.css', 'align-self', 'center')
@@ -66,7 +66,7 @@ Then('NumberInput component labelInline is enabled {string}', (classicStory) => 
   }
 });
 
-Then('NumberInput component labelInline is disabled', () => {
+Then('{word} component labelInline is disabled', () => {
   label().should('have.css', 'display', 'block')
     .and('have.css', 'padding-bottom', '8px')
     .and('not.have.css', 'align-self', 'center')
@@ -76,10 +76,10 @@ Then('NumberInput component labelInline is disabled', () => {
     .and('not.have.css', 'text-align', 'left');
 });
 
-Then('Number Input component inputWidth is set to {int}', (width) => {
+Then('{word} Input component inputWidth is set to {int}', (componentName, width) => {
   commonDataElementInputPreview().parent().should('have.css', 'flex', `0 0 ${width}%`);
 });
 
-Then('Number Input component labelWidth is set to {int}', (width) => {
+Then('{word} Input component labelWidth is set to {int}', (componentName, width) => {
   label().should('have.css', 'width', `${width}px`);
 });
