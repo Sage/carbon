@@ -16,13 +16,13 @@ const slideAnimation = css`
   transition: ${animationStyle};
 }
 
-.slide-next-leave {
+.slide-next-exit {
   opacity: 1;
   left: 0;
   position: relative;
 }
 
-.slide-next-leave.slide-next-leave-active {
+.slide-next-exit.slide-next-exit-active {
   opacity: 0;
   left: -100%;
   transition: ${animationStyle};
@@ -41,13 +41,13 @@ const slideAnimation = css`
   transition: ${animationStyle};
 }
 
-.slide-previous-leave {
+.slide-previous-exit {
   opacity: 1;
   left: 0;
   position: relative;
 }
 
-.slide-previous-leave.slide-previous-leave-active {
+.slide-previous-exit.slide-previous-exit-active {
   opacity: 0;
   left: 100%;
   transition: ${animationStyle};
@@ -66,12 +66,12 @@ const fadeAnimation = css`
   transition: ${animationStyle};
 }
 
-.carousel-transition-fade-leave {
+.carousel-transition-fade-exit {
   opacity: 1;
   position: relative;
 }
 
-.carousel-transition-fade-leave.carousel-transition-fade-leave-active {
+.carousel-transition-fade-exit.carousel-transition-fade-exit-active {
   opacity: 0;
   transition: ${animationStyle};
 }

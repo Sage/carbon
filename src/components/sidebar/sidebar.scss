@@ -12,12 +12,12 @@ $sidebar-animation-length: 250ms;
   transition: all $sidebar-animation-length ease-in;
 }
 
-.sidebar--right-leave {
+.sidebar--right-exit {
   right: 0;
   opacity: 1;
 }
 
-.sidebar--right-leave.sidebar--right-leave-active {
+.sidebar--right-exit.sidebar--right-exit-active {
   opacity: 0;
   right: -50px;
   transition: all $sidebar-animation-length ease-in;
@@ -35,12 +35,12 @@ $sidebar-animation-length: 250ms;
   transition: all $sidebar-animation-length ease-in;
 }
 
-.sidebar--left-leave {
+.sidebar--left-exit {
   left: 0;
   opacity: 1;
 }
 
-.sidebar--left-leave.sidebar--left-leave-active {
+.sidebar--left-exit.sidebar--left-exit-active {
   opacity: 0;
   left: -50px;
   transition: all $sidebar-animation-length ease-in;

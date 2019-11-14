@@ -41,10 +41,10 @@ $doc-animation: opacity 100ms 200ms ease-in;
   display: none;
 }
 
-.demo-document__loading-leave,
+.demo-document__loading-exit,
 .demo-document__loading-appear,
 .demo-document__loading-enter,
-.demo-document__loading-leave.demo-document__loading-leave-active {
+.demo-document__loading-exit.demo-document__loading-exit-active {
   opacity: 0;
   transition: $doc-animation;
 }

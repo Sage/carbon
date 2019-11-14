@@ -1,38 +1,19 @@
 /* eslint-disable react/sort-comp */ // Getting confusing order from sort-comp
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Events from '../../utils/helpers/events';
 import Browser from '../../utils/helpers/browser';
 import Portal from '../portal';
-import { StyledModal, StyledModalBackground } from './modal.style';
-
-const TIMEOUT = 500;
+import {
+  StyledModal, StyledModalBackground
+} from './modal.style';
 /**
  * A Modal Component
  *
  * Abstract base class for all modals
  */
 class Modal extends React.Component {
-  static propTypes = {
-    /** A custom close event handler */
-    onCancel: PropTypes.func,
-    /** Sets the open state of the modal */
-    open: PropTypes.bool.isRequired,
-    /** Determines if the background is disabled when the modal is open */
-    enableBackgroundUI: PropTypes.bool,
-    /** Determines if the Esc Key closes the modal */
-    disableEscKey: PropTypes.bool,
-    /** The ARIA role to be applied to the modal */
-    ariaRole: PropTypes.string // eslint-disable-line react/no-unused-prop-types
-  }
-
-  static defaultProps = {
-    onCancel: null,
-    enableBackgroundUI: false,
-    disableEscKey: false
-  }
-
   static childContextTypes = {
     modal: PropTypes.object
   }
@@ -41,6 +22,7 @@ class Modal extends React.Component {
     super(props);
 
     this.listening = false;
+    this.timeout = 500;
 
     this.state = {
       state: this.props.open ? 'open' : 'closed'
@@ -51,7 +33,7 @@ class Modal extends React.Component {
     clearTimeout(this.openTimeout);
     this.openTimeout = setTimeout(() => {
       this.setState({ state: this.props.open ? 'open' : 'closed' });
-    }, TIMEOUT);
+    }, this.timeout);
   }
 
   getChildContext() {
@@ -141,30 +123,52 @@ class Modal extends React.Component {
           data-state={ this.state.state }
           transitionName={ this.transitionName }
         >
-          <CSSTransitionGroup
-            component='div'
-            transitionName={ this.backgroundTransitionName }
-            transitionAppear
-            transitionAppearTimeout={ TIMEOUT }
-            transitionEnterTimeout={ TIMEOUT }
-            transitionLeaveTimeout={ TIMEOUT }
-          >
-            { backgroundHTML }
-          </CSSTransitionGroup>
-          <CSSTransitionGroup
-            component='div'
-            transitionName={ this.transitionName }
-            transitionAppear
-            transitionAppearTimeout={ TIMEOUT }
-            transitionEnterTimeout={ TIMEOUT }
-            transitionLeaveTimeout={ TIMEOUT }
-          >
-            { modalHTML }
-          </CSSTransitionGroup>
+          <TransitionGroup>
+            {backgroundHTML && (
+              <CSSTransition
+                key='modal'
+                appear
+                classNames={ this.backgroundTransitionName }
+                timeout={ this.timeout }
+              >
+                {backgroundHTML}
+              </CSSTransition>
+            )}
+          </TransitionGroup>
+          <TransitionGroup>
+            {modalHTML && (
+              <CSSTransition
+                appear
+                classNames={ this.transitionName }
+                timeout={ this.timeout }
+              >
+                {modalHTML}
+              </CSSTransition>
+            )}
+          </TransitionGroup>
         </StyledModal>
       </Portal>
     );
   }
 }
+
+Modal.propTypes = {
+  /** A custom close event handler */
+  onCancel: PropTypes.func,
+  /** Sets the open state of the modal */
+  open: PropTypes.bool.isRequired,
+  /** Determines if the background is disabled when the modal is open */
+  enableBackgroundUI: PropTypes.bool,
+  /** Determines if the Esc Key closes the modal */
+  disableEscKey: PropTypes.bool,
+  /** The ARIA role to be applied to the modal */
+  ariaRole: PropTypes.string // eslint-disable-line react/no-unused-prop-types
+};
+
+Modal.defaultProps = {
+  onCancel: null,
+  enableBackgroundUI: false,
+  disableEscKey: false
+};
 
 export default Modal;

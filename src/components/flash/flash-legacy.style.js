@@ -35,11 +35,11 @@ const sliderAnimation = `
     transition: 500ms ease 100ms;
   }
 
-  .carbon-flash__slider-leave {
+  .carbon-flash__slider-exit {
     opacity: 1;
   }
 
-  .carbon-flash__slider-leave-active  {
+  .carbon-flash__slider-exit-active  {
     opacity: 0;
     transition: 500ms ease 100ms;
   }
@@ -57,11 +57,11 @@ const contentAnimation = `
     transition: 400ms ease 400ms;
   }
 
-  .carbon-flash__content-leave {
+  .carbon-flash__content-exit {
     opacity: 1;
   }
 
-  .carbon-flash__content-leave-active  {
+  .carbon-flash__content-exit-active  {
     opacity: 0;
     transition: 400ms ease-out 100ms;
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { compact, assign } from 'lodash';
 import { withTheme } from 'styled-components';
 import tagComponent from '../../utils/helpers/tags/tags';
@@ -39,7 +39,6 @@ class BaseCarousel extends React.Component {
     this.previousButtonProps = this.previousButtonProps.bind(this);
     this.nextButtonProps = this.nextButtonProps.bind(this);
     this.numOfSlides = this.numOfSlides.bind(this);
-    this.visibleSlide = this.visibleSlide.bind(this);
     this.slideSelector = this.slideSelector.bind(this);
     this.transitionName = this.transitionName.bind(this);
   }
@@ -149,10 +148,17 @@ class BaseCarousel extends React.Component {
   }
 
   /** Gets the currently visible slide */
-  visibleSlide() {
+  visibleSlide = () => {
     let index = this.state.selectedSlideIndex;
 
-    const visibleSlide = compact(React.Children.toArray(this.props.children))[index];
+    const visibleSlide = (
+      <CSSTransition
+        className='carbon-carousel__transition'
+        classNames={ this.transitionName() }
+        timeout={ { enter: TRANSITION_TIME, exit: TRANSITION_TIME } }
+      >{compact(React.Children.toArray(this.props.children))[index]}
+      </CSSTransition>
+    );
     index = visibleSlide.props.id || index;
 
     const additionalProps = {
@@ -206,7 +212,7 @@ class BaseCarousel extends React.Component {
 
     return (
       <CarouselSelectorWrapperStyle data-element='slide-selector'>
-        { buttons }
+        {buttons}
       </CarouselSelectorWrapperStyle>
     );
   }
@@ -268,17 +274,11 @@ class BaseCarousel extends React.Component {
         <CarouselWrapperStyle className={ this.props.className } { ...tagComponent('carousel', this.props) }>
           {/** carbon-carousel__content is related to pages.scss */}
           <div className='carbon-carousel__content'>
-            { this.previousButton() }
-            <CSSTransitionGroup
-              component='div'
-              className='carbon-carousel__transition'
-              transitionName={ this.transitionName() }
-              transitionEnterTimeout={ TRANSITION_TIME }
-              transitionLeaveTimeout={ TRANSITION_TIME }
-            >
-              { this.visibleSlide() }
-            </CSSTransitionGroup>
-            { this.nextButton() }
+            {this.previousButton()}
+            <TransitionGroup>
+              {this.visibleSlide()}
+            </TransitionGroup>
+            {this.nextButton()}
           </div>
           { this.slideSelector() }
         </CarouselWrapperStyle>
@@ -288,13 +288,13 @@ class BaseCarousel extends React.Component {
     return (
       <CarouselWrapperStyle className={ this.props.className } { ...tagComponent('carousel', this.props) }>
         <div className='carbon-carousel__content'>
-          { this.previousButton() }
+          {this.previousButton()}
           <CarouselSliderWrapper elementIndex={ this.state.selectedSlideIndex }>
             {this.visibleSlides()}
           </CarouselSliderWrapper>
-          { this.nextButton() }
+          {this.nextButton()}
         </div>
-        { this.slideSelector() }
+        {this.slideSelector()}
       </CarouselWrapperStyle>
     );
   }

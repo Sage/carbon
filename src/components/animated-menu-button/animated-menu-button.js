@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Icon from '../icon';
 import tagComponent from '../../utils/helpers/tags';
 import Devices from '../../utils/helpers/devices';
@@ -32,70 +32,9 @@ import './animated-menu-button.scss';
  * @constructor
  */
 class AnimatedMenuButton extends React.Component {
-  static propTypes = {
-
-    /**
-     * Children elements
-     *
-     * @property children
-     * @type {Node}
-     */
-    children: PropTypes.node,
-
-    /**
-     * Custom className
-     *
-     * @property className
-     * @type {String}
-     */
-    className: PropTypes.string,
-
-    /**
-     * The direction in which the menu expands.
-     *
-     * Options: right, left
-     *
-     * @property direction
-     * @type {String}
-     * @default left
-     */
-    direction: PropTypes.string,
-
-    /**
-     * A label to display at the top of the expanded menu.
-     *
-     * @property label
-     * @type {String}e
-     */
-    label: PropTypes.string,
-
-    /**
-     * The size of the menu.
-     *
-     * Options: small, smed, medium, mlarge, large
-     *
-     * @property size
-     * @type {String}
-     * @default medium
-     */
-    size: PropTypes.string
-  }
-
-  static defaultProps = {
-    direction: 'left',
-    size: 'medium'
-  }
-
   constructor(...args) {
     super(...args);
 
-    /**
-     * Determines if the blur event should be prevented.
-     *
-     * @property blockBlur
-     * @type {Boolean}
-     * @default false
-     */
     this.blockBlur = false;
 
     this.closeHandler = this.closeHandler.bind(this);
@@ -108,31 +47,11 @@ class AnimatedMenuButton extends React.Component {
     this.openHandler = this.openHandler.bind(this);
   }
 
-
   state = {
-    /**
-     * Menu open or closed.
-     *
-     * @property open
-     * @type {Boolean}
-     */
     open: false,
-
-    /**
-     * Indicates if user currently on touch device
-     *
-     * @property touch
-     * @type {Boolean}
-     */
     touch: Devices.isTouchDevice()
   };
 
-  /**
-   * Getter for label HTML
-   *
-   * @method labelHTML
-   * @return {HTML} HTML for label.
-   */
   labelHTML() {
     if (this.props.label) {
       return (
@@ -141,19 +60,13 @@ class AnimatedMenuButton extends React.Component {
           data-element='label'
           key='label'
         >
-          { this.props.label }
+          {this.props.label}
         </span>
       );
     }
     return '';
   }
 
-  /**
-   * Getter for inner HTML of menu
-   *
-   * @method innerHTML
-   * @return {HTML} HTML for menu contents.
-   */
   innerHTML() {
     const contents = [];
 
@@ -165,17 +78,11 @@ class AnimatedMenuButton extends React.Component {
 
     return (
       <div className='carbon-animated-menu-button__content'>
-        { contents }
+        {contents}
       </div>
     );
   }
 
-  /**
-   * Getter for widget's main classes.
-   *
-   * @method mainClasses
-   * @return {String} Classnames
-   */
   mainClasses() {
     return classNames(
       this.props.className,
@@ -185,12 +92,6 @@ class AnimatedMenuButton extends React.Component {
     );
   }
 
-  /**
-   * A getter that returns any supplied custom props along with default props.
-   *
-   * @method componentProps
-   * @return {Object} props including class names & event handlers.
-   */
   componentProps() {
     const { ...props } = validProps(this);
 
@@ -207,12 +108,6 @@ class AnimatedMenuButton extends React.Component {
     return props;
   }
 
-  /**
-   * Returns a close icon with touch handler.
-   *
-   * @method closeIcon
-   * @return {HTML} html for close icon
-   */
   closeIcon() {
     return (
       <button
@@ -228,49 +123,33 @@ class AnimatedMenuButton extends React.Component {
     );
   }
 
-  /**
-   * Opens handler on event.
-   *
-   * @method openHandler
-   * @return {void}
-   */
   openHandler() {
     this.setState({ open: true });
     this.blockBlur = true;
   }
 
-  /**
-   * Closes menu on event.
-   *
-   * @method closeHandler
-   * @return {void}
-   */
   closeHandler(event) {
     event.preventDefault();
     this.setState({ open: false });
     this.blockBlur = false;
   }
 
-  /**
-   * Handles blur of expanded menu.
-   *
-   * @method handleBlur
-   * @return {void}
-   */
   handleBlur() {
     if (!this.blockBlur) { this.setState({ open: false }); }
   }
 
-  /**
-   * Renders the component.
-   *
-   * @method render
-   */
   render() {
     let content;
 
     if (this.state.open) {
-      content = this.innerHTML();
+      content = (
+        <CSSTransition
+          timeout={ { enter: 500, exit: 500 } }
+          classNames='carbon-animated-menu-button'
+        >
+          {this.innerHTML()}
+        </CSSTransition>
+      );
     }
 
     return (
@@ -280,18 +159,30 @@ class AnimatedMenuButton extends React.Component {
           data-element='open'
           iconColor='on-dark-background'
         />
-
-        <CSSTransitionGroup
-          component='div'
-          transitionEnterTimeout={ 500 }
-          transitionLeaveTimeout={ 500 }
-          transitionName='carbon-animated-menu-button'
-        >
-          { content }
-        </CSSTransitionGroup>
+        <TransitionGroup>
+          {content}
+        </TransitionGroup>
       </div>
     );
   }
 }
+
+AnimatedMenuButton.propTypes = {
+  /** Content rendered inside of the menu button component */
+  children: PropTypes.node,
+  /** Custom class name provided to the component */
+  className: PropTypes.string,
+  /** Direction of component animation. Available `left` or `right` */
+  direction: PropTypes.string,
+  /** Content of label */
+  label: PropTypes.string,
+  /** Width of the animation menu button container */
+  size: PropTypes.string
+};
+
+AnimatedMenuButton.defaultProps = {
+  direction: 'left',
+  size: 'medium'
+};
 
 export default AnimatedMenuButton;

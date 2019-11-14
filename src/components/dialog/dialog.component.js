@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { CSSTransition } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import Browser from '../../utils/helpers/browser';
 import Icon from '../icon';
@@ -238,8 +239,7 @@ class Dialog extends Modal {
         { ...tagComponent('dialog', { 'data-element': 'dialog', 'data-role': this.props['data-role'] }) }
         onBlur={ this.onDialogBlur }
       >
-        { this.dialogTitle }
-
+        {this.dialogTitle}
         <DialogContentStyle
           ref={ (content) => { this._content = content; } }
           height={ this.props.height }
@@ -249,11 +249,11 @@ class Dialog extends Modal {
             ref={ (innerContent) => { this._innerContent = innerContent; } }
             height={ this.props.height }
           >
-            { this.renderChildren() }
-            { this.additionalContent() }
+            {this.renderChildren()}
+            {this.additionalContent()}
           </DialogInnerContentStyle>
         </DialogContentStyle>
-        { this.closeIcon }
+        {this.closeIcon}
       </DialogStyle>
     );
   }

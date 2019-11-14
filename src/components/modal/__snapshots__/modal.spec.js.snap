@@ -9,30 +9,25 @@ exports[`Modal backgroundHTML when enableBackgroundUI is false renders children 
     data-state="open"
     transitionName="modal"
   >
-    <CSSTransitionGroup
+    <TransitionGroup
+      childFactory={[Function]}
       component="div"
-      transitionAppear={true}
-      transitionAppearTimeout={500}
-      transitionEnter={true}
-      transitionEnterTimeout={500}
-      transitionLeave={true}
-      transitionLeaveTimeout={500}
-      transitionName="modal-background"
     >
-      <styled.div
-        data-element="modal-background"
-        transitionName="modal-background"
-      />
-    </CSSTransitionGroup>
-    <CSSTransitionGroup
+      <CSSTransition
+        appear={true}
+        classNames="modal-background"
+        key="modal"
+        timeout={500}
+      >
+        <styled.div
+          data-element="modal-background"
+          transitionName="modal-background"
+        />
+      </CSSTransition>
+    </TransitionGroup>
+    <TransitionGroup
+      childFactory={[Function]}
       component="div"
-      transitionAppear={true}
-      transitionAppearTimeout={500}
-      transitionEnter={true}
-      transitionEnterTimeout={500}
-      transitionLeave={true}
-      transitionLeaveTimeout={500}
-      transitionName="modal"
     />
   </styled.div>
 </Portal>
@@ -47,25 +42,13 @@ exports[`Modal backgroundHTML when enableBackgroundUI is true renders children 1
     data-state="open"
     transitionName="modal"
   >
-    <CSSTransitionGroup
+    <TransitionGroup
+      childFactory={[Function]}
       component="div"
-      transitionAppear={true}
-      transitionAppearTimeout={500}
-      transitionEnter={true}
-      transitionEnterTimeout={500}
-      transitionLeave={true}
-      transitionLeaveTimeout={500}
-      transitionName="modal-background"
     />
-    <CSSTransitionGroup
+    <TransitionGroup
+      childFactory={[Function]}
       component="div"
-      transitionAppear={true}
-      transitionAppearTimeout={500}
-      transitionEnter={true}
-      transitionEnterTimeout={500}
-      transitionLeave={true}
-      transitionLeaveTimeout={500}
-      transitionName="modal"
     />
   </styled.div>
 </Portal>

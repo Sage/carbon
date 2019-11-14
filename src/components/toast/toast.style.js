@@ -33,7 +33,7 @@ const ToastStyle = styled(MessageStyle)`
       transition: all 300ms cubic-bezier(0.250, 0.250, 0.000, 1.500);
     }
 
-    &${animationName}-leave.toast-leave-active {
+    &${animationName}-exit.toast-exit-active {
       opacity: 0;
       transform: translateY(-20px);
       transition: all 150ms ease-out;

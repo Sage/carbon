@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { compact, assign } from 'lodash';
 import { withTheme } from 'styled-components';
 import tagComponent from '../../utils/helpers/tags';
@@ -76,7 +76,16 @@ class Pages extends React.Component {
   visiblePage = () => {
     let index = this.state.pageIndex;
 
-    const visiblePage = compact(React.Children.toArray(this.props.children))[index];
+    const visiblePage = (
+      <CSSTransition
+        className='carbon-carousel__transition'
+        classNames={ this.transitionName() }
+        timeout={ TRANSITION_TIME }
+      >
+        {compact(React.Children.toArray(this.props.children))[index]}
+      </CSSTransition>
+    );
+
     index = visiblePage.props.id || index;
 
     const additionalProps = {
@@ -102,15 +111,9 @@ class Pages extends React.Component {
     return (
       <PagesWrapperStyle className={ this.props.className } { ...tagComponent('carousel', this.props) }>
         <PagesContent className='carbon-carousel__content' theme={ this.props.theme }>
-          <CSSTransitionGroup
-            component='div'
-            className='carbon-carousel__transition'
-            transitionName={ this.transitionName() }
-            transitionEnterTimeout={ TRANSITION_TIME }
-            transitionLeaveTimeout={ TRANSITION_TIME }
-          >
-            { this.visiblePage() }
-          </CSSTransitionGroup>
+          <TransitionGroup>
+            {this.visiblePage()}
+          </TransitionGroup>
         </PagesContent>
       </PagesWrapperStyle>
     );

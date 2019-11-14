@@ -1,5 +1,5 @@
 import React from 'react';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition } from 'react-transition-group';
 import { shallow, mount } from 'enzyme';
 import BasePages, { Page } from './pages.component';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
@@ -110,7 +110,16 @@ describe('BasePages', () => {
     });
 
     it('has correct class name', () => {
-      expect(instance.find(Page).at(0).dive().props()['data-element']).toEqual('visible-page');
+      wrapper = mount(
+        <BasePages
+          theme={ classicTheme }
+          className='foobar'
+          initialPageIndex={ 0 }
+        >
+          <Page title='Example Title A' />
+        </BasePages>
+      );
+      expect(wrapper.find(Page).at(0).props()['data-element']).toEqual('visible-page');
     });
 
     it('has correct title', () => {
@@ -168,7 +177,7 @@ describe('BasePages', () => {
 
   describe('transitionName', () => {
     it('uses a custom name if supplied', () => {
-      wrapper = shallow(
+      wrapper = mount(
         <BasePages
           theme={ classicTheme }
           transition='foo'
@@ -177,8 +186,8 @@ describe('BasePages', () => {
         </BasePages>
       );
 
-      const transitionGroup = wrapper.find(CSSTransitionGroup);
-      expect(transitionGroup.props().transitionName).toEqual('carousel-transition-foo');
+      const transitionGroup = wrapper.find(CSSTransition);
+      expect(transitionGroup.props().classNames).toEqual('carousel-transition-foo');
     });
   });
 });

@@ -1,4 +1,5 @@
 import React from 'react';
+import { CSSTransition } from 'react-transition-group';
 import Modal from '../modal';
 import Heading from '../heading';
 import AppWrapper from '../app-wrapper';
@@ -58,7 +59,6 @@ class DialogFullScreen extends Modal {
         data-element='dialog-full-screen'
       >
         { this.dialogTitle() }
-
         <StyledContent
           hasHeader={ this.props.title !== undefined }
           headingHeight={ this.state.headingHeight }
