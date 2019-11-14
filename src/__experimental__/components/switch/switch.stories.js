@@ -119,17 +119,14 @@ const validationKnobs = (type, themeName) => {
   };
 };
 
-const switchComponentValidation = themeName => () => {
-  return (
-  <>
-    {validationTypes.map(type => switchWrapper({
-      ...validationKnobs(type, themeName)
-    }))}
-  </>
-  );
-};
+const switchComponentValidation = themeName => () => validationTypes.map(type => switchWrapper({
+  ...validationKnobs(type, themeName)
+}));
 
 storiesOf('Experimental/Switch', module)
+  .addParameters({
+    info: { text: info, propTablesExclude: [State] }
+  })
   .add(...makeStory('default', dlsThemeSelector, switchComponent))
   .add(...makeStory('classic', classicThemeSelector, switchClassic))
   .add(...makeStory('validations', dlsThemeSelector, switchComponentValidation()))
