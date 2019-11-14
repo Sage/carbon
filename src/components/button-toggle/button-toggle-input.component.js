@@ -11,12 +11,16 @@ function ButtonToggleInput(props) {
       name={ props.name }
       id={ props.guid }
       disabled={ props.disabled }
+      checked={ props.checked }
+      onChange={ props.onChange }
       value={ props.value }
     />
   );
 }
 
 ButtonToggleInput.propTypes = {
+  /** Set the checked value of the radio button */
+  checked: PropTypes.bool,
   /** Name used on the hidden radio button. */
   name: PropTypes.string,
   /** Disable all user interaction. */
@@ -24,7 +28,9 @@ ButtonToggleInput.propTypes = {
   /** Unique ID attribute for input */
   guid: PropTypes.string,
   /** Value for the input */
-  value: PropTypes.string
+  value: PropTypes.string,
+  /** Change handler passed in from parent. */
+  onChange: PropTypes.func
 };
 
 export default ButtonToggleInput;
