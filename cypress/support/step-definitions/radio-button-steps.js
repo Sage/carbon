@@ -2,7 +2,6 @@ import {
   fieldHelpPreview, labelByPosition, fieldHelpPreviewByPosition, labelWidthSliderByName,
 } from '../../locators';
 import { radioButton, radioButtonByPosition, radioButtonComponent } from '../../locators/radioButton/index';
-import { DEBUG_FLAG } from '..';
 import { setSlidebar } from '../helper';
 
 const INLINE = 'carbon-radio-button__help-text--inline';
@@ -68,15 +67,18 @@ Then('{string} RadioButton component is disabled', (position) => {
   switch (position) {
     case 'First':
       radioButtonComponent(FIRST_RADIOBUTTON).should('have.attr', 'disabled');
-      radioButtonByPosition(FIRST_RADIOBUTTON).should('have.attr', 'disabled');
+      radioButtonByPosition(FIRST_RADIOBUTTON).should('be.disabled')
+        .and('have.attr', 'disabled');
       break;
     case 'Second':
       radioButtonComponent(SECOND_RADIOBUTTON).should('have.attr', 'disabled');
-      radioButtonByPosition(SECOND_RADIOBUTTON).should('have.attr', 'disabled');
+      radioButtonByPosition(SECOND_RADIOBUTTON).should('be.disabled')
+        .and('have.attr', 'disabled');
       break;
     case 'Third':
       radioButtonComponent(THIRD_RADIOBUTTON).should('have.attr', 'disabled');
-      radioButtonByPosition(THIRD_RADIOBUTTON).should('have.attr', 'disabled');
+      radioButtonByPosition(THIRD_RADIOBUTTON).should('be.disabled')
+        .and('have.attr', 'disabled');
       break;
     default: throw new Error('There are only three radio elements on the page');
   }
@@ -85,21 +87,27 @@ Then('{string} RadioButton component is disabled', (position) => {
 Then('{string} RadioButton component is enabled', (position) => {
   switch (position) {
     case 'First':
-      radioButtonComponent(SECOND_RADIOBUTTON).should('not.have.attr', 'disabled');
-      radioButtonByPosition(FIRST_RADIOBUTTON).should('not.have.attr', 'disabled');
+      radioButtonComponent(SECOND_RADIOBUTTON).should('not.have.attr', 'disabled')
+        .and('not.be.disabled');
+      radioButtonByPosition(FIRST_RADIOBUTTON).should('not.have.attr', 'disabled')
+        .and('not.be.disabled');
       break;
     case 'Second':
-      radioButtonComponent(SECOND_RADIOBUTTON).should('not.have.attr', 'disabled');
-      radioButtonByPosition(SECOND_RADIOBUTTON).should('not.have.attr', 'disabled');
+      radioButtonComponent(SECOND_RADIOBUTTON).should('not.have.attr', 'disabled')
+        .and('not.be.disabled');
+      radioButtonByPosition(SECOND_RADIOBUTTON).should('not.have.attr', 'disabled')
+        .and('not.be.disabled');
       break;
     case 'Third':
-      radioButtonComponent(SECOND_RADIOBUTTON).should('not.have.attr', 'disabled');
-      radioButtonByPosition(THIRD_RADIOBUTTON).should('not.have.attr', 'disabled');
+      radioButtonComponent(SECOND_RADIOBUTTON).should('not.have.attr', 'disabled')
+        .and('not.be.disabled');
+      radioButtonByPosition(THIRD_RADIOBUTTON).should('not.have.attr', 'disabled')
+        .and('not.be.disabled');
       break;
     default: throw new Error('There are only three radio elements on the page');
   }
 });
-// dokończyc
+
 Then('{string} RadioButton is set to reverse', (position) => {
   switch (position) {
     case 'First':
@@ -178,27 +186,25 @@ Then('{string} RadioButton size on preview is set to {string}', (position, size)
   }
 });
 
-Then('{string} field help is set to fieldHelpInline', (position) => {
-  cy.wait(500, { log: DEBUG_FLAG });
+Then('{string} field help is set to fieldHelpInline and has margin-left set to {string} and has margin-right {string}', (position, marginLeft, marginRight) => {
   switch (position) {
     case 'First':
-      fieldHelpPreviewByPosition(FIRST_RADIOBUTTON).should('have.css', 'margin-left', '0px')
-        .and('have.css', 'margin-right', '6px');
+      fieldHelpPreviewByPosition(FIRST_RADIOBUTTON).should('have.css', 'margin-left', marginLeft)
+        .and('have.css', 'margin-right', marginRight);
       break;
     case 'Second':
-      fieldHelpPreviewByPosition(SECOND_RADIOBUTTON).should('have.css', 'margin-left', '0px')
-        .and('have.css', 'margin-right', '6px');
+      fieldHelpPreviewByPosition(SECOND_RADIOBUTTON).should('have.css', 'margin-left', marginLeft)
+        .and('have.css', 'margin-right', marginRight);
       break;
     case 'Third':
-      fieldHelpPreviewByPosition(THIRD_RADIOBUTTON).should('have.css', 'margin-left', '0px')
-        .and('have.css', 'margin-right', '6px');
+      fieldHelpPreviewByPosition(THIRD_RADIOBUTTON).should('have.css', 'margin-left', marginLeft)
+        .and('have.css', 'margin-right', marginRight);
       break;
     default: throw new Error('There are only three field help elements on the page');
   }
 });
 
 Then('{string} field help is not set to fieldHelpInline and has margin-left set to {string}', (position, marginLeft) => {
-  cy.wait(500, { log: DEBUG_FLAG });
   switch (position) {
     case 'First':
       fieldHelpPreviewByPosition(FIRST_RADIOBUTTON).should('have.css', 'margin-left', marginLeft);

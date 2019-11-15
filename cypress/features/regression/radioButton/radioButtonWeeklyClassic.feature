@@ -64,7 +64,7 @@ Feature: Experimental RadioButton weekly classic component
 
   @positive
   Scenario: Enable and disable reverse checkbox
-    # Given Given I open weekly tab
+    # Given I open weekly tab
     Then "First" RadioButton is not set to reverse
 
   @positive
@@ -83,7 +83,7 @@ Feature: Experimental RadioButton weekly classic component
   @positive
   Scenario: Enable fieldHelpInline
     When I check weekly fieldHelpInline checkbox
-    Then "First" field help is set to fieldHelpInline
+    Then "First" field help is set to fieldHelpInline and has margin-left set to "22px" and has margin-right "6px"
 
   @positive
   Scenario: Enable and disable fieldHelpInline
