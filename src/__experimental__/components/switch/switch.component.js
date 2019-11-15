@@ -51,7 +51,7 @@ const Switch = ({
       { ...switchProps }
     >
       <CheckableInput { ...inputProps }>
-        <SwitchSlider { ...switchProps } />
+        <SwitchSlider { ...switchProps } loading={ loading } />
       </CheckableInput>
     </SwitchStyle>
   );
