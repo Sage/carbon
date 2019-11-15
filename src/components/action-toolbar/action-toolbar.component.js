@@ -57,7 +57,7 @@ class ActionToolbar extends React.Component {
     selected: {}
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.context.attachActionToolbar) {
       this.context.attachActionToolbar(this);
     }

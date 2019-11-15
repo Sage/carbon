@@ -163,7 +163,7 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
    * @param {Object} nextProps The new props passed down to the component
    * @return {void}
    */
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this._document.activeElement !== this._input) {
       const date = this.formatVisibleValue(nextProps.value);
       this.setState({ visibleValue: date });

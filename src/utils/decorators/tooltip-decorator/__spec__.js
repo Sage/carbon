@@ -53,10 +53,10 @@ jest.mock('./calculate-position', () => ({
 /* global jest */
 
 class BasicClass extends React.Component {
-  componentWillUpdate() {}
+  UNSAFE_componentWillUpdate() {}
   componentDidUpdate() {}
   componentDidMount() {}
-  componentWillReceiveProps() {}
+  UNSAFE_componentWillReceiveProps() {}
   onBlur = () => {}
   onFocus = () => {}
   onMouseEnter = () => {}
@@ -81,10 +81,10 @@ class BasicClass extends React.Component {
 }
 
 class StrippedClass extends React.Component {
-  componentWillUpdate() {}
+  UNSAFE_componentWillUpdate() {}
   componentDidUpdate() {}
   componentDidMount() {}
-  componentWillReceiveProps() {}
+  UNSAFE_componentWillReceiveProps() {}
   onBlur = () => {}
   onFocus = () => {}
   onMouseEnter = () => {}
@@ -121,7 +121,7 @@ describe('tooltip-decorator', () => {
         it('calls setState to reset the hover', () => {
           topTooltip.state.isVisible = true;
           spyOn(topTooltip, 'setState');
-          topTooltip.componentWillReceiveProps({ tooltipPosition: 'top' });
+          topTooltip.UNSAFE_componentWillReceiveProps({ tooltipPosition: 'top' });
           expect(topTooltip.setState).not.toHaveBeenCalled();
         });
       });
@@ -130,7 +130,7 @@ describe('tooltip-decorator', () => {
         it('calls setState to reset the the "hover", "tooltipPosition" and "tooltipAlign" states', () => {
           topTooltip.state.isVisible = true;
           spyOn(topTooltip, 'setState');
-          topTooltip.componentWillReceiveProps({ tooltipPosition: 'bottom' });
+          topTooltip.UNSAFE_componentWillReceiveProps({ tooltipPosition: 'bottom' });
           expect(topTooltip.setState).toHaveBeenCalledWith({
             tooltipPosition: '',
             tooltipAlign: ''
@@ -142,7 +142,7 @@ describe('tooltip-decorator', () => {
     describe('if not visible', () => {
       it('does not call setState', () => {
         spyOn(topTooltip, 'setState');
-        topTooltip.componentWillReceiveProps({ tooltipPosition: 'top' });
+        topTooltip.UNSAFE_componentWillReceiveProps({ tooltipPosition: 'top' });
         expect(topTooltip.setState).not.toHaveBeenCalled();
       });
     });
@@ -155,7 +155,7 @@ describe('tooltip-decorator', () => {
       visibleTooltip.componentDidMount();
       expect(visibleTooltip.positionTooltip).toHaveBeenCalled();
     });
-    
+
     it('does not position the tooltip if not visible', () => {
       spyOn(topTooltip, 'positionTooltip');
       topTooltip.componentDidMount();
@@ -388,7 +388,7 @@ describe('tooltip-decorator', () => {
           tooltipAlign: align
         }, mount);
         const tooltip = wrapper.find(Tooltip);
-  
+
         expect(tooltip.getDOMNode().style.top).toBe(expectedVerticalValue);
         expect(tooltip.getDOMNode().style.left).toBe(expectedHorizontalValue);
       });
@@ -404,7 +404,7 @@ describe('tooltip-decorator', () => {
           tooltipAlign: align
         }, mount);
         const tooltip = wrapper.find(Tooltip);
-  
+
         expect(tooltip.getDOMNode().style.top).toBe(expectedVerticalValue);
         expect(tooltip.getDOMNode().style.left).toBe(expectedHorizontalValue);
       });

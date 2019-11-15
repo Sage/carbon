@@ -59,14 +59,14 @@ describe('DropdownFilter', () => {
   describe('componentWillUpdate', () => {
     describe('if list is opening', () => {
       it('sets openingList to true', () => {
-        instance.componentWillUpdate({}, { open: true });
+        instance.UNSAFE_componentWillUpdate({}, { open: true });
         expect(instance.openingList).toBeTruthy();
       });
     });
 
     describe('if list is not opening', () => {
       it('does not set openingList to true', () => {
-        instance.componentWillUpdate({}, { open: false });
+        instance.UNSAFE_componentWillUpdate({}, { open: false });
         expect(instance.openingList).toBeFalsy();
       });
     });

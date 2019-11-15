@@ -443,7 +443,7 @@ describe('Table', () => {
 
     describe('when data has not changed', () => {
       it('does not emit on change', () => {
-        instance.componentWillReceiveProps({ filter: data });
+        instance.UNSAFE_componentWillReceiveProps({ filter: data });
         expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
       });
     });
@@ -451,7 +451,7 @@ describe('Table', () => {
     describe('when data has changed', () => {
       it('emits on change', () => {
         data = data.set('foo', 'qux');
-        instance.componentWillReceiveProps({ filter: data });
+        instance.UNSAFE_componentWillReceiveProps({ filter: data });
         expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('filter', {
           currentPage: '',
           filter: { foo: 'qux' },
@@ -468,7 +468,7 @@ describe('Table', () => {
           <Table highlightable />
         );
         spyOn(instance, 'resetHighlightedRow');
-        instance.componentWillReceiveProps({ highlightable: false });
+        instance.UNSAFE_componentWillReceiveProps({ highlightable: false });
         expect(instance.resetHighlightedRow).toHaveBeenCalled();
       });
     });
@@ -482,7 +482,7 @@ describe('Table', () => {
           foo: { props: { uniqueID: 'foo' } }
         };
         spyOn(instance, 'selectRow');
-        instance.componentWillReceiveProps({ selectable: false });
+        instance.UNSAFE_componentWillReceiveProps({ selectable: false });
         expect(instance.selectRow).toHaveBeenCalledWith('foo', instance.rows.foo, false);
       });
     });

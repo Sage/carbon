@@ -139,20 +139,20 @@ describe('Decimal', () => {
 
       describe('no value passed', () => {
         it('uses the default value instead', () => {
-          instance.componentWillReceiveProps({});
+          instance.UNSAFE_componentWillReceiveProps({});
           expect(instance.setState).toHaveBeenCalledWith({ visibleValue: '0.00' });
         });
       });
 
       describe('single negative sign `-` passed', () => {
         it('sets negative sign', () => {
-          instance.componentWillReceiveProps({ value: '-' });
+          instance.UNSAFE_componentWillReceiveProps({ value: '-' });
           expect(instance.setState).toHaveBeenCalledWith({ visibleValue: '-' });
         });
       });
 
       it('re-evaluates the formatted visible value if input does not have focus', () => {
-        instance.componentWillReceiveProps({ value: '1001.00' });
+        instance.UNSAFE_componentWillReceiveProps({ value: '1001.00' });
         expect(instance.setState).toHaveBeenCalledWith({ visibleValue: '1,001.00' });
       });
 
@@ -160,7 +160,7 @@ describe('Decimal', () => {
         instance._document = {
           activeElement: instance._input
         };
-        instance.componentWillReceiveProps({ value: '1001.00' });
+        instance.UNSAFE_componentWillReceiveProps({ value: '1001.00' });
         expect(instance.setState).not.toHaveBeenCalled();
       });
     });

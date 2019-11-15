@@ -139,13 +139,13 @@ describe('Tabs', () => {
 
         it('matches the hash so uses the tab', () => {
           instance._window = { location: { hash: '#uniqueid2' } };
-          instance.componentWillMount();
+          instance.UNSAFE_componentWillMount();
           expect(instance.state.selectedTabId).toEqual('uniqueid2');
         });
 
         it('does not match the hash so uses first tab', () => {
           instance._window = { location: { hash: '#foo' } };
-          instance.componentWillMount();
+          instance.UNSAFE_componentWillMount();
           expect(instance.state.selectedTabId).toEqual('uniqueid1');
         });
       });

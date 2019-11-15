@@ -33,7 +33,7 @@ class CustomDragLayer extends React.Component {
     /* eslint-enable react/no-unused-prop-types */
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (nextProps.isDragging && nextProps.draggableNode && (nextProps.draggableNode !== this.props.draggableNode)) {
       this.setClonedChildWidth(nextProps);
     }

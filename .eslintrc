@@ -1,5 +1,10 @@
 {
   "extends": "./node_modules/carbon-factory/.eslintrc",
+  "rules": {
+  "camelcase": ["error", {
+    "allow": ["UNSAFE_componentWillReceiveProps", "UNSAFE_componentWillUpdate", "UNSAFE_componentWillMount"]
+  }]
+},
   "globals": {
     "jest": false,
     "global": false,

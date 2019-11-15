@@ -146,7 +146,7 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
    * @param {Object} nextProps the updated props
    * @return {Void}
    */
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!this.props.cacheVisibleValue || (nextProps.value !== this.props.value)) {
       // clear the cache
       this.visibleValue = null;

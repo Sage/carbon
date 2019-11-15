@@ -34,7 +34,7 @@ describe('Dropdown', () => {
     describe('when cacheVisibleValue is false', () => {
       it('resets visibleValue', () => {
         instance.visibleValue = "exitfoobar";
-        instance.componentWillReceiveProps({
+        instance.UNSAFE_componentWillReceiveProps({
           value: "2"
         });
         expect(instance.visibleValue).toBe(null);
@@ -53,7 +53,7 @@ describe('Dropdown', () => {
       describe('when next value does not equal current value', () => {
         it('resets visibleValue', () => {
           instanceWithCache.visibleValue = "foobar";
-          instanceWithCache.componentWillReceiveProps({
+          instanceWithCache.UNSAFE_componentWillReceiveProps({
             value: "2"
           });
           expect(instanceWithCache.visibleValue).toBe(null);
@@ -63,7 +63,7 @@ describe('Dropdown', () => {
       describe('when next value does equal current value', () => {
         it('resets visibleValue', () => {
           instanceWithCache.visibleValue = "foobar";
-          instanceWithCache.componentWillReceiveProps({
+          instanceWithCache.UNSAFE_componentWillReceiveProps({
             value: "1"
           });
           expect(instanceWithCache.visibleValue).toBe("foobar");

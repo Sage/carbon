@@ -55,7 +55,7 @@ class Table extends React.Component {
    * Lifecycle for after a update has happened
    * If filter has changed then emit the on change event.
    */
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // if filter has changed, update the data
     if (!Immutable.is(this.props.filter, nextProps.filter)) {
       this.emitOnChangeCallback('filter', this.emitOptions(nextProps));

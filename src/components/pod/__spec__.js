@@ -34,7 +34,7 @@ describe('Pod', () => {
       it('does not call toggleHoverState', () => {
         instance.setState({ hoverEdit: false });
         spyOn(instance, 'toggleHoverState');
-        instance.componentWillReceiveProps();
+        instance.UNSAFE_componentWillReceiveProps();
         expect(instance.toggleHoverState).not.toHaveBeenCalled();
       });
     });
@@ -43,7 +43,7 @@ describe('Pod', () => {
       it('calls toggleHoverState', () => {
         instance.setState({ hoverEdit: true });
         spyOn(instance, 'toggleHoverState');
-        instance.componentWillReceiveProps();
+        instance.UNSAFE_componentWillReceiveProps();
         expect(instance.toggleHoverState).toHaveBeenCalledWith(false);
       });
     });

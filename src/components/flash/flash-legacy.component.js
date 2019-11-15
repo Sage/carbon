@@ -24,7 +24,7 @@ class Flash extends React.Component {
   }
 
   /** Resets the dialog open states if flash is opened/closed. */
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.open === this.props.open) { return; }
 
     if (this.removePortalTimeout) {
