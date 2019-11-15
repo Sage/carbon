@@ -3,5 +3,5 @@ import {
 } from './locators';
 
 // component preview locators
-export const enableOnChangeDefferedAction = () => cy.get(ENABLE_ON_CHANGE_DEFERRED_ACTION);
+export const enableOnChangeDeferredAction = () => cy.get(ENABLE_ON_CHANGE_DEFERRED_ACTION);
 export const enableKeyDownAction = () => cy.get(ENABLE_ON_KEY_DOWN_ACTION);
