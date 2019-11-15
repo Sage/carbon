@@ -64,7 +64,7 @@ Feature: Experimental RadioButton yearly classic component
 
   @positive
   Scenario: Enable and disable reverse checkbox
-    # Given Given I open yearly tab
+    # Given I open yearly tab
     Then "Third" RadioButton is not set to reverse
 
   @positive
@@ -83,7 +83,7 @@ Feature: Experimental RadioButton yearly classic component
   @positive
   Scenario: Enable fieldHelpInline
     When I check yearly fieldHelpInline checkbox
-    Then "Third" field help is set to fieldHelpInline
+    Then "Third" field help is set to fieldHelpInline and has margin-left set to "22px" and has margin-right "6px"
 
   @positive
   Scenario: Enable and disable fieldHelpInline

@@ -7,7 +7,7 @@ import {
   closeIconButton, tooltipPreview, getKnobsInput, getKnobsInputWithName,
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
   precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
-  knobsNameTab, fieldHelpPreviewByPosition, labelByPosition, knobsNameInSecondTabList,
+  knobsNameTab, fieldHelpPreviewByPosition, labelByPosition,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
@@ -21,7 +21,6 @@ const FOURTH_ELEMENT = 3;
 const FIFTH_ELEMENT = 4;
 const SIXTH_ELEMENT = 5;
 const SEVENTH_ELEMENT = 6;
-const SECOND_TAB_LIST = 1;
 const TEXT_ALIGN = 'text-align';
 
 Given('I open {string} component page', (component) => {
@@ -268,13 +267,13 @@ Then('labelAlign on preview is {string}', (direction) => {
 Then('{string} label Align on preview is {string}', (position, direction) => {
   switch (position) {
     case 'First':
-      labelByPosition(FIRST_ELEMENT).should('have.css', TEXT_ALIGN, `${direction}`);
+      labelByPosition(FIRST_ELEMENT).should('have.css', TEXT_ALIGN, direction);
       break;
     case 'Second':
-      labelByPosition(SECOND_ELEMENT).should('have.css', TEXT_ALIGN, `${direction}`);
+      labelByPosition(SECOND_ELEMENT).should('have.css', TEXT_ALIGN, direction);
       break;
     case 'Third':
-      labelByPosition(THIRD_ELEMENT).should('have.css', TEXT_ALIGN, `${direction}`);
+      labelByPosition(THIRD_ELEMENT).should('have.css', TEXT_ALIGN, direction);
       break;
     default: throw new Error('There are only three label elements on the page');
   }

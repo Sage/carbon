@@ -92,7 +92,7 @@ Feature: Experimental RadioButton yearly component
   @positive
   Scenario: Enable fieldHelpInline
     When I check yearly fieldHelpInline checkbox
-    Then "Third" field help is set to fieldHelpInline
+    Then "Third" field help is set to fieldHelpInline and has margin-left set to "32px" and has margin-right "0px"
 
   @positive
   Scenario: Enable and disable fieldHelpInline

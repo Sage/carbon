@@ -92,7 +92,7 @@ Feature: Experimental RadioButton weekly component
   @positive
   Scenario: Enable fieldHelpInline
     When I check weekly fieldHelpInline checkbox
-    Then "First" field help is set to fieldHelpInline
+    Then "First" field help is set to fieldHelpInline and has margin-left set to "32px" and has margin-right "0px"
 
   @positive
   Scenario: Enable and disable fieldHelpInline
