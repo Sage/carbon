@@ -3,10 +3,11 @@ import I18n from 'i18n-js';
 import './footer.scss';
 
 // Carbon
-import Icon from 'components/icon';
+// waiting for social icons updates
+// import Icon from 'components/icon';
 
 // Demo
-import Wrapper from './../../common/wrapper';
+import Wrapper from '../../common/wrapper';
 
 class Footer extends React.Component {
   render () {
@@ -15,7 +16,8 @@ class Footer extends React.Component {
         <Wrapper>
           <div className='demo-footer'>
             <div className='demo-footer__section demo-footer__social'>
-              <a
+              {/* waiting for social icons updates */}
+              {/* <a
                 href='https://twitter.com/sagegroupplc'
                 target='_blank'
                 className='demo-footer__link'
@@ -38,7 +40,7 @@ class Footer extends React.Component {
                 className='demo-footer__link'
               >
                 <Icon type='github' />
-              </a>
+              </a> */}
             </div>
             <div className='demo-footer__section demo-footer__corporate'>
               <span className='demo-footer__sage-icon' />
