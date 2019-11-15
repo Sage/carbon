@@ -1,7 +1,7 @@
-Feature: Textbox component
-  I want to change Textbox component properties
+Feature: Experimental Textbox classic component
+  I want to change Experimental Textbox classic component properties
 
-  Background: Open Textbox component page
+  Background: Open Experimental Textbox classic component page
     Given I open "Experimental Textbox" component page classic
 
   @positive
@@ -19,23 +19,23 @@ Feature: Textbox component
       # | <>                    |
 
   @positive
-  Scenario: Check disabled checkbox for a Textbox component
+  Scenario: Check disabled checkbox for a Textbox classic component
     When I check disabled checkbox
     Then Textbox component is disabled
 
   @positive
-  Scenario: Uncehck disabled checkbox for a Textbox component
+  Scenario: Uncheck disabled checkbox for a Textbox classic component
     When I check disabled checkbox
       And I uncheck disabled checkbox
     Then Textbox component is not disabled
 
   @positive
-  Scenario: Enable readOnly checkbox for a Textbox component
+  Scenario: Enable readOnly checkbox for a Textbox classic component
     When I check readOnly checkbox
     Then Textbox component is readOnly
 
   @positive
-  Scenario: Disable readOnly checkbox for a Textbox component
+  Scenario: Disable readOnly checkbox for a Textbox classic component
     When I check readOnly checkbox
       And I uncheck readOnly checkbox
     Then Textbox component is not readOnly
@@ -51,8 +51,8 @@ Feature: Textbox component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-  #     # @ignore because of FE-1447
-  #     # | <>                  |
+       # @ignore because of FE-1447
+       # | <>                  |
 
   @positive
   Scenario Outline: Set label to <label>
@@ -85,13 +85,13 @@ Feature: Textbox component
       # | <>                     |
 
   @positive
-  Scenario: Enable labelInline checkbox for a Textbox component
+  Scenario: Enable labelInline checkbox for a Textbox classic component
     When I set label to "label"
       And I check labelInline checkbox
     Then Textbox component is labelInline
 
   @positive
-  Scenario: Enable and disable labelInline checkbox for a Textbox component
+  Scenario: Enable and disable labelInline checkbox for a Textbox classic component
     When I set label to "label"
       And I check labelInline checkbox
       And I uncheck labelInline checkbox
@@ -137,7 +137,7 @@ Feature: Textbox component
       | right      |
 
   @positive
-  Scenario Outline: Verify input of Textbox component
+  Scenario Outline: Verify input of Textbox classic component
     When I input "<input>" into Textbox
     Then Textbox input on preview is set to "<input>"
     Examples:

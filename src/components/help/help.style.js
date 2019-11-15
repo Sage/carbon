@@ -34,14 +34,13 @@ const StyledHelp = styled.div`
   }
 
   ${({ theme }) => isClassic(theme) && css`
-    color: rgb(128, 153, 164);
-
-    &:focus,
-    &:hover {
-      color: rgb(128, 153, 164);
+    ${StyledIcon} {
+      color: #8099A4;
     }
 
-    &:focus ${StyledIcon} {
+    :focus ${StyledIcon},
+    :hover ${StyledIcon} {
+      color: #8099A4;
       outline: none;
     }
   `}
