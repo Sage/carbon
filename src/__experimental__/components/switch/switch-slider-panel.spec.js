@@ -28,7 +28,7 @@ describe('SwitchSliderPanel', () => {
           {
             padding: '0 3px 3px 0'
           },
-          render({ loading: true }).toJSON(),
+          render({ isLoading: true }).toJSON(),
           { modifier: css`${StyledLoader}` }
         );
       });
@@ -41,7 +41,7 @@ describe('SwitchSliderPanel', () => {
             marginBottom: '2px',
             marginRight: '2px'
           },
-          render({ loading: true }).toJSON(),
+          render({ isLoading: true }).toJSON(),
           { modifier: css`${`${StyledLoader} ${StyledLoaderSquare}`}` }
         );
       });
@@ -51,7 +51,7 @@ describe('SwitchSliderPanel', () => {
   describe('Classic theme', () => {
     describe('default', () => {
       it('sets the correct styles', () => {
-        const wrapper = render({ loading: false, theme: classicTheme }).toJSON();
+        const wrapper = render({ isLoading: false, theme: classicTheme }).toJSON();
 
         assertStyleMatch({
           color: baseTheme.colors.white,
@@ -70,7 +70,7 @@ describe('SwitchSliderPanel', () => {
             width: '4px',
             marginBottom: '0'
           },
-          render({ loading: true, theme: classicTheme }).toJSON(),
+          render({ isLoading: true, theme: classicTheme }).toJSON(),
           { modifier: css`${`${StyledLoader} ${StyledLoaderSquare}`}` }
         );
       });
@@ -82,7 +82,7 @@ describe('SwitchSliderPanel', () => {
           {
             color: baseTheme.colors.white
           },
-          render({ loading: true, theme: classicTheme }).toJSON(),
+          render({ isLoading: true, theme: classicTheme }).toJSON(),
           { modifier: css`${StyledIcon}` }
         );
       });
