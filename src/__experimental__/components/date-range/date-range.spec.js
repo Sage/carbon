@@ -93,23 +93,16 @@ describe('DateRange', () => {
     });
 
     describe('when the user interacts with a date input', () => {
-      it('does not fire an onBlur event when the startDate is clicked', () => {
-        // const spy = spyOn(wrapper.instance(), '_onBlur');
-        wrapper.find(BaseDateInput).at(0).simulate('click');
-        // expect(spy).toHaveBeenCalled();
+      it('does not fire an onBlur event when the startDate is focused', () => {
+        wrapper.instance().focusStart();
+        wrapper.instance()._onBlur();
         expect(customOnBlur).not.toHaveBeenCalled();
       });
 
-      fit('does not fire an onBlur event when the endDate is clicked', () => {
-        wrapper.find(BaseDateInput).at(1).simulate('focus');
-      });
-
-      it('does not fire an onBlur event when the startDate is focused', () => {
-        wrapper.find(BaseDateInput).at(0).simulate('click');
-      });
-
-      it('does not fire an onBlur event when the endtDate is clicked', () => {
-        wrapper.find(BaseDateInput).at(1).simulate('focus');
+      it('does not fire an onBlur event when the endtDate is focused', () => {
+        wrapper.instance().focusEnd();
+        wrapper.instance()._onBlur();
+        expect(customOnBlur).not.toHaveBeenCalled();
       });
     });
 

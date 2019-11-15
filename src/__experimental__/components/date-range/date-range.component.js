@@ -17,6 +17,8 @@ class DateRange extends React.Component {
 
   endDateInputRef = React.createRef();
 
+  isBlurBlocked = true;
+
   state = {
     forceUpdateTriggerToggle: false,
     startDateValue: {
@@ -107,12 +109,19 @@ class DateRange extends React.Component {
 
   /** Handle focus on start date field */
   focusStart = () => {
+    this.blockBlur();
     this.endDateInputRef.current.closeDatePicker();
   }
 
   /** Handle focus on end date field */
   focusEnd = () => {
+    this.blockBlur();
     this.startDateInputRef.current.closeDatePicker();
+  }
+
+  blockBlur = () => {
+    this.startDateInputRef.current.isBlurBlocked = true;
+    this.endDateInputRef.current.isBlurBlocked = true;
   }
 
   startDateProps() {
