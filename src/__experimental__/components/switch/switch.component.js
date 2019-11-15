@@ -12,13 +12,9 @@ const Switch = ({
   onChange,
   value,
   checked,
-  hasError,
-  hasWarning,
-  hasInfo,
   defaultChecked,
   disabled,
   loading,
-  theme,
   ...props
 }) => {
   const isControlled = checked !== undefined;
@@ -34,14 +30,10 @@ const Switch = ({
   );
 
   const switchProps = {
+    ...props,
     disabled: disabled || loading,
-    hasError,
-    hasWarning,
-    hasInfo,
     checked: isControlled ? checked : checkedInternal,
-    loading,
-    theme,
-    ...props
+    loading
   };
 
   const inputProps = {
@@ -50,10 +42,7 @@ const Switch = ({
     inputId: id,
     inputLabel: label,
     inputValue: value,
-    inputType: 'checkbox',
-    hasError,
-    hasWarning,
-    hasInfo
+    inputType: 'checkbox'
   };
 
   return (
@@ -85,14 +74,20 @@ Switch.propTypes = {
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** The content of the label for the input */
   label: PropTypes.string,
-  /** Help text */
-  labelHelp: PropTypes.string,
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
   labelAlign: PropTypes.string,
+  /** Help text */
+  labelHelp: PropTypes.string,
   /** Displays label inline with the Switch */
   labelInline: PropTypes.bool,
   /** Sets percentage-based label width */
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  /** Prop to indicate that an error has occurred */
+  hasError: PropTypes.bool,
+  /** Prop to indicate that a warning has occurred */
+  hasWarning: PropTypes.bool,
+  /** Prop to indicate additional information  */
+  hasInfo: PropTypes.bool,
   /** Override tab index on the validation and help icon */
   helpTabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Triggers loading animation */
@@ -106,16 +101,8 @@ Switch.propTypes = {
    * No effect when using Classic theme.
    */
   size: PropTypes.string,
-  /** Theme to apply */
-  theme: PropTypes.object,
   /** the value of the checkbox, passed on form submit */
-  value: PropTypes.string.isRequired,
-  /** Prop to indicate that an error has occurred */
-  hasError: PropTypes.bool,
-  /** Prop to indicate that a warning has occurred */
-  hasWarning: PropTypes.bool,
-  /** Prop to indicate additional information  */
-  hasInfo: PropTypes.bool
+  value: PropTypes.string.isRequired
 };
 
 Switch.defaultProps = {
