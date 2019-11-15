@@ -78,10 +78,10 @@ describe('Date', () => {
     });
 
     describe('with autoFocus property on the component', () => {
-      it('should not render a DatePicker component', () => {
-        wrapper = render({ onFocus: onFocusFn, autoFocus: true });
+      it('should render a DatePicker component', () => {
+        wrapper = render({ autoFocus: true });
         simulateFocusOnInput(wrapper);
-        expect(wrapper.find(DatePicker).exists()).toBe(false);
+        expect(wrapper.find(DatePicker).exists()).toBe(true);
       });
     });
 
