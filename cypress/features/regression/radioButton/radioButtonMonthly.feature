@@ -1,7 +1,7 @@
 Feature: Experimental RadioButton monthly component
-  I want to change Experimental RadioButton component properties
+  I want to change Experimental RadioButton monthly component properties
 
-  Background: Open Experimental RadioButton component page
+  Background: Open Experimental RadioButton monthly component page
     Given I open "Experimental RadioButton" component page
       And "monthly" tab in "second" tab list is visible
       And I open monthly tab
@@ -64,7 +64,7 @@ Feature: Experimental RadioButton monthly component
 
   @positive
   Scenario: Enable and disable reverse checkbox
-    # Given Given I open monthly tab
+    # Given I open monthly tab
     Then "Second" RadioButton is not set to reverse
 
   @positive
@@ -92,7 +92,7 @@ Feature: Experimental RadioButton monthly component
   @positive
   Scenario: Enable fieldHelpInline
     When I check monthly fieldHelpInline checkbox
-    Then "Second" field help is set to fieldHelpInline
+    Then "Second" field help is set to fieldHelpInline and has margin-left set to "32px" and has margin-right "0px"
 
   @positive
   Scenario: Enable and disable fieldHelpInline

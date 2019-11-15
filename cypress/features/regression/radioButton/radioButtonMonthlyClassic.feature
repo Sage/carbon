@@ -64,7 +64,7 @@ Feature: Experimental RadioButton monthly classic component
 
   @positive
   Scenario: Enable and disable reverse checkbox
-    # Given Given I open monthly tab
+    # Given I open monthly tab
     Then "Second" RadioButton is not set to reverse
 
   @positive
@@ -83,7 +83,7 @@ Feature: Experimental RadioButton monthly classic component
   @positive
   Scenario: Enable fieldHelpInline
     When I check monthly fieldHelpInline checkbox
-    Then "Second" field help is set to fieldHelpInline
+    Then "Second" field help is set to fieldHelpInline and has margin-left set to "22px" and has margin-right "6px"
 
   @positive
   Scenario: Enable and disable fieldHelpInline
