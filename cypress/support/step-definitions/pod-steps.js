@@ -84,7 +84,7 @@ Then('Pod component has no onEdit property', () => {
 });
 
 Then('I click onEdit icon', () => {
-  podEdit().click();
+  podEdit().first().click();
 });
 
 Then('Pod component has editContentFullWidth property', () => {

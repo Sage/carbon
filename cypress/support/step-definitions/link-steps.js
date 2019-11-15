@@ -1,6 +1,4 @@
-import {
-  linkPreview, linkChildren, linkIcon, linkFirstSpan,
-} from '../../locators/link';
+import { linkPreview, linkChildren, linkIcon } from '../../locators/link';
 
 Then('children on preview is {string}', (children) => {
   linkChildren().should('have.text', children);
@@ -15,27 +13,28 @@ Then('Link is enabled', () => {
 });
 
 Then('Link on preview href is set to {string}', (href) => {
-  linkPreview().should('have.attr', 'href', `${href}`);
+  linkPreview().children().should('have.attr', 'href', `${href}`);
 });
 
 Then('icon on link componenent preview is {string}', (iconName) => {
   linkIcon().should('have.attr', 'data-element', iconName);
 });
 
-Then('icon align is set to left', () => {
-  linkFirstSpan().should('have.attr', 'data-component', 'icon');
-});
-
-Then('icon align is set to right', () => {
-  linkFirstSpan().should('have.class', 'carbon-link__content').and('have.text', 'Link');
+Then('icon align is set to {string}', (iconAlign) => {
+  if (iconAlign === 'left') {
+    linkIcon().should('have.css', 'margin-right', '5px');
+  } else {
+    linkIcon().should('have.css', 'margin-right', '0px')
+      .and('have.css', 'margin-left', '5px');
+  }
 });
 
 Then('Link is tabbable', () => {
-  linkPreview().should('have.attr', 'tabindex', '0');
+  linkPreview().children().should('have.attr', 'tabindex', '0');
 });
 
 Then('Link is not tabbable', () => {
-  linkPreview().should('have.attr', 'tabindex', '-1');
+  linkPreview().children().should('have.attr', 'tabindex', '-1');
 });
 
 Then('Link component is focused', () => {

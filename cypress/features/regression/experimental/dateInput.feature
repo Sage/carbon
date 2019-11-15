@@ -1,7 +1,7 @@
-Feature: Date Input component
-  I want to change Date Input component properties
+Feature: Experimental Date Input component
+  I want to change Experimental Date Input component properties
 
-  Background: Open Date Input component page
+  Background: Open Experimental Date Input component page
     Given I open "Experimental Date Input" component page
 
   @positive
@@ -62,28 +62,28 @@ Feature: Date Input component
 
   @positive
   Scenario Outline: Change Date Input component label align to <labelAlign>
-    When I set label to "<label>"
-      And I set labelHelp to "<label>"
+    When I set label to "label"
+      And I set labelHelp to "label"
       And I check labelInline checkbox
       And I select labelAlign to "<labelAlign>"
     Then label align on preview is set to "<labelAlign>"
     Examples:
-      | label       | labelAlign |
-      | Sample text | left       |
-      | Sample text | right      |
+      | labelAlign |
+      | left       |
+      | right      |
 
   @positive
   Scenario Outline: Change Date Input component label width to <width>
-    When I set label to "<label>"
+    When I set label to "label"
       And I check labelInline checkbox
       And I set label width slider to <width>
     Then label width on preview is <width>
     Examples:
-      | label       | width |
-      | Sample text | 0     |
-      | Sample text | 10    |
-      | Sample text | 50    |
-      | Sample text | 100   |
+      | width |
+      | 0     |
+      | 10    |
+      | 50    |
+      | 100   |
 
   @positive
   Scenario: Change Date Input component minDate
