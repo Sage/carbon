@@ -181,7 +181,7 @@ When('I hover mouse onto {string} help icon', (position) => {
 });
 
 When('I hover mouse onto icon', () => {
-  cy.wait(100, { log: DEBUG_FLAG }); // required because element might be reloaded
+  cy.wait(100, { log: DEBUG_FLAG }); // delayed in case the element need to be reloaded
   icon().trigger('mouseover');
 });
 

@@ -1,8 +1,8 @@
-import { enableOnChangeDefferedAction, enableKeyDownAction } from '../../locators/number-input';
+import { enableOnChangeDeferredAction, enableKeyDownAction } from '../../locators/number-input';
 import { commonDataElementInputPreview, label } from '../../locators';
 
 When('I check Enable onChangeDeferred Action property', () => {
-  enableOnChangeDefferedAction().click();
+  enableOnChangeDeferredAction().click();
 });
 
 When('I check Enable onKeyDown Action property', () => {
