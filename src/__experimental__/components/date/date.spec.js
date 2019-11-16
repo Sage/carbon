@@ -318,6 +318,25 @@ describe('Date', () => {
         expect(wrapper.find('input').props().value).toBe(invalidDate);
       });
     });
+
+    describe('to an empty date', () => {
+      it('reformats the visiblevalue when it is an empty string', () => {
+        const initialDate = '1 apr 2019';
+        const formattedDate = '01/04/2019';
+        const emptyDate = '';
+        
+        wrapper = render({
+        onChange: onChangeFn,
+        name: componentName,
+        value: initialDate
+        });
+
+        simulateChangeOnInput(wrapper, emptyDate);
+        simulateBlurOnInput(wrapper);
+        wrapper.update();
+        expect(wrapper.find('input').props().value).toBe(formattedDate);
+      })
+    });
   });
 
   describe.each(['disabled', 'readOnly'])('when the "%s" prop is set', (prop) => {
