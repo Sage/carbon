@@ -1,7 +1,7 @@
 import {
   saveButton, cancelButton, leftAlignedActions, rightAlignedActions,
   errorsSummary, errorMessage, inputValidation, buttons, errorTooltip,
-  additionalActions,
+  additionalActions, formDataComponent,
 } from '../../locators/form';
 import { DEBUG_FLAG } from '..';
 import { tooltipPreview } from '../../locators/help';
@@ -41,6 +41,16 @@ Then('buttons are aligned to {string}', (direction) => {
       .and('have.css', 'white-space', 'nowrap')
       .and('have.css', 'padding', '8px');
     buttons(SECOND_ELEMENT).should('have.attr', 'data-component', 'cancel');
+  }
+});
+
+Then('buttons are aligned to {string} for deprecated component', (direction) => {
+  if (direction === 'right') {
+    formDataComponent().should('have.css', 'justify-content', 'normal');
+  } else {
+    formDataComponent().should('have.css', 'margin', '0px')
+      .and('have.css', 'padding', '0px')
+      .and('have.css', 'display', 'block');
   }
 });
 

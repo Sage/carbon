@@ -1,6 +1,7 @@
 import {
   SAVE_BUTTON, CANCEL_BUTTON, ADDITIONAL_ACTIONS, LEFT_ALIGNED_ACTIONS,
-  RIGHT_ALIGNED_ACTIONS, ERRORS, ERROR_MESSAGE, INPUT_VALIDATION, FORM_DATA_ELEMENT, ERROR_TOOLTIP,
+  RIGHT_ALIGNED_ACTIONS, ERRORS, ERROR_MESSAGE, INPUT_VALIDATION, FORM_DATA_ELEMENT,
+  ERROR_TOOLTIP, FORM_FOOTER,
 } from './locators';
 
 // component preview locators
@@ -17,3 +18,4 @@ export const errorMessage = () => cy.iFrame(ERROR_MESSAGE);
 export const inputValidation = () => cy.iFrame(INPUT_VALIDATION);
 export const formDataComponent = () => cy.iFrame(FORM_DATA_ELEMENT);
 export const errorTooltip = () => cy.iFrame(ERROR_TOOLTIP);
+export const footerDataComponent = () => cy.iFrame(FORM_FOOTER);
