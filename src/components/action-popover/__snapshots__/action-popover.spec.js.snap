@@ -10,10 +10,8 @@ exports[`ActionPopover styles renders correctly for the "classic" theme 1`] = `
   right: 0;
   background-color: #FFFFFF;
   z-index: 1;
-  border: 1px solid #C4C6CA;
   box-shadow: 0 10px 10px 0 rgba(0,20,29,0.1), 0 5px 5px 0 rgba(0,20,29,0.2);
   padding: 5px 0;
-  right: 10px;
 }
 
 <div

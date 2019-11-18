@@ -2,11 +2,9 @@ import { css } from 'styled-components';
 import { isClassic } from '../../utils/helpers/style-helper';
 
 export const MenuClassic = ({ theme }) => isClassic(theme) && css`
-  border: 1px solid #C4C6CA;
   box-shadow: 0 10px 10px 0 rgba(0, 20, 29, 0.1),
     0 5px 5px 0 rgba(0, 20, 29, 0.2);
   padding: 5px 0;
-  right: 10px;
 `;
 
 export const MenuItemClassic = ({ theme }) => isClassic(theme) && css`
