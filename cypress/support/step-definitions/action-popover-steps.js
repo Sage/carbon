@@ -1,11 +1,10 @@
 import { actionPopoverButton, actionPopover, actionPopoverInnerItem } from '../../locators/action-popover';
-import { eventInAction } from '../../locators';
 
-Then('Action Popover component is visible', () => {
+Then('Action Popover element is visible', () => {
   actionPopover().should('be.visible');
 });
 
-When('I open Action Popover component', () => {
+When('I open Action Popover element', () => {
   actionPopoverButton().eq(0).click();
 });
 
@@ -15,7 +14,7 @@ When('I press keyboard {string} key times {int}', (key, times) => {
   }
 });
 
-Then('Action Popover component {string} inner context is set to {string}', (element, text) => {
+Then('Action Popover element {string} inner context is set to {string}', (element, text) => {
   cy.focused().should('have', actionPopoverInnerItem(element));
   actionPopoverInnerItem(element).invoke('text').should('contain', text);
 });
