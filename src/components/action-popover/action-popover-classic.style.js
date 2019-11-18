@@ -20,16 +20,12 @@ export const MenuItemClassic = ({ theme }) => isClassic(theme) && css`
 `;
 
 export const MenuButtonClassic = ({ theme, isOpen }) => isClassic(theme) && css`
-  background-color: transparent;
-
   &:focus {
     outline: 1px solid #255BC7;
   }
 
   &:hover,
   &:focus {
-    background-color: transparent;
-
     > span {
       color: #255BC7;
     }
