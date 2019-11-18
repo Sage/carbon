@@ -3,7 +3,7 @@ Feature: Experimental Textbox multiple component
 
   Background: Open Experimental Textbox multiple component page
     Given I open "Experimental Textbox" component page multiple
- 
+
   @positive
   Scenario Outline: Set placeholder to <placeholder>
     When I set placeholder to "<placeholder>"
@@ -21,25 +21,25 @@ Feature: Experimental Textbox multiple component
   @positive
   Scenario: Check disabled checkbox for a Textbox multiple component
     When I check disabled checkbox
-    Then Multiple Textbox component is disabled
- 
+    Then Textbox multiple component is disabled
+
   @positive
   Scenario: Uncheck disabled checkbox for a Textbox multiple component
     When I check disabled checkbox
       And I uncheck disabled checkbox
-    Then Multiple Textbox component is not disabled
-   
+    Then Textbox multiple component is not disabled
+
   @positive
   Scenario: Enable readOnly checkbox for a Textbox multiple component
     When I check readOnly checkbox
-    Then Multiple Textbox component is readOnly
-  
+    Then Textbox multiple component is readOnly
+
   @positive
   Scenario: Disable readOnly checkbox for a Textbox multiple component
     When I check readOnly checkbox
       And I uncheck readOnly checkbox
-    Then Multiple Textbox component is not readOnly
- 
+    Then Textbox multiple component is not readOnly
+
   @positive
   Scenario Outline: Set fieldHelp to <fieldHelp>
     When I set fieldHelp to "<fieldHelp>"
@@ -159,6 +159,6 @@ Feature: Experimental Textbox multiple component
       And Multiple Textbox width is "<width>"
     Examples:
       | size   | height | width |
-      | small  | 28px   | 1041px |
-      | medium | 36px   | 1035px |
-      | large  | 44px   | 1031px |
+      | small  | 28px   | 1043px |
+      | medium | 36px   | 1037px |
+      | large  | 44px   | 1033px |

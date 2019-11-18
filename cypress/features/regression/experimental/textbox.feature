@@ -157,6 +157,6 @@ Feature: Experimental Textbox component
       And Textbox width is "<width>"
     Examples:
       | size   | height | width |
-      | small  | 28px   | 1041px |
-      | medium | 36px   | 1035px |
-      | large  | 44px   | 1031px |
+      | small  | 28px   | 1043px |
+      | medium | 36px   | 1037px |
+      | large  | 44px   | 1033px |
