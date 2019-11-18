@@ -76,15 +76,17 @@ Then('additional actions text is set to {string}', (text) => {
 
 Then('additionalAction button is set to {string} and has text {string}', (buttonState, text) => {
   if (buttonState === 'Button') {
+    cy.wait(500, { log: DEBUG_FLAG }); // added due to changing animation;
     buttons(THIRD_ELEMENT).should('be.visible');
     buttons(THIRD_ELEMENT).children().should('have.attr', 'role', 'button')
       .and('have.attr', 'data-component', 'button');
     buttons(THIRD_ELEMENT).children().children().children()
       .should('have.text', text);
   } else {
+    cy.wait(500, { log: DEBUG_FLAG }); // added due to changing animation;
     buttons(THIRD_ELEMENT).should('be.visible');
-    buttons(THIRD_ELEMENT).children().should('have.attr', 'data-component', 'link')
-      .and('have.attr', 'tabindex', '0');
+    buttons(THIRD_ELEMENT).children().should('have.attr', 'data-component', 'link');
+    buttons(THIRD_ELEMENT).children().children().should('have.attr', 'tabindex', '0');
     buttons(THIRD_ELEMENT).children().children().children()
       .should('have.text', text);
   }
@@ -92,16 +94,17 @@ Then('additionalAction button is set to {string} and has text {string}', (button
 
 Then('alignedActions button is set to {string} and has text {string}', (buttonState, text) => {
   if (buttonState === 'Button') {
+    cy.wait(500, { log: DEBUG_FLAG }); // added due to changing animation;
     buttons(FIRST_ELEMENT).should('be.visible');
     buttons(FIRST_ELEMENT).children().should('have.attr', 'role', 'button')
       .and('have.attr', 'data-component', 'button');
     buttons(FIRST_ELEMENT).children().children()
       .contains(text);
   } else {
-    cy.wait(100, { log: DEBUG_FLAG }); // added due to changing animation;
+    cy.wait(500, { log: DEBUG_FLAG }); // added due to changing animation;
     buttons(FIRST_ELEMENT).should('be.visible');
-    buttons(FIRST_ELEMENT).children().should('have.attr', 'data-component', 'link')
-      .and('have.attr', 'tabindex', '0');
+    buttons(FIRST_ELEMENT).children().should('have.attr', 'data-component', 'link');
+    buttons(FIRST_ELEMENT).children().children().should('have.attr', 'tabindex', '0');
     buttons(FIRST_ELEMENT).children().children()
       .contains(text);
   }
