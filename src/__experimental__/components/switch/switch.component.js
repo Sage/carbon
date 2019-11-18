@@ -15,6 +15,7 @@ const Switch = ({
   defaultChecked,
   disabled,
   loading,
+  reverse,
   ...props
 }) => {
   const isControlled = checked !== undefined;
@@ -33,7 +34,7 @@ const Switch = ({
     ...props,
     disabled: disabled || loading,
     checked: isControlled ? checked : checkedInternal,
-    loading
+    reverse: !reverse // switched to preserve backward compatibility
   };
 
   const inputProps = {
@@ -42,7 +43,8 @@ const Switch = ({
     inputId: id,
     inputLabel: label,
     inputValue: value,
-    inputType: 'checkbox'
+    inputType: 'checkbox',
+    reverse: !reverse // switched to preserve backward compatibility
   };
 
   return (
@@ -107,11 +109,12 @@ Switch.propTypes = {
 
 Switch.defaultProps = {
   labelInline: false,
-  reverse: false,
+  reverse: true,
   hasError: false,
   hasWarning: false,
   hasInfo: false,
   helpTabIndex: 0
 };
 
+export { Switch as BaseSwitch };
 export default withValidation(Switch);
