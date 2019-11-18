@@ -35,7 +35,7 @@ Cypress.Commands.overwrite(
   (originalFn, subject, string, options) => originalFn(
     subject,
     string,
-    Object.assign({}, options, { delay: 100 }),
+    Object.assign({}, options, { delay: 110 }),
   ),
 );
 
