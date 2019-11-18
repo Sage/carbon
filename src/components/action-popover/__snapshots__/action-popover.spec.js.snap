@@ -76,7 +76,6 @@ exports[`ActionPopover styles renders correctly for the "classic" theme 3`] = `
   cursor: pointer;
   width: 24px;
   margin: auto;
-  background-color: transparent;
 }
 
 .c0:hover,
@@ -90,11 +89,6 @@ exports[`ActionPopover styles renders correctly for the "classic" theme 3`] = `
 
 .c0:focus {
   outline: 1px solid #255BC7;
-}
-
-.c0:hover,
-.c0:focus {
-  background-color: transparent;
 }
 
 .c0:hover > span,
