@@ -85,9 +85,9 @@ describe('Switch', () => {
       expect(render()).toMatchSnapshot();
     });
 
-    describe('when reverse=true', () => {
+    describe('when reverse=false', () => {
       describe('default', () => {
-        const wrapper = render({ reverse: true }).toJSON();
+        const wrapper = render({ reverse: false }).toJSON();
 
         it('applies the correct Label styles', () => {
           assertStyleMatch({
@@ -97,7 +97,7 @@ describe('Switch', () => {
       });
 
       describe('and labelInline=true', () => {
-        const wrapper = render({ reverse: true, labelInline: true }).toJSON();
+        const wrapper = render({ reverse: false, labelInline: true }).toJSON();
 
         it('applies the correct Label styles', () => {
           assertStyleMatch({
@@ -107,7 +107,7 @@ describe('Switch', () => {
       });
 
       describe('and labelInline=true, fieldHelpInline=false', () => {
-        const wrapper = render({ fieldHelpInline: false, labelInline: true, reverse: true }).toJSON();
+        const wrapper = render({ fieldHelpInline: false, labelInline: true, reverse: false }).toJSON();
 
         it('applies the correct FieldHelp styles', () => {
           assertStyleMatch({
@@ -213,8 +213,8 @@ describe('Switch', () => {
           }, wrapper, { modifier: css`${LabelStyle}` });
         });
 
-        describe('and reverse=true', () => {
-          const wrapper = render({ size: 'large', labelInline: true, reverse: true }).toJSON();
+        describe('and reverse=false', () => {
+          const wrapper = render({ size: 'large', labelInline: true, reverse: false }).toJSON();
 
           it('applies the correct FieldHelp styles', () => {
             assertStyleMatch({
@@ -328,8 +328,8 @@ describe('Switch', () => {
       });
     });
 
-    describe('and reverse=true', () => {
-      const wrapper = renderWithTheme({ labelInline: true, reverse: true }, classicTheme).toJSON();
+    describe('and reverse=false', () => {
+      const wrapper = renderWithTheme({ labelInline: true, reverse: false }, classicTheme).toJSON();
 
       it('applies the correct FieldHelp styles', () => {
         assertStyleMatch({
@@ -378,8 +378,8 @@ describe('Switch', () => {
           }, wrapper, { modifier: css`${LabelStyle}` });
         });
 
-        describe('and reverse=true', () => {
-          const wrapper = renderWithTheme({ labelInline: true, reverse: true, ...largeOpts }, classicTheme).toJSON();
+        describe('and reverse=false', () => {
+          const wrapper = renderWithTheme({ labelInline: true, reverse: false, ...largeOpts }, classicTheme).toJSON();
 
           it('applies the correct FieldHelp styles', () => {
             assertStyleMatch({
