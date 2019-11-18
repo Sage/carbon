@@ -44,7 +44,7 @@ When('I click {string} component', (componentName) => {
 
 Then('Link component css color is set to {string}', (themeName) => {
   cy.fixture('themes/themes.json').then((json) => {
-    linkComponent().should('have.css', COLOR, json.common[themeName]);
+    linkComponent().children().should('have.css', COLOR, json.common[themeName]);
   });
 });
 

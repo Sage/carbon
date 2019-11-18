@@ -8,7 +8,7 @@ import tagComponent from '../../../utils/helpers/tags';
 import DatePicker from './date-picker.component';
 import StyledDateInput from './date.style';
 import Textbox from '../textbox';
-import withUniqueName from '../../../utils/helpers/with-unique-name';
+import withUniqueIdProps from '../../../utils/helpers/with-unique-id-props';
 
 const defaultDateFormat = 'DD/MM/YYYY';
 
@@ -300,7 +300,7 @@ function isoFormattedValueString(valueToFormat) {
   return DateHelper.formatValue(valueToFormat);
 }
 
-const DateInput = withUniqueName(BaseDateInput);
+const DateInput = withUniqueIdProps(BaseDateInput);
 
 BaseDateInput.propTypes = {
   ...Textbox.propTypes,

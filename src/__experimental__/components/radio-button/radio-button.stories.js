@@ -152,6 +152,11 @@ const radioComponentWithValidation = themeName => () => {
 };
 
 storiesOf('Experimental/RadioButton', module)
+  .addParameters({
+    info: {
+      propTablesExclude: [State]
+    }
+  })
   .add(...makeStory('default', dlsThemeSelector, radioComponent()))
   .add(...makeStory('classic', classicThemeSelector, radioComponent('classic')))
   .add(...makeStory('validations', dlsThemeSelector, radioComponentWithValidation()))
