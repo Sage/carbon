@@ -62,10 +62,15 @@ class Select extends React.Component {
     this.blurBlocked = false;
   }
 
-  handleBlur = (ev) => {
+  handleBlur = () => {
     if (this.blurBlocked) return;
     this.setState({ filter: undefined, open: false });
-    if (this.props.onBlur) this.props.onBlur(ev);
+
+    if (this.props.onBlur) {
+      const value = this.getValue();
+      const customEvent = this.createCustomEvent(value);
+      this.props.onBlur(customEvent);
+    }
   }
 
   // opens the dropdown and ensures the input has focus
@@ -233,6 +238,16 @@ class Select extends React.Component {
       return;
     }
 
+    const customEvent = this.createCustomEvent(value);
+
+    this.props.onChange(customEvent);
+  }
+
+  /**
+   * Creates a custom event object, suitable for passing to the
+   * onBlur() and onChange() callback props of this component.
+   */
+  createCustomEvent(value) {
     const { name, id } = this.props;
 
     const strings = (this.isMultiValue(value) ? value : [value]);
@@ -250,7 +265,7 @@ class Select extends React.Component {
       }
     };
 
-    this.props.onChange(customEvent);
+    return customEvent;
   }
 
   /**

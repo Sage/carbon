@@ -47,7 +47,7 @@ Feature: Link component
     When I select iconAlign to "<iconAlign>"
       And I wait 500
     # wait because method below is based of changing DOM elements order
-    Then icon align is set to <iconAlign>
+    Then icon align is set to "<iconAlign>"
     Examples:
       | iconAlign |
       | left      |

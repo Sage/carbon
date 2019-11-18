@@ -31,7 +31,7 @@ Then('Show Edit Pod title on preview is set to {string}', (text) => {
 });
 
 When('I edit Show Edit Pod component', () => {
-  showEditPodEdit().click();
+  showEditPodEdit().first().click();
 });
 
 Then('Show Edit Pod component has border property', () => {

@@ -15,6 +15,14 @@ Textbox.__docgenInfo = getDocGenInfo(
   /textbox(?!spec)/
 );
 
+const getIconKnobs = () => {
+  const hasIcon = boolean('has icon', false);
+
+  return {
+    icon: hasIcon ? select('iconType', [...OptionsHelper.icons, ''], '') : undefined
+  };
+};
+
 const store = new Store({
   value: ''
 });
@@ -67,6 +75,7 @@ storiesOf('__deprecated__/Textbox', module)
             fieldHelp={ fieldHelp }
             inputWidth={ inputWidth }
             onChange={ handleChange }
+            { ...getIconKnobs() }
           />
         </State>
       );
