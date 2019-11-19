@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import tagComponent from '../../../utils/helpers/tags/tags';
@@ -8,23 +8,71 @@ import { SimpleColorFieldset, StyledColorOptions } from './simple-color-picker.s
 
 const SimpleColorPicker = (props) => {
   const {
-    children, name, legend, onChange, onBlur, value
+    children, name, legend, onChange, onBlur, value, isBlurBlocked = false
   } = props;
+
+  const myRef = useRef(null);
+  const [blurBlocked, setIsBlurBlocked] = useState(isBlurBlocked);
+  const [focusedElement, setFocusedElement] = useState(null);
+
+  const handleClickOutside = (ev) => {
+    if (myRef.current && ev.target && !myRef.current.contains(ev.target)) {
+      setIsBlurBlocked(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleClickOutside);
+    };
+  });
+
+  const handleOnBlur = (ev) => {
+    ev.preventDefault();
+
+    if (!blurBlocked) {
+      onBlur(ev);
+    }
+  };
+
+  const handleOnMouseDown = (ev) => {
+    setIsBlurBlocked(true);
+
+    if (focusedElement !== null && focusedElement === ev.target) {
+      ev.preventDefault();
+    } else if (focusedElement !== null && myRef.current && myRef.current.contains(ev.target)) {
+      ev.preventDefault();
+      setIsBlurBlocked(false);
+      setFocusedElement(ev.target);
+
+      if (myRef.current.contains(document.activeElement)) {
+        onBlur(ev);
+      }
+    } else if (focusedElement === null && myRef.current && myRef.current.contains(ev.target)) {
+      setIsBlurBlocked(true);
+      setFocusedElement(ev.target);
+    }
+  };
 
   return (
     <SimpleColorFieldset
       role='radiogroup'
       legend={ legend }
+      isBlurBlocked={ blurBlocked }
       { ...tagComponent('simple-color-picker', props) }
     >
-      <StyledColorOptions>
+      <StyledColorOptions ref={ myRef }>
         <RadioButtonMapper
           name={ name }
-          onBlur={ onBlur }
-          onChange={ onChange }
           value={ value }
+          onChange={ onChange }
+          onMouseDown={ handleOnMouseDown }
+          onBlur={ handleOnBlur }
         >
-          {children}
+          { children }
         </RadioButtonMapper>
       </StyledColorOptions>
     </SimpleColorFieldset>
@@ -45,6 +93,7 @@ SimpleColorPicker.propTypes = {
 
     return error;
   },
+  isBlurBlocked: PropTypes.string,
   /** The content for the RadioGroup Legend */
   legend: PropTypes.string.isRequired,
   /** The currently selected color. */

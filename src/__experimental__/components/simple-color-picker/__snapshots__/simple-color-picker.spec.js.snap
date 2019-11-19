@@ -175,6 +175,7 @@ exports[`SimpleColorPicker renders as expected 1`] = `
         onChange={[Function]}
         onClick={[Function]}
         onFocus={[Function]}
+        onMouseDown={[Function]}
         role="radio"
         type="radio"
       />
@@ -199,6 +200,7 @@ exports[`SimpleColorPicker renders as expected 1`] = `
         onChange={[Function]}
         onClick={[Function]}
         onFocus={[Function]}
+        onMouseDown={[Function]}
         role="radio"
         type="radio"
       />

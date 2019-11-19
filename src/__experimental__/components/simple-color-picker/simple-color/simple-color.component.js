@@ -5,10 +5,11 @@ import StyledSimpleColor from './simple-color.style';
 import ColorSampleBox from '../color-sample-box';
 import StyledSimpleColorInput from '../simple-color-input/simple-color-input.style';
 
-const SimpleColor = (props) => {
+const SimpleColor = React.forwardRef((props, ref) => {
   const {
-    onChange, value, name, checked, className, ...rest
+    onChange, onBlur, onMouseDown, value, name, checked, className, ...rest
   } = props;
+
   return (
     <StyledSimpleColor
       color={ value }
@@ -18,18 +19,21 @@ const SimpleColor = (props) => {
     >
       <StyledSimpleColorInput
         onChange={ onChange }
+        onBlur={ onBlur }
+        onMouseDown={ onMouseDown }
         checked={ checked }
         name={ name }
         type='radio'
         role='radio'
         value={ value }
         aria-checked={ checked }
+        ref={ ref }
         { ...rest }
       />
       <ColorSampleBox color={ value } checked={ checked } />
     </StyledSimpleColor>
   );
-};
+});
 
 SimpleColor.defaultProps = {
   checked: false,
@@ -43,6 +47,8 @@ SimpleColor.propTypes = {
   name: PropTypes.string,
   /** called when the user selects or deselects this color option */
   onChange: PropTypes.func,
+  onBlur: PropTypes.func,
+  onMouseDown: PropTypes.func,
   /** determines if this color option is selected or unselected */
   checked: PropTypes.bool,
   /** [Legacy] Custom classname */

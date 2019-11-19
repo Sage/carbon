@@ -2,7 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 const RadioButtonMapper = ({
-  children, name, onBlur, onChange, value
+  children, name, onBlur, onChange, onMouseDown, value
 }) => {
   const anyChecked = useMemo(() => {
     let result = false;
@@ -45,6 +45,7 @@ const RadioButtonMapper = ({
       checked,
       name,
       onBlur,
+      onMouseDown,
       onChange: onChangeProp
     });
   });

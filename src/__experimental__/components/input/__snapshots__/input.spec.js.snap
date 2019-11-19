@@ -42,6 +42,7 @@ exports[`Input renders with an input 1`] = `
   onChange={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
+  onMouseDown={[Function]}
   type="text"
 />
 `;
