@@ -19,7 +19,7 @@
     "test-cypress": "cypress open",
     "test-cypress-build": "cypress run --spec ./cypress/features/build/build*.feature --browser chrome",
     "test-cypress-accessibility": "cypress run --spec ./cypress/features/accessibility/accessibility.feature --browser chrome",
-    "test-cypress-regression": "npm run cypress-group-regression-validations && npm run cypress-group-regression-themes --browser chrome",
+    "test-cypress-regression": "npm run cypress-group-regression-common && npm run cypress-group-regression-experimental && npm run cypress-group-regression-deprecated && npm run cypress-group-regression-validations && npm run cypress-group-regression-themes --browser chrome",
     "cypress-group-regression-common": "cypress run --spec './cypress/features/regression/*.feature'",
     "cypress-group-regression-experimental": "--spec './cypress/features/regression/experimental/*.feature'",
     "cypress-group-regression-deprecated": "cypress run --spec './cypress/features/regression/deprecated/*.feature'",
