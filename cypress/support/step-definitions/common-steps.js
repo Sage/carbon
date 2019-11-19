@@ -384,7 +384,7 @@ When('I click above of the component into iFrame', () => {
 });
 
 Then('{string} tab in {string} tab list is visible', (knobsName, position) => {
-  cy.wait(3000, { log: DEBUG_FLAG }); // required because element needs to be loaded
+  cy.wait(5000, { log: DEBUG_FLAG }); // required because element needs to be loaded
   switch (position) {
     case 'first':
       knobsNameTab(knobsName, FIRST_ELEMENT).should('be.visible')

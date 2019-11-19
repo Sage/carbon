@@ -99,7 +99,7 @@ Feature: Experimental RadioButton weekly classic component
       | width | px  |
       | 1     | 11  |
       | 10    | 106 |
-      | 50    | 530 |
+      | 50    | 531 |
 
   @positive
   Scenario Outline: Change RadioButton label width to <width>
@@ -109,8 +109,8 @@ Feature: Experimental RadioButton weekly classic component
     Examples:
       | width | px   |
       | 1     | 11   |
-      | 50    | 530  |
-      | 100   | 1047 |
+      | 50    | 531  |
+      | 100   | 1049 |
 
   @positive
   Scenario Outline: Change RadioButton label align to <direction>
