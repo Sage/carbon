@@ -13,6 +13,7 @@ import StyledDayPicker from './day-picker.style';
 
 const DatePicker = (props) => {
   const window = Browser.getWindow();
+  const [didMount, setDidMount] = useState(false);
   const [containerPosition, setContainerPosition] = useState(() => getContainerPosition(window, props.inputElement));
   const [currentInputDate, setCurrentInputDate] = useState(isoFormattedValueString(props.inputDate));
   const containerProps = {
@@ -45,15 +46,20 @@ const DatePicker = (props) => {
   };
 
   useEffect(() => {
+    setDidMount(true);
     if (hasComponentUpdated()) {
       const updatedDate = isoFormattedValueString(props.inputDate);
       datepicker.current.showMonth(DateHelper.stringToDate(updatedDate));
       setCurrentInputDate(updatedDate);
     }
-  }, [props.selectedDate, props.inputDate]);
+    return () => setDidMount(false);
+  }, [props.selectedDate, props.inputDate, currentInputDate]);
 
   function handleDayClick(selectedDate, modifiers) {
-    if (!modifiers.disabled) props.handleDateSelect(selectedDate);
+    if (!modifiers.disabled) {
+      setDidMount(false);
+      props.handleDateSelect(selectedDate);
+    }
   }
 
   function hasComponentUpdated() {
@@ -62,7 +68,7 @@ const DatePicker = (props) => {
   }
 
   return (
-    <Portal onReposition={ () => setContainerPosition(getContainerPosition(window, props.inputElement)) }>
+    <Portal onReposition={ () => didMount && setContainerPosition(getContainerPosition(window, props.inputElement)) }>
       <StyledDayPicker>
         <DayPicker
           { ...datePickerProps }
