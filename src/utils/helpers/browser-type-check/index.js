@@ -1,1 +1,1 @@
-export { default, isSafari } from './browser-type-check';
+export { default, isSafari, isEdge } from './browser-type-check';
