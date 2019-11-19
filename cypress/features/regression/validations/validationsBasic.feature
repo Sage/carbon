@@ -40,11 +40,3 @@ Feature: Validations basic component
     When I hover mouse onto "error" icon in iFrame
     Then tooltipPreview on preview into iFrame is set to 'This value must include the word "valid"!'
       And icon name into iFrame on preview is "error"
- 
-  @positive
-  @validations
-  Scenario: Verify the error deprecated Legacy Validation input of Validations basic component
-    Given I click onto "seventh" input for validations component into iFrame
-      And I click above of the component into iFrame
-    When I hover mouse onto validated input in iFrame
-    Then Error message for deprecated input is "This field is required."

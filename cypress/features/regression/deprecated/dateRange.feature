@@ -43,7 +43,7 @@ Feature: Deprecated Date Range component
     Then labels are set to inline for deprecated component
 
   @positive
-
+  @deprecated
   Scenario: Enable and disable labels inline checkbox
     When I set startLabel to "Sample text"
       And I set endLabel to "Sample text"
