@@ -13,7 +13,7 @@ import StyledDayPicker from './day-picker.style';
 
 const DatePicker = (props) => {
   const window = Browser.getWindow();
-  const [didMount, setDidMount] = useState(false);
+  const [didMount, setDidMount] = useState(props.pickerIsMounted);
   const [containerPosition, setContainerPosition] = useState(() => getContainerPosition(window, props.inputElement));
   const [currentInputDate, setCurrentInputDate] = useState(isoFormattedValueString(props.inputDate));
   const containerProps = {
@@ -67,6 +67,10 @@ const DatePicker = (props) => {
     return props.inputDate && currentDateHasChanged(currentInputDate, propDate);
   }
 
+  if (!didMount) {
+    return null;
+  }
+
   return (
     <Portal onReposition={ () => didMount && setContainerPosition(getContainerPosition(window, props.inputElement)) }>
       <StyledDayPicker>
@@ -92,7 +96,9 @@ DatePicker.propTypes = {
   /** Currently selected date */
   selectedDate: PropTypes.object,
   /** Callback to set selected date */
-  handleDateSelect: PropTypes.func
+  handleDateSelect: PropTypes.func,
+  /** A boolean to initialise didMount state subscription */
+  pickerIsMounted: PropTypes.bool
 };
 
 function currentDateHasChanged(currentDate, newDate) {
