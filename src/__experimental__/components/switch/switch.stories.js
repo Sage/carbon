@@ -100,7 +100,7 @@ const validationGroupedKnobs = (type, themeName) => {
       OptionsHelper.alignBinary[0],
       group
     ),
-    reverse: boolean(`${type} reverse`, Switch.defaultProps.reverse, group)
+    reverse: boolean(`${type} reverse`, BaseSwitch.defaultProps.reverse, group)
   };
 };
 
