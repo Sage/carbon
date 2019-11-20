@@ -179,7 +179,7 @@ describe('Select', () => {
   describe('when backspace is pressed and is single select', () => {
     const setupTest = (additionalSetup) => {
       spyOn(Events, 'isBackspaceKey').and.returnValue(true);
-      const props = { value: '', onChange: jest.fn() };
+      const props = { value: 'value', onChange: jest.fn() };
       const wrapper = renderWrapper({ props });
       const textbox = textboxOf(openList(wrapper));
       if (additionalSetup) additionalSetup(wrapper);
@@ -197,7 +197,7 @@ describe('Select', () => {
       expect(props.onChange).not.toHaveBeenCalled();
     });
 
-    it.skip('does not trigger onChange if there is no values left to delete', () => {
+    it('does not trigger onChange if there is no values left to delete', () => {
       const { props } = setupTest(wrapper => wrapper.setProps({ value: null }));
       expect(props.onChange).not.toHaveBeenCalled();
     });
@@ -296,11 +296,10 @@ describe('Select', () => {
 
     it('blocks blur on mouse enter of the list and unblocks on leaving the list', () => {
       const wrapper = openList(renderWrapper());
-      const list = listOf(wrapper);
       expect(wrapper.instance().blurBlocked).toEqual(false);
-      list.find('div').first().simulate('mouseEnter');
+      wrapper.simulate('mouseEnter');
       expect(wrapper.instance().blurBlocked).toEqual(true);
-      list.find('div').first().simulate('mouseLeave');
+      wrapper.simulate('mouseLeave');
       expect(wrapper.instance().blurBlocked).toEqual(false);
     });
 
