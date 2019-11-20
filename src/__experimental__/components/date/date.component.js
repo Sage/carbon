@@ -68,7 +68,7 @@ class BaseDateInput extends React.Component {
     return isEdge(navigator) && !this.inputFocusedViaPicker;
   }
 
-  get shouldBlockBlur() {
+  shouldBlockBlur = () => {
     const { disabled, readOnly } = this.props;
     const block = this.isBlurBlocked || this.inputFocusedViaPicker || this.input === document.activeElement;
     if (disabled || readOnly || block) {
@@ -83,10 +83,11 @@ class BaseDateInput extends React.Component {
 
   handleBlur = () => {
     // needed to make blur work properly in Edge
+    // https://stackoverflow.com/a/24695316/10894881
     setTimeout(() => {
       this.inputHasFocus = false;
 
-      if (this.shouldBlockBlur) {
+      if (this.shouldBlockBlur()) {
         return;
       }
 
@@ -162,7 +163,9 @@ class BaseDateInput extends React.Component {
     document.removeEventListener('click', this.closeDatePicker);
     this.setState({ isDatePickerOpen: false }, () => {
       this.isBlurBlocked = false;
-      this.handleBlur();
+      if (this.input !== document.activeElement) {
+        this.handleBlur();
+      }
     });
   };
 
