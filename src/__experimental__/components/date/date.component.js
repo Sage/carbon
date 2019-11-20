@@ -9,6 +9,7 @@ import DatePicker from './date-picker.component';
 import StyledDateInput from './date.style';
 import Textbox from '../textbox';
 import withUniqueIdProps from '../../../utils/helpers/with-unique-id-props';
+import { isEdge } from '../../../utils/helpers/browser-type-check';
 
 const defaultDateFormat = 'DD/MM/YYYY';
 
@@ -63,23 +64,40 @@ class BaseDateInput extends React.Component {
     this.input = input.current;
   };
 
-  handleBlur = () => {
-    this.inputHasFocus = false;
+  shouldAllowBlur = () => {
+    return isEdge(navigator) && !this.inputFocusedViaPicker;
+  }
+
+  get shouldBlockBlur() {
     const { disabled, readOnly } = this.props;
-
-    const blockBlur = this.isBlurBlocked || this.inputFocusedViaPicker || this.input === document.activeElement;
-
-    if (disabled || readOnly || blockBlur) {
-      this.inputFocusedViaPicker = this.inputFocusedViaPicker && this.input === document.activeElement;
-      return;
+    const block = this.isBlurBlocked || this.inputFocusedViaPicker || this.input === document.activeElement;
+    if (disabled || readOnly || block) {
+      this.inputFocusedViaPicker = this.input === document.activeElement;
+      // needed to block blur properly in Edge
+      if (!this.shouldAllowBlur()) {
+        return true;
+      }
     }
+    return false;
+  }
 
-    this.reformatVisibleDate();
-    if (this.props.onBlur && !this.state.isDatePickerOpen) {
-      const dateWithSlashes = DateHelper.sanitizeDateInput(this.state.visibleValue);
-      const event = this.buildCustomEvent({ target: this.input }, isoFormattedValueString(dateWithSlashes));
-      this.props.onBlur(event);
-    }
+  handleBlur = () => {
+    // needed to make blur work properly in Edge
+    setTimeout(() => {
+      this.inputHasFocus = false;
+
+      if (this.shouldBlockBlur) {
+        return;
+      }
+
+      this.reformatVisibleDate();
+
+      if (this.props.onBlur && !this.state.isDatePickerOpen) {
+        const dateWithSlashes = DateHelper.sanitizeDateInput(this.state.visibleValue);
+        const event = this.buildCustomEvent({ target: this.input }, isoFormattedValueString(dateWithSlashes));
+        this.props.onBlur(event);
+      }
+    }, 0);
   }
 
   handleFocus = (ev) => {
@@ -144,9 +162,7 @@ class BaseDateInput extends React.Component {
     document.removeEventListener('click', this.closeDatePicker);
     this.setState({ isDatePickerOpen: false }, () => {
       this.isBlurBlocked = false;
-      if (this.input !== document.activeElement) {
-        this.handleBlur();
-      }
+      this.handleBlur();
     });
   };
 
@@ -255,6 +271,7 @@ class BaseDateInput extends React.Component {
         selectedDate={ this.state.selectedDate }
         handleDateSelect={ this.handleDateSelect }
         inputDate={ inputDate }
+        pickerIsMounted={ this.state.isDatePickerOpen }
         { ...dateRangeProps }
       />
     );
