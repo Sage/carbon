@@ -43,7 +43,7 @@ class DateRange extends React.Component {
 
     this.setState(prevState => ({
       forceUpdateTriggerToggle: !prevState.forceUpdateTriggerToggle
-    }));
+    }), this.blockBlur());
   }
 
   _onBlur = () => {
@@ -58,7 +58,13 @@ class DateRange extends React.Component {
   }
 
   isBlurBlocked = () => {
-    return this.startDateInputRef.current.isBlurBlocked || this.endDateInputRef.current.isBlurBlocked;
+    const startBlocked = (
+      this.startDateInputRef.current.isBlurBlocked || this.startDateInputRef.current.inputFocusedViaPicker
+    );
+    const endBlocked = (
+      this.endDateInputRef.current.isBlurBlocked || this.endDateInputRef.current.inputFocusedViaPicker
+    );
+    return startBlocked || endBlocked;
   }
 
   buildCustomEvent = () => {
@@ -122,6 +128,8 @@ class DateRange extends React.Component {
   blockBlur = () => {
     this.startDateInputRef.current.isBlurBlocked = true;
     this.endDateInputRef.current.isBlurBlocked = true;
+    this.startDateInputRef.current.inputFocusedViaPicker = true;
+    this.endDateInputRef.current.inputFocusedViaPicker = true;
   }
 
   startDateProps() {

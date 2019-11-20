@@ -12,6 +12,8 @@ import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-s
 import StyledDateRange from './date-range.style';
 import StyledDateInput from '../date/date.style';
 
+jest.useFakeTimers();
+
 describe('DateRange', () => {
   let wrapper, startInput, endInput, customOnChange, customOnBlur, wrapperInstance;
 
@@ -109,7 +111,7 @@ describe('DateRange', () => {
     describe('when the user updates the startDate textbox', () => {
       it('calls the passed in onBlur function', () => {
         wrapper.find(BaseDateInput).at(0).find('input').simulate('blur', { target: { value: '2016-10-15' } });
-
+        jest.runAllTimers();
         expect(customOnBlur).toHaveBeenCalled();
       });
     });
@@ -117,7 +119,7 @@ describe('DateRange', () => {
     describe('when the user updates the endDate textbox', () => {
       it('calls the passed in onBlur function', () => {
         wrapper.find(BaseDateInput).at(1).find('input').simulate('blur', { target: { value: '2016-10-15' } });
-
+        jest.runAllTimers();
         expect(customOnBlur).toHaveBeenCalled();
       });
     });
