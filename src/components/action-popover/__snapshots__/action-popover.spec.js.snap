@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActionPopover styles renders correctly for the "classic" theme 1`] = `
+.c0 {
+  display: none;
+  margin: 0;
+  padding: 9px 0;
+  box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
+  position: absolute;
+  right: 0;
+  background-color: #FFFFFF;
+  z-index: 1;
+  box-shadow: 0 10px 10px 0 rgba(0,20,29,0.1), 0 5px 5px 0 rgba(0,20,29,0.2);
+  padding: 5px 0;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`ActionPopover styles renders correctly for the "classic" theme 2`] = `
+.c0 {
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 0 24px;
+  line-height: 40px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: rgba(0,0,0,0.9);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+  line-height: 35px;
+  padding: 0 15px 0 10px;
+}
+
+.c0:focus,
+.c0:hover {
+  background-color: #F2F4F5;
+}
+
+.c0:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 2px #FFB500;
+}
+
+.c0:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 1px #255BC7;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`ActionPopover styles renders correctly for the "classic" theme 3`] = `
+.c0 {
+  position: relative;
+  cursor: pointer;
+  width: 24px;
+  margin: auto;
+}
+
+.c0:hover,
+.c0:focus {
+  background-color: #FFFFFF;
+}
+
+.c0:focus {
+  outline: 2px solid #FFB500;
+}
+
+.c0:focus {
+  outline: 1px solid #255BC7;
+}
+
+.c0:hover > span,
+.c0:focus > span {
+  color: #255BC7;
+}
+
+<div
+  className="c0"
+/>
+`;

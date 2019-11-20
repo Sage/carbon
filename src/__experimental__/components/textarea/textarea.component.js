@@ -8,12 +8,15 @@ import CharacterCount from './character-count';
 import TextareaInput from './textarea-input.component';
 import withValidations from '../../../components/validations/with-validation.hoc';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
+import guid from '../../../utils/helpers/guid/guid';
 
 const i18nNumberOpts = { precision: 0 };
 
 class Textarea extends React.Component {
   // Minimum height of the textarea
   minHeight = 0;
+
+  id = this.props.id || guid();
 
   /**
    * A lifecycle method that is called after initial render.
@@ -115,6 +118,7 @@ class Textarea extends React.Component {
         <FormField
           label={ label }
           disabled={ disabled }
+          id={ this.id }
           { ...props }
           useValidationIcon={ false }
         >
@@ -133,6 +137,7 @@ class Textarea extends React.Component {
               placeholder={ disabled ? '' : placeholder }
               rows={ rows }
               cols={ cols }
+              id={ this.id }
               { ...props }
             />
             { children }
@@ -146,6 +151,8 @@ class Textarea extends React.Component {
 }
 
 Textarea.propTypes = {
+  /** id of the input */
+  id: PropTypes.string,
   /** Character limit of the textarea */
   characterLimit: PropTypes.string,
   /** Type of the icon that will be rendered next to the input */

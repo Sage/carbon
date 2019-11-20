@@ -1,5 +1,5 @@
-Feature: Select component
-  I want to change Select component properties
+Feature: Experimental Select component
+  I want to change Experimental Select component properties
 
   Background: Open Experimental Select component page
     Given I open "Experimental Select" component page
@@ -76,11 +76,10 @@ Feature: Select component
       | ÄÖÜßäöüß                |
       | <>                      |
 
-  @ignore
-  # ignored because this functionality works only for modern theme
+  @positive
   Scenario Outline: Change Select size to <size>
     When I select size to "<size>"
-    Then Select size on preview is set to "<size>"
+    Then Select size on preview for default component is set to "<size>"
     Examples:
       | size   |
       | small  |
