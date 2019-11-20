@@ -8,8 +8,11 @@ import Textbox from '../textbox';
 import StyledDateInput from './date.style';
 import { THEMES } from '../../../style/themes';
 import DateHelper from '../../../utils/helpers/date/date';
+import { isEdge } from '../../../utils/helpers/browser-type-check';
 
 moment.suppressDeprecationWarnings = true;
+jest.useFakeTimers();
+jest.mock('../../../utils/helpers/browser-type-check');
 
 describe('StyledDateInput', () => {
   it('renders correctly for default theme', () => {
@@ -115,7 +118,27 @@ describe('Date', () => {
       it('then onBlur prop should have been called', () => {
         simulateBlurOnInput(wrapper);
         expect(wrapper.find(DatePicker).exists()).toBe(false);
+        jest.runAllTimers();
         expect(onBlurFn).toHaveBeenCalled();
+      });
+    });
+
+    describe('and browser is Edge', () => {
+      it('should blur when inputFocusedViaPicker flag is falsy', () => {
+        wrapper.find(BaseDateInput).instance().shouldAllowBlur = () => true;
+        wrapper.find(BaseDateInput).instance().inputFocusedViaPicker = true;
+        wrapper.find(BaseDateInput).instance().handleBlur();
+        simulateBlurOnInput(wrapper);
+        jest.runAllTimers();
+        expect(onBlurFn).toHaveBeenCalled();
+      });
+    });
+
+    describe('shouldAllowBlur', () => {
+      it('returns true when the browser isEdge and inputFocusedViaPicker is falsy', () => {
+        isEdge.mockImplementation(() => true);
+        wrapper.find(BaseDateInput).instance().inputFocusedViaPicker = false;
+        expect(wrapper.find(BaseDateInput).instance().shouldAllowBlur()).toEqual(true);
       });
     });
   });
@@ -259,7 +282,8 @@ describe('Date', () => {
       onChangeFn = jest.fn();
       wrapper = render({
         onChange: onChangeFn,
-        name: componentName
+        name: componentName,
+        value: '2019-04-11'
       });
     });
 
@@ -288,6 +312,7 @@ describe('Date', () => {
       it("then the value of it's input should be changed to a locally formatted date", () => {
         simulateChangeOnInput(wrapper, validDate);
         simulateBlurOnInput(wrapper);
+        jest.runAllTimers();
         wrapper.update();
         expect(wrapper.find('input').props().value).toBe(visibleDate);
       });
@@ -324,18 +349,19 @@ describe('Date', () => {
         const initialDate = '1 apr 2019';
         const formattedDate = '01/04/2019';
         const emptyDate = '';
-        
+
         wrapper = render({
-        onChange: onChangeFn,
-        name: componentName,
-        value: initialDate
+          onChange: onChangeFn,
+          name: componentName,
+          value: initialDate
         });
 
         simulateChangeOnInput(wrapper, emptyDate);
         simulateBlurOnInput(wrapper);
+        jest.runAllTimers();
         wrapper.update();
         expect(wrapper.find('input').props().value).toBe(formattedDate);
-      })
+      });
     });
   });
 
