@@ -41,7 +41,7 @@ function makeStory(name, themeSelector) {
           startMessage={ startMessage }
           endMessage={ endMessage }
           labelsInline={ labelsInline }
-          onBlur={ (ev) => action('blur')(ev) }
+          onBlur={ ev => action('blur')(ev) }
         />
       </State>
     );
