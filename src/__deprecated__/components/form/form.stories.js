@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { boolean, text, select } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 import { classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import PresenceValidation from '../../../utils/validations/presence';
@@ -58,6 +59,7 @@ storiesOf('__deprecated__/Form', module)
         leftAlignedActions={ leftAlignedActions }
         rightAlignedActions={ rightAlignedActions }
         showSummary={ showSummary }
+        onSubmit={ ev => action('submit')(ev) }
       >
         <Textbox
           label='Full Name'
