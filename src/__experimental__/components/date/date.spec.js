@@ -124,21 +124,26 @@ describe('Date', () => {
     });
 
     describe('and browser is Edge', () => {
-      it('should blur when inputFocusedViaPicker flag is falsy', () => {
-        wrapper.find(BaseDateInput).instance().shouldAllowBlur = () => true;
-        wrapper.find(BaseDateInput).instance().inputFocusedViaPicker = true;
-        wrapper.find(BaseDateInput).instance().handleBlur();
+      it('should blur when inputFocusedViaPicker flag is not set or falsy', () => {
         simulateBlurOnInput(wrapper);
         jest.runAllTimers();
         expect(onBlurFn).toHaveBeenCalled();
       });
-    });
 
-    describe('shouldAllowBlur', () => {
-      it('returns true when the browser isEdge and inputFocusedViaPicker is falsy', () => {
+      it('should not blur when inputFocusedViaPicker flag is truthy', () => {
+        wrapper.find(BaseDateInput).instance().inputFocusedViaPicker = true;
+        simulateFocusOnInput(wrapper);
+        simulateBlurOnInput(wrapper);
+        jest.runAllTimers();
+        expect(onBlurFn).not.toHaveBeenCalled();
+      });
+
+      it('should not blur when "allowBlur" returns true', () => {
         isEdge.mockImplementation(() => true);
-        wrapper.find(BaseDateInput).instance().inputFocusedViaPicker = false;
-        expect(wrapper.find(BaseDateInput).instance().shouldAllowBlur()).toEqual(true);
+        wrapper.find(BaseDateInput).instance().inputFocusedViaPicker = true;
+        simulateBlurOnInput(wrapper);
+        jest.runAllTimers();
+        expect(onBlurFn).toHaveBeenCalled();
       });
     });
   });
