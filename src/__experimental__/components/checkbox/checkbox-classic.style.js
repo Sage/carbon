@@ -43,7 +43,7 @@ export default ({
   }
 
   ${LabelStyle} {
-    padding-left: 6px;
+    padding-left: ${reverse ? 0 : 6}px;
   }
 
   ${fieldHelpInline && `${FieldHelpStyle},`}

@@ -58,13 +58,14 @@ const CheckboxStyle = styled.div`
 
     ${StyledLabel} {
       padding: 0 6px;
+      ${reverse && 'padding-left: 0'}
       width: auto;
     }
 
     ${StyledFieldHelp} {
       margin-left: 16px;
       margin-top: 0;
-      padding-left: 6px;
+      padding-left: ${reverse ? 0 : 6}px;
     }
 
     ${StyledValidationIcon} {
@@ -172,7 +173,7 @@ const StyledCheckboxGroup = styled.div`
   ${StyledIcon}::before {
     font-size: 16px;
   }
-  
+
   & ${CheckboxStyle} {
     padding-top: 12px;
 
