@@ -51,7 +51,6 @@ class BaseDateInput extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.isControlled && !this.inputHasFocus && this.hasValueChanged(prevProps)) {
-      this.updateVisibleValue(this.props.value);
       this.updateSelectedDate(this.props.value);
     }
   }
@@ -173,7 +172,7 @@ class BaseDateInput extends React.Component {
     const stringDateIso = DateHelper.formatDateString(selectedDate);
     this.isBlurBlocked = true;
     this.isOpening = false;
-    this.updateVisibleValue(stringDateIso, true);
+    this.updateVisibleValue(stringDateIso);
   };
 
   updateVisibleValue = (date, pickerUsed) => {
@@ -185,12 +184,10 @@ class BaseDateInput extends React.Component {
     },
     () => {
       this.updateValidEventValues(visibleValue);
-      if (pickerUsed) {
-        const event = { target: this.input };
-        event.target.value = visibleValue;
-        this.emitOnChangeCallback(event, date);
-        this.focusInput();
-      }
+      const event = { target: this.input };
+      event.target.value = visibleValue;
+      this.emitOnChangeCallback(event, date);
+      this.focusInput();
     });
   };
 
