@@ -20,104 +20,6 @@ import {
 } from './pod.style.js';
 
 class Pod extends React.Component {
-  static propTypes = {
-    /**
-     * Enables/disables the border around the pod.
-     */
-    border: PropTypes.bool,
-
-    /**
-     * Children elements
-     */
-    children: PropTypes.node,
-
-    /**
-     * Custom className
-     */
-    className: PropTypes.string,
-
-    /**
-     * Determines the padding around the pod.
-     * Values: 'none', 'small', 'medium' or 'large'.
-     */
-    padding: PropTypes.string,
-
-    /**
-     * Applies a theme to the Pod.
-     * Value: primary, secondary, tile
-     */
-    as: PropTypes.string,
-
-    /**
-     * The collapsed state of the pod
-     *
-     * undefined - Pod is not collapsible
-     * true - Pod is closed
-     * false - Pod is open
-     */
-    collapsed: PropTypes.bool,
-
-    /**
-     * Title for the pod h4 element
-     * always shown
-     */
-    title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-
-    /**
-     * Optional subtitle for the pod
-     */
-    subtitle: PropTypes.string,
-
-    /**
-     * Aligns the title to left, right or center
-     */
-    alignTitle: PropTypes.string,
-
-    /**
-     * Description for the pod
-     * Not shown if collapsed
-     */
-    description: PropTypes.string,
-
-    /**
-     * A component to render as a Pod footer.
-     */
-    footer: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-
-    /**
-     * Supplies an edit action to the pod.
-     */
-    onEdit: PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.object]),
-
-    /**
-     * Determines if the editable pod content should be full width.
-     */
-    editContentFullWidth: PropTypes.bool,
-
-    /**
-     * Determines if the edit button should be hidden until the user
-     * hovers over the content.
-     */
-    displayEditButtonOnHover: PropTypes.bool,
-
-    /**
-     * Determines if clicking the pod content calls the onEdit action
-     */
-    triggerEditOnContent: PropTypes.bool,
-
-    /**
-     * Resets edit button styles to an older version
-     */
-    internalEditButton: PropTypes.bool
-  };
-
-  static defaultProps = {
-    border: true,
-    as: 'primary',
-    padding: 'medium',
-    alignTitle: 'left'
-  };
-
   state = {
     isCollapsed: this.props.collapsed,
     isHovered: false,
@@ -327,5 +229,103 @@ class Pod extends React.Component {
     );
   }
 }
+
+Pod.propTypes = {
+  /**
+   * Enables/disables the border around the pod.
+   */
+  border: PropTypes.bool,
+
+  /**
+   * Children elements
+   */
+  children: PropTypes.node,
+
+  /**
+   * Custom className
+   */
+  className: PropTypes.string,
+
+  /**
+   * Determines the padding around the pod.
+   * Values: 'none', 'small', 'medium' or 'large'.
+   */
+  padding: PropTypes.string,
+
+  /**
+   * Applies a theme to the Pod.
+   * Value: primary, secondary, tile
+   */
+  as: PropTypes.string,
+
+  /**
+   * The collapsed state of the pod
+   *
+   * undefined - Pod is not collapsible
+   * true - Pod is closed
+   * false - Pod is open
+   */
+  collapsed: PropTypes.bool,
+
+  /**
+   * Title for the pod h4 element
+   * always shown
+   */
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+
+  /**
+   * Optional subtitle for the pod
+   */
+  subtitle: PropTypes.string,
+
+  /**
+   * Aligns the title to left, right or center
+   */
+  alignTitle: PropTypes.string,
+
+  /**
+   * Description for the pod
+   * Not shown if collapsed
+   */
+  description: PropTypes.string,
+
+  /**
+   * A component to render as a Pod footer.
+   */
+  footer: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+
+  /**
+   * Supplies an edit action to the pod.
+   */
+  onEdit: PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.object]),
+
+  /**
+   * Determines if the editable pod content should be full width.
+   */
+  editContentFullWidth: PropTypes.bool,
+
+  /**
+   * Determines if the edit button should be hidden until the user
+   * hovers over the content.
+   */
+  displayEditButtonOnHover: PropTypes.bool,
+
+  /**
+   * Determines if clicking the pod content calls the onEdit action
+   */
+  triggerEditOnContent: PropTypes.bool,
+
+  /**
+   * Resets edit button styles to an older version
+   */
+  internalEditButton: PropTypes.bool
+};
+
+Pod.defaultProps = {
+  border: true,
+  as: 'primary',
+  padding: 'medium',
+  alignTitle: 'left'
+};
 
 export default Pod;
