@@ -41,16 +41,24 @@ const SimpleColorPicker = (props) => {
   const handleOnMouseDown = (ev) => {
     setIsBlurBlocked(true);
 
+    // If the mousedown event occurred on the currently-focused <SimpleColor>
     if (focusedElement !== null && focusedElement === ev.target) {
       ev.preventDefault();
+
+    // If a different <SimpleColor> is currently focused
     } else if (focusedElement !== null) {
       ev.preventDefault();
       setIsBlurBlocked(false);
-      setFocusedElement(ev.target);
+      const newFocusedElement = ev.target;
 
       if (myRef.current.contains(document.activeElement)) {
+        ev.target = focusedElement;
         onBlur(ev);
       }
+
+      setFocusedElement(newFocusedElement);
+
+    // If no <SimpleColor> is currently focused
     } else if (focusedElement === null) {
       setIsBlurBlocked(true);
       setFocusedElement(ev.target);
