@@ -3,7 +3,7 @@ Feature: Action Popover component
 
   Background: Open Action Popover component page
     Given I open "Action Popover" component page
-      And I open Action Popover element page with iFrame
+      And I click the menu button element with iFrame
       And clear all actions in Actions Tab
 
   @positive

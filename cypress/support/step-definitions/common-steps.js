@@ -397,3 +397,43 @@ Then('{string} tab in {string} tab list is visible', (knobsName, position) => {
     default: throw new Error('There are only two tab list elements on the page');
   }
 });
+
+When('I press ESC in iFrame', () => {
+  cy.focused().trigger('keydown', { keyCode: 16, which: 16, release: false });
+  cy.focused().trigger('keydown', { keyCode: 27, which: 27 });
+});
+
+When('I press Tab in iFrame', () => {
+  cy.focused().trigger('keydown', { keyCode: 9, which: 9 });
+});
+
+When('I press Home in iFrame', () => {
+  cy.focused().trigger('keydown', { keyCode: 36, which: 36 });
+});
+
+When('I press uparrow in iFrame', () => {
+  cy.focused().trigger('keydown', { keyCode: 38, which: 38 });
+});
+
+When('I press End in iFrame', () => {
+  cy.focused().trigger('keydown', { keyCode: 35, which: 35 });
+});
+
+When('I press ShiftTab in iFrame', () => {
+  cy.focused().trigger('keydown', { keyCode: 16, which: 16, release: false });
+  cy.focused().trigger('keydown', { keyCode: 9, which: 9 });
+});
+
+Then('focused element inner content is set to {string}', (text) => {
+  cy.focused().should('contain', text);
+});
+
+When('I press keyboard {string} key times {int}', (key, times) => {
+  for (let i = 0; i < times; i++) {
+    cy.focused().type(`${key}`);
+  }
+});
+
+When('I click on outside dialog in iFrame', () => {
+  cy.get('#story-root').click({ force: true });
+});
