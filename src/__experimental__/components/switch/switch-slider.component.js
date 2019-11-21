@@ -10,11 +10,24 @@ import { isClassic } from '../../../utils/helpers/style-helper';
 
 const SwitchSlider = (props) => {
   const {
-    theme, checked, loading
+    theme, checked, disabled, loading, size
   } = props;
   const on = isClassic(theme) ? <Icon type='tick' bgTheme='none' /> : 'ON';
   const off = isClassic(theme) ? <Icon type='cross' bgTheme='none' /> : 'OFF';
   const panelContent = checked ? on : off;
+
+  const switchSliderStyleProps = {
+    isLoading: loading,
+    checked,
+    disabled,
+    size
+  };
+
+  const sliderPanelStyleProps = {
+    isLoading: loading,
+    size,
+    type: checked ? 'on' : 'off'
+  };
 
   const loaderProps = {
     isInsideButton: true,
@@ -23,13 +36,13 @@ const SwitchSlider = (props) => {
   };
 
   const sliderContent = (
-    <SwitchSliderPanel type={ checked ? 'on' : 'off' } { ...props }>
+    <SwitchSliderPanel { ...sliderPanelStyleProps }>
       {loading ? <Loader { ...loaderProps } /> : panelContent}
     </SwitchSliderPanel>
   );
 
   return (
-    <StyledSwitchSlider { ...props }>
+    <StyledSwitchSlider { ...switchSliderStyleProps }>
       {sliderContent}
     </StyledSwitchSlider>
   );
@@ -39,6 +52,7 @@ SwitchSlider.propTypes = {
   checked: PropTypes.bool,
   disabled: PropTypes.bool,
   loading: PropTypes.bool,
+  size: PropTypes.string,
   theme: PropTypes.object
 };
 

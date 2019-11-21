@@ -12,13 +12,10 @@ const Switch = ({
   onChange,
   value,
   checked,
-  hasError,
-  hasWarning,
-  hasInfo,
   defaultChecked,
   disabled,
   loading,
-  theme,
+  reverse,
   ...props
 }) => {
   const isControlled = checked !== undefined;
@@ -34,14 +31,10 @@ const Switch = ({
   );
 
   const switchProps = {
+    ...props,
     disabled: disabled || loading,
-    hasError,
-    hasWarning,
-    hasInfo,
     checked: isControlled ? checked : checkedInternal,
-    loading,
-    theme,
-    ...props
+    reverse: !reverse // switched to preserve backward compatibility
   };
 
   const inputProps = {
@@ -51,9 +44,7 @@ const Switch = ({
     inputLabel: label,
     inputValue: value,
     inputType: 'checkbox',
-    hasError,
-    hasWarning,
-    hasInfo
+    reverse: !reverse // switched to preserve backward compatibility
   };
 
   return (
@@ -62,7 +53,7 @@ const Switch = ({
       { ...switchProps }
     >
       <CheckableInput { ...inputProps }>
-        <SwitchSlider { ...switchProps } />
+        <SwitchSlider { ...switchProps } loading={ loading } />
       </CheckableInput>
     </SwitchStyle>
   );
@@ -85,14 +76,20 @@ Switch.propTypes = {
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** The content of the label for the input */
   label: PropTypes.string,
-  /** Help text */
-  labelHelp: PropTypes.string,
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
   labelAlign: PropTypes.string,
+  /** Help text */
+  labelHelp: PropTypes.string,
   /** Displays label inline with the Switch */
   labelInline: PropTypes.bool,
   /** Sets percentage-based label width */
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  /** Prop to indicate that an error has occurred */
+  hasError: PropTypes.bool,
+  /** Prop to indicate that a warning has occurred */
+  hasWarning: PropTypes.bool,
+  /** Prop to indicate additional information  */
+  hasInfo: PropTypes.bool,
   /** Override tab index on the validation and help icon */
   helpTabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Triggers loading animation */
@@ -106,25 +103,18 @@ Switch.propTypes = {
    * No effect when using Classic theme.
    */
   size: PropTypes.string,
-  /** Theme to apply */
-  theme: PropTypes.object,
   /** the value of the checkbox, passed on form submit */
-  value: PropTypes.string.isRequired,
-  /** Prop to indicate that an error has occurred */
-  hasError: PropTypes.bool,
-  /** Prop to indicate that a warning has occurred */
-  hasWarning: PropTypes.bool,
-  /** Prop to indicate additional information  */
-  hasInfo: PropTypes.bool
+  value: PropTypes.string.isRequired
 };
 
 Switch.defaultProps = {
   labelInline: false,
-  reverse: false,
+  reverse: true,
   hasError: false,
   hasWarning: false,
   hasInfo: false,
   helpTabIndex: 0
 };
 
+export { Switch as BaseSwitch };
 export default withValidation(Switch);
