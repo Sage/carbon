@@ -2,7 +2,6 @@ import React from 'react';
 import { mount } from 'enzyme';
 import 'jest-styled-components';
 import TestRenderer from 'react-test-renderer';
-import TestUtils from 'react-dom/test-utils';
 import CheckboxGroup from './checkbox-group.component';
 import { Checkbox } from '.';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
