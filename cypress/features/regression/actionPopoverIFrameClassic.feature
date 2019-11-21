@@ -1,8 +1,8 @@
-Feature: Action Popover component
-  I want to change Alert component properties
+Feature: Action Popover component classic
+  I want to change Alert component properties for classic page
 
-  Background: Open Action Popover component page
-    Given I open "Action Popover" component iframe
+  Background: Open Action Popover component classic page
+    Given I open "Action Popover" component for classic story in iframe
 
   @positive
   Scenario: Open Action Popover element
@@ -13,7 +13,7 @@ Feature: Action Popover component
   Scenario Outline: Open Action Popover element and check <innerText> as inner context
     When I open Action Popover element
       And I press keyboard "downarrow" key times <times>
-    Then Action Popover element "<index>" inner context is set to "<innerText>"
+    Then Action Popover element "<index>" inner context is set to "<innerText>" for classic story
     Examples:
       | times | index | innerText     |
       | 0     | 1     | Email Invoice |
@@ -24,7 +24,7 @@ Feature: Action Popover component
   @positive
   Scenario Outline: Open Action Popover using different keyboard key <key>
     When I press keyboard "<key>" key times 1 on actionPopover open icon
-    Then Action Popover element "<index>" inner context is set to "<innerText>"
+    Then Action Popover element "<index>" inner context is set to "<innerText>" for classic story
     Examples:
       | key       | index | innerText     |
       | enter     | 1     | Email Invoice |
@@ -35,19 +35,19 @@ Feature: Action Popover component
   Scenario: Open Action Popover and close it using Home key
     When I open Action Popover element
       And I hit Home on Action Popover element in iFrame
-    Then  Action Popover element "1" inner context is set to "Email Invoice"
+    Then  Action Popover element "1" inner context is set to "Email Invoice" for classic story
 
   @positive
-  Scenario: Open Action Popover and close it using Uparrow key
+  Scenario: Open Action Popover and close it using uparrow key
     When I open Action Popover element
       And I hit uparrow on Action Popover element in iFrame
-    Then  Action Popover element "6" inner context is set to "Delete"
+    Then  Action Popover element "6" inner context is set to "Delete" for classic story
 
   @positive
   Scenario: Open Action Popover and close it using End key
     When I open Action Popover element
       And I hit End on Action Popover element in iFrame
-    Then  Action Popover element "6" inner context is set to "Delete"
+    Then  Action Popover element "6" inner context is set to "Delete" for classic story
 
   @positive
   Scenario: Open Action Popover and close it using Tab key
@@ -84,7 +84,7 @@ Feature: Action Popover component
     Given I open Action Popover element
     When I press keyboard "<key>" key times <times>
     Then Action Popover element is visible
-      And Action Popover element "<index>" inner context is set to "<innerText>"
+      And Action Popover element "<index>" inner context is set to "<innerText>" for classic story
     Examples:
       | key | index | innerText     | times |
       | d   | 3     | Download PDF  | 1     |
