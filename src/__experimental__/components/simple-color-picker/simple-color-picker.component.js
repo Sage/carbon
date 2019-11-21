@@ -43,7 +43,7 @@ const SimpleColorPicker = (props) => {
 
     if (focusedElement !== null && focusedElement === ev.target) {
       ev.preventDefault();
-    } else if (focusedElement !== null && myRef.current && myRef.current.contains(ev.target)) {
+    } else if (focusedElement !== null && myRef.current) {
       ev.preventDefault();
       setIsBlurBlocked(false);
       setFocusedElement(ev.target);
@@ -51,7 +51,7 @@ const SimpleColorPicker = (props) => {
       if (myRef.current.contains(document.activeElement)) {
         onBlur(ev);
       }
-    } else if (focusedElement === null && myRef.current && myRef.current.contains(ev.target)) {
+    } else if (focusedElement === null && myRef.current) {
       setIsBlurBlocked(true);
       setFocusedElement(ev.target);
     }
