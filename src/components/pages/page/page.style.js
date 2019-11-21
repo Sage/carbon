@@ -24,7 +24,7 @@ const StyledPage = styled.article`
         ${StyledIcon} {
           margin-top: -9px;
           margin-right: 0px;
-          top: 11px;
+          top: 5px;
           color: #4d7080;
 
           &:hover {
