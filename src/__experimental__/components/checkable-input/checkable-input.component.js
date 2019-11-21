@@ -15,10 +15,10 @@ class CheckableInput extends React.Component {
   render() {
     const {
       children,
-      onChange,
       name,
       ...rest
     } = this.props;
+
     const id = this.inputId;
     const labelId = `${id}-label`;
     const helpId = `${id}-help`;

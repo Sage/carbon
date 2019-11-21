@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import CheckboxStyle from './checkbox.style';
@@ -7,8 +7,19 @@ import CheckboxSvg from './checkbox-svg.component';
 import withValidation from '../../../components/validations/with-validation.hoc';
 
 const Checkbox = ({
-  id, name, label, onChange, value, ...props
+  id, name, label, value, onChange, defaultChecked, checked, ...props
 }) => {
+  const checkedValue = checked === undefined ? false : checked;
+  const checkedStatus = (checked === undefined && defaultChecked !== undefined) ? defaultChecked : checkedValue;
+
+  const [isChecked, setIsChecked] = useState(checkedStatus);
+
+  const handleOnChange = (ev) => {
+    ev.stopPropagation();
+    setIsChecked(!isChecked);
+    onChange(ev);
+  };
+
   const inputProps = {
     ...props,
     inputId: id,
@@ -16,17 +27,19 @@ const Checkbox = ({
     inputLabel: label,
     inputValue: value,
     inputType: 'checkbox',
-    reverse: !props.reverse
+    reverse: !props.reverse,
+    onChange: handleOnChange,
+    checked: isChecked
   };
 
   return (
     <CheckboxStyle
       { ...tagComponent('checkbox', props) }
+      checked={ isChecked }
       { ...props }
     >
       <CheckableInput
         { ...inputProps }
-        onChange={ onChange }
       >
         <CheckboxSvg />
       </CheckableInput>
@@ -38,6 +51,8 @@ Checkbox.propTypes = {
   name: PropTypes.string,
   /** Set the value of the checkbox */
   checked: PropTypes.bool,
+  /** Set the default value of the checkbox */
+  defaultChecked: PropTypes.bool,
   /** Toggles disabling of input */
   disabled: PropTypes.bool,
   /** Displays fieldHelp inline with the checkbox */

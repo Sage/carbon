@@ -19,24 +19,29 @@ const UncontrolledCheckbox = () => {
                 <li>each checkbox button has props value, name, id which should be reflected in both events</li>
               </ul>
               <CheckboxGroup
-                name='uncontrolled_checkbox_group' label='Uncontrolled Example'
-                onChange={ onChange }
-                onBlur={ onBlur }
+                id='uncontrolled_checkbox_group'
+                label='Uncontrolled Example'
               >
                 <Checkbox
-                  id='uncontrolled_checkbox_group_one'
+                  name='uncontrolled_checkbox_group_one'
                   value='value one'
                   label='label one'
+                  onChange={ onChange }
+                  onBlur={ onBlur }
                 />
                 <Checkbox
-                  id='uncontrolled_checkbox_group_two'
+                  name='uncontrolled_checkbox_group_two'
                   value='value two'
                   label='label two'
+                  onChange={ onChange }
+                  onBlur={ onBlur }
                 />
                 <Checkbox
-                  id='uncontrolled_checkbox_group_three'
+                  name='uncontrolled_checkbox_group_three'
                   value='value three'
                   label='label three'
+                  onChange={ onChange }
+                  onBlur={ onBlur }
                 />
               </CheckboxGroup>
             </div>
@@ -46,25 +51,30 @@ const UncontrolledCheckbox = () => {
                 <li>value two is checked by default</li>
               </ul>
               <CheckboxGroup
-                name='uncontrolled_checkbox_group_default' label='Uncontrolled Example default'
-                onChange={ onChange }
-                onBlur={ onBlur }
+                id='uncontrolled_checkbox_group_default'
+                label='Uncontrolled Example default'
+                defaultValue={ ['value one'] }
               >
                 <Checkbox
-                  id='uncontrolled_checkbox_group_default_one'
+                  name='uncontrolled_checkbox_group_default_one'
                   value='value one'
                   label='label one'
+                  onChange={ onChange }
+                  onBlur={ onBlur }
                 />
                 <Checkbox
-                  id='uncontrolled_checkbox_group_default_two'
+                  name='uncontrolled_checkbox_group_default_two'
                   value='value two'
                   label='label two'
-                  defaultChecked
+                  onChange={ onChange }
+                  onBlur={ onBlur }
                 />
                 <Checkbox
-                  id='uncontrolled_checkbox_group_default_three'
+                  name='uncontrolled_checkbox_group_default_three'
                   value='value three'
                   label='label three'
+                  onChange={ onChange }
+                  onBlur={ onBlur }
                 />
               </CheckboxGroup>
             </div>

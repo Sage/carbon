@@ -172,7 +172,7 @@ const StyledCheckboxGroup = styled.div`
   ${StyledIcon}::before {
     font-size: 16px;
   }
-  
+
   & ${CheckboxStyle} {
     padding-top: 12px;
 

@@ -32,24 +32,24 @@ exports[`Checkbox base theme renders as expected 1`] = `
   flex-wrap: wrap;
 }
 
-.c1 .c26 {
+.c1 .c27 {
   text-align: left;
   width: auto;
   white-space: nowrap;
   margin-top: -2px;
 }
 
-.c1 .c26 .c24,
-.c1 .c26 .c25 {
+.c1 .c27 .c25,
+.c1 .c27 .c26 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c1 .c26 .c24:hover,
-.c1 .c26 .c25:hover,
-.c1 .c26 .c24:focus,
-.c1 .c26 .c25:focus {
+.c1 .c27 .c25:hover,
+.c1 .c27 .c26:hover,
+.c1 .c27 .c25:focus,
+.c1 .c27 .c26:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -74,9 +74,9 @@ exports[`Checkbox base theme renders as expected 1`] = `
 }
 
 .c10 .c6:hover,
-.c10 .c26:hover,
+.c10 .c27:hover,
 .c10 .c6:focus,
-.c10 .c26:focus {
+.c10 .c27:focus {
   outline: none;
   cursor: not-allowed;
 }
@@ -106,9 +106,9 @@ exports[`Checkbox base theme renders as expected 1`] = `
 }
 
 .c12 .c6:hover,
-.c12 .c26:hover,
+.c12 .c27:hover,
 .c12 .c6:focus,
-.c12 .c26:focus {
+.c12 .c27:focus {
   outline: none;
   cursor: not-allowed;
 }
@@ -239,6 +239,59 @@ exports[`Checkbox base theme renders as expected 1`] = `
   cursor: not-allowed;
 }
 
+.c0 {
+  padding-top: 8px;
+}
+
+.c0 .c4 {
+  padding-top: 1px;
+}
+
+.c0 .c8 {
+  height: 16px;
+}
+
+.c0 svg {
+  background-color: #FFFFFF;
+  border: 1px solid #668491;
+}
+
+.c0 .c6,
+.c0 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c0 .c4,
+.c0 .c6,
+.c0 .c8,
+.c0 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c0 .c6:not([disabled]):focus + .c8,
+.c0 .c6:not([disabled]):hover + .c8 {
+  box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c0 .c27 {
+  padding: 0 6px;
+  width: auto;
+}
+
+.c0 .c24 {
+  margin-left: 16px;
+  margin-top: 0;
+  padding-left: 6px;
+}
+
+.c0 .c26 {
+  position: relative;
+  display: inline-block;
+}
+
 .c16 .c4 {
   padding-top: 1px;
 }
@@ -267,12 +320,6 @@ exports[`Checkbox base theme renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c16 .c8:hover,
-.c16 .c8:focus {
-  outline: none;
-  cursor: not-allowed;
-}
-
 .c17 .c4 {
   padding-top: 1px;
 }
@@ -299,6 +346,12 @@ exports[`Checkbox base theme renders as expected 1`] = `
 .c17 .c6:not([disabled]):focus + .c8,
 .c17 .c6:not([disabled]):hover + .c8 {
   box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c17 .c8:hover,
+.c17 .c8:focus {
+  outline: none;
+  cursor: not-allowed;
 }
 
 .c18 .c4 {
@@ -357,10 +410,6 @@ exports[`Checkbox base theme renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c19 .c4 {
-  margin-right: 8px;
-}
-
 .c20 .c4 {
   padding-top: 1px;
 }
@@ -390,31 +439,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
 }
 
 .c20 .c4 {
-  padding: 1px 0 0 0;
-}
-
-.c20 .c6,
-.c20 svg {
-  padding: 1px;
-}
-
-.c20 .c4,
-.c20 .c6,
-.c20 .c8,
-.c20 svg {
-  height: 15px;
-  width: 15px;
-}
-
-.c20 .c6:not([disabled]):focus + .c8,
-.c20 .c6:not([disabled]):hover + .c8 {
-  box-shadow: none;
-}
-
-.c20 .c6:not([disabled]):focus + .c8 > svg,
-.c20 .c6:not([disabled]):hover + .c8 > svg {
-  border: 1px solid #1963f6;
-  outline: none;
+  margin-right: 8px;
 }
 
 .c21 .c4 {
@@ -443,12 +468,6 @@ exports[`Checkbox base theme renders as expected 1`] = `
 .c21 .c6:not([disabled]):focus + .c8,
 .c21 .c6:not([disabled]):hover + .c8 {
   box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c21 .c8:hover,
-.c21 .c8:focus {
-  outline: none;
-  cursor: not-allowed;
 }
 
 .c21 .c4 {
@@ -541,67 +560,79 @@ exports[`Checkbox base theme renders as expected 1`] = `
   outline: none;
 }
 
-.c0 {
-  padding-top: 8px;
-}
-
-.c0 .c4 {
+.c23 .c4 {
   padding-top: 1px;
 }
 
-.c0 .c8 {
+.c23 .c8 {
   height: 16px;
 }
 
-.c0 svg {
-  background-color: #FFFFFF;
-  border: 1px solid #668491;
-}
-
-.c0 .c6,
-.c0 svg {
+.c23 .c6,
+.c23 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c0 .c4,
-.c0 .c6,
-.c0 .c8,
-.c0 svg {
+.c23 .c4,
+.c23 .c6,
+.c23 .c8,
+.c23 svg {
   box-sizing: border-box;
   width: 16px;
 }
 
-.c0 .c6:not([disabled]):focus + .c8,
-.c0 .c6:not([disabled]):hover + .c8 {
+.c23 .c6:not([disabled]):focus + .c8,
+.c23 .c6:not([disabled]):hover + .c8 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c0 .c26 {
-  padding: 0 6px;
-  width: auto;
+.c23 .c8:hover,
+.c23 .c8:focus {
+  outline: none;
+  cursor: not-allowed;
 }
 
-.c0 .c23 {
-  margin-left: 16px;
-  margin-top: 0;
-  padding-left: 6px;
+.c23 .c4 {
+  padding: 1px 0 0 0;
 }
 
-.c0 .c25 {
-  position: relative;
-  display: inline-block;
+.c23 .c6,
+.c23 svg {
+  padding: 1px;
+}
+
+.c23 .c4,
+.c23 .c6,
+.c23 .c8,
+.c23 svg {
+  height: 15px;
+  width: 15px;
+}
+
+.c23 .c6:not([disabled]):focus + .c8,
+.c23 .c6:not([disabled]):hover + .c8 {
+  box-shadow: none;
+}
+
+.c23 .c6:not([disabled]):focus + .c8 > svg,
+.c23 .c6:not([disabled]):hover + .c8 > svg {
+  border: 1px solid #1963f6;
+  outline: none;
 }
 
 <div
+  checked={false}
   className="c0"
   data-component="checkbox"
   onBlur={[Function]}
 >
   <div
+    checked={false}
     className="c1"
     onBlur={[Function]}
+    onChange={[Function]}
   >
     <div
       className="c2 c3"
@@ -610,8 +641,10 @@ exports[`Checkbox base theme renders as expected 1`] = `
         className="c4 c5"
       >
         <input
+          aria-checked={false}
           aria-describedby="my-checkbox-help"
           aria-labelledby="my-checkbox-label"
+          checked={false}
           className="c6 c7"
           id="my-checkbox"
           name="my-checkbox"

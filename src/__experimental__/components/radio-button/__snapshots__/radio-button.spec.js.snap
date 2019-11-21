@@ -898,6 +898,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
       checked={false}
       className="c3"
       onBlur={[Function]}
+      onChange={[Function]}
     >
       <div
         className="c4 c5"

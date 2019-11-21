@@ -112,6 +112,27 @@ describe('Checkbox', () => {
       });
     });
 
+    describe('when defaultChecked=true', () => {
+      it('renders the correct check colour', () => {
+        const wrapper = render({ defaultChecked: true }).toJSON();
+
+        assertStyleMatch({
+          fill: baseTheme.checkable.checked
+        }, wrapper, { modifier: 'svg path' });
+      });
+    });
+
+    describe('onChange', () => {
+      const wrapper = render({}, mount);
+      // console.log(wrapper.debug());
+      expect(wrapper.find(Checkbox).first().find('input').first()
+        .prop('checked')).toBe(false);
+      wrapper.find(Checkbox).first().find('input').first()
+        .simulate('change', { target: { checked: true } });
+      expect(wrapper.find(Checkbox).first().find('input').first()
+        .prop('checked')).toBe(true);
+    });
+
     describe('when disabled=true', () => {
       const wrapper = render({ disabled: true }).toJSON();
 

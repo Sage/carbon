@@ -558,6 +558,7 @@ exports[`Switch base theme renders as expected 1`] = `
     checked={false}
     className="c1"
     onBlur={[Function]}
+    onChange={[Function]}
   >
     <div
       className="c2 c3"
