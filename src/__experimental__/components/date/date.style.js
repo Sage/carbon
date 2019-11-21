@@ -13,6 +13,7 @@ const datePickerWidth = {
 };
 
 const StyledDateInput = styled.div`
+  width: 100%;
   display: inline-block;
   ${ValidationIconStyle}{
       margin-left: 0;
