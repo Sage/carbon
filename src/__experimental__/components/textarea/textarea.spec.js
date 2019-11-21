@@ -9,6 +9,10 @@ import baseTheme from '../../../style/themes/base';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
 import Label from '../label';
 import TextareaInput from './textarea-input.component';
+import guid from '../../../utils/helpers/guid';
+
+jest.mock('../../../utils/helpers/guid');
+guid.mockImplementation(() => 'guid-12345');
 
 describe('Textarea', () => {
   let wrapper;
@@ -118,6 +122,14 @@ describe('Textarea', () => {
         });
       });
     });
+  });
+
+  it('has a label that is linked to the TextArea', () => {
+    wrapper = renderTextarea({ label: 'This is a Text Area' });
+
+    const labelHtmlFor = wrapper.find(Label).prop('htmlFor');
+    const textAreaName = wrapper.find(TextareaInput).prop('name');
+    expect(labelHtmlFor).toEqual(textAreaName);
   });
 });
 

@@ -7,7 +7,7 @@ import { action } from '@storybook/addon-actions';
 import { Store, State } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import OptionsHelper from '../../../utils/helpers/options-helper';
-import Switch from '.';
+import Switch, { BaseSwitch } from './switch.component';
 import { info, infoValidations, notes } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
@@ -100,7 +100,7 @@ const validationGroupedKnobs = (type, themeName) => {
       OptionsHelper.alignBinary[0],
       group
     ),
-    reverse: boolean(`${type} reverse`, false, group)
+    reverse: boolean(`${type} reverse`, BaseSwitch.defaultProps.reverse, group)
   };
 };
 
@@ -119,17 +119,14 @@ const validationKnobs = (type, themeName) => {
   };
 };
 
-const switchComponentValidation = themeName => () => {
-  return (
-  <>
-    {validationTypes.map(type => switchWrapper({
-      ...validationKnobs(type, themeName)
-    }))}
-  </>
-  );
-};
+const switchComponentValidation = themeName => () => validationTypes.map(type => switchWrapper({
+  ...validationKnobs(type, themeName)
+}));
 
 storiesOf('Experimental/Switch', module)
+  .addParameters({
+    info: { text: info, propTablesExclude: [State] }
+  })
   .add(...makeStory('default', dlsThemeSelector, switchComponent))
   .add(...makeStory('classic', classicThemeSelector, switchClassic))
   .add(...makeStory('validations', dlsThemeSelector, switchComponentValidation()))
@@ -169,7 +166,7 @@ function commonKnobs() {
       OptionsHelper.alignBinary,
       OptionsHelper.alignBinary[0]
     ),
-    reverse: boolean('reverse', false),
+    reverse: boolean('reverse', BaseSwitch.defaultProps.reverse),
     value: text('value', 'test-value')
   });
 }
