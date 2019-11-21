@@ -1,6 +1,6 @@
 import {
   actionPopoverButton, actionPopover, actionPopoverInnerItem,
-  actionPopoverButtonNoIframe, actionPopoverNoIFrame,
+  actionPopoverButtonNoIframe,
 } from '../../locators/action-popover';
 
 Then('Action Popover element is visible', () => {
@@ -64,6 +64,11 @@ When('I press keyboard {string} key times {int} on actionPopover open icon', (ke
 Then('Action Popover element {word} inner context is set to {string}', (element, text) => {
   cy.focused().should('contain', text);
   cy.focused().should('have.css', 'box-shadow', 'rgb(255, 181, 0) 0px 0px 0px 2px inset');
+});
+
+Then('Action Popover element {word} inner context is set to {string} for classic story', (element, text) => {
+  cy.focused().should('contain', text);
+  cy.focused().should('have.css', 'box-shadow', 'rgb(37, 91, 199) 0px 0px 0px 1px inset');
 });
 
 When('I click {int} actionPopoverInnerItem', (element) => {
