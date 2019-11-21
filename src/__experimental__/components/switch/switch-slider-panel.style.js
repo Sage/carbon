@@ -8,7 +8,7 @@ import ClassicSwitchLoaderSquareStyles from './switch-classic-loader-square.styl
 
 const SwitchSliderPanel = styled.div`
   ${({
-    loading,
+    isLoading,
     size,
     theme
   }) => css`
@@ -28,7 +28,7 @@ const SwitchSliderPanel = styled.div`
 
     ${ClassicSwitchSliderPanelStyles}
 
-    ${loading && css`
+    ${isLoading && css`
       ${StyledLoader} {
         {
           padding: 0 3px 3px 0;
@@ -48,6 +48,8 @@ const SwitchSliderPanel = styled.div`
 `;
 
 SwitchSliderPanel.propTypes = {
+  isLoading: PropTypes.bool,
+  size: PropTypes.string,
   theme: PropTypes.object
 };
 

@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 import { isClassic } from '../../../utils/helpers/style-helper';
 
 export default ({
-  checked, loading, theme
+  checked, isLoading, theme
 }) => isClassic(theme) && css`
   background-color: #003349;
   border-radius: 24px;
@@ -26,7 +26,7 @@ export default ({
       }
   `}
 
-  ${loading && `
+  ${isLoading && `
     opacity: 0.6;
   `}
 `;
