@@ -274,7 +274,6 @@ class BaseDateInput extends React.Component {
         selectedDate={ this.state.selectedDate }
         handleDateSelect={ this.handleDateSelect }
         inputDate={ inputDate }
-        pickerIsMounted={ this.state.isDatePickerOpen }
         { ...dateRangeProps }
       />
     );
