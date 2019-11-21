@@ -59,7 +59,7 @@ const SimpleColorPicker = (props) => {
       setFocusedElement(newFocusedElement);
 
     // If no <SimpleColor> is currently focused
-    } else if (focusedElement === null) {
+    } else {
       setIsBlurBlocked(true);
       setFocusedElement(ev.target);
     }
