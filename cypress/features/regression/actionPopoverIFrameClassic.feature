@@ -11,8 +11,8 @@ Feature: Action Popover component classic
     Then focused element inner content is set to "<innerText>"
       And Action Popover element has blue border on focus
     Examples:
-      | times | index | innerText     |
-      | 0     | 1     | Email Invoice |
-      | 1     | 3     | Download PDF  |
-      | 2     | 4     | Download CSV  |
-      | 3     | 6     | Delete        |
+      | times | innerText     |
+      | 0     | Email Invoice |
+      | 1     | Download PDF  |
+      | 2     | Download CSV  |
+      | 3     | Delete        |
