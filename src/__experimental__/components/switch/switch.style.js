@@ -38,11 +38,7 @@ const StyledSwitch = styled.div`
     ${LabelStyle} {
       padding: 0;
       margin-bottom: 8px;
-      margin-top: 1px;
-
-      label {
-        margin-top: 2px;
-      }
+      margin-top: 2px;
 
       ${StyledValidationIcon} {
         position: relative;

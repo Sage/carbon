@@ -76,10 +76,10 @@ const Label = (props) => {
     <StyledLabel
       data-element='label'
       { ...labelProps }
+      id={ labelId }
+      htmlFor={ htmlFor }
     >
-      {/* eslint jsx-a11y/label-has-for: ["error", { every: ["id"], allowChildren: true } ] */}
-      <label id={ labelId } htmlFor={ htmlFor }>{children}</label>
-      {/* eslint-enable jsx-a11y/label-has-for */}
+      {children}
       {icon()}
     </StyledLabel>
   );
