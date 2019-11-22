@@ -64,6 +64,18 @@ describe('Flash', () => {
     );
   });
 
+  describe('props', () => {
+    it('should pass id prop to the root component', () => {
+      const wrapper = shallow(
+        <Flash
+          open
+          id='flash-id'
+        />
+      );
+      expect(wrapper.find('#flash-id').exists()).toBe(true);
+    });
+  });
+
   describe('constructor', () => {
     const commonProps = {
       message: 'Should set state',
