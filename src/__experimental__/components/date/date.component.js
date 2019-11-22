@@ -176,7 +176,7 @@ class BaseDateInput extends React.Component {
     this.updateVisibleValue(stringDateIso);
   };
 
-  updateVisibleValue = (date, pickerUsed) => {
+  updateVisibleValue = (date) => {
     const visibleValue = formatDateToCurrentLocale(date);
     const newDate = this.getDateObject(date);
 
