@@ -398,28 +398,28 @@ Then('{string} tab in {string} tab list is visible', (knobsName, position) => {
   }
 });
 
-When('I press ESC in iFrame', () => {
+When('I press ESC on focused element', () => {
   cy.focused().trigger('keydown', { keyCode: 16, which: 16, release: false });
   cy.focused().trigger('keydown', { keyCode: 27, which: 27 });
 });
 
-When('I press Tab in iFrame', () => {
+When('I press Tab on focused element', () => {
   cy.focused().trigger('keydown', { keyCode: 9, which: 9 });
 });
 
-When('I press Home in iFrame', () => {
+When('I press Home on focused element', () => {
   cy.focused().trigger('keydown', { keyCode: 36, which: 36 });
 });
 
-When('I press uparrow in iFrame', () => {
+When('I press uparrow on focused element', () => {
   cy.focused().trigger('keydown', { keyCode: 38, which: 38 });
 });
 
-When('I press End in iFrame', () => {
+When('I press End on focused element', () => {
   cy.focused().trigger('keydown', { keyCode: 35, which: 35 });
 });
 
-When('I press ShiftTab in iFrame', () => {
+When('I press ShiftTab on focused element', () => {
   cy.focused().trigger('keydown', { keyCode: 16, which: 16, release: false });
   cy.focused().trigger('keydown', { keyCode: 9, which: 9 });
 });

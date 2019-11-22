@@ -16,11 +16,11 @@ Feature: Action Popover component
     Then focused element inner content is set to "<innerText>"
       And Action Popover element has golden border on focus
     Examples:
-      | times | index | innerText     |
-      | 0     | 1     | Email Invoice |
-      | 1     | 3     | Download PDF  |
-      | 2     | 4     | Download CSV  |
-      | 3     | 6     | Delete        |
+      | times | innerText     |
+      | 0     | Email Invoice |
+      | 1     | Download PDF  |
+      | 2     | Download CSV  |
+      | 3     | Delete        |
 
   @positive
   Scenario Outline: Open Action Popover using different keyboard key <key>
@@ -36,40 +36,40 @@ Feature: Action Popover component
   @positive
   Scenario: Open Action Popover and verify that the first element Email Invoice is focused using Home key
     When I click the menu button element
-      And I press Home in iFrame
+      And I press Home on focused element
     Then focused element inner content is set to "Email Invoice"
       And Action Popover element has golden border on focus
 
   @positive
   Scenario: Open Action Popover and verify that the last element Delete is focused using Uparrow key
     When I click the menu button element
-      And I press uparrow in iFrame
+      And I press uparrow on focused element
     Then focused element inner content is set to "Delete"
       And Action Popover element has golden border on focus
 
   @positive
   Scenario: Open Action Popover and verify that the last element Delete is focused using End key
     When I click the menu button element
-      And I press End in iFrame
+      And I press End on focused element
     Then focused element inner content is set to "Delete"
       And Action Popover element has golden border on focus
 
   @positive
   Scenario: Open Action Popover and close it using Tab key
     When I click the menu button element
-      And I press Tab in iFrame
+      And I press Tab on focused element
     Then Action Popover element is not visible
 
   @positive
   Scenario: Open Action Popover and close it using Shift Tab key
     When I click the menu button element
-      And I press ShiftTab in iFrame
+      And I press ShiftTab on focused element
     Then Action Popover element is not visible
 
   @positive
   Scenario: Open Action Popover and close it using ESC key
     Given I click the menu button element
-    When I press ESC in iFrame
+    When I press ESC on focused element
     Then Action Popover element is not visible
 
   @positive
