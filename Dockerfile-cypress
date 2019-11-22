@@ -13,4 +13,4 @@ EXPOSE 9001
 ENTRYPOINT []
 
 RUN npm install -g wait-on --silent
-RUN npm install --silentfix
+RUN npm install --silent
