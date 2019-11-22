@@ -34,7 +34,6 @@ const ControlledCheckbox = () => {
               </ul>
               <CheckboxGroup
                 id='controlled_checkbox_group'
-                name='controlled_checkbox_group'
                 label='Controlled Example'
               >
                 <Checkbox
@@ -73,7 +72,6 @@ const ControlledCheckbox = () => {
               </ul>
               <CheckboxGroup
                 id='controlled_checkbox_group_default'
-                name='controlled_checkbox_group_default'
                 label='Controlled Example default'
               >
                 <Checkbox

@@ -57,7 +57,13 @@ function testInfo(value, props) {
 const checkboxes = {
   default: {}, required: {}, warning: {}, info: {}, optional: {}, one: {}, two: {}, three: {}
 };
+
+const groupCheckboxes = {
+  default: {}, required: {}, warning: {}, info: {}, optional: {}, one: {}, two: {}, three: {}
+};
+
 const checkboxKeys = Object.keys(checkboxes);
+const groupCheckboxKeys = Object.keys(groupCheckboxes);
 
 checkboxKeys.forEach((id) => {
   checkboxes[id] = {
@@ -67,17 +73,19 @@ checkboxKeys.forEach((id) => {
     })
   };
 });
-const formCheckbox = checkboxKeys.filter(name => ['required', 'warning', 'info', 'optional'].indexOf(name) !== -1);
-const groupCheckbox = checkboxKeys.filter(name => ['one', 'two', 'three'].indexOf(name) !== -1);
 
-const groupStore = new Store({
-  value: '0',
-  mandatory: false,
-  alert: false,
-  example: false,
-  one: false,
-  two: false,
-  three: false
+groupCheckboxKeys.forEach((id) => {
+  groupCheckboxes[id] = {
+    store: new Store({
+      checked: false,
+      forceUpdateTriggerToggle: false
+    })
+  };
+});
+
+const formCheckbox = checkboxKeys.filter(name => ['required', 'warning', 'info', 'optional'].indexOf(name) !== -1);
+const groupCheckbox = groupCheckboxKeys.filter((name) => {
+  return ['required', 'warning', 'info', 'optional'].indexOf(name) !== -1;
 });
 
 function defaultKnobs(type) {
@@ -145,14 +153,13 @@ function handleChange(ev, id) {
 
 function handleGroupChange(ev, id) {
   const { checked } = ev.target;
-  const count = Number(groupStore.get('value'));
-  const value = checked ? count + 1 : count - 1;
 
-  groupStore.set({
-    value: value.toString(),
-    [id]: checked,
-    forceUpdateTriggerToggle: checked
+  groupCheckboxes[id].store.set({
+    checked,
+    forceUpdateTriggerToggle: !checked
   });
+
+  action('change')(`checked: ${checked}`);
 }
 
 function handleSubmit(ev) {
@@ -192,32 +199,29 @@ const checkboxGroupComponent = () => (
     </Form>
 
     <h3>In Group</h3>
-    <State store={ groupStore }>
-      {state => [
-        <CheckboxGroup
-          key='checkbox-group'
-          name='checkbox-group'
-          id='checkbox-group'
-          label={ text('label', 'What would you choose?', 'group') }
-          labelHelp={ text('labelHelp', 'Some helpful information', 'group') }
-          validations={ testValidator }
-          warnings={ testWarning }
-          info={ testInfo }
-          value={ state.value }
-        >
-          {groupCheckbox.map(id => (
-            <Checkbox
-              checked={ state[id] }
-              name={ `checkbox-input-${id}` }
-              key={ `checkbox-input-${id}` }
-              onChange={ ev => handleGroupChange(ev, id) }
-              labelHelp={ text(`${Text.titleCase(id)} labelHelp`, '', `Checkbox ${id}`) }
-              { ...defaultKnobs(id) }
-            />
-          ))}
-        </CheckboxGroup>
-      ]}
-    </State>
+    <CheckboxGroup
+      key='checkbox-group'
+      id='checkbox-group'
+      name='checkbox-group'
+      label={ text('label', 'What would you choose?', 'group') }
+      forceUpdateTriggerToggle
+    >
+      {groupCheckbox.map(id => (
+        <State store={ groupCheckboxes[id].store } key={ `check-state-${id}` }>
+          <Checkbox
+            name={ `checkbox-input-${id}` }
+            key={ `checkbox-input-${id}` }
+            onChange={ ev => handleGroupChange(ev, id) }
+            labelHelp={ text(`${Text.titleCase(id)} labelHelp`, '', `Checkbox ${id}`) }
+            validations={ testValidator }
+            warnings={ testWarning }
+            info={ testInfo }
+            unblockValidation
+            { ...defaultKnobs(id) }
+          />
+        </State>
+      ))}
+    </CheckboxGroup>
   </div>
 );
 

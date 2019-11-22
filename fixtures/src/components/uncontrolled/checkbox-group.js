@@ -20,7 +20,6 @@ const UncontrolledCheckbox = () => {
               </ul>
               <CheckboxGroup
                 id='uncontrolled_checkbox_group'
-                name='uncontrolled_checkbox_group'
                 label='Uncontrolled Example'
               >
                 <Checkbox
@@ -53,7 +52,6 @@ const UncontrolledCheckbox = () => {
               </ul>
               <CheckboxGroup
                 id='uncontrolled_checkbox_group_default'
-                name='uncontrolled_checkbox_group_default'
                 label='Uncontrolled Example default'
                 defaultValue={ ['value one'] }
               >
