@@ -94,7 +94,8 @@ SimpleColorPicker.propTypes = {
 
     return error;
   },
-  isBlurBlocked: PropTypes.string,
+  /** Should the onBlur callback prop be initially blocked? */
+  isBlurBlocked: PropTypes.bool,
   /** The content for the RadioGroup Legend */
   legend: PropTypes.string.isRequired,
   /** The currently selected color. */
