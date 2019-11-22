@@ -102,7 +102,7 @@ describe('Date', () => {
 
     beforeEach(() => {
       onBlurFn = jest.fn();
-      wrapper = render({ onBlur: onBlurFn });
+      wrapper = render({ onBlur: onBlurFn, value: '' });
     });
 
     describe('and with DatePicker opened', () => {
@@ -153,7 +153,7 @@ describe('Date', () => {
     const enterKeyCode = 13;
 
     beforeEach(() => {
-      wrapper = render({});
+      wrapper = render({value: ''});
       simulateFocusOnInput(wrapper);
     });
 
@@ -243,7 +243,7 @@ describe('Date', () => {
     const mockDate = moment('2012-02-01');
 
     beforeEach(() => {
-      wrapper = render({});
+      wrapper = render({value: ''});
       simulateFocusOnInput(wrapper);
       wrapper
         .find(DatePicker)

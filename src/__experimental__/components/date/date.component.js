@@ -315,7 +315,7 @@ class BaseDateInput extends React.Component {
           inputRef={ this.assignInput }
           { ...events }
         />
-        {this.renderDatePicker({ minDate, maxDate }) }
+        { this.renderDatePicker({ minDate, maxDate }) }
       </StyledDateInput>
     );
   }
