@@ -120,6 +120,7 @@ class BaseDateInput extends React.Component {
   handleTabKeyDown = (ev) => {
     if (Events.isTabKey(ev)) {
       this.isOpening = false;
+      this.inputFocusedViaPicker = false;
       this.closeDatePicker();
     }
   };
