@@ -153,7 +153,7 @@ describe('Date', () => {
     const enterKeyCode = 13;
 
     beforeEach(() => {
-      wrapper = render({value: ''});
+      wrapper = render({ value: '' });
       simulateFocusOnInput(wrapper);
     });
 
@@ -243,7 +243,7 @@ describe('Date', () => {
     const mockDate = moment('2012-02-01');
 
     beforeEach(() => {
-      wrapper = render({value: ''});
+      wrapper = render({ value: '' });
       simulateFocusOnInput(wrapper);
       wrapper
         .find(DatePicker)
