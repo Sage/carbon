@@ -115,21 +115,24 @@ class DateRange extends React.Component {
 
   /** Handle focus on start date field */
   focusStart = () => {
-    this.blockBlur();
+    this.blockBlur('start');
     this.endDateInputRef.current.closeDatePicker();
   }
 
   /** Handle focus on end date field */
   focusEnd = () => {
-    this.blockBlur();
+    this.blockBlur('end');
     this.startDateInputRef.current.closeDatePicker();
   }
 
-  blockBlur = () => {
-    this.startDateInputRef.current.isBlurBlocked = true;
-    this.endDateInputRef.current.isBlurBlocked = true;
-    this.startDateInputRef.current.inputFocusedViaPicker = true;
-    this.endDateInputRef.current.inputFocusedViaPicker = true;
+  blockBlur = (id) => {
+    if (id === 'start') {
+      this.startDateInputRef.current.isBlurBlocked = true;
+      this.startDateInputRef.current.inputFocusedViaPicker = true;
+    } else if (id === 'end') {
+      this.endDateInputRef.current.isBlurBlocked = true;
+      this.endDateInputRef.current.inputFocusedViaPicker = true;
+    }
   }
 
   startDateProps() {
