@@ -33,9 +33,9 @@ const ControlledCheckbox = () => {
                 <li>each checkbox button has props value, name, id which should be reflected in both events</li>
               </ul>
               <CheckboxGroup
-                name='controlled_checkbox_group' label='Controlled Example'
-                onChange={ onChange }
-                onBlur={ onBlur }
+                id='controlled_checkbox_group'
+                name='controlled_checkbox_group'
+                label='Controlled Example'
               >
                 <Checkbox
                   id='controlled_checkbox_group_one'
@@ -43,18 +43,26 @@ const ControlledCheckbox = () => {
                   label='label one'
                   name='controlled_checkbox_group_one'
                   checked={ checked.controlled_checkbox_group_one }
+                  onChange={ onChange }
+                  onBlur={ onBlur }
                 />
                 <Checkbox
                   id='controlled_checkbox_group_two'
+                  name='controlled_checkbox_group_two'
                   value='value two'
                   label='label two'
                   checked={ checked.controlled_checkbox_group_two }
+                  onChange={ onChange }
+                  onBlur={ onBlur }
                 />
                 <Checkbox
                   id='controlled_checkbox_group_three'
+                  name='controlled_checkbox_group_three'
                   value='value three'
                   label='label three'
                   checked={ checked.controlled_checkbox_group_three }
+                  onChange={ onChange }
+                  onBlur={ onBlur }
                 />
               </CheckboxGroup>
             </div>
@@ -64,27 +72,36 @@ const ControlledCheckbox = () => {
                 <li>value two is checked by default</li>
               </ul>
               <CheckboxGroup
-                name='controlled_checkbox_group_default' label='Controlled Example default'
-                onChange={ onChange }
-                onBlur={ onBlur }
+                id='controlled_checkbox_group_default'
+                name='controlled_checkbox_group_default'
+                label='Controlled Example default'
               >
                 <Checkbox
                   id='controlled_checkbox_group_default_one'
+                  name='controlled_checkbox_group_default_one'
                   value='value one'
                   label='label one'
                   checked={ checked.controlled_checkbox_group_default_one }
+                  onChange={ onChange }
+                  onBlur={ onBlur }
                 />
                 <Checkbox
                   id='controlled_checkbox_group_default_two'
+                  name='controlled_checkbox_group_default_two'
                   value='value two'
                   label='label two'
                   checked={ checked.controlled_checkbox_group_default_two }
+                  onChange={ onChange }
+                  onBlur={ onBlur }
                 />
                 <Checkbox
                   id='controlled_checkbox_group_default_three'
+                  name='controlled_checkbox_group_default_three'
                   value='value three'
                   label='label three'
                   checked={ checked.controlled_checkbox_group_default_three }
+                  onChange={ onChange }
+                  onBlur={ onBlur }
                 />
               </CheckboxGroup>
             </div>

@@ -124,7 +124,6 @@ describe('Checkbox', () => {
 
     describe('onChange', () => {
       const wrapper = render({}, mount);
-      // console.log(wrapper.debug());
       expect(wrapper.find(Checkbox).first().find('input').first()
         .prop('checked')).toBe(false);
       wrapper.find(Checkbox).first().find('input').first()
