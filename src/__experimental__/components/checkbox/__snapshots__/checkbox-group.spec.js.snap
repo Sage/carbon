@@ -25,10 +25,6 @@ exports[`CheckboxGroup renders as expected 1`] = `
   width: 100%;
 }
 
-.c4 label {
-  cursor: pointer;
-}
-
 .c4 .c16,
 .c4 .c17 {
   vertical-align: middle;
@@ -206,9 +202,6 @@ exports[`CheckboxGroup renders as expected 1`] = `
 
 .c0 > .c1 > .c3 {
   padding-bottom: 4px;
-}
-
-.c0 > .c1 > .c3 label {
   vertical-align: middle;
 }
 
@@ -225,15 +218,13 @@ exports[`CheckboxGroup renders as expected 1`] = `
   <div
     className="c1 c2"
   >
-    <div
+    <label
       className="c3 c4"
       data-element="label"
       width={30}
     >
-      <label>
-        Test CheckboxGroup Label
-      </label>
-    </div>
+      Test CheckboxGroup Label
+    </label>
     <div
       className="c5 c6"
       data-component="checkbox"

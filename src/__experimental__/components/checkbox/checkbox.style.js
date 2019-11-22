@@ -190,10 +190,7 @@ const StyledCheckboxGroup = styled.div`
   & > ${StyledFormField} {
     & > ${StyledLabel} {
       padding-bottom: 4px;
-
-      label {
-        vertical-align: middle;
-      }
+      vertical-align: middle;
 
       ${StyledValidationIcon} {
         display: inline-block;
