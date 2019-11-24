@@ -183,8 +183,13 @@ describe('Select', () => {
       };
 
       const wrapper = renderWrapper({ props });
+
+      // Check custom left children
       expect(wrapper.find('.my-test-element')).toHaveLength(1);
       expect(wrapper.find('.my-test-element').text()).toEqual('Text');
+
+      // Check pills
+      expect(pillsOf(wrapper)).toHaveLength(3);
     });
   });
 
