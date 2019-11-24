@@ -174,6 +174,18 @@ describe('Select', () => {
         target: { value: [multiValueReturn[0], multiValueReturn[2]] }
       });
     });
+
+    it('supports leftChildren property', () => {
+      const props = {
+        value: multiValueProp,
+        enableMultiSelect: true,
+        leftChildren: <span className='my-test-element'>Text</span>
+      };
+
+      const wrapper = renderWrapper({ props });
+      expect(wrapper.find('.my-test-element')).toHaveLength(1);
+      expect(wrapper.find('.my-test-element').text()).toEqual('Text');
+    });
   });
 
   describe('when backspace is pressed and is single select', () => {
@@ -270,6 +282,13 @@ describe('Select', () => {
       const props = { value: singleValue };
       const list = listOf(openList(renderWrapper({ props })));
       expect(() => list.props().onSelect({ value: 'new!' })).not.toThrowError();
+    });
+
+    it('supports leftChildren property', () => {
+      const props = { leftChildren: <span className='my-test-element'>Text</span> };
+      const wrapper = renderWrapper({ props });
+      expect(wrapper.find('.my-test-element')).toHaveLength(1);
+      expect(wrapper.find('.my-test-element').text()).toEqual('Text');
     });
   });
 
