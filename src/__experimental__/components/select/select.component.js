@@ -231,10 +231,9 @@ class Select extends React.Component {
 
   textboxProps() {
     const {
-      typeAhead,
-      value,
-      placeholder
+      typeAhead, value, placeholder, leftChildren
     } = this.props;
+
 
     const placeholderText = this.placeholder(placeholder, value);
 
@@ -247,6 +246,10 @@ class Select extends React.Component {
       value: this.value(value),
       formattedValue: this.formattedValue(this.state.filter, value)
     };
+
+    if (leftChildren) {
+      props.leftChildren = props.leftChildren ? [leftChildren, ...props.leftChildren] : leftChildren;
+    }
 
     return props;
   }
@@ -358,7 +361,9 @@ Select.propTypes = {
   typeAhead: PropTypes.bool,
   /** Can the user type a value in the <Textbox> to filter the dropdown menu options? */
   filterable: PropTypes.bool,
-  isAnyValueSelected: PropTypes.bool
+  isAnyValueSelected: PropTypes.bool,
+  /** Add additional child elements before the input */
+  leftChildren: PropTypes.node
 };
 
 Select.defaultProps = {
