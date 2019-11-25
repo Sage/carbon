@@ -6,7 +6,7 @@ import { notes, Info } from './documentation';
 import { ActionPopover, ActionPopoverDivider, ActionPopoverItem } from '.';
 import { MenuButton } from './action-popover.style';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
-import { dlsThemeSelector } from '../../../.storybook/theme-selectors';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import {
   Table, TableRow, TableCell, TableHeader
 } from '../table';
@@ -78,4 +78,5 @@ function makeStory(storyName, themeSelector) {
 }
 
 storiesOf('Action Popover', module)
-  .add(...makeStory('default', dlsThemeSelector));
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));

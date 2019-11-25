@@ -7,6 +7,8 @@ exports[`Select does not apply any events if disabled or readonly 1`] = `
   aria-haspopup="listbox"
   data-component="carbon-select"
   isAnyValueSelected={false}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
   role="combobox"
   style={
     Object {
@@ -38,6 +40,8 @@ exports[`Select does not apply any events if disabled or readonly 2`] = `
   aria-haspopup="listbox"
   data-component="carbon-select"
   isAnyValueSelected={false}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
   role="combobox"
   style={
     Object {
@@ -69,6 +73,8 @@ exports[`Select renders only the Textbox when closed 1`] = `
   aria-haspopup="listbox"
   data-component="carbon-select"
   isAnyValueSelected={false}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
   role="combobox"
   style={
     Object {
@@ -114,8 +120,6 @@ Object {
   "filterValue": undefined,
   "id": "listbox-2",
   "onLazyLoad": undefined,
-  "onMouseEnter": [Function],
-  "onMouseLeave": [Function],
   "onSelect": [Function],
   "open": true,
   "role": "listbox",
