@@ -1,10 +1,10 @@
 # Theming
 
-Theming functionality is covered by additional storybook addon. Included in `devDependencies` of `package.json`
+Theming functionality is covered by an additional Storybook addon. Included in `devDependencies` of `package.json`
 `"storybook-addon-styled-component-theme": "Sage/storybook-addon-styled-component-theme#storyspecific-themes",`
 
 ## Notice
-Only support storybook 4 and newer
+Only supports Storybook 4 and newer
 
 ## Setup
 
@@ -25,7 +25,7 @@ import 'storybook-addon-styled-component-theme/dist/src/register';
 import {addDecorator} from '@storybook/react';
 ```
 
-then either import your decorators or defining them directly:
+then either import your decorators or define them directly:
 
 ```js
 import getThemeDecorator from './theme-decorators';
@@ -55,7 +55,7 @@ return (
 
 #### c) Configure single story
 
-Setup `makeStory` function or equalivant to cover setup of the storybook story including (name, component, metadata[theme, info, notes, knobs])
+Setup `makeStory` function or equalivant to cover setup of the Storybook story including (name, component, metadata[theme, info, notes, knobs])
 
 ```js
 import { info, notes } from './documentation';
@@ -100,4 +100,4 @@ The following fields (all optional) can be supplied in a `themeSelector` metadat
 * **`showSingleThemeButton`**  –  A `boolean` (default `true`), specifying whether to display the single theme button when there's only one theme available.
 
 ## Reminder
-Make sure every theme object has a `name` property
+Make sure every theme object has a `name` property.

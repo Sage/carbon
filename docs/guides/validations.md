@@ -1,6 +1,6 @@
 # Validations
 
-Form components in Carbon are set up to handle validations. They are set-up to use [Higher Order Components](https://reactjs.org/docs/higher-order-components.html) that take advantage of React's compositional nature. With the Context API, the HOC provides a set of callbacks that allow for Form children to be registered and for the Form to iterate over and run validations over them. This is how the form maintains it's list of components and their validation status.
+Form components in Carbon are set up to handle validations. They are set-up to use [Higher Order Components](https://reactjs.org/docs/higher-order-components.html) that take advantage of React's compositional nature. With the Context API, the HOC provides a set of callbacks that allow for Form children to be registered and for the Form to iterate over and run validations over them. This is how the form maintains its list of components and their validation status.
 
 All inputs are wrapped by a HOC that triggers the callbacks at a Form level registering itself with a unique name and storing the applied validations that are run asynchronously.
 

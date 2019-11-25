@@ -76,7 +76,7 @@ const info = (
           <td>
             <ul>
               <li>
-                If the radio button with focus is unchecked, it`s state will be changed to checked.
+                If the radio button with focus is unchecked, its state will be changed to checked.
               </li>
             </ul>
           </td>

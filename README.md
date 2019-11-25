@@ -62,10 +62,10 @@ The following is a list of technologies Carbon utilises:
 
 We support and test the Carbon Library against the latest versions of the following browsers:
 
-* [Google Chrome](https://www.google.com/chrome/)
+* [Chrome](https://www.google.com/chrome/)
 * [Firefox](https://www.mozilla.org/firefox/)
 * [Safari](https://www.apple.com/safari/)
-* [Microsoft Edge](https://www.microsoft.com/windows/microsoft-edge)
+* [Edge](https://www.microsoft.com/windows/microsoft-edge)
 * [Internet Explorer 11](https://www.microsoft.com/en-gb/download/internet-explorer-11-for-windows-7-details.aspx)
 
 ## Licence
