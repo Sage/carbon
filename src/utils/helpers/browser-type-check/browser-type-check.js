@@ -9,4 +9,7 @@ export function isSafari(navigator) {
   return navigator.vendor.includes('Apple');
 }
 
+export function isEdge(navigator) {
+  return navigator.userAgent.includes('Edge');
+}
 export default browserTypeCheck;
