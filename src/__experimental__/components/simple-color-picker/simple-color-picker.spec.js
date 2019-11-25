@@ -170,7 +170,7 @@ describe('SimpleColorPicker', () => {
       const expected = 'Warning: Failed prop type: `SimpleColorPicker` only accepts children of'
         + ' type `SimpleColor`.\n    in SimpleColorPicker';
 
-      expect(console.error).toHaveBeenCalledWith(expected);
+      expect(console.error).toHaveBeenCalledWith(expected); // eslint-disable-line no-console
     });
   });
 });
