@@ -11,6 +11,7 @@ import withUniqueIdProps from '../../../utils/helpers/with-unique-id-props';
 import { isEdge } from '../../../utils/helpers/browser-type-check';
 
 const defaultDateFormat = 'DD/MM/YYYY';
+const hiddenDateFormat = 'YYYY-MM-DD';
 
 class BaseDateInput extends React.Component {
   isBlurBlocked = false;
@@ -284,6 +285,17 @@ class BaseDateInput extends React.Component {
     this.openDatePicker();
   }
 
+  renderHiddentInput = () => {
+    const props = {
+      name: this.props.name,
+      type: 'hidden',
+      'data-element': 'hidden-input',
+      value: DateHelper.formatValue(this.state.visibleValue, hiddenDateFormat)
+    };
+
+    return <input { ...props } />;
+  }
+
   render() {
     const { minDate, maxDate, ...inputProps } = this.props;
     let events = {};
@@ -315,6 +327,7 @@ class BaseDateInput extends React.Component {
           inputRef={ this.assignInput }
           { ...events }
         />
+        { this.renderHiddentInput() }
         { this.renderDatePicker({ minDate, maxDate }) }
       </StyledDateInput>
     );
