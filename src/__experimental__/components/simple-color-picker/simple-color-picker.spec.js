@@ -39,77 +39,81 @@ describe('SimpleColorPicker', () => {
   });
 
   describe('events', () => {
-    let wrapper;
-    describe('handleMouseDown', () => {
-      describe('if target is inside of the component', () => {
-        it('calls onMouseDown', () => {
-          const onMouseDown = jest.fn();
-          wrapper = render(mount, { onMouseDown });
-          const lastSimpleColor = wrapper.find(SimpleColor).last();
-          lastSimpleColor.find('input').first().simulate('mousedown');
+    let wrapper, onBlur, documentMousedownCallback, fireDocumentMousedown;
+
+    beforeEach(() => {
+      document.addEventListener = jest.fn((eventName, callback) => {
+        if (eventName === 'mousedown') {
+          documentMousedownCallback = callback;
+        }
+      });
+      fireDocumentMousedown = () => {
+        const customEvent = { target: document };
+        act(() => {
+          documentMousedownCallback(customEvent);
+        });
+      };
+      onBlur = jest.fn();
+      wrapper = render(mount, { onBlur });
+    });
+
+    describe('handleOnMouseDown', () => {
+      describe('if a SimpleColor receives "mousedown, blur"', () => {
+        it('SimpleColorPicker calls onBlur', () => {
+          const firstSCinput = wrapper.find(SimpleColor).first().find('input').first();
+          firstSCinput.simulate('mousedown');
+          fireDocumentMousedown();
+          firstSCinput.simulate('blur');
+          expect(onBlur).toHaveBeenCalledTimes(1);
         });
       });
 
-      describe('if target is clicked twice and is inside of the component', () => {
-        it('calls onMouseDown', () => {
-          const onMouseDown = jest.fn();
-          wrapper = render(mount, { onMouseDown });
-          const lastSimpleColor = wrapper.find(SimpleColor).last();
-          lastSimpleColor.find('input').first().simulate('mousedown');
-          lastSimpleColor.find('input').first().simulate('mousedown');
+      describe('if a SimpleColor receives "mousedown, mousedown, blur"', () => {
+        it('SimpleColorPicker calls onBlur', () => {
+          const firstSCinput = wrapper.find(SimpleColor).first().find('input').first();
+          firstSCinput.simulate('mousedown');
+          firstSCinput.simulate('mousedown');
+          fireDocumentMousedown();
+          firstSCinput.simulate('blur');
+          expect(onBlur).toHaveBeenCalledTimes(1);
         });
       });
 
-      describe('if document is clicked and is outside of the component', () => {
-        it('calls document onMouseDown event', () => {
-          const onMouseDown = jest.fn();
-          wrapper = render(mount);
-
-          act(() => {
-            document.addEventListener('mousedown', onMouseDown);
-            document.dispatchEvent(new CustomEvent('mousedown'));
-          });
-
-          expect(onMouseDown).toHaveBeenCalledTimes(1);
+      describe('if a mousedown is received by first SimpleColor and then second SimpleColor', () => {
+        it('SimpleColorPicker calls onBlur', () => {
+          const firstSCinput = wrapper.find(SimpleColor).first().find('input').first();
+          const lastSCinput = wrapper.find(SimpleColor).last().find('input').first();
+          firstSCinput.simulate('mousedown');
+          lastSCinput.simulate('mousedown');
+          fireDocumentMousedown();
+          firstSCinput.simulate('blur');
+          expect(onBlur).toHaveBeenCalledTimes(1);
         });
+      });
+    });
 
-        it('calls document onMouseDown event', () => {
-          const onMouseDown = jest.fn();
-          const domWrapper = document.createElement('div');
-          wrapper = mount(
-            <SimpleColorPicker
-              name='a'
-              legend='SimpleColorPicker Legend'
-              onChange={ jest.fn() }
-
-            >
-              <SimpleColor
-                id='rId-1'
-                key='radio-key-#00A376'
-                onChange={ jest.fn() }
-                color='#00A376'
-
-              />
-            </SimpleColorPicker>, { attachTo: domWrapper }
-          );
-          document.body.appendChild(domWrapper);
-
-
-          act(() => {
-            const input = document.getElementById('rId-1');
-            input.addEventListener('mousedown', onMouseDown);
-            input.dispatchEvent(new CustomEvent('mousedown'));
-          });
-
-          expect(onMouseDown).toHaveBeenCalledTimes(1);
+    describe('handleClickOutside', () => {
+      describe('if a mousedown event occurs inside a SimpleColor', () => {
+        it('SimpleColorPicker does not call onBlur', () => {
+          const firstSCinput = wrapper.find(SimpleColor).first().find('input').first();
+          const customEvent = { target: firstSCinput.getDOMNode() };
+          documentMousedownCallback(customEvent);
+          expect(onBlur).not.toHaveBeenCalled();
         });
       });
 
+      describe('if a mousedown event occurs outside a SimpleColor', () => {
+        it('SimpleColorPicker does not call onBlur', () => {
+          fireDocumentMousedown();
+          expect(onBlur).not.toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe('handleOnBlur', () => {
       describe('if document is clicked and is outside of the component', () => {
         describe('when blur is not blocked', () => {
           it('calls onBlur on blur event', () => {
-            const onBlur = jest.fn();
-            wrapper = render(mount, { onBlur });
             wrapper.find(SimpleColor).first().find('input').first()
               .simulate('blur');
             expect(onBlur).toHaveBeenCalledTimes(1);
@@ -118,7 +122,6 @@ describe('SimpleColorPicker', () => {
 
         describe('when blur is blocked', () => {
           it('calls onBlur on blur event', () => {
-            const onBlur = jest.fn();
             wrapper = render(mount, { isBlurBlocked: true, onBlur });
             wrapper.find(SimpleColor).first().find('input').first()
               .simulate('blur');
