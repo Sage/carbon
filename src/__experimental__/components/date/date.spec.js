@@ -39,15 +39,22 @@ describe('Date', () => {
     });
   });
 
-  describe('when the "value" prop is an empty string', () => {
-    const currentDate = getFormattedDate(moment());
+  describe.each(['value', 'defaultValue'])(
+    'when the %s is  an empty string', (prop) => {
+      const currentDate = getFormattedDate(moment());
+      it('then the input element value should be set to today if the "allowEmptyValue" prop is falsy', () => {
+        wrapper = render({ [prop]: '' });
+        simulateBlurOnInput(wrapper);
+        expect(wrapper.find('input').prop('value')).toBe(currentDate);
+      });
 
-    it('then the input element value should be set to today', () => {
-      wrapper = render({ value: '' });
-      simulateBlurOnInput(wrapper);
-      expect(wrapper.find('input').prop('value')).toBe(currentDate);
-    });
-  });
+      it('then the input element value should not be updated if the "allowEmptyValue" prop is truthy', () => {
+        wrapper = render({ [prop]: '', allowEmptyValue: true });
+        simulateBlurOnInput(wrapper);
+        expect(wrapper.find('input').prop('value')).toBe('');
+      });
+    }
+  );
 
   describe('when "autoFocus" prop is defined', () => {
     it("then component's input should be focused after render", () => {
@@ -350,7 +357,7 @@ describe('Date', () => {
     });
 
     describe('to an empty date', () => {
-      it('reformats the visiblevalue when it is an empty string', () => {
+      it('reformats the "visiblevalue" when it is an empty string and "allowEmptyValue" is falsy', () => {
         const initialDate = '1 apr 2019';
         const formattedDate = '01/04/2019';
         const emptyDate = '';
@@ -366,6 +373,24 @@ describe('Date', () => {
         jest.runAllTimers();
         wrapper.update();
         expect(wrapper.find('input').props().value).toBe(formattedDate);
+      });
+
+      it('does not reformat the "visiblevalue" when it is an empty string and "allowEmptyValue" is truthy', () => {
+        const initialDate = '1 apr 2019';
+        const emptyDate = '';
+
+        wrapper = render({
+          onChange: onChangeFn,
+          name: componentName,
+          value: initialDate,
+          allowEmptyValue: true
+        });
+
+        simulateChangeOnInput(wrapper, emptyDate);
+        simulateBlurOnInput(wrapper);
+        jest.runAllTimers();
+        wrapper.update();
+        expect(wrapper.find('input').props().value).toBe(emptyDate);
       });
     });
   });
@@ -456,19 +481,22 @@ describe('Date', () => {
       it('supports being used as an controlled input via passing of a value prop', () => {
         wrapper = render({ value: '27th Feb 01' });
         expect(wrapper.find(BaseDateInput).instance().isControlled).toEqual(true);
-        expect(wrapper.find(BaseDateInput).instance().initialVisibleValue).toEqual('27th Feb 01');
+        expect(wrapper.find(BaseDateInput).instance().adjustedValue).toEqual('27th Feb 01');
+        expect(wrapper.find(BaseDateInput).instance().initialVisibleValue).toEqual('27/02/2001');
       });
 
       it('supports being used as an uncontrolled input via passing of a defaultValue prop', () => {
         wrapper = render({ defaultValue: '23rd Feb 09' });
         expect(wrapper.find(BaseDateInput).instance().isControlled).toEqual(false);
-        expect(wrapper.find(BaseDateInput).instance().initialVisibleValue).toEqual('23rd Feb 09');
+        expect(wrapper.find(BaseDateInput).instance().adjustedValue).toEqual('23rd Feb 09');
+        expect(wrapper.find(BaseDateInput).instance().initialVisibleValue).toEqual('23/02/2009');
       });
 
       it('acts as a controlled input when value and default are passed and does not throw', () => {
         wrapper = render({ defaultValue: '23rd Feb 09', value: '27th Feb 01' });
         expect(wrapper.find(BaseDateInput).instance().isControlled).toEqual(true);
-        expect(wrapper.find(BaseDateInput).instance().initialVisibleValue).toEqual('27th Feb 01');
+        expect(wrapper.find(BaseDateInput).instance().adjustedValue).toEqual('27th Feb 01');
+        expect(wrapper.find(BaseDateInput).instance().initialVisibleValue).toEqual('27/02/2001');
       });
     });
   });

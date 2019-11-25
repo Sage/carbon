@@ -21,9 +21,11 @@ class BaseDateInput extends React.Component {
 
   isControlled = this.props.value !== undefined;
 
-  adjustedValue = DateHelper.isValidDate(this.props.value) ? this.props.value : DateHelper.todayFormatted();
+  adjustedValue = generateAdjustedValue(this.props);
 
-  initialVisibleValue = this.isControlled ? this.adjustedValue : this.props.defaultValue;
+  initialVisibleValue = (
+    !this.props.allowEmptyValue ? DateHelper.formatDateToCurrentLocale(this.adjustedValue) : this.adjustedValue
+  );
 
   inputFocusedViaPicker = false;
 
@@ -32,10 +34,10 @@ class BaseDateInput extends React.Component {
     /** Date object to pass to the DatePicker */
     selectedDate: DateHelper.stringToDate(isoFormattedValueString(this.initialVisibleValue)),
     /** Displayed value, format dependent on a region */
-    visibleValue: DateHelper.formatDateToCurrentLocale(this.initialVisibleValue),
+    visibleValue: this.initialVisibleValue,
     /** Stores last valid values to be emitted onBlur if current input is invalid */
     lastValidEventValues: {
-      formattedValue: DateHelper.formatDateToCurrentLocale(this.initialVisibleValue),
+      formattedValue: this.initialVisibleValue,
       rawValue: isoFormattedValueString(this.initialVisibleValue)
     }
   };
@@ -147,7 +149,7 @@ class BaseDateInput extends React.Component {
 
    reformatVisibleDate = () => {
      const { lastValidEventValues, visibleValue } = this.state;
-     if (DateHelper.isValidDate(visibleValue)) {
+     if (DateHelper.isValidDate(visibleValue) || (!visibleValue.length && this.props.allowEmptyValue)) {
        this.updateValidEventValues(visibleValue);
      } else if (!visibleValue.length) {
        this.updateValidEventValues(lastValidEventValues.formattedValue);
@@ -210,7 +212,7 @@ class BaseDateInput extends React.Component {
 
     this.isBlurBlocked = false;
 
-    if (isValidDate) {
+    if (isValidDate || this.canBeEmptyValues(value)) {
       isoDateString = isoFormattedValueString(dateWithSlashes);
       this.updateSelectedDate(isoDateString);
       this.emitOnChangeCallback(ev, isoDateString);
@@ -243,16 +245,20 @@ class BaseDateInput extends React.Component {
     }
   };
 
+  canBeEmptyValues = (value) => {
+    return this.props.allowEmptyValue && !value.length;
+  }
+
   buildCustomEvent = (ev, isoFormattedValue) => {
     const { id, name, value } = ev.target;
     const { lastValidEventValues } = this.state;
     const validRawValue = DateHelper.isValidDate(isoFormattedValue);
-
+    const validValues = this.canBeEmptyValues(value) ? { formattedValue: '', rawValue: '' } : lastValidEventValues;
     ev.target = {
       ...(name && { name }),
       ...(id && { id }),
       value: {
-        ...lastValidEventValues,
+        ...validValues,
         ...(validRawValue && { formattedValue: DateHelper.formatDateToCurrentLocale(value) }),
         ...(validRawValue && { rawValue: isoFormattedValue })
       }
@@ -332,10 +338,25 @@ function isoFormattedValueString(valueToFormat) {
   return DateHelper.formatValue(valueToFormat);
 }
 
+function generateAdjustedValue({ value, defaultValue, allowEmptyValue }) {
+  if (value !== undefined && canReturnValue(value, allowEmptyValue)) {
+    return value;
+  } if (canReturnValue(defaultValue, allowEmptyValue)) {
+    return defaultValue;
+  }
+  return DateHelper.todayFormatted();
+}
+
+function canReturnValue(value, allowEmptyValue) {
+  return DateHelper.isValidDate(value) || (allowEmptyValue && !value.length);
+}
+
 const DateInput = withUniqueIdProps(BaseDateInput);
 
 BaseDateInput.propTypes = {
   ...Textbox.propTypes,
+  /** Boolean to allow the input to have an empty value */
+  allowEmptyValue: PropTypes.bool,
   /** Automatically focus on component mount */
   autoFocus: PropTypes.bool,
   /** Used to provide additional validations on composed components */
