@@ -5,6 +5,7 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
   hasError={false}
   hasInfo={false}
   hasWarning={false}
+  id="mocked-guid"
   info={Array []}
   inputWidth={70}
   labelWidth={30}
@@ -20,6 +21,7 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
     hasError={false}
     hasInfo={false}
     hasWarning={false}
+    id="mocked-guid"
     info={Array []}
     inputWidth={70}
     labelWidth={30}
@@ -38,6 +40,7 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
       hasError={false}
       hasInfo={false}
       hasWarning={false}
+      id="mocked-guid"
       info={Array []}
       inputWidth={70}
       labelWidth={30}

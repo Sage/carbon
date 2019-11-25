@@ -59,11 +59,11 @@ describe('Heading', () => {
       </DefaultPages>)
 
     const link = wrapper.find(Link);
-    link.simulate('mousedown');
+    link.find('a').simulate('mousedown');
 
     assertStyleMatch({
       outline: `solid 3px ${smallTheme.colors.focus}`
-    }, wrapper.find(PagesContent), { modifier: `${LinkStyleAnchor}:focus` })
+    }, wrapper.find(PagesContent), { modifier: `${LinkStyleAnchor} a:focus` })
   });
 
   it('renders a subheader', () => {

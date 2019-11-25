@@ -117,7 +117,7 @@ Feature: Deprecated Checkbox component
   Scenario Outline: Change Checkbox label width to <width>
     When I check labelInline checkbox
       And I set label width slider to <width>
-    Then Checkbox label width is set to <width>
+    Then Checkbox deprecated label width is set to <width>
     Examples:
       | width |
       | 1     |

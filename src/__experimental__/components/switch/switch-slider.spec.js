@@ -1,7 +1,7 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
-import { css } from 'styled-components';
+import { css, ThemeProvider } from 'styled-components';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import Icon from '../../../components/icon';
 import Loader from '../../../components/loader/loader.component';
@@ -11,10 +11,6 @@ import baseTheme from '../../../style/themes/base';
 import classicTheme from '../../../style/themes/classic';
 import smallTheme from '../../../style/themes/small';
 import mediumTheme from '../../../style/themes/medium';
-
-function render(props) {
-  return TestRenderer.create(<SwitchSlider { ...props } />);
-}
 
 describe('SwitchSlider', () => {
   describe('base theme', () => {
@@ -133,11 +129,9 @@ describe('SwitchSlider', () => {
   });
 
   describe('Classic theme', () => {
-    const opts = { theme: classicTheme };
-
     describe('Panel content', () => {
       describe('default', () => {
-        const panels = render(opts).root.findAllByType(SwitchSliderPanel);
+        const panels = renderWithTheme({}, classicTheme).root.findAllByType(SwitchSliderPanel);
 
         it('renders a cross Icon in the panel', () => {
           expect(panels[0].props.children.type).toBe(Icon);
@@ -150,7 +144,7 @@ describe('SwitchSlider', () => {
       });
 
       describe('when checked=true', () => {
-        const panels = render({ checked: true, ...opts }).root.findAllByType(SwitchSliderPanel);
+        const panels = renderWithTheme({ checked: true }, classicTheme).root.findAllByType(SwitchSliderPanel);
 
         it('renders a tick Icon in the panel', () => {
           expect(panels[0].props.children.type).toBe(Icon);
@@ -163,7 +157,7 @@ describe('SwitchSlider', () => {
       });
 
       describe('when loading=true', () => {
-        const panels = render({ loading: true, ...opts }).root.findAllByType(SwitchSliderPanel);
+        const panels = renderWithTheme({ loading: true }, classicTheme).root.findAllByType(SwitchSliderPanel);
 
         it('renders a Loader in the panel', () => {
           expect(panels[0].props.children.type).toBe(Loader);
@@ -176,7 +170,7 @@ describe('SwitchSlider', () => {
     });
 
     describe('default', () => {
-      const wrapper = render(opts).toJSON();
+      const wrapper = renderWithTheme({}, classicTheme).toJSON();
 
       it('applies the correct base styles', () => {
         assertStyleMatch({
@@ -200,7 +194,7 @@ describe('SwitchSlider', () => {
     });
 
     describe('and checked=true', () => {
-      const wrapper = render({ checked: true, ...opts }).toJSON();
+      const wrapper = renderWithTheme({ checked: true }, classicTheme).toJSON();
 
       it('applies the correct base styles', () => {
         assertStyleMatch({
@@ -216,7 +210,7 @@ describe('SwitchSlider', () => {
     });
 
     describe('and loading=true', () => {
-      const wrapper = render({ loading: true, ...opts }).toJSON();
+      const wrapper = renderWithTheme({ loading: true }, classicTheme).toJSON();
 
       it('applies the correct base styles', () => {
         assertStyleMatch({
@@ -226,127 +220,75 @@ describe('SwitchSlider', () => {
     });
   });
 
-  describe('Small theme', () => {
-    const opts = { theme: smallTheme };
-
+  describe.each([['Small', smallTheme], ['Medium', mediumTheme]])('%s theme', (themeName, theme) => {
     describe('default', () => {
-      const wrapper = render(opts).toJSON();
+      const wrapper = renderWithTheme({}, theme).toJSON();
 
       it('applies the correct base styles', () => {
         assertStyleMatch({
-          backgroundColor: smallTheme.switch.off
+          backgroundColor: theme.switch.off
         }, wrapper);
       });
 
       it('applies the correct ::before styles', () => {
         assertStyleMatch({
-          backgroundColor: smallTheme.colors.white
+          backgroundColor: theme.colors.white
         }, wrapper, { modifier: '::before' });
       });
     });
 
     describe('and checked=true', () => {
-      const wrapper = render({ checked: true, ...opts }).toJSON();
+      const wrapper = renderWithTheme({ checked: true }, theme).toJSON();
 
       it('applies the correct base styles', () => {
         assertStyleMatch({
-          backgroundColor: smallTheme.colors.primary
+          backgroundColor: theme.colors.primary
         }, wrapper);
       });
     });
 
     describe('and disabled=true', () => {
-      const wrapper = render({ disabled: true, ...opts }).toJSON();
+      const wrapper = renderWithTheme({ disabled: true }, theme).toJSON();
 
       it('applies the correct base styles', () => {
         assertStyleMatch({
-          backgroundColor: smallTheme.disabled.background
+          backgroundColor: theme.disabled.background
         }, wrapper);
       });
 
       it('applies the correct SwitchSliderPanel styles', () => {
         assertStyleMatch({
-          color: smallTheme.disabled.disabled
+          color: theme.disabled.disabled
         }, wrapper, { modifier: css`${SwitchSliderPanel}` });
       });
     });
 
     describe('when checked=true && disabled=true', () => {
-      const wrapper = render({ checked: true, disabled: true, ...opts }).toJSON();
+      const wrapper = renderWithTheme({ checked: true, disabled: true }, theme).toJSON();
 
       it('applies the correct base styles', () => {
         assertStyleMatch({
-          backgroundColor: smallTheme.colors.disabled
+          backgroundColor: theme.colors.disabled
         }, wrapper);
       });
 
       it('applies the correct SwitchSliderPanel styles', () => {
         assertStyleMatch({
-          color: smallTheme.colors.white
-        }, wrapper, { modifier: css`${SwitchSliderPanel}` });
-      });
-    });
-  });
-
-  describe('Medium theme', () => {
-    const opts = { theme: mediumTheme };
-
-    describe('default', () => {
-      const wrapper = render(opts).toJSON();
-
-      it('applies the correct base styles', () => {
-        assertStyleMatch({
-          backgroundColor: mediumTheme.switch.off
-        }, wrapper);
-      });
-
-      it('applies the correct ::before styles', () => {
-        assertStyleMatch({
-          backgroundColor: mediumTheme.colors.white
-        }, wrapper, { modifier: '::before' });
-      });
-    });
-
-    describe('and checked=true', () => {
-      const wrapper = render({ checked: true, ...opts }).toJSON();
-
-      it('applies the correct base styles', () => {
-        assertStyleMatch({
-          backgroundColor: mediumTheme.colors.primary
-        }, wrapper);
-      });
-    });
-
-    describe('and disabled=true', () => {
-      const wrapper = render({ disabled: true, ...opts }).toJSON();
-
-      it('applies the correct base styles', () => {
-        assertStyleMatch({
-          backgroundColor: mediumTheme.disabled.background
-        }, wrapper);
-      });
-
-      it('applies the correct SwitchSliderPanel styles', () => {
-        assertStyleMatch({
-          color: mediumTheme.disabled.disabled
-        }, wrapper, { modifier: css`${SwitchSliderPanel}` });
-      });
-    });
-
-    describe('when checked=true && disabled=true', () => {
-      const wrapper = render({ checked: true, disabled: true, ...opts }).toJSON();
-
-      it('applies the correct base styles', () => {
-        assertStyleMatch({
-          backgroundColor: mediumTheme.colors.disabled
-        }, wrapper);
-      });
-
-      it('applies the correct SwitchSliderPanel styles', () => {
-        assertStyleMatch({
-          color: mediumTheme.colors.white
+          color: theme.colors.white
         }, wrapper, { modifier: css`${SwitchSliderPanel}` });
       });
     });
   });
 });
+
+function render(props) {
+  return TestRenderer.create(<SwitchSlider { ...props } />);
+}
+
+function renderWithTheme(props, theme, renderer = TestRenderer.create) {
+  return renderer(
+    <ThemeProvider theme={ theme }>
+      <SwitchSlider { ...props } />
+    </ThemeProvider>
+  );
+}

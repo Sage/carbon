@@ -714,6 +714,11 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   display: block;
 }
 
+.common-input__label--help .c5 {
+  width: auto;
+  height: auto;
+}
+
 .c5:hover {
   color: rgba(0,0,0,0.90);
   background-color: transparent;

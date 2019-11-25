@@ -25,13 +25,13 @@ OriginalTextbox.__docgenInfo = getDocGenInfo(
 
 const store = new Store(
   {
-    value: ''
+    value: '2019-04-04'
   }
 );
 
 const setValue = (ev) => {
   action('onChange')(ev);
-  store.set({ value: ev.target.value });
+  store.set({ value: ev.target.value.rawValue });
 };
 
 function makeStory(name, themeSelector) {
@@ -49,6 +49,7 @@ function makeStory(name, themeSelector) {
         maxDate={ maxDate }
         value={ store.get('value') }
         onChange={ setValue }
+        onBlur={ ev => action('onBlur')(ev) }
       />
     );
   };
@@ -78,6 +79,7 @@ function makeValidationsStory(name, themeSelector) {
           warnings={ [isNotSecondApr] }
           info={ [isNotThirdApr] }
           onChange={ setValue }
+          onBlur={ ev => action('onBlur')(ev) }
         />
       </State>
     );
@@ -105,7 +107,7 @@ storiesOf('Experimental/Date Input', module)
 
 function isNotFirstApr(value) {
   return new Promise((resolve, reject) => {
-    if (value !== '01/04/2019') {
+    if (value !== '2019-04-01') {
       resolve();
     } else {
       reject(new Error('April 1st 2019 cannot be selected!'));
@@ -115,7 +117,7 @@ function isNotFirstApr(value) {
 
 function isNotSecondApr(value) {
   return new Promise((resolve, reject) => {
-    if (value !== '02/04/2019') {
+    if (value !== '2019-04-02') {
       resolve();
     } else {
       reject(new Error('Selecting April 2nd 2019 is not recommended'));
@@ -125,7 +127,7 @@ function isNotSecondApr(value) {
 
 function isNotThirdApr(value) {
   return new Promise((resolve, reject) => {
-    if (value !== '03/04/2019') {
+    if (value !== '2019-04-03') {
       resolve();
     } else {
       reject(new Error('You have selected April 3rd 2019'));

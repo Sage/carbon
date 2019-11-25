@@ -10,11 +10,14 @@ import { isClassic } from '../../../utils/helpers/style-helper';
 
 const LabelStyle = styled.div`
   color: ${({ theme }) => theme.text.color};
-  cursor: pointer;
   display: block;
   font-weight: 600;
   padding-bottom: 8px;
   width: 100%;
+
+  label {
+    cursor: pointer;
+  }
 
   ${StyledHelpIcon},
   ${StyledValidationIcon} {
@@ -34,7 +37,7 @@ const LabelStyle = styled.div`
 
   ${({ disabled, theme }) => disabled && css`
     color: ${theme.disabled.disabled};
-  `}  
+  `}
 
   ${({ inline, theme }) => isClassic(theme) && css`
     color: #003349;
@@ -45,7 +48,7 @@ const LabelStyle = styled.div`
       padding-left: 0;
       padding-right: 8px;
     `}
-    
+
     &:hover ${InputIconToggleStyle} {
       background-color: #1e499f;
       border-color: #1e499f;
@@ -58,7 +61,7 @@ const LabelStyle = styled.div`
     align,
     optional,
     theme
-  }) => childOfForm && !isClassic(theme) && css`  
+  }) => childOfForm && !isClassic(theme) && css`
     ${!inline && css`
       margin-bottom: 12px;
     `}

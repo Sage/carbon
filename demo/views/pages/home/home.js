@@ -1,6 +1,5 @@
 import React from 'react';
 
-import AlertBanner from './alert-banner';
 import ComponentShowcase from './component-showcase';
 import GetStarted from './get-started';
 import PageHeaderLarge from '../../common/page-header-large';
@@ -20,7 +19,6 @@ class Home extends React.Component {
         minDepth='0'
         maxDepth='0'
       >
-        <AlertBanner />
         <PageHeaderLarge />
         <ComponentShowcase />
         <SellingPoints />

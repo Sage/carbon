@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import 'jest-styled-components';
 import TestRenderer from 'react-test-renderer';
 import ColorSampleBox from '.';
-import StyledColorSampleBox from './style/color-sample-box.style';
+import StyledColorSampleBox from './color-sample-box.style';
 import classicTheme from '../../../../style/themes/classic';
 import { assertStyleMatch } from '../../../../__spec_helper__/test-utils';
 import StyledTickIcon from '../tick-icon/tick-icon.style';

@@ -7,9 +7,18 @@ import tagComponent from '../../utils/helpers/tags';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 const Button = React.forwardRef((props, ref) => {
-  const { disabled, to, iconType } = props;
+  const {
+    disabled, to, iconType, size, subtext
+  } = props;
 
-  if (props.subtext.length > 0 && props.size !== 'large') {
+  const { as, buttonType, ...rest } = props;
+
+  const propsWithoutAs = {
+    ...rest,
+    buttonType: buttonType || as
+  };
+
+  if (subtext.length > 0 && size !== 'large') {
     throw new Error('subtext prop has no effect unless the button is large');
   }
 
@@ -17,17 +26,16 @@ const Button = React.forwardRef((props, ref) => {
   if (!disabled && to) {
     return (
       <RouterLink to={ to } type={ iconType }>
-        {renderStyledButton(ref, props)}
+        {renderStyledButton(ref, propsWithoutAs)}
       </RouterLink>
     );
   }
 
-  return renderStyledButton(ref, props);
+  return renderStyledButton(ref, propsWithoutAs);
 });
 
 function renderStyledButton(forwardRef, buttonProps) {
   const {
-    as,
     disabled,
     buttonType,
     iconType,
@@ -44,7 +52,7 @@ function renderStyledButton(forwardRef, buttonProps) {
   return (
     <StyledButton
       as={ (!disabled && href) ? 'a' : 'button' } // legacy link button feature
-      buttonType={ buttonType || as }
+      buttonType={ buttonType }
       disabled={ disabled }
       role='button'
       legacyColorVariant={ theme }
@@ -58,17 +66,9 @@ function renderStyledButton(forwardRef, buttonProps) {
   );
 }
 
-function renderChildren(props) {
-  const {
-    iconType,
-    iconPosition,
-    size,
-    subtext,
-    children,
-    disabled,
-    buttonType
-  } = props;
-
+function renderChildren({
+  iconType, iconPosition, size, subtext, children, disabled, buttonType
+}) {
   const iconColorMap = {
     primary: 'on-dark-background',
     secondary: 'business-color',

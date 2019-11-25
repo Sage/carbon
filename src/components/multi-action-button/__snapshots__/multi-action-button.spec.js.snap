@@ -191,6 +191,11 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   display: block;
 }
 
+.common-input__label--help .c6 {
+  width: auto;
+  height: auto;
+}
+
 .c6:hover {
   color: rgba(0,0,0,0.90);
   background-color: transparent;

@@ -21,7 +21,7 @@ install:
 script:
   - npm run storybook-ci </dev/null &>/dev/null &
   - npm run test-carbon-build
-  - npm run lint ./src && npm test -- --maxWorkers=2
+  - npm run lint ./src ./fixtures && npm test -- --maxWorkers=2
   - npm run test-storybook-smoke
   - wait-on http://localhost:9001
   - npm run test-cypress-build

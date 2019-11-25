@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "9.0.1",
+  "version": "9.1.0",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
   "engineStrict": true,
   "engines": {
@@ -34,7 +34,8 @@
     "clean-lib": "rimraf ./lib",
     "copy-files": "cpx \"src/**/!(*.js|*.md|*.snap)\" lib",
     "webpack": "node_modules/.bin/webpack",
-    "webpack-dev-server": "node_modules/.bin/webpack-dev-server"
+    "webpack-dev-server": "node_modules/.bin/webpack-dev-server",
+    "fixtures" : "webpack-dev-server --config fixtures/webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -108,6 +109,7 @@
     "form-serialize": "~0.7.0",
     "highcharts": "~7.1.1",
     "immutable": "~3.8.1",
+    "invariant": "^2.0.0",
     "lodash": "^4.17.11",
     "marked": "^0.7.0",
     "moment": "~2.20.1",

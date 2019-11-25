@@ -3,11 +3,14 @@
 exports[`Label renders the label 1`] = `
 .c0 {
   color: rgba(0,0,0,0.9);
-  cursor: pointer;
   display: block;
   font-weight: 600;
   padding-bottom: 8px;
   width: 100%;
+}
+
+.c0 label {
+  cursor: pointer;
 }
 
 .c0 .c1,

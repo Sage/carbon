@@ -2,6 +2,7 @@ import React from 'react';
 import { act } from 'react-dom/test-utils';
 import 'jest-styled-components';
 import { shallow, mount } from 'enzyme';
+import { ThemeProvider } from 'styled-components';
 import Icon from 'components/icon';
 import Help from './help.component';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
@@ -9,6 +10,7 @@ import classicTheme from '../../style/themes/classic';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import StyledHelp from './help.style';
 import Tooltip from '../tooltip';
+import StyledIcon from '../icon/icon.style';
 
 describe('Help', () => {
   let wrapper;
@@ -139,11 +141,15 @@ describe('Help', () => {
 describe('StyledHelp', () => {
   describe('when the Classic Theme is selected', () => {
     it('renders proper icon color', () => {
-      const wrapper = mount(<StyledHelp theme={ classicTheme } />);
+      const wrapper = mount(
+        <ThemeProvider theme={ classicTheme }>
+          <Help>Helpful Content</Help>
+        </ThemeProvider>
+      );
 
       assertStyleMatch({
-        color: 'rgb(128,153,164)'
-      }, wrapper);
+        color: '#8099A4'
+      }, wrapper.find(Help), { modifier: `${StyledIcon}` });
     });
   });
 });
