@@ -16,7 +16,7 @@ function render(renderer = TestRenderer.create, props, childProps) {
       id={ `rId-${index}` }
       key={ `radio-key-${color}` }
       onChange={ jest.fn() }
-      color={ color }
+      value={ color }
       { ...childProps }
     />
   ));
