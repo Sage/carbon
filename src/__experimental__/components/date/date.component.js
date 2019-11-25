@@ -285,12 +285,19 @@ class BaseDateInput extends React.Component {
     this.openDatePicker();
   }
 
+  hiddenValue = () => {
+    if (DateHelper.isValidDate(this.state.visibleValue)) {
+      return DateHelper.formatValue(this.state.visibleValue, hiddenDateFormat);
+    }
+    return this.state.lastValidEventValues.rawValue;
+  }
+
   renderHiddentInput = () => {
     const props = {
       name: this.props.name,
       type: 'hidden',
       'data-element': 'hidden-input',
-      value: DateHelper.formatValue(this.state.visibleValue, hiddenDateFormat)
+      value: this.hiddenValue()
     };
 
     return <input { ...props } />;

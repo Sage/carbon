@@ -261,7 +261,8 @@ describe('Date', () => {
     });
 
     it('should update the input element to reflect the passed date', () => {
-      expect(wrapper.update().find('input').findWhere(n => n.props().type !== 'hidden').prop('value')).toBe(getFormattedDate(mockDate));
+      expect(wrapper.update().find('input').findWhere(n => n.props().type !== 'hidden')
+        .prop('value')).toBe(getFormattedDate(mockDate));
     });
 
     it('should return focus to the date input and the picker should not open', () => {
@@ -367,6 +368,29 @@ describe('Date', () => {
         wrapper.update();
         expect(wrapper.find('input').findWhere(n => n.props().type !== 'hidden').props().value).toBe(formattedDate);
       });
+    });
+  });
+
+  describe('hidden input', () => {
+    beforeEach(() => {
+      wrapper = render({ value: '28/07/1987' });
+    });
+
+    it('stores the raw/ unformatted value', () => {
+      expect(wrapper.find('input').findWhere(n => n.props().type === 'hidden').prop('value')).toEqual('1987-07-28');
+    });
+
+    it('updates the hidden value when the new date is valid', () => {
+      wrapper = render({ value: '28/07/1987' });
+      wrapper.find(BaseDateInput).setState({ visibleValue: '29/07/2007' });
+      simulateBlurOnInput(wrapper);
+      jest.runAllTimers();
+      expect(wrapper.find('input').findWhere(n => n.props().type === 'hidden').prop('value')).toEqual('2007-07-29');
+    });
+
+    it('does not update the hidden value if the new date is not valid', () => {
+      wrapper.find(BaseDateInput).setState({ visibleValue: 'foo' });
+      expect(wrapper.find('input').findWhere(n => n.props().type === 'hidden').prop('value')).toEqual('1987-07-28');
     });
   });
 
