@@ -33,6 +33,18 @@ const ControlledDate = () => {
                 label='Controlled Date'
                 value={ state }
               />
+              <br />
+              <br />
+              <br />
+              <Date
+                onChange={ onChange }
+                onBlur={ onBlur }
+                id='controlled_date_id_empty'
+                name='controlled_date_name_empty'
+                label='Controlled Date Empty'
+                value={ state }
+                allowEmptyValue
+              />
             </div>
           </React.Fragment>
         );
