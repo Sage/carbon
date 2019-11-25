@@ -31,7 +31,7 @@ const store = new Store(
 
 const setValue = (ev) => {
   action('onChange')(ev);
-  store.set({ value: ev.target.value.formattedValue });
+  store.set({ value: ev.target.value.rawValue });
 };
 
 function makeStory(name, themeSelector) {
@@ -79,6 +79,7 @@ function makeValidationsStory(name, themeSelector) {
           warnings={ [isNotSecondApr] }
           info={ [isNotThirdApr] }
           onChange={ setValue }
+          onBlur={ ev => action('onBlur')(ev) }
         />
       </State>
     );

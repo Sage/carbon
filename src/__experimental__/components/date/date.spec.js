@@ -8,8 +8,11 @@ import Textbox from '../textbox';
 import StyledDateInput from './date.style';
 import { THEMES } from '../../../style/themes';
 import DateHelper from '../../../utils/helpers/date/date';
+import { isEdge } from '../../../utils/helpers/browser-type-check';
 
 moment.suppressDeprecationWarnings = true;
+jest.useFakeTimers();
+jest.mock('../../../utils/helpers/browser-type-check');
 
 describe('StyledDateInput', () => {
   it('renders correctly for default theme', () => {
@@ -78,10 +81,10 @@ describe('Date', () => {
     });
 
     describe('with autoFocus property on the component', () => {
-      it('should not render a DatePicker component', () => {
-        wrapper = render({ onFocus: onFocusFn, autoFocus: true });
+      it('should render a DatePicker component', () => {
+        wrapper = render({ autoFocus: true });
         simulateFocusOnInput(wrapper);
-        expect(wrapper.find(DatePicker).exists()).toBe(false);
+        expect(wrapper.find(DatePicker).exists()).toBe(true);
       });
     });
 
@@ -115,6 +118,31 @@ describe('Date', () => {
       it('then onBlur prop should have been called', () => {
         simulateBlurOnInput(wrapper);
         expect(wrapper.find(DatePicker).exists()).toBe(false);
+        jest.runAllTimers();
+        expect(onBlurFn).toHaveBeenCalled();
+      });
+    });
+
+    describe('and browser is Edge', () => {
+      it('should blur when inputFocusedViaPicker flag is not set or falsy', () => {
+        simulateBlurOnInput(wrapper);
+        jest.runAllTimers();
+        expect(onBlurFn).toHaveBeenCalled();
+      });
+
+      it('should not blur when inputFocusedViaPicker flag is truthy', () => {
+        wrapper.find(BaseDateInput).instance().inputFocusedViaPicker = true;
+        simulateFocusOnInput(wrapper);
+        simulateBlurOnInput(wrapper);
+        jest.runAllTimers();
+        expect(onBlurFn).not.toHaveBeenCalled();
+      });
+
+      it('should not blur when "allowBlur" returns true', () => {
+        isEdge.mockImplementation(() => true);
+        wrapper.find(BaseDateInput).instance().inputFocusedViaPicker = true;
+        simulateBlurOnInput(wrapper);
+        jest.runAllTimers();
         expect(onBlurFn).toHaveBeenCalled();
       });
     });
@@ -183,6 +211,14 @@ describe('Date', () => {
           expect(wrapper.find(DatePicker).exists()).toBe(true);
           expect(onBlurFn).not.toHaveBeenCalled();
         });
+
+        it('when the visibleValue is invalid it passes the previously valid value to picker', () => {
+          simulateFocusOnInput(wrapper);
+          wrapper.find(BaseDateInput).setState({ visibleValue: 'foo' });
+          const picker = wrapper.find(DatePicker);
+          expect(picker.exists()).toBe(true);
+          expect(picker.props().inputDate).toEqual(firstDate);
+        });
       });
 
       describe('and the rawValue is invalid', () => {
@@ -227,6 +263,18 @@ describe('Date', () => {
     it('should update the input element to reflect the passed date', () => {
       expect(wrapper.update().find('input').prop('value')).toBe(getFormattedDate(mockDate));
     });
+
+    it('should return focus to the date input and the picker should not open', () => {
+      const instance = wrapper.find(BaseDateInput).instance();
+      expect(instance.inputFocusedViaPicker).toEqual(true);
+      instance.openDatePicker();
+      expect(
+        wrapper
+          .update()
+          .find(DatePicker)
+          .exists()
+      ).toBe(false);
+    });
   });
 
   describe('when the input value is changed', () => {
@@ -239,7 +287,8 @@ describe('Date', () => {
       onChangeFn = jest.fn();
       wrapper = render({
         onChange: onChangeFn,
-        name: componentName
+        name: componentName,
+        value: '2019-04-11'
       });
     });
 
@@ -268,6 +317,7 @@ describe('Date', () => {
       it("then the value of it's input should be changed to a locally formatted date", () => {
         simulateChangeOnInput(wrapper, validDate);
         simulateBlurOnInput(wrapper);
+        jest.runAllTimers();
         wrapper.update();
         expect(wrapper.find('input').props().value).toBe(visibleDate);
       });
@@ -296,6 +346,26 @@ describe('Date', () => {
         simulateBlurOnInput(wrapper);
         wrapper.update();
         expect(wrapper.find('input').props().value).toBe(invalidDate);
+      });
+    });
+
+    describe('to an empty date', () => {
+      it('reformats the visiblevalue when it is an empty string', () => {
+        const initialDate = '1 apr 2019';
+        const formattedDate = '01/04/2019';
+        const emptyDate = '';
+
+        wrapper = render({
+          onChange: onChangeFn,
+          name: componentName,
+          value: initialDate
+        });
+
+        simulateChangeOnInput(wrapper, emptyDate);
+        simulateBlurOnInput(wrapper);
+        jest.runAllTimers();
+        wrapper.update();
+        expect(wrapper.find('input').props().value).toBe(formattedDate);
       });
     });
   });
@@ -331,6 +401,12 @@ describe('Date', () => {
     it('then the "onChange" prop should not have been called', () => {
       simulateChangeOnInput(wrapper, validDate);
       expect(onChangeFn).not.toHaveBeenCalled();
+    });
+
+    it('then the date picker should not open on click', () => {
+      simulateClickOnInput(wrapper);
+      expect(wrapper.find(DatePicker).exists()).toBe(false);
+      expect(onBlurFn).not.toHaveBeenCalled();
     });
   });
 
