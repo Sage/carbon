@@ -149,7 +149,7 @@ class BaseDateInput extends React.Component {
 
    reformatVisibleDate = () => {
      const { lastValidEventValues, visibleValue } = this.state;
-     if (DateHelper.isValidDate(visibleValue) || (!visibleValue.length && this.props.allowEmptyValue)) {
+     if (DateHelper.isValidDate(visibleValue) || (this.canBeEmptyValues(visibleValue))) {
        this.updateValidEventValues(visibleValue);
      } else if (!visibleValue.length) {
        this.updateValidEventValues(lastValidEventValues.formattedValue);
