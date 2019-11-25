@@ -158,7 +158,7 @@ describe('SimpleColorPicker', () => {
 
   describe('propTypes', () => {
     it('validates the incorrect children prop', () => {
-      jest.spyOn(global.console, 'error');
+      jest.spyOn(global.console, 'error').mockImplementation(() => {});
 
       mount(
         <SimpleColorPicker name={ name } legend='SimpleColorPicker Legend'>
