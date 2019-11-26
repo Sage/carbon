@@ -35,6 +35,7 @@ const Flash = (props) => {
       open={ props.open }
       variant={ props.variant || props.as }
       onDismiss={ props.timeout ? null : props.onDismiss }
+      id={ props.id }
       data-component='flash'
     >
       {props.message}
@@ -49,6 +50,8 @@ Flash.propTypes = {
   open: PropTypes.bool.isRequired,
   /** Type of notification. Legacy standard (see the 'iconColorSets' for possible values) */
   as: PropTypes.string,
+  /** An identifier passed to the component root element */
+  id: PropTypes.string,
   /** Type of notification with new DLS standard */
   variant: PropTypes.string,
   /** Contents of message. */
