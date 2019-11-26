@@ -157,14 +157,14 @@ describe('InputValidation', () => {
 
       describe('when becoming disabled', () => {
         it('calls setState', () => {
-          instance.componentWillReceiveProps({ disabled: true });
+          instance.UNSAFE_componentWillReceiveProps({ disabled: true });
           expect(instance._handleContentChange).toHaveBeenCalled();
         });
       });
 
       describe('when not becoming disabled', () => {
         it('does not call setState', () => {
-          instance.componentWillReceiveProps({ disabled: false });
+          instance.UNSAFE_componentWillReceiveProps({ disabled: false });
           expect(instance.setState).not.toHaveBeenCalled();
         });
       });
@@ -172,7 +172,7 @@ describe('InputValidation', () => {
       describe('when the next value matches the current value', () => {
         it('does not call validate', () => {
           spyOn(instance, 'validate');
-          instance.componentWillReceiveProps({ value: instance.props.value });
+          instance.UNSAFE_componentWillReceiveProps({ value: instance.props.value });
           expect(instance.validate).not.toHaveBeenCalled();
         });
       });
@@ -186,32 +186,32 @@ describe('InputValidation', () => {
           spyOn(instance, 'validate');
           wrapper.setState({ valid: false });
           wrapper.setProps({ value: 'foo' });
-          instance.componentWillReceiveProps({ value: 'foo' });
+          instance.UNSAFE_componentWillReceiveProps({ value: 'foo' });
           expect(instance.validate).not.toHaveBeenCalled();
         });
 
         it('calls validate with the next value', () => {
           spyOn(instance, 'validate');
-          instance.componentWillReceiveProps({ value: 'foo' });
+          instance.UNSAFE_componentWillReceiveProps({ value: 'foo' });
           expect(instance.validate).toHaveBeenCalledWith('foo');
         });
 
         it('calls warning with the next value', () => {
           spyOn(instance, 'warning');
-          instance.componentWillReceiveProps({ value: 'foo' });
+          instance.UNSAFE_componentWillReceiveProps({ value: 'foo' });
           expect(instance.warning).toHaveBeenCalledWith('foo');
         });
 
         it('calls info with the next value', () => {
           spyOn(instance, 'info');
-          instance.componentWillReceiveProps({ value: 'foo' });
+          instance.UNSAFE_componentWillReceiveProps({ value: 'foo' });
           expect(instance.info).toHaveBeenCalledWith('foo');
         });
 
         describe('when it returns valid', () => {
           it('resets valid to be truthy', () => {
             spyOn(instance, 'validate').and.returnValue(true);
-            instance.componentWillReceiveProps({ value: 'foo' });
+            instance.UNSAFE_componentWillReceiveProps({ value: 'foo' });
             expect(instance.setState).toHaveBeenCalledWith({ valid: true });
             expect(instance._handleContentChange).toHaveBeenCalled();
           });
@@ -221,7 +221,7 @@ describe('InputValidation', () => {
           it('does not modify the validity', () => {
             spyOn(instance, 'validate').and.returnValue(false);
             spyOn(instance, 'warning').and.returnValue(true);
-            instance.componentWillReceiveProps({ value: 'foo' });
+            instance.UNSAFE_componentWillReceiveProps({ value: 'foo' });
             expect(instance.setState).not.toHaveBeenCalled();
             expect(instance._handleContentChange).not.toHaveBeenCalled();
           });
@@ -234,7 +234,7 @@ describe('InputValidation', () => {
 
           it('calls warning with the next value', () => {
             spyOn(instance, 'warning');
-            instance.componentWillReceiveProps({ value: 'foo' });
+            instance.UNSAFE_componentWillReceiveProps({ value: 'foo' });
             expect(instance.warning).toHaveBeenCalledWith('foo');
           });
 
@@ -242,7 +242,7 @@ describe('InputValidation', () => {
             it('set warning to be false', () => {
               spyOn(instance, 'validate').and.returnValue(true);
               spyOn(instance, 'warning').and.returnValue(false);
-              instance.componentWillReceiveProps({ value: 'foo' });
+              instance.UNSAFE_componentWillReceiveProps({ value: 'foo' });
               expect(instance.setState).toHaveBeenCalledWith({ warning: false });
               expect(instance._handleContentChange).toHaveBeenCalled();
             });
@@ -253,7 +253,7 @@ describe('InputValidation', () => {
               instance.setState.calls.reset();
               spyOn(instance, 'validate').and.returnValue(true);
               spyOn(instance, 'warning').and.returnValue(true);
-              instance.componentWillReceiveProps({ value: 'foo' });
+              instance.UNSAFE_componentWillReceiveProps({ value: 'foo' });
               expect(instance.setState).not.toHaveBeenCalled();
               expect(instance._handleContentChange).not.toHaveBeenCalled();
             });
@@ -267,7 +267,7 @@ describe('InputValidation', () => {
 
           it('calls info with the next value', () => {
             spyOn(instance, 'info');
-            instance.componentWillReceiveProps({ value: 'foo' });
+            instance.UNSAFE_componentWillReceiveProps({ value: 'foo' });
             expect(instance.info).toHaveBeenCalledWith('foo');
           });
 
@@ -275,7 +275,7 @@ describe('InputValidation', () => {
             it('set the info state to be false', () => {
               spyOn(instance, 'validate').and.returnValue(true);
               spyOn(instance, 'info').and.returnValue(false);
-              instance.componentWillReceiveProps({ value: 'foo' });
+              instance.UNSAFE_componentWillReceiveProps({ value: 'foo' });
               expect(instance.setState).toHaveBeenCalledWith({ info: false });
               expect(instance._handleContentChange).toHaveBeenCalled();
             });
@@ -286,7 +286,7 @@ describe('InputValidation', () => {
               instance.setState.calls.reset();
               spyOn(instance, 'validate').and.returnValue(true);
               spyOn(instance, 'info').and.returnValue(true);
-              instance.componentWillReceiveProps({ value: 'foo' });
+              instance.UNSAFE_componentWillReceiveProps({ value: 'foo' });
               expect(instance.setState).not.toHaveBeenCalled();
               expect(instance._handleContentChange).not.toHaveBeenCalled();
             });
@@ -302,7 +302,7 @@ describe('InputValidation', () => {
       });
 
       it('does not call setState', () => {
-        instance.componentWillReceiveProps({ disabled: true });
+        instance.UNSAFE_componentWillReceiveProps({ disabled: true });
         expect(instance.setState).not.toHaveBeenCalled();
       });
     });

@@ -114,7 +114,7 @@ describe('Flash', () => {
 
     describe('if open prop has changed', () => {
       it('calls setState', () => {
-        defaultInstance.componentWillReceiveProps({ open: false });
+        defaultInstance.UNSAFE_componentWillReceiveProps({ open: false });
         jest.runTimersToTime(2000);
         expect(defaultInstance.setState).toHaveBeenCalledWith({ open: false });
       });
@@ -122,7 +122,7 @@ describe('Flash', () => {
 
     describe('if open prop has not changed', () => {
       it('will not call setState', () => {
-        defaultInstance.componentWillReceiveProps({ open: true });
+        defaultInstance.UNSAFE_componentWillReceiveProps({ open: true });
         jest.runTimersToTime(0);
         expect(defaultInstance.setState).not.toHaveBeenCalled();
       });

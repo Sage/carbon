@@ -211,8 +211,8 @@ class TableAjax extends Table {
    * @param {Object} nextProps The new props passed down to the component
    * @return {Void}
    */
-  componentWillReceiveProps(nextProps) {
-    super.componentWillReceiveProps(nextProps);
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    super.UNSAFE_componentWillReceiveProps(nextProps);
     if (this.props.pageSize !== nextProps.pageSize) {
       this.setState({ pageSize: nextProps.pageSize });
     }

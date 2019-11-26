@@ -66,6 +66,8 @@ Textbox.propTypes = {
     PropTypes.string,
     PropTypes.array // Allows the textbox to be used in the Multi-Select component
   ]),
+  /** The unformatted value  */
+  rawValue: PropTypes.string,
   /** If true, the component will be disabled */
   disabled: PropTypes.bool,
   /** If true, the component will be read-only */
