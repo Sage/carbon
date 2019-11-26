@@ -42,6 +42,7 @@ class Toast extends React.Component {
           isCenter={ this.props.isCenter }
           variant={ this.props.variant || this.props.as }
           className={ this.componentClasses }
+          id={ this.props.id }
           { ...tagComponent((this.props['data-component'] || 'toast'), this.props) }
         >
           <ToastTypeStyle variant={ this.props.variant || this.props.as }>
@@ -87,6 +88,8 @@ Toast.propTypes = {
   as: PropTypes.oneOf(OptionsHelper.colors),
   /** Custom className */
   className: PropTypes.string,
+  /** Custom id  */
+  id: PropTypes.string,
   /** Component name */
   'data-component': PropTypes.string,
   /** The rendered children of the component. */

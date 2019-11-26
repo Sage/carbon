@@ -24,14 +24,14 @@ describe('action toolbar', () => {
         instance.context = {
           attachActionToolbar: spy
         };
-        instance.componentWillMount();
+        instance.UNSAFE_componentWillMount();
         expect(spy).toHaveBeenCalledWith(instance);
       });
     });
 
     describe('if attachActionToolbar does not exist', () => {
       it('calls does not fail', () => {
-        expect(instance.componentWillMount()).toBe(undefined);
+        expect(instance.UNSAFE_componentWillMount()).toBe(undefined);
       });
     });
   });
