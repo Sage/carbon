@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RadioButtonGroup renders as expected 1`] = `
-.c7 {
-  display: block;
-}
-
 .c7 + .c6 {
   margin-top: 16px;
 }
 
-.c11 {
+.c9 {
+  display: block;
+}
+
+.c13 {
   cursor: pointer;
   opacity: 0;
   margin: 0;
@@ -17,72 +17,48 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   z-index: 999;
 }
 
-.c9 {
+.c11 {
   display: inline-block;
   position: relative;
 }
 
-.c5 {
+.c5 .c8 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex: 1 1 100%;
-  -ms-flex: 1 1 100%;
-  flex: 1 1 100%;
 }
 
-.c5 .c6 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c5 .c17 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex: 1 1 calc(100% - 28px);
-  -ms-flex: 1 1 calc(100% - 28px);
-  flex: 1 1 calc(100% - 28px);
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  -webkit-flex-flow: row wrap;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
+.c5 .c19 {
   text-align: left;
+  margin-top: -2px;
   width: auto;
 }
 
-.c5 .c17 .c15,
-.c5 .c17 .c16 {
+.c5 .c19 .c17,
+.c5 .c19 .c18 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c5 .c17 .c15:hover,
-.c5 .c17 .c16:hover,
-.c5 .c17 .c15:focus,
-.c5 .c17 .c16:focus {
+.c5 .c19 .c17:hover,
+.c5 .c19 .c18:hover,
+.c5 .c19 .c17:focus,
+.c5 .c19 .c18:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c5 .c8,
-.c5 .c10,
-.c5 .c12,
-.c5 svg {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+.c5 .c15 {
+  -webkit-flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
+}
+
+.c5 .c19 {
+  -webkit-flex: 1 1 calc(100% - 28px);
+  -ms-flex: 1 1 calc(100% - 28px);
+  flex: 1 1 calc(100% - 28px);
 }
 
 .c4 {
@@ -90,11 +66,11 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   margin-bottom: 12px;
 }
 
-.c4 .c8 {
+.c4 .c10 {
   padding-top: 1px;
 }
 
-.c4 .c12 {
+.c4 .c14 {
   height: 16px;
 }
 
@@ -103,62 +79,62 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   border: 1px solid #668491;
 }
 
-.c4 .c10,
+.c4 .c12,
 .c4 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c4 .c8,
 .c4 .c10,
 .c4 .c12,
+.c4 .c14,
 .c4 svg {
   box-sizing: border-box;
   width: 16px;
 }
 
-.c4 .c10:not([disabled]):focus + .c12,
-.c4 .c10:not([disabled]):hover + .c12 {
+.c4 .c12:not([disabled]):focus + .c14,
+.c4 .c12:not([disabled]):hover + .c14 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c4 .c17 {
+.c4 .c19 {
   padding: 0 6px;
   width: auto;
 }
 
-.c4 .c13 {
+.c4 .c15 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
 }
 
-.c4 .c16 {
+.c4 .c18 {
   position: relative;
   display: inline-block;
 }
 
-.c4 .c13 {
+.c4 .c15 {
   margin-left: 32px;
 }
 
-.c4 .c8 {
+.c4 .c10 {
   margin-right: 16px;
 }
 
-.c4 .c12 {
+.c4 .c14 {
   padding: 0;
 }
 
-.c4 .c12,
+.c4 .c14,
 .c4 svg {
   border-radius: 50%;
 }
 
-.c4 .c8,
 .c4 .c10,
 .c4 .c12,
+.c4 .c14,
 .c4 svg {
   height: 16px;
   width: 16px;
@@ -172,13 +148,13 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   r: 5;
 }
 
-.c4 .c17 {
+.c4 .c19 {
   -webkit-flex: 1 1 calc(100% - 44px);
   -ms-flex: 1 1 calc(100% - 44px);
   flex: 1 1 calc(100% - 44px);
 }
 
-.c4 .c10:checked + .c12 circle {
+.c4 .c12:checked + .c14 circle {
   fill: rgba(0,0,0,0.9);
 }
 
@@ -211,7 +187,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   line-height: 24px;
 }
 
-.c3 .c16 .c14:focus {
+.c3 .c18 .c16:focus {
   outline: 2px solid #FFB500;
 }
 
@@ -259,42 +235,46 @@ exports[`RadioButtonGroup renders as expected 1`] = `
         <div
           className="c8 c9"
         >
-          <input
-            aria-checked={false}
-            aria-describedby="rId-0-help"
-            aria-labelledby="rId-0-label"
-            checked={false}
-            className="c10 c11"
-            id="rId-0"
-            name="test-group"
-            onBlur={[Function]}
-            onChange={[Function]}
-            role="radio"
-            type="radio"
-            value="test-1"
-          />
           <div
-            className="c12 "
+            className="c10 c11"
           >
-            <svg
-              focusable="false"
-              viewBox="0 0 15 15"
+            <input
+              aria-checked={false}
+              aria-describedby="rId-0-help"
+              aria-labelledby="rId-0-label"
+              checked={false}
+              className="c12 c13"
+              id="rId-0"
+              name="test-group"
+              onBlur={[Function]}
+              onChange={[Function]}
+              role="radio"
+              type="radio"
+              value="test-1"
+            />
+            <div
+              className="c14 "
             >
-              <g
-                fill="none"
-                fillRule="evenodd"
-                stroke="none"
-                strokeWidth="1"
+              <svg
+                focusable="false"
+                viewBox="0 0 15 15"
               >
-                <circle
-                  className="radio-button-check"
-                  cx="7.5"
-                  cy="7.5"
-                  fill="#FFFFFF"
-                  r="5"
-                />
-              </g>
-            </svg>
+                <g
+                  fill="none"
+                  fillRule="evenodd"
+                  stroke="none"
+                  strokeWidth="1"
+                >
+                  <circle
+                    className="radio-button-check"
+                    cx="7.5"
+                    cy="7.5"
+                    fill="#FFFFFF"
+                    r="5"
+                  />
+                </g>
+              </svg>
+            </div>
           </div>
         </div>
       </div>
@@ -319,42 +299,46 @@ exports[`RadioButtonGroup renders as expected 1`] = `
         <div
           className="c8 c9"
         >
-          <input
-            aria-checked={false}
-            aria-describedby="rId-1-help"
-            aria-labelledby="rId-1-label"
-            checked={false}
-            className="c10 c11"
-            id="rId-1"
-            name="test-group"
-            onBlur={[Function]}
-            onChange={[Function]}
-            role="radio"
-            type="radio"
-            value="test-2"
-          />
           <div
-            className="c12 "
+            className="c10 c11"
           >
-            <svg
-              focusable="false"
-              viewBox="0 0 15 15"
+            <input
+              aria-checked={false}
+              aria-describedby="rId-1-help"
+              aria-labelledby="rId-1-label"
+              checked={false}
+              className="c12 c13"
+              id="rId-1"
+              name="test-group"
+              onBlur={[Function]}
+              onChange={[Function]}
+              role="radio"
+              type="radio"
+              value="test-2"
+            />
+            <div
+              className="c14 "
             >
-              <g
-                fill="none"
-                fillRule="evenodd"
-                stroke="none"
-                strokeWidth="1"
+              <svg
+                focusable="false"
+                viewBox="0 0 15 15"
               >
-                <circle
-                  className="radio-button-check"
-                  cx="7.5"
-                  cy="7.5"
-                  fill="#FFFFFF"
-                  r="5"
-                />
-              </g>
-            </svg>
+                <g
+                  fill="none"
+                  fillRule="evenodd"
+                  stroke="none"
+                  strokeWidth="1"
+                >
+                  <circle
+                    className="radio-button-check"
+                    cx="7.5"
+                    cy="7.5"
+                    fill="#FFFFFF"
+                    r="5"
+                  />
+                </g>
+              </svg>
+            </div>
           </div>
         </div>
       </div>

@@ -1,9 +1,8 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import FieldHelpStyle from '../field-help/field-help.style';
-import FormFieldStyle from '../form-field/form-field.style';
+import { FieldLineStyle } from '../form-field/form-field.style';
 import HiddenCheckableInputStyle from './hidden-checkable-input.style';
-import StyledCheckableInputSvgWrapper from './checkable-input-svg-wrapper.style';
 import LabelStyle from '../label/label.style';
 import StyledHelp from '../../../components/help/help.style';
 import baseTheme from '../../../style/themes/base';
@@ -16,19 +15,15 @@ const StyledCheckableInput = styled.div`
 
 const StyledCheckableInputWrapper = styled.div`
   ${({
-    disabled, fieldHelpInline, inputWidth, labelAlign, labelWidth, theme
+    disabled, fieldHelpInline, inputWidth, labelAlign, labelWidth, reverse, theme
   }) => css`
-    ${FormFieldStyle} {
+    ${FieldLineStyle} {
       display: flex;
-      flex-wrap: wrap;
     }
 
     ${LabelStyle} {
-      display: flex;
-      flex: 1 1 calc(100% - 28px);
-      justify-content: flex-start;
-      flex-flow: row wrap;
       text-align: ${labelAlign};
+      margin-top: -2px;
       width: auto;
 
       & ${StyledHelp},
@@ -43,17 +38,9 @@ const StyledCheckableInputWrapper = styled.div`
       }
     }
 
-    ${StyledCheckableInput},
-    ${HiddenCheckableInputStyle},
-    ${StyledCheckableInputSvgWrapper},
-    svg {
-      display: flex;
+    ${FieldHelpStyle} {
+      flex-basis: 100%;
     }
-
-    ${FieldHelpStyle && css`
-      display: flex;
-      flex: 1 1 100%;
-    `}
 
     ${disabled && css`
       ${LabelStyle} {
@@ -71,12 +58,42 @@ const StyledCheckableInputWrapper = styled.div`
       }
     `}
 
-    ${fieldHelpInline && `
+    ${fieldHelpInline && css`
+      ${FieldLineStyle} {
+        flex-wrap: nowrap;
+      }
+
+      ${StyledCheckableInput} {
+        margin-right: 0;
+        margin-left: 8px;
+      }
+      
       ${FieldHelpStyle} {
-        display: inline;
+        flex-grow: 0;
+        flex-basis: auto;
         padding-left: 0;
         width: auto;
       }
+
+      ${LabelStyle} {
+        flex: unset;
+      }
+    `}
+
+    ${reverse && css`
+      ${LabelStyle} {
+        flex: 1 1 calc(100% - 28px);
+      }
+
+      ${fieldHelpInline && css`
+        ${FieldHelpStyle} {
+          flex-grow: 1;
+        }
+
+        ${LabelStyle} {
+          flex: unset;
+        }
+      `}
     `}
 
     ${inputWidth !== undefined && inputWidth !== 0 && css`
