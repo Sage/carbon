@@ -1,26 +1,34 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
-import 'jest-styled-components';
+import MockDate from 'mockdate';
 import TestUtils from 'react-dom/test-utils';
 import I18n from 'i18n-js';
 import DateRange from './date-range.component';
+import Textbox from '../textbox/textbox.component';
 import { BaseDateInput } from '../date';
 import DateRangeValidator from '../../../utils/validations/date-range';
 import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 import StyledDateRange from './date-range.style';
 import StyledDateInput from '../date/date.style';
 
+jest.useFakeTimers();
+
 describe('DateRange', () => {
-  let wrapper, startInput, endInput, customOnChange, wrapperInstance;
+  let wrapper, startInput, endInput, customOnChange, customOnBlur, wrapperInstance;
 
   beforeEach(() => {
     customOnChange = jasmine.createSpy();
+    customOnBlur = jasmine.createSpy();
+
     wrapper = renderDateRange({
       onChange: customOnChange,
+      onBlur: customOnBlur,
       value: ['2016-10-10', '2016-11-11'],
       'data-element': 'bar',
-      'data-role': 'baz'
+      'data-role': 'baz',
+      name: 'foo',
+      id: 'bar'
     }, mount);
     startInput = wrapper.find(BaseDateInput).at(0);
     endInput = wrapper.find(BaseDateInput).at(1);
@@ -31,18 +39,88 @@ describe('DateRange', () => {
     spyOn(endInput.instance(), 'handleBlur');
   });
 
-  describe('_onChange', () => {
+  describe('onChange', () => {
     describe('when the start date changes', () => {
       it('calls the passed in onChange function', () => {
-        wrapperInstance._onChange('startDate', { target: { value: '2016-10-15' } });
-        expect(customOnChange).toHaveBeenCalledWith(['2016-10-15', '2016-11-11']);
+        wrapper.find(BaseDateInput).at(0).find('input').simulate('change', { target: { value: '2016-10-15' } });
+        expect(customOnChange).toHaveBeenCalledWith({
+          target: {
+            id: 'bar',
+            name: 'foo',
+            value: [
+              { formattedValue: '15/10/2016', rawValue: '2016-10-15' },
+              { formattedValue: '11/11/2016', rawValue: '2016-11-11' }
+            ]
+          }
+        });
       });
     });
 
     describe('when the end date changes', () => {
       it('calls the passed in onChange function', () => {
-        wrapperInstance._onChange('endDate', { target: { value: '2016-11-16' } });
-        expect(customOnChange).toHaveBeenCalledWith(['2016-10-10', '2016-11-16']);
+        wrapper.find(BaseDateInput).at(1).find('input').simulate('change', { target: { value: '2016-11-16' } });
+
+        expect(customOnChange).toHaveBeenCalledWith(
+          {
+            target: {
+              id: 'bar',
+              name: 'foo',
+              value: [
+                { formattedValue: '10/10/2016', rawValue: '2016-10-10' },
+                { formattedValue: '16/11/2016', rawValue: '2016-11-16' }
+              ]
+            }
+          }
+        );
+      });
+
+      describe('when no onChange prop is passed in', () => {
+        it('it does not call the passed in onChange function', () => {
+          wrapper.setProps({ onChange: undefined });
+          const spy = spyOn(wrapperInstance, 'buildCustomEvent');
+          wrapper.find(BaseDateInput).at(0).find('input').simulate('change', { target: { value: '2016-11-16' } });
+
+          expect(spy).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('when no onBlur prop is passed in', () => {
+        it('it does not call the passed in onChange function', () => {
+          wrapper.setProps({ onBlur: undefined });
+          const spy = spyOn(wrapperInstance, 'buildCustomEvent');
+          wrapperInstance._onBlur();
+          expect(spy).not.toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe('when the user interacts with a date input', () => {
+      it('does not fire an onBlur event when the startDate is focused', () => {
+        wrapper.instance().focusStart();
+        wrapper.instance()._onBlur();
+        expect(customOnBlur).not.toHaveBeenCalled();
+      });
+
+      it('does not fire an onBlur event when the endtDate is focused', () => {
+        wrapper.instance().focusEnd();
+        wrapper.instance()._onBlur();
+        expect(customOnBlur).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('when the user updates the startDate textbox', () => {
+      it('calls the passed in onBlur function', () => {
+        wrapper.find(BaseDateInput).at(0).find('input').simulate('blur', { target: { value: '2016-10-15' } });
+        jest.runAllTimers();
+        expect(customOnBlur).toHaveBeenCalled();
+      });
+    });
+
+    describe('when the user updates the endDate textbox', () => {
+      it('calls the passed in onBlur function', () => {
+        wrapper.find(BaseDateInput).at(1).find('input').simulate('blur', { target: { value: '2016-10-15' } });
+        jest.runAllTimers();
+        expect(customOnBlur).toHaveBeenCalled();
       });
     });
 
@@ -324,6 +402,32 @@ describe('DateRange', () => {
   });
 });
 
+describe('DateRange Uncontrolled behaviour', () => {
+  const mockedTodayDate = '2019-04-01';
+
+  beforeAll(() => {
+    MockDate.set(mockedTodayDate);
+  });
+
+  afterAll(() => {
+    MockDate.reset();
+  });
+
+  it('renders the correct default value when defaultValue prop passed', () => {
+    const defaultValue = ['2019-02-01', '2019-02-02'];
+    const wrapper = renderDateRange({ value: undefined, defaultValue }, mount);
+
+    expect(wrapper.find(Textbox).at(0).prop('rawValue')).toBe(defaultValue[0]);
+    expect(wrapper.find(Textbox).at(1).prop('rawValue')).toBe(defaultValue[1]);
+  });
+
+  it('input values of both Date Inputs defaults to today date if none provided', () => {
+    const wrapper = renderDateRange({ value: undefined }, mount);
+    expect(wrapper.find(Textbox).at(0).prop('rawValue')).toBe(mockedTodayDate);
+    expect(wrapper.find(Textbox).at(1).prop('rawValue')).toBe(mockedTodayDate);
+  });
+});
+
 describe('StyledDateRange', () => {
   it('renders Date inputs correctly when the labels are inline', () => {
     const wrapper = TestRenderer.create(<StyledDateRange labelsInline><StyledDateInput /></StyledDateRange>);
@@ -339,7 +443,6 @@ describe('StyledDateRange', () => {
 function renderDateRange(props, renderer = shallow) {
   return renderer(
     <DateRange
-      onChange={ () => {} }
       value={ ['2016-10-10', '2016-11-11'] }
       { ...props }
     />
