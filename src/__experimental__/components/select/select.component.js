@@ -62,10 +62,15 @@ class Select extends React.Component {
     this.blurBlocked = false;
   }
 
-  handleBlur = (ev) => {
+  handleBlur = () => {
     if (this.blurBlocked) return;
     this.setState({ filter: undefined, open: false });
-    if (this.props.onBlur) this.props.onBlur(ev);
+
+    if (this.props.onBlur) {
+      const value = this.getValue();
+      const customEvent = this.createCustomEvent(value);
+      this.props.onBlur(customEvent);
+    }
   }
 
   // opens the dropdown and ensures the input has focus
@@ -233,6 +238,16 @@ class Select extends React.Component {
       return;
     }
 
+    const customEvent = this.createCustomEvent(value);
+
+    this.props.onChange(customEvent);
+  }
+
+  /**
+   * Creates a custom event object, suitable for passing to the
+   * onBlur() and onChange() callback props of this component.
+   */
+  createCustomEvent(value) {
     const { name, id } = this.props;
 
     const strings = (this.isMultiValue(value) ? value : [value]);
@@ -250,7 +265,7 @@ class Select extends React.Component {
       }
     };
 
-    this.props.onChange(customEvent);
+    return customEvent;
   }
 
   /**
@@ -276,7 +291,9 @@ class Select extends React.Component {
   removeSingleItem() {
     invariant(!this.isMultiSelectEnabled(), 'Cannot remove single-select item: Component not in single-select mode');
 
-    if (!this.state.filter) {
+    const value = this.getValue();
+
+    if (!this.state.filter && !!value) {
       this.triggerChange('');
     }
   }
@@ -408,6 +425,8 @@ class Select extends React.Component {
         data-component='carbon-select'
         // move this to textbox style in DLS phase 2
         style={ { minWidth: 75 } }
+        onMouseEnter={ this.handleMouseEnter }
+        onMouseLeave={ this.handleMouseLeave }
         aria-haspopup='listbox'
         aria-expanded={ open }
         aria-controls={ open ? this.listboxId : '' }
@@ -426,8 +445,6 @@ class Select extends React.Component {
               customFilter={ customFilter }
               filterValue={ filter }
               onLazyLoad={ onLazyLoad }
-              onMouseEnter={ this.handleMouseEnter }
-              onMouseLeave={ this.handleMouseLeave }
               onSelect={ this.handleChange }
               open={ open }
               target={ this.input.current && this.input.current.parentElement }

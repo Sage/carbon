@@ -4,6 +4,7 @@ import { mergeDeep } from '../../style/utils/merge-deep';
 import small from '../../style/themes/small';
 import { mergeWithBase } from '../../style/themes/base';
 import Icon from '../icon';
+import { MenuClassic, MenuItemClassic, MenuButtonClassic } from './action-popover-classic.style';
 
 const Menu = styled.div`
   display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
@@ -14,6 +15,8 @@ const Menu = styled.div`
   right: 0;
   background-color: ${({ theme }) => theme.colors.white};
   z-index: 1;
+
+  ${MenuClassic}
 `;
 
 const MenuItemFactory = button => styled(button)`
@@ -38,6 +41,8 @@ const MenuItemFactory = button => styled(button)`
     outline: none;
     box-shadow: inset 0px 0px 0px 2px ${({ theme }) => theme.colors.focus};
   }
+
+  ${MenuItemClassic}
 `;
 
 const MenuItemDivider = styled.div.attrs({ 'data-element': 'action-popover-divider' })`
@@ -58,6 +63,8 @@ const MenuButton = styled.div`
   &:focus {
     outline: 2px solid ${({ theme }) => theme.colors.focus};
   }
+
+  ${MenuButtonClassic}
 `;
 
 /**

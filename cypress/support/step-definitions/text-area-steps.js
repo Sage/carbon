@@ -155,46 +155,46 @@ When('I input {string} into Textarea for deprecated component', (text) => {
 });
 
 Then('Textarea classic component has warnOverLimit and used characters {int} of {int}', (overCharacterLimit, limit) => {
-  cy.wait(200, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
+  cy.wait(250, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
   characterLimit().parent()
     .should('have.text', `You have used ${overCharacterLimit} of ${limit} characters`)
     .and('have.css', 'color', 'rgb(199, 56, 79)');
 });
 
 Then('Textarea component has warnOverLimit and used characters {int} of {int}', (overCharacterLimit, limit) => {
-  cy.wait(200, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
+  cy.wait(250, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
   characterLimitDefaultTextarea().should('have.text', `${overCharacterLimit}/${limit}`)
     .and('have.css', 'color', 'rgb(199, 56, 79)');
 });
 
 Then('Textarea classic component has no warnOverLimit and used characters {int} of {int}', (charactersUsed, limit) => {
-  cy.wait(200, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
+  cy.wait(250, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
   characterLimit().parent()
     .should('have.text', `You have used ${charactersUsed} of ${limit} characters`)
     .and('have.css', 'color', 'rgba(0, 0, 0, 0.85)');
 });
 
 Then('Textarea component has no warnOverLimit and used characters {int} of {int}', (charactersUsed, limit) => {
-  cy.wait(200, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
+  cy.wait(250, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
   characterLimitDefaultTextarea().should('have.text', `${charactersUsed}/${limit}`)
     .and('have.css', 'color', 'rgba(0, 0, 0, 0.55)');
 });
 
 Then('Textarea classic component has enforceCharacterLimit enabled and used characters {int} are equal to limit {int}', (charactersUsed, limit) => {
-  cy.wait(200, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
+  cy.wait(250, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
   characterLimit().parent()
     .should('have.text', `You have used ${charactersUsed} of ${limit} characters`)
     .and('have.css', 'color', 'rgba(0, 0, 0, 0.85)');
 });
 
 Then('Textarea component has enforceCharacterLimit enabled and used characters {int} are equal to limit {int}', (charactersUsed, limit) => {
-  cy.wait(200, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
+  cy.wait(250, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
   characterLimitDefaultTextarea().should('have.text', `${charactersUsed}/${limit}`)
     .and('have.css', 'color', 'rgba(0, 0, 0, 0.55)');
 });
 
 Then('Textarea classic component has enforceCharacterLimit disabled and used characters {int} are more than limit {int}', (charactersUsed, limit) => {
-  cy.wait(200, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
+  cy.wait(250, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
   characterLimit().parent()
     .should('have.text', `You have used ${charactersUsed} of ${limit} characters`)
     .and('have.css', 'color', 'rgba(0, 0, 0, 0.85)');

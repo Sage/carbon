@@ -21,6 +21,14 @@ exports[`Switch base theme renders as expected 1`] = `
   margin-top: 16px;
 }
 
+.c12 + .c2 {
+  margin-top: 10px;
+}
+
+.c13 + .c2 {
+  margin-top: 10px;
+}
+
 .c5 {
   display: inline-block;
   position: relative;
@@ -36,28 +44,28 @@ exports[`Switch base theme renders as expected 1`] = `
   flex-wrap: wrap;
 }
 
-.c1 .c31 {
+.c1 .c33 {
   text-align: left;
   width: auto;
   white-space: nowrap;
   margin-top: -2px;
 }
 
-.c1 .c31 .c29,
-.c1 .c31 .c30 {
+.c1 .c33 .c31,
+.c1 .c33 .c32 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c1 .c31 .c29:hover,
-.c1 .c31 .c30:hover,
-.c1 .c31 .c29:focus,
-.c1 .c31 .c30:focus {
+.c1 .c33 .c31:hover,
+.c1 .c33 .c32:hover,
+.c1 .c33 .c31:focus,
+.c1 .c33 .c32:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c12 .c2 {
+.c14 .c2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -118,32 +126,6 @@ exports[`Switch base theme renders as expected 1`] = `
   z-index: 1;
 }
 
-.c13 .c4,
-.c13 .c6 {
-  border: none;
-  box-sizing: border-box;
-  height: 24px;
-  width: 60px;
-}
-
-.c13 .c6:not([disabled]):focus + .c8,
-.c13 .c6:not([disabled]):hover + .c8 {
-  outline: solid 3px #FFB500;
-}
-
-.c14 .c4,
-.c14 .c6 {
-  border: none;
-  box-sizing: border-box;
-  height: 24px;
-  width: 60px;
-}
-
-.c14 .c6:not([disabled]):focus + .c8,
-.c14 .c6:not([disabled]):hover + .c8 {
-  outline: solid 3px #FFB500;
-}
-
 .c15 .c4,
 .c15 .c6 {
   border: none;
@@ -196,13 +178,6 @@ exports[`Switch base theme renders as expected 1`] = `
   outline: solid 3px #FFB500;
 }
 
-.c18 .c4,
-.c18 .c6,
-.c18 .c8 {
-  height: 40px;
-  width: 78px;
-}
-
 .c19 .c4,
 .c19 .c6 {
   border: none;
@@ -214,13 +189,6 @@ exports[`Switch base theme renders as expected 1`] = `
 .c19 .c6:not([disabled]):focus + .c8,
 .c19 .c6:not([disabled]):hover + .c8 {
   outline: solid 3px #FFB500;
-}
-
-.c19 .c4,
-.c19 .c6,
-.c19 .c8 {
-  height: 40px;
-  width: 78px;
 }
 
 .c20 .c4,
@@ -243,6 +211,46 @@ exports[`Switch base theme renders as expected 1`] = `
   width: 78px;
 }
 
+.c21 .c4,
+.c21 .c6 {
+  border: none;
+  box-sizing: border-box;
+  height: 24px;
+  width: 60px;
+}
+
+.c21 .c6:not([disabled]):focus + .c8,
+.c21 .c6:not([disabled]):hover + .c8 {
+  outline: solid 3px #FFB500;
+}
+
+.c21 .c4,
+.c21 .c6,
+.c21 .c8 {
+  height: 40px;
+  width: 78px;
+}
+
+.c22 .c4,
+.c22 .c6 {
+  border: none;
+  box-sizing: border-box;
+  height: 24px;
+  width: 60px;
+}
+
+.c22 .c6:not([disabled]):focus + .c8,
+.c22 .c6:not([disabled]):hover + .c8 {
+  outline: solid 3px #FFB500;
+}
+
+.c22 .c4,
+.c22 .c6,
+.c22 .c8 {
+  height: 40px;
+  width: 78px;
+}
+
 .c0 {
   margin-bottom: 24px;
 }
@@ -260,97 +268,21 @@ exports[`Switch base theme renders as expected 1`] = `
   outline: solid 3px #FFB500;
 }
 
-.c0 .c27 {
+.c0 .c29 {
   margin-left: 0px;
   margin-top: 5px;
 }
 
-.c0 .c31 {
+.c0 .c33 {
   padding: 0;
   margin-bottom: 8px;
   margin-right: 100%;
   margin-top: 1px;
 }
 
-.c0 .c31 .c30 {
+.c0 .c33 .c32 {
   position: relative;
   display: inline-block;
-}
-
-.c21 .c4,
-.c21 .c6 {
-  border: none;
-  box-sizing: border-box;
-  height: 24px;
-  width: 60px;
-}
-
-.c21 .c6:not([disabled]):focus + .c8,
-.c21 .c6:not([disabled]):hover + .c8 {
-  outline: solid 3px #FFB500;
-}
-
-.c21 .c4,
-.c21 .c6 {
-  border-radius: 24px;
-  height: 28px;
-  width: 55px;
-}
-
-.c21 .c8 {
-  -webkit-transition: box-shadow .1s linear;
-  transition: box-shadow .1s linear;
-}
-
-.c21 .c6:not([disabled]):focus + .c8 {
-  box-shadow: 0 0 6px 2px rgba(37,91,199,0.6);
-}
-
-.c21 .c6:not([disabled]):focus + .c8,
-.c21 .c6:not([disabled]):hover + .c8 {
-  outline: none;
-}
-
-.c21 .c4 .c28 {
-  top: 1px;
-}
-
-.c22 .c4,
-.c22 .c6 {
-  border: none;
-  box-sizing: border-box;
-  height: 24px;
-  width: 60px;
-}
-
-.c22 .c6:not([disabled]):focus + .c8,
-.c22 .c6:not([disabled]):hover + .c8 {
-  outline: solid 3px #FFB500;
-}
-
-.c22 .c4,
-.c22 .c6 {
-  border-radius: 24px;
-  height: 28px;
-  width: 55px;
-}
-
-.c22 .c8 {
-  -webkit-transition: box-shadow .1s linear;
-  transition: box-shadow .1s linear;
-}
-
-.c22 .c6:not([disabled]):focus + .c8 {
-  box-shadow: 0 0 6px 2px rgba(37,91,199,0.6);
-}
-
-.c22 .c6:not([disabled]):focus + .c8,
-.c22 .c6:not([disabled]):hover + .c8 {
-  outline: none;
-}
-
-.c22 .c4 .c28 {
-  top: 1px;
 }
 
 .c23 .c4,
@@ -387,7 +319,7 @@ exports[`Switch base theme renders as expected 1`] = `
   outline: none;
 }
 
-.c23 .c4 .c28 {
+.c23 .c4 .c30 {
   top: 1px;
 }
 
@@ -402,13 +334,6 @@ exports[`Switch base theme renders as expected 1`] = `
 .c24 .c6:not([disabled]):focus + .c8,
 .c24 .c6:not([disabled]):hover + .c8 {
   outline: solid 3px #FFB500;
-}
-
-.c24 .c4,
-.c24 .c6,
-.c24 .c8 {
-  height: 40px;
-  width: 78px;
 }
 
 .c24 .c4,
@@ -432,15 +357,8 @@ exports[`Switch base theme renders as expected 1`] = `
   outline: none;
 }
 
-.c24 .c4 .c28 {
+.c24 .c4 .c30 {
   top: 1px;
-}
-
-.c24 .c4,
-.c24 .c6,
-.c24 .c8 {
-  height: 28px;
-  width: 55px;
 }
 
 .c25 .c4,
@@ -454,13 +372,6 @@ exports[`Switch base theme renders as expected 1`] = `
 .c25 .c6:not([disabled]):focus + .c8,
 .c25 .c6:not([disabled]):hover + .c8 {
   outline: solid 3px #FFB500;
-}
-
-.c25 .c4,
-.c25 .c6,
-.c25 .c8 {
-  height: 40px;
-  width: 78px;
 }
 
 .c25 .c4,
@@ -484,15 +395,8 @@ exports[`Switch base theme renders as expected 1`] = `
   outline: none;
 }
 
-.c25 .c4 .c28 {
+.c25 .c4 .c30 {
   top: 1px;
-}
-
-.c25 .c4,
-.c25 .c6,
-.c25 .c8 {
-  height: 28px;
-  width: 55px;
 }
 
 .c26 .c4,
@@ -536,13 +440,117 @@ exports[`Switch base theme renders as expected 1`] = `
   outline: none;
 }
 
-.c26 .c4 .c28 {
+.c26 .c4 .c30 {
   top: 1px;
 }
 
 .c26 .c4,
 .c26 .c6,
 .c26 .c8 {
+  height: 28px;
+  width: 55px;
+}
+
+.c27 .c4,
+.c27 .c6 {
+  border: none;
+  box-sizing: border-box;
+  height: 24px;
+  width: 60px;
+}
+
+.c27 .c6:not([disabled]):focus + .c8,
+.c27 .c6:not([disabled]):hover + .c8 {
+  outline: solid 3px #FFB500;
+}
+
+.c27 .c4,
+.c27 .c6,
+.c27 .c8 {
+  height: 40px;
+  width: 78px;
+}
+
+.c27 .c4,
+.c27 .c6 {
+  border-radius: 24px;
+  height: 28px;
+  width: 55px;
+}
+
+.c27 .c8 {
+  -webkit-transition: box-shadow .1s linear;
+  transition: box-shadow .1s linear;
+}
+
+.c27 .c6:not([disabled]):focus + .c8 {
+  box-shadow: 0 0 6px 2px rgba(37,91,199,0.6);
+}
+
+.c27 .c6:not([disabled]):focus + .c8,
+.c27 .c6:not([disabled]):hover + .c8 {
+  outline: none;
+}
+
+.c27 .c4 .c30 {
+  top: 1px;
+}
+
+.c27 .c4,
+.c27 .c6,
+.c27 .c8 {
+  height: 28px;
+  width: 55px;
+}
+
+.c28 .c4,
+.c28 .c6 {
+  border: none;
+  box-sizing: border-box;
+  height: 24px;
+  width: 60px;
+}
+
+.c28 .c6:not([disabled]):focus + .c8,
+.c28 .c6:not([disabled]):hover + .c8 {
+  outline: solid 3px #FFB500;
+}
+
+.c28 .c4,
+.c28 .c6,
+.c28 .c8 {
+  height: 40px;
+  width: 78px;
+}
+
+.c28 .c4,
+.c28 .c6 {
+  border-radius: 24px;
+  height: 28px;
+  width: 55px;
+}
+
+.c28 .c8 {
+  -webkit-transition: box-shadow .1s linear;
+  transition: box-shadow .1s linear;
+}
+
+.c28 .c6:not([disabled]):focus + .c8 {
+  box-shadow: 0 0 6px 2px rgba(37,91,199,0.6);
+}
+
+.c28 .c6:not([disabled]):focus + .c8,
+.c28 .c6:not([disabled]):hover + .c8 {
+  outline: none;
+}
+
+.c28 .c4 .c30 {
+  top: 1px;
+}
+
+.c28 .c4,
+.c28 .c6,
+.c28 .c8 {
   height: 28px;
   width: 55px;
 }
@@ -583,14 +591,9 @@ exports[`Switch base theme renders as expected 1`] = `
         <span
           checked={false}
           className="c8 c9"
-          name="my-switch"
-          onBlur={[Function]}
         >
           <div
-            checked={false}
             className="c10"
-            name="my-switch"
-            onBlur={[Function]}
             type="off"
           >
             OFF

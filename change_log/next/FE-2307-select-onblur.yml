@@ -1,0 +1,1 @@
+Breaking Changes: "The event object passed to the onBlur callback prop now has the same structure as that passed to onChange (Component: Select)"

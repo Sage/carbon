@@ -9,7 +9,7 @@ import { isClassic } from '../../../utils/helpers/style-helper';
 const StyledSelect = styled.div`
   ${({ isAnyValueSelected }) => isAnyValueSelected && css`
     ${StyledInput}::placeholder {
-      visibility: hidden;
+      opacity: 0;
     }
   `}
 
