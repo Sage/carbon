@@ -228,14 +228,11 @@ class BaseDateInput extends React.Component {
   };
 
   getDateObject = (newValue) => {
-    let newDate = DateHelper.stringToDate(isoFormattedValueString(newValue));
-    const isNewDateInvalid = !newDate.getDate();
-
-    if (isNewDateInvalid) {
-      newDate = DateHelper.stringToDate(DateHelper.todayFormatted());
+    if (!DateHelper.isValidDate(newValue)) {
+      return DateHelper.stringToDate(DateHelper.todayFormatted());
     }
 
-    return newDate;
+    return DateHelper.stringToDate(isoFormattedValueString(newValue));
   };
 
   emitOnChangeCallback = (ev, isoFormattedValue) => {
