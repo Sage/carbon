@@ -45,7 +45,6 @@ const CheckboxGroup = (props) => {
     <StyledCheckboxGroup
       aria-labelledby={ groupLabelId }
       role='checkbox'
-      value={ checkboxGroupValue }
       { ...tagComponent('checkboxgroup', props) }
     >
       <FormField { ...props }>
