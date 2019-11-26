@@ -408,6 +408,7 @@ class Select extends React.Component {
       placeholder,
       value,
       defaultValue,
+      isLoopable,
       onLazyLoad,
       onFilter,
       onOpen,
@@ -445,6 +446,7 @@ class Select extends React.Component {
               customFilter={ customFilter }
               filterValue={ filter }
               onLazyLoad={ onLazyLoad }
+              isLoopable={ isLoopable }
               onSelect={ this.handleChange }
               open={ open }
               target={ this.input.current && this.input.current.parentElement }
@@ -475,6 +477,8 @@ Select.propTypes = {
   disabled: PropTypes.bool,
   /** Label text for the <Textbox> */
   label: PropTypes.string,
+  /** Flag to indicite whether select list is loopable while traversing using up and down keys */
+  isLoopable: PropTypes.bool,
   /** A custom callback for the <Textbox>'s Blur event */
   onBlur: PropTypes.func,
   /** A custom callback for when changes occur */
