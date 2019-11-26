@@ -121,7 +121,9 @@ describe('Switch', () => {
       const wrapper = render({ fieldHelpInline: true }).toJSON();
 
       it('applies the correct FieldHelp styles', () => {
-        assertStyleMatch({ marginRight: '32px' }, wrapper, { modifier: css`${FieldHelpStyle}` });
+        assertStyleMatch({
+          marginBottom: '10px'
+        }, wrapper, { modifier: css`${FieldHelpStyle}` });
       });
     });
 
@@ -130,8 +132,8 @@ describe('Switch', () => {
 
       it('applies the correct Label styles', () => {
         assertStyleMatch({
-          margin: '0 32px 0 0',
-          padding: '3px 0',
+          marginBottom: '0',
+          marginRight: '32px',
           width: 'auto'
         }, wrapper, { modifier: css`${LabelStyle}` });
       });
@@ -148,14 +150,15 @@ describe('Switch', () => {
 
       it('applies the correct Label styles', () => {
         assertStyleMatch({
-          marginRight: '10px'
+          marginRight: '10px',
+          marginTop: '2px'
         }, wrapper, { modifier: css`${LabelStyle}` });
       });
 
       it('applies the correct FieldHelp styles', () => {
         assertStyleMatch({
-          marginTop: '0',
-          padding: '3px 0'
+          marginLeft: '0',
+          marginTop: '0'
         }, wrapper, { modifier: css`${FieldHelpStyle}` });
       });
     });
@@ -197,7 +200,6 @@ describe('Switch', () => {
 
         it('applies the correct FieldHelp styles', () => {
           assertStyleMatch({
-            marginTop: '0',
             padding: '10px 0'
           }, wrapper, { modifier: css`${FieldHelpStyle}` });
         });

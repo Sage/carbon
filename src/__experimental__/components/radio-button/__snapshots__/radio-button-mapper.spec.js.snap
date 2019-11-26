@@ -2,15 +2,15 @@
 
 exports[`RadioButtonMapper renders as expected 1`] = `
 Array [
-  .c3 {
-  display: block;
-}
-
-.c3 + .c2 {
+  .c3 + .c2 {
   margin-top: 16px;
 }
 
-.c7 {
+.c5 {
+  display: block;
+}
+
+.c9 {
   cursor: pointer;
   opacity: 0;
   margin: 0;
@@ -18,72 +18,48 @@ Array [
   z-index: 999;
 }
 
-.c5 {
+.c7 {
   display: inline-block;
   position: relative;
 }
 
-.c1 {
+.c1 .c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex: 1 1 100%;
-  -ms-flex: 1 1 100%;
-  flex: 1 1 100%;
 }
 
-.c1 .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c1 .c13 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex: 1 1 calc(100% - 28px);
-  -ms-flex: 1 1 calc(100% - 28px);
-  flex: 1 1 calc(100% - 28px);
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  -webkit-flex-flow: row wrap;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
+.c1 .c15 {
   text-align: left;
+  margin-top: -2px;
   width: auto;
 }
 
-.c1 .c13 .c11,
-.c1 .c13 .c12 {
+.c1 .c15 .c13,
+.c1 .c15 .c14 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c1 .c13 .c11:hover,
-.c1 .c13 .c12:hover,
-.c1 .c13 .c11:focus,
-.c1 .c13 .c12:focus {
+.c1 .c15 .c13:hover,
+.c1 .c15 .c14:hover,
+.c1 .c15 .c13:focus,
+.c1 .c15 .c14:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c1 .c4,
-.c1 .c6,
-.c1 .c8,
-.c1 svg {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+.c1 .c12 {
+  -webkit-flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
+}
+
+.c1 .c15 {
+  -webkit-flex: 1 1 calc(100% - 28px);
+  -ms-flex: 1 1 calc(100% - 28px);
+  flex: 1 1 calc(100% - 28px);
 }
 
 .c0 {
@@ -91,11 +67,11 @@ Array [
   margin-bottom: 12px;
 }
 
-.c0 .c4 {
+.c0 .c6 {
   padding-top: 1px;
 }
 
-.c0 .c8 {
+.c0 .c10 {
   height: 16px;
 }
 
@@ -104,62 +80,62 @@ Array [
   border: 1px solid #668491;
 }
 
-.c0 .c6,
+.c0 .c8,
 .c0 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c0 .c4,
 .c0 .c6,
 .c0 .c8,
+.c0 .c10,
 .c0 svg {
   box-sizing: border-box;
   width: 16px;
 }
 
-.c0 .c6:not([disabled]):focus + .c8,
-.c0 .c6:not([disabled]):hover + .c8 {
+.c0 .c8:not([disabled]):focus + .c10,
+.c0 .c8:not([disabled]):hover + .c10 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c0 .c13 {
+.c0 .c15 {
   padding: 0 6px;
   width: auto;
 }
 
-.c0 .c10 {
+.c0 .c12 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
 }
 
-.c0 .c12 {
+.c0 .c14 {
   position: relative;
   display: inline-block;
 }
 
-.c0 .c10 {
+.c0 .c12 {
   margin-left: 32px;
 }
 
-.c0 .c4 {
+.c0 .c6 {
   margin-right: 16px;
 }
 
-.c0 .c8 {
+.c0 .c10 {
   padding: 0;
 }
 
-.c0 .c8,
+.c0 .c10,
 .c0 svg {
   border-radius: 50%;
 }
 
-.c0 .c4,
 .c0 .c6,
 .c0 .c8,
+.c0 .c10,
 .c0 svg {
   height: 16px;
   width: 16px;
@@ -173,66 +149,66 @@ Array [
   r: 5;
 }
 
-.c0 .c13 {
+.c0 .c15 {
   -webkit-flex: 1 1 calc(100% - 44px);
   -ms-flex: 1 1 calc(100% - 44px);
   flex: 1 1 calc(100% - 44px);
 }
 
-.c0 .c6:checked + .c8 circle {
+.c0 .c8:checked + .c10 circle {
   fill: rgba(0,0,0,0.9);
 }
 
-.c9 .c4 {
+.c11 .c6 {
   padding-top: 1px;
 }
 
-.c9 .c8 {
+.c11 .c10 {
   height: 16px;
 }
 
-.c9 .c6,
-.c9 svg {
+.c11 .c8,
+.c11 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c9 .c4,
-.c9 .c6,
-.c9 .c8,
-.c9 svg {
+.c11 .c6,
+.c11 .c8,
+.c11 .c10,
+.c11 svg {
   box-sizing: border-box;
   width: 16px;
 }
 
-.c9 .c6:not([disabled]):focus + .c8,
-.c9 .c6:not([disabled]):hover + .c8 {
+.c11 .c8:not([disabled]):focus + .c10,
+.c11 .c8:not([disabled]):hover + .c10 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c9 .c4 {
+.c11 .c6 {
   margin-right: 16px;
 }
 
-.c9 .c8 {
+.c11 .c10 {
   padding: 0;
 }
 
-.c9 .c8,
-.c9 svg {
+.c11 .c10,
+.c11 svg {
   border-radius: 50%;
 }
 
-.c9 .c4,
-.c9 .c6,
-.c9 .c8,
-.c9 svg {
+.c11 .c6,
+.c11 .c8,
+.c11 .c10,
+.c11 svg {
   height: 16px;
   width: 16px;
 }
 
-.c9 .c6:checked + .c8 circle {
+.c11 .c8:checked + .c10 circle {
   fill: rgba(0,0,0,0.9);
 }
 
@@ -255,56 +231,60 @@ Array [
         <div
           className="c4 c5"
         >
-          <input
-            aria-checked={false}
-            aria-describedby="rId-0-help"
-            aria-labelledby="rId-0-label"
-            checked={false}
-            className="c6 c7"
-            id="rId-0"
-            name="test-group"
-            onBlur={[MockFunction]}
-            onChange={[Function]}
-            role="radio"
-            type="radio"
-            value="test-1"
-          />
           <div
-            className="c8 "
+            className="c6 c7"
           >
-            <svg
-              focusable="false"
-              viewBox="0 0 15 15"
+            <input
+              aria-checked={false}
+              aria-describedby="rId-0-help"
+              aria-labelledby="rId-0-label"
+              checked={false}
+              className="c8 c9"
+              id="rId-0"
+              name="test-group"
+              onBlur={[MockFunction]}
+              onChange={[Function]}
+              role="radio"
+              type="radio"
+              value="test-1"
+            />
+            <div
+              className="c10 "
             >
-              <g
-                fill="none"
-                fillRule="evenodd"
-                stroke="none"
-                strokeWidth="1"
+              <svg
+                focusable="false"
+                viewBox="0 0 15 15"
               >
-                <circle
-                  className="radio-button-check"
-                  cx="7.5"
-                  cy="7.5"
-                  fill="#FFFFFF"
-                  r="5"
-                />
-              </g>
-            </svg>
+                <g
+                  fill="none"
+                  fillRule="evenodd"
+                  stroke="none"
+                  strokeWidth="1"
+                >
+                  <circle
+                    className="radio-button-check"
+                    cx="7.5"
+                    cy="7.5"
+                    fill="#FFFFFF"
+                    r="5"
+                  />
+                </g>
+              </svg>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>,
-  .c3 {
-  display: block;
-}
-
-.c3 + .c2 {
+  .c3 + .c2 {
   margin-top: 16px;
 }
 
-.c7 {
+.c5 {
+  display: block;
+}
+
+.c9 {
   cursor: pointer;
   opacity: 0;
   margin: 0;
@@ -312,72 +292,48 @@ Array [
   z-index: 999;
 }
 
-.c5 {
+.c7 {
   display: inline-block;
   position: relative;
 }
 
-.c1 {
+.c1 .c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex: 1 1 100%;
-  -ms-flex: 1 1 100%;
-  flex: 1 1 100%;
 }
 
-.c1 .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c1 .c13 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex: 1 1 calc(100% - 28px);
-  -ms-flex: 1 1 calc(100% - 28px);
-  flex: 1 1 calc(100% - 28px);
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  -webkit-flex-flow: row wrap;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
+.c1 .c15 {
   text-align: left;
+  margin-top: -2px;
   width: auto;
 }
 
-.c1 .c13 .c11,
-.c1 .c13 .c12 {
+.c1 .c15 .c13,
+.c1 .c15 .c14 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c1 .c13 .c11:hover,
-.c1 .c13 .c12:hover,
-.c1 .c13 .c11:focus,
-.c1 .c13 .c12:focus {
+.c1 .c15 .c13:hover,
+.c1 .c15 .c14:hover,
+.c1 .c15 .c13:focus,
+.c1 .c15 .c14:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c1 .c4,
-.c1 .c6,
-.c1 .c8,
-.c1 svg {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+.c1 .c12 {
+  -webkit-flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
+}
+
+.c1 .c15 {
+  -webkit-flex: 1 1 calc(100% - 28px);
+  -ms-flex: 1 1 calc(100% - 28px);
+  flex: 1 1 calc(100% - 28px);
 }
 
 .c0 {
@@ -385,11 +341,11 @@ Array [
   margin-bottom: 12px;
 }
 
-.c0 .c4 {
+.c0 .c6 {
   padding-top: 1px;
 }
 
-.c0 .c8 {
+.c0 .c10 {
   height: 16px;
 }
 
@@ -398,62 +354,62 @@ Array [
   border: 1px solid #668491;
 }
 
-.c0 .c6,
+.c0 .c8,
 .c0 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c0 .c4,
 .c0 .c6,
 .c0 .c8,
+.c0 .c10,
 .c0 svg {
   box-sizing: border-box;
   width: 16px;
 }
 
-.c0 .c6:not([disabled]):focus + .c8,
-.c0 .c6:not([disabled]):hover + .c8 {
+.c0 .c8:not([disabled]):focus + .c10,
+.c0 .c8:not([disabled]):hover + .c10 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c0 .c13 {
+.c0 .c15 {
   padding: 0 6px;
   width: auto;
 }
 
-.c0 .c10 {
+.c0 .c12 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
 }
 
-.c0 .c12 {
+.c0 .c14 {
   position: relative;
   display: inline-block;
 }
 
-.c0 .c10 {
+.c0 .c12 {
   margin-left: 32px;
 }
 
-.c0 .c4 {
+.c0 .c6 {
   margin-right: 16px;
 }
 
-.c0 .c8 {
+.c0 .c10 {
   padding: 0;
 }
 
-.c0 .c8,
+.c0 .c10,
 .c0 svg {
   border-radius: 50%;
 }
 
-.c0 .c4,
 .c0 .c6,
 .c0 .c8,
+.c0 .c10,
 .c0 svg {
   height: 16px;
   width: 16px;
@@ -467,66 +423,66 @@ Array [
   r: 5;
 }
 
-.c0 .c13 {
+.c0 .c15 {
   -webkit-flex: 1 1 calc(100% - 44px);
   -ms-flex: 1 1 calc(100% - 44px);
   flex: 1 1 calc(100% - 44px);
 }
 
-.c0 .c6:checked + .c8 circle {
+.c0 .c8:checked + .c10 circle {
   fill: rgba(0,0,0,0.9);
 }
 
-.c9 .c4 {
+.c11 .c6 {
   padding-top: 1px;
 }
 
-.c9 .c8 {
+.c11 .c10 {
   height: 16px;
 }
 
-.c9 .c6,
-.c9 svg {
+.c11 .c8,
+.c11 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c9 .c4,
-.c9 .c6,
-.c9 .c8,
-.c9 svg {
+.c11 .c6,
+.c11 .c8,
+.c11 .c10,
+.c11 svg {
   box-sizing: border-box;
   width: 16px;
 }
 
-.c9 .c6:not([disabled]):focus + .c8,
-.c9 .c6:not([disabled]):hover + .c8 {
+.c11 .c8:not([disabled]):focus + .c10,
+.c11 .c8:not([disabled]):hover + .c10 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c9 .c4 {
+.c11 .c6 {
   margin-right: 16px;
 }
 
-.c9 .c8 {
+.c11 .c10 {
   padding: 0;
 }
 
-.c9 .c8,
-.c9 svg {
+.c11 .c10,
+.c11 svg {
   border-radius: 50%;
 }
 
-.c9 .c4,
-.c9 .c6,
-.c9 .c8,
-.c9 svg {
+.c11 .c6,
+.c11 .c8,
+.c11 .c10,
+.c11 svg {
   height: 16px;
   width: 16px;
 }
 
-.c9 .c6:checked + .c8 circle {
+.c11 .c8:checked + .c10 circle {
   fill: rgba(0,0,0,0.9);
 }
 
@@ -549,42 +505,46 @@ Array [
         <div
           className="c4 c5"
         >
-          <input
-            aria-checked={false}
-            aria-describedby="rId-1-help"
-            aria-labelledby="rId-1-label"
-            checked={false}
-            className="c6 c7"
-            id="rId-1"
-            name="test-group"
-            onBlur={[MockFunction]}
-            onChange={[Function]}
-            role="radio"
-            type="radio"
-            value="test-2"
-          />
           <div
-            className="c8 "
+            className="c6 c7"
           >
-            <svg
-              focusable="false"
-              viewBox="0 0 15 15"
+            <input
+              aria-checked={false}
+              aria-describedby="rId-1-help"
+              aria-labelledby="rId-1-label"
+              checked={false}
+              className="c8 c9"
+              id="rId-1"
+              name="test-group"
+              onBlur={[MockFunction]}
+              onChange={[Function]}
+              role="radio"
+              type="radio"
+              value="test-2"
+            />
+            <div
+              className="c10 "
             >
-              <g
-                fill="none"
-                fillRule="evenodd"
-                stroke="none"
-                strokeWidth="1"
+              <svg
+                focusable="false"
+                viewBox="0 0 15 15"
               >
-                <circle
-                  className="radio-button-check"
-                  cx="7.5"
-                  cy="7.5"
-                  fill="#FFFFFF"
-                  r="5"
-                />
-              </g>
-            </svg>
+                <g
+                  fill="none"
+                  fillRule="evenodd"
+                  stroke="none"
+                  strokeWidth="1"
+                >
+                  <circle
+                    className="radio-button-check"
+                    cx="7.5"
+                    cy="7.5"
+                    fill="#FFFFFF"
+                    r="5"
+                  />
+                </g>
+              </svg>
+            </div>
           </div>
         </div>
       </div>
