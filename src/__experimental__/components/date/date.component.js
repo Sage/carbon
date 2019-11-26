@@ -46,17 +46,49 @@ class BaseDateInput extends React.Component {
       this.input.focus();
       this.openDatePicker(true);
     }
+    this.handleValidationUpdate(this.inputProps());
   }
 
   componentDidUpdate(prevProps) {
     if (this.isControlled && !this.inputHasFocus && this.hasValueChanged(prevProps)) {
       this.updateSelectedDate(this.props.value);
     }
+
+    if (this.hasValidationsChanged()) {
+      this.handleValidationUpdate(this.inputProps());
+    }
+  }
+
+  inputProps = () => {
+    const { minDate, maxDate, ...inputProps } = this.props;
+    return inputProps;
   }
 
   hasValueChanged = (prevProps) => {
     return this.props.value && prevProps.value !== this.props.value;
   };
+
+  hasValidationsChanged = () => {
+    const { validationsArray } = this.state;
+
+    const currentValidations = concatAllValidations(this.inputProps());
+
+    if (validationsArray.length !== currentValidations.length) {
+      return true;
+    }
+
+    for (let i = validationsArray.length; i--;) {
+      if (validationsArray[i] !== currentValidations[i]) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  handleValidationUpdate = (inputProps) => {
+    this.setState({ validationsArray: concatAllValidations(inputProps) });
+  }
 
   assignInput = (input) => {
     this.input = input.current;
@@ -291,8 +323,6 @@ class BaseDateInput extends React.Component {
     delete inputProps.defaultValue;
     delete inputProps.value;
 
-    inputProps.validations = concatAllValidations(inputProps);
-
     events = {
       onBlur: this.handleBlur,
       onChange: this.handleVisibleInputChange,
@@ -309,6 +339,7 @@ class BaseDateInput extends React.Component {
       >
         <Textbox
           { ...inputProps }
+          validations={ this.state.validationsArray }
           inputIcon='calendar'
           value={ this.state.visibleValue }
           rawValue={ isoFormattedValueString(this.state.visibleValue) }
