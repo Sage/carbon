@@ -317,7 +317,10 @@ class BaseDateInput extends React.Component {
   }
 
   render() {
-    const { minDate, maxDate, ...inputProps } = this.props;
+    const {
+      minDate, maxDate, isDateRange, ...inputProps
+    } = this.props;
+
     let events = {};
     delete inputProps.autoFocus;
     delete inputProps.defaultValue;
@@ -330,6 +333,8 @@ class BaseDateInput extends React.Component {
       onKeyDown: this.handleTabKeyDown
     };
 
+    const validations = isDateRange ? concatAllValidations(inputProps) : this.state.validationsArray;
+
     return (
       <StyledDateInput
         onClick={ this.markCurrentDatepicker }
@@ -339,7 +344,7 @@ class BaseDateInput extends React.Component {
       >
         <Textbox
           { ...inputProps }
-          validations={ this.state.validationsArray }
+          validations={ validations }
           inputIcon='calendar'
           value={ this.state.visibleValue }
           rawValue={ isoFormattedValueString(this.state.visibleValue) }
