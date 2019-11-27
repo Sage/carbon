@@ -150,6 +150,22 @@ describe('Select', () => {
       });
     });
 
+    it('supports leftChildren property', () => {
+      const props = {
+        value: multiValue,
+        enableMultiSelect: true,
+        leftChildren: <span className='my-test-element'>Text</span>
+      };
+
+      const wrapper = renderWrapper({ props });
+      // Check left children
+      expect(wrapper.find('.my-test-element')).toHaveLength(1);
+      expect(wrapper.find('.my-test-element').text()).toEqual('Text');
+
+      // Check pills
+      expect(pillsOf(wrapper)).toHaveLength(3);
+    });
+
     describe('when backspace is pressed and is single select', () => {
       const setupTest = (additionalSetup) => {
         spyOn(Events, 'isBackspaceKey').and.returnValue(true);
@@ -245,6 +261,13 @@ describe('Select', () => {
       const props = { value: singleValue };
       const list = listOf(openList(renderWrapper({ props })));
       expect(() => list.props().onSelect({ value: 'new!' })).not.toThrowError();
+    });
+
+    it('supports leftChildren property', () => {
+      const props = { leftChildren: <span className='my-test-element'>Text</span> };
+      const wrapper = renderWrapper({ props });
+      expect(wrapper.find('.my-test-element')).toHaveLength(1);
+      expect(wrapper.find('.my-test-element').text()).toEqual('Text');
     });
   });
 
