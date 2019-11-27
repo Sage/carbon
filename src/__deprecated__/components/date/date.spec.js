@@ -42,14 +42,14 @@ describe('Date', () => {
       describe('when element has focus', () => {
         it('does not change the state', () => {
           instance._document = { activeElement: instance._input };
-          instance.componentWillReceiveProps({});
+          instance.UNSAFE_componentWillReceiveProps({});
           expect(instance.setState).not.toHaveBeenCalled();
         });
       });
 
       describe('when element does not have focus', () => {
         it('calls set state with to set the date', () => {
-          instance.componentWillReceiveProps({ date: today });
+          instance.UNSAFE_componentWillReceiveProps({ date: today });
           expect(instance.setState).toHaveBeenCalledWith({ visibleValue: today });
         });
       });

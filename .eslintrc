@@ -1,5 +1,13 @@
 {
   "extends": "./node_modules/carbon-factory/.eslintrc",
+  "rules": {
+  // Copy from airbnb with UNSAFE_ ignore added
+  "camelcase": ["error", {
+    "allow": ["^UNSAFE_"],
+    "properties": "never",
+    "ignoreDestructuring": false
+  }]
+},
   "globals": {
     "jest": false,
     "global": false,
