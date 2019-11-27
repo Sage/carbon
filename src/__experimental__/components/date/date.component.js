@@ -46,7 +46,7 @@ class BaseDateInput extends React.Component {
       this.input.focus();
       this.openDatePicker(true);
     }
-    this.handleValidationUpdate(this.inputProps());
+    this.handleValidationUpdate();
   }
 
   componentDidUpdate(prevProps) {
@@ -55,7 +55,7 @@ class BaseDateInput extends React.Component {
     }
 
     if (this.hasValidationsChanged()) {
-      this.handleValidationUpdate(this.inputProps());
+      this.handleValidationUpdate();
     }
   }
 
@@ -77,16 +77,15 @@ class BaseDateInput extends React.Component {
       return true;
     }
 
-    for (let i = validationsArray.length; i--;) {
-      if (validationsArray[i] !== currentValidations[i]) {
-        return true;
-      }
+    if (validationsArray.some((val, index) => val !== currentValidations[index])) {
+      return true;
     }
 
     return false;
   }
 
-  handleValidationUpdate = (inputProps) => {
+  handleValidationUpdate = () => {
+    const inputProps = this.inputProps();
     this.setState({ validationsArray: concatAllValidations(inputProps) });
   }
 
@@ -391,7 +390,9 @@ BaseDateInput.propTypes = {
   /** The current date YYYY-MM-DD */
   value: PropTypes.string,
   /** Triggers textbox validation when it's boolean value changes */
-  forceUpdateTriggerToggle: PropTypes.bool
+  forceUpdateTriggerToggle: PropTypes.bool,
+  /** Temporary flag to indeicate if input is part of DateRange */
+  isDateRange: PropTypes.bool
 };
 
 BaseDateInput.defaultProps = {
