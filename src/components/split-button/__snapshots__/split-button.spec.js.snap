@@ -651,6 +651,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
     onTouchStart={[Function]}
     role="button"
     size="medium"
+    type="button"
   >
     <span>
       <span
@@ -1442,6 +1443,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
     onTouchStart={[Function]}
     role="button"
     size="medium"
+    type="button"
   >
     <span>
       <span
