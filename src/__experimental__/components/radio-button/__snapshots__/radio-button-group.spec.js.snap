@@ -91,6 +91,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 .c4 .c14,
 .c4 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 

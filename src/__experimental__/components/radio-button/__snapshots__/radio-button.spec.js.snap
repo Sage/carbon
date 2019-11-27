@@ -140,6 +140,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
 .c18 .c12,
 .c18 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
@@ -203,6 +204,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
 .c19 .c12,
 .c19 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
@@ -286,6 +288,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
 .c20 .c12,
 .c20 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
@@ -373,6 +376,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
 .c21 .c12,
 .c21 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
@@ -476,6 +480,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
 .c22 .c12,
 .c22 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
@@ -593,6 +598,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
 .c23 .c12,
 .c23 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
@@ -700,6 +706,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
 .c24 .c12,
 .c24 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
@@ -817,6 +824,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
 .c2 .c12,
 .c2 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 

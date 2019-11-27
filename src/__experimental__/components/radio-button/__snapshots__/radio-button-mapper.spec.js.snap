@@ -92,6 +92,7 @@ Array [
 .c0 .c10,
 .c0 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
@@ -179,6 +180,7 @@ Array [
 .c11 .c10,
 .c11 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
@@ -366,6 +368,7 @@ Array [
 .c0 .c10,
 .c0 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
@@ -453,6 +456,7 @@ Array [
 .c11 .c10,
 .c11 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 

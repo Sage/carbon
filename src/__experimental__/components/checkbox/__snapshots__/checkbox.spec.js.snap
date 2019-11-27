@@ -165,6 +165,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
 .c17 .c10,
 .c17 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
@@ -211,6 +212,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
 .c18 .c10,
 .c18 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
@@ -257,6 +259,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
 .c19 .c10,
 .c19 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
@@ -291,6 +294,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
 .c20 .c10,
 .c20 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
@@ -325,6 +329,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
 .c21 .c10,
 .c21 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
@@ -353,6 +358,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
 .c22 .c10,
 .c22 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
@@ -381,6 +387,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
 .c23 .c10,
 .c23 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
@@ -413,6 +420,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
 .c24 .c10,
 .c24 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
@@ -469,6 +477,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
 .c25 .c10,
 .c25 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
@@ -531,6 +540,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
 .c26 .c10,
 .c26 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
@@ -602,6 +612,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
 .c0 .c10,
 .c0 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 

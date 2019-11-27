@@ -103,6 +103,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
 .c8 .c14,
 .c8 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
@@ -147,6 +148,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
 .c15 .c14,
 .c15 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
