@@ -34,9 +34,9 @@ exports[`RadioButton styles base renders as expected 1`] = `
 }
 
 .c14 .c10:hover,
-.c14 .c28:hover,
+.c14 .c27:hover,
 .c14 .c10:focus,
-.c14 .c28:focus {
+.c14 .c27:focus {
   outline: none;
   cursor: not-allowed;
 }
@@ -48,36 +48,30 @@ exports[`RadioButton styles base renders as expected 1`] = `
   display: flex;
 }
 
-.c3 .c28 {
+.c3 .c27 {
   text-align: left;
   margin-top: -2px;
   width: auto;
 }
 
-.c3 .c28 .c26,
-.c3 .c28 .c27 {
+.c3 .c27 .c25,
+.c3 .c27 .c26 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c3 .c28 .c26:hover,
-.c3 .c28 .c27:hover,
-.c3 .c28 .c26:focus,
-.c3 .c28 .c27:focus {
+.c3 .c27 .c25:hover,
+.c3 .c27 .c26:hover,
+.c3 .c27 .c25:focus,
+.c3 .c27 .c26:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c3 .c25 {
+.c3 .c24 {
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
-}
-
-.c3 .c28 {
-  -webkit-flex: 1 1 calc(100% - 28px);
-  -ms-flex: 1 1 calc(100% - 28px);
-  flex: 1 1 calc(100% - 28px);
 }
 
 .c15 .c6 {
@@ -87,6 +81,14 @@ exports[`RadioButton styles base renders as expected 1`] = `
   display: flex;
 }
 
+.c15 .c10:hover,
+.c15 .c27:hover,
+.c15 .c10:focus,
+.c15 .c27:focus {
+  outline: none;
+  cursor: not-allowed;
+}
+
 .c16 .c6 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -94,30 +96,83 @@ exports[`RadioButton styles base renders as expected 1`] = `
   display: flex;
 }
 
-.c16 .c10:hover,
-.c16 .c28:hover,
-.c16 .c10:focus,
-.c16 .c28:focus {
-  outline: none;
-  cursor: not-allowed;
-}
-
-.c17 .c6 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.c17 .c6 {
+.c16 .c6 {
   -webkit-flex-wrap: nowrap;
   -ms-flex-wrap: nowrap;
   flex-wrap: nowrap;
 }
 
-.c17 .c8 {
+.c16 .c8 {
   margin-right: 0;
   margin-left: 8px;
+}
+
+.c16 .c8 {
+  margin-left: 0;
+}
+
+.c17 .c8 {
+  padding-top: 1px;
+}
+
+.c17 .c12 {
+  height: 16px;
+}
+
+.c17 .c10,
+.c17 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c17 .c8,
+.c17 .c10,
+.c17 .c12,
+.c17 svg {
+  box-sizing: border-box;
+  min-width: 16px;
+  width: 16px;
+}
+
+.c17 .c10:not([disabled]):focus + .c12,
+.c17 .c10:not([disabled]):hover + .c12 {
+  box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c17 .c12:hover,
+.c17 .c12:focus {
+  outline: none;
+  cursor: not-allowed;
+}
+
+.c17 .c8 {
+  margin-right: 16px;
+}
+
+.c17 .c12 {
+  padding: 0;
+}
+
+.c17 .c12,
+.c17 svg {
+  border-radius: 50%;
+}
+
+.c17 .c8,
+.c17 .c10,
+.c17 .c12,
+.c17 svg {
+  height: 16px;
+  width: 16px;
+}
+
+.c17 .c10:checked + .c12 circle {
+  fill: rgba(0,0,0,0.9);
+}
+
+.c17 .c10:checked + .c12 circle {
+  fill: #CCD6DA;
 }
 
 .c18 .c8 {
@@ -149,10 +204,22 @@ exports[`RadioButton styles base renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c18 .c12:hover,
-.c18 .c12:focus {
-  outline: none;
-  cursor: not-allowed;
+.c18 .c12 {
+  height: 24px;
+}
+
+.c18 .c8,
+.c18 .c10,
+.c18 svg {
+  padding: 2px;
+}
+
+.c18 .c8,
+.c18 .c10,
+.c18 .c12,
+.c18 svg {
+  height: 24px;
+  width: 24px;
 }
 
 .c18 .c8 {
@@ -180,8 +247,16 @@ exports[`RadioButton styles base renders as expected 1`] = `
   fill: rgba(0,0,0,0.9);
 }
 
-.c18 .c10:checked + .c12 circle {
-  fill: #CCD6DA;
+.c18 .c8 {
+  margin-right: 14px;
+}
+
+.c18 .c8,
+.c18 .c10,
+.c18 .c12,
+.c18 svg {
+  height: 24px;
+  width: 24px;
 }
 
 .c19 .c8 {
@@ -268,6 +343,10 @@ exports[`RadioButton styles base renders as expected 1`] = `
   width: 24px;
 }
 
+.c19 .c8 {
+  margin-left: 6px;
+}
+
 .c20 .c8 {
   padding-top: 1px;
 }
@@ -297,22 +376,32 @@ exports[`RadioButton styles base renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c20 .c12 {
-  height: 24px;
+.c20 .c8 {
+  padding: 1px 0 0 0;
 }
 
-.c20 .c8,
 .c20 .c10,
 .c20 svg {
-  padding: 2px;
+  padding: 1px;
 }
 
 .c20 .c8,
 .c20 .c10,
 .c20 .c12,
 .c20 svg {
-  height: 24px;
-  width: 24px;
+  height: 15px;
+  width: 15px;
+}
+
+.c20 .c10:not([disabled]):focus + .c12,
+.c20 .c10:not([disabled]):hover + .c12 {
+  box-shadow: none;
+}
+
+.c20 .c10:not([disabled]):focus + .c12 > svg,
+.c20 .c10:not([disabled]):hover + .c12 > svg {
+  border: 1px solid #1963f6;
+  outline: none;
 }
 
 .c20 .c8 {
@@ -340,20 +429,26 @@ exports[`RadioButton styles base renders as expected 1`] = `
   fill: rgba(0,0,0,0.9);
 }
 
-.c20 .c8 {
-  margin-right: 14px;
-}
-
 .c20 .c8,
 .c20 .c10,
 .c20 .c12,
 .c20 svg {
-  height: 24px;
-  width: 24px;
+  height: 15px;
+  width: 15px;
 }
 
 .c20 .c8 {
-  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.c20 .c10:not([disabled]):focus + .c12 > svg {
+  box-shadow: 0 0 6px rgba(25,99,246,0.6);
+  -webkit-transition: box-shadow 0.1s linear;
+  transition: box-shadow 0.1s linear;
+}
+
+.c20 .c10:checked + .c12 circle {
+  fill: rgba(0,0,0,0.85);
 }
 
 .c21 .c8 {
@@ -383,6 +478,12 @@ exports[`RadioButton styles base renders as expected 1`] = `
 .c21 .c10:not([disabled]):focus + .c12,
 .c21 .c10:not([disabled]):hover + .c12 {
   box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c21 .c12:hover,
+.c21 .c12:focus {
+  outline: none;
+  cursor: not-allowed;
 }
 
 .c21 .c8 {
@@ -438,6 +539,10 @@ exports[`RadioButton styles base renders as expected 1`] = `
   fill: rgba(0,0,0,0.9);
 }
 
+.c21 .c10:checked + .c12 circle {
+  fill: #4d7080;
+}
+
 .c21 .c8,
 .c21 .c10,
 .c21 .c12,
@@ -458,6 +563,10 @@ exports[`RadioButton styles base renders as expected 1`] = `
 
 .c21 .c10:checked + .c12 circle {
   fill: rgba(0,0,0,0.85);
+}
+
+.c21 .c10:checked + .c12 circle {
+  fill: #8099a4;
 }
 
 .c22 .c8 {
@@ -487,12 +596,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
 .c22 .c10:not([disabled]):focus + .c12,
 .c22 .c10:not([disabled]):hover + .c12 {
   box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c22 .c12:hover,
-.c22 .c12:focus {
-  outline: none;
-  cursor: not-allowed;
 }
 
 .c22 .c8 {
@@ -548,10 +651,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
   fill: rgba(0,0,0,0.9);
 }
 
-.c22 .c10:checked + .c12 circle {
-  fill: #4d7080;
-}
-
 .c22 .c8,
 .c22 .c10,
 .c22 .c12,
@@ -574,8 +673,8 @@ exports[`RadioButton styles base renders as expected 1`] = `
   fill: rgba(0,0,0,0.85);
 }
 
-.c22 .c10:checked + .c12 circle {
-  fill: #8099a4;
+.c22 .c8 {
+  margin-left: 6px;
 }
 
 .c23 .c8 {
@@ -686,114 +785,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
   margin-left: 6px;
 }
 
-.c24 .c8 {
-  padding-top: 1px;
-}
-
-.c24 .c12 {
-  height: 16px;
-}
-
-.c24 .c10,
-.c24 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c24 .c8,
-.c24 .c10,
-.c24 .c12,
-.c24 svg {
-  box-sizing: border-box;
-  min-width: 16px;
-  width: 16px;
-}
-
-.c24 .c10:not([disabled]):focus + .c12,
-.c24 .c10:not([disabled]):hover + .c12 {
-  box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c24 .c8 {
-  padding: 1px 0 0 0;
-}
-
-.c24 .c10,
-.c24 svg {
-  padding: 1px;
-}
-
-.c24 .c8,
-.c24 .c10,
-.c24 .c12,
-.c24 svg {
-  height: 15px;
-  width: 15px;
-}
-
-.c24 .c10:not([disabled]):focus + .c12,
-.c24 .c10:not([disabled]):hover + .c12 {
-  box-shadow: none;
-}
-
-.c24 .c10:not([disabled]):focus + .c12 > svg,
-.c24 .c10:not([disabled]):hover + .c12 > svg {
-  border: 1px solid #1963f6;
-  outline: none;
-}
-
-.c24 .c8 {
-  margin-right: 16px;
-}
-
-.c24 .c12 {
-  padding: 0;
-}
-
-.c24 .c12,
-.c24 svg {
-  border-radius: 50%;
-}
-
-.c24 .c8,
-.c24 .c10,
-.c24 .c12,
-.c24 svg {
-  height: 16px;
-  width: 16px;
-}
-
-.c24 .c10:checked + .c12 circle {
-  fill: rgba(0,0,0,0.9);
-}
-
-.c24 .c8,
-.c24 .c10,
-.c24 .c12,
-.c24 svg {
-  height: 15px;
-  width: 15px;
-}
-
-.c24 .c8 {
-  margin-right: 6px;
-}
-
-.c24 .c10:not([disabled]):focus + .c12 > svg {
-  box-shadow: 0 0 6px rgba(25,99,246,0.6);
-  -webkit-transition: box-shadow 0.1s linear;
-  transition: box-shadow 0.1s linear;
-}
-
-.c24 .c10:checked + .c12 circle {
-  fill: rgba(0,0,0,0.85);
-}
-
-.c24 .c8 {
-  margin-left: 6px;
-}
-
 .c2 {
   padding-top: 8px;
   margin-bottom: 12px;
@@ -833,23 +824,26 @@ exports[`RadioButton styles base renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c2 .c28 {
+.c2 .c27 {
   padding: 0 6px;
   width: auto;
+  -webkit-flex: 1 1 calc(100% - 28px);
+  -ms-flex: 1 1 calc(100% - 28px);
+  flex: 1 1 calc(100% - 28px);
 }
 
-.c2 .c25 {
+.c2 .c24 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
 }
 
-.c2 .c27 {
+.c2 .c26 {
   position: relative;
   display: inline-block;
 }
 
-.c2 .c25 {
+.c2 .c24 {
   margin-left: 32px;
 }
 
@@ -882,7 +876,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
   r: 5;
 }
 
-.c2 .c28 {
+.c2 .c27 {
   -webkit-flex: 1 1 calc(100% - 44px);
   -ms-flex: 1 1 calc(100% - 44px);
   flex: 1 1 calc(100% - 44px);
@@ -903,12 +897,12 @@ exports[`RadioButton styles base renders as expected 1`] = `
   margin-bottom: -1px;
 }
 
-.c0 .c29 {
+.c0 .c28 {
   margin-bottom: 16px;
   height: 26px;
 }
 
-.c0 .c29 legend {
+.c0 .c28 legend {
   font-size: 14px;
   margin-left: -2px;
 }

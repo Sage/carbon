@@ -29,36 +29,30 @@ exports[`Checkbox base theme renders as expected 1`] = `
   display: flex;
 }
 
-.c1 .c30 {
+.c1 .c29 {
   text-align: left;
   margin-top: -2px;
   width: auto;
 }
 
-.c1 .c30 .c28,
-.c1 .c30 .c29 {
+.c1 .c29 .c27,
+.c1 .c29 .c28 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c1 .c30 .c28:hover,
-.c1 .c30 .c29:hover,
-.c1 .c30 .c28:focus,
-.c1 .c30 .c29:focus {
+.c1 .c29 .c27:hover,
+.c1 .c29 .c28:hover,
+.c1 .c29 .c27:focus,
+.c1 .c29 .c28:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c1 .c27 {
+.c1 .c26 {
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
-}
-
-.c1 .c30 {
-  -webkit-flex: 1 1 calc(100% - 28px);
-  -ms-flex: 1 1 calc(100% - 28px);
-  flex: 1 1 calc(100% - 28px);
 }
 
 .c11 .c4 {
@@ -79,6 +73,10 @@ exports[`Checkbox base theme renders as expected 1`] = `
   margin-left: 8px;
 }
 
+.c11 .c6 {
+  margin-left: 0;
+}
+
 .c12 .c4 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -87,9 +85,9 @@ exports[`Checkbox base theme renders as expected 1`] = `
 }
 
 .c12 .c8:hover,
-.c12 .c30:hover,
+.c12 .c29:hover,
 .c12 .c8:focus,
-.c12 .c30:focus {
+.c12 .c29:focus {
   outline: none;
   cursor: not-allowed;
 }
@@ -112,37 +110,77 @@ exports[`Checkbox base theme renders as expected 1`] = `
   display: flex;
 }
 
-.c15 .c4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.c15 .c4 {
+.c14 .c4 {
   -webkit-flex-wrap: nowrap;
   -ms-flex-wrap: nowrap;
   flex-wrap: nowrap;
 }
 
-.c15 .c6 {
+.c14 .c6 {
   margin-right: 0;
   margin-left: 8px;
 }
 
-.c16 .c4 {
+.c15 .c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-.c16 .c8:hover,
-.c16 .c30:hover,
-.c16 .c8:focus,
-.c16 .c30:focus {
+.c15 .c8:hover,
+.c15 .c29:hover,
+.c15 .c8:focus,
+.c15 .c29:focus {
   outline: none;
   cursor: not-allowed;
+}
+
+.c16 .c6 {
+  padding-top: 1px;
+}
+
+.c16 .c10 {
+  height: 16px;
+}
+
+.c16 .c8,
+.c16 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c16 .c6,
+.c16 .c8,
+.c16 .c10,
+.c16 svg {
+  box-sizing: border-box;
+  min-width: 16px;
+  width: 16px;
+}
+
+.c16 .c8:not([disabled]):focus + .c10,
+.c16 .c8:not([disabled]):hover + .c10 {
+  box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c16 .c10 {
+  height: 24px;
+}
+
+.c16 .c6,
+.c16 .c8,
+.c16 svg {
+  padding: 2px;
+}
+
+.c16 .c6,
+.c16 .c8,
+.c16 .c10,
+.c16 svg {
+  height: 24px;
+  width: 24px;
 }
 
 .c17 .c6 {
@@ -221,22 +259,10 @@ exports[`Checkbox base theme renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c18 .c10 {
-  height: 24px;
-}
-
-.c18 .c6,
-.c18 .c8,
-.c18 svg {
-  padding: 2px;
-}
-
-.c18 .c6,
-.c18 .c8,
-.c18 .c10,
-.c18 svg {
-  height: 24px;
-  width: 24px;
+.c18 .c10:hover,
+.c18 .c10:focus {
+  outline: none;
+  cursor: not-allowed;
 }
 
 .c19 .c6 {
@@ -303,12 +329,6 @@ exports[`Checkbox base theme renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c20 .c10:hover,
-.c20 .c10:focus {
-  outline: none;
-  cursor: not-allowed;
-}
-
 .c21 .c6 {
   padding-top: 1px;
 }
@@ -367,6 +387,10 @@ exports[`Checkbox base theme renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
+.c22 .c6 {
+  margin-right: 8px;
+}
+
 .c23 .c6 {
   padding-top: 1px;
 }
@@ -397,7 +421,31 @@ exports[`Checkbox base theme renders as expected 1`] = `
 }
 
 .c23 .c6 {
-  margin-right: 8px;
+  padding: 1px 0 0 0;
+}
+
+.c23 .c8,
+.c23 svg {
+  padding: 1px;
+}
+
+.c23 .c6,
+.c23 .c8,
+.c23 .c10,
+.c23 svg {
+  height: 15px;
+  width: 15px;
+}
+
+.c23 .c8:not([disabled]):focus + .c10,
+.c23 .c8:not([disabled]):hover + .c10 {
+  box-shadow: none;
+}
+
+.c23 .c8:not([disabled]):focus + .c10 > svg,
+.c23 .c8:not([disabled]):hover + .c10 > svg {
+  border: 1px solid #1963f6;
+  outline: none;
 }
 
 .c24 .c6 {
@@ -427,6 +475,12 @@ exports[`Checkbox base theme renders as expected 1`] = `
 .c24 .c8:not([disabled]):focus + .c10,
 .c24 .c8:not([disabled]):hover + .c10 {
   box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c24 .c10:hover,
+.c24 .c10:focus {
+  outline: none;
+  cursor: not-allowed;
 }
 
 .c24 .c6 {
@@ -520,69 +574,6 @@ exports[`Checkbox base theme renders as expected 1`] = `
   outline: none;
 }
 
-.c26 .c6 {
-  padding-top: 1px;
-}
-
-.c26 .c10 {
-  height: 16px;
-}
-
-.c26 .c8,
-.c26 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c26 .c6,
-.c26 .c8,
-.c26 .c10,
-.c26 svg {
-  box-sizing: border-box;
-  min-width: 16px;
-  width: 16px;
-}
-
-.c26 .c8:not([disabled]):focus + .c10,
-.c26 .c8:not([disabled]):hover + .c10 {
-  box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c26 .c10:hover,
-.c26 .c10:focus {
-  outline: none;
-  cursor: not-allowed;
-}
-
-.c26 .c6 {
-  padding: 1px 0 0 0;
-}
-
-.c26 .c8,
-.c26 svg {
-  padding: 1px;
-}
-
-.c26 .c6,
-.c26 .c8,
-.c26 .c10,
-.c26 svg {
-  height: 15px;
-  width: 15px;
-}
-
-.c26 .c8:not([disabled]):focus + .c10,
-.c26 .c8:not([disabled]):hover + .c10 {
-  box-shadow: none;
-}
-
-.c26 .c8:not([disabled]):focus + .c10 > svg,
-.c26 .c8:not([disabled]):hover + .c10 > svg {
-  border: 1px solid #1963f6;
-  outline: none;
-}
-
 .c0 {
   padding-top: 8px;
 }
@@ -621,18 +612,21 @@ exports[`Checkbox base theme renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c0 .c30 {
+.c0 .c29 {
   padding: 0 6px;
   width: auto;
+  -webkit-flex: 1 1 calc(100% - 28px);
+  -ms-flex: 1 1 calc(100% - 28px);
+  flex: 1 1 calc(100% - 28px);
 }
 
-.c0 .c27 {
+.c0 .c26 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
 }
 
-.c0 .c29 {
+.c0 .c28 {
   position: relative;
   display: inline-block;
 }

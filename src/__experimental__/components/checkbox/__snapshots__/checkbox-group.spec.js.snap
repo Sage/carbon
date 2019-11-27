@@ -68,12 +68,6 @@ exports[`CheckboxGroup renders as expected 1`] = `
   flex-basis: 100%;
 }
 
-.c9 .c5 {
-  -webkit-flex: 1 1 calc(100% - 28px);
-  -ms-flex: 1 1 calc(100% - 28px);
-  flex: 1 1 calc(100% - 28px);
-}
-
 .c8 {
   padding-top: 8px;
 }
@@ -115,6 +109,9 @@ exports[`CheckboxGroup renders as expected 1`] = `
 .c8 .c5 {
   padding: 0 6px;
   width: auto;
+  -webkit-flex: 1 1 calc(100% - 28px);
+  -ms-flex: 1 1 calc(100% - 28px);
+  flex: 1 1 calc(100% - 28px);
 }
 
 .c8 .c16 {
@@ -160,6 +157,9 @@ exports[`CheckboxGroup renders as expected 1`] = `
 .c15 .c5 {
   padding: 0 6px;
   width: auto;
+  -webkit-flex: 1 1 calc(100% - 28px);
+  -ms-flex: 1 1 calc(100% - 28px);
+  flex: 1 1 calc(100% - 28px);
 }
 
 .c0 .c17::before {
@@ -202,7 +202,6 @@ exports[`CheckboxGroup renders as expected 1`] = `
       <label
         className="c5 c6"
         data-element="label"
-        htmlFor="group-radio-buttons"
         width={30}
       >
         Test CheckboxGroup Label
