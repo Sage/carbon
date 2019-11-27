@@ -45,39 +45,6 @@ const UncontrolledCheckbox = () => {
                 />
               </CheckboxGroup>
             </div>
-            <div id='uncontrolled_checkbox_group_default'>
-              <h2>Default Checked</h2>
-              <ul>
-                <li>value two is checked by default</li>
-              </ul>
-              <CheckboxGroup
-                id='uncontrolled_checkbox_group_default'
-                label='Uncontrolled Example default'
-                defaultValue={ ['value one'] }
-              >
-                <Checkbox
-                  name='uncontrolled_checkbox_group_default_one'
-                  value='value one'
-                  label='label one'
-                  onChange={ onChange }
-                  onBlur={ onBlur }
-                />
-                <Checkbox
-                  name='uncontrolled_checkbox_group_default_two'
-                  value='value two'
-                  label='label two'
-                  onChange={ onChange }
-                  onBlur={ onBlur }
-                />
-                <Checkbox
-                  name='uncontrolled_checkbox_group_default_three'
-                  value='value three'
-                  label='label three'
-                  onChange={ onChange }
-                  onBlur={ onBlur }
-                />
-              </CheckboxGroup>
-            </div>
           </React.Fragment>
         );
       }}
