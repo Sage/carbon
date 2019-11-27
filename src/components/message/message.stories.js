@@ -18,6 +18,7 @@ function makeStory(name, themeSelector) {
     const variant = select('type', OptionsHelper.messages, Message.defaultProps.variant);
     const open = boolean('open', Message.defaultProps.open);
     const title = text('title');
+    const id = text('id', 'custom-id');
     const transparent = boolean('transparent', Message.defaultProps.transparent);
     const children = text('children', 'This is some information from the Message Component.');
 
@@ -30,6 +31,7 @@ function makeStory(name, themeSelector) {
         variant={ variant } open={ open }
         title={ title } transparent={ transparent }
         onDismiss={ testOnDismiss }
+        id={ id }
       >
         {children}
       </Message>

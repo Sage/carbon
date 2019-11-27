@@ -103,8 +103,8 @@ const TooltipDecorator = (ComposedComponent) => {
       if (this.props.tooltipVisible) this.positionTooltip();
     }
 
-    componentWillUpdate(nextProps, nextState) {
-      if (super.componentWillUpdate) { super.componentWillUpdate(nextProps, nextState); }
+    UNSAFE_componentWillUpdate(nextProps, nextState) {
+      if (super.UNSAFE_componentWillUpdate) { super.UNSAFE_componentWillUpdate(nextProps, nextState); }
     }
 
     componentDidUpdate(prevProps) {
@@ -115,8 +115,8 @@ const TooltipDecorator = (ComposedComponent) => {
       }
     }
 
-    componentWillReceiveProps(nextProps) {
-      if (super.componentWillReceiveProps) { super.componentWillReceiveProps(nextProps); }
+    UNSAFE_componentWillReceiveProps(nextProps) {
+      if (super.UNSAFE_componentWillReceiveProps) { super.UNSAFE_componentWillReceiveProps(nextProps); }
 
       if (nextProps.tooltipPosition !== this.props.tooltipPosition) {
         this.setState({ tooltipPosition: '', tooltipAlign: '' });
