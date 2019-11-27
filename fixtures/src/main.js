@@ -33,7 +33,6 @@ import UnControlledMultiSelect from './components/uncontrolled/multi-select';
 import ControlledDateRange from './components/controlled/date-range';
 import UncontrolledDateRange from './components/uncontrolled/date-range';
 import UncontrolledCheckboxGroup from './components/uncontrolled/checkbox-group';
-import ControlledCheckboxGroup from './components/controlled/checkbox-group';
 import UncontrolledCheckbox from './components/uncontrolled/checkbox';
 import ControlledCheckbox from './components/controlled/checkbox';
 
@@ -72,8 +71,7 @@ const routes = {
   },
   checkboxgroup: {
     description: 'Checkbox Group',
-    uncontrolled: UncontrolledCheckboxGroup,
-    controlled: ControlledCheckboxGroup
+    uncontrolled: UncontrolledCheckboxGroup
   },
   checkbox: {
     description: 'Checkbox',
