@@ -74,26 +74,16 @@ const StyledCheckableInputWrapper = styled.div`
         padding-left: 0;
         width: auto;
       }
-
-      ${LabelStyle} {
-        flex: unset;
-      }
     `}
 
-    ${reverse && css`
-      ${LabelStyle} {
-        flex: 1 1 calc(100% - 28px);
+    ${reverse && fieldHelpInline && css`
+      ${StyledCheckableInput} {
+        margin-left: 0;
       }
 
-      ${fieldHelpInline && css`
-        ${FieldHelpStyle} {
-          flex-grow: 1;
-        }
-
-        ${LabelStyle} {
-          flex: unset;
-        }
-      `}
+      ${FieldHelpStyle} {
+        flex-grow: 1;
+      }
     `}
 
     ${inputWidth !== undefined && inputWidth !== 0 && css`

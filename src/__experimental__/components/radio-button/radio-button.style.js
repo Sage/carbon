@@ -73,6 +73,10 @@ const RadioButtonStyle = styled(CheckboxStyle)`
         margin-left: 0;
         margin-right: 6px;
       }
+
+      ${LabelStyle} {
+        flex: 0 1 auto;
+      }
     `}
 
     ${size === 'large' && css`
