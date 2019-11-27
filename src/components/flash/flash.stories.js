@@ -40,6 +40,7 @@ const openHandler = () => {
 storiesOf('Flash', module)
   .add('classic', () => {
     const message = text('message', 'This is a flash message');
+    const id = text('id', 'classic-flash');
     const timeout = number('timeout', 0);
     const as = select('as', OptionsHelper.colors, OptionsHelper.colors[0]);
 
@@ -52,6 +53,7 @@ storiesOf('Flash', module)
               open={ store.get('open') }
               as={ as }
               message={ message }
+              id={ id }
               timeout={ timeout >= 0 ? timeout : undefined }
               onDismiss={ handleClick }
             />
@@ -71,6 +73,7 @@ storiesOf('Flash', module)
   })
   .add('default', () => {
     const message = text('message', 'This is a flash message');
+    const id = text('id', 'default-flash');
     const timeout = number('timeout', 0);
     const as = select('as', OptionsHelper.toast, OptionsHelper.toast[0]);
 
@@ -81,6 +84,7 @@ storiesOf('Flash', module)
           <Flash
             open={ store.get('open') }
             as={ as }
+            id={ id }
             message={ message }
             timeout={ timeout >= 0 ? timeout : undefined }
             onDismiss={ handleClick }

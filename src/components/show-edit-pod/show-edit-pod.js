@@ -137,7 +137,7 @@ class ShowEditPod extends React.Component {
    *
    * @method componentWillMount
    */
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (typeof this.props.editing === 'undefined') {
       this.control = 'state';
     }
