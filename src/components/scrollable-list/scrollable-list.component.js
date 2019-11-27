@@ -24,7 +24,7 @@ class ScrollableList extends Component {
 
   scrollBox = React.createRef()
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // if selected item is beyond the number of children then reset it (eg. through filtering)
     if ((this.state.selectedItem + 1) > React.Children.count(nextProps.children)) {
       let selectedItem = -1;
