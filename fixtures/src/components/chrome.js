@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useRef } from 'react';
 import AppWrapper from 'carbon-react/lib/components/app-wrapper';
 import ButtonToggleGroup from 'carbon-react/lib/components/button-toggle-group';
 import ButtonToggle from 'carbon-react/lib/components/button-toggle';
@@ -35,7 +35,8 @@ I18n.translations.en = {
 };
 
 const Chrome = ({ children }) => {
-  const [history, setHistory] = useState([]);
+  const ref = useRef([]);
+  const [history, setHistory] = useState(ref.current);
   const [key, setKey] = useState(1);
   const [lang, setLang] = useState('');
   const onChange = (e) => {
@@ -49,14 +50,15 @@ const Chrome = ({ children }) => {
       name, id, value, checked
     }
   }, obj) => {
-    setHistory([...history, {
+    ref.current = [...ref.current, {
       ...obj,
-      timestamp: Date.now(),
+      timestamp: performance.now(),
       name,
       id,
       value,
       checked
-    }]);
+    }];
+    setHistory(ref.current);
   }, [history, setHistory]);
 
   const Nav = styled.div`
