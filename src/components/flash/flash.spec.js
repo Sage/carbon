@@ -43,6 +43,11 @@ describe('Flash', () => {
     expect(wrapper.find(Toast).props({ variant: 'success' })).toBeTruthy();
   });
 
+  it('should pass id prop to Toast Component', () => {
+    wrapper.setProps({ id: 'flash-id' });
+    expect(wrapper.find(Toast).props().id).toEqual('flash-id');
+  });
+
   describe('tags', () => {
     describe('on component', () => {
       it('include correct component, element and role data tags', () => {

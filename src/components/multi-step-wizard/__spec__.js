@@ -28,7 +28,7 @@ describe('MultiStepWizard', () => {
     describe('componentWillReceiveProps', () => {
       it('sets the states', () => {
         spyOn(instance, 'validateStepProps').and.returnValue({ currentStep: 3, completed: true });
-        instance.componentWillReceiveProps({ });
+        instance.UNSAFE_componentWillReceiveProps({ });
         expect(instance.state.currentStep).toEqual(3);
         expect(instance.state.completed).toEqual(true);
       });

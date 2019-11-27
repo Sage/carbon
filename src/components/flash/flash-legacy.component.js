@@ -24,7 +24,7 @@ class Flash extends React.Component {
   }
 
   /** Resets the dialog open states if flash is opened/closed. */
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.open === this.props.open) { return; }
 
     if (this.removePortalTimeout) {
@@ -262,7 +262,7 @@ class Flash extends React.Component {
     return (
       this.state.open && (
         <Portal>
-          <div { ...tagComponent('flash', this.props) }>
+          <div { ...tagComponent('flash', this.props) } id={ this.props.id }>
             <FlashStyle variant={ this.props.as } className={ this.classes }>
               <CSSTransitionGroup
                 component='div'
@@ -302,6 +302,8 @@ Flash.propTypes = {
   open: PropTypes.bool.isRequired,
   /** Type of notification. (see the 'iconColorSets' for possible values) */
   as: PropTypes.string,
+  /** An identifier passed to the component root element */
+  id: PropTypes.string,
   /** Contents of message. */
   message: PropTypes.oneOfType([
     PropTypes.string,
