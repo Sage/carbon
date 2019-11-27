@@ -152,7 +152,6 @@ exports[`CheckboxGroup renders as expected 1`] = `
   className="c0"
   data-component="checkboxgroup"
   role="checkbox"
-  value={Array []}
 >
   <div
     className="c1 c2"
