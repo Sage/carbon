@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import CheckboxStyle from './checkbox.style';
@@ -13,6 +13,10 @@ const Checkbox = ({
   const checkedStatus = (checked === undefined && defaultChecked !== undefined) ? defaultChecked : checkedValue;
 
   const [isChecked, setIsChecked] = useState(checkedStatus);
+
+  useEffect(() => {
+    setIsChecked(checkedStatus);
+  }, [checkedStatus]);
 
   const handleOnChange = (ev) => {
     ev.stopPropagation();
