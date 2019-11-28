@@ -21,11 +21,7 @@ class BaseDateInput extends React.Component {
 
   isControlled = this.props.value !== undefined;
 
-  adjustedValue = generateAdjustedValue(this.props);
-
-  initialVisibleValue = (
-    !this.props.allowEmptyValue ? DateHelper.formatDateToCurrentLocale(this.adjustedValue) : this.adjustedValue
-  );
+  initialVisibleValue = generateAdjustedValue(this.props);
 
   inputFocusedViaPicker = false;
 
@@ -337,11 +333,11 @@ function isoFormattedValueString(valueToFormat) {
 
 function generateAdjustedValue({ value, defaultValue, allowEmptyValue }) {
   if (value !== undefined && canReturnValue(value, allowEmptyValue)) {
-    return value;
+    return DateHelper.formatDateToCurrentLocale(value);
   } if (canReturnValue(defaultValue, allowEmptyValue)) {
-    return defaultValue;
+    return DateHelper.formatDateToCurrentLocale(defaultValue);
   }
-  return DateHelper.todayFormatted();
+  return DateHelper.formatDateToCurrentLocale(DateHelper.todayFormatted());
 }
 
 function canReturnValue(value, allowEmptyValue) {

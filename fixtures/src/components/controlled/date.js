@@ -24,7 +24,6 @@ const ControlledDate = () => {
                 </li>
                 <li>date has props value, name, id which should be reflected in both events</li>
               </ul>
-
               <Date
                 onChange={ onChange }
                 onBlur={ onBlur }
