@@ -39,6 +39,7 @@ function makeStory(name, themeSelector) {
     const autoFocus = boolean('autoFocus', true);
     const minDate = text('minDate', '');
     const maxDate = text('maxDate', '');
+    const allowEmptyValue = boolean('allowEmptyValue', false);
 
     return (
       <DateInput
@@ -50,6 +51,7 @@ function makeStory(name, themeSelector) {
         value={ store.get('value') }
         onChange={ setValue }
         onBlur={ ev => action('onBlur')(ev) }
+        allowEmptyValue={ allowEmptyValue }
       />
     );
   };
@@ -69,6 +71,7 @@ function makeStory(name, themeSelector) {
 }
 
 function makeValidationsStory(name, themeSelector) {
+  const allowEmptyValue = boolean('allowEmptyValue', false);
   const component = () => {
     return (
       <State store={ store }>
@@ -80,6 +83,7 @@ function makeValidationsStory(name, themeSelector) {
           info={ [isNotThirdApr] }
           onChange={ setValue }
           onBlur={ ev => action('onBlur')(ev) }
+          allowEmptyValue={ allowEmptyValue }
         />
       </State>
     );
