@@ -370,6 +370,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
             disabled={false}
             role="button"
             size="medium"
+            type="submit"
           >
             <span>
               <span

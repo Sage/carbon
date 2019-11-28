@@ -73,7 +73,8 @@ function makeStory(name, themeSelector) {
         leftAlignedActions={ additionalFormActions('Left Action')[leftAlignedActions] }
         rightAlignedActions={ additionalFormActions('Right Action')[rightAlignedActions] }
         showSummary={ showSummary }
-        onSubmit={ () => {
+        onSubmit={ (ev) => {
+          action('submit')(ev);
           window.location.href = window.location.href;
         } }
         isLabelRightAligned={ isLabelRightAligned }

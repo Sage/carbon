@@ -82,13 +82,13 @@ class DropdownFilter extends Dropdown {
     freetextName: PropTypes.string
   });
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.visibleValue !== this.props.visibleValue) {
       this.setState({
         filter: nextProps.visibleValue
       });
     }
-    super.componentWillReceiveProps(nextProps);
+    super.UNSAFE_componentWillReceiveProps(nextProps);
   }
 
   /**
@@ -98,7 +98,7 @@ class DropdownFilter extends Dropdown {
    * @param {Object} nextProps
    * @param {Object} nextState
    */
-  componentWillUpdate(nextProps, nextState) {
+  UNSAFE_componentWillUpdate(nextProps, nextState) {
     // if list is being opened, set boolean
     if (this.state.open !== nextState.open) {
       this.openingList = true;
