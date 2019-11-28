@@ -425,7 +425,7 @@ BaseDateInput.propTypes = {
   value: PropTypes.string,
   /** Triggers textbox validation when it's boolean value changes */
   forceUpdateTriggerToggle: PropTypes.bool,
-  /** Temporary flag to indeicate if input is part of DateRange */
+  /** Temporary flag to indicate if input is part of DateRange */
   isDateRange: PropTypes.bool
 };
 
