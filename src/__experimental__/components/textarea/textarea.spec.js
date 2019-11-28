@@ -128,8 +128,8 @@ describe('Textarea', () => {
     wrapper = renderTextarea({ label: 'This is a Text Area' });
 
     const labelHtmlFor = wrapper.find(Label).prop('htmlFor');
-    const textAreaName = wrapper.find(TextareaInput).prop('name');
-    expect(labelHtmlFor).toEqual(textAreaName);
+    const textAreaId = wrapper.find(TextareaInput).prop('id');
+    expect(labelHtmlFor).toEqual(textAreaId);
   });
 });
 

@@ -1,0 +1,2 @@
+Breaking Changes: "Changes behaviour of select list where previously traversing using up and down keyboard arrows led to looping of the whole list when reaching end or start of the list. (Old behaviour still achievable by passing isLoopable prop to the component). (Components: Select)"
+New Features: "Adds `home` and `end` keyboard button support while traversing the select options list. (Components: Select)"
