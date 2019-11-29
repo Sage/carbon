@@ -16,7 +16,6 @@ const FieldLineStyle = styled.div`
   ${({ inline }) => {
     if (inline) {
       return `
-        align-items: baseline;
         display: flex;
       `;
     }
