@@ -10,12 +10,13 @@ class Decimal extends React.Component {
   constructor(props) {
     super(props);
 
-    const value = this.isControlled ? this.getSafeValueProp() : (this.props.defaultValue || this.defaultValue);
+    const isControlled = this.isControlled();
+    const value = isControlled ? this.getSafeValueProp() : (this.props.defaultValue || this.defaultValue);
 
     this.state = {
       value,
       visibleValue: this.formatValue(value),
-      isControlled: this.isControlled
+      isControlled
     };
   }
 
@@ -31,7 +32,7 @@ class Decimal extends React.Component {
   /**
    * Determine if the component is controlled at the time of call
    */
-  get isControlled () {
+  isControlled () {
     return this.props.value !== undefined;
   }
 
@@ -178,9 +179,10 @@ class Decimal extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const message = 'Input elements should not switch from uncontrolled to controlled (or vice versa). '
     + 'Decide between using a controlled or uncontrolled input element for the lifetime of the component';
-    invariant(this.state.isControlled === this.isControlled, message);
+    const isControlled = this.isControlled();
+    invariant(this.state.isControlled === isControlled, message);
 
-    if (this.isControlled) {
+    if (isControlled) {
       const valueProp = this.getSafeValueProp();
       if (valueProp !== prevState.value) {
         this.setState({
