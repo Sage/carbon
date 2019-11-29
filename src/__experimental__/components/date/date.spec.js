@@ -45,13 +45,13 @@ describe('Date', () => {
       it('then the input element value should be set to today if the "allowEmptyValue" prop is falsy', () => {
         wrapper = render({ [prop]: '' });
         simulateBlurOnInput(wrapper);
-        expect(wrapper.find('input').prop('value')).toBe(currentDate);
+        expect(wrapper.find('input').findWhere(n => n.props().type !== 'hidden').prop('value')).toBe(currentDate);
       });
 
       it('then the input element value should not be updated if the "allowEmptyValue" prop is truthy', () => {
         wrapper = render({ [prop]: '', allowEmptyValue: true });
         simulateBlurOnInput(wrapper);
-        expect(wrapper.find('input').prop('value')).toBe('');
+        expect(wrapper.find('input').findWhere(n => n.props().type !== 'hidden').prop('value')).toBe('');
       });
     }
   );
@@ -59,7 +59,7 @@ describe('Date', () => {
   describe('when "autoFocus" prop is defined', () => {
     it("then component's input should be focused after render", () => {
       wrapper = render({ autoFocus: true });
-      const input = wrapper.find('input');
+      const input = wrapper.find('input').findWhere(n => n.props().type !== 'hidden');
       const focusedElement = document.activeElement;
       expect(input.instance()).toBe(focusedElement);
     });
@@ -68,7 +68,7 @@ describe('Date', () => {
   describe('when autoFocus prop is not defined', () => {
     it('does not sets focus on the input', () => {
       wrapper = render({});
-      const input = wrapper.find('input');
+      const input = wrapper.find('input').findWhere(n => n.props().type !== 'hidden');
       const focusedElement = document.activeElement;
       expect(input.instance()).not.toBe(focusedElement);
     });
@@ -268,7 +268,8 @@ describe('Date', () => {
     });
 
     it('should update the input element to reflect the passed date', () => {
-      expect(wrapper.update().find('input').prop('value')).toBe(getFormattedDate(mockDate));
+      expect(wrapper.update().find('input').findWhere(n => n.props().type !== 'hidden')
+        .prop('value')).toBe(getFormattedDate(mockDate));
     });
 
     it('should return focus to the date input and the picker should not open', () => {
@@ -326,7 +327,7 @@ describe('Date', () => {
         simulateBlurOnInput(wrapper);
         jest.runAllTimers();
         wrapper.update();
-        expect(wrapper.find('input').props().value).toBe(visibleDate);
+        expect(wrapper.find('input').findWhere(n => n.props().type !== 'hidden').props().value).toBe(visibleDate);
       });
 
       afterAll(() => {
@@ -352,7 +353,7 @@ describe('Date', () => {
         simulateChangeOnInput(wrapper, invalidDate);
         simulateBlurOnInput(wrapper);
         wrapper.update();
-        expect(wrapper.find('input').props().value).toBe(invalidDate);
+        expect(wrapper.find('input').findWhere(n => n.props().type !== 'hidden').props().value).toBe(invalidDate);
       });
     });
 
@@ -372,7 +373,7 @@ describe('Date', () => {
         simulateBlurOnInput(wrapper);
         jest.runAllTimers();
         wrapper.update();
-        expect(wrapper.find('input').props().value).toBe(formattedDate);
+        expect(wrapper.find('input').findWhere(n => n.props().type !== 'hidden').props().value).toBe(formattedDate);
       });
 
       it('does not reformat the "visiblevalue" when it is an empty string and "allowEmptyValue" is truthy', () => {
@@ -390,8 +391,31 @@ describe('Date', () => {
         simulateBlurOnInput(wrapper);
         jest.runAllTimers();
         wrapper.update();
-        expect(wrapper.find('input').props().value).toBe(emptyDate);
+        expect(wrapper.find('input').findWhere(n => n.props().type !== 'hidden').props().value).toBe(emptyDate);
       });
+    });
+  });
+
+  describe('hidden input', () => {
+    beforeEach(() => {
+      wrapper = render({ value: '28/07/1987' });
+    });
+
+    it('stores the raw/ unformatted value', () => {
+      expect(wrapper.find('input').findWhere(n => n.props().type === 'hidden').prop('value')).toEqual('1987-07-28');
+    });
+
+    it('updates the hidden value when the new date is valid', () => {
+      wrapper = render({ value: '28/07/1987' });
+      wrapper.find(BaseDateInput).setState({ visibleValue: '29/07/2007' });
+      simulateBlurOnInput(wrapper);
+      jest.runAllTimers();
+      expect(wrapper.find('input').findWhere(n => n.props().type === 'hidden').prop('value')).toEqual('2007-07-29');
+    });
+
+    it('does not update the hidden value if the new date is not valid', () => {
+      wrapper.find(BaseDateInput).setState({ visibleValue: 'foo' });
+      expect(wrapper.find('input').findWhere(n => n.props().type === 'hidden').prop('value')).toEqual('1987-07-28');
     });
   });
 
@@ -471,7 +495,7 @@ describe('Date', () => {
         const mockDate = getFormattedDate(moment('2012-02-01'));
         wrapper = mount(<DateInput value={ mockDate } />);
         wrapper.find(BaseDateInput).instance().closeDatePicker();
-        const input = wrapper.find('input');
+        const input = wrapper.find('input').findWhere(n => n.props().type !== 'hidden');
 
         expect(input.instance().value).toBe(mockDate);
       });
@@ -545,26 +569,26 @@ function getFormattedDate(date) {
 }
 
 function simulateFocusOnInput(container) {
-  const input = container.find('input');
+  const input = container.find('input').findWhere(n => n.props().type !== 'hidden');
 
   input.simulate('focus');
 }
 
 function simulateBlurOnInput(container) {
-  const input = container.find('input');
+  const input = container.find('input').findWhere(n => n.props().type !== 'hidden');
 
   input.simulate('blur');
 }
 
 function simulateChangeOnInput(container, value) {
-  const input = container.find('input');
+  const input = container.find('input').findWhere(n => n.props().type !== 'hidden');
 
   input.instance().value = value;
   input.simulate('change');
 }
 
 function simulateClickOnInput(container) {
-  const input = container.find('input');
+  const input = container.find('input').findWhere(n => n.props().type !== 'hidden');
   const mockEvent = {
     nativeEvent: {
       stopImmediatePropagation: () => {}
@@ -576,7 +600,7 @@ function simulateClickOnInput(container) {
 
 function simulateOnKeyDown(container, key) {
   const keyDownParams = { which: key };
-  const input = container.find('input');
+  const input = container.find('input').findWhere(n => n.props().type !== 'hidden');
 
   input.simulate('keyDown', keyDownParams);
 }
