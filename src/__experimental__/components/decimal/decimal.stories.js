@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import {
-  number, select
+  number, select, boolean
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
@@ -24,12 +24,12 @@ Decimal.__docgenInfo = getDocGenInfo(
 );
 
 const store = new Store({
-  value: Decimal.defaultProps.value
+  value: ''
 });
 
 const setValue = (ev) => {
   action('onChange')(ev);
-  store.set({ value: ev.target.value });
+  store.set({ value: ev.target.value.rawValue });
 };
 
 function makeStory(name, themeSelector) {
@@ -46,6 +46,7 @@ function makeStory(name, themeSelector) {
       Decimal.defaultProps.align
     );
     const precision = number('precision', Decimal.defaultProps.precision, precisionRange);
+    const allowEmptyValue = boolean('allowEmptyValue', false);
 
     return (
       <State store={ store }>
@@ -55,6 +56,7 @@ function makeStory(name, themeSelector) {
           precision={ precision }
           value={ store.get('value') }
           onChange={ setValue }
+          allowEmptyValue={ allowEmptyValue }
           onBlur={ (ev, undelimitedValue) => action('onBlur')(ev, undelimitedValue) }
         />
       </State>
