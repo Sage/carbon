@@ -130,13 +130,13 @@ describe('TableAjax', () => {
   describe('componentWillReceiveProps', () => {
     it('does not call setState with the same pageSize', () => {
       spyOn(pageSizeInstance, 'setState');
-      pageSizeInstance.componentWillReceiveProps({pageSize: '10'});
+      pageSizeInstance.UNSAFE_componentWillReceiveProps({pageSize: '10'});
       expect(pageSizeInstance.setState).not.toHaveBeenCalled();
     });
 
     it('calls emitOnChangeCallback when pageSize changes', () => {
       spyOn(pageSizeInstance, 'setState');
-      pageSizeInstance.componentWillReceiveProps({pageSize: '20'});
+      pageSizeInstance.UNSAFE_componentWillReceiveProps({pageSize: '20'});
       expect(pageSizeInstance.setState).toHaveBeenCalledWith({ pageSize: '20' });
     });
   });
