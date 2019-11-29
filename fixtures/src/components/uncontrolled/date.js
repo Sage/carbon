@@ -31,6 +31,18 @@ const UncontrolledDate = () => {
                 label='Uncontrolled Date'
                 defaultValue='23rd apr 12'
               />
+              <br />
+              <br />
+              <br />
+              <Date
+                onChange={ onChange }
+                onBlur={ onBlur }
+                id='uncontrolled_date_id_empty'
+                name='uncontrolled_date_name_empty'
+                label='Uncontrolled Date Empty'
+                defaultValue=''
+                allowEmptyValue
+              />
             </div>
           </React.Fragment>
         );
