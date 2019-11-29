@@ -1,8 +1,14 @@
 # Validations
 
-Form components in Carbon are set up to handle validations.
+Form components in Carbon are set up to handle validations. They are set-up to use [Higher Order Components](https://reactjs.org/docs/higher-order-components.html) that take advantage of React's compositional nature. With the Context API, the HOC provides a set of callbacks that allow for Form children to be registered and for the Form to iterate over and run validations over them. This is how the form maintains its list of components and their validation status.
 
-The Carbon library provides a [selection of validations](https://github.com/Sage/carbon/tree/master/src/utils/validations) for you. The example below shows how you can apply a validation to an input:
+All inputs are wrapped by a HOC that triggers the callbacks at a Form level registering itself with a unique name and storing the applied validations that are run asynchronously.
+
+# Reference implementation
+Please review the [Storybook example](../../src/components/validations/validations.stories.js) for a reference implementation.
+
+# Backwards compatibility
+The Carbon library continues to support the legacy approach of supplying a [selection of validations](https://github.com/Sage/carbon/tree/master/src/utils/validations). The example below shows how you can apply a validation to a legacy input:
 
 ```js
 import React from 'react';

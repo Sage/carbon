@@ -119,6 +119,7 @@ Object {
   "customFilter": undefined,
   "filterValue": undefined,
   "id": "listbox-2",
+  "isLoopable": undefined,
   "onLazyLoad": undefined,
   "onSelect": [Function],
   "open": true,

@@ -194,9 +194,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
       data-element="label"
       width={30}
     >
-      <label
-        htmlFor="group-radio-buttons"
-      >
+      <label>
         Test CheckboxGroup Label
       </label>
     </div>

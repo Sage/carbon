@@ -86,6 +86,7 @@ class SelectList extends React.Component {
   render() {
     const {
       id,
+      isLoopable,
       alwaysHighlight,
       children,
       customFilter,
@@ -112,6 +113,7 @@ class SelectList extends React.Component {
             onLazyLoad={ onLazyLoad }
             onSelect={ onSelect }
             alwaysHighlight={ alwaysHighlight }
+            isLoopable={ isLoopable }
             keyNavigation
           >
             {
@@ -154,6 +156,8 @@ SelectList.propTypes = {
   customFilter: PropTypes.func,
   /** The value to filter the children by */
   filterValue: PropTypes.string,
+  /** Flag to indicite whether select list is loopable while traversing using up and down keys */
+  isLoopable: PropTypes.bool,
   /** A custom callback for when more data needs to be lazy-loaded when the user scrolls the dropdown menu list */
   onLazyLoad: PropTypes.func,
   /** A custom callback for the parent <div>'s MouseDown event */

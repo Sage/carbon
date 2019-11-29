@@ -73,6 +73,13 @@
           "returns": null
         },
         {
+          "name": "shouldBlockBlur",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": "boolean"
+        },
+        {
           "name": "handleBlur",
           "docblock": null,
           "modifiers": [],
@@ -154,6 +161,13 @@
           "returns": null
         },
         {
+          "name": "focusInput",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
           "name": "handleVisibleInputChange",
           "docblock": null,
           "modifiers": [],
@@ -200,9 +214,44 @@
             }
           ],
           "returns": null
+        },
+        {
+          "name": "canBeEmptyValues",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "value",
+              "type": "string"
+            }
+          ],
+          "returns": "boolean"
+        },
+        {
+          "name": "buildCustomEvent",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            },
+            {
+              "name": "isoFormattedValue",
+              "type": "string"
+            }
+          ],
+          "returns": "object"
         }
       ],
       "props": {
+        "allowEmptyValue": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Boolean to allow the input to have an empty value"
+        },
         "autoFocus": {
           "type": {
             "name": "bool"

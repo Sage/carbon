@@ -376,7 +376,7 @@ class Select extends React.Component {
   }
 
   textboxProps() {
-    const { typeAhead, placeholder } = this.props;
+    const { typeAhead, placeholder, leftChildren } = this.props;
 
     const value = this.getValue();
 
@@ -391,6 +391,10 @@ class Select extends React.Component {
       value,
       formattedValue: this.formattedValue(this.state.filter, value)
     };
+
+    if (leftChildren) {
+      props.leftChildren = props.leftChildren ? [leftChildren, ...props.leftChildren] : leftChildren;
+    }
 
     return props;
   }
@@ -408,6 +412,7 @@ class Select extends React.Component {
       placeholder,
       value,
       defaultValue,
+      isLoopable,
       onLazyLoad,
       onFilter,
       onOpen,
@@ -445,6 +450,7 @@ class Select extends React.Component {
               customFilter={ customFilter }
               filterValue={ filter }
               onLazyLoad={ onLazyLoad }
+              isLoopable={ isLoopable }
               onSelect={ this.handleChange }
               open={ open }
               target={ this.input.current && this.input.current.parentElement }
@@ -475,6 +481,8 @@ Select.propTypes = {
   disabled: PropTypes.bool,
   /** Label text for the <Textbox> */
   label: PropTypes.string,
+  /** Flag to indicite whether select list is loopable while traversing using up and down keys */
+  isLoopable: PropTypes.bool,
   /** A custom callback for the <Textbox>'s Blur event */
   onBlur: PropTypes.func,
   /** A custom callback for when changes occur */
@@ -507,7 +515,9 @@ Select.propTypes = {
   typeAhead: PropTypes.bool,
   /** Can the user type a value in the <Textbox> to filter the dropdown menu options? */
   filterable: PropTypes.bool,
-  isAnyValueSelected: PropTypes.bool
+  isAnyValueSelected: PropTypes.bool,
+  /** Add additional child elements before the input */
+  leftChildren: PropTypes.node
 };
 
 Select.defaultProps = {
