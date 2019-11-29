@@ -23,7 +23,6 @@ const LabelStyle = styled.label`
   ${({
     align, inline, inputSize, width
   }) => inline && css`
-    align-self: center;
     box-sizing: border-box;
     padding-bottom: 0;
     padding-right: ${sizes[inputSize].padding};
