@@ -32,6 +32,7 @@ const commonKnobs = (store, enableMultiSelect = false) => {
   const filterable = boolean('filterable', Select.defaultProps.filterable);
   const typeAhead = filterable && boolean('typeAhead', Select.defaultProps.typeAhead);
   const label = text('label', '');
+  const isLoopable = boolean('isLoopable', false);
 
   const knobs = {
     disabled: boolean('disabled', false),
@@ -50,7 +51,8 @@ const commonKnobs = (store, enableMultiSelect = false) => {
     size: select('size', OptionsHelper.sizesRestricted, OptionsHelper.sizesRestricted[1]),
     filterable,
     typeAhead,
-    label
+    label,
+    isLoopable
   };
 
   if (label.length) {

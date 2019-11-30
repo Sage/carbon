@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 import { isClassic } from '../../../utils/helpers/style-helper';
 import StyledIcon from '../../../components/icon/icon.style';
 
-export default ({ loading, theme }) => isClassic(theme) && css`
+export default ({ isLoading, theme }) => isClassic(theme) && css`
   margin-top: 5px;
 
   ${StyledIcon} {
@@ -13,7 +13,7 @@ export default ({ loading, theme }) => isClassic(theme) && css`
     margin-right: 9px;
     color: ${theme.colors.white};
 
-    ${loading && css`
+    ${isLoading && css`
       margin-right: 3px;
     `}
   }

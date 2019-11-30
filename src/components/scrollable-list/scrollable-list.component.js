@@ -10,6 +10,7 @@ import ScrollableListContainer from './scrollable-list.style';
 class ScrollableList extends Component {
   static propTypes = {
     alwaysHighlight: PropTypes.bool, // ensures an item is always highlighted
+    isLoopable: PropTypes.bool,
     children: PropTypes.node,
     keyNavigation: PropTypes.bool,
     maxHeight: PropTypes.string,
@@ -23,7 +24,7 @@ class ScrollableList extends Component {
 
   scrollBox = React.createRef()
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // if selected item is beyond the number of children then reset it (eg. through filtering)
     if ((this.state.selectedItem + 1) > React.Children.count(nextProps.children)) {
       let selectedItem = -1;
@@ -84,26 +85,41 @@ class ScrollableList extends Component {
   buildHeightReducer(acc, { offsetHeight }) { return acc + offsetHeight; }
 
   nextSelectable(direction, position) {
-    if (!this.props.children) return null;
+    const { isLoopable, children } = this.props;
+    if (!children) return null;
 
-    const limit = this.props.children.length;
+    const limit = children.length;
 
     if (!limit) return null;
 
-    const change = direction === 'down' ? 1 : -1,
-        testIndex = position + change;
 
-    if (testIndex <= -1) return this.nextSelectable(direction, limit);
+    const change = direction === 'down' ? 1 : -1;
+    const nextPosition = position + change;
 
-    if (testIndex === limit) return this.nextSelectable(direction, -1);
+    if (nextPosition <= -1) {
+      return isLoopable ? this.nextSelectable(direction, limit) : this.nextSelectable('down', -1);
+    }
 
-    const testNode = this.props.children[testIndex];
+    if (nextPosition === limit) {
+      return isLoopable ? this.nextSelectable(direction, -1) : this.nextSelectable('up', limit);
+    }
 
-    return this.isSelectable(testNode) ? testIndex : this.nextSelectable(direction, testIndex);
+    const testNode = children[nextPosition];
+
+    return this.isSelectable(testNode) ? nextPosition : this.nextSelectable(direction, nextPosition);
   }
 
   isSelectable(node) {
     return node.props.isSelectable;
+  }
+
+  selectLastItem() {
+    const limit = this.props.children.length;
+    return this.nextSelectable('up', limit);
+  }
+
+  selectFirstItem() {
+    return this.nextSelectable('down', -1);
   }
 
   renderChildren(children) {
@@ -137,6 +153,12 @@ class ScrollableList extends Component {
     } else if (Events.isDownKey(e)) {
       e.preventDefault();
       newPos = this.nextSelectable('down', newPos);
+    } else if (Events.isEndKey(e)) {
+      e.preventDefault();
+      newPos = this.selectLastItem();
+    } else if (Events.isHomeKey(e)) {
+      e.preventDefault();
+      newPos = this.selectFirstItem();
     } else if (Events.isEnterKey(e)) {
       e.preventDefault();
       this.selectItem(selectedItem);

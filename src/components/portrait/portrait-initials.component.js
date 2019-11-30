@@ -13,7 +13,7 @@ class PortraitInitials extends React.Component {
   cachedImageDataUrl = null;
 
   /** Invoked before a mounted component receives new props. */
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const shouldClearCache = (
       this.props.theme !== nextProps.theme
       || this.props.initials !== nextProps.initials
