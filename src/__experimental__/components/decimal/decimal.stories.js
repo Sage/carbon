@@ -37,7 +37,7 @@ function makeStory(name, themeSelector) {
     const precisionRange = {
       range: true,
       min: 0,
-      max: Decimal.defaultProps.maxPrecision,
+      max: 15,
       step: 1
     };
     const align = select(
