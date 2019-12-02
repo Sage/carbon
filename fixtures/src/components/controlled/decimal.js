@@ -32,7 +32,7 @@ const ControlledDecimal = () => {
                 <li>decimal has props name, id which should be reflected in both events</li>
                 <li>Lang: EN uses period as separator and comma as delimiter </li>
                 <li>Lang: FR uses comma as separator and period as delimiter </li>
-                <li>Lang: CH uses apostrophe as separator and period as delimiter </li>
+                <li>Lang: CH uses period as separator and apostrophe as delimiter </li>
                 <li>Inputs 3,4,5 are using the same state, they should each update this shows that they can be
                   controlled programmatically
                 </li>
