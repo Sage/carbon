@@ -66,6 +66,8 @@ const ButtonToggle = (props) => {
 };
 
 ButtonToggle.propTypes = {
+  /** Id used to identify the component. */
+  id: PropTypes.string,
   /** Set the checked value of the radio button */
   checked: PropTypes.bool,
   /** Name used on the hidden radio button. */
