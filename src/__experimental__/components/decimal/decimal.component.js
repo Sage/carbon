@@ -33,15 +33,12 @@ class Decimal extends React.Component {
     if (isControlled) {
       const valueProp = this.getSafeValueProp();
       if (valueProp !== prevState.value) {
+        const safeVisibleValue = valueProp === '-' ? this.formatValue(this.defaultValue) : this.formatValue(valueProp);
         this.setState({
           value: valueProp,
-          visibleValue: this.formatValue(valueProp)
+          visibleValue: safeVisibleValue
         });
       }
-    }
-
-    if (this.state.value !== prevState.value) {
-      this.callOnChange();
     }
 
     if (prevProps.precision !== this.props.precision) {
@@ -65,7 +62,9 @@ class Decimal extends React.Component {
 
   onChange = (ev) => {
     const { target: { value } } = ev;
-    this.setState({ value: this.toStandardDecimal(value), visibleValue: value });
+    this.setState({ value: this.toStandardDecimal(value), visibleValue: value }, () => {
+      this.callOnChange();
+    });
   }
 
   onPaste = (ev) => {
@@ -108,8 +107,10 @@ class Decimal extends React.Component {
   }
 
   onBlur = () => {
+    let shouldCallOnChange = false;
     this.setState(({ value, visibleValue }) => {
       if (!visibleValue || visibleValue === '-') {
+        shouldCallOnChange = true;
         return {
           value: this.defaultValue,
           visibleValue: this.formatValue(this.defaultValue)
@@ -119,6 +120,9 @@ class Decimal extends React.Component {
         visibleValue: this.formatValue(value)
       };
     }, () => {
+      if (shouldCallOnChange) {
+        this.callOnChange();
+      }
       if (this.props.onBlur) {
         this.props.onBlur(this.createEvent());
       }

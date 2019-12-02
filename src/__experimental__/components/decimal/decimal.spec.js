@@ -1521,5 +1521,21 @@ describe('Decimal', () => {
       blur();
       expect(onChange).not.toHaveBeenCalled();
     });
+
+    it('typing a negative value reverts to the default value', () => {
+      render({ value: '' });
+      setProps({ value: '-' });
+      expect(onChange).not.toHaveBeenCalled();
+      expect(value()).toBe('0.00');
+      expect(hiddenValue()).toBe('0.00');
+    });
+
+    it('typing a negative value reverts to the default value (allowEmptyValue)', () => {
+      render({ value: '', allowEmptyValue: true });
+      setProps({ value: '-' });
+      expect(onChange).not.toHaveBeenCalled();
+      expect(value()).toBe('');
+      expect(hiddenValue()).toBe('');
+    });
   });
 });
