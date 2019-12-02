@@ -1515,5 +1515,11 @@ describe('Decimal', () => {
       expect(value()).toBe('0.00');
       expect(hiddenValue()).toBe('0.00');
     });
+
+    it('blurring a field does not trigger onChange if the value has not changes', () => {
+      render({ value: '' });
+      blur();
+      expect(onChange).not.toHaveBeenCalled();
+    });
   });
 });

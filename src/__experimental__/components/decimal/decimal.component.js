@@ -108,11 +108,15 @@ class Decimal extends React.Component {
   }
 
   onBlur = () => {
-    this.setState(({ value }) => {
-      const safeValue = (!value || value === '-') ? this.defaultValue : value;
+    this.setState(({ value, visibleValue }) => {
+      if (!visibleValue || visibleValue === '-') {
+        return {
+          value: this.defaultValue,
+          visibleValue: this.formatValue(this.defaultValue)
+        };
+      }
       return {
-        value: safeValue,
-        visibleValue: this.formatValue(safeValue)
+        visibleValue: this.formatValue(value)
       };
     }, () => {
       if (this.props.onBlur) {
