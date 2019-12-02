@@ -5,6 +5,7 @@ import ButtonToggle from 'carbon-react/lib/components/button-toggle';
 import { Menu, MenuItem } from 'carbon-react/lib/components/menu';
 import I18n from 'i18n-js';
 import styled from 'styled-components';
+import guid from 'carbon-react/lib/utils/helpers/guid';
 import Log, { LogProvider } from './log';
 
 I18n.translations.ch = {
@@ -52,7 +53,8 @@ const Chrome = ({ children }) => {
   }, obj) => {
     ref.current = [...ref.current, {
       ...obj,
-      timestamp: performance.now(),
+      guid: guid(),
+      timestamp: new Date().toISOString(),
       name,
       id,
       value,
