@@ -59,7 +59,7 @@ const UncontrolledDecimal = () => {
                 onChange={ onChange }
                 onBlur={ onBlur }
                 id='uncontrolled_default_empty_id'
-                name='uncontrolled_default_emptu_name'
+                name='uncontrolled_default_empty_name'
                 label='Default Value (allow empty value)'
                 defaultValue='12345.76'
                 allowEmptyValue
