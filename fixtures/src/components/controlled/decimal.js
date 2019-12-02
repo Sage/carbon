@@ -26,8 +26,8 @@ const ControlledDecimal = () => {
                 <li>onChange handler should update the log when the value is changed, e.target.value should be an object
                   that contains &#123; formattedValue, rawValue &#125;
                 </li>
-                <li>onBlur handler should update the log when the decimal is blurred, e.target.value should be the
-                  formatted value
+                <li>onBlur handler should update the log when the decimal is blurred, e.target.value should be an object
+                  that contains &#123; formattedValue, rawValue &#125;
                 </li>
                 <li>decimal has props name, id which should be reflected in both events</li>
                 <li>Lang: EN uses period as separator and comma as delimiter </li>
