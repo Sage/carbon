@@ -1,6 +1,7 @@
 import {
   pagerSummary, pageSelect, maxPages, pageInput, previousArrow, nextArrow,
 } from '../../locators/pager';
+import { DEBUG_FLAG } from '..';
 
 Then('totalRecords is set to {string}', (totalRecords) => {
   pagerSummary().invoke('text').should('contain', `${totalRecords}  records`);
@@ -35,9 +36,11 @@ Then('I paginate {word} {int} times', (direction, count) => {
     // click force true because element is overlapping
     switch (direction) {
       case 'next':
+        cy.wait(100, { log: DEBUG_FLAG }); // wait added due to refreshing element
         nextArrow().click({ force: true });
         break;
       case 'previous':
+        cy.wait(100, { log: DEBUG_FLAG }); // wait added due to refreshing element
         previousArrow().click({ force: true });
         break;
       default: throw new Error('Direction can be only next or previous');

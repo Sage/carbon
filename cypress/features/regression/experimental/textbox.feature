@@ -8,15 +8,15 @@ Feature: Experimental Textbox component
   Scenario Outline: Set placeholder to <placeholder>
     When I set placeholder to "<placeholder>"
     Then Textbox placeholder is set to "<placeholder>"
-      Examples:
+    Examples:
       | placeholder             |
       | Sample text             |
       | 1234567890              |
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                    |
+  # @ignore because of FE-1447
+  # | <>                    |
 
   @positive
   Scenario: Check disabled checkbox for a Textbox component
@@ -44,15 +44,15 @@ Feature: Experimental Textbox component
   Scenario Outline: Set fieldHelp to <fieldHelp>
     When I set fieldHelp to "<fieldHelp>"
     Then fieldHelp is set to "<fieldHelp>"
-      Examples:
+    Examples:
       | fieldHelp               |
       | Sample text             |
       | 1234567890              |
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-       # @ignore because of FE-1447
-       # | <>                  |
+  # @ignore because of FE-1447
+  # | <>                  |
 
   @positive
   Scenario Outline: Set label to <label>
@@ -65,8 +65,8 @@ Feature: Experimental Textbox component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                    |
+  # @ignore because of FE-1447
+  # | <>                    |
 
   @positive
   Scenario Outline: Set labelHelp to <labelHelp>
@@ -81,8 +81,8 @@ Feature: Experimental Textbox component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                     |
+  # @ignore because of FE-1447
+  # | <>                     |
 
   @positive
   Scenario: Enable labelInline checkbox for a Textbox component
@@ -97,7 +97,7 @@ Feature: Experimental Textbox component
       And I uncheck labelInline checkbox
     Then Textbox component is not labelInline
 
- @positive
+  @positive
   Scenario Outline: Set labelWidth to <labelWidth>
     When I set label to "label"
       And I check labelInline checkbox
@@ -125,7 +125,7 @@ Feature: Experimental Textbox component
       | 50         |
       | 100        |
 
- @positive
+  @positive
   Scenario Outline: Set labelAlign to <labelAlign>
     When I set label to "label"
       And I check labelInline checkbox
@@ -147,8 +147,8 @@ Feature: Experimental Textbox component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                     |
+  # @ignore because of FE-1447
+  # | <>                     |
 
   @positive
   Scenario Outline: Set label size to <size>
@@ -156,7 +156,7 @@ Feature: Experimental Textbox component
     Then Textbox height is "<height>"
       And Textbox width is "<width>"
     Examples:
-      | size   | height | width |
-      | small  | 28px   | 1041px |
-      | medium | 36px   | 1035px |
-      | large  | 44px   | 1031px |
+      | size   | height | width  |
+      | small  | 28px   | 1043px |
+      | medium | 36px   | 1037px |
+      | large  | 44px   | 1033px |

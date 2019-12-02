@@ -47,9 +47,8 @@ Then('Checkbox is not set to reverse and has width {string}', (width) => {
     .and('have.css', 'width', width);
 });
 
-Then('Checkbox inputWidth is set to {string}', (width) => {
-  checkboxRole().parent()
-    .should('have.css', 'width', `${width}px`);
+Then('Checkbox inputWidth is set to {int}', (px) => {
+  checkboxRole().parent().should('have.css', 'width').should('contain', `${px}px`);
 });
 
 Then('checkbox inputWidth is set to {int}', (width) => {

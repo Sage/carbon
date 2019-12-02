@@ -21,7 +21,7 @@ Feature: Experimental Textbox classic component
   @positive
   Scenario: Check disabled checkbox for a Textbox classic component
     When I check disabled checkbox
-    Then Textbox component is disabled
+    Then Textbox component is disabled for classic page
 
   @positive
   Scenario: Uncheck disabled checkbox for a Textbox classic component

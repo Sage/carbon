@@ -82,7 +82,7 @@ Feature: Experimental Checkbox component
   @positive
   Scenario Outline: Change Checkbox input width to <width>
     When I set inputWidth slider to <width>
-    Then Checkbox inputWidth is set to "<px>"
+    Then Checkbox inputWidth is set to <px>
     Examples:
       | width | px   |
       | 1     | 11   |
