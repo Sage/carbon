@@ -40,14 +40,19 @@ Cypress.Commands.overwrite(
 );
 
 function getItem(selector, counter) {
-  cy.wait(100, { log: DEBUG_FLAG })
+  cy.wait(500, { log: DEBUG_FLAG })
     .get('#storybook-preview-iframe', { log: DEBUG_FLAG })
-    .then(($iframe) => {
-      if (!$iframe.contents().find(selector).length && counter > 0) {
-        return getItem(selector, --counter);
-      }
-      return cy.wrap($iframe.contents().find(selector));
-    });
+    .then($iframe => new Cypress.Promise((resolve) => {
+      const $doc = $iframe.contents();
+      $iframe.on('load', () => {
+        resolve($doc[0].find('body'));
+        if (!$doc.find(selector).length && counter > 0) {
+          return getItem(selector, --counter);
+        }
+      });
+      return cy.wrap($doc[0].body);
+    }))
+    .find(selector);
 }
 
 Cypress.Commands.add('iFrame', (selector) => { getItem(selector, 40); });
