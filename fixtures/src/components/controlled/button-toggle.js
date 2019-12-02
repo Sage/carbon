@@ -29,6 +29,7 @@ const ControlledButtonToggle = () => {
                   </li>
                 </ul>
                 <ButtonToggleGroup
+                        id='controlled_button_toggle'
                         name='controlled_button_toggle'
                         onChange={ onChange(setCheckedValue) }
                         onBlur={ onBlur }
@@ -50,6 +51,7 @@ const ControlledButtonToggle = () => {
                 <li>value two is checked by default</li>
               </ul>
               <ButtonToggleGroup
+                        id='controlled_button_toggle_checked'
                         name='controlled_button_toggle_checked'
                         onChange={ onChange(setCheckedValueExampleTwo) }
                         onBlur={ onBlur }

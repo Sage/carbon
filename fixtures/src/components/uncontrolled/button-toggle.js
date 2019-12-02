@@ -45,7 +45,7 @@ const UncontrolledButtonToggle = () => {
                 <li>value two is checked by default</li>
               </ul>
               <ButtonToggleGroup
-                        id='uncontrolled_button_toggle'
+                        id='uncontrolled_button_toggle_checked'
                         name='uncontrolled_button_toggle_checked'
                         onChange={ onChange }
                         onBlur={ onBlur }>

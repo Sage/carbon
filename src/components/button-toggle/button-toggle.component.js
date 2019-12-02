@@ -12,6 +12,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 
 const ButtonToggle = (props) => {
   const {
+    id,
     name,
     checked,
     grouped,
@@ -44,7 +45,7 @@ const ButtonToggle = (props) => {
         name={ name }
         checked={ checked }
         disabled={ disabled }
-        guid={ inputGuid }
+        guid={ id || inputGuid }
         value={ value }
         onChange={ onChange }
       />
@@ -52,7 +53,7 @@ const ButtonToggle = (props) => {
         buttonIcon={ buttonIcon }
         buttonIconSize={ buttonIconSize }
         disabled={ disabled }
-        htmlFor={ inputGuid }
+        htmlFor={ id || inputGuid }
         size={ size }
       >
         <StyledButtonToggleContentWrapper>
