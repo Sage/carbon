@@ -10,6 +10,7 @@ const StyledHelp = styled.div`
   border: none;
   outline: none;
   display: inline-block;
+  vertical-align: middle;
   font-size: 14px;
   padding: 0;
   position: relative;
@@ -33,14 +34,13 @@ const StyledHelp = styled.div`
   }
 
   ${({ theme }) => isClassic(theme) && css`
-    color: rgb(128, 153, 164);
-
-    &:focus,
-    &:hover {
-      color: rgb(128, 153, 164);
+    ${StyledIcon} {
+      color: #8099A4;
     }
 
-    &:focus ${StyledIcon} {
+    :focus ${StyledIcon},
+    :hover ${StyledIcon} {
+      color: #8099A4;
       outline: none;
     }
   `}

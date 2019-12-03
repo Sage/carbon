@@ -4,12 +4,12 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c2 {
   display: inline-block;
   position: relative;
-  color: rgba(0,0,0,0.65);
+  color: #26A826;
   background-color: transparent;
 }
 
 .c2:hover {
-  color: rgba(0,0,0,0.90);
+  color: #1E861E;
   background-color: transparent;
 }
 
@@ -160,6 +160,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   disabled={false}
   role="button"
   size="medium"
+  type="button"
 >
   <span>
     <span
@@ -183,12 +184,12 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c2 {
   display: inline-block;
   position: relative;
-  color: rgba(0,0,0,0.65);
+  color: #26A826;
   background-color: transparent;
 }
 
 .c2:hover {
-  color: rgba(0,0,0,0.90);
+  color: #1E861E;
   background-color: transparent;
 }
 
@@ -325,6 +326,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   disabled={false}
   role="button"
   size="medium"
+  type="button"
 >
   <span
     className="c1 c2"

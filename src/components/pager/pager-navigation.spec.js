@@ -192,90 +192,138 @@ describe('Pager Navigation', () => {
   });
 
   describe('Navigate correctly on link click', () => {
-    it('disables the last link if on last page', () => {
-      const onPagination = jest.fn();
-      const wrapper = render(
-        {
-          ...props,
-          currentPage: '10',
-          onPagination,
-          theme: smallTheme
-        },
-        mount
-      );
+    let onPagination;
 
+    beforeEach(() => {
+      onPagination = jest.fn();
+    });
+
+    const getWrapper = otherProps => render(
+      {
+        ...props,
+        onPagination,
+        theme: smallTheme,
+        ...otherProps
+      },
+      mount
+    );
+
+    it('disables the next and last link if on last page', () => {
+      const wrapper = getWrapper({ currentPage: '10' });
       const navLinks = wrapper.find(PagerLinkStyles);
       const last = navLinks.last();
+      const next = navLinks.at(2);
+      last.simulate('click');
+      next.simulate('click');
+      expect(onPagination).not.toHaveBeenCalled();
+    });
+
+    it('disables the prev and first link if on first page', () => {
+      const wrapper = getWrapper({ currentPage: '1' });
+      const navLinks = wrapper.find(PagerLinkStyles);
+      const first = navLinks.first();
+      const prev = navLinks.at(1);
+      first.simulate('click');
+      prev.simulate('click');
+      expect(onPagination).not.toHaveBeenCalled();
+    });
+
+    it('disables navigation if theres only one page', () => {
+      const wrapper = getWrapper({ currentPage: '1', totalRecords: 5 });
+      const navLinks = wrapper.find(PagerLinkStyles);
+      const first = navLinks.first();
+      const prev = navLinks.at(1);
+      const next = navLinks.at(2);
+      const last = navLinks.last();
+      first.simulate('click');
+      prev.simulate('click');
+      next.simulate('click');
       last.simulate('click');
       expect(onPagination).not.toHaveBeenCalled();
     });
 
-    it('changes the current page on clicking link', () => {
-      const onPagination = jest.fn();
-      const wrapper = render(
-        {
-          ...props,
-          currentPage: '10',
-          onPagination,
-          theme: smallTheme
-        },
-        mount
-      );
-
+    it('changes page correctly on clicking first link', () => {
+      const wrapper = getWrapper({ currentPage: '10' });
       const navLinks = wrapper.find(PagerLinkStyles);
       const first = navLinks.first();
       first.simulate('click');
       expect(onPagination).toHaveBeenCalledWith('1', '10', 'first');
     });
+
+    it('changes page correctly on clicking prev link', () => {
+      const wrapper = getWrapper({ currentPage: '3' });
+      const navLinks = wrapper.find(PagerLinkStyles);
+      const prev = navLinks.at(1);
+      prev.simulate('click');
+      expect(onPagination).toHaveBeenCalledWith('2', '10', 'back');
+    });
+
+    it('changes page correctly on clicking next link', () => {
+      const wrapper = getWrapper({ currentPage: '3' });
+      const navLinks = wrapper.find(PagerLinkStyles);
+      const next = navLinks.at(2);
+      next.simulate('click');
+      expect(onPagination).toHaveBeenCalledWith('4', '10', 'next');
+    });
+
+    it('changes page correctly on clicking last link', () => {
+      const wrapper = getWrapper({ currentPage: '3' });
+      const navLinks = wrapper.find(PagerLinkStyles);
+      const last = navLinks.last();
+      last.simulate('click');
+      expect(onPagination).toHaveBeenCalledWith('10', '10', 'last');
+    });
   });
 
   describe('Navigates correctly on arrow click (Classic Theme)', () => {
-    it('does not navigate when disabled', () => {
-      const onPagination = jest.fn();
-      const wrapper = render(
-        {
-          ...props,
-          currentPage: '1',
-          onPagination,
-          theme: classicTheme
-        },
-        mount
-      );
+    let onPagination;
 
+    beforeEach(() => {
+      onPagination = jest.fn();
+    });
+
+    const getWrapper = otherProps => render(
+      {
+        ...props,
+        onPagination,
+        theme: classicTheme,
+        ...otherProps
+      },
+      mount
+    );
+
+    it('disables the prev link if on first page', () => {
+      const wrapper = getWrapper({ currentPage: '1' });
       const prev = wrapper.find(Icon).first();
       prev.simulate('click');
       expect(onPagination).not.toHaveBeenCalled();
     });
 
-    it('changes page correctly on next', () => {
-      const onPagination = jest.fn();
-      const wrapper = render(
-        {
-          ...props,
-          currentPage: '2',
-          onPagination,
-          theme: classicTheme
-        },
-        mount
-      );
+    it('disables the next link if on last page', () => {
+      const wrapper = getWrapper({ currentPage: '10' });
+      const next = wrapper.find(Icon).last();
+      next.simulate('click');
+      expect(onPagination).not.toHaveBeenCalled();
+    });
 
+    it('disables navigation if theres only one page', () => {
+      const wrapper = getWrapper({ currentPage: '1', totalRecords: 5 });
+      const prev = wrapper.find(Icon).first();
+      const next = wrapper.find(Icon).last();
+      prev.simulate('click');
+      next.simulate('click');
+      expect(onPagination).not.toHaveBeenCalled();
+    });
+
+    it('changes page correctly on next', () => {
+      const wrapper = getWrapper({ currentPage: '2' });
       const next = wrapper.find(Icon).last();
       next.simulate('click');
       expect(onPagination).toHaveBeenCalledWith('3', '10', 'next');
     });
 
     it('changes page correctly on prev', () => {
-      const onPagination = jest.fn();
-      const wrapper = render(
-        {
-          ...props,
-          currentPage: '3',
-          onPagination,
-          theme: classicTheme
-        },
-        mount
-      );
-
+      const wrapper = getWrapper({ currentPage: '3' });
       const prev = wrapper.find(Icon).first();
       prev.simulate('click');
       expect(onPagination).toHaveBeenCalledWith('2', '10', 'previous');

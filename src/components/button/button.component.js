@@ -6,10 +6,19 @@ import StyledButton, { StyledButtonSubtext } from './button.style';
 import tagComponent from '../../utils/helpers/tags';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
-const Button = React.forwardRef((props, ref) => {
-  const { disabled, to, iconType } = props;
+const Button = (props) => {
+  const {
+    disabled, to, iconType, size, subtext
+  } = props;
 
-  if (props.subtext.length > 0 && props.size !== 'large') {
+  const { as, buttonType, ...rest } = props;
+
+  const propsWithoutAs = {
+    ...rest,
+    buttonType: buttonType || as
+  };
+
+  if (subtext.length > 0 && size !== 'large') {
     throw new Error('subtext prop has no effect unless the button is large');
   }
 
@@ -17,21 +26,21 @@ const Button = React.forwardRef((props, ref) => {
   if (!disabled && to) {
     return (
       <RouterLink to={ to } type={ iconType }>
-        {renderStyledButton(ref, props)}
+        {renderStyledButton(propsWithoutAs)}
       </RouterLink>
     );
   }
 
-  return renderStyledButton(ref, props);
-});
+  return renderStyledButton(propsWithoutAs);
+};
 
-function renderStyledButton(forwardRef, buttonProps) {
+function renderStyledButton(buttonProps) {
   const {
-    as,
     disabled,
     buttonType,
     iconType,
     theme,
+    forwardRef,
     href,
     ...styleProps
   } = buttonProps;
@@ -44,9 +53,10 @@ function renderStyledButton(forwardRef, buttonProps) {
   return (
     <StyledButton
       as={ (!disabled && href) ? 'a' : 'button' } // legacy link button feature
-      buttonType={ buttonType || as }
+      buttonType={ buttonType }
       disabled={ disabled }
       role='button'
+      type='button'
       legacyColorVariant={ theme }
       iconType={ iconType }
       { ...tagComponent('button', buttonProps) }
@@ -58,17 +68,9 @@ function renderStyledButton(forwardRef, buttonProps) {
   );
 }
 
-function renderChildren(props) {
-  const {
-    iconType,
-    iconPosition,
-    size,
-    subtext,
-    children,
-    disabled,
-    buttonType
-  } = props;
-
+function renderChildren({
+  iconType, iconPosition, size, subtext, children, disabled, buttonType
+}) {
   const iconColorMap = {
     primary: 'on-dark-background',
     secondary: 'business-color',
@@ -139,5 +141,11 @@ Button.defaultProps = {
   subtext: ''
 };
 
+const ButtonWithForwardRef = React.forwardRef((props, ref) => <Button forwardRef={ ref } { ...props } />);
+
+ButtonWithForwardRef.displayName = 'Button';
+ButtonWithForwardRef.defaultProps = Button.defaultProps;
+
 Button.displayName = 'Button';
+export { ButtonWithForwardRef };
 export default Button;

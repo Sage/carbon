@@ -1,0 +1,1 @@
+Bug Fixes: "Fixes unnecessary onBlur triggering while removing selected items in multi-select mode. (Components: Select)"

@@ -4,6 +4,7 @@ import baseTheme from '../../../style/themes/base';
 import InputPresentationStyle from '../input/input-presentation.style';
 import dateClassicStyle from './date-classic.style';
 import OptionsHelper from '../../../utils/helpers/options-helper';
+import ValidationIconStyle from '../../../components/validations/validation-icon.style';
 
 const datePickerWidth = {
   large: '140px',
@@ -13,6 +14,9 @@ const datePickerWidth = {
 
 const StyledDateInput = styled.div`
   display: inline-block;
+  ${ValidationIconStyle}{
+      margin-left: 0;
+    }
   & ${InputPresentationStyle} {
     flex: none;
     width: ${({ size }) => (size ? datePickerWidth[size] : '135px')};

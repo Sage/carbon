@@ -82,8 +82,10 @@ const assertCorrectTraversal = method => expect => ({ num, nonSelectables = [] }
   const array = makeArrayKeys(num);
   const validIndexes = array.filter(isSelectableGiven(nonSelectables));
 
+
+  const selectedItem = selectedItemOf(wrapper);
   const indexesThatWereSelected = array
-    .reduce(selectedItemReducer(method)(wrapper), [])
+    .reduce(selectedItemReducer(method)(wrapper), [selectedItem])
     .filter(isUnique);
   expect(arraysEqual(validIndexes, indexesThatWereSelected)).toBeTruthy();
 };

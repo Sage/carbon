@@ -1,5 +1,5 @@
 import {
-  knobsTab, actionsTab, clearButton, accessibilityTab,
+  knobsTab, actionsTab, clearButton, accessibilityTab, getKnobsInputWithName,
 } from '../locators';
 import { DEBUG_FLAG } from '.';
 import { getElementNoIframe } from '../locators/build';
@@ -77,4 +77,8 @@ export function pressTABKey(count) {
 
 export async function asyncWaitForIcon(name) {
   await getElementNoIframe(name);
+}
+
+export async function asyncWaitForKnobs(propertyName, fieldName) {
+  await getKnobsInputWithName(propertyName, fieldName);
 }

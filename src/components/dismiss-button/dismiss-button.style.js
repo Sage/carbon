@@ -30,10 +30,10 @@ const DismissButtonStyle = styled.div`
 
 const LinkStyle = styled(Link)`
   ${({ theme }) => !isClassic(theme) && css`
-    &:focus {
+    a:focus {
       outline: none;
       background-color: transparent;
-      span span {
+       span {
         &:before {
           outline: 2px solid ${theme.colors.focus};
           outline-offset: 3px;

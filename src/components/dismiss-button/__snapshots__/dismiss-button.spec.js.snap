@@ -90,6 +90,10 @@ exports[`DismissButton when render with no additional props should match snapsho
 
 exports[`LinkStyle applies peoper styling when focused 1`] = `
 .c1 {
+  display: inline-block;
+}
+
+.c1 a {
   font-size: 14px;
   -webkit-text-decoration: underline;
   text-decoration: underline;
@@ -97,30 +101,30 @@ exports[`LinkStyle applies peoper styling when focused 1`] = `
   display: inline-block;
 }
 
-.c1 .c2 {
+.c1 a .c2 {
   margin-right: 5px;
   position: relative;
   vertical-align: middle;
 }
 
-.c1:hover {
+.c1 a:hover {
   cursor: pointer;
   color: #006300;
 }
 
-.c1:focus {
+.c1 a:focus {
   color: rgba(0,0,0,0.9);
   cursor: default;
   background-color: #FFDA7F;
   outline: none;
 }
 
-.c0:focus {
+.c0 a:focus {
   outline: none;
   background-color: transparent;
 }
 
-.c0:focus span span:before {
+.c0 a:focus span:before {
   outline: 2px solid #FFB500;
   outline-offset: 3px;
 }
@@ -134,20 +138,21 @@ exports[`LinkStyle applies peoper styling when focused 1`] = `
   top: -2px;
 }
 
-<a
+<div
   className="c0 c1"
   data-component="link"
   disabled={false}
-  onClick={[Function]}
-  onKeyDown={[Function]}
-  tabIndex="0"
 >
-  <span>
+  <a
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    tabIndex="0"
+  >
     <span
       className="carbon-link__content"
     />
-  </span>
-</a>
+  </a>
+</div>
 `;
 
 exports[`when in classic mode when rendered as default should match the snapshot 1`] = `

@@ -1,0 +1,211 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SimpleColorPicker renders as expected 1`] = `
+.c5 {
+  width: 56px;
+  height: 56px;
+  margin-right: 2px;
+  margin-bottom: 2px;
+}
+
+.c5:hover {
+  cursor: pointer;
+}
+
+.c9 {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border: 2px solid transparent;
+}
+
+.c7 {
+  background: transparent;
+  border: none;
+  color: rgba(0,0,0,0.9);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-size: 14px;
+  outline: none;
+  width: 30px;
+}
+
+.c7::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c7::-moz-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c7:-ms-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c7::placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c7:invalid,
+.c7:required {
+  box-shadow: none;
+}
+
+.c6 {
+  position: absolute;
+  opacity: 0;
+  height: 56px;
+  width: 56px;
+  margin: 0;
+}
+
+.c6:hover {
+  cursor: pointer;
+}
+
+.c6:focus + .c8 {
+  box-shadow: inset 0px 0px 0px 3px #FFFFFF;
+  border: 2px solid #FFB500;
+}
+
+.c1 {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.c1.c1.c1 .c12 {
+  margin-top: 0;
+  margin-bottom: -1px;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.c3 legend {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.c3 .c11 .c10:focus {
+  outline: 2px solid #FFB500;
+}
+
+.c0 {
+  max-width: 300px;
+}
+
+.c0 .c2 {
+  margin-bottom: 16px;
+  height: 26px;
+}
+
+.c0 .c2 legend {
+  font-size: 14px;
+  margin-left: -2px;
+}
+
+.c4 {
+  padding: 0;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+<fieldset
+  className="c0 c1"
+  data-component="simple-color-picker"
+  role="radiogroup"
+>
+  <div
+    className="c2 c3"
+  >
+    <legend
+      data-element="legend"
+    >
+      SimpleColorPicker Legend
+    </legend>
+  </div>
+  <div
+    className="c4"
+  >
+    <div
+      checked={false}
+      className="c5"
+      data-component="simple-color"
+    >
+      <input
+        aria-checked={false}
+        checked={false}
+        className="c6 c7"
+        color="#00A376"
+        data-element="input"
+        id="rId-0"
+        name="test-group"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        role="radio"
+        type="radio"
+      />
+      <div
+        className="c8 c9"
+      />
+    </div>
+    <div
+      checked={false}
+      className="c5"
+      data-component="simple-color"
+    >
+      <input
+        aria-checked={false}
+        checked={false}
+        className="c6 c7"
+        color="#0073C1"
+        data-element="input"
+        id="rId-1"
+        name="test-group"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        role="radio"
+        type="radio"
+      />
+      <div
+        className="c8 c9"
+      />
+    </div>
+  </div>
+</fieldset>
+`;

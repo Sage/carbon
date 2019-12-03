@@ -1,7 +1,7 @@
-Feature: Textarea component
-  I want to change Textarea component properties
+Feature: Experimental Textarea classic component
+  I want to change Experimental Textarea classic component properties
 
-  Background: Open Textarea component page classic
+  Background: Open Experimental Textarea component page classic
     Given I open "Experimental Textarea" component page classic
 
   @positive
@@ -40,7 +40,7 @@ Feature: Textarea component
   @positive
   Scenario: Check disabled checkbox for a Textarea component
     When I check disabled checkbox
-    Then Textarea component is disabled
+    Then Textarea classic component is disabled
 
   @positive
   Scenario: Uncheck disabled checkbox for a Textarea component
@@ -204,7 +204,7 @@ Feature: Textarea component
       And I check enforceCharacterLimit checkbox
       And I uncheck enforceCharacterLimit checkbox
       And I input "<text>" into Textarea
-    Then Textarea component has warnOverLimit and used characters <characters> of <limit>
+    Then Textarea classic component has warnOverLimit and used characters <characters> of <limit>
     Examples:
       | text             | characters | limit |
       | 12345            | 5          | 0     |
@@ -220,7 +220,7 @@ Feature: Textarea component
       And I check enforceCharacterLimit checkbox
       And I uncheck enforceCharacterLimit checkbox
       And I input "<text>" into Textarea
-    Then Textarea component has no warnOverLimit and used characters <characters> of <limit>
+    Then Textarea classic component has no warnOverLimit and used characters <characters> of <limit>
     Examples:
       | text              | characters | limit |
       | !!                | 2          | 0     |
@@ -232,7 +232,7 @@ Feature: Textarea component
   Scenario Outline: Enable enforceCharacterLimit checkbox for a Textarea component and check the warning
     When I set characterLimit to "<limit>"
       And I input "<text>" into Textarea
-    Then Textarea component has enforceCharacterLimit enabled and used characters <characters> are equal to limit <limit>
+    Then Textarea classic component has enforceCharacterLimit enabled and used characters <characters> are equal to limit <limit>
     Examples:
       | text             | characters | limit |
       | ?                | 1          | -1    |
@@ -248,7 +248,7 @@ Feature: Textarea component
       And I check enforceCharacterLimit checkbox
       And I uncheck enforceCharacterLimit checkbox
       And I input "<text>" into Textarea
-    Then Textarea component has enforceCharacterLimit disabled and used characters <characters> are more than limit <limit>
+    Then Textarea classic component has enforceCharacterLimit disabled and used characters <characters> are more than limit <limit>
     Examples:
       | text             | characters | limit |
       | testText         | 8          | -1    |

@@ -1,7 +1,14 @@
 import {
-  saveButton, cancelButton, buttons, additionalActions, leftAlignedActions, rightAlignedActions,
-  errorsSummary, errorMessage, inputValidation,
+  saveButton, cancelButton, leftAlignedActions, rightAlignedActions,
+  errorsSummary, errorMessage, inputValidation, buttons, errorTooltip,
+  additionalActions,
 } from '../../locators/form';
+import { DEBUG_FLAG } from '..';
+import { tooltipPreview } from '../../locators/help';
+
+const FIRST_ELEMENT = 1;
+const SECOND_ELEMENT = 2;
+const THIRD_ELEMENT = 3;
 
 Then('save button is visible', () => {
   saveButton().should('be.visible');
@@ -21,9 +28,19 @@ Then('cancel button is not visible', () => {
 
 Then('buttons are aligned to {string}', (direction) => {
   if (direction === 'right') {
-    buttons().should('have.css', 'justify-content', 'flex-end');
+    buttons(FIRST_ELEMENT).should('have.attr', 'data-component', 'cancel');
+    buttons(SECOND_ELEMENT).should('have.attr', 'data-component', 'form-summary');
+    buttons(SECOND_ELEMENT).should('have.css', 'align-items', 'center')
+      .and('have.css', 'margin', '-8px')
+      .and('have.css', 'white-space', 'nowrap')
+      .and('have.css', 'padding', '8px');
   } else {
-    buttons().should('not.have.css', 'justify-content', 'flex-end');
+    buttons(FIRST_ELEMENT).should('have.attr', 'data-component', 'form-summary');
+    buttons(FIRST_ELEMENT).should('have.css', 'align-items', 'center')
+      .and('have.css', 'margin', '-8px')
+      .and('have.css', 'white-space', 'nowrap')
+      .and('have.css', 'padding', '8px');
+    buttons(SECOND_ELEMENT).should('have.attr', 'data-component', 'cancel');
   }
 });
 
@@ -45,6 +62,39 @@ Then('save button text is set to {string}', (text) => {
 
 Then('additional actions text is set to {string}', (text) => {
   additionalActions().should('have.text', text);
+});
+
+Then('additionalAction button is set to {string} and has text {string}', (buttonState, text) => {
+  if (buttonState === 'Button') {
+    buttons(THIRD_ELEMENT).should('be.visible');
+    buttons(THIRD_ELEMENT).children().should('have.attr', 'role', 'button')
+      .and('have.attr', 'data-component', 'button');
+    buttons(THIRD_ELEMENT).children().children().children()
+      .should('have.text', text);
+  } else {
+    buttons(THIRD_ELEMENT).should('be.visible');
+    buttons(THIRD_ELEMENT).children().should('have.attr', 'data-component', 'link')
+      .and('have.attr', 'tabindex', '0');
+    buttons(THIRD_ELEMENT).children().children().children()
+      .should('have.text', text);
+  }
+});
+
+Then('alignedActions button is set to {string} and has text {string}', (buttonState, text) => {
+  if (buttonState === 'Button') {
+    buttons(FIRST_ELEMENT).should('be.visible');
+    buttons(FIRST_ELEMENT).children().should('have.attr', 'role', 'button')
+      .and('have.attr', 'data-component', 'button');
+    buttons(FIRST_ELEMENT).children().children()
+      .contains(text);
+  } else {
+    cy.wait(100, { log: DEBUG_FLAG }); // added due to changing animation;
+    buttons(FIRST_ELEMENT).should('be.visible');
+    buttons(FIRST_ELEMENT).children().should('have.attr', 'data-component', 'link')
+      .and('have.attr', 'tabindex', '0');
+    buttons(FIRST_ELEMENT).children().children()
+      .contains(text);
+  }
 });
 
 Then('left aligned actions text is set to {string}', (text) => {
@@ -74,4 +124,14 @@ Then('input is validated', () => {
 
 Then('error message is {string}', (text) => {
   errorMessage().should('have.text', text);
+});
+
+Then('input is validated for default component', () => {
+  errorTooltip().should('be.visible');
+  errorTooltip().trigger('mouseover');
+});
+
+Then('error message is {string} for default component', (text) => {
+  tooltipPreview().first().should('have.text', text);
+  errorsSummary().should('have.text', 'There is 1 error');
 });

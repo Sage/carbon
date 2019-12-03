@@ -37,6 +37,82 @@ const info = (
     </p>
 
     <p>For additional properties specific to this component, see propTypes.</p>
+
+    <StoryHeader>Keyboard Support/Accessbility:</StoryHeader>
+    <table className='info-table'>
+      <thead>
+        <tr>
+          <td>
+            Key
+          </td>
+          <td>
+            Function
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            Tab
+          </td>
+          <td>
+            <ul>
+              <li>
+                Moves keyboard focus to the checked radio button in a radiogroup.
+              </li>
+              <li>
+                If no radio button is checked, focus moves to the first radio button in the group.
+              </li>
+              <li>
+                Further tab moves focus out of the radio group to the next component on the page.
+              </li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Space
+          </td>
+          <td>
+            <ul>
+              <li>
+                If the radio button with focus is unchecked, its state will be changed to checked.
+              </li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Down/Right arrow
+          </td>
+          <td>
+            <ul>
+              <li>
+                Moves focus to next radio button in the group.
+              </li>
+              <li>
+                If focus is on the last radio button in the group, move focus to the first radio button.
+              </li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Up/Left arrow
+          </td>
+          <td>
+            <ul>
+              <li>
+                Moves focus to previous radio button in the group.
+              </li>
+              <li>
+                If focus is on the first radio button in the group, move focus to the last radio button.
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 );
 

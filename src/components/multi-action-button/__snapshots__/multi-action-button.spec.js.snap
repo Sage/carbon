@@ -142,6 +142,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
       onTouchStart={[Function]}
       role="button"
       size="medium"
+      type="button"
     >
       <span>
         <span
@@ -189,6 +190,11 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   line-height: 16px;
   vertical-align: middle;
   display: block;
+}
+
+.common-input__label--help .c6 {
+  width: auto;
+  height: auto;
 }
 
 .c6:hover {
@@ -471,6 +477,7 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
       onTouchStart={[Function]}
       role="button"
       size="medium"
+      type="button"
     >
       <span>
         <span

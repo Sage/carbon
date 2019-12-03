@@ -6,6 +6,10 @@ exports[`StyledDateInput renders correctly for default theme 1`] = `
 }
 
 .c0 .c1 {
+  margin-left: 0;
+}
+
+.c0 .c2 {
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
@@ -24,31 +28,35 @@ exports[`StyledDateInput renders correctly for the "classic" theme 1`] = `
 }
 
 .c0 .c3 {
+  margin-left: 0;
+}
+
+.c0 .c4 {
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
   width: 135px;
 }
 
-.c0 .c3 {
-  width: 122px;
+.c0 .c4 {
+  width: 125px;
 }
 
-.c0 .c3:focus .c2 {
+.c0 .c4:focus .c2 {
   background-color: #1e499f;
   border-color: #1e499f;
 }
 
-.c0 .c3:focus .c1 {
+.c0 .c4:focus .c1 {
   color: #FFFFFF;
 }
 
-.c0 .c3:hover .c2 {
+.c0 .c4:hover .c2 {
   background-color: #255BC7;
   border-color: #255BC7;
 }
 
-.c0 .c3:hover .c1 {
+.c0 .c4:hover .c1 {
   color: #FFFFFF;
 }
 
