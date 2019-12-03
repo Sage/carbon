@@ -47,7 +47,8 @@ function getItem(selector, counter) {
       if (!doc.find(selector).length && counter > 0) {
         return getItem(selector, --counter);
       }
-      return cy.wrap(doc[0].body);
+      cy.wait(250, { log: DEBUG_FLAG });
+      return cy.wrap(doc.find('body'));
     })
     .find(selector);
 }
