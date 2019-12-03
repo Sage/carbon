@@ -55,6 +55,9 @@ const PagerNavigation = (props) => {
     };
 
     function disabled() {
+      if (maxPages() === 1) {
+        return true;
+      }
       if (step === -1) {
         return props.currentPage === '1';
       }
@@ -81,15 +84,15 @@ const PagerNavigation = (props) => {
         destination: '1'
       },
       last: {
-        text: 'Last',
+        text: I18n.t('pager.last', { defaultValue: 'Last' }),
         destination: String(maxPages())
       },
       next: {
-        text: 'Next',
+        text: I18n.t('pager.next', { defaultValue: 'Next' }),
         destination: String(currentPage + 1)
       },
       back: {
-        text: 'Previous',
+        text: I18n.t('pager.previous', { defaultValue: 'Previous' }),
         destination: String(currentPage - 1)
       }
     };
@@ -101,6 +104,9 @@ const PagerNavigation = (props) => {
     };
 
     function disabled() {
+      if (maxPages() === 1) {
+        return true;
+      }
       if (currentPage === 1) {
         return type === 'back' || type === 'first';
       }

@@ -6,7 +6,8 @@ import StyledIcon from '../../../components/icon/icon.style';
 
 const dateClassicStyle = ({ theme }) => isClassic(theme) && css`
   & ${InputPresentationStyle} {
-    width: 122px;
+    width: 125px;
+    
     &:focus {
       & ${InputIconToggleStyle} {
         background-color: #1e499f;

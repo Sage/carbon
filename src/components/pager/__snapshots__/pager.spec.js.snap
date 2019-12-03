@@ -41,6 +41,11 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
   display: block;
 }
 
+.common-input__label--help .c3 {
+  width: auto;
+  height: auto;
+}
+
 .c3::before {
   font-size: 16px;
   font-style: normal;

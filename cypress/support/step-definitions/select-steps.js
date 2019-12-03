@@ -1,4 +1,6 @@
-import { select, selectInput, selectInputNoIframe, selectPill } from '../../locators/select';
+import {
+  select, selectInput, selectInputNoIframe, selectPill,
+} from '../../locators/select';
 
 Then('Select typeAhead is disabled', () => {
   select().should('have.attr', 'placeholder', 'Please Select...');
@@ -44,6 +46,24 @@ Then('Select size on preview is set to {string}', (size) => {
       select().should('have.css', 'min-height', '48px')
         .and('have.css', 'padding-left', '13px')
         .and('have.css', 'padding-right', '13px');
+      break;
+    default: throw new Error('There is no such size for a Select component input');
+  }
+});
+
+Then('Select size on preview for default component is set to {string}', (size) => {
+  switch (size) {
+    case 'small':
+      select().should('have.css', 'height', '28px')
+        .and('have.css', 'width', '1017px');
+      break;
+    case 'medium':
+      select().should('have.css', 'height', '36px')
+        .and('have.css', 'width', '1006px');
+      break;
+    case 'large':
+      select().should('have.css', 'height', '44px')
+        .and('have.css', 'width', '996px');
       break;
     default: throw new Error('There is no such size for a Select component input');
   }

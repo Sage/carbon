@@ -108,11 +108,13 @@ const FlashIconStyle = styled(Icon)`
 `;
 
 const FlashLink = styled(Link)`
+
   color: #fff;
 
-  &:hover{
+  a:hover{
     color: #fff
   }
+
 `;
 
 const FlashMessageStyle = styled.div`

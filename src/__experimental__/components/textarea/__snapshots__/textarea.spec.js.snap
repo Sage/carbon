@@ -112,6 +112,7 @@ exports[`Textarea when rendered should render default 1`] = `
       aria-invalid={false}
       className="c3 c4"
       disabled={false}
+      id="guid-12345"
       name="textarea"
       onBlur={[Function]}
       onChange={[Function]}

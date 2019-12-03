@@ -52,15 +52,14 @@ class Link extends React.Component {
 
   get componentProps() {
     const props = {
-      disabled: this.props.disabled,
-      iconAlign: this.props.iconAlign,
       onKeyDown: this.onKeyDown,
-      tabIndex: this.tabIndex,
-      onMouseDown: this.props.onMouseDown
+      onMouseDown: this.props.onMouseDown,
+      disabled: this.props.disabled,
+      onClick: this.handleClick,
+      tabIndex: this.tabIndex
     };
 
     if (this.props.to) {
-      props.as = RouterLink;
       props.to = this.props.to;
     } else {
       props.href = this.props.href;
@@ -80,29 +79,40 @@ class Link extends React.Component {
   /**
    * className `@carbon-link__content` is related to `ShowEditPod` component
    * */
-  renderLinkContent() {
-    return (
-      <span>
-        {this.renderLinkIcon()}
 
-        <span className='carbon-link__content'>{this.props.children}</span>
+  linkContent = () => (
+    <>
+      { this.renderLinkIcon() }
 
-        {this.renderLinkIcon('right')}
-      </span>
+      <span className='carbon-link__content'>{this.props.children}</span>
+
+      { this.renderLinkIcon('right') }
+    </>
+  )
+
+  createLinkBasedOnType = () => {
+    const type = this.props.to ? RouterLink : 'a';
+
+    return React.createElement(
+      type,
+      { ...this.componentProps },
+      this.linkContent()
     );
   }
 
   render() {
-    const { disabled, className } = this.props;
+    const {
+      disabled, className, iconAlign
+    } = this.props;
+
     return (
       <LinkStyle
         disabled={ disabled }
         className={ className }
-        onClick={ this.handleClick }
+        iconAlign={ iconAlign }
         { ...tagComponent('link', this.props) }
-        { ...this.componentProps }
       >
-        {this.renderLinkContent()}
+        {this.createLinkBasedOnType()}
       </LinkStyle>
     );
   }

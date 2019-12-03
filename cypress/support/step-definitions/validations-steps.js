@@ -8,7 +8,6 @@ const THIRD_ELEMENT = 2;
 const FOURTH_ELEMENT = 3;
 const FIFTH_ELEMENT = 4;
 const SIXTH_ELEMENT = 5;
-const SEVENTH_ELEMENT = 6;
 
 Then('I click onto {string} input for validations component into iFrame', (position) => {
   switch (position) {
@@ -30,10 +29,7 @@ Then('I click onto {string} input for validations component into iFrame', (posit
     case 'sixth':
       commonDataElementInputPreviewNoIframe().eq(SIXTH_ELEMENT).click();
       break;
-    case 'seventh':
-      commonDataElementInputPreviewNoIframe().eq(SEVENTH_ELEMENT).click();
-      break;
-    default: throw new Error('There are only seven validation icons elements on the page');
+    default: throw new Error('There are only six validation icons elements on the page');
   }
 });
 

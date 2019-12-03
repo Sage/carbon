@@ -51,7 +51,7 @@ describe('Link', () => {
     it('should matches the expected style when true', () => {
       assertStyleMatch({
         cursor: 'not-allowed'
-      }, render({ disabled: true }).toJSON(), { modifier: ':hover' });
+      }, render({ disabled: true }).toJSON(), { modifier: 'a:hover' });
     });
 
     it('should call the events preventDefault function when true and clicked', () => {
@@ -107,7 +107,7 @@ describe('Link', () => {
       assertStyleMatch({
         marginRight: '5px',
         position: 'relative'
-      }, TestRenderer.create(wrapper.find(LinkStyle)).toJSON(), { modifier: `${StyledIcon}` });
+      }, TestRenderer.create(wrapper.find(LinkStyle)).toJSON(), { modifier: `a ${StyledIcon}` });
     });
 
     it('should render an `Icon` on the right', () => {
@@ -117,7 +117,7 @@ describe('Link', () => {
         marginLeft: '5px',
         position: 'relative'
 
-      }, TestRenderer.create(wrapper.find(LinkStyle)).toJSON(), { modifier: `${StyledIcon}` });
+      }, TestRenderer.create(wrapper.find(LinkStyle)).toJSON(), { modifier: `a ${StyledIcon}` });
     });
   });
 

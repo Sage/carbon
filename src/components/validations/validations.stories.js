@@ -9,7 +9,6 @@ import { action } from '@storybook/addon-actions';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import Form from '../../__deprecated__/components/form';
 import Textbox from '../../__experimental__/components/textbox';
-import TextboxLegacy from '../../__deprecated__/components/textbox';
 import ButtonToggleGroup from '../button-toggle-group';
 import ButtonToggle from '../button-toggle';
 import { Select, Option } from '../../__experimental__/components/select';
@@ -150,21 +149,6 @@ function makeBasicStory(name, themeSelector) {
                 onChange={ ev => allStore.set({ value: ev.target.value }) }
                 fieldHelp='This example uses all of the validations above! It will fail fast, reporting
                   any failing validations without waiting for asynchronous ones to complete.'
-                labelInline={ boolean('labelInline') }
-                size={ select('size', OptionsHelper.sizesRestricted) }
-              />
-            </State>
-          </Column>
-        </Row>
-
-        <Row columns='2'>
-          <Column>
-            <State store={ legacyStore }>
-              <TextboxLegacy
-                label='Legacy Validation (decorators)'
-                validations={ [new PresenceValidator()] }
-                onChange={ ev => legacyStore.set({ value: ev.target.value }) }
-                fieldHelp='This example uses the old decorator Textbox (now deprecated).'
                 labelInline={ boolean('labelInline') }
                 size={ select('size', OptionsHelper.sizesRestricted) }
               />
