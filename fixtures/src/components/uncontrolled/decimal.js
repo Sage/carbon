@@ -33,9 +33,9 @@ const UncontrolledDecimal = () => {
               <Decimal
                 onChange={ onChange }
                 onBlur={ onBlur }
-                id='uncontrolled_blank_id'
-                name='uncontrolled_blank_name'
-                label='Blank'
+                id='uncontrolled_zero_id'
+                name='uncontrolled_zero_name'
+                label='Zero'
               />
 
               <Decimal

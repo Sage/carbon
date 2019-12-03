@@ -5,6 +5,7 @@ import { LogConsumer } from '../log';
 
 const ControlledDecimal = () => {
   const [precision, setPrecision] = useState(2);
+  const [zero, setZero] = useState('0.00');
   const [blank, setBlank] = useState('');
   const [value, setValue] = useState('123');
   return (
@@ -40,11 +41,11 @@ const ControlledDecimal = () => {
 
               <Decimal
                 onBlur={ onBlur }
-                id='controlled_blank_id'
-                name='controlled_blank_name'
-                label='Blank'
-                value={ blank }
-                onChange={ onChange(setBlank) }
+                id='controlled_zero_id'
+                name='controlled_zero_name'
+                label='Zero'
+                value={ zero }
+                onChange={ onChange(setZero) }
               />
 
               <Decimal

@@ -15,7 +15,7 @@ class Decimal extends React.Component {
     super(props);
 
     const isControlled = this.isControlled();
-    const value = isControlled ? this.getSafeValueProp() : (this.props.defaultValue || this.defaultValue);
+    const value = isControlled ? this.getSafeValueProp(true) : (this.props.defaultValue || this.defaultValue);
 
     this.state = {
       value,
@@ -167,10 +167,14 @@ class Decimal extends React.Component {
     return validDecimalMatcher.test(value);
   }
 
-  getSafeValueProp = () => {
-    const { value } = this.props;
+  getSafeValueProp = (isInitialValue) => {
+    const { value, allowEmptyValue } = this.props;
     // We're intentionally preventing the use of number values to help prevent any unintentional rounding issues
     invariant(typeof value === 'string', 'Decimal `value` prop must be a string');
+
+    if (isInitialValue && !allowEmptyValue) {
+      invariant(value !== '', 'Decimal `value` must not be an empty string. Please use `allowEmptyValue` or `0.00`');
+    }
     return value;
   }
 
@@ -202,7 +206,7 @@ class Decimal extends React.Component {
    */
   formatValue = (value) => {
     invariant(!this.isNaN(value), `The supplied decimal (${value}) is not a number`);
-    if (this.props.allowEmptyValue && value === '') {
+    if (value === '') {
       return value;
     }
     return I18nHelper.formatDecimal(

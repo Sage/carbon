@@ -248,6 +248,12 @@ describe('Decimal', () => {
           render({ value: 123 });
         }).toThrow('Decimal `value` prop must be a string');
       });
+
+      it('throws if the value is an empty string', () => {
+        expect(() => {
+          render({ value: '' });
+        }).toThrow('Decimal `value` must not be an empty string. Please use `allowEmptyValue` or `0.00`');
+      });
     });
 
     describe('precision', () => {
@@ -1512,18 +1518,18 @@ describe('Decimal', () => {
       expect(hiddenValue()).toBe('456.00');
 
       setProps({ value: '' });
-      expect(value()).toBe('0.00');
-      expect(hiddenValue()).toBe('0.00');
+      expect(value()).toBe('');
+      expect(hiddenValue()).toBe('');
     });
 
     it('blurring a field does not trigger onChange if the value has not changes', () => {
-      render({ value: '' });
+      render({ value: '123' });
       blur();
       expect(onChange).not.toHaveBeenCalled();
     });
 
     it('typing a negative value reverts to the default value', () => {
-      render({ value: '' });
+      render({ value: '123' });
       setProps({ value: '-' });
       expect(onChange).not.toHaveBeenCalled();
       expect(value()).toBe('0.00');
@@ -1536,6 +1542,109 @@ describe('Decimal', () => {
       expect(onChange).not.toHaveBeenCalled();
       expect(value()).toBe('');
       expect(hiddenValue()).toBe('');
+    });
+
+    it('formats a empty value prop when firing events (allowEmptyValue)', () => {
+      const onBlur = jest.fn();
+      render({
+        value: '',
+        onBlur,
+        onChange: (e) => {
+          setProps({ value: e.target.value.rawValue });
+        },
+        allowEmptyValue: true
+      });
+
+      blur();
+      expect(value()).toBe('');
+      expect(hiddenValue()).toBe('');
+      expect(onBlur).toHaveBeenCalledWith(expect.objectContaining({
+        target: {
+          value: {
+            formattedValue: '',
+            rawValue: ''
+          }
+        }
+      }));
+
+      onBlur.mockReset();
+      type('1');
+      blur();
+      expect(value()).toBe('1.00');
+      expect(hiddenValue()).toBe('1.00');
+      expect(onBlur).toHaveBeenCalledWith(expect.objectContaining({
+        target: {
+          value: {
+            formattedValue: '1.00',
+            rawValue: '1'
+          }
+        }
+      }));
+
+      onBlur.mockReset();
+      type('');
+      blur();
+      expect(value()).toBe('');
+      expect(hiddenValue()).toBe('');
+      expect(onBlur).toHaveBeenCalledWith(expect.objectContaining({
+        target: {
+          value: {
+            formattedValue: '',
+            rawValue: ''
+          }
+        }
+      }));
+    });
+
+    it('formats a empty value prop when firing events', () => {
+      const onBlur = jest.fn();
+      render({
+        value: '0.00',
+        onBlur,
+        onChange: (e) => {
+          setProps({ value: e.target.value.rawValue });
+        }
+      });
+
+      blur();
+      expect(value()).toBe('0.00');
+      expect(hiddenValue()).toBe('0.00');
+      expect(onBlur).toHaveBeenCalledWith(expect.objectContaining({
+        target: {
+          value: {
+            formattedValue: '0.00',
+            rawValue: '0.00'
+          }
+        }
+      }));
+
+      onBlur.mockReset();
+      type('1');
+      blur();
+      expect(value()).toBe('1.00');
+      expect(hiddenValue()).toBe('1.00');
+      expect(onBlur).toHaveBeenCalledWith(expect.objectContaining({
+        target: {
+          value: {
+            formattedValue: '1.00',
+            rawValue: '1'
+          }
+        }
+      }));
+
+      onBlur.mockReset();
+      type('');
+      blur();
+      expect(value()).toBe('0.00');
+      expect(hiddenValue()).toBe('0.00');
+      expect(onBlur).toHaveBeenCalledWith(expect.objectContaining({
+        target: {
+          value: {
+            formattedValue: '0.00',
+            rawValue: '0.00'
+          }
+        }
+      }));
     });
   });
 });
