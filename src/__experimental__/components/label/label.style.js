@@ -13,7 +13,6 @@ const LabelStyle = styled.label`
   display: block;
   font-weight: 600;
   padding-bottom: 8px;
-  width: 100%;
 
   ${StyledHelpIcon},
   ${StyledValidationIcon} {

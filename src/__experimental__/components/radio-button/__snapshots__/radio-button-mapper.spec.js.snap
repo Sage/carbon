@@ -96,7 +96,7 @@ Array [
 }
 
 .c0 .c15 {
-  padding: 0 6px;
+  padding-left: 6px;
   width: auto;
   -webkit-flex: 1 1 calc(100% - 28px);
   -ms-flex: 1 1 calc(100% - 28px);
@@ -369,7 +369,7 @@ Array [
 }
 
 .c0 .c15 {
-  padding: 0 6px;
+  padding-left: 6px;
   width: auto;
   -webkit-flex: 1 1 calc(100% - 28px);
   -ms-flex: 1 1 calc(100% - 28px);

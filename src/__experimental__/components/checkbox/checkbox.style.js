@@ -58,7 +58,7 @@ const CheckboxStyle = styled.div`
     }
 
     ${StyledLabel} {
-      padding: 0 6px;
+      padding-left: 6px;
       width: auto;
       flex: 1 1 calc(100% - 28px);
     }
