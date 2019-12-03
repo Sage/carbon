@@ -266,13 +266,15 @@ class BaseDateInput extends React.Component {
     const { visibleValue, lastValidEventValues } = this.state;
     const inputDate = DateHelper.isValidDate(visibleValue) ? visibleValue : lastValidEventValues.formattedValue;
     return (
-      <DatePicker
-        inputElement={ this.input && this.input.parentElement }
-        selectedDate={ this.state.selectedDate }
-        handleDateSelect={ this.handleDateSelect }
-        inputDate={ inputDate }
-        { ...dateRangeProps }
-      />
+      <div onClick={ this.markCurrentDatepicker } role='presentation'>
+        <DatePicker
+          inputElement={ this.input && this.input.parentElement }
+          selectedDate={ this.state.selectedDate }
+          handleDateSelect={ this.handleDateSelect }
+          inputDate={ inputDate }
+          { ...dateRangeProps }
+        />
+      </div>
     );
   }
 
@@ -315,12 +317,12 @@ class BaseDateInput extends React.Component {
       onBlur: this.handleBlur,
       onChange: this.handleVisibleInputChange,
       onFocus: this.handleFocus,
-      onKeyDown: this.handleTabKeyDown
+      onKeyDown: this.handleTabKeyDown,
+      onClick: this.markCurrentDatepicker
     };
 
     return (
       <StyledDateInput
-        onClick={ this.markCurrentDatepicker }
         role='presentation'
         size={ inputProps.size }
         { ...tagComponent('date', this.props) }
