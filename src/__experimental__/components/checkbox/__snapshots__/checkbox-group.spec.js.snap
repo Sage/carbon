@@ -29,7 +29,6 @@ exports[`CheckboxGroup renders as expected 1`] = `
   display: block;
   font-weight: 600;
   padding-bottom: 8px;
-  width: 100%;
 }
 
 .c6 .c19,
@@ -114,7 +113,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
 }
 
 .c8 .c5 {
-  padding: 0 6px;
+  padding-left: 6px;
   width: auto;
   -webkit-flex: 1 1 calc(100% - 28px);
   -ms-flex: 1 1 calc(100% - 28px);
@@ -162,7 +161,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
 }
 
 .c16 .c5 {
-  padding: 0 6px;
+  padding-left: 6px;
   width: auto;
   -webkit-flex: 1 1 calc(100% - 28px);
   -ms-flex: 1 1 calc(100% - 28px);
