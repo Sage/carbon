@@ -21,7 +21,7 @@ const Chrome = ({ children }) => {
       checked
     }];
     setHistory(refHistory.current);
-  }, [history, refHistory, setHistory]);
+  }, [refHistory, setHistory]);
 
   return (
     <AppWrapper>
