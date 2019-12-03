@@ -61,7 +61,7 @@ const Chrome = ({ children }) => {
       checked
     }];
     setHistory(ref.current);
-  }, [history, setHistory]);
+  }, [ref, setHistory]);
 
   const Nav = styled.div`
   display:flex
