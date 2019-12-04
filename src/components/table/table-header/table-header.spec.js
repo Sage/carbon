@@ -214,16 +214,16 @@ describe('TableHeader', () => {
             TestUtils.Simulate.click(sortableColumn);
           });
 
-          it('adds the sort-down icon', () => {
-            expect(sortableHeader.sortIconHTML.props.type).toEqual('sort-down');
+          it('adds the sort_down icon', () => {
+            expect(sortableHeader.sortIconHTML.props.type).toEqual('sort_down');
           });
         });
 
         describe('when the sortOrder is ascending or not specified', () => {
-          it('adds the sort-up icon', () => {
+          it('adds the sort_up icon', () => {
             sortableHeader.context.sortedColumn = 'name';
             TestUtils.Simulate.click(sortableColumn);
-            expect(sortableHeader.sortIconHTML.props.type).toEqual('sort-up');
+            expect(sortableHeader.sortIconHTML.props.type).toEqual('sort_up');
           });
         });
       });
