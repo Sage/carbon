@@ -197,7 +197,7 @@ function validateValue() {
       const stringValue = new BigNumber(value),
           stringIs = new BigNumber(this.is);
 
-      return stringValue.equals(stringIs);
+      return stringValue.isEqualTo(stringIs);
     },
     /**
      * This is the message returned when this validation fails.
@@ -233,7 +233,7 @@ function validateLess() {
       const stringValue = new BigNumber(value),
           stringMax = new BigNumber(this.max);
 
-      return stringValue.lessThanOrEqualTo(stringMax);
+      return stringValue.isLessThanOrEqualTo(stringMax);
     },
 
     /**
@@ -269,7 +269,7 @@ function validateGreater() {
       const stringValue = new BigNumber(value),
           stringMin = new BigNumber(this.min);
 
-      return stringValue.greaterThanOrEqualTo(stringMin);
+      return stringValue.isGreaterThanOrEqualTo(stringMin);
     },
 
     /**
@@ -306,7 +306,7 @@ function validateRange() {
           stringMin = new BigNumber(this.min),
           stringMax = new BigNumber(this.max);
 
-      return (stringValue.greaterThanOrEqualTo(stringMin) && stringValue.lessThanOrEqualTo(stringMax));
+      return (stringValue.isGreaterThanOrEqualTo(stringMin) && stringValue.isLessThanOrEqualTo(stringMax));
     },
 
     /**
@@ -321,7 +321,7 @@ function validateRange() {
 
       if (typeCheck(this, value)) {
         stringValue = new BigNumber(value);
-        if (stringValue.greaterThanOrEqualTo(stringMin)) {
+        if (stringValue.isGreaterThanOrEqualTo(stringMin)) {
           error = 'less';
           count = this.max;
         }
