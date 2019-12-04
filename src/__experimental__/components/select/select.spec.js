@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
-import 'jest-styled-components';
 import Select from './select.component';
 import Option from './option.component';
 import { StyledSelect } from './select.style';
@@ -11,6 +10,7 @@ import classic from '../../../style/themes/classic';
 import StyledIcon from '../../../components/icon/icon.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import TextBox from '../textbox';
+import { Input } from '../input';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -108,6 +108,35 @@ describe('Select', () => {
       expect(renderWrapper({ state, type: shallow })).toMatchSnapshot();
     });
   });
+
+  it('renders a placeholder when disabled and readOnly are false', () => {
+    const wrapper = renderWrapper();
+    expect(wrapper.find(Input).props().placeholder).toEqual('Please Select...');
+  });
+
+  it('does not render a placeholder when disabled is true and readOnly is false', () => {
+    const props = { disabled: true, readOnly: false };
+    const wrapper = renderWrapper({ props });
+    expect(wrapper.find(Input).props().placeholder).toEqual('');
+  });
+
+  it('does not render a placeholder when disabled is false and readOnly is true', () => {
+    const props = { disabled: false, readOnly: true };
+    const wrapper = renderWrapper({ props });
+    expect(wrapper.find(Input).props().placeholder).toEqual('');
+  });
+
+  describe.each(
+    [{ disabled: false, readOnly: false }, { disabled: true, readOnly: false }, { disabled: false, readOnly: true }]
+  )(
+    'the Select component', (props) => {
+      it(`renders the correct placeholder when disabled is ${props.disabled} and readOnly is ${props.readOnly}`, () => {
+        const canRenderPlaceholder = !props.disabled && !props.readOnly;
+        const wrapper = renderWrapper({ props });
+        expect(wrapper.find(Input).props().placeholder).toEqual(canRenderPlaceholder ? 'Please Select...' : '');
+      });
+    }
+  );
 
   describe('when multi-value', () => {
     it(`renders the the textbox with the following:
