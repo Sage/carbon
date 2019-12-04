@@ -1,0 +1,1 @@
+Bug Fixes: "Fixes issue were border would not display if prop readOnly was set to true, affecting multiple components deriving from InputPresentation. (Component: InputPresentation)"
