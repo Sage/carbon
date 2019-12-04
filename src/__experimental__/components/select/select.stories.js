@@ -37,6 +37,7 @@ const commonKnobs = (store, enableMultiSelect = false) => {
   const knobs = {
     disabled: boolean('disabled', false),
     onBlur: ev => action('blur')(ev),
+    onKeyDown: ev => action('keyDown')(ev),
     onChange: (ev) => {
       const optionsObjects = ev.target.value;
       let value = optionsObjects.map(optionObject => optionObject.optionValue);
