@@ -13,6 +13,7 @@ const ControlledSelect = () => {
           setter(e.target.value[0].optionValue);
         };
         const onBlur = e => log(e, { method: 'onBlur' });
+        const onKeyDown = e => log(e, { method: 'onKeyDown' });
 
         return (
           <React.Fragment>
@@ -28,6 +29,7 @@ const ControlledSelect = () => {
               <Select
                 onChange={ onChange(setSelectedValue) }
                 onBlur={ onBlur }
+                onKeyDown={ onKeyDown }
                 label='Controlled Example'
                 value={ selectedValue }
                 id='controlled_select_id'
@@ -54,6 +56,7 @@ const ControlledSelect = () => {
               <Select
                 onChange={ onChange(setSelectedValueExampleTwo) }
                 onBlur={ onBlur }
+                onKeyDown={ onKeyDown }
                 label='Controlled Example Default Selected'
                 value={ selectedValueExampleTwo }
                 id='controlled_select_selected_id'
