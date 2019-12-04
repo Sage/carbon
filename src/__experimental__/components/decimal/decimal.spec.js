@@ -561,6 +561,12 @@ describe('Decimal', () => {
       expect(preventDefault).not.toHaveBeenCalled();
     });
 
+    it('allows the user to interact with the page with control commands (safari)', () => {
+      render();
+      const { preventDefault } = press({ key: 'r', metaKey: true }, '0.00|');
+      expect(preventDefault).not.toHaveBeenCalled();
+    });
+
     const PASTE_MULTIPLE = 'paste (multiple chars)';
     describe.each([
       ['type', press],

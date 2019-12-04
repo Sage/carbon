@@ -92,8 +92,10 @@ class Decimal extends React.Component {
       return this.isValidDecimal(this.replace(ev));
     }
 
-    if (ev.ctrlKey) {
+    if (ev.ctrlKey || ev.metaKey) {
       // user is doing some browser related task, we don't want to interfere with that.
+      // Command is metaKey in Safari, but ctrlKey in all other browsers
+      // Windows key is metaKey also
       // we do want to check paste, we do that onPaste
       return true;
     }
