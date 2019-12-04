@@ -316,7 +316,7 @@ describe('Select', () => {
       expect(onFocus).toHaveBeenCalled();
     });
 
-    it('does not open the list if `preventFocusAutoOpen` prop is passed', () => {
+    it('does not open the list if `preventFocusAutoOpen` prop is passed and set to true', () => {
       const wrapper = renderWrapper({ props: { preventFocusAutoOpen: true } });
       openList(wrapper);
       expect(wrapper.state().open).toEqual(false);
