@@ -31,7 +31,8 @@ const ActionPopover = ({
     setOpenState(value);
   }, [isOpen, onOpen, onClose, setOpenState]);
 
-  const onButtonClick = useCallback(() => {
+  const onButtonClick = useCallback((e) => {
+    e.stopPropagation();
     const isOpening = !isOpen;
     setOpen(isOpening);
     if (isOpening) {
@@ -49,7 +50,7 @@ const ActionPopover = ({
   const onButtonKeyDown = useCallback(((e) => {
     if (Events.isSpaceKey(e) || Events.isDownKey(e) || Events.isEnterKey(e)) {
       e.preventDefault();
-      onButtonClick();
+      onButtonClick(e);
     } else if (Events.isUpKey(e)) {
       e.preventDefault();
       setFocusIndex(items.length - 1);
