@@ -110,7 +110,7 @@ class Decimal extends React.Component {
     let shouldCallOnChange = false;
     this.setState(({ value, visibleValue }) => {
       if (!visibleValue || visibleValue === '-') {
-        shouldCallOnChange = true;
+        shouldCallOnChange = value !== this.defaultValue;
         return {
           value: this.defaultValue,
           visibleValue: this.formatValue(this.defaultValue)

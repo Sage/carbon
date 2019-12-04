@@ -1506,6 +1506,12 @@ describe('Decimal', () => {
       expect(html.getAttribute('value')).toBe('1.23');
       expect(html.getAttribute('name')).toBe('example');
     });
+
+    it('fires onChange when blurring only if the value has changed', () => {
+      render({ allowEmptyValue: true });
+      blur();
+      expect(onChange).not.toHaveBeenCalled();
+    });
   });
   describe('Controlled', () => {
     it('can be controlled', () => {
