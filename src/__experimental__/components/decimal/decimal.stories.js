@@ -24,7 +24,7 @@ Decimal.__docgenInfo = getDocGenInfo(
 );
 
 const store = new Store({
-  value: ''
+  value: '0.00'
 });
 
 const setValue = (ev) => {
