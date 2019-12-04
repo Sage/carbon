@@ -109,23 +109,6 @@ describe('Select', () => {
     });
   });
 
-  it('renders a placeholder when disabled and readOnly are false', () => {
-    const wrapper = renderWrapper();
-    expect(wrapper.find(Input).props().placeholder).toEqual('Please Select...');
-  });
-
-  it('does not render a placeholder when disabled is true and readOnly is false', () => {
-    const props = { disabled: true, readOnly: false };
-    const wrapper = renderWrapper({ props });
-    expect(wrapper.find(Input).props().placeholder).toEqual('');
-  });
-
-  it('does not render a placeholder when disabled is false and readOnly is true', () => {
-    const props = { disabled: false, readOnly: true };
-    const wrapper = renderWrapper({ props });
-    expect(wrapper.find(Input).props().placeholder).toEqual('');
-  });
-
   describe.each(
     [{ disabled: false, readOnly: false }, { disabled: true, readOnly: false }, { disabled: false, readOnly: true }]
   )(
