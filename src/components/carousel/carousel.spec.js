@@ -383,18 +383,18 @@ describe('BaseCarousel', () => {
     });
 
     it('returns a slide instance', () => {
-      expect(slide.type).toEqual(CSSTransition);
+      expect(slide.type).toEqual(Slide);
     });
 
     it('adds an active and a padded classes', () => {
-      expect(wrapper.find(Slide).props().isPadded).toBe(true);
+      expect(wrapper.find(Slide).props().slideProps.isPadded).toBe(true);
     });
 
     describe('when the previous button is disabled', () => {
       it('adds a padded classes', () => {
         wrapper.setProps({ enablePreviousButton: false });
 
-        expect(wrapper.find(Slide).props().isPadded).toBe(true);
+        expect(wrapper.find(Slide).props().slideProps.isPadded).toBe(true);
       });
     });
 
@@ -402,7 +402,7 @@ describe('BaseCarousel', () => {
       it('adds a padded classes', () => {
         wrapper.setProps({ enableNextButton: false });
 
-        expect(wrapper.find(Slide).props().isPadded).toBe(true);
+        expect(wrapper.find(Slide).props().slideProps.isPadded).toBe(true);
       });
     });
   });
@@ -537,7 +537,7 @@ describe('BaseCarousel', () => {
 
   describe('classNames', () => {
     it('uses a custom name if supplied', () => {
-      const wrapper = shallow(
+      const wrapper = mount(
         <BaseCarousel theme={ classicTheme } transition='foo'>
           <Slide />
         </BaseCarousel>
@@ -677,7 +677,11 @@ describe('SlideStyle', () => {
   let wrapper;
 
   it('should render matched style', () => {
-    wrapper = mount(<Slide onClick={ () => { } } style={ classicTheme } />);
+    wrapper = mount(<Slide
+      transitionName={ () => {} }
+      onClick={ () => { } }
+      style={ classicTheme }
+    />);
     assertStyleMatch({
       transition: 'all 0.2s ease-in',
       transform: 'scale(1.02)',
