@@ -313,7 +313,7 @@ const Events = {
   * @returns {Boolean} true if minus key
   * */
   isMinusKey: (ev) => {
-    return ev.key === '-';
+    return ev.key === '-' || ev.key === 'Subtract';
   },
 
   /**

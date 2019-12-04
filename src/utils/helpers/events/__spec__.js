@@ -333,6 +333,10 @@ describe('Events', () => {
     it('returns true when the minus key is pressed', () => {
       expect(Events.isMinusKey({ key: '-' })).toBeTruthy();
     });
+
+    it('returns true when the numpad minus key is pressed (IE)', () => {
+      expect(Events.isMinusKey({ key: 'Subtract' })).toBeTruthy();
+    });
   });
 
   describe('isHomeKey', () => {
