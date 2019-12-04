@@ -17,6 +17,8 @@ const StyledDateInput = styled.div`
   display: inline-block;
   ${ValidationIconStyle}{
       margin-left: 0;
+      position: relative;
+      right: -5px;
     }
   & ${InputPresentationStyle} {
     flex: none;
