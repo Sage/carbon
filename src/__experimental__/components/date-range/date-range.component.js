@@ -178,11 +178,13 @@ class DateRange extends React.Component {
           { ...this.startDateProps() } onFocus={ this.focusStart }
           data-element='start-date'
           ref={ this.startDateInputRef }
+          isDateRange
         />
         <DateInput
           { ...this.endDateProps() } onFocus={ this.focusEnd }
           data-element='end-date'
           ref={ this.endDateInputRef }
+          isDateRange
         />
       </StyledDateRange>
     );

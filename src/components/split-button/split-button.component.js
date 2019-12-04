@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../icon';
-import Button from '../button';
+import Button, { ButtonWithForwardRef } from '../button';
 import StyledSplitButton from './split-button.style';
 import StyledSplitButtonToggle from './split-button-toggle.style';
 import StyledSplitButtonChildrenContainer from './split-button-children.style';
@@ -181,6 +181,10 @@ class SplitButton extends Component {
         ref: button => this.addRef(button, index),
         tabIndex: -1
       };
+      if (child.type === Button) {
+        return <ButtonWithForwardRef { ...child.props } { ...props } />;
+      }
+
       return React.cloneElement(child, props);
     });
   }
@@ -204,6 +208,7 @@ class SplitButton extends Component {
 
   componentWillUnmount() {
     document.removeEventListener(this.userInputType, this.handleClickOutside);
+    document.removeEventListener('keydown', this.handleKeyDown);
   }
 
   render() {
