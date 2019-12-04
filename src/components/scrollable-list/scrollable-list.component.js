@@ -22,6 +22,8 @@ class ScrollableList extends Component {
     selectedItem: -1 // defaults to nothing being highlighted
   }
 
+  blockOptionsHover = false;
+
   scrollBox = React.createRef()
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -136,7 +138,16 @@ class ScrollableList extends Component {
     this.props.onSelect(selectedItem.props.id);
   }
 
-  handleMouseOver = selectedItem => this.setState({ selectedItem })
+
+  handleMouseMove = () => {
+    this.blockOptionsHover = false;
+  }
+
+  handleMouseOver = (selectedItem) => {
+    if (!this.blockOptionsHover) {
+      this.setState({ selectedItem });
+    }
+  }
 
   handleScroll = ({ target: { scrollTop, scrollHeight } }) => {
     if (!this.props.onLazyLoad) return;
@@ -144,6 +155,7 @@ class ScrollableList extends Component {
   }
 
   handleKeyDown = (e) => {
+    this.blockOptionsHover = true;
     const { selectedItem } = this.state;
     let newPos = selectedItem;
 
@@ -180,6 +192,7 @@ class ScrollableList extends Component {
       <ScrollableListContainer
         ref={ this.scrollBox }
         onScroll={ this.handleScroll }
+        onMouseMove={ this.handleMouseMove }
         { ...props }
         { ...tagComponent('scrollable-list', props) }
       >
