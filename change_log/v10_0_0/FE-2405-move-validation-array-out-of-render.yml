@@ -1,0 +1,1 @@
+Bug Fixes: "Moves validation concatenation out of render method and into state and handles on update as well. (Component: Date)"
