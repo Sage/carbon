@@ -20,7 +20,7 @@ const store = new Store({
 const handleChange = (evt) => {
   const newValue = [evt.target.value[0].rawValue, evt.target.value[1].rawValue];
   store.set({ value: newValue });
-  action('changed')(newValue);
+  action('changed')(evt.target.value);
 };
 
 function makeStory(name, themeSelector) {
