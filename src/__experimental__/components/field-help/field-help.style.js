@@ -10,7 +10,6 @@ const FieldHelpStyle = styled.span`
   width: 100%;
 
   ${({ labelInline, labelWidth }) => labelInline && css`
-    align-self: center;
     margin-left: ${labelWidth}%;
     padding-left: 0;
   `}

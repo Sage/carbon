@@ -5,6 +5,7 @@ import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/t
 import notes from './documentation';
 import Fieldset from './fieldset.component';
 import Textbox from '../textbox';
+import { Checkbox } from '../checkbox';
 
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
@@ -25,37 +26,43 @@ function makeStory(name, themeSelector) {
           label='First Name'
           labelInline
           labelAlign='right'
-          inputWidth={ 70 }
+          labelWidth={ 30 }
         />
         <Textbox
           label='Last Name'
           labelInline
           labelAlign='right'
-          inputWidth={ 70 }
+          labelWidth={ 30 }
         />
         <Textbox
           label='Address'
           labelInline
           labelAlign='right'
-          inputWidth={ 70 }
+          labelWidth={ 30 }
+        />
+        <Checkbox
+          label='Checkbox'
+          labelAlign='right'
+          labelWidth={ 30 }
+          reverse
         />
         <Textbox
           label='City'
           labelInline
           labelAlign='right'
-          inputWidth={ 70 }
+          labelWidth={ 30 }
         />
         <Textbox
           label='Country'
           labelInline
           labelAlign='right'
-          inputWidth={ 70 }
+          labelWidth={ 30 }
         />
         <Textbox
           label='Telephone'
           labelInline
           labelAlign='right'
-          inputWidth={ 70 }
+          labelWidth={ 30 }
         />
       </Fieldset>
     );
