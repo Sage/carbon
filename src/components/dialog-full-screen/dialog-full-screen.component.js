@@ -1,5 +1,4 @@
 import React from 'react';
-import { CSSTransition } from 'react-transition-group';
 import Modal from '../modal';
 import Heading from '../heading';
 import AppWrapper from '../app-wrapper';

@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import { CSSTransition } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import Browser from '../../utils/helpers/browser';
 import Icon from '../icon';

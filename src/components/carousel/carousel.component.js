@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TransitionGroup, CSSTransition, Transition } from 'react-transition-group';
+import { TransitionGroup } from 'react-transition-group';
 import { compact, assign } from 'lodash';
 import { withTheme } from 'styled-components';
 import tagComponent from '../../utils/helpers/tags/tags';
