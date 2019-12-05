@@ -114,7 +114,7 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   margin-bottom: -1px;
 }
 
-.c1 .c13 {
+.c1 .c14 {
   padding-top: 8px;
   padding-bottom: 8px;
 }
