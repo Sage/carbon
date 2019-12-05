@@ -1,15 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Checkbox base theme renders as expected 1`] = `
-.c3 {
-  display: block;
-}
-
 .c3 + .c2 {
   margin-top: 16px;
 }
 
-.c7 {
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c9 {
   cursor: pointer;
   opacity: 0;
   margin: 0;
@@ -17,526 +20,559 @@ exports[`Checkbox base theme renders as expected 1`] = `
   z-index: 999;
 }
 
-.c5 {
+.c7 {
   display: inline-block;
   position: relative;
 }
 
-.c1 .c2 {
+.c1 .c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
 }
 
-.c1 .c26 {
+.c1 .c29 {
   text-align: left;
-  width: auto;
-  white-space: nowrap;
   margin-top: -2px;
+  width: auto;
 }
 
-.c1 .c26 .c24,
-.c1 .c26 .c25 {
+.c1 .c29 .c27,
+.c1 .c29 .c28 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c1 .c26 .c24:hover,
-.c1 .c26 .c25:hover,
-.c1 .c26 .c24:focus,
-.c1 .c26 .c25:focus {
+.c1 .c29 .c27:hover,
+.c1 .c29 .c28:hover,
+.c1 .c29 .c27:focus,
+.c1 .c29 .c28:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c9 .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c10 .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c10 .c6:hover,
-.c10 .c26:hover,
-.c10 .c6:focus,
-.c10 .c26:focus {
-  outline: none;
-  cursor: not-allowed;
-}
-
-.c11 .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+.c1 .c26 {
+  -webkit-flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
 }
 
 .c11 .c4 {
-  width: 50% !important;
-}
-
-.c12 .c2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
 }
 
-.c12 .c6:hover,
-.c12 .c26:hover,
-.c12 .c6:focus,
-.c12 .c26:focus {
+.c11 .c4 {
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
+
+.c11 .c6 {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+.c11 .c6 {
+  margin-left: 0;
+}
+
+.c12 .c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c12 .c8:hover,
+.c12 .c29:hover,
+.c12 .c8:focus,
+.c12 .c29:focus {
   outline: none;
   cursor: not-allowed;
 }
 
 .c13 .c4 {
-  padding-top: 1px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
-.c13 .c8 {
-  height: 16px;
-}
-
-.c13 .c6,
-.c13 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c13 .c4,
-.c13 .c6,
-.c13 .c8,
-.c13 svg {
-  box-sizing: border-box;
-  width: 16px;
-}
-
-.c13 .c6:not([disabled]):focus + .c8,
-.c13 .c6:not([disabled]):hover + .c8 {
-  box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c13 .c8 {
-  height: 24px;
-}
-
-.c13 .c4,
-.c13 .c6,
-.c13 svg {
-  padding: 2px;
-}
-
-.c13 .c4,
-.c13 .c6,
-.c13 .c8,
-.c13 svg {
-  height: 24px;
-  width: 24px;
+.c13 .c6 {
+  width: 50% !important;
 }
 
 .c14 .c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c14 .c4 {
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
+
+.c14 .c6 {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+.c15 .c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c15 .c8:hover,
+.c15 .c29:hover,
+.c15 .c8:focus,
+.c15 .c29:focus {
+  outline: none;
+  cursor: not-allowed;
+}
+
+.c16 .c6 {
   padding-top: 1px;
 }
 
-.c14 .c8 {
+.c16 .c10 {
   height: 16px;
 }
 
-.c14 .c6,
-.c14 svg {
+.c16 .c8,
+.c16 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c14 .c4,
-.c14 .c6,
-.c14 .c8,
-.c14 svg {
+.c16 .c6,
+.c16 .c8,
+.c16 .c10,
+.c16 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
-.c14 .c6:not([disabled]):focus + .c8,
-.c14 .c6:not([disabled]):hover + .c8 {
+.c16 .c8:not([disabled]):focus + .c10,
+.c16 .c8:not([disabled]):hover + .c10 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c14 .c8 {
+.c16 .c10 {
   height: 24px;
 }
 
-.c14 .c4,
-.c14 .c6,
-.c14 svg {
+.c16 .c6,
+.c16 .c8,
+.c16 svg {
   padding: 2px;
 }
 
-.c14 .c4,
-.c14 .c6,
-.c14 .c8,
-.c14 svg {
+.c16 .c6,
+.c16 .c8,
+.c16 .c10,
+.c16 svg {
   height: 24px;
   width: 24px;
 }
 
-.c15 .c4 {
+.c17 .c6 {
   padding-top: 1px;
 }
 
-.c15 .c8 {
+.c17 .c10 {
   height: 16px;
 }
 
-.c15 .c6,
-.c15 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c15 .c4,
-.c15 .c6,
-.c15 .c8,
-.c15 svg {
-  box-sizing: border-box;
-  width: 16px;
-}
-
-.c15 .c6:not([disabled]):focus + .c8,
-.c15 .c6:not([disabled]):hover + .c8 {
-  box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c15 .c8:hover,
-.c15 .c8:focus {
-  outline: none;
-  cursor: not-allowed;
-}
-
-.c16 .c4 {
-  padding-top: 1px;
-}
-
-.c16 .c8 {
-  height: 16px;
-}
-
-.c16 .c6,
-.c16 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c16 .c4,
-.c16 .c6,
-.c16 .c8,
-.c16 svg {
-  box-sizing: border-box;
-  width: 16px;
-}
-
-.c16 .c6:not([disabled]):focus + .c8,
-.c16 .c6:not([disabled]):hover + .c8 {
-  box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c16 .c8:hover,
-.c16 .c8:focus {
-  outline: none;
-  cursor: not-allowed;
-}
-
-.c17 .c4 {
-  padding-top: 1px;
-}
-
-.c17 .c8 {
-  height: 16px;
-}
-
-.c17 .c6,
+.c17 .c8,
 .c17 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c17 .c4,
+.c17 .c6,
+.c17 .c8,
+.c17 .c10,
+.c17 svg {
+  box-sizing: border-box;
+  min-width: 16px;
+  width: 16px;
+}
+
+.c17 .c8:not([disabled]):focus + .c10,
+.c17 .c8:not([disabled]):hover + .c10 {
+  box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c17 .c10 {
+  height: 24px;
+}
+
 .c17 .c6,
 .c17 .c8,
 .c17 svg {
-  box-sizing: border-box;
-  width: 16px;
+  padding: 2px;
 }
 
-.c17 .c6:not([disabled]):focus + .c8,
-.c17 .c6:not([disabled]):hover + .c8 {
-  box-shadow: 0 0 0 3px #FFB500;
+.c17 .c6,
+.c17 .c8,
+.c17 .c10,
+.c17 svg {
+  height: 24px;
+  width: 24px;
 }
 
-.c18 .c4 {
+.c18 .c6 {
   padding-top: 1px;
 }
 
-.c18 .c8 {
+.c18 .c10 {
   height: 16px;
 }
 
-.c18 .c6,
-.c18 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c18 .c4,
-.c18 .c6,
 .c18 .c8,
 .c18 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c18 .c6,
+.c18 .c8,
+.c18 .c10,
+.c18 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
-.c18 .c6:not([disabled]):focus + .c8,
-.c18 .c6:not([disabled]):hover + .c8 {
+.c18 .c8:not([disabled]):focus + .c10,
+.c18 .c8:not([disabled]):hover + .c10 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c19 .c4 {
+.c18 .c10:hover,
+.c18 .c10:focus {
+  outline: none;
+  cursor: not-allowed;
+}
+
+.c19 .c6 {
   padding-top: 1px;
 }
 
-.c19 .c8 {
+.c19 .c10 {
   height: 16px;
 }
 
-.c19 .c6,
+.c19 .c8,
 .c19 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c19 .c4,
 .c19 .c6,
 .c19 .c8,
+.c19 .c10,
 .c19 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
-.c19 .c6:not([disabled]):focus + .c8,
-.c19 .c6:not([disabled]):hover + .c8 {
+.c19 .c8:not([disabled]):focus + .c10,
+.c19 .c8:not([disabled]):hover + .c10 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c19 .c4 {
+.c19 .c10:hover,
+.c19 .c10:focus {
+  outline: none;
+  cursor: not-allowed;
+}
+
+.c20 .c6 {
+  padding-top: 1px;
+}
+
+.c20 .c10 {
+  height: 16px;
+}
+
+.c20 .c8,
+.c20 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c20 .c6,
+.c20 .c8,
+.c20 .c10,
+.c20 svg {
+  box-sizing: border-box;
+  min-width: 16px;
+  width: 16px;
+}
+
+.c20 .c8:not([disabled]):focus + .c10,
+.c20 .c8:not([disabled]):hover + .c10 {
+  box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c21 .c6 {
+  padding-top: 1px;
+}
+
+.c21 .c10 {
+  height: 16px;
+}
+
+.c21 .c8,
+.c21 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c21 .c6,
+.c21 .c8,
+.c21 .c10,
+.c21 svg {
+  box-sizing: border-box;
+  min-width: 16px;
+  width: 16px;
+}
+
+.c21 .c8:not([disabled]):focus + .c10,
+.c21 .c8:not([disabled]):hover + .c10 {
+  box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c22 .c6 {
+  padding-top: 1px;
+}
+
+.c22 .c10 {
+  height: 16px;
+}
+
+.c22 .c8,
+.c22 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c22 .c6,
+.c22 .c8,
+.c22 .c10,
+.c22 svg {
+  box-sizing: border-box;
+  min-width: 16px;
+  width: 16px;
+}
+
+.c22 .c8:not([disabled]):focus + .c10,
+.c22 .c8:not([disabled]):hover + .c10 {
+  box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c22 .c6 {
   margin-right: 8px;
 }
 
-.c20 .c4 {
+.c23 .c6 {
   padding-top: 1px;
 }
 
-.c20 .c8 {
+.c23 .c10 {
   height: 16px;
 }
 
-.c20 .c6,
-.c20 svg {
+.c23 .c8,
+.c23 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c20 .c4,
-.c20 .c6,
-.c20 .c8,
-.c20 svg {
+.c23 .c6,
+.c23 .c8,
+.c23 .c10,
+.c23 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
-.c20 .c6:not([disabled]):focus + .c8,
-.c20 .c6:not([disabled]):hover + .c8 {
+.c23 .c8:not([disabled]):focus + .c10,
+.c23 .c8:not([disabled]):hover + .c10 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c20 .c4 {
+.c23 .c6 {
   padding: 1px 0 0 0;
 }
 
-.c20 .c6,
-.c20 svg {
+.c23 .c8,
+.c23 svg {
   padding: 1px;
 }
 
-.c20 .c4,
-.c20 .c6,
-.c20 .c8,
-.c20 svg {
+.c23 .c6,
+.c23 .c8,
+.c23 .c10,
+.c23 svg {
   height: 15px;
   width: 15px;
 }
 
-.c20 .c6:not([disabled]):focus + .c8,
-.c20 .c6:not([disabled]):hover + .c8 {
+.c23 .c8:not([disabled]):focus + .c10,
+.c23 .c8:not([disabled]):hover + .c10 {
   box-shadow: none;
 }
 
-.c20 .c6:not([disabled]):focus + .c8 > svg,
-.c20 .c6:not([disabled]):hover + .c8 > svg {
+.c23 .c8:not([disabled]):focus + .c10 > svg,
+.c23 .c8:not([disabled]):hover + .c10 > svg {
   border: 1px solid #1963f6;
   outline: none;
 }
 
-.c21 .c4 {
+.c24 .c6 {
   padding-top: 1px;
 }
 
-.c21 .c8 {
+.c24 .c10 {
   height: 16px;
 }
 
-.c21 .c6,
-.c21 svg {
+.c24 .c8,
+.c24 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c21 .c4,
-.c21 .c6,
-.c21 .c8,
-.c21 svg {
+.c24 .c6,
+.c24 .c8,
+.c24 .c10,
+.c24 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
-.c21 .c6:not([disabled]):focus + .c8,
-.c21 .c6:not([disabled]):hover + .c8 {
+.c24 .c8:not([disabled]):focus + .c10,
+.c24 .c8:not([disabled]):hover + .c10 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c21 .c8:hover,
-.c21 .c8:focus {
+.c24 .c10:hover,
+.c24 .c10:focus {
   outline: none;
   cursor: not-allowed;
 }
 
-.c21 .c4 {
+.c24 .c6 {
   padding: 1px 0 0 0;
 }
 
-.c21 .c6,
-.c21 svg {
+.c24 .c8,
+.c24 svg {
   padding: 1px;
 }
 
-.c21 .c4,
-.c21 .c6,
-.c21 .c8,
-.c21 svg {
+.c24 .c6,
+.c24 .c8,
+.c24 .c10,
+.c24 svg {
   height: 15px;
   width: 15px;
 }
 
-.c21 .c6:not([disabled]):focus + .c8,
-.c21 .c6:not([disabled]):hover + .c8 {
+.c24 .c8:not([disabled]):focus + .c10,
+.c24 .c8:not([disabled]):hover + .c10 {
   box-shadow: none;
 }
 
-.c21 .c6:not([disabled]):focus + .c8 > svg,
-.c21 .c6:not([disabled]):hover + .c8 > svg {
+.c24 .c8:not([disabled]):focus + .c10 > svg,
+.c24 .c8:not([disabled]):hover + .c10 > svg {
   border: 1px solid #1963f6;
   outline: none;
 }
 
-.c22 .c4 {
+.c25 .c6 {
   padding-top: 1px;
 }
 
-.c22 .c8 {
+.c25 .c10 {
   height: 16px;
 }
 
-.c22 .c6,
-.c22 svg {
+.c25 .c8,
+.c25 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c22 .c4,
-.c22 .c6,
-.c22 .c8,
-.c22 svg {
+.c25 .c6,
+.c25 .c8,
+.c25 .c10,
+.c25 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
-.c22 .c6:not([disabled]):focus + .c8,
-.c22 .c6:not([disabled]):hover + .c8 {
+.c25 .c8:not([disabled]):focus + .c10,
+.c25 .c8:not([disabled]):hover + .c10 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c22 .c8:hover,
-.c22 .c8:focus {
+.c25 .c10:hover,
+.c25 .c10:focus {
   outline: none;
   cursor: not-allowed;
 }
 
-.c22 .c4 {
+.c25 .c6 {
   padding: 1px 0 0 0;
 }
 
-.c22 .c6,
-.c22 svg {
+.c25 .c8,
+.c25 svg {
   padding: 1px;
 }
 
-.c22 .c4,
-.c22 .c6,
-.c22 .c8,
-.c22 svg {
+.c25 .c6,
+.c25 .c8,
+.c25 .c10,
+.c25 svg {
   height: 15px;
   width: 15px;
 }
 
-.c22 .c6:not([disabled]):focus + .c8,
-.c22 .c6:not([disabled]):hover + .c8 {
+.c25 .c8:not([disabled]):focus + .c10,
+.c25 .c8:not([disabled]):hover + .c10 {
   box-shadow: none;
 }
 
-.c22 .c6:not([disabled]):focus + .c8 > svg,
-.c22 .c6:not([disabled]):hover + .c8 > svg {
+.c25 .c8:not([disabled]):focus + .c10 > svg,
+.c25 .c8:not([disabled]):hover + .c10 > svg {
   border: 1px solid #1963f6;
   outline: none;
 }
@@ -545,11 +581,11 @@ exports[`Checkbox base theme renders as expected 1`] = `
   padding-top: 8px;
 }
 
-.c0 .c4 {
+.c0 .c6 {
   padding-top: 1px;
 }
 
-.c0 .c8 {
+.c0 .c10 {
   height: 16px;
 }
 
@@ -558,38 +594,42 @@ exports[`Checkbox base theme renders as expected 1`] = `
   border: 1px solid #668491;
 }
 
-.c0 .c6,
+.c0 .c8,
 .c0 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c0 .c4,
 .c0 .c6,
 .c0 .c8,
+.c0 .c10,
 .c0 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
-.c0 .c6:not([disabled]):focus + .c8,
-.c0 .c6:not([disabled]):hover + .c8 {
+.c0 .c8:not([disabled]):focus + .c10,
+.c0 .c8:not([disabled]):hover + .c10 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c0 .c26 {
-  padding: 0 6px;
+.c0 .c29 {
+  padding-left: 6px;
   width: auto;
+  -webkit-flex: 1 1 calc(100% - 28px);
+  -ms-flex: 1 1 calc(100% - 28px);
+  flex: 1 1 calc(100% - 28px);
 }
 
-.c0 .c23 {
+.c0 .c26 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
 }
 
-.c0 .c25 {
+.c0 .c28 {
   position: relative;
   display: inline-block;
 }
@@ -611,33 +651,37 @@ exports[`Checkbox base theme renders as expected 1`] = `
       <div
         className="c4 c5"
       >
-        <input
-          aria-describedby="guid-12345-help"
-          aria-labelledby="guid-12345-label"
-          className="c6 c7"
-          id="guid-12345"
-          name="my-checkbox"
-          onBlur={[Function]}
-          onChange={[Function]}
-          role="checkbox"
-          type="checkbox"
-          value="test"
-        />
         <div
-          className="c8 "
+          className="c6 c7"
         >
-          <svg
-            focusable="false"
-            height="10"
-            viewBox="0 0 12 10"
-            width="12"
+          <input
+            aria-describedby="guid-12345-help"
+            aria-labelledby="guid-12345-label"
+            className="c8 c9"
+            id="guid-12345"
+            name="my-checkbox"
+            onBlur={[Function]}
+            onChange={[Function]}
+            role="checkbox"
+            type="checkbox"
+            value="test"
+          />
+          <div
+            className="c10 "
           >
-            <path
-              d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
-              fill="#FFFFFF"
-              fillRule="evenodd"
-            />
-          </svg>
+            <svg
+              focusable="false"
+              height="10"
+              viewBox="0 0 12 10"
+              width="12"
+            >
+              <path
+                d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
+                fill="#FFFFFF"
+                fillRule="evenodd"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </div>
