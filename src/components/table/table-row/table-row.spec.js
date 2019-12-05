@@ -120,7 +120,7 @@ describe('TableRow', () => {
           row = TestUtils.findRenderedComponentWithType(instance, TableRow);
           spyOn(row.context, 'attachToTable');
           spyOn(row.context, 'checkSelection');
-          row.componentWillMount();
+          row.UNSAFE_componentWillMount();
         });
 
         it('calls attachToTable', () => {
@@ -137,7 +137,7 @@ describe('TableRow', () => {
           instance = TestUtils.renderIntoDocument(<Table><TableRow /></Table>);
           row = TestUtils.findRenderedComponentWithType(instance, TableRow);
           spyOn(row.context, 'attachToTable');
-          row.componentWillMount();
+          row.UNSAFE_componentWillMount();
           expect(row.context.attachToTable).not.toHaveBeenCalled();
         });
       });
@@ -148,7 +148,7 @@ describe('TableRow', () => {
         instance = TestUtils.renderIntoDocument(<Table><TableRow selected uniqueID='foo' /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
-        row.componentWillMount();
+        row.UNSAFE_componentWillMount();
         expect(row.setState).toHaveBeenCalledWith({ selected: true });
       });
     });
@@ -158,7 +158,7 @@ describe('TableRow', () => {
         instance = TestUtils.renderIntoDocument(<Table><TableRow highlighted uniqueID='foo' /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
-        row.componentWillMount();
+        row.UNSAFE_componentWillMount();
         expect(row.setState).toHaveBeenCalledWith({ highlighted: true });
       });
     });
@@ -194,7 +194,7 @@ describe('TableRow', () => {
         instance = TestUtils.renderIntoDocument(<Table><TableRow uniqueID='foo' /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row.context, 'checkSelection');
-        row.componentWillReceiveProps({ uniqueID: 'bar' });
+        row.UNSAFE_componentWillReceiveProps({ uniqueID: 'bar' });
         expect(row.context.checkSelection).toHaveBeenCalled();
       });
     });
@@ -204,7 +204,7 @@ describe('TableRow', () => {
         instance = TestUtils.renderIntoDocument(<Table><TableRow uniqueID='foo' /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row.context, 'checkSelection');
-        row.componentWillReceiveProps({ uniqueID: 'foo' });
+        row.UNSAFE_componentWillReceiveProps({ uniqueID: 'foo' });
         expect(row.context.checkSelection).not.toHaveBeenCalled();
       });
     });
@@ -214,7 +214,7 @@ describe('TableRow', () => {
         instance = TestUtils.renderIntoDocument(<Table><TableRow selected /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
-        row.componentWillReceiveProps({ selected: false });
+        row.UNSAFE_componentWillReceiveProps({ selected: false });
         expect(row.setState).toHaveBeenCalledWith({ selected: false });
       });
     });
@@ -224,7 +224,7 @@ describe('TableRow', () => {
         instance = TestUtils.renderIntoDocument(<Table><TableRow selected /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
-        row.componentWillReceiveProps({ selected: true });
+        row.UNSAFE_componentWillReceiveProps({ selected: true });
         expect(row.setState).not.toHaveBeenCalled();
       });
     });
@@ -234,7 +234,7 @@ describe('TableRow', () => {
         instance = TestUtils.renderIntoDocument(<Table><TableRow highlighted /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
-        row.componentWillReceiveProps({ highlighted: false });
+        row.UNSAFE_componentWillReceiveProps({ highlighted: false });
         expect(row.setState).toHaveBeenCalledWith({ highlighted: false });
       });
     });
@@ -244,7 +244,7 @@ describe('TableRow', () => {
         instance = TestUtils.renderIntoDocument(<Table><TableRow highlighted /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
-        row.componentWillReceiveProps({ highlighted: true });
+        row.UNSAFE_componentWillReceiveProps({ highlighted: true });
         expect(row.setState).not.toHaveBeenCalled();
       });
     });

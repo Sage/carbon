@@ -1,4 +1,4 @@
-FROM cypress/included:3.4.1
+FROM cypress/included:3.6.0
 
 ENV APP_HOME /usr/src/app
 RUN mkdir -p $APP_HOME

@@ -185,7 +185,7 @@ class MultiStepWizard extends React.Component {
    *
    * @method componentWillMount
    */
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const validProps = this.validateStepProps(this.props);
     this.setState({ currentStep: validProps.currentStep, completed: validProps.completed });
   }
@@ -197,7 +197,7 @@ class MultiStepWizard extends React.Component {
    * @param {Object} props The new props passed down to the component
    * @return {void}
    */
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const validProps = this.validateStepProps(nextProps);
     this.setState({ currentStep: validProps.currentStep, completed: validProps.completed });
   }

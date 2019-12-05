@@ -17,7 +17,13 @@ class ShowEditPod extends React.Component {
     editing: false // eslint-disable-line react/no-unused-state
   }
 
-  componentWillMount() {
+  /**
+   * Determine if the component is controlled internally or externally
+   * If editing prop is undefined then component is controlled internally
+   *
+   * @method componentWillMount
+   */
+  UNSAFE_componentWillMount() {
     if (typeof this.props.editing === 'undefined') {
       this.control = 'state';
     }

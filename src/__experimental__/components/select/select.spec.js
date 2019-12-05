@@ -179,13 +179,28 @@ describe('Select', () => {
   describe('when backspace is pressed and is single select', () => {
     const setupTest = (additionalSetup) => {
       spyOn(Events, 'isBackspaceKey').and.returnValue(true);
-      const props = { value: '', onChange: jest.fn() };
+      const props = { value: 'value', onChange: jest.fn() };
       const wrapper = renderWrapper({ props });
       const textbox = textboxOf(openList(wrapper));
       if (additionalSetup) additionalSetup(wrapper);
       textbox.find('input').simulate('keydown');
       return { props, wrapper };
     };
+    it('supports leftChildren property', () => {
+      const props = {
+        value: multiValueProp,
+        enableMultiSelect: true,
+        leftChildren: <span className='my-test-element'>Text</span>
+      };
+
+      const wrapper = renderWrapper({ props });
+      // Check left children
+      expect(wrapper.find('.my-test-element')).toHaveLength(1);
+      expect(wrapper.find('.my-test-element').text()).toEqual('Text');
+
+      // Check pills
+      expect(pillsOf(wrapper)).toHaveLength(3);
+    });
 
     it('triggers onChange with the item removed when typing backspace in the filter', () => {
       const { props } = setupTest();
@@ -197,7 +212,7 @@ describe('Select', () => {
       expect(props.onChange).not.toHaveBeenCalled();
     });
 
-    it.skip('does not trigger onChange if there is no values left to delete', () => {
+    it('does not trigger onChange if there is no values left to delete', () => {
       const { props } = setupTest(wrapper => wrapper.setProps({ value: null }));
       expect(props.onChange).not.toHaveBeenCalled();
     });
@@ -271,6 +286,13 @@ describe('Select', () => {
       const list = listOf(openList(renderWrapper({ props })));
       expect(() => list.props().onSelect({ value: 'new!' })).not.toThrowError();
     });
+
+    it('supports leftChildren property', () => {
+      const props = { leftChildren: <span className='my-test-element'>Text</span> };
+      const wrapper = renderWrapper({ props });
+      expect(wrapper.find('.my-test-element')).toHaveLength(1);
+      expect(wrapper.find('.my-test-element').text()).toEqual('Text');
+    });
   });
 
   describe('when uncontrolled', () => {
@@ -296,11 +318,10 @@ describe('Select', () => {
 
     it('blocks blur on mouse enter of the list and unblocks on leaving the list', () => {
       const wrapper = openList(renderWrapper());
-      const list = listOf(wrapper);
       expect(wrapper.instance().blurBlocked).toEqual(false);
-      list.find('div').first().simulate('mouseEnter');
+      wrapper.simulate('mouseEnter');
       expect(wrapper.instance().blurBlocked).toEqual(true);
-      list.find('div').first().simulate('mouseLeave');
+      wrapper.simulate('mouseLeave');
       expect(wrapper.instance().blurBlocked).toEqual(false);
     });
 

@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import FieldHelpStyle from '../field-help/field-help.style';
-import FormFieldStyle from '../form-field/form-field.style';
+import { FieldLineStyle } from '../form-field/form-field.style';
 import HiddenCheckableInputStyle from './hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';
 import StyledHelp from '../../../components/help/help.style';
@@ -15,18 +15,16 @@ const StyledCheckableInput = styled.div`
 
 const StyledCheckableInputWrapper = styled.div`
   ${({
-    disabled, fieldHelpInline, inputWidth, labelAlign, labelWidth, theme
+    disabled, fieldHelpInline, inputWidth, labelAlign, labelWidth, reverse, theme
   }) => css`
-    ${FormFieldStyle} {
+    ${FieldLineStyle} {
       display: flex;
-      flex-wrap: wrap;
     }
 
     ${LabelStyle} {
       text-align: ${labelAlign};
-      width: auto;
-      white-space: nowrap;
       margin-top: -2px;
+      width: auto;
 
       & ${StyledHelp},
       & ${StyledValidationIcon} {
@@ -38,6 +36,10 @@ const StyledCheckableInputWrapper = styled.div`
           color: ${theme.text.color};
         }
       }
+    }
+
+    ${FieldHelpStyle} {
+      flex-basis: 100%;
     }
 
     ${disabled && css`
@@ -56,11 +58,31 @@ const StyledCheckableInputWrapper = styled.div`
       }
     `}
 
-    ${fieldHelpInline && `
+    ${fieldHelpInline && css`
+      ${FieldLineStyle} {
+        flex-wrap: nowrap;
+      }
+
+      ${StyledCheckableInput} {
+        margin-right: 0;
+        margin-left: 8px;
+      }
+      
       ${FieldHelpStyle} {
-        display: inline;
+        flex-grow: 0;
+        flex-basis: auto;
         padding-left: 0;
         width: auto;
+      }
+    `}
+
+    ${reverse && fieldHelpInline && css`
+      ${StyledCheckableInput} {
+        margin-left: 0;
+      }
+
+      ${FieldHelpStyle} {
+        flex-grow: 1;
       }
     `}
 

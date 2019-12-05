@@ -22,7 +22,7 @@ const Info = (
           <li>ActionPopover
             <ul>
               <li>DownArrow, Space, Enter opens the menu and selects the first item</li>
-              <li>UpArrow opens the menu and selects the previously selected item</li>
+              <li>UpArrow opens the menu and selects the last item</li>
             </ul>
           </li>
           <li>ActionPopoverItem

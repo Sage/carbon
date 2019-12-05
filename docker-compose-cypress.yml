@@ -4,7 +4,7 @@ services:
   cypress:
     image: carbon_cypress
     container_name: cypress
-    command: bash -c 'wait-on http://storybook:9001 && sleep 25000'
+    command: bash -c 'wait-on http://storybook:9001 && sleep 40000'
     environment:
       CYPRESS_baseUrl: http://storybook:9001/
     depends_on:

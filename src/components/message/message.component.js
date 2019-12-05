@@ -9,7 +9,7 @@ import tagComponent from '../../utils/helpers/tags';
 
 const Message = (props) => {
   const {
-    open, border, className, transparent, title, variant, roundedCorners, children, onDismiss, as
+    open, border, className, transparent, title, variant, roundedCorners, children, onDismiss, as, id
   } = props;
 
   return (
@@ -22,6 +22,7 @@ const Message = (props) => {
         variant={ variant || as }
         roundedCorners={ roundedCorners }
         role='status'
+        id={ id }
       >
         <TypeIcon
           variant={ variant || as } roundedCorners={ roundedCorners }
@@ -63,6 +64,8 @@ Message.propTypes = {
   children: PropTypes.node,
   /** set custom class to component */
   className: PropTypes.string,
+  /** set custom id to component root */
+  id: PropTypes.string,
   /** show message component */
   open: PropTypes.bool,
   /** function runs when user click dismiss button */

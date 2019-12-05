@@ -4,7 +4,7 @@ import { Input, InputPresentation } from '../input';
 import InputIconToggle from '../input-icon-toggle';
 import FormField from '../form-field';
 import { withValidation, validationsPropTypes } from '../../../components/validations';
-import withUniqueName from '../../../utils/helpers/with-unique-name';
+import withUniqueIdProps from '../../../utils/helpers/with-unique-id-props';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
 // This component is a working example of what a Textbox might look like
@@ -66,6 +66,8 @@ Textbox.propTypes = {
     PropTypes.string,
     PropTypes.array // Allows the textbox to be used in the Multi-Select component
   ]),
+  /** The unformatted value  */
+  rawValue: PropTypes.string,
   /** If true, the component will be disabled */
   disabled: PropTypes.bool,
   /** If true, the component will be read-only */
@@ -125,4 +127,4 @@ Textbox.defaultProps = {
 };
 
 export { Textbox as OriginalTextbox };
-export default withUniqueName(withValidation(Textbox));
+export default withUniqueIdProps(withValidation(Textbox));

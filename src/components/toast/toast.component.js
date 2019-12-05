@@ -86,6 +86,8 @@ Toast.propTypes = {
   as: PropTypes.oneOf(OptionsHelper.colors),
   /** Custom className */
   className: PropTypes.string,
+  /** Custom id  */
+  id: PropTypes.string,
   /** Component name */
   'data-component': PropTypes.string,
   /** The rendered children of the component. */

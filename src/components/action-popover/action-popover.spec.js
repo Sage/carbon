@@ -2,11 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { ThemeProvider } from 'styled-components';
+import TestRenderer from 'react-test-renderer';
 import { mount as enzymeMount } from 'enzyme';
 import { simulate, assertStyleMatch } from '../../__spec_helper__/test-utils';
 import theme from '../../style/themes/small';
+import classic from '../../style/themes/classic';
+
 import { ActionPopover, ActionPopoverDivider, ActionPopoverItem } from './index';
-import { MenuButton, Menu } from './action-popover.style';
+import { MenuButton, MenuItemFactory, Menu } from './action-popover.style';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Icon from '../icon';
 
@@ -199,11 +202,12 @@ describe('ActionPopover', () => {
 
   describe('Click handlers', () => {
     describe('MenuButton', () => {
+      let stopPropagation;
       beforeEach(() => {
         render();
         const { menubutton } = getElements();
-
-        menubutton.simulate('click');
+        stopPropagation = jest.fn();
+        menubutton.simulate('click', { stopPropagation });
       });
       it('Clicking opens the menu', () => {
         const { menu } = getElements();
@@ -211,6 +215,10 @@ describe('ActionPopover', () => {
           display: 'block'
         }, menu);
         expect(onOpen).toHaveBeenCalledTimes(1);
+      });
+
+      it('Clicking on menu button does not allow for further event propagation ', () => {
+        expect(stopPropagation).toHaveBeenCalled();
       });
 
       it('Clicking focuses the first element', () => {
@@ -501,6 +509,27 @@ describe('ActionPopover', () => {
       simulate.keydown.pressDownArrow(menubutton);
 
       expect(getElements().menubutton).toHaveStyleRule('background-color', theme.colors.white);
+    });
+
+    it('renders correctly for the "classic" theme', () => {
+      const MenuStyle = TestRenderer.create(<Menu theme={ classic } />);
+      expect(MenuStyle).toMatchSnapshot();
+
+      const MenuItem = MenuItemFactory(({ className }) => <div className={ className } />);
+      const MenuItemStyle = TestRenderer.create(<MenuItem theme={ classic } />);
+      expect(MenuItemStyle).toMatchSnapshot();
+
+      const MenuButtonStyle = TestRenderer.create(<MenuButton theme={ classic } />);
+      expect(MenuButtonStyle).toMatchSnapshot();
+    });
+
+    it('MenuButton has proper color when open on "classic" theme', () => {
+      const MenuButtonStyle = TestRenderer.create(<MenuButton theme={ classic } isOpen />);
+      assertStyleMatch(
+        { color: '#255BC7' },
+        MenuButtonStyle.toJSON(),
+        { modifier: '> span' }
+      );
     });
   });
 
