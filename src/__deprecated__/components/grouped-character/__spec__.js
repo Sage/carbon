@@ -81,7 +81,7 @@ describe('GroupedCharacter', () => {
     describe('when an invalid key is pressed', () => {
       it('prevents the default behaviour and returns the current value and cursor position', () => {
         input.simulate('change', { target: { value: '123456', selectionEnd: 8 } } );
-        input.simulate('keydown', { which: 111 });
+        input.simulate('keydown', { which: 111, key: '/' });
         input = wrapper.find('.carbon-grouped-character__input');
         expect(input.props().value).toEqual('12-34-56');
         expect(input.instance().selectionEnd).toEqual(8);
@@ -117,7 +117,7 @@ describe('GroupedCharacter', () => {
 
     describe('when deleting', () => {
       it('leaves the cursor where it was last', () => {
-        input.simulate('keydown', { which: 46 } )
+        input.simulate('keydown', { which: 46, key: 'Delete' } )
         input.simulate('change', { target: { value: '12345', selectionEnd: 5 } } );
         expect(input.instance().selectionEnd).toEqual(5);
       });
@@ -126,7 +126,7 @@ describe('GroupedCharacter', () => {
     describe('when backspacing', () => {
       describe('a character not adjacent to a separator', () => {
         it('leaves the cursor where it was last', () => {
-          input.simulate('keydown', { which: 8 } )
+          input.simulate('keydown', { which: 8, key: 'Backspace' } )
           input.simulate('change', { target: { value: '12345', selectionEnd: 7 } } );
           expect(input.instance().selectionEnd).toEqual(7);
         });
@@ -134,7 +134,7 @@ describe('GroupedCharacter', () => {
 
       describe('a character following a separator', () => {
         it('moves the cursor one position to the left', () => {
-          input.simulate('keydown', { which: 8 } )
+          input.simulate('keydown', { which: 8, key: 'Backspace' } )
           input.simulate('change', { target: { value: '1234', selectionEnd: 6 } } );
           expect(input.instance().selectionEnd).toEqual(5);
         });
