@@ -26,6 +26,7 @@ const Checkbox = ({
       <CheckableInput
         { ...inputProps }
         onChange={ onChange }
+        labelInline
       >
         <CheckboxSvg />
       </CheckableInput>
