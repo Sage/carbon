@@ -178,7 +178,7 @@ describe('Form', () => {
 
   describe('checkStickyFooter', () => {
     beforeEach(() => {
-      wrapper = shallow(<Form formAction='foo' />);
+      wrapper = mount(<Form formAction='foo' />);
     });
 
     it('sets stickyFooter state to true if form is bigger than window', () => {
