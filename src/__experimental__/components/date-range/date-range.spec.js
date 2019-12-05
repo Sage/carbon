@@ -42,7 +42,9 @@ describe('DateRange', () => {
   describe('onChange', () => {
     describe('when the start date changes', () => {
       it('calls the passed in onChange function', () => {
-        wrapper.find(BaseDateInput).at(0).find('input').simulate('change', { target: { value: '2016-10-15' } });
+        wrapper.find(BaseDateInput).at(0)
+          .find('input').findWhere(n => n.props().type !== 'hidden')
+          .simulate('change', { target: { value: '2016-10-15' } });
         expect(customOnChange).toHaveBeenCalledWith({
           target: {
             id: 'bar',
@@ -58,7 +60,9 @@ describe('DateRange', () => {
 
     describe('when the end date changes', () => {
       it('calls the passed in onChange function', () => {
-        wrapper.find(BaseDateInput).at(1).find('input').simulate('change', { target: { value: '2016-11-16' } });
+        wrapper.find(BaseDateInput).at(1)
+          .find('input').findWhere(n => n.props().type !== 'hidden')
+          .simulate('change', { target: { value: '2016-11-16' } });
 
         expect(customOnChange).toHaveBeenCalledWith(
           {
@@ -78,7 +82,9 @@ describe('DateRange', () => {
         it('it does not call the passed in onChange function', () => {
           wrapper.setProps({ onChange: undefined });
           const spy = spyOn(wrapperInstance, 'buildCustomEvent');
-          wrapper.find(BaseDateInput).at(0).find('input').simulate('change', { target: { value: '2016-11-16' } });
+          wrapper.find(BaseDateInput).at(0)
+            .find('input').findWhere(n => n.props().type !== 'hidden')
+            .simulate('change', { target: { value: '2016-11-16' } });
 
           expect(spy).not.toHaveBeenCalled();
         });
@@ -110,7 +116,9 @@ describe('DateRange', () => {
 
     describe('when the user updates the startDate textbox', () => {
       it('calls the passed in onBlur function', () => {
-        wrapper.find(BaseDateInput).at(0).find('input').simulate('blur', { target: { value: '2016-10-15' } });
+        wrapper.find(BaseDateInput).at(0)
+          .find('input').findWhere(n => n.props().type !== 'hidden')
+          .simulate('blur', { target: { value: '2016-10-15' } });
         jest.runAllTimers();
         expect(customOnBlur).toHaveBeenCalled();
       });
@@ -118,7 +126,9 @@ describe('DateRange', () => {
 
     describe('when the user updates the endDate textbox', () => {
       it('calls the passed in onBlur function', () => {
-        wrapper.find(BaseDateInput).at(1).find('input').simulate('blur', { target: { value: '2016-10-15' } });
+        wrapper.find(BaseDateInput).at(1)
+          .find('input').findWhere(n => n.props().type !== 'hidden')
+          .simulate('blur', { target: { value: '2016-10-15' } });
         jest.runAllTimers();
         expect(customOnBlur).toHaveBeenCalled();
       });
@@ -132,7 +142,9 @@ describe('DateRange', () => {
       it('then the "forceUpdateTriggerToggle" prop should remain the same', () => {
         expect(checkForceUpdateProp(wrapper, 0)).toBe(false);
         expect(checkForceUpdateProp(wrapper, 1)).toBe(false);
-        wrapper.find(`[data-element="${date}"]`).find('input').simulate('change', { target: { value: 'foo' } });
+        wrapper.find(`[data-element="${date}"]`)
+          .find('input').findWhere(n => n.props().type !== 'hidden')
+          .simulate('change', { target: { value: 'foo' } });
         expect(checkForceUpdateProp(wrapper, 0)).toBe(false);
         expect(checkForceUpdateProp(wrapper, 1)).toBe(false);
       });
@@ -146,7 +158,9 @@ describe('DateRange', () => {
       it('then the "forceUpdateTriggerToggle" prop should be flipped', () => {
         expect(checkForceUpdateProp(wrapper, 0)).toBe(false);
         expect(checkForceUpdateProp(wrapper, 1)).toBe(false);
-        wrapper.find(`[data-element="${date}"]`).find('input').simulate('change', { target: { value: '2016-10-15' } });
+        wrapper.find(`[data-element="${date}"]`)
+          .find('input').findWhere(n => n.props().type !== 'hidden')
+          .simulate('change', { target: { value: '2016-10-15' } });
         expect(checkForceUpdateProp(wrapper, 0)).toBe(true);
         expect(checkForceUpdateProp(wrapper, 1)).toBe(true);
       });

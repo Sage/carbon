@@ -15,17 +15,17 @@ import renderListItems from './test-utils';
 import 'jest-styled-components';
 
 describe('ScrollableList', () => {
-  const initialItem = 0,
-      childCount = 20,
-      lastItem = childCount - 1,
-      onLazyLoad = jest.fn();
+  const initialItem = 0;
+  const childCount = 20;
+  const lastItem = childCount - 1;
+  const onLazyLoad = jest.fn();
 
-  let scrollableList,
-      listMakeup = { num: childCount },
-      hoverListItem,
-      assertMouseOverAll,
-      assertKeyboardOverAll,
-      onSelect;
+  let scrollableList;
+  let listMakeup = { num: childCount };
+  let hoverListItem;
+  let assertMouseOverAll;
+  let assertKeyboardOverAll;
+  let onSelect;
 
   const mountComponent = (props, children) => {
     let childrenToRender = children;
@@ -99,6 +99,17 @@ describe('ScrollableList', () => {
         click(childrenFrom(listFrom(scrollableList)).at(0));
         expect(onSelect).toBeCalled();
       });
+
+      it('unblocks mouse hover when mouse is moved on scrollable list', () => {
+        scrollableList.setState({ selectedItem: 5 });
+        keyboard.pressUpArrow();
+        expect(selectedItemOf(scrollableList)).toEqual(4);
+        hoverListItem(2);
+        expect(selectedItemOf(scrollableList)).toEqual(4);
+        scrollableList.find('ul').at(0).props().onMouseMove();
+        hoverListItem(2);
+        expect(selectedItemOf(scrollableList)).toEqual(2);
+      });
     });
 
     describe('main functionality', () => {
@@ -150,6 +161,17 @@ describe('ScrollableList', () => {
         expect(selectedItemOf(scrollableList)).toEqual(initialItem);
       });
 
+      it('supports home button navigation', () => {
+        scrollableList.setState({ selectedItem: 5 });
+        keyboard.pressHome();
+        expect(selectedItemOf(scrollableList)).toEqual(initialItem);
+      });
+
+      it('supports end button navigation', () => {
+        keyboard.pressEnd();
+        expect(selectedItemOf(scrollableList)).toEqual(19);
+      });
+
       it('does not throw error trying to update scroll if list is not present', () => {
         scrollableList.instance().scrollBox.current = undefined;
         expect(() => keyboard.pressUpArrow()).not.toThrowError();
@@ -160,37 +182,87 @@ describe('ScrollableList', () => {
         expect(() => keyboard.pressUpArrow()).not.toThrowError();
       });
 
-      it('scrolls as the selected item goes beyond the max-height of the list', () => {
-        const numOfItems = 20;
-        const listHeight = 100;
-        const itemHeight = 10;
-        const list = {
-          offsetHeight: listHeight,
-          children: [...Array(numOfItems).keys()].map(() => {
-            return { offsetHeight: itemHeight, offsetTop: 0 };
-          }),
-          scrollTop: 0
-        };
-        list.children[lastItem].offsetTop = listHeight + 1;
-        scrollableList.instance().scrollBox.current = list;
-
+      it('blocks mouse hover selection when using keyboard navigation', () => {
+        scrollableList.setState({ selectedItem: 5 });
         keyboard.pressUpArrow();
-        expect(list.scrollTop).toEqual(numOfItems * itemHeight - listHeight);
+        expect(selectedItemOf(scrollableList)).toEqual(4);
+        hoverListItem(2);
+        expect(selectedItemOf(scrollableList)).toEqual(4);
       });
 
-      it('jumps to the bottom of list when up key pressed at first item', () => {
-        keyboard.pressUpArrow();
-        expect(selectedItemOf(scrollableList)).toEqual(lastItem);
+      describe('when is loopable', () => {
+        it('scrolls as the selected item goes beyond the max-height of the list', () => {
+          scrollableList.setProps({ isLoopable: true });
+          const numOfItems = 20;
+          const listHeight = 100;
+          const itemHeight = 10;
+          const list = {
+            offsetHeight: listHeight,
+            children: [...Array(numOfItems).keys()].map(() => {
+              return { offsetHeight: itemHeight, offsetTop: 0 };
+            }),
+            scrollTop: 0
+          };
+          list.children[lastItem].offsetTop = listHeight + 1;
+          scrollableList.instance().scrollBox.current = list;
+
+          keyboard.pressUpArrow();
+          expect(list.scrollTop).toEqual(numOfItems * itemHeight - listHeight);
+        });
+
+        it('jumps to the bottom of list when up key pressed at first item', () => {
+          scrollableList.setProps({ isLoopable: true });
+          keyboard.pressUpArrow();
+          expect(selectedItemOf(scrollableList)).toEqual(lastItem);
+        });
+
+        it('jumps back to the top of list when down key pressed at last item', () => {
+          scrollableList.setProps({ isLoopable: true });
+          scrollableList.setState({ selectedItem: lastItem });
+          keyboard.pressDownArrow();
+          expect(selectedItemOf(scrollableList)).toEqual(initialItem);
+        });
+
+        it('keyboard events reliably traverse the list', () => {
+          scrollableList.setProps({ isLoopable: true });
+          assertKeyboardOverAll(scrollableList);
+        });
       });
 
-      it('jumps back to the top of list when down key pressed at last item', () => {
-        scrollableList.setState({ selectedItem: lastItem });
-        keyboard.pressDownArrow();
-        expect(selectedItemOf(scrollableList)).toEqual(initialItem);
-      });
+      describe('when is not loopable', () => {
+        it('scrolls as the selected item goes beyond the max-height of the list', () => {
+          const numOfItems = 20;
+          const listHeight = 100;
+          const itemHeight = 10;
+          const list = {
+            offsetHeight: listHeight,
+            children: [...Array(numOfItems).keys()].map(() => {
+              return { offsetHeight: itemHeight, offsetTop: 0 };
+            }),
+            scrollTop: 0
+          };
+          list.children[lastItem].offsetTop = listHeight + 1;
+          scrollableList.instance().scrollBox.current = list;
+          for (let index = 0; index < numOfItems; index++) {
+            keyboard.pressDownArrow();
+          }
+          expect(list.scrollTop).toEqual(numOfItems * itemHeight - listHeight);
+        });
 
-      it('keyboard events reliably traverse the list', () => {
-        assertKeyboardOverAll(scrollableList);
+        it('does nothing when up key pressed at first item', () => {
+          keyboard.pressUpArrow();
+          expect(selectedItemOf(scrollableList)).toEqual(initialItem);
+        });
+
+        it('does nothing when down key pressed at last item', () => {
+          scrollableList.setState({ selectedItem: lastItem });
+          keyboard.pressDownArrow();
+          expect(selectedItemOf(scrollableList)).toEqual(lastItem);
+        });
+
+        it('keyboard events reliably traverse the list', () => {
+          assertKeyboardOverAll(scrollableList);
+        });
       });
 
       it('calls an onSelect callback on pressing the enter key', () => {
@@ -271,8 +343,9 @@ describe('ScrollableList', () => {
     });
 
     it('skips non-selectable items on keyboard up navigation', () => {
+      scrollableList.setState({ selectedItem: 3 });
       keyboard.pressUpArrow();
-      expect(selectedItemOf(scrollableList)).toEqual(3);
+      expect(selectedItemOf(scrollableList)).toEqual(1);
     });
   });
 

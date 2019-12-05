@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Textarea when rendered should render default 1`] = `
-.c2 {
+.c3 {
   -webkit-align-items: stretch;
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
@@ -26,39 +26,39 @@ exports[`Textarea when rendered should render default 1`] = `
   padding-right: 11px;
 }
 
-.c2 .c3 {
+.c3 .c4 {
   height: calc(40px - 4px);
 }
 
-.c2 input::-ms-clear {
+.c3 input::-ms-clear {
   display: none;
 }
 
-.c2 input::-webkit-contacts-auto-fill-button {
+.c3 input::-webkit-contacts-auto-fill-button {
   display: none!important;
 }
 
-.c5 .c3 {
+.c6 .c4 {
   height: calc(40px - 4px);
 }
 
-.c6 .c3 {
+.c7 .c4 {
   height: calc(40px - 4px);
 }
 
-.c7 .c3 {
+.c8 .c4 {
   height: calc(40px - 4px);
-}
-
-.c1 {
-  display: block;
 }
 
 .c1 + .c0 {
   margin-top: 16px;
 }
 
-.c4 {
+.c2 {
+  display: block;
+}
+
+.c5 {
   background: transparent;
   border: none;
   color: rgba(0,0,0,0.9);
@@ -75,24 +75,24 @@ exports[`Textarea when rendered should render default 1`] = `
   margin-bottom: 5px;
 }
 
-.c4::-webkit-input-placeholder {
+.c5::-webkit-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c4::-moz-placeholder {
+.c5::-moz-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c4:-ms-input-placeholder {
+.c5:-ms-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c4::placeholder {
+.c5::placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c4:invalid,
-.c4:required {
+.c5:invalid,
+.c5:required {
   box-shadow: none;
 }
 
@@ -101,26 +101,30 @@ exports[`Textarea when rendered should render default 1`] = `
 >
   <div
     className="c2"
-    disabled={false}
-    onMouseDown={[Function]}
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
-    role="presentation"
-    size="medium"
   >
-    <textarea
-      aria-invalid={false}
-      className="c3 c4"
+    <div
+      className="c3"
       disabled={false}
-      id="guid-12345"
-      name="textarea"
-      onBlur={[Function]}
-      onChange={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      readOnly={false}
-      type="text"
-    />
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      role="presentation"
+      size="medium"
+    >
+      <textarea
+        aria-invalid={false}
+        className="c4 c5"
+        disabled={false}
+        id="guid-12345"
+        name="textarea"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        readOnly={false}
+        type="text"
+      />
+    </div>
   </div>
 </div>
 `;
