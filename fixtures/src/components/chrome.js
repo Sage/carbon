@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import guid from 'carbon-react/lib/utils/helpers/guid';
 import Log, { LogProvider } from './log';
 
-I18n.translations.ch = {
+I18n.translations['fr-ch'] = {
   number: {
     format: {
       delimiter: '\'',
@@ -31,6 +31,20 @@ I18n.translations.en = {
     format: {
       delimiter: ',',
       separator: '.'
+    }
+  }
+};
+
+I18n.translations.de = {
+  date: {
+    formats: {
+      javascript: 'DD.MM.YYYY'
+    }
+  },
+  number: {
+    format: {
+      delimiter: '.',
+      separator: ','
     }
   }
 };
@@ -83,7 +97,8 @@ const Chrome = ({ children }) => {
         >
           <ButtonToggle value='en'>EN</ButtonToggle>
           <ButtonToggle value='fr'>FR</ButtonToggle>
-          <ButtonToggle value='ch'>CH</ButtonToggle>
+          <ButtonToggle value='fr-ch'>CH</ButtonToggle>
+          <ButtonToggle value='de'>DE</ButtonToggle>
           <ButtonToggle value=''>None</ButtonToggle>
         </ButtonToggleGroup>
       </Nav>

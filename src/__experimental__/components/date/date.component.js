@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import invariant from 'invariant';
 import Events from '../../../utils/helpers/events';
 import DateHelper from '../../../utils/helpers/date';
 import DateValidator from '../../../utils/validations/date';
@@ -49,6 +50,10 @@ class BaseDateInput extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    const message = 'Input elements should not switch from uncontrolled to controlled (or vice versa). '
+    + 'Decide between using a controlled or uncontrolled input element for the lifetime of the component';
+    invariant(this.isControlled === (this.props.value !== undefined), message);
+
     if (this.isControlled && !this.inputHasFocus && this.hasValueChanged(prevProps)) {
       this.updateSelectedDate(this.props.value);
     }
@@ -391,14 +396,24 @@ function isoFormattedValueString(valueToFormat) {
 function generateAdjustedValue({ value, defaultValue, allowEmptyValue }) {
   if (value !== undefined && canReturnValue(value, allowEmptyValue)) {
     return DateHelper.formatDateToCurrentLocale(value);
-  } if (canReturnValue(defaultValue, allowEmptyValue)) {
+  }
+  if (canReturnValue(defaultValue, allowEmptyValue)) {
     return DateHelper.formatDateToCurrentLocale(defaultValue);
   }
   return DateHelper.formatDateToCurrentLocale(DateHelper.todayFormatted());
 }
 
+function isValidInitialFormat(value) {
+  return DateHelper.isValidDate(value, { defaultValue: hiddenDateFormat });
+}
+
 function canReturnValue(value, allowEmptyValue) {
-  return DateHelper.isValidDate(value) || (allowEmptyValue && !value.length);
+  if (!allowEmptyValue && value && value.length) {
+    const message = 'The Date component must be initialised with a value in the iso (YYYY-MM-DD) format';
+    invariant(isValidInitialFormat(value), message);
+  }
+
+  return isValidInitialFormat(value) || (allowEmptyValue && !value.length);
 }
 
 const DateInput = withUniqueIdProps(BaseDateInput);
