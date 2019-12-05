@@ -310,7 +310,7 @@ describe('Date', () => {
     });
 
     describe('to a valid date', () => {
-      const validDate = '1 apr 2019';
+      const validDate = '2019-04-01';
       const isoDate = '2019-04-01';
       const visibleDate = '01/04/2019';
       const jsDateObject = new Date(isoDate);
@@ -368,7 +368,7 @@ describe('Date', () => {
 
     describe('to an empty date', () => {
       it('reformats the "visiblevalue" when it is an empty string and "allowEmptyValue" is falsy', () => {
-        const initialDate = '1 apr 2019';
+        const initialDate = '2019-04-01';
         const formattedDate = '01/04/2019';
         const emptyDate = '';
 
@@ -386,7 +386,7 @@ describe('Date', () => {
       });
 
       it('does not reformat the "visiblevalue" when it is an empty string and "allowEmptyValue" is truthy', () => {
-        const initialDate = '1 apr 2019';
+        const initialDate = '2019-04-01';
         const emptyDate = '';
 
         wrapper = render({
@@ -429,7 +429,7 @@ describe('Date', () => {
   });
 
   describe.each(['disabled', 'readOnly'])('when the "%s" prop is set', (prop) => {
-    const validDate = '1 apr 2019';
+    const validDate = '2019-04-01';
     let onChangeFn;
     let onFocusFn;
     let onBlurFn;
@@ -484,7 +484,7 @@ describe('Date', () => {
       let domNode;
 
       it('then the Datepicker should be closed', () => {
-        wrapper = mount(<div><DateInput /><span id='external' /></div>);
+        wrapper = mount(<div><DateInput value='2012-12-11' /><span id='external' /></div>);
         domNode = wrapper.getDOMNode();
         document.body.appendChild(domNode);
         simulateFocusOnInput(wrapper.find(DateInput));
@@ -512,19 +512,19 @@ describe('Date', () => {
 
     describe('controlled vs uncontrolled input', () => {
       it('supports being used as an controlled input via passing of a value prop', () => {
-        wrapper = render({ value: '27th Feb 01' });
+        wrapper = render({ value: '2001-02-27' });
         expect(wrapper.find(BaseDateInput).instance().isControlled).toEqual(true);
         expect(wrapper.find(BaseDateInput).instance().initialVisibleValue).toEqual('27/02/2001');
       });
 
       it('supports being used as an uncontrolled input via passing of a defaultValue prop', () => {
-        wrapper = render({ defaultValue: '23rd Feb 09' });
+        wrapper = render({ defaultValue: '2009-02-23' });
         expect(wrapper.find(BaseDateInput).instance().isControlled).toEqual(false);
         expect(wrapper.find(BaseDateInput).instance().initialVisibleValue).toEqual('23/02/2009');
       });
 
       it('acts as a controlled input when value and default are passed and does not throw', () => {
-        wrapper = render({ defaultValue: '23rd Feb 09', value: '27th Feb 01' });
+        wrapper = render({ defaultValue: '2009-02-23', value: '2001-02-27' });
         expect(wrapper.find(BaseDateInput).instance().isControlled).toEqual(true);
         expect(wrapper.find(BaseDateInput).instance().initialVisibleValue).toEqual('27/02/2001');
       });
