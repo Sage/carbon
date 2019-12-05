@@ -106,10 +106,12 @@ function makeStory(name, themeSelector) {
 
 function makeFieldsetTextboxStory(name, themeSelector) {
   const component = () => {
+    const stickyFooter = boolean('stickyFooter', false);
     const legend = text('legend', '');
 
     return (
       <Form
+        stickyFooter={ stickyFooter }
         onSubmit={ () => {
           window.location.href = window.location.href;
         } }
