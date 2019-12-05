@@ -52,6 +52,15 @@ describe('I18n Helper', () => {
           expect(Helper.formatDecimal('1000', 0)).toEqual('1,000');
           expect(Helper.formatDecimal('100', 1)).toEqual('100.0');
           expect(Helper.formatDecimal('1234567.894', 3)).toEqual('1,234,567.894');
+          expect(Helper.formatDecimal('123.555555555555555', 15)).toEqual('123.555555555555555');
+          expect(Helper.formatDecimal('-987654321987654321.5555555', 7)).toEqual('-987,654,321,987,654,321.5555555');
+          expect(Helper.formatDecimal('-987654321987654321.5555555', 8)).toEqual('-987,654,321,987,654,321.55555550');
+          expect(Helper.formatDecimal('-987654321987654321.5555555', 6)).toEqual('-987,654,321,987,654,321.555556');
+          expect(Helper.formatDecimal('90071992547.40992', 5)).toEqual('90,071,992,547.40992');
+          expect(Helper.formatDecimal('90071992547.40992', 6)).toEqual('90,071,992,547.409920');
+          expect(Helper.formatDecimal('90071992547.40992', 4)).toEqual('90,071,992,547.4099');
+          expect(Helper.formatDecimal('90071992547.406', 5)).toEqual('90,071,992,547.40600');
+          expect(Helper.formatDecimal('90071992547.406', 15)).toEqual('90,071,992,547.406000000000000');
         });
       });
     });
