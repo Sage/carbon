@@ -6,7 +6,7 @@ import { css } from 'styled-components';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import CheckableInput from '.';
 import FieldHelpStyle from '../field-help/field-help.style';
-import FormFieldStyle from '../form-field/form-field.style';
+import { FieldLineStyle } from '../form-field/form-field.style';
 import Label from '../label';
 import HiddenCheckableInputStyle from './hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';
@@ -52,10 +52,9 @@ describe('StyledCheckableInputWrapper', () => {
     it('applies the correct FormField styles', () => {
       assertStyleMatch(
         {
-          display: 'flex',
-          flexWrap: 'wrap'
+          display: 'flex'
         },
-        wrapper, { modifier: css`${FormFieldStyle}` }
+        wrapper, { modifier: css`${FieldLineStyle}` }
       );
     });
 
@@ -63,8 +62,7 @@ describe('StyledCheckableInputWrapper', () => {
       assertStyleMatch(
         {
           textAlign: 'left',
-          width: 'auto',
-          whiteSpace: 'nowrap'
+          width: 'auto'
         },
         wrapper, { modifier: css`${LabelStyle}` }
       );
@@ -132,7 +130,8 @@ describe('StyledCheckableInputWrapper', () => {
 
       assertStyleMatch(
         {
-          display: 'inline',
+          flexGrow: '0',
+          flexBasis: 'auto',
           paddingLeft: '0',
           width: 'auto'
         },

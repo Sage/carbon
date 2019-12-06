@@ -99,6 +99,17 @@ describe('ScrollableList', () => {
         click(childrenFrom(listFrom(scrollableList)).at(0));
         expect(onSelect).toBeCalled();
       });
+
+      it('unblocks mouse hover when mouse is moved on scrollable list', () => {
+        scrollableList.setState({ selectedItem: 5 });
+        keyboard.pressUpArrow();
+        expect(selectedItemOf(scrollableList)).toEqual(4);
+        hoverListItem(2);
+        expect(selectedItemOf(scrollableList)).toEqual(4);
+        scrollableList.find('ul').at(0).props().onMouseMove();
+        hoverListItem(2);
+        expect(selectedItemOf(scrollableList)).toEqual(2);
+      });
     });
 
     describe('main functionality', () => {
@@ -169,6 +180,14 @@ describe('ScrollableList', () => {
       it('does not throw error trying to update scroll if list has no children', () => {
         scrollableList.instance().scrollBox.current = { children: [] };
         expect(() => keyboard.pressUpArrow()).not.toThrowError();
+      });
+
+      it('blocks mouse hover selection when using keyboard navigation', () => {
+        scrollableList.setState({ selectedItem: 5 });
+        keyboard.pressUpArrow();
+        expect(selectedItemOf(scrollableList)).toEqual(4);
+        hoverListItem(2);
+        expect(selectedItemOf(scrollableList)).toEqual(4);
       });
 
       describe('when is loopable', () => {
