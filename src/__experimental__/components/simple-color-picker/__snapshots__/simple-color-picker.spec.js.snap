@@ -29,6 +29,27 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   -ms-flex-pack: center;
   justify-content: center;
   border: 2px solid transparent;
+  background-color: #00A376;
+}
+
+.c10 {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border: 2px solid transparent;
+  background-color: #0073C1;
 }
 
 .c7 {
@@ -88,12 +109,12 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   padding: 0;
 }
 
-.c1.c1.c1 .c12 {
+.c1.c1.c1 .c13 {
   margin-top: 0;
   margin-bottom: -1px;
 }
 
-.c1 .c13 {
+.c1 .c14 {
   padding-top: 8px;
   padding-bottom: 8px;
 }
@@ -116,7 +137,7 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   line-height: 24px;
 }
 
-.c3 .c11 .c10:focus {
+.c3 .c12 .c11:focus {
   outline: 2px solid #FFB500;
 }
 
@@ -166,13 +187,13 @@ exports[`SimpleColorPicker renders as expected 1`] = `
     <div
       checked={false}
       className="c5"
+      color="#00A376"
       data-component="simple-color"
     >
       <input
         aria-checked={false}
         checked={false}
         className="c6 c7"
-        color="#00A376"
         data-element="input"
         id="rId-0"
         name="test-group"
@@ -180,23 +201,26 @@ exports[`SimpleColorPicker renders as expected 1`] = `
         onChange={[Function]}
         onClick={[Function]}
         onFocus={[Function]}
+        onMouseDown={[Function]}
         role="radio"
         type="radio"
+        value="#00A376"
       />
       <div
         className="c8 c9"
+        color="#00A376"
       />
     </div>
     <div
       checked={false}
       className="c5"
+      color="#0073C1"
       data-component="simple-color"
     >
       <input
         aria-checked={false}
         checked={false}
         className="c6 c7"
-        color="#0073C1"
         data-element="input"
         id="rId-1"
         name="test-group"
@@ -204,11 +228,14 @@ exports[`SimpleColorPicker renders as expected 1`] = `
         onChange={[Function]}
         onClick={[Function]}
         onFocus={[Function]}
+        onMouseDown={[Function]}
         role="radio"
         type="radio"
+        value="#0073C1"
       />
       <div
-        className="c8 c9"
+        className="c8 c10"
+        color="#0073C1"
       />
     </div>
   </div>
