@@ -5,10 +5,6 @@ exports[`FormField classic theme adds custom margin top 1`] = `
   margin-top: 16px;
 }
 
-.c1 {
-  display: block;
-}
-
 .c1 + .c0 {
   margin-top: 10px;
 }
@@ -19,27 +15,12 @@ exports[`FormField classic theme adds custom margin top 1`] = `
 `;
 
 exports[`FormField classic theme when inline renders the FieldHelp component below the childen 1`] = `
-.c2 + .c0 {
-  margin-top: 16px;
-}
-
-.c3 + .c0 {
-  margin-top: 10px;
-}
-
-.c1 {
-  -webkit-align-items: baseline;
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
 .c1 + .c0 {
   margin-top: 16px;
+}
+
+.c2 + .c0 {
+  margin-top: 10px;
 }
 
 <div
@@ -48,23 +29,29 @@ exports[`FormField classic theme when inline renders the FieldHelp component bel
 `;
 
 exports[`FormField default renders children with styling 1`] = `
-.c1 {
-  display: block;
-}
-
 .c1 + .c0 {
   margin-top: 16px;
+}
+
+.c2 {
+  display: block;
 }
 
 <div
   className="c0 c1"
 >
-  <input />
+  <div
+    className="c2"
+  >
+    <input />
+  </div>
 </div>
 `;
 
 exports[`FormField with a label renders the label component above the childen 1`] = `
-Array [
+<styled.div
+  inline={true}
+>
   <Memo(Label)
     align="left"
     help="Help me!"
@@ -73,26 +60,32 @@ Array [
     width={20}
   >
     Name
-  </Memo(Label)>,
-  <input />,
-]
+  </Memo(Label)>
+  <input />
+</styled.div>
 `;
 
 exports[`FormField with fieldHelp and fieldHelpInline=true renders the FieldHelp component below the childen 1`] = `
-Array [
+<styled.div
+  inline={true}
+>
   <FieldHelp
     labelInline={true}
     labelWidth={20}
   >
     Help me!
-  </FieldHelp>,
-  <input />,
-]
+  </FieldHelp>
+  <input />
+</styled.div>
 `;
 
 exports[`FormField with fieldHelp default renders the FieldHelp component below the childen 1`] = `
 Array [
-  <input />,
+  <styled.div
+    inline={true}
+  >
+    <input />
+  </styled.div>,
   <FieldHelp
     labelInline={true}
     labelWidth={20}

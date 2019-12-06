@@ -8,16 +8,11 @@ import StyledHelpIcon from '../../../components/help/help.style';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 import { isClassic } from '../../../utils/helpers/style-helper';
 
-const LabelStyle = styled.div`
+const LabelStyle = styled.label`
   color: ${({ theme }) => theme.text.color};
   display: block;
   font-weight: 600;
   padding-bottom: 8px;
-  width: 100%;
-
-  label {
-    cursor: pointer;
-  }
 
   ${StyledHelpIcon},
   ${StyledValidationIcon} {
@@ -27,7 +22,6 @@ const LabelStyle = styled.div`
   ${({
     align, inline, inputSize, width
   }) => inline && css`
-    align-self: center;
     box-sizing: border-box;
     padding-bottom: 0;
     padding-right: ${sizes[inputSize].padding};
