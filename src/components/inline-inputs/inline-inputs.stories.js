@@ -21,7 +21,7 @@ const singleSelectStore = new Store({
 
 const handleDecimalChange = (ev) => {
   singleSelectStore.set({
-    decimalValue: ev.target.value
+    decimalValue: ev.target.value.rawValue
   });
 };
 
