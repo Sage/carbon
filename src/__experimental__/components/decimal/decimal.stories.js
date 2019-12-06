@@ -12,6 +12,7 @@ import getTextboxStoryProps from '../textbox/textbox.stories';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import { info, notes } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
+import guid from '../../../utils/helpers/guid';
 
 OriginalTextbox.__docgenInfo = getDocGenInfo(
   require('../textbox/docgenInfo.json'),
@@ -32,6 +33,11 @@ const setValue = (ev) => {
   store.set({ value: ev.target.value.rawValue });
 };
 
+const previous = {
+  key: guid(),
+  allowEmptyValue: false
+};
+
 function makeStory(name, themeSelector) {
   const component = () => {
     const precisionRange = {
@@ -48,9 +54,19 @@ function makeStory(name, themeSelector) {
     const precision = number('precision', Decimal.defaultProps.precision, precisionRange);
     const allowEmptyValue = boolean('allowEmptyValue', false);
 
+    // When the allowEmptyValue knob changes we want to force the component to re-create
+    // allowEmptyValue is only used in the constructor and it is not currently supported to change during the lifetime
+    // of the component
+    if (previous.allowEmptyValue !== allowEmptyValue) {
+      previous.key = guid();
+    }
+    previous.allowEmptyValue = allowEmptyValue;
+    const { key } = previous;
+
     return (
       <State store={ store }>
         <Decimal
+          key={ key }
           { ...getTextboxStoryProps() }
           align={ align }
           precision={ precision }
