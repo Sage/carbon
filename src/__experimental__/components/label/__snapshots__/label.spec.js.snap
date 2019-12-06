@@ -6,11 +6,6 @@ exports[`Label renders the label 1`] = `
   display: block;
   font-weight: 600;
   padding-bottom: 8px;
-  width: 100%;
-}
-
-.c0 label {
-  cursor: pointer;
 }
 
 .c0 .c1,
@@ -18,13 +13,11 @@ exports[`Label renders the label 1`] = `
   vertical-align: middle;
 }
 
-<div
+<label
   className="c0"
   data-element="label"
   width={30}
 >
-  <label>
-    Name:
-  </label>
-</div>
+  Name:
+</label>
 `;
