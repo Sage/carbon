@@ -22,7 +22,7 @@ class Decimal extends React.Component {
       value,
       visibleValue: this.formatValue(value),
       isControlled,
-      isWiggling: false
+      isAnimating: false
     };
   }
 
@@ -56,9 +56,9 @@ class Decimal extends React.Component {
     }
   }
 
-  startWiggleAnimation = () => this.setState({ isWiggling: true })
+  startAnimation = () => this.setState({ isAnimating: true })
 
-  stopWiggleAnimation = () => this.setState({ isWiggling: false })
+  stopAnimation = () => this.setState({ isAnimating: false })
 
   callOnChange = () => {
     if (this.props.onChange) {
@@ -111,7 +111,7 @@ class Decimal extends React.Component {
       return true;
     }
 
-    this.startWiggleAnimation();
+    this.startAnimation();
     return false;
   }
 
@@ -175,7 +175,7 @@ class Decimal extends React.Component {
     const validDecimalMatcher = new RegExp(`^[-]?[\\d${delimiter}]*[${separator}]?\\d{0,${precision}}?$`);
     const isValid = validDecimalMatcher.test(value);
     if (!isValid) {
-      this.startWiggleAnimation();
+      this.startAnimation();
     }
     return isValid;
   }
@@ -260,7 +260,7 @@ class Decimal extends React.Component {
   render() {
     const { name, defaultValue, ...rest } = this.props;
     return (
-      <StyledWiggle isWiggling={ this.state.isWiggling } onAnimationEnd={ this.stopWiggleAnimation }>
+      <StyledWiggle isAnimating={ this.state.isAnimating } onAnimationEnd={ this.stopAnimation }>
         <Textbox
           { ...rest }
           onKeyPress={ this.onKeyPress }

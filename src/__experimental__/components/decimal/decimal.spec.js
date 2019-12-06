@@ -150,8 +150,8 @@ describe('Decimal', () => {
     it('is triggered by invalid keypress', () => {
       render();
       press({ key: '-' }, '0.|00');
-      expect(wrapper.current.find(StyledWiggle).prop('isWiggling')).toBe(true);
-      const WiggleWrapper = TestRenderer.create(<StyledWiggle isWiggling />);
+      expect(wrapper.current.find(StyledWiggle).prop('isAnimating')).toBe(true);
+      const WiggleWrapper = TestRenderer.create(<StyledWiggle isAnimating />);
       assertStyleMatch(
         {
           animation: `0.4s ${wiggleAnimation.name} 1 ease-in forwards`
@@ -163,8 +163,8 @@ describe('Decimal', () => {
     it('is triggered by pasting an invalid value', () => {
       render();
       paste({ key: 'invalid' }, '0.|00');
-      expect(wrapper.current.find(StyledWiggle).prop('isWiggling')).toBe(true);
-      const WiggleWrapper = TestRenderer.create(<StyledWiggle isWiggling />);
+      expect(wrapper.current.find(StyledWiggle).prop('isAnimating')).toBe(true);
+      const WiggleWrapper = TestRenderer.create(<StyledWiggle isAnimating />);
       assertStyleMatch(
         {
           animation: `0.4s ${wiggleAnimation.name} 1 ease-in forwards`
@@ -176,10 +176,10 @@ describe('Decimal', () => {
     it('turns off the animation after finishing', () => {
       render();
       paste({ key: 'invalid' }, '0.|00');
-      expect(wrapper.current.find(StyledWiggle).prop('isWiggling')).toBe(true);
+      expect(wrapper.current.find(StyledWiggle).prop('isAnimating')).toBe(true);
       wrapper.current.find(StyledWiggle).props().onAnimationEnd();
       wrapper.current.update();
-      expect(wrapper.current.find(StyledWiggle).prop('isWiggling')).toBe(false);
+      expect(wrapper.current.find(StyledWiggle).prop('isAnimating')).toBe(false);
     });
   });
 
@@ -1540,7 +1540,7 @@ describe('Decimal', () => {
 
     it('has the correct automation selectors', () => {
       render();
-      expect(wrapper.current.find(Textbox).prop('data-component')).toBe('decimal');
+      expect(wrapper.current.find(Textbox).getDOMNode().getAttribute('data-component')).toBe('decimal');
     });
 
     it('works as a form-data component', () => {

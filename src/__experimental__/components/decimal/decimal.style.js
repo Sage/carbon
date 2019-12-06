@@ -21,7 +21,7 @@ export const wiggleAnimation = keyframes`
 
 const StyledWiggle = styled.div`
   transform: translate3d(0, 0, 0);
-  ${p => p.isWiggling && css`animation: 0.4s ${wiggleAnimation} 1 ease-in forwards`};
+  ${p => p.isAnimating && css`animation: 0.4s ${wiggleAnimation} 1 ease-in forwards`};
 `;
 
 export default StyledWiggle;
