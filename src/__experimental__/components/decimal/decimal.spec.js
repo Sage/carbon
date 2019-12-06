@@ -1,9 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import TestRenderer from 'react-test-renderer';
 import { mount as enzymeMount } from 'enzyme';
 import I18n from 'i18n-js';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+
 import Decimal from './decimal.component';
 import Textbox from '../textbox/textbox.component';
+import StyledWiggle, { wiggleAnimation } from './decimal.style';
 
 // These have been written in a way that we can change our testing library or component implementation with relative
 // ease without having to touch the tests.
@@ -140,6 +144,43 @@ describe('Decimal', () => {
 
   it('renders in ReactDOM', () => {
     render(null, DOM);
+  });
+
+  describe('Wiggle animation', () => {
+    it('is triggered by invalid keypress', () => {
+      render();
+      press({ key: '-' }, '0.|00');
+      expect(wrapper.current.find(StyledWiggle).prop('isWiggling')).toBe(true);
+      const WiggleWrapper = TestRenderer.create(<StyledWiggle isWiggling />);
+      assertStyleMatch(
+        {
+          animation: `0.4s ${wiggleAnimation.name} 1 ease-in forwards`
+        },
+        WiggleWrapper.toJSON()
+      );
+    });
+
+    it('is triggered by pasting an invalid value', () => {
+      render();
+      paste({ key: 'invalid' }, '0.|00');
+      expect(wrapper.current.find(StyledWiggle).prop('isWiggling')).toBe(true);
+      const WiggleWrapper = TestRenderer.create(<StyledWiggle isWiggling />);
+      assertStyleMatch(
+        {
+          animation: `0.4s ${wiggleAnimation.name} 1 ease-in forwards`
+        },
+        WiggleWrapper.toJSON()
+      );
+    });
+
+    it('turns off the animation after finishing', () => {
+      render();
+      paste({ key: 'invalid' }, '0.|00');
+      expect(wrapper.current.find(StyledWiggle).prop('isWiggling')).toBe(true);
+      wrapper.current.find(StyledWiggle).props().onAnimationEnd();
+      wrapper.current.update();
+      expect(wrapper.current.find(StyledWiggle).prop('isWiggling')).toBe(false);
+    });
   });
 
   describe('Uncontrolled', () => {
@@ -1499,7 +1540,7 @@ describe('Decimal', () => {
 
     it('has the correct automation selectors', () => {
       render();
-      expect(wrapper.current.childAt(0).getDOMNode().getAttribute('data-component')).toBe('decimal');
+      expect(wrapper.current.find(Textbox).prop('data-component')).toBe('decimal');
     });
 
     it('works as a form-data component', () => {
