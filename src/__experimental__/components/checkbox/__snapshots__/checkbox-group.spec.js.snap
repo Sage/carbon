@@ -51,6 +51,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
 .c9 .c5 {
   text-align: left;
   margin-top: -2px;
+  padding-top: 0;
   width: auto;
 }
 

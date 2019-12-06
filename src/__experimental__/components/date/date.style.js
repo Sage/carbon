@@ -1,10 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
 import InputPresentationStyle from '../input/input-presentation.style';
 import dateClassicStyle from './date-classic.style';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import ValidationIconStyle from '../../../components/validations/validation-icon.style';
+import StyledLabel from '../label/label.style';
 
 const datePickerWidth = {
   large: '140px',
@@ -22,6 +23,12 @@ const StyledDateInput = styled.div`
     flex: none;
     width: ${({ size }) => (size ? datePickerWidth[size] : '135px')};
   }
+
+  ${({ labelInline }) => labelInline && css`
+    ${StyledLabel} {
+      margin-top: -1px;
+    }
+  `}
 
   ${dateClassicStyle}
 `;

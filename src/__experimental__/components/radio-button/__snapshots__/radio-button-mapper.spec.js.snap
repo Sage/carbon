@@ -33,6 +33,7 @@ Array [
 .c1 .c15 {
   text-align: left;
   margin-top: -2px;
+  padding-top: 0;
   width: auto;
 }
 
@@ -306,6 +307,7 @@ Array [
 .c1 .c15 {
   text-align: left;
   margin-top: -2px;
+  padding-top: 0;
   width: auto;
 }
 

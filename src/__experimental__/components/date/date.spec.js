@@ -9,6 +9,8 @@ import StyledDateInput from './date.style';
 import { THEMES } from '../../../style/themes';
 import DateHelper from '../../../utils/helpers/date/date';
 import { isEdge } from '../../../utils/helpers/browser-type-check';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import StyledLabel from '../label/label.style';
 
 moment.suppressDeprecationWarnings = true;
 jest.useFakeTimers();
@@ -36,6 +38,16 @@ describe('Date', () => {
     it("should have the Textbox component rendered as it's descendant", () => {
       wrapper = render({});
       expect(wrapper.find(Textbox).exists()).toBe(true);
+    });
+  });
+
+  describe('when labelInline prop is set', () => {
+    it('then the input label should accomodate for input custom height', () => {
+      wrapper = render({ label: 'foo', labelInline: true });
+
+      assertStyleMatch({
+        marginTop: '-1px'
+      }, wrapper, { modifier: `${StyledLabel}` });
     });
   });
 

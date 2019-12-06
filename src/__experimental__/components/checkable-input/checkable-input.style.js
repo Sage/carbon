@@ -24,6 +24,7 @@ const StyledCheckableInputWrapper = styled.div`
     ${LabelStyle} {
       text-align: ${labelAlign};
       margin-top: -2px;
+      padding-top: 0;
       width: auto;
 
       & ${StyledHelp},

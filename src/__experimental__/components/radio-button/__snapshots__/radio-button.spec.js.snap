@@ -51,6 +51,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
 .c4 .c28 {
   text-align: left;
   margin-top: -2px;
+  padding-top: 0;
   width: auto;
 }
 
