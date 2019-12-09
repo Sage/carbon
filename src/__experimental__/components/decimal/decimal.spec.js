@@ -173,6 +173,14 @@ describe('Decimal', () => {
       );
     });
 
+    it('is not triggered when Decimal has readOnly prop', () => {
+      render({ readOnly: true });
+      paste({ key: 'invalid' }, '0.|00');
+      expect(wrapper.current.find(StyledWiggle).prop('isAnimating')).toBe(false);
+      press({ key: '-' }, '0.|00');
+      expect(wrapper.current.find(StyledWiggle).prop('isAnimating')).toBe(false);
+    });
+
     it('turns off the animation after finishing', () => {
       render();
       paste({ key: 'invalid' }, '0.|00');
