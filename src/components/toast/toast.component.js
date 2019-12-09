@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import Icon from '../icon';
 import tagComponent from '../../utils/helpers/tags/tags';
@@ -38,24 +38,29 @@ class Toast extends React.Component {
   toastContent() {
     if (this.props.open) {
       return (
-        <ToastStyle
-          isCenter={ this.props.isCenter }
-          variant={ this.props.variant || this.props.as }
-          className={ this.componentClasses }
-          id={ this.props.id }
-          { ...tagComponent((this.props['data-component'] || 'toast'), this.props) }
+        <CSSTransition
+          enter
+          classNames='toast'
+          timeout={ { appear: 1600, enter: 1500, exit: 500 } }
         >
-          <ToastTypeStyle variant={ this.props.variant || this.props.as }>
-            <Icon type={ this.props.variant || this.props.as } />
-          </ToastTypeStyle>
-          <ToastContentStyle
+          <ToastStyle
+            isCenter={ this.props.isCenter }
             variant={ this.props.variant || this.props.as }
-            isDismiss={ this.props.onDismiss }
+            className={ this.componentClasses }
+            { ...tagComponent((this.props['data-component'] || 'toast'), this.props) }
           >
-            { this.props.children }
-          </ToastContentStyle>
-          { this.dismissIcon }
-        </ToastStyle>
+            <ToastTypeStyle variant={ this.props.variant || this.props.as }>
+              <Icon type={ this.props.variant || this.props.as } />
+            </ToastTypeStyle>
+            <ToastContentStyle
+              variant={ this.props.variant || this.props.as }
+              isDismiss={ this.props.onDismiss }
+            >
+              { this.props.children }
+            </ToastContentStyle>
+            { this.dismissIcon }
+          </ToastStyle>
+        </CSSTransition>
       );
     }
     return null;
@@ -65,16 +70,9 @@ class Toast extends React.Component {
     return (
       <Portal>
         <ToastWrapper isCenter={ this.props.isCenter }>
-          <CSSTransitionGroup
-            component='div'
-            transitionAppear
-            transitionName='toast'
-            transitionAppearTimeout={ 1600 }
-            transitionEnterTimeout={ 1500 }
-            transitionLeaveTimeout={ 500 }
-          >
+          <TransitionGroup>
             { this.toastContent() }
-          </CSSTransitionGroup>
+          </TransitionGroup>
         </ToastWrapper>
       </Portal>
     );
