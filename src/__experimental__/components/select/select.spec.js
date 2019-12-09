@@ -363,6 +363,13 @@ describe('Select', () => {
   });
 
   describe('key events', () => {
+    it('invokes `onKeyDown` prop on keyDown event', () => {
+      const onKeyDown = jest.fn();
+      const wrapper = renderWrapper({ props: { onKeyDown } });
+      textboxOf(wrapper).find('input').simulate('keydown');
+      expect(onKeyDown).toHaveBeenCalled();
+    });
+
     it('unblocks blur on tab', () => {
       spyOn(Events, 'isTabKey').and.returnValue(true);
       const wrapper = renderWrapper();

@@ -169,7 +169,7 @@ class Select extends React.Component {
 
   handleKeyDown = (ev) => {
     // order of event checking is important here!
-
+    if (this.props.onKeyDown) this.props.onKeyDown(ev);
     // if tab key then allow normal behaviour
     if (Events.isTabKey(ev)) {
       this.unblockBlur();
@@ -491,6 +491,8 @@ Select.propTypes = {
   onFocus: PropTypes.func,
   /** A custom callback for when the dropdown menu opens */
   onOpen: PropTypes.func,
+  /** A custom callback for when the key is pressed */
+  onKeyDown: PropTypes.func,
   /** A custom callback for when more data needs to be lazy-loaded when the user scrolls the dropdown menu list */
   onLazyLoad: PropTypes.func,
   /** A custom callback for the <Textbox>'s Change event */
