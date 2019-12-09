@@ -12,7 +12,7 @@ import Button from '../button';
 import { StoryHeader } from '../../../.storybook/style/storybook-info.styles';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
-const decimalStore = new Store({ value: '' });
+const decimalStore = new Store({ value: '0.00' });
 const numberInputStore = new Store({ value: '' });
 const groupedCharacterStore = new Store({ value: '' });
 const getStoryProps = () => ({
@@ -35,7 +35,7 @@ function makeStory(name, themeSelector) {
                 validations={ numberErrorValidator }
                 warnings={ numberWarningValidator }
                 info={ numberInfoValidator }
-                onChange={ ev => decimalStore.set({ value: ev.target.value }) }
+                onChange={ ev => decimalStore.set({ value: ev.target.value.rawValue }) }
                 fieldHelp='Error: number lesser than "11.0", Warning: number equals "12.0", Info: number equals "13.0"'
                 { ...storyProps }
               />

@@ -49,6 +49,7 @@ function makeStory(storyName, themeSelector) {
           name={ name }
           legend={ legend }
           onChange={ onChange }
+          onBlur={ ev => action('Blur')(ev) }
         >
           {availableColors.map(({ color, label }) => (
             <SimpleColor
