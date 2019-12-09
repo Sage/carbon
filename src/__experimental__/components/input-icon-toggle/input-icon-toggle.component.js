@@ -49,7 +49,7 @@ InputIconToggle.propTypes = {
   children: PropTypes.node, // can override the icon
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
-  onClick: PropTypes.object,
+  onClick: PropTypes.func,
   inputIcon: PropTypes.string,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   tooltipMessage: PropTypes.string
