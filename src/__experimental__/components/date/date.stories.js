@@ -51,6 +51,7 @@ function makeStory(name, themeSelector) {
         value={ store.get('value') }
         onChange={ setValue }
         onBlur={ ev => action('onBlur')(ev) }
+        onKeyDown={ ev => action('onKeyDown')(ev) }
         allowEmptyValue={ allowEmptyValue }
       />
     );
