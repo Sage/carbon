@@ -20,8 +20,8 @@ breaking changes less of an issue for our consumers.
 # Detailed design
 
 We will use [`semantic-release`](https://github.com/semantic-release/semantic-release) to publish our package.
-- we will release from `master`
-- every commit to `master` will trigger a release
+- typically we will release from `master`
+- every commit to `master` may trigger a release depending upon the commit message
 - a merge commit will trigger **ONE** release, even if it has multiple features within
 - a machine user `carbonci` will publish the release to GitHub releases and [NPM](https://www.npmjs.com/)
 - `carbonci` will comment on all PR's stating the version that the changes are included in
@@ -128,7 +128,8 @@ to be involved in the release process to determine the version number. This is n
 # Adoption strategy
 
 This RFC PR includes all changes necessary, if this RFC is accepted when it is merged it will immediately start
-releasing from `master`.
+releasing from the following branches `['+([0-9])?(.{+([0-9]),x}).x', 'master', 'next', 'next-major', {name: 'beta', prerelease: true}, {name: 'alpha', prerelease: true}]`  
+[[Source]](https://github.com/semantic-release/semantic-release/blob/916c2685c57f3490fb1e50afbf72ea8dce11e188/docs/usage/configuration.md#branches)
 
 Adding [`probot/semantic-pull-requests`](https://probot.github.io/apps/semantic-pull-requests/) is a manual step and
 will have to be performed by a workspace administrator.
