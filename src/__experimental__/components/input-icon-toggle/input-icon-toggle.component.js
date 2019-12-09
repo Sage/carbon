@@ -12,6 +12,7 @@ const InputIconToggle = ({
   size,
   inputIcon: type,
   tooltipMessage,
+  onClick,
   ...props
 }) => {
   if (disabled || readOnly) return null;
@@ -23,6 +24,7 @@ const InputIconToggle = ({
         tooltipMessage={ tooltipMessage }
         size={ size }
         isPartOfInput
+        onClick={ onClick }
       />
     );
   }
@@ -32,6 +34,7 @@ const InputIconToggle = ({
       key='label-icon'
       type={ type }
       size={ size }
+      onClick={ onClick }
     >
       { children || <Icon type={ type } /> }
     </InputIconToggleStyle>
@@ -46,6 +49,7 @@ InputIconToggle.propTypes = {
   children: PropTypes.node, // can override the icon
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
+  onClick: PropTypes.func,
   inputIcon: PropTypes.string,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   tooltipMessage: PropTypes.string

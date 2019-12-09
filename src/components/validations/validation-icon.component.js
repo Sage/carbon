@@ -16,7 +16,8 @@ const ValidationIcon = ({
   isPartOfInput,
   tooltipMessage,
   tabIndex,
-  isFocused
+  isFocused,
+  onClick
 }) => {
   let modernTooltipProps = {};
 
@@ -39,6 +40,7 @@ const ValidationIcon = ({
             validationType={ type }
             role='tooltip'
             aria-label={ tooltipMessage }
+            onClick={ onClick }
           >
             <Icon
               key={ `${type}-icon` }
@@ -69,6 +71,8 @@ ValidationIcon.propTypes = {
   /** Properties related to the theme */
   theme: PropTypes.object,
   /** A boolean to indicate if the icon is part of an input */
+  onClick: PropTypes.func,
+  /** An onClick handler */
   isPartOfInput: PropTypes.bool,
   /** Overrides the default tabindex of the component */
   tabIndex: PropTypes.number,

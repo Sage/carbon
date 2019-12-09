@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import {
-  number, select
+  number, select, boolean
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
@@ -12,6 +12,7 @@ import getTextboxStoryProps from '../textbox/textbox.stories';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import { info, notes } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
+import guid from '../../../utils/helpers/guid';
 
 OriginalTextbox.__docgenInfo = getDocGenInfo(
   require('../textbox/docgenInfo.json'),
@@ -24,12 +25,17 @@ Decimal.__docgenInfo = getDocGenInfo(
 );
 
 const store = new Store({
-  value: Decimal.defaultProps.value
+  value: '0.00'
 });
 
 const setValue = (ev) => {
   action('onChange')(ev);
-  store.set({ value: ev.target.value });
+  store.set({ value: ev.target.value.rawValue });
+};
+
+const previous = {
+  key: guid(),
+  allowEmptyValue: false
 };
 
 function makeStory(name, themeSelector) {
@@ -37,7 +43,7 @@ function makeStory(name, themeSelector) {
     const precisionRange = {
       range: true,
       min: 0,
-      max: Decimal.defaultProps.maxPrecision,
+      max: 15,
       step: 1
     };
     const align = select(
@@ -46,16 +52,28 @@ function makeStory(name, themeSelector) {
       Decimal.defaultProps.align
     );
     const precision = number('precision', Decimal.defaultProps.precision, precisionRange);
+    const allowEmptyValue = boolean('allowEmptyValue', false);
+
+    // When the allowEmptyValue knob changes we want to force the component to re-create
+    // allowEmptyValue is only used in the constructor and it is not currently supported to change during the lifetime
+    // of the component
+    if (previous.allowEmptyValue !== allowEmptyValue) {
+      previous.key = guid();
+    }
+    previous.allowEmptyValue = allowEmptyValue;
+    const { key } = previous;
 
     return (
       <State store={ store }>
         <Decimal
+          key={ key }
           { ...getTextboxStoryProps() }
           align={ align }
           precision={ precision }
           value={ store.get('value') }
           onChange={ setValue }
-          onBlur={ (ev, undelimitedValue) => action('onBlur')(ev, undelimitedValue) }
+          allowEmptyValue={ allowEmptyValue }
+          onBlur={ action('onBlur') }
         />
       </State>
     );

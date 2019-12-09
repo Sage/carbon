@@ -87,7 +87,8 @@ const Events = {
   * @returns {Boolean} true if valid number key
   * */
   isNumberKey: (ev) => {
-    return (ev.which >= 48 && ev.which <= 57) || (ev.which >= 96 && ev.which <= 105);
+    const charCode = ev.key.charCodeAt(0);
+    return (charCode >= 48 && charCode <= 57);
   },
 
   /**
@@ -235,7 +236,7 @@ const Events = {
   * @returns {Boolean} true if backspace key
   * */
   isBackspaceKey: (ev) => {
-    return ev.which === 8;
+    return ev.key === 'Backspace';
   },
 
   /**
@@ -246,7 +247,7 @@ const Events = {
   * @returns {Boolean} true if delete key
   * */
   isDeleteKey: (ev) => {
-    return ev.which === 46;
+    return ev.key === 'Delete';
   },
 
   /**
@@ -312,7 +313,7 @@ const Events = {
   * @returns {Boolean} true if minus key
   * */
   isMinusKey: (ev) => {
-    return ev.which === 189;
+    return ev.key === '-' || ev.key === 'Subtract';
   },
 
   /**

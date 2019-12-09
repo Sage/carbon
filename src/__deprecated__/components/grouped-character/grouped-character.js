@@ -195,7 +195,7 @@ const GroupedCharacter = Input(InputLabel(InputValidation(
 
   onKeyDown(ev) {
     // React performs event pooling so can't store event for later reuse easily.
-    this.keyPressed = { which: ev.which };
+    this.keyPressed = { which: ev.which, key: ev.key };
     if (this.isValidKeypress(ev)) { ev.preventDefault(); }
   }
 
