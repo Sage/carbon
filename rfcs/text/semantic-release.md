@@ -101,7 +101,7 @@ to this I believe they were written and updated by each collaborator.
 [`semantic-release`](https://github.com/semantic-release/semantic-release) has a package called [`@semantic-release/changelog`](https://github.com/semantic-release/changelog) when used in conjunction with [`@semantic-release/git`](https://github.com/semantic-release/git) and
 [`@semantic-release/npm`](https://github.com/semantic-release/npm) it will maintain a changelog that is committed to git and published to [NPM](https://www.npmjs.com/). We will use this to help
 communicate the features that each release brings. The changelog will include the `TYPE`, `SCOPE` and `DESCRIPTION`, it
-will not include the `BODY` but it will include a link to the `relevant` pull request.
+will not include the `BODY` but it will include a link to the relevant pull request.
 
 
 # Drawbacks
