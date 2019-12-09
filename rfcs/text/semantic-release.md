@@ -103,6 +103,13 @@ to this I believe they were written and updated by each collaborator.
 communicate the features that each release brings. The changelog will include the `TYPE`, `SCOPE` and `DESCRIPTION`, it
 will not include the `BODY` but it will include a link to the relevant pull request.
 
+## Maintenance Releases
+The beta version of [`semantic-release`](https://github.com/semantic-release/semantic-release) includes extensive support for publishing a maintenance
+release. There is a [detailed walk through](https://github.com/semantic-release/semantic-release/blob/916c2685c57f3490fb1e50afbf72ea8dce11e188/docs/recipes/maintenance-releases.md)
+outlining many scenarios.
+
+This functionality is not available in the latest stable release, however the beta has been evolving for in excess of a year.
+
 
 # Drawbacks
 - There is a learning curve to this new process
