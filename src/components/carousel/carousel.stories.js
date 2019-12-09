@@ -62,7 +62,7 @@ storiesOf('Carousel', module)
           enableNextButton={ enableNextButton }
           transition={ transition }
         >
-          <Slide>
+          <Slide className='TestClassName'>
             <h1 style={ { textAlign: 'center' } }>Slide One</h1>
           </Slide>
           <Slide>
