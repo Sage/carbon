@@ -345,7 +345,7 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
 `;
 
 exports[`Pager renders the Pager correctly with the small theme 1`] = `
-.c13 {
+.c14 {
   background: transparent;
   border: none;
   color: rgba(0,0,0,0.9);
@@ -358,24 +358,24 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   width: 30px;
 }
 
-.c13::-webkit-input-placeholder {
+.c14::-webkit-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c13::-moz-placeholder {
+.c14::-moz-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c13:-ms-input-placeholder {
+.c14:-ms-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c13::placeholder {
+.c14::placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c13:invalid,
-.c13:required {
+.c14:invalid,
+.c14:required {
   box-shadow: none;
 }
 
@@ -418,7 +418,7 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   display: block;
 }
 
-.c11 {
+.c12 {
   -webkit-align-items: stretch;
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
@@ -443,15 +443,15 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   padding-right: 11px;
 }
 
-.c11 .c12 {
+.c12 .c13 {
   height: calc(40px - 4px);
 }
 
-.c11 input::-ms-clear {
+.c12 input::-ms-clear {
   display: none;
 }
 
-.c11 input::-webkit-contacts-auto-fill-button {
+.c12 input::-webkit-contacts-auto-fill-button {
   display: none!important;
 }
 
@@ -511,14 +511,14 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   align-items: center;
 }
 
-.c16.c16 .c10 {
+.c17.c17 .c11 {
   padding: 0;
   margin: 0 4px;
   line-height: 24px;
   min-height: 24px;
 }
 
-.c16.c16 .c12 {
+.c17.c17 .c13 {
   text-align: center;
   height: 24px;
 }
@@ -541,14 +541,14 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   align-items: center;
 }
 
-.c4.c4 .c10 {
+.c4.c4 .c11 {
   padding: 0;
   margin: 0 4px;
   line-height: 24px;
   min-height: 24px;
 }
 
-.c4.c4 .c12 {
+.c4.c4 .c13 {
   text-align: center;
   height: 24px;
 }
@@ -578,7 +578,7 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   cursor: not-allowed;
 }
 
-.c14 {
+.c15 {
   padding: 0 4px;
   font-size: 13px;
   border-width: 0;
@@ -589,11 +589,11 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   color: rgba(0,0,0,0.74);
 }
 
-.c14:hover {
+.c15:hover {
   color: rgba(0,0,0,0.90);
 }
 
-.c14:focus {
+.c15:focus {
   outline: none;
   background-color: #FFDA7F;
   color: rgba(0,0,0,0.90);
@@ -606,7 +606,7 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   user-select: none;
 }
 
-.c15 {
+.c16 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -620,12 +620,12 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   justify-content: flex-end;
 }
 
-.c9 {
-  display: block;
-}
-
 .c9 + .c8 {
   margin-top: 16px;
+}
+
+.c10 {
+  display: block;
 }
 
 <div
@@ -715,29 +715,33 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
           data-element="current-page"
         >
           <div
-            className="c10 c11"
-            onMouseDown={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            role="presentation"
-            size="medium"
+            className="c10"
           >
-            <input
-              aria-invalid={false}
-              className="c12 c13"
-              data-element="input"
-              id="guid-12345"
-              name="guid-12345"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onClick={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
+            <div
+              className="c11 c12"
+              onMouseDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="presentation"
               size="medium"
-              type="text"
-              value="1"
-            />
+            >
+              <input
+                aria-invalid={false}
+                className="c13 c14"
+                data-element="input"
+                id="guid-12345"
+                name="guid-12345"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                size="medium"
+                type="text"
+                value="1"
+              />
+            </div>
           </div>
         </div>
       </label>
@@ -749,14 +753,14 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
       </span>
     </div>
     <button
-      className="c14"
+      className="c15"
       disabled={false}
       onClick={[Function]}
     >
       Next
     </button>
     <button
-      className="c14"
+      className="c15"
       disabled={false}
       onClick={[Function]}
     >
@@ -764,7 +768,7 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
     </button>
   </div>
   <div
-    className="c15"
+    className="c16"
   >
     100
      

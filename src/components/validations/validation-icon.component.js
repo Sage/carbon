@@ -71,7 +71,7 @@ ValidationIcon.propTypes = {
   /** Properties related to the theme */
   theme: PropTypes.object,
   /** A boolean to indicate if the icon is part of an input */
-  onClick: PropTypes.object,
+  onClick: PropTypes.func,
   /** An onClick handler */
   isPartOfInput: PropTypes.bool,
   /** Overrides the default tabindex of the component */
