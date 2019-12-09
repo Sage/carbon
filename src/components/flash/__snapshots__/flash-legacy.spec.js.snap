@@ -11,27 +11,38 @@ exports[` 1`] = `
       className=""
       variant="success"
     >
-      <CSSTransitionGroup
+      <TransitionGroup
+        childFactory={[Function]}
         component="div"
-        transitionAppear={true}
-        transitionAppearTimeout={500}
-        transitionEnter={true}
-        transitionEnterTimeout={600}
-        transitionLeave={true}
-        transitionLeaveTimeout={600}
-        transitionName="carbon-flash__slider"
       >
-        <styled.div
-          key="slider"
-        />
-        <CSSTransitionGroup
-          component="div"
-          transitionAppear={false}
-          transitionEnter={true}
-          transitionEnterTimeout={200}
-          transitionLeave={true}
-          transitionLeaveTimeout={600}
-          transitionName="carbon-flash__content"
+        <CSSTransition
+          appear={true}
+          classNames="carbon-flash__slider"
+          exit={true}
+          key="1"
+          timeout={
+            Object {
+              "appear": 500,
+              "enter": 600,
+              "exit": 600,
+            }
+          }
+        >
+          <styled.div
+            key="slider"
+          />
+        </CSSTransition>
+        <CSSTransition
+          appear={true}
+          classNames="carbon-flash__content"
+          exit={true}
+          key="2"
+          timeout={
+            Object {
+              "enter": 700,
+              "exit": 600,
+            }
+          }
         >
           <styled.div>
             <Styled(Icon)
@@ -60,8 +71,8 @@ exports[` 1`] = `
               type="close"
             />
           </styled.div>
-        </CSSTransitionGroup>
-      </CSSTransitionGroup>
+        </CSSTransition>
+      </TransitionGroup>
     </styled.div>
     <Alert
       ariaRole="dialog"
@@ -90,27 +101,38 @@ exports[`Flash sliderHTML returns a div with the slider class names 1`] = `
       className=""
       variant="success"
     >
-      <CSSTransitionGroup
+      <TransitionGroup
+        childFactory={[Function]}
         component="div"
-        transitionAppear={true}
-        transitionAppearTimeout={500}
-        transitionEnter={true}
-        transitionEnterTimeout={600}
-        transitionLeave={true}
-        transitionLeaveTimeout={600}
-        transitionName="carbon-flash__slider"
       >
-        <styled.div
-          key="slider"
-        />
-        <CSSTransitionGroup
-          component="div"
-          transitionAppear={false}
-          transitionEnter={true}
-          transitionEnterTimeout={200}
-          transitionLeave={true}
-          transitionLeaveTimeout={600}
-          transitionName="carbon-flash__content"
+        <CSSTransition
+          appear={true}
+          classNames="carbon-flash__slider"
+          exit={true}
+          key="1"
+          timeout={
+            Object {
+              "appear": 500,
+              "enter": 600,
+              "exit": 600,
+            }
+          }
+        >
+          <styled.div
+            key="slider"
+          />
+        </CSSTransition>
+        <CSSTransition
+          appear={true}
+          classNames="carbon-flash__content"
+          exit={true}
+          key="2"
+          timeout={
+            Object {
+              "enter": 700,
+              "exit": 600,
+            }
+          }
         >
           <styled.div>
             <Styled(Icon)
@@ -129,8 +151,8 @@ exports[`Flash sliderHTML returns a div with the slider class names 1`] = `
               type="close"
             />
           </styled.div>
-        </CSSTransitionGroup>
-      </CSSTransitionGroup>
+        </CSSTransition>
+      </TransitionGroup>
     </styled.div>
   </div>
 </Portal>
