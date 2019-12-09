@@ -44,6 +44,7 @@ const Checkbox = ({
     >
       <CheckableInput
         { ...inputProps }
+        labelInline
       >
         <CheckboxSvg />
       </CheckableInput>

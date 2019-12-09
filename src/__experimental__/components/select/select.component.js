@@ -76,7 +76,7 @@ class Select extends React.Component {
   // opens the dropdown and ensures the input has focus
   // (this fixes a bug in which rapidly clicking the label or dropdown icon would break the list open state)
   handleFocus = (ev) => {
-    this.openList();
+    if (!this.props.preventFocusAutoOpen) this.openList();
     if (this.props.onFocus) this.props.onFocus(ev);
   }
 
@@ -501,6 +501,8 @@ Select.propTypes = {
   readOnly: PropTypes.bool,
   /** Should multi-select mode be enabled? */
   enableMultiSelect: PropTypes.bool,
+  /** Prevents list from automatically opening on focus */
+  preventFocusAutoOpen: PropTypes.bool,
   /** The selected value(s), when the component is operating in controlled mode */
   value: valuePropType,
   /** The default selected value(s), when the component is operating in uncontrolled mode */

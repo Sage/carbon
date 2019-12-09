@@ -45,17 +45,48 @@ class BaseDateInput extends React.Component {
       this.input.focus();
       this.openDatePicker(true);
     }
+    this.handleValidationUpdate();
   }
 
   componentDidUpdate(prevProps) {
     if (this.isControlled && !this.inputHasFocus && this.hasValueChanged(prevProps)) {
       this.updateSelectedDate(this.props.value);
     }
+
+    if (this.hasValidationsChanged()) {
+      this.handleValidationUpdate();
+    }
+  }
+
+  inputProps = () => {
+    const { minDate, maxDate, ...inputProps } = this.props;
+    return inputProps;
   }
 
   hasValueChanged = (prevProps) => {
     return this.props.value && prevProps.value !== this.props.value;
   };
+
+  hasValidationsChanged = () => {
+    const { validationsArray } = this.state;
+
+    const currentValidations = concatAllValidations(this.inputProps());
+
+    if (validationsArray.length !== currentValidations.length) {
+      return true;
+    }
+
+    if (validationsArray.some((val, index) => val !== currentValidations[index])) {
+      return true;
+    }
+
+    return false;
+  }
+
+  handleValidationUpdate = () => {
+    const inputProps = this.inputProps();
+    this.setState({ validationsArray: concatAllValidations(inputProps) });
+  }
 
   assignInput = (input) => {
     this.input = input.current;
@@ -266,13 +297,15 @@ class BaseDateInput extends React.Component {
     const { visibleValue, lastValidEventValues } = this.state;
     const inputDate = DateHelper.isValidDate(visibleValue) ? visibleValue : lastValidEventValues.formattedValue;
     return (
-      <DatePicker
-        inputElement={ this.input && this.input.parentElement }
-        selectedDate={ this.state.selectedDate }
-        handleDateSelect={ this.handleDateSelect }
-        inputDate={ inputDate }
-        { ...dateRangeProps }
-      />
+      <div onClick={ this.markCurrentDatepicker } role='presentation'>
+        <DatePicker
+          inputElement={ this.input && this.input.parentElement }
+          selectedDate={ this.state.selectedDate }
+          handleDateSelect={ this.handleDateSelect }
+          inputDate={ inputDate }
+          { ...dateRangeProps }
+        />
+      </div>
     );
   }
 
@@ -303,30 +336,34 @@ class BaseDateInput extends React.Component {
   }
 
   render() {
-    const { minDate, maxDate, ...inputProps } = this.props;
+    const {
+      minDate, maxDate, isDateRange, ...inputProps
+    } = this.props;
+
     let events = {};
     delete inputProps.autoFocus;
     delete inputProps.defaultValue;
     delete inputProps.value;
 
-    inputProps.validations = concatAllValidations(inputProps);
-
     events = {
       onBlur: this.handleBlur,
       onChange: this.handleVisibleInputChange,
       onFocus: this.handleFocus,
-      onKeyDown: this.handleTabKeyDown
+      onKeyDown: this.handleTabKeyDown,
+      onClick: this.markCurrentDatepicker
     };
+
+    const validations = isDateRange ? concatAllValidations(inputProps) : this.state.validationsArray;
 
     return (
       <StyledDateInput
-        onClick={ this.markCurrentDatepicker }
         role='presentation'
         size={ inputProps.size }
         { ...tagComponent('date', this.props) }
       >
         <Textbox
           { ...inputProps }
+          validations={ validations }
           inputIcon='calendar'
           value={ this.state.visibleValue }
           rawValue={ isoFormattedValueString(this.state.visibleValue) }
@@ -389,7 +426,9 @@ BaseDateInput.propTypes = {
   /** The current date YYYY-MM-DD */
   value: PropTypes.string,
   /** Triggers textbox validation when it's boolean value changes */
-  forceUpdateTriggerToggle: PropTypes.bool
+  forceUpdateTriggerToggle: PropTypes.bool,
+  /** Temporary flag to indicate if input is part of DateRange */
+  isDateRange: PropTypes.bool
 };
 
 BaseDateInput.defaultProps = {
