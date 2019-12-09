@@ -67,7 +67,7 @@ describe('Toast', () => {
     });
 
     it('renders the component with correct id', () => {
-      const wrapper = shallow(<Toast open id='toast-id' />);
+      const wrapper = mount(<Toast open id='toast-id' />);
       expect(wrapper.find('#toast-id')).toHaveLength(1);
     });
 

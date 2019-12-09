@@ -7,7 +7,16 @@ background-color: #dedede
 `;
 
 const Log = ({ history }) => {
-  return [...history].reverse().map(entry => <Pre key={ entry.timestamp }>{JSON.stringify(entry, null, 2)}</Pre>);
+  return [...history].reverse().map(entry => (
+    <Pre key={ entry.guid }>{JSON.stringify(entry, (name, value) => {
+      if (name === 'guid') {
+        return undefined;
+      }
+
+      return value;
+    }, 2)}
+    </Pre>
+  ));
 };
 
 const Context = React.createContext();
