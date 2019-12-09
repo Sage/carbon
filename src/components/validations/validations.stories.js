@@ -98,7 +98,7 @@ function makeBasicStory(name, themeSelector) {
               <Select
                 label='Info'
                 info={ infoValidator }
-                onChange={ ev => infoStore.set({ value: ev.target.value }) }
+                onChange={ ev => infoStore.set({ value: ev.target.value[0].optionValue }) }
                 fieldHelp='This example uses an info validator, these do not block form
                   submission and are not flagged by the form.'
                 labelInline={ boolean('labelInline') }
@@ -130,7 +130,7 @@ function makeBasicStory(name, themeSelector) {
             <State store={ legacyStore }>
               <Textbox
                 label='Legacy Validation'
-                validations={ new PresenceValidator() }
+                validations={ [new PresenceValidator()] }
                 onChange={ ev => legacyStore.set({ value: ev.target.value }) }
                 fieldHelp='This example uses a deprecated validator in the form of a class instance.'
                 labelInline={ boolean('labelInline') }
