@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TestRenderer from 'react-test-renderer';
 import { mount as enzymeMount } from 'enzyme';
 import I18n from 'i18n-js';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
