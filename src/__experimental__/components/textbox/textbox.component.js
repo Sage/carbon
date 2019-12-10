@@ -32,7 +32,7 @@ const Textbox = ({
         { leftChildren }
         <Input
           { ...removeParentProps(props) }
-          placeholder={ props.disabled ? '' : props.placeholder }
+          placeholder={ (props.disabled || props.readOnly) ? '' : props.placeholder }
           aria-invalid={ props.hasError }
           value={ visibleValue(value, formattedValue) }
         />
