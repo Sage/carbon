@@ -28,6 +28,7 @@ const ControlledCheckbox = () => {
               </ul>
               <Checkbox
                 id='controlled_checkbox_one'
+                value='value one'
                 label='label one'
                 onChange={ onChange(setChecked) }
                 onBlur={ onBlur }
@@ -42,6 +43,7 @@ const ControlledCheckbox = () => {
               </ul>
               <Checkbox
                 id='controlled_checkbox_two'
+                value='value two'
                 label='label two'
                 onChange={ onChange(setCheckedExampleTwo) }
                 onBlur={ onBlur }
