@@ -10,6 +10,7 @@ const UnControlledSelect = () => {
           log(e, { method: 'onChange' });
         };
         const onBlur = e => log(e, { method: 'onBlur' });
+        const onKeyDown = e => log(e, { method: 'onKeyDown' });
 
         return (
           <React.Fragment>
@@ -24,6 +25,7 @@ const UnControlledSelect = () => {
               <Select
                 onChange={ onChange }
                 onBlur={ onBlur }
+                onKeyDown={ onKeyDown }
                 label='Uncontrolled Example'
                 id='uncontrolled_select_id'
                 name='uncontrolled_select_name'
@@ -49,6 +51,7 @@ const UnControlledSelect = () => {
               <Select
                 onChange={ onChange }
                 onBlur={ onBlur }
+                onKeyDown={ onKeyDown }
                 label='Uncontrolled Example Default Selected'
                 defaultValue='2'
                 id='uncontrolled_select_selected_id'
