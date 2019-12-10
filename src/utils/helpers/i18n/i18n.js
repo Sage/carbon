@@ -46,13 +46,15 @@ const I18nHelper = {
    */
   formatDecimal: (valueToFormat = 0, precision = 2, options = {}) => {
     const locale = options.locale || I18n.locale || 'en';
-    const format = I18nHelper.format(locale);
+    const { separator, delimiter } = I18nHelper.format(locale);
+    const num = new BigNumber(valueToFormat);
+    const format = {
+      decimalSeparator: separator,
+      groupSeparator: delimiter,
+      groupSize: 3
+    };
 
-    return I18n.toNumber(valueToFormat, {
-      precision,
-      delimiter: format.delimiter,
-      separator: format.separator
-    });
+    return num.toFormat(precision, format);
   },
 
   /**
@@ -128,7 +130,7 @@ const I18nHelper = {
   roundForAbbreviation: (number, divisor, options = {}) => {
     const num = new BigNumber(number);
     const div = new BigNumber(divisor);
-    return I18nHelper.formatDecimal(num.dividedBy(div).round().dividedBy(10), 1, options);
+    return I18nHelper.formatDecimal(num.dividedBy(div).integerValue().dividedBy(10), 1, options);
   },
 
   /**

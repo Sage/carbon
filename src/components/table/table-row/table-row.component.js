@@ -43,7 +43,7 @@ class TableRow extends React.Component {
     this._row = React.createRef();
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.context.dragDropManager) {
       if (this.props.as !== 'header' && this.props.index === undefined) {
         throw new Error('You need to provide an index for rows that are draggable');
@@ -74,7 +74,7 @@ class TableRow extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.uniqueID !== nextProps.uniqueID) {
       // if unique id has changed, check if the table has the new id as selected or not
       this.context.checkSelection(nextProps.uniqueID, this);

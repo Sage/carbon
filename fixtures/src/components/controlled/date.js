@@ -12,6 +12,8 @@ const ControlledDate = () => {
           log(e, { method: 'onChange' });
         };
         const onBlur = e => log(e, { method: 'onBlur' });
+        const onKeyDown = e => log(e, { method: 'onKeyDown' });
+
         return (
           <React.Fragment>
             <div id='controlled_date'>
@@ -24,14 +26,27 @@ const ControlledDate = () => {
                 </li>
                 <li>date has props value, name, id which should be reflected in both events</li>
               </ul>
-
               <Date
                 onChange={ onChange }
                 onBlur={ onBlur }
+                onKeyDown={ onKeyDown }
                 id='controlled_date_id'
                 name='controlled_date_name'
                 label='Controlled Date'
                 value={ state }
+              />
+              <br />
+              <br />
+              <br />
+              <Date
+                onChange={ onChange }
+                onBlur={ onBlur }
+                onKeyDown={ onKeyDown }
+                id='controlled_date_id_empty'
+                name='controlled_date_name_empty'
+                label='Controlled Date Empty'
+                value={ state }
+                allowEmptyValue
               />
             </div>
           </React.Fragment>

@@ -46,7 +46,7 @@ class Tabs extends React.Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     let selectedTabId;
     if (this.props.selectedTabId) {
       selectedTabId = this.props.selectedTabId;
@@ -76,7 +76,7 @@ class Tabs extends React.Component {
     this.setState({ selectedTabId });
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.selectedTabId !== nextProps.selectedTabId && nextProps.selectedTabId !== this.state.selectedTabId) {
       this.updateVisibleTab(nextProps.selectedTabId);
     }

@@ -44,6 +44,11 @@ describe('Message', () => {
         const closeIcon = wrapper.find(CloseIcon);
         expect(closeIcon.exists()).toEqual(true);
       });
+
+      it('passes the id prop to the root component', () => {
+        wrapper.setProps({ id: 'message-id' });
+        expect(wrapper.find(MessageStyle).props().id).toEqual('message-id');
+      });
     }
   );
 

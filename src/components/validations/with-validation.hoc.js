@@ -170,7 +170,9 @@ const withValidation = (WrappedComponent, defaultProps = {}) => {
       if (isValidationPropEmpty) return null;
 
       return new Promise((resolve) => {
-        validator(validationProp)(this.props.value || this.state.value, this.props)
+        const value = this.props.rawValue || this.props.value || this.state.value;
+
+        validator(validationProp)(value, this.props)
           .then(() => {
             return resolve({ pass: true, type });
           })
@@ -274,6 +276,8 @@ const withValidation = (WrappedComponent, defaultProps = {}) => {
       PropTypes.string,
       PropTypes.array
     ]),
+    /** The unformatted value  */
+    rawValue: PropTypes.string,
     /** Custom function to be called when the component blurs */
     onBlur: PropTypes.func,
     /** Custom function called when component value changes */

@@ -60,7 +60,7 @@ const classicToastStyle = ({ theme, variant }) => isClassic(theme) && css`
     transition: all 300ms 1000ms cubic-bezier(0.250, 0.250, 0.000, 1.500);
   }
 
-  &.toast-leave.toast-leave-active {
+  &.toast-exit.toast-exit-active {
     opacity: 0;
     right: -360px;
     transition: all 300ms cubic-bezier(0.960, -0.335, 0.750, 0.750);

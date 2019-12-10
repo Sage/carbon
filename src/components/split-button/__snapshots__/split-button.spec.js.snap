@@ -26,71 +26,17 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   display: block;
 }
 
-.c6 .c4 {
-  color: #255bc7;
-}
-
-.c6:active .c4 {
-  color: #255bc7;
-}
-
 .c6:hover .c4 {
-  color: #ffffff;
-}
-
-.c6:focus .c4 {
-  color: #ffffff;
+  color: #FFFFFF;
 }
 
 .c6 .c4 {
-  margin-left: 0px;
-  margin-right: 8px;
-  height: 18px;
-}
-
-.c6 .c4 svg {
-  margin-top: 0;
-}
-
-.c7:hover .c4 {
-  color: #FFFFFF;
-}
-
-.c7 .c4 {
-  margin-left: 0px;
-  margin-right: 8px;
-  height: 16px;
-}
-
-.c7 .c4 svg {
-  margin-top: 0;
-}
-
-.c8:hover .c4 {
-  color: #FFFFFF;
-}
-
-.c8 .c4 {
-  margin-left: 0px;
-  margin-right: 8px;
-  height: 16px;
-}
-
-.c8 .c4 svg {
-  margin-top: 0;
-}
-
-.c9:hover .c4 {
-  color: #FFFFFF;
-}
-
-.c9 .c4 {
   margin-left: 8px;
   margin-right: 0px;
   height: 16px;
 }
 
-.c9 .c4 svg {
+.c6 .c4 svg {
   margin-top: 0;
 }
 
@@ -156,21 +102,6 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   margin-top: 0;
 }
 
-.c10 > .c1 {
-  margin: 0;
-}
-
-.c10 > .c1:focus {
-  border: 3px solid #FFB500;
-  outline: none;
-  margin: -1px;
-}
-
-.c10 > .c1:focus {
-  border: 1px solid #1e499f;
-  margin: 0;
-}
-
 .c0 {
   display: inline-block;
   position: relative;
@@ -184,213 +115,6 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   border: 3px solid #FFB500;
   outline: none;
   margin: -1px;
-}
-
-.c11 .c4 {
-  color: #255bc7;
-}
-
-.c11:active .c4 {
-  color: #255bc7;
-}
-
-.c11:hover .c4 {
-  color: #ffffff;
-}
-
-.c11:focus .c4 {
-  color: #ffffff;
-}
-
-.c11 .c4 {
-  margin-left: 8px;
-  margin-right: 0px;
-  height: 18px;
-}
-
-.c11 .c4 svg {
-  margin-top: 0;
-}
-
-.c1 + .c11 {
-  margin-left: 0;
-}
-
-.c1 + .c11:focus {
-  margin-left: -3px;
-}
-
-.c1 + .c11 .c4 {
-  margin-left: 0;
-}
-
-.c11.c11,
-.c1 + .c11:focus {
-  margin-left: 0;
-  padding: 0 5px;
-}
-
-.c12 .c4 {
-  color: #255bc7;
-}
-
-.c12:active .c4 {
-  color: #255bc7;
-}
-
-.c12:hover .c4 {
-  color: #ffffff;
-}
-
-.c12:focus .c4 {
-  color: #ffffff;
-}
-
-.c12 .c4 {
-  margin-left: 8px;
-  margin-right: 0px;
-  height: 18px;
-}
-
-.c12 .c4 svg {
-  margin-top: 0;
-}
-
-.c12,
-.c12 .c4 {
-  color: #FFFFFF;
-}
-
-.c1 + .c12 {
-  margin-left: 0;
-}
-
-.c1 + .c12:focus {
-  margin-left: -3px;
-}
-
-.c1 + .c12 .c4 {
-  margin-left: 0;
-}
-
-.c12.c12,
-.c1 + .c12:focus {
-  margin-left: 0;
-  padding: 0 5px;
-}
-
-.c13:hover .c4 {
-  color: #FFFFFF;
-}
-
-.c13 .c4 {
-  margin-left: 8px;
-  margin-right: 0px;
-  height: 16px;
-}
-
-.c13 .c4 svg {
-  margin-top: 0;
-}
-
-.c1 + .c13 {
-  margin-left: 0;
-}
-
-.c1 + .c13:focus {
-  margin-left: -3px;
-}
-
-.c1 + .c13 .c4 {
-  margin-left: 0;
-}
-
-.c14:hover .c4 {
-  color: #FFFFFF;
-}
-
-.c14 .c4 {
-  margin-left: 8px;
-  margin-right: 0px;
-  height: 16px;
-}
-
-.c14 .c4 svg {
-  margin-top: 0;
-}
-
-.c14,
-.c14 .c4 {
-  color: #FFFFFF;
-}
-
-.c1 + .c14 {
-  margin-left: 0;
-}
-
-.c1 + .c14:focus {
-  margin-left: -3px;
-}
-
-.c1 + .c14 .c4 {
-  margin-left: 0;
-}
-
-.c15:hover .c4 {
-  color: #FFFFFF;
-}
-
-.c15 .c4 {
-  margin-left: 8px;
-  margin-right: 0px;
-  height: 16px;
-}
-
-.c15 .c4 svg {
-  margin-top: 0;
-}
-
-.c1 + .c15 {
-  margin-left: 0;
-}
-
-.c1 + .c15:focus {
-  margin-left: -3px;
-}
-
-.c1 + .c15 .c4 {
-  margin-left: 0;
-}
-
-.c16:hover .c4 {
-  color: #FFFFFF;
-}
-
-.c16 .c4 {
-  margin-left: 8px;
-  margin-right: 0px;
-  height: 16px;
-}
-
-.c16 .c4 svg {
-  margin-top: 0;
-}
-
-.c16,
-.c16 .c4 {
-  color: #FFFFFF;
-}
-
-.c1 + .c16 {
-  margin-left: 0;
-}
-
-.c1 + .c16:focus {
-  margin-left: -3px;
-}
-
-.c1 + .c16 .c4 {
-  margin-left: 0;
 }
 
 .c3 {
@@ -469,7 +193,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   margin-left: 0;
 }
 
-.c17 .c1 {
+.c7 .c1 {
   background-color: #006045;
   border: 1px solid #006045;
   color: #FFFFFF;
@@ -478,20 +202,19 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  text-align: left;
   z-index: 10;
 }
 
-.c17 .c1:focus,
-.c17 .c1:hover {
+.c7 .c1:focus,
+.c7 .c1:hover {
   background-color: #003F2E;
 }
 
-.c17 .c1 + .c23 .c1 {
+.c7 .c1 + .c10 .c1 {
   margin-top: 3px;
 }
 
-.c17 .c1 {
+.c7 .c1 {
   background-color: #1e499f;
   border: 1px solid #1e499f;
   color: #FFF;
@@ -503,56 +226,12 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   padding: 0 18px;
 }
 
-.c17 .c1:focus,
-.c17 .c1:hover {
+.c7 .c1:focus,
+.c7 .c1:hover {
   background-color: #163777;
 }
 
-.c18 .c1 {
-  background-color: #006045;
-  border: 1px solid #006045;
-  color: #FFFFFF;
-  display: block;
-  margin-left: 0;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  min-width: 100%;
-  text-align: left;
-  z-index: 10;
-}
-
-.c18 .c1:focus,
-.c18 .c1:hover {
-  background-color: #003F2E;
-}
-
-.c18 .c1 + .c23 .c1 {
-  margin-top: 3px;
-}
-
-.c19 .c1 {
-  background-color: #005B9A;
-  border: 1px solid #005B9A;
-  color: #FFFFFF;
-  display: block;
-  margin-left: 0;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  min-width: 100%;
-  text-align: left;
-  z-index: 10;
-}
-
-.c19 .c1:focus,
-.c19 .c1:hover {
-  background-color: #004372;
-}
-
-.c19 .c1 + .c23 .c1 {
-  margin-top: 3px;
-}
-
-.c20 .c1 {
+.c8 .c1 {
   background-color: #006045;
   border: 1px solid #006045;
   color: #FFFFFF;
@@ -564,54 +243,16 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   z-index: 10;
 }
 
-.c20 .c1:focus,
-.c20 .c1:hover {
+.c8 .c1:focus,
+.c8 .c1:hover {
   background-color: #003F2E;
 }
 
-.c20 .c1 + .c23 .c1 {
+.c8 .c1 + .c10 .c1 {
   margin-top: 3px;
 }
 
-.c20 .c1 {
-  background-color: #1e499f;
-  border: 1px solid #1e499f;
-  color: #FFF;
-  height: 31px;
-  -webkit-letter-spacing: 0;
-  -moz-letter-spacing: 0;
-  -ms-letter-spacing: 0;
-  letter-spacing: 0;
-  padding: 0 18px;
-}
-
-.c20 .c1:focus,
-.c20 .c1:hover {
-  background-color: #163777;
-}
-
-.c21 .c1 {
-  background-color: #006045;
-  border: 1px solid #006045;
-  color: #FFFFFF;
-  display: block;
-  margin-left: 0;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  min-width: 100%;
-  z-index: 10;
-}
-
-.c21 .c1:focus,
-.c21 .c1:hover {
-  background-color: #003F2E;
-}
-
-.c21 .c1 + .c23 .c1 {
-  margin-top: 3px;
-}
-
-.c22 .c1 {
+.c9 .c1 {
   background-color: #005B9A;
   border: 1px solid #005B9A;
   color: #FFFFFF;
@@ -623,12 +264,12 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   z-index: 10;
 }
 
-.c22 .c1:focus,
-.c22 .c1:hover {
+.c9 .c1:focus,
+.c9 .c1:hover {
   background-color: #004372;
 }
 
-.c22 .c1 + .c23 .c1 {
+.c9 .c1 + .c10 .c1 {
   margin-top: 3px;
 }
 
@@ -651,6 +292,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
     onTouchStart={[Function]}
     role="button"
     size="medium"
+    type="button"
   >
     <span>
       <span
@@ -730,6 +372,54 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   font-weight: normal;
   line-height: 16px;
   vertical-align: middle;
+}
+
+.c6:hover .c4 {
+  color: #FFFFFF;
+}
+
+.c6 .c4 {
+  margin-left: 8px;
+  margin-right: 0px;
+  height: 16px;
+}
+
+.c6 .c4 svg {
+  margin-top: 0;
+}
+
+.c7:hover .c4 {
+  color: #FFFFFF;
+}
+
+.c7 .c4 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c7 .c4 svg {
+  margin-top: 0;
+}
+
+.c8 .c4 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c8 .c4 svg {
+  margin-top: 0;
+}
+
+.c9 .c4 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c9 .c4 svg {
+  margin-top: 0;
 }
 
 .c2 {
@@ -820,80 +510,14 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   margin-top: 0;
 }
 
-.c6:hover .c4 {
-  color: #FFFFFF;
+.c10 > .c1 {
+  margin: 0;
 }
 
-.c6 .c4 {
-  margin-left: 0px;
-  margin-right: 8px;
-  height: 16px;
-}
-
-.c6 .c4 svg {
-  margin-top: 0;
-}
-
-.c7:hover .c4 {
-  color: #FFFFFF;
-}
-
-.c7 .c4 {
-  margin-left: 0px;
-  margin-right: 8px;
-  height: 16px;
-}
-
-.c7 .c4 svg {
-  margin-top: 0;
-}
-
-.c8:hover .c4 {
-  color: #FFFFFF;
-}
-
-.c8 .c4 {
-  margin-left: 8px;
-  margin-right: 0px;
-  height: 16px;
-}
-
-.c8 .c4 svg {
-  margin-top: 0;
-}
-
-.c9:hover .c4 {
-  color: #FFFFFF;
-}
-
-.c9 .c4 {
-  margin-left: 0px;
-  margin-right: 8px;
-  height: 16px;
-}
-
-.c9 .c4 svg {
-  margin-top: 0;
-}
-
-.c10 .c4 {
-  margin-left: 0px;
-  margin-right: 8px;
-  height: 16px;
-}
-
-.c10 .c4 svg {
-  margin-top: 0;
-}
-
-.c11 .c4 {
-  margin-left: 0px;
-  margin-right: 8px;
-  height: 16px;
-}
-
-.c11 .c4 svg {
-  margin-top: 0;
+.c10 > .c1:focus {
+  border: 3px solid #FFB500;
+  outline: none;
+  margin: -1px;
 }
 
 .c0 {
@@ -916,14 +540,66 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   margin: 0;
 }
 
-.c12 > .c1 {
-  margin: 0;
+.c11:hover .c4 {
+  color: #FFFFFF;
 }
 
-.c12 > .c1:focus {
-  border: 3px solid #FFB500;
-  outline: none;
-  margin: -1px;
+.c11 .c4 {
+  margin-left: 8px;
+  margin-right: 0px;
+  height: 16px;
+}
+
+.c11 .c4 svg {
+  margin-top: 0;
+}
+
+.c1 + .c11 {
+  margin-left: 0;
+}
+
+.c1 + .c11:focus {
+  margin-left: -3px;
+}
+
+.c1 + .c11 .c4 {
+  margin-left: 0;
+}
+
+.c12 .c4 {
+  margin-left: 8px;
+  margin-right: 0px;
+  height: 16px;
+}
+
+.c12 .c4 svg {
+  margin-top: 0;
+}
+
+.c1 + .c12 {
+  margin-left: 0;
+}
+
+.c1 + .c12 .c4 {
+  margin-left: 0;
+}
+
+.c13 .c4 {
+  margin-left: 8px;
+  margin-right: 0px;
+  height: 16px;
+}
+
+.c13 .c4 svg {
+  margin-top: 0;
+}
+
+.c1 + .c13 {
+  margin-left: 0;
+}
+
+.c1 + .c13 .c4 {
+  margin-left: 0;
 }
 
 .c3 {
@@ -1035,232 +711,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   padding: 0 5px;
 }
 
-.c13 .c4 {
-  color: #255bc7;
-}
-
-.c13:active .c4 {
-  color: #255bc7;
-}
-
-.c13:hover .c4 {
-  color: #ffffff;
-}
-
-.c13:focus .c4 {
-  color: #ffffff;
-}
-
-.c13 .c4 {
-  margin-left: 8px;
-  margin-right: 0px;
-  height: 18px;
-}
-
-.c13 .c4 svg {
-  margin-top: 0;
-}
-
-.c13,
-.c13 .c4 {
-  color: #FFFFFF;
-}
-
-.c1 + .c13 {
-  margin-left: 0;
-}
-
-.c1 + .c13:focus {
-  margin-left: -3px;
-}
-
-.c1 + .c13 .c4 {
-  margin-left: 0;
-}
-
-.c13.c13,
-.c1 + .c13:focus {
-  margin-left: 0;
-  padding: 0 5px;
-}
-
-.c14:hover .c4 {
-  color: #FFFFFF;
-}
-
-.c14 .c4 {
-  margin-left: 8px;
-  margin-right: 0px;
-  height: 16px;
-}
-
-.c14 .c4 svg {
-  margin-top: 0;
-}
-
-.c1 + .c14 {
-  margin-left: 0;
-}
-
-.c1 + .c14:focus {
-  margin-left: -3px;
-}
-
-.c1 + .c14 .c4 {
-  margin-left: 0;
-}
-
-.c15:hover .c4 {
-  color: #FFFFFF;
-}
-
-.c15 .c4 {
-  margin-left: 8px;
-  margin-right: 0px;
-  height: 16px;
-}
-
-.c15 .c4 svg {
-  margin-top: 0;
-}
-
-.c15,
-.c15 .c4 {
-  color: #FFFFFF;
-}
-
-.c1 + .c15 {
-  margin-left: 0;
-}
-
-.c1 + .c15:focus {
-  margin-left: -3px;
-}
-
-.c1 + .c15 .c4 {
-  margin-left: 0;
-}
-
-.c16:hover .c4 {
-  color: #FFFFFF;
-}
-
-.c16 .c4 {
-  margin-left: 8px;
-  margin-right: 0px;
-  height: 16px;
-}
-
-.c16 .c4 svg {
-  margin-top: 0;
-}
-
-.c1 + .c16 {
-  margin-left: 0;
-}
-
-.c1 + .c16:focus {
-  margin-left: -3px;
-}
-
-.c1 + .c16 .c4 {
-  margin-left: 0;
-}
-
-.c17:hover .c4 {
-  color: #FFFFFF;
-}
-
-.c17 .c4 {
-  margin-left: 8px;
-  margin-right: 0px;
-  height: 16px;
-}
-
-.c17 .c4 svg {
-  margin-top: 0;
-}
-
-.c17,
-.c17 .c4 {
-  color: #FFFFFF;
-}
-
-.c1 + .c17 {
-  margin-left: 0;
-}
-
-.c1 + .c17:focus {
-  margin-left: -3px;
-}
-
-.c1 + .c17 .c4 {
-  margin-left: 0;
-}
-
-.c18:hover .c4 {
-  color: #FFFFFF;
-}
-
-.c18 .c4 {
-  margin-left: 8px;
-  margin-right: 0px;
-  height: 16px;
-}
-
-.c18 .c4 svg {
-  margin-top: 0;
-}
-
-.c1 + .c18 {
-  margin-left: 0;
-}
-
-.c1 + .c18:focus {
-  margin-left: -3px;
-}
-
-.c1 + .c18 .c4 {
-  margin-left: 0;
-}
-
-.c19 .c4 {
-  margin-left: 8px;
-  margin-right: 0px;
-  height: 16px;
-}
-
-.c19 .c4 svg {
-  margin-top: 0;
-}
-
-.c1 + .c19 {
-  margin-left: 0;
-}
-
-.c1 + .c19 .c4 {
-  margin-left: 0;
-}
-
-.c20 .c4 {
-  margin-left: 8px;
-  margin-right: 0px;
-  height: 16px;
-}
-
-.c20 .c4 svg {
-  margin-top: 0;
-}
-
-.c1 + .c20 {
-  margin-left: 0;
-}
-
-.c1 + .c20 .c4 {
-  margin-left: 0;
-}
-
-.c21 .c1 {
+.c14 .c1 {
   background-color: #006045;
   border: 1px solid #006045;
   color: #FFFFFF;
@@ -1269,20 +720,19 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  text-align: left;
   z-index: 10;
 }
 
-.c21 .c1:focus,
-.c21 .c1:hover {
+.c14 .c1:focus,
+.c14 .c1:hover {
   background-color: #003F2E;
 }
 
-.c21 .c1 + .c27 .c1 {
+.c14 .c1 + .c17 .c1 {
   margin-top: 3px;
 }
 
-.c21 .c1 {
+.c14 .c1 {
   background-color: #1e499f;
   border: 1px solid #1e499f;
   color: #FFF;
@@ -1294,56 +744,12 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   padding: 0 18px;
 }
 
-.c21 .c1:focus,
-.c21 .c1:hover {
+.c14 .c1:focus,
+.c14 .c1:hover {
   background-color: #163777;
 }
 
-.c22 .c1 {
-  background-color: #006045;
-  border: 1px solid #006045;
-  color: #FFFFFF;
-  display: block;
-  margin-left: 0;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  min-width: 100%;
-  text-align: left;
-  z-index: 10;
-}
-
-.c22 .c1:focus,
-.c22 .c1:hover {
-  background-color: #003F2E;
-}
-
-.c22 .c1 + .c27 .c1 {
-  margin-top: 3px;
-}
-
-.c23 .c1 {
-  background-color: #005B9A;
-  border: 1px solid #005B9A;
-  color: #FFFFFF;
-  display: block;
-  margin-left: 0;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  min-width: 100%;
-  text-align: left;
-  z-index: 10;
-}
-
-.c23 .c1:focus,
-.c23 .c1:hover {
-  background-color: #004372;
-}
-
-.c23 .c1 + .c27 .c1 {
-  margin-top: 3px;
-}
-
-.c24 .c1 {
+.c15 .c1 {
   background-color: #006045;
   border: 1px solid #006045;
   color: #FFFFFF;
@@ -1355,54 +761,16 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   z-index: 10;
 }
 
-.c24 .c1:focus,
-.c24 .c1:hover {
+.c15 .c1:focus,
+.c15 .c1:hover {
   background-color: #003F2E;
 }
 
-.c24 .c1 + .c27 .c1 {
+.c15 .c1 + .c17 .c1 {
   margin-top: 3px;
 }
 
-.c24 .c1 {
-  background-color: #1e499f;
-  border: 1px solid #1e499f;
-  color: #FFF;
-  height: 31px;
-  -webkit-letter-spacing: 0;
-  -moz-letter-spacing: 0;
-  -ms-letter-spacing: 0;
-  letter-spacing: 0;
-  padding: 0 18px;
-}
-
-.c24 .c1:focus,
-.c24 .c1:hover {
-  background-color: #163777;
-}
-
-.c25 .c1 {
-  background-color: #006045;
-  border: 1px solid #006045;
-  color: #FFFFFF;
-  display: block;
-  margin-left: 0;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  min-width: 100%;
-  z-index: 10;
-}
-
-.c25 .c1:focus,
-.c25 .c1:hover {
-  background-color: #003F2E;
-}
-
-.c25 .c1 + .c27 .c1 {
-  margin-top: 3px;
-}
-
-.c26 .c1 {
+.c16 .c1 {
   background-color: #005B9A;
   border: 1px solid #005B9A;
   color: #FFFFFF;
@@ -1414,12 +782,12 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   z-index: 10;
 }
 
-.c26 .c1:focus,
-.c26 .c1:hover {
+.c16 .c1:focus,
+.c16 .c1:hover {
   background-color: #004372;
 }
 
-.c26 .c1 + .c27 .c1 {
+.c16 .c1 + .c17 .c1 {
   margin-top: 3px;
 }
 
@@ -1442,6 +810,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
     onTouchStart={[Function]}
     role="button"
     size="medium"
+    type="button"
   >
     <span>
       <span

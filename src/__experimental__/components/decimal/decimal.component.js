@@ -1,30 +1,216 @@
+/* eslint-disable react/no-did-update-set-state */
 import React from 'react';
 import PropTypes from 'prop-types';
+import invariant from 'invariant';
+import StyledWiggle from './decimal.style';
 import Textbox from '../textbox';
 import I18nHelper from '../../../utils/helpers/i18n';
-import Logger from '../../../utils/logger';
+import Events from '../../../utils/helpers/events';
 
 class Decimal extends React.Component {
-  state = {
-    value: this.props.defaultValue
+  static maxPrecision = 15
+
+  defaultValue = this.props.allowEmptyValue ? '' : '0.00'
+
+  constructor(props) {
+    super(props);
+
+    const isControlled = this.isControlled();
+    const value = isControlled ? this.getSafeValueProp(true) : (this.props.defaultValue || this.defaultValue);
+
+    this.state = {
+      value,
+      visibleValue: this.formatValue(value),
+      isControlled,
+      isAnimating: false
+    };
   }
 
-  input = null;
+  componentDidUpdate(prevProps, prevState) {
+    const message = 'Input elements should not switch from uncontrolled to controlled (or vice versa). '
+    + 'Decide between using a controlled or uncontrolled input element for the lifetime of the component';
+    const isControlled = this.isControlled();
+    invariant(this.state.isControlled === isControlled, message);
 
-  // Create ref to document for tests
-  _document = document;
+    if (isControlled) {
+      const valueProp = this.getSafeValueProp();
+      if (valueProp !== prevState.value) {
+        const safeVisibleValue = valueProp === '-' ? this.formatValue(this.defaultValue) : this.formatValue(valueProp);
+        this.setState({
+          value: valueProp,
+          visibleValue: safeVisibleValue
+        });
+      }
+    }
 
-  isControlled = this.props.value !== undefined
+    if (prevProps.precision !== this.props.precision) {
+      this.setState((localPreviousState) => {
+        const visibleValue = this.formatValue(localPreviousState.value);
+        return {
+          value: this.toStandardDecimal(visibleValue),
+          visibleValue
+        };
+      }, () => {
+        this.callOnChange();
+      });
+    }
+  }
 
-  getValue = () => {
-    const { value: propValue = '0.00' } = this.props;
-    const { value: stateValue = '0.00' } = this.state;
-    const value = this.isControlled ? propValue : stateValue;
+  startAnimation = () => {
+    if (!this.props.readOnly) {
+      this.setState({ isAnimating: true });
+    }
+  }
+
+  stopAnimation = () => this.setState({ isAnimating: false })
+
+  callOnChange = () => {
+    if (this.props.onChange) {
+      this.props.onChange(this.createEvent());
+    }
+  }
+
+  onChange = (ev) => {
+    const { target: { value } } = ev;
+    this.setState({ value: this.toStandardDecimal(value), visibleValue: value }, () => {
+      this.callOnChange();
+    });
+  }
+
+  onPaste = (ev) => {
+    const value = this.replace(ev);
+    const isValid = this.isValidDecimal(value);
+    if (!isValid) {
+      ev.preventDefault();
+    }
+  }
+
+  onKeyPress = (ev) => {
+    // We're checking to see if the proposed change is valid, if not we block the user input
+    if (!this.isValidKeyPress(ev)) {
+      ev.preventDefault();
+    }
+    if (this.props.onKeyPress) {
+      this.props.onKeyPress(ev);
+    }
+  }
+
+  isValidKeyPress = (ev) => {
+    const { delimiter, separator } = I18nHelper.format();
+
+    if (Events.isNumberKey(ev) || ev.key === delimiter || ev.key === separator || Events.isDeletingKey(ev)) {
+      return this.isValidDecimal(this.replace(ev));
+    }
+
+    if (ev.ctrlKey || ev.metaKey) {
+      // user is doing some browser related task, we don't want to interfere with that.
+      // Command is metaKey in Safari, but ctrlKey in all other browsers
+      // Windows key is metaKey also
+      // we do want to check paste, we do that onPaste
+      return true;
+    }
+
+    if (Events.isMinusKey(ev) && ev.target.selectionStart === 0) {
+      // user is entering a negative symbol at the start of the number
+      return true;
+    }
+
+    this.startAnimation();
+    return false;
+  }
+
+  onBlur = () => {
+    let shouldCallOnChange = false;
+    this.setState(({ value, visibleValue }) => {
+      if (!visibleValue || visibleValue === '-') {
+        shouldCallOnChange = value !== this.defaultValue;
+        return {
+          value: this.defaultValue,
+          visibleValue: this.formatValue(this.defaultValue)
+        };
+      }
+      return {
+        visibleValue: this.formatValue(value)
+      };
+    }, () => {
+      if (shouldCallOnChange) {
+        this.callOnChange();
+      }
+      if (this.props.onBlur) {
+        this.props.onBlur(this.createEvent());
+      }
+    });
+  }
+
+  createEvent = () => {
+    const standardVisible = this.toStandardDecimal(this.state.visibleValue);
+    const formattedValue = this.isNaN(standardVisible) ? this.state.visibleValue : this.formatValue(standardVisible);
+    return {
+      target: {
+        name: this.props.name,
+        id: this.props.id,
+        value: {
+          rawValue: this.state.value,
+          formattedValue
+        }
+      }
+    };
+  }
+
+  /**
+   * Determine if the component is controlled at the time of call
+   */
+  isControlled () {
+    return this.props.value !== undefined;
+  }
+
+  isNaN = (value) => {
+    return Number.isNaN(Number(value));
+  }
+
+  /**
+   * Validate the user input
+   */
+  isValidDecimal = (value) => {
+    const { precision } = this.props;
+    const format = I18nHelper.format();
+    const delimiter = `\\${format.delimiter}`;
+    const separator = `\\${format.separator}`;
+    const validDecimalMatcher = new RegExp(`^[-]?[\\d${delimiter}]*[${separator}]?\\d{0,${precision}}?$`);
+    const isValid = validDecimalMatcher.test(value);
+    if (!isValid) {
+      this.startAnimation();
+    }
+    return isValid;
+  }
+
+  getSafeValueProp = (isInitialValue) => {
+    const { value, allowEmptyValue } = this.props;
+    // We're intentionally preventing the use of number values to help prevent any unintentional rounding issues
+    invariant(typeof value === 'string', 'Decimal `value` prop must be a string');
+
+    if (isInitialValue && !allowEmptyValue) {
+      invariant(value !== '', 'Decimal `value` must not be an empty string. Please use `allowEmptyValue` or `0.00`');
+    }
     return value;
   }
 
-  getUndelimitedValue = () => {
-    const value = this.getValue();
+  getSafePrecisionProp = () => {
+    const {
+      precision
+    } = this.props;
+
+    const lessThanOrEqual = precision <= Decimal.maxPrecision;
+    const positive = precision >= 0;
+    const isNumber = Number.isInteger(precision);
+    invariant(isNumber, 'Decimal `precision` prop should be a number');
+    invariant(lessThanOrEqual, 'Decimal `precision` prop cannot be greater than %s', Decimal.maxPrecision);
+    invariant(positive, 'Decimal `precision` prop cannot be negative');
+
+    return precision;
+  }
+
+  removeDelimiters = (value) => {
     const format = I18nHelper.format();
     const delimiter = `\\${format.delimiter}`;
     const delimiterMatcher = new RegExp(`[${delimiter}]*`, 'g');
@@ -32,99 +218,69 @@ class Decimal extends React.Component {
     return noDelimiters;
   }
 
-  formatValue = () => {
-    const value = this.getValue();
-
-    const { input } = this;
-
-    // Return unformatted value if component has not mounted
-    if (!input) {
+  /**
+   * Format a user defined value
+   */
+  formatValue = (value) => {
+    invariant(!this.isNaN(value), `The supplied decimal (${value}) is not a number`);
+    if (value === '') {
       return value;
     }
-    // Return unformatted value if input is being used
-    if (input && this._document.activeElement === input.current) {
-      return value;
-    }
-
-    // Only format value if input is not active
-    // Strip delimiters otherwise formatDecimal Helper goes nuts
-    const noDelimiters = this.getUndelimitedValue();
-
     return I18nHelper.formatDecimal(
-      noDelimiters,
-      this.validatePrecision()
+      value,
+      this.getSafePrecisionProp()
     );
   }
 
-  validatePrecision = () => {
-    const {
-      precision,
-      maxPrecision
-    } = this.props;
+  /**
+   * Perform a string replacement on the input so we can see what the value will be after the change
+   * This allows us to prevent the user input if it is invalid
+   */
+  replace = (ev) => {
+    const { target: { selectionStart, selectionEnd, value }, clipboardData, type } = ev;
+    let { key: change } = ev;
 
-    if (precision > maxPrecision) {
-      Logger.warn(`Precision cannot be greater than ${maxPrecision}`);
-      return maxPrecision;
+    if (type === 'paste') {
+      change = clipboardData.getData('text/plain');
     }
 
-    if (precision === '' || precision < 0) {
-      return Decimal.defaultProps.precision;
+    if (Events.isDeletingKey(ev)) {
+      change = '';
     }
+    return (
+      value.substring(0, selectionStart) + change + value.substring(selectionEnd)
+    );
+  };
 
-    return precision;
-  }
-
-  isValidDecimal = (value) => {
-    const { precision } = this.props;
-    const format = I18nHelper.format();
-    const delimiter = `\\${format.delimiter}`;
-    const seperator = `\\${format.separator}`;
-    const validDecimalMatcher = new RegExp(`^[-]?[\\d${delimiter}]*[${seperator}]?\\d{0,${precision}}?$`);
-
-    return validDecimalMatcher.test(value);
-  }
-
-  onChange = (ev) => {
-    const { target } = ev;
-    const { value, selectionEnd } = ev.target;
-    const isValid = this.isValidDecimal(value);
-
-    if (isValid) {
-      if (!this.isControlled) {
-        this.setState({ value });
-      }
-      this.props.onChange(ev);
-    } else {
-      const newPosition = selectionEnd - 1;
-      setTimeout(() => {
-        target.setSelectionRange(newPosition, newPosition);
-      });
-    }
-  }
-
-  onBlur = (ev) => {
-    this.forceUpdate();
-    if (this.props.onBlur) {
-      this.props.onBlur(ev, this.getUndelimitedValue());
-    }
-  }
-
-  dataComponent = () => {
-    return {
-      'data-component': 'decimal'
-    };
+  /**
+   * Convert raw input to a standard decimal format
+   */
+  toStandardDecimal = (i18nValue) => {
+    const withoutDelimiters = this.removeDelimiters(i18nValue);
+    const { separator } = I18nHelper.format();
+    return withoutDelimiters.replace(new RegExp(`\\${separator}`, 'g'), '.');
   }
 
   render() {
+    const { name, defaultValue, ...rest } = this.props;
     return (
-      <Textbox
-        { ...this.props }
-        onChange={ this.onChange }
-        onBlur={ this.onBlur }
-        value={ this.formatValue() }
-        inputRef={ (input) => { this.input = input; } }
-        { ...this.dataComponent() }
-      />
+      <StyledWiggle isAnimating={ this.state.isAnimating } onAnimationEnd={ this.stopAnimation }>
+        <Textbox
+          { ...rest }
+          onKeyPress={ this.onKeyPress }
+          onChange={ this.onChange }
+          onPaste={ this.onPaste }
+          onBlur={ this.onBlur }
+          value={ this.state.visibleValue }
+          data-component='decimal'
+        />
+        <input
+          name={ name }
+          value={ this.toStandardDecimal(this.state.visibleValue) }
+          type='hidden'
+          data-component='hidden-input'
+        />
+      </StyledWiggle>
     );
   }
 }
@@ -143,6 +299,10 @@ Decimal.propTypes = {
    */
   inputWidth: PropTypes.number,
   /**
+   * If true, the component will be read-only
+   */
+  readOnly: PropTypes.bool,
+  /**
    * The default value of the input if it's meant to be used as an uncontrolled component
    */
   defaultValue: PropTypes.string,
@@ -159,15 +319,27 @@ Decimal.propTypes = {
    */
   onBlur: PropTypes.func,
   /**
-   * Maximum value for precision
+   * Handler for key press event
    */
-  maxPrecision: PropTypes.number
+  onKeyPress: PropTypes.func,
+  /**
+   * The input name
+   */
+  name: PropTypes.string,
+  /**
+   * The input id
+   */
+  id: PropTypes.string,
+  /**
+   * Allow an empty value instead of defaulting to 0.00
+   */
+  allowEmptyValue: PropTypes.bool
 };
 
 Decimal.defaultProps = {
   align: 'right',
   precision: 2,
-  maxPrecision: 15
+  allowEmptyValue: false
 };
 
 export default Decimal;

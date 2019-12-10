@@ -66,6 +66,11 @@ describe('Toast', () => {
       expect(wrapper.find('.exampleClass')).toHaveLength(1);
     });
 
+    it('renders the component with correct id', () => {
+      const wrapper = mount(<Toast open id='toast-id' />);
+      expect(wrapper.find('#toast-id')).toHaveLength(1);
+    });
+
     it('renders child content', () => {
       const wrapper = shallow(<Toast>children</Toast>);
       expect(wrapper.contains('children')).toBeTruthy();

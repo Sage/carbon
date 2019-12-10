@@ -193,9 +193,9 @@ const InputValidation = (ComposedComponent) => {
      * @method componentWillReceiveProps
      * @return {void}
      */
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
       // call the components super method if it exists
-      if (super.componentWillReceiveProps) { super.componentWillReceiveProps(nextProps); }
+      if (super.UNSAFE_componentWillReceiveProps) { super.UNSAFE_componentWillReceiveProps(nextProps); }
 
       // if disabling the field, reset the validation on it
       if (nextProps.disabled && this.messageExists()) {
