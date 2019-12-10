@@ -14,6 +14,11 @@ I18n.translations['fr-ch'] = {
       delimiter: '\'',
       separator: '.'
     }
+  },
+  date: {
+    formats: {
+      javascript: 'DD.MM.YYYY'
+    }
   }
 };
 
