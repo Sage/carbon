@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
@@ -15,7 +15,7 @@ describe('Confirm', () => {
     onCancel = jasmine.createSpy('cancel');
     onConfirm = jasmine.createSpy('confirm');
 
-    wrapper = shallow(
+    wrapper = mount(
       <Confirm
         open
         onCancel={ onCancel }

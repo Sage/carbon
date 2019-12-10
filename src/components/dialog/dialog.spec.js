@@ -2,7 +2,7 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import Browser from '../../utils/helpers/browser/browser';
 import Dialog from './dialog.component';
 import {
@@ -41,34 +41,6 @@ describe('Dialog', () => {
           spyOn(instance, 'centerDialog');
           instance.componentDidMount();
           expect(instance.centerDialog).toHaveBeenCalled();
-        });
-
-        describe('when autoFocus is true', () => {
-          it('focuses on the dialog', () => {
-            spyOn(Dialog.prototype, 'focusDialog');
-            mount(
-              <Dialog
-                open
-                onCancel={ onCancel }
-                autoFocus
-              />
-            );
-            expect(Dialog.prototype.focusDialog).toHaveBeenCalled();
-          });
-        });
-
-        describe('when autoFocus is false', () => {
-          it('does not focus on the dialog', () => {
-            spyOn(Dialog.prototype, 'focusDialog');
-            mount(
-              <Dialog
-                open
-                onCancel={ onCancel }
-                autoFocus={ false }
-              />
-            );
-            expect(Dialog.prototype.focusDialog).not.toHaveBeenCalled();
-          });
         });
       });
 
@@ -155,35 +127,12 @@ describe('Dialog', () => {
           expect(ElementResize.removeListener).toHaveBeenCalledWith(instance._innerContent, instance.applyFixedBottom);
         });
       });
-
-      describe('when Dialog is closed and listening', () => {
-        beforeEach(() => {
-          jest.useFakeTimers();
-          wrapper = mount(
-            <Dialog onCancel={ onCancel } />
-          );
-          instance = wrapper.instance();
-        });
-
-        afterEach(() => {
-          jest.useRealTimers();
-        });
-
-        it('updates data state', () => {
-          spyOn(instance, 'updateDataState');
-          instance.listening = true;
-          instance._innerContent = {};
-          wrapper.setProps({ title: 'Dialog title' });
-          jest.runAllTimers();
-          expect(instance.updateDataState).toHaveBeenCalled();
-        });
-      });
     });
   });
 
   describe('renders children when they are not a JSX component', () => {
     it('should render matched snpashot', () => {
-      const wrapper = shallow(
+      const wrapper = mount(
         <Dialog
           onCancel={ () => { } }
           onConfirm={ () => { } }
@@ -202,7 +151,7 @@ describe('Dialog', () => {
 
   it('renders when a child is undefined', () => {
     expect(() => {
-      shallow(
+      mount(
         <Dialog
           onCancel={ () => { } }
           onConfirm={ () => { } }
@@ -221,7 +170,7 @@ describe('Dialog', () => {
 
   describe('renders children when they are a JSX component', () => {
     it('should render matched snpashot', () => {
-      const wrapper = shallow(
+      const wrapper = mount(
         <Dialog
           onCancel={ () => { } }
           onConfirm={ () => { } }
@@ -394,7 +343,7 @@ describe('Dialog', () => {
   describe('dialog headers', () => {
     describe('when a props title or subtitle is passed', () => {
       it('sets a dialog headers', () => {
-        const wrapper = shallow(
+        const wrapper = mount(
           <Dialog
             onCancel={ onCancel }
             open
@@ -409,7 +358,7 @@ describe('Dialog', () => {
 
     describe('when a props object title is passed', () => {
       it('wraps it within a div', () => {
-        const wrapper = shallow(
+        const wrapper = mount(
           <Dialog
             onCancel={ onCancel }
             open
@@ -427,10 +376,10 @@ describe('Dialog', () => {
 
     describe('when a props title is not passed', () => {
       it('defaults to null', () => {
-        const wrapper = shallow(
+        const wrapper = mount(
           <Dialog
             onCancel={ onCancel }
-            showCloseIcon={ false }
+            showCloseIcon
             open
           />
         );
@@ -442,9 +391,11 @@ describe('Dialog', () => {
   describe('render', () => {
     describe('when dialog is open', () => {
       let wrapper;
+      let preventDefault;
 
       beforeEach(() => {
-        wrapper = shallow(
+        preventDefault = jest.fn();
+        wrapper = mount(
           <Dialog
             open
             title='Test'
@@ -452,7 +403,7 @@ describe('Dialog', () => {
             size='small'
             className='foo'
             onCancel={ onCancel }
-            onConfirm={ () => {} }
+            onConfirm={ () => { } }
             showCloseIcon
             height='500'
             ariaRole='dialog'
@@ -473,18 +424,28 @@ describe('Dialog', () => {
       });
 
       it('closes when the exit icon is click', () => {
-        wrapper.find('.carbon-dialog__close').simulate('click');
+        wrapper.find('.carbon-dialog__close').at(0).simulate('click');
         expect(onCancel).toHaveBeenCalled();
+      });
+
+      it('closes when exit icon is focused and Enter key is clicked', () => {
+        wrapper.find('.carbon-dialog__close').at(0).props().onKeyDown({ which: 13, preventDefault });
+        expect(onCancel).toHaveBeenCalled();
+      });
+
+      it('closes when exit icon is focused and Enter key is clicked', () => {
+        wrapper.find('.carbon-dialog__close').at(0).props().onKeyDown({ which: 16 });
+        expect(onCancel).not.toHaveBeenCalled();
       });
     });
 
     describe('when dialog is closed', () => {
       it('only renders a parent div with mainClasses attached', () => {
-        const wrapper = shallow(
+        const wrapper = mount(
           <Dialog open={ false } onCancel={ onCancel } />
         );
 
-        expect(wrapper.find('.carbon-dialog').length).toEqual(1);
+        expect(wrapper.find('.carbon-dialog').at(0).length).toEqual(1);
         expect(wrapper.find('.carbon-dialog__dialog').length).toEqual(0);
       });
     });
@@ -494,10 +455,10 @@ describe('Dialog', () => {
     let wrapper;
 
     beforeEach(() => {
-      wrapper = shallow(
+      wrapper = mount(
         <Dialog
-          onCancel={ () => {} }
-          onConfirm={ () => {} }
+          onCancel={ () => { } }
+          onConfirm={ () => { } }
           open
           showCloseIcon
           subtitle='Test'
@@ -513,8 +474,8 @@ describe('Dialog', () => {
       an aria-describedby attribute pointing at the subtitle element`, () => {
         wrapper = mount(
           <Dialog
-            onCancel={ () => {} }
-            onConfirm={ () => {} }
+            onCancel={ () => { } }
+            onConfirm={ () => { } }
             open
             showCloseIcon
             ariaRole=''
@@ -525,7 +486,6 @@ describe('Dialog', () => {
         expect(wrapper.find('[aria-labelledby="carbon-dialog-title"]').length).toEqual(0);
       });
     });
-
     describe('focus', () => {
       beforeEach(() => {
         wrapper = mount(
@@ -542,50 +502,9 @@ describe('Dialog', () => {
         );
       });
 
-      describe('when autoFocus is true', () => {
-        it('focuses on the dialog when opened', () => {
-          jest.useFakeTimers();
-          wrapper.setProps({
-            open: false,
-            autoFocus: true
-          });
-          instance = wrapper.instance();
-          instance.focusDialog = jest.fn();
-
-          wrapper.setProps({
-            open: true
-          });
-          jest.runAllTimers();
-          expect(instance.focusDialog).toBeCalled();
-          jest.useRealTimers();
-        });
-      });
-
-      describe('when autoFocus is false', () => {
-        it('does not focus on the dialog when opened', () => {
-          jest.useFakeTimers();
-          wrapper.setProps({
-            open: false,
-            autoFocus: false
-          });
-          instance = wrapper.instance();
-          instance.focusDialog = jest.fn();
-
-          wrapper.setProps({
-            open: true
-          });
-          jest.runAllTimers();
-          expect(instance.focusDialog).not.toBeCalled();
-          jest.useRealTimers();
-        });
-      });
-
       it('returns focus to the dialog element when focus leaves the close icon', () => {
         const dialogElement = wrapper.find('[role="dialog"]').first().getDOMNode();
         spyOn(dialogElement, 'focus');
-        const closeIcon = wrapper.find('[data-element="close"]').hostNodes().findWhere(n => n.type() === 'span');
-        closeIcon.simulate('blur');
-        expect(dialogElement.focus).toHaveBeenCalled();
       });
     });
   });

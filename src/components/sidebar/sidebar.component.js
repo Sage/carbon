@@ -5,6 +5,8 @@ import Icon from '../icon';
 import Modal from '../modal';
 import { SidebarStyle, SidebarCloseStyle } from './sidebar.style';
 import './sidebar.scss';
+import Events from '../../utils/helpers/events/events';
+import focusTrap from '../../utils/helpers/focus-trap';
 
 class Sidebar extends Modal {
   /** Returns classes for the component. */
@@ -13,6 +15,15 @@ class Sidebar extends Modal {
       'carbon-sidebar',
       this.props.className
     );
+  }
+
+  onButtonKeyDown = (ev) => {
+    if (Events.isEnterKey(ev) || Events.isSpaceKey(ev)) {
+      ev.preventDefault();
+      this.props.onCancel();
+    }
+
+    return null;
   }
 
   /** Returns the markup for the close icon. */
@@ -25,11 +36,26 @@ class Sidebar extends Modal {
             data-element='close'
             onClick={ this.props.onCancel }
             type='close'
+            tabIndex='0'
+            role='button'
+            onKeyDown={ this.onButtonKeyDown }
           />
         </SidebarCloseStyle>
       );
     }
     return null;
+  }
+
+  handleOpen() {
+    super.handleOpen();
+    if (!this.props.enableBackgroundUI) {
+      this.removeFocusTrap = focusTrap(this.sideBarRef);
+    }
+  }
+
+  handleClose() {
+    super.handleClose();
+    this.removeFocusTrap();
   }
 
   componentTags(props) {
@@ -44,12 +70,13 @@ class Sidebar extends Modal {
   get modalHTML() {
     return (
       <SidebarStyle
+        ref={ (element) => { this.sideBarRef = element; } }
         position={ this.props.position }
         size={ this.props.size }
         data-element='sidebar'
       >
-        { this.closeButton }
-        { this.props.children }
+        {this.closeButton}
+        {this.props.children}
       </SidebarStyle>
     );
   }

@@ -77,7 +77,12 @@ function makeButtonStory(name, themeSelector) {
           onCancel={ onCancel }
         >
           <SidebarHeader>Header Content</SidebarHeader>
+          <div>
+            <Button as='primary'>Test</Button>
+            <Button as='secondary'>Last</Button>
+          </div>
           Main Content
+
         </Sidebar>
       </State>
     );
