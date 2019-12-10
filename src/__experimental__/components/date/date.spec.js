@@ -164,6 +164,15 @@ describe('Date', () => {
       simulateFocusOnInput(wrapper);
     });
 
+    describe('and `onKeyDown` prop is passed', () => {
+      it('then the `onKeyDown` prop should be invoked', () => {
+        const onKeyDown = jest.fn();
+        wrapper.setProps({ onKeyDown });
+        simulateOnKeyDown(wrapper, 117);
+        expect(onKeyDown).toHaveBeenCalled();
+      });
+    });
+
     describe('and with the "Tab" key', () => {
       it('then the "DatePicker" should be closed', () => {
         expect(wrapper.find(DatePicker).exists()).toBe(true);
