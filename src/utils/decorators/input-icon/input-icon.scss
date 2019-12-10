@@ -97,6 +97,8 @@
   }
 
   &.carbon-input-icon--error {
-    color: $error;
+    color: $white;
+    background-color: $red-dark;
+    border-color: $red-dark;
   }
 }
