@@ -43,6 +43,12 @@ const UncontrolledCheckbox = () => {
                   onChange={ onChange }
                   onBlur={ onBlur }
                 />
+                <Checkbox
+                  name='uncontrolled_checkbox_group_four'
+                  label='label four (no value attribute)'
+                  onChange={ onChange }
+                  onBlur={ onBlur }
+                />
               </CheckboxGroup>
             </div>
           </React.Fragment>
