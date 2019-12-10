@@ -3,6 +3,7 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import DateInput, { defaultDateFormat, BaseDateInput } from './date.component';
+import InputIconToggle from '../input-icon-toggle';
 import DatePicker from './date-picker.component';
 import Textbox from '../textbox';
 import StyledDateInput from './date.style';
@@ -566,6 +567,16 @@ describe('Date', () => {
 
       expect(wrapper.find(BaseDateInput).state().validationsArray.length).toEqual(2);
     });
+  });
+});
+
+describe('when the calendar icon is clicked and the picker is open', () => {
+  it('closes the picker', () => {
+    const wrapper = render({});
+    const instance = wrapper.find(BaseDateInput).instance();
+    instance.setState({ shouldPickerOpen: true });
+    wrapper.find(InputIconToggle).props().onClick();
+    expect(wrapper.find(DatePicker).exists()).toBe(false);
   });
 });
 

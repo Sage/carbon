@@ -36,7 +36,8 @@ class BaseDateInput extends React.Component {
     lastValidEventValues: {
       formattedValue: this.initialVisibleValue,
       rawValue: isoFormattedValueString(this.initialVisibleValue)
-    }
+    },
+    shouldPickerOpen: false
   };
 
   componentDidMount() {
@@ -191,11 +192,27 @@ class BaseDateInput extends React.Component {
       this.isOpening = false;
       return;
     }
+
     document.removeEventListener('click', this.closeDatePicker);
-    this.setState({ isDatePickerOpen: false }, () => {
+    this.setState({ isDatePickerOpen: false, shouldPickerOpen: false }, () => {
       this.isBlurBlocked = false;
       if (this.input !== document.activeElement) {
         this.handleBlur();
+      }
+    });
+  };
+
+  handleClick = () => {
+    this.setState(_prevState => ({
+      shouldPickerOpen: !_prevState.shouldPickerOpen
+    }), () => {
+      if (!this.state.shouldPickerOpen) {
+        this.inputFocusedViaPicker = false;
+        this.closeDatePicker();
+        console.log('here');
+      } else {
+        this.isBlurBlocked = true;
+        this.openDatePicker();
       }
     });
   };
@@ -314,9 +331,7 @@ class BaseDateInput extends React.Component {
   markCurrentDatepicker = () => {
     if (this.props.disabled || this.props.readOnly) return;
     this.isOpening = true;
-    this.inputFocusedViaPicker = false;
-    this.isBlurBlocked = true;
-    this.openDatePicker();
+    this.handleClick();
   }
 
   hiddenValue = () => {
