@@ -56,7 +56,11 @@ class Decimal extends React.Component {
     }
   }
 
-  startAnimation = () => this.setState({ isAnimating: true })
+  startAnimation = () => {
+    if (!this.props.readOnly) {
+      this.setState({ isAnimating: true });
+    }
+  }
 
   stopAnimation = () => this.setState({ isAnimating: false })
 
@@ -294,6 +298,10 @@ Decimal.propTypes = {
    * The width of the input as a percentage
    */
   inputWidth: PropTypes.number,
+  /**
+   * If true, the component will be read-only
+   */
+  readOnly: PropTypes.bool,
   /**
    * The default value of the input if it's meant to be used as an uncontrolled component
    */
