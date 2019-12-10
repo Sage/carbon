@@ -338,6 +338,7 @@ class FormWithoutValidations extends React.Component {
         key='save'
         errors={ this.props.errorCount }
         warnings={ this.props.warningCount }
+        buttonAlignedRight={ this.props.buttonAlign === 'right'}
       >
         { this.saveButton() }
       </FormSummary>

@@ -16,6 +16,10 @@ const StyledFormSummary = styled.div`
     background-color: ${theme.form.invalid};
     margin-left: 15px;
   `}
+
+  ${({ buttonAlignedRight }) => !buttonAlignedRight && css` 
+    margin-left: 15px;
+  `}  
 `;
 
 export const StyledInternalSummary = styled.span`
@@ -44,7 +48,8 @@ StyledFormSummary.defaultProps = {
 
 StyledFormSummary.propTypes = {
   theme: PropTypes.object,
-  isInvalid: PropTypes.bool
+  isInvalid: PropTypes.bool,
+  buttonAlignedRight: PropTypes.bool
 };
 
 StyledInternalSummary.defaultProps = {
