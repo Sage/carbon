@@ -570,12 +570,14 @@ describe('Date', () => {
   });
 });
 
-describe('when the calendar icon is clicked and the picker is open', () => {
-  it('closes the picker', () => {
+describe('when the calendar icon is clicked', () => {
+  it('opens the picker, if it is not already open, and closes it on the next click', () => {
     const wrapper = render({});
-    const instance = wrapper.find(BaseDateInput).instance();
-    instance.setState({ shouldPickerOpen: true });
     wrapper.find(InputIconToggle).props().onClick();
+    wrapper.update();
+    expect(wrapper.find(DatePicker).exists()).toBe(true);
+    wrapper.find(InputIconToggle).props().onClick();
+    wrapper.update();
     expect(wrapper.find(DatePicker).exists()).toBe(false);
   });
 });

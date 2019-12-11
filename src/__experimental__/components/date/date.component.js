@@ -203,16 +203,16 @@ class BaseDateInput extends React.Component {
   };
 
   handleClick = () => {
-    this.setState(_prevState => ({
-      shouldPickerOpen: !_prevState.shouldPickerOpen
+    this.setState(({ shouldPickerOpen }) => ({
+      shouldPickerOpen: !shouldPickerOpen
     }), () => {
-      if (!this.state.shouldPickerOpen) {
-        this.inputFocusedViaPicker = false;
-        this.closeDatePicker();
-        console.log('here');
-      } else {
+      if (this.state.shouldPickerOpen) {
         this.isBlurBlocked = true;
         this.openDatePicker();
+      } else {
+        this.inputFocusedViaPicker = false;
+        this.isOpening = false;
+        this.closeDatePicker();
       }
     });
   };
