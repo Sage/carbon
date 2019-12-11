@@ -35,6 +35,17 @@ const DateHelper = {
   },
 
   /**
+   * Determins if value length is valid
+   *
+   * @param {String} value - value to validate
+   * @param {Integer} valueLength - the number that determines valid length
+   * @return {Boolean}
+   */
+  isValidLength: (value, validLength = 0) => {
+    return (value.length >= validLength);
+  },
+
+  /**
    * Formats the given value to a specified format
    *
    * @method formatValue
