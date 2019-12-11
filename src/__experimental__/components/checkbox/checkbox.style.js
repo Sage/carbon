@@ -46,6 +46,7 @@ const CheckboxStyle = styled.div`
     ${StyledCheckableInputSvgWrapper},
     svg {
       box-sizing: border-box;
+      min-width: 16px;
       width: 16px;
     }
 
@@ -57,8 +58,9 @@ const CheckboxStyle = styled.div`
     }
 
     ${StyledLabel} {
-      padding: 0 6px;
+      padding-left: 6px;
       width: auto;
+      flex: 1 1 calc(100% - 28px);
     }
 
     ${StyledFieldHelp} {
@@ -131,6 +133,10 @@ const CheckboxStyle = styled.div`
       ${StyledFieldHelp} {
         margin: 0;
       }
+
+      ${StyledLabel} {
+        flex: 0 1 auto;
+      }
     `}
 
     ${inputWidth !== undefined && inputWidth !== 0 && `
@@ -139,15 +145,28 @@ const CheckboxStyle = styled.div`
       }
     `}
 
-    ${reverse && `
+    ${reverse && css`
       ${StyledFieldHelp} {
         margin-left: 0;
+        padding-left: 0;
       }
+
+      ${StyledLabel} {
+        padding-left: 0;
+        flex: 0 1 auto;
+      }
+
+      ${fieldHelpInline && css`
+        ${StyledCheckableInput} {
+          margin-right: 8px;
+        }
+
+        ${StyledFieldHelp} {
+          padding-left: 6px;
+        }
+      `}
     `}
 
-    ${reverse && fieldHelpInline && `
-      ${StyledCheckableInput} { margin-right: 8px; }
-    `}
 
     ${styledCheckBoxClassic}
   `}
@@ -172,7 +191,11 @@ const StyledCheckboxGroup = styled.div`
   ${StyledIcon}::before {
     font-size: 16px;
   }
-  
+
+  ${StyledLabel} {
+    margin-top: -2px;
+  }
+
   & ${CheckboxStyle} {
     padding-top: 12px;
 
@@ -186,10 +209,7 @@ const StyledCheckboxGroup = styled.div`
   & > ${StyledFormField} {
     & > ${StyledLabel} {
       padding-bottom: 4px;
-
-      label {
-        vertical-align: middle;
-      }
+      vertical-align: middle;
 
       ${StyledValidationIcon} {
         display: inline-block;

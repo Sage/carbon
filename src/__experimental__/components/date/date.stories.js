@@ -51,6 +51,7 @@ function makeStory(name, themeSelector) {
         value={ store.get('value') }
         onChange={ setValue }
         onBlur={ ev => action('onBlur')(ev) }
+        onKeyDown={ ev => action('onKeyDown')(ev) }
         allowEmptyValue={ allowEmptyValue }
       />
     );
@@ -71,7 +72,6 @@ function makeStory(name, themeSelector) {
 }
 
 function makeValidationsStory(name, themeSelector) {
-  const allowEmptyValue = boolean('allowEmptyValue', false);
   const component = () => {
     return (
       <State store={ store }>
@@ -83,7 +83,7 @@ function makeValidationsStory(name, themeSelector) {
           info={ [isNotThirdApr] }
           onChange={ setValue }
           onBlur={ ev => action('onBlur')(ev) }
-          allowEmptyValue={ allowEmptyValue }
+          allowEmptyValue={ boolean('allowEmptyValue', false) }
         />
       </State>
     );

@@ -1,0 +1,1 @@
+Bug Fixes: "Fixes issue with wiggle animation starting even when component has readOnly prop passed as true. (Component: Decimal)"

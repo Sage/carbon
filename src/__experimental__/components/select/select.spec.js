@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
-import 'jest-styled-components';
 import Select from './select.component';
 import Option from './option.component';
 import { StyledSelect } from './select.style';
@@ -11,6 +10,7 @@ import classic from '../../../style/themes/classic';
 import StyledIcon from '../../../components/icon/icon.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import TextBox from '../textbox';
+import { Input } from '../input';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -108,6 +108,18 @@ describe('Select', () => {
       expect(renderWrapper({ state, type: shallow })).toMatchSnapshot();
     });
   });
+
+  describe.each(
+    [{ disabled: false, readOnly: false }, { disabled: true, readOnly: false }, { disabled: false, readOnly: true }]
+  )(
+    'the Select component', (props) => {
+      it(`renders the correct placeholder when disabled is ${props.disabled} and readOnly is ${props.readOnly}`, () => {
+        const canRenderPlaceholder = !props.disabled && !props.readOnly;
+        const wrapper = renderWrapper({ props });
+        expect(wrapper.find(Input).props().placeholder).toEqual(canRenderPlaceholder ? 'Please Select...' : '');
+      });
+    }
+  );
 
   describe('when multi-value', () => {
     it(`renders the the textbox with the following:
@@ -316,6 +328,12 @@ describe('Select', () => {
       expect(onFocus).toHaveBeenCalled();
     });
 
+    it('does not open the list if `preventFocusAutoOpen` prop is passed and set to true', () => {
+      const wrapper = renderWrapper({ props: { preventFocusAutoOpen: true } });
+      openList(wrapper);
+      expect(wrapper.state().open).toEqual(false);
+    });
+
     it('blocks blur on mouse enter of the list and unblocks on leaving the list', () => {
       const wrapper = openList(renderWrapper());
       expect(wrapper.instance().blurBlocked).toEqual(false);
@@ -357,6 +375,13 @@ describe('Select', () => {
   });
 
   describe('key events', () => {
+    it('invokes `onKeyDown` prop on keyDown event', () => {
+      const onKeyDown = jest.fn();
+      const wrapper = renderWrapper({ props: { onKeyDown } });
+      textboxOf(wrapper).find('input').simulate('keydown');
+      expect(onKeyDown).toHaveBeenCalled();
+    });
+
     it('unblocks blur on tab', () => {
       spyOn(Events, 'isTabKey').and.returnValue(true);
       const wrapper = renderWrapper();

@@ -164,6 +164,15 @@ describe('Date', () => {
       simulateFocusOnInput(wrapper);
     });
 
+    describe('and `onKeyDown` prop is passed', () => {
+      it('then the `onKeyDown` prop should be invoked', () => {
+        const onKeyDown = jest.fn();
+        wrapper.setProps({ onKeyDown });
+        simulateOnKeyDown(wrapper, 117);
+        expect(onKeyDown).toHaveBeenCalled();
+      });
+    });
+
     describe('and with the "Tab" key', () => {
       it('then the "DatePicker" should be closed', () => {
         expect(wrapper.find(DatePicker).exists()).toBe(true);
@@ -524,6 +533,7 @@ describe('Date', () => {
 
   describe('when additional validations are provided with the "validations" prop', () => {
     const mockValidationFunction = () => {};
+    const mockValidationFunction2 = () => {};
 
     describe('as a function', () => {
       it('then these validations should be passed with internal validations to the Textbox Component', () => {
@@ -539,6 +549,22 @@ describe('Date', () => {
         const { internalValidations } = wrapper.find(BaseDateInput).instance().props;
         expect(wrapper.find(Textbox).props().validations).toEqual([mockValidationFunction, ...internalValidations]);
       });
+    });
+
+    describe('when the validations update', () => {
+      it('appends the new validator to the validations array', () => {
+        wrapper = render({ validations: [mockValidationFunction] });
+        wrapper.setProps({ validations: [mockValidationFunction, mockValidationFunction2] });
+
+        expect(wrapper.find(BaseDateInput).state().validationsArray.length).toEqual(3);
+      });
+    });
+
+    it('updates the validation array in state when there is a difference', () => {
+      wrapper = render({ validations: [mockValidationFunction] });
+      wrapper.setProps({ validations: [mockValidationFunction2] });
+
+      expect(wrapper.find(BaseDateInput).state().validationsArray.length).toEqual(2);
     });
   });
 });

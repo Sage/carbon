@@ -2,6 +2,7 @@
 
 exports[`StyledDateInput renders correctly for default theme 1`] = `
 .c0 {
+  width: 100%;
   display: inline-block;
 }
 
@@ -24,6 +25,7 @@ exports[`StyledDateInput renders correctly for default theme 1`] = `
 
 exports[`StyledDateInput renders correctly for the "classic" theme 1`] = `
 .c0 {
+  width: 100%;
   display: inline-block;
 }
 

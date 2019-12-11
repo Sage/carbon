@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import PropTypes from 'prop-types';
 import { isElement } from 'react-is';
 import I18n from 'i18n-js';
@@ -31,6 +31,8 @@ class FormWithoutValidations extends React.Component {
   stickyListener = false; // prevents multiple listeners being added/ removed
 
   unsavedListener = false; // prevents multiple listeners being added/ removed
+
+  formFooterRef = createRef();
 
   /* Runs once the component has mounted. */
   componentDidMount() {
@@ -122,17 +124,10 @@ class FormWithoutValidations extends React.Component {
   checkStickyFooter = () => {
     if (!this._form) { return; }
 
-    let offsetTop = 0,
-        element = this._form;
+    const formHeight = (this._form.offsetTop + this._form.offsetHeight) - this._window.pageYOffset;
+    const footerHeight = this.formFooterRef.current.clientHeight;
 
-    while (element) {
-      offsetTop += element.offsetTop;
-      element = element.offsetParent;
-    }
-
-    const formHeight = (offsetTop + this._form.offsetHeight) - this._window.pageYOffset;
-
-    if (!this.state.stickyFooter && formHeight > this._window.innerHeight) {
+    if (!this.state.stickyFooter && formHeight - (footerHeight / 2) > this._window.innerHeight) {
       this.setState({ stickyFooter: true });
     } else if (this.state.stickyFooter && formHeight < this._window.innerHeight) {
       this.setState({ stickyFooter: false });
@@ -358,7 +353,7 @@ class FormWithoutValidations extends React.Component {
     }
 
     return (
-      <StyledFormFooter buttonAlign={ this.props.buttonAlign }>
+      <StyledFormFooter ref={ this.formFooterRef } buttonAlign={ this.props.buttonAlign }>
         <StyledResponsiveFooterWrapper
           buttonAlign={ this.props.buttonAlign }
           showSummary={ this.props.showSummary }

@@ -2,6 +2,7 @@
 
 exports[`StyledDateRange renders Date inputs correctly when the labels are inline 1`] = `
 .c2 {
+  width: 100%;
   display: inline-block;
 }
 
@@ -17,6 +18,7 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are inlin
 }
 
 .c3 .c1 {
+  width: auto;
   display: inline-block;
   vertical-align: bottom;
 }
@@ -26,6 +28,7 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are inlin
 }
 
 .c0 .c1 {
+  width: auto;
   display: inline-block;
   vertical-align: top;
 }
@@ -45,6 +48,7 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are inlin
 
 exports[`StyledDateRange renders Date inputs correctly when the labels are not inline 1`] = `
 .c2 {
+  width: 100%;
   display: inline-block;
 }
 
@@ -60,6 +64,7 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are not i
 }
 
 .c0 .c1 {
+  width: auto;
   display: inline-block;
   vertical-align: bottom;
 }
@@ -69,6 +74,7 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are not i
 }
 
 .c3 .c1 {
+  width: auto;
   display: inline-block;
   vertical-align: top;
 }

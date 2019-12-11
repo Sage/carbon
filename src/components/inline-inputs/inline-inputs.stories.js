@@ -16,21 +16,18 @@ InlineInputs.__docgenInfo = getDocGenInfo(
 
 const singleSelectStore = new Store({
   decimalValue: '0.00',
-  selectValue: {
-    value: '1',
-    text: 'Amber'
-  }
+  selectValue: '1'
 });
 
 const handleDecimalChange = (ev) => {
   singleSelectStore.set({
-    decimalValue: ev.target.value
+    decimalValue: ev.target.value.rawValue
   });
 };
 
 const handleSelectChange = (ev) => {
   singleSelectStore.set({
-    selectValue: ev.target.value
+    selectValue: ev.target.value[0].optionValue
   });
 };
 

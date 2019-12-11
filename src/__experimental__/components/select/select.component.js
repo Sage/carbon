@@ -76,7 +76,7 @@ class Select extends React.Component {
   // opens the dropdown and ensures the input has focus
   // (this fixes a bug in which rapidly clicking the label or dropdown icon would break the list open state)
   handleFocus = (ev) => {
-    this.openList();
+    if (!this.props.preventFocusAutoOpen) this.openList();
     if (this.props.onFocus) this.props.onFocus(ev);
   }
 
@@ -169,7 +169,7 @@ class Select extends React.Component {
 
   handleKeyDown = (ev) => {
     // order of event checking is important here!
-
+    if (this.props.onKeyDown) this.props.onKeyDown(ev);
     // if tab key then allow normal behaviour
     if (Events.isTabKey(ev)) {
       this.unblockBlur();
@@ -491,6 +491,8 @@ Select.propTypes = {
   onFocus: PropTypes.func,
   /** A custom callback for when the dropdown menu opens */
   onOpen: PropTypes.func,
+  /** A custom callback for when the key is pressed */
+  onKeyDown: PropTypes.func,
   /** A custom callback for when more data needs to be lazy-loaded when the user scrolls the dropdown menu list */
   onLazyLoad: PropTypes.func,
   /** A custom callback for the <Textbox>'s Change event */
@@ -501,6 +503,8 @@ Select.propTypes = {
   readOnly: PropTypes.bool,
   /** Should multi-select mode be enabled? */
   enableMultiSelect: PropTypes.bool,
+  /** Prevents list from automatically opening on focus */
+  preventFocusAutoOpen: PropTypes.bool,
   /** The selected value(s), when the component is operating in controlled mode */
   value: valuePropType,
   /** The default selected value(s), when the component is operating in uncontrolled mode */
