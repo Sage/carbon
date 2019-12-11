@@ -72,7 +72,6 @@ const StyledSwitch = styled.div`
     ${labelInline && css`
       ${StyledCheckableInput} {
         flex-basis: auto;
-        margin-left: 10px;
       }
 
       ${FieldLineStyle} {
@@ -108,13 +107,18 @@ const StyledSwitch = styled.div`
       `}
 
       ${fieldHelpInline && `
+        ${StyledCheckableInput} {
+          margin-left: 10px;
+        }
+
         ${LabelStyle} {
           margin-right: 10px;
-          margin-top: 2px;
+          margin-top: 3px;
         }
 
         ${FieldHelpStyle} {
           margin-left: 0;
+          align-self: center;
         }
       `}
     `}

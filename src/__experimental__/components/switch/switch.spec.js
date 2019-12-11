@@ -151,7 +151,7 @@ describe('Switch', () => {
       it('applies the correct Label styles', () => {
         assertStyleMatch({
           marginRight: '10px',
-          marginTop: '2px'
+          marginTop: '3px'
         }, wrapper, { modifier: css`${LabelStyle}` });
       });
 
