@@ -9,7 +9,7 @@ import SwitchSliderPanel from './switch-slider-panel.style';
 import baseTheme from '../../../style/themes/base';
 import classicTheme from '../../../style/themes/classic';
 import mintTheme from '../../../style/themes/mint';
-import mediumTheme from '../../../style/themes/medium';
+import aegeanTheme from '../../../style/themes/aegean';
 import StyledIcon from '../../../components/icon/icon.style';
 
 function render(props) {
@@ -105,18 +105,18 @@ describe('SwitchSliderPanel', () => {
     });
   });
 
-  describe('Medium theme', () => {
-    const wrapper = render({ theme: mediumTheme }).toJSON();
+  describe('Aegean theme', () => {
+    const wrapper = render({ theme: aegeanTheme }).toJSON();
 
     it('applies the correct base styles', () => {
       assertStyleMatch({
-        color: mediumTheme.colors.white
+        color: aegeanTheme.colors.white
       }, wrapper);
     });
 
     it('applies the correct off panel styles', () => {
       assertStyleMatch({
-        color: mediumTheme.text.color
+        color: aegeanTheme.text.color
       }, wrapper, { modifier: "[type='off']" });
     });
   });

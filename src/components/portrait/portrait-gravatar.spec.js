@@ -2,7 +2,7 @@ import React from 'react';
 import MD5 from 'crypto-js/md5';
 import TestRenderer from 'react-test-renderer';
 import PortraitGravatar from './portrait-gravatar.component';
-import mediumTheme from '../../style/themes/medium';
+import aegeanTheme from '../../style/themes/aegean';
 
 describe('PortraitGravatar', () => {
   describe('gravatarSrc', () => {
@@ -10,7 +10,7 @@ describe('PortraitGravatar', () => {
       const email = 'example@example.com';
       const rendered = TestRenderer.create(
         <PortraitGravatar
-          theme={ mediumTheme }
+          theme={ aegeanTheme }
           gravatarEmail={ email }
           size='ML'
         />

@@ -1,9 +1,9 @@
 import { assertIsSubset } from '../test-utils';
-import mediumTheme from '.';
+import aegeanTheme from '.';
 import baseTheme from '../base';
 
-describe('mediumTheme', () => {
+describe('aegeanTheme', () => {
   it('contains the base theme', () => {
-    assertIsSubset(baseTheme, mediumTheme);
+    assertIsSubset(baseTheme, aegeanTheme);
   });
 });

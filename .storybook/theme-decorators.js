@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import { withThemesProvider } from 'storybook-addon-styled-component-theme';
 import classic from '../src/style/themes/classic';
 import mintTheme from '../src/style/themes/mint';
-import medium from '../src/style/themes/medium';
+import aegeanTheme from '../src/style/themes/aegean';
 import none from '../src/style/themes/none';
 
 /**
@@ -26,7 +26,7 @@ export default function getThemeDecorator() {
 
   const queryStringThemeName = (new URLSearchParams(window.location.search)).get('theme');
 
-  const themesMap = { classic, mintTheme, medium, none };
+  const themesMap = { classic, mintTheme, aegeanTheme, none };
 
   const themeDecorator = (story, storyArgs) => {
     const storyThemeName = (

@@ -14,7 +14,7 @@ import guid from '../../../utils/helpers/guid';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import classicTheme from '../../../style/themes/classic';
 import mintTheme from '../../../style/themes/mint';
-import mediumTheme from '../../../style/themes/medium';
+import aegeanTheme from '../../../style/themes/aegean';
 import baseTheme from '../../../style/themes/base';
 
 jest.mock('../../../utils/helpers/guid');
@@ -428,12 +428,12 @@ describe('Checkbox', () => {
       });
     });
 
-    describe('Medium theme', () => {
+    describe('Aegean theme', () => {
       it('sets the appropriate check colour', () => {
-        const wrapper = render({ theme: mediumTheme, checked: true }).toJSON();
+        const wrapper = render({ theme: aegeanTheme, checked: true }).toJSON();
 
         assertStyleMatch({
-          fill: mediumTheme.checkable.checked
+          fill: aegeanTheme.checkable.checked
         }, wrapper, { modifier: 'svg path' });
       });
     });

@@ -8,7 +8,7 @@ import { classicStyleConfig } from './pill-classic.style';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import mintTheme from '../../style/themes/mint';
-import mediumTheme from '../../style/themes/medium';
+import aegeanTheme from '../../style/themes/aegean';
 import classicTheme from '../../style/themes/classic';
 import baseTheme from '../../style/themes/base';
 import OptionsHelper from '../../utils/helpers/options-helper';
@@ -17,7 +17,7 @@ const classicStyleTypes = [...OptionsHelper.colors, 'disabled'];
 const modernStyleTypes = [...OptionsHelper.pillColors, 'warning'];
 const modernThemes = [
   ['mint', mintTheme],
-  ['medium', mediumTheme]
+  ['aegean', aegeanTheme]
 ];
 
 describe('Pill', () => {
@@ -427,7 +427,7 @@ describe('Pill', () => {
     it('switches to use the modern medium theme', () => {
       const wrapper = render({
         children: 'My Text',
-        theme: mediumTheme
+        theme: aegeanTheme
       }, TestRenderer.create).toJSON();
       assertStyleMatch({
         borderRadius: '12px',

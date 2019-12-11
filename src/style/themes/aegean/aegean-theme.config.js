@@ -6,7 +6,7 @@ export default (palette) => {
 
   return (
     {
-      name: THEMES.medium,
+      name: THEMES.aegean,
 
       colors: {
         base: palette.productBlue,

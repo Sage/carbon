@@ -4,6 +4,6 @@ export const THEMES = {
   none: 'none',
   classic: 'classic',
   mint: 'mint',
-  medium: 'medium',
+  aegean: 'aegean',
   large: 'large'
 };

@@ -10,7 +10,7 @@ import SwitchSliderPanel from './switch-slider-panel.style';
 import baseTheme from '../../../style/themes/base';
 import classicTheme from '../../../style/themes/classic';
 import mintTheme from '../../../style/themes/mint';
-import mediumTheme from '../../../style/themes/medium';
+import aegeanTheme from '../../../style/themes/aegean';
 
 describe('SwitchSlider', () => {
   describe('base theme', () => {
@@ -220,7 +220,7 @@ describe('SwitchSlider', () => {
     });
   });
 
-  describe.each([['Mint', mintTheme], ['Medium', mediumTheme]])('%s theme', (themeName, theme) => {
+  describe.each([['Mint', mintTheme], ['Aegean', aegeanTheme]])('%s theme', (themeName, theme) => {
     describe('default', () => {
       const wrapper = renderWithTheme({}, theme).toJSON();
 

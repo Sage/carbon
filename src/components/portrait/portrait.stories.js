@@ -7,7 +7,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Portrait from './portrait.component';
 import { notes, info } from './documentation';
 import classicTheme from '../../style/themes/classic';
-import mediumTheme from '../../style/themes/medium';
+import aegeanTheme from '../../style/themes/aegean';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Portrait.__docgenInfo = getDocGenInfo(
@@ -57,7 +57,7 @@ storiesOf('Portrait', module)
     knobs: { escapeHTML: false }
   })
   .add('default', () => (
-    <ThemeProvider theme={ mediumTheme }>
+    <ThemeProvider theme={ aegeanTheme }>
       <Portrait
         { ...commonKnobs() }
         { ...dlsKnobs() }

@@ -1,12 +1,12 @@
 import classic from '../src/style/themes/classic';
 import mintTheme from '../src/style/themes/mint';
-import medium from '../src/style/themes/medium';
+import aegeanTheme from '../src/style/themes/aegean';
 import none from '../src/style/themes/none';
 
 /** These are for use with https://www.npmjs.com/package/storybook-addon-styled-component-theme */
 
 export const dlsThemeSelector = {
-  themes: [mintTheme, medium, none],
+  themes: [mintTheme, aegeanTheme, none],
   buttonAttributes: ['data-theme']
 };
 

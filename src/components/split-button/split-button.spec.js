@@ -10,7 +10,7 @@ import StyledButton from '../button/button.style';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import ClassicTheme from '../../style/themes/classic';
 import mintTheme from '../../style/themes/mint';
-import MediumTheme from '../../style/themes/medium';
+import aegeanTheme from '../../style/themes/aegean';
 import {
   assertStyleMatch,
   keyboard
@@ -26,7 +26,7 @@ const sizes = ['small', 'medium', 'large'];
 
 const businessThemes = [
   ['mint', mintTheme],
-  ['medium', MediumTheme]
+  ['aegean', aegeanTheme]
 ];
 
 const themes = [
@@ -176,7 +176,7 @@ describe('SplitButton', () => {
         const themeColors = {
           classic: '#1e499f',
           mint: '#006045',
-          medium: '#005B9A'
+          aegean: '#005B9A'
         };
 
         assertStyleMatch({
@@ -189,7 +189,7 @@ describe('SplitButton', () => {
         const themeColors = {
           classic: '#163777',
           mint: '#003F2E',
-          medium: '#004372'
+          aegean: '#004372'
         };
 
         themedWrapper.find('button').simulate('focus');

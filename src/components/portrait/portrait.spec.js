@@ -4,7 +4,7 @@ import ReactTestUtils from 'react-dom/test-utils';
 import { shallow } from 'enzyme';
 import { ThemeProvider } from 'styled-components';
 import classicTheme from '../../style/themes/classic';
-import mediumTheme from '../../style/themes/medium';
+import aegeanTheme from '../../style/themes/aegean';
 import Browser from '../../utils/helpers/browser';
 import Portrait from './portrait.component';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
@@ -31,7 +31,7 @@ const mockDocumentWithCanvas = {
 
 function renderDLS(element) {
   return TestRenderer.create(
-    <ThemeProvider theme={ mediumTheme }>
+    <ThemeProvider theme={ aegeanTheme }>
       {element}
     </ThemeProvider>
   );
@@ -267,7 +267,7 @@ describe('PortraitComponent', () => {
     it('can render the DLS theme', () => {
       spyOn(console, 'error');
       const props = {
-        size: 'XXL', initials: 'AB', darkBackground: false, theme: mediumTheme
+        size: 'XXL', initials: 'AB', darkBackground: false, theme: aegeanTheme
       };
       renderDLS(<PortraitInitials { ...props } />);
       props.darkBackground = true;
@@ -391,7 +391,7 @@ describe('PortraitComponent', () => {
           data-element='bar'
           data-role='baz'
         />,
-        { context: { theme: { mediumTheme } } }
+        { context: { theme: { aegeanTheme } } }
       );
       rootTagTest(wrapper, 'portrait', 'bar', 'baz');
     });

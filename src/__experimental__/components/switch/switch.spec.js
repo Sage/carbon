@@ -17,7 +17,7 @@ import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import baseTheme from '../../../style/themes/base';
 import classicTheme from '../../../style/themes/classic';
 import mintTheme from '../../../style/themes/mint';
-import mediumTheme from '../../../style/themes/medium';
+import aegeanTheme from '../../../style/themes/aegean';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 
 jest.mock('../../../utils/helpers/guid');
@@ -419,12 +419,12 @@ describe('Switch', () => {
     });
   });
 
-  describe('Medium theme', () => {
+  describe('Aegean theme', () => {
     describe('default', () => {
-      const wrapper = renderWithTheme({}, mediumTheme).toJSON();
+      const wrapper = renderWithTheme({}, aegeanTheme).toJSON();
 
       describe('input hover / focus styles', () => {
-        const hoverFocusStyles = { outline: `solid 3px ${mediumTheme.colors.focus}` };
+        const hoverFocusStyles = { outline: `solid 3px ${aegeanTheme.colors.focus}` };
 
         it('applies the correct focus styles', () => {
           assertStyleMatch(

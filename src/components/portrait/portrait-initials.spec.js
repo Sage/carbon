@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import Browser from '../../utils/helpers/browser';
 import PortraitInitials from './portrait-initials.component';
 import mintTheme from '../../style/themes/mint';
-import mediumTheme from '../../style/themes/medium';
+import aegeanTheme from '../../style/themes/aegean';
 
 const mockCanvasDataURL = 'data:image/png';
 
@@ -25,7 +25,7 @@ const mockDocumentWithCanvas = {
 
 function render(component) {
   const rendered = TestRenderer.create(
-    <ThemeProvider theme={ mediumTheme }>
+    <ThemeProvider theme={ aegeanTheme }>
       {component}
     </ThemeProvider>
   );
@@ -39,7 +39,7 @@ describe('PortraitInitials', () => {
 
   describe('componentWillReceiveProps', () => {
     const originalProps = {
-      initials: 'foo', size: 'XXL', darkBackground: false, theme: mediumTheme
+      initials: 'foo', size: 'XXL', darkBackground: false, theme: aegeanTheme
     };
     const cachedImageDataUrl = 'foobar';
     let props, instance;
