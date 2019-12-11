@@ -922,12 +922,10 @@ exports[`RadioButton styles base renders as expected 1`] = `
     checked={false}
     className="c2 c3"
     data-component="radio-button"
-    onBlur={[Function]}
   >
     <div
       checked={false}
       className="c4"
-      onBlur={[Function]}
     >
       <div
         className="c5 c6"

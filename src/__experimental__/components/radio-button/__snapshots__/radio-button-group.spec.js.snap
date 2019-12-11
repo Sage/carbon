@@ -224,13 +224,11 @@ exports[`RadioButtonGroup renders as expected 1`] = `
     className="c4 c5"
     data-component="radio-button"
     name="test-group"
-    onBlur={[Function]}
   >
     <div
       checked={false}
       className="c6"
       name="test-group"
-      onBlur={[Function]}
     >
       <div
         className="c7 c8"
@@ -288,13 +286,11 @@ exports[`RadioButtonGroup renders as expected 1`] = `
     className="c4 c5"
     data-component="radio-button"
     name="test-group"
-    onBlur={[Function]}
   >
     <div
       checked={false}
       className="c6"
       name="test-group"
-      onBlur={[Function]}
     >
       <div
         className="c7 c8"

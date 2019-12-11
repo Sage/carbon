@@ -638,12 +638,10 @@ exports[`Checkbox base theme renders as expected 1`] = `
   className="c0"
   data-component="checkbox"
   name="my-checkbox"
-  onBlur={[Function]}
 >
   <div
     className="c1"
     name="my-checkbox"
-    onBlur={[Function]}
   >
     <div
       className="c2 c3"
