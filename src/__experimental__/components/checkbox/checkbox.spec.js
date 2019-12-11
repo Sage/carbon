@@ -13,7 +13,7 @@ import StyledHelp from '../../../components/help/help.style';
 import guid from '../../../utils/helpers/guid';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import classicTheme from '../../../style/themes/classic';
-import smallTheme from '../../../style/themes/small';
+import mintTheme from '../../../style/themes/mint';
 import mediumTheme from '../../../style/themes/medium';
 import baseTheme from '../../../style/themes/base';
 
@@ -418,12 +418,12 @@ describe('Checkbox', () => {
       });
     });
 
-    describe('Small theme', () => {
+    describe('Mint theme', () => {
       it('sets the appropriate check colour', () => {
-        const wrapper = render({ theme: smallTheme, checked: true }).toJSON();
+        const wrapper = render({ theme: mintTheme, checked: true }).toJSON();
 
         assertStyleMatch({
-          fill: smallTheme.checkable.checked
+          fill: mintTheme.checkable.checked
         }, wrapper, { modifier: 'svg path' });
       });
     });

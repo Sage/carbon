@@ -7,7 +7,7 @@ import styleConfig from './pill.style.config';
 import { classicStyleConfig } from './pill-classic.style';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-import smallTheme from '../../style/themes/small';
+import mintTheme from '../../style/themes/mint';
 import mediumTheme from '../../style/themes/medium';
 import classicTheme from '../../style/themes/classic';
 import baseTheme from '../../style/themes/base';
@@ -16,7 +16,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 const classicStyleTypes = [...OptionsHelper.colors, 'disabled'];
 const modernStyleTypes = [...OptionsHelper.pillColors, 'warning'];
 const modernThemes = [
-  ['small', smallTheme],
+  ['mint', mintTheme],
   ['medium', mediumTheme]
 ];
 
@@ -355,7 +355,7 @@ describe('Pill', () => {
     it('switches to use the modern small theme', () => {
       const wrapper = render({
         children: 'My Text',
-        theme: smallTheme
+        theme: mintTheme
       }, TestRenderer.create).toJSON();
       assertStyleMatch({
         borderRadius: '12px',
@@ -372,7 +372,7 @@ describe('Pill', () => {
         const wrapper = render({
           children: 'My Text',
           size: 'S',
-          theme: smallTheme
+          theme: mintTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           padding: '0 7px'
@@ -385,7 +385,7 @@ describe('Pill', () => {
         const wrapper = render({
           children: 'My Text',
           size: 'M',
-          theme: smallTheme
+          theme: mintTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '12px',
@@ -399,7 +399,7 @@ describe('Pill', () => {
         const wrapper = render({
           children: 'My Text',
           size: 'L',
-          theme: smallTheme
+          theme: mintTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '14px',
@@ -413,7 +413,7 @@ describe('Pill', () => {
         const wrapper = render({
           children: 'My Text',
           size: 'XL',
-          theme: smallTheme
+          theme: mintTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '16px',
@@ -440,7 +440,7 @@ describe('Pill', () => {
         const wrapper = render({
           children: 'My Text',
           size: 'S',
-          theme: smallTheme
+          theme: mintTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           padding: '0 7px'
@@ -453,7 +453,7 @@ describe('Pill', () => {
         const wrapper = render({
           children: 'My Text',
           size: 'M',
-          theme: smallTheme
+          theme: mintTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '12px',
@@ -467,7 +467,7 @@ describe('Pill', () => {
         const wrapper = render({
           children: 'My Text',
           size: 'L',
-          theme: smallTheme
+          theme: mintTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '14px',
@@ -481,7 +481,7 @@ describe('Pill', () => {
         const wrapper = render({
           children: 'My Text',
           size: 'XL',
-          theme: smallTheme
+          theme: mintTheme
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           fontSize: '16px',

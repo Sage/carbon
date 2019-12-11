@@ -10,7 +10,7 @@ import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
 import classicTheme from '../../../style/themes/classic';
 import baseTheme from '../../../style/themes/base';
-import smallTheme from '../../../style/themes/small';
+import mintTheme from '../../../style/themes/mint';
 import IconWrapperStyle from './icon-wrapper.style';
 
 const validationTypes = ['hasError', 'hasWarning', 'hasInfo'];
@@ -53,7 +53,7 @@ describe('Label', () => {
         inline: true,
         childOfForm: true,
         optional: true,
-        theme: smallTheme
+        theme: mintTheme
       }, TestRenderer.create).toJSON(),
       { modifier: '::after' });
     });

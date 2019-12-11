@@ -9,7 +9,7 @@ import Button, { ButtonWithForwardRef } from '../button';
 import StyledButton from '../button/button.style';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import ClassicTheme from '../../style/themes/classic';
-import SmallTheme from '../../style/themes/small';
+import mintTheme from '../../style/themes/mint';
 import MediumTheme from '../../style/themes/medium';
 import {
   assertStyleMatch,
@@ -25,7 +25,7 @@ guid.mockImplementation(() => 'guid-12345');
 const sizes = ['small', 'medium', 'large'];
 
 const businessThemes = [
-  ['small', SmallTheme],
+  ['mint', mintTheme],
   ['medium', MediumTheme]
 ];
 
@@ -175,7 +175,7 @@ describe('SplitButton', () => {
       it('has the expected style', () => {
         const themeColors = {
           classic: '#1e499f',
-          small: '#006045',
+          mint: '#006045',
           medium: '#005B9A'
         };
 
@@ -188,7 +188,7 @@ describe('SplitButton', () => {
       it('matches the expected style for the focused "additional button"', () => {
         const themeColors = {
           classic: '#163777',
-          small: '#003F2E',
+          mint: '#003F2E',
           medium: '#004372'
         };
 

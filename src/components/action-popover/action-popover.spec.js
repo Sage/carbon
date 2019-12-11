@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
 import { mount as enzymeMount } from 'enzyme';
 import { simulate, assertStyleMatch } from '../../__spec_helper__/test-utils';
-import theme from '../../style/themes/small';
+import mintTheme from '../../style/themes/mint';
 import classic from '../../style/themes/classic';
 
 import { ActionPopover, ActionPopoverDivider, ActionPopoverItem } from './index';
@@ -51,7 +51,7 @@ describe('ActionPopover', () => {
     };
 
     renderer(
-      <ThemeProvider { ...{ theme } }>
+      <ThemeProvider theme={ mintTheme }>
         <React.Fragment>
           <input id='before' />
           <ActionPopover { ...defaultProps } { ...props } />
@@ -508,7 +508,7 @@ describe('ActionPopover', () => {
 
       simulate.keydown.pressDownArrow(menubutton);
 
-      expect(getElements().menubutton).toHaveStyleRule('background-color', theme.colors.white);
+      expect(getElements().menubutton).toHaveStyleRule('background-color', mintTheme.colors.white);
     });
 
     it('renders correctly for the "classic" theme', () => {
@@ -536,7 +536,7 @@ describe('ActionPopover', () => {
   it('validates the children prop', () => {
     jest.spyOn(global.console, 'error').mockImplementation(() => {});
     ReactDOM.render(
-      <ThemeProvider { ...{ theme } }>
+      <ThemeProvider theme={ mintTheme }>
         <ActionPopover><p>invalid children</p></ActionPopover>
       </ThemeProvider>, container.current
     );

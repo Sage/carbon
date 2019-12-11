@@ -3,7 +3,7 @@ export const THEMES = {
   base: 'base',
   none: 'none',
   classic: 'classic',
-  small: 'small',
+  mint: 'mint',
   medium: 'medium',
   large: 'large'
 };

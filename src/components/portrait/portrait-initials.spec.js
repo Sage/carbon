@@ -3,7 +3,7 @@ import TestRenderer from 'react-test-renderer';
 import { ThemeProvider } from 'styled-components';
 import Browser from '../../utils/helpers/browser';
 import PortraitInitials from './portrait-initials.component';
-import smallTheme from '../../style/themes/small';
+import mintTheme from '../../style/themes/mint';
 import mediumTheme from '../../style/themes/medium';
 
 const mockCanvasDataURL = 'data:image/png';
@@ -54,7 +54,7 @@ describe('PortraitInitials', () => {
     });
 
     it('clears the cached initials if theme changes', () => {
-      props.theme = smallTheme;
+      props.theme = mintTheme;
       instance.UNSAFE_componentWillReceiveProps(props);
       expect(instance.cachedImageDataUrl).toEqual(null);
     });

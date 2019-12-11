@@ -5,7 +5,7 @@ import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import guid from '../../utils/helpers/guid';
 import ClassicTheme from '../../style/themes/classic';
-import SmallTheme from '../../style/themes/small';
+import mintTheme from '../../style/themes/mint';
 import ButtonToggle from './button-toggle.component';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import { StyledButtonToggleIcon } from './button-toggle.style';
@@ -48,13 +48,13 @@ describe('ButtonToggle', () => {
   describe('Modern themes', () => {
     it('renders correctly with small theme', () => {
       const wrapper = renderWithTheme({
-        theme: SmallTheme
+        theme: mintTheme
       }, TestRenderer.create);
       expect(wrapper).toMatchSnapshot();
     });
     it('renders correctly with a large icon', () => {
       const wrapper = renderWithTheme({
-        theme: SmallTheme,
+        theme: mintTheme,
         buttonIcon: 'add',
         buttonIconSize: 'large'
       });

@@ -8,7 +8,7 @@ import StyledLoaderSquare from '../../../components/loader/loader-square.style';
 import SwitchSliderPanel from './switch-slider-panel.style';
 import baseTheme from '../../../style/themes/base';
 import classicTheme from '../../../style/themes/classic';
-import smallTheme from '../../../style/themes/small';
+import mintTheme from '../../../style/themes/mint';
 import mediumTheme from '../../../style/themes/medium';
 import StyledIcon from '../../../components/icon/icon.style';
 
@@ -89,18 +89,18 @@ describe('SwitchSliderPanel', () => {
     });
   });
 
-  describe('Small theme', () => {
-    const wrapper = render({ theme: smallTheme }).toJSON();
+  describe('Mint theme', () => {
+    const wrapper = render({ theme: mintTheme }).toJSON();
 
     it('applies the correct base styles', () => {
       assertStyleMatch({
-        color: smallTheme.colors.white
+        color: mintTheme.colors.white
       }, wrapper);
     });
 
     it('applies the correct off panel styles', () => {
       assertStyleMatch({
-        color: smallTheme.text.color
+        color: mintTheme.text.color
       }, wrapper, { modifier: "[type='off']" });
     });
   });

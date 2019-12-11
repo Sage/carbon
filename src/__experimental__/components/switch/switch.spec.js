@@ -16,7 +16,7 @@ import guid from '../../../utils/helpers/guid';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import baseTheme from '../../../style/themes/base';
 import classicTheme from '../../../style/themes/classic';
-import smallTheme from '../../../style/themes/small';
+import mintTheme from '../../../style/themes/mint';
 import mediumTheme from '../../../style/themes/medium';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 
@@ -393,12 +393,12 @@ describe('Switch', () => {
     });
   });
 
-  describe('Small theme', () => {
+  describe('Mint theme', () => {
     describe('default', () => {
-      const wrapper = renderWithTheme({}, smallTheme).toJSON();
+      const wrapper = renderWithTheme({}, mintTheme).toJSON();
 
       describe('input hover / focus styles', () => {
-        const hoverFocusStyles = { outline: `solid 3px ${smallTheme.colors.focus}` };
+        const hoverFocusStyles = { outline: `solid 3px ${mintTheme.colors.focus}` };
 
         it('applies the correct focus styles', () => {
           assertStyleMatch(

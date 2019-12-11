@@ -12,9 +12,9 @@ import DraggableTableCell from '../draggable-table-cell';
 import StyledTable from '../table.style';
 import StyledIcon from '../../icon/icon.style';
 import { Checkbox } from '../../../__experimental__/components/checkbox';
-import BaseTheme from '../../../style/themes/base';
-import ClassicTheme from '../../../style/themes/classic';
-import SmallTheme from '../../../style/themes/small';
+import baseTheme from '../../../style/themes/base';
+import classicTheme from '../../../style/themes/classic';
+import mintTheme from '../../../style/themes/mint';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import { DraggableContext, WithDrop } from '../../drag-and-drop';
 import { THEMES } from '../../../style/themes';
@@ -39,7 +39,7 @@ jest.mock('../draggable-table-cell', () => {
   return MockDraggableTableCell;
 });
 
-const themeNames = [THEMES.classic, THEMES.small];
+const themeNames = [THEMES.classic, THEMES.mint];
 const elements = ['th', 'td'];
 
 describe('TableRow', () => {
@@ -327,8 +327,8 @@ describe('TableRow', () => {
 
       it(`${element} matches the expected style`, () => {
         assertStyleMatch({
-          backgroundColor: element === 'th' ? BaseTheme.table.header : BaseTheme.table.primary,
-          borderBottom: `1px solid ${BaseTheme.table.secondary}`
+          backgroundColor: element === 'th' ? baseTheme.table.header : baseTheme.table.primary,
+          borderBottom: `1px solid ${baseTheme.table.secondary}`
         }, styledElement);
       });
     }
@@ -351,7 +351,7 @@ describe('TableRow', () => {
               uniqueID='foo'
               selectable
               selected
-              theme={ name === 'classic' ? ClassicTheme : SmallTheme }
+              theme={ name === 'classic' ? classicTheme : mintTheme }
             >
               <TableCell />
             </TableRow>
@@ -376,7 +376,7 @@ describe('TableRow', () => {
             <TableRow
               highlighted
               uniqueID='foo'
-              theme={ name === 'classic' ? ClassicTheme : SmallTheme }
+              theme={ name === 'classic' ? classicTheme : mintTheme }
             >
               <TableCell />
             </TableRow>
@@ -542,7 +542,7 @@ describe('TableRow', () => {
     describe('if is not classic theme', () => {
       it('renders a row to match the snapshot', () => {
         const wrapper = TestRenderer.create(
-          <StyledTable theme={ SmallTheme }>
+          <StyledTable theme={ mintTheme }>
             <TableRow><TableCell /></TableRow>
           </StyledTable>
         );
@@ -612,14 +612,14 @@ describe('TableRow', () => {
         it('should render correct background color', () => {
           wrapper = mount(
             <StyledTableRow
-              theme={ SmallTheme }
+              theme={ mintTheme }
               isDragged
               inDeadZone
             />
           );
 
           assertStyleMatch({
-            backgroundColor: `${SmallTheme.table.dragging}`
+            backgroundColor: `${mintTheme.table.dragging}`
           }, wrapper, { modifier: `${StyledTableCell}` });
         });
       });
@@ -665,7 +665,7 @@ describe('TableRow', () => {
           <TableRow
             index={ 0 }
             dragAndDropIdentifier='foo'
-            theme={ ClassicTheme }
+            theme={ classicTheme }
           >
             <TableCell>foo</TableCell>
           </TableRow>,
@@ -692,7 +692,7 @@ describe('TableRow', () => {
 
   function render() {
     wrapper.current = mount(
-      <ThemeProvider { ...{ theme: SmallTheme } }>
+      <ThemeProvider { ...{ theme: mintTheme } }>
         <Table>
           <TableRow>
             <TableHeader>First Name</TableHeader>

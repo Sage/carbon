@@ -7,7 +7,7 @@ import {
 import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Button from '../../components/button';
-import configureTheme from './small/small-theme.config';
+import configureTheme from './mint/mint-theme.config';
 import { mergeWithBase } from './base';
 import { mergeDeep } from '../utils/merge-deep';
 

@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../style/themes/base';
 import classicThemeForPill from './pill-classic.style';
-import smallTheme from '../../style/themes/small';
+import mintTheme from '../../style/themes/mint';
 import styleConfig from './pill.style.config';
 import { THEMES } from '../../style/themes';
 import { isClassic as isClassicTheme } from '../../utils/helpers/style-helper';
@@ -16,7 +16,7 @@ const setTheme = (theme) => {
   switch (theme.name) {
     case THEMES.classic:
     case THEMES.base:
-      return smallTheme;
+      return mintTheme;
 
     default:
       return theme;

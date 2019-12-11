@@ -11,7 +11,7 @@ import DefaultPages from '../pages/pages.component'
 import Page from '../pages/page/page.component'
 import { PagesContent } from '../pages/pages.style';
 import LinkStyleAnchor from '../link/link.style';
-import smallTheme from '../../style/themes/small'
+import mintTheme from '../../style/themes/mint'
 
 describe('Heading', () => {
   let instance;
@@ -62,7 +62,7 @@ describe('Heading', () => {
     link.find('a').simulate('mousedown');
 
     assertStyleMatch({
-      outline: `solid 3px ${smallTheme.colors.focus}`
+      outline: `solid 3px ${mintTheme.colors.focus}`
     }, wrapper.find(PagesContent), { modifier: `${LinkStyleAnchor} a:focus` })
   });
 

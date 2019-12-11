@@ -12,14 +12,14 @@ import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-s
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import guid from '../../../utils/helpers/guid';
 import baseTheme from '../../../style/themes/base';
-import classic from '../../../style/themes/classic';
+import classicTheme from '../../../style/themes/classic';
+import mintTheme from '../../../style/themes/mint';
 import { getValidationType } from '../../../components/validations/with-validation.hoc';
-import small from '../../../style/themes/small';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
 
-function render(props = {}, theme = small, renderer = mount) {
+function render(props = {}, theme = mintTheme, renderer = mount) {
   const {
     hasError, hasInfo, hasWarning, ...buttonProps
   } = props;
@@ -41,7 +41,7 @@ function render(props = {}, theme = small, renderer = mount) {
 
 const getRadioButton = wrapper => wrapper.find(RadioButton);
 
-const renderClassic = props => render(props, classic);
+const renderClassic = props => render(props, classicTheme);
 
 const validationTypes = ['hasError', 'hasWarning', 'hasInfo'];
 
@@ -73,7 +73,7 @@ describe('RadioButton', () => {
   describe('styles', () => {
     describe('base', () => {
       it('renders as expected', () => {
-        expect(render({}, small, TestRenderer.create).toJSON()).toMatchSnapshot();
+        expect(render({}, mintTheme, TestRenderer.create).toJSON()).toMatchSnapshot();
       });
     });
 

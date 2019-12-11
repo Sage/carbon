@@ -3,7 +3,7 @@ import { THEMES } from '..';
 export default (palette) => {
   return (
     {
-      name: THEMES.small,
+      name: THEMES.mint,
 
       colors: {
         base: palette.productGreen,

@@ -4,7 +4,7 @@ import Immutable from 'immutable';
 import 'jest-styled-components';
 import { ThemeProvider } from 'styled-components';
 import classicTheme from '../../style/themes/classic';
-import smallTheme from '../../style/themes/small';
+import mintTheme from '../../style/themes/mint';
 import Icon from '../icon';
 import PagerNavigation from './pager-navigation.component';
 import { PagerLinkStyles } from './pager.styles';
@@ -19,7 +19,7 @@ const pageSizeSelectionOptions = Immutable.fromJS([
 ]);
 
 function render(props, renderType = shallow) {
-  const theme = props.theme || smallTheme;
+  const theme = props.theme || mintTheme;
   props.setCurrentThemeName = () => {};
   return renderType(
     <ThemeProvider theme={ theme }>
@@ -64,12 +64,12 @@ describe('Pager Navigation', () => {
     });
   });
 
-  it('renders the Pager Navigation correctly with the small theme', () => {
+  it('renders the Pager Navigation correctly with the Mint Theme', () => {
     const wrapper = render(
       {
         ...props,
         onPagination: () => true,
-        theme: smallTheme
+        theme: mintTheme
       },
       mount
     );
@@ -108,7 +108,7 @@ describe('Pager Navigation', () => {
           ...props,
           currentPage: '10',
           setCurrentPage,
-          theme: smallTheme
+          theme: mintTheme
         },
         mount
       );
@@ -126,7 +126,7 @@ describe('Pager Navigation', () => {
           currentPage: '7',
           setCurrentPage: () => true,
           onPagination,
-          theme: smallTheme
+          theme: mintTheme
         },
         mount
       );
@@ -144,7 +144,7 @@ describe('Pager Navigation', () => {
           currentPage: '7',
           setCurrentPage: () => true,
           onPagination,
-          theme: smallTheme
+          theme: mintTheme
         },
         mount
       );
@@ -162,7 +162,7 @@ describe('Pager Navigation', () => {
           currentPage: '7',
           setCurrentPage: () => true,
           onPagination,
-          theme: smallTheme
+          theme: mintTheme
         },
         mount
       );
@@ -180,7 +180,7 @@ describe('Pager Navigation', () => {
           currentPage: '7',
           setCurrentPage: () => true,
           onPagination,
-          theme: smallTheme
+          theme: mintTheme
         },
         mount
       );
@@ -202,7 +202,7 @@ describe('Pager Navigation', () => {
       {
         ...props,
         onPagination,
-        theme: smallTheme,
+        theme: mintTheme,
         ...otherProps
       },
       mount
