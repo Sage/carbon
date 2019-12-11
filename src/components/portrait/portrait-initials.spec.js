@@ -55,30 +55,30 @@ describe('PortraitInitials', () => {
 
     it('clears the cached initials if theme changes', () => {
       props.theme = smallTheme;
-      instance.componentWillReceiveProps(props);
+      instance.UNSAFE_componentWillReceiveProps(props);
       expect(instance.cachedImageDataUrl).toEqual(null);
     });
 
     it('clears the cached initials if initials change', () => {
       props.initials = 'bar';
-      instance.componentWillReceiveProps(props);
+      instance.UNSAFE_componentWillReceiveProps(props);
       expect(instance.cachedImageDataUrl).toEqual(null);
     });
 
     it('clears the cached initials if size changes', () => {
       props.size = 'S';
-      instance.componentWillReceiveProps(props);
+      instance.UNSAFE_componentWillReceiveProps(props);
       expect(instance.cachedImageDataUrl).toEqual(null);
     });
 
     it('clears the cached initials if darkBackground changes', () => {
       props.darkBackground = true;
-      instance.componentWillReceiveProps(props);
+      instance.UNSAFE_componentWillReceiveProps(props);
       expect(instance.cachedImageDataUrl).toEqual(null);
     });
 
     it('keeps the cached initials if nothing changes', () => {
-      instance.componentWillReceiveProps(props);
+      instance.UNSAFE_componentWillReceiveProps(props);
       expect(instance.cachedImageDataUrl).toEqual(cachedImageDataUrl);
     });
   });

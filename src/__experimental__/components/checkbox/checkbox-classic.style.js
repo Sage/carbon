@@ -42,10 +42,6 @@ export default ({
     font-size: 16px;
   }
 
-  ${LabelStyle} {
-    padding-left: 6px;
-  }
-
   ${fieldHelpInline && `${FieldHelpStyle},`}
   ${LabelStyle} {
     padding-top: 0;

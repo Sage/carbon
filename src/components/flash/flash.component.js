@@ -7,12 +7,6 @@ import baseTheme from '../../style/themes/base';
 import { isClassic } from '../../utils/helpers/style-helper';
 
 const Flash = (props) => {
-  if (isClassic(props.theme)) {
-    return (
-      <FlashLegacy { ...props } />
-    );
-  }
-
   let timer = null;
 
   const stopTimeout = () => {
@@ -29,12 +23,19 @@ const Flash = (props) => {
     timer = setTimeout(() => props.onDismiss(), props.timeout);
   }, timer);
 
+  if (isClassic(props.theme)) {
+    return (
+      <FlashLegacy { ...props } />
+    );
+  }
+
   return (
     <Toast
       isCenter={ props.isCenter }
       open={ props.open }
       variant={ props.variant || props.as }
       onDismiss={ props.timeout ? null : props.onDismiss }
+      id={ props.id }
       data-component='flash'
     >
       {props.message}
@@ -49,6 +50,8 @@ Flash.propTypes = {
   open: PropTypes.bool.isRequired,
   /** Type of notification. Legacy standard (see the 'iconColorSets' for possible values) */
   as: PropTypes.string,
+  /** An identifier passed to the component root element */
+  id: PropTypes.string,
   /** Type of notification with new DLS standard */
   variant: PropTypes.string,
   /** Contents of message. */

@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
-import 'jest-styled-components';
 import Select from './select.component';
 import Option from './option.component';
 import { StyledSelect } from './select.style';
@@ -11,6 +10,7 @@ import classic from '../../../style/themes/classic';
 import StyledIcon from '../../../components/icon/icon.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import TextBox from '../textbox';
+import { Input } from '../input';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -109,6 +109,18 @@ describe('Select', () => {
     });
   });
 
+  describe.each(
+    [{ disabled: false, readOnly: false }, { disabled: true, readOnly: false }, { disabled: false, readOnly: true }]
+  )(
+    'the Select component', (props) => {
+      it(`renders the correct placeholder when disabled is ${props.disabled} and readOnly is ${props.readOnly}`, () => {
+        const canRenderPlaceholder = !props.disabled && !props.readOnly;
+        const wrapper = renderWrapper({ props });
+        expect(wrapper.find(Input).props().placeholder).toEqual(canRenderPlaceholder ? 'Please Select...' : '');
+      });
+    }
+  );
+
   describe('when multi-value', () => {
     it(`renders the the textbox with the following:
         * formattedValue is empty
@@ -186,6 +198,21 @@ describe('Select', () => {
       textbox.find('input').simulate('keydown');
       return { props, wrapper };
     };
+    it('supports leftChildren property', () => {
+      const props = {
+        value: multiValueProp,
+        enableMultiSelect: true,
+        leftChildren: <span className='my-test-element'>Text</span>
+      };
+
+      const wrapper = renderWrapper({ props });
+      // Check left children
+      expect(wrapper.find('.my-test-element')).toHaveLength(1);
+      expect(wrapper.find('.my-test-element').text()).toEqual('Text');
+
+      // Check pills
+      expect(pillsOf(wrapper)).toHaveLength(3);
+    });
 
     it('triggers onChange with the item removed when typing backspace in the filter', () => {
       const { props } = setupTest();
@@ -271,6 +298,13 @@ describe('Select', () => {
       const list = listOf(openList(renderWrapper({ props })));
       expect(() => list.props().onSelect({ value: 'new!' })).not.toThrowError();
     });
+
+    it('supports leftChildren property', () => {
+      const props = { leftChildren: <span className='my-test-element'>Text</span> };
+      const wrapper = renderWrapper({ props });
+      expect(wrapper.find('.my-test-element')).toHaveLength(1);
+      expect(wrapper.find('.my-test-element').text()).toEqual('Text');
+    });
   });
 
   describe('when uncontrolled', () => {
@@ -292,6 +326,12 @@ describe('Select', () => {
       const onFocus = jest.fn();
       openList(renderWrapper({ props: { onFocus } }));
       expect(onFocus).toHaveBeenCalled();
+    });
+
+    it('does not open the list if `preventFocusAutoOpen` prop is passed and set to true', () => {
+      const wrapper = renderWrapper({ props: { preventFocusAutoOpen: true } });
+      openList(wrapper);
+      expect(wrapper.state().open).toEqual(false);
     });
 
     it('blocks blur on mouse enter of the list and unblocks on leaving the list', () => {
@@ -335,6 +375,13 @@ describe('Select', () => {
   });
 
   describe('key events', () => {
+    it('invokes `onKeyDown` prop on keyDown event', () => {
+      const onKeyDown = jest.fn();
+      const wrapper = renderWrapper({ props: { onKeyDown } });
+      textboxOf(wrapper).find('input').simulate('keydown');
+      expect(onKeyDown).toHaveBeenCalled();
+    });
+
     it('unblocks blur on tab', () => {
       spyOn(Events, 'isTabKey').and.returnValue(true);
       const wrapper = renderWrapper();

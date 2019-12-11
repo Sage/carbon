@@ -73,7 +73,8 @@ function makeStory(name, themeSelector) {
         leftAlignedActions={ additionalFormActions('Left Action')[leftAlignedActions] }
         rightAlignedActions={ additionalFormActions('Right Action')[rightAlignedActions] }
         showSummary={ showSummary }
-        onSubmit={ () => {
+        onSubmit={ (ev) => {
+          action('submit')(ev);
           window.location.href = window.location.href;
         } }
         isLabelRightAligned={ isLabelRightAligned }
@@ -105,10 +106,12 @@ function makeStory(name, themeSelector) {
 
 function makeFieldsetTextboxStory(name, themeSelector) {
   const component = () => {
+    const stickyFooter = boolean('stickyFooter', false);
     const legend = text('legend', '');
 
     return (
       <Form
+        stickyFooter={ stickyFooter }
         onSubmit={ () => {
           window.location.href = window.location.href;
         } }

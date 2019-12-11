@@ -202,11 +202,12 @@ describe('ActionPopover', () => {
 
   describe('Click handlers', () => {
     describe('MenuButton', () => {
+      let stopPropagation;
       beforeEach(() => {
         render();
         const { menubutton } = getElements();
-
-        menubutton.simulate('click');
+        stopPropagation = jest.fn();
+        menubutton.simulate('click', { stopPropagation });
       });
       it('Clicking opens the menu', () => {
         const { menu } = getElements();
@@ -214,6 +215,10 @@ describe('ActionPopover', () => {
           display: 'block'
         }, menu);
         expect(onOpen).toHaveBeenCalledTimes(1);
+      });
+
+      it('Clicking on menu button does not allow for further event propagation ', () => {
+        expect(stopPropagation).toHaveBeenCalled();
       });
 
       it('Clicking focuses the first element', () => {

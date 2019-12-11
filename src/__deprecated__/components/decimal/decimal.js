@@ -96,7 +96,7 @@ const Decimal = Input(InputLabel(InputValidation(class Decimal extends React.Com
    * @param {Object} newProps The new props passed down to the component
    * @return {void}
    */
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (this._document.activeElement !== this._input) {
       let value = newProps.value || 0.00;
       if (canConvertToBigNumber(value)) {

@@ -76,7 +76,7 @@ class Select extends React.Component {
   // opens the dropdown and ensures the input has focus
   // (this fixes a bug in which rapidly clicking the label or dropdown icon would break the list open state)
   handleFocus = (ev) => {
-    this.openList();
+    if (!this.props.preventFocusAutoOpen) this.openList();
     if (this.props.onFocus) this.props.onFocus(ev);
   }
 
@@ -169,7 +169,7 @@ class Select extends React.Component {
 
   handleKeyDown = (ev) => {
     // order of event checking is important here!
-
+    if (this.props.onKeyDown) this.props.onKeyDown(ev);
     // if tab key then allow normal behaviour
     if (Events.isTabKey(ev)) {
       this.unblockBlur();
@@ -376,7 +376,7 @@ class Select extends React.Component {
   }
 
   textboxProps() {
-    const { typeAhead, placeholder } = this.props;
+    const { typeAhead, placeholder, leftChildren } = this.props;
 
     const value = this.getValue();
 
@@ -391,6 +391,10 @@ class Select extends React.Component {
       value,
       formattedValue: this.formattedValue(this.state.filter, value)
     };
+
+    if (leftChildren) {
+      props.leftChildren = props.leftChildren ? [leftChildren, ...props.leftChildren] : leftChildren;
+    }
 
     return props;
   }
@@ -408,6 +412,7 @@ class Select extends React.Component {
       placeholder,
       value,
       defaultValue,
+      isLoopable,
       onLazyLoad,
       onFilter,
       onOpen,
@@ -445,6 +450,7 @@ class Select extends React.Component {
               customFilter={ customFilter }
               filterValue={ filter }
               onLazyLoad={ onLazyLoad }
+              isLoopable={ isLoopable }
               onSelect={ this.handleChange }
               open={ open }
               target={ this.input.current && this.input.current.parentElement }
@@ -475,6 +481,8 @@ Select.propTypes = {
   disabled: PropTypes.bool,
   /** Label text for the <Textbox> */
   label: PropTypes.string,
+  /** Flag to indicite whether select list is loopable while traversing using up and down keys */
+  isLoopable: PropTypes.bool,
   /** A custom callback for the <Textbox>'s Blur event */
   onBlur: PropTypes.func,
   /** A custom callback for when changes occur */
@@ -483,6 +491,8 @@ Select.propTypes = {
   onFocus: PropTypes.func,
   /** A custom callback for when the dropdown menu opens */
   onOpen: PropTypes.func,
+  /** A custom callback for when the key is pressed */
+  onKeyDown: PropTypes.func,
   /** A custom callback for when more data needs to be lazy-loaded when the user scrolls the dropdown menu list */
   onLazyLoad: PropTypes.func,
   /** A custom callback for the <Textbox>'s Change event */
@@ -493,6 +503,8 @@ Select.propTypes = {
   readOnly: PropTypes.bool,
   /** Should multi-select mode be enabled? */
   enableMultiSelect: PropTypes.bool,
+  /** Prevents list from automatically opening on focus */
+  preventFocusAutoOpen: PropTypes.bool,
   /** The selected value(s), when the component is operating in controlled mode */
   value: valuePropType,
   /** The default selected value(s), when the component is operating in uncontrolled mode */
@@ -507,7 +519,9 @@ Select.propTypes = {
   typeAhead: PropTypes.bool,
   /** Can the user type a value in the <Textbox> to filter the dropdown menu options? */
   filterable: PropTypes.bool,
-  isAnyValueSelected: PropTypes.bool
+  isAnyValueSelected: PropTypes.bool,
+  /** Add additional child elements before the input */
+  leftChildren: PropTypes.node
 };
 
 Select.defaultProps = {

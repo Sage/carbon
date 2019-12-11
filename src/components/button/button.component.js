@@ -6,7 +6,7 @@ import StyledButton, { StyledButtonSubtext } from './button.style';
 import tagComponent from '../../utils/helpers/tags';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
-const Button = React.forwardRef((props, ref) => {
+const Button = (props) => {
   const {
     disabled, to, iconType, size, subtext
   } = props;
@@ -26,20 +26,21 @@ const Button = React.forwardRef((props, ref) => {
   if (!disabled && to) {
     return (
       <RouterLink to={ to } type={ iconType }>
-        {renderStyledButton(ref, propsWithoutAs)}
+        {renderStyledButton(propsWithoutAs)}
       </RouterLink>
     );
   }
 
-  return renderStyledButton(ref, propsWithoutAs);
-});
+  return renderStyledButton(propsWithoutAs);
+};
 
-function renderStyledButton(forwardRef, buttonProps) {
+function renderStyledButton(buttonProps) {
   const {
     disabled,
     buttonType,
     iconType,
     theme,
+    forwardRef,
     href,
     ...styleProps
   } = buttonProps;
@@ -55,6 +56,7 @@ function renderStyledButton(forwardRef, buttonProps) {
       buttonType={ buttonType }
       disabled={ disabled }
       role='button'
+      type='button'
       legacyColorVariant={ theme }
       iconType={ iconType }
       { ...tagComponent('button', buttonProps) }
@@ -139,5 +141,11 @@ Button.defaultProps = {
   subtext: ''
 };
 
+const ButtonWithForwardRef = React.forwardRef((props, ref) => <Button forwardRef={ ref } { ...props } />);
+
+ButtonWithForwardRef.displayName = 'Button';
+ButtonWithForwardRef.defaultProps = Button.defaultProps;
+
 Button.displayName = 'Button';
+export { ButtonWithForwardRef };
 export default Button;
