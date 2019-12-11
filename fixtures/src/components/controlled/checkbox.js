@@ -8,11 +8,46 @@ const ControlledCheckbox = () => {
   const [checkedGroupCbOne, setCheckedGroupCbOne] = useState(false);
   const [checkedGroupCbTwo, setCheckedGroupCbTwo] = useState(false);
   const [checkedGroupCbThree, setCheckedGroupCbThree] = useState(false);
+  const [checkedGroupCbFour, setCheckedGroupCbFour] = useState(false);
+
+  function testValidator(value, props) {
+    return new Promise((resolve, reject) => {
+      if (['value four'].indexOf(value) !== -1 && !props.checked) {
+        reject(new Error('This checkbox is required!'));
+      } else {
+        resolve();
+      }
+    });
+  }
+
+  function testWarning(value, props) {
+    return new Promise((resolve, reject) => {
+      if (['value three'].indexOf(value) !== -1 && !props.checked) {
+        reject(new Error('Show warning!'));
+      } else {
+        resolve();
+      }
+    });
+  }
+
+  function testInfo(value, props) {
+    return new Promise((resolve, reject) => {
+      if (['value two'].indexOf(value) !== -1 && !props.checked) {
+        reject(new Error('Show this information'));
+      } else {
+        resolve();
+      }
+    });
+  }
+
   return (
     <LogConsumer>
       {(log) => {
         const onChange = store => (e) => {
-          store(e.target.checked);
+          store({
+            checked: e.target.checked,
+            forceUpdateTriggerToggle: !e.target.checked
+          });
           log(e, { method: 'onChange' });
         };
         const onBlur = e => log(e, { method: 'onBlur' });
@@ -32,7 +67,7 @@ const ControlledCheckbox = () => {
                 label='label one'
                 onChange={ onChange(setChecked) }
                 onBlur={ onBlur }
-                checked={ checked }
+                checked={ checked.checked }
                 name='controlled_checkbox_one'
               />
             </div>
@@ -47,7 +82,7 @@ const ControlledCheckbox = () => {
                 label='label two'
                 onChange={ onChange(setCheckedExampleTwo) }
                 onBlur={ onBlur }
-                checked={ checkedExampleTwo }
+                checked={ checkedExampleTwo.checked }
                 name='controlled_checkbox_two'
               />
             </div>
@@ -65,7 +100,7 @@ const ControlledCheckbox = () => {
                   name='group_checkbox_one'
                   value='value one'
                   label='label one'
-                  checked={ checkedGroupCbOne }
+                  checked={ checkedGroupCbOne.checked }
                   onChange={ onChange(setCheckedGroupCbOne) }
                   onBlur={ onBlur }
                 />
@@ -73,19 +108,31 @@ const ControlledCheckbox = () => {
                   id='group_checkbox_two'
                   name='group_checkbox_two'
                   value='value two'
-                  label='label two'
-                  checked={ checkedGroupCbTwo }
+                  label='label two (info)'
+                  checked={ checkedGroupCbTwo.checked }
                   onChange={ onChange(setCheckedGroupCbTwo) }
                   onBlur={ onBlur }
+                  info={ testInfo }
                 />
                 <Checkbox
                   id='group_checkbox_three'
                   name='group_checkbox_three'
                   value='value three'
-                  label='label three'
-                  checked={ checkedGroupCbThree }
+                  label='label three (warning)'
+                  checked={ checkedGroupCbThree.checked }
                   onChange={ onChange(setCheckedGroupCbThree) }
                   onBlur={ onBlur }
+                  warnings={ testWarning }
+                />
+                <Checkbox
+                  id='group_checkbox_four'
+                  name='group_checkbox_four'
+                  value='value four'
+                  label='label four (with required)'
+                  checked={ checkedGroupCbFour.checked }
+                  onChange={ onChange(setCheckedGroupCbFour) }
+                  onBlur={ onBlur }
+                  validations={ testValidator }
                 />
               </CheckboxGroup>
             </div>
