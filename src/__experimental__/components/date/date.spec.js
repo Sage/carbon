@@ -480,6 +480,16 @@ describe('Date', () => {
       });
     });
 
+    it('short circuits when either "disabled" and/or "readOnly"', () => {
+      wrapper = render({});
+      wrapper.find(InputIconToggle).props().onClick();
+      wrapper.setProps({ disabled: true, readOnly: true });
+      wrapper.update();
+      wrapper.find(DatePicker).parent().props().onClick();
+      wrapper.update();
+      expect(spyOn(wrapper.find(BaseDateInput).instance(), 'openDatePicker')).not.toBeCalled();
+    });
+
     describe('on an external element', () => {
       const nativeClickEvent = new Event('click', { bubbles: true, cancelable: true });
       let domNode;
@@ -579,6 +589,15 @@ describe('when the calendar icon is clicked', () => {
     wrapper.find(InputIconToggle).props().onClick();
     wrapper.update();
     expect(wrapper.find(DatePicker).exists()).toBe(false);
+  });
+
+  it('does not close the picker when the picker onClick is called', () => {
+    const wrapper = render({});
+    wrapper.find(InputIconToggle).props().onClick();
+    wrapper.update();
+    wrapper.find(DatePicker).parent().props().onClick();
+    wrapper.update();
+    expect(wrapper.find(DatePicker).exists()).toBe(true);
   });
 });
 

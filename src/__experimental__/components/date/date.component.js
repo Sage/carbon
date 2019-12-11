@@ -202,7 +202,9 @@ class BaseDateInput extends React.Component {
     });
   };
 
-  handleClick = () => {
+  handleIconClick = () => {
+    if (this.props.disabled || this.props.readOnly) return;
+    this.isOpening = true;
     this.setState(({ shouldPickerOpen }) => ({
       shouldPickerOpen: !shouldPickerOpen
     }), () => {
@@ -331,7 +333,9 @@ class BaseDateInput extends React.Component {
   markCurrentDatepicker = () => {
     if (this.props.disabled || this.props.readOnly) return;
     this.isOpening = true;
-    this.handleClick();
+    this.inputFocusedViaPicker = false;
+    this.isBlurBlocked = true;
+    this.openDatePicker();
   }
 
   hiddenValue = () => {
@@ -367,7 +371,7 @@ class BaseDateInput extends React.Component {
       onChange: this.handleVisibleInputChange,
       onFocus: this.handleFocus,
       onKeyDown: this.handleKeyDown,
-      onClick: this.markCurrentDatepicker
+      onClick: this.handleIconClick
     };
 
     const validations = isDateRange ? concatAllValidations(inputProps) : this.state.validationsArray;
