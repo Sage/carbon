@@ -27,6 +27,8 @@ class BaseDateInput extends React.Component {
 
   inputFocusedViaPicker = false;
 
+  isMounted = false;
+
   state = {
     isDatePickerOpen: false,
     /** Date object to pass to the DatePicker */
@@ -41,6 +43,7 @@ class BaseDateInput extends React.Component {
   };
 
   componentDidMount() {
+    this.isMounted = true;
     if (this.props.autoFocus) {
       this.isAutoFocused = true;
       this.input.focus();
@@ -61,6 +64,10 @@ class BaseDateInput extends React.Component {
     if (this.hasValidationsChanged()) {
       this.handleValidationUpdate();
     }
+  }
+
+  componentWillUnmount() {
+    this.isMounted = false;
   }
 
   inputProps = () => {
@@ -173,18 +180,20 @@ class BaseDateInput extends React.Component {
   };
 
   updateValidEventValues = (value) => {
-    this.setState({
-      visibleValue: DateHelper.formatDateToCurrentLocale(value),
-      lastValidEventValues: {
-        formattedValue: DateHelper.formatDateToCurrentLocale(value),
-        rawValue: isoFormattedValueString(value)
-      }
-    });
+    if (this.isMounted) {
+      this.setState({
+        visibleValue: DateHelper.formatDateToCurrentLocale(value),
+        lastValidEventValues: {
+          formattedValue: DateHelper.formatDateToCurrentLocale(value),
+          rawValue: isoFormattedValueString(value)
+        }
+      });
+    }
   }
 
    reformatVisibleDate = () => {
      const { lastValidEventValues, visibleValue } = this.state;
-     if (DateHelper.isValidDate(visibleValue) || (this.canBeEmptyValues(visibleValue))) {
+     if ((DateHelper.isValidDate(visibleValue) || (this.canBeEmptyValues(visibleValue)))) {
        this.updateValidEventValues(visibleValue);
      } else if (!visibleValue.length) {
        this.updateValidEventValues(lastValidEventValues.formattedValue);
@@ -331,7 +340,7 @@ class BaseDateInput extends React.Component {
     return this.state.lastValidEventValues.rawValue;
   }
 
-  renderHiddentInput = () => {
+  renderHiddenInput = () => {
     const props = {
       name: this.props.name,
       type: 'hidden',
@@ -377,7 +386,7 @@ class BaseDateInput extends React.Component {
           inputRef={ this.assignInput }
           { ...events }
         />
-        { this.renderHiddentInput() }
+        { this.renderHiddenInput() }
         { this.renderDatePicker({ minDate, maxDate }) }
       </StyledDateInput>
     );

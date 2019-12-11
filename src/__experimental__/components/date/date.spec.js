@@ -109,7 +109,7 @@ describe('Date', () => {
 
     beforeEach(() => {
       onBlurFn = jest.fn();
-      wrapper = render({ onBlur: onBlurFn, value: '' });
+      wrapper = render({ onBlur: onBlurFn, value: '2019-12-11' });
     });
 
     describe('and with DatePicker opened', () => {
@@ -151,6 +151,18 @@ describe('Date', () => {
         simulateBlurOnInput(wrapper);
         jest.runAllTimers();
         expect(onBlurFn).toHaveBeenCalled();
+      });
+    });
+
+    describe('when the "isMounted" flag is falsy', () => {
+      it('does not update the "lastValidEventValues"', () => {
+        const instance = wrapper.find(BaseDateInput).instance();
+        instance.isMounted = false;
+        simulateChangeOnInput(wrapper, '21-12-2019');
+        simulateBlurOnInput(wrapper);
+        jest.runAllTimers();
+        expect(instance.state.lastValidEventValues.rawValue).toEqual('2019-12-11');
+        expect(instance.state.lastValidEventValues.formattedValue).toEqual('11/12/2019');
       });
     });
   });
@@ -367,7 +379,7 @@ describe('Date', () => {
     });
 
     describe('to an empty date', () => {
-      it('reformats the "visiblevalue" when it is an empty string and "allowEmptyValue" is falsy', () => {
+      it('reformats the "visibleValue" when it is an empty string and "allowEmptyValue" is falsy', () => {
         const initialDate = '2019-04-01';
         const formattedDate = '01/04/2019';
         const emptyDate = '';
@@ -385,7 +397,7 @@ describe('Date', () => {
         expect(wrapper.find('input').findWhere(n => n.props().type !== 'hidden').props().value).toBe(formattedDate);
       });
 
-      it('does not reformat the "visiblevalue" when it is an empty string and "allowEmptyValue" is truthy', () => {
+      it('does not reformat the "visibleValue" when it is an empty string and "allowEmptyValue" is truthy', () => {
         const initialDate = '2019-04-01';
         const emptyDate = '';
 
@@ -445,6 +457,8 @@ describe('Date', () => {
         onBlur: onBlurFn
       });
     });
+
+    afterEach(() => wrapper.unmount());
 
     it('then onBlur prop should not have been called', () => {
       simulateBlurOnInput(wrapper);
