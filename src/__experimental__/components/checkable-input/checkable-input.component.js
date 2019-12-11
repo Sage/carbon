@@ -16,6 +16,7 @@ class CheckableInput extends React.Component {
     const {
       children,
       name,
+      onChange,
       ...rest
     } = this.props;
 
