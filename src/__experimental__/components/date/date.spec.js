@@ -9,8 +9,6 @@ import StyledDateInput from './date.style';
 import { THEMES } from '../../../style/themes';
 import DateHelper from '../../../utils/helpers/date/date';
 import { isEdge } from '../../../utils/helpers/browser-type-check';
-import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
-import StyledLabel from '../label/label.style';
 
 moment.suppressDeprecationWarnings = true;
 jest.useFakeTimers();
