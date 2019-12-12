@@ -498,7 +498,7 @@ describe('Date', () => {
       { disabled: false, readOnly: true },
       { disabled: true, readOnly: true }
     ])('The date picker', (props) => {
-      it(`when disabled is ${props.disabled} and readOnly is ${props.readOnly}`, () => {
+      it(` does not call "openDatePicker" when disabled is ${props.disabled} and readOnly is ${props.readOnly}`, () => {
         wrapper = render({});
         wrapper.find(InputIconToggle).props().onClick();
         wrapper.setProps({ ...props });
