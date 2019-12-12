@@ -125,7 +125,7 @@ function checkIsoFormatLength(date) {
     return false;
   }
   const array = date.split('-');
-  return array.length === 3 && array[0].length === 4 && array[1].length === 2 && array[2].length;
+  return array.length === 3 && array[0].length === 4 && array[1].length === 2 && array[2].length === 2;
 }
 
 /**
