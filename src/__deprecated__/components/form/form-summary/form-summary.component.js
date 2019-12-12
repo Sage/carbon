@@ -109,23 +109,23 @@ const summary = (props, key) => {
   return null;
 };
 
-const addChildren = (isCorrectPosition, props) =>{
-  if (isCorrectPosition){
-    return props.children
+const addChildren = (isCorrectPosition, props) => {
+  if (isCorrectPosition) {
+    return props.children;
   }
   return null;
-}
+};
 
 const FormSummary = props => (
   <StyledFormSummary
     isInvalid={ props.errors > 0 || props.warnings > 0 }
-    buttonAlignedRight={props.buttonAlignedRight}
+    buttonAlignedRight={ props.buttonAlignedRight }
     { ...tagComponent('form-summary', props) }
   >
-     { addChildren(!props.buttonAlignedRight, props) }
-     { summary(props, 'error') }
-     { summary(props, 'warning') }
-     { addChildren(props.buttonAlignedRight, props) }
+    { addChildren(!props.buttonAlignedRight, props) }
+    { summary(props, 'error') }
+    { summary(props, 'warning') }
+    { addChildren(props.buttonAlignedRight, props) }
   </StyledFormSummary>
 );
 

@@ -14,10 +14,9 @@ const StyledFormSummary = styled.div`
  
   ${({ isInvalid, theme }) => isInvalid && css`
     background-color: ${theme.form.invalid};
-    margin-left: 15px;
   `}
 
-  ${({ buttonAlignedRight }) => !buttonAlignedRight && css` 
+  ${({ buttonAlignedRight }) => buttonAlignedRight && css` 
     margin-left: 15px;
   `}  
 `;
