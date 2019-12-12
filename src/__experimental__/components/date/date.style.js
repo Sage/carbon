@@ -24,12 +24,6 @@ const StyledDateInput = styled.div`
     width: ${({ size }) => (size ? datePickerWidth[size] : '135px')};
   }
 
-  ${({ labelInline }) => labelInline && css`
-    ${StyledLabel} {
-      margin-top: -1px;
-    }
-  `}
-
   ${dateClassicStyle}
 `;
 

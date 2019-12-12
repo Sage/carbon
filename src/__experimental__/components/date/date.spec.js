@@ -41,16 +41,6 @@ describe('Date', () => {
     });
   });
 
-  describe('when labelInline prop is set', () => {
-    it('then the input label should accomodate for input custom height', () => {
-      wrapper = render({ label: 'foo', labelInline: true });
-
-      assertStyleMatch({
-        marginTop: '-1px'
-      }, wrapper, { modifier: `${StyledLabel}` });
-    });
-  });
-
   describe.each(['value', 'defaultValue'])(
     'when the %s is  an empty string', (prop) => {
       const currentDate = getFormattedDate(moment());

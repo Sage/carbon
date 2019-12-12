@@ -138,7 +138,7 @@ describe('Textarea', () => {
       wrapper = renderTextarea({ label: 'foo', labelInline: true });
 
       assertStyleMatch({
-        paddingTop: '6px'
+        paddingTop: '8px'
       }, wrapper, { modifier: `${StyledLabel}` });
     });
   });

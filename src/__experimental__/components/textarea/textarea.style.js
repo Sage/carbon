@@ -12,7 +12,7 @@ const StyledTextarea = styled.div`
 
   ${({ labelInline }) => labelInline && css`
     ${StyledLabel} {
-      padding-top: 6px;
+      padding-top: 8px;
     }
   `}
 `;

@@ -43,7 +43,6 @@ const StyledSwitch = styled.div`
     ${LabelStyle} {
       padding: 0;
       margin-bottom: 8px;
-      margin-top: 2px;
 
       ${StyledValidationIcon} {
         position: relative;
@@ -81,6 +80,7 @@ const StyledSwitch = styled.div`
       ${LabelStyle} {
         margin-bottom: 0;
         margin-right: 32px;
+        padding-top: 4px;
         width: auto;
       }
 
@@ -113,11 +113,11 @@ const StyledSwitch = styled.div`
 
         ${LabelStyle} {
           margin-right: 10px;
-          margin-top: 3px;
         }
 
         ${FieldHelpStyle} {
           margin-left: 0;
+          margin-top: -1px;
           align-self: center;
         }
       `}
