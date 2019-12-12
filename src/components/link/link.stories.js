@@ -37,6 +37,7 @@ function makeStory(name, themeSelector) {
       OptionsHelper.alignAroundEdges,
       OptionsHelper.alignAroundEdges[0]
     ) : undefined;
+    const hasOnClick = boolean('onClick', false);
 
     return (
       <Link
@@ -49,7 +50,7 @@ function makeStory(name, themeSelector) {
         tooltipMessage={ tooltipMessage }
         tooltipPosition={ tooltipPosition }
         tooltipAlign={ tooltipAlign }
-        onClick={ action('click') }
+        onClick={ hasOnClick && action('click') }
       >
         {children}
       </Link>
