@@ -21,8 +21,8 @@ const StyledHeading = styled.div`
     `}
 
     ${({ divider, subheader, theme }) => isClassic(theme) && css`
-        margin-top: ${!divider && subheader ? '-14px' : ''};
-        margin-top: ${!divider && !subheader ? '-10px' : ''};
+      margin-top: ${!divider && subheader ? '-14px' : ''};
+      margin-top: ${!divider && !subheader ? '-10px' : ''};
     `}
   }
 `;
