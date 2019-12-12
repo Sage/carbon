@@ -480,25 +480,16 @@ describe('Date', () => {
       });
     });
 
-    // This test is for a specific bug found in Storybook where the component can be focused,
-    // the knobs for readOnly and/or disabled can then be selected and the date component can then
-    // still be interacted with.
-    it('short circuits when either "disabled" and/or "readOnly"', () => {
-      wrapper = render({});
-      wrapper.find(InputIconToggle).props().onClick();
-      wrapper.setProps({ disabled: true, readOnly: true });
-      wrapper.update();
-      wrapper.find(DatePicker).parent().props().onClick();
-      wrapper.update();
-      expect(spyOn(wrapper.find(BaseDateInput).instance(), 'openDatePicker')).not.toBeCalled();
-    });
-
     describe.each([
       { disabled: true, readOnly: false },
       { disabled: false, readOnly: true },
       { disabled: true, readOnly: true }
     ])('The date picker', (props) => {
+<<<<<<< Updated upstream
       it(` does not call "openDatePicker" when disabled is ${props.disabled} and readOnly is ${props.readOnly}`, () => {
+=======
+      it(`does not call "openDatePicker" when disabled is ${props.disabled} and readOnly is ${props.readOnly}`, () => {
+>>>>>>> Stashed changes
         wrapper = render({});
         wrapper.find(InputIconToggle).props().onClick();
         wrapper.setProps({ ...props });
