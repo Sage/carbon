@@ -62,6 +62,7 @@ function applySortableStyling(align, colors, table) {
         display: flex;
         align-items: center;
         line-height: 16px;
+        height: 24px;
       }
 
       span {
