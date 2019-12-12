@@ -29,54 +29,8 @@ describe('DateHelper', () => {
       expect(DateHelper.isValidDate('10/12/2012')).toBeTruthy();
     });
 
-    it('returns false whent he date is not valid', () => {
+    it('returns false when the date is not valid', () => {
       expect(DateHelper.isValidDate('FOO')).toBeFalsy();
-    });
-  });
-
-  describe('isValidLength', () => {
-    it('returns true when date length is equal or greater the value, where value provided is 0', () => {
-      expect(DateHelper.isValidLength('10/12/2012')).toBeTruthy();
-    });
-
-    it('returns true when date length is equal or greater the value, where value provided is 9', () => {
-      expect(DateHelper.isValidLength('10/12/2012')).toBeTruthy();
-    });
-
-    describe('when valid value length must be 9 chracters long', () => {
-      it('returns false when value is less', () => {
-        expect(DateHelper.isValidLength('/12/2012', 9)).toBeFalsy();
-      });
-
-      it('returns false when value is empty', () => {
-        expect(DateHelper.isValidLength('', 9)).toBeFalsy();
-      });
-
-      it('returns true when value is equal to required value', () => {
-        expect(DateHelper.isValidLength('1/12/2012', 9)).toBeTruthy();
-      });
-
-      it('returns true when value is greater to required value', () => {
-        expect(DateHelper.isValidLength('10/12/2012', 9)).toBeTruthy();
-      });
-    });
-
-    describe('when valid value length is not specified', () => {
-      it('returns true when value is less', () => {
-        expect(DateHelper.isValidLength('/12/2012')).toBeTruthy();
-      });
-
-      it('returns false when value is empty', () => {
-        expect(DateHelper.isValidLength('')).toBeTruthy();
-      });
-
-      it('returns true when valueis equal to required value', () => {
-        expect(DateHelper.isValidLength('1/12/2012')).toBeTruthy();
-      });
-
-      it('returns true when valueis greater to required value', () => {
-        expect(DateHelper.isValidLength('10/12/2012')).toBeTruthy();
-      });
     });
   });
 
@@ -95,7 +49,7 @@ describe('DateHelper', () => {
 
     describe('options', () => {
       describe('sanitize', () => {
-        it('does not santize the input before parsing', () => {
+        it('does not sanitize the input before parsing', () => {
           expect(DateHelper.formatValue('10-10-2015', 'DD/MM/YYYY', { sanitize: false })).toEqual('10-10-2015');
         });
       });
@@ -144,7 +98,7 @@ describe('DateHelper', () => {
   });
 
   describe('weekdaysMinified', () => {
-    it('returns the days of week by locale minfied', () => {
+    it('returns the days of week by locale minified', () => {
       expect(DateHelper.weekdaysMinified()).toEqual(['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']);
     });
   });

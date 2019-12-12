@@ -24,7 +24,7 @@ const DateHelper = {
   },
 
   /**
-   * Determins if date is valid
+   * Determines if date is valid
    *
    * @param {String} value - value to validate
    * @param {Object} options Override Moment JS options
@@ -32,17 +32,6 @@ const DateHelper = {
    */
   isValidDate: (value, options = {}) => {
     return DateHelper._parseDate(value, options).isValid();
-  },
-
-  /**
-   * Determins if value length is valid
-   *
-   * @param {String} value - value to validate
-   * @param {Integer} valueLength - the number that determines valid length
-   * @return {Boolean}
-   */
-  isValidLength: (value, validLength = 0) => {
-    return (value.length >= validLength);
   },
 
   /**
@@ -64,7 +53,7 @@ const DateHelper = {
    *
    * @method stringToDate
    * @param {String} value current value e.g. 2017-08-23
-   * @return {Oject} The Date object
+   * @return {Object} The Date object
    */
   stringToDate: value => moment(value).toDate(),
 
@@ -94,7 +83,7 @@ const DateHelper = {
   },
 
   /**
-   * Returns an array of days of the week by locale minfied
+   * Returns an array of days of the week by locale minified
    * Mo, Tu, We, Th, Fr, Sa, Su
    *
    * @param {String} locale - defaulted to I18n.locale
