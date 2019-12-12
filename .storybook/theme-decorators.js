@@ -1,7 +1,7 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { withThemesProvider } from 'storybook-addon-styled-component-theme';
-import classic from '../src/style/themes/classic';
+import classicTheme from '../src/style/themes/classic';
 import mintTheme from '../src/style/themes/mint';
 import aegeanTheme from '../src/style/themes/aegean';
 import none from '../src/style/themes/none';
@@ -26,7 +26,12 @@ export default function getThemeDecorator() {
 
   const queryStringThemeName = (new URLSearchParams(window.location.search)).get('theme');
 
-  const themesMap = { classic, mintTheme, aegeanTheme, none };
+  const themesMap = { 
+    classic: classicTheme,
+    mint: mintTheme,
+    aegean: aegeanTheme,
+    none
+  };
 
   const themeDecorator = (story, storyArgs) => {
     const storyThemeName = (
