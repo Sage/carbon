@@ -29,7 +29,7 @@ const UncontrolledDateRange = () => {
                 id='uncontrolled_date_range_id'
                 name='uncontrolled_date_range_name'
                 label='Uncontrolled Date Range'
-                defaultValue={ ['23rd apr 12', '23rd apr 13'] }
+                defaultValue={ ['2012-04-23', '2013-04-23'] }
               />
             </div>
           </React.Fragment>
