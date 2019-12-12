@@ -1,0 +1,2 @@
+Breaking Changes: "The link component now renders a `<button>` when an `onClick` prop is passed without a `to` prop to fix accessibility errors. (Component: Link)"
+Styling Changes: "Removes text decoration from links in Heading and adds margin to fix regressed alignments. (Component: Heading, Pages)"

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import BaseTheme from '../../style/themes/base';
 import buttonTypes from './button-types.style';
 import buttonSizes from './button-sizes.style';
-import buttonClasicStyle from './button-classic.style';
+import buttonClassicStyle from './button-classic.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import StyledIcon from '../icon/icon.style';
 import { isClassic } from '../../utils/helpers/style-helper';
@@ -47,7 +47,7 @@ function additionalIconStyle({ theme, iconType }) {
 }
 
 function addButtonStyle(props) {
-  if (isClassicButton(props)) return buttonClasicStyle(props);
+  if (isClassicButton(props)) return buttonClassicStyle(props);
 
   return stylingForType(props);
 }

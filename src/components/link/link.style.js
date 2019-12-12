@@ -8,7 +8,7 @@ import StyledIcon from '../icon/icon.style';
 const LinkStyle = styled.div`
   display: inline-block;
 
-  a {
+  a, button {
       font-size: 14px;
       text-decoration: underline;
       color: ${({ theme }) => theme.colors.primary};
@@ -52,6 +52,12 @@ const LinkStyle = styled.div`
       `}
 
       ${classicThemeForLinkAnchor}
+  }
+
+  button { 
+    background-color: transparent;
+    border: none;
+    padding: 0;
   }
 `;
 
