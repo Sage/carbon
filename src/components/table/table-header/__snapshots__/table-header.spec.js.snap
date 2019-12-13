@@ -31,7 +31,7 @@ exports[`TableHeader render renders the sort icon to match the snapshot 1`] = `
   background-color: #19475B;
 }
 
-.c1 .c4 {
+.c1 .c3 {
   color: #FFFFFF;
 }
 
@@ -42,6 +42,16 @@ exports[`TableHeader render renders the sort icon to match the snapshot 1`] = `
   color: #FFFFFF;
   -webkit-text-decoration: none;
   text-decoration: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  line-height: 16px;
+  height: 24px;
 }
 
 .c1 a span {
@@ -54,12 +64,8 @@ exports[`TableHeader render renders the sort icon to match the snapshot 1`] = `
   width: 10px;
 }
 
-.c2 .c0 {
-  padding: 10px 8px;
-}
-
-.c3 .c6 .c5,
-.c3 .c6 .c0 {
+.c2 .c5 .c4,
+.c2 .c5 .c0 {
   font-size: 14px;
   padding-left: 11px;
   padding-right: 11px;

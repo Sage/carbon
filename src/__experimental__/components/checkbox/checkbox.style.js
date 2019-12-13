@@ -192,10 +192,6 @@ const StyledCheckboxGroup = styled.div`
     font-size: 16px;
   }
 
-  ${StyledLabel} {
-    margin-top: -2px;
-  }
-
   & ${CheckboxStyle} {
     padding-top: 12px;
 
