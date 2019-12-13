@@ -29,7 +29,7 @@ describe('DateHelper', () => {
       expect(DateHelper.isValidDate('10/12/2012')).toBeTruthy();
     });
 
-    it('returns false whent he date is not valid', () => {
+    it('returns false when the date is not valid', () => {
       expect(DateHelper.isValidDate('FOO')).toBeFalsy();
     });
   });
@@ -49,7 +49,7 @@ describe('DateHelper', () => {
 
     describe('options', () => {
       describe('sanitize', () => {
-        it('does not santize the input before parsing', () => {
+        it('does not sanitize the input before parsing', () => {
           expect(DateHelper.formatValue('10-10-2015', 'DD/MM/YYYY', { sanitize: false })).toEqual('10-10-2015');
         });
       });
@@ -98,7 +98,7 @@ describe('DateHelper', () => {
   });
 
   describe('weekdaysMinified', () => {
-    it('returns the days of week by locale minfied', () => {
+    it('returns the days of week by locale minified', () => {
       expect(DateHelper.weekdaysMinified()).toEqual(['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']);
     });
   });
