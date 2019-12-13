@@ -3,6 +3,7 @@ import StyledTableCell from './table-cell/table-cell.style';
 import StyledTableHeader from './table-header/table-header.style';
 import StyledTableRow from './table-row/table-row.style';
 import tableSizes from './table-sizes.style';
+import StyledIcon from '../icon/icon.style';
 
 function convertTableType(type) {
   if (['primary', 'secondary', 'tertiary'].includes(type)) return type;
@@ -15,7 +16,7 @@ function applyModernInternalStyling({ tableType, theme }) {
   const type = convertTableType(tableType);
   return css`
     background-color: transparent;
-    border: 1px solid ${type === 'tertiary' ? 'transparent' : theme.table.secondary};  
+    border: 1px solid ${type === 'tertiary' ? 'transparent' : theme.table.secondary};
   `;
 }
 
@@ -64,7 +65,8 @@ function additionalThemeStyling(type, { text, table, colors }) {
       background-color: ${type === 'secondary' ? table.secondary : 'transparent'};
       ${type === 'tertiary' ? 'border-left-color: transparent;' : ''}
       color: ${text.color};
-        
+
+      ${StyledIcon},
       a:link,
       a:visited,
       a:hover,
