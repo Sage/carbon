@@ -40,3 +40,7 @@ When('I click {int} actionPopoverInnerItem', (element) => {
 When('I press {string} actionPopoverInnerItem onto {int} element', (key, element) => {
   actionPopoverInnerItem(element).type(`{${key}}`);
 });
+
+When('I press downarrow on focused element', () => {
+  actionPopoverButton().first().trigger('keydown', { keyCode: 40, which: 40 });
+});
