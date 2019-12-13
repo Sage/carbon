@@ -70,7 +70,11 @@ describe('<FormSummary />', () => {
 
     it('renders with a default and invalid class', () => {
       wrapper = TestRenderer.create(
-        <FormSummary errors={ 1 } warnings={ 0 } />
+        <FormSummary
+          buttonAlignedRight
+          errors={ 1 }
+          warnings={ 0 }
+        />
       );
 
       assertStyleMatch({
