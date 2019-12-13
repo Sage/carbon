@@ -1,7 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Textarea when rendered should render default 1`] = `
-.c3 {
+.c6 {
+  background: transparent;
+  border: none;
+  color: rgba(0,0,0,0.9);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-size: 14px;
+  outline: none;
+  width: 30px;
+}
+
+.c6::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c6::-moz-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c6:-ms-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c6::placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c6:invalid,
+.c6:required {
+  box-shadow: none;
+}
+
+.c4 {
   -webkit-align-items: stretch;
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
@@ -26,104 +60,77 @@ exports[`Textarea when rendered should render default 1`] = `
   padding-right: 11px;
 }
 
-.c3 .c4 {
+.c4 .c5 {
   height: calc(40px - 4px);
 }
 
-.c3 input::-ms-clear {
+.c4 input::-ms-clear {
   display: none;
 }
 
-.c3 input::-webkit-contacts-auto-fill-button {
+.c4 input::-webkit-contacts-auto-fill-button {
   display: none!important;
 }
 
-.c6 .c4 {
+.c7 .c5 {
   height: calc(40px - 4px);
 }
 
-.c7 .c4 {
+.c8 .c5 {
   height: calc(40px - 4px);
 }
 
-.c8 .c4 {
+.c9 .c5 {
   height: calc(40px - 4px);
 }
 
-.c1 + .c0 {
+.c2 + .c1 {
   margin-top: 16px;
 }
 
-.c2 {
+.c3 {
   display: block;
 }
 
-.c5 {
-  background: transparent;
-  border: none;
-  color: rgba(0,0,0,0.9);
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-size: 14px;
-  outline: none;
-  width: 30px;
+.c0 .c5 {
   resize: none;
   min-height: 40px;
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
-.c5::-webkit-input-placeholder {
-  color: rgba(0,0,0,0.3);
-}
-
-.c5::-moz-placeholder {
-  color: rgba(0,0,0,0.3);
-}
-
-.c5:-ms-input-placeholder {
-  color: rgba(0,0,0,0.3);
-}
-
-.c5::placeholder {
-  color: rgba(0,0,0,0.3);
-}
-
-.c5:invalid,
-.c5:required {
-  box-shadow: none;
-}
-
 <div
-  className="c0 c1"
+  className="c0"
 >
   <div
-    className="c2"
+    className="c1 c2"
   >
     <div
       className="c3"
-      disabled={false}
-      onMouseDown={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      role="presentation"
-      size="medium"
     >
-      <textarea
-        aria-invalid={false}
-        className="c4 c5"
+      <div
+        className="c4"
         disabled={false}
-        id="guid-12345"
-        name="textarea"
-        onBlur={[Function]}
-        onChange={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        readOnly={false}
-        type="text"
-      />
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        role="presentation"
+        size="medium"
+      >
+        <textarea
+          aria-invalid={false}
+          className="c5 c6"
+          disabled={false}
+          id="guid-12345"
+          name="textarea"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          readOnly={false}
+          type="text"
+        />
+      </div>
     </div>
   </div>
 </div>
