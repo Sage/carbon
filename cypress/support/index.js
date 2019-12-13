@@ -40,17 +40,19 @@ Cypress.Commands.overwrite(
 );
 
 function getItem(selector, counter) {
-  cy.wait(999, { log: DEBUG_FLAG })
-    .get('#storybook-preview-iframe', { log: DEBUG_FLAG })
-    .then(($iframe) => {
-      const doc = $iframe.contents();
-      if (!doc.find(selector).length && counter > 0) {
-        return getItem(selector, --counter);
-      }
-      cy.wait(250, { log: DEBUG_FLAG });
-      return cy.wrap(doc.find('body'));
-    })
-    .find(selector);
+  if (document.readyState === 'loading') { // Loading hasn't finished yet
+    document.addEventListener('DOMContentLoaded', getItem);
+  } else {
+    cy.wait(100, { log: DEBUG_FLAG })
+      .get('#storybook-preview-iframe', { log: DEBUG_FLAG })
+      .then(($iframe) => {
+        const doc = $iframe.contents();
+        if (!doc.find(selector).length && counter > 0) {
+          return getItem(selector, --counter);
+        }
+        return cy.wrap(doc.find(selector));
+      });
+  }
 }
 
 Cypress.Commands.add('iFrame', (selector) => { getItem(selector, 50); });
