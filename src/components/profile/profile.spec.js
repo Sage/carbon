@@ -126,7 +126,7 @@ describe('ProfileAvatarStyle', () => {
 
     expect(wrapper.find(ProfileAvatarStyle).props().size).toEqual('medium-small');
   });
-  it('should render an user image when a "src" prop is provided', () => {
+  it('should render a user image when a "src" prop is provided', () => {
     const wrapper = shallow(<Profile
       initials='AS'
       theme={ classicTheme }
