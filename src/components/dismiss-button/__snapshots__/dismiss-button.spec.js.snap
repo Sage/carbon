@@ -114,7 +114,6 @@ exports[`LinkStyle applies peoper styling when focused 1`] = `
 
 .c1 a:focus {
   color: rgba(0,0,0,0.9);
-  cursor: default;
   background-color: #FFDA7F;
   outline: none;
 }
