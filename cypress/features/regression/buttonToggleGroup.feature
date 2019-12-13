@@ -33,7 +33,7 @@ Feature: Button Toggle Group component
   # @ignore because of FE-1447
   # | <>                       |
 
-  @positive
+  @ignore
   Scenario Outline: Change Button Toggle Group input width to <width>
     When I check labelInline checkbox
       And I set inputWidth to "<width>"

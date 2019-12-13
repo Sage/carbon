@@ -22,7 +22,7 @@ Feature: Experimental Fieldset component classic page
     When I set legend to empty
     Then legend on preview not exists
 
-  @positive
+  @ignore
   Scenario: Verify Fieldset properties
     # Given I open "Experimental Fieldset" component page
     Then Fieldset component has proper field names
