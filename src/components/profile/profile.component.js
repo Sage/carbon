@@ -15,7 +15,7 @@ import { isClassic } from '../../utils/helpers/style-helper';
 import baseTheme from '../../style/themes/base';
 
 class Profile extends React.Component {
-  /** Returns the hasSrc component */
+  /** Determines whether a `src` prop has been supplied */
   get hasSrc() {
     return Boolean(this.props.src);
   }
