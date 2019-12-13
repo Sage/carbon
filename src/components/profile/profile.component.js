@@ -86,13 +86,7 @@ Profile.propTypes = {
   /** [Legacy] A custom class name for the component */
   className: PropTypes.string,
   /* Custom source URL */
-  src: ({ src }) => {
-    if (src && typeof src !== 'string') {
-      throw new Error(
-        `Invalid prop \`src\` of type \`${typeof src}\` supplied to \`Profile\`, expected \`string\`.`
-      );
-    }
-  },
+  src: PropTypes.string,
   /** Define the name to display. */
   name: PropTypes.string.isRequired,
   /** Define the email to use (will check Gravatar for image). */

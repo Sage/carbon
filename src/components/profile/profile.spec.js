@@ -138,18 +138,6 @@ describe('ProfileAvatarStyle', () => {
     expect(wrapper.find(ProfileAvatarStyle).props().size).toEqual('medium-small');
     expect(wrapper.find(ProfileAvatarStyle).props()['data-element']).toEqual('user-image');
   });
-  it('should throw an error when the src prop is not a string', () => {
-    jest.spyOn(global.console, 'error').mockImplementation(() => {});
-    shallow(<Profile
-      initials='AS'
-      theme={ classicTheme }
-      src
-      email='foo'
-      name='foo'
-    />);
-
-    expect(console.error).toHaveBeenCalled();
-  });
 });
 
 describe('ProfileClassicStyle', () => {
