@@ -33,7 +33,7 @@ class Profile extends React.Component {
 
   /** Returns the avatar portion of the profile. */
   get avatar() {
-    if (this.props.src) {
+    if (this.hasSrc) {
       return (
         <ProfileAvatarStyle
           src={ this.props.src }
