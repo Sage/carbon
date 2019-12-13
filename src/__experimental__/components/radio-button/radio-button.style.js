@@ -20,6 +20,7 @@ const RadioButtonStyle = styled(CheckboxStyle)`
 
     ${FieldHelpStyle} {
       margin-left: 32px;
+      padding-left: 0;
     }
 
     ${StyledCheckableInput} {
@@ -52,6 +53,11 @@ const RadioButtonStyle = styled(CheckboxStyle)`
 
     ${LabelStyle} {
       flex: 1 1 calc(100% - 44px);
+      padding-left: 0;
+
+      ${reverse && css`
+        margin-right: 6px;
+      `}
     }
 
     ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle {
@@ -102,7 +108,8 @@ const RadioButtonStyle = styled(CheckboxStyle)`
 
       ${reverse && css`
         ${StyledCheckableInput} {
-          margin-left: 6px;
+          margin-right: 0;
+          margin-left: 16px;
         }
 
         ${!fieldHelpInline && `
