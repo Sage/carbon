@@ -13,8 +13,8 @@ Then('Tile component padding property is set to {string}', (value) => {
   tile().should('have.css', 'padding', `${value}px`);
 });
 
-Then('Tile {word} is set to {int}', (sliderName, width) => {
-  tile().should('have.css', 'width', `${width}px`);
+Then('Tile {word} is set to {string}', (sliderName, width) => {
+  tile().should('have.attr', 'width', width);
 });
 
 When('I set pixelWidth slider to {int}', (width) => {

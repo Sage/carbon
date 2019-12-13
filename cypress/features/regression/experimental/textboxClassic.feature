@@ -32,7 +32,7 @@ Feature: Experimental Textbox classic component
   @positive
   Scenario: Enable readOnly checkbox for a Textbox classic component
     When I check readOnly checkbox
-    Then Textbox component is readOnly
+    Then Textbox component is readOnly for classic story
 
   @positive
   Scenario: Disable readOnly checkbox for a Textbox classic component

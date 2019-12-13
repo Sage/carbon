@@ -46,24 +46,18 @@ Then('{word} input component size is set to {string} and has min-height set to {
     .and('have.css', 'padding-right', `${px}px`);
 });
 
-Then('{word} component labelInline is enabled {string}', (componentName, classicStory) => {
-  switch (classicStory) {
-    case 'true':
-      label().should('have.css', 'align-self', 'center')
-        .and('have.css', 'box-sizing', 'border-box')
-        .and('have.css', 'padding-bottom', '0px')
-        .and('have.css', 'padding-right', '8px')
-        .and('have.css', 'text-align', 'left');
-      break;
-    case 'false':
-      label().should('have.css', 'align-self', 'center')
-        .and('have.css', 'box-sizing', 'border-box')
-        .and('have.css', 'padding-bottom', '0px')
-        .and('have.css', 'padding-right', '11px')
-        .and('have.css', 'text-align', 'left');
-      break;
-    default: throw new Error('True of False could be used only');
-  }
+Then('NumberInput component labelInline is enabled', () => {
+  label().should('have.css', 'box-sizing', 'border-box')
+    .and('have.css', 'padding-bottom', '0px')
+    .and('have.css', 'padding-right', '11px')
+    .and('have.css', 'text-align', 'left');
+});
+
+Then('NumberInput component labelInline is enabled for classic component', () => {
+  label().should('have.css', 'box-sizing', 'border-box')
+    .and('have.css', 'padding-bottom', '0px')
+    .and('have.css', 'padding-right', '8px')
+    .and('have.css', 'text-align', 'left');
 });
 
 Then('{word} component labelInline is disabled', () => {
@@ -80,6 +74,6 @@ Then('{word} Input component inputWidth is set to {int}', (componentName, width)
   commonDataElementInputPreview().parent().should('have.css', 'flex', `0 0 ${width}%`);
 });
 
-Then('{word} Input component labelWidth is set to {int}', (componentName, width) => {
-  label().should('have.css', 'width', `${width}px`);
+Then('{word} Input component labelWidth is set to {string}', (componentName, width) => {
+  label().should('have.attr', 'width', width);
 });

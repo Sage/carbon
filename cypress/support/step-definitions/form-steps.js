@@ -104,7 +104,7 @@ Then('alignedActions button is set to {string} and has text {string}', (buttonSt
     cy.wait(500, { log: DEBUG_FLAG }); // added due to changing animation;
     buttons(FIRST_ELEMENT).should('be.visible');
     buttons(FIRST_ELEMENT).children().should('have.attr', 'data-component', 'link');
-    buttons(FIRST_ELEMENT).children().should('have.attr', 'tabindex', '0');
+    buttons(FIRST_ELEMENT).children().children().should('have.attr', 'tabindex', '0');
     buttons(FIRST_ELEMENT).children().children()
       .contains(text);
   }

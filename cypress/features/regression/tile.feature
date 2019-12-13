@@ -48,10 +48,10 @@ Feature: Tile component
   @positive
   Scenario Outline: Change Tile width to <width>
     When I set width slider to <width>
-    Then Tile width is set to <px>
+    Then Tile width is set to "<width>"
     Examples:
-      | width | px  |
-      | 1     | 11  |
-      | 10    | 106 |
-      | 50    | 531 |
-      | 90    | 955 |
+      | width |
+      | 1     |
+      | 10    |
+      | 50    |
+      | 90    |

@@ -24,7 +24,7 @@ Then('Textbox component is disabled', () => {
     .and('have.css', 'cursor', 'not-allowed');
 });
 
-Then('Textbox component is disabled  for classic page', () => {
+Then('Textbox component is disabled for classic page', () => {
   textbox().children()
     .should('have.css', 'color', 'rgb(179, 194, 200)')
     .and('have.css', 'cursor', 'not-allowed');
@@ -60,29 +60,39 @@ Then('Textbox multiple component is not disabled', () => {
     .and('not.have.css', 'cursor', 'not-allowed');
 });
 
+Then('Textbox component is readOnly for classic story', () => {
+  cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
+  textbox().should('have.css', 'background-color', 'rgba(0, 0, 0, 0)')
+    .and('have.css', 'border-bottom-color', 'rgb(204, 214, 219)')
+    .and('have.css', 'border-left-color', 'rgb(204, 214, 219)')
+    .and('have.css', 'border-right-color', 'rgb(204, 214, 219)')
+    .and('have.css', 'border-top-color', 'rgb(204, 214, 219)')
+    .and('not.have.css', 'background-color', 'rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box');
+});
+
 Then('Textbox component is readOnly', () => {
   cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
   textbox().should('have.css', 'background-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-bottom-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-left-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-right-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-top-color', 'rgba(0, 0, 0, 0)')
+    .and('have.css', 'border-bottom-color', 'rgb(102, 132, 145)')
+    .and('have.css', 'border-left-color', 'rgb(102, 132, 145)')
+    .and('have.css', 'border-right-color', 'rgb(102, 132, 145)')
+    .and('have.css', 'border-top-color', 'rgb(102, 132, 145)')
     .and('not.have.css', 'background-color', 'rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box');
 });
 
 Then('Textbox multiple component is readOnly', () => {
   cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
   textbox(FIRST_ELEMENT).should('have.css', 'background-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-bottom-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-left-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-right-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-top-color', 'rgba(0, 0, 0, 0)')
+    .and('have.css', 'border-bottom-color', 'rgb(102, 132, 145)')
+    .and('have.css', 'border-left-color', 'rgb(102, 132, 145)')
+    .and('have.css', 'border-right-color', 'rgb(102, 132, 145)')
+    .and('have.css', 'border-top-color', 'rgb(102, 132, 145)')
     .and('not.have.css', 'background-color', 'rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box');
   textbox(SECOND_ELEMENT).should('have.css', 'background-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-bottom-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-left-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-right-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-top-color', 'rgba(0, 0, 0, 0)')
+    .and('have.css', 'border-bottom-color', 'rgb(102, 132, 145)')
+    .and('have.css', 'border-left-color', 'rgb(102, 132, 145)')
+    .and('have.css', 'border-right-color', 'rgb(102, 132, 145)')
+    .and('have.css', 'border-top-color', 'rgb(102, 132, 145)')
     .and('not.have.css', 'background-color', 'rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box');
 });
 
