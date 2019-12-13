@@ -79,7 +79,7 @@ Feature: Experimental Checkbox component
   # @ignore because of FE-1447
   # | <>                       |
 
-  @positive
+  @ignore
   Scenario Outline: Change Checkbox input width to <width>
     When I set inputWidth slider to <width>
     Then Checkbox inputWidth is set to <px>
@@ -89,7 +89,7 @@ Feature: Experimental Checkbox component
       | 50    | 531  |
       | 100   | 1061 |
 
-  @positive
+  @ignore
   Scenario Outline: Change Checkbox label width to <width>
     When I set label width slider to <width>
     Then Checkbox label width is set to <px>
