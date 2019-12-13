@@ -7,12 +7,6 @@ import baseTheme from '../../style/themes/base';
 import { isClassic } from '../../utils/helpers/style-helper';
 
 const Flash = (props) => {
-  if (isClassic(props.theme)) {
-    return (
-      <FlashLegacy { ...props } />
-    );
-  }
-
   let timer = null;
 
   const stopTimeout = () => {
@@ -28,6 +22,12 @@ const Flash = (props) => {
 
     timer = setTimeout(() => props.onDismiss(), props.timeout);
   }, timer);
+
+  if (isClassic(props.theme)) {
+    return (
+      <FlashLegacy { ...props } />
+    );
+  }
 
   return (
     <Toast
