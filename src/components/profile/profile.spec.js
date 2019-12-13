@@ -197,7 +197,7 @@ describe('ProfileDetailStyle', () => {
   describe.each(
     [['XS', '1px'], ['S', '1px'], ['M', '4px'], ['ML', '8px'], ['L', '14px'], ['XL', '24px'], ['XXL', '32px']]
   )(
-    'when an src prop is passed and the size is %s', (size, margin) => {
+    'when a src prop is passed and the size is %s', (size, margin) => {
       it('renders the expected styles', () => {
         const wrapper = mount(<Profile
           initials='AS'
