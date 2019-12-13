@@ -15,8 +15,8 @@ Feature: Button Toggle component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <> |
+  # @ignore because of FE-1447
+  # | <> |
 
   @positive
   Scenario Outline: Set button icon size to <size>
@@ -33,9 +33,9 @@ Feature: Button Toggle component
     When I select size to "<size>"
     Then Button Toggle height is "<height>" and width is "<width>"
     Examples:
-      | size  | height | width |
-      | small | 40px   | 94px  |
-      | large | 40px   | 94px  |
+      | size  | height | width   |
+      | small | 40px   | 94.25px |
+      | large | 40px   | 94.25px |
 
   @positive
   Scenario Outline: Set Button Toggle size to <size> with small icon
@@ -44,9 +44,9 @@ Feature: Button Toggle component
       And I select size to "<size>"
     Then Button Toggle height is "<height>" and width is "<width>"
     Examples:
-      | size  | height | width |
-      | small | 40px   | 118px |
-      | large | 40px   | 118px |
+      | size  | height | width    |
+      | small | 40px   | 118.25px |
+      | large | 40px   | 118.25px |
 
   @positive
   Scenario Outline: Set Button Toggle size to <size> with large icon
