@@ -3,7 +3,7 @@ import DateRange from 'carbon-react/lib/__experimental__/components/date-range';
 import { LogConsumer } from '../log';
 
 const ControlledDateRange = () => {
-  const [state, setState] = useState(['23rd apr 12', '23rd apr 13']);
+  const [state, setState] = useState(['2012-04-23', '2013-04-23']);
   return (
     <LogConsumer>
       {(log) => {

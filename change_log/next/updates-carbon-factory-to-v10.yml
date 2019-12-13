@@ -1,0 +1,2 @@
+Breaking Changes: "dependencies were updated by a major version and the precompile script was altered"
+Dependency Updates: "`carbon-factory` was updated to `v10.0.0` to leverage linting of react hooks and to fix the issues with the precompile script"
