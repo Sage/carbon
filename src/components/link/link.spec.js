@@ -148,7 +148,7 @@ describe('Link', () => {
       });
     });
 
-    describe('and a `to` props has been recevied', () => {
+    describe('and a `to` props has been received', () => {
       it('should trigger `onClick` prop', () => {
         wrapper.setProps({ to: 'testRoute', onClick: onClickFn });
         wrapper.find(RouterLink).simulate('keydown', { which: 13 });

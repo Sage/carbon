@@ -65,7 +65,7 @@ describe('Heading', () => {
 
     assertStyleMatch({
       outline: `solid 3px ${smallTheme.colors.focus}`
-    }, wrapper.find(PagesContent), { modifier: `${LinkStyleAnchor} a:focus` })
+    }, wrapper.find(PagesContent), { modifier: `&&&& ${LinkStyleAnchor} button:focus` })
   });
 
   it('renders a back link and applies the expected style for classic theme with a subheader and no divider', () => {

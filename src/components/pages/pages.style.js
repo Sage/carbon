@@ -8,18 +8,21 @@ import BaseTheme from '../../style/themes/base';
 const PagesContent = styled.div`
   border: none;
   
-  ${LinkStyleAnchor} {
-    a{
+  &&&& ${LinkStyleAnchor} {
+    margin-top: -16px;
+    a, button {
       height: 26px;
       background-color: transparent;
       top: 50px;
       margin-top: -5px;
 
       ${({ theme }) => !isClassic(theme) && css`
-        top: 12px;
-
         &:focus {
           outline: solid 3px ${theme.colors.focus};
+          background-color: transparent;
+          width: 26px;
+          padding-top: 0px;
+          padding-bottom: 6px;
         }
       `}
 
