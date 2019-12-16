@@ -10,5 +10,6 @@
   "viewportWidth": 1366,
   "viewportHeight": 768,
   "reporter": "mocha-allure-reporter",
+  "reporter": "spec",
   "chromeWebSecurity": false
 }
