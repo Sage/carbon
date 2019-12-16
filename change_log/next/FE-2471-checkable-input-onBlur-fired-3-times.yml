@@ -1,0 +1,1 @@
+Bug Fixes: "Fixes issue with onBlur event fired multiple times instead of only once. (Components: Switch, Checkbox, RadioButton)"
