@@ -22,8 +22,8 @@ describe('InputPresentation', () => {
         it(`has the right style for ${size}-sized inputs`, () => {
           assertStyleMatch({
             minHeight: sizes[size].height,
-            paddingLeft: sizes[size].padding,
-            paddingRight: sizes[size].padding
+            paddingLeft: sizes[size].horizontalPadding,
+            paddingRight: sizes[size].horizontalPadding
           }, render({ size }));
         });
       });
