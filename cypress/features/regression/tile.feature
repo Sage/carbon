@@ -37,7 +37,7 @@ Feature: Tile component
   @positive
   Scenario Outline: Change Tile pixelWidth to <width>
     When I set pixelWidth slider to <width>
-    Then Tile pixelWidth is set to <width>
+    Then Tile pixel width is set to "<width>"
     Examples:
       | width |
       | 1     |
