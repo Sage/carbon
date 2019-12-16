@@ -94,6 +94,7 @@ function defaultKnobs(type) {
     reverse: boolean(nameWithGroup('reverse'), false, knobGroup),
     label,
     labelHelp: text(nameWithGroup('labelHelp'), 'This text provides more information for the label.', knobGroup),
+    onBlur: action('onBlur'),
     inputWidth: number(nameWithGroup('inputWidth'), 0, {
       range: true,
       min: 0,

@@ -59,11 +59,15 @@ function applySortableStyling(align, colors, table) {
       &:active {
         color: ${colors.white};
         text-decoration: none;
+        display: flex;
+        align-items: center;
+        line-height: 16px;
+        height: 24px;
       }
 
       span {
         float: ${align === 'right' ? 'left' : 'right'};
-      
+
         .carbon-icon__svg--sort-down,
         .carbon-icon__svg--sort-up {
           height: 11px;
