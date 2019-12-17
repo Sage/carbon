@@ -32,7 +32,7 @@ Array [
 
 .c1 .c15 {
   text-align: left;
-  margin-top: -2px;
+  padding-top: 0;
   width: auto;
 }
 
@@ -116,6 +116,7 @@ Array [
 
 .c0 .c12 {
   margin-left: 32px;
+  padding-left: 0;
 }
 
 .c0 .c6 {
@@ -151,6 +152,7 @@ Array [
   -webkit-flex: 1 1 calc(100% - 44px);
   -ms-flex: 1 1 calc(100% - 44px);
   flex: 1 1 calc(100% - 44px);
+  padding-left: 0;
 }
 
 .c0 .c8:checked + .c10 circle {
@@ -216,13 +218,11 @@ Array [
     className="c0"
     data-component="radio-button"
     name="test-group"
-    onBlur={[MockFunction]}
   >
     <div
       checked={false}
       className="c1"
       name="test-group"
-      onBlur={[MockFunction]}
     >
       <div
         className="c2 c3"
@@ -305,7 +305,7 @@ Array [
 
 .c1 .c15 {
   text-align: left;
-  margin-top: -2px;
+  padding-top: 0;
   width: auto;
 }
 
@@ -389,6 +389,7 @@ Array [
 
 .c0 .c12 {
   margin-left: 32px;
+  padding-left: 0;
 }
 
 .c0 .c6 {
@@ -424,6 +425,7 @@ Array [
   -webkit-flex: 1 1 calc(100% - 44px);
   -ms-flex: 1 1 calc(100% - 44px);
   flex: 1 1 calc(100% - 44px);
+  padding-left: 0;
 }
 
 .c0 .c8:checked + .c10 circle {
@@ -489,13 +491,11 @@ Array [
     className="c0"
     data-component="radio-button"
     name="test-group"
-    onBlur={[MockFunction]}
   >
     <div
       checked={false}
       className="c1"
       name="test-group"
-      onBlur={[MockFunction]}
     >
       <div
         className="c2 c3"
