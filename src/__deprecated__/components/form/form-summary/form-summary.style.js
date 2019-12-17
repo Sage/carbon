@@ -11,14 +11,11 @@ const StyledFormSummary = styled.div`
   margin: -8px;
   white-space: nowrap;
   padding: 8px;
- 
+  margin-left: ${props => (props.buttonAlignedRight ? '15px' : '')};
+
   ${({ isInvalid, theme }) => isInvalid && css`
     background-color: ${theme.form.invalid};
   `}
-
-  ${({ buttonAlignedRight }) => buttonAlignedRight && css` 
-    margin-left: 15px;
-  `}  
 `;
 
 export const StyledInternalSummary = styled.span`
