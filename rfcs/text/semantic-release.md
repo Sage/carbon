@@ -119,12 +119,12 @@ This will prevent PR's being merged that do not follow the correct syntax.
 
 ## Release Notes
 
-In version 4.3.0 we introduced [`renogen`](https://github.com/DDAZZA/renogen) a ruby gem to allow us to write release notes as a collection of changes. Prior
-to this I believe they were written and updated by each collaborator.
+In version 4.3.0, we introduced [`renogen`](https://github.com/DDAZZA/renogen) (a Ruby gem to allow us to write release notes as a collection of changes). Prior
+to this, the release notes were written and updated by each collaborator manually in the old `CHANGELOG.md` file.
 
-[`semantic-release`](https://github.com/semantic-release/semantic-release) has a package called [`@semantic-release/changelog`](https://github.com/semantic-release/changelog) when used in conjunction with [`@semantic-release/git`](https://github.com/semantic-release/git) and
+[`semantic-release`](https://github.com/semantic-release/semantic-release) has a package called [`@semantic-release/changelog`](https://github.com/semantic-release/changelog). When used in conjunction with [`@semantic-release/git`](https://github.com/semantic-release/git) and
 [`@semantic-release/npm`](https://github.com/semantic-release/npm) it will maintain a changelog that is committed to git and published to [NPM](https://www.npmjs.com/). We will use this to help
-communicate the features that each release brings. The changelog will include the `TYPE`, `SCOPE` and `DESCRIPTION`, it
+communicate the features included in each release. The changelog will include the `TYPE`, `SCOPE` and `DESCRIPTION` from the commit messages. It
 will not include the `BODY` but it will include a link to the relevant pull request.
 
 ## Maintenance Releases
@@ -137,21 +137,21 @@ This functionality is not available in the latest stable release, however the be
 
 # Drawbacks
 - There is a learning curve to this new process
-- Version numbers will increase substantially if we don't plan our interfaces carefully to prevent breaking changes. I
+- Version numbers will increase substantially if we don't plan our interfaces carefully to prevent breaking changes. We
 don't consider this to be a drawback, but we need to be aware about breaking changes. Previously we have bundled many
 breaking changes into one release.
 - Changelog format will change
 
 # Alternatives
 There are alternatives to [`semantic-release`](https://github.com/semantic-release/semantic-release) for automating the
-release process such as [np](https://github.com/sindresorhus/np)
+release process, such as [`np`](https://github.com/sindresorhus/np).
 
-However, I could find no other solution that parses commits to work out the version number. This means that someone has
+However, there are no other known existing solutions for parsing commit messages to determine the next release's version number. This means someone has
 to be involved in the release process to determine the version number. This is not sustainable and prone to errors.
 
 # Adoption strategy
 
-This RFC PR includes all changes necessary, if this RFC is accepted when it is merged it will immediately start
+This RFC PR includes all necessary changes. If and when this RFC is accepted and merged, it will immediately start
 releasing from the following branches `['+([0-9])?(.{+([0-9]),x}).x', 'master', 'next', 'next-major', {name: 'beta', prerelease: true}, {name: 'alpha', prerelease: true}]`  
 [[Source]](https://github.com/semantic-release/semantic-release/blob/916c2685c57f3490fb1e50afbf72ea8dce11e188/docs/usage/configuration.md#branches)
 
@@ -184,7 +184,7 @@ The commit types are defined in [@commitizen/conventional-commit-types](https://
 
 Please note that `improvement:` is **not** supported, there is an [open pull request](https://github.com/commitizen/conventional-commit-types/pull/16) to remove it from [`commitizen`](https://github.com/commitizen/cz-cli).
 
-If we use [`git revert`](https://git-scm.com/docs/git-revert) we will use the [`--no-commit`](https://git-scm.com/docs/git-revert#Documentation/git-revert.txt---no-commit) flag if we're reverting a `BREAKING CHANGE` because this would also be a breaking change, or, if we're reverting a new feature. We will then use `commitizen` to write a commit that includes a reference to the `BREAKING CHANGE`.
+If we use [`git revert`](https://git-scm.com/docs/git-revert), we will use the [`--no-commit`](https://git-scm.com/docs/git-revert#Documentation/git-revert.txt---no-commit) flag (to prevent auto-generation of a commit message) and then use `commitizen` to write the commit message.
 
 eg.
 > revert(decimal): remove on change handler 
@@ -242,7 +242,7 @@ We want to avoid [fast-forward merges](https://git-scm.com/docs/git-merge#_fast_
 > feat(textbox): add keyboard support  
 > feat(textarea): add keyboard support
 
-In this example, we have broken the work into atomic commits, each of these could be `cherry-picked` or `revert`ed
+In this example, we have broken the work into atomic commits, each of which can be [`cherry-pick`](https://git-scm.com/docs/git-cherry-pick)ed or [`revert`](https://git-scm.com/docs/git-revert)ed
 without affecting another component.
 
 > JIRA Ticket 2  
