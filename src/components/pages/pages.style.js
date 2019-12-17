@@ -11,21 +11,21 @@ const PagesContent = styled.div`
   &&&& ${LinkStyleAnchor} {
     margin-top: -16px;
     a, button {
-      height: 26px;
+      height: 34px;
       background-color: transparent;
       top: 50px;
-      margin-top: -5px;
+      margin-top: ${({ theme }) => (isClassic(theme) ? '-1px' : '-5px')};
 
       ${({ theme }) => !isClassic(theme) && css`
         &:focus {
           outline: solid 3px ${theme.colors.focus};
           background-color: transparent;
           width: 26px;
-          margin-top: 3px;
+          margin-top: -1px;
           padding-top: 0px;
-          padding-bottom: 6px;
         }
       `}
+
 
        > span {
         display: block;
@@ -52,6 +52,7 @@ const PagesContent = styled.div`
   .carbon-app-wrapper {
     min-width: auto;
     max-width: 100%;
+    padding: 4px 0 0 0; 
   }
 
   ${StyledHeading} {
