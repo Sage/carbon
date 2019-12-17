@@ -218,13 +218,11 @@ Array [
     className="c0"
     data-component="radio-button"
     name="test-group"
-    onBlur={[MockFunction]}
   >
     <div
       checked={false}
       className="c1"
       name="test-group"
-      onBlur={[MockFunction]}
     >
       <div
         className="c2 c3"
@@ -493,13 +491,11 @@ Array [
     className="c0"
     data-component="radio-button"
     name="test-group"
-    onBlur={[MockFunction]}
   >
     <div
       checked={false}
       className="c1"
       name="test-group"
-      onBlur={[MockFunction]}
     >
       <div
         className="c2 c3"
