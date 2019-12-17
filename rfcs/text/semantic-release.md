@@ -77,6 +77,9 @@ We will use [`commitizen`](https://github.com/commitizen/cz-cli) to help write c
 - we will use the [`cz-conventional-changelog`](https://github.com/commitizen/cz-conventional-changelog) config
 - users can choose to write commit messages with the regular `git` CLI or in their IDE still
 - users can launch [`commitizen`](https://github.com/commitizen/cz-cli) with `npm run commit`
+- If a commit message is discarded by `husky` e.g. if we run the tests in the `pre-commit` hook and they fail; the 
+developer can use `npm run commit -- --retry` to retry with the same commit message. If configured correctly, `husky` will
+never reject a commit message written by `commitizen`.
 
 We will add [`probot/semantic-pull-requests`](https://probot.github.io/apps/semantic-pull-requests/) as a GitHub check.
 This will prevent PR's being merged that do not follow the correct syntax.
