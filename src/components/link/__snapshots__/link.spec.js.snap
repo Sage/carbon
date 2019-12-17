@@ -30,7 +30,6 @@ exports[`Link renders as expected 1`] = `
 .c0 a:focus,
 .c0 button:focus {
   color: rgba(0,0,0,0.9);
-  cursor: default;
   background-color: #FFDA7F;
   outline: none;
 }

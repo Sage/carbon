@@ -17,16 +17,16 @@ const LinkStyle = styled.div`
       ${StyledIcon} {
         margin-right: 5px;
         position: relative;
-        
+
         ${({ iconAlign }) => iconAlign === 'right' && css`
           margin-right: 0;
           margin-left: 5px;
         `}
-        
+
         vertical-align: middle;
         top: ${({ theme }) => (isClassic(theme) ? '-2px' : '')};
       }
-      
+
       &:hover {
         cursor: pointer;
         color: ${({ theme }) => theme.colors.secondary};
@@ -35,7 +35,6 @@ const LinkStyle = styled.div`
       ${({ theme }) => !isClassic(theme) && css`
         &:focus {
           color: ${theme.text.color};
-          cursor: default;
           background-color: ${theme.colors.focusedLinkBackground};
           outline: none;
         }
