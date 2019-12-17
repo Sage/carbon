@@ -13,6 +13,8 @@ import classicTheme from '../../../style/themes/classic';
 const inputElement = { value: '12-12-2012', getBoundingClientRect: () => ({ left: 0, bottom: 0 }) };
 const firstDate = '2019-02-02';
 const secondDate = '2019-02-08';
+const invalidDate = '2019-02-';
+const noDate = '';
 const currentDate = moment().toDate();
 
 describe('DatePicker', () => {
@@ -37,10 +39,32 @@ describe('DatePicker', () => {
       wrapper = render({ inputElement, minDate: firstDate, inputDate: firstDate }, mount);
     });
 
-    it(`should pass to the "DayPicker" component the "disabledDays" 
+    it(`should pass to the "DayPicker" component the "disabledDays"
         prop containing an object with "before" property`, () => {
       const disabledDays = [{ before: moment(firstDate).toDate() }];
       expect(wrapper.find(DayPicker).props().disabledDays).toEqual(disabledDays);
+    });
+  });
+
+  describe('when rendered with invalid "minDate" length prop', () => {
+    beforeEach(() => {
+      wrapper = render({ inputElement, minDate: invalidDate, inputDate: invalidDate }, mount);
+    });
+
+    it(`should pass to the "DayPicker" component the "disabledDays"
+        prop containing an empty array`, () => {
+      expect(wrapper.find(DayPicker).props().disabledDays).toEqual([]);
+    });
+  });
+
+  describe('when rendered with blank "minDate" prop', () => {
+    beforeEach(() => {
+      wrapper = render({ inputElement, minDate: noDate, inputDate: noDate }, mount);
+    });
+
+    it(`should pass to the "DayPicker" component the "disabledDays"
+        prop containing a null value`, () => {
+      expect(wrapper.find(DayPicker).props().disabledDays).toEqual(null);
     });
   });
 
@@ -49,7 +73,7 @@ describe('DatePicker', () => {
       wrapper = render({ inputElement, maxDate: secondDate, inputDate: firstDate }, mount);
     });
 
-    it(`should pass to the "DayPicker" component the "disabledDays" 
+    it(`should pass to the "DayPicker" component the "disabledDays"
         prop containing an object with "after" property`, () => {
       const disabledDays = [{ after: moment(secondDate).toDate() }];
       expect(wrapper.find(DayPicker).props().disabledDays).toEqual(disabledDays);
@@ -63,7 +87,7 @@ describe('DatePicker', () => {
       }, mount);
     });
 
-    it(`should pass to the "DayPicker" component the "disabledDays" 
+    it(`should pass to the "DayPicker" component the "disabledDays"
         prop containing an object with both "before" and "after" properties`, () => {
       const disabledDays = [{ before: moment(firstDate).toDate() }, { after: moment(secondDate).toDate() }];
       expect(wrapper.find(DayPicker).props().disabledDays).toEqual(disabledDays);
