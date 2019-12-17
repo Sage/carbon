@@ -65,7 +65,7 @@ We will use the [`conventional-commits`](https://www.conventionalcommits.org/en/
 > The footer should contain any information about **Breaking Changes** and is also the place to reference GitHub issues that this commit **Closes**.
 >
 > **Breaking Changes** should start with the word `BREAKING CHANGE:` with a space or two newlines. The rest of the commit message is then used for this.  
-> [[Source]](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit)
+> [[Source]](https://github.com/angular/angular/blob/2089727db988c8d3336e06c10fc75049565305ad/CONTRIBUTING.md#commit)
 
 We will use [`commitlint`](https://github.com/conventional-changelog/commitlint) and [`husky`](https://github.com/typicode/husky) to check our commits against the `conventionalcommits` guidelines.
 - [`husky`](https://github.com/typicode/husky) will manage the git commit hooks defined in `package.json`
