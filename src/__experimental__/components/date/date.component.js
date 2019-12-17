@@ -49,6 +49,7 @@ class BaseDateInput extends React.Component {
       this.isAutoFocused = true;
       this.input.focus();
       this.openDatePicker(true);
+      this.setState({ shouldPickerOpen: true });
     }
     this.handleValidationUpdate();
   }
