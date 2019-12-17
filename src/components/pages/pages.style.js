@@ -21,6 +21,7 @@ const PagesContent = styled.div`
           outline: solid 3px ${theme.colors.focus};
           background-color: transparent;
           width: 26px;
+          margin-top: 3px;
           padding-top: 0px;
           padding-bottom: 6px;
         }
