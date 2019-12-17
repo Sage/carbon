@@ -109,15 +109,23 @@ function getDisabledDays(minDate, maxDate) {
     return null;
   }
 
-  if (minDate) {
+  if (minDate && checkIsoFormatAndLength(minDate)) {
     days.push({ before: DateHelper.stringToDate(minDate) });
   }
 
-  if (maxDate) {
+  if (maxDate && checkIsoFormatAndLength(maxDate)) {
     days.push({ after: DateHelper.stringToDate(maxDate) });
   }
 
   return days;
+}
+
+function checkIsoFormatAndLength(date) {
+  if (date.length !== 10 || !DateHelper.isValidDate(date, { defaultValue: 'YYYY-MM-DD' })) {
+    return false;
+  }
+  const array = date.split('-');
+  return array.length === 3 && array[0].length === 4 && array[1].length === 2 && array[2].length === 2;
 }
 
 /**
