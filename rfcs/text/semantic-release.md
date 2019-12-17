@@ -154,6 +154,8 @@ The proposed tooling is well established in the JavaScript community. For Carbon
 | `chore:`       | Other changes that don't modify src or test files                                                           | :x:          |
 | `revert:`      | Reverts a previous commit                                                                                   | patch        |
 
+Any of these types can trigger a `major` release by including `BREAKING CHANGE:` in the commit footer.
+
 The commit types are defined in [@commitizen/conventional-commit-types](https://github.com/commitizen/conventional-commit-types) and the release behaviour is defined in [@semantic-release/commit-analyzer](https://github.com/semantic-release/commit-analyzer/blob/95a21dc7b09b7bff753d3d4a00e684b69a81df8c/lib/default-release-rules.js).
 
 Please note that `improvement:` is **not** supported, there is an [open pull request](https://github.com/commitizen/conventional-commit-types/pull/16) to remove it from [`commitizen`](https://github.com/commitizen/cz-cli).
