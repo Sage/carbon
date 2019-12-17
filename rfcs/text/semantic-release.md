@@ -1,5 +1,26 @@
 - Start Date: 2019-11-28
 
+# Table of contents
+
+- [Summary](#summary)
+- [Basic example](#basic-example)
+- [Motivation](#motivation)
+- [Detailed design](#detailed-design)
+  - [Subject](#subject)
+  - [Body](#body)
+  - [Footer](#footer)
+  - [Reverting a Release](#reverting-a-release)
+  - [Release Notes](#release-notes)
+  - [Maintenance Releases](#maintenance-releases)
+- [Drawbacks](#drawbacks)
+- [Alternatives](#alternatives)
+- [Adoption strategy](#adoption-strategy)
+- [How we teach this](#how-we-teach-this)
+  - [Learning Git](#learning-git)
+    - [Atomic Commits](#atomic-commits)
+      - [Don’t push your work until you’re happy with it](#dont-push-your-work-until-youre-happy-with-it)
+      - [Examples](#examples)
+      
 # Summary
 
 We, the Carbon team, want to move to a continuous delivery approach. We have identified [`semantic-release`](https://github.com/semantic-release/semantic-release) as a suitable
