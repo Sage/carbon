@@ -97,7 +97,7 @@
             "name": "string"
           },
           "required": false,
-          "description": "Import an image from a scr url"
+          "description": "Import an image from a src url"
         },
         "theme": {
           "type": {
