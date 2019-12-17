@@ -14,7 +14,7 @@ https://semantic-release.gitbook.io/semantic-release/
 The number of changes included between `v8` and `v9` were substantial. It has become difficult for users to upgrade due
 to the number of changes. This is due to not releasing fast enough for the throughput of the team.
 
-We want to release faster so users can receive features faster and make small incremental upgrades. This will make
+We want to release more frequently, so users can receive features faster and make small incremental upgrades. This will make
 breaking changes less of an issue for our consumers.
 
 # Detailed design
@@ -136,7 +136,7 @@ will have to be performed by a workspace administrator.
 
 # How we teach this
 
-The proposed tooling is well established in the JavaScript community. For carbon developers
+The proposed tooling is well established in the JavaScript community. For Carbon, developers
  can use `npm run commit` to launch [`commitizen`](https://github.com/commitizen/cz-cli) which will guide them through the process.
 ![](./commitizen.svg)
 
@@ -163,7 +163,7 @@ If we use [`git revert`](https://git-scm.com/docs/git-revert) we will use the [`
 eg.
 > revert(decimal): remove on change handler 
 >
-> The on change hander was implemented incorrectly and caused major regressions.  
+> The on change handler was implemented incorrectly and caused major regressions.  
 > We're reverting this commit in favour of PR #1.
 >
 > This commit reverts #abcdef  
@@ -188,19 +188,19 @@ personally used:
 
 Atomic commits help us create frequent small releases. It makes code review and cherry-picking/reverting commits easier.
 
-Writing an atomic commits may mean re-writing your **local** history before making a PR. I recommend reading both
+Writing atomic commits may mean re-writing your **local** history before making a PR. It's worth reading both
 [Atlassian rewriting history](https://www.atlassian.com/git/tutorials/rewriting-history) and [Git book rewriting history](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History).
 
 > #### Don’t push your work until you’re happy with it
 > One of the cardinal rules of Git is that, since so much work is local within your clone, you have a great deal of freedom to rewrite your history **locally**. However, once you push your work, it is a different story entirely, and you should consider pushed work as final unless you have good reason to change it. In short, you should avoid pushing your work until you’re happy with it and ready to share it with the rest of the world.  
 > [[Source]](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History)
 
-> So, before you run git rebase, always ask yourself, “Is anyone else looking at this branch?” If the answer is yes, take your hands off the keyboard and start thinking about a non-destructive way to make your changes (e.g., the git revert command). Otherwise, you’re safe to re-write history as much as you like.  
-> [[Source]](https://www.atlassian.com/git/articles/git-team-workflows-merge-or-rebase)
+> So, before you run `git rebase`, always ask yourself, “Is anyone else looking at this branch?” If the answer is yes, take your hands off the keyboard and start thinking about a non-destructive way to make your changes (e.g., the `git revert` command). Otherwise, you’re safe to re-write history as much as you like.  
+> [[Source]](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
 
 **IMPORTANT**
-We want to avoid FF merges because it reduces the traceability of changes. So it's important that you re-write your history locally before creating a PR.
-> Pull requests are merged using the --no-ff option, except for pull requests with squashed or rebased commits, which are merged using the fast-forward option.
+We want to avoid [fast-forward merges](https://git-scm.com/docs/git-merge#_fast_forward_merge), because they reduce the traceability of changes. So it's important that you re-write your history locally before creating a PR.
+> Pull requests are merged using [the `--no-ff` option](https://git-scm.com/docs/git-merge#_fast_forward_merge), except for [pull requests with squashed or rebased commits](https://help.github.com/en/articles/about-pull-request-merges), which are merged using the fast-forward option.
 > [[Source]](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/merging-a-pull-request)
 
 #### Examples
