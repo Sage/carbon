@@ -85,7 +85,7 @@ class Profile extends React.Component {
 Profile.propTypes = {
   /** [Legacy] A custom class name for the component */
   className: PropTypes.string,
-  /* Custom source URL */
+  /** Custom source URL */
   src: PropTypes.string,
   /** Define the name to display. */
   name: PropTypes.string.isRequired,
