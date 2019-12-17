@@ -136,7 +136,7 @@ const ActionPopover = ({
   useEffect(() => {
     const itemsWithRef = [];
     // childrenWith a clone of children with refs added so we can focus the dom element
-    setChildrenWithRef(React.Children.map(children, (child) => {
+    setChildrenWithRef(React.Children.toArray(children).map((child) => {
       if (child.type === ActionPopoverItem) {
         const itemWithRef = React.cloneElement(child, { ref: React.createRef() });
         itemsWithRef.push(itemWithRef);
@@ -196,6 +196,7 @@ ActionPopover.propTypes = {
     const prop = props[propName];
 
     React.Children.forEach(prop, (child) => {
+      if (child === null) { return; }
       if (![ActionPopoverItem.displayName, ActionPopoverDivider.displayName].includes(child.type.displayName)) {
         error = new Error(`\`${componentName}\` only accepts children of type \`${ActionPopoverItem.displayName}\``
         + ` and \`${ActionPopoverDivider.displayName}\`.`);

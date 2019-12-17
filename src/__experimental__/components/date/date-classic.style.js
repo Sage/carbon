@@ -7,7 +7,7 @@ import StyledIcon from '../../../components/icon/icon.style';
 const dateClassicStyle = ({ theme }) => isClassic(theme) && css`
   & ${InputPresentationStyle} {
     width: 125px;
-    
+
     &:focus {
       & ${InputIconToggleStyle} {
         background-color: #1e499f;
@@ -20,7 +20,7 @@ const dateClassicStyle = ({ theme }) => isClassic(theme) && css`
     &:hover {
       & ${InputIconToggleStyle} {
         background-color: #255BC7;
-        border-color: #255BC7; 
+        border-color: #255BC7;
       }
       ${StyledIcon} {
         color: #FFFFFF;
@@ -31,16 +31,16 @@ const dateClassicStyle = ({ theme }) => isClassic(theme) && css`
   &&& ${InputIconToggleStyle} {
     border-left: 1px solid #bfccd2;
     box-sizing: border-box;
-    width: 31px;
+    width: 32px;
     &:hover {
       background-color: #1e499f;
-      border-color: #1e499f;  
+      border-color: #1e499f;
       ${StyledIcon} {
         color: #FFFFFF;
       }
     }
   }
-  
+
 `;
 
 export default dateClassicStyle;
