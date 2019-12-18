@@ -2,6 +2,8 @@ import styled, { css } from 'styled-components';
 
 import Link from '../link';
 import Icon from '../icon';
+import StyledIcon from '../icon/icon.style';
+
 import { isClassic } from '../../utils/helpers/style-helper';
 
 import { styledBlockClassic, styledFooterClassic, styledEditActionClassic } from './pod-classic.style';
@@ -80,7 +82,7 @@ const contentPaddings = {
 
 const StyledContent = styled.div`
   text-align: left;
-  padding: ${({ padding }) => contentPaddings[padding] || 0};
+  padding: ${({ padding }) => contentPaddings[padding]};
 `;
 
 const StyledCollapsibleContent = styled.div``;
@@ -92,6 +94,7 @@ const StyledDescription = styled.div`
 `;
 
 const footerPaddings = {
+  'extra-small': '6px',
   small: '10px',
   medium: '10px 15px',
   large: '15px 25px',
@@ -109,14 +112,12 @@ const StyledFooter = styled.div`
       border-top: 1px solid ${theme.pod.border};
     `};
 
-  padding: ${({ padding }) => footerPaddings[padding] || 0};
+  padding: ${({ padding }) => footerPaddings[padding]};
 
   ${styledFooterClassic}
 `;
 
 const StyledEditContainer = styled.div`
-  display: inline-block;
-  vertical-align: top;
   cursor: pointer;
 
   ${({ internalEditButton }) => internalEditButton
@@ -149,15 +150,16 @@ const StyledEditAction = styled(Link)`
   cursor: pointer;
   background-color: ${({ theme, podTheme }) => editBackgrounds(podTheme, theme)};
   border: 1px solid ${({ theme }) => theme.pod.border};
-  box-sizing: content-box;
   margin-left: 8px;
-  display: inline-block;
-  width: 15px;
-  height: 15px;
-  vertical-align: top;
-  padding: ${({ padding }) => editPaddings[padding] || 0}px;
 
-  [data-component='icon'] {
+  > a, button {
+    width: 15px;
+    height: 15px;
+    padding: ${({ padding }) => editPaddings[padding]}px;
+    background-color: transparent;
+  }
+
+  ${StyledIcon} {
     top: -2px;
   }
 
@@ -168,7 +170,9 @@ const StyledEditAction = styled(Link)`
       background: transparent;
     `}
 
-  ${({ displayOnlyOnHover, isHovered }) => displayOnlyOnHover && !isHovered && 'display: none'}
+  ${({ displayOnlyOnHover, isFocused, isHovered }) => {
+    return displayOnlyOnHover && !(isHovered || isFocused) && 'display: none';
+  }}
 
   ${({
     isHovered, isFocused, theme, internalEditButton
@@ -178,7 +182,7 @@ const StyledEditAction = styled(Link)`
       background-color: ${theme.colors.primary};
       color: ${theme.colors.white};
 
-      [data-component='icon'] {
+      ${StyledIcon} {
         color: ${theme.colors.white};
       }
     `}
@@ -191,7 +195,10 @@ const StyledEditAction = styled(Link)`
     && css`
       outline: 3px solid ${theme.colors.focus};
       border: none;
-      padding: ${editPaddings[padding] + (noBorder || internalEditButton ? 0 : 1)}px;
+
+      > a, button {
+        padding: ${editPaddings[padding] + (noBorder || internalEditButton ? 0 : 1)}px;
+      }
     `};
 
 
@@ -204,7 +211,7 @@ const StyledEditAction = styled(Link)`
 }
 `;
 
-const headerRightAligntMargins = {
+const headerRightAlignMargins = {
   'extra-small': 20,
   small: 25,
   medium: 30,
@@ -225,7 +232,7 @@ const StyledHeader = styled.div`
   ${({ alignTitle, internalEditButton, padding }) => alignTitle === 'right'
     && internalEditButton
     && css`
-      margin-right: ${headerRightAligntMargins[padding]}px;
+      margin-right: ${headerRightAlignMargins[padding]}px;
     `};
 `;
 
@@ -242,7 +249,6 @@ const StyledTitle = styled.h4`
 `;
 
 const StyledArrow = styled(Icon).attrs({ type: 'dropdown' })`
-  display: inline-block;
   position: relative;
   top: -1px;
 

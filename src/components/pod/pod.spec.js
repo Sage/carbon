@@ -1,10 +1,8 @@
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
 import { shallow } from 'enzyme';
 
 import Pod from './pod.component';
 import Button from '../button';
-import Link from '../link';
 import {
   StyledBlock,
   StyledCollapsibleContent,
@@ -24,6 +22,7 @@ import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-spec
 describe('Pod', () => {
   let instance;
   let wrapper;
+
   beforeEach(() => {
     wrapper = shallow(<Pod />);
   });
@@ -47,15 +46,6 @@ describe('Pod', () => {
     });
   });
 
-
-  // describe('pod classes', () => {
-  //   it('assigns custom classes and maintains its own classes', () => {
-  //     instance = TestUtils.renderIntoDocument(<Pod className='custom' />);
-  //     const div = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pod');
-  //     expect(div.className).toEqual('carbon-pod custom carbon-pod--left');
-  //   });
-  // });
-
   describe('podHeader', () => {
     it('is not rendered if title prop not passed', () => {
       expect(wrapper.find(StyledHeader).exists()).toBeFalsy();
@@ -68,44 +58,44 @@ describe('Pod', () => {
 
     it('renders subtitle when subtitle is passed as a prop', () => {
       wrapper.setProps({ title: 'Title', subtitle: 'Subtitle' });
-      // expect(wrapper.find(StyledSubtitle).exists()).toBeTruthy();
       expect(wrapper.find(StyledSubtitle).props().children).toEqual('Subtitle');
     });
 
-
-    // describe('when alignTitle prop is passed', () => {
-    //   it('adds a align class', () => {
-    //     instance = TestUtils.renderIntoDocument(<Pod title='Title' alignTitle='center' />);
-    //     const header = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pod__header');
-    //     expect(header.className).toMatch('carbon-pod__header--center');
-    //   });
-    // });
-
-    describe('when pod is collapsible', () => {
-      it('adds an additional collaspsible arrow to the the header', () => {
-        wrapper.setProps({ title: 'Title' });
-        wrapper.setState({ isCollapsed: true });
-        expect(wrapper.find(StyledArrow).exists()).toBeTruthy();
-      });
-
-      // it('Adds an additonal class header', () => {
-      //   const header = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pod__header');
-      //   expect(header.className).toEqual('carbon-pod__header carbon-pod__header--left carbon-pod__header--true');
-      // });
-
-      it('clicking on Header toggles isCollapsed state', () => {
-        wrapper.setProps({ title: 'Title' });
-        wrapper.setState({ isCollapsed: true });
-        wrapper.find(StyledHeader).props().onClick();
-        expect(wrapper.state().isCollapsed).toEqual(false);
-        wrapper.find(StyledHeader).props().onClick();
-        expect(wrapper.state().isCollapsed).toEqual(true);
-      });
+    it('adds an additional collapsible arrow to the the header when pod is collapsible', () => {
+      wrapper.setProps({ title: 'Title' });
+      wrapper.setState({ isCollapsed: true });
+      expect(wrapper.find(StyledArrow).exists()).toBeTruthy();
     });
 
     it('does not add additional collapsible arrow when pod is NOT collapsible', () => {
       wrapper.setProps({ title: 'Title' });
       expect(wrapper.find(StyledArrow).exists()).toBeFalsy();
+    });
+  });
+
+  describe('collapsability', () => {
+    const ContentComp = () => <div />;
+
+    it('initializes component as collapsed when collapsed prop is passed as true', () => {
+      const collapsableWrapper = shallow(<Pod collapsed><ContentComp /></Pod>);
+      expect(collapsableWrapper.find(StyledCollapsibleContent).exists()).toEqual(false);
+      expect(collapsableWrapper.find(ContentComp).exists()).toEqual(false);
+    });
+
+    it('initializes component as not collapsed when collapsed prop is passed as false', () => {
+      const collapsableWrapper = shallow(<Pod collapsed={ false }><ContentComp /></Pod>);
+      expect(collapsableWrapper.find(StyledCollapsibleContent).exists()).toEqual(true);
+      expect(collapsableWrapper.find(ContentComp).exists()).toEqual(true);
+    });
+
+    it('clicking on Header toggles isCollapsed state', () => {
+      const collapsableWrapper = shallow(<Pod collapsed title='Title'><ContentComp /></Pod>);
+      collapsableWrapper.find(StyledHeader).props().onClick();
+      expect(collapsableWrapper.find(StyledCollapsibleContent).exists()).toEqual(true);
+      expect(collapsableWrapper.find(ContentComp).exists()).toEqual(true);
+      collapsableWrapper.find(StyledHeader).props().onClick();
+      expect(collapsableWrapper.find(StyledCollapsibleContent).exists()).toEqual(false);
+      expect(collapsableWrapper.find(ContentComp).exists()).toEqual(false);
     });
   });
 
@@ -120,22 +110,6 @@ describe('Pod', () => {
     });
   });
 
-  describe('podContent', () => {
-    it('renders pod content when Pod is not collapsed', () => {
-      const ContentComp = () => <div />;
-      wrapper.setProps({ collapsed: false, children: <ContentComp /> });
-      expect(wrapper.find(StyledCollapsibleContent).exists()).toEqual(true);
-      expect(wrapper.find(ContentComp).exists()).toEqual(true);
-    });
-
-    it('does not render pod content when Pod is collapsed', () => {
-      const ContentComp = () => <div />;
-      wrapper.setProps({ collapsed: true, children: <ContentComp /> });
-      expect(wrapper.find(StyledCollapsibleContent).exists()).toEqual(true);
-      expect(wrapper.find(ContentComp).exists()).toEqual(true);
-    });
-  });
-
   describe('podFooter', () => {
     it('renders footer when footer prop is pased', () => {
       wrapper.setProps({ footer: 'Footer' });
@@ -143,12 +117,11 @@ describe('Pod', () => {
     });
 
     it('does not render footer when footer prop is not pased', () => {
-      // wrapper.setProps({ footer: 'Footer' });
       expect(wrapper.find(StyledFooter).exists()).toEqual(false);
     });
   });
 
-  describe('edit', () => {
+  describe('edit action button', () => {
     it('renders edit action button when onEdit prop is passed', () => {
       wrapper.setProps({ onEdit: () => {} });
       expect(wrapper.find(StyledEditAction).exists()).toEqual(true);
@@ -173,348 +146,149 @@ describe('Pod', () => {
     });
 
     it('if onEdit prop is a function it gets invoked by clicking edit action button container', () => {
+      const event = { preventDefault: () => {} };
       const onEdit = jest.fn();
       wrapper.setProps({ onEdit });
-      wrapper.find(StyledEditContainer).props().onClick();
+      wrapper.find(StyledEditContainer).props().onClick(event);
       expect(onEdit).toHaveBeenCalled();
     });
-  });
 
-  describe('prop onEdit', () => {
-    // let editButtonBEM = '.carbon-pod__edit-button-container',
-    //     editContainer,
-    //     link,
-    //     wrapper;
+    it('if onEdit prop is a function it gets invoked by pressing enter key', () => {
+      const event = { preventDefault: () => {}, which: 13, type: 'keydown' };
+      const onEdit = jest.fn();
+      wrapper.setProps({ onEdit });
+      wrapper.find(StyledEditContainer).props().onKeyDown(event);
+      expect(onEdit).toHaveBeenCalled();
+    });
 
+    it('if onEdit prop is a function it is not invoked by pressing non-enter key', () => {
+      const event = { preventDefault: () => {}, which: 15, type: 'keydown' };
+      const onEdit = jest.fn();
+      wrapper.setProps({ onEdit });
+      wrapper.find(StyledEditContainer).props().onKeyDown(event);
+      expect(onEdit).not.toHaveBeenCalled();
+    });
 
-    // beforeAll(() => {
-    //   wrapper = shallow(<Pod />);
-    // });
+    it('toggles the hover state when moving the mouse into the action button', () => {
+      wrapper.setProps({ onEdit: () => {} });
+      wrapper.find(StyledEditContainer).props().onMouseEnter();
+      expect(wrapper.state().isHovered).toBe(true);
+    });
 
-    // it('!=Function does not bind to onClick and onKeyDown', () => {
-    //   // expect
-    // });
+    it('toggles the hover state when moving the mouse out of the action button', () => {
+      wrapper.setProps({ onEdit: () => {} });
+      wrapper.find(StyledEditContainer).props().onMouseLeave();
+      expect(wrapper.state().isHovered).toBe(false);
+    });
 
-    // it('=false results in no edit element', () => {
-    //   expect(wrapper.find(editButtonBEM).length).toEqual(0);
-    // });
+    it('toggles the focus state when focusing on the action button', () => {
+      wrapper.setProps({ onEdit: () => {} });
+      wrapper.find(StyledEditContainer).props().onFocus();
+      expect(wrapper.state().isFocused).toBe(true);
+    });
 
-    // it('=String results in a Link with a `to` property', () => {
-    //   wrapper.setProps({ onEdit: 'test' });
-    //   editContainer = wrapper.find(editButtonBEM);
-    //   link = editContainer.find(Link);
-    //   expect(link.prop('to')).toEqual('test');
-    // });
-
-    // it('=Object generates a Link with those Object properties included', () => {
-    //   wrapper.setProps({ onEdit: { foo: 'bar' } });
-    //   editContainer = wrapper.find(editButtonBEM);
-    //   link = editContainer.find(Link);
-    //   expect(link.prop('foo')).toEqual('bar');
-    // });
-
-    describe('=Function', () => {
-      let dummy,
-          event = { preventDefault: () => {} };
-
-      beforeAll(() => {
-        dummy = jasmine.createSpy('dummy');
-        wrapper.setProps({ onEdit: dummy });
-        editContainer = wrapper.find(editButtonBEM);
-      });
-
-      it('will be triggered onClick', () => {
-        editContainer.simulate('click', event);
-        expect(dummy).toHaveBeenCalled();
-      });
-
-      describe('with keydown event', () => {
-        beforeEach(() => {
-          event.type = 'keydown';
-          dummy.calls.reset();
-        });
-
-        it('will be triggered by enter key', () => {
-          event.which = 13;
-          editContainer.simulate('keydown', event);
-          expect(dummy).toHaveBeenCalled();
-        });
-
-        it('will not be triggered by non-enter key', () => {
-          event.which = 14;
-          editContainer.simulate('keydown', event);
-          expect(dummy).not.toHaveBeenCalled();
-        });
-      });
+    it('toggles the focus state when bluring the action button', () => {
+      wrapper.setProps({ onEdit: () => {} });
+      wrapper.find(StyledEditContainer).props().onBlur();
+      expect(wrapper.state().isFocused).toBe(false);
     });
   });
 
-  // describe('mainClasses', () => {
-  //   describe('if an onEdit prop is passed', () => {
-  //     it('renders relevant classes', () => {
-  //       instance = TestUtils.renderIntoDocument(<Pod onEdit={ () => {} } />);
-  //       expect(instance.mainClasses).toEqual('carbon-pod carbon-pod--left carbon-pod--editable');
-  //     });
-  //   });
-  // });
+  describe('podContent', () => {
+    describe('when onEdit prop has been set', () => {
+      describe.each([
+        [true, false], [false, true], [true, true]
+      ])('and triggerEditOnContent prop = %s displayEditButtonOnHover = %s',
+        (displayEditButtonOnHover, triggerEditOnContent) => {
+          it('toggles the hover state when moving the mouse in to the pod', () => {
+            wrapper.setProps({ displayEditButtonOnHover, triggerEditOnContent, onEdit: () => {} });
+            wrapper.find(StyledBlock).props().onMouseEnter();
+            expect(wrapper.state().isHovered).toBe(true);
+          });
 
-  // describe('blockClasses', () => {
-  //   describe('if border is enabled and there is no footer', () => {
-  //     it('renders relevant classes', () => {
-  //       instance = TestUtils.renderIntoDocument(<Pod />);
-  //       expect(instance.blockClasses).toEqual('carbon-pod__block carbon-pod__block--padding-medium carbon-pod__block--primary');
-  //     });
-  //   });
+          it('toggles the hover state when moving the mouse out of the pod', () => {
+            wrapper.setProps({ displayEditButtonOnHover, triggerEditOnContent, onEdit: () => {} });
+            wrapper.find(StyledBlock).props().onMouseLeave();
+            expect(wrapper.state().isHovered).toBe(false);
+          });
 
-  //   describe('if editContentFullWidth is set to false', () => {
-  //     it('renders relevant classes', () => {
-  //       instance = TestUtils.renderIntoDocument(<Pod editContentFullWidth />);
-  //       expect(instance.blockClasses).toEqual('carbon-pod__block carbon-pod__block--padding-medium carbon-pod__block--primary carbon-pod__block--full-width');
-  //     });
-  //   });
+          it('toggles the focus state when focusing on the pod', () => {
+            wrapper.setProps({ displayEditButtonOnHover, triggerEditOnContent, onEdit: () => {} });
+            wrapper.find(StyledBlock).props().onFocus();
+            expect(wrapper.state().isFocused).toBe(true);
+          });
 
-  //   describe('if border is disabled and there is a footer', () => {
-  //     it('renders relevant classes', () => {
-  //       instance = TestUtils.renderIntoDocument(<Pod border={ false } footer={ <div /> } />);
-  //       expect(instance.blockClasses).toEqual('carbon-pod__block carbon-pod__block--padding-medium carbon-pod__block--primary carbon-pod__block--no-border carbon-pod__block--footer');
-  //     });
-  //   });
-  // });
+          it('toggles the focus state when bluring on the pod', () => {
+            wrapper.setProps({ displayEditButtonOnHover, triggerEditOnContent, onEdit: () => {} });
+            wrapper.find(StyledBlock).props().onBlur();
+            expect(wrapper.state().isFocused).toBe(false);
+          });
 
-  // describe('editActionClasses', () => {
-  //   describe('if border is disabled', () => {
-  //     it('renders relevant classes', () => {
-  //       instance = TestUtils.renderIntoDocument(<Pod border={ false } footer={ <div /> } />);
-  //       expect(instance.editActionClasses).toEqual('carbon-pod__edit-action carbon-pod__edit-action--primary carbon-pod__edit-action--padding-medium carbon-pod__edit-action--no-border');
-  //     });
-  //   });
+          describe('and onEdit prop is a function', () => {
+            it('it gets invoked by clicking on the pod content', () => {
+              const event = { preventDefault: () => {} };
+              const onEdit = jest.fn();
+              wrapper.setProps({ displayEditButtonOnHover, triggerEditOnContent, onEdit });
+              wrapper.find(StyledBlock).props().onClick(event);
+              expect(onEdit).toHaveBeenCalled();
+            });
 
-  //   describe('if displayEditButtonOnHover is enabled', () => {
-  //     it('renders relevant classes', () => {
-  //       instance = TestUtils.renderIntoDocument(<Pod displayEditButtonOnHover footer={ <div /> } />);
-  //       expect(instance.editActionClasses).toEqual('carbon-pod__edit-action carbon-pod__edit-action--primary carbon-pod__edit-action--padding-medium carbon-pod__display-on-hover');
-  //     });
-  //   });
+            it('it gets invoked by pressing enter key', () => {
+              const event = { preventDefault: () => {}, which: 13, type: 'keydown' };
+              const onEdit = jest.fn();
+              wrapper.setProps({ displayEditButtonOnHover, triggerEditOnContent, onEdit });
+              wrapper.find(StyledBlock).props().onKeyDown(event);
+              expect(onEdit).toHaveBeenCalled();
+            });
 
-  //   describe('if internal edit button is enabled', () => {
-  //     it('renders a class to switch styles', () => {
-  //       const wrapper = shallow(<Pod internalEditButton />);
-  //       expect(wrapper.find('.carbon-pod--internal-edit-button').length).toEqual(1);
-  //     });
-  //   });
-  // });
-
-  // describe('contentClasses', () => {
-  //   describe('if border is enabled and there is no footer', () => {
-  //     it('renders relevant classes', () => {
-  //       instance = TestUtils.renderIntoDocument(<Pod />);
-  //       expect(instance.contentClasses).toEqual('carbon-pod__content carbon-pod__content--primary carbon-pod__content--padding-medium');
-  //     });
-  //   });
-
-  //   describe('if border is disabled and there is a footer', () => {
-  //     it('renders relevant classes', () => {
-  //       instance = TestUtils.renderIntoDocument(<Pod border={ false } footer={ <div /> } />);
-  //       expect(instance.contentClasses).toEqual('carbon-pod__content carbon-pod__content--primary carbon-pod__content--padding-medium carbon-pod__content--footer carbon-pod--no-border');
-  //     });
-  //   });
-  // });
-
-  // describe('footerClasses', () => {
-  //   describe('if border is enabled and there is no footer', () => {
-  //     it('renders relevant classes', () => {
-  //       instance = TestUtils.renderIntoDocument(<Pod />);
-  //       expect(instance.footerClasses).toEqual('carbon-pod__footer carbon-pod__footer--primary carbon-pod__footer--padding-medium');
-  //     });
-  //   });
-
-  //   describe('if border is disabled and there is a footer', () => {
-  //     it('renders relevant classes', () => {
-  //       instance = TestUtils.renderIntoDocument(<Pod border={ false } />);
-  //       expect(instance.footerClasses).toEqual('carbon-pod__footer carbon-pod__footer--primary carbon-pod__footer--padding-medium carbon-pod--no-border');
-  //     });
-  //   });
-  // });
-
-  // describe('footer', () => {
-  //   describe('if there is no footer', () => {
-  //     it('returns null', () => {
-  //       instance = TestUtils.renderIntoDocument(<Pod />);
-  //       expect(instance.footer).toBe(null);
-  //     });
-  //   });
-
-  //   describe('if there is a footer', () => {
-  //     it('returns the footer', () => {
-  //       instance = TestUtils.renderIntoDocument(<Pod footer={ <div /> } />);
-  //       const { footer } = instance;
-  //       expect(footer.props.className).toEqual(instance.footerClasses);
-  //     });
-  //   });
-  // });
-
-
-  describe('processPodEditEvent()', () => {
-    let editSpy;
-
-    beforeEach(() => {
-      editSpy = jasmine.createSpy();
-      instance = TestUtils.renderIntoDocument(<Pod onEdit={ editSpy } />);
+            it('it is not invoked by pressing non-enter key', () => {
+              const event = { preventDefault: () => {}, which: 15, type: 'keydown' };
+              const onEdit = jest.fn();
+              wrapper.setProps({ displayEditButtonOnHover, triggerEditOnContent, onEdit });
+              wrapper.find(StyledBlock).props().onKeyDown(event);
+              expect(onEdit).not.toHaveBeenCalled();
+            });
+          });
+          describe('and onEdit prop is not a function', () => {
+            it('pod content does not have onClick and onKeyDown events', () => {
+              wrapper.setProps({ onEdit: {} });
+              expect(wrapper.find(StyledBlock).props().onClick).toBe(undefined);
+              expect(wrapper.find(StyledBlock).props().onKeyDown).toBe(undefined);
+            });
+          });
+        });
     });
-    it("doesn't trigger anything if the wrong key", () => {
-      const ev = {
-        which: 1,
-        type: 'keydown',
-        target: {
-          dataset: {}
-        },
-        preventDefault: jasmine.createSpy()
-      };
-      instance.processPodEditEvent(ev);
-      expect(ev.preventDefault).not.toHaveBeenCalled();
-      expect(editSpy).not.toHaveBeenCalled();
-    });
-    it('prevents default and triggers on edit if correct key or not key', () => {
-      const ev = {
-        which: 13,
-        type: 'keydown',
-        target: {
-          dataset: {}
-        },
-        preventDefault: jasmine.createSpy()
-      };
-      instance.processPodEditEvent(ev);
-      expect(ev.preventDefault).toHaveBeenCalled();
-      expect(editSpy).toHaveBeenCalled();
-    });
-  });
 
-  describe('toggleHoverState', () => {
-    it('switches the hoverEdit state', () => {
-      instance.setState({ hoverEdit: false });
-      instance.toggleHoverState(true);
-      expect(instance.state.hoverEdit).toBeTruthy();
+    describe('when onEdit prop has not been set', () => {
+      it('pod content has no events assigned', () => {
+        expect(wrapper.find(StyledBlock).props().onMouseEnter).toBe(undefined);
+        expect(wrapper.find(StyledBlock).props().onMouseLeave).toBe(undefined);
+        expect(wrapper.find(StyledBlock).props().onFocus).toBe(undefined);
+        expect(wrapper.find(StyledBlock).props().onBlur).toBe(undefined);
+        expect(wrapper.find(StyledBlock).props().onClick).toBe(undefined);
+        expect(wrapper.find(StyledBlock).props().onKeyDown).toBe(undefined);
+      });
     });
   });
 
   describe('render', () => {
     it('applies all props to the pod', () => {
-      instance = TestUtils.renderIntoDocument(<Pod data-foo='bar' />);
-      const div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-      expect(div.attributes['data-foo'].value).toEqual('bar');
+      const someRandomProps = {
+        prop1: 'value1',
+        prop2: 'value2'
+      };
+
+      instance = shallow(<Pod { ...someRandomProps } />);
+      expect(instance.find(StyledPod).props()).toMatchObject(someRandomProps);
     });
 
     it('does not apply title prop to containing elements', () => {
-      const wrapper = shallow(<Pod title='some-title' />);
+      instance = shallow(<Pod title='some-title' />);
       expect(wrapper.is('[title]')).toBe(false);
     });
 
-    describe('pod content', () => {
-      describe('when pod is closed', () => {
-        it('does not render the pods content', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Pod collapsed><Button>Button</Button> </Pod>
-          );
-          const buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
-          expect(buttons.length).toEqual(0);
-        });
-      });
-
-      describe('when pod is open', () => {
-        it('renders the pods content', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Pod collapsed={ false }><Button>Button</Button> </Pod>
-          );
-          const buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
-          expect(buttons.length).toEqual(1);
-        });
-
-        describe('when displayEditButtonOnHover is enabled', () => {
-          describe('when onEdit has been set', () => {
-            it('toggles the hover state when moving the mouse in to the pod', () => {
-              const wrapper = shallow(<Pod displayEditButtonOnHover onEdit='foo' />);
-              wrapper.find('.carbon-pod__block').simulate('mouseEnter');
-              expect(wrapper.state().hoverEdit).toBe(true);
-            });
-
-            it('toggles the hover state when moving the mouse out of the pod', () => {
-              const wrapper = shallow(<Pod displayEditButtonOnHover onEdit='foo' />);
-              wrapper.find('.carbon-pod__block').simulate('mouseLeave');
-              expect(wrapper.state().hoverEdit).toBe(false);
-            });
-
-            it('toggles the hover state when focusing on the pod', () => {
-              const wrapper = shallow(<Pod displayEditButtonOnHover onEdit='foo' />);
-              wrapper.find('.carbon-pod__block').simulate('focus');
-              expect(wrapper.state().hoverEdit).toBe(true);
-            });
-
-            it('toggles the hover state when bluring on the pod', () => {
-              const wrapper = shallow(<Pod displayEditButtonOnHover onEdit='foo' />);
-              wrapper.find('.carbon-pod__block').simulate('blur');
-              expect(wrapper.state().hoverEdit).toBe(false);
-            });
-          });
-
-          describe('when onEdit has not been set', () => {
-            it('does not toggle the hover state when moving the mouse in to the pod', () => {
-              const wrapper = shallow(<Pod displayEditButtonOnHover />);
-              wrapper.find('.carbon-pod__block').simulate('mouseEnter');
-              expect(wrapper.state().hoverEdit).not.toBeDefined;
-            });
-
-            it('does not toggle the hover state when moving the mouse out of the pod', () => {
-              const wrapper = shallow(<Pod displayEditButtonOnHover />);
-              wrapper.find('.carbon-pod__block').simulate('mouseLeave');
-              expect(wrapper.state().hoverEdit).not.toBeDefined;
-            });
-
-            it('does not toggle the hover state when focusing on the pod', () => {
-              const wrapper = shallow(<Pod displayEditButtonOnHover />);
-              wrapper.find('.carbon-pod__block').simulate('focus');
-              expect(wrapper.state().hoverEdit).not.toBeDefined;
-            });
-
-            it('does not toggle the hover state when bluring on the pod', () => {
-              const wrapper = shallow(<Pod displayEditButtonOnHover />);
-              wrapper.find('.carbon-pod__block').simulate('blur');
-              expect(wrapper.state().hoverEdit).not.toBeDefined;
-            });
-          });
-        });
-
-        describe('when triggerEditOnContent is enabled', () => {
-          describe('when onEdit has been set', () => {
-            it('sets an onClick handler on the content block', () => {
-              const editFunction = () => {};
-              const wrapper = shallow(<Pod triggerEditOnContent onEdit={ () => {} } />);
-              expect(wrapper.find('.carbon-pod__block').props().onClick).toBeDefined;
-            });
-          });
-
-          describe('when onEdit has not been set', () => {
-            it('does not set an onClick handler on the content block', () => {
-              const editFunction = () => {};
-              const wrapper = shallow(<Pod triggerEditOnContent />);
-              expect(wrapper.find('.carbon-pod__block').props().onClick).not.toBeDefined;
-            });
-          });
-        });
-      });
-
-      describe('when pod is not collapsible', () => {
-        it('renders the pods content', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Pod><Button>Button</Button> </Pod>
-          );
-          const buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
-          expect(buttons.length).toEqual(1);
-        });
-      });
-    });
-
     it('renders all children passed to it', () => {
-      instance = TestUtils.renderIntoDocument(
+      instance = shallow(
         <Pod>
           <Button>Button</Button>
           <Button>Button</Button>
@@ -522,34 +296,33 @@ describe('Pod', () => {
         </Pod>
       );
 
-      const buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
-      expect(buttons.length).toEqual(3);
+      expect(instance.find(Button).length).toEqual(3);
     });
   });
 
   describe('tags', () => {
     describe('on component', () => {
-      wrapper.setProps({ 'data-element': 'bar', 'data-role': 'baz' });
-      // const wrapper = shallow(<Pod data-element='bar' data-role='baz' />);
+      const tagWrapper = shallow(<Pod data-element='bar' data-role='baz' />);
 
       it('include correct component, element and role data tags', () => {
-        rootTagTest(wrapper, 'pod', 'bar', 'baz');
+        rootTagTest(tagWrapper, 'pod', 'bar', 'baz');
       });
     });
 
-    describe('on internal elements', () => {
-      wrapper.setProps({
-        footer: 'footer', onEdit: () => {}, subtitle: 'test', title: 'title'
-      });
+    describe('on internal elements - include correct component, element and role data tags', () => {
+      const tagWrapper = shallow(<Pod
+        footer='footer'
+        onEdit={ () => {} }
+        subtitle='subtitle'
+        title='title'
+      />);
 
-      it('include correct component, element and role data tags', () => {
-        elementsTagTest(wrapper, [
-          'edit',
-          'footer',
-          'subtitle',
-          'title'
-        ]);
-      });
+      elementsTagTest(tagWrapper, [
+        'edit',
+        'footer',
+        'subtitle',
+        'title'
+      ]);
     });
   });
 });

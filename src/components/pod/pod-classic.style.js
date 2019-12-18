@@ -1,5 +1,7 @@
 import { css } from 'styled-components';
 import { isClassic } from '../../utils/helpers/style-helper';
+import StyledIcon from '../icon/icon.style';
+import StyledLink from '../link/link.style';
 
 const blockBackgrounds = {
   primary: 'white',
@@ -10,14 +12,14 @@ const blockBackgrounds = {
 };
 
 const styledBlockClassic = ({
-  theme, podTheme, contentTriggersEdit, isHovered, internalEditButton
+  theme, podTheme, contentTriggersEdit, isHovered, isFocused, internalEditButton
 }) => isClassic(theme)
   && css`
     background-color: ${blockBackgrounds[podTheme]};
     border: 1px solid #ccd6db;
 
     ${() => {
-    if (isHovered) {
+    if (isHovered || isFocused) {
       if (internalEditButton) {
         return podTheme === 'tile' ? 'background-color: transparent' : '';
       }
@@ -52,25 +54,28 @@ const editBackgrounds = {
 };
 
 const styledEditActionClassic = ({
-  theme, podTheme, isHovered, internalEditButton
+  theme, podTheme, isHovered, isFocused, internalEditButton
 }) => isClassic(theme)
   && css`
+  && {
     background-color: ${editBackgrounds[podTheme]};
     border-color: ccd6db;
     margin-left: 2px;
     border-radius: 4px;
     color: #255bc7;
 
-    ${isHovered
+    ${(isHovered || isFocused)
       && !internalEditButton
       && css`
         background-color: #004b87;
         color: white;
 
-        [data-component='icon'] {
+        ${StyledLink},
+        ${StyledIcon} {
           color: white;
         }
       `}
+  }
   `;
 
 export { styledBlockClassic, styledEditActionClassic, styledFooterClassic };

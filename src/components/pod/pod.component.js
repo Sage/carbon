@@ -53,11 +53,11 @@ class Pod extends React.Component {
       title, alignTitle, internalEditButton, padding, subtitle
     } = this.props;
 
-    const { isCollapsed } = this.state;
-
     if (!title) {
       return null;
     }
+
+    const { isCollapsed } = this.state;
 
     const isCollapsable = isCollapsed !== undefined;
 
@@ -106,7 +106,8 @@ class Pod extends React.Component {
 
     return (
       <StyledFooter
-        data-element='footer' padding={ padding }
+        data-element='footer'
+        padding={ padding }
         podTheme={ as }
       >
         {footer}
@@ -132,7 +133,7 @@ class Pod extends React.Component {
     }
 
     return (
-      <StyledEditContainer { ...this.hoverOverEditEvents() } internalEditButton={ internalEditButton }>
+      <StyledEditContainer { ...this.editEvents() } internalEditButton={ internalEditButton }>
         <StyledEditAction
           contentTriggersEdit={ triggerEditOnContent }
           data-element='edit'
@@ -165,7 +166,7 @@ class Pod extends React.Component {
     return props;
   };
 
-  hoverOverEditEvents() {
+  editEvents() {
     const props = {
       onMouseEnter: this.toggleHoverState.bind(this, true),
       onMouseLeave: this.toggleHoverState.bind(this, false),
@@ -181,17 +182,17 @@ class Pod extends React.Component {
     return props;
   }
 
-  shouldContentHaveEditProps() {
-    const { triggerEditOnContent, displayEditButtonOnHover, onEdit } = this.props;
-    return (triggerEditOnContent || displayEditButtonOnHover) && onEdit;
-  }
-
   processPodEditEvent = (ev) => {
     if (Event.isEnterKey(ev) || !Event.isEventType(ev, 'keydown')) {
       ev.preventDefault();
       this.props.onEdit(ev);
     }
   };
+
+  shouldContentHaveEditEvents() {
+    const { triggerEditOnContent, displayEditButtonOnHover, onEdit } = this.props;
+    return (triggerEditOnContent || displayEditButtonOnHover) && onEdit;
+  }
 
   render() {
     const { ...props } = validProps(this);
@@ -204,11 +205,12 @@ class Pod extends React.Component {
 
     return (
       <StyledPod
-        { ...props } internalEditButton={ internalEditButton }
+        { ...props }
+        internalEditButton={ internalEditButton }
         { ...tagComponent('pod', this.props) }
       >
         <StyledBlock
-          contentTriggersEdit={ this.shouldContentHaveEditProps() }
+          contentTriggersEdit={ this.shouldContentHaveEditEvents() }
           editable={ onEdit }
           fullWidth={ editContentFullWidth }
           internalEditButton={ internalEditButton }
@@ -216,7 +218,7 @@ class Pod extends React.Component {
           isHovered={ isHovered }
           noBorder={ !border }
           podTheme={ as }
-          { ...(this.shouldContentHaveEditProps() ? this.hoverOverEditEvents() : {}) }
+          { ...(this.shouldContentHaveEditEvents() ? { ...this.editEvents(), tabIndex: '0' } : {}) }
         >
           <StyledContent data-element='content' padding={ padding }>
             {this.podHeader()}
