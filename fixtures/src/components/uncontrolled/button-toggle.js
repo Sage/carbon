@@ -64,8 +64,8 @@ const UncontrolledButtonToggle = () => {
             </React.Fragment>
           );
         }}
-      </LogConsumer>
+      </LogConsumer> 
     );
   };
 
-  export default UncontrolledButtonToggle;   
+  export default UncontrolledButtonToggle;    

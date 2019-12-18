@@ -72,7 +72,7 @@ const ControlledButtonToggle = () => {
             </React.Fragment>
           );
         }}
-      </LogConsumer>
+      </LogConsumer>  
     );
   };
 
