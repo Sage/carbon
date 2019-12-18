@@ -1,9 +1,6 @@
-// eslint-disable-next-line import/prefer-default-export
-export const THEMES = {
-  base: 'base',
-  none: 'none',
-  classic: 'classic',
-  mint: 'mint',
-  aegean: 'aegean',
-  large: 'large'
-};
+import mintTheme from './mint';
+import aegeanTheme from './aegean';
+
+export { default as classicTheme } from './classic';
+export { default as baseTheme } from './base';
+export const carbonThemeList = [mintTheme, aegeanTheme];

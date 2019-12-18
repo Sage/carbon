@@ -7,18 +7,13 @@ import styleConfig from './pill.style.config';
 import { classicStyleConfig } from './pill-classic.style';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-import mintTheme from '../../style/themes/mint';
-import aegeanTheme from '../../style/themes/aegean';
-import classicTheme from '../../style/themes/classic';
-import baseTheme from '../../style/themes/base';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import { baseTheme, classicTheme, carbonThemeList } from '../../style/themes';
+import mintTheme from '../../style/themes/mint';
 
+const themesTable = carbonThemeList.map(theme => [theme.name, theme]);
 const classicStyleTypes = [...OptionsHelper.colors, 'disabled'];
 const modernStyleTypes = [...OptionsHelper.pillColors, 'warning'];
-const modernThemes = [
-  ['mint', mintTheme],
-  ['aegean', aegeanTheme]
-];
 
 describe('Pill', () => {
   const render = (props, renderer = mount) => {

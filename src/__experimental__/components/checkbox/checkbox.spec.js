@@ -12,13 +12,12 @@ import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-s
 import StyledHelp from '../../../components/help/help.style';
 import guid from '../../../utils/helpers/guid';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
-import classicTheme from '../../../style/themes/classic';
-import mintTheme from '../../../style/themes/mint';
-import aegeanTheme from '../../../style/themes/aegean';
-import baseTheme from '../../../style/themes/base';
+import { baseTheme, classicTheme, carbonThemeList } from '../../../style/themes';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
+
+const themesTable = carbonThemeList.map(theme => [theme.name, theme]);
 
 function render(props, renderer = TestRenderer.create, options = {}) {
   return renderer(
@@ -418,22 +417,12 @@ describe('Checkbox', () => {
       });
     });
 
-    describe('Mint theme', () => {
+    describe.each(themesTable)('when the theme is set to %s', (themeName, theme) => {
       it('sets the appropriate check colour', () => {
-        const wrapper = render({ theme: mintTheme, checked: true }).toJSON();
+        const wrapper = render({ theme, checked: true }).toJSON();
 
         assertStyleMatch({
-          fill: mintTheme.checkable.checked
-        }, wrapper, { modifier: 'svg path' });
-      });
-    });
-
-    describe('Aegean theme', () => {
-      it('sets the appropriate check colour', () => {
-        const wrapper = render({ theme: aegeanTheme, checked: true }).toJSON();
-
-        assertStyleMatch({
-          fill: aegeanTheme.checkable.checked
+          fill: theme.checkable.checked
         }, wrapper, { modifier: 'svg path' });
       });
     });

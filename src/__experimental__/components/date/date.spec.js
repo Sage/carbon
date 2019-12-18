@@ -6,7 +6,7 @@ import DateInput, { defaultDateFormat, BaseDateInput } from './date.component';
 import DatePicker from './date-picker.component';
 import Textbox from '../textbox';
 import StyledDateInput from './date.style';
-import { THEMES } from '../../../style/themes';
+import { classicTheme } from '../../../style/themes';
 import DateHelper from '../../../utils/helpers/date/date';
 import { isEdge } from '../../../utils/helpers/browser-type-check';
 
@@ -21,10 +21,7 @@ describe('StyledDateInput', () => {
   });
 
   it('renders correctly for the "classic" theme', () => {
-    const mockTheme = {
-      name: THEMES.classic
-    };
-    const wrapper = TestRenderer.create(<StyledDateInput theme={ mockTheme } />);
+    const wrapper = TestRenderer.create(<StyledDateInput theme={ classicTheme } />);
     expect(wrapper).toMatchSnapshot();
   });
 });

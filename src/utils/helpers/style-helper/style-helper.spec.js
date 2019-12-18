@@ -1,13 +1,17 @@
-import { THEMES } from '../../../style/themes';
 import { isClassic } from '.';
-import classicTheme from '../../../style/themes/classic';
-import mintTheme from '../../../style/themes/mint';
+import { classicTheme, carbonThemeList } from '../../../style/themes';
 
-describe.each([[THEMES.classic, classicTheme], [THEMES.mint, mintTheme]])(
-  'when isClassic is called', (name, theme) => {
-    it(`returns the expected result for the ${name}`, () => {
-      if (name === 'classic') expect(isClassic(theme)).toEqual(true);
-      else expect(isClassic(theme)).toEqual(false);
+describe('when isClassic is called', () => {
+  describe('with classic theme as an argument', () => {
+    it('then the function should return true', () => {
+      expect(isClassic(classicTheme)).toEqual(true);
     });
-  }
-);
+  });
+
+  describe.each(carbonThemeList.map(theme => [theme.name, theme]))('with %s theme as an argument',
+    (themeName, theme) => {
+      it('then the function should return false', () => {
+        expect(isClassic(theme)).toEqual(false);
+      });
+    });
+});

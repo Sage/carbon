@@ -14,11 +14,10 @@ import LabelStyle from '../label/label.style';
 import StyledSwitchSlider from './switch-slider.style';
 import guid from '../../../utils/helpers/guid';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
-import baseTheme from '../../../style/themes/base';
-import classicTheme from '../../../style/themes/classic';
-import mintTheme from '../../../style/themes/mint';
-import aegeanTheme from '../../../style/themes/aegean';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
+import { baseTheme, classicTheme, carbonThemeList } from '../../../style/themes';
+
+const themesTable = carbonThemeList.map(theme => [theme.name, theme]);
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -393,52 +392,17 @@ describe('Switch', () => {
     });
   });
 
-  describe('Mint theme', () => {
+  describe.each(themesTable)('when the theme is set to %s', (themeName, theme) => {
     describe('default', () => {
-      const wrapper = renderWithTheme({}, mintTheme).toJSON();
+      const wrapper = renderWithTheme({}, theme).toJSON();
+      const expectedOutlineStyle = { outline: `solid 3px ${theme.colors.focus}` };
 
-      describe('input hover / focus styles', () => {
-        const hoverFocusStyles = { outline: `solid 3px ${mintTheme.colors.focus}` };
-
-        it('applies the correct focus styles', () => {
+      describe.each(['hover', 'focus'])('and %s is applied to the element', (selector) => {
+        it('then the correct outline should be rendered', () => {
           assertStyleMatch(
-            hoverFocusStyles,
+            expectedOutlineStyle,
             wrapper,
-            { modifier: css`${`${HiddenCheckableInputStyle}:not([disabled]):focus + ${StyledSwitchSlider}`}` }
-          );
-        });
-
-        it('applies the correct hover styles', () => {
-          assertStyleMatch(
-            hoverFocusStyles,
-            wrapper,
-            { modifier: css`${`${HiddenCheckableInputStyle}:not([disabled]):hover + ${StyledSwitchSlider}`}` }
-          );
-        });
-      });
-    });
-  });
-
-  describe('Aegean theme', () => {
-    describe('default', () => {
-      const wrapper = renderWithTheme({}, aegeanTheme).toJSON();
-
-      describe('input hover / focus styles', () => {
-        const hoverFocusStyles = { outline: `solid 3px ${aegeanTheme.colors.focus}` };
-
-        it('applies the correct focus styles', () => {
-          assertStyleMatch(
-            hoverFocusStyles,
-            wrapper,
-            { modifier: css`${`${HiddenCheckableInputStyle}:not([disabled]):focus + ${StyledSwitchSlider}`}` }
-          );
-        });
-
-        it('applies the correct hover styles', () => {
-          assertStyleMatch(
-            hoverFocusStyles,
-            wrapper,
-            { modifier: css`${`${HiddenCheckableInputStyle}:not([disabled]):hover + ${StyledSwitchSlider}`}` }
+            { modifier: css`${`${HiddenCheckableInputStyle}:not([disabled]):${selector} + ${StyledSwitchSlider}`}` }
           );
         });
       });

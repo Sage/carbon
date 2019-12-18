@@ -24,7 +24,7 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
   background-color: #FFFFFF;
 }
 
-.c2 .c15 {
+.c2 .c13 {
   padding: 10px 8px;
 }
 
@@ -42,14 +42,14 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
   background-color: #F2F4F5;
 }
 
-.c2 .c14 {
+.c2 .c12 {
   cursor: move;
   cursor: -webkit-grab;
   cursor: -moz-grab;
   cursor: grab;
 }
 
-.custom-drag-layer .c2.c2 .c14 {
+.custom-drag-layer .c2.c2 .c12 {
   cursor: move;
   cursor: -webkit-grabbing;
   cursor: -moz-grabbing;
@@ -242,18 +242,17 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
   border-right: 1px solid transparent;
 }
 
-.c10:nth-child(2n+1) .c3 {
-  background-color: #ffffff;
+.c10 .c3 {
+  background-color: #FFFFFF;
 }
 
 .custom-drag-layer .c10.c10 .c3 {
-  background-color: #E6EBED;
+  background-color: #E5EAEC;
   border: none;
 }
 
-.c10 .c3:first-child:not(['data-component=selectable-cell']),
-.c10 .c15:first-child:not(['data-component=selectable-cell']) {
-  padding-left: 15px;
+.c10:hover .c3 {
+  background-color: #F2F4F5;
 }
 
 .c10 .c3:first-child {
@@ -263,15 +262,8 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 .c10.c10.c10.c10 .c3,
 .c10.c10.c10.c10:nth-child(odd) .c3,
 .c10.c10.c10.c10:hover .c3 {
-  background-color: #1573E6;
-  border-bottom-color: #255BC7;
-  color: #ffffff;
-}
-
-.c10.c10.c10.c10 .c3:before,
-.c10.c10.c10.c10:nth-child(odd) .c3:before,
-.c10.c10.c10.c10:hover .c3:before {
-  background-color: #255BC7;
+  background-color: #D8E0E3;
+  border-bottom-color: #D8E0E3;
 }
 
 .c10 .c3 {
@@ -299,8 +291,23 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
   background-color: #F2F4F5;
 }
 
-.c11 .c3:first-child {
-  width: 18px;
+.c11.c11.c11.c11 .c3 {
+  background-color: #D8E0E3;
+  border-bottom-color: #D8E0E3;
+  position: relative;
+}
+
+.c11.c11.c11.c11 .c3:before {
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  top: -1px;
+  width: 100%;
+}
+
+.c11.c11.c11.c11:hover .c3 {
+  background-color: #D8E0E3;
 }
 
 .c11.c11.c11.c11 .c3,
@@ -322,105 +329,6 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
   border-right: 1px solid transparent;
 }
 
-.c12:nth-child(2n+1) .c3 {
-  background-color: #ffffff;
-}
-
-.custom-drag-layer .c12.c12 .c3 {
-  background-color: #E6EBED;
-  border: none;
-}
-
-.c12:hover .c3 {
-  background-color: #E7F1FC;
-}
-
-.c12.c12.c12.c12 .c3 {
-  background-color: #D0E3FA;
-  border-bottom-color: #1573E6;
-  position: relative;
-}
-
-.c12.c12.c12.c12 .c3:before {
-  background-color: #1573E6;
-}
-
-.c12.c12.c12.c12 .c3:before {
-  content: "";
-  height: 1px;
-  left: 0;
-  position: absolute;
-  top: -1px;
-  width: 100%;
-}
-
-.c12.c12.c12.c12:hover .c3 {
-  background-color: #D0E3FA;
-}
-
-.c12 .c3 {
-  border-top: 1px solid transparent;
-}
-
-.c12 .c3:first-child {
-  border-left: 1px solid transparent;
-}
-
-.c12 .c3:last-child {
-  border-right: 1px solid transparent;
-}
-
-.c13 .c3 {
-  background-color: #FFFFFF;
-}
-
-.custom-drag-layer .c13.c13 .c3 {
-  background-color: #E5EAEC;
-  border: none;
-}
-
-.c13:hover .c3 {
-  background-color: #F2F4F5;
-}
-
-.c13.c13.c13.c13 .c3 {
-  background-color: #D8E0E3;
-  border-bottom-color: #D8E0E3;
-  position: relative;
-}
-
-.c13.c13.c13.c13 .c3:before {
-  content: "";
-  height: 1px;
-  left: 0;
-  position: absolute;
-  top: -1px;
-  width: 100%;
-}
-
-.c13.c13.c13.c13:hover .c3 {
-  background-color: #D8E0E3;
-}
-
-.c13.c13.c13.c13 .c3,
-.c13.c13.c13.c13:nth-child(odd) .c3,
-.c13.c13.c13.c13:hover .c3 {
-  background-color: #D8E0E3;
-  border-bottom-color: #D8E0E3;
-}
-
-.c13 .c3 {
-  border-top: 1px solid transparent;
-}
-
-.c13 .c3:first-child {
-  border-left: 1px solid transparent;
-}
-
-.c13 .c3:last-child {
-  border-right: 1px solid transparent;
-}
-
 .c0 {
   border-collapse: separate;
   border-radius: 0px;
@@ -437,7 +345,7 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 }
 
 .c0 .c1 .c3,
-.c0 .c1 .c15 {
+.c0 .c1 .c13 {
   font-size: 14px;
   padding-left: 11px;
   padding-right: 11px;

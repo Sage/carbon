@@ -7,10 +7,9 @@ import Icon from '../../../components/icon';
 import Loader from '../../../components/loader/loader.component';
 import SwitchSlider from './switch-slider.component';
 import SwitchSliderPanel from './switch-slider-panel.style';
-import baseTheme from '../../../style/themes/base';
-import classicTheme from '../../../style/themes/classic';
-import mintTheme from '../../../style/themes/mint';
-import aegeanTheme from '../../../style/themes/aegean';
+import { baseTheme, classicTheme, carbonThemeList } from '../../../style/themes';
+
+const themesTable = carbonThemeList.map(theme => [theme.name, theme]);
 
 describe('SwitchSlider', () => {
   describe('base theme', () => {
@@ -220,7 +219,7 @@ describe('SwitchSlider', () => {
     });
   });
 
-  describe.each([['Mint', mintTheme], ['Aegean', aegeanTheme]])('%s theme', (themeName, theme) => {
+  describe.each(themesTable)('when the theme is set to %s', (themeName, theme) => {
     describe('default', () => {
       const wrapper = renderWithTheme({}, theme).toJSON();
 

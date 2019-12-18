@@ -6,11 +6,10 @@ import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import StyledLoader from '../../../components/loader/loader.style';
 import StyledLoaderSquare from '../../../components/loader/loader-square.style';
 import SwitchSliderPanel from './switch-slider-panel.style';
-import baseTheme from '../../../style/themes/base';
-import classicTheme from '../../../style/themes/classic';
-import mintTheme from '../../../style/themes/mint';
-import aegeanTheme from '../../../style/themes/aegean';
 import StyledIcon from '../../../components/icon/icon.style';
+import { baseTheme, classicTheme, carbonThemeList } from '../../../style/themes';
+
+const themesTable = carbonThemeList.map(theme => [theme.name, theme]);
 
 function render(props) {
   return TestRenderer.create(<SwitchSliderPanel { ...props } />);
@@ -89,34 +88,18 @@ describe('SwitchSliderPanel', () => {
     });
   });
 
-  describe('Mint theme', () => {
-    const wrapper = render({ theme: mintTheme }).toJSON();
+  describe.each(themesTable)('when the theme is set to %s', (themeName, theme) => {
+    const wrapper = render({ theme }).toJSON();
 
     it('applies the correct base styles', () => {
       assertStyleMatch({
-        color: mintTheme.colors.white
+        color: theme.colors.white
       }, wrapper);
     });
 
     it('applies the correct off panel styles', () => {
       assertStyleMatch({
-        color: mintTheme.text.color
-      }, wrapper, { modifier: "[type='off']" });
-    });
-  });
-
-  describe('Aegean theme', () => {
-    const wrapper = render({ theme: aegeanTheme }).toJSON();
-
-    it('applies the correct base styles', () => {
-      assertStyleMatch({
-        color: aegeanTheme.colors.white
-      }, wrapper);
-    });
-
-    it('applies the correct off panel styles', () => {
-      assertStyleMatch({
-        color: aegeanTheme.text.color
+        color: theme.text.color
       }, wrapper, { modifier: "[type='off']" });
     });
   });

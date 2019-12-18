@@ -12,12 +12,9 @@ import DraggableTableCell from '../draggable-table-cell';
 import StyledTable from '../table.style';
 import StyledIcon from '../../icon/icon.style';
 import { Checkbox } from '../../../__experimental__/components/checkbox';
-import baseTheme from '../../../style/themes/base';
-import classicTheme from '../../../style/themes/classic';
-import mintTheme from '../../../style/themes/mint';
+import { baseTheme, classicTheme, carbonThemeList } from '../../../style/themes';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import { DraggableContext, WithDrop } from '../../drag-and-drop';
-import { THEMES } from '../../../style/themes';
 import { ActionPopover, ActionPopoverItem } from '../../action-popover';
 import { MenuButton } from '../../action-popover/action-popover.style';
 
@@ -39,8 +36,7 @@ jest.mock('../draggable-table-cell', () => {
   return MockDraggableTableCell;
 });
 
-const themeNames = [THEMES.classic, THEMES.mint];
-const elements = ['th', 'td'];
+const themesTable = carbonThemeList.map(theme => [theme.name, theme]);
 
 describe('TableRow', () => {
   let instance, clickableInstance, row;
@@ -310,7 +306,7 @@ describe('TableRow', () => {
     });
   });
 
-  describe.each(elements)(
+  describe.each(['th', 'td'])(
     'when the theme is classic',
     (element) => {
       const wrapper = mount(
@@ -342,25 +338,24 @@ describe('TableRow', () => {
   });
 
   describe('when selected', () => {
-    describe.each(themeNames)(
+    describe.each(themesTable)(
       'and the theme is %s',
-      (name) => {
+      (themeName, theme) => {
         it('renders the element to match the expected style', () => {
           instance = mount(
             <TableRow
               uniqueID='foo'
               selectable
               selected
-              theme={ name === 'classic' ? classicTheme : mintTheme }
+              theme={ theme }
             >
               <TableCell />
             </TableRow>
           );
 
           assertStyleMatch({
-            backgroundColor: name === 'classic' ? '#1573E6' : '#D8E0E3',
-            borderBottomColor: name === 'classic' ? '#255BC7' : '#D8E0E3',
-            color: name === 'classic' ? '#ffffff' : undefined
+            backgroundColor: theme.table.selected,
+            borderBottomColor: theme.table.selected
           }, instance, { modifier: `&&&&:hover ${StyledTableCell}` });
         });
       }
@@ -368,22 +363,22 @@ describe('TableRow', () => {
   });
 
   describe('when highlighted', () => {
-    describe.each(themeNames)(
+    describe.each(themesTable)(
       'and the theme is %s',
-      (name) => {
+      (themeName, theme) => {
         it('renders the element to match the expected style', () => {
           instance = mount(
             <TableRow
               highlighted
               uniqueID='foo'
-              theme={ name === 'classic' ? classicTheme : mintTheme }
+              theme={ theme }
             >
               <TableCell />
             </TableRow>
           );
           assertStyleMatch({
-            backgroundColor: name === 'classic' ? '#D0E3FA' : '#D8E0E3',
-            borderBottomColor: name === 'classic' ? '#1573E6' : '#D8E0E3'
+            backgroundColor: theme.table.selected,
+            borderBottomColor: theme.table.selected
           }, instance, { modifier: `&&&& ${StyledTableCell}` });
 
           assertStyleMatch({
@@ -542,7 +537,7 @@ describe('TableRow', () => {
     describe('if is not classic theme', () => {
       it('renders a row to match the snapshot', () => {
         const wrapper = TestRenderer.create(
-          <StyledTable theme={ mintTheme }>
+          <StyledTable theme={ baseTheme }>
             <TableRow><TableCell /></TableRow>
           </StyledTable>
         );
@@ -608,18 +603,18 @@ describe('TableRow', () => {
         );
       });
 
-      describe('when StyledTableRow get inDeadZone and isDragged props', () => {
-        it('should render correct background color', () => {
+      describe.each(themesTable)('when StyledTableRow get inDeadZone and isDragged props', (themeName, theme) => {
+        it(`should render correct background color for the ${themeName} theme`, () => {
           wrapper = mount(
             <StyledTableRow
-              theme={ mintTheme }
+              theme={ theme }
               isDragged
               inDeadZone
             />
           );
 
           assertStyleMatch({
-            backgroundColor: `${mintTheme.table.dragging}`
+            backgroundColor: `${theme.table.dragging}`
           }, wrapper, { modifier: `${StyledTableCell}` });
         });
       });
@@ -681,6 +676,49 @@ describe('TableRow', () => {
       });
     });
   });
+
+  describe('when the Theme is Classic', () => {
+    let wrapper;
+
+    describe('when selected', () => {
+      it('renders the element to match the expected style', () => {
+        wrapper = mount(
+          <TableRow
+            uniqueID='foo'
+            selectable
+            selected
+            theme={ classicTheme }
+          >
+            <TableCell />
+          </TableRow>
+        );
+
+        assertStyleMatch({
+          backgroundColor: '#1573E6',
+          borderBottomColor: '#255BC7',
+          color: '#ffffff'
+        }, wrapper, { modifier: `&&&&:hover ${StyledTableCell}` });
+      });
+    });
+
+    describe('when highlighted', () => {
+      it('renders the element to match the expected style', () => {
+        wrapper = mount(
+          <TableRow
+            uniqueID='foo'
+            highlighted
+            theme={ classicTheme }
+          >
+            <TableCell />
+          </TableRow>
+        );
+        assertStyleMatch({
+          backgroundColor: '#D0E3FA',
+          borderBottomColor: '#1573E6'
+        }, wrapper, { modifier: `&&&& ${StyledTableCell}` });
+      });
+    });
+  });
 });
 
 describe('TableRow', () => {
@@ -692,7 +730,7 @@ describe('TableRow', () => {
 
   function render() {
     wrapper.current = mount(
-      <ThemeProvider { ...{ theme: mintTheme } }>
+      <ThemeProvider { ...{ theme: baseTheme } }>
         <Table>
           <TableRow>
             <TableHeader>First Name</TableHeader>

@@ -3,8 +3,7 @@ import TestRenderer from 'react-test-renderer';
 import { ThemeProvider } from 'styled-components';
 import Browser from '../../utils/helpers/browser';
 import PortraitInitials from './portrait-initials.component';
-import mintTheme from '../../style/themes/mint';
-import aegeanTheme from '../../style/themes/aegean';
+import { carbonThemeList } from '../../style/themes';
 
 const mockCanvasDataURL = 'data:image/png';
 
@@ -25,7 +24,7 @@ const mockDocumentWithCanvas = {
 
 function render(component) {
   const rendered = TestRenderer.create(
-    <ThemeProvider theme={ aegeanTheme }>
+    <ThemeProvider theme={ carbonThemeList[0] }>
       {component}
     </ThemeProvider>
   );
@@ -39,7 +38,7 @@ describe('PortraitInitials', () => {
 
   describe('componentWillReceiveProps', () => {
     const originalProps = {
-      initials: 'foo', size: 'XXL', darkBackground: false, theme: aegeanTheme
+      initials: 'foo', size: 'XXL', darkBackground: false, theme: carbonThemeList[0]
     };
     const cachedImageDataUrl = 'foobar';
     let props, instance;
@@ -54,7 +53,7 @@ describe('PortraitInitials', () => {
     });
 
     it('clears the cached initials if theme changes', () => {
-      props.theme = mintTheme;
+      props.theme = carbonThemeList[1];
       instance.UNSAFE_componentWillReceiveProps(props);
       expect(instance.cachedImageDataUrl).toEqual(null);
     });

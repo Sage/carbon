@@ -1,10 +1,13 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { withThemesProvider } from 'storybook-addon-styled-component-theme';
-import classicTheme from '../src/style/themes/classic';
-import mintTheme from '../src/style/themes/mint';
-import aegeanTheme from '../src/style/themes/aegean';
+import { classicTheme, carbonThemeList } from '../src/style/themes';
 import none from '../src/style/themes/none';
+
+const carbonThemes = carbonThemeList.reduce((themesObject, theme) => {
+  themesObject[theme.name] = theme;
+  return themesObject
+}, {});
 
 /**
  * Detects whether the current window is the topmost window in the window hierarchy
@@ -28,8 +31,7 @@ export default function getThemeDecorator() {
 
   const themesMap = { 
     classic: classicTheme,
-    mint: mintTheme,
-    aegean: aegeanTheme,
+    ...carbonThemes,
     none
   };
 
