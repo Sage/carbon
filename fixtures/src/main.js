@@ -1,13 +1,10 @@
 import React from 'react';
 import { Route } from 'react-router';
 import { startRouter } from 'carbon-react/lib/utils/router';
-
 // Loads base css from carbon:
 import 'carbon-react/lib/utils/css';
-
 import Index from './components';
 import Chrome from './components/chrome';
-
 import UncontrolledRadioButton from './components/uncontrolled/radio-button';
 import UncontrolledSwitch from './components/uncontrolled/switch';
 import ControlledRadioButton from './components/controlled/radio-button';
@@ -42,7 +39,7 @@ import UncontrolledButtonToggle from './components/uncontrolled/button-toggle';
 const routes = {
   'button-toggle': {
     description: 'Button Toggle',
-    controlled: ControlledButtonToggle, 
+    controlled: ControlledButtonToggle,
     uncontrolled: UncontrolledButtonToggle
   },
   'radio-button': {
@@ -62,7 +59,7 @@ const routes = {
     controlled: ControlledGroupedCharacter,
     uncontrolled: UncontrolledGroupedCharacter
   },
-  'simple-color-picker': {     
+  'simple-color-picker': {
     description: 'Simple Color Picker',
     controlled: ControlledSimpleColorPicker,
     uncontrolled: UncontrolledSimpleColorPicker
@@ -126,4 +123,4 @@ startRouter(
 // Enables hot reloading through webpack:
 if (module.hot) {
   module.hot.accept();
-}    
+}
