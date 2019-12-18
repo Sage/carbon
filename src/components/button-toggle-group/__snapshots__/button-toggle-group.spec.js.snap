@@ -124,14 +124,14 @@ input:focus ~ .c6 {
         <input
           checked={false}
           className="c5"
-          id="guid-12345"
+          id="foo"
           onChange={[Function]}
           type="radio"
           value="foo"
         />
         <label
           className="c6"
-          htmlFor="guid-12345"
+          htmlFor="foo"
           size="large"
         >
           <div
@@ -148,14 +148,14 @@ input:focus ~ .c6 {
         <input
           checked={false}
           className="c5"
-          id="guid-12345"
+          id="bar"
           onChange={[Function]}
           type="radio"
           value="bar"
         />
         <label
           className="c6"
-          htmlFor="guid-12345"
+          htmlFor="bar"
           size="large"
         >
           <div
@@ -270,14 +270,14 @@ input:focus ~ .c6 {
         <input
           checked={false}
           className="c5"
-          id="guid-12345"
+          id="foo"
           onChange={[Function]}
           type="radio"
           value="foo"
         />
         <label
           className="c6"
-          htmlFor="guid-12345"
+          htmlFor="foo"
           size="large"
         >
           <div
@@ -294,14 +294,14 @@ input:focus ~ .c6 {
         <input
           checked={false}
           className="c5"
-          id="guid-12345"
+          id="bar"
           onChange={[Function]}
           type="radio"
           value="bar"
         />
         <label
           className="c6"
-          htmlFor="guid-12345"
+          htmlFor="bar"
           size="large"
         >
           <div
@@ -420,14 +420,14 @@ input:focus ~ .c7 {
         <input
           checked={false}
           className="c5"
-          id="guid-12345"
+          id="foo"
           onChange={[Function]}
           type="radio"
           value="foo"
         />
         <label
           className="c6 c7"
-          htmlFor="guid-12345"
+          htmlFor="foo"
           size="large"
         >
           <div
@@ -444,14 +444,14 @@ input:focus ~ .c7 {
         <input
           checked={false}
           className="c5"
-          id="guid-12345"
+          id="bar"
           onChange={[Function]}
           type="radio"
           value="bar"
         />
         <label
           className="c6 c7"
-          htmlFor="guid-12345"
+          htmlFor="bar"
           size="large"
         >
           <div
