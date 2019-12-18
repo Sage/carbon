@@ -7,10 +7,13 @@ import CheckboxSvg from './checkbox-svg.component';
 import withValidations from '../../../components/validations/with-validation.hoc';
 
 const Checkbox = ({
-  id, label, onChange, value, ...props
+  id, label, onChange, onBlur, value, ...props
 }) => {
   const inputProps = {
     ...props,
+    onChange,
+    onBlur,
+    labelInline: true,
     inputId: id,
     inputLabel: label,
     inputValue: value,
@@ -23,11 +26,7 @@ const Checkbox = ({
       { ...tagComponent('checkbox', props) }
       { ...props }
     >
-      <CheckableInput
-        { ...inputProps }
-        onChange={ onChange }
-        labelInline
-      >
+      <CheckableInput { ...inputProps }>
         <CheckboxSvg />
       </CheckableInput>
     </CheckboxStyle>
@@ -53,6 +52,8 @@ Checkbox.propTypes = {
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Accepts a callback function which can be used to update parent state on change */
   onChange: PropTypes.func,
+  /** Accepts a callback function which is triggered on blur event */
+  onBlur: PropTypes.func,
   /** Reverses label and checkbox display */
   reverse: PropTypes.bool,
   /**

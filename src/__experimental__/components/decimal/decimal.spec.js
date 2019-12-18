@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TestRenderer from 'react-test-renderer';
 import { mount as enzymeMount } from 'enzyme';
 import I18n from 'i18n-js';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
@@ -147,39 +146,37 @@ describe('Decimal', () => {
   });
 
   describe('Wiggle animation', () => {
+    const animation = `0.4s ${wiggleAnimation.name} 1 ease-in forwards`;
+
     it('is triggered by invalid keypress', () => {
       render();
       press({ key: '-' }, '0.|00');
-      expect(wrapper.current.find(StyledWiggle).prop('isAnimating')).toBe(true);
-      const WiggleWrapper = TestRenderer.create(<StyledWiggle isAnimating />);
-      assertStyleMatch(
-        {
-          animation: `0.4s ${wiggleAnimation.name} 1 ease-in forwards`
-        },
-        WiggleWrapper.toJSON()
-      );
+      assertStyleMatch({ animation }, wrapper.current.find(StyledWiggle));
     });
 
     it('is triggered by pasting an invalid value', () => {
       render();
-      paste({ key: 'invalid' }, '0.|00');
-      expect(wrapper.current.find(StyledWiggle).prop('isAnimating')).toBe(true);
-      const WiggleWrapper = TestRenderer.create(<StyledWiggle isAnimating />);
-      assertStyleMatch(
-        {
-          animation: `0.4s ${wiggleAnimation.name} 1 ease-in forwards`
-        },
-        WiggleWrapper.toJSON()
-      );
+      paste({ key: 'a' }, '0.|00');
+      assertStyleMatch({ animation }, wrapper.current.find(StyledWiggle));
+    });
+
+    it('is not triggered when Decimal has readOnly prop', () => {
+      render({ readOnly: true });
+
+      paste({ key: 'a' }, '0.|00');
+      expect(wrapper.current.find(StyledWiggle)).not.toHaveStyleRule('animation');
+
+      press({ key: '-' }, '0.|00');
+      expect(wrapper.current.find(StyledWiggle)).not.toHaveStyleRule('animation');
     });
 
     it('turns off the animation after finishing', () => {
       render();
-      paste({ key: 'invalid' }, '0.|00');
-      expect(wrapper.current.find(StyledWiggle).prop('isAnimating')).toBe(true);
+      paste({ key: 'a' }, '0.|00');
+      assertStyleMatch({ animation }, wrapper.current.find(StyledWiggle));
       wrapper.current.find(StyledWiggle).props().onAnimationEnd();
       wrapper.current.update();
-      expect(wrapper.current.find(StyledWiggle).prop('isAnimating')).toBe(false);
+      expect(wrapper.current.find(StyledWiggle)).not.toHaveStyleRule('animation');
     });
   });
 

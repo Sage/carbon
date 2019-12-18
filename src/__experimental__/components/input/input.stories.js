@@ -51,6 +51,7 @@ const getCommonKnobs = () => {
 const InputIntegration = () => {
   const commonKnobs = getCommonKnobs();
   const disableFieldHelp = boolean('disable fieldHelp', false);
+  const disableLabelHelp = boolean('disable labelHelp', false);
   const disableLabelWidth = boolean('disable labelWidth (checkable inputs)', false);
   const reverse = boolean('reverse (checkable inputs)', true);
   const fieldHelpInline = disableFieldHelp ? '' : boolean('fieldHelpInline (checkable inputs)', false);
@@ -61,20 +62,23 @@ const InputIntegration = () => {
         <Decimal
           id='decimal'
           label='Decimal Component'
+          labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
           fieldHelp={ disableFieldHelp ? '' : 'Decimal component fieldHelp' }
           { ...commonKnobs }
         />
         <NumberInput
           id='number'
           label='Number Input Component'
-          onChange={ ev => store.set({ numberInputValue: ev.target.value }) }
+          labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
           fieldHelp={ disableFieldHelp ? '' : 'Number Input component fieldHelp' }
+          onChange={ ev => store.set({ numberInputValue: ev.target.value }) }
           value={ state.numberInputValue }
           { ...commonKnobs }
         />
         <GroupedCharacter
           id='grouped-character'
           label='Grouped Character Component'
+          labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
           separator='-'
           groups={ [2, 2, 4] }
           onChange={ ev => store.set({ groupedCharacterValue: ev.target.value.rawValue }) }
@@ -84,7 +88,8 @@ const InputIntegration = () => {
         />
         <Select
           ariaLabel='singleSelect'
-          label='Select Validation'
+          label='Select'
+          labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
           fieldHelp={ disableFieldHelp ? '' : 'Select Component fieldHelp' }
           { ...commonKnobs }
         >
@@ -106,16 +111,16 @@ const InputIntegration = () => {
         </Select>
         <Textarea
           name='textarea'
-          label='Textarea Validation'
-          labelHelp='Textarea labelHelp'
+          label='Textarea'
+          labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
           fieldHelp={ disableFieldHelp ? '' : 'Textarea fieldHelp' }
           { ...commonKnobs }
         />
         <Checkbox
           id='checkbox'
           name='my-checkbox'
-          label='Checkbox label'
-          labelHelp='Checkbox label help'
+          label='Checkbox'
+          labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
           fieldHelp={ disableFieldHelp ? '' : 'Checkbox field help' }
           value='checkbox-val'
           reverse={ reverse }
@@ -135,7 +140,7 @@ const InputIntegration = () => {
             <RadioButton
               key={ `radio${num}` }
               label={ `Radio ${num}` }
-              labelHelp={ `Radio ${num} label help` }
+              labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
               fieldHelp={ disableFieldHelp ? '' : `Radio ${num} field help` }
               value={ `radio${num}` }
               reverse={ reverse }
@@ -149,7 +154,8 @@ const InputIntegration = () => {
         </RadioButtonGroup>
         <Switch
           name='switch'
-          label='Switch Validation'
+          label='Switch'
+          labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
           fieldHelp={ disableFieldHelp ? '' : 'Switch field help' }
           reverse={ reverse }
           fieldHelpInline={ fieldHelpInline }
@@ -161,8 +167,8 @@ const InputIntegration = () => {
         <DateInput
           id='date'
           name='my-date'
-          label='Date label'
-          labelHelp='Date label help'
+          label='Date'
+          labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
           fieldHelp={ disableFieldHelp ? '' : 'Date field help' }
           onChange={ ev => store.set({ dateValue: ev.target.value.rawValue }) }
           value={ state.dateValue }

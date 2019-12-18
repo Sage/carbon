@@ -7,10 +7,6 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are inlin
 }
 
 .c2 .c4 {
-  margin-left: 0;
-}
-
-.c2 .c5 {
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
@@ -53,10 +49,6 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are not i
 }
 
 .c2 .c4 {
-  margin-left: 0;
-}
-
-.c2 .c5 {
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
