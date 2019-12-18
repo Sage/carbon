@@ -20,7 +20,7 @@
     - [Atomic Commits](#atomic-commits)
       - [Don’t push your work until you’re happy with it](#dont-push-your-work-until-youre-happy-with-it)
       - [Examples](#examples)
-      
+
 # Summary
 
 We, the Carbon team, want to move to a continuous delivery approach. We have identified [`semantic-release`](https://github.com/semantic-release/semantic-release) as a suitable
@@ -153,7 +153,8 @@ to be involved in the release process to determine the version number. This is n
 
 This RFC PR includes all necessary changes. If and when this RFC is accepted and merged, it will immediately start
 releasing from the following branches `['+([0-9])?(.{+([0-9]),x}).x', 'master', 'next', 'next-major', {name: 'beta', prerelease: true}, {name: 'alpha', prerelease: true}]`  
-[[Source]](https://github.com/semantic-release/semantic-release/blob/916c2685c57f3490fb1e50afbf72ea8dce11e188/docs/usage/configuration.md#branches)
+[[Source]](https://github.com/semantic-release/semantic-release/blob/916c2685c57f3490fb1e50afbf72ea8dce11e188/docs/usage/configuration.md#branches) 
+[[Source]](https://github.com/semantic-release/semantic-release/blob/916c2685c57f3490fb1e50afbf72ea8dce11e188/docs/usage/workflow-configuration.md#branches-properties)
 
 Adding [`probot/semantic-pull-requests`](https://probot.github.io/apps/semantic-pull-requests/) is a manual step and
 will have to be performed by a workspace administrator.
