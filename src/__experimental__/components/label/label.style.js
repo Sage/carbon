@@ -24,7 +24,8 @@ const LabelStyle = styled.label`
   }) => inline && css`
     box-sizing: border-box;
     padding-bottom: 0;
-    padding-right: ${sizes[inputSize].padding};
+    padding-top: ${sizes[inputSize].verticalPadding};
+    padding-right: ${sizes[inputSize].horizontalPadding};
     text-align: ${align};
     width: ${width === 0 ? LabelStyle.defaultProps.width : width}%;
   `}

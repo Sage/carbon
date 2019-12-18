@@ -35,7 +35,7 @@ exports[`Switch base theme renders as expected 1`] = `
 
 .c1 .c33 {
   text-align: left;
-  margin-top: -2px;
+  padding-top: 0;
   width: auto;
 }
 
@@ -174,7 +174,6 @@ exports[`Switch base theme renders as expected 1`] = `
   -webkit-flex-basis: auto;
   -ms-flex-preferred-size: auto;
   flex-basis: auto;
-  margin-left: 10px;
 }
 
 .c16 .c4 {
@@ -235,7 +234,6 @@ exports[`Switch base theme renders as expected 1`] = `
   -webkit-flex-basis: auto;
   -ms-flex-preferred-size: auto;
   flex-basis: auto;
-  margin-left: 10px;
 }
 
 .c18 .c4 {
@@ -270,7 +268,6 @@ exports[`Switch base theme renders as expected 1`] = `
   -webkit-flex-basis: auto;
   -ms-flex-preferred-size: auto;
   flex-basis: auto;
-  margin-left: 10px;
 }
 
 .c19 .c4 {
@@ -278,6 +275,10 @@ exports[`Switch base theme renders as expected 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+}
+
+.c19 .c6 {
+  margin-left: 10px;
 }
 
 .c20 .c4 {
@@ -361,7 +362,6 @@ exports[`Switch base theme renders as expected 1`] = `
   -webkit-flex-basis: auto;
   -ms-flex-preferred-size: auto;
   flex-basis: auto;
-  margin-left: 10px;
 }
 
 .c22 .c4 {
@@ -415,7 +415,6 @@ exports[`Switch base theme renders as expected 1`] = `
 .c0 .c33 {
   padding: 0;
   margin-bottom: 8px;
-  margin-top: 2px;
 }
 
 .c0 .c33 .c32 {
@@ -494,7 +493,6 @@ exports[`Switch base theme renders as expected 1`] = `
   -webkit-flex-basis: auto;
   -ms-flex-preferred-size: auto;
   flex-basis: auto;
-  margin-left: 10px;
 }
 
 .c24 .c4 {
@@ -554,7 +552,6 @@ exports[`Switch base theme renders as expected 1`] = `
   -webkit-flex-basis: auto;
   -ms-flex-preferred-size: auto;
   flex-basis: auto;
-  margin-left: 10px;
 }
 
 .c25 .c4 {
@@ -739,7 +736,6 @@ exports[`Switch base theme renders as expected 1`] = `
   -webkit-flex-basis: auto;
   -ms-flex-preferred-size: auto;
   flex-basis: auto;
-  margin-left: 10px;
 }
 
 .c28 .c4 {
@@ -798,13 +794,11 @@ exports[`Switch base theme renders as expected 1`] = `
   className="c0"
   data-component="Switch"
   name="my-switch"
-  onBlur={[Function]}
 >
   <div
     checked={false}
     className="c1"
     name="my-switch"
-    onBlur={[Function]}
   >
     <div
       className="c2 c3"

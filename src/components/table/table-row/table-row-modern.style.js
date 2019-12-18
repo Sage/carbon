@@ -1,15 +1,10 @@
 import { css } from 'styled-components';
 import StyledTableCell from '../table-cell/table-cell.style';
-import StyledTableHeader from '../table-header/table-header.style';
 
 function applyModernRowStyling(isPassive, { colors, table }) {
-  return css`   
+  return css`
     ${StyledTableCell} {
       background-color: ${colors.white};
-    }
-
-    ${StyledTableHeader} {
-      padding: 10px 8px;
     }
 
     .custom-drag-layer && {
