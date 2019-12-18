@@ -1,4 +1,4 @@
-FROM cypress/included:3.7.0
+FROM cypress/included:3.8.0
 
 ENV APP_HOME /usr/src/app
 RUN mkdir -p $APP_HOME
@@ -6,6 +6,13 @@ WORKDIR $APP_HOME
 
 COPY . ./
 RUN rm package-lock.json
+
+# install packages
+RUN apt-get update && \
+    apt-get install -y curl \
+    wget \
+    openjdk-8-jdk
+ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 
 EXPOSE 9001
 
