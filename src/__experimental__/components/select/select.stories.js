@@ -123,7 +123,6 @@ function makeMultipleStory(name, themeSelector) {
       <State store={ multiSelectStore }>
         <Select
           ariaLabel='multiSelect'
-          enableMultiSelect
           { ...commonKnobs(multiSelectStore, true) }
         >
           { selectOptions }
