@@ -6,29 +6,27 @@ export default (theme) => {
   return {
     status: {
       neutral: {
-        color: pill.neutral,
+        varietyColor: pill.neutral,
         buttonFocus: pill.neutralBackgroundFocus
       },
       negative: {
-        color: colors.error,
+        varietyColor: colors.error,
         buttonFocus: pill.errorButtonFocus
       },
       warning: {
-        color: pill.warning,
+        varietyColor: pill.warning,
         buttonFocus: pill.warningButtonFocus
       },
       positive: {
-        color: colors.secondary,
+        varietyColor: colors.secondary,
         buttonFocus: colors.tertiary
       }
     },
     tag: {
       primary: {
-        color: theme.colors.primary,
+        varietyColor: theme.colors.primary,
         buttonFocus: theme.colors.secondary
       }
-    },
-    hoverColor: colors.white,
-    boxShadow: colors.focus
+    }
   };
 };

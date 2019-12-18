@@ -8,8 +8,8 @@ import { classicStyleConfig } from './pill-classic.style';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import { baseTheme, classicTheme, carbonThemeList } from '../../style/themes';
-import mintTheme from '../../style/themes/mint';
+import { classicTheme, carbonThemeList } from '../../style/themes';
+import StyledIcon from '../icon/icon.style';
 
 const themesTable = carbonThemeList.map(theme => [theme.name, theme]);
 const classicStyleTypes = [...OptionsHelper.colors, 'disabled'];
@@ -26,8 +26,7 @@ describe('Pill', () => {
     let instance, pill;
     beforeEach(() => {
       instance = render({
-        children: 'My Text',
-        theme: classicTheme
+        children: 'My Text'
       });
       pill = instance.find('span').hostNodes();
     });
@@ -84,8 +83,7 @@ describe('Pill', () => {
       const spy = jest.fn();
       const instance = render({
         children: 'My Text',
-        onClick: spy,
-        theme: classicTheme
+        onClick: spy
       });
       const pill = instance.find('span').hostNodes();
 
@@ -110,9 +108,69 @@ describe('Pill', () => {
   });
 
   describe('modern themes', () => {
-    describe.each(modernThemes)('when the pill is rendered',
+    describe.each(themesTable)('when the pill is rendered',
       (name, theme) => {
         describe(`${name} theme`, () => {
+          describe('when the component size is small', () => {
+            it('matches the expected styles for a small pill', () => {
+              const wrapper = render({
+                children: 'My Text',
+                size: 'S'
+              }, TestRenderer.create).toJSON();
+              assertStyleMatch({
+                fontSize: '10px',
+                minHeight: '16px',
+                lineHeight: '16px',
+                padding: '0 7px'
+              }, wrapper);
+            });
+          });
+
+          describe('when the component size is medium', () => {
+            it('matches the expected styles for a medium pill', () => {
+              const wrapper = render({
+                children: 'My Text',
+                size: 'M'
+              }, TestRenderer.create).toJSON();
+              assertStyleMatch({
+                fontSize: '12px',
+                minHeight: '20px',
+                lineHeight: '20px',
+                padding: '0 11px'
+              }, wrapper);
+            });
+          });
+
+          describe('when the component size is large', () => {
+            it('matches the expected styles for a large pill', () => {
+              const wrapper = render({
+                children: 'My Text',
+                size: 'L'
+              }, TestRenderer.create).toJSON();
+              assertStyleMatch({
+                fontSize: '14px',
+                minHeight: '24px',
+                lineHeight: '24px',
+                padding: '0 15px'
+              }, wrapper);
+            });
+          });
+
+          describe('when the component size is extra large', () => {
+            it('matches the expected styles for a extra large pill', () => {
+              const wrapper = render({
+                children: 'My Text',
+                size: 'XL'
+              }, TestRenderer.create).toJSON();
+              assertStyleMatch({
+                fontSize: '16px',
+                minHeight: '26px',
+                lineHeight: '26px',
+                padding: '0 19px'
+              }, wrapper);
+            });
+          });
+
           describe('when pillRole is status', () => {
             const pillRole = 'status';
             const styleSet = styleConfig(theme)[pillRole];
@@ -155,7 +213,7 @@ describe('Pill', () => {
 
                   it(`matches the expected filled styling for ${style}`, () => {
                     assertStyleMatch({
-                      backgroundColor: styleSet[style].color,
+                      backgroundColor: styleSet[style].varietyColor,
                       color: theme.colors.white
                     }, fillWrapper);
                   });
@@ -174,7 +232,7 @@ describe('Pill', () => {
 
                   it(`matches the expected filled styling for ${style}`, () => {
                     assertStyleMatch({
-                      backgroundColor: styleSet[style].color,
+                      backgroundColor: styleSet[style].varietyColor,
                       color: theme.text.color
                     }, fillWrapper);
                   });
@@ -269,7 +327,7 @@ describe('Pill', () => {
 
                   it(`matches the expected styling for ${style}`, () => {
                     assertStyleMatch({
-                      border: `2px solid ${styleSet[style].color}`
+                      border: `2px solid ${styleSet[style].varietyColor}`
                     }, wrapper);
                   });
                 });
@@ -285,7 +343,7 @@ describe('Pill', () => {
 
                   it(`matches the expected filled styling for ${style}`, () => {
                     assertStyleMatch({
-                      backgroundColor: styleSet[style].color
+                      backgroundColor: styleSet[style].varietyColor
                     }, fillWrapper);
                   });
                 });
@@ -309,7 +367,7 @@ describe('Pill', () => {
 
                 it(`matches the expected filled styling for ${style}`, () => {
                   assertStyleMatch({
-                    backgroundColor: styleSet[style].color
+                    backgroundColor: styleSet[style].varietyColor
                   }, fillWrapper);
                 });
               });
@@ -319,106 +377,7 @@ describe('Pill', () => {
       });
   });
 
-  describe('base theme', () => {
-    it('switches to use the modern small theme', () => {
-      const wrapper = render({
-        children: 'My Text',
-        theme: baseTheme
-      }, TestRenderer.create).toJSON();
-      assertStyleMatch({
-        borderRadius: '12px',
-        fontSize: '12px',
-        fontWeight: '600',
-        position: 'relative',
-        padding: '0 11px'
-      }, wrapper);
-    });
-
-    it('switches to use the modern base(none) theme', () => {
-      const wrapper = render({
-        children: 'My Text',
-        theme: baseTheme
-      }, TestRenderer.create).toJSON();
-      assertStyleMatch({
-        borderRadius: '12px',
-        fontSize: '12px'
-      }, wrapper);
-    });
-  });
-
-  describe('small theme', () => {
-    it('switches to use the modern small theme', () => {
-      const wrapper = render({
-        children: 'My Text',
-        theme: mintTheme
-      }, TestRenderer.create).toJSON();
-      assertStyleMatch({
-        borderRadius: '12px',
-        fontSize: '12px',
-        fontWeight: '600',
-        position: 'relative',
-        padding: '0 11px',
-        textAlign: 'center'
-      }, wrapper);
-    });
-
-    describe('when the component size is small', () => {
-      it('matches the expected styles for a small pill', () => {
-        const wrapper = render({
-          children: 'My Text',
-          size: 'S',
-          theme: mintTheme
-        }, TestRenderer.create).toJSON();
-        assertStyleMatch({
-          padding: '0 7px'
-        }, wrapper);
-      });
-    });
-
-    describe('when the component size is medium', () => {
-      it('matches the expected styles for a medium pill', () => {
-        const wrapper = render({
-          children: 'My Text',
-          size: 'M',
-          theme: mintTheme
-        }, TestRenderer.create).toJSON();
-        assertStyleMatch({
-          fontSize: '12px',
-          padding: '0 11px'
-        }, wrapper);
-      });
-    });
-
-    describe('when the component size is large', () => {
-      it('matches the expected styles for a large pill', () => {
-        const wrapper = render({
-          children: 'My Text',
-          size: 'L',
-          theme: mintTheme
-        }, TestRenderer.create).toJSON();
-        assertStyleMatch({
-          fontSize: '14px',
-          padding: '0 15px'
-        }, wrapper);
-      });
-    });
-
-    describe('when the component size is extra large', () => {
-      it('matches the expected styles for a extra large pill', () => {
-        const wrapper = render({
-          children: 'My Text',
-          size: 'XL',
-          theme: mintTheme
-        }, TestRenderer.create).toJSON();
-        assertStyleMatch({
-          fontSize: '16px',
-          padding: '0 19px'
-        }, wrapper);
-      });
-    });
-  });
-
-  describe('when storybook supplies classic theme with a modern colour variant', () => {
+  describe('when the theme is Classic', () => {
     it('matches the expected styles for a default pill', () => {
       const wrapper = render({ children: 'My Text', theme: classicTheme }, TestRenderer.create).toJSON();
       assertStyleMatch({
@@ -462,7 +421,7 @@ describe('Pill', () => {
           }, fillWrapper);
         });
       });
-      });
+    });
 
     describe.each(classicStyleTypes)(
       'when the pill style is set as "%s"',
@@ -498,5 +457,26 @@ describe('Pill', () => {
         });
       }
     );
+
+    describe('when the pill type is a warning', () => {
+      let wrapper;
+
+      beforeEach(() => {
+        wrapper = render({ children: 'My Text', as: 'warning', theme: classicTheme }, TestRenderer.create).toJSON();
+      });
+
+      it('has no height specified', () => {
+        assertStyleMatch({
+          height: 'auto',
+          minHeight: 'auto'
+        }, wrapper);
+      });
+
+      it('has no padding in default pill button', () => {
+        assertStyleMatch({
+          padding: '0'
+        }, wrapper, { modifier: `button ${StyledIcon}` });
+      });
+    });
   });
 });
