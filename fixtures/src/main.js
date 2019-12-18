@@ -62,7 +62,7 @@ const routes = {
     controlled: ControlledGroupedCharacter,
     uncontrolled: UncontrolledGroupedCharacter
   },
-  'simple-color-picker': {
+  'simple-color-picker': {    
     description: 'Simple Color Picker',
     controlled: ControlledSimpleColorPicker,
     uncontrolled: UncontrolledSimpleColorPicker
