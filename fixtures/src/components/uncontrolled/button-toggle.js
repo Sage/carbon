@@ -68,4 +68,4 @@ const UncontrolledButtonToggle = () => {
     );
   };
 
-  export default UncontrolledButtonToggle;    
+  export default UncontrolledButtonToggle;
