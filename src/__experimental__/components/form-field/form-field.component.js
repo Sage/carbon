@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FormFieldStyle from './form-field.style';
+import FormFieldStyle, { FieldLineStyle } from './form-field.style';
 import Label from '../label';
 import FieldHelp from '../field-help';
 import OptionsHelper from '../../../utils/helpers/options-helper';
+import tagComponent from '../../../utils/helpers/tags';
 
 const FormField = ({
   children,
@@ -11,54 +12,68 @@ const FormField = ({
   fieldHelp,
   fieldHelpInline,
   hasError,
+  hasWarning,
+  hasInfo,
   helpId,
   helpTag,
   helpTabIndex,
   label,
+  labelId,
   labelAlign,
   labelHelp,
   labelHelpIcon,
   labelInline,
   labelWidth,
   name,
+  id,
   reverse,
   size,
   childOfForm,
   isOptional,
-  readOnly
+  readOnly,
+  tooltipMessage,
+  useValidationIcon,
+  ...props
 }) => (
-  <FormFieldStyle inline={ labelInline }>
-    {reverse && children}
+  <FormFieldStyle { ...tagComponent(props['data-component'], props) }>
+    <FieldLineStyle inline={ labelInline }>
+      {reverse && children}
 
-    {label && (
-      <Label
-        align={ labelAlign }
-        disabled={ disabled }
-        readOnly={ readOnly }
-        hasError={ hasError }
-        help={ labelHelp }
-        helpId={ helpId }
-        helpTag={ helpTag }
-        helpTabIndex={ helpTabIndex }
-        htmlFor={ name }
-        helpIcon={ labelHelpIcon }
-        inline={ labelInline }
-        inputSize={ size }
-        width={ labelWidth }
-        childOfForm={ childOfForm }
-        optional={ isOptional }
-      >
-        {label}
-      </Label>
-    )}
+      {label && (
+        <Label
+          labelId={ labelId }
+          align={ labelAlign }
+          disabled={ disabled }
+          readOnly={ readOnly }
+          hasError={ hasError }
+          hasWarning={ hasWarning }
+          hasInfo={ hasInfo }
+          help={ labelHelp }
+          helpId={ helpId }
+          helpTag={ helpTag }
+          helpTabIndex={ helpTabIndex }
+          htmlFor={ id }
+          helpIcon={ labelHelpIcon }
+          inline={ labelInline }
+          inputSize={ size }
+          width={ labelWidth }
+          childOfForm={ childOfForm }
+          optional={ isOptional }
+          tooltipMessage={ tooltipMessage }
+          useValidationIcon={ useValidationIcon }
+        >
+          {label}
+        </Label>
+      )}
 
-    {fieldHelp && fieldHelpInline && (
-      <FieldHelp labelInline={ labelInline } labelWidth={ labelWidth }>
-        {fieldHelp}
-      </FieldHelp>
-    )}
+      {fieldHelp && fieldHelpInline && (
+        <FieldHelp labelInline={ labelInline } labelWidth={ labelWidth }>
+          {fieldHelp}
+        </FieldHelp>
+      )}
 
-    {!reverse && children}
+      {!reverse && children}
+    </FieldLineStyle>
 
     {fieldHelp && !fieldHelpInline && (
       <FieldHelp labelInline={ labelInline } labelWidth={ labelWidth }>
@@ -76,23 +91,30 @@ FormField.propTypes = {
   children: PropTypes.node,
   childOfForm: PropTypes.bool,
   disabled: PropTypes.bool,
+  'data-component': PropTypes.string,
   fieldHelp: PropTypes.node,
   fieldHelpInline: PropTypes.bool,
   hasError: PropTypes.bool,
+  hasWarning: PropTypes.bool,
   helpId: PropTypes.string,
+  hasInfo: PropTypes.bool,
   helpTag: PropTypes.string,
-  helpTabIndex: PropTypes.string,
+  helpTabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string,
   isOptional: PropTypes.bool,
   label: PropTypes.node,
+  labelId: PropTypes.string,
   labelAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
   labelHelp: PropTypes.node,
   labelHelpIcon: PropTypes.string,
   labelInline: PropTypes.bool,
   labelWidth: PropTypes.number,
-  name: PropTypes.string,
   readOnly: PropTypes.bool,
   reverse: PropTypes.bool,
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted)
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  tooltipMessage: PropTypes.string,
+  useValidationIcon: PropTypes.bool
 };
 
 export default FormField;

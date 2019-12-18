@@ -31,6 +31,10 @@ exports[`TableHeader render renders the sort icon to match the snapshot 1`] = `
   background-color: #19475B;
 }
 
+.c1 .c3 {
+  color: #FFFFFF;
+}
+
 .c1 a:link,
 .c1 a:visited,
 .c1 a:hover,
@@ -38,6 +42,16 @@ exports[`TableHeader render renders the sort icon to match the snapshot 1`] = `
   color: #FFFFFF;
   -webkit-text-decoration: none;
   text-decoration: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  line-height: 16px;
+  height: 24px;
 }
 
 .c1 a span {
@@ -50,19 +64,11 @@ exports[`TableHeader render renders the sort icon to match the snapshot 1`] = `
   width: 10px;
 }
 
-.c2.c2 .carbon-table-row .c3,
-.c2.c2 .carbon-table-row .c0 {
+.c2 .c5 .c4,
+.c2 .c5 .c0 {
   font-size: 14px;
   padding-left: 11px;
   padding-right: 11px;
-}
-
-.c2 .carbon-table-row:first-child .c0:first-child {
-  border-radius: 0px 0 0 0;
-}
-
-.c2 .carbon-table-row:first-child .c0:last-child {
-  border-radius: 0 0px 0 0;
 }
 
 <th

@@ -80,14 +80,6 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
   color: #FFFFFF;
 }
 
-.c7 .c1 {
-  color: rgba(0,0,0,0.55);
-}
-
-.c7 .c1 {
-  color: #FFFFFF;
-}
-
 <span
   className="c0"
 >

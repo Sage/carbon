@@ -1,39 +1,66 @@
 Feature: Pages component
   I want to test Pages component
 
-  Background: Open Pages component iframe
-    Given I open "Pages" component iframe
+  Background: Open Pages component page
+    Given I open "Pages" component page
 
   @positive
-  Scenario: Open first page
-    When I open no iFrame component preview
-    Then My First Page is visible
+  Scenario Outline: Change Pages component pageIndex to <pageIndex>
+    When I select pageIndex to "<pageIndex>"
+      And I open component preview
+      # wait because of animation
+      And I wait 500
+    Then My <page> Page is visible
+    Examples:
+      | pageIndex | page   |
+      | 0         | First  |
+      | 1         | Second |
+      | 2         | Third  |
 
   @positive
-  Scenario: Open and close first page
-    When I open no iFrame component preview
+  Scenario Outline: Open and close page by index <pageIndex>
+    Given I select pageIndex to "<pageIndex>"
+    When I open component preview
       And I close page
-    Then My First Page is not visible
-      And My Second Page is not visible
+    Then page is closed
+    Examples:
+      | pageIndex |
+      | 0         |
+      | 1         |
+      | 2         |
 
   @positive
-  Scenario: Open next page
-    When I open no iFrame component preview
-      And I go to next page
+  Scenario: Go to second page
+    When I open component preview
+      And I go to second page
     Then My Second Page is visible
+      And other pages except Second Page are not visible
 
   @positive
-  Scenario: Open and close next page
-    When I open no iFrame component preview
-      And I go to next page
-      And I close page
-    Then My First Page is not visible
-      And My Second Page is not visible
+  Scenario: Go to third page
+    When I open component preview
+      And I go to second page
+      And I go to third page
+    Then My Third Page is visible
+      And other pages except Third Page are not visible
 
   @positive
-  Scenario: Go back to first page
-    When I open no iFrame component preview
-      And I go to next page
-      And I go to previous page
+  Scenario: Go back from second page to first page
+    Given I select pageIndex to "1"
+      And I open component preview
+      # wait because of animation
+      And I wait 1000
+    When I go back
     Then My First Page is visible
+      And other pages except First Page are not visible
+
+  @positive
+  Scenario: Go back from third page to first page
+    Given I select pageIndex to "2"
+      And I open component preview
+      # wait because of animation
+      And I wait 1000
+    When I go back
+    Then My First Page is visible
+      And other pages except First Page are not visible
 

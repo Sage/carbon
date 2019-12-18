@@ -1,1 +1,2 @@
-Component Update: Refactor an Alert component, create documentation for the story
+Other: "Changed Alert to include default props and other improvements. (Component: Alert)" 
+New Features: "Added documentation to Storybook example. (Component: Alert)"

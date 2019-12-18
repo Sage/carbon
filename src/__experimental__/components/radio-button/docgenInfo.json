@@ -1,0 +1,239 @@
+{
+  "src/__experimental__/components/radio-button/radio-button-group.component.js": [
+    {
+      "description": "",
+      "displayName": "RadioButtonGroup",
+      "methods": [],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": true,
+          "description": "The RadioButton objects to be rendered in the group"
+        },
+        "name": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": "Specifies the name prop to be applied to each button in the group"
+        },
+        "legend": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": "The content for the RadioGroup Legend"
+        },
+        "labelHelp": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Help text"
+        },
+        "hasError": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Prop to indicate that an error has occurred",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "hasWarning": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Prop to indicate that a warning has occurred",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "hasInfo": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Prop to indicate additional information",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "onBlur": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "The onBlur event"
+        },
+        "onChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "The onChange event"
+        },
+        "value": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The formatted value"
+        },
+        "tooltipMessage": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "String to be displayed in a Tooltip"
+        }
+      }
+    }
+  ],
+  "src/__experimental__/components/radio-button/radio-button-svg.component.js": [
+    {
+      "description": "",
+      "displayName": "RadioButtonSvg",
+      "methods": []
+    }
+  ],
+  "src/__experimental__/components/radio-button/radio-button.component.js": [
+    {
+      "description": "",
+      "displayName": "RadioButton",
+      "methods": [],
+      "props": {
+        "checked": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Set the value of the radio button"
+        },
+        "disabled": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Toggles disabling of input"
+        },
+        "fieldHelpInline": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Displays fieldHelp inline with the radio button"
+        },
+        "id": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Unique Identifier for the input. Will use a randomly generated GUID if none is provided"
+        },
+        "inputWidth": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "number"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Sets percentage-based input width"
+        },
+        "label": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The content of the label for the input"
+        },
+        "labelAlign": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.alignBinary"
+          },
+          "required": false,
+          "description": "Sets label alignment - accepted values: 'left' (default), 'right'"
+        },
+        "labelWidth": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "number"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Sets percentage-based label width"
+        },
+        "name": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The name of the the RadioButton (can also be set via the 'name' prop of the RadioButtonGroup component)"
+        },
+        "onChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Accepts a callback function which can be used to update parent state on change"
+        },
+        "reverse": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Reverses label and radio button display",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "size": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.sizesBinary"
+          },
+          "required": false,
+          "description": "Set the size of the radio button to 'small' (16x16 - default) or 'large' (24x24).\nNo effect when using Classic theme."
+        },
+        "value": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": "the value of the Radio Button, passed on form submit"
+        },
+        "children": {
+          "type": {
+            "name": "custom",
+            "raw": "(props, propName, componentName) => {\n  if (props[propName]) {\n    return new Error(\n      `Forbidden prop \\`${propName}\\` supplied to \\`${componentName}\\`. `\n        + 'This component is meant to be used as a self-closing tag. '\n        + 'You should probably use the label prop instead.'\n    );\n  }\n  return null;\n}"
+          },
+          "required": false,
+          "description": ""
+        }
+      }
+    }
+  ]
+}

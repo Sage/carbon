@@ -7,6 +7,7 @@ import {
   number
 } from '@storybook/addon-knobs';
 import { Store, State } from '@sambego/storybook-state';
+import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import { notes, info, infoValidations } from './documentation';
 import Textbox, { OriginalTextbox } from '.';
 import OptionsHelper from '../../../utils/helpers/options-helper';
@@ -24,25 +25,18 @@ const defaultStoryPropsConfig = {
   inputWidthEnabled: true
 };
 
-const store = new Store(
-  {
-    value: ''
-  }
-);
-
-const setValue = (ev) => {
-  store.set({ value: ev.target.value });
-};
-
-storiesOf('Experimental/Textbox', module)
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     return (
       <Textbox
         placeholder={ text('placeholder') }
         { ...getCommonTextboxStoryProps() }
       />
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     info: {
       text: info,
       propTables: [OriginalTextbox],
@@ -50,8 +44,13 @@ storiesOf('Experimental/Textbox', module)
     },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
-  })
-  .add('multiple', () => {
+  };
+
+  return [name, component, metadata];
+}
+
+function makeMultipleStory(name, themeSelector) {
+  const component = () => {
     return ([
 
       <Textbox
@@ -65,7 +64,10 @@ storiesOf('Experimental/Textbox', module)
         { ...getCommonTextboxStoryProps() }
       />
     ]);
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     info: {
       text: info,
       propTables: [OriginalTextbox],
@@ -73,8 +75,23 @@ storiesOf('Experimental/Textbox', module)
     },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
-  })
-  .add('validations', () => {
+  };
+
+  return [name, component, metadata];
+}
+
+function makeValidationsStory(name, themeSelector) {
+  const store = new Store(
+    {
+      value: ''
+    }
+  );
+
+  const setValue = (ev) => {
+    store.set({ value: ev.target.value });
+  };
+
+  const component = () => {
     return (
       <State store={ store }>
         <Textbox
@@ -87,13 +104,26 @@ storiesOf('Experimental/Textbox', module)
         />
       </State>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     info: {
       source: false,
       text: infoValidations,
       propTablesExclude: [State, Textbox]
     }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Experimental/Textbox', module)
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector))
+  .add(...makeMultipleStory('multiple', dlsThemeSelector))
+  .add(...makeValidationsStory('validations', dlsThemeSelector))
+  .add(...makeValidationsStory('validations classic', classicThemeSelector));
 
 
 function getCommonTextboxStoryProps(config = defaultStoryPropsConfig) {

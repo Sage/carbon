@@ -1,9 +1,9 @@
 import { css } from 'styled-components';
-import { THEMES } from '../../../style/themes';
+import { isClassic } from '../../../utils/helpers/style-helper';
 
 export default ({
-  checked, loading, theme
-}) => theme.name === THEMES.classic && css`
+  checked, isLoading, theme
+}) => isClassic(theme) && css`
   background-color: #003349;
   border-radius: 24px;
   height: 28px;
@@ -26,7 +26,7 @@ export default ({
       }
   `}
 
-  ${loading && `
+  ${isLoading && `
     opacity: 0.6;
   `}
 `;

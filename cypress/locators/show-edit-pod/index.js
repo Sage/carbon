@@ -2,6 +2,7 @@ import {
   SHOW_EDIT_POD_PREVIEW, SHOW_EDIT_POD_TITLE, SHOW_EDIT_POD_COLLAPSIBLE_CONTENT,
   SHOW_EDIT_SAVE_BUTTON, SHOW_EDIT_CANCEL_BUTTON, SHOW_EDIT_DELETE_BUTTON,
   SHOW_EDIT_POD_EDIT, SHOW_EDIT_POD_SECONDARY_BLOCK, SHOW_EDIT_POD_SECONDARY_WRAPPER,
+  SHOW_EDIT_POD_FOOTER,
 } from './locators';
 
 // component preview locators
@@ -15,3 +16,4 @@ export const showEditPodSecondaryBlock = () => cy.iFrame(SHOW_EDIT_POD_SECONDARY
 export const showEditPodSecondaryWrapper = () => cy.iFrame(SHOW_EDIT_POD_SECONDARY_WRAPPER);
 export const showEditPodCollapsibleInnerContent = (index, element) => cy.iFrame(SHOW_EDIT_POD_COLLAPSIBLE_CONTENT)
   .find(`div:nth-child(${index})`).find(`[data-element=${element}]`);
+export const showEditPodFooter = () => cy.iFrame(SHOW_EDIT_POD_FOOTER).children();

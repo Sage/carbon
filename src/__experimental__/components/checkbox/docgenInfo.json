@@ -26,13 +26,6 @@
           "required": false,
           "description": "Toggles disabling of input"
         },
-        "error": {
-          "type": {
-            "name": "bool"
-          },
-          "required": false,
-          "description": "Toggles error styles"
-        },
         "fieldHelpInline": {
           "type": {
             "name": "bool"

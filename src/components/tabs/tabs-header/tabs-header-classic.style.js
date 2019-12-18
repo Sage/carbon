@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
-import { THEMES } from '../../../style/themes';
+import { isClassic } from '../../../utils/helpers/style-helper';
 
-export default ({ theme }) => theme.name === THEMES.classic && css`
+export default ({ theme }) => isClassic(theme) && css`
   box-shadow: inset 0px -2px 0px 0px #ccd6da;
 `;

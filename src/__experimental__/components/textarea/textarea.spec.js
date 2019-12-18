@@ -7,6 +7,13 @@ import CharacterCount from './character-count';
 import Textarea from '.';
 import baseTheme from '../../../style/themes/base';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
+import Label from '../label';
+import TextareaInput from './textarea-input.component';
+import guid from '../../../utils/helpers/guid';
+import StyledLabel from '../label/label.style';
+
+jest.mock('../../../utils/helpers/guid');
+guid.mockImplementation(() => 'guid-12345');
 
 describe('Textarea', () => {
   let wrapper;
@@ -39,6 +46,14 @@ describe('Textarea', () => {
       wrapper = renderTextarea({ children: 'mock content', [validationProp]: true });
       const validationIcon = wrapper.find(ValidationIcon);
       expect(validationIcon.exists()).toBe(true);
+    });
+
+    it('doesnt render a validation icon in the label', () => {
+      wrapper = renderTextarea({
+        label: 'foo', tooltipMessage: 'bar', children: 'mock content', [validationProp]: true
+      });
+      const validationIcon = wrapper.find(Label).find(ValidationIcon);
+      expect(validationIcon.exists()).toBe(false);
     });
   });
 
@@ -85,6 +100,11 @@ describe('Textarea', () => {
       expect(renderTextarea({}, TestRenderer.create)).toMatchSnapshot();
     });
 
+    it('should only have a placeholder if not disabled', () => {
+      wrapper = renderTextarea({ placeholder: 'foo', disabled: true });
+      expect(wrapper.find(TextareaInput).props().placeholder).toEqual('');
+    });
+
     describe('and when characterLimit prop is defined', () => {
       beforeEach(() => {
         wrapper.setProps({ characterLimit: '5' });
@@ -102,6 +122,24 @@ describe('Textarea', () => {
           }, wrapper.find(CharacterCount));
         });
       });
+    });
+  });
+
+  it('has a label that is linked to the TextArea', () => {
+    wrapper = renderTextarea({ label: 'This is a Text Area' });
+
+    const labelHtmlFor = wrapper.find(Label).prop('htmlFor');
+    const textAreaId = wrapper.find(TextareaInput).prop('id');
+    expect(labelHtmlFor).toEqual(textAreaId);
+  });
+
+  describe('when labelInline prop is set', () => {
+    it('then the input label should accomodate for input internal padding', () => {
+      wrapper = renderTextarea({ label: 'foo', labelInline: true });
+
+      assertStyleMatch({
+        paddingTop: '8px'
+      }, wrapper, { modifier: `${StyledLabel}` });
     });
   });
 });

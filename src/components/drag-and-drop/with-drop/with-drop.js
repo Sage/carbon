@@ -19,8 +19,9 @@ class WithDrop extends React.Component {
     index: PropTypes.number.isRequired, // identifies the index for this item
     hover: PropTypes.func, // an optional callback to trigger when the item is hovered
     onDrag: PropTypes.func, // an optional callback to trigger when dragging occurs
-    canDrop: PropTypes.func // an optional callback to determine if this item can be dropped on
+    canDrop: PropTypes.func, // an optional callback to determine if this item can be dropped on
     /* eslint-enable react/no-unused-prop-types */
+    didDrop: PropTypes.func
   }
 
   static contextTypes = {
@@ -28,11 +29,44 @@ class WithDrop extends React.Component {
     dragAndDropHover: PropTypes.func
   }
 
+  state = {
+    isDraggedElementOver: false,
+    inDeadZone: false
+  }
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    if (!this.props.isOver && nextProps.isOver) { // eslint-disable-line react/prop-types
+      // Equivalent of `mouseover` / `mouseenter`
+      this.setState({ isDraggedElementOver: true });
+    }
+
+    if (this.props.isOver && !nextProps.isOver) {
+      // Equivalent of `mouseout` / `mouseleave`
+      this.setState({ isDraggedElementOver: false });
+    }
+
+    if (this.props.didDrop) {
+      this.setState({ inDeadZone: false });
+    }
+  }
+
   render() {
     // this.props.connectDragSource comes from react-dnd DragSource higher
     // order component, so disable the react/prop-types ESLint rule on the line
     // below
-    return this.props.connectDropTarget(this.props.children); // eslint-disable-line react/prop-types
+    const { children, connectDropTarget, droppableNode } = this.props; // eslint-disable-line react/prop-types
+
+    const childrenWithProps = React.cloneElement(children, {
+      isDraggedElementOver: this.state.isDraggedElementOver,
+      inDeadZone: this.state.inDeadZone
+    });
+
+    if (droppableNode) {
+      connectDropTarget(droppableNode());
+      return childrenWithProps;
+    }
+
+    return connectDropTarget(childrenWithProps);
   }
 }
 
@@ -51,8 +85,10 @@ const ItemTarget = {
 };
 
 WithDrop = DropTarget( // eslint-disable-line no-class-assign
-  ItemTypes.getItemType, ItemTarget, connect => ({
-    connectDropTarget: connect.dropTarget()
+  ItemTypes.getItemType, ItemTarget, (connect, monitor) => ({
+    isOver: monitor.isOver(),
+    connectDropTarget: connect.dropTarget(),
+    didDrop: monitor.didDrop()
   })
 )(WithDrop);
 

@@ -3,14 +3,18 @@ import PropTypes from 'prop-types';
 import FormField from '../../__experimental__/components/form-field';
 import ButtonToggleGroupStyle from './button-toggle-group.style';
 import withValidations from '../validations/with-validation.hoc';
+import RadioButtonMapper from '../../__experimental__/components/radio-button/radio-button-mapper.component';
 
-const ButtonToggleGroup = withValidations((props) => {
+const BaseButtonToggleGroup = ((props) => {
   const {
+    name,
     inputWidth,
     errorMessage,
     label,
     onChange,
-    children
+    onBlur,
+    children,
+    value
   } = props;
 
   return (
@@ -21,17 +25,27 @@ const ButtonToggleGroup = withValidations((props) => {
         role='group'
         inputWidth={ inputWidth }
         errorMessage={ errorMessage }
-        onChange={ onChange }
       >
-        {children}
+        <RadioButtonMapper
+          name={ name }
+          onBlur={ onBlur }
+          onChange={ onChange }
+          value={ value }
+        >
+          {children}
+        </RadioButtonMapper>
       </ButtonToggleGroupStyle>
     </FormField>
   );
 });
 
-ButtonToggleGroup.propTypes = {
+BaseButtonToggleGroup.propTypes = {
+  /** Specifies the name prop to be applied to each button in the group */
+  name: PropTypes.string.isRequired,
   /** Children to be rendered (ButtonToggle). */
   children: PropTypes.node.isRequired,
+  /** Message displayed on error */
+  errorMessage: PropTypes.string,
   /** Text for the label. */
   label: PropTypes.string,
   /** Text for the labels help tooltip. */
@@ -47,7 +61,15 @@ ButtonToggleGroup.propTypes = {
   /** The percentage width of the label. */
   labelWidth: PropTypes.number,
   /** The alignment for the text in the label. */
-  labelAlign: PropTypes.string
+  labelAlign: PropTypes.string,
+  /** callback to handle change event */
+  onChange: PropTypes.func,
+  /** Callback fired when each RadioButton is blurred */
+  onBlur: PropTypes.func,
+  /** The value of the Button Toggle Group */
+  value: PropTypes.string
 };
 
-export default ButtonToggleGroup;
+BaseButtonToggleGroup.displayName = 'BaseButtonToggleGroup';
+
+export default withValidations(BaseButtonToggleGroup);

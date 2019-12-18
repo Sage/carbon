@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
-import { THEMES } from '../../style/themes';
+import { isClassic } from '../../utils/helpers/style-helper';
 
-const sidebarClassicStyle = ({ theme }) => theme.name === THEMES.classic && css`
+const sidebarClassicStyle = ({ theme }) => isClassic(theme) && css`
     background-color: #e6ebed;
     padding: 20px;
     
@@ -18,7 +18,7 @@ const sidebarClassicStyle = ({ theme }) => theme.name === THEMES.classic && css`
     `}
 `;
 
-const sidebarCloseClassicStyle = ({ theme }) => theme.name === THEMES.classic && css`
+const sidebarCloseClassicStyle = ({ theme }) => isClassic(theme) && css`
     color: rgba(0, 0, 0, 0.85);
     top: 15px;
     

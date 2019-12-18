@@ -56,7 +56,9 @@ describe('OptionsHelper', () => {
       'analysis',
       'arrow_down',
       'arrow_left',
+      'arrow_left_small',
       'arrow_right',
+      'arrow_right_small',
       'arrow_up',
       'attach',
       'basket',
@@ -82,6 +84,7 @@ describe('OptionsHelper', () => {
       'chevron_up',
       'clock',
       'close',
+      'coins',
       'collaborate',
       'copy',
       'connect',
@@ -133,6 +136,7 @@ describe('OptionsHelper', () => {
       'message',
       'messages',
       'minus',
+      'minus_large',
       'mobile',
       'pdf',
       'people',
@@ -140,7 +144,9 @@ describe('OptionsHelper', () => {
       'phone',
       'play',
       'plus',
+      'plus_large',
       'print',
+      'progress',
       'progressed',
       'question',
       'refresh',
@@ -161,8 +167,7 @@ describe('OptionsHelper', () => {
       'uploaded',
       'video',
       'view',
-      'warning',
-      'white-tick'
+      'warning'
     ]);
   });
   it('pageSizes', () => {

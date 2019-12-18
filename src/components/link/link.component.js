@@ -1,15 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { assign } from 'lodash';
 import { Link as RouterLink } from 'react-router';
 import Icon from '../icon';
-import { validProps } from '../../utils/ether';
 import Event from '../../utils/helpers/events';
-import tagComponent from '../../utils/helpers/tags';
-import { LinkStyle, LinkStyleAnchor } from './link.style';
+import LinkStyle from './link.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import './link.scss';
+import tagComponent from '../../utils/helpers/tags';
 
 class Link extends React.Component {
   static safeProps = ['onClick'];
@@ -21,7 +17,7 @@ class Link extends React.Component {
 
     // return early if there is no onClick or there is a href prop
     // or the event is not an enter key
-    if (this.props.href || !Event.isEnterKey(ev)) {
+    if (this.props.href || (!Event.isEnterKey(ev) && !Event.isSpaceKey(ev))) {
       return;
     }
 
@@ -37,18 +33,15 @@ class Link extends React.Component {
   }
 
   get icon() {
-    const classes = classNames(
-      'carbon-link__icon',
-      `carbon-link__icon--align-${this.props.iconAlign}`
-    );
-
     return (
       <Icon
         type={ this.props.icon }
-        className={ classes }
         tooltipMessage={ this.props.tooltipMessage }
         tooltipAlign={ this.props.tooltipAlign }
         tooltipPosition={ this.props.tooltipPosition }
+        bgTheme='none'
+        iconColor='business-color'
+        disabled={ this.props.disabled }
       />
     );
   }
@@ -58,61 +51,68 @@ class Link extends React.Component {
   }
 
   get componentProps() {
-    let { ...props } = validProps(this);
-    props.tabIndex = this.tabIndex;
+    const props = {
+      onKeyDown: this.onKeyDown,
+      onMouseDown: this.props.onMouseDown,
+      disabled: this.props.disabled,
+      onClick: this.handleClick,
+      tabIndex: this.tabIndex
+    };
 
-    props = assign({}, props, tagComponent('link', this.props));
-
-    delete props.href;
-    delete props.tabbable;
-    delete props.to;
-
-    props.className = this.props.className;
-    props.onKeyDown = this.onKeyDown;
+    if (this.props.to) {
+      props.to = this.props.to;
+    } else {
+      props.href = this.props.href;
+    }
 
     return props;
   }
 
+  handleClick = (ev) => {
+    if (this.props.disabled) {
+      ev.preventDefault();
+    } else if (this.props.onClick) {
+      this.props.onClick(ev);
+    }
+  };
+
   /**
    * className `@carbon-link__content` is related to `ShowEditPod` component
    * */
-  renderLinkContent() {
-    return (
-      <span>
-        {this.renderLinkIcon()}
 
-        <span className='carbon-link__content'>{this.props.children}</span>
+  linkContent = () => (
+    <>
+      { this.renderLinkIcon() }
 
-        {this.renderLinkIcon('right')}
-      </span>
-    );
-  }
+      <span className='carbon-link__content'>{this.props.children}</span>
 
-  renderLink() {
-    if (this.props.to) {
-      return (
-        <LinkStyleAnchor
-          as={ RouterLink } to={ this.props.to }
-          { ...this.componentProps }
-        >
-          {this.renderLinkContent()}
-        </LinkStyleAnchor>
-      );
-    }
+      { this.renderLinkIcon('right') }
+    </>
+  )
 
-    return (
-      <LinkStyleAnchor href={ this.props.href } { ...this.componentProps }>
-        {this.renderLinkContent()}
-      </LinkStyleAnchor>
+  createLinkBasedOnType = () => {
+    const type = this.props.to ? RouterLink : 'a';
+
+    return React.createElement(
+      type,
+      { ...this.componentProps },
+      this.linkContent()
     );
   }
 
   render() {
+    const {
+      disabled, className, iconAlign
+    } = this.props;
+
     return (
       <LinkStyle
-        data-component='link' disabled={ this.props.disabled }
+        disabled={ disabled }
+        className={ className }
+        iconAlign={ iconAlign }
+        { ...tagComponent('link', this.props) }
       >
-        {this.renderLink()}
+        {this.createLinkBasedOnType()}
       </LinkStyle>
     );
   }
@@ -135,6 +135,8 @@ Link.propTypes = {
   onClick: PropTypes.func,
   /** Function called when a key is pressed. */
   onKeyDown: PropTypes.func,
+  /** Function called when a mouse down event triggers. */
+  onMouseDown: PropTypes.func,
   /** Whether to include the link in the tab order of the page */
   tabbable: PropTypes.bool,
   /** Using `to` instead of `href` will create a React Router link rather than a web href. */

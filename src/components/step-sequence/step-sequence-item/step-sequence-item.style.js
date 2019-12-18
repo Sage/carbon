@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import StepSequenceItemClassicStyle from './step-sequence-item-classic.style';
 import baseTheme from '../../../style/themes/base';
+import StyledIcon from '../../icon/icon.style';
 
 const StepSequenceItemStyle = styled.li`
   display: flex;
@@ -19,7 +20,7 @@ const StepSequenceItemStyle = styled.li`
     background-color: ${({ theme }) => theme.disabled.disabled};
   }
 
-  .carbon-icon {
+  ${StyledIcon} {
     position: relative;
     top: -2px;
     margin-right: 8px;

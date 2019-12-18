@@ -72,10 +72,10 @@ describe('ButtonToggle', () => {
         disabled: true
       });
       assertStyleMatch({
-        backgroundColor: '#E5EAEC !important',
-        borderColor: '#E5EAEC !important',
-        color: 'rgba(0,0,0,.2) !important'
-      }, wrapper.find('label'));
+        backgroundColor: '#E5EAEC',
+        borderColor: '#E5EAEC',
+        color: 'rgba(0,0,0,.2)'
+      }, wrapper.find('label'), { modifier: '&' });
     });
     it('renders correctly with small icon', () => {
       const wrapper = renderWithTheme({
@@ -84,7 +84,7 @@ describe('ButtonToggle', () => {
         buttonIconSize: 'small'
       });
       assertStyleMatch({
-        marginRight: '3px'
+        marginRight: '8px'
       }, wrapper.find(StyledButtonToggleIcon));
     });
     it('renders correctly when grouped', () => {

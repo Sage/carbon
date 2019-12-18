@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { select, text } from '@storybook/addon-knobs';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation';
 import Detail from './detail.js';
@@ -11,8 +12,8 @@ Detail.__docgenInfo = getDocGenInfo(
   /detail\.js(?!spec)/
 );
 
-storiesOf('Detail', module)
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const icon = select('icon', [null, ...OptionsHelper.icons], null);
     const footnote = text('footnote', 'This detail may require a footnote.');
     const children = text('children', 'An example of a detail.');
@@ -25,6 +26,16 @@ storiesOf('Detail', module)
         {children}
       </Detail>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     notes: { markdown: notes }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Detail', module)
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));

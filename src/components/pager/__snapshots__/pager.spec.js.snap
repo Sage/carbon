@@ -1,6 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Pager renders the Pager correctly with the classic theme 1`] = `
+.c3 {
+  display: inline-block;
+  position: relative;
+  color: rgba(0,0,0,0.65);
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+  color: rgba(0,0,0,0.85);
+}
+
+.c3:hover {
+  color: rgba(0,0,0,0.90);
+  background-color: transparent;
+}
+
+.c3::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e910";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.common-input__label--help .c3 {
+  width: auto;
+  height: auto;
+}
+
+.c3::before {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+}
+
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -69,7 +122,7 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
   align-items: center;
 }
 
-.c3 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -87,19 +140,19 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
   align-items: center;
 }
 
-.c3.c3 .c9 {
+.c4.c4 .c10 {
   padding: 0;
   margin: 0 4px;
   line-height: 24px;
   min-height: 24px;
 }
 
-.c3.c3 .c8 {
+.c4.c4 .c9 {
   text-align: center;
   height: 24px;
 }
 
-.c3 .carbon-number__input {
+.c4 .carbon-number__input {
   width: 35px;
   height: 31px;
   padding: 0;
@@ -108,7 +161,7 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
   text-align: center;
 }
 
-.c4 {
+.c5 {
   display: inline-block;
   -webkit-transform: rotate(90deg) scale(1.4);
   -ms-transform: rotate(90deg) scale(1.4);
@@ -119,7 +172,7 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
   cursor: not-allowed;
 }
 
-.c6 {
+.c7 {
   display: inline-block;
   -webkit-transform: rotate(90deg) scale(1.4);
   -ms-transform: rotate(90deg) scale(1.4);
@@ -133,14 +186,14 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
   margin-left: 8px;
 }
 
-.c5 {
+.c6 {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 }
 
-.c7 {
+.c8 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -192,9 +245,12 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
             htmlFor="guid-12345"
           >
             <span
-              className="carbon-icon carbon-input-icon icon-dropdown"
+              className="carbon-input-icon c3"
               data-component="icon"
               data-element="dropdown"
+              disabled={false}
+              fontSize="small"
+              type="dropdown"
             />
           </label>
         </div>
@@ -210,21 +266,24 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
     </div>
   </div>
   <div
-    className="c3"
+    className="c4"
   >
     <div
-      className="c4"
+      className="c5"
       disabled={true}
     >
       <span
-        className="carbon-icon icon-dropdown"
+        className="c3"
         data-component="icon"
         data-element="dropdown"
+        disabled={false}
+        fontSize="small"
         onClick={[Function]}
+        type="dropdown"
       />
     </div>
     <span
-      className="c5"
+      className="c6"
     >
       Page 
     </span>
@@ -255,25 +314,28 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
       </div>
     </label>
     <span
-      className="c5"
+      className="c6"
     >
        of 
       10
     </span>
     <div
-      className="c6"
+      className="c7"
       disabled={false}
     >
       <span
-        className="carbon-icon icon-dropdown"
+        className="c3"
         data-component="icon"
         data-element="dropdown"
+        disabled={false}
+        fontSize="small"
         onClick={[Function]}
+        type="dropdown"
       />
     </div>
   </div>
   <div
-    className="c7"
+    className="c8"
   >
     100
      
@@ -283,7 +345,7 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
 `;
 
 exports[`Pager renders the Pager correctly with the small theme 1`] = `
-.c12 {
+.c14 {
   background: transparent;
   border: none;
   color: rgba(0,0,0,0.9);
@@ -296,28 +358,67 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   width: 30px;
 }
 
-.c12::-webkit-input-placeholder {
+.c14::-webkit-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c12::-moz-placeholder {
+.c14::-moz-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c12:-ms-input-placeholder {
+.c14:-ms-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c12::placeholder {
+.c14::placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c12:invalid,
-.c12:required {
+.c14:invalid,
+.c14:required {
   box-shadow: none;
 }
 
-.c10 {
+.c3 {
+  display: inline-block;
+  position: relative;
+  color: rgba(0,0,0,0.65);
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c3:hover {
+  color: rgba(0,0,0,0.90);
+  background-color: transparent;
+}
+
+.c3::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e910";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c12 {
   -webkit-align-items: stretch;
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
@@ -342,15 +443,15 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   padding-right: 11px;
 }
 
-.c10 .c11 {
+.c12 .c13 {
   height: calc(40px - 4px);
 }
 
-.c10 input::-ms-clear {
+.c12 input::-ms-clear {
   display: none;
 }
 
-.c10 input::-webkit-contacts-auto-fill-button {
+.c12 input::-webkit-contacts-auto-fill-button {
   display: none!important;
 }
 
@@ -410,19 +511,19 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   align-items: center;
 }
 
-.c15.c15 .c9 {
+.c17.c17 .c11 {
   padding: 0;
   margin: 0 4px;
   line-height: 24px;
   min-height: 24px;
 }
 
-.c15.c15 .c11 {
+.c17.c17 .c13 {
   text-align: center;
   height: 24px;
 }
 
-.c3 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -440,19 +541,19 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   align-items: center;
 }
 
-.c3.c3 .c9 {
+.c4.c4 .c11 {
   padding: 0;
   margin: 0 4px;
   line-height: 24px;
   min-height: 24px;
 }
 
-.c3.c3 .c11 {
+.c4.c4 .c13 {
   text-align: center;
   height: 24px;
 }
 
-.c5 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -464,7 +565,7 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   padding: 0 12px;
 }
 
-.c4 {
+.c5 {
   padding: 0 4px;
   font-size: 13px;
   border-width: 0;
@@ -477,7 +578,7 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   cursor: not-allowed;
 }
 
-.c13 {
+.c15 {
   padding: 0 4px;
   font-size: 13px;
   border-width: 0;
@@ -488,24 +589,24 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   color: rgba(0,0,0,0.74);
 }
 
-.c13:hover {
+.c15:hover {
   color: rgba(0,0,0,0.90);
 }
 
-.c13:focus {
+.c15:focus {
   outline: none;
   background-color: #FFDA7F;
   color: rgba(0,0,0,0.90);
 }
 
-.c6 {
+.c7 {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 }
 
-.c14 {
+.c16 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -519,12 +620,12 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   justify-content: flex-end;
 }
 
-.c8 {
-  display: block;
+.c9 + .c8 {
+  margin-top: 16px;
 }
 
-.c8 + .c7 {
-  margin-top: 16px;
+.c10 {
+  display: block;
 }
 
 <div
@@ -565,9 +666,12 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
             htmlFor="guid-12345"
           >
             <span
-              className="carbon-icon carbon-input-icon icon-dropdown"
+              className="carbon-input-icon c3"
               data-component="icon"
               data-element="dropdown"
+              disabled={false}
+              fontSize="small"
+              type="dropdown"
             />
           </label>
         </div>
@@ -583,75 +687,80 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
     </div>
   </div>
   <div
-    className="c3"
+    className="c4"
   >
     <button
-      className="c4"
+      className="c5"
       disabled={true}
     >
       First
     </button>
     <button
-      className="c4"
+      className="c5"
       disabled={true}
     >
       Previous
     </button>
     <div
-      className="c5"
+      className="c6"
     >
       <span
-        className="c6"
+        className="c7"
       >
         Page 
       </span>
       <label>
         <div
-          className="c7 c8"
+          className="c8 c9"
+          data-element="current-page"
         >
           <div
-            className="c9 c10"
-            onMouseDown={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            role="presentation"
-            size="medium"
+            className="c10"
           >
-            <input
-              aria-invalid={false}
+            <div
               className="c11 c12"
-              data-element="input"
-              id="guid-12345"
-              name="guid-12345"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onClick={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="presentation"
               size="medium"
-              type="text"
-              value="1"
-            />
+            >
+              <input
+                aria-invalid={false}
+                className="c13 c14"
+                data-element="input"
+                id="guid-12345"
+                name="guid-12345"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                size="medium"
+                type="text"
+                value="1"
+              />
+            </div>
           </div>
         </div>
       </label>
       <span
-        className="c6"
+        className="c7"
       >
          of 
         10
       </span>
     </div>
     <button
-      className="c13"
+      className="c15"
       disabled={false}
       onClick={[Function]}
     >
       Next
     </button>
     <button
-      className="c13"
+      className="c15"
       disabled={false}
       onClick={[Function]}
     >
@@ -659,7 +768,7 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
     </button>
   </div>
   <div
-    className="c14"
+    className="c16"
   >
     100
      

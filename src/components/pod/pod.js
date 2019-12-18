@@ -125,7 +125,7 @@ class Pod extends React.Component {
    *
    * @method componentWillMount
    */
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setState({ collapsed: this.props.collapsed });
   }
 
@@ -135,7 +135,7 @@ class Pod extends React.Component {
    *
    * @method componentWillReceiveProps
    */
-  componentWillReceiveProps() {
+  UNSAFE_componentWillReceiveProps() {
     if (this.state.hoverEdit) {
       this.toggleHoverState(false);
     }
@@ -443,6 +443,7 @@ class Pod extends React.Component {
   render() {
     let content,
         hoverOverEditEvents = {};
+
     const { ...props } = validProps(this);
 
     delete props.className;

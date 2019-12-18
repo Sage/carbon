@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import StyledButton from '../button/button.style';
 import { getSplitButtonToggleClassicStyles } from './split-button-classic.style';
+import StyledIcon from '../icon/icon.style';
 
 const horizontalPaddingSizes = {
   small: 5,
@@ -21,7 +22,7 @@ const StyledSplitButtonToggle = styled(StyledButton)`
       border-color: ${theme.colors.secondary};
 
       &,
-      .carbon-icon {
+      ${StyledIcon} {
         color: ${theme.colors.white};
       }
 
@@ -43,7 +44,7 @@ const StyledSplitButtonToggle = styled(StyledButton)`
       `}
     }
 
-    ${StyledButton} + & .carbon-icon {
+    ${StyledButton} + & ${StyledIcon} {
       margin-left: 0;
     }
   `}

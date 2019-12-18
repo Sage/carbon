@@ -20,3 +20,7 @@ export const dayPickerWeekdays = () => cy.iFrame(DAY_PICKER_WEEKDAYS);
 export const dayPickerBody = () => cy.iFrame(DAY_PICKER_BODY);
 export const dayPickerWeek = () => cy.iFrame(DAY_PICKER_WEEK);
 export const dayPickerDay = date => cy.iFrame(`div[aria-label="${date}"]`);
+
+// component preview locators into iFrame
+export const dateInputNoIframe = () => cy.get(DATE_INPUT);
+export const dayPickerDayNoIframe = date => cy.get(`div[aria-label="${date}"]`);

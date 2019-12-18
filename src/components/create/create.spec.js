@@ -1,16 +1,13 @@
 import React from 'react';
 import 'jest-styled-components';
 import { shallow, mount } from 'enzyme';
+import { ThemeProvider } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
 import Create from './create.component';
 import classicTheme from '../../style/themes/classic';
 import baseTheme from '../../style/themes/base';
-import CreateClassicStyle from './create-classic.style';
+import CreateStyle from './create.style';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-
-function render(props) {
-  return shallow(<Create { ...props }> Create component </Create>);
-}
 
 describe('Create', () => {
   let wrapper;
@@ -20,7 +17,7 @@ describe('Create', () => {
   });
 
   it('should render correctly', () => {
-    wrapper = mount(<Create />);
+    wrapper = render({}, mount);
     assertStyleMatch({
       border: `1px dashed ${baseTheme.colors.border}`,
       backgroundColor: baseTheme.disabled.input,
@@ -29,41 +26,19 @@ describe('Create', () => {
       textAlign: 'center',
       fontWeight: '700'
     },
-    wrapper.find('a'));
+    wrapper.find(CreateStyle), { modifier: 'a' });
 
     assertStyleMatch({
       backgroundColor: baseTheme.colors.white
     },
-    wrapper.find('a'), { modifier: ':hover' });
+    wrapper.find(CreateStyle), { modifier: 'a:hover' });
 
     assertStyleMatch({
       color: baseTheme.colors.primary,
       backgroundColor: baseTheme.colors.white,
       outline: `3px solid ${baseTheme.colors.focus}`
     },
-    wrapper.find('a'), { modifier: ':focus' });
-  });
-
-  describe('when classic style has been provided', () => {
-    it('should apply custom styling ', () => {
-      wrapper = mount(<Create theme={ classicTheme } />);
-      assertStyleMatch({
-        border: '1px dashed #99adb6',
-        backgroundColor: 'transparent'
-      },
-      wrapper.find('a'));
-
-      assertStyleMatch({
-        backgroundColor: baseTheme.colors.white
-      },
-      wrapper.find('a'), { modifier: ':hover' });
-
-      assertStyleMatch({
-        color: '#255BC7',
-        border: '1px dashed #99adb6'
-      },
-      wrapper.find('a'), { modifier: ':focus' });
-    });
+    wrapper.find(CreateStyle), { modifier: 'a:focus' });
   });
 
   describe('when `custom class` is provided to component', () => {
@@ -76,5 +51,19 @@ describe('Create', () => {
 });
 
 describe('Create classic', () => {
-  expect(TestRenderer.create(<CreateClassicStyle theme={ classicTheme } />)).toMatchSnapshot();
+  it('renders to match the expected style', () => {
+    expect(renderStyleWithTheme({}, classicTheme).toJSON()).toMatchSnapshot();
+  });
 });
+
+function render(props, renderer = shallow) {
+  return renderer(<Create { ...props }> Create component </Create>);
+}
+
+function renderStyleWithTheme(props, theme, renderer = TestRenderer.create) {
+  return renderer(
+    <ThemeProvider theme={ theme }>
+      <CreateStyle { ...props } />
+    </ThemeProvider>
+  );
+}

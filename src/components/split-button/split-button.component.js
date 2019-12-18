@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../icon/icon';
-import Button from '../button';
+import Icon from '../icon';
+import Button, { ButtonWithForwardRef } from '../button';
 import StyledSplitButton from './split-button.style';
 import StyledSplitButtonToggle from './split-button-toggle.style';
 import StyledSplitButtonChildrenContainer from './split-button-children.style';
@@ -88,6 +88,7 @@ class SplitButton extends Component {
     props.onMouseEnter = this.hideButtons;
     props.onFocus = this.hideButtons;
     props.onTouchStart = this.hideButtons;
+    props.iconPosition = this.props.iconPosition;
 
     return props;
   }
@@ -124,6 +125,17 @@ class SplitButton extends Component {
     this.additionalButtons[index] = ref;
   }
 
+  getIconColor(buttonType) {
+    const colorsMap = {
+      primary: 'on-dark-background',
+      secondary: 'business-color'
+    };
+    return colorsMap[buttonType];
+  }
+
+  /**
+   * Returns the HTML for the main button.
+   */
   get renderMainButton() {
     return [
       <Button
@@ -142,7 +154,12 @@ class SplitButton extends Component {
         key='toggle-button'
         { ...this.toggleButtonProps }
       >
-        <Icon type='dropdown' />
+        <Icon
+          type='dropdown'
+          bgTheme='none'
+          iconColor={ this.getIconColor(this.toggleButtonProps.buttonType) }
+          disabled={ this.toggleButtonProps.disabled }
+        />
       </StyledSplitButtonToggle>
     ];
   }
@@ -157,13 +174,17 @@ class SplitButton extends Component {
     const { children } = this.props;
     const childArray = Array.isArray(children) ? children : [children];
 
-    return childArray.map((child, index) => {
+    return childArray.filter(Boolean).map((child, index) => {
       const props = {
         key: index.toString(),
         role: 'menu-item',
         ref: button => this.addRef(button, index),
         tabIndex: -1
       };
+      if (child.type === Button) {
+        return <ButtonWithForwardRef { ...child.props } { ...props } />;
+      }
+
       return React.cloneElement(child, props);
     });
   }
@@ -187,6 +208,7 @@ class SplitButton extends Component {
 
   componentWillUnmount() {
     document.removeEventListener(this.userInputType, this.handleClickOutside);
+    document.removeEventListener('keydown', this.handleKeyDown);
   }
 
   render() {

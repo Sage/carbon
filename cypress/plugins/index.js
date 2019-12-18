@@ -14,7 +14,16 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const cucumber = require('cypress-cucumber-preprocessor').default;
 
+// this line is required to avoid memory leak
+require('events').EventEmitter.defaultMaxListeners = 150; // value should be updated due to amount of regression files (150)
+
 // eslint-disable-next-line no-unused-vars
 module.exports = (on, config) => {
   on('file:preprocessor', cucumber());
+  on('task', {
+    log(message) {
+      console.log(message);
+      return null;
+    },
+  });
 };

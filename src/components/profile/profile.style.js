@@ -6,39 +6,30 @@ import { isClassic } from '../../utils/helpers/style-helper';
 
 
 const ProfileNameStyle = styled.span`
-    font-weight: bold;
-    display: inline-block;
-    font-size: ${({ size }) => profileConfigSizes[size].nameSize};
-
-    ${({ theme }) => isClassic(theme) && css`
-      display: inline;
-    `};
+  font-weight: bold;
+  display: block;
+  font-size: ${({ size }) => profileConfigSizes[size].nameSize};
 `;
 
 const ProfileEmailStyle = styled.span`
-    font-size: ${({ size }) => profileConfigSizes[size].emailSize};
+  font-size: ${({ size }) => profileConfigSizes[size].emailSize};
 
-    ${({ theme }) => isClassic(theme) && css`
-      font-size: 14px;
-    `};
+  ${({ theme }) => isClassic(theme) && css`
+    font-size: 14px;
+  `}
 `;
 
 const ProfileStyle = styled.div`
-    white-space: nowrap;
-    color: ${({ theme }) => theme.text.color};
+  white-space: nowrap;
+  ${({ theme }) => !isClassic(theme) && css`color: ${theme.text.color}`};
 
-    ${({ theme }) => isClassic(theme) && css`
-      color: rgba(0, 0, 0, 0.85);
-
-      ${({ large }) => large && css`
-        ${ProfileNameStyle} {
-            font-size: 20px;
-            font-weight: 400;
-            line-height: 21px;
-        }
-      `}
-
-    `};
+  ${({ large, theme }) => isClassic(theme) && large && css`
+    ${ProfileNameStyle} {
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 21px;
+    }
+  `}
 `;
 
 const ProfileDetailsStyle = styled.div`
@@ -48,9 +39,10 @@ const ProfileDetailsStyle = styled.div`
   margin-left: ${({ size }) => profileConfigSizes[size].marginLeft};
 
   ${({ theme }) => isClassic(theme) && css`
-      line-height: 16px;
-      margin-left: 14px;
-    `};
+    line-height: 16px;
+    margin-left: 14px;
+    margin-right: 14px;
+  `}
 `;
 
 const ProfileAvatarStyle = styled(Portrait)`

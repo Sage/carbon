@@ -6,6 +6,7 @@ import StyledInputPresentation from '../../../__experimental__/components/input/
 import StyledInput from '../../../__experimental__/components/input/input.style';
 import tableSizes from '../table-sizes.style.js';
 import { isClassic } from '../../../utils/helpers/style-helper';
+import StyledIcon from '../../icon/icon.style';
 
 const StyledTableCell = styled.td`
   ${({
@@ -105,7 +106,7 @@ function applyModernInputStyling(isTextArea, inputHeight, fontSize) {
       padding-bottom: 0px;
     }
     
-    && .carbon-icon {
+    && ${StyledIcon} {
       font-size: 13px;
     }
   `;

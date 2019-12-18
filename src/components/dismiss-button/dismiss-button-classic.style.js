@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
-import { THEMES } from '../../style/themes';
+import StyledIcon from '../icon/icon.style';
+import { isClassic } from '../../utils/helpers/style-helper';
 
 const colors = {
   error: '#c7384f',
@@ -12,7 +13,7 @@ const colors = {
   new: '#639'
 };
 
-export default ({ theme, variant }) => theme.name === THEMES.classic && css`
+export default ({ theme, variant }) => isClassic(theme) && css`
   align-items: center;
   display: flex;
   margin-left: auto;
@@ -22,7 +23,7 @@ export default ({ theme, variant }) => theme.name === THEMES.classic && css`
   position: static;
   min-width: 15px;
   
-  .icon-close {
+  ${StyledIcon} {
     &:before {
       color: ${colors[variant]};
       font-size:16px;

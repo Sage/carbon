@@ -10,6 +10,10 @@ When reporting an issue, please provide as much information and context as possi
 
 For any feature requests, please use the [issue tracker](https://github.com/sage/carbon/issues). When you raise the feature request, please provide as much information as possible to describe the feature required, as well as examples of how you would like the feature to work.
 
+## Defining Features
+
+For features that you have a proposed solution for, please write an [RFC](./rfcs/README.md).
+
 ## Pull Request Guidelines
 
 * Before submitting a pull request, check the [issue tracker](https://github.com/sage/carbon/issues) to see if the feature or bug has already been discussed. If it has, check with us before beginning work on it to avoid duplicated effort.

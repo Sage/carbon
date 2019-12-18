@@ -13,12 +13,16 @@ class CheckableInput extends React.Component {
   }
 
   render() {
-    const { children, onChange, ...rest } = this.props;
-    const helpId = rest.labelHelp ? `${this.inputId}-help` : undefined;
+    const {
+      children, onChange, onBlur, ...rest
+    } = this.props;
     const id = this.inputId;
+    const labelId = `${id}-label`;
+    const helpId = `${id}-help`;
 
     const formFieldProps = {
       ...validProps(this, ['fieldHelp', 'fieldHelpInline', 'labelHelp', 'reverse']),
+      labelId,
       helpId,
       label: rest.inputLabel,
       labelHelpIcon: 'info',
@@ -28,7 +32,8 @@ class CheckableInput extends React.Component {
     const {
       fieldHelp, labelHelp, ...inputProps
     } = {
-      ...validProps(this, ['checked', 'disabled', 'inputType', 'onChange', 'tabindex']),
+      ...validProps(this, ['checked', 'disabled', 'inputType', 'onChange', 'onBlur', 'tabindex']),
+      labelId,
       helpId,
       id
     };
@@ -73,6 +78,8 @@ CheckableInput.propTypes = {
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Accepts a callback function which can be used to update parent state on change */
   onChange: PropTypes.func,
+  /** Accepts a callback function which is triggered on blur event */
+  onBlur: PropTypes.func,
   /** Reverses label and CheckableInput display */
   reverse: PropTypes.bool,
   /** Specifies input type, 'checkbox' or 'switch' */

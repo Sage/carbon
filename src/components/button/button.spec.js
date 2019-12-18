@@ -8,9 +8,10 @@ import Button from './button.component';
 import StyledButton from './button.style';
 import BaseTheme from '../../style/themes/base';
 import classicTheme from '../../style/themes/classic';
-
+import OptionsHelper from '../../utils/helpers/options-helper';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import StyledIcon from '../icon/icon.style';
 
 const render = (props, renderer = shallow) => {
   return renderer(
@@ -24,10 +25,13 @@ const classicColorVariants = ['blue', 'grey', 'magenta', 'magenta-dull', 'red', 
 
 describe('Button', () => {
   describe('when no props other than children are passed into the component', () => {
-    it('renders the default props and children to match the snapshot', () => {
+    it('renders the default props and children', () => {
       const wrapper = render({ children: 'foo' });
       expect(wrapper.contains(<Icon type='filter' />)).toBeFalsy();
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.props().buttonType).toEqual('secondary');
+      expect(wrapper.props().size).toEqual('medium');
+      expect(wrapper.props().disabled).toEqual(false);
+      expect(wrapper.props().legacyColorVariant).toEqual('blue');
     });
   });
 
@@ -45,19 +49,25 @@ describe('Button', () => {
     describe.each(['before', 'after'])(
       'when position is set to "%s"',
       (position) => {
-        it('contains an Icon', () => {
-          const wrapper = render({
-            children: 'foo',
-            iconType: 'filter',
-            iconPosition: position
-          }).dive();
+        describe.each(OptionsHelper.buttonTypes)(
+          'and the button type is %s',
+          (buttonType) => {
+            let wrapper;
+            beforeEach(() => {
+              wrapper = render({
+                children: 'foo',
+                iconType: 'filter',
+                iconPosition: position,
+                buttonType
+              }).dive();
+            });
 
-          expect(
-            wrapper.contains(
-              <Icon type='filter' />
-            )
-          ).toBeTruthy();
-        });
+            it('contains an Icon', () => {
+              const assertion = (wrapper.find(Icon).exists() && wrapper.find(Icon).props().type === 'filter');
+              expect(assertion).toEqual(true);
+            });
+          }
+        );
       }
     );
   });
@@ -140,7 +150,12 @@ describe('Button', () => {
     'when the color variant is set to "%s"',
     (variant) => {
       const wrapper = TestRenderer.create(
-        <StyledButton theme={ classicTheme } variant={ variant }>Foo</StyledButton>
+        <StyledButton
+          size='large'
+          theme={ classicTheme }
+          variant={ variant }
+        >Foo
+        </StyledButton>
       );
 
       it('matches the snapshot with the default props', () => {
@@ -154,7 +169,12 @@ describe('Button', () => {
       'setting the color variant to "%s"',
       (variant) => {
         const wrapper = TestRenderer.create(
-          <StyledButton theme={ classicTheme } variant={ variant }>Foo</StyledButton>
+          <StyledButton
+            iconType='services'
+            theme={ classicTheme }
+            variant={ variant }
+          >Foo
+          </StyledButton>
         );
 
         it('matches the snapshot when default props are passed', () => {
@@ -177,6 +197,15 @@ describe('Button', () => {
       assertStyleMatch({
         background: '#e6ebed'
       }, wrapper.toJSON());
+    });
+  });
+
+  describe('when not in classic theme', () => {
+    it('matches the applies the expected style to the icon', () => {
+      const wrapper = TestRenderer.create(<StyledButton iconType='plus' />);
+      assertStyleMatch({
+        height: '16px'
+      }, wrapper.toJSON(), { modifier: `${StyledIcon}` });
     });
   });
 
@@ -304,7 +333,7 @@ describe('Button', () => {
       const wrapper = render({
         href: '/foo',
         children: 'Anchor'
-      }).dive();
+      });
 
       it('renders an anchor element instead of a button', () => {
         expect(wrapper.find(StyledButton).props().as).toEqual('a');
@@ -315,11 +344,22 @@ describe('Button', () => {
       const wrapper = render({
         to: '/foo',
         children: 'To'
-      }).dive();
+      });
 
       it('renders a Button inside a Router Link component', () => {
         expect(wrapper.type()).toEqual(RouterLink);
       });
+    });
+  });
+
+  describe('when the iconType is "services"', () => {
+    it('applies the expected style to the icon', () => {
+      const buttonWithServiceIcon = render(
+        { children: 'foo', iconType: 'services', size: 'large' }, TestRenderer.create
+      );
+      assertStyleMatch({
+        height: '6px'
+      }, buttonWithServiceIcon.toJSON(), { modifier: `${StyledIcon}` });
     });
   });
 });

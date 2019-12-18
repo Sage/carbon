@@ -1,12 +1,11 @@
 import { css } from 'styled-components';
-import { THEMES } from '../../style/themes';
 import StyledButton from '../button/button.style';
+import { isClassic } from '../../utils/helpers/style-helper';
 
+export default ({ theme }) => isClassic(theme) && css`
+  margin-top: 20px;
 
-export default ({ theme }) => theme.name === THEMES.classic && css`
-    margin-top: 20px;
-
-    ${StyledButton} {
-        margin-left: 10px;
-    }
+  ${StyledButton} {
+    margin-left: 10px;
+  }
 `;

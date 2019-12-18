@@ -1,1 +1,0 @@
-Bug fixes: Resolved the issue related to Alert/Checkbox of error appearing immediately stating "Invalid prop value of type string supplied to Checkbox, expected boolean."

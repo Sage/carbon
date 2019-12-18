@@ -3,11 +3,12 @@ import { storiesOf } from '@storybook/react';
 import { State, Store } from '@sambego/storybook-state';
 import { action } from '@storybook/addon-actions';
 import { cloneDeep } from 'lodash';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import notes from './documentation';
 import { ConfigurableItems, ConfigurableItemRow } from '.';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
-const ConfigurableItemsWrapper = () => (<ConfigurableItems />);
+const ConfigurableItemsWrapper = props => (<ConfigurableItems { ...props } />);
 ConfigurableItemsWrapper.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
   /configurable-items\.component(?!spec)/
@@ -81,8 +82,8 @@ const rows = data => data.map((column, rowIndex) => {
   );
 });
 
-storiesOf('Configurable Items', module)
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     return (
       <ConfigurableItemsWrapper
         onDrag={ handleDrag }
@@ -97,10 +98,19 @@ storiesOf('Configurable Items', module)
         </State>
       </ConfigurableItemsWrapper>
     );
-  },
-  {
+  };
+
+  const metadata = {
+    themeSelector,
     notes: { markdown: notes },
     info: {
       propTablesExclude: [State]
     }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Configurable Items', module)
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));

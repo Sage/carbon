@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import {
   boolean, text, select
 } from '@storybook/addon-knobs';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Tooltip from '.';
 import { notes, info } from './documentation';
@@ -29,14 +30,23 @@ const props = () => {
 
 const content = () => (validTooltip(props()) ? <Tooltip { ...props() } /> : null);
 
+function makeStory(name, themeSelector) {
+  const component = () => {
+    return <div style={ { position: 'absolute' } }>{content()}</div>;
+  };
+
+  const metadata = {
+    themeSelector,
+    info: { text: info },
+    notes: { markdown: notes }
+  };
+
+  return [name, component, metadata];
+}
+
 storiesOf('Tooltip', module)
   .addParameters({
     knobs: { escapeHTML: false }
   })
-  .add('default', () => {
-    return <div style={ { position: 'absolute' } }>{content()}</div>;
-  },
-  {
-    info: { text: info },
-    notes: { markdown: notes }
-  });
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));

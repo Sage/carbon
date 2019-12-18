@@ -33,15 +33,18 @@ Feature: Detail component
       | logout            |
       | marker            |
       | message           |
-      | messages          |
       | minus             |
+      | minus_large       |
       | mobile            |
       | pdf               |
       | people            |
       | person            |
       | phone             |
+      | play              |
       | plus              |
+      | plus_large        |
       | print             |
+      | progress          |
       | progressed        |
       | question          |
       | refresh           |
@@ -60,6 +63,15 @@ Feature: Detail component
       | unlocked          |
       | upload            |
       | uploaded          |
+      | video             |
       | view              |
       | warning           |
-      | white-tick        |
+
+  @positive
+  Scenario Outline: Change Detail icon to <iconName>
+    When I set detail icon to "<iconName>"
+    Then icon on preview is "<iconDataElement>"
+    Examples:
+      | iconName          | iconDataElement |
+      | messages          | message         |
+      | help              | question        |

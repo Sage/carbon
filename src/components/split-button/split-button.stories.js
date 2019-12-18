@@ -4,12 +4,11 @@ import {
   text, boolean, select
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import { ThemeProvider } from 'styled-components';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import SplitButton from './split-button.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import Button, { OriginalButton } from '../button';
+import Button from '../button';
 import { notes, info } from './documentation';
-import classic from '../../style/themes/classic';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 SplitButton.__docgenInfo = getDocGenInfo(
@@ -81,7 +80,8 @@ storiesOf('Split Button', module)
       );
     },
     {
-      info: { text: info, propTablesExclude: [Button, OriginalButton] },
+      themeSelector: dlsThemeSelector,
+      info: { text: info, propTablesExclude: [Button] },
       notes: { markdown: notes }
     },
   )
@@ -96,29 +96,28 @@ storiesOf('Split Button', module)
       textContent
     } = props;
     return (
-      <ThemeProvider theme={ classic }>
-        <SplitButton
-          as={ as }
-          data-element={ dataElement }
-          data-role={ dataRole }
-          disabled={ disabled }
-          onClick={ onClick }
-          text={ textContent }
-          { ...props }
-        >
-          <Button onClick={ onClick }>
+      <SplitButton
+        as={ as }
+        data-element={ dataElement }
+        data-role={ dataRole }
+        disabled={ disabled }
+        onClick={ onClick }
+        text={ textContent }
+        { ...props }
+      >
+        <Button onClick={ onClick }>
             Example Button
-          </Button>
-          <Button onClick={ onClick }>
+        </Button>
+        <Button onClick={ onClick }>
             Example Button
-          </Button>
-          <Button onClick={ onClick }>
+        </Button>
+        <Button onClick={ onClick }>
             Example Button
-          </Button>
-        </SplitButton>
-      </ThemeProvider>
+        </Button>
+      </SplitButton>
     );
   }, {
-    info: { text: info, propTablesExclude: [Button, OriginalButton, ThemeProvider] },
+    themeSelector: classicThemeSelector,
+    info: { text: info, propTablesExclude: [Button] },
     notes: { markdown: notes }
   });

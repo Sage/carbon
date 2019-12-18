@@ -1,166 +1,166 @@
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 import StyledTableCell from '../table-cell/table-cell.style';
 import StyledTableHeader from '../table-header/table-header.style';
 import {
+  applyClassicDraggedStyling,
   applyClassicRowStyling,
   applyClassicSelectedStyling,
   applyClassicHighlightStyling
 } from './table-row-classic.style';
-import { applyModernRowStyling, applyModernSelectedStyling } from './table-row-modern.style';
+import {
+  applyModernRowStyling,
+  applyModernSelectedStyling,
+  applyModernDropTargetStyling
+} from './table-row-modern.style';
+import baseTheme from '../../../style/themes/base';
+import StyledIcon from '../../icon/icon.style';
+import CheckboxStyle from '../../../__experimental__/components/checkbox/checkbox.style';
 import { isClassic } from '../../../utils/helpers/style-helper';
 
 /**
  * Current version of react-dnd used in DragAndDrop is incompatible
  * with styled-components, this can be uodated once the issue is fixed
  */
-const StyledTableRow = css`
-  .carbon-table-row {
-    ${applyRowStyling}
-  }
+const StyledTableRow = styled.tr`
+  ${applyRowStyling}
 `;
 
-function applyRowStyling(props) {
-  const { theme } = props;
+function applyRowStyling({ isPassive, isSelected, theme }) {
   return css`
-    .custom-drag-layer {
-      & {
-        background-color: #002E41;
-        cursor: grabbing;
-        cursor: -moz-grabbing;
-        cursor: -webkit-grabbing;
-        display: block;
-      }
-
-      ${StyledTableCell} {
-        background-color: #002E41;
-      }
-
-      .configurable-item-row__content-wrapper {
-        visibility: visible;
-      }
-    }
-
-    &:first-child ${StyledTableHeader} {
-      &:first-child {
-        border-radius: 0px 0 0 0;
-      }
-
-      &:last-child {
-        border-radius: 0 0px 0 0;
-      }
-    }
-
-    ${isClassic(theme) ? applyClassicRowStyling() : applyModernRowStyling(theme)}
+    ${isClassic(theme) ? applyClassicRowStyling(isPassive, isSelected) : applyModernRowStyling(isPassive, theme)}
     ${selectableRowStyling}
-    ${selectedRowStyling}
     ${highlightRowStyling}
+    ${selectedRowStyling}
     ${dragRowStyling}
   `;
 }
 
-function selectableRowStyling({ theme }) {
+function selectableRowStyling({ isSelectable, theme }) {
   return css`
-    ${StyledTableCell}:first-child,
-    ${StyledTableHeader}:first-child {
-      &:not(.carbon-table-cell--select) {
-        ${isClassic(theme) ? 'padding-left: 15px' : ''};
+    ${isSelectable && css`
+      ${StyledTableCell}:first-child,
+      ${StyledTableHeader}:first-child {
+        &:not(['data-component=selectable-cell']) {
+          ${isClassic(theme) ? 'padding-left: 15px' : ''};
+        }
       }
-    }
 
-    .carbon-table-cell--select:first-child,
-    carbon-table-cell--select:first-child {
-        text-align: center;
+      ${StyledTableCell}:first-child {
         width: 18px;
-      
-        .carbon-checkbox {
-          height: 15px;
-          padding-top: 0;
-        }
       }
-    }
+
+      ${CheckboxStyle} {
+        height: 15px;
+        padding-top: 0;
+      }
+    `}
   `;
 }
 
-function selectedRowStyling({ theme }) {
+function selectedRowStyling({ isSelected, theme }) {
   return css`
-    .carbon-table-row--selected,
-    .carbon-table-row--selected:nth-child(odd),
-    .carbon-table-row--selected:hover {
-      ${StyledTableCell} {
-        ${isClassic(theme) ? applyClassicSelectedStyling(theme) : applyModernSelectedStyling(theme)}
-        position: relative;
-    
-        &:before {
-          content: "";
-          height: 1px;
-          left: 0;
-          position: absolute;
-          top: -1px;
-          width: 100%;
+    ${isSelected && css`
+      &&&&,
+      &&&&:nth-child(odd),
+      &&&&:hover {
+        ${StyledTableCell} {
+          ${isClassic(theme) ? applyClassicSelectedStyling() : applyModernSelectedStyling(theme)} 
         }
       }
-    }
+    `}
   `;
 }
 
-function highlightRowStyling({ theme }) {
+function highlightRowStyling({ isClickable, isHighlighted, theme }) {
   const { table } = theme;
   return css`
-    && .carbon-table-row--clickable {
-      cursor: pointer;
+    ${isClickable && 'cursor: pointer;'}
+
+    ${isHighlighted && css`
+      &&&& {
+        ${StyledTableCell} {
+          ${isClassic(theme) ? applyClassicHighlightStyling() : applyModernSelectedStyling(theme)}
+          position: relative;
+    
+          &:before {
+            content: "";
+            height: 1px;
+            left: 0;
+            position: absolute;
+            top: -1px;
+            width: 100%;
+          }
+        }
+    
+        &:hover {
+          ${StyledTableCell} {
+            background-color: ${isClassic(theme) ? '#D0E3FA' : table.selected};
+          }
+        }
+      }
+    `}
+  `;
+}
+
+function dragRowStyling({
+  isDragged,
+  isDragging,
+  theme,
+  isDraggedElementOver,
+  inDeadZone
+}) {
+  const border = css`1px solid ${theme.table.header} !important`;
+
+  return css`
+    ${StyledIcon} {
+      cursor: move;
+      cursor: grab;
     }
 
-    && .carbon-table-row--highlighted {
-      ${StyledTableCell} {
-        ${isClassic(theme) ? applyClassicHighlightStyling() : applyModernSelectedStyling(theme)}
-        position: relative;
-  
-        &:before {
-          content: "";
-          height: 1px;
-          left: 0;
-          position: absolute;
-          top: -1px;
-          width: 100%;
-        }
-      }
-  
-      &:hover {
+    .custom-drag-layer && ${StyledIcon} {
+      cursor: move;
+      cursor: grabbing;
+    }
+
+    ${isDragging && css`
+      user-select: none;
+    `}
+
+    ${isDragged && css`
+      ${inDeadZone && isDraggedElementOver} {
         ${StyledTableCell} {
-          background-color: ${isClassic(theme) ? '#D0E3FA' : table.selected};
+          background-color: ${theme.table.dragging};
+          border-top: ${border};
+          border-bottom: ${border};
+
+          &:first-child {
+            border-left: ${border};
+          }
+
+          &:last-child {
+            border-right: ${border};
+          }
         }
       }
+
+      &&&&& {
+        ${isClassic(theme) && applyClassicDraggedStyling()}
+      }
+    `}
+    
+    ${StyledTableCell} {
+      ${applyModernDropTargetStyling()}
     }
   `;
 }
 
-function dragRowStyling() {
-  return css`
-    .carbon-table-row--dragging {
-      user-select: none;
-    }
+StyledTableRow.propTypes = {
+  theme: PropTypes.object
+};
 
-    .carbon-table-row--dragged {
-      ${StyledTableCell} {
-        visibility: hidden;
-      }
+StyledTableRow.defaultProps = {
+  theme: baseTheme
+};
 
-      + .carbon-table-row--dragging {
-        ${StyledTableCell} {
-          border-top: 1px solid #000A0E;
-        }
-      }
-    }
-
-    .draggable-table-cell__icon {
-      cursor: move;
-      padding: 8.5px 14px;
-  
-    &, .custom-drag-layer & {
-      cursor: grabbing;
-      cursor: -moz-grabbing;
-      cursor: -webkit-grabbing;
-    }
-`;
-}
 export default StyledTableRow;

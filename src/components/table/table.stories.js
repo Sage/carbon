@@ -7,6 +7,7 @@ import {
   select,
   number
 } from '@storybook/addon-knobs';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import { notes, info } from './documentation';
 import TableWrapper from './table-story-helpers/table-story-wrapper.component';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
@@ -21,12 +22,15 @@ TableWrapper.__docgenInfo = getDocGenInfo(
 const commonKnobs = () => {
   const paginate = boolean('paginate', false);
   const showPageSizeSelection = paginate && boolean('showPageSizeSelection', false);
+  const selectable = boolean('selectable', false);
+  const highlightable = boolean('highlightable', false);
 
   return {
     sortOrder: select('sortOrder', ['', 'asc', 'desc'], ''),
     sortColumn: select('sortColumn', ['', 'name', 'code'], ''),
-    selectable: boolean('selectable', false),
-    highlightable: boolean('highlightable', false),
+    highlightable,
+    selectable,
+    isPassiveData: !highlightable && !selectable ? boolean('isPassiveData', false) : undefined,
     shrink: boolean('shrink', false),
     caption: text('caption', 'Country and Country Codes'),
     totalRecords: number('totalRecords', 50),
@@ -81,8 +85,10 @@ const inputKnobs = () => {
 storiesOf('Table', module)
   .addParameters({
     info: {
+      text: info,
       propTablesExclude: [State]
-    }
+    },
+    notes: { markdown: notes }
   })
   .add('classic', () => {
     const tableProps = {
@@ -94,8 +100,7 @@ storiesOf('Table', module)
       <TableWrapper { ...tableProps } />
     );
   }, {
-    info: { text: info },
-    notes: { markdown: notes }
+    themeSelector: classicThemeSelector
   })
   .add(
     'default',
@@ -110,8 +115,7 @@ storiesOf('Table', module)
       );
     },
     {
-      info: { text: info },
-      notes: { markdown: notes }
+      themeSelector: dlsThemeSelector
     },
   )
   .add(
@@ -128,8 +132,7 @@ storiesOf('Table', module)
       );
     },
     {
-      info: { text: info },
-      notes: { markdown: notes }
+      themeSelector: classicThemeSelector
     },
   )
   .add(
@@ -146,7 +149,6 @@ storiesOf('Table', module)
       );
     },
     {
-      info: { text: info },
-      notes: { markdown: notes }
+      themeSelector: dlsThemeSelector
     },
   );

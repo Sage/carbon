@@ -5,17 +5,18 @@ import PropTypes from 'prop-types';
 import { mount, shallow } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
-import { StyledAdditionalFormAction, StyledFormFooter } from '../../../components/form/form.style';
+import {
+  StyledAdditionalFormAction, StyledFormFooter, StyledResponsiveFooterWrapper
+} from '../../../__deprecated__/components/form/form.style';
 import FormWithValidations, { FormWithoutValidations as Form } from './form.component';
 import Textbox from '../textbox';
 import Validation from '../../../utils/validations/presence';
 import Dialog from '../../../components/dialog';
-import FormSummary from '../../../components/form/form-summary';
+import FormSummary from '../../../__deprecated__/components/form/form-summary';
 import Button from '../../../components/button';
 import ElementResize from '../../../utils/helpers/element-resize';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 import Service from '../../../utils/service';
-import AppWrapper from '../../../components/app-wrapper';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import { isClassic } from '../../../utils/helpers/style-helper';
 import StyledButton from '../../../components/button/button.style';
@@ -177,7 +178,7 @@ describe('Form', () => {
 
   describe('checkStickyFooter', () => {
     beforeEach(() => {
-      wrapper = shallow(<Form formAction='foo' />);
+      wrapper = mount(<Form formAction='foo' />);
     });
 
     it('sets stickyFooter state to true if form is bigger than window', () => {
@@ -457,6 +458,27 @@ describe('Form', () => {
           const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
           TestUtils.Simulate.submit(form);
         });
+
+        describe('and formInputs are set', () => {
+          it('calls addOtherInputsToState', async() => {
+            const spy = jasmine.createSpy('spy');
+            wrapper = mount(
+              <Form validate={ () => true } formAction='foo'>
+                <Textbox
+                  validations={ [new Validation()] }
+                  name='foo'
+                  value='foo'
+                  onSubmit={ spy }
+                />
+              </Form>
+            );
+
+            wrapper.setState({ formInputs: { abc: 'ccc' } });
+            const spyAddOtherInputsToState = spyOn(wrapper.instance(), 'addOtherInputsToState');
+            await wrapper.childAt(0).simulate('submit');
+            expect(spyAddOtherInputsToState).toHaveBeenCalled();
+          });
+        });
       });
 
       describe('and the form is invalid', () => {
@@ -475,6 +497,48 @@ describe('Form', () => {
           expect(spy).not.toHaveBeenCalled();
         });
       });
+    });
+  });
+
+  describe('when addOtherInputsToState is called', () => {
+    describe('and it is new formInput and not of type (button, submit)', () => {
+      it('it executes addInputDataToState for each form element', () => {
+        wrapper = mount(
+          <Form
+            validate={ () => true }
+            formAction='foo'
+          />
+        );
+        wrapper.setState({ formInputs: {} });
+        wrapper.instance()._form = {
+          elements: [
+            {
+              name: 'abc',
+              value: 'abc-value',
+              type: 'text'
+            },
+            {
+              name: 'cba',
+              value: 'cba-value',
+              type: 'text'
+            }
+          ]
+        };
+
+        const spyAddInputDataToState = spyOn(wrapper.instance(), 'addInputDataToState');
+        wrapper.instance().addOtherInputsToState();
+        expect(spyAddInputDataToState).toHaveBeenCalledTimes(2);
+      });
+    });
+
+    it('it executes submitControlledForm', async () => {
+      wrapper = mount(
+        <Form validate={ () => true } formAction='foo' />
+      );
+      wrapper.setState({ formInputs: {} });
+      const spySubmitControlledForm = spyOn(wrapper.instance(), 'submitControlledForm');
+      wrapper.instance().addOtherInputsToState();
+      expect(spySubmitControlledForm).toHaveBeenCalled();
     });
   });
 
@@ -546,8 +610,20 @@ describe('Form', () => {
   describe('stickyFooterPadding', () => {
     it('adds padding if defined', () => {
       wrapper = shallow(<Form formAction='foo' stickyFooterPadding='500' />);
-      const footer = wrapper.find(AppWrapper);
-      expect(footer.props().style.borderWidth).toEqual('500px');
+      const footer = TestRenderer.create(wrapper.find(StyledResponsiveFooterWrapper));
+
+      assertStyleMatch({
+        margin: '20px auto 0 auto',
+        maxWidth: 'inherit',
+        minWidth: 'inherit',
+        padding: '0',
+        alignItems: 'center',
+        display: 'flex'
+      }, footer.toJSON());
+
+      assertStyleMatch({
+        borderWidth: '500px'
+      }, footer.toJSON(), { modifier: '&&&&' });
     });
   });
 
@@ -727,6 +803,19 @@ describe('Form', () => {
           expect(wrapper.find('[data-element="save"]').length).toEqual(1);
         });
       });
+
+      describe('when the show summary is true and the wrapper has additional actions', () => {
+        it('applies the expected margin-left to the save button', () => {
+          const styledWrapper = TestRenderer.create(
+            <StyledResponsiveFooterWrapper
+              showSummary hasAdditionalActions
+              theme={ Classic }
+            />
+          ).toJSON();
+
+          expect(styledWrapper).toMatchSnapshot();
+        });
+      });
     });
 
     describe('additionalActions', () => {
@@ -741,11 +830,12 @@ describe('Form', () => {
       describe.each(['additionalActions', 'leftAlignedActions', 'rightAlignedActions'])(
         'when an action is defined',
         (action) => {
-          const props = { [action]: <span /> };
           it(`returns the ${action}`, () => {
+            const props = { [action]: <span /> };
             wrapper = mount(
               <Form
-                formAction='foo' { ...props }
+                formAction='foo'
+                { ...props }
                 buttonAlign='left'
                 isLabelRightAligned
               >
@@ -755,6 +845,21 @@ describe('Form', () => {
             const additionalAction = wrapper.find(StyledAdditionalFormAction);
             expect(additionalAction.exists()).toEqual(true);
             expect(additionalAction.contains(<span />)).toBeTruthy();
+          });
+
+          it(`matches the expected style for ${action} with a classic theme`, () => {
+            const actionWrapper = TestRenderer.create(
+              <StyledAdditionalFormAction
+                type={ action }
+                theme={ Classic }
+              />
+            );
+
+            assertStyleMatch({
+              flexGrow: action === 'leftAlignedActions' ? '1' : undefined,
+              display: action !== 'leftAlignedActions' ? 'inline-block' : undefined,
+              marginLeft: '15px'
+            }, actionWrapper.toJSON());
           });
         }
       );
@@ -825,7 +930,7 @@ describe('Form', () => {
             display: 'flex',
             marginLeft: !isClassic(theme) ? '16px' : '15px'
           },
-          styledWrapper.toJSON(), { modifier: `&& ${StyledButton}` });
+          styledWrapper.toJSON(), { modifier: `${StyledButton}` });
         });
       }
     );
@@ -870,6 +975,12 @@ describe('Form', () => {
         </Form>
       );
       expect(wrapper).toMatchSnapshot();
+    });
+  });
+
+  describe('when children are undefined', () => {
+    it('it does not throw an error', () => {
+      expect(() => shallow(<Form validate={ () => true } formAction='foo' />)).not.toThrow();
     });
   });
 

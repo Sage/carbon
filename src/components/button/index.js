@@ -1,1 +1,1 @@
-export { default, OriginalButton } from './button.component';
+export { default, ButtonWithForwardRef } from './button.component';

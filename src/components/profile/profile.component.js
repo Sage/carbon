@@ -45,7 +45,7 @@ class Profile extends React.Component {
       <ProfileDetailsStyle size={ this.props.size }>
         <ProfileNameStyle size={ this.props.size } data-element='name'>
           { this.props.name }
-        </ProfileNameStyle><br />
+        </ProfileNameStyle>
         <ProfileEmailStyle size={ this.props.size } data-element='email'>
           { this.props.email }
         </ProfileEmailStyle>

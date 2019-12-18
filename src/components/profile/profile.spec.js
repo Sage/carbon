@@ -140,7 +140,7 @@ describe('ProfileClassicStyle', () => {
 describe('ProfileNameStyle', () => {
   it('should render correct style if classic theme is provided', () => {
     assertStyleMatch({
-      display: 'inline'
+      display: 'block'
     }, mount(<ProfileNameStyle theme={ classicTheme } />));
   });
 });

@@ -1,3 +1,4 @@
+import composedPath from './composedPath';
 /**
 * JavaScript Events
 *
@@ -86,7 +87,8 @@ const Events = {
   * @returns {Boolean} true if valid number key
   * */
   isNumberKey: (ev) => {
-    return (ev.which >= 48 && ev.which <= 57) || (ev.which >= 96 && ev.which <= 105);
+    const charCode = ev.key.charCodeAt(0);
+    return (charCode >= 48 && charCode <= 57);
   },
 
   /**
@@ -234,7 +236,7 @@ const Events = {
   * @returns {Boolean} true if backspace key
   * */
   isBackspaceKey: (ev) => {
-    return ev.which === 8;
+    return ev.key === 'Backspace';
   },
 
   /**
@@ -245,7 +247,7 @@ const Events = {
   * @returns {Boolean} true if delete key
   * */
   isDeleteKey: (ev) => {
-    return ev.which === 46;
+    return ev.key === 'Delete';
   },
 
   /**
@@ -311,9 +313,41 @@ const Events = {
   * @returns {Boolean} true if minus key
   * */
   isMinusKey: (ev) => {
-    return ev.which === 189;
-  }
+    return ev.key === '-' || ev.key === 'Subtract';
+  },
 
+  /**
+  * Determines if the key pressed is the home key
+  *
+  * @method isHomeKey
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if home key
+  * */
+  isHomeKey: (ev) => {
+    return ev.which === 36;
+  },
+
+  /**
+  * Determines if the key pressed is the end key
+  *
+  * @method isEndKey
+  * @param {Event} ev A JavaScript event
+  * @returns {Boolean} true if end key
+  * */
+  isEndKey: (ev) => {
+    return ev.which === 35;
+  },
+
+  /**
+   * Gets the event's path which is an array of the objects on which listeners will be invoked.
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Event/composedPath
+   * @method composedPath
+   * @param {Event} ev A Javascript event
+   * @returns {EventTarget[]} objects representing the objects on which an event listener will be invoked
+   */
+  composedPath: (ev) => {
+    return ev.path || (ev.composedPath && ev.composedPath()) || composedPath(ev);
+  }
 };
 
 export default Events;

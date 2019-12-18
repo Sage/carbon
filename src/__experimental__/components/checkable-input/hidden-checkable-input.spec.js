@@ -12,10 +12,10 @@ describe('HiddenCheckableInput', () => {
     expect(render({
       checked: true,
       helpId: 'test-help',
-      inputName: 'test-name',
+      name: 'test-name',
       inputType: 'test-type',
       inputValue: 'test-value',
-      tabindex: '0'
+      tabindex: 0
     })).toMatchSnapshot();
   });
 });

@@ -1,21 +1,19 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { act } from 'react-dom/test-utils';
+import { shallow, mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
+import { ThemeProvider } from 'styled-components';
 import Help from '../../../components/help';
 import Label from './label.component';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import ValidationIcon from '../../../components/validations/validation-icon.component';
 import classicTheme from '../../../style/themes/classic';
 import baseTheme from '../../../style/themes/base';
 import smallTheme from '../../../style/themes/small';
+import IconWrapperStyle from './icon-wrapper.style';
 
-function render(props, renderer = shallow) {
-  return renderer(
-    <Label { ...props }>
-      Name:
-    </Label>
-  );
-}
+const validationTypes = ['hasError', 'hasWarning', 'hasInfo'];
 
 describe('Label', () => {
   it('renders the label', () => {
@@ -25,7 +23,7 @@ describe('Label', () => {
   describe('when initiated with the help prop', () => {
     it('contains Help component with the content specified in that prop', () => {
       const wrapper = render({ help: 'Help me!' });
-      expect(wrapper.contains(<Help>Help me!</Help>)).toBeTruthy();
+      expect(wrapper.find(Help).contains('Help me!')).toBe(true);
     });
   });
 
@@ -69,27 +67,31 @@ describe('Label', () => {
     });
   });
 
-  describe('when error', () => {
-    it('applies error color', () => {
+  describe('with readonly', () => {
+    it('applies disabled color', () => {
       assertStyleMatch({
-        color: baseTheme.colors.error
-      }, render({ hasError: true }, TestRenderer.create).toJSON());
+        color: baseTheme.text.color
+      }, render({ hasError: true, readOnly: true }, TestRenderer.create).toJSON());
     });
+  });
 
-    describe('with readonly', () => {
-      it('applies disabled color', () => {
-        assertStyleMatch({
-          color: baseTheme.text.color
-        }, render({ hasError: true, readOnly: true }, TestRenderer.create).toJSON());
-      });
+  describe('with disabled', () => {
+    it('applies disabled color', () => {
+      assertStyleMatch({
+        color: baseTheme.disabled.disabled
+      }, render({ hasError: true, disabled: true }, TestRenderer.create).toJSON());
     });
+  });
 
-    describe('with disabled', () => {
-      it('applies disabled color', () => {
-        assertStyleMatch({
-          color: baseTheme.disabled.disabled
-        }, render({ hasError: true, disabled: true }, TestRenderer.create).toJSON());
-      });
+  describe('when the help icon is focused', () => {
+    it('then the IconWrapper outline should have the expected value', () => {
+      const wrapper = renderWithTheme({ help: 'help message' }, baseTheme).find(IconWrapperStyle);
+      wrapper.simulate('focus');
+
+      assertStyleMatch({
+        outline: `2px solid ${baseTheme.colors.focus}`
+      },
+      wrapper, { modifier: ':focus' });
     });
   });
 
@@ -107,6 +109,18 @@ describe('Label', () => {
           paddingLeft: '0',
           paddingRight: '8px'
         }, render({ theme: classicTheme, inline: true }, TestRenderer.create).toJSON());
+      });
+    });
+
+    describe('when the help icon is focused', () => {
+      it('then the IconWrapper outline should be set to none', () => {
+        const wrapper = renderWithTheme({ help: 'help message' }, classicTheme).find(IconWrapperStyle);
+        wrapper.simulate('focus');
+
+        assertStyleMatch({
+          outline: 'none'
+        },
+        wrapper, { modifier: ':focus' });
       });
     });
   });
@@ -127,5 +141,67 @@ describe('Label', () => {
         }, render({ childOfForm: true }, TestRenderer.create).toJSON());
       });
     });
+
+    describe('when IconWrapperStyle', () => {
+      let wrapper;
+
+      beforeEach(() => {
+        wrapper = render({
+          useValidationIcon: true,
+          hasError: true,
+          tooltipMessage: 'test'
+        }, mount);
+      });
+
+      describe('will run `onFocus` event', () => {
+        it('should change `isFocused` to be true', () => {
+          act(() => {
+            wrapper.find(IconWrapperStyle).simulate('focus');
+          });
+          wrapper.update();
+
+          expect(wrapper.find(ValidationIcon).props().isFocused).toBe(true);
+        });
+      });
+
+      describe('will run `onBlur` event', () => {
+        it('should change `isFocused` to be false', () => {
+          act(() => {
+            wrapper.find(IconWrapperStyle).simulate('blur');
+          });
+
+          wrapper.update();
+
+          expect(wrapper.find(ValidationIcon).props().isFocused).toBe(false);
+        });
+      });
+    });
+  });
+
+  describe.each(validationTypes)('when prop %s === true', (vType) => {
+    it('show validation icon', () => {
+      const wrapper = render({ [vType]: true, useValidationIcon: true, tooltipMessage: 'Message!' }, mount);
+      const icon = wrapper.find(ValidationIcon);
+
+      expect(icon.exists()).toEqual(true);
+    });
   });
 });
+
+function render(props, renderer = shallow) {
+  return renderer(
+    <Label { ...props }>
+      Name:
+    </Label>
+  );
+}
+
+function renderWithTheme(props = {}, theme, renderer = mount) {
+  return renderer(
+    <ThemeProvider theme={ theme }>
+      <Label { ...props }>
+        Name:
+      </Label>
+    </ThemeProvider>
+  );
+}

@@ -8,12 +8,16 @@ import CharacterCount from './character-count';
 import TextareaInput from './textarea-input.component';
 import withValidations from '../../../components/validations/with-validation.hoc';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
+import guid from '../../../utils/helpers/guid/guid';
+import StyledTextarea from './textarea.style';
 
 const i18nNumberOpts = { precision: 0 };
 
 class Textarea extends React.Component {
   // Minimum height of the textarea
   minHeight = 0;
+
+  id = this.props.id || guid();
 
   /**
    * A lifecycle method that is called after initial render.
@@ -103,6 +107,7 @@ class Textarea extends React.Component {
       enforceCharacterLimit,
       onChange,
       disabled,
+      labelInline,
       readOnly,
       placeholder,
       rows,
@@ -111,11 +116,14 @@ class Textarea extends React.Component {
     } = this.props;
 
     return (
-      <>
+      <StyledTextarea labelInline={ labelInline }>
         <FormField
           label={ label }
           disabled={ disabled }
+          id={ this.id }
+          labelInline={ labelInline }
           { ...props }
+          useValidationIcon={ false }
         >
           <InputPresentation
             type='text'
@@ -129,9 +137,11 @@ class Textarea extends React.Component {
               onChange={ onChange }
               disabled={ disabled }
               readOnly={ readOnly }
-              placeholder={ placeholder }
+              labelInline={ labelInline }
+              placeholder={ disabled ? '' : placeholder }
               rows={ rows }
               cols={ cols }
+              id={ this.id }
               { ...props }
             />
             { children }
@@ -139,12 +149,14 @@ class Textarea extends React.Component {
           </InputPresentation>
         </FormField>
         {this.characterCount}
-      </>
+      </StyledTextarea>
     );
   }
 }
 
 Textarea.propTypes = {
+  /** id of the input */
+  id: PropTypes.string,
   /** Character limit of the textarea */
   characterLimit: PropTypes.string,
   /** Type of the icon that will be rendered next to the input */
@@ -157,9 +169,15 @@ Textarea.propTypes = {
   enforceCharacterLimit: PropTypes.bool,
   /** Allows the Textareas Height to change based on user input */
   expandable: PropTypes.bool,
+  /** The content of the label for the input */
   label: PropTypes.string,
+  /** When true, label is placed in line with an input */
+  labelInline: PropTypes.bool,
+  /** Name of the input */
   name: PropTypes.string,
+  /** Callback fired when the user types in the Textarea */
   onChange: PropTypes.func,
+  /** Placeholder text for the component */
   placeholder: PropTypes.string,
   /** Adds readOnly property */
   readOnly: PropTypes.bool,
@@ -177,7 +195,9 @@ Textarea.propTypes = {
   hasWarning: PropTypes.bool,
   /** Status of info */
   hasInfo: PropTypes.bool,
+  /** Icon to display inside of the Textarea */
   inputIcon: PropTypes.string,
+  /** Message to be displayed in a Tooltip when the user hovers over the help icon */
   tooltipMessage: PropTypes.string
 };
 

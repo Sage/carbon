@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TableRow render if is not classic theme renders a row to match the snapshot 1`] = `
-.c2 {
+.c4 {
   background-color: #F2F4F5;
   border-width: 0;
   border-bottom: 1px solid #CCD6DA;
@@ -13,11 +13,408 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
   white-space: nowrap;
 }
 
-.c2 > .common-input {
+.c4 > .common-input {
   margin-bottom: -4px;
   margin-left: -6px;
   margin-right: -6px;
   margin-top: -4px;
+}
+
+.c2 .c3 {
+  background-color: #FFFFFF;
+}
+
+.custom-drag-layer .c2.c2 {
+  background-color: #E5EAEC;
+  display: block;
+}
+
+.custom-drag-layer .c2.c2 .c3 {
+  background-color: #E5EAEC;
+  border: none;
+}
+
+.c2:hover .c3 {
+  background-color: #F2F4F5;
+}
+
+.c2 .c14 {
+  cursor: move;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: grab;
+}
+
+.custom-drag-layer .c2.c2 .c14 {
+  cursor: move;
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: grabbing;
+}
+
+.c2 .c3 {
+  border-top: 1px solid transparent;
+}
+
+.c2 .c3:first-child {
+  border-left: 1px solid transparent;
+}
+
+.c2 .c3:last-child {
+  border-right: 1px solid transparent;
+}
+
+.c5 .c3 {
+  background-color: #FFFFFF;
+}
+
+.custom-drag-layer .c5.c5 .c3 {
+  background-color: #E5EAEC;
+  border: none;
+}
+
+.c5:hover .c3 {
+  background-color: #F2F4F5;
+}
+
+.c5 .c3 {
+  border-top: 1px solid transparent;
+}
+
+.c5 .c3:first-child {
+  border-left: 1px solid transparent;
+}
+
+.c5 .c3:last-child {
+  border-right: 1px solid transparent;
+}
+
+.c6 .c3 {
+  background-color: #FFFFFF;
+}
+
+.custom-drag-layer .c6.c6 .c3 {
+  background-color: #E5EAEC;
+  border: none;
+}
+
+.c6:hover .c3 {
+  background-color: #F2F4F5;
+}
+
+.c6 .c3:first-child {
+  width: 18px;
+}
+
+.c6 .c3 {
+  border-top: 1px solid transparent;
+}
+
+.c6 .c3:first-child {
+  border-left: 1px solid transparent;
+}
+
+.c6 .c3:last-child {
+  border-right: 1px solid transparent;
+}
+
+.c7 .c3 {
+  background-color: #FFFFFF;
+}
+
+.custom-drag-layer .c7.c7 .c3 {
+  background-color: #E5EAEC;
+  border: none;
+}
+
+.c7:hover .c3 {
+  background-color: #F2F4F5;
+}
+
+.c7.c7.c7.c7 .c3,
+.c7.c7.c7.c7:nth-child(odd) .c3,
+.c7.c7.c7.c7:hover .c3 {
+  background-color: #D8E0E3;
+  border-bottom-color: #D8E0E3;
+}
+
+.c7 .c3 {
+  border-top: 1px solid transparent;
+}
+
+.c7 .c3:first-child {
+  border-left: 1px solid transparent;
+}
+
+.c7 .c3:last-child {
+  border-right: 1px solid transparent;
+}
+
+.c8 .c3 {
+  background-color: #FFFFFF;
+}
+
+.custom-drag-layer .c8.c8 .c3 {
+  background-color: #E5EAEC;
+  border: none;
+}
+
+.c8:hover .c3 {
+  background-color: #F2F4F5;
+}
+
+.c8.c8.c8.c8 .c3 {
+  background-color: #D8E0E3;
+  border-bottom-color: #D8E0E3;
+  position: relative;
+}
+
+.c8.c8.c8.c8 .c3:before {
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  top: -1px;
+  width: 100%;
+}
+
+.c8.c8.c8.c8:hover .c3 {
+  background-color: #D8E0E3;
+}
+
+.c8 .c3 {
+  border-top: 1px solid transparent;
+}
+
+.c8 .c3:first-child {
+  border-left: 1px solid transparent;
+}
+
+.c8 .c3:last-child {
+  border-right: 1px solid transparent;
+}
+
+.c9 .c3 {
+  background-color: #FFFFFF;
+}
+
+.custom-drag-layer .c9.c9 .c3 {
+  background-color: #E5EAEC;
+  border: none;
+}
+
+.c9:hover .c3 {
+  background-color: #F2F4F5;
+}
+
+.c9.c9.c9.c9 .c3 {
+  background-color: #D8E0E3;
+  border-bottom-color: #D8E0E3;
+  position: relative;
+}
+
+.c9.c9.c9.c9 .c3:before {
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  top: -1px;
+  width: 100%;
+}
+
+.c9.c9.c9.c9:hover .c3 {
+  background-color: #D8E0E3;
+}
+
+.c9 .c3 {
+  border-top: 1px solid transparent;
+}
+
+.c9 .c3:first-child {
+  border-left: 1px solid transparent;
+}
+
+.c9 .c3:last-child {
+  border-right: 1px solid transparent;
+}
+
+.c10:nth-child(2n+1) .c3 {
+  background-color: #ffffff;
+}
+
+.custom-drag-layer .c10.c10 .c3 {
+  background-color: #E6EBED;
+  border: none;
+}
+
+.c10 .c3:first-child:not(['data-component=selectable-cell']),
+.c10 .sc-htoDjs:first-child:not(['data-component=selectable-cell']) {
+  padding-left: 15px;
+}
+
+.c10 .c3:first-child {
+  width: 18px;
+}
+
+.c10.c10.c10.c10 .c3,
+.c10.c10.c10.c10:nth-child(odd) .c3,
+.c10.c10.c10.c10:hover .c3 {
+  background-color: #1573E6;
+  border-bottom-color: #255BC7;
+  color: #ffffff;
+}
+
+.c10.c10.c10.c10 .c3:before,
+.c10.c10.c10.c10:nth-child(odd) .c3:before,
+.c10.c10.c10.c10:hover .c3:before {
+  background-color: #255BC7;
+}
+
+.c10 .c3 {
+  border-top: 1px solid transparent;
+}
+
+.c10 .c3:first-child {
+  border-left: 1px solid transparent;
+}
+
+.c10 .c3:last-child {
+  border-right: 1px solid transparent;
+}
+
+.c11 .c3 {
+  background-color: #FFFFFF;
+}
+
+.custom-drag-layer .c11.c11 .c3 {
+  background-color: #E5EAEC;
+  border: none;
+}
+
+.c11:hover .c3 {
+  background-color: #F2F4F5;
+}
+
+.c11 .c3:first-child {
+  width: 18px;
+}
+
+.c11.c11.c11.c11 .c3,
+.c11.c11.c11.c11:nth-child(odd) .c3,
+.c11.c11.c11.c11:hover .c3 {
+  background-color: #D8E0E3;
+  border-bottom-color: #D8E0E3;
+}
+
+.c11 .c3 {
+  border-top: 1px solid transparent;
+}
+
+.c11 .c3:first-child {
+  border-left: 1px solid transparent;
+}
+
+.c11 .c3:last-child {
+  border-right: 1px solid transparent;
+}
+
+.c12:nth-child(2n+1) .c3 {
+  background-color: #ffffff;
+}
+
+.custom-drag-layer .c12.c12 .c3 {
+  background-color: #E6EBED;
+  border: none;
+}
+
+.c12:hover .c3 {
+  background-color: #E7F1FC;
+}
+
+.c12.c12.c12.c12 .c3 {
+  background-color: #D0E3FA;
+  border-bottom-color: #1573E6;
+  position: relative;
+}
+
+.c12.c12.c12.c12 .c3:before {
+  background-color: #1573E6;
+}
+
+.c12.c12.c12.c12 .c3:before {
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  top: -1px;
+  width: 100%;
+}
+
+.c12.c12.c12.c12:hover .c3 {
+  background-color: #D0E3FA;
+}
+
+.c12 .c3 {
+  border-top: 1px solid transparent;
+}
+
+.c12 .c3:first-child {
+  border-left: 1px solid transparent;
+}
+
+.c12 .c3:last-child {
+  border-right: 1px solid transparent;
+}
+
+.c13 .c3 {
+  background-color: #FFFFFF;
+}
+
+.custom-drag-layer .c13.c13 .c3 {
+  background-color: #E5EAEC;
+  border: none;
+}
+
+.c13:hover .c3 {
+  background-color: #F2F4F5;
+}
+
+.c13.c13.c13.c13 .c3 {
+  background-color: #D8E0E3;
+  border-bottom-color: #D8E0E3;
+  position: relative;
+}
+
+.c13.c13.c13.c13 .c3:before {
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  top: -1px;
+  width: 100%;
+}
+
+.c13.c13.c13.c13:hover .c3 {
+  background-color: #D8E0E3;
+}
+
+.c13.c13.c13.c13 .c3,
+.c13.c13.c13.c13:nth-child(odd) .c3,
+.c13.c13.c13.c13:hover .c3 {
+  background-color: #D8E0E3;
+  border-bottom-color: #D8E0E3;
+}
+
+.c13 .c3 {
+  border-top: 1px solid transparent;
+}
+
+.c13 .c3:first-child {
+  border-left: 1px solid transparent;
+}
+
+.c13 .c3:last-child {
+  border-right: 1px solid transparent;
 }
 
 .c0 {
@@ -31,18 +428,18 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
   background-color: #FFFFFF;
 }
 
-.c0.c0 .carbon-table-row {
+.c0 .c1 {
   height: 40px;
 }
 
-.c0.c0 .carbon-table-row .c1,
-.c0.c0 .carbon-table-row .c3 {
+.c0 .c1 .c3,
+.c0 .c1 .sc-htoDjs {
   font-size: 14px;
   padding-left: 11px;
   padding-right: 11px;
 }
 
-.c0.c0 .carbon-table-row:hover .c1 {
+.c0 .c1:hover .c3 {
   background-color: #F2F4F5;
 }
 
@@ -56,135 +453,8 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
   top: -99999px;
 }
 
-.c0 .carbon-table-row:last-child .c1 {
+.c0 .c1:last-child .c3 {
   border-bottom-color: transparent;
-}
-
-.c0 .carbon-table-row .custom-drag-layer {
-  background-color: #002E41;
-  cursor: -webkit-grabbing;
-  cursor: -moz-grabbing;
-  cursor: grabbing;
-  cursor: -webkit--moz-grabbing;
-  cursor: -moz--moz-grabbing;
-  cursor: -moz-grabbing;
-  cursor: -webkit--webkit-grabbing;
-  cursor: -moz--webkit-grabbing;
-  cursor: -webkit-grabbing;
-  display: block;
-}
-
-.c0 .carbon-table-row .custom-drag-layer .c1 {
-  background-color: #002E41;
-}
-
-.c0 .carbon-table-row .custom-drag-layer .configurable-item-row__content-wrapper {
-  visibility: visible;
-}
-
-.c0 .carbon-table-row:first-child .c3:first-child {
-  border-radius: 0px 0 0 0;
-}
-
-.c0 .carbon-table-row:first-child .c3:last-child {
-  border-radius: 0 0px 0 0;
-}
-
-.c0 .carbon-table-row .c1 {
-  padding-top: 0px;
-  padding-bottom: 0px;
-  background-color: #FFFFFF;
-}
-
-.c0 .carbon-table-row:hover .c1 {
-  background-color: #F2F4F5;
-}
-
-.c0 .carbon-table-row .carbon-table-cell--select:first-child,
-.c0 .carbon-table-row carbon-table-cell--select:first-child {
-  text-align: center;
-  width: 18px;
-}
-
-.c0 .carbon-table-row .carbon-table-cell--select:first-child .carbon-checkbox,
-.c0 .carbon-table-row carbon-table-cell--select:first-child .carbon-checkbox {
-  height: 15px;
-  padding-top: 0;
-}
-
-.c0 .carbon-table-row--selected .c1,
-.c0 .carbon-table-row--selected:nth-child(odd) .c1,
-.c0 .carbon-table-row--selected:hover .c1 {
-  background-color: #D8E0E3 !important;
-  border-bottom-color: #D8E0E3 !important;
-  position: relative;
-}
-
-.c0 .carbon-table-row--selected .c1:before,
-.c0 .carbon-table-row--selected:nth-child(odd) .c1:before,
-.c0 .carbon-table-row--selected:hover .c1:before {
-  content: "";
-  height: 1px;
-  left: 0;
-  position: absolute;
-  top: -1px;
-  width: 100%;
-}
-
-.c0.c0 .carbon-table-row--clickable {
-  cursor: pointer;
-}
-
-.c0.c0 .carbon-table-row--highlighted .c1 {
-  background-color: #D8E0E3 !important;
-  border-bottom-color: #D8E0E3 !important;
-  position: relative;
-}
-
-.c0.c0 .carbon-table-row--highlighted .c1:before {
-  content: "";
-  height: 1px;
-  left: 0;
-  position: absolute;
-  top: -1px;
-  width: 100%;
-}
-
-.c0.c0 .carbon-table-row--highlighted:hover .c1 {
-  background-color: #D8E0E3;
-}
-
-.c0 .carbon-table-row--dragging {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.c0 .carbon-table-row--dragged .c1 {
-  visibility: hidden;
-}
-
-.c0 .carbon-table-row--dragged + .carbon-table-row--dragging .c1 {
-  border-top: 1px solid #000A0E;
-}
-
-.c0 .draggable-table-cell__icon {
-  cursor: move;
-  padding: 8.5px 14px;
-}
-
-.c0 .draggable-table-cell__icon,
-.custom-drag-layer .c0 .draggable-table-cell__icon {
-  cursor: -webkit-grabbing;
-  cursor: -moz-grabbing;
-  cursor: grabbing;
-  cursor: -webkit--moz-grabbing;
-  cursor: -moz--moz-grabbing;
-  cursor: -moz-grabbing;
-  cursor: -webkit--webkit-grabbing;
-  cursor: -moz--webkit-grabbing;
-  cursor: -webkit-grabbing;
 }
 
 <table
@@ -192,11 +462,11 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
   size="medium"
 >
   <tr
-    className="carbon-table-row"
+    className="c1 c2"
     data-component="table-row"
   >
     <td
-      className="c1 c2"
+      className="c3 c4"
       data-component="table-cell"
     />
   </tr>

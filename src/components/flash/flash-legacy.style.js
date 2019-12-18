@@ -35,11 +35,11 @@ const sliderAnimation = `
     transition: 500ms ease 100ms;
   }
 
-  .carbon-flash__slider-leave {
+  .carbon-flash__slider-exit {
     opacity: 1;
   }
 
-  .carbon-flash__slider-leave-active  {
+  .carbon-flash__slider-exit-active  {
     opacity: 0;
     transition: 500ms ease 100ms;
   }
@@ -57,41 +57,38 @@ const contentAnimation = `
     transition: 400ms ease 400ms;
   }
 
-  .carbon-flash__content-leave {
+  .carbon-flash__content-exit {
     opacity: 1;
   }
 
-  .carbon-flash__content-leave-active  {
+  .carbon-flash__content-exit-active  {
     opacity: 0;
     transition: 400ms ease-out 100ms;
   }
 `;
 
 const FlashCloseStyle = styled(Icon)`
-    &.carbon-icon{
-      color: rgba(0, 0, 0, 0.85);
-      cursor: pointer;
-      display: flex;
-      outline: none;
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 70px;
-    }
+  color: rgba(0, 0, 0, 0.85);
+  cursor: pointer;
+  display: flex;
+  outline: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 70px;
 
-    &:before {
-      font-size: 16px;
-      margin: auto;
+  &:before {
+    font-size: 16px;
+    margin: auto;
   }
 `;
 
 const FlashIconStyle = styled(Icon)`
-  &.carbon-icon {
-    display: flex;
-    left: 0;
-    position: absolute;
-    width: 70px;
-  }
+  display: flex;
+  left: 0;
+  position: absolute;
+  width: 70px;
+  top: -3px;
 
   &:before {
     color: rgba(0, 0, 0, 0.85);
@@ -99,7 +96,7 @@ const FlashIconStyle = styled(Icon)`
     margin: auto;
   }
 
-    .carbon-icon__svg {
+  svg {
     height: 16px;
     margin: auto;
     width: 16px;
@@ -108,15 +105,16 @@ const FlashIconStyle = styled(Icon)`
   .carbon-icon__svg-group {
     fill: rgba(0, 0, 0, 0.85);
   }
-  
 `;
 
 const FlashLink = styled(Link)`
+
   color: #fff;
 
-  &:hover{
+  a:hover{
     color: #fff
   }
+
 `;
 
 const FlashMessageStyle = styled.div`

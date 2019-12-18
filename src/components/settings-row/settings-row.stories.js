@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, boolean } from '@storybook/addon-knobs';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import SettingsRow from './settings-row';
 import { notes, info } from './documentation';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
@@ -10,9 +11,8 @@ SettingsRow.__docgenInfo = getDocGenInfo(
   /settings-row\.js(?!spec)/
 );
 
-storiesOf('SettingsRow', module).add(
-  'default',
-  () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const children = text('children', 'Content for settings');
     const description = text(
       'description',
@@ -29,9 +29,17 @@ storiesOf('SettingsRow', module).add(
         {children}
       </SettingsRow>
     );
-  },
-  {
+  };
+
+  const metadata = {
+    themeSelector,
     notes: { markdown: notes },
     info: { text: info }
-  }
-);
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('SettingsRow', module)
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));

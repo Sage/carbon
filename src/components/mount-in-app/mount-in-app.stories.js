@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import MountInApp from './mount-in-app';
 import notes from './notes.md';
 import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../.storybook/style/storybook-info.styles';
@@ -10,8 +11,8 @@ MountInApp.__docgenInfo = getDocGenInfo(
   /mount-in-app.js(?!spec)/
 );
 
-storiesOf('Mount In App', module)
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     return (
       <div>
         <div id='carbon-demo'>Some content to be replaced.</div>
@@ -23,7 +24,10 @@ storiesOf('Mount In App', module)
         </MountInApp>
       </div>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     info: {
       text: (
         <div>
@@ -57,4 +61,11 @@ storiesOf('Mount In App', module)
       )
     },
     notes: { markdown: notes }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Mount In App', module)
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));

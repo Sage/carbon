@@ -1,45 +1,58 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import 'jest-styled-components';
+import TestRenderer from 'react-test-renderer';
 import Select from './select.component';
+import Option from './option.component';
+import { StyledSelect } from './select.style';
 import guid from '../../../utils/helpers/guid';
 import Events from '../../../utils/helpers/events';
+import classic from '../../../style/themes/classic';
+import StyledIcon from '../../../components/icon/icon.style';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import TextBox from '../textbox';
+import { Input } from '../input';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
+
+const options = [{
+  value: '1',
+  text: 'Orange'
+}, {
+  value: '2',
+  text: 'Blue'
+}, {
+  value: '3',
+  text: 'Red'
+}];
+
+// an example of a single value
+const singleValue = '1';
+
+// an example of a multi value
+const multiValueProp = options.map(({ value }) => value);
+
+// an example of a multi e.target.value
+const multiValueReturn = options.map(({ value, text }) => ({ optionValue: value, optionText: text }));
 
 describe('Select', () => {
   const renderWrapper = ({ props, type = mount } = {}) => (
     type(
       <Select { ...props }>
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
+        {options.map(({ value, text }) => (
+          <Option
+            key={ text }
+            text={ text }
+            value={ value }
+          />
+        ))}
       </Select>
     )
   );
 
-  // an example of a single value
-  const singleValue = {
-    value: '1',
-    text: 'Orange'
-  };
-
-  // an example of a multi value
-  const multiValue = [{
-    value: '1',
-    text: 'Orange'
-  }, {
-    value: '2',
-    text: 'Blue'
-  }, {
-    value: '3',
-    text: 'Red'
-  }];
-
   // utility functions to fetch various elements from the wrapper
   const listOf = wrapper => wrapper.find('SelectList');
-  const textboxOf = wrapper => wrapper.find('Textbox');
+  const textboxOf = wrapper => wrapper.find(TextBox);
   const pillsOf = wrapper => wrapper.find('Pill');
 
   // open the list for the select component and returns the wrapper
@@ -96,94 +109,139 @@ describe('Select', () => {
     });
   });
 
+  describe.each(
+    [{ disabled: false, readOnly: false }, { disabled: true, readOnly: false }, { disabled: false, readOnly: true }]
+  )(
+    'the Select component', (props) => {
+      it(`renders the correct placeholder when disabled is ${props.disabled} and readOnly is ${props.readOnly}`, () => {
+        const canRenderPlaceholder = !props.disabled && !props.readOnly;
+        const wrapper = renderWrapper({ props });
+        expect(wrapper.find(Input).props().placeholder).toEqual(canRenderPlaceholder ? 'Please Select...' : '');
+      });
+    }
+  );
+
   describe('when multi-value', () => {
     it(`renders the the textbox with the following:
         * formattedValue is empty
         * value contains the array of values
         * leftChildren contains the pills
         * inputIcon is disabled`, () => {
-      const props = { value: multiValue, placeholder: 'placeholder' };
+      const props = { value: multiValueProp, placeholder: 'placeholder', enableMultiSelect: true };
       const textbox = textboxOf(renderWrapper({ props }));
       const {
         formattedValue,
-        value, inputIcon,
+        value,
+        inputIcon,
         leftChildren
       } = textbox.props();
 
       expect(formattedValue).toEqual('');
-      expect(value).toEqual(multiValue);
+      expect(value).toEqual(multiValueProp);
       expect(leftChildren.length).toEqual(3);
       expect(leftChildren[0].props.children.props.title).toEqual('Orange');
       expect(inputIcon).toEqual(undefined);
     });
 
     it('triggers onChange with the item added when choosing an item', () => {
-      const props = { value: multiValue, onChange: jest.fn() };
-      const list = listOf(openList(renderWrapper({ props })));
-      const newValue = { value: 'new!' };
+      const idAndName = { id: 'test-id', name: 'test-name' };
+      const props = {
+        ...idAndName, value: multiValueProp, onChange: jest.fn(), enableMultiSelect: true
+      };
+      const newValue = { text: 'New Value!', value: 'new' };
+
+      const optionsWithNew = [...options, newValue];
+      const wrapper = mount(
+        <Select { ...props }>
+          {optionsWithNew.map(({ value, text }) => (
+            <Option
+              key={ text }
+              text={ text }
+              value={ value }
+            />
+          ))}
+        </Select>
+      );
+      const list = listOf(openList(wrapper));
       list.props().onSelect(newValue);
+
       expect(props.onChange).toHaveBeenCalledWith({
-        target: { value: [...multiValue, newValue] }
+        target: { ...idAndName, value: [...multiValueReturn, { optionText: 'New Value!', optionValue: 'new' }] }
       });
     });
 
     it('does not allow the same item to be selected twice', () => {
-      const props = { value: multiValue, onChange: jest.fn() };
+      const props = { value: multiValueProp, onChange: jest.fn(), enableMultiSelect: true };
       const list = listOf(openList(renderWrapper({ props })));
-      list.props().onSelect(multiValue[0]);
+      list.props().onSelect(options[0]);
       expect(props.onChange).not.toHaveBeenCalled();
     });
 
     it('triggers onChange with the item removed when clicking delete on the pill', () => {
-      const props = { value: multiValue, onChange: jest.fn() };
+      const props = { value: multiValueProp, onChange: jest.fn(), enableMultiSelect: true };
       const pill = pillsOf(renderWrapper({ props })).at(1);
       pill.props().onDelete();
       expect(props.onChange).toHaveBeenCalledWith({
         // we deleted the item at index 1
-        target: { value: [multiValue[0], multiValue[2]] }
+        target: { value: [multiValueReturn[0], multiValueReturn[2]] }
       });
     });
+  });
 
-    describe('when backspace is pressed and is single select', () => {
-      const setupTest = (additionalSetup) => {
-        spyOn(Events, 'isBackspaceKey').and.returnValue(true);
-        const props = { value: singleValue, onChange: jest.fn() };
-        const wrapper = renderWrapper({ props });
-        const textbox = textboxOf(openList(wrapper));
-        if (additionalSetup) additionalSetup(wrapper);
-        textbox.find('input').simulate('keydown');
-        return { props, wrapper };
+  describe('when backspace is pressed and is single select', () => {
+    const setupTest = (additionalSetup) => {
+      spyOn(Events, 'isBackspaceKey').and.returnValue(true);
+      const props = { value: 'value', onChange: jest.fn() };
+      const wrapper = renderWrapper({ props });
+      const textbox = textboxOf(openList(wrapper));
+      if (additionalSetup) additionalSetup(wrapper);
+      textbox.find('input').simulate('keydown');
+      return { props, wrapper };
+    };
+    it('supports leftChildren property', () => {
+      const props = {
+        value: multiValueProp,
+        enableMultiSelect: true,
+        leftChildren: <span className='my-test-element'>Text</span>
       };
 
-      it('triggers onChange with the item removed when typing backspace in the filter', () => {
-        const { props } = setupTest();
-        expect(props.onChange).toHaveBeenCalled();
-      });
+      const wrapper = renderWrapper({ props });
+      // Check left children
+      expect(wrapper.find('.my-test-element')).toHaveLength(1);
+      expect(wrapper.find('.my-test-element').text()).toEqual('Text');
 
-      it('does not trigger onChange if there is a filter in effect', () => {
-        const { props } = setupTest(wrapper => wrapper.setState({ filter: 'x' }));
-        expect(props.onChange).not.toHaveBeenCalled();
-      });
-
-      it('does not trigger onChange if there is no values left to delete', () => {
-        const { props } = setupTest(wrapper => wrapper.setProps({ value: [] }));
-        expect(props.onChange).not.toHaveBeenCalled();
-      });
+      // Check pills
+      expect(pillsOf(wrapper)).toHaveLength(3);
     });
 
-    it('does not render onDelete action when disabled or readonly', () => {
-      [{ disabled: true }, { readOnly: true }].forEach((state) => {
-        const props = { value: multiValue, ...state };
-        const pill = pillsOf(renderWrapper({ props })).first();
-        expect(pill.props().onDelete).toEqual(null);
-      });
+    it('triggers onChange with the item removed when typing backspace in the filter', () => {
+      const { props } = setupTest();
+      expect(props.onChange).toHaveBeenCalled();
+    });
+
+    it('does not trigger onChange if there is a filter in effect', () => {
+      const { props } = setupTest(wrapper => wrapper.setState({ filter: 'x' }));
+      expect(props.onChange).not.toHaveBeenCalled();
+    });
+
+    it('does not trigger onChange if there is no values left to delete', () => {
+      const { props } = setupTest(wrapper => wrapper.setProps({ value: null }));
+      expect(props.onChange).not.toHaveBeenCalled();
+    });
+  });
+
+  it('does not render onDelete action when disabled or readonly', () => {
+    [{ disabled: true }, { readOnly: true }].forEach((state) => {
+      const props = { value: multiValueProp, enableMultiSelect: true, ...state };
+      const pill = pillsOf(renderWrapper({ props })).first();
+      expect(pill.props().onDelete).toEqual(null);
     });
   });
 
   describe('when backspace is pressed and is multi select', () => {
     const setupTest = (additionalSetup) => {
       spyOn(Events, 'isBackspaceKey').and.returnValue(true);
-      const props = { value: multiValue, onChange: jest.fn() };
+      const props = { value: multiValueProp, onChange: jest.fn(), enableMultiSelect: true };
       const wrapper = renderWrapper({ props });
       const textbox = textboxOf(openList(wrapper));
       if (additionalSetup) additionalSetup(wrapper);
@@ -194,7 +252,7 @@ describe('Select', () => {
     it('triggers onChange with the item removed when typing backspace in the filter', () => {
       const { props } = setupTest();
       expect(props.onChange).toHaveBeenCalledWith({
-        target: { value: [multiValue[0], multiValue[1]] }
+        target: { value: [multiValueReturn[0], multiValueReturn[1]] }
       });
     });
 
@@ -216,22 +274,22 @@ describe('Select', () => {
         * leftChildren is empty
         * inputIcon is dropdown
         * placeholder is the value given as a prop`, () => {
-      const props = { value: singleValue, placeholder: 'placeholder' };
+      const props = { value: options[0].value, placeholder: 'placeholder' };
       const textbox = textboxOf(renderWrapper({ props }));
-      expect(textbox.props().formattedValue).toEqual(singleValue.text);
-      expect(textbox.props().value).toEqual(singleValue.value);
+      expect(textbox.props().formattedValue).toEqual(options[0].text);
+      expect(textbox.props().value).toEqual(options[0].value);
       expect(textbox.props().leftChildren).toBeFalsy();
       expect(textbox.props().inputIcon).toEqual('dropdown');
       expect(textbox.props().placeholder).toEqual('placeholder');
     });
 
     it('triggers onChange with the new item when choosing an item', () => {
-      const props = { value: singleValue, onChange: jest.fn() };
+      const props = { value: options[0].value, onChange: jest.fn() };
       const list = listOf(openList(renderWrapper({ props })));
-      const newValue = { value: 'new!' };
+      const newValue = options[1];
       list.props().onSelect(newValue);
       expect(props.onChange).toHaveBeenCalledWith({
-        target: { value: newValue }
+        target: { value: [{ optionText: newValue.text, optionValue: newValue.value }] }
       });
     });
 
@@ -239,6 +297,27 @@ describe('Select', () => {
       const props = { value: singleValue };
       const list = listOf(openList(renderWrapper({ props })));
       expect(() => list.props().onSelect({ value: 'new!' })).not.toThrowError();
+    });
+
+    it('supports leftChildren property', () => {
+      const props = { leftChildren: <span className='my-test-element'>Text</span> };
+      const wrapper = renderWrapper({ props });
+      expect(wrapper.find('.my-test-element')).toHaveLength(1);
+      expect(wrapper.find('.my-test-element').text()).toEqual('Text');
+    });
+  });
+
+  describe('when uncontrolled', () => {
+    it('can accept a default value', () => {
+      const props = { defaultValue: options[0].value };
+      const textbox = textboxOf(renderWrapper({ props }));
+      expect(textbox.props().value).toEqual(options[0].value);
+    });
+
+    it('can operate in multi-select mode', () => {
+      const props = { enableMultiSelect: true };
+      const wrapper = renderWrapper({ props });
+      expect(wrapper.state().value).toEqual([]);
     });
   });
 
@@ -249,13 +328,18 @@ describe('Select', () => {
       expect(onFocus).toHaveBeenCalled();
     });
 
+    it('does not open the list if `preventFocusAutoOpen` prop is passed and set to true', () => {
+      const wrapper = renderWrapper({ props: { preventFocusAutoOpen: true } });
+      openList(wrapper);
+      expect(wrapper.state().open).toEqual(false);
+    });
+
     it('blocks blur on mouse enter of the list and unblocks on leaving the list', () => {
       const wrapper = openList(renderWrapper());
-      const list = listOf(wrapper);
       expect(wrapper.instance().blurBlocked).toEqual(false);
-      list.find('div').first().simulate('mouseEnter');
+      wrapper.simulate('mouseEnter');
       expect(wrapper.instance().blurBlocked).toEqual(true);
-      list.find('div').first().simulate('mouseLeave');
+      wrapper.simulate('mouseLeave');
       expect(wrapper.instance().blurBlocked).toEqual(false);
     });
 
@@ -291,6 +375,13 @@ describe('Select', () => {
   });
 
   describe('key events', () => {
+    it('invokes `onKeyDown` prop on keyDown event', () => {
+      const onKeyDown = jest.fn();
+      const wrapper = renderWrapper({ props: { onKeyDown } });
+      textboxOf(wrapper).find('input').simulate('keydown');
+      expect(onKeyDown).toHaveBeenCalled();
+    });
+
     it('unblocks blur on tab', () => {
       spyOn(Events, 'isTabKey').and.returnValue(true);
       const wrapper = renderWrapper();
@@ -360,6 +451,15 @@ describe('Select', () => {
       expect(listOf(wrapper).length).toEqual(0);
       textboxOf(wrapper).find('input').simulate('change', { target: { value: 'xxx' } });
       expect(listOf(wrapper).length).toEqual(1);
+    });
+  });
+
+  describe('when in classic theme', () => {
+    it('it applies expected icon styling', () => {
+      const styleWrapper = TestRenderer.create(
+        <StyledSelect theme={ classic }><StyledIcon type='dropdown' /></StyledSelect>
+      );
+      assertStyleMatch({ color: '#FFFFFF' }, styleWrapper.toJSON(), { modifier: `&:hover ${StyledIcon}` });
     });
   });
 });

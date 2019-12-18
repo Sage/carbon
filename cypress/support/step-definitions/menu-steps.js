@@ -28,6 +28,6 @@ Then('Menu first expandable element has {int} items', (parameter) => {
 });
 
 Then('Menu second expandable element has {int} link item and {int} list items', (firstParameter, secondParameter) => {
-  submenuBlock(THIRD_ELEMENT, FIRST_ELEMENT).should('have.length', firstParameter);
-  submenuBlock(THIRD_ELEMENT, SECOND_ELEMENT).should('have.length', secondParameter);
+  submenuBlock(THIRD_ELEMENT, SECOND_ELEMENT).first().should('have.length', firstParameter);
+  submenuBlock(THIRD_ELEMENT, SECOND_ELEMENT).children().should('have.length', secondParameter);
 });

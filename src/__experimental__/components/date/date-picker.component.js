@@ -14,6 +14,7 @@ import StyledDayPicker from './day-picker.style';
 const DatePicker = (props) => {
   const window = Browser.getWindow();
   const [containerPosition, setContainerPosition] = useState(() => getContainerPosition(window, props.inputElement));
+  const [currentInputDate, setCurrentInputDate] = useState(isoFormattedValueString(props.inputDate));
   const containerProps = {
     style: containerPosition
   };
@@ -44,13 +45,22 @@ const DatePicker = (props) => {
   };
 
   useEffect(() => {
-    if (props.selectedDate && monthOrYearHasChanged(datepicker, props.selectedDate)) {
-      datepicker.current.showMonth(props.selectedDate);
+    if (hasComponentUpdated()) {
+      const updatedDate = isoFormattedValueString(props.inputDate);
+      datepicker.current.showMonth(DateHelper.stringToDate(updatedDate));
+      setCurrentInputDate(updatedDate);
     }
-  }, [props.selectedDate]);
+  }, [props.inputDate, currentInputDate, containerPosition]);
 
   function handleDayClick(selectedDate, modifiers) {
-    if (!modifiers.disabled) props.handleDateSelect(selectedDate);
+    if (!modifiers.disabled) {
+      props.handleDateSelect(selectedDate);
+    }
+  }
+
+  function hasComponentUpdated() {
+    const propDate = isoFormattedValueString(props.inputDate);
+    return props.inputDate && currentDateHasChanged(currentInputDate, propDate);
   }
 
   return (
@@ -71,6 +81,8 @@ DatePicker.propTypes = {
   minDate: PropTypes.string,
   /** Maximum possible date */
   maxDate: PropTypes.string,
+  /* The string value in the date input */
+  inputDate: PropTypes.string,
   /** Element that the DatePicker will be displayed under */
   inputElement: PropTypes.object.isRequired,
   /** Currently selected date */
@@ -79,13 +91,12 @@ DatePicker.propTypes = {
   handleDateSelect: PropTypes.func
 };
 
-/**
- * Determines if the new date's month or year has changed from the currently selected.
- */
-function monthOrYearHasChanged(datepicker, newDate) {
-  const currentDate = datepicker.current.state.currentMonth;
+function currentDateHasChanged(currentDate, newDate) {
+  return currentDate !== newDate;
+}
 
-  return currentDate.getMonth() !== newDate.getMonth() || currentDate.getYear() !== newDate.getYear();
+function isoFormattedValueString(valueToFormat) {
+  return DateHelper.formatValue(valueToFormat);
 }
 
 /**
@@ -98,15 +109,23 @@ function getDisabledDays(minDate, maxDate) {
     return null;
   }
 
-  if (minDate) {
+  if (minDate && checkIsoFormatAndLength(minDate)) {
     days.push({ before: DateHelper.stringToDate(minDate) });
   }
 
-  if (maxDate) {
+  if (maxDate && checkIsoFormatAndLength(maxDate)) {
     days.push({ after: DateHelper.stringToDate(maxDate) });
   }
 
   return days;
+}
+
+function checkIsoFormatAndLength(date) {
+  if (date.length !== 10 || !DateHelper.isValidDate(date, { defaultValue: 'YYYY-MM-DD' })) {
+    return false;
+  }
+  const array = date.split('-');
+  return array.length === 3 && array[0].length === 4 && array[1].length === 2 && array[2].length === 2;
 }
 
 /**

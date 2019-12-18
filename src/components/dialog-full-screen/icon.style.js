@@ -10,18 +10,15 @@ const StyledIcon = styled(Icon)`
   right: 40px;
   top: 53px;
   z-index: 1002;
-
-  &, &.carbon-icon {
-    position: absolute;
-    display: block;
-  }
+  position: fixed;
+  display: block;
   
-  &:before, &.carbon-icon:before {
+  &::before {
     font-size: 24px;
   }
   
   &:hover {
-    color: ${({ theme }) => theme.icon.focus};
+    color: ${({ theme }) => theme.icon.onLightBackgroundHover};
   }
 
   ${classicIconStyle}

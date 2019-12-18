@@ -1,9 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import PropTypes from 'prop-types';
+import text from '../../utils/helpers/text/text';
 import { withValidation } from '.';
 import guid from '../../utils/helpers/guid';
 import VALIDATION_TYPES from './validation-types.config';
+import { getValidationType } from './with-validation.hoc';
 
 const presErr = new Error('this value is required!');
 
@@ -91,23 +93,21 @@ describe('when the withValidations HOC wraps a component', () => {
   });
 
   describe('when it validates a subset of validations', () => {
-    it('returns null when the array for a given validation type is empty', () => {
-      types.forEach((type) => {
-        expect(wrapper.instance().runValidation(type)).toEqual(null);
-      });
+    it.each(types)('returns true when the %s array is empty', async (type) => {
+      expect(await wrapper.instance().validate(type)).toEqual(true);
     });
 
-    it('returns null when the a given validation type is undefined', () => {
+    it('returns null when the given validation type is undefined', async() => {
       wrapper.setProps({
         foo: undefined
       });
-      expect(wrapper.instance().runValidation('foo')).toEqual(null);
+      expect(await wrapper.instance().validate('foo')).toEqual(true);
     });
 
     it('resolves true when the validations array is all valid', async () => {
       wrapper2 = shallowRenderWithContext({ validations: presence, value: 'foo' });
       const spy = spyOn(wrapper2.instance().context, 'adjustCount');
-      const validate = await wrapper2.instance().runValidation(types[0]);
+      const validate = await wrapper2.instance().validate(types[0]);
       expect(validate).toEqual(true);
       expect(spy).not.toHaveBeenCalled();
     });
@@ -115,7 +115,7 @@ describe('when the withValidations HOC wraps a component', () => {
     it('resolves true when the warnings array is all valid', async () => {
       wrapper2 = shallowRenderWithContext({ warnings: presence, value: 'foo' });
       const spy = spyOn(wrapper2.instance().context, 'adjustCount');
-      const validate = await wrapper2.instance().runValidation(types[1]);
+      const validate = await wrapper2.instance().validate(types[1]);
       expect(validate).toEqual(true);
       expect(spy).not.toHaveBeenCalled();
     });
@@ -123,7 +123,7 @@ describe('when the withValidations HOC wraps a component', () => {
     it('resolves true when the info array is all valid', async () => {
       wrapper2 = shallowRenderWithContext({ info: presence, value: 'foo' });
       const spy = spyOn(wrapper2.instance().context, 'adjustCount');
-      const validate = await wrapper2.instance().runValidation(types[2]);
+      const validate = await wrapper2.instance().validate(types[2]);
       expect(validate).toEqual(true);
       expect(spy).not.toHaveBeenCalled();
     });
@@ -131,7 +131,7 @@ describe('when the withValidations HOC wraps a component', () => {
     it('resolves false when the validations array is not all valid', async () => {
       wrapper2 = shallowRenderWithContext({ validations: presence, value: '' });
       const spy = spyOn(wrapper2.instance().context, 'adjustCount');
-      const validate = await wrapper2.instance().runValidation(types[0]);
+      const validate = await wrapper2.instance().validate(types[0]);
       expect(validate).toEqual(false);
       expect(spy).toHaveBeenCalledWith('error', true);
     });
@@ -139,7 +139,7 @@ describe('when the withValidations HOC wraps a component', () => {
     it('resolves false when the warnings array is not all valid', async () => {
       wrapper2 = shallowRenderWithContext({ warnings: presence, value: '' });
       const spy = spyOn(wrapper2.instance().context, 'adjustCount');
-      const validate = await wrapper2.instance().runValidation(types[1]);
+      const validate = await wrapper2.instance().validate(types[1]);
       expect(validate).toEqual(false);
       expect(spy).toHaveBeenCalledWith('warning', true);
     });
@@ -156,7 +156,7 @@ describe('when the withValidations HOC wraps a component', () => {
     it('resolves false when the info array is not all valid', async () => {
       wrapper2 = shallowRenderWithContext({ info: presence, value: '' });
       const spy = spyOn(wrapper2.instance().context, 'adjustCount');
-      const validate = await wrapper2.instance().runValidation(types[2]);
+      const validate = await wrapper2.instance().validate(types[2]);
       expect(validate).toEqual(false);
       expect(spy).toHaveBeenCalledWith('info', true);
     });
@@ -168,9 +168,9 @@ describe('when the withValidations HOC wraps a component', () => {
       });
       const spy1 = spyOn(wrapper2.instance(), 'setState');
       const spy2 = spyOn(wrapper2.instance().context, 'adjustCount');
-      await wrapper2.instance().runValidation(types[0]);
+      await wrapper2.instance().validate(types[0]);
       expect(spy1).toHaveBeenCalledWith({
-        errorMessage: ''
+        errorMessage: undefined
       });
       expect(spy2).toHaveBeenCalledWith('error');
     });
@@ -182,9 +182,9 @@ describe('when the withValidations HOC wraps a component', () => {
       });
       const spy1 = spyOn(wrapper2.instance(), 'setState');
       const spy2 = spyOn(wrapper2.instance().context, 'adjustCount');
-      await wrapper2.instance().runValidation(types[1]);
+      await wrapper2.instance().validate(types[1]);
       expect(spy1).toHaveBeenCalledWith({
-        warningMessage: ''
+        warningMessage: undefined
       });
       expect(spy2).toHaveBeenCalledWith('warning');
     });
@@ -196,9 +196,9 @@ describe('when the withValidations HOC wraps a component', () => {
       });
       const spy1 = spyOn(wrapper2.instance(), 'setState');
       const spy2 = spyOn(wrapper2.instance().context, 'adjustCount');
-      await wrapper2.instance().runValidation(types[2]);
+      await wrapper2.instance().validate(types[2]);
       expect(spy1).toHaveBeenCalledWith({
-        infoMessage: ''
+        infoMessage: undefined
       });
       expect(spy2).toHaveBeenCalledWith('info');
     });
@@ -206,9 +206,9 @@ describe('when the withValidations HOC wraps a component', () => {
     it('takes no action when an incorrect type with passing validations is passed to the function', async () => {
       wrapper.setProps({ fooType: validations, value: 'foo' });
       const spy = spyOn(wrapper.instance(), 'setState');
-      const validate = await wrapper.instance().runValidation('fooType');
+      const validate = await wrapper.instance().validate('fooType');
       expect(spy).not.toHaveBeenCalled();
-      expect(validate).toEqual(null);
+      expect(validate).toEqual(true);
     });
 
     it('removes errors when the inputs validation passes', async () => {
@@ -217,7 +217,7 @@ describe('when the withValidations HOC wraps a component', () => {
         errorMessage: failErr.message
       });
       const spy = spyOn(wrapper2.instance().context, 'adjustCount');
-      const validate = await wrapper2.instance().runValidation(types[0]);
+      const validate = await wrapper2.instance().validate(types[0]);
       expect(validate).toEqual(true);
       expect(spy).toHaveBeenCalledWith('error');
     });
@@ -225,10 +225,10 @@ describe('when the withValidations HOC wraps a component', () => {
     it('validates properly without context passed', async () => {
       const NoContextComponent = withValidation(MockComponent);
       const noContextWrapper = shallow(<NoContextComponent name='foo' validations={ presence } />, { context: null });
-      const validateEmpty = await noContextWrapper.instance().runValidation('error');
+      const validateEmpty = await noContextWrapper.instance().validate('error');
       expect(validateEmpty).toEqual(false);
       noContextWrapper.setProps({ value: 'bar' });
-      const validateFilled = await noContextWrapper.instance().runValidation(types[0]);
+      const validateFilled = await noContextWrapper.instance().validate(types[0]);
       expect(validateFilled).toEqual(true);
     });
   });
@@ -273,23 +273,23 @@ describe('when the withValidations HOC wraps a component', () => {
 
     it('resolves promises to true when all validation props are valid', async () => {
       expect(allValidationsPass).toEqual(true);
-      expect(passWrapper.state().errorMessage).toEqual('');
-      expect(passWrapper.state().warningMessage).toEqual('');
-      expect(passWrapper.state().infoMessage).toEqual('');
+      expect(passWrapper.state().errorMessage).toEqual(undefined);
+      expect(passWrapper.state().warningMessage).toEqual(undefined);
+      expect(passWrapper.state().infoMessage).toEqual(undefined);
     });
 
     it('resolves true a validation prop is valid and false when it fails validation', async () => {
       expect(mixValidations).toEqual(false);
-      expect(mixWrapper.state().errorMessage).toEqual('');
+      expect(mixWrapper.state().errorMessage).toEqual(undefined);
       expect(mixWrapper.state().warningMessage).toEqual(failErr.message);
-      expect(mixWrapper.state().infoMessage).toEqual('');
+      expect(mixWrapper.state().infoMessage).toEqual(undefined);
     });
 
     it('sets the state for each of the failed validations subsets when they fail', async () => {
       expect(allValidationsFail).toEqual(false);
       expect(failWrapper.state().errorMessage).toEqual(failErr.message);
-      expect(failWrapper.state().warningMessage).toEqual('');
-      expect(failWrapper.state().infoMessage).toEqual('');
+      expect(failWrapper.state().warningMessage).toEqual(failErr.message);
+      expect(failWrapper.state().infoMessage).toEqual(failErr.message);
     });
   });
 
@@ -338,19 +338,9 @@ describe('when the withValidations HOC wraps a component', () => {
       });
       wrapper.setProps({ onChange: ev => ev.target.value });
       wrapper.instance().handleChange(mockEvent);
-      expect(wrapper.instance().state.infoMessage).toEqual('');
-      expect(wrapper.instance().state.warningMessage).toEqual('');
-      expect(wrapper.instance().state.errorMessage).toEqual('');
-    });
-
-    it('does nothing when the validation status is already empty', () => {
-      wrapper.setState({ infoMessage: '', warningMessage: '', errorMessage: '' });
-      const spy = spyOn(wrapper.instance(), 'updateValidationStatus');
-      wrapper.instance().handleChange(mockEvent);
-      expect(wrapper.instance().state.infoMessage).toEqual('');
-      expect(wrapper.instance().state.warningMessage).toEqual('');
-      expect(wrapper.instance().state.errorMessage).toEqual('');
-      expect(spy).not.toHaveBeenCalled();
+      expect(wrapper.instance().state.infoMessage).toEqual(undefined);
+      expect(wrapper.instance().state.warningMessage).toEqual(undefined);
+      expect(wrapper.instance().state.errorMessage).toEqual(undefined);
     });
   });
 
@@ -379,7 +369,7 @@ describe('when the withValidations HOC wraps a component', () => {
         info: presence,
         value: 'foo'
       });
-      const validate = await wrapper.instance().runValidation(types[0]);
+      const validate = await wrapper.instance().validate(types[0]);
       expect(validate).toEqual(true);
     });
 
@@ -391,8 +381,30 @@ describe('when the withValidations HOC wraps a component', () => {
         />,
         {}
       );
-      const validate = await wrapper.instance().runValidation(types[2]);
+      const validate = await wrapper.instance().validate(types[2]);
       expect(validate).toEqual(false);
+    });
+  });
+
+  describe('get validation type', () => {
+    const valTypes = ['error', 'warning', 'info', 'empty'];
+
+    describe.each(valTypes)('%s', (type) => {
+      it(`type should be ${type}`, () => {
+        const obj = {
+          hasError: false,
+          hasWarning: false,
+          hasInfo: false
+        };
+        const typeToKey = `has${text.titleCase(type)}`;
+        const value = type === 'empty' ? '' : type;
+
+        if (Object.prototype.hasOwnProperty.call(obj, typeToKey)) {
+          obj[typeToKey] = true;
+        }
+
+        expect(getValidationType(obj)).toEqual(value);
+      });
     });
   });
 });

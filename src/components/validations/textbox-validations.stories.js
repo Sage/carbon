@@ -2,16 +2,17 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { boolean, select } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import { Row, Column } from '../row';
 import Textbox from '../../__experimental__/components/textbox';
 import Decimal from '../../__experimental__/components/decimal';
 import NumberInput from '../../__experimental__/components/number';
 import GroupedCharacter from '../../__experimental__/components/grouped-character';
-import Button, { OriginalButton } from '../button';
+import Button from '../button';
 import { StoryHeader } from '../../../.storybook/style/storybook-info.styles';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
-const decimalStore = new Store({ value: '' });
+const decimalStore = new Store({ value: '0.00' });
 const numberInputStore = new Store({ value: '' });
 const groupedCharacterStore = new Store({ value: '' });
 const getStoryProps = () => ({
@@ -20,25 +21,8 @@ const getStoryProps = () => ({
   size: select('size', OptionsHelper.sizesRestricted, 'medium')
 });
 
-storiesOf('Validations', module)
-  .addParameters({
-    info: {
-      text: (<StoryHeader>Validations for simple Textbox based Components</StoryHeader>),
-      propTablesExclude: [
-        Button,
-        OriginalButton,
-        Column,
-        Row,
-        Textbox,
-        State,
-        Decimal,
-        NumberInput,
-        GroupedCharacter
-      ],
-      source: false
-    }
-  })
-  .add('textbox based', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const storyProps = getStoryProps();
 
     return (
@@ -51,7 +35,7 @@ storiesOf('Validations', module)
                 validations={ numberErrorValidator }
                 warnings={ numberWarningValidator }
                 info={ numberInfoValidator }
-                onChange={ ev => decimalStore.set({ value: ev.target.value }) }
+                onChange={ ev => decimalStore.set({ value: ev.target.value.rawValue }) }
                 fieldHelp='Error: number lesser than "11.0", Warning: number equals "12.0", Info: number equals "13.0"'
                 { ...storyProps }
               />
@@ -100,7 +84,34 @@ storiesOf('Validations', module)
         </Row>
       </div>
     );
-  });
+  };
+
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Validations', module)
+  .addParameters({
+    info: {
+      text: (<StoryHeader>Validations for simple Textbox based Components</StoryHeader>),
+      propTablesExclude: [
+        Button,
+        Column,
+        Row,
+        Textbox,
+        State,
+        Decimal,
+        NumberInput,
+        GroupedCharacter
+      ],
+      source: false
+    }
+  })
+  .add(...makeStory('textbox based', dlsThemeSelector))
+  .add(...makeStory('textbox based classic', classicThemeSelector));
 
 function numberErrorValidator(value) {
   return new Promise((resolve, reject) => {

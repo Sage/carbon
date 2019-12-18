@@ -9,7 +9,6 @@ import baseTheme from '../../style/themes/base';
 import classicTheme from '../../style/themes/classic';
 import smallTheme from '../../style/themes/small';
 import mediumTheme from '../../style/themes/medium';
-import largeTheme from '../../style/themes/large';
 import CloseIcon from '../dismiss-button';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 
@@ -18,7 +17,7 @@ function render(props) {
 }
 
 describe('Message', () => {
-  describe.each(['small', smallTheme], ['medium', mediumTheme], ['large', largeTheme])(
+  describe.each(['small', smallTheme], ['medium', mediumTheme])(
     'rendered', (name, theme) => {
       let wrapper;
       beforeEach(() => {
@@ -44,6 +43,11 @@ describe('Message', () => {
         wrapper.setProps({ onDismiss });
         const closeIcon = wrapper.find(CloseIcon);
         expect(closeIcon.exists()).toEqual(true);
+      });
+
+      it('passes the id prop to the root component', () => {
+        wrapper.setProps({ id: 'message-id' });
+        expect(wrapper.find(MessageStyle).props().id).toEqual('message-id');
       });
     }
   );

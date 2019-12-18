@@ -8,10 +8,12 @@ import {
 import guid from '../../utils/helpers/guid';
 import ButtonToggleIcon from './button-toggle-icon.component';
 import ButtonToggleInput from './button-toggle-input.component';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 const ButtonToggle = (props) => {
   const {
     name,
+    checked,
     grouped,
     children,
     disabled,
@@ -25,19 +27,26 @@ const ButtonToggle = (props) => {
   let icon;
 
   if (buttonIcon) {
-    icon = <ButtonToggleIcon buttonIcon={ buttonIcon } buttonIconSize={ buttonIconSize } />;
+    icon = (
+      <ButtonToggleIcon
+        buttonIcon={ buttonIcon }
+        buttonIconSize={ buttonIconSize }
+        disabled={ disabled }
+      />);
   }
 
   return (
     <StyledButtonToggle
-      data-component='button-toggle' grouped={ grouped }
-      onChange={ onChange }
+      data-component='button-toggle'
+      grouped={ grouped }
     >
       <ButtonToggleInput
         name={ name }
+        checked={ checked }
         disabled={ disabled }
         guid={ inputGuid }
         value={ value }
+        onChange={ onChange }
       />
       <StyledButtonToggleLabel
         buttonIcon={ buttonIcon }
@@ -56,6 +65,8 @@ const ButtonToggle = (props) => {
 };
 
 ButtonToggle.propTypes = {
+  /** Set the checked value of the radio button */
+  checked: PropTypes.bool,
   /** Name used on the hidden radio button. */
   name: PropTypes.string,
   /** Change handler passed in from parent. */
@@ -63,7 +74,7 @@ ButtonToggle.propTypes = {
   /** buttonIcon to render. */
   buttonIcon: PropTypes.string,
   /** Sets the size of the buttonIcon (eg. large) */
-  buttonIconSize: PropTypes.string,
+  buttonIconSize: PropTypes.oneOf(OptionsHelper.sizesBinary),
   /** Sets the size of the button (padding, font-size). Only used in Classic theme. */
   size: PropTypes.string,
   /** Remove spacing from between buttons. */
@@ -72,12 +83,15 @@ ButtonToggle.propTypes = {
   disabled: PropTypes.bool,
   /** A required prop. This is the button text. */
   children: PropTypes.node.isRequired,
+  /** Set the default value of the Group if component is meant to be used as uncontrolled. */
+  defaultChecked: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
   /** Value for the input */
   value: PropTypes.string
 };
 
 ButtonToggle.defaultProps = {
-  size: 'large'
+  size: 'large',
+  buttonIconSize: 'small'
 };
 
 export default ButtonToggle;

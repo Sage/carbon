@@ -60,6 +60,7 @@ class WithDrag extends React.Component {
     // this.props.connectDragSource comes from react-dnd DragSource higher
     // order component, so disable the react/prop-types ESLint rule on the line
     // below
+
     return this.props.connectDragSource(this.props.children, { // eslint-disable-line react/prop-types
       dropEffect: 'copy'
     });

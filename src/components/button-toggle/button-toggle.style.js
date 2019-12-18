@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import baseTheme from '../../style/themes/base';
-import { THEMES } from '../../style/themes';
 import {
   StyledButtonToggleClassicLabel,
   StyledButtonToggleClassicIcon
 } from './button-toggle-classic.style';
+import StyledIcon from '../icon/icon.style';
 
 const StyledButtonToggleContentWrapper = styled.div`
   display: flex;
@@ -20,7 +20,8 @@ const StyledButtonToggleLabel = styled.label`
   height: 38px;
   padding: 0 24px;
   font-weight: 600;
-
+  cursor: pointer;
+  
   ${({ theme }) => css`
     border: 1px solid ${theme.colors.border};
     font-size: ${theme.text.size};
@@ -29,6 +30,10 @@ const StyledButtonToggleLabel = styled.label`
     input:checked ~ & {
       color: ${theme.colors.white};
       background-color: ${theme.colors.tertiary};
+
+      ${StyledIcon} {
+        color: ${theme.colors.white};
+      }
     }
 
     input:focus ~ & {
@@ -52,54 +57,46 @@ const StyledButtonToggleLabel = styled.label`
   `}
 
   ${({ disabled, theme }) => disabled && css`
-    background-color: ${theme.disabled.button} !important};
-    border-color: ${theme.disabled.button} !important};
-    color: ${theme.disabled.buttonText} !important};
+    & {
+      background-color: ${theme.disabled.button};
+      border-color: ${theme.disabled.button};
+      color: ${theme.disabled.buttonText};
+      
+      ${StyledIcon} {
+        color: ${theme.disabled.buttonText};
+      }
+    }
+    cursor: not-allowed;
   `};
 
     ${StyledButtonToggleClassicLabel}
 `;
 
 const iconFontSizes = {
-  classic: {
-    smallIcon: 16,
-    largeIcon: 60
-  },
-  modern: {
-    smallIcon: 16,
-    largeIcon: 32
-  }
+  smallIcon: 16,
+  largeIcon: 32
 };
 
 const StyledButtonToggleIcon = styled.div`
   margin-right: 8px;
   
-  .carbon-icon {
-    top: -2px;
-  }
-
   ${({ buttonIconSize }) => buttonIconSize === 'large' && css`
     margin-right: 0;
     
-    .carbon-icon {
+    ${StyledIcon} {
       margin-right: 0;
       margin-bottom: 8px;
     }
 
-    .carbon-icon::before {
-      font-size: ${`${iconFontSizes.modern[`${buttonIconSize}Icon`]}px`};
-      line-height: ${`${iconFontSizes.modern[`${buttonIconSize}Icon`]}px`};
+    ${StyledIcon}::before {
+      font-size: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
+      line-height: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
+    }
+
+    .carbon-icon__svg--credit-card-slash {
+      margin-left: 6px;
     }
   `}
-
-  ${({ theme, buttonIconSize }) => theme.name === THEMES.classic && css`
-    margin-right: ${buttonIconSize === 'large' ? '0' : '3px'};
-  
-    .carbon-icon::before {
-      font-size: ${`${iconFontSizes.classic[`${buttonIconSize}Icon`]}px`};
-      line-height: ${`${iconFontSizes.classic[`${buttonIconSize}Icon`]}px`};
-    }
-  `};
 
   ${StyledButtonToggleClassicIcon}
 `;

@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { boolean, text, select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { Store, State } from '@sambego/storybook-state';
+import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import { Select, Option } from '.';
 import infoValidations from './documentation';
 import OptionsHelper from '../../../utils/helpers/options-helper';
@@ -20,23 +21,32 @@ Option.__docgenInfo = getDocGenInfo(
 );
 
 const singleSelectStore = new Store({
-  value: undefined
+  value: ''
 });
 
 const multiSelectStore = new Store({
   value: []
 });
 
-const commonKnobs = (store) => {
+const commonKnobs = (store, enableMultiSelect = false) => {
   const filterable = boolean('filterable', Select.defaultProps.filterable);
   const typeAhead = filterable && boolean('typeAhead', Select.defaultProps.typeAhead);
   const label = text('label', '');
   const autoFocus = boolean('autoFocus', false);
+  const isLoopable = boolean('isLoopable', false);
+  const preventFocusAutoOpen = boolean('preventFocusAutoOpen', false);
 
   const knobs = {
     disabled: boolean('disabled', false),
+    onBlur: ev => action('blur')(ev),
+    onKeyDown: ev => action('keyDown')(ev),
     onChange: (ev) => {
-      store.set({ value: ev.target.value });
+      const optionsObjects = ev.target.value;
+      let value = optionsObjects.map(optionObject => optionObject.optionValue);
+      if (!enableMultiSelect) {
+        value = value[0];
+      }
+      store.set({ value });
       action('change')(ev);
     },
     placeholder: text('placeholder', ''),
@@ -45,7 +55,9 @@ const commonKnobs = (store) => {
     filterable,
     typeAhead,
     autoFocus,
-    label
+    label,
+    isLoopable,
+    preventFocusAutoOpen
   };
 
   if (label.length) {
@@ -82,14 +94,8 @@ const selectValidation = value => validator(value, '2', '"Black" cannot be selec
 const selectWarning = value => validator(value, '3', 'Selecting "Blue" is not recommended');
 const selectInfo = value => validator(value, '4', 'You have selected "Brown"');
 
-storiesOf('Experimental/Select', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [State]
-    },
-    knobs: { escapeHTML: false }
-  })
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     return (
       <State store={ singleSelectStore }>
         <Select ariaLabel='singleSelect' { ...commonKnobs(singleSelectStore) }>
@@ -97,19 +103,39 @@ storiesOf('Experimental/Select', module)
         </Select>
       </State>
     );
-  })
+  };
 
-  .add('multiple', () => {
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+function makeMultipleStory(name, themeSelector) {
+  const component = () => {
     return (
       <State store={ multiSelectStore }>
-        <Select ariaLabel='multiSelect' { ...commonKnobs(multiSelectStore) }>
+        <Select
+          ariaLabel='multiSelect'
+          enableMultiSelect
+          { ...commonKnobs(multiSelectStore, true) }
+        >
           { selectOptions }
         </Select>
       </State>
     );
-  })
+  };
 
-  .add('validations', () => {
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+function makeValidationsStory(name, themeSelector) {
+  const component = () => {
     return (
       <State store={ singleSelectStore }>
         <Select
@@ -123,10 +149,29 @@ storiesOf('Experimental/Select', module)
         </Select>
       </State>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     info: {
       text: infoValidations,
       source: false,
       propTablesExclude: [Select, Option]
     }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Experimental/Select', module)
+  .addParameters({
+    info: {
+      propTablesExclude: [State]
+    },
+    knobs: { escapeHTML: false }
+  })
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector))
+  .add(...makeMultipleStory('multiple', dlsThemeSelector))
+  .add(...makeValidationsStory('validations', dlsThemeSelector))
+  .add(...makeValidationsStory('validations classic', classicThemeSelector));

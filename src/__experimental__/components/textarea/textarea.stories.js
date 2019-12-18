@@ -4,6 +4,7 @@ import {
   boolean, number, text, select
 } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
+import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import Textarea from '.';
 import { notes, info, infoValidations } from './documentation';
@@ -36,67 +37,67 @@ const percentageRange = {
   step: 1
 };
 
-storiesOf('Experimental/Textarea', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [State]
-    }
-  }).add(
-    'default',
-    () => {
-      const expandable = boolean('expandable', Textarea.defaultProps.expandable);
-      const cols = number('cols', 0, rangeOptions);
-      const rows = number('rows', 0, rangeOptions);
-      const disabled = boolean('disabled', false);
-      const readOnly = boolean('readOnly', false);
-      const autoFocus = boolean('autoFocus', false);
-      const placeholder = text('placeholder', '');
-      const fieldHelp = text('fieldHelp', '');
-      const characterLimit = text('characterLimit', '');
-      const inputWidth = number('inputWidth', 100, percentageRange);
-      const warnOverLimit = characterLimit ? boolean('warnOverLimit', Textarea.defaultProps.warnOverLimit) : undefined;
-      const enforceCharacterLimit = characterLimit ? boolean(
-        'enforceCharacterLimit',
-        Textarea.defaultProps.enforceCharacterLimit
-      ) : undefined;
-      const label = text('label', '');
-      const labelHelp = label ? text('labelHelp', '') : undefined;
-      const labelInline = label ? boolean('labelInline', false) : undefined;
-      const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
-      const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
+function makeStory(name, themeSelector) {
+  const component = () => {
+    const expandable = boolean('expandable', Textarea.defaultProps.expandable);
+    const cols = number('cols', 0, rangeOptions);
+    const rows = number('rows', 0, rangeOptions);
+    const disabled = boolean('disabled', false);
+    const autoFocus = boolean('autoFocus', false);
+    const readOnly = boolean('readOnly', false);
+    const placeholder = text('placeholder', '');
+    const fieldHelp = text('fieldHelp', '');
+    const characterLimit = text('characterLimit', '');
+    const inputWidth = number('inputWidth', 100, percentageRange);
+    const warnOverLimit = characterLimit ? boolean('warnOverLimit', Textarea.defaultProps.warnOverLimit) : undefined;
+    const enforceCharacterLimit = characterLimit ? boolean(
+      'enforceCharacterLimit',
+      Textarea.defaultProps.enforceCharacterLimit
+    ) : undefined;
+    const label = text('label', '');
+    const labelHelp = label ? text('labelHelp', '') : undefined;
+    const labelInline = label ? boolean('labelInline', false) : undefined;
+    const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
+    const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
 
-      return (
-        <State store={ store }>
-          <Textarea
-            name='textarea'
-            onChange={ handleChange }
-            warnOverLimit={ warnOverLimit }
-            expandable={ expandable }
-            characterLimit={ characterLimit }
-            enforceCharacterLimit={ enforceCharacterLimit }
-            cols={ cols }
-            rows={ rows }
-            disabled={ disabled }
-            readOnly={ readOnly }
-            autoFocus={ autoFocus }
-            placeholder={ placeholder }
-            fieldHelp={ fieldHelp }
-            label={ label }
-            labelHelp={ labelHelp }
-            labelInline={ labelInline }
-            labelWidth={ labelWidth }
-            inputWidth={ inputWidth }
-            labelAlign={ labelAlign }
-          />
-        </State>
-      );
-    },
-    {
-      info: { text: info, propTables: [OriginalTextarea], propTablesExclude: [Textarea] },
-      notes: { markdown: notes }
-    },
-  )
-  .add('validations', () => {
+    return (
+      <State store={ store }>
+        <Textarea
+          name='textarea'
+          onChange={ handleChange }
+          warnOverLimit={ warnOverLimit }
+          expandable={ expandable }
+          characterLimit={ characterLimit }
+          enforceCharacterLimit={ enforceCharacterLimit }
+          cols={ cols }
+          rows={ rows }
+          disabled={ disabled }
+          autoFocus={ autoFocus }
+          readOnly={ readOnly }
+          placeholder={ placeholder }
+          fieldHelp={ fieldHelp }
+          label={ label }
+          labelHelp={ labelHelp }
+          labelInline={ labelInline }
+          labelWidth={ labelWidth }
+          inputWidth={ inputWidth }
+          labelAlign={ labelAlign }
+        />
+      </State>
+    );
+  };
+
+  const metadata = {
+    themeSelector,
+    info: { text: info, propTables: [OriginalTextarea], propTablesExclude: [Textarea] },
+    notes: { markdown: notes }
+  };
+
+  return [name, component, metadata];
+}
+
+function makeValidationsStory(name, themeSelector) {
+  const component = () => {
     return (
       <State store={ store }>
         <Textarea
@@ -111,14 +112,30 @@ storiesOf('Experimental/Textarea', module)
         />
       </State>
     );
-  },
-  {
+  };
+
+  const metadata = {
+    themeSelector,
     info: {
       text: infoValidations,
       source: false,
       propTablesExclude: [Textarea]
     }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Experimental/Textarea', module)
+  .addParameters({
+    info: {
+      propTablesExclude: [State]
+    }
+  })
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector))
+  .add(...makeValidationsStory('validations', dlsThemeSelector))
+  .add(...makeValidationsStory('validations classic', classicThemeSelector));
 
 function errorValidator(value) {
   return new Promise((resolve, reject) => {

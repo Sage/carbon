@@ -17,6 +17,7 @@ import Pager from '../pager';
 import BaseTheme from '../../style/themes/base';
 import ClassicTheme from '../../style/themes/classic';
 import SmallTheme from '../../style/themes/small';
+import Link from '../link';
 
 describe('Table', () => {
   let instance, instancePager, instanceSortable, instanceCustomSort, spy, row;
@@ -442,7 +443,7 @@ describe('Table', () => {
 
     describe('when data has not changed', () => {
       it('does not emit on change', () => {
-        instance.componentWillReceiveProps({ filter: data });
+        instance.UNSAFE_componentWillReceiveProps({ filter: data });
         expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
       });
     });
@@ -450,7 +451,7 @@ describe('Table', () => {
     describe('when data has changed', () => {
       it('emits on change', () => {
         data = data.set('foo', 'qux');
-        instance.componentWillReceiveProps({ filter: data });
+        instance.UNSAFE_componentWillReceiveProps({ filter: data });
         expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('filter', {
           currentPage: '',
           filter: { foo: 'qux' },
@@ -467,7 +468,7 @@ describe('Table', () => {
           <Table highlightable />
         );
         spyOn(instance, 'resetHighlightedRow');
-        instance.componentWillReceiveProps({ highlightable: false });
+        instance.UNSAFE_componentWillReceiveProps({ highlightable: false });
         expect(instance.resetHighlightedRow).toHaveBeenCalled();
       });
     });
@@ -481,7 +482,7 @@ describe('Table', () => {
           foo: { props: { uniqueID: 'foo' } }
         };
         spyOn(instance, 'selectRow');
-        instance.componentWillReceiveProps({ selectable: false });
+        instance.UNSAFE_componentWillReceiveProps({ selectable: false });
         expect(instance.selectRow).toHaveBeenCalledWith('foo', instance.rows.foo, false);
       });
     });
@@ -693,9 +694,10 @@ describe('Table', () => {
   });
 
   describe('onConfigure', () => {
-    const onConfigureSpy = jasmine.createSpy();
+    let onConfigureSpy;
     let wrapper;
     beforeEach(() => {
+      onConfigureSpy = jasmine.createSpy();
       wrapper = mount(
         <Table
           className='foo'
@@ -712,9 +714,10 @@ describe('Table', () => {
     });
 
     it('adds configure link that triggers the onConfigure callback', () => {
-      const configureLink = wrapper.find('a');
+      const configureLink = wrapper.find(Link);
+
       expect(configureLink.length).toEqual(1);
-      configureLink.simulate('click', { preventDefault: () => {} });
+      configureLink.find('a').simulate('click', { preventDefault: () => {} });
       expect(onConfigureSpy).toHaveBeenCalled();
     });
   });
@@ -1045,6 +1048,31 @@ describe('Table', () => {
     });
   });
 
+  describe('isPassive', () => {
+    it('returns false if isPassiveData and highlightable are true and selectable is false or undefined', () => {
+      instance = TestUtils.renderIntoDocument(<Table isPassiveData highlightable />);
+      expect(instance.isPassive).toEqual(false);
+    });
+
+    it('returns false if isPassiveData and selectable are true and highlightable is false or undefined', () => {
+      instance = TestUtils.renderIntoDocument(<Table isPassiveData selectable />);
+      expect(instance.isPassive).toEqual(false);
+    });
+
+    it('returns false if isPassiveData, selectable and highlightable are true', () => {
+      instance = TestUtils.renderIntoDocument(<Table
+        isPassiveData selectable
+        hightlightable
+      />);
+      expect(instance.isPassive).toEqual(false);
+    });
+
+    it('returns true if isPassiveData is true and highlightable and selectable are false or undefined', () => {
+      instance = TestUtils.renderIntoDocument(<Table isPassiveData />);
+      expect(instance.isPassive).toEqual(true);
+    });
+  });
+
   describe('tags on component', () => {
     it('include correct component, element and role data tags', () => {
       const wrapper = shallow(
@@ -1166,7 +1194,11 @@ describe('Table', () => {
   describe('pagination', () => {
     it('renders to match the expected style for a table with a pager', () => {
       const wrapper = mount(
-        <Table paginate />
+        <Table
+          paginate
+          currentPage='1'
+          totalRecords={ 100 }
+        />
       );
 
       assertStyleMatch({

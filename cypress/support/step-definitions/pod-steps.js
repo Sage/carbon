@@ -2,6 +2,7 @@ import {
   podPreview, podPreviewBorder, podChildren,
   podTitle, podSubTitle, podDescription, podFooter, podEdit,
 } from '../../locators/pod';
+import { DEBUG_FLAG } from '..';
 
 const POD_BLOCK_PROPERTY = 'carbon-pod__block';
 const POD_DIV_PROPERTY = 'carbon-pod';
@@ -53,7 +54,7 @@ Then('Pod component has border', () => {
 });
 
 Then('Pod component has no border', () => {
-  cy.wait(500);
+  cy.wait(500, { log: DEBUG_FLAG });
   podPreviewBorder()
     .should('have.class', `${POD_BLOCK_PROPERTY}--no-border`);
   podPreviewBorder().children()
@@ -83,7 +84,7 @@ Then('Pod component has no onEdit property', () => {
 });
 
 Then('I click onEdit icon', () => {
-  podEdit().click();
+  podEdit().first().click();
 });
 
 Then('Pod component has editContentFullWidth property', () => {

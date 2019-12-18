@@ -1,4 +1,6 @@
 import { css } from 'styled-components';
+import StyledIcon from '../icon/icon.style';
+import { makeColors } from './button-types.style';
 
 export const classicColorsSet = {
   blue: {
@@ -49,7 +51,7 @@ const buttonStyles = (() => {
       blue: `
         background: ${blue.default};
         border: 1px solid transparent;
-        color: ${white.default};
+        ${makeColors(white.default)}
         &:active {
           background-color: ${blue.active};
           border-color: ${blue.active};
@@ -66,7 +68,7 @@ const buttonStyles = (() => {
       grey: `
         background: ${grey.default};
         border: 1px solid transparent;
-        color: ${white.default};
+        ${makeColors(white.default)}
         &:active {
           background-color: ${grey.active};
           border-color: ${grey.active};
@@ -83,7 +85,7 @@ const buttonStyles = (() => {
       magenta: `
         background: ${magenta.default};
         border: 1px solid transparent;
-        color: ${white.default};
+        ${makeColors(white.default)}
         &:active: {
           background-color: ${magenta.active};
           border-color: ${magenta.active};
@@ -100,7 +102,7 @@ const buttonStyles = (() => {
       'magenta-dull': `
         background: ${magentaDull.default};
         border: 1px solid transparent;
-        color: ${white.default};
+        ${makeColors(white.default)}
         &:active {
           background-color: ${magentaDull.active};
           border-color: ${magentaDull.active};
@@ -117,7 +119,7 @@ const buttonStyles = (() => {
       red: `
         background: ${red.default};
         border: 1px solid transparent;
-        color: ${white.default};
+        ${makeColors(white.default)}
         &:active {
           background-color: ${red.active};
           border-color: ${red.active};
@@ -134,7 +136,7 @@ const buttonStyles = (() => {
       white: `
         background: ${white.default};
         border: 1px solid transparent;
-        color: rgba(0,0,0, 85);
+        ${makeColors('rgba(0,0,0, .85)')}
         &:active {
           background-color: ${white.active};
           border-color: ${white.active}
@@ -155,130 +157,137 @@ const buttonStyles = (() => {
       blue: `
         background: transparent;
         border: 1px solid ${blue.default};
-        color: ${blue.default};
+        ${makeColors(blue.default)}
         &:active {
           background-color: ${blue.active};
           border-color: ${blue.active};
           color: ${white.default};
+          ${StyledIcon} {
+            color: ${blue.default};
+          }
         }
         &:hover {
           background: ${blue.hover};
           border-color: ${blue.hover};
-          color: ${white.default};
+          ${makeColors(white.default)}
         }
         &:focus {
           box-shadow: 0 0 6px rgba(25,99,246,.6);
           outline: none;
           background: ${blue.hover};
           border-color: ${blue.hover};
-          color: ${white.default};
+          ${makeColors(white.default)}
         }
       `,
       grey: `
         background: transparent;
         border: 1px solid ${grey.default};
-        color: ${grey.default};
+        ${makeColors(grey.default)}
         &:active {
           background-color: ${grey.active};
           border-color: ${grey.active};
-          color: ${white.default};
+          ${makeColors(white.default)}
         }
         &:hover {
           background: ${grey.hover};
           border-color: ${grey.hover};
-          color: ${white.default};
+          ${makeColors(white.default)}
         }
         &:focus {
           box-shadow: 0 0 6px rgba(51,92,109,.6);
           outline: none;
           background: ${grey.hover};
           border-color: ${grey.hover};
-          color: ${white.default};
+          ${makeColors(white.default)}
         }
       `,
       magenta: `
         background: transparent;
         border: 1px solid ${magenta.default};
-        color: ${magenta.default};
+        ${makeColors(magenta.default)}
         &:active {
           background-color: ${magenta.active};
           border-color: ${magenta.active};
-          color: ${white.default}
+          ${makeColors(white.default)}
         }
         &:hover {
           background: ${magenta.hover};
           border-color: ${magenta.hover};
-          color: ${white.default};
+          ${makeColors(white.default)}
         }
         &:focus {
           box-shadow: 0 0 6px rgba(243,46,109,.6);
           outline: none;
           background: ${magenta.hover};
           border-color: ${magenta.hover};
-          color: ${white.default};
+          ${makeColors(white.default)}
         }
       `,
       'magenta-dull': `
         background: transparent;
         border: 1px solid ${magentaDull.default};
-        color: ${magentaDull.default};
+        ${makeColors(magentaDull.default)}
         &:active {
           background-color: ${magentaDull.active};
           border-color: ${magentaDull.active};
-          color: ${white.default};
+          ${makeColors(white.default)}
         }
         &:hover {
           background: ${magentaDull.hover};
           border-color: ${magentaDull.hover};
-          color: ${white.default};
+          ${makeColors(white.default)}
         }
         &:focus {
           box-shadow: 0 0 6px rgba(213,85,128,.6);
           outline: none;
           background: ${magentaDull.hover};
           border-color: ${magentaDull.hover};
-          color: ${white.default};
+          ${makeColors(white.default)}
         }
       `,
       red: `
         background: transparent;
         border: 1px solid ${red.default};
-        color: ${red.default};
+        ${makeColors(red.default)}
         &:active {
           background-color: ${red.active};
           border-color: ${red.active};
-          color: ${white.default};
+          ${makeColors(white.default)}
         }
         &:hover {
           background: ${red.hover};
           border-color: ${red.hover};
-          color: ${white.default};
+          ${makeColors(white.default)}
         }
         &:focus {
           box-shadow: 0 0 6px rgba(228,44,45,.6);
           outline: none;
           background: ${red.hover};
           border-color: ${red.hover};
-          color: ${white.default};
+          ${makeColors(white.default)}
         }
       `,
       white: `
         background: transparent;
         border: 1px solid ${white.default};
-        color: ${white.default};
+        ${makeColors(white.default)};
         &:active {
           background-color: ${white.active};
           border-color: ${white.active}
           color: ${white.text};
+          ${StyledIcon} {
+            color:  ${white.default};
+          }
         }
         &:hover {
           background: ${white.hover};
           border-color: ${white.hover};
-          color: ${white.text};
+          ${makeColors(white.text)}
         }
         &:focus {
           box-shadow: 0 0 6px rgba(51,92,109,.6);
           outline: none;
+          ${makeColors(white.default)}
         }
       `
     },
@@ -286,11 +295,19 @@ const buttonStyles = (() => {
       background: #e6ebed;
       border: 1px solid transparent;
       color: rgba(0,0,0,.2);
+      ${StyledIcon} {
+        color: rgba(0,0,0,.2);
+      }
+      ${makeColors('rgba(0,0,0,.2)')}
       cursor: default;
       &:hover {
         background: #e6ebed;
         border: 1px solid transparent;
         color: rgba(0,0,0,.2);
+        ${StyledIcon} {
+          color: rgba(0,0,0,.2);
+          background-color: transparent;
+        }
       }
     `,
     small: `
@@ -331,8 +348,9 @@ export default ({
       font-weight: 700;
       ${buttonStyles.disabled}
       ${buttonStyles[size]}
-        & + & {
-        margin-left: 15px;
+      margin-right: 15px;
+      &:last-child {
+        margin-right: 0;
       }
     `;
   }
@@ -343,9 +361,9 @@ export default ({
     ${buttonStyles[buttonType][legacyColorVariant]}
     ${buttonStyles[size]}
     text-decoration: none;
-    
-    & + & {
-      margin-left: 15px;
+    margin-right: 15px;
+    &:last-child {
+      margin-right: 0;
     }
   `;
 };

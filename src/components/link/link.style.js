@@ -2,44 +2,56 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../style/themes/base';
 import classicThemeForLinkAnchor from './link-classic.style';
-import { THEMES } from '../../style/themes';
-
-const LinkStyleAnchor = styled.a`
-  font-size: 14px;
-  text-decoration: underline;
-  color: ${({ theme }) => theme.colors.primary};
-  
-  &:hover {
-    cursor: pointer;
-    color: ${({ theme }) => theme.colors.secondary};
-  }
-
-  ${({ theme }) => theme.name !== THEMES.classic && css`
-    &:focus {
-      color: ${theme.text.color};
-      cursor: default;
-      background-color: ${theme.colors.focusedLinkBackground};
-      outline: none;
-    }
-  `}  
-
-  ${classicThemeForLinkAnchor};
-`;
-
-const LinkRouterStyle = styled(LinkStyleAnchor);
+import { isClassic } from '../../utils/helpers/style-helper';
+import StyledIcon from '../icon/icon.style';
 
 const LinkStyle = styled.div`
-  ${({ disabled, theme }) => disabled && css`
-    cursor: not-allowed;
+  display: inline-block;
 
-  ${LinkStyleAnchor} { 
-    color: ${theme.disabled.text};
-    pointer-events: none;
+  a {
+      font-size: 14px;
+      text-decoration: underline;
+      color: ${({ theme }) => theme.colors.primary};
+      display: inline-block;
 
-  ${classicThemeForLinkAnchor};
+      ${StyledIcon} {
+        margin-right: 5px;
+        position: relative;
 
+        ${({ iconAlign }) => iconAlign === 'right' && css`
+          margin-right: 0;
+          margin-left: 5px;
+        `}
+
+        vertical-align: middle;
+        top: ${({ theme }) => (isClassic(theme) ? '-2px' : '')};
+      }
+
+      &:hover {
+        cursor: pointer;
+        color: ${({ theme }) => theme.colors.secondary};
+      }
+
+      ${({ theme }) => !isClassic(theme) && css`
+        &:focus {
+          color: ${theme.text.color};
+          background-color: ${theme.colors.focusedLinkBackground};
+          outline: none;
+        }
+      `}
+
+      ${({ disabled, theme }) => disabled && css`
+        color: ${theme.disabled.text};
+
+        &:hover,
+        &:focus {
+          cursor: not-allowed;
+          color: ${theme.disabled.text};
+        }
+      `}
+
+      ${classicThemeForLinkAnchor}
   }
-`}
 `;
 
 LinkStyle.defaultProps = {
@@ -51,8 +63,4 @@ LinkStyle.propTypes = {
   disabled: PropTypes.bool
 };
 
-LinkStyleAnchor.defaultProps = {
-  theme: baseTheme
-};
-
-export { LinkStyle, LinkStyleAnchor, LinkRouterStyle };
+export default LinkStyle;

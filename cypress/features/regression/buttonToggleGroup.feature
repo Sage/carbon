@@ -9,14 +9,14 @@ Feature: Button Toggle Group component
     When I set label to "<label>"
     Then label on preview is "<label>"
     Examples:
-      | label                    |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      # @ignore because of FE-1447
-      # | <>                       |
+      | label                   |
+      | Sample text             |
+      | 1234567890              |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario Outline: Change Button Toggle Group component label help to <labelHelp>
@@ -24,14 +24,14 @@ Feature: Button Toggle Group component
       And I hover mouse onto help icon
     Then tooltipPreview on preview is set to "<labelHelp>"
     Examples:
-      | labelHelp                |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      # @ignore because of FE-1447
-      # | <>                       |
+      | labelHelp               |
+      | Sample text             |
+      | 1234567890              |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario Outline: Change Button Toggle Group input width to <width>
@@ -40,9 +40,9 @@ Feature: Button Toggle Group component
     Then input width is set to "<px>"
     Examples:
       | width | px  |
-      | 1     | 10  |
-      | 10    | 86  |
-      | 100   | 272 |
+      | 1     | 11  |
+      | 10    | 83  |
+      | 100   | 304 |
 
   @negative
   Scenario Outline: Set out of scope characters to Button Toggle Group input width to <width>
@@ -52,7 +52,7 @@ Feature: Button Toggle Group component
     Examples:
       | width                   |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                     |
+      | 汉字                    |
       | <>                      |
 
   @positive
@@ -60,14 +60,14 @@ Feature: Button Toggle Group component
     When I set fieldHelp to "<fieldHelp>"
     Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
-      | fieldHelp                |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      # @ignore because of FE-1447
-      # | <>                       |
+      | fieldHelp               |
+      | Sample text             |
+      | 1234567890              |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario: Enable label inline checkbox
@@ -99,7 +99,7 @@ Feature: Button Toggle Group component
     Examples:
       | width                   |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                     |
+      | 汉字                    |
       | <>                      |
 
   @positive

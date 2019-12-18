@@ -7,6 +7,8 @@ exports[`Select does not apply any events if disabled or readonly 1`] = `
   aria-haspopup="listbox"
   data-component="carbon-select"
   isAnyValueSelected={false}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
   role="combobox"
   style={
     Object {
@@ -14,7 +16,7 @@ exports[`Select does not apply any events if disabled or readonly 1`] = `
     }
   }
 >
-  <WithUniqueName(WithValidation(Textbox))
+  <Textbox
     aria-label="Please Select..."
     formattedValue=""
     inputIcon="dropdown"
@@ -26,6 +28,7 @@ exports[`Select does not apply any events if disabled or readonly 1`] = `
     onFocus={[Function]}
     onKeyDown={[Function]}
     placeholder="Please Select..."
+    value=""
   />
 </styled.div>
 `;
@@ -37,6 +40,8 @@ exports[`Select does not apply any events if disabled or readonly 2`] = `
   aria-haspopup="listbox"
   data-component="carbon-select"
   isAnyValueSelected={false}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
   role="combobox"
   style={
     Object {
@@ -44,7 +49,7 @@ exports[`Select does not apply any events if disabled or readonly 2`] = `
     }
   }
 >
-  <WithUniqueName(WithValidation(Textbox))
+  <Textbox
     aria-label="Please Select..."
     formattedValue=""
     inputIcon="dropdown"
@@ -56,6 +61,7 @@ exports[`Select does not apply any events if disabled or readonly 2`] = `
     onFocus={[Function]}
     onKeyDown={[Function]}
     placeholder="Please Select..."
+    value=""
   />
 </styled.div>
 `;
@@ -67,6 +73,8 @@ exports[`Select renders only the Textbox when closed 1`] = `
   aria-haspopup="listbox"
   data-component="carbon-select"
   isAnyValueSelected={false}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
   role="combobox"
   style={
     Object {
@@ -74,7 +82,7 @@ exports[`Select renders only the Textbox when closed 1`] = `
     }
   }
 >
-  <WithUniqueName(WithValidation(Textbox))
+  <Textbox
     aria-label="Please Select..."
     formattedValue=""
     inputIcon="dropdown"
@@ -86,6 +94,7 @@ exports[`Select renders only the Textbox when closed 1`] = `
     onFocus={[Function]}
     onKeyDown={[Function]}
     placeholder="Please Select..."
+    value=""
   />
 </styled.div>
 `;
@@ -94,22 +103,24 @@ exports[`Select renders the SelectList with any given children when in an open s
 Object {
   "alwaysHighlight": false,
   "children": Array [
-    <div>
-      1
-    </div>,
-    <div>
-      2
-    </div>,
-    <div>
-      3
-    </div>,
+    <Option
+      text="Orange"
+      value="1"
+    />,
+    <Option
+      text="Blue"
+      value="2"
+    />,
+    <Option
+      text="Red"
+      value="3"
+    />,
   ],
   "customFilter": undefined,
   "filterValue": undefined,
   "id": "listbox-2",
+  "isLoopable": undefined,
   "onLazyLoad": undefined,
-  "onMouseEnter": [Function],
-  "onMouseLeave": [Function],
   "onSelect": [Function],
   "open": true,
   "role": "listbox",
@@ -165,7 +176,46 @@ Object {
   box-shadow: none;
 }
 
-.c4 .c1 {
+.c4 {
+  display: inline-block;
+  position: relative;
+  color: rgba(0,0,0,0.65);
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c4:hover {
+  color: rgba(0,0,0,0.90);
+  background-color: transparent;
+}
+
+.c4::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e910";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c5 .c1 {
   height: calc(40px - 4px);
 }
 
@@ -203,7 +253,7 @@ Object {
   z-index: 2;
 }
 
-.c5 .c0.c0 {
+.c6 .c0.c0 {
   position: relative;
 }
 
@@ -238,9 +288,11 @@ Object {
       type="dropdown"
     >
       <span
-        class="carbon-icon icon-dropdown"
+        class="c4"
         data-component="icon"
         data-element="dropdown"
+        font-size="small"
+        type="dropdown"
       />
     </span>
   </div>,

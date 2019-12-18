@@ -10,7 +10,6 @@ Feature: Button Toggle component - set all possible icon and verify
     Then Button icon on preview is "<iconName>"
     Examples:
       | iconName          |
-      | fax               |
       | feedback          |
       | filter            |
       | filter_new        |
@@ -34,15 +33,18 @@ Feature: Button Toggle component - set all possible icon and verify
       | logout            |
       | marker            |
       | message           |
-      | messages          |
       | minus             |
+      | minus_large       |
       | mobile            |
       | pdf               |
       | people            |
       | person            |
       | phone             |
+      | play              |
       | plus              |
+      | plus_large        |
       | print             |
+      | progress          |
       | progressed        |
       | question          |
       | refresh           |
@@ -61,6 +63,15 @@ Feature: Button Toggle component - set all possible icon and verify
       | unlocked          |
       | upload            |
       | uploaded          |
+      | video             |
       | view              |
       | warning           |
-      | white-tick        |
+
+  @positive
+  Scenario Outline: Change Button Toggle icon to <iconName>
+    When I select buttonIcon to "<iconName>"
+    Then Button icon on preview is "<iconDataElement>"
+    Examples:
+      | iconName          | iconDataElement |
+      | messages          | message         |
+      | help              | question        |

@@ -6,35 +6,42 @@ import { css } from 'styled-components';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import CheckableInput from '.';
 import FieldHelpStyle from '../field-help/field-help.style';
-import FormFieldStyle from '../form-field/form-field.style';
-import Help from '../../../components/help';
+import { FieldLineStyle } from '../form-field/form-field.style';
+import Label from '../label';
 import HiddenCheckableInputStyle from './hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';
 import { StyledCheckableInput, StyledCheckableInputWrapper } from './checkable-input.style';
 import StyledHelp from '../../../components/help/help.style';
 import baseTheme from '../../../style/themes/base';
 
+function render(props) {
+  return TestRenderer.create(<StyledCheckableInputWrapper { ...props } />);
+}
+
 describe('CheckableInput', () => {
   function mountInput(props) {
-    return mount(<CheckableInput { ...props } />);
+    return mount(
+      <CheckableInput
+        inputType='text'
+        inputValue=''
+        onChange={ () => null }
+        { ...props }
+      />
+    );
   }
 
   describe('helpId', () => {
     describe('when inputLabel and labelHelp props are present', () => {
       it('returns an appropriate helpId property', () => {
-        const helpButton = mountInput({ inputId: 'foo', inputLabel: 'bar', labelHelp: 'baz' })
-          .find(Help)
-          .find('button');
+        const labelWrapper = mountInput({ inputId: 'foo', inputLabel: 'bar', labelHelp: 'baz' })
+          .find(Label)
+          .find('label');
 
-        expect(helpButton.props().id).toBe('foo-help');
+        expect(labelWrapper.prop('id')).toBe('foo-label');
       });
     });
   });
 });
-
-function render(props) {
-  return TestRenderer.create(<StyledCheckableInputWrapper { ...props } />);
-}
 
 describe('StyledCheckableInputWrapper', () => {
   const states = ['focus', 'hover'];
@@ -45,10 +52,9 @@ describe('StyledCheckableInputWrapper', () => {
     it('applies the correct FormField styles', () => {
       assertStyleMatch(
         {
-          display: 'flex',
-          flexWrap: 'wrap'
+          display: 'flex'
         },
-        wrapper, { modifier: css`${FormFieldStyle}` }
+        wrapper, { modifier: css`${FieldLineStyle}` }
       );
     });
 
@@ -56,8 +62,7 @@ describe('StyledCheckableInputWrapper', () => {
       assertStyleMatch(
         {
           textAlign: 'left',
-          width: 'auto',
-          whiteSpace: 'nowrap'
+          width: 'auto'
         },
         wrapper, { modifier: css`${LabelStyle}` }
       );
@@ -67,7 +72,7 @@ describe('StyledCheckableInputWrapper', () => {
       assertStyleMatch(
         {
           color: baseTheme.help.color,
-          verticalAlign: 'bottom'
+          verticalAlign: 'middle'
         },
         wrapper, { modifier: css`${`${LabelStyle} ${StyledHelp}`}` }
       );
@@ -125,7 +130,8 @@ describe('StyledCheckableInputWrapper', () => {
 
       assertStyleMatch(
         {
-          display: 'inline',
+          flexGrow: '0',
+          flexBasis: 'auto',
           paddingLeft: '0',
           width: 'auto'
         },

@@ -5,6 +5,7 @@ const RadioButtonSvg = () => {
   return (
     <StyledCheckableInputSvgWrapper>
       <svg
+        focusable='false'
         viewBox='0 0 15 15'
       >
         <g
@@ -26,4 +27,4 @@ const RadioButtonSvg = () => {
   );
 };
 
-export default RadioButtonSvg;
+export default React.memo(RadioButtonSvg, () => true);

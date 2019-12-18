@@ -9,7 +9,7 @@ import {
   PagerSummaryStyles,
   PagerSizeOptionsInnerStyles
 } from './pager.styles';
-import Dropdown from '../dropdown';
+import Dropdown from '../../__deprecated__/components/dropdown';
 import { THEMES } from '../../style/themes';
 import { isClassic } from '../../utils/helpers/style-helper';
 

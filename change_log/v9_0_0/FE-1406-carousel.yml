@@ -1,2 +1,7 @@
-Styling Changes: "Adds new DLS themes to the component and create new animations"
-Component Update: "Creates new version of carousel component"
+Breaking Changes: "File naming of component files and specs. \n
+`src/components/carousel/carousel.js` -> `src/components/carousel/carousel.component.js` \n
+`src/components/carousel/__spec__.js` -> `src/components/carousel/carousel.spec.js` \n
+`src/components/carousel/slide/slide.js` -> `src/components/carousel/slide/slide.component.js` \n
+(Components: Carousel, Slide)"
+Styling Changes: "Theme based styling provided by Styled Component. Classic, Small, Medium and Large theme styles. (Component: Carousel)"
+New Features: "Added Props surfaced through storybook examples. (Components: Carousel)"

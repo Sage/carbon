@@ -1,21 +1,22 @@
 import { css } from 'styled-components';
-import { THEMES } from '../../style/themes';
+import StyledIcon from '../icon/icon.style';
+import { isClassic } from '../../utils/helpers/style-helper';
 
-export default ({ theme }) => theme.name === THEMES.classic && css`
-    border: 1px dashed #99adb6;
-    background-color: transparent;
+export default ({ theme }) => isClassic(theme) && css`
+  border: 1px dashed #99adb6;
+  background-color: transparent;
     
-    .carbon-icon::before {
-        font-size:16px;
-    }
+  ${StyledIcon}::before {
+    font-size: 16px;
+  }
 
-    :hover{
-        background: #fff;
-    }
+  :hover{
+    background: #fff;
+  }
 
-    :focus {
-        color: #255BC7;
-        border: 1px dashed #99adb6;
-        outline: -webkit-focus-ring-color auto 5px;
-    }
+  :focus {
+    color: #255BC7;
+    border: 1px dashed #99adb6;
+    outline: -webkit-focus-ring-color auto 5px;
+  }
 `;

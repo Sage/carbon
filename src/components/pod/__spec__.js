@@ -1,8 +1,8 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Pod from './pod';
-import Button from './../button';
-import Link from './../link';
+import Button from '../button';
+import Link from '../link';
 import { shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
@@ -34,7 +34,7 @@ describe('Pod', () => {
       it('does not call toggleHoverState', () => {
         instance.setState({ hoverEdit: false });
         spyOn(instance, 'toggleHoverState');
-        instance.componentWillReceiveProps();
+        instance.UNSAFE_componentWillReceiveProps();
         expect(instance.toggleHoverState).not.toHaveBeenCalled();
       });
     });
@@ -43,7 +43,7 @@ describe('Pod', () => {
       it('calls toggleHoverState', () => {
         instance.setState({ hoverEdit: true });
         spyOn(instance, 'toggleHoverState');
-        instance.componentWillReceiveProps();
+        instance.UNSAFE_componentWillReceiveProps();
         expect(instance.toggleHoverState).toHaveBeenCalledWith(false);
       });
     });
@@ -95,7 +95,7 @@ describe('Pod', () => {
 
         it('Adds a additional collaspsible arrow to the the header', () => {
           let arrow = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pod__arrow');
-          expect(arrow.className).toEqual('carbon-icon carbon-pod__arrow carbon-pod__arrow--true icon-dropdown');
+          expect(arrow.className).toContain('carbon-pod__arrow carbon-pod__arrow--true');
         });
 
         it('Adds a additonal class header', () => {

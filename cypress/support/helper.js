@@ -1,18 +1,25 @@
 import {
-  knobsTab, actionsTab, clearButton, accessibilityTab,
+  knobsTab, actionsTab, clearButton, accessibilityTab, getKnobsInputWithName,
 } from '../locators';
 import { DEBUG_FLAG } from '.';
+import { getElementNoIframe } from '../locators/build';
 
-function prepareUrl(component, suffix, iFrameOnly) {
+function prepareUrl(component, suffix, iFrameOnly, prefix) {
   let url = Cypress.config().baseUrl;
+  const iFrame = Cypress.env('iframe') + prefix;
+  const story = Cypress.env('story') + prefix;
   // eslint-disable-next-line no-unused-expressions
-  iFrameOnly ? url += Cypress.env('iframe') : url += Cypress.env('story');
+  iFrameOnly ? url += iFrame : url += story;
   return url + component.toLowerCase().replace(/ /g, '-') + Cypress.env(suffix);
 }
 
-export function visitComponentUrl(component, suffix = 'default', iFrameOnly = false) {
-  cy.visit(prepareUrl(component, suffix, iFrameOnly));
+export function visitComponentUrl(component, suffix = 'default', iFrameOnly = false, prefix = '') {
+  cy.visit(prepareUrl(component, suffix, iFrameOnly, prefix));
   if (!iFrameOnly) knobsTab().click();
+}
+
+export function visitComponentUrlByTheme(component, theme, sufix = '') {
+  cy.visit(`${prepareUrl(component, 'default', true, '')}&theme=${theme}${sufix}`);
 }
 
 export function clickActionsTab(iFrameOnly = false) {
@@ -66,4 +73,12 @@ export function pressTABKey(count) {
   for (let i = 0; i < count; i++) {
     cy.iFrame('body').trigger('tab', { force: true });
   }
+}
+
+export async function asyncWaitForIcon(name) {
+  await getElementNoIframe(name);
+}
+
+export async function asyncWaitForKnobs(propertyName, fieldName) {
+  await getKnobsInputWithName(propertyName, fieldName);
 }

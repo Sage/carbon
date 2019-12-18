@@ -1,5 +1,6 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
+import { mount } from 'enzyme';
 import 'jest-styled-components';
 import { css } from 'styled-components';
 import Checkbox from './checkbox.component';
@@ -14,14 +15,20 @@ import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import classicTheme from '../../../style/themes/classic';
 import smallTheme from '../../../style/themes/small';
 import mediumTheme from '../../../style/themes/medium';
-import largeTheme from '../../../style/themes/large';
 import baseTheme from '../../../style/themes/base';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
 
-function render(props) {
-  return TestRenderer.create(<Checkbox value='test' { ...props } />);
+function render(props, renderer = TestRenderer.create, options = {}) {
+  return renderer(
+    <Checkbox
+      name='my-checkbox'
+      value='test'
+      { ...props }
+    />,
+    options
+  );
 }
 
 describe('Checkbox', () => {
@@ -89,7 +96,7 @@ describe('Checkbox', () => {
         const wrapper = render({ checked: true }).toJSON();
 
         assertStyleMatch({
-          fill: baseTheme.colors.primary
+          fill: baseTheme.checkable.checked
         }, wrapper, { modifier: 'svg path' });
       });
 
@@ -136,17 +143,56 @@ describe('Checkbox', () => {
       });
     });
 
-    describe('when error=true', () => {
-      it('renders the correct svg styles', () => {
-        const wrapper = render({ error: true }).toJSON();
+    describe('when using validation props', () => {
+      let wrapper;
 
-        assertStyleMatch({
-          border: `1px solid ${baseTheme.colors.error}`
-        }, wrapper, { modifier: 'svg' });
+      beforeEach(() => {
+        wrapper = mount((
+          <Checkbox
+            name='checkbox-warning'
+            value='my-value'
+          />
+        ));
+      });
+
+      describe('when hasError is true', () => {
+        it('render correct color for errors', () => {
+          wrapper.setProps({
+            hasError: true
+          });
+
+          assertStyleMatch({
+            border: `1px solid ${baseTheme.colors.error}`
+          }, wrapper, { modifier: 'svg' });
+        });
+      });
+
+      describe('when hasWarning is true', () => {
+        it('render correct color for warnings', () => {
+          wrapper.setProps({
+            hasWarning: true
+          });
+
+          assertStyleMatch({
+            border: `1px solid ${baseTheme.colors.warning}`
+          }, wrapper, { modifier: 'svg' });
+        });
+      });
+
+      describe('when hasInfo is true', () => {
+        it('render correct color for info', () => {
+          wrapper.setProps({
+            hasInfo: true
+          });
+
+          assertStyleMatch({
+            border: `1px solid ${baseTheme.colors.info}`
+          }, wrapper, { modifier: 'svg' });
+        });
       });
     });
 
-    describe('when fieldHelpInline=true', () => {
+    describe('when fieldHelpInline is true', () => {
       it('renders the correct FieldHelp styles', () => {
         const wrapper = render({ fieldHelpInline: true }).toJSON();
 
@@ -176,7 +222,7 @@ describe('Checkbox', () => {
       });
     });
 
-    describe('when reverse=true', () => {
+    describe('when reverse is true', () => {
       describe('default', () => {
         const wrapper = render({ reverse: true }).toJSON();
 
@@ -187,7 +233,7 @@ describe('Checkbox', () => {
         });
       });
 
-      describe('and fieldHelpInline=true', () => {
+      describe('and fieldHelpInline is true', () => {
         const wrapper = render({ reverse: true, fieldHelpInline: true }).toJSON();
 
         it('renders the correct CheckableInput styles', () => {
@@ -235,15 +281,8 @@ describe('Checkbox', () => {
         }, wrapper, { modifier: css`${FieldHelpStyle}` });
       });
 
-      it('applies appropriate Icon styles', () => {
-        assertStyleMatch({
-          content: "'\\E943'"
-        }, wrapper, { modifier: css`${`${LabelStyle} .carbon-icon::before`}` });
-      });
-
       it('applies appropriate Label styles', () => {
         assertStyleMatch({
-          paddingLeft: '6px',
           paddingBottom: '0',
           paddingTop: '0'
         }, wrapper, { modifier: css`${LabelStyle}` });
@@ -318,7 +357,7 @@ describe('Checkbox', () => {
       });
     });
 
-    describe('when checked=true', () => {
+    describe('when checked is true', () => {
       it('renders the correct check colour', () => {
         const wrapper = render({ checked: true, ...opts }).toJSON();
 
@@ -327,7 +366,7 @@ describe('Checkbox', () => {
         }, wrapper, { modifier: 'svg path' });
       });
 
-      describe('and disabled=true', () => {
+      describe('and disabled is true', () => {
         const wrapper = render({ checked: true, disabled: true, ...opts }).toJSON();
 
         it('renders the correct check colour', () => {
@@ -338,7 +377,7 @@ describe('Checkbox', () => {
       });
     });
 
-    describe('when disabled=true', () => {
+    describe('when disabled is true', () => {
       const wrapper = render({ disabled: true, ...opts }).toJSON();
 
       it('applies the appropriate Label styles', () => {
@@ -367,7 +406,7 @@ describe('Checkbox', () => {
       });
     });
 
-    describe('when fieldHelpInline=true', () => {
+    describe('when fieldHelpInline is true', () => {
       it('applies the appropriate FieldHelp style', () => {
         const wrapper = render({ fieldHelpInline: true, ...opts }).toJSON();
 
@@ -384,7 +423,7 @@ describe('Checkbox', () => {
         const wrapper = render({ theme: smallTheme, checked: true }).toJSON();
 
         assertStyleMatch({
-          fill: smallTheme.colors.primary
+          fill: smallTheme.checkable.checked
         }, wrapper, { modifier: 'svg path' });
       });
     });
@@ -394,17 +433,7 @@ describe('Checkbox', () => {
         const wrapper = render({ theme: mediumTheme, checked: true }).toJSON();
 
         assertStyleMatch({
-          fill: mediumTheme.colors.primary
-        }, wrapper, { modifier: 'svg path' });
-      });
-    });
-
-    describe('Large theme', () => {
-      it('sets the appropriate check colour', () => {
-        const wrapper = render({ theme: largeTheme, checked: true }).toJSON();
-
-        assertStyleMatch({
-          fill: largeTheme.colors.primary
+          fill: mediumTheme.checkable.checked
         }, wrapper, { modifier: 'svg path' });
       });
     });

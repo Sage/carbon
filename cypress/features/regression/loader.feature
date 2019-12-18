@@ -1,7 +1,7 @@
 Feature: Loader component
   I want to change Loader component properties
 
-  Background: Open Loader component page
+  Background: Open Loader component page legacy spinner
     Given I open "Loader" component page legacy spinner
 
   @positive

@@ -1,16 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SelectList renders a no results item if filter removed all children 1`] = `
+.c0 {
+  box-sizing: content-box;
+  padding: 5px 6px;
+  width: 100%;
+}
+
 <li
-  className="sc-bwzfXH csrfDw"
+  className="c0"
 >
   No results for "x"
 </li>
 `;
 
 exports[`SelectList renders a no results item if no childen are provided 1`] = `
+.c0 {
+  box-sizing: content-box;
+  padding: 5px 6px;
+  width: 100%;
+}
+
 <li
-  className="sc-bwzfXH csrfDw"
+  className="c0"
 >
   No results
 </li>

@@ -8,11 +8,12 @@ import {
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import { ThemeProvider } from 'styled-components';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
 import Flash, { FlashWithoutHOC } from './flash.component';
-import Button, { OriginalButton } from '../button/button.component';
+import Button from '../button/button.component';
 import classicTheme from '../../style/themes/classic';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
@@ -39,6 +40,7 @@ const openHandler = () => {
 storiesOf('Flash', module)
   .add('classic', () => {
     const message = text('message', 'This is a flash message');
+    const id = text('id', 'classic-flash');
     const timeout = number('timeout', 0);
     const as = select('as', OptionsHelper.colors, OptionsHelper.colors[0]);
 
@@ -51,6 +53,7 @@ storiesOf('Flash', module)
               open={ store.get('open') }
               as={ as }
               message={ message }
+              id={ id }
               timeout={ timeout >= 0 ? timeout : undefined }
               onDismiss={ handleClick }
             />
@@ -59,16 +62,18 @@ storiesOf('Flash', module)
       </ThemeProvider>
     );
   }, {
+    themeSelector: classicThemeSelector,
     notes: { markdown: notes },
     knobs: { escapeHTML: false },
     info: {
       text: Info,
-      propTables: [FlashWithoutHOC, OriginalButton],
+      propTables: [FlashWithoutHOC, Button],
       propTablesExclude: [State, ThemeProvider, Button, Flash]
     }
   })
   .add('default', () => {
     const message = text('message', 'This is a flash message');
+    const id = text('id', 'default-flash');
     const timeout = number('timeout', 0);
     const as = select('as', OptionsHelper.toast, OptionsHelper.toast[0]);
 
@@ -79,6 +84,7 @@ storiesOf('Flash', module)
           <Flash
             open={ store.get('open') }
             as={ as }
+            id={ id }
             message={ message }
             timeout={ timeout >= 0 ? timeout : undefined }
             onDismiss={ handleClick }
@@ -87,11 +93,12 @@ storiesOf('Flash', module)
       </div>
     );
   }, {
+    themeSelector: dlsThemeSelector,
     notes: { markdown: notes },
     knobs: { escapeHTML: false },
     info: {
       text: Info,
-      propTables: [FlashWithoutHOC, OriginalButton],
+      propTables: [FlashWithoutHOC, Button],
       propTablesExclude: [State, ThemeProvider, Button, Flash]
     }
   });

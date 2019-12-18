@@ -15,6 +15,7 @@ describe('WithDrop', () => {
       hoverContextSpy,
       hoverPropSpy,
       mockSelection,
+      didDropContextSpy,
       mockWindow;
 
   function createWrapper(props = {}) {
@@ -41,7 +42,8 @@ describe('WithDrop', () => {
         static childContextTypes = {
           dragAndDropBeginDrag: PropTypes.func,
           dragAndDropEndDrag: PropTypes.func,
-          dragAndDropHover: PropTypes.func
+          dragAndDropHover: PropTypes.func,
+          dragAndDropDrop: PropTypes.func
         }
 
         getChildContext() {
@@ -49,6 +51,7 @@ describe('WithDrop', () => {
             dragAndDropBeginDrag: () => { return { index: 1 }; },
             dragAndDropEndDrag: () => {},
             dragAndDropHover: hoverContextSpy,
+            dragAndDropDrop: didDropContextSpy
           };
         }
 
@@ -92,6 +95,8 @@ describe('WithDrop', () => {
       it('calls the hover from context', () => {
         backend.simulateBeginDrag([handlerId]);
         backend.simulateHover([targetId]);
+        backend.simulateDrop();
+        backend.simulateEndDrag();
         expect(hoverPropSpy).not.toHaveBeenCalled();
         expect(hoverContextSpy).toHaveBeenCalled();
       });

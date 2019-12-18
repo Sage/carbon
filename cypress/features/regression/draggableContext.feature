@@ -1,7 +1,7 @@
 Feature: Draggable Context component
   I want to change Draggable Context component
 
-  Background: Open Draggable Context component page
+  Background: Open Draggable Context component iframe
     Given I open "DraggableContext" component iframe
 
   # @positive

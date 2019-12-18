@@ -19,8 +19,7 @@ describe('StyledTickIcon', () => {
         {
           display: 'block'
         },
-        wrapper.toJSON(),
-        { modifier: '&.carbon-icon' }
+        wrapper.toJSON()
       );
     });
 
@@ -31,7 +30,7 @@ describe('StyledTickIcon', () => {
           color: baseTheme.colors.white
         },
         wrapper.toJSON(),
-        { modifier: '&.carbon-icon::before' }
+        { modifier: '::before' }
       );
     });
 
@@ -42,7 +41,7 @@ describe('StyledTickIcon', () => {
           color: baseTheme.text.color
         },
         wrapper.toJSON(),
-        { modifier: '&.carbon-icon::before' }
+        { modifier: '::before' }
       );
     });
   });

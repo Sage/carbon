@@ -6,9 +6,9 @@ import {
   select
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import Form from '../form';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
+import Form from '../../__deprecated__/components/form';
 import Textbox from '../../__experimental__/components/textbox';
-import TextboxLegacy from '../textbox';
 import ButtonToggleGroup from '../button-toggle-group';
 import ButtonToggle from '../button-toggle';
 import { Select, Option } from '../../__experimental__/components/select';
@@ -59,13 +59,8 @@ const asyncValidator = value => new Promise((resolve, reject) => {
   }, 2000);
 });
 
-storiesOf('Validations', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [ButtonToggle, ButtonToggleGroup, Column, Row, Form, Textbox, State, Textarea]
-    }
-  })
-  .add('Basic', () => {
+function makeBasicStory(name, themeSelector) {
+  const component = () => {
     return (
       <Form>
         <Row>
@@ -103,7 +98,7 @@ storiesOf('Validations', module)
               <Select
                 label='Info'
                 info={ infoValidator }
-                onChange={ ev => infoStore.set({ value: ev.target.value }) }
+                onChange={ ev => infoStore.set({ value: ev.target.value[0].optionValue }) }
                 fieldHelp='This example uses an info validator, these do not block form
                   submission and are not flagged by the form.'
                 labelInline={ boolean('labelInline') }
@@ -135,7 +130,7 @@ storiesOf('Validations', module)
             <State store={ legacyStore }>
               <Textbox
                 label='Legacy Validation'
-                validations={ new PresenceValidator() }
+                validations={ [new PresenceValidator()] }
                 onChange={ ev => legacyStore.set({ value: ev.target.value }) }
                 fieldHelp='This example uses a deprecated validator in the form of a class instance.'
                 labelInline={ boolean('labelInline') }
@@ -160,25 +155,19 @@ storiesOf('Validations', module)
             </State>
           </Column>
         </Row>
-
-        <Row columns='2'>
-          <Column>
-            <State store={ legacyStore }>
-              <TextboxLegacy
-                label='Legacy Validation (decorators)'
-                validations={ [new PresenceValidator()] }
-                onChange={ ev => legacyStore.set({ value: ev.target.value }) }
-                fieldHelp='This example uses the old decorator Textbox (now deprecated).'
-                labelInline={ boolean('labelInline') }
-                size={ select('size', OptionsHelper.sizesRestricted) }
-              />
-            </State>
-          </Column>
-        </Row>
       </Form>
     );
-  })
-  .add('ButtonToggleGroup', () => {
+  };
+
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+function makeButtonToggleGroupStory(name, themeSelector) {
+  const component = () => {
     const test = value => new Promise((resolve, reject) => {
       if (value === 'baz') return resolve(true);
       return reject(Error('Baz is required!'));
@@ -209,7 +198,25 @@ storiesOf('Validations', module)
         </State>
       </Form>
     );
-  });
+  };
+
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Validations', module)
+  .addParameters({
+    info: {
+      propTablesExclude: [ButtonToggle, ButtonToggleGroup, Column, Row, Form, Textbox, State, Textarea]
+    }
+  })
+  .add(...makeBasicStory('Basic', dlsThemeSelector))
+  .add(...makeBasicStory('Basic classic', classicThemeSelector))
+  .add(...makeButtonToggleGroupStory('ButtonToggleGroup', dlsThemeSelector))
+  .add(...makeButtonToggleGroupStory('ButtonToggleGroup classic', classicThemeSelector));
 
 function handleSubmit(ev) {
   ev.preventDefault();

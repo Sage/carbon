@@ -1,34 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StyledDateInput renders correctly for default theme 1`] = `
+.c0 {
+  width: 100%;
+  display: inline-block;
+}
+
 .c0 .c1 {
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
-  width: 135px;
+  width: 140px;
 }
 
 <div
   className="c0"
+  size="large"
 />
 `;
 
 exports[`StyledDateInput renders correctly for the "classic" theme 1`] = `
-.c0 .c2 {
+.c0 {
+  width: 100%;
+  display: inline-block;
+}
+
+.c0 .c1 {
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
   width: 135px;
-}
-
-.c0 .c2 {
-  width: 120px;
-}
-
-.c0 .c1 {
-  border-left: 1px solid #bfccd2;
-  box-sizing: border-box;
-  width: 31px;
 }
 
 <div

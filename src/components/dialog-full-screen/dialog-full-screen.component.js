@@ -8,7 +8,6 @@ import StyledContent from './content.style';
 import StyledIcon from './icon.style';
 import Browser from '../../utils/helpers/browser';
 
-
 class DialogFullScreen extends Modal {
   constructor(props) {
     super(props);
@@ -59,8 +58,11 @@ class DialogFullScreen extends Modal {
         data-element='dialog-full-screen'
       >
         { this.dialogTitle() }
-
-        <StyledContent headingHeight={ this.state.headingHeight } data-element='content'>
+        <StyledContent
+          hasHeader={ this.props.title !== undefined }
+          headingHeight={ this.state.headingHeight }
+          data-element='content'
+        >
           <AppWrapper>
             { this.props.children }
           </AppWrapper>
@@ -105,7 +107,7 @@ class DialogFullScreen extends Modal {
     }
 
     return (
-      <FullScreenHeading ref={ this.headingRef }>
+      <FullScreenHeading hasContent={ title } ref={ this.headingRef }>
         <StyledIcon
           data-element='close'
           onClick={ this.props.onCancel }

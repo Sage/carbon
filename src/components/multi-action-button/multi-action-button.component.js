@@ -4,30 +4,38 @@ import Icon from '../icon';
 import SplitButton from '../split-button';
 import StyledMultiActionButton from './multi-action-button.style';
 import Button from '../button';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 class MultiActionButton extends SplitButton {
+  get multiActionButtonProps() {
+    const { iconType, iconPosition, ...props } = this.props;
+
+    props['aria-haspopup'] = 'true';
+    props['aria-expanded'] = this.state.showAdditionalButtons;
+    props['aria-label'] = 'Show more';
+    props['data-element'] = 'toggle-button';
+    props.key = 'toggle-button';
+    props.onKeyDown = this.handleToggleButtonKeyDown;
+
+    return props;
+  }
+
   /**
    * Returns the HTML for the main button.
-   * @override
-   *
-   * @method renderMainButton
-   * @return {Object}
    */
   get renderMainButton() {
     return (
       <Button
-        aria-haspopup='true'
-        aria-expanded={ this.state.showAdditionalButtons }
-        aria-label='Show more'
-        data-element='toggle-button'
-        key='toggle-button'
-        onKeyDown={ this.handleToggleButtonKeyDown }
-        iconType={ this.props.iconType }
-        iconPosition={ this.props.iconPosition }
+        { ...this.multiActionButtonProps }
         { ...this.toggleButtonProps }
       >
         { this.props.text}
-        <Icon type='dropdown' />
+        <Icon
+          type='dropdown'
+          bgTheme='none'
+          iconColor={ this.getIconColor(this.props.buttonType || this.props.as) }
+          disabled={ this.toggleButtonProps.disabled }
+        />
       </Button>
     );
   }
@@ -80,9 +88,9 @@ MultiActionButton.propTypes = {
   'data-role': PropTypes.string,
 
   /**
-   * Aligns the button's options, can be set to `right`.
+   * Aligns the button's options
    */
-  align: PropTypes.string
+  align: PropTypes.oneOf(OptionsHelper.alignBinary)
 };
 
 export default MultiActionButton;

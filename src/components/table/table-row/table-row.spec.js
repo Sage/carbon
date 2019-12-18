@@ -1,20 +1,43 @@
 import React from 'react';
-import 'jest-styled-components';
+import { ThemeProvider } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
 import TestUtils from 'react-dom/test-utils';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { Table, TableCell } from '..';
 import TableRow from './table-row.component';
+import StyledTableRow from './table-row.style';
 import TableHeader from '../table-header';
+import StyledTableCell from '../table-cell/table-cell.style';
 import DraggableTableCell from '../draggable-table-cell';
 import StyledTable from '../table.style';
-import Checkbox from '../../checkbox';
+import StyledIcon from '../../icon/icon.style';
+import { Checkbox } from '../../../__experimental__/components/checkbox';
 import BaseTheme from '../../../style/themes/base';
 import ClassicTheme from '../../../style/themes/classic';
 import SmallTheme from '../../../style/themes/small';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import { DraggableContext, WithDrop } from '../../drag-and-drop';
 import { THEMES } from '../../../style/themes';
+import { ActionPopover, ActionPopoverItem } from '../../action-popover';
+import { MenuButton } from '../../action-popover/action-popover.style';
+
+jest.mock('../draggable-table-cell', () => {
+  const React = require('react'); // eslint-disable-line no-shadow, global-require
+  const PropTypes = require('prop-types'); // eslint-disable-line global-require
+  class MockDraggableTableCell extends React.Component {
+    componentDidMount() {
+      this.props.draggableNode();
+    }
+
+    render() {
+      return React.createElement('td');
+    }
+  }
+  MockDraggableTableCell.propTypes = {
+    draggableNode: PropTypes.func
+  };
+  return MockDraggableTableCell;
+});
 
 const themeNames = [THEMES.classic, THEMES.small];
 const elements = ['th', 'td'];
@@ -44,7 +67,7 @@ describe('TableRow', () => {
     describe('if highlightable via context', () => {
       describe('if no unique id', () => {
         it('throws error', () => {
-          const render = function() {
+          const render = function () {
             TestUtils.renderIntoDocument(<Table highlightable><TableRow /></Table>);
           };
           expect(render).toThrowError('A TableRow which is selectable or highlightable should provide a uniqueID.');
@@ -53,7 +76,7 @@ describe('TableRow', () => {
 
       describe('if unique id', () => {
         it('does not throw error', () => {
-          const render = function() {
+          const render = function () {
             TestUtils.renderIntoDocument(<Table highlightable><TableRow uniqueID='foo' /></Table>);
           };
           expect(render).not.toThrowError();
@@ -64,7 +87,7 @@ describe('TableRow', () => {
     describe('if selectable via context', () => {
       describe('if no unique id', () => {
         it('throws error', () => {
-          const render = function() {
+          const render = function () {
             TestUtils.renderIntoDocument(<Table selectable><TableRow /></Table>);
           };
           expect(render).toThrowError('A TableRow which is selectable or highlightable should provide a uniqueID.');
@@ -73,7 +96,7 @@ describe('TableRow', () => {
 
       describe('if unique id', () => {
         it('does not throw error', () => {
-          const render = function() {
+          const render = function () {
             TestUtils.renderIntoDocument(<Table selectable><TableRow uniqueID='foo' /></Table>);
           };
           expect(render).not.toThrowError();
@@ -83,8 +106,8 @@ describe('TableRow', () => {
 
     describe('if neither highlightable or selectable', () => {
       it('does not throw error', () => {
-        const render = function() {
-          TestUtils.renderIntoDocument(<Table><TableRow /></Table>);
+        const render = function () {
+          TestUtils.renderIntoDocument(<Table><TableRow uniqueID='foo' /></Table>);
         };
         expect(render).not.toThrowError();
       });
@@ -97,7 +120,7 @@ describe('TableRow', () => {
           row = TestUtils.findRenderedComponentWithType(instance, TableRow);
           spyOn(row.context, 'attachToTable');
           spyOn(row.context, 'checkSelection');
-          row.componentWillMount();
+          row.UNSAFE_componentWillMount();
         });
 
         it('calls attachToTable', () => {
@@ -114,7 +137,7 @@ describe('TableRow', () => {
           instance = TestUtils.renderIntoDocument(<Table><TableRow /></Table>);
           row = TestUtils.findRenderedComponentWithType(instance, TableRow);
           spyOn(row.context, 'attachToTable');
-          row.componentWillMount();
+          row.UNSAFE_componentWillMount();
           expect(row.context.attachToTable).not.toHaveBeenCalled();
         });
       });
@@ -122,20 +145,20 @@ describe('TableRow', () => {
 
     describe('if selected via props', () => {
       it('calls setState', () => {
-        instance = TestUtils.renderIntoDocument(<Table><TableRow selected /></Table>);
+        instance = TestUtils.renderIntoDocument(<Table><TableRow selected uniqueID='foo' /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
-        row.componentWillMount();
+        row.UNSAFE_componentWillMount();
         expect(row.setState).toHaveBeenCalledWith({ selected: true });
       });
     });
 
     describe('if highlighted via props', () => {
       it('calls setState', () => {
-        instance = TestUtils.renderIntoDocument(<Table><TableRow highlighted /></Table>);
+        instance = TestUtils.renderIntoDocument(<Table><TableRow highlighted uniqueID='foo' /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
-        row.componentWillMount();
+        row.UNSAFE_componentWillMount();
         expect(row.setState).toHaveBeenCalledWith({ highlighted: true });
       });
     });
@@ -171,7 +194,7 @@ describe('TableRow', () => {
         instance = TestUtils.renderIntoDocument(<Table><TableRow uniqueID='foo' /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row.context, 'checkSelection');
-        row.componentWillReceiveProps({ uniqueID: 'bar' });
+        row.UNSAFE_componentWillReceiveProps({ uniqueID: 'bar' });
         expect(row.context.checkSelection).toHaveBeenCalled();
       });
     });
@@ -181,7 +204,7 @@ describe('TableRow', () => {
         instance = TestUtils.renderIntoDocument(<Table><TableRow uniqueID='foo' /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row.context, 'checkSelection');
-        row.componentWillReceiveProps({ uniqueID: 'foo' });
+        row.UNSAFE_componentWillReceiveProps({ uniqueID: 'foo' });
         expect(row.context.checkSelection).not.toHaveBeenCalled();
       });
     });
@@ -191,7 +214,7 @@ describe('TableRow', () => {
         instance = TestUtils.renderIntoDocument(<Table><TableRow selected /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
-        row.componentWillReceiveProps({ selected: false });
+        row.UNSAFE_componentWillReceiveProps({ selected: false });
         expect(row.setState).toHaveBeenCalledWith({ selected: false });
       });
     });
@@ -201,7 +224,7 @@ describe('TableRow', () => {
         instance = TestUtils.renderIntoDocument(<Table><TableRow selected /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
-        row.componentWillReceiveProps({ selected: true });
+        row.UNSAFE_componentWillReceiveProps({ selected: true });
         expect(row.setState).not.toHaveBeenCalled();
       });
     });
@@ -211,7 +234,7 @@ describe('TableRow', () => {
         instance = TestUtils.renderIntoDocument(<Table><TableRow highlighted /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
-        row.componentWillReceiveProps({ highlighted: false });
+        row.UNSAFE_componentWillReceiveProps({ highlighted: false });
         expect(row.setState).toHaveBeenCalledWith({ highlighted: false });
       });
     });
@@ -221,7 +244,7 @@ describe('TableRow', () => {
         instance = TestUtils.renderIntoDocument(<Table><TableRow highlighted /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
-        row.componentWillReceiveProps({ highlighted: true });
+        row.UNSAFE_componentWillReceiveProps({ highlighted: true });
         expect(row.setState).not.toHaveBeenCalled();
       });
     });
@@ -312,85 +335,86 @@ describe('TableRow', () => {
   );
 
   describe('if the row is clickable', () => {
-    it('adds a clickable class', () => {
+    it('uses a "pointer" (clickable) cursor', () => {
       const tr = TestUtils.findRenderedDOMComponentWithTag(clickableInstance, 'tr');
-      expect(tr.className).toMatch('carbon-table-row--clickable');
+      assertStyleMatch({ cursor: 'pointer' }, tr);
     });
   });
 
   describe('when selected', () => {
-    it('renders the selected class', () => {
-      instance = TestUtils.renderIntoDocument(
-        <Table>
-          <TableRow
-            selected
-            uniqueID='foo'
-          >
-            <TableCell />
-          </TableRow>
-        </Table>
-      );
-      const tr = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
-      expect(tr.className).toMatch('carbon-table-row--selected');
-    });
-
     describe.each(themeNames)(
       'and the theme is %s',
       (name) => {
         it('renders the element to match the expected style', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Table>
-              <TableRow
-                uniqueID='foo'
-                selectable
-                selected
-                theme={ name === 'classic' ? ClassicTheme : SmallTheme }
-              >
-                <TableCell />
-              </TableRow>
-            </Table>
+          instance = mount(
+            <TableRow
+              uniqueID='foo'
+              selectable
+              selected
+              theme={ name === 'classic' ? ClassicTheme : SmallTheme }
+            >
+              <TableCell />
+            </TableRow>
           );
-          const tr = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
 
-          expect(tr.className).toEqual('carbon-table-row carbon-table-row--selected');
+          assertStyleMatch({
+            backgroundColor: name === 'classic' ? '#1573E6' : '#D8E0E3',
+            borderBottomColor: name === 'classic' ? '#255BC7' : '#D8E0E3',
+            color: name === 'classic' ? '#ffffff' : undefined
+          }, instance, { modifier: `&&&&:hover ${StyledTableCell}` });
         });
       }
     );
   });
 
   describe('when highlighted', () => {
-    it('renders the highlighted class', () => {
-      instance = TestUtils.renderIntoDocument(
-        <Table>
-          <TableRow
-            highlighted
-            uniqueID='foo'
-          >
-            <TableCell />
-          </TableRow>
-        </Table>
-      );
-      const tr = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
-      expect(tr.className).toMatch('carbon-table-row--highlighted');
-    });
+    describe.each(themeNames)(
+      'and the theme is %s',
+      (name) => {
+        it('renders the element to match the expected style', () => {
+          instance = mount(
+            <TableRow
+              highlighted
+              uniqueID='foo'
+              theme={ name === 'classic' ? ClassicTheme : SmallTheme }
+            >
+              <TableCell />
+            </TableRow>
+          );
+          assertStyleMatch({
+            backgroundColor: name === 'classic' ? '#D0E3FA' : '#D8E0E3',
+            borderBottomColor: name === 'classic' ? '#1573E6' : '#D8E0E3'
+          }, instance, { modifier: `&&&& ${StyledTableCell}` });
+
+          assertStyleMatch({
+            content: '""',
+            height: '1px',
+            left: '0',
+            position: 'absolute',
+            top: '-1px',
+            width: '100%'
+          }, instance, { modifier: `&&&& ${StyledTableCell}:before` });
+        });
+      }
+    );
   });
 
   describe('when highlighted and selected', () => {
-    it('only renders the selected class', () => {
-      instance = TestUtils.renderIntoDocument(
-        <Table>
-          <TableRow
-            highlighted
-            selected
-            uniqueID='foo'
-          >
-            <TableCell />
-          </TableRow>
-        </Table>
+    it('renders expected styles', () => {
+      instance = mount(
+        <TableRow
+          selected
+          highlighted
+          uniqueID='foo'
+        >
+          <TableCell />
+        </TableRow>
       );
-      const tr = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
-      expect(tr.className).toMatch('carbon-table-row--selected');
-      expect(tr.className).not.toMatch('carbon-table-row--highlighted');
+      assertStyleMatch({
+        backgroundColor: '#D8E0E3',
+        borderBottomColor: '#D8E0E3',
+        position: 'relative'
+      }, instance, { modifier: `&&&& ${StyledTableCell}` });
     });
   });
 
@@ -424,7 +448,7 @@ describe('TableRow', () => {
     describe('without selectability on the table but disabled on the row', () => {
       it('renders its children', () => {
         instance = TestUtils.renderIntoDocument(
-          <Table selectable><TableRow selectable={ false }><td /><td /></TableRow></Table>
+          <Table selectable><TableRow uniquieID='foo' selectable={ false }><td /><td /></TableRow></Table>
         );
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         expect(row.children.length).toEqual(2);
@@ -433,40 +457,43 @@ describe('TableRow', () => {
 
     describe('with selectAll', () => {
       it('renders a select all cell', () => {
-        instance = TestUtils.renderIntoDocument(<Table><TableRow selectAll><td /><td /></TableRow></Table>);
-        row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
-        const tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
-        const checkbox = TestUtils.findRenderedComponentWithType(instance, Checkbox);
-        expect(row.children.length).toEqual(3);
-        expect(checkbox.props.onChange).toEqual(tr.onSelectAll);
+        instance = mount(<Table><TableRow selectAll><td /><td /></TableRow></Table>);
+
+        const tr = instance.find(TableRow);
+        const selectAllCell = instance.find(TableCell);
+        const checkbox = selectAllCell.find(Checkbox);
+
+        expect(selectAllCell.exists()).toBeTruthy();
+        expect(checkbox.exists()).toBeTruthy();
+        expect(checkbox.props().onChange).toEqual(tr.instance().onSelectAll);
       });
     });
 
     describe('with selectable via context', () => {
       it('renders a multi select cell', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Table selectable><TableRow uniqueID='foo'><td /><td /></TableRow></Table>
-        );
-        row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
-        const tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
-        const checkbox = TestUtils.findRenderedComponentWithType(instance, Checkbox);
-        expect(row.children.length).toEqual(3);
-        expect(checkbox.props.onChange).toEqual(tr.onSelect);
+        instance = mount(<Table selectable><TableRow uniqueID='foo'><td /><td /></TableRow></Table>);
+
+        const tr = instance.find(TableRow);
+        const selectAllCell = instance.find(TableCell);
+        const checkbox = selectAllCell.find(Checkbox);
+
+        expect(selectAllCell.exists()).toBeTruthy();
+        expect(checkbox.exists()).toBeTruthy();
+        expect(checkbox.props().onChange).toEqual(tr.instance().onSelect);
       });
     });
 
     describe('with selectable via prop', () => {
       it('renders a multi select cell', () => {
+        instance = mount(<Table><TableRow selectable uniqueID='foo'><td /><td /></TableRow></Table>);
+
         const spy = jasmine.createSpy();
-        instance = TestUtils.renderIntoDocument(
-          <Table><TableRow selectable uniqueID='foo'><td /><td /></TableRow></Table>
-        );
-        row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
-        const tr = TestUtils.findRenderedComponentWithType(instance, TableRow);
-        const checkbox = TestUtils.findRenderedComponentWithType(instance, Checkbox);
-        expect(row.children.length).toEqual(3);
-        expect(checkbox.props.onChange).toEqual(tr.onSelect);
-        checkbox.props.onClick({ stopPropagation: spy });
+        const tr = instance.find(TableRow);
+        const selectAllCell = instance.find(TableCell);
+        const checkbox = selectAllCell.find(Checkbox);
+
+        expect(checkbox.props().onChange).toEqual(tr.instance().onSelect);
+        checkbox.props().onClick({ stopPropagation: spy });
         expect(spy).toHaveBeenCalled();
       });
     });
@@ -490,6 +517,25 @@ describe('TableRow', () => {
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         const th = TestUtils.findRenderedComponentWithType(instance, TableHeader);
         expect(th).toBeTruthy();
+      });
+    });
+
+    describe('when a child is null', () => {
+      it('does not render a null cell', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Table selectable><TableRow as='header' uniqueID='foo'><td />{null}</TableRow></Table>
+        );
+        row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
+        const th = TestUtils.findRenderedComponentWithType(instance, TableHeader);
+        expect(th).toBeTruthy();
+      });
+    });
+
+    describe('when a child of td is null', () => {
+      it('does not render a null cell', () => {
+        expect(() => shallow(
+          <Table selectable><TableRow as='header' uniqueID='foo'><td /><td>{null}</td></TableRow></Table>
+        )).not.toThrow();
       });
     });
 
@@ -534,7 +580,7 @@ describe('TableRow', () => {
       it('throws an error if no index is provided', () => {
         expect(() => {
           mount(
-            <DraggableContext onDrag={ () => {} }>
+            <DraggableContext onDrag={ () => { } }>
               <Table>
                 <TableRow dragAndDropIdentifier='foo'>
                   <TableCell>foo</TableCell>
@@ -549,7 +595,10 @@ describe('TableRow', () => {
     describe('with drag and drop context', () => {
       beforeEach(() => {
         wrapper = mount(
-          <DraggableContext onDrag={ () => {} } canDrop={ () => { return true; } }>
+          <DraggableContext
+            onDrag={ () => { } }
+            canDrop={ () => { return true; } }
+          >
             <Table>
               <TableRow index={ 0 } dragAndDropIdentifier='foo'>
                 <TableCell>foo</TableCell>
@@ -559,11 +608,32 @@ describe('TableRow', () => {
         );
       });
 
+      describe('when StyledTableRow get inDeadZone and isDragged props', () => {
+        it('should render correct background color', () => {
+          wrapper = mount(
+            <StyledTableRow
+              theme={ SmallTheme }
+              isDragged
+              inDeadZone
+            />
+          );
+
+          assertStyleMatch({
+            backgroundColor: `${SmallTheme.table.dragging}`
+          }, wrapper, { modifier: `${StyledTableCell}` });
+        });
+      });
+
       it('renders a draggable cell', () => {
-        const cell = wrapper.find(TableRow).find(DraggableTableCell);
+        const draggableRow = wrapper.find(TableRow);
+        const cell = draggableRow.find(DraggableTableCell);
         expect(cell.props().identifier).toEqual('foo');
-        expect(cell.props().draggableNode().getAttribute('class')).toEqual('carbon-table-row');
         expect(cell.props().canDrag).toEqual(true);
+
+        assertStyleMatch({
+          cursor: 'grab'
+        },
+        draggableRow, { modifier: `${StyledIcon}` });
       });
 
       it('renders a WithDrop component', () => {
@@ -574,16 +644,129 @@ describe('TableRow', () => {
       });
 
       it('renders a dragging class', () => {
-        const row1 = wrapper.find(TableRow);
-        row1.instance().context.dragAndDropActiveIndex = 1;
-        expect(row1.instance().mainClasses).toEqual('carbon-table-row carbon-table-row--dragging');
+        const context = {};
+        const row1 = mount(
+          <TableRow index={ 0 } dragAndDropIdentifier='foo'>
+            <TableCell>foo</TableCell>
+          </TableRow>,
+          { context }
+        );
+        row1.setContext({ dragAndDropActiveIndex: 1 });
+
+        assertStyleMatch({
+          userSelect: 'none'
+        },
+        row1.find(StyledTableRow));
       });
 
       it('renders a dragged class if the index matches', () => {
-        const row1 = wrapper.find(TableRow);
-        row1.instance().context.dragAndDropActiveIndex = 0;
-        expect(row1.instance().mainClasses)
-          .toEqual('carbon-table-row carbon-table-row--dragged carbon-table-row--dragging');
+        const context = {};
+        const row1 = mount(
+          <TableRow
+            index={ 0 }
+            dragAndDropIdentifier='foo'
+            theme={ ClassicTheme }
+          >
+            <TableCell>foo</TableCell>
+          </TableRow>,
+          { context }
+        );
+        row1.setContext({ dragAndDropActiveIndex: 0 });
+
+        assertStyleMatch(
+          { backgroundColor: '#F2F4F5' },
+          row1.find(StyledTableRow),
+          { modifier: `&&&&& ${StyledTableCell}` }
+        );
+      });
+    });
+  });
+});
+
+describe('TableRow', () => {
+  const container = { current: null };
+  const wrapper = { current: null };
+
+  const onOpen = jest.fn();
+  const onClose = jest.fn();
+
+  function render() {
+    wrapper.current = mount(
+      <ThemeProvider { ...{ theme: SmallTheme } }>
+        <Table>
+          <TableRow>
+            <TableHeader>First Name</TableHeader>
+            <TableHeader>Last Name</TableHeader>
+            <TableHeader>&nbsp;</TableHeader>
+          </TableRow>
+          <TableRow>
+            <TableCell>John</TableCell>
+            <TableCell>Doe</TableCell>
+            <TableCell>
+              <ActionPopover { ... { onOpen, onClose } }>
+                <ActionPopoverItem icon='email'>
+                  Email Invoice
+                </ActionPopoverItem>
+              </ActionPopover>
+            </TableCell>
+          </TableRow>
+        </Table>
+      </ThemeProvider>, { attachTo: container.current }
+    );
+  }
+
+  function getMenuButton() {
+    return wrapper.current.find(MenuButton);
+  }
+
+  function getRow() {
+    return wrapper.current.find(TableRow).at(1);
+  }
+
+  beforeEach(() => {
+    container.current = document.createElement('div');
+    document.body.appendChild(container.current);
+    onOpen.mockReset();
+    onClose.mockReset();
+  });
+
+
+  afterEach(() => {
+    document.body.removeChild(container.current);
+    container.current = null;
+    if (wrapper.current) {
+      wrapper.current.unmount();
+      wrapper.current = null;
+    }
+  });
+
+  describe('with a ActionPopover', () => {
+    beforeEach(() => {
+      render();
+    });
+    describe('Opening the ActionPopover', () => {
+      beforeEach(() => {
+        getMenuButton().simulate('click');
+      });
+      it('marks the row as highlighted', () => {
+        expect(getRow().state('highlighted')).toBe(true);
+      });
+
+      it('calls the provided onOpen handler', () => {
+        expect(onOpen).toHaveBeenCalled();
+      });
+    });
+    describe('Closing the ActionPopover', () => {
+      beforeEach(() => {
+        getMenuButton().simulate('click');
+        getMenuButton().simulate('click');
+      });
+      it('removes row highlight', () => {
+        expect(getRow().state('highlighted')).toBe(false);
+      });
+
+      it('calls the provided onClose handler', () => {
+        expect(onClose).toHaveBeenCalled();
       });
     });
   });

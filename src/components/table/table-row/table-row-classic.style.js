@@ -1,7 +1,8 @@
+import { css } from 'styled-components';
 import StyledTableCell from '../table-cell/table-cell.style';
 
-function applyClassicRowStyling() {
-  return `
+function applyClassicRowStyling(isPassive, isSelected) {
+  return css`
     border-color: #E7F1FC;
     &:hover .common-input__input {
       border-color: #E7F1FC;
@@ -11,11 +12,24 @@ function applyClassicRowStyling() {
         background-color: #ffffff;
       }
     }
-    &:hover {
+
+    .custom-drag-layer && {
+      background-color: #E6EBED;
+      display: block;
+
       ${StyledTableCell} {
-        background-color: #E7F1FC;
+        background-color: #E6EBED;
+        border: none;
       }
     }
+
+    ${!(isPassive || isSelected) && `
+      &:hover {
+        ${StyledTableCell} {
+          background-color: #E7F1FC;
+        }
+      }
+    `}
   `;
 }
 
@@ -24,6 +38,7 @@ function applyClassicSelectedStyling() {
     background-color: #1573E6;
     border-bottom-color: #255BC7;
     color: #ffffff;
+
     &:before {
       background-color: #255BC7;
     }
@@ -34,14 +49,28 @@ function applyClassicHighlightStyling() {
   return `
     background-color: #D0E3FA;
     border-bottom-color: #1573E6;
-    position: relative;
+
     &:before {
       background-color: #1573E6;
     }
   `;
 }
 
+/**
+ * Note: `StyledTableRow` is supplied as parameter
+ * instead of being `import`ed, to avoid a dependency cycle
+ * between `table-row.style.js` and `table-row-classic.style.js`.
+ */
+function applyClassicDraggedStyling() {
+  return css`
+    ${StyledTableCell} {
+      background-color: #F2F4F5;
+    }
+  `;
+}
+
 export {
+  applyClassicDraggedStyling,
   applyClassicRowStyling,
   applyClassicSelectedStyling,
   applyClassicHighlightStyling

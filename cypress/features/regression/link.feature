@@ -9,13 +9,13 @@ Feature: Link component
     When I set children to "<children>"
     Then children on preview is "<children>"
     Examples:
-      | children                 |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | children                |
+      | Sample text             |
+      | 1234567890              |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+      | <>                      |
 
   @positive
   Scenario: Disable Link component
@@ -33,18 +33,20 @@ Feature: Link component
     When I set href to "<href>"
     Then Link on preview href is set to "<href>"
     Examples:
-      | href                     |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | href                    |
+      | Sample text             |
+      | 1234567890              |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+      | <>                      |
 
-@positive
+  @positive
   Scenario Outline: Change link component icon align position to <iconAlign>
     Given I select icon to "add"
     When I select iconAlign to "<iconAlign>"
+      And I wait 500
+    # wait because method below is based of changing DOM elements order
     Then icon align is set to "<iconAlign>"
     Examples:
       | iconAlign |

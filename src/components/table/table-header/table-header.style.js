@@ -4,6 +4,7 @@ import baseTheme from '../../../style/themes/base';
 import { isClassic } from '../../../utils/helpers/style-helper';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import tableSizes from '../table-sizes.style';
+import StyledIcon from '../../icon/icon.style';
 
 const StyledTableHeader = styled.th`
   ${({
@@ -32,7 +33,7 @@ const StyledTableHeader = styled.th`
         border-left: none;
       }
 
-      ${width ? `width: ${width}px;` : ''}
+      ${width && css`width: ${width}px;`}
 
       ${sortable && applySortableStyling(align, colors, table)}
     `;
@@ -47,6 +48,10 @@ function applySortableStyling(align, colors, table) {
       background-color: ${table.tertiary};
     }
 
+    ${StyledIcon} {
+      color: ${colors.white};
+    }
+
     a {
       &:link,
       &:visited,
@@ -54,17 +59,21 @@ function applySortableStyling(align, colors, table) {
       &:active {
         color: ${colors.white};
         text-decoration: none;
+        display: flex;
+        align-items: center;
+        line-height: 16px;
+        height: 24px;
       }
 
       span {
         float: ${align === 'right' ? 'left' : 'right'};
-      
+
         .carbon-icon__svg--sort-down,
         .carbon-icon__svg--sort-up {
           height: 11px;
           width: 10px;
         }
-      }    
+      }
     }
   `;
 }

@@ -1,0 +1,271 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form When child is an html element it renders the child 1`] = `
+.c7 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 700;
+  margin: -8px;
+  white-space: nowrap;
+  padding: 8px;
+}
+
+.c5 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  font-weight: 600;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin-right: 16px;
+  background: transparent;
+  border-color: #26A826;
+  color: #26A826;
+  font-size: 14px;
+  height: 40px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.c5:focus {
+  outline: solid 3px #FFB500;
+}
+
+.c5:hover {
+  background: #006300;
+  border-color: #006300;
+  color: #FFFFFF;
+}
+
+.c5:hover .c9 {
+  color: #FFFFFF;
+}
+
+.c5 .c9 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c5 .c9 svg {
+  margin-top: 0;
+}
+
+.c8 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  font-weight: 600;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin-right: 16px;
+  background: #26A826;
+  border-color: transparent;
+  color: #FFFFFF;
+  font-size: 14px;
+  height: 40px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.c8:focus {
+  outline: solid 3px #FFB500;
+}
+
+.c8:hover {
+  background: #006300;
+}
+
+.c8 .c9 {
+  margin-left: 0px;
+  margin-right: 8px;
+  height: 16px;
+}
+
+.c8 .c9 svg {
+  margin-top: 0;
+}
+
+.c3 {
+  margin: 20px auto 0 auto;
+  max-width: inherit;
+  min-width: inherit;
+  padding: 0;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c3 div:first-of-type .c4 {
+  margin-left: 0;
+}
+
+.c3.c3 .c6 .c4 {
+  margin-left: 16px;
+}
+
+.c3 .c11:first-of-type {
+  margin-left: 0;
+}
+
+.c1 {
+  margin-top: 48px;
+}
+
+.c1 .c2 {
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.c0 .c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 16px;
+}
+
+.c0.c0 .c10 {
+  margin-bottom: 32px;
+}
+
+.c0 [data-component='icon'].common-input__icon {
+  height: 19px;
+}
+
+<form
+  className="c0"
+  data-component="form"
+  formAction="foo"
+  onSubmit={[Function]}
+>
+  <input
+    name=""
+    readOnly={true}
+    type="hidden"
+    value=""
+  />
+  <div>
+    Foo
+  </div>
+  <div
+    className="c1"
+  >
+    <div
+      className="c2 c3"
+      data-element="form-footer"
+    >
+      <div
+        data-component="cancel"
+        data-element="cancel"
+      >
+        <button
+          className="c4 c5"
+          data-component="button"
+          data-element="cancel"
+          disabled={false}
+          onClick={[Function]}
+          role="button"
+          size="medium"
+          type="button"
+        >
+          <span>
+            <span
+              data-element="main-text"
+            >
+              Cancel
+            </span>
+          </span>
+        </button>
+      </div>
+      <div
+        className="c6 c7"
+        data-component="form-summary"
+      >
+        <div
+          data-component="save"
+          data-element="save"
+        >
+          <button
+            className="c4 c8"
+            data-component="button"
+            data-element="save"
+            disabled={false}
+            role="button"
+            size="medium"
+            type="submit"
+          >
+            <span>
+              <span
+                data-element="main-text"
+              >
+                Save
+              </span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+`;

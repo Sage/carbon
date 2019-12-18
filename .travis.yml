@@ -5,16 +5,23 @@ cache:
     - node_modules
 
 node_js:
-  - 8.11.3
+  - 8.16.1
+
+addons:
+   apt:
+     packages:
+       # Ubuntu 16+ does not install this dependency by default, so we need to install it ourselves
+       - libgconf-2-4
 
 install:
-  - npm install -g npm@6.1.0
+  - npm install -g npm@6.4.1
   - npm install -g gulp
   - npm ci
 
 script:
   - npm run storybook-ci </dev/null &>/dev/null &
-  - npm run lint ./src && npm test -- --maxWorkers=2
+  - npm run test-carbon-build
+  - npm run lint ./src ./fixtures && npm test -- --maxWorkers=2
   - npm run test-storybook-smoke
   - wait-on http://localhost:9001
   - npm run test-cypress-build

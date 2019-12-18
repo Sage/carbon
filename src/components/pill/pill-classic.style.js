@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+import StyledIcon from '../icon/icon.style';
 
 export const classicStyleConfig = {
   disabled: {
@@ -68,7 +69,7 @@ export default (colorVariant, inFill, isDeletable) => {
     color: ${colorSet.color};
 
     ${colorVariant !== 'disabled' && `
-      .carbon-icon{
+      ${StyledIcon} {
         &:hover,
         &:focus {
           cursor: pointer;
@@ -80,7 +81,7 @@ export default (colorVariant, inFill, isDeletable) => {
       background-color: ${colorSet.color};
       color: #FFFFFF;
 
-      .carbon-icon.icon-cross {
+      ${StyledIcon} {
         color: #FFFFFF;
       }
     `}
@@ -107,6 +108,7 @@ export default (colorVariant, inFill, isDeletable) => {
 
         ${inFill && css`
           background-color: ${colorSet.color};
+          color: ${colorSet.color};
         `}
 
         ${!inFill && css`
@@ -115,17 +117,14 @@ export default (colorVariant, inFill, isDeletable) => {
         `}
 
         &:hover {
+          cursor: pointer;
           background-color: ${colorSet.hoverBackgroundColor};
           color: ${colorSet.hoverColor};
         }
         
-        .carbon-icon {
+        ${StyledIcon} {
           font-size: 14px;
           margin-left: -1px;
-
-          ${inFill && css`
-            color: ${colorSet.color};
-          `}
 
           &:before {
             font-size: 9px;

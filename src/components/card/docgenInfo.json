@@ -1,0 +1,161 @@
+{
+  "src/components/card/card-column/card-column.component.js": [
+    {
+      "description": "",
+      "displayName": "CardColumn",
+      "methods": [],
+      "props": {
+        "align": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "alignFull"
+          },
+          "required": false,
+          "description": "text alignment of the card section text",
+          "defaultValue": {
+            "value": "'center'",
+            "computed": false
+          }
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "children of the content component"
+        }
+      }
+    }
+  ],
+  "src/components/card/card-footer/card-footer.component.js": [
+    {
+      "description": "",
+      "displayName": "CardFooter",
+      "methods": [],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": true,
+          "description": ""
+        },
+        "spacing": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "sizesRestricted"
+          },
+          "required": false,
+          "description": "size of card for applying padding (small | medium | large)",
+          "defaultValue": {
+            "value": "OptionsHelper.sizesRestricted[1]",
+            "computed": true
+          }
+        }
+      }
+    }
+  ],
+  "src/components/card/card-row/card-row.component.js": [
+    {
+      "description": "",
+      "displayName": "CardRow",
+      "methods": [],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": true,
+          "description": ""
+        },
+        "spacing": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.sizesRestricted"
+          },
+          "required": false,
+          "description": "size of card for applying margin (small | medium | large)"
+        },
+        "inline": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "display card content inline"
+        }
+      }
+    }
+  ],
+  "src/components/card/card.component.js": [
+    {
+      "description": "",
+      "displayName": "Card",
+      "methods": [],
+      "props": {
+        "action": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "action to be executed when card is clicked or enter pressed"
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": true,
+          "description": ""
+        },
+        "cardWidth": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "style value for width of card"
+        },
+        "interactive": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "flag to indicate if card is interactive"
+        },
+        "draggable": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "flag to indicate if card is draggable"
+        },
+        "spacing": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "sizesRestricted"
+          },
+          "required": false,
+          "description": "size of card for applying padding (small | medium | large)",
+          "defaultValue": {
+            "value": "medium",
+            "computed": true
+          }
+        }
+      }
+    }
+  ],
+  "src/components/card/card.stories.js": [
+    {
+      "description": "",
+      "displayName": "getCard",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "getSmallCard",
+      "methods": []
+    }
+  ]
+}

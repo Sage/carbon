@@ -69,43 +69,43 @@ describe('Events', () => {
     describe('when event is a keyup event', () => {
       describe('when key is not valid', () => {
         it('returns false', () => {
-          expect(Events.isValidKeypress({ type: 'keyup', which: 223 })).toBeFalsy();
+          expect(Events.isValidKeypress({ type: 'keyup', which: 223, key: '`' })).toBeFalsy();
         });
       });
 
       describe('key is a valid number or letter', () => {
         it('returns true', () => {
-          expect(Events.isValidKeypress({ type: 'keyup', which: 48 })).toBeTruthy();
-          expect(Events.isValidKeypress({ type: 'keyup', which: 66 })).toBeTruthy();
-          expect(Events.isValidKeypress({ type: 'keyup', which: 90 })).toBeTruthy();
+          expect(Events.isValidKeypress({ type: 'keyup', which: 48, key: 'Delete' })).toBeTruthy();
+          expect(Events.isValidKeypress({ type: 'keyup', which: 66, key: 'b' })).toBeTruthy();
+          expect(Events.isValidKeypress({ type: 'keyup', which: 90, key: 'z'})).toBeTruthy();
         });
       });
 
       describe('key is a valid numpad number', () => {
         it('returns true', () => {
-          expect(Events.isValidKeypress({ type: 'keyup', which: 96 })).toBeTruthy();
-          expect(Events.isValidKeypress({ type: 'keyup', which: 100 })).toBeTruthy();
-          expect(Events.isValidKeypress({ type: 'keyup', which: 111 })).toBeTruthy();
+          expect(Events.isValidKeypress({ type: 'keyup', which: 96, key: '0' })).toBeTruthy();
+          expect(Events.isValidKeypress({ type: 'keyup', which: 100, key: '4'})).toBeTruthy();
+          expect(Events.isValidKeypress({ type: 'keyup', which: 111, key: 'divide'})).toBeTruthy();
         });
       });
 
       describe('key is a valid symbol', () => {
         it('returns true', () => {
-          expect(Events.isValidKeypress({ type: 'keyup', which: 186 })).toBeTruthy();
-          expect(Events.isValidKeypress({ type: 'keyup', which: 190 })).toBeTruthy();
-          expect(Events.isValidKeypress({ type: 'keyup', which: 192 })).toBeTruthy();
+          expect(Events.isValidKeypress({ type: 'keyup', which: 186, key: ';'})).toBeTruthy();
+          expect(Events.isValidKeypress({ type: 'keyup', which: 190, key: '.'})).toBeTruthy();
+          expect(Events.isValidKeypress({ type: 'keyup', which: 192, key: '`' })).toBeTruthy();
 
-          expect(Events.isValidKeypress({ type: 'keyup', which: 219 })).toBeTruthy();
-          expect(Events.isValidKeypress({ type: 'keyup', which: 220 })).toBeTruthy();
-          expect(Events.isValidKeypress({ type: 'keyup', which: 222 })).toBeTruthy();
+          expect(Events.isValidKeypress({ type: 'keyup', which: 219, key: '[' })).toBeTruthy();
+          expect(Events.isValidKeypress({ type: 'keyup', which: 220, key: '\\'})).toBeTruthy();
+          expect(Events.isValidKeypress({ type: 'keyup', which: 222, key: '\''})).toBeTruthy();
         });
       });
 
       describe('key is space, delete or backspace', () => {
         it('returns true', () => {
-          expect(Events.isValidKeypress({ type: 'keyup', which: 32 })).toBeTruthy();
-          expect(Events.isValidKeypress({ type: 'keyup', which: 46 })).toBeTruthy();
-          expect(Events.isValidKeypress({ type: 'keyup', which: 8 })).toBeTruthy();
+          expect(Events.isValidKeypress({ type: 'keyup', which: 32, key: ' '})).toBeTruthy();
+          expect(Events.isValidKeypress({ type: 'keyup', which: 46, key: 'Delete' })).toBeTruthy();
+          expect(Events.isValidKeypress({ type: 'keyup', which: 8, key: 'Backspace' })).toBeTruthy();
         });
       });
     });
@@ -113,15 +113,13 @@ describe('Events', () => {
 
   describe('isNumberKey', () => {
     it('returns false when a non number key is pressed', () => {
-      expect(Events.isNumberKey({ which: 8 })).toBeFalsy();
+      expect(Events.isNumberKey({ key: 'a' })).toBeFalsy();
     });
 
-    it('returns true when a top row number is pressed', () => {
-      expect(Events.isNumberKey({ which: 49 })).toBeTruthy();
-    });
-
-    it('returns true when a numpad number is pressed', () => {
-      expect(Events.isNumberKey({ which: 97 })).toBeTruthy();
+    it.each([
+      '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+    ])('returns true when a number is pressed (%s)', key => {
+      expect(Events.isNumberKey({ key })).toBeTruthy();
     });
   });
 
@@ -255,35 +253,35 @@ describe('Events', () => {
 
   describe('isBackspaceKey', () => {
     it('returns false when the Backspace key is not pressed', () => {
-      expect(Events.isBackspaceKey({ which: 9 })).toBeFalsy();
+      expect(Events.isBackspaceKey({ key: ' ' })).toBeFalsy();
     });
 
     it('returns true when the Backspace key is pressed', () => {
-      expect(Events.isBackspaceKey({ which: 8 })).toBeTruthy();
+      expect(Events.isBackspaceKey({ key: 'Backspace' })).toBeTruthy();
     });
   });
 
   describe('isDeleteKey', () => {
     it('returns false when the Delete key is not pressed', () => {
-      expect(Events.isDeleteKey({ which: 8 })).toBeFalsy();
+      expect(Events.isDeleteKey({ key: ' ' })).toBeFalsy();
     });
 
     it('returns true when the Delete key is pressed', () => {
-      expect(Events.isDeleteKey({ which: 46 })).toBeTruthy();
+      expect(Events.isDeleteKey({ key: 'Delete' })).toBeTruthy();
     });
   });
 
   describe('isDeletingKey', () => {
     it('returns false when a deleting key is not pressed', () => {
-      expect(Events.isDeletingKey({ which: 9 })).toBeFalsy();
+      expect(Events.isDeletingKey({ key: ' '})).toBeFalsy();
     });
 
     it('returns true when the Delete key is pressed', () => {
-      expect(Events.isDeletingKey({ which: 46 })).toBeTruthy();
+      expect(Events.isDeletingKey({ key: 'Delete' })).toBeTruthy();
     });
 
     it('returns true when the Backspace key is pressed', () => {
-      expect(Events.isDeletingKey({ which: 8 })).toBeTruthy();
+      expect(Events.isDeletingKey({ key: 'Backspace' })).toBeTruthy();
     });
   });
 
@@ -329,11 +327,95 @@ describe('Events', () => {
 
   describe('isMinusKey', () => {
     it('returns false when a minus key is not pressed', () => {
-      expect(Events.isMinusKey({ which: 190 })).toBeFalsy();
+      expect(Events.isMinusKey({ key: ' ' })).toBeFalsy();
     });
 
     it('returns true when the minus key is pressed', () => {
-      expect(Events.isMinusKey({ which: 189 })).toBeTruthy();
+      expect(Events.isMinusKey({ key: '-' })).toBeTruthy();
+    });
+
+    it('returns true when the numpad minus key is pressed (IE)', () => {
+      expect(Events.isMinusKey({ key: 'Subtract' })).toBeTruthy();
+    });
+  });
+
+  describe('isHomeKey', () => {
+    it('returns false when the home key is not pressed', () => {
+      expect(Events.isHomeKey({ which: 190 })).toBeFalsy();
+    });
+
+    it('returns true when the home key is pressed', () => {
+      expect(Events.isHomeKey({ which: 36 })).toBeTruthy();
+    });
+  });
+
+  describe('isEndKey', () => {
+    it('returns false when the end key is not pressed', () => {
+      expect(Events.isEndKey({ which: 190 })).toBeFalsy();
+    });
+
+    it('returns true when the end key is pressed', () => {
+      expect(Events.isEndKey({ which: 35 })).toBeTruthy();
+    });
+  });
+
+  describe('composedPath', () => {
+    it('returns the path from event.path if it is available', () => {
+      const path = Symbol('path');
+      const ev = new CustomEvent('click');
+      ev.path = path;
+      expect(Events.composedPath(ev)).toBe(path);
+    });
+
+    it('returns an empty array if there is no target', () => {
+      expect(Events.composedPath(new CustomEvent('click'))).toEqual([]);
+    });
+
+    it('returns an empty array if there is no parent element', () => {
+      const ev = {
+        target: document
+      };
+      
+      expect(Events.composedPath(ev)).toEqual([]);
+    });
+
+    it('returns the path from event.composedPath() if it is available', () => {
+      const path = Symbol('path');
+      const composedPath = jest.fn();
+      composedPath.mockReturnValue(path);
+      const ev = new CustomEvent('click');
+      ev.composedPath = composedPath;
+      expect(Events.composedPath(ev)).toBe(path);
+    });
+
+    it.each([
+      ['a DOMElement', (path, li) => {
+        const ev = {
+          target: li
+        }
+        
+        expect(Events.composedPath(ev)).toEqual(path);
+      }],
+      ['an Enzyme ReactWrapper', (path, li) => {
+        const ev = new CustomEvent('click', {
+          detail : {
+            enzymeTestingTarget: li
+          }
+        })
+        
+        expect(Events.composedPath(ev)).toEqual(path);
+      }],
+    ])('builds the path if it is not avaiable on the element from %s', (str, assertion) => {
+      const div = document.createElement('div');
+      const ul = document.createElement('ul');
+      const li = document.createElement('li');
+
+      ul.appendChild(li);
+      div.appendChild(ul);
+
+      const path = [div, ul, li];
+
+      assertion(path, li);
     });
   });
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition } from 'react-transition-group';
 import { shallow, mount } from 'enzyme';
 import BaseCarousel, { Carousel, Slide } from './carousel.component';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
@@ -18,6 +18,7 @@ import {
   CarouselNextButtonWrapperStyle
 } from './carousel.style';
 import classicTheme from '../../style/themes/classic';
+import smallTheme from '../../style/themes/small';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import 'jest-styled-components';
 /* global jest */
@@ -372,7 +373,7 @@ describe('BaseCarousel', () => {
     let slide, wrapper;
 
     beforeEach(() => {
-      wrapper = shallow(
+      wrapper = mount(
         <BaseCarousel theme={ classicTheme }>
           <Slide />
         </BaseCarousel>
@@ -386,14 +387,14 @@ describe('BaseCarousel', () => {
     });
 
     it('adds an active and a padded classes', () => {
-      expect(wrapper.find(Slide).props().isPadded).toBe(true);
+      expect(wrapper.find(Slide).props().slideProps.isPadded).toBe(true);
     });
 
     describe('when the previous button is disabled', () => {
       it('adds a padded classes', () => {
         wrapper.setProps({ enablePreviousButton: false });
 
-        expect(wrapper.find(Slide).props().isPadded).toBe(true);
+        expect(wrapper.find(Slide).props().slideProps.isPadded).toBe(true);
       });
     });
 
@@ -401,7 +402,7 @@ describe('BaseCarousel', () => {
       it('adds a padded classes', () => {
         wrapper.setProps({ enableNextButton: false });
 
-        expect(wrapper.find(Slide).props().isPadded).toBe(true);
+        expect(wrapper.find(Slide).props().slideProps.isPadded).toBe(true);
       });
     });
   });
@@ -534,16 +535,15 @@ describe('BaseCarousel', () => {
     });
   });
 
-  describe('transitionName', () => {
+  describe('classNames', () => {
     it('uses a custom name if supplied', () => {
-      const wrapper = shallow(
+      const wrapper = mount(
         <BaseCarousel theme={ classicTheme } transition='foo'>
           <Slide />
         </BaseCarousel>
       );
-
-      const transitionGroup = wrapper.find(CSSTransitionGroup);
-      expect(transitionGroup.props().transitionName).toEqual('carousel-transition-foo');
+      const transitionGroup = wrapper.find(CSSTransition);
+      expect(transitionGroup.props().classNames).toEqual('carousel-transition-foo');
     });
   });
 });
@@ -573,11 +573,18 @@ describe('CarouselPreviousButtonWrapperStyle', () => {
 });
 
 describe('CarouselStyledIcon', () => {
-  const wrapper = mount(<CarouselStyledIcon theme={ classicTheme } />);
-  it('should render matched style', () => {
+  it('should render matched style when classic', () => {
+    const wrapper = mount(<CarouselStyledIcon theme={ classicTheme } />);
     assertStyleMatch({
       fontSize: '25px'
     }, wrapper, { modifier: '&&::before' });
+  });
+
+  it('should render matched style when modern themed', () => {
+    const wrapper = mount(<CarouselStyledIcon theme={ smallTheme } />);
+    assertStyleMatch({
+      color: '#FFFFFF'
+    }, wrapper);
   });
 });
 
@@ -670,7 +677,11 @@ describe('SlideStyle', () => {
   let wrapper;
 
   it('should render matched style', () => {
-    wrapper = mount(<Slide onClick={ () => {} } style={ classicTheme } />);
+    wrapper = mount(<Slide
+      transitionName={ () => {} }
+      onClick={ () => { } }
+      style={ classicTheme }
+    />);
     assertStyleMatch({
       transition: 'all 0.2s ease-in',
       transform: 'scale(1.02)',

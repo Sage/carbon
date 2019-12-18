@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Link from '../link';
-import Textbox from '../textbox';
+import Textbox from '../../__deprecated__/components/textbox';
 
 import MenuListItem from './menu-list-item';
 import tagComponent from '../../utils/helpers/tags';

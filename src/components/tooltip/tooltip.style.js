@@ -2,8 +2,8 @@ import styled, { css, keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../style/themes/base';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
-import { THEMES } from '../../style/themes';
 import { isHorizontal } from './tooltip.utils';
+import { isClassic } from '../../utils/helpers/style-helper';
 
 const StyledTooltipInner = styled.div`
   ${({ theme, type }) => css`
@@ -20,7 +20,7 @@ const StyledTooltipInner = styled.div`
       background-color: ${theme.colors.error};
     `}
 
-    ${theme.name === THEMES.classic && css`
+    ${isClassic(theme) && css`
       font-weight: 700;
       padding: 10px 15px;
     `}

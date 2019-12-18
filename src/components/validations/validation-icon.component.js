@@ -12,8 +12,12 @@ const ValidationIcon = ({
   theme,
   type,
   size,
+  iconId,
   isPartOfInput,
-  tooltipMessage
+  tooltipMessage,
+  tabIndex,
+  isFocused,
+  onClick
 }) => {
   let modernTooltipProps = {};
 
@@ -31,14 +35,21 @@ const ValidationIcon = ({
     <InputPresentationContext.Consumer>
       {
         context => (
-          <ValidationIconStyle type={ type }>
+          <ValidationIconStyle
+            id={ iconId }
+            validationType={ type }
+            role='tooltip'
+            aria-label={ tooltipMessage }
+            onClick={ onClick }
+          >
             <Icon
               key={ `${type}-icon` }
               tooltipType={ type }
               tooltipMessage={ tooltipMessage }
-              tooltipVisible={ context && (context.hasFocus || context.hasMouseOver) }
+              tooltipVisible={ isFocused || (context && (context.hasFocus || context.hasMouseOver)) }
               type={ type }
               size={ size }
+              tabIndex={ tabIndex }
               { ...modernTooltipProps }
             />
           </ValidationIconStyle>
@@ -49,14 +60,29 @@ const ValidationIcon = ({
 };
 
 ValidationIcon.propTypes = {
+  /** A string to represent the type of validation */
   type: PropTypes.oneOf(OptionsHelper.validationTypes),
+  /** A small string to indicate the size of the icon */
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  /** The unique id of the component (used with aria-describedby for accessibility) */
+  iconId: PropTypes.string,
+  /** A message that the ValidationIcon component will display */
   tooltipMessage: PropTypes.string,
+  /** Properties related to the theme */
   theme: PropTypes.object,
-  isPartOfInput: PropTypes.bool
+  /** A boolean to indicate if the icon is part of an input */
+  onClick: PropTypes.func,
+  /** An onClick handler */
+  isPartOfInput: PropTypes.bool,
+  /** Overrides the default tabindex of the component */
+  tabIndex: PropTypes.number,
+  /** A boolean received from IconWrapper */
+  isFocused: PropTypes.bool
 };
 
 ValidationIcon.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
+  tabIndex: -1
 };
+
 export default withTheme(ValidationIcon);

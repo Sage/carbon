@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyledTableHeader from './table-header.style';
-import Icon from '../../icon/icon';
+import Icon from '../../icon';
 import { validProps } from '../../../utils/ether/ether';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
@@ -57,7 +57,7 @@ class TableHeader extends React.Component {
    */
   get sortIconHTML() {
     if (this.sorted) {
-      const type = this.context.sortOrder === 'desc' ? 'sort-down' : 'sort-up';
+      const type = this.context.sortOrder === 'desc' ? 'sort_down' : 'sort_up';
       return <Icon type={ type } />;
     }
     return null;
@@ -146,8 +146,8 @@ class TableHeader extends React.Component {
           aria-label={ this.sortDescription }
           onClick={ this.onSortableColumnClick }
         >
-          { this.sortIconHTML }
           { this.props.children }
+          { this.sortIconHTML }
         </a>
       );
     } else {

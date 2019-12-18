@@ -70,6 +70,13 @@ const OptionsHelper = {
     'status'
   ],
 
+  pillSizesRestricted: [
+    'S',
+    'M',
+    'L',
+    'XL'
+  ],
+
   toast: [
     'success',
     'error'
@@ -82,13 +89,31 @@ const OptionsHelper = {
     'warning'
   ],
 
+  iconBackgrounds: [
+    'info',
+    'error',
+    'success',
+    'warning',
+    'business',
+    'none'
+  ],
+
+  iconColors: [
+    'default',
+    'on-light-background',
+    'on-dark-background',
+    'business-color'
+  ],
+
   icons: [
     'add',
     'alert',
     'analysis',
     'arrow_down',
     'arrow_left',
+    'arrow_left_small',
     'arrow_right',
+    'arrow_right_small',
     'arrow_up',
     'attach',
     'basket',
@@ -114,6 +139,7 @@ const OptionsHelper = {
     'chevron_up',
     'clock',
     'close',
+    'coins',
     'collaborate',
     'copy',
     'connect',
@@ -165,6 +191,7 @@ const OptionsHelper = {
     'message',
     'messages',
     'minus',
+    'minus_large',
     'mobile',
     'pdf',
     'people',
@@ -172,7 +199,9 @@ const OptionsHelper = {
     'phone',
     'play',
     'plus',
+    'plus_large',
     'print',
+    'progress',
     'progressed',
     'question',
     'refresh',
@@ -193,8 +222,7 @@ const OptionsHelper = {
     'uploaded',
     'video',
     'view',
-    'warning',
-    'white-tick'
+    'warning'
   ],
 
   orientation: [
@@ -267,6 +295,14 @@ const OptionsHelper = {
     'large'
   ],
 
+  sizesTile: [
+    'XS',
+    'S',
+    'M',
+    'L',
+    'XL'
+  ],
+
   steps: [
     'complete',
     'current',
@@ -310,6 +346,11 @@ const OptionsHelper = {
     'large'
   ],
 
+  tileThemes: [
+    'tile',
+    'transparent'
+  ],
+
   validationTypes: [
     'error',
     'warning',
@@ -327,6 +368,13 @@ const OptionsHelper = {
   formButtonOptions: [
     'save',
     'cancel'
+  ],
+
+  positionDatePicker: [
+    'top-left',
+    'top-right',
+    'bottom-left',
+    'bottom-right'
   ]
 };
 

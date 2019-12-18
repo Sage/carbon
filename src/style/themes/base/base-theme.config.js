@@ -43,8 +43,21 @@ export default (palette) => {
       }
     },
 
+    menu: {
+      focus: palette.slateTint(95),
+      divider: palette.slateTint(90),
+      itemColor: blackWithOpacity(0.9),
+      itemColorDisabled: blackWithOpacity(0.3)
+    },
+
     form: {
       invalid: palette.slateTint(95)
+    },
+
+    card: {
+      footerBackground: palette.slateTint(95),
+      footerBorder: palette.slateTint(90),
+      footerText: palette.productGreenShade(21)
     },
 
     carousel: {
@@ -74,6 +87,10 @@ export default (palette) => {
       switch: palette.slateTint(89.5)
     },
 
+    checkable: {
+      checked: 'rgba(0,0,0,0.90)'
+    },
+
     table: {
       primary: palette.slateTint(95),
       secondary: palette.slateTint(80),
@@ -81,7 +98,8 @@ export default (palette) => {
       header: palette.slateTint(20),
       hover: palette.slateTint(90),
       selected: palette.slateTint(85),
-      zebra: palette.slateTint(98)
+      zebra: palette.slateTint(98),
+      dragging: palette.slateTint(90)
     },
 
     pager: {
@@ -95,7 +113,11 @@ export default (palette) => {
     },
 
     icon: {
-      focus: palette.slateTint(20)
+      default: 'rgba(0,0,0,0.65)',
+      defaultHover: 'rgba(0,0,0,0.90)',
+      onLightBackground: palette.slateTint(40),
+      onLightBackgroundHover: palette.slateTint(20),
+      disabled: 'rgba(0,0,0,0.30)'
     },
 
     portrait: {
@@ -122,11 +144,18 @@ export default (palette) => {
       depth2: '0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)',
       depth3: '0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)',
       depth4: '0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)',
-      cards: '0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)'
+      /* no space after comma as it is stripped from the variable when used in the spec */
+      cards: '0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)',
+      cardsIE: '0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)'
     },
 
     switch: {
       off: '#CCD6DB'
+    },
+
+    tile: {
+      border: palette.slateTint(80),
+      separator: palette.slateTint(90)
     }
   };
 };

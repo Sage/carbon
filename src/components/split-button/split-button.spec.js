@@ -5,13 +5,12 @@ import { ThemeProvider } from 'styled-components';
 import SplitButton from './split-button.component';
 import StyledSplitButtonChildrenContainer from './split-button-children.style';
 import Icon from '../icon';
-import Button from '../button';
+import Button, { ButtonWithForwardRef } from '../button';
 import StyledButton from '../button/button.style';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import ClassicTheme from '../../style/themes/classic';
 import SmallTheme from '../../style/themes/small';
 import MediumTheme from '../../style/themes/medium';
-import LargeTheme from '../../style/themes/large';
 import {
   assertStyleMatch,
   keyboard
@@ -27,8 +26,7 @@ const sizes = ['small', 'medium', 'large'];
 
 const businessThemes = [
   ['small', SmallTheme],
-  ['medium', MediumTheme],
-  ['large', LargeTheme]
+  ['medium', MediumTheme]
 ];
 
 const themes = [
@@ -71,6 +69,17 @@ const renderWithTheme = (mainProps = {}, childButtons = singleButton, renderer =
   );
 };
 
+const renderWithNoChildren = (mainProps = {}, renderer = shallow) => {
+  return renderer(
+    <SplitButton
+      { ...mainProps }
+      text='Split button'
+      data-element='bar'
+      data-role='baz'
+    />
+  );
+};
+
 const buildSizeConfig = (name, size) => {
   const sizeObj = {};
   sizeObj.fontSizze = size === 'large' ? '16px' : '14px';
@@ -103,9 +112,31 @@ describe('SplitButton', () => {
     it('renders dropdown icon', () => {
       expect(
         toggle.contains(
-          <Icon type='dropdown' />
+          <Icon
+            type='dropdown'
+            bgTheme='none'
+            iconColor='business-color'
+            disabled={ false }
+            bgSize='small'
+            fontSize='small'
+          />
         )
       ).toBeTruthy();
+    });
+  });
+
+  describe('when there are no children', () => {
+    it('does not throw an error', () => {
+      expect(() => renderWithNoChildren()).not.toThrow();
+    });
+  });
+
+  describe('when children are Button Components', () => {
+    it('then they should change to Buttons with forwarded refs', () => {
+      wrapper = render();
+      simulateFocusOnToggle(wrapper);
+
+      expect(wrapper.find(ButtonWithForwardRef).exists()).toBe(true);
     });
 
     afterEach(() => {
@@ -113,75 +144,39 @@ describe('SplitButton', () => {
     });
   });
 
-  describe('keyboard accessibility of additional buttons', () => {
-    describe.each(themes)(
-      'when "up" key is pressed and the theme is set to "%s"',
-      (name, theme) => {
-        it('matches the expected style for the button indexed', () => {
-          const wrapper2 = renderWithTheme({ carbonTheme: theme }, multipleButtons, mount).find(SplitButton);
+  describe('when children are not Button Components', () => {
+    it('then child elements should be redered as they are', () => {
+      const spanElement = <span className='' />;
+      wrapper = render({}, spanElement);
+      simulateFocusOnToggle(wrapper);
 
-          wrapper2.instance().showButtons();
-          const { additionalButtons } = wrapper2.instance();
+      const element = wrapper.find('[data-element="additional-buttons"]').childAt(0);
+      expect(element.type()).toBe('span');
+    });
 
-          for (let index = additionalButtons.length - 1; index >= 0; index--) {
-            const button = additionalButtons[index];
-            keyboard.pressUpArrow();
-            expect(wrapper2.instance().isActiveElement(button)).toEqual(true);
-          }
-          wrapper2.instance().hideButtons();
-        });
-      }
-    );
-
-    describe.each(themes)(
-      'when "down" key is pressed and the theme is set to "%s"',
-      (_, theme) => {
-        it('matches the expected style for the button indexed', () => {
-          const wrapper3 = renderWithTheme({ carbonTheme: theme }, multipleButtons, mount).find(SplitButton);
-          wrapper3.instance().showButtons();
-          const { additionalButtons } = wrapper3.instance();
-
-          for (let index = 0; index <= additionalButtons.length; index++) {
-            keyboard.pressDownArrow();
-            const button = index < additionalButtons.length ? additionalButtons[index] : additionalButtons[0];
-            expect(wrapper3.instance().isActiveElement(button)).toEqual(true);
-          }
-          wrapper3.instance().hideButtons();
-        });
-      }
-    );
-
-    describe.each(themes)(
-      'when "tab" key is pressed and the theme is set to "%s"',
-      (_, theme) => {
-        it('it calls the "hideButtons" function', () => {
-          const wrapper4 = renderWithTheme({ carbonTheme: theme }, multipleButtons, mount).find(SplitButton);
-          wrapper4.instance().showButtons();
-          const spy = spyOn(wrapper4.instance(), 'hideButtons');
-          jest.useFakeTimers();
-          keyboard.pressTab();
-          jest.runAllTimers();
-          expect(spy).toHaveBeenCalled();
-        });
-      }
-    );
+    afterEach(() => {
+      wrapper.unmount();
+    });
   });
 
   describe.each(themes)(
     'when the theme is set to "%s"',
     (name, theme) => {
-      it('has the expected style', () => {
-        const themedWrapper = mount(
+      let themedWrapper;
+
+      beforeEach(() => {
+        themedWrapper = mount(
           <StyledSplitButtonChildrenContainer theme={ theme }>
             <StyledButton>Foo</StyledButton>
           </StyledSplitButtonChildrenContainer>
         );
+      });
 
+      it('has the expected style', () => {
         const themeColors = {
           classic: '#1e499f',
           small: '#006045',
-          medium: '#005B9A',
-          large: '#4F2775'
+          medium: '#005B9A'
         };
 
         assertStyleMatch({
@@ -191,23 +186,20 @@ describe('SplitButton', () => {
       });
 
       it('matches the expected style for the focused "additional button"', () => {
-        const themedWrapper = mount(
-          <StyledSplitButtonChildrenContainer theme={ theme }>
-            <StyledButton>Foo</StyledButton>
-          </StyledSplitButtonChildrenContainer>
-        );
-
         const themeColors = {
           classic: '#163777',
           small: '#003F2E',
-          medium: '#004372',
-          large: '#3D1E5B'
+          medium: '#004372'
         };
 
         themedWrapper.find('button').simulate('focus');
         assertStyleMatch({
           backgroundColor: themeColors[name]
         }, themedWrapper, { modifier: `${StyledButton}:focus` });
+      });
+
+      afterEach(() => {
+        themedWrapper.unmount();
       });
     }
   );
@@ -247,6 +239,24 @@ describe('SplitButton', () => {
       assertStyleMatch({
         borderLeft: '1px solid #1e499f'
       }, wrapper.find(StyledSplitButtonToggle));
+    });
+
+    it('applies the expecred styles to the toggle when disabled is false and the displayed prop is true', () => {
+      wrapper = TestRenderer.create(
+        <ThemeProvider theme={ ClassicTheme }>
+          <StyledSplitButtonToggle displayed />
+        </ThemeProvider>
+      );
+
+      assertStyleMatch({
+        backgroundColor: '#1963f6',
+        borderColor: '#1963f6'
+      }, wrapper.toJSON(), { modifier: '&:active' });
+
+      assertStyleMatch({
+        backgroundColor: '#1e499f',
+        borderColor: '#1e499f'
+      }, wrapper.toJSON(), { modifier: '&&' });
     });
   });
 
@@ -400,7 +410,7 @@ describe('SplitButton', () => {
 
       it('hides additional buttons', () => {
         toggle.simulate('mouseenter');
-        expect(wrapper.containsMatchingElement(singleButton)).toBeTruthy();
+        expect(wrapper.find(StyledSplitButtonChildrenContainer).exists()).toBeTruthy();
 
         mainButton.simulate('mouseenter');
         wrapper.instance().forceUpdate();
@@ -432,7 +442,7 @@ describe('SplitButton', () => {
       it('the handler should be called on the main button', () => {
         toggle.simulate('mouseenter');
         wrapper.instance().forceUpdate();
-        const button = wrapper.find('[data-element="additional-buttons"]').find(Button);
+        const button = wrapper.find('[data-element="additional-buttons"]').find(ButtonWithForwardRef);
         button.simulate('click');
         expect(handleSecondButton).toHaveBeenCalled();
       });
@@ -529,6 +539,8 @@ describe('SplitButton', () => {
   });
 
   describe('when focused on the toggle button', () => {
+    const additionalButtonsSelector = '[data-element="additional-buttons"]';
+
     beforeEach(() => {
       wrapper = render({}, multipleButtons, mount);
       toggle = wrapper.find(StyledSplitButtonToggle);
@@ -538,18 +550,51 @@ describe('SplitButton', () => {
     describe.each([['enter', 13], ['space', 32]])('the %s key is pressed', (name, keyCode) => {
       it('then the first additional button should be focused', () => {
         toggle.simulate('keydown', { which: keyCode });
-        const firstButton = wrapper.find(StyledSplitButtonChildrenContainer).find('button').at(0);
+        const firstButton = wrapper.find(additionalButtonsSelector).find('button').at(0);
 
         expect(firstButton.instance()).toBe(document.activeElement);
       });
     });
 
-    describe('the tab key is pressed', () => {
-      const tabKeyCode = 9;
+    describe('when "up" key is pressed', () => {
+      it('the additonal buttons should be stepped through in sequence', () => {
+        const additionalButtons = wrapper.find(additionalButtonsSelector).find(ButtonWithForwardRef);
 
-      it('then the first additional button should not be focused', () => {
-        toggle.simulate('keydown', { which: tabKeyCode });
-        const firstButton = wrapper.find(StyledSplitButtonChildrenContainer).find('button').at(0);
+        keyboard.pressUpArrow();
+        expect(additionalButtons.at(additionalButtons.length - 1).getDOMNode()).toBe(document.activeElement);
+        keyboard.pressUpArrow();
+        expect(additionalButtons.at(additionalButtons.length - 2).getDOMNode()).toBe(document.activeElement);
+        keyboard.pressUpArrow();
+        expect(additionalButtons.at(0).getDOMNode()).toBe(document.activeElement);
+      });
+    });
+
+    describe('when "down" key is pressed', () => {
+      it('the additonal buttons should be stepped through in sequence', () => {
+        const additionalButtons = wrapper.find(additionalButtonsSelector).find(ButtonWithForwardRef);
+
+        keyboard.pressDownArrow();
+        expect(additionalButtons.at(0).getDOMNode()).toBe(document.activeElement);
+        keyboard.pressDownArrow();
+        expect(additionalButtons.at(additionalButtons.length - 2).getDOMNode()).toBe(document.activeElement);
+        keyboard.pressDownArrow();
+        expect(additionalButtons.at(additionalButtons.length - 1).getDOMNode()).toBe(document.activeElement);
+        keyboard.pressDownArrow();
+        expect(additionalButtons.at(0).getDOMNode()).toBe(document.activeElement);
+      });
+    });
+
+    describe('the tab key is pressed', () => {
+      it('it calls the expected timeout function', () => {
+        const timeoutSpy = spyOn(window, 'setTimeout');
+        keyboard.pressTab();
+
+        expect(timeoutSpy).toHaveBeenCalled();
+      });
+
+      it('it does not pass focus to the first additonal button', () => {
+        toggle.simulate('keydown', { which: 9 });
+        const firstButton = wrapper.find(additionalButtonsSelector).find('button').at(0);
 
         expect(firstButton.instance()).not.toBe(document.activeElement);
       });
@@ -559,7 +604,7 @@ describe('SplitButton', () => {
       it('then the additional buttons menu should remain open', () => {
         wrapper.simulate('mouseLeave');
 
-        expect(wrapper.find(StyledSplitButtonChildrenContainer).exists()).toBe(true);
+        expect(wrapper.find(additionalButtonsSelector).exists()).toBe(true);
       });
     });
 
@@ -568,7 +613,7 @@ describe('SplitButton', () => {
         toggle.simulate('blur');
         wrapper.simulate('mouseLeave');
 
-        expect(wrapper.find(StyledSplitButtonChildrenContainer).exists()).toBe(false);
+        expect(wrapper.find(additionalButtonsSelector).exists()).toBe(false);
       });
     });
 

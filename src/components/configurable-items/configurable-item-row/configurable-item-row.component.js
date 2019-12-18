@@ -2,17 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withTheme } from 'styled-components';
-import tagComponent from '../../../utils/helpers/tags/tags';
+import tagComponent from '../../../utils/helpers/tags';
 import { WithDrag, WithDrop } from '../../drag-and-drop/drag-and-drop';
-import CheckboxLegacy from '../../checkbox/checkbox';
-import Checkbox from '../../../__experimental__/components/checkbox';
+import CheckboxLegacy from '../../../__deprecated__/components/checkbox';
+import { Checkbox } from '../../../__experimental__/components/checkbox';
 import {
   ConfigurableItemRowStyle,
   ConfigurableItemRowContentWrapperStyle,
   ConfigurableItemRowIconStyle
 } from './configurable-item-row.style';
-import { THEMES } from '../../../style/themes';
 import baseTheme from '../../../style/themes/base';
+import { isClassic } from '../../../utils/helpers/style-helper';
 
 class ConfigurableItemRow extends React.Component {
   static contextTypes = {
@@ -21,7 +21,7 @@ class ConfigurableItemRow extends React.Component {
   };
 
   checkbox(enabled, locked, name, onChange) {
-    if (this.props.theme.name === THEMES.classic) {
+    if (isClassic(this.props.theme)) {
       return (
         <CheckboxLegacy
           value={ enabled }

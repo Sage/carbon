@@ -1,13 +1,12 @@
 import {
   showEditPodEdit, showEditPodCancelButton, showEditPodSaveButton, showEditPodDeleteButton,
-  showEditPodTitle, showEditPodPreview, showEditPodSecondaryBlock, showEditPodSecondaryWrapper,
-  showEditPodCollapsibleInnerContent,
+  showEditPodTitle, showEditPodPreview, showEditPodSecondaryBlock,
+  showEditPodCollapsibleInnerContent, showEditPodFooter,
 } from '../../locators/show-edit-pod';
 
 const SHOW_EDIT_POD_BLOCK_CONTENT = 'carbon-pod__block--';
 const SHOW_EDIT_POD_CONTENT = 'carbon-pod__content--';
 const SHOW_EDIT_POD_NO_BORDER_CONTENT = 'carbon-pod--no-border';
-const SHOW_EDIT_POD_WRAPPER = 'carbon-form__buttons--';
 const FIRST_DIV = 1;
 const SECOND_DIV = 2;
 const THIRD_DIV = 3;
@@ -32,7 +31,7 @@ Then('Show Edit Pod title on preview is set to {string}', (text) => {
 });
 
 When('I edit Show Edit Pod component', () => {
-  showEditPodEdit().click();
+  showEditPodEdit().first().click();
 });
 
 Then('Show Edit Pod component has border property', () => {
@@ -96,9 +95,12 @@ Then('Show Edit Pod as value is set to {string}', (property) => {
     .should('have.class', `${SHOW_EDIT_POD_CONTENT}${property}`);
 });
 
-Then('Show Edit Pod buttonAlign value is set to {string}', (property) => {
-  showEditPodSecondaryWrapper()
-    .should('have.class', `${SHOW_EDIT_POD_WRAPPER}${property}`);
+Then('Show Edit Pod buttons are aligned to left', () => {
+  showEditPodFooter().first().should('have.text', 'Save');
+});
+
+Then('Show Edit Pod buttons are aligned to right', () => {
+  showEditPodFooter().first().should('have.text', 'Cancel');
 });
 
 When('I click delete button', () => {

@@ -22,8 +22,8 @@ describe('InputPresentation', () => {
         it(`has the right style for ${size}-sized inputs`, () => {
           assertStyleMatch({
             minHeight: sizes[size].height,
-            paddingLeft: sizes[size].padding,
-            paddingRight: sizes[size].padding
+            paddingLeft: sizes[size].horizontalPadding,
+            paddingRight: sizes[size].horizontalPadding
           }, render({ size }));
         });
       });
@@ -66,8 +66,7 @@ describe('InputPresentation', () => {
     describe('readOnly', () => {
       it('has the correct style rules', () => {
         assertStyleMatch({
-          background: 'transparent !important',
-          borderColor: 'transparent !important'
+          background: 'transparent !important'
         }, render({ readOnly: true }));
       });
     });

@@ -1,5 +1,5 @@
-import { Pages } from './';
-import Definition from './../../../demo/utils/definition';
+import { Pages } from './pages.component';
+import Definition from '../../../demo/utils/definition';
 import pageDefinition from './page/__definition__';
 
 global.goToPage = (ev) => {

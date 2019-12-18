@@ -32,9 +32,9 @@ Then('Simple Color Picker availableColors on preview is set to {string}', (value
 
 Then('Simple Color Picker {int} element was picked up', (index) => {
   for (let i = 1; i < index; ++i) {
-    simpleColorPickerDiv(i + 1).children()
+    simpleColorPickerDiv(i + 1)
       .should('have.attr', 'data-element', 'tick')
-      .should('have.class', 'icon-tick');
+      .should('have.attr', 'data-component', 'icon');
   }
 });
 

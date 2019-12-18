@@ -130,13 +130,13 @@ describe('TableAjax', () => {
   describe('componentWillReceiveProps', () => {
     it('does not call setState with the same pageSize', () => {
       spyOn(pageSizeInstance, 'setState');
-      pageSizeInstance.componentWillReceiveProps({pageSize: '10'});
+      pageSizeInstance.UNSAFE_componentWillReceiveProps({pageSize: '10'});
       expect(pageSizeInstance.setState).not.toHaveBeenCalled();
     });
 
     it('calls emitOnChangeCallback when pageSize changes', () => {
       spyOn(pageSizeInstance, 'setState');
-      pageSizeInstance.componentWillReceiveProps({pageSize: '20'});
+      pageSizeInstance.UNSAFE_componentWillReceiveProps({pageSize: '20'});
       expect(pageSizeInstance.setState).toHaveBeenCalledWith({ pageSize: '20' });
     });
   });
@@ -250,7 +250,7 @@ describe('TableAjax', () => {
       wrapper.update();
       const pager = wrapper.find(Pager);
 
-      expect(pager.props().totalRecords).toEqual('1');
+      expect(pager.props().totalRecords).toEqual(1);
 
       const table = wrapper.find('table')
       expect(table.length).toEqual(1);
@@ -605,7 +605,7 @@ describe('TableAjax', () => {
       let props = instance.pagerProps;
       expect(props.currentPage).toEqual('1')
       expect(props.pageSize).toEqual('10')
-      expect(props.totalRecords).toEqual('0')
+      expect(props.totalRecords).toEqual(0)
     });
   });
 

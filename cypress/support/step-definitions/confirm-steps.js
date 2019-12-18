@@ -59,17 +59,3 @@ Then('Confirm dialog input height is {string}', (height) => {
 Then('Confirm dialog size property on preview is {string}', (size) => {
   dialogPreview().should('have.css', 'width', `${size}px`);
 });
-
-Then('Confirm dialog has stickyFormFooter parameter enabled', () => {
-  /*
-  stickyFormFooter - the functionality exists, but doesn't work on Storybook / Carbon demo site.
-  will be fixed on the next impementation phase
-  */
-});
-
-Then('Confirm dialog has no stickyFormFooter parameter', () => {
-  /*
-  stickyFormFooter - the functionality exists, but doesn't work on Storybook / Carbon demo site.
-  will be fixed on the next impementation phase
-  */
-});

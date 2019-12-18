@@ -66,6 +66,11 @@ describe('Toast', () => {
       expect(wrapper.find('.exampleClass')).toHaveLength(1);
     });
 
+    it('renders the component with correct id', () => {
+      const wrapper = mount(<Toast open id='toast-id' />);
+      expect(wrapper.find('#toast-id')).toHaveLength(1);
+    });
+
     it('renders child content', () => {
       const wrapper = shallow(<Toast>children</Toast>);
       expect(wrapper.contains('children')).toBeTruthy();
@@ -76,14 +81,14 @@ describe('Toast', () => {
       expect(wrapper.find(DismissButton).exists).toBeTruthy();
     });
 
-    it('calls onDismiss method when clicking close', () => {
+    it('calls onDismiss method when Dismiss Button is toggled', () => {
       const spy = jest.fn();
       const wrapper = mount(<Toast
         open
         onDismiss={ spy }
       />);
 
-      wrapper.find('a').simulate('click');
+      wrapper.find(DismissButton).prop('onDismiss')();
       expect(spy).toHaveBeenCalled();
     });
   });

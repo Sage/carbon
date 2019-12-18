@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, boolean } from '@storybook/addon-knobs';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import notes from './documentation';
 import Heading from './heading';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
@@ -10,8 +11,8 @@ Heading.__docgenInfo = getDocGenInfo(
   /heading(?!spec)/
 );
 
-storiesOf('Heading', module)
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const title = text('title', 'This is a heading');
     const children = text('children', 'This is content beneath a heading');
     const subheader = text('subheader', 'This is a subheading');
@@ -34,7 +35,17 @@ storiesOf('Heading', module)
         {children}
       </Heading>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Heading', module)
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));

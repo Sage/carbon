@@ -3,10 +3,11 @@ import { storiesOf } from '@storybook/react';
 import { text, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import { notes, info } from './documentation';
 import DialogFullScreen from '.';
 import Button from '../button';
-import Form from '../form';
+import Form from '../../__deprecated__/components/form';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 DialogFullScreen.__docgenInfo = getDocGenInfo(
@@ -32,16 +33,8 @@ const handleClick = (evt) => {
   action('click')(evt);
 };
 
-storiesOf('Dialog Full Screen', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [Button, State],
-      text: info
-    },
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false }
-  })
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const title = text('title', 'Example Dialog');
     const subtitle = text('subtitle', 'Example Subtitle');
     const children = text('children', 'Text Content');
@@ -68,8 +61,17 @@ storiesOf('Dialog Full Screen', module)
         </State>
       </div>
     );
-  })
-  .add('with sticky footer', () => {
+  };
+
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+function makeStickyFooterStory(name, themeSelector) {
+  const component = () => {
     const title = text('title', 'Example Dialog');
     const subtitle = text('subtitle', 'Example Subtitle');
     const children = text('children', 'Text Content');
@@ -100,4 +102,25 @@ storiesOf('Dialog Full Screen', module)
         </State>
       </div>
     );
-  });
+  };
+
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Dialog Full Screen', module)
+  .addParameters({
+    info: {
+      propTablesExclude: [Button, State],
+      text: info
+    },
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
+  })
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector))
+  .add(...makeStickyFooterStory('with sticky footer', dlsThemeSelector))
+  .add(...makeStickyFooterStory('with sticky footer classic', classicThemeSelector));

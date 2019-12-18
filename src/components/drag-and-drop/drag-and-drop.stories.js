@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
 import {
@@ -76,21 +77,8 @@ const BuildRows = props => (
   ))
 );
 
-storiesOf('DraggableContext', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [
-        BuildRows,
-        Table,
-        TableHeader,
-        TableRow,
-        TableCell,
-        State
-      ],
-      propTables: [DraggableContext, WithDrag, WithDrop, CustomDragLayer]
-    }
-  })
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const autoScroll = boolean('autoScroll', true);
 
     return (
@@ -115,7 +103,30 @@ storiesOf('DraggableContext', module)
         </div>
       </DraggableContext>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     info: { text: Info },
     notes: { markdown: notes }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('DraggableContext', module)
+  .addParameters({
+    info: {
+      propTablesExclude: [
+        BuildRows,
+        Table,
+        TableHeader,
+        TableRow,
+        TableCell,
+        State
+      ],
+      propTables: [DraggableContext, WithDrag, WithDrop, CustomDragLayer]
+    }
+  })
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));

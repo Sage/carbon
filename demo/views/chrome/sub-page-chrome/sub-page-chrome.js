@@ -2,7 +2,6 @@ import React from 'react';
 
 import { connect } from 'carbon-state-management/lib/flux';
 import { titleize, humanize } from 'underscore.string';
-import ComponentStore from './../../../stores/component';
 import I18n from 'i18n-js';
 
 // Demo Site
@@ -21,14 +20,11 @@ import Wrapper from './../../common/wrapper';
  */
 class SubPageComponent extends React.Component {
   render() {
-    const definition = this._getDefinition();
-
     return (
       <article className='sub-page-chrome'>
         <PageHeaderSmall
-          subtitle={ this.subtitle(definition) }
+          subtitle={ this.subtitle() }
           title={ this.name() }
-          titleAppend={ this.titleAppend(definition) }
         />
 
         <Wrapper>
@@ -37,7 +33,6 @@ class SubPageComponent extends React.Component {
           <SubPageNavigation
             availableRoutes={ this.props.routes }
             currentLocation={ this.props.location }
-            definition={ definition }
           />
         </Wrapper>
       </article>
@@ -49,24 +44,9 @@ class SubPageComponent extends React.Component {
     return titleize(humanize(name));
   }
 
-  subtitle = (definition) => {
-    if (definition) {
-      return definition.get('description');
-    }
-      let scope = this.props.location.pathname.replace(/\//g, ".").substr(1);
-      return I18n.t(`${scope}.subtitle`, { defaultValue: '' });
-  }
-
-  titleAppend = (definition) => {
-    if (definition) {
-      return definition.get('type');
-    }
-  }
-
-  _getDefinition = () => {
-    if (this._hasNameParam()) {
-      return this.state.componentStore.get(this.props.params.name);
-    }
+  subtitle = () => {
+    let scope = this.props.location.pathname.replace(/\//g, ".").substr(1);
+    return I18n.t(`${scope}.subtitle`, { defaultValue: '' });
   }
 
   _getLastPartOfLocation = () => {
@@ -79,4 +59,4 @@ class SubPageComponent extends React.Component {
   }
 }
 
-export default connect(SubPageComponent, ComponentStore);
+export default SubPageComponent;

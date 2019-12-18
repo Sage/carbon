@@ -2,6 +2,7 @@ import {
   titlePreview, nameAndLabelPreview, firstBitPreview, tooltip,
 } from '../../locators/rainbow';
 import { getKnobsInput } from '../../locators';
+import { DEBUG_FLAG } from '..';
 
 When('I put {string} json to {string} input field', (json, inputFieldName) => {
   cy.fixture(json).then(($json) => {
@@ -9,8 +10,9 @@ When('I put {string} json to {string} input field', (json, inputFieldName) => {
       .then($selector => $selector.val(JSON.stringify($json))).type(' ');
   });
 });
+
 Then('Rainbow title is {string}', (title) => {
-  cy.wait(500); // required because element exists before change
+  cy.wait(500, { log: DEBUG_FLAG }); // required because element exists before change
   titlePreview().should('have.text', title);
 });
 

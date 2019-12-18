@@ -1,6 +1,7 @@
 import { alertDialogPreview as dialogPreview, dialogStickyFormFooter } from '../../locators/dialog/index';
 import { STORY_ROOT } from '../../locators/locators';
 import { closeIconButton, backgroundUILocator } from '../../locators/index';
+import { DEBUG_FLAG } from '..';
 
 When('I click close icon', () => {
   closeIconButton().click();
@@ -35,6 +36,7 @@ Then('Dialog is not visible', () => {
 });
 
 Then('stickyFormFooter is enabled', () => {
+  cy.wait(500, { log: DEBUG_FLAG }); // storybook needs time to render properly stickyFormFooter
   dialogStickyFormFooter().should('be.visible');
 });
 

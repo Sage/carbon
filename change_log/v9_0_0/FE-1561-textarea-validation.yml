@@ -1,1 +1,1 @@
-Feature: Adds the validation HOC to the Textarea component. Sets up an example in project's Storybook under Validations.
+New Features: "Added the validation HOC to the Textarea component. Added storybook example. (Component: Textarea)"

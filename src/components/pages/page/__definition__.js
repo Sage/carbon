@@ -1,5 +1,5 @@
-import Page from './';
-import Definition from './../../../../demo/utils/definition';
+import Page from './page.component';
+import Definition from '../../../../demo/utils/definition';
 
 const definition = new Definition('page', Page, {
   props: ['children', 'title'],

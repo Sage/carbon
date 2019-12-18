@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import StyledTableCell from '../table-cell/table-cell.style';
+import StyledIcon from '../../icon/icon.style';
 import baseTheme from '../../../style/themes/base';
 
 const StyledDraggableTableCell = styled(StyledTableCell)`
@@ -9,6 +10,11 @@ const StyledDraggableTableCell = styled(StyledTableCell)`
 
   ${StyledTableCell}:first-child {
     padding-left: 0;
+  }
+
+  ${StyledIcon} {
+    cursor: move;
+    cursor: grab;
   }
 `;
 

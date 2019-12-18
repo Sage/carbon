@@ -5,6 +5,7 @@ const CheckboxSvg = () => {
   return (
     <StyledCheckableInputSvgWrapper>
       <svg
+        focusable='false'
         width='12'
         height='10'
         viewBox='0 0 12 10'

@@ -1,15 +1,16 @@
 import { css } from 'styled-components';
-import { THEMES } from '../../style/themes';
 import StyledSplitButton from '../split-button/split-button.style';
 import StyledButton from '../button/button.style';
 import StyledSplitButtonChildrenContainer from '../split-button/split-button-children.style';
+import { isClassic } from '../../utils/helpers/style-helper';
+import StyledIcon from '../icon/icon.style';
 
-const getMultiActionButtonClassicStyles = ({ disabled, displayed, theme }) => (theme.name === THEMES.classic ? css`
+const getMultiActionButtonClassicStyles = ({ disabled, displayed, theme }) => (isClassic(theme) ? css`
   ${StyledSplitButton} > ${StyledButton},
   ${StyledSplitButton} > ${StyledButton}:focus {
     margin: 0;
     height: 31px;
-    padding: 7px 14px 7px 18px;
+    padding: 6px 14px 7px 18px;
   }
 
   ${StyledSplitButton} > ${StyledButton}:focus {
@@ -22,12 +23,6 @@ const getMultiActionButtonClassicStyles = ({ disabled, displayed, theme }) => (t
       border-color: #1e499f;
     }
   `}
-
-  .carbon-icon {
-    &.icon-dropdown {
-      margin-right: 0;
-    }
-  }
 
   ${StyledSplitButtonChildrenContainer} {
     max-width: none;
@@ -47,7 +42,7 @@ const getMultiActionButtonClassicStyles = ({ disabled, displayed, theme }) => (t
       padding-top: 5px;
 
       &:hover {
-          background-color: #163777;
+        background-color: #163777;
       }
     }
   }
@@ -68,7 +63,7 @@ const getMultiActionButtonClassicStyles = ({ disabled, displayed, theme }) => (t
         color: #335c6d;
       }
 
-      .carbon-icon {
+      ${StyledIcon} {
         color: #335c6d;
       }
     }

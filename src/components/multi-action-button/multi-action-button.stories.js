@@ -2,28 +2,17 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import { ThemeProvider } from 'styled-components';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import MultiActionButton from './multi-action-button.component';
-import Button, { OriginalButton } from '../button';
+import Button from '../button';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
-import classic from '../../style/themes/classic';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 MultiActionButton.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
   /multi-action-button\.component(?!spec)/
 );
-
-const getIconKnobs = () => {
-  const defaultPosition = Button.defaultProps.iconPosition;
-  const hasIcon = boolean('has icon', false);
-
-  return {
-    iconType: hasIcon ? select('iconType', [...OptionsHelper.icons, ''], '') : undefined,
-    iconPosition: hasIcon ? select('iconPosition', [...OptionsHelper.buttonIconPositions], defaultPosition) : undefined
-  };
-};
 
 const getKnobs = (isClassic) => {
   let as, buttonType, size, subtext;
@@ -64,7 +53,6 @@ storiesOf('Multi Action Button', module)
         text={ textContent }
         subtext={ subtext }
         { ...menuButtonProps }
-        { ...getIconKnobs() }
       >
         <Button { ...menuButtonProps }>Example Button</Button>
         <Button { ...menuButtonProps }>Example Button with long text</Button>
@@ -72,7 +60,8 @@ storiesOf('Multi Action Button', module)
       </MultiActionButton>
     );
   }, {
-    info: { text: info, propTablesExclude: [OriginalButton, ThemeProvider, Button] },
+    themeSelector: dlsThemeSelector,
+    info: { text: info, propTablesExclude: [Button] },
     notes: { markdown: notes }
   })
   .add('classic', () => {
@@ -84,19 +73,18 @@ storiesOf('Multi Action Button', module)
     } = props;
 
     return (
-      <ThemeProvider theme={ classic }>
-        <MultiActionButton
-          as={ as }
-          text={ textContent }
-          { ...menuButtonProps }
-        >
-          <Button { ...menuButtonProps }>Example Button</Button>
-          <Button { ...menuButtonProps }>Example Button with long text</Button>
-          <Button { ...menuButtonProps }>Short</Button>
-        </MultiActionButton>
-      </ThemeProvider>
+      <MultiActionButton
+        as={ as }
+        text={ textContent }
+        { ...menuButtonProps }
+      >
+        <Button { ...menuButtonProps }>Example Button</Button>
+        <Button { ...menuButtonProps }>Example Button with long text</Button>
+        <Button { ...menuButtonProps }>Short</Button>
+      </MultiActionButton>
     );
   }, {
-    info: { text: info, propTablesExclude: [OriginalButton, ThemeProvider, Button] },
+    themeSelector: classicThemeSelector,
+    info: { text: info, propTablesExclude: [Button] },
     notes: { markdown: notes }
   });

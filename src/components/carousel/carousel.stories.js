@@ -4,6 +4,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { select, boolean } from '@storybook/addon-knobs';
 import { ThemeProvider } from 'styled-components';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import notes from './documentation';
 import BaseCarousel, { Carousel, Slide } from './carousel.component';
 import classic from '../../style/themes/classic';
@@ -61,7 +62,7 @@ storiesOf('Carousel', module)
           enableNextButton={ enableNextButton }
           transition={ transition }
         >
-          <Slide>
+          <Slide className='TestClassName'>
             <h1 style={ { textAlign: 'center' } }>Slide One</h1>
           </Slide>
           <Slide>
@@ -79,6 +80,8 @@ storiesOf('Carousel', module)
         </Carousel>
       </ThemeProvider>
     );
+  }, {
+    themeSelector: classicThemeSelector
   })
   .add('default', () => {
     const indexConfig = [0, 1, 2, 3, 4];
@@ -122,5 +125,6 @@ storiesOf('Carousel', module)
       </Carousel>
     );
   }, {
+    themeSelector: dlsThemeSelector,
     notes: { markdown: notes }
   });

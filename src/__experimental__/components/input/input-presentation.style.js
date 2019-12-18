@@ -18,8 +18,8 @@ const InputPresentationStyle = styled.div`
   flex: 0 0 ${({ inputWidth }) => inputWidth}%;
   margin: 0;
   min-height: ${({ size }) => sizes[size].height};
-  padding-left: ${({ size }) => sizes[size].padding};
-  padding-right: ${({ size }) => sizes[size].padding};
+  padding-left: ${({ size }) => sizes[size].horizontalPadding};
+  padding-right: ${({ size }) => sizes[size].horizontalPadding};
 
   ${StyledInput} {
     /* this is required for an IE11 fix: */
@@ -33,7 +33,7 @@ const InputPresentationStyle = styled.div`
   `}
 
   ${({ hasFocus, theme }) => hasFocus && css`
-    && { 
+    && {
       outline: 3px solid ${theme.colors.focus};
       z-index: 2;
     }
@@ -42,12 +42,11 @@ const InputPresentationStyle = styled.div`
       position: relative;
     }
   `}
-  
+
   ${stylingForValidations}
 
   ${({ readOnly }) => readOnly && css`
     background: transparent !important;
-    border-color: transparent !important;
     box-shadow: none;
   `}
 

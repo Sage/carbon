@@ -1,18 +1,42 @@
 import { css } from 'styled-components';
-import { THEMES } from '../../style/themes';
+import { isClassic } from '../../utils/helpers/style-helper';
+import StyledIcon from '../icon/icon.style';
+
+function addStyle(color) {
+  return `
+    color: ${color};
+    ${StyledIcon} {
+      color: ${color};
+    }
+  `;
+}
 
 export default ({
-  theme
+  disabled, theme
 }) => (
-  theme.name === THEMES.classic && css`
-    cursor: pointer;
+  isClassic(theme) && css`
     font-weight: bold;
     text-decoration: none;
-    color: #255BC7;
+    ${addStyle('#255BC7')}
   
-    &:hover{
-      cursor: pointer;
-      color: #004B87;
+    &:hover {
       text-decoration: underline;
-    }`
+      cursor: pointer;
+      ${addStyle('#004B87')}
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    ${disabled && css`
+      pointer-events: none;
+
+      &:hover {
+        text-decoration: none;
+        cursor: default;
+        ${addStyle('#255BC7')}
+      }
+    `}
+  `
 );

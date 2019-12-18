@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { ConfigurableItems } from '.';
 import { DraggableContext } from '../drag-and-drop';
-import Form from '../form';
+import Form from '../../__deprecated__/components/form';
 import classic from '../../style/themes/classic';
 
 describe('ConfigurableItems', () => {

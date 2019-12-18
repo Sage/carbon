@@ -1,0 +1,264 @@
+{
+  "src/__experimental__/components/decimal/decimal.component.js": [
+    {
+      "description": "",
+      "displayName": "Decimal",
+      "methods": [
+        {
+          "name": "callOnChange",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "onChange",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "onPaste",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "onKeyPress",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "isValidKeyPress",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "onBlur",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "createEvent",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "isControlled",
+          "docblock": "Determine if the component is controlled at the time of call",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Determine if the component is controlled at the time of call"
+        },
+        {
+          "name": "isNaN",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "value",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "isValidDecimal",
+          "docblock": "Validate the user input",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "value"
+            }
+          ],
+          "returns": null,
+          "description": "Validate the user input"
+        },
+        {
+          "name": "getSafeValueProp",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "getSafePrecisionProp",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "removeDelimiters",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "value",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "formatValue",
+          "docblock": "Format a user defined value",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "value"
+            }
+          ],
+          "returns": null,
+          "description": "Format a user defined value"
+        },
+        {
+          "name": "replace",
+          "docblock": "Perform a string replacement on the input so we can see what the value will be after the change\nThis allows us to prevent the user input if it is invalid",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev"
+            }
+          ],
+          "returns": null,
+          "description": "Perform a string replacement on the input so we can see what the value will be after the change\nThis allows us to prevent the user input if it is invalid"
+        },
+        {
+          "name": "toStandardDecimal",
+          "docblock": "Convert raw input to a standard decimal format",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "i18nValue"
+            }
+          ],
+          "returns": null,
+          "description": "Convert raw input to a standard decimal format"
+        }
+      ],
+      "props": {
+        "align": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The default value alignment on the input",
+          "defaultValue": {
+            "value": "'right'",
+            "computed": false
+          }
+        },
+        "precision": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "The decimal precision of the value in the input",
+          "defaultValue": {
+            "value": "2",
+            "computed": false
+          }
+        },
+        "inputWidth": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "The width of the input as a percentage"
+        },
+        "defaultValue": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The default value of the input if it's meant to be used as an uncontrolled component"
+        },
+        "value": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The value of the input if it's used as a controlled component"
+        },
+        "onChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Handler for change event if input is meant to be used as a controlled component"
+        },
+        "onBlur": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Handler for blur event"
+        },
+        "onKeyPress": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Handler for key press event"
+        },
+        "name": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The input name"
+        },
+        "id": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The input id"
+        },
+        "allowEmptyValue": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Allow an empty value instead of defaulting to 0.00",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        }
+      }
+    }
+  ]
+}

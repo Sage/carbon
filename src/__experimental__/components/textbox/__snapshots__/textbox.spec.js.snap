@@ -5,6 +5,7 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
   hasError={false}
   hasInfo={false}
   hasWarning={false}
+  id="mocked-guid"
   info={Array []}
   inputWidth={70}
   labelWidth={30}
@@ -12,6 +13,7 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
   onBlur={[Function]}
   onChange={[Function]}
   size="medium"
+  useValidationIcon={false}
   validations={Array []}
   warnings={Array []}
 >
@@ -19,6 +21,7 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
     hasError={false}
     hasInfo={false}
     hasWarning={false}
+    id="mocked-guid"
     info={Array []}
     inputWidth={70}
     labelWidth={30}
@@ -27,6 +30,7 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
     onChange={[Function]}
     size="medium"
     type="text"
+    useValidationIcon={true}
     validations={Array []}
     warnings={Array []}
   >
@@ -36,6 +40,7 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
       hasError={false}
       hasInfo={false}
       hasWarning={false}
+      id="mocked-guid"
       info={Array []}
       inputWidth={70}
       labelWidth={30}
@@ -44,6 +49,7 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
       onChange={[Function]}
       size="medium"
       type="text"
+      useValidationIcon={true}
       validations={Array []}
       value="foobar"
       warnings={Array []}

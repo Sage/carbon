@@ -12,7 +12,7 @@ Then('tooltipPosition is set to {string}', (tooltipPosition) => {
       break;
     case 'bottom':
       tooltipPointer().should('have.css', 'position', 'absolute')
-        .and('have.css', 'top', '-7,5px');
+        .and('have.css', 'top', '-7.5px');
       break;
     case 'left':
       tooltipPointer().should('have.css', 'position', 'absolute')
@@ -20,7 +20,7 @@ Then('tooltipPosition is set to {string}', (tooltipPosition) => {
       break;
     case 'right':
       tooltipPointer().should('have.css', 'position', 'absolute')
-        .and('have.css', 'left', '-7,5px');
+        .and('have.css', 'left', '-7.5px');
       break;
     default: throw new Error(`No such position as ${tooltipPosition}`);
   }
@@ -36,17 +36,17 @@ Then('tooltipAlign is set to {string}', (tooltipAlign) => {
       break;
     case 'center':
       tooltipPointer().should('have.css', 'position', 'absolute')
-        .and('have.css', 'top', '-7,5px');
+        .and('have.css', 'top', '-7.5px');
       break;
     case 'left':
       tooltipPointer().should('have.css', 'position', 'absolute')
-        .and('have.css', 'top', '-7,5px')
-        .and('have.css', 'left', '10px');
+        .and('have.css', 'top', '-7.5px')
+        .and('have.css', 'left', '8px');
       break;
     case 'right':
       tooltipPointer().should('have.css', 'position', 'absolute')
-        .and('have.css', 'top', '-7,5px')
-        .and('have.css', 'right', '25px');
+        .and('have.css', 'top', '-7.5px')
+        .and('have.css', 'right', '22px');
       break;
     case 'top':
       tooltipPointer().should('have.css', 'position', 'absolute');

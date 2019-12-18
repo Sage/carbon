@@ -5,7 +5,8 @@ import buttonTypes from './button-types.style';
 import buttonSizes from './button-sizes.style';
 import buttonClasicStyle from './button-classic.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import { THEMES } from '../../style/themes';
+import StyledIcon from '../icon/icon.style';
+import { isClassic } from '../../utils/helpers/style-helper';
 
 const StyledButton = styled.button`
   align-items: center;
@@ -18,9 +19,13 @@ const StyledButton = styled.button`
   ${addButtonStyle}
 
   ${({ iconPosition }) => css`
-    .carbon-icon {
+    ${StyledIcon} {
       margin-left: ${iconPosition === 'before' ? '0px' : '8px'};
       margin-right: ${iconPosition === 'before' ? '8px' : '0px'};
+      height: ${additionalIconStyle};
+      svg { 
+        margin-top: 0;
+      }
     }
   `}
 `;
@@ -30,6 +35,16 @@ export const StyledButtonSubtext = styled.span`
   font-weight: 400;
   display: block;
 `;
+
+function additionalIconStyle({ theme, iconType }) {
+  if (isClassic(theme)) {
+    if (iconType === 'services') return '8px';
+
+    return '18px';
+  }
+  if (iconType === 'services') return '6px';
+  return '16px;';
+}
 
 function addButtonStyle(props) {
   if (isClassicButton(props)) return buttonClasicStyle(props);
@@ -53,9 +68,8 @@ function stylingForType({
     &:focus {
       outline: solid 3px ${theme.colors.focus};
     }
-    & + & {
-      margin-left: 16px;
-    }
+    
+    margin-right: 16px;
 
     ${buttonTypes(theme, disabled)[buttonType]};
     ${buttonSizes(theme)[size]}
@@ -63,10 +77,9 @@ function stylingForType({
 }
 
 function isClassicButton({ theme, buttonType }) {
-  const isClassicTheme = (theme.name === THEMES.classic);
   const isClassicButtonType = OptionsHelper.themesBinary.includes(buttonType);
 
-  return isClassicTheme && isClassicButtonType;
+  return isClassic(theme) && isClassicButtonType;
 }
 
 StyledButton.defaultProps = {
@@ -87,6 +100,8 @@ StyledButton.propTypes = {
   href: PropTypes.string,
   /** Defines an Icon position within the button */
   iconPosition: PropTypes.oneOf([...OptionsHelper.buttonIconPositions, '']),
+  /** Defines an Icon type within the button (see Icon for options) */
+  iconType: PropTypes.oneOf([...OptionsHelper.icons, '']),
   /** Assigns a size to the button */
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   /** Second text child, renders under main text, only when size is "large" */
@@ -96,4 +111,5 @@ StyledButton.propTypes = {
   /** Used to transfrom button into anchor */
   to: PropTypes.string
 };
+
 export default StyledButton;

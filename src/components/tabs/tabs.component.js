@@ -46,7 +46,7 @@ class Tabs extends React.Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     let selectedTabId;
     if (this.props.selectedTabId) {
       selectedTabId = this.props.selectedTabId;
@@ -76,7 +76,7 @@ class Tabs extends React.Component {
     this.setState({ selectedTabId });
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.selectedTabId !== nextProps.selectedTabId && nextProps.selectedTabId !== this.state.selectedTabId) {
       this.updateVisibleTab(nextProps.selectedTabId);
     }
@@ -152,8 +152,10 @@ class Tabs extends React.Component {
    * Updates the currently visible tab
    */
   updateVisibleTab(tabid) {
-    const url = `${this._window.location.origin}${this._window.location.pathname}#${tabid}`;
-    this._window.history.replaceState(null, 'change-tab', url);
+    if (this.props.setLocation) {
+      const url = `${this._window.location.origin}${this._window.location.pathname}#${tabid}`;
+      this._window.history.replaceState(null, 'change-tab', url);
+    }
 
     this.setState({ selectedTabId: tabid });
 
@@ -305,7 +307,8 @@ Tabs.childContextTypes = {
 Tabs.defaultProps = {
   renderHiddenTabs: true,
   align: 'left',
-  position: 'top'
+  position: 'top',
+  setLocation: true
 };
 
 Tabs.propTypes = {
@@ -315,7 +318,8 @@ Tabs.propTypes = {
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
   align: PropTypes.oneOf(OptionsHelper.alignBinary),
   onTabChange: PropTypes.func,
-  position: PropTypes.oneOf(['top', 'left'])
+  position: PropTypes.oneOf(['top', 'left']),
+  setLocation: PropTypes.bool
 };
 
 export { Tabs, Tab };

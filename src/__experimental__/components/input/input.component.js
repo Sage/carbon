@@ -18,9 +18,13 @@ class Input extends React.Component {
     name: PropTypes.string,
     onBlur: PropTypes.func,
     onClick: PropTypes.func,
+    onKeyDown: PropTypes.func,
     onFocus: PropTypes.func,
-    type: PropTypes.string,
-    autoFocus: PropTypes.bool
+    autoFocus: PropTypes.bool,
+    onChange: PropTypes.func,
+    onChangeDeferred: PropTypes.func,
+    deferTimeout: PropTypes.number,
+    type: PropTypes.string
   };
 
   static contextType = InputPresentationContext;
@@ -49,21 +53,43 @@ class Input extends React.Component {
     if (this.context && this.context.onBlur) this.context.onBlur(ev);
   };
 
+  handleChange = (ev) => {
+    if (this.props.onChange) {
+      this.props.onChange(ev);
+    }
+
+    this.handleDeferred(ev);
+  }
+
+  handleDeferred = ({ currentTarget, target }) => {
+    if (this.props.onChangeDeferred) {
+      clearTimeout(this.deferredTimeout);
+      this.deferredTimeout = setTimeout(() => {
+        this.props.onChangeDeferred({ currentTarget, target });
+      }, (this.props.deferTimeout || 750));
+    }
+  }
+
   render() {
     const {
       inputRef,
+      onChangeDeferred,
       ...props
     } = this.props;
+    const eventHandlers = {
+      onFocus: this.handleFocus,
+      onBlur: this.handleBlur,
+      onClick: this.handleClick,
+      onChange: this.handleChange
+    };
 
     return (
       <StyledInput
         { ...props }
         id={ this.props.id || this.props.name }
         ref={ this.input }
-        onFocus={ this.handleFocus }
-        onBlur={ this.handleBlur }
-        onClick={ this.handleClick }
         data-element='input'
+        { ...eventHandlers }
       />
     );
   }

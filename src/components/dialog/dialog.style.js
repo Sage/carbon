@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import baseTheme from '../../style/themes/base';
+import { StyledFormFooter } from '../../__deprecated__/components/form/form.style';
 
 const dialogSizes = {
   'extra-small': '300px',
@@ -16,7 +17,7 @@ const DialogStyle = styled.div`
   box-shadow: ${({ theme }) => theme.shadows.depth3};
   position: fixed;
   top: 50%;
-  
+
   &:focus {
     outline: none;
   }
@@ -37,7 +38,7 @@ const DialogStyle = styled.div`
       padding-bottom: 80px;
     }
 
-    .carbon-form__footer-wrapper {
+    ${StyledFormFooter} {
       bottom: 0px;
       position: absolute;
       width: 100%;
@@ -50,7 +51,7 @@ const DialogStyle = styled.div`
   `}
 
   ${({ fixedBottom, stickyFormFooter, size }) => fixedBottom && stickyFormFooter && css`
-      .carbon-form__footer-wrapper {
+      ${StyledFormFooter} {
         box-sizing: border-box;
         animation: form-buttons-animate-in 0.25s ease-out;
         background-color: white;
@@ -59,7 +60,6 @@ const DialogStyle = styled.div`
         margin-left: -35px;
         box-shadow: 0 -4px 12px 0 rgba(0, 0, 0, 0.05);
         padding-bottom: 13px;
-        padding-top: 15px;
         padding-left: 35px;
         padding-right: 35px;
         position: fixed;
@@ -79,23 +79,25 @@ const DialogStyle = styled.div`
     &:hover {
       color: #255BC7;
     }
-    &.carbon-icon {
-      position: absolute;
-    }
   }
 `;
 
 const DialogTitleStyle = styled.div`
   padding: 23px 35px 0;
   border-bottom: 1px solid #ccd6db;
+  ${({ showCloseIcon }) => showCloseIcon && 'padding-right: 85px'};
 
   .carbon-heading--has-divider .carbon-heading__header {
     border-bottom: none;
     padding-bottom: 0;
   }
-  
+
   .carbon-heading__title {
-    color: ${({ theme }) => theme.text.color}
+    color: ${({ theme }) => theme.text.color};
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 `;
 

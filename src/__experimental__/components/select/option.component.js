@@ -8,10 +8,14 @@ const Option = ({ text, children, ...props }) => (
 );
 
 Option.propTypes = {
-  text: PropTypes.string.isRequired, // used to filter the item
-  children: PropTypes.node, // optional, if different to props.text
-  value: PropTypes.string.isRequired, // sent on select of an item
-  options: PropTypes.object // optional additional params to be sent on select
+  /** The option's visible text, displayed within <Textbox> of <Select>, and used for filtering */
+  text: PropTypes.string.isRequired,
+  /** Optional: alternative rendered content, displayed within <SelectList> of <Select> (eg: an icon, an image, etc) */
+  children: PropTypes.node,
+  /** The option's invisible internal value */
+  value: PropTypes.string.isRequired,
+  /** if defined, this object can be used to provide optional extra properties */
+  options: PropTypes.object
 };
 
 export default Option;

@@ -1,22 +1,116 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[` 1`] = `
-"
-    border: 1px dashed #99adb6;
-    background-color: transparent;
-    
-    .carbon-icon::before {
-        font-size:16px;
-    }
+exports[`Create classic renders to match the expected style 1`] = `
+.c1 {
+  display: inline-block;
+}
 
-    :hover{
-        background: #fff;
-    }
+.c1 a {
+  font-size: 14px;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #00805D;
+  display: inline-block;
+  font-weight: bold;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #255BC7;
+}
 
-    :focus {
-        color: #255BC7;
-        border: 1px dashed #99adb6;
-        outline: -webkit-focus-ring-color auto 5px;
-    }
-"
+.c1 a .c2 {
+  margin-right: 5px;
+  position: relative;
+  vertical-align: middle;
+  top: -2px;
+}
+
+.c1 a:hover {
+  cursor: pointer;
+  color: #006045;
+}
+
+.c1 a .c2 {
+  color: #255BC7;
+}
+
+.c1 a:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #004B87;
+}
+
+.c1 a:hover .c2 {
+  color: #004B87;
+}
+
+.c1 a:focus {
+  outline: none;
+}
+
+.c0 {
+  display: block;
+}
+
+.c0 a {
+  background-color: #1e499f;
+  border: 1px dashed #668491;
+  display: block;
+  padding: 12px 12px 10px;
+  text-align: center;
+  font-weight: 700;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  width: 100%;
+  border: 1px dashed #99adb6;
+  background-color: transparent;
+}
+
+.c0 a:hover {
+  background-color: #FFFFFF;
+}
+
+.c0 a:focus {
+  color: #00805D;
+  background-color: #FFFFFF;
+  outline: 3px solid #FFB500;
+}
+
+.c0 a .c2::before {
+  font-size: 12px;
+}
+
+.c0 a .c2 {
+  top: 0;
+}
+
+.c0 a .c2::before {
+  font-size: 16px;
+}
+
+.c0 a:hover {
+  background: #fff;
+}
+
+.c0 a:focus {
+  color: #255BC7;
+  border: 1px dashed #99adb6;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+<div
+  className="c0 c1"
+  data-component="link"
+  disabled={false}
+>
+  <a
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    tabIndex="0"
+  >
+    <span
+      className="carbon-link__content"
+    />
+  </a>
+</div>
 `;

@@ -5,13 +5,16 @@ import 'jest-styled-components';
 import { mount, shallow } from 'enzyme';
 import Browser from '../../utils/helpers/browser/browser';
 import Dialog from './dialog.component';
-import { DialogStyle, DialogContentStyle, DialogInnerContentStyle } from './dialog.style';
+import {
+  DialogStyle, DialogContentStyle, DialogInnerContentStyle, DialogTitleStyle
+} from './dialog.style';
 import Button from '../button';
 import Heading from '../heading/heading';
 import { Row, Column } from '../row/row';
 import ElementResize from '../../utils/helpers/element-resize/element-resize';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import classicTheme from '../../style/themes/classic';
+import Form from '../../__deprecated__/components/form';
 
 /* global jest */
 
@@ -33,7 +36,7 @@ describe('Dialog', () => {
       describe('when dialog is open', () => {
         it('centers the dialog', () => {
           instance = TestUtils.renderIntoDocument(
-            <Dialog open onCancel={ onCancel } />
+            <Dialog open onCancel={ onCancel }><Form /></Dialog>
           );
           spyOn(instance, 'centerDialog');
           instance.componentDidMount();
@@ -195,6 +198,25 @@ describe('Dialog', () => {
       );
       expect(wrapper.instance().props.children).toMatchSnapshot();
     });
+  });
+
+  it('renders when a child is undefined', () => {
+    expect(() => {
+      shallow(
+        <Dialog
+          onCancel={ () => { } }
+          onConfirm={ () => { } }
+          showCloseIcon
+          open
+          subtitle='Test'
+          title='Test'
+          ariaRole='dialog'
+        >
+          {undefined}
+          Hello world
+        </Dialog>
+      );
+    }).not.toThrow();
   });
 
   describe('renders children when they are a JSX component', () => {
@@ -487,7 +509,7 @@ describe('Dialog', () => {
 
     describe('when title, subtitle, and ariaRole are not set', () => {
       it(`does not render a role attribute from the ariaRole prop,
-      aria-labelledby pointing at the title element or 
+      aria-labelledby pointing at the title element or
       an aria-describedby attribute pointing at the subtitle element`, () => {
         wrapper = mount(
           <Dialog
@@ -608,6 +630,20 @@ describe('Dialog', () => {
       assertStyleMatch({
         minHeight: '360px'
       }, TestRenderer.create(<DialogInnerContentStyle height={ 400 } fixedBottom />).toJSON());
+    });
+  });
+
+  describe('when showCloseIcon prop is true', () => {
+    it('DialogTitleStyle should have padding-right: 85px', () => {
+      const wrapper = mount(<Dialog
+        showCloseIcon
+        title='Heading'
+        open
+      />);
+
+      const DialogTitle = wrapper.find(DialogTitleStyle);
+
+      assertStyleMatch({ paddingRight: '85px' }, DialogTitle);
     });
   });
 });

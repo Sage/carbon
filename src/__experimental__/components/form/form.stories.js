@@ -1,6 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { boolean, text, select } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
+import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import PresenceValidation from '../../../utils/validations/presence';
 import notes from './documentation/notes.md';
@@ -10,6 +12,7 @@ import Textbox from '../textbox';
 import Button from '../../../components/button';
 import Link from '../../../components/link';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
+import Fieldset from '../fieldset/fieldset.component';
 
 Form.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -18,20 +21,20 @@ Form.__docgenInfo = getDocGenInfo(
 
 const additionalFormActions = (innerText) => {
   return {
-    Button: <Button>{ innerText }</Button>,
-    Link: <Link href='./?path=/story/experimental-form--default'>{ innerText }</Link>
+    Button: <Button onClick={ ev => action(`${innerText} Button`)(ev) }>{ innerText }</Button>,
+    Link: (
+      <Link
+        onClick={ ev => action(`${innerText} Link`)(ev) }
+        href='./?path=/story/experimental-form--default'
+      >
+        { innerText }
+      </Link>
+    )
   };
 };
 
-storiesOf('Experimental/Form', module)
-  .addParameters({
-    info: {
-      text: Info,
-      propTablesExclude: [Textbox],
-      includePropTables: [FormWithoutValidations]
-    }
-  })
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const formActionOptions = ['', ...OptionsHelper.actionOptions];
     const unsavedWarning = boolean('unsavedWarning', true);
     const save = boolean('save', true);
@@ -50,9 +53,9 @@ storiesOf('Experimental/Form', module)
     const additionalActions = select('additionalActions', formActionOptions, formActionOptions[0]);
     const leftAlignedActions = select('leftAlignedActions', formActionOptions, formActionOptions[0]);
     const rightAlignedActions = select('rightAlignedActions', formActionOptions, formActionOptions[0]);
-    const showSummary = boolean('showSummary', false);
-    const isLabelRightAligned = boolean('isLabelRightAligned', false);
+    const showSummary = boolean('showSummary', FormWithoutValidations.defaultProps.showSummary);
     const inLineLabels = boolean('inLineLabels', false);
+    const isLabelRightAligned = inLineLabels ? boolean('isLabelRightAligned', false) : undefined;
 
     return (
       <Form
@@ -70,7 +73,8 @@ storiesOf('Experimental/Form', module)
         leftAlignedActions={ additionalFormActions('Left Action')[leftAlignedActions] }
         rightAlignedActions={ additionalFormActions('Right Action')[rightAlignedActions] }
         showSummary={ showSummary }
-        onSubmit={ () => {
+        onSubmit={ (ev) => {
+          action('submit')(ev);
           window.location.href = window.location.href;
         } }
         isLabelRightAligned={ isLabelRightAligned }
@@ -91,7 +95,89 @@ storiesOf('Experimental/Form', module)
         />
       </Form>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+function makeFieldsetTextboxStory(name, themeSelector) {
+  const component = () => {
+    const stickyFooter = boolean('stickyFooter', false);
+    const legend = text('legend', '');
+
+    return (
+      <Form
+        stickyFooter={ stickyFooter }
+        onSubmit={ () => {
+          window.location.href = window.location.href;
+        } }
+      >
+        <Fieldset
+          legend={ legend }
+        >
+          <Textbox
+            label='First Name'
+            labelInline
+            labelAlign='right'
+            inputWidth={ 70 }
+          />
+          <Textbox
+            label='Last Name'
+            labelInline
+            labelAlign='right'
+            inputWidth={ 70 }
+          />
+          <Textbox
+            label='Address'
+            labelInline
+            labelAlign='right'
+            inputWidth={ 70 }
+          />
+          <Textbox
+            label='City'
+            labelInline
+            labelAlign='right'
+            inputWidth={ 70 }
+          />
+          <Textbox
+            label='Country'
+            labelInline
+            labelAlign='right'
+            inputWidth={ 70 }
+          />
+          <Textbox
+            label='Telephone'
+            labelInline
+            labelAlign='right'
+            inputWidth={ 70 }
+          />
+        </Fieldset>
+      </Form>
+    );
+  };
+
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Experimental/Form', module)
+  .addParameters({
+    info: {
+      text: Info,
+      propTablesExclude: [Textbox],
+      includePropTables: [Form]
+    },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
-  });
+  })
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector))
+  .add(...makeFieldsetTextboxStory('fieldset > textbox', dlsThemeSelector))
+  .add(...makeFieldsetTextboxStory('fieldset > textbox classic', classicThemeSelector));

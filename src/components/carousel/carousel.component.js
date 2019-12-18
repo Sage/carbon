@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { TransitionGroup } from 'react-transition-group';
 import { compact, assign } from 'lodash';
 import { withTheme } from 'styled-components';
 import tagComponent from '../../utils/helpers/tags/tags';
@@ -25,7 +25,7 @@ const NEXT = 'next';
 const PREVIOUS = 'previous';
 const TRANSITION_TIME = 750;
 
-class Carousel extends React.Component {
+class BaseCarousel extends React.Component {
   constructor(...args) {
     super(...args);
 
@@ -39,24 +39,14 @@ class Carousel extends React.Component {
     this.previousButtonProps = this.previousButtonProps.bind(this);
     this.nextButtonProps = this.nextButtonProps.bind(this);
     this.numOfSlides = this.numOfSlides.bind(this);
-    this.visibleSlide = this.visibleSlide.bind(this);
     this.slideSelector = this.slideSelector.bind(this);
-    this.transitionName = this.transitionName.bind(this);
   }
 
   state = {
-    selectedSlideIndex: null, // Currently selected slide
+    // Currently selected slide
+    selectedSlideIndex: Number(this.props.slideIndex) || Number(this.props.initialSlideIndex),
     disabled: false // Next/Previous buttons disabled state
   };
-
-  /**
-   * A lifecycle method that is called after before initial render.
-   * Can set up state of component without causing a re-render
-   */
-  componentWillMount() {
-    const selectedIndex = Number(this.props.slideIndex) || Number(this.props.initialSlideIndex);
-    this.setState({ selectedSlideIndex: selectedIndex });
-  }
 
   /** A lifecycle method that is called before re-render. */
   componentDidUpdate(prevProps) {
@@ -157,17 +147,24 @@ class Carousel extends React.Component {
   }
 
   /** Gets the currently visible slide */
-  visibleSlide() {
+  visibleSlide = () => {
     let index = this.state.selectedSlideIndex;
 
     const visibleSlide = compact(React.Children.toArray(this.props.children))[index];
+
     index = visibleSlide.props.id || index;
 
     const additionalProps = {
-      className: visibleSlide.props.className,
-      isPadded: this.props.enablePreviousButton || this.props.enableNextButton,
-      'data-element': 'visible-slide',
-      key: `carbon-slide-${index}`
+      transitionName: this.transitionName,
+      timeout: TRANSITION_TIME,
+      theme: this.props.theme,
+      slideProps: {
+        className: visibleSlide.props.className,
+        isPadded: this.props.enablePreviousButton || this.props.enableNextButton,
+        'data-element': 'visible-slide',
+        key: `carbon-slide-${index}`,
+        ...visibleSlide.props
+      }
     };
 
     return React.cloneElement(visibleSlide, assign({}, visibleSlide.props, additionalProps));
@@ -176,7 +173,11 @@ class Carousel extends React.Component {
   visibleSlides() {
     const arrayWithKeys = this.props.children.map((element, key) => {
       return React.cloneElement(element, {
-        key: `slide-${key}`, id: key, selectedIndex: this.state.selectedSlideIndex, ...element.props
+        key: `slide-${key}`,
+        id: key,
+        selectedIndex: this.state.selectedSlideIndex,
+        theme: this.props.theme,
+        ...element.props
       });
     });
 
@@ -213,8 +214,8 @@ class Carousel extends React.Component {
     }
 
     return (
-      <CarouselSelectorWrapperStyle>
-        { buttons }
+      <CarouselSelectorWrapperStyle data-element='slide-selector'>
+        {buttons}
       </CarouselSelectorWrapperStyle>
     );
   }
@@ -261,7 +262,7 @@ class Carousel extends React.Component {
   }
 
   /** Returns the current transition name */
-  transitionName() {
+  transitionName = () => {
     if (this.props.transition === 'slide') {
       return `slide-${this.transitionDirection}`;
     }
@@ -276,19 +277,13 @@ class Carousel extends React.Component {
         <CarouselWrapperStyle className={ this.props.className } { ...tagComponent('carousel', this.props) }>
           {/** carbon-carousel__content is related to pages.scss */}
           <div className='carbon-carousel__content'>
-            { this.previousButton() }
-            <CSSTransitionGroup
-              component='div'
-              className='carbon-carousel__transition'
-              transitionName={ this.transitionName() }
-              transitionEnterTimeout={ TRANSITION_TIME }
-              transitionLeaveTimeout={ TRANSITION_TIME }
-            >
-              { this.visibleSlide() }
-            </CSSTransitionGroup>
-            { this.nextButton() }
+            {this.previousButton()}
+            <TransitionGroup>
+              {this.visibleSlide()}
+            </TransitionGroup>
+            {this.nextButton()}
           </div>
-          { this.slideSelector() }
+          {this.slideSelector()}
         </CarouselWrapperStyle>
       );
     }
@@ -296,19 +291,19 @@ class Carousel extends React.Component {
     return (
       <CarouselWrapperStyle className={ this.props.className } { ...tagComponent('carousel', this.props) }>
         <div className='carbon-carousel__content'>
-          { this.previousButton() }
+          {this.previousButton()}
           <CarouselSliderWrapper elementIndex={ this.state.selectedSlideIndex }>
             {this.visibleSlides()}
           </CarouselSliderWrapper>
-          { this.nextButton() }
+          {this.nextButton()}
         </div>
-        { this.slideSelector() }
+        {this.slideSelector()}
       </CarouselWrapperStyle>
     );
   }
 }
 
-Carousel.propTypes = {
+BaseCarousel.propTypes = {
   /** [legacy] Custom className */
   className: PropTypes.string,
   /** The selected tab on page load */
@@ -340,7 +335,7 @@ Carousel.propTypes = {
   theme: PropTypes.object
 };
 
-Carousel.defaultProps = {
+BaseCarousel.defaultProps = {
   initialSlideIndex: 0,
   enableSlideSelector: true,
   enablePreviousButton: true,
@@ -349,8 +344,9 @@ Carousel.defaultProps = {
   theme: baseTheme
 };
 
-const CarouselWithHOC = withTheme(Carousel);
+const Carousel = withTheme(BaseCarousel);
+Carousel.displayName = 'Carousel';
 
-export default Carousel;
+export default BaseCarousel;
 
-export { CarouselWithHOC as Carousel, Slide };
+export { Carousel, Slide };

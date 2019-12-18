@@ -9,6 +9,7 @@ import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-spec
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import StyledSplitButtonChildrenContainer from '../split-button/split-button-children.style';
 import StyledButton from '../button/button.style';
+import StyledIcon from '../icon/icon.style';
 import classicTheme from '../../style/themes/classic';
 import StyledSplitButton from '../split-button/split-button.style';
 import baseTheme from '../../style/themes/base';
@@ -71,8 +72,16 @@ describe('MultiActionButton', () => {
       it('should have expected colors for the Button Icon', () => {
         assertStyleMatch({
           color: baseTheme.colors.white
-        }, wrapper, { modifier: `${StyledSplitButton} > ${StyledButton} .carbon-icon` });
+        }, wrapper, { modifier: `${StyledSplitButton} > ${StyledButton} ${StyledIcon}` });
       });
+    });
+  });
+
+  describe('the main button', () => {
+    it('prevents an Icon being added even when the "iconType" and "iconPosition" props are passed', () => {
+      wrapper = render({ iconType: 'cross', iconPosition: 'before' });
+      expect(wrapper.instance().multiActionButtonProps.iconType).toEqual(undefined);
+      expect(wrapper.instance().multiActionButtonProps.iconPosition).toEqual(undefined);
     });
   });
 

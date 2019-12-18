@@ -4,6 +4,6 @@ exports[`Fieldset renders correctly 1`] = `
 <styled.fieldset
   data-component="fieldset"
 >
-  <WithUniqueName(WithValidation(Textbox)) />
+  <Textbox />
 </styled.fieldset>
 `;

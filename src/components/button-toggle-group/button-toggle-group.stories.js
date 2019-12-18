@@ -3,6 +3,9 @@ import { storiesOf } from '@storybook/react';
 import {
   text, number, boolean, select, percentageRange
 } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
+import { State, Store } from '@sambego/storybook-state';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation';
 import ButtonToggle from '../button-toggle/button-toggle.component';
@@ -14,13 +17,17 @@ ButtonToggleGroup.__docgenInfo = getDocGenInfo(
   /button-toggle-group\.component(?!spec)/
 );
 
-storiesOf('Button Toggle Group', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [ButtonToggle],
-      propTables: [ButtonToggleGroup]
-    }
-  }).add('default', () => {
+const handleGroupChangeFactory = store => (event) => {
+  const { value } = event.target;
+
+  store.set({ value });
+
+  action('onChange')(value);
+};
+const radioToggleGroupStore = new Store({ value: 'Bar' });
+
+function makeStory(storyName, themeSelector) {
+  const component = () => {
     const label = text('label', 'Example ButtonToggleGroup');
     const labelInline = boolean('labelInline', false);
     const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
@@ -52,19 +59,39 @@ storiesOf('Button Toggle Group', module)
     }
 
     return (
-      <ButtonToggleGroup
-        label={ label }
-        labelInline={ labelInline }
-        labelWidth={ labelWidth }
-        labelAlign={ labelAlign }
-        labelHelp={ labelHelp }
-        inputWidth={ inputWidth }
-        fieldHelp={ fieldHelp }
-        fieldHelpInline={ fieldHelpInline }
-      >
-        { renderButtons() }
-      </ButtonToggleGroup>
+      <State store={ radioToggleGroupStore }>
+        <ButtonToggleGroup
+          label={ label }
+          labelInline={ labelInline }
+          labelWidth={ labelWidth }
+          labelAlign={ labelAlign }
+          labelHelp={ labelHelp }
+          inputWidth={ inputWidth }
+          fieldHelp={ fieldHelp }
+          fieldHelpInline={ fieldHelpInline }
+          name='button-toggle-group'
+          onChange={ handleGroupChangeFactory(radioToggleGroupStore) }
+        >
+          { renderButtons() }
+        </ButtonToggleGroup>
+      </State>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     notes: { markdown: notes }
-  });
+  };
+
+  return [storyName, component, metadata];
+}
+
+storiesOf('Button Toggle Group', module)
+  .addParameters({
+    info: {
+      propTablesExclude: [ButtonToggle],
+      propTables: [ButtonToggleGroup]
+    }
+  })
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));

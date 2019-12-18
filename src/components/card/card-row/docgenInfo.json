@@ -1,0 +1,38 @@
+{
+  "src/components/card/card-row/card-row.component.js": [
+    {
+      "description": "",
+      "displayName": "CardRow",
+      "methods": [],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": true,
+          "description": ""
+        },
+        "spacing": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "sizesRestricted"
+          },
+          "required": false,
+          "description": "size of card for applying padding (small | medium | large)",
+          "defaultValue": {
+            "value": "medium",
+            "computed": true
+          }
+        },
+        "inline": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "display card content inline"
+        }
+      }
+    }
+  ]
+}

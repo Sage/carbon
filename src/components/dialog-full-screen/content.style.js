@@ -16,6 +16,17 @@ const StyledContent = styled.div`
     padding: 27px 32px 32px 32px;
   }
 
+  ${({ hasHeader }) => !hasHeader && `
+    padding-top: 0;
+    margin-top: -25px;
+
+    .carbon-app-wrapper {
+      max-width: 100%;
+      padding: 0;
+      height: 70px;
+    }
+  `}
+
   ${contentClassicStyle}
 `;
 

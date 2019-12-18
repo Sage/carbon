@@ -4,6 +4,7 @@ import {
   text, select, boolean
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation';
 import ButtonToggle from './button-toggle.component';
@@ -14,8 +15,8 @@ ButtonToggle.__docgenInfo = getDocGenInfo(
   /button-toggle\.component(?!spec)/
 );
 
-storiesOf('Button Toggle', module)
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const children = text('children', 'Option');
     const buttonIcon = select('buttonIcon', [null, ...OptionsHelper.icons]);
     const buttonIconSize = select(
@@ -71,6 +72,16 @@ storiesOf('Button Toggle', module)
         </ButtonToggle>
       ]
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     notes: { markdown: notes }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Button Toggle', module)
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));

@@ -5,14 +5,15 @@ import Browser from '../../utils/helpers/browser';
 import Icon from '../icon';
 import Modal from '../modal';
 import Heading from '../heading';
+import Form from '../../__deprecated__/components/form';
 import ElementResize from '../../utils/helpers/element-resize';
-import { generateKeysForChildren } from '../../utils/ether';
 import {
   DialogStyle,
   DialogTitleStyle,
   DialogContentStyle,
   DialogInnerContentStyle
 } from './dialog.style';
+import tagComponent from '../../utils/helpers/tags';
 
 class Dialog extends Modal {
   constructor(args) {
@@ -128,6 +129,7 @@ class Dialog extends Modal {
   get dialogTitle() {
     if (!this.props.title) return null;
 
+    const { showCloseIcon } = this.props;
     let { title } = this.props;
 
     if (typeof title === 'string') {
@@ -142,7 +144,12 @@ class Dialog extends Modal {
     }
 
     return (
-      <DialogTitleStyle ref={ (titleRef) => { this._title = titleRef; } }>{ title }</DialogTitleStyle>
+      <DialogTitleStyle
+        showCloseIcon={ showCloseIcon }
+        ref={ (titleRef) => { this._title = titleRef; } }
+      >
+        {title}
+      </DialogTitleStyle>
     );
   }
 
@@ -181,23 +188,15 @@ class Dialog extends Modal {
     return null;
   }
 
-  /** Clone the children, pass in value of appliedFixedBottom to toggle style if child is form */
   renderChildren() {
-    const { children } = this.props;
+    return React.Children.map(this.props.children, (child) => {
+      if (child && child.type === Form) {
+        return React.cloneElement(child, {
+          fixedBottom: this.appliedFixedBottom
+        });
+      }
 
-    if (!children) return null;
-
-    if (typeof children !== 'object') return children;
-
-    const childrenArray = Array.isArray(children) ? children : [children];
-    this.childKeys = generateKeysForChildren(childrenArray);
-
-    return childrenArray.map((child, index) => {
-      return React.cloneElement(child, {
-        ...child.props,
-        key: this.childKeys[index],
-        fixedBottom: this.appliedFixedBottom
-      });
+      return child;
     });
   }
 
@@ -236,11 +235,10 @@ class Dialog extends Modal {
       <DialogStyle
         ref={ (dialog) => { this._dialog = dialog; } }
         { ...dialogProps }
-        data-element='dialog'
+        { ...tagComponent('dialog', { 'data-element': 'dialog', 'data-role': this.props['data-role'] }) }
         onBlur={ this.onDialogBlur }
       >
-        { this.dialogTitle }
-
+        {this.dialogTitle}
         <DialogContentStyle
           ref={ (content) => { this._content = content; } }
           height={ this.props.height }
@@ -250,11 +248,11 @@ class Dialog extends Modal {
             ref={ (innerContent) => { this._innerContent = innerContent; } }
             height={ this.props.height }
           >
-            { this.renderChildren() }
-            { this.additionalContent() }
+            {this.renderChildren()}
+            {this.additionalContent()}
           </DialogInnerContentStyle>
         </DialogContentStyle>
-        { this.closeIcon }
+        {this.closeIcon}
       </DialogStyle>
     );
   }

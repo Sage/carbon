@@ -4,6 +4,8 @@ import StyledSplitButtonChildrenContainer from '../split-button/split-button-chi
 import baseTheme from '../../style/themes/base';
 import StyledSplitButton from '../split-button/split-button.style';
 import getMultiActionButtonClassicStyles from './multi-action-button-classic.style';
+import { isClassic } from '../../utils/helpers/style-helper';
+import StyledIcon from '../icon/icon.style';
 
 const StyledMultiActionButton = styled.div`
   ${({ disabled, displayed, theme }) => (!disabled && displayed) && css`
@@ -12,8 +14,11 @@ const StyledMultiActionButton = styled.div`
       border-color: ${theme.colors.secondary};
 
       &,
-      .carbon-icon {
+      ${StyledIcon} {
         color: ${theme.colors.white};
+        margin-right: 0;
+        top: 2px;
+        left: ${isClassic(theme) ? '6px' : '8px'};
       }
 
       &:focus {
@@ -40,13 +45,12 @@ const StyledMultiActionButton = styled.div`
     `}
   }
 
-  .carbon-icon {
-    &.icon-dropdown {
-      margin-right: -4px;
-      top: 0px;
-    }
+  ${StyledIcon} {
+    margin-right: 0px;
+    top: 2px;
+    left: ${({ theme }) => (isClassic(theme) ? '6px' : '8px')};
   }
-
+  
   ${getMultiActionButtonClassicStyles}
 `;
 

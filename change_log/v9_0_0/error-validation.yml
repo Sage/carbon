@@ -1,3 +1,0 @@
-Styling Changes: "Adds DLS styling for error validation."
-Bug Fixes: "Fixes wrong tooltip pointer repositioning when icon is close to the screen border."
-Improvements: "Adds tooltip repositioning when tooltip position is set to right and the icon is close to the border."

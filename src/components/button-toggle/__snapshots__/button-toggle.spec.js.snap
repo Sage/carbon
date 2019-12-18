@@ -23,6 +23,7 @@ exports[`ButtonToggle Classic theme renders correctly with default settings 1`] 
   height: 38px;
   padding: 0 24px;
   font-weight: 600;
+  cursor: pointer;
   border: 1px solid #668491;
   font-size: 14px;
   background-color: #FFFFFF;
@@ -36,6 +37,10 @@ exports[`ButtonToggle Classic theme renders correctly with default settings 1`] 
 input:checked ~ .c2 {
   color: #FFFFFF;
   background-color: #003F2E;
+}
+
+input:checked ~ .c2 .c4 {
+  color: #FFFFFF;
 }
 
 input:focus ~ .c2 {
@@ -52,6 +57,10 @@ input:checked ~ .c2 {
   background-color: #1573e6;
 }
 
+input:checked ~ .c2 .c4 {
+  color: #FFFFFF;
+}
+
 input:focus ~ .c2 {
   outline: 0;
 }
@@ -60,6 +69,10 @@ input:focus ~ .c2 {
   border-color: #1e499f;
   color: #FFFFFF;
   background-color: #1e499f;
+}
+
+.c2:hover .c4 {
+  color: #FFFFFF;
 }
 
 .c0 {
@@ -124,6 +137,7 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
   height: 38px;
   padding: 0 24px;
   font-weight: 600;
+  cursor: pointer;
   border: 1px solid #668491;
   font-size: 14px;
   background-color: #FFFFFF;
@@ -137,6 +151,10 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
 input:checked ~ .c3 {
   color: #FFFFFF;
   background-color: #003F2E;
+}
+
+input:checked ~ .c3 .c8 {
+  color: #FFFFFF;
 }
 
 input:focus ~ .c3 {
@@ -153,6 +171,10 @@ input:checked ~ .c3 {
   background-color: #1573e6;
 }
 
+input:checked ~ .c3 .c8 {
+  color: #FFFFFF;
+}
+
 input:focus ~ .c3 {
   outline: 0;
 }
@@ -161,6 +183,10 @@ input:focus ~ .c3 {
   border-color: #1e499f;
   color: #FFFFFF;
   background-color: #1e499f;
+}
+
+.c3:hover .c8 {
+  color: #FFFFFF;
 }
 
 .c6 .c4 {
@@ -274,6 +300,7 @@ exports[`ButtonToggle Modern themes renders correctly with small theme 1`] = `
   height: 38px;
   padding: 0 24px;
   font-weight: 600;
+  cursor: pointer;
   border: 1px solid #668491;
   font-size: 14px;
   background-color: #FFFFFF;
@@ -282,6 +309,10 @@ exports[`ButtonToggle Modern themes renders correctly with small theme 1`] = `
 input:checked ~ .c2 {
   color: #FFFFFF;
   background-color: #003F2E;
+}
+
+input:checked ~ .c2 .c6 {
+  color: #FFFFFF;
 }
 
 input:focus ~ .c2 {

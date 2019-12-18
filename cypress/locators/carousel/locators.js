@@ -5,6 +5,6 @@ export const TRANSITION_SELECT = 'select[name="transition"]';
 // component preview locators
 export const CAROUSEL = '.carbon-carousel__transition';
 export const SLIDE = 'div[data-element="visible-slide"]';
-export const PREVIOUS_ARROW_BUTTON = '.carbon-carousel__previous-button';
-export const NEXT_ARROW_BUTTON = '.carbon-carousel__next-button';
-export const CAROUSEL_SLIDE_SELECTOR = '.carbon-carousel__selector';
+export const PREVIOUS_ARROW_BUTTON = '[data-element=previous]';
+export const NEXT_ARROW_BUTTON = '[data-element=next]';
+export const CAROUSEL_SLIDE_SELECTOR = '[data-element=slide-selector]';

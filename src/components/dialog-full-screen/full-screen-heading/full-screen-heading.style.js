@@ -1,9 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import fullScreenHeadingClassic from './full-screen-heading-classic.style';
 import baseTheme from '../../../style/themes/base';
 
 const StyledFullScreenHeading = styled.div`
-  border-bottom: 1px solid ${({ theme }) => theme.disabled.border};
+  ${({ hasContent }) => hasContent && css`
+    border-bottom: 1px solid ${({ theme }) => theme.disabled.border};
+  `}
 
   .carbon-app-wrapper {
     position: relative;

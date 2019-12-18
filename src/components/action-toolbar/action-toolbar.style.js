@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
-import { LinkStyleAnchor } from '../link/link.style';
+import LinkStyleAnchor from '../link/link.style';
+import StyledIcon from '../icon/icon.style';
 import { isClassic } from '../../utils/helpers/style-helper';
 
 const StyledActionToolbar = styled.div`
@@ -18,17 +19,8 @@ const StyledActionToolbarActions = styled.div`
   display: inline-flex;
   margin: 0 10px;
 
-  .carbon-link__icon {
-    margin-right: 0;
-
-    .carbon-icon__svg-icon {
-      position: relative;
-      bottom: 1px;
-    }
-  }
-
-  .carbon-link__content {
-    margin-left: 5px;
+  ${LinkStyleAnchor} {
+    text-decoration: none;
   }
 
   & > * {
@@ -41,6 +33,9 @@ const StyledActionToolbarActions = styled.div`
     && disabled
     && css`
       ${LinkStyleAnchor} {
+        ${StyledIcon} {
+          color: #b3c2c8;
+        }
         color: #b3c2c8;
       }
     `}

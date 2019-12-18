@@ -61,9 +61,10 @@ describe('DraggableContext', () => {
 
     describe('handleBeginDrag', () => {
       it('returns the index of the props passed in', () => {
-        expect(instance.handleBeginDrag({ index: 3, foo: 'bar' })).toEqual({
+        expect(instance.handleBeginDrag({ index: 3, foo: 'bar', offsetDiffY: 0 })).toEqual({
           index: 3,
-          foo: 'bar'
+          foo: 'bar',
+          offsetDiffY: 0
         });
       });
     });

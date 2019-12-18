@@ -1,14 +1,20 @@
 import styled, { css } from 'styled-components';
-import Icon from '../../icon/icon';
-import { THEMES } from '../../../style/themes';
+import Icon from '../../icon';
 import baseTheme from '../../../style/themes/base';
 import LabelStyle from '../../../__experimental__/components/label/label.style';
+import { isClassic } from '../../../utils/helpers/style-helper';
 
 const ConfigurableItemRowIconStyle = styled(Icon)`
-  cursor: move;
+  cursor: grab;
+
+  /* Provides backup cursor view for IE11 */
+  @media all and (-ms-high-contrast: none) {
+    cursor: move;
+  }
+
   padding-right: 12px;
 
-  ${({ theme }) => theme.name === THEMES.classic && css`
+  ${({ theme }) => isClassic(theme) && css`
       padding-right: 0;
   `}
 `;
@@ -28,7 +34,7 @@ const ConfigurableItemRowStyle = styled.li`
     padding: 0px 6px 6px 6px;
   }
 
-  ${({ theme }) => theme.name === THEMES.classic && css`
+  ${({ theme }) => isClassic(theme) && css`
     border-bottom: 1px solid #CCD6DA;
     padding: 0.5em 0.5em 0.7em;
   `}

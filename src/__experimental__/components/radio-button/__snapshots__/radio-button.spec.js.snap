@@ -1,15 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RadioButton styles base renders as expected 1`] = `
-.c3 {
-  display: block;
-}
-
-.c3 + .c2 {
+.c6 + .c5 {
   margin-top: 16px;
 }
 
-.c7 {
+.c14 + .c5 {
+  margin-top: 10px;
+}
+
+.c8 {
+  display: block;
+}
+
+.c12 {
   cursor: pointer;
   opacity: 0;
   margin: 0;
@@ -17,935 +21,964 @@ exports[`RadioButton styles base renders as expected 1`] = `
   z-index: 999;
 }
 
-.c5 {
+.c10 {
   display: inline-block;
   position: relative;
 }
 
-.c9 .c2 {
+.c15 .c7 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
 }
 
-.c9 .c6:hover,
-.c9 .c21:hover,
-.c9 .c6:focus,
-.c9 .c21:focus {
+.c15 .c11:hover,
+.c15 .c28:hover,
+.c15 .c11:focus,
+.c15 .c28:focus {
   outline: none;
   cursor: not-allowed;
 }
 
-.c1 .c2 {
+.c4 .c7 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
 }
 
-.c1 .c21 {
+.c4 .c28 {
   text-align: left;
+  padding-top: 0;
   width: auto;
-  white-space: nowrap;
 }
 
-.c1 .c21 .c22 {
+.c4 .c28 .c26,
+.c4 .c28 .c27 {
   color: rgba(0,0,0,0.65);
-  vertical-align: bottom;
+  vertical-align: middle;
+  top: -1px;
 }
 
-.c1 .c21 .c22:hover,
-.c1 .c21 .c22:focus {
+.c4 .c28 .c26:hover,
+.c4 .c28 .c27:hover,
+.c4 .c28 .c26:focus,
+.c4 .c28 .c27:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c10 .c2 {
+.c4 .c25 {
+  -webkit-flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
+}
+
+.c16 .c7 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
 }
 
-.c10 .c6:hover,
-.c10 .c21:hover,
-.c10 .c6:focus,
-.c10 .c21:focus {
+.c16 .c11:hover,
+.c16 .c28:hover,
+.c16 .c11:focus,
+.c16 .c28:focus {
   outline: none;
   cursor: not-allowed;
 }
 
-.c11 .c2 {
+.c17 .c7 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
 }
 
-.c12 .c4 {
+.c17 .c7 {
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
+
+.c17 .c9 {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+.c17 .c9 {
+  margin-left: 0;
+}
+
+.c18 .c9 {
   padding-top: 1px;
 }
 
-.c12 .c8 {
+.c18 .c13 {
   height: 16px;
 }
 
-.c12 .c6,
-.c12 svg {
+.c18 .c11,
+.c18 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c12 .c4,
-.c12 .c6,
-.c12 .c8,
-.c12 svg {
+.c18 .c9,
+.c18 .c11,
+.c18 .c13,
+.c18 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
-.c12 .c6:not([disabled]):focus + .c8,
-.c12 .c6:not([disabled]):hover + .c8 {
+.c18 .c11:not([disabled]):focus + .c13,
+.c18 .c11:not([disabled]):hover + .c13 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c12 .c8:hover,
-.c12 .c8:focus {
+.c18 .c13:hover,
+.c18 .c13:focus {
   outline: none;
   cursor: not-allowed;
 }
 
-.c12 .c4 {
+.c18 .c9 {
   margin-right: 16px;
 }
 
-.c12 .c8 {
+.c18 .c13 {
   padding: 0;
 }
 
-.c12 .c8,
-.c12 svg {
+.c18 .c13,
+.c18 svg {
   border-radius: 50%;
 }
 
-.c12 .c4,
-.c12 .c6,
-.c12 .c8,
-.c12 svg {
+.c18 .c9,
+.c18 .c11,
+.c18 .c13,
+.c18 svg {
   height: 16px;
   width: 16px;
 }
 
-.c12 .c6:checked + .c8 circle {
-  fill: #26A826;
+.c18 .c11:checked + .c13 circle {
+  fill: rgba(0,0,0,0.9);
 }
 
-.c12 .c6:checked + .c8 circle {
+.c18 .c11:checked + .c13 circle {
   fill: #CCD6DA;
 }
 
-.c13 .c4 {
+.c19 .c9 {
   padding-top: 1px;
 }
 
-.c13 .c8 {
+.c19 .c13 {
   height: 16px;
 }
 
-.c13 .c6,
-.c13 svg {
+.c19 .c11,
+.c19 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c13 .c4,
-.c13 .c6,
-.c13 .c8,
-.c13 svg {
+.c19 .c9,
+.c19 .c11,
+.c19 .c13,
+.c19 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
-.c13 .c6:not([disabled]):focus + .c8,
-.c13 .c6:not([disabled]):hover + .c8 {
+.c19 .c11:not([disabled]):focus + .c13,
+.c19 .c11:not([disabled]):hover + .c13 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c13 .c8 {
+.c19 .c13 {
   height: 24px;
 }
 
-.c13 .c4,
-.c13 .c6,
-.c13 svg {
+.c19 .c9,
+.c19 .c11,
+.c19 svg {
   padding: 2px;
 }
 
-.c13 .c4,
-.c13 .c6,
-.c13 .c8,
-.c13 svg {
+.c19 .c9,
+.c19 .c11,
+.c19 .c13,
+.c19 svg {
   height: 24px;
   width: 24px;
 }
 
-.c13 .c4 {
+.c19 .c9 {
   margin-right: 16px;
 }
 
-.c13 .c8 {
+.c19 .c13 {
   padding: 0;
 }
 
-.c13 .c8,
-.c13 svg {
+.c19 .c13,
+.c19 svg {
   border-radius: 50%;
 }
 
-.c13 .c4,
-.c13 .c6,
-.c13 .c8,
-.c13 svg {
+.c19 .c9,
+.c19 .c11,
+.c19 .c13,
+.c19 svg {
   height: 16px;
   width: 16px;
 }
 
-.c13 .c6:checked + .c8 circle {
-  fill: #26A826;
+.c19 .c11:checked + .c13 circle {
+  fill: rgba(0,0,0,0.9);
 }
 
-.c13 .c4 {
+.c19 .c9 {
   margin-right: 14px;
 }
 
-.c13 .c4,
-.c13 .c6,
-.c13 .c8,
-.c13 svg {
+.c19 .c9,
+.c19 .c11,
+.c19 .c13,
+.c19 svg {
   height: 24px;
   width: 24px;
 }
 
-.c14 .c4 {
+.c20 .c9 {
   padding-top: 1px;
 }
 
-.c14 .c8 {
+.c20 .c13 {
   height: 16px;
 }
 
-.c14 .c6,
-.c14 svg {
+.c20 .c11,
+.c20 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c14 .c4,
-.c14 .c6,
-.c14 .c8,
-.c14 svg {
+.c20 .c9,
+.c20 .c11,
+.c20 .c13,
+.c20 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
-.c14 .c6:not([disabled]):focus + .c8,
-.c14 .c6:not([disabled]):hover + .c8 {
+.c20 .c11:not([disabled]):focus + .c13,
+.c20 .c11:not([disabled]):hover + .c13 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c14 .c8 {
+.c20 .c13 {
   height: 24px;
 }
 
-.c14 .c4,
-.c14 .c6,
-.c14 svg {
+.c20 .c9,
+.c20 .c11,
+.c20 svg {
   padding: 2px;
 }
 
-.c14 .c4,
-.c14 .c6,
-.c14 .c8,
-.c14 svg {
+.c20 .c9,
+.c20 .c11,
+.c20 .c13,
+.c20 svg {
   height: 24px;
   width: 24px;
 }
 
-.c14 .c4 {
+.c20 .c9 {
   margin-right: 16px;
 }
 
-.c14 .c8 {
+.c20 .c13 {
   padding: 0;
 }
 
-.c14 .c8,
-.c14 svg {
+.c20 .c13,
+.c20 svg {
   border-radius: 50%;
 }
 
-.c14 .c4,
-.c14 .c6,
-.c14 .c8,
-.c14 svg {
+.c20 .c9,
+.c20 .c11,
+.c20 .c13,
+.c20 svg {
   height: 16px;
   width: 16px;
 }
 
-.c14 .c6:checked + .c8 circle {
-  fill: #26A826;
+.c20 .c11:checked + .c13 circle {
+  fill: rgba(0,0,0,0.9);
 }
 
-.c14 .c4 {
+.c20 .c9 {
   margin-right: 14px;
 }
 
-.c14 .c4,
-.c14 .c6,
-.c14 .c8,
-.c14 svg {
+.c20 .c9,
+.c20 .c11,
+.c20 .c13,
+.c20 svg {
   height: 24px;
   width: 24px;
 }
 
-.c14 .c4 {
-  margin-left: 6px;
+.c20 .c9 {
+  margin-right: 0;
+  margin-left: 16px;
 }
 
-.c15 .c4 {
+.c21 .c9 {
   padding-top: 1px;
 }
 
-.c15 .c8 {
+.c21 .c13 {
   height: 16px;
 }
 
-.c15 .c6,
-.c15 svg {
+.c21 .c11,
+.c21 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c15 .c4,
-.c15 .c6,
-.c15 .c8,
-.c15 svg {
+.c21 .c9,
+.c21 .c11,
+.c21 .c13,
+.c21 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
-.c15 .c6:not([disabled]):focus + .c8,
-.c15 .c6:not([disabled]):hover + .c8 {
+.c21 .c11:not([disabled]):focus + .c13,
+.c21 .c11:not([disabled]):hover + .c13 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c15 .c4 {
+.c21 .c9 {
   padding: 1px 0 0 0;
 }
 
-.c15 .c6,
-.c15 svg {
+.c21 .c11,
+.c21 svg {
   padding: 1px;
 }
 
-.c15 .c4,
-.c15 .c6,
-.c15 .c8,
-.c15 svg {
+.c21 .c9,
+.c21 .c11,
+.c21 .c13,
+.c21 svg {
   height: 15px;
   width: 15px;
 }
 
-.c15 .c6:not([disabled]):focus + .c8,
-.c15 .c6:not([disabled]):hover + .c8 {
+.c21 .c11:not([disabled]):focus + .c13,
+.c21 .c11:not([disabled]):hover + .c13 {
   box-shadow: none;
 }
 
-.c15 .c6:not([disabled]):focus + .c8 > svg,
-.c15 .c6:not([disabled]):hover + .c8 > svg {
+.c21 .c11:not([disabled]):focus + .c13 > svg,
+.c21 .c11:not([disabled]):hover + .c13 > svg {
   border: 1px solid #1963f6;
   outline: none;
 }
 
-.c15 .c4 {
+.c21 .c9 {
   margin-right: 16px;
 }
 
-.c15 .c8 {
+.c21 .c13 {
   padding: 0;
 }
 
-.c15 .c8,
-.c15 svg {
+.c21 .c13,
+.c21 svg {
   border-radius: 50%;
 }
 
-.c15 .c4,
-.c15 .c6,
-.c15 .c8,
-.c15 svg {
+.c21 .c9,
+.c21 .c11,
+.c21 .c13,
+.c21 svg {
   height: 16px;
   width: 16px;
 }
 
-.c15 .c6:checked + .c8 circle {
-  fill: #00805D;
+.c21 .c11:checked + .c13 circle {
+  fill: rgba(0,0,0,0.9);
 }
 
-.c15 .c4,
-.c15 .c6,
-.c15 .c8,
-.c15 svg {
+.c21 .c9,
+.c21 .c11,
+.c21 .c13,
+.c21 svg {
   height: 15px;
   width: 15px;
 }
 
-.c15 .c4 {
+.c21 .c9 {
   margin-right: 6px;
 }
 
-.c15 .c6:not([disabled]):focus + .c8 > svg {
+.c21 .c11:not([disabled]):focus + .c13 > svg {
   box-shadow: 0 0 6px rgba(25,99,246,0.6);
   -webkit-transition: box-shadow 0.1s linear;
   transition: box-shadow 0.1s linear;
 }
 
-.c15 .c6:checked + .c8 circle {
+.c21 .c11:checked + .c13 circle {
   fill: rgba(0,0,0,0.85);
 }
 
-.c16 .c4 {
+.c22 .c9 {
   padding-top: 1px;
 }
 
-.c16 .c8 {
+.c22 .c13 {
   height: 16px;
 }
 
-.c16 .c6,
-.c16 svg {
+.c22 .c11,
+.c22 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c16 .c4,
-.c16 .c6,
-.c16 .c8,
-.c16 svg {
+.c22 .c9,
+.c22 .c11,
+.c22 .c13,
+.c22 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
-.c16 .c6:not([disabled]):focus + .c8,
-.c16 .c6:not([disabled]):hover + .c8 {
+.c22 .c11:not([disabled]):focus + .c13,
+.c22 .c11:not([disabled]):hover + .c13 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c16 .c8:hover,
-.c16 .c8:focus {
+.c22 .c13:hover,
+.c22 .c13:focus {
   outline: none;
   cursor: not-allowed;
 }
 
-.c16 .c4 {
+.c22 .c9 {
   padding: 1px 0 0 0;
 }
 
-.c16 .c6,
-.c16 svg {
+.c22 .c11,
+.c22 svg {
   padding: 1px;
 }
 
-.c16 .c4,
-.c16 .c6,
-.c16 .c8,
-.c16 svg {
+.c22 .c9,
+.c22 .c11,
+.c22 .c13,
+.c22 svg {
   height: 15px;
   width: 15px;
 }
 
-.c16 .c6:not([disabled]):focus + .c8,
-.c16 .c6:not([disabled]):hover + .c8 {
+.c22 .c11:not([disabled]):focus + .c13,
+.c22 .c11:not([disabled]):hover + .c13 {
   box-shadow: none;
 }
 
-.c16 .c6:not([disabled]):focus + .c8 > svg,
-.c16 .c6:not([disabled]):hover + .c8 > svg {
+.c22 .c11:not([disabled]):focus + .c13 > svg,
+.c22 .c11:not([disabled]):hover + .c13 > svg {
   border: 1px solid #1963f6;
   outline: none;
 }
 
-.c16 .c4 {
+.c22 .c9 {
   margin-right: 16px;
 }
 
-.c16 .c8 {
+.c22 .c13 {
   padding: 0;
 }
 
-.c16 .c8,
-.c16 svg {
+.c22 .c13,
+.c22 svg {
   border-radius: 50%;
 }
 
-.c16 .c4,
-.c16 .c6,
-.c16 .c8,
-.c16 svg {
+.c22 .c9,
+.c22 .c11,
+.c22 .c13,
+.c22 svg {
   height: 16px;
   width: 16px;
 }
 
-.c16 .c6:checked + .c8 circle {
-  fill: #00805D;
+.c22 .c11:checked + .c13 circle {
+  fill: rgba(0,0,0,0.9);
 }
 
-.c16 .c6:checked + .c8 circle {
+.c22 .c11:checked + .c13 circle {
   fill: #4d7080;
 }
 
-.c16 .c4,
-.c16 .c6,
-.c16 .c8,
-.c16 svg {
+.c22 .c9,
+.c22 .c11,
+.c22 .c13,
+.c22 svg {
   height: 15px;
   width: 15px;
 }
 
-.c16 .c4 {
+.c22 .c9 {
   margin-right: 6px;
 }
 
-.c16 .c6:not([disabled]):focus + .c8 > svg {
+.c22 .c11:not([disabled]):focus + .c13 > svg {
   box-shadow: 0 0 6px rgba(25,99,246,0.6);
   -webkit-transition: box-shadow 0.1s linear;
   transition: box-shadow 0.1s linear;
 }
 
-.c16 .c6:checked + .c8 circle {
+.c22 .c11:checked + .c13 circle {
   fill: rgba(0,0,0,0.85);
 }
 
-.c16 .c6:checked + .c8 circle {
+.c22 .c11:checked + .c13 circle {
   fill: #8099a4;
 }
 
-.c17 .c4 {
+.c23 .c9 {
   padding-top: 1px;
 }
 
-.c17 .c8 {
+.c23 .c13 {
   height: 16px;
 }
 
-.c17 .c6,
-.c17 svg {
+.c23 .c11,
+.c23 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c17 .c4,
-.c17 .c6,
-.c17 .c8,
-.c17 svg {
+.c23 .c9,
+.c23 .c11,
+.c23 .c13,
+.c23 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
-.c17 .c6:not([disabled]):focus + .c8,
-.c17 .c6:not([disabled]):hover + .c8 {
+.c23 .c11:not([disabled]):focus + .c13,
+.c23 .c11:not([disabled]):hover + .c13 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c17 .c4 {
+.c23 .c9 {
   padding: 1px 0 0 0;
 }
 
-.c17 .c6,
-.c17 svg {
+.c23 .c11,
+.c23 svg {
   padding: 1px;
 }
 
-.c17 .c4,
-.c17 .c6,
-.c17 .c8,
-.c17 svg {
+.c23 .c9,
+.c23 .c11,
+.c23 .c13,
+.c23 svg {
   height: 15px;
   width: 15px;
 }
 
-.c17 .c6:not([disabled]):focus + .c8,
-.c17 .c6:not([disabled]):hover + .c8 {
+.c23 .c11:not([disabled]):focus + .c13,
+.c23 .c11:not([disabled]):hover + .c13 {
   box-shadow: none;
 }
 
-.c17 .c6:not([disabled]):focus + .c8 > svg,
-.c17 .c6:not([disabled]):hover + .c8 > svg {
+.c23 .c11:not([disabled]):focus + .c13 > svg,
+.c23 .c11:not([disabled]):hover + .c13 > svg {
   border: 1px solid #1963f6;
   outline: none;
 }
 
-.c17 .c4 {
+.c23 .c9 {
   margin-right: 16px;
 }
 
-.c17 .c8 {
+.c23 .c13 {
   padding: 0;
 }
 
-.c17 .c8,
-.c17 svg {
+.c23 .c13,
+.c23 svg {
   border-radius: 50%;
 }
 
-.c17 .c4,
-.c17 .c6,
-.c17 .c8,
-.c17 svg {
+.c23 .c9,
+.c23 .c11,
+.c23 .c13,
+.c23 svg {
   height: 16px;
   width: 16px;
 }
 
-.c17 .c6:checked + .c8 circle {
-  fill: #00805D;
+.c23 .c11:checked + .c13 circle {
+  fill: rgba(0,0,0,0.9);
 }
 
-.c17 .c4,
-.c17 .c6,
-.c17 .c8,
-.c17 svg {
+.c23 .c9,
+.c23 .c11,
+.c23 .c13,
+.c23 svg {
   height: 15px;
   width: 15px;
 }
 
-.c17 .c4 {
+.c23 .c9 {
   margin-right: 6px;
 }
 
-.c17 .c6:not([disabled]):focus + .c8 > svg {
+.c23 .c11:not([disabled]):focus + .c13 > svg {
   box-shadow: 0 0 6px rgba(25,99,246,0.6);
   -webkit-transition: box-shadow 0.1s linear;
   transition: box-shadow 0.1s linear;
 }
 
-.c17 .c6:checked + .c8 circle {
+.c23 .c11:checked + .c13 circle {
   fill: rgba(0,0,0,0.85);
 }
 
-.c17 .c4 {
+.c23 .c9 {
   margin-left: 6px;
 }
 
-.c18 .c4 {
+.c24 .c9 {
   padding-top: 1px;
 }
 
-.c18 .c8 {
+.c24 .c13 {
   height: 16px;
 }
 
-.c18 .c6,
-.c18 svg {
+.c24 .c11,
+.c24 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c18 .c4,
-.c18 .c6,
-.c18 .c8,
-.c18 svg {
+.c24 .c9,
+.c24 .c11,
+.c24 .c13,
+.c24 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
-.c18 .c6:not([disabled]):focus + .c8,
-.c18 .c6:not([disabled]):hover + .c8 {
+.c24 .c11:not([disabled]):focus + .c13,
+.c24 .c11:not([disabled]):hover + .c13 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c18 .c4 {
+.c24 .c9 {
   padding: 1px 0 0 0;
 }
 
-.c18 .c6,
-.c18 svg {
+.c24 .c11,
+.c24 svg {
   padding: 1px;
 }
 
-.c18 .c4,
-.c18 .c6,
-.c18 .c8,
-.c18 svg {
+.c24 .c9,
+.c24 .c11,
+.c24 .c13,
+.c24 svg {
   height: 15px;
   width: 15px;
 }
 
-.c18 .c6:not([disabled]):focus + .c8,
-.c18 .c6:not([disabled]):hover + .c8 {
+.c24 .c11:not([disabled]):focus + .c13,
+.c24 .c11:not([disabled]):hover + .c13 {
   box-shadow: none;
 }
 
-.c18 .c6:not([disabled]):focus + .c8 > svg,
-.c18 .c6:not([disabled]):hover + .c8 > svg {
+.c24 .c11:not([disabled]):focus + .c13 > svg,
+.c24 .c11:not([disabled]):hover + .c13 > svg {
   border: 1px solid #1963f6;
   outline: none;
 }
 
-.c18 .c4 {
+.c24 .c9 {
   margin-right: 16px;
 }
 
-.c18 .c8 {
+.c24 .c13 {
   padding: 0;
 }
 
-.c18 .c8,
-.c18 svg {
+.c24 .c13,
+.c24 svg {
   border-radius: 50%;
 }
 
-.c18 .c4,
-.c18 .c6,
-.c18 .c8,
-.c18 svg {
+.c24 .c9,
+.c24 .c11,
+.c24 .c13,
+.c24 svg {
   height: 16px;
   width: 16px;
 }
 
-.c18 .c6:checked + .c8 circle {
-  fill: #00805D;
+.c24 .c11:checked + .c13 circle {
+  fill: rgba(0,0,0,0.9);
 }
 
-.c18 .c4,
-.c18 .c6,
-.c18 .c8,
-.c18 svg {
+.c24 .c9,
+.c24 .c11,
+.c24 .c13,
+.c24 svg {
   height: 15px;
   width: 15px;
 }
 
-.c18 .c4 {
+.c24 .c9 {
   margin-right: 6px;
 }
 
-.c18 .c6:not([disabled]):focus + .c8 > svg {
+.c24 .c11:not([disabled]):focus + .c13 > svg {
   box-shadow: 0 0 6px rgba(25,99,246,0.6);
   -webkit-transition: box-shadow 0.1s linear;
   transition: box-shadow 0.1s linear;
 }
 
-.c18 .c6:checked + .c8 circle {
+.c24 .c11:checked + .c13 circle {
   fill: rgba(0,0,0,0.85);
 }
 
-.c18 .c4 {
+.c24 .c9 {
   margin-left: 6px;
 }
 
-.c19 .c4 {
-  padding-top: 1px;
-}
-
-.c19 .c8 {
-  height: 16px;
-}
-
-.c19 .c6,
-.c19 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c19 .c4,
-.c19 .c6,
-.c19 .c8,
-.c19 svg {
-  box-sizing: border-box;
-  width: 16px;
-}
-
-.c19 .c6:not([disabled]):focus + .c8,
-.c19 .c6:not([disabled]):hover + .c8 {
-  box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c19 .c4 {
-  margin-right: 16px;
-}
-
-.c19 .c8 {
-  padding: 0;
-}
-
-.c19 .c8,
-.c19 svg {
-  border-radius: 50%;
-}
-
-.c19 .c4,
-.c19 .c6,
-.c19 .c8,
-.c19 svg {
-  height: 16px;
-  width: 16px;
-}
-
-.c19 .c6:checked + .c8 circle {
-  fill: #26A826;
-}
-
-.c0 {
+.c3 {
   padding-top: 8px;
   margin-bottom: 12px;
 }
 
-.c0 .c4 {
+.c3 .c9 {
   padding-top: 1px;
 }
 
-.c0 .c8 {
+.c3 .c13 {
   height: 16px;
 }
 
-.c0 svg {
+.c3 svg {
   background-color: #FFFFFF;
-  border: solid 1px #668491;
+  border: 1px solid #668491;
 }
 
-.c0 .c6,
-.c0 svg {
+.c3 .c11,
+.c3 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c0 .c4,
-.c0 .c6,
-.c0 .c8,
-.c0 svg {
+.c3 .c9,
+.c3 .c11,
+.c3 .c13,
+.c3 svg {
   box-sizing: border-box;
+  min-width: 16px;
   width: 16px;
 }
 
-.c0 .c6:not([disabled]):focus + .c8,
-.c0 .c6:not([disabled]):hover + .c8 {
+.c3 .c11:not([disabled]):focus + .c13,
+.c3 .c11:not([disabled]):hover + .c13 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c0 .c21 {
-  padding: 0 6px;
+.c3 .c28 {
+  padding-left: 6px;
   width: auto;
+  -webkit-flex: 1 1 calc(100% - 28px);
+  -ms-flex: 1 1 calc(100% - 28px);
+  flex: 1 1 calc(100% - 28px);
 }
 
-.c0 .c20 {
+.c3 .c25 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
 }
 
-.c0 .c20 {
-  margin-left: 32px;
+.c3 .c27 {
+  position: relative;
+  display: inline-block;
 }
 
-.c0 .c4 {
+.c3 .c25 {
+  margin-left: 32px;
+  padding-left: 0;
+}
+
+.c3 .c9 {
   margin-right: 16px;
 }
 
-.c0 .c8 {
+.c3 .c13 {
   padding: 0;
 }
 
-.c0 .c8,
-.c0 svg {
+.c3 .c13,
+.c3 svg {
   border-radius: 50%;
 }
 
-.c0 .c4,
-.c0 .c6,
-.c0 .c8,
-.c0 svg {
+.c3 .c9,
+.c3 .c11,
+.c3 .c13,
+.c3 svg {
   height: 16px;
   width: 16px;
 }
 
-.c0 svg {
+.c3 svg {
   padding: 1px;
 }
 
-.c0 circle {
+.c3 circle {
   r: 5;
 }
 
-.c0 .c6:checked + .c8 circle {
-  fill: #26A826;
+.c3 .c28 {
+  -webkit-flex: 1 1 calc(100% - 44px);
+  -ms-flex: 1 1 calc(100% - 44px);
+  flex: 1 1 calc(100% - 44px);
+  padding-left: 0;
 }
 
-<div
-  className="c0"
-  data-component="radio-button"
+.c3 .c11:checked + .c13 circle {
+  fill: rgba(0,0,0,0.9);
+}
+
+.c1 {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.c1.c1.c1 .c5 {
+  margin-top: 0;
+  margin-bottom: -1px;
+}
+
+.c1 .c2 {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.c0 .c29 {
+  margin-bottom: 16px;
+  height: 26px;
+}
+
+.c0 .c29 legend {
+  font-size: 14px;
+  margin-left: -2px;
+}
+
+<fieldset
+  aria-labelledby="undefined-label"
+  className="c0 c1"
+  data-component="radiogroup"
+  role="radiogroup"
 >
   <div
-    className="c1"
+    checked={false}
+    className="c2 c3"
+    data-component="radio-button"
   >
     <div
-      className="c2 c3"
+      checked={false}
+      className="c4"
     >
       <div
-        className="c4 c5"
+        className="c5 c6"
       >
-        <input
-          className="c6 c7"
-          id="guid-12345"
-          onChange={[Function]}
-          role="radio"
-          tabIndex={-1}
-          type="radio"
-          value="test"
-        />
         <div
-          className="c8 "
+          className="c7 c8"
         >
-          <svg
-            viewBox="0 0 15 15"
+          <div
+            className="c9 c10"
           >
-            <g
-              fill="none"
-              fillRule="evenodd"
-              stroke="none"
-              strokeWidth="1"
+            <input
+              aria-checked={false}
+              aria-describedby="guid-12345-help"
+              aria-labelledby="guid-12345-label"
+              checked={false}
+              className="c11 c12"
+              id="guid-12345"
+              onBlur={[Function]}
+              onChange={[Function]}
+              role="radio"
+              type="radio"
+              value="test"
+            />
+            <div
+              className="c13 "
             >
-              <circle
-                className="radio-button-check"
-                cx="7.5"
-                cy="7.5"
-                fill="#FFFFFF"
-                r="5"
-              />
-            </g>
-          </svg>
+              <svg
+                focusable="false"
+                viewBox="0 0 15 15"
+              >
+                <g
+                  fill="none"
+                  fillRule="evenodd"
+                  stroke="none"
+                  strokeWidth="1"
+                >
+                  <circle
+                    className="radio-button-check"
+                    cx="7.5"
+                    cy="7.5"
+                    fill="#FFFFFF"
+                    r="5"
+                  />
+                </g>
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</fieldset>
 `;

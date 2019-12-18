@@ -1,10 +1,11 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import ReactDOM from 'react-dom';
 import Portal from './portal';
 import Icon from './../icon';
 import guid from '../../utils/helpers/guid';
 import Browser from '../../utils/helpers/browser';
+
 jest.mock('../../utils/helpers/guid')
 
 describe('Portal', () => {
@@ -27,6 +28,8 @@ describe('Portal', () => {
 
     afterEach(() => {
       if (wrapper.length) wrapper.unmount();
+
+      document.body.innerHTML = '';
     });
 
     it('will mount correctly on document', () => {
@@ -70,12 +73,22 @@ describe('Portal', () => {
     });
 
     it('to match snapshot ', () => {
-      expect(wrapper).toMatchSnapshot();
+      const wrapper2 = shallow(
+        <Portal>
+          <Icon
+            tooltipMessage='Test'
+            tooltipAlign='left'
+            tooltipPosition='top'
+            type='tick'
+          />
+        </Portal>
+      );
+      expect(wrapper2).toMatchSnapshot();
     });
   });
 
-  describe('will manager listeners', () => {
-    describe('when NOT given  reposition prop', () => {
+  describe('will manage listeners', () => {
+    describe('when NOT given reposition prop', () => {
       let parentDiv;
       beforeEach(() => {
         spyOn(Browser.getWindow(), 'addEventListener');
@@ -197,5 +210,43 @@ describe('Portal', () => {
       </Portal>
       );
     expect(noDOMWrapper.html()).toBe(null);
+  });
+
+  describe('when reposition prop is updated', () => {
+    let repositionCb;
+    let repositionCbNew;
+
+    beforeEach(() => {
+      repositionCb = jasmine.createSpy('onReposition');
+      repositionCbNew = jasmine.createSpy('onRepositionNew');
+
+      spyOn(Browser.getWindow(), 'addEventListener');
+      spyOn(Browser.getWindow(), 'removeEventListener');
+      
+      wrapper = mount(
+        <Portal onReposition={ repositionCb }>
+          <Icon
+            tooltipMessage='Test'
+            tooltipAlign='left'
+            tooltipPosition='top'
+            type='tick'
+          />
+        </Portal>
+      );
+    });
+
+    afterEach(() => {
+      if (wrapper.length) wrapper.unmount();
+    });
+
+    it('will remove the old listener and add a new window "resize" listener ', () => {
+      wrapper.instance().scrollParent = { removeEventListener: () => jest.fn(), addEventListener: () => jest.fn()};
+      spyOn(wrapper.instance().scrollParent, 'removeEventListener');
+      spyOn(wrapper.instance().scrollParent, 'addEventListener');
+      wrapper.setProps({ onReposition: repositionCbNew });
+      expect(wrapper.instance().scrollParent.removeEventListener).toHaveBeenCalled();
+      expect(Browser.getWindow().removeEventListener).toHaveBeenCalledWith('resize', repositionCb);
+      expect(Browser.getWindow().addEventListener).toHaveBeenCalledWith('resize', repositionCbNew);
+    });
   });
 });

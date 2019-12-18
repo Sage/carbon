@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import PropTypes from 'prop-types';
+import { isElement } from 'react-is';
 import I18n from 'i18n-js';
 import Service from '../../../utils/service';
-import FormButton from '../../../components/form/form-button';
-import FormSummary from '../../../components/form/form-summary';
-import AppWrapper from '../../../components/app-wrapper';
+import FormButton from '../../../__deprecated__/components/form/form-button';
+import FormSummary from '../../../__deprecated__/components/form/form-summary';
 import { validProps, generateKeysForChildren } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
 import Browser from '../../../utils/helpers/browser';
 import { withValidations } from '../../../components/validations';
 import ElementResize from '../../../utils/helpers/element-resize';
-import StyledForm, { StyledFormFooter, StyledAdditionalFormAction } from '../../../components/form/form.style';
+import StyledForm,
+{
+  StyledFormFooter,
+  StyledAdditionalFormAction,
+  StyledResponsiveFooterWrapper
+} from '../../../__deprecated__/components/form/form.style';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const FormContext = React.createContext();
 
@@ -25,6 +31,8 @@ class FormWithoutValidations extends React.Component {
   stickyListener = false; // prevents multiple listeners being added/ removed
 
   unsavedListener = false; // prevents multiple listeners being added/ removed
+
+  formFooterRef = createRef();
 
   /* Runs once the component has mounted. */
   componentDidMount() {
@@ -116,17 +124,10 @@ class FormWithoutValidations extends React.Component {
   checkStickyFooter = () => {
     if (!this._form) { return; }
 
-    let offsetTop = 0,
-        element = this._form;
+    const formHeight = (this._form.offsetTop + this._form.offsetHeight) - this._window.pageYOffset;
+    const footerHeight = this.formFooterRef.current.clientHeight;
 
-    while (element) {
-      offsetTop += element.offsetTop;
-      element = element.offsetParent;
-    }
-
-    const formHeight = (offsetTop + this._form.offsetHeight) - this._window.pageYOffset;
-
-    if (!this.state.stickyFooter && formHeight > this._window.innerHeight) {
+    if (!this.state.stickyFooter && formHeight - (footerHeight / 2) > this._window.innerHeight) {
       this.setState({ stickyFooter: true });
     } else if (this.state.stickyFooter && formHeight < this._window.innerHeight) {
       this.setState({ stickyFooter: false });
@@ -180,7 +181,7 @@ class FormWithoutValidations extends React.Component {
   /* CSRF values for request */
   csrfValues = { ...calculateCsrfValues(this._document) };
 
-  /* Service instacne to make post request */
+  /* Service instance to make post request */
   _service = new Service();
 
   /* Handles submit and runs validation. */
@@ -233,11 +234,11 @@ class FormWithoutValidations extends React.Component {
     this.submitControlledForm();
   }
 
-  async submitControlledForm() {
+  submitControlledForm() {
     const { csrFValue } = this.csrfValues;
     Service.configure({ csrfToken: csrFValue });
     this._service.setURL(this.props.formAction);
-    await this._service.post(
+    this._service.post(
       JSON.stringify(this.state.formInputs),
       { onSuccess: this.clearFormData }
     );
@@ -257,7 +258,9 @@ class FormWithoutValidations extends React.Component {
 
   /** Separates and returns HTML specific props */
   htmlProps = () => {
-    const { onSubmit, fixedBottom, ...props } = validProps(this);
+    const {
+      onSubmit, fixedBottom, innerRef, ...props
+    } = validProps(this);
     return props;
   }
 
@@ -350,13 +353,24 @@ class FormWithoutValidations extends React.Component {
     }
 
     return (
-      <StyledFormFooter buttonAlign={ this.props.buttonAlign }>
-        <AppWrapper style={ { borderWidth: padding } }>
+      <StyledFormFooter ref={ this.formFooterRef } buttonAlign={ this.props.buttonAlign }>
+        <StyledResponsiveFooterWrapper
+          buttonAlign={ this.props.buttonAlign }
+          showSummary={ this.props.showSummary }
+          borderWidth={ padding }
+          hasAdditionalActions={
+            Boolean(
+              this.props.leftAlignedActions
+              || this.props.rightAlignedActions
+              || this.props.additionalActions
+            )
+          }
+        >
           { this.additionalActions('leftAlignedActions') }
           { this.additionalActions('rightAlignedActions') }
           { this.orderFormButtons() }
           { this.additionalActions('additionalActions') }
-        </AppWrapper>
+        </StyledResponsiveFooterWrapper>
       </StyledFormFooter>
     );
   }
@@ -390,6 +404,11 @@ class FormWithoutValidations extends React.Component {
     };
   }
 
+  // catches instances where child is a string of text
+  isHTMLElement(child) {
+    return isElement(child) && typeof child.type === 'string';
+  }
+
   /** Clone the children, pass in callback to allow form to store controlled data */
   renderChildren() {
     const { children, isLabelRightAligned } = this.props;
@@ -402,8 +421,10 @@ class FormWithoutValidations extends React.Component {
       this.childKeys = generateKeysForChildren(childrenArray);
     }
 
-    return childrenArray.map((child, index) => {
-      if (typeof child.type !== 'function') return child;
+    return childrenArray.filter(Boolean).map((child, index) => {
+      if (!isElement(child) || this.isHTMLElement(child)) {
+        return child;
+      }
 
       return React.cloneElement((child), {
         ...child.props,
@@ -478,7 +499,7 @@ FormWithoutValidations.propTypes = {
   beforeFormValidation: PropTypes.func,
 
   /** Alignment of submit button */
-  buttonAlign: PropTypes.string,
+  buttonAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
 
   /** Determines if the form is in a saving state */
   saving: PropTypes.bool,

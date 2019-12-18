@@ -14,12 +14,12 @@ const Help = (props) => {
     href,
     helpId,
     children,
-    tabIndexOverride,
-    tagTypeOverride,
+    tabIndex,
+    as,
     tooltipPosition,
-    tooltipAlign
+    tooltipAlign,
+    isFocused
   } = props;
-  let tagType;
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyPress);
@@ -29,11 +29,7 @@ const Help = (props) => {
     };
   });
 
-  if (href) {
-    tagType = 'a';
-  }
-
-  tagType = tagTypeOverride || tagType;
+  const tagType = as || (href && 'a');
 
   function handleKeyPress(ev) {
     if (Events.isEscKey(ev)) {
@@ -42,8 +38,16 @@ const Help = (props) => {
     }
   }
 
+  function handleFocusBlur(bool) {
+    return (ev) => {
+      ev.stopPropagation();
+      updateTooltipVisible(bool);
+    };
+  }
+
   return (
     <StyledHelp
+      role='tooltip'
       className={ className }
       as={ tagType }
       href={ href }
@@ -51,18 +55,23 @@ const Help = (props) => {
       target='_blank'
       rel='noopener noreferrer'
       ref={ helpElement }
-      onFocus={ () => updateTooltipVisible(true) }
-      onBlur={ () => updateTooltipVisible(false) }
+      onClick={ (e) => {
+        e.preventDefault();
+        helpElement.current.focus();
+      } }
+      onFocus={ handleFocusBlur(true) }
+      onBlur={ handleFocusBlur(false) }
       { ...tagComponent('help', props) }
-      tabIndex={ tabIndexOverride }
+      tabIndex={ tabIndex }
       value={ children }
+      aria-label={ children }
     >
       <Icon
         type='help'
         tooltipMessage={ children }
         tooltipPosition={ tooltipPosition }
         tooltipAlign={ tooltipAlign }
-        tooltipVisible={ isTooltipVisible }
+        tooltipVisible={ isFocused || isTooltipVisible }
       />
     </StyledHelp>
   );
@@ -76,20 +85,23 @@ Help.propTypes = {
   /** The unique id of the component (used with aria-describedby for accessibility) */
   helpId: PropTypes.string,
   /** Overrides the default tabindex of the component */
-  tabIndexOverride: PropTypes.string,
+  tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Overrides the default 'as' attribute of the Help component */
-  tagTypeOverride: PropTypes.string,
+  as: PropTypes.string,
   /** Position of tooltip relative to target */
   tooltipPosition: PropTypes.oneOf(OptionsHelper.positions),
   /** Aligment of pointer */
   tooltipAlign: PropTypes.oneOf(OptionsHelper.alignAroundEdges),
   /** A path for the anchor */
-  href: PropTypes.string
+  href: PropTypes.string,
+  /** A boolean recived from IconWrapper */
+  isFocused: PropTypes.bool
 };
 
 Help.defaultProps = {
   tooltipPosition: 'top',
-  tooltipAlign: 'center'
+  tooltipAlign: 'center',
+  tabIndex: 0
 };
 
 export default Help;

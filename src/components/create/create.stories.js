@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text } from '@storybook/addon-knobs';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import notes from './documentation';
 import Create from './create.component';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
@@ -10,8 +11,8 @@ Create.__docgenInfo = getDocGenInfo(
   /create\.component(?!spec)/
 );
 
-storiesOf('Create', module)
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const children = text('children', 'Resource Name');
     const className = text('className', '');
 
@@ -22,6 +23,16 @@ storiesOf('Create', module)
         {children}
       </Create>
     );
-  }, {
+  };
+
+  const metadata = {
+    themeSelector,
     notes: { markdown: notes }
-  });
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Create', module)
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector));

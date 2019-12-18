@@ -8,10 +8,3 @@ export const generateGroups = (groups, rawValue) => {
     return toAdd ? [...acc, toAdd] : acc;
   }, []);
 };
-
-export const toIndexSteps = (acc, grp, index) => {
-  if (index === 0) return [...acc, grp];
-
-  const stepMemo = grp + acc[index - 1] + 1;
-  return [...acc, stepMemo];
-};

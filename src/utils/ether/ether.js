@@ -99,6 +99,17 @@ function generateKeysForChildren(array) {
   return array.map(() => guid());
 }
 
+/**
+ * Filter by prop names
+ * @param {Object} props
+ * @param {Array} filterBy
+ * @return {Object}
+ */
+function filterByProps(props, filterBy) {
+  const filtered = difference(Object.keys(props), filterBy);
+  return omit(props, filtered);
+}
+
 export {
-  acronymize, append, insertAt, styleElement, validProps, generateKeysForChildren
+  acronymize, append, insertAt, styleElement, validProps, generateKeysForChildren, filterByProps
 };

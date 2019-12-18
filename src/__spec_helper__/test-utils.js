@@ -24,7 +24,16 @@ const keyMap = {
   RightArrow: '39',
   LeftArrow: '37',
   Enter: '13',
-  Tab: '9'
+  Tab: '9',
+  Space: '32',
+  Escape: '27',
+  End: '35',
+  Home: '36',
+  D: '68',
+  E: '69',
+  P: '80',
+  Z: '90',
+  1: '49'
 };
 
 const repeat = action => (n = 1) => makeArrayKeys(n).forEach(() => action());
@@ -33,6 +42,20 @@ const keyboard = Object.keys(keyMap).reduce((acc, key) => {
   acc[`press${key}`] = () => repeat(dispatchKeyPress(keyMap[key]));
   return acc;
 }, {});
+
+// Build an object of Enzyme simulate helpers
+// e.g. simulate.keydown.pressTab(target, { shiftKey: true })
+// e.g. simulate.keydown.pressEscape(target)
+const keydown = Object.keys(keyMap).reduce((acc, key) => {
+  acc[`press${key}`] = (target, { shiftKey } = { shiftKey: false }) => {
+    target.simulate('keydown', { shiftKey, key, which: parseInt(keyMap[key], 0) });
+  };
+  return acc;
+}, {});
+
+const simulate = {
+  keydown
+};
 
 const listFrom = wrapper => wrapper.find('ul');
 const childrenFrom = node => node.children();
@@ -59,8 +82,10 @@ const assertCorrectTraversal = method => expect => ({ num, nonSelectables = [] }
   const array = makeArrayKeys(num);
   const validIndexes = array.filter(isSelectableGiven(nonSelectables));
 
+
+  const selectedItem = selectedItemOf(wrapper);
   const indexesThatWereSelected = array
-    .reduce(selectedItemReducer(method)(wrapper), [])
+    .reduce(selectedItemReducer(method)(wrapper), [selectedItem])
     .filter(isUnique);
   expect(arraysEqual(validIndexes, indexesThatWereSelected)).toBeTruthy();
 };
@@ -79,5 +104,6 @@ export {
   assertKeyboardTraversal,
   assertHoverTraversal,
   listFrom,
-  click
+  click,
+  simulate
 };

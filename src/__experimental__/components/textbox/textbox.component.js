@@ -4,7 +4,7 @@ import { Input, InputPresentation } from '../input';
 import InputIconToggle from '../input-icon-toggle';
 import FormField from '../form-field';
 import { withValidation, validationsPropTypes } from '../../../components/validations';
-import withUniqueName from '../../../utils/helpers/with-unique-name';
+import withUniqueIdProps from '../../../utils/helpers/with-unique-id-props';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
 // This component is a working example of what a Textbox might look like
@@ -21,23 +21,23 @@ const Textbox = ({
   isOptional,
   ...props
 }) => {
-  removeParentProps(props);
-
   return (
     <FormField
       childOfForm={ childOfForm }
       isOptional={ isOptional }
       { ...props }
+      useValidationIcon={ false }
     >
-      <InputPresentation type='text' { ...props }>
+      <InputPresentation type='text' { ...removeParentProps(props) }>
         { leftChildren }
         <Input
-          { ...props }
+          { ...removeParentProps(props) }
+          placeholder={ (props.disabled || props.readOnly) ? '' : props.placeholder }
           aria-invalid={ props.hasError }
           value={ visibleValue(value, formattedValue) }
         />
         { children }
-        { inputIcon && <InputIconToggle { ...props } inputIcon={ inputIcon } /> }
+        { inputIcon && <InputIconToggle { ...removeParentProps(props) } inputIcon={ inputIcon } /> }
       </InputPresentation>
     </FormField>
   );
@@ -48,6 +48,7 @@ function removeParentProps(props) {
   delete props['data-component'];
   delete props['data-role'];
   delete props.className;
+  return props;
 }
 
 function visibleValue(value, formattedValue) {
@@ -60,11 +61,16 @@ Textbox.propTypes = {
    * real value is an ID but you want to show a human-readable version.
    */
   formattedValue: PropTypes.string,
+  /** The value of the Textbox */
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.array // Allows the textbox to be used in the Multi-Select component
   ]),
+  /** The unformatted value  */
+  rawValue: PropTypes.string,
+  /** If true, the component will be disabled */
   disabled: PropTypes.bool,
+  /** If true, the component will be read-only */
   readOnly: PropTypes.bool,
   /** Event handler for the change event */
   onChange: PropTypes.func,
@@ -88,7 +94,9 @@ Textbox.propTypes = {
   fieldHelp: PropTypes.node,
   /** Type of the icon that will be rendered next to the input */
   children: PropTypes.node,
+  /** Icon to display inside of the Textbox */
   inputIcon: PropTypes.string,
+  /** Additional child elements to display before the input */
   leftChildren: PropTypes.node,
   /** List of error validation functions */
   validations: validationsPropTypes,
@@ -96,9 +104,9 @@ Textbox.propTypes = {
   warnings: validationsPropTypes,
   /** List of info validation functions */
   info: validationsPropTypes,
-
+  /** Flag to configure component when in a Form */
   childOfForm: PropTypes.bool,
-
+  /** Flag to configure component as optional in Form */
   isOptional: PropTypes.bool,
   /** Status of error validations */
   hasError: PropTypes.bool,
@@ -107,7 +115,9 @@ Textbox.propTypes = {
   /** Status of info */
   hasInfo: PropTypes.bool,
   /** Size of an input */
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted)
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  /** Placeholder string to be displayed in input */
+  placeholder: PropTypes.string
 };
 
 Textbox.defaultProps = {
@@ -117,4 +127,4 @@ Textbox.defaultProps = {
 };
 
 export { Textbox as OriginalTextbox };
-export default withUniqueName(withValidation(Textbox));
+export default withUniqueIdProps(withValidation(Textbox));

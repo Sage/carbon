@@ -14,7 +14,9 @@ export type IconTypes =
 | 'analysis'
 | 'arrow_down'
 | 'arrow_left'
+| 'arrow_left_small'
 | 'arrow_right'
+| 'arrow_right_small'
 | 'arrow_up'
 | 'attach'
 | 'basket'
@@ -40,6 +42,7 @@ export type IconTypes =
 | 'chevron_up'
 | 'clock'
 | 'close'
+| 'coins'
 | 'collaborate'
 | 'copy'
 | 'connect'
@@ -91,6 +94,7 @@ export type IconTypes =
 | 'message'
 | 'messages'
 | 'minus'
+| 'minus_large'
 | 'mobile'
 | 'pdf'
 | 'people'
@@ -98,7 +102,9 @@ export type IconTypes =
 | 'phone'
 | 'play'
 | 'plus'
+| 'plus_large'
 | 'print'
+| 'progress'
 | 'progressed'
 | 'question'
 | 'refresh'
@@ -119,7 +125,8 @@ export type IconTypes =
 | 'uploaded'
 | 'video'
 | 'view'
-| 'warning'
-| 'white-tick';
+| 'warning';
 
 export type AlignBinaryType = 'left' | 'right';
+
+export type SizesType = 'small' | 'large';

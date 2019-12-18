@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { boolean, text, select } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
 import { action } from '@storybook/addon-actions';
+import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Button from '../button';
 import Alert from '.';
@@ -27,15 +28,8 @@ const handleOpen = () => {
   action('open')();
 };
 
-storiesOf('Alert', module)
-  .addParameters({
-    info: {
-      text: info,
-      propTablesExclude: [State, Button]
-    },
-    notes: { markdown: notes }
-  })
-  .add('default', () => {
+function makeStory(name, themeSelector) {
+  const component = () => {
     const title = text('title', 'Attention');
     const subtitle = text('subtitle', '');
     const children = text('children', 'This is an example of a alert.');
@@ -65,8 +59,17 @@ storiesOf('Alert', module)
         {children}
       </Alert>
     );
-  })
-  .add('with button', () => {
+  };
+
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+function makeButtonStory(name, themeSelector) {
+  const component = () => {
     const title = text('title', 'Attention');
     const subtitle = text('subtitle', '');
     const children = text('children', 'This is an example of a alert.');
@@ -99,4 +102,24 @@ storiesOf('Alert', module)
         </Alert>
       </State>
     );
-  });
+  };
+
+  const metadata = {
+    themeSelector
+  };
+
+  return [name, component, metadata];
+}
+
+storiesOf('Alert', module)
+  .addParameters({
+    info: {
+      text: info,
+      propTablesExclude: [State, Button]
+    },
+    notes: { markdown: notes }
+  })
+  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector))
+  .add(...makeButtonStory('with button', dlsThemeSelector))
+  .add(...makeButtonStory('with button classic', classicThemeSelector));

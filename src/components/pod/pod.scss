@@ -1,4 +1,4 @@
-@import "./../../style-config/colors";
+@import "../../style-config/colors.scss";
 
 .carbon-pod__block {
   background-color: $white;
@@ -36,11 +36,15 @@
     background-color: $blue-dark;
     color: $white;
 
+    [data-component='icon'] {
+      color: $white
+    }
+
     * {
       color: $white;
     }
 
-    .carbon-portrait .carbon-icon__svg path {
+    .carbon-portrait svg path {
       color: $grey-dark-blue-50;
     }
   }
