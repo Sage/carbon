@@ -36,8 +36,15 @@ import UncontrolledCheckboxGroup from './components/uncontrolled/checkbox-group'
 import ControlledCheckboxGroup from './components/controlled/checkbox-group';
 import UncontrolledCheckbox from './components/uncontrolled/checkbox';
 import ControlledCheckbox from './components/controlled/checkbox';
+import ControlledButtonToggle from './components/controlled/button-toggle';
+import UncontrolledButtonToggle from './components/uncontrolled/button-toggle';
 
 const routes = {
+  'button-toggle': {
+    description: 'Button Toggle',
+    controlled: ControlledButtonToggle,
+    uncontrolled: UncontrolledButtonToggle
+  },
   'radio-button': {
     description: 'Radio Button',
     controlled: ControlledRadioButton,
