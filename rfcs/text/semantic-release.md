@@ -200,8 +200,7 @@ eg.
 
 ## Learning Git
 
-It's important that developers have a good working knowledge of Git. Here are a collection of resources that I have
-personally used:
+It's important that developers have a good working knowledge of Git. Here are some recommended resources:
 
 - [Atlassian Tutorials](https://www.atlassian.com/git/tutorials/what-is-version-control)
 - [Pro Git Book](https://git-scm.com/book/en/v2)
