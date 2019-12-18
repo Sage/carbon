@@ -28,7 +28,7 @@ const ControlledButtonToggle = () => {
                     prop should be truthy
                   </li>
                 </ul>
-                <ButtonToggleGroup
+                <ButtonToggleGroup 
                         id='controlled_button_toggle'
                         name='controlled_button_toggle'
                         onChange={ onChange(setCheckedValue) }

@@ -3,7 +3,7 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group"
 import ButtonToggle from "carbon-react/lib/components/button-toggle"
 import { LogConsumer } from '../log';
 
-const UncontrolledButtonToggle = () => {
+const UncontrolledButtonToggle = () => { 
     return (
       <LogConsumer>
         {(log) => {

@@ -42,7 +42,7 @@ import UncontrolledButtonToggle from './components/uncontrolled/button-toggle';
 const routes = {
   'button-toggle': {
     description: 'Button Toggle',
-    controlled: ControlledButtonToggle,
+    controlled: ControlledButtonToggle, 
     uncontrolled: UncontrolledButtonToggle
   },
   'radio-button': {
