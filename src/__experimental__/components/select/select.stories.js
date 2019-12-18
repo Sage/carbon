@@ -94,17 +94,22 @@ const selectValidation = value => validator(value, '2', '"Black" cannot be selec
 const selectWarning = value => validator(value, '3', 'Selecting "Blue" is not recommended');
 const selectInfo = value => validator(value, '4', 'You have selected "Brown"');
 
-function makeStory(name, themeSelector) {
-  const component = () => {
-    return (
-      <State store={ singleSelectStore }>
-        <Select ariaLabel='singleSelect' { ...commonKnobs(singleSelectStore) }>
-          { selectOptions }
-        </Select>
-      </State>
-    );
-  };
+const defaultComponent = () => {
+  return (
+    <State store={ singleSelectStore }>
+      <Select ariaLabel='singleSelect' { ...commonKnobs(singleSelectStore) }>
+        { selectOptions }
+      </Select>
+    </State>
+  );
+};
 
+const autoFocusComponent = () => {
+  boolean('autoFocus', true);
+  return defaultComponent();
+};
+
+function makeStory(name, themeSelector, component) {
   const metadata = {
     themeSelector
   };
@@ -170,8 +175,9 @@ storiesOf('Experimental/Select', module)
     },
     knobs: { escapeHTML: false }
   })
-  .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector))
+  .add(...makeStory('default', dlsThemeSelector, defaultComponent))
+  .add(...makeStory('classic', classicThemeSelector, defaultComponent))
   .add(...makeMultipleStory('multiple', dlsThemeSelector))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
-  .add(...makeValidationsStory('validations classic', classicThemeSelector));
+  .add(...makeValidationsStory('validations classic', classicThemeSelector))
+  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent));

@@ -38,49 +38,70 @@ const previous = {
   allowEmptyValue: false
 };
 
-function makeStory(name, themeSelector) {
-  const component = () => {
-    const precisionRange = {
-      range: true,
-      min: 0,
-      max: 15,
-      step: 1
-    };
-    const align = select(
-      'align',
-      OptionsHelper.alignBinary,
-      Decimal.defaultProps.align
-    );
-    const precision = number('precision', Decimal.defaultProps.precision, precisionRange);
-    const autoFocus = boolean('autoFocus', false);
-    const allowEmptyValue = boolean('allowEmptyValue', false);
-
-    // When the allowEmptyValue knob changes we want to force the component to re-create
-    // allowEmptyValue is only used in the constructor and it is not currently supported to change during the lifetime
-    // of the component
-    if (previous.allowEmptyValue !== allowEmptyValue) {
-      previous.key = guid();
-    }
-    previous.allowEmptyValue = allowEmptyValue;
-    const { key } = previous;
-
-    return (
-      <State store={ store }>
-        <Decimal
-          key={ key }
-          { ...getTextboxStoryProps() }
-          align={ align }
-          precision={ precision }
-          value={ store.get('value') }
-          onChange={ setValue }
-          autoFocus={ autoFocus }
-          allowEmptyValue={ allowEmptyValue }
-          onBlur={ action('onBlur') }
-        />
-      </State>
-    );
+const commonProps = () => {
+  const precisionRange = {
+    range: true,
+    min: 0,
+    max: 15,
+    step: 1
   };
+  const align = select(
+    'align',
+    OptionsHelper.alignBinary,
+    Decimal.defaultProps.align
+  );
+  const precision = number('precision', Decimal.defaultProps.precision, precisionRange);
+  const autoFocus = boolean('autoFocus', false);
+  const allowEmptyValue = boolean('allowEmptyValue', false);
 
+  // When the allowEmptyValue knob changes we want to force the component to re-create
+  // allowEmptyValue is only used in the constructor and it is not currently supported to change during the lifetime
+  // of the component
+  if (previous.allowEmptyValue !== allowEmptyValue) {
+    previous.key = guid();
+  }
+  previous.allowEmptyValue = allowEmptyValue;
+  const { key } = previous;
+
+  return {
+    key,
+    align,
+    precision,
+    autoFocus,
+    allowEmptyValue
+  };
+};
+
+const defaultComponent = () => {
+  return (
+    <State store={ store }>
+      <Decimal
+        { ...commonProps() }
+        { ...getTextboxStoryProps() }
+        value={ store.get('value') }
+        onChange={ setValue }
+        onBlur={ action('onBlur') }
+      />
+    </State>
+  );
+};
+
+const autoFocusComponent = () => {
+  boolean('autoFocus', true);
+  return (
+    <State store={ store }>
+      <Decimal
+        { ...commonProps() }
+        { ...getTextboxStoryProps() }
+        value={ store.get('value') }
+        onChange={ setValue }
+        onBlur={ action('onBlur') }
+      />
+    </State>
+  );
+};
+
+function makeStory(name, themeSelector, component) {
   const metadata = {
     themeSelector,
     notes: { markdown: notes },
@@ -98,5 +119,6 @@ storiesOf('Experimental/Decimal Input', module)
       propTables: [OriginalTextbox]
     }
   })
-  .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('default', dlsThemeSelector, defaultComponent))
+  .add(...makeStory('classic', classicThemeSelector, defaultComponent))
+  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent));

@@ -34,29 +34,48 @@ const setValue = (ev) => {
   store.set({ value: ev.target.value.rawValue });
 };
 
-function makeStory(name, themeSelector) {
-  const component = () => {
-    const autoFocus = boolean('autoFocus', true);
-    const minDate = text('minDate', '');
-    const maxDate = text('maxDate', '');
-    const allowEmptyValue = boolean('allowEmptyValue', false);
+const minDate = text('minDate', '');
+const maxDate = text('maxDate', '');
+const allowEmptyValue = boolean('allowEmptyValue', false);
 
-    return (
-      <DateInput
-        { ...getCommonTextboxStoryProps({ inputWidthEnabled: false }) }
-        name='dateinput'
-        autoFocus={ autoFocus }
-        minDate={ minDate }
-        maxDate={ maxDate }
-        value={ store.get('value') }
-        onChange={ setValue }
-        onBlur={ ev => action('onBlur')(ev) }
-        onKeyDown={ ev => action('onKeyDown')(ev) }
-        allowEmptyValue={ allowEmptyValue }
-      />
-    );
-  };
+const dateComponent = () => {
+  boolean('autoFocus', false);
 
+  return (
+    <DateInput
+      { ...getCommonTextboxStoryProps({ inputWidthEnabled: false }) }
+      name='dateinput'
+      minDate={ minDate }
+      maxDate={ maxDate }
+      value={ store.get('value') }
+      onChange={ setValue }
+      onBlur={ ev => action('onBlur')(ev) }
+      onKeyDown={ ev => action('onKeyDown')(ev) }
+      allowEmptyValue={ allowEmptyValue }
+    />
+  );
+};
+
+const autoFocusDateComponent = () => {
+  const autoFocus = boolean('autoFocus', true);
+
+  return (
+    <DateInput
+      { ...getCommonTextboxStoryProps({ inputWidthEnabled: false }) }
+      name='dateinput'
+      autoFocus={ autoFocus }
+      minDate={ minDate }
+      maxDate={ maxDate }
+      value={ store.get('value') }
+      onChange={ setValue }
+      onBlur={ ev => action('onBlur')(ev) }
+      onKeyDown={ ev => action('onKeyDown')(ev) }
+      allowEmptyValue={ allowEmptyValue }
+    />
+  );
+};
+
+function makeStory(name, themeSelector, component) {
   const metadata = {
     themeSelector,
     info: {
@@ -104,10 +123,11 @@ function makeValidationsStory(name, themeSelector) {
 
 storiesOf('Experimental/Date Input', module)
   .addDecorator(StateDecorator(store))
-  .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector))
-  .add(...makeValidationsStory('validations', dlsThemeSelector))
-  .add(...makeValidationsStory('validations classic', classicThemeSelector));
+  .add(...makeStory('default', dlsThemeSelector, dateComponent))
+  .add(...makeStory('classic', classicThemeSelector, dateComponent))
+  .add(...makeValidationsStory('validations', dlsThemeSelector, dateComponent))
+  .add(...makeValidationsStory('validations classic', classicThemeSelector, dateComponent))
+  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusDateComponent));
 
 function isNotFirstApr(value) {
   return new Promise((resolve, reject) => {

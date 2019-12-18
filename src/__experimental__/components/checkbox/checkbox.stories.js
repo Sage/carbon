@@ -92,7 +92,7 @@ function defaultKnobs(type) {
     fieldHelp: text(nameWithGroup('fieldHelp'), 'This text provides help for the input.', knobGroup),
     fieldHelpInline: boolean(nameWithGroup('fieldHelpInline'), false, knobGroup),
     reverse: boolean(nameWithGroup('reverse'), false, knobGroup),
-    autoFocus: boolean('autoFocus', false),
+    autoFocus: boolean(nameWithGroup('autoFocus'), false, knobGroup),
     label,
     labelHelp: text(nameWithGroup('labelHelp'), 'This text provides more information for the label.', knobGroup),
     onBlur: action('onBlur'),
@@ -173,6 +173,11 @@ const checkboxComponent = () => {
   );
 };
 
+const checkboxComponentAutoFocus = () => {
+  boolean('autoFocus', true, 'Checkbox default');
+  return checkboxComponent();
+};
+
 const checkboxGroupComponent = () => (
   <div>
     <h3>In Form</h3>
@@ -228,4 +233,5 @@ storiesOf('Experimental/Checkbox', module)
   .add(...makeStory('default', dlsThemeSelector, checkboxComponent))
   .add(...makeStory('classic', classicThemeSelector, checkboxComponent))
   .add(...makeStory('validations', dlsThemeSelector, checkboxGroupComponent))
-  .add(...makeStory('validations classic', classicThemeSelector, checkboxGroupComponent));
+  .add(...makeStory('validations classic', classicThemeSelector, checkboxGroupComponent))
+  .add(...makeStory('autoFocus', dlsThemeSelector, checkboxComponentAutoFocus));

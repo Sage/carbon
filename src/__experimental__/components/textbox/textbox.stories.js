@@ -25,16 +25,7 @@ const defaultStoryPropsConfig = {
   inputWidthEnabled: true
 };
 
-function makeStory(name, themeSelector) {
-  const component = () => {
-    return (
-      <Textbox
-        placeholder={ text('placeholder') }
-        { ...getCommonTextboxStoryProps() }
-      />
-    );
-  };
-
+function makeStory(name, themeSelector, component) {
   const metadata = {
     themeSelector,
     info: {
@@ -48,6 +39,25 @@ function makeStory(name, themeSelector) {
 
   return [name, component, metadata];
 }
+
+const defaultTextbox = () => {
+  return (
+    <Textbox
+      placeholder={ text('placeholder') }
+      { ...getCommonTextboxStoryProps() }
+    />
+  );
+};
+
+const autoFocusTextbox = () => {
+  boolean('autoFocus', true);
+  return (
+    <Textbox
+      placeholder={ text('placeholder') }
+      { ...getCommonTextboxStoryProps() }
+    />
+  );
+};
 
 function makeMultipleStory(name, themeSelector) {
   const component = () => {
@@ -119,11 +129,12 @@ function makeValidationsStory(name, themeSelector) {
 }
 
 storiesOf('Experimental/Textbox', module)
-  .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector))
+  .add(...makeStory('default', dlsThemeSelector, defaultTextbox))
+  .add(...makeStory('classic', classicThemeSelector, defaultTextbox))
   .add(...makeMultipleStory('multiple', dlsThemeSelector))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
-  .add(...makeValidationsStory('validations classic', classicThemeSelector));
+  .add(...makeValidationsStory('validations classic', classicThemeSelector))
+  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusTextbox));
 
 
 function getCommonTextboxStoryProps(config = defaultStoryPropsConfig) {
