@@ -26,11 +26,11 @@ const StyledModalBackground = styled.div`
       transition: opacity ${backgroundAnimationLength} ease-out;
     }
 
-    .${transitionName}-leave {
+    .${transitionName}-exit {
       opacity: ${backgroundOpacity};
     }
 
-    .${transitionName}-leave.${transitionName}-leave-active {
+    .${transitionName}-exit.${transitionName}-exit-active {
       opacity: 0;
       transition: opacity ${backgroundAnimationLength} 100ms ease-out;
     }
@@ -52,12 +52,12 @@ const StyledModal = styled.div`
       transition: all ${animationLength} 100ms ease-out;
     }
 
-    .${transitionName}-leave {
+    .${transitionName}-exit {
       opacity: 1;
       margin-top: 0;
     }
 
-    .${transitionName}-leave.${transitionName}-leave-active {
+    .${transitionName}-exit.${transitionName}-exit-active {
       opacity: 0;
       margin-top: ${initialPosition};
       transition: all ${animationLength} ease-out;

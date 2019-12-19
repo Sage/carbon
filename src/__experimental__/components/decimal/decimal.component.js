@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import invariant from 'invariant';
+import StyledWiggle from './decimal.style';
 import Textbox from '../textbox';
 import I18nHelper from '../../../utils/helpers/i18n';
 import Events from '../../../utils/helpers/events';
@@ -20,7 +21,8 @@ class Decimal extends React.Component {
     this.state = {
       value,
       visibleValue: this.formatValue(value),
-      isControlled
+      isControlled,
+      isAnimating: false
     };
   }
 
@@ -53,6 +55,14 @@ class Decimal extends React.Component {
       });
     }
   }
+
+  startAnimation = () => {
+    if (!this.props.readOnly) {
+      this.setState({ isAnimating: true });
+    }
+  }
+
+  stopAnimation = () => this.setState({ isAnimating: false })
 
   callOnChange = () => {
     if (this.props.onChange) {
@@ -105,6 +115,7 @@ class Decimal extends React.Component {
       return true;
     }
 
+    this.startAnimation();
     return false;
   }
 
@@ -166,7 +177,11 @@ class Decimal extends React.Component {
     const delimiter = `\\${format.delimiter}`;
     const separator = `\\${format.separator}`;
     const validDecimalMatcher = new RegExp(`^[-]?[\\d${delimiter}]*[${separator}]?\\d{0,${precision}}?$`);
-    return validDecimalMatcher.test(value);
+    const isValid = validDecimalMatcher.test(value);
+    if (!isValid) {
+      this.startAnimation();
+    }
+    return isValid;
   }
 
   getSafeValueProp = (isInitialValue) => {
@@ -249,7 +264,7 @@ class Decimal extends React.Component {
   render() {
     const { name, defaultValue, ...rest } = this.props;
     return (
-      <>
+      <StyledWiggle isAnimating={ this.state.isAnimating } onAnimationEnd={ this.stopAnimation }>
         <Textbox
           { ...rest }
           onKeyPress={ this.onKeyPress }
@@ -265,7 +280,7 @@ class Decimal extends React.Component {
           type='hidden'
           data-component='hidden-input'
         />
-      </>
+      </StyledWiggle>
     );
   }
 }
@@ -283,6 +298,10 @@ Decimal.propTypes = {
    * The width of the input as a percentage
    */
   inputWidth: PropTypes.number,
+  /**
+   * If true, the component will be read-only
+   */
+  readOnly: PropTypes.bool,
   /**
    * The default value of the input if it's meant to be used as an uncontrolled component
    */

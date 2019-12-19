@@ -27,14 +27,14 @@
 }
 
 .common-input__input:hover ~ label .carbon-input-icon--error,
-.common-input__input:hover ~ label .carbon-input-icon--error:hover {
+.common-input__input:hover ~ label .carbon-input-icon--error.carbon-input-icon--error:hover {
   background-color: $error;
   border-color: $error;
   [data-component='icon']:before {
     color: $white;
   }
 }
-.common-input__input:focus ~ label .carbon-input-icon--error {
+.common-input__input:focus ~ label .carbon-input-icon--error.carbon-input-icon--error {
   background-color: $red-dark;
   border-color: $red-dark;
   [data-component='icon']:before {
@@ -43,14 +43,14 @@
 }
 
 .common-input__input:hover ~ label .carbon-input-icon--warning,
-.common-input__input:hover ~ label .carbon-input-icon--warning:hover {
+.common-input__input:hover ~ label .carbon-input-icon--warning.carbon-input-icon--warning:hover {
   background-color: $warning;
   border-color: $warning;
   [data-component='icon']:before  {
     fill: $white;
   }
 }
-.common-input__input:focus ~ label .carbon-input-icon--warning {
+.common-input__input:focus ~ label .carbon-input-icon--warning.carbon-input-icon--warning {
   background-color: $warning-hover;
   border-color: $warning-hover;
   [data-component='icon']:before  {
@@ -59,14 +59,14 @@
 }
 
 .common-input__input:hover ~ label .carbon-input-icon--info,
-.common-input__input:hover ~ label .carbon-input-icon--info:hover {
+.common-input__input:hover ~ label .carbon-input-icon--info.carbon-input-icon--info:hover {
   background-color: $info;
   border-color: $info;
   [data-component='icon']:before  {
     color: $white;
   }
 }
-.common-input__input:focus ~ label .carbon-input-icon--info {
+.common-input__input:focus ~ label .carbon-input-icon--info.carbon-input-icon--info {
   background-color: $info-hover;
   border-color: $info-hover;
   [data-component='icon']:before  {
@@ -97,6 +97,8 @@
   }
 
   &.carbon-input-icon--error {
-    color: $error;
+    color: $white;
+    background-color: $red-dark;
+    border-color: $red-dark;
   }
 }

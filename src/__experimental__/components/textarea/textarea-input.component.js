@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Input from '../input/input.component';
-import StyledTextarea from './textarea.style';
+import StyledInput from '../input/input.style';
 
 class TextareaInput extends Input {
   static propTypes = {
@@ -16,7 +16,7 @@ class TextareaInput extends Input {
     } = this.props;
 
     return (
-      <StyledTextarea
+      <StyledInput
         aria-invalid={ props.hasError }
         as='textarea'
         ref={ this.input }

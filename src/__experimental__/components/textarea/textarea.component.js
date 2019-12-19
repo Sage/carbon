@@ -9,6 +9,7 @@ import TextareaInput from './textarea-input.component';
 import withValidations from '../../../components/validations/with-validation.hoc';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
 import guid from '../../../utils/helpers/guid/guid';
+import StyledTextarea from './textarea.style';
 
 const i18nNumberOpts = { precision: 0 };
 
@@ -106,6 +107,7 @@ class Textarea extends React.Component {
       enforceCharacterLimit,
       onChange,
       disabled,
+      labelInline,
       readOnly,
       placeholder,
       rows,
@@ -114,11 +116,12 @@ class Textarea extends React.Component {
     } = this.props;
 
     return (
-      <>
+      <StyledTextarea labelInline={ labelInline }>
         <FormField
           label={ label }
           disabled={ disabled }
           id={ this.id }
+          labelInline={ labelInline }
           { ...props }
           useValidationIcon={ false }
         >
@@ -134,6 +137,7 @@ class Textarea extends React.Component {
               onChange={ onChange }
               disabled={ disabled }
               readOnly={ readOnly }
+              labelInline={ labelInline }
               placeholder={ disabled ? '' : placeholder }
               rows={ rows }
               cols={ cols }
@@ -145,7 +149,7 @@ class Textarea extends React.Component {
           </InputPresentation>
         </FormField>
         {this.characterCount}
-      </>
+      </StyledTextarea>
     );
   }
 }
@@ -167,6 +171,8 @@ Textarea.propTypes = {
   expandable: PropTypes.bool,
   /** The content of the label for the input */
   label: PropTypes.string,
+  /** When true, label is placed in line with an input */
+  labelInline: PropTypes.bool,
   /** Name of the input */
   name: PropTypes.string,
   /** Callback fired when the user types in the Textarea */

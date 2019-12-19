@@ -50,7 +50,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
 
 .c4 .c28 {
   text-align: left;
-  margin-top: -2px;
+  padding-top: 0;
   width: auto;
 }
 
@@ -344,7 +344,8 @@ exports[`RadioButton styles base renders as expected 1`] = `
 }
 
 .c20 .c9 {
-  margin-left: 6px;
+  margin-right: 0;
+  margin-left: 16px;
 }
 
 .c21 .c9 {
@@ -845,6 +846,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
 
 .c3 .c25 {
   margin-left: 32px;
+  padding-left: 0;
 }
 
 .c3 .c9 {
@@ -880,6 +882,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
   -webkit-flex: 1 1 calc(100% - 44px);
   -ms-flex: 1 1 calc(100% - 44px);
   flex: 1 1 calc(100% - 44px);
+  padding-left: 0;
 }
 
 .c3 .c11:checked + .c13 circle {
@@ -922,12 +925,10 @@ exports[`RadioButton styles base renders as expected 1`] = `
     checked={false}
     className="c2 c3"
     data-component="radio-button"
-    onBlur={[Function]}
   >
     <div
       checked={false}
       className="c4"
-      onBlur={[Function]}
     >
       <div
         className="c5 c6"

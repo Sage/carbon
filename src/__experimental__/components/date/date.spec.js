@@ -3,6 +3,7 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import DateInput, { defaultDateFormat, BaseDateInput } from './date.component';
+import InputIconToggle from '../input-icon-toggle';
 import DatePicker from './date-picker.component';
 import Textbox from '../textbox';
 import StyledDateInput from './date.style';
@@ -109,7 +110,7 @@ describe('Date', () => {
 
     beforeEach(() => {
       onBlurFn = jest.fn();
-      wrapper = render({ onBlur: onBlurFn, value: '' });
+      wrapper = render({ onBlur: onBlurFn, value: '2019-12-11' });
     });
 
     describe('and with DatePicker opened', () => {
@@ -153,6 +154,18 @@ describe('Date', () => {
         expect(onBlurFn).toHaveBeenCalled();
       });
     });
+
+    describe('when the "isMounted" flag is falsy', () => {
+      it('does not update the "lastValidEventValues"', () => {
+        const instance = wrapper.find(BaseDateInput).instance();
+        instance.isMounted = false;
+        simulateChangeOnInput(wrapper, '21-12-2019');
+        simulateBlurOnInput(wrapper);
+        jest.runAllTimers();
+        expect(instance.state.lastValidEventValues.rawValue).toEqual('2019-12-11');
+        expect(instance.state.lastValidEventValues.formattedValue).toEqual('11/12/2019');
+      });
+    });
   });
 
   describe('when the "keyDown" event is triggered on the input', () => {
@@ -162,6 +175,15 @@ describe('Date', () => {
     beforeEach(() => {
       wrapper = render({ value: '' });
       simulateFocusOnInput(wrapper);
+    });
+
+    describe('and `onKeyDown` prop is passed', () => {
+      it('then the `onKeyDown` prop should be invoked', () => {
+        const onKeyDown = jest.fn();
+        wrapper.setProps({ onKeyDown });
+        simulateOnKeyDown(wrapper, 117);
+        expect(onKeyDown).toHaveBeenCalled();
+      });
     });
 
     describe('and with the "Tab" key', () => {
@@ -301,7 +323,7 @@ describe('Date', () => {
     });
 
     describe('to a valid date', () => {
-      const validDate = '1 apr 2019';
+      const validDate = '2019-04-01';
       const isoDate = '2019-04-01';
       const visibleDate = '01/04/2019';
       const jsDateObject = new Date(isoDate);
@@ -358,8 +380,8 @@ describe('Date', () => {
     });
 
     describe('to an empty date', () => {
-      it('reformats the "visiblevalue" when it is an empty string and "allowEmptyValue" is falsy', () => {
-        const initialDate = '1 apr 2019';
+      it('reformats the "visibleValue" when it is an empty string and "allowEmptyValue" is falsy', () => {
+        const initialDate = '2019-04-01';
         const formattedDate = '01/04/2019';
         const emptyDate = '';
 
@@ -376,8 +398,8 @@ describe('Date', () => {
         expect(wrapper.find('input').findWhere(n => n.props().type !== 'hidden').props().value).toBe(formattedDate);
       });
 
-      it('does not reformat the "visiblevalue" when it is an empty string and "allowEmptyValue" is truthy', () => {
-        const initialDate = '1 apr 2019';
+      it('does not reformat the "visibleValue" when it is an empty string and "allowEmptyValue" is truthy', () => {
+        const initialDate = '2019-04-01';
         const emptyDate = '';
 
         wrapper = render({
@@ -420,7 +442,7 @@ describe('Date', () => {
   });
 
   describe.each(['disabled', 'readOnly'])('when the "%s" prop is set', (prop) => {
-    const validDate = '1 apr 2019';
+    const validDate = '2019-04-01';
     let onChangeFn;
     let onFocusFn;
     let onBlurFn;
@@ -436,6 +458,8 @@ describe('Date', () => {
         onBlur: onBlurFn
       });
     });
+
+    afterEach(() => wrapper.unmount());
 
     it('then onBlur prop should not have been called', () => {
       simulateBlurOnInput(wrapper);
@@ -470,12 +494,28 @@ describe('Date', () => {
       });
     });
 
+    describe.each([
+      { disabled: true, readOnly: false },
+      { disabled: false, readOnly: true },
+      { disabled: true, readOnly: true }
+    ])('The date picker', (props) => {
+      it(`does not call "openDatePicker" when disabled is ${props.disabled} and readOnly is ${props.readOnly}`, () => {
+        wrapper = render({});
+        wrapper.find(InputIconToggle).props().onClick();
+        wrapper.setProps({ ...props });
+        wrapper.update();
+        wrapper.find(DatePicker).parent().props().onClick();
+        wrapper.update();
+        expect(spyOn(wrapper.find(BaseDateInput).instance(), 'openDatePicker')).not.toBeCalled();
+      });
+    });
+
     describe('on an external element', () => {
       const nativeClickEvent = new Event('click', { bubbles: true, cancelable: true });
       let domNode;
 
       it('then the Datepicker should be closed', () => {
-        wrapper = mount(<div><DateInput /><span id='external' /></div>);
+        wrapper = mount(<div><DateInput value='2012-12-11' /><span id='external' /></div>);
         domNode = wrapper.getDOMNode();
         document.body.appendChild(domNode);
         simulateFocusOnInput(wrapper.find(DateInput));
@@ -503,19 +543,19 @@ describe('Date', () => {
 
     describe('controlled vs uncontrolled input', () => {
       it('supports being used as an controlled input via passing of a value prop', () => {
-        wrapper = render({ value: '27th Feb 01' });
+        wrapper = render({ value: '2001-02-27' });
         expect(wrapper.find(BaseDateInput).instance().isControlled).toEqual(true);
         expect(wrapper.find(BaseDateInput).instance().initialVisibleValue).toEqual('27/02/2001');
       });
 
       it('supports being used as an uncontrolled input via passing of a defaultValue prop', () => {
-        wrapper = render({ defaultValue: '23rd Feb 09' });
+        wrapper = render({ defaultValue: '2009-02-23' });
         expect(wrapper.find(BaseDateInput).instance().isControlled).toEqual(false);
         expect(wrapper.find(BaseDateInput).instance().initialVisibleValue).toEqual('23/02/2009');
       });
 
       it('acts as a controlled input when value and default are passed and does not throw', () => {
-        wrapper = render({ defaultValue: '23rd Feb 09', value: '27th Feb 01' });
+        wrapper = render({ defaultValue: '2009-02-23', value: '2001-02-27' });
         expect(wrapper.find(BaseDateInput).instance().isControlled).toEqual(true);
         expect(wrapper.find(BaseDateInput).instance().initialVisibleValue).toEqual('27/02/2001');
       });
@@ -557,6 +597,27 @@ describe('Date', () => {
 
       expect(wrapper.find(BaseDateInput).state().validationsArray.length).toEqual(2);
     });
+  });
+});
+
+describe('when the calendar icon is clicked', () => {
+  it('opens the picker, if it is not already open, and closes it on the next click', () => {
+    const wrapper = render({});
+    wrapper.find(InputIconToggle).props().onClick();
+    wrapper.update();
+    expect(wrapper.find(DatePicker).exists()).toBe(true);
+    wrapper.find(InputIconToggle).props().onClick();
+    wrapper.update();
+    expect(wrapper.find(DatePicker).exists()).toBe(false);
+  });
+
+  it('does not close the picker when the picker onClick is called', () => {
+    const wrapper = render({});
+    wrapper.find(InputIconToggle).props().onClick();
+    wrapper.update();
+    wrapper.find(DatePicker).parent().props().onClick();
+    wrapper.update();
+    expect(wrapper.find(DatePicker).exists()).toBe(true);
   });
 });
 

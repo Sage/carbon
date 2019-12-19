@@ -7,8 +7,8 @@ const UncontrolledDate = () => {
     <LogConsumer>
       {(log) => {
         const onChange = e => log(e, { method: 'onChange' });
-
         const onBlur = e => log(e, { method: 'onBlur' });
+        const onKeyDown = e => log(e, { method: 'onKeyDown' });
 
         return (
           <React.Fragment>
@@ -26,10 +26,11 @@ const UncontrolledDate = () => {
               <Date
                 onChange={ onChange }
                 onBlur={ onBlur }
+                onKeyDown={ onKeyDown }
                 id='uncontrolled_date_id'
                 name='uncontrolled_date_name'
                 label='Uncontrolled Date'
-                defaultValue='23rd apr 12'
+                defaultValue='2012-04-23'
               />
               <br />
               <br />
@@ -37,6 +38,7 @@ const UncontrolledDate = () => {
               <Date
                 onChange={ onChange }
                 onBlur={ onBlur }
+                onKeyDown={ onKeyDown }
                 id='uncontrolled_date_id_empty'
                 name='uncontrolled_date_name_empty'
                 label='Uncontrolled Date Empty'
