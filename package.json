@@ -22,7 +22,7 @@
     "test-cypress-regression": "cypress run --spec './cypress/features/regression/**/*.feature', './cypress/features/themes/themes.feature' --browser chrome",
     "test-storybook-smoke": "./node_modules/.bin/start-storybook -p 9009 -c .storybook --ci --smoke-test",
     "debug": "node --inspect ./node_modules/jest-cli/bin/jest --watch --config=./jest.conf.json",
-    "lint": "./node_modules/.bin/eslint",
+    "lint": "eslint ./src ./fixtures",
     "lint-ts": "./node_modules/.bin/tslint 'src/**/*.ts'",
     "precompile": "npm run clean-lib && npm run copy-files && npm run babel",
     "prepublishOnly": "node check-version.js && npm install && npm run precompile",
