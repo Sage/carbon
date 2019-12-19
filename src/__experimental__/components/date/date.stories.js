@@ -34,30 +34,12 @@ const setValue = (ev) => {
   store.set({ value: ev.target.value.rawValue });
 };
 
-const minDate = text('minDate', '');
-const maxDate = text('maxDate', '');
-const allowEmptyValue = boolean('allowEmptyValue', false);
 
 const dateComponent = () => {
-  boolean('autoFocus', false);
-
-  return (
-    <DateInput
-      { ...getCommonTextboxStoryProps({ inputWidthEnabled: false }) }
-      name='dateinput'
-      minDate={ minDate }
-      maxDate={ maxDate }
-      value={ store.get('value') }
-      onChange={ setValue }
-      onBlur={ ev => action('onBlur')(ev) }
-      onKeyDown={ ev => action('onKeyDown')(ev) }
-      allowEmptyValue={ allowEmptyValue }
-    />
-  );
-};
-
-const autoFocusDateComponent = () => {
-  const autoFocus = boolean('autoFocus', true);
+  const minDate = text('minDate', '');
+  const maxDate = text('maxDate', '');
+  const allowEmptyValue = boolean('allowEmptyValue', false);
+  const autoFocus = boolean('autoFocus', false);
 
   return (
     <DateInput
@@ -73,6 +55,11 @@ const autoFocusDateComponent = () => {
       allowEmptyValue={ allowEmptyValue }
     />
   );
+};
+
+const autoFocusDateComponent = () => {
+  boolean('autoFocus', true);
+  return dateComponent();
 };
 
 function makeStory(name, themeSelector, component) {
