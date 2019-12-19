@@ -88,7 +88,7 @@ const previous = {
 };
 
 function defaultKnobs(type) {
-  const knobGroup = `Checkbox ${type}`;
+  const knobGroup = `Checkbox_${type}`;
   const nameWithGroup = (name) => {
     return (type === 'default') ? name : `${Text.titleCase(type)} ${name}`;
   };

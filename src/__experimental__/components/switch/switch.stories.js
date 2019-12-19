@@ -119,9 +119,12 @@ const validationKnobs = (type, themeName) => {
   };
 };
 
-const switchComponentValidation = themeName => () => validationTypes.map(type => switchWrapper({
-  ...validationKnobs(type, themeName)
-}));
+const switchComponentValidation = themeName => () => switchWrapper({
+  ...validationKnobs('cookies', themeName),
+  ...validationKnobs('t&cs', themeName),
+  ...validationKnobs('info', themeName),
+  store: formStore
+});
 
 storiesOf('Experimental/Switch', module)
   .addParameters({

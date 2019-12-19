@@ -11,6 +11,7 @@ import './style/story-root.scss';
 import { addParameters } from '@storybook/react';
 import { themes } from '@storybook/theming';
 import sageTheme from './sageTheme';
+import mdxTemplate from './template.mdx'
 
 // Option defaults.
 addParameters({
@@ -21,14 +22,15 @@ addParameters({
     showPanel: true,
     theme: sageTheme
   },
+  docs: {page: mdxTemplate}
 });
 
 setupI18n();
 
-const req = require.context('../src', true, /\.stories\.js$/);
+const req = require.context('../src', true, /\.stories\.(js|mdx)$/);
 const infoOptions = {
   header: false,
-  inline: true
+  inline: true,
 };
 
 function loadStories() {
