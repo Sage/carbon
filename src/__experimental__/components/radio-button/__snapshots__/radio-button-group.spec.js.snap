@@ -31,7 +31,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 
 .c6 .c20 {
   text-align: left;
-  margin-top: -2px;
+  padding-top: 0;
   width: auto;
 }
 
@@ -115,6 +115,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 
 .c5 .c16 {
   margin-left: 32px;
+  padding-left: 0;
 }
 
 .c5 .c11 {
@@ -150,6 +151,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   -webkit-flex: 1 1 calc(100% - 44px);
   -ms-flex: 1 1 calc(100% - 44px);
   flex: 1 1 calc(100% - 44px);
+  padding-left: 0;
 }
 
 .c5 .c13:checked + .c15 circle {
@@ -224,13 +226,11 @@ exports[`RadioButtonGroup renders as expected 1`] = `
     className="c4 c5"
     data-component="radio-button"
     name="test-group"
-    onBlur={[Function]}
   >
     <div
       checked={false}
       className="c6"
       name="test-group"
-      onBlur={[Function]}
     >
       <div
         className="c7 c8"
@@ -288,13 +288,11 @@ exports[`RadioButtonGroup renders as expected 1`] = `
     className="c4 c5"
     data-component="radio-button"
     name="test-group"
-    onBlur={[Function]}
   >
     <div
       checked={false}
       className="c6"
       name="test-group"
-      onBlur={[Function]}
     >
       <div
         className="c7 c8"

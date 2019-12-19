@@ -133,6 +133,7 @@ describe('Switch', () => {
         assertStyleMatch({
           marginBottom: '0',
           marginRight: '32px',
+          paddingTop: '4px',
           width: 'auto'
         }, wrapper, { modifier: css`${LabelStyle}` });
       });
@@ -149,15 +150,14 @@ describe('Switch', () => {
 
       it('applies the correct Label styles', () => {
         assertStyleMatch({
-          marginRight: '10px',
-          marginTop: '2px'
+          marginRight: '10px'
         }, wrapper, { modifier: css`${LabelStyle}` });
       });
 
       it('applies the correct FieldHelp styles', () => {
         assertStyleMatch({
           marginLeft: '0',
-          marginTop: '0'
+          marginTop: '-1px'
         }, wrapper, { modifier: css`${FieldHelpStyle}` });
       });
     });

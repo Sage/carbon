@@ -131,7 +131,7 @@ describe('RadioButton', () => {
           const wrapper = getRadioButton(render({ reverse: true, size: 'large' }));
 
           it('applies the correct input styles', () => {
-            assertStyleMatch({ marginLeft: '6px' }, wrapper, { modifier: css`${StyledCheckableInput}` });
+            assertStyleMatch({ marginLeft: '16px' }, wrapper, { modifier: css`${StyledCheckableInput}` });
           });
 
           it('applies the correct FieldHelp styles', () => {

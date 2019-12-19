@@ -24,10 +24,6 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
   background-color: #FFFFFF;
 }
 
-.c2 .c13 {
-  padding: 10px 8px;
-}
-
 .custom-drag-layer .c2.c2 {
   background-color: #E5EAEC;
   display: block;
@@ -345,7 +341,7 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 }
 
 .c0 .c1 .c3,
-.c0 .c1 .c13 {
+.c0 .c1 .sc-htoDjs {
   font-size: 14px;
   padding-left: 11px;
   padding-right: 11px;

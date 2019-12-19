@@ -158,7 +158,7 @@ describe('TableCell', () => {
             <ThemeProvider theme={ mintTheme }>
               <TableCell size={ size }>
                 <TextArea />
-                <Date />
+                <Date value='2012-12-11' />
               </TableCell>
             </ThemeProvider>
           );
@@ -188,7 +188,7 @@ describe('TableCell', () => {
           wrapper = mount(
             <ThemeProvider theme={ mintTheme }>
               <TableCell size={ size }>
-                <Date />
+                <Date value='2012-12-11' />
               </TableCell>
             </ThemeProvider>
           );
@@ -207,8 +207,8 @@ describe('TableCell', () => {
           wrapper = mount(
             <ThemeProvider theme={ mintTheme }>
               <TableCell size={ size }>
-                <Date />
-                <Date />
+                <Date value='2012-12-11' />
+                <Date value='2012-12-11' />
               </TableCell>
             </ThemeProvider>
           );

@@ -10,6 +10,7 @@ const Switch = ({
   id,
   label,
   onChange,
+  onBlur,
   value,
   checked,
   defaultChecked,
@@ -39,6 +40,7 @@ const Switch = ({
 
   const inputProps = {
     ...switchProps,
+    onBlur,
     onChange: isControlled ? onChange : onChangeInternal,
     inputId: id,
     inputLabel: label,
@@ -96,6 +98,8 @@ Switch.propTypes = {
   loading: PropTypes.bool,
   /** Accepts a callback function which can be used to update parent state on change */
   onChange: PropTypes.func,
+  /** Accepts a callback function which is triggered on blur event */
+  onBlur: PropTypes.func,
   /** Reverses label and Switch display */
   reverse: PropTypes.bool,
   /**

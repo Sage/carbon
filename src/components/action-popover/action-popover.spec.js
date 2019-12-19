@@ -43,7 +43,9 @@ describe('ActionPopover', () => {
         >Download PDF
         </ActionPopoverItem>,
         <ActionPopoverDivider />,
-        <ActionPopoverItem icon='csv' { ...{ onClick: onClickWrapper('csv') } }>Download CSV</ActionPopoverItem>
+        <ActionPopoverItem icon='csv' { ...{ onClick: onClickWrapper('csv') } }>Download CSV</ActionPopoverItem>,
+        null,
+        undefined
       ],
       onOpen,
       onClose,
