@@ -23,4 +23,3 @@ ENTRYPOINT []
 
 RUN npm install -g wait-on --silent
 RUN npm install --silent
-COPY /usr/src/app/allure-report /tmp/app/allure-report
