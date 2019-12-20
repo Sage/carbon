@@ -8,10 +8,8 @@ import Browser from '../../utils/helpers/browser';
 import {
   ProfileNameStyle, ProfileStyle, ProfileEmailStyle, ProfileDetailsStyle, ProfileAvatarStyle
 } from './profile.style';
-import 'jest-styled-components';
 import classicTheme from '../../style/themes/classic';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-
 
 describe('Profile', () => {
   let instance;
@@ -122,9 +120,23 @@ describe('ProfileAvatarStyle', () => {
     const wrapper = shallow(<Profile
       initials='AS'
       theme={ classicTheme }
+      email='foo'
+      name='foo'
     />);
 
     expect(wrapper.find(ProfileAvatarStyle).props().size).toEqual('medium-small');
+  });
+  it('should render a user image when a "src" prop is provided', () => {
+    const wrapper = shallow(<Profile
+      initials='AS'
+      theme={ classicTheme }
+      src='Foo'
+      email='foo'
+      name='foo'
+    />);
+
+    expect(wrapper.find(ProfileAvatarStyle).props().size).toEqual('medium-small');
+    expect(wrapper.find(ProfileAvatarStyle).props()['data-element']).toEqual('user-image');
   });
 });
 
@@ -170,4 +182,22 @@ describe('ProfileDetailStyle', () => {
       marginLeft: '14px'
     }, mount(<ProfileDetailsStyle theme={ classicTheme } />));
   });
+  describe.each(
+    [['XS', '1px'], ['S', '1px'], ['M', '4px'], ['ML', '8px'], ['L', '14px'], ['XL', '24px'], ['XXL', '32px']]
+  )(
+    'when a src prop is passed and the size is %s', (size, margin) => {
+      it('renders the expected styles', () => {
+        const wrapper = mount(<Profile
+          initials='AS'
+          size={ size }
+          src='Foo'
+          email='foo'
+          name='foo'
+        />);
+        assertStyleMatch({
+          marginTop: margin
+        }, wrapper.find(ProfileDetailsStyle));
+      });
+    }
+  );
 });
