@@ -1,8 +1,7 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { withThemesProvider } from 'storybook-addon-styled-component-theme';
-import { classicTheme, carbonThemeList } from '../src/style/themes';
-import none from '../src/style/themes/none';
+import { noTheme, classicTheme, carbonThemeList } from '../src/style/themes';
 
 const carbonThemes = carbonThemeList.reduce((themesObject, theme) => {
   themesObject[theme.name] = theme;
@@ -32,7 +31,7 @@ export default function getThemeDecorator() {
   const themesMap = { 
     classic: classicTheme,
     ...carbonThemes,
-    none
+    noTheme
   };
 
   const themeDecorator = (story, storyArgs) => {

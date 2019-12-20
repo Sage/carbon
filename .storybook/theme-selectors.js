@@ -1,10 +1,9 @@
-import { classicTheme, carbonThemeList } from '../src/style/themes';
-import none from '../src/style/themes/none';
+import { noTheme, classicTheme, carbonThemeList } from '../src/style/themes';
 
 /** These are for use with https://www.npmjs.com/package/storybook-addon-styled-component-theme */
 
 export const dlsThemeSelector = {
-  themes: [...carbonThemeList, none],
+  themes: [...carbonThemeList, noTheme],
   buttonAttributes: ['data-theme']
 };
 
