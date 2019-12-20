@@ -33,6 +33,7 @@ const StyledDayPicker = styled.div`
 
   .DayPicker-wrapper {
     padding: 0;
+    &:focus { outline-color: #FFB500; }
   }
 
   .DayPicker-Month {
@@ -62,6 +63,8 @@ const StyledDayPicker = styled.div`
     border: none;
     font-weight: 800;
     padding: 10px 0;
+
+    &:focus { outline-color: #FFB500; }
 
     &:hover {
       background-color: ${({ theme }) => theme.disabled.input};

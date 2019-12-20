@@ -10,6 +10,7 @@ const StyledButton = styled.button`
   height: 40px;
   width: 40px;
   padding: 0;
+  &:focus { outline-color: #FFB500; }
 `;
 
 export default StyledButton;
