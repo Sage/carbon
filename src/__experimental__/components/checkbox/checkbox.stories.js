@@ -12,6 +12,7 @@ import { Checkbox, CheckboxGroup } from '.';
 import { info, notes, infoValidations } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 import Text from '../../../utils/helpers/text';
+import AutoFocus from '../../../utils/helpers/auto-focus';
 
 Checkbox.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -86,13 +87,16 @@ function defaultKnobs(type) {
     return (type === 'default') ? name : `${Text.titleCase(type)} ${name}`;
   };
   const label = `${text(nameWithGroup('label'), 'Example Checkbox', knobGroup)} (${type})`;
+  const autoFocus = boolean(nameWithGroup('autoFocus'), false, knobGroup);
+  const key = AutoFocus.getKey(autoFocus);
 
   return ({
+    key,
     disabled: boolean(nameWithGroup('disabled'), false, knobGroup),
     fieldHelp: text(nameWithGroup('fieldHelp'), 'This text provides help for the input.', knobGroup),
     fieldHelpInline: boolean(nameWithGroup('fieldHelpInline'), false, knobGroup),
     reverse: boolean(nameWithGroup('reverse'), false, knobGroup),
-    autoFocus: boolean(nameWithGroup('autoFocus'), false, knobGroup),
+    autoFocus,
     label,
     labelHelp: text(nameWithGroup('labelHelp'), 'This text provides more information for the label.', knobGroup),
     onBlur: action('onBlur'),

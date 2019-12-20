@@ -41,6 +41,7 @@ const dateComponent = () => {
   const allowEmptyValue = boolean('allowEmptyValue', false);
   const autoFocus = boolean('autoFocus', false);
 
+
   return (
     <DateInput
       { ...getCommonTextboxStoryProps({ inputWidthEnabled: false }) }

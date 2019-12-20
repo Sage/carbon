@@ -10,6 +10,7 @@ import Textarea from '.';
 import { notes, info, infoValidations } from './documentation';
 import { OriginalTextarea } from './textarea.component';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
+import AutoFocus from '../../../utils/helpers/auto-focus';
 
 OriginalTextarea.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -58,10 +59,12 @@ const defaultComponent = () => {
   const labelInline = label ? boolean('labelInline', false) : undefined;
   const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
   const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
+  const key = AutoFocus.getKey(autoFocus);
 
   return (
     <State store={ store }>
       <Textarea
+        key={ key }
         name='textarea'
         onChange={ handleChange }
         warnOverLimit={ warnOverLimit }

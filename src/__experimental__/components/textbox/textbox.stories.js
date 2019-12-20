@@ -12,6 +12,7 @@ import { notes, info, infoValidations } from './documentation';
 import Textbox, { OriginalTextbox } from '.';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
+import AutoFocus from '../../../utils/helpers/auto-focus';
 
 OriginalTextbox.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -44,7 +45,7 @@ const defaultTextbox = () => {
   return (
     <Textbox
       placeholder={ text('placeholder') }
-      { ...getCommonTextboxStoryProps() }
+      { ...getCommonTextboxProps() }
     />
   );
 };
@@ -54,41 +55,32 @@ const autoFocusTextbox = () => {
   return (
     <Textbox
       placeholder={ text('placeholder') }
-      { ...getCommonTextboxStoryProps() }
+      { ...getCommonTextboxProps() }
     />
   );
 };
 
-function makeMultipleStory(name, themeSelector) {
-  const component = () => {
-    return ([
+const multipleTextbox = () => {
+  const { key, ...rest } = getCommonTextboxProps();
 
-      <Textbox
-        placeholder={ text('placeholder') }
-        key='0'
-        { ...getCommonTextboxStoryProps() }
-      />,
-      <Textbox
-        placeholder={ text('placeholder') }
-        key='1'
-        { ...getCommonTextboxStoryProps() }
-      />
-    ]);
-  };
+  return ([
+    <Textbox
+      placeholder={ text('placeholder') }
+      key='0'
+      { ...rest }
+    />,
+    <Textbox
+      placeholder={ text('placeholder') }
+      key={ key }
+      { ...rest }
+    />
+  ]);
+};
 
-  const metadata = {
-    themeSelector,
-    info: {
-      text: info,
-      propTables: [OriginalTextbox],
-      propTablesExclude: [State, Textbox]
-    },
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false }
-  };
-
-  return [name, component, metadata];
-}
+const multipleTextboxAutoFocus = () => {
+  boolean('autoFocus', true);
+  return multipleTextbox();
+};
 
 function makeValidationsStory(name, themeSelector) {
   const store = new Store(
@@ -131,13 +123,13 @@ function makeValidationsStory(name, themeSelector) {
 storiesOf('Experimental/Textbox', module)
   .add(...makeStory('default', dlsThemeSelector, defaultTextbox))
   .add(...makeStory('classic', classicThemeSelector, defaultTextbox))
-  .add(...makeMultipleStory('multiple', dlsThemeSelector))
+  .add(...makeStory('multiple', dlsThemeSelector, multipleTextbox))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
   .add(...makeValidationsStory('validations classic', classicThemeSelector))
-  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusTextbox));
+  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusTextbox))
+  .add(...makeStory('multiple autoFocus', dlsThemeSelector, multipleTextboxAutoFocus));
 
-
-function getCommonTextboxStoryProps(config = defaultStoryPropsConfig) {
+function getCommonTextboxProps(config = defaultStoryPropsConfig) {
   const percentageRange = {
     range: true,
     min: 0,
@@ -155,8 +147,10 @@ function getCommonTextboxStoryProps(config = defaultStoryPropsConfig) {
   const inputWidth = labelInline && config.inputWidthEnabled ? number('inputWidth', 70, percentageRange) : undefined;
   const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
   const size = select('size', OptionsHelper.sizesRestricted, 'medium');
+  const key = AutoFocus.getKey(autoFocus);
 
   return {
+    key,
     disabled,
     readOnly,
     autoFocus,
@@ -198,4 +192,4 @@ function lengthValidator(value) {
   });
 }
 
-export default getCommonTextboxStoryProps;
+export default getCommonTextboxProps;

@@ -9,6 +9,7 @@ import infoValidations from './documentation';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 import docgenInfo from './docgenInfo.json';
+import AutoFocus from '../../../utils/helpers/auto-focus';
 
 Select.__docgenInfo = getDocGenInfo(
   docgenInfo,
@@ -35,8 +36,10 @@ const commonKnobs = (store, enableMultiSelect = false) => {
   const autoFocus = boolean('autoFocus', false);
   const isLoopable = boolean('isLoopable', false);
   const preventFocusAutoOpen = boolean('preventFocusAutoOpen', false);
+  const key = AutoFocus.getKey(autoFocus);
 
   const knobs = {
+    key,
     disabled: boolean('disabled', false),
     onBlur: ev => action('blur')(ev),
     onKeyDown: ev => action('keyDown')(ev),
@@ -123,6 +126,7 @@ function makeMultipleStory(name, themeSelector) {
       <State store={ multiSelectStore }>
         <Select
           ariaLabel='multiSelect'
+          enableMultiSelect
           { ...commonKnobs(multiSelectStore, true) }
         >
           { selectOptions }

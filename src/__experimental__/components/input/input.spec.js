@@ -112,6 +112,7 @@ describe('Input', () => {
       inputElement.selectionStart = leftPos;
       inputElement.selectionEnd = rightPos;
       inputComponent.simulate('focus');
+      inputComponent.getDOMNode().focus();
       jest.runAllTimers();
       return inputElement;
     };
