@@ -36,6 +36,10 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
   padding: 0;
 }
 
+.c0 .DayPicker-wrapper:focus {
+  outline-color: #FFB500;
+}
+
 .c0 .DayPicker-Month {
   margin: 0 0 2px;
 }
@@ -64,6 +68,10 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
   border: none;
   font-weight: 800;
   padding: 10px 0;
+}
+
+.c0 .DayPicker-Day:focus {
+  outline-color: #FFB500;
 }
 
 .c0 .DayPicker-Day:hover {
@@ -211,6 +219,10 @@ exports[`StyledDayPicker renders presentational div and context provider for its
   padding: 0;
 }
 
+.c0 .DayPicker-wrapper:focus {
+  outline-color: #FFB500;
+}
+
 .c0 .DayPicker-Month {
   margin: 0 0 2px;
 }
@@ -239,6 +251,10 @@ exports[`StyledDayPicker renders presentational div and context provider for its
   border: none;
   font-weight: 800;
   padding: 10px 0;
+}
+
+.c0 .DayPicker-Day:focus {
+  outline-color: #FFB500;
 }
 
 .c0 .DayPicker-Day:hover {

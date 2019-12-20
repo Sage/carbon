@@ -16,6 +16,10 @@ exports[`Navbar Navbar Button renders presentational div and context provider fo
   padding: 0;
 }
 
+.c0:focus {
+  outline-color: #FFB500;
+}
+
 <button
   className="c0"
 >
