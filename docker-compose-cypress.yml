@@ -4,7 +4,6 @@ services:
   cypress:
     image: carbon_cypress
     container_name: cypress
-    volumes: [/tmp/app/allure-report:/usr/src/app/allure-result/]
     command: bash -c 'wait-on http://storybook:9001 && sleep 40000'
     environment:
       CYPRESS_baseUrl: http://storybook:9001/

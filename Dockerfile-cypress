@@ -7,8 +7,6 @@ WORKDIR $APP_HOME
 COPY . ./
 RUN rm package-lock.json
 
-VOLUME ["/tmp/app/allure-report"]
-
 # install packages
 RUN apt-get update && \
     apt-get install -y curl \
