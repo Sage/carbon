@@ -17,6 +17,7 @@ const styledBlockClassic = ({
   && css`
     background-color: ${blockBackgrounds[podTheme]};
     border: 1px solid #ccd6db;
+    ${({ noBorder }) => noBorder && 'border: none'};
 
     ${() => {
     if (isHovered || isFocused) {
@@ -38,6 +39,8 @@ const styledBlockClassic = ({
     return '';
   }}
   `;
+
+const styledHeaderClassic = ({ theme }) => isClassic(theme) && 'margin-bottom: 15px';
 
 const styledFooterClassic = ({ theme, podTheme }) => isClassic(theme)
   && css`
@@ -78,4 +81,6 @@ const styledEditActionClassic = ({
   }
   `;
 
-export { styledBlockClassic, styledEditActionClassic, styledFooterClassic };
+export {
+  styledBlockClassic, styledHeaderClassic, styledEditActionClassic, styledFooterClassic
+};

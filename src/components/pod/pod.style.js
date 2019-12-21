@@ -1,15 +1,20 @@
 import styled, { css } from 'styled-components';
 
+import BaseTheme from '../../style/themes/base';
 import Link from '../link';
 import Icon from '../icon';
 import StyledIcon from '../icon/icon.style';
 
 import { isClassic } from '../../utils/helpers/style-helper';
 
-import { styledBlockClassic, styledFooterClassic, styledEditActionClassic } from './pod-classic.style';
+import {
+  styledBlockClassic, styledHeaderClassic, styledFooterClassic, styledEditActionClassic
+} from './pod-classic.style';
 
 const StyledPod = styled.div`
   display: flex;
+  align-items: flex-start;
+  width: 100%;
   text-align: ${({ alignTitle }) => alignTitle};
   ${({ internalEditButton }) => internalEditButton && 'position: relative'};
 
@@ -18,30 +23,31 @@ const StyledPod = styled.div`
   }
 `;
 
-const blockBackgrounds = (podTheme, theme) => ({
+const blockBackgrounds = (podType, theme) => ({
   primary: theme.colors.white,
   secondary: theme.pod.secondaryBackground,
   tertiary: theme.pod.tertiaryBackground,
   transparent: 'transparent',
   tile: theme.colors.white
-}[podTheme]);
+}[podType]);
 
 const StyledBlock = styled.div`
   box-sizing: border-box;
-  background-color: ${({ theme, podTheme }) => blockBackgrounds(podTheme, theme)};
-  ${({ podTheme }) => podTheme === 'tile' && 'box-shadow: 0 2px 3px 0 rgba(2, 18, 36, 0.2)'};
+  background-color: ${({ theme, podType }) => blockBackgrounds(podType, theme)};
+  ${({ podType }) => podType === 'tile' && 'box-shadow: 0 2px 3px 0 rgba(2, 18, 36, 0.2)'};
   border: 1px solid ${({ theme }) => theme.pod.border};
   ${({ noBorder }) => noBorder && 'border: none'};
-  width: ${({ editable, fullWidth, internalEditButton }) => {
-    return editable && (fullWidth || internalEditButton) ? '100%' : 'auto';
+  width: 100%;
+  ${({ editable, fullWidth, internalEditButton }) => {
+    return editable && !(fullWidth || internalEditButton) && 'width: auto';
   }};
   ${({ contentTriggersEdit }) => contentTriggersEdit && 'cursor: pointer'};
   ${({
-    contentTriggersEdit, isHovered, isFocused, theme, internalEditButton, podTheme
+    contentTriggersEdit, isHovered, isFocused, theme, internalEditButton, podType
   }) => {
     if (isHovered || isFocused) {
       if (internalEditButton) {
-        return podTheme === 'tile' ? 'background-color: transparent' : '';
+        return podType === 'tile' ? 'background-color: transparent' : '';
       }
 
       if (contentTriggersEdit) {
@@ -107,7 +113,7 @@ const StyledFooter = styled.div`
   border-bottom-right-radius: 4px;
   box-shadow: inset 0px 1px 1px 0 rgba(0, 0, 0, 0.1);
 
-  ${({ podTheme, theme }) => podTheme === 'tile'
+  ${({ podType, theme }) => podType === 'tile'
     && css`
       border-top: 1px solid ${theme.pod.border};
     `};
@@ -118,7 +124,7 @@ const StyledFooter = styled.div`
 `;
 
 const StyledEditContainer = styled.div`
-  cursor: pointer;
+  /* cursor: pointer; */
 
   ${({ internalEditButton }) => internalEditButton
     && css`
@@ -137,18 +143,18 @@ const editPaddings = {
   'extra-large': 15
 };
 
-const editBackgrounds = (podTheme, theme) => ({
+const editBackgrounds = (podType, theme) => ({
   primary: theme.colors.white,
   secondary: theme.pod.secondaryBackground,
   tertiary: theme.pod.tertiaryBackground,
   transparent: 'transparent',
   tile: theme.colors.white
-}[podTheme]);
+}[podType]);
 
 const StyledEditAction = styled(Link)`
 && {
   cursor: pointer;
-  background-color: ${({ theme, podTheme }) => editBackgrounds(podTheme, theme)};
+  background-color: ${({ theme, podType }) => editBackgrounds(podType, theme)};
   border: 1px solid ${({ theme }) => theme.pod.border};
   margin-left: 8px;
 
@@ -220,7 +226,7 @@ const headerRightAlignMargins = {
 };
 
 const StyledHeader = styled.div`
-  margin-bottom: 15px;
+  margin-bottom: 24px;
   text-align: ${({ alignTitle }) => alignTitle};
 
   ${({ isCollapsed }) => isCollapsed === true
@@ -234,6 +240,8 @@ const StyledHeader = styled.div`
     && css`
       margin-right: ${headerRightAlignMargins[padding]}px;
     `};
+
+  ${styledHeaderClassic}
 `;
 
 const StyledSubtitle = styled.h5`
@@ -254,6 +262,43 @@ const StyledArrow = styled(Icon).attrs({ type: 'dropdown' })`
 
   ${({ isCollapsed }) => isCollapsed && 'transform: rotate(180deg)'};
 `;
+
+StyledBlock.defaultProps = {
+  theme: BaseTheme
+};
+StyledCollapsibleContent.defaultProps = {
+  theme: BaseTheme
+};
+StyledContent.defaultProps = {
+  theme: BaseTheme
+};
+StyledDescription.defaultProps = {
+  theme: BaseTheme
+};
+StyledEditAction.defaultProps = {
+  theme: BaseTheme
+};
+StyledEditContainer.defaultProps = {
+  theme: BaseTheme
+};
+StyledFooter.defaultProps = {
+  theme: BaseTheme
+};
+StyledPod.defaultProps = {
+  theme: BaseTheme
+};
+StyledHeader.defaultProps = {
+  theme: BaseTheme
+};
+StyledSubtitle.defaultProps = {
+  theme: BaseTheme
+};
+StyledTitle.defaultProps = {
+  theme: BaseTheme
+};
+StyledArrow.defaultProps = {
+  theme: BaseTheme
+};
 
 export {
   StyledBlock,

@@ -67,7 +67,7 @@ class Pod extends React.Component {
         internalEditButton={ internalEditButton }
         padding={ padding }
         isCollapsed={ isCollapsed }
-        onClick={ isCollapsable && this.toggleCollapse }
+        onClick={ isCollapsable ? this.toggleCollapse : undefined }
       >
         <StyledTitle data-element='title'>{title}</StyledTitle>
         {subtitle && <StyledSubtitle data-element='subtitle'>{subtitle}</StyledSubtitle>}
@@ -98,7 +98,9 @@ class Pod extends React.Component {
   }
 
   footer() {
-    const { footer, padding, as } = this.props;
+    const {
+      footer, padding, as, podType
+    } = this.props;
 
     if (!footer) {
       return null;
@@ -108,7 +110,7 @@ class Pod extends React.Component {
       <StyledFooter
         data-element='footer'
         padding={ padding }
-        podTheme={ as }
+        podType={ podType || as }
       >
         {footer}
       </StyledFooter>
@@ -120,6 +122,7 @@ class Pod extends React.Component {
       onEdit,
       internalEditButton,
       as,
+      podType,
       padding,
       border,
       displayEditButtonOnHover,
@@ -144,7 +147,7 @@ class Pod extends React.Component {
           isHovered={ isHovered }
           noBorder={ !border }
           padding={ padding }
-          podTheme={ as }
+          podType={ podType || as }
           { ...this.linkProps() }
         >
           {I18n.t('actions.edit', { defaultValue: 'Edit' })}
@@ -195,17 +198,16 @@ class Pod extends React.Component {
   }
 
   render() {
-    const { ...props } = validProps(this);
-
     const {
-      as, border, editContentFullWidth, internalEditButton, onEdit, padding
+      as, podType, border, editContentFullWidth, internalEditButton, onEdit, padding, ...rest
     } = this.props;
 
     const { isFocused, isHovered } = this.state;
 
     return (
       <StyledPod
-        { ...props }
+        { ...rest }
+        // className={ this.props.className }
         internalEditButton={ internalEditButton }
         { ...tagComponent('pod', this.props) }
       >
@@ -217,7 +219,7 @@ class Pod extends React.Component {
           isFocused={ isFocused }
           isHovered={ isHovered }
           noBorder={ !border }
-          podTheme={ as }
+          podType={ podType || as }
           { ...(this.shouldContentHaveEditEvents() ? { ...this.editEvents(), tabIndex: '0' } : {}) }
         >
           <StyledContent data-element='content' padding={ padding }>
@@ -255,10 +257,16 @@ Pod.propTypes = {
   padding: PropTypes.string,
 
   /**
-   * Applies a theme to the Pod.
+   * Legacy prop to apply a theme to the Pod.
    * Value: primary, secondary, tile
    */
   as: PropTypes.string,
+
+  /**
+   * Prop to apply a theme to the Pod.
+   * Value: primary, secondary, tile
+   */
+  podType: PropTypes.string,
 
   /**
    * The collapsed state of the pod
