@@ -13,6 +13,7 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import { info, notes } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 import guid from '../../../utils/helpers/guid';
+import AutoFocus from '../../../utils/helpers/auto-focus';
 
 OriginalTextbox.__docgenInfo = getDocGenInfo(
   require('../textbox/docgenInfo.json'),
@@ -53,15 +54,7 @@ const commonProps = () => {
   const precision = number('precision', Decimal.defaultProps.precision, precisionRange);
   const autoFocus = boolean('autoFocus', false);
   const allowEmptyValue = boolean('allowEmptyValue', false);
-
-  // When the allowEmptyValue knob changes we want to force the component to re-create
-  // allowEmptyValue is only used in the constructor and it is not currently supported to change during the lifetime
-  // of the component
-  if (previous.allowEmptyValue !== allowEmptyValue) {
-    previous.key = guid();
-  }
-  previous.allowEmptyValue = allowEmptyValue;
-  const { key } = previous;
+  const key = AutoFocus.getKey(autoFocus);
 
   return {
     key,
