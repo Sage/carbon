@@ -81,17 +81,7 @@ const defaultComponent = () => {
 
 const autoFocusComponent = () => {
   boolean('autoFocus', true);
-  return (
-    <State store={ store }>
-      <Decimal
-        { ...commonProps() }
-        { ...getTextboxStoryProps() }
-        value={ store.get('value') }
-        onChange={ setValue }
-        onBlur={ action('onBlur') }
-      />
-    </State>
-  );
+  return defaultComponent();
 };
 
 function makeStory(name, themeSelector, component) {
