@@ -47,7 +47,7 @@ export default function getThemeDecorator() {
     // If no theme name was provided in the query string, then use the name of
     // the first story-specific theme (if any), otherwise fallback to "none".
     const themeName = queryStringThemeName || storyThemeName || 'none';
-    console.log('decorator', themeName)
+
     return (
       <ThemeProvider theme={ themesMap[themeName] }>
         {story()}
