@@ -134,6 +134,9 @@ outlining many scenarios.
 
 This functionality is not available in the latest stable release, however the beta has been evolving for in excess of a year.
 
+**NOTE:** It is not possible to protect GitHub branches using a regex. For that reason the environment variables are only included on approved branches.
+If you want to publish a maintenance release, an administrator should create the new branch, enable branch protection and add the environment variables to TravisCI.
+
 
 # Drawbacks
 - There is a learning curve to this new process
