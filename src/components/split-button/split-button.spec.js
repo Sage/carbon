@@ -570,14 +570,14 @@ describe('SplitButton', () => {
         simulateFocusOnToggle(wrapper);
       });
 
-      it('it\'s buttons should have the expected border', () => {
+      it('its buttons should have the expected border', () => {
         assertStyleMatch({
           backgroundColor: '#1e499f',
           border: '1px solid #1e499f'
         }, wrapper.find(StyledSplitButtonChildrenContainer), { modifier: `${StyledButton}` });
       });
 
-      it('it\'s buttons shoul have the expected background when focused', () => {
+      it('its buttons shoul have the expected background when focused', () => {
         wrapper.find('button').at(0).simulate('focus');
         assertStyleMatch({
           backgroundColor: '#163777'

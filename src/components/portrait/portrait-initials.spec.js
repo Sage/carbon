@@ -37,8 +37,10 @@ describe('PortraitInitials', () => {
   });
 
   describe('componentWillReceiveProps', () => {
+    const firstCarbonTheme = carbonThemeList[0];
+    const secondCarbonTheme = carbonThemeList[1];
     const originalProps = {
-      initials: 'foo', size: 'XXL', darkBackground: false, theme: carbonThemeList[0]
+      initials: 'foo', size: 'XXL', darkBackground: false, theme: firstCarbonTheme
     };
     const cachedImageDataUrl = 'foobar';
     let props, instance;
@@ -53,7 +55,7 @@ describe('PortraitInitials', () => {
     });
 
     it('clears the cached initials if theme changes', () => {
-      props.theme = carbonThemeList[1];
+      props.theme = secondCarbonTheme;
       instance.UNSAFE_componentWillReceiveProps(props);
       expect(instance.cachedImageDataUrl).toEqual(null);
     });

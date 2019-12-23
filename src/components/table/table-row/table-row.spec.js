@@ -601,21 +601,22 @@ describe('TableRow', () => {
         );
       });
 
-      describe.each(carbonThemesJestTable)('when StyledTableRow get inDeadZone and isDragged props', (themeName, theme) => {
-        it(`should render correct background color for the ${themeName} theme`, () => {
-          wrapper = mount(
-            <StyledTableRow
-              theme={ theme }
-              isDragged
-              inDeadZone
-            />
-          );
+      describe.each(carbonThemesJestTable)('when StyledTableRow get inDeadZone and isDragged props',
+        (themeName, theme) => {
+          it(`should render correct background color for the ${themeName} theme`, () => {
+            wrapper = mount(
+              <StyledTableRow
+                theme={ theme }
+                isDragged
+                inDeadZone
+              />
+            );
 
-          assertStyleMatch({
-            backgroundColor: `${theme.table.dragging}`
-          }, wrapper, { modifier: `${StyledTableCell}` });
+            assertStyleMatch({
+              backgroundColor: `${theme.table.dragging}`
+            }, wrapper, { modifier: `${StyledTableCell}` });
+          });
         });
-      });
 
       it('renders a draggable cell', () => {
         const draggableRow = wrapper.find(TableRow);

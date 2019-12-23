@@ -1,2 +1,2 @@
 Refactor: "Renames Small Theme to Mint and Medium Theme to Aegean."
-Refactor: "Removes direct imports of carbon themes to allow add/rename/remove a theme without refactor of components."
+Refactor: "Removes direct imports of Carbon themes to allow adding/renaming/removing a theme without refactoring components."
