@@ -156,7 +156,7 @@ describe('Pill', () => {
           });
 
           describe('when the component size is extra large', () => {
-            it('matches the expected styles for a extra large pill', () => {
+            it('matches the expected styles for an extra large pill', () => {
               const wrapper = render({
                 children: 'My Text',
                 size: 'XL'
