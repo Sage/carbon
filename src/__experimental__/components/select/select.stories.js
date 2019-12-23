@@ -10,6 +10,7 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 import docgenInfo from './docgenInfo.json';
 import AutoFocus from '../../../utils/helpers/auto-focus';
+import guid from '../../../utils/helpers/guid';
 
 Select.__docgenInfo = getDocGenInfo(
   docgenInfo,
@@ -29,6 +30,11 @@ const multiSelectStore = new Store({
   value: []
 });
 
+const previous = {
+  key: guid(),
+  autoFocus: false
+};
+
 const commonKnobs = (store, enableMultiSelect = false) => {
   const filterable = boolean('filterable', Select.defaultProps.filterable);
   const typeAhead = filterable && boolean('typeAhead', Select.defaultProps.typeAhead);
@@ -36,7 +42,7 @@ const commonKnobs = (store, enableMultiSelect = false) => {
   const autoFocus = boolean('autoFocus', false);
   const isLoopable = boolean('isLoopable', false);
   const preventFocusAutoOpen = boolean('preventFocusAutoOpen', false);
-  const key = AutoFocus.getKey(autoFocus);
+  const key = AutoFocus.getKey(autoFocus, previous);
 
   const knobs = {
     key,

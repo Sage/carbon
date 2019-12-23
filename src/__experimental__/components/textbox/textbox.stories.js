@@ -13,6 +13,7 @@ import Textbox, { OriginalTextbox } from '.';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 import AutoFocus from '../../../utils/helpers/auto-focus';
+import guid from '../../../utils/helpers/guid';
 
 OriginalTextbox.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -120,6 +121,11 @@ function makeValidationsStory(name, themeSelector) {
   return [name, component, metadata];
 }
 
+const previous = {
+  key: guid(),
+  autoFocus: false
+};
+
 storiesOf('Experimental/Textbox', module)
   .add(...makeStory('default', dlsThemeSelector, defaultTextbox))
   .add(...makeStory('classic', classicThemeSelector, defaultTextbox))
@@ -147,7 +153,7 @@ function getCommonTextboxProps(config = defaultStoryPropsConfig) {
   const inputWidth = labelInline && config.inputWidthEnabled ? number('inputWidth', 70, percentageRange) : undefined;
   const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
   const size = select('size', OptionsHelper.sizesRestricted, 'medium');
-  const key = AutoFocus.getKey(autoFocus);
+  const key = AutoFocus.getKey(autoFocus, previous);
 
   return {
     key,

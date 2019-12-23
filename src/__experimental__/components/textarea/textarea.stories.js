@@ -11,6 +11,7 @@ import { notes, info, infoValidations } from './documentation';
 import { OriginalTextarea } from './textarea.component';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 import AutoFocus from '../../../utils/helpers/auto-focus';
+import guid from '../../../utils/helpers/guid';
 
 OriginalTextarea.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -38,6 +39,11 @@ const percentageRange = {
   step: 1
 };
 
+const previous = {
+  key: guid(),
+  autoFocus: false
+};
+
 const defaultComponent = () => {
   const expandable = boolean('expandable', Textarea.defaultProps.expandable);
   const cols = number('cols', 0, rangeOptions);
@@ -59,7 +65,7 @@ const defaultComponent = () => {
   const labelInline = label ? boolean('labelInline', false) : undefined;
   const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
   const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
-  const key = AutoFocus.getKey(autoFocus);
+  const key = AutoFocus.getKey(autoFocus, previous);
 
   return (
     <State store={ store }>

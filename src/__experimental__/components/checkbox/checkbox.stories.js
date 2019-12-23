@@ -13,6 +13,7 @@ import { info, notes, infoValidations } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 import Text from '../../../utils/helpers/text';
 import AutoFocus from '../../../utils/helpers/auto-focus';
+import guid from '../../../utils/helpers/guid';
 
 Checkbox.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -81,6 +82,11 @@ const groupStore = new Store({
   three: false
 });
 
+const previous = {
+  key: guid(),
+  autoFocus: false
+};
+
 function defaultKnobs(type) {
   const knobGroup = `Checkbox ${type}`;
   const nameWithGroup = (name) => {
@@ -88,7 +94,7 @@ function defaultKnobs(type) {
   };
   const label = `${text(nameWithGroup('label'), 'Example Checkbox', knobGroup)} (${type})`;
   const autoFocus = boolean(nameWithGroup('autoFocus'), false, knobGroup);
-  const key = AutoFocus.getKey(autoFocus);
+  const key = AutoFocus.getKey(autoFocus, previous);
 
   return ({
     key,
