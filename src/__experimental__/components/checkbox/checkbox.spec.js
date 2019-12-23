@@ -11,13 +11,11 @@ import LabelStyle from '../label/label.style';
 import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
 import StyledHelp from '../../../components/help/help.style';
 import guid from '../../../utils/helpers/guid';
-import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
-import { baseTheme, classicTheme, carbonThemeList } from '../../../style/themes';
+import { assertStyleMatch, carbonThemesJestTable } from '../../../__spec_helper__/test-utils';
+import { baseTheme, classicTheme } from '../../../style/themes';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
-
-const themesTable = carbonThemeList.map(theme => [theme.name, theme]);
 
 function render(props, renderer = TestRenderer.create, options = {}) {
   return renderer(
@@ -417,7 +415,7 @@ describe('Checkbox', () => {
       });
     });
 
-    describe.each(themesTable)('when the theme is set to %s', (themeName, theme) => {
+    describe.each(carbonThemesJestTable)('when the theme is set to %s', (themeName, theme) => {
       it('sets the appropriate check colour', () => {
         const wrapper = render({ theme, checked: true }).toJSON();
 

@@ -6,12 +6,11 @@ import Pill from './pill.component';
 import styleConfig from './pill.style.config';
 import { classicStyleConfig } from './pill-classic.style';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
-import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import { assertStyleMatch, carbonThemesJestTable } from '../../__spec_helper__/test-utils';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import { classicTheme, carbonThemeList } from '../../style/themes';
+import { classicTheme } from '../../style/themes';
 import StyledIcon from '../icon/icon.style';
 
-const themesTable = carbonThemeList.map(theme => [theme.name, theme]);
 const classicStyleTypes = [...OptionsHelper.colors, 'disabled'];
 const modernStyleTypes = [...OptionsHelper.pillColors, 'warning'];
 
@@ -108,7 +107,7 @@ describe('Pill', () => {
   });
 
   describe('modern themes', () => {
-    describe.each(themesTable)('when the pill is rendered',
+    describe.each(carbonThemesJestTable)('when the pill is rendered',
       (name, theme) => {
         describe(`${name} theme`, () => {
           describe('when the component size is small', () => {

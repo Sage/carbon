@@ -13,11 +13,9 @@ import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input
 import LabelStyle from '../label/label.style';
 import StyledSwitchSlider from './switch-slider.style';
 import guid from '../../../utils/helpers/guid';
-import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import { assertStyleMatch, carbonThemesJestTable } from '../../../__spec_helper__/test-utils';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
-import { baseTheme, classicTheme, carbonThemeList } from '../../../style/themes';
-
-const themesTable = carbonThemeList.map(theme => [theme.name, theme]);
+import { baseTheme, classicTheme } from '../../../style/themes';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -392,7 +390,7 @@ describe('Switch', () => {
     });
   });
 
-  describe.each(themesTable)('when the theme is set to %s', (themeName, theme) => {
+  describe.each(carbonThemesJestTable)('when the theme is set to %s', (themeName, theme) => {
     describe('default', () => {
       const wrapper = renderWithTheme({}, theme).toJSON();
       const expectedOutlineStyle = { outline: `solid 3px ${theme.colors.focus}` };

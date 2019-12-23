@@ -8,8 +8,9 @@ import Icon from '../icon';
 import Button, { ButtonWithForwardRef } from '../button';
 import StyledButton from '../button/button.style';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
-import { classicTheme, carbonThemeList } from '../../style/themes';
+import { classicTheme } from '../../style/themes';
 import {
+  carbonThemesJestTable,
   assertStyleMatch,
   keyboard
 } from '../../__spec_helper__/test-utils';
@@ -19,8 +20,6 @@ import StyledSplitButtonToggle from './split-button-toggle.style';
 
 jest.mock('../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
-
-const themesTable = carbonThemeList.map(theme => [theme.name, theme]);
 
 const sizes = ['small', 'medium', 'large'];
 
@@ -157,7 +156,7 @@ describe('SplitButton', () => {
       expect(wrapper).toMatchSnapshot();
     });
 
-    describe.each(themesTable)(
+    describe.each(carbonThemesJestTable)(
       'when the theme is set to "%s"',
       (name, theme) => {
         const mockProps = { carbonTheme: theme, buttonType: 'primary' };
@@ -175,7 +174,7 @@ describe('SplitButton', () => {
   describe.each(sizes)(
     'when the "%s" size prop is passed',
     (size) => {
-      describe.each(themesTable)(
+      describe.each(carbonThemesJestTable)(
         'with the "%s" business theme',
         (name, theme) => {
           it('has the expected styling', () => {

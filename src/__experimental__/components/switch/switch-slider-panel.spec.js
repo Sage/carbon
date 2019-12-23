@@ -2,14 +2,12 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { css } from 'styled-components';
-import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import { assertStyleMatch, carbonThemesJestTable } from '../../../__spec_helper__/test-utils';
 import StyledLoader from '../../../components/loader/loader.style';
 import StyledLoaderSquare from '../../../components/loader/loader-square.style';
 import SwitchSliderPanel from './switch-slider-panel.style';
 import StyledIcon from '../../../components/icon/icon.style';
-import { baseTheme, classicTheme, carbonThemeList } from '../../../style/themes';
-
-const themesTable = carbonThemeList.map(theme => [theme.name, theme]);
+import { baseTheme, classicTheme } from '../../../style/themes';
 
 function render(props) {
   return TestRenderer.create(<SwitchSliderPanel { ...props } />);
@@ -88,7 +86,7 @@ describe('SwitchSliderPanel', () => {
     });
   });
 
-  describe.each(themesTable)('when the theme is set to %s', (themeName, theme) => {
+  describe.each(carbonThemesJestTable)('when the theme is set to %s', (themeName, theme) => {
     const wrapper = render({ theme }).toJSON();
 
     it('applies the correct base styles', () => {

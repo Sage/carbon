@@ -153,7 +153,7 @@ input:checked ~ .c3 {
   background-color: #003F2E;
 }
 
-input:checked ~ .c3 .c8 {
+input:checked ~ .c3 .c9 {
   color: #FFFFFF;
 }
 
@@ -171,7 +171,7 @@ input:checked ~ .c3 {
   background-color: #1573e6;
 }
 
-input:checked ~ .c3 .c8 {
+input:checked ~ .c3 .c9 {
   color: #FFFFFF;
 }
 
@@ -185,7 +185,7 @@ input:focus ~ .c3 {
   background-color: #1e499f;
 }
 
-.c3:hover .c8 {
+.c3:hover .c9 {
   color: #FFFFFF;
 }
 
@@ -196,6 +196,12 @@ input:focus ~ .c3 {
 }
 
 .c7 .c4 {
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c8 .c4 {
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
@@ -271,7 +277,105 @@ input:focus ~ .c3 {
 </div>
 `;
 
-exports[`ButtonToggle Modern themes renders correctly with small theme 1`] = `
+exports[`ButtonToggle when the aegean theme is set renders correct styles 1`] = `
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.c5 .c3 {
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c6 .c3 {
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c2 {
+  display: inline-block;
+  height: 38px;
+  padding: 0 24px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid #668491;
+  font-size: 14px;
+  background-color: #FFFFFF;
+}
+
+input:checked ~ .c2 {
+  color: #FFFFFF;
+  background-color: #004372;
+}
+
+input:checked ~ .c2 .c7 {
+  color: #FFFFFF;
+}
+
+input:focus ~ .c2 {
+  outline: 3px solid #FFB500;
+}
+
+.c2:hover {
+  background-color: #E5F1F9;
+  border-color: #004372;
+}
+
+.c0 {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.c0:not(:first-of-type) {
+  margin-left: 10px;
+}
+
+.c1 {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+<div
+  className="c0"
+  data-component="button-toggle"
+>
+  <input
+    className="c1"
+    id="guid-12345"
+    type="radio"
+  />
+  <label
+    className="c2"
+    htmlFor="guid-12345"
+    size="large"
+  >
+    <div
+      className="c3 c4"
+    >
+      Button
+    </div>
+  </label>
+</div>
+`;
+
+exports[`ButtonToggle when the mint theme is set renders correct styles 1`] = `
 .c4 {
   display: -webkit-box;
   display: -webkit-flex;

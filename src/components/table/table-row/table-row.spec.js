@@ -12,8 +12,8 @@ import DraggableTableCell from '../draggable-table-cell';
 import StyledTable from '../table.style';
 import StyledIcon from '../../icon/icon.style';
 import { Checkbox } from '../../../__experimental__/components/checkbox';
-import { baseTheme, classicTheme, carbonThemeList } from '../../../style/themes';
-import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import { baseTheme, classicTheme } from '../../../style/themes';
+import { assertStyleMatch, carbonThemesJestTable } from '../../../__spec_helper__/test-utils';
 import { DraggableContext, WithDrop } from '../../drag-and-drop';
 import { ActionPopover, ActionPopoverItem } from '../../action-popover';
 import { MenuButton } from '../../action-popover/action-popover.style';
@@ -35,8 +35,6 @@ jest.mock('../draggable-table-cell', () => {
   };
   return MockDraggableTableCell;
 });
-
-const themesTable = carbonThemeList.map(theme => [theme.name, theme]);
 
 describe('TableRow', () => {
   let instance, clickableInstance, row;
@@ -338,7 +336,7 @@ describe('TableRow', () => {
   });
 
   describe('when selected', () => {
-    describe.each(themesTable)(
+    describe.each(carbonThemesJestTable)(
       'and the theme is %s',
       (themeName, theme) => {
         it('renders the element to match the expected style', () => {
@@ -363,7 +361,7 @@ describe('TableRow', () => {
   });
 
   describe('when highlighted', () => {
-    describe.each(themesTable)(
+    describe.each(carbonThemesJestTable)(
       'and the theme is %s',
       (themeName, theme) => {
         it('renders the element to match the expected style', () => {
@@ -603,7 +601,7 @@ describe('TableRow', () => {
         );
       });
 
-      describe.each(themesTable)('when StyledTableRow get inDeadZone and isDragged props', (themeName, theme) => {
+      describe.each(carbonThemesJestTable)('when StyledTableRow get inDeadZone and isDragged props', (themeName, theme) => {
         it(`should render correct background color for the ${themeName} theme`, () => {
           wrapper = mount(
             <StyledTableRow

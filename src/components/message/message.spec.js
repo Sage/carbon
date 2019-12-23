@@ -6,17 +6,15 @@ import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import MessageStyle from './message.style';
 import Message from './message.component';
 import CloseIcon from '../dismiss-button';
-import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-import { baseTheme, classicTheme, carbonThemeList } from '../../style/themes';
-
-const themesTable = carbonThemeList.map(theme => [theme.name, theme]);
+import { assertStyleMatch, carbonThemesJestTable } from '../../__spec_helper__/test-utils';
+import { baseTheme, classicTheme } from '../../style/themes';
 
 function render(props) {
   return TestRenderer.create(<MessageStyle { ...props }>Message</MessageStyle>);
 }
 
 describe('Message', () => {
-  describe.each(themesTable)(
+  describe.each(carbonThemesJestTable)(
     'rendered', (themeName, theme) => {
       let wrapper;
       beforeEach(() => {
