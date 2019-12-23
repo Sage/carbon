@@ -21,6 +21,7 @@ storiesOf('Profile', module)
     const initials = text('initials', 'JS');
     const size = select('size', OptionsHelper.sizesPortrait, OptionsHelper.sizesPortrait[0]);
     const name = text('name', 'John Smith');
+    const src = text('src', '');
 
     return (
       <ProfileWrapper
@@ -28,6 +29,7 @@ storiesOf('Profile', module)
         initials={ initials }
         size={ size }
         name={ name }
+        src={ src }
       />
     );
   },
@@ -42,6 +44,7 @@ storiesOf('Profile', module)
     const initials = text('initials', 'JS');
     const large = boolean('large', OriginalProfile.defaultProps.large);
     const name = text('name', 'John Smith');
+    const src = text('src', '');
 
     return (
       <ThemeProvider theme={ classicTheme }>
@@ -50,6 +53,7 @@ storiesOf('Profile', module)
           initials={ initials }
           large={ large }
           name={ name }
+          src={ src }
         />
       </ThemeProvider>
     );
