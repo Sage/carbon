@@ -17,7 +17,7 @@ assignees: ''
 <!-- Please fork this CodeSandbox (https://codesandbox.io/s/carbon-quickstart-xi5jc) and include any required steps to reproduce -->
 
 ### Suggested solution(s)
-<!-- How could we solve this bug? What changes would need to make to carbon? -->
+<!-- How could we solve this bug? What changes would need to be made to carbon? -->
 
 ### Additional context
 <!-- Add any other context about the problem here.  -->
