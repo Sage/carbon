@@ -14,7 +14,7 @@ assignees: ''
 <!-- A clear and concise description of what you expected to happen. -->
 
 ### Reproducible example
-<!-- Please fork this CodeSandbox (https://codesandbox.io/s/carbon-quickstart-xi5jc) and include any required steps to reproduce -->
+<!-- Please fork this CodeSandbox (https://codesandbox.io/s/carbon-quickstart-xi5jc) and include any required steps to reproduce. -->
 
 ### Suggested solution(s)
 <!-- How could we solve this bug? What changes would need to be made to Carbon? -->
