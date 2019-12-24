@@ -9,14 +9,14 @@ assignees: ''
 
 ## Feature request
 
-### Current Behavior
-<!-- A clear and concise description of what is the current behavior.  -->
+### Current Behaviour
+<!-- A clear and concise description of what is the current behaviour.  -->
 
-### Desired Behavior
+### Desired Behaviour
 <!-- A clear and concise description of what you want to happen.  -->
 
 ### Suggested Solution
-<!-- Suggest a solution to enable the desired behavior.  -->
+<!-- Suggest a solution to enable the desired behaviour.  -->
 
 ### Describe alternatives you've considered
 <!-- A clear and concise description of any alternative solutions or features you've considered.  -->
