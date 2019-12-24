@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 ### Current Behaviour
-<!-- If applicable, add screenshot's to help explain your problem. You can paste these directly into GitHub. -->
+<!-- If applicable, add screenshots to help explain your problem. You can paste these directly into GitHub. -->
 
 ### Expected Behaviour
 <!-- A clear and concise description of what you expected to happen. -->
