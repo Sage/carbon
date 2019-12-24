@@ -24,12 +24,12 @@ assignees: ''
 
 ### Your environment
 <!-- PLEASE FILL THIS OUT -->
-| Software               | Version(s) |
-| ----------------- | ---------- |
-| carbon-react        |
-| carbon-factory     |
-| react-scripts         | 
-| React                     |
-| Browser                 |
-| npm                        |
+| Software         | Version(s) |
+| ---------------- | ---------- |
+| carbon-react     |
+| carbon-factory   |
+| react-scripts    | 
+| React            |
+| Browser          |
+| npm              |
 | Operating System |
