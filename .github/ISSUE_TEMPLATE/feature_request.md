@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for carbon
+about: Suggest an idea for Carbon
 title: ''
 labels: Enhancement, triage
 assignees: ''
