@@ -182,7 +182,12 @@ class Heading extends React.Component {
     if (!this.props.title) { return null; }
 
     return (
-      <StyledHeading className={ this.classes } { ...tagComponent('heading', this.props) }>
+      <StyledHeading
+        className={ this.classes }
+        divider={ this.props.divider }
+        subheader={ this.props.subheader }
+        { ...tagComponent('heading', this.props) }
+      >
         <div className='carbon-heading__header'>
           { this.back }
 

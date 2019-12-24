@@ -9,35 +9,35 @@ const StyledPage = styled.article`
   height: 100%;
 
   ${LinkStyleAnchor} {
-    a {
-        text-decoration: none;
+    a, button {
+      text-decoration: none;
 
-        ${({ theme }) => !isClassic(theme) && css`
-          height: 25px;
-          margin-top: -12px;
-        `}
+      ${({ theme }) => !isClassic(theme) && css`
+        height: 25px;
+        margin-top: -12px;
+      `}
+
+      &:hover {
+        text-decoration: none;
+      }
+
+      ${StyledIcon} {
+        margin-top: -9px;
+        margin-right: 0px;
+        top: 5px;
+        color: #4d7080;
 
         &:hover {
-          text-decoration: none;
+          color: #335B6D;
         }
 
-        ${StyledIcon} {
-          margin-top: -9px;
-          margin-right: 0px;
+        ${({ theme }) => !isClassic(theme) && css`
+          margin-top: 0px;
           top: 5px;
-          color: #4d7080;
-
-          &:hover {
-            color: #335B6D;
-          }
-
-          ${({ theme }) => !isClassic(theme) && css`
-            margin-top: 0px;
-            top: 5px;
-          `}
-        }
+        `}
       }
     }
+  }
 `;
 
 const StyledPageContent = styled.div`
