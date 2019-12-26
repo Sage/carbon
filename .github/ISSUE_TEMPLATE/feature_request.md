@@ -9,13 +9,13 @@ assignees: ''
 
 ## Feature request
 
-### Current Behaviour
+### Current behaviour
 <!-- A clear and concise description of what is the current behaviour.  -->
 
-### Desired Behaviour
+### Desired behaviour
 <!-- A clear and concise description of what you want to happen.  -->
 
-### Suggested Solution
+### Suggested solution
 <!-- Suggest a solution to enable the desired behaviour.  -->
 
 ### Describe alternatives you've considered
