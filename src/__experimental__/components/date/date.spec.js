@@ -35,6 +35,16 @@ describe('Date', () => {
       wrapper = render({});
       expect(wrapper.find(Textbox).exists()).toBe(true);
     });
+
+    it('should render with "allowEmptyValue" property and null value', () => {
+      wrapper = render({ value: null, allowEmptyValue: true });
+      expect(wrapper.find(Textbox).exists()).toBe(true);
+    });
+
+    it('should render with "allowEmptyValue" property and empty string value', () => {
+      wrapper = render({ value: '', allowEmptyValue: true });
+      expect(wrapper.find(Textbox).exists()).toBe(true);
+    });
   });
 
   describe.each(['value', 'defaultValue'])(

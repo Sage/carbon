@@ -1,0 +1,1 @@
+Bug Fixes: "Fixes issue with the date component when the value is null and the allowEmpty value property is true. (Component: Date)"

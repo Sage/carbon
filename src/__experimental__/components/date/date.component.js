@@ -447,7 +447,7 @@ function canReturnValue(value, allowEmptyValue) {
     invariant(isValidInitialFormat(value), message);
   }
 
-  return isValidInitialFormat(value) || (allowEmptyValue && !value.length);
+  return isValidInitialFormat(value) || (allowEmptyValue && !value);
 }
 
 const DateInput = withUniqueIdProps(BaseDateInput);
