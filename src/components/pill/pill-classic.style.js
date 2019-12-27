@@ -77,6 +77,15 @@ export default (colorVariant, inFill, isDeletable) => {
       }
     `}
 
+    ${colorVariant === 'warning' && css`
+      height: auto;
+      min-height: auto;
+
+      button ${StyledIcon} {
+        padding: 0;
+      }
+    `}
+
     ${inFill && css`
       background-color: ${colorSet.color};
       color: #FFFFFF;

@@ -8,10 +8,9 @@ import Icon from '../icon';
 import Button, { ButtonWithForwardRef } from '../button';
 import StyledButton from '../button/button.style';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
-import ClassicTheme from '../../style/themes/classic';
-import SmallTheme from '../../style/themes/small';
-import MediumTheme from '../../style/themes/medium';
+import { classicTheme } from '../../style/themes';
 import {
+  carbonThemesJestTable,
   assertStyleMatch,
   keyboard
 } from '../../__spec_helper__/test-utils';
@@ -23,16 +22,6 @@ jest.mock('../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
 
 const sizes = ['small', 'medium', 'large'];
-
-const businessThemes = [
-  ['small', SmallTheme],
-  ['medium', MediumTheme]
-];
-
-const themes = [
-  ['classic', ClassicTheme],
-  ...businessThemes
-];
 
 const singleButton = <Button key='testKey'>Single Button</Button>;
 const multipleButtons = [
@@ -54,11 +43,13 @@ const render = (mainProps = {}, childButtons = singleButton, renderer = shallow)
   );
 };
 
-const renderWithTheme = (mainProps = {}, childButtons = singleButton, renderer = shallow) => {
+const renderWithTheme = (props = {}, childButtons = singleButton, renderer = shallow) => {
+  const { carbonTheme, ...componentProps } = props;
+
   return renderer(
-    <ThemeProvider theme={ mainProps.carbonTheme }>
+    <ThemeProvider theme={ carbonTheme }>
       <SplitButton
-        { ...mainProps }
+        { ...componentProps }
         text='Split button'
         data-element='bar'
         data-role='baz'
@@ -159,58 +150,13 @@ describe('SplitButton', () => {
     });
   });
 
-  describe.each(themes)(
-    'when the theme is set to "%s"',
-    (name, theme) => {
-      let themedWrapper;
-
-      beforeEach(() => {
-        themedWrapper = mount(
-          <StyledSplitButtonChildrenContainer theme={ theme }>
-            <StyledButton>Foo</StyledButton>
-          </StyledSplitButtonChildrenContainer>
-        );
-      });
-
-      it('has the expected style', () => {
-        const themeColors = {
-          classic: '#1e499f',
-          small: '#006045',
-          medium: '#005B9A'
-        };
-
-        assertStyleMatch({
-          backgroundColor: themeColors[name],
-          border: `1px solid ${themeColors[name]}`
-        }, themedWrapper, { modifier: `${StyledButton}` });
-      });
-
-      it('matches the expected style for the focused "additional button"', () => {
-        const themeColors = {
-          classic: '#163777',
-          small: '#003F2E',
-          medium: '#004372'
-        };
-
-        themedWrapper.find('button').simulate('focus');
-        assertStyleMatch({
-          backgroundColor: themeColors[name]
-        }, themedWrapper, { modifier: `${StyledButton}:focus` });
-      });
-
-      afterEach(() => {
-        themedWrapper.unmount();
-      });
-    }
-  );
-
   describe('for business themes', () => {
     it('renders styles correctly', () => {
       wrapper = render({}, singleButton, TestRenderer.create);
       expect(wrapper).toMatchSnapshot();
     });
 
-    describe.each(businessThemes)(
+    describe.each(carbonThemesJestTable)(
       'when the theme is set to "%s"',
       (name, theme) => {
         const mockProps = { carbonTheme: theme, buttonType: 'primary' };
@@ -225,45 +171,10 @@ describe('SplitButton', () => {
     );
   });
 
-  describe('for the classic theme', () => {
-    it('renders styles correctly', () => {
-      wrapper = renderWithTheme({ carbonTheme: ClassicTheme }, singleButton, TestRenderer.create);
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('renders Toggle Button left border as expected', () => {
-      const mockProps = { carbonTheme: ClassicTheme, buttonType: 'primary' };
-
-      wrapper = renderWithTheme(mockProps, singleButton, mount);
-
-      assertStyleMatch({
-        borderLeft: '1px solid #1e499f'
-      }, wrapper.find(StyledSplitButtonToggle));
-    });
-
-    it('applies the expecred styles to the toggle when disabled is false and the displayed prop is true', () => {
-      wrapper = TestRenderer.create(
-        <ThemeProvider theme={ ClassicTheme }>
-          <StyledSplitButtonToggle displayed />
-        </ThemeProvider>
-      );
-
-      assertStyleMatch({
-        backgroundColor: '#1963f6',
-        borderColor: '#1963f6'
-      }, wrapper.toJSON(), { modifier: '&:active' });
-
-      assertStyleMatch({
-        backgroundColor: '#1e499f',
-        borderColor: '#1e499f'
-      }, wrapper.toJSON(), { modifier: '&&' });
-    });
-  });
-
   describe.each(sizes)(
     'when the "%s" size prop is passed',
     (size) => {
-      describe.each(businessThemes)(
+      describe.each(carbonThemesJestTable)(
         'with the "%s" business theme',
         (name, theme) => {
           it('has the expected styling', () => {
@@ -305,7 +216,7 @@ describe('SplitButton', () => {
         ];
 
         const themedWrapper = mount(
-          <StyledSplitButtonChildrenContainer theme={ ClassicTheme }>
+          <StyledSplitButtonChildrenContainer theme={ classicTheme }>
             { children }
           </StyledSplitButtonChildrenContainer>
         );
@@ -619,6 +530,63 @@ describe('SplitButton', () => {
 
     afterEach(() => {
       wrapper.unmount();
+    });
+  });
+
+  describe('when the theme is set to Classic', () => {
+    it('renders styles correctly', () => {
+      wrapper = renderWithTheme({ carbonTheme: classicTheme }, singleButton, TestRenderer.create);
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('renders Toggle Button left border as expected', () => {
+      const mockProps = { carbonTheme: classicTheme, buttonType: 'primary' };
+
+      wrapper = renderWithTheme(mockProps, singleButton, mount);
+
+      assertStyleMatch({
+        borderLeft: '1px solid #1e499f'
+      }, wrapper.find(StyledSplitButtonToggle));
+    });
+
+    it('applies the expected styles to the toggle when disabled is false and the displayed prop is true', () => {
+      wrapper = renderWithTheme({ carbonTheme: classicTheme }, singleButton, mount);
+      simulateFocusOnToggle(wrapper);
+
+      assertStyleMatch({
+        backgroundColor: '#1963f6',
+        borderColor: '#1963f6'
+      }, wrapper.find(StyledSplitButtonToggle), { modifier: '&:active' });
+
+      assertStyleMatch({
+        backgroundColor: '#1e499f',
+        borderColor: '#1e499f'
+      }, wrapper.find(StyledSplitButtonToggle), { modifier: '&&' });
+    });
+
+    describe('and the Split Button Menu is open', () => {
+      beforeEach(() => {
+        wrapper = renderWithTheme({ carbonTheme: classicTheme }, singleButton, mount);
+        simulateFocusOnToggle(wrapper);
+      });
+
+      it('its buttons should have the expected border', () => {
+        assertStyleMatch({
+          backgroundColor: '#1e499f',
+          border: '1px solid #1e499f'
+        }, wrapper.find(StyledSplitButtonChildrenContainer), { modifier: `${StyledButton}` });
+      });
+
+      it('its buttons should have the expected background when focused', () => {
+        wrapper.find('button').at(0).simulate('focus');
+        assertStyleMatch({
+          backgroundColor: '#163777'
+        }, wrapper.find(StyledSplitButtonChildrenContainer), { modifier: `${StyledButton}:focus` });
+      });
+
+      afterEach(() => {
+        wrapper.unmount();
+      });
     });
   });
 });

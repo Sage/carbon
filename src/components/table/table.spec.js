@@ -16,7 +16,7 @@ import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Pager from '../pager';
 import BaseTheme from '../../style/themes/base';
 import ClassicTheme from '../../style/themes/classic';
-import SmallTheme from '../../style/themes/small';
+import mintTheme from '../../style/themes/mint';
 import Link from '../link';
 
 describe('Table', () => {
@@ -1113,7 +1113,7 @@ describe('Table', () => {
           const wrapper = mount(
             <StyledTable
               isZebra
-              theme={ SmallTheme }
+              theme={ mintTheme }
               tableType={ type }
             />
           );
@@ -1142,7 +1142,7 @@ describe('Table', () => {
         const wrapper = TestRenderer.create(
           <StyledTable
             isZebra
-            theme={ SmallTheme }
+            theme={ mintTheme }
             size={ size }
           />
         );
@@ -1172,11 +1172,11 @@ describe('Table', () => {
     describe.each(['primary', 'dark', 'secondary', 'light', 'tertiary', 'transparent'])(
       'when the table type is %s',
       (type) => {
-        it(`renders to match the expected style for a small themed configurable table of ${type} type`, () => {
+        it(`renders to match the expected style for a mint themed configurable table of ${type} type`, () => {
           const wrapper = mount(
             <StyledInternalTableWrapper
               onConfigure
-              theme={ SmallTheme }
+              theme={ mintTheme }
               tableType={ type }
             />
           );

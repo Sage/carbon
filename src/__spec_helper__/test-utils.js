@@ -1,3 +1,5 @@
+import { carbonThemeList } from '../style/themes';
+
 const isUpper = char => char.toUpperCase() === char;
 const humpToDash = (acc, char) => `${acc}${isUpper(char) ? `-${char.toLowerCase()}` : char}`;
 
@@ -93,6 +95,8 @@ const assertCorrectTraversal = method => expect => ({ num, nonSelectables = [] }
 const assertKeyboardTraversal = assertCorrectTraversal(() => keyboard.pressDownArrow)(expect);
 const assertHoverTraversal = assertCorrectTraversal(wrapper => hoverList(wrapper))(expect);
 
+const carbonThemesJestTable = carbonThemeList.map(theme => [theme.name, theme]);
+
 export {
   assertStyleMatch,
   toCSSCase,
@@ -105,5 +109,6 @@ export {
   assertHoverTraversal,
   listFrom,
   click,
-  simulate
+  simulate,
+  carbonThemesJestTable
 };

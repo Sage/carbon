@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { ThemeProvider, css } from 'styled-components';
 import { mergeDeep } from '../../style/utils/merge-deep';
-import small from '../../style/themes/small';
+import mintTheme from '../../style/themes/mint';
 import { mergeWithBase } from '../../style/themes/base';
 import Icon from '../icon';
 import { MenuClassic, MenuItemClassic, MenuButtonClassic } from './action-popover-classic.style';
@@ -76,7 +76,7 @@ const iconThemeProviderFactory = themeFn => (Component) => {
   const customTheme = (palette) => {
     const color = themeFn(palette);
     return (mergeDeep(
-      small,
+      mintTheme,
       {
         icon: {
           default: color,
