@@ -717,13 +717,13 @@ describe('Table', () => {
       const configureLink = wrapper.find(Link);
 
       expect(configureLink.length).toEqual(1);
-      configureLink.find('a').simulate('click', { preventDefault: () => {} });
+      configureLink.find('button').simulate('click', { preventDefault: () => {} });
       expect(onConfigureSpy).toHaveBeenCalled();
     });
   });
 
   describe('emitOptions', () => {
-    it('gathers all relevent props to emit', () => {
+    it('gathers all relevant props to emit', () => {
       expect(instancePager.emitOptions()).toEqual({
         currentPage: '1',
         filter: {},
