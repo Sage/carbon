@@ -39,11 +39,11 @@ describe('Link', () => {
 
   describe('when component has classic theme', () => {
     it('should render correct style', () => {
-      expect(renderWithTheme({}, classicTheme)).toMatchSnapshot();
+      expect(renderWithTheme({ to: 'foo' }, classicTheme)).toMatchSnapshot();
     });
 
     it('should render correct style when disabled', () => {
-      expect(renderWithTheme({ disabled: true }, classicTheme)).toMatchSnapshot();
+      expect(renderWithTheme({ disabled: true, to: 'foo' }, classicTheme)).toMatchSnapshot();
     });
   });
 
@@ -139,14 +139,16 @@ describe('Link', () => {
 
     describe('and a `href` prop has been received', () => {
       it('should not trigger `onClick` prop', () => {
-        wrapper.setProps({ href: '#', onKeyDown: onKeyDownFn, onClick: onClickFn });
+        wrapper.setProps({
+          href: '#', onKeyDown: onKeyDownFn, onClick: onClickFn, to: 'foo'
+        });
         wrapper.find('a').simulate('keydown', { which: 13 });
 
         expect(onClickFn).not.toHaveBeenCalled();
       });
     });
 
-    describe('and a `to` props has been recevied', () => {
+    describe('and a `to` props has been received', () => {
       it('should trigger `onClick` prop', () => {
         wrapper.setProps({ to: 'testRoute', onClick: onClickFn });
         wrapper.find(RouterLink).simulate('keydown', { which: 13 });
