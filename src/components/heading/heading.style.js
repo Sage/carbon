@@ -1,10 +1,30 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Icon from '../icon';
 import StyledIcon from '../icon/icon.style';
 import baseTheme from '../../style/themes/base';
+import StyledLink from '../link/link.style';
+import { isClassic } from '../../utils/helpers/style-helper';
 
 const StyledHeading = styled.div`
   width: 100%;
+  &&&& ${StyledLink} {
+    a, button {
+      text-decoration: none;
+      padding-top: ${({ divider }) => (divider ? '8px' : '1px')};
+    }
+    
+    ${({ divider, subheader, theme }) => !isClassic(theme) && css`
+      margin-top: ${(!divider ? '-16px' : '')};
+      margin-top: ${(!subheader ? '-22px' : '')};
+      margin-top: ${(!divider && !subheader ? '-12px' : '')};
+      margin-top: ${(divider && !subheader ? '-14px' : '')};
+    `}
+
+    ${({ divider, subheader, theme }) => isClassic(theme) && css`
+      margin-top: ${!divider && subheader ? '-14px' : ''};
+      margin-top: ${!divider && !subheader ? '-10px' : ''};
+    `}
+  }
 `;
 
 const StyledHeadingIcon = styled(Icon)`

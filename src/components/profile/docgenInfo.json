@@ -92,6 +92,13 @@
           "required": false,
           "description": "Allow to setup size for the component"
         },
+        "src": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Import an image from a src url"
+        },
         "theme": {
           "type": {
             "name": "object"

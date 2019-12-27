@@ -149,6 +149,7 @@ function commonKnobs() {
     labelHelp: text('labelHelp', 'Switch off and on this component.'),
     labelInline: boolean('labelInline', false),
     loading: boolean('loading', false),
+    onBlur: action('onBlur'),
     inputWidth: number('inputWidth', 0, {
       range: true,
       min: 0,

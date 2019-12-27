@@ -5,7 +5,7 @@ import 'jest-styled-components';
 import { ThemeProvider } from 'styled-components';
 import guid from '../../utils/helpers/guid';
 import classicTheme from '../../style/themes/classic';
-import smallTheme from '../../style/themes/small';
+import mintTheme from '../../style/themes/mint';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import ButtonToggleGroup from './button-toggle-group.component';
 import ButtonToggle from '../button-toggle/button-toggle.component';
@@ -23,7 +23,7 @@ describe('ButtonToggleGroup', () => {
   });
   describe('Modern theme', () => {
     it('renders correctly with default settings', () => {
-      const wrapper = renderWithTheme({ theme: smallTheme });
+      const wrapper = renderWithTheme({ theme: mintTheme });
       expect(wrapper).toMatchSnapshot();
     });
   });
@@ -37,7 +37,7 @@ describe('ButtonToggleGroup', () => {
   });
   describe('When validating', () => {
     it('renders ButtonToggle errors correctly', () => {
-      const wrapper = renderWithTheme({ theme: smallTheme, errorMessage: 'error' }).toJSON();
+      const wrapper = renderWithTheme({ theme: mintTheme, errorMessage: 'error' }).toJSON();
       expect(wrapper).toMatchSnapshot();
     });
   });

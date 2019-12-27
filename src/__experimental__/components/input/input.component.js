@@ -20,6 +20,7 @@ class Input extends React.Component {
     onClick: PropTypes.func,
     onKeyDown: PropTypes.func,
     onFocus: PropTypes.func,
+    autoFocus: PropTypes.bool,
     onChange: PropTypes.func,
     onChangeDeferred: PropTypes.func,
     deferTimeout: PropTypes.number,
@@ -33,6 +34,7 @@ class Input extends React.Component {
   componentDidMount() {
     if (this.props.inputRef) this.props.inputRef(this.input);
     if (this.context && this.context.inputRef) this.context.inputRef(this.input);
+    if (this.props.autoFocus && this.input.current) this.input.current.focus();
   }
 
   handleClick = (ev) => {
@@ -105,7 +107,9 @@ function selectTextOnFocus(input) {
     const cursorEnd = input.current.selectionEnd;
     // only select text if cursor is at the very end or the very start of the value
     if ((cursorStart === 0 && cursorEnd === 0) || (cursorStart === length && cursorEnd === length)) {
-      input.current.setSelectionRange(0, length);
+      if (document.activeElement === input.current) {
+        input.current.setSelectionRange(0, length);
+      }
     }
   });
 }

@@ -3,10 +3,11 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import DateInput, { defaultDateFormat, BaseDateInput } from './date.component';
+import InputIconToggle from '../input-icon-toggle';
 import DatePicker from './date-picker.component';
 import Textbox from '../textbox';
 import StyledDateInput from './date.style';
-import { THEMES } from '../../../style/themes';
+import { classicTheme } from '../../../style/themes';
 import DateHelper from '../../../utils/helpers/date/date';
 import { isEdge } from '../../../utils/helpers/browser-type-check';
 
@@ -21,10 +22,7 @@ describe('StyledDateInput', () => {
   });
 
   it('renders correctly for the "classic" theme', () => {
-    const mockTheme = {
-      name: THEMES.classic
-    };
-    const wrapper = TestRenderer.create(<StyledDateInput theme={ mockTheme } />);
+    const wrapper = TestRenderer.create(<StyledDateInput theme={ classicTheme } />);
     expect(wrapper).toMatchSnapshot();
   });
 });
@@ -503,6 +501,22 @@ describe('Date', () => {
       });
     });
 
+    describe.each([
+      { disabled: true, readOnly: false },
+      { disabled: false, readOnly: true },
+      { disabled: true, readOnly: true }
+    ])('The date picker', (props) => {
+      it(`does not call "openDatePicker" when disabled is ${props.disabled} and readOnly is ${props.readOnly}`, () => {
+        wrapper = render({});
+        wrapper.find(InputIconToggle).props().onClick();
+        wrapper.setProps({ ...props });
+        wrapper.update();
+        wrapper.find(DatePicker).parent().props().onClick();
+        wrapper.update();
+        expect(spyOn(wrapper.find(BaseDateInput).instance(), 'openDatePicker')).not.toBeCalled();
+      });
+    });
+
     describe('on an external element', () => {
       const nativeClickEvent = new Event('click', { bubbles: true, cancelable: true });
       let domNode;
@@ -590,6 +604,27 @@ describe('Date', () => {
 
       expect(wrapper.find(BaseDateInput).state().validationsArray.length).toEqual(2);
     });
+  });
+});
+
+describe('when the calendar icon is clicked', () => {
+  it('opens the picker, if it is not already open, and closes it on the next click', () => {
+    const wrapper = render({});
+    wrapper.find(InputIconToggle).props().onClick();
+    wrapper.update();
+    expect(wrapper.find(DatePicker).exists()).toBe(true);
+    wrapper.find(InputIconToggle).props().onClick();
+    wrapper.update();
+    expect(wrapper.find(DatePicker).exists()).toBe(false);
+  });
+
+  it('does not close the picker when the picker onClick is called', () => {
+    const wrapper = render({});
+    wrapper.find(InputIconToggle).props().onClick();
+    wrapper.update();
+    wrapper.find(DatePicker).parent().props().onClick();
+    wrapper.update();
+    expect(wrapper.find(DatePicker).exists()).toBe(true);
   });
 });
 

@@ -1,10 +1,12 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { withThemesProvider } from 'storybook-addon-styled-component-theme';
-import classic from '../src/style/themes/classic';
-import small from '../src/style/themes/small';
-import medium from '../src/style/themes/medium';
-import none from '../src/style/themes/none';
+import { noTheme, classicTheme, carbonThemeList } from '../src/style/themes';
+
+const carbonThemes = carbonThemeList.reduce((themesObject, theme) => {
+  themesObject[theme.name] = theme;
+  return themesObject
+}, {});
 
 /**
  * Detects whether the current window is the topmost window in the window hierarchy
@@ -26,7 +28,11 @@ export default function getThemeDecorator() {
 
   const queryStringThemeName = (new URLSearchParams(window.location.search)).get('theme');
 
-  const themesMap = { classic, small, medium, none };
+  const themesMap = { 
+    classic: classicTheme,
+    ...carbonThemes,
+    none: noTheme
+  };
 
   const themeDecorator = (story, storyArgs) => {
     const storyThemeName = (

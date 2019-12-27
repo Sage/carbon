@@ -1,8 +1,8 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import 'jest-styled-components';
 import { shallow, mount } from 'enzyme';
 import Heading from './heading';
+import { StyledHeading } from './heading.style';
 import Help from './../help';
 import Link from './../link';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
@@ -11,7 +11,8 @@ import DefaultPages from '../pages/pages.component'
 import Page from '../pages/page/page.component'
 import { PagesContent } from '../pages/pages.style';
 import LinkStyleAnchor from '../link/link.style';
-import smallTheme from '../../style/themes/small'
+import mintTheme from '../../style/themes/mint'
+import classicTheme from '../../style/themes/classic'
 
 describe('Heading', () => {
   let instance;
@@ -48,22 +49,43 @@ describe('Heading', () => {
     expect(link.props.href).toEqual('/foobar');
   });
 
-  it('renders a back link with focus support on Internet Explorer', () => {
+  it('renders a back link as a button with focus support on Internet Explorer', () => {
     const wrapper = mount(
       <DefaultPages>
         <Page title={
           <Heading title='My Second Page' backLink={() => { }} />
         }
-        >test
-          </Page>
-      </DefaultPages>)
+        >
+          test
+        </Page>
+      </DefaultPages>);
 
     const link = wrapper.find(Link);
-    link.find('a').simulate('mousedown');
+    link.find('button').simulate('mousedown');
 
     assertStyleMatch({
-      outline: `solid 3px ${smallTheme.colors.focus}`
-    }, wrapper.find(PagesContent), { modifier: `${LinkStyleAnchor} a:focus` })
+      outline: `solid 3px ${mintTheme.colors.focus}`
+    }, wrapper.find(PagesContent), { modifier: `&&&& ${LinkStyleAnchor} button:focus` })
+  });
+
+  it('renders a back link and applies the expected style for classic theme with a subheader and no divider', () => {
+    const wrapper = mount(
+      <StyledHeading theme={ classicTheme } subheader='foo' />
+    );
+
+    assertStyleMatch({
+      marginTop: '-14px'
+    }, wrapper, { modifier: `&&&& ${LinkStyleAnchor}`})
+  });
+
+  it('renders a back link and applies the expected style for classic theme with no divider or subheader', () => {
+    const wrapper = mount(
+      <StyledHeading theme={ classicTheme } />
+    );
+
+    assertStyleMatch({
+      marginTop: '-10px'
+    }, wrapper, { modifier: `&&&& ${LinkStyleAnchor}`})
   });
 
   it('renders a subheader', () => {

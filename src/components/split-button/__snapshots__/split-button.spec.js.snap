@@ -26,20 +26,6 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   display: block;
 }
 
-.c6:hover .c4 {
-  color: #FFFFFF;
-}
-
-.c6 .c4 {
-  margin-left: 8px;
-  margin-right: 0px;
-  height: 16px;
-}
-
-.c6 .c4 svg {
-  margin-top: 0;
-}
-
 .c2 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -193,86 +179,6 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   margin-left: 0;
 }
 
-.c7 .c1 {
-  background-color: #006045;
-  border: 1px solid #006045;
-  color: #FFFFFF;
-  display: block;
-  margin-left: 0;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  min-width: 100%;
-  z-index: 10;
-}
-
-.c7 .c1:focus,
-.c7 .c1:hover {
-  background-color: #003F2E;
-}
-
-.c7 .c1 + .c10 .c1 {
-  margin-top: 3px;
-}
-
-.c7 .c1 {
-  background-color: #1e499f;
-  border: 1px solid #1e499f;
-  color: #FFF;
-  height: 31px;
-  -webkit-letter-spacing: 0;
-  -moz-letter-spacing: 0;
-  -ms-letter-spacing: 0;
-  letter-spacing: 0;
-  padding: 0 18px;
-}
-
-.c7 .c1:focus,
-.c7 .c1:hover {
-  background-color: #163777;
-}
-
-.c8 .c1 {
-  background-color: #006045;
-  border: 1px solid #006045;
-  color: #FFFFFF;
-  display: block;
-  margin-left: 0;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  min-width: 100%;
-  z-index: 10;
-}
-
-.c8 .c1:focus,
-.c8 .c1:hover {
-  background-color: #003F2E;
-}
-
-.c8 .c1 + .c10 .c1 {
-  margin-top: 3px;
-}
-
-.c9 .c1 {
-  background-color: #005B9A;
-  border: 1px solid #005B9A;
-  color: #FFFFFF;
-  display: block;
-  margin-left: 0;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  min-width: 100%;
-  z-index: 10;
-}
-
-.c9 .c1:focus,
-.c9 .c1:hover {
-  background-color: #004372;
-}
-
-.c9 .c1 + .c10 .c1 {
-  margin-top: 3px;
-}
-
 <div
   aria-haspopup="true"
   className="c0"
@@ -328,7 +234,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 </div>
 `;
 
-exports[`SplitButton for the classic theme renders styles correctly 1`] = `
+exports[`SplitButton when the theme is set to Classic renders styles correctly 1`] = `
 .c5 {
   display: inline-block;
   position: relative;
@@ -379,17 +285,13 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 }
 
 .c6 .c4 {
-  margin-left: 8px;
-  margin-right: 0px;
+  margin-left: 0px;
+  margin-right: 8px;
   height: 16px;
 }
 
 .c6 .c4 svg {
   margin-top: 0;
-}
-
-.c7:hover .c4 {
-  color: #FFFFFF;
 }
 
 .c7 .c4 {
@@ -412,13 +314,63 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   margin-top: 0;
 }
 
+.c9:hover .c4 {
+  color: #FFFFFF;
+}
+
 .c9 .c4 {
+  margin-left: 8px;
+  margin-right: 0px;
+  height: 16px;
+}
+
+.c9 .c4 svg {
+  margin-top: 0;
+}
+
+.c10:hover .c4 {
+  color: #FFFFFF;
+}
+
+.c10 .c4 {
+  margin-left: 8px;
+  margin-right: 0px;
+  height: 16px;
+}
+
+.c10 .c4 svg {
+  margin-top: 0;
+}
+
+.c11:hover .c4 {
+  color: #FFFFFF;
+}
+
+.c11 .c4 {
+  margin-left: 8px;
+  margin-right: 0px;
+  height: 16px;
+}
+
+.c11 .c4 svg {
+  margin-top: 0;
+}
+
+.c12:hover .c4 {
+  color: #FFFFFF;
+}
+
+.c12:hover .c4 {
+  color: rgba(0,0,0,0.3);
+}
+
+.c12 .c4 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c9 .c4 svg {
+.c12 .c4 svg {
   margin-top: 0;
 }
 
@@ -510,11 +462,11 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   margin-top: 0;
 }
 
-.c10 > .c1 {
+.c13 > .c1 {
   margin: 0;
 }
 
-.c10 > .c1:focus {
+.c13 > .c1:focus {
   border: 3px solid #FFB500;
   outline: none;
   margin: -1px;
@@ -540,65 +492,126 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   margin: 0;
 }
 
-.c11:hover .c4 {
+.c14:hover .c4 {
   color: #FFFFFF;
 }
 
-.c11 .c4 {
+.c14 .c4 {
   margin-left: 8px;
   margin-right: 0px;
   height: 16px;
 }
 
-.c11 .c4 svg {
+.c14 .c4 svg {
   margin-top: 0;
 }
 
-.c1 + .c11 {
+.c1 + .c14 {
   margin-left: 0;
 }
 
-.c1 + .c11:focus {
+.c1 + .c14:focus {
   margin-left: -3px;
 }
 
-.c1 + .c11 .c4 {
+.c1 + .c14 .c4 {
   margin-left: 0;
 }
 
-.c12 .c4 {
+.c15 .c4 {
   margin-left: 8px;
   margin-right: 0px;
   height: 16px;
 }
 
-.c12 .c4 svg {
+.c15 .c4 svg {
   margin-top: 0;
 }
 
-.c1 + .c12 {
+.c1 + .c15 {
   margin-left: 0;
 }
 
-.c1 + .c12 .c4 {
+.c1 + .c15 .c4 {
   margin-left: 0;
 }
 
-.c13 .c4 {
+.c16 .c4 {
   margin-left: 8px;
   margin-right: 0px;
   height: 16px;
 }
 
-.c13 .c4 svg {
+.c16 .c4 svg {
   margin-top: 0;
 }
 
-.c1 + .c13 {
+.c1 + .c16 {
   margin-left: 0;
 }
 
-.c1 + .c13 .c4 {
+.c1 + .c16 .c4 {
+  margin-left: 0;
+}
+
+.c17:hover .c4 {
+  color: #FFFFFF;
+}
+
+.c17 .c4 {
+  margin-left: 8px;
+  margin-right: 0px;
+  height: 16px;
+}
+
+.c17 .c4 svg {
+  margin-top: 0;
+}
+
+.c17,
+.c17 .c4 {
+  color: #FFFFFF;
+}
+
+.c1 + .c17 {
+  margin-left: 0;
+}
+
+.c1 + .c17:focus {
+  margin-left: -3px;
+}
+
+.c1 + .c17 .c4 {
+  margin-left: 0;
+}
+
+.c18:hover .c4 {
+  color: #FFFFFF;
+}
+
+.c18:hover .c4 {
+  color: rgba(0,0,0,0.3);
+}
+
+.c18 .c4 {
+  margin-left: 8px;
+  margin-right: 0px;
+  height: 16px;
+}
+
+.c18 .c4 svg {
+  margin-top: 0;
+}
+
+.c1 + .c18 {
+  margin-left: 0;
+}
+
+.c1 + .c18:focus {
+  margin-left: -3px;
+}
+
+.c1 + .c18 .c4 {
   margin-left: 0;
 }
 
@@ -711,7 +724,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   padding: 0 5px;
 }
 
-.c14 .c1 {
+.c19 .c1 {
   background-color: #006045;
   border: 1px solid #006045;
   color: #FFFFFF;
@@ -723,54 +736,16 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   z-index: 10;
 }
 
-.c14 .c1:focus,
-.c14 .c1:hover {
+.c19 .c1:focus,
+.c19 .c1:hover {
   background-color: #003F2E;
 }
 
-.c14 .c1 + .c17 .c1 {
+.c19 .c1 + .c23 .c1 {
   margin-top: 3px;
 }
 
-.c14 .c1 {
-  background-color: #1e499f;
-  border: 1px solid #1e499f;
-  color: #FFF;
-  height: 31px;
-  -webkit-letter-spacing: 0;
-  -moz-letter-spacing: 0;
-  -ms-letter-spacing: 0;
-  letter-spacing: 0;
-  padding: 0 18px;
-}
-
-.c14 .c1:focus,
-.c14 .c1:hover {
-  background-color: #163777;
-}
-
-.c15 .c1 {
-  background-color: #006045;
-  border: 1px solid #006045;
-  color: #FFFFFF;
-  display: block;
-  margin-left: 0;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  min-width: 100%;
-  z-index: 10;
-}
-
-.c15 .c1:focus,
-.c15 .c1:hover {
-  background-color: #003F2E;
-}
-
-.c15 .c1 + .c17 .c1 {
-  margin-top: 3px;
-}
-
-.c16 .c1 {
+.c20 .c1 {
   background-color: #005B9A;
   border: 1px solid #005B9A;
   color: #FFFFFF;
@@ -782,12 +757,72 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   z-index: 10;
 }
 
-.c16 .c1:focus,
-.c16 .c1:hover {
+.c20 .c1:focus,
+.c20 .c1:hover {
   background-color: #004372;
 }
 
-.c16 .c1 + .c17 .c1 {
+.c20 .c1 + .c23 .c1 {
+  margin-top: 3px;
+}
+
+.c21 .c1 {
+  background-color: #006045;
+  border: 1px solid #006045;
+  color: #FFFFFF;
+  display: block;
+  margin-left: 0;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  min-width: 100%;
+  z-index: 10;
+}
+
+.c21 .c1:focus,
+.c21 .c1:hover {
+  background-color: #003F2E;
+}
+
+.c21 .c1 + .c23 .c1 {
+  margin-top: 3px;
+}
+
+.c21 .c1 {
+  background-color: #1e499f;
+  border: 1px solid #1e499f;
+  color: #FFF;
+  height: 31px;
+  -webkit-letter-spacing: 0;
+  -moz-letter-spacing: 0;
+  -ms-letter-spacing: 0;
+  letter-spacing: 0;
+  padding: 0 18px;
+}
+
+.c21 .c1:focus,
+.c21 .c1:hover {
+  background-color: #163777;
+}
+
+.c22 .c1 {
+  background-color: #006300;
+  border: 1px solid #006300;
+  color: #FFFFFF;
+  display: block;
+  margin-left: 0;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  min-width: 100%;
+  text-align: left;
+  z-index: 10;
+}
+
+.c22 .c1:focus,
+.c22 .c1:hover {
+  background-color: #004400;
+}
+
+.c22 .c1 + .c23 .c1 {
   margin-top: 3px;
 }
 

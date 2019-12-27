@@ -8,7 +8,7 @@ const StyledIcon = styled(Icon)`
   cursor: pointer;
   margin-top: -8px;
   right: 40px;
-  top: 53px;
+  top: 60px;
   z-index: 1002;
   position: fixed;
   display: block;

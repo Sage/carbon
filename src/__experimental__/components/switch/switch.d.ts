@@ -14,7 +14,7 @@ export interface SwitchProps {
   labelInline?: boolean;
   labelWidth?: number | string;
   loading?: boolean;
-  onChange?: () => void;
+  onChange?: (ev: React.ChangeEvent<HTMLElement>) => void;
   reverse?: boolean;
   size?: string;
   theme?: object;

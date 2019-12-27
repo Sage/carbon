@@ -12,6 +12,8 @@ import { notes, info, infoValidations } from './documentation';
 import Textbox, { OriginalTextbox } from '.';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
+import AutoFocus from '../../../utils/helpers/auto-focus';
+import guid from '../../../utils/helpers/guid';
 
 OriginalTextbox.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -25,16 +27,7 @@ const defaultStoryPropsConfig = {
   inputWidthEnabled: true
 };
 
-function makeStory(name, themeSelector) {
-  const component = () => {
-    return (
-      <Textbox
-        placeholder={ text('placeholder') }
-        { ...getCommonTextboxStoryProps() }
-      />
-    );
-  };
-
+function makeStory(name, themeSelector, component) {
   const metadata = {
     themeSelector,
     info: {
@@ -49,36 +42,46 @@ function makeStory(name, themeSelector) {
   return [name, component, metadata];
 }
 
-function makeMultipleStory(name, themeSelector) {
-  const component = () => {
-    return ([
+const defaultTextbox = () => {
+  return (
+    <Textbox
+      placeholder={ text('placeholder') }
+      { ...getCommonTextboxProps() }
+    />
+  );
+};
 
-      <Textbox
-        placeholder={ text('placeholder') }
-        key='0'
-        { ...getCommonTextboxStoryProps() }
-      />,
-      <Textbox
-        placeholder={ text('placeholder') }
-        key='1'
-        { ...getCommonTextboxStoryProps() }
-      />
-    ]);
-  };
+const autoFocusTextbox = () => {
+  boolean('autoFocus', true);
+  return (
+    <Textbox
+      placeholder={ text('placeholder') }
+      { ...getCommonTextboxProps() }
+    />
+  );
+};
 
-  const metadata = {
-    themeSelector,
-    info: {
-      text: info,
-      propTables: [OriginalTextbox],
-      propTablesExclude: [State, Textbox]
-    },
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false }
-  };
+const multipleTextbox = () => {
+  const { key, ...rest } = getCommonTextboxProps();
 
-  return [name, component, metadata];
-}
+  return ([
+    <Textbox
+      placeholder={ text('placeholder') }
+      key='0'
+      { ...rest }
+    />,
+    <Textbox
+      placeholder={ text('placeholder') }
+      key={ key }
+      { ...rest }
+    />
+  ]);
+};
+
+const multipleTextboxAutoFocus = () => {
+  boolean('autoFocus', true);
+  return multipleTextbox();
+};
 
 function makeValidationsStory(name, themeSelector) {
   const store = new Store(
@@ -118,15 +121,21 @@ function makeValidationsStory(name, themeSelector) {
   return [name, component, metadata];
 }
 
+const previous = {
+  key: guid(),
+  autoFocus: false
+};
+
 storiesOf('Experimental/Textbox', module)
-  .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector))
-  .add(...makeMultipleStory('multiple', dlsThemeSelector))
+  .add(...makeStory('default', dlsThemeSelector, defaultTextbox))
+  .add(...makeStory('classic', classicThemeSelector, defaultTextbox))
+  .add(...makeStory('multiple', dlsThemeSelector, multipleTextbox))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
-  .add(...makeValidationsStory('validations classic', classicThemeSelector));
+  .add(...makeValidationsStory('validations classic', classicThemeSelector))
+  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusTextbox))
+  .add(...makeStory('multiple autoFocus', dlsThemeSelector, multipleTextboxAutoFocus));
 
-
-function getCommonTextboxStoryProps(config = defaultStoryPropsConfig) {
+function getCommonTextboxProps(config = defaultStoryPropsConfig) {
   const percentageRange = {
     range: true,
     min: 0,
@@ -135,6 +144,7 @@ function getCommonTextboxStoryProps(config = defaultStoryPropsConfig) {
   };
   const disabled = boolean('disabled', false);
   const readOnly = boolean('readOnly', false);
+  const autoFocus = boolean('autoFocus', false);
   const fieldHelp = text('fieldHelp');
   const label = text('label');
   const labelHelp = label ? text('labelHelp') : undefined;
@@ -143,10 +153,13 @@ function getCommonTextboxStoryProps(config = defaultStoryPropsConfig) {
   const inputWidth = labelInline && config.inputWidthEnabled ? number('inputWidth', 70, percentageRange) : undefined;
   const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
   const size = select('size', OptionsHelper.sizesRestricted, 'medium');
+  const key = AutoFocus.getKey(autoFocus, previous);
 
   return {
+    key,
     disabled,
     readOnly,
+    autoFocus,
     inputWidth,
     fieldHelp,
     label,
@@ -185,4 +198,4 @@ function lengthValidator(value) {
   });
 }
 
-export default getCommonTextboxStoryProps;
+export default getCommonTextboxProps;
