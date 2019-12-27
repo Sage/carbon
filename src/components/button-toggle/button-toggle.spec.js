@@ -4,10 +4,9 @@ import { ThemeProvider } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import guid from '../../utils/helpers/guid';
-import ClassicTheme from '../../style/themes/classic';
-import SmallTheme from '../../style/themes/small';
+import { classicTheme } from '../../style/themes';
 import ButtonToggle from './button-toggle.component';
-import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import { assertStyleMatch, carbonThemesJestTable } from '../../__spec_helper__/test-utils';
 import { StyledButtonToggleIcon } from './button-toggle.style';
 
 jest.mock('../../utils/helpers/guid');
@@ -16,12 +15,12 @@ guid.mockImplementation(() => 'guid-12345');
 describe('ButtonToggle', () => {
   describe('Classic theme', () => {
     it('renders correctly with default settings', () => {
-      const wrapper = renderWithTheme({ theme: ClassicTheme }, TestRenderer.create);
+      const wrapper = renderWithTheme({ theme: classicTheme }, TestRenderer.create);
       expect(wrapper).toMatchSnapshot();
     });
     it('renders correctly with large buttonIcon and large size', () => {
       const wrapper = renderWithTheme({
-        theme: ClassicTheme,
+        theme: classicTheme,
         buttonIcon: 'add',
         buttonIconSize: 'large',
         size: 'large'
@@ -34,7 +33,7 @@ describe('ButtonToggle', () => {
     });
     it('renders correctly with small size', () => {
       const wrapper = renderWithTheme({
-        theme: ClassicTheme,
+        theme: classicTheme,
         size: 'small'
       });
       assertStyleMatch({
@@ -45,16 +44,16 @@ describe('ButtonToggle', () => {
       }, wrapper.find('label'));
     });
   });
-  describe('Modern themes', () => {
-    it('renders correctly with small theme', () => {
+  describe.each(carbonThemesJestTable)('when the %s theme is set', (themeName, theme) => {
+    it('renders correct styles', () => {
       const wrapper = renderWithTheme({
-        theme: SmallTheme
+        theme
       }, TestRenderer.create);
       expect(wrapper).toMatchSnapshot();
     });
-    it('renders correctly with a large icon', () => {
+    it('renders correct styles for a large icon', () => {
       const wrapper = renderWithTheme({
-        theme: SmallTheme,
+        theme,
         buttonIcon: 'add',
         buttonIconSize: 'large'
       });
@@ -68,7 +67,7 @@ describe('ButtonToggle', () => {
   describe('General styling', () => {
     it('renders correctly when disabled', () => {
       const wrapper = renderWithTheme({
-        theme: ClassicTheme,
+        theme: classicTheme,
         disabled: true
       });
       assertStyleMatch({
@@ -79,7 +78,7 @@ describe('ButtonToggle', () => {
     });
     it('renders correctly with small icon', () => {
       const wrapper = renderWithTheme({
-        theme: ClassicTheme,
+        theme: classicTheme,
         buttonIcon: 'add',
         buttonIconSize: 'small'
       });
@@ -93,7 +92,7 @@ describe('ButtonToggle', () => {
         children: 'Text'
       };
       const wrapper = TestRenderer.create(
-        <ThemeProvider theme={ ClassicTheme }>
+        <ThemeProvider theme={ classicTheme }>
           <div>
             <ButtonToggle { ...props } />
             <ButtonToggle { ...props } />

@@ -10,7 +10,7 @@ import StyledInput from '../../../__experimental__/components/input/input.style'
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 import BaseTheme from '../../../style/themes/base';
 import ClassicTheme from '../../../style/themes/classic';
-import SmallTheme from '../../../style/themes/small';
+import mintTheme from '../../../style/themes/mint';
 import Date from '../../../__experimental__/components/date';
 import TextArea from '../../../__experimental__/components/textarea';
 import TextBox from '../../../__experimental__/components/textbox';
@@ -99,7 +99,7 @@ describe('TableCell', () => {
       'when the table size is %s', (size) => {
         it('renders an input that matches the expected style', () => {
           wrapper = mount(
-            <ThemeProvider theme={ SmallTheme }>
+            <ThemeProvider theme={ mintTheme }>
               <TableCell size={ size }>
                 <TextBox />
               </TableCell>
@@ -125,7 +125,7 @@ describe('TableCell', () => {
 
         it('renders a textarea that matches the expected style', () => {
           wrapper = mount(
-            <ThemeProvider theme={ SmallTheme }>
+            <ThemeProvider theme={ mintTheme }>
               <TableCell size={ size }>
                 <TextArea />
               </TableCell>
@@ -155,7 +155,7 @@ describe('TableCell', () => {
 
         it('renders to match the expected style for multiple textarea inputs', () => {
           wrapper = mount(
-            <ThemeProvider theme={ SmallTheme }>
+            <ThemeProvider theme={ mintTheme }>
               <TableCell size={ size }>
                 <TextArea />
                 <Date value='2012-12-11' />
@@ -186,7 +186,7 @@ describe('TableCell', () => {
 
         it('renders a Date input that matches the expected style', () => {
           wrapper = mount(
-            <ThemeProvider theme={ SmallTheme }>
+            <ThemeProvider theme={ mintTheme }>
               <TableCell size={ size }>
                 <Date value='2012-12-11' />
               </TableCell>
@@ -205,7 +205,7 @@ describe('TableCell', () => {
 
         it('renders to match the expected style for multiple Date inputs', () => {
           wrapper = mount(
-            <ThemeProvider theme={ SmallTheme }>
+            <ThemeProvider theme={ mintTheme }>
               <TableCell size={ size }>
                 <Date value='2012-12-11' />
                 <Date value='2012-12-11' />
