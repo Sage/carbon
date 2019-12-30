@@ -91,7 +91,13 @@ class Link extends React.Component {
   )
 
   createLinkBasedOnType = () => {
-    const type = this.props.to ? RouterLink : 'a';
+    let type = 'a';
+
+    if (this.props.to) {
+      type = RouterLink;
+    } else if (this.props.onClick) {
+      type = 'button';
+    }
 
     return React.createElement(
       type,

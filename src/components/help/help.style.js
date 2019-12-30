@@ -18,6 +18,7 @@ const StyledHelp = styled.div`
   margin-left: 8px;
   margin-top: 0;
   padding: 1px;
+  text-decoration: none;
 
   ${({ href }) => href && css`
     cursor: pointer;

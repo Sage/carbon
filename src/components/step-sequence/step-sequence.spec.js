@@ -5,7 +5,7 @@ import 'jest-styled-components';
 import StepSequence from './step-sequence.component';
 import StepSequenceItem from './step-sequence-item/step-sequence-item.component';
 import classicTheme from '../../style/themes/classic';
-import smallTheme from '../../style/themes/small';
+import mintTheme from '../../style/themes/mint';
 
 describe('StepSequence', () => {
   const wrapper = props => (
@@ -25,11 +25,11 @@ describe('StepSequence', () => {
   );
 
   it('renders correctly', () => {
-    expect(wrapper({ theme: smallTheme })).toMatchSnapshot();
+    expect(wrapper({ theme: mintTheme })).toMatchSnapshot();
   });
 
   it('renders correctly with vertical orientation', () => {
-    expect(wrapper({ theme: smallTheme, orientation: 'vertical' })).toMatchSnapshot();
+    expect(wrapper({ theme: mintTheme, orientation: 'vertical' })).toMatchSnapshot();
   });
 
   describe('Classic theme', () => {

@@ -20,8 +20,8 @@ import Service from '../../../utils/service';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import { isClassic } from '../../../utils/helpers/style-helper';
 import StyledButton from '../../../components/button/button.style';
-import Classic from '../../../style/themes/classic';
-import Small from '../../../style/themes/small';
+import classicTheme from '../../../style/themes/classic';
+import mintTheme from '../../../style/themes/mint';
 
 /* global jest */
 jest.mock('../../../utils/service');
@@ -809,7 +809,7 @@ describe('Form', () => {
           const styledWrapper = TestRenderer.create(
             <StyledResponsiveFooterWrapper
               showSummary hasAdditionalActions
-              theme={ Classic }
+              theme={ classicTheme }
             />
           ).toJSON();
 
@@ -851,7 +851,7 @@ describe('Form', () => {
             const actionWrapper = TestRenderer.create(
               <StyledAdditionalFormAction
                 type={ action }
-                theme={ Classic }
+                theme={ classicTheme }
               />
             );
 
@@ -912,7 +912,7 @@ describe('Form', () => {
   });
 
   describe('styling of form', () => {
-    describe.each([Classic, Small])(
+    describe.each([classicTheme, mintTheme])(
       'when the theme is passed',
       (theme) => {
         const props = {
@@ -937,7 +937,7 @@ describe('Form', () => {
 
     describe('when the stickyfooter is set true', () => {
       const props = {
-        formAction: 'foo', stickyFooter: true, theme: Classic, fixedBottom: true
+        formAction: 'foo', stickyFooter: true, theme: classicTheme, fixedBottom: true
       };
       const styledWrapper = mount(
         <Form

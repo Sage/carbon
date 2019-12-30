@@ -15,11 +15,14 @@ import { isClassic } from '../../utils/helpers/style-helper';
 import baseTheme from '../../style/themes/base';
 
 class Profile extends React.Component {
+  /** Determines whether a `src` prop has been supplied */
+  get hasSrc() {
+    return Boolean(this.props.src);
+  }
+
   /** Returns the classes for the component. */
   get classes() {
-    return classNames(
-      this.props.className
-    );
+    return classNames(this.props.className);
   }
 
   /** Returns the initials for the name. */
@@ -30,6 +33,18 @@ class Profile extends React.Component {
 
   /** Returns the avatar portion of the profile. */
   get avatar() {
+    if (this.hasSrc) {
+      return (
+        <ProfileAvatarStyle
+          src={ this.props.src }
+          alt={ this.initials }
+          initials={ this.initials }
+          size={ isClassic(this.props.theme) ? 'medium-small' : this.props.size }
+          shape='square'
+          data-element='user-image'
+        />
+      );
+    }
     return (
       <ProfileAvatarStyle
         initials={ this.initials }
@@ -42,7 +57,7 @@ class Profile extends React.Component {
   /** Returns the text portion of the profile. */
   get text() {
     return (
-      <ProfileDetailsStyle size={ this.props.size }>
+      <ProfileDetailsStyle size={ this.props.size } hasSrc={ this.hasSrc }>
         <ProfileNameStyle size={ this.props.size } data-element='name'>
           { this.props.name }
         </ProfileNameStyle>
@@ -57,6 +72,7 @@ class Profile extends React.Component {
     return (
       <ProfileStyle
         large={ this.props.large } className={ this.classes }
+        hasSrc={ this.hasSrc }
         { ...tagComponent('profile', this.props) }
       >
         { this.avatar }
@@ -69,6 +85,8 @@ class Profile extends React.Component {
 Profile.propTypes = {
   /** [Legacy] A custom class name for the component */
   className: PropTypes.string,
+  /** Custom source URL */
+  src: PropTypes.string,
   /** Define the name to display. */
   name: PropTypes.string.isRequired,
   /** Define the email to use (will check Gravatar for image). */
