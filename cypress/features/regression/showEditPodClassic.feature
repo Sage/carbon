@@ -142,7 +142,7 @@ Feature: Show Edit Pod component
       And I edit Show Edit Pod component
     Then Show Edit Pod buttons are aligned to right
 
-  @positive
+  @ignore
   Scenario: Delete action was called
     When I edit Show Edit Pod component
       And clear all actions in Actions Tab
