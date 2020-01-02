@@ -23,6 +23,7 @@ Feature: Experimental Fieldset component classic page
     Then legend on preview not exists
 
   @ignore
+  #ignored because of unnecessary checkbox in fieldset component
   Scenario: Verify Fieldset properties
     # Given I open "Experimental Fieldset" component page
     Then Fieldset component has proper field names
