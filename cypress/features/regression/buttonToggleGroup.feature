@@ -34,6 +34,7 @@ Feature: Button Toggle Group component
   # | <>                       |
 
   @ignore
+  # ignored because the width renders into px
   Scenario Outline: Change Button Toggle Group input width to <width>
     When I check labelInline checkbox
       And I set inputWidth to "<width>"
