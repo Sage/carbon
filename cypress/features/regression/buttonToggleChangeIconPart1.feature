@@ -4,7 +4,7 @@ Feature: Button Toggle component - set all possible icon and verify
   Background: Open Button Toggle component page
     Given I open "Button Toggle" component page
 
-  @negative
+  @positive
   Scenario: Change Button Toggle icon to null
     When I select buttonIcon to "null"
     Then Button icon not exists on preview
