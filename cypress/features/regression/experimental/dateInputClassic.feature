@@ -87,15 +87,15 @@ Feature: Experimental Date Input classic component
 
   @positive
   Scenario: Change Date Input component minDate
-    Given I set dateInput to today
-      And I set minDate to today
+    Given I set minDate to today
+      And I set dateInput to today
     When I choose date yesterday via DayPicker
     Then the date before minDate is not available
 
   @positive
   Scenario: Change Date Input component maxDate
-    Given I set dateInput to today
-      And I set maxDate to today
+    Given I set maxDate to today
+      And I set dateInput to today
     When I choose date tomorrow via DayPicker
     Then the date after maxDate is not available
 
