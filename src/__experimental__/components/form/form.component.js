@@ -485,6 +485,8 @@ function calculateCsrfValues(doc) {
 }
 
 FormWithoutValidations.propTypes = {
+  /** Unique Identifier for the form */
+  id: PropTypes.string,
 
   /** Warning popup shown when trying to navigate away from an edited form if true */
   unsavedWarning: PropTypes.bool,
@@ -597,6 +599,7 @@ FormWithoutValidations.propTypes = {
 };
 
 FormWithoutValidations.defaultProps = {
+  id: 'footer_form',
   buttonAlign: 'right',
   cancel: true,
   unsavedWarning: true,
