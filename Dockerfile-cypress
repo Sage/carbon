@@ -4,7 +4,7 @@ ENV APP_HOME /usr/src/app
 RUN mkdir -p $APP_HOME
 WORKDIR $APP_HOME
 
-COPY . ./
+COPY . $APP_HOME
 RUN rm package-lock.json
 
 # install packages
