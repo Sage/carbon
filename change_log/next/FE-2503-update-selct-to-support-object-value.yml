@@ -1,0 +1,3 @@
+New Features: "Loosens the prop-typing for `value` and `defaultValue`. The component now supports being initialized\n
+ with string and object (`{ value '', text: ''}`), to support projects that only populate the option list when the\n
+ component is interacted with. (Component: Select)"

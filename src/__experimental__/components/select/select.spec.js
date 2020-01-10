@@ -9,7 +9,7 @@ import guid from '../../../utils/helpers/guid';
 import Events from '../../../utils/helpers/events';
 import classic from '../../../style/themes/classic';
 import StyledIcon from '../../../components/icon/icon.style';
-import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import { assertStyleMatch, keyboard } from '../../../__spec_helper__/test-utils';
 import TextBox from '../textbox';
 
 jest.mock('../../../utils/helpers/guid');
@@ -36,10 +36,10 @@ const multiValueProp = options.map(({ value }) => value);
 const multiValueReturn = options.map(({ value, text }) => ({ optionValue: value, optionText: text }));
 
 describe('Select', () => {
-  const renderWrapper = ({ props, type = mount } = {}) => (
+  const renderWrapper = ({ props, type = mount, children = options } = {}) => (
     type(
       <Select { ...props }>
-        {options.map(({ value, text }) => (
+        {children.map(({ value, text }) => (
           <Option
             key={ text }
             text={ text }
@@ -213,8 +213,10 @@ describe('Select', () => {
     });
 
     it('does not trigger onChange if there is no values left to delete', () => {
-      const { props } = setupTest(wrapper => wrapper.setProps({ value: null }));
-      expect(props.onChange).not.toHaveBeenCalled();
+      const props = { value: '', onChange: jest.fn() };
+      const wrapper = renderWrapper({ props });
+      keyboard.pressBackSpace();
+      expect(wrapper.props().onChange).not.toHaveBeenCalled();
     });
   });
 
@@ -250,8 +252,10 @@ describe('Select', () => {
     });
 
     it('does not trigger onChange if there is no values left to delete', () => {
-      const { props } = setupTest(wrapper => wrapper.setProps({ value: [] }));
-      expect(props.onChange).not.toHaveBeenCalled();
+      const props = { value: [], onChange: jest.fn(), enableMultiSelect: true };
+      const wrapper = renderWrapper({ props });
+      keyboard.pressBackSpace();
+      expect(wrapper.props().onChange).not.toHaveBeenCalled();
     });
   });
 
@@ -306,6 +310,77 @@ describe('Select', () => {
       const props = { enableMultiSelect: true };
       const wrapper = renderWrapper({ props });
       expect(wrapper.state().value).toEqual([]);
+    });
+
+    it('supports being passed an array of objects as a value', () => {
+      const props = { value: [{ value: '1', text: 'foo' }], enableMultiSelect: true };
+      const wrapper = renderWrapper({ props });
+      expect(wrapper.state().value).toEqual(['1']);
+    });
+
+    it('supports being passed an array of objects as a defaultValue', () => {
+      const props = { defaultValue: [{ value: '1', text: 'foo' }], enableMultiSelect: true };
+      const wrapper = renderWrapper({ props });
+      expect(wrapper.state().value).toEqual(['1']);
+    });
+  });
+
+  describe('when no children are passed', () => {
+    const renderWithoutOptions = ({ props, type = mount } = {}) => (
+      type(
+        <Select { ...props } />
+      )
+    );
+
+    describe('and single-select is enabled', () => {
+      it('does not try to iterate over the missing options', () => {
+        const wrapper = renderWithoutOptions({});
+        expect(wrapper.instance().getTextForValue('')).toEqual('');
+      });
+
+      it('supports being passed an object as a value', () => {
+        const props = { value: { value: '1', text: 'foo' } };
+        const wrapper = renderWithoutOptions({ props });
+        expect(wrapper.state().value).toEqual('1');
+      });
+
+      it('supports being passed an object as a defaultValue', () => {
+        const props = { defaultValue: { value: '1', text: 'foo' } };
+        const wrapper = renderWithoutOptions({ props });
+        expect(wrapper.state().value).toEqual('1');
+      });
+
+      it('supports being passed a string as a value when children prop is falsy', () => {
+        const props = { value: 'foo' };
+        const wrapper = renderWithoutOptions({ props });
+        expect(wrapper.state().value).toEqual('foo');
+      });
+    });
+
+    describe('and multi-select is enabled', () => {
+      it('does not try to iterate over the missing options', () => {
+        const props = { enableMultiSelect: true };
+        const wrapper = renderWithoutOptions({ props });
+        expect(wrapper.instance().getTextForValue('')).toEqual(['']);
+      });
+
+      it('supports being passed an array of objects as a value', () => {
+        const props = { value: [{ value: '1', text: 'foo' }], enableMultiSelect: true };
+        const wrapper = renderWithoutOptions({ props });
+        expect(wrapper.state().value).toEqual(['1']);
+      });
+
+      it('supports being passed an array of objects as a defaultValue', () => {
+        const props = { defaultValue: [{ value: '1', text: 'foo' }], enableMultiSelect: true };
+        const wrapper = renderWithoutOptions({ props });
+        expect(wrapper.state().value).toEqual(['1']);
+      });
+
+      it('supports being passed an array of strings as a defaultValue', () => {
+        const props = { defaultValue: ['1'], enableMultiSelect: true };
+        const wrapper = renderWithoutOptions({ props });
+        expect(wrapper.state().value).toEqual(['1']);
+      });
     });
   });
 

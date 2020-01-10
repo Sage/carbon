@@ -29,6 +29,7 @@ const keyMap = {
   Escape: '27',
   End: '35',
   Home: '36',
+  BackSpace: '8',
   D: '68',
   E: '69',
   P: '80',

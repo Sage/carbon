@@ -32,14 +32,34 @@ class Select extends React.Component {
 
   isComponentControlled = (this.props.value !== undefined && this.props.value !== null);
 
+  initialValueIsObject() {
+    let iterableValue;
+    if (this.isComponentControlled) {
+      iterableValue = Array.isArray(this.props.value) ? this.props.value : [this.props.value];
+    } else {
+      iterableValue = Array.isArray(this.props.defaultValue) ? this.props.defaultValue : [this.props.defaultValue];
+    }
+    return iterableValue.every(val => Boolean(val && val.value && val.text));
+  }
+
   getInitialStateValue = () => {
     if (this.isComponentControlled) {
-      return this.props.value;
+      const { value } = this.props;
+      const initialValue = this.initialValueIsObject() ? value.value : value;
+      return this.props.enableMultiSelect ? value.map(val => val.value || val) : initialValue;
     }
     if (this.props.defaultValue !== undefined && this.props.defaultValue !== null) {
-      return this.props.defaultValue;
+      const { defaultValue } = this.props;
+      const initialValue = this.initialValueIsObject() ? defaultValue.value : defaultValue;
+      return this.props.enableMultiSelect ? defaultValue.map(val => val.value || val) : initialValue;
     }
     return (this.props.enableMultiSelect ? [] : '');
+  }
+
+  getInitialValueObject = () => {
+    if (this.props.children || !this.initialValueIsObject()) return undefined;
+
+    return this.isComponentControlled ? this.props.value : this.props.defaultValue;
   }
 
   state = {
@@ -47,6 +67,9 @@ class Select extends React.Component {
     filter: undefined,
     open: false
   }
+
+  // stores the values if initialised as object, supports deleting in multi-select mode
+  initialValuesAsObject = this.getInitialValueObject()
 
   blurBlocked = false // stops the blur callback from triggering (closing the list) when we don't want it to
 
@@ -118,9 +141,12 @@ class Select extends React.Component {
   getValue = () => {
     if (this.isComponentControlled) {
       this.verifyControlledIntegrity();
-      return this.props.value;
     }
     return this.state.value;
+  }
+
+  hasDuplicateMultiValues(values) {
+    return this.state.value.some(item => values.includes(item));
   }
 
   /**
@@ -129,7 +155,8 @@ class Select extends React.Component {
    */
   getMultiSelectValues = () => {
     invariant(this.props.enableMultiSelect, 'Cannot get multi-select value: `enableMultiSelect` prop is falsy');
-    const value = this.getValue();
+    const displayedValues = this.state.value;
+    const value = !this.hasDuplicateMultiValues(this.getValue()) ? this.getValue() : displayedValues;
     invariant(this.isMultiValue(value), 'Cannot get multi-select value: value is not an array');
     return value; // Guaranteed to be an array.
   }
@@ -170,7 +197,7 @@ class Select extends React.Component {
   handleKeyDown = (ev) => {
     // order of event checking is important here!
 
-    // if tab key then allow normal behaviour
+    // if tab key then allow normal behavior
     if (Events.isTabKey(ev)) {
       this.unblockBlur();
       return;
@@ -252,16 +279,19 @@ class Select extends React.Component {
 
     const strings = (this.isMultiValue(value) ? value : [value]);
 
-    const objects = strings.map(stringValue => ({
-      optionValue: stringValue,
-      optionText: this.getTextForValue(stringValue)
-    }));
+    const objects = strings.map((stringValue) => {
+      const text = this.getTextForValue(stringValue);
+      return {
+        optionValue: stringValue.value || stringValue,
+        optionText: text || ''
+      };
+    });
 
     const customEvent = {
       target: {
         ...(name && { name }),
         ...(id && { id }),
-        value: objects
+        value: objects.filter(Boolean)
       }
     };
 
@@ -292,18 +322,34 @@ class Select extends React.Component {
     invariant(!this.isMultiSelectEnabled(), 'Cannot remove single-select item: Component not in single-select mode');
 
     const value = this.getValue();
-
     if (!this.state.filter && !!value) {
       this.triggerChange('');
     }
+  }
+
+  handleForNoOptions(value) {
+    if (value) {
+      if (this.props.enableMultiSelect) {
+        const initialValues = this.isComponentControlled ? this.props.value : this.props.defaultValue;
+        const iterableValues = this.initialValuesAsObject || initialValues;
+        const matchingOption = iterableValues.find(option => (option.value === value));
+        return matchingOption ? matchingOption.text : '';
+      }
+
+      const initialValue = this.isComponentControlled ? this.props.value : this.props.defaultValue;
+      return initialValue.text && initialValue.value ? initialValue.text : initialValue;
+    }
+    return this.props.enableMultiSelect ? [''] : '';
   }
 
   /**
    * Finds the <Option> child with the specified `value` prop, and returns its `text` prop.
    */
   getTextForValue = (value) => {
-    const optionsComponents = this.props.children;
-    const matchingOption = optionsComponents.find(option => (option.props.value === value));
+    if (!this.props.children) {
+      return this.handleForNoOptions(value);
+    }
+    const matchingOption = this.props.children.find(option => (option.props.value === value));
     return matchingOption ? matchingOption.props.text : '';
   }
 
@@ -320,18 +366,23 @@ class Select extends React.Component {
 
   renderMultiValues(values) {
     const canDelete = !this.props.disabled && !this.props.readOnly;
-
     return (
-      values.map((value, index) => (
-        <StyledSelectPillContainer key={ value }>
-          <Pill
-            onDelete={ canDelete ? () => this.removeMultiItem(index) : undefined }
-            title={ this.getTextForValue(value) }
-          >
-            { this.getTextForValue(value) }
-          </Pill>
-        </StyledSelectPillContainer>
-      ))
+      values.map((value, index) => {
+        const title = this.getTextForValue(value);
+
+        if (!title || !title.length) return null;
+
+        return (
+          <StyledSelectPillContainer key={ value }>
+            <Pill
+              onDelete={ canDelete ? () => this.removeMultiItem(index) : undefined }
+              title={ title }
+            >
+              { title }
+            </Pill>
+          </StyledSelectPillContainer>
+        );
+      })
     );
   }
 
@@ -468,7 +519,9 @@ class Select extends React.Component {
 
 const valuePropType = PropTypes.oneOfType([
   PropTypes.string, // Single-select mode
-  PropTypes.arrayOf(PropTypes.string) // Multi-select mode
+  PropTypes.shape({ value: PropTypes.string, text: PropTypes.string }),
+  PropTypes.arrayOf(PropTypes.string), // Multi-select mode
+  PropTypes.arrayOf(PropTypes.shape({ value: PropTypes.string, text: PropTypes.string }))
 ]);
 
 Select.propTypes = {
@@ -481,7 +534,7 @@ Select.propTypes = {
   disabled: PropTypes.bool,
   /** Label text for the <Textbox> */
   label: PropTypes.string,
-  /** Flag to indicite whether select list is loopable while traversing using up and down keys */
+  /** Flag to indicate whether select list is loopable while traversing using up and down keys */
   isLoopable: PropTypes.bool,
   /** A custom callback for the <Textbox>'s Blur event */
   onBlur: PropTypes.func,
