@@ -20,12 +20,12 @@ export interface SelectProps {
   isLoopable?: boolean;
   name?: string;
   leftChildren?: React.ReactNode;
-  onBlur?(): void;
-  onChange?(): void;
-  onFocus?(): void;
-  onFilter?(): void;
-  onOpen?(): void;
-  onLazyLoad?(): void;
+  onBlur?: () => void;
+  onChange?: () => void;
+  onFocus?: () => void;
+  onFilter?: () => void;
+  onOpen?: () => void;
+  onLazyLoad?: () => void;
   placeholder?: string;
   preventFocusAutoOpen?: boolean;
   readOnly?: boolean;
