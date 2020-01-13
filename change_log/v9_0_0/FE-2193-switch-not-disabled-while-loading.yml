@@ -1,1 +1,0 @@
-Bug Fixes: "Fixed issue with Switch only being disabled while loading prop passed as true if classic theme is selected. (Component: Switch)"

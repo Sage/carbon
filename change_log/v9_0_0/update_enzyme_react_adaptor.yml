@@ -1,1 +1,0 @@
-Dependency Updates: "Upgrade to `enzyme-adapter-react-16@1.14.0`, `@types/enzyme-adapter-react-16@1.0.5`, `@types/enzyme@3.10.3` to make testing functional components using hooks easier."

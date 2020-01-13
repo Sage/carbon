@@ -1,1 +1,0 @@
-Bug Fixes: "Fixes documentation 'info' and 'note' implementation to avoid duplication that was triggering not unique key console warning. (Component: TableAjax). Fixes totalRecords prop, which will now be accepted and passed as a Number not as a String. (Component: TableAjax)"

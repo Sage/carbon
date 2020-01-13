@@ -1,1 +1,0 @@
-New Features: "Added support for functionality introduced in `v8.1.1` where an `isPassiveData` option prop can be set to turn off `TableRow` hover styling. (Component: TableRow)"
