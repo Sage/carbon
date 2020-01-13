@@ -1,3 +1,0 @@
-Styling Changes: "Theme based styling provided by Styled Component. Classic, Small, Medium and Large theme styles. (Components: Form Field, Input Icon Toggle, Input, Label, Select, Textarea, Help, Icon, Link, Pager)"
-Bug Fixes: "Fixed wrong Tooltip pointer position when Icon is close to the screen border. (Components: Tooltip, Icon)"
-New Features: "Added repositioning when tooltip position is set to right and the icon is close to the border. (Components: Tooltip)"

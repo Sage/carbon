@@ -1,1 +1,0 @@
-Bug Fixes: "Since the upgrade of core-js the Storybook Addon-Info module has been failing to generate the Prop Tables for storybook, this is a workaround for that bug. (Components: All, Storybook addon-info)"

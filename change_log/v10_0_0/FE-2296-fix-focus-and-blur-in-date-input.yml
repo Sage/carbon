@@ -1,2 +1,0 @@
-Bug Fixes: "Adds fix to prevent picker opening when switching browser tabs and to prevetn an extra onBlur event when input icon clicked (Component: Date)"
-Other: "Adds `componentDidUpdate` to handle when `onReposition` prop updates (Component: Portal)"

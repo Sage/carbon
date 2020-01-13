@@ -1,2 +1,0 @@
-New Components: "Added a CheckboxGroup component. (Components: CheckboxGroup)"
-New Features: "Wrapped some components in the withValidations component. You can still export the components without the validation HOC. (Components: Checkbox, CheckboxGroup)"
