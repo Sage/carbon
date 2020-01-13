@@ -8,7 +8,7 @@ import StyledDraggableTableCell from './draggable-table-cell.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import Icon from '../../icon';
 import StyledIcon from '../../icon/icon.style';
-import smallTheme from '../../../style/themes/small';
+import mintTheme from '../../../style/themes/mint';
 import classicTheme from '../../../style/themes/classic';
 
 describe('DraggableTableCell', () => {
@@ -16,7 +16,7 @@ describe('DraggableTableCell', () => {
 
   beforeEach(() => {
     wrapper = shallow(
-      <DraggableTableCell identifier='foo' theme={ smallTheme } />
+      <DraggableTableCell identifier='foo' theme={ mintTheme } />
     );
   });
 
@@ -56,7 +56,7 @@ describe('DraggableTableCell', () => {
       <DraggableTableCell
         identifier='foo'
         canDrag={ false }
-        theme={ smallTheme }
+        theme={ mintTheme }
       />
     );
     const icon = wrapper.find(Icon);

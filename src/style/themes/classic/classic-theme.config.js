@@ -1,8 +1,6 @@
-import { THEMES } from '..';
-
 export default (palette) => {
   return {
-    name: THEMES.classic,
+    name: 'classic',
     colors: {
       base: palette.productGreen,
       primary: palette.productGreenShade(21),

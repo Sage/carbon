@@ -2,15 +2,12 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { css, ThemeProvider } from 'styled-components';
-import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import { assertStyleMatch, carbonThemesJestTable } from '../../../__spec_helper__/test-utils';
 import Icon from '../../../components/icon';
 import Loader from '../../../components/loader/loader.component';
 import SwitchSlider from './switch-slider.component';
 import SwitchSliderPanel from './switch-slider-panel.style';
-import baseTheme from '../../../style/themes/base';
-import classicTheme from '../../../style/themes/classic';
-import smallTheme from '../../../style/themes/small';
-import mediumTheme from '../../../style/themes/medium';
+import { baseTheme, classicTheme } from '../../../style/themes';
 
 describe('SwitchSlider', () => {
   describe('base theme', () => {
@@ -220,7 +217,7 @@ describe('SwitchSlider', () => {
     });
   });
 
-  describe.each([['Small', smallTheme], ['Medium', mediumTheme]])('%s theme', (themeName, theme) => {
+  describe.each(carbonThemesJestTable)('when the theme is set to %s', (themeName, theme) => {
     describe('default', () => {
       const wrapper = renderWithTheme({}, theme).toJSON();
 

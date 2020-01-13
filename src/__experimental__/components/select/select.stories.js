@@ -9,6 +9,8 @@ import infoValidations from './documentation';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 import docgenInfo from './docgenInfo.json';
+import AutoFocus from '../../../utils/helpers/auto-focus';
+import guid from '../../../utils/helpers/guid';
 
 Select.__docgenInfo = getDocGenInfo(
   docgenInfo,
@@ -28,14 +30,22 @@ const multiSelectStore = new Store({
   value: []
 });
 
+const previous = {
+  key: guid(),
+  autoFocus: false
+};
+
 const commonKnobs = (store, enableMultiSelect = false) => {
   const filterable = boolean('filterable', Select.defaultProps.filterable);
   const typeAhead = filterable && boolean('typeAhead', Select.defaultProps.typeAhead);
   const label = text('label', '');
+  const autoFocus = boolean('autoFocus', false);
   const isLoopable = boolean('isLoopable', false);
   const preventFocusAutoOpen = boolean('preventFocusAutoOpen', false);
+  const key = AutoFocus.getKey(autoFocus, previous);
 
   const knobs = {
+    key,
     disabled: boolean('disabled', false),
     onBlur: ev => action('blur')(ev),
     onKeyDown: ev => action('keyDown')(ev),
@@ -53,6 +63,7 @@ const commonKnobs = (store, enableMultiSelect = false) => {
     size: select('size', OptionsHelper.sizesRestricted, OptionsHelper.sizesRestricted[1]),
     filterable,
     typeAhead,
+    autoFocus,
     label,
     isLoopable,
     preventFocusAutoOpen
@@ -92,17 +103,22 @@ const selectValidation = value => validator(value, '2', '"Black" cannot be selec
 const selectWarning = value => validator(value, '3', 'Selecting "Blue" is not recommended');
 const selectInfo = value => validator(value, '4', 'You have selected "Brown"');
 
-function makeStory(name, themeSelector) {
-  const component = () => {
-    return (
-      <State store={ singleSelectStore }>
-        <Select ariaLabel='singleSelect' { ...commonKnobs(singleSelectStore) }>
-          { selectOptions }
-        </Select>
-      </State>
-    );
-  };
+const defaultComponent = () => {
+  return (
+    <State store={ singleSelectStore }>
+      <Select ariaLabel='singleSelect' { ...commonKnobs(singleSelectStore) }>
+        { selectOptions }
+      </Select>
+    </State>
+  );
+};
 
+const autoFocusComponent = () => {
+  boolean('autoFocus', true);
+  return defaultComponent();
+};
+
+function makeStory(name, themeSelector, component) {
   const metadata = {
     themeSelector
   };
@@ -168,8 +184,9 @@ storiesOf('Experimental/Select', module)
     },
     knobs: { escapeHTML: false }
   })
-  .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector))
+  .add(...makeStory('default', dlsThemeSelector, defaultComponent))
+  .add(...makeStory('classic', classicThemeSelector, defaultComponent))
   .add(...makeMultipleStory('multiple', dlsThemeSelector))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
-  .add(...makeValidationsStory('validations classic', classicThemeSelector));
+  .add(...makeValidationsStory('validations classic', classicThemeSelector))
+  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent));

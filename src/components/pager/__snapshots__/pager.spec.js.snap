@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Pager renders the Pager correctly with the classic theme 1`] = `
+exports[`Pager renders the Pager correctly with the Classic Theme 1`] = `
 .c3 {
   display: inline-block;
   position: relative;
@@ -344,7 +344,7 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
 </div>
 `;
 
-exports[`Pager renders the Pager correctly with the small theme 1`] = `
+exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
 .c14 {
   background: transparent;
   border: none;

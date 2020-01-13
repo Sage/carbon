@@ -10,12 +10,12 @@ import {
   PagerSizeOptionsInnerStyles
 } from './pager.styles';
 import Dropdown from '../../__deprecated__/components/dropdown';
-import { THEMES } from '../../style/themes';
+import { classicTheme } from '../../style/themes';
 import { isClassic } from '../../utils/helpers/style-helper';
 
 const Pager = (props) => {
   const [currentPage, setCurrentPage] = useState(props.currentPage);
-  const [currentTheme, setCurrentTheme] = useState(THEMES.classic);
+  const [currentTheme, setCurrentTheme] = useState(classicTheme.name);
 
   useEffect(() => {
     setCurrentPage(props.currentPage);

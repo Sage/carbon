@@ -97,6 +97,11 @@ describe('Input', () => {
     expect(onFocusContext).toHaveBeenCalled();
   });
 
+  it('focuses the input element if `autoFocus` prop passed', () => {
+    const wrapper = renderMount({ autoFocus: true });
+    expect(wrapper.find('input').getDOMNode()).toEqual(document.activeElement);
+  });
+
   describe('select text on focus', () => {
     const focusWith = (value, leftPos, rightPos) => {
       jest.useFakeTimers();
@@ -107,6 +112,7 @@ describe('Input', () => {
       inputElement.selectionStart = leftPos;
       inputElement.selectionEnd = rightPos;
       inputComponent.simulate('focus');
+      inputComponent.getDOMNode().focus();
       jest.runAllTimers();
       return inputElement;
     };

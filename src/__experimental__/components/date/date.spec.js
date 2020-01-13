@@ -7,7 +7,7 @@ import InputIconToggle from '../input-icon-toggle';
 import DatePicker from './date-picker.component';
 import Textbox from '../textbox';
 import StyledDateInput from './date.style';
-import { THEMES } from '../../../style/themes';
+import { classicTheme } from '../../../style/themes';
 import DateHelper from '../../../utils/helpers/date/date';
 import { isEdge } from '../../../utils/helpers/browser-type-check';
 
@@ -22,10 +22,7 @@ describe('StyledDateInput', () => {
   });
 
   it('renders correctly for the "classic" theme', () => {
-    const mockTheme = {
-      name: THEMES.classic
-    };
-    const wrapper = TestRenderer.create(<StyledDateInput theme={ mockTheme } />);
+    const wrapper = TestRenderer.create(<StyledDateInput theme={ classicTheme } />);
     expect(wrapper).toMatchSnapshot();
   });
 });
@@ -36,6 +33,16 @@ describe('Date', () => {
   describe('when the Component is rendered', () => {
     it("should have the Textbox component rendered as it's descendant", () => {
       wrapper = render({});
+      expect(wrapper.find(Textbox).exists()).toBe(true);
+    });
+
+    it('should render with "allowEmptyValue" property and null value', () => {
+      wrapper = render({ value: null, allowEmptyValue: true });
+      expect(wrapper.find(Textbox).exists()).toBe(true);
+    });
+
+    it('should render with "allowEmptyValue" property and empty string value', () => {
+      wrapper = render({ value: '', allowEmptyValue: true });
       expect(wrapper.find(Textbox).exists()).toBe(true);
     });
   });

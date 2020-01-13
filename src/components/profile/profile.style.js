@@ -30,11 +30,13 @@ const ProfileStyle = styled.div`
       line-height: 21px;
     }
   `}
+  display: ${({ hasSrc }) => (hasSrc ? 'flex' : '')};
 `;
 
 const ProfileDetailsStyle = styled.div`
   vertical-align: middle;
   display: inline-block;
+  margin-top: ${({ hasSrc, size }) => (hasSrc ? profileConfigSizes[size].marginTop : '')};
   line-height: ${({ size }) => profileConfigSizes[size].lineHeight};
   margin-left: ${({ size }) => profileConfigSizes[size].marginLeft};
 

@@ -1,17 +1,17 @@
 {
     "button-toggle": {
-        "small": "rgb(0, 63, 46)",
-        "medium": "rgb(0, 67, 114)",
+        "mint": "rgb(0, 63, 46)",
+        "aegean": "rgb(0, 67, 114)",
         "none": "rgb(0, 68, 0)"
     },
     "common": {
-        "small": "rgb(0, 128, 93)",
-        "medium": "rgb(0, 115, 194)",
+        "mint": "rgb(0, 128, 93)",
+        "aegean": "rgb(0, 115, 194)",
         "none": "rgb(38, 168, 38)"
     },
     "step-sequence-item": {
-        "small": "rgb(0, 163, 118)",
-        "medium": "rgb(0, 119, 200)",
+        "mint": "rgb(0, 163, 118)",
+        "aegean": "rgb(0, 119, 200)",
         "none": "rgb(0, 163, 118)"
     }
 }

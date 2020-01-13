@@ -1,12 +1,10 @@
-import { THEMES } from '..';
-
 export default (palette) => {
   const { atOpacity } = palette,
       baseWithOpacity = atOpacity(palette.productBlue);
 
   return (
     {
-      name: THEMES.medium,
+      name: 'aegean',
 
       colors: {
         base: palette.productBlue,
