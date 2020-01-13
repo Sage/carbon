@@ -192,6 +192,7 @@ Feature: Build tests
       | Flat Table               | flat-table          |
       | Search                   | search              |
       | Button Toggle Group      | button-toggle-group |
+      | Popover Container        | popover-container   |
 
   @build
   Scenario: Component Draggable basic default page and verify data-element
