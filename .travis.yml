@@ -1,18 +1,10 @@
 language: node_js
 
-node_js:
-  - 8.16.1
-
 addons:
    apt:
      packages:
        # Ubuntu 16+ does not install this dependency by default, so we need to install it ourselves
        - libgconf-2-4
-
-install:
-  - npm install -g npm@6.4.1
-  - npm install -g gulp
-  - npm ci
 
 script:
   - npm run storybook-ci </dev/null &>/dev/null &
