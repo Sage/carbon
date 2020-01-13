@@ -125,5 +125,5 @@ fi
 
 if $RUN_ALLURE_REPORTS; then
   echo 'Running script to generate allure-report for cypress tests'
-  docker-compose exec bash -c "npm run generate-cypress-allure-report"
+  docker-compose exec -T cypress bash -c "npm run generate-cypress-allure-report"
 fi
