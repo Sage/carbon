@@ -28,6 +28,7 @@ jobs:
         - npm run test-cypress-build
     - stage: deploy
       name: "s3"
+      script: skip
       before_deploy: ASSETS_PREFIX=https://carbon.sage.com npm run build
       deploy:
           provider: s3
@@ -42,7 +43,7 @@ jobs:
           secret_access_key:
             secure: qdS1pq1ZXvw6lXLrGtSaZTpx7OLREvV/7UCwPFbfQkuQBLbxLe32qlzOkkEQWd7sHwadSgvVTKvX4HKaAIx+QZ2XXFbXGx4HIOCws6ynAVVa2kV5SSHKMwiy+R6Ypttu3GD6uKEhPMUULCYuCLzIIvAOKoCaDIzzKlxzK+g/tCe94J+fKU0DS6U23FFxW51UADgTxn7opg3mkhsteaRyAtDkurAeobEzfQpTFKPNXJ3YcFjpGUf9Z5zxcXXNohKZQP4wODgYU+OZuif/cAeETChWxVThk0PMIIk9/lmwyX1UKIpWpyVTDEKXzwnO2COVWOxtVCpTB0uwfZTZ8MhVXRvFj8Dk/iw+2NN/W55fQ44xx0h6mvhMle98jKTWi6AR/F0LJMpCkZeNTVCdiDz7Ow1g23HlBIRx/seYxph2vLSLkh63kU8ygaOFWhCNdCGOOPLHi8m8X8vlLRvN9ETWY/sMWkvY/S9bXIGw8lv5Bk4lIxAmjoU05XJceq5rOlSax46d1fsicJ5gF6tcxvMau2bFGMCgeZJEpRYChqTEt284woFc8+maa4SwMVrim6J8R53Xfx8mtgCnRlgZmXymzyxu8wCVnAza24iQ4kWmx+fDw70iU5Q3nxSwjN4Q922QZiAFLGpAK0nRDFhE7NPftubYOgsisNCFOnTTTBGJghI=
     - name: "npm & GitHub"
-      before_deploy: npm run build
+      script: skip
       deploy:
         provider: script
         script: npx semantic-release
