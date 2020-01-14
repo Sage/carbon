@@ -1,3 +1,0 @@
-New Features: "Implemented 'withValidations' HOC in RadioButton and RadioButtonGroup Components"
-Bug Fixes: "Fixed issue where the RadioButtonGroup component could not have an initial radio button checked based on a initial value. (Component: RadioButtonGroup)"
-Other: "Added TypeScript definition files for the RadioButton and RadioButtonGroup components."

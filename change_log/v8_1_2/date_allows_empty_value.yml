@@ -1,1 +1,0 @@
-Bug Fixes: "`Date-Input` Component, with the prop `allowEmptyValue`, will now show an empty input if the value is empty and not the date of today."

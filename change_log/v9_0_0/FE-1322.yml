@@ -1,8 +1,0 @@
-Breaking Changes: "File naming of component files and specs. \n
-`src/components/sidebar/__spec__.js` -> `src/components/sidebar/sidebar.spec.js` \n
-`src/components/sidebar/sidebar-header/__spec__.js` -> `src/components/sidebar/sidebar-header/sidebar-header.spec.js` \n
-`src/components/sidebar/sidebar-header/sidebar-header.js` -> `src/components/sidebar/sidebar-header/sidebar-header.component.js` \n
-`src/components/sidebar/sidebar.js` -> `src/components/sidebar/sidebar.component.js` \n
-(Component: Sidebar)"
-New Features: "Added Props surfaced through storybook examples. (Component: Sidebar)"
-Styling Changes: "Theme based styling provided by Styled Component. Classic, Small, Medium and Large theme styles. (Component: Sidebar)"

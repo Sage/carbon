@@ -1,3 +1,0 @@
-Bug Fixes:
-  - "Fixes issue where propType of onClick was expected to be an object rather than function. (Component: InputIconToggle)"
-  - "Fixed issue with wrong value being passed by story to the component causing console errors. (Component: InlineInput)"
