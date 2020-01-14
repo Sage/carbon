@@ -22,7 +22,7 @@ See the [demo and documentation site](https://carbon.sage.com/) for live example
 * [Services](docs/guides/services.md)
 * [Integrating Carbon with other UI](docs/guides/integrating-with-other-ui.md)
 * [Testing changes to Carbon in your project](docs/guides/installing-unreleased-changes.md)
-* [Testing components using Cypress.io](cypress/README.md)
+* [Testing process and tools](cypress/README.md)
 * [Releasing Carbon](docs/guides/releasing.md)
 
 #### Testing

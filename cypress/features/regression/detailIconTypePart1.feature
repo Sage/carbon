@@ -4,7 +4,7 @@ Feature: Detail component
   Background: Open Detail component page
     Given I open "Detail" component page
 
-@negative
+  @positive
   Scenario: Change Detail icon to null
     When I set detail icon to "null"
     Then icon not exists on preview

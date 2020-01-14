@@ -3,56 +3,56 @@ Feature: Experimental Textbox multiple component
 
   Background: Open Experimental Textbox multiple component page
     Given I open "Experimental Textbox" component page multiple
- 
+
   @positive
   Scenario Outline: Set placeholder to <placeholder>
     When I set placeholder to "<placeholder>"
     Then Multiple Textbox placeholder is set to "<placeholder>"
-      Examples:
+    Examples:
       | placeholder             |
       | Sample text             |
       | 1234567890              |
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                    |
+  # @ignore because of FE-1447
+  # | <>                    |
 
   @positive
   Scenario: Check disabled checkbox for a Textbox multiple component
     When I check disabled checkbox
-    Then Multiple Textbox component is disabled
- 
+    Then Textbox multiple component is disabled
+
   @positive
   Scenario: Uncheck disabled checkbox for a Textbox multiple component
     When I check disabled checkbox
       And I uncheck disabled checkbox
-    Then Multiple Textbox component is not disabled
-   
+    Then Textbox multiple component is not disabled
+
   @positive
   Scenario: Enable readOnly checkbox for a Textbox multiple component
     When I check readOnly checkbox
-    Then Multiple Textbox component is readOnly
-  
+    Then Textbox multiple component is readOnly
+
   @positive
   Scenario: Disable readOnly checkbox for a Textbox multiple component
     When I check readOnly checkbox
       And I uncheck readOnly checkbox
-    Then Multiple Textbox component is not readOnly
- 
+    Then Textbox multiple component is not readOnly
+
   @positive
   Scenario Outline: Set fieldHelp to <fieldHelp>
     When I set fieldHelp to "<fieldHelp>"
     Then Multiple fieldHelp on preview is set to "<fieldHelp>"
-      Examples:
+    Examples:
       | fieldHelp               |
       | Sample text             |
       | 1234567890              |
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-       # @ignore because of FE-1447
-       # | <>                  |
+  # @ignore because of FE-1447
+  # | <>                  |
 
   @positive
   Scenario Outline: Set label to <label>
@@ -65,8 +65,8 @@ Feature: Experimental Textbox multiple component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                    |
+  # @ignore because of FE-1447
+  # | <>                    |
 
   @positive
   Scenario Outline: Set labelHelp to <labelHelp>
@@ -82,8 +82,8 @@ Feature: Experimental Textbox multiple component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                     |
+  # @ignore because of FE-1447
+  # | <>                     |
 
   @positive
   Scenario: Enable labelInline checkbox for a Textbox multiple component
@@ -149,8 +149,8 @@ Feature: Experimental Textbox multiple component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                     |
+  # @ignore because of FE-1447
+  # | <>                     |
 
   @positive
   Scenario Outline: Set label size to <size>
@@ -158,7 +158,7 @@ Feature: Experimental Textbox multiple component
     Then Multiple Textbox height is "<height>"
       And Multiple Textbox width is "<width>"
     Examples:
-      | size   | height | width |
-      | small  | 28px   | 1041px |
-      | medium | 36px   | 1035px |
-      | large  | 44px   | 1031px |
+      | size   | height | width  |
+      | small  | 28px   | 1043px |
+      | medium | 36px   | 1037px |
+      | large  | 44px   | 1033px |
