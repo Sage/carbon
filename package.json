@@ -15,7 +15,7 @@
     "build": "npm run gen-colors && npm run gen-docs && cross-env NODE_ENV=production npm run webpack && npm run prep-deploy && npm run build-storybook",
     "test": "jest --config=./jest.conf.json",
     "test-update": "jest --config=./jest.conf.json --updateSnapshot",
-    "test-carbon-build": "npm run gen-colors && npm run gen-docs && npm run webpack",
+    "test-carbon-build": "npm run gen-colors && npm run gen-docs && cross-env NODE_ENV=production npm run webpack",
     "test-cypress": "cypress open",
     "test-cypress-build": "cypress run --spec ./cypress/features/build/build*.feature --browser chrome --reporter spec",
     "test-cypress-accessibility": "cypress run --spec ./cypress/features/accessibility/accessibility.feature --browser chrome --reporter spec",
