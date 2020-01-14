@@ -1,2 +1,0 @@
-New Components: "Added a DateInput component based on the Textbox component. (Component: DateInput)"
-New Features: "Changed the DatePicker component to remove reliance on DateInput component. (Component: DatePicker)"

@@ -1,6 +1,0 @@
-Breaking Changes: "File naming of component files and specs. \n
-`src/components/portrait/__spec__.js` -> `src/components/portrait/portrait.spec.js` \n
-`src/components/portrait/portrait.js` -> `src/components/portrait/portrait.component.js` \n
-(Component: Portrait)"
-Styling Changes: "Theme based styling provided by Styled Component. Classic, Small, Medium and Large theme styles. (Component: Portrait)"
-New Features: "Added Props surfaced through storybook examples. (Components: Portrait)"

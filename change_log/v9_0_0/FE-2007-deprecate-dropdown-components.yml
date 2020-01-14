@@ -1,6 +1,0 @@
-Deprecated Components: "`Dropdown` has been moved to `__deprecated__/components/dropdown`,
-  to continue using it you will need to update the import path to `carbon-react/lib/__deprecated__/components/dropdown` \n
-  `DropdownFilter` has been moved to `__deprecated__/components/dropdown-filter`,
-  to continue using it you will need to update the import path to `carbon-react/lib/__deprecated__/components/dropdown-filter` \n
-  `DropdownFilterAjax` has been moved to `__deprecated__/components/dropdown-filter-ajax`,
-  to continue using it you will need to update the import path to `carbon-react/lib/__deprecated__/components/dropdown-filter-ajax`"

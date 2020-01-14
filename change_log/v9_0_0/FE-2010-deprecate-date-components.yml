@@ -1,5 +1,0 @@
-Deprecated Components: "`Date` has been moved to `__deprecated__/components/date`,
-  to continue using it you will need to update the import path to `carbon-react/lib/__deprecated__/components/date` \n
-  `DateRange` has been moved to `__deprecated__/components/date-range`,
-  to continue using it you will need to update the import path to `carbon-react/lib/__deprecated__/components/date-range`"
-  

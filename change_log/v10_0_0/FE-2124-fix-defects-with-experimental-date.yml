@@ -1,2 +1,0 @@
-Bug Fixes: "Fixes an issue that prevented the experimental `Date` component being controlled using the value prop (Component: Date)"
-Breaking Change: "The onChange event now emits a value in the format the user inputted (Component: Date)"

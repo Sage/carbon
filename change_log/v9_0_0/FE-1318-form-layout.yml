@@ -1,8 +1,0 @@
-Breaking Changes: "File naming of component files and specs. \n
-`src/components/form/form-summary/form-summary.js` -> `src/components/form/form-summary/form-summary.component.js` \n
-`src/components/form/form-summary/__spec__.js` -> `src/components/form/form-summary/form-summary.spec.js` \n
-`src/components/form/form.js` -> `src/components/form/form.component.js` \n
-`src/components/form/__spec__.js` -> `src/components/form/form.spec.js` \n
-(Component: Form)"
-Styling Changes: "Theme based styling provided by Styled Component. Classic, Small, Medium and Large theme styles. (Component: Form)"
-Other: "Added style tests for experimental Form. Replaced Save and Cancel Button with a generic Button. (Component: Form)"

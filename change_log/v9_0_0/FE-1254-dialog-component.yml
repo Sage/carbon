@@ -1,6 +1,0 @@
-Breaking Changes: "File naming of component files and specs. \n
-`src/components/dialog/dialog.js` -> `src/components/dialog/dialog.component.js` \n
-`src/components/dialog/__spec__.js` -> `src/components/dialog/dialog.spec.js` \n
-(Component: Dialog)"
-New Features: "Added Props surfaced through storybook examples. (Component: Dialog)"
-Styling Changes: "Theme based styling provided by Styled Component. Classic, Small, Medium and Large theme styles. (Component: Dialog)"

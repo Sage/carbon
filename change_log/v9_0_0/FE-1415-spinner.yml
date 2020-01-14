@@ -1,7 +1,0 @@
-Breaking Changes: "File naming of component files and specs. \n
-`src/components/spinner/__spec__.js` -> `src/components/spinner/spinner.spec.js` \n
-`src/components/spinner/spinner.js` -> `src/components/spinner/spinner.component.js` \n
-(Component: Spinner)"
-Styling Changes: "Theme based styling provided by Styled Component. Classic, Small, Medium and Large theme styles. (Component: Spinner)"
-New Features: "Added Props surfaced through storybook examples. (Components: Spinner)"
-New Components: "Added a Loader component. (Component: Loader)"

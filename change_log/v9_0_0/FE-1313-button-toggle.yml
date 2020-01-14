@@ -1,9 +1,0 @@
-Breaking Changes: "File naming of component files and specs. \n
-`src/components/button-toggle-group/__spec__.js` -> `src/components/button-toggle-group/button-toggle-group.spec.js` \n
-`src/components/button-toggle-group/button-toggle-group.js` -> `src/components/button-toggle-group/button-toggle-group.component.js` \n
-`src/components/button-toggle/__spec__.js` -> `src/components/button-toggle/button-toggle.spec.js` \n
-`src/components/button-toggle/button-toggle.js` -> `src/components/button-toggle/button-toggle.component.js` \n
-(Components: ButtonToggle, ButtonToggleGroup)"
-Other: "Changed to remove reliance on Input decorator. (Components: ButtonToggle, ButtonToggleGroup)"
-New Features: "Added Props surfaced through storybook examples. (Components: ButtonToggle, ButtonToggleGroup)"
-Styling Changes: "Theme based styling provided by Styled Component. Classic, Small, Medium and Large theme styles. (Components: ButtonToggle, ButtonToggleGroup)"
