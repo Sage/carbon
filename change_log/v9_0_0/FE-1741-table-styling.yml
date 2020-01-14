@@ -1,6 +1,0 @@
-Breaking Changes: "File naming of component files and specs. \n
-`src/components/action-toolbar/action-toolbar.js` -> `src/components/action-toolbar/action-toolbar.component.js` \n
-`src/components/action-toolbar/__spec__.js` -> `src/components/action-toolbar/action-toolbar.spec.js` \n
-(Component: ActionToolbar)"
-Styling Changes: "Theme based styling provided by Styled Component. Classic, Small, Medium and Large theme styles. (Component: ActionToolbar)"
-New Features: "Added Props surfaced through storybook examples. (Components: ActionToolbar)"

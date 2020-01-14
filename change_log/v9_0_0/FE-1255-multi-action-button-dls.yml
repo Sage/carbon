@@ -1,7 +1,0 @@
-Breaking Changes: "File naming of component files and specs. \n
-`src/components/split-button/split-button.js` -> `src/components/split-button/split-button.component.js` \n
-`src/components/multi-action-button/__spec__.js` ->  `src/components/multi-action-button/multi-action-button.spec.js` \n
-`src/components/split-button/__spec__.js`  -> `src/components/split-button/split-button.spec.js` \n
-(Component: Multiaction Button)"
-New Features: "Added Props surfaced through storybook examples. Added keyboard navigation. (Component: Multiaction Button)"
-Styling Changes: "Theme based styling provided by Styled Component. Classic, Small, Medium and Large theme styles. (Component: Multiaction Button)"

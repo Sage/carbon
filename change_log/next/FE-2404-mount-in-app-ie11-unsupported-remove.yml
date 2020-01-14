@@ -1,1 +1,0 @@
-Bug Fixes: "Fixes issue with unsupported element.firstChild.remove() method in IE11. (Component: MountInApp)"

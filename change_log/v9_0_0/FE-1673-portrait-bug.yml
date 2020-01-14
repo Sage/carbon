@@ -1,1 +1,0 @@
-Bug Fixes: "Fixes a bug in the Portrait component: for a Gravatar / custom image with a transparent background, the fallback initials / user icon would be visible behind the image. (Component: Portrait)"

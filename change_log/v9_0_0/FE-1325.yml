@@ -1,7 +1,0 @@
-Breaking Changes: "File naming of component files and specs. \n
-`src/components/toast/__spec__.js` -> `src/components/toast/toast.spec.js` \n
-`src/components/toast/toast.js` -> `src/components/toast/toast.component.js` \n
-(Component: Toast)"
-New Components: "Added a DismissButton. (Component: DismissButton)"
-Styling Changes: "Theme based styling provided by Styled Component. Classic, Small, Medium and Large theme styles. (Component: Toast)"
-New Features: "Added Props surfaced through storybook examples. (Component: Toast)"

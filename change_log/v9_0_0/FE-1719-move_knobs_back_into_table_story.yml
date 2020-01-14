@@ -1,1 +1,0 @@
-Bug Fixes: "Changes the `Table` story to move the knobs back into the story file as importing them from a separate file causes them to bleed across other stories in storybook. (Component: Table)"

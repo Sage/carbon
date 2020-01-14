@@ -1,5 +1,0 @@
-Breaking Changes: "File naming of component files and specs. \n 
-`src/components/help/__spec__.js` -> `src/components/help/help.spec.js` \n
-(Component: Help)"
-Styling Changes: "Theme based styling provided by Styled Component. Classic, Small, Medium and Large theme styles. (Component: Help)"
-New Features: "Added Props surfaced through storybook examples. (Components: Help)"

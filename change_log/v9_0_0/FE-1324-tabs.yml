@@ -1,6 +1,0 @@
-Breaking Changes: "File naming of component files and specs. \n
-`src/components/tabs/tab/__spec__.js` -> `src/components/tabs/tab/tab.spec.js` \n
-`src/components/tabs/tab/tab.js` -> `src/components/tabs/tab/tab.component.js` \n
-(Component: Tabs)"
-New Features: "Added Props surfaced through storybook examples. (Component: Tabs)"
-Styling Changes: "Theme based styling provided by Styled Component. Classic, Small, Medium and Large theme styles. (Component: Tabs)"

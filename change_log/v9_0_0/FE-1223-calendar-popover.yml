@@ -1,7 +1,0 @@
-Breaking Changes: "File naming of component files and specs. \n
-`src/components/date/__spec__.js` -> `src/components/date/date.spec.js` \n
-`src/components/date/navbar/navbar.js` -> `src/components/date/navbar/navbar.component.js` \n
-`src/components/date/navbar/__spec__.js` -> `src/components/date/navbar/navbar.spec.js` \n
-(Components: Date, Date Navbar)"
-New Features: "Added Props surfaced through storybook examples. (Component: Date)"
-Styling Changes: "Theme based styling provided by Styled Component. Classic, Small, Medium and Large theme styles. (Components: Day Picker, Date Navbar Button, Date Weekday, Date Navbar)"

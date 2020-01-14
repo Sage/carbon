@@ -1,6 +1,0 @@
-Breaking Changes: "File naming of component files and specs. \n 
-`src/components/icon/__spec__.js` -> `src/components/icon/icon.spec.js` \n
-`src/components/icon/icon.js` -> `src/components/icon/icon.component.js` \n
-(Component: Icon)"
-Styling Changes: "Theme based styling provided by Styled Component. Classic, Small, Medium and Large theme styles. (Component: Icon)"
-New Features: "Added Props surfaced through storybook examples. (Components: Icon)"

@@ -1,1 +1,0 @@
-Breaking Change: "Changed RadioButton and RadioButtonGroup interface so that default value is assigned by passing defaultChecked prop directly on RadioButton (Component: RadioButton)"

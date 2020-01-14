@@ -1,6 +1,0 @@
-Breaking Changes: "File naming of component files and specs. \n
-`src/components/pill/__spec__.js` -> `src/components/pill/pill.spec.js` \n
-`src/components/pill/pill.js` -> `src/components/pill/pill.component.js` \n
-(Component: Pill)"
-Styling Changes: "Theme based styling provided by Styled Component. Classic, Small, Medium and Large theme styles. (Component: Pill)"
-New Features: "Added Props surfaced through storybook examples. (Components: Pill)"

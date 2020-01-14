@@ -39,15 +39,6 @@ As Carbon is just React components, we support any test suite you prefer to use.
 
 > Note: MockAPI for tables and dropdowns is disabled locally as it conflicts with HotReloading. To enable see `src/main.js` file
 
-## Adding Release Notes
-
-* Use [renogen](https://github.com/DDAZZA/renogen), or add a yml file manually to `./changelog/next` e.g. `./changelog/next/my-update.yml`.
-* Update or add an appropriate heading in the style shown below for each change:
-```
-Bug Fixes: "Fixes browser position. (Component: Modal)"
-```
-> Note: The [.renogen](.renogen) file in the project root holds a list of commit message types that can be used.
-
 ## Technologies
 
 The following is a list of technologies Carbon utilises:

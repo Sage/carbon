@@ -1,2 +1,0 @@
-Styling Changes: "Removes class names and implements multi-selected pills with styled-components. (Component: Select)"
-Other: "Changes component to allow removal of InputDecoratorBridge and replace with Textbox. (Component: Select)"

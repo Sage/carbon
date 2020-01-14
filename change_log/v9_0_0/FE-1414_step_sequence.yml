@@ -1,6 +1,0 @@
-Breaking Changes: "File naming of component files. \n
-`src/components/step-sequence/step-sequence-item/step-sequence-item.js` -> `src/components/step-sequence/step-sequence-item/step-sequence-item.component.js` \n
-`src/components/step-sequence/step-sequence.js` -> `src/components/step-sequence/step-sequence.component.js` \n
-(Components: StepSequence, StepSequenceItem)"
-Styling Changes: "Theme based styling provided by Styled Component. Classic, Small, Medium and Large theme styles. (Components: StepSequence, StepSequenceItem)"
-New Features: "Added Props surfaced through storybook examples. (Components: StepSequence, StepSequenceItem)"
