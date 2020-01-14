@@ -5,6 +5,7 @@ import Pod from '../pod';
 import Button from '../button';
 import Link from '../link';
 import { isClassic } from '../../utils/helpers/style-helper';
+import StyledDeleteButton from './delete-button.style.js';
 
 
 const StyledPod = styled(Pod)`
@@ -20,6 +21,14 @@ const StyledPod = styled(Pod)`
         padding: 20px;
       }
     `};
+  }
+
+  ${StyledDeleteButton} {
+    color: ${({ theme }) => theme.colors.error};
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.destructive.hover};
+    }
   }
 
   .common-input__prefix {
@@ -41,17 +50,6 @@ const StyledPod = styled(Pod)`
   }
 `;
 
-const StyledButton = styled(Button)`
-  color: ${({ theme }) => theme.colors.error};
-  padding-right: 0px;
-  padding-left: 0px;
-  margin-right: 0px;
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.destructive.hover};
-  }
-`;
-
 const StyledLink = styled(Link)`
   a {
     color: #C7384F;
@@ -62,4 +60,4 @@ const StyledLink = styled(Link)`
   }
 `;
 
-export { StyledPod, StyledButton, StyledLink };
+export { StyledPod, StyledLink };

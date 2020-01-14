@@ -7,6 +7,7 @@ import { withTheme } from 'styled-components';
 
 import Pod from '../pod';
 import Form from '../../__deprecated__/components/form';
+import StyledDeleteButton from './delete-button.style';
 import Events from '../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
@@ -84,13 +85,14 @@ class ShowEditPod extends React.Component {
     }
 
     return (
-      <StyledButton
+      <StyledDeleteButton
         buttonType='tertiary'
+        data-element='delete-button'
         size='medium'
         onClick={ this.props.onDelete }
       >
         {label}
-      </StyledButton>
+      </StyledDeleteButton>
     );
   }
 
