@@ -80,7 +80,7 @@ const PagerNavigation = (props) => {
     const currentPage = Number(props.currentPage);
     const navLinkConfig = {
       first: {
-        text: 'First',
+        text: I18n.t('pager.first', { defaultValue: 'First' }),
         destination: '1'
       },
       last: {
