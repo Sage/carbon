@@ -71,7 +71,7 @@ Given('I open {string} component legacy spinner classic page in iframe', (compon
   visitComponentUrl(component, 'legacy_spinner_classic', true);
 });
 
-Given('I open {string} component iframe', (component) => {
+Given('I open {string} component in iframe', (component) => {
   visitComponentUrl(component, 'default', true);
 });
 
@@ -79,7 +79,7 @@ Given('I open {string} component for classic story in iframe', (component) => {
   visitComponentUrl(component, 'classic', true);
 });
 
-Given('I open deprecated {string} component iframe', (component) => {
+Given('I open deprecated {string} component in iframe', (component) => {
   visitComponentUrl(component, 'classic', true, 'deprecated-');
 });
 

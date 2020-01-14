@@ -90,7 +90,7 @@ Feature: Build tests for classic stories
       | tooltip                          | tooltip              |
 
   @build
-  Scenario Outline: Component <component> default page and verify element
+  Scenario Outline: Verify element in <component> component default page
     When I open "<component>" component for classic story in iframe
     Then "<data-element>" element is visible
     Examples:
@@ -101,12 +101,12 @@ Feature: Build tests for classic stories
       | experimental-textbox          | input        |
 
   @build
-  Scenario: Component experimental-textarea default page and verify element by Name
+  Scenario: Verify element by name in experimental-textarea component default page
     When I open "experimental-textarea" component for classic story in iframe
     Then "textarea" element is visible by name
 
   @build
-  Scenario: Component experimental-textarea validations page and verify element by Name
+  Scenario: Verify element by Name in experimental-textarea component validations page
     When I open "experimental-textarea" component page validations classic in iframe
     Then "textarea" element is visible by name
 
@@ -142,8 +142,8 @@ Feature: Build tests for classic stories
     Then "spinner" component is visible
 
   @build
-  Scenario Outline: Deprecated component <component> iframe
-    When I open deprecated "<component>" component iframe
+  Scenario Outline: Deprecated component <component> in iframe
+    When I open deprecated "<component>" component in iframe
     Then "<data-component>" component is visible
     Examples:
       | component          | data-component       |

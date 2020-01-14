@@ -18,7 +18,7 @@ Feature: Build tests
 
   @build
   Scenario Outline: Component <component> page and open preview
-    When I open "<component>" component iframe
+    When I open "<component>" component in iframe
       And I open component preview no iframe
     Then "<data-component>" component is visible
     Examples:
@@ -31,7 +31,7 @@ Feature: Build tests
 
   @build
   Scenario Outline: Component <component> without activation button
-    When I open "<component>" component iframe
+    When I open "<component>" component in iframe
     Then "<data-component>" component is visible
     Examples:
       | component                        | data-component       |
@@ -92,8 +92,8 @@ Feature: Build tests
       | tooltip                          | tooltip              |
 
   @build
-  Scenario Outline: Component <component> default page and verify element
-    When I open "<component>" component iframe
+  Scenario Outline: Verify element in <component> component default page
+    When I open "<component>" component in iframe
     Then "<data-element>" element is visible
     Examples:
       | component                     | data-element |
@@ -103,17 +103,17 @@ Feature: Build tests
       | experimental-textbox          | input        |
 
   @build
-  Scenario: Component experimental-textarea default page and verify element by Name
-    When I open "experimental-textarea" component iframe
+  Scenario: Verify element by name in experimental-textarea component default page
+    When I open "experimental-textarea" component in iframe
     Then "textarea" element is visible by name
 
   @build
-  Scenario: Component experimental-textarea validations page and verify element by Name
+  Scenario: Verify element by name in experimental-textarea component validations page
     When I open "experimental-textarea" component page validations in iframe
     Then "textarea" element is visible by name
 
   @build
-  Scenario: Component experimental-textarea autoFocus page and verify element by Name
+  Scenario: Verify element by name in experimental-textarea component autoFocus page
     When I open "experimental-textarea" component page autoFocus in iframe
     Then "textarea" element is visible by name
 
@@ -139,7 +139,7 @@ Feature: Build tests
       | experimental-decimal-input | decimal        |
 
   @build
-  Scenario Outline: Component <component> autoFocus page and verify element
+  Scenario Outline: Verify element in component <component> autoFocus page
     When I open "<component>" component page autoFocus in iframe
     Then "<data-element>" element is visible
     Examples:
@@ -149,12 +149,12 @@ Feature: Build tests
       | experimental-select           | input        |
 
   @build
-  Scenario: Component experimental-textbox autoFocus multiple page and verify element
+  Scenario: Verify element in experimental-textbox component autoFocus multiple page
     When I open "experimental-textbox" component page autoFocus multiple in iframe
     Then "input" element is visible
 
   @build
-  Scenario Outline: Component <component> multiple page and verify element
+  Scenario Outline: Verify element in <component> component multiple page
     When I open "<component>" component page multiple in iframe
     Then "<data-element>" element is visible
     Examples:
