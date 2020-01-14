@@ -1,6 +1,0 @@
-Breaking Changes: "File naming of component files and specs. \n
-`src/components/button/__spec__.js` -> `src/components/button/button.spec.js` \n
-`src/components/button/button.js` -> `src/components/button/button.component.js` \n
-(Component: Button)"
-New Features: "Added Props surfaced through storybook examples. (Component: Button)"
-Styling Changes: "Theme based styling provided by Styled Component. Classic, Small, Medium and Large theme styles. (Component: Button)"

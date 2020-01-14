@@ -34,22 +34,17 @@ Then('Checkbox is not set to fieldHelpInline and has margin set to {string}', (m
 });
 
 Then('Checkbox is set to reverse and has width {string}', (width) => {
-  checkboxDataComponent().children().children()
+  checkboxDataComponent().children().children().children()
     .find(`div:nth-child(${THIRD_CHECKBOX})`)
     .should('have.css', 'box-sizing', 'border-box')
     .and('have.css', 'width', width);
 });
 
 Then('Checkbox is not set to reverse and has width {string}', (width) => {
-  checkboxDataComponent().children().children()
+  checkboxDataComponent().children().children().children()
     .find(`div:nth-child(${SECOND_CHECKBOX})`)
     .should('have.css', 'box-sizing', 'border-box')
     .and('have.css', 'width', width);
-});
-
-Then('Checkbox inputWidth is set to {string}', (width) => {
-  checkboxRole().parent()
-    .should('have.css', 'width', `${width}px`);
 });
 
 Then('checkbox inputWidth is set to {int}', (width) => {
@@ -70,10 +65,6 @@ Then('Checkbox label property is not set to {string}', (property) => {
 
 Then('Checkbox deprecated label width is set to {int}', (width) => {
   checkboxLabelPreview().should('have.attr', 'style').should('contain', `width: ${width}%`);
-});
-
-Then('Checkbox label width is set to {int}', (width) => {
-  label().should('have.css', 'width', `${width}px`);
 });
 
 Then('Checkbox labelAlign on preview is set to {string}', (labelAlign) => {

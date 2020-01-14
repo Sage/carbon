@@ -22,7 +22,7 @@ class MountInApp extends React.Component {
   }
 
   componentWillUnmount() {
-    this.targetElement.firstChild.remove();
+    this.targetElement.removeChild(this.targetElement.firstChild);
   }
 
   get contentHtml() {

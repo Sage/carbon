@@ -7,7 +7,7 @@ import {
 import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Button from '../../components/button';
-import configureTheme from './small/small-theme.config';
+import { carbonThemeList } from '.';
 import { mergeWithBase } from './base';
 import { mergeDeep } from '../utils/merge-deep';
 
@@ -51,17 +51,18 @@ const getKnobs = (isClassic) => {
 
 storiesOf('Theme', module)
   .add('Overrides', () => {
+    const firstCarbonTheme = carbonThemeList[0];
     const themeGroup = 'Theme Overrides';
     const props = getKnobs();
     const Code = styled.code`
       background-color: #eee;
     `;
 
-    // We're using mergeWithBase and mergeDeep so we can extend the small theme, but still access the palette
-    // in our new theme. If you don't need the palette you can call mergeDeep on the exported small theme without
+    // We're using mergeWithBase and mergeDeep so we can extend a Carbon Theme, but still access the palette
+    // in our new theme. If you don't need the palette you can call mergeDeep on an exported Carbon Theme theme without
     // needing to use mergeWithBase.
     const customTheme = palette => (mergeDeep(
-      configureTheme(palette),
+      firstCarbonTheme(palette),
       {
         colors: {
           primary: color('Primary color', palette.gold, themeGroup),

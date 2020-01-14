@@ -1,2 +1,0 @@
-Breaking Changes: This is a breaking change as all dependency updates involve major version bumps.
-Dependency Updates: Updating version of `carbon-state-management`, `carbon-factory`, `storybook` to support `core-js@v3`.

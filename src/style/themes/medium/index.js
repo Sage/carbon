@@ -1,4 +1,9 @@
-import configureTheme from './medium-theme.config';
-import { mergeWithBase } from '../base';
+import { aegeanTheme } from '..';
 
-export default mergeWithBase(configureTheme);
+export default (() => {
+  console.warn(`"Medium Theme" has been renamed to "Aegean".
+All references to that theme should be updated to:
+import { aegeanTheme } from "carbon-react/lib/style/themes"`);
+
+  return aegeanTheme;
+})();

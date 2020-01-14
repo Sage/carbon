@@ -7,10 +7,18 @@ import RadioButtonSvg from './radio-button-svg.component';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const RadioButton = ({
-  id, label, onChange, value, ...props
+  id, label, onChange, onBlur, value, ...props
 }) => {
+  const handleChange = useCallback((ev) => {
+    onChange(ev);
+    // specifically trigger focus, as Safari doesn't focus radioButtons on click by default
+    ev.target.focus();
+  }, [onChange]);
+
   const inputProps = {
     ...props,
+    onChange: handleChange,
+    onBlur,
     helpTabIndex: 0,
     helpTag: 'span',
     inputId: id,
@@ -25,21 +33,13 @@ const RadioButton = ({
     reverse: !props.reverse
   };
 
-  const handleChange = useCallback((ev) => {
-    onChange(ev);
-    // specifically trigger focus, as Safari doesn't focus radioButtons on click by default
-    ev.target.focus();
-  }, [onChange]);
 
   return (
     <RadioButtonStyle
       { ...tagComponent('radio-button', props) }
       { ...props }
     >
-      <CheckableInput
-        { ...inputProps }
-        onChange={ handleChange }
-      >
+      <CheckableInput { ...inputProps }>
         <RadioButtonSvg />
       </CheckableInput>
     </RadioButtonStyle>
@@ -67,6 +67,8 @@ RadioButton.propTypes = {
   name: PropTypes.string,
   /** Accepts a callback function which can be used to update parent state on change */
   onChange: PropTypes.func,
+  /** Accepts a callback function which is triggered on blur event */
+  onBlur: PropTypes.func,
   /** Reverses label and radio button display */
   reverse: PropTypes.bool,
   /**

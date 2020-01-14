@@ -11,11 +11,8 @@ import LabelStyle from '../label/label.style';
 import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
 import StyledHelp from '../../../components/help/help.style';
 import guid from '../../../utils/helpers/guid';
-import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
-import classicTheme from '../../../style/themes/classic';
-import smallTheme from '../../../style/themes/small';
-import mediumTheme from '../../../style/themes/medium';
-import baseTheme from '../../../style/themes/base';
+import { assertStyleMatch, carbonThemesJestTable } from '../../../__spec_helper__/test-utils';
+import { baseTheme, classicTheme } from '../../../style/themes';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -418,22 +415,12 @@ describe('Checkbox', () => {
       });
     });
 
-    describe('Small theme', () => {
+    describe.each(carbonThemesJestTable)('when the theme is set to %s', (themeName, theme) => {
       it('sets the appropriate check colour', () => {
-        const wrapper = render({ theme: smallTheme, checked: true }).toJSON();
+        const wrapper = render({ theme, checked: true }).toJSON();
 
         assertStyleMatch({
-          fill: smallTheme.checkable.checked
-        }, wrapper, { modifier: 'svg path' });
-      });
-    });
-
-    describe('Medium theme', () => {
-      it('sets the appropriate check colour', () => {
-        const wrapper = render({ theme: mediumTheme, checked: true }).toJSON();
-
-        assertStyleMatch({
-          fill: mediumTheme.checkable.checked
+          fill: theme.checkable.checked
         }, wrapper, { modifier: 'svg path' });
       });
     });

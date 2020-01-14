@@ -1,2 +1,0 @@
-New Features: "Wrapped some components in the withValidations component. You can still export the components without the validation HOC. (Components: Switch)"
-Other: "Added TypeScript definition files for Switch, Label, and withValidations components."

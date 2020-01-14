@@ -1,5 +1,0 @@
-New Features: "DateInput component wrapped with the `withUniqueName`/HOC. Added `name` property to action/onChange event. (Component: DateInput)"
-Other: "Renamed `Date` component to `DateInput` to avoid ambiguity with JavaScript's `Date` (Component: DateInput). 
-Updated tests and coverage for FormWithoutValidations. (Component: FormWithoutValidations)
-Updates to `withUniqueName` component to forwardRef to allow access to components wrapped with it. (Component: withUniqueName)
-Updates to `DateRange` component to reflect Date chaniging to DateInput and bein wrapped `withUniqueName`. (Component: DateRange)"

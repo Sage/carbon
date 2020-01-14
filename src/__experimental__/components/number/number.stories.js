@@ -24,24 +24,29 @@ const setValue = (ev) => {
   store.set({ value: ev.target.value });
 };
 
-function makeStory(name, themeSelector) {
-  const component = () => {
-    const onChangeDeferredEnabled = boolean('Enable "onChangeDeferred" Action', false);
-    const onKeyDownEnabled = boolean('Enable "onKeyDown" Action', false);
-    const deferTimeout = onChangeDeferredEnabled ? number('deferTimeout') : undefined;
+const defaultComponent = () => {
+  const onChangeDeferredEnabled = boolean('Enable "onChangeDeferred" Action', false);
+  const onKeyDownEnabled = boolean('Enable "onKeyDown" Action', false);
+  const deferTimeout = onChangeDeferredEnabled ? number('deferTimeout') : undefined;
 
-    return (
-      <Number
-        { ...getCommonTextboxStoryProps() }
-        value={ store.get('value') }
-        onChange={ setValue }
-        onKeyDown={ onKeyDownEnabled ? action('onKeyDown') : undefined }
-        onChangeDeferred={ onChangeDeferredEnabled ? action('onChangeDeferred') : undefined }
-        deferTimeout={ deferTimeout }
-      />
-    );
-  };
+  return (
+    <Number
+      { ...getCommonTextboxStoryProps() }
+      value={ store.get('value') }
+      onChange={ setValue }
+      onKeyDown={ onKeyDownEnabled ? action('onKeyDown') : undefined }
+      onChangeDeferred={ onChangeDeferredEnabled ? action('onChangeDeferred') : undefined }
+      deferTimeout={ deferTimeout }
+    />
+  );
+};
 
+const autoFocusComponent = () => {
+  boolean('autoFocus', true);
+  return defaultComponent();
+};
+
+function makeStory(name, themeSelector, component) {
   const metadata = {
     themeSelector,
     info: {
@@ -58,5 +63,6 @@ function makeStory(name, themeSelector) {
 
 storiesOf('Experimental/Number Input', module)
   .addDecorator(StateDecorator(store))
-  .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('default', dlsThemeSelector, defaultComponent))
+  .add(...makeStory('classic', classicThemeSelector, defaultComponent))
+  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent));

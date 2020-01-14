@@ -28,14 +28,6 @@ Then('dialog title context on preview is {string}', (title) => {
   dialogTitle().should('have.text', title);
 });
 
-Then('Background UI is enabled', () => {
-  backgroundUILocator().should('not.exist');
-});
-
-Then('Background UI is disabled', () => {
-  backgroundUILocator().should('exist');
-});
-
 Then('Confirm dialog is visible', () => {
   dialogPreview().should('be.visible');
 });

@@ -39,7 +39,8 @@ class BaseDateInput extends React.Component {
     lastValidEventValues: {
       formattedValue: this.initialVisibleValue,
       rawValue: isoFormattedValueString(this.initialVisibleValue)
-    }
+    },
+    shouldPickerOpen: false
   };
 
   componentDidMount() {
@@ -48,6 +49,7 @@ class BaseDateInput extends React.Component {
       this.isAutoFocused = true;
       this.input.focus();
       this.openDatePicker(true);
+      this.setState({ shouldPickerOpen: true });
     }
     this.handleValidationUpdate();
   }
@@ -205,11 +207,30 @@ class BaseDateInput extends React.Component {
       this.isOpening = false;
       return;
     }
+
     document.removeEventListener('click', this.closeDatePicker);
-    this.setState({ isDatePickerOpen: false }, () => {
+    this.setState({ isDatePickerOpen: false, shouldPickerOpen: false }, () => {
       this.isBlurBlocked = false;
       if (this.input !== document.activeElement) {
         this.handleBlur();
+      }
+    });
+  };
+
+  handleIconClick = () => {
+    if (this.props.disabled || this.props.readOnly) return;
+    this.isOpening = true;
+    this.setState(({ shouldPickerOpen }) => ({
+      shouldPickerOpen: !shouldPickerOpen
+    }), () => {
+      if (this.state.shouldPickerOpen) {
+        this.isBlurBlocked = true;
+        this.inputFocusedViaPicker = false;
+        this.openDatePicker();
+      } else {
+        this.inputFocusedViaPicker = false;
+        this.isOpening = false;
+        this.closeDatePicker();
       }
     });
   };
@@ -366,7 +387,7 @@ class BaseDateInput extends React.Component {
       onChange: this.handleVisibleInputChange,
       onFocus: this.handleFocus,
       onKeyDown: this.handleKeyDown,
-      onClick: this.markCurrentDatepicker
+      onClick: this.handleIconClick
     };
 
     const validations = isDateRange ? concatAllValidations(inputProps) : this.state.validationsArray;
@@ -426,7 +447,7 @@ function canReturnValue(value, allowEmptyValue) {
     invariant(isValidInitialFormat(value), message);
   }
 
-  return isValidInitialFormat(value) || (allowEmptyValue && !value.length);
+  return isValidInitialFormat(value) || (allowEmptyValue && !value);
 }
 
 const DateInput = withUniqueIdProps(BaseDateInput);

@@ -1,4 +1,4 @@
-# Carbon [![Codeship Status](https://img.shields.io/codeship/dd2c7bd0-6c4e-0133-1f77-72bb5571e5ad/master.svg)](https://app.codeship.com/projects/115478) [![Travis Status](https://travis-ci.org/Sage/carbon.svg?branch=master)](https://travis-ci.org/Sage/carbon) [![npm](https://img.shields.io/npm/v/carbon-react.svg)](https://www.npmjs.com/package/carbon-react)
+# Carbon [![Travis Status](https://travis-ci.org/Sage/carbon.svg?branch=master)](https://travis-ci.org/Sage/carbon) [![npm](https://img.shields.io/npm/v/carbon-react.svg)](https://www.npmjs.com/package/carbon-react)
 
 <img src="https://raw.githubusercontent.com/Sage/carbon/master/logo/carbon-logo.png" width="50">
 
@@ -22,7 +22,7 @@ See the [demo and documentation site](https://carbon.sage.com/) for live example
 * [Services](docs/guides/services.md)
 * [Integrating Carbon with other UI](docs/guides/integrating-with-other-ui.md)
 * [Testing changes to Carbon in your project](docs/guides/installing-unreleased-changes.md)
-* [Testing components using Cypress.io](cypress/README.md)
+* [Testing process and tools](cypress/README.md)
 * [Releasing Carbon](docs/guides/releasing.md)
 
 #### Testing
@@ -38,15 +38,6 @@ As Carbon is just React components, we support any test suite you prefer to use.
   5. Navigate to [http://localhost:8095/](http://localhost:8095/) in your favourite browser
 
 > Note: MockAPI for tables and dropdowns is disabled locally as it conflicts with HotReloading. To enable see `src/main.js` file
-
-## Adding Release Notes
-
-* Use [renogen](https://github.com/DDAZZA/renogen), or add a yml file manually to `./changelog/next` e.g. `./changelog/next/my-update.yml`.
-* Update or add an appropriate heading in the style shown below for each change:
-```
-Bug Fixes: "Fixes browser position. (Component: Modal)"
-```
-> Note: The [.renogen](.renogen) file in the project root holds a list of commit message types that can be used.
 
 ## Technologies
 

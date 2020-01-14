@@ -1,6 +1,0 @@
-Breaking Changes: "File naming of component files and specs. \n
-`src/components/link/__spec__.js` -> `src/components/link/link.spec.js` \n
-`src/components/link/link.js` -> `src/components/link/link.component.js` \n
-(Component: Link)"
-Styling Changes: "Theme based styling provided by Styled Component. Classic, Small, Medium and Large theme styles. (Component: Link)"
-New Features: "Added Props surfaced through storybook examples. (Component: Link)"

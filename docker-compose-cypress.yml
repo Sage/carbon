@@ -1,4 +1,4 @@
-version: '2.1'
+version: '3.7'
 
 services:
   cypress:
@@ -13,8 +13,8 @@ services:
     # https://github.com/cypress-io/cypress/issues/350
     # https://docs.cypress.io/guides/references/error-messages.html#The-Chromium-Renderer-process-just-crashed
     ipc: host
-    # volumes:
-    #   - './cypress/screenshots/:/usr/src/app/cypress/screenshots/'
+    volumes:
+      - './allure-report/:/usr/src/app/allure-report'
   storybook:
     image: carbon_cypress
     container_name: storybook

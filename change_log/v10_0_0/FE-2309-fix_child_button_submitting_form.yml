@@ -1,2 +1,0 @@
-Bug Fixes: "Adds type property to button component to stop form submission on click. (component: Button)"
-Bug Fixes: "button type set to submit. Enbales save button to still submit. (component: FormButton)"

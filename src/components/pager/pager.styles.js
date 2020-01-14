@@ -5,7 +5,7 @@ import {
 } from './pager-classic.styles';
 import StyledInput from '../../__experimental__/components/input/input.style';
 import StyledInputPresentation from '../../__experimental__/components/input/input-presentation.style';
-import smallTheme from '../../style/themes/small';
+import mintTheme from '../../style/themes/mint';
 
 const PagerContainerStyles = styled.div`
   display: flex;
@@ -133,35 +133,35 @@ const PagerSummaryStyles = styled.div`
 `;
 
 PagerContainerStyles.defaultProps = {
-  theme: smallTheme
+  theme: mintTheme
 };
 
 PagerSizeOptionsStyles.defaultProps = {
-  theme: smallTheme
+  theme: mintTheme
 };
 
 PagerSizeOptionsInnerStyles.defaultProps = {
-  theme: smallTheme
+  theme: mintTheme
 };
 
 PagerNavigationStyles.defaultProps = {
-  theme: smallTheme
+  theme: mintTheme
 };
 
 PagerNavInnerStyles.defaultProps = {
-  theme: smallTheme
+  theme: mintTheme
 };
 
 PagerLinkStyles.defaultProps = {
-  theme: smallTheme
+  theme: mintTheme
 };
 
 PagerButtonWrapperStyles.defaultProps = {
-  theme: smallTheme
+  theme: mintTheme
 };
 
 PagerSummaryStyles.defaultProps = {
-  theme: smallTheme
+  theme: mintTheme
 };
 
 export {

@@ -1,2 +1,0 @@
-Improvement: "Moves styles to the wrapper (Components: Link)"
-Bug Fixes: "Fixes: Link Component passes non-html props to the DOM (Components: Link)" 

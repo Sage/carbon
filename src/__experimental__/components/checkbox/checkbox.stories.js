@@ -12,6 +12,8 @@ import { Checkbox, CheckboxGroup } from '.';
 import { info, notes, infoValidations } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 import Text from '../../../utils/helpers/text';
+import AutoFocus from '../../../utils/helpers/auto-focus';
+import guid from '../../../utils/helpers/guid';
 
 Checkbox.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -80,20 +82,30 @@ const groupStore = new Store({
   three: false
 });
 
+const previous = {
+  key: guid(),
+  autoFocus: false
+};
+
 function defaultKnobs(type) {
   const knobGroup = `Checkbox ${type}`;
   const nameWithGroup = (name) => {
     return (type === 'default') ? name : `${Text.titleCase(type)} ${name}`;
   };
   const label = `${text(nameWithGroup('label'), 'Example Checkbox', knobGroup)} (${type})`;
+  const autoFocus = boolean(nameWithGroup('autoFocus'), false, knobGroup);
+  const key = AutoFocus.getKey(autoFocus, previous);
 
   return ({
+    key,
     disabled: boolean(nameWithGroup('disabled'), false, knobGroup),
     fieldHelp: text(nameWithGroup('fieldHelp'), 'This text provides help for the input.', knobGroup),
     fieldHelpInline: boolean(nameWithGroup('fieldHelpInline'), false, knobGroup),
     reverse: boolean(nameWithGroup('reverse'), false, knobGroup),
+    autoFocus,
     label,
     labelHelp: text(nameWithGroup('labelHelp'), 'This text provides more information for the label.', knobGroup),
+    onBlur: action('onBlur'),
     inputWidth: number(nameWithGroup('inputWidth'), 0, {
       range: true,
       min: 0,
@@ -171,6 +183,11 @@ const checkboxComponent = () => {
   );
 };
 
+const checkboxComponentAutoFocus = () => {
+  boolean('autoFocus', true, 'Checkbox default');
+  return checkboxComponent();
+};
+
 const checkboxGroupComponent = () => (
   <div>
     <h3>In Form</h3>
@@ -226,4 +243,5 @@ storiesOf('Experimental/Checkbox', module)
   .add(...makeStory('default', dlsThemeSelector, checkboxComponent))
   .add(...makeStory('classic', classicThemeSelector, checkboxComponent))
   .add(...makeStory('validations', dlsThemeSelector, checkboxGroupComponent))
-  .add(...makeStory('validations classic', classicThemeSelector, checkboxGroupComponent));
+  .add(...makeStory('validations classic', classicThemeSelector, checkboxGroupComponent))
+  .add(...makeStory('autoFocus', dlsThemeSelector, checkboxComponentAutoFocus));

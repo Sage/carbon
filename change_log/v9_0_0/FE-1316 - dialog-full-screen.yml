@@ -1,7 +1,0 @@
-Breaking Changes: "File naming of component files and specs. \n
-`src/components/dialog-full-screen/dialog-full-screen.js` -> `src/components/dialog-full-screen/dialog-full-screen.component.js` \n
-`src/components/dialog-full-screen/__spec__.js` -> `src/components/dialog-full-screen/dialog-full-screen.spec.js` \n
-`src/components/dialog-full-screen-heading/full-screen-heading.js` -> `src/components/dialog-full-screen-heading/full-screen-heading.component.js` \n
-(Component: DialogFullScreen)"
-New Features: "Added Props surfaced through storybook examples. (Component: DialogFullScreen)"
-Styling Changes: "Theme based styling provided by Styled Component. Classic, Small, Medium and Large theme styles. (Component: DialogFullScreen)"

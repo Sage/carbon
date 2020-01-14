@@ -7,7 +7,7 @@ import TestRenderer from 'react-test-renderer';
 import guid from '../../utils/helpers/guid';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import classicTheme from '../../style/themes/classic';
-import smallTheme from '../../style/themes/small';
+import mintTheme from '../../style/themes/mint';
 import baseTheme from '../../style/themes/base';
 import Pager from './pager.component';
 import Dropdown from '../../__deprecated__/components/dropdown';
@@ -39,16 +39,16 @@ describe('Pager', () => {
     pageSizeSelectionOptions
   };
 
-  it('renders the Pager correctly with the classic theme', () => {
+  it('renders the Pager correctly with the Classic Theme', () => {
     const wrapper = render(
       { ...props, onPagination: () => true, theme: classicTheme },
       TestRenderer.create
     );
     expect(wrapper).toMatchSnapshot();
   });
-  it('renders the Pager correctly with the small theme', () => {
+  it('renders the Pager correctly with the Mint Theme', () => {
     const wrapper = render(
-      { ...props, onPagination: () => true, theme: smallTheme },
+      { ...props, onPagination: () => true, theme: mintTheme },
       TestRenderer.create
     );
     expect(wrapper).toMatchSnapshot();
@@ -71,7 +71,7 @@ describe('Pager', () => {
         const wrapper = render(
           {
             ...props,
-            theme: smallTheme
+            theme: mintTheme
           },
           mount
         );
@@ -97,7 +97,7 @@ describe('Pager', () => {
             ...props,
             currentPage: '4',
             onPagination,
-            theme: smallTheme
+            theme: mintTheme
           },
           mount
         );

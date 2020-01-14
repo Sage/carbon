@@ -1,1 +1,0 @@
-New Features: 'Adds mock DateHelper to ensure that when running unit tests the time will always be UTC and today date always the same'
