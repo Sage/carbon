@@ -131,16 +131,16 @@ Feature: Show Edit Pod component
       | transparent |
 
   @positive
-  Scenario Outline: Set Show Edit Pod buttonAlign to <buttonAlign>
-    When I select buttonAlign to "<buttonAlign>"
+  Scenario Outline: Set Show Edit Pod buttonAlign to <position>
+    When I select buttonAlign to "<position>"
       And I edit Show Edit Pod component
-    Then Show Edit Pod buttons are aligned to <buttonAlign>
+    Then Show Edit Pod buttons are aligned to "<position>"
     Examples:
-      | buttonAlign |
-      | right       |
-      | left        |
+      | position |
+      | left     |
+      | right    |
 
-  @positive
+  @ignore
   Scenario: Delete action was called
     When I edit Show Edit Pod component
       And clear all actions in Actions Tab

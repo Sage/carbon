@@ -57,12 +57,12 @@ Feature: Experimental Checkbox classic component
   @positive
   Scenario: Enable reverse checkbox
     When I check reverse checkbox
-    Then Checkbox is set to reverse and has width "15px"
+    Then Checkbox is set to reverse and has width "16px"
 
   @positive
   Scenario: Enable and disable reverse checkbox
     # Given I open "Experimental Checkbox" component page
-    Then Checkbox is not set to reverse and has width "15px"
+    Then Checkbox is not set to reverse and has width "16px"
 
   @positive
   Scenario Outline: Change Checkbox component label help to <labelHelp>
@@ -78,26 +78,6 @@ Feature: Experimental Checkbox classic component
       | ÄÖÜßäöüß                |
   # @ignore because of FE-1447
   # | <>                       |
-
-  @positive
-  Scenario Outline: Change Checkbox input width to <width>
-    When I set inputWidth slider to <width>
-    Then Checkbox inputWidth is set to "<px>"
-    Examples:
-      | width | px   |
-      | 1     | 11   |
-      | 50    | 531  |
-      | 100   | 1061 |
-
-  @positive
-  Scenario Outline: Change Checkbox label width to <width>
-    When I set label width slider to <width>
-    Then Checkbox label width is set to <px>
-    Examples:
-      | width | px   |
-      | 1     | 11   |
-      | 50    | 531  |
-      | 100   | 1049 |
 
   @positive
   Scenario Outline: Change Checkbox label align to <direction>

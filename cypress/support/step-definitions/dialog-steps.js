@@ -7,14 +7,6 @@ When('I click close icon', () => {
   closeIconButton().click();
 });
 
-Then('background UI is enabled', () => {
-  backgroundUILocator().should('not.exist');
-});
-
-Then('background UI is disabled', () => {
-  backgroundUILocator().should('exist');
-});
-
 Then('Dialog height is set to {string}', (height) => {
   dialogPreview().should('have.attr', 'style').should('contain', `min-height: ${height}px`);
 });

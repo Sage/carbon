@@ -1,4 +1,4 @@
-import { buttonSubtextPreview } from '../../locators/button';
+import { buttonSubtextPreview, buttonDataComponent } from '../../locators/button';
 import { commonButtonPreview } from '../../locators';
 
 Then('Button label on preview is {string}', (label) => {
@@ -18,7 +18,7 @@ Then('Button height is {string}', (height) => {
 });
 
 Then('Button width is {string}', (width) => {
-  commonButtonPreview().should('have.css', 'width', width);
+  buttonDataComponent().should('have.css', 'width', width);
 });
 
 Then('Button subtext on preview is {string}', (subtext) => {

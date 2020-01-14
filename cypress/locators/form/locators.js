@@ -9,3 +9,4 @@ export const ERROR_MESSAGE = '.common-input__message--error';
 export const INPUT_VALIDATION = '.common-input__input--error';
 export const FORM_DATA_ELEMENT = '[data-component="form"]';
 export const ERROR_TOOLTIP = '[role="tooltip"]';
+export const FORM_FOOTER = '[data-element="form-footer"]';
