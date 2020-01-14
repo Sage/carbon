@@ -1,6 +1,9 @@
 import { textbox, textboxByPosition, textboxDataComponent } from '../../locators/textbox';
-import { label, labelByPosition, commonDataElementInputPreview, commonInputPreview, 
-  fieldHelpPreviewByPosition, tooltipPreviewByPosition } from '../../locators';
+import {
+  label, labelByPosition, commonDataElementInputPreview, commonInputPreview,
+  fieldHelpPreviewByPosition, tooltipPreviewByPosition,
+} from '../../locators';
+import { DEBUG_FLAG } from '..';
 
 const TEXT_ALIGN = 'text-align';
 const FIRST_ELEMENT = 0;
@@ -17,27 +20,36 @@ Then('Multiple Textbox placeholder is set to {string}', (text) => {
 
 Then('Textbox component is disabled', () => {
   textbox().children()
+    .should('have.css', 'color', 'rgba(0, 0, 0, 0.55)')
+    .and('have.css', 'cursor', 'not-allowed');
+});
+
+Then('Textbox component is disabled for classic page', () => {
+  textbox().children()
     .should('have.css', 'color', 'rgb(179, 194, 200)')
     .and('have.css', 'cursor', 'not-allowed');
 });
 
-Then('Multiple Textbox component is disabled', () => {
+Then('Textbox multiple component is disabled', () => {
+  cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
   textbox(FIRST_ELEMENT).children()
     .should('have.css', 'color', 'rgba(0, 0, 0, 0.55)')
     .and('have.css', 'cursor', 'not-allowed');
   textbox(SECOND_ELEMENT).children()
     .should('have.css', 'color', 'rgba(0, 0, 0, 0.55)')
-    .and('have.css', 'cursor', 'not-allowed'); 
+    .and('have.css', 'cursor', 'not-allowed');
 });
 
 Then('Textbox component is not disabled', () => {
+  cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
   textbox().should('not.be.disabled');
   textbox().children()
-    .should('not.have.css', 'color', 'rgb(179, 194, 200)')
+    .should('not.have.css', 'color', 'rgba(0, 0, 0, 0.55)')
     .and('not.have.css', 'cursor', 'not-allowed');
 });
 
-Then('Multiple Textbox component is not disabled', () => {
+Then('Textbox multiple component is not disabled', () => {
+  cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
   textbox(FIRST_ELEMENT).should('not.be.disabled');
   textbox(FIRST_ELEMENT).children()
     .should('not.have.css', 'color', 'rgba(0, 0, 0, 0.55)')
@@ -48,37 +60,51 @@ Then('Multiple Textbox component is not disabled', () => {
     .and('not.have.css', 'cursor', 'not-allowed');
 });
 
-Then('Textbox component is readOnly', () => {
+Then('Textbox component is readOnly for classic story', () => {
+  cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
   textbox().should('have.css', 'background-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-bottom-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-left-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-right-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-top-color', 'rgba(0, 0, 0, 0)')
+    .and('have.css', 'border-bottom-color', 'rgb(204, 214, 219)')
+    .and('have.css', 'border-left-color', 'rgb(204, 214, 219)')
+    .and('have.css', 'border-right-color', 'rgb(204, 214, 219)')
+    .and('have.css', 'border-top-color', 'rgb(204, 214, 219)')
     .and('not.have.css', 'background-color', 'rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box');
 });
 
-Then('Multiple Textbox component is readOnly', () => {
+Then('Textbox component is readOnly', () => {
+  cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
+  textbox().should('have.css', 'background-color', 'rgba(0, 0, 0, 0)')
+    .and('have.css', 'border-bottom-color', 'rgb(102, 132, 145)')
+    .and('have.css', 'border-left-color', 'rgb(102, 132, 145)')
+    .and('have.css', 'border-right-color', 'rgb(102, 132, 145)')
+    .and('have.css', 'border-top-color', 'rgb(102, 132, 145)')
+    .and('not.have.css', 'background-color', 'rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box');
+});
+
+Then('Textbox multiple component is readOnly', () => {
+  cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
   textbox(FIRST_ELEMENT).should('have.css', 'background-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-bottom-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-left-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-right-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-top-color', 'rgba(0, 0, 0, 0)')
+    .and('have.css', 'border-bottom-color', 'rgb(102, 132, 145)')
+    .and('have.css', 'border-left-color', 'rgb(102, 132, 145)')
+    .and('have.css', 'border-right-color', 'rgb(102, 132, 145)')
+    .and('have.css', 'border-top-color', 'rgb(102, 132, 145)')
     .and('not.have.css', 'background-color', 'rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box');
   textbox(SECOND_ELEMENT).should('have.css', 'background-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-bottom-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-left-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-right-color', 'rgba(0, 0, 0, 0)')
-    .and('have.css', 'border-top-color', 'rgba(0, 0, 0, 0)')
+    .and('have.css', 'border-bottom-color', 'rgb(102, 132, 145)')
+    .and('have.css', 'border-left-color', 'rgb(102, 132, 145)')
+    .and('have.css', 'border-right-color', 'rgb(102, 132, 145)')
+    .and('have.css', 'border-top-color', 'rgb(102, 132, 145)')
     .and('not.have.css', 'background-color', 'rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box');
 });
 
 Then('Textbox component is not readOnly', () => {
+  cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
   textbox().should('not.have.css', 'background', 'rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box')
     .and('not.have.css', 'border-color', 'rgba(0, 0, 0, 0)')
     .and('have.css', 'background', 'rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box');
 });
 
-Then('Multple Textbox component is not readOnly', () => {
+Then('Textbox multiple component is not readOnly', () => {
+  cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
   textbox(FIRST_ELEMENT).should('not.have.css', 'background-color', 'rgba(0, 0, 0, 0)')
     .and('not.have.css', 'border-bottom-color', 'rgba(0, 0, 0, 0)')
     .and('not.have.css', 'border-left-color', 'rgba(0, 0, 0, 0)')

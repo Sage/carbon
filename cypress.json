@@ -8,5 +8,7 @@
   "numTestsKeptInMemory": 1,
   "video": false,
   "viewportWidth": 1366,
-  "viewportHeight": 768
+  "viewportHeight": 768,
+  "reporter": "mocha-allure-reporter, spec",
+  "chromeWebSecurity": false
 }

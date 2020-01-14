@@ -106,13 +106,10 @@ Feature: Experimental GroupedCharacter component classic page
       | <>                      |
 
   @positive
-  Scenario Outline: Enable label inline
+  Scenario: Enable label inline
     Given I set label to "label"
     When I check labelInline checkbox
-    Then GroupedCharacter component labelInline is enabled "<isClassicStory>"
-    Examples:
-      | isClassicStory |
-      | true           |
+    Then Grouped character component label Inline is enabled for classic story
 
   @positive
   Scenario: Disable label inline
@@ -126,12 +123,12 @@ Feature: Experimental GroupedCharacter component classic page
     Given I set label to "label"
       And I check labelInline checkbox
     When I set label width slider to <labelWidth>
-    Then GroupedCharacter Input component labelWidth is set to <px>
+    Then GroupedCharacter Input component labelWidth is set to "<labelWidth>"
     Examples:
-      | labelWidth | px  |
-      | 1          | 11  |
-      | 10         | 106 |
-      | 100        | 318 |
+      | labelWidth |
+      | 1          |
+      | 10         |
+      | 100        |
 
   @positive
   Scenario Outline: Set input width to <inputWidth>

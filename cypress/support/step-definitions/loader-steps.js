@@ -7,8 +7,8 @@ Then('Loader {word} is set to {string}', (word, value) => {
 });
 
 Then('Loader width and height is set to {string}', (value) => {
-  spinner().should('have.css', 'height', `${value}px`);
-  spinner().should('have.css', 'width', `${value}px`);
+  spinner($element => expect($element).to.have.css('height', `${value}px`));
+  spinner($element => expect($element).to.have.css('width', `${value}px`));
 });
 
 Then('Loader {string} color is set to {string}', (parameter, color) => {

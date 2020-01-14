@@ -123,13 +123,10 @@ Feature: Experimental Number Input component for classic page
   # | <>                       |
 
   @positive
-  Scenario Outline: Enable label inline
+  Scenario: Enable label inline
     Given I set label to "label"
     When I check labelInline checkbox
-    Then NumberInput component labelInline is enabled "<isClassicStory>"
-    Examples:
-      | isClassicStory |
-      | true           |
+    Then NumberInput component labelInline is enabled for classic component
 
   @positive
   Scenario: Disable label inline
@@ -143,12 +140,12 @@ Feature: Experimental Number Input component for classic page
     Given I set label to "label"
       And I check labelInline checkbox
     When I set label width slider to <labelWidth>
-    Then Number Input component labelWidth is set to <px>
+    Then Number Input component labelWidth is set to "<labelWidth>"
     Examples:
-      | labelWidth | px  |
-      | 1          | 11  |
-      | 10         | 106 |
-      | 100        | 318 |
+      | labelWidth |
+      | 1          |
+      | 10         |
+      | 100        |
 
   @positive
   Scenario Outline: Set input width to <inputWidth>

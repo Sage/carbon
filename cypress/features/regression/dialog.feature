@@ -102,14 +102,14 @@ Feature: Dialog component
   Scenario: Enable background UI
     When I check enableBackgroundUI checkbox
       And I open component preview
-    Then background UI is enabled
+    Then Background UI is enabled
 
   @positive
   Scenario: Disable background UI
     When I check enableBackgroundUI checkbox
       And I uncheck enableBackgroundUI checkbox
       And I open component preview
-    Then background UI is disabled
+    Then Background UI is disabled
 
   @positive
   Scenario: Disable escape key
