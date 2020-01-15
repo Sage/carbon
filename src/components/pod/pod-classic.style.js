@@ -1,7 +1,6 @@
 import { css } from 'styled-components';
 import { isClassic } from '../../utils/helpers/style-helper';
 import StyledIcon from '../icon/icon.style';
-import StyledLink from '../link/link.style';
 
 const blockBackgrounds = {
   primary: 'white',
