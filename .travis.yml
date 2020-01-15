@@ -21,6 +21,8 @@ jobs:
     - name: "test build"
       script: npm run test-carbon-build
       if: type = pull_request # we only need to test this in a pull, on a push to master we will be running the build in the deploy step
+    - name: "storybook smoketest"
+      script: npm run test-storybook-smoke
     - name: "test storybook with cypress"
       script: 
         - npm run storybook-ci </dev/null &>/dev/null &
