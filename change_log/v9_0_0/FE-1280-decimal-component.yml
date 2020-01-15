@@ -1,3 +1,0 @@
-New Components: "Added a Decimal component based on the existing implementation. (Component: Decimal)"
-New Features: "Added Props surfaced through storybook examples. (Component: Decimal)"
-Styling Changes: "Added styling to support new Decimal component. (Component: Input, FieldHelp)"

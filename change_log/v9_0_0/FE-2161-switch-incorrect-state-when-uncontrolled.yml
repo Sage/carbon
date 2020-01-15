@@ -1,1 +1,0 @@
-Bug Fixes: "Fixed issue with Switch as an uncontrolled component (no checked prop) where the UI does not update when the switch component is toggled. (Component: Switch)"

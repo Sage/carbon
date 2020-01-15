@@ -1,3 +1,0 @@
-Component Update: "`Pages` component now uses new carousel component."
-Bug Fixes: "Removed 'UNSAFE' legacy 'componentWillUpdate' from `Carousel` component. `Dialog Full Screen` component fixed UI bug with close icon not showing in various small screen sizes. Fixed `Heading` component back() function where now it will correctly accept onClick callback function."
-Storybook Updates: "Added History feature to allow for steping back through the visited pages. Implemented Storybook knob for 'pageIndex' property. Back chevron button will step back in history of visited pages triggering sliding effect. Back chevron will now use/inherit themes and icon styling."

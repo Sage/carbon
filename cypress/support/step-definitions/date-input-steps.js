@@ -1,5 +1,5 @@
 import {
-  dateInput, dayPickerDay, minDate, maxDate, dayPickerWrapper, dateInputNoIframe,
+  dateInput, dayPickerDay, minDate, maxDate, dateInputNoIframe,
   dayPickerDayNoIframe,
 } from '../../locators/date-input/index';
 
@@ -9,6 +9,7 @@ const YESTERDAY_CALENDAR = Cypress.moment().subtract(1, 'days').format('ddd MMM 
 const TOMORROW_CALENDAR = Cypress.moment().add(1, 'days').format('ddd MMM D, YYYY');
 const VALIDATION_DATE = '/04/2019';
 const TODAY_KNOBS = Cypress.moment().format('YYYY-MM-DD');
+const TODAY_DATE_INPUT = Cypress.moment().format('DD/MM/YYYY');
 
 Then('Date input is disabled', () => {
   dateInput().parent()
@@ -44,6 +45,10 @@ Then('Date input component is readOnly for deprecated component', () => {
 
 Then('Date input component is not readOnly for deprecated component', () => {
   dateInput().should('not.have.attr', 'readonly');
+});
+
+When('I set dateInput to today', () => {
+  dateInput().clear().type(TODAY_DATE_INPUT);
 });
 
 When('I set minDate to today', () => {

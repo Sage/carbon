@@ -1,8 +1,0 @@
-Deprecated Components: "`Checkbox` has been moved to `__deprecated__/components/checkbox`,
-  to continue using it you will need to update the import path to `carbon-react/lib/__deprecated__/components/checkbox` \n
-  `RadioButton` has been moved to `__deprecated__/components/radio-button`,
-  to continue using it you will need to update the import path to `carbon-react/lib/__deprecated__/components/radio-button` \n
-  `Switch` has been moved to `__deprecated__/components/switch`,
-  to continue using it you will need to update the import path to `carbon-react/lib/__deprecated__/components/switch` \n
- `SimpleColorPicker` has been moved to `__deprecated__/components/simple-color-picker`,
-  to continue using it you will need to update the import path to `carbon-react/lib/__deprecated__/components/simple-color-picker`"

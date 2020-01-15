@@ -1,6 +1,0 @@
-Breaking Changes: "File naming of component files and specs. \n
-`src/components/preview/preview.js` -> `src/components/preview/preview.component.js` \n
-`src/components/preview/__spec__.js`-> `src/components/preview/preview.spec.js` \n
-(Component: Preview)"
-Styling Changes: "Theme based styling provided by Styled Component. Classic, Small, Medium and Large theme styles. (Component: Preview)"
-New Features: "Added Props surfaced through storybook examples. (Components: Preview)"

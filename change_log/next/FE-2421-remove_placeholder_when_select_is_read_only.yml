@@ -1,1 +1,0 @@
-Bug Fixes: "Sets placeholder to empty string when `readOnly` prop is true. (component: Select)"

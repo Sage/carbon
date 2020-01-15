@@ -1,8 +1,0 @@
-Breaking Changes: "File naming of component files and specs. \n
-`src/components/configurable-items/configurable-item-row/__spec__.js` -> `src/components/configurable-items/configurable-item-row/configurable-items-row.spec.js` \n
-`src/components/configurable-items/configurable-item-row/configurable-item-row.js` -> `src/components/configurable-items/configurable-item-row/configurable-item-row.component.js` \n
-`src/components/configurable-items/configurable-items.js` -> `src/components/configurable-items/configurable-items.component.js` \n
-`src/components/configurable-items/__spec__.js` -> `src/components/configurable-items/configurable-items.spec.js` \n
-(Component: ConfigurableItems)"
-Styling Changes: "Theme based styling provided by Styled Component. Classic, Small, Medium and Large theme styles. (Component: ConfigurableItems)"
-New Features: "Added Props surfaced through storybook examples. (Component: ConfigurableItems)"

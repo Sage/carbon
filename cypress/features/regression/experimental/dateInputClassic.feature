@@ -1,8 +1,8 @@
-Feature: Experimental Date Input component
-  I want to change Experimental Date Input component properties
+Feature: Experimental Date Input classic component
+  I want to change Experimental Date Input classic component properties
 
-  Background: Open Experimental Date Input component page
-    Given I open "Experimental Date Input" component page
+  Background: Open Experimental Date Input classic component page
+    Given I open "Experimental Date Input" component page classic
 
   @positive
   Scenario: Disable Date Input
@@ -88,7 +88,7 @@ Feature: Experimental Date Input component
   @positive
   Scenario: Change Date Input component minDate
     Given I set minDate to today
-      And I set dateInput to today 
+      And I set dateInput to today
     When I choose date yesterday via DayPicker
     Then the date before minDate is not available
 

@@ -12,9 +12,11 @@ function waitForCarouselMove() {
 function clickCarouselButton(direction) {
   switch (direction) {
     case 'left':
+      cy.wait(1500, { log: DEBUG_FLAG }); // required because of component refresh
       previousArrowButton().click();
       break;
     case 'right':
+      cy.wait(1500, { log: DEBUG_FLAG }); // required because of component refresh
       nextArrowButton().click();
       break;
     default: throw new Error('Direction can be only left or right');
@@ -22,6 +24,7 @@ function clickCarouselButton(direction) {
 }
 
 Then('slide title is {string}', (title) => {
+  cy.wait(1500, { log: DEBUG_FLAG }); // required because of component refresh
   slide().should('have.text', title);
 });
 
@@ -34,7 +37,6 @@ When('I set slide index to {int}', (index) => {
 
 Then('I move carousel {string}', (direction) => {
   clickCarouselButton(direction);
-  waitForCarouselMove();
 });
 
 Then('I click carousel {string} button', (direction) => {

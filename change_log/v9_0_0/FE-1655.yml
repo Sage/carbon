@@ -1,1 +1,0 @@
-Bug Fixes: "Fixes text on the pill in case where it was wrapping into multi-line and isDeleteable was checked, the button for deleting pill would have arrow cursor instead of pointer cursor. (Component: Pill)"

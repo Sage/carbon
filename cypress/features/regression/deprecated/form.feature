@@ -34,7 +34,7 @@ Feature: Deprecated Form component
   @deprecated
   Scenario Outline: Align buttons to <direction>
     When I select buttonAlign to "<direction>"
-    Then buttons are aligned to "<direction>"
+    Then buttons are aligned to "<direction>" for deprecated component
     Examples:
       | direction |
       | left      |

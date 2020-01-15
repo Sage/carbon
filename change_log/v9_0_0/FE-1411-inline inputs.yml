@@ -1,6 +1,0 @@
-Breaking Changes: "File naming of component files and specs. \n
-`src/components/inline-inputs/__spec__.js` -> `src/components/inline-inputs/inline-inputs.spec.js` \n
-`src/components/inline-inputs/inline-inputs.js` -> `src/components/inline-inputs/inline-inputs.component.js` \n
-(Component: InlineInputs)"
-Styling Changes: "Theme based styling provided by Styled Component. Classic, Small, Medium and Large theme styles. (Component: InlineInputs)"
-New Features: "Added Props surfaced through storybook examples. (Components: InlineInputs)"

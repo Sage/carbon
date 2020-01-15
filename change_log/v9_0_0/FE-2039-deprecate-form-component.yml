@@ -1,4 +1,0 @@
-Deprecated Components: "`Form` has been moved to `__deprecated__/components/form`,
-  to continue using it you will need to update the import path to `carbon-react/lib/__deprecated__/components/form` \n
-  `Spinner` has been moved to `__deprecated__/components/spinner`,
-  to continue using it you will need to update the import path to `carbon-react/lib/__deprecated__/components/spinner`"
