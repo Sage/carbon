@@ -2,10 +2,10 @@ import styled, { css } from 'styled-components';
 import { StyledFormFooter } from '../../__deprecated__/components/form/form.style.js';
 import { StyledEditAction } from '../pod/pod.style.js';
 import Pod from '../pod';
-import Button from '../button';
 import Link from '../link';
 import { isClassic } from '../../utils/helpers/style-helper';
 import StyledDeleteButton from './delete-button.style.js';
+import { baseTheme } from '../../style/themes';
 
 
 const StyledPod = styled(Pod)`
@@ -49,6 +49,10 @@ const StyledPod = styled(Pod)`
     position: absolute;
   }
 `;
+
+StyledPod.defaultProps = {
+  theme: baseTheme
+};
 
 const StyledLink = styled(Link)`
   a {

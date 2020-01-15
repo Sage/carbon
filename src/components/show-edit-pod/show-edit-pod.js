@@ -11,8 +11,9 @@ import StyledDeleteButton from './delete-button.style';
 import Events from '../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
-import { StyledPod, StyledButton, StyledLink } from './show-edit-pod.style';
+import { StyledPod, StyledLink } from './show-edit-pod.style';
 import { isClassic } from '../../utils/helpers/style-helper';
+import { baseTheme } from '../../style/themes';
 
 class ShowEditPod extends React.Component {
   state = {
@@ -32,9 +33,7 @@ class ShowEditPod extends React.Component {
   }
 
   onEdit = (ev) => {
-    if (this.props.onEdit) {
-      this.props.onEdit(ev);
-    }
+    this.props.onEdit(ev);
 
     if (!this.isControlled) {
       this.setState({ editing: true });
@@ -78,6 +77,7 @@ class ShowEditPod extends React.Component {
       return (
         <StyledLink
           onClick={ this.props.onDelete }
+          data-element='delete-link'
         >
           {label}
         </StyledLink>
@@ -154,7 +154,7 @@ class ShowEditPod extends React.Component {
   contentProps() {
     const props = this.universalProps();
 
-    if (this.props.onEdit !== false) {
+    if (this.props.onEdit) {
       props.onEdit = this.onEdit;
     }
 
@@ -250,6 +250,7 @@ ShowEditPod.defaultProps = {
   transitionName: 'carbon-show-edit-pod__transition',
   cancel: true,
   saving: false,
+  theme: baseTheme,
   validateOnMount: false
 };
 

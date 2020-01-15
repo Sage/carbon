@@ -12,40 +12,31 @@ const blockBackgrounds = {
 };
 
 const styledBlockClassic = ({
-  theme, podTheme, contentTriggersEdit, isHovered, isFocused, internalEditButton
-}) => isClassic(theme)
-  && css`
-    background-color: ${blockBackgrounds[podTheme]};
-    border: 1px solid #ccd6db;
-    ${({ noBorder }) => noBorder && 'border: none'};
+  theme, podType, contentTriggersEdit, isHovered, isFocused, internalEditButton, noBorder
+}) => isClassic(theme) && css`
+  background-color: ${blockBackgrounds[podType]};
+  border: 1px solid #ccd6db;
 
-    ${() => {
-    if (isHovered || isFocused) {
-      if (internalEditButton) {
-        return podTheme === 'tile' ? 'background-color: transparent' : '';
+  ${noBorder && 'border: none'};
+
+  ${(isHovered || isFocused) && css`
+    background-color: #d9e0e4;
+    ${internalEditButton && podType === 'tile' && 'background-color: transparent;'}
+    ${contentTriggersEdit && css`
+      background-color: #004b87;
+      * {
+        color: white;
       }
-
-      if (contentTriggersEdit) {
-        return css`
-            background-color: #004b87;
-            * {
-              color: white;
-            }
-          `;
-      }
-
-      return 'background-color: #d9e0e4';
-    }
-    return '';
-  }}
-  `;
+    `}
+  `}
+`;
 
 const styledHeaderClassic = ({ theme }) => isClassic(theme) && 'margin-bottom: 15px';
 
-const styledFooterClassic = ({ theme, podTheme }) => isClassic(theme)
+const styledFooterClassic = ({ theme, podType }) => isClassic(theme)
   && css`
     background-color: #f2f5f6;
-    ${podTheme === 'tile' && 'border-top: 1px solid #ccd6db'};
+    ${podType === 'tile' && 'border-top: 1px solid #ccd6db'};
   `;
 
 const editBackgrounds = {
@@ -57,29 +48,26 @@ const editBackgrounds = {
 };
 
 const styledEditActionClassic = ({
-  theme, podTheme, isHovered, isFocused, internalEditButton
-}) => isClassic(theme)
-  && css`
-  && {
-    background-color: ${editBackgrounds[podTheme]};
-    border-color: ccd6db;
-    margin-left: 2px;
-    border-radius: 4px;
-    color: #255bc7;
+  theme, podType, isHovered, isFocused, internalEditButton
+}) => isClassic(theme) && css`
+  background-color: ${editBackgrounds[podType]};
+  border-color: ccd6db;
+  margin-left: 2px;
+  border-radius: 4px;
+  color: #255bc7;
 
-    ${(isHovered || isFocused)
-      && !internalEditButton
-      && css`
-        background-color: #004b87;
-        color: white;
+  ${(isHovered || isFocused) && !internalEditButton && css`
+    background-color: #004b87;
+    color: white;
 
-        ${StyledLink},
-        ${StyledIcon} {
-          color: white;
-        }
-      `}
-  }
-  `;
+    ${StyledIcon},
+    ${StyledIcon}:hover,
+    a:hover ${StyledIcon},
+    button:hover ${StyledIcon} {
+      color: white;
+    }
+  `}
+`;
 
 export {
   styledBlockClassic, styledHeaderClassic, styledEditActionClassic, styledFooterClassic

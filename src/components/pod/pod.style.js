@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import BaseTheme from '../../style/themes/base';
+import { baseTheme } from '../../style/themes';
 import Link from '../link';
 import Icon from '../icon';
 import StyledIcon from '../icon/icon.style';
@@ -32,50 +32,47 @@ const blockBackgrounds = (podType, theme) => ({
 }[podType]);
 
 const StyledBlock = styled.div`
-  box-sizing: border-box;
-  background-color: ${({ theme, podType }) => blockBackgrounds(podType, theme)};
-  ${({ podType }) => podType === 'tile' && 'box-shadow: 0 2px 3px 0 rgba(2, 18, 36, 0.2)'};
-  border: 1px solid ${({ theme }) => theme.pod.border};
-  ${({ noBorder }) => noBorder && 'border: none'};
-  width: 100%;
-  ${({ editable, fullWidth, internalEditButton }) => {
-    return editable && !(fullWidth || internalEditButton) && 'width: auto';
-  }};
-  ${({ contentTriggersEdit }) => contentTriggersEdit && 'cursor: pointer'};
   ${({
-    contentTriggersEdit, isHovered, isFocused, theme, internalEditButton, podType
-  }) => {
-    if (isHovered || isFocused) {
-      if (internalEditButton) {
-        return podType === 'tile' ? 'background-color: transparent' : '';
-      }
+    theme,
+    podType,
+    noBorder,
+    editable,
+    contentTriggersEdit,
+    fullWidth,
+    internalEditButton,
+    isHovered,
+    isFocused
+  }) => css`
+    box-sizing: border-box;
+    background-color: ${blockBackgrounds(podType, theme)};
+    width: 100%;
+    ${podType === 'tile' && 'box-shadow: 0 2px 3px 0 rgba(2, 18, 36, 0.2)'};
+    ${noBorder ? 'border: none' : `border: 1px solid ${theme.pod.border};`};
+    ${editable && !(fullWidth || internalEditButton) && 'width: auto;'};
+    ${contentTriggersEdit && 'cursor: pointer'};
+    ${(isHovered || isFocused) && css`
+      background-color: ${theme.pod.hoverBackground};
 
-      if (contentTriggersEdit) {
-        return css`
-          background-color: ${theme.colors.primary};
-          * {
-            color: ${theme.colors.white};
-          }
-        `;
-      }
+      ${internalEditButton && podType === 'tile' && 'background-color: transparent;'}
+      ${contentTriggersEdit && css`
+        background-color: ${theme.colors.primary};
+        * {
+          color: ${theme.colors.white};
+        }
+      `}
+    `}
 
-      return `background-color: ${theme.pod.hoverBackground}`;
-    }
-    return '';
-  }}
+    ${!isClassic(theme)
+      && isFocused
+      && (!internalEditButton || contentTriggersEdit)
+      && css`
+        outline: 3px solid ${theme.colors.focus};
+        border: none;
+        ${noBorder ? '' : 'padding: 1px'};
+      `};
 
-  ${({
-    isFocused, internalEditButton, contentTriggersEdit, noBorder, theme
-  }) => !isClassic(theme)
-    && isFocused
-    && (!internalEditButton || contentTriggersEdit)
-    && css`
-      outline: 3px solid ${theme.colors.focus};
-      border: none;
-      ${noBorder ? '' : 'padding: 1px'};
-    `};
-
-  ${styledBlockClassic}
+    ${styledBlockClassic}
+  `}
 `;
 
 const contentPaddings = {
@@ -108,26 +105,24 @@ const footerPaddings = {
 };
 
 const StyledFooter = styled.div`
-  background-color: ${({ theme }) => theme.pod.footerBackground};
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-  box-shadow: inset 0px 1px 1px 0 rgba(0, 0, 0, 0.1);
+  ${({ theme, podType, padding }) => css`
+    background-color: ${theme.pod.footerBackground};
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    box-shadow: inset 0px 1px 1px 0 rgba(0, 0, 0, 0.1);
 
-  ${({ podType, theme }) => podType === 'tile'
-    && css`
+    ${podType === 'tile' && css`
       border-top: 1px solid ${theme.pod.border};
     `};
 
-  padding: ${({ padding }) => footerPaddings[padding]};
+    padding: ${footerPaddings[padding]};
 
-  ${styledFooterClassic}
+    ${styledFooterClassic}
+  `}
 `;
 
 const StyledEditContainer = styled.div`
-  /* cursor: pointer; */
-
-  ${({ internalEditButton }) => internalEditButton
-    && css`
+  ${({ internalEditButton }) => internalEditButton && css`
       position: absolute;
       right: 2px;
       top: 2px;
@@ -152,69 +147,71 @@ const editBackgrounds = (podType, theme) => ({
 }[podType]);
 
 const StyledEditAction = styled(Link)`
-&& {
-  cursor: pointer;
-  background-color: ${({ theme, podType }) => editBackgrounds(podType, theme)};
-  border: 1px solid ${({ theme }) => theme.pod.border};
-  margin-left: 8px;
-
-  > a, button {
-    width: 15px;
-    height: 15px;
-    padding: ${({ padding }) => editPaddings[padding]}px;
-    background-color: transparent;
-  }
-
-  ${StyledIcon} {
-    top: -2px;
-  }
-
-  ${({ noBorder }) => noBorder && 'border: none'}
-  ${({ internalEditButton }) => internalEditButton
-    && css`
-      border: none;
-      background: transparent;
-    `}
-
-  ${({ displayOnlyOnHover, isFocused, isHovered }) => {
-    return displayOnlyOnHover && !(isHovered || isFocused) && 'display: none';
-  }}
-
   ${({
-    isHovered, isFocused, theme, internalEditButton
-  }) => (isHovered || isFocused)
-    && !internalEditButton
-    && css`
-      background-color: ${theme.colors.primary};
-      color: ${theme.colors.white};
-
-      ${StyledIcon} {
-        color: ${theme.colors.white};
-      }
-    `}
-
-  ${({
-    isFocused, padding, noBorder, internalEditButton, theme, contentTriggersEdit
-  }) => isFocused
-    && !isClassic(theme)
-    && (internalEditButton ? !contentTriggersEdit : true)
-    && css`
-      outline: 3px solid ${theme.colors.focus};
-      border: none;
+    theme,
+    padding,
+    podType,
+    noBorder,
+    isFocused,
+    isHovered,
+    displayOnlyOnHover,
+    internalEditButton,
+    contentTriggersEdit
+  }) => css`
+    && {
+      cursor: pointer;
+      background-color: ${editBackgrounds(podType, theme)};
+      border: 1px solid ${theme.pod.border};
+      margin-left: 8px;
 
       > a, button {
-        padding: ${editPaddings[padding] + (noBorder || internalEditButton ? 0 : 1)}px;
+        width: 15px;
+        height: 15px;
+        padding: ${editPaddings[padding]}px;
+        background-color: transparent;
       }
-    `};
+
+      ${StyledIcon} {
+        top: -2px;
+      }
+      ${noBorder && 'border: none;'}
+      ${internalEditButton && css`
+        border: none;
+        background: transparent;
+      `}
+
+      ${displayOnlyOnHover && !(isHovered || isFocused) && 'display: none;'}
+      ${(isHovered || isFocused)
+        && !internalEditButton
+        && css`
+          background-color: ${theme.colors.primary};
+          color: ${theme.colors.white};
+
+          ${StyledIcon} {
+            color: ${theme.colors.white};
+          }
+        `}
+
+      ${isFocused
+        && !isClassic(theme)
+        && (!internalEditButton || !contentTriggersEdit)
+        && css`
+          outline: 3px solid ${theme.colors.focus};
+          border: none;
+          > a, button {
+            padding: ${editPaddings[padding] + (noBorder || internalEditButton ? 0 : 1)}px;
+          }
+        `};
 
 
-  .carbon-link__content {
-    clip: rect(1px, 1px, 1px, 1px);
-    position: absolute;
-  }
+      .carbon-link__content {
+        clip: rect(1px, 1px, 1px, 1px);
+        position: absolute;
+      }
 
-  ${styledEditActionClassic}
-}
+      ${styledEditActionClassic}
+    }
+  `}
 `;
 
 const headerRightAlignMargins = {
@@ -226,22 +223,29 @@ const headerRightAlignMargins = {
 };
 
 const StyledHeader = styled.div`
-  margin-bottom: 24px;
-  text-align: ${({ alignTitle }) => alignTitle};
+  ${({
+    alignTitle,
+    internalEditButton,
+    padding,
+    isCollapsed
+  }) => css`
+    margin-bottom: 24px;
+    text-align: ${alignTitle};
 
-  ${({ isCollapsed }) => isCollapsed === true
-    && css`
-      margin-bottom: 0;
-      cursor: pointer;
-    `};
+    ${isCollapsed === true
+      && css`
+        margin-bottom: 0;
+        cursor: pointer;
+      `};
 
-  ${({ alignTitle, internalEditButton, padding }) => alignTitle === 'right'
-    && internalEditButton
-    && css`
-      margin-right: ${headerRightAlignMargins[padding]}px;
-    `};
+    ${alignTitle === 'right'
+      && internalEditButton
+      && css`
+        margin-right: ${headerRightAlignMargins[padding]}px;
+      `};
 
-  ${styledHeaderClassic}
+    ${styledHeaderClassic}
+  `}
 `;
 
 const StyledSubtitle = styled.h5`
@@ -259,45 +263,44 @@ const StyledTitle = styled.h4`
 const StyledArrow = styled(Icon).attrs({ type: 'dropdown' })`
   position: relative;
   top: -1px;
-
   ${({ isCollapsed }) => isCollapsed && 'transform: rotate(180deg)'};
 `;
 
 StyledBlock.defaultProps = {
-  theme: BaseTheme
+  theme: baseTheme
 };
 StyledCollapsibleContent.defaultProps = {
-  theme: BaseTheme
+  theme: baseTheme
 };
 StyledContent.defaultProps = {
-  theme: BaseTheme
+  theme: baseTheme
 };
 StyledDescription.defaultProps = {
-  theme: BaseTheme
+  theme: baseTheme
 };
 StyledEditAction.defaultProps = {
-  theme: BaseTheme
+  theme: baseTheme
 };
 StyledEditContainer.defaultProps = {
-  theme: BaseTheme
+  theme: baseTheme
 };
 StyledFooter.defaultProps = {
-  theme: BaseTheme
+  theme: baseTheme
 };
 StyledPod.defaultProps = {
-  theme: BaseTheme
+  theme: baseTheme
 };
 StyledHeader.defaultProps = {
-  theme: BaseTheme
+  theme: baseTheme
 };
 StyledSubtitle.defaultProps = {
-  theme: BaseTheme
+  theme: baseTheme
 };
 StyledTitle.defaultProps = {
-  theme: BaseTheme
+  theme: baseTheme
 };
 StyledArrow.defaultProps = {
-  theme: BaseTheme
+  theme: baseTheme
 };
 
 export {
