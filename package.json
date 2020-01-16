@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "12.0.1",
+  "version": "12.0.2",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
   "engineStrict": true,
   "engines": {
@@ -15,7 +15,7 @@
     "build": "npm run gen-colors && npm run gen-docs && cross-env NODE_ENV=production npm run webpack && npm run prep-deploy && npm run build-storybook",
     "test": "jest --config=./jest.conf.json",
     "test-update": "jest --config=./jest.conf.json --updateSnapshot",
-    "test-carbon-build": "npm run gen-colors && npm run gen-docs && npm run webpack",
+    "test-carbon-build": "npm run gen-colors && npm run gen-docs && cross-env NODE_ENV=production npm run webpack",
     "test-cypress": "cypress open",
     "test-cypress-build": "cypress run --spec ./cypress/features/build/build*.feature --browser chrome --reporter spec",
     "test-cypress-accessibility": "cypress run --spec ./cypress/features/accessibility/accessibility.feature --browser chrome --reporter spec",
@@ -33,7 +33,7 @@
     "lint": "eslint ./src ./fixtures",
     "lint-ts": "./node_modules/.bin/tslint 'src/**/*.ts'",
     "precompile": "npm run clean-lib && npm run copy-files && npm run babel",
-    "prepublishOnly": "node check-version.js && npm install && npm run precompile",
+    "prepublishOnly": "node check-version.js && npm run precompile",
     "watch": "npm run clean-lib && npm run copy-files -- --watch & npm run babel -- --watch",
     "storybook": "./node_modules/.bin/start-storybook -p 9001 -s .assets -c .storybook",
     "storybook-ci": "./node_modules/.bin/start-storybook -p 9001 -c .storybook --ci",
