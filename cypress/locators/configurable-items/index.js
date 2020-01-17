@@ -1,7 +1,8 @@
-import { COMMON_INPUT_LABEL, ITEMS_WRAPPER } from './locators';
+import { ITEMS_WRAPPER } from './locators';
+import { LABEL } from '../locators';
 
 // component preview locators
-export const draggableItemByText = text => cy.get(COMMON_INPUT_LABEL)
+export const draggableItemByText = text => cy.get(LABEL)
   .contains(text).parent().parent()
   .find('.icon-drag_vertical');
 export const draggableItemByPosition = position => cy.get(ITEMS_WRAPPER)
