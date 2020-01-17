@@ -116,10 +116,10 @@ function makeStory(name, themeSelector) {
     const knobs = cardKnobs();
 
     return (
-      <>
+      <div>
         {getCard(knobs)}
         {getSmallCard(knobs)}
-      </>);
+      </div>);
   };
 
   const metadata = {
