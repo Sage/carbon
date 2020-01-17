@@ -34,11 +34,7 @@ class ShowEditPod extends React.Component {
 
   onEdit = (ev) => {
     this.props.onEdit(ev);
-
-    if (!this.isControlled) {
-      this.setState({ editing: true });
-    }
-
+    this.toggleEditingState(true);
     this.__focusOnPod();
   }
 
@@ -47,10 +43,7 @@ class ShowEditPod extends React.Component {
 
     if (valid) {
       this.props.afterFormValidation(ev);
-
-      if (!this.isControlled) {
-        this.setState({ editing: false });
-      }
+      this.toggleEditingState(false);
     }
   }
 
@@ -59,8 +52,12 @@ class ShowEditPod extends React.Component {
       this.props.onCancel(ev);
     }
 
+    this.toggleEditingState(false);
+  }
+
+  toggleEditingState = (newState) => {
     if (!this.isControlled) {
-      this.setState({ editing: false });
+      this.setState({ editing: newState });
     }
   }
 

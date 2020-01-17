@@ -75,15 +75,14 @@ class Pod extends React.Component {
   }
 
   podContent() {
-    if (!this.state.isCollapsed) {
-      return (
-        <StyledCollapsibleContent>
-          {this.podDescription()}
-          <div>{this.props.children}</div>
-        </StyledCollapsibleContent>
-      );
-    }
-    return null;
+    if (this.state.isCollapsed) return null;
+
+    return (
+      <StyledCollapsibleContent>
+        {this.podDescription()}
+        <div>{this.props.children}</div>
+      </StyledCollapsibleContent>
+    );
   }
 
   footer() {
@@ -200,7 +199,7 @@ class Pod extends React.Component {
     return (
       <StyledPod
         { ...rest }
-        // className={ this.props.className }
+        className={ this.props.className }
         internalEditButton={ internalEditButton }
         { ...tagComponent('pod', this.props) }
       >

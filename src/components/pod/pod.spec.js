@@ -36,18 +36,6 @@ describe('Pod', () => {
       const initialWrapper = shallow(<Pod collapsed />);
       expect(initialWrapper.state().isCollapsed).toBeTruthy();
     });
-
-    it('disables hover state on prop change if is in hovered state', () => {
-      wrapper.setState({ isHovered: true });
-      wrapper.setProps({ someProp: 'someValue' });
-      expect(wrapper.state().isHovered).toBeFalsy();
-    });
-
-    it('disables focus state on prop change if is in focused state', () => {
-      wrapper.setState({ isFocused: true });
-      wrapper.setProps({ someProp: 'someValue' });
-      expect(wrapper.state().isFocused).toBeFalsy();
-    });
   });
 
   describe('podHeader', () => {

@@ -283,7 +283,7 @@ describe('ShowEditPod', () => {
     });
 
     describe('without the "deleteText" prop set', () => {
-      it('hen the text of the Delete Button should be "Delete"', () => {
+      it('then the text of the Delete Button should be "Delete"', () => {
         wrapper = renderShowEditPod({
           onDelete,
           editing: true
@@ -344,7 +344,7 @@ describe('ShowEditPod', () => {
         }, classic);
       });
 
-      it('then the "podType" prop in the Pod Component should be set to "secodary"', () => {
+      it('then the "podType" prop in the Pod Component should be set to "secondary"', () => {
         expect(wrapper.find(Pod).props().podType).toBe('secondary');
       });
     });
@@ -381,7 +381,7 @@ describe('ShowEditPod', () => {
       });
   
       describe('without the "deleteText" prop set', () => {
-        it('hen the text of the Delete Link should be "Delete"', () => {
+        it('then the text of the Delete Link should be "Delete"', () => {
           wrapper = renderShowEditPod({
             onDelete,
             editing: true

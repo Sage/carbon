@@ -241,7 +241,7 @@ describe('SplitButton', () => {
       }, wrapper.find(StyledSplitButtonToggle));
     });
 
-    it('applies the expecred styles to the toggle when disabled is false and the displayed prop is true', () => {
+    it('applies the expected styles to the toggle when disabled is false and the displayed prop is true', () => {
       wrapper = TestRenderer.create(
         <ThemeProvider theme={ ClassicTheme }>
           <StyledSplitButtonToggle displayed />
