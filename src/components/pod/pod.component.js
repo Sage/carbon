@@ -25,16 +25,6 @@ class Pod extends React.Component {
     isFocused: false
   };
 
-  // eslint-disable-next-line camelcase
-  UNSAFE_componentWillReceiveProps() {
-    if (this.state.isHovered) {
-      this.toggleHoverState(false);
-    }
-    if (this.state.isFocused) {
-      this.toggleFocusState(false);
-    }
-  }
-
   toggleCollapse = () => {
     this.setState(prevState => ({ isCollapsed: !prevState.isCollapsed }));
   };
@@ -187,6 +177,10 @@ class Pod extends React.Component {
   processPodEditEvent = (ev) => {
     if (Event.isEnterKey(ev) || !Event.isEventType(ev, 'keydown')) {
       ev.preventDefault();
+      this.setState(() => ({
+        isHovered: false,
+        isFocused: false
+      }));
       this.props.onEdit(ev);
     }
   };
