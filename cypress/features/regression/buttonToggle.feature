@@ -22,7 +22,7 @@ Feature: Button Toggle component
   Scenario Outline: Set button icon size to <size>
     When I select buttonIcon to "arrow_left"
       And I select buttonIconSize to "<size>"
-    Then Button icon height is "<height>" and width is "<width>"
+    Then Button Toggle icon height is "<height>" and width is "<width>"
     Examples:
       | size  | height | width |
       | small | 16px   | 16px  |

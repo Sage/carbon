@@ -17,7 +17,11 @@ Then('Button icon on preview is {string}', (iconName) => {
   icon().eq(THIRD_ELEMENT).should('have.attr', 'data-element', iconName);
 });
 
-Then('Button icon height is {string} and width is {string}', (height, width) => {
+Then('Button Toggle icon is set to {string}', (iconName) => {
+  icon().should('have.attr', 'data-element', iconName);
+});
+
+Then('Button Toggle icon height is {string} and width is {string}', (height, width) => {
   icon().eq(FIRST_ELEMENT).should('have.css', 'height', height);
   icon().eq(FIRST_ELEMENT).should('have.css', 'width', width);
   icon().eq(SECOND_ELEMENT).should('have.css', 'height', height);
