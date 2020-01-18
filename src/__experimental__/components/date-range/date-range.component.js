@@ -31,6 +31,31 @@ class DateRange extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.hasUpdated(prevProps)) {
+      this.updateValues(this.props.value);
+    }
+  }
+
+  hasUpdated(prevProps) {
+    return (
+      this.isControlled && (this.props.value[0] !== prevProps.value[0] || this.props.value[1] !== prevProps.value[1])
+    );
+  }
+
+  updateValues() {
+    this.setState({
+      startDateValue: {
+        formattedValue: DateHelper.formatDateToCurrentLocale(this.startDate),
+        rawValue: DateHelper.formatValue(this.startDate || this.today)
+      },
+      endDateValue: {
+        formattedValue: DateHelper.formatDateToCurrentLocale(this.endDate),
+        rawValue: DateHelper.formatValue(this.endDate || this.today)
+      }
+    });
+  }
+
   /** onChange function -triggers validations on both fields and updates opposing field when one changed. */
   _onChange = (changedDate, ev) => {
     this.setState({ [`${changedDate}Value`]: { ...ev.target.value } },
@@ -220,9 +245,9 @@ DateRange.propTypes = {
   startDateProps: PropTypes.shape({ ...DateInput.propTypes, value: PropTypes.string }),
   /** Props for the child end Date component */
   endDateProps: PropTypes.shape({ ...DateInput.propTypes, value: PropTypes.string }),
-  /** An optional string prop to privide a name to the component */
+  /** An optional string prop to provide a name to the component */
   name: PropTypes.string,
-  /** An optional string prop to privide an id to the component */
+  /** An optional string prop to provide an id to the component */
   id: PropTypes.string
 };
 
