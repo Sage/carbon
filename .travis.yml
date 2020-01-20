@@ -15,32 +15,26 @@ jobs:
   include:
     - stage: test
       name: "lint"
+      env: SUITE=none
       script: npm run lint
     - name: "unit tests"
+      env: SUITE=none
       script: npm test
     - name: "test build"
+      env: SUITE=none
       script: npm run test-carbon-build
       if: type = pull_request # we only need to test this in a pull, on a push to master we will be running the build in the deploy step
     - name: "storybook smoketest"
+      env: SUITE=none
       script: npm run test-storybook-smoke
     - name: "test storybook with cypress"
+      env: SUITE=none
       script:
         - npm run storybook-ci </dev/null &>/dev/null &
         - wait-on http://localhost:9001
         - npm run test-cypress-build
     - name: "cypress regression chrome"
-        env:
-            # common suites
-            - SUITE=alert
-            - SUITE=animatedMenuButton
-            - SUITE=alert
-            - SUITE=appWrapper
-            - SUITE=button
-            - SUITE=card
-            - SUITE=carousel
-            - SUITE=configurableItems
-            # experimental
-            - SUITE=experimental/checkbox
+        env: SUITE=$SUITE
       script:
         - npm run storybook-ci </dev/null &>/dev/null &
         - wait-on http://localhost:9001
@@ -69,3 +63,17 @@ jobs:
         skip_cleanup: true
         on:
           all_branches: true # semantic-release has a regex that allows us to publish maintenance releases
+
+env:
+  matrix:
+    # common suites
+    - SUITE=alert
+    - SUITE=animatedMenuButton
+    - SUITE=alert
+    - SUITE=appWrapper
+    - SUITE=button
+    - SUITE=card
+    - SUITE=carousel
+    - SUITE=configurableItems
+    # experimental
+    - SUITE=experimental/checkbox
