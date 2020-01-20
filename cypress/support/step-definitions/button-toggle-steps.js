@@ -35,12 +35,12 @@ Then('Button icon not exists on preview', () => {
 });
 
 Then('Button Toggle height is {string} and width is {string}', (height, width) => {
-  buttonTogglePreview().eq(FIRST_ELEMENT).should('have.css', 'height', height);
-  buttonTogglePreview().eq(FIRST_ELEMENT).should('have.css', 'width', width);
-  buttonTogglePreview().eq(SECOND_ELEMENT).should('have.css', 'height', height);
-  buttonTogglePreview().eq(SECOND_ELEMENT).should('have.css', 'width', width);
-  buttonTogglePreview().eq(THIRD_ELEMENT).should('have.css', 'height', height);
-  buttonTogglePreview().eq(THIRD_ELEMENT).should('have.css', 'width', width);
+  buttonTogglePreview().eq(FIRST_ELEMENT).should('have.css', 'height', `${height}px`);
+  buttonTogglePreview().eq(FIRST_ELEMENT).should('have.css', 'width', `${width}px`);
+  buttonTogglePreview().eq(SECOND_ELEMENT).should('have.css', 'height', `${height}px`);
+  buttonTogglePreview().eq(SECOND_ELEMENT).should('have.css', 'width', `${width}px`);
+  buttonTogglePreview().eq(THIRD_ELEMENT).should('have.css', 'height', `${height}px`);
+  buttonTogglePreview().eq(THIRD_ELEMENT).should('have.css', 'width', `${width}px`);
 });
 
 Then('Button Toggle is disabled', () => {

@@ -1,7 +1,7 @@
-Feature: Button as a sibling classic component
+Feature: Button component as a sibling classic story
   I want to check Button as a sibling classic component properties
 
-  Background: Open Button as a sibling component page classic
+  Background: Open Button as a sibling component classic page
     Given I open "Button" classic component for classic story as sibling in no iframe
 
   @positive
@@ -9,17 +9,17 @@ Feature: Button as a sibling classic component
     When I select size to "<size>"
     Then Button as a sibling height is "<height>" and width is "<width>"
     Examples:
-      | size   | height | width       |
-      | small  | 25px   | 107.90625px |
-      | medium | 31px   | 138.4375px  |
-      | large  | 43px   | 142.4375px  |
+      | size   | height | width     |
+      | small  | 25     | 107.90625 |
+      | medium | 31     | 138.4375  |
+      | large  | 43     | 142.4375  |
 
   @positive
   Scenario Outline: Set Button theme to <theme> and as to primary
-    When I select theme to "<theme>"
+    Given I select theme to "<theme>"
       And I select as to "primary"
-    Then Button as a sibling background color is "<background-color>"
-      And Button as a sibling font color is "<font-color>"
+    When Button as a sibling background color is "<background-color>"
+    Then Button as a sibling font color is "<font-color>"
     Examples:
       | theme        | background-color   | font-color          |
       | blue         | rgb(37, 91, 199)   | rgb(255, 255, 255)  |
@@ -46,9 +46,9 @@ Feature: Button as a sibling classic component
 
   @negative
   Scenario: I set space character to Button subtext
-    When I select size to "large"
+    Given I select size to "large"
       # I use space character below
-      And I set subtext to " "
+    When I set subtext to " "
     Then Button as a sibling subtext on preview is " "
 
   @positive

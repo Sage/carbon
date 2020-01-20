@@ -1,7 +1,7 @@
 Feature: Button component
   I want to check Button component properties
 
-  Background: Open Button component page default
+  Background: Open Button component default page
     Given I open "Button" component page
 
   @positive
@@ -9,15 +9,15 @@ Feature: Button component
     When I select size to "<size>"
     Then Button height is "<height>" and width is "<width>"
     Examples:
-      | size   | height | width       |
-      | small  | 32px   | 136.4375px  |
-      | medium | 40px   | 152.4375px  |
-      | large  | 48px   | 182.78125px |
+      | size   | height | width     |
+      | small  | 32     | 136.4375  |
+      | medium | 40     | 152.4375  |
+      | large  | 48     | 182.78125 |
 
   @positive
   Scenario Outline: Set Button subtext to <subtext>
-    When I select size to "large"
-      And I set subtext to "<subtext>"
+    Given I select size to "large"
+    When I set subtext to "<subtext>"
     Then Button subtext on preview is "<subtext>"
     Examples:
       | subtext                 |
@@ -32,9 +32,9 @@ Feature: Button component
   Scenario Outline: Set Button Type as <buttonType>
     When I select buttonType to "<buttonType>"
     Then Button font color is "<font-color>"
-      And Button background color is "<background>"
+      And Button background color is "<background-color>"
     Examples:
-      | buttonType     | font-color         | background         |
+      | buttonType     | font-color         | background-color   |
       | primary        | rgb(255, 255, 255) | rgb(0, 128, 93)    |
       | secondary      | rgb(0, 128, 93)    | rgba(0, 0, 0, 0)   |
       | tertiary       | rgb(0, 128, 93)    | rgba(0, 0, 0, 0)   |
@@ -61,14 +61,14 @@ Feature: Button component
 
   @positive
   Scenario: Disable and enable Button
-    When I disable Button component
-      And I enable Button component
+    Given I disable Button component
+    When I enable Button component
     Then Button is enabled
 
   @positive
   Scenario Outline: Change Button icon position to <iconPosition>
-    When I check has icon checkbox
-      And I select iconType to "add"
+    Given I check has icon checkbox
+    When I select iconType to "add"
       And I select iconPosition to "<iconPosition>"
     Then Button icon position is set to "<iconPosition>"
     Examples:
@@ -78,6 +78,6 @@ Feature: Button component
 
   @positive
   Scenario: Verify the click function for a Button component
-    When clear all actions in Actions Tab
-      And I click on "button"
+    Given clear all actions in Actions Tab
+    When I click on "button"
     Then click action was called in Actions Tab

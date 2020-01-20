@@ -3,11 +3,11 @@ Feature: Button as a sibling component
 
   Background: Open Button as a sibling component page default
     Given I open "Button" component page as sibling in no iframe
+      And I check has icon checkbox
 
   @positive
   Scenario Outline: Set Button icon to <iconType>
-    When I check has icon checkbox
-      And I select iconType to "<iconType>"
+    When I select iconType to "<iconType>"
     Then Button as a sibling icon is set to "<iconType>"
     Examples:
       | iconType        |

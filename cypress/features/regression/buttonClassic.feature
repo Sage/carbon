@@ -9,10 +9,10 @@ Feature: Button classic component
     When I select size to "<size>"
     Then Button height is "<height>" and width is "<width>"
     Examples:
-      | size   | height | width       |
-      | small  | 25px   | 107.90625px |
-      | medium | 31px   | 138.4375px  |
-      | large  | 43px   | 142.4375px  |
+      | size   | height | width     |
+      | small  | 25     | 107.90625 |
+      | medium | 31     | 138.4375  |
+      | large  | 43     | 142.4375  |
 
   @positive
   Scenario Outline: Set Button theme to <theme> and as to primary
@@ -46,9 +46,9 @@ Feature: Button classic component
 
   @negative
   Scenario: I set space character to Button subtext
-    When I select size to "large"
+    Given I select size to "large"
       # I use space character below
-      And I set subtext to " "
+    When I set subtext to " "
     Then Button subtext on preview is " "
 
   @positive

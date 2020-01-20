@@ -18,7 +18,7 @@ Then('Button is disabled', () => {
     .and('have.attr', 'disabled');
 });
 
-Then('Button as a siblig is disabled', () => {
+Then('Button as a sibling is disabled', () => {
   commonButtonPreview().eq(FIRST_ELEMENT).should('be.disabled')
     .and('have.attr', 'disabled');
   commonButtonPreview().eq(SECOND_ELEMENT).should('be.disabled')
@@ -35,15 +35,15 @@ Then('Button as a sibling is enabled', () => {
 });
 
 Then('Button height is {string} and width is {string}', (height, width) => {
-  commonButtonPreview().should('have.css', 'height', height);
-  commonButtonPreview().should('have.css', 'width', width);
+  commonButtonPreview().should('have.css', 'height', `${height}px`);
+  commonButtonPreview().should('have.css', 'width', `${width}px`);
 });
 
 Then('Button as a sibling height is {string} and width is {string}', (height, width) => {
-  commonButtonPreview().eq(FIRST_ELEMENT).should('have.css', 'width', width);
-  commonButtonPreview().eq(FIRST_ELEMENT).should('have.css', 'height', height);
-  commonButtonPreview().eq(SECOND_ELEMENT).should('have.css', 'height', height);
-  commonButtonPreview().eq(SECOND_ELEMENT).should('have.css', 'width', width);
+  commonButtonPreview().eq(FIRST_ELEMENT).should('have.css', 'width', `${width}px`);
+  commonButtonPreview().eq(FIRST_ELEMENT).should('have.css', 'height', `${height}px`);
+  commonButtonPreview().eq(SECOND_ELEMENT).should('have.css', 'height', `${height}px`);
+  commonButtonPreview().eq(SECOND_ELEMENT).should('have.css', 'width', `${width}px`);
 });
 
 Then('Button width is {string}', (width) => {

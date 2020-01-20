@@ -3,11 +3,11 @@ Feature: Button component
 
   Background: Open Button component page default
     Given I open "Button" component page
+      And I check has icon checkbox
 
   @positive
   Scenario Outline: Set Button icon to <iconType>
-    When I check has icon checkbox
-      And I select iconType to "<iconType>"
+    When I select iconType to "<iconType>"
     Then Button icon is set to "<iconType>"
     Examples:
       | iconType        |

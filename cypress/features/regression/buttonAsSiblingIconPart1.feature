@@ -1,13 +1,13 @@
-Feature: Button as a sibling component
+Feature: Button component as a sibling
   I want to check Button as a sibling component properties
 
-  Background: Open Button as a sibling component page default
+  Background: Open Button as a sibling component default page
     Given I open "Button" component page as sibling in no iframe
+      And I check has icon checkbox
 
   @positive
   Scenario Outline: Set Button icon to <iconType>
-    When I check has icon checkbox
-      And I select iconType to "<iconType>"
+    When I select iconType to "<iconType>"
     Then Button as a sibling icon is set to "<iconType>"
     Examples:
       | iconType            |

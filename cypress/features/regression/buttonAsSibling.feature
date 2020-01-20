@@ -1,23 +1,23 @@
 Feature: Button as a sibling component
   I want to check Button as a sibling component properties
 
-  Background: Open Button as a sibling component page default
+  Background: Open Button as a sibling component default page
     Given I open "Button" component page as sibling in no iframe
 
   @positive
-  Scenario Outline: Set Button as a siblig size to <size>
+  Scenario Outline: Set Button as a sibling size to <size>
     When I select size to "<size>"
     Then Button as a sibling height is "<height>" and width is "<width>"
     Examples:
-      | size   | height | width       |
-      | small  | 32px   | 136.4375px  |
-      | medium | 40px   | 152.4375px  |
-      | large  | 48px   | 182.78125px |
+      | size   | height | width     |
+      | small  | 32     | 136.4375  |
+      | medium | 40     | 152.4375  |
+      | large  | 48     | 182.78125 |
 
   @positive
   Scenario Outline: Set Button subtext to <subtext>
-    When I select size to "large"
-      And I set subtext to "<subtext>"
+    Given I select size to "large"
+    When I set subtext to "<subtext>"
     Then Button as a sibling subtext on preview is "<subtext>"
     Examples:
       | subtext                 |
@@ -30,7 +30,7 @@ Feature: Button as a sibling component
   # | <>                      |
 
   @positive
-  Scenario Outline: Set Button as a siblig Type as <buttonType>
+  Scenario Outline: Set Button as a sibling Type as <buttonType>
     When I select buttonType to "<buttonType>"
     Then Button font color is "<font-color>"
       And Button as a sibling background color is "<background>"
@@ -43,7 +43,7 @@ Feature: Button as a sibling component
       | darkBackground | rgb(0, 128, 93)    | rgb(255, 255, 255) |
 
   @positive
-  Scenario Outline: Set Button as a siblig component label to <label>
+  Scenario Outline: Set Button as a sibling component label to <label>
     When I set children to "<label>"
     Then Button as a sibling label on preview is "<label>"
     Examples:
@@ -57,12 +57,12 @@ Feature: Button as a sibling component
   # | <>                      |
 
   @positive
-  Scenario: Disable Button
+  Scenario: Disable Button as a sibling
     When I disable Button component
-    Then Button as a siblig is disabled
+    Then Button as a sibling is disabled
 
   @positive
-  Scenario: Disable and enable Button
+  Scenario: Disable and enable Button as a sibling
     When I disable Button component
       And I enable Button component
     Then Button as a sibling is enabled
@@ -80,6 +80,6 @@ Feature: Button as a sibling component
 
   @positive
   Scenario: Verify the click function for a Button component
-    When clear all actions in Actions Tab
-      And I click on "button" as a sibling
+    Given clear all actions in Actions Tab
+    When I click on "button" as a sibling
     Then click action was called in Actions Tab
