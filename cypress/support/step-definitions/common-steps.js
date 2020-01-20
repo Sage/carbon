@@ -127,8 +127,16 @@ Given('I open {string} component page as sibling in iframe', (component) => {
   visitComponentUrl(component, 'as_a_sibling', true);
 });
 
+Given('I open {string} component page as sibling in no iframe', (component) => {
+  visitComponentUrl(component, 'as_a_sibling');
+});
+
 Given('I open {string} component for classic story as sibling in iframe', (component) => {
   visitComponentUrl(component, 'as_a_sibling_classic', true);
+});
+
+Given('I open {string} classic component for classic story as sibling in no iframe', (component) => {
+  visitComponentUrl(component, 'as_a_sibling_classic');
 });
 
 Given('I open {string} component page validations in iframe', (component) => {
