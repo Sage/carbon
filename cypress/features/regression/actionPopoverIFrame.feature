@@ -2,7 +2,7 @@ Feature: Action Popover component
   I want to change Alert component properties
 
   Background: Open Action Popover component page
-    Given I open "Action Popover" component iframe
+    Given I open "Action Popover" component in iframe
 
   @positive
   Scenario: Open Action Popover element

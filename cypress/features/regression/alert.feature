@@ -127,3 +127,22 @@ Feature: Alert component
       | medium-large |       850        |
       | large        |       960        |
       | extra-large  |       1080       |
+
+  @positive
+  Scenario: CloseIcon has the border outline
+    When I open component preview
+      And I hit Tab key 1 time
+    Then closeIcon has the border outline
+
+  @positive
+  Scenario: Check open click event
+    When clear all actions in Actions Tab
+      And I open component preview
+    Then open action was called in Actions Tab
+
+  @positive
+  Scenario: Check cancel click event
+    Given clear all actions in Actions Tab
+      And I open component preview
+    When I click closeIcon
+    Then cancel action was called in Actions Tab
