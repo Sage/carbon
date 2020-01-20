@@ -10,30 +10,27 @@ addons:
 stages:
   - test
   - deploy
+  - regression
 
 jobs:
   include:
     - stage: test
       name: "lint"
-      env: SUITE=none
       script: npm run lint
     - name: "unit tests"
-      env: SUITE=none
       script: npm test
     - name: "test build"
-      env: SUITE=none
       script: npm run test-carbon-build
       if: type = pull_request # we only need to test this in a pull, on a push to master we will be running the build in the deploy step
     - name: "storybook smoketest"
-      env: SUITE=none
       script: npm run test-storybook-smoke
     - name: "test storybook with cypress"
-      env: SUITE=none
       script:
         - npm run storybook-ci </dev/null &>/dev/null &
         - wait-on http://localhost:9001
         - npm run test-cypress-build
-    - name: "cypress regression chrome"
+    - stage: regression
+      name: "cypress regression chrome"
         env: SUITE
       script:
         - npm run storybook-ci </dev/null &>/dev/null &
@@ -67,8 +64,7 @@ jobs:
 env:
   matrix:
     include:
-    - stage: "test"
-      name: "test storybook with cypress"
+    - stage: regression
     # common suites
     - SUITE=alert
     - SUITE=animatedMenuButton
