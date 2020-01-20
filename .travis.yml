@@ -28,8 +28,7 @@ jobs:
         - npm run storybook-ci </dev/null &>/dev/null &
         - wait-on http://localhost:9001
         - npm run test-cypress-build
-    - stage: "test"
-      name: "cypress regression chrome"
+    - name: "cypress regression chrome"
       script:
         - npm run storybook-ci </dev/null &>/dev/null &
         - wait-on http://localhost:9001
