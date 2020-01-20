@@ -1,6 +1,11 @@
 language: node_js
 node_js: node
 
+cache:
+  npm: true
+  directories:
+    - ~/.cache
+
 addons:
    apt:
      packages:
