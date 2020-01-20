@@ -25,6 +25,7 @@
     "cypress-group-regression-deprecated": "cypress run --spec './cypress/features/regression/deprecated/*.feature' --reporter mocha-allure-reporter --browser chrome",
     "cypress-group-regression-validations": "cypress run --spec './cypress/features/regression/validations/*.feature' --reporter mocha-allure-reporter --browser chrome",
     "cypress-group-regression-themes": "cypress run --spec './cypress/features/themes/themes.feature' --reporter mocha-allure-reporter --browser chrome",
+    "cypress-travis-regression": "cross-env-shell cypress run --spec './cypress/features/regression/${SUITE}*' --reporter spec --browser chrome",
     "clean-cypress-results": "rm -r allure-results/ allure-report/",
     "generate-cypress-allure-report": "./node_modules/.bin/allure generate allure-results --clean -o allure-report",
     "open-allure-report": "allure open allure-report",

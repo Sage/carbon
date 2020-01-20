@@ -10,6 +10,7 @@ addons:
 stages:
   - test
   - deploy
+  - regression: &defaults
 
 jobs:
   include:
@@ -24,10 +25,16 @@ jobs:
     - name: "storybook smoketest"
       script: npm run test-storybook-smoke
     - name: "test storybook with cypress"
-      script: 
+      script:
         - npm run storybook-ci </dev/null &>/dev/null &
         - wait-on http://localhost:9001
         - npm run test-cypress-build
+    -stage: "regression"
+      name: "cypress regression chrome"
+      script:
+        - npm run storybook-ci </dev/null &>/dev/null &
+        - wait-on http://localhost:9001
+        - npm run cypress-travis-regression $SUITE
     - stage: deploy
       name: "s3"
       script: skip
@@ -52,4 +59,42 @@ jobs:
         skip_cleanup: true
         on:
           all_branches: true # semantic-release has a regex that allows us to publish maintenance releases
-          
+
+jobs:
+  include:
+    - stage: regression
+      env:
+        - SUITE="actionPopover"
+      <<: *defaults
+    - stage: regression
+      env:
+        - SUITE="alert"
+      <<: *defaults
+    - stage: regression
+      env:
+        - SUITE="animatedMenuButton"
+      <<: *defaults
+    - stage: regression
+      env:
+        - SUITE="alert"
+      <<: *defaults
+    - stage: regression
+      env:
+        - SUITE="appWrapper"
+      <<: *defaults
+    - stage: regression
+      env:
+        - SUITE="button"
+      <<: *defaults
+    - stage: regression
+      env:
+        - SUITE="card"
+      <<: *defaults
+    - stage: regression
+      env:
+        - SUITE="carousel"
+      <<: *defaults
+    - stage: regression
+      env:
+        - SUITE="configurableItems"
+      <<: *defaults
