@@ -34,7 +34,7 @@ jobs:
         - wait-on http://localhost:9001
         - npm run test-cypress-build
     - name: "cypress regression chrome"
-        env: SUITE=$SUITE
+        env: SUITE
       script:
         - npm run storybook-ci </dev/null &>/dev/null &
         - wait-on http://localhost:9001
@@ -66,6 +66,9 @@ jobs:
 
 env:
   matrix:
+    include:
+    - stage: "test"
+      name: "test storybook with cypress"
     # common suites
     - SUITE=alert
     - SUITE=animatedMenuButton
