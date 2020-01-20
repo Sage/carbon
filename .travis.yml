@@ -10,7 +10,7 @@ addons:
 stages:
   - test
   - deploy
-  - regression: &defaults
+  - regression
 
 jobs:
   include:
@@ -30,7 +30,7 @@ jobs:
         - wait-on http://localhost:9001
         - npm run test-cypress-build
     - stage: "regression"
-    - name: "cypress regression chrome"
+      name: "cypress regression chrome"
       script:
         - npm run storybook-ci </dev/null &>/dev/null &
         - wait-on http://localhost:9001
@@ -65,36 +65,27 @@ jobs:
     - stage: regression
       env:
         - SUITE="actionPopover"
-      <<: *defaults
     - stage: regression
       env:
         - SUITE="alert"
-      <<: *defaults
     - stage: regression
       env:
         - SUITE="animatedMenuButton"
-      <<: *defaults
     - stage: regression
       env:
         - SUITE="alert"
-      <<: *defaults
     - stage: regression
       env:
         - SUITE="appWrapper"
-      <<: *defaults
     - stage: regression
       env:
         - SUITE="button"
-      <<: *defaults
     - stage: regression
       env:
         - SUITE="card"
-      <<: *defaults
     - stage: regression
       env:
         - SUITE="carousel"
-      <<: *defaults
     - stage: regression
       env:
         - SUITE="configurableItems"
-      <<: *defaults
