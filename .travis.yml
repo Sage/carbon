@@ -29,7 +29,18 @@ jobs:
         - wait-on http://localhost:9001
         - npm run test-cypress-build
     - name: "cypress regression chrome"
-        env: SUITE
+        env:
+            # common suites
+            - SUITE=alert
+            - SUITE=animatedMenuButton
+            - SUITE=alert
+            - SUITE=appWrapper
+            - SUITE=button
+            - SUITE=card
+            - SUITE=carousel
+            - SUITE=configurableItems
+            # experimental
+            - SUITE=experimental/checkbox
       script:
         - npm run storybook-ci </dev/null &>/dev/null &
         - wait-on http://localhost:9001
@@ -58,17 +69,3 @@ jobs:
         skip_cleanup: true
         on:
           all_branches: true # semantic-release has a regex that allows us to publish maintenance releases
-
-
-env:
-  # common suites
-  - SUITE=alert
-  - SUITE=animatedMenuButton
-  - SUITE=alert
-  - SUITE=appWrapper
-  - SUITE=button
-  - SUITE=card
-  - SUITE=carousel
-  - SUITE=configurableItems
-  # experimental
-  - SUITE=experimental/checkbox
