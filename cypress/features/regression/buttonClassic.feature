@@ -16,8 +16,8 @@ Feature: Button classic component
 
   @positive
   Scenario Outline: Set Button theme to <theme> and as to primary
+    Given I select as to "primary"
     When I select theme to "<theme>"
-      And I select as to "primary"
     Then Button background color is "<background-color>"
       And Button font color is "<font-color>"
     Examples:
@@ -31,8 +31,8 @@ Feature: Button classic component
 
   @positive
   Scenario Outline: Set Button theme to <theme> and as to secondary
+    Given I select as to "secondary"
     When I select theme to "<theme>"
-      And I select as to "secondary"
     Then Button font color is "<font-color>"
       And Button background color is "rgba(0, 0, 0, 0)"
     Examples:

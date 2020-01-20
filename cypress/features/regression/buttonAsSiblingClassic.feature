@@ -16,10 +16,10 @@ Feature: Button component as a sibling classic story
 
   @positive
   Scenario Outline: Set Button theme to <theme> and as to primary
-    Given I select theme to "<theme>"
-      And I select as to "primary"
-    When Button as a sibling background color is "<background-color>"
-    Then Button as a sibling font color is "<font-color>"
+    Given I select as to "primary"
+    When I select theme to "<theme>"
+    Then Button as a sibling background color is "<background-color>"
+      And Button as a sibling font color is "<font-color>"
     Examples:
       | theme        | background-color   | font-color          |
       | blue         | rgb(37, 91, 199)   | rgb(255, 255, 255)  |
@@ -31,8 +31,8 @@ Feature: Button component as a sibling classic story
 
   @positive
   Scenario Outline: Set Button theme to <theme> and as to secondary
+    Given I select as to "secondary"
     When I select theme to "<theme>"
-      And I select as to "secondary"
     Then Button as a sibling font color is "<font-color>"
       And Button as a sibling background color is "rgba(0, 0, 0, 0)"
     Examples:
