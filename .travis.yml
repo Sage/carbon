@@ -29,10 +29,11 @@ jobs:
         - wait-on http://localhost:9001
         - npm run test-cypress-build
     - name: "cypress regression chrome"
+        env: SUITE
       script:
         - npm run storybook-ci </dev/null &>/dev/null &
         - wait-on http://localhost:9001
-        - npm run cypress-travis-regression $SUITE
+        - $SUITE npm run cypress-travis-regression
     - stage: deploy
       name: "s3"
       script: skip
