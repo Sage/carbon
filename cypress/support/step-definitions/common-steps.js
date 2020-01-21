@@ -55,6 +55,10 @@ Given('I open {string} component page with button', (component) => {
   visitComponentUrl(component, 'with_button');
 });
 
+Given('I open {string} component with button classic page', (component) => {
+  visitComponentUrl(component, 'with_button_classic');
+});
+
 Given('I open {string} component page legacy spinner', (component) => {
   visitComponentUrl(component, 'legacy_spinner');
 });
@@ -123,8 +127,16 @@ Given('I open {string} component page as sibling in iframe', (component) => {
   visitComponentUrl(component, 'as_a_sibling', true);
 });
 
+Given('I open {string} component page as sibling in no iframe', (component) => {
+  visitComponentUrl(component, 'as_a_sibling');
+});
+
 Given('I open {string} component for classic story as sibling in iframe', (component) => {
   visitComponentUrl(component, 'as_a_sibling_classic', true);
+});
+
+Given('I open {string} classic component for classic story as sibling in no iframe', (component) => {
+  visitComponentUrl(component, 'as_a_sibling_classic');
 });
 
 Given('I open {string} component page validations in iframe', (component) => {
@@ -333,6 +345,19 @@ When('I click {string} button into iFrame', (text) => {
 
 Then('closeIcon is not visible', () => {
   closeIconButton().should('not.exist');
+});
+
+// needs to be refactored when golden color will be fixed for Close icon - FE-2508
+Then('closeIcon has the border outline', () => {
+  closeIconButton().rightclick();
+  closeIconButton().should('have.css', 'outline-color', 'rgba(0, 103, 244, 0.247)')
+    .and('have.css', 'outline-width', '5px');
+});
+
+Then('closeIcon has no border outline for classic story', () => {
+  closeIconButton().rightclick();
+  closeIconButton().should('not.have.css', 'outline-color', 'rgba(0, 103, 244, 0.247)')
+    .and('not.have.css', 'outline-width', '5px');
 });
 
 When('I hit ESC key', () => {

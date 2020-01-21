@@ -1,20 +1,16 @@
-Feature: Button Toggle component - set all possible icon and verify
-  I want to change Button Toggle icon
+Feature: Button component as a sibling
+  I want to check Button as a sibling component properties
 
-  Background: Open Button Toggle component page
-    Given I open "Button Toggle" component page
-
-  @positive
-  Scenario: Change Button Toggle icon to null
-    When I select buttonIcon to "null"
-    Then Button icon not exists on preview
+  Background: Open Button as a sibling component default page
+    Given I open "Button" component page as sibling in no iframe
+      And I check has icon checkbox
 
   @positive
-  Scenario Outline: Change Button Toggle icon to <iconName>
-    When I select buttonIcon to "<iconName>"
-    Then Button icon on preview is "<iconName>"
+  Scenario Outline: Set Button icon to <iconType>
+    When I select iconType to "<iconType>"
+    Then Button as a sibling icon is set to "<iconType>"
     Examples:
-      | iconName            |
+      | iconType            |
       | add                 |
       | alert               |
       | analysis            |
@@ -70,14 +66,3 @@ Feature: Button Toggle component - set all possible icon and verify
       | ellipsis_horizontal |
       | ellipsis_vertical   |
       | error               |
-      | favourite           |
-      | favourite_lined     |
-      | fax                 |
-
-  @positive
-  Scenario Outline: Change Button Toggle icon to <iconName>
-    When I select buttonIcon to "<iconName>"
-    Then Button icon on preview is "<iconDataElement>"
-    Examples:
-      | iconName | iconDataElement |
-      | email    | message         |

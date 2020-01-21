@@ -1,8 +1,8 @@
 Feature: Configurable Items component
   I want to change Configurable Items component
 
-  Background: Open Configurable Items component iframe
-    Given I open "Configurable Items" component iframe
+  Background: Open Configurable Items component in iframe
+    Given I open "Configurable Items" component in iframe
 
   @positive
   @ignore
