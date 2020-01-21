@@ -342,7 +342,7 @@ class FormWithoutValidations extends React.Component {
         { this.saveButton() }
       </FormSummary>
     );
-  } 
+  }
 
   /** Returns the footer for the form  */
   formFooter = () => {
