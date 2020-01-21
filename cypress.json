@@ -1,14 +1,24 @@
 {
   "baseUrl": "http://localhost:9001/",
-  "blacklistHosts": ["www.google-analytics.com", "sockjs*", "countries*"],
-  "env": { "TAGS": "not @ignore" },
+  "blacklistHosts": [
+    "www.google-analytics.com",
+    "sockjs*",
+    "countries*"
+  ],
+  "env": {
+    "TAGS": "not @ignore"
+  },
   "failOnStatusCode": false,
-  "ignoreTestFiles": ["**/examples/*", "**/!(*.spec).js"],
+  "ignoreTestFiles": [
+    "**/examples/*",
+    "**/!(*.spec).js"
+  ],
   "integrationFolder": "cypress/features",
   "numTestsKeptInMemory": 1,
   "video": false,
   "viewportWidth": 1366,
   "viewportHeight": 768,
   "reporter": "mocha-allure-reporter, spec",
-  "chromeWebSecurity": false
+  "chromeWebSecurity": false,
+  "projectId": "xz13t6"
 }
