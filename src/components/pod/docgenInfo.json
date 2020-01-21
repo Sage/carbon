@@ -1,242 +1,107 @@
 {
-  "src/components/pod/pod.js": [
+  "src/components/pod/pod.component.js": [
     {
       "description": "",
       "displayName": "Pod",
       "methods": [
         {
-          "name": "podHeader",
-          "docblock": "Returns HTML and text for the pod header.\nIncludes:\n   Title\n   Collapsible arrow if collapsible\n\n@method podHeader",
-          "modifiers": [
-            "get"
-          ],
-          "params": [],
-          "returns": null,
-          "description": "Returns HTML and text for the pod header.\nIncludes:\n   Title\n   Collapsible arrow if collapsible"
-        },
-        {
-          "name": "podDescription",
-          "docblock": "Returns HTML and text for the pod description.\n\n@method podDescription",
-          "modifiers": [
-            "get"
-          ],
-          "params": [],
-          "returns": null,
-          "description": "Returns HTML and text for the pod description."
-        },
-        {
-          "name": "podCollapsible",
-          "docblock": "Returns the collapsible icon.\n\n@method podCollapsible",
-          "modifiers": [
-            "get"
-          ],
-          "params": [],
-          "returns": null,
-          "description": "Returns the collapsible icon."
-        },
-        {
-          "name": "podContent",
-          "docblock": "Returns the pod description and children.\n\n@method podContent",
-          "modifiers": [
-            "get"
-          ],
-          "params": [],
-          "returns": null,
-          "description": "Returns the pod description and children."
-        },
-        {
           "name": "toggleCollapse",
-          "docblock": "Toggles the opening and closing of the pod\n\n@method toggleCollapse",
-          "modifiers": [],
-          "params": [],
-          "returns": null,
-          "description": "Toggles the opening and closing of the pod"
-        },
-        {
-          "name": "mainClasses",
           "docblock": null,
-          "modifiers": [
-            "get"
-          ],
+          "modifiers": [],
           "params": [],
           "returns": null
         },
         {
-          "name": "blockClasses",
-          "docblock": "Main Class getter\n\n@method blockClasses\n@return {String} Main className",
-          "modifiers": [
-            "get"
-          ],
-          "params": [],
-          "returns": {
-            "description": "Main className",
-            "type": {
-              "name": "String"
+          "name": "toggleHoverState",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "val",
+              "type": null
             }
-          },
-          "description": "Main Class getter"
+          ],
+          "returns": null
         },
         {
-          "name": "headerClasses",
-          "docblock": "Header classes getter\n\n@method headerClasses\n@return {String} header className",
-          "modifiers": [
-            "get"
-          ],
-          "params": [],
-          "returns": {
-            "description": "header className",
-            "type": {
-              "name": "String"
+          "name": "toggleFocusState",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "val",
+              "type": null
             }
-          },
-          "description": "Header classes getter"
+          ],
+          "returns": null
         },
         {
-          "name": "contentClasses",
-          "docblock": "Classes for the content.\n\n@method contentClasses\n@return {String}",
-          "modifiers": [
-            "get"
-          ],
+          "name": "podHeader",
+          "docblock": null,
+          "modifiers": [],
           "params": [],
-          "returns": {
-            "description": null,
-            "type": {
-              "name": "String"
-            }
-          },
-          "description": "Classes for the content."
+          "returns": null
         },
         {
-          "name": "footerClasses",
-          "docblock": "Classes for the footer.\n\n@method footerClasses\n@return {String}",
-          "modifiers": [
-            "get"
-          ],
+          "name": "podDescription",
+          "docblock": null,
+          "modifiers": [],
           "params": [],
-          "returns": {
-            "description": null,
-            "type": {
-              "name": "String"
-            }
-          },
-          "description": "Classes for the footer."
+          "returns": null
         },
         {
-          "name": "editActionClasses",
-          "docblock": "Classes for the edit action.\n\n@method editActionClasses\n@return {String}",
-          "modifiers": [
-            "get"
-          ],
+          "name": "podContent",
+          "docblock": null,
+          "modifiers": [],
           "params": [],
-          "returns": {
-            "description": null,
-            "type": {
-              "name": "String"
-            }
-          },
-          "description": "Classes for the edit action."
+          "returns": null
         },
         {
           "name": "footer",
-          "docblock": "Returns the footer component.\n\n@method footer\n@return {String}",
-          "modifiers": [
-            "get"
-          ],
+          "docblock": null,
+          "modifiers": [],
           "params": [],
-          "returns": {
-            "description": null,
-            "type": {
-              "name": "String"
-            }
-          },
-          "description": "Returns the footer component."
+          "returns": null
         },
         {
           "name": "edit",
-          "docblock": "Returns the edit action if defined.\n\n@method edit\n@return {Object} JSX",
-          "modifiers": [
-            "get"
-          ],
+          "docblock": null,
+          "modifiers": [],
           "params": [],
-          "returns": {
-            "description": "JSX",
-            "type": {
-              "name": "Object"
-            }
-          },
-          "description": "Returns the edit action if defined."
+          "returns": null
         },
         {
           "name": "linkProps",
-          "docblock": "Returns event related props for triggering and highlighting edit functionality\n\n@method linkProps\n@return {Object} props",
+          "docblock": null,
           "modifiers": [],
           "params": [],
-          "returns": {
-            "description": "props",
-            "type": {
-              "name": "Object"
-            }
-          },
-          "description": "Returns event related props for triggering and highlighting edit functionality"
+          "returns": null
         },
         {
-          "name": "hoverOverEditEvents",
-          "docblock": "Returns event related props for triggering and highlighting edit functionality\n\n@method hoverOverEditEvents\n@return {Object}",
-          "modifiers": [
-            "get"
-          ],
+          "name": "editEvents",
+          "docblock": null,
+          "modifiers": [],
           "params": [],
-          "returns": {
-            "description": null,
-            "type": {
-              "name": "Object"
-            }
-          },
-          "description": "Returns event related props for triggering and highlighting edit functionality"
-        },
-        {
-          "name": "shouldContentHaveEditProps",
-          "docblock": "Determines if the content pod should share the editProps\n\n@method shouldContentHaveEditProps\n@return {Boolean}",
-          "modifiers": [
-            "get"
-          ],
-          "params": [],
-          "returns": {
-            "description": null,
-            "type": {
-              "name": "Boolean"
-            }
-          },
-          "description": "Determines if the content pod should share the editProps"
+          "returns": null
         },
         {
           "name": "processPodEditEvent",
-          "docblock": "Processes the edit event only on certain event types\n\n@method processPodEditEvent\n@param {Object} the event",
+          "docblock": null,
           "modifiers": [],
           "params": [
             {
-              "name": "ev"
+              "name": "ev",
+              "type": null
             }
           ],
-          "returns": null,
-          "description": "Processes the edit event only on certain event types"
+          "returns": null
         },
         {
-          "name": "toggleHoverState",
-          "docblock": "Toggle the state of hovering the edit button.\n\n@method toggleHoverState\n@return {Void}",
+          "name": "shouldContentHaveEditEvents",
+          "docblock": null,
           "modifiers": [],
-          "params": [
-            {
-              "name": "val"
-            }
-          ],
-          "returns": {
-            "description": null,
-            "type": {
-              "name": "Void"
-            }
-          },
-          "description": "Toggle the state of hovering the edit button."
+          "params": [],
+          "returns": null
         }
       ],
       "props": {
@@ -281,11 +146,18 @@
             "name": "string"
           },
           "required": false,
-          "description": "Applies a theme to the Pod.\nValue: primary, secondary, tile",
+          "description": "Legacy prop to apply a theme to the Pod.\nValue: primary, secondary, tile",
           "defaultValue": {
             "value": "'primary'",
             "computed": false
           }
+        },
+        "podType": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Prop to apply a theme to the Pod.\nValue: primary, secondary, tile"
         },
         "collapsed": {
           "type": {
