@@ -1,8 +1,8 @@
-Feature: Content component
-  I want to change Content component properties
+Feature: Content classic component
+  I want to change Content classic component properties
 
-  Background: Open Content component page
-    Given I open "Content" component page
+  Background: Open Content component page classic
+    Given I open "Content" component page classic
 
   @positive
   Scenario Outline: Change children in Content dialog to <children>
