@@ -1,12 +1,10 @@
 Feature: Configurable Items component
   I want to change Configurable Items component
 
-  Background: Open Configurable Items component iframe
-    Given I open "Configurable Items" component iframe
+  Background: Open Configurable Items component page classic
+    Given I open "Configurable Items" component page classic
 
   @positive
-  @ignore
-  @FE-1915
   Scenario Outline: Drag record inside Configurable Items to <destinationId> position
     When I drag Configurable Items "<record>" to <destinationId>
     Then Configurable Items "<record>" is dragged to <destinationId>
