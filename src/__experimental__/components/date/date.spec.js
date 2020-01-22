@@ -566,6 +566,13 @@ describe('Date', () => {
         expect(wrapper.find(BaseDateInput).instance().isControlled).toEqual(true);
         expect(wrapper.find(BaseDateInput).instance().initialVisibleValue).toEqual('27/02/2001');
       });
+
+      it('supports being used as an controlled input allows the value to dynamically updated at runtime', () => {
+        wrapper = render({ value: '2001-02-27' });
+        wrapper.setProps({ value: '2012-12-12' });
+        wrapper.update();
+        expect(wrapper.find(Textbox).props().value).toEqual('12/12/2012');
+      });
     });
   });
 

@@ -289,7 +289,7 @@ class BaseDateInput extends React.Component {
   updateSelectedDate = (newValue) => {
     const newDate = this.getDateObject(newValue);
 
-    this.setState({ selectedDate: newDate });
+    this.setState({ selectedDate: newDate, visibleValue: DateHelper.formatDateToCurrentLocale(newValue) });
   };
 
   getDateObject = (newValue) => {

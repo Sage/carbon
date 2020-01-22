@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "12.0.2",
+  "version": "12.0.3",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
   "engineStrict": true,
   "engines": {
@@ -88,8 +88,8 @@
     "core-js": "^3.1.4",
     "cpx": "^1.5.0",
     "cross-env": "^5.2.0",
-    "cypress": "3.8.1",
-    "cypress-cucumber-preprocessor": "^1.19.0",
+    "cypress": "3.8.2",
+    "cypress-cucumber-preprocessor": "^2.0.1",
     "cz-conventional-changelog": "^3.0.2",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.14.0",
