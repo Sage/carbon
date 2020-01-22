@@ -353,7 +353,10 @@ class FormWithoutValidations extends React.Component {
     }
 
     return (
-      <StyledFormFooter ref={ this.formFooterRef } buttonAlign={ this.props.buttonAlign }>
+      <StyledFormFooter
+        data-element='sticky-footer' ref={ this.formFooterRef }
+        buttonAlign={ this.props.buttonAlign }
+      >
         <StyledResponsiveFooterWrapper
           buttonAlign={ this.props.buttonAlign }
           showSummary={ this.props.showSummary }
