@@ -42,6 +42,13 @@ describe('Form', () => {
   });
 
   describe('componentWillReceiveProps', () => {
+    describe('the StyledFormFooter attribute check', () => {
+      it('checks that the correct data-element exist', () => {
+        wrapper = shallow(<Form formAction='foo' />);
+        expect(wrapper.find('[data-element="sticky-footer"]').exists()).toBeTruthy();
+      });
+    });
+
     describe('when stickyFooter is enabled', () => {
       it('adds the listeners', () => {
         wrapper = shallow(<Form formAction='foo' />);
