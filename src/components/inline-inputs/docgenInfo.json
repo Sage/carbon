@@ -40,6 +40,17 @@
           },
           "required": false,
           "description": "The id of the corresponding input control for the label"
+        },
+        "gutter": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Defines how wide the gutter between the input fields should be.",
+          "defaultValue": {
+            "value": "'none'",
+            "computed": false
+          }
         }
       }
     }
