@@ -19,14 +19,12 @@ Switch.__docgenInfo = getDocGenInfo(
 const stores = {
   default: {
     store: new Store({
-      checked: false,
-      forceUpdateTriggerToggle: false
+      checked: false
     })
   },
   classic: {
     store: new Store({
-      checked: false,
-      forceUpdateTriggerToggle: false
+      checked: false
     })
   }
 };
@@ -36,8 +34,7 @@ const validationTypes = ['cookies', 't&cs', 'info'];
 validationTypes.forEach((type) => {
   stores[type] = {
     store: new Store({
-      checked: false,
-      forceUpdateTriggerToggle: false
+      checked: false
     })
   };
 });
@@ -127,6 +124,7 @@ function switchWrapper(wrapperProps) {
     >
       <Switch
         onChange={ ev => handleChange(ev, type) }
+        name={ `switch-${type}` }
         { ...rest }
       />
     </State>
