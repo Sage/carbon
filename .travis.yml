@@ -25,7 +25,23 @@ jobs:
       script: echo "Linting"
     - &cypress-travis-regression
       stage: regression
+      name: Cypress regression
+      parallelism: 100
       script:
         - npm run storybook-ci </dev/null &>/dev/null &
         - wait-on http://localhost:9001
-        - npm run test-cypress-regression
+      commands:
+        - <<: *cypress-travis-regression
+          run: npm run cypress-group-regression-common
+        - <<: *cypress-travis-regression
+          run: npm run cypress-group-regression-experimental
+        - <<: *cypress-travis-regression
+          run: npm run cypress-group-regression-deprecated
+        - <<: *cypress-travis-regression
+          run: npm run cypress-group-regression-validations
+        - <<: *cypress-travis-regression
+          run: npm run cypress-group-regression-themes
+        - <<: *cypress-travis-regression
+          run: npm run test-cypress-build
+        - <<: *cypress-travis-regression
+          run: npm run test-cypress-accessibility
