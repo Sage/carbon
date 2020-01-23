@@ -32,16 +32,16 @@ jobs:
         - wait-on http://localhost:9001
       commands:
         - <<: *cypress-travis-regression
-          run: npm run cypress-group-regression-common
+          npm run cypress-group-regression-common
         - <<: *cypress-travis-regression
-          run: npm run cypress-group-regression-experimental
+          npm run cypress-group-regression-experimental
         - <<: *cypress-travis-regression
-          run: npm run cypress-group-regression-deprecated
+          npm run cypress-group-regression-deprecated
         - <<: *cypress-travis-regression
-          run: npm run cypress-group-regression-validations
+          npm run cypress-group-regression-validations
         - <<: *cypress-travis-regression
-          run: npm run cypress-group-regression-themes
+          npm run cypress-group-regression-themes
         - <<: *cypress-travis-regression
-          run: npm run test-cypress-build
+          npm run test-cypress-build
         - <<: *cypress-travis-regression
-          run: npm run test-cypress-accessibility
+          npm run test-cypress-accessibility
