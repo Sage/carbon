@@ -15,6 +15,7 @@ export const reRunTestsButton = () => cy.get(RERUN_TESTS_BUTTON, { timeout: 1500
 // knobs locators
 export const getKnobsInput = propertyName => cy.get(`[name="${propertyName}"]`);
 export const getKnobsInputWithName = (propertyName, name) => cy.get(`[name="${propertyName} ${name}"]`);
+export const getKnobsInputByGroup = (groupName, propertyName) => cy.get(`[name="${propertyName}_${groupName}"]`);
 export const knobsTab = () => cy.get(FORM).find('button').contains('Knobs');
 export const actionsTab = () => cy.get(FORM).find('button').contains('Actions');
 export const knobsNameTab = name => cy.get(TAB_LIST).eq(1).find('button').contains(name);
