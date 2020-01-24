@@ -18,7 +18,7 @@ const StyledPod = styled(Pod)`
       > a, button {
         height: 16px;
         width: 16px;
-        padding: 20px;
+        padding: 16px;
       }
     `};
   }
