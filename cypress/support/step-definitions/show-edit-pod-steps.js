@@ -4,6 +4,8 @@ import {
   showEditPodCollapsibleInnerContent, showEditPodFooter,
 } from '../../locators/show-edit-pod';
 
+import { icon } from '../../locators';
+
 const SHOW_EDIT_POD_BLOCK_CONTENT = 'carbon-pod__block--';
 const SHOW_EDIT_POD_CONTENT = 'carbon-pod__content--';
 const SHOW_EDIT_POD_NO_BORDER_CONTENT = 'carbon-pod--no-border';
@@ -34,6 +36,10 @@ When('I click edit Show Edit Pod component', () => {
   showEditPodEdit().first().click();
 });
 
+When('Edit icon has color {string}', (color) => {
+  icon().should('have.css', 'color', color);
+});
+
 Then('Show Edit Pod component has border property', () => {
   showEditPodPreview()
     .should('not.have.class', `${SHOW_EDIT_POD_BLOCK_CONTENT}no-border`)
@@ -60,20 +66,12 @@ Then('Show Edit Pod component on a secondary block has no border property', () =
     .should('have.css', 'border', '0px none rgba(0, 0, 0, 0.85)');
 });
 
-Then('Show Edit Pod classic component has a cancel button', () => {
+Then('Show Edit Pod component cancel button has color {string} and borderColor {string}', (color, borderColor) => {
   showEditPodCancelButton()
     .should('be.visible')
     .and('have.css', 'background', 'rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box')
-    .and('have.css', 'border-color', 'rgb(37, 91, 199)')
-    .and('have.css', 'color', 'rgb(37, 91, 199)');
-});
-
-Then('Show Edit Pod component has a cancel button', () => {
-  showEditPodCancelButton()
-    .should('be.visible')
-    .and('have.css', 'background', 'rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box')
-    .and('have.css', 'border-color', 'rgb(0, 128, 93)')
-    .and('have.css', 'color', 'rgb(0, 128, 93)');
+    .and('have.css', 'border-color', borderColor)
+    .and('have.css', 'color', color);
 });
 
 Then('Show Edit Pod component hasn\'t a cancel button', () => {

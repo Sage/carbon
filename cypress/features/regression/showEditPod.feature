@@ -10,6 +10,11 @@ Feature: Show Edit Pod component
     Then Show Edit Pod component has proper content inside itself
 
   @positive
+  Scenario: Verify color of the edit icon
+    # When I open "ShowEditPod" component page
+    Then Edit icon has color "rgb(0, 128, 93)"
+
+  @positive
   Scenario Outline: Set Show Edit Pod as to <as>
     When I select as to "<as>"
     Then Show Edit Pod as value is set to "<as>"
@@ -28,8 +33,8 @@ Feature: Show Edit Pod component
 
   @positive
   Scenario: Enable and disable border checkbox for a Show Edit Pod component
-    When I check border checkbox
-      And I uncheck border checkbox
+    Given I check border checkbox
+    When I uncheck border checkbox
     Then Show Edit Pod component has no border property
 
   @positive
@@ -40,8 +45,8 @@ Feature: Show Edit Pod component
 
   @positive
   Scenario: Enable and disable border on a edit dialog view for a Show Edit Pod component
-    When I check border checkbox
-      And I uncheck border checkbox
+    Given I check border checkbox
+    When I uncheck border checkbox
       And I click edit Show Edit Pod component
     Then Show Edit Pod component has no border property
 
@@ -74,12 +79,12 @@ Feature: Show Edit Pod component
   Scenario: Enable cancel checkbox for a Show Edit Pod component
     When I check cancel checkbox
       And I click edit Show Edit Pod component
-    Then Show Edit Pod component has a cancel button
+    Then Show Edit Pod component cancel button has color "rgb(0, 128, 93)" and borderColor "rgb(0, 128, 93)"
 
   @positive
   Scenario: Enable and disable cancel checkbox for a Show Edit Pod component
-    When I check cancel checkbox
-      And I uncheck cancel checkbox
+    Given I check cancel checkbox
+    When I uncheck cancel checkbox
       And I click edit Show Edit Pod component
     Then Show Edit Pod component hasn't a cancel button
 
@@ -121,8 +126,8 @@ Feature: Show Edit Pod component
 
   @positive
   Scenario: Enable and disable saving checkbox for a Show Edit Pod component
-    When I check saving checkbox
-      And I uncheck saving checkbox
+    Given I check saving checkbox
+    When I uncheck saving checkbox
       And I click edit Show Edit Pod component
     Then Show Edit Pod component has no saving property
 
