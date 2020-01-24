@@ -30,7 +30,7 @@ Then('Show Edit Pod title on preview is set to {string}', (text) => {
   showEditPodTitle().should('have.text', text);
 });
 
-When('I edit Show Edit Pod component', () => {
+When('I click edit Show Edit Pod component', () => {
   showEditPodEdit().first().click();
 });
 
@@ -60,7 +60,7 @@ Then('Show Edit Pod component on a secondary block has no border property', () =
     .should('have.css', 'border', '0px none rgba(0, 0, 0, 0.85)');
 });
 
-Then('Show Edit Pod component has a cancel button', () => {
+Then('Show Edit Pod classic component has a cancel button', () => {
   showEditPodCancelButton()
     .should('be.visible')
     .and('have.css', 'background', 'rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box')
@@ -68,11 +68,19 @@ Then('Show Edit Pod component has a cancel button', () => {
     .and('have.css', 'color', 'rgb(37, 91, 199)');
 });
 
+Then('Show Edit Pod component has a cancel button', () => {
+  showEditPodCancelButton()
+    .should('be.visible')
+    .and('have.css', 'background', 'rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box')
+    .and('have.css', 'border-color', 'rgb(0, 128, 93)')
+    .and('have.css', 'color', 'rgb(0, 128, 93)');
+});
+
 Then('Show Edit Pod component hasn\'t a cancel button', () => {
   showEditPodCancelButton().should('not.exist');
 });
 
-Then('Show Edit Pod component has saving property', () => {
+Then('Show Edit Pod classic component has saving property', () => {
   showEditPodSaveButton()
     .should('be.disabled');
   showEditPodSaveButton()
@@ -81,6 +89,17 @@ Then('Show Edit Pod component has saving property', () => {
     .should('have.css', 'background', 'rgb(230, 235, 237) none repeat scroll 0% 0% / auto padding-box border-box')
     .and('have.css', 'border', '1px solid rgba(0, 0, 0, 0)')
     .and('have.css', 'color', 'rgba(0, 0, 0, 0.2)');
+});
+
+Then('Show Edit Pod component has saving property', () => {
+  showEditPodSaveButton()
+    .should('be.disabled');
+  showEditPodSaveButton()
+    .should('have.attr', 'disabled');
+  showEditPodSaveButton()
+    .should('have.css', 'background', 'rgb(229, 234, 236) none repeat scroll 0% 0% / auto padding-box border-box')
+    .and('have.css', 'border', '2px solid rgba(0, 0, 0, 0)')
+    .and('have.css', 'color', 'rgba(0, 0, 0, 0.3)');
 });
 
 Then('Show Edit Pod component has no saving property', () => {
