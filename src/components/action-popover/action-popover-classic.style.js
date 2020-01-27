@@ -4,7 +4,7 @@ import { isClassic } from '../../utils/helpers/style-helper';
 export const MenuClassic = ({ theme }) => isClassic(theme) && css`
   box-shadow: 0 10px 10px 0 rgba(0, 20, 29, 0.1),
     0 5px 5px 0 rgba(0, 20, 29, 0.2);
-  padding: 5px 0;
+  padding: ${theme.spacing}px 0;
 `;
 
 export const MenuItemClassic = ({ theme }) => isClassic(theme) && css`
@@ -32,4 +32,14 @@ export const MenuButtonClassic = ({ theme, isOpen }) => isClassic(theme) && css`
   > span {
     ${isOpen && 'color: #255BC7'}
   }
+`;
+
+export const SubMenuItemIconClassic = ({ theme, type }) => isClassic(theme) && css`
+  ${type === 'chevron_left' && css`
+    left: -6px;
+  `}
+
+  ${type === 'chevron_right' && css`
+    right: -6px;
+  `}
 `;

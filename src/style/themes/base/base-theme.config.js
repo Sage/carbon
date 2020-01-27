@@ -6,6 +6,8 @@ export default (palette) => {
   return {
     name: 'base',
 
+    spacing: 8,
+
     colors: {
       // main
       base: palette.productGreen,

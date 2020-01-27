@@ -13,13 +13,14 @@ import ActionPopoverItem from './action-popover-item.component';
 import ActionPopoverDivider from './action-popover-divider.component';
 
 const ActionPopover = ({
-  children, id, onOpen, onClose
+  children, id, onOpen, onClose, ...rest
 }) => {
   const [isOpen, setOpenState] = useState(false);
   const [focusIndex, setFocusIndex] = useState(0);
   const [items, setItems] = useState([]);
   const [guid] = useState(createGuid());
   const button = useRef();
+  const menu = useRef();
 
   const setOpen = useCallback((value) => {
     if (value && !isOpen) {
@@ -72,11 +73,11 @@ const ActionPopover = ({
     };
   }, [setOpen]);
 
-  const buttonID = id || `ActionPopoverButton_${guid}`;
+  const parentID = id || `ActionPopoverButton_${guid}`;
   const menuID = `ActionPopoverMenu_${guid}`;
   const menuProps = {
     button,
-    buttonID,
+    parentID,
     setFocusIndex,
     focusIndex,
     setItems,
@@ -88,7 +89,7 @@ const ActionPopover = ({
 
   return (
     <MenuButton
-      id={ buttonID }
+      id={ parentID }
       data-component='action-popover-button'
       role='button'
       aria-haspopup='true'
@@ -98,11 +99,13 @@ const ActionPopover = ({
       tabIndex={ isOpen ? '-1' : '0' }
       { ...{ onKeyDown: onButtonKeyDown, onClick: onButtonClick, isOpen } }
       ref={ button }
+      { ...rest }
     >
       <ButtonIcon type='ellipsis_vertical' />
       <ActionPopoverMenu
         data-component='action-popover'
         role='menu'
+        ref={ menu }
         { ...menuProps }
       >
         {children}
