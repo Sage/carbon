@@ -10,10 +10,13 @@ Feature: Show Edit Pod classic component
     Then Edit icon has color "rgb(37, 91, 199)"
 
   @positive
-  Scenario: Enable cancel checkbox for a Show Edit Pod classic component
+  Scenario Outline: Enable cancel checkbox for a Show Edit Pod classic component
     When I check cancel checkbox
       And I click edit Show Edit Pod component
-    Then Show Edit Pod component cancel button has color "rgb(37, 91, 199)" and borderColor "rgb(37, 91, 199)"
+    Then Show Edit Pod component cancel button has color "<color>" and borderColor "<color>"
+    Examples:
+      | color            |
+      | rgb(37, 91, 199) |
 
   @positive
   Scenario: Enable saving checkbox for a Show Edit Pod classic component
