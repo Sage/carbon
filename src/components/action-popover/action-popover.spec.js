@@ -7,12 +7,20 @@ import { mount as enzymeMount } from 'enzyme';
 import { simulate, assertStyleMatch } from '../../__spec_helper__/test-utils';
 import mintTheme from '../../style/themes/mint';
 import classic from '../../style/themes/classic';
+import { noThemeSnapshot } from '../../__spec_helper__/enzyme-snapshot-helper';
 
-import { ActionPopover, ActionPopoverDivider, ActionPopoverItem } from './index';
-import { MenuButton, MenuItemFactory, Menu } from './action-popover.style';
+import {
+  ActionPopover, ActionPopoverDivider, ActionPopoverItem, ActionPopoverMenu
+} from './index';
+import {
+  MenuButton, MenuItemFactory, Menu, SubMenuItemIcon
+} from './action-popover.style';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Icon from '../icon';
+import guid from '../../utils/helpers/guid';
 
+jest.mock('../../utils/helpers/guid');
+guid.mockImplementation(() => 'guid-12345');
 jest.useFakeTimers();
 
 describe('ActionPopover', () => {
@@ -35,13 +43,15 @@ describe('ActionPopover', () => {
   function render(props = {}, renderer = mount) {
     const defaultProps = {
       children: [
+        <ActionPopoverItem
+          icon='pdf'
+          { ...{ onClick: onClickWrapper('pdf') } }
+          disabled
+        >
+          Download PDF
+        </ActionPopoverItem>,
         <ActionPopoverItem icon='email' { ...{ onClick: onClickWrapper('email') } }>Email Invoice</ActionPopoverItem>,
         <ActionPopoverItem icon='print' { ...{ onClick: onClickWrapper('print') } }>Print Invoice</ActionPopoverItem>,
-        <ActionPopoverItem
-          icon='pdf' { ...{ onClick: onClickWrapper('pdf') } }
-          disabled
-        >Download PDF
-        </ActionPopoverItem>,
         <ActionPopoverDivider />,
         <ActionPopoverItem icon='csv' { ...{ onClick: onClickWrapper('csv') } }>Download CSV</ActionPopoverItem>,
         null,
@@ -49,6 +59,64 @@ describe('ActionPopover', () => {
       ],
       onOpen,
       onClose,
+      ...props
+    };
+
+    renderer(
+      <ThemeProvider theme={ mintTheme }>
+        <React.Fragment>
+          <input id='before' />
+          <ActionPopover { ...defaultProps } { ...props } />
+          <input id='after' />
+        </React.Fragment>
+      </ThemeProvider>
+    );
+  }
+
+  function renderWithSubmenu(props = {}, renderer = mount) {
+    const submenu = (
+      <ActionPopoverMenu>
+        <ActionPopoverItem
+          key='0'
+          { ...{ onClick: onClickWrapper('sub menu 1') } }
+        >
+          Sub Menu 1
+        </ActionPopoverItem>
+        <ActionPopoverItem
+          key='1'
+          { ...{ onClick: onClickWrapper('sub menu 2') } }
+        >
+          Sub Menu 2
+        </ActionPopoverItem>
+      </ActionPopoverMenu>
+    );
+
+    const defaultProps = {
+      children: [
+        <ActionPopoverItem
+          disabled
+          icon='pdf'
+          { ...{ onClick: onClickWrapper('pdf') } }
+        >
+          Download PDF
+        </ActionPopoverItem>,
+        <ActionPopoverItem
+          icon='email'
+          submenu={ submenu }
+          { ...{ onClick: onClickWrapper('email') } }
+        >
+          Email Invoice
+        </ActionPopoverItem>,
+        <ActionPopoverItem icon='print' { ...{ onClick: onClickWrapper('print') } }>Print Invoice</ActionPopoverItem>,
+        <ActionPopoverDivider />,
+        <ActionPopoverItem
+          icon='csv'
+          { ...{ onClick: onClickWrapper('csv') } }
+        >Download CSV
+        </ActionPopoverItem>,
+        null,
+        undefined
+      ],
       ...props
     };
 
@@ -100,7 +168,7 @@ describe('ActionPopover', () => {
     render(null, DOM);
   });
 
-  it('displays the horizontal elipsis icon as the menu button', () => {
+  it('displays the horizontal ellipsis icon as the menu button', () => {
     render();
     const { menubutton } = getElements();
     const icon = menubutton.find(Icon).first();
@@ -125,7 +193,7 @@ describe('ActionPopover', () => {
     render();
     const { menu } = getElements();
     assertStyleMatch({
-      display: 'none'
+      visibility: 'hidden'
     }, menu);
     expect(onOpen).not.toHaveBeenCalledTimes(1);
     expect(onClose).not.toHaveBeenCalledTimes(1);
@@ -154,7 +222,7 @@ describe('ActionPopover', () => {
       beforeEach(() => {
         const { items } = getElements();
 
-        mutator(items.at(1));
+        mutator(items.at(2));
       });
       it(`${prefix} calls the onClick handler`, () => {
         expect(onClick).toHaveBeenCalledWith('print');
@@ -164,7 +232,7 @@ describe('ActionPopover', () => {
         const { menu } = getElements();
 
         assertStyleMatch({
-          display: 'none'
+          visibility: 'hidden'
         }, menu);
         expect(onClose).toHaveBeenCalledTimes(1);
       });
@@ -179,7 +247,7 @@ describe('ActionPopover', () => {
       beforeEach(() => {
         const { items } = getElements();
 
-        mutator(items.at(2));
+        mutator(items.at(0));
       });
       it(`${prefix} does not call the onClick handler`, () => {
         expect(onClick).not.toHaveBeenCalled();
@@ -240,7 +308,7 @@ describe('ActionPopover', () => {
         });
         const { menu } = getElements();
         assertStyleMatch({
-          display: 'none'
+          visibility: 'hidden'
         }, menu);
         expect(onClose).toHaveBeenCalledTimes(1);
       });
@@ -250,8 +318,8 @@ describe('ActionPopover', () => {
       it('Clicking on the component does not close the menu using the document listener', () => {
         // This test doesn't really replicate the functionality but it is useful to check that the document listener
         // is filtering based on what element is clicked
-        // In a normal situation the React SynteticEvent will bubble and trigger a handler which will close the menu
-        // This triggers a DOMEvent bypassing the SynteticEvent listeners
+        // In a normal situation the React SyntheticEvent will bubble and trigger a handler which will close the menu
+        // This triggers a DOMEvent bypassing the SyntheticEvent listeners
         render();
         const { menubutton, items } = getElements();
 
@@ -296,7 +364,7 @@ describe('ActionPopover', () => {
 
         const { menu } = getElements();
         assertStyleMatch({
-          display: 'none'
+          visibility: 'hidden'
         }, menu);
         expect(onClose).toHaveBeenCalledTimes(1);
       });
@@ -367,13 +435,13 @@ describe('ActionPopover', () => {
         const { menu } = getElements();
 
         assertStyleMatch({
-          display: 'none'
+          visibility: 'hidden'
         }, menu);
         expect(onClose).toHaveBeenCalledTimes(1);
         // FIXME: Test pressing Tab moves focus to the next element
         // FIXME: Test pressing Shift+Tab moves focus to the previous element
         // It's not possible to test this in enzyme because JSDOM does not support user events. It's also not
-        // possible to test it in cypress because cypress uses syntetic events. We should add a test for this when
+        // possible to test it in cypress because cypress uses synthetic events. We should add a test for this when
         // support for native events is implemented in cypress https://github.com/cypress-io/cypress/issues/311
       });
 
@@ -394,13 +462,16 @@ describe('ActionPopover', () => {
           expect(items.at(1)).toBeFocused();
 
           simulate.keydown.pressDownArrow(items.at(1));
-          // we're checking that we can focus the disabled item, this is intentional behaviour
           expect(items.at(2)).toBeFocused();
-          expect(items.at(2).prop('disabled')).toBe(true);
-          expect(items.at(2).getDOMNode().getAttribute('aria-disabled')).toBe('true');
 
           simulate.keydown.pressDownArrow(items.at(2));
           expect(items.at(3)).toBeFocused();
+
+          simulate.keydown.pressDownArrow(items.at(3));
+          expect(items.at(0)).toBeFocused();
+          // we're checking that we can focus the disabled item, this is intentional behaviour
+          expect(items.at(0).prop('disabled')).toBe(true);
+          expect(items.at(0).getDOMNode().getAttribute('aria-disabled')).toBe('true');
         }],
         ['Down', 'first', 'if the focus on the last item', (items) => {
           simulate.keydown.pressEnd(items.first());
@@ -472,30 +543,27 @@ describe('ActionPopover', () => {
 
         // moves to first element starting with P
         simulate.keydown.pressP(items.first());
-        expect(items.at(1)).toBeFocused();
+        expect(items.at(2)).toBeFocused();
 
         // moves to first element starting with D
-        simulate.keydown.pressD(items.at(1));
-        // we're checking that we can focus the disabled item, this is intentional behaviour
-        expect(items.at(2)).toBeFocused();
-        expect(items.at(2).prop('disabled')).toBe(true);
-        expect(items.at(2).getDOMNode().getAttribute('aria-disabled')).toBe('true');
-
-        // moves to next element starting with D
         simulate.keydown.pressD(items.at(2));
         expect(items.at(3)).toBeFocused();
 
-        // moves to next element starting with D wrapping back to the first element
+
+        // moves to next element starting with D, it loops to the start
+        // we're checking that we can focus the disabled item, this is intentional behaviour
         simulate.keydown.pressD(items.at(3));
-        expect(items.at(2)).toBeFocused();
+        expect(items.at(0)).toBeFocused();
+        expect(items.at(0).prop('disabled')).toBe(true);
+        expect(items.at(0).getDOMNode().getAttribute('aria-disabled')).toBe('true');
 
         // does nothing when there are no matches
-        simulate.keydown.pressZ(items.at(2));
-        expect(items.at(2)).toBeFocused();
+        simulate.keydown.pressZ(items.at(0));
+        expect(items.at(0)).toBeFocused();
 
-        // does nothing withen a number key is pressed
-        simulate.keydown.press1(items.at(2));
-        expect(items.at(2)).toBeFocused();
+        // does nothing when a number key is pressed
+        simulate.keydown.press1(items.at(0));
+        expect(items.at(0)).toBeFocused();
       });
     });
   });
@@ -533,6 +601,168 @@ describe('ActionPopover', () => {
         { modifier: '> span' }
       );
     });
+
+    it.each(['chevron_left', 'chevron_right'])(
+      'MenuButton has proper color when open on "classic" theme', (type) => {
+        const StyledSubMenuIcon = TestRenderer.create(<SubMenuItemIcon theme={ classic } type={ type } />);
+        const key = type === 'chevron_left' ? 'left' : 'right';
+        assertStyleMatch(
+          { [key]: '-6px' },
+          StyledSubMenuIcon.toJSON(),
+        );
+      }
+    );
+  });
+
+  describe('submenu', () => {
+    describe('left aligned', () => {
+      beforeEach(() => renderWithSubmenu());
+
+      it('renders an icon to indicate when a item has a submenu and is left aligned', () => {
+        const { items } = getElements();
+        const item = items.at(1);
+        const submenuIcon = item.find(SubMenuItemIcon);
+        assertStyleMatch({
+          left: '0px'
+        }, submenuIcon);
+        expect(submenuIcon.props().type).toEqual('chevron_left');
+      });
+
+      it('opens the submenu on mouseenter', () => {
+        const { items } = getElements();
+        const item = items.at(1);
+        act(() => {
+          item.simulate('mouseenter');
+          jest.runAllTimers();
+        });
+        expect(noThemeSnapshot(item.find(ActionPopoverMenu))).toMatchSnapshot();
+      });
+
+      it('closes the submenu on mouseleave event', () => {
+        const { items } = getElements();
+        const item = items.at(1);
+        act(() => {
+          item.simulate('mouseenter');
+          item.simulate('mouseleave');
+          jest.runAllTimers();
+        });
+        expect(noThemeSnapshot(item.find(ActionPopoverMenu))).toMatchSnapshot();
+      });
+
+      it('opens the submenu when left key is pressed', () => {
+        const { items } = getElements();
+        const item = items.at(1);
+        act(() => { simulate.keydown.pressLeftArrow(item); });
+        expect(noThemeSnapshot(item.find(ActionPopoverMenu))).toMatchSnapshot();
+      });
+
+      it('closes the submenu when right key is pressed', () => {
+        const { items } = getElements();
+        const item = items.at(1);
+        act(() => {
+          simulate.keydown.pressLeftArrow(item);
+          simulate.keydown.pressRightArrow(item);
+        });
+        expect(noThemeSnapshot(item.find(ActionPopoverMenu))).toMatchSnapshot();
+      });
+
+      it('does not call the onClick prop if an item has a submenu and enter key pressed', () => {
+        const { items } = getElements();
+        const item = items.at(1);
+        act(() => { simulate.keydown.pressEnter(item); });
+        expect(onClick).not.toHaveBeenCalled();
+      });
+
+      it('does not call the onClick prop if an item has a submenu and item clicked', () => {
+        const { items } = getElements();
+        const item = items.at(1);
+        act(() => { item.simulate('click'); });
+        expect(onClick).not.toHaveBeenCalled();
+      });
+
+      it('closes the submenu when a submenu item is clicked', () => {
+        const { items } = getElements();
+        const item = items.at(1);
+        const submenu = item.find(ActionPopoverMenu);
+        act(() => { submenu.props().onClick(); });
+        assertStyleMatch({
+          visibility: 'hidden'
+        }, submenu);
+        expect(submenu.props().isOpen).toEqual(false);
+      });
+
+      it('closes the submenu when the escape key is pressed', () => {
+        const { items } = getElements();
+        const item = items.at(1);
+        const submenu = item.find(ActionPopoverMenu);
+        const submenuItem = submenu.find(ActionPopoverItem).at(0);
+        act(() => {
+          simulate.keydown.pressLeftArrow(item);
+          simulate.keydown.pressEscape(submenuItem);
+        });
+        assertStyleMatch({
+          visibility: 'hidden'
+        }, submenu);
+        expect(submenu.props().isOpen).toEqual(false);
+      });
+    });
+
+    describe('right aligned', () => {
+      beforeEach(() => {
+        act(() => {
+          // Mock the parent boundingRect
+          Element.prototype.getBoundingClientRect = jest.fn(() => ({ left: -100, right: 200, top: 100 }));
+          // Trigger the window resize event.
+          global.dispatchEvent(new Event('resize'));
+        });
+        renderWithSubmenu();
+      });
+
+      it('renders an icon to indicate when a item has a submenu and is right aligned', () => {
+        const { items } = getElements();
+        const item = items.at(1);
+        const submenuIcon = item.find(SubMenuItemIcon);
+        assertStyleMatch({
+          right: '0px'
+        }, submenuIcon);
+        expect(submenuIcon.props().type).toEqual('chevron_right');
+      });
+
+      it('opens the submenu when right key is pressed', () => {
+        const { items } = getElements();
+        const item = items.at(1);
+        act(() => { simulate.keydown.pressRightArrow(item); });
+        expect(noThemeSnapshot(item.find(ActionPopoverMenu))).toMatchSnapshot();
+      });
+
+      it('closes the submenu when left key is pressed', () => {
+        const { items } = getElements();
+        const item = items.at(1);
+        act(() => {
+          simulate.keydown.pressRightArrow(item);
+          simulate.keydown.pressLeftArrow(item);
+        });
+        expect(noThemeSnapshot(item.find(ActionPopoverMenu))).toMatchSnapshot();
+      });
+    });
+
+    it('validates the submenu prop', () => {
+      jest.spyOn(global.console, 'error').mockImplementation(() => {});
+      ReactDOM.render(
+        <ThemeProvider theme={ mintTheme }>
+          <ActionPopover>
+            <ActionPopoverItem
+              submenu={ <p>foo</p> } icon='pdf'
+              onClick={ jest.fn() }
+            >item
+            </ActionPopoverItem>
+          </ActionPopover>
+        </ThemeProvider>, container.current
+      );
+      expect(console.error).toHaveBeenCalledWith('Warning: Failed prop type: `WithTheme(ActionPopoverItem)` only'
+      + ' accepts submenu of type `ActionPopoverMenu`\n    in WithTheme(ActionPopoverItem)');
+      global.console.error.mockReset();
+    });
   });
 
   it('validates the children prop', () => {
@@ -543,7 +773,7 @@ describe('ActionPopover', () => {
       </ThemeProvider>, container.current
     );
     expect(console.error).toHaveBeenCalledWith('Warning: Failed prop type: `ActionPopover` only accepts children of'
-    + ' type `ActionPopoverItem` and `ActionPopoverDivider`.\n    in ActionPopover');
+    + ' type `WithTheme(ActionPopoverItem)` and `ActionPopoverDivider`.\n    in ActionPopover');
     global.console.error.mockReset();
   });
 });

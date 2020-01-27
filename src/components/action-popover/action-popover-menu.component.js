@@ -1,5 +1,5 @@
 import React, {
-  useState, useCallback, useEffect
+  useCallback, useEffect, useState
 } from 'react';
 import PropTypes from 'prop-types';
 import { Menu } from './action-popover.style';
@@ -7,11 +7,10 @@ import Events from '../../utils/helpers/events';
 import ActionPopoverItem from './action-popover-item.component';
 import ActionPopoverDivider from './action-popover-divider.component';
 
-const ActionPopoverMenu = ({
-  button, buttonID, children, focusIndex, isOpen, items, menuID, setOpen, setFocusIndex, setItems, ...rest
-}) => {
+const ActionPopoverMenu = React.forwardRef(({
+  button, parentID, children, focusIndex, isOpen, items, menuID, setOpen, setFocusIndex, setItems, ...rest
+}, ref) => {
   const [childrenWithRef, setChildrenWithRef] = useState();
-
   const onKeyDown = useCallback(((e) => {
     if (Events.isTabKey(e) && Events.isShiftKey(e)) {
       // SHIFT+TAB: close menu and allow focus to change to the previous focusable element, but not the button
@@ -26,17 +25,21 @@ const ActionPopoverMenu = ({
       // ESC: close menu and focus menu button
       e.preventDefault();
       setOpen(false);
-      button.current.focus();
+      if (button) {
+        button.current.focus();
+      }
     } else if (Events.isDownKey(e)) {
       // DOWN: focus next item or first
       e.preventDefault();
       e.stopPropagation();
-      setFocusIndex(focusIndex < items.length - 1 ? focusIndex + 1 : 0);
+      const indexValue = (focusIndex < items.length - 1) ? focusIndex + 1 : 0;
+      setFocusIndex(indexValue);
     } else if (Events.isUpKey(e)) {
       // UP: focus previous item or last
       e.preventDefault();
       e.stopPropagation();
-      setFocusIndex(focusIndex > 0 ? focusIndex - 1 : items.length - 1);
+      const indexValue = (focusIndex > 0) ? focusIndex - 1 : items.length - 1;
+      setFocusIndex(indexValue);
     } else if (Events.isHomeKey(e)) {
       // HOME: focus first item
       e.preventDefault();
@@ -50,33 +53,39 @@ const ActionPopoverMenu = ({
       // selection should wrap to the start of the list
       e.stopPropagation();
       let firstMatch;
-      let lastMatch;
+      let nextMatch;
       React.Children.forEach(items, ({ props: { children: text } }, index) => {
         if (text && text.toLowerCase().startsWith(e.key.toLowerCase())) {
-          if (!firstMatch) {
+          if (firstMatch === undefined) {
             firstMatch = index;
           }
-          if (index > focusIndex && !lastMatch) {
-            lastMatch = index;
+          if (index > focusIndex && nextMatch === undefined) {
+            nextMatch = index;
           }
         }
       });
 
-      if (lastMatch !== undefined) {
-        setFocusIndex(lastMatch);
+      if (nextMatch !== undefined) {
+        setFocusIndex(nextMatch);
       } else if (firstMatch !== undefined) {
         setFocusIndex(firstMatch);
       }
     }
-  }), [button, focusIndex, items, setFocusIndex, setOpen]);
+  }), [setOpen, button, focusIndex, items, setFocusIndex]);
 
+
+  // send a global close to other items with sub whenever updateItemIndex triggered?
   useEffect(() => {
     const itemsWithRef = [];
     // childrenWith a clone of children with refs added so we can focus the dom element
-    setChildrenWithRef(React.Children.toArray(children).map((child) => {
+    setChildrenWithRef(React.Children.toArray(children).map((child, itemIndex) => {
       if (child.type === ActionPopoverItem) {
-        const itemWithRef = React.cloneElement(child, { ref: React.createRef() });
+        const canOpenSubmenu = itemIndex === focusIndex && child.props.submenu;
+        // callback and index to update focusIndex if item hovered and has submenu
+        const submenuProps = child.props.submenu ? { canOpenSubmenu, itemIndex, updateItemIndex: setFocusIndex } : {};
+        const itemWithRef = React.cloneElement(child, { ref: React.createRef(), ...submenuProps });
         itemsWithRef.push(itemWithRef);
+
         return itemWithRef;
       }
       return child;
@@ -85,7 +94,7 @@ const ActionPopoverMenu = ({
     // so we use a smaller array which makes keyboard navigation easier as we don't have to filter it on every
     // keypress
     setItems(itemsWithRef);
-  }, [children, setItems]);
+  }, [children, focusIndex, isOpen, menuID, setFocusIndex, setItems]);
 
   useEffect(() => {
     if (isOpen) {
@@ -93,7 +102,7 @@ const ActionPopoverMenu = ({
     } else {
       setFocusIndex(0);
     }
-  }, [isOpen, setFocusIndex, items, focusIndex]);
+  }, [isOpen, items, focusIndex, setItems, setFocusIndex]);
 
   return (
     <Menu
@@ -101,22 +110,22 @@ const ActionPopoverMenu = ({
       isOpen={ isOpen }
       onKeyDown={ onKeyDown }
       id={ menuID }
-      aria-labelledby={ buttonID }
+      aria-labelledby={ parentID }
       role='menu'
+      ref={ ref }
       { ...rest }
     >
-      {childrenWithRef}
+      { childrenWithRef }
     </Menu>
-
   );
-};
+});
 
 ActionPopoverMenu.propTypes = {
   button: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) })
   ]),
-  buttonID: PropTypes.string,
+  parentID: PropTypes.string,
   children (props, propName, componentName) {
     let error;
     const prop = props[propName];
@@ -124,8 +133,8 @@ ActionPopoverMenu.propTypes = {
     React.Children.forEach(prop, (child) => {
       if (child === null) { return; }
       if (![ActionPopoverItem.displayName, ActionPopoverDivider.displayName].includes(child.type.displayName)) {
-        error = new Error(`\`${componentName}\` only accepts children of type \`${ActionPopoverMenu.displayName}\``
-        + ` and \`${ActionPopoverMenu.displayName}\`.`);
+        error = new Error(`\`${componentName}\` only accepts children of type \`${ActionPopoverItem.displayName}\``
+        + ` and \`${ActionPopoverDivider.displayName}\`.`);
       }
     });
 
@@ -140,8 +149,6 @@ ActionPopoverMenu.propTypes = {
   setOpen: PropTypes.func
 };
 
-ActionPopoverMenu.defaultProps = {
-  menuID: null
-};
+ActionPopoverMenu.displayName = 'ActionPopoverMenu';
 
 export default ActionPopoverMenu;
