@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text } from '@storybook/addon-knobs';
+import { text, select } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import InlineInputs from '.';
@@ -8,6 +8,7 @@ import Textbox from '../../__experimental__/components/textbox';
 import Decimal from '../../__experimental__/components/decimal';
 import { Select, Option } from '../../__experimental__/components/select';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 InlineInputs.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -34,11 +35,12 @@ const handleSelectChange = (ev) => {
 function makeStory(name, themeSelector) {
   const component = () => {
     const label = text('label', 'Inline Inputs');
+    const gutter = select('gutter size', ['none', ...OptionsHelper.sizesFull], InlineInputs.defaultProps.gutter);
 
     return (
       <State store={ singleSelectStore }>
         { state => (
-          <InlineInputs label={ label }>
+          <InlineInputs label={ label } gutter={ gutter }>
             <Textbox />
             <Decimal value={ state.decimalValue } onChange={ handleDecimalChange } />
             <Select value={ state.selectValue } onChange={ handleSelectChange }>
