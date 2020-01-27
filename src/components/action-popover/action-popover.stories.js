@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { notes, Info } from './documentation';
-import { ActionPopover, ActionPopoverDivider, ActionPopoverItem } from '.';
+import {
+  ActionPopover, ActionPopoverDivider, ActionPopoverItem, ActionPopoverMenu
+} from '.';
 import { MenuButton } from './action-popover.style';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
@@ -16,6 +18,37 @@ const StyledComponent = styled('div')``.render().type;
 ActionPopover.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
   /action-popover\.component(?!spec)/
+);
+
+const submenu = (
+  <ActionPopoverMenu>
+    <ActionPopoverItem onClick={ action('sub menu 1') }>
+      Sub Menu 1
+    </ActionPopoverItem>
+    <ActionPopoverItem onClick={ action('sub menu 2') }>
+      Sub Menu 2
+    </ActionPopoverItem>
+    <ActionPopoverItem disabled onClick={ action('sub menu 3') }>
+      Sub Menu 3
+    </ActionPopoverItem>
+  </ActionPopoverMenu>
+);
+
+const submenuWithIcons = (
+  <ActionPopoverMenu>
+    <ActionPopoverItem icon='graph' onClick={ action('sub menu 1') }>
+      Sub Menu 1
+    </ActionPopoverItem>
+    <ActionPopoverItem icon='add' onClick={ action('sub menu 2') }>
+      Sub Menu 2
+    </ActionPopoverItem>
+    <ActionPopoverItem
+      icon='print' disabled
+      onClick={ action('sub menu 3') }
+    >
+      Sub Menu 3
+    </ActionPopoverItem>
+  </ActionPopoverMenu>
 );
 
 function makeStory(storyName, themeSelector) {
@@ -31,13 +64,29 @@ function makeStory(storyName, themeSelector) {
         <TableCell>Doe</TableCell>
         <TableCell>
           <ActionPopover>
+            <ActionPopoverItem
+              disabled
+              icon='graph'
+              submenu={ submenu }
+              onClick={ action('email') }
+            >
+              Business
+            </ActionPopoverItem>
             <ActionPopoverItem icon='email' onClick={ action('email') }>Email Invoice</ActionPopoverItem>
             <ActionPopoverItem
-              disabled icon='print'
+              icon='print'
               onClick={ action('print') }
-            >Print Invoice
+              submenu={ submenu }
+            >
+              Print Invoice
             </ActionPopoverItem>
-            <ActionPopoverItem icon='pdf' onClick={ action('pdf') }>Download PDF</ActionPopoverItem>
+            <ActionPopoverItem
+              icon='pdf'
+              submenu={ submenu }
+              onClick={ action('pdf') }
+            >
+              Download PDF
+            </ActionPopoverItem>
             <ActionPopoverItem icon='csv' onClick={ action('csv') }>Download CSV</ActionPopoverItem>
             <ActionPopoverDivider />
             <ActionPopoverItem icon='delete' onClick={ action('delete') }>Delete</ActionPopoverItem>
@@ -58,7 +107,12 @@ function makeStory(storyName, themeSelector) {
         <TableCell>Jones</TableCell>
         <TableCell>
           <ActionPopover>
-            <ActionPopoverItem icon='csv' onClick={ action('csv') }>Download CSV</ActionPopoverItem>
+            <ActionPopoverItem
+              icon='csv'
+              submenu={ submenuWithIcons }
+              onClick={ action('csv') }
+            >Download CSV
+            </ActionPopoverItem>
           </ActionPopover>
         </TableCell>
       </TableRow>
