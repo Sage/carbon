@@ -45,6 +45,11 @@ const DatePicker = (props) => {
   };
 
   useEffect(() => {
+    function hasComponentUpdated() {
+      const propDate = isoFormattedValueString(props.inputDate);
+      return props.inputDate && currentDateHasChanged(currentInputDate, propDate);
+    }
+
     if (hasComponentUpdated()) {
       const updatedDate = isoFormattedValueString(props.inputDate);
       datepicker.current.showMonth(DateHelper.stringToDate(updatedDate));
@@ -58,10 +63,6 @@ const DatePicker = (props) => {
     }
   }
 
-  function hasComponentUpdated() {
-    const propDate = isoFormattedValueString(props.inputDate);
-    return props.inputDate && currentDateHasChanged(currentInputDate, propDate);
-  }
 
   return (
     <Portal onReposition={ () => setContainerPosition(getContainerPosition(window, props.inputElement)) }>
