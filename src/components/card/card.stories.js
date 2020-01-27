@@ -115,7 +115,11 @@ function makeStory(name, themeSelector) {
   const component = () => {
     const knobs = cardKnobs();
 
-    return ([getCard(knobs), getSmallCard(knobs)]);
+    return (
+      <div>
+        {getCard(knobs)}
+        {getSmallCard(knobs)}
+      </div>);
   };
 
   const metadata = {
