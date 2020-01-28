@@ -48,28 +48,28 @@ function makeStory(name, themeSelector, component) {
 const groupedKnobs = (type, themeName) => {
   return {
     key: type,
-    label: text(`${type} label`, `Example ${type} radio button`, type),
-    labelHelp: text(`${type} labelHelp`, 'This text provides more information for the label.', type),
-    value: text(`${type} value`, type, type),
-    disabled: boolean(`${type} disabled`, false, type),
-    reverse: boolean(`${type} reverse`, false, type),
-    size: themeName === 'classic' ? undefined : select(`${type} size`, OptionsHelper.sizesBinary, 'small', type),
-    fieldHelp: text(`${type} fieldHelp`, 'This text provides help for the input.', type),
-    fieldHelpInline: boolean(`${type} fieldHelpInline`, false, type),
-    inputWidth: number(`${type} inputWidth`, 0, {
+    label: text('label', `Example ${type} radio button`, type),
+    labelHelp: text('labelHelp', 'This text provides more information for the label.', type),
+    value: text('value', type, type),
+    disabled: boolean('disabled', false, type),
+    reverse: boolean('reverse', false, type),
+    size: themeName === 'classic' ? undefined : select('size', OptionsHelper.sizesBinary, 'small', type),
+    fieldHelp: text('fieldHelp', 'This text provides help for the input.', type),
+    fieldHelpInline: boolean('fieldHelpInline', false, type),
+    inputWidth: number('inputWidth', 0, {
       range: true,
       min: 0,
       max: 100,
       step: 1
     }, type),
-    labelWidth: number(`${type} labelWidth`, 0, {
+    labelWidth: number('labelWidth', 0, {
       range: true,
       min: 0,
       max: 100,
       step: 1
     }, type),
     labelAlign: select(
-      `${type} labelAlign`,
+      'labelAlign',
       OptionsHelper.alignBinary,
       OptionsHelper.alignBinary[0],
       type

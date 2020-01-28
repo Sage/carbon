@@ -3,8 +3,8 @@ import {
 } from '../helper';
 import {
   commonButtonPreview, labelPreview, helpIcon, helpIconByPosition, inputWidthSlider,
-  fieldHelpPreview, labelWidthSlider, backgroundUILocator,
-  closeIconButton, tooltipPreview, getKnobsInput, getKnobsInputWithName,
+  fieldHelpPreview, labelWidthSlider, labelWidthSliderByGroup, backgroundUILocator,
+  closeIconButton, tooltipPreview, getKnobsInput, getKnobsInputWithName, getKnobsInputByGroup,
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
   precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
   knobsNameTab, fieldHelpPreviewByPosition, labelByPosition,
@@ -164,6 +164,10 @@ When('I set {word} to {string}', (propertyName, text) => {
   getKnobsInput(propertyName).clear().type(text);
 });
 
+When('I set group {word} {word} to {string}', (groupName, propertyName, text) => {
+  getKnobsInputByGroup(groupName, propertyName).clear().type(text);
+});
+
 When('I set {string} {string} to {string}', (propertyName, fieldName, text) => {
   asyncWaitForKnobs(propertyName, fieldName);
   getKnobsInputWithName(propertyName, fieldName).clear().type(text);
@@ -183,6 +187,10 @@ When('I select {word} to {string}', (propertyName, selection) => {
 
 When('I select {word} {word} to {string}', (propertyName, text, selection) => {
   getKnobsInputWithName(propertyName, text).select(selection);
+});
+
+When('I select group {word} {word} to {string}', (groupName, propertyName, selection) => {
+  getKnobsInputByGroup(groupName, propertyName).select(selection);
 });
 
 When('I open component preview', () => {
@@ -295,6 +303,10 @@ When('I set label width slider to {int}', (width) => {
   setSlidebar(labelWidthSlider(), width);
 });
 
+When('I set group {word} {word} slider to {int}', (groupName, propertyName, width) => {
+  setSlidebar(getKnobsInputByGroup(groupName, propertyName), width);
+});
+
 When('I set precision slider to {int}', (width) => {
   setSlidebar(precisionSlider(), width);
 });
@@ -381,9 +393,19 @@ When('I check {word} checkbox', (checkboxName) => {
   getKnobsInput(checkboxName).check();
 });
 
+When('I check group {word} {word} checkbox', (groupName, checkboxName) => {
+  getKnobsInputByGroup(groupName, checkboxName).scrollIntoView();
+  getKnobsInputByGroup(groupName, checkboxName).check();
+});
+
 When('I check {word} {word} checkbox', (checkboxName, text) => {
   getKnobsInputWithName(checkboxName, text).scrollIntoView();
   getKnobsInputWithName(checkboxName, text).check();
+});
+
+When('I check group {word} {word} {word} checkbox', (groupName, checkboxName, text) => {
+  getKnobsInputByGroup(groupName, checkboxName, text).scrollIntoView();
+  getKnobsInputByGroup(groupName, checkboxName, text).check();
 });
 
 When('I uncheck {word} checkbox', (checkboxName) => {
@@ -391,9 +413,19 @@ When('I uncheck {word} checkbox', (checkboxName) => {
   getKnobsInput(checkboxName).uncheck();
 });
 
+When('I uncheck group {word} {word} checkbox', (groupName, checkboxName) => {
+  getKnobsInputByGroup(groupName, checkboxName).scrollIntoView();
+  getKnobsInputByGroup(groupName, checkboxName).uncheck();
+});
+
 When('I uncheck {word} {word} checkbox', (checkboxName, text) => {
   getKnobsInputWithName(checkboxName, text).scrollIntoView();
   getKnobsInputWithName(checkboxName, text).uncheck();
+});
+
+When('I uncheck group {word} {word} {word} checkbox', (groupName, checkboxName, text) => {
+  getKnobsInpuByGroup(groupName, checkboxName, text).scrollIntoView();
+  getKnobsInpuByGroup(groupName, checkboxName, text).uncheck();
 });
 
 Then('inputWidth is set to {string}', (width) => {

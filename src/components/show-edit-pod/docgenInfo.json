@@ -5,153 +5,131 @@
       "displayName": "ShowEditPod",
       "methods": [
         {
+          "name": "isEditing",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
           "name": "onEdit",
-          "docblock": "Called when the edit button is clicked\nEmits callback when present\n\n@method onEdit",
+          "docblock": null,
           "modifiers": [],
           "params": [
             {
-              "name": "ev"
+              "name": "ev",
+              "type": null
             }
           ],
-          "returns": null,
-          "description": "Called when the edit button is clicked\nEmits callback when present"
+          "returns": null
         },
         {
           "name": "onSaveEditForm",
-          "docblock": "Emits the afterFormValidation Callback\nwhen valid\n\n@method onSaveEditForm",
+          "docblock": null,
           "modifiers": [],
           "params": [
             {
-              "name": "ev"
+              "name": "ev",
+              "type": null
             },
             {
-              "name": "valid"
+              "name": "valid",
+              "type": null
             }
           ],
-          "returns": null,
-          "description": "Emits the afterFormValidation Callback\nwhen valid"
+          "returns": null
         },
         {
           "name": "onCancelEditForm",
-          "docblock": "Emits the onCancel Callback\n\n@method onCancelEditForm",
+          "docblock": null,
           "modifiers": [],
           "params": [
             {
-              "name": "ev"
+              "name": "ev",
+              "type": null
             }
           ],
-          "returns": null,
-          "description": "Emits the onCancel Callback"
+          "returns": null
+        },
+        {
+          "name": "toggleEditingState",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "newState",
+              "type": null
+            }
+          ],
+          "returns": null
         },
         {
           "name": "onKeyDown",
-          "docblock": "Handles key down events\n\n@method onKeyDown\n@return {Void}",
+          "docblock": null,
           "modifiers": [],
           "params": [
             {
-              "name": "ev"
+              "name": "ev",
+              "type": null
             }
           ],
-          "returns": {
-            "description": null,
-            "type": {
-              "name": "Void"
-            }
-          },
-          "description": "Handles key down events"
-        },
-        {
-          "name": "stateControlled",
-          "docblock": "True if the component is controlled by state\n\n@method stateControlled\n@return {Boolean}",
-          "modifiers": [
-            "get"
-          ],
-          "params": [],
-          "returns": {
-            "description": null,
-            "type": {
-              "name": "Boolean"
-            }
-          },
-          "description": "True if the component is controlled by state"
-        },
-        {
-          "name": "mainClasses",
-          "docblock": "Returns classes for top level div\n\n@method mainClasses",
-          "modifiers": [
-            "get"
-          ],
-          "params": [],
-          "returns": null,
-          "description": "Returns classes for top level div"
+          "returns": null
         },
         {
           "name": "deleteButton",
-          "docblock": "Returns the delete button\n\n@method mainClasses",
-          "modifiers": [
-            "get"
-          ],
+          "docblock": null,
+          "modifiers": [],
           "params": [],
-          "returns": null,
-          "description": "Returns the delete button"
+          "returns": null
         },
         {
           "name": "editContent",
-          "docblock": "Get the content for when the component is in edit mode\n\n@method editContent",
-          "modifiers": [
-            "get"
-          ],
+          "docblock": null,
+          "modifiers": [],
           "params": [],
-          "returns": null,
-          "description": "Get the content for when the component is in edit mode"
+          "returns": null
         },
         {
           "name": "content",
-          "docblock": "Determines the content to render\n\n@method content",
-          "modifiers": [
-            "get"
-          ],
+          "docblock": null,
+          "modifiers": [],
           "params": [],
-          "returns": null,
-          "description": "Determines the content to render"
+          "returns": null
+        },
+        {
+          "name": "universalProps",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
         },
         {
           "name": "contentProps",
-          "docblock": "Determines props for show content\n\n@method content",
-          "modifiers": [
-            "get"
-          ],
+          "docblock": null,
+          "modifiers": [],
           "params": [],
-          "returns": null,
-          "description": "Determines props for show content"
+          "returns": null
         },
         {
           "name": "editingProps",
-          "docblock": "Determines props for edit content\n\n@method content",
-          "modifiers": [
-            "get"
-          ],
+          "docblock": null,
+          "modifiers": [],
           "params": [],
-          "returns": null,
-          "description": "Determines props for edit content"
+          "returns": null
         },
         {
           "name": "podProps",
-          "docblock": "Determines which props to return\n\n@method content",
-          "modifiers": [
-            "get"
-          ],
+          "docblock": null,
+          "modifiers": [],
           "params": [],
-          "returns": null,
-          "description": "Determines which props to return"
+          "returns": null
         },
         {
           "name": "__focusOnPod",
-          "docblock": "Focuses on the pod component.\n\n@method __focusOnPod",
+          "docblock": null,
           "modifiers": [],
           "params": [],
-          "returns": null,
-          "description": "Focuses on the pod component."
+          "returns": null
         }
       ],
       "props": {
@@ -160,11 +138,18 @@
             "name": "string"
           },
           "required": false,
-          "description": "A theme for the Pod.",
+          "description": "A legacy theme for the Pod.",
           "defaultValue": {
             "value": "'transparent'",
             "computed": false
           }
+        },
+        "podType": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Theme for the Pod."
         },
         "border": {
           "type": {
@@ -314,6 +299,17 @@
           "defaultValue": {
             "value": "false",
             "computed": false
+          }
+        },
+        "theme": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "Theme prop is used only to support legacy code",
+          "defaultValue": {
+            "value": "baseTheme",
+            "computed": true
           }
         }
       }

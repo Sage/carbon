@@ -1,396 +1,326 @@
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
+import { ThemeProvider } from 'styled-components';
 import { shallow, mount } from 'enzyme';
 import 'jest-styled-components';
-import ReactDOM from 'react-dom';
 import ShowEditPod from './show-edit-pod';
 import Form from '../../__deprecated__/components/form';
-import Link from '../link';
-import Textbox from '../../__deprecated__/components/textbox';
 import Pod from '../../components/pod';
-import Events from '../../utils/helpers/events';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
-
+import StyledDeleteButton from './delete-button.style';
+import classic from '../../style/themes/classic';
+import { StyledLink } from './show-edit-pod.style';
 
 describe('ShowEditPod', () => {
-  let instance,
-      externalInstance,
-      spy,
-      cancelSpy,
-      content = <div className='foo' />,
-      editFields = [<Textbox key='1' />];
-
-  beforeEach(() => {
-    spy = jasmine.createSpy('afterFormValidation');
-    cancelSpy = jasmine.createSpy('onCancel');
-
-    instance = TestUtils.renderIntoDocument(
-      <ShowEditPod
-        afterFormValidation={ spy }
-        onCancel={ cancelSpy }
-        editFields={ editFields }
-      />
-    );
-
-    externalInstance = TestUtils.renderIntoDocument(
-      <ShowEditPod
-        afterFormValidation={ spy }
-        onCancel={ cancelSpy }
-        editFields={ editFields }
-        editing={ false }
-      />
-    );
-  });
-
-  describe('componentWillMount', () => {
-    describe('when editing prop is set', () => {
-      it('keeps control as props', () => {
-        expect(externalInstance.control).toEqual('props');
-      });
-    });
-  });
-
-  describe('componentDidMount', () => {
-    let focusSpy;
+  describe('when the "editing" prop is set on mount', () => {
+    let wrapper;
 
     beforeEach(() => {
-      focusSpy = jasmine.createSpy('focus');
-      spyOn(ReactDOM, 'findDOMNode').and.returnValue({ focus: focusSpy });
+      jest.useFakeTimers()
+      wrapper = renderShowEditPod({ editing: true });
     });
 
-    describe('when the component is not mounted in an editing state', () => {
-      it('does not focus on the pod', () => {
-        instance = TestUtils.renderIntoDocument(
-          <ShowEditPod
-            afterFormValidation={ spy }
-            onCancel={ cancelSpy }
-            editFields={ editFields }
-            editing={ false }
-          />
-        );
-        expect(ReactDOM.findDOMNode).not.toHaveBeenCalled();
-        expect(focusSpy).not.toHaveBeenCalled();
-      });
+    it('sets focus on the pod DOM node', () => {
+      const focusedElement = document.activeElement;
+
+      expect(focusedElement.dataset.component).toBe('pod');
     });
 
-    describe('when the component is mounted in an editing state', () => {
-      it('focuses on the pod', () => {
-        instance = TestUtils.renderIntoDocument(
-          <ShowEditPod
-            afterFormValidation={ spy }
-            onCancel={ cancelSpy }
-            editFields={ editFields }
-            editing = { true }
-          />
-        );
-        expect(ReactDOM.findDOMNode).toHaveBeenCalled();
-        expect(focusSpy).toHaveBeenCalled();
+    it('displays the Edit Form', () => {
+      expect(wrapper.find(Form).exists()).toBe(true);
+    });
+
+    describe('and when the editing prop is changed to false', () => {
+      it('does not display the Edit Form', () => {
+        wrapper.setProps({ editing: false });
+        jest.runAllTimers();
+
+        expect(wrapper.update().find(Form).exists()).toBe(false);
       });
+    })
+
+    afterEach(() => {
+      wrapper.unmount();
+      jest.useRealTimers();
     });
   });
 
-  describe('onEdit', () => {
-    describe('when controlled by state', () => {
-      it('sets the editing state to true', () => {
-        instance.onEdit();
-        expect(instance.state.editing).toBeTruthy();
+  describe('when the "editing" prop is not set on mount', () => {
+    let wrapper;
+
+    it('does not set focus on the pod DOM node', () => {
+      wrapper = renderShowEditPod();
+      const focusedElement = document.activeElement;
+      expect(focusedElement.dataset.component).not.toBe('pod');
+    });
+
+    describe('and onEdit prop is called on Pod Component', () => {
+      beforeEach(() => {
+        jest.useFakeTimers()
+        wrapper = renderShowEditPod({ onEdit: jest.fn() });
+        wrapper.find(Pod).props().onEdit();
       });
 
-      it('sets focus on the DOM node', () => {
-        instance.control = 'props';
-        const focusSpy = jasmine.createSpy('focus');
-        spyOn(ReactDOM, 'findDOMNode').and.returnValue({ focus: focusSpy });
-        instance.onEdit();
-        expect(ReactDOM.findDOMNode).toHaveBeenCalled();
-        expect(focusSpy).toHaveBeenCalled();
+      it('displays the Edit Form', () => {
+        expect(wrapper.update().find('[data-element="edit-form"]').exists()).toBe(true);
       });
 
-      describe('when edit function is passed', () => {
-        it('calls the onEdit callback', () => {
-          const editSpy = jasmine.createSpy('editSpy');
+     describe('and then the onCancel prop is called on the Edit Form', () => {
+        it('does not display the Edit Form', () => {
+          wrapper.update().find(Form).props().onCancel();
+          jest.runAllTimers();
 
-          instance = TestUtils.renderIntoDocument(
-            <ShowEditPod
-              onEdit={ editSpy }
-            />
-          );
-          instance.onEdit();
-
-          expect(editSpy).toHaveBeenCalled();
+          expect(wrapper.update().find('[data-element="edit-form"]').exists()).toBe(false);
         });
       });
     });
 
-    describe('when controlled by props', () => {
-      it('does not setState', () => {
-        spyOn(externalInstance, 'setState');
-        externalInstance.onEdit();
-        expect(externalInstance.setState).not.toHaveBeenCalled();
-      });
+    afterEach(() => {
+      wrapper.unmount();
+      jest.useRealTimers();
     });
   });
 
-  describe('onSaveEditForm', () => {
-    let preventSpy, ev;
+  describe('when the "onEdit" prop is passed', () => {
+    let wrapper;
 
-    beforeEach(() => {
-      preventSpy = jasmine.createSpy('prevent'),
-      ev = { preventDefault: preventSpy }
+    describe('and "onEdit" prop is called on Pod Component', () => {
+      let onEditSpy;
+
+      beforeEach(() => {
+        onEditSpy = jest.fn();
+        wrapper = renderShowEditPod({
+          onEdit: onEditSpy
+        });
+        wrapper.find(Pod).props().onEdit();
+      });
+
+      it('calls the onEdit callback', () => {
+        expect(onEditSpy).toHaveBeenCalled();
+      });
+
+      it('sets focus on the pod DOM node', () => {
+        const focusedElement = document.activeElement;
+
+        expect(focusedElement.dataset.component).toBe('pod');
+      });
+
+      it('displays the Edit Form', () => {
+        expect(wrapper.update().find(Form).exists()).toBe(true);
+      });
+    });
+  
+    describe('with the "editing" prop not set', () => {
+      let afterFormValidation;
+
+      beforeEach(() => {
+        jest.useFakeTimers()
+        afterFormValidation = jest.fn();
+        wrapper = renderShowEditPod({
+          afterFormValidation,
+          onEdit: jest.fn()
+        });
+        wrapper.find(Pod).props().onEdit();
+        jest.runAllTimers();
+      });
+
+      describe('after the Edit Form validation', () => {
+        it('does not display the Edit Form', () => {
+          const ev = { preventDefault: jest.fn() };
+
+          wrapper.update().find(Form).props().afterFormValidation(ev, true);
+          jest.runAllTimers();
+
+          expect(wrapper.update().find(Form).exists()).toBe(false);
+
+          jest.useRealTimers();
+        });
+      });
+    });
+  
+    describe('with the "editing" prop set to true on mount', () => {
+      describe('and onEdit prop is called on Pod Component', () => {
+        beforeEach(() => {
+          jest.useFakeTimers()
+          wrapper = renderShowEditPod({
+            onEdit: jest.fn(),
+            editing: true
+          });
+          wrapper.setProps({ editing: false });
+          jest.runAllTimers();
+        });
+
+        it('does not display the Edit Form', () => {
+          expect(wrapper.update().find(Form).exists()).toBe(false);
+
+          jest.useRealTimers();
+        });
+      });
     });
 
-    it('prevents default', () => {
-      instance.onSaveEditForm(ev);
+    describe('with the "editing" prop set to false on mount', () => {
+      describe('and onEdit prop is called on Pod Component', () => {
+        beforeEach(() => {
+          wrapper = renderShowEditPod({
+            onEdit: jest.fn(),
+            editing: false
+          });
+          wrapper.find(Pod).props().onEdit();
+        });
+
+        it('does not display the Edit Form', () => {
+          expect(wrapper.update().find(Form).exists()).toBe(false);
+        });
+      });
+    });
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
+  });
+
+  describe('after the Edit Form validation', () => {
+    let wrapper, afterFormValidation;
+    const mockEvent = { preventDefault: () => {} };
+
+    beforeEach(() => {
+      afterFormValidation = jest.fn();
+      wrapper = renderShowEditPod({
+        afterFormValidation,
+        editing: true
+      });
+    });
+
+    it('prevents default on passed event', () => {
+      const preventSpy = jasmine.createSpy('prevent');
+      const ev = { preventDefault: preventSpy };
+
+      wrapper.find(Form).props().afterFormValidation(ev, true);
       expect(preventSpy).toHaveBeenCalled();
     });
 
-    describe('when valid', () => {
+    describe('when the form is valid', () => {
       it('calls the afterFormValidation callback', () => {
-        instance.onSaveEditForm(ev, true);
-        expect(spy).toHaveBeenCalled();
-      });
-
-      it('sets the edit state to false', () => {
-        instance.onSaveEditForm(ev, true);
-        expect(instance.state.editing).toBeFalsy();
+        wrapper.find(Form).props().afterFormValidation(mockEvent, true);
+        expect(afterFormValidation).toHaveBeenCalled();
       });
     });
 
-    describe('when controlled by props', () => {
-      it('does not setState', () => {
-        spyOn(externalInstance, 'setState');
-        externalInstance.onSaveEditForm(ev, true);
-        expect(externalInstance.setState).not.toHaveBeenCalled();
+    describe('when the form is invalid', () => {
+      it('calls the afterFormValidation callback', () => {
+        wrapper.find(Form).props().afterFormValidation(mockEvent, false);
+        expect(afterFormValidation).not.toHaveBeenCalled();
       });
     });
   });
 
-  describe('onCancelEditForm', () => {
-    describe('when a onCancel props exists', () => {
-      let ev;
+  describe('when the "onCancel" prop is set', () => {
+    let wrapper, onCancel;
+    const mockEvent = { preventDefault: () => {} };
 
-      beforeEach(() => {
-        ev = jasmine.createSpy('event');
-        instance.onCancelEditForm(ev);
-      });
-
-      it('calls the onCancel function', () => {
-        expect(cancelSpy).toHaveBeenCalledWith(ev);
-      });
-
-      it('sets editing to false', () => {
-        expect(instance.state.editing).toBeFalsy();
-      });
-
-      describe('when controlled by props', () => {
-        it('does not setState', () => {
-          spyOn(externalInstance, 'setState');
-          externalInstance.onCancelEditForm(ev);
-          expect(externalInstance.setState).not.toHaveBeenCalled();
-        });
-      });
-    });
-
-    describe('when onCancel does not exits', () => {
-      it('sets editing to false', () => {
-        instance = TestUtils.renderIntoDocument(<ShowEditPod />);
-
-        instance.onCancelEditForm();
-        expect(instance.state.editing).toBeFalsy();
-      });
-    });
-  });
-
-  describe('onKeyDown', () => {
     beforeEach(() => {
-      spyOn(instance, 'onCancelEditForm');
-    });
-
-    describe('when the escape key is hit', () => {
-      it('calls onCancelEditForm', () => {
-        spyOn(Events, 'isEscKey').and.returnValue(true);
-        instance.onKeyDown({ which: 666 });
-        expect(instance.onCancelEditForm).toHaveBeenCalledWith({ which: 666 });
+      onCancel = jest.fn();
+      wrapper = renderShowEditPod({
+        onCancel,
+        editing: true
       });
     });
 
+    describe('and the cancel is triggered on Edit Form', () => {
+      it('calls the onCancel function', () => {
+        wrapper.find(Form).props().onCancel(mockEvent);
+        expect(onCancel).toHaveBeenCalledWith(mockEvent);
+      });
+    });
+
+    describe('and the escape key is hit', () => {
+      it('calls the onCancel function', () => {
+        wrapper.find(Pod).simulate('keydown', { which: 27 });
+        expect(onCancel).toHaveBeenCalled();
+      });
+    });
+  
     describe('when the event is not the escape key', () => {
       it('does not call onCancelEditForm', () => {
-        spyOn(Events, 'isEscKey').and.returnValue(false);
-        instance.onKeyDown({ which: 666 });
-        expect(instance.onCancelEditForm).not.toHaveBeenCalled();
+        wrapper.find(Form).simulate('keydown', { which: 33 });
+        expect(onCancel).not.toHaveBeenCalled();
       });
     });
-  });
 
-  describe('mainClasses', () => {
-    it('returns the base class', () => {
-      expect(instance.mainClasses).toEqual('carbon-show-edit-pod');
-    });
-
-    it('returns any passed props', () => {
-      instance = TestUtils.renderIntoDocument(<ShowEditPod className='foo' />);
-
-      expect(instance.mainClasses).toEqual('carbon-show-edit-pod foo');
+    afterEach(() => {
+      wrapper.unmount();
     });
   });
 
-  describe('deleteButton', () => {
-    it('renders a link', () => {
-      const deleteSpy = jasmine.createSpy('delete');
-
-      instance = TestUtils.renderIntoDocument(<ShowEditPod onDelete={ deleteSpy } />);
-      instance.setState({ editing: true });
-
-      TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-show-edit-pod__delete');
-    });
-
-    describe('when delete text is passed', () => {
-      it('renders the custom text', () => {
-        const deleteSpy = jasmine.createSpy('delete');
-
-        instance = TestUtils.renderIntoDocument(
-          <ShowEditPod
-            onDelete={ deleteSpy }
-            deleteText='foo'
-          />
-        );
-
-        instance.setState({ editing: true });
-        const deleteLink = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-show-edit-pod__delete');
-        expect(deleteLink.textContent).toEqual('foo');
-      });
-    });
-  });
-
-  describe('editContent', () => {
-    beforeEach(() => {
-      instance.setState({ editing: true });
-    });
-
-    it('returns a form', () => {
-      TestUtils.findRenderedComponentWithType(instance, Form);
-    });
-
-    it('renders the editField', () => {
-      TestUtils.findRenderedComponentWithType(instance, Textbox);
-    });
-
-    describe('when controlled by props', () => {
-      beforeEach(() => {
-        externalInstance = TestUtils.renderIntoDocument(
-          <ShowEditPod
-            afterFormValidation={ spy }
-            onCancel={ cancelSpy }
-            editFields={ editFields }
-            editing = { true }
-          />
-        );
-      });
-
-      it('returns a form', () => {
-        TestUtils.findRenderedComponentWithType(externalInstance, Form);
-      });
-
-      it('renders the editField', () => {
-        TestUtils.findRenderedComponentWithType(externalInstance, Textbox);
-      });
-    });
-  });
-
-  describe('contentProps', () => {
-    it('returns props for the content field including a custom onEdit', () => {
-      const props = instance.contentProps;
-      expect(props.onEdit).toEqual(instance.onEdit);
-    });
-
-    it('leaves onEdit as false if false is sent in', () => {
-      const falseEditInstance = TestUtils.renderIntoDocument(<ShowEditPod onEdit={ false } />);
-      const props = falseEditInstance.contentProps;
-      expect(props.onEdit).toBeUndefined();
-    });
-
-    it('strips out the className prop', () => {
-      const props = instance.contentProps;
-      expect(props.className).toBeUndefined();
-    });
-  });
-
-  describe('editingProps', () => {
-    it('returns the defined props', () => {
-      const props = instance.editingProps;
-      expect(props.as).toEqual('secondary');
-      expect(props.onKeyDown).toEqual(instance.onKeyDown);
-    });
-
-    it('strips out the className and onEdit props', () => {
-      const props = instance.editingProps;
-      expect(props.className).toBeUndefined();
-      expect(props.onEdit).toBeUndefined();
-    });
-  });
-
-  describe('render', () => {
-    it('renders a parent pod', () => {
-      TestUtils.findRenderedComponentWithType(instance, Pod);
-    });
-  });
-
-  describe('edit form props', () => {
-    let wrapper;
-    let beforeFormValidation;
+  describe('when the "onDelete" prop is set', () => {
+    let wrapper, additionalComponent, onDelete;
+    const mockText = 'mock text';
 
     beforeEach(() => {
-      beforeFormValidation = jasmine.createSpy();
-      wrapper = mount(
-        <ShowEditPod
-          beforeFormValidation={ beforeFormValidation }
-          buttonAlign='left'
-          cancel={ false }
-          cancelText='Cancel Me'
-          editing
-          saveText='Save Me'
-          saving={ false }
-          validateOnMount
-        />
-      );
+      onDelete = jest.fn();
     });
 
-    it('creates a Form with the expected props when editing is set to true', () => {
-      const editForm = wrapper.find(Form);
-      const instance = wrapper.instance();
+    it('passes the Delete Button to the "additionalActions" prop', () => {
+      wrapper = renderShowEditPod({
+        onDelete,
+        editing: true
+      });
+      additionalComponent = mount(wrapper.find(Form).props().additionalActions);
 
-      const props = editForm.props();
-
-      expect(props.afterFormValidation).toEqual(instance.onSaveEditForm);
-      expect(props.beforeFormValidation).toEqual(beforeFormValidation);
-      expect(props.buttonAlign).toEqual('left');
-      expect(props.cancel).toEqual(false);
-      expect(props.cancelText).toEqual('Cancel Me');
-      expect(props.onCancel).toEqual(instance.onCancelEditForm);
-      expect(props.additionalActions).toEqual(null);
-      expect(props.saveText).toEqual('Save Me');
-      expect(props.saving).toEqual(false);
-      expect(props.validateOnMount).toEqual(true);
+      expect(additionalComponent.type()).toBe(StyledDeleteButton);
     });
 
-    describe('where onDelete is provided', () => {
-      it('should get through to the delete button Link', () => {
-        const onDelete = jasmine.createSpy();
-        wrapper.setProps({
-          deleteText: 'Delete',
-          onDelete
+    describe('with the "deleteText" prop', () => {
+      it('then the text of the Delete Button should match the prop', () => {
+        wrapper = renderShowEditPod({
+          onDelete,
+          editing: true,
+          deleteText: mockText
         });
-        expect(wrapper.find(Link).exists()).toBeTruthy();
+        additionalComponent = mount(wrapper.find(Form).props().additionalActions);
+
+        expect(additionalComponent.text()).toBe(mockText);
       });
+    });
+
+    describe('without the "deleteText" prop set', () => {
+      it('then the text of the Delete Button should be "Delete"', () => {
+        wrapper = renderShowEditPod({
+          onDelete,
+          editing: true
+        });
+        additionalComponent = mount(wrapper.find(Form).props().additionalActions);
+
+        expect(additionalComponent.text()).toBe('Delete');
+      });
+    });
+
+    afterEach(() => {
+      additionalComponent.unmount();
+    });
+  });
+
+  describe('when the "editFields" prop is set', () => {
+    let wrapper;
+    const mockText = 'mock text';
+
+    beforeEach(() => {
+      wrapper = renderShowEditPod({
+        editFields: mockText,
+        editing: true
+      });
+    });
+
+    it('the the prop content should be rendered in the Edit Form', () => {
+      expect(wrapper.find(Form).props().children).toBe(mockText);
     });
   });
 
   describe('tags', () => {
     describe('on component', () => {
-      const wrapper = shallow(<ShowEditPod data-element='bar' data-role='baz' />);
+      const wrapper = mount(<ShowEditPod data-element='bar' data-role='baz' />);
 
       it('include correct component, element and role data tags', () => {
-        rootTagTest(wrapper, 'show-edit-pod', 'bar', 'baz');
+        rootTagTest(wrapper.find(Pod), 'show-edit-pod', 'bar', 'baz');
       });
     });
 
@@ -403,4 +333,82 @@ describe('ShowEditPod', () => {
       ]);
     });
   });
+
+  describe('when theme is set to "classic"', () => {
+    let wrapper;
+
+    describe('and the "editing" prop is set', () => {
+      beforeEach(() => {
+        wrapper = renderWithTheme({
+          editing: true
+        }, classic);
+      });
+
+      it('then the "podType" prop in the Pod Component should be set to "secondary"', () => {
+        expect(wrapper.find(Pod).props().podType).toBe('secondary');
+      });
+    });
+
+    describe('and the "onDelete" prop is set', () => {
+      let wrapper, additionalComponent, onDelete;
+      const mockText = 'mock text';
+  
+      beforeEach(() => {
+        onDelete = jest.fn();
+      });
+  
+      it('passes the Delete Link to the "additionalActions" prop', () => {
+        wrapper = renderWithTheme({
+          onDelete,
+          editing: true
+        }, classic);
+        additionalComponent = mount(wrapper.find(Form).props().additionalActions);
+  
+        expect(additionalComponent.type()).toBe(StyledLink);
+      });
+  
+      describe('with the "deleteText" prop', () => {
+        it('then the text of the Delete Link should match the prop', () => {
+          wrapper = renderShowEditPod({
+            onDelete,
+            editing: true,
+            deleteText: mockText
+          });
+          additionalComponent = mount(wrapper.find(Form).props().additionalActions);
+  
+          expect(additionalComponent.text()).toBe(mockText);
+        });
+      });
+  
+      describe('without the "deleteText" prop set', () => {
+        it('then the text of the Delete Link should be "Delete"', () => {
+          wrapper = renderShowEditPod({
+            onDelete,
+            editing: true
+          });
+          additionalComponent = mount(wrapper.find(Form).props().additionalActions);
+  
+          expect(additionalComponent.text()).toBe('Delete');
+        });
+      });
+  
+      afterEach(() => {
+        additionalComponent.unmount();
+      });
+    });
+  });
 });
+
+function renderShowEditPod(props, renderer = mount) {
+  return renderer(
+    <ShowEditPod { ...props } />
+  );
+}
+
+function renderWithTheme(props, theme, renderer = mount) {
+  return renderer(
+    <ThemeProvider theme={ theme }>
+      <ShowEditPod { ...props } />
+    </ThemeProvider>
+  );
+}

@@ -1,0 +1,232 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Classic Theme StyledEditAction should match expected styles 1`] = `
+.c1 {
+  display: inline-block;
+}
+
+.c1 a,
+.c1 button {
+  font-size: 14px;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #00805D;
+  display: inline-block;
+  font-weight: bold;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #255BC7;
+}
+
+.c1 a .c2,
+.c1 button .c2 {
+  margin-right: 5px;
+  position: relative;
+  vertical-align: middle;
+  top: -2px;
+}
+
+.c1 a:hover,
+.c1 button:hover {
+  cursor: pointer;
+  color: #006045;
+}
+
+.c1 a .c2,
+.c1 button .c2 {
+  color: #255BC7;
+}
+
+.c1 a:hover,
+.c1 button:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #004B87;
+}
+
+.c1 a:hover .c2,
+.c1 button:hover .c2 {
+  color: #004B87;
+}
+
+.c1 a:focus,
+.c1 button:focus {
+  outline: none;
+}
+
+.c1 button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.c0.c0 {
+  cursor: pointer;
+  border: 1px solid #CCD6DA;
+  margin-left: 8px;
+  border-color: ccd6db;
+  margin-left: 2px;
+  border-radius: 4px;
+  color: #255bc7;
+}
+
+.c0.c0 > a,
+.c0.c0 button {
+  width: 15px;
+  height: 15px;
+  padding: px;
+  background-color: transparent;
+}
+
+.c0.c0 .c2 {
+  top: -2px;
+}
+
+.c0.c0 .carbon-link__content {
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+  position: absolute;
+}
+
+<div
+  className="c0 c1"
+  data-component="link"
+  disabled={false}
+>
+  <a
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    tabIndex="0"
+  >
+    <span
+      className="carbon-link__content"
+    />
+  </a>
+</div>
+`;
+
+exports[`StyledBlock should match expected styles 1`] = `
+.c0 {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #CCD6DA;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`StyledEditAction when isHovered prop is set should match expected styles 1`] = `
+.c1 {
+  display: inline-block;
+}
+
+.c1 a,
+.c1 button {
+  font-size: 14px;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #26A826;
+  display: inline-block;
+}
+
+.c1 a .c2,
+.c1 button .c2 {
+  margin-right: 5px;
+  position: relative;
+  vertical-align: middle;
+}
+
+.c1 a:hover,
+.c1 button:hover {
+  cursor: pointer;
+  color: #006300;
+}
+
+.c1 a:focus,
+.c1 button:focus {
+  color: rgba(0,0,0,0.9);
+  background-color: #FFDA7F;
+  outline: none;
+}
+
+.c1 button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.c0.c0 {
+  cursor: pointer;
+  border: 1px solid #CCD6DA;
+  margin-left: 8px;
+  background-color: #26A826;
+  color: #FFFFFF;
+}
+
+.c0.c0 > a,
+.c0.c0 button {
+  width: 15px;
+  height: 15px;
+  padding: px;
+  background-color: transparent;
+}
+
+.c0.c0 .c2 {
+  top: -2px;
+}
+
+.c0.c0 .c2 {
+  color: #FFFFFF;
+}
+
+.c0.c0 .carbon-link__content {
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+  position: absolute;
+}
+
+<div
+  className="c0 c1"
+  data-component="link"
+  disabled={false}
+>
+  <a
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    tabIndex="0"
+  >
+    <span
+      className="carbon-link__content"
+    />
+  </a>
+</div>
+`;
+
+exports[`StyledEditContainer when internalEditButton prop is set should have expected styles 1`] = `
+.c0 {
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  z-index: 10;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`StyledFooter should match expected styles 1`] = `
+.c0 {
+  background-color: #F2F4F5;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  box-shadow: inset 0px 1px 1px 0 rgba(0,0,0,0.1);
+}
+
+<div
+  className="c0"
+/>
+`;

@@ -6,12 +6,18 @@ import PropTypes from 'prop-types';
 import TestUtils from 'react-dom/test-utils';
 import Pod from '../../components/pod';
 
+class Comp extends React.Component {
+  render() {
+    return <div className={this.props.className} />
+  }
+}
+
 describe('Ether', () => {
   let element;
 
   beforeEach(() => {
     element = TestUtils.renderIntoDocument(
-      <Pod className='ether-test'/>
+      <Comp className='ether-test'/>
     );
   });
 

@@ -8,7 +8,7 @@ Feature: Experimental RadioButton monthly classic component
 
   @positive
   Scenario Outline: Change RadioButton component monthly label to <label>
-    When I set "monthly" "label" to "<label>"
+    When I set group monthly label to "<label>"
     Then "Second" radioButton on preview is "<label>"
     Examples:
       | label                   |
@@ -21,7 +21,7 @@ Feature: Experimental RadioButton monthly classic component
 
   @positive
   Scenario Outline: Change RadioButton component monthly help label to <labelHelp>
-    When I set "monthly" "labelHelp" to "<labelHelp>"
+    When I set group monthly labelHelp to "<labelHelp>"
       And I hover mouse onto "second" help icon
     Then tooltipPreview on preview is set to "<labelHelp>"
     Examples:
@@ -35,7 +35,7 @@ Feature: Experimental RadioButton monthly classic component
 
   @positive
   Scenario Outline: Change RadioButton component monthly value to <monthlyValue>
-    When I set "monthly" "value" to "<monthlyValue>"
+    When I set group monthly value to "<monthlyValue>"
     Then "Second" RadioButton has value "<monthlyValue>"
     Examples:
       | monthlyValue            |
@@ -48,18 +48,18 @@ Feature: Experimental RadioButton monthly classic component
 
   @positive
   Scenario: Disable RadioButton
-    When I check monthly disabled checkbox
+    When I check group monthly disabled checkbox
     Then "Second" RadioButton component is disabled
 
   @positive
   Scenario: Disable and enable checkbox
-    When I check monthly disabled checkbox
-      And I uncheck monthly disabled checkbox
+    When I check group monthly disabled checkbox
+      And I uncheck group monthly disabled checkbox
     Then "Second" RadioButton component is enabled
 
   @positive
   Scenario: Enable reverse radioButton
-    When I check monthly reverse checkbox
+    When I check group monthly reverse checkbox
     Then "Second" RadioButton is set to reverse
 
   @positive
@@ -69,7 +69,7 @@ Feature: Experimental RadioButton monthly classic component
 
   @positive
   Scenario Outline: Change RadioButton component field help to <fieldHelp>
-    When I set "monthly" "fieldHelp" to "<fieldHelp>"
+    When I set group monthly fieldHelp to "<fieldHelp>"
     Then "Second" fieldHelp on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp               |
@@ -82,18 +82,18 @@ Feature: Experimental RadioButton monthly classic component
 
   @positive
   Scenario: Enable fieldHelpInline
-    When I check monthly fieldHelpInline checkbox
+    When I check group monthly fieldHelpInline checkbox
     Then "Second" field help is set to fieldHelpInline and has margin-left set to "22px" and has margin-right "6px"
 
   @positive
   Scenario: Enable and disable fieldHelpInline
-    When I check monthly fieldHelpInline checkbox
-      And I uncheck monthly fieldHelpInline checkbox
+    When I check group monthly fieldHelpInline checkbox
+      And I uncheck group monthly fieldHelpInline checkbox
     Then "Second" field help is not set to fieldHelpInline and has margin-left set to "22px"
 
   @positive
   Scenario Outline: Change RadioButton input width to <width>
-    When I set RadioButton monthly inputWidth slider to <width>
+    When I set group monthly inputWidth slider to <width>
     Then "Second" RadioButton "monthly" inputWidth is set to <px>
     Examples:
       | width | px  |
@@ -103,8 +103,8 @@ Feature: Experimental RadioButton monthly classic component
 
   @positive
   Scenario Outline: Change RadioButton label width to <width>
-    When I check monthly fieldHelpInline checkbox
-      And I set RadioButton monthly labelWidth slider to <width>
+    When I check group monthly fieldHelpInline checkbox
+      And I set group monthly labelWidth slider to <width>
     Then "Second" RadioButton label width is set to <px>
     Examples:
       | width | px   |
@@ -114,8 +114,8 @@ Feature: Experimental RadioButton monthly classic component
 
   @positive
   Scenario Outline: Change RadioButton label align to <direction>
-    Given I set RadioButton monthly labelWidth slider to 10
-    When I select monthly labelAlign to "<direction>"
+    Given I set group monthly labelWidth slider to 10
+    When I select group monthly labelAlign to "<direction>"
     Then "Second" label Align on preview is "<direction>"
     Examples:
       | direction |

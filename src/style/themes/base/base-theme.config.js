@@ -68,6 +68,15 @@ export default (palette) => {
       hover: blackWithOpacity(0.9)
     },
 
+    pod: {
+      border: palette.slateTint(80),
+      secondaryBackground: palette.slateTint(95),
+      tertiaryBackground: palette.slateTint(90),
+      tileBackground: '#FFFFFF',
+      footerBackground: palette.slateTint(95),
+      hoverBackground: palette.slateTint(85)
+    },
+
     text: {
       color: blackWithOpacity(0.9),
       placeholder: blackWithOpacity(0.3),

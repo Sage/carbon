@@ -16,31 +16,28 @@ Switch.__docgenInfo = getDocGenInfo(
   /switch\.component(?!spec)/
 );
 
-const formStore = new Store({
-  checked: false
-});
+const stores = {
+  default: {
+    store: new Store({
+      checked: false
+    })
+  },
+  classic: {
+    store: new Store({
+      checked: false
+    })
+  }
+};
 
-const stores = {};
 const validationTypes = ['cookies', 't&cs', 'info'];
 
 validationTypes.forEach((type) => {
-  stores[type] = new Store({
-    checked: false,
-    forceUpdateTriggerToggle: false
-  });
+  stores[type] = {
+    store: new Store({
+      checked: false
+    })
+  };
 });
-
-function switchWrapper(wrapperProps) {
-  return (
-    <State store={ wrapperProps.store }>
-      <Switch
-        onChange={ handleChange() }
-        name='switch'
-        { ...wrapperProps }
-      />
-    </State>
-  );
-}
 
 function makeStory(name, themeSelector, component) {
   const metadata = {
@@ -55,26 +52,26 @@ function makeStory(name, themeSelector, component) {
   return [name, component, metadata];
 }
 
-const switchClassic = () => switchWrapper({
-  ...commonKnobs(),
-  store: formStore
-});
+function handleChange(ev, type) {
+  const { checked } = ev.target;
 
-const switchComponent = () => switchWrapper({
-  ...commonKnobs(),
-  ...dlsKnobs(),
-  store: formStore
-});
+  stores[type].store.set({
+    checked,
+    forceUpdateTriggerToggle: !checked
+  });
 
-const validationGroupedKnobs = (type, themeName) => {
+  action('change')(`checked: ${checked}`);
+}
+
+const validationGroupedKnobs = (type, storyName) => {
   const group = `${type} switch`;
   return {
-    key: type,
+    key: `switch-${type}`,
     label: text(`${type} label`, `Accept ${type}`, group),
     labelHelp: text(`${type} labelHelp`, `Switch off and on ${type} component.`, group),
     disabled: boolean(`${type} disabled`, false, group),
     size: (
-      themeName !== 'classic' ? select(
+      storyName !== 'classic' ? select(
         `${type} size`, OptionsHelper.sizesBinary, 'small', group
       ) : undefined
     ),
@@ -104,13 +101,12 @@ const validationGroupedKnobs = (type, themeName) => {
   };
 };
 
-const validationKnobs = (type, themeName) => {
+const validationKnobs = (type, storyName) => {
   return {
-    ...validationGroupedKnobs(type, themeName),
+    ...validationGroupedKnobs(type, storyName),
     name: `switch-${type}`,
     value: type,
-    store: stores[type],
-    onChange: handleChange(stores[type]),
+    onChange: ev => handleChange(ev, type),
     validations: testValidation('valid'),
     warnings: testValidation('warn'),
     info: testValidation('info'),
@@ -119,27 +115,45 @@ const validationKnobs = (type, themeName) => {
   };
 };
 
-const switchComponentValidation = themeName => () => validationTypes.map(type => switchWrapper({
-  ...validationKnobs(type, themeName)
-}));
-
-storiesOf('Experimental/Switch', module)
-  .addParameters({
-    info: { text: info, propTablesExclude: [State] }
-  })
-  .add(...makeStory('default', dlsThemeSelector, switchComponent))
-  .add(...makeStory('classic', classicThemeSelector, switchClassic))
-  .add(...makeStory('validations', dlsThemeSelector, switchComponentValidation()))
-  .add(...makeStory('validations classic', classicThemeSelector, switchComponentValidation('classic')));
-
-function handleChange(store = formStore) {
-  return function (ev) {
-    const { checked } = ev.target;
-
-    store.set({ checked, forceUpdateTriggerToggle: checked });
-    action('checked')(checked);
-  };
+function switchWrapper(wrapperProps) {
+  const { type, ...rest } = wrapperProps;
+  return (
+    <State
+      store={ stores[type].store }
+      key={ `switch-state-${type}` }
+    >
+      <Switch
+        onChange={ ev => handleChange(ev, type) }
+        name={ `switch-${type}` }
+        { ...rest }
+      />
+    </State>
+  );
 }
+
+const switchClassic = () => switchWrapper({
+  ...commonKnobs(),
+  type: 'classic'
+});
+
+const switchComponent = () => switchWrapper({
+  ...commonKnobs(),
+  ...dlsKnobs(),
+  type: 'default'
+});
+
+const switchComponentValidation = storyName => () => (
+  <div>
+    {validationTypes.map(type => (
+      <State
+        store={ stores[type].store }
+        key={ `switch-state-${type}` }
+      >
+        <Switch { ...validationKnobs(type, storyName) } />
+      </State>
+    ))}
+  </div>
+);
 
 function commonKnobs() {
   return ({
@@ -194,3 +208,12 @@ function testValidation(type) {
     });
   };
 }
+
+storiesOf('Experimental/Switch', module)
+  .addParameters({
+    info: { text: info, propTablesExclude: [State] }
+  })
+  .add(...makeStory('default', dlsThemeSelector, switchComponent))
+  .add(...makeStory('classic', classicThemeSelector, switchClassic))
+  .add(...makeStory('validations', dlsThemeSelector, switchComponentValidation('validations')))
+  .add(...makeStory('validations classic', classicThemeSelector, switchComponentValidation('validationsclassic')));
