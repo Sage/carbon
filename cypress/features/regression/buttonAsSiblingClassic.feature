@@ -1,13 +1,13 @@
-Feature: Button classic component
-  I want to change Button classic label, theme, size and subtext properties
+Feature: Button component as a sibling classic story
+  I want to check Button as a sibling classic component properties
 
-  Background: Open Button component page classic
-    Given I open "Button" component page classic
+  Background: Open Button as a sibling component classic page
+    Given I open "Button" classic component for classic story as sibling in no iframe
 
   @positive
   Scenario Outline: Set Button size to <size>
     When I select size to "<size>"
-    Then Button height is "<height>" and width is "<width>"
+    Then Button as a sibling height is "<height>" and width is "<width>"
     Examples:
       | size   | height | width     |
       | small  | 25     | 107.90625 |
@@ -18,8 +18,8 @@ Feature: Button classic component
   Scenario Outline: Set Button theme to <theme> and as to primary
     Given I select as to "primary"
     When I select theme to "<theme>"
-    Then Button background color is "<background-color>"
-      And Button font color is "<font-color>"
+    Then Button as a sibling background color is "<background-color>"
+      And Button as a sibling font color is "<font-color>"
     Examples:
       | theme        | background-color   | font-color          |
       | blue         | rgb(37, 91, 199)   | rgb(255, 255, 255)  |
@@ -33,8 +33,8 @@ Feature: Button classic component
   Scenario Outline: Set Button theme to <theme> and as to secondary
     Given I select as to "secondary"
     When I select theme to "<theme>"
-    Then Button font color is "<font-color>"
-      And Button background color is "rgba(0, 0, 0, 0)"
+    Then Button as a sibling font color is "<font-color>"
+      And Button as a sibling background color is "rgba(0, 0, 0, 0)"
     Examples:
       | theme        | font-color         |
       | blue         | rgb(37, 91, 199)   |
@@ -49,7 +49,7 @@ Feature: Button classic component
     Given I select size to "large"
       # I use space character below
     When I set subtext to " "
-    Then Button subtext on preview is " "
+    Then Button as a sibling subtext on preview is " "
 
   @positive
   Scenario: I set component size to large but I leave Button subtext empty

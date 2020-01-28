@@ -3,8 +3,8 @@ import {
 } from '../helper';
 import {
   commonButtonPreview, labelPreview, helpIcon, helpIconByPosition, inputWidthSlider,
-  fieldHelpPreview, labelWidthSlider, backgroundUILocator,
-  closeIconButton, tooltipPreview, getKnobsInput, getKnobsInputWithName,
+  fieldHelpPreview, labelWidthSlider, labelWidthSliderByGroup, backgroundUILocator,
+  closeIconButton, tooltipPreview, getKnobsInput, getKnobsInputWithName, getKnobsInputByGroup,
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
   precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
   knobsNameTab, fieldHelpPreviewByPosition, labelByPosition,
@@ -39,6 +39,14 @@ Given('I open {string} component page basic in iframe', (component) => {
   visitComponentUrl(component, 'basic', true);
 });
 
+Given('I open {string} component page buttonToogleGroup validation in iframe', (component) => {
+  visitComponentUrl(component, 'buttonToogleGroup', true);
+});
+
+Given('I open {string} component buttonToogleGroup classic page validation in iframe', (component) => {
+  visitComponentUrl(component, 'buttonToogleGroup_classic', true);
+});
+
 Given('I open {string} basic classic component page in iframe', (component) => {
   visitComponentUrl(component, 'basic_classic', true);
 });
@@ -47,15 +55,27 @@ Given('I open {string} component page with button', (component) => {
   visitComponentUrl(component, 'with_button');
 });
 
+Given('I open {string} component with button classic page', (component) => {
+  visitComponentUrl(component, 'with_button_classic');
+});
+
 Given('I open {string} component page legacy spinner', (component) => {
   visitComponentUrl(component, 'legacy_spinner');
+});
+
+Given('I open {string} component page legacy spinner in iframe', (component) => {
+  visitComponentUrl(component, 'legacy_spinner', true);
 });
 
 Given('I open {string} component page legacy spinner', (component) => {
   visitComponentUrl(component, 'legacy_spinner_classic');
 });
 
-Given('I open {string} component iframe', (component) => {
+Given('I open {string} component legacy spinner classic page in iframe', (component) => {
+  visitComponentUrl(component, 'legacy_spinner_classic', true);
+});
+
+Given('I open {string} component in iframe', (component) => {
   visitComponentUrl(component, 'default', true);
 });
 
@@ -63,7 +83,7 @@ Given('I open {string} component for classic story in iframe', (component) => {
   visitComponentUrl(component, 'classic', true);
 });
 
-Given('I open deprecated {string} component iframe', (component) => {
+Given('I open deprecated {string} component in iframe', (component) => {
   visitComponentUrl(component, 'classic', true, 'deprecated-');
 });
 
@@ -95,12 +115,28 @@ Given('I open {string} component for classic story page multiple', (component) =
   visitComponentUrl(component, 'multiple_classic');
 });
 
+Given('I open {string} component page multiple in iframe', (component) => {
+  visitComponentUrl(component, 'multiple', true);
+});
+
+Given('I open {string} component for classic story page multiple in iframe', (component) => {
+  visitComponentUrl(component, 'multiple_classic', true);
+});
+
 Given('I open {string} component page as sibling in iframe', (component) => {
   visitComponentUrl(component, 'as_a_sibling', true);
 });
 
+Given('I open {string} component page as sibling in no iframe', (component) => {
+  visitComponentUrl(component, 'as_a_sibling');
+});
+
 Given('I open {string} component for classic story as sibling in iframe', (component) => {
   visitComponentUrl(component, 'as_a_sibling_classic', true);
+});
+
+Given('I open {string} classic component for classic story as sibling in no iframe', (component) => {
+  visitComponentUrl(component, 'as_a_sibling_classic');
 });
 
 Given('I open {string} component page validations in iframe', (component) => {
@@ -111,6 +147,14 @@ Given('I open {string} component page validations classic in iframe', (component
   visitComponentUrl(component, 'validations_classic', true);
 });
 
+Given('I open {string} component page autoFocus in iframe', (component) => {
+  visitComponentUrl(component, 'autofocus', true);
+});
+
+Given('I open {string} component page autoFocus multiple in iframe', (component) => {
+  visitComponentUrl(component, 'autofocus_multiple', true);
+});
+
 When('I open {word} tab', (text) => {
   cy.wait(1000, { log: DEBUG_FLAG }); // required because element needs to be loaded
   knobsNameTab(text).click();
@@ -118,6 +162,10 @@ When('I open {word} tab', (text) => {
 
 When('I set {word} to {string}', (propertyName, text) => {
   getKnobsInput(propertyName).clear().type(text);
+});
+
+When('I set group {word} {word} to {string}', (groupName, propertyName, text) => {
+  getKnobsInputByGroup(groupName, propertyName).clear().type(text);
 });
 
 When('I set {string} {string} to {string}', (propertyName, fieldName, text) => {
@@ -139,6 +187,10 @@ When('I select {word} to {string}', (propertyName, selection) => {
 
 When('I select {word} {word} to {string}', (propertyName, text, selection) => {
   getKnobsInputWithName(propertyName, text).select(selection);
+});
+
+When('I select group {word} {word} to {string}', (groupName, propertyName, selection) => {
+  getKnobsInputByGroup(groupName, propertyName).select(selection);
 });
 
 When('I open component preview', () => {
@@ -251,6 +303,10 @@ When('I set label width slider to {int}', (width) => {
   setSlidebar(labelWidthSlider(), width);
 });
 
+When('I set group {word} {word} slider to {int}', (groupName, propertyName, width) => {
+  setSlidebar(getKnobsInputByGroup(groupName, propertyName), width);
+});
+
 When('I set precision slider to {int}', (width) => {
   setSlidebar(precisionSlider(), width);
 });
@@ -303,6 +359,19 @@ Then('closeIcon is not visible', () => {
   closeIconButton().should('not.exist');
 });
 
+// needs to be refactored when golden color will be fixed for Close icon - FE-2508
+Then('closeIcon has the border outline', () => {
+  closeIconButton().rightclick();
+  closeIconButton().should('have.css', 'outline-color', 'rgba(0, 103, 244, 0.247)')
+    .and('have.css', 'outline-width', '5px');
+});
+
+Then('closeIcon has no border outline for classic story', () => {
+  closeIconButton().rightclick();
+  closeIconButton().should('not.have.css', 'outline-color', 'rgba(0, 103, 244, 0.247)')
+    .and('not.have.css', 'outline-width', '5px');
+});
+
 When('I hit ESC key', () => {
   pressESCKey();
 });
@@ -324,9 +393,19 @@ When('I check {word} checkbox', (checkboxName) => {
   getKnobsInput(checkboxName).check();
 });
 
+When('I check group {word} {word} checkbox', (groupName, checkboxName) => {
+  getKnobsInputByGroup(groupName, checkboxName).scrollIntoView();
+  getKnobsInputByGroup(groupName, checkboxName).check();
+});
+
 When('I check {word} {word} checkbox', (checkboxName, text) => {
   getKnobsInputWithName(checkboxName, text).scrollIntoView();
   getKnobsInputWithName(checkboxName, text).check();
+});
+
+When('I check group {word} {word} {word} checkbox', (groupName, checkboxName, text) => {
+  getKnobsInputByGroup(groupName, checkboxName, text).scrollIntoView();
+  getKnobsInputByGroup(groupName, checkboxName, text).check();
 });
 
 When('I uncheck {word} checkbox', (checkboxName) => {
@@ -334,9 +413,19 @@ When('I uncheck {word} checkbox', (checkboxName) => {
   getKnobsInput(checkboxName).uncheck();
 });
 
+When('I uncheck group {word} {word} checkbox', (groupName, checkboxName) => {
+  getKnobsInputByGroup(groupName, checkboxName).scrollIntoView();
+  getKnobsInputByGroup(groupName, checkboxName).uncheck();
+});
+
 When('I uncheck {word} {word} checkbox', (checkboxName, text) => {
   getKnobsInputWithName(checkboxName, text).scrollIntoView();
   getKnobsInputWithName(checkboxName, text).uncheck();
+});
+
+When('I uncheck group {word} {word} {word} checkbox', (groupName, checkboxName, text) => {
+  getKnobsInpuByGroup(groupName, checkboxName, text).scrollIntoView();
+  getKnobsInpuByGroup(groupName, checkboxName, text).uncheck();
 });
 
 Then('inputWidth is set to {string}', (width) => {

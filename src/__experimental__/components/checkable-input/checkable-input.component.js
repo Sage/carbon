@@ -26,7 +26,8 @@ class CheckableInput extends React.Component {
       helpId,
       label: rest.inputLabel,
       labelHelpIcon: 'info',
-      name: id
+      name: id,
+      id
     };
 
     const {

@@ -33,7 +33,7 @@ function makeStory(name, themeSelector) {
     };
 
     return (
-      [
+      <div>
         <ButtonToggle
           name='new-button-toggle'
           size={ size }
@@ -45,7 +45,7 @@ function makeStory(name, themeSelector) {
           key='button-toggle-1'
         >
           {children}
-        </ButtonToggle>,
+        </ButtonToggle>
         <ButtonToggle
           name='new-button-toggle'
           size={ size }
@@ -57,7 +57,7 @@ function makeStory(name, themeSelector) {
           key='button-toggle-2'
         >
           {children}
-        </ButtonToggle>,
+        </ButtonToggle>
         <ButtonToggle
           name='new-button-toggle'
           size={ size }
@@ -70,7 +70,7 @@ function makeStory(name, themeSelector) {
         >
           {children}
         </ButtonToggle>
-      ]
+      </div>
     );
   };
 

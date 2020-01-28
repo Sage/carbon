@@ -64,18 +64,20 @@ const autoFocusTextbox = () => {
 const multipleTextbox = () => {
   const { key, ...rest } = getCommonTextboxProps();
 
-  return ([
-    <Textbox
-      placeholder={ text('placeholder') }
-      key='0'
-      { ...rest }
-    />,
-    <Textbox
-      placeholder={ text('placeholder') }
-      key={ key }
-      { ...rest }
-    />
-  ]);
+  return (
+    <div>
+      <Textbox
+        placeholder={ text('placeholder') }
+        key='0'
+        { ...rest }
+      />
+      <Textbox
+        placeholder={ text('placeholder') }
+        key={ key }
+        { ...rest }
+      />
+    </div>
+  );
 };
 
 const multipleTextboxAutoFocus = () => {

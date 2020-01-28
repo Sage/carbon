@@ -6,7 +6,7 @@ Feature: Tile component
 
   @positive
   Scenario Outline: I select Tile component as to <as>
-    When I select as to "<as>"
+    When I select group Default as to "<as>"
     Then Tile component as property is set to "<color>"
     Examples:
       | as          | color              |
@@ -15,7 +15,7 @@ Feature: Tile component
 
   @positive
   Scenario Outline: I select Tile component orientation to <orientation>
-    When I select orientation to "<orientation>"
+    When I select group Default orientation to "<orientation>"
     Then Tile component orientation property is set to "<orientation>"
     Examples:
       | orientation |
@@ -24,7 +24,7 @@ Feature: Tile component
 
   @positive
   Scenario Outline: I select Tile component padding to <padding>
-    When I select padding to "<padding>"
+    When I select group Default padding to "<padding>"
     Then Tile component padding property is set to "<px>"
     Examples:
       | padding | px |
@@ -36,7 +36,7 @@ Feature: Tile component
 
   @positive
   Scenario Outline: Change Tile pixelWidth to <width>
-    When I set pixelWidth slider to <width>
+    When I set group Default pixelWidth slider to <width>
     Then Tile pixel width is set to "<width>"
     Examples:
       | width |
@@ -47,7 +47,7 @@ Feature: Tile component
 
   @positive
   Scenario Outline: Change Tile width to <width>
-    When I set width slider to <width>
+    When I set group Default width slider to <width>
     Then Tile width is set to "<width>"
     Examples:
       | width |

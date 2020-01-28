@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import OptionsHelper from '../../utils/helpers/options-helper';
 import { Row, Column } from '../row';
 import Label from '../../__experimental__/components/label';
 import StyledInlineInputs from './inline-inputs.style';
@@ -27,7 +28,8 @@ const InlineInputs = (props) => {
     label,
     htmlFor,
     children,
-    className
+    className,
+    gutter
   } = props;
 
   function renderLabel() {
@@ -39,7 +41,7 @@ const InlineInputs = (props) => {
   return (
     <StyledInlineInputs data-component='inline-inputs' className={ className }>
       { renderLabel() }
-      <Row gutter='none'>
+      <Row gutter={ gutter }>
         { columnWrapper(children) }
       </Row>
     </StyledInlineInputs>
@@ -55,12 +57,15 @@ InlineInputs.propTypes = {
   /** Defines the label text for the heading. */
   label: PropTypes.string,
   /** The id of the corresponding input control for the label */
-  htmlFor: PropTypes.string
+  htmlFor: PropTypes.string,
+  /** Gutter prop gets passed down to Row component if false gutter value is "none" */
+  gutter: PropTypes.oneOf(['none', ...OptionsHelper.sizesFull])
 };
 
 InlineInputs.defaultProps = {
   children: null,
-  className: ''
+  className: '',
+  gutter: 'none'
 };
 
 export default InlineInputs;

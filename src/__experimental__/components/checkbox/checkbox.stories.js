@@ -11,7 +11,6 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import { Checkbox, CheckboxGroup } from '.';
 import { info, notes, infoValidations } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
-import Text from '../../../utils/helpers/text';
 import AutoFocus from '../../../utils/helpers/auto-focus';
 import guid from '../../../utils/helpers/guid';
 
@@ -88,44 +87,46 @@ const previous = {
 };
 
 function defaultKnobs(type) {
-  const knobGroup = `Checkbox ${type}`;
-  const nameWithGroup = (name) => {
-    return (type === 'default') ? name : `${Text.titleCase(type)} ${name}`;
-  };
-  const label = `${text(nameWithGroup('label'), 'Example Checkbox', knobGroup)} (${type})`;
-  const autoFocus = boolean(nameWithGroup('autoFocus'), false, knobGroup);
+  let theType = '';
+  if (type === undefined) {
+    theType = 'default';
+  } else {
+    theType = type;
+  }
+  const label = `${text('label', 'Example Checkbox', type)} (${theType})`;
+  const autoFocus = boolean('autoFocus', false, type);
   const key = AutoFocus.getKey(autoFocus, previous);
 
   return ({
     key,
-    disabled: boolean(nameWithGroup('disabled'), false, knobGroup),
-    fieldHelp: text(nameWithGroup('fieldHelp'), 'This text provides help for the input.', knobGroup),
-    fieldHelpInline: boolean(nameWithGroup('fieldHelpInline'), false, knobGroup),
-    reverse: boolean(nameWithGroup('reverse'), false, knobGroup),
+    disabled: boolean('disabled', false, type),
+    fieldHelp: text('fieldHelp', 'This text provides help for the input.', type),
+    fieldHelpInline: boolean('fieldHelpInline', false, type),
+    reverse: boolean('reverse', false, type),
     autoFocus,
     label,
-    labelHelp: text(nameWithGroup('labelHelp'), 'This text provides more information for the label.', knobGroup),
+    labelHelp: text('labelHelp', 'This text provides more information for the label.', type),
     onBlur: action('onBlur'),
-    inputWidth: number(nameWithGroup('inputWidth'), 0, {
+    inputWidth: number('inputWidth', 0, {
       range: true,
       min: 0,
       max: 100,
       step: 1
-    }, knobGroup),
-    labelWidth: number(nameWithGroup('labelWidth'), 0, {
+    }, type),
+    labelWidth: number('labelWidth', 0, {
       range: true,
       min: 0,
       max: 100,
       step: 1
-    }, knobGroup),
+    }, type),
     labelAlign: select(
-      nameWithGroup('labelAlign'),
+      'labelAlign',
       OptionsHelper.alignBinary,
       OptionsHelper.alignBinary[0],
-      knobGroup
+      type
     ),
-    size: select(nameWithGroup('size'), OptionsHelper.sizesBinary, 'small', knobGroup),
-    value: text(nameWithGroup('value'), type, knobGroup)
+    size: select('size', OptionsHelper.sizesBinary, 'small', type),
+    value: text('value', type, type)
   });
 }
 
@@ -177,7 +178,7 @@ const checkboxComponent = () => {
     <State store={ checkboxes.default.store }>
       <Checkbox
         onChange={ ev => handleChange(ev, 'default') }
-        { ...defaultKnobs('default') }
+        { ...defaultKnobs() }
       />
     </State>
   );
@@ -229,7 +230,6 @@ const checkboxGroupComponent = () => (
               name={ `checkbox-input-${id}` }
               key={ `checkbox-input-${id}` }
               onChange={ ev => handleGroupChange(ev, id) }
-              labelHelp={ text(`${Text.titleCase(id)} labelHelp`, '', `Checkbox ${id}`) }
               { ...defaultKnobs(id) }
             />
           ))}

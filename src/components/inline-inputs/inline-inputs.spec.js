@@ -94,6 +94,28 @@ describe('Inline Inputs', () => {
     });
   });
 
+  describe('when a gutter prop is passed in', () => {
+    const gutterValue = 'medium';
+
+    beforeEach(() => {
+      wrapper = render({ gutter: gutterValue }, mount);
+    });
+
+    it('then the gutter prop should be passed down to the row component', () => {
+      expect(wrapper.find('Row').props().gutter).toEqual(gutterValue);
+    });
+  });
+
+  describe('when no gutter prop is passed in', () => {
+    beforeEach(() => {
+      wrapper = render();
+    });
+
+    it('then the gutter prop on the row component should be "none"', () => {
+      expect(wrapper.find('Row').props().gutter).toEqual('none');
+    });
+  });
+
   it('contains a row', () => {
     wrapper = render();
     const row = wrapper.find(Row);

@@ -10,7 +10,7 @@ import Icon from '../icon';
 import Link from '../link';
 import Heading from '../heading';
 import CardColumn from './card-column';
-import CardFooter from './card-footer/card-footer.component';
+import CardFooter from './card-footer';
 import CardRow from './card-row';
 import { dlsThemeSelector } from '../../../.storybook/theme-selectors';
 
@@ -115,7 +115,11 @@ function makeStory(name, themeSelector) {
   const component = () => {
     const knobs = cardKnobs();
 
-    return ([getCard(knobs), getSmallCard(knobs)]);
+    return (
+      <div>
+        {getCard(knobs)}
+        {getSmallCard(knobs)}
+      </div>);
   };
 
   const metadata = {

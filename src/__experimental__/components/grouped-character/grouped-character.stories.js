@@ -48,7 +48,13 @@ const autoFocusComponent = () => {
 
 function makeStory(name, themeSelector, component) {
   const metadata = {
-    themeSelector
+    themeSelector,
+    info: {
+      text: info,
+      propTables: [OriginalTextbox],
+      propTablesExclude: [State]
+    },
+    knobs: { escapeHTML: false }
   };
 
   return [name, component, metadata];
