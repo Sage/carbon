@@ -1,4 +1,3 @@
-import { backgroundUILocator } from '../../locators';
 import {
   dialogTitle, dialogPreview, closeIconButton,
   dialogSubtitle, confirmButton, cancelButton,

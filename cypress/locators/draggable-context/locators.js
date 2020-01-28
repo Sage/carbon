@@ -1,4 +1,4 @@
 // component preview locators
-export const CELL = '.carbon-table-cell';
-export const CELL_ICON = '.draggable-table-cell__icon';
+export const CELL = '[data-component="table-cell"]';
+export const CELL_ICON = '[data-element="drag"]';
 export const TBODY = 'tbody';

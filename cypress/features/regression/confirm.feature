@@ -147,3 +147,23 @@ Feature: Confirm component
     When I open component preview
       And I click on a confirmButton
     Then Confirm dialog is not visible
+
+  @positive
+  Scenario: Verify the open action for Confirm dialog
+    Given clear all actions in Actions Tab
+    When I open component preview
+    Then open action was called in Actions Tab
+
+  @positive
+  Scenario: Verify the confirm action for Confirm dialog
+    Given clear all actions in Actions Tab
+      And I open component preview
+    When I click on a confirmButton
+    Then confirm action was called in Actions Tab
+
+  @positive
+  Scenario: Verify the cancel action for Confirm dialog
+    Given clear all actions in Actions Tab
+      And I open component preview
+    When I click on a cancelButton
+    Then cancel action was called in Actions Tab
