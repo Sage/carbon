@@ -7,5 +7,5 @@ When('I drag Draggable Context {string} to {int}', (record, destinationId) => {
 });
 
 Then('Draggable Context {string} is dragged to {int}', (record, destinationId) => {
-  draggableRecordByPosition(destinationId).should('have.text', record);
+  draggableRecordByPosition(destinationId).invoke('text').should('contain', record);
 });
