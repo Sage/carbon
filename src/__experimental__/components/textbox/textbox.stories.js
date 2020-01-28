@@ -137,7 +137,8 @@ storiesOf('Experimental/Textbox', module)
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusTextbox))
   .add(...makeStory('multiple autoFocus', dlsThemeSelector, multipleTextboxAutoFocus));
 
-function getCommonTextboxProps(config = defaultStoryPropsConfig) {
+// eslint-disable-next-line
+export function getCommonTextboxProps(config = defaultStoryPropsConfig) {
   const percentageRange = {
     range: true,
     min: 0,
@@ -199,5 +200,3 @@ function lengthValidator(value) {
     return reject(Error('This value should be longer than 12 characters'));
   });
 }
-
-export default getCommonTextboxProps;
