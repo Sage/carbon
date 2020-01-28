@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
-import Pod from './pod';
+import Pod from './pod.component';
 import notes from './notes.md';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
@@ -19,7 +19,6 @@ function makeStory(name, themeSelector) {
     const border = boolean('border', Pod.defaultProps.border);
     const children = text('children', 'This is some example content for a Pod');
     const padding = select('padding', OptionsHelper.sizesPod, Pod.defaultProps.padding);
-    const as = select('as', OptionsHelper.themesFull, Pod.defaultProps.as);
     const title = text('title', '');
     const subtitle = text('subtitle', '');
     const alignTitle = title ? select('alignTitle', OptionsHelper.alignFull, Pod.defaultProps.alignTitle) : undefined;
@@ -31,11 +30,17 @@ function makeStory(name, themeSelector) {
     const triggerEditOnContent = onEdit ? boolean('triggerEditOnContent', false) : undefined;
     const internalEditButton = onEdit ? boolean('internalEditButton', false) : undefined;
 
+    const themeProp = {};
+    if (name === 'classic') {
+      themeProp.as = select('as', OptionsHelper.themesFull, Pod.defaultProps.as);
+    } else {
+      themeProp.podType = select('podType', OptionsHelper.themesFull, Pod.defaultProps.as);
+    }
+
     return (
       <Pod
         border={ border }
         padding={ padding }
-        as={ as }
         title={ title }
         subtitle={ subtitle }
         alignTitle={ alignTitle }
@@ -46,6 +51,7 @@ function makeStory(name, themeSelector) {
         displayEditButtonOnHover={ displayEditButtonOnHover }
         triggerEditOnContent={ triggerEditOnContent }
         internalEditButton={ internalEditButton }
+        { ...themeProp }
       >
         { children }
       </Pod>
@@ -84,5 +90,8 @@ function makeStory(name, themeSelector) {
 }
 
 storiesOf('Pod', module)
+  .addParameters({
+    knobs: { escapeHTML: false }
+  })
   .add(...makeStory('default', dlsThemeSelector))
   .add(...makeStory('classic', classicThemeSelector));

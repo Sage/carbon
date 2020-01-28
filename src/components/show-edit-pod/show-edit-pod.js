@@ -1,33 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import I18n from 'i18n-js';
 import ReactDOM from 'react-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { withTheme } from 'styled-components';
+
 import Pod from '../pod';
 import Form from '../../__deprecated__/components/form';
-import Link from '../link';
+import StyledDeleteButton from './delete-button.style';
 import Events from '../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
-import './show-edit-pod.scss';
+import { StyledPod, StyledLink } from './show-edit-pod.style';
+import { isClassic } from '../../utils/helpers/style-helper';
+import { baseTheme } from '../../style/themes';
 
 class ShowEditPod extends React.Component {
   state = {
-    editing: false // eslint-disable-line react/no-unused-state
+    editing: false
   }
 
-  /**
-   * Determine if the component is controlled internally or externally
-   * If editing prop is undefined then component is controlled internally
-   *
-   * @method componentWillMount
-   */
-  UNSAFE_componentWillMount() {
-    if (typeof this.props.editing === 'undefined') {
-      this.control = 'state';
-    }
-  }
+  isControlled = this.props.editing !== undefined
 
   componentDidMount() {
     if (this.props.editing) {
@@ -35,15 +28,13 @@ class ShowEditPod extends React.Component {
     }
   }
 
+  isEditing() {
+    return this.isControlled ? this.props.editing : this.state.editing;
+  }
+
   onEdit = (ev) => {
-    if (this.props.onEdit) {
-      this.props.onEdit(ev);
-    }
-
-    if (this.stateControlled) {
-      this.setState({ editing: true }); // eslint-disable-line react/no-unused-state
-    }
-
+    this.props.onEdit(ev);
+    this.toggleEditingState(true);
     this.__focusOnPod();
   }
 
@@ -52,10 +43,7 @@ class ShowEditPod extends React.Component {
 
     if (valid) {
       this.props.afterFormValidation(ev);
-
-      if (this.stateControlled) {
-        this.setState({ editing: false }); // eslint-disable-line react/no-unused-state
-      }
+      this.toggleEditingState(false);
     }
   }
 
@@ -64,8 +52,12 @@ class ShowEditPod extends React.Component {
       this.props.onCancel(ev);
     }
 
-    if (this.stateControlled) {
-      this.setState({ editing: false }); // eslint-disable-line react/no-unused-state
+    this.toggleEditingState(false);
+  }
+
+  toggleEditingState = (newState) => {
+    if (!this.isControlled) {
+      this.setState({ editing: newState });
     }
   }
 
@@ -75,34 +67,36 @@ class ShowEditPod extends React.Component {
     }
   }
 
-  control = 'props';
+  deleteButton() {
+    const label = this.props.deleteText || I18n.t('actions.delete', { defaultValue: 'Delete' });
 
-  get stateControlled() {
-    return this.control === 'state';
-  }
+    if (isClassic(this.props.theme)) {
+      return (
+        <StyledLink
+          onClick={ this.props.onDelete }
+          data-element='delete-link'
+        >
+          {label}
+        </StyledLink>
+      );
+    }
 
-  get mainClasses() {
-    return classNames(
-      'carbon-show-edit-pod',
-      this.props.className
-    );
-  }
-
-  get deleteButton() {
     return (
-      <Link
-        className='carbon-show-edit-pod__delete'
+      <StyledDeleteButton
+        buttonType='tertiary'
+        data-element='delete-button'
+        size='medium'
         onClick={ this.props.onDelete }
       >
-        {this.props.deleteText || I18n.t('actions.delete', { defaultValue: 'Delete' })}
-      </Link>
+        {label}
+      </StyledDeleteButton>
     );
   }
 
-  get editContent() {
+  editContent() {
     return (
       <Form
-        additionalActions={ this.props.onDelete ? this.deleteButton : null }
+        additionalActions={ this.props.onDelete ? this.deleteButton() : null }
         afterFormValidation={ this.onSaveEditForm }
         beforeFormValidation={ this.props.beforeFormValidation }
         buttonAlign={ this.props.buttonAlign }
@@ -119,15 +113,15 @@ class ShowEditPod extends React.Component {
     );
   }
 
-  get content() {
-    if (this[this.control].editing) {
+  content() {
+    if (this.isEditing()) {
       return (
         <CSSTransition
           key='1'
           classNames={ this.props.transitionName }
           timeout={ { enter: 300, exit: 50 } }
         >
-          <div key='edit'>{this.editContent}</div>
+          <div key='edit'>{this.editContent()}</div>
         </CSSTransition>);
     }
     return (
@@ -143,33 +137,40 @@ class ShowEditPod extends React.Component {
     );
   }
 
-  get contentProps() {
-    const { ...props } = validProps(this, Object.keys(Pod.propTypes));
+  universalProps() {
+    const {
+      onEdit, className, podType, as, ...props
+    } = validProps(this, Object.keys(Pod.propTypes));
 
-    delete props.onEdit;
-    delete props.className;
+    return {
+      ...props,
+      podType: podType || as
+    };
+  }
 
-    if (this.props.onEdit !== false) {
+  contentProps() {
+    const props = this.universalProps();
+
+    if (this.props.onEdit) {
       props.onEdit = this.onEdit;
     }
 
     return props;
   }
 
-  get editingProps() {
-    const { ...props } = validProps(this, Object.keys(Pod.propTypes));
+  editingProps() {
+    const props = this.universalProps();
 
-    delete props.onEdit;
-    delete props.className;
-
-    props.as = 'secondary';
+    if (isClassic(this.props.theme)) {
+      props.podType = 'secondary';
+    }
     props.onKeyDown = this.onKeyDown;
 
     return props;
   }
 
-  get podProps() {
-    return this[this.control].editing ? this.editingProps : this.contentProps;
+  podProps() {
+    return this.isEditing() ? this.editingProps() : this.contentProps();
   }
 
   __focusOnPod = () => {
@@ -178,24 +179,26 @@ class ShowEditPod extends React.Component {
 
   render() {
     return (
-      <Pod
-        className={ this.mainClasses }
-        { ...this.podProps }
+      <StyledPod
+        className={ this.props.className }
+        { ...this.podProps() }
         ref={ (node) => { this.pod = node; } }
         tabIndex='-1'
         { ...tagComponent('show-edit-pod', this.props) }
       >
         <TransitionGroup>
-          {this.content}
+          {this.content()}
         </TransitionGroup>
-      </Pod>
+      </StyledPod>
     );
   }
 }
 
 ShowEditPod.propTypes = {
-  /** A theme for the Pod. */
+  /** A legacy theme for the Pod. */
   as: PropTypes.string,
+  /** Theme for the Pod. */
+  podType: PropTypes.string,
   /** Enable/disable the border on the Pod. */
   border: PropTypes.bool,
   /** This component supports children. */
@@ -232,7 +235,9 @@ ShowEditPod.propTypes = {
   /** Can inform if the form is in a saving state (disables the save button) */
   saving: PropTypes.bool,
   /** Determines if validation should be ran on mount of the component */
-  validateOnMount: PropTypes.bool
+  validateOnMount: PropTypes.bool,
+  /** Theme prop is used only to support legacy code */
+  theme: PropTypes.object
 };
 
 ShowEditPod.defaultProps = {
@@ -242,7 +247,10 @@ ShowEditPod.defaultProps = {
   transitionName: 'carbon-show-edit-pod__transition',
   cancel: true,
   saving: false,
+  theme: baseTheme,
   validateOnMount: false
 };
 
-export default ShowEditPod;
+export default withTheme(ShowEditPod);
+
+export { ShowEditPod as BaseShowEditPod };
