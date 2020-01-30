@@ -9,7 +9,7 @@ import {
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import DateInput from './date.component';
 import { OriginalTextbox } from '../textbox';
-import getCommonTextboxStoryProps from '../textbox/textbox.stories';
+import { getCommonTextboxProps } from '../textbox/textbox.stories';
 import { notes, info, infoValidations } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
@@ -44,7 +44,7 @@ const dateComponent = () => {
 
   return (
     <DateInput
-      { ...getCommonTextboxStoryProps({ inputWidthEnabled: false }) }
+      { ...getCommonTextboxProps({ inputWidthEnabled: false }) }
       name='dateinput'
       autoFocus={ autoFocus }
       minDate={ minDate }

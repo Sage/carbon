@@ -9,7 +9,7 @@ import {
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import Number from './number.component';
 import Textbox, { OriginalTextbox } from '../textbox';
-import getCommonTextboxStoryProps from '../textbox/textbox.stories';
+import { getCommonTextboxProps } from '../textbox/textbox.stories';
 import notes from './documentation/notes.md';
 import info from './documentation/info';
 
@@ -31,7 +31,7 @@ const defaultComponent = () => {
 
   return (
     <Number
-      { ...getCommonTextboxStoryProps() }
+      { ...getCommonTextboxProps() }
       value={ store.get('value') }
       onChange={ setValue }
       onKeyDown={ onKeyDownEnabled ? action('onKeyDown') : undefined }
