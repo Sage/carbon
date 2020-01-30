@@ -90,6 +90,7 @@ Feature: Split Button component
 
   @positive
   Scenario Outline: Verify color palette for Split Button component without focus
+    # commented because of BDD default scenario Given - When - Then
     # When I open "Split Button" component page
     Then Split Button first element has proper background-color "<background-color>" and border "<border-color>" color and has border-width 2 px
       And Split Button second element has proper background-color "<background-color>" and border "<border-color>" color and has border-width 2 px
@@ -98,6 +99,7 @@ Feature: Split Button component
       | rgba(0, 0, 0, 0) | rgb(0, 128, 93) |
 
   @ignore
+  # there is no possibility to trigger mouseover on first element
   Scenario: Verify color palette for first element of Split Button component with focus
     When I hover mouse onto split button
     Then Split Button first element has proper background-color "rgb(0, 96, 69)" and border "rgb(0, 96, 69)" color and has border-width 2 px

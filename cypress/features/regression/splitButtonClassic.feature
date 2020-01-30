@@ -1,13 +1,8 @@
-Feature: Split Button component
+Feature: Split Button component classic page
   I want to change Split Button component properties
 
   Background: Open Split Button component page classic
     Given I open "Split Button" component page classic
-
-  @positive
-  Scenario: I expand Split Button component classic page
-    When I hover mouse onto icon
-    Then Split Button is expanded
 
   @positive
   Scenario Outline: Verify color palette for Split Button component without focus
@@ -19,6 +14,7 @@ Feature: Split Button component
       | rgba(0, 0, 0, 0) | rgb(37, 91, 199) |
 
   @ignore
+  # there is no possibility to trigger mouseover on first element
   Scenario Outline: Verify color palette for first element of Split Button component with focus
     When I hover mouse onto split button
     Then Split Button first element has proper background-color "<color>" and border "<color>" color and has border-width 1 px
