@@ -380,6 +380,12 @@ const OptionsHelper = {
     'top-right',
     'bottom-left',
     'bottom-right'
+  ],
+
+  tableCellTypes: [
+    'header',
+    'rowHeader',
+    'cell'
   ]
 };
 
