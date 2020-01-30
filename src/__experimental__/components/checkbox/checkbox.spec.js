@@ -88,13 +88,15 @@ describe('Checkbox', () => {
       });
     });
 
-    describe('when checked=true', () => {
+    describe('when checkbox is checked', () => {
       it('renders the correct check colour', () => {
         const wrapper = render({ checked: true }).toJSON();
 
         assertStyleMatch({
           fill: baseTheme.checkable.checked
-        }, wrapper, { modifier: 'svg path' });
+        }, wrapper, {
+          modifier: css`${HiddenCheckableInputStyle}:checked ~ ${StyledCheckableInputSvgWrapper} svg path`
+        });
       });
 
       describe('and disabled=true', () => {
@@ -103,7 +105,9 @@ describe('Checkbox', () => {
         it('renders the correct check colour', () => {
           assertStyleMatch({
             fill: baseTheme.disabled.border
-          }, wrapper, { modifier: 'svg path' });
+          }, wrapper, {
+            modifier: css`${HiddenCheckableInputStyle}:checked ~ ${StyledCheckableInputSvgWrapper} svg path`
+          });
         });
       });
     });
@@ -360,7 +364,9 @@ describe('Checkbox', () => {
 
         assertStyleMatch({
           fill: 'rgba(0,0,0,0.85)'
-        }, wrapper, { modifier: 'svg path' });
+        }, wrapper, {
+          modifier: css`${HiddenCheckableInputStyle}:checked ~ ${StyledCheckableInputSvgWrapper} svg path`
+        });
       });
 
       describe('and disabled is true', () => {
@@ -369,7 +375,9 @@ describe('Checkbox', () => {
         it('renders the correct check colour', () => {
           assertStyleMatch({
             fill: '#8099a4'
-          }, wrapper, { modifier: 'svg path' });
+          }, wrapper, {
+            modifier: css`${HiddenCheckableInputStyle}:checked ~ ${StyledCheckableInputSvgWrapper} svg path`
+          });
         });
       });
     });
@@ -421,7 +429,9 @@ describe('Checkbox', () => {
 
         assertStyleMatch({
           fill: theme.checkable.checked
-        }, wrapper, { modifier: 'svg path' });
+        }, wrapper, {
+          modifier: css`${HiddenCheckableInputStyle}:checked ~ ${StyledCheckableInputSvgWrapper} svg path`
+        });
       });
     });
   });

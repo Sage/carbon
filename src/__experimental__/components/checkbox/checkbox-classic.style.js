@@ -9,7 +9,7 @@ import { isClassic } from '../../../utils/helpers/style-helper';
 import StyledIcon from '../../../components/icon/icon.style';
 
 export default ({
-  checked, disabled, fieldHelpInline, reverse, theme
+  disabled, fieldHelpInline, reverse, theme
 }) => isClassic(theme) && css`
   ${StyledCheckableInput} {
     padding: 1px 0 0 0;
@@ -63,9 +63,9 @@ export default ({
     }
   }
 
-  ${checked && `
-    svg path { fill: rgba(0, 0, 0, 0.85); }
-  `}
+  ${HiddenCheckableInputStyle}:checked ~ ${StyledCheckableInputSvgWrapper} svg path {
+      fill: rgba(0, 0, 0, 0.85);
+    }
 
   ${disabled && css`
     ${LabelStyle} {
@@ -77,7 +77,13 @@ export default ({
       border-color: #bfccd2;
     }
 
-    svg path { fill: #${checked ? '8099a4' : 'e6ebed'}; }
+    svg path {
+      fill: #e6ebed;
+    }
+
+    ${HiddenCheckableInputStyle}:checked ~ ${StyledCheckableInputSvgWrapper} svg path {
+      fill: #8099a4;
+    }
   `}
 
   ${(fieldHelpInline || reverse) && `
