@@ -6,6 +6,7 @@ Feature: Split Button component classic page
 
   @positive
   Scenario Outline: Verify color palette for Split Button component without focus
+    # commented because of BDD default scenario Given - When - Then
     # When I open "Split Button" component page
     Then Split Button first element has proper background-color "<color>" and border "<border-color>" color and has border-width 1 px
       And Split Button second element has proper background-color "<color>" and border "<border-color>" color and has border-width 1 px
