@@ -1,4 +1,6 @@
-import { textbox, textboxByPosition, textboxDataComponent } from '../../locators/textbox';
+import {
+  textbox, textboxByPosition, textboxDataComponent, textboxIcon, textboxInput,
+} from '../../locators/textbox';
 import {
   label, labelByPosition, commonDataElementInputPreview, commonInputPreview,
   fieldHelpPreviewByPosition, tooltipPreviewByPosition,
@@ -228,4 +230,21 @@ Then('Multiple Textbox width is {string}', (width) => {
 Then('Multiple label Align on preview is {string}', (direction) => {
   labelByPosition(FIRST_ELEMENT).should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
   labelByPosition(SECOND_ELEMENT).should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
+});
+
+Then('I click on icon inside of Textbox', () => {
+  textboxIcon().click();
+});
+
+Then('icon on preview is {string} and is visible', (iconName) => {
+  textboxIcon().should('have.attr', 'data-element', iconName)
+    .and('be.visible');
+});
+
+When('I click on Textbox', () => {
+  textboxInput().click();
+});
+
+Then('Textbox input has golden border on focus', () => {
+  textbox().should('have.css', 'outline', 'rgb(255, 181, 0) solid 3px');
 });

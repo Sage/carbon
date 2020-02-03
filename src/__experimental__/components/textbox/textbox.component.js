@@ -19,6 +19,7 @@ const Textbox = ({
   value,
   childOfForm,
   isOptional,
+  iconOnClick,
   ...props
 }) => {
   return (
@@ -37,7 +38,13 @@ const Textbox = ({
           value={ visibleValue(value, formattedValue) }
         />
         { children }
-        { inputIcon && <InputIconToggle { ...removeParentProps(props) } inputIcon={ inputIcon } /> }
+        { inputIcon && (
+          <InputIconToggle
+            { ...removeParentProps(props) }
+            onClick={ iconOnClick || props.onClick }
+            inputIcon={ inputIcon }
+          />
+        ) }
       </InputPresentation>
     </FormField>
   );
@@ -117,7 +124,11 @@ Textbox.propTypes = {
   /** Size of an input */
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   /** Placeholder string to be displayed in input */
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
+  /** Optional handler for click event on Textbox icon */
+  iconOnClick: PropTypes.func,
+  /** Handler for onClick events */
+  onClick: PropTypes.func
 };
 
 Textbox.defaultProps = {
