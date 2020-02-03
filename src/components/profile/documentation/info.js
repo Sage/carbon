@@ -9,7 +9,7 @@ const info = (
     <StoryHeader>Implementation</StoryHeader>
 
     <p>Import the component:</p>
-    <StoryCode padded>import Portrait from {'"react-carbon/lib/components/profile"'}</StoryCode>
+    <StoryCode padded>import Portrait from {'"carbon-react/lib/components/profile"'}</StoryCode>
   </div>
 );
 
