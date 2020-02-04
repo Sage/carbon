@@ -14,7 +14,7 @@ import {
 import TextArea from '../../../__experimental__/components/textarea';
 import TextBox from '../../../__experimental__/components/textbox';
 import DateInput from '../../../__experimental__/components/date';
-import getTextboxStoryProps from '../../../__experimental__/components/textbox/textbox.stories';
+import { getCommonTextboxProps } from '../../../__experimental__/components/textbox/textbox.stories';
 import OptionsHelper from '../../../utils/helpers/options-helper/options-helper';
 
 const store = new Store({
@@ -58,11 +58,11 @@ const pickInput = (name) => {
   const { inputTypes } = OptionsHelper;
   switch (name) {
     case inputTypes[1]:
-      return <TextArea { ...getTextboxStoryProps } />;
+      return <TextArea { ...getCommonTextboxProps } />;
     case inputTypes[2]:
-      return <DateInput { ...getTextboxStoryProps } />;
+      return <DateInput { ...getCommonTextboxProps } />;
     default:
-      return <TextBox { ...getTextboxStoryProps } />;
+      return <TextBox { ...getCommonTextboxProps } />;
   }
 };
 

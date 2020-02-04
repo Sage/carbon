@@ -8,7 +8,7 @@ const info = (
     <StoryHeader>Implementation</StoryHeader>
 
     <p>Import the component:</p>
-    <StoryCode padded>import Portrait from {'"react-carbon/lib/components/portrait"'}</StoryCode>
+    <StoryCode padded>import Portrait from {'"carbon-react/lib/components/portrait"'}</StoryCode>
 
     <p>To render a portrait:</p>
     <StoryCode>{'<Portrait src="/my-image" alt="my image">'}</StoryCode>

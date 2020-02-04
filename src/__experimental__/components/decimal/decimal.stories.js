@@ -8,7 +8,7 @@ import { State, Store } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import Decimal from './decimal.component';
 import Textbox, { OriginalTextbox } from '../textbox';
-import getTextboxStoryProps from '../textbox/textbox.stories';
+import { getCommonTextboxProps } from '../textbox/textbox.stories';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import { info, notes } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
@@ -77,7 +77,7 @@ const defaultComponent = () => {
     <State store={ store }>
       <Decimal
         { ...commonProps() }
-        { ...getTextboxStoryProps() }
+        { ...getCommonTextboxProps() }
         value={ store.get('value') }
         onChange={ setValue }
         onBlur={ action('onBlur') }
