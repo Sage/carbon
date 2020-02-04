@@ -28,6 +28,7 @@ Feature: Button component
       | bulk_destroy        |
       | business            |
       | calendar            |
+      | calendar_today      |
       | call                |
       | camera              |
       | card_view           |
@@ -66,3 +67,6 @@ Feature: Button component
       | ellipsis_horizontal |
       | ellipsis_vertical   |
       | error               |
+      | favourite           |
+      | favourite_lined     |
+      | fax                 |
