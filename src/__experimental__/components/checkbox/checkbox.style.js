@@ -13,7 +13,7 @@ import StyledIcon from '../../../components/icon/icon.style';
 
 const CheckboxStyle = styled.div`
   ${({
-    checked, disabled, hasError, hasWarning, hasInfo, fieldHelpInline, inputWidth, reverse, size, theme
+    disabled, hasError, hasWarning, hasInfo, fieldHelpInline, inputWidth, reverse, size, theme
   }) => css`
     padding-top: 8px;
 
@@ -107,19 +107,23 @@ const CheckboxStyle = styled.div`
       }
     `}
 
-    ${checked && `
-      svg path {
-        fill: ${theme.checkable.checked};
-      }
-    `}
+    ${StyledHiddenCheckableInput}:checked ~ ${StyledCheckableInputSvgWrapper} svg path {
+      fill: ${theme.checkable.checked};
+    }
 
-    ${disabled && `
+    ${disabled && css`
       svg {
         background-color: ${theme.disabled.input};
         border: 1px solid ${theme.disabled.border};
       }
 
-      svg path { fill: ${(checked ? theme.disabled.border : theme.disabled.input)}; }
+      svg path {
+        fill: ${theme.disabled.input};
+      }
+
+      ${StyledHiddenCheckableInput}:checked ~ ${StyledCheckableInputSvgWrapper} svg path {
+        fill: ${theme.disabled.border};
+      }
 
       ${StyledCheckableInputSvgWrapper} {
         &:hover, &:focus {

@@ -31,8 +31,8 @@ exports[`CheckboxGroup renders as expected 1`] = `
   padding-bottom: 8px;
 }
 
-.c6 .c19,
-.c6 .c20 {
+.c6 .c18,
+.c6 .c19 {
   vertical-align: middle;
 }
 
@@ -54,21 +54,21 @@ exports[`CheckboxGroup renders as expected 1`] = `
   width: auto;
 }
 
-.c9 .c5 .c19,
-.c9 .c5 .c20 {
+.c9 .c5 .c18,
+.c9 .c5 .c19 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
+.c9 .c5 .c18:hover,
 .c9 .c5 .c19:hover,
-.c9 .c5 .c20:hover,
-.c9 .c5 .c19:focus,
-.c9 .c5 .c20:focus {
+.c9 .c5 .c18:focus,
+.c9 .c5 .c19:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c9 .c17 {
+.c9 .c16 {
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
@@ -120,55 +120,22 @@ exports[`CheckboxGroup renders as expected 1`] = `
   flex: 1 1 calc(100% - 28px);
 }
 
-.c8 .c17 {
+.c8 .c16 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
 }
 
-.c8 .c20 {
+.c8 .c19 {
   position: relative;
   display: inline-block;
 }
 
-.c16 .c11 {
-  padding-top: 1px;
+.c8 .c13:checked ~ .c15 svg path {
+  fill: rgba(0,0,0,0.90);
 }
 
-.c16 .c15 {
-  height: 16px;
-}
-
-.c16 .c13,
-.c16 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c16 .c11,
-.c16 .c13,
-.c16 .c15,
-.c16 svg {
-  box-sizing: border-box;
-  min-width: 16px;
-  width: 16px;
-}
-
-.c16 .c13:not([disabled]):focus + .c15,
-.c16 .c13:not([disabled]):hover + .c15 {
-  box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c16 .c5 {
-  padding-left: 6px;
-  width: auto;
-  -webkit-flex: 1 1 calc(100% - 28px);
-  -ms-flex: 1 1 calc(100% - 28px);
-  flex: 1 1 calc(100% - 28px);
-}
-
-.c0 .c18::before {
+.c0 .c17::before {
   font-size: 16px;
 }
 
@@ -185,7 +152,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
   vertical-align: middle;
 }
 
-.c0 > .c1 > .c5 .c20 {
+.c0 > .c1 > .c5 .c19 {
   display: inline-block;
 }
 
