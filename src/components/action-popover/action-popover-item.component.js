@@ -75,27 +75,33 @@ const MenuItem = React.forwardRef(({
 
   useEffect(() => {
     setContainerPosition(getContainerPosition(window, ref, submenuRef, theme));
-
+    const align = submenu && checkRef(ref) && leftAlignSubmenu(ref, submenuRef);
+    setIsLeftAligned(align);
     if (!canOpenSubmenu) setOpen(false);
-  }, [canOpenSubmenu, ref, submenuRef, theme]);
+  }, [canOpenSubmenu, ref, submenu, submenuRef, theme]);
 
   let itemSubmenuProps = {};
 
-  if (submenu && !disabled) {
+  if (submenu) {
     let timer;
-
+    let eventHandlers = {};
+    if (!disabled) {
+      eventHandlers = {
+        onMouseEnter: (e) => {
+          clearTimeout(timer);
+          timer = setTimeout(() => { setOpen(true); }, 100);
+          e.stopPropagation();
+        },
+        onMouseLeave: (e) => {
+          clearTimeout(timer);
+          timer = setTimeout(() => { setOpen(false); }, 150);
+          e.stopPropagation();
+        },
+        onClick: () => {}
+      };
+    }
     itemSubmenuProps = {
-      onMouseEnter: (e) => {
-        clearTimeout(timer);
-        timer = setTimeout(() => { setOpen(true); }, 100);
-        e.stopPropagation();
-      },
-      onMouseLeave: (e) => {
-        clearTimeout(timer);
-        timer = setTimeout(() => { setOpen(false); }, 150);
-        e.stopPropagation();
-      },
-      onClick: () => {},
+      ...eventHandlers,
       'aria-haspopup': 'true',
       'aria-label': I18n.t('actionpopover.aria-label', { defaultValue: 'actions' }),
       'aria-controls': `ActionPopoverMenu_${guid}`,
@@ -118,6 +124,7 @@ const MenuItem = React.forwardRef(({
           { React.cloneElement(submenu, {
             parentID: `ActionPopoverItem_${guid}`,
             menuID: `ActionPopoverMenu_${guid}`,
+            'data-element': 'action-popover-submenu',
             isOpen,
             onClick: () => setOpen(!isOpen),
             ref: submenuRef,
@@ -130,12 +137,12 @@ const MenuItem = React.forwardRef(({
           }) }
         </Portal>
       ) }
-      { submenu && isLeftAligned && (
+      { submenu && checkRef(ref) && leftAlignSubmenu(ref, submenuRef) && (
         <SubMenuItemIcon type='chevron_left' />
       ) }
       { icon && <MenuItemIcon type={ icon } /> }
       { children }
-      { submenu && !isLeftAligned && (
+      { submenu && checkRef(ref) && !leftAlignSubmenu(ref, submenuRef) && (
         <SubMenuItemIcon type='chevron_right' />
       ) }
     </div>
@@ -162,7 +169,7 @@ function getContainerPosition(window, ref, submenuRef, { spacing }) {
   const position = leftAlignSubmenu(ref, submenuRef) ? (left - offsetWidth) : right;
 
   return {
-    left: position,
+    left: position + window.pageXOffset,
     top: (parentRect.top - spacing) + window.pageYOffset
   };
 }
