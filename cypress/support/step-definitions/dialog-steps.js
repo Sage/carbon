@@ -1,6 +1,5 @@
 import { alertDialogPreview as dialogPreview, dialogStickyFormFooter } from '../../locators/dialog/index';
-import { STORY_ROOT } from '../../locators/locators';
-import { closeIconButton, backgroundUILocator } from '../../locators/index';
+import { closeIconButton, backgroundUILocator, storyRoot } from '../../locators/index';
 import { DEBUG_FLAG } from '..';
 
 When('I click close icon', () => {
@@ -37,9 +36,23 @@ Then('stickyFormFooter is disabled', () => {
 });
 
 When('I click on {string} outside dialog', (position) => {
-  cy.iFrame(STORY_ROOT).click(position, { force: true });
+  storyRoot().click(position, { force: true });
 });
 
 When('I click on background {string} outside dialog', (position) => {
   backgroundUILocator().click(position, { force: true });
+});
+
+Then('footer buttons have color {string} and has {int} px border', (color, px) => {
+  dialogStickyFormFooter().children().eq(0).children()
+    .should('have.css', 'border', `${px}px solid ${color}`)
+    .and('have.css', 'color', color);
+  dialogStickyFormFooter().children().eq(1).children()
+    .children()
+    .should('have.css', 'background')
+    .should('contain', color);
+  dialogStickyFormFooter().children().eq(1).children()
+    .children()
+    .should('have.css', 'border-color', 'rgba(0, 0, 0, 0)')
+    .and('have.css', 'color', 'rgb(255, 255, 255)');
 });
