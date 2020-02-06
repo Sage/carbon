@@ -94,6 +94,10 @@ export default (palette) => {
       switch: palette.slateTint(89.5)
     },
 
+    draggableCheckbox: {
+      border: palette.slateTint(90)
+    },
+
     checkable: {
       checked: 'rgba(0,0,0,0.90)'
     },

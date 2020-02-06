@@ -1,0 +1,90 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { DraggableContainer, DraggableItem } from ".";
+import { Checkbox } from "../../__experimental__/components/checkbox";
+
+<Meta
+  title="Design System/Draggable"
+  parameters={{ info: { disable: true } }}
+/>
+
+# Draggable
+
+Pick, move and replace an order
+
+## Overview 
+
+Draggable is a great component if you need to have interactive components 
+with possibility to change their order with drag and drop mechanics
+
+## Guidance, hints and tips 
+
+Always use `DraggableItem` inside of the `DraggableContainer`
+
+`DraggableItem` doesn't work without `DraggableContainer`
+
+`DraggableItem` require to have an `id` passed to the component
+
+## Quick Start 
+
+To use the Draggable component you have to import two components: `<DraggableContainer />` and `<DraggableItem />`.
+
+The first: `<DraggableContainer />` is a required container to let content inside of `<DraggableItem />` be draggable.
+
+`<DraggableItem />` Is a component that access every child to be putted in. 
+
+The whole `<DraggableItem />` is draggable
+
+```jsx
+import { DraggableContainer, DraggableItem } from "carbon-react/Draggable";
+
+<DraggableContainer>
+  <DraggalbeItem key="1" id={1}>Some content goes here</DraggableItem>
+  <DraggalbeItem key="2" id={2}>Some content goes here</DraggableItem>
+  <DraggalbeItem key="3" id={3}>Some content goes here</DraggableItem>
+  <DraggalbeItem key="4" id={4}>Some content goes here</DraggableItem>
+</DraggableContainer>;
+```
+
+## Visuals
+
+### simple text as a content
+
+<Preview>
+  <Story name="basic">
+    <DraggableContainer>
+      <DraggableItem key="1" id={1}>Some content goes here</DraggableItem>
+      <DraggableItem key="2" id={2}>Some content goes here</DraggableItem>
+      <DraggableItem key="3" id={3}>Some content goes here</DraggableItem>
+      <DraggableItem key="4" id={4}>Some content goes here</DraggableItem>
+    </DraggableContainer>
+  </Story>
+</Preview>
+
+### other components as children
+
+<Preview>
+  <Story name="components as children">
+    <DraggableContainer>
+      <DraggableItem key="1" id={1}>
+        <Checkbox label="checkbox one" />
+      </DraggableItem>
+      <DraggableItem key="2" id={2}>
+        <Checkbox label="checkbox two" />
+      </DraggableItem>
+      <DraggableItem key="3" id={3}>
+        <Checkbox label="checkbox three" />
+      </DraggableItem>
+      <DraggableItem key="4" id={4}>
+        <Checkbox label="checkbox four" />
+      </DraggableItem>
+    </DraggableContainer>
+  </Story>  
+</Preview>
+
+## DraggableContainer Props
+
+<Props of={DraggableContainer} />
+
+## DraggableItem Props
+
+<Props of={DraggableItem} exclude={['findItem', 'moveItem', 'getOrder']} />
