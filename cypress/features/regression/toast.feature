@@ -28,8 +28,8 @@ Feature: Toast component
 
   @positive
   Scenario: Enable open checkbox for a Toast component
-    When I uncheck open checkbox
-      And I check open checkbox
+    Given I uncheck open checkbox
+    When I check open checkbox
     Then Toast component is visible
 
   @positive
@@ -39,8 +39,8 @@ Feature: Toast component
 
   @positive
   Scenario: Enable onDismiss checkbox for a Toast component
-    When I uncheck onDismiss checkbox
-      And I check onDismiss checkbox
+    Given I uncheck onDismiss checkbox
+    When I check onDismiss checkbox
     Then Toast component has a close icon
 
   @positive

@@ -6,15 +6,15 @@ Feature: Table With Inputs component
 
   @positive
   Scenario: I enable showPageSizeSelection
-    When I check paginate checkbox
-      And I check showPageSizeSelection checkbox
+    Given I check paginate checkbox
+    When I check showPageSizeSelection checkbox
     Then pageSize is visible
 
   @positive
   Scenario: I disable showPageSizeSelection
-    When I check paginate checkbox
+    Given I check paginate checkbox
       And I check showPageSizeSelection checkbox
-      And I uncheck showPageSizeSelection checkbox
+    When I uncheck showPageSizeSelection checkbox
     Then pageSize is not visible
 
   @positive
@@ -24,8 +24,8 @@ Feature: Table With Inputs component
 
   @positive
   Scenario: I disable selectable
-    When I check selectable checkbox
-      And I uncheck selectable checkbox
+    Given I check selectable checkbox
+    When I uncheck selectable checkbox
     Then rows are not selectable
 
   @positive
@@ -41,8 +41,8 @@ Feature: Table With Inputs component
 
   @positive
   Scenario Outline: Row <rowNumber> is not highlighted
-    When I check highlightable checkbox
-      And I uncheck highlightable checkbox
+    Given I check highlightable checkbox
+    When I uncheck highlightable checkbox
       And I click row by number <rowNumber>
     Then row number <rowNumber> is not highlighted
     Examples:

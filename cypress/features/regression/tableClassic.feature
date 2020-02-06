@@ -8,7 +8,7 @@ Feature: Table classic component
   Scenario Outline: TotalRecords is set to <totalRecords>
     When I set totalRecords to "<totalRecords>"
       And I check paginate checkbox
-    Then Table classic totalRecords is set to "<totalRecords>" records
+    Then totalRecords is set to "<totalRecords>" records
     Examples:
       | totalRecords |
       | 0            |
@@ -23,7 +23,7 @@ Feature: Table classic component
   Scenario Outline: TotalRecords is set out of scope to <totalRecords>
     When I set totalRecords to "<totalRecords>"
       And I check paginate checkbox
-    Then Table classic totalRecords is set to "" records
+    Then totalRecords is set to "" records
     Examples:
       | totalRecords            |
       | Sample text             |
@@ -31,3 +31,20 @@ Feature: Table classic component
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
       | <>                      |
+
+  @positive
+  Scenario Outline: Change action was called after clicking <arrow> button
+    Given I check paginate checkbox
+    When clear all actions in Actions Tab
+      And I click "<arrow>" pagination arrow
+    Then change action was called in Actions Tab
+    Examples:
+      | arrow         |
+      | nextArrow     |
+      | previousArrow |
+
+  @positive
+  Scenario: Verify action toolbar elements
+    Given I check selectable checkbox
+    When I check checkbox on header
+    Then Action Toolbar elemens are visible and has "rgb(37, 91, 199)" color

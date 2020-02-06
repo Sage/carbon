@@ -1,7 +1,8 @@
 import {
-  rows, checkboxCell, rowByNumber, caption, tableHeader, rowNumbers, sortIcon,
+  rows, checkboxCell, rowByNumber, caption, tableHeader, rowNumbers, sortIcon, paginationButton,
+  actionToolbar, checkboxInHeader, actionToolbarButton,
 } from '../../locators/table';
-import { pagerSummary } from '../../locators/pager';
+import { pagerSummary, previousArrow, nextArrow } from '../../locators/pager';
 
 const ZERO = 0;
 const ONE = 1;
@@ -50,7 +51,7 @@ When('{string} Table column can be sorted', (headerName) => {
 
 When('Country column is sorted in {string} order', (sortOrder) => {
   if (sortOrder === 'desc') {
-    sortIcon(0).should('have.attr', 'data-element', 'sort_down')
+    sortIcon(ZERO).should('have.attr', 'data-element', 'sort_down')
       .and('be.visible');
     rowNumbers(ZERO).should('have.text', 'Zimbabwe');
     rowNumbers(TWO).should('have.text', 'Zambia');
@@ -70,7 +71,7 @@ When('Country column is sorted in {string} order', (sortOrder) => {
 
 When('Code column is sorted in {string} order', (sortOrder) => {
   if (sortOrder === 'desc') {
-    sortIcon(0).should('have.attr', 'data-element', 'sort_down')
+    sortIcon(ZERO).should('have.attr', 'data-element', 'sort_down')
       .and('be.visible');
     rowNumbers(ONE).should('have.text', 'ZW');
     rowNumbers(THREE).should('have.text', 'ZM');
@@ -100,11 +101,9 @@ Then('theme on preview is {string}', (theme) => {
     case 'secondary':
       tableHeader().should('have.css', 'background-color', 'rgb(204, 214, 218)');
       break;
-    // will be only for a dafault theme
-    // case 'tertiary':
-    //   tableHeader().should('have.css', 'background-color', 'transparent');
-    //   tableHeader().should('have.css', 'color', 'rgba(0,0,0,0.9)');
-    //   break;
+    case 'tertiary':
+      tableHeader().should('have.css', 'background-color', 'rgba(0, 0, 0, 0)');
+      break;
     default: throw new Error('Themes are only primary or seconary');
   }
 });
@@ -150,10 +149,74 @@ Then('input type on preview is set to {string}', (type) => {
   }
 });
 
-Then('Table classic totalRecords is set to {string} records', (totalRecords) => {
-  pagerSummary().invoke('text').should('contain', `${totalRecords}  records`);
+Then('totalRecords is set to {string} {word}', (totalRecords, element) => {
+  pagerSummary().invoke('text').should('contain', `${totalRecords}  ${element}`);
 });
 
-Then('totalRecords is set to {string} items', (totalRecords) => {
-  pagerSummary().invoke('text').should('contain', `${totalRecords}  items`);
+Then('I click {string} header', (headerName) => {
+  if (headerName === 'Country') {
+    tableHeader().eq(ZERO).click();
+  } else {
+    tableHeader().eq(ONE).click();
+  }
+});
+
+Then('I click {string} pagination button', (button) => {
+  switch (button) {
+    case 'next':
+      paginationButton(TWO).click();
+      break;
+    case 'last':
+      paginationButton(THREE).click();
+      break;
+    case 'previous':
+      paginationButton(ONE).click();
+      break;
+    case 'first':
+      paginationButton(ZERO).click();
+      break;
+    default: throw new Error('There is only four pagination buttons');
+  }
+});
+
+Then('I click {string} pagination arrow', (arrow) => {
+  switch (arrow) {
+    case 'previousArrow':
+      nextArrow().parent().click();
+      previousArrow().parent().click();
+      break;
+    case 'nextArrow':
+      nextArrow().parent().click();
+      break;
+    default: throw new Error('There is only two pagination arrows');
+  }
+});
+
+When('I check checkbox on header', () => {
+  checkboxInHeader().eq(ZERO).click();
+});
+
+Then('Action Toolbar elemens are visible and has {string} color', (color) => {
+  actionToolbar(ZERO).find('span').should('have.attr', 'data-element', 'bin')
+    .and('have.css', 'color', color)
+    .and('be.visible');
+  actionToolbar(ONE).find('span').should('have.attr', 'data-element', 'settings')
+    .and('have.css', 'color', color)
+    .and('be.visible');
+  actionToolbar(TWO).find('button').should('have.attr', 'data-element', 'toggle-button')
+    .and('have.css', 'border-bottom-color', color)
+    .and('have.css', 'border-left-color', color)
+    .and('have.css', 'border-right-color', color)
+    .and('have.css', 'border-top-color', color)
+    .and('have.css', 'color', color)
+    .and('be.visible')
+    .and('contain', 'Actions');
+  actionToolbarButton().parent().should('have.attr', 'data-component', 'button')
+    .and('have.css', 'border-bottom-color', color)
+    .and('have.css', 'border-left-color', color)
+    .and('have.css', 'border-right-color', color)
+    .and('have.css', 'border-top-color', color)
+    .and('have.css', 'color', color)
+    .and('be.visible')
+    .and('contain', 'Test Action');
 });

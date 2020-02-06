@@ -12,9 +12,9 @@ Feature: Table component
 
   @positive
   Scenario: I disable showPageSizeSelection
-    When I check paginate checkbox
+    Given I check paginate checkbox
       And I check showPageSizeSelection checkbox
-      And I uncheck showPageSizeSelection checkbox
+    When I uncheck showPageSizeSelection checkbox
     Then pageSize is not visible
 
   @positive
@@ -24,9 +24,15 @@ Feature: Table component
 
   @positive
   Scenario: I disable selectable
-    When I check selectable checkbox
-      And I uncheck selectable checkbox
+    Given I check selectable checkbox
+    When I uncheck selectable checkbox
     Then rows are not selectable
+
+  @positive
+  Scenario: Verify action toolbar elements
+    Given I check selectable checkbox
+    When I check checkbox on header
+    Then Action Toolbar elemens are visible and has "rgb(0, 128, 93)" color
 
   @positive
   Scenario Outline: Row <rowNumber> is highlighted
@@ -41,8 +47,8 @@ Feature: Table component
 
   @positive
   Scenario Outline: Row <rowNumber> is not highlighted
-    When I check highlightable checkbox
-      And I uncheck highlightable checkbox
+    Given I check highlightable checkbox
+    When I uncheck highlightable checkbox
       And I click row by number <rowNumber>
     Then row number <rowNumber> is not highlighted
     Examples:
@@ -145,7 +151,7 @@ Feature: Table component
       | theme     |
       | primary   |
       | secondary |
-  # | tertiary       | will be only on default themes
+      | tertiary  |
 
   @positive
   Scenario Outline: Change Table header size to <size>
@@ -170,7 +176,6 @@ Feature: Table component
       | 5        |
       | 8        |
       | 9        |
-
   @ignore
   @negative
   # ignored because not working correctly during development
@@ -197,3 +202,37 @@ Feature: Table component
       | 1               |
       | 2               |
       | 5               |
+
+  @positive
+  Scenario Outline: Change action was called for sortColumn
+    Given I select sortColumn to "<sortColumn>"
+    When clear all actions in Actions Tab
+      And I click "<headerName>" header
+    Then change action was called in Actions Tab
+    Examples:
+      | sortColumn | headerName |
+      | name       | Country    |
+      | code       | Code       |
+
+  @positive
+  Scenario Outline: Change action was called after clicking <button> button
+    Given I check paginate checkbox
+    When clear all actions in Actions Tab
+      And I click "<button>" pagination button
+    Then change action was called in Actions Tab
+    Examples:
+      | button |
+      | next   |
+      | last   |
+
+  @positive
+  Scenario Outline: Change action was called after clicking <button> button
+    Given I check paginate checkbox
+      And I click "last" pagination button
+    When clear all actions in Actions Tab
+      And I click "<button>" pagination button
+    Then change action was called in Actions Tab
+    Examples:
+      | button   |
+      | previous |
+      | first    |
