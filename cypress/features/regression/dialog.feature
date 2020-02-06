@@ -69,7 +69,7 @@ Feature: Dialog component
   @positive
   Scenario: ShowCloseIcon can close Dialog
     Given I uncheck showCloseIcon checkbox
-      And I check showCloseIcon checkbox
+    When I check showCloseIcon checkbox
     Then closeIcon is visible
       And I click closeIcon
       And Dialog is not visible
@@ -110,8 +110,8 @@ Feature: Dialog component
   @positive
   Scenario: Enable escape key
     Given I check disableEscKey checkbox
-      And I uncheck disableEscKey checkbox
-    When I hit ESC key
+    When I uncheck disableEscKey checkbox
+      And I hit ESC key
     Then Dialog is not visible
 
   @positive

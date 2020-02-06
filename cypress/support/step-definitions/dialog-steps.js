@@ -1,4 +1,4 @@
-import { alertDialogPreview as dialogPreview, dialogStickyFormFooter } from '../../locators/dialog/index';
+import { alertDialogPreview as dialogPreview, dialogStickyFormFooter, dialogStickyFormFooterButton } from '../../locators/dialog/index';
 import { closeIconButton, backgroundUILocator, storyRoot } from '../../locators/index';
 import { DEBUG_FLAG } from '..';
 
@@ -44,15 +44,13 @@ When('I click on background {string} outside dialog', (position) => {
 });
 
 Then('footer buttons have color {string} and has {int} px border', (color, px) => {
-  dialogStickyFormFooter().children().eq(0).children()
+  dialogStickyFormFooterButton(0)
     .should('have.css', 'border', `${px}px solid ${color}`)
     .and('have.css', 'color', color);
-  dialogStickyFormFooter().children().eq(1).children()
-    .children()
+  dialogStickyFormFooterButton(1).children()
     .should('have.css', 'background')
     .should('contain', color);
-  dialogStickyFormFooter().children().eq(1).children()
-    .children()
+  dialogStickyFormFooterButton(1).children()
     .should('have.css', 'border-color', 'rgba(0, 0, 0, 0)')
     .and('have.css', 'color', 'rgb(255, 255, 255)');
 });
