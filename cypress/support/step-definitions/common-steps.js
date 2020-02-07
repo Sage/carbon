@@ -55,6 +55,10 @@ Given('I open {string} component page with button', (component) => {
   visitComponentUrl(component, 'with_button');
 });
 
+Given('I open {string} component page with inputs', (component) => {
+  visitComponentUrl(component, 'default_with_inputs');
+});
+
 Given('I open {string} component with button classic page', (component) => {
   visitComponentUrl(component, 'with_button_classic');
 });
