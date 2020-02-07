@@ -3,11 +3,11 @@ Feature: Dialog component
 
   Background: Open Dialog component page
     Given I open "Dialog" component page
+      And I open component preview
 
   @positive
   Scenario Outline: Set height for Dialog to <height>
     When I set height to "<height>"
-      And I open component preview
     Then Dialog height is set to "<height>"
     Examples:
       | height |
@@ -19,7 +19,6 @@ Feature: Dialog component
   @negative
   Scenario Outline: Set out of scope characters to <height>
     When I set height to "<height>"
-      And I open component preview
     Then Dialog height is not set to "<height>"
     Examples:
       | height                   |
@@ -30,7 +29,6 @@ Feature: Dialog component
   @positive
   Scenario Outline: Change Dialog component title to <title>
     When I set title to "<title>"
-      And I open component preview
     Then component title on preview is "<title>"
     Examples:
       | title                    |
@@ -44,7 +42,6 @@ Feature: Dialog component
   @positive
   Scenario Outline: Change Dialog subtitle to <subtitle>
     When I set subtitle to "<subtitle>"
-      And I open component preview
     Then component subtitle on preview is "<subtitle>"
     Examples:
       | subtitle                 |
@@ -58,7 +55,6 @@ Feature: Dialog component
   @positive
   Scenario Outline: Set Dialog size to <sizeName>
     When I select size to "<sizeName>"
-      And I open component preview
     Then Dialog size property on preview is "<sizePropertyInPx>"
     Examples:
       | sizeName     | sizePropertyInPx |
@@ -72,9 +68,8 @@ Feature: Dialog component
 
   @positive
   Scenario: ShowCloseIcon can close Dialog
-    When I uncheck showCloseIcon checkbox
-      And I check showCloseIcon checkbox
-      And I open component preview
+    Given I uncheck showCloseIcon checkbox
+    When I check showCloseIcon checkbox
     Then closeIcon is visible
       And I click closeIcon
       And Dialog is not visible
@@ -82,56 +77,48 @@ Feature: Dialog component
   @positive
   Scenario: Disable ShowCloseIcon
     When I uncheck showCloseIcon checkbox
-      And I open component preview
     Then closeIcon is not visible
 
   @positive
   Scenario: Enable StickyFormFooter
     When I check stickyFormFooter checkbox
-      And I open component preview
     Then stickyFormFooter is enabled
 
   @positive
   Scenario: Disable StickyFormFooter
-    When I check stickyFormFooter checkbox
-      And I uncheck stickyFormFooter checkbox
-      And I open component preview
+    Given I check stickyFormFooter checkbox
+    When I uncheck stickyFormFooter checkbox
     Then stickyFormFooter is disabled
 
   @positive
   Scenario: Enable background UI
     When I check enableBackgroundUI checkbox
-      And I open component preview
     Then Background UI is enabled
 
   @positive
   Scenario: Disable background UI
-    When I check enableBackgroundUI checkbox
-      And I uncheck enableBackgroundUI checkbox
-      And I open component preview
+    Given I check enableBackgroundUI checkbox
+    When I uncheck enableBackgroundUI checkbox
     Then Background UI is disabled
 
   @positive
   Scenario: Disable escape key
-    When I check disableEscKey checkbox
-      And I open component preview
-      And I hit ESC key
+    Given I check disableEscKey checkbox
+    When I hit ESC key
     Then Dialog is visible
 
   @positive
   Scenario: Enable escape key
-    When I check disableEscKey checkbox
-      And I uncheck disableEscKey checkbox
-      And I open component preview
+    Given I check disableEscKey checkbox
+    When I uncheck disableEscKey checkbox
       And I hit ESC key
     Then Dialog is not visible
 
   @positive
   Scenario Outline: Click outside Dialog without background and Dialog remains open
-    When I check enableBackgroundUI checkbox
+    Given I check enableBackgroundUI checkbox
       And I uncheck enableBackgroundUI checkbox
-      And I open component preview
-      And I click on "<position>" outside dialog
+    When I click on "<position>" outside dialog
     Then Dialog is visible
     Examples:
       | position |
@@ -141,11 +128,29 @@ Feature: Dialog component
 
   @positive
   Scenario Outline: Click on background outside Dialog and Dialog remains open
-    When I open component preview
-      And I click on background "<position>" outside dialog
+    When I click on background "<position>" outside dialog
     Then Dialog is visible
     Examples:
       | position |
       | top      |
       | topRight |
       | right    |
+
+  @positive
+  Scenario: Open dialog event
+    Given I click closeIcon
+      And clear all actions in Actions Tab
+    When I open component preview
+    Then open action was called in Actions Tab
+
+  @positive
+  Scenario: Cancel event
+    Given clear all actions in Actions Tab
+    When I click closeIcon
+    Then cancel action was called in Actions Tab
+
+  @positive
+  Scenario: Verify default story color
+    # commented because of BDD default scenario Given - When - Then
+    #  When I open component preview
+    Then footer buttons have color "rgb(0, 128, 93)" and has 2 px border
