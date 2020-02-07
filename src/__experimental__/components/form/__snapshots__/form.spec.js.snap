@@ -328,6 +328,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
   </div>
   <div
     className="c1 c2"
+    data-element="sticky-footer"
   >
     <div
       className="c3 c4"
