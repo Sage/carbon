@@ -133,9 +133,9 @@ Feature: Table With Inputs component
     Then theme on preview is "<theme>"
     Examples:
       | theme     |
-      | primary   |
-      | secondary |
-       | tertiary |
+			| primary   |
+			| secondary |
+			| tertiary  |
 
   @positive
   Scenario Outline: Change Table header size to <size>
