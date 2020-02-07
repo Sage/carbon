@@ -40,7 +40,7 @@ Cypress.Commands.overwrite(
 );
 
 function getItem(selector, counter) {
-  if (document.readyState === 'loading') { // Loading hasn't finished yet
+  if ((document.readyState === 'loading' || document.readyState === 'interactive') && document.readyState !== 'completed') { // Loading hasn't finished yet
     document.addEventListener('DOMContentLoaded', getItem);
   } else {
     cy.wait(100, { log: DEBUG_FLAG })
