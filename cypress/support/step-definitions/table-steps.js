@@ -145,7 +145,7 @@ Then('input type on preview is set to {string}', (type) => {
     case 'date':
       rowNumbers(ZERO).children().should('have.attr', 'data-component', 'date');
       break;
-    default: throw new Error('There is only three input type of Table with inputs');
+    default: throw new Error('There are only three input type of Table with inputs');
   }
 });
 
@@ -175,7 +175,7 @@ Then('I click {string} pagination button', (button) => {
     case 'first':
       paginationButton(ZERO).click();
       break;
-    default: throw new Error('There is only four pagination buttons');
+    default: throw new Error('There are only four pagination buttons');
   }
 });
 
@@ -188,7 +188,7 @@ Then('I click {string} pagination arrow', (arrow) => {
     case 'nextArrow':
       nextArrow().parent().click();
       break;
-    default: throw new Error('There is only two pagination arrows');
+    default: throw new Error('There are only two pagination arrows');
   }
 });
 
@@ -196,7 +196,7 @@ When('I check checkbox on header', () => {
   checkboxInHeader().eq(ZERO).click();
 });
 
-Then('Action Toolbar elemens are visible and has {string} color', (color) => {
+Then('Action Toolbar elemens are visible and have {string} color', (color) => {
   actionToolbar(ZERO).find('span').should('have.attr', 'data-element', 'bin')
     .and('have.css', 'color', color)
     .and('be.visible');

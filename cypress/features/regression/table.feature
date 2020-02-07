@@ -32,7 +32,7 @@ Feature: Table component
   Scenario: Verify action toolbar elements
     Given I check selectable checkbox
     When I check checkbox on header
-    Then Action Toolbar elemens are visible and has "rgb(0, 128, 93)" color
+    Then Action Toolbar elemens are visible and have "rgb(0, 128, 93)" color
 
   @positive
   Scenario Outline: Row <rowNumber> is highlighted
@@ -176,6 +176,7 @@ Feature: Table component
       | 5        |
       | 8        |
       | 9        |
+
   @ignore
   @negative
   # ignored because not working correctly during development

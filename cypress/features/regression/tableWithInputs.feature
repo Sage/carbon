@@ -54,7 +54,7 @@ Feature: Table With Inputs component
   @positive
   Scenario Outline: Sort Table <headerName> Column by <sortColumn>
     When I select sortColumn to "<sortColumn>"
-    Then "<headerName>" Table header can be sorted
+    Then "<headerName>" Table column can be sorted
     Examples:
       | sortColumn | headerName |
       | name       | Country    |
@@ -135,7 +135,7 @@ Feature: Table With Inputs component
       | theme     |
       | primary   |
       | secondary |
-  # | tertiary       | will be only on default themes
+       | tertiary |
 
   @positive
   Scenario Outline: Change Table header size to <size>
