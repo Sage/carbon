@@ -45,17 +45,12 @@ const DatePicker = (props) => {
   };
 
   useEffect(() => {
-    function hasComponentUpdated() {
-      const propDate = isoFormattedValueString(props.inputDate);
-      return props.inputDate && currentDateHasChanged(currentInputDate, propDate);
-    }
-
     if (hasComponentUpdated()) {
       const updatedDate = isoFormattedValueString(props.inputDate);
       datepicker.current.showMonth(DateHelper.stringToDate(updatedDate));
       setCurrentInputDate(updatedDate);
     }
-  }, [props.inputDate, currentInputDate, containerPosition]);
+  }, [props.inputDate, currentInputDate, containerPosition, hasComponentUpdated]);
 
   function handleDayClick(selectedDate, modifiers) {
     if (!modifiers.disabled) {
@@ -63,6 +58,10 @@ const DatePicker = (props) => {
     }
   }
 
+  function hasComponentUpdated() {
+    const propDate = isoFormattedValueString(props.inputDate);
+    return props.inputDate && currentDateHasChanged(currentInputDate, propDate);
+  }
 
   return (
     <Portal onReposition={ () => setContainerPosition(getContainerPosition(window, props.inputElement)) }>
