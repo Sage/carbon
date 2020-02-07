@@ -31,16 +31,19 @@ Feature: Icon component
       | locked            |
       | location          |
       | logout            |
+      | lookup            |
       | marker            |
       | message           |
       | minus             |
       | minus_large       |
       | mobile            |
+      | pause_circle      |
       | pdf               |
       | people            |
       | person            |
       | phone             |
       | play              |
+      | play_circle       |
       | plus              |
       | plus_large        |
       | print             |
@@ -50,6 +53,7 @@ Feature: Icon component
       | refresh           |
       | remove            |
       | save              |
+      | scan              |
       | search            |
       | services          |
       | settings          |
