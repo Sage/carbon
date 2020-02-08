@@ -1,5 +1,5 @@
 import React, {
-  useCallback, useEffect, useLayoutEffect, useRef, useState
+  useCallback, useLayoutEffect, useRef, useState
 } from 'react';
 import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
@@ -9,7 +9,6 @@ import {
 } from './action-popover.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Events from '../../utils/helpers/events';
-import Portal from '../portal';
 import createGuid from '../../utils/helpers/guid';
 
 const MenuItem = React.forwardRef(({
@@ -25,8 +24,11 @@ const MenuItem = React.forwardRef(({
 
   useLayoutEffect(() => {
     const align = submenu && checkRef(ref) && leftAlignSubmenu(ref, submenuRef);
+    setContainerPosition(getContainerPosition(window, ref, submenuRef, theme));
+
+    if (!canOpenSubmenu) setOpen(false);
     setIsLeftAligned(align);
-  }, [submenu, ref]);
+  }, [submenu, ref, theme, canOpenSubmenu]);
 
   const onClick = useCallback((e) => {
     if (!disabled) {
@@ -73,13 +75,6 @@ const MenuItem = React.forwardRef(({
     }
   }, [disabled, focusIndex, isLeftAligned, itemIndex, onClick, ref, submenu, updateItemIndex]);
 
-  useEffect(() => {
-    setContainerPosition(getContainerPosition(window, ref, submenuRef, theme));
-    const align = submenu && checkRef(ref) && leftAlignSubmenu(ref, submenuRef);
-    setIsLeftAligned(align);
-    if (!canOpenSubmenu) setOpen(false);
-  }, [canOpenSubmenu, ref, submenu, submenuRef, theme]);
-
   let itemSubmenuProps = {};
 
   if (submenu) {
@@ -120,22 +115,20 @@ const MenuItem = React.forwardRef(({
       { ...itemSubmenuProps }
     >
       { submenu && (
-        <Portal onReposition={ () => setContainerPosition(getContainerPosition(window, ref, submenuRef, theme)) }>
-          { React.cloneElement(submenu, {
-            parentID: `ActionPopoverItem_${guid}`,
-            menuID: `ActionPopoverMenu_${guid}`,
-            'data-element': 'action-popover-submenu',
-            isOpen,
-            onClick: () => setOpen(!isOpen),
-            ref: submenuRef,
-            style: { ...containerPosition, position: 'relative' },
-            setOpen,
-            setFocusIndex,
-            focusIndex,
-            items,
-            setItems
-          }) }
-        </Portal>
+        React.cloneElement(submenu, {
+          parentID: `ActionPopoverItem_${guid}`,
+          menuID: `ActionPopoverMenu_${guid}`,
+          'data-element': 'action-popover-submenu',
+          isOpen,
+          onClick: () => setOpen(!isOpen),
+          ref: submenuRef,
+          style: containerPosition,
+          setOpen,
+          setFocusIndex,
+          focusIndex,
+          items,
+          setItems
+        })
       ) }
       { submenu && checkRef(ref) && leftAlignSubmenu(ref, submenuRef) && (
         <SubMenuItemIcon type='chevron_left' />
@@ -166,16 +159,15 @@ function getContainerPosition(window, ref, submenuRef, { spacing }) {
   const parentRect = ref.current.getBoundingClientRect();
   const { left, right } = parentRect;
   const { offsetWidth } = submenuRef.current;
-  const position = leftAlignSubmenu(ref, submenuRef) ? (left - offsetWidth) : right;
-
+  const position = leftAlignSubmenu(ref, submenuRef) ? -offsetWidth : right - left;
   return {
-    left: position + window.pageXOffset,
-    top: (parentRect.top - spacing) + window.pageYOffset
+    left: position,
+    top: -spacing,
+    right: 'auto'
   };
 }
 
 const ActionPopoverItem = MenuItemFactory(MenuItem);
-ActionPopoverItem.displayName = 'ActionPopoverItem';
 ActionPopoverItem.propTypes = {
   /** The text label to display for this Item */
   children: PropTypes.string.isRequired,
@@ -195,5 +187,7 @@ ActionPopoverItem.propTypes = {
 ActionPopoverItem.defaultProps = {
   disabled: false
 };
+
+ActionPopoverItem.displayName = 'ActionPopoverItem';
 
 export default withTheme(ActionPopoverItem);

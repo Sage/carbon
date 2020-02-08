@@ -705,6 +705,29 @@ describe('ActionPopover', () => {
         }, submenu);
         expect(submenu.props().isOpen).toEqual(false);
       });
+
+      it('does not attach the onMouseEnter and onMouseLeave handlers if an item is disabled', () => {
+        const item = enzymeMount(
+          <ThemeProvider theme={ mintTheme }>
+            <ActionPopoverItem
+              icon='email'
+              disabled
+              submenu={ <ActionPopoverMenu /> }
+              { ...{ onClick: onClickWrapper('email') } }
+            >
+          Foo
+            </ActionPopoverItem>
+          </ThemeProvider>
+        ).find(ActionPopoverItem);
+
+        expect(item.props().submenu).toBeTruthy();
+        expect(item.find('div').at(0).props().onMouseEnter).toEqual(undefined);
+        expect(item.find('div').at(0).props().onMouseLeave).toEqual(undefined);
+        expect(item.find('div').at(0).props()['aria-haspopup']).toEqual('true');
+        expect(item.find('div').at(0).props()['aria-label']).not.toEqual(undefined);
+        expect(item.find('div').at(0).props()['aria-controls']).not.toEqual(undefined);
+        expect(item.find('div').at(0).props()['aria-expanded']).toEqual(false);
+      });
     });
 
     describe('right aligned', () => {

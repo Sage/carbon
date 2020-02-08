@@ -24,6 +24,7 @@ exports[`ActionPopover styles renders correctly for the "classic" theme 2`] = `
   cursor: pointer;
   box-sizing: border-box;
   padding: 0 15px;
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   -webkit-user-select: none;
@@ -122,6 +123,7 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
   cursor: pointer;
   box-sizing: border-box;
   padding: 0 24px;
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   -webkit-user-select: none;
@@ -186,8 +188,8 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
   setOpen={[Function]}
   style={
     Object {
-      "left": 0,
-      "position": "relative",
+      "left": -0,
+      "right": "auto",
       "top": -8,
     }
   }
@@ -203,8 +205,8 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
     role="menu"
     style={
       Object {
-        "left": 0,
-        "position": "relative",
+        "left": -0,
+        "right": "auto",
         "top": -8,
       }
     }
@@ -225,7 +227,7 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
               "
   ",
               [Function],
-              ";
+              "
   margin: 0;
   padding: ",
               [Function],
@@ -273,6 +275,7 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
   cursor: pointer;
   box-sizing: border-box;
   padding: 0 24px;
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   -webkit-user-select: none;
@@ -316,7 +319,7 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
             data-element="action-popover-submenu"
             id="ActionPopoverMenu_guid-12345"
             role="menu"
-            style="position: relative; left: 0px; top: -8px;"
+            style="left: 0px; top: -8px;"
           >
             <div
               class="c1"
@@ -344,8 +347,8 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
       role="menu"
       style={
         Object {
-          "left": 0,
-          "position": "relative",
+          "left": -0,
+          "right": "auto",
           "top": -8,
         }
       }
@@ -361,8 +364,8 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
         role="menu"
         style={
           Object {
-            "left": 0,
-            "position": "relative",
+            "left": -0,
+            "right": "auto",
             "top": -8,
           }
         }
@@ -399,6 +402,7 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
   ",
                       [Function],
                       "
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   user-select: none;
@@ -523,6 +527,7 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
   ",
                       [Function],
                       "
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   user-select: none;
@@ -637,6 +642,7 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
   cursor: pointer;
   box-sizing: border-box;
   padding: 0 24px;
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   -webkit-user-select: none;
@@ -701,8 +707,8 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
   setOpen={[Function]}
   style={
     Object {
-      "left": 0,
-      "position": "relative",
+      "left": -0,
+      "right": "auto",
       "top": -8,
     }
   }
@@ -718,8 +724,8 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
     role="menu"
     style={
       Object {
-        "left": 0,
-        "position": "relative",
+        "left": -0,
+        "right": "auto",
         "top": -8,
       }
     }
@@ -740,7 +746,7 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
               "
   ",
               [Function],
-              ";
+              "
   margin: 0;
   padding: ",
               [Function],
@@ -788,6 +794,7 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
   cursor: pointer;
   box-sizing: border-box;
   padding: 0 24px;
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   -webkit-user-select: none;
@@ -831,7 +838,7 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
             data-element="action-popover-submenu"
             id="ActionPopoverMenu_guid-12345"
             role="menu"
-            style="position: relative; left: 0px; top: -8px;"
+            style="left: 0px; top: -8px;"
           >
             <div
               class="c1"
@@ -859,8 +866,8 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
       role="menu"
       style={
         Object {
-          "left": 0,
-          "position": "relative",
+          "left": -0,
+          "right": "auto",
           "top": -8,
         }
       }
@@ -876,8 +883,8 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
         role="menu"
         style={
           Object {
-            "left": 0,
-            "position": "relative",
+            "left": -0,
+            "right": "auto",
             "top": -8,
           }
         }
@@ -914,6 +921,7 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
   ",
                       [Function],
                       "
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   user-select: none;
@@ -1038,6 +1046,7 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
   ",
                       [Function],
                       "
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   user-select: none;
@@ -1152,6 +1161,7 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
   cursor: pointer;
   box-sizing: border-box;
   padding: 0 24px;
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   -webkit-user-select: none;
@@ -1216,8 +1226,8 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
   setOpen={[Function]}
   style={
     Object {
-      "left": 0,
-      "position": "relative",
+      "left": -0,
+      "right": "auto",
       "top": -8,
     }
   }
@@ -1233,8 +1243,8 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
     role="menu"
     style={
       Object {
-        "left": 0,
-        "position": "relative",
+        "left": -0,
+        "right": "auto",
         "top": -8,
       }
     }
@@ -1250,12 +1260,12 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
           "componentStyle": ComponentStyle {
             "componentId": "sc-ifAKCX",
             "isStatic": false,
-            "lastClassName": "dnTSjX",
+            "lastClassName": "cbePUR",
             "rules": Array [
               "
   ",
               [Function],
-              ";
+              "
   margin: 0;
   padding: ",
               [Function],
@@ -1303,6 +1313,7 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
   cursor: pointer;
   box-sizing: border-box;
   padding: 0 24px;
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   -webkit-user-select: none;
@@ -1346,7 +1357,7 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
             data-element="action-popover-submenu"
             id="ActionPopoverMenu_guid-12345"
             role="menu"
-            style="position: relative; left: 0px; top: -8px;"
+            style="left: 0px; top: -8px;"
           >
             <div
               class="c1"
@@ -1374,8 +1385,8 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
       role="menu"
       style={
         Object {
-          "left": 0,
-          "position": "relative",
+          "left": -0,
+          "right": "auto",
           "top": -8,
         }
       }
@@ -1391,8 +1402,8 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
         role="menu"
         style={
           Object {
-            "left": 0,
-            "position": "relative",
+            "left": -0,
+            "right": "auto",
             "top": -8,
           }
         }
@@ -1429,6 +1440,7 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
   ",
                       [Function],
                       "
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   user-select: none;
@@ -1546,6 +1558,7 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
   ",
                       [Function],
                       "
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   user-select: none;
@@ -1653,6 +1666,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
   cursor: pointer;
   box-sizing: border-box;
   padding: 0 24px;
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   -webkit-user-select: none;
@@ -1717,8 +1731,8 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
   setOpen={[Function]}
   style={
     Object {
-      "left": 0,
-      "position": "relative",
+      "left": -0,
+      "right": "auto",
       "top": -8,
     }
   }
@@ -1734,8 +1748,8 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
     role="menu"
     style={
       Object {
-        "left": 0,
-        "position": "relative",
+        "left": -0,
+        "right": "auto",
         "top": -8,
       }
     }
@@ -1751,12 +1765,12 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
           "componentStyle": ComponentStyle {
             "componentId": "sc-ifAKCX",
             "isStatic": false,
-            "lastClassName": "dnTSjX",
+            "lastClassName": "cbePUR",
             "rules": Array [
               "
   ",
               [Function],
-              ";
+              "
   margin: 0;
   padding: ",
               [Function],
@@ -1804,6 +1818,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
   cursor: pointer;
   box-sizing: border-box;
   padding: 0 24px;
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   -webkit-user-select: none;
@@ -1847,7 +1862,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
             data-element="action-popover-submenu"
             id="ActionPopoverMenu_guid-12345"
             role="menu"
-            style="position: relative; left: 0px; top: -8px;"
+            style="left: 0px; top: -8px;"
           >
             <div
               class="c1"
@@ -1875,8 +1890,8 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
       role="menu"
       style={
         Object {
-          "left": 0,
-          "position": "relative",
+          "left": -0,
+          "right": "auto",
           "top": -8,
         }
       }
@@ -1892,8 +1907,8 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
         role="menu"
         style={
           Object {
-            "left": 0,
-            "position": "relative",
+            "left": -0,
+            "right": "auto",
             "top": -8,
           }
         }
@@ -1930,6 +1945,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
   ",
                       [Function],
                       "
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   user-select: none;
@@ -2047,6 +2063,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
   ",
                       [Function],
                       "
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   user-select: none;
@@ -2154,6 +2171,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
   cursor: pointer;
   box-sizing: border-box;
   padding: 0 24px;
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   -webkit-user-select: none;
@@ -2218,9 +2236,9 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
   setOpen={[Function]}
   style={
     Object {
-      "left": 200,
-      "position": "relative",
-      "top": 92,
+      "left": 300,
+      "right": "auto",
+      "top": -8,
     }
   }
 >
@@ -2235,9 +2253,9 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
     role="menu"
     style={
       Object {
-        "left": 200,
-        "position": "relative",
-        "top": 92,
+        "left": 300,
+        "right": "auto",
+        "top": -8,
       }
     }
   >
@@ -2257,7 +2275,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
               "
   ",
               [Function],
-              ";
+              "
   margin: 0;
   padding: ",
               [Function],
@@ -2305,6 +2323,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
   cursor: pointer;
   box-sizing: border-box;
   padding: 0 24px;
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   -webkit-user-select: none;
@@ -2348,7 +2367,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
             data-element="action-popover-submenu"
             id="ActionPopoverMenu_guid-12345"
             role="menu"
-            style="position: relative; left: 200px; top: 92px;"
+            style="left: 300px; top: -8px;"
           >
             <div
               class="c1"
@@ -2376,9 +2395,9 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
       role="menu"
       style={
         Object {
-          "left": 200,
-          "position": "relative",
-          "top": 92,
+          "left": 300,
+          "right": "auto",
+          "top": -8,
         }
       }
     >
@@ -2393,9 +2412,9 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
         role="menu"
         style={
           Object {
-            "left": 200,
-            "position": "relative",
-            "top": 92,
+            "left": 300,
+            "right": "auto",
+            "top": -8,
           }
         }
       >
@@ -2431,6 +2450,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
   ",
                       [Function],
                       "
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   user-select: none;
@@ -2555,6 +2575,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
   ",
                       [Function],
                       "
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   user-select: none;
@@ -2669,6 +2690,7 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
   cursor: pointer;
   box-sizing: border-box;
   padding: 0 24px;
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   -webkit-user-select: none;
@@ -2733,9 +2755,9 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
   setOpen={[Function]}
   style={
     Object {
-      "left": 200,
-      "position": "relative",
-      "top": 92,
+      "left": 300,
+      "right": "auto",
+      "top": -8,
     }
   }
 >
@@ -2750,9 +2772,9 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
     role="menu"
     style={
       Object {
-        "left": 200,
-        "position": "relative",
-        "top": 92,
+        "left": 300,
+        "right": "auto",
+        "top": -8,
       }
     }
   >
@@ -2767,12 +2789,12 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
           "componentStyle": ComponentStyle {
             "componentId": "sc-ifAKCX",
             "isStatic": false,
-            "lastClassName": "dnTSjX",
+            "lastClassName": "cbePUR",
             "rules": Array [
               "
   ",
               [Function],
-              ";
+              "
   margin: 0;
   padding: ",
               [Function],
@@ -2820,6 +2842,7 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
   cursor: pointer;
   box-sizing: border-box;
   padding: 0 24px;
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   -webkit-user-select: none;
@@ -2863,7 +2886,7 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
             data-element="action-popover-submenu"
             id="ActionPopoverMenu_guid-12345"
             role="menu"
-            style="position: relative; left: 200px; top: 92px;"
+            style="left: 300px; top: -8px;"
           >
             <div
               class="c1"
@@ -2891,9 +2914,9 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
       role="menu"
       style={
         Object {
-          "left": 200,
-          "position": "relative",
-          "top": 92,
+          "left": 300,
+          "right": "auto",
+          "top": -8,
         }
       }
     >
@@ -2908,9 +2931,9 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
         role="menu"
         style={
           Object {
-            "left": 200,
-            "position": "relative",
-            "top": 92,
+            "left": 300,
+            "right": "auto",
+            "top": -8,
           }
         }
       >
@@ -2946,6 +2969,7 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
   ",
                       [Function],
                       "
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   user-select: none;
@@ -3063,6 +3087,7 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
   ",
                       [Function],
                       "
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   user-select: none;
