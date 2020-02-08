@@ -10,7 +10,7 @@ import {
 } from './action-popover-classic.style';
 
 const Menu = styled.div`
-  ${({ isOpen }) => (isOpen ? 'display: block;' : 'visibility: hidden;')};
+  ${({ isOpen }) => (isOpen ? 'display: block;' : 'visibility: hidden;')}
   margin: 0;
   padding: ${({ theme }) => `${theme.spacing}px 0`};
   box-shadow: ${({ theme }) => theme.shadows.depth1};
@@ -26,6 +26,7 @@ const MenuItemFactory = button => styled(button)`
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   box-sizing: border-box;
   ${({ theme }) => `padding: 0 ${theme.spacing * 3}px;`}
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   user-select: none;
