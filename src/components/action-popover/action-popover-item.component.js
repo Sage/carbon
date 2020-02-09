@@ -1,5 +1,5 @@
 import React, {
-  useCallback, useLayoutEffect, useRef, useState
+  useCallback, useEffect, useLayoutEffect, useRef, useState
 } from 'react';
 import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
@@ -12,7 +12,8 @@ import Events from '../../utils/helpers/events';
 import createGuid from '../../utils/helpers/guid';
 
 const MenuItem = React.forwardRef(({
-  canOpenSubmenu, children, icon, disabled, itemIndex, onClick: onClickProp, submenu, theme, updateItemIndex, ...rest
+  canOpenSubmenu, children, icon, disabled, itemIndex, onClick: onClickProp,
+  submenu, theme, updateItemIndex, ...rest
 }, ref) => {
   const [containerPosition, setContainerPosition] = useState(null);
   const [guid] = useState(createGuid());
@@ -21,14 +22,31 @@ const MenuItem = React.forwardRef(({
   const [items, setItems] = useState([]);
   const [isLeftAligned, setIsLeftAligned] = useState(true);
   const submenuRef = useRef();
+  const { spacing } = theme;
+
+  const alignSubmenu = useCallback(() => {
+    if (checkRef(ref)) {
+      const align = submenu && checkRef(ref) && leftAlignSubmenu(ref, submenuRef);
+      setIsLeftAligned(align);
+      setContainerPosition(getContainerPosition(ref, submenuRef, spacing));
+    }
+  }, [ref, submenu, spacing]);
 
   useLayoutEffect(() => {
-    const align = submenu && checkRef(ref) && leftAlignSubmenu(ref, submenuRef);
-    setContainerPosition(getContainerPosition(window, ref, submenuRef, theme));
+    if (!canOpenSubmenu) {
+      setOpen(false);
+    }
+    alignSubmenu();
+  }, [canOpenSubmenu, alignSubmenu]);
 
-    if (!canOpenSubmenu) setOpen(false);
-    setIsLeftAligned(align);
-  }, [submenu, ref, theme, canOpenSubmenu]);
+  useEffect(() => {
+    const event = 'resize';
+    window.addEventListener(event, alignSubmenu);
+
+    return function cleanup() {
+      window.removeEventListener(event, alignSubmenu);
+    };
+  }, [alignSubmenu]);
 
   const onClick = useCallback((e) => {
     if (!disabled) {
@@ -130,12 +148,12 @@ const MenuItem = React.forwardRef(({
           setItems
         })
       ) }
-      { submenu && checkRef(ref) && leftAlignSubmenu(ref, submenuRef) && (
+      { submenu && checkRef(ref) && isLeftAligned && (
         <SubMenuItemIcon type='chevron_left' />
       ) }
       { icon && <MenuItemIcon type={ icon } /> }
       { children }
-      { submenu && checkRef(ref) && !leftAlignSubmenu(ref, submenuRef) && (
+      { submenu && checkRef(ref) && !isLeftAligned && (
         <SubMenuItemIcon type='chevron_right' />
       ) }
     </div>
@@ -152,7 +170,7 @@ function leftAlignSubmenu(ref, submenuRef) {
   return parentRect.left >= offsetWidth;
 }
 
-function getContainerPosition(window, ref, submenuRef, { spacing }) {
+function getContainerPosition(ref, submenuRef, spacing) {
   if (!checkRef(ref) || !checkRef(submenuRef)) {
     return {};
   }
@@ -190,4 +208,5 @@ ActionPopoverItem.defaultProps = {
 
 ActionPopoverItem.displayName = 'ActionPopoverItem';
 
+export { ActionPopoverItem };
 export default withTheme(ActionPopoverItem);
