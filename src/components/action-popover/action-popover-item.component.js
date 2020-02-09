@@ -1,5 +1,5 @@
 import React, {
-  useCallback, useLayoutEffect, useRef, useState
+  useCallback, useEffect, useLayoutEffect, useRef, useState
 } from 'react';
 import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
