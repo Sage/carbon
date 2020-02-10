@@ -185,8 +185,11 @@ function getContainerPosition(ref, submenuRef, spacing) {
   };
 }
 
-const ActionPopoverItem = MenuItemFactory(MenuItem);
-ActionPopoverItem.propTypes = {
+const StyledActionPopoverItem = MenuItemFactory(MenuItem);
+StyledActionPopoverItem.displayName = 'ActionPopoverItem';
+const ActionPopoverItem = withTheme(StyledActionPopoverItem);
+
+const propTypes = {
   /** The text label to display for this Item */
   children: PropTypes.string.isRequired,
   /** Flag to indicate if item is disabled */
@@ -205,11 +208,15 @@ ActionPopoverItem.propTypes = {
   }
 };
 
+ActionPopoverItem.propTypes = { ...propTypes };
+
 ActionPopoverItem.defaultProps = {
   disabled: false
 };
 
-ActionPopoverItem.displayName = 'ActionPopoverItem';
+// needed to export MenuItem to create prop tables in storybook
+MenuItem.propTypes = { ...propTypes };
+MenuItem.displayName = 'ActionPopoverItem';
+export { MenuItem };
 
-export { ActionPopoverItem as ActionPopoverItemWithoutTheme };
-export default withTheme(ActionPopoverItem);
+export default ActionPopoverItem;
