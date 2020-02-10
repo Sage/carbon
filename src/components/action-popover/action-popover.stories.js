@@ -6,8 +6,8 @@ import { notes, Info } from './documentation';
 import {
   ActionPopover, ActionPopoverDivider, ActionPopoverItem, ActionPopoverMenu
 } from '.';
+import { MenuItem } from './action-popover-item.component';
 import { MenuButton } from './action-popover.style';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import {
   Table, TableRow, TableCell, TableHeader
@@ -15,10 +15,6 @@ import {
 
 const StyledComponent = styled('div')``.render().type;
 
-ActionPopover.__docgenInfo = getDocGenInfo(
-  require('./docgenInfo.json'),
-  /action-popover\.component(?!spec)/
-);
 
 const submenu = (
   <ActionPopoverMenu>
@@ -124,7 +120,8 @@ function makeStory(storyName, themeSelector) {
     notes: { markdown: notes },
     info: {
       text: Info,
-      propTablesExclude: [Table, TableRow, TableCell, TableHeader, MenuButton, StyledComponent]
+      propTables: [ActionPopover, ActionPopoverMenu, MenuItem],
+      propTablesExclude: [ActionPopoverItem, Table, TableRow, TableCell, TableHeader, MenuButton, StyledComponent]
     }
   };
 
