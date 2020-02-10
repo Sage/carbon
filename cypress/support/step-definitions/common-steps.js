@@ -528,8 +528,30 @@ When('I press ESC on focused element', () => {
   cy.focused().trigger('keydown', { keyCode: 27, which: 27 });
 });
 
-When('I press {word} on focused element', (key) => {
-  cy.focused().trigger('keydown', { key });
+When('I press Tab on focused element', () => {
+  cy.focused().trigger('keydown', { keyCode: 9, which: 9 });
+});
+
+When('I press Home on focused element', () => {
+  cy.focused().trigger('keydown', { keyCode: 36, which: 36 });
+});
+
+When('I press uparrow on focused element', () => {
+  cy.focused().trigger('keydown', { keyCode: 38, which: 38 });
+});
+
+When('I press leftarrow on focused element', () => {
+  cy.focused().trigger('keydown', { keyCode: 37, which: 37 });
+});
+
+When('I press keyboard downarrow key times {int}', (times) => {
+  for (let i = 0; i < times; i++) {
+    cy.focused().trigger('keydown', { keyCode: 40, which: 40 });
+  }
+});
+
+When('I press End on focused element', () => {
+  cy.focused().trigger('keydown', { keyCode: 35, which: 35 });
 });
 
 When('I press ShiftTab on focused element', () => {
