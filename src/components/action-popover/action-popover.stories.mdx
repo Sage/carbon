@@ -1,0 +1,434 @@
+import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
+import { Preview as MyPreview } from '@storybook/components';
+import {  
+  ActionPopover, ActionPopoverDivider, ActionPopoverItem, ActionPopoverMenu
+} from '.';
+import { MenuItem } from './action-popover-item.component';
+import {
+  Table, TableRow, TableCell, TableHeader
+} from '../table';
+import DocsWrapper from '../../../.storybook/docs-helpers/components/iframe-wrapper';
+
+<Meta title="Design System/ActionPopover" />
+
+# ActionPopover
+
+ActionPopovers present a handy list of actions the user can perform on a whole table, a specific row within a table, or a tile.
+
+Click the ellipsis icon to show actions the user can take on a specific table row, for example, emailing the invoice.
+
+## With all items interactive
+Each item is clickable and represents an action to be taken on a given row.
+<Preview>
+  <Story name="popover with icons" parameters={{ info: { disable: true }}}>
+    <div style={{ height: '250px' }}>
+      <Table>
+        <TableRow>
+          <TableHeader>First Name</TableHeader>
+          <TableHeader>Last Name</TableHeader>
+          <TableHeader>&nbsp;</TableHeader>
+        </TableRow>
+        <TableRow>
+          <TableCell>John</TableCell>
+          <TableCell>Doe</TableCell>
+          <TableCell>
+            <ActionPopover>
+              <ActionPopoverItem
+                icon='email'
+                onClick={() => {}}
+              >
+                Email Invoice
+              </ActionPopoverItem>
+              <ActionPopoverDivider />
+              <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+            </ActionPopover>
+          </TableCell>
+        </TableRow>
+      </Table>
+    </div>
+  </Story>
+</Preview>
+
+Disabled items will not dispatch an action but can still be navigated.
+<Preview>
+  <Story name="with disabled item" parameters={{ info: { disable: true }}}>
+    <div style={{ height: '250px' }}>
+    <Table>
+      <TableRow>
+        <TableHeader>First Name</TableHeader>
+        <TableHeader>Last Name</TableHeader>
+        <TableHeader>&nbsp;</TableHeader>
+      </TableRow>
+      <TableRow>
+        <TableCell>John</TableCell>
+        <TableCell>Doe</TableCell>
+        <TableCell>
+          <ActionPopover>
+            <ActionPopoverItem
+              icon='email'
+              disabled
+              onClick={() => {}}
+            >
+              Email Invoice
+            </ActionPopoverItem>
+            <ActionPopoverDivider />
+            <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+          </ActionPopover>
+        </TableCell>
+      </TableRow>
+    </Table>
+    </div>
+  </Story>
+</Preview>
+
+Menu items can also be displayed without icons.
+<Preview>
+  <Story name="with no icons" parameters={{ info: { disable: true }}}>
+    <div style={{ height: '250px' }}>
+    <Table>
+      <TableRow>
+        <TableHeader>First Name</TableHeader>
+        <TableHeader>Last Name</TableHeader>
+        <TableHeader>&nbsp;</TableHeader>
+      </TableRow>
+      <TableRow>
+        <TableCell>John</TableCell>
+        <TableCell>Doe</TableCell>
+        <TableCell>
+          <ActionPopover>
+            <ActionPopoverItem onClick={() => {}}>
+              Email Invoice
+            </ActionPopoverItem>
+            <ActionPopoverDivider />
+            <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
+          </ActionPopover>
+        </TableCell>
+      </TableRow>
+    </Table>
+    </div>
+  </Story>
+</Preview>
+
+
+## With a sub-menu
+A menu item can be passed a sub-menu to add further sub-actions if needed. items with sub-menus will display an chevron 
+icons pointing in the direction that the sub-menu will open; by default it will open to the left.
+
+Hovering the mouse cursor over an item will open the sub-menu if it has one and moving the mouse cursor away will 
+close it. No action is dispatched on click of the item and the sub-menu is opened by mouse enter and closed on mouse 
+leave.
+
+<Preview>
+  <Story name="with submenu" parameters={{ info: { disable: true }}}>
+    <div style={{ height: '250px' }}>
+    <Table>
+      <TableRow>
+        <TableHeader>First Name</TableHeader>
+        <TableHeader>Last Name</TableHeader>
+        <TableHeader>&nbsp;</TableHeader>
+      </TableRow>
+      <TableRow>
+        <TableCell>John</TableCell>
+        <TableCell>Doe</TableCell>
+        <TableCell>
+          <ActionPopover>
+            <ActionPopoverItem
+              icon='print'
+              onClick={() => {}}
+              submenu={ 
+                <ActionPopoverMenu>
+                  <ActionPopoverItem onClick={() => {}}>
+                    CSV
+                  </ActionPopoverItem>
+                  <ActionPopoverItem onClick={() => {}}>
+                    PDF
+                  </ActionPopoverItem>
+                </ActionPopoverMenu> 
+              }
+            >
+              Print
+            </ActionPopoverItem>
+            <ActionPopoverDivider />
+            <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+          </ActionPopover>
+        </TableCell>
+      </TableRow>
+    </Table>
+    </div>
+  </Story>
+</Preview>
+
+A sub-menu will not open if the item is in a disabled state.
+<Preview>
+  <Story name="with disabled submenu" parameters={{ info: { disable: true }}}>
+    <div style={{ height: '250px' }}>
+    <Table>
+      <TableRow>
+        <TableHeader>First Name</TableHeader>
+        <TableHeader>Last Name</TableHeader>
+        <TableHeader>&nbsp;</TableHeader>
+      </TableRow>
+      <TableRow>
+        <TableCell>John</TableCell>
+        <TableCell>Doe</TableCell>
+        <TableCell>
+          <ActionPopover>
+            <ActionPopoverItem
+              disabled
+              icon='print'
+              onClick={() => {}}
+              submenu={ 
+                <ActionPopoverMenu>
+                  <ActionPopoverItem onClick={() => {}}>
+                    CSV
+                  </ActionPopoverItem>
+                  <ActionPopoverItem onClick={() => {}}>
+                    PDF
+                  </ActionPopoverItem>
+                </ActionPopoverMenu> 
+              }
+            >
+              Print
+            </ActionPopoverItem>
+            <ActionPopoverDivider />
+            <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+          </ActionPopover>
+        </TableCell>
+      </TableRow>
+    </Table>
+    </div>
+  </Story>
+</Preview>
+
+The sub-menu will open to the right side when there is no space to render the sub-menu to the left.
+<Story name="with submenu aligned right" parameters={{ docs: { disable: true }, info: { disable: true }}}>
+  <div style={{ height: '250px' }}>
+    <Table>
+      <TableRow>
+        <TableHeader>&nbsp;</TableHeader>
+        <TableHeader>First Name</TableHeader>
+        <TableHeader>Last Name</TableHeader>
+      </TableRow>
+      <TableRow>
+        <TableCell>
+          <ActionPopover>
+            <ActionPopoverItem
+              icon='print'
+              onClick={() => {}}
+              submenu={ 
+                <ActionPopoverMenu>
+                  <ActionPopoverItem icon='csv' onClick={() => {}}>
+                    CSV
+                  </ActionPopoverItem>
+                  <ActionPopoverItem icon='pdf' onClick={() => {}}>
+                    PDF
+                  </ActionPopoverItem>
+                </ActionPopoverMenu> 
+              }
+            >
+              Print
+            </ActionPopoverItem>
+            <ActionPopoverDivider />
+            <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+          </ActionPopover>
+        </TableCell>
+        <TableCell>John</TableCell>
+        <TableCell>Doe</TableCell>
+      </TableRow>
+    </Table>
+  </div>
+</Story>
+
+<MyPreview>
+  <DocsWrapper 
+    src='iframe.html?id=design-system-actionpopover--with-submenu-aligned-right'
+    height='250px'
+  />
+</MyPreview>
+
+## Keyboard navigation 
+It is possible to open the menu when the button is focused: pressing either the "enter" or "down" key will open the 
+menu and focus the first item; pressing the "up" key when the button is focused will open the menu and focus the 
+last element.
+
+Once the menu is open, it is possible to navigate the items using the "up" and "down" arrow keys. Alpha keys can also 
+be used as shortcuts to navigate the items: pressing the "d" key will navigate to the first item that starts with that 
+letter, pressing the same key again will take you to the next and repeated presses will cycle through all instances. 
+Pressing an alpha key which doesn't match any items in the menu list will result leave the focus on the current item.
+
+Pressing the "enter" key will trigger the action associated with the currently focused item. Pressing either the "esc" 
+or "tab" key will close the menu with no action being triggered.
+<Preview>
+  <Story name="keyboard access" parameters={{ info: { disable: true }}}>
+    <div style={{ height: '250px' }}>
+    <Table>
+      <TableRow>
+        <TableHeader>First Name</TableHeader>
+        <TableHeader>Last Name</TableHeader>
+        <TableHeader>&nbsp;</TableHeader>
+      </TableRow>
+      <TableRow>
+        <TableCell>John</TableCell>
+        <TableCell>Doe</TableCell>
+        <TableCell>
+          <ActionPopover>
+            <ActionPopoverItem
+              icon='email'
+              onClick={() => {}}
+            >
+              Email Invoice
+            </ActionPopoverItem>
+            <ActionPopoverItem
+              disabled
+              icon='csv'
+              onClick={() => {}}
+            >
+              Download CSV
+            </ActionPopoverItem>
+            <ActionPopoverItem
+              icon='pdf'
+              onClick={() => {}}
+            >
+              Download PDF
+            </ActionPopoverItem>
+            <ActionPopoverDivider />
+            <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+          </ActionPopover>
+        </TableCell>
+      </TableRow>
+    </Table>
+    </div>
+  </Story>
+</Preview>
+
+Sub-menus can be accessed via the keyboard as well, when the sub-menu is left aligned it can be opened by navigating to 
+the parent item and pressing the "left" key. The same accessible shortcuts described above can then be used to navigate 
+the sub-menu. Pressing the "right" key will return focus back to the main menu and close the sub-menu without 
+triggering an action. 
+<Preview>
+  <Story name="keyboard access left aligned submenu" parameters={{ info: { disable: true }}}>
+    <div style={{ height: '250px' }}>
+    <Table>
+      <TableRow>
+        <TableHeader>First Name</TableHeader>
+        <TableHeader>Last Name</TableHeader>
+        <TableHeader>&nbsp;</TableHeader>
+      </TableRow>
+      <TableRow>
+        <TableCell>John</TableCell>
+        <TableCell>Doe</TableCell>
+        <TableCell>
+          <ActionPopover>
+            <ActionPopoverItem
+              icon='csv'
+              onClick={() => {}}
+              submenu={ 
+                <ActionPopoverMenu>
+                  <ActionPopoverItem icon='csv' onClick={() => {}}>
+                    CSV
+                  </ActionPopoverItem>
+                  <ActionPopoverItem icon='pdf' onClick={() => {}}>
+                    PDF
+                  </ActionPopoverItem>
+                </ActionPopoverMenu> 
+              }
+            >
+              Download
+            </ActionPopoverItem>
+            <ActionPopoverItem
+              icon='pdf'
+              onClick={() => {}}
+              submenu={ 
+                <ActionPopoverMenu>
+                  <ActionPopoverItem icon='csv' onClick={() => {}}>
+                    CSV
+                  </ActionPopoverItem>
+                  <ActionPopoverItem icon='pdf' onClick={() => {}}>
+                    PDF
+                  </ActionPopoverItem>
+                </ActionPopoverMenu> 
+              }
+            >
+              Print
+            </ActionPopoverItem>
+            <ActionPopoverDivider />
+            <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+          </ActionPopover>
+        </TableCell>
+      </TableRow>
+    </Table>
+    </div>
+  </Story>
+</Preview>
+
+When sub-menus aligns to the right hand side, the key shortcuts are switiched: pressingt the "right" key whilst focus 
+is on a item will open a sub-menu if it has one and pressing the "left" key will close it. 
+<Story name="keyboard access right aligned submenu" parameters={{ docs: { disable: true }, info: { disable: true }}}>
+  <div style={{ height: '250px' }}>
+  <Table>
+    <TableRow>
+      <TableHeader>&nbsp;</TableHeader>
+      <TableHeader>First Name</TableHeader>
+      <TableHeader>Last Name</TableHeader>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <ActionPopover>
+          <ActionPopoverItem
+            icon='csv'
+            onClick={() => {}}
+            submenu={ 
+              <ActionPopoverMenu>
+                <ActionPopoverItem icon='csv' onClick={() => {}}>
+                  CSV
+                </ActionPopoverItem>
+                <ActionPopoverItem icon='pdf' onClick={() => {}}>
+                  PDF
+                </ActionPopoverItem>
+              </ActionPopoverMenu> 
+            }
+          >
+            Download
+          </ActionPopoverItem>
+          <ActionPopoverItem
+            icon='pdf'
+            onClick={() => {}}
+            submenu={ 
+              <ActionPopoverMenu>
+                <ActionPopoverItem icon='csv' onClick={() => {}}>
+                  CSV
+                </ActionPopoverItem>
+                <ActionPopoverItem icon='pdf' onClick={() => {}}>
+                  PDF
+                </ActionPopoverItem>
+              </ActionPopoverMenu> 
+            }
+          >
+            Print
+          </ActionPopoverItem>
+          <ActionPopoverDivider />
+          <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+        </ActionPopover>
+      </TableCell>
+      <TableCell>John</TableCell>
+      <TableCell>Doe</TableCell>
+    </TableRow>
+  </Table>
+  </div>
+</Story>
+
+<MyPreview>
+  <DocsWrapper
+    src='iframe.html?id=design-system-actionpopover--keyboard-access-right-aligned-submenu'
+    height='250px'
+  />
+</MyPreview>
+
+ActionPopover
+<Props of={ActionPopover} />
+
+ActionPopoverMenu
+<Props of={ActionPopoverMenu} />
+
+ActionPopoverItem
+<Props of={MenuItem} />
