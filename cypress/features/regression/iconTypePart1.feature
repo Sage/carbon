@@ -27,6 +27,7 @@ Feature: Icon component
       | bulk_destroy        |
       | business            |
       | calendar            |
+      | calendar_today      |
       | call                |
       | camera              |
       | card_view           |
@@ -74,5 +75,5 @@ Feature: Icon component
     When I select type to "<iconName>"
     Then icon on preview is "<iconDataElement>"
     Examples:
-      | iconName          | iconDataElement |
-      | email             | message         |
+      | iconName | iconDataElement |
+      | email    | message         |

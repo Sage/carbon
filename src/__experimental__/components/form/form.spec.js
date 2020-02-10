@@ -41,6 +41,11 @@ describe('Form', () => {
     );
   });
 
+  it('has a data-element attribute that locates the sticky footer', () => {
+    wrapper = shallow(<Form formAction='foo' />);
+    expect(wrapper.find('[data-element="sticky-footer"]').exists()).toBeTruthy();
+  });
+
   describe('componentWillReceiveProps', () => {
     describe('when stickyFooter is enabled', () => {
       it('adds the listeners', () => {

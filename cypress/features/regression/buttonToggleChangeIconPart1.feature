@@ -32,6 +32,7 @@ Feature: Button Toggle component - set all possible icon and verify
       | bulk_destroy        |
       | business            |
       | calendar            |
+      | calendar_today      |
       | call                |
       | camera              |
       | card_view           |
