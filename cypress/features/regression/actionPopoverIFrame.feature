@@ -10,7 +10,7 @@ Feature: Action Popover component
     Then Action Popover element is visible
 
   @positive
-  Scenario Outline: Open Action Popover element and check <innerText> as inner context
+  Scenario Outline: check <innerText> as inner context
     When I click the menu button element
       And I press keyboard downarrow key times <times>
     Then focused element inner content is set to "<innerText>"
@@ -41,21 +41,21 @@ Feature: Action Popover component
       And Action Popover element has golden border on focus
 
   @positive
-  Scenario: Open Action Popover and verify that the first element Business is focused using Home key
+  Scenario: verify that the first element Business is focused using Home key
     When I click the menu button element
       And I press Home on focused element
     Then focused element inner content is set to "Business"
       And Action Popover element has golden border on focus
 
   @positive
-  Scenario: Open Action Popover and verify that the last element Delete is focused using Uparrow key
+  Scenario: verify that the last element Delete is focused using Uparrow key
     When I click the menu button element
       And I press uparrow on focused element
     Then focused element inner content is set to "Delete"
       And Action Popover element has golden border on focus
 
   @positive
-  Scenario: Open Action Popover and verify that the last element Delete is focused using End key
+  Scenario: verify that the last element Delete is focused using End key
     When I click the menu button element
       And I press End on focused element
     Then focused element inner content is set to "Delete"
@@ -92,7 +92,7 @@ Feature: Action Popover component
     Then Action Popover element is not visible
 
   @positive
-  Scenario Outline: Open Action Popover and focus <innerText> element using different keyboard key <key>
+  Scenario Outline: focus <innerText> element using different keyboard key <key>
     Given I click the menu button element
     When I press keyboard "<key>" key times <times>
     Then Action Popover element is visible
@@ -107,7 +107,7 @@ Feature: Action Popover component
       | p   | Print Invoice | 1     |
 
   @positive
-  Scenario Outline: Open Action Popover element and check submenu <innerText> as inner context
+  Scenario Outline: check submenu <innerText> as inner context
     When I click the menu button element
       And I press keyboard downarrow key times 2
       And I press leftarrow on focused element
