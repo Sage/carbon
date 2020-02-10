@@ -102,7 +102,7 @@ const MenuItem = React.forwardRef(({
       eventHandlers = {
         onMouseEnter: (e) => {
           clearTimeout(timer);
-          timer = setTimeout(() => { setOpen(true); }, 100);
+          timer = setTimeout(() => { setOpen(true); }, 150);
           e.stopPropagation();
         },
         onMouseLeave: (e) => {
@@ -189,10 +189,13 @@ const ActionPopoverItem = MenuItemFactory(MenuItem);
 ActionPopoverItem.propTypes = {
   /** The text label to display for this Item */
   children: PropTypes.string.isRequired,
+  /** Flag to indicate if item is disabled */
   disabled: PropTypes.bool,
   /** The name of the icon to display next to the label */
   icon: PropTypes.oneOf(OptionsHelper.icons),
+  /** Callback to run when item is clicked */
   onClick: PropTypes.func.isRequired,
+  /** Submenu component for item */
   submenu (props, propName, componentName) {
     let error;
     if (props[propName] && props[propName].type.displayName !== 'ActionPopoverMenu') {
@@ -208,5 +211,5 @@ ActionPopoverItem.defaultProps = {
 
 ActionPopoverItem.displayName = 'ActionPopoverItem';
 
-export { ActionPopoverItem };
+export { ActionPopoverItem as ActionPopoverItemWithoutTheme };
 export default withTheme(ActionPopoverItem);

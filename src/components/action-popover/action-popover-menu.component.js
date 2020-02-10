@@ -121,11 +121,14 @@ const ActionPopoverMenu = React.forwardRef(({
 });
 
 ActionPopoverMenu.propTypes = {
+  /** A ref to the parent popover button */
   button: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) })
   ]),
+  /** Unique ID for the menu's parent */
   parentID: PropTypes.string,
+  /** Children for the menu */
   children (props, propName, componentName) {
     let error;
     const prop = props[propName];
@@ -140,12 +143,19 @@ ActionPopoverMenu.propTypes = {
 
     return error;
   },
+  /** Index to control which item is focused */
   focusIndex: PropTypes.number,
+  /** A unique ID for the menu */
   menuID: PropTypes.string,
+  /** Flag to indicate whether a menu should open */
   isOpen: PropTypes.bool,
+  /** List of the items in a menu */
   items: PropTypes.array,
+  /** Callback to set the index of the focused item */
   setFocusIndex: PropTypes.func,
+  /** Callback to register the items in a menu */
   setItems: PropTypes.func,
+  /** Callback to set the isOpen flag */
   setOpen: PropTypes.func
 };
 
