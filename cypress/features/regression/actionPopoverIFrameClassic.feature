@@ -5,7 +5,7 @@ Feature: Action Popover component classic
     Given I open "Action Popover" component for classic story in iframe
 
   @positive
-  Scenario Outline: Open Action Popover element and check <innerText> as inner context
+  Scenario Outline: check <innerText> as inner context
     When I click the menu button element
       And I press keyboard downarrow key times <times>
     Then focused element inner content is set to "<innerText>"
@@ -20,7 +20,7 @@ Feature: Action Popover component classic
       | 5     | Delete        |
 
   @positive
-  Scenario Outline: Open Action Popover element and check submenu <innerText> as inner context
+  Scenario Outline: check submenu <innerText> as inner context
     Given I click the menu button element
       And I press keyboard downarrow key times <times>
       And I press leftarrow on focused element

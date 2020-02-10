@@ -1,7 +1,9 @@
 import {
   actionPopoverButton, actionPopover, actionPopoverInnerItem,
   actionPopoverButtonNoIframe,
+  actionPopoverSubmenu,
 } from '../../locators/action-popover';
+import { eventInAction } from '../../locators';
 
 Then('Action Popover element is visible', () => {
   actionPopover().should('be.visible');
@@ -45,9 +47,8 @@ When('I click {int} actionPopoverInnerItem', (element) => {
   actionPopoverInnerItem(element).click({ force: true });
 });
 
-// TODO !!!!
-When('I click {int} actionPopoverInnerItem submenu', (element) => {
-  actionPopoverInnerItem(element).click();
+When('I click {int} submenu actionPopoverInnerItem', (element) => {
+  actionPopoverSubmenu(element).click({ force: true });
 });
 
 When('I press {string} actionPopoverInnerItem onto {int} element', (key, element) => {
@@ -56,4 +57,8 @@ When('I press {string} actionPopoverInnerItem onto {int} element', (key, element
 
 When('I press downarrow on actionPopoverButton element', () => {
   actionPopoverButton().first().trigger('keydown', { keyCode: 40, which: 40 });
+});
+
+Then('{string} action was called in Actions Tab for actionPopover', (event) => {
+  eventInAction(event);
 });
