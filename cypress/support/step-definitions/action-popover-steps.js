@@ -21,7 +21,15 @@ When('I click the menu button element with iFrame', () => {
 
 When('I press keyboard {string} key times {int} on actionPopover open icon', (key, times) => {
   for (let i = 0; i < times; i++) {
-    actionPopoverButton().first().type(`${key}`);
+    switch (key) {
+      case 'enter':
+        actionPopoverButton().first().trigger('keydown', { keyCode: 13, which: 13 });
+        break;
+      case 'space':
+        actionPopoverButton().first().trigger('keydown', { keyCode: 32, which: 32 });
+        break;
+      default: throw new Error('There are only two other keyboard keys could be used');
+    }
   }
 });
 
@@ -34,6 +42,11 @@ Then('Action Popover element has blue border on focus', () => {
 });
 
 When('I click {int} actionPopoverInnerItem', (element) => {
+  actionPopoverInnerItem(element).click({ force: true });
+});
+
+// TODO !!!!
+When('I click {int} actionPopoverInnerItem submenu', (element) => {
   actionPopoverInnerItem(element).click();
 });
 

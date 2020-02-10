@@ -12,25 +12,27 @@ Feature: Action Popover component
   @positive
   Scenario Outline: Open Action Popover element and check <innerText> as inner context
     When I click the menu button element
-      And I press keyboard "downarrow" key times <times>
+      And I press keyboard downarrow key times <times>
     Then focused element inner content is set to "<innerText>"
       And Action Popover element has golden border on focus
     Examples:
       | times | innerText     |
-      | 0     | Email Invoice |
-      | 1     | Download PDF  |
-      | 2     | Download CSV  |
-      | 3     | Delete        |
+      | 0     | Business      |
+      | 1     | Email Invoice |
+      | 2     | Print Invoice |
+      | 3     | Download PDF  |
+      | 4     | Download CSV  |
+      | 5     | Delete        |
 
   @positive
   Scenario Outline: Open Action Popover using different keyboard key <key>
     When I press keyboard "<key>" key times 1 on actionPopover open icon
-    Then focused element inner content is set to "Email Invoice"
+    Then focused element inner content is set to "Business"
       And Action Popover element has golden border on focus
     Examples:
-      | key       |
-      | enter     |
-      | space     |
+      | key   |
+      | enter |
+      | space |
 
   @positive
   Scenario: Open Action Popover using downarrow keyboard key
@@ -39,10 +41,10 @@ Feature: Action Popover component
       And Action Popover element has golden border on focus
 
   @positive
-  Scenario: Open Action Popover and verify that the first element Email Invoice is focused using Home key
+  Scenario: Open Action Popover and verify that the first element Business is focused using Home key
     When I click the menu button element
       And I press Home on focused element
-    Then focused element inner content is set to "Email Invoice"
+    Then focused element inner content is set to "Business"
       And Action Popover element has golden border on focus
 
   @positive
