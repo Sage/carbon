@@ -7,12 +7,28 @@ Feature: Action Popover component classic
   @positive
   Scenario Outline: Open Action Popover element and check <innerText> as inner context
     When I click the menu button element
-      And I press keyboard "downarrow" key times <times>
+      And I press keyboard downarrow key times <times>
     Then focused element inner content is set to "<innerText>"
       And Action Popover element has blue border on focus
     Examples:
       | times | innerText     |
-      | 0     | Email Invoice |
-      | 1     | Download PDF  |
-      | 2     | Download CSV  |
-      | 3     | Delete        |
+      | 0     | Business      |
+      | 1     | Email Invoice |
+      | 2     | Print Invoice |
+      | 3     | Download PDF  |
+      | 4     | Download CSV  |
+      | 5     | Delete        |
+
+  @positive
+  Scenario Outline: Open Action Popover element and check submenu <innerText> as inner context
+    Given I click the menu button element
+      And I press keyboard downarrow key times <times>
+      And I press leftarrow on focused element
+    When I press keyboard downarrow key times <innerTimes>
+    Then focused element inner content is set to "<innerText>"
+      And Action Popover element has blue border on focus
+    Examples:
+      | times | innerText  | innerTimes |
+      | 2     | Sub Menu 1 | 0          |
+      | 2     | Sub Menu 2 | 1          |
+      | 2     | Sub Menu 3 | 2          |
