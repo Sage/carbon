@@ -115,9 +115,13 @@ const ActionPopover = ({
 };
 
 ActionPopover.propTypes = {
+  /** Unique ID */
   id: PropTypes.string,
+  /** Callback to be called on menu open */
   onOpen: PropTypes.func,
+  /** Callback to be called on menu close */
   onClose: PropTypes.func,
+  /** Children for popover component */
   children (props, propName, componentName) {
     let error;
     const prop = props[propName];
