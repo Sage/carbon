@@ -9,7 +9,7 @@ const paddingSizes = {
   large: '0 48px'
 };
 
-const StyledCard = styled.button`
+const StyledCard = styled.div`
   ${({
     cardWidth, interactive, draggable, spacing, theme
   }) => css`
