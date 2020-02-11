@@ -1,5 +1,5 @@
 Feature: Action Popover component
-  I want to change Alert component properties
+  I want to change Action Popover component properties
 
   Background: Open Action Popover component page
     Given I open "Action Popover" component page
@@ -22,22 +22,22 @@ Feature: Action Popover component
     Then delete action was called in Actions Tab
 
   @positive
-  Scenario: check email event for actions after pressing enter key
-    When I press "enter" actionPopoverInnerItem onto 1 element
+  Scenario: check email event after pressing enter key
+    When I press "enter" onto 1 actionPopoverInnerItem
     Then email action was called in Actions Tab
 
   @positive
-  Scenario: check csv event for actions after pressing enter key
-    When I press "enter" actionPopoverInnerItem onto 4 element
+  Scenario: check csv event after pressing enter key
+    When I press "enter" onto 4 actionPopoverInnerItem
     Then csv action was called in Actions Tab
 
   @positive
-  Scenario: check delete event for actions after pressing enter key
-    When I press "enter" actionPopoverInnerItem onto 6 element
+  Scenario: check delete event after pressing enter key
+    When I press "enter" onto 6 actionPopoverInnerItem
     Then delete action was called in Actions Tab
 
   @positive
-  Scenario Outline: <innerText> event for actions after click
+  Scenario Outline: check <innerText> event after click
     Given I press keyboard downarrow key times 2
       And I press leftarrow on focused element
       And I press keyboard downarrow key times <innerTimes>
@@ -49,11 +49,11 @@ Feature: Action Popover component
       | sub menu 2 | 1          | 1            |
 
 @positive
-  Scenario Outline: <innerText> delete event for submenu actions after pressing enter key
+  Scenario Outline: check <innerText> delete event for submenu after pressing enter key
     Given I press keyboard downarrow key times 2
       And I press leftarrow on focused element
       And I press keyboard downarrow key times <innerTimes>
-    When I press enter submenu actionPopoverInnerItem onto <innerElement> element
+    When I press enter onto <innerElement> submenu actionPopoverInnerItem
     Then "<innerText>" action was called in Actions Tab for actionPopover
     Examples:
       | innerText  | innerTimes | innerElement |

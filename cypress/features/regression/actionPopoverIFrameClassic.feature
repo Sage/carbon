@@ -1,5 +1,5 @@
 Feature: Action Popover component classic
-  I want to change Alert component properties for classic page
+  I want to change Action Popover component properties for classic page
 
   Background: Open Action Popover component classic page
     Given I open "Action Popover" component for classic story in iframe
