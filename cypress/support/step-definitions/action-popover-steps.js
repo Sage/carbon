@@ -51,11 +51,11 @@ When('I click {int} submenu actionPopoverInnerItem', (element) => {
   actionPopoverSubmenu(element).click({ force: true });
 });
 
-When('I press {string} actionPopoverInnerItem onto {int} element', (key, element) => {
+When('I press {string} onto {int} actionPopoverInnerItem', (key, element) => {
   actionPopoverInnerItem(element).type(`{${key}}`);
 });
 
-When('I press enter submenu actionPopoverInnerItem onto {int} element', (element) => {
+When('I press enter onto {int} submenu actionPopoverInnerItem', (element) => {
   actionPopoverSubmenu(element).trigger('keydown', { keyCode: 13, which: 13, force: true });
 });
 
