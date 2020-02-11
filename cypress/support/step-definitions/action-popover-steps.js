@@ -51,7 +51,7 @@ When('I click {int} submenu actionPopoverInnerItem', (element) => {
   actionPopoverSubmenu(element).click({ force: true });
 });
 
-When('I press {string} actionPopoverInnerItem onto {int} element', (key, element) => {
+When('I press {string} onto {int} actionPopoverInnerItem', (key, element) => {
   actionPopoverInnerItem(element).type(`{${key}}`);
 });
 
