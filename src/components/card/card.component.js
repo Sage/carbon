@@ -35,6 +35,7 @@ const Card = ({
       spacing={ spacing }
       type='button'
       onClick={ onClickHandler }
+      tabIndex={ 0 }
     >
       { draggable && <Icon type='drag' />}
       { renderChildren() }
