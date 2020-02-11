@@ -1,10 +1,10 @@
 Feature: Accessibility tests
-  I want to check all components have no violations
+  I want to check that all components have no violations
 
   @accessibility
   Scenario Outline: Component <component> page with button
-    When I open "<component>" component page with button
-      And I open Accessibility Tab
+    Given I open "<component>" component page with button
+    When I open Accessibility Tab
     Then "<component>" component has no violations in Accessibility section
     Examples:
       | component |
@@ -13,15 +13,15 @@ Feature: Accessibility tests
 
   @accessibility
   Scenario: Component button as sibling
-    When I open "button" component page as sibling in no iframe
-      And I open Accessibility Tab
+    Given I open "button" component page as sibling in no iframe
+    When I open Accessibility Tab
     Then "button" component has no violations in Accessibility section
 
   @accessibility
-  Scenario Outline: Component <component> page and open preview
-    When I open "<component>" component page
+  Scenario Outline: Component <component> page with preview button
+    Given I open "<component>" component page
       And I open component preview
-      And I open Accessibility Tab
+    When I open Accessibility Tab
     Then "<data-component>" component has no violations in Accessibility section
     Examples:
       | component          |
@@ -33,8 +33,8 @@ Feature: Accessibility tests
 
   @accessibility
   Scenario Outline: Component <component> without activation button
-    When I open "<component>" component page
-      And I open Accessibility Tab
+    Given I open "<component>" component page
+    When I open Accessibility Tab
     Then "<component>" component has no violations in Accessibility section
     Examples:
       | component                        |
