@@ -2,7 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import Browser from '../../utils/helpers/browser';
-import Icon from '../icon';
 import Modal from '../modal';
 import Heading from '../heading';
 import Form from '../../__deprecated__/components/form';
@@ -14,8 +13,9 @@ import {
   DialogInnerContentStyle
 } from './dialog.style';
 import tagComponent from '../../utils/helpers/tags';
-import Events from '../../utils/helpers/events/events';
 import focusTrap from '../../utils/helpers/focus-trap';
+import IconButton from '../icon-button';
+import Icon from '../icon';
 
 class Dialog extends Modal {
   constructor(args) {
@@ -51,15 +51,6 @@ class Dialog extends Modal {
     this.document.documentElement.style.overflow = '';
     this.window.removeEventListener('resize', this.centerDialog);
     return ElementResize.removeListener(this._innerContent, this.applyFixedBottom);
-  }
-
-  onButtonKeyDown = (ev) => {
-    if (Events.isEnterKey(ev) || Events.isSpaceKey(ev)) {
-      ev.preventDefault();
-      this.props.onCancel();
-    }
-
-    return null;
   }
 
   centerDialog = (animating) => {
@@ -154,20 +145,17 @@ class Dialog extends Modal {
   }
 
   get closeIcon() {
-    if (this.props.showCloseIcon) {
-      return (
-        <Icon
-          className='carbon-dialog__close'
-          data-element='close'
-          onClick={ this.props.onCancel }
-          type='close'
-          tabIndex='0'
-          role='button'
-          onKeyDown={ this.onButtonKeyDown }
-        />
-      );
-    }
-    return null;
+    const { showCloseIcon, onCancel } = this.props;
+    if (!showCloseIcon || !onCancel) return null;
+
+    return (
+      <IconButton
+        data-element='close'
+        onAction={ onCancel }
+      >
+        <Icon type='close' />
+      </IconButton>
+    );
   }
 
   componentTags(props) {
@@ -266,7 +254,11 @@ Dialog.propTypes = {
   size: PropTypes.string,
   /** Determines if the close icon is shown */
   showCloseIcon: PropTypes.bool,
-  stickyFormFooter: PropTypes.bool
+  /** If true then the dialog receives focus when it opens */
+  autoFocus: PropTypes.bool,
+  stickyFormFooter: PropTypes.bool,
+  /** function runs when user click close button */
+  onCancel: PropTypes.func
 };
 
 Dialog.defaultProps = {

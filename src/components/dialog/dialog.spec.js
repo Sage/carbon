@@ -13,8 +13,8 @@ import Heading from '../heading/heading';
 import { Row, Column } from '../row/row';
 import ElementResize from '../../utils/helpers/element-resize/element-resize';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-import classicTheme from '../../style/themes/classic';
 import Form from '../../__deprecated__/components/form';
+import IconButton from '../icon-button';
 
 /* global jest */
 
@@ -136,7 +136,6 @@ describe('Dialog', () => {
         <Dialog
           onCancel={ () => { } }
           onConfirm={ () => { } }
-          showCloseIcon
           open
           subtitle='Test'
           title='Test'
@@ -155,7 +154,6 @@ describe('Dialog', () => {
         <Dialog
           onCancel={ () => { } }
           onConfirm={ () => { } }
-          showCloseIcon
           open
           subtitle='Test'
           title='Test'
@@ -174,7 +172,6 @@ describe('Dialog', () => {
         <Dialog
           onCancel={ () => { } }
           onConfirm={ () => { } }
-          showCloseIcon
           open
           subtitle='Test'
           title='Test'
@@ -379,7 +376,6 @@ describe('Dialog', () => {
         const wrapper = mount(
           <Dialog
             onCancel={ onCancel }
-            showCloseIcon
             open
           />
         );
@@ -391,10 +387,8 @@ describe('Dialog', () => {
   describe('render', () => {
     describe('when dialog is open', () => {
       let wrapper;
-      let preventDefault;
 
       beforeEach(() => {
-        preventDefault = jest.fn();
         wrapper = mount(
           <Dialog
             open
@@ -404,7 +398,6 @@ describe('Dialog', () => {
             className='foo'
             onCancel={ onCancel }
             onConfirm={ () => { } }
-            showCloseIcon
             height='500'
             ariaRole='dialog'
             data-element='bar'
@@ -424,17 +417,13 @@ describe('Dialog', () => {
       });
 
       it('closes when the exit icon is click', () => {
-        wrapper.find('.carbon-dialog__close').at(0).simulate('click');
+        wrapper.find(IconButton).first().simulate('click');
         expect(onCancel).toHaveBeenCalled();
       });
 
       it('closes when exit icon is focused and Enter key is clicked', () => {
-        wrapper.find('.carbon-dialog__close').at(0).props().onKeyDown({ which: 13, preventDefault });
-        expect(onCancel).toHaveBeenCalled();
-      });
-
-      it('closes when exit icon is focused and Enter key is clicked', () => {
-        wrapper.find('.carbon-dialog__close').at(0).props().onKeyDown({ which: 16 });
+        const icon = wrapper.find(IconButton).first();
+        icon.simulate('keyDown', { which: 16 });
         expect(onCancel).not.toHaveBeenCalled();
       });
     });
@@ -460,7 +449,6 @@ describe('Dialog', () => {
           onCancel={ () => { } }
           onConfirm={ () => { } }
           open
-          showCloseIcon
           subtitle='Test'
           title='Test'
           ariaRole='dialog'
@@ -477,34 +465,12 @@ describe('Dialog', () => {
             onCancel={ () => { } }
             onConfirm={ () => { } }
             open
-            showCloseIcon
             ariaRole=''
           />
         );
 
         expect(wrapper.find('[aria-describedby="carbon-dialog-subtitle"]').length).toEqual(0);
         expect(wrapper.find('[aria-labelledby="carbon-dialog-title"]').length).toEqual(0);
-      });
-    });
-    describe('focus', () => {
-      beforeEach(() => {
-        wrapper = mount(
-          <Dialog
-            onCancel={ () => { } }
-            onConfirm={ () => { } }
-            showCloseIcon
-            open
-            subtitle='Test'
-            title='Test'
-            ariaRole='dialog'
-            theme={ classicTheme }
-          />
-        );
-      });
-
-      it('returns focus to the dialog element when focus leaves the close icon', () => {
-        const dialogElement = wrapper.find('[role="dialog"]').first().getDOMNode();
-        spyOn(dialogElement, 'focus');
       });
     });
   });
@@ -555,7 +521,6 @@ describe('Dialog', () => {
   describe('when showCloseIcon prop is true', () => {
     it('DialogTitleStyle should have padding-right: 85px', () => {
       const wrapper = mount(<Dialog
-        showCloseIcon
         title='Heading'
         open
       />);
