@@ -1,14 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Modal from '../modal';
 import Heading from '../heading';
 import AppWrapper from '../app-wrapper';
 import FullScreenHeading from './full-screen-heading';
 import StyledDialogFullScreen from './dialog-full-screen.style';
 import StyledContent from './content.style';
-import StyledIcon from './icon.style';
 import Browser from '../../utils/helpers/browser';
-import Events from '../../utils/helpers/events/events';
 import focusTrap from '../../utils/helpers/focus-trap';
+import IconButton from '../icon-button';
+import Icon from '../icon';
 
 class DialogFullScreen extends Modal {
   constructor(props) {
@@ -27,7 +28,9 @@ class DialogFullScreen extends Modal {
 
   static defaultProps = {
     open: false,
-    enableBackgroundUI: true
+    enableBackgroundUI: true,
+    onCancel: null,
+    showCloseIcon: true
   }
 
   headingRef = React.createRef();
@@ -94,11 +97,17 @@ class DialogFullScreen extends Modal {
     return this.document.documentElement;
   }
 
-  onButtonKeyDown = (ev) => {
-    if (Events.isEnterKey(ev) || Events.isSpaceKey(ev)) {
-      ev.preventDefault();
-      this.props.onCancel();
-    }
+  get closeIcon() {
+    const { showCloseIcon, onCancel } = this.props;
+    if (!showCloseIcon || !onCancel) return null;
+    return (
+      <IconButton
+        data-element='close'
+        onAction={ onCancel }
+      >
+        <Icon type='close' />
+      </IconButton>
+    );
   }
 
   /**
@@ -120,19 +129,22 @@ class DialogFullScreen extends Modal {
 
     return (
       <FullScreenHeading hasContent={ title } ref={ this.headingRef }>
-        <StyledIcon
-          data-element='close'
-          onClick={ this.props.onCancel }
-          type='close'
-          tabIndex='0'
-          role='button'
-          onKeyDown={ this.onButtonKeyDown }
-        />
-
+        { this.closeIcon }
         { title }
       </FullScreenHeading>
     );
   }
 }
+
+DialogFullScreen.propTypes = {
+  /** A custom close event handler */
+  onCancel: PropTypes.func,
+  /** Sets the open state of the modal */
+  open: PropTypes.bool.isRequired,
+  /** Determines if the background is disabled when the modal is open */
+  enableBackgroundUI: PropTypes.bool,
+  /** Determines if the close icon is shown */
+  showCloseIcon: PropTypes.bool
+};
 
 export default DialogFullScreen;

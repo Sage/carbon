@@ -5,6 +5,13 @@ Feature: Dialog Full Screen component
     Given I open "Dialog Full Screen" component page
 
   @positive
+  Scenario: Clicking close icon closes Dialog Full Screen
+    When I check showCloseIcon checkbox
+      And I open component preview
+      And I click close icon
+    Then Confirm dialog is not visible
+
+  @positive
   Scenario Outline: Change Dialog Full Screen component title to <title>
     When I set title to "<title>"
       And I open component preview

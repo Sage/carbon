@@ -4,14 +4,13 @@ import 'jest-styled-components';
 import DialogFullScreen from './dialog-full-screen.component';
 import FullScreenHeading from './full-screen-heading';
 import StyledDialogFullScreen from './dialog-full-screen.style';
-import StyledIcon from './icon.style';
 import StyledContent from './content.style';
 import classicTheme from '../../style/themes/classic';
 import Button from '../button';
 import guid from '../../utils/helpers/guid';
-import Icon from '../icon';
 import Heading from '../heading';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import IconButton from '../icon-button';
 
 jest.mock('../../utils/helpers/guid');
 
@@ -41,6 +40,37 @@ describe('DialogFullScreen', () => {
   describe('default props', () => {
     it('sets enableBackgroundUI to true', () => {
       expect(instance.props.enableBackgroundUI).toBeTruthy();
+    });
+  });
+
+  describe('modalHTML', () => {
+    beforeEach(() => {
+      wrapper = mount(
+        <DialogFullScreen
+          open
+          className='foo'
+          title='my title'
+          onCancel={ onCancel }
+        >
+          <Button>Button</Button>
+          <Button>Button</Button>
+        </DialogFullScreen>
+      );
+      instance = wrapper.instance();
+    });
+
+    it('renders the dialog', () => {
+      expect(instance._dialog).toBeTruthy();
+    });
+
+    it('closes when the exit icon is click', () => {
+      const closeIcon = wrapper.find(IconButton).first();
+      closeIcon.simulate('click');
+      expect(onCancel).toHaveBeenCalled();
+    });
+
+    it('renders the children passed to it', () => {
+      expect(wrapper.find(Button).length).toEqual(2);
     });
   });
 
@@ -131,17 +161,63 @@ describe('DialogFullScreen', () => {
       });
     });
   });
+
+  describe('when showCloseIcon is false', () => {
+    it('does not render close icon', () => {
+      wrapper = mount(
+        <DialogFullScreen
+          open
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          title='Test'
+          data-role='baz'
+          data-element='bar'
+          showCloseIcon={ false }
+        />
+      );
+      expect(wrapper.find(IconButton).first().length).toEqual(0);
+    });
+  });
+
+  describe('when onCancel is not provided', () => {
+    it('does not render close icon', () => {
+      wrapper = mount(
+        <DialogFullScreen
+          open
+          onConfirm={ () => {} }
+          title='Test'
+          data-role='baz'
+          data-element='bar'
+        />
+      );
+      expect(wrapper.find(IconButton).first().length).toEqual(0);
+    });
+  });
+
+  describe('when onCancel and showCloseIcon are provided', () => {
+    it('renders close icon', () => {
+      wrapper = mount(
+        <DialogFullScreen
+          open
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          title='Test'
+          data-role='baz'
+          data-element='bar'
+        />
+      );
+      expect(wrapper.find(IconButton).first().length).toEqual(1);
+    });
+  });
 });
 
 describe('closeIcon', () => {
   let wrapper;
   let onCancel;
-  let preventDefault;
 
   beforeEach(() => {
     jest.restoreAllMocks();
     onCancel = jest.fn();
-    preventDefault = jest.fn();
 
     wrapper = mount(
       <DialogFullScreen
@@ -156,63 +232,21 @@ describe('closeIcon', () => {
   });
 
   it('should close Dialog if enter has been pressed on Close Icon', () => {
-    const closeIcon = wrapper.find(Icon);
-    closeIcon.props().onKeyDown({ which: 13, preventDefault });
+    const closeIcon = wrapper.find(IconButton).first();
+    closeIcon.simulate('keyDown', { which: 13 });
     expect(onCancel).toHaveBeenCalled();
   });
 
   it('should close Dialog if ESC key has been pressed', () => {
-    const closeIcon = wrapper.find(Icon);
-    closeIcon.props().onKeyDown({ key: 'Escape' });
+    const closeIcon = wrapper.find(IconButton).first();
+    closeIcon.simulate('keyDown', { which: 27 });
+    expect(onCancel).toHaveBeenCalled();
   });
 
   it('should not close Dialog with any key other than Enter or ESC', () => {
-    const closeIcon = wrapper.find(Icon);
-    closeIcon.props().onKeyDown({ which: 16 });
+    const closeIcon = wrapper.find(IconButton).first();
+    closeIcon.simulate('keyDown', { which: 16 });
     expect(onCancel).not.toHaveBeenCalled();
-  });
-});
-
-describe('modalHTML', () => {
-  let instance,
-      wrapper,
-      preventDefault;
-  const onCancel = jest.fn();
-
-  beforeEach(() => {
-    preventDefault = jest.fn();
-    wrapper = mount(
-      <DialogFullScreen
-        open
-        className='foo'
-        title='my title'
-        onCancel={ onCancel }
-      >
-        <Button>Button</Button>
-        <Button>Button</Button>
-      </DialogFullScreen>
-    );
-    instance = wrapper.instance();
-  });
-
-  it('renders the dialog', () => {
-    expect(instance._dialog).toBeTruthy();
-  });
-
-  it('closes when the exit icon is click', () => {
-    const closeIcon = wrapper.find(Icon);
-    closeIcon.simulate('click');
-    expect(onCancel).toHaveBeenCalled();
-  });
-
-  it('closes when the exit icon is pressed with enter', () => {
-    const closeIcon = wrapper.find(Icon);
-    closeIcon.props().onKeyDown({ which: 13, preventDefault });
-    expect(onCancel).toHaveBeenCalled();
-  });
-
-  afterEach(() => {
-    wrapper.unmount();
   });
 });
 
@@ -242,25 +276,6 @@ describe('Styled StyledDialogFullScreen', () => {
       assertStyleMatch({
         backgroundColor: '#e6ebed'
       }, wrapper);
-    });
-  });
-});
-
-describe('Styled StyledIcon', () => {
-  describe('classic theme', () => {
-    it('applies custom styling', () => {
-      const wrapper = mount(
-        <StyledIcon
-          theme={ classicTheme }
-        />
-      );
-      assertStyleMatch({
-        color: '#4d7080'
-      }, wrapper);
-
-      assertStyleMatch({
-        color: '#255BC7'
-      }, wrapper, { modifier: ':hover' });
     });
   });
 });
