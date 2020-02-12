@@ -5,6 +5,12 @@ Feature: Alert component
     Given I open "Alert" component page with button
 
   @positive
+  Scenario: CloseIcon has the border outline
+    Given I open component preview
+    When closeIcon is focused
+    Then closeIcon has the border outline
+
+  @positive
   Scenario Outline: Change Alert component title to <title>
     When I set title to "<title>"
       And I open component preview
@@ -101,17 +107,11 @@ Feature: Alert component
       | 1!@#$%^*()_+-=~[];:.,?{} |
 
   @positive
-  Scenario: ShowCloseIcon can close Alert
+  Scenario: Clicking close icon, closes Alert dialog
     When I open component preview
     Then closeIcon is visible
       And I click closeIcon
       And Alert is not visible
-
-  @negative
-  Scenario: ShowCloseIcon is disabled
-    When I uncheck showCloseIcon checkbox
-      And I open component preview
-    Then closeIcon is not visible
 
   @positive
   Scenario Outline: Set Alert size to <sizeName>
@@ -127,13 +127,6 @@ Feature: Alert component
       | medium-large |       850        |
       | large        |       960        |
       | extra-large  |       1080       |
-
-  @ignore
-  # ignored regression
-  Scenario: CloseIcon has the border outline
-    Given I open component preview
-    When closeIcon is focused
-    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
 
   @positive
   Scenario: Check open click event
