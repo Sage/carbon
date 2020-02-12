@@ -71,7 +71,7 @@ describe('Icon component', () => {
     }
   );
 
-  describe('when the icon type is "sevices', () => {
+  describe('when the icon type is services', () => {
     beforeEach(() => {
       browserTypeCheck.mockImplementation(() => true);
       isSafari.mockImplementation(() => true);

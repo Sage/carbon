@@ -6,6 +6,11 @@ Feature: Dialog component
       And I open component preview
 
   @positive
+    Scenario: CloseIcon has the border outline
+    When closeIcon is focused
+    Then closeIcon has the border outline
+
+  @positive
   Scenario Outline: Set height for Dialog to <height>
     When I set height to "<height>"
     Then Dialog height is set to "<height>"
