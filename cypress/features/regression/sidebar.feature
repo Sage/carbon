@@ -6,6 +6,17 @@ Feature: Sidebar component
       And I check open checkbox
 
   @positive
+  Scenario: CloseIcon has the border outline
+    When closeIcon is focused
+    Then closeIcon has the border outline
+
+  @positive
+  Scenario: Check the cancel click event
+    Given clear all actions in Actions Tab
+    When I close Sidebar
+    Then cancel action was called in Actions Tab
+
+  @positive
   Scenario: Enable open checkbox for a Sidebar component
     # When I check open checkbox
     Then Sidebar component is visible
@@ -48,9 +59,3 @@ Feature: Sidebar component
       | medium-large | 550              |
       | large        | 650              |
       | extra-large  | 750              |
-
-  @positive
-  Scenario: Check the cancel click event
-    When clear all actions in Actions Tab
-      And I close Sidebar
-    Then cancel action was called in Actions Tab
