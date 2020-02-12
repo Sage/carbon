@@ -8,6 +8,7 @@ import MessageStyle from '../message/message.style';
 import MessageContentStyle from '../message/message-content/message-content.style';
 import TypeIcon from '../message/type-icon/type-icon.style';
 import { isClassic } from '../../utils/helpers/style-helper';
+import StyledIconButton from '../icon-button/icon-button.style';
 
 const animationName = '.toast';
 const ToastStyle = styled(MessageStyle)`
@@ -39,7 +40,13 @@ const ToastStyle = styled(MessageStyle)`
       transition: all 150ms ease-out;
     }
   `}
-  
+
+  ${StyledIconButton} {
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
   ${classicToastStyle}
 `;
 
@@ -49,7 +56,7 @@ const ToastTypeStyle = styled(TypeIcon)`
 
 const ToastContentStyle = styled(MessageContentStyle)`
   padding: 8px 16px 8px 16px;
-  
+
   ${({ isDismiss }) => isDismiss
     && css`
       padding-right: 48px;
@@ -61,7 +68,7 @@ const ToastContentStyle = styled(MessageContentStyle)`
 const ToastWrapper = styled.div`
   ${({ isCenter }) => isCenter && css`
       position: fixed;
-      width: 100%; 
+      width: 100%;
       height: 0;
       justify-content: center;
       display: flex;

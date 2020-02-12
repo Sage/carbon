@@ -36,6 +36,7 @@ storiesOf('Toast', module)
     const id = text('id', 'classic-toast');
     const open = boolean('open', true);
     const onDismiss = boolean('onDismiss', true);
+    const showCloseIcon = boolean('showCloseIcon', true);
 
     const handleChange = () => {
       action('clicked')();
@@ -48,6 +49,7 @@ storiesOf('Toast', module)
           id={ id }
           open={ open }
           onDismiss={ onDismiss ? handleChange : undefined }
+          showCloseIcon={ showCloseIcon }
         >
           {children}
         </StyledToastStory>
@@ -62,6 +64,7 @@ storiesOf('Toast', module)
     const id = text('id', 'default-toast');
     const onDismiss = boolean('onDismiss', true);
     const onDismissClick = onDismiss ? (evt) => { action('click')(evt); } : undefined;
+    const showCloseIcon = boolean('showCloseIcon', true);
 
     return (
       <StyledToastStory
@@ -69,6 +72,7 @@ storiesOf('Toast', module)
         id={ id }
         open={ open }
         onDismiss={ onDismissClick }
+        showCloseIcon={ showCloseIcon }
       >
         {children}
       </StyledToastStory>

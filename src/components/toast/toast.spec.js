@@ -10,7 +10,7 @@ import {
 } from './toast.style';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import classicTheme from '../../style/themes/classic';
-import DismissButton from '../dismiss-button';
+import IconButton from '../icon-button';
 
 jest.mock('../../utils/helpers/guid');
 
@@ -23,8 +23,10 @@ describe('Toast', () => {
     it('should exists anyway', () => {
       const wrapper = mount(
         <Toast
-          open={ false } as='info'
-          className='custom' onDismiss={ () => {} }
+          open={ false }
+          as='info'
+          className='custom'
+          onDismiss={ () => {} }
         >
         foobar
         </Toast>
@@ -39,8 +41,10 @@ describe('Toast', () => {
       onDismissSpy = jasmine.createSpy();
       instance = TestUtils.renderIntoDocument(
         <Toast
-          open as='info'
-          className='custom' onDismiss={ onDismissSpy }
+          open
+          as='info'
+          className='custom'
+          onDismiss={ onDismissSpy }
         >
           foobar
         </Toast>
@@ -78,17 +82,19 @@ describe('Toast', () => {
 
     it('renders close icon', () => {
       const wrapper = shallow(<Toast open onDismiss={ () => {} } />);
-      expect(wrapper.find(DismissButton).exists).toBeTruthy();
+      expect(wrapper.find(IconButton).exists).toBeTruthy();
     });
 
-    it('calls onDismiss method when Dismiss Button is toggled', () => {
+    it('calls onDismiss method when Close Button is toggled', () => {
       const spy = jest.fn();
-      const wrapper = mount(<Toast
-        open
-        onDismiss={ spy }
-      />);
+      const wrapper = mount(
+        <Toast
+          open
+          onDismiss={ spy }
+        />
+      );
 
-      wrapper.find(DismissButton).prop('onDismiss')();
+      wrapper.find(IconButton).first().simulate('click');
       expect(spy).toHaveBeenCalled();
     });
   });
@@ -98,7 +104,8 @@ describe('Toast', () => {
       onDismissSpy = jasmine.createSpy();
       instance = TestUtils.renderIntoDocument(
         <Toast
-          open as='info'
+          open
+          as='info'
           className='custom'
         >
           foobar
@@ -122,8 +129,8 @@ describe('Toast', () => {
     });
 
     describe('on internal elements', () => {
-      const wrapper = shallow(<Toast open onDismiss={ () => {} } />);
-      elementsTagTest(wrapper, ['close']);
+      const wrapper = mount(<Toast open onDismiss={ () => {} } />);
+      elementsTagTest(wrapper.find(IconButton).first().find('span'), ['close']);
     });
   });
 });

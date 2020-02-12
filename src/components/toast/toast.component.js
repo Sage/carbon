@@ -9,7 +9,7 @@ import {
   ToastStyle, ToastTypeStyle, ToastContentStyle, ToastWrapper
 } from './toast.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import DismissButton from '../dismiss-button';
+import IconButton from '../icon-button';
 
 class Toast extends React.Component {
   /** Classes to be applied to the component. */
@@ -19,20 +19,26 @@ class Toast extends React.Component {
     );
   }
 
-  /** Content rendered for dismiss X */
-  get dismissIcon() {
-    if (this.props.onDismiss) {
-      return (
-        <DismissButton
-          data-element='close'
-          onDismiss={ this.props.onDismiss }
-          type='close'
-          variant={ this.props.variant || this.props.as }
-        />
-      );
-    }
-    return null;
-  }
+  closeIcon = () => {
+    const {
+      showCloseIcon,
+      onDismiss,
+      variant,
+      as
+    } = this.props;
+    if (!showCloseIcon || !onDismiss) return null;
+
+    return (
+      <IconButton
+        data-element='close'
+        onAction={ onDismiss }
+        variant={ variant || as }
+        type='close'
+      >
+        <Icon type='close' />
+      </IconButton>
+    );
+  };
 
   /** Content rendered for the toast. */
   toastContent() {
@@ -58,7 +64,7 @@ class Toast extends React.Component {
             >
               { this.props.children }
             </ToastContentStyle>
-            { this.dismissIcon }
+            { this.closeIcon() }
           </ToastStyle>
         </CSSTransition>
       );
@@ -97,14 +103,17 @@ Toast.propTypes = {
   /** Callback for when dismissed. */
   onDismiss: PropTypes.func,
   /** props used with flash component. Allow to center a component */
-  isCenter: PropTypes.bool
+  isCenter: PropTypes.bool,
+  /** Determines if the close icon is shown */
+  showCloseIcon: PropTypes.bool
 };
 
 Toast.defaultProps = {
   as: 'warning',
   onDismiss: null,
   open: true,
-  isCenter: false
+  isCenter: false,
+  showCloseIcon: true
 };
 
 export default Toast;
