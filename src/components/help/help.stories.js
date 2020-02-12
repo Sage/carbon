@@ -26,12 +26,14 @@ function makeStory(name, themeSelector) {
       Help.defaultProps.tooltipAlign
     ) : undefined;
     const href = text('href', '');
+    const type = select('type', OptionsHelper.icons, 'help');
 
     return (
       <Help
         tooltipPosition={ tooltipPosition }
         tooltipAlign={ tooltipAlign }
         href={ href }
+        type={ type }
       >
         {children}
       </Help>
