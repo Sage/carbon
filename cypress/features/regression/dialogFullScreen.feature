@@ -5,6 +5,19 @@ Feature: Dialog Full Screen component
     Given I open "Dialog Full Screen" component page
 
   @positive
+    Scenario: CloseIcon has the border outline
+    Given I open component preview
+    When closeIcon is focused
+    Then closeIcon has the border outline
+
+  @positive
+  Scenario: Clicking close icon closes Dialog Full Screen
+    Given I check showCloseIcon checkbox
+      And I open component preview
+    When I click close icon
+    Then Confirm dialog is not visible
+
+  @positive
   Scenario Outline: Change Dialog Full Screen component title to <title>
     When I set title to "<title>"
       And I open component preview
