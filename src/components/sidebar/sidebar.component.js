@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Icon from '../icon';
 import Modal from '../modal';
-import { SidebarStyle, SidebarCloseStyle } from './sidebar.style';
+import SidebarStyle from './sidebar.style';
 import './sidebar.scss';
-import Events from '../../utils/helpers/events/events';
 import focusTrap from '../../utils/helpers/focus-trap';
+import IconButton from '../icon-button';
+import Icon from '../icon';
 
 class Sidebar extends Modal {
   /** Returns classes for the component. */
@@ -17,33 +17,22 @@ class Sidebar extends Modal {
     );
   }
 
-  onButtonKeyDown = (ev) => {
-    if (Events.isEnterKey(ev) || Events.isSpaceKey(ev)) {
-      ev.preventDefault();
-      this.props.onCancel();
-    }
-
-    return null;
-  }
-
-  /** Returns the markup for the close icon. */
-  get closeButton() {
-    if (this.props.onCancel) {
-      return (
-        <SidebarCloseStyle>
-          <Icon
-            className='carbon-sidebar__close-icon'
-            data-element='close'
-            onClick={ this.props.onCancel }
-            type='close'
-            tabIndex='0'
-            role='button'
-            onKeyDown={ this.onButtonKeyDown }
-          />
-        </SidebarCloseStyle>
-      );
-    }
-    return null;
+  closeIcon = () => {
+    const { showCloseIcon, onCancel } = this.props;
+    if (!showCloseIcon || !onCancel) return null;
+    return (
+      <IconButton
+        onAction={ onCancel }
+      >
+        <Icon
+          type='close'
+          className='carbon-sidebar__close-icon'
+          data-element='close'
+          tabIndex='0'
+          role='button'
+        />
+      </IconButton>
+    );
   }
 
   handleOpen() {
@@ -75,8 +64,8 @@ class Sidebar extends Modal {
         size={ this.props.size }
         data-element='sidebar'
       >
-        {this.closeButton}
-        {this.props.children}
+        { this.closeIcon() }
+        { this.props.children }
       </SidebarStyle>
     );
   }
@@ -95,14 +84,17 @@ Sidebar.propTypes = {
   /** Sets the position of sidebar, either left or right. */
   position: PropTypes.string,
   /** Sets the size of the sidebar when open. */
-  size: PropTypes.string
+  size: PropTypes.string,
+  /** Determines if the close icon is shown */
+  showCloseIcon: PropTypes.bool
 };
 
 Sidebar.defaultProps = {
   position: 'right',
   size: 'medium',
   open: false,
-  enableBackgroundUI: false
+  enableBackgroundUI: false,
+  showCloseIcon: true
 };
 
 export default Sidebar;

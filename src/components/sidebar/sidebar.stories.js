@@ -46,6 +46,7 @@ function makeStory(name, themeSelector) {
         enableBackgroundUI={ enableBackgroundUI } open={ open }
         position={ position } size={ size }
         onCancel={ onCancel }
+        showCloseIcon
       >
         <SidebarHeader>Header Content</SidebarHeader>
         Main Content
@@ -75,6 +76,7 @@ function makeButtonStory(name, themeSelector) {
           position={ position }
           size={ size }
           onCancel={ onCancel }
+          showCloseIcon
         >
           <SidebarHeader>Header Content</SidebarHeader>
           <div>

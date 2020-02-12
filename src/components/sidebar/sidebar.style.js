@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import baseTheme from '../../style/themes/base';
-import { sidebarClassicStyle, sidebarCloseClassicStyle } from './sidebar-classic.style';
+import sidebarClassicStyle from './sidebar-classic.style';
+import StyledIconButton from '../icon-button/icon-button.style';
 
 const sidebarSizes = {
   'extra-small': '150px',
@@ -20,7 +21,7 @@ const SidebarStyle = styled.div`
   top: 0;
   padding: 27px 32px 32px 32px;
   z-index: 1002;
-  
+
   ${({ size }) => size && css`
       width: ${sidebarSizes[size]};
   `};
@@ -30,30 +31,17 @@ const SidebarStyle = styled.div`
       ${position}: 0;
   `};
 
+  ${StyledIconButton} {
+    z-index: 1;
+    right: 25px;
+    top: 25px;
+  }
+
   ${sidebarClassicStyle}
-`;
-
-const SidebarCloseStyle = styled.div`
-  cursor: pointer;
-  position: absolute;
-  right: 20px;
-  top: 26px;
-  z-index: 1;
-  color: ${({ theme }) => theme.colors.border};
-
-  &:hover {
-      color: ${({ theme }) => theme.colors.focusedIcon};
-  };
-
-  ${sidebarCloseClassicStyle}
 `;
 
 SidebarStyle.defaultProps = {
   theme: baseTheme
 };
 
-SidebarCloseStyle.defaultProps = {
-  theme: baseTheme
-};
-
-export { SidebarStyle, SidebarCloseStyle };
+export default SidebarStyle;
