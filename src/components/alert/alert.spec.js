@@ -20,18 +20,9 @@ describe('Alert', () => {
   });
 
   it('include correct component, element and role data tags', () => {
-    wrapper = mount(
-      <Alert
-        open
-        onCancel={ onCancel }
-        title='Alert title'
-        subtitle='Alert Subtitle'
-        data-element='bar'
-        data-role='baz'
-      />
-    );
-    expect(wrapper.instance().props['data-element']).toEqual('bar');
-    expect(wrapper.instance().props['data-role']).toEqual('baz');
+    const alert = wrapper.find(Alert).first();
+    expect(alert.prop('data-element')).toEqual('bar');
+    expect(alert.prop('data-role')).toEqual('baz');
   });
 
   describe('keyboard focus', () => {
@@ -40,8 +31,10 @@ describe('Alert', () => {
     beforeEach(() => {
       wrapper = mount(
         <Alert
-          open title='Test'
-          subtitle='Test' showCloseIcon={ false }
+          open
+          title='Test'
+          subtitle='Test'
+          showCloseIcon={ false }
         />
       );
 

@@ -4,9 +4,8 @@ Feature: Alert component classic story
   Background: Open Alert component page for classic story
     Given I open "Alert" component with button classic page
 
-  @ignore
-  @FE-2508
+  @positive
   Scenario: CloseIcon has the border outline
     When I open component preview
-      And I hit Tab key 1 time
-    Then closeIcon has no border outline for classic story
+    Given closeIcon is focused
+    Then closeIcon has border outline for classic story

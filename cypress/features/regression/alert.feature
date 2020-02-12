@@ -5,6 +5,12 @@ Feature: Alert component
     Given I open "Alert" component page with button
 
   @positive
+  Scenario: CloseIcon has the border outline
+    When I open component preview
+    Given closeIcon is focused
+    Then closeIcon has the border outline
+
+  @positive
   Scenario Outline: Change Alert component title to <title>
     When I set title to "<title>"
       And I open component preview
@@ -127,12 +133,6 @@ Feature: Alert component
       | medium-large |       850        |
       | large        |       960        |
       | extra-large  |       1080       |
-
-  @positive
-  Scenario: CloseIcon has the border outline
-    When I open component preview
-      And I hit Tab key 1 time
-    Then closeIcon has the border outline
 
   @positive
   Scenario: Check open click event
