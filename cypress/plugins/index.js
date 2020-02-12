@@ -26,10 +26,10 @@ module.exports = (on, config) => {
       return null;
     },
   });
-  on('before:browser:launch', (browser = {}, args) => {
-    if (browser.name === 'chrome') {
-      args.push('--disable-site-isolation-trials');
-      return args;
+  on('before:browser:launch', (browser = {}, launchOptions) => {
+    if (browser.family === 'chromium' && browser.name !== 'electron') {
+      launchOptions.args.push('--disable-site-isolation-trials');
+      return launchOptions;
     }
   });
 };

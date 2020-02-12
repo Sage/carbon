@@ -7,7 +7,8 @@ Then('{string} component has no violations in Accessibility section', () => {
   reRunTestsButton().should('have.text', 'Rerun tests');
   violations().invoke('text').then(($text) => {
     const text = $text.split(' ');
-    expect(text[0]).to.be.at.most(Cypress.env('max_violation_value'));
+    const amountOfViolations = parseInt(text[0], 0);
+    expect(amountOfViolations).to.be.at.most(Cypress.env('max_violation_value'));
   });
 });
 
