@@ -1,3 +1,16 @@
+## [13.0.0](https://github.com/Sage/carbon/compare/v12.4.1...v13.0.0) (2020-02-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **modal:** The autoFocus prop on Dialog is no longer supported. To
+migrate you should manually focus an element within the Dialog using
+`ref.focus()` or use `autoFocus` on an Input.
+
+### Features
+
+* **modal:** add focus trap to Dialog and Sidebar ([8230399](https://github.com/Sage/carbon/commit/82303998b99714991a3164a7a51f7c7203b0d975))
+
 ### [12.4.1](https://github.com/Sage/carbon/compare/v12.4.0...v12.4.1) (2020-02-11)
 
 
