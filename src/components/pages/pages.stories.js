@@ -111,6 +111,7 @@ function makeStory(name, themeSelector) {
           <DialogFullScreen
             open={ store.get('open') }
             onCancel={ handleCancel }
+            showCloseIcon
           >
             <PageState>
               <DefaultPages
