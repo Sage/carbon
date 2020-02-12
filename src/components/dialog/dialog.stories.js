@@ -47,7 +47,6 @@ function makeStory(name, themeSelector) {
     const subtitle = text('subtitle', 'Example Subtitle');
     const size = select('size', OptionsHelper.sizesFull, Dialog.defaultProps.size);
     const showCloseIcon = boolean('showCloseIcon', Dialog.defaultProps.showCloseIcon);
-    const autoFocus = boolean('autoFocus', Dialog.defaultProps.autoFocus);
     const stickyFormFooter = boolean('stickyFormFooter', false);
     const enableBackgroundUI = boolean('enableBackgroundUI', false);
     const disableEscKey = boolean('disableEscKey', false);
@@ -65,7 +64,6 @@ function makeStory(name, themeSelector) {
             subtitle={ subtitle }
             size={ size }
             showCloseIcon={ showCloseIcon }
-            autoFocus={ autoFocus }
             stickyFormFooter={ stickyFormFooter }
             enableBackgroundUI={ enableBackgroundUI }
             disableEscKey={ disableEscKey }

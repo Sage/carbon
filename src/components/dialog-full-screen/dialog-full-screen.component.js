@@ -7,6 +7,8 @@ import StyledDialogFullScreen from './dialog-full-screen.style';
 import StyledContent from './content.style';
 import StyledIcon from './icon.style';
 import Browser from '../../utils/helpers/browser';
+import Events from '../../utils/helpers/events/events';
+import focusTrap from '../../utils/helpers/focus-trap';
 
 class DialogFullScreen extends Modal {
   constructor(props) {
@@ -16,6 +18,7 @@ class DialogFullScreen extends Modal {
      * Caches a reference to the document.
      */
     this.document = Browser.getDocument();
+    this.originalOverflow = undefined;
   }
 
   static state = {
@@ -74,19 +77,28 @@ class DialogFullScreen extends Modal {
   /**
    * Overrides the original function to disable the document's scroll.
    */
-  get onOpening() {
+  handleOpen() {
+    super.handleOpen();
+    this.removeFocusTrap = focusTrap(this._dialog);
+    this.originalOverflow = this.document.documentElement.style.overflow;
     this.document.documentElement.style.overflow = 'hidden';
-
-    return this.document.documentElement;
   }
 
   /**
    * Overrides the original function to enable the document's scroll.
    */
-  get onClosing() {
-    this.document.documentElement.style.overflow = 'auto';
-
+  handleClose() {
+    super.handleClose();
+    this.removeFocusTrap();
+    this.document.documentElement.style.overflow = this.originalOverflow;
     return this.document.documentElement;
+  }
+
+  onButtonKeyDown = (ev) => {
+    if (Events.isEnterKey(ev) || Events.isSpaceKey(ev)) {
+      ev.preventDefault();
+      this.props.onCancel();
+    }
   }
 
   /**
@@ -112,6 +124,9 @@ class DialogFullScreen extends Modal {
           data-element='close'
           onClick={ this.props.onCancel }
           type='close'
+          tabIndex='0'
+          role='button'
+          onKeyDown={ this.onButtonKeyDown }
         />
 
         { title }
