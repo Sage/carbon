@@ -1,7 +1,7 @@
 Feature: Dialog Full Screen component
   I want to change Dialog Full Screen component properties
 
-  Background: Open Alert component page
+  Background: Open Dialog Full Screen component page
     Given I open "Dialog Full Screen" component page
 
   @positive

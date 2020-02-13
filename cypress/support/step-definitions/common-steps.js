@@ -159,6 +159,10 @@ Given('I open {string} component page autoFocus multiple in iframe', (component)
   visitComponentUrl(component, 'autofocus_multiple', true);
 });
 
+Given('I open {string} component page with sticky footer', (component) => {
+  visitComponentUrl(component, 'with_sticky_footer');
+});
+
 When('I open {word} tab', (text) => {
   cy.wait(1000, { log: DEBUG_FLAG }); // required because element needs to be loaded
   knobsNameTab(text).click();
