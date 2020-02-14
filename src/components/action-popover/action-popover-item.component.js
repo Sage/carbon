@@ -14,8 +14,7 @@ import createGuid from '../../utils/helpers/guid';
 const INTERVAL = 150;
 
 const MenuItem = React.forwardRef(({
-  canOpenSubmenu, children, icon, disabled, itemIndex, onClick: onClickProp,
-  submenu, theme, updateItemIndex, ...rest
+  children, icon, disabled, onClick: onClickProp, submenu, theme, ...rest
 }, ref) => {
   const [containerPosition, setContainerPosition] = useState(null);
   const [guid] = useState(createGuid());
@@ -35,11 +34,8 @@ const MenuItem = React.forwardRef(({
   }, [ref, submenu, spacing]);
 
   useLayoutEffect(() => {
-    if (!canOpenSubmenu) {
-      setOpen(false);
-    }
     alignSubmenu();
-  }, [canOpenSubmenu, alignSubmenu]);
+  }, [alignSubmenu]);
 
   useEffect(() => {
     const event = 'resize';
@@ -49,6 +45,15 @@ const MenuItem = React.forwardRef(({
       window.removeEventListener(event, alignSubmenu);
     };
   }, [alignSubmenu]);
+
+  useEffect(() => {
+    const event = 'mousedown';
+    window.addEventListener(event, setOpen(false));
+
+    return function cleanup() {
+      window.removeEventListener(event, setOpen(false));
+    };
+  }, [ref]);
 
   const onClick = useCallback((e) => {
     if (!disabled) {
@@ -72,35 +77,34 @@ const MenuItem = React.forwardRef(({
       // LEFT: open if has submenu and left aligned otherwise close submenu
       if (isLeftAligned) {
         setOpen(true);
-        setFocusIndex(focusIndex);
+        setFocusIndex(0);
       } else {
         setOpen(false);
-        updateItemIndex(itemIndex);
         ref.current.focus();
-        setFocusIndex(focusIndex);
       }
       e.preventDefault();
     } else if (!disabled && submenu && Events.isRightKey(e)) {
       // RIGHT: open if has submenu and right aligned otherwise close submenu
       if (!isLeftAligned) {
         setOpen(true);
-        setFocusIndex(focusIndex);
+        setFocusIndex(0);
       } else {
         setOpen(false);
-        updateItemIndex(itemIndex);
         ref.current.focus();
-        setFocusIndex(focusIndex);
       }
       e.preventDefault();
     }
-  }, [disabled, focusIndex, isLeftAligned, itemIndex, onClick, ref, submenu, updateItemIndex]);
+  }, [disabled, isLeftAligned, onClick, ref, submenu]);
 
   let timer;
   const itemSubmenuProps = {
     ...(!disabled && {
       onMouseEnter: (e) => {
         clearTimeout(timer);
-        timer = setTimeout(() => { setOpen(true); }, INTERVAL);
+        setFocusIndex(null);
+        timer = setTimeout(() => {
+          setOpen(true);
+        }, INTERVAL);
         e.stopPropagation();
       },
       onMouseLeave: (e) => {
