@@ -5,7 +5,7 @@ export const PRECISION_SLIDER = 'input[name="precision"]';
 export const CHARACTER_LIMIT = 'input[name="characterLimit"]';
 export const FORM = '#storybook-panel-root';
 export const TAB_LIST = '[role="tablist"]';
-export const CLOSE_ICON_BUTTON = 'span[data-element="close"]';
+export const CLOSE_ICON_BUTTON = 'button[data-element="close"]';
 
 // component preview locators
 export const HELP_ICON_PREVIEW = '[data-component="help"]';

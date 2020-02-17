@@ -372,6 +372,10 @@ Then('I click closeIcon', () => {
   closeIconButton().click();
 });
 
+Then('closeIcon has golden border on focus', () => {
+  closeIconButton().should('have.css', 'outline', 'rgb(255, 181, 0) solid 3px');
+});
+
 When('I click {string} button into iFrame', (text) => {
   commonButtonPreviewNoIframe().contains(text).click();
 });
@@ -380,17 +384,16 @@ Then('closeIcon is not visible', () => {
   closeIconButton().should('not.exist');
 });
 
-// needs to be refactored when golden color will be fixed for Close icon - FE-2508
 Then('closeIcon has the border outline', () => {
-  closeIconButton().rightclick();
-  closeIconButton().should('have.css', 'outline-color', 'rgba(0, 103, 244, 0.247)')
-    .and('have.css', 'outline-width', '5px');
+  closeIconButton().should('have.css', 'outline', 'rgb(255, 181, 0) solid 3px');
 });
 
-Then('closeIcon has no border outline for classic story', () => {
-  closeIconButton().rightclick();
-  closeIconButton().should('not.have.css', 'outline-color', 'rgba(0, 103, 244, 0.247)')
-    .and('not.have.css', 'outline-width', '5px');
+Then('closeIcon has border outline for classic story', () => {
+  closeIconButton().should('have.css', 'outline', 'rgba(0, 103, 244, 0.247) auto 5px');
+});
+
+Then('closeIcon is focused', () => {
+  closeIconButton().focus();
 });
 
 When('I hit ESC key', () => {
