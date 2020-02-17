@@ -73,3 +73,16 @@ Feature: Dialog Full Screen component
       And I open component preview
       And I hit ESC key
     Then Dialog Full Screen is not visible
+
+  @positive
+  Scenario: Open event
+    When clear all actions in Actions Tab
+      And I open component preview
+    Then open action was called in Actions Tab
+
+  @positive
+  Scenario: Cancel event
+    Given clear all actions in Actions Tab
+      And I open component preview
+    When I click closeIcon
+    Then cancel action was called in Actions Tab
