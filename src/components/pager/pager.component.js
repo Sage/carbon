@@ -43,7 +43,9 @@ const Pager = (props) => {
 
   function pageSizeOptions() {
     const elem = (
-      <PagerSizeOptionsInnerStyles>Show {sizeSelector()} {descriptor}</PagerSizeOptionsInnerStyles>
+      <PagerSizeOptionsInnerStyles>
+        { I18n.t('pager.show', { defaultValue: 'Show ' }) } { sizeSelector() } { descriptor }
+      </PagerSizeOptionsInnerStyles>
     );
 
     return props.showPageSizeSelection ? elem : null;
@@ -58,7 +60,7 @@ const Pager = (props) => {
         setCurrentPage={ setCurrentPage }
         setCurrentThemeName={ setCurrentTheme }
       />
-      <PagerSummaryStyles>{props.totalRecords} {descriptor}</PagerSummaryStyles>
+      <PagerSummaryStyles>{ props.totalRecords } { descriptor }</PagerSummaryStyles>
     </PagerContainerStyles>
   );
 };
