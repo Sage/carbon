@@ -181,3 +181,8 @@ Feature: Build tests
   Scenario: Component Loader legacy spinner in iframe default page
     When I open "loader" component page legacy spinner in iframe
     Then "spinner" component is visible
+
+  @build
+  Scenario: Component FlatTable basic default page
+    When I open "test-flat-table" component page basic in iframe
+    Then "flat-table" component is visible

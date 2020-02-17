@@ -1,0 +1,171 @@
+import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
+import { FlatTable, FlatTableHead, FlatTableBody, FlatTableRow, FlatTableHeader, FlatTableRowHeader, FlatTableCell } from '.';
+
+<Meta title="Design System/Flat Table" />
+
+# Flat Table
+
+
+### Basic usage:
+
+<Preview>
+  <Story name="basic" parameters={{ info: { disable: true }}} >
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Client</FlatTableHeader>
+          <FlatTableHeader>Client Type</FlatTableHeader>
+          <FlatTableHeader>Categories</FlatTableHeader>
+          <FlatTableHeader>Services</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>Business</FlatTableCell>
+          <FlatTableCell>Group1, Group2</FlatTableCell>
+          <FlatTableCell>Accounting</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>Business</FlatTableCell>
+          <FlatTableCell>Group1, Group3</FlatTableCell>
+          <FlatTableCell>Accounting</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Charity</FlatTableCell>
+          <FlatTableCell>Group3</FlatTableCell>
+          <FlatTableCell>Payroll</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Partnership</FlatTableCell>
+          <FlatTableCell>Group3</FlatTableCell>
+          <FlatTableCell>Final Tax</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  </Story>
+</Preview>
+
+### With row headers:
+<Preview>
+  <Story name="withRowHeader" parameters={{ info: { disable: true }}} >
+    <div style={ { width: '380px', overflowX: 'auto' } }>
+      <FlatTable hasRowHeader>
+        <FlatTableHead>
+          <FlatTableRow>
+            <FlatTableRowHeader>Client</FlatTableRowHeader>
+            <FlatTableHeader>Client Type</FlatTableHeader>
+            <FlatTableHeader>Categories</FlatTableHeader>
+            <FlatTableHeader>Services</FlatTableHeader>
+          </FlatTableRow>
+        </FlatTableHead>
+        <FlatTableBody>
+          <FlatTableRow>
+            <FlatTableRowHeader>John Doe</FlatTableRowHeader>
+            <FlatTableCell>Business</FlatTableCell>
+            <FlatTableCell>Group1, Group2</FlatTableCell>
+            <FlatTableCell>Accounting</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableRowHeader>Jane Doe</FlatTableRowHeader>
+            <FlatTableCell>Business</FlatTableCell>
+            <FlatTableCell>Group1, Group3</FlatTableCell>
+            <FlatTableCell>Accounting</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableRowHeader>John Smith</FlatTableRowHeader>
+            <FlatTableCell>Charity</FlatTableCell>
+            <FlatTableCell>Group3</FlatTableCell>
+            <FlatTableCell>Payroll</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableRowHeader>Jane Smith</FlatTableRowHeader>
+            <FlatTableCell>Partnership</FlatTableCell>
+            <FlatTableCell>Group3</FlatTableCell>
+            <FlatTableCell>Final Tax</FlatTableCell>
+          </FlatTableRow>
+        </FlatTableBody>
+      </FlatTable>
+    </div>
+  </Story>
+</Preview>
+
+### With stickyHead prop set to true
+
+<Preview>
+  <Story name="withStickyHead" parameters={{ info: { disable: true }}} >
+    <div style={ { height: '150px' } }>
+      <FlatTable hasStickyHead>
+        <FlatTableHead>
+          <FlatTableRow>
+            <FlatTableHeader>Client</FlatTableHeader>
+            <FlatTableHeader>Client Type</FlatTableHeader>
+            <FlatTableHeader>Categories</FlatTableHeader>
+            <FlatTableHeader>Services</FlatTableHeader>
+          </FlatTableRow>
+        </FlatTableHead>
+        <FlatTableBody>
+          <FlatTableRow>
+            <FlatTableCell>John Doe</FlatTableCell>
+            <FlatTableCell>Business</FlatTableCell>
+            <FlatTableCell>Group1, Group2</FlatTableCell>
+            <FlatTableCell>Accounting</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableCell>Jane Doe</FlatTableCell>
+            <FlatTableCell>Business</FlatTableCell>
+            <FlatTableCell>Group1, Group3</FlatTableCell>
+            <FlatTableCell>Accounting</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableCell>John Smith</FlatTableCell>
+            <FlatTableCell>Charity</FlatTableCell>
+            <FlatTableCell>Group3</FlatTableCell>
+            <FlatTableCell>Payroll</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableCell>Jane Smith</FlatTableCell>
+            <FlatTableCell>Partnership</FlatTableCell>
+            <FlatTableCell>Group3</FlatTableCell>
+            <FlatTableCell>Final Tax</FlatTableCell>
+          </FlatTableRow>
+        </FlatTableBody>
+      </FlatTable>
+    </div>
+  </Story>
+</Preview>
+
+
+## Props:
+
+
+### FlatTable
+
+<Props of={FlatTable} />
+
+### FlatTableHead
+
+<Props of={FlatTableHead} />
+
+### FlatTableBody
+
+<Props of={FlatTableBody} />
+
+### FlatTableRow
+
+<Props of={FlatTableRow} />
+
+### FlatTableHeader
+
+<Props of={FlatTableHeader} />
+
+### FlatTableCell
+
+<Props of={FlatTableCell} />
+
+### FlatTableRowHeader
+
+<Props of={FlatTableRowHeader} />
