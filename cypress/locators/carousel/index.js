@@ -1,6 +1,6 @@
 import {
-  SLIDE_INDEX_SELECT, TRANSITION_SELECT, SLIDE, CAROUSEL, PREVIOUS_ARROW_BUTTON,
-  NEXT_ARROW_BUTTON, CAROUSEL_SLIDE_SELECTOR,
+  SLIDE_INDEX_SELECT, TRANSITION_SELECT, CLASSIC_SLIDE, CAROUSEL,
+  CAROUSEL_CONTENT, PREVIOUS_ARROW_BUTTON, NEXT_ARROW_BUTTON, CAROUSEL_SLIDE_SELECTOR,
 } from './locators';
 
 // knobs locators
@@ -8,7 +8,13 @@ export const slideIndexSelect = () => cy.get(SLIDE_INDEX_SELECT);
 export const transitionSelect = () => cy.get(TRANSITION_SELECT);
 
 // component preview locators
-export const slide = () => cy.iFrame(SLIDE);
+export const classicSlide = () => cy.iFrame(CLASSIC_SLIDE);
+export const slide = i => cy.iFrame(CAROUSEL_CONTENT)
+  .find('div:nth-child(2)')
+  .find(`div[id="${i}"]`);
+export const clickableSlide = () => cy.iFrame(CAROUSEL_CONTENT)
+  .find('div:nth-child(2)')
+  .find('div[id="1"]');
 export const carousel = () => cy.iFrame(CAROUSEL).find('div');
 export const previousArrowButton = () => cy.iFrame(PREVIOUS_ARROW_BUTTON);
 export const nextArrowButton = () => cy.iFrame(NEXT_ARROW_BUTTON);

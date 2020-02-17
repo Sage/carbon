@@ -28,8 +28,7 @@ Feature: Button Toggle component
       | small | 16px   | 16px  |
       | large | 32px   | 32px  |
 
-  @ignore
-  # ignored untill will be written classic page suite
+  @positive
   Scenario Outline: Set Button Toggle size to <size>
     When I select size to "<size>"
     Then Button Toggle height is "<height>" and width is "<width>"
@@ -38,8 +37,7 @@ Feature: Button Toggle component
       | small | 40     | 94.25 |
       | large | 40     | 94.25 |
 
-  @ignore
-  # ignored untill will be written classic page suite
+  @positive
   Scenario Outline: Set Button Toggle size to <size> with small icon
     When I select buttonIcon to "arrow_left"
       And I select buttonIconSize to "small"
@@ -50,8 +48,7 @@ Feature: Button Toggle component
       | small | 40     | 118.25 |
       | large | 40     | 118.25 |
 
-  @ignore
-  # ignored untill will be written classic page suite
+  @positive
   Scenario Outline: Set Button Toggle size to <size> with large icon
     When I select buttonIcon to "arrow_left"
       And I select buttonIconSize to "large"
@@ -84,3 +81,9 @@ Feature: Button Toggle component
       And I uncheck grouped checkbox
       And I enable Button component
     Then Button Toggle is not grouped
+
+  @positive
+  Scenario: Verify the onChange function for a Button Toggle component
+    Given clear all actions in Actions Tab
+    When I click on Button Toggle
+    Then onChange action was called in Actions Tab

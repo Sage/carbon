@@ -1,6 +1,6 @@
 import {
-  slide, slideIndexSelect, carousel, nextArrowButton, previousArrowButton, slideSelectorIndex,
-  slideSelector, transitionSelect, giveTransition,
+  classicSlide, slide, clickableSlide, slideIndexSelect, carousel, nextArrowButton,
+  previousArrowButton, slideSelectorIndex, slideSelector, transitionSelect, giveTransition,
 } from '../../locators/carousel';
 import { DEBUG_FLAG } from '..';
 
@@ -23,9 +23,17 @@ function clickCarouselButton(direction) {
   }
 }
 
-Then('slide title is {string}', (title) => {
+Then('classic slide title is {string}', (title) => {
   cy.wait(1500, { log: DEBUG_FLAG }); // required because of component refresh
-  slide().should('have.text', title);
+  classicSlide().should('have.text', title);
+});
+
+Then('{word} slide title is {string}', (index, title) => {
+  cy.wait(1500, { log: DEBUG_FLAG }); // required because of component refresh
+  for (let i = 1; i < index; ++i) {
+    slide(i + 1)
+      .should('have.text', title);
+  }
 });
 
 When('I set slide index to {int}', (index) => {
@@ -66,12 +74,20 @@ Then('previous button is not visible', () => {
   previousArrowButton().should('not.exist');
 });
 
+Then('previous button is disabled', () => {
+  previousArrowButton().should('be.disabled');
+});
+
 Then('next button is visible', () => {
   nextArrowButton().should('be.visible');
 });
 
 Then('next button is not visible', () => {
   nextArrowButton().should('not.exist');
+});
+
+Then('next button is disabled', () => {
+  nextArrowButton().should('be.disabled');
 });
 
 When('I set transition to {string}', (transition) => {
@@ -81,4 +97,8 @@ When('I set transition to {string}', (transition) => {
 
 Then('transition is set to {string} with {string}', (transition, direction) => {
   giveTransition(transition, direction).should('exist');
+});
+
+When('I click clickable slide', () => {
+  clickableSlide().click();
 });

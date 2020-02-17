@@ -33,17 +33,16 @@ Feature: Button Toggle Group component
   # @ignore because of FE-1447
   # | <>                       |
 
-  @ignore
-  # ignored because the width renders into px
+  @positive
   Scenario Outline: Change Button Toggle Group input width to <width>
     When I check labelInline checkbox
       And I set inputWidth to "<width>"
     Then input width is set to "<px>"
     Examples:
-      | width | px  |
-      | 1     | 11  |
-      | 10    | 83  |
-      | 100   | 304 |
+      | width | px        |
+      | 1     | 10.75     |
+      | 10    | 107.59375 |
+      | 100   | 825.71875 |
 
   @negative
   Scenario Outline: Set out of scope characters to Button Toggle Group input width to <width>
@@ -112,3 +111,9 @@ Feature: Button Toggle Group component
       | direction |
       | left      |
       | right     |
+
+  @positive
+  Scenario: Verify the onChange function for a Button Toggle Group component
+    Given clear all actions in Actions Tab
+    When I click on Button Toggle
+    Then onChange action was called in Actions Tab

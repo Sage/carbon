@@ -7,12 +7,12 @@ Feature: Carousel component
   @positive
   Scenario: Initial slide title is Slide One
   # When step is run on background as Given
-    Then slide title is "Slide One"
+    Then classic slide title is "Slide One"
 
   @positive
   Scenario Outline: Set slide index to <index>
     When I select slideIndex to "<index>"
-    Then slide title is "<title>"
+    Then classic slide title is "<title>"
     Examples:
       | index | title       |
       | 0     | Slide One   |
@@ -70,7 +70,7 @@ Feature: Carousel component
   Scenario Outline: Move Carousel left to <index>
     When I select slideIndex to "<index>"
       And I move carousel "left"
-    Then slide title is "<title>"
+    Then classic slide title is "<title>"
     Examples:
       | index | title       |
       | 1     | Slide One   |
@@ -83,7 +83,7 @@ Feature: Carousel component
   Scenario Outline: Move Carousel right to <index>
     When I select slideIndex to "<index>"
       And I move carousel "right"
-    Then slide title is "<title>"
+    Then classic slide title is "<title>"
     Examples:
       | index | title       |
       | 4     | Slide One   |
@@ -95,7 +95,7 @@ Feature: Carousel component
   @positive
   Scenario Outline: Use slide selector to choose slide
     When I select slideIndex to "<index>"
-    Then slide title is "<title>"
+    Then classic slide title is "<title>"
     Examples:
       | index | title       |
       | 0     | Slide One   |
