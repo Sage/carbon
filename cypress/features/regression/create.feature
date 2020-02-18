@@ -1,8 +1,21 @@
 Feature: Create component
   I want to change Create component properties
 
-  Background: Open Content component page
+  Background: Open Create component page
     Given I open "Create" component page
+
+  @positive
+  Scenario: Verify inner content and colors of Create component
+    # commented because of BDD default scenario Given - When - Then
+    # When I open "Create" component page
+    Then Create component has proper inner color "rgb(0, 128, 93)" and background-color "rgb(242, 244, 245)" and border color "rgb(102, 132, 145)"
+
+  @positive
+  Scenario: Verify inner content and colors of Create component on hover state
+    Given I click outside of the component
+    When I hit Tab key 1 time
+    Then Create component has proper inner color "rgb(0, 128, 93)" and background-color "rgb(255, 255, 255)" and border color "rgb(102, 132, 145)"
+      And Create element has golden border on focus
 
   @positive
   Scenario Outline: Change children in Create component to <children>

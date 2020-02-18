@@ -218,6 +218,7 @@ exports[`Pager renders the Pager correctly with the Classic Theme 1`] = `
       className="c2"
     >
       Show 
+       
       <div
         className="carbon-dropdown common-input--with-icon common-input"
         data-component="dropdown"
@@ -639,6 +640,7 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
       className="c2"
     >
       Show 
+       
       <div
         className="carbon-dropdown common-input--with-icon common-input"
         data-component="dropdown"
