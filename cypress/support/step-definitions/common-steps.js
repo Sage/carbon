@@ -3,7 +3,7 @@ import {
 } from '../helper';
 import {
   commonButtonPreview, labelPreview, helpIcon, helpIconByPosition, inputWidthSlider,
-  fieldHelpPreview, labelWidthSlider, labelWidthSliderByGroup, backgroundUILocator,
+  fieldHelpPreview, labelWidthSlider, backgroundUILocator,
   closeIconButton, tooltipPreview, getKnobsInput, getKnobsInputWithName, getKnobsInputByGroup,
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
   precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
@@ -12,6 +12,7 @@ import {
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
 import { getElementNoIframe, commonButtonPreviewNoIframe } from '../../locators/build';
+import { pagerSummary } from '../../locators/pager';
 
 const LABEL_INPUT_INLINE_CLASS = 'common-input__label--inline';
 const FIRST_ELEMENT = 0;
@@ -432,8 +433,8 @@ When('I uncheck {word} {word} checkbox', (checkboxName, text) => {
 });
 
 When('I uncheck group {word} {word} {word} checkbox', (groupName, checkboxName, text) => {
-  getKnobsInpuByGroup(groupName, checkboxName, text).scrollIntoView();
-  getKnobsInpuByGroup(groupName, checkboxName, text).uncheck();
+  getKnobsInputByGroup(groupName, checkboxName, text).scrollIntoView();
+  getKnobsInputByGroup(groupName, checkboxName, text).uncheck();
 });
 
 Then('inputWidth is set to {string}', (width) => {
@@ -533,4 +534,8 @@ When('I press keyboard {string} key times {int}', (key, times) => {
 
 When('I click on outside dialog in iFrame', () => {
   cy.get('#story-root').click({ force: true });
+});
+
+Then('totalRecords is set to {string} {word}', (totalRecords, element) => {
+  pagerSummary().invoke('text').should('contain', `${totalRecords}  ${element}`);
 });

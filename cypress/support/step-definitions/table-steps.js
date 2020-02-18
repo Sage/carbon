@@ -1,8 +1,7 @@
 import {
-  rows, checkboxCell, rowByNumber, caption, tableHeader, rowNumbers, sortIcon, paginationButton,
+  rows, checkboxCell, rowByNumber, caption, tableHeader, rowNumbers, sortIcon,
   actionToolbar, checkboxInHeader, actionToolbarButton,
 } from '../../locators/table';
-import { pagerSummary, previousArrow, nextArrow } from '../../locators/pager';
 
 const ZERO = 0;
 const ONE = 1;
@@ -149,46 +148,11 @@ Then('input type on preview is set to {string}', (type) => {
   }
 });
 
-Then('totalRecords is set to {string} {word}', (totalRecords, element) => {
-  pagerSummary().invoke('text').should('contain', `${totalRecords}  ${element}`);
-});
-
 Then('I click {string} header', (headerName) => {
   if (headerName === 'Country') {
     tableHeader().eq(ZERO).click();
   } else {
     tableHeader().eq(ONE).click();
-  }
-});
-
-Then('I click {string} pagination button', (button) => {
-  switch (button) {
-    case 'next':
-      paginationButton(TWO).click();
-      break;
-    case 'last':
-      paginationButton(THREE).click();
-      break;
-    case 'previous':
-      paginationButton(ONE).click();
-      break;
-    case 'first':
-      paginationButton(ZERO).click();
-      break;
-    default: throw new Error('There are only four pagination buttons');
-  }
-});
-
-Then('I click {string} pagination arrow', (arrow) => {
-  switch (arrow) {
-    case 'previousArrow':
-      nextArrow().parent().click();
-      previousArrow().parent().click();
-      break;
-    case 'nextArrow':
-      nextArrow().parent().click();
-      break;
-    default: throw new Error('There are only two pagination arrows');
   }
 });
 

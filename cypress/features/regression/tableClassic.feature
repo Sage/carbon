@@ -47,4 +47,4 @@ Feature: Table classic component
   Scenario: Verify action toolbar elements
     Given I check selectable checkbox
     When I check checkbox on header
-    Then Action Toolbar elemens are visible and has "rgb(37, 91, 199)" color
+    Then Action Toolbar elemens are visible and have "rgb(37, 91, 199)" color

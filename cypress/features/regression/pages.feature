@@ -1,7 +1,7 @@
 Feature: Pages component
   I want to test Pages component
 
-  Background: Open Pages component page
+  Background: Open Pages component default page
     Given I open "Pages" component page
 
   @positive
@@ -31,8 +31,8 @@ Feature: Pages component
 
   @positive
   Scenario: Go to second page
-    When I open component preview
-      And I go to second page
+    Given I open component preview
+    When I go to second page
     Then My Second Page is visible
       And other pages except Second Page are not visible
 
@@ -64,3 +64,15 @@ Feature: Pages component
     Then My First Page is visible
       And other pages except First Page are not visible
 
+ @positive
+  Scenario: Open event
+    Given clear all actions in Actions Tab
+    When I open component preview
+    Then open action was called in Actions Tab
+
+   @positive
+  Scenario: Cancel event
+    Given I open component preview
+      And clear all actions in Actions Tab
+    When I close page
+    Then cancel action was called in Actions Tab
