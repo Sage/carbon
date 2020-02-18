@@ -56,10 +56,6 @@ Then('Pill close icon has golden border outline', () => {
   pillCloseIcon().should('have.css', 'box-shadow', 'rgb(255, 181, 0) 0px 0px 0px 3px');
 });
 
-Then('Pill close icon has golden border outline', () => {
-  pillCloseIcon().should('have.css', 'box-shadow', 'rgb(255, 181, 0) 0px 0px 0px 3px');
-});
-
 Then('I hover mouse on Pill close icon', () => {
   pillCloseIcon().trigger('mouseover');
 });

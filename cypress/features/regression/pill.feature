@@ -20,8 +20,8 @@ Feature: Pill component
 
   @positive
   Scenario Outline: Enable and disable fill checkbox for a Pill component
-    When I check fill checkbox
-      And I uncheck fill checkbox
+    Given I check fill checkbox
+    When I uncheck fill checkbox
     Then Pill component has no backgroundColor "<color>"
       And Pill borderColor has "<color>" color
     Examples:
@@ -35,8 +35,8 @@ Feature: Pill component
 
   @positive
   Scenario: Enable and disable onDelete checkbox for a Pill component
-    When I check onDelete checkbox
-      And I uncheck onDelete checkbox
+    Given I check onDelete checkbox
+    When I uncheck onDelete checkbox
     Then Pill component has no onDelete property
 
   @positive
@@ -46,9 +46,9 @@ Feature: Pill component
 
   @positive
   Scenario: Enable onDelete checkbox and check the delete event
-    When I check onDelete checkbox
+    Given I check onDelete checkbox
       And clear all actions in Actions Tab
-      And I click cross icon
+    When I click cross icon
     Then delete action was called in Actions Tab
 
   @positive

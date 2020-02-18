@@ -6,7 +6,8 @@ Feature: Pager classic component
 
   @positive
   Scenario: Pagination previous arrow is disabled
-    #  When I open "Pager" component page
+  # commented because of BDD default scenario Given - When - Then
+  # When I open "Pager" component page
     Then previous pagination arrow is disabled
 
   @positive

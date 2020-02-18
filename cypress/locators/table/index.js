@@ -12,7 +12,8 @@ export const caption = () => cy.iFrame(TABLE).children().children()
 export const tableHeader = () => cy.iFrame(TABLE_HEADER);
 export const sortIcon = index => tableHeader(index).find('span');
 export const pagination = () => cy.iFrame(PAGINATION_BUTTON);
-export const paginationButton = index => pagination().find('div:nth-child(2) > button').eq(index);
+export const paginationButtonByIndex = index => pagination().find('div:nth-child(2) > button').eq(index);
+export const paginationButton = () => pagination().find('div:nth-child(2) > button');
 export const actionToolbar = index => cy.iFrame(ACTION_TOOLBAR).find('div:nth-child(2) > div').eq(index);
 export const actionToolbarButton = () => cy.iFrame(ACTION_TOOLBAR).find('div:nth-child(2)').find('[data-element="main-text"]').parent();
 export const checkboxInHeader = () => cy.iFrame(CHECKBOX_CELL);

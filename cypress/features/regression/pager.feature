@@ -45,8 +45,8 @@ Feature: Pager component
 
   @positive
   Scenario Outline: Set pageSize to <pageSize>
-    When I select pageSize to "<pageSize>"
-      And I check showPageSizeSelection checkbox
+    Given I select pageSize to "<pageSize>"
+    When I check showPageSizeSelection checkbox
     Then pageSize is set to "<pageSize>"
       And I am on 1st of "<maxPages>" pages
     Examples:
@@ -63,12 +63,13 @@ Feature: Pager component
 
   @positive
   Scenario: Enable and disable showPageSizeSelection
-    When I check showPageSizeSelection checkbox
-      And I uncheck showPageSizeSelection checkbox
+    Given I check showPageSizeSelection checkbox
+    When I uncheck showPageSizeSelection checkbox
     Then pageSize is not visible
 
   @positive
   Scenario Outline: Pagination <button> button is disabled
+    # commented because of BDD default scenario Given - When - Then
     #  When I open "Pager" component page
     Then pagination "<button>" button is disabled
     Examples:
@@ -78,7 +79,6 @@ Feature: Pager component
 
   @positive
   Scenario Outline: Pagination <button> button is disabled after clicking on last button
-    #  Given I open "Pager" component page
     When I click "last" pagination button
     Then pagination "<button>" button is disabled
     Examples:
@@ -88,8 +88,7 @@ Feature: Pager component
 
   @positive
   Scenario Outline: Pagination <button> button is disabled after clicking on first button
-      #  Given I open "Pager" component page
-      And I click "last" pagination button
+    Given I click "last" pagination button
     When I click "first" pagination button
     Then pagination "<button>" button is disabled
     Examples:

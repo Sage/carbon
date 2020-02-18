@@ -1,5 +1,5 @@
 import {
-  pageSelect, maxPages, previousArrow, nextArrow, currentPageInputClassic, currentPageInput,
+  pageSelect, maxPages, previousArrow, nextArrow, currentPageInput,
 } from '../../locators/pager';
 import { DEBUG_FLAG } from '..';
 import { paginationButton, pagination } from '../../locators/table';
@@ -124,7 +124,7 @@ Then('I click {word} button {int} times', (direction, count) => {
 });
 
 When('I type {string} to input pagination for classic pager component', (pageNumber) => {
-  currentPageInputClassic().clear().type(`${pageNumber}{enter}`);
+  currentPageInput().clear().type(`${pageNumber}{enter}`);
 });
 
 When('I type {string} to input pagination', (pageNumber) => {
