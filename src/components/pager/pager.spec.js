@@ -1,9 +1,10 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import Immutable from 'immutable';
 import 'jest-styled-components';
 import { ThemeProvider } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
+import I18n from 'i18n-js';
 import guid from '../../utils/helpers/guid';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import classicTheme from '../../style/themes/classic';
@@ -21,7 +22,7 @@ const pageSizeSelectionOptions = Immutable.fromJS([
   { id: '50', name: 50 }
 ]);
 
-function render(props, renderType = shallow) {
+function render(props, renderType = mount) {
   return renderType(
     <ThemeProvider theme={ props.theme }>
       <Pager { ...props } />
@@ -52,6 +53,81 @@ describe('Pager', () => {
       TestRenderer.create
     );
     expect(wrapper).toMatchSnapshot();
+  });
+
+  describe('i18n', () => {
+    const { translations } = I18n;
+    const { locale } = I18n.locale;
+    beforeAll(() => {
+      I18n.translations = {
+        ...translations,
+        fr: {
+          ...translations.fr,
+          pager: {
+            show: 'Spectacle',
+            records: {
+              one: 'article',
+              zero: 'articles',
+              other: 'articles'
+            }
+          }
+        }
+      };
+    });
+
+    afterAll(() => {
+      I18n.translations = translations;
+      I18n.locale = locale;
+    });
+
+    const getShow = wrapper => wrapper.find("div[data-element='page-select']").getDOMNode().parentElement.firstChild
+      .textContent;
+    const getRecords = wrapper => wrapper.find("div[data-element='page-select']").getDOMNode().parentElement.lastChild
+      .textContent;
+    const getTotalRecords = wrapper => wrapper.getDOMNode().lastChild.textContent;
+
+    describe('default', () => {
+      it('show', () => {
+        const wrapper = render({ ...props, theme: mintTheme });
+        expect(getShow(wrapper)).toBe('Show');
+      });
+
+      it('records', () => {
+        const wrapper = render({ ...props, theme: mintTheme });
+        expect(getRecords(wrapper)).toBe('items');
+      });
+
+      it('total records', () => {
+        expect(getTotalRecords(render({ ...props, theme: mintTheme, totalRecords: 100 }))).toBe('100 items');
+        expect(getTotalRecords(render({ ...props, theme: mintTheme, totalRecords: 1 }))).toBe('1 items');
+        expect(getTotalRecords(render({ ...props, theme: mintTheme, totalRecords: 0 }))).toBe('0 items');
+        expect(getTotalRecords(render({ ...props, theme: classicTheme, totalRecords: 100 }))).toBe('100 records');
+        expect(getTotalRecords(render({ ...props, theme: classicTheme, totalRecords: 1 }))).toBe('1 records');
+        expect(getTotalRecords(render({ ...props, theme: classicTheme, totalRecords: 0 }))).toBe('0 records');
+      });
+    });
+
+    describe('fr', () => {
+      beforeAll(() => {
+        I18n.locale = 'fr';
+      });
+
+      it('show', () => {
+        const wrapper = render({ ...props, theme: mintTheme });
+        expect(getShow(wrapper)).toBe('Spectacle');
+      });
+
+      it('records', () => {
+        const wrapper = render({ ...props, theme: mintTheme });
+        expect(getRecords(wrapper)).toBe('articles');
+      });
+
+      it('total records', () => {
+        expect(getTotalRecords(render({ ...props, theme: mintTheme, totalRecords: 100 }))).toBe('100 articles');
+        expect(getTotalRecords(render({ ...props, theme: mintTheme, totalRecords: 1 }))).toBe('1 article');
+        expect(getTotalRecords(render({ ...props, theme: mintTheme, totalRecords: 0 }))).toBe('0 articles');
+      });
+    });
   });
 
   describe('Classic theme', () => {
