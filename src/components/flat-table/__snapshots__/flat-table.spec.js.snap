@@ -19,20 +19,6 @@ exports[`FLatTable when rendered with proper table data should contain FlatTable
   white-space: nowrap;
 }
 
-.c0 {
-  height: 100%;
-}
-
-.c1 {
-  border-collapse: separate;
-  border-radius: 0px;
-  border-spacing: 0;
-  min-width: 100%;
-  table-layout: fixed;
-  width: auto;
-  word-break: break-all;
-}
-
 .c5 {
   background-color: #fff;
   border: 1px solid #CCD6DA;
@@ -52,17 +38,18 @@ exports[`FLatTable when rendered with proper table data should contain FlatTable
 .c2 .c4 {
   border-left: none;
   border-right: none;
+  font-weight: 700;
+  left: 0;
   padding: 8px 24px;
   top: 0;
-  z-index: 10;
+  z-index: 1;
 }
 
-.c2 .c4:first-of-type {
-  left: 0;
-  font-weight: 700;
+.c0 {
+  height: 100%;
 }
 
-.c3 {
+.c1 {
   border-collapse: separate;
   border-radius: 0px;
   border-spacing: 0;
@@ -90,6 +77,16 @@ exports[`FLatTable when rendered with proper table data should contain FlatTable
 
 .c7:last-of-type {
   border-right: 1px solid #CCD6DA;
+}
+
+.c3 {
+  border-collapse: separate;
+  border-radius: 0px;
+  border-spacing: 0;
+  min-width: 100%;
+  table-layout: fixed;
+  width: auto;
+  word-break: break-all;
 }
 
 <div
