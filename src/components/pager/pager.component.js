@@ -22,10 +22,10 @@ const Pager = (props) => {
   }, [props.currentPage]);
 
   /** Term used to describe table data */
-  const descriptor = I18n.t(
+  const records = count => I18n.t(
     'pager.records',
     {
-      count: Number(props.totalRecords),
+      count: Number(count),
       defaultValue: isClassic(currentTheme) ? {
         one: 'record',
         zero: 'records',
@@ -50,9 +50,10 @@ const Pager = (props) => {
   }
 
   function pageSizeOptions() {
+    const show = I18n.t('pager.show', { defaultValue: 'Show' });
     const elem = (
       <PagerSizeOptionsInnerStyles>
-        <span>{ I18n.t('pager.show', { defaultValue: 'Show' }) }</span>{ sizeSelector() }<span>{ descriptor }</span>
+        <span>{ show }</span>{ sizeSelector() }<span>{ records(props.pageSize) }</span>
       </PagerSizeOptionsInnerStyles>
     );
 
@@ -68,7 +69,7 @@ const Pager = (props) => {
         setCurrentPage={ setCurrentPage }
         setCurrentThemeName={ setCurrentTheme }
       />
-      <PagerSummaryStyles>{ props.totalRecords } { descriptor }</PagerSummaryStyles>
+      <PagerSummaryStyles>{ props.totalRecords } { records(props.totalRecords) }</PagerSummaryStyles>
     </PagerContainerStyles>
   );
 };

@@ -93,12 +93,12 @@ describe('Pager', () => {
       });
 
       it('records', () => {
-        expect(getRecords(render({ ...props, theme: mintTheme, totalRecords: 100 }))).toBe('items');
-        expect(getRecords(render({ ...props, theme: mintTheme, totalRecords: 1 }))).toBe('item');
-        expect(getRecords(render({ ...props, theme: mintTheme, totalRecords: 0 }))).toBe('items');
-        expect(getRecords(render({ ...props, theme: classicTheme, totalRecords: 100 }))).toBe('records');
-        expect(getRecords(render({ ...props, theme: classicTheme, totalRecords: 1 }))).toBe('record');
-        expect(getRecords(render({ ...props, theme: classicTheme, totalRecords: 0 }))).toBe('records');
+        expect(getRecords(render({ ...props, theme: mintTheme, pageSize: '100' }))).toBe('items');
+        expect(getRecords(render({ ...props, theme: mintTheme, pageSize: '1' }))).toBe('item');
+        expect(getRecords(render({ ...props, theme: mintTheme, pageSize: '0' }))).toBe('items');
+        expect(getRecords(render({ ...props, theme: classicTheme, pageSize: '100' }))).toBe('records');
+        expect(getRecords(render({ ...props, theme: classicTheme, pageSize: '1' }))).toBe('record');
+        expect(getRecords(render({ ...props, theme: classicTheme, pageSize: '0' }))).toBe('records');
       });
 
       it('total records', () => {
@@ -122,9 +122,9 @@ describe('Pager', () => {
       });
 
       it('records', () => {
-        expect(getRecords(render({ ...props, theme: mintTheme, totalRecords: 100 }))).toBe('articles');
-        expect(getRecords(render({ ...props, theme: mintTheme, totalRecords: 1 }))).toBe('article');
-        expect(getRecords(render({ ...props, theme: mintTheme, totalRecords: 0 }))).toBe('articles');
+        expect(getRecords(render({ ...props, theme: mintTheme, pageSize: '100' }))).toBe('articles');
+        expect(getRecords(render({ ...props, theme: mintTheme, pageSize: '1' }))).toBe('article');
+        expect(getRecords(render({ ...props, theme: mintTheme, pageSize: '0' }))).toBe('articles');
       });
 
       it('total records', () => {

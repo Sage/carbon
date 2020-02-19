@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
 import { number, boolean, select } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
+import Immutable from 'immutable';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import Pager from './pager.component';
 import { Info, notes } from './documentation';
-import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Pager.__docgenInfo = getDocGenInfo(
@@ -80,7 +80,12 @@ TableComponent.propTypes = {
 function makeStory(name, themeSelector) {
   const component = () => {
     const totalRecords = number('totalRecords', 100);
-    const pageSize = select('pageSize', OptionsHelper.pageSizes, Pager.defaultProps.pageSize);
+    const pageSize = select('pageSize', {
+      one: 1,
+      10: 10,
+      25: 25,
+      50: 50
+    }, Pager.defaultProps.pageSize);
     const showPageSizeSelection = boolean(
       'showPageSizeSelection',
       Pager.defaultProps.showPageSizeSelection
@@ -96,6 +101,14 @@ function makeStory(name, themeSelector) {
           showPageSizeSelection={ showPageSizeSelection }
           totalRecords={ totalRecords }
           onPagination={ handlePagination }
+          pageSizeSelectionOptions={
+            Immutable.fromJS([
+              { id: '1', name: 1 },
+              { id: '10', name: 10 },
+              { id: '25', name: 25 },
+              { id: '50', name: 50 }
+            ])
+          }
         />
       </State>
     );
