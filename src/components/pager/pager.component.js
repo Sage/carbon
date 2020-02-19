@@ -26,7 +26,7 @@ const Pager = (props) => {
     'pager.records',
     {
       count: Number(props.totalRecords),
-      defaultValue: isClassic(currentTheme) ? ' records' : ' items'
+      defaultValue: isClassic(currentTheme) ? 'records' : 'items'
     }
   );
 
@@ -44,7 +44,7 @@ const Pager = (props) => {
   function pageSizeOptions() {
     const elem = (
       <PagerSizeOptionsInnerStyles>
-        { I18n.t('pager.show', { defaultValue: 'Show ' }) } { sizeSelector() } { descriptor }
+        <span>{ I18n.t('pager.show', { defaultValue: 'Show' }) }</span>{ sizeSelector() }<span>{ descriptor }</span>
       </PagerSizeOptionsInnerStyles>
     );
 
