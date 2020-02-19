@@ -53,7 +53,7 @@ const MenuItem = React.forwardRef(({
     return function cleanup() {
       window.removeEventListener(event, setOpen(false));
     };
-  }, [ref]);
+  }, []);
 
   const onClick = useCallback((e) => {
     if (!disabled) {
@@ -112,7 +112,10 @@ const MenuItem = React.forwardRef(({
         timer = setTimeout(() => { setOpen(false); }, INTERVAL);
         e.stopPropagation();
       },
-      onClick: () => {}
+      onClick: (e) => {
+        setOpen(true);
+        e.stopPropagation();
+      }
     }),
     'aria-haspopup': 'true',
     'aria-label': I18n.t('actionpopover.aria-label', { defaultValue: 'actions' }),
