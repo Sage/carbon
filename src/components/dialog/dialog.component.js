@@ -41,7 +41,7 @@ class Dialog extends Modal {
     this.centerDialog(true);
     ElementResize.addListener(this._innerContent, this.applyFixedBottom);
     this.window.addEventListener('resize', this.centerDialog);
-    this.removeFocusTrap = focusTrap(this._dialog);
+    this.removeFocusTrap = focusTrap(this._dialog, this.props.focusFirstElement);
   }
 
   handleClose() {
