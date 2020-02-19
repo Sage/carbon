@@ -11,35 +11,6 @@ import {
 } from '.';
 import guid from '../../utils/helpers/guid';
 
-const initialJson = {
-  labels: {
-    client: 'Client',
-    clientType: 'Client Type',
-    categories: 'Categories',
-    products: 'Products',
-    finalAccDue: 'Final Account Due',
-    corpTaxDue: 'Corp Tax Due',
-    vatDue: 'VAT due'
-  },
-  clients: renderBody(8)
-};
-
-function renderBody(rowCount) {
-  const rows = [...Array(rowCount)];
-
-  return rows.map(() => {
-    return {
-      client: (<div><h5 style={ { margin: 0 } }>Soylent Corp</h5>John Doe</div>),
-      clientType: 'business',
-      categories: 'Group1, Group2, Group3',
-      products: 'Accounting',
-      finalAccDue: '12/12/20',
-      corpTaxDue: '20/12/20',
-      vatDue: '25/12/20'
-    };
-  });
-}
-
 export default {
   title: 'Test/Flat Table',
   component: FlatTable,
@@ -49,13 +20,15 @@ export default {
 export const basic = () => {
   const hasStickyHead = boolean('hasStickyHead', false);
   const hasHeaderRow = boolean('hasHeaderRow', false);
-  const processed = processJsonData(initialJson, hasHeaderRow);
+  const hasClickableRows = boolean('hasClickableRows', false);
+  const processed = getTableData();
   // used to show how the table behaves constrained or on lower resolutions
   const tableSizeConstraints = {
     height: 'auto',
     width: 'auto',
     overflowX: 'auto'
   };
+  let onClickFn;
 
   if (hasStickyHead) {
     tableSizeConstraints.height = '300px';
@@ -63,6 +36,10 @@ export const basic = () => {
 
   if (hasHeaderRow) {
     tableSizeConstraints.width = '600px';
+  }
+
+  if (hasClickableRows) {
+    onClickFn = () => {};
   }
 
   return (
@@ -92,7 +69,7 @@ export const basic = () => {
         <FlatTableBody>
           {
             processed.bodyData.map(rowData => (
-              <FlatTableRow key={ rowData.id }>
+              <FlatTableRow key={ rowData.id } onClick={ onClickFn }>
                 {
                   rowData.data.map((cellData, index) => {
                     let Component = FlatTableCell;
@@ -126,6 +103,41 @@ basic.story = {
     }
   }
 };
+
+const headRowData = {
+  client: 'Client',
+  clientType: 'Client Type',
+  categories: 'Categories',
+  products: 'Products',
+  finalAccDue: 'Final Account Due',
+  corpTaxDue: 'Corp Tax Due',
+  vatDue: 'VAT due'
+};
+
+const rowData = {
+  client: (<div><h5 style={ { margin: 0 } }>Soylent Corp</h5>John Doe</div>),
+  clientType: 'business',
+  categories: 'Group1, Group2, Group3',
+  products: 'Accounting',
+  finalAccDue: '12/12/20',
+  corpTaxDue: '20/12/20',
+  vatDue: '25/12/20'
+};
+
+function getTableData() {
+  return processJsonData({
+    labels: headRowData,
+    clients: renderBody(8)
+  });
+}
+
+function renderBody(rowCount) {
+  const rows = [...Array(rowCount)];
+
+  return rows.map(() => {
+    return rowData;
+  });
+}
 
 function processJsonData({ labels, clients }) {
   return {

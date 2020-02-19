@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FlatTableRow should have expected styles 1`] = `
+.c1 {
+  background-color: #fff;
+  border-width: 0;
+  border-bottom: 1px solid #CCD6DA;
+  overflow: visible;
+  padding: 10px 24px;
+  text-overflow: ellipsis;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.c1:first-of-type {
+  border-left: 1px solid #CCD6DA;
+}
+
+.c1:last-of-type {
+  border-right: 1px solid #CCD6DA;
+}
+
+.c0 {
+  border-collapse: separate;
+  border-radius: 0px;
+  border-spacing: 0;
+  min-width: 100%;
+  table-layout: fixed;
+  width: auto;
+  word-break: break-all;
+}
+
+<table>
+  <tbody>
+    <tr
+      className="c0"
+      data-element="flat-table-row"
+    >
+      <td
+        className="c1"
+        data-element="flat-table-cell"
+      >
+        cell1
+      </td>
+      <td
+        className="c1"
+        data-element="flat-table-cell"
+      >
+        cell2
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
