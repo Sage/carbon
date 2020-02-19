@@ -1,5 +1,6 @@
 import React from 'react';
 import { boolean, withKnobs } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 import {
   FlatTable,
   FlatTableHead,
@@ -29,6 +30,7 @@ export const basic = () => {
     overflowX: 'auto'
   };
   let onClickFn;
+  let rowWithInputs;
 
   if (hasStickyHead) {
     tableSizeConstraints.height = '300px';
@@ -39,7 +41,8 @@ export const basic = () => {
   }
 
   if (hasClickableRows) {
-    onClickFn = () => {};
+    onClickFn = action('click');
+    rowWithInputs = getRowWithInputs(onClickFn, hasHeaderRow);
   }
 
   return (
@@ -67,6 +70,7 @@ export const basic = () => {
           }
         </FlatTableHead>
         <FlatTableBody>
+          { rowWithInputs }
           {
             processed.bodyData.map(rowData => (
               <FlatTableRow key={ rowData.id } onClick={ onClickFn }>
@@ -123,6 +127,26 @@ const rowData = {
   corpTaxDue: '20/12/20',
   vatDue: '25/12/20'
 };
+
+function getRowWithInputs(onClickFn, hasHeaderRow) {
+  let firstRow = <FlatTableCell>Row with inputs</FlatTableCell>;
+
+  if (hasHeaderRow) {
+    firstRow = <FlatTableRowHeader>Row with inputs</FlatTableRowHeader>;
+  }
+
+  return (
+    <FlatTableRow key='rowWithInputs' onClick={ onClickFn }>
+      { firstRow }
+      <FlatTableCell><input /></FlatTableCell>
+      <FlatTableCell><input /></FlatTableCell>
+      <FlatTableCell><input /></FlatTableCell>
+      <FlatTableCell><input /></FlatTableCell>
+      <FlatTableCell><input /></FlatTableCell>
+      <FlatTableCell><input /></FlatTableCell>
+    </FlatTableRow>
+  );
+}
 
 function getTableData() {
   return processJsonData({
