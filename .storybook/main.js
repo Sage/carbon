@@ -9,7 +9,7 @@ module.exports = {
     '@storybook/addon-viewport/register',
     '@storybook/addon-a11y/register',
     '@storybook/addon-docs',
-    path.resolve(__dirname, 'google-analytics/register'),
+    '@storybook/addon-google-analytics/register',
     path.resolve(__dirname, 'theme-selector/register'),
   ],
   webpackFinal: async (config, { configType }) => {
