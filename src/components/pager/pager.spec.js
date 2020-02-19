@@ -93,16 +93,20 @@ describe('Pager', () => {
       });
 
       it('records', () => {
-        const wrapper = render({ ...props, theme: mintTheme });
-        expect(getRecords(wrapper)).toBe('items');
+        expect(getRecords(render({ ...props, theme: mintTheme, totalRecords: 100 }))).toBe('items');
+        expect(getRecords(render({ ...props, theme: mintTheme, totalRecords: 1 }))).toBe('item');
+        expect(getRecords(render({ ...props, theme: mintTheme, totalRecords: 0 }))).toBe('items');
+        expect(getRecords(render({ ...props, theme: classicTheme, totalRecords: 100 }))).toBe('records');
+        expect(getRecords(render({ ...props, theme: classicTheme, totalRecords: 1 }))).toBe('record');
+        expect(getRecords(render({ ...props, theme: classicTheme, totalRecords: 0 }))).toBe('records');
       });
 
       it('total records', () => {
         expect(getTotalRecords(render({ ...props, theme: mintTheme, totalRecords: 100 }))).toBe('100 items');
-        expect(getTotalRecords(render({ ...props, theme: mintTheme, totalRecords: 1 }))).toBe('1 items');
+        expect(getTotalRecords(render({ ...props, theme: mintTheme, totalRecords: 1 }))).toBe('1 item');
         expect(getTotalRecords(render({ ...props, theme: mintTheme, totalRecords: 0 }))).toBe('0 items');
         expect(getTotalRecords(render({ ...props, theme: classicTheme, totalRecords: 100 }))).toBe('100 records');
-        expect(getTotalRecords(render({ ...props, theme: classicTheme, totalRecords: 1 }))).toBe('1 records');
+        expect(getTotalRecords(render({ ...props, theme: classicTheme, totalRecords: 1 }))).toBe('1 record');
         expect(getTotalRecords(render({ ...props, theme: classicTheme, totalRecords: 0 }))).toBe('0 records');
       });
     });
@@ -118,8 +122,9 @@ describe('Pager', () => {
       });
 
       it('records', () => {
-        const wrapper = render({ ...props, theme: mintTheme });
-        expect(getRecords(wrapper)).toBe('articles');
+        expect(getRecords(render({ ...props, theme: mintTheme, totalRecords: 100 }))).toBe('articles');
+        expect(getRecords(render({ ...props, theme: mintTheme, totalRecords: 1 }))).toBe('article');
+        expect(getRecords(render({ ...props, theme: mintTheme, totalRecords: 0 }))).toBe('articles');
       });
 
       it('total records', () => {

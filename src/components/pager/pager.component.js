@@ -26,7 +26,15 @@ const Pager = (props) => {
     'pager.records',
     {
       count: Number(props.totalRecords),
-      defaultValue: isClassic(currentTheme) ? 'records' : 'items'
+      defaultValue: isClassic(currentTheme) ? {
+        one: 'record',
+        zero: 'records',
+        other: 'records'
+      } : {
+        one: 'item',
+        zero: 'items',
+        other: 'items'
+      }
     }
   );
 
