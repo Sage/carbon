@@ -207,7 +207,14 @@ class FormWithoutValidations extends React.Component {
       this.triggerSubmit(ev, valid);
     } else {
       this.setState({ submitted: false });
+      this.regainFocusOnSubmit();
     }
+  }
+
+  regainFocusOnSubmit() {
+    const lastId = this._form.elements.length - (this.props.stickyFooter ? 2 : 1);
+    const lastElement = this._form.elements[lastId];
+    lastElement.focus();
   }
 
   triggerSubmit(ev, valid) {

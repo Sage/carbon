@@ -5,6 +5,13 @@ Feature: Experimental Form component
     Given I open "Experimental Form" component page
 
   @positive
+  Scenario: Check focus on failed validation
+    When I check stickyFooter checkbox
+      And I save form
+    Then save button is focused
+      And save button has golden border on focus
+
+  @positive
   Scenario: Show save button
     When I uncheck save checkbox
       And I check save checkbox
