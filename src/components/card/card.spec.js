@@ -3,9 +3,9 @@ import { shallow } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import Card from './card.component';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-import 'jest-styled-components';
 import Icon from '../icon';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
+import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Card', () => {
   describe('when the content is added as children', () => {
@@ -157,6 +157,18 @@ describe('Card', () => {
         cursor: 'move'
       }, wrapper.toJSON());
     });
+  });
+
+  it('include correct component and role data tags', () => {
+    const wrapper = renderCard({ dataRole: 'foo' }, shallow);
+
+    rootTagTest(wrapper, 'card', undefined, 'foo');
+  });
+
+  it('include correct component and role tag when no prop passed', () => {
+    const wrapper = renderCard({}, shallow);
+
+    rootTagTest(wrapper, 'card', undefined, undefined);
   });
 });
 
