@@ -10,6 +10,14 @@ const FIRST_ELEMENT = 1;
 const SECOND_ELEMENT = 2;
 const THIRD_ELEMENT = 3;
 
+Then('save button has golden border on focus', () => {
+  saveButton().should('have.css', 'outline', 'rgb(255, 181, 0) solid 3px');
+});
+
+Then('save button is focused', () => {
+  saveButton().should('have.focus');
+});
+
 Then('save button is visible', () => {
   saveButton().should('be.visible');
 });
