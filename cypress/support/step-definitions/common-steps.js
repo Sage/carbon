@@ -7,7 +7,7 @@ import {
   closeIconButton, tooltipPreview, getKnobsInput, getKnobsInputWithName, getKnobsInputByGroup,
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
   precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
-  knobsNameTab, fieldHelpPreviewByPosition, labelByPosition,
+  knobsNameTab, fieldHelpPreviewByPosition, labelByPosition, dlsRoot,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
@@ -475,6 +475,10 @@ Then('text {string} color is set to {string}', (text, color) => {
 
 When('I click outside of the component', () => {
   storyRoot().click();
+});
+
+When('I click outside of the component in DLS directory', () => {
+  dlsRoot().click();
 });
 
 When('I click above of the component into iFrame', () => {
