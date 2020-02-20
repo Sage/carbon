@@ -7,7 +7,7 @@ Feature: Loader default component
   @positive
   Scenario Outline: I set Loader component size to <size>
     When I select size to "<size>"
-    Then Loader width is set to "1059px" and height is set to "<height>"
+    Then Loader width is set to 1059 px and height is set to <height> px
     Examples:
       | size  | height |
       | small | 17     |
@@ -15,9 +15,9 @@ Feature: Loader default component
 
   @positive
   Scenario Outline: Verify size of button with loader
-    Given I select size to "<size>"
-    When I check isInsideButton checkbox
-    Then button with loader width is set to "<width>" and height is set to "40px"
+    Given I check isInsideButton checkbox
+    When I select size to "<size>"
+    Then button with loader width is set to <width> px and height is set to 40 px
     Examples:
       | size  | width |
       | small | 88    |
@@ -33,7 +33,6 @@ Feature: Loader default component
     Given I check isInsideButton checkbox
     When I uncheck isActive checkbox
     Then Loader button is disabled
-
 
   @positive
   Scenario: Enabled loader button

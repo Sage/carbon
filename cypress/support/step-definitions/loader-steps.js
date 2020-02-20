@@ -12,13 +12,13 @@ Then('Loader Legacy Spinner width and height is set to {string}', (value) => {
   spinner($element => expect($element).to.have.css('width', `${value}px`));
 });
 
-Then('Loader width is set to {string} and height is set to {string}', (width, height) => {
+Then('Loader width is set to {int} px and height is set to {int} px', (width, height) => {
   loader().should('have.css', 'height', `${height}px`);
-  loader().should('have.css', 'width', width);
+  loader().should('have.css', 'width', `${width}px`);
 });
 
-Then('button with loader width is set to {string} and height is set to {string}', (width, height) => {
-  loaderInsideButton().should('have.css', 'height', height);
+Then('button with loader width is set to {int} px and height is set to {int} px', (width, height) => {
+  loaderInsideButton().should('have.css', 'height', `${height}px`);
   loaderInsideButton().should('have.css', 'width', `${width}px`);
 });
 
@@ -37,7 +37,8 @@ Then('Loader isInsideButton and backgroundColor is {string}', (color) => {
 });
 
 Then('Loader button is disabled', () => {
-  loaderInsideButton().should('have.attr', 'disabled');
+  loaderInsideButton().should('be.disabled')
+    .and('have.attr', 'disabled');
 });
 
 Then('Loader button is enabled', () => {
