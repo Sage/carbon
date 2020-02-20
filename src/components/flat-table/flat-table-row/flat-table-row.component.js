@@ -34,7 +34,9 @@ const FlatTableRow = ({ children, onClick }) => {
 };
 
 FlatTableRow.propTypes = {
+  /** Array of FlatTableHeader or FlatTableCell. FlatTableRowHeader could also be passed. */
   children: PropTypes.node.isRequired,
+  /** Function to handle click event. If provided the Component could be focused with tab key. */
   onClick: PropTypes.func
 };
 
