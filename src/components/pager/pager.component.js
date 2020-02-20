@@ -28,11 +28,9 @@ const Pager = (props) => {
       count: Number(count),
       defaultValue: isClassic(currentTheme) ? {
         one: 'record',
-        zero: 'records',
         other: 'records'
       } : {
         one: 'item',
-        zero: 'items',
         other: 'items'
       }
     }
