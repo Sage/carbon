@@ -71,7 +71,11 @@ const DraggableContainer = ({ children, getOrder }) => {
 };
 
 DraggableContainer.propTypes = {
+  /** Callback fired when order is changed */
   getOrder: PropTypes.func,
+  /** The content of the component
+   *
+   * `<DraggableItem /> is required to make Draggable works` */
   children: (props, propName, componentName) => {
     const prop = props[propName];
     let error;

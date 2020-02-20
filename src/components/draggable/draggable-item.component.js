@@ -46,10 +46,15 @@ const DraggableItem = ({
 };
 
 DraggableItem.propTypes = {
+  /** The id of the `DraggableItem`.
+   *
+   * Use this prop to make Draggable works
+    */
   id: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string
   ]).isRequired,
+  /** The content of the component. */
   children: PropTypes.node.isRequired,
   getOrder: PropTypes.func,
   findItem: PropTypes.func.isRequired,
