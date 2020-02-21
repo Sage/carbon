@@ -1,4 +1,3 @@
-/* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
@@ -139,7 +138,7 @@ describe('Draggable Checkbox', () => {
       ]);
     });
 
-    it('can drag wihtout drop', () => {
+    it('can drag without drop', () => {
       const tableCells1 = getTableCells();
       const startingNode1 = tableCells1[0];
 

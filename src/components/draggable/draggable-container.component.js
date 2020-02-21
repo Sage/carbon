@@ -39,10 +39,7 @@ const DraggableContainer = ({ children, getOrder }) => {
       return;
     }
 
-    const tempArray = [];
-    draggableItems.forEach((draggableItem) => {
-      return tempArray.push(draggableItem.props.id);
-    });
+    const tempArray = draggableItems.map(draggableItem => draggableItem.props.id);
 
     getOrder(tempArray);
   };
@@ -73,9 +70,11 @@ const DraggableContainer = ({ children, getOrder }) => {
 DraggableContainer.propTypes = {
   /** Callback fired when order is changed */
   getOrder: PropTypes.func,
-  /** The content of the component
+  /**
+   * The content of the component
    *
-   * `<DraggableItem /> is required to make Draggable works` */
+   *  `<DraggableItem />` is required to make `Draggable` works
+   * */
   children: (props, propName, componentName) => {
     const prop = props[propName];
     let error;
