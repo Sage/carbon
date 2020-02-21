@@ -1,7 +1,7 @@
 Feature: Link component
   I want to change Link component properties
 
-  Background: Open Link component page
+  Background: Open Link component default page
     Given I open "Link" component page
 
   @positive
@@ -24,8 +24,8 @@ Feature: Link component
 
   @positive
   Scenario: Disable and enable Link component
-    When I disable Link component
-      And I enable Link component
+    Given I disable Link component
+    When I enable Link component
     Then Link is enabled
 
   @positive
@@ -87,8 +87,8 @@ Feature: Link component
 
   @positive
   Scenario: Check tabbable and focus the link componenent
-    When I uncheck tabbable checkbox
-      And I check tabbable checkbox
+    Given I uncheck tabbable checkbox
+    When I check tabbable checkbox
     Then Link is tabbable
       And I hit Tab key 2 times
       And Link component is focused
