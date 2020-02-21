@@ -53,6 +53,7 @@ For features that you have a proposed solution for, please write an [RFC](./rfcs
 
 When submitting a pull request, please ensure your branch meets the following criteria:
 
+* It is a passing build. https://github.com/Sage/carbon/blob/master/README.md#testing
 * The code is fully tested and has full coverage.
 * The code follows our coding guidelines (TBC).
 * The code does not introduce unnecessary dependencies (no jQuery!).
