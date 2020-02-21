@@ -217,8 +217,9 @@ exports[`Pager renders the Pager correctly with the Classic Theme 1`] = `
     <div
       className="c2"
     >
-      Show 
-       
+      <span>
+        Show
+      </span>
       <div
         className="carbon-dropdown common-input--with-icon common-input"
         data-component="dropdown"
@@ -262,8 +263,9 @@ exports[`Pager renders the Pager correctly with the Classic Theme 1`] = `
           value="10"
         />
       </div>
-       
-       records
+      <span>
+        records
+      </span>
     </div>
   </div>
   <div
@@ -340,7 +342,7 @@ exports[`Pager renders the Pager correctly with the Classic Theme 1`] = `
   >
     100
      
-     records
+    records
   </div>
 </div>
 `;
@@ -639,8 +641,9 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
     <div
       className="c2"
     >
-      Show 
-       
+      <span>
+        Show
+      </span>
       <div
         className="carbon-dropdown common-input--with-icon common-input"
         data-component="dropdown"
@@ -684,8 +687,9 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
           value="10"
         />
       </div>
-       
-       items
+      <span>
+        items
+      </span>
     </div>
   </div>
   <div
@@ -774,7 +778,7 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
   >
     100
      
-     items
+    items
   </div>
 </div>
 `;

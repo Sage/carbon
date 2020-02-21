@@ -100,19 +100,24 @@ Feature: Table With Inputs component
   # | <> |
 
   @positive
-  Scenario Outline: TotalRecords is set to <totalRecords>
+  Scenario Outline: TotalRecords is set to <totalRecords> items
     When I set totalRecords to "<totalRecords>"
       And I check paginate checkbox
     Then totalRecords is set to "<totalRecords>" items
     Examples:
       | totalRecords |
       | 0            |
-      | 1            |
       | 10           |
       | 100          |
       | 99999999     |
       | -1           |
       | -10          |
+
+  @positive
+  Scenario: TotalRecords is set to 1 item
+    When I set totalRecords to "1"
+      And I check paginate checkbox
+    Then totalRecords is set to "1" item
 
   @positive
   Scenario Outline: TotalRecords is set out of scope to <totalRecords>
