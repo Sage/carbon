@@ -540,3 +540,11 @@ When('I press keyboard {string} key times {int}', (key, times) => {
 When('I click on outside dialog in iFrame', () => {
   cy.get('#story-root').click({ force: true });
 });
+
+When('I click onto root in Test directory in iFrame', () => {
+  cy.get('#root').click({ force: true });
+});
+
+Then('totalRecords is set to {string} {word}', (totalRecords, element) => {
+  pagerSummary().invoke('text').should('contain', `${totalRecords}  ${element}`);
+});
