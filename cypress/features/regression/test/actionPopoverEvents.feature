@@ -2,7 +2,7 @@ Feature: Action Popover component
   I want to change Action Popover component properties
 
   Background: Open Action Popover component page
-    Given I open "Action Popover" component page
+    Given I open "Test Action Popover" component page
       And I click the menu button element with iFrame
       And clear all actions in Actions Tab
 
