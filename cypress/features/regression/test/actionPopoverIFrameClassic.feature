@@ -2,7 +2,7 @@ Feature: Action Popover component classic
   I want to change Action Popover component properties for classic page
 
   Background: Open Action Popover component classic page
-    Given I open "Action Popover" component for classic story in iframe
+    Given I open "Test Action Popover" component for classic story in iframe
 
   @positive
   Scenario Outline: check <innerText> as inner context

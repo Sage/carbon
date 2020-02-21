@@ -2,7 +2,7 @@ Feature: Action Popover component
   I want to change Action Popover component properties
 
   Background: Open Action Popover component page
-    Given I open "Action Popover" component in iframe
+    Given I open "Test Action Popover" component in iframe
 
   @positive
   Scenario: Open Action Popover element
@@ -82,7 +82,7 @@ Feature: Action Popover component
   @positive
   Scenario: Open Action Popover and close it by clicking outside of the component
     Given I click the menu button element
-    When I click on outside dialog in iFrame
+    When I click onto root in Test directory in iFrame
     Then Action Popover element is not visible
 
   @positive
