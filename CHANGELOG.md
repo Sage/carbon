@@ -1,3 +1,19 @@
+### [13.3.1](https://github.com/Sage/carbon/compare/v13.3.0...v13.3.1) (2020-02-21)
+
+
+### Bug Fixes
+
+* **pager:** add singular/plural default translations for records ([ffaf35c](https://github.com/Sage/carbon/commit/ffaf35c1ebe630582b94626fea3cb7d6111723d5))
+* **pager:** remove whitespace from translation template ([4e4c746](https://github.com/Sage/carbon/commit/4e4c7464f9258a656e0f55a6d05dbe3706a842b3))
+* **pager:** use page size value for translation of page size ([c608a5b](https://github.com/Sage/carbon/commit/c608a5be451e4fa617c05d43657c333bdc807708))
+
+## [13.3.0](https://github.com/Sage/carbon/compare/v13.2.2...v13.3.0) (2020-02-20)
+
+
+### Features
+
+* **search:** create search component ([2394a97](https://github.com/Sage/carbon/commit/2394a973fccbfb28ede86d84d6e1533ed42a5dfa))
+
 ### [13.2.2](https://github.com/Sage/carbon/compare/v13.2.1...v13.2.2) (2020-02-20)
 
 

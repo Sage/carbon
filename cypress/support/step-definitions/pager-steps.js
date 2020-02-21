@@ -1,16 +1,17 @@
 import {
-  pageSelect, maxPages, previousArrow, nextArrow, currentPageInput,
+  pageSelect, maxPages, previousArrow, nextArrow, currentPageInput, pageSelectItems,
 } from '../../locators/pager';
 import { DEBUG_FLAG } from '..';
-import { paginationButton, pagination } from '../../locators/table';
+import { pagination, paginationButtonByIndex } from '../../locators/table';
 
 const ZERO = 0;
 const ONE = 1;
 const TWO = 2;
 const THREE = 3;
 
-Then('pageSize is set to {string}', (pageSize) => {
+Then('pageSize is set to {string} {word}', (pageSize, item) => {
   pageSelect().should('have.attr', 'value', pageSize);
+  pageSelectItems().invoke('text').should('contain', item);
 });
 
 Then('pageSize is visible', () => {
@@ -28,16 +29,20 @@ Then('I am on 1st of {string} pages', (count) => {
 Then('pagination {string} button is disabled', (button) => {
   switch (button) {
     case 'next':
-      paginationButton(TWO).should('have.attr', 'disabled');
+      paginationButtonByIndex(TWO).should('be.disabled')
+        .and('have.attr', 'disabled');
       break;
     case 'last':
-      paginationButton(THREE).should('have.attr', 'disabled');
+      paginationButtonByIndex(THREE).should('be.disabled')
+        .and('have.attr', 'disabled');
       break;
     case 'previous':
-      paginationButton(ONE).should('have.attr', 'disabled');
+      paginationButtonByIndex(ONE).should('be.disabled')
+        .and('have.attr', 'disabled');
       break;
     case 'first':
-      paginationButton(ZERO).should('have.attr', 'disabled');
+      paginationButtonByIndex(ZERO).should('be.disabled')
+        .and('have.attr', 'disabled');
       break;
     default: throw new Error('There are only four pagination buttons');
   }
@@ -46,16 +51,16 @@ Then('pagination {string} button is disabled', (button) => {
 Then('I click {string} pagination button', (button) => {
   switch (button) {
     case 'next':
-      paginationButton(TWO).click();
+      paginationButtonByIndex(TWO).click();
       break;
     case 'last':
-      paginationButton(THREE).click();
+      paginationButtonByIndex(THREE).click();
       break;
     case 'previous':
-      paginationButton(ONE).click();
+      paginationButtonByIndex(ONE).click();
       break;
     case 'first':
-      paginationButton(ZERO).click();
+      paginationButtonByIndex(ZERO).click();
       break;
     default: throw new Error('There are only four pagination buttons');
   }
@@ -77,7 +82,7 @@ Then('I click {string} pagination arrow', (arrow) => {
 Then('pagination buttons are disabled', () => {
   const buttonsAmount = 4;
   for (let i = 0; i < buttonsAmount; i++) {
-    paginationButton(i).should('have.attr', 'disabled');
+    paginationButtonByIndex(i).should('have.attr', 'disabled');
   }
 });
 
@@ -106,17 +111,17 @@ Then('I click {word} {int} times', (direction, count) => {
   }
 });
 
-Then('I click {word} button {int} times', (direction, count) => {
+Then('I press {word} button {int} times', (direction, count) => {
   for (let i = 0; i < count; i++) {
     // click force true because element is overlapping
     switch (direction) {
       case 'next':
         cy.wait(100, { log: DEBUG_FLAG }); // wait added due to refreshing element
-        paginationButton(TWO).click({ force: true });
+        paginationButtonByIndex(TWO).click({ force: true });
         break;
       case 'previous':
         cy.wait(100, { log: DEBUG_FLAG }); // wait added due to refreshing element
-        paginationButton(ONE).click({ force: true });
+        paginationButtonByIndex(ONE).click({ force: true });
         break;
       default: throw new Error('Direction can be only next or previous');
     }
