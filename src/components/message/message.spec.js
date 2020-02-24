@@ -5,9 +5,9 @@ import { shallow, mount } from 'enzyme';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import MessageStyle from './message.style';
 import Message from './message.component';
-import CloseIcon from '../dismiss-button';
 import { assertStyleMatch, carbonThemesJestTable } from '../../__spec_helper__/test-utils';
 import { baseTheme, classicTheme } from '../../style/themes';
+import IconButton from '../icon-button';
 
 function render(props) {
   return TestRenderer.create(<MessageStyle { ...props }>Message</MessageStyle>);
@@ -31,14 +31,21 @@ describe('Message', () => {
       });
 
       it('does not render the close icon when onDismiss prop is not provided', () => {
-        const closeIcon = wrapper.find(CloseIcon);
+        const closeIcon = wrapper.find(IconButton);
         expect(closeIcon.exists()).toEqual(false);
       });
 
       it('renders the close icon when onDismiss function is provided', () => {
         const onDismiss = jest.fn();
-        wrapper.setProps({ onDismiss });
-        const closeIcon = wrapper.find(CloseIcon);
+        wrapper = mount(
+          <Message
+            onDismiss={ onDismiss }
+            theme={ theme }
+          >
+            Message
+          </Message>
+        );
+        const closeIcon = wrapper.find(IconButton).first();
         expect(closeIcon.exists()).toEqual(true);
       });
 
@@ -150,6 +157,81 @@ describe('Message', () => {
           },
           wrapper.toJSON()
         );
+      });
+    });
+  });
+
+  describe('when closeIcon is not provided', () => {
+    let wrapper, onDismissCallback;
+
+    beforeEach(() => {
+      onDismissCallback = jest.fn();
+      wrapper = shallow(
+        <Message
+          theme={ classicTheme }
+          roundedCorners={ false }
+          variant='info'
+          onDismiss={ onDismissCallback }
+        >
+          Message
+        </Message>
+      );
+    });
+
+    describe('does not render', () => {
+      it('when onDismiss prop is not provided', () => {
+        wrapper.setProps({ onDismiss: null });
+        expect(wrapper.find(IconButton).exists()).toBeFalsy();
+      });
+
+      it('when showCloseIcon is false', () => {
+        wrapper.setProps({ showCloseIcon: false });
+        expect(wrapper.find(IconButton).exists()).toBeFalsy();
+      });
+    });
+
+    describe('does render', () => {
+      it('when onDismiss and showCloseIcon props are provided', () => {
+        expect(wrapper.find(IconButton).exists()).toBeTruthy();
+        expect(onDismissCallback).toBeCalledTimes(0);
+      });
+    });
+  });
+
+  describe('when closeIcon is provided', () => {
+    let wrapper, onDismissCallback;
+
+    beforeEach(() => {
+      onDismissCallback = jest.fn();
+      wrapper = shallow(
+        <Message
+          theme={ classicTheme }
+          roundedCorners={ false }
+          variant='info'
+          onDismiss={ onDismissCallback }
+          showCloseIcon
+        >
+          Message
+        </Message>
+      );
+    });
+
+    describe('does not render', () => {
+      it('when onDismiss prop is not provided', () => {
+        wrapper.setProps({ onDismiss: null });
+        expect(wrapper.find(IconButton).exists()).toBeFalsy();
+      });
+
+      it('when showCloseIcon is false', () => {
+        wrapper.setProps({ showCloseIcon: false });
+        expect(wrapper.find(IconButton).exists()).toBeFalsy();
+      });
+    });
+
+    describe('does render', () => {
+      it('when onDismiss and showCloseIcon props are provided', () => {
+        expect(wrapper.find(IconButton).exists()).toBeTruthy();
+        expect(onDismissCallback).toBeCalledTimes(0);
       });
     });
   });
