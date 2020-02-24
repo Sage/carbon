@@ -12,7 +12,7 @@
   * Chrome,
   * Firefox,
   * Safari,
-  * Microsoft Edge.
+  * Edge Chromium.
 4. Jira:
   * For every testable task, a JIRA test session needs to be created for each of the supported browsers;
   * Results should be added to the created test sessions with pass / fail mark;
