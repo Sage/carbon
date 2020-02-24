@@ -12,12 +12,17 @@ Feature: Pager component
     Examples:
       | totalRecords | maxPages |
       | 0            | 1        |
-      | 1            | 1        |
       | 10           | 1        |
       | 100          | 10       |
       | 111          | 12       |
       | 1000         | 100      |
       | 99999        | 10000    |
+
+  @positive
+  Scenario: Set totalRecords to 1 and check spell of item word
+    When I set totalRecords to "1"
+    Then totalRecords is set to "1" item
+      And I am on 1st of "1" pages
 
   @negative
   Scenario Outline: Set totalRecords out of scope to <totalRecords>
@@ -44,10 +49,10 @@ Feature: Pager component
       | <>                      |
 
   @positive
-  Scenario Outline: Set pageSize to <pageSize>
-    Given I select pageSize to "<pageSize>"
-    When I check showPageSizeSelection checkbox
-    Then pageSize is set to "<pageSize>"
+  Scenario Outline: Set pageSize to <pageSize> items
+    Given I check showPageSizeSelection checkbox
+    When I select pageSize to "<pageSize>"
+    Then pageSize is set to "<pageSize>" items
       And I am on 1st of "<maxPages>" pages
     Examples:
       | pageSize | maxPages |
@@ -56,10 +61,17 @@ Feature: Pager component
       | 50       | 2        |
 
   @positive
+  Scenario: Set pageSize to 1 item
+    Given I check showPageSizeSelection checkbox
+    When I select pageSize to "one"
+    Then pageSize is set to "1" item
+      And I am on 1st of "100" pages
+
+  @positive
   Scenario: Enable showPageSizeSelection and verify default value
     When I check showPageSizeSelection checkbox
     Then pageSize is visible
-      And pageSize is set to "10"
+      And pageSize is set to "10" items
 
   @positive
   Scenario: Enable and disable showPageSizeSelection
@@ -99,7 +111,7 @@ Feature: Pager component
   @positive
   Scenario Outline: Pagination <button> button is disabled after previous paginate
     Given I type "10" to input pagination
-    When I click previous button 9 times
+    When I press previous button 9 times
     Then pagination "<button>" button is disabled
     Examples:
       | button   |
@@ -108,7 +120,7 @@ Feature: Pager component
 
   @positive
   Scenario Outline: Pagination <button> button is disabled after clicking next button
-    When I click next button 9 times
+    When I press next button 9 times
     Then pagination "<button>" button is disabled
     Examples:
       | button |

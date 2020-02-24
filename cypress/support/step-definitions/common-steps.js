@@ -541,5 +541,5 @@ When('I click on outside dialog in iFrame', () => {
 });
 
 Then('totalRecords is set to {string} {word}', (totalRecords, element) => {
-  pagerSummary().invoke('text').should('contain', `${totalRecords}  ${element}`);
+  pagerSummary().invoke('text').should('contain', `${totalRecords} ${element}`);
 });
