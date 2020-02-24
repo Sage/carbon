@@ -12,12 +12,17 @@ Feature: Table classic component
     Examples:
       | totalRecords |
       | 0            |
-      | 1            |
       | 10           |
       | 100          |
       | 99999999     |
       | -1           |
       | -10          |
+
+  @positive
+  Scenario: TotalRecords is set to <totalRecords>
+    When I set totalRecords to "1"
+      And I check paginate checkbox
+    Then totalRecords is set to "1" record
 
   @positive
   Scenario Outline: TotalRecords is set out of scope to <totalRecords>

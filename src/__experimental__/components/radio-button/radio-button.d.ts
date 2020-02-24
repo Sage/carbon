@@ -15,7 +15,7 @@ export interface RadioButtonProps {
   onChange?: (ev: React.ChangeEvent<HTMLElement>) => void;
   reverse?: boolean;
   size?: SizesType;
-  value: string
+  value: string;
 }
 
 declare const RadioButton: React.FunctionComponent<RadioButtonProps>;
