@@ -8,6 +8,7 @@ const StyledTextarea = styled.div`
     min-height: 40px;
     margin-top: 5px;
     margin-bottom: 5px;
+    height: unset;
   }
 
   ${({ labelInline }) => labelInline && css`
