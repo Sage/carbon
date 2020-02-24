@@ -8,8 +8,9 @@
   font-size: 13px;
   font-weight: 700;
   height: 40px;
-  padding: 0px 24px;
+  padding: 0px 16px;
   position: relative;
+  cursor: pointer;
 
   .carbon-portrait {
     top: -1px;
@@ -22,11 +23,19 @@
   .carbon-menu--primary &,
   .carbon-menu--primary &:hover {
     background-color: $white;
-    color: $grey-dark-blue;
-    text-decoration: none;
+    color: $slate;
+
+    a {
+      color: $slate;
+      text-decoration: none;
+
+      &:focus {
+        background-color: transparent;
+      }
+    }
 
     [data-component='icon'] {
-      color: $grey-dark-blue;
+      color: $slate;
     }
 
     &.carbon-link__anchor:hover {
@@ -78,8 +87,14 @@
 
   .carbon-menu--secondary &,
   .carbon-menu--secondary &:hover {
-    background-color: $grey-dark-blue;
+    background-color: $slate;
     color: $white;
+
+    a {
+      text-decoration: none;
+      color: $white;
+      background-color: transparent;
+    }
 
     [data-component='icon'] {
       color: $white;
@@ -96,7 +111,7 @@
     }
 
     &:hover {
-      background-color: $grey-dark-plus;
+      background-color: $slate-shade-30;
     }
 
     &.carbon-menu-item--has-link:hover {
@@ -111,6 +126,7 @@
 
   a:hover {
     text-decoration: none;
+    color: $white;
   }
 
   .carbon-menu-item:after {
@@ -120,12 +136,11 @@
   &.carbon-menu-item--has-submenu {
     .carbon-menu-item__submenu-title {
       background-color: transparent;
-      &:not(.carbon-menu-item--has-link) {
-        cursor: default;
+      padding-right: 32px;
 
-        .carbon-link__content {
-          cursor: text;
-        }
+      a {
+        text-decoration: none;
+        background-color: transparent;
       }
     }
   }
@@ -135,21 +150,19 @@
   padding: 0;
 
   &:before {
-    pointer-events: none;
-    right: 15px;
-    top: 50%;
     margin-top: -2px;
-    margin-right: -2px;
+    pointer-events: none;
     position: absolute;
+    right: 16px;
+    top: 50%;
     z-index: 2;
 
     .carbon-menu--primary & {
-      @include arrow("down", 4px, $grey-dark-blue);
+      @include arrow("down", 4px, $slate);
     }
 
     .carbon-menu--secondary & {
       @include arrow("down", 4px, $white);
-      right: 14px;
     }
   }
 
@@ -159,7 +172,7 @@
 }
 
 .carbon-menu-item__submenu {
-  box-shadow: 0 15px 25px rgba($grey-shadow, 0.15);
+  box-shadow: $shadow-depth-1;
   display: none;
   list-style: none;
   margin: 0;
@@ -167,7 +180,7 @@
   padding: 0;
   position: absolute;
   z-index: $z-dropdown-list;
-  
+
   [data-component='icon'] {
     line-height: 16px;
     margin: 0 10px 0 0;
@@ -190,16 +203,33 @@
   .carbon-menu--primary & {
     background-color: $white;
 
+    .carbon-menu-item {
+      &:hover {
+        color: $white;
+        a {
+          color: $white;
+        }
+      }
+
+      a {
+        text-decoration: none;
+
+        &:hover {
+          color: $white;
+        }
+      }
+    }
+
     .carbon-menu-item--selected {
       color: $green-bright-dull;
     }
   }
- 
+
   .carbon-menu--secondary & {
-    background-color: $grey-dark-plus;
+    background-color: $slate-shade-30;
 
     [data-component='icon'] {
-      margin: 0 15px 0 0;
+      margin: 0 8px 0 0;
     }
   }
 
@@ -230,20 +260,20 @@
     height: 40px;
     line-height: 40px;
     white-space: nowrap;
+    cursor: pointer;
 
     .carbon-menu--primary & {
       background-color: $white;
     }
 
     .carbon-menu--secondary & {
-      background-color: $grey-dark-plus;
-      padding: 0 15px;
+      background-color: $slate-shade-20;
+      padding: 0 16px;
       height: 40px;
       line-height: 40px;
-      border-bottom: 1px solid $grey-dark-plus;
 
       &.carbon-menu-item--has-link:hover {
-        background-color: $grey-dark-blue-90;
+        background-color: $slate-tint-10;
         text-decoration: none;
 
         [data-component='icon'] {
@@ -268,26 +298,20 @@
 }
 
 .carbon-menu-item--divide {
-  margin-top: 10px;
-
   &:before {
     content: "";
     height: 1px;
-    left: 12px;
-    right: 12px;
-    top: -5px;
+    left: 15px;
+    right: 15px;
+    top: 0;
     position: absolute;
 
     .carbon-menu--primary & {
-      background-color: $grey-dark-blue;
+      background-color: $slate-tint-80;
     }
 
     .carbon-menu--secondary & {
-      background-color: $white;
-      left: 15px;
-      right: 15px;
+      background-color: $slate-tint-20;
     }
   }
 }
-
-
