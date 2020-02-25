@@ -5,6 +5,11 @@ Feature: Message component
     Given I open "Message" component page
 
   @positive
+  Scenario: CloseIcon has correct border colour
+    Given I click closeIcon
+    Then closeIcon has golden border on focus
+
+  @positive
   Scenario Outline: Change Message title to <title>
     When I set title to "<title>"
     Then Message title on preview is set to "<title>"
@@ -63,17 +68,17 @@ Feature: Message component
       | <>                      |
 
   @positive
-  Scenario: Enable on dismiss state for a Message component
+  Scenario: Enable on close state for a Message component
     # When I check onDismiss checkbox
     Then Message has cross icon
 
   @positive
   Scenario: Verify the click function for a Message component
     When clear all actions in Actions Tab
-      And I click dismiss icon
+      And I click close icon
     Then click action was called in Actions Tab
 
   @positive
-  Scenario: Disable on dismiss state for a Message component
-    When I uncheck onDismiss checkbox
+  Scenario: Disable showCloseIcon for a Message component
+    When I uncheck showCloseIcon checkbox
     Then Message has no cross icon

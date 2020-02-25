@@ -21,17 +21,16 @@ function makeStory(name, themeSelector) {
     const id = text('id', 'custom-id');
     const transparent = boolean('transparent', Message.defaultProps.transparent);
     const children = text('children', 'This is some information from the Message Component.');
-
-    // Allows onDismiss knob to be a boolean, but pass a function to component
-    const onDismiss = boolean('onDismiss', true);
-    const testOnDismiss = onDismiss ? (evt) => { action('click')(evt); } : undefined;
+    const showCloseIcon = boolean('showCloseIcon', Message.defaultProps.showCloseIcon);
+    const onDismiss = showCloseIcon ? (evt) => { action('click')(evt); } : undefined;
 
     return (
       <Message
         variant={ variant } open={ open }
         title={ title } transparent={ transparent }
-        onDismiss={ testOnDismiss }
+        onDismiss={ onDismiss }
         id={ id }
+        showCloseIcon={ showCloseIcon }
       >
         {children}
       </Message>

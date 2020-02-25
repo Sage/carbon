@@ -15,7 +15,9 @@ jobs:
   include:
     - stage: test
       name: "lint"
-      script: npm run lint
+      script: 
+        - npm run lint
+        - npm run lint-ts
     - name: "unit tests"
       script: npm test
     - name: "test build"

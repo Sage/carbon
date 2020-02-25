@@ -23,6 +23,18 @@ exports[`Message when in classic mode when rendered should match the snapshot 1`
   border: 1px solid #335c6d;
 }
 
+.c0 .c1 {
+  right: 20px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.c0 .c1::-moz-focus-inner {
+  border: none;
+}
+
 <div
   className="c0"
 >
@@ -51,6 +63,18 @@ exports[`Message when in classic mode when rendered should match the snapshot 2`
   background-color: #fdf5f5;
   border-radius: 3px;
   border: 1px solid #f7d9d9;
+}
+
+.c0 .c1 {
+  right: 20px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.c0 .c1::-moz-focus-inner {
+  border: none;
 }
 
 <div
@@ -83,6 +107,18 @@ exports[`Message when in classic mode when rendered should match the snapshot 3`
   border: 1px solid #fec;
 }
 
+.c0 .c1 {
+  right: 20px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.c0 .c1::-moz-focus-inner {
+  border: none;
+}
+
 <div
   className="c0"
 >
@@ -111,6 +147,18 @@ exports[`Message when in classic mode when rendered should match the snapshot 4`
   background-color: #f3f8fe;
   border-radius: 3px;
   border: 1px solid #d0e3fa;
+}
+
+.c0 .c1 {
+  right: 20px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.c0 .c1::-moz-focus-inner {
+  border: none;
 }
 
 <div
@@ -143,6 +191,18 @@ exports[`Message when in classic mode when rendered should match the snapshot 5`
   border: 1px solid #ffe4cc;
 }
 
+.c0 .c1 {
+  right: 20px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.c0 .c1::-moz-focus-inner {
+  border: none;
+}
+
 <div
   className="c0"
 >
@@ -171,6 +231,18 @@ exports[`Message when in classic mode when rendered should match the snapshot 6`
   background-color: #f7f5fa;
   border-radius: 3px;
   border: 1px solid #e0d6eb;
+}
+
+.c0 .c1 {
+  right: 20px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.c0 .c1::-moz-focus-inner {
+  border: none;
 }
 
 <div
@@ -203,6 +275,18 @@ exports[`Message when in classic mode when rendered should match the snapshot 7`
   border: 1px solid #dcf1da;
 }
 
+.c0 .c1 {
+  right: 20px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.c0 .c1::-moz-focus-inner {
+  border: none;
+}
+
 <div
   className="c0"
 >
@@ -231,6 +315,18 @@ exports[`Message when in classic mode when rendered should match the snapshot 8`
   background-color: #fff8f2;
   border-radius: 3px;
   border: 1px solid #ffe4cc;
+}
+
+.c0 .c1 {
+  right: 20px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.c0 .c1::-moz-focus-inner {
+  border: none;
 }
 
 <div
