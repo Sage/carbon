@@ -1,3 +1,4 @@
+/* eslint-disable react/default-props-match-prop-types */
 import React from 'react';
 import { useDrop, useDrag } from 'react-dnd';
 import PropTypes from 'prop-types';
@@ -57,9 +58,14 @@ DraggableItem.propTypes = {
   ]).isRequired,
   /** The content of the component. */
   children: PropTypes.node.isRequired,
-  getOrder: PropTypes.func,
-  findItem: PropTypes.func,
-  moveItem: PropTypes.func
+  findItem: PropTypes.func.isRequired,
+  moveItem: PropTypes.func.isRequired,
+  getOrder: PropTypes.func
+};
+
+DraggableItem.defaultProps = {
+  findItem: () => {},
+  moveItem: () => {}
 };
 
 DraggableItem.displayName = 'DraggableItem';

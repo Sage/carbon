@@ -6,7 +6,7 @@ import { Checkbox } from '../../__experimental__/components/checkbox';
 
 export default {
   component: DraggableContainer,
-  title: 'Design System/Draggable',
+  title: 'Test/Draggable',
   parameters: {
     info: { disable: true }
   }

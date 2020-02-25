@@ -39,9 +39,9 @@ const DraggableContainer = ({ children, getOrder }) => {
       return;
     }
 
-    const tempArray = draggableItems.map(draggableItem => draggableItem.props.id);
+    const draggableItemIds = draggableItems.map(draggableItem => draggableItem.props.id);
 
-    getOrder(tempArray);
+    getOrder(draggableItemIds);
   };
 
   return (
