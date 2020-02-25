@@ -14,7 +14,14 @@ addParameters({
     panelPosition: 'bottom',
     showNav: true,
     showPanel: true,
-    theme: sageTheme
+    theme: sageTheme,
+    storySort: (a, b) => {
+      if (a[1].kind === 'Welcome' || b[1].kind === 'Welcome') {
+        return 1;
+      }
+      return a[1].id.localeCompare(b[1].id);
+      
+    }
   }
 });
 
@@ -28,3 +35,4 @@ addDecorator(withInfo({
 addDecorator(withA11y);
 addDecorator(withThemeSelector);
 
+window.STORYBOOK_GA_ID = 'UA-77028225-13';

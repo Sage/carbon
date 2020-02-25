@@ -57,7 +57,6 @@ We support and test the Carbon Library against the latest versions of the follow
 * [Firefox](https://www.mozilla.org/firefox/)
 * [Safari](https://www.apple.com/safari/)
 * [Edge](https://www.microsoft.com/windows/microsoft-edge)
-* [Internet Explorer 11](https://www.microsoft.com/en-gb/download/internet-explorer-11-for-windows-7-details.aspx)
 
 ## Licence
 

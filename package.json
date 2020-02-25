@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "13.0.1",
+  "version": "13.4.0",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
   "engineStrict": true,
   "engines": {
@@ -70,6 +70,7 @@
     "@storybook/addon-a11y": "^5.3.3",
     "@storybook/addon-actions": "^5.3.3",
     "@storybook/addon-docs": "^5.3.3",
+    "@storybook/addon-google-analytics": "^5.3.3",
     "@storybook/addon-info": "^5.3.3",
     "@storybook/addon-knobs": "^5.3.3",
     "@storybook/addon-notes": "^5.3.3",
@@ -110,7 +111,6 @@
     "react-dnd-test-backend": "^10.0.2",
     "react-dnd-test-utils": "^10.0.2",
     "react-dom": "^16.12.0",
-    "react-ga": "^2.6.0",
     "react-highlight": "briancappello/react-highlight#react-v16-compiled",
     "react-test-renderer": "^16.12.0",
     "rimraf": "^2.6.3",

@@ -145,6 +145,13 @@ export default (palette) => {
       errorButtonFocus: palette.errorRedShade(20)
     },
 
+    search: {
+      active: palette.goldTint(50),
+      button: '#255BC7',
+      passive: palette.slateTint(80),
+      searchActive: '#668592'
+    },
+
     select: {
       border: '#bfccd2',
       selected: palette.slateTint(95)

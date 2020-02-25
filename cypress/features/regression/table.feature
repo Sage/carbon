@@ -5,17 +5,9 @@ Feature: Table component
     Given I open "Table" component page
 
   @positive
-  Scenario: I enable showPageSizeSelection
-    When I check paginate checkbox
-      And I check showPageSizeSelection checkbox
-    Then pageSize is visible
-
-  @positive
-  Scenario: I disable showPageSizeSelection
-    Given I check paginate checkbox
-      And I check showPageSizeSelection checkbox
-    When I uncheck showPageSizeSelection checkbox
-    Then pageSize is not visible
+  Scenario: Verify the pagination is visible
+  When I check paginate checkbox
+  Then pagination is visible
 
   @positive
   Scenario: I enable selectable
@@ -116,34 +108,6 @@ Feature: Table component
   # | <> |
 
   @positive
-  Scenario Outline: TotalRecords is set to <totalRecords>
-    When I set totalRecords to "<totalRecords>"
-      And I check paginate checkbox
-    Then totalRecords is set to "<totalRecords>" items
-    Examples:
-      | totalRecords |
-      | 0            |
-      | 1            |
-      | 10           |
-      | 100          |
-      | 99999999     |
-      | -1           |
-      | -10          |
-
-  @positive
-  Scenario Outline: TotalRecords is set out of scope to <totalRecords>
-    When I set totalRecords to "<totalRecords>"
-      And I check paginate checkbox
-    Then totalRecords is set to "" items
-    Examples:
-      | totalRecords            |
-      | Sample text             |
-      | áéíóú¿¡üñ               |
-      | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
-
-  @positive
   Scenario Outline: Set theme to <theme>
     When I select theme to "<theme>"
     Then theme on preview is "<theme>"
@@ -205,7 +169,7 @@ Feature: Table component
       | 5               |
 
   @positive
-  Scenario Outline: Change action was called for sortColumn
+  Scenario Outline: Change event was called for sortColumn
     Given I select sortColumn to "<sortColumn>"
     When clear all actions in Actions Tab
       And I click "<headerName>" header
@@ -216,7 +180,7 @@ Feature: Table component
       | code       | Code       |
 
   @positive
-  Scenario Outline: Change action was called after clicking <button> button
+  Scenario Outline: Change event was called after clicking <button> button
     Given I check paginate checkbox
     When clear all actions in Actions Tab
       And I click "<button>" pagination button
@@ -227,7 +191,7 @@ Feature: Table component
       | last   |
 
   @positive
-  Scenario Outline: Change action was called after clicking <button> button
+  Scenario Outline: Change event was called after clicking <button> button
     Given I check paginate checkbox
       And I click "last" pagination button
     When clear all actions in Actions Tab

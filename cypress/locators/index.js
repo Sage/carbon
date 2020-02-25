@@ -2,7 +2,7 @@ import {
   INPUT_WIDTH_SLIDER, LABEL_WIDTH_SLIDER, HELP_ICON_PREVIEW, FIELD_HELP_PREVIEW, TOOLTIP_PREVIEW,
   FORM, STORY_ROOT, CLOSE_ICON_BUTTON, BACKGROUND_UI_LOCATOR, LINK, ICON, INPUT_WIDTH_PREVIEW,
   COMMMON_DATA_ELEMENT_INPUT, LABEL, RERUN_TESTS_BUTTON, PRECISION_SLIDER, CHARACTER_LIMIT,
-  TAB_LIST,
+  TAB_LIST, DLS_ROOT,
 } from './locators';
 
 // actions locators
@@ -29,6 +29,7 @@ export const precisionSlider = () => cy.get(PRECISION_SLIDER);
 export const characterLimitSlider = () => cy.get(CHARACTER_LIMIT);
 
 // component preview locators
+export const dlsRoot = () => cy.iFrame(DLS_ROOT);
 export const storyRoot = () => cy.iFrame(STORY_ROOT);
 export const commonButtonPreview = () => storyRoot().find('button');
 export const commonInputPreview = () => storyRoot().find('input');
