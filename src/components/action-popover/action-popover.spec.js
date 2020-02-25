@@ -218,19 +218,19 @@ describe('ActionPopover', () => {
 
       menubutton.simulate('click');
     });
+
     describe('MenuItem', () => {
       beforeEach(() => {
         const { items } = getElements();
-
         mutator(items.at(2));
       });
+
       it(`${prefix} calls the onClick handler`, () => {
         expect(onClick).toHaveBeenCalledWith('print');
       });
 
       it(`${prefix} closes the menu`, () => {
         const { menu } = getElements();
-
         assertStyleMatch({
           visibility: 'hidden'
         }, menu);
@@ -243,6 +243,7 @@ describe('ActionPopover', () => {
         expect(menubutton).toBeFocused();
       });
     });
+
     describe('MenuItem (disabled)', () => {
       beforeEach(() => {
         const { items } = getElements();
@@ -279,6 +280,7 @@ describe('ActionPopover', () => {
         stopPropagation = jest.fn();
         menubutton.simulate('click', { stopPropagation });
       });
+
       it('Clicking opens the menu', () => {
         const { menu } = getElements();
         assertStyleMatch({
@@ -438,6 +440,7 @@ describe('ActionPopover', () => {
           visibility: 'hidden'
         }, menu);
         expect(onClose).toHaveBeenCalledTimes(1);
+        jest.runAllTimers();
         // FIXME: Test pressing Tab moves focus to the next element
         // FIXME: Test pressing Shift+Tab moves focus to the previous element
         // It's not possible to test this in enzyme because JSDOM does not support user events. It's also not
@@ -632,7 +635,7 @@ describe('ActionPopover', () => {
         const { items } = getElements();
         const item = items.at(1);
         act(() => {
-          item.simulate('mouseenter');
+          item.find('div').at(0).props().onMouseEnter({ stopPropagation: () => {} });
           jest.runAllTimers();
         });
         expect(noThemeSnapshot(item.find(ActionPopoverMenu))).toMatchSnapshot();
@@ -661,7 +664,21 @@ describe('ActionPopover', () => {
         const item = items.at(1);
         act(() => {
           simulate.keydown.pressLeftArrow(item);
+        });
+        act(() => {
           simulate.keydown.pressRightArrow(item);
+        });
+        expect(noThemeSnapshot(item.find(ActionPopoverMenu))).toMatchSnapshot();
+      });
+
+      it('does not close the submenu unless right or esc key is pressed', () => {
+        const { items } = getElements();
+        const item = items.at(1);
+        act(() => {
+          simulate.keydown.pressLeftArrow(item);
+        });
+        act(() => {
+          simulate.keydown.pressD(item);
         });
         expect(noThemeSnapshot(item.find(ActionPopoverMenu))).toMatchSnapshot();
       });
@@ -698,6 +715,8 @@ describe('ActionPopover', () => {
         const submenuItem = submenu.find(ActionPopoverItem).at(0);
         act(() => {
           simulate.keydown.pressLeftArrow(item);
+        });
+        act(() => {
           simulate.keydown.pressEscape(submenuItem);
         });
         assertStyleMatch({
@@ -763,6 +782,8 @@ describe('ActionPopover', () => {
         const item = items.at(1);
         act(() => {
           simulate.keydown.pressRightArrow(item);
+        });
+        act(() => {
           simulate.keydown.pressLeftArrow(item);
         });
         expect(noThemeSnapshot(item.find(ActionPopoverMenu))).toMatchSnapshot();

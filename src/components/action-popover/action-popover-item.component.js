@@ -46,15 +46,6 @@ const MenuItem = React.forwardRef(({
     };
   }, [alignSubmenu]);
 
-  useEffect(() => {
-    const event = 'mousedown';
-    window.addEventListener(event, setOpen(false));
-
-    return function cleanup() {
-      window.removeEventListener(event, setOpen(false));
-    };
-  }, []);
-
   const onClick = useCallback((e) => {
     if (!disabled) {
       onClickProp();
@@ -62,37 +53,44 @@ const MenuItem = React.forwardRef(({
     } else {
       e.stopPropagation();
     }
-  }, [disabled, onClickProp, setOpen]);
+  }, [disabled, onClickProp]);
 
   const onKeyDown = useCallback((e) => {
-    if (Events.isEnterKey(e)) {
-      if (!submenu) {
-        onClick(e);
-      }
-      setOpen(false);
-    } else if (Events.isSpaceKey(e)) {
+    if (Events.isSpaceKey(e)) {
       e.preventDefault();
       e.stopPropagation();
-    } else if (!disabled && submenu && Events.isLeftKey(e)) {
-      // LEFT: open if has submenu and left aligned otherwise close submenu
-      if (isLeftAligned) {
-        setOpen(true);
-        setFocusIndex(0);
-      } else {
-        setOpen(false);
-        ref.current.focus();
+    } else if (!disabled) {
+      if (submenu) {
+        if (isLeftAligned) {
+          // LEFT: open if has submenu and left aligned otherwise close submenu
+          if ((Events.isLeftKey(e) || Events.isEnterKey(e))) {
+            setOpen(true);
+            setFocusIndex(0);
+            e.stopPropagation();
+          } else if ((Events.isRightKey(e) || Events.isEscKey(e))) {
+            setOpen(false);
+            ref.current.focus();
+            e.stopPropagation();
+          }
+        } else {
+          // RIGHT: open if has submenu and right aligned otherwise close submenu
+          if ((Events.isRightKey(e) || Events.isEnterKey(e))) {
+            setOpen(true);
+            setFocusIndex(0);
+            e.stopPropagation();
+          }
+          if ((Events.isLeftKey(e) || Events.isEscKey(e))) {
+            setOpen(false);
+            ref.current.focus();
+            e.stopPropagation();
+          }
+        }
+        e.preventDefault();
+      } else if (Events.isEnterKey(e)) {
+        onClick(e);
       }
-      e.preventDefault();
-    } else if (!disabled && submenu && Events.isRightKey(e)) {
-      // RIGHT: open if has submenu and right aligned otherwise close submenu
-      if (!isLeftAligned) {
-        setOpen(true);
-        setFocusIndex(0);
-      } else {
-        setOpen(false);
-        ref.current.focus();
-      }
-      e.preventDefault();
+    } else if (Events.isEnterKey(e)) {
+      e.stopPropagation();
     }
   }, [disabled, isLeftAligned, onClick, ref, submenu]);
 
@@ -114,6 +112,7 @@ const MenuItem = React.forwardRef(({
       },
       onClick: (e) => {
         setOpen(true);
+        e.preventDefault();
         e.stopPropagation();
       }
     }),
@@ -135,11 +134,12 @@ const MenuItem = React.forwardRef(({
     >
       { submenu && (
         React.cloneElement(submenu, {
+          button: ref,
           parentID: `ActionPopoverItem_${guid}`,
           menuID: `ActionPopoverMenu_${guid}`,
           'data-element': 'action-popover-submenu',
           isOpen,
-          onClick: () => setOpen(!isOpen),
+          onClick: () => setOpen(false),
           ref: submenuRef,
           style: containerPosition,
           setOpen,
@@ -162,7 +162,7 @@ const MenuItem = React.forwardRef(({
 });
 
 function checkRef(ref) {
-  return ref && ref.current;
+  return Boolean(ref && ref.current);
 }
 
 function leftAlignSubmenu(ref, submenuRef) {
@@ -219,6 +219,5 @@ ActionPopoverItem.defaultProps = {
 MenuItem.propTypes = { ...propTypes };
 MenuItem.displayName = 'ActionPopoverItem';
 export { MenuItem };
-const types = MenuItem.propTypes;
-export { types };
+
 export default ActionPopoverItem;
