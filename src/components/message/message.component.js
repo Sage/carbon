@@ -1,16 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MessageStyle from './message.style';
-import DismissButton from '../dismiss-button';
 import TypeIcon from './type-icon/type-icon.component';
 import MessageContent from './message-content/message-content.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import tagComponent from '../../utils/helpers/tags';
+import Icon from '../icon';
+import IconButton from '../icon-button';
 
 const Message = (props) => {
   const {
-    open, border, className, transparent, title, variant, roundedCorners, children, onDismiss, as, id
+    open,
+    border,
+    transparent,
+    title,
+    variant,
+    roundedCorners,
+    children,
+    onDismiss,
+    as,
+    id,
+    className,
+    showCloseIcon
   } = props;
+
+  const renderCloseIcon = () => {
+    if (!showCloseIcon || !onDismiss) return null;
+
+    return (
+      <IconButton
+        data-element='close'
+        onAction={ onDismiss }
+        variant={ variant || as }
+      >
+        <Icon type='close' />
+      </IconButton>
+    );
+  };
 
   return (
     open && (
@@ -34,12 +60,7 @@ const Message = (props) => {
         >
           {children}
         </MessageContent>
-        {onDismiss && (
-          <DismissButton
-            variant={ variant || as } onDismiss={ onDismiss }
-            transparent={ transparent }
-          />
-        )}
+        { renderCloseIcon() }
       </MessageStyle>
     )
   );
@@ -50,7 +71,8 @@ Message.defaultProps = {
   border: true,
   open: true,
   roundedCorners: true,
-  transparent: false
+  transparent: false,
+  showCloseIcon: true
 };
 
 Message.propTypes = {
@@ -75,7 +97,9 @@ Message.propTypes = {
   /** set message title */
   title: PropTypes.node,
   /** set background to be invisible */
-  transparent: PropTypes.bool
+  transparent: PropTypes.bool,
+  /** Determines if the close icon is shown */
+  showCloseIcon: PropTypes.bool
 };
 
 export default Message;

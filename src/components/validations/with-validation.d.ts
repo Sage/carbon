@@ -5,7 +5,7 @@ interface ValidationShape {
   validate: () => any;
 }
 
-type ValidationsPropType = () => any | (() => any | ValidationShape)[];
+type ValidationsPropType = () => any | Array<(() => any | ValidationShape)>;
 
 type ValuePropType = string | any[];
 
