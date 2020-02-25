@@ -23,8 +23,8 @@ export const DEBUG_FLAG = false;
 
 // You can mock if needed. Example below
 // beforeEach(() => {
-//     cy.server();
-//     cy.route('/countries*', {});
+//     // cy.server();
+//     // cy.route('/countries*', {});
 // })
 
 /* returning false here prevents Cypress from failing the test */
@@ -62,3 +62,48 @@ before(() => {
 });
 
 Cypress.Screenshot.defaults({ screenshotOnRunFailure: DEBUG_FLAG });
+
+// Configure custom commands eyes-cypress
+import '@applitools/eyes-cypress/commands'
+
+const {
+  Before,
+  After
+} = require("cypress-cucumber-preprocessor/steps");
+
+
+Before({ tags: "@applitools" }, () => {
+  // debugger
+
+  cy.eyesOpen({
+    appName: 'Carbon Sage',
+    matchLevel: 'Strict', // Strict, Exact, Layout and Content - https://help.applitools.com/hc/en-us/articles/360007188591-Match-Levels
+    envName: 'Development',
+    testName: cy.state('ctx').test.title, // Assign the current test name to Applitools test name
+    batchName: cy.state('ctx').test.parent.title, // Assign the feature name to Applitools batch name
+    browser: [            
+              // {width: 800, height: 600, name: 'firefox'},
+              // {width: 1024, height: 768, name: 'chrome'},
+              {width: 1440, height: 1219, name: 'edge'}
+
+              // {
+              //     deviceName: 'iPhone X',
+              //     screenOrientation: 'landscape',
+              //     name: 'chrome' // optional, just to make it explicit this is browser emulation and not a real device. Only chrome is supported for device emulation.
+              // },
+
+              // {
+              //  deviceName: 'iPad',
+              //   screenOrientation: 'landscape',
+              //   name: 'chrome' // optional, just to make it explicit this is browser emulation and not a real device. Only chrome is supported for device emulation.
+              // }
+            ]
+  
+  }); 
+});
+
+After({ tags: "@applitools" }, () => {
+  cy.eyesClose();
+});
+
+

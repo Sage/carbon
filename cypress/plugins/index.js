@@ -33,3 +33,7 @@ module.exports = (on, config) => {
     }
   });
 };
+
+// Configure Eyes-Cypress plugin
+require('@applitools/eyes-cypress')(module)
+
