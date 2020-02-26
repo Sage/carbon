@@ -12,7 +12,7 @@ export default {
   }
 };
 
-export const draggable = () => {
+export const basic = () => {
   const handleUpdate = (items) => {
     action('onUpdate')(items);
   };

@@ -35,8 +35,8 @@ export function clickClear() {
 }
 
 export function dragAndDrop(draggableElement, destinationPosition, startFromHight) {
-  const ROW_HIGHT = 45;
-  const TEN_PIXEL_MOVE = 15;
+  const ROW_HIGHT = 42;
+  const TEN_PIXEL_MOVE = 45;
 
   draggableElement
     .trigger('mousedown', { force: true, release: false })
