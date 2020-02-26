@@ -2,8 +2,8 @@ import { addDecorator } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { withInfo } from '@storybook/addon-info';
 import { withA11y } from '@storybook/addon-a11y';
-import setupI18n from '../demo/i18n/config';
-import '../demo/i18n/en';
+import setupI18n from './utils/i18n/config';
+import './utils/i18n/en';
 import './style/story-root.scss';
 import { withThemeSelector } from './theme-selector'
 import { addParameters } from '@storybook/react';
