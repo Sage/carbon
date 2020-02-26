@@ -83,6 +83,12 @@ export default (palette) => {
       size: '14px'
     },
 
+    readOnly: {
+      textboxBackground: palette.slateTint(98),
+      textboxBorder: palette.slateTint(80),
+      textboxText: blackWithOpacity(0.74)
+    },
+
     disabled: {
       border: palette.slateTint(80),
       button: palette.slateTint(90),

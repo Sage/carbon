@@ -114,6 +114,7 @@ exports[`Textarea when rendered should render default 1`] = `
         onMouseDown={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
+        readOnly={false}
         role="presentation"
         size="medium"
       >
