@@ -1,14 +1,17 @@
 import {
   fieldHelpPreview, labelByPosition, fieldHelpPreviewByPosition, labelWidthSliderByName,
 } from '../../locators';
-import { radioButton, radioButtonByPosition, radioButtonComponent } from '../../locators/radioButton/index';
+import {
+  radioButton, radioButtonByPosition, radioButtonComponentByPosition, reversedRadioButton,
+} from '../../locators/radioButton/index';
 import { setSlidebar } from '../helper';
 
 const INLINE = 'carbon-radio-button__help-text--inline';
 const FIRST_RADIOBUTTON = 0;
 const SECOND_RADIOBUTTON = 1;
 const THIRD_RADIOBUTTON = 2;
-const FIRST_ELEMENT = 1;
+const FIRST_ELEMENT = 0;
+const SECOND_ELEMENT = 1;
 
 Then('fieldHelpInline is enabled', () => {
   fieldHelpPreview().should('have.class', INLINE);
@@ -66,17 +69,17 @@ Then('{string} RadioButton has value {string}', (position, text) => {
 Then('{string} RadioButton component is disabled', (position) => {
   switch (position) {
     case 'First':
-      radioButtonComponent(FIRST_RADIOBUTTON).should('have.attr', 'disabled');
+      radioButtonComponentByPosition(FIRST_RADIOBUTTON).should('have.attr', 'disabled');
       radioButtonByPosition(FIRST_RADIOBUTTON).should('be.disabled')
         .and('have.attr', 'disabled');
       break;
     case 'Second':
-      radioButtonComponent(SECOND_RADIOBUTTON).should('have.attr', 'disabled');
+      radioButtonComponentByPosition(SECOND_RADIOBUTTON).should('have.attr', 'disabled');
       radioButtonByPosition(SECOND_RADIOBUTTON).should('be.disabled')
         .and('have.attr', 'disabled');
       break;
     case 'Third':
-      radioButtonComponent(THIRD_RADIOBUTTON).should('have.attr', 'disabled');
+      radioButtonComponentByPosition(THIRD_RADIOBUTTON).should('have.attr', 'disabled');
       radioButtonByPosition(THIRD_RADIOBUTTON).should('be.disabled')
         .and('have.attr', 'disabled');
       break;
@@ -87,19 +90,19 @@ Then('{string} RadioButton component is disabled', (position) => {
 Then('{string} RadioButton component is enabled', (position) => {
   switch (position) {
     case 'First':
-      radioButtonComponent(SECOND_RADIOBUTTON).should('not.have.attr', 'disabled')
+      radioButtonComponentByPosition(SECOND_RADIOBUTTON).should('not.have.attr', 'disabled')
         .and('not.be.disabled');
       radioButtonByPosition(FIRST_RADIOBUTTON).should('not.have.attr', 'disabled')
         .and('not.be.disabled');
       break;
     case 'Second':
-      radioButtonComponent(SECOND_RADIOBUTTON).should('not.have.attr', 'disabled')
+      radioButtonComponentByPosition(SECOND_RADIOBUTTON).should('not.have.attr', 'disabled')
         .and('not.be.disabled');
       radioButtonByPosition(SECOND_RADIOBUTTON).should('not.have.attr', 'disabled')
         .and('not.be.disabled');
       break;
     case 'Third':
-      radioButtonComponent(SECOND_RADIOBUTTON).should('not.have.attr', 'disabled')
+      radioButtonComponentByPosition(SECOND_RADIOBUTTON).should('not.have.attr', 'disabled')
         .and('not.be.disabled');
       radioButtonByPosition(THIRD_RADIOBUTTON).should('not.have.attr', 'disabled')
         .and('not.be.disabled');
@@ -111,19 +114,16 @@ Then('{string} RadioButton component is enabled', (position) => {
 Then('{string} RadioButton is set to reverse', (position) => {
   switch (position) {
     case 'First':
-      radioButtonComponent(FIRST_RADIOBUTTON).children().children()
-        .find(`div:nth-child(${FIRST_ELEMENT})`)
-        .should('have.css', 'box-sizing', 'border-box');
+      cy.wait(500);
+      reversedRadioButton(FIRST_RADIOBUTTON, SECOND_ELEMENT).should('have.attr', 'type', 'radio');
       break;
     case 'Second':
-      radioButtonComponent(SECOND_RADIOBUTTON).children().children()
-        .find(`div:nth-child(${FIRST_ELEMENT})`)
-        .should('have.css', 'box-sizing', 'border-box');
+      cy.wait(500);
+      reversedRadioButton(SECOND_RADIOBUTTON, SECOND_ELEMENT).should('have.attr', 'type', 'radio');
       break;
     case 'Third':
-      radioButtonComponent(FIRST_RADIOBUTTON).children().children()
-        .find(`div:nth-child(${FIRST_ELEMENT})`)
-        .should('have.css', 'box-sizing', 'border-box');
+      cy.wait(500);
+      reversedRadioButton(THIRD_RADIOBUTTON, SECOND_ELEMENT).should('have.attr', 'type', 'radio');
       break;
     default: throw new Error('There are only three radio elements on the page');
   }
@@ -132,19 +132,14 @@ Then('{string} RadioButton is set to reverse', (position) => {
 Then('{string} RadioButton is not set to reverse', (position) => {
   switch (position) {
     case 'First':
-      radioButtonComponent(FIRST_RADIOBUTTON).children().children()
-        .find(`div:nth-child(${FIRST_ELEMENT})`)
-        .should('have.css', 'box-sizing', 'border-box');
+      // cy.wait(500);
+      reversedRadioButton(FIRST_RADIOBUTTON, FIRST_ELEMENT).should('have.attr', 'type', 'radio');
       break;
     case 'Second':
-      radioButtonComponent(SECOND_RADIOBUTTON).children().children()
-        .find(`div:nth-child(${FIRST_ELEMENT})`)
-        .should('have.css', 'box-sizing', 'border-box');
+      reversedRadioButton(SECOND_RADIOBUTTON, FIRST_ELEMENT).should('have.attr', 'type', 'radio');
       break;
     case 'Third':
-      radioButtonComponent(FIRST_RADIOBUTTON).children().children()
-        .find(`div:nth-child(${FIRST_ELEMENT})`)
-        .should('have.css', 'box-sizing', 'border-box');
+      reversedRadioButton(THIRD_RADIOBUTTON, FIRST_ELEMENT).should('have.attr', 'type', 'radio');
       break;
     default: throw new Error('There are only three radio elements on the page');
   }
@@ -219,7 +214,7 @@ Then('{string} field help is not set to fieldHelpInline and has margin-left set 
   }
 });
 
-Then('{string} RadioButton {string} inputWidth is set to {int}', (position, name, width) => {
+Then('{string} RadioButton {string} inputWidth is set to {string}', (position, name, width) => {
   switch (position) {
     case 'First':
       radioButtonByPosition(FIRST_RADIOBUTTON).parent()
@@ -237,7 +232,7 @@ Then('{string} RadioButton {string} inputWidth is set to {int}', (position, name
   }
 });
 
-Then('{string} RadioButton label width is set to {int}', (position, width) => {
+Then('{string} RadioButton label width is set to {string}', (position, width) => {
   switch (position) {
     case 'First':
       labelByPosition(FIRST_RADIOBUTTON).should('have.css', 'width', `${width}px`);

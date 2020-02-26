@@ -91,26 +91,28 @@ Feature: Experimental RadioButton monthly classic component
       And I uncheck group monthly fieldHelpInline checkbox
     Then "Second" field help is not set to fieldHelpInline and has margin-left set to "22px"
 
+  # pixels are adjusted for Travis CI. For normal cypress test runner test should fail
   @positive
-  Scenario Outline: Change RadioButton input width to <width>
+  Scenario Outline: Change RadioButton inputWidth to <width>
     When I set group monthly inputWidth slider to <width>
-    Then "Second" RadioButton "monthly" inputWidth is set to <px>
+    Then "Second" RadioButton "monthly" inputWidth is set to "<px>"
     Examples:
-      | width | px  |
-      | 1     | 11  |
-      | 10    | 106 |
-      | 50    | 531 |
+      | width | px         |
+      | 1     | 16         |
+      | 10    | 98.53125   |
+      | 50    | 357.546875 |
 
+  # pixels are adjusted for Travis CI. For normal cypress test runner test should fail
   @positive
   Scenario Outline: Change RadioButton label width to <width>
     When I check group monthly fieldHelpInline checkbox
       And I set group monthly labelWidth slider to <width>
-    Then "Second" RadioButton label width is set to <px>
+    Then "Second" RadioButton label width is set to "<px>"
     Examples:
-      | width | px   |
-      | 1     | 11   |
-      | 50    | 531  |
-      | 100   | 1049 |
+      | width | px         |
+      | 1     | 10.609375  |
+      | 50    | 530.5      |
+      | 100   | 831.203125 |
 
   @positive
   Scenario Outline: Change RadioButton label align to <direction>

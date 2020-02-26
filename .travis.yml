@@ -1,6 +1,11 @@
 language: node_js
 node_js: node
 
+cache:
+  npm: true
+  directories:
+    - ~/.cache
+
 addons:
    apt:
      packages:
@@ -9,27 +14,46 @@ addons:
 
 stages:
   - test
+  - regression
   - deploy
 
 jobs:
+  fast_finish: true
   include:
     - stage: test
       name: "lint"
-      script: 
-        - npm run lint
-        - npm run lint-ts
+      script: npm run lint
     - name: "unit tests"
       script: npm test
     - name: "test build"
       script: npm run test-carbon-build
       if: type = pull_request # we only need to test this in a pull, on a push to master we will be running the build in the deploy step
-    - name: "storybook smoketest"
-      script: npm run test-storybook-smoke
-    - name: "test storybook with cypress"
-      script: 
+    - name: "build cypress tests"
+      script:
         - npm run storybook-ci </dev/null &>/dev/null &
         - wait-on http://localhost:9001
         - npm run test-cypress-build
+    - &cypress-travis-regression
+      stage: regression
+      name: "cypress regression"
+      script:
+        - npm run storybook-ci </dev/null &>/dev/null &
+        - wait-on http://localhost:9001
+        - npm run cypress-travis-regression
+      if: type = cron # we only need to run regression on nightly cron builds
+      env: SUITE=accessibility/accessibility.feature
+    - <<: *cypress-travis-regression
+      env: SUITE=regression/radioButton/radioButtonMonthly.feature
+    - <<: *cypress-travis-regression
+      env: SUITE=regression/radioButton/radioButtonMonthlyClassic.feature
+    - <<: *cypress-travis-regression
+      env: SUITE=regression/radioButton/radioButtonWeekly.feature
+    - <<: *cypress-travis-regression
+      env: SUITE=regression/radioButton/radioButtonWeeklyClassic.feature
+    - <<: *cypress-travis-regression
+      env: SUITE=regression/radioButton/radioButtonYearly.feature
+    - <<: *cypress-travis-regression
+      env: SUITE=regression/radioButton/radioButtonYearlyClassic.feature
     - stage: deploy
       name: "s3"
       script: skip

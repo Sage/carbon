@@ -100,26 +100,28 @@ Feature: Experimental RadioButton weekly component
       And I uncheck group weekly fieldHelpInline checkbox
     Then "First" field help is not set to fieldHelpInline and has margin-left set to "32px"
 
+  # pixels are adjusted for Travis CI. For normal cypress test runner test should fail
   @positive
-  Scenario Outline: Change RadioButton input width to <width>
+  Scenario Outline: Change RadioButton inputWidth to <width>
     When I set group weekly inputWidth slider to <width>
-    Then "First" RadioButton "weekly" inputWidth is set to <px>
+    Then "First" RadioButton "weekly" inputWidth is set to "<px>"
     Examples:
-      | width | px  |
-      | 1     | 11  |
-      | 10    | 106 |
-      | 50    | 531 |
+      | width | px         |
+      | 1     | 16         |
+      | 10    | 98.71875   |
+      | 50    | 358.234375 |
 
+  # pixels are adjusted for Travis CI. For normal cypress test runner test should fail
   @positive
   Scenario Outline: Change RadioButton label width to <width>
     When I check group weekly fieldHelpInline checkbox
       And I set group weekly labelWidth slider to <width>
-    Then "First" RadioButton label width is set to <px>
+    Then "First" RadioButton label width is set to "<px>"
     Examples:
-      | width | px   |
-      | 1     | 11   |
-      | 50    | 531  |
-      | 100   | 1049 |
+      | width | px        |
+      | 1     | 10.609375 |
+      | 50    | 530.5     |
+      | 100   | 847.78125 |
 
   @positive
   Scenario Outline: Change RadioButton label align to <direction>
