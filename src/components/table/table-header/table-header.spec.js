@@ -42,31 +42,40 @@ describe('TableHeader', () => {
 
   describe('prop checking', () => {
     beforeEach(() => {
-      spyOn(console, 'error');
+      jest.spyOn(global.console, 'error').mockImplementation(() => {});
     });
 
     it('throws an error if no name prop is passed', () => {
-      TestUtils.renderIntoDocument(
+      const expected = 'Sortable columns require a prop of name of type String';
+
+      mount(
         <Table onChange={ changeSpy } sortOrder='desc'>
           <TableRow>
             <TableHeader sortable />
           </TableRow>
         </Table>
       );
-      expect(
-        console.error.calls.argsFor(0)[0]
-      ).toMatch('Failed prop type: Sortable columns require a prop of name of type String');
+
+
+      expect(console.error.mock.calls[0][0]).toMatch(expected);
     });
 
     it('throws an error if the name is not a string', () => {
-      TestUtils.renderIntoDocument(
+      const expected = 'Failed prop type: name must be a string';
+
+      mount(
         <Table onChange={ changeSpy } sortOrder='desc'>
           <TableRow>
             <TableHeader sortable name={ 123 } />
           </TableRow>
         </Table>
       );
-      expect(console.error.calls.argsFor(0)[0]).toMatch('Failed prop type: name must be a string');
+
+      expect(console.error.mock.calls[0][0]).toMatch(expected);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
     });
   });
 
@@ -311,17 +320,20 @@ describe('TableHeader', () => {
     'when the theme is classic',
     (size) => {
       const wrapper = mount(
-        <StyledTableHeader
-          theme={ ClassicTheme }
-          size={ size }
-        />
+        <Table>
+          <TableRow>
+            <TableHeader
+              theme={ ClassicTheme }
+              size={ size }
+            />
+          </TableRow>
+        </Table>
       );
 
-      const th = wrapper.find('th').hostNodes();
       it(`matches the expected style when the size is ${size}`, () => {
         assertStyleMatch({
           height: tableSizes.medium.height
-        }, th);
+        }, wrapper.find(StyledTableHeader));
       });
     },
   );
