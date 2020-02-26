@@ -84,7 +84,6 @@ Feature: Accessibility tests
       | showeditpod                      |
       | settingsrow                      |
       | experimental-simple-color-picker |
-      | sprinner                         |
       | split-button                     |
       | step-sequence-item               |
       | step-sequence                    |
