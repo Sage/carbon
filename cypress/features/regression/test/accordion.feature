@@ -7,7 +7,17 @@ Feature: Accordion component
   @positive
   Scenario Outline: Set Accordion iconType to <iconType>
     When I select iconType to "<iconType>"
-    Then Accordion iconType property on preview is set to "<iconType>"
+    Then Accordion row is "closed" then iconType property on preview is set to "<iconType>"
+    Examples:
+      | iconType     |
+      | chevron_down |
+      | dropdown     |
+
+  @positive
+  Scenario Outline: Open accordion and set Accordion iconType to <iconType>
+    Given I expand accordionRow via click
+    When I select iconType to "<iconType>"
+    Then Accordion row is "open" then iconType property on preview is set to "<iconType>"
     Examples:
       | iconType     |
       | chevron_down |
