@@ -148,6 +148,18 @@ Given('I open {string} component page validations in iframe', (component) => {
   visitComponentUrl(component, 'validations', true);
 });
 
+Given('I open basic Test {string} component page', (component) => {
+  visitComponentUrl(component, 'basic', false, 'test-');
+});
+
+Given('I open basic Test {string} component page in noIframe', (component) => {
+  visitComponentUrl(component, 'basic', true, 'test-');
+});
+
+Given('I open grouped Test {string} component page in noIframe', (component) => {
+  visitComponentUrl(component, 'grouped', true, 'test-');
+});
+
 Given('I open {string} component page validations classic in iframe', (component) => {
   visitComponentUrl(component, 'validations_classic', true);
 });
