@@ -20,12 +20,11 @@ jobs:
   include:
     - &cypress-travis-regression
       stage: regression
-      name: "cypress regression"
+      name: "cypress ${env.SUITE}"
       script:
         - npm run storybook-ci </dev/null &>/dev/null &
         - wait-on http://localhost:9001
         - npm run cypress-travis-regression
-    - <<: *cypress-travis-regression
       env: SUITE=regression/radioButton/radioButtonMonthly.feature
     - <<: *cypress-travis-regression
       env: SUITE=regression/radioButton/radioButtonMonthlyClassic.feature
