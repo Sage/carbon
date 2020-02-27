@@ -2,7 +2,7 @@ Feature: FlatTable component
   I want to check FlatTable component properties
 
   Background: Open FlatTable component page
-    Given I open "test-flat-table" component page basic
+    Given I open basic Test "Flat Table" component page
 
   @positive
   Scenario: FlatTable has sticky row header
