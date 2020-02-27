@@ -4,6 +4,7 @@ import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { Input, InputPresentationContext } from '.';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import baseTheme from '../../../style/themes/base';
 
 describe('Input', () => {
   const renderMount = (props, context) => {
@@ -29,6 +30,14 @@ describe('Input', () => {
 
     assertStyleMatch({
       textAlign: 'right'
+    }, wrapper.toJSON());
+  });
+
+  it('renders the text with proper color when readOnly', () => {
+    const wrapper = TestRenderer.create(<Input readOnly />);
+
+    assertStyleMatch({
+      color: baseTheme.readOnly.textboxText
     }, wrapper.toJSON());
   });
 
