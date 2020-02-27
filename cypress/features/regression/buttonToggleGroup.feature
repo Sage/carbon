@@ -35,8 +35,8 @@ Feature: Button Toggle Group component
 
   @positive
   Scenario Outline: Change Button Toggle Group input width to <width>
-    When I check labelInline checkbox
-      And I set inputWidth to "<width>"
+    Given I check labelInline checkbox
+    When I set inputWidth to "<width>"
     Then input width is set to "<px>"
     Examples:
       | width | px        |
@@ -46,13 +46,13 @@ Feature: Button Toggle Group component
 
   @negative
   Scenario Outline: Set out of scope characters to Button Toggle Group input width to <width>
-    When I check labelInline checkbox
-      And I set inputWidth to "<width>"
+    Given I check labelInline checkbox
+    When I set inputWidth to "<width>"
     Then input width is not set to "<width>"
     Examples:
       | width                   |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                    |
+      | 汉字                     |
       | <>                      |
 
   @positive
@@ -82,8 +82,8 @@ Feature: Button Toggle Group component
 
   @positive
   Scenario Outline: Change Button Toggle Group label width to <width>
-    When I check labelInline checkbox
-      And I set labelWidth to "<width>"
+    Given I check labelInline checkbox
+    When I set labelWidth to "<width>"
     Then label width is set to "<width>"
     Examples:
       | width |
@@ -93,8 +93,8 @@ Feature: Button Toggle Group component
 
   @negative
   Scenario Outline: Set out of scope characters to Button Toggle Group input width to <width>
-    When I check labelInline checkbox
-      And I set inputWidth to "<width>"
+    Given I check labelInline checkbox
+    When I set inputWidth to "<width>"
     Then label width is not set "<width>"
     Examples:
       | width                   |
@@ -104,8 +104,8 @@ Feature: Button Toggle Group component
 
   @positive
   Scenario Outline: Change Toggle Button Group label align to <direction>
-    When I check labelInline checkbox
-      And I select labelAlign to "<direction>"
+    Given I check labelInline checkbox
+    When I select labelAlign to "<direction>"
     Then label Align on preview is "<direction>"
     Examples:
       | direction |
@@ -113,7 +113,13 @@ Feature: Button Toggle Group component
       | right     |
 
   @positive
-  Scenario: Verify the onChange function for a Button Toggle Group component
+  Scenario Outline: Verify the onChange event for a Button Toggle Group <button>
     Given clear all actions in Actions Tab
-    When I click on Button Toggle
-    Then onChange action was called in Actions Tab
+    When I click on Button Toggle Group "<button>"
+    Then <action> action was called in Actions Tab
+    Examples:
+      | button | action   |
+      | Foo    | onChange |
+  # @ignore until component default state of selected is removed for FE-2346
+  # | Bar    | onChange |
+      | Baz    | onChange |

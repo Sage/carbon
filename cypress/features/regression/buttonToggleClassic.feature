@@ -6,8 +6,8 @@ Feature: Button Toggle classic component
 
   @positive
   Scenario Outline: Set button icon size to <size>
-    When I select buttonIcon to "arrow_left"
-      And I select buttonIconSize to "<size>"
+    Given I select buttonIcon to "arrow_left"
+    When I select buttonIconSize to "<size>"
     Then Button Toggle icon height is "<height>" and width is "<width>"
     Examples:
       | size  | height | width |
@@ -25,8 +25,8 @@ Feature: Button Toggle classic component
 
   @positive
   Scenario Outline: Set Button Toggle size to <size> with small icon
-    When I select buttonIcon to "arrow_left"
-      And I select buttonIconSize to "small"
+    Given I select buttonIcon to "arrow_left"
+    When I select buttonIconSize to "small"
       And I select size to "<size>"
     Then Button Toggle height is "<height>" and width is "<width>"
     Examples:
@@ -36,8 +36,8 @@ Feature: Button Toggle classic component
 
   @positive
   Scenario Outline: Set Button Toggle size to <size> with large icon
-    When I select buttonIcon to "arrow_left"
-      And I select buttonIconSize to "large"
+    Given I select buttonIcon to "arrow_left"
+    When I select buttonIconSize to "large"
       And I select size to "<size>"
     Then Button Toggle height is "<height>" and width is "<width>"
     Examples:

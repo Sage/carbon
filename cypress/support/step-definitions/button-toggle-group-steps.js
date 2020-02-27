@@ -1,4 +1,4 @@
-import { labelPreviewWidth } from '../../locators/button-toggle-group';
+import { labelPreviewWidth, labelPreviewByText } from '../../locators/button-toggle-group';
 import { label } from '../../locators';
 
 const TEXT_ALIGN = 'text-align';
@@ -31,4 +31,8 @@ Then('input width is not set to {string}', (width) => {
 
 Then('label Align on preview is {string}', (direction) => {
   label().should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
+});
+
+When('I click on Button Toggle Group {string}', (button) => {
+  labelPreviewByText().contains(button).click();
 });

@@ -12,9 +12,6 @@ export const classicSlide = () => cy.iFrame(CLASSIC_SLIDE);
 export const slide = i => cy.iFrame(CAROUSEL_CONTENT)
   .find('div:nth-child(2)')
   .find(`div[id="${i}"]`);
-export const clickableSlide = () => cy.iFrame(CAROUSEL_CONTENT)
-  .find('div:nth-child(2)')
-  .find('div[id="1"]');
 export const carousel = () => cy.iFrame(CAROUSEL).find('div');
 export const previousArrowButton = () => cy.iFrame(PREVIOUS_ARROW_BUTTON);
 export const nextArrowButton = () => cy.iFrame(NEXT_ARROW_BUTTON);
