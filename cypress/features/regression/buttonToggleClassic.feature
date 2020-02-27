@@ -1,3 +1,5 @@
+@ignore
+# @ignore until solution is applied to round sizes as integers as Chrome v80 has amended pixel sizes
 Feature: Button Toggle classic component
   I want to change Button Toggle button size for classic story
 

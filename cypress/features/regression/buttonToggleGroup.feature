@@ -33,7 +33,8 @@ Feature: Button Toggle Group component
   # @ignore because of FE-1447
   # | <>                       |
 
-  @positive
+  @ignore
+  # @ignore until solution is applied to round sizes as integers as Chrome v80 has amended pixel sizes
   Scenario Outline: Change Button Toggle Group input width to <width>
     Given I check labelInline checkbox
     When I set inputWidth to "<width>"
@@ -50,10 +51,13 @@ Feature: Button Toggle Group component
     When I set inputWidth to "<width>"
     Then input width is not set to "<width>"
     Examples:
-      | width                   |
-      | !@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                     |
-      | <>                      |
+      | width                |
+      | Sample text          |
+      | 1234567890           |
+      | áéíóú¿¡üñ            |
+      | !@#$%^*()-=~[];:,?{} |
+      | ÄÖÜßäöüß             |
+      | <>                   |
 
   @positive
   Scenario Outline: Change Button Toggle Group component field help to <fieldHelp>
@@ -92,15 +96,17 @@ Feature: Button Toggle Group component
       | 100   |
 
   @negative
-  Scenario Outline: Set out of scope characters to Button Toggle Group input width to <width>
+  Scenario Outline: Set out of scope characters to Button Toggle Group label width to <width>
     Given I check labelInline checkbox
-    When I set inputWidth to "<width>"
+    When I set labelWidth to "<width>"
     Then label width is not set "<width>"
     Examples:
-      | width                   |
-      | !@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                    |
-      | <>                      |
+      | width                |
+      | Sample text          |
+      | áéíóú¿¡üñ            |
+      | !@#$%^*()_=~[];:,?{} |
+      | ÄÖÜßäöüß             |
+      | <>                   |
 
   @positive
   Scenario Outline: Change Toggle Button Group label align to <direction>
@@ -113,13 +119,20 @@ Feature: Button Toggle Group component
       | right     |
 
   @positive
-  Scenario Outline: Verify the onChange event for a Button Toggle Group <button>
+  Scenario: Verify the onChange event for a Button Toggle Group Foo
     Given clear all actions in Actions Tab
-    When I click on Button Toggle Group "<button>"
-    Then <action> action was called in Actions Tab
-    Examples:
-      | button | action   |
-      | Foo    | onChange |
-  # @ignore until component default state of selected is removed for FE-2346
-  # | Bar    | onChange |
-      | Baz    | onChange |
+    When I click on Button Toggle Group "Foo"
+    Then onChange action was called in Actions Tab
+  
+  @ignore
+# @ignore until component default state of selected is removed for FE-2346
+  Scenario: Verify the onChange event for a Button Toggle Group Bar
+    Given clear all actions in Actions Tab
+    When I click on Button Toggle Group "Bar"
+    Then onChange action was called in Actions Tab
+
+  @positive
+  Scenario: Verify the onChange event for a Button Toggle Group Baz
+    Given clear all actions in Actions Tab
+    When I click on Button Toggle Group "Baz"
+    Then onChange action was called in Actions Tab

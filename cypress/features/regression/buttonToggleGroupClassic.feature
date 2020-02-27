@@ -4,7 +4,8 @@ Feature: Button Toggle Group classic component
   Background: Open Button Toggle Group component page classic
     Given I open "Button Toggle Group" component page classic
 
-  @positive
+  @ignore
+  # @ignore until solution is applied to round sizes as integers as Chrome v80 has amended pixel sizes
   Scenario Outline: Change Button Toggle Group input width to <width>
     Given I check labelInline checkbox
     When I set inputWidth to "<width>"

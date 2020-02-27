@@ -18,7 +18,8 @@ Feature: Button Toggle component
   # @ignore because of FE-1447
   # | <> |
 
-  @positive
+  @ignore
+  # @ignore until solution is applied to round sizes as integers as Chrome v80 has amended pixel sizes
   Scenario Outline: Set button icon size to <size>
     Given I select buttonIcon to "arrow_left"
     When I select buttonIconSize to "<size>"
@@ -28,7 +29,8 @@ Feature: Button Toggle component
       | small | 16px   | 16px  |
       | large | 32px   | 32px  |
 
-  @positive
+  @ignore
+  # @ignore until solution is applied to round sizes as integers as Chrome v80 has amended pixel sizes
   Scenario Outline: Set Button Toggle size to <size>
     When I select size to "<size>"
     Then Button Toggle height is "<height>" and width is "<width>"
@@ -37,7 +39,8 @@ Feature: Button Toggle component
       | small | 40     | 94.25 |
       | large | 40     | 94.25 |
 
-  @positive
+  @ignore
+  # @ignore until solution is applied to round sizes as integers as Chrome v80 has amended pixel sizes
   Scenario Outline: Set Button Toggle size to <size> with small icon
     Given I select buttonIcon to "arrow_left"
     When I select buttonIconSize to "small"
@@ -48,7 +51,8 @@ Feature: Button Toggle component
       | small | 40     | 118.25 |
       | large | 40     | 118.25 |
 
-  @positive
+  @ignore
+  # @ignore until solution is applied to round sizes as integers as Chrome v80 has amended pixel sizes
   Scenario Outline: Set Button Toggle size to <size> with large icon
     Given I select buttonIcon to "arrow_left"
     When I select buttonIconSize to "large"
@@ -83,12 +87,19 @@ Feature: Button Toggle component
     Then Button Toggle is not grouped
 
   @positive
-  Scenario Outline: Verify the onChange event for Button Toggle <button>
+  Scenario: Verify the onChange event for Button Toggle 0
     Given clear all actions in Actions Tab
-    When I click on Button Toggle <button>
-    Then <action> action was called in Actions Tab
-    Examples:
-      | button | action   |
-      | 0      | onChange |
-      | 1      | onChange |
-      | 2      | onChange |
+    When I click on Button Toggle 0
+    Then onChange action was called in Actions Tab
+
+  @positive
+  Scenario: Verify the onChange event for Button Toggle 1
+    Given clear all actions in Actions Tab
+    When I click on Button Toggle 1
+    Then onChange action was called in Actions Tab
+
+  @positive
+  Scenario: Verify the onChange event for Button Toggle 2
+    Given clear all actions in Actions Tab
+    When I click on Button Toggle 2
+    Then onChange action was called in Actions Tab
