@@ -1,36 +1,46 @@
-Feature: Loader component
+Feature: Loader default component
   I want to change Loader component properties
 
-  Background: Open Loader component page legacy spinner
-    Given I open "Loader" component page legacy spinner
-
-  @positive
-  Scenario Outline: I set Loader component as to <as>
-    When I select as to "<as>"
-    Then Loader "border-top-color" color is set to "<border-top-color>"
-      And Loader "border-left-color" color is set to "0.7" gradient of "<border-top-color>" base color
-      And Loader "border-right-color" color is set to "0.3" gradient of "<border-top-color>" base color
-    Examples:
-      | as          | border-top-color  |
-      | default     | rgb(51, 92, 109)  |
-      | error       | rgb(199, 56, 79)  |
-      | help        | rgb(255, 171, 0)  |
-      | info        | rgb(21, 115, 230) |
-      | maintenance | rgb(255, 125, 0)  |
-      | new         | rgb(102, 51, 153) |
-      | success     | rgb(80, 184, 72)  |
-      | warning     | rgb(255, 125, 0)  |
+  Background: Open Loader default component page
+    Given I open "Loader" component page
 
   @positive
   Scenario Outline: I set Loader component size to <size>
     When I select size to "<size>"
-    Then Loader width and height is set to "<px>"
+    Then Loader width is set to 1059 px and height is set to <height> px
     Examples:
-      | size         | px |
-      | extra-small  | 8  |
-      | small        | 12 |
-      | medium-small | 20 |
-      | medium       | 25 |
-      | medium-large | 32 |
-      | large        | 40 |
-      | extra-large  | 45 |
+      | size  | height |
+      | small | 17     |
+      | large | 19     |
+
+  @positive
+  Scenario Outline: Verify size of button with loader
+    Given I check isInsideButton checkbox
+    When I select size to "<size>"
+    Then button with loader width is set to <width> px and height is set to 40 px
+    Examples:
+      | size  | width |
+      | small | 88    |
+      | large | 120   |
+
+  @positive
+  Scenario: Loader isInsideButton
+    When I check isInsideButton checkbox
+    Then Loader isInsideButton and backgroundColor is "rgb(0, 128, 93)"
+
+  @positive
+  Scenario: Disabled loader button
+    Given I check isInsideButton checkbox
+    When I uncheck isActive checkbox
+    Then Loader button is disabled
+
+  @positive
+  Scenario: Enabled loader button
+    When I check isInsideButton checkbox
+    Then Loader button is enabled
+
+  @positive
+  Scenario: Verify border outline color on focus
+    Given I check isInsideButton checkbox
+    When I focus loader button
+    Then loader button has golden border outline

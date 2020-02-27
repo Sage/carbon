@@ -7,7 +7,7 @@ import {
   closeIconButton, tooltipPreview, getKnobsInput, getKnobsInputWithName, getKnobsInputByGroup,
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
   precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
-  knobsNameTab, fieldHelpPreviewByPosition, labelByPosition,
+  knobsNameTab, fieldHelpPreviewByPosition, labelByPosition, dlsRoot,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
@@ -146,6 +146,18 @@ Given('I open {string} classic component for classic story as sibling in no ifra
 
 Given('I open {string} component page validations in iframe', (component) => {
   visitComponentUrl(component, 'validations', true);
+});
+
+Given('I open basic Test {string} component page', (component) => {
+  visitComponentUrl(component, 'basic', false, 'test-');
+});
+
+Given('I open basic Test {string} component page in noIframe', (component) => {
+  visitComponentUrl(component, 'basic', true, 'test-');
+});
+
+Given('I open grouped Test {string} component page in noIframe', (component) => {
+  visitComponentUrl(component, 'grouped', true, 'test-');
 });
 
 Given('I open {string} component page validations classic in iframe', (component) => {
@@ -477,6 +489,10 @@ When('I click outside of the component', () => {
   storyRoot().click();
 });
 
+When('I click outside of the component in DLS directory', () => {
+  dlsRoot().click();
+});
+
 When('I click above of the component into iFrame', () => {
   storyRootNoIframe().click('top');
 });
@@ -537,5 +553,5 @@ When('I click on outside dialog in iFrame', () => {
 });
 
 Then('totalRecords is set to {string} {word}', (totalRecords, element) => {
-  pagerSummary().invoke('text').should('contain', `${totalRecords}  ${element}`);
+  pagerSummary().invoke('text').should('contain', `${totalRecords} ${element}`);
 });

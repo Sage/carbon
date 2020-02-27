@@ -6,6 +6,8 @@ export default (palette) => {
   return {
     name: 'base',
 
+    spacing: 8,
+
     colors: {
       // main
       base: palette.productGreen,
@@ -39,6 +41,11 @@ export default (palette) => {
       destructive: {
         hover: palette.errorRedShade(20)
       }
+    },
+
+    accordion: {
+      border: palette.slateTint(80),
+      background: palette.slateTint(90)
     },
 
     menu: {
@@ -139,6 +146,13 @@ export default (palette) => {
       neutralBackgroundFocus: palette.slateTint(10),
       warningButtonFocus: palette.carrotOrange,
       errorButtonFocus: palette.errorRedShade(20)
+    },
+
+    search: {
+      active: palette.goldTint(50),
+      button: '#255BC7',
+      passive: palette.slateTint(80),
+      searchActive: '#668592'
     },
 
     select: {
