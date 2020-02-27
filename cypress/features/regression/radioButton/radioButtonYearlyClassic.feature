@@ -99,8 +99,8 @@ Feature: Experimental RadioButton yearly classic component
     Examples:
       | width | px         |
       | 1     | 16         |
-      | 10    | 98.71875   |
-      | 50    | 358.234375 |
+      | 10    | 98.53125   |
+      | 50    | 357.546875 |
 
   # pixels are adjusted for Travis CI. For normal cypress test runner test should fail
   @positive

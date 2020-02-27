@@ -99,8 +99,8 @@ Feature: Experimental RadioButton weekly classic component
     Examples:
       | width | px         |
       | 1     | 16         |
-      | 10    | 98.71875   |
-      | 50    | 358.234375 |
+      | 10    | 98.53125   |
+      | 50    | 357.546875 |
 
   # pixels are adjusted for Travis CI. For normal cypress test runner test should fail
   @positive
@@ -109,10 +109,10 @@ Feature: Experimental RadioButton weekly classic component
       And I set group weekly labelWidth slider to <width>
     Then "First" RadioButton label width is set to "<px>"
     Examples:
-      | width | px        |
-      | 1     | 10.609375 |
-      | 50    | 530.5     |
-      | 100   | 847.78125 |
+      | width | px         |
+      | 1     | 10.609375  |
+      | 50    | 530.5      |
+      | 100   | 831.203125 |
 
   @positive
   Scenario Outline: Change RadioButton label align to <direction>
