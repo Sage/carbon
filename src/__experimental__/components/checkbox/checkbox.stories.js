@@ -196,7 +196,7 @@ const checkboxGroupComponent = () => (
       {formCheckbox.map(type => (
         <State store={ checkboxes[type].store } key={ `check-state-${type}` }>
           <Checkbox
-            id='checkbox'
+            id={ `checkbox_${type}` }
             key={ `checkbox-input-${type}` }
             validations={ testValidator }
             warnings={ testWarning }
