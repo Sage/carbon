@@ -160,3 +160,22 @@ Feature: Experimental Textbox component
       | small  | 28px   | 1043px |
       | medium | 36px   | 1037px |
       | large  | 44px   | 1033px |
+
+  @positive
+  Scenario: Check icon inside of Textbox is visible
+    When I select inputIcon to "add"
+    Then icon on preview is "add" and is visible
+
+  @positive
+  Scenario: Check iconOnClick event
+    Given I select inputIcon to "add"
+      And clear all actions in Actions Tab
+    When I click on icon inside of Textbox
+    Then iconOnClick action was called in Actions Tab
+
+  @positive
+  Scenario: Check onClick event
+    Given clear all actions in Actions Tab
+    When I click on Textbox
+    Then onClick action was called in Actions Tab
+      And Textbox input has golden border on focus

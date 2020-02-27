@@ -3,15 +3,16 @@ import {
 } from '../helper';
 import {
   commonButtonPreview, labelPreview, helpIcon, helpIconByPosition, inputWidthSlider,
-  fieldHelpPreview, labelWidthSlider, labelWidthSliderByGroup, backgroundUILocator,
+  fieldHelpPreview, labelWidthSlider, backgroundUILocator,
   closeIconButton, tooltipPreview, getKnobsInput, getKnobsInputWithName, getKnobsInputByGroup,
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
   precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
-  knobsNameTab, fieldHelpPreviewByPosition, labelByPosition,
+  knobsNameTab, fieldHelpPreviewByPosition, labelByPosition, dlsRoot,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
 import { getElementNoIframe, commonButtonPreviewNoIframe } from '../../locators/build';
+import { pagerSummary } from '../../locators/pager';
 
 const LABEL_INPUT_INLINE_CLASS = 'common-input__label--inline';
 const FIRST_ELEMENT = 0;
@@ -53,6 +54,10 @@ Given('I open {string} basic classic component page in iframe', (component) => {
 
 Given('I open {string} component page with button', (component) => {
   visitComponentUrl(component, 'with_button');
+});
+
+Given('I open {string} component page with inputs', (component) => {
+  visitComponentUrl(component, 'default_with_inputs');
 });
 
 Given('I open {string} component with button classic page', (component) => {
@@ -143,6 +148,18 @@ Given('I open {string} component page validations in iframe', (component) => {
   visitComponentUrl(component, 'validations', true);
 });
 
+Given('I open basic Test {string} component page', (component) => {
+  visitComponentUrl(component, 'basic', false, 'test-');
+});
+
+Given('I open basic Test {string} component page in noIframe', (component) => {
+  visitComponentUrl(component, 'basic', true, 'test-');
+});
+
+Given('I open grouped Test {string} component page in noIframe', (component) => {
+  visitComponentUrl(component, 'grouped', true, 'test-');
+});
+
 Given('I open {string} component page validations classic in iframe', (component) => {
   visitComponentUrl(component, 'validations_classic', true);
 });
@@ -153,6 +170,10 @@ Given('I open {string} component page autoFocus in iframe', (component) => {
 
 Given('I open {string} component page autoFocus multiple in iframe', (component) => {
   visitComponentUrl(component, 'autofocus_multiple', true);
+});
+
+Given('I open {string} component page with sticky footer', (component) => {
+  visitComponentUrl(component, 'with_sticky_footer');
 });
 
 When('I open {word} tab', (text) => {
@@ -424,8 +445,8 @@ When('I uncheck {word} {word} checkbox', (checkboxName, text) => {
 });
 
 When('I uncheck group {word} {word} {word} checkbox', (groupName, checkboxName, text) => {
-  getKnobsInpuByGroup(groupName, checkboxName, text).scrollIntoView();
-  getKnobsInpuByGroup(groupName, checkboxName, text).uncheck();
+  getKnobsInputByGroup(groupName, checkboxName, text).scrollIntoView();
+  getKnobsInputByGroup(groupName, checkboxName, text).uncheck();
 });
 
 Then('inputWidth is set to {string}', (width) => {
@@ -466,6 +487,10 @@ Then('text {string} color is set to {string}', (text, color) => {
 
 When('I click outside of the component', () => {
   storyRoot().click();
+});
+
+When('I click outside of the component in DLS directory', () => {
+  dlsRoot().click();
 });
 
 When('I click above of the component into iFrame', () => {
@@ -525,4 +550,8 @@ When('I press keyboard {string} key times {int}', (key, times) => {
 
 When('I click on outside dialog in iFrame', () => {
   cy.get('#story-root').click({ force: true });
+});
+
+Then('totalRecords is set to {string} {word}', (totalRecords, element) => {
+  pagerSummary().invoke('text').should('contain', `${totalRecords} ${element}`);
 });

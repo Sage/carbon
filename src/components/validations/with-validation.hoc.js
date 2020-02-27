@@ -4,6 +4,7 @@ import { ValidationsContext } from './form-with-validations.hoc';
 import validator from '../../utils/validations/validator';
 import VALIDATION_TYPES from './validation-types.config';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
+import Logger from '../../utils/logger';
 
 const { validationTypes } = OptionsHelper;
 const validationShape = PropTypes.shape({
@@ -70,6 +71,9 @@ const withValidation = (WrappedComponent, defaultProps = {}) => {
         const isDefined = typeof validation !== 'undefined';
         if (isPopulatedArray || (!isArray && isDefined)) {
           hasValidations = true;
+          const { name } = this.props;
+          Logger.deprecate(`Validations are scheduled to be removed from Carbon. ("${name}")
+Please see https://github.com/Sage/carbon/pull/2481 for more details.`);
         }
       });
 

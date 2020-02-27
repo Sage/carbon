@@ -5,7 +5,7 @@ import { text, object, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import GroupedCharacter from './grouped-character.component';
-import getCommonTextboxStoryProps from '../textbox/textbox.stories';
+import { getCommonTextboxProps } from '../textbox/textbox.stories';
 import { OriginalTextbox } from '../textbox';
 import { info } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
@@ -31,7 +31,7 @@ const defaultComponent = () => {
   return (
     <State store={ groupedCharacterStore }>
       <GroupedCharacter
-        { ...getCommonTextboxStoryProps() }
+        { ...getCommonTextboxProps() }
         groups={ groups }
         separator={ separator }
         value={ groupedCharacterStore.get('value') }

@@ -12,7 +12,8 @@ const Card = ({
   cardWidth,
   interactive,
   draggable,
-  spacing
+  spacing,
+  dataRole
 }) => {
   const handleClick = (ev) => {
     if (!draggable && action) {
@@ -35,6 +36,8 @@ const Card = ({
       spacing={ spacing }
       type='button'
       onClick={ onClickHandler }
+      tabIndex={ 0 }
+      data-role={ dataRole }
     >
       { draggable && <Icon type='drag' />}
       { renderChildren() }
@@ -56,7 +59,8 @@ Card.propTypes = {
   /** flag to indicate if card is draggable */
   draggable: PropTypes.bool,
   /** size of card for applying padding (small | medium | large) */
-  spacing: PropTypes.oneOf(sizesRestricted)
+  spacing: PropTypes.oneOf(sizesRestricted),
+  dataRole: PropTypes.string
 };
 
 export default Card;

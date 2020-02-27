@@ -1,6 +1,6 @@
 import React from 'react';
 import 'jest-styled-components';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import Sidebar from './sidebar.component';
 import Textbox from '../../__deprecated__/components/textbox';
 import { SidebarStyle, SidebarCloseStyle } from './sidebar.style';
@@ -8,12 +8,12 @@ import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import classicTheme from '../../style/themes/classic';
 
 describe('Sidebar', () => {
-  let wrapper, spy;
+  let wrapper, spy, preventDefault;
 
   beforeEach(() => {
     spy = jasmine.createSpy();
-
-    wrapper = shallow(
+    preventDefault = jest.fn();
+    wrapper = mount(
       <Sidebar
         open
         title='Test'
@@ -37,9 +37,31 @@ describe('Sidebar', () => {
       });
     });
 
+    describe('when onCancel is fired', () => {
+      it('should remove focus', () => {
+        jest.useFakeTimers();
+        const tempDiv = document.createElement('div');
+        const element = document.body.appendChild(tempDiv);
+
+        wrapper = mount(
+          <Sidebar open onCancel={ jest.fn }>
+            <button type='button'>test content</button>
+          </Sidebar>, { attachTo: element }
+        );
+
+        jest.runAllTimers();
+
+        expect(document.activeElement).toMatchObject(wrapper.find('button'));
+        wrapper.setProps({ open: false });
+        expect(document.activeElement).toMatchObject(document.body);
+
+        jest.clearAllTimers();
+      });
+    });
+
     describe('when enableBackgroundUI is enabled', () => {
       it('sets all the correct classes', () => {
-        wrapper = shallow(
+        wrapper = mount(
           <Sidebar
             open
             enableBackgroundUI
@@ -54,7 +76,7 @@ describe('Sidebar', () => {
 
     describe('when there is no onCancel prop', () => {
       it('should not have a close button', () => {
-        wrapper = shallow(
+        wrapper = mount(
           <Sidebar
             open
           />
@@ -68,8 +90,24 @@ describe('Sidebar', () => {
     describe('clicking the close icon sidebar', () => {
       it('closes the sidebar', () => {
         const icon = wrapper.find('.carbon-sidebar__close-icon');
-        icon.simulate('click');
+        icon.at(0).simulate('click');
         expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('pressing Enter key on the close icon sidebar', () => {
+      it('closes the sidebar', () => {
+        const icon = wrapper.find('.carbon-sidebar__close-icon');
+        icon.at(0).props().onKeyDown({ which: 13, preventDefault });
+        expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('pressing other key than Enter or Space', () => {
+      it('does not close the sidebar', () => {
+        const icon = wrapper.find('.carbon-sidebar__close-icon');
+        icon.at(0).props().onKeyDown({ which: 16 });
+        expect(spy).not.toHaveBeenCalled();
       });
     });
   });

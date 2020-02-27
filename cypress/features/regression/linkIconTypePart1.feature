@@ -27,6 +27,7 @@ Feature: Link component
       | bulk_destroy        |
       | business            |
       | calendar            |
+      | calendar_today      |
       | call                |
       | camera              |
       | card_view           |
@@ -74,5 +75,5 @@ Feature: Link component
     When I select icon to "<iconName>"
     Then icon on link componenent preview is "<iconDataElement>"
     Examples:
-      | iconName          | iconDataElement |
-      | email             | message         |
+      | iconName | iconDataElement |
+      | email    | message         |

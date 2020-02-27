@@ -8,7 +8,7 @@ const info = (
     <StoryHeader>Implementation</StoryHeader>
 
     <p>Import the component:</p>
-    <StoryCode padded>import Preview from {'"react-carbon/lib/components/preview"'}</StoryCode>
+    <StoryCode padded>import Preview from {'"carbon-react/lib/components/preview"'}</StoryCode>
     <p>
       You can set the custom height for the preview line by setting <StoryCode padded>height</StoryCode> prop (e.g.
       20px).

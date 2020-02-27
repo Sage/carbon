@@ -30,27 +30,27 @@ Array [
   display: flex;
 }
 
-.c1 .c15 {
+.c1 .c14 {
   text-align: left;
   padding-top: 0;
   width: auto;
 }
 
-.c1 .c15 .c13,
-.c1 .c15 .c14 {
+.c1 .c14 .c12,
+.c1 .c14 .c13 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c1 .c15 .c13:hover,
-.c1 .c15 .c14:hover,
-.c1 .c15 .c13:focus,
-.c1 .c15 .c14:focus {
+.c1 .c14 .c12:hover,
+.c1 .c14 .c13:hover,
+.c1 .c14 .c12:focus,
+.c1 .c14 .c13:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c1 .c12 {
+.c1 .c11 {
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
@@ -95,7 +95,7 @@ Array [
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c0 .c15 {
+.c0 .c14 {
   padding-left: 6px;
   width: auto;
   -webkit-flex: 1 1 calc(100% - 28px);
@@ -103,18 +103,22 @@ Array [
   flex: 1 1 calc(100% - 28px);
 }
 
-.c0 .c12 {
+.c0 .c11 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
 }
 
-.c0 .c14 {
+.c0 .c13 {
   position: relative;
   display: inline-block;
 }
 
-.c0 .c12 {
+.c0 .c8:checked ~ .c10 svg path {
+  fill: rgba(0,0,0,0.90);
+}
+
+.c0 .c11 {
   margin-left: 32px;
   padding-left: 0;
 }
@@ -148,7 +152,7 @@ Array [
   r: 5;
 }
 
-.c0 .c15 {
+.c0 .c14 {
   -webkit-flex: 1 1 calc(100% - 44px);
   -ms-flex: 1 1 calc(100% - 44px);
   flex: 1 1 calc(100% - 44px);
@@ -156,60 +160,6 @@ Array [
 }
 
 .c0 .c8:checked + .c10 circle {
-  fill: rgba(0,0,0,0.9);
-}
-
-.c11 .c6 {
-  padding-top: 1px;
-}
-
-.c11 .c10 {
-  height: 16px;
-}
-
-.c11 .c8,
-.c11 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c11 .c6,
-.c11 .c8,
-.c11 .c10,
-.c11 svg {
-  box-sizing: border-box;
-  min-width: 16px;
-  width: 16px;
-}
-
-.c11 .c8:not([disabled]):focus + .c10,
-.c11 .c8:not([disabled]):hover + .c10 {
-  box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c11 .c6 {
-  margin-right: 16px;
-}
-
-.c11 .c10 {
-  padding: 0;
-}
-
-.c11 .c10,
-.c11 svg {
-  border-radius: 50%;
-}
-
-.c11 .c6,
-.c11 .c8,
-.c11 .c10,
-.c11 svg {
-  height: 16px;
-  width: 16px;
-}
-
-.c11 .c8:checked + .c10 circle {
   fill: rgba(0,0,0,0.9);
 }
 
@@ -303,27 +253,27 @@ Array [
   display: flex;
 }
 
-.c1 .c15 {
+.c1 .c14 {
   text-align: left;
   padding-top: 0;
   width: auto;
 }
 
-.c1 .c15 .c13,
-.c1 .c15 .c14 {
+.c1 .c14 .c12,
+.c1 .c14 .c13 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c1 .c15 .c13:hover,
-.c1 .c15 .c14:hover,
-.c1 .c15 .c13:focus,
-.c1 .c15 .c14:focus {
+.c1 .c14 .c12:hover,
+.c1 .c14 .c13:hover,
+.c1 .c14 .c12:focus,
+.c1 .c14 .c13:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c1 .c12 {
+.c1 .c11 {
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
@@ -368,7 +318,7 @@ Array [
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c0 .c15 {
+.c0 .c14 {
   padding-left: 6px;
   width: auto;
   -webkit-flex: 1 1 calc(100% - 28px);
@@ -376,18 +326,22 @@ Array [
   flex: 1 1 calc(100% - 28px);
 }
 
-.c0 .c12 {
+.c0 .c11 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
 }
 
-.c0 .c14 {
+.c0 .c13 {
   position: relative;
   display: inline-block;
 }
 
-.c0 .c12 {
+.c0 .c8:checked ~ .c10 svg path {
+  fill: rgba(0,0,0,0.90);
+}
+
+.c0 .c11 {
   margin-left: 32px;
   padding-left: 0;
 }
@@ -421,7 +375,7 @@ Array [
   r: 5;
 }
 
-.c0 .c15 {
+.c0 .c14 {
   -webkit-flex: 1 1 calc(100% - 44px);
   -ms-flex: 1 1 calc(100% - 44px);
   flex: 1 1 calc(100% - 44px);
@@ -429,60 +383,6 @@ Array [
 }
 
 .c0 .c8:checked + .c10 circle {
-  fill: rgba(0,0,0,0.9);
-}
-
-.c11 .c6 {
-  padding-top: 1px;
-}
-
-.c11 .c10 {
-  height: 16px;
-}
-
-.c11 .c8,
-.c11 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c11 .c6,
-.c11 .c8,
-.c11 .c10,
-.c11 svg {
-  box-sizing: border-box;
-  min-width: 16px;
-  width: 16px;
-}
-
-.c11 .c8:not([disabled]):focus + .c10,
-.c11 .c8:not([disabled]):hover + .c10 {
-  box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c11 .c6 {
-  margin-right: 16px;
-}
-
-.c11 .c10 {
-  padding: 0;
-}
-
-.c11 .c10,
-.c11 svg {
-  border-radius: 50%;
-}
-
-.c11 .c6,
-.c11 .c8,
-.c11 .c10,
-.c11 svg {
-  height: 16px;
-  width: 16px;
-}
-
-.c11 .c8:checked + .c10 circle {
   fill: rgba(0,0,0,0.9);
 }
 

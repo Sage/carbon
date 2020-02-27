@@ -76,7 +76,6 @@ exports[` 1`] = `
     </styled.div>
     <Alert
       ariaRole="dialog"
-      autoFocus={true}
       data-element="info-dialog"
       key="bun"
       onCancel={[Function]}

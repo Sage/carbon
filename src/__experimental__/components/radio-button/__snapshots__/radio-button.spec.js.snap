@@ -140,6 +140,14 @@ exports[`RadioButton styles base renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
+.c18 .c11:checked ~ .c13 svg path {
+  fill: rgba(0,0,0,0.90);
+}
+
+.c18 .c11:checked ~ .c13 svg path {
+  fill: #CCD6DA;
+}
+
 .c18 .c13:hover,
 .c18 .c13:focus {
   outline: none;
@@ -220,6 +228,10 @@ exports[`RadioButton styles base renders as expected 1`] = `
 .c19 svg {
   height: 24px;
   width: 24px;
+}
+
+.c19 .c11:checked ~ .c13 svg path {
+  fill: rgba(0,0,0,0.90);
 }
 
 .c19 .c9 {
@@ -306,6 +318,10 @@ exports[`RadioButton styles base renders as expected 1`] = `
   width: 24px;
 }
 
+.c20 .c11:checked ~ .c13 svg path {
+  fill: rgba(0,0,0,0.90);
+}
+
 .c20 .c9 {
   margin-right: 16px;
 }
@@ -377,6 +393,10 @@ exports[`RadioButton styles base renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
+.c21 .c11:checked ~ .c13 svg path {
+  fill: rgba(0,0,0,0.90);
+}
+
 .c21 .c9 {
   padding: 1px 0 0 0;
 }
@@ -403,6 +423,10 @@ exports[`RadioButton styles base renders as expected 1`] = `
 .c21 .c11:not([disabled]):hover + .c13 > svg {
   border: 1px solid #1963f6;
   outline: none;
+}
+
+.c21 .c11:checked ~ .c13 svg path {
+  fill: rgba(0,0,0,0.85);
 }
 
 .c21 .c9 {
@@ -481,6 +505,14 @@ exports[`RadioButton styles base renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
+.c22 .c11:checked ~ .c13 svg path {
+  fill: rgba(0,0,0,0.90);
+}
+
+.c22 .c11:checked ~ .c13 svg path {
+  fill: #4d7080;
+}
+
 .c22 .c13:hover,
 .c22 .c13:focus {
   outline: none;
@@ -513,6 +545,14 @@ exports[`RadioButton styles base renders as expected 1`] = `
 .c22 .c11:not([disabled]):hover + .c13 > svg {
   border: 1px solid #1963f6;
   outline: none;
+}
+
+.c22 .c11:checked ~ .c13 svg path {
+  fill: rgba(0,0,0,0.85);
+}
+
+.c22 .c11:checked ~ .c13 svg path {
+  fill: #8099a4;
 }
 
 .c22 .c9 {
@@ -599,6 +639,10 @@ exports[`RadioButton styles base renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
+.c23 .c11:checked ~ .c13 svg path {
+  fill: rgba(0,0,0,0.90);
+}
+
 .c23 .c9 {
   padding: 1px 0 0 0;
 }
@@ -625,6 +669,10 @@ exports[`RadioButton styles base renders as expected 1`] = `
 .c23 .c11:not([disabled]):hover + .c13 > svg {
   border: 1px solid #1963f6;
   outline: none;
+}
+
+.c23 .c11:checked ~ .c13 svg path {
+  fill: rgba(0,0,0,0.85);
 }
 
 .c23 .c9 {
@@ -707,6 +755,10 @@ exports[`RadioButton styles base renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
+.c24 .c11:checked ~ .c13 svg path {
+  fill: rgba(0,0,0,0.90);
+}
+
 .c24 .c9 {
   padding: 1px 0 0 0;
 }
@@ -733,6 +785,10 @@ exports[`RadioButton styles base renders as expected 1`] = `
 .c24 .c11:not([disabled]):hover + .c13 > svg {
   border: 1px solid #1963f6;
   outline: none;
+}
+
+.c24 .c11:checked ~ .c13 svg path {
+  fill: rgba(0,0,0,0.85);
 }
 
 .c24 .c9 {
@@ -842,6 +898,10 @@ exports[`RadioButton styles base renders as expected 1`] = `
 .c3 .c27 {
   position: relative;
   display: inline-block;
+}
+
+.c3 .c11:checked ~ .c13 svg path {
+  fill: rgba(0,0,0,0.90);
 }
 
 .c3 .c25 {

@@ -32,27 +32,27 @@ exports[`Checkbox base theme renders as expected 1`] = `
   display: flex;
 }
 
-.c1 .c29 {
+.c1 .c27 {
   text-align: left;
   padding-top: 0;
   width: auto;
 }
 
-.c1 .c29 .c27,
-.c1 .c29 .c28 {
+.c1 .c27 .c25,
+.c1 .c27 .c26 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
   top: -1px;
 }
 
-.c1 .c29 .c27:hover,
-.c1 .c29 .c28:hover,
-.c1 .c29 .c27:focus,
-.c1 .c29 .c28:focus {
+.c1 .c27 .c25:hover,
+.c1 .c27 .c26:hover,
+.c1 .c27 .c25:focus,
+.c1 .c27 .c26:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c1 .c26 {
+.c1 .c24 {
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
@@ -88,9 +88,9 @@ exports[`Checkbox base theme renders as expected 1`] = `
 }
 
 .c12 .c8:hover,
-.c12 .c29:hover,
+.c12 .c27:hover,
 .c12 .c8:focus,
-.c12 .c29:focus {
+.c12 .c27:focus {
   outline: none;
   cursor: not-allowed;
 }
@@ -132,9 +132,9 @@ exports[`Checkbox base theme renders as expected 1`] = `
 }
 
 .c15 .c8:hover,
-.c15 .c29:hover,
+.c15 .c27:hover,
 .c15 .c8:focus,
-.c15 .c29:focus {
+.c15 .c27:focus {
   outline: none;
   cursor: not-allowed;
 }
@@ -186,6 +186,10 @@ exports[`Checkbox base theme renders as expected 1`] = `
   width: 24px;
 }
 
+.c16 .c8:checked ~ .c10 svg path {
+  fill: rgba(0,0,0,0.90);
+}
+
 .c17 .c6 {
   padding-top: 1px;
 }
@@ -233,6 +237,10 @@ exports[`Checkbox base theme renders as expected 1`] = `
   width: 24px;
 }
 
+.c17 .c8:checked ~ .c10 svg path {
+  fill: rgba(0,0,0,0.90);
+}
+
 .c18 .c6 {
   padding-top: 1px;
 }
@@ -260,6 +268,14 @@ exports[`Checkbox base theme renders as expected 1`] = `
 .c18 .c8:not([disabled]):focus + .c10,
 .c18 .c8:not([disabled]):hover + .c10 {
   box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c18 .c8:checked ~ .c10 svg path {
+  fill: rgba(0,0,0,0.90);
+}
+
+.c18 .c8:checked ~ .c10 svg path {
+  fill: #CCD6DA;
 }
 
 .c18 .c10:hover,
@@ -297,10 +313,8 @@ exports[`Checkbox base theme renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c19 .c10:hover,
-.c19 .c10:focus {
-  outline: none;
-  cursor: not-allowed;
+.c19 .c8:checked ~ .c10 svg path {
+  fill: rgba(0,0,0,0.90);
 }
 
 .c20 .c6 {
@@ -332,6 +346,10 @@ exports[`Checkbox base theme renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
+.c20 .c8:checked ~ .c10 svg path {
+  fill: rgba(0,0,0,0.90);
+}
+
 .c21 .c6 {
   padding-top: 1px;
 }
@@ -359,6 +377,14 @@ exports[`Checkbox base theme renders as expected 1`] = `
 .c21 .c8:not([disabled]):focus + .c10,
 .c21 .c8:not([disabled]):hover + .c10 {
   box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c21 .c8:checked ~ .c10 svg path {
+  fill: rgba(0,0,0,0.90);
+}
+
+.c21 .c6 {
+  margin-right: 8px;
 }
 
 .c22 .c6 {
@@ -390,8 +416,40 @@ exports[`Checkbox base theme renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
+.c22 .c8:checked ~ .c10 svg path {
+  fill: rgba(0,0,0,0.90);
+}
+
 .c22 .c6 {
-  margin-right: 8px;
+  padding: 1px 0 0 0;
+}
+
+.c22 .c8,
+.c22 svg {
+  padding: 1px;
+}
+
+.c22 .c6,
+.c22 .c8,
+.c22 .c10,
+.c22 svg {
+  height: 15px;
+  width: 15px;
+}
+
+.c22 .c8:not([disabled]):focus + .c10,
+.c22 .c8:not([disabled]):hover + .c10 {
+  box-shadow: none;
+}
+
+.c22 .c8:not([disabled]):focus + .c10 > svg,
+.c22 .c8:not([disabled]):hover + .c10 > svg {
+  border: 1px solid #1963f6;
+  outline: none;
+}
+
+.c22 .c8:checked ~ .c10 svg path {
+  fill: rgba(0,0,0,0.85);
 }
 
 .c23 .c6 {
@@ -423,6 +481,20 @@ exports[`Checkbox base theme renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
+.c23 .c8:checked ~ .c10 svg path {
+  fill: rgba(0,0,0,0.90);
+}
+
+.c23 .c8:checked ~ .c10 svg path {
+  fill: #4d7080;
+}
+
+.c23 .c10:hover,
+.c23 .c10:focus {
+  outline: none;
+  cursor: not-allowed;
+}
+
 .c23 .c6 {
   padding: 1px 0 0 0;
 }
@@ -451,130 +523,12 @@ exports[`Checkbox base theme renders as expected 1`] = `
   outline: none;
 }
 
-.c24 .c6 {
-  padding-top: 1px;
+.c23 .c8:checked ~ .c10 svg path {
+  fill: rgba(0,0,0,0.85);
 }
 
-.c24 .c10 {
-  height: 16px;
-}
-
-.c24 .c8,
-.c24 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c24 .c6,
-.c24 .c8,
-.c24 .c10,
-.c24 svg {
-  box-sizing: border-box;
-  min-width: 16px;
-  width: 16px;
-}
-
-.c24 .c8:not([disabled]):focus + .c10,
-.c24 .c8:not([disabled]):hover + .c10 {
-  box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c24 .c10:hover,
-.c24 .c10:focus {
-  outline: none;
-  cursor: not-allowed;
-}
-
-.c24 .c6 {
-  padding: 1px 0 0 0;
-}
-
-.c24 .c8,
-.c24 svg {
-  padding: 1px;
-}
-
-.c24 .c6,
-.c24 .c8,
-.c24 .c10,
-.c24 svg {
-  height: 15px;
-  width: 15px;
-}
-
-.c24 .c8:not([disabled]):focus + .c10,
-.c24 .c8:not([disabled]):hover + .c10 {
-  box-shadow: none;
-}
-
-.c24 .c8:not([disabled]):focus + .c10 > svg,
-.c24 .c8:not([disabled]):hover + .c10 > svg {
-  border: 1px solid #1963f6;
-  outline: none;
-}
-
-.c25 .c6 {
-  padding-top: 1px;
-}
-
-.c25 .c10 {
-  height: 16px;
-}
-
-.c25 .c8,
-.c25 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c25 .c6,
-.c25 .c8,
-.c25 .c10,
-.c25 svg {
-  box-sizing: border-box;
-  min-width: 16px;
-  width: 16px;
-}
-
-.c25 .c8:not([disabled]):focus + .c10,
-.c25 .c8:not([disabled]):hover + .c10 {
-  box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c25 .c10:hover,
-.c25 .c10:focus {
-  outline: none;
-  cursor: not-allowed;
-}
-
-.c25 .c6 {
-  padding: 1px 0 0 0;
-}
-
-.c25 .c8,
-.c25 svg {
-  padding: 1px;
-}
-
-.c25 .c6,
-.c25 .c8,
-.c25 .c10,
-.c25 svg {
-  height: 15px;
-  width: 15px;
-}
-
-.c25 .c8:not([disabled]):focus + .c10,
-.c25 .c8:not([disabled]):hover + .c10 {
-  box-shadow: none;
-}
-
-.c25 .c8:not([disabled]):focus + .c10 > svg,
-.c25 .c8:not([disabled]):hover + .c10 > svg {
-  border: 1px solid #1963f6;
-  outline: none;
+.c23 .c8:checked ~ .c10 svg path {
+  fill: #8099a4;
 }
 
 .c0 {
@@ -615,7 +569,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c0 .c29 {
+.c0 .c27 {
   padding-left: 6px;
   width: auto;
   -webkit-flex: 1 1 calc(100% - 28px);
@@ -623,15 +577,19 @@ exports[`Checkbox base theme renders as expected 1`] = `
   flex: 1 1 calc(100% - 28px);
 }
 
-.c0 .c26 {
+.c0 .c24 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
 }
 
-.c0 .c28 {
+.c0 .c26 {
   position: relative;
   display: inline-block;
+}
+
+.c0 .c8:checked ~ .c10 svg path {
+  fill: rgba(0,0,0,0.90);
 }
 
 <div

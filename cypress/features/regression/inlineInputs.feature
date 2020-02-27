@@ -1,7 +1,7 @@
 Feature: InlineInputs component
   I want to change InlineInputs component properties
 
-  Background: Open InlineInputs component page
+  Background: Open InlineInputs component default page
     Given I open "InlineInputs" component page
 
   @positive

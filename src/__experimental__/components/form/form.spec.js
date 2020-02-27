@@ -41,6 +41,11 @@ describe('Form', () => {
     );
   });
 
+  it('has a data-element attribute that locates the sticky footer', () => {
+    wrapper = shallow(<Form formAction='foo' />);
+    expect(wrapper.find('[data-element="sticky-footer"]').exists()).toBeTruthy();
+  });
+
   describe('componentWillReceiveProps', () => {
     describe('when stickyFooter is enabled', () => {
       it('adds the listeners', () => {
@@ -495,6 +500,22 @@ describe('Form', () => {
           const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
           TestUtils.Simulate.submit(form);
           expect(spy).not.toHaveBeenCalled();
+        });
+
+        describe('with sticky footer enabled', () => {
+          it('regains focus on submit button', () => {
+            instance = TestUtils.renderIntoDocument(
+              <Form stickyFooter>
+                <Textbox
+                  validations={ [new Validation()] } name='test'
+                  value=''
+                />
+              </Form>
+            );
+            const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+            TestUtils.Simulate.submit(form);
+            expect(document.activeElement).toBe(form.getElementsByTagName('button')[1]);
+          });
         });
       });
     });

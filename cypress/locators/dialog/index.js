@@ -7,3 +7,5 @@ export const alertDialogPreview = () => cy.iFrame(ALERT_DIALOG);
 export const dialogTitle = () => cy.iFrame(DIALOG_TITLE);
 export const dialogSubtitle = () => cy.iFrame(DIALOG_SUBTITLE);
 export const dialogStickyFormFooter = () => cy.iFrame(STICKY_FORM_FOOTER_ELEMENT);
+export const dialogStickyFormFooterButton = index => cy.iFrame(STICKY_FORM_FOOTER_ELEMENT).children()
+  .eq(index).children();

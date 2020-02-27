@@ -113,6 +113,10 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   display: inline-block;
 }
 
+.c5 .c13:checked ~ .c15 svg path {
+  fill: rgba(0,0,0,0.90);
+}
+
 .c5 .c16 {
   margin-left: 32px;
   padding-left: 0;

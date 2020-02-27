@@ -7,6 +7,7 @@ import {
   number
 } from '@storybook/addon-knobs';
 import { Store, State } from '@sambego/storybook-state';
+import { action } from '@storybook/addon-actions';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import { notes, info, infoValidations } from './documentation';
 import Textbox, { OriginalTextbox } from '.';
@@ -137,7 +138,8 @@ storiesOf('Experimental/Textbox', module)
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusTextbox))
   .add(...makeStory('multiple autoFocus', dlsThemeSelector, multipleTextboxAutoFocus));
 
-function getCommonTextboxProps(config = defaultStoryPropsConfig) {
+// eslint-disable-next-line
+export function getCommonTextboxProps(config = defaultStoryPropsConfig) {
   const percentageRange = {
     range: true,
     min: 0,
@@ -156,6 +158,9 @@ function getCommonTextboxProps(config = defaultStoryPropsConfig) {
   const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
   const size = select('size', OptionsHelper.sizesRestricted, 'medium');
   const key = AutoFocus.getKey(autoFocus, previous);
+  const onClick = action('onClick');
+  const iconOnClick = action('iconOnClick');
+  const inputIcon = select('inputIcon', ['', ...OptionsHelper.icons]);
 
   return {
     key,
@@ -169,7 +174,10 @@ function getCommonTextboxProps(config = defaultStoryPropsConfig) {
     labelInline,
     labelWidth,
     labelAlign,
-    size
+    size,
+    onClick,
+    iconOnClick,
+    inputIcon
   };
 }
 
@@ -199,5 +207,3 @@ function lengthValidator(value) {
     return reject(Error('This value should be longer than 12 characters'));
   });
 }
-
-export default getCommonTextboxProps;

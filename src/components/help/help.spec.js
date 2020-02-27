@@ -52,6 +52,20 @@ describe('Help', () => {
       expect(icon.props().tooltipAlign).toBe(mockAlignment);
     });
 
+    it('passes the type if provided', () => {
+      const mockType = 'info';
+      wrapper = renderHelp({ type: mockType });
+      icon = wrapper.find(Icon);
+      expect(icon.props().type).toBe(mockType);
+    });
+
+    it('check the default type if not provided', () => {
+      const mockType = 'help';
+      wrapper = renderHelp();
+      icon = wrapper.find(Icon);
+      expect(icon.props().type).toBe(mockType);
+    });
+
     it('renders a link when the href if provided', () => {
       const mockHref = 'href';
       wrapper = renderHelp({ href: mockHref }, mount);

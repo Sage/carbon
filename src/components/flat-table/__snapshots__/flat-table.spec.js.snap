@@ -1,0 +1,156 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FLatTable when rendered with proper table data should contain FlatTableHead and FlatTableBody 1`] = `
+.c6 {
+  background-color: transparent;
+  border-width: 0;
+  border-bottom: 1px solid #CCD6DA;
+  box-sizing: border-box;
+  font-weight: 700;
+  left: auto;
+  padding: 8px 24px;
+  text-align: left;
+  top: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.c0 {
+  height: 100%;
+}
+
+.c1 {
+  border-collapse: separate;
+  border-radius: 0px;
+  border-spacing: 0;
+  min-width: 100%;
+  table-layout: fixed;
+  width: auto;
+  word-break: break-all;
+}
+
+.c5 {
+  background-color: #fff;
+  border: 1px solid #CCD6DA;
+  border-top: none;
+  box-sizing: border-box;
+  left: 0;
+  font-weight: normal;
+  padding: 10px 24px;
+  position: -webkit-sticky;
+  position: sticky;
+  text-align: left;
+  top: auto;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.c2 .c4 {
+  border-left: none;
+  border-right: none;
+  padding: 8px 24px;
+  top: 0;
+  z-index: 10;
+}
+
+.c2 .c4:first-of-type {
+  left: 0;
+  font-weight: 700;
+}
+
+.c3 {
+  border-collapse: separate;
+  border-radius: 0px;
+  border-spacing: 0;
+  min-width: 100%;
+  table-layout: fixed;
+  width: auto;
+  word-break: break-all;
+}
+
+.c7 {
+  background-color: #fff;
+  border-width: 0;
+  border-bottom: 1px solid #CCD6DA;
+  overflow: visible;
+  padding: 10px 24px;
+  text-overflow: ellipsis;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.c7:first-of-type {
+  border-left: 1px solid #CCD6DA;
+}
+
+.c7:last-of-type {
+  border-right: 1px solid #CCD6DA;
+}
+
+<div
+  className="c0"
+>
+  <table
+    className="c1"
+    data-component="flat-table"
+  >
+    <thead
+      className="c2"
+    >
+      <tr
+        className="c3"
+        data-element="flat-table-row"
+      >
+        <th
+          className="c4 c5"
+          data-element="flat-table-row-header"
+        >
+          row header
+        </th>
+        <th
+          className="c6"
+          data-element="flat-table-header"
+        >
+          header1
+        </th>
+        <th
+          className="c6"
+          data-element="flat-table-header"
+        >
+          header2
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        className="c3"
+        data-element="flat-table-row"
+      >
+        <th
+          className="c4 c5"
+          data-element="flat-table-row-header"
+        >
+          row header
+        </th>
+        <td
+          className="c7"
+          data-element="flat-table-cell"
+        >
+          cell1
+        </td>
+        <td
+          className="c7"
+          data-element="flat-table-cell"
+        >
+          cell2
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

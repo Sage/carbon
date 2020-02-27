@@ -14,13 +14,14 @@ import {
   DialogInnerContentStyle
 } from './dialog.style';
 import tagComponent from '../../utils/helpers/tags';
+import Events from '../../utils/helpers/events/events';
+import focusTrap from '../../utils/helpers/focus-trap';
 
 class Dialog extends Modal {
   constructor(args) {
     super(args);
     this.componentTags = this.componentTags.bind(this);
     this.onDialogBlur = this.onDialogBlur.bind(this);
-    this.onCloseIconBlur = this.onCloseIconBlur.bind(this);
     this.document = Browser.getDocument();
     this.window = Browser.getWindow();
   }
@@ -29,42 +30,39 @@ class Dialog extends Modal {
     super.componentDidMount();
     if (this.props.open) {
       this.centerDialog();
-      if (this.props.autoFocus) {
-        this.focusDialog();
-      }
     }
   }
 
   onDialogBlur(ev) { } // eslint-disable-line no-unused-vars
 
-  onCloseIconBlur(ev) {
-    ev.preventDefault();
-    this.focusDialog();
-  }
-
-  get onOpening() {
+  handleOpen() {
+    super.handleOpen();
     this.document.documentElement.style.overflow = 'hidden';
     this.centerDialog(true);
     ElementResize.addListener(this._innerContent, this.applyFixedBottom);
     this.window.addEventListener('resize', this.centerDialog);
-
-    if (this.props.autoFocus) {
-      return this.focusDialog();
-    }
-
-    return null;
+    this.removeFocusTrap = focusTrap(this._dialog);
   }
 
-  get onClosing() {
+  handleClose() {
+    super.handleClose();
+    this.removeFocusTrap();
     this.appliedFixedBottom = false;
     this.document.documentElement.style.overflow = '';
     this.window.removeEventListener('resize', this.centerDialog);
     return ElementResize.removeListener(this._innerContent, this.applyFixedBottom);
   }
 
-  centerDialog = (animating) => {
-    if (!this._dialog) return;
+  onButtonKeyDown = (ev) => {
+    if (Events.isEnterKey(ev) || Events.isSpaceKey(ev)) {
+      ev.preventDefault();
+      this.props.onCancel();
+    }
 
+    return null;
+  }
+
+  centerDialog = (animating) => {
     const height = this._dialog.offsetHeight / 2,
         width = this._dialog.offsetWidth / 2,
         win = this.window;
@@ -110,11 +108,6 @@ class Dialog extends Modal {
       this.appliedFixedBottom = false;
       this.forceUpdate();
     }
-  }
-
-  focusDialog() {
-    if (!this._dialog) return;
-    this._dialog.focus();
   }
 
   shouldHaveFixedBottom = () => {
@@ -169,7 +162,8 @@ class Dialog extends Modal {
           onClick={ this.props.onCancel }
           type='close'
           tabIndex='0'
-          onBlur={ this.onCloseIconBlur }
+          role='button'
+          onKeyDown={ this.onButtonKeyDown }
         />
       );
     }
@@ -208,7 +202,6 @@ class Dialog extends Modal {
     }
 
     const dialogProps = {
-      tabIndex: 0,
       style: {
         minHeight: height
       },
@@ -273,13 +266,10 @@ Dialog.propTypes = {
   size: PropTypes.string,
   /** Determines if the close icon is shown */
   showCloseIcon: PropTypes.bool,
-  /** If true then the dialog receives focus when it opens */
-  autoFocus: PropTypes.bool,
   stickyFormFooter: PropTypes.bool
 };
 
 Dialog.defaultProps = {
-  autoFocus: true,
   size: 'medium',
   showCloseIcon: true,
   ariaRole: 'dialog'

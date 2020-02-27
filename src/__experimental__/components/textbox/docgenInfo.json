@@ -25,7 +25,14 @@
             ]
           },
           "required": false,
-          "description": "The formatted value of the field"
+          "description": "The value of the Textbox"
+        },
+        "rawValue": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The unformatted value"
         },
         "disabled": {
           "type": {
@@ -131,14 +138,14 @@
             "name": "string"
           },
           "required": false,
-          "description": "Icon associated with this component"
+          "description": "Icon to display inside of the Textbox"
         },
         "leftChildren": {
           "type": {
             "name": "node"
           },
           "required": false,
-          "description": "Adds additional child elements before the input"
+          "description": "Additional child elements to display before the input"
         },
         "validations": {
           "type": {
@@ -218,8 +225,34 @@
           },
           "required": false,
           "description": "Placeholder string to be displayed in input"
+        },
+        "iconOnClick": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Optional handler for click event on Textbox icon"
+        },
+        "onClick": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Handler for onClick events"
         }
       }
+    }
+  ],
+  "src/__experimental__/components/textbox/textbox.stories.js": [
+    {
+      "description": "",
+      "displayName": "defaultTextbox",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "autoFocusTextbox",
+      "methods": []
     }
   ]
 }

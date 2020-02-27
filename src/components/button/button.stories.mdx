@@ -1,0 +1,141 @@
+import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
+import Button from '.';
+
+<Meta title="Design System/Button" />
+
+# Button
+
+## Primary Buttons
+For the single most prominent call to action on the page (e.g. Save, Submit, Continue).
+<Preview>
+  <Story name="primary" parameters={{ info: { disable: true }}} >
+    <>
+      <Button buttonType="primary" size="small">Small</Button>
+      <Button buttonType="primary">Medium</Button>
+      <Button buttonType="primary" size="large">Large</Button>
+    </>
+  </Story>
+</Preview>
+
+Primary buttons can be destructive.
+<Preview>
+  <Story name="primary/destructive" parameters={{ info: { disable: true }}} >
+    <>
+      <Button buttonType="destructive" size="small">Small</Button>
+      <Button buttonType="destructive">Medium</Button>
+      <Button buttonType="destructive" size="large">Large</Button>
+    </>
+  </Story>
+</Preview>
+
+Primary buttons can be disabled.
+<Preview>
+  <Story name="primary/disabled" parameters={{ info: { disable: true }}} >
+    <>
+      <Button buttonType="primary" disabled size="small">Small</Button>
+      <Button buttonType="primary" disabled>Medium</Button>
+      <Button buttonType="primary" disabled size="large">Large</Button>
+    </>
+  </Story>
+</Preview>
+
+Primary buttons can have an icon positioned before or after the text.
+<Preview>
+  <Story name="primary/icon" parameters={{ info: { disable: true }}} >
+  <>
+    <Button buttonType="primary" iconType="print">Medium</Button>
+    <Button buttonType="destructive" iconType="delete" iconPosition="after">Medium</Button>
+    <Button buttonType="primary" disabled iconType="print" iconPosition="after">Medium</Button>
+    </>
+  </Story>
+</Preview>
+
+## Secondary Buttons
+Less prominent, there can be multiple secondary buttons on a page.
+Secondary buttons are transparent, rather than white.
+
+<Preview>
+  <Story name="secondary" parameters={{ info: { disable: true }}} >
+    <>
+      <Button size="small" >Small</Button>
+      <Button>Medium</Button>
+      <Button size="large">Large</Button>
+    </>
+  </Story>
+</Preview>
+
+Secondary buttons can be destructive.
+<Preview>
+  <Story name="secondary/destructive" parameters={{ info: { disable: true }}} >
+    <>
+      Secondary destructive buttons have not been implemented yet.
+    </>
+  </Story>
+</Preview>
+
+Secondary buttons can be disabled.
+<Preview>
+  <Story name="secondary/disabled" parameters={{ info: { disable: true }}} >
+    <>
+      <Button size="small" disabled>Small</Button>
+      <Button disabled>Medium</Button>
+      <Button size="large" disabled>Large</Button>
+    </>
+  </Story>
+</Preview>
+
+Secondary buttons can have an icon positioned before or after the text.
+<Preview>
+  <Story name="secondary/icon" parameters={{ info: { disable: true }}} >
+  <>
+    <Button buttonType="secondary" iconType="print">Medium</Button>
+    <Button buttonType="secondary" disabled iconType="print" iconPosition="after">Medium</Button>
+    </>
+  </Story>
+</Preview>
+
+
+## Tertiary Buttons
+Tertiary or ‘ghost’ buttons are used for reversing actions, like ‘Cancel’ or ‘Back’.
+
+<Preview>
+  <Story name="tertiary" parameters={{ info: { disable: true }}} >
+    <>
+      <Button buttonType="tertiary" size="small">Small</Button>
+      <Button buttonType="tertiary">Medium</Button>
+      <Button buttonType="tertiary" size="large">Large</Button>
+    </>
+  </Story>
+</Preview>
+
+Tertiary buttons can be destructive.
+<Preview>
+  <Story name="tertiary/destructive" parameters={{ info: { disable: true }}} >
+    <>
+      Tertiary destructive buttons have not been implemented yet.
+    </>
+  </Story>
+</Preview>
+
+Tertiary buttons can be disabled.
+<Preview>
+  <Story name="tertiary/disabled" parameters={{ info: { disable: true }}} >
+    <>
+      <Button buttonType="tertiary" disabled size="small">Small</Button>
+      <Button buttonType="tertiary" disabled>Medium</Button>
+      <Button buttonType="tertiary" disabled size="large">Large</Button>
+    </>
+  </Story>
+</Preview>
+
+Tertiary buttons can have an icon positioned before or after the text.
+<Preview>
+  <Story name="tertiary/icon" parameters={{ info: { disable: true }}} >
+  <>
+    <Button buttonType="tertiary" iconType="print">Medium</Button>
+    <Button buttonType="tertiary" disabled iconType="print" iconPosition="after">Medium</Button>
+    </>
+  </Story>
+</Preview>
+
+<Props of={Button} />

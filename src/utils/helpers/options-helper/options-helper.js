@@ -123,6 +123,7 @@ const OptionsHelper = {
     'bulk_destroy',
     'business',
     'calendar',
+    'calendar_today',
     'call',
     'camera',
     'card_view',
@@ -187,17 +188,20 @@ const OptionsHelper = {
     'locked',
     'location',
     'logout',
+    'lookup',
     'marker',
     'message',
     'messages',
     'minus',
     'minus_large',
     'mobile',
+    'pause_circle',
     'pdf',
     'people',
     'person',
     'phone',
     'play',
+    'play_circle',
     'plus',
     'plus_large',
     'print',
@@ -207,6 +211,7 @@ const OptionsHelper = {
     'refresh',
     'remove',
     'save',
+    'scan',
     'search',
     'services',
     'settings',
@@ -375,6 +380,12 @@ const OptionsHelper = {
     'top-right',
     'bottom-left',
     'bottom-right'
+  ],
+
+  tableCellTypes: [
+    'header',
+    'rowHeader',
+    'cell'
   ]
 };
 
