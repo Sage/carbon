@@ -1,5 +1,5 @@
 import {
-  visitComponentUrl, setSlidebar, pressESCKey, pressTABKey, asyncWaitForKnobs,
+  visitComponentUrl, setSlidebar, pressESCKey, pressTABKey, asyncWaitForKnobs, visitFlatTableComponentNoiFrame,
 } from '../helper';
 import {
   commonButtonPreview, labelPreview, helpIcon, helpIconByPosition, inputWidthSlider,
@@ -38,6 +38,10 @@ Given('I open {string} component page basic', (component) => {
 
 Given('I open {string} component page basic in iframe', (component) => {
   visitComponentUrl(component, 'basic', true);
+});
+
+When('I open {string} component basic page with prop value', (componentName) => {
+  visitFlatTableComponentNoiFrame(componentName, 'basic', true);
 });
 
 Given('I open {string} component page buttonToogleGroup validation in iframe', (component) => {
