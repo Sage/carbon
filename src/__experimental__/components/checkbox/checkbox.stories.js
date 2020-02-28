@@ -212,9 +212,9 @@ const checkboxGroupComponent = () => (
 
     <h3>In Group</h3>
     <State store={ groupStore }>
-      {state => [
+      {state => (
         <CheckboxGroup
-          key='checkbox-group'
+          id='checkbox-group'
           name='checkbox-group'
           groupName='checkbox-group'
           label={ text('label', 'What would you choose?', 'group') }
@@ -228,13 +228,13 @@ const checkboxGroupComponent = () => (
             <Checkbox
               checked={ state[id] }
               name={ `checkbox-input-${id}` }
-              key={ `checkbox-input-${id}` }
               onChange={ ev => handleGroupChange(ev, id) }
               { ...defaultKnobs(id) }
+              key={ `checkbox-input-${id}` }
             />
           ))}
         </CheckboxGroup>
-      ]}
+      )}
     </State>
   </div>
 );
