@@ -38,7 +38,7 @@ Feature: Build tests
       | action-popover                   | action-popover       |
       | animated menu button             | animated-menu-button |
       | app wrapper                      | app-wrapper          |
-      | button toggle group              | button-toggle-group  |
+      | test button toggle group         | button-toggle-group  |
       | button toggle                    | button-toggle        |
       | button                           | button               |
       | carousel                         | carousel             |
