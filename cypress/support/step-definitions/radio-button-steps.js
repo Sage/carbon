@@ -1,8 +1,10 @@
 import {
-  fieldHelpPreview, labelByPosition, fieldHelpPreviewByPosition, labelWidthSliderByName,
+  fieldHelpPreview, labelByPosition, fieldHelpPreviewByPosition, labelWidthSliderByName, label, fieldHelp,
 } from '../../locators';
 import {
-  radioButton, radioButtonByPosition, radioButtonComponentByPosition, reversedRadioButton,
+  radioButtonByPosition, radioButtonComponentByPosition, reversedRadioButton, 
+  radioButtonComponentNoiFrame,
+  radioButtonComponent,
 } from '../../locators/radioButton/index';
 import { setSlidebar } from '../helper';
 
@@ -13,6 +15,16 @@ const THIRD_RADIOBUTTON = 2;
 const FIRST_ELEMENT = 0;
 const SECOND_ELEMENT = 1;
 
+// / dopracować zeby text() wykonac na lokatorze a nie selektorze, prawdopodobnie do obejscie z uzyciem then
+When('I click onto {string} radioButton for validations component in iFrame', (radioButtonName) => {
+  radioButtonComponentNoiFrame().each(($el, index, $list) => {
+    const labelText = $el.find('label').text();
+    if (labelText.includes(radioButtonName)) {
+      cy.wrap($el).find(`div:nth-child(1) input`).should('have.attr', 'type', 'radio').click();
+    }
+  })
+});
+
 Then('fieldHelpInline is enabled', () => {
   fieldHelpPreview().should('have.class', INLINE);
 });
@@ -21,70 +33,17 @@ Then('fieldHelpInline is disabled', () => {
   fieldHelpPreview().should('not.have.class', INLINE);
 });
 
-When('I click onto {string} radioButton for validations component into iFrame', (position) => {
-  switch (position) {
-    case 'first':
-      radioButton().eq(FIRST_RADIOBUTTON).click();
-      break;
-    case 'second':
-      radioButton().eq(SECOND_RADIOBUTTON).click();
-      break;
-    case 'third':
-      radioButton().eq(THIRD_RADIOBUTTON).click();
-      break;
-    default: throw new Error('There are only three validation icon elements on the page');
-  }
+Then('{word} radioButton on preview is {string}', (name, text) => {
+  cy.wait(3000);
+  cy.checkRadioButtonLabel(text).should('have.text', text);
 });
 
-Then('{string} radioButton on preview is {string}', (position, text) => {
-  switch (position) {
-    case 'First':
-      labelByPosition(FIRST_RADIOBUTTON).should('have.text', text);
-      break;
-    case 'Second':
-      labelByPosition(SECOND_RADIOBUTTON).should('have.text', text);
-      break;
-    case 'Third':
-      labelByPosition(THIRD_RADIOBUTTON).should('have.text', text);
-      break;
-    default: throw new Error('There are only three radio button elements on the page');
-  }
+Then('{string} RadioButton has value {string}', (radioButtonName, text) => {
+  cy.findRadioButtonByLabelName(1, radioButtonName).should('have.value', text);
 });
 
-Then('{string} RadioButton has value {string}', (position, text) => {
-  switch (position) {
-    case 'First':
-      radioButtonByPosition(FIRST_RADIOBUTTON).should('have.attr', 'value').should('contain', text);
-      break;
-    case 'Second':
-      radioButtonByPosition(SECOND_RADIOBUTTON).should('have.attr', 'value').should('contain', text);
-      break;
-    case 'Third':
-      radioButtonByPosition(THIRD_RADIOBUTTON).should('have.attr', 'value').should('contain', text);
-      break;
-    default: throw new Error('There are only three radio elements on the page');
-  }
-});
-
-Then('{string} RadioButton component is disabled', (position) => {
-  switch (position) {
-    case 'First':
-      radioButtonComponentByPosition(FIRST_RADIOBUTTON).should('have.attr', 'disabled');
-      radioButtonByPosition(FIRST_RADIOBUTTON).should('be.disabled')
-        .and('have.attr', 'disabled');
-      break;
-    case 'Second':
-      radioButtonComponentByPosition(SECOND_RADIOBUTTON).should('have.attr', 'disabled');
-      radioButtonByPosition(SECOND_RADIOBUTTON).should('be.disabled')
-        .and('have.attr', 'disabled');
-      break;
-    case 'Third':
-      radioButtonComponentByPosition(THIRD_RADIOBUTTON).should('have.attr', 'disabled');
-      radioButtonByPosition(THIRD_RADIOBUTTON).should('be.disabled')
-        .and('have.attr', 'disabled');
-      break;
-    default: throw new Error('There are only three radio elements on the page');
-  }
+Then('{string} RadioButton component is disabled', (radioButtonName) => {
+  cy.radioButtonComponentIsDisabled(1, radioButtonName);
 });
 
 Then('{string} RadioButton component is enabled', (position) => {
@@ -111,38 +70,12 @@ Then('{string} RadioButton component is enabled', (position) => {
   }
 });
 
-Then('{string} RadioButton is set to reverse', (position) => {
-  switch (position) {
-    case 'First':
-      cy.wait(500);
-      reversedRadioButton(FIRST_RADIOBUTTON, SECOND_ELEMENT).should('have.attr', 'type', 'radio');
-      break;
-    case 'Second':
-      cy.wait(500);
-      reversedRadioButton(SECOND_RADIOBUTTON, SECOND_ELEMENT).should('have.attr', 'type', 'radio');
-      break;
-    case 'Third':
-      cy.wait(500);
-      reversedRadioButton(THIRD_RADIOBUTTON, SECOND_ELEMENT).should('have.attr', 'type', 'radio');
-      break;
-    default: throw new Error('There are only three radio elements on the page');
-  }
+Then('{string} radio button is set to reverse', (radioButtonName) => {
+  cy.findRadioButtonByLabelName(2, radioButtonName);
 });
 
-Then('{string} RadioButton is not set to reverse', (position) => {
-  switch (position) {
-    case 'First':
-      // cy.wait(500);
-      reversedRadioButton(FIRST_RADIOBUTTON, FIRST_ELEMENT).should('have.attr', 'type', 'radio');
-      break;
-    case 'Second':
-      reversedRadioButton(SECOND_RADIOBUTTON, FIRST_ELEMENT).should('have.attr', 'type', 'radio');
-      break;
-    case 'Third':
-      reversedRadioButton(THIRD_RADIOBUTTON, FIRST_ELEMENT).should('have.attr', 'type', 'radio');
-      break;
-    default: throw new Error('There are only three radio elements on the page');
-  }
+Then('{string} radio button is not set to reverse', (radioButtonName) => {
+  cy.findRadioButtonByLabelName(1, radioButtonName);
 });
 
 Then('{string} RadioButton size on preview is set to {string}', (position, size) => {
@@ -199,19 +132,15 @@ Then('{string} field help is set to fieldHelpInline and has margin-left set to {
   }
 });
 
-Then('{string} field help is not set to fieldHelpInline and has margin-left set to {string}', (position, marginLeft) => {
-  switch (position) {
-    case 'First':
-      fieldHelpPreviewByPosition(FIRST_RADIOBUTTON).should('have.css', 'margin-left', marginLeft);
-      break;
-    case 'Second':
-      fieldHelpPreviewByPosition(SECOND_RADIOBUTTON).should('have.css', 'margin-left', marginLeft);
-      break;
-    case 'Third':
-      fieldHelpPreviewByPosition(THIRD_RADIOBUTTON).should('have.css', 'margin-left', marginLeft);
-      break;
-    default: throw new Error('There are only three field help elements on the page');
-  }
+Then('{string} field help is not set to fieldHelpInline and has margin-left set to {string}', (radioButtonName, marginLeft) => {
+  radioButtonComponent().each(($el, index, $list) => {
+    const labelText = $el.text();
+    if (labelText.includes(radioButtonName)) {
+      cy.log(labelText);
+      fieldHelpPreviewByPosition(index).should('have.css', 'margin-left', marginLeft); // sprawdzic
+      cy.wrap($el).find('div div span[data-element="help"]').should('have.css', 'margin-left', marginLeft);
+    }
+  })
 });
 
 Then('{string} RadioButton {string} inputWidth is set to {string}', (position, name, width) => {
@@ -232,19 +161,13 @@ Then('{string} RadioButton {string} inputWidth is set to {string}', (position, n
   }
 });
 
-Then('{string} RadioButton label width is set to {string}', (position, width) => {
-  switch (position) {
-    case 'First':
-      labelByPosition(FIRST_RADIOBUTTON).should('have.css', 'width', `${width}px`);
-      break;
-    case 'Second':
-      labelByPosition(SECOND_RADIOBUTTON).should('have.css', 'width', `${width}px`);
-      break;
-    case 'Third':
-      labelByPosition(THIRD_RADIOBUTTON).should('have.css', 'width', `${width}px`);
-      break;
-    default: throw new Error('There are only three label elements on the page');
-  }
+Then('{string} RadioButton label width is set to {string}', (radioButtonName, width) => {
+  label().each(($el, index, $list) => {
+    const labelText = $el.text();
+    if (labelText.includes(radioButtonName)) {
+      cy.wrap($el).should('have.css', 'width', `${width}px`);
+    }
+  })
 });
 
 When('I set RadioButton {word} {word} slider to {int}', (propertyName, text, width) => {

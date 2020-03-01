@@ -1,3 +1,5 @@
+import { radioButtonComponent } from "../locators/radioButton";
+
 export const DEBUG_FLAG = false;
 
 // ***********************************************************
@@ -38,6 +40,37 @@ Cypress.Commands.overwrite(
     Object.assign({}, options, { delay: 100 }),
   ),
 );
+
+Cypress.Commands.add('findRadioButtonByLabelName', (position, radioButtonName) => {
+  radioButtonComponent().each(($el, index, $list) => {
+    const labelText = $el.find('label').text();
+    cy.log(labelText);
+    if (labelText.includes(radioButtonName)) {
+      cy.wrap($el).find(`div:nth-child(${position}) input`).should('have.attr', 'role', 'radio');
+    }
+  })
+});
+
+Cypress.Commands.add('checkRadioButtonLabel', (radioButtonLabel) => {
+  radioButtonComponent().each(($el, index, $list) => {
+    const labelText = $el.find('label').text();
+    if (labelText.includes(radioButtonLabel)) {
+      cy.wrap($el).find('label').should('have.attr', 'data-element', 'label');
+    }
+  })
+});
+
+Cypress.Commands.add('radioButtonComponentIsDisabled', (position, radioButtonLabel) => {
+  radioButtonComponent().each(($el, index, $list) => {
+    const labelText = $el.find('label').text();
+    if (labelText.includes(radioButtonLabel)) {
+      cy.wrap($el).should('have.attr', 'disabled');
+      cy.wrap($el).find(`div:nth-child(${position}) input`).should('have.attr', 'type', 'radio')
+      .and('be.disabled')
+      .and('have.attr', 'disabled');
+    }
+  })
+});
 
 function getItem(selector, counter) {
   if ((document.readyState === 'loading' || document.readyState === 'interactive') && document.readyState !== 'completed') { // Loading hasn't finished yet
