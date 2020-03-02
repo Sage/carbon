@@ -10,7 +10,7 @@ const StyledInput = styled.input`
   font-size: ${({ theme }) => theme.text.size};
   outline: none;
   width: 30px;
-  
+
   ${({ align }) => align && css`
     text-align: ${align};
   `}
@@ -27,6 +27,10 @@ const StyledInput = styled.input`
   &:invalid, &:required {
     box-shadow: none;
   }
+
+  ${({ readOnly, theme }) => readOnly && css`
+    color: ${theme.readOnly.textboxText};
+  `}
 `;
 
 StyledInput.defaultProps = {
