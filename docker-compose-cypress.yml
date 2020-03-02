@@ -18,4 +18,4 @@ services:
   storybook:
     image: carbon_cypress
     container_name: storybook
-    command: bash -c "npm run storybook-ci"
+    command: bash -c "npm start"
