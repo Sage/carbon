@@ -5,15 +5,14 @@
 
 ## Manual Testing
 ### Components:
-1. Every component should be fully tested using functional testing / UI testing / Internationalisation testing.
+1. Every component should be fully tested using functional testing / UI testing / Internationalization testing.
 2. Every component should have a dedicated story (default / classic / multiple / validation / themes etc.),
    notes section and accessibility section.
 3. Supporting browsers:
   * Chrome,
   * Firefox,
   * Safari,
-  * Edge,
-  * Internet Explorer 11.
+  * Edge Chromium.
 4. Jira:
   * For every testable task, a JIRA test session needs to be created for each of the supported browsers;
   * Results should be added to the created test sessions with pass / fail mark;
@@ -24,7 +23,7 @@
 
 ## Description
   * Automation tests are written using [Cypress.io](https://www.cypress.io/) framework.
-  * All component functionallity is testing using all Knobs configuration.
+  * All component functionality is testing using all Knobs configuration.
   * Events are tested as well (could be checked in Actions section).
   * Accessibility is also testing using Axe framework.
 
@@ -33,13 +32,13 @@
 2. Checkout cypress-cucumber-storybook branch `git checkout cypress-cucumber-storybook`.
 3. Install `npm install`.
 4. Run storybook `npm run storybook`.
-5. Open new terminal at the same path.
+5. Open a new terminal in the same path.
 6. Run cypress `npm run test-cypress`.
-7. If you would like to run specific cypress tests in command line (headless browser for continous integration) use: `npm run test-cypress --spec 'cypress/features/[tests-type]/[featureFileName].feature'`.
+7. If you would like to run specific cypress tests in command line (headless browser for continuous integration) use: `npm run test-cypress --spec 'cypress/features/[tests-type]/[featureFileName].feature'`.
 8. We have 3 test suites:
-  * Only build suite tests, which are running on Travis after every change/commit/push in repository. To run use:`npm run test-cypress-build`;
+  * Only build suite tests, which are running on Travis after every change/commit/push in the repository. To run use:`npm run test-cypress-build`;
   * Only accessibility suite tests, which are running on TeamCity nightly and verifying do the components have the accessibility vulnerabilities. To run use:`npm run test-cypress-accessibility`;
-  * Regression test suite, runs on TeamCity nightly and make all regression tests. To use run: `npm run test-cypress-regression`.
+  * Regression test suite runs on TeamCity nightly and makes all regression tests. To use run: `npm run test-cypress-regression`.
 
 ## Coding standards
 1. Use ESlint plugin to Visual Studio Code to make sure code format is preserved.
@@ -47,10 +46,10 @@
 3. Use camelCase for `*.feature` file names.
 4. Use BDD keywords:
   * GIVEN - the given part describes the state of the world before you begin the behavior you are specifying in this scenario. You can think of it as the pre-conditions to the test;
-  * WHEN - the when section is that behavior that you are specifying. All action you need to perform before making an assertion;
+  * WHEN - the when section is that behavior that you are specifying. All the action you need to perform before making an assertion;
   * THEN - the then section describes the changes you expect due to the specified behavior. Regular assertion;
-  * AND - each of the section could have own and state. You can use and to avoid using duplication of the keywords (Given / When / Then);
-  * Scenarion outline - tests that are using parameters from given Examples under the test and will run as much as there are examples;
+  * AND - each of the sections could have own and state. You can use and to avoid using duplication of the keywords (Given / When / Then);
+  * Scenario outline - tests that are using parameters from given Examples under the test and will run as much as there are examples;
   * Scenario - tests that are run once.
 5. Step definitions for BDD:
   * Step definitions are created per component as `component-steps.js`. And should be used in exactly `component.feature`;
@@ -65,15 +64,15 @@
 
 ## Scenario tags
 Use scenario tags:
-1. `@positive` for happy path.
-2. `@negative` for negative scenario.
-3. `@ignore` for temporary ignored scenarios.
-4. `@[bug-number]` for example `@FE-1234` - use this tag after `@ignore` to explain why test is ignored.
-5. `@ignore` and `@[bug-number]` should be removed after bug fix.
-6. `@build` for pipeline - each build is verified by those tests.
-7. `@accessibility` tests verifies accessibility violations.
+1. `@positive` for a happy path.
+2. `@negative` for the negative scenario.
+3. `@ignore` for temporarily ignored scenarios.
+4. `@[bug-number]` for example `@FE-1234` - use this tag after `@ignore` to explain why the test is ignored.
+5. `@ignore` and `@[bug-number]` should be removed after the bug fix.
+6. `@build` for the pipeline - each build is verified by those tests.
+7. `@accessibility` tests verify accessibility violations.
 8. `@validations` tests verify validation components.
-9. `@deprecated` tests verifies deprecated components.
+9. `@deprecated` tests verify deprecated components.
 
 ## Files structure
 ```

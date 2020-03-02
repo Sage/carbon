@@ -183,6 +183,11 @@ Feature: Build tests
     Then "spinner" component is visible
 
   @build
-  Scenario: Component FlatTable basic default page
-    When I open "test-flat-table" component page basic in iframe
-    Then "flat-table" component is visible
+  Scenario Outline: Component <component> basic default page
+    When I open basic Test "<component>" component page in noIframe
+    Then "<data-component>" component is visible
+    Examples:
+      | component  | data-component |
+      | Accordion  | accordion      |
+      | Flat Table | flat-table     |
+      | Search     | search         |
