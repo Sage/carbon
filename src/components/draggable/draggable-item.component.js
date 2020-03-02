@@ -6,17 +6,17 @@ import { StyledDraggableItem } from './draggable-item.style';
 const DraggableItem = ({
   id, findItem, moveItem, getOrder, children
 }) => {
-  const oIndex = findItem(id).index;
+  const originalIndex = findItem(id).index;
   const [{ isDragging }, drag] = useDrag({
-    item: { type: 'draggableItem', id, oIndex },
+    item: { type: 'draggableItem', id, originalIndex },
     collect: monitor => ({
       isDragging: monitor.isDragging()
     }),
     end: (dropResult, monitor) => {
-      const { id: droppedId, originalIndex } = monitor.getItem();
+      const { id: droppedId, originalIndex: oIndex } = monitor.getItem();
       const didDrop = monitor.didDrop();
       if (!didDrop) {
-        moveItem(droppedId, originalIndex);
+        moveItem(droppedId, oIndex);
       }
 
       getOrder();
