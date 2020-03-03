@@ -18,8 +18,6 @@ const DraggableItem = ({
       if (!didDrop) {
         moveItem(droppedId, oIndex);
       }
-
-      getOrder();
     }
   });
 
