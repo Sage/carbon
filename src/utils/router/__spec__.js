@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { startRouter } from './router';
 import { browserHistory } from 'react-router';
 
+window.scrollTo = () => {};
+
 describe('startRouter', () => {
   let render, router, routes;
 

@@ -1,5 +1,4 @@
 {
-  "preset": "./node_modules/carbon-factory/jest.conf.json",
   "notify": false,
   "setupFiles": [
     "raf/polyfill",
@@ -8,7 +7,34 @@
   "setupFilesAfterEnv": [
     "./src/__spec_helper__/expect.js"
   ],
-  "snapshotSerializers": [
-    "enzyme-to-json/serializer"
-  ]
+  "snapshotSerializers": ["enzyme-to-json/serializer"],
+  "testMatch": [
+    "**/__spec__.js",
+    "**/*.spec.js"
+  ],
+  "moduleDirectories": [ "src", "node_modules" ],
+  "moduleNameMapper": {
+    "\\.(css|scss)$": "identity-obj-proxy"
+  },
+  "collectCoverage": true,
+  "coveragePathIgnorePatterns": [ "node_modules", "src\/__spec_helper__" ],
+  "coverageReporters": [ "text-summary", "html" ],
+  "coverageDirectory": "<rootDir>/coverage",
+  "coverageThreshold": {
+    "global": {
+      "branches": 100,
+      "functions": 100,
+      "lines": 100,
+      "statements": 100
+    }
+  },
+  "moduleFileExtensions": [
+    "ts",
+    "tsx",
+    "js", 
+    "jsx"
+  ],
+  "transform": {
+    "^.+\\.(js|jsx|ts|tsx)$": "babel-jest"
+  }
 }
