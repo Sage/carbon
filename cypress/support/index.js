@@ -30,6 +30,8 @@ export const DEBUG_FLAG = true;
 // Configure custom commands eyes-cypress
 import '@applitools/eyes-cypress/commands'
 
+import applitools_settings from '../../applitools.config.js'
+
 /* returning false here prevents Cypress from failing the test */
 Cypress.on('uncaught:exception', (err, runnable) => false);
 
@@ -71,11 +73,13 @@ const {
   After
 } = require("cypress-cucumber-preprocessor/steps");
 
+
 if ( Cypress.env('CYPRESS_APPLITOOLS') ) {
   Before({ tags: "@applitools" }, () => {
-    cy.eyesOpen({
-      
-    }); 
+    applitools_settings.testName = cy.state('ctx').test.title
+    applitools_settings.batchName = cy.state('ctx').test.parent.title
+
+    cy.eyesOpen(applitools_settings); 
   });
 
   After({ tags: "@applitools" }, () => {
