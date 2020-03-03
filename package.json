@@ -44,8 +44,7 @@
     "webpack": "node_modules/.bin/webpack",
     "webpack-dev-server": "node_modules/.bin/webpack-dev-server",
     "fixtures": "webpack-dev-server --config fixtures/webpack.config.js",
-    "commit": "git-cz",
-    "cypress-travis-regression": "cross-env-shell cypress run --spec \"./cypress/features/$SUITE\" --reporter spec --browser chrome"
+    "commit": "git-cz"
   },
   "repository": {
     "type": "git",
