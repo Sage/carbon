@@ -294,6 +294,7 @@ Then('fieldHelp on preview is set to {string}', (text) => {
 });
 
 Then('{string} fieldHelp on preview is set to {string}', (position, text) => {
+  cy.wait(1500, { log: DEBUG_FLAG });
   switch (position) {
     case 'First':
       fieldHelpPreviewByPosition(FIRST_ELEMENT).should('have.text', text);
