@@ -1,4 +1,4 @@
-export const DEBUG_FLAG = true;
+export const DEBUG_FLAG = false;
 
 // ***********************************************************
 // This example support/index.js is processed and
@@ -23,8 +23,8 @@ export const DEBUG_FLAG = true;
 
 // You can mock if needed. Example below
 // beforeEach(() => {
-    // cy.server();
-    // cy.route('/countries*', {});
+//    cy.server();
+//    cy.route('/countries*', {});
 // })
 
 // Configure custom commands eyes-cypress
