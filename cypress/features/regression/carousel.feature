@@ -6,6 +6,7 @@ Feature: Carousel component
 
   @positive
   Scenario: Initial slide title is Slide 3
+    # commented because of BDD default scenario Given - When - Then
     # When I open "Carousel" component page
     Then slide 2 title is "Slide 3"
 
