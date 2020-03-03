@@ -1,4 +1,4 @@
-import { radioButtonComponent } from "../locators/radioButton";
+import { radioButtonComponent } from '../locators/radioButton';
 
 export const DEBUG_FLAG = false;
 
@@ -41,35 +41,22 @@ Cypress.Commands.overwrite(
   ),
 );
 
-Cypress.Commands.add('findRadioButtonByLabelName', (position, radioButtonName) => {
-  radioButtonComponent().each(($el, index, $list) => {
-    const labelText = $el.find('label').text();
-    cy.log(labelText);
-    if (labelText.includes(radioButtonName)) {
-      cy.wrap($el).find(`div:nth-child(${position}) input`).should('have.attr', 'role', 'radio');
-    }
-  })
-});
-
-Cypress.Commands.add('checkRadioButtonLabel', (radioButtonLabel) => {
-  radioButtonComponent().each(($el, index, $list) => {
+Cypress.Commands.add('radioButtonComponent', (radioButtonLabel) => {
+  radioButtonComponent().each(($el) => {
     const labelText = $el.find('label').text();
     if (labelText.includes(radioButtonLabel)) {
-      cy.wrap($el).find('label').should('have.attr', 'data-element', 'label');
+      cy.wrap($el);
     }
-  })
+  });
 });
 
-Cypress.Commands.add('radioButtonComponentIsDisabled', (position, radioButtonLabel) => {
-  radioButtonComponent().each(($el, index, $list) => {
+Cypress.Commands.add('radioButton', (radioButtonLabel, findBy) => {
+  radioButtonComponent().each(($el) => {
     const labelText = $el.find('label').text();
     if (labelText.includes(radioButtonLabel)) {
-      cy.wrap($el).should('have.attr', 'disabled');
-      cy.wrap($el).find(`div:nth-child(${position}) input`).should('have.attr', 'type', 'radio')
-      .and('be.disabled')
-      .and('have.attr', 'disabled');
+      cy.wrap($el).find(findBy);
     }
-  })
+  });
 });
 
 function getItem(selector, counter) {
