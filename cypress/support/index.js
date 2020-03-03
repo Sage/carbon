@@ -23,8 +23,8 @@ export const DEBUG_FLAG = false;
 
 // You can mock if needed. Example below
 // beforeEach(() => {
-//    cy.server();
-//    cy.route('/countries*', {});
+//     cy.server();
+//     cy.route('/countries*', {});
 // })
 
 // Configure custom commands eyes-cypress
