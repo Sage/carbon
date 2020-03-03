@@ -1,9 +1,7 @@
 // knobs locators
-export const SLIDE_INDEX_SELECT = 'select[name="slideIndex"]';
 export const TRANSITION_SELECT = 'select[name="transition"]';
 
 // component preview locators
-export const CAROUSEL = '.carbon-carousel__transition';
 export const CLASSIC_SLIDE = 'div[data-element="visible-slide"]';
 export const CAROUSEL_CONTENT = '.carbon-carousel__content';
 export const PREVIOUS_ARROW_BUTTON = '[data-element=previous]';
