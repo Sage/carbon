@@ -6,6 +6,8 @@ export default (palette) => {
   return {
     name: 'base',
 
+    spacing: 8,
+
     colors: {
       // main
       base: palette.productGreen,
@@ -39,6 +41,11 @@ export default (palette) => {
       destructive: {
         hover: palette.errorRedShade(20)
       }
+    },
+
+    accordion: {
+      border: palette.slateTint(80),
+      background: palette.slateTint(90)
     },
 
     menu: {
@@ -81,6 +88,12 @@ export default (palette) => {
       color: blackWithOpacity(0.9),
       placeholder: blackWithOpacity(0.3),
       size: '14px'
+    },
+
+    readOnly: {
+      textboxBackground: palette.slateTint(98),
+      textboxBorder: palette.slateTint(80),
+      textboxText: blackWithOpacity(0.74)
     },
 
     disabled: {

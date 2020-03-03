@@ -1,3 +1,53 @@
+### [13.6.2](https://github.com/Sage/carbon/compare/v13.6.1...v13.6.2) (2020-03-03)
+
+
+### Bug Fixes
+
+* **storybook:** enable theme selector on Windows ([ecfbb17](https://github.com/Sage/carbon/commit/ecfbb17229b1a8aa4753e1f8c187a9dde3c93d1a))
+
+### [13.6.1](https://github.com/Sage/carbon/compare/v13.6.0...v13.6.1) (2020-03-02)
+
+
+### Bug Fixes
+
+* **checkbox:** fix incorrect key assignment in checkbox story ([e5566cf](https://github.com/Sage/carbon/commit/e5566cfc509589cf46c30f56909daefbce8f2515))
+* **checkbox:** restore proper checkbox behaviour in validations story ([b49f633](https://github.com/Sage/carbon/commit/b49f633b9e30bb8a947b4010538ebbb4136b86ee))
+
+## [13.6.0](https://github.com/Sage/carbon/compare/v13.5.1...v13.6.0) (2020-02-27)
+
+
+### Features
+
+* **textbox based components:** update readonly styling ([a1c7499](https://github.com/Sage/carbon/commit/a1c74993862c0f724504e6f87f7b4085dc9077ea))
+
+### [13.5.1](https://github.com/Sage/carbon/compare/v13.5.0...v13.5.1) (2020-02-27)
+
+
+### Performance Improvements
+
+* **storybook:** solve action event serialization performance issues ([f9de61a](https://github.com/Sage/carbon/commit/f9de61aa5cc5741b84f018a241c438e4820885cb))
+
+## [13.5.0](https://github.com/Sage/carbon/compare/v13.4.0...v13.5.0) (2020-02-26)
+
+
+### Features
+
+* **accordion:** create accordion component ([e494ceb](https://github.com/Sage/carbon/commit/e494cebd27314031d71b8803d6b99f81d2567501))
+
+## [13.4.0](https://github.com/Sage/carbon/compare/v13.3.2...v13.4.0) (2020-02-24)
+
+
+### Features
+
+* **icon-button:** new component to be used in place of close icon ([53b2404](https://github.com/Sage/carbon/commit/53b2404b1bde6510958751dfefe9e69fa3971197))
+
+### [13.3.2](https://github.com/Sage/carbon/compare/v13.3.1...v13.3.2) (2020-02-24)
+
+
+### Bug Fixes
+
+* **menu-item:** fixed style regression ([187b4df](https://github.com/Sage/carbon/commit/187b4df3e780423e9741dbb241ce6e630c84d10e))
+
 ### [13.3.1](https://github.com/Sage/carbon/compare/v13.3.0...v13.3.1) (2020-02-21)
 
 
