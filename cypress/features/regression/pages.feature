@@ -13,9 +13,13 @@ Feature: Pages component
     Then My <page> Page is visible
     Examples:
       | pageIndex | page   |
+      | 2         | Third  |
+
+    @ignore
+    # ignored regression
+    Examples:
       | 0         | First  |
       | 1         | Second |
-      | 2         | Third  |
 
   @positive
   Scenario Outline: Open and close page by index <pageIndex>

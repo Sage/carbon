@@ -64,7 +64,7 @@ Then('Textbox multiple component is not disabled', () => {
 
 Then('Textbox component is readOnly for classic story', () => {
   cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
-  textbox().should('have.css', 'background-color', 'rgba(0, 0, 0, 0)')
+  textbox().should('have.css', 'background-color', 'rgb(249, 250, 251)')
     .and('have.css', 'border-bottom-color', 'rgb(204, 214, 219)')
     .and('have.css', 'border-left-color', 'rgb(204, 214, 219)')
     .and('have.css', 'border-right-color', 'rgb(204, 214, 219)')
@@ -74,7 +74,7 @@ Then('Textbox component is readOnly for classic story', () => {
 
 Then('Textbox component is readOnly', () => {
   cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
-  textbox().should('have.css', 'background-color', 'rgba(0, 0, 0, 0)')
+  textbox().should('have.css', 'background-color', 'rgb(249, 250, 251)')
     .and('have.css', 'border-bottom-color', 'rgb(102, 132, 145)')
     .and('have.css', 'border-left-color', 'rgb(102, 132, 145)')
     .and('have.css', 'border-right-color', 'rgb(102, 132, 145)')
@@ -84,7 +84,7 @@ Then('Textbox component is readOnly', () => {
 
 Then('Textbox multiple component is readOnly', () => {
   cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
-  textbox(FIRST_ELEMENT).should('have.css', 'background-color', 'rgba(0, 0, 0, 0)')
+  textbox(FIRST_ELEMENT).should('have.css', 'background-color', 'rgb(249, 250, 251)')
     .and('have.css', 'border-bottom-color', 'rgb(102, 132, 145)')
     .and('have.css', 'border-left-color', 'rgb(102, 132, 145)')
     .and('have.css', 'border-right-color', 'rgb(102, 132, 145)')
