@@ -5,6 +5,6 @@ const applitools_settings = {
   envName: 'Development',
   testName: 'my test',
   batchName: 'my batch',
-  browser: [{width: 1024, height: 768, name: 'chrome'}]
+  browser: [{width: 1920, height: 1080, name: 'chrome'}]
 }
 export default applitools_settings
