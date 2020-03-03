@@ -127,7 +127,6 @@ Feature: Experimental RadioButton monthly component
 
   @positive
   Scenario Outline: Change RadioButton labelAlign to <direction>
-    Given I set group monthly labelWidth slider to 10
     When I select group monthly labelAlign to "<direction>"
     Then "Second" label Align on preview is "<direction>"
     Examples:

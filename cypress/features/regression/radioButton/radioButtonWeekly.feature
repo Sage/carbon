@@ -127,7 +127,6 @@ Feature: Experimental RadioButton weekly component
 
   @positive
   Scenario Outline: Change RadioButton label align to <direction>
-    Given I set group weekly labelWidth slider to 10
     When I select group weekly labelAlign to "<direction>"
     Then "First" label Align on preview is "<direction>"
     Examples:

@@ -127,7 +127,6 @@ Scenario Outline: Change RadioButton label width to <width>
 
 @positive
 Scenario Outline: Change RadioButton label align to <direction>
-  Given I set group yearly labelWidth slider to 10
   When I select group yearly labelAlign to "<direction>"
   Then "Third" label Align on preview is "<direction>"
   Examples:
