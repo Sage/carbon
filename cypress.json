@@ -6,7 +6,8 @@
     "countries*"
   ],
   "env": {
-    "TAGS": "not @ignore"
+    "TAGS": "not @ignore",
+    "CYPRESS_APPLITOOLS": false
   },
   "failOnStatusCode": false,
   "ignoreTestFiles": [
