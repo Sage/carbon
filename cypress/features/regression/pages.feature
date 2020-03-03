@@ -9,17 +9,13 @@ Feature: Pages component
     When I select pageIndex to "<pageIndex>"
       And I open component preview
       # wait because of animation
-      And I wait 500
+      And I wait 2500
     Then My <page> Page is visible
     Examples:
       | pageIndex | page   |
-      | 2         | Third  |
-
-    @ignore
-    # ignored regression
-    Examples:
       | 0         | First  |
       | 1         | Second |
+      | 2         | Third  |
 
   @positive
   Scenario Outline: Open and close page by index <pageIndex>

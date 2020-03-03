@@ -4,8 +4,7 @@ Feature: Show Edit Pod component
   Background: Open ShowEditPod component page
     Given I open "ShowEditPod" component page
 
-  @ignore
-  # ignored regression
+  @positive
   Scenario: Verify the inner content of the component
     # commented because of BDD default scenario Given - When - Then
     # When I open "ShowEditPod" component page
@@ -17,41 +16,24 @@ Feature: Show Edit Pod component
     # When I open "ShowEditPod" component page
     Then Edit icon has color "rgb(0, 128, 93)"
 
-  @ignore
-  # ignored regression
-  Scenario Outline: Set Show Edit Pod as to <as>
-    When I select as to "<as>"
-    Then Show Edit Pod as value is set to "<as>"
-    Examples:
-      | as          |
-      | primary     |
-      | secondary   |
-      | tertiary    |
-      | tile        |
-      | transparent |
-
-  @ignore
-  # ignored regression
+  @positive
   Scenario: Enable border checkbox for a Show Edit Pod component
     When I check border checkbox
     Then Show Edit Pod component has border "rgb(204, 214, 218)" color
 
-  @ignore
-  # ignored regression
+  @positive
   Scenario: Enable and disable border checkbox for a Show Edit Pod component
     Given I check border checkbox
     When I uncheck border checkbox
     Then Show Edit Pod component has border "rgba(0, 0, 0, 0.85)" color
 
-  @ignore
-  # ignored regression
+  @positive
   Scenario: Enable border on a edit dialog view for a Show Edit Pod component
     When I check border checkbox
       And I click edit Show Edit Pod component
     Then Show Edit Pod component has border "rgb(204, 214, 218)" color
 
-  @ignore
-  # ignored regression
+  @positive
   Scenario: Enable and disable border on a edit dialog view for a Show Edit Pod component
     Given I check border checkbox
     When I uncheck border checkbox
@@ -83,12 +65,13 @@ Feature: Show Edit Pod component
   # @ignore because of FE-1447
   # | <>                       |
 
-  @ignore
-  # ignored regression
-  Scenario: Enable cancel checkbox for a Show Edit Pod component
-    When I check cancel checkbox
-      And I click edit Show Edit Pod component
-    Then Show Edit Pod component cancel button has color "rgb(0, 128, 93)" and borderColor "rgb(0, 128, 93)"
+  @positive
+  Scenario Outline: Enable cancel checkbox for a Show Edit Pod component
+    When I click edit Show Edit Pod component
+    Then Show Edit Pod component cancel button has color "<color>" and borderColor "<color>"
+    Examples:
+      | color           |
+      | rgb(0, 128, 93) |
 
   @positive
   Scenario: Enable and disable cancel checkbox for a Show Edit Pod component
@@ -97,8 +80,7 @@ Feature: Show Edit Pod component
       And I click edit Show Edit Pod component
     Then Show Edit Pod component hasn't a cancel button
 
-  @ignore
-  # ignored regression
+  @positive
   Scenario Outline: Change Show Edit Pod deleteText to <deleteText>
     When I set deleteText to "<deleteText>"
       And I click edit Show Edit Pod component
