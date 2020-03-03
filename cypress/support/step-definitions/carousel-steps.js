@@ -101,6 +101,6 @@ Then('transition is set to {string} with {string}', (transition, direction) => {
   giveTransition(transition, direction).should('exist');
 });
 
-When('I click clickable slide {int}', () => {
+When('I click clickable slide', () => {
   slide(1).click();
 });

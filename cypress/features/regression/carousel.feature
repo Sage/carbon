@@ -60,5 +60,5 @@ Feature: Carousel component
   Scenario: Verify the click event for a clickable slide
     Given I select slideIndex to "1"
       And clear all actions in Actions Tab
-    When I click clickable slide 1
+    When I click clickable slide
     Then click action was called in Actions Tab
