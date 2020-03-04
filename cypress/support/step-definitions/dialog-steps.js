@@ -5,6 +5,14 @@ import { DEBUG_FLAG } from '..';
 const FIRST_ELEMENT = 0;
 const SECOND_ELEMENT = 1;
 
+When('I press space key on iconButton close icon', () => {
+  closeIconButton().trigger('keydown', { keyCode: 32, which: 32 });
+});
+
+When('I click ESC key on close icon', () => {
+  closeIconButton().trigger('keydown', { keyCode: 27, which: 27 });
+});
+
 When('I click close icon', () => {
   closeIconButton().click();
 });

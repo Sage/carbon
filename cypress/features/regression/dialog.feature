@@ -6,6 +6,24 @@ Feature: Dialog component
       And I open component preview
 
   @positive
+  Scenario: Esc key pressed on Close Icon does not close Dialog with disableEscKey
+    Given I check disableEscKey checkbox
+    When I click ESC key on close icon
+    Then Dialog is visible
+
+  @positive
+  Scenario: Space key pressed on Close closes Dialog with disableEscKey
+    Given I check disableEscKey checkbox
+    When I press space key on iconButton close icon
+    Then Dialog is not visible
+
+  @positive
+  Scenario: Close Icon does not close Dialog when escape key is pressed
+    Given I check disableEscKey checkbox
+    When I click ESC key on close icon
+    Then Dialog is visible
+
+  @positive
   Scenario Outline: Set height for Dialog to <height>
     When I set height to "<height>"
     Then Dialog height is set to "<height>"

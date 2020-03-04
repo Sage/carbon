@@ -6,7 +6,7 @@ import Icon from '../icon';
 
 const IconButton = ({ onAction, children, ...rest }) => {
   const onKeyDown = (e) => {
-    if (Events.isEnterKey(e) || Events.isSpaceKey(e) || Events.isEscKey(e)) {
+    if (Events.isEnterKey(e) || Events.isSpaceKey(e)) {
       e.preventDefault();
       onAction(e);
     } else {
