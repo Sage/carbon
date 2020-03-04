@@ -8,7 +8,7 @@ Feature: Button component
   Scenario Outline: Set Button size to <size>
     When I select size to "<size>"
     Then Button height is "<height>" and width is "<width>"
-    Then Element displays correctly
+      And Element displays correctly
     Examples:
       | size   | height | width     |
       | small  | 32     | 136.4375  |
@@ -20,7 +20,7 @@ Feature: Button component
     Given I select size to "large"
     When I set subtext to "<subtext>"
     Then Button subtext on preview is "<subtext>"
-    Then Element displays correctly
+      And Element displays correctly
     Examples:
       | subtext                 |
       | Sample text             |
@@ -35,7 +35,7 @@ Feature: Button component
     When I select buttonType to "<buttonType>"
     Then Button font color is "<font-color>"
       And Button background color is "<background-color>"
-    Then Element displays correctly
+      And Element displays correctly
     Examples:
       | buttonType     | font-color         | background-color   |
       | primary        | rgb(255, 255, 255) | rgb(0, 128, 93)    |
@@ -48,7 +48,7 @@ Feature: Button component
   Scenario Outline: Set Button component label to <label>
     When I set children to "<label>"
     Then Button label on preview is "<label>"
-    Then Element displays correctly
+      And Element displays correctly
     Examples:
       | label                   |
       | Sample text             |
@@ -62,14 +62,14 @@ Feature: Button component
   Scenario: Disable Button
     When I disable Button component
     Then Button is disabled
-    Then Element displays correctly
+      And Element displays correctly
 
   @positive @applitools
   Scenario: Disable and enable Button
     Given I disable Button component
     When I enable Button component
     Then Button is enabled
-    Then Element displays correctly
+      And Element displays correctly
 
   @positive @applitools
   Scenario Outline: Change Button icon position to <iconPosition>
@@ -77,7 +77,7 @@ Feature: Button component
     When I select iconType to "add"
       And I select iconPosition to "<iconPosition>"
     Then Button icon position is set to "<iconPosition>"
-    Then Element displays correctly
+      And Element displays correctly
     Examples:
       | iconPosition |
       | after        |
@@ -88,4 +88,4 @@ Feature: Button component
     Given clear all actions in Actions Tab
     When I click on "button"
     Then click action was called in Actions Tab
-    Then Element displays correctly
+      And Element displays correctly
