@@ -49,7 +49,7 @@ Feature: FlatTable component
   Scenario Outline: Check value in <position> row
     # commented because of BDD default scenario Given - When - Then
     # I open "test-flat-table" component page basic
-    Then FlatTable <position> row contains proper inner content
+  Then FlatTable <position> row contains proper inner content
     Examples:
       | position |
       | 0        |
@@ -60,3 +60,22 @@ Feature: FlatTable component
       | 5        |
       | 6        |
       | 7        |
+
+  @positive
+  Scenario: Click event
+    Given I check hasClickableRows checkbox
+      And clear all actions in Actions Tab
+    When I click on 2 body row
+    Then click action was called in Actions Tab
+
+  @positive
+  Scenario: Click event after pressing enter key
+    Given I check hasClickableRows checkbox
+      And clear all actions in Actions Tab
+    When click "enter" key on row element
+    Then click action was called in Actions Tab
+
+    @positive
+  Scenario: Verify outline color
+    When I check hasClickableRows checkbox
+    Then I focus 2 row and focused row element has golden border on focus

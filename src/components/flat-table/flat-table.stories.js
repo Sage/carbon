@@ -99,7 +99,7 @@ export const basic = () => {
 };
 
 basic.story = {
-  name: 'default',
+  name: 'Basic',
   parameters: {
     info: { disable: true },
     docs: {

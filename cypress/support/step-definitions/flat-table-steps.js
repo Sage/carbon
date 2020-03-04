@@ -1,6 +1,6 @@
 import {
   flatTableStickyRow, flatTableHeaderCells, flatTableHeader, flatTableBodyRows, flatTableNoiFrame,
-  flatTableHeaderCellsNoiFrame, flatTableBodyRowByPositionNoiFrame, flatTableBodyCellByPosition,
+  flatTableHeaderCellsNoiFrame, flatTableBodyRowByPositionNoiFrame, flatTableBodyCellByPosition, flatTableBodyRowByPosition,
 } from '../../locators/flat-table';
 import { DEBUG_FLAG } from '..';
 
@@ -119,4 +119,17 @@ Then('{int} FlatTable rows are {string} visible', (count, state) => {
       flatTableBodyRowByPositionNoiFrame(i).should('be.visible');
     }
   }
+});
+
+Then('I click on {int} body row', (index) => {
+  flatTableBodyRowByPosition(index).click();
+});
+
+Then('I focus {int} row and focused row element has golden border on focus', (index) => {
+  cy.wait(500);
+  flatTableBodyRowByPosition(index).focus().should('have.css', 'outline-color', 'rgb(255, 181, 0)');
+});
+
+Then('click {string} key on row element', () => {
+  flatTableBodyRowByPosition(2).focus().trigger('keydown', { keyCode: 13, which: 13, force: true });
 });
