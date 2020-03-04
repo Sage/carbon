@@ -5,8 +5,13 @@ const renderChild = (child, callback) => {
   return child;
 };
 
-const defaultFilter = (text, value) => {
-  return text.includes(value);
+/**
+ * The default Filter
+ * @param { the text prop of option } text
+ * @param { the given filter text } filter
+ */
+const defaultFilter = (text, filter) => {
+  return text.includes(filter);
 };
 
 /**
@@ -23,7 +28,7 @@ const defaultFilter = (text, value) => {
  *
  *   const filter = filterChildren({
  *     value: 'my filter',
- *     filter: (text, value) => value !== text,
+ *     filter: (text, filter, value) => filter !== text,
  *     onNoResults: () => 'no results!'
  *   });
  *
@@ -36,7 +41,7 @@ const filterChildren = ({
     if (!child.props.text || !value) return renderChild(child, callback);
     const processedText = child.props.text.toLowerCase();
     const processedValue = value.toLowerCase();
-    if (filter(processedText, processedValue)) return renderChild(child, callback);
+    if (filter(processedText, processedValue, child.props.value)) return renderChild(child, callback);
     return null;
   });
 
