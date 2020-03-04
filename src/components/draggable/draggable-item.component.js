@@ -56,8 +56,7 @@ DraggableItem.propTypes = {
   /** The content of the component. */
   children: PropTypes.node.isRequired,
   findItem: PropTypes.func,
-  moveItem: PropTypes.func,
-  getOrder: PropTypes.func
+  moveItem: PropTypes.func
 };
 
 DraggableItem.displayName = 'DraggableItem';
