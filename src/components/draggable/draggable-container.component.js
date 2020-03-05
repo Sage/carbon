@@ -5,8 +5,13 @@ import PropTypes from 'prop-types';
 import DraggableItem from './draggable-item.component';
 import { StyledIcon } from './draggable-item.style';
 
-const DropTarget = ({ children }) => {
-  const [, drop] = useDrop({ accept: 'draggableItem' });
+const DropTarget = ({ children, getOrder }) => {
+  const [, drop] = useDrop({
+    accept: 'draggableItem',
+    drop() {
+      getOrder();
+    }
+  });
 
   return <div ref={ drop }>{children}</div>;
 };
@@ -46,15 +51,14 @@ const DraggableContainer = ({ children, getOrder }) => {
 
   return (
     <DndProvider backend={ Backend }>
-      <DropTarget>
+      <DropTarget getOrder={ getItemsId }>
         {draggableItems.map(item => (
           React.cloneElement(
             item,
             {
               id: `${item.props.id}`,
               findItem,
-              moveItem,
-              getOrder: getItemsId
+              moveItem
             },
             [
               item.props.children,
@@ -90,7 +94,8 @@ DraggableContainer.propTypes = {
 };
 
 DropTarget.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  getOrder: PropTypes.func
 };
 
 export default DraggableContainer;

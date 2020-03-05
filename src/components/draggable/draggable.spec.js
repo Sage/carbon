@@ -32,12 +32,12 @@ describe('Draggable Checkbox', () => {
 
   it('should return an array with id\'s', () => {
     wrapper.setProps({ getOrder });
-    wrapper.find(DraggableItem).at(0).props().getOrder();
+    wrapper.find('DropTarget').at(0).props().getOrder();
     expect(getOrder).toHaveBeenCalledWith([1, 2]);
   });
 
   it('should return an array if getOrder is not passed to the component', () => {
-    wrapper.find(DraggableItem).at(0).props().getOrder();
+    wrapper.find('DropTarget').at(0).props().getOrder();
     expect(getOrder).not.toHaveBeenCalledWith();
   });
 

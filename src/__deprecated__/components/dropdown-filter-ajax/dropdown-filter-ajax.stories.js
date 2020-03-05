@@ -13,7 +13,7 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
 import DropdownFilterAjax from './dropdown-filter-ajax';
-import { enableMock } from '../../../../demo/xhr-mock';
+import { enableMock } from '../../../../.storybook/utils/xhr/xhr-mock';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 DropdownFilterAjax.__docgenInfo = getDocGenInfo(
