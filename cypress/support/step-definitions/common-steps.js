@@ -1,5 +1,5 @@
 import {
-  visitComponentUrl, setSlidebar, pressESCKey, pressTABKey, asyncWaitForKnobs,
+  visitComponentUrl, setSlidebar, pressESCKey, pressTABKey, asyncWaitForKnobs, visitFlatTableComponentNoiFrame,
 } from '../helper';
 import {
   commonButtonPreview, labelPreview, helpIcon, helpIconByPosition, inputWidthSlider,
@@ -154,6 +154,10 @@ Given('I open basic Test {string} component page', (component) => {
 
 Given('I open basic Test {string} component page in noIframe', (component) => {
   visitComponentUrl(component, 'basic', true, 'test-');
+});
+
+When('I open Test {string} component basic page with prop value', (componentName) => {
+  visitFlatTableComponentNoiFrame(componentName, 'basic', true, 'test-');
 });
 
 Given('I open grouped Test {string} component page in noIframe', (component) => {
