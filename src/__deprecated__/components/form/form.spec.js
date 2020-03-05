@@ -293,6 +293,7 @@ describe('Form', () => {
   describe('handleOnSubmit', () => {
     it('calls the validate method', () => {
       const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+      form.submit = jest.fn();
       TestUtils.Simulate.submit(form);
       expect(validate).toHaveBeenCalled();
     });
@@ -309,6 +310,7 @@ describe('Form', () => {
           </Form>
         );
         const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        form.submit = jest.fn();
         TestUtils.Simulate.submit(form);
         expect(spy).toHaveBeenCalled();
       });
@@ -330,6 +332,7 @@ describe('Form', () => {
           done();
         });
         const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        form.submit = jest.fn();
         TestUtils.Simulate.submit(form);
       });
     });
@@ -346,6 +349,7 @@ describe('Form', () => {
           </Form>
         );
         const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        form.submit = jest.fn();
         TestUtils.Simulate.submit(form);
         expect(instance.state.submitted).toBe(true);
       });
@@ -372,6 +376,7 @@ describe('Form', () => {
           done();
         });
         const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        form.submit = jest.fn();
         TestUtils.Simulate.submit(form);
       });
 
@@ -392,6 +397,7 @@ describe('Form', () => {
           expect(instance.state.submitted).toBe(false);
         });
         const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        form.submit = jest.fn();
         TestUtils.Simulate.submit(form);
       });
     });
@@ -407,6 +413,7 @@ describe('Form', () => {
           </Form>
         );
         const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        form.submit = jest.fn();
         TestUtils.Simulate.submit(form);
         expect(instance.state.submitted).toBe(false);
       });
@@ -429,6 +436,7 @@ describe('Form', () => {
           );
 
           const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+          form.submit = jest.fn();
           TestUtils.Simulate.submit(form);
         });
       });
@@ -445,6 +453,7 @@ describe('Form', () => {
             </Form>
           );
           const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+          form.submit = jest.fn();
           TestUtils.Simulate.submit(form);
           expect(spy).not.toHaveBeenCalled();
         });
