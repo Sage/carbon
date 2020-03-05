@@ -5,9 +5,9 @@ Feature: FlatTable component
     Given I open basic Test "Flat Table" component page
 
   @positive
-  Scenario: FlatTable has sticky row header
+  Scenario: FlatTable has sticky row
     When I check hasHeaderRow checkbox
-    Then FlatTable has sticky row header
+    Then FlatTable has sticky row
 
   @positive
   Scenario: FlatTable has sticky header
@@ -15,21 +15,21 @@ Feature: FlatTable component
     Then FlatTable has sticky header
 
   @positive
-  Scenario: Check that FlatTable has nine rows
+  Scenario: FlatTable has nine rows
     # commented because of BDD default scenario Given - When - Then
-    # When I open "Flattable" component page
+    # When I open basic Test "Flat Table" component page
     Then FlatTable has nine rows
 
   @positive
-  Scenario: Check that FlatTable has seven columns
+  Scenario: FlatTable has seven columns
     # commented because of BDD default scenario Given - When - Then
-    # When I open "Flattable" component page
+    # When I open basic Test "Flat Table" component page
     Then FlatTable has seven columns
 
   @positive
   Scenario Outline: Check value in <position> header cell
     # commented because of BDD default scenario Given - When - Then
-    # When I open "Flattable" component page
+    # When I open basic Test "Flat Table" component page
     Then "<position>" header cell has value "<text>"
     Examples:
       | position | text              |
@@ -44,7 +44,7 @@ Feature: FlatTable component
   @positive
   Scenario Outline: Check value in <position> row
     # commented because of BDD default scenario Given - When - Then
-    # When I open "Flattable" component page
+    # When I open basic Test "Flat Table" component page
     Then FlatTable <position> row contains proper inner content
     Examples:
       | position |
@@ -58,24 +58,20 @@ Feature: FlatTable component
       | 7        |
 
   @positive
-  Scenario Outline: Header and row of FlatTabel are visible after scrolling to the right bottom
-    Given I check hasStickyHead checkbox
-      And I check hasHeaderRow checkbox
-    When I scroll tabel content to right bottom
-    Then "<position>" header cell has value "<text>"
-      And 7 FlatTable rows are visible
-    Examples:
-      | position | text         |
-      | first    | Client       |
-      | third    | Categories   |
-      | fourth   | Products     |
-      | sixth    | Corp Tax Due |
-      | seventh  | VAT due      |
+  Scenario: Click event
+    Given I check hasClickableRows checkbox
+      And clear all actions in Actions Tab
+    When I click on 2 body row
+    Then click action was called in Actions Tab
 
   @positive
-  Scenario: Header and row of FlatTabel are not visible after scrolling to the right bottom
-    Given I check hasStickyHead checkbox
-      And I check hasHeaderRow checkbox
-    When I scroll tabel content to right bottom
-    Then "second" header cell is not visible
-      And 2 FlatTable rows are not visible
+  Scenario: Click event after pressing enter key
+    Given I check hasClickableRows checkbox
+      And clear all actions in Actions Tab
+    When press enter key on the row element
+    Then click action was called in Actions Tab
+
+  @positive
+  Scenario: Verify outline color
+    When I check hasClickableRows checkbox
+    Then I focus 2 row and focused row element has golden border on focus
