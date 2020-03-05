@@ -310,6 +310,7 @@ Then('fieldHelp on preview is set to {string}', (text) => {
 });
 
 Then('{string} fieldHelp on preview is set to {string}', (position, text) => {
+  cy.wait(1500, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
   switch (position) {
     case 'First':
       fieldHelpPreviewByPosition(FIRST_ELEMENT).should('have.text', text);
@@ -502,7 +503,7 @@ When('I click above of the component into iFrame', () => {
 });
 
 Then('{string} tab in {string} tab list is visible', (knobsName, position) => {
-  cy.wait(3000, { log: DEBUG_FLAG }); // required because element needs to be loaded
+  cy.wait(3500, { log: DEBUG_FLAG }); // required because element needs to be loaded
   switch (position) {
     case 'first':
       knobsNameTab(knobsName, FIRST_ELEMENT).should('be.visible')
