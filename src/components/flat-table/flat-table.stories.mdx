@@ -51,7 +51,7 @@ import { FlatTable, FlatTableHead, FlatTableBody, FlatTableRow, FlatTableHeader,
 
 ### With row headers:
 <Preview>
-  <Story name="withRowHeader" parameters={{ info: { disable: true }}} >
+  <Story name="with row header" parameters={{ info: { disable: true }}} >
     <div style={ { width: '380px', overflowX: 'auto' } }>
       <FlatTable hasRowHeader>
         <FlatTableHead>
@@ -96,7 +96,7 @@ import { FlatTable, FlatTableHead, FlatTableBody, FlatTableRow, FlatTableHeader,
 ### With stickyHead prop set to true
 
 <Preview>
-  <Story name="withStickyHead" parameters={{ info: { disable: true }}} >
+  <Story name="with sticky head" parameters={{ info: { disable: true }}} >
     <div style={ { height: '150px' } }>
       <FlatTable hasStickyHead>
         <FlatTableHead>
@@ -138,6 +138,48 @@ import { FlatTable, FlatTableHead, FlatTableBody, FlatTableRow, FlatTableHeader,
   </Story>
 </Preview>
 
+### With clickable rows:
+
+<Preview>
+  <Story name="with clickable rows" parameters={{ info: { disable: true }}} >
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Client</FlatTableHeader>
+          <FlatTableHeader>Client Type</FlatTableHeader>
+          <FlatTableHeader>Categories</FlatTableHeader>
+          <FlatTableHeader>Services</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow onClick={ () => {} }>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>Business</FlatTableCell>
+          <FlatTableCell>Group1, Group2</FlatTableCell>
+          <FlatTableCell>Accounting</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow onClick={ () => {} }>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>Business</FlatTableCell>
+          <FlatTableCell>Group1, Group3</FlatTableCell>
+          <FlatTableCell>Accounting</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow onClick={ () => {} }>
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Charity</FlatTableCell>
+          <FlatTableCell>Group3</FlatTableCell>
+          <FlatTableCell>Payroll</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow onClick={ () => {} }>
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Partnership</FlatTableCell>
+          <FlatTableCell>Group3</FlatTableCell>
+          <FlatTableCell>Final Tax</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  </Story>
+</Preview>
 
 ## Props:
 

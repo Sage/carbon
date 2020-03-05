@@ -1,3 +1,5 @@
+import { radioButtonComponent } from '../locators/radioButton';
+
 export const DEBUG_FLAG = false;
 
 // ***********************************************************
@@ -43,6 +45,24 @@ Cypress.Commands.overwrite(
     Object.assign({}, options, { delay: 100 }),
   ),
 );
+
+Cypress.Commands.add('radioButtonComponent', (radioButtonLabel) => {
+  radioButtonComponent().each(($el) => {
+    const labelText = $el.find('label').text();
+    if (labelText.includes(radioButtonLabel)) {
+      cy.wrap($el);
+    }
+  });
+});
+
+Cypress.Commands.add('radioButton', (radioButtonLabel, findBy) => {
+  radioButtonComponent().each(($el) => {
+    const labelText = $el.find('label').text();
+    if (labelText.includes(radioButtonLabel)) {
+      cy.wrap($el).find(findBy);
+    }
+  });
+});
 
 function getItem(selector, counter) {
   if ((document.readyState === 'loading' || document.readyState === 'interactive') && document.readyState !== 'completed') { // Loading hasn't finished yet
