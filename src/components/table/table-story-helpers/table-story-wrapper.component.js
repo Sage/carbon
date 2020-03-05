@@ -2,7 +2,7 @@ import { text } from '@storybook/addon-knobs';
 import React, { useState } from 'react';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-import countriesList from '../../../../demo/data/countries';
+import countriesList from '../../../../.storybook/utils/xhr/data/countries';
 import Button from '../../button';
 import MultiActionButton from '../../multi-action-button';
 import {

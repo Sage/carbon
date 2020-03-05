@@ -45,8 +45,9 @@ const InputPresentationStyle = styled.div`
 
   ${stylingForValidations}
 
-  ${({ readOnly }) => readOnly && css`
-    background: transparent !important;
+  ${({ readOnly, theme }) => readOnly && css`
+    background-color: ${theme.readOnly.textboxBackground};
+    border-color: ${theme.readOnly.textboxBorder};
     box-shadow: none;
   `}
 

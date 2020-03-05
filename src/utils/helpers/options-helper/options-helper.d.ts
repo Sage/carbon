@@ -135,3 +135,5 @@ export type IconTypes =
 export type AlignBinaryType = 'left' | 'right';
 
 export type SizesType = 'small' | 'large';
+
+export type ThemesBinary = 'primary' | 'secondary';

@@ -66,7 +66,9 @@ describe('InputPresentation', () => {
     describe('readOnly', () => {
       it('has the correct style rules', () => {
         assertStyleMatch({
-          background: 'transparent !important'
+          backgroundColor: baseTheme.readOnly.textboxBackground,
+          borderColor: baseTheme.readOnly.textboxBorder,
+          boxShadow: 'none'
         }, render({ readOnly: true }));
       });
     });

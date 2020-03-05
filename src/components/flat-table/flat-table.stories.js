@@ -1,5 +1,6 @@
 import React from 'react';
 import { boolean, withKnobs } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 import {
   FlatTable,
   FlatTableHead,
@@ -11,35 +12,6 @@ import {
 } from '.';
 import guid from '../../utils/helpers/guid';
 
-const initialJson = {
-  labels: {
-    client: 'Client',
-    clientType: 'Client Type',
-    categories: 'Categories',
-    products: 'Products',
-    finalAccDue: 'Final Account Due',
-    corpTaxDue: 'Corp Tax Due',
-    vatDue: 'VAT due'
-  },
-  clients: renderBody(8)
-};
-
-function renderBody(rowCount) {
-  const rows = [...Array(rowCount)];
-
-  return rows.map(() => {
-    return {
-      client: (<div><h5 style={ { margin: 0 } }>Soylent Corp</h5>John Doe</div>),
-      clientType: 'business',
-      categories: 'Group1, Group2, Group3',
-      products: 'Accounting',
-      finalAccDue: '12/12/20',
-      corpTaxDue: '20/12/20',
-      vatDue: '25/12/20'
-    };
-  });
-}
-
 export default {
   title: 'Test/Flat Table',
   component: FlatTable,
@@ -49,13 +21,16 @@ export default {
 export const basic = () => {
   const hasStickyHead = boolean('hasStickyHead', false);
   const hasHeaderRow = boolean('hasHeaderRow', false);
-  const processed = processJsonData(initialJson, hasHeaderRow);
+  const hasClickableRows = boolean('hasClickableRows', false);
+  const processed = getTableData();
   // used to show how the table behaves constrained or on lower resolutions
   const tableSizeConstraints = {
     height: 'auto',
     width: 'auto',
     overflowX: 'auto'
   };
+  let onClickFn;
+  let rowWithInputs;
 
   if (hasStickyHead) {
     tableSizeConstraints.height = '300px';
@@ -63,6 +38,11 @@ export const basic = () => {
 
   if (hasHeaderRow) {
     tableSizeConstraints.width = '600px';
+  }
+
+  if (hasClickableRows) {
+    onClickFn = action('click');
+    rowWithInputs = getRowWithInputs(onClickFn, hasHeaderRow);
   }
 
   return (
@@ -90,9 +70,10 @@ export const basic = () => {
           }
         </FlatTableHead>
         <FlatTableBody>
+          { rowWithInputs }
           {
             processed.bodyData.map(rowData => (
-              <FlatTableRow key={ rowData.id }>
+              <FlatTableRow key={ rowData.id } onClick={ onClickFn }>
                 {
                   rowData.data.map((cellData, index) => {
                     let Component = FlatTableCell;
@@ -118,7 +99,7 @@ export const basic = () => {
 };
 
 basic.story = {
-  name: 'default',
+  name: 'Basic',
   parameters: {
     info: { disable: true },
     docs: {
@@ -126,6 +107,61 @@ basic.story = {
     }
   }
 };
+
+const headRowData = {
+  client: 'Client',
+  clientType: 'Client Type',
+  categories: 'Categories',
+  products: 'Products',
+  finalAccDue: 'Final Account Due',
+  corpTaxDue: 'Corp Tax Due',
+  vatDue: 'VAT due'
+};
+
+const rowData = {
+  client: (<div><h5 style={ { margin: 0 } }>Soylent Corp</h5>John Doe</div>),
+  clientType: 'business',
+  categories: 'Group1, Group2, Group3',
+  products: 'Accounting',
+  finalAccDue: '12/12/20',
+  corpTaxDue: '20/12/20',
+  vatDue: '25/12/20'
+};
+
+function getRowWithInputs(onClickFn, hasHeaderRow) {
+  let firstRow = <FlatTableCell>Row with inputs</FlatTableCell>;
+
+  if (hasHeaderRow) {
+    firstRow = <FlatTableRowHeader>Row with inputs</FlatTableRowHeader>;
+  }
+
+  return (
+    <FlatTableRow key='rowWithInputs' onClick={ onClickFn }>
+      { firstRow }
+      <FlatTableCell><input /></FlatTableCell>
+      <FlatTableCell><input /></FlatTableCell>
+      <FlatTableCell><input /></FlatTableCell>
+      <FlatTableCell><input /></FlatTableCell>
+      <FlatTableCell><input /></FlatTableCell>
+      <FlatTableCell><input /></FlatTableCell>
+    </FlatTableRow>
+  );
+}
+
+function getTableData() {
+  return processJsonData({
+    labels: headRowData,
+    clients: renderBody(8)
+  });
+}
+
+function renderBody(rowCount) {
+  const rows = [...Array(rowCount)];
+
+  return rows.map(() => {
+    return rowData;
+  });
+}
 
 function processJsonData({ labels, clients }) {
   return {

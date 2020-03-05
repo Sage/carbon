@@ -1,12 +1,20 @@
 import {
-  FLAT_TABLE_STICKY_ROW_HEADER, FLAT_TABLE_ROW, FLAT_TABLE_COMPONENT,
+  FLAT_TABLE_ROW, FLAT_TABLE_COMPONENT,
 } from './locators';
 
-export const flatTableStickyRowHeader = index => cy.iFrame(FLAT_TABLE_STICKY_ROW_HEADER).eq(index);
-export const flatTableHeader = () => cy.iFrame(FLAT_TABLE_ROW).eq(0);
+// component preview locators
 export const flatTable = () => cy.iFrame(FLAT_TABLE_COMPONENT);
-export const flatTableBodyRow = () => flatTable().find('tbody').children();
+export const flatTableRows = () => cy.iFrame(FLAT_TABLE_ROW);
+export const flatTableBodyRows = () => flatTable().find('tbody tr');
+export const flatTableHeader = () => flatTable().find('thead tr');
+export const flatTableHeaderCells = () => flatTableHeader().find('th');
+export const flatTableBodyRowByPosition = index => flatTableBodyRows().eq(index);
+export const flatTableStickyRow = index => flatTableBodyRowByPosition(index).find('th');
+export const flatTableBodyCellByPosition = (rowIndex, cellIndex) => flatTableBodyRowByPosition(rowIndex).find('td').eq(cellIndex);
 
-export const flatTableBodyRowByPosition = index => flatTable().find('tbody').find('tr').eq(index);
-export const flatTableHeaderCell = index => flatTableHeader().find('th').eq(index); 
-export const flatTabelCellContent = index => flatTableBodyRow(index).children();
+export const flatTableNoiFrame = () => cy.get(FLAT_TABLE_COMPONENT);
+export const flatTableRowsNoiFrame = () => cy.get(FLAT_TABLE_ROW);
+export const flatTableHeaderNoiFrame = () => flatTableNoiFrame().find('thead tr');
+export const flatTableHeaderCellsNoiFrame = () => flatTableHeaderNoiFrame().find('th');
+export const flatTableBodyRowByPositionNoiFrame = index => flatTableNoiFrame().find('tbody tr').eq(index);
+export const flatTableBodyCellByPositionNoiFrame = (rowIndex, cellIndex) => flatTableBodyRowByPositionNoiFrame(rowIndex).find('td').eq(cellIndex);
