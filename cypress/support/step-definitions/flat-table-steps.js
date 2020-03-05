@@ -13,7 +13,7 @@ const SIXTH_ELEMENT = 5;
 const SEVENTH_ELEMENT = 6;
 
 Then('FlatTable has sticky row', () => {
-  flatTableBodyRows().each(($el, index, $list) => {
+  flatTableBodyRows().each(($el, index) => {
     const color = 'rgb(204, 214, 218)';
     flatTableStickyRow(index).should('have.css', 'border-right-color', color)
       .and('have.css', 'border-left-color', color)
@@ -25,8 +25,8 @@ Then('FlatTable has sticky row', () => {
 
 Then('FlatTable has sticky header', () => {
   cy.wait(300, { log: DEBUG_FLAG }); // required because element needs to be loaded
-  flatTableHeaderCells().each(($el, index, $list) => {
-    flatTableHeaderCells().eq(index).should('have.css', 'position', 'sticky')
+  flatTableHeaderCells().each(($el) => {
+    cy.wrap($el).should('have.css', 'position', 'sticky')
       .and('be.visible');
   });
 });
@@ -126,10 +126,10 @@ Then('I click on {int} body row', (index) => {
 });
 
 Then('I focus {int} row and focused row element has golden border on focus', (index) => {
-  cy.wait(500);
+  cy.wait(500, { log: DEBUG_FLAG }); // wait was added due to changing animation
   flatTableBodyRowByPosition(index).focus().should('have.css', 'outline-color', 'rgb(255, 181, 0)');
 });
 
-Then('click {string} key on row element', () => {
+Then('press {string} key on the row element', () => {
   flatTableBodyRowByPosition(2).focus().trigger('keydown', { keyCode: 13, which: 13, force: true });
 });
