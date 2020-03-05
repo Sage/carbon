@@ -7,6 +7,7 @@ Carbon is a library of reusable [React](https://facebook.github.io/react/) compo
 See the [demo and documentation site](https://carbon.sage.com/) for live examples, or see [create-carbon-app](https://github.com/sage/create-carbon-app) to get started.
 
 ## Documentation
+The getting started and coding guides have been removed as they we're getting increasingly out-of-date. Apologies for the inconvenience this may cause. We plan to revisit these and publish new documentation in due course in the meanwhile please feel free to raise any questions to the maintainers as a [New Issue](https://github.com/Sage/carbon/issues)
 
 ### Getting Started
 
