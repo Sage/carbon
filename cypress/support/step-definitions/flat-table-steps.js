@@ -130,6 +130,6 @@ Then('I focus {int} row and focused row element has golden border on focus', (in
   flatTableBodyRowByPosition(index).focus().should('have.css', 'outline-color', 'rgb(255, 181, 0)');
 });
 
-Then('press {string} key on the row element', () => {
+Then('press enter key on the row element', () => {
   flatTableBodyRowByPosition(2).focus().trigger('keydown', { keyCode: 13, which: 13, force: true });
 });
