@@ -83,23 +83,15 @@ Feature: Button Toggle component
   Scenario: Disable Button Toggle grouped property
     Given I check grouped checkbox
     When I uncheck grouped checkbox
-      And I enable Button component
     Then Button Toggle is not grouped
 
   @positive
-  Scenario: Verify the onChange event for Button Toggle 0
+  Scenario Outline: Verify the onChange event for Button Toggle
     Given clear all actions in Actions Tab
-    When I click on Button Toggle 0
+    When I click on Button Toggle <index>
     Then onChange action was called in Actions Tab
-
-  @positive
-  Scenario: Verify the onChange event for Button Toggle 1
-    Given clear all actions in Actions Tab
-    When I click on Button Toggle 1
-    Then onChange action was called in Actions Tab
-
-  @positive
-  Scenario: Verify the onChange event for Button Toggle 2
-    Given clear all actions in Actions Tab
-    When I click on Button Toggle 2
-    Then onChange action was called in Actions Tab
+    Examples:
+      | index |
+      | 0     |
+      | 1     |
+      | 2     |

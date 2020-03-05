@@ -69,6 +69,6 @@ Then('Button Toggle is not grouped', () => {
   buttonTogglePreview().eq(THIRD_ELEMENT).should('have.css', 'margin-left', '10px');
 });
 
-When('I click on Button Toggle {int}', (button) => {
-  buttonTogglePreview().eq(button).click();
+When('I click on Button Toggle {int}', (index) => {
+  buttonTogglePreview().eq(index).click();
 });

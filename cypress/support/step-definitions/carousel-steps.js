@@ -25,10 +25,7 @@ Then('classic slide title is {string}', (title) => {
 
 Then('slide {int} title is {string}', (index, title) => {
   cy.wait(1500, { log: DEBUG_FLAG }); // required because of component refresh
-  for (let i = 1; i < index; ++i) {
-    slide(i + 1)
-      .should('have.text', title);
-  }
+  slide(index).should('have.text', title);
 });
 
 Then('I move carousel {string}', (direction) => {

@@ -26,25 +26,25 @@ Feature: Carousel component
   Scenario Outline: Move Carousel left to <index>
     Given I select slideIndex to "<index>"
     When I move carousel "left"
-    Then slide <index> title is "<title>"
+    Then slide <indexSlide> title is "<title>"
     Examples:
-      | index | title                |
-      | 1     | Slide 1              |
-      | 2     | Full clickable slide |
-      | 3     | Slide 3              |
-      | 4     | Slide 4              |
+      | index | indexSlide | title                |
+      | 1     | 0          | Slide 1              |
+      | 2     | 1          | Full clickable slide |
+      | 3     | 2          | Slide 3              |
+      | 4     | 3          | Slide 4              |
 
   @positive
   Scenario Outline: Move Carousel right to <index>
     Given I select slideIndex to "<index>"
     When I move carousel "right"
-    Then slide <index> title is "<title>"
+    Then slide <indexSlide> title is "<title>"
     Examples:
-      | index | title                |
-      | 0     | Full clickable slide |
-      | 1     | Slide 3              |
-      | 2     | Slide 4              |
-      | 3     | Slide 5              |
+      | index | indexSlide | title                |
+      | 0     | 1          | Full clickable slide |
+      | 1     | 2          | Slide 3              |
+      | 2     | 3          | Slide 4              |
+      | 3     | 4          | Slide 5              |
 
   @positive
   Scenario: Carousel previous arrow is disabled

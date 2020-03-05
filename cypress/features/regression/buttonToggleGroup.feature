@@ -46,18 +46,10 @@ Feature: Button Toggle Group component
       | 100   | 825.71875 |
 
   @negative
-  Scenario Outline: Set out of scope characters to Button Toggle Group input width to <width>
+  Scenario: Set Button Toggle Group input width to out of scope characters
     Given I check labelInline checkbox
-    When I set inputWidth to "<width>"
-    Then input width is not set to "<width>"
-    Examples:
-      | width                |
-      | Sample text          |
-      | 1234567890           |
-      | áéíóú¿¡üñ            |
-      | !@#$%^*()-=~[];:,?{} |
-      | ÄÖÜßäöüß             |
-      | <>                   |
+    When I set inputWidth to "TextáéíÄÖÜß!@#$%<>"
+    Then input width is not set to "TextáéíÄÖÜß!@#$%<>"
 
   @positive
   Scenario Outline: Change Button Toggle Group component field help to <fieldHelp>
@@ -79,10 +71,10 @@ Feature: Button Toggle Group component
     Then Button Toggle Group component has label-inline property
 
   @positive
-  Scenario: Enable and disable label inline checkbox
-    When I check labelInline checkbox
-      And I uncheck labelInline checkbox
-    Then Button Toggle Group component do not have label-inline property
+  Scenario: Disable label inline checkbox
+    Given I check labelInline checkbox
+    When I uncheck labelInline checkbox
+    Then Button Toggle Group component does not have label-inline property
 
   @positive
   Scenario Outline: Change Button Toggle Group label width to <width>
@@ -96,18 +88,11 @@ Feature: Button Toggle Group component
       | 100   |
 
   @negative
-  Scenario Outline: Set out of scope characters to Button Toggle Group label width to <width>
+  Scenario: Set Button Toggle Group label width to out of scope characters
     Given I check labelInline checkbox
-    When I set labelWidth to "<width>"
-    Then label width is not set "<width>"
-    Examples:
-      | width                |
-      | Sample text          |
-      | áéíóú¿¡üñ            |
-      | !@#$%^*()_=~[];:,?{} |
-      | ÄÖÜßäöüß             |
-      | <>                   |
-
+    When I set labelWidth to "TextáéíÄÖÜß!@#$%<>"
+    Then label width is not set "TextáéíÄÖÜß!@#$%<>"
+    
   @positive
   Scenario Outline: Change Toggle Button Group label align to <direction>
     Given I check labelInline checkbox
@@ -119,20 +104,13 @@ Feature: Button Toggle Group component
       | right     |
 
   @positive
-  Scenario: Verify the onChange event for a Button Toggle Group Foo
+  Scenario Outline: Verify the onChange event for a Button Toggle Group
     Given clear all actions in Actions Tab
-    When I click on Button Toggle Group "Foo"
+    When I click on Button Toggle Group "<buttonName>"
     Then onChange action was called in Actions Tab
-  
-  @ignore
+    Examples:
+      | buttonName |
+      | Foo        |
 # @ignore until component default state of selected is removed for FE-2346
-  Scenario: Verify the onChange event for a Button Toggle Group Bar
-    Given clear all actions in Actions Tab
-    When I click on Button Toggle Group "Bar"
-    Then onChange action was called in Actions Tab
-
-  @positive
-  Scenario: Verify the onChange event for a Button Toggle Group Baz
-    Given clear all actions in Actions Tab
-    When I click on Button Toggle Group "Baz"
-    Then onChange action was called in Actions Tab
+# | Bar        |
+      | Baz        |

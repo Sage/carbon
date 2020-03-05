@@ -8,7 +8,7 @@ Then('Button Toggle Group component has label-inline property', () => {
   label().should('have.css', 'text-align', 'left');
 });
 
-Then('Button Toggle Group component do not have label-inline property', () => {
+Then('Button Toggle Group component does not have label-inline property', () => {
   label().should('not.have.css', 'align-self', 'center');
   label().should('not.have.css', 'text-align', 'left');
 });
@@ -33,6 +33,6 @@ Then('label Align on preview is {string}', (direction) => {
   label().should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
 });
 
-When('I click on Button Toggle Group {string}', (button) => {
-  labelPreviewByText().contains(button).click();
+When('I click on Button Toggle Group {string}', (buttonName) => {
+  labelPreviewByText().contains(buttonName).click();
 });

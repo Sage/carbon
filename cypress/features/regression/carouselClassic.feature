@@ -57,8 +57,8 @@ Feature: Carousel classic component
 
   @positive
   Scenario Outline: Set transition to <transition> when I move <direction>
-    When I set transition to "<transition>"
-      And I click carousel "<direction>" button
+    Given I set transition to "<transition>"
+    When I click carousel "<direction>" button
     Then transition is set to "<transition>" with "<direction>"
     Examples:
       | transition | direction |
