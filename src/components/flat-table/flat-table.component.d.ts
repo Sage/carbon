@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-export interface ActionPopoverProps {
+export interface FlatTableProps {
   /** FlatTableHead and FlatTableBody */
   children: React.ReactNode;
   /** If true, the header does not scroll with the content */
   hasStickyHead?: boolean;
 }
 
-declare const ActionPopover: React.FunctionComponent<ActionPopoverProps>;
+declare const FlatTable: React.FunctionComponent<FlatTableProps>;
 
-export default ActionPopover;
+export default FlatTable;
