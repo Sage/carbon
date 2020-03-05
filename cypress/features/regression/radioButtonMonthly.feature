@@ -46,15 +46,15 @@ Feature: Experimental RadioButton monthly component
       | ÄÖÜßäöüß                |
       | <>                      |
 
- @positive
+  @positive
   Scenario: Disable RadioButton
     When I check group monthly disabled checkbox
     Then "monthly" RadioButton component is disabled
 
   @positive
   Scenario: Disable and enable RadioButton
-    When I check group monthly disabled checkbox
-      And I uncheck group monthly disabled checkbox
+    Given I check group monthly disabled checkbox
+    When I uncheck group monthly disabled checkbox
     Then "monthly" RadioButton component is enabled
 
   @positive
@@ -97,9 +97,9 @@ Feature: Experimental RadioButton monthly component
 
   @positive
   Scenario: Enable and disable fieldHelpInline
-    When I check group monthly fieldHelpInline checkbox
-      Then "monthly radio button" field help is set to fieldHelpInline and has margin-left set to "0px" and has margin-right "6px"
-      And I uncheck group monthly fieldHelpInline checkbox
+    Given I check group monthly fieldHelpInline checkbox
+      And "monthly radio button" field help is set to fieldHelpInline and has margin-left set to "0px" and has margin-right "6px"
+    When I uncheck group monthly fieldHelpInline checkbox
     Then "monthly radio button" field help is not set to fieldHelpInline and has margin-left set to "32px"
 
   # pixels are adjusted for Travis build. For normal cypress test runner test should fail

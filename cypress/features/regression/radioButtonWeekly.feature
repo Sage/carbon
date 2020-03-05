@@ -52,18 +52,18 @@ Feature: Experimental RadioButton weekly component
     Then "weekly" RadioButton component is disabled
 
   @positive
-  Scenario: Disable and enable checkbox
-    When I check group weekly disabled checkbox
-      And I uncheck group weekly disabled checkbox
+  Scenario: Disable and enable RadioButton
+    Given I check group weekly disabled checkbox
+    When I uncheck group weekly disabled checkbox
     Then "weekly" RadioButton component is enabled
 
   @positive
-  Scenario: Enable reverse radio button
+  Scenario: Enable reverse RadioButton
     When I check group weekly reverse checkbox
     Then "weekly" RadioButton is set to reverse
 
   @positive
-  Scenario: Enable and disable reverse checkbox
+  Scenario: Enable and disable reverse RadioButton
     Given I check group weekly reverse checkbox
     When I uncheck group weekly reverse checkbox
     Then "weekly" RadioButton is not set to reverse
@@ -97,9 +97,9 @@ Feature: Experimental RadioButton weekly component
 
   @positive
   Scenario: Enable and disable fieldHelpInline
-    When I check group weekly fieldHelpInline checkbox
-      Then "weekly radio button" field help is set to fieldHelpInline and has margin-left set to "0px" and has margin-right "6px"
-      And I uncheck group weekly fieldHelpInline checkbox
+    Given I check group weekly fieldHelpInline checkbox
+      And "weekly radio button" field help is set to fieldHelpInline and has margin-left set to "0px" and has margin-right "6px"
+    When I uncheck group weekly fieldHelpInline checkbox
     Then "weekly radio button" field help is not set to fieldHelpInline and has margin-left set to "32px"
 
   # pixels are adjusted for Travis build. For normal cypress test runner test should fail
