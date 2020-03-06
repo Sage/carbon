@@ -6,49 +6,39 @@ Feature: Show Edit Pod component
 
   @positive
   Scenario: Verify the inner content of the component
+    # commented because of BDD default scenario Given - When - Then
     # When I open "ShowEditPod" component page
     Then Show Edit Pod component has proper content inside itself
 
   @positive
   Scenario: Verify color of the edit icon
+    # commented because of BDD default scenario Given - When - Then
     # When I open "ShowEditPod" component page
     Then Edit icon has color "rgb(0, 128, 93)"
 
   @positive
-  Scenario Outline: Set Show Edit Pod as to <as>
-    When I select as to "<as>"
-    Then Show Edit Pod as value is set to "<as>"
-    Examples:
-      | as          |
-      | primary     |
-      | secondary   |
-      | tertiary    |
-      | tile        |
-      | transparent |
-
-  @positive
   Scenario: Enable border checkbox for a Show Edit Pod component
     When I check border checkbox
-    Then Show Edit Pod component has border property
+    Then Show Edit Pod component has border "rgb(204, 214, 218)" color
 
   @positive
   Scenario: Enable and disable border checkbox for a Show Edit Pod component
     Given I check border checkbox
     When I uncheck border checkbox
-    Then Show Edit Pod component has no border property
+    Then Show Edit Pod component has no border "rgba(0, 0, 0, 0.85)" color
 
   @positive
   Scenario: Enable border on a edit dialog view for a Show Edit Pod component
     When I check border checkbox
       And I click edit Show Edit Pod component
-    Then Show Edit Pod component has border property
+    Then Show Edit Pod component has border "rgb(204, 214, 218)" color
 
   @positive
   Scenario: Enable and disable border on a edit dialog view for a Show Edit Pod component
     Given I check border checkbox
     When I uncheck border checkbox
       And I click edit Show Edit Pod component
-    Then Show Edit Pod component has no border property
+    Then Show Edit Pod component has no border "rgba(0, 0, 0, 0.85)" color
 
   @positive
   Scenario Outline: Set Show Edit Pod buttonAlign to <position>
@@ -76,10 +66,12 @@ Feature: Show Edit Pod component
   # | <>                       |
 
   @positive
-  Scenario: Enable cancel checkbox for a Show Edit Pod component
-    When I check cancel checkbox
-      And I click edit Show Edit Pod component
-    Then Show Edit Pod component cancel button has color "rgb(0, 128, 93)" and borderColor "rgb(0, 128, 93)"
+  Scenario Outline: Enable cancel checkbox for a Show Edit Pod component
+    When I click edit Show Edit Pod component
+    Then Show Edit Pod component cancel button has color "<color>" and borderColor "<color>"
+    Examples:
+      | color           |
+      | rgb(0, 128, 93) |
 
   @positive
   Scenario: Enable and disable cancel checkbox for a Show Edit Pod component
@@ -144,6 +136,18 @@ Feature: Show Edit Pod component
       | ÄÖÜßäöüß                |
   # @ignore because of FE-1447
   # | <>                       |
+
+  @positive
+  Scenario Outline: Set Show Edit Pod podType property to <podType>
+    When I select podType to "<podType>"
+    Then Show Edit Pod background-color is set to "<background-color>"
+    Examples:
+      | podType     | background-color   |
+      | primary     | rgb(255, 255, 255) |
+      | secondary   | rgb(242, 244, 245) |
+      | tertiary    | rgb(229, 234, 236) |
+      | tile        | rgb(255, 255, 255) |
+      | transparent | rgba(0, 0, 0, 0)   |
 
   @positive
   Scenario: Edit action was called
