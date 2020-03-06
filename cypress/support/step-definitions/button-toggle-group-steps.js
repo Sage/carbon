@@ -1,7 +1,11 @@
-import { labelPreviewWidth, labelPreviewByText } from '../../locators/button-toggle-group';
+import { buttonToggleGroupLabelPreview, labelPreviewWidth } from '../../locators/button-toggle-group';
 import { label } from '../../locators';
 
 const TEXT_ALIGN = 'text-align';
+
+Then('Button Toggle Group label on preview is {string}', (text) => {
+  buttonToggleGroupLabelPreview().should('have.text', text);
+});
 
 Then('Button Toggle Group component has label-inline property', () => {
   label().should('have.css', 'box-sizing', 'border-box');

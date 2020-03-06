@@ -113,8 +113,7 @@ Always use unique selectors to locate elements with order below:
 ## Continuous Integration (CI)
 ### Travis
 Every commit / pull request in repository initializing cypress `@build` tests and runs:
-1. `npm run storybook-ci </dev/null &>/dev/null &` - runs storybook.
+1. `npm start` - runs storybook.
 2. `npm run lint ./src && npm test -- --maxWorkers=2` - runs lint test and after that runs jest tests.
-3. `npm run test-storybook-smoke` - runs `--smoke-test` and `--ci` - exit after successful start and don't open the browser.
-4. `wait-on http://localhost:9001` - waits until storybook is up and running and is ready to run tests.
-5. `npm run test-cypress-build` - run `@build` tests suite.
+3. `wait-on http://localhost:9001` - waits until storybook is up and running and is ready to run tests.
+4. `npm run test-cypress-build` - run `@build` tests suite.

@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 import StyledFlatTableHeader from './flat-table-header/flat-table-header.style';
+import StyledFlatTableRowHeader from './flat-table-row-header/flat-table-row-header.style';
+import StyledFlatTableHead from './flat-table-head/flat-table-head.style';
 
 const StyledFlatTableWrapper = styled.div`
   height: 100%;
@@ -9,6 +11,11 @@ const StyledFlatTableWrapper = styled.div`
     ${StyledFlatTableHeader} {
       background-color: #fff;
       position: sticky;
+      z-index: 1;
+    }
+
+    ${StyledFlatTableHead} ${StyledFlatTableRowHeader} {
+      z-index: 2;
     }
   `}
 `;
