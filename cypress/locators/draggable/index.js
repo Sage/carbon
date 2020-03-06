@@ -1,4 +1,4 @@
-import { DRAGGABLE_ITEM } from './locators';
+import { DRAGGABLE_ITEM, DRAG_ICON } from './locators';
 
 export const draggableItem = text => cy.get(DRAGGABLE_ITEM)
   .contains(`Draggable Label ${text}`)
@@ -7,11 +7,10 @@ export const draggableItem = text => cy.get(DRAGGABLE_ITEM)
   .parent()
   .parent()
   .parent()
-  .parent()
-  .find('[data-element="draggable"]')
-  .first();
+  .find(DRAG_ICON);
 
 export const draggableItemByPosition = index => cy.get(DRAGGABLE_ITEM)
   .parent()
   .find(`div:nth-child(${index})`)
-  .find('label');
+  .find('label')
+  .eq(index === 1 ? 1 : 0);
