@@ -14,7 +14,8 @@ const RadioButtonStyle = styled(CheckboxStyle)`
     fieldHelpInline,
     reverse,
     size,
-    theme
+    theme,
+    inline
   }) => css`
     margin-bottom: 12px;
 
@@ -118,6 +119,12 @@ const RadioButtonStyle = styled(CheckboxStyle)`
           }
         `}
       `}
+    `}
+
+    ${inline && `
+      &:not(:first-of-type) {
+        margin-left: 32px;
+      }
     `}
 
     ${ClassicRadioButtonStyles}

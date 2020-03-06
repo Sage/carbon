@@ -33,6 +33,20 @@
           "required": false,
           "description": "Help text"
         },
+        "labelInline": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Pass true to format the radiobutton/legend inline"
+        },
+        "inline": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Pass true to format the radiobutton inline"
+        },
         "hasError": {
           "type": {
             "name": "bool"
