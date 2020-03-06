@@ -1,4 +1,4 @@
-import { buttonToggleGroupLabelPreview, labelPreviewWidth } from '../../locators/button-toggle-group';
+import { buttonToggleGroupLabelPreview, labelPreviewWidth, labelPreviewByText } from '../../locators/button-toggle-group';
 import { label } from '../../locators';
 
 const TEXT_ALIGN = 'text-align';
@@ -12,7 +12,7 @@ Then('Button Toggle Group component has label-inline property', () => {
   label().should('have.css', 'text-align', 'left');
 });
 
-Then('Button Toggle Group component do not have label-inline property', () => {
+Then('Button Toggle Group component does not have label-inline property', () => {
   label().should('not.have.css', 'align-self', 'center');
   label().should('not.have.css', 'text-align', 'left');
 });
@@ -35,4 +35,8 @@ Then('input width is not set to {string}', (width) => {
 
 Then('label Align on preview is {string}', (direction) => {
   label().should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
+});
+
+When('I click on Button Toggle Group {string}', (buttonName) => {
+  labelPreviewByText().contains(buttonName).click();
 });

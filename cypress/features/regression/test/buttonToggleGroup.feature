@@ -2,7 +2,7 @@ Feature: Button Toggle Group component
   I want to change Button Toggle Group label, help label, input width, field help properties
 
   Background: Open Button Toggle Group component page
-    Given I open "Test Button Toggle Group" component page
+    Given I open basic Test "Button Toggle Group" component page
 
   @positive
   Scenario Outline: Change Button Toggle Group component label to <label>
@@ -34,27 +34,22 @@ Feature: Button Toggle Group component
   # | <>                       |
 
   @ignore
-  # ignored because the width renders into px
+  # @ignore until solution is applied to round sizes as integers as Chrome v80 has amended pixel sizes
   Scenario Outline: Change Button Toggle Group input width to <width>
-    When I check labelInline checkbox
-      And I set inputWidth to "<width>"
+    Given I check labelInline checkbox
+    When I set inputWidth to "<width>"
     Then input width is set to "<px>"
     Examples:
-      | width | px  |
-      | 1     | 11  |
-      | 10    | 83  |
-      | 100   | 304 |
+      | width | px        |
+      | 1     | 10.75     |
+      | 10    | 107.59375 |
+      | 100   | 825.71875 |
 
   @negative
-  Scenario Outline: Set out of scope characters to Button Toggle Group input width to <width>
-    When I check labelInline checkbox
-      And I set inputWidth to "<width>"
-    Then input width is not set to "<width>"
-    Examples:
-      | width                   |
-      | !@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                    |
-      | <>                      |
+  Scenario: Set Button Toggle Group input width to out of scope characters
+    Given I check labelInline checkbox
+    When I set inputWidth to "TextáéíÄÖÜß!@#$%<>"
+    Then input width is not set to "TextáéíÄÖÜß!@#$%<>"
 
   @positive
   Scenario Outline: Change Button Toggle Group component field help to <fieldHelp>
@@ -76,15 +71,15 @@ Feature: Button Toggle Group component
     Then Button Toggle Group component has label-inline property
 
   @positive
-  Scenario: Enable and disable label inline checkbox
-    When I check labelInline checkbox
-      And I uncheck labelInline checkbox
-    Then Button Toggle Group component do not have label-inline property
+  Scenario: Disable label inline checkbox
+    Given I check labelInline checkbox
+    When I uncheck labelInline checkbox
+    Then Button Toggle Group component does not have label-inline property
 
   @positive
   Scenario Outline: Change Button Toggle Group label width to <width>
-    When I check labelInline checkbox
-      And I set labelWidth to "<width>"
+    Given I check labelInline checkbox
+    When I set labelWidth to "<width>"
     Then label width is set to "<width>"
     Examples:
       | width |
@@ -93,22 +88,28 @@ Feature: Button Toggle Group component
       | 100   |
 
   @negative
-  Scenario Outline: Set out of scope characters to Button Toggle Group input width to <width>
-    When I check labelInline checkbox
-      And I set inputWidth to "<width>"
-    Then label width is not set "<width>"
-    Examples:
-      | width                   |
-      | !@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                    |
-      | <>                      |
+  Scenario: Set Button Toggle Group label width to out of scope characters
+    Given I check labelInline checkbox
+    When I set labelWidth to "TextáéíÄÖÜß!@#$%<>"
+    Then label width is not set "TextáéíÄÖÜß!@#$%<>"
 
   @positive
   Scenario Outline: Change Toggle Button Group label align to <direction>
-    When I check labelInline checkbox
-      And I select labelAlign to "<direction>"
+    Given I check labelInline checkbox
+    When I select labelAlign to "<direction>"
     Then label Align on preview is "<direction>"
     Examples:
       | direction |
       | left      |
       | right     |
+
+  @positive
+  Scenario Outline: Verify the onChange  event for a Button Toggle Group <buttonName> button
+    Given clear all actions in Actions Tab
+    When I click on Button Toggle Group "<buttonName>"
+    Then onChange action was called in Actions Tab
+    Examples:
+      | buttonName |
+      | Foo        |
+      | Bar        |
+      | Baz        |

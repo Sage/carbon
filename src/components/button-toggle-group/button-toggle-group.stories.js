@@ -55,7 +55,7 @@ function renderButtons(groupName) {
   });
 }
 
-export const Default = () => {
+export const Basic = () => {
   const label = text('label', 'Example ButtonToggleGroup');
   const labelInline = boolean('labelInline', false);
   const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
@@ -89,8 +89,8 @@ export const Default = () => {
   );
 };
 
-Default.story = {
-  name: 'default'
+Basic.story = {
+  name: 'Basic'
 };
 
 export const Classic = () => {

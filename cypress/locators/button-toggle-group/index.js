@@ -5,3 +5,6 @@ import { DLS_ROOT } from '../locators';
 export const dlsRoot = () => cy.iFrame(DLS_ROOT);
 export const buttonToggleGroupLabelPreview = () => dlsRoot().find('label').first();
 export const labelPreviewWidth = () => cy.iFrame(LABEL_PREVIEW_WIDTH);
+export const labelPreviewByText = () => cy.iFrame(LABEL_PREVIEW_WIDTH)
+  .find('div[data-component="button-toggle"]')
+  .find('label');
