@@ -2,7 +2,7 @@ Feature: Button Toggle Group classic component
   I want to change Button Toggle Group input width properties for classic story
 
   Background: Open Button Toggle Group component page classic
-    Given I open "Button Toggle Group" component page classic
+    Given I open "Test Button Toggle Group" component page classic
 
   @ignore
   # @ignore until solution is applied to round sizes as integers as Chrome v80 has amended pixel sizes

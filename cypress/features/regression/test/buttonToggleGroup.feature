@@ -92,7 +92,7 @@ Feature: Button Toggle Group component
     Given I check labelInline checkbox
     When I set labelWidth to "TextáéíÄÖÜß!@#$%<>"
     Then label width is not set "TextáéíÄÖÜß!@#$%<>"
-    
+
   @positive
   Scenario Outline: Change Toggle Button Group label align to <direction>
     Given I check labelInline checkbox
@@ -104,13 +104,12 @@ Feature: Button Toggle Group component
       | right     |
 
   @positive
-  Scenario Outline: Verify the onChange event for a Button Toggle Group
+  Scenario Outline: Verify the onChange  event for a Button Toggle Group <buttonName> button
     Given clear all actions in Actions Tab
     When I click on Button Toggle Group "<buttonName>"
     Then onChange action was called in Actions Tab
     Examples:
       | buttonName |
       | Foo        |
-# @ignore until component default state of selected is removed for FE-2346
-# | Bar        |
+      | Bar        |
       | Baz        |

@@ -1,4 +1,4 @@
-import { buttonToggleGroupLabelPreview, labelPreviewWidth } from '../../locators/button-toggle-group';
+import { buttonToggleGroupLabelPreview, labelPreviewWidth, labelPreviewByText } from '../../locators/button-toggle-group';
 import { label } from '../../locators';
 
 const TEXT_ALIGN = 'text-align';
