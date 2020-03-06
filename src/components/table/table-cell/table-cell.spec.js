@@ -62,10 +62,14 @@ describe('TableCell', () => {
   describe('with action', () => {
     beforeEach(() => {
       wrapper = mount(
-        <StyledTableCell
-          theme={ ClassicTheme }
-          action
-        />
+        <Table>
+          <TableRow>
+            <StyledTableCell
+              theme={ ClassicTheme }
+              action
+            />
+          </TableRow>
+        </Table>
       );
       td = wrapper.find('td').hostNodes();
     });
@@ -100,9 +104,13 @@ describe('TableCell', () => {
         it('renders an input that matches the expected style', () => {
           wrapper = mount(
             <ThemeProvider theme={ mintTheme }>
-              <TableCell size={ size }>
-                <TextBox />
-              </TableCell>
+              <Table>
+                <TableRow>
+                  <TableCell size={ size }>
+                    <TextBox />
+                  </TableCell>
+                </TableRow>
+              </Table>
             </ThemeProvider>
           );
 
@@ -112,23 +120,27 @@ describe('TableCell', () => {
             paddingLeft: tableSizes[size].paddingSize,
             paddingRight: tableSizes[size].paddingSize,
             position: 'relative'
-          }, wrapper, { modifier: `&& ${StyledInputPresentation}` });
+          }, wrapper.find(TableCell), { modifier: `&& ${StyledInputPresentation}` });
 
           assertStyleMatch({
             fontSize: tableSizes[size].fontSize,
             height: `${tableSizes[size].inputHeight}px`,
             paddingTop: '0px',
             paddingBottom: '0px'
-          }, wrapper,
+          }, wrapper.find(TableCell),
           { modifier: `&& ${StyledInput}` });
         });
 
         it('renders a textarea that matches the expected style', () => {
           wrapper = mount(
             <ThemeProvider theme={ mintTheme }>
-              <TableCell size={ size }>
-                <TextArea />
-              </TableCell>
+              <Table>
+                <TableRow>
+                  <TableCell size={ size }>
+                    <TextArea name='testTextarea' />
+                  </TableCell>
+                </TableRow>
+              </Table>
             </ThemeProvider>
           );
 
@@ -140,7 +152,7 @@ describe('TableCell', () => {
             position: 'relative',
             marginTop: '4px',
             marginBottom: '4px'
-          }, wrapper, { modifier: `&& ${StyledInputPresentation}` });
+          }, wrapper.find(TableCell), { modifier: `&& ${StyledInputPresentation}` });
 
           assertStyleMatch({
             fontSize: tableSizes[size].fontSize,
@@ -150,16 +162,20 @@ describe('TableCell', () => {
             height: 'auto !important',
             paddingTop: '5px',
             paddingBottom: '5px'
-          }, wrapper, { modifier: 'textarea' });
+          }, wrapper.find(TableCell), { modifier: 'textarea' });
         });
 
         it('renders to match the expected style for multiple textarea inputs', () => {
           wrapper = mount(
             <ThemeProvider theme={ mintTheme }>
-              <TableCell size={ size }>
-                <TextArea />
-                <Date value='2012-12-11' />
-              </TableCell>
+              <Table>
+                <TableRow>
+                  <TableCell size={ size }>
+                    <TextArea name='testTextarea' />
+                    <Date value='2012-12-11' />
+                  </TableCell>
+                </TableRow>
+              </Table>
             </ThemeProvider>
           );
 
@@ -171,7 +187,7 @@ describe('TableCell', () => {
             position: 'relative',
             marginTop: '4px',
             marginBottom: '4px'
-          }, wrapper, { modifier: `&& ${StyledInputPresentation}` });
+          }, wrapper.find(TableCell), { modifier: `&& ${StyledInputPresentation}` });
 
           assertStyleMatch({
             fontSize: tableSizes[size].fontSize,
@@ -181,15 +197,19 @@ describe('TableCell', () => {
             height: 'auto !important',
             paddingTop: '5px',
             paddingBottom: '5px'
-          }, wrapper, { modifier: 'textarea' });
+          }, wrapper.find(TableCell), { modifier: 'textarea' });
         });
 
         it('renders a Date input that matches the expected style', () => {
           wrapper = mount(
             <ThemeProvider theme={ mintTheme }>
-              <TableCell size={ size }>
-                <Date value='2012-12-11' />
-              </TableCell>
+              <Table>
+                <TableRow>
+                  <TableCell size={ size }>
+                    <Date value='2012-12-11' />
+                  </TableCell>
+                </TableRow>
+              </Table>
             </ThemeProvider>
           );
 
@@ -200,16 +220,20 @@ describe('TableCell', () => {
             paddingRight: tableSizes[size].paddingSize,
             position: 'relative',
             width: size === 'large' ? '150px' : undefined
-          }, wrapper, { modifier: `&& ${StyledInputPresentation}` });
+          }, wrapper.find(TableCell), { modifier: `&& ${StyledInputPresentation}` });
         });
 
         it('renders to match the expected style for multiple Date inputs', () => {
           wrapper = mount(
             <ThemeProvider theme={ mintTheme }>
-              <TableCell size={ size }>
-                <Date value='2012-12-11' />
-                <Date value='2012-12-11' />
-              </TableCell>
+              <Table>
+                <TableRow>
+                  <TableCell size={ size }>
+                    <Date value='2012-12-11' />
+                    <Date value='2012-12-11' />
+                  </TableCell>
+                </TableRow>
+              </Table>
             </ThemeProvider>
           );
 
@@ -220,7 +244,7 @@ describe('TableCell', () => {
             paddingRight: tableSizes[size].paddingSize,
             position: 'relative',
             width: size === 'large' ? '150px' : undefined
-          }, wrapper, { modifier: `&& ${StyledInputPresentation}` });
+          }, wrapper.find(TableCell), { modifier: `&& ${StyledInputPresentation}` });
         });
       }
     );
