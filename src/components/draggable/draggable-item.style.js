@@ -5,7 +5,7 @@ import Icon from '../icon';
 const StyledDraggableItem = styled.div`
   display: flex;
   align-items: center;
-  border-bottom: 1px solid ${({ theme }) => theme.draggableCheckbox.border};
+  border-bottom: 1px solid ${({ theme }) => theme.draggableItem.border};
   padding: 8px 0;
   cursor: move;
 

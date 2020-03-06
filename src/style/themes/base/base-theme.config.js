@@ -107,7 +107,7 @@ export default (palette) => {
       switch: palette.slateTint(89.5)
     },
 
-    draggableCheckbox: {
+    draggableItem: {
       border: palette.slateTint(90)
     },
 
