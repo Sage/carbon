@@ -89,12 +89,12 @@ exports[`DismissButton when render with no additional props should match snapsho
 `;
 
 exports[`LinkStyle applies peoper styling when focused 1`] = `
-.c0 {
+.c1 {
   display: inline-block;
 }
 
-.c0 a,
-.c0 button {
+.c1 a,
+.c1 button {
   font-size: 14px;
   -webkit-text-decoration: underline;
   text-decoration: underline;
@@ -102,47 +102,47 @@ exports[`LinkStyle applies peoper styling when focused 1`] = `
   display: inline-block;
 }
 
-.c0 a .c2,
-.c0 button .c2 {
+.c1 a .c2,
+.c1 button .c2 {
   margin-right: 5px;
   position: relative;
   vertical-align: middle;
 }
 
-.c0 a:hover,
-.c0 button:hover {
+.c1 a:hover,
+.c1 button:hover {
   cursor: pointer;
   color: #006300;
 }
 
-.c0 a:focus,
-.c0 button:focus {
+.c1 a:focus,
+.c1 button:focus {
   color: rgba(0,0,0,0.9);
   background-color: #FFDA7F;
   outline: none;
 }
 
-.c0 button {
+.c1 button {
   background-color: transparent;
   border: none;
   padding: 0;
 }
 
-.c1 a:focus {
+.c0 a:focus {
   outline: none;
   background-color: transparent;
 }
 
-.c1 a:focus span:before {
+.c0 a:focus span:before {
   outline: 2px solid #FFB500;
   outline-offset: 3px;
 }
 
-.c1 .carbon-link__content {
+.c0 .carbon-link__content {
   display: none;
 }
 
-.c1 .c2 {
+.c0 .c2 {
   margin-right: 0;
   top: -2px;
 }

@@ -52,7 +52,7 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   background-color: #0073C1;
 }
 
-.c6 {
+.c7 {
   background: transparent;
   border: none;
   color: rgba(0,0,0,0.9);
@@ -65,28 +65,28 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   width: 30px;
 }
 
-.c6::-webkit-input-placeholder {
+.c7::-webkit-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c6::-moz-placeholder {
+.c7::-moz-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c6:-ms-input-placeholder {
+.c7:-ms-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c6::placeholder {
+.c7::placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c6:invalid,
-.c6:required {
+.c7:invalid,
+.c7:required {
   box-shadow: none;
 }
 
-.c7 {
+.c6 {
   position: absolute;
   opacity: 0;
   height: 56px;
@@ -94,27 +94,27 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   margin: 0;
 }
 
-.c7:hover {
+.c6:hover {
   cursor: pointer;
 }
 
-.c7:focus + .c8 {
+.c6:focus + .c8 {
   box-shadow: inset 0px 0px 0px 3px #FFFFFF;
   border: 2px solid #FFB500;
 }
 
-.c0 {
+.c1 {
   border: none;
   margin: 0;
   padding: 0;
 }
 
-.c0.c0.c0 .c13 {
+.c1.c1.c1 .c13 {
   margin-top: 0;
   margin-bottom: -1px;
 }
 
-.c0 .c14 {
+.c1 .c14 {
   padding-top: 8px;
   padding-bottom: 8px;
 }
@@ -141,16 +141,16 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   outline: 2px solid #FFB500;
 }
 
-.c1 {
+.c0 {
   max-width: 300px;
 }
 
-.c1 .c2 {
+.c0 .c2 {
   margin-bottom: 16px;
   height: 26px;
 }
 
-.c1 .c2 legend {
+.c0 .c2 legend {
   font-size: 14px;
   margin-left: -2px;
 }
