@@ -49,6 +49,16 @@ For features that you have a proposed solution for, please write an [RFC](./rfcs
 * Legacy code used React Testutils - we are currently in the process of migrating to 100% Enzyme usage.
 * New tests need to be written using Enzyme - it's ok for a Testutils and Enzyme to be mixed in a legacy code file.
 
+## Commit Strategy
+
+We have adopted semantic-release, this ensures that we can release frequently, that our consumers can receive features faster and we can make small, incremental upgrades. An added benefit of this strategy is that breaking changes become less of an issue for our consumers.
+
+To read more about semantic-release, please read semantic-release RFC https://github.com/Sage/carbon/blob/master/rfcs/text/semantic-release.md
+
+For guidance on how to structure your commit message, please refer to the “How we teach this” section in the semantic-release RFC.
+https://github.com/Sage/carbon/blob/master/rfcs/text/semantic-release.md#how-we-teach-this
+Please read this before writing your commit message as the structure of the commit message will ultimately influence the version released and the release notes.
+
 ## Submitting Pull Requests
 
 When submitting a pull request, please ensure your branch meets the following criteria:
