@@ -38,6 +38,7 @@ export function dragAndDrop(draggableElement, destinationPosition, startFromHigh
   const ROW_HIGHT = 42;
   const TEN_PIXEL_MOVE = 45;
 
+  console.log(startFromHight);
   draggableElement
     .trigger('mousedown', { force: true, release: false })
     .wait(500) // required for correct drag&drop headless browser (500ms)

@@ -7,7 +7,9 @@ export const draggableItem = text => cy.get(DRAGGABLE_ITEM)
   .parent()
   .parent()
   .parent()
-  .find('span[data-element="drag"]');
+  .parent()
+  .find('[data-element="draggable"]')
+  .first();
 
 export const draggableItemByPosition = index => cy.get(DRAGGABLE_ITEM)
   .parent()
