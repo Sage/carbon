@@ -12,6 +12,7 @@ const FlatTableRowHeader = ({ align, children }) => {
 };
 
 FlatTableRowHeader.propTypes = {
+  /** Content alignment */
   align: PropTypes.oneOf(OptionsHelper.alignFull),
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.string])
 };

@@ -10,6 +10,7 @@ const FlatTableBody = ({ children }) => {
 };
 
 FlatTableBody.propTypes = {
+  /** Array of FlatTableRow. */
   children: PropTypes.node.isRequired
 };
 

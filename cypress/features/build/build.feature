@@ -184,8 +184,10 @@ Feature: Build tests
 
   @build
   Scenario Outline: Component <component> basic default page
-    When I open "<component>" component page basic in iframe
+    When I open basic Test "<component>" component page in noIframe
     Then "<data-component>" component is visible
     Examples:
-      | component   | data-component |
-      | test-search | search         |
+      | component  | data-component |
+      | Accordion  | accordion      |
+      | Flat Table | flat-table     |
+      | Search     | search         |
