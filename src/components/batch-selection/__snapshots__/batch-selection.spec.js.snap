@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BatchSelection component should render correctly 1`] = `
+.c5 {
+  display: inline-block;
+  position: relative;
+  color: rgba(0,0,0,0.65);
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c5:hover {
+  color: rgba(0,0,0,0.90);
+  background-color: transparent;
+}
+
+.c5::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e93a";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c3 {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.c3:focus {
+  color: rgba(0,0,0,0.9);
+  background-color: transparent;
+  outline: solid 3px #FFB500;
+}
+
+.c3:hover {
+  cursor: pointer;
+}
+
+.c3 .c4 {
+  position: relative;
+}
+
+.c3 .c4:focus {
+  border: none;
+}
+
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c0 .c2 {
+  margin: 0;
+  position: static;
+  padding: 10px;
+}
+
+.c0 .c2:hover {
+  background-color: #00A376;
+}
+
+.c0 .c2:hover .c4 {
+  color: #FFFFFF;
+}
+
+.c1 {
+  display: inline-block;
+  padding: 10px 15px;
+}
+
+<div
+  className="c0"
+  data-component="batch-selection"
+>
+  <span
+    className="c1"
+    data-element="selection-count"
+  >
+    <span>
+      3
+    </span>
+     
+    selected
+  </span>
+  <button
+    className="c2 c3"
+    onClick={[Function]}
+    onKeyDown={[Function]}
+  >
+    <span
+      className="c4 c5"
+      data-component="icon"
+      data-element="edit"
+      disabled={false}
+      fontSize="small"
+      type="edit"
+    />
+  </button>
+</div>
+`;
