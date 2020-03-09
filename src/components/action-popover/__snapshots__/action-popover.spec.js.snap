@@ -404,7 +404,6 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
     ]
   }
   menuID="ActionPopoverMenu_guid-12345"
-  onClick={[Function]}
   parentID="ActionPopoverItem_guid-12345"
   setFocusIndex={[Function]}
   setItems={[Function]}
@@ -423,7 +422,6 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
     data-element="action-popover-submenu"
     id="ActionPopoverMenu_guid-12345"
     isOpen={false}
-    onClick={[Function]}
     onKeyDown={[Function]}
     role="menu"
     style={
@@ -564,7 +562,6 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
       }
       id="ActionPopoverMenu_guid-12345"
       isOpen={false}
-      onClick={[Function]}
       onKeyDown={[Function]}
       role="menu"
       style={
@@ -581,7 +578,6 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
         data-component="action-popover"
         data-element="action-popover-submenu"
         id="ActionPopoverMenu_guid-12345"
-        onClick={[Function]}
         onKeyDown={[Function]}
         role="menu"
         style={
@@ -1158,7 +1154,6 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
     ]
   }
   menuID="ActionPopoverMenu_guid-12345"
-  onClick={[Function]}
   parentID="ActionPopoverItem_guid-12345"
   setFocusIndex={[Function]}
   setItems={[Function]}
@@ -1177,7 +1172,6 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
     data-element="action-popover-submenu"
     id="ActionPopoverMenu_guid-12345"
     isOpen={false}
-    onClick={[Function]}
     onKeyDown={[Function]}
     role="menu"
     style={
@@ -1267,7 +1261,6 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
       }
       id="ActionPopoverMenu_guid-12345"
       isOpen={false}
-      onClick={[Function]}
       onKeyDown={[Function]}
       role="menu"
       style={
@@ -1284,7 +1277,6 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
         data-component="action-popover"
         data-element="action-popover-submenu"
         id="ActionPopoverMenu_guid-12345"
-        onClick={[Function]}
         onKeyDown={[Function]}
         role="menu"
         style={
@@ -1609,7 +1601,6 @@ exports[`ActionPopover submenu left aligned does not close the submenu unless ri
     ]
   }
   menuID="ActionPopoverMenu_guid-12345"
-  onClick={[Function]}
   parentID="ActionPopoverItem_guid-12345"
   setFocusIndex={[Function]}
   setItems={[Function]}
@@ -1628,7 +1619,6 @@ exports[`ActionPopover submenu left aligned does not close the submenu unless ri
     data-element="action-popover-submenu"
     id="ActionPopoverMenu_guid-12345"
     isOpen={false}
-    onClick={[Function]}
     onKeyDown={[Function]}
     role="menu"
     style={
@@ -1769,7 +1759,6 @@ exports[`ActionPopover submenu left aligned does not close the submenu unless ri
       }
       id="ActionPopoverMenu_guid-12345"
       isOpen={false}
-      onClick={[Function]}
       onKeyDown={[Function]}
       role="menu"
       style={
@@ -1786,7 +1775,6 @@ exports[`ActionPopover submenu left aligned does not close the submenu unless ri
         data-component="action-popover"
         data-element="action-popover-submenu"
         id="ActionPopoverMenu_guid-12345"
-        onClick={[Function]}
         onKeyDown={[Function]}
         role="menu"
         style={
@@ -2363,7 +2351,6 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
     ]
   }
   menuID="ActionPopoverMenu_guid-12345"
-  onClick={[Function]}
   parentID="ActionPopoverItem_guid-12345"
   setFocusIndex={[Function]}
   setItems={[Function]}
@@ -2382,7 +2369,6 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
     data-element="action-popover-submenu"
     id="ActionPopoverMenu_guid-12345"
     isOpen={false}
-    onClick={[Function]}
     onKeyDown={[Function]}
     role="menu"
     style={
@@ -2472,7 +2458,6 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
       }
       id="ActionPopoverMenu_guid-12345"
       isOpen={false}
-      onClick={[Function]}
       onKeyDown={[Function]}
       role="menu"
       style={
@@ -2489,7 +2474,6 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
         data-component="action-popover"
         data-element="action-popover-submenu"
         id="ActionPopoverMenu_guid-12345"
-        onClick={[Function]}
         onKeyDown={[Function]}
         role="menu"
         style={
@@ -3035,7 +3019,6 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
     ]
   }
   menuID="ActionPopoverMenu_guid-12345"
-  onClick={[Function]}
   parentID="ActionPopoverItem_guid-12345"
   setFocusIndex={[Function]}
   setItems={[Function]}
@@ -3054,7 +3037,6 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
     data-element="action-popover-submenu"
     id="ActionPopoverMenu_guid-12345"
     isOpen={false}
-    onClick={[Function]}
     onKeyDown={[Function]}
     role="menu"
     style={
@@ -3144,7 +3126,6 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
       }
       id="ActionPopoverMenu_guid-12345"
       isOpen={false}
-      onClick={[Function]}
       onKeyDown={[Function]}
       role="menu"
       style={
@@ -3161,7 +3142,6 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
         data-component="action-popover"
         data-element="action-popover-submenu"
         id="ActionPopoverMenu_guid-12345"
-        onClick={[Function]}
         onKeyDown={[Function]}
         role="menu"
         style={
@@ -3708,7 +3688,6 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
     ]
   }
   menuID="ActionPopoverMenu_guid-12345"
-  onClick={[Function]}
   parentID="ActionPopoverItem_guid-12345"
   setFocusIndex={[Function]}
   setItems={[Function]}
@@ -3727,7 +3706,6 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
     data-element="action-popover-submenu"
     id="ActionPopoverMenu_guid-12345"
     isOpen={false}
-    onClick={[Function]}
     onKeyDown={[Function]}
     role="menu"
     style={
@@ -3868,7 +3846,6 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
       }
       id="ActionPopoverMenu_guid-12345"
       isOpen={false}
-      onClick={[Function]}
       onKeyDown={[Function]}
       role="menu"
       style={
@@ -3885,7 +3862,6 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
         data-component="action-popover"
         data-element="action-popover-submenu"
         id="ActionPopoverMenu_guid-12345"
-        onClick={[Function]}
         onKeyDown={[Function]}
         role="menu"
         style={
@@ -4430,7 +4406,6 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
     ]
   }
   menuID="ActionPopoverMenu_guid-12345"
-  onClick={[Function]}
   parentID="ActionPopoverItem_guid-12345"
   setFocusIndex={[Function]}
   setItems={[Function]}
@@ -4449,7 +4424,6 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
     data-element="action-popover-submenu"
     id="ActionPopoverMenu_guid-12345"
     isOpen={false}
-    onClick={[Function]}
     onKeyDown={[Function]}
     role="menu"
     style={
@@ -4590,7 +4564,6 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
       }
       id="ActionPopoverMenu_guid-12345"
       isOpen={false}
-      onClick={[Function]}
       onKeyDown={[Function]}
       role="menu"
       style={
@@ -4607,7 +4580,6 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
         data-component="action-popover"
         data-element="action-popover-submenu"
         id="ActionPopoverMenu_guid-12345"
-        onClick={[Function]}
         onKeyDown={[Function]}
         role="menu"
         style={
