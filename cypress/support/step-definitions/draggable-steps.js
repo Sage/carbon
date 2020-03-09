@@ -5,6 +5,7 @@ Then('Draggable {string} is dragged to {int}', (record, destinationId) => {
 });
 
 When('I drag Draggable {string} to {int}', (record, destinationId) => {
+  // added new drag&drop method to test react-dnd component
   draggableItem(record).trigger('dragstart');
   draggableItemByPosition(destinationId).trigger('drop').trigger('dragend');
 });
