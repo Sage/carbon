@@ -112,3 +112,4 @@ Feature: Accessibility tests
       | Flat Table               | flat-table          |
       | Search                   | search              |
       | Button Toggle Group      | button-toggle-group |
+      | Draggable                | draggable           |

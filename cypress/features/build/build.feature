@@ -191,3 +191,8 @@ Feature: Build tests
       | Flat Table               | flat-table          |
       | Search                   | search              |
       | Button Toggle Group      | button-toggle-group |
+
+  @build
+  Scenario: Component Draggable basic default page and verify data-element
+    When I open basic Test "Draggable" component page in noIframe
+    Then "draggable" element is visible

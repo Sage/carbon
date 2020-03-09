@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DragSource } from 'react-dnd';
+import { DragSource } from 'react-dnd-legacy';
 import ItemTypes from '../../../utils/helpers/dnd/item-types';
 import BrowserHelper from '../../../utils/helpers/browser';
 
