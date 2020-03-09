@@ -1,5 +1,5 @@
 import {
-  visitComponentUrl, setSlidebar, pressESCKey, pressTABKey, asyncWaitForKnobs,
+  visitComponentUrl, setSlidebar, pressESCKey, pressTABKey, asyncWaitForKnobs, visitFlatTableComponentNoiFrame,
 } from '../helper';
 import {
   commonButtonPreview, labelPreview, helpIcon, helpIconByPosition, inputWidthSlider,
@@ -156,6 +156,10 @@ Given('I open basic Test {string} component page in noIframe', (component) => {
   visitComponentUrl(component, 'basic', true, 'test-');
 });
 
+When('I open Test {string} component basic page with prop value', (componentName) => {
+  visitFlatTableComponentNoiFrame(componentName, 'basic', true, 'test-');
+});
+
 Given('I open grouped Test {string} component page in noIframe', (component) => {
   visitComponentUrl(component, 'grouped', true, 'test-');
 });
@@ -306,6 +310,7 @@ Then('fieldHelp on preview is set to {string}', (text) => {
 });
 
 Then('{string} fieldHelp on preview is set to {string}', (position, text) => {
+  cy.wait(1500, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
   switch (position) {
     case 'First':
       fieldHelpPreviewByPosition(FIRST_ELEMENT).should('have.text', text);
@@ -380,17 +385,16 @@ Then('closeIcon is not visible', () => {
   closeIconButton().should('not.exist');
 });
 
-// needs to be refactored when golden color will be fixed for Close icon - FE-2508
 Then('closeIcon has the border outline', () => {
-  closeIconButton().rightclick();
-  closeIconButton().should('have.css', 'outline-color', 'rgba(0, 103, 244, 0.247)')
-    .and('have.css', 'outline-width', '5px');
+  closeIconButton().should('have.css', 'outline', 'rgb(255, 181, 0) solid 3px');
 });
 
-Then('closeIcon has no border outline for classic story', () => {
-  closeIconButton().rightclick();
-  closeIconButton().should('not.have.css', 'outline-color', 'rgba(0, 103, 244, 0.247)')
-    .and('not.have.css', 'outline-width', '5px');
+Then('closeIcon has border outline for classic story', () => {
+  closeIconButton().should('have.css', 'outline', 'rgba(0, 103, 244, 0.247) auto 5px');
+});
+
+Then('closeIcon is focused', () => {
+  closeIconButton().focus();
 });
 
 When('I hit ESC key', () => {
@@ -498,7 +502,7 @@ When('I click above of the component into iFrame', () => {
 });
 
 Then('{string} tab in {string} tab list is visible', (knobsName, position) => {
-  cy.wait(3000, { log: DEBUG_FLAG }); // required because element needs to be loaded
+  cy.wait(3500, { log: DEBUG_FLAG }); // required because element needs to be loaded
   switch (position) {
     case 'first':
       knobsNameTab(knobsName, FIRST_ELEMENT).should('be.visible')

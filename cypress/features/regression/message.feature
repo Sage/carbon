@@ -7,7 +7,7 @@ Feature: Message component
   @positive
   Scenario: CloseIcon has correct border colour
     Given I click closeIcon
-    Then closeIcon has golden border on focus
+    Then closeIcon has the border outline
 
   @positive
   Scenario Outline: Change Message title to <title>
