@@ -41,7 +41,7 @@ Feature: Accessibility tests
       | action-popover                   |
       | animated menu button             |
       | app wrapper                      |
-      | button toggle group              |
+      | test button toggle group         |
       | button toggle                    |
       | button                           |
       | carousel                         |
