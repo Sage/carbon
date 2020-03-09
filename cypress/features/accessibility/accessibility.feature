@@ -41,7 +41,6 @@ Feature: Accessibility tests
       | action-popover                   |
       | animated menu button             |
       | app wrapper                      |
-      | test button toggle group         |
       | button toggle                    |
       | button                           |
       | carousel                         |
@@ -108,5 +107,9 @@ Feature: Accessibility tests
     When I open Accessibility Tab
     Then "<component>" component has no violations in Accessibility section
     Examples:
-      | component | data-component |
-      | Draggable | draggable      |
+      | component                | data-component      |
+      | Accordion                | accordion           |
+      | Flat Table               | flat-table          |
+      | Search                   | search              |
+      | Button Toggle Group      | button-toggle-group |
+      | Draggable                | draggable           |
