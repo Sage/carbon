@@ -1,9 +1,11 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import { css } from 'styled-components';
+import { mount } from 'enzyme';
 import { RadioButton, RadioButtonGroup } from '.';
 import { LegendContainerStyle } from '../fieldset/fieldset.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import RadioButtonGroupStyle from './radio-button-group.style';
 
 const buttonValues = ['test-1', 'test-2'];
 const name = 'test-group';
@@ -54,6 +56,15 @@ describe('RadioButtonGroup', () => {
         },
         render().toJSON(),
         { modifier: css`${LegendContainerStyle} legend` }
+      );
+    });
+
+    it('applies the correct Legend Container styles', () => {
+      assertStyleMatch(
+        {
+          display: 'flex'
+        },
+        mount(<RadioButtonGroupStyle inline />)
       );
     });
   });

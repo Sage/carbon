@@ -18,6 +18,13 @@
           },
           "required": false,
           "description": "The text for the fieldsets legend element."
+        },
+        "inline": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Pass true to format the children/legend inline"
         }
       }
     }

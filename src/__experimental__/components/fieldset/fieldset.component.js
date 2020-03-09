@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { validProps } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
-import { FieldsetStyle, LegendContainerStyle } from './fieldset.style';
+import { FieldsetStyle, LegendContainerStyle, FieldsetContentStyle } from './fieldset.style';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
 import { getValidationType } from '../../../components/validations/with-validation.hoc';
 
@@ -27,7 +27,10 @@ const Fieldset = (props) => {
     if (!props.legend) return null;
 
     return (
-      <LegendContainerStyle>
+      <LegendContainerStyle
+        inline={ props.inline }
+        data-component='legend-style'
+      >
         <legend data-element='legend'>
           { props.legend }
         </legend>
@@ -46,8 +49,13 @@ const Fieldset = (props) => {
       { ...tagComponent('fieldset', props) }
       { ...safeProps }
     >
-      { legend() }
-      { props.children }
+      <FieldsetContentStyle
+        data-component='fieldset-style'
+        inline={ props.inline }
+      >
+        { legend() }
+        { props.children }
+      </FieldsetContentStyle>
     </FieldsetStyle>
   );
 };
@@ -64,7 +72,13 @@ Fieldset.propTypes = {
   /** Prop to indicate additional information  */
   hasInfo: PropTypes.bool,
   /** A message that the ValidationIcon component will display */
-  tooltipMessage: PropTypes.string
+  tooltipMessage: PropTypes.string,
+  /** When true, legend is placed in line with the children */
+  inline: PropTypes.bool
+};
+
+Fieldset.defaultProps = {
+  inline: false
 };
 
 export default Fieldset;

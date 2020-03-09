@@ -79,6 +79,8 @@ const groupedKnobs = (type, themeName) => {
 
 const radioComponent = themeName => () => {
   const labelHelp = text('labelHelp', 'Group label helper');
+  const inline = boolean('inline', false);
+  const labelInline = boolean('labelInline', false);
 
   return (
     <State store={ radioToggleGroupStore }>
@@ -87,6 +89,8 @@ const radioComponent = themeName => () => {
         name='frequency'
         legend={ text('groupLabel', 'Please select a frequency from the options below') }
         onChange={ handleGroupChangeFactory(radioToggleGroupStore) }
+        inline={ inline }
+        labelInline={ labelInline }
       >
         <RadioButton
           id='input-1'
