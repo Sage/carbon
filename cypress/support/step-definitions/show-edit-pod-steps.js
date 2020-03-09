@@ -36,17 +36,10 @@ When('Edit icon has color {string}', (color) => {
 });
 
 Then('Show Edit Pod component has border {string} color', (color) => {
-  showEditPodComponent().find('div').eq(0).should('have.css', 'border-bottom-color', color);
-  showEditPodComponent().find('div').eq(0).should('have.css', 'border-left-color', color);
-  showEditPodComponent().find('div').eq(0).should('have.css', 'border-right-color', color);
-  showEditPodComponent().find('div').eq(0).should('have.css', 'border-top-color', color);
-});
-
-Then('Show Edit Pod component has no border {string} color', (color) => {
-  showEditPodComponent().find('div').eq(0).should('have.css', 'border-bottom-color', color);
-  showEditPodComponent().find('div').eq(0).should('have.css', 'border-left-color', color);
-  showEditPodComponent().find('div').eq(0).should('have.css', 'border-right-color', color);
-  showEditPodComponent().find('div').eq(0).should('have.css', 'border-top-color', color);
+  showEditPodComponent().find('div').eq(FIRST_DIV).should('have.css', 'border-bottom-color', color);
+  showEditPodComponent().find('div').eq(FIRST_DIV).should('have.css', 'border-left-color', color);
+  showEditPodComponent().find('div').eq(FIRST_DIV).should('have.css', 'border-right-color', color);
+  showEditPodComponent().find('div').eq(FIRST_DIV).should('have.css', 'border-top-color', color);
 });
 
 Then('Show Edit Pod component on a secondary block has border property', () => {
@@ -58,8 +51,7 @@ Then('Show Edit Pod component on a secondary block has no border property', () =
 });
 
 Then('Show Edit Pod component cancel button has color {string} and borderColor {string}', (color, borderColor) => {
-  showEditPodCancelButton()
-    .should('be.visible')
+  showEditPodCancelButton().should('be.visible')
     .and('have.css', 'background', 'rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box')
     .and('have.css', 'border-color', borderColor)
     .and('have.css', 'color', color);
@@ -72,8 +64,7 @@ Then('Show Edit Pod component hasn\'t a cancel button', () => {
 Then('Show Edit Pod classic component has saving property', () => {
   showEditPodSaveButton().should('be.disabled');
   showEditPodSaveButton().should('have.attr', 'disabled');
-  showEditPodSaveButton()
-    .should('have.css', 'background', 'rgb(230, 235, 237) none repeat scroll 0% 0% / auto padding-box border-box')
+  showEditPodSaveButton().should('have.css', 'background', 'rgb(230, 235, 237) none repeat scroll 0% 0% / auto padding-box border-box')
     .and('have.css', 'border', '1px solid rgba(0, 0, 0, 0)')
     .and('have.css', 'color', 'rgba(0, 0, 0, 0.2)');
 });
@@ -81,8 +72,7 @@ Then('Show Edit Pod classic component has saving property', () => {
 Then('Show Edit Pod component has saving property', () => {
   showEditPodSaveButton().should('be.disabled');
   showEditPodSaveButton().should('have.attr', 'disabled');
-  showEditPodSaveButton()
-    .should('have.css', 'background', 'rgb(229, 234, 236) none repeat scroll 0% 0% / auto padding-box border-box')
+  showEditPodSaveButton().should('have.css', 'background', 'rgb(229, 234, 236) none repeat scroll 0% 0% / auto padding-box border-box')
     .and('have.css', 'border', '2px solid rgba(0, 0, 0, 0)')
     .and('have.css', 'color', 'rgba(0, 0, 0, 0.3)');
 });
@@ -92,7 +82,7 @@ Then('Show Edit Pod component has no saving property', () => {
 });
 
 Then('Show Edit Pod background-color is set to {string}', (color) => {
-  showEditPodComponent().find('div').eq(0).should('have.css', 'background-color', color);
+  showEditPodComponent().find('div').eq(FIRST_DIV).should('have.css', 'background-color', color);
 });
 
 Then('Show Edit Pod buttons are aligned to {string}', (position) => {
