@@ -2,7 +2,7 @@ Feature: Draggable Component
   I want to change Draggable component
 
   Background: Open Draggable Component in iframe
-    Given I open "test-draggable" component page basic in iframe
+    Given I open basic Test "Draggable" component page in noIframe
 
   @positive
   Scenario Outline: Drag record <record> inside Draggable to <destinationId> element position

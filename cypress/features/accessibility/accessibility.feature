@@ -101,3 +101,12 @@ Feature: Accessibility tests
       | experimental-checkbox            |
       | experimental-switch              |
       | experimental-decimal-input       |
+
+  @accessibility
+  Scenario Outline: Component <component> basic default page
+    Given I open basic Test "<component>" component page
+    When I open Accessibility Tab
+    Then "<component>" component has no violations in Accessibility section
+    Examples:
+      | component | data-component |
+      | Draggable | draggable      |
