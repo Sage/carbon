@@ -191,3 +191,9 @@ Feature: Build tests
       | Accordion  | accordion      |
       | Flat Table | flat-table     |
       | Search     | search         |
+
+  @build
+  Scenario: Component Draggable basic default page and verify data-element
+    When I open basic Test "Draggable" component page in noIframe
+    Then "draggable" element is visible
+      | Draggable  | draggable      |
