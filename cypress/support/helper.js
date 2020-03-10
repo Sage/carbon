@@ -75,7 +75,7 @@ export function setSlidebar(selector, value) {
 }
 
 export function pressESCKey() {
-  // using Shift+Esc - because of storybook shortcuts overeride
+  // using Shift+Esc - because of storybook shortcuts override
   cy.iFrame('body').type('{shift}{esc}');
 }
 

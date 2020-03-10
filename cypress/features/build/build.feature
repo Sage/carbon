@@ -188,6 +188,7 @@ Feature: Build tests
     Examples:
       | component                | data-component      |
       | Accordion                | accordion           |
+      | Anchornavigation         | anchor-navigation   |
       | Flat Table               | flat-table          |
       | Search                   | search              |
       | Button Toggle Group      | button-toggle-group |
