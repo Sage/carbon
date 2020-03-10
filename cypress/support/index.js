@@ -29,6 +29,11 @@ export const DEBUG_FLAG = false;
 //     cy.route('/countries*', {});
 // })
 
+// Configure custom commands eyes-cypress
+import '@applitools/eyes-cypress/commands'
+
+import applitools_settings from '../../applitools.config.js'
+
 /* returning false here prevents Cypress from failing the test */
 Cypress.on('uncaught:exception', (err, runnable) => false);
 
@@ -82,3 +87,24 @@ before(() => {
 });
 
 Cypress.Screenshot.defaults({ screenshotOnRunFailure: DEBUG_FLAG });
+
+const {
+  Before,
+  After
+} = require("cypress-cucumber-preprocessor/steps");
+
+
+if ( Cypress.env('CYPRESS_APPLITOOLS') ) {
+  Before({ tags: "@applitools" }, () => {
+    applitools_settings.testName = cy.state('ctx').test.title
+    applitools_settings.batchName = cy.state('ctx').test.parent.title
+
+    cy.eyesOpen(applitools_settings); 
+  });
+
+  After({ tags: "@applitools" }, () => {
+    cy.eyesClose();
+  });
+}
+
+

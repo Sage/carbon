@@ -4,21 +4,23 @@ Feature: Button component
   Background: Open Button component default page
     Given I open "Button" component page
 
-  @positive
+  @positive @applitools
   Scenario Outline: Set Button size to <size>
     When I select size to "<size>"
     Then Button height is "<height>" and width is "<width>"
+      And Element displays correctly
     Examples:
       | size   | height | width     |
       | small  | 32     | 136.4375  |
       | medium | 40     | 152.4375  |
       | large  | 48     | 182.78125 |
 
-  @positive
+  @positive @applitools
   Scenario Outline: Set Button subtext to <subtext>
     Given I select size to "large"
     When I set subtext to "<subtext>"
     Then Button subtext on preview is "<subtext>"
+      And Element displays correctly
     Examples:
       | subtext                 |
       | Sample text             |
@@ -28,11 +30,12 @@ Feature: Button component
       | ÄÖÜßäöüß                |
       | <>                      |
 
-  @positive
+  @positive @applitools
   Scenario Outline: Set Button Type as <buttonType>
     When I select buttonType to "<buttonType>"
     Then Button font color is "<font-color>"
       And Button background color is "<background-color>"
+      And Element displays correctly
     Examples:
       | buttonType     | font-color         | background-color   |
       | primary        | rgb(255, 255, 255) | rgb(0, 128, 93)    |
@@ -41,10 +44,11 @@ Feature: Button component
       | destructive    | rgb(255, 255, 255) | rgb(199, 56, 79)   |
       | darkBackground | rgb(0, 128, 93)    | rgb(255, 255, 255) |
 
-  @positive
+  @positive @applitools
   Scenario Outline: Set Button component label to <label>
     When I set children to "<label>"
     Then Button label on preview is "<label>"
+      And Element displays correctly
     Examples:
       | label                   |
       | Sample text             |
@@ -54,30 +58,34 @@ Feature: Button component
       | ÄÖÜßäöüß                |
       | <>                      |
 
-  @positive
+  @positive @applitools
   Scenario: Disable Button
     When I disable Button component
     Then Button is disabled
+      And Element displays correctly
 
-  @positive
+  @positive @applitools
   Scenario: Disable and enable Button
     Given I disable Button component
     When I enable Button component
     Then Button is enabled
+      And Element displays correctly
 
-  @positive
+  @positive @applitools
   Scenario Outline: Change Button icon position to <iconPosition>
     Given I check has icon checkbox
     When I select iconType to "add"
       And I select iconPosition to "<iconPosition>"
     Then Button icon position is set to "<iconPosition>"
+      And Element displays correctly
     Examples:
       | iconPosition |
       | after        |
       | before       |
 
-  @positive
+  @positive @applitools
   Scenario: Verify the click function for a Button component
     Given clear all actions in Actions Tab
     When I click on "button"
     Then click action was called in Actions Tab
+      And Element displays correctly
