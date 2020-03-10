@@ -8,7 +8,7 @@ const Info = (
     <StoryHeader>How to use the Button component:</StoryHeader>
 
     <p>
-      {'Button is rendered as one of "primary", "secondary", "tertiary", "destructive", "darkBacground"'}
+      {'Button is rendered as one of "primary", "secondary", "tertiary", "darkBacground"'}
     </p>
 
     <p>In your file</p>
