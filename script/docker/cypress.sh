@@ -6,6 +6,7 @@ export COMPOSE_FILE=docker-compose-cypress.yml
 HELP_TEXT="Options:\n\n
 --build\t\t\tRuns the build tests\n
 --accessibility\t\tRuns the accessibility tests\n
+--visual\t\tRuns the visual tests\n
 --regression\t\t\tRuns the regression tests
 --regression-common\t\t\tRuns the regression common tests
 --regression-experimental\t\t\tRuns the regression experimental tests
@@ -17,6 +18,7 @@ HELP_TEXT="Options:\n\n
 
 RUN_BUILD=false
 RUN_ACCESSIBILITY=false
+RUN_VISUAL=false
 RUN_REGRESSION=false
 RUN_REGRESSION_COMMON=false
 RUN_REGRESSION_EXPERIMENTAL=false
@@ -40,6 +42,11 @@ while test $# -gt 0; do
         # run accessibility tests
         -a|--accessibility)
           RUN_ACCESSIBILITY=true
+          shift
+          ;;
+        # run visual tests
+        -v|--visual)
+          RUN_VISUAL=true
           shift
           ;;
         # run regression tests
@@ -91,6 +98,11 @@ fi
 if $RUN_ACCESSIBILITY; then
   echo 'Running accessibility tests'
   docker-compose exec -T cypress bash -c "wait-on http://storybook:9001 && npm run test-cypress-accessibility"
+fi
+
+if $RUN_VISUAL; then
+  echo 'Running visual tests'
+  docker-compose exec -T cypress bash -c "wait-on http://storybook:9001 && npm run test-cypress-visual"
 fi
 
 if $RUN_REGRESSION; then

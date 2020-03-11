@@ -1,6 +1,6 @@
 import { radioButtonComponent } from '../locators/radioButton';
 
-export const DEBUG_FLAG = false;
+export const DEBUG_FLAG = true;
 
 // ***********************************************************
 // This example support/index.js is processed and

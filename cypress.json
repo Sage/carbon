@@ -20,5 +20,6 @@
   "viewportWidth": 1366,
   "viewportHeight": 768,
   "reporter": "mocha-allure-reporter, spec",
-  "chromeWebSecurity": false
+  "chromeWebSecurity": false,
+  "eyesTimeout": 600000
 }

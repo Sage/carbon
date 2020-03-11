@@ -4,10 +4,11 @@ Feature: Button Toggle component
   Background: Open Button Toggle component page
     Given I open "Button Toggle" component page
 
-  @positive
+  @positive @applitools
   Scenario Outline: Set Button Toggle childen to <label>
     When I set children to "<label>"
     Then Button Toggle label on preview is "<label>"
+      And Element displays correctly
     Examples:
       | label                   |
       | Sample text             |
@@ -18,11 +19,12 @@ Feature: Button Toggle component
   # @ignore because of FE-1447
   # | <> |
 
-  @positive
+  @positive @applitools
   Scenario Outline: Set button icon size to <size>
     When I select buttonIcon to "arrow_left"
       And I select buttonIconSize to "<size>"
     Then Button Toggle icon height is "<height>" and width is "<width>"
+      And Element displays correctly
     Examples:
       | size  | height | width |
       | small | 16px   | 16px  |
@@ -62,25 +64,29 @@ Feature: Button Toggle component
       | small | 104    | 138   |
       | large | 104    | 138   |
 
-  @positive
+  @positive @applitools
   Scenario: Disable Button Toggle
     When I disable Button component
     Then Button Toggle is disabled
+      And Element displays correctly
 
-  @positive
+  @positive @applitools
   Scenario: Disable and enable Button Toggle
     When I disable Button component
       And I enable Button component
     Then Button Toggle is enabled
+      And Element displays correctly
 
-  @positive
+  @positive @applitools
   Scenario: Enable Button Toggle grouped property
     When I check grouped checkbox
     Then Button Toggle is grouped
+      And Element displays correctly
 
-  @positive
+  @positive @applitools
   Scenario: Enable and disable Button Toggle grouped property
     When I check grouped checkbox
       And I uncheck grouped checkbox
       And I enable Button component
     Then Button Toggle is not grouped
+      And Element displays correctly

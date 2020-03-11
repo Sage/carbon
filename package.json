@@ -15,6 +15,7 @@
     "test-cypress-build": "cypress run --spec ./cypress/features/build/build*.feature --browser chrome --reporter spec",
     "test-cypress-accessibility": "cypress run --spec ./cypress/features/accessibility/accessibility.feature --browser chrome --reporter spec",
     "test-cypress-regression": "npm run cypress-group-regression-common; npm run cypress-group-regression-experimental; npm run cypress-group-regression-deprecated; npm run cypress-group-regression-validations; npm run cypress-group-regression-themes; npm run generate-cypress-allure-report",
+    "test-cypress-visual": "cypress run --spec `grep -rl '@applitools' cypress/features | tr '\n' ','` --env TAGS='@applitools',CYPRESS_APPLITOOLS=true --browser chrome --reporter spec",
     "cypress-group-regression-common": "cypress run --spec './cypress/features/regression/*.feature' --reporter mocha-allure-reporter --browser chrome",
     "cypress-group-regression-experimental": "cypress run --spec './cypress/features/regression/experimental/*.feature' --reporter mocha-allure-reporter --browser chrome",
     "cypress-group-regression-deprecated": "cypress run --spec './cypress/features/regression/deprecated/*.feature' --reporter mocha-allure-reporter --browser chrome",
