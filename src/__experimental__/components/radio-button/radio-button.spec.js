@@ -15,6 +15,7 @@ import baseTheme from '../../../style/themes/base';
 import classicTheme from '../../../style/themes/classic';
 import mintTheme from '../../../style/themes/mint';
 import { getValidationType } from '../../../components/validations/with-validation.hoc';
+import RadioButtonStyle from './radio-button.style';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -249,6 +250,16 @@ describe('RadioButton', () => {
           }, wrapper, { modifier: css`${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} svg` });
         });
       });
+    });
+
+    it('applies the correct Legend Container styles', () => {
+      assertStyleMatch(
+        {
+          marginLeft: '32px'
+        },
+        mount(<RadioButtonStyle inline />),
+        { modifier: '&:not(:first-of-type)' }
+      );
     });
   });
 });

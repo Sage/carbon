@@ -19,6 +19,7 @@ const MessageStyle = styled.div`
   `}
 
   ${StyledIconButton} {
+    position: absolute;
     right: 20px;
     top: 50%;
     transform: translateY(-50%);

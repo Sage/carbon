@@ -982,58 +982,69 @@ exports[`RadioButton styles base renders as expected 1`] = `
   role="radiogroup"
 >
   <div
-    checked={false}
-    className="c2 c3"
-    data-component="radio-button"
+    className=""
+    data-component="fieldset-style"
   >
     <div
-      checked={false}
-      className="c4"
+      className=""
+      data-component="radio-button-group"
+      role="group"
     >
       <div
-        className="c5 c6"
+        checked={false}
+        className="c2 c3"
+        data-component="radio-button"
       >
         <div
-          className="c7 c8"
+          checked={false}
+          className="c4"
         >
           <div
-            className="c9 c10"
+            className="c5 c6"
           >
-            <input
-              aria-checked={false}
-              aria-describedby="guid-12345-help"
-              aria-labelledby="guid-12345-label"
-              checked={false}
-              className="c11 c12"
-              id="guid-12345"
-              onBlur={[Function]}
-              onChange={[Function]}
-              role="radio"
-              type="radio"
-              value="test"
-            />
             <div
-              className="c13 "
+              className="c7 c8"
             >
-              <svg
-                focusable="false"
-                viewBox="0 0 15 15"
+              <div
+                className="c9 c10"
               >
-                <g
-                  fill="none"
-                  fillRule="evenodd"
-                  stroke="none"
-                  strokeWidth="1"
+                <input
+                  aria-checked={false}
+                  aria-describedby="guid-12345-help"
+                  aria-labelledby="guid-12345-label"
+                  checked={false}
+                  className="c11 c12"
+                  id="guid-12345"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  role="radio"
+                  type="radio"
+                  value="test"
+                />
+                <div
+                  className="c13 "
                 >
-                  <circle
-                    className="radio-button-check"
-                    cx="7.5"
-                    cy="7.5"
-                    fill="#FFFFFF"
-                    r="5"
-                  />
-                </g>
-              </svg>
+                  <svg
+                    focusable="false"
+                    viewBox="0 0 15 15"
+                  >
+                    <g
+                      fill="none"
+                      fillRule="evenodd"
+                      stroke="none"
+                      strokeWidth="1"
+                    >
+                      <circle
+                        className="radio-button-check"
+                        cx="7.5"
+                        cy="7.5"
+                        fill="#FFFFFF"
+                        r="5"
+                      />
+                    </g>
+                  </svg>
+                </div>
+              </div>
             </div>
           </div>
         </div>

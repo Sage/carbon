@@ -173,70 +173,76 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   role="radiogroup"
 >
   <div
-    className="c2 c3"
-  >
-    <legend
-      data-element="legend"
-    >
-      SimpleColorPicker Legend
-    </legend>
-  </div>
-  <div
-    className="c4"
+    className=""
+    data-component="fieldset-style"
   >
     <div
-      checked={false}
-      className="c5"
-      color="#00A376"
-      data-component="simple-color"
+      className="c2 c3"
+      data-component="legend-style"
     >
-      <input
-        aria-checked={false}
-        checked={false}
-        className="c6 c7"
-        data-element="input"
-        id="rId-0"
-        name="test-group"
-        onBlur={[Function]}
-        onChange={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onMouseDown={[Function]}
-        role="radio"
-        type="radio"
-        value="#00A376"
-      />
-      <div
-        className="c8 c9"
-        color="#00A376"
-      />
+      <legend
+        data-element="legend"
+      >
+        SimpleColorPicker Legend
+      </legend>
     </div>
     <div
-      checked={false}
-      className="c5"
-      color="#0073C1"
-      data-component="simple-color"
+      className="c4"
     >
-      <input
-        aria-checked={false}
-        checked={false}
-        className="c6 c7"
-        data-element="input"
-        id="rId-1"
-        name="test-group"
-        onBlur={[Function]}
-        onChange={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onMouseDown={[Function]}
-        role="radio"
-        type="radio"
-        value="#0073C1"
-      />
       <div
-        className="c8 c10"
+        checked={false}
+        className="c5"
+        color="#00A376"
+        data-component="simple-color"
+      >
+        <input
+          aria-checked={false}
+          checked={false}
+          className="c6 c7"
+          data-element="input"
+          id="rId-0"
+          name="test-group"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onMouseDown={[Function]}
+          role="radio"
+          type="radio"
+          value="#00A376"
+        />
+        <div
+          className="c8 c9"
+          color="#00A376"
+        />
+      </div>
+      <div
+        checked={false}
+        className="c5"
         color="#0073C1"
-      />
+        data-component="simple-color"
+      >
+        <input
+          aria-checked={false}
+          checked={false}
+          className="c6 c7"
+          data-element="input"
+          id="rId-1"
+          name="test-group"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onMouseDown={[Function]}
+          role="radio"
+          type="radio"
+          value="#0073C1"
+        />
+        <div
+          className="c8 c10"
+          color="#0073C1"
+        />
+      </div>
     </div>
   </div>
 </fieldset>

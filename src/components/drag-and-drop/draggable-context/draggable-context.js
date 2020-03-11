@@ -1,5 +1,5 @@
 import React from 'react';
-import { DragDropContext } from 'react-dnd';
+import { DragDropContext } from 'react-dnd-legacy';
 import PropTypes from 'prop-types';
 import TouchBackend from 'react-dnd-touch-backend';
 import ReactDOM from 'react-dom';
