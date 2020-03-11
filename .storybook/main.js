@@ -18,6 +18,11 @@ module.exports = {
         test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader']
       }
     );
+    config.module.rules.push(
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/, use: ['url-loader']
+      }
+    );
     config.resolve = {
       alias: {
         helpers: path.resolve(__dirname, '__helpers__/')
