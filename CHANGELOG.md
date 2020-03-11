@@ -1,3 +1,15 @@
+## [14.0.0](https://github.com/Sage/carbon/compare/v13.12.0...v14.0.0) (2020-03-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* The Lato font import has been removed from carbon
+consuming applications are now responsible for including them, how to do so has been documented in README.md
+
+### Miscellaneous Chores
+
+* remove cdn font import and add local font for storybook ([1ea3565](https://github.com/Sage/carbon/commit/1ea3565bed715ba6f9801bf92973adda0d987f56))
+
 ## [13.12.0](https://github.com/Sage/carbon/compare/v13.11.0...v13.12.0) (2020-03-11)
 
 
