@@ -9,7 +9,6 @@ Feature: Decimal component
     When I set input precision slider to <precision>
       And I set Decimal input to "<labelInput>"
     Then input precision slider is set to <precision>
-      And I wait 1000
       And Decimal Input is set to "<fieldHelpOutput>"
     Examples:
       | labelInput        | precision | fieldHelpOutput   |

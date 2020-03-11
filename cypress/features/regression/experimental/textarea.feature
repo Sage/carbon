@@ -205,8 +205,9 @@ Feature: Experimental Textarea component
       And I input "<text>" into Textarea
     Then Textarea component has warnOverLimit and used characters <characters> of <limit>
     Examples:
-      | limit | text            | characters | 
-      # | 0     | 12345           |     5      | 
+      | limit | text            | characters |
+      # ignored regression
+      # | 0     | 12345           |     5      |
       | 5     |áéíóú¿¡üñ        |     9      |
       | 10    |testTestTextTest |    16      |
 

@@ -1,4 +1,4 @@
-FROM cypress/browsers:node12.16.1-chrome80-ff73
+FROM cypress/included:4.1.0
 
 ENV APP_HOME /usr/src/app
 RUN mkdir -p $APP_HOME
@@ -30,7 +30,6 @@ ENV _MITSHM=0
 ENV CYPRESS_CACHE_FOLDER=/root/.cache/Cypress
 RUN npm install -g wait-on --silent
 RUN npm install --silent
-RUN npm install -g "cypress@4.1.0"
 RUN cypress verify
 
 # Cypress cache and installed version
@@ -39,13 +38,12 @@ RUN cypress cache path
 RUN cypress cache list
 RUN cypress info
 
-# always grab the latest NPM and Yarn
+# always grab the latest NPM
 # otherwise the base image might have old versions
-RUN npm i -g yarn@latest npm@latest
+RUN npm i -g npm@latest
 
 RUN echo  " node version:    $(node -v) \n" \
   "npm version:     $(npm -v) \n" \
-  "yarn version:    $(yarn -v) \n" \
   "debian version:  $(cat /etc/debian_version) \n" \
   "chrome:          $(google-chrome --version || true) \n" \
   "firefox:         $(firefox --version || true) \n"
