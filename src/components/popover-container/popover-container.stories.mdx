@@ -1,0 +1,104 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import PopoverContainer from "./popover-container.component";
+import {DraggableContainer, DraggableItem} from '../draggable'
+import { Checkbox } from '../../__experimental__/components/checkbox';
+import ButtonToggle from '../button-toggle';
+import Button from '../button';
+import Link from '../link';
+
+<Meta title="Design System/Popover Container" />
+
+# Popover Container
+
+## Quick Start
+
+To use Popover Container, import the `Popover Container` and pass the content as children.
+
+```jsx
+import PopoverContainer from "carbon-react/lib/components/PopoverContainer";
+const MyComponent = () => (
+  <PopoverContainer iconType="settings" title="Popover Container Title">
+    <p>Content as a children</p>
+  </PopoverContainer>
+);
+```
+
+### Basic Popover Container
+
+<Preview>
+  <Story name="basic" parameters={{ info: { disable: true }}}>
+    <PopoverContainer iconType="settings" title="Popover Container Title" />
+  </Story>
+</Preview>
+
+### Popover Container with position left
+
+<Preview>
+  <Story name="with position left" parameters={{ info: { disable: true }}}>
+    <div style={{marginLeft: '300px'}}>
+      <PopoverContainer position="left" iconType="settings" title="Popover Container Title" />
+    </div>
+  </Story>
+</Preview>
+
+### Popover Container with different icon
+
+<Preview>
+  <Story name="with different icon" parameters={{ info: { disable: true }}}>
+    <PopoverContainer iconType="edited" title="Popover Container Title" />
+  </Story>
+</Preview>
+
+### Popover Container with simple content
+
+<Preview>
+  <Story name="with simple content" parameters={{ info: { disable: true }}}>
+    <div style={{minHeight: '280px'}}>
+      <PopoverContainer iconType="settings" title="Popover Container Title">
+        <p>Ut consectetur elit non proident minim.
+          Aute ut Lorem excepteur enim excepteur et fugiat pariatur esse fugiat excepteur laborum est laboris.
+          Ad ad irure mollit incididunt. Veniam occaecat minim ad nisi. Adipisicing adipisicing aliquip deserunt esse Lorem anim pariatur id in sint.
+          Eiusmod aliquip magna ex dolore mollit ullamco.
+          Qui tempor nostrud reprehenderit elit est amet sit tempor deserunt et reprehenderit occaecat.
+          </p>
+          <Button>Button</Button>
+      </PopoverContainer>
+    </div>
+  </Story>
+</Preview>
+
+### Popover Container with complex content
+
+<Preview>
+  <Story name="with complex content" parameters={{ info: { disable: true }}}>
+    <div style={{minHeight: '330px'}}>
+      <PopoverContainer iconType="settings" title="Popover Container Title">
+        <Link>This is example link text</Link>
+        <div style={{padding: '25px 0 15px 0'}}>
+          <Button>
+            Small
+          </Button>
+          <Button>
+            Compact
+          </Button>
+        </div>
+        <DraggableContainer>
+          <DraggableItem key='1' id={ 1 }>
+            <Checkbox name="one" label='Draggable Label One' />
+          </DraggableItem>
+          <DraggableItem key='2' id={ 2 }>
+            <Checkbox name="two" label='Draggable Label Two' />
+          </DraggableItem>
+          <DraggableItem key='3' id={ 3 }>
+            <Checkbox name="three" label='Draggable Label Three' />
+          </DraggableItem>
+          <DraggableItem key='4' id={ 4 }>
+            <Checkbox name="four" label='Draggable Label Four' />
+          </DraggableItem>
+        </DraggableContainer>
+      </PopoverContainer>
+    </div>
+  </Story>
+</Preview>
+
+<Props of={PopoverContainer} />

@@ -28,7 +28,6 @@ const StyledIconButton = styled.button`
     }
   }
 
-
   ${classicIconButtonStyle};
 `;
 

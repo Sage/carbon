@@ -114,3 +114,4 @@ Feature: Accessibility tests
       | Draggable                | draggable           |
       | Flat Table               | flat-table          |
       | Search                   | search              |
+      | Popover Container        | popover-container   |
