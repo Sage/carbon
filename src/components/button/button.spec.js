@@ -104,6 +104,20 @@ describe('Button', () => {
     }
   );
 
+  describe('when the destructive prop is passed', () => {
+    it('matches the expected destructive style', () => {
+      const wrapper = render({
+        children: 'foo', destructive: true, buttonType: 'primary'
+      }, TestRenderer.create).toJSON();
+
+      assertStyleMatch({
+        background: BaseTheme.colors.error,
+        borderColor: 'transparent',
+        color: BaseTheme.colors.white
+      }, wrapper);
+    });
+  });
+
   describe('when the "disabled" prop is passed', () => {
     it('matches the style for the default Button when no "as" and "size" props are passed', () => {
       const wrapper = render({ children: 'foo', disabled: true }, TestRenderer.create).toJSON();
@@ -127,6 +141,23 @@ describe('Button', () => {
             it('matches the expected style', () => {
               const wrapper = render({
                 children: 'foo', disabled: true, buttonType: variant, size
+              }, TestRenderer.create).toJSON();
+
+              assertStyleMatch({
+                background:
+                (variant === 'secondary' || variant === 'tertiary' ? 'transparent' : BaseTheme.disabled.button),
+                borderColor: (variant === 'secondary' ? BaseTheme.disabled.button : 'transparent'),
+                color: BaseTheme.disabled.text,
+                fontSize: (size === 'large' ? '16px' : '14px'),
+                height: `${sizes[size][0].toString()}px`,
+                paddingLeft: `${sizes[size][1].toString()}px`,
+                paddingRight: `${sizes[size][1].toString()}px`
+              }, wrapper);
+            });
+
+            it('matches the expected destructive style', () => {
+              const wrapper = render({
+                children: 'foo', destructive: true, disabled: true, buttonType: variant, size
               }, TestRenderer.create).toJSON();
 
               assertStyleMatch({

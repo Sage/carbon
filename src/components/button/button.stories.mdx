@@ -21,9 +21,9 @@ Primary buttons can be destructive.
 <Preview>
   <Story name="primary/destructive" parameters={{ info: { disable: true }}} >
     <>
-      <Button buttonType="destructive" size="small">Small</Button>
-      <Button buttonType="destructive">Medium</Button>
-      <Button buttonType="destructive" size="large">Large</Button>
+      <Button buttonType="primary" destructive size="small">Small</Button>
+      <Button buttonType="primary" destructive >Medium</Button>
+      <Button buttonType="primary" destructive size="large">Large</Button>
     </>
   </Story>
 </Preview>
@@ -44,7 +44,7 @@ Primary buttons can have an icon positioned before or after the text.
   <Story name="primary/icon" parameters={{ info: { disable: true }}} >
   <>
     <Button buttonType="primary" iconType="print">Medium</Button>
-    <Button buttonType="destructive" iconType="delete" iconPosition="after">Medium</Button>
+    <Button buttonType="primary" destructive iconType="delete" iconPosition="after">Medium</Button>
     <Button buttonType="primary" disabled iconType="print" iconPosition="after">Medium</Button>
     </>
   </Story>

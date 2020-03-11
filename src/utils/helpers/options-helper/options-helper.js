@@ -318,7 +318,6 @@ const OptionsHelper = {
     'primary',
     'secondary',
     'tertiary',
-    'destructive',
     'darkBackground'
   ],
 

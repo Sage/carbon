@@ -9,7 +9,7 @@ export function makeColors(color) {
   `;
 }
 
-export default ({ colors, disabled }, isDisabled) => ({
+export default ({ colors, disabled }, isDisabled, destructive) => ({
   primary: `
     background: ${colors.primary};
     border-color: transparent;
@@ -19,14 +19,30 @@ export default ({ colors, disabled }, isDisabled) => ({
     }
 
     ${isDisabled ? `
+    background: ${disabled.button};
+    color: ${disabled.text};
+    &:hover {
+      background: ${disabled.button};
+      border-color: ${disabled.button};
+      color: ${disabled.text};
+    }
+  ` : ''}
+
+    ${destructive ? `background: ${colors.error};
+    border-color: transparent;
+    color: ${colors.white};
+    &:hover {
+      background: ${colors.destructive.hover};
+    }
+
+    ${isDisabled ? `
       background: ${disabled.button};
       color: ${disabled.text};
       &:hover {
         background: ${disabled.button};
-        border-color: ${disabled.button};
         color: ${disabled.text};
       }
-    ` : ''}
+    ` : ''}` : ''}
   `,
   secondary: `
       background: transparent;
@@ -60,23 +76,6 @@ export default ({ colors, disabled }, isDisabled) => ({
       color: ${disabled.text};
       &:hover {
         ${makeColors(disabled.text)}
-      }
-    ` : ''}
-  `,
-  destructive: `
-    background: ${colors.error};
-    border-color: transparent;
-    color: ${colors.white};
-    &:hover {
-      background: ${colors.destructive.hover};
-    }
-
-    ${isDisabled ? `
-      background: ${disabled.button};
-      color: ${disabled.text};
-      &:hover {
-        background: ${disabled.button};
-        color: ${disabled.text};
       }
     ` : ''}
   `,

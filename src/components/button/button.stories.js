@@ -25,7 +25,7 @@ const getIconKnobs = () => {
 
 const getKnobs = (isClassic) => {
   const size = select('size', OptionsHelper.sizesRestricted, Button.defaultProps.size);
-  let classicProps = {}, buttonType;
+  let classicProps = {}, buttonType, destructive;
 
   if (isClassic) {
     classicProps = {
@@ -36,11 +36,13 @@ const getKnobs = (isClassic) => {
     };
   } else {
     buttonType = select('buttonType', OptionsHelper.buttonTypes, Button.defaultProps.as);
+    destructive = boolean('destructive', false);
   }
 
   return {
     buttonType,
     children: text('children', 'Example Button'),
+    destructive,
     disabled: boolean('disabled', Button.defaultProps.disabled),
     onClick: ev => action('click')(ev),
     size,
