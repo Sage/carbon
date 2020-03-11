@@ -56,7 +56,8 @@ function stylingForType({
   disabled,
   buttonType,
   theme,
-  size
+  size,
+  destructive
 }) {
   return css`
     border: 2px solid transparent;
@@ -71,7 +72,7 @@ function stylingForType({
     
     margin-right: 16px;
 
-    ${buttonTypes(theme, disabled)[buttonType]};
+    ${buttonTypes(theme, disabled, destructive)[buttonType]};
     ${buttonSizes(theme)[size]}
   `;
 }
