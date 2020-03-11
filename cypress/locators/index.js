@@ -32,6 +32,7 @@ export const characterLimitSlider = () => cy.get(CHARACTER_LIMIT);
 export const dlsRoot = () => cy.iFrame(DLS_ROOT);
 export const storyRoot = () => cy.iFrame(STORY_ROOT);
 export const commonButtonPreview = () => storyRoot().find('button');
+export const commonButtonPreviewNoIFrameRoot = () => cy.get(DLS_ROOT).find('button');
 export const commonInputPreview = () => storyRoot().find('input');
 export const labelPreview = () => storyRoot().find('label').first();
 export const label = () => cy.iFrame(LABEL);

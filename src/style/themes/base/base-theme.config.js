@@ -43,6 +43,12 @@ export default (palette) => {
       }
     },
 
+
+    anchorNavigation: {
+      divider: palette.slateTint(80),
+      navItemHoverBackground: palette.slateTint(90)
+    },
+
     accordion: {
       border: palette.slateTint(80),
       background: palette.slateTint(90)

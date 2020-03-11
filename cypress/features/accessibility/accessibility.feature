@@ -109,7 +109,8 @@ Feature: Accessibility tests
     Examples:
       | component                | data-component      |
       | Accordion                | accordion           |
-      | Flat Table               | flat-table          |
-      | Search                   | search              |
+      | Anchornavigation         | anchor-navigation   |
       | Button Toggle Group      | button-toggle-group |
       | Draggable                | draggable           |
+      | Flat Table               | flat-table          |
+      | Search                   | search              |

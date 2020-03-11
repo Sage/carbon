@@ -1,0 +1,94 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+import { AnchorNavigation, AnchorNavigationItem, AnchorSectionDivider } from '.';
+import Textbox from '../../__experimental__/components/textbox';
+
+<Meta
+  title="Design System/Anchor Navigation"
+  parameters={{ info: { disable: true }}}
+/>
+
+# Anchor Navigation
+Easily navigate through long scrollable content.
+
+## Quick Start
+
+To use `AnchorNavigation` first import `AnchorNavigation`, `AnchorNavigationItem` and `AnchorSectionDivider` from Carbon.
+
+Create `refs` which will be used internally in `AnchorNavigation` to measure positions of the elements.
+
+Pass proper structure of `AnchorNavigationItem`'s with assigned `refs` to `stickyNavigation` prop.
+
+Pass children where elements which are meant to serve as sections have `refs` assigned.
+Keep in mind that to assign a `ref` to a component it either has to be a `Class` component or it has to be wrapped in `React.forwardRef()` in case of a function component.
+
+**It is necessary to mantain the same order of navigation items and children when assigning the `refs`**
+
+```jsx
+import { AnchorNavigation, AnchorNavigationItem, AnchorSectionDivider } from "carbon-react/lib/components/anchor-navigation"
+
+const MyComponent = () => (
+  const ref1 = React.createRef();
+  const ref2 = React.createRef();
+  const ref3 = React.createRef();
+
+  <AnchorNavigation
+    stickyNavigation={
+      <>
+        <AnchorNavigationItem target={ ref1 }>
+          First
+        </AnchorNavigationItem>
+        <AnchorNavigationItem target={ ref2 }>
+          Second
+        </AnchorNavigationItem>
+        <AnchorNavigationItem target={ ref3 }>
+          Third
+        </AnchorNavigationItem>
+      </>
+    }
+  >
+    <div ref={ ref1 }>
+      <h2>Section 1</h2>
+    </div>
+    <AnchorSectionDivider />
+    <div ref={ ref2 }>
+      <h2>Section 2</h2>
+    </div>
+    <AnchorSectionDivider />
+    <div ref={ ref3 }>
+      <h2>Section 3</h2>
+    </div>
+  </AnchorNavigation>
+);
+```
+
+### Basic
+`AnchorNavigation` can be placed anywhere on the page to help with navigating long scrollable sections.
+
+<Story id="test-anchornavigation--basic" name="Basic" />
+
+### In DialogFullScreen
+`AnchorNavigation` can also be used as the content of `DialogFullScreen` component.
+
+<Preview>
+  <Story id="test-anchornavigation--in-full-screen-dialog" name="InFullScreenDialog" />
+</Preview>
+
+### With overriden styles
+`AnchorNavigation`, `AnchorNavigationItem` and `AnchorSectionDivider` styles can be easily overriden by providing `styleOverride` prop with proper structure as defined in propTypes.
+
+<Story id="test-anchornavigation--with-overriden-styles" name="WithOverridenStyles" />
+
+## Props:
+
+### AnchorNavigation
+
+<Props of={AnchorNavigation} />
+
+### AnchorNavigationItem
+
+<Props of={AnchorNavigationItem} />
+
+### AnchorSectionDivider
+
+<Props of={AnchorSectionDivider} />
