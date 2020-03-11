@@ -1,3 +1,10 @@
+## [13.11.0](https://github.com/Sage/carbon/compare/v13.10.0...v13.11.0) (2020-03-11)
+
+
+### Features
+
+* **popover-container:** add new component ([871b56d](https://github.com/Sage/carbon/commit/871b56d1c82890d39ae1c489316d1304708d41b4))
+
 ## [13.10.0](https://github.com/Sage/carbon/compare/v13.9.1...v13.10.0) (2020-03-11)
 
 
