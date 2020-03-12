@@ -7,12 +7,12 @@ Feature: RadioButton validations classic component
   @positive
   @validations
   Scenario Outline: Verify the <state> validation classic of RadioButton component
-    When I click onto "<position>" radioButton for validations component into iFrame
+    When I click onto "<state>" radioButton for validations component in iFrame
       And I hover mouse onto "<state>" icon in iFrame
     Then tooltipPreview on preview into iFrame is set to "<text>"
       And icon name into iFrame on preview is "<state>"
     Examples:
-      | state   | position | text                    |
-      | error   | first    | An error has occurred!  |
-      | warning | second   | Watch out!              |
-      | info    | third    | Let me tell you this... |
+      | state   | text                    |
+      | error   | An error has occurred!  |
+      | warning | Watch out!              |
+      | info    | Let me tell you this... |

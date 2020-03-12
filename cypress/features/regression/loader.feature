@@ -7,7 +7,7 @@ Feature: Loader default component
   @positive
   Scenario Outline: I set Loader component size to <size>
     When I select size to "<size>"
-    Then Loader width is set to 1059 px and height is set to <height> px
+    Then Loader width is set to 1061 px and height is set to <height> px
     Examples:
       | size  | height |
       | small | 17     |
