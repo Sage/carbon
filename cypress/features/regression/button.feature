@@ -4,7 +4,8 @@ Feature: Button component
   Background: Open Button component default page
     Given I open "Button" component page
 
-  @positive
+  @ignore
+  # ignored regression
   Scenario Outline: Set Button size to <size>
     When I select size to "<size>"
     Then Button height is "<height>" and width is "<width>"

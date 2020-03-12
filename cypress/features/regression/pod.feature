@@ -10,12 +10,14 @@ Feature: Pod component
       And I check border checkbox
     Then Pod component has border
 
-  @positive
+  @ignore
+  # ignored regression
   Scenario: Enable and disable border checkbox for a Pod component
     When I uncheck border checkbox
     Then Pod component has no border
 
-  @positive
+  @ignore
+  # ignored regression
   Scenario Outline: Change Pod children to <children>
     When I set children to "<children>"
     Then Pod children on preview is set to "<children>"
@@ -29,7 +31,8 @@ Feature: Pod component
       # @ignore because of FE-1447
       # | <>                       |
 
-  @positive
+  @ignore
+  # ignored regression
   Scenario Outline: Set Pod padding to <padding>
     When I select padding to "<padding>"
     Then Pod padding on preview is "<padding>"
@@ -41,7 +44,8 @@ Feature: Pod component
       | large       |
       | extra-large |
 
-  @positive
+  @ignore
+  # ignored regression
   Scenario Outline: Set Pod as align to <as>
     When I select as to "<as>"
     Then Pod as on preview is "<as>"
@@ -82,7 +86,8 @@ Feature: Pod component
       # @ignore because of FE-1447
       # | <>                       |
 
-  @positive
+  @ignore
+  # ignored regression
   Scenario Outline: Change Pod alignTitle to <alignTitle>
     When I set title to "title"
       And I set subtitle to "subtitle"
@@ -95,7 +100,8 @@ Feature: Pod component
       | right      |
       | left       |
 
-  @positive
+  @ignore
+  # ignored regression
   Scenario Outline: Change Pod description to <description>
     When I set description to "<description>"
     Then Pod description on preview is set to "<description>"
@@ -109,7 +115,8 @@ Feature: Pod component
       # @ignore because of FE-1447
       # | <>                       |
 
-  @positive
+  @ignore
+  # ignored regression
   Scenario Outline: Change Pod footer to <footer>
     When I set footer to "<footer>"
     Then Pod footer on preview is set to "<footer>"
@@ -129,25 +136,29 @@ Feature: Pod component
       And I uncheck onEdit checkbox
     Then Pod component has no onEdit property
 
-  @positive
+  @ignore
+  # ignored regression
   Scenario: Enable onEdit checkbox for a Pod component
     When I check onEdit checkbox
     Then Pod component has onEdit property
 
-  @positive
+  @ignore
+  # ignored regression
   Scenario: Enable onEdit checkbox and check the edit event
     When I check onEdit checkbox
       And clear all actions in Actions Tab
       And I click onEdit icon
     Then edit action was called in Actions Tab
 
-  @positive
+  @ignore
+  # ignored regression
   Scenario: Enable onEdit checkbox and check the editContentFullWidth checkbox
     When I check onEdit checkbox
       And I check editContentFullWidth checkbox
     Then Pod component has editContentFullWidth property
 
-  @positive
+  @ignore
+  # ignored regression
   Scenario: Enable onEdit checkbox and check the displayEditButtonOnHover checkbox
     When I check onEdit checkbox
       And I set title to "title"
@@ -155,13 +166,15 @@ Feature: Pod component
       And I hover mouse onto Pod content
     Then Pod component has displayEditButtonOnHover property
 
-  @positive
+  @ignore
+  # ignored regression
   Scenario: Enable onEdit checkbox and check the triggerEditOnContent checkbox
     When I check onEdit checkbox
       And I check triggerEditOnContent checkbox
     Then Pod component has triggerEditOnContent property
 
-  @positive
+  @ignore
+  # ignored regression
   Scenario: Enable onEdit checkbox and check the internalEditButton checkbox
     When I check onEdit checkbox
       And I check internalEditButton checkbox

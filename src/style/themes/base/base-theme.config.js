@@ -150,6 +150,10 @@ export default (palette) => {
       disabled: 'rgba(0,0,0,0.30)'
     },
 
+    popoverContainer: {
+      iconColor: 'rgba(0,0,0,0.90)'
+    },
+
     portrait: {
       border: palette.slateTint(50),
       background: palette.slateTint(95),

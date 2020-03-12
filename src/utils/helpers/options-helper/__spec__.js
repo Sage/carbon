@@ -226,7 +226,6 @@ describe('OptionsHelper', () => {
       'primary',
       'secondary',
       'tertiary',
-      'destructive',
       'darkBackground'
     ]);
   });

@@ -10,7 +10,8 @@ Feature: Create component
     # When I open "Create" component page
     Then Create component has proper inner color "rgb(0, 128, 93)" and background-color "rgb(242, 244, 245)" and border color "rgb(102, 132, 145)"
 
-  @positive
+  @ignore
+  # ignored regression
   Scenario: Verify inner content and colors of Create component on hover state
     Given I click outside of the component
     When I hit Tab key 1 time

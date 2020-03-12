@@ -1,4 +1,4 @@
-FROM cypress/included:3.8.1
+FROM cypress/included:4.1.0
 
 ENV APP_HOME /usr/src/app
 RUN mkdir -p $APP_HOME
@@ -6,18 +6,47 @@ WORKDIR $APP_HOME
 
 COPY . $APP_HOME
 RUN rm package-lock.json
+RUN rm /etc/apt/sources.list.d/google.list
 
 # install packages
 RUN apt-get update && \
     apt-get install -y curl \
     wget \
-    openjdk-8-jdk
-ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
+    default-jre
+ENV JAVA_HOME=/usr/lib/jvm/default-java
 
 EXPOSE 9001
 
-# Override default entrypoint from cypress/included
-ENTRYPOINT []
+ENV CI=1
 
+# disable shared memory X11 affecting Cypress v4 and Chrome
+# https://github.com/cypress-io/cypress-docker-images/issues/270
+ENV QT_X11_NO_MITSHM=1
+ENV _X11_NO_MITSHM=1
+ENV _MITSHM=0
+
+# point Cypress at the /root/cache no matter what user account is used
+# see https://on.cypress.io/caching
+ENV CYPRESS_CACHE_FOLDER=/root/.cache/Cypress
 RUN npm install -g wait-on --silent
 RUN npm install --silent
+RUN cypress verify
+
+# Cypress cache and installed version
+# should be in the root user's home folder
+RUN cypress cache path
+RUN cypress cache list
+RUN cypress info
+
+# always grab the latest NPM
+# otherwise the base image might have old versions
+RUN npm i -g npm@latest
+
+RUN echo  " node version:    $(node -v) \n" \
+  "npm version:     $(npm -v) \n" \
+  "debian version:  $(cat /etc/debian_version) \n" \
+  "chrome:          $(google-chrome --version || true) \n" \
+  "firefox:         $(firefox --version || true) \n"
+
+# Override default entrypoint from cypress/included
+ENTRYPOINT []
