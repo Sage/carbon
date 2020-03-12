@@ -82,3 +82,9 @@ Feature: Button component
     Given clear all actions in Actions Tab
     When I click on "button"
     Then click action was called in Actions Tab
+
+  @positive
+  Scenario: Set Button icon to arrow_left_small
+    Given I check has icon checkbox
+    When I select iconType to "arrow_left_small"
+    Then Button icon is set to "arrow_left_small"
