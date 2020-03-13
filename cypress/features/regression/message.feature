@@ -7,7 +7,7 @@ Feature: Message component
   @positive
   Scenario: CloseIcon has correct border colour
     Given I click closeIcon
-    Then closeIcon has the border outline color "rgb(255, 181, 0)"
+    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
 
   @positive
   Scenario Outline: Change Message title to <title>

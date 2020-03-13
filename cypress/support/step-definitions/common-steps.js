@@ -393,8 +393,9 @@ Then('closeIcon is not visible', () => {
   closeIconButton().should('not.exist');
 });
 
-Then('closeIcon has the border outline color {string}', (color) => {
-  closeIconButton().should('have.css', 'outline-color', color);
+Then('closeIcon has the border outline color {string} and width {string}', (color, width) => {
+  closeIconButton().should('have.css', 'outline-color', color)
+    .and('have.css', 'outline-width', width);
 });
 
 Then('closeIcon is focused', () => {

@@ -8,4 +8,4 @@ Feature: Alert component classic story
   Scenario: CloseIcon has the border outline
     Given I open component preview
     When closeIcon is focused
-    Then closeIcon has the border outline color "rgb(77, 144, 254)"
+    Then closeIcon has the border outline color "rgb(77, 144, 254)" and width "5px"

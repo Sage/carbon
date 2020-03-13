@@ -8,7 +8,7 @@ Feature: Dialog component classic story
   @positive
   Scenario: CloseIcon has the border outline
     When closeIcon is focused
-    Then closeIcon has the border outline color "rgb(77, 144, 254)"
+    Then closeIcon has the border outline color "rgb(77, 144, 254)" and width "5px"
 
   @positive
   Scenario: Verify classic story color
