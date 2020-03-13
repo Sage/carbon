@@ -1,14 +1,14 @@
 Feature: Message component
-  I want to change Message component properties
+  I want to change Message component default properties
 
-  Background: Open Message component page
+  Background: Open Message component default page
     Given I open "Message" component page
 
   @ignore
   # ignored regression
   Scenario: CloseIcon has correct border colour
     Given I click closeIcon
-    Then closeIcon has the border outline
+    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
 
   @positive
   Scenario Outline: Change Message title to <title>
@@ -51,8 +51,8 @@ Feature: Message component
 
   @positive
   Scenario: Disable transparent state for a Message component
-    When I check transparent checkbox
-      And I uncheck transparent checkbox
+    Given I check transparent checkbox
+    When I uncheck transparent checkbox
     Then Message component is not transparent
 
   @positive
@@ -75,8 +75,8 @@ Feature: Message component
 
   @positive
   Scenario: Verify the click function for a Message component
-    When clear all actions in Actions Tab
-      And I click close icon
+    Given clear all actions in Actions Tab
+    When I click close icon
     Then click action was called in Actions Tab
 
   @positive
