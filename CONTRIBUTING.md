@@ -1,8 +1,7 @@
 # Contributing to Carbon
-We love contributions, so thanks for choosing to get involved with the Carbon project. The following guidelines are provided to help you understand our contribution guidelines. 
+We love contributions, so thanks for choosing to get involved with the Carbon project.
 
-## I just have a quick question
-If you don't want to read this whole thing here's the shortcuts that you're looking for.
+## I have a question
  - Internal **Sage** contributors are invited to post in our #carbon Slack channel, in the first instance. 
  - Public contributors are invited to use our [issue tracker](https://github.com/sage/carbon/issues).
 
@@ -62,7 +61,7 @@ We use a bot to help us manage issues. The bot automatically labels issues where
 
 * If no issue has been raised, please raise one first before beginning work. You can then link back to this when submitting a pull request to address it.
 
-* Create a branch from master and work in the `src` folder.
+* Create a branch based off `master`
 
 * Include a detailed description of the feature you are adding in the PR. Ensure you have included information on how to setup and QA your new feature or bug-fix.
 
@@ -70,9 +69,9 @@ We use a bot to help us manage issues. The bot automatically labels issues where
 
 When submitting a pull request, please ensure your branch meets the following criteria:
 
-* It is a passing build (`gulp test --build` returns success).
+* All github checks pass.
 * The code is fully tested and has full coverage.
-* The code follows our coding guidelines (TBC).
+* The code follows our existing coding conventions.
 * The code does not introduce unnecessary dependencies (no jQuery!).
 
 To be merged, we prefer the pull request to be reviewed by at least two people with merge rights.
