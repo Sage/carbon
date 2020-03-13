@@ -5,6 +5,11 @@ Feature: Toast component
     Given I open "Toast" component page
 
   @positive
+  Scenario: CloseIcon has the border outline
+    When closeIcon is focused
+    Then closeIcon has the border outline
+
+  @positive
   Scenario Outline: Change Toast variant to <variant>
     When I select variant to "<variant>"
     Then Toast icon is set to "<icon>"

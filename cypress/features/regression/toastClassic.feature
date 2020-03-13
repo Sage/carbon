@@ -5,6 +5,11 @@ Feature: Toast classic component
     Given I open "Toast" component page classic
 
   @positive
+  Scenario: CloseIcon has the border outline
+    When closeIcon is focused
+    Then closeIcon has border outline for classic story
+
+  @positive
   Scenario Outline: Change Toast as <as> property
     When I select as to "<as>"
     Then Toast icon is set to "<icon>"

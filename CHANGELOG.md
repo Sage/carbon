@@ -1,3 +1,10 @@
+### [14.0.1](https://github.com/Sage/carbon/compare/v14.0.0...v14.0.1) (2020-03-12)
+
+
+### Bug Fixes
+
+* **toast:** close button styling ([a55eaa1](https://github.com/Sage/carbon/commit/a55eaa192415689247b537d8281dc78aa4fa3ac9))
+
 ## [14.0.0](https://github.com/Sage/carbon/compare/v13.12.0...v14.0.0) (2020-03-11)
 
 

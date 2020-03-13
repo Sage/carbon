@@ -9,7 +9,7 @@ Feature: Pages component
     When I select pageIndex to "<pageIndex>"
       And I open component preview
       # wait because of animation
-      And I wait 500
+      And I wait 2500
     Then My <page> Page is visible
     Examples:
       | pageIndex | page   |
