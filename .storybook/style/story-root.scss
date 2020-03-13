@@ -1,3 +1,19 @@
+@font-face {
+  font-family: 'Lato';
+  src: url('../assets/fonts/Lato-Regular.eot') format('embedded-opentype');
+  src: url('../assets/fonts/Lato-Regular.svg') format('svg');
+  src: url('../assets/fonts/Lato-Regular.woff') format('woff');
+  src: url('../assets/fonts/Lato-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700,900');
+
+body {
+  font-family: 'Lato', sans-serif;
+}
+
 #story-root {
   min-height: 110px;
   padding: 115px 20px 20px 50px;

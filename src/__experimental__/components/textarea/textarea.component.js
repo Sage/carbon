@@ -129,6 +129,7 @@ class Textarea extends React.Component {
             type='text'
             size={ size }
             disabled={ disabled }
+            readOnly={ readOnly }
             { ...props }
           >
             <TextareaInput

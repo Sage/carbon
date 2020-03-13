@@ -38,7 +38,6 @@ Feature: Build tests
       | action-popover                   | action-popover       |
       | animated menu button             | animated-menu-button |
       | app wrapper                      | app-wrapper          |
-      | button toggle group              | button-toggle-group  |
       | button toggle                    | button-toggle        |
       | button                           | button               |
       | carousel                         | carousel             |
@@ -181,3 +180,21 @@ Feature: Build tests
   Scenario: Component Loader legacy spinner in iframe default page
     When I open "loader" component page legacy spinner in iframe
     Then "spinner" component is visible
+
+  @build
+  Scenario Outline: Component <component> basic default page
+    When I open basic Test "<component>" component page in noIframe
+    Then "<data-component>" component is visible
+    Examples:
+      | component                | data-component      |
+      | Accordion                | accordion           |
+      | Anchornavigation         | anchor-navigation   |
+      | Flat Table               | flat-table          |
+      | Search                   | search              |
+      | Button Toggle Group      | button-toggle-group |
+      | Popover Container        | popover-container   |
+
+  @build
+  Scenario: Component Draggable basic default page and verify data-element
+    When I open basic Test "Draggable" component page in noIframe
+    Then "draggable" element is visible

@@ -2,7 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import Browser from '../../utils/helpers/browser';
-import Icon from '../icon';
 import Modal from '../modal';
 import Heading from '../heading';
 import Form from '../../__deprecated__/components/form';
@@ -14,13 +13,15 @@ import {
   DialogInnerContentStyle
 } from './dialog.style';
 import tagComponent from '../../utils/helpers/tags';
+import focusTrap from '../../utils/helpers/focus-trap';
+import IconButton from '../icon-button';
+import Icon from '../icon';
 
 class Dialog extends Modal {
   constructor(args) {
     super(args);
     this.componentTags = this.componentTags.bind(this);
     this.onDialogBlur = this.onDialogBlur.bind(this);
-    this.onCloseIconBlur = this.onCloseIconBlur.bind(this);
     this.document = Browser.getDocument();
     this.window = Browser.getWindow();
   }
@@ -29,33 +30,23 @@ class Dialog extends Modal {
     super.componentDidMount();
     if (this.props.open) {
       this.centerDialog();
-      if (this.props.autoFocus) {
-        this.focusDialog();
-      }
     }
   }
 
   onDialogBlur(ev) { } // eslint-disable-line no-unused-vars
 
-  onCloseIconBlur(ev) {
-    ev.preventDefault();
-    this.focusDialog();
-  }
-
-  get onOpening() {
+  handleOpen() {
+    super.handleOpen();
     this.document.documentElement.style.overflow = 'hidden';
     this.centerDialog(true);
     ElementResize.addListener(this._innerContent, this.applyFixedBottom);
     this.window.addEventListener('resize', this.centerDialog);
-
-    if (this.props.autoFocus) {
-      return this.focusDialog();
-    }
-
-    return null;
+    this.removeFocusTrap = focusTrap(this._dialog);
   }
 
-  get onClosing() {
+  handleClose() {
+    super.handleClose();
+    this.removeFocusTrap();
     this.appliedFixedBottom = false;
     this.document.documentElement.style.overflow = '';
     this.window.removeEventListener('resize', this.centerDialog);
@@ -63,8 +54,6 @@ class Dialog extends Modal {
   }
 
   centerDialog = (animating) => {
-    if (!this._dialog) return;
-
     const height = this._dialog.offsetHeight / 2,
         width = this._dialog.offsetWidth / 2,
         win = this.window;
@@ -112,11 +101,6 @@ class Dialog extends Modal {
     }
   }
 
-  focusDialog() {
-    if (!this._dialog) return;
-    this._dialog.focus();
-  }
-
   shouldHaveFixedBottom = () => {
     if (!this._innerContent) return false;
 
@@ -161,19 +145,17 @@ class Dialog extends Modal {
   }
 
   get closeIcon() {
-    if (this.props.showCloseIcon) {
-      return (
-        <Icon
-          className='carbon-dialog__close'
-          data-element='close'
-          onClick={ this.props.onCancel }
-          type='close'
-          tabIndex='0'
-          onBlur={ this.onCloseIconBlur }
-        />
-      );
-    }
-    return null;
+    const { showCloseIcon, onCancel } = this.props;
+    if (!showCloseIcon || !onCancel) return null;
+
+    return (
+      <IconButton
+        data-element='close'
+        onAction={ onCancel }
+      >
+        <Icon type='close' />
+      </IconButton>
+    );
   }
 
   componentTags(props) {
@@ -208,7 +190,6 @@ class Dialog extends Modal {
     }
 
     const dialogProps = {
-      tabIndex: 0,
       style: {
         minHeight: height
       },
@@ -273,13 +254,12 @@ Dialog.propTypes = {
   size: PropTypes.string,
   /** Determines if the close icon is shown */
   showCloseIcon: PropTypes.bool,
-  /** If true then the dialog receives focus when it opens */
-  autoFocus: PropTypes.bool,
-  stickyFormFooter: PropTypes.bool
+  stickyFormFooter: PropTypes.bool,
+  /** function runs when user click close button */
+  onCancel: PropTypes.func
 };
 
 Dialog.defaultProps = {
-  autoFocus: true,
   size: 'medium',
   showCloseIcon: true,
   ariaRole: 'dialog'

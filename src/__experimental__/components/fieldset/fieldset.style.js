@@ -22,6 +22,12 @@ const FieldsetStyle = styled.fieldset`
 `;
 
 const LegendContainerStyle = styled.div`
+  ${({
+    inline
+  }) => inline && `
+  margin-right: 32px;
+  height: 34px !important;
+  `}
   display: flex;
   align-items: center;
   margin-bottom: 32px;
@@ -39,7 +45,14 @@ const LegendContainerStyle = styled.div`
   }
 `;
 
+const FieldsetContentStyle = styled.div`
+  ${({
+    inline
+  }) => inline && 'display: flex;'}
+`;
+
 export {
   FieldsetStyle,
-  LegendContainerStyle
+  LegendContainerStyle,
+  FieldsetContentStyle
 };

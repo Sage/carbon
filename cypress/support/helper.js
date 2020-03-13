@@ -22,6 +22,10 @@ export function visitComponentUrlByTheme(component, theme, sufix = '') {
   cy.visit(`${prepareUrl(component, 'default', true, '')}&theme=${theme}${sufix}`);
 }
 
+export function visitFlatTableComponentNoiFrame(component, suffix = 'default', iFrameOnly = false, prefix = '', stickyRow = true, stickyHead = true, clickableRow = true) {
+  cy.visit(`${prepareUrl(component, suffix, iFrameOnly, prefix, stickyRow, stickyHead, clickableRow)}&knob-hasHeaderRow=${stickyRow}&knob-hasStickyHead=${stickyHead}&knob-hasClickableRows=${clickableRow}`);
+}
+
 export function clickActionsTab(iFrameOnly = false) {
   if (!iFrameOnly) actionsTab().click();
 }
@@ -38,6 +42,7 @@ export function dragAndDrop(draggableElement, destinationPosition, startFromHigh
   const ROW_HIGHT = 45;
   const TEN_PIXEL_MOVE = 15;
 
+  console.log(startFromHight);
   draggableElement
     .trigger('mousedown', { force: true, release: false })
     .wait(500) // required for correct drag&drop headless browser (500ms)
@@ -70,7 +75,7 @@ export function setSlidebar(selector, value) {
 }
 
 export function pressESCKey() {
-  // using Shift+Esc - because of storybook shortcuts overeride
+  // using Shift+Esc - because of storybook shortcuts override
   cy.iFrame('body').type('{shift}{esc}');
 }
 

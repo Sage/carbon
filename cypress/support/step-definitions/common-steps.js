@@ -1,17 +1,18 @@
 import {
-  visitComponentUrl, setSlidebar, pressESCKey, pressTABKey, asyncWaitForKnobs,
+  visitComponentUrl, setSlidebar, pressESCKey, pressTABKey, asyncWaitForKnobs, visitFlatTableComponentNoiFrame,
 } from '../helper';
 import {
   commonButtonPreview, labelPreview, helpIcon, helpIconByPosition, inputWidthSlider,
-  fieldHelpPreview, labelWidthSlider, labelWidthSliderByGroup, backgroundUILocator,
+  fieldHelpPreview, labelWidthSlider, backgroundUILocator,
   closeIconButton, tooltipPreview, getKnobsInput, getKnobsInputWithName, getKnobsInputByGroup,
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
   precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
-  knobsNameTab, fieldHelpPreviewByPosition, labelByPosition,
+  knobsNameTab, fieldHelpPreviewByPosition, labelByPosition, dlsRoot, commonButtonPreviewNoIFrameRoot,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
 import { getElementNoIframe, commonButtonPreviewNoIframe } from '../../locators/build';
+import { pagerSummary } from '../../locators/pager';
 
 const LABEL_INPUT_INLINE_CLASS = 'common-input__label--inline';
 const FIRST_ELEMENT = 0;
@@ -39,6 +40,10 @@ Given('I open {string} component page basic in iframe', (component) => {
   visitComponentUrl(component, 'basic', true);
 });
 
+Given('I open in full screen Test {string} component page in noIframe', (component) => {
+  visitComponentUrl(component, 'in_full_screen_dialog', true, 'test-');
+});
+
 Given('I open {string} component page buttonToogleGroup validation in iframe', (component) => {
   visitComponentUrl(component, 'buttonToogleGroup', true);
 });
@@ -53,6 +58,10 @@ Given('I open {string} basic classic component page in iframe', (component) => {
 
 Given('I open {string} component page with button', (component) => {
   visitComponentUrl(component, 'with_button');
+});
+
+Given('I open {string} component page with inputs', (component) => {
+  visitComponentUrl(component, 'default_with_inputs');
 });
 
 Given('I open {string} component with button classic page', (component) => {
@@ -143,6 +152,22 @@ Given('I open {string} component page validations in iframe', (component) => {
   visitComponentUrl(component, 'validations', true);
 });
 
+Given('I open basic Test {string} component page', (component) => {
+  visitComponentUrl(component, 'basic', false, 'test-');
+});
+
+Given('I open basic Test {string} component page in noIframe', (component) => {
+  visitComponentUrl(component, 'basic', true, 'test-');
+});
+
+When('I open Test {string} component basic page with prop value', (componentName) => {
+  visitFlatTableComponentNoiFrame(componentName, 'basic', true, 'test-');
+});
+
+Given('I open grouped Test {string} component page in noIframe', (component) => {
+  visitComponentUrl(component, 'grouped', true, 'test-');
+});
+
 Given('I open {string} component page validations classic in iframe', (component) => {
   visitComponentUrl(component, 'validations_classic', true);
 });
@@ -153,6 +178,10 @@ Given('I open {string} component page autoFocus in iframe', (component) => {
 
 Given('I open {string} component page autoFocus multiple in iframe', (component) => {
   visitComponentUrl(component, 'autofocus_multiple', true);
+});
+
+Given('I open {string} component page with sticky footer', (component) => {
+  visitComponentUrl(component, 'with_sticky_footer');
 });
 
 When('I open {word} tab', (text) => {
@@ -195,6 +224,10 @@ When('I select group {word} {word} to {string}', (groupName, propertyName, selec
 
 When('I open component preview', () => {
   commonButtonPreview().click();
+});
+
+When('I open component preview in noIFrame', () => {
+  commonButtonPreviewNoIFrameRoot().click();
 });
 
 Then('component title on preview is {string}', (title) => {
@@ -285,6 +318,7 @@ Then('fieldHelp on preview is set to {string}', (text) => {
 });
 
 Then('{string} fieldHelp on preview is set to {string}', (position, text) => {
+  cy.wait(1500, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
   switch (position) {
     case 'First':
       fieldHelpPreviewByPosition(FIRST_ELEMENT).should('have.text', text);
@@ -359,17 +393,16 @@ Then('closeIcon is not visible', () => {
   closeIconButton().should('not.exist');
 });
 
-// needs to be refactored when golden color will be fixed for Close icon - FE-2508
 Then('closeIcon has the border outline', () => {
-  closeIconButton().rightclick();
-  closeIconButton().should('have.css', 'outline-color', 'rgba(0, 103, 244, 0.247)')
-    .and('have.css', 'outline-width', '5px');
+  closeIconButton().should('have.css', 'outline', 'rgb(255, 181, 0) solid 3px');
 });
 
-Then('closeIcon has no border outline for classic story', () => {
-  closeIconButton().rightclick();
-  closeIconButton().should('not.have.css', 'outline-color', 'rgba(0, 103, 244, 0.247)')
-    .and('not.have.css', 'outline-width', '5px');
+Then('closeIcon has border outline for classic story', () => {
+  closeIconButton().should('have.css', 'outline', 'rgba(0, 103, 244, 0.247) auto 5px');
+});
+
+Then('closeIcon is focused', () => {
+  closeIconButton().focus();
 });
 
 When('I hit ESC key', () => {
@@ -424,8 +457,8 @@ When('I uncheck {word} {word} checkbox', (checkboxName, text) => {
 });
 
 When('I uncheck group {word} {word} {word} checkbox', (groupName, checkboxName, text) => {
-  getKnobsInpuByGroup(groupName, checkboxName, text).scrollIntoView();
-  getKnobsInpuByGroup(groupName, checkboxName, text).uncheck();
+  getKnobsInputByGroup(groupName, checkboxName, text).scrollIntoView();
+  getKnobsInputByGroup(groupName, checkboxName, text).uncheck();
 });
 
 Then('inputWidth is set to {string}', (width) => {
@@ -468,12 +501,16 @@ When('I click outside of the component', () => {
   storyRoot().click();
 });
 
+When('I click outside of the component in DLS directory', () => {
+  dlsRoot().click();
+});
+
 When('I click above of the component into iFrame', () => {
   storyRootNoIframe().click('top');
 });
 
 Then('{string} tab in {string} tab list is visible', (knobsName, position) => {
-  cy.wait(3000, { log: DEBUG_FLAG }); // required because element needs to be loaded
+  cy.wait(3500, { log: DEBUG_FLAG }); // required because element needs to be loaded
   switch (position) {
     case 'first':
       knobsNameTab(knobsName, FIRST_ELEMENT).should('be.visible')
@@ -525,4 +562,8 @@ When('I press keyboard {string} key times {int}', (key, times) => {
 
 When('I click on outside dialog in iFrame', () => {
   cy.get('#story-root').click({ force: true });
+});
+
+Then('totalRecords is set to {string} {word}', (totalRecords, element) => {
+  pagerSummary().invoke('text').should('contain', `${totalRecords} ${element}`);
 });

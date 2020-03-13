@@ -6,6 +6,8 @@ export default (palette) => {
   return {
     name: 'base',
 
+    spacing: 8,
+
     colors: {
       // main
       base: palette.productGreen,
@@ -39,6 +41,17 @@ export default (palette) => {
       destructive: {
         hover: palette.errorRedShade(20)
       }
+    },
+
+
+    anchorNavigation: {
+      divider: palette.slateTint(80),
+      navItemHoverBackground: palette.slateTint(90)
+    },
+
+    accordion: {
+      border: palette.slateTint(80),
+      background: palette.slateTint(90)
     },
 
     menu: {
@@ -83,6 +96,12 @@ export default (palette) => {
       size: '14px'
     },
 
+    readOnly: {
+      textboxBackground: palette.slateTint(98),
+      textboxBorder: palette.slateTint(80),
+      textboxText: blackWithOpacity(0.74)
+    },
+
     disabled: {
       border: palette.slateTint(80),
       button: palette.slateTint(90),
@@ -92,6 +111,10 @@ export default (palette) => {
       buttonText: 'rgba(0,0,0,.2)',
       background: palette.slateTint(90),
       switch: palette.slateTint(89.5)
+    },
+
+    draggableItem: {
+      border: palette.slateTint(90)
     },
 
     checkable: {
@@ -127,6 +150,10 @@ export default (palette) => {
       disabled: 'rgba(0,0,0,0.30)'
     },
 
+    popoverContainer: {
+      iconColor: 'rgba(0,0,0,0.90)'
+    },
+
     portrait: {
       border: palette.slateTint(50),
       background: palette.slateTint(95),
@@ -139,6 +166,13 @@ export default (palette) => {
       neutralBackgroundFocus: palette.slateTint(10),
       warningButtonFocus: palette.carrotOrange,
       errorButtonFocus: palette.errorRedShade(20)
+    },
+
+    search: {
+      active: palette.goldTint(50),
+      button: '#255BC7',
+      passive: palette.slateTint(80),
+      searchActive: '#668592'
     },
 
     select: {

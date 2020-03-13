@@ -26,6 +26,7 @@ export type IconTypes =
 | 'bulk_destroy'
 | 'business'
 | 'calendar'
+| 'calendar_today'
 | 'call'
 | 'camera'
 | 'card_view'
@@ -90,17 +91,20 @@ export type IconTypes =
 | 'locked'
 | 'location'
 | 'logout'
+| 'lookup'
 | 'marker'
 | 'message'
 | 'messages'
 | 'minus'
 | 'minus_large'
 | 'mobile'
+| 'pause_circle'
 | 'pdf'
 | 'people'
 | 'person'
 | 'phone'
 | 'play'
+| 'play_circle'
 | 'plus'
 | 'plus_large'
 | 'print'
@@ -110,6 +114,7 @@ export type IconTypes =
 | 'refresh'
 | 'remove'
 | 'save'
+| 'scan'
 | 'search'
 | 'services'
 | 'settings'
@@ -130,3 +135,5 @@ export type IconTypes =
 export type AlignBinaryType = 'left' | 'right';
 
 export type SizesType = 'small' | 'large';
+
+export type ThemesBinary = 'primary' | 'secondary';

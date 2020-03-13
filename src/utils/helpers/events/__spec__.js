@@ -59,6 +59,34 @@ describe('Events', () => {
     });
   });
 
+  describe('isEnterOrSpaceKey', () => {
+    describe('when event is not a key up event', () => {
+      it('returns false', () => {
+        expect(Events.isEnterOrSpaceKey({ type: 'click' })).toBeFalsy();
+      });
+    });
+
+    describe('when event is a keyup event', () => {
+      describe('when key is not the enter key', () => {
+        it('returns false', () => {
+          expect(Events.isEnterOrSpaceKey({ type: 'keyup', which: 8 })).toBeFalsy();
+        });
+      });
+
+      describe('key is the enter key', () => {
+        it('returns true', () => {
+          expect(Events.isEnterOrSpaceKey({ type: 'keyup', which: 13 })).toBeTruthy();
+        });
+      });
+
+      describe('key is the space key', () => {
+        it('returns true', () => {
+          expect(Events.isEnterOrSpaceKey({ type: 'keyup', which: 32 })).toBeTruthy();
+        });
+      });
+    });
+  });
+
   describe('isValidKeyPress', () => {
     describe('when event is not a key up event', () => {
       it('returns false', () => {

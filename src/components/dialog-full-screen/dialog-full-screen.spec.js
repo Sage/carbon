@@ -1,17 +1,16 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import 'jest-styled-components';
 import DialogFullScreen from './dialog-full-screen.component';
 import FullScreenHeading from './full-screen-heading';
 import StyledDialogFullScreen from './dialog-full-screen.style';
-import StyledIcon from './icon.style';
 import StyledContent from './content.style';
 import classicTheme from '../../style/themes/classic';
 import Button from '../button';
 import guid from '../../utils/helpers/guid';
-import Icon from '../icon';
 import Heading from '../heading';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import IconButton from '../icon-button';
 
 jest.mock('../../utils/helpers/guid');
 
@@ -19,11 +18,12 @@ describe('DialogFullScreen', () => {
   guid.mockImplementation(() => 'guid-12345');
 
   let instance,
-      wrapper;
-  const onCancel = jasmine.createSpy('cancel');
+      wrapper,
+      onCancel;
 
   beforeEach(() => {
-    wrapper = shallow(
+    onCancel = jasmine.createSpy('cancel');
+    wrapper = mount(
       <DialogFullScreen
         onCancel={ onCancel }
         className='foo'
@@ -64,12 +64,6 @@ describe('DialogFullScreen', () => {
       expect(instance._dialog).toBeTruthy();
     });
 
-    it('closes when the exit icon is click', () => {
-      const closeIcon = wrapper.find(Icon);
-      closeIcon.simulate('click');
-      expect(onCancel).toHaveBeenCalled();
-    });
-
     it('renders the children passed to it', () => {
       expect(wrapper.find(Button).length).toEqual(2);
     });
@@ -95,14 +89,16 @@ describe('DialogFullScreen', () => {
 
   describe('onClosing', () => {
     beforeEach(() => {
-      wrapper = mount(<DialogFullScreen open={ false } />);
-      wrapper.setProps({ open: true });
+      wrapper = mount(<DialogFullScreen style={ { overflow: 'auto' } } open={ false } />);
     });
 
-    it('removes overflow hidden from the body', () => {
-      const html = wrapper.instance().document.documentElement;
+    it('recovers an original overflow', () => {
+      window.document.documentElement.style.overflow = 'auto';
+      expect(window.document.documentElement.style.overflow).toBe('auto');
+      wrapper.setProps({ open: true });
+      expect(window.document.documentElement.style.overflow).toBe('hidden');
       wrapper.setProps({ open: false });
-      expect(html.style.overflow).not.toMatch('hidden');
+      expect(window.document.documentElement.style.overflow).toBe('auto');
     });
   });
 
@@ -120,7 +116,7 @@ describe('DialogFullScreen', () => {
     describe('is an object', () => {
       beforeEach(() => {
         const titleHeading = <Heading title='my custom heading' />;
-        wrapper = shallow(
+        wrapper = mount(
           <DialogFullScreen
             onCancel={ onCancel }
             className='foo'
@@ -145,11 +141,11 @@ describe('DialogFullScreen', () => {
   describe('tags', () => {
     describe('on component', () => {
       it('include correct component, elements and role data tags', () => {
-        wrapper = shallow(
+        wrapper = mount(
           <DialogFullScreen
             open
-            onCancel={ () => {} }
-            onConfirm={ () => {} }
+            onCancel={ () => { } }
+            onConfirm={ () => { } }
             title='Test'
             data-role='baz'
             data-element='bar'
@@ -159,6 +155,98 @@ describe('DialogFullScreen', () => {
         expect(wrapper.instance().props['data-role']).toEqual('baz');
       });
     });
+  });
+
+  describe('when showCloseIcon is false', () => {
+    it('does not render close icon', () => {
+      wrapper = mount(
+        <DialogFullScreen
+          open
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          title='Test'
+          data-role='baz'
+          data-element='bar'
+          showCloseIcon={ false }
+        />
+      );
+      expect(wrapper.find(IconButton).first().length).toEqual(0);
+    });
+  });
+
+  describe('when onCancel is not provided', () => {
+    it('does not render close icon', () => {
+      wrapper = mount(
+        <DialogFullScreen
+          open
+          onConfirm={ () => {} }
+          title='Test'
+          data-role='baz'
+          data-element='bar'
+        />
+      );
+      expect(wrapper.find(IconButton).first().length).toEqual(0);
+    });
+  });
+
+  describe('when onCancel and showCloseIcon are provided', () => {
+    it('renders close icon', () => {
+      wrapper = mount(
+        <DialogFullScreen
+          open
+          onCancel={ () => {} }
+          onConfirm={ () => {} }
+          title='Test'
+          data-role='baz'
+          data-element='bar'
+        />
+      );
+      expect(wrapper.find(IconButton).first().length).toEqual(1);
+    });
+  });
+});
+
+describe('closeIcon', () => {
+  let wrapper;
+  let onCancel;
+
+  beforeEach(() => {
+    jest.restoreAllMocks();
+    onCancel = jest.fn();
+
+    wrapper = mount(
+      <DialogFullScreen
+        open
+        onCancel={ onCancel }
+        onConfirm={ () => { } }
+        title='Test'
+        data-role='baz'
+        data-element='bar'
+      />
+    );
+  });
+
+  it('closes when the exit icon is click', () => {
+    wrapper.find(IconButton).first().simulate('click');
+    expect(onCancel).toHaveBeenCalled();
+  });
+
+  it('closes when exit icon is focused and Enter key is pressed', () => {
+    const icon = wrapper.find(IconButton).first();
+    icon.simulate('keyDown', { which: 13, key: 'Enter' });
+    expect(onCancel).toHaveBeenCalled();
+  });
+
+  it('closes when exit icon is focused and ESC key is pressed', () => {
+    const icon = wrapper.find(IconButton).first();
+    icon.simulate('keyDown', { which: 27, key: 'Escape' });
+    expect(onCancel).toHaveBeenCalled();
+  });
+
+  it('does not close when exit icon is focused any other key is pressed', () => {
+    const icon = wrapper.find(IconButton).first();
+    icon.simulate('keyDown', { which: 65, key: 'a' });
+    expect(onCancel).not.toHaveBeenCalled();
   });
 });
 
@@ -188,25 +276,6 @@ describe('Styled StyledDialogFullScreen', () => {
       assertStyleMatch({
         backgroundColor: '#e6ebed'
       }, wrapper);
-    });
-  });
-});
-
-describe('Styled StyledIcon', () => {
-  describe('classic theme', () => {
-    it('applies custom styling', () => {
-      const wrapper = mount(
-        <StyledIcon
-          theme={ classicTheme }
-        />
-      );
-      assertStyleMatch({
-        color: '#4d7080'
-      }, wrapper);
-
-      assertStyleMatch({
-        color: '#255BC7'
-      }, wrapper, { modifier: ':hover' });
     });
   });
 });

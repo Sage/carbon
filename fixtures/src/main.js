@@ -36,6 +36,8 @@ import UncontrolledCheckboxGroup from './components/uncontrolled/checkbox-group'
 import ControlledCheckboxGroup from './components/controlled/checkbox-group';
 import UncontrolledCheckbox from './components/uncontrolled/checkbox';
 import ControlledCheckbox from './components/controlled/checkbox';
+import UncontrolledSearch from './components/uncontrolled/search';
+import ControlledSearch from './components/controlled/search';
 
 const routes = {
   'radio-button': {
@@ -79,6 +81,11 @@ const routes = {
     description: 'Checkbox',
     uncontrolled: UncontrolledCheckbox,
     controlled: ControlledCheckbox
+  },
+  search: {
+    description: 'Search',
+    uncontrolled: UncontrolledSearch,
+    controlled: ControlledSearch
   }
 };
 

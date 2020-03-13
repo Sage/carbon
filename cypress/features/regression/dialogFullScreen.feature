@@ -1,8 +1,21 @@
 Feature: Dialog Full Screen component
   I want to change Dialog Full Screen component properties
 
-  Background: Open Alert component page
+  Background: Open Dialog Full Screen component page
     Given I open "Dialog Full Screen" component page
+
+  @positive
+    Scenario: CloseIcon has the border outline
+    Given I open component preview
+    When closeIcon is focused
+    Then closeIcon has the border outline
+
+  @positive
+  Scenario: Clicking close icon closes Dialog Full Screen
+    Given I check showCloseIcon checkbox
+      And I open component preview
+    When I click close icon
+    Then Confirm dialog is not visible
 
   @positive
   Scenario Outline: Change Dialog Full Screen component title to <title>
@@ -73,3 +86,16 @@ Feature: Dialog Full Screen component
       And I open component preview
       And I hit ESC key
     Then Dialog Full Screen is not visible
+
+  @positive
+  Scenario: Open event
+    When clear all actions in Actions Tab
+      And I open component preview
+    Then open action was called in Actions Tab
+
+  @positive
+  Scenario: Cancel event
+    Given clear all actions in Actions Tab
+      And I open component preview
+    When I click closeIcon
+    Then cancel action was called in Actions Tab

@@ -17,10 +17,17 @@ import StyledForm,
   StyledResponsiveFooterWrapper
 } from '../../../__deprecated__/components/form/form.style';
 import OptionsHelper from '../../../utils/helpers/options-helper';
+import Logger from '../../../utils/logger';
 
 const FormContext = React.createContext();
 
 class FormWithoutValidations extends React.Component {
+  constructor(props) {
+    super(props);
+    Logger.deprecate(`Form is scheduled to be removed from Carbon.
+Please see https://github.com/Sage/carbon/pull/2481 for more details.`);
+  }
+
   state = {
     /** Tracks if the form is clean or dirty, used by unsavedWarning */
     isDirty: false,
@@ -207,7 +214,14 @@ class FormWithoutValidations extends React.Component {
       this.triggerSubmit(ev, valid);
     } else {
       this.setState({ submitted: false });
+      this.regainFocusOnSubmit();
     }
+  }
+
+  regainFocusOnSubmit() {
+    const lastId = this._form.elements.length - (this.props.stickyFooter ? 2 : 1);
+    const lastElement = this._form.elements[lastId];
+    lastElement.focus();
   }
 
   triggerSubmit(ev, valid) {
@@ -353,7 +367,10 @@ class FormWithoutValidations extends React.Component {
     }
 
     return (
-      <StyledFormFooter ref={ this.formFooterRef } buttonAlign={ this.props.buttonAlign }>
+      <StyledFormFooter
+        data-element='sticky-footer' ref={ this.formFooterRef }
+        buttonAlign={ this.props.buttonAlign }
+      >
         <StyledResponsiveFooterWrapper
           buttonAlign={ this.props.buttonAlign }
           showSummary={ this.props.showSummary }

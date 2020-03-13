@@ -1,0 +1,24 @@
+import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
+import Search from '.';
+
+<Meta title="Design System/Search" />
+
+# Search
+
+<Preview>
+  <Story name="default" parameters={{ info: { disable: true }}} >
+    <Search defaultValue="Search"/>
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="withSearchButton" parameters={{ info: { disable: true }}} >
+    <Search defaultValue="Search" searchButton/>
+  </Story>
+</Preview>
+
+<Preview>
+  <Story id="experimental-search--default" parameters={{ info: { disable: true }}} />
+</Preview>
+
+<Props of={Search} />

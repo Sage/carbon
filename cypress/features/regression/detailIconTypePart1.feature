@@ -14,7 +14,7 @@ Feature: Detail component
     When I set detail icon to "<iconName>"
     Then icon on preview is "<iconName>"
     Examples:
-      | iconName          |
+      | iconName            |
       | add                 |
       | alert               |
       | analysis            |
@@ -32,6 +32,7 @@ Feature: Detail component
       | bulk_destroy        |
       | business            |
       | calendar            |
+      | calendar_today      |
       | call                |
       | camera              |
       | card_view           |
@@ -79,6 +80,6 @@ Feature: Detail component
     When I set detail icon to "<iconName>"
     Then icon on preview is "<iconDataElement>"
     Examples:
-      | iconName          | iconDataElement |
-      | email             | message         |
+      | iconName | iconDataElement |
+      | email    | message         |
 
