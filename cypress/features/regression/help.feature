@@ -57,3 +57,8 @@ Feature: Help component
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
       | <>                      |
+
+  @positive
+  Scenario: Verify default color for help icon
+    # When I open "Help" component page
+    Then icon on preview has "rgba(0, 0, 0, 0.65)" color
