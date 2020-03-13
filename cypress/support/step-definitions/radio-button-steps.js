@@ -1,5 +1,12 @@
 import { fieldHelpPreview, labelByPosition, labelWidthSliderByName } from '../../locators';
-import { radioButtonByPosition, radioButtonComponentNoiFrame } from '../../locators/radioButton/index';
+import {
+  radioButtonComponentNoiFrame,
+  radioButtonByPosition,
+  radioButtonComponentByPosition,
+  radioButtonGroup,
+  radioButtonFieldset,
+  radioButtonLegend,
+} from '../../locators/radioButton/index';
 import { setSlidebar } from '../helper';
 
 const INLINE = 'carbon-radio-button__help-text--inline';
@@ -108,4 +115,30 @@ Then('{string} RadioButton label width is set to {string}', (radioButtonName, wi
 
 When('I set RadioButton {word} {word} slider to {int}', (propertyName, text, width) => {
   setSlidebar(labelWidthSliderByName(propertyName, text), width);
+});
+
+Then('RadioButton are inline', () => {
+  radioButtonGroup().should('have.css', 'display', 'flex');
+  radioButtonComponentByPosition(FIRST_RADIOBUTTON).should('have.css', 'margin-left', '0px');
+  radioButtonComponentByPosition(SECOND_RADIOBUTTON).should('have.css', 'margin-left', '32px');
+  radioButtonComponentByPosition(THIRD_RADIOBUTTON).should('have.css', 'margin-left', '32px');
+});
+
+Then('RadioButton are not inline', () => {
+  radioButtonGroup().should('have.css', 'display', 'block');
+  radioButtonComponentByPosition(FIRST_RADIOBUTTON).should('have.css', 'margin-left', '0px');
+  radioButtonComponentByPosition(SECOND_RADIOBUTTON).should('have.css', 'margin-left', '0px');
+  radioButtonComponentByPosition(THIRD_RADIOBUTTON).should('have.css', 'margin-left', '0px');
+});
+
+Then('legend is inline with RadioButton', () => {
+  radioButtonFieldset().should('have.css', 'display', 'flex');
+  radioButtonLegend().should('have.css', 'margin-right', '32px')
+    .and('have.css', 'height', '34px');
+});
+
+Then('legend is not inline with RadioButton', () => {
+  radioButtonFieldset().should('have.css', 'display', 'block');
+  radioButtonLegend().should('have.css', 'margin-right', '0px')
+    .and('have.css', 'height', '26px');
 });

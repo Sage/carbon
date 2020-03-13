@@ -7,7 +7,7 @@ import {
   closeIconButton, tooltipPreview, getKnobsInput, getKnobsInputWithName, getKnobsInputByGroup,
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
   precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
-  knobsNameTab, fieldHelpPreviewByPosition, labelByPosition, dlsRoot,
+  knobsNameTab, fieldHelpPreviewByPosition, labelByPosition, dlsRoot, commonButtonPreviewNoIFrameRoot,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
@@ -38,6 +38,10 @@ Given('I open {string} component page basic', (component) => {
 
 Given('I open {string} component page basic in iframe', (component) => {
   visitComponentUrl(component, 'basic', true);
+});
+
+Given('I open in full screen Test {string} component page in noIframe', (component) => {
+  visitComponentUrl(component, 'in_full_screen_dialog', true, 'test-');
 });
 
 Given('I open {string} component page buttonToogleGroup validation in iframe', (component) => {
@@ -222,6 +226,10 @@ When('I open component preview', () => {
   commonButtonPreview().click();
 });
 
+When('I open component preview in noIFrame', () => {
+  commonButtonPreviewNoIFrameRoot().click();
+});
+
 Then('component title on preview is {string}', (title) => {
   dialogTitle().should('have.text', title);
 });
@@ -385,17 +393,13 @@ Then('closeIcon is not visible', () => {
   closeIconButton().should('not.exist');
 });
 
-// needs to be refactored when golden color will be fixed for Close icon - FE-2508
-Then('closeIcon has the border outline', () => {
-  closeIconButton().rightclick();
-  closeIconButton().should('have.css', 'outline-color', 'rgba(0, 103, 244, 0.247)')
-    .and('have.css', 'outline-width', '5px');
+Then('closeIcon has the border outline color {string} and width {string}', (color, width) => {
+  closeIconButton().should('have.css', 'outline-color', color)
+    .and('have.css', 'outline-width', width);
 });
 
-Then('closeIcon has no border outline for classic story', () => {
-  closeIconButton().rightclick();
-  closeIconButton().should('not.have.css', 'outline-color', 'rgba(0, 103, 244, 0.247)')
-    .and('not.have.css', 'outline-width', '5px');
+Then('closeIcon is focused', () => {
+  closeIconButton().focus();
 });
 
 When('I hit ESC key', () => {

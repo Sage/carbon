@@ -14,11 +14,12 @@ const MessageStyle = styled.div`
   min-height: 38px;
 
   ${({ transparent }) => transparent && css`
-      border: none;
-      background: transparent;
+    border: none;
+    background: transparent;
   `}
 
   ${StyledIconButton} {
+    position: absolute;
     right: 20px;
     top: 50%;
     transform: translateY(-50%);

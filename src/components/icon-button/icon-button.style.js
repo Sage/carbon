@@ -4,7 +4,6 @@ import classicIconButtonStyle from './icon-button-classic.style';
 import { baseTheme } from '../../style/themes';
 
 const StyledIconButton = styled.button`
-  position: absolute;
   background: transparent;
   border: none;
   padding: 0;
@@ -28,7 +27,6 @@ const StyledIconButton = styled.button`
       border: none;
     }
   }
-
 
   ${classicIconButtonStyle};
 `;

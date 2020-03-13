@@ -42,6 +42,7 @@ export function dragAndDrop(draggableElement, destinationPosition, startFromHigh
   const ROW_HIGHT = 45;
   const TEN_PIXEL_MOVE = 15;
 
+  console.log(startFromHight);
   draggableElement
     .trigger('mousedown', { force: true, release: false })
     .wait(500) // required for correct drag&drop headless browser (500ms)
@@ -74,7 +75,7 @@ export function setSlidebar(selector, value) {
 }
 
 export function pressESCKey() {
-  // using Shift+Esc - because of storybook shortcuts overeride
+  // using Shift+Esc - because of storybook shortcuts override
   cy.iFrame('body').type('{shift}{esc}');
 }
 

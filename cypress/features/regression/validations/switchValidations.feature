@@ -15,4 +15,8 @@ Feature: Switch validations component
       | state   | position | text          |
       | error   | first    | Show error!   |
       | warning | second   | Show warning! |
+
+  @ignore
+  # ignored regression
+    Examples:
       | info    | third    | Show info!    |

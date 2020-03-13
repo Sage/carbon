@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import baseTheme from '../../style/themes/base';
 import { StyledFormFooter } from '../../__deprecated__/components/form/form.style';
+import StyledIconButton from '../icon-button/icon-button.style';
 
 const dialogSizes = {
   'extra-small': '300px',
@@ -68,12 +69,10 @@ const DialogStyle = styled.div`
       }
   `}
 
-  .carbon-dialog__close {
-    color: #4d7080;
-    cursor: pointer;
+  ${StyledIconButton} {
     position: absolute;
-    right: 35px;
-    top: 28px;
+    right: 33px;
+    top: 32px;
     z-index: 1;
 
     &:hover {

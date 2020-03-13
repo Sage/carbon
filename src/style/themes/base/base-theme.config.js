@@ -43,6 +43,12 @@ export default (palette) => {
       }
     },
 
+
+    anchorNavigation: {
+      divider: palette.slateTint(80),
+      navItemHoverBackground: palette.slateTint(90)
+    },
+
     accordion: {
       border: palette.slateTint(80),
       background: palette.slateTint(90)
@@ -107,6 +113,10 @@ export default (palette) => {
       switch: palette.slateTint(89.5)
     },
 
+    draggableItem: {
+      border: palette.slateTint(90)
+    },
+
     checkable: {
       checked: 'rgba(0,0,0,0.90)'
     },
@@ -138,6 +148,10 @@ export default (palette) => {
       onLightBackground: palette.slateTint(40),
       onLightBackgroundHover: palette.slateTint(20),
       disabled: 'rgba(0,0,0,0.30)'
+    },
+
+    popoverContainer: {
+      iconColor: 'rgba(0,0,0,0.90)'
     },
 
     portrait: {

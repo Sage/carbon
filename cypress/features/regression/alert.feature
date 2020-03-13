@@ -128,11 +128,12 @@ Feature: Alert component
       | large        |       960        |
       | extra-large  |       1080       |
 
-  @positive
+  @ignore
+  # ignored regression
   Scenario: CloseIcon has the border outline
-    When I open component preview
-      And I hit Tab key 1 time
-    Then closeIcon has the border outline
+    Given I open component preview
+    When closeIcon is focused
+    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
 
   @positive
   Scenario: Check open click event
