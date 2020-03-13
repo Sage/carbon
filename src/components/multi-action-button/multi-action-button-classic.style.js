@@ -6,11 +6,16 @@ import { isClassic } from '../../utils/helpers/style-helper';
 import StyledIcon from '../icon/icon.style';
 
 const getMultiActionButtonClassicStyles = ({ disabled, displayed, theme }) => (isClassic(theme) ? css`
+  ${StyledIcon} {
+    left: 6px;
+  }
+
   ${StyledSplitButton} > ${StyledButton},
   ${StyledSplitButton} > ${StyledButton}:focus {
     margin: 0;
     height: 31px;
-    padding: 6px 14px 7px 18px;
+    padding-left: 18px;
+    padding-right: 14px;
   }
 
   ${StyledSplitButton} > ${StyledButton}:focus {
