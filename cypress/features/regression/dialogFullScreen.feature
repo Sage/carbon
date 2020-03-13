@@ -8,7 +8,7 @@ Feature: Dialog Full Screen component
     Scenario: CloseIcon has the border outline
     Given I open component preview
     When closeIcon is focused
-    Then closeIcon has the border outline
+    Then closeIcon has the border outline color "rgb(255, 181, 0)"
 
   @positive
   Scenario: Clicking close icon closes Dialog Full Screen
