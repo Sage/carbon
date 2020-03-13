@@ -8,7 +8,7 @@ Feature: Dialog component
   @positive
     Scenario: CloseIcon has the border outline
     When closeIcon is focused
-    Then closeIcon has the border outline
+    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
 
   @positive
   Scenario Outline: Set height for Dialog to <height>
