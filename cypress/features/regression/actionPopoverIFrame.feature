@@ -34,7 +34,7 @@ Feature: Action Popover component
 
   @positive
   Scenario: Open Action Popover using downarrow keyboard key
-    When I press downarrow on focused element
+    When I press downarrow on actionPopoverButton element
     Then focused element inner content is set to "Email Invoice"
       And Action Popover element has golden border on focus
 
