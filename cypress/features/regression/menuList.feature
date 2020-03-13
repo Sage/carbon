@@ -1,7 +1,7 @@
-Feature: Menulist component
-  I want to change MenuList component properties
+Feature: MenuList component
+  I want to change MenuList component default properties
 
-  Background: Open MenuList component page
+  Background: Open MenuList component default page
     Given I open "MenuList" component page
 
   @positive
@@ -9,13 +9,13 @@ Feature: Menulist component
     When I set title to "<title>"
     Then title on preview is "<title>"
     Examples:
-      | title                    |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | title                   |
+      | Sample text             |
+      | 1234567890              |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+      | <>                      |
 
   @ignore
   # @positive doesn't work on Carbon Demo site
@@ -23,27 +23,27 @@ Feature: Menulist component
     When I set filterPlaceholder to "<text>"
     Then filterPlaceholder on preview is "<text>"
     Examples:
-      | text                     |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | text                    |
+      | Sample text             |
+      | 1234567890              |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+      | <>                      |
 
   @positive
   Scenario Outline: Check search field
-    When I click into menu item second element
-      And I change search parameter to "<parameter>"
+    Given I click into menu item second element
+    When I change search parameter to "<parameter>"
     Then search result is "<result>"
       And results count is <resultsCount>
     Examples:
-      | parameter | result                                       | resultsCount |
-      | Fir       | First Sub Item                               | 1            |
-      | Sec       | Second Sub Item                              | 1            |
-      | Thi       | Third Sub Item                               | 1            |
-      | d         | Second Sub ItemThird Sub Item                | 2            |
-      | tem       | First Sub ItemSecond Sub ItemThird Sub Item  | 3            |
+      | parameter | result                                      | resultsCount |
+      | Fir       | First Sub Item                              | 1            |
+      | Sec       | Second Sub Item                             | 1            |
+      | Thi       | Third Sub Item                              | 1            |
+      | d         | Second Sub ItemThird Sub Item               | 2            |
+      | tem       | First Sub ItemSecond Sub ItemThird Sub Item | 3            |
 
   @ignore
   # @positive doesn't work on Carbon Demo site
@@ -54,27 +54,27 @@ Feature: Menulist component
   @ignore
   # @positive doesn't work on Carbon Demo site
   Scenario: Enable and disable innitially open
-    When I check initiallyOpen checkbox
-      And I uncheck initiallyOpen checkbox
+    Given I check initiallyOpen checkbox
+    When I uncheck initiallyOpen checkbox
     Then MenuList component is not expanded
 
   @positive
-  Scenario: Disable fiter
+  Scenario: Disable filter
+    Given I click into menu item second element
     When I uncheck filter checkbox
-      And I click into menu item second element
     Then filter is disabled
 
   @positive
   Scenario: Disable and enable filter
-    When I uncheck filter checkbox
+    Given I uncheck filter checkbox
       And I check filter checkbox
       And I set title to "title"
-      And I click into menu item second element
+    When I click into menu item second element
     Then filter is enabled
 
   @positive
   Scenario: Disable collapsible
-    When I set title to "title"
+    Given I set title to "title"
       And I uncheck collapsible checkbox
-      And I click into title
+    When I click into title
     Then MenuList component is expanded
