@@ -118,6 +118,43 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
   z-index: 1;
 }
 
+.c2 {
+  cursor: not-allowed;
+  box-sizing: border-box;
+  padding: 0 24px;
+  position: relative;
+  line-height: 40px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: rgba(0,0,0,0.3);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.c2:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 2px #FFB500;
+}
+
+.c2.c2 .c3 {
+  cursor: not-allowed;
+  color: inherit;
+}
+
 .c1 {
   cursor: pointer;
   box-sizing: border-box;
@@ -154,14 +191,14 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c1.c1 .c2 {
+.c1.c1 .c3 {
   cursor: pointer;
 }
 
 <ActionPopoverMenu
   button={
     Object {
-      "current": .c6 {
+      "current": .c7 {
   display: inline-block;
   position: relative;
   color: inherit;
@@ -182,12 +219,12 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
   width: 24px;
 }
 
-.c6:hover {
+.c7:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c6::before {
+.c7::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -200,7 +237,7 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
   display: block;
 }
 
-.c4 {
+.c5 {
   display: inline-block;
   position: relative;
   color: inherit;
@@ -221,12 +258,12 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
   width: 24px;
 }
 
-.c4:hover {
+.c5:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c4::before {
+.c5::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -250,37 +287,69 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
   z-index: 1;
 }
 
-.c7.c7 .c3 {
+.c8.c8 .c4 {
   cursor: pointer;
 }
 
-.c8.c8 .c3 {
+.c9.c9 .c4 {
   cursor: pointer;
 }
 
-.c9.c9 .c3 {
+.c10.c10 .c4 {
   cursor: pointer;
 }
 
-.c10.c10 .c3 {
+.c11.c11 .c4 {
   cursor: pointer;
 }
 
-.c5 {
+.c6 {
   padding-right: 8px;
 }
 
-.c2 {
+.c3 {
   position: absolute;
   left: 0px;
 }
 
-.c2,
-.c2:hover {
+.c3,
+.c3:hover {
   color: #668491;
 }
 
-.c11.c11 .c3 {
+.c2 {
+  cursor: not-allowed;
+  box-sizing: border-box;
+  padding: 0 24px;
+  position: relative;
+  line-height: 40px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: rgba(0,0,0,0.3);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.c2:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 2px #FFB500;
+}
+
+.c2.c2 .c4 {
   cursor: not-allowed;
   color: inherit;
 }
@@ -322,11 +391,11 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c0.c0 .c3 {
+.c0.c0 .c4 {
   cursor: pointer;
 }
 
-.c12.c12 .c3 {
+.c12.c12 .c4 {
   cursor: pointer;
 }
 
@@ -358,7 +427,8 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
             Sub Menu 1
           </div>
           <div
-            class="c0"
+            aria-disabled="true"
+            class="c2"
             role="menuitem"
             tabindex="0"
             type="button"
@@ -367,14 +437,14 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
           </div>
         </div>
         <span
-          class="c2 c3 c4"
+          class="c3 c4 c5"
           data-component="icon"
           data-element="chevron_left"
           font-size="small"
           type="chevron_left"
         />
         <span
-          class="c5 c3 c6"
+          class="c6 c4 c7"
           data-component="icon"
           data-element="message"
           font-size="small"
@@ -396,7 +466,7 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
         Sub Menu 1
       </ForwardRef>,
       <ForwardRef
-        disabled={false}
+        disabled={true}
         onClick={[Function]}
       >
         Sub Menu 2
@@ -404,6 +474,7 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
     ]
   }
   menuID="ActionPopoverMenu_guid-12345"
+  onClick={[MockFunction]}
   parentID="ActionPopoverItem_guid-12345"
   setFocusIndex={[Function]}
   setItems={[Function]}
@@ -550,7 +621,8 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
               Sub Menu 1
             </div>
             <div
-              class="c1"
+              aria-disabled="true"
+              class="c2"
               role="menuitem"
               tabindex="0"
               type="button"
@@ -607,7 +679,7 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
                   "componentStyle": ComponentStyle {
                     "componentId": "sc-dnqmqq",
                     "isStatic": false,
-                    "lastClassName": "c1",
+                    "lastClassName": "c2",
                     "rules": Array [
                       "
   cursor: ",
@@ -704,17 +776,17 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
           </ActionPopoverItem>
         </WithTheme(ActionPopoverItem)>
         <WithTheme(ActionPopoverItem)
-          disabled={false}
+          disabled={true}
           key=".$1"
           onClick={[Function]}
         >
           <ActionPopoverItem
-            disabled={false}
+            disabled={true}
             onClick={[Function]}
             theme="[ theme object ]"
           >
             <StyledComponent
-              disabled={false}
+              disabled={true}
               forwardedComponent={
                 Object {
                   "$$typeof": Symbol(react.forward_ref),
@@ -722,7 +794,7 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
                   "componentStyle": ComponentStyle {
                     "componentId": "sc-dnqmqq",
                     "isStatic": false,
-                    "lastClassName": "c1",
+                    "lastClassName": "c2",
                     "rules": Array [
                       "
   cursor: ",
@@ -799,13 +871,14 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
               theme="[ theme object ]"
             >
               <ActionPopoverItem
-                className="c1"
-                disabled={false}
+                className="c2"
+                disabled={true}
                 onClick={[Function]}
                 theme="[ theme object ]"
               >
                 <div
-                  className="c1"
+                  aria-disabled={true}
+                  className="c2"
                   onClick={[Function]}
                   onKeyDown={[Function]}
                   role="menuitem"
@@ -834,6 +907,43 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
   right: 0;
   background-color: #FFFFFF;
   z-index: 1;
+}
+
+.c2 {
+  cursor: not-allowed;
+  box-sizing: border-box;
+  padding: 0 24px;
+  position: relative;
+  line-height: 40px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: rgba(0,0,0,0.3);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.c2:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 2px #FFB500;
+}
+
+.c2.c2 .c3 {
+  cursor: not-allowed;
+  color: inherit;
 }
 
 .c1 {
@@ -872,7 +982,7 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c1.c1 .c2 {
+.c1.c1 .c3 {
   cursor: pointer;
 }
 
@@ -933,12 +1043,12 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
               ";
   z-index: 1;
 
-.c6:hover {
+.c7:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c6::before {
+.c7::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -951,7 +1061,7 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
   display: block;
 }
 
-.c4 {
+.c5 {
   display: inline-block;
   position: relative;
   color: inherit;
@@ -972,12 +1082,12 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
   width: 24px;
 }
 
-.c4:hover {
+.c5:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c4::before {
+.c5::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -1001,37 +1111,69 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
   z-index: 1;
 }
 
-.c7.c7 .c3 {
+.c8.c8 .c4 {
   cursor: pointer;
 }
 
-.c8.c8 .c3 {
+.c9.c9 .c4 {
   cursor: pointer;
 }
 
-.c9.c9 .c3 {
+.c10.c10 .c4 {
   cursor: pointer;
 }
 
-.c10.c10 .c3 {
+.c11.c11 .c4 {
   cursor: pointer;
 }
 
-.c5 {
+.c6 {
   padding-right: 8px;
 }
 
-.c2 {
+.c3 {
   position: absolute;
   left: 0px;
 }
 
-.c2,
-.c2:hover {
+.c3,
+.c3:hover {
   color: #668491;
 }
 
-.c11.c11 .c3 {
+.c2 {
+  cursor: not-allowed;
+  box-sizing: border-box;
+  padding: 0 24px;
+  position: relative;
+  line-height: 40px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: rgba(0,0,0,0.3);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.c2:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 2px #FFB500;
+}
+
+.c2.c2 .c4 {
   cursor: not-allowed;
   color: inherit;
 }
@@ -1072,11 +1214,11 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c0.c0 .c3 {
+.c0.c0 .c4 {
   cursor: pointer;
 }
 
-.c12.c12 .c3 {
+.c12.c12 .c4 {
   cursor: pointer;
 }
 
@@ -1108,7 +1250,8 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
             Sub Menu 1
           </div>
           <div
-            class="c0"
+            aria-disabled="true"
+            class="c2"
             role="menuitem"
             tabindex="0"
             type="button"
@@ -1117,14 +1260,14 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
           </div>
         </div>
         <span
-          class="c2 c3 c4"
+          class="c3 c4 c5"
           data-component="icon"
           data-element="chevron_left"
           font-size="small"
           type="chevron_left"
         />
         <span
-          class="c5 c3 c6"
+          class="c6 c4 c7"
           data-component="icon"
           data-element="message"
           font-size="small"
@@ -1146,7 +1289,7 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
         Sub Menu 1
       </ForwardRef>,
       <ForwardRef
-        disabled={false}
+        disabled={true}
         onClick={[Function]}
       >
         Sub Menu 2
@@ -1154,6 +1297,7 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
     ]
   }
   menuID="ActionPopoverMenu_guid-12345"
+  onClick={[MockFunction]}
   parentID="ActionPopoverItem_guid-12345"
   setFocusIndex={[Function]}
   setItems={[Function]}
@@ -1249,7 +1393,8 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
               Sub Menu 1
             </div>
             <div
-              class="c1"
+              aria-disabled="true"
+              class="c2"
               role="menuitem"
               tabindex="0"
               type="button"
@@ -1306,7 +1451,7 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
                   "componentStyle": ComponentStyle {
                     "componentId": "sc-dnqmqq",
                     "isStatic": false,
-                    "lastClassName": "c1",
+                    "lastClassName": "c2",
                     "rules": Array [
                       "
   cursor: ",
@@ -1403,17 +1548,17 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
           </ActionPopoverItem>
         </WithTheme(ActionPopoverItem)>
         <WithTheme(ActionPopoverItem)
-          disabled={false}
+          disabled={true}
           key=".$1"
           onClick={[Function]}
         >
           <ActionPopoverItem
-            disabled={false}
+            disabled={true}
             onClick={[Function]}
             theme="[ theme object ]"
           >
             <StyledComponent
-              disabled={false}
+              disabled={true}
               forwardedComponent={
                 Object {
                   "$$typeof": Symbol(react.forward_ref),
@@ -1421,7 +1566,7 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
                   "componentStyle": ComponentStyle {
                     "componentId": "sc-dnqmqq",
                     "isStatic": false,
-                    "lastClassName": "c1",
+                    "lastClassName": "c2",
                     "rules": Array [
                       "
   cursor: ",
@@ -1498,13 +1643,14 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
               theme="[ theme object ]"
             >
               <ActionPopoverItem
-                className="c1"
-                disabled={false}
+                className="c2"
+                disabled={true}
                 onClick={[Function]}
                 theme="[ theme object ]"
               >
                 <div
-                  className="c1"
+                  aria-disabled={true}
+                  className="c2"
                   onClick={[Function]}
                   onKeyDown={[Function]}
                   role="menuitem"
@@ -1533,6 +1679,43 @@ exports[`ActionPopover submenu left aligned does not close the submenu unless ri
   right: 0;
   background-color: #FFFFFF;
   z-index: 1;
+}
+
+.c2 {
+  cursor: not-allowed;
+  box-sizing: border-box;
+  padding: 0 24px;
+  position: relative;
+  line-height: 40px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: rgba(0,0,0,0.3);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.c2:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 2px #FFB500;
+}
+
+.c2.c2 .c3 {
+  cursor: not-allowed;
+  color: inherit;
 }
 
 .c1 {
@@ -1571,7 +1754,7 @@ exports[`ActionPopover submenu left aligned does not close the submenu unless ri
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c1.c1 .c2 {
+.c1.c1 .c3 {
   cursor: pointer;
 }
 
@@ -1593,7 +1776,7 @@ exports[`ActionPopover submenu left aligned does not close the submenu unless ri
         Sub Menu 1
       </ForwardRef>,
       <ForwardRef
-        disabled={false}
+        disabled={true}
         onClick={[Function]}
       >
         Sub Menu 2
@@ -1601,6 +1784,7 @@ exports[`ActionPopover submenu left aligned does not close the submenu unless ri
     ]
   }
   menuID="ActionPopoverMenu_guid-12345"
+  onClick={[MockFunction]}
   parentID="ActionPopoverItem_guid-12345"
   setFocusIndex={[Function]}
   setItems={[Function]}
@@ -1689,6 +1873,43 @@ exports[`ActionPopover submenu left aligned does not close the submenu unless ri
   z-index: 1;
 }
 
+.c2 {
+  cursor: not-allowed;
+  box-sizing: border-box;
+  padding: 0 24px;
+  position: relative;
+  line-height: 40px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: rgba(0,0,0,0.3);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.c2:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 2px #FFB500;
+}
+
+.c2.c2 .c3 {
+  cursor: not-allowed;
+  color: inherit;
+}
+
 .c1 {
   cursor: pointer;
   box-sizing: border-box;
@@ -1725,7 +1946,7 @@ exports[`ActionPopover submenu left aligned does not close the submenu unless ri
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c1.c1 .c2 {
+.c1.c1 .c3 {
   cursor: pointer;
 }
 
@@ -1747,7 +1968,8 @@ exports[`ActionPopover submenu left aligned does not close the submenu unless ri
               Sub Menu 1
             </div>
             <div
-              class="c1"
+              aria-disabled="true"
+              class="c2"
               role="menuitem"
               tabindex="0"
               type="button"
@@ -1901,17 +2123,17 @@ exports[`ActionPopover submenu left aligned does not close the submenu unless ri
           </ActionPopoverItem>
         </WithTheme(ActionPopoverItem)>
         <WithTheme(ActionPopoverItem)
-          disabled={false}
+          disabled={true}
           key=".$1"
           onClick={[Function]}
         >
           <ActionPopoverItem
-            disabled={false}
+            disabled={true}
             onClick={[Function]}
             theme="[ theme object ]"
           >
             <StyledComponent
-              disabled={false}
+              disabled={true}
               forwardedComponent={
                 Object {
                   "$$typeof": Symbol(react.forward_ref),
@@ -1996,13 +2218,14 @@ exports[`ActionPopover submenu left aligned does not close the submenu unless ri
               theme="[ theme object ]"
             >
               <ActionPopoverItem
-                className="c1"
-                disabled={false}
+                className="c2"
+                disabled={true}
                 onClick={[Function]}
                 theme="[ theme object ]"
               >
                 <div
-                  className="c1"
+                  aria-disabled={true}
+                  className="c2"
                   onClick={[Function]}
                   onKeyDown={[Function]}
                   role="menuitem"
@@ -2031,6 +2254,43 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
   right: 0;
   background-color: #FFFFFF;
   z-index: 1;
+}
+
+.c2 {
+  cursor: not-allowed;
+  box-sizing: border-box;
+  padding: 0 24px;
+  position: relative;
+  line-height: 40px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: rgba(0,0,0,0.3);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.c2:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 2px #FFB500;
+}
+
+.c2.c2 .c3 {
+  cursor: not-allowed;
+  color: inherit;
 }
 
 .c1 {
@@ -2069,7 +2329,7 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c1.c1 .c2 {
+.c1.c1 .c3 {
   cursor: pointer;
 }
 
@@ -2130,12 +2390,12 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
               ";
   z-index: 1;
 
-.c6:hover {
+.c7:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c6::before {
+.c7::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -2148,7 +2408,7 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
   display: block;
 }
 
-.c4 {
+.c5 {
   display: inline-block;
   position: relative;
   color: inherit;
@@ -2169,12 +2429,12 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
   width: 24px;
 }
 
-.c4:hover {
+.c5:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c4::before {
+.c5::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -2198,37 +2458,69 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
   z-index: 1;
 }
 
-.c7.c7 .c3 {
+.c8.c8 .c4 {
   cursor: pointer;
 }
 
-.c8.c8 .c3 {
+.c9.c9 .c4 {
   cursor: pointer;
 }
 
-.c9.c9 .c3 {
+.c10.c10 .c4 {
   cursor: pointer;
 }
 
-.c10.c10 .c3 {
+.c11.c11 .c4 {
   cursor: pointer;
 }
 
-.c5 {
+.c6 {
   padding-right: 8px;
 }
 
-.c2 {
+.c3 {
   position: absolute;
   left: 0px;
 }
 
-.c2,
-.c2:hover {
+.c3,
+.c3:hover {
   color: #668491;
 }
 
-.c11.c11 .c3 {
+.c2 {
+  cursor: not-allowed;
+  box-sizing: border-box;
+  padding: 0 24px;
+  position: relative;
+  line-height: 40px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: rgba(0,0,0,0.3);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.c2:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 2px #FFB500;
+}
+
+.c2.c2 .c4 {
   cursor: not-allowed;
   color: inherit;
 }
@@ -2269,11 +2561,11 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c0.c0 .c3 {
+.c0.c0 .c4 {
   cursor: pointer;
 }
 
-.c12.c12 .c3 {
+.c12.c12 .c4 {
   cursor: pointer;
 }
 
@@ -2305,7 +2597,8 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
             Sub Menu 1
           </div>
           <div
-            class="c0"
+            aria-disabled="true"
+            class="c2"
             role="menuitem"
             tabindex="0"
             type="button"
@@ -2314,14 +2607,14 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
           </div>
         </div>
         <span
-          class="c2 c3 c4"
+          class="c3 c4 c5"
           data-component="icon"
           data-element="chevron_left"
           font-size="small"
           type="chevron_left"
         />
         <span
-          class="c5 c3 c6"
+          class="c6 c4 c7"
           data-component="icon"
           data-element="message"
           font-size="small"
@@ -2343,7 +2636,7 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
         Sub Menu 1
       </ForwardRef>,
       <ForwardRef
-        disabled={false}
+        disabled={true}
         onClick={[Function]}
       >
         Sub Menu 2
@@ -2351,6 +2644,7 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
     ]
   }
   menuID="ActionPopoverMenu_guid-12345"
+  onClick={[MockFunction]}
   parentID="ActionPopoverItem_guid-12345"
   setFocusIndex={[Function]}
   setItems={[Function]}
@@ -2446,7 +2740,8 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
               Sub Menu 1
             </div>
             <div
-              class="c1"
+              aria-disabled="true"
+              class="c2"
               role="menuitem"
               tabindex="0"
               type="button"
@@ -2503,7 +2798,7 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
                   "componentStyle": ComponentStyle {
                     "componentId": "sc-dnqmqq",
                     "isStatic": false,
-                    "lastClassName": "c1",
+                    "lastClassName": "c2",
                     "rules": Array [
                       "
   cursor: ",
@@ -2600,17 +2895,17 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
           </ActionPopoverItem>
         </WithTheme(ActionPopoverItem)>
         <WithTheme(ActionPopoverItem)
-          disabled={false}
+          disabled={true}
           key=".$1"
           onClick={[Function]}
         >
           <ActionPopoverItem
-            disabled={false}
+            disabled={true}
             onClick={[Function]}
             theme="[ theme object ]"
           >
             <StyledComponent
-              disabled={false}
+              disabled={true}
               forwardedComponent={
                 Object {
                   "$$typeof": Symbol(react.forward_ref),
@@ -2618,7 +2913,7 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
                   "componentStyle": ComponentStyle {
                     "componentId": "sc-dnqmqq",
                     "isStatic": false,
-                    "lastClassName": "c1",
+                    "lastClassName": "c2",
                     "rules": Array [
                       "
   cursor: ",
@@ -2695,13 +2990,14 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
               theme="[ theme object ]"
             >
               <ActionPopoverItem
-                className="c1"
-                disabled={false}
+                className="c2"
+                disabled={true}
                 onClick={[Function]}
                 theme="[ theme object ]"
               >
                 <div
-                  className="c1"
+                  aria-disabled={true}
+                  className="c2"
                   onClick={[Function]}
                   onKeyDown={[Function]}
                   role="menuitem"
@@ -2730,6 +3026,43 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
   right: 0;
   background-color: #FFFFFF;
   z-index: 1;
+}
+
+.c2 {
+  cursor: not-allowed;
+  box-sizing: border-box;
+  padding: 0 24px;
+  position: relative;
+  line-height: 40px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: rgba(0,0,0,0.3);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.c2:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 2px #FFB500;
+}
+
+.c2.c2 .c3 {
+  cursor: not-allowed;
+  color: inherit;
 }
 
 .c1 {
@@ -2769,14 +3102,14 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c1.c1 .c2 {
+.c1.c1 .c3 {
   cursor: pointer;
 }
 
 <ActionPopoverMenu
   button={
     Object {
-      "current": .c6 {
+      "current": .c7 {
   display: inline-block;
   position: relative;
   color: inherit;
@@ -2797,12 +3130,12 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
   width: 24px;
 }
 
-.c6:hover {
+.c7:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c6::before {
+.c7::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -2815,7 +3148,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
   display: block;
 }
 
-.c4 {
+.c5 {
   display: inline-block;
   position: relative;
   color: inherit;
@@ -2836,12 +3169,12 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
   width: 24px;
 }
 
-.c4:hover {
+.c5:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c4::before {
+.c5::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -2865,37 +3198,69 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
   z-index: 1;
 }
 
-.c7.c7 .c3 {
+.c8.c8 .c4 {
   cursor: pointer;
 }
 
-.c8.c8 .c3 {
+.c9.c9 .c4 {
   cursor: pointer;
 }
 
-.c9.c9 .c3 {
+.c10.c10 .c4 {
   cursor: pointer;
 }
 
-.c10.c10 .c3 {
+.c11.c11 .c4 {
   cursor: pointer;
 }
 
-.c5 {
+.c6 {
   padding-right: 8px;
 }
 
-.c2 {
+.c3 {
   position: absolute;
   left: 0px;
 }
 
-.c2,
-.c2:hover {
+.c3,
+.c3:hover {
   color: #668491;
 }
 
-.c11.c11 .c3 {
+.c2 {
+  cursor: not-allowed;
+  box-sizing: border-box;
+  padding: 0 24px;
+  position: relative;
+  line-height: 40px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: rgba(0,0,0,0.3);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.c2:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 2px #FFB500;
+}
+
+.c2.c2 .c4 {
   cursor: not-allowed;
   color: inherit;
 }
@@ -2937,11 +3302,11 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c0.c0 .c3 {
+.c0.c0 .c4 {
   cursor: pointer;
 }
 
-.c12.c12 .c3 {
+.c12.c12 .c4 {
   cursor: pointer;
 }
 
@@ -2973,7 +3338,8 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
             Sub Menu 1
           </div>
           <div
-            class="c0"
+            aria-disabled="true"
+            class="c2"
             role="menuitem"
             tabindex="0"
             type="button"
@@ -2982,14 +3348,14 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
           </div>
         </div>
         <span
-          class="c2 c3 c4"
+          class="c3 c4 c5"
           data-component="icon"
           data-element="chevron_left"
           font-size="small"
           type="chevron_left"
         />
         <span
-          class="c5 c3 c6"
+          class="c6 c4 c7"
           data-component="icon"
           data-element="message"
           font-size="small"
@@ -3011,7 +3377,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
         Sub Menu 1
       </ForwardRef>,
       <ForwardRef
-        disabled={false}
+        disabled={true}
         onClick={[Function]}
       >
         Sub Menu 2
@@ -3019,6 +3385,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
     ]
   }
   menuID="ActionPopoverMenu_guid-12345"
+  onClick={[MockFunction]}
   parentID="ActionPopoverItem_guid-12345"
   setFocusIndex={[Function]}
   setItems={[Function]}
@@ -3114,7 +3481,8 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
               Sub Menu 1
             </div>
             <div
-              class="c1"
+              aria-disabled="true"
+              class="c2"
               role="menuitem"
               tabindex="0"
               type="button"
@@ -3171,7 +3539,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
                   "componentStyle": ComponentStyle {
                     "componentId": "sc-dnqmqq",
                     "isStatic": false,
-                    "lastClassName": "c1",
+                    "lastClassName": "c2",
                     "rules": Array [
                       "
   cursor: ",
@@ -3269,17 +3637,17 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
           </ActionPopoverItem>
         </WithTheme(ActionPopoverItem)>
         <WithTheme(ActionPopoverItem)
-          disabled={false}
+          disabled={true}
           key=".$1"
           onClick={[Function]}
         >
           <ActionPopoverItem
-            disabled={false}
+            disabled={true}
             onClick={[Function]}
             theme="[ theme object ]"
           >
             <StyledComponent
-              disabled={false}
+              disabled={true}
               forwardedComponent={
                 Object {
                   "$$typeof": Symbol(react.forward_ref),
@@ -3287,7 +3655,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
                   "componentStyle": ComponentStyle {
                     "componentId": "sc-dnqmqq",
                     "isStatic": false,
-                    "lastClassName": "c1",
+                    "lastClassName": "c2",
                     "rules": Array [
                       "
   cursor: ",
@@ -3365,13 +3733,14 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
               theme="[ theme object ]"
             >
               <ActionPopoverItem
-                className="c1"
-                disabled={false}
+                className="c2"
+                disabled={true}
                 onClick={[Function]}
                 theme="[ theme object ]"
               >
                 <div
-                  className="c1"
+                  aria-disabled={true}
+                  className="c2"
                   onClick={[Function]}
                   onKeyDown={[Function]}
                   role="menuitem"
@@ -3400,6 +3769,43 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
   right: 0;
   background-color: #FFFFFF;
   z-index: 1;
+}
+
+.c2 {
+  cursor: not-allowed;
+  box-sizing: border-box;
+  padding: 0 24px;
+  position: relative;
+  line-height: 40px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: rgba(0,0,0,0.3);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.c2:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 2px #FFB500;
+}
+
+.c2.c2 .c3 {
+  cursor: not-allowed;
+  color: inherit;
 }
 
 .c1 {
@@ -3439,14 +3845,14 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c1.c1 .c2 {
+.c1.c1 .c3 {
   cursor: pointer;
 }
 
 <ActionPopoverMenu
   button={
     Object {
-      "current": .c4 {
+      "current": .c5 {
   display: inline-block;
   position: relative;
   color: inherit;
@@ -3467,12 +3873,12 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
   width: 24px;
 }
 
-.c4:hover {
+.c5:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c4::before {
+.c5::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -3485,7 +3891,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
   display: block;
 }
 
-.c6 {
+.c7 {
   display: inline-block;
   position: relative;
   color: inherit;
@@ -3506,12 +3912,12 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
   width: 24px;
 }
 
-.c6:hover {
+.c7:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c6::before {
+.c7::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -3535,37 +3941,69 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
   z-index: 1;
 }
 
-.c7.c7 .c3 {
+.c8.c8 .c4 {
   cursor: pointer;
 }
 
-.c8.c8 .c3 {
+.c9.c9 .c4 {
   cursor: pointer;
 }
 
-.c9.c9 .c3 {
+.c10.c10 .c4 {
   cursor: pointer;
 }
 
-.c10.c10 .c3 {
+.c11.c11 .c4 {
   cursor: pointer;
 }
 
-.c2 {
+.c3 {
   padding-right: 8px;
 }
 
-.c5 {
+.c6 {
   position: absolute;
   right: 0px;
 }
 
-.c5,
-.c5:hover {
+.c6,
+.c6:hover {
   color: #668491;
 }
 
-.c11.c11 .c3 {
+.c2 {
+  cursor: not-allowed;
+  box-sizing: border-box;
+  padding: 0 24px;
+  position: relative;
+  line-height: 40px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: rgba(0,0,0,0.3);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.c2:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 2px #FFB500;
+}
+
+.c2.c2 .c4 {
   cursor: not-allowed;
   color: inherit;
 }
@@ -3606,11 +4044,11 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c0.c0 .c3 {
+.c0.c0 .c4 {
   cursor: pointer;
 }
 
-.c12.c12 .c3 {
+.c12.c12 .c4 {
   cursor: pointer;
 }
 
@@ -3642,7 +4080,8 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
             Sub Menu 1
           </div>
           <div
-            class="c0"
+            aria-disabled="true"
+            class="c2"
             role="menuitem"
             tabindex="0"
             type="button"
@@ -3651,7 +4090,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
           </div>
         </div>
         <span
-          class="c2 c3 c4"
+          class="c3 c4 c5"
           data-component="icon"
           data-element="message"
           font-size="small"
@@ -3659,7 +4098,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
         />
         Email Invoice
         <span
-          class="c5 c3 c6"
+          class="c6 c4 c7"
           data-component="icon"
           data-element="chevron_right"
           font-size="small"
@@ -3680,7 +4119,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
         Sub Menu 1
       </ForwardRef>,
       <ForwardRef
-        disabled={false}
+        disabled={true}
         onClick={[Function]}
       >
         Sub Menu 2
@@ -3688,6 +4127,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
     ]
   }
   menuID="ActionPopoverMenu_guid-12345"
+  onClick={[MockFunction]}
   parentID="ActionPopoverItem_guid-12345"
   setFocusIndex={[Function]}
   setItems={[Function]}
@@ -3834,7 +4274,8 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
               Sub Menu 1
             </div>
             <div
-              class="c1"
+              aria-disabled="true"
+              class="c2"
               role="menuitem"
               tabindex="0"
               type="button"
@@ -3891,7 +4332,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
                   "componentStyle": ComponentStyle {
                     "componentId": "sc-dnqmqq",
                     "isStatic": false,
-                    "lastClassName": "c1",
+                    "lastClassName": "c2",
                     "rules": Array [
                       "
   cursor: ",
@@ -3988,17 +4429,17 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
           </ActionPopoverItem>
         </WithTheme(ActionPopoverItem)>
         <WithTheme(ActionPopoverItem)
-          disabled={false}
+          disabled={true}
           key=".$1"
           onClick={[Function]}
         >
           <ActionPopoverItem
-            disabled={false}
+            disabled={true}
             onClick={[Function]}
             theme="[ theme object ]"
           >
             <StyledComponent
-              disabled={false}
+              disabled={true}
               forwardedComponent={
                 Object {
                   "$$typeof": Symbol(react.forward_ref),
@@ -4006,7 +4447,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
                   "componentStyle": ComponentStyle {
                     "componentId": "sc-dnqmqq",
                     "isStatic": false,
-                    "lastClassName": "c1",
+                    "lastClassName": "c2",
                     "rules": Array [
                       "
   cursor: ",
@@ -4083,13 +4524,14 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
               theme="[ theme object ]"
             >
               <ActionPopoverItem
-                className="c1"
-                disabled={false}
+                className="c2"
+                disabled={true}
                 onClick={[Function]}
                 theme="[ theme object ]"
               >
                 <div
-                  className="c1"
+                  aria-disabled={true}
+                  className="c2"
                   onClick={[Function]}
                   onKeyDown={[Function]}
                   role="menuitem"
@@ -4118,6 +4560,43 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
   right: 0;
   background-color: #FFFFFF;
   z-index: 1;
+}
+
+.c2 {
+  cursor: not-allowed;
+  box-sizing: border-box;
+  padding: 0 24px;
+  position: relative;
+  line-height: 40px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: rgba(0,0,0,0.3);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.c2:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 2px #FFB500;
+}
+
+.c2.c2 .c3 {
+  cursor: not-allowed;
+  color: inherit;
 }
 
 .c1 {
@@ -4156,14 +4635,14 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c1.c1 .c2 {
+.c1.c1 .c3 {
   cursor: pointer;
 }
 
 <ActionPopoverMenu
   button={
     Object {
-      "current": .c4 {
+      "current": .c5 {
   display: inline-block;
   position: relative;
   color: inherit;
@@ -4184,12 +4663,12 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
   width: 24px;
 }
 
-.c4:hover {
+.c5:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c4::before {
+.c5::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -4202,7 +4681,7 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
   display: block;
 }
 
-.c6 {
+.c7 {
   display: inline-block;
   position: relative;
   color: inherit;
@@ -4223,12 +4702,12 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
   width: 24px;
 }
 
-.c6:hover {
+.c7:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c6::before {
+.c7::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -4252,37 +4731,69 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
   z-index: 1;
 }
 
-.c7.c7 .c3 {
+.c8.c8 .c4 {
   cursor: pointer;
 }
 
-.c8.c8 .c3 {
+.c9.c9 .c4 {
   cursor: pointer;
 }
 
-.c9.c9 .c3 {
+.c10.c10 .c4 {
   cursor: pointer;
 }
 
-.c10.c10 .c3 {
+.c11.c11 .c4 {
   cursor: pointer;
 }
 
-.c2 {
+.c3 {
   padding-right: 8px;
 }
 
-.c5 {
+.c6 {
   position: absolute;
   right: 0px;
 }
 
-.c5,
-.c5:hover {
+.c6,
+.c6:hover {
   color: #668491;
 }
 
-.c11.c11 .c3 {
+.c2 {
+  cursor: not-allowed;
+  box-sizing: border-box;
+  padding: 0 24px;
+  position: relative;
+  line-height: 40px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: rgba(0,0,0,0.3);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.c2:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 2px #FFB500;
+}
+
+.c2.c2 .c4 {
   cursor: not-allowed;
   color: inherit;
 }
@@ -4324,11 +4835,11 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c0.c0 .c3 {
+.c0.c0 .c4 {
   cursor: pointer;
 }
 
-.c12.c12 .c3 {
+.c12.c12 .c4 {
   cursor: pointer;
 }
 
@@ -4360,7 +4871,8 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
             Sub Menu 1
           </div>
           <div
-            class="c0"
+            aria-disabled="true"
+            class="c2"
             role="menuitem"
             tabindex="0"
             type="button"
@@ -4369,7 +4881,7 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
           </div>
         </div>
         <span
-          class="c2 c3 c4"
+          class="c3 c4 c5"
           data-component="icon"
           data-element="message"
           font-size="small"
@@ -4377,7 +4889,7 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
         />
         Email Invoice
         <span
-          class="c5 c3 c6"
+          class="c6 c4 c7"
           data-component="icon"
           data-element="chevron_right"
           font-size="small"
@@ -4398,7 +4910,7 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
         Sub Menu 1
       </ForwardRef>,
       <ForwardRef
-        disabled={false}
+        disabled={true}
         onClick={[Function]}
       >
         Sub Menu 2
@@ -4406,6 +4918,7 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
     ]
   }
   menuID="ActionPopoverMenu_guid-12345"
+  onClick={[MockFunction]}
   parentID="ActionPopoverItem_guid-12345"
   setFocusIndex={[Function]}
   setItems={[Function]}
@@ -4552,7 +5065,8 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
               Sub Menu 1
             </div>
             <div
-              class="c1"
+              aria-disabled="true"
+              class="c2"
               role="menuitem"
               tabindex="0"
               type="button"
@@ -4609,7 +5123,7 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
                   "componentStyle": ComponentStyle {
                     "componentId": "sc-dnqmqq",
                     "isStatic": false,
-                    "lastClassName": "c1",
+                    "lastClassName": "c2",
                     "rules": Array [
                       "
   cursor: ",
@@ -4706,17 +5220,17 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
           </ActionPopoverItem>
         </WithTheme(ActionPopoverItem)>
         <WithTheme(ActionPopoverItem)
-          disabled={false}
+          disabled={true}
           key=".$1"
           onClick={[Function]}
         >
           <ActionPopoverItem
-            disabled={false}
+            disabled={true}
             onClick={[Function]}
             theme="[ theme object ]"
           >
             <StyledComponent
-              disabled={false}
+              disabled={true}
               forwardedComponent={
                 Object {
                   "$$typeof": Symbol(react.forward_ref),
@@ -4724,7 +5238,7 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
                   "componentStyle": ComponentStyle {
                     "componentId": "sc-dnqmqq",
                     "isStatic": false,
-                    "lastClassName": "c1",
+                    "lastClassName": "c2",
                     "rules": Array [
                       "
   cursor: ",
@@ -4801,13 +5315,14 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
               theme="[ theme object ]"
             >
               <ActionPopoverItem
-                className="c1"
-                disabled={false}
+                className="c2"
+                disabled={true}
                 onClick={[Function]}
                 theme="[ theme object ]"
               >
                 <div
-                  className="c1"
+                  aria-disabled={true}
+                  className="c2"
                   onClick={[Function]}
                   onKeyDown={[Function]}
                   role="menuitem"
