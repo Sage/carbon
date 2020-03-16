@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
 import { isClassic } from '../../utils/helpers/style-helper';
+import StyledIconButton from '../icon-button/icon-button.style';
 
 const sidebarClassicStyle = ({ theme }) => isClassic(theme) && css`
     background-color: #e6ebed;
@@ -16,6 +17,10 @@ const sidebarClassicStyle = ({ theme }) => isClassic(theme) && css`
         box-shadow: 10px 0 15px rgba(0,0,0,.05);
         left: 0;
     `}
+
+    ${StyledIconButton} {
+      top: 15px;
+    }
 `;
 
 export default sidebarClassicStyle;
