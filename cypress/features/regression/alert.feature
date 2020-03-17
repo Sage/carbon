@@ -8,7 +8,7 @@ Feature: Alert component
   Scenario: CloseIcon has the border outline
     Given I open component preview
     When closeIcon is focused
-    Then closeIcon has the border outline
+    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
 
   @positive
   Scenario Outline: Change Alert component title to <title>
