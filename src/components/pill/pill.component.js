@@ -5,6 +5,7 @@ import Icon from '../icon';
 import { validProps } from '../../utils/ether/ether';
 import tagComponent from '../../utils/helpers/tags/tags';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import IconButton from '../icon-button';
 
 class Pill extends React.Component {
   static safeProps = ['onClick']
@@ -12,9 +13,8 @@ class Pill extends React.Component {
   renderCloseIcon() {
     const { onDelete } = this.props;
     return (
-      <button
-        type='button'
-        onClick={ onDelete }
+      <IconButton
+        onAction={ onDelete }
         data-element='close'
         aria-label='close'
       >
@@ -23,7 +23,7 @@ class Pill extends React.Component {
           bgSize='small'
           bgTheme='none'
         />
-      </button>
+      </IconButton>
     );
   }
 
