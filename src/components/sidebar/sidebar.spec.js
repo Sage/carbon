@@ -1,18 +1,19 @@
 import React from 'react';
 import 'jest-styled-components';
+import { ThemeProvider } from 'styled-components';
 import { mount } from 'enzyme';
 import Sidebar from './sidebar.component';
 import Textbox from '../../__deprecated__/components/textbox';
-import { SidebarStyle, SidebarCloseStyle } from './sidebar.style';
+import SidebarStyle from './sidebar.style';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import classicTheme from '../../style/themes/classic';
+import IconButton from '../icon-button';
 
 describe('Sidebar', () => {
-  let wrapper, spy, preventDefault;
+  let wrapper, spy;
 
   beforeEach(() => {
     spy = jasmine.createSpy();
-    preventDefault = jest.fn();
     wrapper = mount(
       <Sidebar
         open
@@ -86,39 +87,41 @@ describe('Sidebar', () => {
     });
   });
 
-  describe('Behaviour', () => {
-    describe('clicking the close icon sidebar', () => {
-      it('closes the sidebar', () => {
-        const icon = wrapper.find('.carbon-sidebar__close-icon');
-        icon.at(0).simulate('click');
-        expect(spy).toHaveBeenCalled();
-      });
+  describe('cancel icon', () => {
+    it('closes when the close icon is click', () => {
+      wrapper.find(IconButton).first().simulate('click');
+      expect(spy).toHaveBeenCalled();
     });
 
-    describe('pressing Enter key on the close icon sidebar', () => {
-      it('closes the sidebar', () => {
-        const icon = wrapper.find('.carbon-sidebar__close-icon');
-        icon.at(0).props().onKeyDown({ which: 13, preventDefault });
-        expect(spy).toHaveBeenCalled();
-      });
+    it('closes when close icon is focused and Enter key is pressed', () => {
+      const icon = wrapper.find(IconButton).first();
+      icon.simulate('keyDown', { which: 13, key: 'Enter' });
+      expect(spy).toHaveBeenCalled();
     });
 
-    describe('pressing other key than Enter or Space', () => {
-      it('does not close the sidebar', () => {
-        const icon = wrapper.find('.carbon-sidebar__close-icon');
-        icon.at(0).props().onKeyDown({ which: 16 });
-        expect(spy).not.toHaveBeenCalled();
-      });
+    it('closes when close icon is focused and ESC key is pressed', () => {
+      const icon = wrapper.find(IconButton).first();
+      icon.simulate('keyDown', { which: 27, key: 'Escape' });
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('does not close when close icon is focused any other key is pressed', () => {
+      const icon = wrapper.find(IconButton).first();
+      icon.simulate('keyDown', { which: 65, key: 'a' });
+      expect(spy).not.toHaveBeenCalled();
     });
   });
 });
 
 describe('SidebarStyle', () => {
   describe('when prop size is passed to the component and position is set to right', () => {
-    const wrapper = mount(<SidebarStyle
-      open size='extra-small'
-      position='right'
-    />);
+    const wrapper = mount(
+      <SidebarStyle
+        open
+        size='extra-small'
+        position='right'
+      />
+    );
 
     it('should render correct style', () => {
       assertStyleMatch({
@@ -144,15 +147,18 @@ describe('SidebarStyle', () => {
   });
 
   describe('When classic style is passed to the component', () => {
-    const closeIconWrapper = mount(<SidebarCloseStyle theme={ classicTheme } />);
     let wrapper;
 
     it('should render correct style', () => {
-      wrapper = mount(<SidebarStyle
-        theme={ classicTheme }
-        open size='extra-small'
-        position='left'
-      />);
+      wrapper = mount(
+        <ThemeProvider theme={ classicTheme }>
+          <SidebarStyle
+            theme={ classicTheme }
+            open size='extra-small'
+            position='left'
+          />
+        </ThemeProvider>
+      );
 
       assertStyleMatch({
         backgroundColor: '#e6ebed',
@@ -163,18 +169,14 @@ describe('SidebarStyle', () => {
         padding: '20px',
         zIndex: '1002'
       }, wrapper);
-
-      assertStyleMatch({
-        color: 'rgba(0,0,0,0.85)',
-        position: 'absolute',
-        right: '20px',
-        top: '15px',
-        zIndex: '1'
-      }, closeIconWrapper);
     });
 
     describe('when classic style is passed to the component and position is right', () => {
-      wrapper = mount(<SidebarStyle theme={ classicTheme } position='right' />);
+      wrapper = mount(
+        <ThemeProvider theme={ classicTheme }>
+          <SidebarStyle theme={ classicTheme } position='right' />
+        </ThemeProvider>
+      );
 
       assertStyleMatch({
         borderLeft: '1px solid #ccd6db'
