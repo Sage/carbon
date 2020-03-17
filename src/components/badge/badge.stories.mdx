@@ -1,0 +1,65 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+
+import Badge  from ".";
+import Button from '../button'
+
+<Meta title="Design System/Badge" parameters={{ info: { disable: true } }} />
+
+# Badge
+
+## Overview
+
+This kind of component is especialy usable for notifications
+
+## Quick Start
+
+To use `Badge` component you need to put other component as a child.
+
+```jsx
+import Badge from 'carbon-react/lib/components/badge';
+import Button form 'carbon-react/lib/components/button';
+
+const MyComponent = () => (
+  <Badge counter={ 10 }>
+    <Button buttonType='tertiary'>Filter</Button>
+  </Badge>
+);
+```
+
+## Visuals
+
+### Basic Badge
+
+<Preview>
+  <Story name="basic">
+    <Badge counter={9}>
+      <Button style={{marginRight: 0}} buttonType="tertiary">Filter</Button>
+    </Badge>
+  </Story>
+</Preview>
+
+### Badge with counter 100
+
+Badge doesn't support more than 2 digits
+
+<Preview>
+  <Story name="with 3 digits">
+    <Badge counter={130}>
+      <Button style={{marginRight: 0}} buttonType="tertiary">Filter</Button>
+    </Badge>
+  </Story>
+</Preview>
+
+### Badge with counter 0
+
+If the counter is less than 1 badge will not show itself
+
+<Preview>
+  <Story name="with counter 0">
+    <Badge counter={0}>
+      <Button buttonType="tertiary">Filter</Button>
+    </Badge>
+  </Story>
+</Preview>
+
+<Props of={Badge} />
