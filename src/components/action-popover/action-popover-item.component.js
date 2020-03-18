@@ -11,6 +11,8 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Events from '../../utils/helpers/events';
 import createGuid from '../../utils/helpers/guid';
 
+const INTERVAL = 150;
+
 const MenuItem = React.forwardRef(({
   canOpenSubmenu, children, icon, disabled, itemIndex, onClick: onClickProp,
   submenu, theme, updateItemIndex, ...rest
@@ -93,34 +95,26 @@ const MenuItem = React.forwardRef(({
     }
   }, [disabled, focusIndex, isLeftAligned, itemIndex, onClick, ref, submenu, updateItemIndex]);
 
-  let itemSubmenuProps = {};
-
-  if (submenu) {
-    let timer;
-    let eventHandlers = {};
-    if (!disabled) {
-      eventHandlers = {
-        onMouseEnter: (e) => {
-          clearTimeout(timer);
-          timer = setTimeout(() => { setOpen(true); }, 150);
-          e.stopPropagation();
-        },
-        onMouseLeave: (e) => {
-          clearTimeout(timer);
-          timer = setTimeout(() => { setOpen(false); }, 150);
-          e.stopPropagation();
-        },
-        onClick: () => {}
-      };
-    }
-    itemSubmenuProps = {
-      ...eventHandlers,
-      'aria-haspopup': 'true',
-      'aria-label': I18n.t('actionpopover.aria-label', { defaultValue: 'actions' }),
-      'aria-controls': `ActionPopoverMenu_${guid}`,
-      'aria-expanded': isOpen
-    };
-  }
+  let timer;
+  const itemSubmenuProps = {
+    ...(!disabled && {
+      onMouseEnter: (e) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => { setOpen(true); }, INTERVAL);
+        e.stopPropagation();
+      },
+      onMouseLeave: (e) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => { setOpen(false); }, INTERVAL);
+        e.stopPropagation();
+      },
+      onClick: () => {}
+    }),
+    'aria-haspopup': 'true',
+    'aria-label': I18n.t('actionpopover.aria-label', { defaultValue: 'actions' }),
+    'aria-controls': `ActionPopoverMenu_${guid}`,
+    'aria-expanded': isOpen
+  };
 
   return (
     <div
@@ -130,7 +124,7 @@ const MenuItem = React.forwardRef(({
       type='button'
       tabIndex='0'
       role='menuitem'
-      { ...itemSubmenuProps }
+      { ...(submenu && itemSubmenuProps) }
     >
       { submenu && (
         React.cloneElement(submenu, {
