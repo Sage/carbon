@@ -418,6 +418,7 @@ class Select extends React.Component {
       onOpen,
       typeAhead,
       filterable,
+      transparent,
       ...props
     } = this.props;
 
@@ -437,6 +438,7 @@ class Select extends React.Component {
         aria-controls={ open ? this.listboxId : '' }
         aria-label={ ariaLabel }
         isAnyValueSelected={ this.isMultiSelectEnabled() && (this.getMultiSelectValues().length >= 1) }
+        transparent={ transparent }
       >
         <Textbox
           { ...props } // this needs to send all of the original props
@@ -521,7 +523,9 @@ Select.propTypes = {
   filterable: PropTypes.bool,
   isAnyValueSelected: PropTypes.bool,
   /** Add additional child elements before the input */
-  leftChildren: PropTypes.node
+  leftChildren: PropTypes.node,
+  /** If true the component input has no border and is transparent */
+  transparent: PropTypes.bool
 };
 
 Select.defaultProps = {

@@ -11,6 +11,9 @@ import StyledIcon from '../../../components/icon/icon.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import TextBox from '../textbox';
 import { Input } from '../input';
+import InputPresentationStyle from '../input/input-presentation.style';
+import StyledInput from '../input/input.style';
+import InputIconToggleStyle from '../input-icon-toggle/input-icon-toggle.style';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -451,6 +454,34 @@ describe('Select', () => {
       expect(listOf(wrapper).length).toEqual(0);
       textboxOf(wrapper).find('input').simulate('change', { target: { value: 'xxx' } });
       expect(listOf(wrapper).length).toEqual(1);
+    });
+  });
+
+  describe('when transparent is set to true', () => {
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = renderWrapper({ props: { transparent: true } });
+    });
+
+    it('then the input should have transparent background and no border', () => {
+      assertStyleMatch({
+        background: 'transparent',
+        border: 'none'
+      }, wrapper, { modifier: `${InputPresentationStyle}` });
+    });
+
+    it('then the input text should be right aligned with font weight set to 900', () => {
+      assertStyleMatch({
+        textAlign: 'right',
+        fontWeight: '900'
+      }, wrapper, { modifier: `${StyledInput}` });
+    });
+
+    it('then the input toggle text should have width set to auto', () => {
+      assertStyleMatch({
+        width: 'auto'
+      }, wrapper, { modifier: `${InputIconToggleStyle}` });
     });
   });
 
