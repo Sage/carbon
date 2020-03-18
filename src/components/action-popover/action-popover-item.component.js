@@ -219,5 +219,6 @@ ActionPopoverItem.defaultProps = {
 MenuItem.propTypes = { ...propTypes };
 MenuItem.displayName = 'ActionPopoverItem';
 export { MenuItem };
-
+const types = MenuItem.propTypes;
+export { types };
 export default ActionPopoverItem;
