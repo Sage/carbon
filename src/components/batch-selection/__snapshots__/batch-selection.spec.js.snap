@@ -56,6 +56,10 @@ exports[`BatchSelection component should render correctly 1`] = `
   cursor: pointer;
 }
 
+.c3::-moz-focus-inner {
+  border: none;
+}
+
 .c3 .c4 {
   position: relative;
 }
