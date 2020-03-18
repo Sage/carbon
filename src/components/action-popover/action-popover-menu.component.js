@@ -43,10 +43,12 @@ const ActionPopoverMenu = React.forwardRef(({
     } else if (Events.isHomeKey(e)) {
       // HOME: focus first item
       e.preventDefault();
+      e.stopPropagation();
       setFocusIndex(0);
     } else if (Events.isEndKey(e)) {
       // END: focus last item
       e.preventDefault();
+      e.stopPropagation();
       setFocusIndex(items.length - 1);
     } else if (Events.isAlphabetKey(e)) {
       // A-Za-z: focus the next item on the list that starts with the pressed key
