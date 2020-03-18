@@ -11,11 +11,41 @@ const ActionPopoverMenu = React.forwardRef(({
   button, parentID, children, focusIndex, isOpen, items, menuID, setOpen, setFocusIndex, setItems, ...rest
 }, ref) => {
   const [childrenWithRef, setChildrenWithRef] = useState();
+
+  useEffect(() => {
+    const event = 'click';
+    const el = ref.current;
+
+    const handler = (e) => {
+      items.forEach((item, index) => {
+        // loop and check if item clicked is in composedPath and then update focusIndex
+        if (Events.composedPath(e).includes(item.ref.current)) {
+          setFocusIndex(index);
+          // if no submenu close menu
+          if (!item.props.submenu) {
+            setTimeout(() => {
+              setOpen(false);
+              item.ref.current.focus();
+            }, 0);
+          }
+        }
+      });
+    };
+
+    el.addEventListener(event, handler);
+
+    return function cleanup() {
+      el.removeEventListener(event, handler);
+    };
+  }, [button, focusIndex, items, ref, setFocusIndex, setOpen]);
+
   const onKeyDown = useCallback(((e) => {
+    let timer;
     if (Events.isTabKey(e) && Events.isShiftKey(e)) {
       // SHIFT+TAB: close menu and allow focus to change to the previous focusable element, but not the button
       // allow the event to propagate before re-rendering, this will prevent the button from gaining focus
-      setTimeout(() => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
         setOpen(false);
       }, 0);
     } else if (Events.isTabKey(e)) {
@@ -25,9 +55,12 @@ const ActionPopoverMenu = React.forwardRef(({
       // ESC: close menu and focus menu button
       e.preventDefault();
       setOpen(false);
-      if (button) {
-        button.current.focus();
-      }
+      button.current.focus();
+    } else if (Events.isEnterKey(e)) {
+      // ENTER: focus close menu and focus parent
+      setOpen(false);
+      button.current.focus();
+      e.stopPropagation();
     } else if (Events.isDownKey(e)) {
       // DOWN: focus next item or first
       e.preventDefault();
@@ -75,7 +108,6 @@ const ActionPopoverMenu = React.forwardRef(({
     }
   }), [setOpen, button, focusIndex, items, setFocusIndex]);
 
-
   // send a global close to other items with sub whenever updateItemIndex triggered?
   useEffect(() => {
     const itemsWithRef = [];
@@ -102,7 +134,7 @@ const ActionPopoverMenu = React.forwardRef(({
     } else if (focusIndex !== null) {
       setFocusIndex(0);
     }
-  }, [isOpen, items, focusIndex, setItems, setFocusIndex]);
+  }, [isOpen, items, focusIndex, setFocusIndex]);
 
   return (
     <Menu
