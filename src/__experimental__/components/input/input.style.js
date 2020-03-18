@@ -31,6 +31,8 @@ const StyledInput = styled.input`
   ${({ readOnly, theme }) => readOnly && css`
     color: ${theme.readOnly.textboxText};
   `}
+
+  ${({ styleOverride }) => styleOverride};
 `;
 
 StyledInput.defaultProps = {
@@ -38,7 +40,8 @@ StyledInput.defaultProps = {
 };
 
 StyledInput.propTypes = {
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 };
 
 export default StyledInput;

@@ -1,0 +1,30 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+
+import Textbox from '../textbox';
+
+<Meta
+  title="Test/Textbox"
+  parameters={{ info: { disable: true }}}
+/>
+
+### With styles overriden
+With custom wrapper, label and input styles
+<Preview>
+  <Story name="styles overriden">
+    <Textbox
+      label='Label 1'
+      labelInline
+      labelAlign='right'
+      styleOverride={
+        {
+          root: { background: '#F0F0F0' },
+          input: {
+            flex: 'none',
+            width: '150px',
+          },
+          label: { color: '#B4D455' }
+        }
+      }
+    />
+  </Story>
+</Preview>
