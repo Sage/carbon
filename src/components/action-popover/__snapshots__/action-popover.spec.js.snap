@@ -159,6 +159,231 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
 }
 
 <ActionPopoverMenu
+  button={
+    Object {
+      "current": .c6 {
+  display: inline-block;
+  position: relative;
+  color: inherit;
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c6:hover {
+  color: inherit;
+  background-color: transparent;
+}
+
+.c6::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e922";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c4 {
+  display: inline-block;
+  position: relative;
+  color: inherit;
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c4:hover {
+  color: inherit;
+  background-color: transparent;
+}
+
+.c4::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e916";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c1 {
+  visibility: hidden;
+  margin: 0;
+  padding: 8px 0;
+  box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
+  position: absolute;
+  right: 0;
+  background-color: #FFFFFF;
+  z-index: 1;
+}
+
+.c7.c7 .c3 {
+  cursor: pointer;
+}
+
+.c8.c8 .c3 {
+  cursor: pointer;
+}
+
+.c9.c9 .c3 {
+  cursor: pointer;
+}
+
+.c10.c10 .c3 {
+  cursor: pointer;
+}
+
+.c5 {
+  padding-right: 8px;
+}
+
+.c2 {
+  position: absolute;
+  left: 0px;
+}
+
+.c2,
+.c2:hover {
+  color: #668491;
+}
+
+.c11.c11 .c3 {
+  cursor: not-allowed;
+  color: inherit;
+}
+
+.c0 {
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 0 24px;
+  position: relative;
+  line-height: 40px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: rgba(0,0,0,0.9);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.c0:focus,
+.c0:hover {
+  background-color: #F2F4F5;
+}
+
+.c0:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 2px #FFB500;
+}
+
+.c0.c0 .c3 {
+  cursor: pointer;
+}
+
+.c12.c12 .c3 {
+  cursor: pointer;
+}
+
+<div
+        aria-controls="ActionPopoverMenu_guid-12345"
+        aria-expanded="false"
+        aria-haspopup="true"
+        aria-label="actions"
+        class="c0"
+        role="menuitem"
+        tabindex="0"
+        type="button"
+      >
+        <div
+          aria-labelledby="ActionPopoverItem_guid-12345"
+          class="c1"
+          data-component="action-popover"
+          data-element="action-popover-submenu"
+          id="ActionPopoverMenu_guid-12345"
+          role="menu"
+          style="left: 0px; top: -8px;"
+        >
+          <div
+            class="c0"
+            role="menuitem"
+            tabindex="0"
+            type="button"
+          >
+            Sub Menu 1
+          </div>
+          <div
+            class="c0"
+            role="menuitem"
+            tabindex="0"
+            type="button"
+          >
+            Sub Menu 2
+          </div>
+        </div>
+        <span
+          class="c2 c3 c4"
+          data-component="icon"
+          data-element="chevron_left"
+          font-size="small"
+          type="chevron_left"
+        />
+        <span
+          class="c5 c3 c6"
+          data-component="icon"
+          data-element="message"
+          font-size="small"
+          type="message"
+        />
+        Email Invoice
+      </div>,
+    }
+  }
   data-element="action-popover-submenu"
   focusIndex={0}
   isOpen={false}
@@ -258,58 +483,7 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
       }
       forwardedRef={
         Object {
-          "current": .c0 {
-  visibility: hidden;
-  margin: 0;
-  padding: 8px 0;
-  box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
-  position: absolute;
-  right: 0;
-  background-color: #FFFFFF;
-  z-index: 1;
-}
-
-.c1 {
-  cursor: pointer;
-  box-sizing: border-box;
-  padding: 0 24px;
-  line-height: 40px;
-  white-space: nowrap;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border: none;
-  width: 100%;
-  color: rgba(0,0,0,0.9);
-  font-size: 14px;
-  font-weight: 700;
-  text-align: left;
-}
-
-.c1:focus,
-.c1:hover {
-  background-color: #F2F4F5;
-}
-
-.c1:focus {
-  outline: none;
-  box-shadow: inset 0px 0px 0px 2px #FFB500;
-}
-
-.c1.c1 .c2 {
-  cursor: pointer;
-}
-
-<div
+          "current": <div
             aria-labelledby="ActionPopoverItem_guid-12345"
             class="c0"
             data-component="action-popover"
@@ -660,6 +834,685 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
 }
 
 <ActionPopoverMenu
+  button={
+    Object {
+      "current": .c6 {
+  display: inline-block;
+  position: relative;
+  color: inherit;
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c6:hover {
+  color: inherit;
+  background-color: transparent;
+}
+
+.c6::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e922";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c4 {
+  display: inline-block;
+  position: relative;
+  color: inherit;
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c4:hover {
+  color: inherit;
+  background-color: transparent;
+}
+
+.c4::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e916";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c1 {
+  visibility: hidden;
+  margin: 0;
+  padding: 8px 0;
+  box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
+  position: absolute;
+  right: 0;
+  background-color: #FFFFFF;
+  z-index: 1;
+}
+
+.c7.c7 .c3 {
+  cursor: pointer;
+}
+
+.c8.c8 .c3 {
+  cursor: pointer;
+}
+
+.c9.c9 .c3 {
+  cursor: pointer;
+}
+
+.c10.c10 .c3 {
+  cursor: pointer;
+}
+
+.c5 {
+  padding-right: 8px;
+}
+
+.c2 {
+  position: absolute;
+  left: 0px;
+}
+
+.c2,
+.c2:hover {
+  color: #668491;
+}
+
+.c11.c11 .c3 {
+  cursor: not-allowed;
+  color: inherit;
+}
+
+.c0 {
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 0 24px;
+  line-height: 40px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: rgba(0,0,0,0.9);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.c0:focus,
+.c0:hover {
+  background-color: #F2F4F5;
+}
+
+.c0:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 2px #FFB500;
+}
+
+.c0.c0 .c3 {
+  cursor: pointer;
+}
+
+.c12.c12 .c3 {
+  cursor: pointer;
+}
+
+<div
+        aria-controls="ActionPopoverMenu_guid-12345"
+        aria-expanded="false"
+        aria-haspopup="true"
+        aria-label="actions"
+        class="c0"
+        role="menuitem"
+        tabindex="0"
+        type="button"
+      >
+        <div
+          aria-labelledby="ActionPopoverItem_guid-12345"
+          class="c1"
+          data-component="action-popover"
+          data-element="action-popover-submenu"
+          id="ActionPopoverMenu_guid-12345"
+          role="menu"
+          style="left: 0px; top: -8px;"
+        >
+          <div
+            class="c0"
+            role="menuitem"
+            tabindex="0"
+            type="button"
+          >
+            Sub Menu 1
+          </div>
+          <div
+            class="c0"
+            role="menuitem"
+            tabindex="0"
+            type="button"
+          >
+            Sub Menu 2
+          </div>
+        </div>
+        <span
+          class="c2 c3 c4"
+          data-component="icon"
+          data-element="chevron_left"
+          font-size="small"
+          type="chevron_left"
+        />
+        <span
+          class="c5 c3 c6"
+          data-component="icon"
+          data-element="message"
+          font-size="small"
+          type="message"
+        />
+        Email Invoice
+      </div>,
+    }
+  }
+  data-element="action-popover-submenu"
+  focusIndex={0}
+  isOpen={false}
+  items={
+    Array [
+      <ForwardRef
+        disabled={false}
+        onClick={[Function]}
+      >
+        Sub Menu 1
+      </ForwardRef>,
+      <ForwardRef
+        disabled={false}
+        onClick={[Function]}
+      >
+        Sub Menu 2
+      </ForwardRef>,
+    ]
+  }
+  menuID="ActionPopoverMenu_guid-12345"
+  onClick={[Function]}
+  parentID="ActionPopoverItem_guid-12345"
+  setFocusIndex={[Function]}
+  setItems={[Function]}
+  setOpen={[Function]}
+  style={
+    Object {
+      "left": -0,
+      "right": "auto",
+      "top": -8,
+    }
+  }
+>
+  <styled.div
+    aria-labelledby="ActionPopoverItem_guid-12345"
+    data-component="action-popover"
+    data-element="action-popover-submenu"
+    id="ActionPopoverMenu_guid-12345"
+    isOpen={false}
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    role="menu"
+    style={
+      Object {
+        "left": -0,
+        "right": "auto",
+        "top": -8,
+      }
+    }
+  >
+    <StyledComponent
+      aria-labelledby="ActionPopoverItem_guid-12345"
+      data-component="action-popover"
+      data-element="action-popover-submenu"
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "sc-ifAKCX",
+            "isStatic": false,
+            "lastClassName": "c0",
+            "rules": Array [
+              "
+  ",
+              [Function],
+              "
+  margin: 0;
+  padding: ",
+              [Function],
+              ";
+  box-shadow: ",
+              [Function],
+              ";
+  position: absolute;
+  right: 0;
+  background-color: ",
+              [Function],
+              ";
+  z-index: 1;
+
+  ",
+              [Function],
+              "
+",
+            ],
+          },
+          "displayName": "styled.div",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "sc-ifAKCX",
+          "target": "div",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={
+        Object {
+          "current": <div
+            aria-labelledby="ActionPopoverItem_guid-12345"
+            class="c0"
+            data-component="action-popover"
+            data-element="action-popover-submenu"
+            id="ActionPopoverMenu_guid-12345"
+            role="menu"
+            style="position: relative; left: 0px; top: -8px;"
+          >
+            <div
+              class="c1"
+              role="menuitem"
+              tabindex="0"
+              type="button"
+            >
+              Sub Menu 1
+            </div>
+            <div
+              class="c1"
+              role="menuitem"
+              tabindex="0"
+              type="button"
+            >
+              Sub Menu 2
+            </div>
+          </div>,
+        }
+      }
+      id="ActionPopoverMenu_guid-12345"
+      isOpen={false}
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="menu"
+      style={
+        Object {
+          "left": 0,
+          "position": "relative",
+          "top": -8,
+        }
+      }
+    >
+      <div
+        aria-labelledby="ActionPopoverItem_guid-12345"
+        className="c0"
+        data-component="action-popover"
+        data-element="action-popover-submenu"
+        id="ActionPopoverMenu_guid-12345"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="menu"
+        style={
+          Object {
+            "left": 0,
+            "position": "relative",
+            "top": -8,
+          }
+        }
+      >
+        <WithTheme(ActionPopoverItem)
+          disabled={false}
+          key=".$0"
+          onClick={[Function]}
+        >
+          <ActionPopoverItem
+            disabled={false}
+            onClick={[Function]}
+            theme="[ theme object ]"
+          >
+            <StyledComponent
+              disabled={false}
+              forwardedComponent={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "_foldedDefaultProps": Object {
+                    "disabled": false,
+                  },
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "sc-dnqmqq",
+                    "isStatic": false,
+                    "lastClassName": "c1",
+                    "rules": Array [
+                      "
+  cursor: ",
+                      [Function],
+                      ";
+  box-sizing: border-box;
+  ",
+                      [Function],
+                      "
+  line-height: 40px;
+  white-space: nowrap;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: ",
+                      [Function],
+                      ";
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+  &:focus, &:hover {
+    ",
+                      [Function],
+                      "
+  }
+  &:focus {
+    outline: none;
+    box-shadow: inset 0px 0px 0px 2px ",
+                      [Function],
+                      ";
+  }
+  ",
+                      [Function],
+                      "
+  ",
+                      [Function],
+                      "
+  
+  ",
+                      [Function],
+                      "
+",
+                    ],
+                  },
+                  "displayName": "ActionPopoverItem",
+                  "foldedComponentIds": Array [],
+                  "propTypes": Object {
+                    "children": [Function],
+                    "disabled": [Function],
+                    "icon": [Function],
+                    "onClick": [Function],
+                    "submenu": [Function],
+                  },
+                  "render": [Function],
+                  "styledComponentId": "sc-dnqmqq",
+                  "target": Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "render": [Function],
+                  },
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
+              }
+              forwardedRef={
+                Object {
+                  "current": null,
+                }
+              }
+              onClick={[Function]}
+              theme="[ theme object ]"
+            >
+              <ForwardRef
+                className="c1"
+                disabled={false}
+                onClick={[Function]}
+                theme="[ theme object ]"
+              >
+                <div
+                  className="c1"
+                  onClick={[Function]}
+                  onKeyDown={[Function]}
+                  role="menuitem"
+                  tabIndex="0"
+                  type="button"
+                >
+                  Sub Menu 1
+                </div>
+              </ForwardRef>
+            </StyledComponent>
+          </ActionPopoverItem>
+        </WithTheme(ActionPopoverItem)>
+        <WithTheme(ActionPopoverItem)
+          disabled={false}
+          key=".$1"
+          onClick={[Function]}
+        >
+          <ActionPopoverItem
+            disabled={false}
+            onClick={[Function]}
+            theme="[ theme object ]"
+          >
+            <StyledComponent
+              disabled={false}
+              forwardedComponent={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "_foldedDefaultProps": Object {
+                    "disabled": false,
+                  },
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "sc-dnqmqq",
+                    "isStatic": false,
+                    "lastClassName": "c1",
+                    "rules": Array [
+                      "
+  cursor: ",
+                      [Function],
+                      ";
+  box-sizing: border-box;
+  ",
+                      [Function],
+                      "
+  line-height: 40px;
+  white-space: nowrap;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: ",
+                      [Function],
+                      ";
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+  &:focus, &:hover {
+    ",
+                      [Function],
+                      "
+  }
+  &:focus {
+    outline: none;
+    box-shadow: inset 0px 0px 0px 2px ",
+                      [Function],
+                      ";
+  }
+  ",
+                      [Function],
+                      "
+  ",
+                      [Function],
+                      "
+  
+  ",
+                      [Function],
+                      "
+",
+                    ],
+                  },
+                  "displayName": "ActionPopoverItem",
+                  "foldedComponentIds": Array [],
+                  "propTypes": Object {
+                    "children": [Function],
+                    "disabled": [Function],
+                    "icon": [Function],
+                    "onClick": [Function],
+                    "submenu": [Function],
+                  },
+                  "render": [Function],
+                  "styledComponentId": "sc-dnqmqq",
+                  "target": Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "render": [Function],
+                  },
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
+              }
+              forwardedRef={
+                Object {
+                  "current": null,
+                }
+              }
+              onClick={[Function]}
+              theme="[ theme object ]"
+            >
+              <ForwardRef
+                className="c1"
+                disabled={false}
+                onClick={[Function]}
+                theme="[ theme object ]"
+              >
+                <div
+                  className="c1"
+                  onClick={[Function]}
+                  onKeyDown={[Function]}
+                  role="menuitem"
+                  tabIndex="0"
+                  type="button"
+                >
+                  Sub Menu 2
+                </div>
+              </ForwardRef>
+            </StyledComponent>
+          </ActionPopoverItem>
+        </WithTheme(ActionPopoverItem)>
+      </div>
+    </StyledComponent>
+  </styled.div>
+</ActionPopoverMenu>
+`;
+
+exports[`ActionPopover submenu left aligned does not close the submenu unless right or esc key is pressed 1`] = `
+.c0 {
+  visibility: hidden;
+  margin: 0;
+  padding: 8px 0;
+  box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
+  position: absolute;
+  right: 0;
+  background-color: #FFFFFF;
+  z-index: 1;
+}
+
+.c1 {
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 0 24px;
+  line-height: 40px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: rgba(0,0,0,0.9);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.c1:focus,
+.c1:hover {
+  background-color: #F2F4F5;
+}
+
+.c1:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 2px #FFB500;
+}
+
+.c1.c1 .c2 {
+  cursor: pointer;
+}
+
+<ActionPopoverMenu
+  button={
+    Object {
+      "current": null,
+    }
+  }
   data-element="action-popover-submenu"
   focusIndex={0}
   isOpen={false}
@@ -721,7 +1574,7 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
           "componentStyle": ComponentStyle {
             "componentId": "sc-ifAKCX",
             "isStatic": false,
-            "lastClassName": "c0",
+            "lastClassName": "dnTSjX",
             "rules": Array [
               "
   ",
@@ -760,7 +1613,7 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
       forwardedRef={
         Object {
           "current": .c0 {
-  visibility: hidden;
+  display: block;
   margin: 0;
   padding: 8px 0;
   box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
@@ -959,14 +1812,7 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
               }
               forwardedRef={
                 Object {
-                  "current": <div
-                    class="c1"
-                    role="menuitem"
-                    tabindex="0"
-                    type="button"
-                  >
-                    Sub Menu 1
-                  </div>,
+                  "current": null,
                 }
               }
               onClick={[Function]}
@@ -1083,14 +1929,7 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
               }
               forwardedRef={
                 Object {
-                  "current": <div
-                    class="c1"
-                    role="menuitem"
-                    tabindex="0"
-                    type="button"
-                  >
-                    Sub Menu 2
-                  </div>,
+                  "current": null,
                 }
               }
               onClick={[Function]}
@@ -1175,6 +2014,230 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
 }
 
 <ActionPopoverMenu
+  button={
+    Object {
+      "current": .c6 {
+  display: inline-block;
+  position: relative;
+  color: inherit;
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c6:hover {
+  color: inherit;
+  background-color: transparent;
+}
+
+.c6::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e922";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c4 {
+  display: inline-block;
+  position: relative;
+  color: inherit;
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c4:hover {
+  color: inherit;
+  background-color: transparent;
+}
+
+.c4::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e916";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c1 {
+  display: block;
+  margin: 0;
+  padding: 8px 0;
+  box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
+  position: absolute;
+  right: 0;
+  background-color: #FFFFFF;
+  z-index: 1;
+}
+
+.c7.c7 .c3 {
+  cursor: pointer;
+}
+
+.c8.c8 .c3 {
+  cursor: pointer;
+}
+
+.c9.c9 .c3 {
+  cursor: pointer;
+}
+
+.c10.c10 .c3 {
+  cursor: pointer;
+}
+
+.c5 {
+  padding-right: 8px;
+}
+
+.c2 {
+  position: absolute;
+  left: 0px;
+}
+
+.c2,
+.c2:hover {
+  color: #668491;
+}
+
+.c11.c11 .c3 {
+  cursor: not-allowed;
+  color: inherit;
+}
+
+.c0 {
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 0 24px;
+  line-height: 40px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: rgba(0,0,0,0.9);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.c0:focus,
+.c0:hover {
+  background-color: #F2F4F5;
+}
+
+.c0:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 2px #FFB500;
+}
+
+.c0.c0 .c3 {
+  cursor: pointer;
+}
+
+.c12.c12 .c3 {
+  cursor: pointer;
+}
+
+<div
+        aria-controls="ActionPopoverMenu_guid-12345"
+        aria-expanded="true"
+        aria-haspopup="true"
+        aria-label="actions"
+        class="c0"
+        role="menuitem"
+        tabindex="0"
+        type="button"
+      >
+        <div
+          aria-labelledby="ActionPopoverItem_guid-12345"
+          class="c1"
+          data-component="action-popover"
+          data-element="action-popover-submenu"
+          id="ActionPopoverMenu_guid-12345"
+          role="menu"
+          style="left: 0px; top: -8px;"
+        >
+          <div
+            class="c0"
+            role="menuitem"
+            tabindex="0"
+            type="button"
+          >
+            Sub Menu 1
+          </div>
+          <div
+            class="c0"
+            role="menuitem"
+            tabindex="0"
+            type="button"
+          >
+            Sub Menu 2
+          </div>
+        </div>
+        <span
+          class="c2 c3 c4"
+          data-component="icon"
+          data-element="chevron_left"
+          font-size="small"
+          type="chevron_left"
+        />
+        <span
+          class="c5 c3 c6"
+          data-component="icon"
+          data-element="message"
+          font-size="small"
+          type="message"
+        />
+        Email Invoice
+      </div>,
+    }
+  }
   data-element="action-popover-submenu"
   focusIndex={0}
   isOpen={false}
@@ -1202,8 +2265,8 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
   setOpen={[Function]}
   style={
     Object {
-      "left": 0,
-      "position": "relative",
+      "left": -0,
+      "right": "auto",
       "top": -8,
     }
   }
@@ -1219,8 +2282,8 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
     role="menu"
     style={
       Object {
-        "left": 0,
-        "position": "relative",
+        "left": -0,
+        "right": "auto",
         "top": -8,
       }
     }
@@ -1236,12 +2299,12 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
           "componentStyle": ComponentStyle {
             "componentId": "sc-ifAKCX",
             "isStatic": false,
-            "lastClassName": "dnTSjX",
+            "lastClassName": "cbePUR",
             "rules": Array [
               "
   ",
               [Function],
-              ";
+              "
   margin: 0;
   padding: ",
               [Function],
@@ -1274,60 +2337,9 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
       }
       forwardedRef={
         Object {
-          "current": .c0 {
-  display: block;
-  margin: 0;
-  padding: 8px 0;
-  box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
-  position: absolute;
-  right: 0;
-  background-color: #FFFFFF;
-  z-index: 1;
-}
-
-.c1 {
-  cursor: pointer;
-  box-sizing: border-box;
-  padding: 0 24px;
-  line-height: 40px;
-  white-space: nowrap;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border: none;
-  width: 100%;
-  color: rgba(0,0,0,0.9);
-  font-size: 14px;
-  font-weight: 700;
-  text-align: left;
-}
-
-.c1:focus,
-.c1:hover {
-  background-color: #F2F4F5;
-}
-
-.c1:focus {
-  outline: none;
-  box-shadow: inset 0px 0px 0px 2px #FFB500;
-}
-
-.c1.c1 .c2 {
-  cursor: pointer;
-}
-
-<div
+          "current": <div
             aria-labelledby="ActionPopoverItem_guid-12345"
-            class="c0"
+            class=""
             data-component="action-popover"
             data-element="action-popover-submenu"
             id="ActionPopoverMenu_guid-12345"
@@ -1639,6 +2651,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
   cursor: pointer;
   box-sizing: border-box;
   padding: 0 24px;
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   -webkit-user-select: none;
@@ -1676,6 +2689,231 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
 }
 
 <ActionPopoverMenu
+  button={
+    Object {
+      "current": .c6 {
+  display: inline-block;
+  position: relative;
+  color: inherit;
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c6:hover {
+  color: inherit;
+  background-color: transparent;
+}
+
+.c6::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e922";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c4 {
+  display: inline-block;
+  position: relative;
+  color: inherit;
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c4:hover {
+  color: inherit;
+  background-color: transparent;
+}
+
+.c4::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e916";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c1 {
+  display: block;
+  margin: 0;
+  padding: 8px 0;
+  box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
+  position: absolute;
+  right: 0;
+  background-color: #FFFFFF;
+  z-index: 1;
+}
+
+.c7.c7 .c3 {
+  cursor: pointer;
+}
+
+.c8.c8 .c3 {
+  cursor: pointer;
+}
+
+.c9.c9 .c3 {
+  cursor: pointer;
+}
+
+.c10.c10 .c3 {
+  cursor: pointer;
+}
+
+.c5 {
+  padding-right: 8px;
+}
+
+.c2 {
+  position: absolute;
+  left: 0px;
+}
+
+.c2,
+.c2:hover {
+  color: #668491;
+}
+
+.c11.c11 .c3 {
+  cursor: not-allowed;
+  color: inherit;
+}
+
+.c0 {
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 0 24px;
+  position: relative;
+  line-height: 40px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: rgba(0,0,0,0.9);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.c0:focus,
+.c0:hover {
+  background-color: #F2F4F5;
+}
+
+.c0:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 2px #FFB500;
+}
+
+.c0.c0 .c3 {
+  cursor: pointer;
+}
+
+.c12.c12 .c3 {
+  cursor: pointer;
+}
+
+<div
+        aria-controls="ActionPopoverMenu_guid-12345"
+        aria-expanded="true"
+        aria-haspopup="true"
+        aria-label="actions"
+        class="c0"
+        role="menuitem"
+        tabindex="0"
+        type="button"
+      >
+        <div
+          aria-labelledby="ActionPopoverItem_guid-12345"
+          class="c1"
+          data-component="action-popover"
+          data-element="action-popover-submenu"
+          id="ActionPopoverMenu_guid-12345"
+          role="menu"
+          style="left: 0px; top: -8px;"
+        >
+          <div
+            class="c0"
+            role="menuitem"
+            tabindex="0"
+            type="button"
+          >
+            Sub Menu 1
+          </div>
+          <div
+            class="c0"
+            role="menuitem"
+            tabindex="0"
+            type="button"
+          >
+            Sub Menu 2
+          </div>
+        </div>
+        <span
+          class="c2 c3 c4"
+          data-component="icon"
+          data-element="chevron_left"
+          font-size="small"
+          type="chevron_left"
+        />
+        <span
+          class="c5 c3 c6"
+          data-component="icon"
+          data-element="message"
+          font-size="small"
+          type="message"
+        />
+        Email Invoice
+      </div>,
+    }
+  }
   data-element="action-popover-submenu"
   focusIndex={0}
   isOpen={false}
@@ -1703,8 +2941,8 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
   setOpen={[Function]}
   style={
     Object {
-      "left": 0,
-      "position": "relative",
+      "left": -0,
+      "right": "auto",
       "top": -8,
     }
   }
@@ -1720,8 +2958,8 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
     role="menu"
     style={
       Object {
-        "left": 0,
-        "position": "relative",
+        "left": -0,
+        "right": "auto",
         "top": -8,
       }
     }
@@ -1737,12 +2975,12 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
           "componentStyle": ComponentStyle {
             "componentId": "sc-ifAKCX",
             "isStatic": false,
-            "lastClassName": "dnTSjX",
+            "lastClassName": "cbePUR",
             "rules": Array [
               "
   ",
               [Function],
-              ";
+              "
   margin: 0;
   padding: ",
               [Function],
@@ -1775,65 +3013,14 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
       }
       forwardedRef={
         Object {
-          "current": .c0 {
-  display: block;
-  margin: 0;
-  padding: 8px 0;
-  box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
-  position: absolute;
-  right: 0;
-  background-color: #FFFFFF;
-  z-index: 1;
-}
-
-.c1 {
-  cursor: pointer;
-  box-sizing: border-box;
-  padding: 0 24px;
-  line-height: 40px;
-  white-space: nowrap;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border: none;
-  width: 100%;
-  color: rgba(0,0,0,0.9);
-  font-size: 14px;
-  font-weight: 700;
-  text-align: left;
-}
-
-.c1:focus,
-.c1:hover {
-  background-color: #F2F4F5;
-}
-
-.c1:focus {
-  outline: none;
-  box-shadow: inset 0px 0px 0px 2px #FFB500;
-}
-
-.c1.c1 .c2 {
-  cursor: pointer;
-}
-
-<div
+          "current": <div
             aria-labelledby="ActionPopoverItem_guid-12345"
-            class="c0"
+            class=""
             data-component="action-popover"
             data-element="action-popover-submenu"
             id="ActionPopoverMenu_guid-12345"
             role="menu"
-            style="position: relative; left: 0px; top: -8px;"
+            style="left: 0px; top: -8px;"
           >
             <div
               class="c1"
@@ -1861,8 +3048,8 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
       role="menu"
       style={
         Object {
-          "left": 0,
-          "position": "relative",
+          "left": -0,
+          "right": "auto",
           "top": -8,
         }
       }
@@ -1878,8 +3065,8 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
         role="menu"
         style={
           Object {
-            "left": 0,
-            "position": "relative",
+            "left": -0,
+            "right": "auto",
             "top": -8,
           }
         }
@@ -1899,9 +3086,6 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
               forwardedComponent={
                 Object {
                   "$$typeof": Symbol(react.forward_ref),
-                  "_foldedDefaultProps": Object {
-                    "disabled": false,
-                  },
                   "attrs": Array [],
                   "componentStyle": ComponentStyle {
                     "componentId": "sc-dnqmqq",
@@ -1916,6 +3100,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
   ",
                       [Function],
                       "
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   user-select: none;
@@ -1955,17 +3140,18 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
                   },
                   "displayName": "ActionPopoverItem",
                   "foldedComponentIds": Array [],
-                  "propTypes": Object {
-                    "children": [Function],
-                    "disabled": [Function],
-                    "icon": [Function],
-                    "onClick": [Function],
-                    "submenu": [Function],
-                  },
                   "render": [Function],
                   "styledComponentId": "sc-dnqmqq",
                   "target": Object {
                     "$$typeof": Symbol(react.forward_ref),
+                    "displayName": "ActionPopoverItem",
+                    "propTypes": Object {
+                      "children": [Function],
+                      "disabled": [Function],
+                      "icon": [Function],
+                      "onClick": [Function],
+                      "submenu": [Function],
+                    },
                     "render": [Function],
                   },
                   "toString": [Function],
@@ -1981,7 +3167,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
               onClick={[Function]}
               theme="[ theme object ]"
             >
-              <ForwardRef
+              <ActionPopoverItem
                 className="c1"
                 disabled={false}
                 onClick={[Function]}
@@ -1997,7 +3183,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
                 >
                   Sub Menu 1
                 </div>
-              </ForwardRef>
+              </ActionPopoverItem>
             </StyledComponent>
           </ActionPopoverItem>
         </WithTheme(ActionPopoverItem)>
@@ -2016,9 +3202,6 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
               forwardedComponent={
                 Object {
                   "$$typeof": Symbol(react.forward_ref),
-                  "_foldedDefaultProps": Object {
-                    "disabled": false,
-                  },
                   "attrs": Array [],
                   "componentStyle": ComponentStyle {
                     "componentId": "sc-dnqmqq",
@@ -2033,6 +3216,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
   ",
                       [Function],
                       "
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   user-select: none;
@@ -2072,17 +3256,18 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
                   },
                   "displayName": "ActionPopoverItem",
                   "foldedComponentIds": Array [],
-                  "propTypes": Object {
-                    "children": [Function],
-                    "disabled": [Function],
-                    "icon": [Function],
-                    "onClick": [Function],
-                    "submenu": [Function],
-                  },
                   "render": [Function],
                   "styledComponentId": "sc-dnqmqq",
                   "target": Object {
                     "$$typeof": Symbol(react.forward_ref),
+                    "displayName": "ActionPopoverItem",
+                    "propTypes": Object {
+                      "children": [Function],
+                      "disabled": [Function],
+                      "icon": [Function],
+                      "onClick": [Function],
+                      "submenu": [Function],
+                    },
                     "render": [Function],
                   },
                   "toString": [Function],
@@ -2098,7 +3283,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
               onClick={[Function]}
               theme="[ theme object ]"
             >
-              <ForwardRef
+              <ActionPopoverItem
                 className="c1"
                 disabled={false}
                 onClick={[Function]}
@@ -2114,7 +3299,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
                 >
                   Sub Menu 2
                 </div>
-              </ForwardRef>
+              </ActionPopoverItem>
             </StyledComponent>
           </ActionPopoverItem>
         </WithTheme(ActionPopoverItem)>
@@ -2140,6 +3325,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
   cursor: pointer;
   box-sizing: border-box;
   padding: 0 24px;
+  position: relative;
   line-height: 40px;
   white-space: nowrap;
   -webkit-user-select: none;
@@ -2177,6 +3363,230 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
 }
 
 <ActionPopoverMenu
+  button={
+    Object {
+      "current": .c4 {
+  display: inline-block;
+  position: relative;
+  color: inherit;
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c4:hover {
+  color: inherit;
+  background-color: transparent;
+}
+
+.c4::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e922";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c6 {
+  display: inline-block;
+  position: relative;
+  color: inherit;
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c6:hover {
+  color: inherit;
+  background-color: transparent;
+}
+
+.c6::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e917";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c1 {
+  visibility: hidden;
+  margin: 0;
+  padding: 8px 0;
+  box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
+  position: absolute;
+  right: 0;
+  background-color: #FFFFFF;
+  z-index: 1;
+}
+
+.c7.c7 .c3 {
+  cursor: pointer;
+}
+
+.c8.c8 .c3 {
+  cursor: pointer;
+}
+
+.c9.c9 .c3 {
+  cursor: pointer;
+}
+
+.c10.c10 .c3 {
+  cursor: pointer;
+}
+
+.c2 {
+  padding-right: 8px;
+}
+
+.c5 {
+  position: absolute;
+  right: 0px;
+}
+
+.c5,
+.c5:hover {
+  color: #668491;
+}
+
+.c11.c11 .c3 {
+  cursor: not-allowed;
+  color: inherit;
+}
+
+.c0 {
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 0 24px;
+  line-height: 40px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: rgba(0,0,0,0.9);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.c0:focus,
+.c0:hover {
+  background-color: #F2F4F5;
+}
+
+.c0:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 2px #FFB500;
+}
+
+.c0.c0 .c3 {
+  cursor: pointer;
+}
+
+.c12.c12 .c3 {
+  cursor: pointer;
+}
+
+<div
+        aria-controls="ActionPopoverMenu_guid-12345"
+        aria-expanded="false"
+        aria-haspopup="true"
+        aria-label="actions"
+        class="c0"
+        role="menuitem"
+        tabindex="0"
+        type="button"
+      >
+        <div
+          aria-labelledby="ActionPopoverItem_guid-12345"
+          class="c1"
+          data-component="action-popover"
+          data-element="action-popover-submenu"
+          id="ActionPopoverMenu_guid-12345"
+          role="menu"
+          style="left: 300px; top: -8px;"
+        >
+          <div
+            class="c0"
+            role="menuitem"
+            tabindex="0"
+            type="button"
+          >
+            Sub Menu 1
+          </div>
+          <div
+            class="c0"
+            role="menuitem"
+            tabindex="0"
+            type="button"
+          >
+            Sub Menu 2
+          </div>
+        </div>
+        <span
+          class="c2 c3 c4"
+          data-component="icon"
+          data-element="message"
+          font-size="small"
+          type="message"
+        />
+        Email Invoice
+        <span
+          class="c5 c3 c6"
+          data-component="icon"
+          data-element="chevron_right"
+          font-size="small"
+          type="chevron_right"
+        />
+      </div>,
+    }
+  }
   data-element="action-popover-submenu"
   focusIndex={0}
   isOpen={false}
@@ -2276,58 +3686,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
       }
       forwardedRef={
         Object {
-          "current": .c0 {
-  visibility: hidden;
-  margin: 0;
-  padding: 8px 0;
-  box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
-  position: absolute;
-  right: 0;
-  background-color: #FFFFFF;
-  z-index: 1;
-}
-
-.c1 {
-  cursor: pointer;
-  box-sizing: border-box;
-  padding: 0 24px;
-  line-height: 40px;
-  white-space: nowrap;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border: none;
-  width: 100%;
-  color: rgba(0,0,0,0.9);
-  font-size: 14px;
-  font-weight: 700;
-  text-align: left;
-}
-
-.c1:focus,
-.c1:hover {
-  background-color: #F2F4F5;
-}
-
-.c1:focus {
-  outline: none;
-  box-shadow: inset 0px 0px 0px 2px #FFB500;
-}
-
-.c1.c1 .c2 {
-  cursor: pointer;
-}
-
-<div
+          "current": <div
             aria-labelledby="ActionPopoverItem_guid-12345"
             class="c0"
             data-component="action-popover"
@@ -2476,14 +3835,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
               }
               forwardedRef={
                 Object {
-                  "current": <div
-                    class="c1"
-                    role="menuitem"
-                    tabindex="0"
-                    type="button"
-                  >
-                    Sub Menu 1
-                  </div>,
+                  "current": null,
                 }
               }
               onClick={[Function]}
@@ -2600,14 +3952,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
               }
               forwardedRef={
                 Object {
-                  "current": <div
-                    class="c1"
-                    role="menuitem"
-                    tabindex="0"
-                    type="button"
-                  >
-                    Sub Menu 2
-                  </div>,
+                  "current": null,
                 }
               }
               onClick={[Function]}
@@ -2692,6 +4037,231 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
 }
 
 <ActionPopoverMenu
+  button={
+    Object {
+      "current": .c4 {
+  display: inline-block;
+  position: relative;
+  color: inherit;
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c4:hover {
+  color: inherit;
+  background-color: transparent;
+}
+
+.c4::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e922";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c6 {
+  display: inline-block;
+  position: relative;
+  color: inherit;
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c6:hover {
+  color: inherit;
+  background-color: transparent;
+}
+
+.c6::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e917";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c1 {
+  display: block;
+  margin: 0;
+  padding: 8px 0;
+  box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
+  position: absolute;
+  right: 0;
+  background-color: #FFFFFF;
+  z-index: 1;
+}
+
+.c7.c7 .c3 {
+  cursor: pointer;
+}
+
+.c8.c8 .c3 {
+  cursor: pointer;
+}
+
+.c9.c9 .c3 {
+  cursor: pointer;
+}
+
+.c10.c10 .c3 {
+  cursor: pointer;
+}
+
+.c2 {
+  padding-right: 8px;
+}
+
+.c5 {
+  position: absolute;
+  right: 0px;
+}
+
+.c5,
+.c5:hover {
+  color: #668491;
+}
+
+.c11.c11 .c3 {
+  cursor: not-allowed;
+  color: inherit;
+}
+
+.c0 {
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 0 24px;
+  position: relative;
+  line-height: 40px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  width: 100%;
+  color: rgba(0,0,0,0.9);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.c0:focus,
+.c0:hover {
+  background-color: #F2F4F5;
+}
+
+.c0:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 2px #FFB500;
+}
+
+.c0.c0 .c3 {
+  cursor: pointer;
+}
+
+.c12.c12 .c3 {
+  cursor: pointer;
+}
+
+<div
+        aria-controls="ActionPopoverMenu_guid-12345"
+        aria-expanded="true"
+        aria-haspopup="true"
+        aria-label="actions"
+        class="c0"
+        role="menuitem"
+        tabindex="0"
+        type="button"
+      >
+        <div
+          aria-labelledby="ActionPopoverItem_guid-12345"
+          class="c1"
+          data-component="action-popover"
+          data-element="action-popover-submenu"
+          id="ActionPopoverMenu_guid-12345"
+          role="menu"
+          style="left: 300px; top: -8px;"
+        >
+          <div
+            class="c0"
+            role="menuitem"
+            tabindex="0"
+            type="button"
+          >
+            Sub Menu 1
+          </div>
+          <div
+            class="c0"
+            role="menuitem"
+            tabindex="0"
+            type="button"
+          >
+            Sub Menu 2
+          </div>
+        </div>
+        <span
+          class="c2 c3 c4"
+          data-component="icon"
+          data-element="message"
+          font-size="small"
+          type="message"
+        />
+        Email Invoice
+        <span
+          class="c5 c3 c6"
+          data-component="icon"
+          data-element="chevron_right"
+          font-size="small"
+          type="chevron_right"
+        />
+      </div>,
+    }
+  }
   data-element="action-popover-submenu"
   focusIndex={0}
   isOpen={false}
@@ -2791,60 +4361,9 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
       }
       forwardedRef={
         Object {
-          "current": .c0 {
-  display: block;
-  margin: 0;
-  padding: 8px 0;
-  box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
-  position: absolute;
-  right: 0;
-  background-color: #FFFFFF;
-  z-index: 1;
-}
-
-.c1 {
-  cursor: pointer;
-  box-sizing: border-box;
-  padding: 0 24px;
-  line-height: 40px;
-  white-space: nowrap;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border: none;
-  width: 100%;
-  color: rgba(0,0,0,0.9);
-  font-size: 14px;
-  font-weight: 700;
-  text-align: left;
-}
-
-.c1:focus,
-.c1:hover {
-  background-color: #F2F4F5;
-}
-
-.c1:focus {
-  outline: none;
-  box-shadow: inset 0px 0px 0px 2px #FFB500;
-}
-
-.c1.c1 .c2 {
-  cursor: pointer;
-}
-
-<div
+          "current": <div
             aria-labelledby="ActionPopoverItem_guid-12345"
-            class="c0"
+            class=""
             data-component="action-popover"
             data-element="action-popover-submenu"
             id="ActionPopoverMenu_guid-12345"
