@@ -75,7 +75,7 @@ describe('ActionPopover', () => {
 
   function renderWithSubmenu(props = {}, renderer = mount) {
     const submenu = (
-      <ActionPopoverMenu>
+      <ActionPopoverMenu onClick={ onClick }>
         <ActionPopoverItem
           key='0'
           { ...{ onClick: onClickWrapper('sub menu 1') } }
@@ -85,6 +85,7 @@ describe('ActionPopover', () => {
         <ActionPopoverItem
           key='1'
           { ...{ onClick: onClickWrapper('sub menu 2') } }
+          disabled
         >
           Sub Menu 2
         </ActionPopoverItem>
@@ -683,14 +684,14 @@ describe('ActionPopover', () => {
         expect(noThemeSnapshot(item.find(ActionPopoverMenu))).toMatchSnapshot();
       });
 
-      it('does not call the onClick prop if an item has a submenu and enter key pressed', () => {
+      it('opens the submenu when the enter key is pressed', () => {
         const { items } = getElements();
         const item = items.at(1);
         act(() => { simulate.keydown.pressEnter(item); });
         expect(onClick).not.toHaveBeenCalled();
       });
 
-      it('does not call the onClick prop if an item has a submenu and item clicked', () => {
+      it('opens the submenu when the item is clicked', () => {
         const { items } = getElements();
         const item = items.at(1);
         act(() => { item.simulate('click'); });
@@ -725,7 +726,7 @@ describe('ActionPopover', () => {
         expect(submenu.props().isOpen).toEqual(false);
       });
 
-      it('does not attach the onMouseEnter and onMouseLeave handlers if an item is disabled', () => {
+      it('does not open a submenu if an item is disabled', () => {
         const item = enzymeMount(
           <ThemeProvider theme={ mintTheme }>
             <ActionPopoverItem
@@ -748,35 +749,58 @@ describe('ActionPopover', () => {
         expect(item.find('div').at(0).props()['aria-expanded']).toEqual(false);
       });
 
-      fit('clicking on an item in a menu updates the focusIndex', () => {
-        const { menu, items } = getElements();
-        act(() => {
-          items.at(1).simulate('click');
-
-          // menu.find('div').first().dispatchEvent(new CustomEvent('click', {
-          //   detail: {
-          //     enzymeTestingTarget: items.at(1).getDOMNode()
-          //   }
-          // }));
-        });
-        act(() => {
-          // menu.find('div').first().dispatchEvent(new CustomEvent('click', {
-          //   detail: {
-          //     enzymeTestingTarget: items.at(1).getDOMNode()
-          //   }
-          // }));
-          items.at(1).find(ActionPopoverMenu).simulate('click');
-        });
+      it('updates the focus when an item with a submenu is clicked and does not close the menu', () => {
+        const { items } = getElements();
+        const item = items.at(1).getDOMNode();
 
         act(() => {
-          jest.runAllTimers();
-          wrapper.current.update();
+          item.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+          expect(item).toBeFocused();
         });
 
-        // assertStyleMatch({
-        //   display: 'block'
-        // }, menu);
         expect(onClose).toHaveBeenCalledTimes(0);
+      });
+
+      it('returns focus back to parent item when submenu item clicked', () => {
+        const { items } = getElements();
+        const item = items.at(1);
+        const submenu = item.find(ActionPopoverMenu);
+        const submenuItem = submenu.find(ActionPopoverItem).at(0);
+
+        act(() => {
+          item.getDOMNode().dispatchEvent(new MouseEvent('click', { bubbles: true }));
+        });
+
+        act(() => {
+          simulate.keydown.pressLeftArrow(item);
+          expect(item).not.toBeFocused();
+        });
+
+        act(() => {
+          submenuItem.getDOMNode().dispatchEvent(new MouseEvent('click', { bubbles: true }));
+          expect(item).toBeFocused();
+          jest.runAllTimers(); // needed to trigger coverage
+        });
+      });
+
+      it('focus is maintained on disabled submenu item when clicked', () => {
+        const { items } = getElements();
+        const item = items.at(1);
+        const submenu = item.find(ActionPopoverMenu);
+        const disabledSubmenuItem = submenu.find(ActionPopoverItem).at(1);
+
+        act(() => {
+          item.getDOMNode().dispatchEvent(new MouseEvent('click', { bubbles: true }));
+        });
+
+        act(() => {
+          simulate.keydown.pressLeftArrow(item);
+        });
+
+        act(() => {
+          disabledSubmenuItem.getDOMNode().dispatchEvent(new MouseEvent('click', { bubbles: true }));
+          expect(disabledSubmenuItem).toBeFocused();
+        });
       });
     });
 

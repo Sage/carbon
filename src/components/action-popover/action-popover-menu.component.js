@@ -8,7 +8,7 @@ import ActionPopoverItem from './action-popover-item.component';
 import ActionPopoverDivider from './action-popover-divider.component';
 
 const ActionPopoverMenu = React.forwardRef(({
-  button, parentID, children, focusIndex, isOpen, items, menuID, setOpen, setFocusIndex, setItems, ...rest
+  button, parentID, children, focusIndex, isOpen, items, menuID, onClick, setOpen, setFocusIndex, setItems, ...rest
 }, ref) => {
   const [childrenWithRef, setChildrenWithRef] = useState();
 
@@ -17,10 +17,10 @@ const ActionPopoverMenu = React.forwardRef(({
     const menu = ref.current;
     const handler = (e) => {
       items.forEach((item, index) => {
-        // loop and check if item clicked is in composedPath and then update focusIndex
+      // loop and check if item clicked is in composedPath and then update focusIndex
         if (Events.composedPath(e).includes(item.ref.current)) {
           if (!item.props.disabled) {
-            // if no submenu close menu and focus parent button or item, else update focusIndex
+          // if no submenu close menu and focus parent button or item, else update focusIndex
             if (!item.props.submenu) {
               setTimeout(() => {
                 setOpen(false);
@@ -36,6 +36,8 @@ const ActionPopoverMenu = React.forwardRef(({
           }
         }
       });
+
+      if (onClick) onClick();
     };
 
     menu.addEventListener(event, handler);
@@ -43,7 +45,7 @@ const ActionPopoverMenu = React.forwardRef(({
     return function cleanup() {
       menu.removeEventListener(event, handler);
     };
-  }, [button, focusIndex, items, ref, setFocusIndex, setOpen]);
+  }, [button, focusIndex, items, onClick, ref, setFocusIndex, setOpen]);
 
   const onKeyDown = useCallback(((e) => {
     let timer;
