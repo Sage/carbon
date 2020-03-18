@@ -61,6 +61,7 @@ const commonKnobs = (store, enableMultiSelect = false) => {
     placeholder: text('placeholder', ''),
     readOnly: boolean('readOnly', false),
     size: select('size', OptionsHelper.sizesRestricted, OptionsHelper.sizesRestricted[1]),
+    transparent: boolean('transparent', false),
     filterable,
     typeAhead,
     autoFocus,
