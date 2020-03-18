@@ -33,9 +33,10 @@ const FormField = ({
   readOnly,
   tooltipMessage,
   useValidationIcon,
+  styleOverride,
   ...props
 }) => (
-  <FormFieldStyle { ...tagComponent(props['data-component'], props) }>
+  <FormFieldStyle { ...tagComponent(props['data-component'], props) } styleOverride={ styleOverride.root }>
     <FieldLineStyle inline={ labelInline }>
       {reverse && children}
 
@@ -61,6 +62,7 @@ const FormField = ({
           optional={ isOptional }
           tooltipMessage={ tooltipMessage }
           useValidationIcon={ useValidationIcon }
+          styleOverride={ styleOverride.label }
         >
           {label}
         </Label>
@@ -84,7 +86,8 @@ const FormField = ({
 );
 
 FormField.defaultProps = {
-  size: 'medium'
+  size: 'medium',
+  styleOverride: {}
 };
 
 FormField.propTypes = {
@@ -114,7 +117,12 @@ FormField.propTypes = {
   reverse: PropTypes.bool,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   tooltipMessage: PropTypes.string,
-  useValidationIcon: PropTypes.bool
+  useValidationIcon: PropTypes.bool,
+  /** Allows to override existing component styles */
+  styleOverride: PropTypes.shape({
+    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    label: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+  })
 };
 
 export default FormField;

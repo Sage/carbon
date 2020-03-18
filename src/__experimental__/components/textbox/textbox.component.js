@@ -20,6 +20,7 @@ const Textbox = ({
   childOfForm,
   isOptional,
   iconOnClick,
+  styleOverride,
   ...props
 }) => {
   return (
@@ -28,8 +29,13 @@ const Textbox = ({
       isOptional={ isOptional }
       { ...props }
       useValidationIcon={ false }
+      styleOverride={ styleOverride }
     >
-      <InputPresentation type='text' { ...removeParentProps(props) }>
+      <InputPresentation
+        type='text'
+        { ...removeParentProps(props) }
+        styleOverride={ styleOverride.input }
+      >
         { leftChildren }
         <Input
           { ...removeParentProps(props) }
@@ -128,13 +134,20 @@ Textbox.propTypes = {
   /** Optional handler for click event on Textbox icon */
   iconOnClick: PropTypes.func,
   /** Handler for onClick events */
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  /** Allows to override existing component styles */
+  styleOverride: PropTypes.shape({
+    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    input: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    label: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+  })
 };
 
 Textbox.defaultProps = {
   labelWidth: 30,
   inputWidth: 70,
-  size: 'medium'
+  size: 'medium',
+  styleOverride: {}
 };
 
 export { Textbox as OriginalTextbox };
