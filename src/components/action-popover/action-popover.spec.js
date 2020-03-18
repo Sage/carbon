@@ -701,7 +701,7 @@ describe('ActionPopover', () => {
         const { items } = getElements();
         const item = items.at(1);
         const submenu = item.find(ActionPopoverMenu);
-        act(() => { submenu.props().onClick(); });
+        act(() => { submenu.simulate('click'); });
         assertStyleMatch({
           visibility: 'hidden'
         }, submenu);
@@ -746,6 +746,37 @@ describe('ActionPopover', () => {
         expect(item.find('div').at(0).props()['aria-label']).not.toEqual(undefined);
         expect(item.find('div').at(0).props()['aria-controls']).not.toEqual(undefined);
         expect(item.find('div').at(0).props()['aria-expanded']).toEqual(false);
+      });
+
+      fit('clicking on an item in a menu updates the focusIndex', () => {
+        const { menu, items } = getElements();
+        act(() => {
+          items.at(1).simulate('click');
+
+          // menu.find('div').first().dispatchEvent(new CustomEvent('click', {
+          //   detail: {
+          //     enzymeTestingTarget: items.at(1).getDOMNode()
+          //   }
+          // }));
+        });
+        act(() => {
+          // menu.find('div').first().dispatchEvent(new CustomEvent('click', {
+          //   detail: {
+          //     enzymeTestingTarget: items.at(1).getDOMNode()
+          //   }
+          // }));
+          items.at(1).find(ActionPopoverMenu).simulate('click');
+        });
+
+        act(() => {
+          jest.runAllTimers();
+          wrapper.current.update();
+        });
+
+        // assertStyleMatch({
+        //   display: 'block'
+        // }, menu);
+        expect(onClose).toHaveBeenCalledTimes(0);
       });
     });
 

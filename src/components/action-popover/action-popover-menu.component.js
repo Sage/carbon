@@ -14,28 +14,34 @@ const ActionPopoverMenu = React.forwardRef(({
 
   useEffect(() => {
     const event = 'click';
-    const el = ref.current;
-
+    const menu = ref.current;
     const handler = (e) => {
       items.forEach((item, index) => {
         // loop and check if item clicked is in composedPath and then update focusIndex
         if (Events.composedPath(e).includes(item.ref.current)) {
-          setFocusIndex(index);
-          // if no submenu close menu
-          if (!item.props.submenu) {
-            setTimeout(() => {
-              setOpen(false);
-              item.ref.current.focus();
-            }, 0);
+          if (!item.props.disabled) {
+            // if no submenu close menu and focus parent button or item, else update focusIndex
+            if (!item.props.submenu) {
+              setTimeout(() => {
+                setOpen(false);
+                item.ref.current.focus();
+              }, 0);
+            } else {
+              setFocusIndex(index);
+              items[index].ref.current.focus();
+            }
+          } else {
+            item.ref.current.focus();
+            e.stopPropagation();
           }
         }
       });
     };
 
-    el.addEventListener(event, handler);
+    menu.addEventListener(event, handler);
 
     return function cleanup() {
-      el.removeEventListener(event, handler);
+      menu.removeEventListener(event, handler);
     };
   }, [button, focusIndex, items, ref, setFocusIndex, setOpen]);
 
