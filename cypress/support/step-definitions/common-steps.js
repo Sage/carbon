@@ -1,5 +1,6 @@
 import {
-  visitComponentUrl, setSlidebar, pressESCKey, pressTABKey, asyncWaitForKnobs, visitFlatTableComponentNoiFrame,
+  visitComponentUrl, setSlidebar, pressESCKey, pressTABKey, asyncWaitForKnobs,
+  visitFlatTableComponentNoiFrame,
 } from '../helper';
 import {
   commonButtonPreview, labelPreview, helpIcon, helpIconByPosition, inputWidthSlider,
@@ -7,7 +8,8 @@ import {
   closeIconButton, tooltipPreview, getKnobsInput, getKnobsInputWithName, getKnobsInputByGroup,
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
   precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
-  knobsNameTab, fieldHelpPreviewByPosition, labelByPosition, dlsRoot, commonButtonPreviewNoIFrameRoot,
+  knobsNameTab, fieldHelpPreviewByPosition, labelByPosition, dlsRoot,
+  commonButtonPreviewNoIFrameRoot,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
