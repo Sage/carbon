@@ -1,20 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
-import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { notes, Info } from './documentation';
 import {
   ActionPopover, ActionPopoverDivider, ActionPopoverItem, ActionPopoverMenu
 } from '.';
-import { MenuItem } from './action-popover-item.component';
-import { MenuButton } from './action-popover.style';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import {
   Table, TableRow, TableCell, TableHeader
 } from '../table';
-
-const StyledComponent = styled('div')``.render().type;
-
 
 const submenu = (
   <ActionPopoverMenu>
@@ -39,7 +31,8 @@ const submenuWithIcons = (
       Sub Menu 2
     </ActionPopoverItem>
     <ActionPopoverItem
-      icon='print' disabled
+      icon='print'
+      disabled
       onClick={ action('sub menu 3') }
     >
       Sub Menu 3
@@ -47,8 +40,18 @@ const submenuWithIcons = (
   </ActionPopoverMenu>
 );
 
-function makeStory(storyName, themeSelector) {
-  const component = () => (
+export default {
+  title: 'Test/Action Popover',
+  parameters: {
+    themeSelector: dlsThemeSelector,
+    info: {
+      disable: true
+    }
+  }
+};
+
+export const Default = () => (
+  <div style={ { marginTop: '40px', height: '275px' } }>
     <Table isZebra>
       <TableRow>
         <TableHeader>First Name</TableHeader>
@@ -107,27 +110,93 @@ function makeStory(storyName, themeSelector) {
               icon='csv'
               submenu={ submenuWithIcons }
               onClick={ action('csv') }
-            >Download CSV
+            >
+              Download CSV
             </ActionPopoverItem>
           </ActionPopover>
         </TableCell>
       </TableRow>
     </Table>
-  );
+  </div>
+);
 
-  const metadata = {
-    themeSelector,
-    notes: { markdown: notes },
-    info: {
-      text: Info,
-      propTables: [ActionPopover, ActionPopoverMenu, MenuItem],
-      propTablesExclude: [ActionPopoverItem, Table, TableRow, TableCell, TableHeader, MenuButton, StyledComponent]
-    }
-  };
+Default.story = {
+  name: 'default'
+};
 
-  return [storyName, component, metadata];
-}
+export const Classic = () => (
+  <div style={ { height: '275px' } }>
+    <Table isZebra>
+      <TableRow>
+        <TableHeader>First Name</TableHeader>
+        <TableHeader>Last Name</TableHeader>
+        <TableHeader>&nbsp;</TableHeader>
+      </TableRow>
+      <TableRow>
+        <TableCell>John</TableCell>
+        <TableCell>Doe</TableCell>
+        <TableCell>
+          <ActionPopover>
+            <ActionPopoverItem
+              disabled
+              icon='graph'
+              submenu={ submenu }
+              onClick={ action('email') }
+            >
+              Business
+            </ActionPopoverItem>
+            <ActionPopoverItem icon='email' onClick={ action('email') }>Email Invoice</ActionPopoverItem>
+            <ActionPopoverItem
+              icon='print'
+              onClick={ action('print') }
+              submenu={ submenu }
+            >
+              Print Invoice
+            </ActionPopoverItem>
+            <ActionPopoverItem
+              icon='pdf'
+              submenu={ submenu }
+              onClick={ action('pdf') }
+            >
+              Download PDF
+            </ActionPopoverItem>
+            <ActionPopoverItem icon='csv' onClick={ action('csv') }>Download CSV</ActionPopoverItem>
+            <ActionPopoverDivider />
+            <ActionPopoverItem icon='delete' onClick={ action('delete') }>Delete</ActionPopoverItem>
+          </ActionPopover>
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Jane</TableCell>
+        <TableCell>Smith</TableCell>
+        <TableCell>
+          <ActionPopover>
+            <ActionPopoverItem icon='csv' onClick={ action('csv') }>Download CSV</ActionPopoverItem>
+          </ActionPopover>
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Bob</TableCell>
+        <TableCell>Jones</TableCell>
+        <TableCell>
+          <ActionPopover>
+            <ActionPopoverItem
+              icon='csv'
+              submenu={ submenuWithIcons }
+              onClick={ action('csv') }
+            >
+              Download CSV
+            </ActionPopoverItem>
+          </ActionPopover>
+        </TableCell>
+      </TableRow>
+    </Table>
+  </div>
+);
 
-storiesOf('Action Popover', module)
-  .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+Classic.story = {
+  name: 'classic',
+  parameters: {
+    themeSelector: classicThemeSelector
+  }
+};
