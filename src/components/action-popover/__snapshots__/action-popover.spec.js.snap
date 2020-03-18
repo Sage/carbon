@@ -458,14 +458,7 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
               }
               forwardedRef={
                 Object {
-                  "current": <div
-                    class="c1"
-                    role="menuitem"
-                    tabindex="0"
-                    type="button"
-                  >
-                    Sub Menu 1
-                  </div>,
+                  "current": null,
                 }
               }
               onClick={[Function]}
@@ -582,14 +575,7 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
               }
               forwardedRef={
                 Object {
-                  "current": <div
-                    class="c1"
-                    role="menuitem"
-                    tabindex="0"
-                    type="button"
-                  >
-                    Sub Menu 2
-                  </div>,
+                  "current": null,
                 }
               }
               onClick={[Function]}
