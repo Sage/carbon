@@ -139,7 +139,6 @@ const MenuItem = React.forwardRef(({
           menuID: `ActionPopoverMenu_${guid}`,
           'data-element': 'action-popover-submenu',
           isOpen,
-          onClick: () => setOpen(false),
           ref: submenuRef,
           style: containerPosition,
           setOpen,
