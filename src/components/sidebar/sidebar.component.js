@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Icon from '../icon';
 import Modal from '../modal';
-import { SidebarStyle, SidebarCloseStyle } from './sidebar.style';
+import SidebarStyle from './sidebar.style';
 import './sidebar.scss';
+import focusTrap from '../../utils/helpers/focus-trap';
+import IconButton from '../icon-button';
+import Icon from '../icon';
 
 class Sidebar extends Modal {
   /** Returns classes for the component. */
@@ -15,21 +17,31 @@ class Sidebar extends Modal {
     );
   }
 
-  /** Returns the markup for the close icon. */
-  get closeButton() {
-    if (this.props.onCancel) {
-      return (
-        <SidebarCloseStyle>
-          <Icon
-            className='carbon-sidebar__close-icon'
-            data-element='close'
-            onClick={ this.props.onCancel }
-            type='close'
-          />
-        </SidebarCloseStyle>
-      );
+  closeIcon() {
+    const { onCancel } = this.props;
+    if (!onCancel) return null;
+    return (
+      <IconButton
+        onAction={ onCancel }
+        data-element='close'
+      >
+        <Icon
+          type='close'
+        />
+      </IconButton>
+    );
+  }
+
+  handleOpen() {
+    super.handleOpen();
+    if (!this.props.enableBackgroundUI) {
+      this.removeFocusTrap = focusTrap(this.sideBarRef);
     }
-    return null;
+  }
+
+  handleClose() {
+    super.handleClose();
+    this.removeFocusTrap();
   }
 
   componentTags(props) {
@@ -44,11 +56,12 @@ class Sidebar extends Modal {
   get modalHTML() {
     return (
       <SidebarStyle
+        ref={ (element) => { this.sideBarRef = element; } }
         position={ this.props.position }
         size={ this.props.size }
         data-element='sidebar'
       >
-        { this.closeButton }
+        { this.closeIcon() }
         { this.props.children }
       </SidebarStyle>
     );

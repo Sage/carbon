@@ -56,7 +56,8 @@ function stylingForType({
   disabled,
   buttonType,
   theme,
-  size
+  size,
+  destructive
 }) {
   return css`
     border: 2px solid transparent;
@@ -71,7 +72,7 @@ function stylingForType({
     
     margin-right: 16px;
 
-    ${buttonTypes(theme, disabled)[buttonType]};
+    ${buttonTypes(theme, disabled, destructive)[buttonType]};
     ${buttonSizes(theme)[size]}
   `;
 }
@@ -96,7 +97,7 @@ StyledButton.propTypes = {
   children: PropTypes.node.isRequired,
   /** Apply disabled state to the button */
   disabled: PropTypes.bool,
-  /** Used to transfrom button into anchor */
+  /** Used to transform button into anchor */
   href: PropTypes.string,
   /** Defines an Icon position within the button */
   iconPosition: PropTypes.oneOf([...OptionsHelper.buttonIconPositions, '']),
@@ -108,7 +109,7 @@ StyledButton.propTypes = {
   subtext: PropTypes.string,
   /** Set this prop to pass in legacy theme color variants */
   legacyColorVariant: PropTypes.oneOf(OptionsHelper.buttonColors),
-  /** Used to transfrom button into anchor */
+  /** Used to transform button into anchor */
   to: PropTypes.string
 };
 

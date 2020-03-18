@@ -12,12 +12,17 @@ Feature: Table classic component
     Examples:
       | totalRecords |
       | 0            |
-      | 1            |
       | 10           |
       | 100          |
       | 99999999     |
       | -1           |
       | -10          |
+
+  @positive
+  Scenario: TotalRecords is set to <totalRecords>
+    When I set totalRecords to "1"
+      And I check paginate checkbox
+    Then totalRecords is set to "1" record
 
   @positive
   Scenario Outline: TotalRecords is set out of scope to <totalRecords>
@@ -47,4 +52,4 @@ Feature: Table classic component
   Scenario: Verify action toolbar elements
     Given I check selectable checkbox
     When I check checkbox on header
-    Then Action Toolbar elemens are visible and has "rgb(37, 91, 199)" color
+    Then Action Toolbar elemens are visible and have "rgb(37, 91, 199)" color

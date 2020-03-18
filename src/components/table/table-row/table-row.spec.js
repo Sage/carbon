@@ -341,20 +341,22 @@ describe('TableRow', () => {
       (themeName, theme) => {
         it('renders the element to match the expected style', () => {
           instance = mount(
-            <TableRow
-              uniqueID='foo'
-              selectable
-              selected
-              theme={ theme }
-            >
-              <TableCell />
-            </TableRow>
+            <Table>
+              <TableRow
+                uniqueID='foo'
+                selectable
+                selected
+                theme={ theme }
+              >
+                <TableCell />
+              </TableRow>
+            </Table>
           );
 
           assertStyleMatch({
             backgroundColor: theme.table.selected,
             borderBottomColor: theme.table.selected
-          }, instance, { modifier: `&&&&:hover ${StyledTableCell}` });
+          }, instance.find(TableRow), { modifier: `&&&&:hover ${StyledTableCell}` });
         });
       }
     );
@@ -366,18 +368,20 @@ describe('TableRow', () => {
       (themeName, theme) => {
         it('renders the element to match the expected style', () => {
           instance = mount(
-            <TableRow
-              highlighted
-              uniqueID='foo'
-              theme={ theme }
-            >
-              <TableCell />
-            </TableRow>
+            <Table>
+              <TableRow
+                highlighted
+                uniqueID='foo'
+                theme={ theme }
+              >
+                <TableCell />
+              </TableRow>
+            </Table>
           );
           assertStyleMatch({
             backgroundColor: theme.table.selected,
             borderBottomColor: theme.table.selected
-          }, instance, { modifier: `&&&& ${StyledTableCell}` });
+          }, instance.find(TableRow), { modifier: `&&&& ${StyledTableCell}` });
 
           assertStyleMatch({
             content: '""',
@@ -386,7 +390,7 @@ describe('TableRow', () => {
             position: 'absolute',
             top: '-1px',
             width: '100%'
-          }, instance, { modifier: `&&&& ${StyledTableCell}:before` });
+          }, instance.find(TableRow), { modifier: `&&&& ${StyledTableCell}:before` });
         });
       }
     );
@@ -395,19 +399,21 @@ describe('TableRow', () => {
   describe('when highlighted and selected', () => {
     it('renders expected styles', () => {
       instance = mount(
-        <TableRow
-          selected
-          highlighted
-          uniqueID='foo'
-        >
-          <TableCell />
-        </TableRow>
+        <Table>
+          <TableRow
+            selected
+            highlighted
+            uniqueID='foo'
+          >
+            <TableCell />
+          </TableRow>
+        </Table>
       );
       assertStyleMatch({
         backgroundColor: '#D8E0E3',
         borderBottomColor: '#D8E0E3',
         position: 'relative'
-      }, instance, { modifier: `&&&& ${StyledTableCell}` });
+      }, instance.find(TableRow), { modifier: `&&&& ${StyledTableCell}` });
     });
   });
 
@@ -432,7 +438,14 @@ describe('TableRow', () => {
   describe('render', () => {
     describe('without selectability', () => {
       it('renders its children', () => {
-        instance = TestUtils.renderIntoDocument(<Table><TableRow uniqueID='foo'><td /><td /></TableRow></Table>);
+        instance = TestUtils.renderIntoDocument(
+          <Table>
+            <TableRow uniqueID='foo'>
+              <td />
+              <td />
+            </TableRow>
+          </Table>
+        );
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         expect(row.children.length).toEqual(2);
       });
@@ -441,7 +454,12 @@ describe('TableRow', () => {
     describe('without selectability on the table but disabled on the row', () => {
       it('renders its children', () => {
         instance = TestUtils.renderIntoDocument(
-          <Table selectable><TableRow uniquieID='foo' selectable={ false }><td /><td /></TableRow></Table>
+          <Table selectable>
+            <TableRow uniquieID='foo' selectable={ false }>
+              <td />
+              <td />
+            </TableRow>
+          </Table>
         );
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         expect(row.children.length).toEqual(2);
@@ -450,7 +468,14 @@ describe('TableRow', () => {
 
     describe('with selectAll', () => {
       it('renders a select all cell', () => {
-        instance = mount(<Table><TableRow selectAll><td /><td /></TableRow></Table>);
+        instance = mount(
+          <Table>
+            <TableRow selectAll>
+              <td />
+              <td />
+            </TableRow>
+          </Table>
+        );
 
         const tr = instance.find(TableRow);
         const selectAllCell = instance.find(TableCell);
@@ -464,7 +489,14 @@ describe('TableRow', () => {
 
     describe('with selectable via context', () => {
       it('renders a multi select cell', () => {
-        instance = mount(<Table selectable><TableRow uniqueID='foo'><td /><td /></TableRow></Table>);
+        instance = mount(
+          <Table selectable>
+            <TableRow uniqueID='foo'>
+              <td />
+              <td />
+            </TableRow>
+          </Table>
+        );
 
         const tr = instance.find(TableRow);
         const selectAllCell = instance.find(TableCell);
@@ -478,7 +510,13 @@ describe('TableRow', () => {
 
     describe('with selectable via prop', () => {
       it('renders a multi select cell', () => {
-        instance = mount(<Table><TableRow selectable uniqueID='foo'><td /><td /></TableRow></Table>);
+        instance = mount(
+          <Table>
+            <TableRow selectable uniqueID='foo'>
+              <td /><td />
+            </TableRow>
+          </Table>
+        );
 
         const spy = jasmine.createSpy();
         const tr = instance.find(TableRow);
@@ -494,7 +532,11 @@ describe('TableRow', () => {
     describe('with hideMultiSelect', () => {
       it('renders a multi select cell without a checkbox', () => {
         instance = TestUtils.renderIntoDocument(
-          <Table selectable><TableRow hideMultiSelect uniqueID='foo'><td /><td /></TableRow></Table>
+          <Table selectable>
+            <TableRow hideMultiSelect uniqueID='foo'>
+              <td /><td />
+            </TableRow>
+          </Table>
         );
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         expect(row.children.length).toEqual(3);
@@ -505,7 +547,11 @@ describe('TableRow', () => {
     describe('if is header', () => {
       it('renders a table header', () => {
         instance = TestUtils.renderIntoDocument(
-          <Table selectable><TableRow as='header' uniqueID='foo'><td /><td /></TableRow></Table>
+          <Table selectable>
+            <TableRow as='header' uniqueID='foo'>
+              <td /><td />
+            </TableRow>
+          </Table>
         );
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         const th = TestUtils.findRenderedComponentWithType(instance, TableHeader);
@@ -516,7 +562,12 @@ describe('TableRow', () => {
     describe('when a child is null', () => {
       it('does not render a null cell', () => {
         instance = TestUtils.renderIntoDocument(
-          <Table selectable><TableRow as='header' uniqueID='foo'><td />{null}</TableRow></Table>
+          <Table selectable>
+            <TableRow as='header' uniqueID='foo'>
+              <td />
+              {null}
+            </TableRow>
+          </Table>
         );
         row = TestUtils.findRenderedDOMComponentWithTag(instance, 'tr');
         const th = TestUtils.findRenderedComponentWithType(instance, TableHeader);
@@ -527,7 +578,12 @@ describe('TableRow', () => {
     describe('when a child of td is null', () => {
       it('does not render a null cell', () => {
         expect(() => shallow(
-          <Table selectable><TableRow as='header' uniqueID='foo'><td /><td>{null}</td></TableRow></Table>
+          <Table selectable>
+            <TableRow as='header' uniqueID='foo'>
+              <td />
+              <td>{null}</td>
+            </TableRow>
+          </Table>
         )).not.toThrow();
       });
     });
@@ -605,16 +661,18 @@ describe('TableRow', () => {
         (themeName, theme) => {
           it(`should render correct background color for the ${themeName} theme`, () => {
             wrapper = mount(
-              <StyledTableRow
-                theme={ theme }
-                isDragged
-                inDeadZone
-              />
+              <Table>
+                <StyledTableRow
+                  theme={ theme }
+                  isDragged
+                  inDeadZone
+                />
+              </Table>
             );
 
             assertStyleMatch({
               backgroundColor: `${theme.table.dragging}`
-            }, wrapper, { modifier: `${StyledTableCell}` });
+            }, wrapper.find(StyledTableRow), { modifier: `${StyledTableCell}` });
           });
         });
 
@@ -638,19 +696,21 @@ describe('TableRow', () => {
       });
 
       it('renders a dragging class', () => {
-        const context = {};
         const row1 = mount(
-          <TableRow index={ 0 } dragAndDropIdentifier='foo'>
-            <TableCell>foo</TableCell>
-          </TableRow>,
-          { context }
+          <Table>
+            <StyledTableRow
+              isDragging
+              index={ 0 }
+              dragAndDropIdentifier='foo'
+            >
+              <TableCell>foo</TableCell>
+            </StyledTableRow>
+          </Table>
         );
-        row1.setContext({ dragAndDropActiveIndex: 1 });
 
         assertStyleMatch({
           userSelect: 'none'
-        },
-        row1.find(StyledTableRow));
+        }, row1.find(StyledTableRow));
       });
 
       it('renders a dragged class if the index matches', () => {
@@ -663,8 +723,9 @@ describe('TableRow', () => {
           >
             <TableCell>foo</TableCell>
           </TableRow>,
-          { context }
+          { context, wrappingComponent: Table }
         );
+
         row1.setContext({ dragAndDropActiveIndex: 0 });
 
         assertStyleMatch(
@@ -682,39 +743,43 @@ describe('TableRow', () => {
     describe('when selected', () => {
       it('renders the element to match the expected style', () => {
         wrapper = mount(
-          <TableRow
-            uniqueID='foo'
-            selectable
-            selected
-            theme={ classicTheme }
-          >
-            <TableCell />
-          </TableRow>
+          <Table>
+            <TableRow
+              uniqueID='foo'
+              selectable
+              selected
+              theme={ classicTheme }
+            >
+              <TableCell />
+            </TableRow>
+          </Table>
         );
 
         assertStyleMatch({
           backgroundColor: '#1573E6',
           borderBottomColor: '#255BC7',
           color: '#ffffff'
-        }, wrapper, { modifier: `&&&&:hover ${StyledTableCell}` });
+        }, wrapper.find(TableRow), { modifier: `&&&&:hover ${StyledTableCell}` });
       });
     });
 
     describe('when highlighted', () => {
       it('renders the element to match the expected style', () => {
         wrapper = mount(
-          <TableRow
-            uniqueID='foo'
-            highlighted
-            theme={ classicTheme }
-          >
-            <TableCell />
-          </TableRow>
+          <Table>
+            <TableRow
+              uniqueID='foo'
+              highlighted
+              theme={ classicTheme }
+            >
+              <TableCell />
+            </TableRow>
+          </Table>
         );
         assertStyleMatch({
           backgroundColor: '#D0E3FA',
           borderBottomColor: '#1573E6'
-        }, wrapper, { modifier: `&&&& ${StyledTableCell}` });
+        }, wrapper.find(TableRow), { modifier: `&&&& ${StyledTableCell}` });
       });
     });
   });

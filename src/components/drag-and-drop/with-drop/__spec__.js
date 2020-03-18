@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
-import { DragDropContext } from 'react-dnd';
+import { DragDropContext } from 'react-dnd-legacy';
 import TestBackend from 'react-dnd-test-backend';
 import Browser from '../../../utils/helpers/browser';
 import WithDrag from './../with-drag';

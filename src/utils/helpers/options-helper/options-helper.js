@@ -318,7 +318,6 @@ const OptionsHelper = {
     'primary',
     'secondary',
     'tertiary',
-    'destructive',
     'darkBackground'
   ],
 
@@ -380,6 +379,12 @@ const OptionsHelper = {
     'top-right',
     'bottom-left',
     'bottom-right'
+  ],
+
+  tableCellTypes: [
+    'header',
+    'rowHeader',
+    'cell'
   ]
 };
 

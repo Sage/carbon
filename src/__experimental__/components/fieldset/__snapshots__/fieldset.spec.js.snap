@@ -4,6 +4,11 @@ exports[`Fieldset renders correctly 1`] = `
 <styled.fieldset
   data-component="fieldset"
 >
-  <Textbox />
+  <styled.div
+    data-component="fieldset-style"
+    inline={false}
+  >
+    <Textbox />
+  </styled.div>
 </styled.fieldset>
 `;

@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../style/themes/base';
 import messageClassicStyling from './message-classic.style';
+import StyledIconButton from '../icon-button/icon-button.style';
 
 const MessageStyle = styled.div`
   position: relative;
@@ -13,9 +14,16 @@ const MessageStyle = styled.div`
   min-height: 38px;
 
   ${({ transparent }) => transparent && css`
-      border: none;
-      background: transparent;
+    border: none;
+    background: transparent;
   `}
+
+  ${StyledIconButton} {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
   ${messageClassicStyling}
 `;

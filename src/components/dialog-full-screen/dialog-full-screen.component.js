@@ -1,12 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Modal from '../modal';
 import Heading from '../heading';
 import AppWrapper from '../app-wrapper';
 import FullScreenHeading from './full-screen-heading';
 import StyledDialogFullScreen from './dialog-full-screen.style';
 import StyledContent from './content.style';
-import StyledIcon from './icon.style';
 import Browser from '../../utils/helpers/browser';
+import focusTrap from '../../utils/helpers/focus-trap';
+import IconButton from '../icon-button';
+import Icon from '../icon';
 
 class DialogFullScreen extends Modal {
   constructor(props) {
@@ -16,16 +19,12 @@ class DialogFullScreen extends Modal {
      * Caches a reference to the document.
      */
     this.document = Browser.getDocument();
+    this.originalOverflow = undefined;
   }
 
   static state = {
     headingHeight: undefined
   };
-
-  static defaultProps = {
-    open: false,
-    enableBackgroundUI: true
-  }
 
   headingRef = React.createRef();
 
@@ -74,19 +73,34 @@ class DialogFullScreen extends Modal {
   /**
    * Overrides the original function to disable the document's scroll.
    */
-  get onOpening() {
+  handleOpen() {
+    super.handleOpen();
+    this.removeFocusTrap = focusTrap(this._dialog);
+    this.originalOverflow = this.document.documentElement.style.overflow;
     this.document.documentElement.style.overflow = 'hidden';
-
-    return this.document.documentElement;
   }
 
   /**
    * Overrides the original function to enable the document's scroll.
    */
-  get onClosing() {
-    this.document.documentElement.style.overflow = 'auto';
-
+  handleClose() {
+    super.handleClose();
+    this.removeFocusTrap();
+    this.document.documentElement.style.overflow = this.originalOverflow;
     return this.document.documentElement;
+  }
+
+  closeIcon() {
+    const { showCloseIcon, onCancel } = this.props;
+    if (!showCloseIcon || !onCancel) return null;
+    return (
+      <IconButton
+        data-element='close'
+        onAction={ onCancel }
+      >
+        <Icon type='close' />
+      </IconButton>
+    );
   }
 
   /**
@@ -108,16 +122,28 @@ class DialogFullScreen extends Modal {
 
     return (
       <FullScreenHeading hasContent={ title } ref={ this.headingRef }>
-        <StyledIcon
-          data-element='close'
-          onClick={ this.props.onCancel }
-          type='close'
-        />
-
+        { this.closeIcon() }
         { title }
       </FullScreenHeading>
     );
   }
 }
+
+DialogFullScreen.defaultProps = {
+  open: false,
+  enableBackgroundUI: true,
+  showCloseIcon: true
+};
+
+DialogFullScreen.propTypes = {
+  /** A custom close event handler */
+  onCancel: PropTypes.func,
+  /** Sets the open state of the modal */
+  open: PropTypes.bool.isRequired,
+  /** Determines if the background is disabled when the modal is open */
+  enableBackgroundUI: PropTypes.bool,
+  /** Determines if the close icon is shown */
+  showCloseIcon: PropTypes.bool
+};
 
 export default DialogFullScreen;

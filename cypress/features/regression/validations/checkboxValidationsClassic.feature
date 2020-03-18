@@ -15,9 +15,14 @@ Feature: Checkbox validations classic component
       | state   | position | text                       |
       | error   | first    | This checkbox is required! |
       | warning | second   | Show warning!              |
+
+  @ignore
+  # ignored regression
+    Examples:
       | info    | third    | Show this information      |
 
-  @positive
+  @ignore
+  # ignored regression
   @validations
   Scenario: Verify the question validation of Checkbox in form classic component
     Given I check "fourth" checkbox 2 times
@@ -33,7 +38,8 @@ Feature: Checkbox validations classic component
     Then tooltipPreview on preview into iFrame is set to "Show warning!"
       And icon name into iFrame on preview is "warning"
 
-  @positive
+  @ignore
+  # ignored regression
   @validations
   Scenario: Verify the info validation of Checkbox in group classic component
     Given I check "sixth" checkbox

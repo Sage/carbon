@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { DragLayer } from 'react-dnd';
+import { DragLayer } from 'react-dnd-legacy';
 import StyledDragContainer from './custom-drag-layer.style';
 
 const collect = (monitor) => {

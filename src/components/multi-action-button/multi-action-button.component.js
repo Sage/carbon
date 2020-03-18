@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../icon';
 import SplitButton from '../split-button';
 import StyledMultiActionButton from './multi-action-button.style';
 import Button from '../button';
@@ -28,14 +27,10 @@ class MultiActionButton extends SplitButton {
       <Button
         { ...this.multiActionButtonProps }
         { ...this.toggleButtonProps }
+        iconPosition='after'
+        iconType='dropdown'
       >
         { this.props.text}
-        <Icon
-          type='dropdown'
-          bgTheme='none'
-          iconColor={ this.getIconColor(this.props.buttonType || this.props.as) }
-          disabled={ this.toggleButtonProps.disabled }
-        />
       </Button>
     );
   }

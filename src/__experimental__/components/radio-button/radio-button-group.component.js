@@ -3,15 +3,21 @@ import PropTypes from 'prop-types';
 
 import tagComponent from '../../../utils/helpers/tags';
 import RadioButtonFieldsetStyle from './radio-button-fieldset.style';
+import RadioButtonGroupStyle from './radio-button-group.style';
 import RadioButtonMapper from './radio-button-mapper.component';
 import withValidation from '../../../components/validations/with-validation.hoc';
 
 const RadioButtonGroup = (props) => {
   const {
-    children, name, legend, hasError, hasWarning, hasInfo, onBlur, onChange, value, tooltipMessage
+    children, name, legend, hasError, hasWarning, hasInfo, onBlur,
+    onChange, value, tooltipMessage, inline, labelInline
   } = props;
 
   const groupLabelId = `${name}-label`;
+
+  const renderChildren = () => {
+    return React.Children.map(children, child => React.cloneElement(child, { inline }));
+  };
 
   return (
     <RadioButtonFieldsetStyle
@@ -22,16 +28,23 @@ const RadioButtonGroup = (props) => {
       hasWarning={ hasWarning }
       hasInfo={ hasInfo }
       tooltipMessage={ tooltipMessage }
+      inline={ labelInline }
       { ...tagComponent('radiogroup', props) }
     >
-      <RadioButtonMapper
-        name={ name }
-        onBlur={ onBlur }
-        onChange={ onChange }
-        value={ value }
+      <RadioButtonGroupStyle
+        data-component='radio-button-group'
+        role='group'
+        inline={ inline }
       >
-        {children}
-      </RadioButtonMapper>
+        <RadioButtonMapper
+          name={ name }
+          onBlur={ onBlur }
+          onChange={ onChange }
+          value={ value }
+        >
+          {renderChildren()}
+        </RadioButtonMapper>
+      </RadioButtonGroupStyle>
     </RadioButtonFieldsetStyle>
   );
 };
@@ -58,13 +71,19 @@ RadioButtonGroup.propTypes = {
   /** value of the selected RadioButton */
   value: PropTypes.string,
   /** Message to be displayed in a Tooltip when the user hovers over the help icon */
-  tooltipMessage: PropTypes.string
+  tooltipMessage: PropTypes.string,
+  /** When true, radiobutton is placed in line */
+  inline: PropTypes.bool,
+  /** When true, legend is placed in line with an radiobutton */
+  labelInline: PropTypes.bool
 };
 
 RadioButtonGroup.defaultProps = {
   hasError: false,
   hasWarning: false,
-  hasInfo: false
+  hasInfo: false,
+  inline: false,
+  labelInline: false
 };
 
 export default withValidation(RadioButtonGroup, { unblockValidation: true });

@@ -18,7 +18,8 @@ const Help = (props) => {
     as,
     tooltipPosition,
     tooltipAlign,
-    isFocused
+    isFocused,
+    type
   } = props;
 
   useEffect(() => {
@@ -67,7 +68,7 @@ const Help = (props) => {
       aria-label={ children }
     >
       <Icon
-        type='help'
+        type={ type }
         tooltipMessage={ children }
         tooltipPosition={ tooltipPosition }
         tooltipAlign={ tooltipAlign }
@@ -95,13 +96,16 @@ Help.propTypes = {
   /** A path for the anchor */
   href: PropTypes.string,
   /** A boolean recived from IconWrapper */
-  isFocused: PropTypes.bool
+  isFocused: PropTypes.bool,
+  /** Icon to display, can be received from label component */
+  type: PropTypes.oneOf(OptionsHelper.icons)
 };
 
 Help.defaultProps = {
   tooltipPosition: 'top',
   tooltipAlign: 'center',
-  tabIndex: 0
+  tabIndex: 0,
+  type: 'help'
 };
 
 export default Help;

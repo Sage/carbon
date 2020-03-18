@@ -40,6 +40,7 @@ function makeStory(name, themeSelector) {
     const children = text('children', 'Text Content');
     const enableBackgroundUI = boolean('enableBackgroundUI', false);
     const disableEscKey = boolean('disableEscKey', false);
+    const showCloseIcon = boolean('showCloseIcon', true);
     const ariaRole = text('ariaRole', 'dialog');
 
     return (
@@ -55,6 +56,7 @@ function makeStory(name, themeSelector) {
             disableEscKey={ disableEscKey }
             ariaRole={ ariaRole }
             onClick={ handleClick }
+            showCloseIcon={ showCloseIcon }
           >
             { children }
           </DialogFullScreen>
@@ -77,6 +79,7 @@ function makeStickyFooterStory(name, themeSelector) {
     const children = text('children', 'Text Content');
     const enableBackgroundUI = boolean('enableBackgroundUI', false);
     const disableEscKey = boolean('disableEscKey', false);
+    const showCloseIcon = boolean('showCloseIcon', true);
     const ariaRole = text('ariaRole', 'dialog');
     const formHeight = text('form height', '2000px');
 
@@ -93,6 +96,7 @@ function makeStickyFooterStory(name, themeSelector) {
             disableEscKey={ disableEscKey }
             ariaRole={ ariaRole }
             onClick={ handleClick }
+            showCloseIcon={ showCloseIcon }
           >
             <Form stickyFooter>
               { children }
