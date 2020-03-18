@@ -78,12 +78,10 @@ const ActionPopoverMenu = React.forwardRef(({
   useEffect(() => {
     const itemsWithRef = [];
     // childrenWith a clone of children with refs added so we can focus the dom element
-    setChildrenWithRef(React.Children.toArray(children).map((child, itemIndex) => {
+    setChildrenWithRef(React.Children.toArray(children).map((child) => {
       if (child.type === ActionPopoverItem) {
-        const canOpenSubmenu = itemIndex === focusIndex && child.props.submenu;
         // callback and index to update focusIndex if item hovered and has submenu
-        const submenuProps = child.props.submenu ? { canOpenSubmenu, itemIndex, updateItemIndex: setFocusIndex } : {};
-        const itemWithRef = React.cloneElement(child, { ref: React.createRef(), ...submenuProps });
+        const itemWithRef = React.cloneElement(child, { ref: React.createRef() });
         itemsWithRef.push(itemWithRef);
 
         return itemWithRef;
@@ -97,9 +95,9 @@ const ActionPopoverMenu = React.forwardRef(({
   }, [children, focusIndex, isOpen, menuID, setFocusIndex, setItems]);
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && focusIndex !== null) {
       items[focusIndex].ref.current.focus();
-    } else {
+    } else if (focusIndex !== null) {
       setFocusIndex(0);
     }
   }, [isOpen, items, focusIndex, setItems, setFocusIndex]);
