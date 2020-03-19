@@ -10,7 +10,7 @@ const renderComponent = (props = {}) => (
   </Badge>
 );
 
-const BADGE = '[data-element="badge-component"]';
+const BADGE = '[data-component="badge"]';
 
 describe('Badge', () => {
   it('should render correctly', () => {
