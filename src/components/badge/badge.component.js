@@ -9,7 +9,7 @@ const Badge = ({ children, counter, onClick }) => {
     <StyledBadgeWrapper>
       {counter > 0 && (
         <StyledIconButton
-          data-element='badge-component'
+          data-component='badge'
           buttonType='secondary'
           onAction={ onClick }
         >
