@@ -15,8 +15,8 @@ Feature: Portrait default component
 			| áéíóú¿¡üñ               |
 			| !@#$%^*()_+-=~[];:.,?{} |
 			| ÄÖÜßäöüß                |
-	# @ignore because of FE-1447
-	# | <>                       |
+		# @ignore because of FE-1447
+		# | <>                       |
 
 	@positive
 	Scenario: Enable darkBackground checkbox for a Portrait component
