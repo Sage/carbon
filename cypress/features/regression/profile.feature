@@ -1,5 +1,5 @@
 Feature: Profile default component
-  I want to change Profile component default properties
+  I want to change default Profile component properties
 
   Background: Open Profile default component page
     Given I open "Profile" component page
