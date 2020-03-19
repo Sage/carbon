@@ -5,7 +5,7 @@ export interface BadgeProps {
   children: React.ReactNode;
   /** The number rendered in the badge component */
   counter: string | number;
-  /** Callback fired when badge clicked */
+  /** Callback fired when badge is clicked */
   onClick: () => void;
 }
 

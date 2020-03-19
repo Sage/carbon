@@ -1,24 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { StyledBadgeWrapper, StyledButton, StyledCrossIcon } from './badge.style';
+import {
+  StyledBadgeWrapper, StyledIconButton, StyledCrossIcon, StyledCounter
+} from './badge.style';
 
 const Badge = ({ children, counter, onClick }) => {
-  const [isHover, setHover] = useState(false);
-
-  const showCounter = () => (counter > 99 ? 99 : counter);
-
   return (
     <StyledBadgeWrapper>
       {counter > 0 && (
-        <StyledButton
+        <StyledIconButton
           data-element='badge-component'
           buttonType='secondary'
-          onMouseEnter={ () => setHover(true) }
-          onMouseLeave={ () => setHover(false) }
-          onClick={ onClick }
+          onAction={ onClick }
         >
-          {isHover ? <StyledCrossIcon type='cross' /> : showCounter()}
-        </StyledButton>
+          <StyledCrossIcon
+            data-element='badge-cross-icon'
+            type='cross'
+          />
+          <StyledCounter data-element='badge-counter'>
+            {counter > 99 ? 99 : counter}
+          </StyledCounter>
+        </StyledIconButton>
       )}
       {children}
     </StyledBadgeWrapper>
@@ -33,7 +35,7 @@ Badge.propTypes = {
     PropTypes.number,
     PropTypes.string
   ]),
-  /** Callback fired when badge clicked */
+  /** Callback fired when badge is clicked */
   onClick: PropTypes.func
 };
 
