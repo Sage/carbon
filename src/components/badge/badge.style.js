@@ -11,6 +11,8 @@ const StyledBadgeWrapper = styled.div`
 
 const StyledCounter = styled.div`
   font-weight: 700;
+  font-size: 12px;
+  margin-top: -1px;
 `;
 
 const StyledIconButton = styled(IconButton)`
@@ -19,8 +21,6 @@ const StyledIconButton = styled(IconButton)`
   height: 22px;
   border-radius: 50%;
   text-align: center;
-  margin-top: -1px;
-  margin-right: 0;
   position: absolute;
   top: -8px;
   right: -8px;
