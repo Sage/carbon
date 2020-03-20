@@ -193,6 +193,7 @@ Feature: Build tests
       | Button Toggle Group      | button-toggle-group |
       | Flat Table               | flat-table          |
       | Grid                     | grid                |
+      | Batch Selection          | batch-selection     |
       | Popover Container        | popover-container   |
       | Search                   | search              |
       

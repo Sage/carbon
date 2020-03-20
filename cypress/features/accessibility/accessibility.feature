@@ -111,6 +111,7 @@ Feature: Accessibility tests
       | Accordion                | accordion           |
       | Anchornavigation         | anchor-navigation   |
       | Badge                    | badge               |
+      | Batch Selection          | batch-selection     |
       | Button Toggle Group      | button-toggle-group |
       | Draggable                | draggable           |
       | Flat Table               | flat-table          |
