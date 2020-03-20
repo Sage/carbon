@@ -1,5 +1,5 @@
 Feature: Icon component
-  I want to change Heading component properties
+  I want to change Icon component properties
 
   Background: Open Icon component page classic
     Given I open "Icon" component page classic
