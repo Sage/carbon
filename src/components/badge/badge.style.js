@@ -6,7 +6,7 @@ import { baseTheme } from '../../style/themes';
 
 const StyledBadgeWrapper = styled.div`
   position: relative;
-  width: fit-content;
+  display: inline-block;
 `;
 
 const StyledCounter = styled.div`
@@ -22,8 +22,8 @@ const StyledIconButton = styled(IconButton)`
   border-radius: 50%;
   text-align: center;
   position: absolute;
-  top: -8px;
-  right: -8px;
+  top: -11px;
+  right: -11px;
   background: ${({ theme }) => theme.colors.white};
   border: ${({ theme }) => `2px solid ${theme.colors.primary}`};
   color: ${({ theme }) => theme.colors.primary};
