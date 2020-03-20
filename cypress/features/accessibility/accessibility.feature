@@ -114,5 +114,6 @@ Feature: Accessibility tests
       | Button Toggle Group      | button-toggle-group |
       | Draggable                | draggable           |
       | Flat Table               | flat-table          |
+      | Grid                     | grid                |
       | Search                   | search              |
       | Popover Container        | popover-container   |

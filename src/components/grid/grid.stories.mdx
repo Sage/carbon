@@ -1,0 +1,214 @@
+import { Meta, Preview, Story, Props } from '@storybook/addon-docs/blocks';
+import { PropsTable } from '@storybook/components';
+import Pod from '../pod';
+import { GridContainer, GridItem } from '.';
+
+<Meta title="Design System/Grid" />
+
+# Grid
+## The Carbon responsive grid system is a layout component that provides guidance on how components should be positioned within a user interface, adapting to screen size and orientation.
+The Grid system is designed to provide:
+
+- A common language for designers and developers to use when discussing layout.
+- Structure and responsive layout without a developer writing additional CSS.
+- No fixed breakpoints; responsive adjustments can be customised at a GridItem level.
+- Position and width calculated dynamically.
+
+## How it works
+- The Grid system is implemented with the `GridContainer` and `GridItem` components that provide two types of layout.
+- It uses the [CSS Grid layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout), which is a truly two-dimentional grid, allowing us to specify dimensions of rows and columns, and control where we position components within the grid.
+
+### `GridContainer`
+- Comprised of 12 equal-width columns, including external margins and internal gutters.
+- Allows either percentage or a fixed pixel width.
+- Respects the boundaries of any outer element, so if an outer element has a `max-width: 1280px`, `GridContainer` including it's margins and gutters will be based on that size.
+
+### `GridItem`
+The child of a `GridContainer` is a `GridItem`, which can have a set of breakpoints applied that are used to control how each `GridItem` responds at given widths.
+
+- Can be defined at any width between 1 and 12, each unit corresponding to a column of the `GridContainer`.
+- Unlimited breakpoints provide dynamic adjustment at any viewport width.
+- Can be re-ordered on the page by viewport dimensions.
+
+### Margins
+Margins for the `GridContainer` are set automatically in the CSS, following the values in this table.
+
+| Breakpoints                | Device Type  | Margins |
+|----------------------------|--------------|---------|
+| Extra Small (320 to 599px) | Smart Phones | 16px    |
+| Small (600 to 959px)       | Portrait Tablets | 24px |
+| Medium (960 to 1259px) | Landscape Tablets & Low-Res Laptops | 32px |
+| Large (1260 to 1920px) | High-Res Laptops & Monitors | 40px |
+| Extra Large (1921px and above) | Ultra High-Res Monitors |40px |
+
+### Gutters
+Gutters for the `GridItem` are set automatically in the CSS, following the values in this table.
+
+| Breakpoints                | Device Type  | Gutters |
+|----------------------------|--------------|---------|
+| Extra Small (320 to 599px) | Smart Phones | 16px    |
+| Small (600 to 959px)       | Portrait Tablets | 16px |
+| Medium (960 to 1259px) | Landscape Tablets & Low-Res Laptops | 24px |
+| Large (1260 to 1920px) | High-Res Laptops & Monitors | 24px |
+| Extra Large (1921px and above) | Ultra High-Res Monitors |40px |
+
+## GridContainer Props
+<Props of={GridContainer} />
+
+## GridItem Props
+<Props of={GridItem} />
+
+### responsiveSettings Props
+<PropsTable 
+  rows={
+    [
+      {
+      name: 'alignSelf',
+      type: { summary: 'string' },
+      description: 'How the grid item is aligned along the block (column) axis. Values: start, end, center, stretch'
+      },
+      {
+        name: 'colStart',
+        type: { summary: 'number'},
+        description: 'Starting column position of the GridItem within the GridContainer by referring to the grid line where the item begins'
+      },
+      {
+        name: 'colEnd',
+        type: { summary: 'number' },
+        description: 'Ending column position of the GridItem within the GridContainer by referring to the grid line where the item ends'
+      },
+      {
+        name: 'justifySelf',
+        type: { summary: 'string' },
+        description: 'How the grid item is aligned along the inline (row) axis. Values: start, end, center, stretch'
+      },
+      {
+        name: 'maxWidth',
+        type: { summary: 'string' },
+        description: 'Starting row position of the GridItem within the GridContainer by referring to the grid line where the item begins'
+      },
+      {
+        name: 'rowStart',
+        type: { summary: 'number' },
+        description: 'Starting row position of the GridItem within the GridContainer by referring to the grid line where the item begins'
+      },
+      {
+        name: 'rowEnd',
+        type: { summary: 'number' },
+        description: 'Ending row position of the GridItem within the GridContainer by referring to the grid line where the item ends'
+      }
+    ]
+  }
+/>
+
+## Example
+This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation. Note how the order and position of each `GridItem`, responds according to an array of `responsiveSettings` allowing reordering and respositioning as required.
+<Preview>
+  <Story name="basic" parameters={{ info: { disable: true }}} >
+    <GridContainer>
+      <GridItem responsiveSettings={[
+        {
+          maxWidth: '1500px',
+          colStart: 1,
+          colEnd: 7,
+          rowStart: 1,
+          rowEnd: 1,
+          alignSelf: 'stretch',
+          justifySelf: 'stretch'
+        },{
+          maxWidth: '1300px',
+          colStart: 1,
+          colEnd: 13,
+          rowStart: 1,
+          rowEnd: 1,
+          alignSelf: 'stretch',
+          justifySelf: 'stretch'  
+        },{
+          maxWidth: '900px',
+          colStart: 1,
+          colEnd: 9,
+          rowStart: 2,
+          rowEnd: 2,
+          alignSelf: 'stretch',
+          justifySelf: 'stretch'
+        }]}
+        >
+          <Pod
+            alignTitle='left' as='primary'
+            border padding='medium'
+            podType='primary'
+          >
+          1
+        </Pod>
+      </GridItem>
+      <GridItem responsiveSettings={[
+        {
+          maxWidth: '1500px',
+          colStart: 7,
+          colEnd: 13,
+          rowStart: 1,
+          rowEnd: 1,
+          alignSelf: 'stretch',
+          justifySelf: 'stretch'
+        },{
+          maxWidth: '1300px',
+          colStart: 1,
+          colEnd: 13,
+          rowStart: 2,
+          rowEnd: 2,
+          alignSelf: 'stretch',
+          justifySelf: 'stretch'
+        },{
+          maxWidth: '900px',
+          colStart: 1,
+          colEnd: 9,
+          rowStart: 3,
+          rowEnd: 3,
+          alignSelf: 'stretch',
+          justifySelf: 'stretch'
+        }]}>
+          <Pod
+          alignTitle='left' as='primary'
+          border padding='medium'
+          podType='primary'
+          >
+          2
+        </Pod>
+      </GridItem>
+      <GridItem responsiveSettings={[
+        {
+          maxWidth: '1500px',
+          colStart: 1,
+          colEnd: 13,
+          rowStart: 2,
+          rowEnd: 2,
+          alignSelf: 'stretch',
+          justifySelf: 'stretch'
+        },{
+          maxWidth: '1300px',
+          colStart: 1,
+          colEnd: 13,
+          rowStart: 3,
+          rowEnd: 3,
+          alignSelf: 'stretch',
+          justifySelf: 'stretch'
+        },{
+          maxWidth: '900px',
+          colStart: 1,
+          colEnd: 9,
+          rowStart: 1,
+          rowEnd: 1,
+          alignSelf: 'stretch',
+          justifySelf: 'stretch'
+        }]}>
+        <Pod
+        alignTitle='left' as='primary'
+        border padding='medium'
+        podType='primary'
+        >
+          3
+        </Pod>
+      </GridItem>
+    </GridContainer>
+  </Story>
+</Preview>

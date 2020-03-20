@@ -23,10 +23,6 @@ const MessageStyle = styled.div`
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
-
-    &::-moz-focus-inner {
-      border: none;
-    }
   }
 
   ${messageClassicStyling}

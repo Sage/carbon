@@ -192,9 +192,10 @@ Feature: Build tests
       | Badge                    | badge               |
       | Button Toggle Group      | button-toggle-group |
       | Flat Table               | flat-table          |
+      | Grid                     | grid                |
       | Popover Container        | popover-container   |
       | Search                   | search              |
-
+      
   @build
   Scenario: Component Draggable basic default page and verify data-element
     When I open basic Test "Draggable" component page in noIframe
