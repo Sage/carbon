@@ -12,9 +12,12 @@ Then('Button Toggle label on preview is {string}', (label) => {
 });
 
 Then('Button icon on preview is {string}', (iconName) => {
-  icon().eq(FIRST_ELEMENT).should('have.attr', 'data-element', iconName);
-  icon().eq(SECOND_ELEMENT).should('have.attr', 'data-element', iconName);
-  icon().eq(THIRD_ELEMENT).should('have.attr', 'data-element', iconName);
+  icon().eq(FIRST_ELEMENT).should('have.attr', 'data-element', iconName)
+    .and('be.visible');
+  icon().eq(SECOND_ELEMENT).should('have.attr', 'data-element', iconName)
+    .and('be.visible');
+  icon().eq(THIRD_ELEMENT).should('have.attr', 'data-element', iconName)
+    .and('be.visible');
 });
 
 Then('Button Toggle icon is set to {string}', (iconName) => {

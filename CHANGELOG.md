@@ -1,3 +1,10 @@
+## [14.5.0](https://github.com/Sage/carbon/compare/v14.4.0...v14.5.0) (2020-03-20)
+
+
+### Features
+
+* **icon:** add icons ([513966b](https://github.com/Sage/carbon/commit/513966bf9536dd52693d58f43317e7b20c39c110))
+
 ## [14.4.0](https://github.com/Sage/carbon/compare/v14.3.0...v14.4.0) (2020-03-20)
 
 

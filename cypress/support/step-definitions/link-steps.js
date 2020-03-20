@@ -17,7 +17,8 @@ Then('Link on preview href is set to {string}', (href) => {
 });
 
 Then('icon on link componenent preview is {string}', (iconName) => {
-  linkIcon().should('have.attr', 'data-element', iconName);
+  linkIcon().should('have.attr', 'data-element', iconName)
+    .and('be.visible');
 });
 
 Then('icon align is set to {string}', (iconAlign) => {
