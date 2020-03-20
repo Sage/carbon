@@ -84,3 +84,9 @@ Feature: Button as a sibling component
     Given clear all actions in Actions Tab
     When I click on "button" as a sibling
     Then click action was called in Actions Tab
+
+  @positive
+  Scenario: Set Button icon to alert
+    Given I check has icon checkbox
+    When I select iconType to "alert"
+    Then Button as a sibling icon is set to "alert"

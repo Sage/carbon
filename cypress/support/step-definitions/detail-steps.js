@@ -19,7 +19,8 @@ Then('icon not exists on preview', () => {
 });
 
 Then('icon on preview is {string}', (iconName) => {
-  icon().should('have.attr', 'data-element', iconName);
+  icon().should('have.attr', 'data-element', iconName)
+    .and('be.visible');
 });
 
 Then('icon name into iFrame on preview is {string}', (iconName) => {
