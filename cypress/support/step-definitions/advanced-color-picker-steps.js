@@ -1,6 +1,8 @@
 import {
   experimentalSimpleColorPickerInput,
   advancedColorPickerCell,
+  experimentalSimpleColorPickerInputNoIframe,
+  advancedColorPickerCellNoIframe,
 } from '../../locators/advanced-color-picker';
 
 const FIRST_ELEMENT = 1;
@@ -8,6 +10,10 @@ const SECOND_ELEMENT = 2;
 
 When('I open Advanced Color Picker', () => {
   advancedColorPickerCell().first().click();
+});
+
+When('I open Advanced Color Picker in noIFrame', () => {
+  advancedColorPickerCellNoIframe().first().click();
 });
 
 When('I pick simple {int} color', (index) => {
@@ -28,22 +34,8 @@ Then('Simple Color {int} element was picked up', (index) => {
   experimentalSimpleColorPickerInput(index).should('have.attr', 'aria-checked', 'true');
 });
 
-When('I press {string} on a {int} color in advanced colorpicker', (arrow, index) => {
-  switch (arrow) {
-    case 'ArrowDown':
-      experimentalSimpleColorPickerInput(index).trigger('keydown', { key: arrow, keyCode: 40, which: 40 });
-      break;
-    case 'ArrowUp':
-      experimentalSimpleColorPickerInput(index).trigger('keydown', { key: arrow, keyCode: 38, which: 38 });
-      break;
-    case 'ArrowRight':
-      experimentalSimpleColorPickerInput(index).trigger('keydown', { key: arrow, keyCode: 39, which: 39 });
-      break;
-    case 'ArrowLeft':
-      experimentalSimpleColorPickerInput(index).trigger('keydown', { key: arrow, keyCode: 37, which: 37 });
-      break;
-    default: throw new Error('Could not press that arrow key');
-  }
+Then('Simple Color {int} element was picked up in noIframe', (index) => {
+  experimentalSimpleColorPickerInputNoIframe(index).should('have.attr', 'aria-checked', 'true');
 });
 
 When('I press Enter on {int} element', (index) => {
@@ -56,4 +48,8 @@ When('I press Space on {int} element', (index) => {
 
 When('I press Tab on {int} element', (index) => {
   experimentalSimpleColorPickerInput(index).trigger('keydown', { key: 'Tab', keyCode: 9, which: 9 });
+});
+
+Then('Advanced Simple Color is visible', () => {
+  advancedColorPickerCell().should('be.visible');
 });

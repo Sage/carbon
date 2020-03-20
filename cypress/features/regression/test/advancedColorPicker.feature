@@ -6,30 +6,10 @@ Feature: Advanced Color Picker component
       And I open Advanced Color Picker
 
   @positive
-  Scenario: Left arrow moves selection left
-    When I press "ArrowLeft" on a 7 color in advanced colorpicker
-    Then Simple Color 6 element was picked up
-
-  @positive
-  Scenario: Right arrow moves selection right
-    When I press "ArrowRight" on a 7 color in advanced colorpicker
-    Then Simple Color 8 element was picked up
-
-  @positive
-  Scenario: Up arrow moves selection up
-    When I press "ArrowUp" on a 7 color in advanced colorpicker
-    Then Simple Color 2 element was picked up
-
-  @positive
-  Scenario: Down arrow moves selection down
-    When I press "ArrowDown" on a 7 color in advanced colorpicker
-    Then Simple Color 7 element was picked up
-
-  @positive
   Scenario: Tab key pressed two times when color is focused regains focus on color
-    When I press Tab on 7 element
-    Then closeIcon is focused
     Given I press Tab on 7 element
+      And closeIcon is focused
+    When I press Tab on 7 element
     Then Simple Color 7 has focus
 
   @positive
@@ -49,8 +29,10 @@ Feature: Advanced Color Picker component
     Then Simple Color 7 has focus
 
   @positive
-  Scenario: Clicking Advanced Color Picker Cell preview opens the color picker
-    Then closeIcon is visible
+  Scenario: Advanced Simple Color is visible
+    # commented because of BDD default scenario Given - When - Then
+    # When I open Advanced Color Picker
+    Then Advanced Simple Color is visible
 
   @positive
   Scenario Outline: Check the Simple Color Picker <position> element was selected
