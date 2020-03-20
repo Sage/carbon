@@ -1,0 +1,35 @@
+import { badge, badgeCounter } from '../../locators/badge';
+
+Then('Badge component rendered properly', () => {
+  badge().should('have.css', 'padding', '0px')
+    .and('have.css', 'padding', '0px')
+    .and('have.css', 'width', '22px')
+    .and('have.css', 'height', '22px')
+    .and('have.css', 'border-radius', '50%')
+    .and('have.css', 'text-align', 'center')
+    .and('have.css', 'margin-top', '-1px')
+    .and('have.css', 'margin-right', '0px')
+    .and('have.css', 'position', 'absolute')
+    .and('have.css', 'top', '-8px')
+    .and('have.css', 'right', '-8px')
+    .and('have.css', 'background', 'rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box')
+    .and('have.css', 'border', '2px solid rgb(0, 128, 93)')
+    .and('have.css', 'color', 'rgb(0, 128, 93)');
+});
+
+Then('Badge component counter is set to {int}', (value) => {
+  badgeCounter().invoke('show').should('be.visible').invoke('text')
+    .should('contain', value);
+});
+
+Then('Badge component counter is not exist', () => {
+  badge().should('not.exist');
+});
+
+When('I hover onto Badge component', () => {
+  badge().trigger('mouseover');
+});
+
+When('I click onto Badge component', () => {
+  badge().click();
+});

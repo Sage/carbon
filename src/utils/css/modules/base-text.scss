@@ -6,6 +6,10 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+button {
+  font-family: inherit;
+}
+
 @mixin h1() { font-size: 24px; font-weight: 900; line-height: 32px; }
 @mixin h2() { font-size: 22px; font-weight: 700; margin-bottom: 26px; }
 @mixin h3() { font-size: 20px; font-weight: 700; margin-bottom: 24px; }

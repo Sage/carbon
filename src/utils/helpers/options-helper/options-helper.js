@@ -89,6 +89,13 @@ const OptionsHelper = {
     'warning'
   ],
 
+  flatTableThemes: [
+    'dark',
+    'light',
+    'white',
+    'transparent'
+  ],
+
   iconBackgrounds: [
     'info',
     'error',

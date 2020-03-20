@@ -1,13 +1,13 @@
-Feature: Preview component
+Feature: Preview default component
   I want to test Preview component
 
-  Background: Open Preview component page
+  Background: Open Preview component default page
     Given I open "Preview" component page
 
   @positive
   Scenario: Enable loading checkbox for a Preview component
-    When I uncheck loading checkbox
-      And I check loading checkbox
+    Given I uncheck loading checkbox
+    When I check loading checkbox
     Then Preview component is loading
 
   @positive
@@ -17,8 +17,8 @@ Feature: Preview component
 
   @positive
   Scenario Outline: Change Preview children to <children>
-    When I set children to "<children>"
-      And I uncheck loading checkbox
+    Given I set children to "<children>"
+    When I uncheck loading checkbox
     Then Preview children is set to "<children>"
     Examples:
       | children                |
@@ -27,8 +27,8 @@ Feature: Preview component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                       |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario Outline: Set width to <width>
@@ -75,8 +75,8 @@ Feature: Preview component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                       |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario Outline: Set height to out of scope to <height>
@@ -88,8 +88,8 @@ Feature: Preview component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                       |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario Outline: Set lines to out of scope to <lines>
@@ -101,5 +101,5 @@ Feature: Preview component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                       |
+# @ignore because of FE-1447
+# | <>                       |
