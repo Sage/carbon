@@ -1,9 +1,8 @@
-# This feature require separate task for update
-Feature: Profile component
-  I want to change Profile component properties
+Feature: Profile default component
+  I want to change default Profile component properties
 
-  Background: Open Profile component page classic
-    Given I open "Profile" component page classic
+  Background: Open Profile default component page
+    Given I open "Profile" component page
 
   @positive
   Scenario Outline: Set email to <email>
@@ -20,8 +19,8 @@ Feature: Profile component
     Then email is set to "<email>"
       And avatar is taken from "<avatar>"
     Examples:
-      | email                | avatar                                                                        |
-      | andrew.tait@sage.com | https://www.gravatar.com/avatar/ec55ecf2e1c7e7e56a904b50245c24a4?s=40&d=404 |
+      | email                | avatar                                                                      |
+      | andrew.tait@sage.com | https://www.gravatar.com/avatar/ec55ecf2e1c7e7e56a904b50245c24a4?s=24&d=404 |
 
   @negative
   Scenario Outline: Set email out of scope to <email>
@@ -34,11 +33,10 @@ Feature: Profile component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <> |
+    # @ignore because of FE-1447
+    # | <> |
 
-  @ignore @positive
-  # This scenario require separate task for update
+  @positive
   Scenario Outline: Set initials to <initials>
     When I set initials to "<initials>"
     Then initials is set to "<initials>"
@@ -47,19 +45,7 @@ Feature: Profile component
       | OW       |
       | TJH      |
 
-  @ignore @negative
-  # This scenario require separate task for update
-  Scenario Outline: Set out of scope initials to <initials>
-    When I set initials to "<initials>"
-    Then initials is set to "<initials>"
-    Examples:
-      | initials |
-      | 1234     |
-      | 12345    |
-      | TJHGHIJ  |
-
-  @ignore @positive
-  # This scenario require separate task for update
+  @positive
   Scenario Outline: Get initials from name <name>
     When I set name to "<name>"
       And I set initials to empty
@@ -70,9 +56,18 @@ Feature: Profile component
       | Thomas Jeffrey Hanks | TJH    |
 
   @positive
-  Scenario Outline: Check large checkbox
-    When I check large checkbox
-    Then Profile is set to large
+  Scenario Outline: Set Profile size to <size>
+    When I select size to "<size>"
+    Then Profile size has "<sizeInPx>"
+    Examples:
+      | size | sizeInPx |
+      | XS   | 24       |
+      | S    | 32       |
+      | M    | 40       |
+      | ML   | 56       |
+      | L    | 72       |
+      | XL   | 104      |
+      | XXL  | 128      |
 
   @positive
   Scenario Outline: Set name to <name>
@@ -85,5 +80,5 @@ Feature: Profile component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-# @ignore because of FE-1447
-# | <> |
+    # @ignore because of FE-1447
+    # | <> |

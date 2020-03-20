@@ -1,7 +1,7 @@
 Feature: Menu component
-  I want to change Menu component properties
+  I want to change Menu component default properties
 
-  Background: Open Menu component page
+  Background: Open Menu component default page
     Given I open "Menu" component page
 
   @positive @applitools

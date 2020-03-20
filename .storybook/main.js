@@ -18,6 +18,7 @@ module.exports = {
         test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader']
       }
     );
+  
     config.resolve = {
       alias: {
         helpers: path.resolve(__dirname, '__helpers__/')

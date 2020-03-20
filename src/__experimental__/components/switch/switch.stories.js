@@ -5,11 +5,24 @@ import {
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { Store, State } from '@sambego/storybook-state';
+import I18n from 'i18n-js';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import Switch, { BaseSwitch } from './switch.component';
 import { info, infoValidations, notes } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
+
+const { translations } = I18n;
+I18n.translations = {
+  ...translations,
+  fr: {
+    ...translations.fr,
+    switch: {
+      on: 'sur',
+      off: 'de'
+    }
+  }
+};
 
 Switch.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),

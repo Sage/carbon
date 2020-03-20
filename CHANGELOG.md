@@ -1,3 +1,107 @@
+## [14.3.0](https://github.com/Sage/carbon/compare/v14.2.2...v14.3.0) (2020-03-18)
+
+
+### Features
+
+* **grid:** add responsive grid component ([62e76c5](https://github.com/Sage/carbon/commit/62e76c5c2c35fc28761d2b963cd30b2144e3e755))
+
+### [14.2.2](https://github.com/Sage/carbon/compare/v14.2.1...v14.2.2) (2020-03-18)
+
+
+### Bug Fixes
+
+* **icon-button:** remove firefox focus-inner border ([c6b0601](https://github.com/Sage/carbon/commit/c6b0601b0b70c7df1bd70a1f05811312b71dea66))
+
+### [14.2.1](https://github.com/Sage/carbon/compare/v14.2.0...v14.2.1) (2020-03-17)
+
+
+### Bug Fixes
+
+* **fonts:** add support for consumer adding font ([fedf494](https://github.com/Sage/carbon/commit/fedf4944063f784d823694b774e005ee55fa2c2a))
+
+## [14.2.0](https://github.com/Sage/carbon/compare/v14.1.2...v14.2.0) (2020-03-17)
+
+
+### Features
+
+* **switch:** add i18n support ([cbf5fda](https://github.com/Sage/carbon/commit/cbf5fdac1527e0ca6d6e6b2a16af3f8eb608cfaa)), closes [#2722](https://github.com/Sage/carbon/issues/2722)
+
+### [14.1.2](https://github.com/Sage/carbon/compare/v14.1.1...v14.1.2) (2020-03-17)
+
+
+### Bug Fixes
+
+* **alert:** use icon-button component for close ([f24352c](https://github.com/Sage/carbon/commit/f24352cf57e8c6189d4eba552421694864cc1d8e))
+
+### [14.1.1](https://github.com/Sage/carbon/compare/v14.1.0...v14.1.1) (2020-03-16)
+
+
+### Bug Fixes
+
+* **sidebar:** close button styling ([58c1674](https://github.com/Sage/carbon/commit/58c16748814873f5923cdd093e839fd91aeacced))
+* **sidebar:** fixed close icon alignment in classic story ([61aaf5d](https://github.com/Sage/carbon/commit/61aaf5d8787f850695cdabdff702ab289b5afd48))
+
+## [14.1.0](https://github.com/Sage/carbon/compare/v14.0.2...v14.1.0) (2020-03-13)
+
+
+### Features
+
+* **simple-color-picker:** keyboard accessbility, up and down navigation ([351db41](https://github.com/Sage/carbon/commit/351db41f22611c937f7530ffd992be95829a22d3))
+
+### [14.0.2](https://github.com/Sage/carbon/compare/v14.0.1...v14.0.2) (2020-03-13)
+
+
+### Bug Fixes
+
+* **multi-action-button:** change button text misalignment ([6013c0c](https://github.com/Sage/carbon/commit/6013c0cbd2b336d223c0e47d61a80982b4581802))
+
+### [14.0.1](https://github.com/Sage/carbon/compare/v14.0.0...v14.0.1) (2020-03-12)
+
+
+### Bug Fixes
+
+* **toast:** close button styling ([a55eaa1](https://github.com/Sage/carbon/commit/a55eaa192415689247b537d8281dc78aa4fa3ac9))
+
+## [14.0.0](https://github.com/Sage/carbon/compare/v13.12.0...v14.0.0) (2020-03-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* The Lato font import has been removed from carbon
+consuming applications are now responsible for including them, how to do so has been documented in README.md
+
+### Miscellaneous Chores
+
+* remove cdn font import and add local font for storybook ([1ea3565](https://github.com/Sage/carbon/commit/1ea3565bed715ba6f9801bf92973adda0d987f56))
+
+## [13.12.0](https://github.com/Sage/carbon/compare/v13.11.0...v13.12.0) (2020-03-11)
+
+
+### Features
+
+* **button:** add destructive prop ([cef3676](https://github.com/Sage/carbon/commit/cef3676d754722ba171eaa1dc1f79e447b61b6d2))
+
+## [13.11.0](https://github.com/Sage/carbon/compare/v13.10.0...v13.11.0) (2020-03-11)
+
+
+### Features
+
+* **popover-container:** add new component ([871b56d](https://github.com/Sage/carbon/commit/871b56d1c82890d39ae1c489316d1304708d41b4))
+
+## [13.10.0](https://github.com/Sage/carbon/compare/v13.9.1...v13.10.0) (2020-03-11)
+
+
+### Features
+
+* **anchor-navigation:** create anchor-navigation component ([12d0d88](https://github.com/Sage/carbon/commit/12d0d8873d5243c132a04a85fc0c9ed2f9962326))
+
+### [13.9.1](https://github.com/Sage/carbon/compare/v13.9.0...v13.9.1) (2020-03-10)
+
+
+### Bug Fixes
+
+* **dialog-full-screen:** close button styling ([13e31ef](https://github.com/Sage/carbon/commit/13e31ef4861645a5865cc757749152498b90c260))
+
 ## [13.9.0](https://github.com/Sage/carbon/compare/v13.8.0...v13.9.0) (2020-03-09)
 
 

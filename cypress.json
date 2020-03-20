@@ -7,7 +7,10 @@
   ],
   "env": {
     "TAGS": "not @ignore",
-    "CYPRESS_APPLITOOLS": false
+    "CYPRESS_APPLITOOLS": false,
+    "RETRIES": 3,
+    "RETRIES_HIDDEN": 1,
+    "RETRIES_NO_LOG": 1
   },
   "failOnStatusCode": false,
   "ignoreTestFiles": [

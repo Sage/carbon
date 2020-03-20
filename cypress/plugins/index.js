@@ -15,7 +15,7 @@
 const cucumber = require('cypress-cucumber-preprocessor').default;
 
 // this line is required to avoid memory leak
-require('events').EventEmitter.defaultMaxListeners = 150; // value should be updated due to amount of regression files (150)
+require('events').EventEmitter.setMaxListeners = 150; // value should be updated due to amount of regression files (150)
 
 // eslint-disable-next-line no-unused-vars
 module.exports = (on, config) => {
@@ -32,6 +32,7 @@ module.exports = (on, config) => {
       return launchOptions;
     }
   });
+  require('cypress-plugin-retries/lib/plugin')(on);
 };
 
 // Configure Eyes-Cypress plugin

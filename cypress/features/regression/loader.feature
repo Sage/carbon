@@ -7,7 +7,7 @@ Feature: Loader default component
   @positive @applitools
   Scenario Outline: I set Loader component size to <size>
     When I select size to "<size>"
-    Then Loader width is set to 1059 px and height is set to <height> px
+    Then Loader width is set to 1061 px and height is set to <height> px
       And Element displays correctly
     Examples:
       | size  | height |

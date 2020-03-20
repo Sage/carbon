@@ -1,6 +1,11 @@
 language: node_js
 node_js: node
 
+# We build PR's and branches, this tells travis to only build on the master branch or PR's that target the master branch
+branches:
+  only:
+  - master
+
 addons:
    apt:
      packages:

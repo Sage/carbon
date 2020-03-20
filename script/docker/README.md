@@ -24,10 +24,16 @@ NB: All commands should be run from the top level directory of the repository.
 
 ```
 Options:
-
- --build			      Runs the build tests
- --accessibility		Runs the accessibility tests
- --regression			  Runs the regression tests
+ --build                        Runs the build tests
+ --accessibility                Runs the accessibility tests
+ --regression                   Runs all regression tests
+ --common                       Runs the regression common tests
+ --experimental                 Runs the regression experimental tests
+ --deprecated                   Runs the regression deprecated tests
+ --validation                   Runs the regression validation tests
+ --themes                       Runs the regression themes tests
+ --test                         Runs the regression test directory tests
+ --allure-report                Generates allure-report for cypress tests
 ```
 
 ### Example command

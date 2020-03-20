@@ -8,7 +8,7 @@ Feature: Dialog component
   @positive @applitools
   Scenario: CloseIcon has the border outline
     When closeIcon is focused
-    Then closeIcon has the border outline
+    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
       And Element displays correctly in full screen
 
   @positive @applitools
@@ -119,7 +119,8 @@ Feature: Dialog component
     Then Background UI is disabled
   # And Element displays correctly in full screen
 
-  @positive @applitools
+  @ignore
+  # ignored regression
   Scenario: Disable escape key
     Given I check disableEscKey checkbox
     When I hit ESC key

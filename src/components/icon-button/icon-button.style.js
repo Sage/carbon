@@ -20,6 +20,10 @@ const StyledIconButton = styled.button`
     cursor: pointer;
   }
 
+  &::-moz-focus-inner {
+    border: none;
+  }
+
   ${StyledIcon} {
     position: relative;
 
@@ -27,7 +31,6 @@ const StyledIconButton = styled.button`
       border: none;
     }
   }
-
 
   ${classicIconButtonStyle};
 `;

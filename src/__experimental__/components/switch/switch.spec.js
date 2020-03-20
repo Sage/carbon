@@ -4,6 +4,7 @@ import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { css, ThemeProvider } from 'styled-components';
 import { mount } from 'enzyme';
+import I18n from 'i18n-js';
 import text from '../../../utils/helpers/text/text';
 import Switch from '.';
 import CheckableInput from '../checkable-input';
@@ -16,6 +17,7 @@ import guid from '../../../utils/helpers/guid';
 import { assertStyleMatch, carbonThemesJestTable } from '../../../__spec_helper__/test-utils';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 import { baseTheme, classicTheme } from '../../../style/themes';
+import SwitchSliderPanel from './switch-slider-panel.style';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -74,6 +76,57 @@ describe('Switch', () => {
         wrapper.find(CheckableInput).prop('onChange')(event);
       });
       expect(onChangeMock).toHaveBeenCalledWith(event);
+    });
+  });
+
+  const getLabel = wrapper => wrapper.find(SwitchSliderPanel).text();
+
+  describe('i18n', () => {
+    const { translations, locale } = I18n;
+    beforeAll(() => {
+      I18n.translations = {
+        ...translations,
+        fr: {
+          ...translations.fr,
+          switch: {
+            on: 'sur',
+            off: 'de'
+          }
+        }
+      };
+    });
+
+    afterAll(() => {
+      I18n.translations = translations;
+      I18n.locale = locale;
+    });
+
+    describe('default translation', () => {
+      it('has default translation for on', () => {
+        const wrapper = render({ checked: true }, mount);
+        expect(getLabel(wrapper)).toBe('ON');
+      });
+
+      it('has default translation for off', () => {
+        const wrapper = render({ checked: false }, mount);
+        expect(getLabel(wrapper)).toBe('OFF');
+      });
+    });
+
+    describe('translation', () => {
+      beforeAll(() => {
+        I18n.locale = 'fr';
+      });
+
+      it('can use i18n for on', () => {
+        const wrapper = render({ checked: true }, mount);
+        expect(getLabel(wrapper)).toBe('SUR');
+      });
+
+      it('can use i18n for off', () => {
+        const wrapper = render({ checked: false }, mount);
+        expect(getLabel(wrapper)).toBe('DE');
+      });
     });
   });
 

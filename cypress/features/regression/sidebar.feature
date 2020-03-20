@@ -6,7 +6,19 @@ Feature: Sidebar component
       And I check open checkbox
 
   @positive @applitools
+  Scenario: CloseIcon has the border outline
+    When closeIcon is focused
+    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
+
+  @positive @applitools
+  Scenario: Check the cancel click event
+    Given clear all actions in Actions Tab
+    When I close Sidebar
+    Then cancel action was called in Actions Tab
+
+  @positive @applitools
   Scenario: Enable open checkbox for a Sidebar component
+    # commented because of BDD default scenario Given - When - Then
     # When I check open checkbox
     Then Sidebar component is visible
       And Element displays correctly
@@ -55,9 +67,3 @@ Feature: Sidebar component
       | large        | 650              |
       | extra-large  | 750              |
 
-  @positive @applitools
-  Scenario: Check the cancel click event
-    When clear all actions in Actions Tab
-      And I close Sidebar
-    Then cancel action was called in Actions Tab
-      And Element displays correctly

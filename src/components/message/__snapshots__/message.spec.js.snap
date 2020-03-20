@@ -32,10 +32,6 @@ exports[`Message when in classic mode when rendered should match the snapshot 1`
   transform: translateY(-50%);
 }
 
-.c0 .c1::-moz-focus-inner {
-  border: none;
-}
-
 <div
   className="c0"
 >
@@ -73,10 +69,6 @@ exports[`Message when in classic mode when rendered should match the snapshot 2`
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-}
-
-.c0 .c1::-moz-focus-inner {
-  border: none;
 }
 
 <div
@@ -118,10 +110,6 @@ exports[`Message when in classic mode when rendered should match the snapshot 3`
   transform: translateY(-50%);
 }
 
-.c0 .c1::-moz-focus-inner {
-  border: none;
-}
-
 <div
   className="c0"
 >
@@ -159,10 +147,6 @@ exports[`Message when in classic mode when rendered should match the snapshot 4`
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-}
-
-.c0 .c1::-moz-focus-inner {
-  border: none;
 }
 
 <div
@@ -204,10 +188,6 @@ exports[`Message when in classic mode when rendered should match the snapshot 5`
   transform: translateY(-50%);
 }
 
-.c0 .c1::-moz-focus-inner {
-  border: none;
-}
-
 <div
   className="c0"
 >
@@ -245,10 +225,6 @@ exports[`Message when in classic mode when rendered should match the snapshot 6`
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-}
-
-.c0 .c1::-moz-focus-inner {
-  border: none;
 }
 
 <div
@@ -290,10 +266,6 @@ exports[`Message when in classic mode when rendered should match the snapshot 7`
   transform: translateY(-50%);
 }
 
-.c0 .c1::-moz-focus-inner {
-  border: none;
-}
-
 <div
   className="c0"
 >
@@ -331,10 +303,6 @@ exports[`Message when in classic mode when rendered should match the snapshot 8`
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-}
-
-.c0 .c1::-moz-focus-inner {
-  border: none;
 }
 
 <div
