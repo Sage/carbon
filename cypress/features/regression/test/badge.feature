@@ -1,5 +1,5 @@
 Feature: Badge component
-  I want to change Badge component properties
+  I want to test Badge component properties
 
   Background: Open Badge component page
     Given I open basic Test "Badge" component page
@@ -16,9 +16,7 @@ Feature: Badge component
     Then Badge component counter is set to <counter>
     Examples:
       | counter |
-      | 1       |
-      | 5       |
-      | 50      |
+      | 10      |
       | 99      |
 
   @positive
@@ -44,11 +42,11 @@ Feature: Badge component
 
   @positive
   Scenario: Hover Badge component and verify that cross icon appears
-    When I hover onto Badge component
+    When I focus onto Badge component
     Then icon on preview is "cross"
 
   @positive
   Scenario: Click event
-    When clear all actions in Actions Tab
-      And I click onto Badge component
+    Given clear all actions in Actions Tab
+    When I click onto Badge component
     Then click action was called in Actions Tab

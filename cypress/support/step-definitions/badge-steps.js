@@ -7,7 +7,7 @@ Then('Badge component rendered properly', () => {
     .and('have.css', 'height', '22px')
     .and('have.css', 'border-radius', '50%')
     .and('have.css', 'text-align', 'center')
-    .and('have.css', 'margin-top', '-1px')
+    .and('have.css', 'margin-top', '0px')
     .and('have.css', 'margin-right', '0px')
     .and('have.css', 'position', 'absolute')
     .and('have.css', 'top', '-8px')
@@ -26,8 +26,8 @@ Then('Badge component counter is not exist', () => {
   badge().should('not.exist');
 });
 
-When('I hover onto Badge component', () => {
-  badge().trigger('mouseover');
+When('I focus onto Badge component', () => {
+  badge().focus();
 });
 
 When('I click onto Badge component', () => {
