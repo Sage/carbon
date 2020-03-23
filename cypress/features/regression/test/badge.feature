@@ -32,7 +32,7 @@ Feature: Badge component
   @negative
   Scenario Outline: Set Badge component to out of scope to <counter>
     When I set counter to "<counter>"
-    Then Badge component counter is not exist
+    Then Badge component counter does not exist
     Examples:
       | counter                 |
       | 0                       |

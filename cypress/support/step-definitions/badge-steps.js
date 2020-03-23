@@ -22,7 +22,7 @@ Then('Badge component counter is set to {int}', (value) => {
     .should('contain', value);
 });
 
-Then('Badge component counter is not exist', () => {
+Then('Badge component counter does not exist', () => {
   badge().should('not.exist');
 });
 
