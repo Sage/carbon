@@ -29,30 +29,21 @@ Then('Portrait size has {string}', (property) => {
 Then('Portrait {word} value is set to {string}', (word, property) => {
   switch (word) {
     case 'src':
-      portraitUserImage()
-        .should('have.attr', 'src', `${property}`);
-      portraitInitials()
-        .should('not.exist');
+      portraitUserImage().should('have.attr', 'src', `${property}`);
+      portraitInitials().should('not.exist');
       break;
     case 'gravatar':
-      portraitInitials()
-        .should('be.visible');
-      portraitUserImage()
-        .should('have.attr', 'src', `${property}`);
+      portraitInitials().should('be.visible');
+      portraitUserImage().should('have.attr', 'src', `${property}`);
       break;
     case 'initials':
-      portraitInitials()
-        .should('be.visible');
-      cy.fixture(`${INITIALS_FOLDER}${property}`, 'base64').then(($property) => {
-        portraitInitials().children()
-          .should('have.attr', 'src', `${DATA_IMAGE_PREFIX}${$property}`);
+      portraitInitials().find('img').should('be.visible');
+      cy.fixture(`${INITIALS_FOLDER}${property}.jpg`, 'base64').then(($property) => {
+        portraitInitials().find('img').should('have.attr', 'src', `${DATA_IMAGE_PREFIX}${$property}`);
       });
-      portraitUserImage()
-        .should('not.have.attr', 'src');
       break;
     case 'shape':
-      portraitPreview()
-        .should('have.attr', 'shape', `${property}`);
+      portraitPreview().should('have.attr', 'shape', `${property}`);
       break;
     default:
       throw new Error('Not a Portrait component property');

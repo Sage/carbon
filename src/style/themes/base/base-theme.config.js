@@ -54,6 +54,10 @@ export default (palette) => {
       background: palette.slateTint(90)
     },
 
+    batchSelection: {
+      lightTheme: palette.slateTint(70)
+    },
+
     menu: {
       focus: palette.slateTint(95),
       divider: palette.slateTint(90),

@@ -1,0 +1,83 @@
+import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
+import BatchSelection from '.';
+import IconButton from '../icon-button';
+import Icon from '../icon';
+import Link from '../link';
+
+<Meta
+  title="Design System/Batch Selection" 
+  parameters={{ info: { disable: true }}}
+/>
+
+# Batch Selection
+
+Batch Selection Component could be used to select multiple items, and apply a common action to all the items selected.
+
+## Quick Start
+
+To use Batch Selection, import the `BatchSelection`, pass Icon Buttons with actions as children and number of selected in selectedCount prop.
+
+### Basic usage:
+
+<Preview>
+  <Story name="basic">
+    <BatchSelection selectedCount={0}>
+      <span>(<Link>Select All 38 items</Link>)</span>
+      <IconButton onAction={ () => {} }><Icon type='csv' /></IconButton>
+      <IconButton onAction={ () => {} }><Icon type='bin' /></IconButton>
+      <IconButton onAction={ () => {} }><Icon type='pdf' /></IconButton>
+    </BatchSelection>
+  </Story>
+</Preview>
+
+### On dark background:
+
+<Preview>
+  <Story name="dark">
+    <BatchSelection selectedCount={1} colorTheme='dark'>
+      <IconButton onAction={ () => {} }><Icon type='csv' /></IconButton>
+      <IconButton onAction={ () => {} }><Icon type='bin' /></IconButton>
+      <IconButton onAction={ () => {} }><Icon type='pdf' /></IconButton>
+    </BatchSelection>
+  </Story>
+</Preview>
+
+### On light background:
+
+<Preview>
+  <Story name="light">
+    <BatchSelection selectedCount={2} colorTheme='light'>
+      <IconButton onAction={ () => {} }><Icon type='csv' /></IconButton>
+      <IconButton onAction={ () => {} }><Icon type='bin' /></IconButton>
+      <IconButton onAction={ () => {} }><Icon type='pdf' /></IconButton>
+    </BatchSelection>
+  </Story>
+</Preview>
+
+### On white background:
+
+<Preview>
+  <Story name="white">
+    <BatchSelection selectedCount={3} colorTheme='white'>
+      <IconButton onAction={ () => {} }><Icon type='csv' /></IconButton>
+      <IconButton onAction={ () => {} }><Icon type='bin' /></IconButton>
+      <IconButton onAction={ () => {} }><Icon type='pdf' /></IconButton>
+    </BatchSelection>
+  </Story>
+</Preview>
+
+### Disabled:
+
+<Preview>
+  <Story name="disabled">
+    <BatchSelection selectedCount={4} disabled>
+      <IconButton onAction={ () => {} }><Icon type='csv' /></IconButton>
+      <IconButton onAction={ () => {} }><Icon type='bin' /></IconButton>
+      <IconButton onAction={ () => {} }><Icon type='pdf' /></IconButton>
+    </BatchSelection>
+  </Story>
+</Preview>
+
+## Props:
+
+<Props of={BatchSelection} />

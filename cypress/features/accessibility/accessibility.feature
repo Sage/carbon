@@ -110,6 +110,7 @@ Feature: Accessibility tests
       | component                | data-component      |
       | Accordion                | accordion           |
       | Anchornavigation         | anchor-navigation   |
+      | Batch Selection          | batch-selection     |
       | Button Toggle Group      | button-toggle-group |
       | Draggable                | draggable           |
       | Flat Table               | flat-table          |
