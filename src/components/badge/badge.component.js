@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  StyledBadgeWrapper, StyledIconButton, StyledCrossIcon, StyledCounter
+  StyledBadgeWrapper, StyledButton, StyledCrossIcon, StyledCounter
 } from './badge.style';
 
 const Badge = ({ children, counter, onClick }) => {
   return (
     <StyledBadgeWrapper>
       {counter > 0 && (
-        <StyledIconButton
+        <StyledButton
           data-component='badge'
           buttonType='secondary'
-          onAction={ onClick }
+          onClick={ onClick }
         >
           <StyledCrossIcon
             data-element='badge-cross-icon'
@@ -20,7 +20,7 @@ const Badge = ({ children, counter, onClick }) => {
           <StyledCounter data-element='badge-counter'>
             {counter > 99 ? 99 : counter}
           </StyledCounter>
-        </StyledIconButton>
+        </StyledButton>
       )}
       {children}
     </StyledBadgeWrapper>

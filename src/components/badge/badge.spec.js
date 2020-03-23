@@ -1,13 +1,17 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { ThemeProvider } from 'styled-components';
 import Badge from './badge.component';
 import Button from '../button';
 import { StyledCounter } from './badge.style';
+import { baseTheme } from '../../style/themes';
 
 const renderComponent = (props = {}) => (
-  <Badge { ...props }>
-    <Button buttonType='primary'>Button</Button>
-  </Badge>
+  <ThemeProvider theme={ baseTheme }>
+    <Badge { ...props }>
+      <Button buttonType='primary'>Button</Button>
+    </Badge>
+  </ThemeProvider>
 );
 
 const BADGE = '[data-component="badge"]';
