@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import StyledIcon from '../icon/icon.style';
 import Button from '../button';
 import Icon from '../icon';
-import { baseTheme } from '../../style/themes';
 
 const StyledBadgeWrapper = styled.div`
   position: relative;
