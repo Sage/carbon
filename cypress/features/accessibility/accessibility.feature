@@ -112,6 +112,7 @@ Feature: Accessibility tests
       | Anchornavigation         | anchor-navigation   |
       | Batch Selection          | batch-selection     |
       | Button Toggle Group      | button-toggle-group |
+      | duellingpicklist         | duelling-picklist   |
       | Draggable                | draggable           |
       | Flat Table               | flat-table          |
       | Grid                     | grid                |
