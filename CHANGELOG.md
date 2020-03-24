@@ -1,3 +1,10 @@
+## [14.7.0](https://github.com/Sage/carbon/compare/v14.6.0...v14.7.0) (2020-03-24)
+
+
+### Features
+
+* **duelling-picklist:** create duelling-picklist component ([e122180](https://github.com/Sage/carbon/commit/e12218007d3f933fba760a18476ffab37a31f927))
+
 ## [14.6.0](https://github.com/Sage/carbon/compare/v14.5.1...v14.6.0) (2020-03-24)
 
 
