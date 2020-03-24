@@ -36,10 +36,10 @@ const multiValueProp = options.map(({ value }) => value);
 const multiValueReturn = options.map(({ value, text }) => ({ optionValue: value, optionText: text }));
 
 describe('Select', () => {
-  const renderWrapper = ({ props, type = mount } = {}) => (
+  const renderWrapper = ({ props, type = mount, selectOptions = options } = {}) => (
     type(
       <Select { ...props }>
-        {options.map(({ value, text }) => (
+        {selectOptions.map(({ value, text }) => (
           <Option
             key={ text }
             text={ text }
@@ -460,6 +460,38 @@ describe('Select', () => {
         <StyledSelect theme={ classic }><StyledIcon type='dropdown' /></StyledSelect>
       );
       assertStyleMatch({ color: '#FFFFFF' }, styleWrapper.toJSON(), { modifier: `&:hover ${StyledIcon}` });
+    });
+  });
+
+  describe('renders select with one option', () => {
+    it('renders correctly', () => {
+      const wrapper = mount(
+        <Select value='1'>
+          <Option
+            key='Orange'
+            text='Orange'
+            value='1'
+          />
+        </Select>
+      );
+      wrapper.find('input').simulate('focus');
+      expect(wrapper.find(Option)).toHaveLength(1);
+    });
+
+    it('triggers onChange with one item when choosing the item', () => {
+      const option = (
+        <Option
+          key={ options[0].text }
+          text={ options[0].text }
+          value={ options[0].value }
+        />
+      );
+      const props = { selectOptions: option, value: '1', onChange: jest.fn() };
+      const list = listOf(openList(renderWrapper({ props })));
+      list.props().onSelect(options[0]);
+      expect(props.onChange).toHaveBeenCalledWith({
+        target: { value: [{ optionText: options[0].text, optionValue: options[0].value }] }
+      });
     });
   });
 });
