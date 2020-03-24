@@ -372,6 +372,12 @@ class BaseDateInput extends React.Component {
     return <input { ...props } />;
   }
 
+  getInputIcon () {
+    const { inputIcon } = this.props;
+
+    return inputIcon || 'calendar';
+  }
+
   render() {
     const {
       minDate, maxDate, isDateRange, labelInline, ...inputProps
@@ -402,7 +408,7 @@ class BaseDateInput extends React.Component {
         <Textbox
           { ...inputProps }
           validations={ validations }
-          inputIcon='calendar'
+          inputIcon={ this.getInputIcon() }
           value={ this.state.visibleValue }
           labelInline={ labelInline }
           rawValue={ isoFormattedValueString(this.state.visibleValue) }
