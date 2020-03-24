@@ -113,6 +113,7 @@ Feature: Accessibility tests
       | Badge                    | badge               |
       | Batch Selection          | batch-selection     |
       | Button Toggle Group      | button-toggle-group |
+      | duellingpicklist         | duelling-picklist   |
       | Draggable                | draggable           |
       | Flat Table               | flat-table          |
       | Grid                     | grid                |
