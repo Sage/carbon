@@ -13,7 +13,7 @@ const StyledTooltipInner = styled.div`
     padding: 12px 16px;
     text-align: center;
     max-width: 300px;
-    word-break: normal;
+    word-break: break-all;
     white-space: pre-wrap;
 
     ${type === 'error' && css`

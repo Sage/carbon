@@ -85,7 +85,7 @@ describe('Tooltip', () => {
               padding: '12px 16px',
               textAlign: 'center',
               maxWidth: '300px',
-              wordBreak: 'normal',
+              wordBreak: 'break-all',
               whiteSpace: 'pre-wrap'
             },
             renderInner()
