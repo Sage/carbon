@@ -50,7 +50,7 @@ const DatePicker = (props) => {
       datepicker.current.showMonth(DateHelper.stringToDate(updatedDate));
       setCurrentInputDate(updatedDate);
     }
-  }, [props.inputDate, currentInputDate, containerPosition]);
+  }, [props.inputDate, currentInputDate, containerPosition, hasComponentUpdated]);
 
   function handleDayClick(selectedDate, modifiers) {
     if (!modifiers.disabled) {

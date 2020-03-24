@@ -1,3 +1,10 @@
+## [14.6.0](https://github.com/Sage/carbon/compare/v14.5.1...v14.6.0) (2020-03-24)
+
+
+### Features
+
+* **action-popover:** add submenu support ([07ea29a](https://github.com/Sage/carbon/commit/07ea29ab24eecd3e7c6bd0792b49db0e2d7b1acf))
+
 ### [14.5.1](https://github.com/Sage/carbon/compare/v14.5.0...v14.5.1) (2020-03-23)
 
 
