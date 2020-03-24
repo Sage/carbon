@@ -35,7 +35,7 @@ Feature: Build tests
     Then "<data-component>" component is visible
     Examples:
       | component                        | data-component       |
-      | action-popover                   | action-popover       |
+      | test-action-popover              | action-popover       |
       | animated menu button             | animated-menu-button |
       | app wrapper                      | app-wrapper          |
       | button toggle                    | button-toggle        |
@@ -189,13 +189,15 @@ Feature: Build tests
       | component                | data-component      |
       | Accordion                | accordion           |
       | Anchornavigation         | anchor-navigation   |
+      | Badge                    | badge               |
+      | Batch Selection          | batch-selection     |
       | Button Toggle Group      | button-toggle-group |
+      | duellingpicklist         | duelling-picklist   |
       | Flat Table               | flat-table          |
       | Grid                     | grid                |
-      | Batch Selection          | batch-selection     |
       | Popover Container        | popover-container   |
       | Search                   | search              |
-      
+
   @build
   Scenario: Component Draggable basic default page and verify data-element
     When I open basic Test "Draggable" component page in noIframe
