@@ -27,6 +27,10 @@ const StyledButton = styled(Button)`
   margin-right: 0;
   background: ${({ theme }) => theme.colors.white};
 
+  ::-moz-focus-inner{
+    border: none;
+  }
+
   &:hover, &:focus{
     background: ${({ theme }) => theme.colors.primary};
     border: none;
