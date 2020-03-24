@@ -11,3 +11,4 @@ export const checkboxRole = () => cy.iFrame(CHECKBOX);
 
 // component preview locators into iFrame
 export const checkbox = position => cy.get(CHECKBOX).eq(position);
+export const checkboxRoleNoIFrame = () => cy.get(CHECKBOX);
