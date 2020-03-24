@@ -20,6 +20,10 @@ import { pagerSummary } from '../../locators/pager';
 const LABEL_INPUT_INLINE_CLASS = 'common-input__label--inline';
 const TEXT_ALIGN = 'text-align';
 
+Given('I open design systems {word} {word} component page', (type, component) => {
+  visitComponentUrl(component, type, false, 'design-system-');
+});
+
 Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
 });
