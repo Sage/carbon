@@ -189,13 +189,14 @@ Feature: Build tests
       | component                | data-component      |
       | Accordion                | accordion           |
       | Anchornavigation         | anchor-navigation   |
+      | Batch Selection          | batch-selection     |
       | Button Toggle Group      | button-toggle-group |
+      | duellingpicklist         | duelling-picklist   |
       | Flat Table               | flat-table          |
       | Grid                     | grid                |
-      | Batch Selection          | batch-selection     |
       | Popover Container        | popover-container   |
       | Search                   | search              |
-      
+
   @build
   Scenario: Component Draggable basic default page and verify data-element
     When I open basic Test "Draggable" component page in noIframe

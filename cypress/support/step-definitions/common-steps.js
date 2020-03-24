@@ -532,6 +532,24 @@ When('I press {word} on focused element', (key) => {
   cy.focused().trigger('keydown', { key });
 });
 
+When('I press {string} onto focused element', (arrow) => {
+  switch (arrow) {
+    case 'downarrow':
+      cy.focused().trigger('keydown', { keyCode: 40, which: 40 });
+      break;
+    case 'uparrow':
+      cy.focused().trigger('keydown', { keyCode: 38, which: 38 });
+      break;
+    case 'enter':
+      cy.focused().trigger('keydown', { keyCode: 13, which: 13 });
+      break;
+    case 'space':
+      cy.focused().trigger('keydown', { keyCode: 32, which: 32 });
+      break;
+    default: throw new Error(`This key ${arrow} is not one of the arrow ones`);
+  }
+});
+
 When('I press ShiftTab on focused element', () => {
   cy.focused().trigger('keydown', { keyCode: 16, which: 16, release: false });
   cy.focused().trigger('keydown', { keyCode: 9, which: 9 });
@@ -539,6 +557,10 @@ When('I press ShiftTab on focused element', () => {
 
 Then('focused element inner content is set to {string}', (text) => {
   cy.focused().should('contain', text);
+});
+
+Then('focused element has golden border outline {string}', (color) => {
+  cy.focused().should('have.css', 'outline', color);
 });
 
 When('I press keyboard {string} key times {int}', (key, times) => {

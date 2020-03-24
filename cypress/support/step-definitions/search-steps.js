@@ -1,5 +1,5 @@
 import {
-  searchComponent, searchInput, searchInnerIcon, searchIcon,
+  searchComponent, searchInput, searchInnerIcon, searchIcon, searchInputNoiFrame,
 } from '../../locators/search';
 
 const FIRST_ELEMENT = 1;
@@ -10,6 +10,10 @@ Then('Search component placeholder is set to {string}', (placeholder) => {
 
 When('Type {string} text into search input', (text) => {
   searchInput().clear().type(text);
+});
+
+When('Type {string} text into search input in no iFrame', (text) => {
+  searchInputNoiFrame().clear().type(text);
 });
 
 Then('Search component has input and {string} as icon', (iconType) => {
