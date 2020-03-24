@@ -1,13 +1,10 @@
 import React from 'react';
 import { Route } from 'react-router';
 import { startRouter } from 'carbon-react/lib/utils/router';
-
 // Loads base css from carbon:
 import 'carbon-react/lib/utils/css';
-
 import Index from './components';
 import Chrome from './components/chrome';
-
 import UncontrolledRadioButton from './components/uncontrolled/radio-button';
 import UncontrolledSwitch from './components/uncontrolled/switch';
 import ControlledRadioButton from './components/controlled/radio-button';
@@ -38,8 +35,15 @@ import UncontrolledCheckbox from './components/uncontrolled/checkbox';
 import ControlledCheckbox from './components/controlled/checkbox';
 import UncontrolledSearch from './components/uncontrolled/search';
 import ControlledSearch from './components/controlled/search';
+import ControlledButtonToggle from './components/controlled/button-toggle';
+import UncontrolledButtonToggle from './components/uncontrolled/button-toggle';
 
 const routes = {
+  'button-toggle': {
+    description: 'Button Toggle',
+    controlled: ControlledButtonToggle,
+    uncontrolled: UncontrolledButtonToggle
+  },
   'radio-button': {
     description: 'Radio Button',
     controlled: ControlledRadioButton,
