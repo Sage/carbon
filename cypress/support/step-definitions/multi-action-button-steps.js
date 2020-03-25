@@ -1,5 +1,7 @@
-import { multiActionButtonList, multiActionButtonSubtext, multiActionButtonText, multiActionButton, multiActionButtonComponent,
+import { multiActionButtonList, multiActionButtonText, multiActionButton, 
+  multiActionButtonComponent,
 } from '../../locators/multi-action-button';
+import { buttonSubtextPreview } from '../../locators/button';
 
 const MULTI_ACTION_BUTTON_INNER_TEXT = 'Example ButtonExample Button with long textShort';
 const TEXT_ALIGN = 'text-align';
@@ -37,14 +39,14 @@ Then('Multi Action Button align on preview is {string}', (align) => {
 });
 
 Then('Multi Action Button subtext on preview is {string}', (subtext) => {
-  multiActionButtonSubtext().should('have.text', subtext);
+  buttonSubtextPreview().should('have.text', subtext);
 });
 
 Then('Multi Action Button has golden border color', () => {
-  cy.focused().should('have.css', 'border', 'rgb(255, 181, 0) solid 3px');
+  multiActionButtonComponent().should('have.css', 'border', 'rgb(255, 181, 0) solid 3px');
 });
 
-When('I hoverover on Multi Action Button', () => {
+When('I hover on Multi Action Button', () => {
   multiActionButtonComponent().trigger('mouseover');
 });
 

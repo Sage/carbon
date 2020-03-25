@@ -41,7 +41,7 @@ Feature: Multi Action Button default component
   @positive
   Scenario Outline: Check <align> property of Multi Action Button component
     When I select align to "<align>"
-  And I hoverover on Multi Action Button
+      And I hover on Multi Action Button
     Then Multi Action Button align on preview is "<align>"
     Examples:
       | align |
@@ -76,7 +76,7 @@ Feature: Multi Action Button default component
 
   @positive
   Scenario: Invoking Multi Action Button component
-  When I hoverover on Multi Action Button
+    When I hover on Multi Action Button
     Then Multi Action Button is expanded and contains three items
 
   @positive
@@ -92,5 +92,5 @@ Feature: Multi Action Button default component
 
   @positive
   Scenario: Verify background-color after hovering
-    When I hoverover on Multi Action Button
+    When I hover on Multi Action Button
     Then Multi Action Button has "rgb(0, 96, 69)" background-color
