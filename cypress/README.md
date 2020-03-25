@@ -6,7 +6,7 @@
 ## Manual Testing
 ### Components:
 1. Every component should be fully tested using functional testing / UI testing / Internationalization testing.
-2. Every component should have a dedicated story (default / classic / multiple / validation / themes etc.),
+2. Every component should have a dedicated story (default / multiple / validation / themes etc.),
    notes section and accessibility section.
 3. Supporting browsers:
   * Chrome,
@@ -60,7 +60,7 @@
   * I check / uncheck `<knobs filed>` checkbox;
   * I open `<name>` component page;
     * To open different stories on storybook;
-      * I open `<name>` component page `classic` / `basic` / `with button` / `legacy spinner` / `iframe` / `with button page in iframe` / `multiple` /`validations`.
+      * I open `<name>` component page `default` / `basic` / `with button` / `legacy spinner` / `iframe` / `with button page in iframe` / `multiple` /`validations`.
 
 ## Scenario tags
 Use scenario tags:
@@ -73,7 +73,6 @@ Use scenario tags:
 7. `@accessibility` tests verify accessibility violations.
 8. `@validations` tests verify validation components.
 9. `@deprecated` tests verify deprecated components.
-
 ## Files structure
 ```
 .

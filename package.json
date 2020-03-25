@@ -12,7 +12,7 @@
     "test": "jest --config=./jest.conf.json",
     "test-update": "jest --config=./jest.conf.json --updateSnapshot",
     "test-cypress": "cypress open",
-    "test-cypress-build": "cypress run --spec ./cypress/features/build/build*.feature --browser chrome --reporter spec",
+    "test-cypress-build": "cypress run --spec ./cypress/features/build/build.feature --browser chrome --reporter spec",
     "test-cypress-accessibility": "cypress run --spec ./cypress/features/accessibility/accessibility.feature --browser chrome --reporter spec",
     "test-cypress-regression": "npm run cypress-group-regression-common; npm run cypress-group-regression-common1; npm run cypress-group-regression-common2; npm run cypress-group-regression-experimental; npm run cypress-group-regression-validations; npm run cypress-group-regression-themes; npm run cypress-group-regression-test",
     "cypress-group-regression-common": "cypress run --spec './cypress/features/regression/a*.feature', './cypress/features/regression/b*.feature', './cypress/features/regression/c*.feature' --reporter mocha-allure-reporter --browser chrome",

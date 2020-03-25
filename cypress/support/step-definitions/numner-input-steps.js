@@ -53,13 +53,6 @@ Then('NumberInput component labelInline is enabled', () => {
     .and('have.css', 'text-align', 'left');
 });
 
-Then('NumberInput component labelInline is enabled for classic component', () => {
-  label().should('have.css', 'box-sizing', 'border-box')
-    .and('have.css', 'padding-bottom', '0px')
-    .and('have.css', 'padding-right', '8px')
-    .and('have.css', 'text-align', 'left');
-});
-
 Then('{word} component labelInline is disabled', () => {
   label().should('have.css', 'display', 'block')
     .and('have.css', 'padding-bottom', '8px')
