@@ -18,7 +18,7 @@ const render = (props, renderer = shallow) => {
   );
 };
 
-const variants = ['primary', 'secondary', 'tertiary', 'destructive', 'darkBackground'];
+const variants = ['primary', 'secondary', 'tertiary', 'darkBackground'];
 const sizes = { small: [32, 16], medium: [40, 24], large: [48, 32] };
 
 describe('Button', () => {

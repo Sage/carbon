@@ -5,7 +5,6 @@ import Icon from '../icon';
 import StyledButton, { StyledButtonSubtext } from './button.style';
 import tagComponent from '../../utils/helpers/tags';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import Logger from '../../utils/logger';
 
 const Button = (props) => {
   const {
@@ -14,18 +13,9 @@ const Button = (props) => {
 
   const { as, buttonType, ...rest } = props;
 
-  const IS_USING_DEPRECATED_TYPE_DESTRUCTIVE = buttonType === 'destructive';
-
-  if (IS_USING_DEPRECATED_TYPE_DESTRUCTIVE) {
-    Logger.deprecate(
-      'buttonType="destructive" has been deprecated. See https://github.com/Sage/carbon/releases for details.'
-    );
-  }
-
   const propsWithoutAs = {
     ...rest,
-    buttonType: buttonType || as,
-    ...(IS_USING_DEPRECATED_TYPE_DESTRUCTIVE && { buttonType: 'primary', destructive: true })
+    buttonType: buttonType || as
   };
 
   if (subtext.length > 0 && size !== 'large') {
@@ -84,7 +74,6 @@ function renderChildren({
     primary: 'on-dark-background',
     secondary: 'business-color',
     tertiary: 'business-color',
-    destructive: 'on-dark-background',
     darkBackground: 'business-color'
   };
 
