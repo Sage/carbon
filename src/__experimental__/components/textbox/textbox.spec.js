@@ -1,7 +1,12 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
+import 'jest-styled-components';
 import Textbox from '.';
 import InputIconToggle from '../input-icon-toggle';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import FormField from '../form-field';
+import { InputPresentation } from '../input/input-presentation.component';
+import Label from '../label';
 
 jest.mock('../../../utils/helpers/guid', () => () => 'mocked-guid');
 
@@ -33,5 +38,39 @@ describe('Textbox', () => {
     icon.simulate('click');
     expect(iconOnClick).toHaveBeenCalled();
     expect(onClick).not.toHaveBeenCalled();
+  });
+
+  describe('style overrides', () => {
+    let wrapper;
+    const randomStyleObject = {
+      backgroundColor: 'red',
+      display: 'flex',
+      fontSize: '200px'
+    };
+    const styleOverride = {
+      root: randomStyleObject,
+      input: randomStyleObject,
+      label: randomStyleObject
+    };
+
+    beforeEach(() => {
+      wrapper = mount(
+        <Textbox label='test label' styleOverride={ styleOverride }>
+          normal children
+        </Textbox>
+      );
+    });
+
+    it('renders root element with properly assigned styles', () => {
+      assertStyleMatch(randomStyleObject, wrapper.find(FormField));
+    });
+
+    it('renders input element with properly assigned styles', () => {
+      assertStyleMatch(randomStyleObject, wrapper.find(InputPresentation));
+    });
+
+    it('renders label element with properly assigned styles', () => {
+      assertStyleMatch(randomStyleObject, wrapper.find(Label));
+    });
   });
 });

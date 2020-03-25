@@ -6,10 +6,6 @@ import {
 } from '../../locators/simple-color-picker';
 import { getKnobsInput } from '../../locators';
 
-beforeEach(() => {
-  cy.viewport(1366, 1200);
-});
-
 const FIRST_ELEMENT = 1;
 const SECOND_ELEMENT = 2;
 const THIRD_ELEMENT = 3;
@@ -105,7 +101,8 @@ Then('It renders with all colors', () => {
 
 When('I input new color json into {string} input field', (inputFieldName) => {
   cy.fixture('simpleColorPickerNew.json').then(($json) => {
-    getKnobsInput(inputFieldName).clear().then($selector => $selector.val(JSON.stringify($json))).type(' ');
+    getKnobsInput(inputFieldName).clear({ force: true }).then($selector => $selector.val(JSON.stringify($json)))
+      .type(' ');
   });
 });
 

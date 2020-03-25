@@ -18,8 +18,8 @@ const ColorSampleBox = ({ color, checked }) => {
 
 export const colorSampleBoxCheck = (props, propName, component) => {
   const color = props[propName], hexRegex = /\b[0-9A-Fa-f]{6}\b/g;
-  if (!color.match(hexRegex)) {
-    return new Error(`Provide color in a six-digit hex format in ${component}.`);
+  if (!color.match(hexRegex) && color !== 'transparent') {
+    return new Error(`Provide color in a six-digit hex format or 'transparent' in ${component}.`);
   }
   return null;
 };

@@ -1,4 +1,6 @@
+import React from 'react';
 import Dialog from '../dialog';
+import AlertStyle from './alert.style.js';
 
 class Alert extends Dialog {
   componentTags(props) {
@@ -9,15 +11,13 @@ class Alert extends Dialog {
     };
   }
 
-  /**
-   * Handles keyboard focus leaving the dialog
-   * element.
-   *
-   * Assumes that, if no close icon is displayed,
-   * no other element can receive keyboard focus.
-   * Therefore focus should remain on the dialog
-   * element while it is open.
-   */
+  get closeIcon() {
+    return (
+      <AlertStyle>
+        { super.closeIcon }
+      </AlertStyle>
+    );
+  }
 }
 
 Alert.defaultProps = {

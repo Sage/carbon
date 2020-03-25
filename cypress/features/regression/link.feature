@@ -99,3 +99,8 @@ Feature: Link component
     Then Link is not tabbable
       And I hit Tab key 2 times
       And Link component is not focused
+
+  @positive
+  Scenario: Change type of icon for a Link component to feedback
+    When I select icon to "feedback"
+    Then icon on link componenent preview is "feedback"

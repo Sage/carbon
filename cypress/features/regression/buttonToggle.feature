@@ -95,3 +95,8 @@ Feature: Button Toggle component
       | 0     |
       | 1     |
       | 2     |
+
+  @positive
+  Scenario: Change Button Toggle icon to analysis
+    When I select buttonIcon to "analysis"
+    Then Button icon on preview is "analysis"

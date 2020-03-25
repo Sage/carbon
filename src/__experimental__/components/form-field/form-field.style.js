@@ -6,6 +6,8 @@ const FormFieldStyle = styled.div`
   & + & {
     margin-top: ${({ theme }) => (isClassic(theme) ? '10px' : '16px')};
   }
+
+  ${({ styleOverride }) => styleOverride};
 `;
 
 FormFieldStyle.defaultProps = {

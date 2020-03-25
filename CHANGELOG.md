@@ -1,3 +1,126 @@
+## [14.11.0](https://github.com/Sage/carbon/compare/v14.10.0...v14.11.0) (2020-03-25)
+
+
+### Features
+
+* **select:** add transparent variant ([b60facb](https://github.com/Sage/carbon/commit/b60facb0fc667701940f83c452ce36aa9fb836d4))
+* **simple-color-picker:** adds transparent color ([76c37c1](https://github.com/Sage/carbon/commit/76c37c107a22de56357333cebb3b9dd2a109b657))
+* **textbox:** add style override functionality ([6f6fbee](https://github.com/Sage/carbon/commit/6f6fbeed36801255e8339904a17e4487b318ec84))
+
+## [14.10.0](https://github.com/Sage/carbon/compare/v14.9.0...v14.10.0) (2020-03-25)
+
+
+### Features
+
+* **textbox:** add style override functionality ([b57b459](https://github.com/Sage/carbon/commit/b57b459c4f5e511dd9dc0eb40586755608568b47))
+
+## [14.9.0](https://github.com/Sage/carbon/compare/v14.8.1...v14.9.0) (2020-03-25)
+
+
+### Features
+
+* **select:** add transparent variant ([2ffe8b9](https://github.com/Sage/carbon/commit/2ffe8b9271a27eed1bc95cf12aa5e554b1b6dd54))
+
+### [14.8.1](https://github.com/Sage/carbon/compare/v14.8.0...v14.8.1) (2020-03-24)
+
+
+### Bug Fixes
+
+* **select:** resolved error when only one option child is set ([6cb9a06](https://github.com/Sage/carbon/commit/6cb9a06b9f83d1c245dd3218b83504be1159e65e)), closes [#2567](https://github.com/Sage/carbon/issues/2567)
+
+## [14.8.0](https://github.com/Sage/carbon/compare/v14.7.0...v14.8.0) (2020-03-24)
+
+
+### Features
+
+* **badge:** add new component ([e1a9697](https://github.com/Sage/carbon/commit/e1a9697a0247bd8caa5c5012bf4db46229a75f66))
+* **badge:** add new component ([3b0effe](https://github.com/Sage/carbon/commit/3b0effe30d32f2a069857396e993b33eadfc3fef))
+* **badge:** add new component ([3caf804](https://github.com/Sage/carbon/commit/3caf8042c942e62e7afa2021f8ffe56d01300940))
+* **badge:** add new component ([a9bd1cc](https://github.com/Sage/carbon/commit/a9bd1cc0a99a29bf05efa653ad13b6eec4cac6d9))
+* **badge:** add new component ([4a35eaf](https://github.com/Sage/carbon/commit/4a35eafdaf222e61290e9995490938a7929e275c))
+* **badge:** add new component ([e3f3fbf](https://github.com/Sage/carbon/commit/e3f3fbf6fd8088ae0a2655676200d239a58f9373))
+* **badge:** add new component ([7c0275d](https://github.com/Sage/carbon/commit/7c0275def723964f08ce46246651361ccc17972f))
+* **badge:** add new component ([9b23f32](https://github.com/Sage/carbon/commit/9b23f32c06c566d0a4190827dd84d0a9f8cbf8a3))
+* **badge:** add new component ([c2961ed](https://github.com/Sage/carbon/commit/c2961ed440d6a2f9bf2b832a942497f70df9a2b9))
+
+## [14.7.0](https://github.com/Sage/carbon/compare/v14.6.0...v14.7.0) (2020-03-24)
+
+
+### Features
+
+* **duelling-picklist:** create duelling-picklist component ([e122180](https://github.com/Sage/carbon/commit/e12218007d3f933fba760a18476ffab37a31f927))
+
+## [14.6.0](https://github.com/Sage/carbon/compare/v14.5.1...v14.6.0) (2020-03-24)
+
+
+### Features
+
+* **action-popover:** add submenu support ([07ea29a](https://github.com/Sage/carbon/commit/07ea29ab24eecd3e7c6bd0792b49db0e2d7b1acf))
+
+### [14.5.1](https://github.com/Sage/carbon/compare/v14.5.0...v14.5.1) (2020-03-23)
+
+
+### Bug Fixes
+
+* **pill:** close button styling ([e054884](https://github.com/Sage/carbon/commit/e054884dd0af65d65041901fce03fd8dcbfbe679))
+
+## [14.5.0](https://github.com/Sage/carbon/compare/v14.4.0...v14.5.0) (2020-03-20)
+
+
+### Features
+
+* **icon:** add icons ([513966b](https://github.com/Sage/carbon/commit/513966bf9536dd52693d58f43317e7b20c39c110))
+
+## [14.4.0](https://github.com/Sage/carbon/compare/v14.3.0...v14.4.0) (2020-03-20)
+
+
+### Features
+
+* add new BatchSelection component ([6a61955](https://github.com/Sage/carbon/commit/6a61955d7c5a669438814079e56f0966e22d6eac))
+
+## [14.3.0](https://github.com/Sage/carbon/compare/v14.2.2...v14.3.0) (2020-03-18)
+
+
+### Features
+
+* **grid:** add responsive grid component ([62e76c5](https://github.com/Sage/carbon/commit/62e76c5c2c35fc28761d2b963cd30b2144e3e755))
+
+### [14.2.2](https://github.com/Sage/carbon/compare/v14.2.1...v14.2.2) (2020-03-18)
+
+
+### Bug Fixes
+
+* **icon-button:** remove firefox focus-inner border ([c6b0601](https://github.com/Sage/carbon/commit/c6b0601b0b70c7df1bd70a1f05811312b71dea66))
+
+### [14.2.1](https://github.com/Sage/carbon/compare/v14.2.0...v14.2.1) (2020-03-17)
+
+
+### Bug Fixes
+
+* **fonts:** add support for consumer adding font ([fedf494](https://github.com/Sage/carbon/commit/fedf4944063f784d823694b774e005ee55fa2c2a))
+
+## [14.2.0](https://github.com/Sage/carbon/compare/v14.1.2...v14.2.0) (2020-03-17)
+
+
+### Features
+
+* **switch:** add i18n support ([cbf5fda](https://github.com/Sage/carbon/commit/cbf5fdac1527e0ca6d6e6b2a16af3f8eb608cfaa)), closes [#2722](https://github.com/Sage/carbon/issues/2722)
+
+### [14.1.2](https://github.com/Sage/carbon/compare/v14.1.1...v14.1.2) (2020-03-17)
+
+
+### Bug Fixes
+
+* **alert:** use icon-button component for close ([f24352c](https://github.com/Sage/carbon/commit/f24352cf57e8c6189d4eba552421694864cc1d8e))
+
+### [14.1.1](https://github.com/Sage/carbon/compare/v14.1.0...v14.1.1) (2020-03-16)
+
+
+### Bug Fixes
+
+* **sidebar:** close button styling ([58c1674](https://github.com/Sage/carbon/commit/58c16748814873f5923cdd093e839fd91aeacced))
+* **sidebar:** fixed close icon alignment in classic story ([61aaf5d](https://github.com/Sage/carbon/commit/61aaf5d8787f850695cdabdff702ab289b5afd48))
+
 ## [14.1.0](https://github.com/Sage/carbon/compare/v14.0.2...v14.1.0) (2020-03-13)
 
 

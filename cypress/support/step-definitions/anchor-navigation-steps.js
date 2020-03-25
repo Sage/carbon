@@ -1,9 +1,5 @@
 import { anchorNavigationStickyNavigation, anchorNavigationStickyMainPage } from '../../locators/anchor-navigation';
 
-beforeEach(() => {
-  cy.viewport(1366, 500);
-});
-
 When('I click onto {string} tab', (anchorNaviIndex) => {
   anchorNavigationStickyNavigation(anchorNaviIndex).click();
 });

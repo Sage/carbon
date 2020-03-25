@@ -1,5 +1,6 @@
 import {
-  visitComponentUrl, setSlidebar, pressESCKey, pressTABKey, asyncWaitForKnobs, visitFlatTableComponentNoiFrame,
+  visitComponentUrl, setSlidebar, pressESCKey, pressTABKey, asyncWaitForKnobs,
+  visitFlatTableComponentNoiFrame,
 } from '../helper';
 import {
   commonButtonPreview, labelPreview, helpIcon, helpIconByPosition, inputWidthSlider,
@@ -7,7 +8,8 @@ import {
   closeIconButton, tooltipPreview, getKnobsInput, getKnobsInputWithName, getKnobsInputByGroup,
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
   precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
-  knobsNameTab, fieldHelpPreviewByPosition, labelByPosition, dlsRoot, commonButtonPreviewNoIFrameRoot,
+  knobsNameTab, fieldHelpPreviewByPosition, labelByPosition, dlsRoot,
+  commonButtonPreviewNoIFrameRoot,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
@@ -88,6 +90,11 @@ Given('I open {string} component in iframe', (component) => {
   visitComponentUrl(component, 'default', true);
 });
 
+// the step above should be refactored and changed to in noiFrame
+Given('I open {string} component in noiFrame', (component) => {
+  visitComponentUrl(component, 'default', true);
+});
+
 Given('I open {string} component for classic story in iframe', (component) => {
   visitComponentUrl(component, 'classic', true);
 });
@@ -158,6 +165,10 @@ Given('I open basic Test {string} component page', (component) => {
 
 Given('I open basic Test {string} component page in noIframe', (component) => {
   visitComponentUrl(component, 'basic', true, 'test-');
+});
+
+Given('I open style override Test {string} component page in noIframe', (component) => {
+  visitComponentUrl(component, 'style_override', true, 'test-');
 });
 
 When('I open Test {string} component basic page with prop value', (componentName) => {
@@ -526,8 +537,56 @@ When('I press ESC on focused element', () => {
   cy.focused().trigger('keydown', { keyCode: 27, which: 27 });
 });
 
-When('I press {word} on focused element', (key) => {
-  cy.focused().trigger('keydown', { key });
+When('I press Tab on focused element', () => {
+  cy.focused().trigger('keydown', { keyCode: 9, which: 9 });
+});
+
+When('I press Home on focused element', () => {
+  cy.focused().trigger('keydown', { keyCode: 36, which: 36 });
+});
+
+When('I press uparrow on focused element', () => {
+  cy.focused().trigger('keydown', { keyCode: 38, which: 38 });
+});
+
+When('I press leftarrow on focused element', () => {
+  cy.focused().trigger('keydown', { keyCode: 37, which: 37 });
+});
+
+When('I press keyboard downarrow key times {int}', (times) => {
+  for (let i = 0; i < times; i++) {
+    cy.focused().trigger('keydown', { keyCode: 40, which: 40 });
+  }
+});
+
+When('I press End on focused element', () => {
+  cy.focused().trigger('keydown', { keyCode: 35, which: 35 });
+});
+
+When('I press Enter on focused element', () => {
+  cy.focused().trigger('keydown', { keyCode: 13, which: 13 });
+});
+
+When('I press ArrowRight on focused element', () => {
+  cy.focused().trigger('keydown', { keyCode: 39, which: 39 });
+});
+
+When('I press {string} onto focused element', (arrow) => {
+  switch (arrow) {
+    case 'downarrow':
+      cy.focused().trigger('keydown', { keyCode: 40, which: 40 });
+      break;
+    case 'uparrow':
+      cy.focused().trigger('keydown', { keyCode: 38, which: 38 });
+      break;
+    case 'enter':
+      cy.focused().trigger('keydown', { keyCode: 13, which: 13 });
+      break;
+    case 'space':
+      cy.focused().trigger('keydown', { keyCode: 32, which: 32 });
+      break;
+    default: throw new Error(`This key ${arrow} is not one of the arrow ones`);
+  }
 });
 
 When('I press ShiftTab on focused element', () => {
@@ -539,6 +598,10 @@ Then('focused element inner content is set to {string}', (text) => {
   cy.focused().should('contain', text);
 });
 
+Then('focused element has golden border outline {string}', (color) => {
+  cy.focused().should('have.css', 'outline', color);
+});
+
 When('I press keyboard {string} key times {int}', (key, times) => {
   for (let i = 0; i < times; i++) {
     cy.focused().type(`${key}`);
@@ -547,6 +610,10 @@ When('I press keyboard {string} key times {int}', (key, times) => {
 
 When('I click on outside dialog in iFrame', () => {
   cy.get('#story-root').click({ force: true });
+});
+
+When('I click onto root in Test directory in iFrame', () => {
+  cy.get('#root').click({ force: true });
 });
 
 Then('totalRecords is set to {string} {word}', (totalRecords, element) => {

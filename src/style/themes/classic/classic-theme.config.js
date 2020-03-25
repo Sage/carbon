@@ -1,6 +1,9 @@
 export default (palette) => {
   return {
     name: 'classic',
+
+    spacing: 5,
+
     colors: {
       base: palette.productGreen,
       primary: palette.productGreenShade(21),

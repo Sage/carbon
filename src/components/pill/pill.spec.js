@@ -10,6 +10,7 @@ import { assertStyleMatch, carbonThemesJestTable } from '../../__spec_helper__/t
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { classicTheme } from '../../style/themes';
 import StyledIcon from '../icon/icon.style';
+import IconButton from '../icon-button';
 
 const classicStyleTypes = [...OptionsHelper.colors, 'disabled'];
 const modernStyleTypes = [...OptionsHelper.pillColors, 'warning'];
@@ -46,7 +47,7 @@ describe('Pill', () => {
       const spy = jest.fn();
 
       beforeEach(() => {
-        wrapper = shallow(
+        wrapper = mount(
           <Pill
             onDelete={ spy }
           >
@@ -56,13 +57,13 @@ describe('Pill', () => {
       });
 
       it('includes "close" icon when onDelete prop passed', () => {
-        icon = wrapper.find('[data-element="close"]');
+        icon = wrapper.find(IconButton);
         expect(icon.exists()).toBeTruthy();
         expect(icon.length).toEqual(1);
       });
 
       it('triggers the click when the icon is clicked', () => {
-        wrapper.find('[data-element="close"]').simulate('click');
+        wrapper.find(IconButton).first().simulate('click');
         expect(spy).toHaveBeenCalled();
       });
 

@@ -87,12 +87,15 @@ When('I click on {string} as a sibling', (element) => {
 });
 
 Then('Button icon is set to {string}', (iconName) => {
-  icon().should('have.attr', 'data-element', iconName);
+  icon().should('have.attr', 'data-element', iconName)
+    .and('be.visible');
 });
 
 Then('Button as a sibling icon is set to {string}', (iconName) => {
-  icon().eq(FIRST_ELEMENT).should('have.attr', 'data-element', iconName);
-  icon().eq(SECOND_ELEMENT).should('have.attr', 'data-element', iconName);
+  icon().eq(FIRST_ELEMENT).should('have.attr', 'data-element', iconName)
+    .and('be.visible');
+  icon().eq(SECOND_ELEMENT).should('have.attr', 'data-element', iconName)
+    .and('be.visible');
 });
 
 Then('Button icon position is set to {string}', (iconPosition) => {
