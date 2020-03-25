@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
 import StyledButton from '../button/button.style';
-import { getSplitButtonToggleClassicStyles } from './split-button-classic.style';
 import StyledIcon from '../icon/icon.style';
 
 const horizontalPaddingSizes = {
@@ -48,8 +47,6 @@ const StyledSplitButtonToggle = styled(StyledButton)`
       margin-left: 0;
     }
   `}
-
-  ${getSplitButtonToggleClassicStyles}
 `;
 
 export default StyledSplitButtonToggle;

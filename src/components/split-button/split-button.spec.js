@@ -8,7 +8,6 @@ import Icon from '../icon';
 import Button, { ButtonWithForwardRef } from '../button';
 import StyledButton from '../button/button.style';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
-import ClassicTheme from '../../style/themes/classic';
 import SmallTheme from '../../style/themes/small';
 import MediumTheme from '../../style/themes/medium';
 import {
@@ -24,14 +23,9 @@ guid.mockImplementation(() => 'guid-12345');
 
 const sizes = ['small', 'medium', 'large'];
 
-const businessThemes = [
+const themes = [
   ['small', SmallTheme],
   ['medium', MediumTheme]
-];
-
-const themes = [
-  ['classic', ClassicTheme],
-  ...businessThemes
 ];
 
 const singleButton = <Button key='testKey'>Single Button</Button>;
@@ -174,7 +168,6 @@ describe('SplitButton', () => {
 
       it('has the expected style', () => {
         const themeColors = {
-          classic: '#1e499f',
           small: '#006045',
           medium: '#005B9A'
         };
@@ -187,7 +180,6 @@ describe('SplitButton', () => {
 
       it('matches the expected style for the focused "additional button"', () => {
         const themeColors = {
-          classic: '#163777',
           small: '#003F2E',
           medium: '#004372'
         };
@@ -210,7 +202,7 @@ describe('SplitButton', () => {
       expect(wrapper).toMatchSnapshot();
     });
 
-    describe.each(businessThemes)(
+    describe.each(themes)(
       'when the theme is set to "%s"',
       (name, theme) => {
         const mockProps = { carbonTheme: theme, buttonType: 'primary' };
@@ -225,45 +217,10 @@ describe('SplitButton', () => {
     );
   });
 
-  describe('for the classic theme', () => {
-    it('renders styles correctly', () => {
-      wrapper = renderWithTheme({ carbonTheme: ClassicTheme }, singleButton, TestRenderer.create);
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('renders Toggle Button left border as expected', () => {
-      const mockProps = { carbonTheme: ClassicTheme, buttonType: 'primary' };
-
-      wrapper = renderWithTheme(mockProps, singleButton, mount);
-
-      assertStyleMatch({
-        borderLeft: '1px solid #1e499f'
-      }, wrapper.find(StyledSplitButtonToggle));
-    });
-
-    it('applies the expected styles to the toggle when disabled is false and the displayed prop is true', () => {
-      wrapper = TestRenderer.create(
-        <ThemeProvider theme={ ClassicTheme }>
-          <StyledSplitButtonToggle displayed />
-        </ThemeProvider>
-      );
-
-      assertStyleMatch({
-        backgroundColor: '#1963f6',
-        borderColor: '#1963f6'
-      }, wrapper.toJSON(), { modifier: '&:active' });
-
-      assertStyleMatch({
-        backgroundColor: '#1e499f',
-        borderColor: '#1e499f'
-      }, wrapper.toJSON(), { modifier: '&&' });
-    });
-  });
-
   describe.each(sizes)(
     'when the "%s" size prop is passed',
     (size) => {
-      describe.each(businessThemes)(
+      describe.each(themes)(
         'with the "%s" business theme',
         (name, theme) => {
           it('has the expected styling', () => {
@@ -293,32 +250,6 @@ describe('SplitButton', () => {
           });
         }
       );
-    }
-  );
-
-  describe.each(sizes)(
-    'when the "%s" size prop is passed with a "classic" theme to the buttons',
-    (size) => {
-      it('matches the expected styling for a "medium" button', () => {
-        const children = [
-          <StyledButton size={ size } key={ size }>Foo</StyledButton>
-        ];
-
-        const themedWrapper = mount(
-          <StyledSplitButtonChildrenContainer theme={ ClassicTheme }>
-            { children }
-          </StyledSplitButtonChildrenContainer>
-        );
-
-        for (let index = 0; index < children.length - 1; index++) {
-          assertStyleMatch({
-            fontSize: '14px',
-            height: '31px',
-            padding: '0 18px',
-            textAlign: 'left'
-          }, themedWrapper, { modifier: `${StyledButton}` });
-        }
-      });
     }
   );
 
