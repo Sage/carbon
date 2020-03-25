@@ -22,7 +22,8 @@ const Label = (props) => {
     tooltipMessage,
     useValidationIcon,
     htmlFor,
-    tabIndex
+    tabIndex,
+    styleOverride
   } = props;
   const labelProps = filterByProps(props, [
     'theme',
@@ -78,6 +79,7 @@ const Label = (props) => {
       { ...labelProps }
       id={ labelId }
       htmlFor={ htmlFor }
+      styleOverride={ styleOverride }
     >
       {children}
       {icon()}
@@ -109,12 +111,15 @@ Label.propTypes = {
   /** Set focus possibilities to an <IconWrapperStyle /> element.
    *  More information: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex
   */
-  tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  /** Allows to override existing component styles */
+  styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 };
 
 Label.defaultProps = {
   useValidationIcon: false,
-  tabIndex: 0
+  tabIndex: 0,
+  styleOverride: {}
 };
 
 export default React.memo(Label);

@@ -15,7 +15,9 @@ const InputPresentationContext = React.createContext();
 
 class InputPresentation extends React.Component {
   static propTypes = {
-    children: PropTypes.node
+    children: PropTypes.node,
+    /** Allows to override existing component styles */
+    styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
   }
 
   state = {
@@ -54,7 +56,7 @@ class InputPresentation extends React.Component {
   handleMouseLeave = () => this.setState({ hasMouseOver: false });
 
   render() {
-    const { children, ...props } = this.props;
+    const { children, styleOverride, ...props } = this.props;
     const styleProps = extractProps(props, InputPresentationStyle);
 
     return (
@@ -66,6 +68,7 @@ class InputPresentation extends React.Component {
         onMouseDown={ this.handleMouseDown }
         onMouseEnter={ this.handleMouseEnter }
         onMouseLeave={ this.handleMouseLeave }
+        styleOverride={ styleOverride }
         { ...styleProps }
       >
         <InputPresentationContext.Provider value={ this.contextForInput() }>

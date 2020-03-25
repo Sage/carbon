@@ -167,6 +167,10 @@ Given('I open basic Test {string} component page in noIframe', (component) => {
   visitComponentUrl(component, 'basic', true, 'test-');
 });
 
+Given('I open style override Test {string} component page in noIframe', (component) => {
+  visitComponentUrl(component, 'style_override', true, 'test-');
+});
+
 When('I open Test {string} component basic page with prop value', (componentName) => {
   visitFlatTableComponentNoiFrame(componentName, 'basic', true, 'test-');
 });
