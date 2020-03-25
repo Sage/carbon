@@ -2,7 +2,6 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import { dlsThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, Info } from './documentation';
 import Button from '.';
@@ -39,7 +38,7 @@ const getKnobs = () => {
   };
 };
 
-function makeStory(name, themeSelector, infotext) {
+function makeStory(name, infotext) {
   const component = () => {
     const props = getKnobs();
     const { children } = props; // eslint-disable-line react/prop-types
@@ -51,7 +50,6 @@ function makeStory(name, themeSelector, infotext) {
   const metadata = {
     info: { text: infotext },
     notes: { markdown: notes },
-    themeSelector,
     knobs: {
       escapeHTML: false
     }
@@ -80,5 +78,5 @@ function makeSiblingStory(name, themeSelector) {
 }
 
 storiesOf('Button', module)
-  .add(...makeStory('default', dlsThemeSelector, Info))
-  .add(...makeSiblingStory('as a sibling', dlsThemeSelector));
+  .add(...makeStory('default', Info))
+  .add(...makeSiblingStory('as a sibling'));

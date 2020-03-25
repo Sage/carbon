@@ -4,7 +4,6 @@ import {
   text, boolean, select
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import { dlsThemeSelector } from '../../../.storybook/theme-selectors';
 import SplitButton from './split-button.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Button from '../button';
@@ -70,7 +69,6 @@ storiesOf('Split Button', module)
       );
     },
     {
-      themeSelector: dlsThemeSelector,
       info: { text: info, propTablesExclude: [Button] },
       notes: { markdown: notes }
     },
