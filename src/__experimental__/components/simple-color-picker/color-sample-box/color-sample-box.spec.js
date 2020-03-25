@@ -29,6 +29,18 @@ describe('ColorSampleBox', () => {
     );
   });
 
+  it('applies transparent background when value "transparent" is given as color', () => {
+    wrapper = renderStyles({ color: 'transparent' });
+    assertStyleMatch(
+      {
+        backgroundColor: 'transparent',
+        // eslint-disable-next-line max-len
+        background: 'conic-gradient(#fff 0deg ,#fff 90deg, grey 90deg,grey 180deg, #fff 180deg,#fff 270deg, grey 270deg,grey 360deg) 0 0/25% 25%'
+      },
+      wrapper.toJSON()
+    );
+  });
+
   describe('prop types', () => {
     const wrongColorValues = ['rgb(0,0,0)', '#fff', 'test'];
     describe.each(wrongColorValues)('when other than 6 digit hex format is passed', (color) => {
