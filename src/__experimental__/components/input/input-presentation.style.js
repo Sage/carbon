@@ -59,6 +59,8 @@ const InputPresentationStyle = styled.div`
   input::-webkit-contacts-auto-fill-button {
     display: none!important;
   }
+
+  ${({ styleOverride }) => styleOverride};
 `;
 
 function stylingForValidations({
@@ -111,7 +113,8 @@ InputPresentationStyle.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   hasError: PropTypes.bool,
   hasWarning: PropTypes.bool,
-  hasInfo: PropTypes.bool
+  hasInfo: PropTypes.bool,
+  styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 };
 
 export default InputPresentationStyle;

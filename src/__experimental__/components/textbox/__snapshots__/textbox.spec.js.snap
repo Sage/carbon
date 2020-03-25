@@ -13,6 +13,7 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
   onBlur={[Function]}
   onChange={[Function]}
   size="medium"
+  styleOverride={Object {}}
   useValidationIcon={false}
   validations={Array []}
   warnings={Array []}
