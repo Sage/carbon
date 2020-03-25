@@ -23,38 +23,25 @@ const getIconKnobs = () => {
   };
 };
 
-const getKnobs = (isClassic) => {
+const getKnobs = () => {
   const size = select('size', OptionsHelper.sizesRestricted, Button.defaultProps.size);
-  let classicProps = {}, buttonType, destructive;
-
-  if (isClassic) {
-    classicProps = {
-      theme: select('theme', OptionsHelper.buttonColors, Button.defaultProps.theme),
-      as: select('as', OptionsHelper.themesBinary, Button.defaultProps.as),
-      href: text('href'),
-      to: text('to')
-    };
-  } else {
-    buttonType = select('buttonType', OptionsHelper.buttonTypes, Button.defaultProps.as);
-    destructive = boolean('destructive', false);
-  }
-
   return {
-    buttonType,
     children: text('children', 'Example Button'),
-    destructive,
     disabled: boolean('disabled', Button.defaultProps.disabled),
     onClick: ev => action('click')(ev),
     size,
     subtext: (size === OptionsHelper.sizesRestricted[2]) ? text('subtext', Button.defaultProps.subtext) : undefined,
-    ...classicProps,
+    buttonType: select('buttonType', OptionsHelper.buttonTypes, Button.defaultProps.as),
+    href: text('href'),
+    to: text('to'),
+    destructive: boolean('destructive', false),
     ...getIconKnobs()
   };
 };
 
-function makeStory(name, themeSelector, isClassic, infotext) {
+function makeStory(name, themeSelector, infotext) {
   const component = () => {
-    const props = getKnobs(isClassic);
+    const props = getKnobs();
     const { children } = props; // eslint-disable-line react/prop-types
     return (
       <Button { ...props }>{ children }</Button>
@@ -73,9 +60,9 @@ function makeStory(name, themeSelector, isClassic, infotext) {
   return [name, component, metadata];
 }
 
-function makeSiblingStory(name, themeSelector, isClassic) {
+function makeSiblingStory(name, themeSelector) {
   const component = () => {
-    const props = getKnobs(isClassic);
+    const props = getKnobs();
     const { children } = props; // eslint-disable-line react/prop-types
     return (
       <div>
@@ -93,7 +80,5 @@ function makeSiblingStory(name, themeSelector, isClassic) {
 }
 
 storiesOf('Button', module)
-  .add(...makeStory('default', dlsThemeSelector, false, Info))
-  .add(...makeStory('classic', classicThemeSelector, true, InfoClassic))
-  .add(...makeSiblingStory('as a sibling', dlsThemeSelector, false))
-  .add(...makeSiblingStory('as a sibling classic', classicThemeSelector, true));
+  .add(...makeStory('default', dlsThemeSelector, Info))
+  .add(...makeSiblingStory('as a sibling', dlsThemeSelector));

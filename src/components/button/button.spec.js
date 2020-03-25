@@ -21,7 +21,6 @@ const render = (props, renderer = shallow) => {
 
 const variants = ['primary', 'secondary', 'tertiary', 'destructive', 'darkBackground'];
 const sizes = { small: [32, 16], medium: [40, 24], large: [48, 32] };
-const classicColorVariants = ['blue', 'grey', 'magenta', 'magenta-dull', 'red', 'white'];
 
 describe('Button', () => {
   describe('when no props other than children are passed into the component', () => {
@@ -31,7 +30,6 @@ describe('Button', () => {
       expect(wrapper.props().buttonType).toEqual('secondary');
       expect(wrapper.props().size).toEqual('medium');
       expect(wrapper.props().disabled).toEqual(false);
-      expect(wrapper.props().legacyColorVariant).toEqual('blue');
     });
   });
 
@@ -177,67 +175,11 @@ describe('Button', () => {
     );
   });
 
-  describe.each(classicColorVariants)(
-    'when the color variant is set to "%s"',
-    (variant) => {
-      const wrapper = TestRenderer.create(
-        <StyledButton
-          size='large'
-          theme={ classicTheme }
-          variant={ variant }
-        >Foo
-        </StyledButton>
-      );
-
-      it('matches the snapshot with the default props', () => {
-        expect(wrapper).toMatchSnapshot();
-      });
-    }
-  );
-
-  describe('when the classic theme is applied', () => {
-    describe.each(classicColorVariants)(
-      'setting the color variant to "%s"',
-      (variant) => {
-        const wrapper = TestRenderer.create(
-          <StyledButton
-            iconType='services'
-            theme={ classicTheme }
-            variant={ variant }
-          >Foo
-          </StyledButton>
-        );
-
-        it('matches the snapshot when default props are passed', () => {
-          expect(wrapper).toMatchSnapshot();
-        });
-      }
-    );
-
-    it('matches the expected style for a "blue" Button with default props', () => {
-      const wrapper = TestRenderer.create(<StyledButton theme={ classicTheme }>foo</StyledButton>);
-      assertStyleMatch({
-        background: 'transparent',
-        border: '1px solid #255bc7',
-        color: '#255bc7'
-      }, wrapper.toJSON());
-    });
-
-    it('matches the expected style default "disabled" Button', () => {
-      const wrapper = TestRenderer.create(<StyledButton disabled theme={ classicTheme }>foo</StyledButton>);
-      assertStyleMatch({
-        background: '#e6ebed'
-      }, wrapper.toJSON());
-    });
-  });
-
-  describe('when not in classic theme', () => {
-    it('matches the applies the expected style to the icon', () => {
-      const wrapper = TestRenderer.create(<StyledButton iconType='plus' />);
-      assertStyleMatch({
-        height: '16px'
-      }, wrapper.toJSON(), { modifier: `${StyledIcon}` });
-    });
+  it('matches the applies the expected style to the icon', () => {
+    const wrapper = TestRenderer.create(<StyledButton iconType='plus' />);
+    assertStyleMatch({
+      height: '16px'
+    }, wrapper.toJSON(), { modifier: `${StyledIcon}` });
   });
 
   describe('A primary button', () => {
