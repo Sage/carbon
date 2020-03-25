@@ -7,7 +7,6 @@ import TestRenderer from 'react-test-renderer';
 import Button from './button.component';
 import StyledButton from './button.style';
 import BaseTheme from '../../style/themes/base';
-import classicTheme from '../../style/themes/classic';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
