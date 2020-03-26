@@ -72,7 +72,9 @@ Secondary buttons can be destructive.
 <Preview>
   <Story name="secondary/destructive" parameters={{ info: { disable: true }}} >
     <>
-      Secondary destructive buttons have not been implemented yet.
+      <Button destructive size="small">Small</Button>
+      <Button destructive >Medium</Button>
+      <Button destructive size="large">Large</Button>
     </>
   </Story>
 </Preview>
@@ -92,8 +94,9 @@ Secondary buttons can have an icon positioned before or after the text.
 <Preview>
   <Story name="secondary/icon" parameters={{ info: { disable: true }}} >
   <>
-    <Button buttonType="secondary" iconType="print">Medium</Button>
-    <Button buttonType="secondary" disabled iconType="print" iconPosition="after">Medium</Button>
+    <Button iconType="print">Medium</Button>
+    <Button destructive iconType="delete" iconPosition="after">Medium</Button>
+    <Button disabled iconType="print" iconPosition="after">Medium</Button>
     </>
   </Story>
 </Preview>
