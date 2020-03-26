@@ -67,7 +67,6 @@ function renderStyledButton(buttonProps) {
       disabled={ disabled }
       role='button'
       type='button'
-      legacyColorVariant={ theme }
       iconType={ iconType }
       { ...tagComponent('button', buttonProps) }
       { ...styleProps }
@@ -134,9 +133,6 @@ Button.propTypes = {
   forwardRef: PropTypes.func,
   /** Button types for legacy theme: "primary" | "secondary" */
   as: PropTypes.oneOf(OptionsHelper.themesBinary),
-  /** Set this prop to pass in legacy theme color variants */
-  theme: PropTypes.oneOf(OptionsHelper.buttonColors),
-  checkTheme: PropTypes.func,
   /** Legacy - used to transfrom button into anchor */
   href: PropTypes.string,
   /** Legacy - used to transfrom button into anchor */
@@ -150,7 +146,6 @@ Button.defaultProps = {
   disabled: false,
   destructive: false,
   iconPosition: 'before',
-  theme: 'blue',
   subtext: ''
 };
 

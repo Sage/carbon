@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import BaseTheme from '../../style/themes/base';
 import buttonTypes from './button-types.style';
 import buttonSizes from './button-sizes.style';
-import buttonClassicStyle from './button-classic.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import StyledIcon from '../icon/icon.style';
-import { isClassic } from '../../utils/helpers/style-helper';
 
 const StyledButton = styled.button`
   align-items: center;
@@ -16,7 +14,7 @@ const StyledButton = styled.button`
   flex-flow: wrap;
   justify-content: center;
   vertical-align: middle;
-  ${addButtonStyle}
+  ${stylingForType}
 
   ${({ iconPosition }) => css`
     ${StyledIcon} {
@@ -36,20 +34,9 @@ export const StyledButtonSubtext = styled.span`
   display: block;
 `;
 
-function additionalIconStyle({ theme, iconType }) {
-  if (isClassic(theme)) {
-    if (iconType === 'services') return '8px';
-
-    return '18px';
-  }
+function additionalIconStyle({ iconType }) {
   if (iconType === 'services') return '6px';
   return '16px;';
-}
-
-function addButtonStyle(props) {
-  if (isClassicButton(props)) return buttonClassicStyle(props);
-
-  return stylingForType(props);
 }
 
 function stylingForType({
@@ -77,17 +64,10 @@ function stylingForType({
   `;
 }
 
-function isClassicButton({ theme, buttonType }) {
-  const isClassicButtonType = OptionsHelper.themesBinary.includes(buttonType);
-
-  return isClassic(theme) && isClassicButtonType;
-}
-
 StyledButton.defaultProps = {
   theme: BaseTheme,
   medium: true,
-  buttonType: 'secondary',
-  legacyColorVariant: 'blue'
+  buttonType: 'secondary'
 };
 
 StyledButton.propTypes = {
@@ -107,8 +87,6 @@ StyledButton.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   /** Second text child, renders under main text, only when size is "large" */
   subtext: PropTypes.string,
-  /** Set this prop to pass in legacy theme color variants */
-  legacyColorVariant: PropTypes.oneOf(OptionsHelper.buttonColors),
   /** Used to transform button into anchor */
   to: PropTypes.string
 };
