@@ -86,6 +86,13 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
       ${makeColors(colors.secondary)}
     }
 
+    ${destructive ? `
+        ${makeColors(colors.error)}
+          &:hover {
+            ${makeColors(colors.destructive.hover)}
+          }
+      ` : ''}
+
     ${isDisabled ? `
       color: ${disabled.text};
       &:hover {

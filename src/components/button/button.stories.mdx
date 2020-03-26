@@ -119,7 +119,9 @@ Tertiary buttons can be destructive.
 <Preview>
   <Story name="tertiary/destructive" parameters={{ info: { disable: true }}} >
     <>
-      Tertiary destructive buttons have not been implemented yet.
+      <Button buttonType="tertiary" destructive size="small">Small</Button>
+      <Button buttonType="tertiary" destructive >Medium</Button>
+      <Button buttonType="tertiary" destructive size="large">Large</Button>
     </>
   </Story>
 </Preview>
@@ -140,6 +142,7 @@ Tertiary buttons can have an icon positioned before or after the text.
   <Story name="tertiary/icon" parameters={{ info: { disable: true }}} >
   <>
     <Button buttonType="tertiary" iconType="print">Medium</Button>
+    <Button buttonType="tertiary" destructive iconType="delete" iconPosition="after">Medium</Button>
     <Button buttonType="tertiary" disabled iconType="print" iconPosition="after">Medium</Button>
     </>
   </Story>

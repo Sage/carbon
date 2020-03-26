@@ -151,6 +151,30 @@ describe('Button', () => {
     });
   });
 
+  it('matches the expected destructive style for tertiary buttons', () => {
+    const wrapper = render({
+      children: 'foo', destructive: true, buttonType: 'tertiary'
+    }, TestRenderer.create).toJSON();
+
+    assertStyleMatch({
+      background: 'transparent',
+      borderColor: 'transparent',
+      color: BaseTheme.colors.error
+    }, wrapper);
+
+    assertStyleMatch({
+      color: BaseTheme.colors.error
+    }, wrapper, { modifier: css`${StyledIcon}` });
+
+    assertStyleMatch({
+      color: BaseTheme.colors.destructive.hover
+    }, wrapper, { modifier: ':hover' });
+
+    assertStyleMatch({
+      color: BaseTheme.colors.destructive.hover
+    }, wrapper, { modifier: `:hover ${css`${StyledIcon}`}` });
+  });
+
   describe('when the "disabled" prop is passed', () => {
     it('matches the style for the default Button when no "as" and "size" props are passed', () => {
       const wrapper = render({ children: 'foo', disabled: true }, TestRenderer.create).toJSON();
