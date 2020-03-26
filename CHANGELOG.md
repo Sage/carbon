@@ -1,3 +1,20 @@
+## [16.0.0](https://github.com/Sage/carbon/compare/v15.0.0...v16.0.0) (2020-03-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **button:** `<Button buttonType="destructive"/>` has been
+removed in favour of `<Button buttonType="primary" destructive />`.
+
+There is a codemod available to assist with this upgrade `npx
+carbon-codemod button-destructive <target>`.
+
+See https://github.com/Sage/carbon-codemod for more information.
+
+### Miscellaneous Chores
+
+* **button:** remove destructive button type ([c1ee90b](https://github.com/Sage/carbon/commit/c1ee90b747f906ac1d9dc06538c02b39ceb3dbe4))
+
 ## [15.0.0](https://github.com/Sage/carbon/compare/v14.11.0...v15.0.0) (2020-03-26)
 
 
