@@ -1,5 +1,4 @@
 import React from 'react';
-import 'jest-styled-components';
 import { css } from 'styled-components';
 import { shallow } from 'enzyme';
 import { Link as RouterLink } from 'react-router';
