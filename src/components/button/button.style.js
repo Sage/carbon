@@ -16,16 +16,19 @@ const StyledButton = styled.button`
   vertical-align: middle;
   ${stylingForType}
 
-  ${({ iconPosition }) => css`
+  ${({ iconPosition, theme }) => css`
     ${StyledIcon} {
-      margin-left: ${iconPosition === 'before' ? '0px' : '8px'};
-      margin-right: ${iconPosition === 'before' ? '8px' : '0px'};
+      margin-left: ${iconPosition === 'before' ? '0px' : `${theme.spacing}px`};
+      margin-right: ${iconPosition === 'before' ? `${theme.spacing}px` : '0px'};
       height: ${additionalIconStyle};
       svg { 
         margin-top: 0;
       }
+      ${({ styleOverride }) => styleOverride.icon}
     }
   `}
+
+  ${({ styleOverride }) => styleOverride.root}
 `;
 
 export const StyledButtonSubtext = styled.span`
@@ -56,9 +59,10 @@ function stylingForType({
     &:focus {
       outline: solid 3px ${theme.colors.focus};
     }
-    
-    margin-right: 16px;
 
+    & ~ & {
+      margin-left: 16px;
+    }
     ${buttonTypes(theme, disabled, destructive)[buttonType]};
     ${buttonSizes(theme)[size]}
   `;
@@ -67,7 +71,8 @@ function stylingForType({
 StyledButton.defaultProps = {
   theme: BaseTheme,
   medium: true,
-  buttonType: 'secondary'
+  buttonType: 'secondary',
+  styleOverride: { root: {}, icon: {} }
 };
 
 StyledButton.propTypes = {
@@ -88,7 +93,11 @@ StyledButton.propTypes = {
   /** Second text child, renders under main text, only when size is "large" */
   subtext: PropTypes.string,
   /** Used to transform button into anchor */
-  to: PropTypes.string
+  to: PropTypes.string,
+  styleOverride: PropTypes.shape({
+    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    icon: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+  })
 };
 
 export default StyledButton;
