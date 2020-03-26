@@ -26,12 +26,6 @@ Then('Textbox component is disabled', () => {
     .and('have.css', 'cursor', 'not-allowed');
 });
 
-Then('Textbox component is disabled for classic page', () => {
-  textbox().children()
-    .should('have.css', 'color', 'rgb(179, 194, 200)')
-    .and('have.css', 'cursor', 'not-allowed');
-});
-
 Then('Textbox multiple component is disabled', () => {
   cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
   textbox(FIRST_ELEMENT).children()
@@ -60,15 +54,6 @@ Then('Textbox multiple component is not disabled', () => {
   textbox(SECOND_ELEMENT).children()
     .should('not.have.css', 'color', 'rgba(0, 0, 0, 0.55)')
     .and('not.have.css', 'cursor', 'not-allowed');
-});
-
-Then('Textbox component is readOnly for classic story', () => {
-  cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
-  textbox().should('have.css', 'background-color', 'rgb(249, 250, 251)')
-    .and('have.css', 'border-bottom-color', 'rgb(204, 214, 219)')
-    .and('have.css', 'border-left-color', 'rgb(204, 214, 219)')
-    .and('have.css', 'border-right-color', 'rgb(204, 214, 219)')
-    .and('have.css', 'border-top-color', 'rgb(204, 214, 219)');
 });
 
 Then('Textbox component is readOnly', () => {

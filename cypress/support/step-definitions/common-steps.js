@@ -30,10 +30,6 @@ Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
 });
 
-Given('I open {string} component page classic', (component) => {
-  visitComponentUrl(component, 'classic');
-});
-
 Given('I open {string} component page basic', (component) => {
   visitComponentUrl(component, 'basic');
 });
@@ -50,24 +46,12 @@ Given('I open {string} component page buttonToogleGroup validation in iframe', (
   visitComponentUrl(component, 'buttonToogleGroup', true);
 });
 
-Given('I open {string} component buttonToogleGroup classic page validation in iframe', (component) => {
-  visitComponentUrl(component, 'buttonToogleGroup_classic', true);
-});
-
-Given('I open {string} basic classic component page in iframe', (component) => {
-  visitComponentUrl(component, 'basic_classic', true);
-});
-
 Given('I open {string} component page with button', (component) => {
   visitComponentUrl(component, 'with_button');
 });
 
 Given('I open {string} component page with inputs', (component) => {
   visitComponentUrl(component, 'default_with_inputs');
-});
-
-Given('I open {string} component with button classic page', (component) => {
-  visitComponentUrl(component, 'with_button_classic');
 });
 
 Given('I open {string} component page legacy spinner', (component) => {
@@ -78,14 +62,6 @@ Given('I open {string} component page legacy spinner in iframe', (component) => 
   visitComponentUrl(component, 'legacy_spinner', true);
 });
 
-Given('I open {string} component page legacy spinner', (component) => {
-  visitComponentUrl(component, 'legacy_spinner_classic');
-});
-
-Given('I open {string} component legacy spinner classic page in iframe', (component) => {
-  visitComponentUrl(component, 'legacy_spinner_classic', true);
-});
-
 Given('I open {string} component in iframe', (component) => {
   visitComponentUrl(component, 'default', true);
 });
@@ -93,10 +69,6 @@ Given('I open {string} component in iframe', (component) => {
 // the step above should be refactored and changed to in noiFrame
 Given('I open {string} component in noiFrame', (component) => {
   visitComponentUrl(component, 'default', true);
-});
-
-Given('I open {string} component for classic story in iframe', (component) => {
-  visitComponentUrl(component, 'classic', true);
 });
 
 Given('I open deprecated {string} component in iframe', (component) => {
@@ -111,32 +83,16 @@ Given('I open {string} textbox based component page in iframe', (component) => {
   visitComponentUrl(component, 'textbox_based', true);
 });
 
-Given('I open {string} textbox based classic component page in iframe', (component) => {
-  visitComponentUrl(component, 'textbox_based_classic', true);
-});
-
 Given('I open {string} component with button page in iframe', (component) => {
   visitComponentUrl(component, 'with_button', true);
-});
-
-Given('I open {string} component for classic story with button page in iframe', (component) => {
-  visitComponentUrl(component, 'with_button_classic', true);
 });
 
 Given('I open {string} component page multiple', (component) => {
   visitComponentUrl(component, 'multiple');
 });
 
-Given('I open {string} component for classic story page multiple', (component) => {
-  visitComponentUrl(component, 'multiple_classic');
-});
-
 Given('I open {string} component page multiple in iframe', (component) => {
   visitComponentUrl(component, 'multiple', true);
-});
-
-Given('I open {string} component for classic story page multiple in iframe', (component) => {
-  visitComponentUrl(component, 'multiple_classic', true);
 });
 
 Given('I open {string} component page as sibling in iframe', (component) => {
@@ -145,14 +101,6 @@ Given('I open {string} component page as sibling in iframe', (component) => {
 
 Given('I open {string} component page as sibling in no iframe', (component) => {
   visitComponentUrl(component, 'as_a_sibling');
-});
-
-Given('I open {string} component for classic story as sibling in iframe', (component) => {
-  visitComponentUrl(component, 'as_a_sibling_classic', true);
-});
-
-Given('I open {string} classic component for classic story as sibling in no iframe', (component) => {
-  visitComponentUrl(component, 'as_a_sibling_classic');
 });
 
 Given('I open {string} component page validations in iframe', (component) => {
@@ -177,10 +125,6 @@ When('I open Test {string} component basic page with prop value', (componentName
 
 Given('I open grouped Test {string} component page in noIframe', (component) => {
   visitComponentUrl(component, 'grouped', true, 'test-');
-});
-
-Given('I open {string} component page validations classic in iframe', (component) => {
-  visitComponentUrl(component, 'validations_classic', true);
 });
 
 Given('I open {string} component page autoFocus in iframe', (component) => {

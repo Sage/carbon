@@ -38,7 +38,7 @@ Feature: Accessibility tests
     Then "<component>" component has no violations in Accessibility section
     Examples:
       | component                        |
-      | action-popover                   |
+      | test-action-popover              |
       | animated menu button             |
       | app wrapper                      |
       | button toggle                    |

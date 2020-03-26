@@ -39,8 +39,14 @@ Feature: Button component
       | primary        | rgb(255, 255, 255) | rgb(0, 128, 93)    |
       | secondary      | rgb(0, 128, 93)    | rgba(0, 0, 0, 0)   |
       | tertiary       | rgb(0, 128, 93)    | rgba(0, 0, 0, 0)   |
-      | destructive    | rgb(255, 255, 255) | rgb(199, 56, 79)   |
       | darkBackground | rgb(0, 128, 93)    | rgb(255, 255, 255) |
+
+  @positive
+  Scenario: Set Button Type do destructive
+    Given I select buttonType to "primary"
+    When I check destructive checkbox
+    Then Button font color is "rgb(255, 255, 255)"
+      And Button background color is "rgb(199, 56, 79)"
 
   @positive
   Scenario Outline: Set Button component label to <label>

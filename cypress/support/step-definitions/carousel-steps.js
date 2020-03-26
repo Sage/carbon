@@ -1,5 +1,5 @@
 import {
-  classicSlide, slide, nextArrowButton, previousArrowButton,
+  slide, nextArrowButton, previousArrowButton,
   slideSelector, transitionSelect, giveTransition,
 } from '../../locators/carousel';
 import { DEBUG_FLAG } from '..';
@@ -17,11 +17,6 @@ function clickCarouselButton(direction) {
     default: throw new Error('Direction can be only left or right');
   }
 }
-
-Then('classic slide title is {string}', (title) => {
-  cy.wait(1500, { log: DEBUG_FLAG }); // required because of component refresh
-  classicSlide().should('have.text', title);
-});
 
 Then('slide {int} title is {string}', (index, title) => {
   cy.wait(1500, { log: DEBUG_FLAG }); // required because of component refresh
