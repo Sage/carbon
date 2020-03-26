@@ -1,3 +1,23 @@
+## [15.0.0](https://github.com/Sage/carbon/compare/v14.11.0...v15.0.0) (2020-03-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **multi-action-button:** The Classic theme is no longer supported. To upgrade
+please use the Mint or Aegean theme.
+* **split-button:** The Classic theme is no longer supported. To upgrade
+please use the Mint or Aegean theme.
+* **button:** The Classic theme is no longer supported. To upgrade
+please use the Mint or Aegean theme.
+
+Fixes FE-2629
+
+### Miscellaneous Chores
+
+* **button:** drop classic support ([68ddad5](https://github.com/Sage/carbon/commit/68ddad51e887d20dd7f4c9e43728666730ed28e4))
+* **multi-action-button:** drop classic support ([383a8bc](https://github.com/Sage/carbon/commit/383a8bc54beed64ffe7fc97ed60e304e18d44b14))
+* **split-button:** drop classic support ([808d4bb](https://github.com/Sage/carbon/commit/808d4bbcc0216f39e360d73e3a73cc92e42ae72c))
+
 ## [14.11.0](https://github.com/Sage/carbon/compare/v14.10.0...v14.11.0) (2020-03-25)
 
 
