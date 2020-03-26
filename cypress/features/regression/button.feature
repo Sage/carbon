@@ -42,13 +42,6 @@ Feature: Button component
       | darkBackground | rgb(0, 128, 93)    | rgb(255, 255, 255) |
 
   @positive
-  Scenario: Set Button Type do destructive
-    Given I select buttonType to "primary"
-    When I check destructive checkbox
-    Then Button font color is "rgb(255, 255, 255)"
-      And Button background color is "rgb(199, 56, 79)"
-
-  @positive
   Scenario Outline: Set Button component label to <label>
     When I set children to "<label>"
     Then Button label on preview is "<label>"

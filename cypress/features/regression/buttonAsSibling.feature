@@ -43,13 +43,6 @@ Feature: Button as a sibling component
       | darkBackground | rgb(0, 128, 93)    | rgb(255, 255, 255) |
 
   @positive
-  Scenario: Set Button as a sibling Type as destructive
-    When I select buttonType to "primary"
-    When I check destructive checkbox
-    Then Button font color is "rgb(255, 255, 255)"
-      And Button as a sibling background color is "rgb(199, 56, 79)"
-
-  @positive
   Scenario Outline: Set Button as a sibling component label to <label>
     When I set children to "<label>"
     Then Button as a sibling label on preview is "<label>"
