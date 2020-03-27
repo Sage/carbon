@@ -17,6 +17,7 @@ import {
 } from './action-popover.style';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Icon from '../icon';
+import Button from '../button';
 import guid from '../../utils/helpers/guid';
 
 jest.mock('../../utils/helpers/guid');
@@ -886,6 +887,35 @@ describe('ActionPopover', () => {
       expect(console.error).toHaveBeenCalledWith('Warning: Failed prop type: `WithTheme(ActionPopoverItem)` only'
       + ' accepts submenu of type `ActionPopoverMenu`\n    in WithTheme(ActionPopoverItem)');
       global.console.error.mockReset();
+    });
+  });
+
+  describe('Custom Menu Button', () => {
+    it('supports being passed an override component to act as the menu button', () => {
+      const popover = enzymeMount(
+        <ThemeProvider theme={ mintTheme }>
+          <ActionPopover renderButton={ props => <Button { ...props }>Foo</Button> }>
+            <ActionPopoverItem onClick={ jest.fn() }>foo</ActionPopoverItem>
+          </ActionPopover>
+        </ThemeProvider>
+      ).find(ActionPopover);
+
+      const button = popover.find(Button);
+
+      expect(popover.find(Icon).first().exists()).toBeFalsy();
+      expect(button.exists()).toBeTruthy();
+      expect(button.props().tabIndex).toEqual(-1);
+      expect(button.props()['data-element']).toEqual('action-popover-menu-button');
+
+      assertStyleMatch({
+        paddingLeft: '8px',
+        paddingRight: '8px',
+        width: '100%'
+      }, button);
+
+      assertStyleMatch({
+        outlineWidth: '2px'
+      }, button, { modifier: '&:focus' });
     });
   });
 });

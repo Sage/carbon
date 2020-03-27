@@ -76,7 +76,7 @@ exports[`ActionPopover styles renders correctly for the "classic" theme 2`] = `
 exports[`ActionPopover styles renders correctly for the "classic" theme 3`] = `
 .c0 {
   position: relative;
-  width: 24px;
+  display: table;
   margin: auto;
 }
 

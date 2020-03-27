@@ -7,6 +7,7 @@ import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/them
 import {
   Table, TableRow, TableCell, TableHeader
 } from '../table';
+import Button from '../button';
 
 const submenu = (
   <ActionPopoverMenu>
@@ -141,7 +142,7 @@ export const Classic = () => (
               disabled
               icon='graph'
               submenu={ submenu }
-              onClick={ action('email') }
+              onClick={ action('business') }
             >
               Business
             </ActionPopoverItem>
@@ -198,5 +199,70 @@ Classic.story = {
   name: 'classic',
   parameters: {
     themeSelector: classicThemeSelector
+  }
+};
+
+const generateTableCells = (options, cols) => {
+  const cells = options.slice(0, cols - 1).map((cell, index) => <TableCell key={ String(index) }>{cell}</TableCell>);
+
+  if (cells.length === options.length) {
+    return cells;
+  }
+
+  const overflow = (
+    <TableCell>
+      <ActionPopover
+        rightAlignMenu
+        renderButton={ ({ styleOverride, tabIndex, ...rest }) => (
+          <Button
+            buttonType='tertiary'
+            iconType='dropdown'
+            iconPosition='after'
+            size='small'
+            tabIndex={ tabIndex }
+            styleOverride={ styleOverride }
+            date-element={ rest['data-element'] }
+          >
+              More
+          </Button>
+        )
+        }
+      >
+        {options.slice(cols - 1, options.length).map((opt, index) => {
+          return <ActionPopoverItem key={ String(index) } onClick={ action(opt) }>{opt}</ActionPopoverItem>;
+        })}
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={ action('manage services') }>Manage Services</ActionPopoverItem>
+      </ActionPopover>
+    </TableCell>
+  );
+  return [
+    ...cells,
+    overflow
+  ];
+};
+
+const options = ['Accounting', 'Payroll', 'Auto Entry', 'Corporation Tax', 'Final Accounts', 'VAT Centre'];
+
+export const ServicesColumn = () => (
+  <div style={ { marginTop: '40px', height: '275px', maxWidth: '400px' } }>
+    <Table isZebra>
+      <TableRow>
+        <TableHeader colSpan='3'>Services</TableHeader>
+      </TableRow>
+      <TableRow>
+        {generateTableCells(options, 3)}
+      </TableRow>
+      <TableRow>
+        {generateTableCells(options, 3)}
+      </TableRow>
+    </Table>
+  </div>
+);
+
+ServicesColumn.story = {
+  name: 'services column',
+  parameters: {
+    themeSelector: dlsThemeSelector
   }
 };

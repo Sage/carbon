@@ -13,7 +13,7 @@ import ActionPopoverItem from './action-popover-item.component';
 import ActionPopoverDivider from './action-popover-divider.component';
 
 const ActionPopover = ({
-  children, id, onOpen, onClose, rightAlignMenu, ...rest
+  children, id, onOpen, onClose, rightAlignMenu, renderButton, ...rest
 }) => {
   const [isOpen, setOpenState] = useState(false);
   const [focusIndex, setFocusIndex] = useState(0);
@@ -73,6 +73,25 @@ const ActionPopover = ({
     };
   }, [setOpen]);
 
+  const menuButton = () => {
+    if (renderButton) {
+      return renderButton({
+        tabIndex: -1,
+        'data-element': 'action-popover-menu-button',
+        styleOverride: {
+          root: {
+            '&:focus': { outlineWidth: '2px' },
+            paddingLeft: '8px',
+            paddingRight: '8px',
+            width: '100%'
+          }
+        }
+      });
+    }
+
+    return <ButtonIcon type='ellipsis_vertical' />;
+  };
+
   const parentID = id || `ActionPopoverButton_${guid}`;
   const menuID = `ActionPopoverMenu_${guid}`;
   const menuProps = {
@@ -102,7 +121,7 @@ const ActionPopover = ({
       ref={ button }
       { ...rest }
     >
-      <ButtonIcon type='ellipsis_vertical' />
+      { menuButton() }
       <ActionPopoverMenu
         data-component='action-popover'
         role='menu'
@@ -138,7 +157,9 @@ ActionPopover.propTypes = {
     });
 
     return error;
-  }
+  },
+  /** Render a custom menu button to override default ellipsis icon */
+  renderButton: PropTypes.func
 };
 
 ActionPopover.defaultProps = {
