@@ -1,0 +1,4 @@
+{
+  "sandboxes": ["carbon-quickstart-xi5jc"],
+  "buildCommand": "precompile"
+}
