@@ -1,3 +1,10 @@
+## [16.2.0](https://github.com/Sage/carbon/compare/v16.1.0...v16.2.0) (2020-03-27)
+
+
+### Features
+
+* **fieldset:** add address fieldset ([192deef](https://github.com/Sage/carbon/commit/192deef13f7b67d1e52a901afd2d9b8c1039efab))
+
 ## [16.1.0](https://github.com/Sage/carbon/compare/v16.0.0...v16.1.0) (2020-03-27)
 
 
