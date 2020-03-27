@@ -1,5 +1,5 @@
 import React from 'react';
-import 'jest-styled-components';
+import { css } from 'styled-components';
 import { shallow } from 'enzyme';
 import { Link as RouterLink } from 'react-router';
 import Icon from 'components/icon';
@@ -102,7 +102,7 @@ describe('Button', () => {
   );
 
   describe('when the destructive prop is passed', () => {
-    it('matches the expected destructive style', () => {
+    it('matches the expected destructive style for primary buttons', () => {
       const wrapper = render({
         children: 'foo', destructive: true, buttonType: 'primary'
       }, TestRenderer.create).toJSON();
@@ -113,6 +113,65 @@ describe('Button', () => {
         color: BaseTheme.colors.white
       }, wrapper);
     });
+
+    it('matches the expected destructive style for secondary buttons', () => {
+      const wrapper = render({
+        children: 'foo', destructive: true
+      }, TestRenderer.create).toJSON();
+
+      assertStyleMatch({
+        background: 'transparent',
+        borderColor: BaseTheme.colors.error,
+        color: BaseTheme.colors.error
+      }, wrapper);
+
+      assertStyleMatch({
+        color: BaseTheme.colors.error
+      }, wrapper, { modifier: css`${StyledIcon}` });
+
+      assertStyleMatch({
+        background: BaseTheme.colors.destructive.hover,
+        color: BaseTheme.colors.white
+      }, wrapper, { modifier: ':focus' });
+
+      assertStyleMatch({
+        color: BaseTheme.colors.white
+      }, wrapper, { modifier: `:focus ${css`${StyledIcon}`}` });
+
+      assertStyleMatch({
+        background: BaseTheme.colors.destructive.hover,
+        borderColor: BaseTheme.colors.destructive.hover,
+        color: BaseTheme.colors.white
+      }, wrapper, { modifier: ':hover' });
+
+      assertStyleMatch({
+        color: BaseTheme.colors.white
+      }, wrapper, { modifier: `:hover ${css`${StyledIcon}`}` });
+    });
+  });
+
+  it('matches the expected destructive style for tertiary buttons', () => {
+    const wrapper = render({
+      children: 'foo', destructive: true, buttonType: 'tertiary'
+    }, TestRenderer.create).toJSON();
+
+    assertStyleMatch({
+      background: 'transparent',
+      borderColor: 'transparent',
+      color: BaseTheme.colors.error
+    }, wrapper);
+
+    assertStyleMatch({
+      color: BaseTheme.colors.error
+    }, wrapper, { modifier: css`${StyledIcon}` });
+
+    assertStyleMatch({
+      color: BaseTheme.colors.destructive.hover
+    }, wrapper, { modifier: ':hover' });
+
+    assertStyleMatch({
+      color: BaseTheme.colors.destructive.hover
+    }, wrapper, { modifier: `:hover ${css`${StyledIcon}`}` });
   });
 
   describe('when the "disabled" prop is passed', () => {
@@ -152,7 +211,7 @@ describe('Button', () => {
               }, wrapper);
             });
 
-            it('matches the expected destructive style', () => {
+            it('matches the expected disabled style even if destructive', () => {
               const wrapper = render({
                 children: 'foo', destructive: true, disabled: true, buttonType: variant, size
               }, TestRenderer.create).toJSON();
