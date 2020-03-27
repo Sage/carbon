@@ -50,6 +50,7 @@ exports[`BatchSelection component should render correctly 1`] = `
   color: rgba(0,0,0,0.9);
   background-color: transparent;
   outline: solid 3px #FFB500;
+  z-index: 1;
 }
 
 .c3:hover {
