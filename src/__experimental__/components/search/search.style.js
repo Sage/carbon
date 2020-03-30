@@ -7,14 +7,14 @@ import StyledFormField from '../form-field/form-field.style';
 
 const StyledSearch = styled.div`
   ${({ theme }) => `border-bottom: 2px solid ${theme.search.passive};`}
-  ${({ isActive, searchHasValue }) => css`
-    ${!isActive && !searchHasValue && css`
+  ${({ isFocused, searchHasValue }) => css`
+    ${!isFocused && !searchHasValue && css`
       ${StyledInputPresentation} {
         border: 1px solid transparent;
         color: rgba(0, 0, 0, 0.65);
       }
     `}
-    ${(isActive || searchHasValue) && css`
+    ${(isFocused || searchHasValue) && css`
       border-bottom: 2px solid transparent;
       transition: border 0.2s ease, background 0.2s ease;
       color: rgba(0, 0, 0, 0.9);
@@ -24,8 +24,8 @@ const StyledSearch = styled.div`
     `}
   `}
 
-  ${({ isActive, searchIsActive }) => css`
-    ${isActive && !searchIsActive && css`
+  ${({ isFocused, searchIsActive }) => css`
+    ${isFocused && !searchIsActive && css`
       color: rgba(0, 0, 0, 0.9);
     `}
   `}
@@ -43,9 +43,9 @@ const StyledSearch = styled.div`
   ${StyledInputPresentation} {
     width: ${
   ({
-    hasSearchButton, isActive, searchIsActive, searchHasValue
+    hasSearchButton, isFocused, searchIsActive, searchHasValue
   }) => (
-    hasSearchButton && (isActive || searchIsActive || searchHasValue) ? '335px;' : '375px;'
+    hasSearchButton && (isFocused || searchIsActive || searchHasValue) ? '335px;' : '375px;'
   )};
 
     font-size: 14px;
