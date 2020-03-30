@@ -29,9 +29,8 @@
 
 ## Getting started
 1. Clone the carbon repository `git clone git@github.com:Sage/carbon.git`.
-2. Checkout cypress-cucumber-storybook branch `git checkout cypress-cucumber-storybook`.
 3. Install `npm install`.
-4. Run storybook `npm run storybook`.
+4. Run storybook `npm start`.
 5. Open a new terminal in the same path.
 6. Run cypress `npm run test-cypress`.
 7. If you would like to run specific cypress tests in command line (headless browser for continuous integration) use: `npm run test-cypress --spec 'cypress/features/[tests-type]/[featureFileName].feature'`.
