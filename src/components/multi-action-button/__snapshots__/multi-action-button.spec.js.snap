@@ -54,7 +54,6 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   padding-bottom: 1px;
   -webkit-text-decoration: none;
   text-decoration: none;
-  margin-right: 16px;
   background: transparent;
   border-color: #26A826;
   color: #26A826;
@@ -66,6 +65,10 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 
 .c3:focus {
   outline: solid 3px #FFB500;
+}
+
+.c3 ~ .c2 {
+  margin-left: 16px;
 }
 
 .c3:hover {

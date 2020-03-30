@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Button when only the "iconPosition" and "iconType" props are passed into the component renders the default props and children to match the snapshot with the Icon after children 1`] = `
-.c2 {
+.c3 {
   display: inline-block;
   position: relative;
   color: #26A826;
   background-color: transparent;
 }
 
-.c2:hover {
+.c3:hover {
   color: #1E861E;
   background-color: transparent;
 }
 
-.c2::before {
+.c3::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -26,21 +26,25 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   display: block;
 }
 
-.c3:hover .c1 {
+.c4 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c4:hover .c2 {
   color: #FFFFFF;
 }
 
-.c3 .c1 {
+.c4 .c2 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c3 .c1 svg {
+.c4 .c2 svg {
   margin-top: 0;
 }
 
-.c0 {
+.c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -68,7 +72,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   padding-bottom: 1px;
   -webkit-text-decoration: none;
   text-decoration: none;
-  margin-right: 16px;
   background: transparent;
   border-color: #26A826;
   color: #26A826;
@@ -78,32 +81,36 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   padding-right: 24px;
 }
 
-.c0:focus {
+.c1:focus {
   outline: solid 3px #FFB500;
 }
 
-.c0:hover {
+.c1 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c1:hover {
   background: #006300;
   border-color: #006300;
   color: #FFFFFF;
 }
 
-.c0:hover .c1 {
+.c1:hover .c2 {
   color: #FFFFFF;
 }
 
-.c0 .c1 {
+.c1 .c2 {
   margin-left: 8px;
   margin-right: 0px;
   height: 16px;
 }
 
-.c0 .c1 svg {
+.c1 .c2 svg {
   margin-top: 0;
 }
 
 <button
-  className="c0"
+  className="c0 c1"
   data-component="button"
   disabled={false}
   role="button"
@@ -118,7 +125,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
     </span>
   </span>
   <span
-    className="c1 c2"
+    className="c2 c3"
     data-component="icon"
     data-element="filter"
     disabled={false}
@@ -129,19 +136,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 `;
 
 exports[`Button when only the "iconPosition" and "iconType" props are passed into the component renders the default props and children to match the snapshot with the Icon before children 1`] = `
-.c2 {
+.c3 {
   display: inline-block;
   position: relative;
   color: #26A826;
   background-color: transparent;
 }
 
-.c2:hover {
+.c3:hover {
   color: #1E861E;
   background-color: transparent;
 }
 
-.c2::before {
+.c3::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -154,7 +161,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   display: block;
 }
 
-.c0 {
+.c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -182,7 +189,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   padding-bottom: 1px;
   -webkit-text-decoration: none;
   text-decoration: none;
-  margin-right: 16px;
   background: transparent;
   border-color: #26A826;
   color: #26A826;
@@ -192,32 +198,36 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   padding-right: 24px;
 }
 
-.c0:focus {
+.c1:focus {
   outline: solid 3px #FFB500;
 }
 
-.c0:hover {
+.c1 ~ .c0 {
+  margin-left: 16px;
+}
+
+.c1:hover {
   background: #006300;
   border-color: #006300;
   color: #FFFFFF;
 }
 
-.c0:hover .c1 {
+.c1:hover .c2 {
   color: #FFFFFF;
 }
 
-.c0 .c1 {
+.c1 .c2 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c0 .c1 svg {
+.c1 .c2 svg {
   margin-top: 0;
 }
 
 <button
-  className="c0"
+  className="c0 c1"
   data-component="button"
   disabled={false}
   role="button"
@@ -225,7 +235,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   type="button"
 >
   <span
-    className="c1 c2"
+    className="c2 c3"
     data-component="icon"
     data-element="filter"
     disabled={false}

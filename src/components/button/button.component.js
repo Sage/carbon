@@ -42,6 +42,7 @@ function renderStyledButton(buttonProps) {
     theme,
     forwardRef,
     href,
+    styleOverride,
     ...styleProps
   } = buttonProps;
 
@@ -61,6 +62,7 @@ function renderStyledButton(buttonProps) {
       { ...tagComponent('button', buttonProps) }
       { ...styleProps }
       ref={ forwardRef }
+      styleOverride={ styleOverride }
     >
       { renderChildren(buttonProps) }
     </StyledButton>
@@ -88,7 +90,13 @@ function renderChildren({
         />) }
       <span>
         <span data-element='main-text'>{ children }</span>
-        { size === 'large' && <StyledButtonSubtext data-element='subtext'>{ subtext }</StyledButtonSubtext> }
+        { size === 'large' && (
+          <StyledButtonSubtext
+            data-element='subtext'
+          >
+            { subtext }
+          </StyledButtonSubtext>
+        )}
       </span>
       { iconType && iconPosition === 'after' && (
         <Icon
@@ -122,11 +130,15 @@ Button.propTypes = {
   forwardRef: PropTypes.func,
   /** Button types for legacy theme: "primary" | "secondary" */
   as: PropTypes.oneOf(OptionsHelper.themesBinary),
-  /** Legacy - used to transfrom button into anchor */
+  /** Legacy - used to transform button into anchor */
   href: PropTypes.string,
-  /** Legacy - used to transfrom button into anchor */
-  to: PropTypes.string
-
+  /** Legacy - used to transform button into anchor */
+  to: PropTypes.string,
+  /** Allows override of existing component styles */
+  styleOverride: PropTypes.shape({
+    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    icon: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+  })
 };
 
 Button.defaultProps = {
@@ -135,7 +147,8 @@ Button.defaultProps = {
   disabled: false,
   destructive: false,
   iconPosition: 'before',
-  subtext: ''
+  subtext: '',
+  styleOverride: { root: {}, icon: {} }
 };
 
 const ButtonWithForwardRef = React.forwardRef((props, ref) => <Button forwardRef={ ref } { ...props } />);
