@@ -1,3 +1,10 @@
+## [16.3.0](https://github.com/Sage/carbon/compare/v16.2.1...v16.3.0) (2020-03-30)
+
+
+### Features
+
+* **button:** add support for style override object ([894ac96](https://github.com/Sage/carbon/commit/894ac96af3148127f9b458a92ad163c82a34f057))
+
 ### [16.2.1](https://github.com/Sage/carbon/compare/v16.2.0...v16.2.1) (2020-03-27)
 
 
