@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import invariant from 'invariant';
 import StyledSearch, { StyledSearchButton, StyledButtonIcon } from './search.style';
@@ -19,7 +19,23 @@ const Search = ({
   const [searchValue, setSearchValue] = useState(initialValue);
   const [isFocused, setIsFocused] = useState(inputRef.current === document.activeElement);
   const [searchIsActive, setSearchIsActive] = useState(initialValue.length >= threshold);
-  const [iconType, setIconType] = useState(null);
+
+  const iconType = useMemo(() => {
+    const isSearchValueEmpty = searchValue.length === 0;
+    const isFocusedOrActive = isFocused || searchIsActive;
+
+    setSearchIsActive(searchValue.length >= threshold);
+
+    if (!isSearchValueEmpty) {
+      return 'cross';
+    }
+
+    if (!isFocusedOrActive || threshold === 0 || (!searchButton && isSearchValueEmpty)) {
+      return 'search';
+    }
+
+    return '';
+  }, [isFocused, searchIsActive, searchValue, threshold, searchButton]);
 
   const handleChange = (e) => {
     if (onChange) {
@@ -63,17 +79,6 @@ const Search = ({
   const handleBlur = () => {
     setIsFocused(false);
   };
-
-  useLayoutEffect(() => {
-    setSearchIsActive(searchValue.length >= threshold);
-    if (searchValue.length > 0) {
-      setIconType('cross');
-    } else if ((searchButton && isFocused)) {
-      setIconType('');
-    } else if ((!isFocused && !searchIsActive) || threshold === 0) {
-      setIconType('search');
-    }
-  }, [isFocused, searchButton, searchIsActive, searchValue, threshold]);
 
   return (
     <StyledSearch
