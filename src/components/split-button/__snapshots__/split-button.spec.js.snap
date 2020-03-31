@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SplitButton for business themes renders styles correctly 1`] = `
-.c5 {
+.c6 {
   display: inline-block;
   position: relative;
   color: #26A826;
   background-color: transparent;
 }
 
-.c5:hover {
+.c6:hover {
   color: #1E861E;
   background-color: transparent;
 }
 
-.c5::before {
+.c6::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -26,17 +26,21 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   display: block;
 }
 
-.c6:hover .c4 {
+.c7 ~ .c1 {
+  margin-left: 16px;
+}
+
+.c7:hover .c5 {
   color: #FFFFFF;
 }
 
-.c6 .c4 {
+.c7 .c5 {
   margin-left: 8px;
   margin-right: 0px;
   height: 16px;
 }
 
-.c6 .c4 svg {
+.c7 .c5 svg {
   margin-top: 0;
 }
 
@@ -68,7 +72,6 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   padding-bottom: 1px;
   -webkit-text-decoration: none;
   text-decoration: none;
-  margin-right: 16px;
   background: transparent;
   border-color: #26A826;
   color: #26A826;
@@ -82,23 +85,27 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   outline: solid 3px #FFB500;
 }
 
+.c2 ~ .c1 {
+  margin-left: 16px;
+}
+
 .c2:hover {
   background: #006300;
   border-color: #006300;
   color: #FFFFFF;
 }
 
-.c2:hover .c4 {
+.c2:hover .c5 {
   color: #FFFFFF;
 }
 
-.c2 .c4 {
+.c2 .c5 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c2 .c4 svg {
+.c2 .c5 svg {
   margin-top: 0;
 }
 
@@ -117,7 +124,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   margin: -1px;
 }
 
-.c3 {
+.c4 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -145,7 +152,6 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   padding-bottom: 1px;
   -webkit-text-decoration: none;
   text-decoration: none;
-  margin-right: 16px;
   background: transparent;
   border-color: #26A826;
   color: #26A826;
@@ -157,43 +163,47 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   padding: 0 10px;
 }
 
-.c3:focus {
+.c4:focus {
   outline: solid 3px #FFB500;
 }
 
-.c3:hover {
+.c4 ~ .c3 {
+  margin-left: 16px;
+}
+
+.c4:hover {
   background: #006300;
   border-color: #006300;
   color: #FFFFFF;
 }
 
-.c3:hover .c4 {
+.c4:hover .c5 {
   color: #FFFFFF;
 }
 
-.c3 .c4 {
+.c4 .c5 {
   margin-left: 8px;
   margin-right: 0px;
   height: 16px;
 }
 
-.c3 .c4 svg {
+.c4 .c5 svg {
   margin-top: 0;
 }
 
-.c1 + .c3 {
+.c1 + .c4 {
   margin-left: 0;
 }
 
-.c1 + .c3:focus {
+.c1 + .c4:focus {
   margin-left: -3px;
 }
 
-.c1 + .c3 .c4 {
+.c1 + .c4 .c5 {
   margin-left: 0;
 }
 
-.c7 .c1 {
+.c8 .c1 {
   background-color: #006045;
   border: 1px solid #006045;
   color: #FFFFFF;
@@ -205,16 +215,16 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   z-index: 10;
 }
 
-.c7 .c1:focus,
-.c7 .c1:hover {
+.c8 .c1:focus,
+.c8 .c1:hover {
   background-color: #003F2E;
 }
 
-.c7 .c1 + .c9 .c1 {
+.c8 .c1 + .c10 .c1 {
   margin-top: 3px;
 }
 
-.c8 .c1 {
+.c9 .c1 {
   background-color: #005B9A;
   border: 1px solid #005B9A;
   color: #FFFFFF;
@@ -226,12 +236,12 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   z-index: 10;
 }
 
-.c8 .c1:focus,
-.c8 .c1:hover {
+.c9 .c1:focus,
+.c9 .c1:hover {
   background-color: #004372;
 }
 
-.c8 .c1 + .c9 .c1 {
+.c9 .c1 + .c10 .c1 {
   margin-top: 3px;
 }
 
@@ -268,7 +278,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
     aria-expanded={false}
     aria-haspopup="true"
     aria-label="Show more"
-    className="c1 c3"
+    className="c1 c3 c4"
     data-element="toggle-button"
     disabled={false}
     onBlur={[Function]}
@@ -279,7 +289,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
     size="medium"
   >
     <span
-      className="c4 c5"
+      className="c5 c6"
       data-component="icon"
       data-element="dropdown"
       disabled={false}

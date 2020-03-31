@@ -12,7 +12,7 @@
             "value": "OptionsHelper.buttonTypes"
           },
           "required": false,
-          "description": "Color variants for new business themes: \"primary\" | \"secondary\" | \"tertiary\" | \"destructive\" | \"darkBackground\""
+          "description": "Color variants for new business themes: \"primary\" | \"secondary\" | \"tertiary\" | \"darkBackground\""
         },
         "children": {
           "type": {
@@ -27,6 +27,17 @@
           },
           "required": false,
           "description": "Apply disabled state to the button",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "destructive": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Apply destructive style to the button",
           "defaultValue": {
             "value": "false",
             "computed": false
@@ -110,39 +121,56 @@
             "computed": false
           }
         },
-        "theme": {
-          "type": {
-            "name": "enum",
-            "computed": true,
-            "value": "OptionsHelper.buttonColors"
-          },
-          "required": false,
-          "description": "Set this prop to pass in legacy theme color variants",
-          "defaultValue": {
-            "value": "'blue'",
-            "computed": false
-          }
-        },
-        "checkTheme": {
-          "type": {
-            "name": "func"
-          },
-          "required": false,
-          "description": ""
-        },
         "href": {
           "type": {
             "name": "string"
           },
           "required": false,
-          "description": "Legacy - used to transfrom button into anchor"
+          "description": "Legacy - used to transform button into anchor"
         },
         "to": {
           "type": {
             "name": "string"
           },
           "required": false,
-          "description": "Legacy - used to transfrom button into anchor"
+          "description": "Legacy - used to transform button into anchor"
+        },
+        "styleOverride": {
+          "type": {
+            "name": "shape",
+            "value": {
+              "root": {
+                "name": "union",
+                "value": [
+                  {
+                    "name": "func"
+                  },
+                  {
+                    "name": "object"
+                  }
+                ],
+                "required": false
+              },
+              "icon": {
+                "name": "union",
+                "value": [
+                  {
+                    "name": "func"
+                  },
+                  {
+                    "name": "object"
+                  }
+                ],
+                "required": false
+              }
+            }
+          },
+          "required": false,
+          "description": "Allows override of existing component styles",
+          "defaultValue": {
+            "value": "{ root: {}, icon: {} }",
+            "computed": false
+          }
         }
       }
     },
@@ -154,6 +182,11 @@
     {
       "description": "",
       "displayName": "renderChildren",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "Button",
       "methods": []
     }
   ]
