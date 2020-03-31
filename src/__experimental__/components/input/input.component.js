@@ -102,13 +102,15 @@ Input.defaultProps = {
 function selectTextOnFocus(input) {
   // setTimeout is required so the dom has a chance to place the cursor in the input
   setTimeout(() => {
-    const { length } = input.current.value;
-    const cursorStart = input.current.selectionStart;
-    const cursorEnd = input.current.selectionEnd;
-    // only select text if cursor is at the very end or the very start of the value
-    if ((cursorStart === 0 && cursorEnd === 0) || (cursorStart === length && cursorEnd === length)) {
-      if (document.activeElement === input.current) {
-        input.current.setSelectionRange(0, length);
+    if (input.current) {
+      const { length } = input.current.value;
+      const cursorStart = input.current.selectionStart;
+      const cursorEnd = input.current.selectionEnd;
+      // only select text if cursor is at the very end or the very start of the value
+      if ((cursorStart === 0 && cursorEnd === 0) || (cursorStart === length && cursorEnd === length)) {
+        if (document.activeElement === input.current) {
+          input.current.setSelectionRange(0, length);
+        }
       }
     }
   });

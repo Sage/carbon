@@ -5,6 +5,9 @@ node_js: node
 branches:
   only:
   - master
+  - /^\d+\.x$/ # 1.x
+  - /^\d+\.x.x$/ # 1.x.x
+  - /^\d+\.\d+\.x$/ # 1.1.x
 
 addons:
    apt:
