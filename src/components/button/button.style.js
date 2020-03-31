@@ -35,8 +35,6 @@ export const StyledButtonSubtext = styled.span`
   font-size: 14px;
   font-weight: 400;
   display: block;
-
-  ${({ styleOverride }) => styleOverride}
 `;
 
 function additionalIconStyle({ iconType }) {
@@ -67,8 +65,6 @@ function stylingForType({
     }
     ${buttonTypes(theme, disabled, destructive)[buttonType]};
     ${buttonSizes(theme)[size]}
-
-    ${({ styleOverride }) => styleOverride}
   `;
 }
 

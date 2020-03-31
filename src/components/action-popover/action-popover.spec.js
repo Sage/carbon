@@ -45,16 +45,32 @@ describe('ActionPopover', () => {
     const defaultProps = {
       children: [
         <ActionPopoverItem
+          key='item-1'
           icon='pdf'
           { ...{ onClick: onClickWrapper('pdf') } }
           disabled
         >
           Download PDF
         </ActionPopoverItem>,
-        <ActionPopoverItem icon='email' { ...{ onClick: onClickWrapper('email') } }>Email Invoice</ActionPopoverItem>,
-        <ActionPopoverItem icon='print' { ...{ onClick: onClickWrapper('print') } }>Print Invoice</ActionPopoverItem>,
-        <ActionPopoverDivider />,
-        <ActionPopoverItem icon='csv' { ...{ onClick: onClickWrapper('csv') } }>Download CSV</ActionPopoverItem>,
+        <ActionPopoverItem
+          key='item-2'
+          icon='email' { ...{ onClick: onClickWrapper('email') } }
+        >
+          Email Invoice
+        </ActionPopoverItem>,
+        <ActionPopoverItem
+          key='item-3'
+          icon='print' { ...{ onClick: onClickWrapper('print') } }
+        >
+          Print Invoice
+        </ActionPopoverItem>,
+        <ActionPopoverDivider key='divider' />,
+        <ActionPopoverItem
+          key='item-4'
+          icon='csv' { ...{ onClick: onClickWrapper('csv') } }
+        >
+          Download CSV
+        </ActionPopoverItem>,
         null,
         undefined
       ],
@@ -96,6 +112,7 @@ describe('ActionPopover', () => {
     const defaultProps = {
       children: [
         <ActionPopoverItem
+          key='item-1'
           disabled
           icon='pdf'
           { ...{ onClick: onClickWrapper('pdf') } }
@@ -103,18 +120,26 @@ describe('ActionPopover', () => {
           Download PDF
         </ActionPopoverItem>,
         <ActionPopoverItem
+          key='item-2'
           icon='email'
           submenu={ submenu }
           { ...{ onClick: onClickWrapper('email') } }
         >
           Email Invoice
         </ActionPopoverItem>,
-        <ActionPopoverItem icon='print' { ...{ onClick: onClickWrapper('print') } }>Print Invoice</ActionPopoverItem>,
-        <ActionPopoverDivider />,
         <ActionPopoverItem
+          key='item-3'
+          icon='print' { ...{ onClick: onClickWrapper('print') } }
+        >
+          Print Invoice
+        </ActionPopoverItem>,
+        <ActionPopoverDivider key='divider' />,
+        <ActionPopoverItem
+          key='item-4'
           icon='csv'
           { ...{ onClick: onClickWrapper('csv') } }
-        >Download CSV
+        >
+          Download CSV
         </ActionPopoverItem>,
         null,
         undefined
@@ -782,6 +807,16 @@ describe('ActionPopover', () => {
         });
 
         expect(onClose).toHaveBeenCalledTimes(0);
+      });
+
+      it('removes focus from an item when clicked if it has no submenu', () => {
+        const { items } = getElements();
+        const item = items.at(2).getDOMNode();
+
+        act(() => {
+          item.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+          expect(item).not.toBeFocused();
+        });
       });
 
       it('returns focus back to parent item when submenu item clicked', () => {

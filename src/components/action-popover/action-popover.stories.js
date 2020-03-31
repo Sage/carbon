@@ -202,66 +202,77 @@ Classic.story = {
   }
 };
 
-const generateTableCells = (options, cols) => {
-  const cells = options.slice(0, cols - 1).map((cell, index) => <TableCell key={ String(index) }>{cell}</TableCell>);
-
-  if (cells.length === options.length) {
-    return cells;
-  }
-
-  const overflow = (
-    <TableCell>
-      <ActionPopover
-        rightAlignMenu
-        renderButton={ ({ styleOverride, tabIndex, ...rest }) => (
-          <Button
-            buttonType='tertiary'
-            iconType='dropdown'
-            iconPosition='after'
-            size='small'
-            tabIndex={ tabIndex }
-            styleOverride={ styleOverride }
-            date-element={ rest['data-element'] }
-          >
-              More
-          </Button>
-        )
-        }
-      >
-        {options.slice(cols - 1, options.length).map((opt, index) => {
-          return <ActionPopoverItem key={ String(index) } onClick={ action(opt) }>{opt}</ActionPopoverItem>;
-        })}
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={ action('manage services') }>Manage Services</ActionPopoverItem>
-      </ActionPopover>
-    </TableCell>
-  );
-  return [
-    ...cells,
-    overflow
-  ];
-};
-
-const options = ['Accounting', 'Payroll', 'Auto Entry', 'Corporation Tax', 'Final Accounts', 'VAT Centre'];
-
-export const ServicesColumn = () => (
-  <div style={ { marginTop: '40px', height: '275px', maxWidth: '400px' } }>
+export const StylesOverriden = () => (
+  <div style={ { marginTop: '40px', height: '275px', maxWidth: '800px' } }>
     <Table isZebra>
       <TableRow>
         <TableHeader colSpan='3'>Services</TableHeader>
       </TableRow>
       <TableRow>
-        {generateTableCells(options, 3)}
+        <TableCell>Accounting</TableCell>
+        <TableCell>Payroll</TableCell>
+        <TableCell>
+          <ActionPopover
+            rightAlignMenu
+            renderButton={ ({ styleOverride, tabIndex, ...rest }) => (
+              <Button
+                buttonType='tertiary'
+                iconType='dropdown'
+                iconPosition='after'
+                size='small'
+                tabIndex={ tabIndex }
+                styleOverride={ styleOverride }
+                date-element={ rest['data-element'] }
+              >
+                  More
+              </Button>
+            ) }
+          >
+            <ActionPopoverItem onClick={ action('auto entry') }>Auto Entry</ActionPopoverItem>
+            <ActionPopoverItem onClick={ action('corporation tax') }>Corporation Tax</ActionPopoverItem>
+            <ActionPopoverItem onClick={ action('final accounts') }>Final Accounts</ActionPopoverItem>
+            <ActionPopoverItem onClick={ action('vat centre') }>VAT Centre</ActionPopoverItem>
+            <ActionPopoverDivider />
+            <ActionPopoverItem onClick={ action('manage services') }>Manage Services</ActionPopoverItem>
+          </ActionPopover>
+        </TableCell>
       </TableRow>
       <TableRow>
-        {generateTableCells(options, 3)}
+        <TableCell>Accounting</TableCell>
+        <TableCell>Payroll</TableCell>
+        <TableCell>
+          <ActionPopover
+            rightAlignMenu
+            renderButton={ ({ styleOverride, tabIndex, ...rest }) => (
+              <Button
+                buttonType='tertiary'
+                iconType='dropdown'
+                iconPosition='after'
+                size='small'
+                tabIndex={ tabIndex }
+                styleOverride={ styleOverride }
+                date-element={ rest['data-element'] }
+              >
+                  More
+              </Button>
+            ) }
+          >
+            <ActionPopoverItem onClick={ action('auto entry') }>Auto Entry</ActionPopoverItem>
+            <ActionPopoverItem onClick={ action('corporation tax') }>Corporation Tax</ActionPopoverItem>
+            <ActionPopoverItem onClick={ action('final accounts') }>Final Accounts</ActionPopoverItem>
+            <ActionPopoverItem onClick={ action('vat centre') }>VAT Centre</ActionPopoverItem>
+            <ActionPopoverDivider />
+            <ActionPopoverItem onClick={ action('manage services') }>Manage Services</ActionPopoverItem>
+          </ActionPopover>
+        </TableCell>
       </TableRow>
     </Table>
   </div>
 );
 
-ServicesColumn.story = {
-  name: 'services column',
+
+StylesOverriden.story = {
+  name: 'styles overriden',
   parameters: {
     themeSelector: dlsThemeSelector
   }
