@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import invariant from 'invariant';
 import StyledSearch, { StyledSearchButton, StyledButtonIcon } from './search.style';
@@ -15,9 +15,8 @@ const Search = ({
     typeof initialValue === 'string',
     'This component has no initial value'
   );
-  let inputRef = useRef(null);
   const [searchValue, setSearchValue] = useState(initialValue);
-  const [isFocused, setIsFocused] = useState(inputRef.current === document.activeElement);
+  const [isFocused, setIsFocused] = useState(false);
   const [searchIsActive, setSearchIsActive] = useState(initialValue.length >= threshold);
 
   const iconType = useMemo(() => {
@@ -98,7 +97,6 @@ const Search = ({
         { ...rest }
         placeholder={ placeholder }
         value={ searchValue }
-        inputRef={ (el) => { inputRef = el; } }
         inputIcon={ iconType }
         iconOnClick={ handleIconClick }
       />
