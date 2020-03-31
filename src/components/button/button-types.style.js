@@ -54,6 +54,20 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
        ${makeColors(colors.white)}
       }
 
+      ${destructive ? `
+        border-color: ${colors.error};
+        ${makeColors(colors.error)}
+        &:focus {
+          ${makeColors(colors.white)}
+          background: ${colors.destructive.hover};
+        }
+        &:hover {
+          ${makeColors(colors.white)}
+          border-color: ${colors.destructive.hover};
+          background: ${colors.destructive.hover};
+        }
+      ` : ''}
+
       ${isDisabled ? `
         border-color: ${disabled.button};
         color: ${disabled.text};
@@ -71,6 +85,13 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
     &:hover {
       ${makeColors(colors.secondary)}
     }
+
+    ${destructive ? `
+      ${makeColors(colors.error)}
+      &:hover {
+        ${makeColors(colors.destructive.hover)}
+      }
+      ` : ''}
 
     ${isDisabled ? `
       color: ${disabled.text};

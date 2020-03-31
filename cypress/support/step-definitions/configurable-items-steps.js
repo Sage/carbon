@@ -22,10 +22,3 @@ Then('Grouped character component label Inline is enabled', () => {
     .and('have.css', 'padding-right', '11px')
     .and('have.css', 'text-align', 'left');
 });
-
-Then('Grouped character component label Inline is enabled for classic story', () => {
-  label().should('have.css', 'box-sizing', 'border-box')
-    .and('have.css', 'padding-bottom', '0px')
-    .and('have.css', 'padding-right', '8px')
-    .and('have.css', 'text-align', 'left');
-});

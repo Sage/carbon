@@ -40,7 +40,6 @@ Feature: Button as a sibling component
       | primary        | rgb(255, 255, 255) | rgb(0, 128, 93)    |
       | secondary      | rgb(0, 128, 93)    | rgba(0, 0, 0, 0)   |
       | tertiary       | rgb(0, 128, 93)    | rgba(0, 0, 0, 0)   |
-      | destructive    | rgb(255, 255, 255) | rgb(199, 56, 79)   |
       | darkBackground | rgb(0, 128, 93)    | rgb(255, 255, 255) |
 
   @positive

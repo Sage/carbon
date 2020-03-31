@@ -1,5 +1,5 @@
-Feature: Navigation Bar component
-  I want to change Navigation Bar component properties
+Feature: Navigation Bar default component
+  I want to test Navigation Bar default component properties
 
   Background: Open Navigation Bar component page
     Given I open "Navigation Bar" component page
@@ -18,7 +18,7 @@ Feature: Navigation Bar component
       # @ignore because of FE-1447
       # | <>                       |
 
-@positive
+  @positive
   Scenario Outline: Change as property of Navigation Bar component to <asProperty>
     When I select as to "<asProperty>"
     Then Navigation Bar as on preview is "<asProperty>"

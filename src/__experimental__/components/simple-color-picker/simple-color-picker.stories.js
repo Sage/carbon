@@ -30,7 +30,7 @@ function makeStory(storyName, themeSelector) {
     const name = text('name', 'basicPicker');
     const legend = text('legend', 'Pick a colour');
     const demoColors = [
-      { color: '#00A376', label: 'green' },
+      { color: 'transparent', label: 'transparent' },
       { color: '#0073C1', label: 'blue' },
       { color: '#582C83', label: 'purple' },
       { color: '#E96400', label: 'orange' },
