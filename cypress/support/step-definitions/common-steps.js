@@ -476,43 +476,10 @@ Then('{string} tab in {string} tab list is visible', (knobsName, position) => {
   }
 });
 
-When('I press ESC on focused element', () => {
-  cy.focused().trigger('keydown', { keyCode: 16, which: 16, release: false });
-  cy.focused().trigger('keydown', { keyCode: 27, which: 27 });
-});
-
-When('I press Tab on focused element', () => {
-  cy.focused().trigger('keydown', { keyCode: 9, which: 9 });
-});
-
-When('I press Home on focused element', () => {
-  cy.focused().trigger('keydown', { keyCode: 36, which: 36 });
-});
-
-When('I press uparrow on focused element', () => {
-  cy.focused().trigger('keydown', { keyCode: 38, which: 38 });
-});
-
-When('I press leftarrow on focused element', () => {
-  cy.focused().trigger('keydown', { keyCode: 37, which: 37 });
-});
-
 When('I press keyboard downarrow key times {int}', (times) => {
   for (let i = 0; i < times; i++) {
     cy.focused().trigger('keydown', { keyCode: 40, which: 40 });
   }
-});
-
-When('I press End on focused element', () => {
-  cy.focused().trigger('keydown', { keyCode: 35, which: 35 });
-});
-
-When('I press Enter on focused element', () => {
-  cy.focused().trigger('keydown', { keyCode: 13, which: 13 });
-});
-
-When('I press ArrowRight on focused element', () => {
-  cy.focused().trigger('keydown', { keyCode: 39, which: 39 });
 });
 
 When('I press {string} onto focused element', (arrow) => {
@@ -523,19 +490,37 @@ When('I press {string} onto focused element', (arrow) => {
     case 'uparrow':
       cy.focused().trigger('keydown', { keyCode: 38, which: 38 });
       break;
+    case 'leftarrow':
+      cy.focused().trigger('keydown', { keyCode: 37, which: 37 });
+      break;
+    case 'rightarrow':
+      cy.focused().trigger('keydown', { keyCode: 39, which: 39 });
+      break;
     case 'enter':
       cy.focused().trigger('keydown', { keyCode: 13, which: 13 });
       break;
     case 'space':
       cy.focused().trigger('keydown', { keyCode: 32, which: 32 });
       break;
-    default: throw new Error(`This key ${arrow} is not one of the arrow ones`);
+    case 'ESC':
+      cy.focused().trigger('keydown', { keyCode: 16, which: 16, release: false });
+      cy.focused().trigger('keydown', { keyCode: 27, which: 27 });
+      break;
+    case 'Tab':
+      cy.focused().trigger('keydown', { keyCode: 9, which: 9 });
+      break;
+    case 'ShiftTab':
+      cy.focused().trigger('keydown', { keyCode: 16, which: 16, release: false });
+      cy.focused().trigger('keydown', { keyCode: 9, which: 9 });
+      break;
+    case 'Home':
+      cy.focused().trigger('keydown', { keyCode: 36, which: 36 });
+      break;
+    case 'End':
+      cy.focused().trigger('keydown', { keyCode: 35, which: 35 });
+      break;
+    default: throw new Error(`This key ${arrow} is not one of the allowed`);
   }
-});
-
-When('I press ShiftTab on focused element', () => {
-  cy.focused().trigger('keydown', { keyCode: 16, which: 16, release: false });
-  cy.focused().trigger('keydown', { keyCode: 9, which: 9 });
 });
 
 Then('focused element inner content is set to {string}', (text) => {
