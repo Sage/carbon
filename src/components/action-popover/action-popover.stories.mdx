@@ -103,6 +103,38 @@ ActionPopoverItem&apos;s can be disabled and will not dispatch an action but can
   </Story>
 </Preview>
 
+It is possible to align the Menu to the right of the MenuButton by passing the &quot;rightAlignMenu&quot; to ActionPopover
+<Preview>
+  <Story name="with menu right aligned" parameters={{ info: { disable: true }}}>
+    <div style={{ height: '250px' }}>
+    <Table>
+      <TableRow>
+        <TableHeader>First Name</TableHeader>
+        <TableHeader>Last Name</TableHeader>
+        <TableHeader>&nbsp;</TableHeader>
+      </TableRow>
+      <TableRow>
+        <TableCell>John</TableCell>
+        <TableCell>Doe</TableCell>
+        <TableCell>
+          <ActionPopover rightAlignMenu>
+            <ActionPopoverItem
+              icon='email'
+              disabled
+              onClick={() => {}}
+            >
+              Email Invoice
+            </ActionPopoverItem>
+            <ActionPopoverDivider />
+            <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+          </ActionPopover>
+        </TableCell>
+      </TableRow>
+    </Table>
+    </div>
+  </Story>
+</Preview>
+
 Menu items can also be displayed without icons.
 <Preview>
   <Story name="with no icons" parameters={{ info: { disable: true }}}>
