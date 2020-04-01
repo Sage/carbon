@@ -33,9 +33,10 @@ describe('ColorSampleBox', () => {
     wrapper = renderStyles({ color: 'transparent' });
     assertStyleMatch(
       {
-        backgroundColor: 'transparent',
-        // eslint-disable-next-line max-len
-        background: 'conic-gradient(#fff 0deg ,#fff 90deg, grey 90deg,grey 180deg, #fff 180deg,#fff 270deg, grey 270deg,grey 360deg) 0 0/25% 25%'
+        backgroundColor: '#EEEEEE',
+        backgroundImage: 'url()',
+        backgroundSize: '14px 14px',
+        backgroundPosition: '-2px -2px'
       },
       wrapper.toJSON()
     );

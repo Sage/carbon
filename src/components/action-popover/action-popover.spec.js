@@ -209,6 +209,16 @@ describe('ActionPopover', () => {
     }).not.toThrow();
   });
 
+  it('opens with the menu left position assigned so it is to right of the button if the "rightAlignMenu" prop is true',
+    () => {
+      render({ rightAlignMenu: true });
+      const { menu } = getElements();
+      assertStyleMatch({
+        right: undefined,
+        left: '0'
+      }, menu);
+    });
+
   describe.each([
     ['Click handlers', 'Clicking', item => item.simulate('click')],
     ['Keypress handlers', 'Pressing Enter', item => simulate.keydown.pressEnter(item)]

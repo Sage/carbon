@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import colorSampleBoxClassicStyle from './color-sample-box-classic.style';
+import checkerBoardSvg from './checker-board.svg';
 
 const StyledColorSampleBox = styled.div`
   height: 100%;
@@ -10,14 +11,16 @@ const StyledColorSampleBox = styled.div`
   align-items: center;
   justify-content: center;
   border: 2px solid transparent;
-  background-color: ${({ color }) => color};
+
+  ${({ color }) => color !== 'transparent' && css`
+    background-color: ${color};
+  `}
 
   ${({ color }) => color === 'transparent' && css`
-    background: conic-gradient(#fff 0deg ,#fff 90deg,
-                grey 90deg,grey 180deg,
-                #fff 180deg,#fff 270deg,
-                grey 270deg,grey 360deg)
-                0 0/25% 25%;
+    background-color: #EEEEEE;
+    background-image: url(${checkerBoardSvg});
+    background-size: 14px 14px;
+    background-position: -2px -2px;
   `}
 
   ${colorSampleBoxClassicStyle}

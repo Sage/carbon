@@ -13,7 +13,7 @@ import ActionPopoverItem from './action-popover-item.component';
 import ActionPopoverDivider from './action-popover-divider.component';
 
 const ActionPopover = ({
-  children, id, onOpen, onClose, ...rest
+  children, id, onOpen, onClose, rightAlignMenu, ...rest
 }) => {
   const [isOpen, setOpenState] = useState(false);
   const [focusIndex, setFocusIndex] = useState(0);
@@ -84,7 +84,8 @@ const ActionPopover = ({
     items,
     menuID,
     isOpen,
-    setOpen
+    setOpen,
+    rightAlignMenu
   };
 
   return (
@@ -121,6 +122,8 @@ ActionPopover.propTypes = {
   onOpen: PropTypes.func,
   /** Callback to be called on menu close */
   onClose: PropTypes.func,
+  /** Boolean to control whether menu should align to right */
+  rightAlignMenu: PropTypes.bool,
   /** Children for popover component */
   children (props, propName, componentName) {
     let error;

@@ -112,6 +112,9 @@ describe('Input', () => {
   });
 
   describe('select text on focus', () => {
+    afterEach(() => {
+      jest.useRealTimers();
+    });
     const focusWith = (value, leftPos, rightPos) => {
       jest.useFakeTimers();
       const wrapper = renderMount({ value });
@@ -139,6 +142,14 @@ describe('Input', () => {
     it('does not select the text if focus is applied inside of the value', () => {
       const inputElement = focusWith('hello', 4, 4);
       expect(inputElement.setSelectionRange).not.toHaveBeenCalled();
+    });
+
+    it('should not break when unmounted right after receiving focus', () => {
+      jest.useFakeTimers();
+      const wrapper = renderMount();
+      wrapper.find('input').simulate('focus');
+      wrapper.unmount();
+      jest.runAllTimers();
     });
   });
 
