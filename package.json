@@ -153,7 +153,7 @@
     "invariant": "^2.0.0",
     "lodash": "^4.17.11",
     "marked": "^0.7.0",
-    "mocha": "^6.2.2",
+    "mocha": "^7.1.1",
     "mocha-allure-reporter": "^1.4.0",
     "moment": "~2.20.1",
     "prop-types": "^15.5.8",
