@@ -1,6 +1,7 @@
-import React from 'react';
-import { boolean, withKnobs } from '@storybook/addon-knobs';
+import React, { useState } from 'react';
+import { boolean, withKnobs, select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import {
   FlatTable,
   FlatTableHead,
@@ -8,7 +9,8 @@ import {
   FlatTableRow,
   FlatTableHeader,
   FlatTableRowHeader,
-  FlatTableCell
+  FlatTableCell,
+  Sort
 } from '.';
 import guid from '../../utils/helpers/guid';
 
@@ -22,6 +24,7 @@ export const basic = () => {
   const hasStickyHead = boolean('hasStickyHead', false);
   const hasHeaderRow = boolean('hasHeaderRow', false);
   const hasClickableRows = boolean('hasClickableRows', false);
+  const colorTheme = select('colorTheme', [...OptionsHelper.flatTableThemes], 'dark');
   const processed = getTableData();
   // used to show how the table behaves constrained or on lower resolutions
   const tableSizeConstraints = {
@@ -47,7 +50,10 @@ export const basic = () => {
 
   return (
     <div style={ tableSizeConstraints }>
-      <FlatTable hasStickyHead={ hasStickyHead }>
+      <FlatTable
+        colorTheme={ colorTheme }
+        hasStickyHead={ hasStickyHead }
+      >
         <FlatTableHead>
           <FlatTableRow key={ processed.headData.id }>
             {
@@ -68,12 +74,12 @@ export const basic = () => {
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>
-          { rowWithInputs }
+          {rowWithInputs}
           {
             processed.bodyData.map(rowData => (
               <FlatTableRow key={ rowData.id } onClick={ onClickFn }>
                 {
-                  rowData.data.map((cellData, index) => {
+                  rowData.bodyData.map((cellData, index) => {
                     let Component = FlatTableCell;
 
                     if (index === 0 && hasHeaderRow) {
@@ -82,7 +88,7 @@ export const basic = () => {
 
                     return (
                       <Component key={ cellData.id } align={ cellData.align }>
-                        { cellData.content }
+                        {cellData.content}
                       </Component>
                     );
                   })
@@ -94,6 +100,148 @@ export const basic = () => {
       </FlatTable>
     </div>
   );
+};
+
+export const Sortable = () => {
+  const colorTheme = select('colorTheme', [...OptionsHelper.flatTableThemes], 'dark');
+
+  const headDataItems = [
+    { name: 'client', isActive: false },
+    { name: 'total', isActive: false }
+  ];
+
+  const bodyDataItems = [
+    { client: 'Jason Atkinson', total: 1349 },
+    { client: 'Monty Parker', total: 849 },
+    { client: 'Blake Sutton', total: 3840 },
+    { client: 'Tyler Webb', total: 280 }
+  ];
+
+  const [headData, setHeadData] = useState(headDataItems);
+  const [sortType, setSortType] = useState('asc');
+  const [sortValue, setSortValue] = useState();
+
+  const sortByNumber = (dataToSort, sortByValue, type) => {
+    const sortedData = dataToSort.sort((a, b) => {
+      if (type === 'asc') {
+        return a[sortByValue] - b[sortByValue];
+      }
+
+      if (type === 'desc') {
+        return b[sortByValue] - a[sortByValue];
+      }
+
+      return 0;
+    });
+
+    return sortedData;
+  };
+
+  const sortByString = (dataToSort, sortByValue, type) => {
+    const sortedData = dataToSort.sort((a, b) => {
+      const nameA = a[sortByValue].toUpperCase();
+      const nameB = b[sortByValue].toUpperCase();
+
+      if (type === 'asc') {
+        if (nameA < nameB) {
+          return -1;
+        }
+
+        if (nameA > nameB) {
+          return 1;
+        }
+      }
+
+      if (type === 'desc') {
+        if (nameA > nameB) {
+          return -1;
+        }
+
+        if (nameA < nameB) {
+          return 1;
+        }
+      }
+
+      return 0;
+    });
+
+    return sortedData;
+  };
+
+
+  const handleClick = (value) => {
+    const tempHeadData = headData;
+
+    tempHeadData.forEach((item) => {
+      item.isActive = false;
+      if (item.name === value) {
+        item.isActive = !item.isActive;
+      }
+    });
+
+    setSortValue(value);
+    setSortType(sortType === 'asc' ? 'desc' : 'asc');
+    setHeadData([...tempHeadData]);
+  };
+
+  const renderSortedData = (sortByValue) => {
+    let sortedData = bodyDataItems;
+
+    if (typeof bodyDataItems[0][sortByValue] === 'string') {
+      sortedData = sortByString(sortedData, sortByValue, sortType);
+    }
+
+    if (typeof bodyDataItems[0][sortByValue] === 'number') {
+      sortedData = sortByNumber(sortedData, sortByValue, sortType);
+    }
+
+    return (
+      sortedData.map((dataItem) => {
+        return (
+          <FlatTableRow key={ dataItem.client }>
+            <FlatTableCell>{dataItem.client}</FlatTableCell>
+            <FlatTableCell>{dataItem.total}</FlatTableCell>
+          </FlatTableRow>
+        );
+      })
+    );
+  };
+
+  return (
+    <FlatTable colorTheme={ colorTheme }>
+      <FlatTableHead>
+        <FlatTableRow>
+          {
+            headData.map((dataItem) => {
+              return (
+                <FlatTableHeader key={ dataItem.name }>
+                  <Sort
+                    onClick={ () => handleClick(dataItem.name) }
+                    sortType={ dataItem.isActive && sortType }
+                  >
+                    {dataItem.name}
+                  </Sort>
+                </FlatTableHeader>
+              );
+            })
+          }
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        {renderSortedData(sortValue)}
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
+
+Sortable.story = {
+  name: 'Sortable',
+  parameters: {
+    info: { disable: true },
+    docs: {
+      page: null
+    }
+  }
 };
 
 basic.story = {
@@ -135,7 +283,7 @@ function getRowWithInputs(onClickFn, hasHeaderRow) {
 
   return (
     <FlatTableRow key='rowWithInputs' onClick={ onClickFn }>
-      { firstRow }
+      {firstRow}
       <FlatTableCell><input /></FlatTableCell>
       <FlatTableCell><input /></FlatTableCell>
       <FlatTableCell><input /></FlatTableCell>
@@ -170,7 +318,7 @@ function processJsonData({ labels, clients }) {
     bodyData: clients.map((row) => {
       return {
         id: guid(),
-        data: processRowData(row, 'cell')
+        bodyData: processRowData(row, 'cell')
       };
     })
   };

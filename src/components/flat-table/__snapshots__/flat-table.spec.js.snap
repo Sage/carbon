@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FlatTable when rendered with proper table data should have expected structure and styles 1`] = `
-.c6 {
+.c8 {
   background-color: transparent;
   border-width: 0;
   border-bottom: 1px solid #CCD6DA;
@@ -19,7 +19,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
   white-space: nowrap;
 }
 
-.c5 {
+.c6 {
   background-color: #fff;
   border: 1px solid #CCD6DA;
   border-top: none;
@@ -35,7 +35,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
   white-space: nowrap;
 }
 
-.c2 .c4 {
+.c3 .c5 {
   border-left: none;
   border-right: none;
   font-weight: 700;
@@ -49,6 +49,13 @@ exports[`FlatTable when rendered with proper table data should have expected str
   height: 100%;
 }
 
+.c0 .c7,
+.c0 .c2 .c5 {
+  background-color: #335B6D;
+  border-right: 1px solid #668491;
+  color: #FFFFFF;
+}
+
 .c1 {
   border-collapse: separate;
   border-radius: 0px;
@@ -59,7 +66,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
   word-break: break-all;
 }
 
-.c7 {
+.c9 {
   background-color: #fff;
   border-width: 0;
   border-bottom: 1px solid #CCD6DA;
@@ -71,15 +78,15 @@ exports[`FlatTable when rendered with proper table data should have expected str
   white-space: nowrap;
 }
 
-.c7:first-of-type {
+.c9:first-of-type {
   border-left: 1px solid #CCD6DA;
 }
 
-.c7:last-of-type {
+.c9:last-of-type {
   border-right: 1px solid #CCD6DA;
 }
 
-.c3 {
+.c4 {
   border-collapse: separate;
   border-radius: 0px;
   border-spacing: 0;
@@ -97,26 +104,26 @@ exports[`FlatTable when rendered with proper table data should have expected str
     data-component="flat-table"
   >
     <thead
-      className="c2"
+      className="c2 c3"
     >
       <tr
-        className="c3"
+        className="c4"
         data-element="flat-table-row"
       >
         <th
-          className="c4 c5"
+          className="c5 c6"
           data-element="flat-table-row-header"
         >
           row header
         </th>
         <th
-          className="c6"
+          className="c7 c8"
           data-element="flat-table-header"
         >
           header1
         </th>
         <th
-          className="c6"
+          className="c7 c8"
           data-element="flat-table-header"
         >
           header2
@@ -125,23 +132,23 @@ exports[`FlatTable when rendered with proper table data should have expected str
     </thead>
     <tbody>
       <tr
-        className="c3"
+        className="c4"
         data-element="flat-table-row"
       >
         <th
-          className="c4 c5"
+          className="c5 c6"
           data-element="flat-table-row-header"
         >
           row header
         </th>
         <td
-          className="c7"
+          className="c9"
           data-element="flat-table-cell"
         >
           cell1
         </td>
         <td
-          className="c7"
+          className="c9"
           data-element="flat-table-cell"
         >
           cell2

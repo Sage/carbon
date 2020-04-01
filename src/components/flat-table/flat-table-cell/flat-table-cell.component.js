@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import OptionsHelper from '../../../utils/helpers/options-helper';
 import StyledFlatTableCell from './flat-table-cell.style';
 
 const FlatTableCell = ({ align, children }) => {
@@ -13,7 +12,7 @@ const FlatTableCell = ({ align, children }) => {
 
 FlatTableCell.propTypes = {
   /** Content alignment */
-  align: PropTypes.oneOf(OptionsHelper.alignFull),
+  align: PropTypes.oneOf(['center', 'left', 'right']),
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.string])
 };
 
