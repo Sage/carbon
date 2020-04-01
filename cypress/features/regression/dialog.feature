@@ -106,8 +106,7 @@ Feature: Dialog component
     When I uncheck enableBackgroundUI checkbox
     Then Background UI is disabled
 
-  @ignore
-  # ignored regression
+  @positive
   Scenario: Disable escape key
     Given I check disableEscKey checkbox
     When I hit ESC key
