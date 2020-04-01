@@ -530,7 +530,9 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
               [Function],
               ";
   position: absolute;
-  right: 0;
+  ",
+              [Function],
+              "
   background-color: ",
               [Function],
               ";
@@ -1273,7 +1275,9 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
               [Function],
               ";
   position: absolute;
-  right: 0;
+  ",
+              [Function],
+              "
   background-color: ",
               [Function],
               ";
@@ -1763,7 +1767,9 @@ exports[`ActionPopover submenu left aligned does not close the submenu unless ri
               [Function],
               ";
   position: absolute;
-  right: 0;
+  ",
+              [Function],
+              "
   background-color: ",
               [Function],
               ";
@@ -2595,7 +2601,9 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
               [Function],
               ";
   position: absolute;
-  right: 0;
+  ",
+              [Function],
+              "
   background-color: ",
               [Function],
               ";
@@ -3338,7 +3346,9 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
               [Function],
               ";
   position: absolute;
-  right: 0;
+  ",
+              [Function],
+              "
   background-color: ",
               [Function],
               ";
@@ -4081,7 +4091,9 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
               [Function],
               ";
   position: absolute;
-  right: 0;
+  ",
+              [Function],
+              "
   background-color: ",
               [Function],
               ";
@@ -4824,7 +4836,9 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
               [Function],
               ";
   position: absolute;
-  right: 0;
+  ",
+              [Function],
+              "
   background-color: ",
               [Function],
               ";

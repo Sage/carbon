@@ -4,6 +4,7 @@ import { StyledFormFooter } from '../../__deprecated__/components/form/form.styl
 import StyledIconButton from '../icon-button/icon-button.style';
 
 const dialogSizes = {
+  auto: 'auto',
   'extra-small': '300px',
   small: '380px',
   'medium-small': '540px',

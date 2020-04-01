@@ -15,7 +15,7 @@ const Menu = styled.div`
   padding: ${({ theme }) => `${theme.spacing}px 0`};
   box-shadow: ${({ theme }) => theme.shadows.depth1};
   position: absolute;
-  right: 0;
+  ${({ rightAlignMenu }) => (rightAlignMenu ? 'left: 0;' : 'right: 0;')}
   background-color: ${({ theme }) => theme.colors.white};
   z-index: 1;
 

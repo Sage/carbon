@@ -31,10 +31,11 @@
   "moduleFileExtensions": [
     "ts",
     "tsx",
-    "js", 
+    "js",
     "jsx"
   ],
   "transform": {
-    "^.+\\.(js|jsx|ts|tsx)$": "babel-jest"
+    "^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
+    "^.+\\.svg$": "<rootDir>/svgTransform.js"
   }
 }

@@ -19,11 +19,11 @@ Feature: Accordion grouped component
   @positive
   Scenario: Navigate to the last grouped accordion row using End key
     Given I focus first accordionRow
-    When I press End on focused element
+    When I press "End" onto focused element
     Then Accordion 2 row is focused
 
   @positive
   Scenario: Navigate to the first grouped accordion row using Home key
     Given I focus last accordionRow
-    When I press Home on focused element
+    When I press "Home" onto focused element
     Then Accordion 0 row is focused
