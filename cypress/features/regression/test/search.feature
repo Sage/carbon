@@ -52,6 +52,13 @@ Feature: Search component
       And Search component input has golden border
 
   @positive
+  Scenario: Verify inner elements in Search component after clearing the input
+    Given I uncheck searchButton checkbox
+      And Type "Search" text into search input
+    When I click on cross icon
+    Then Search component has input and "search" as icon
+
+  @positive
   Scenario: Verify golden outline for search icon
     Given Type "Sea" text into search input
     When I click onto search icon

@@ -2,10 +2,12 @@ import React, { useEffect } from 'react';
 import { mount } from 'enzyme';
 import focusTrap from './focus-trap';
 
+jest.useFakeTimers();
+
 // eslint-disable-next-line
-const TestComponent = ({ children }) => {
+const TestComponent = ({ children, focusFirstElement }) => {
   useEffect(() => {
-    const removeFocusTrap = focusTrap(document.getElementById('myComponent'));
+    const removeFocusTrap = focusTrap(document.getElementById('myComponent'), focusFirstElement);
 
     return () => removeFocusTrap();
   });
@@ -27,6 +29,51 @@ describe('focusTrap', () => {
   const shiftKey = new KeyboardEvent('keydown', { shiftKey: true });
   const shiftTabKey = new KeyboardEvent('keydown', { keyCode: 9, shiftKey: true });
   const otherKey = new KeyboardEvent('keydown', { keyCode: 32 });
+
+  describe('and element has callback function for focus', () => {
+    let wrapper, onFocus;
+
+    beforeEach(() => {
+      onFocus = jest.fn();
+      wrapper = mount(
+        <TestComponent focusFirstElement={ onFocus }>
+          <button type='button'>Test button One</button>
+          <button type='button'>Test button Two</button>
+        </TestComponent>,
+        { attachTo: htmlElement }
+      );
+    });
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
+
+    it('should focus first focusable item', () => {
+      expect(document.activeElement).toMatchObject(wrapper.find('button').at(0));
+      document.dispatchEvent(shiftTabKey);
+      document.dispatchEvent(shiftTabKey);
+      expect(document.activeElement).toMatchObject(wrapper.find('button').at(0));
+    });
+
+    it('should focus second focusable item', () => {
+      expect(document.activeElement).toMatchObject(wrapper.find('button').at(0));
+      document.dispatchEvent(shiftTabKey);
+      expect(document.activeElement).toMatchObject(wrapper.find('button').at(1));
+    });
+
+    it('should go to the second item when use TAB', () => {
+      expect(document.activeElement).toMatchObject(wrapper.find('button').at(0));
+      document.dispatchEvent(tabKey);
+      expect(document.activeElement).toMatchObject(wrapper.find('button').at(1));
+    });
+
+    it('should move to the first focusable item if TAB pressed on last focusable item', () => {
+      document.querySelectorAll('button')[1].focus();
+      expect(document.activeElement).toMatchObject(wrapper.find('button').at(1));
+      document.dispatchEvent(tabKey);
+      expect(document.activeElement).toMatchObject(wrapper.find('button').at(0));
+    });
+  });
 
   describe('when focusTrap is used to an element', () => {
     describe('and element has focusable items inside', () => {
