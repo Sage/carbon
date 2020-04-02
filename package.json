@@ -87,7 +87,7 @@
     "@types/react-dom": "16.0.11",
     "babel-eslint": "10.0.1",
     "babel-jest": "24.9.0",
-    "babel-standalone": "~6.17.0",
+    "babel-standalone": "~6.26.0",
     "carbon-state-management": "^1.0.0",
     "commitizen": "^4.0.3",
     "conventional-changelog-conventionalcommits": "^4.2.3",
