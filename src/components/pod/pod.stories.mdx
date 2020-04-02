@@ -1,0 +1,44 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import Pod from './';
+import Heading from '../heading';
+import Button from '../button';
+
+<Meta
+  title="Design System/Pod"
+  parameters={{ info: { disable: true }}}
+/>
+
+### Address pod
+<Preview>
+  <Story name="address example">
+    <Pod
+      internalEditButton
+      podType='tertiary'
+    >
+      <h5 style={ { margin: 0 } }>Unit 1</h5>
+      <div>South Nelson Industrial Estate</div>
+      <div>Cramlington</div>
+      <div>NE23 1WF</div>
+      <div>United Kingdom</div>
+      <div style={ { fontWeight: 900, borderTop: '1px solid #ccd6db', marginTop: '15px', paddingTop: '5px' } }>
+        <Button 
+          buttonType='tertiary'
+          size='small'
+          styleOverride={{
+            root: {
+              paddingLeft: 0,
+              paddingRight: 0
+            }
+          }}
+        >Select a different address</Button>
+      </div>
+      <div style={ { position: 'absolute', right: '8px', top: '8px' } }>
+        <Button 
+          buttonType='tertiary'
+          size='small'
+          iconType='edit'
+          iconPosition='after'>Edit</Button>
+      </div>
+    </Pod>
+  </Story>
+</Preview>
