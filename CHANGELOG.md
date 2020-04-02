@@ -1,3 +1,10 @@
+## [16.6.0](https://github.com/Sage/carbon/compare/v16.5.2...v16.6.0) (2020-04-02)
+
+
+### Features
+
+* **select:** value added to customFilter option ([0048bc2](https://github.com/Sage/carbon/commit/0048bc2e04c024b2833e8fa41649d27900e4bd33)), closes [#2697](https://github.com/Sage/carbon/issues/2697)
+
 ### [16.5.2](https://github.com/Sage/carbon/compare/v16.5.1...v16.5.2) (2020-04-01)
 
 

@@ -56,9 +56,9 @@ class SelectList extends React.Component {
    */
   highlightMatches = (optionText, value) => {
     if (!value.length || !optionText) return optionText;
-
     const parsedOptionText = optionText.toLowerCase();
-    const valIndex = parsedOptionText.indexOf(value);
+    const parsedValue = value.toLowerCase();
+    const valIndex = parsedOptionText.indexOf(parsedValue);
 
     if (valIndex === -1) {
       return optionText;
@@ -152,7 +152,7 @@ SelectList.propTypes = {
   alwaysHighlight: PropTypes.bool,
   /** Child components (such as <Option>) for the <ScrollableList> */
   children: PropTypes.node,
-  /** A custom function to filter the children. Its interface is (text, value) => boolean */
+  /** A custom function to filter the children. Its interface is (text, filter, value) => boolean */
   customFilter: PropTypes.func,
   /** The value to filter the children by */
   filterValue: PropTypes.string,

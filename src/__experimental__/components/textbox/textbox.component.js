@@ -77,6 +77,7 @@ Textbox.propTypes = {
   /** The value of the Textbox */
   value: PropTypes.oneOfType([
     PropTypes.string,
+    PropTypes.object,
     PropTypes.array // Allows the textbox to be used in the Multi-Select component
   ]),
   /** The unformatted value  */
