@@ -10,16 +10,16 @@ const info = (
     <p>Import the component:</p>
 
     <StoryCode padded>
-      {'import Loader from "carbon-react/lib/components/loader"'}
+      import Loader from &quot;carbon-react/lib/components/loader&quot;
     </StoryCode>
 
     <p>
-      You can pass a <StoryCode> {'size'} </StoryCode> property to adjust the size of the loader.
+      You can pass a <StoryCode> size </StoryCode> property to adjust the size of the loader.
       Small is the default value.
     </p>
 
     <p>
-      You can set <StoryCode> {'isInsideButton'} </StoryCode> property to <StoryCode> {'true'} </StoryCode> to
+      You can set <StoryCode> isInsideButton </StoryCode> property to <StoryCode> true </StoryCode> to
       apply white color and use the component inside a button.
     </p>
   </div>

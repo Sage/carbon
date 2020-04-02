@@ -119,7 +119,8 @@ function makeStory(name, themeSelector) {
       <div>
         {getCard(knobs)}
         {getSmallCard(knobs)}
-      </div>);
+      </div>
+    );
   };
 
   const metadata = {

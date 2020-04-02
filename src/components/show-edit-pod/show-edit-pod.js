@@ -122,7 +122,8 @@ class ShowEditPod extends React.Component {
           timeout={ { enter: 300, exit: 50 } }
         >
           <div key='edit'>{this.editContent()}</div>
-        </CSSTransition>);
+        </CSSTransition>
+      );
     }
     return (
       <CSSTransition

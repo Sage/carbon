@@ -783,7 +783,7 @@ describe('ActionPopover', () => {
               submenu={ <ActionPopoverMenu /> }
               { ...{ onClick: onClickWrapper('email') } }
             >
-          Foo
+              Foo
             </ActionPopoverItem>
           </ThemeProvider>
         ).find(ActionPopoverItem);

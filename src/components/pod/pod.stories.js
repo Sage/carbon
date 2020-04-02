@@ -72,7 +72,7 @@ function makeStory(name, themeSelector) {
           <p>In your file</p>
 
           <StoryCode padded>
-            {'import Pod from "carbon-react/lib/components/pod";'}
+            import Pod from &quot;carbon-react/lib/components/pod&quot;;
           </StoryCode>
 
           <p>To render the Pod:</p>

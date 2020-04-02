@@ -9,16 +9,16 @@ const info = (
 
     <p>Import the component:</p>
 
-    <StoryCode padded>i{'mport Spinner from "carbon-react/lib/components/spinner"'}</StoryCode>
+    <StoryCode padded>import Spinner from &quot;carbon-react/lib/components/spinner&quot;</StoryCode>
 
     <p>
-  You can pass a <StoryCode> {'size'} </StoryCode> property to adjust the size of the spinner
+      You can pass a <StoryCode> size </StoryCode> property to adjust the size of the spinner
     </p>
 
     <p>The default is medium</p>
 
     <StoryCode padded>
-      {'options: extra-small, small, medium-small, medium, medium-large, large and extra-large'}
+      options: extra-small, small, medium-small, medium, medium-large, large and extra-large
     </StoryCode>
   </div>
 );

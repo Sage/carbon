@@ -63,77 +63,79 @@ export const asASibling = () => {
 };
 
 export const allButtons = () => {
-  return <>
-    {OptionsHelper.buttonIconPositions.map(iconPosition => (
-      OptionsHelper.buttonTypes.map(buttonType => (
-        ['', ...OptionsHelper.icons].map((iconType) => {
-          const props = { iconPosition, buttonType, iconType };
-          return (
-            <div>
-              {OptionsHelper.sizesRestricted.map(size => (
-              <>
-                <Button
-                  size={ size }
-                  { ...props }
-                >{size}
-                </Button>
+  return (
+    <>
+      {OptionsHelper.buttonIconPositions.map(iconPosition => (
+        OptionsHelper.buttonTypes.map(buttonType => (
+          ['', ...OptionsHelper.icons].map((iconType) => {
+            const props = { iconPosition, buttonType, iconType };
+            return (
+              <div>
+                {OptionsHelper.sizesRestricted.map(size => (
+                  <>
+                    <Button
+                      size={ size }
+                      { ...props }
+                    >{size}
+                    </Button>
 
-                {size === 'large' && (
-                  <Button
-                    size={ size }
-                    subtext='line two'
-                    { ...props }
-                  >{size}
-                  </Button>
-                )}
-              </>
-              ))}
+                    {size === 'large' && (
+                      <Button
+                        size={ size }
+                        subtext='line two'
+                        { ...props }
+                      >{size}
+                      </Button>
+                    )}
+                  </>
+                ))}
 
-              {OptionsHelper.sizesRestricted.map(size => (
-              <>
-                <Button
-                  size={ size }
-                  destructive
-                  { ...props }
-                >{size}
-                </Button>
+                {OptionsHelper.sizesRestricted.map(size => (
+                  <>
+                    <Button
+                      size={ size }
+                      destructive
+                      { ...props }
+                    >{size}
+                    </Button>
 
-                {size === 'large' && (
-                  <Button
-                    size={ size }
-                    destructive
-                    subtext='line two'
-                    { ...props }
-                  >{size}
-                  </Button>
-                )}
-              </>
-              ))}
+                    {size === 'large' && (
+                      <Button
+                        size={ size }
+                        destructive
+                        subtext='line two'
+                        { ...props }
+                      >{size}
+                      </Button>
+                    )}
+                  </>
+                ))}
 
-              {OptionsHelper.sizesRestricted.map(size => (
-              <>
-                <Button
-                  size={ size }
-                  disabled
-                  { ...props }
-                >{size}
-                </Button>
+                {OptionsHelper.sizesRestricted.map(size => (
+                  <>
+                    <Button
+                      size={ size }
+                      disabled
+                      { ...props }
+                    >{size}
+                    </Button>
 
-                {size === 'large' && (
-                  <Button
-                    size={ size }
-                    disabled
-                    subtext='line two'
-                    { ...props }
-                  >{size}
-                  </Button>
-                )}
-              </>
-              ))}
-            </div>
-          );
-        })
-      ))
-    ))}
-</>;
+                    {size === 'large' && (
+                      <Button
+                        size={ size }
+                        disabled
+                        subtext='line two'
+                        { ...props }
+                      >{size}
+                      </Button>
+                    )}
+                  </>
+                ))}
+              </div>
+            );
+          })
+        ))
+      ))}
+    </>
+  );
 };

@@ -12,15 +12,15 @@ const info = (
     </StoryCodeBlock>
 
     <p>
-      To render a<StoryCode padded> {'Table'} </StoryCode>
+      To render a<StoryCode padded> Table </StoryCode>
       please see the
-      <StoryCode padded> {'Table'} </StoryCode>
+      <StoryCode padded> Table </StoryCode>
       component
     </p>
 
     <p>
-      <StoryCode padded> {'Table'} </StoryCode>
-      requires a<StoryCode padded> {'path'} </StoryCode>
+      <StoryCode padded> Table </StoryCode>
+      requires a<StoryCode padded> path </StoryCode>
       to be provided
     </p>
   </div>

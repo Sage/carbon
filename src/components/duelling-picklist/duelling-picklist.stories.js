@@ -153,16 +153,18 @@ export const Basic = () => {
 export const InDialog = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  return <>
-    <Button onClick={ () => setIsDialogOpen(true) }>Open Duelling Picklist</Button>
+  return (
+    <>
+      <Button onClick={ () => setIsDialogOpen(true) }>Open Duelling Picklist</Button>
 
-    <Dialog
-      open={ isDialogOpen }
-      onCancel={ () => setIsDialogOpen(false) }
-      title='Dueling Picklist'
-      size='large'
-    >
-      <Basic />
-    </Dialog>
-  </>;
+      <Dialog
+        open={ isDialogOpen }
+        onCancel={ () => setIsDialogOpen(false) }
+        title='Dueling Picklist'
+        size='large'
+      >
+        <Basic />
+      </Dialog>
+    </>
+  );
 };

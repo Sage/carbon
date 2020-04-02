@@ -10,7 +10,7 @@ const Info = (
     <p>In your file:</p>
 
     <StoryCode padded>
-      {'import Link from "carbon-react/lib/components/link";'}
+      import Link from &quot;carbon-react/lib/components/link&quot;;
     </StoryCode>
 
     <p>To render the Link:</p>
