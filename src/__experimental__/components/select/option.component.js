@@ -13,7 +13,7 @@ Option.propTypes = {
   /** Optional: alternative rendered content, displayed within <SelectList> of <Select> (eg: an icon, an image, etc) */
   children: PropTypes.node,
   /** The option's invisible internal value */
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
   /** if defined, this object can be used to provide optional extra properties */
   options: PropTypes.object
 };
