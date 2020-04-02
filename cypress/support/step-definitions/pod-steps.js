@@ -73,8 +73,8 @@ Then('Edit property is visible', () => {
 
 Then('Pod component has {string} background color', (color) => {
   podPreview().should('have.css', 'background-color', color);
-  podEdit().should('have.css', 'background-color', color);
-  podEdit().should('be.visible');
+  podEdit().should('have.css', 'background-color', color)
+    .and('be.visible');
 });
 
 Then('Pod component has no onEdit property', () => {
@@ -90,9 +90,8 @@ Then('Pod component has width {string}', (width) => {
 });
 
 Then('Pod component has displayEditButtonOnHover property', () => {
-  podComponent()
-    .should('have.class', `${POD_DIV_PROPERTY}--content-triggers-edit`)
-    .should('have.class', `${POD_DIV_PROPERTY}--is-hovered`);
+  podComponent().should('have.class', `${POD_DIV_PROPERTY}--content-triggers-edit`)
+    .and('have.class', `${POD_DIV_PROPERTY}--is-hovered`);
   podEdit().should('be.visible');
 });
 

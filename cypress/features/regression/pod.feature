@@ -138,7 +138,7 @@ Feature: Pod component
 
   @positive
   Scenario: Enable onEdit checkbox and check the edit event
-    When I check onEdit checkbox
+    Given I check onEdit checkbox
       And clear all actions in Actions Tab
     When I click onEdit icon
     Then edit action was called in Actions Tab

@@ -149,11 +149,7 @@ When('I hover mouse onto {string} icon in no iFrame for checkbox', (position) =>
       checkboxByID('required').trigger('mouseover');
       break;
     case 'warning':
-      checkboxByID(position).trigger('mouseover');
-      break;
     case 'info':
-      checkboxByID(position).trigger('mouseover');
-      break;
     case 'optional':
       checkboxByID(position).trigger('mouseover');
       break;
