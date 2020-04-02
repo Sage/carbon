@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import invariant from 'invariant';
 import StyledSearch, { StyledSearchButton, StyledButtonIcon } from './search.style';
@@ -15,11 +15,26 @@ const Search = ({
     typeof initialValue === 'string',
     'This component has no initial value'
   );
-  let inputRef = useRef(null);
   const [searchValue, setSearchValue] = useState(initialValue);
-  const [isActive, setIsActive] = useState(inputRef.current === document.activeElement);
+  const [isFocused, setIsFocused] = useState(false);
   const [searchIsActive, setSearchIsActive] = useState(initialValue.length >= threshold);
-  const [iconType, setIconType] = useState(null);
+
+  const iconType = useMemo(() => {
+    const isSearchValueEmpty = searchValue.length === 0;
+    const isFocusedOrActive = isFocused || searchIsActive;
+
+    setSearchIsActive(searchValue.length >= threshold);
+
+    if (!isSearchValueEmpty) {
+      return 'cross';
+    }
+
+    if (!isFocusedOrActive || threshold === 0 || (!searchButton && isSearchValueEmpty)) {
+      return 'search';
+    }
+
+    return '';
+  }, [isFocused, searchIsActive, searchValue, threshold, searchButton]);
 
   const handleChange = (e) => {
     if (onChange) {
@@ -29,7 +44,7 @@ const Search = ({
   };
 
   const handleOnFocus = () => {
-    setIsActive(true);
+    setIsFocused(true);
   };
 
   let buttonProps = {};
@@ -61,19 +76,8 @@ const Search = ({
   };
 
   const handleBlur = () => {
-    setIsActive(false);
+    setIsFocused(false);
   };
-
-  useLayoutEffect(() => {
-    setSearchIsActive(searchValue.length >= threshold);
-    if (searchValue.length > 0) {
-      setIconType('cross');
-    } else if ((searchButton && isActive)) {
-      setIconType('');
-    } else if ((!isActive && !searchIsActive) || threshold === 0) {
-      setIconType('search');
-    }
-  }, [isActive, searchButton, searchIsActive, searchValue, threshold]);
 
   return (
     <StyledSearch
@@ -81,7 +85,7 @@ const Search = ({
       onClick={ handleOnFocus }
       onBlur={ handleBlur }
       onChange={ handleChange }
-      isActive={ isActive }
+      isFocused={ isFocused }
       searchIsActive={ searchIsActive }
       id={ id }
       data-component='search'
@@ -93,13 +97,12 @@ const Search = ({
         { ...rest }
         placeholder={ placeholder }
         value={ searchValue }
-        inputRef={ (el) => { inputRef = el; } }
         inputIcon={ iconType }
         iconOnClick={ handleIconClick }
       />
       {(searchButton && (
         <StyledSearchButton>
-          {Boolean(isActive || searchValue.length) && (
+          {Boolean(isFocused || searchValue.length) && (
             <Button
               size='small'
               { ...buttonProps }

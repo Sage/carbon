@@ -139,6 +139,10 @@ Given('I open {string} component page with sticky footer', (component) => {
   visitComponentUrl(component, 'with_sticky_footer');
 });
 
+Given('I open {string} component page customFilter', (component) => {
+  visitComponentUrl(component, 'customFilter');
+});
+
 When('I open {word} tab', (text) => {
   cy.wait(1000, { log: DEBUG_FLAG }); // required because element needs to be loaded
   knobsNameTab(text).click();
