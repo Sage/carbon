@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "16.5.1",
+  "version": "16.5.2",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -116,7 +116,7 @@
     "husky": "^3.1.0",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc12.tar.gz",
     "identity-obj-proxy": "3.0.0",
-    "jest": "24.9.0",
+    "jest": "25.2.4",
     "jest-cli": "24.9.0",
     "jest-styled-components": "^6.3.1",
     "mockdate": "^2.0.2",
@@ -153,7 +153,7 @@
     "invariant": "^2.0.0",
     "lodash": "^4.17.11",
     "marked": "^0.7.0",
-    "mocha": "^6.2.2",
+    "mocha": "^7.1.1",
     "mocha-allure-reporter": "^1.4.0",
     "moment": "~2.20.1",
     "prop-types": "^15.5.8",
