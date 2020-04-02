@@ -131,7 +131,7 @@
             "name": "func"
           },
           "required": false,
-          "description": "A custom function to filter the children. Its interface is (text, value) => boolean"
+          "description": "A custom function to filter the children. Its interface is (text, filter, value) => boolean"
         },
         "filterValue": {
           "type": {
@@ -485,7 +485,7 @@
             "name": "func"
           },
           "required": false,
-          "description": "A custom function to filter the child components. Its interface is (text, value) => boolean"
+          "description": "A custom function to filter the children. Its interface is (text, filter, value) => boolean"
         },
         "disabled": {
           "type": {
