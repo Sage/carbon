@@ -1,7 +1,26 @@
 import React from 'react';
 import filterChildren from '.';
+import { Option } from '../../__experimental__/components/select';
 
 const makeChildArray = children => children.map(child => <div text={ child } />);
+
+const optionsWithValueObject = [{
+  value: { name: 'Orange', id: '7486' },
+  text: 'Orange'
+}, {
+  value: { name: 'Blue', id: '0815' },
+  text: 'Blue'
+}, {
+  value: { name: 'red', id: '0120' },
+  text: 'Red'
+}];
+const childrenWithValueObject = optionsWithValueObject.map(({ value, text }) => (
+  <Option
+    key={ text }
+    text={ text }
+    value={ value }
+  />
+));
 
 describe('filterChildren', () => {
   describe('when required values are not given', () => {
@@ -67,6 +86,14 @@ describe('filterChildren', () => {
       const children = makeChildArray(['aaa', 'bbb', 'ccc']);
       const filter = filterChildren({ value: 'z', onNoResults });
       expect(filter(children)).toEqual('no results!');
+    });
+
+    it('calls the filter with the correct arguments', () => {
+      const customFilter = jest.fn();
+      const onNoResults = jest.fn();
+      const filter = filterChildren({ value: 'ora', filter: customFilter, onNoResults });
+      filter(childrenWithValueObject);
+      expect(customFilter).toBeCalledWith('orange', 'ora', optionsWithValueObject[0].value);
     });
   });
 });

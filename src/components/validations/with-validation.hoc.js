@@ -278,6 +278,7 @@ Please see https://github.com/Sage/carbon/pull/2481 for more details.`);
     /** The current value of the component */
     value: PropTypes.oneOfType([
       PropTypes.string,
+      PropTypes.object,
       PropTypes.array
     ]),
     /** The unformatted value  */
