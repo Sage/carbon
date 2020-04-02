@@ -157,7 +157,7 @@
     "mocha-allure-reporter": "^1.4.0",
     "moment": "~2.20.1",
     "prop-types": "^15.5.8",
-    "react-day-picker": "~6.1.0",
+    "react-day-picker": "~7.4.0",
     "react-dnd": "^10.0.2",
     "react-dnd-html5-backend": "^10.0.2",
     "react-dnd-legacy": "npm:react-dnd@^2.6.0",
