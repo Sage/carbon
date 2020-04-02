@@ -7,12 +7,12 @@ interface ValidationShape {
 
 type ValidationsPropType = () => any | Array<(() => any | ValidationShape)>;
 
-type ValuePropType = string | any[];
+type ValuePropType = string | object | any[];
 
 export interface WithValidationProps {
   children?: React.ReactNode;
   name: string;
-  value?: string | any[];
+  value?: string | object | any[];
   onBlur?: () => void;
   onChange?: () => void;
   validations?: ValidationsPropType;

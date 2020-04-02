@@ -10,7 +10,7 @@ import withValidation from '../../../components/validations/with-validation.hoc'
 const RadioButtonGroup = (props) => {
   const {
     children, name, legend, hasError, hasWarning, hasInfo, onBlur,
-    onChange, value, tooltipMessage, inline, labelInline
+    onChange, value, tooltipMessage, inline, labelInline, styleOverride
   } = props;
 
   const groupLabelId = `${name}-label`;
@@ -29,12 +29,14 @@ const RadioButtonGroup = (props) => {
       hasInfo={ hasInfo }
       tooltipMessage={ tooltipMessage }
       inline={ labelInline }
+      styleOverride={ styleOverride }
       { ...tagComponent('radiogroup', props) }
     >
       <RadioButtonGroupStyle
         data-component='radio-button-group'
         role='group'
         inline={ inline }
+        styleOverride={ styleOverride.content }
       >
         <RadioButtonMapper
           name={ name }
@@ -75,7 +77,13 @@ RadioButtonGroup.propTypes = {
   /** When true, radiobutton is placed in line */
   inline: PropTypes.bool,
   /** When true, legend is placed in line with an radiobutton */
-  labelInline: PropTypes.bool
+  labelInline: PropTypes.bool,
+  /** Allows to override existing component styles */
+  styleOverride: PropTypes.shape({
+    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    content: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    legend: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+  })
 };
 
 RadioButtonGroup.defaultProps = {
@@ -83,7 +91,8 @@ RadioButtonGroup.defaultProps = {
   hasWarning: false,
   hasInfo: false,
   inline: false,
-  labelInline: false
+  labelInline: false,
+  styleOverride: {}
 };
 
 export default withValidation(RadioButtonGroup, { unblockValidation: true });
