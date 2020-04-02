@@ -142,12 +142,13 @@ Feature: Pod component
       And clear all actions in Actions Tab
     When I click onEdit icon
     Then edit action was called in Actions Tab
-
+  
+  # width is properly for CI  
   @positive
   Scenario: Enable onEdit checkbox and check the editContentFullWidth checkbox
     Given I check onEdit checkbox
     When I check editContentFullWidth checkbox
-    Then Pod component has width "1004px"
+    Then Pod component has width "1006px"
 
   @positive
   Scenario: Enable onEdit checkbox and check the displayEditButtonOnHover checkbox
