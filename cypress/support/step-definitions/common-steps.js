@@ -233,6 +233,10 @@ Then('I hover mouse onto {string} icon in iFrame', (name) => {
   getElementNoIframe(name).trigger('mouseover');
 });
 
+Then('I hover mouse onto {string} icon in no iFrame', (name) => {
+  getDataElementByValueNoIframe(name).trigger('mouseover');
+});
+
 Then('I hover mouse onto {string} {string} icon for validations component into iFrame', (position, name) => {
   switch (position) {
     case 'first':
