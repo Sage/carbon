@@ -34,16 +34,13 @@ Then('Button as a sibling is enabled', () => {
   commonButtonPreview().eq(SECOND_ELEMENT).should('be.enabled');
 });
 
-Then('Button height is {string} and width is {string}', (height, width) => {
+Then('Button height is {string}', (height) => {
   commonButtonPreview().should('have.css', 'height', `${height}px`);
-  commonButtonPreview().should('have.css', 'width', `${width}px`);
 });
 
-Then('Button as a sibling height is {string} and width is {string}', (height, width) => {
-  commonButtonPreview().eq(FIRST_ELEMENT).should('have.css', 'width', `${width}px`);
+Then('Button as a sibling height is {string}', (height) => {
   commonButtonPreview().eq(FIRST_ELEMENT).should('have.css', 'height', `${height}px`);
   commonButtonPreview().eq(SECOND_ELEMENT).should('have.css', 'height', `${height}px`);
-  commonButtonPreview().eq(SECOND_ELEMENT).should('have.css', 'width', `${width}px`);
 });
 
 Then('Button width is {string}', (width) => {

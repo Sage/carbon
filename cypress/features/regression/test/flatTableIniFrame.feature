@@ -7,7 +7,7 @@ Feature: FlatTable component
   @positive
   Scenario: FlatTable has sticky row
     When I check hasHeaderRow checkbox
-    Then FlatTable has sticky row
+    Then FlatTable rows are sticky
 
   @positive
   Scenario: FlatTable has sticky header

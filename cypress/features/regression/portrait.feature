@@ -19,14 +19,14 @@ Feature: Portrait default component
 		# | <>                       |
 
 	# value which is rendering as src doesn't work properly for CI
-	# ignore regression
+	# ignored regression
 	@ignore
 	Scenario: Enable darkBackground checkbox for a Portrait component
 		When I check darkBackground checkbox
 		Then Portrait initials value is set to "DARK"
 
 	# value which is rendering as src doesn't work properly for CI
-	# ignore regression
+	# ignored regression
 	@ignore
 	Scenario: Enable and disable darkBackground checkbox for a Portrait component
 		Given I check darkBackground checkbox
@@ -55,7 +55,7 @@ Feature: Portrait default component
 			| https://photos.smugmug.com/Portfolio/Business-Portrait-Examples/i-qFTj2wW/0/1f8956e8/M/163-FCP%20Moriah%20Thomas-M.jpg |
 
 	# value which is rendering as src doesn't work properly for CI
-	# ignore regression
+	# ignored regression
 	@ignore
 	Scenario Outline: Change Portrait initials to <initials>
 		When I set initials to "<initials>"
