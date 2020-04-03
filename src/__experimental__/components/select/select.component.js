@@ -355,6 +355,9 @@ class Select extends React.Component {
   }
 
   inputIcon(typeAhead) {
+    if (this.props.inputIcon) {
+      return this.props.inputIcon;
+    }
     if (this.openWhenTypeAhead(typeAhead, this.state.filter)) return 'cross';
     if (typeAhead) return 'search';
     return this.isMultiSelectEnabled() ? undefined : 'dropdown';
@@ -475,6 +478,7 @@ const valuePropType = PropTypes.oneOfType([
 ]);
 
 Select.propTypes = {
+  ...Textbox.propTypes,
   ariaLabel: PropTypes.string,
   /** Child components (such as <Option>) for the <SelectList> */
   children: PropTypes.node,
