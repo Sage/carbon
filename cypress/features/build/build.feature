@@ -66,7 +66,6 @@ Feature: Build tests
       | mount-in-app                     | mount-in-app         |
       | multi-action-button              | multi-action-button  |
       | navigation-bar                   | navigation-bar       |
-      | pager                            | pager                |
       | pill                             | pill                 |
       | pod                              | pod                  |
       | portrait                         | portrait             |
@@ -199,6 +198,7 @@ Feature: Build tests
       | duellingpicklist    | duelling-picklist   |
       | Flat Table          | flat-table          |
       | Grid                | grid                |
+      | pager               | pager               |
       | Popover Container   | popover-container   |
       | Numeral date        | numeral-date        |
       | Search              | search              |

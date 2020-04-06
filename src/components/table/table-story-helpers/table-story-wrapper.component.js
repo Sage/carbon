@@ -21,7 +21,7 @@ import OptionsHelper from '../../../utils/helpers/options-helper/options-helper'
 const store = new Store({
   sortOrder: 'asc',
   sortedColumn: 'name',
-  currentPage: '1',
+  currentPage: 1,
   children: undefined
 });
 
@@ -127,7 +127,7 @@ const calculateCurrentPage = ({ totalRecords, pageSize, paginate }) => {
 };
 
 const Wrapper = (props) => {
-  const [pageSize, setPageSize] = useState('10');
+  const [pageSize, setPageSize] = useState(10);
 
   const tableProps = { ...props };
   tableProps.pageSize = tableProps.showPageSizeSelection ? pageSize : text('pageSize', '5');

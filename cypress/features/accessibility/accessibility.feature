@@ -69,7 +69,6 @@ Feature: Accessibility tests
       | mount-in-app                     |
       | multi-action-button              |
       | navigation-bar                   |
-      | pager                            |
       | pill                             |
       | pod                              |
       | portrait                         |
@@ -124,4 +123,5 @@ Feature: Accessibility tests
       | Grid                | grid                |
       | Numeral Date        | numeral-date        |
       | Search              | search              |
+      | Pager               | pager               |
       | Popover Container   | popover-container   |

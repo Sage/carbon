@@ -291,10 +291,10 @@ class Table extends React.Component {
   tableHeight = 0;
 
   emitOptions = (props = this.props) => {
-    let currentPage = props.currentPage || '';
+    let currentPage = props.currentPage || 0;
 
     if (Number(props.currentPage) > Number(props.pageSize)) {
-      currentPage = '1';
+      currentPage = 1;
     }
 
     return {
@@ -525,9 +525,9 @@ Table.propTypes = {
   /** Show the pagination footer */
   paginate: PropTypes.bool,
   /** Pagination Current Visible Page */
-  currentPage: PropTypes.string,
+  currentPage: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Pagination Page Size of grid (number of visible records) */
-  pageSize: PropTypes.string,
+  pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Pagination Options for pageSize default - 10, 25, 50 */
   pageSizeSelectionOptions: PropTypes.object,
   /** Pagination Is the page size dropdown visible  */
