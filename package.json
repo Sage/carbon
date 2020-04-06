@@ -63,7 +63,7 @@
     "@babel/plugin-syntax-dynamic-import": "7.7.4",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "7.7.4",
-    "@babel/preset-typescript": "7.7.4",
+    "@babel/preset-typescript": "7.9.0",
     "babel-loader": "8.0.5",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
