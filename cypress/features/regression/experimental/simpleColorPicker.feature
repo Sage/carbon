@@ -49,7 +49,7 @@ Feature: Simple Color Picker component
 
   @positive
   Scenario Outline: Check the Simple Color Picker <position> element was selected
-    When I pick simple <position> color
+    When I pick <position> simple color input
     Then Experimental Simple Color Picker <position> element was picked up
     Examples:
       | position |
