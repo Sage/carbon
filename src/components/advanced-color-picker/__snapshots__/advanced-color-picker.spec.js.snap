@@ -1,471 +1,131 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AdvancedColorPicker when uncontrolled should match uncontrolled snapshot 1`] = `
-.c1 {
-  display: block;
-  width: 25px;
-  height: 25px;
-  border: 1px solid #516562;
-  background-color: #EBAEDE;
-}
-
-.c1:hover {
-  cursor: pointer;
-}
-
-.c1:focus {
-  outline: solid 3px #FFB500;
-}
-
-.c1::-moz-focus-inner {
-  border: none;
-}
-
-.c3 .modal-enter,
-.c3 .modal-appear {
-  opacity: 0;
-  margin-top: 50px;
-}
-
-.c3 .modal-enter.modal-enter-active,
-.c3 .modal-appear.modal-appear-active {
-  opacity: 1;
-  margin-top: 0;
-  -webkit-transition: all 300ms 100ms ease-out;
-  transition: all 300ms 100ms ease-out;
-}
-
-.c3 .modal-exit {
-  opacity: 1;
-  margin-top: 0;
-}
-
-.c3 .modal-exit.modal-exit-active {
-  opacity: 0;
-  margin-top: 50px;
-  -webkit-transition: all 300ms ease-out;
-  transition: all 300ms ease-out;
-}
-
-.c0 {
-  display: inline-block;
-  margin: 15px auto auto 15px;
-}
-
-.c2 .c7 {
-  padding: 18px 18px 18px 17px;
-}
-
-.c2 .c8 {
-  padding: 0;
-}
-
-.c2 .c4 {
-  max-width: 285px;
-}
-
-.c2 .c4 .c5 {
-  border: 1px solid #3C514E;
-  margin-right: -1px;
-  margin-bottom: -1px;
-  -webkit-transition: all .2s ease;
-  transition: all .2s ease;
-}
-
-.c2 .c4 .c5:hover {
-  -webkit-transform: scale(1.1);
-  -ms-transform: scale(1.1);
-  transform: scale(1.1);
-}
-
-.c2 .c6 {
-  top: 20px;
-  right: 13px;
-}
-
-<AdvancedColorPicker
-  availableColors={
-    Array [
-      Object {
-        "label": "white",
-        "value": "#FFFFFF",
-      },
-      Object {
-        "label": "transparent",
-        "value": "transparent",
-      },
-      Object {
-        "label": "black",
-        "value": "#000000",
-      },
-      Object {
-        "label": "blue",
-        "value": "#A3CAF0",
-      },
-      Object {
-        "label": "pink",
-        "value": "#FD9BA3",
-      },
-      Object {
-        "label": "purple",
-        "value": "#B4AEEA",
-      },
-      Object {
-        "label": "goldenrod",
-        "value": "#ECE6AF",
-      },
-      Object {
-        "label": "orchid",
-        "value": "#EBAEDE",
-      },
-      Object {
-        "label": "desert",
-        "value": "#EBC7AE",
-      },
-      Object {
-        "label": "turquoise",
-        "value": "#AEECEB",
-      },
-      Object {
-        "label": "mint",
-        "value": "#AEECD6",
-      },
-    ]
-  }
-  defaultColor="#EBAEDE"
-  name="advancedPicker"
->
-  <styled.div>
-    <StyledComponent
-      forwardedComponent={
-        Object {
-          "$$typeof": Symbol(react.forward_ref),
-          "attrs": Array [],
-          "componentStyle": ComponentStyle {
-            "componentId": "sc-hzDkRC",
-            "isStatic": false,
-            "lastClassName": "c0",
-            "rules": Array [
-              "
-  display: inline-block;
-  margin: 15px auto auto 15px;
-",
-            ],
-          },
-          "displayName": "styled.div",
-          "foldedComponentIds": Array [],
-          "render": [Function],
-          "styledComponentId": "sc-hzDkRC",
-          "target": "div",
-          "toString": [Function],
-          "warnTooManyClasses": [Function],
-          "withComponent": [Function],
-        }
-      }
-      forwardedRef={null}
+exports[`AdvancedColorPicker when uncontrolled should render internal composition to match uncontrolled snapshot 1`] = `
+<styled.div>
+  <styled.button
+    color="#EBAEDE"
+    data-element="color-picker-cell"
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    tabIndex="0"
+  />
+  <Styled(Dialog)
+    focusFirstElement={[Function]}
+    onCancel={[Function]}
+    open={false}
+    size="auto"
+  >
+    <styled.div
+      color="#EBAEDE"
+      data-element="color-picker-preview"
+    />
+    <SimpleColorPicker
+      legend=""
+      name="advancedPicker"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onKeyDown={[Function]}
     >
-      <div
-        className="c0"
-      >
-        <styled.button
-          color="#EBAEDE"
-          data-element="color-picker-cell"
-          onClick={[Function]}
-          onKeyDown={[Function]}
-          tabIndex="0"
-        >
-          <StyledComponent
-            color="#EBAEDE"
-            data-element="color-picker-cell"
-            forwardedComponent={
-              Object {
-                "$$typeof": Symbol(react.forward_ref),
-                "attrs": Array [],
-                "componentStyle": ComponentStyle {
-                  "componentId": "sc-bdVaJa",
-                  "isStatic": false,
-                  "lastClassName": "c1",
-                  "rules": Array [
-                    "
-  display: block;
-  width: 25px;
-  height: 25px;
-  border: 1px solid #516562;
-  ",
-                    [Function],
-                    "
-
-  ",
-                    [Function],
-                    "
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  &:focus {
-    outline: solid 3px #FFB500;
-  }
-
-  &::-moz-focus-inner {
-    border: none;
-  }
-",
-                  ],
-                },
-                "displayName": "styled.button",
-                "foldedComponentIds": Array [],
-                "render": [Function],
-                "styledComponentId": "sc-bdVaJa",
-                "target": "button",
-                "toString": [Function],
-                "warnTooManyClasses": [Function],
-                "withComponent": [Function],
-              }
-            }
-            forwardedRef={null}
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            tabIndex="0"
-          >
-            <button
-              className="c1"
-              color="#EBAEDE"
-              data-element="color-picker-cell"
-              onClick={[Function]}
-              onKeyDown={[Function]}
-              tabIndex="0"
-            />
-          </StyledComponent>
-        </styled.button>
-        <Styled(Dialog)
-          focusFirstElement={[Function]}
-          onCancel={[Function]}
-          open={false}
-          size="auto"
-        >
-          <StyledComponent
-            focusFirstElement={[Function]}
-            forwardedComponent={
-              Object {
-                "$$typeof": Symbol(react.forward_ref),
-                "attrs": Array [],
-                "componentStyle": ComponentStyle {
-                  "componentId": "sc-fBuWsC",
-                  "isStatic": false,
-                  "lastClassName": "c2",
-                  "rules": Array [
-                    "
-  ",
-                    ".c7",
-                    " {
-    padding: 18px 18px 18px 17px;
-  }
-
-  ",
-                    ".c8",
-                    " {
-    padding: 0;
-  }
-
-  ",
-                    ".c4",
-                    " {
-    max-width: 285px;
-    ",
-                    ".c5",
-                    " {
-      border: 1px solid #3C514E;
-      margin-right: -1px;
-      margin-bottom: -1px;
-      transition: all .2s ease;
-
-      &:hover {
-        transform: scale(1.1);
-      }
-    }
-  }
-
-  ",
-                    ".c6",
-                    " {
-    top: 20px;
-    right: 13px;
-  }
-",
-                  ],
-                },
-                "displayName": "Styled(Dialog)",
-                "foldedComponentIds": Array [],
-                "render": [Function],
-                "styledComponentId": "sc-fBuWsC",
-                "target": [Function],
-                "toString": [Function],
-                "warnTooManyClasses": [Function],
-                "withComponent": [Function],
-              }
-            }
-            forwardedRef={null}
-            onCancel={[Function]}
-            open={false}
-            size="auto"
-          >
-            <Dialog
-              ariaRole="dialog"
-              className="c2"
-              focusFirstElement={[Function]}
-              onCancel={[Function]}
-              open={false}
-              showCloseIcon={true}
-              size="auto"
-            >
-              <Portal
-                key="1"
-              >
-                <span
-                  data-portal-entrance="guid-12345"
-                >
-                  <Portal
-                    containerInfo={
-                      .c0 .modal-enter,
-.c0 .modal-appear {
-  opacity: 0;
-  margin-top: 50px;
-}
-
-.c0 .modal-enter.modal-enter-active,
-.c0 .modal-appear.modal-appear-active {
-  opacity: 1;
-  margin-top: 0;
-  -webkit-transition: all 300ms 100ms ease-out;
-  transition: all 300ms 100ms ease-out;
-}
-
-.c0 .modal-exit {
-  opacity: 1;
-  margin-top: 0;
-}
-
-.c0 .modal-exit.modal-exit-active {
-  opacity: 0;
-  margin-top: 50px;
-  -webkit-transition: all 300ms ease-out;
-  transition: all 300ms ease-out;
-}
-
-.c1 .c5 {
-  padding: 18px 18px 18px 17px;
-}
-
-.c1 .c6 {
-  padding: 0;
-}
-
-.c1 .c2 {
-  max-width: 285px;
-}
-
-.c1 .c2 .c3 {
-  border: 1px solid #3C514E;
-  margin-right: -1px;
-  margin-bottom: -1px;
-  -webkit-transition: all .2s ease;
-  transition: all .2s ease;
-}
-
-.c1 .c2 .c3:hover {
-  -webkit-transform: scale(1.1);
-  -ms-transform: scale(1.1);
-  transform: scale(1.1);
-}
-
-.c1 .c4 {
-  top: 20px;
-  right: 13px;
-}
-
-<div
-                        class="carbon-portal"
-                        data-portal-exit="guid-12345"
-                      >
-                        <div
-                          class="c0 carbon-dialog c1"
-                          data-component="dialog"
-                          data-state="closed"
-                        >
-                          <div />
-                          <div />
-                        </div>
-                      </div>
-                    }
-                  >
-                    <styled.div
-                      className="carbon-dialog c2"
-                      data-component="dialog"
-                      data-state="closed"
-                      transitionName="modal"
-                    >
-                      <StyledComponent
-                        className="carbon-dialog c2"
-                        data-component="dialog"
-                        data-state="closed"
-                        forwardedComponent={
-                          Object {
-                            "$$typeof": Symbol(react.forward_ref),
-                            "attrs": Array [],
-                            "componentStyle": ComponentStyle {
-                              "componentId": "sc-gipzik",
-                              "isStatic": false,
-                              "lastClassName": "c3",
-                              "rules": Array [
-                                "
-  ",
-                                [Function],
-                                "
-",
-                              ],
-                            },
-                            "displayName": "styled.div",
-                            "foldedComponentIds": Array [],
-                            "render": [Function],
-                            "styledComponentId": "sc-gipzik",
-                            "target": "div",
-                            "toString": [Function],
-                            "warnTooManyClasses": [Function],
-                            "withComponent": [Function],
-                          }
-                        }
-                        forwardedRef={null}
-                        transitionName="modal"
-                      >
-                        <div
-                          className="c3 carbon-dialog c2"
-                          data-component="dialog"
-                          data-state="closed"
-                        >
-                          <TransitionGroup
-                            childFactory={[Function]}
-                            component="div"
-                          >
-                            <div />
-                          </TransitionGroup>
-                          <TransitionGroup
-                            childFactory={[Function]}
-                            component="div"
-                          >
-                            <div />
-                          </TransitionGroup>
-                        </div>
-                      </StyledComponent>
-                    </styled.div>
-                  </Portal>
-                </span>
-              </Portal>
-            </Dialog>
-          </StyledComponent>
-        </Styled(Dialog)>
-      </div>
-    </StyledComponent>
-  </styled.div>
-</AdvancedColorPicker>
+      <SimpleColor
+        aria-label="white"
+        checked={false}
+        defaultChecked={false}
+        id="#FFFFFF"
+        key="#FFFFFF"
+        onChange={null}
+        value="#FFFFFF"
+      />
+      <SimpleColor
+        aria-label="transparent"
+        checked={false}
+        defaultChecked={false}
+        id="transparent"
+        key="transparent"
+        onChange={null}
+        value="transparent"
+      />
+      <SimpleColor
+        aria-label="black"
+        checked={false}
+        defaultChecked={false}
+        id="#000000"
+        key="#000000"
+        onChange={null}
+        value="#000000"
+      />
+      <SimpleColor
+        aria-label="blue"
+        checked={false}
+        defaultChecked={false}
+        id="#A3CAF0"
+        key="#A3CAF0"
+        onChange={null}
+        value="#A3CAF0"
+      />
+      <SimpleColor
+        aria-label="pink"
+        checked={false}
+        defaultChecked={false}
+        id="#FD9BA3"
+        key="#FD9BA3"
+        onChange={null}
+        value="#FD9BA3"
+      />
+      <SimpleColor
+        aria-label="purple"
+        checked={false}
+        defaultChecked={false}
+        id="#B4AEEA"
+        key="#B4AEEA"
+        onChange={null}
+        value="#B4AEEA"
+      />
+      <SimpleColor
+        aria-label="goldenrod"
+        checked={false}
+        defaultChecked={false}
+        id="#ECE6AF"
+        key="#ECE6AF"
+        onChange={null}
+        value="#ECE6AF"
+      />
+      <SimpleColor
+        aria-label="orchid"
+        checked={false}
+        defaultChecked={true}
+        id="#EBAEDE"
+        key="#EBAEDE"
+        onChange={null}
+        value="#EBAEDE"
+      />
+      <SimpleColor
+        aria-label="desert"
+        checked={false}
+        defaultChecked={false}
+        id="#EBC7AE"
+        key="#EBC7AE"
+        onChange={null}
+        value="#EBC7AE"
+      />
+      <SimpleColor
+        aria-label="turquoise"
+        checked={false}
+        defaultChecked={false}
+        id="#AEECEB"
+        key="#AEECEB"
+        onChange={null}
+        value="#AEECEB"
+      />
+      <SimpleColor
+        aria-label="mint"
+        checked={false}
+        defaultChecked={false}
+        id="#AEECD6"
+        key="#AEECD6"
+        onChange={null}
+        value="#AEECD6"
+      />
+    </SimpleColorPicker>
+  </Styled(Dialog)>
+</styled.div>
 `;
