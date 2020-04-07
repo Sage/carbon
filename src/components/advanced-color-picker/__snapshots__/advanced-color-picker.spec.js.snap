@@ -143,7 +143,7 @@ exports[`AdvancedColorPicker when uncontrolled should match uncontrolled snapsho
           "attrs": Array [],
           "componentStyle": ComponentStyle {
             "componentId": "sc-hzDkRC",
-            "isStatic": true,
+            "isStatic": false,
             "lastClassName": "c0",
             "rules": Array [
               "
@@ -252,7 +252,7 @@ exports[`AdvancedColorPicker when uncontrolled should match uncontrolled snapsho
                 "attrs": Array [],
                 "componentStyle": ComponentStyle {
                   "componentId": "sc-fBuWsC",
-                  "isStatic": true,
+                  "isStatic": false,
                   "lastClassName": "c2",
                   "rules": Array [
                     "
@@ -327,45 +327,45 @@ exports[`AdvancedColorPicker when uncontrolled should match uncontrolled snapsho
                 >
                   <Portal
                     containerInfo={
-                      .c1 .modal-enter,
-.c1 .modal-appear {
+                      .c0 .modal-enter,
+.c0 .modal-appear {
   opacity: 0;
   margin-top: 50px;
 }
 
-.c1 .modal-enter.modal-enter-active,
-.c1 .modal-appear.modal-appear-active {
+.c0 .modal-enter.modal-enter-active,
+.c0 .modal-appear.modal-appear-active {
   opacity: 1;
   margin-top: 0;
   -webkit-transition: all 300ms 100ms ease-out;
   transition: all 300ms 100ms ease-out;
 }
 
-.c1 .modal-exit {
+.c0 .modal-exit {
   opacity: 1;
   margin-top: 0;
 }
 
-.c1 .modal-exit.modal-exit-active {
+.c0 .modal-exit.modal-exit-active {
   opacity: 0;
   margin-top: 50px;
   -webkit-transition: all 300ms ease-out;
   transition: all 300ms ease-out;
 }
 
-.c0 .c5 {
+.c1 .c5 {
   padding: 18px 18px 18px 17px;
 }
 
-.c0 .c6 {
+.c1 .c6 {
   padding: 0;
 }
 
-.c0 .c2 {
+.c1 .c2 {
   max-width: 285px;
 }
 
-.c0 .c2 .c3 {
+.c1 .c2 .c3 {
   border: 1px solid #3C514E;
   margin-right: -1px;
   margin-bottom: -1px;
@@ -373,13 +373,13 @@ exports[`AdvancedColorPicker when uncontrolled should match uncontrolled snapsho
   transition: all .2s ease;
 }
 
-.c0 .c2 .c3:hover {
+.c1 .c2 .c3:hover {
   -webkit-transform: scale(1.1);
   -ms-transform: scale(1.1);
   transform: scale(1.1);
 }
 
-.c0 .c4 {
+.c1 .c4 {
   top: 20px;
   right: 13px;
 }
@@ -389,7 +389,7 @@ exports[`AdvancedColorPicker when uncontrolled should match uncontrolled snapsho
                         data-portal-exit="guid-12345"
                       >
                         <div
-                          class="carbon-dialog c0 c1"
+                          class="c0 carbon-dialog c1"
                           data-component="dialog"
                           data-state="closed"
                         >
@@ -439,7 +439,7 @@ exports[`AdvancedColorPicker when uncontrolled should match uncontrolled snapsho
                         transitionName="modal"
                       >
                         <div
-                          className="carbon-dialog c2 c3"
+                          className="c3 carbon-dialog c2"
                           data-component="dialog"
                           data-state="closed"
                         >
