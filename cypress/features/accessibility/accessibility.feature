@@ -42,7 +42,6 @@ Feature: Accessibility tests
       | animated menu button             |
       | app wrapper                      |
       | button toggle                    |
-      | button                           |
       | carousel                         |
       | card                             |
       | experimental-checkbox            |
@@ -100,6 +99,12 @@ Feature: Accessibility tests
       | experimental-checkbox            |
       | experimental-switch              |
       | experimental-decimal-input       |
+
+  @build
+  Scenario: Component Button using Knobs story
+    Given I open "Button" component page knobs
+    When I open Accessibility Tab
+    Then "Button" component has no violations in Accessibility section
 
   @accessibility
   Scenario Outline: Component <component> basic default page
