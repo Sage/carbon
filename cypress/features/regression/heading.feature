@@ -84,9 +84,9 @@ Feature: Heading component
 
   @positive
   Scenario: Check divider
-    When I uncheck divider checkbox
-      And I check divider checkbox
-    Then divider is visible
+    Given I uncheck divider checkbox
+    When I check divider checkbox
+    Then Heading divider is visible
 
   @positive
   Scenario: Uncheck divider
@@ -100,6 +100,6 @@ Feature: Heading component
 
   @positive
   Scenario: Uncheck separator
-    When I check separator checkbox
-      And I uncheck separator checkbox
+    Given I check separator checkbox
+    When I uncheck separator checkbox
     Then separator is not visible

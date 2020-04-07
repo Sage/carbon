@@ -1,0 +1,46 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+
+import { RadioButtonGroup, RadioButton } from '.';
+
+<Meta
+  title="Test/RadioButtonGroup"
+  parameters={{ info: { disable: true }}}
+/>
+
+### With styles overriden
+With custom wrapper, label and input styles
+<Preview>
+  <Story name="styles overriden">
+    <RadioButtonGroup
+      name='frequency'
+      legend='Please select a frequency'
+      inline
+      labelInline
+      styleOverride={
+        {
+          root: { background: '#F0F0F0' },
+          content: {
+            padding: '0 12px',
+          },
+          legend: { color: '#B4D455', width: '30%' }
+        }
+      }
+    >
+      <RadioButton
+        key='weekly'
+        value='weekly'
+        label='weekly'
+      />
+      <RadioButton
+        key='monthly'
+        value='monthly'
+        label='monthly'
+      />
+      <RadioButton
+        key='yearly'
+        value='yearly'
+        label='yearly'
+      />
+    </RadioButtonGroup>
+  </Story>
+</Preview>

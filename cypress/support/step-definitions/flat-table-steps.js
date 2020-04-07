@@ -12,15 +12,16 @@ const FIFTH_ELEMENT = 4;
 const SIXTH_ELEMENT = 5;
 const SEVENTH_ELEMENT = 6;
 
-Then('FlatTable has sticky row', () => {
-  flatTableBodyRows().each(($el, index) => {
+Then('FlatTable rows are sticky', () => {
+  cy.wait(500);
+  for (let i = 0; i <= 7; i++) {
     const color = 'rgb(204, 214, 218)';
-    flatTableStickyRow(index).should('have.css', 'border-right-color', color)
+    flatTableBodyRowByPosition(i).find('th').should('have.css', 'border-right-color', color)
       .and('have.css', 'border-left-color', color)
       .and('have.css', 'border-bottom-color', color)
       .and('have.css', 'position', 'sticky')
       .and('be.visible');
-  });
+  }
 });
 
 Then('FlatTable has sticky header', () => {

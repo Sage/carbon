@@ -71,7 +71,7 @@ const MenuButton = styled.div`
   && ${StyledIcon} {
     cursor: pointer;
   }
-  width: 24px;
+  display: table;
   margin: auto;
   ${({ isOpen, theme }) => (isOpen && `background-color: ${theme.colors.white}`)}
   &:hover, &:focus {
@@ -80,7 +80,7 @@ const MenuButton = styled.div`
   &:focus {
     outline: 2px solid ${({ theme }) => theme.colors.focus};
   }
-
+  
   ${MenuButtonClassic}
 `;
 

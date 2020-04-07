@@ -220,7 +220,7 @@ exports[`Grid GridItem builds the style rules for the GridItem responsiveSetting
           "attrs": Array [],
           "componentStyle": ComponentStyle {
             "componentId": "sc-bdVaJa",
-            "isStatic": true,
+            "isStatic": false,
             "lastClassName": "c0",
             "rules": Array [
               "

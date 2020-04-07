@@ -97,6 +97,12 @@ describe('SelectList', () => {
       expect(markup[2].props.children.length).toEqual(3);
     });
 
+    it('alters the markup when matches are found also when casing is not equal', () => {
+      const wrapper = renderWrapper();
+      const markup = wrapper.instance().highlightMatches('foobarfooqux', 'Foo');
+      expect(markup[1].props.children).toEqual('foo');
+    });
+
 
     describe('without a value', () => {
       it('alters the markup when matches are found', () => {

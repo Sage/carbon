@@ -90,6 +90,24 @@ const selectOptions = selectOptionsLabels.map((label, index) => (
   />
 ));
 
+const objectOptions = [
+  {
+    name: 'Book collection',
+    link: 'ediBuchungserfassung.Sage.Rewe',
+    synonyms: ['payment received', 'bank', 'payed', 'bill payed']
+  },
+  {
+    name: 'Document entry',
+    link: 'ediVKBelegerfassung.Sage.Wawi',
+    synonyms: ['New Document', 'Opportunity', 'Lead', 'Offer']
+  },
+  {
+    name: 'Articles',
+    link: 'ediArtikelstamm.Sage.Wawi',
+    synonyms: ['piece', 'thing']
+  }
+];
+
 function validator(value, errorValue, errorMessage) {
   return new Promise((resolve, reject) => {
     if (value === errorValue) {
@@ -117,6 +135,40 @@ const defaultComponent = () => {
 const autoFocusComponent = () => {
   boolean('autoFocus', true);
   return defaultComponent();
+};
+
+const customFilterComponent = () => {
+  const complexCustomFilter = (value, filter, item) => {
+    if (value.includes(filter)) return true;
+    if (
+      item.synonyms.filter(synonym => synonym.toLowerCase().includes(filter))
+        .length > 0
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  return (
+    <State store={ singleSelectStore }>
+      <p key='description'>For example type &apos;piece&apos;, article will be shown because that is a synonym</p>
+      <Select
+        key='select'
+        ariaLabel='customFilter'
+        customFilter={ complexCustomFilter }
+        typeAhead={ false }
+        { ...commonKnobs(singleSelectStore) }
+      >
+        { objectOptions.map(item => (
+          <Option
+            key={ `globalSearch.${item.name}` }
+            text={ item.name }
+            value={ item }
+          />
+        )) }
+      </Select>
+    </State>
+  );
 };
 
 function makeStory(name, themeSelector, component) {
@@ -190,4 +242,5 @@ storiesOf('Experimental/Select', module)
   .add(...makeMultipleStory('multiple', dlsThemeSelector))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
   .add(...makeValidationsStory('validations classic', classicThemeSelector))
-  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent));
+  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent))
+  .add(...makeStory('customFilter', dlsThemeSelector, customFilterComponent));
