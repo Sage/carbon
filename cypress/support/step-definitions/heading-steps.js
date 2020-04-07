@@ -25,7 +25,7 @@ Then('backLink on preview is {string}', (backLink) => {
   link().children().should('have.attr', 'href', backLink);
 });
 
-Then('divider is visible', () => {
+Then('Heading divider is visible', () => {
   headingPreview().should('have.class', DIVIDER);
 });
 

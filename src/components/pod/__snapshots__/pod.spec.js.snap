@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Classic Theme StyledEditAction should match expected styles 1`] = `
-.c1 {
+.c0 {
   display: inline-block;
 }
 
-.c1 a,
-.c1 button {
+.c0 a,
+.c0 button {
   font-size: 14px;
   -webkit-text-decoration: underline;
   text-decoration: underline;
@@ -18,50 +18,50 @@ exports[`Classic Theme StyledEditAction should match expected styles 1`] = `
   color: #255BC7;
 }
 
-.c1 a .c2,
-.c1 button .c2 {
+.c0 a .c2,
+.c0 button .c2 {
   margin-right: 5px;
   position: relative;
   vertical-align: middle;
   top: -2px;
 }
 
-.c1 a:hover,
-.c1 button:hover {
+.c0 a:hover,
+.c0 button:hover {
   cursor: pointer;
   color: #006045;
 }
 
-.c1 a .c2,
-.c1 button .c2 {
+.c0 a .c2,
+.c0 button .c2 {
   color: #255BC7;
 }
 
-.c1 a:hover,
-.c1 button:hover {
+.c0 a:hover,
+.c0 button:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   cursor: pointer;
   color: #004B87;
 }
 
-.c1 a:hover .c2,
-.c1 button:hover .c2 {
+.c0 a:hover .c2,
+.c0 button:hover .c2 {
   color: #004B87;
 }
 
-.c1 a:focus,
-.c1 button:focus {
+.c0 a:focus,
+.c0 button:focus {
   outline: none;
 }
 
-.c1 button {
+.c0 button {
   background-color: transparent;
   border: none;
   padding: 0;
 }
 
-.c0.c0 {
+.c1.c1 {
   cursor: pointer;
   border: 1px solid #CCD6DA;
   margin-left: 8px;
@@ -71,19 +71,19 @@ exports[`Classic Theme StyledEditAction should match expected styles 1`] = `
   color: #255bc7;
 }
 
-.c0.c0 > a,
-.c0.c0 button {
+.c1.c1 > a,
+.c1.c1 button {
   width: 15px;
   height: 15px;
   padding: px;
   background-color: transparent;
 }
 
-.c0.c0 .c2 {
+.c1.c1 .c2 {
   top: -2px;
 }
 
-.c0.c0 .carbon-link__content {
+.c1.c1 .carbon-link__content {
   -webkit-clip: rect(1px,1px,1px,1px);
   clip: rect(1px,1px,1px,1px);
   position: absolute;
@@ -119,12 +119,12 @@ exports[`StyledBlock should match expected styles 1`] = `
 `;
 
 exports[`StyledEditAction when isHovered prop is set should match expected styles 1`] = `
-.c1 {
+.c0 {
   display: inline-block;
 }
 
-.c1 a,
-.c1 button {
+.c0 a,
+.c0 button {
   font-size: 14px;
   -webkit-text-decoration: underline;
   text-decoration: underline;
@@ -132,33 +132,33 @@ exports[`StyledEditAction when isHovered prop is set should match expected style
   display: inline-block;
 }
 
-.c1 a .c2,
-.c1 button .c2 {
+.c0 a .c2,
+.c0 button .c2 {
   margin-right: 5px;
   position: relative;
   vertical-align: middle;
 }
 
-.c1 a:hover,
-.c1 button:hover {
+.c0 a:hover,
+.c0 button:hover {
   cursor: pointer;
   color: #006300;
 }
 
-.c1 a:focus,
-.c1 button:focus {
+.c0 a:focus,
+.c0 button:focus {
   color: rgba(0,0,0,0.9);
   background-color: #FFDA7F;
   outline: none;
 }
 
-.c1 button {
+.c0 button {
   background-color: transparent;
   border: none;
   padding: 0;
 }
 
-.c0.c0 {
+.c1.c1 {
   cursor: pointer;
   border: 1px solid #CCD6DA;
   margin-left: 8px;
@@ -166,23 +166,23 @@ exports[`StyledEditAction when isHovered prop is set should match expected style
   color: #FFFFFF;
 }
 
-.c0.c0 > a,
-.c0.c0 button {
+.c1.c1 > a,
+.c1.c1 button {
   width: 15px;
   height: 15px;
   padding: px;
   background-color: transparent;
 }
 
-.c0.c0 .c2 {
+.c1.c1 .c2 {
   top: -2px;
 }
 
-.c0.c0 .c2 {
+.c1.c1 .c2 {
   color: #FFFFFF;
 }
 
-.c0.c0 .carbon-link__content {
+.c1.c1 .carbon-link__content {
   -webkit-clip: rect(1px,1px,1px,1px);
   clip: rect(1px,1px,1px,1px);
   position: absolute;
