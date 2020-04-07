@@ -130,7 +130,7 @@
     "react-highlight": "briancappello/react-highlight#react-v16-compiled",
     "react-test-renderer": "^16.12.0",
     "rimraf": "^2.6.3",
-    "sass-loader": "7.0.3",
+    "sass-loader": "8.0.2",
     "semantic-release": "^16.0.1",
     "style-loader": "1.1.3",
     "underscore.string": "~3.3.4",
