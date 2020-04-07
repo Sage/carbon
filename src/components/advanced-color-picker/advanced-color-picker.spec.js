@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount as enzymeMount } from 'enzyme';
+import { mount as enzymeMount, shallow } from 'enzyme';
 import { act } from 'react-test-renderer';
 import AdvancedColorPicker from './advanced-color-picker.component';
 import Dialog from '../dialog/dialog.component';
@@ -74,9 +74,8 @@ describe('AdvancedColorPicker', () => {
 
 
   describe('when uncontrolled', () => {
-    it('should match uncontrolled snapshot', () => {
-      render(requiredProps);
-      expect(wrapper.current).toMatchSnapshot();
+    it('should render internal composition to match uncontrolled snapshot', () => {
+      expect(shallow(<AdvancedColorPicker { ...requiredProps } />)).toMatchSnapshot();
     });
   });
 
