@@ -1,8 +1,10 @@
 import {
   checkboxHelpTextPreview, checkboxCommonInputField, checkboxLabelPreview,
-  checkbox, checkboxDataComponent, checkboxRole,
+  checkbox, checkboxDataComponent, checkboxRole, checkboxByID, dataComponentGroup,
+  labelForIconInCheckboxGroup,
 } from '../../locators/checkbox';
-import { label, fieldHelpPreview } from '../../locators';
+import { label, fieldHelpPreview, getDataElementByValueNoIframe } from '../../locators';
+import { ICON } from '../../locators/locators';
 
 const CHECKBOX_HELP_TEXT_CLASS_PREFIX = 'carbon-checkbox__help-text--';
 const CHECKBOX_LABEL_CLASS_PREFIX = 'common-input__label--';
@@ -141,7 +143,47 @@ When('I check {string} checkbox {int} times', (position, times) => {
   }
 });
 
-Then('checkbox on preview is {string}', (text) => {
+When('I hover mouse onto {string} icon in no iFrame for checkbox', (position) => {
+  switch (position) {
+    case 'error':
+      checkboxByID('required').trigger('mouseover');
+      break;
+    case 'warning':
+    case 'info':
+    case 'optional':
+      checkboxByID(position).trigger('mouseover');
+      break;
+    default: throw new Error('There are only three icon elements on the page');
+  }
+});
+
+When('I hover mouse onto first icon in no iFrame for checkbox group', () => {
+  dataComponentGroup().find(ICON).eq(FIRST_CHECKBOX);
+});
+
+Then('label icon for checkbox group on preview in no iFrame is set to {string}', (text) => {
+  labelForIconInCheckboxGroup().should('have.attr', 'aria-label', text);
+});
+
+Then('{string} icon name in no iFrame on preview is {string}', (position, iconName) => {
+  switch (position) {
+    case 'first':
+      getDataElementByValueNoIframe(iconName).eq(FIRST_CHECKBOX);
+      break;
+    case 'second':
+      getDataElementByValueNoIframe(iconName).eq(SECOND_CHECKBOX);
+      break;
+    case 'third':
+      getDataElementByValueNoIframe(iconName).eq(THIRD_CHECKBOX);
+      break;
+    case 'fourth':
+      getDataElementByValueNoIframe(iconName).eq(FOURTH_CHECKBOX);
+      break;
+    default: throw new Error('There are only four icon elements on the page');
+  }
+});
+
+Then('checkbox label on preview is {string}', (text) => {
   label().should('have.text', `${text} (default)`);
 });
 

@@ -39,7 +39,6 @@ Feature: Build tests
       | animated menu button             | animated-menu-button |
       | app wrapper                      | app-wrapper          |
       | button toggle                    | button-toggle        |
-      | button                           | button               |
       | carousel                         | carousel             |
       | card                             | card                 |
       | experimental-checkbox            | checkbox             |
@@ -89,6 +88,11 @@ Feature: Build tests
       | tile                             | tile                 |
       | toast                            | toast                |
       | tooltip                          | tooltip              |
+
+  @build
+  Scenario: Component Button using Knobs story
+    When I open "Button" component page knobs in noIFrame
+    Then "button" component is visible
 
   @build
   Scenario Outline: Verify element in <component> component default page
@@ -186,17 +190,17 @@ Feature: Build tests
     When I open basic Test "<component>" component page in noIframe
     Then "<data-component>" component is visible
     Examples:
-      | component                | data-component      |
-      | Accordion                | accordion           |
-      | Anchornavigation         | anchor-navigation   |
-      | Badge                    | badge               |
-      | Batch Selection          | batch-selection     |
-      | Button Toggle Group      | button-toggle-group |
-      | duellingpicklist         | duelling-picklist   |
-      | Flat Table               | flat-table          |
-      | Grid                     | grid                |
-      | Popover Container        | popover-container   |
-      | Search                   | search              |
+      | component           | data-component      |
+      | Accordion           | accordion           |
+      | Anchornavigation    | anchor-navigation   |
+      | Badge               | badge               |
+      | Batch Selection     | batch-selection     |
+      | Button Toggle Group | button-toggle-group |
+      | duellingpicklist    | duelling-picklist   |
+      | Flat Table          | flat-table          |
+      | Grid                | grid                |
+      | Popover Container   | popover-container   |
+      | Search              | search              |
 
   @build
   Scenario: Component Draggable basic default page and verify data-element

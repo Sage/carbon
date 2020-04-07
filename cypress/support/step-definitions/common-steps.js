@@ -30,6 +30,14 @@ Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
 });
 
+Given('I open {string} component page knobs', (component) => {
+  visitComponentUrl(component, 'knobs');
+});
+
+Given('I open {string} component page knobs in noIFrame', (component) => {
+  visitComponentUrl(component, 'knobs', true);
+});
+
 Given('I open {string} component page basic', (component) => {
   visitComponentUrl(component, 'basic');
 });
@@ -231,6 +239,10 @@ When('I hover mouse onto icon', () => {
 
 Then('I hover mouse onto {string} icon in iFrame', (name) => {
   getElementNoIframe(name).trigger('mouseover');
+});
+
+Then('I hover mouse onto {string} icon in no iFrame', (name) => {
+  getDataElementByValueNoIframe(name).trigger('mouseover');
 });
 
 Then('I hover mouse onto {string} {string} icon for validations component into iFrame', (position, name) => {

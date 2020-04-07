@@ -1,17 +1,13 @@
 import {
-  podPreview, podPreviewBorder, podChildren,
+  podComponent, podPreview, podContent,
   podTitle, podSubTitle, podDescription, podFooter, podEdit,
 } from '../../locators/pod';
 import { DEBUG_FLAG } from '..';
 
-const POD_BLOCK_PROPERTY = 'carbon-pod__block';
 const POD_DIV_PROPERTY = 'carbon-pod';
-const PADDING = '--padding-';
-const CONTENT = '__content';
-const HEADER = '__header';
 
 Then('Pod children on preview is set to {string}', (text) => {
-  podChildren().should('have.text', text);
+  podContent().should('have.text', text);
 });
 
 Then('Pod title on preview is set to {string}', (text) => {
@@ -28,87 +24,85 @@ Then('Pod description on preview is set to {string}', (text) => {
 
 Then('Pod footer on preview is set to {string}', (text) => {
   podFooter().should('have.text', text);
-  podPreview().children()
-    .should('have.class', `${POD_BLOCK_PROPERTY}--footer`);
 });
 
 Then('Pod padding on preview is {string}', (paddingProperty) => {
-  podPreview().children()
-    .should('have.class', `${POD_BLOCK_PROPERTY}${PADDING}${paddingProperty}`);
-  podPreview().children().children()
-    .should('have.class', `${POD_DIV_PROPERTY}${CONTENT}${PADDING}${paddingProperty}`);
+  podContent().should('have.css', 'padding', paddingProperty);
 });
 
-Then('Pod as on preview is {string}', (asProperty) => {
-  podPreview().children()
-    .should('have.class', `${POD_BLOCK_PROPERTY}--${asProperty}`);
-  podPreview().children().children()
-    .should('have.class', `${POD_DIV_PROPERTY}${CONTENT}--${asProperty}`);
+Then('Pod on preview has background color {string}', (color) => {
+  podComponent().children().should('have.css', 'background-color', color);
 });
 
 Then('Pod component has border', () => {
-  podPreviewBorder()
-    .should('not.have.class', `${POD_BLOCK_PROPERTY}--no-border`);
-  podPreviewBorder().children()
-    .should('not.have.class', `${POD_DIV_PROPERTY}--no-border`);
+  podPreview().should('have.css', 'border-bottom-width', '1px')
+    .and('have.css', 'border-top-width', '1px')
+    .and('have.css', 'border-left-width', '1px')
+    .and('have.css', 'border-right-width', '1px')
+    .and('have.css', 'border-bottom-style', 'solid')
+    .and('have.css', 'border-bottom-color', 'rgb(204, 214, 218)');
 });
 
 Then('Pod component has no border', () => {
   cy.wait(500, { log: DEBUG_FLAG });
-  podPreviewBorder()
-    .should('have.class', `${POD_BLOCK_PROPERTY}--no-border`);
-  podPreviewBorder().children()
-    .should('have.class', `${POD_DIV_PROPERTY}--no-border`);
+  podPreview().should('have.css', 'border-bottom-width', '0px')
+    .and('have.css', 'border-top-width', '0px')
+    .and('have.css', 'border-left-width', '0px')
+    .and('have.css', 'border-right-width', '0px')
+    .and('have.css', 'border-bottom-style', 'none');
 });
 
-Then('Pod alignTitle on preview is {string}', (alignTitle) => {
-  podPreview()
-    .should('have.class', `${POD_DIV_PROPERTY}--${alignTitle}`);
-  podTitle().parent()
-    .should('have.class', `${POD_DIV_PROPERTY}${HEADER}--${alignTitle}`);
-  podTitle().parent($element => expect($element).to.have.css('text-align', `${alignTitle}`));
+Then('Pod {string} on preview is {string}', (element, alignTitle) => {
+  switch (element) {
+    case 'title':
+      podTitle().parent().should('have.css', 'text-align', alignTitle);
+      break;
+    case 'subtitle':
+      podSubTitle().should('have.css', 'text-align', alignTitle);
+      break;
+    case 'footer':
+      podFooter().should('have.css', 'text-align', alignTitle);
+      break;
+    default: throw new Error('Only title, subtitle or footer can changed alignment');
+  }
 });
 
-Then('Pod component has onEdit property', () => {
-  podPreview()
-    .should('have.class', `${POD_DIV_PROPERTY}--editable`);
-  podEdit()
-    .should('be.visible');
+Then('Edit property is visible', () => {
+  podEdit().should('be.visible');
+});
+
+Then('Pod component has {string} background color', (color) => {
+  podPreview().should('have.css', 'background-color', color);
+  podEdit().should('have.css', 'background-color', color)
+    .and('be.visible');
 });
 
 Then('Pod component has no onEdit property', () => {
-  podPreview()
-    .should('not.have.class', `${POD_DIV_PROPERTY}--editable`);
-  podEdit()
-    .should('not.exist');
+  podEdit().should('not.exist');
 });
 
 Then('I click onEdit icon', () => {
   podEdit().first().click();
 });
 
-Then('Pod component has editContentFullWidth property', () => {
-  podPreview().children()
-    .should('have.class', `${POD_BLOCK_PROPERTY}--full-width`);
+Then('Pod component has width {string}', (width) => {
+  podComponent().children().should('have.css', 'width', width);
 });
 
 Then('Pod component has displayEditButtonOnHover property', () => {
-  podPreview()
-    .should('have.class', `${POD_DIV_PROPERTY}--content-triggers-edit`)
-    .should('have.class', `${POD_DIV_PROPERTY}--is-hovered`);
+  podComponent().should('have.class', `${POD_DIV_PROPERTY}--content-triggers-edit`)
+    .and('have.class', `${POD_DIV_PROPERTY}--is-hovered`);
   podEdit().should('be.visible');
 });
 
 Then('Pod component has triggerEditOnContent property', () => {
-  podPreview()
-    .should('have.class', `${POD_DIV_PROPERTY}--content-triggers-edit`);
-  podEdit().should('be.visible');
+  podPreview().should('have.css', 'cursor', 'pointer');
 });
 
 Then('Pod component has internalEditButton property', () => {
-  podPreview()
-    .should('have.class', `${POD_DIV_PROPERTY}--internal-edit-button`);
-  podEdit().should('be.visible');
+  podEdit().should('have.css', 'background-color', 'rgba(0, 0, 0, 0)')
+    .and('have.css', 'background-position-x', '0%')
+    .and('have.css', 'background-position-y', '0%');
 });
 
 When('I hover mouse onto Pod content', () => {

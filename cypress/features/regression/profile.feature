@@ -37,7 +37,7 @@ Feature: Profile default component
     # | <> |
 
   # value which is rendering as src doesn't work properly for CI
-  # ignore regression
+  # ignored regression
   @ignore
   Scenario Outline: Set initials to <initials>
     When I set initials to "<initials>"
@@ -48,7 +48,7 @@ Feature: Profile default component
       | TJH      |
 
   # value which is rendering as src doesn't work properly for CI
-  # ignore regression
+  # ignored regression
   @ignore
   Scenario Outline: Get initials from name <name>
     When I set name to "<name>"

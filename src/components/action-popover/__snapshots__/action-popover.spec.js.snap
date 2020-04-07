@@ -76,7 +76,7 @@ exports[`ActionPopover styles renders correctly for the "classic" theme 2`] = `
 exports[`ActionPopover styles renders correctly for the "classic" theme 3`] = `
 .c0 {
   position: relative;
-  width: 24px;
+  display: table;
   margin: auto;
 }
 
@@ -200,7 +200,7 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
 <ActionPopoverMenu
   button={
     Object {
-      "current": .c7 {
+      "current": .c6 {
   display: inline-block;
   position: relative;
   color: inherit;
@@ -221,12 +221,12 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
   width: 24px;
 }
 
-.c7:hover {
+.c6:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c7::before {
+.c6::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -239,7 +239,7 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
   display: block;
 }
 
-.c5 {
+.c4 {
   display: inline-block;
   position: relative;
   color: inherit;
@@ -260,12 +260,12 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
   width: 24px;
 }
 
-.c5:hover {
+.c4:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c5::before {
+.c4::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -289,33 +289,33 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
   z-index: 1;
 }
 
-.c8.c8 .c4 {
+.c8.c8 .c3 {
   cursor: pointer;
 }
 
-.c9.c9 .c4 {
+.c9.c9 .c3 {
   cursor: pointer;
 }
 
-.c10.c10 .c4 {
+.c10.c10 .c3 {
   cursor: pointer;
 }
 
-.c11.c11 .c4 {
+.c11.c11 .c3 {
   cursor: pointer;
 }
 
-.c6 {
+.c7 {
   padding-right: 8px;
 }
 
-.c3 {
+.c5 {
   position: absolute;
   left: 0px;
 }
 
-.c3,
-.c3:hover {
+.c5,
+.c5:hover {
   color: #668491;
 }
 
@@ -351,7 +351,7 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c2.c2 .c4 {
+.c2.c2 .c3 {
   cursor: not-allowed;
   color: inherit;
 }
@@ -393,11 +393,11 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c0.c0 .c4 {
+.c0.c0 .c3 {
   cursor: pointer;
 }
 
-.c12.c12 .c4 {
+.c12.c12 .c3 {
   cursor: pointer;
 }
 
@@ -446,7 +446,7 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
           type="chevron_left"
         />
         <span
-          class="c6 c4 c7"
+          class="c3 c6 c7"
           data-component="icon"
           data-element="message"
           font-size="small"
@@ -945,7 +945,7 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
 <ActionPopoverMenu
   button={
     Object {
-      "current": .c7 {
+      "current": .c6 {
   display: inline-block;
   position: relative;
   color: inherit;
@@ -966,12 +966,12 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
   width: 24px;
 }
 
-.c7:hover {
+.c6:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c7::before {
+.c6::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -984,7 +984,7 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
   display: block;
 }
 
-.c5 {
+.c4 {
   display: inline-block;
   position: relative;
   color: inherit;
@@ -1005,12 +1005,12 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
   width: 24px;
 }
 
-.c5:hover {
+.c4:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c5::before {
+.c4::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -1034,33 +1034,33 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
   z-index: 1;
 }
 
-.c8.c8 .c4 {
+.c8.c8 .c3 {
   cursor: pointer;
 }
 
-.c9.c9 .c4 {
+.c9.c9 .c3 {
   cursor: pointer;
 }
 
-.c10.c10 .c4 {
+.c10.c10 .c3 {
   cursor: pointer;
 }
 
-.c11.c11 .c4 {
+.c11.c11 .c3 {
   cursor: pointer;
 }
 
-.c6 {
+.c7 {
   padding-right: 8px;
 }
 
-.c3 {
+.c5 {
   position: absolute;
   left: 0px;
 }
 
-.c3,
-.c3:hover {
+.c5,
+.c5:hover {
   color: #668491;
 }
 
@@ -1096,7 +1096,7 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c2.c2 .c4 {
+.c2.c2 .c3 {
   cursor: not-allowed;
   color: inherit;
 }
@@ -1138,11 +1138,11 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c0.c0 .c4 {
+.c0.c0 .c3 {
   cursor: pointer;
 }
 
-.c12.c12 .c4 {
+.c12.c12 .c3 {
   cursor: pointer;
 }
 
@@ -1191,7 +1191,7 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
           type="chevron_left"
         />
         <span
-          class="c6 c4 c7"
+          class="c3 c6 c7"
           data-component="icon"
           data-element="message"
           font-size="small"
@@ -2271,7 +2271,7 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
 <ActionPopoverMenu
   button={
     Object {
-      "current": .c7 {
+      "current": .c6 {
   display: inline-block;
   position: relative;
   color: inherit;
@@ -2292,12 +2292,12 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
   width: 24px;
 }
 
-.c7:hover {
+.c6:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c7::before {
+.c6::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -2310,7 +2310,7 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
   display: block;
 }
 
-.c5 {
+.c4 {
   display: inline-block;
   position: relative;
   color: inherit;
@@ -2331,12 +2331,12 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
   width: 24px;
 }
 
-.c5:hover {
+.c4:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c5::before {
+.c4::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -2360,33 +2360,33 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
   z-index: 1;
 }
 
-.c8.c8 .c4 {
+.c8.c8 .c3 {
   cursor: pointer;
 }
 
-.c9.c9 .c4 {
+.c9.c9 .c3 {
   cursor: pointer;
 }
 
-.c10.c10 .c4 {
+.c10.c10 .c3 {
   cursor: pointer;
 }
 
-.c11.c11 .c4 {
+.c11.c11 .c3 {
   cursor: pointer;
 }
 
-.c6 {
+.c7 {
   padding-right: 8px;
 }
 
-.c3 {
+.c5 {
   position: absolute;
   left: 0px;
 }
 
-.c3,
-.c3:hover {
+.c5,
+.c5:hover {
   color: #668491;
 }
 
@@ -2422,7 +2422,7 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c2.c2 .c4 {
+.c2.c2 .c3 {
   cursor: not-allowed;
   color: inherit;
 }
@@ -2464,11 +2464,11 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c0.c0 .c4 {
+.c0.c0 .c3 {
   cursor: pointer;
 }
 
-.c12.c12 .c4 {
+.c12.c12 .c3 {
   cursor: pointer;
 }
 
@@ -2517,7 +2517,7 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
           type="chevron_left"
         />
         <span
-          class="c6 c4 c7"
+          class="c3 c6 c7"
           data-component="icon"
           data-element="message"
           font-size="small"
@@ -3016,7 +3016,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
 <ActionPopoverMenu
   button={
     Object {
-      "current": .c7 {
+      "current": .c6 {
   display: inline-block;
   position: relative;
   color: inherit;
@@ -3037,12 +3037,12 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
   width: 24px;
 }
 
-.c7:hover {
+.c6:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c7::before {
+.c6::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -3055,7 +3055,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
   display: block;
 }
 
-.c5 {
+.c4 {
   display: inline-block;
   position: relative;
   color: inherit;
@@ -3076,12 +3076,12 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
   width: 24px;
 }
 
-.c5:hover {
+.c4:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c5::before {
+.c4::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -3105,33 +3105,33 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
   z-index: 1;
 }
 
-.c8.c8 .c4 {
+.c8.c8 .c3 {
   cursor: pointer;
 }
 
-.c9.c9 .c4 {
+.c9.c9 .c3 {
   cursor: pointer;
 }
 
-.c10.c10 .c4 {
+.c10.c10 .c3 {
   cursor: pointer;
 }
 
-.c11.c11 .c4 {
+.c11.c11 .c3 {
   cursor: pointer;
 }
 
-.c6 {
+.c7 {
   padding-right: 8px;
 }
 
-.c3 {
+.c5 {
   position: absolute;
   left: 0px;
 }
 
-.c3,
-.c3:hover {
+.c5,
+.c5:hover {
   color: #668491;
 }
 
@@ -3167,7 +3167,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c2.c2 .c4 {
+.c2.c2 .c3 {
   cursor: not-allowed;
   color: inherit;
 }
@@ -3209,11 +3209,11 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c0.c0 .c4 {
+.c0.c0 .c3 {
   cursor: pointer;
 }
 
-.c12.c12 .c4 {
+.c12.c12 .c3 {
   cursor: pointer;
 }
 
@@ -3262,7 +3262,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
           type="chevron_left"
         />
         <span
-          class="c6 c4 c7"
+          class="c3 c6 c7"
           data-component="icon"
           data-element="message"
           font-size="small"
@@ -3761,7 +3761,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
 <ActionPopoverMenu
   button={
     Object {
-      "current": .c5 {
+      "current": .c4 {
   display: inline-block;
   position: relative;
   color: inherit;
@@ -3782,12 +3782,12 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
   width: 24px;
 }
 
-.c5:hover {
+.c4:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c5::before {
+.c4::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -3800,7 +3800,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
   display: block;
 }
 
-.c7 {
+.c6 {
   display: inline-block;
   position: relative;
   color: inherit;
@@ -3821,12 +3821,12 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
   width: 24px;
 }
 
-.c7:hover {
+.c6:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c7::before {
+.c6::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -3850,33 +3850,33 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
   z-index: 1;
 }
 
-.c8.c8 .c4 {
+.c8.c8 .c3 {
   cursor: pointer;
 }
 
-.c9.c9 .c4 {
+.c9.c9 .c3 {
   cursor: pointer;
 }
 
-.c10.c10 .c4 {
+.c10.c10 .c3 {
   cursor: pointer;
 }
 
-.c11.c11 .c4 {
+.c11.c11 .c3 {
   cursor: pointer;
 }
 
-.c3 {
+.c5 {
   padding-right: 8px;
 }
 
-.c6 {
+.c7 {
   position: absolute;
   right: 0px;
 }
 
-.c6,
-.c6:hover {
+.c7,
+.c7:hover {
   color: #668491;
 }
 
@@ -3912,7 +3912,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c2.c2 .c4 {
+.c2.c2 .c3 {
   cursor: not-allowed;
   color: inherit;
 }
@@ -3954,11 +3954,11 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c0.c0 .c4 {
+.c0.c0 .c3 {
   cursor: pointer;
 }
 
-.c12.c12 .c4 {
+.c12.c12 .c3 {
   cursor: pointer;
 }
 
@@ -4008,7 +4008,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
         />
         Email Invoice
         <span
-          class="c6 c4 c7"
+          class="c3 c6 c7"
           data-component="icon"
           data-element="chevron_right"
           font-size="small"
@@ -4506,7 +4506,7 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
 <ActionPopoverMenu
   button={
     Object {
-      "current": .c5 {
+      "current": .c4 {
   display: inline-block;
   position: relative;
   color: inherit;
@@ -4527,12 +4527,12 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
   width: 24px;
 }
 
-.c5:hover {
+.c4:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c5::before {
+.c4::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -4545,7 +4545,7 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
   display: block;
 }
 
-.c7 {
+.c6 {
   display: inline-block;
   position: relative;
   color: inherit;
@@ -4566,12 +4566,12 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
   width: 24px;
 }
 
-.c7:hover {
+.c6:hover {
   color: inherit;
   background-color: transparent;
 }
 
-.c7::before {
+.c6::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -4595,33 +4595,33 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
   z-index: 1;
 }
 
-.c8.c8 .c4 {
+.c8.c8 .c3 {
   cursor: pointer;
 }
 
-.c9.c9 .c4 {
+.c9.c9 .c3 {
   cursor: pointer;
 }
 
-.c10.c10 .c4 {
+.c10.c10 .c3 {
   cursor: pointer;
 }
 
-.c11.c11 .c4 {
+.c11.c11 .c3 {
   cursor: pointer;
 }
 
-.c3 {
+.c5 {
   padding-right: 8px;
 }
 
-.c6 {
+.c7 {
   position: absolute;
   right: 0px;
 }
 
-.c6,
-.c6:hover {
+.c7,
+.c7:hover {
   color: #668491;
 }
 
@@ -4657,7 +4657,7 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c2.c2 .c4 {
+.c2.c2 .c3 {
   cursor: not-allowed;
   color: inherit;
 }
@@ -4699,11 +4699,11 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
   box-shadow: inset 0px 0px 0px 2px #FFB500;
 }
 
-.c0.c0 .c4 {
+.c0.c0 .c3 {
   cursor: pointer;
 }
 
-.c12.c12 .c4 {
+.c12.c12 .c3 {
   cursor: pointer;
 }
 
@@ -4753,7 +4753,7 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
         />
         Email Invoice
         <span
-          class="c6 c4 c7"
+          class="c3 c6 c7"
           data-component="icon"
           data-element="chevron_right"
           font-size="small"
