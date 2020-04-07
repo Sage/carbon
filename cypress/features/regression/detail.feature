@@ -31,3 +31,8 @@ Feature: Detail component
       | ÄÖÜßäöüß                 |
       # @ignore because of FE-1447
       # | <>                       |
+
+@positive
+  Scenario: Change Detail icon to chevron_up
+    When I set detail icon to "chevron_up"
+    Then icon on preview is "chevron_up"

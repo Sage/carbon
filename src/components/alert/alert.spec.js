@@ -1,12 +1,13 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import IconButton from '../icon-button';
 import Alert from '.';
 
 describe('Alert', () => {
-  let wrapper;
-  const onCancel = jasmine.createSpy('cancel');
+  let wrapper, onCancel;
 
   beforeEach(() => {
+    onCancel = jasmine.createSpy('cancel');
     wrapper = mount(
       <Alert
         open
@@ -20,18 +21,9 @@ describe('Alert', () => {
   });
 
   it('include correct component, element and role data tags', () => {
-    wrapper = mount(
-      <Alert
-        open
-        onCancel={ onCancel }
-        title='Alert title'
-        subtitle='Alert Subtitle'
-        data-element='bar'
-        data-role='baz'
-      />
-    );
-    expect(wrapper.instance().props['data-element']).toEqual('bar');
-    expect(wrapper.instance().props['data-role']).toEqual('baz');
+    const alert = wrapper.find(Alert).first();
+    expect(alert.prop('data-element')).toEqual('bar');
+    expect(alert.prop('data-role')).toEqual('baz');
   });
 
   describe('keyboard focus', () => {
@@ -40,8 +32,10 @@ describe('Alert', () => {
     beforeEach(() => {
       wrapper = mount(
         <Alert
-          open title='Test'
-          subtitle='Test' showCloseIcon={ false }
+          open
+          title='Test'
+          subtitle='Test'
+          showCloseIcon={ false }
         />
       );
 
@@ -61,6 +55,31 @@ describe('Alert', () => {
 
       wrapper.instance().onDialogBlur(mockEvent);
       expect(mockEvent.preventDefault).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('close icon', () => {
+    it('closes when the exit icon is click', () => {
+      wrapper.find(IconButton).first().simulate('click');
+      expect(onCancel).toHaveBeenCalled();
+    });
+
+    it('closes when exit icon is focused and Enter key is pressed', () => {
+      const icon = wrapper.find(IconButton).first();
+      icon.simulate('keyDown', { which: 13, key: 'Enter' });
+      expect(onCancel).toHaveBeenCalled();
+    });
+
+    it('closes when exit icon is focused and ESC key is pressed', () => {
+      const icon = wrapper.find(IconButton).first();
+      icon.simulate('keyDown', { which: 27, key: 'Escape' });
+      expect(onCancel).toHaveBeenCalled();
+    });
+
+    it('does not close when exit icon is focused any other key is pressed', () => {
+      const icon = wrapper.find(IconButton).first();
+      icon.simulate('keyDown', { which: 65, key: 'a' });
+      expect(onCancel).not.toHaveBeenCalled();
     });
   });
 });

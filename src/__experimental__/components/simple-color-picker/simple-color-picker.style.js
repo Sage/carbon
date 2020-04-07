@@ -3,7 +3,7 @@ import Fieldset from '../fieldset';
 import { LegendContainerStyle } from '../fieldset/fieldset.style';
 
 const SimpleColorFieldset = styled(Fieldset)`
-  max-width: 300px;
+  max-width: ${({ maxWidth }) => maxWidth}px;
 
   ${LegendContainerStyle} {
     margin-bottom: 16px;

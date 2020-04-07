@@ -1,5 +1,6 @@
 import {
-  visitComponentUrl, setSlidebar, pressESCKey, pressTABKey, asyncWaitForKnobs, visitFlatTableComponentNoiFrame,
+  visitComponentUrl, setSlidebar, pressESCKey, pressTABKey, asyncWaitForKnobs,
+  visitFlatTableComponentNoiFrame,
 } from '../helper';
 import {
   commonButtonPreview, labelPreview, helpIcon, helpIconByPosition, inputWidthSlider,
@@ -8,6 +9,7 @@ import {
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
   precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
   knobsNameTab, fieldHelpPreviewByPosition, labelByPosition, dlsRoot,
+  commonButtonPreviewNoIFrameRoot,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
@@ -28,8 +30,12 @@ Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
 });
 
-Given('I open {string} component page classic', (component) => {
-  visitComponentUrl(component, 'classic');
+Given('I open {string} component page knobs', (component) => {
+  visitComponentUrl(component, 'knobs');
+});
+
+Given('I open {string} component page knobs in noIFrame', (component) => {
+  visitComponentUrl(component, 'knobs', true);
 });
 
 Given('I open {string} component page basic', (component) => {
@@ -40,16 +46,12 @@ Given('I open {string} component page basic in iframe', (component) => {
   visitComponentUrl(component, 'basic', true);
 });
 
+Given('I open in full screen Test {string} component page in noIframe', (component) => {
+  visitComponentUrl(component, 'in_full_screen_dialog', true, 'test-');
+});
+
 Given('I open {string} component page buttonToogleGroup validation in iframe', (component) => {
   visitComponentUrl(component, 'buttonToogleGroup', true);
-});
-
-Given('I open {string} component buttonToogleGroup classic page validation in iframe', (component) => {
-  visitComponentUrl(component, 'buttonToogleGroup_classic', true);
-});
-
-Given('I open {string} basic classic component page in iframe', (component) => {
-  visitComponentUrl(component, 'basic_classic', true);
 });
 
 Given('I open {string} component page with button', (component) => {
@@ -60,10 +62,6 @@ Given('I open {string} component page with inputs', (component) => {
   visitComponentUrl(component, 'default_with_inputs');
 });
 
-Given('I open {string} component with button classic page', (component) => {
-  visitComponentUrl(component, 'with_button_classic');
-});
-
 Given('I open {string} component page legacy spinner', (component) => {
   visitComponentUrl(component, 'legacy_spinner');
 });
@@ -72,20 +70,13 @@ Given('I open {string} component page legacy spinner in iframe', (component) => 
   visitComponentUrl(component, 'legacy_spinner', true);
 });
 
-Given('I open {string} component page legacy spinner', (component) => {
-  visitComponentUrl(component, 'legacy_spinner_classic');
-});
-
-Given('I open {string} component legacy spinner classic page in iframe', (component) => {
-  visitComponentUrl(component, 'legacy_spinner_classic', true);
-});
-
 Given('I open {string} component in iframe', (component) => {
   visitComponentUrl(component, 'default', true);
 });
 
-Given('I open {string} component for classic story in iframe', (component) => {
-  visitComponentUrl(component, 'classic', true);
+// the step above should be refactored and changed to in noiFrame
+Given('I open {string} component in noiFrame', (component) => {
+  visitComponentUrl(component, 'default', true);
 });
 
 Given('I open deprecated {string} component in iframe', (component) => {
@@ -100,32 +91,16 @@ Given('I open {string} textbox based component page in iframe', (component) => {
   visitComponentUrl(component, 'textbox_based', true);
 });
 
-Given('I open {string} textbox based classic component page in iframe', (component) => {
-  visitComponentUrl(component, 'textbox_based_classic', true);
-});
-
 Given('I open {string} component with button page in iframe', (component) => {
   visitComponentUrl(component, 'with_button', true);
-});
-
-Given('I open {string} component for classic story with button page in iframe', (component) => {
-  visitComponentUrl(component, 'with_button_classic', true);
 });
 
 Given('I open {string} component page multiple', (component) => {
   visitComponentUrl(component, 'multiple');
 });
 
-Given('I open {string} component for classic story page multiple', (component) => {
-  visitComponentUrl(component, 'multiple_classic');
-});
-
 Given('I open {string} component page multiple in iframe', (component) => {
   visitComponentUrl(component, 'multiple', true);
-});
-
-Given('I open {string} component for classic story page multiple in iframe', (component) => {
-  visitComponentUrl(component, 'multiple_classic', true);
 });
 
 Given('I open {string} component page as sibling in iframe', (component) => {
@@ -134,14 +109,6 @@ Given('I open {string} component page as sibling in iframe', (component) => {
 
 Given('I open {string} component page as sibling in no iframe', (component) => {
   visitComponentUrl(component, 'as_a_sibling');
-});
-
-Given('I open {string} component for classic story as sibling in iframe', (component) => {
-  visitComponentUrl(component, 'as_a_sibling_classic', true);
-});
-
-Given('I open {string} classic component for classic story as sibling in no iframe', (component) => {
-  visitComponentUrl(component, 'as_a_sibling_classic');
 });
 
 Given('I open {string} component page validations in iframe', (component) => {
@@ -156,16 +123,16 @@ Given('I open basic Test {string} component page in noIframe', (component) => {
   visitComponentUrl(component, 'basic', true, 'test-');
 });
 
+Given('I open style override Test {string} component page in noIframe', (component) => {
+  visitComponentUrl(component, 'style_override', true, 'test-');
+});
+
 When('I open Test {string} component basic page with prop value', (componentName) => {
   visitFlatTableComponentNoiFrame(componentName, 'basic', true, 'test-');
 });
 
 Given('I open grouped Test {string} component page in noIframe', (component) => {
   visitComponentUrl(component, 'grouped', true, 'test-');
-});
-
-Given('I open {string} component page validations classic in iframe', (component) => {
-  visitComponentUrl(component, 'validations_classic', true);
 });
 
 Given('I open {string} component page autoFocus in iframe', (component) => {
@@ -178,6 +145,10 @@ Given('I open {string} component page autoFocus multiple in iframe', (component)
 
 Given('I open {string} component page with sticky footer', (component) => {
   visitComponentUrl(component, 'with_sticky_footer');
+});
+
+Given('I open {string} component page customFilter', (component) => {
+  visitComponentUrl(component, 'customFilter');
 });
 
 When('I open {word} tab', (text) => {
@@ -222,6 +193,10 @@ When('I open component preview', () => {
   commonButtonPreview().click();
 });
 
+When('I open component preview in noIFrame', () => {
+  commonButtonPreviewNoIFrameRoot().click();
+});
+
 Then('component title on preview is {string}', (title) => {
   dialogTitle().should('have.text', title);
 });
@@ -264,6 +239,10 @@ When('I hover mouse onto icon', () => {
 
 Then('I hover mouse onto {string} icon in iFrame', (name) => {
   getElementNoIframe(name).trigger('mouseover');
+});
+
+Then('I hover mouse onto {string} icon in no iFrame', (name) => {
+  getDataElementByValueNoIframe(name).trigger('mouseover');
 });
 
 Then('I hover mouse onto {string} {string} icon for validations component into iFrame', (position, name) => {
@@ -385,12 +364,9 @@ Then('closeIcon is not visible', () => {
   closeIconButton().should('not.exist');
 });
 
-Then('closeIcon has the border outline', () => {
-  closeIconButton().should('have.css', 'outline', 'rgb(255, 181, 0) solid 3px');
-});
-
-Then('closeIcon has border outline for classic story', () => {
-  closeIconButton().should('have.css', 'outline', 'rgba(0, 103, 244, 0.247) auto 5px');
+Then('closeIcon has the border outline color {string} and width {string}', (color, width) => {
+  closeIconButton().should('have.css', 'outline-color', color)
+    .and('have.css', 'outline-width', width);
 });
 
 Then('closeIcon is focused', () => {
@@ -516,34 +492,59 @@ Then('{string} tab in {string} tab list is visible', (knobsName, position) => {
   }
 });
 
-When('I press ESC on focused element', () => {
-  cy.focused().trigger('keydown', { keyCode: 16, which: 16, release: false });
-  cy.focused().trigger('keydown', { keyCode: 27, which: 27 });
+When('I press keyboard downarrow key times {int}', (times) => {
+  for (let i = 0; i < times; i++) {
+    cy.focused().trigger('keydown', { keyCode: 40, which: 40 });
+  }
 });
 
-When('I press Tab on focused element', () => {
-  cy.focused().trigger('keydown', { keyCode: 9, which: 9 });
-});
-
-When('I press Home on focused element', () => {
-  cy.focused().trigger('keydown', { keyCode: 36, which: 36 });
-});
-
-When('I press uparrow on focused element', () => {
-  cy.focused().trigger('keydown', { keyCode: 38, which: 38 });
-});
-
-When('I press End on focused element', () => {
-  cy.focused().trigger('keydown', { keyCode: 35, which: 35 });
-});
-
-When('I press ShiftTab on focused element', () => {
-  cy.focused().trigger('keydown', { keyCode: 16, which: 16, release: false });
-  cy.focused().trigger('keydown', { keyCode: 9, which: 9 });
+When('I press {string} onto focused element', (arrow) => {
+  switch (arrow) {
+    case 'downarrow':
+      cy.focused().trigger('keydown', { keyCode: 40, which: 40 });
+      break;
+    case 'uparrow':
+      cy.focused().trigger('keydown', { keyCode: 38, which: 38 });
+      break;
+    case 'leftarrow':
+      cy.focused().trigger('keydown', { keyCode: 37, which: 37 });
+      break;
+    case 'rightarrow':
+      cy.focused().trigger('keydown', { keyCode: 39, which: 39 });
+      break;
+    case 'enter':
+      cy.focused().trigger('keydown', { keyCode: 13, which: 13 });
+      break;
+    case 'space':
+      cy.focused().trigger('keydown', { keyCode: 32, which: 32 });
+      break;
+    case 'ESC':
+      cy.focused().trigger('keydown', { keyCode: 16, which: 16, release: false });
+      cy.focused().trigger('keydown', { keyCode: 27, which: 27 });
+      break;
+    case 'Tab':
+      cy.focused().trigger('keydown', { keyCode: 9, which: 9 });
+      break;
+    case 'ShiftTab':
+      cy.focused().trigger('keydown', { keyCode: 16, which: 16, release: false });
+      cy.focused().trigger('keydown', { keyCode: 9, which: 9 });
+      break;
+    case 'Home':
+      cy.focused().trigger('keydown', { keyCode: 36, which: 36 });
+      break;
+    case 'End':
+      cy.focused().trigger('keydown', { keyCode: 35, which: 35 });
+      break;
+    default: throw new Error(`This key ${arrow} is not one of the allowed`);
+  }
 });
 
 Then('focused element inner content is set to {string}', (text) => {
   cy.focused().should('contain', text);
+});
+
+Then('focused element has golden border outline {string}', (color) => {
+  cy.focused().should('have.css', 'outline', color);
 });
 
 When('I press keyboard {string} key times {int}', (key, times) => {
@@ -554,6 +555,10 @@ When('I press keyboard {string} key times {int}', (key, times) => {
 
 When('I click on outside dialog in iFrame', () => {
   cy.get('#story-root').click({ force: true });
+});
+
+When('I click onto root in Test directory in iFrame', () => {
+  cy.get('#root').click({ force: true });
 });
 
 Then('totalRecords is set to {string} {word}', (totalRecords, element) => {

@@ -14,8 +14,8 @@ const MessageStyle = styled.div`
   min-height: 38px;
 
   ${({ transparent }) => transparent && css`
-      border: none;
-      background: transparent;
+    border: none;
+    background: transparent;
   `}
 
   ${StyledIconButton} {
@@ -23,10 +23,6 @@ const MessageStyle = styled.div`
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
-
-    &::-moz-focus-inner {
-      border: none;
-    }
   }
 
   ${messageClassicStyling}

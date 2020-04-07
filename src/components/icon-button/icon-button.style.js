@@ -13,11 +13,16 @@ const StyledIconButton = styled.button`
       color: ${theme.text.color};
       background-color: transparent;
       outline: solid 3px ${theme.colors.focus};
+      z-index: 1;
     }
   `}
 
   &:hover {
     cursor: pointer;
+  }
+
+  &::-moz-focus-inner {
+    border: none;
   }
 
   ${StyledIcon} {
@@ -27,7 +32,6 @@ const StyledIconButton = styled.button`
       border: none;
     }
   }
-
 
   ${classicIconButtonStyle};
 `;

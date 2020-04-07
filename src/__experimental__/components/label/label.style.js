@@ -73,6 +73,8 @@ const LabelStyle = styled.label`
       }
     `}
   `}
+
+  ${({ styleOverride }) => styleOverride};
 `;
 
 LabelStyle.defaultProps = {
@@ -87,7 +89,8 @@ LabelStyle.propTypes = {
   inline: PropTypes.bool,
   inputSize: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   width: PropTypes.number,
-  readOnly: PropTypes.bool
+  readOnly: PropTypes.bool,
+  styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 };
 
 export default LabelStyle;

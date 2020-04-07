@@ -9,7 +9,7 @@ import {
   ToastStyle, ToastTypeStyle, ToastContentStyle, ToastWrapper
 } from './toast.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import DismissButton from '../dismiss-button';
+import IconButton from '../icon-button';
 
 class Toast extends React.Component {
   /** Classes to be applied to the component. */
@@ -19,19 +19,20 @@ class Toast extends React.Component {
     );
   }
 
-  /** Content rendered for dismiss X */
-  get dismissIcon() {
-    if (this.props.onDismiss) {
-      return (
-        <DismissButton
-          data-element='close'
-          onDismiss={ this.props.onDismiss }
-          type='close'
-          variant={ this.props.variant || this.props.as }
-        />
-      );
-    }
-    return null;
+  closeIcon() {
+    const {
+      onDismiss
+    } = this.props;
+    if (!onDismiss) return null;
+
+    return (
+      <IconButton
+        data-element='close'
+        onAction={ onDismiss }
+      >
+        <Icon type='close' />
+      </IconButton>
+    );
   }
 
   /** Content rendered for the toast. */
@@ -58,7 +59,7 @@ class Toast extends React.Component {
             >
               { this.props.children }
             </ToastContentStyle>
-            { this.dismissIcon }
+            { this.closeIcon() }
           </ToastStyle>
         </CSSTransition>
       );

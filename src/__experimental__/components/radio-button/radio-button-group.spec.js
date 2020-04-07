@@ -6,6 +6,7 @@ import { RadioButton, RadioButtonGroup } from '.';
 import { LegendContainerStyle } from '../fieldset/fieldset.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import RadioButtonGroupStyle from './radio-button-group.style';
+import Fieldset from '../fieldset';
 
 const buttonValues = ['test-1', 'test-2'];
 const name = 'test-group';
@@ -66,6 +67,36 @@ describe('RadioButtonGroup', () => {
         },
         mount(<RadioButtonGroupStyle inline />)
       );
+    });
+  });
+
+  describe('style overrides', () => {
+    let wrapper;
+    const customStyleObject = {
+      backgroundColor: 'red',
+      display: 'flex',
+      fontSize: '200px'
+    };
+    const styleOverride = {
+      root: customStyleObject,
+      content: customStyleObject,
+      legend: customStyleObject
+    };
+
+    beforeEach(() => {
+      wrapper = render(mount, { styleOverride });
+    });
+
+    it('renders root element with properly assigned styles', () => {
+      assertStyleMatch(customStyleObject, wrapper.find(Fieldset));
+    });
+
+    it('renders content wrapper with properly assigned styles', () => {
+      assertStyleMatch(customStyleObject, wrapper.find(RadioButtonGroupStyle));
+    });
+
+    it('renders legend element with properly assigned styles', () => {
+      assertStyleMatch(customStyleObject, wrapper.find(LegendContainerStyle));
     });
   });
 });

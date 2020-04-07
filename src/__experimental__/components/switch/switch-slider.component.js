@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from 'styled-components';
+import I18n from 'i18n-js';
 import baseTheme from '../../../style/themes/base';
 import Icon from '../../../components/icon';
 import Loader from '../../../components/loader/loader.component';
@@ -12,8 +13,15 @@ const SwitchSlider = (props) => {
   const {
     theme, checked, disabled, loading, size
   } = props;
-  const on = isClassic(theme) ? <Icon type='tick' bgTheme='none' /> : 'ON';
-  const off = isClassic(theme) ? <Icon type='cross' bgTheme='none' /> : 'OFF';
+
+  let on = I18n.t('switch.on', { defaultValue: 'ON' }).toUpperCase();
+  let off = I18n.t('switch.off', { defaultValue: 'OFF' }).toUpperCase();
+
+  if (isClassic(theme)) {
+    on = <Icon type='tick' bgTheme='none' />;
+    off = <Icon type='cross' bgTheme='none' />;
+  }
+
   const panelContent = checked ? on : off;
 
   const switchSliderStyleProps = {

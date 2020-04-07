@@ -302,7 +302,7 @@ class Select extends React.Component {
    * Finds the <Option> child with the specified `value` prop, and returns its `text` prop.
    */
   getTextForValue = (value) => {
-    const optionsComponents = this.props.children;
+    const optionsComponents = React.Children.toArray(this.props.children);
     const matchingOption = optionsComponents.find(option => (option.props.value === value));
     return matchingOption ? matchingOption.props.text : '';
   }
@@ -418,6 +418,7 @@ class Select extends React.Component {
       onOpen,
       typeAhead,
       filterable,
+      transparent,
       ...props
     } = this.props;
 
@@ -437,6 +438,7 @@ class Select extends React.Component {
         aria-controls={ open ? this.listboxId : '' }
         aria-label={ ariaLabel }
         isAnyValueSelected={ this.isMultiSelectEnabled() && (this.getMultiSelectValues().length >= 1) }
+        transparent={ transparent }
       >
         <Textbox
           { ...props } // this needs to send all of the original props
@@ -468,14 +470,15 @@ class Select extends React.Component {
 
 const valuePropType = PropTypes.oneOfType([
   PropTypes.string, // Single-select mode
-  PropTypes.arrayOf(PropTypes.string) // Multi-select mode
+  PropTypes.object, // CustomFilter-select mode
+  PropTypes.array // Multi-select mode
 ]);
 
 Select.propTypes = {
   ariaLabel: PropTypes.string,
   /** Child components (such as <Option>) for the <SelectList> */
   children: PropTypes.node,
-  /** A custom function to filter the child components. Its interface is (text, value) => boolean */
+  /** A custom function to filter the child components. Its interface is (text, filter, value) => boolean */
   customFilter: PropTypes.func,
   /** Is the component disabled? */
   disabled: PropTypes.bool,
@@ -521,7 +524,9 @@ Select.propTypes = {
   filterable: PropTypes.bool,
   isAnyValueSelected: PropTypes.bool,
   /** Add additional child elements before the input */
-  leftChildren: PropTypes.node
+  leftChildren: PropTypes.node,
+  /** If true the component input has no border and is transparent */
+  transparent: PropTypes.bool
 };
 
 Select.defaultProps = {

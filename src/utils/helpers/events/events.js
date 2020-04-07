@@ -66,12 +66,12 @@ const Events = {
       return false;
     }
     if (Events.isNumberKey(ev)
-        || Events.isAlphabetKey(ev)
-        || Events.isNumpadKey(ev)
-        || Events.isSymbolKey(ev)
-        || Events.isSpaceKey(ev)
-        || Events.isDeletingKey(ev)
-        || Events.isBackspaceKey(ev)) {
+      || Events.isAlphabetKey(ev)
+      || Events.isNumpadKey(ev)
+      || Events.isSymbolKey(ev)
+      || Events.isSpaceKey(ev)
+      || Events.isDeletingKey(ev)
+      || Events.isBackspaceKey(ev)) {
       return true;
     }
 
@@ -124,9 +124,9 @@ const Events = {
   * */
   isSymbolKey: (ev) => {
     return (ev.which >= 58 && ev.which <= 64) // : to @
-           || (ev.which >= 106 && ev.which <= 107) // numpad * and +
-           || (ev.which >= 186 && ev.which <= 192) // , .
-           || (ev.which >= 219 && ev.which <= 222); // \ ]
+      || (ev.which >= 106 && ev.which <= 107) // numpad * and +
+      || (ev.which >= 186 && ev.which <= 192) // , .
+      || (ev.which >= 219 && ev.which <= 222); // \ ]
   },
 
   /**
@@ -281,6 +281,17 @@ const Events = {
   * */
   isSpaceKey: (ev) => {
     return ev.which === 32;
+  },
+
+  /**
+    * Determines if the key pressed is the space key or enter key
+    *
+    * @method isEnterOrSpaceKey
+    * @param {Event} ev A JavaScript event
+    * @returns {Boolean} true if space key
+    * */
+  isEnterOrSpaceKey: (ev) => {
+    return ev.which === 13 || ev.which === 32;
   },
 
   /**

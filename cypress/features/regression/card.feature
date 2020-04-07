@@ -1,7 +1,7 @@
-Feature: Card component
-  I want to change Card properties
+Feature: Card default component
+  I want to test Card default component properties
 
-  Background: Open Card component page
+  Background: Open Card default component page
     Given I open "Card" component page
 
   @positive
@@ -24,15 +24,15 @@ Feature: Card component
       | 700px |
       | 999px |
 
-  @negative
+  @positive
   Scenario Outline: Set the width of Card component to outOfScope <width>
     When I set width to "<width>"
     Then Card component has not set width to "<width>"
     Examples:
-      | width |
-      | -10px |
-      | -999px|
-      | test  |
+      | width  |
+      | -10px  |
+      | -999px |
+      | test   |
 
   @positive
   Scenario: Enable interactive card checkbox
@@ -46,6 +46,6 @@ Feature: Card component
 
   @positive
   Scenario: Verify the interactive card shadow
-    When I check interactive card checkbox
-      And I hover mouse onto Card component
+    Given I check interactive card checkbox
+    When I hover mouse onto Card component
     Then Card component has interactive shadow

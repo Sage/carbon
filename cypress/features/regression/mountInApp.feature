@@ -1,5 +1,5 @@
-Feature: Mount in App component
-  I want to change Mount in App component properties
+Feature: Mount in App default component
+  I want to check that Mount in App default component is rendered properly
 
   @positive
   Scenario: Mount in App is visible

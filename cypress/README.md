@@ -6,7 +6,7 @@
 ## Manual Testing
 ### Components:
 1. Every component should be fully tested using functional testing / UI testing / Internationalization testing.
-2. Every component should have a dedicated story (default / classic / multiple / validation / themes etc.),
+2. Every component should have a dedicated story (default / multiple / validation / themes etc.),
    notes section and accessibility section.
 3. Supporting browsers:
   * Chrome,
@@ -29,9 +29,8 @@
 
 ## Getting started
 1. Clone the carbon repository `git clone git@github.com:Sage/carbon.git`.
-2. Checkout cypress-cucumber-storybook branch `git checkout cypress-cucumber-storybook`.
 3. Install `npm install`.
-4. Run storybook `npm run storybook`.
+4. Run storybook `npm start`.
 5. Open a new terminal in the same path.
 6. Run cypress `npm run test-cypress`.
 7. If you would like to run specific cypress tests in command line (headless browser for continuous integration) use: `npm run test-cypress --spec 'cypress/features/[tests-type]/[featureFileName].feature'`.
@@ -60,7 +59,7 @@
   * I check / uncheck `<knobs filed>` checkbox;
   * I open `<name>` component page;
     * To open different stories on storybook;
-      * I open `<name>` component page `classic` / `basic` / `with button` / `legacy spinner` / `iframe` / `with button page in iframe` / `multiple` /`validations`.
+      * I open `<name>` component page `default` / `basic` / `with button` / `legacy spinner` / `iframe` / `with button page in iframe` / `multiple` /`validations`.
 
 ## Scenario tags
 Use scenario tags:
@@ -73,7 +72,6 @@ Use scenario tags:
 7. `@accessibility` tests verify accessibility violations.
 8. `@validations` tests verify validation components.
 9. `@deprecated` tests verify deprecated components.
-
 ## Files structure
 ```
 .

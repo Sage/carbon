@@ -3,8 +3,6 @@ import StyledButton from '../button/button.style';
 import StyledSplitButtonChildrenContainer from '../split-button/split-button-children.style';
 import baseTheme from '../../style/themes/base';
 import StyledSplitButton from '../split-button/split-button.style';
-import getMultiActionButtonClassicStyles from './multi-action-button-classic.style';
-import { isClassic } from '../../utils/helpers/style-helper';
 import StyledIcon from '../icon/icon.style';
 
 const StyledMultiActionButton = styled.div`
@@ -16,9 +14,6 @@ const StyledMultiActionButton = styled.div`
       &,
       ${StyledIcon} {
         color: ${theme.colors.white};
-        margin-right: 0;
-        top: 2px;
-        left: ${isClassic(theme) ? '6px' : '8px'};
       }
 
       &:focus {
@@ -46,12 +41,9 @@ const StyledMultiActionButton = styled.div`
   }
 
   ${StyledIcon} {
-    margin-right: 0px;
-    top: 2px;
-    left: ${({ theme }) => (isClassic(theme) ? '6px' : '8px')};
+    margin-left: 0;
+    left: 8px;
   }
-  
-  ${getMultiActionButtonClassicStyles}
 `;
 
 StyledMultiActionButton.defaultProps = {

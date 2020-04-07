@@ -1,0 +1,229 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Grid GridItem builds the style rules for the GridItem responsiveSettings 1`] = `
+.c0 {
+  display: grid;
+  grid-template-columns: repeat(12,1fr);
+  grid-template-rows: auto;
+  width: auto;
+  margin: 40px;
+  grid-gap: 40px;
+}
+
+.c1 {
+  margin: 0;
+  grid-column-start: 1;
+  grid-column-end: 13;
+  grid-row-start: auto;
+  grid-row-end: auto;
+  margin: 0;
+  grid-column-start: 1;
+  grid-column-end: 13;
+  grid-row-start: auto;
+  grid-row-end: auto;
+  margin: 0;
+  grid-column-start: 1;
+  grid-column-end: 13;
+  grid-row-start: auto;
+  grid-row-end: auto;
+}
+
+.c2 {
+  margin: 0;
+  grid-column-start: 1;
+  grid-column-end: 13;
+  grid-row-start: auto;
+  grid-row-end: auto;
+  margin: 0;
+  grid-column-start: 1;
+  grid-column-end: 13;
+  grid-row-start: auto;
+  grid-row-end: auto;
+  margin: 0;
+  grid-column-start: 1;
+  grid-column-end: 13;
+  grid-row-start: auto;
+  grid-row-end: auto;
+}
+
+.c3 {
+  margin: 0;
+  grid-column-start: 1;
+  grid-column-end: 13;
+  grid-row-start: auto;
+  grid-row-end: auto;
+  margin: 0;
+  grid-column-start: 1;
+  grid-column-end: 13;
+  grid-row-start: auto;
+  grid-row-end: auto;
+  margin: 0;
+  grid-column-start: 1;
+  grid-column-end: 13;
+  grid-row-start: auto;
+  grid-row-end: auto;
+}
+
+@media screen and (max-width:1920px) {
+  .c0 {
+    grid-gap: 24px;
+  }
+}
+
+@media screen and (max-width:1259px) {
+  .c0 {
+    margin: 32px;
+  }
+}
+
+@media screen and (max-width:959px) {
+  .c0 {
+    grid-gap: 16px;
+    margin: 24px;
+  }
+}
+
+@media screen and (max-width:599px) {
+  .c0 {
+    margin: 16px;
+  }
+}
+
+@media screen and (max-width:1500px) {
+  .c1 {
+    -webkit-align-self: stretch;
+    -ms-flex-item-align: stretch;
+    align-self: stretch;
+    justify-self: stretch;
+    grid-column-start: 1;
+    grid-column-end: 7;
+    grid-row-start: 1;
+    grid-row-end: 1;
+  }
+}
+
+@media screen and (max-width:1300px) {
+  .c1 {
+    -webkit-align-self: stretch;
+    -ms-flex-item-align: stretch;
+    align-self: stretch;
+    justify-self: stretch;
+    grid-column-start: 1;
+    grid-column-end: 13;
+    grid-row-start: 1;
+    grid-row-end: 1;
+  }
+}
+
+@media screen and (max-width:900px) {
+  .c1 {
+    -webkit-align-self: stretch;
+    -ms-flex-item-align: stretch;
+    align-self: stretch;
+    justify-self: stretch;
+    grid-column-start: 1;
+    grid-column-end: 9;
+    grid-row-start: 2;
+    grid-row-end: 2;
+  }
+}
+
+@media screen and (max-width:1500px) {
+  .c2 {
+    -webkit-align-self: stretch;
+    -ms-flex-item-align: stretch;
+    align-self: stretch;
+    justify-self: stretch;
+    grid-column-start: 7;
+    grid-column-end: 13;
+    grid-row-start: 1;
+    grid-row-end: 1;
+  }
+}
+
+@media screen and (max-width:1300px) {
+  .c2 {
+    -webkit-align-self: stretch;
+    -ms-flex-item-align: stretch;
+    align-self: stretch;
+    justify-self: stretch;
+    grid-column-start: 1;
+    grid-column-end: 13;
+    grid-row-start: 2;
+    grid-row-end: 2;
+  }
+}
+
+@media screen and (max-width:900px) {
+  .c2 {
+    -webkit-align-self: stretch;
+    -ms-flex-item-align: stretch;
+    align-self: stretch;
+    justify-self: stretch;
+    grid-column-start: 1;
+    grid-column-end: 9;
+    grid-row-start: 3;
+    grid-row-end: 3;
+  }
+}
+
+@media screen and (max-width:1500px) {
+  .c3 {
+    -webkit-align-self: stretch;
+    -ms-flex-item-align: stretch;
+    align-self: stretch;
+    justify-self: stretch;
+    grid-column-start: 1;
+    grid-column-end: 13;
+    grid-row-start: 2;
+    grid-row-end: 2;
+  }
+}
+
+@media screen and (max-width:900px) {
+  .c3 {
+    -webkit-align-self: stretch;
+    -ms-flex-item-align: stretch;
+    align-self: stretch;
+    justify-self: stretch;
+    grid-column-start: 1;
+    grid-column-end: 9;
+    grid-row-start: 1;
+    grid-row-end: 1;
+  }
+}
+
+@media screen and (max-width:1300px) {
+  .c3 {
+    -webkit-align-self: stretch;
+    -ms-flex-item-align: stretch;
+    align-self: stretch;
+    justify-self: stretch;
+    grid-column-start: 1;
+    grid-column-end: 13;
+    grid-row-start: 3;
+    grid-row-end: 3;
+  }
+}
+
+<div
+  className="c0"
+  data-component="grid"
+>
+  <div
+    className="c1"
+  >
+    1
+  </div>
+  <div
+    className="c2"
+  >
+    2
+  </div>
+  <div
+    className="c3"
+  >
+    3
+  </div>
+</div>
+`;

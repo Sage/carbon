@@ -1,7 +1,6 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
-import { ThemeProvider } from 'styled-components';
 import { shallow, mount } from 'enzyme';
 import MultiActionButton from './multi-action-button.component';
 import Button from '../button';
@@ -10,10 +9,8 @@ import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import StyledSplitButtonChildrenContainer from '../split-button/split-button-children.style';
 import StyledButton from '../button/button.style';
 import StyledIcon from '../icon/icon.style';
-import classicTheme from '../../style/themes/classic';
 import StyledSplitButton from '../split-button/split-button.style';
 import baseTheme from '../../style/themes/base';
-import StyledMultiActionButton from './multi-action-button.style';
 
 describe('MultiActionButton', () => {
   let wrapper;
@@ -103,44 +100,6 @@ describe('MultiActionButton', () => {
       }, wrapper, { modifier: `${StyledSplitButtonChildrenContainer} ${StyledButton}` });
     });
   });
-
-  describe('when rendered with "classic" theme', () => {
-    let classicWrapper;
-
-    it('should match the snapshot', () => {
-      classicWrapper = renderWithTheme({
-        carbonTheme: classicTheme
-      }, TestRenderer.create);
-
-      expect(classicWrapper).toMatchSnapshot();
-    });
-
-    it('should have expected colors', () => {
-      classicWrapper = renderWithTheme({ carbonTheme: classicTheme }, mount);
-      const toggleButton = classicWrapper.find('button[data-element="toggle-button"]');
-      toggleButton.simulate('focus');
-
-      assertStyleMatch({
-        backgroundColor: '#1e499f',
-        borderColor: '#1e499f'
-      }, classicWrapper, { modifier: `${StyledSplitButton} > ${StyledButton}` });
-    });
-  });
-});
-
-describe('StyledMultiActionButton', () => {
-  describe('when rendered with "classic" theme', () => {
-    it('should match the snapshot for the legacy transparent type', () => {
-      const classicWrapper = TestRenderer.create(
-        <StyledMultiActionButton
-          text='Test'
-          buttonType='transparent'
-          theme={ classicTheme }
-        />
-      );
-      expect(classicWrapper).toMatchSnapshot();
-    });
-  });
 });
 
 function render(props, renderer = shallow) {
@@ -148,15 +107,5 @@ function render(props, renderer = shallow) {
     <MultiActionButton text='Test' { ...props }>
       <Button>Test</Button>
     </MultiActionButton>
-  );
-}
-
-function renderWithTheme(props = {}, renderer = shallow) {
-  return renderer(
-    <ThemeProvider theme={ props.carbonTheme }>
-      <MultiActionButton text='Test' { ...props }>
-        <Button>Test</Button>
-      </MultiActionButton>
-    </ThemeProvider>
   );
 }

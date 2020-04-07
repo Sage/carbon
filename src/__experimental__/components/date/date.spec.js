@@ -30,6 +30,31 @@ describe('StyledDateInput', () => {
 describe('Date', () => {
   let wrapper;
 
+  describe('external validations', () => {
+    it('should pass error props to the Textbox component', () => {
+      const validationPropsBag = { hasError: true, inputIcon: 'error', tooltipMessage: 'Error' };
+      wrapper = render(validationPropsBag);
+      expect(wrapper.find(Textbox).props()).toMatchObject(validationPropsBag);
+    });
+
+    it('should pass warning props to the Textbox component', () => {
+      const validationPropsBag = { hasWarning: true, inputIcon: 'warning', tooltipMessage: 'Warning' };
+      wrapper = render(validationPropsBag);
+      expect(wrapper.find(Textbox).props()).toMatchObject(validationPropsBag);
+    });
+
+    it('should pass info props to the Textbox component', () => {
+      const validationPropsBag = { hasInfo: true, inputIcon: 'info', tooltipMessage: 'Info' };
+      wrapper = render(validationPropsBag);
+      expect(wrapper.find(Textbox).props()).toMatchObject(validationPropsBag);
+    });
+
+    it('should render calendar icon when no validationProps provided', () => {
+      wrapper = render();
+      expect(wrapper.find(Textbox).props().inputIcon).toBe('calendar');
+    });
+  });
+
   describe('when the Component is rendered', () => {
     it("should have the Textbox component rendered as it's descendant", () => {
       wrapper = render({});

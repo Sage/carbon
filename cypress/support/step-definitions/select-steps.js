@@ -2,6 +2,9 @@ import {
   select, selectInput, selectInputNoIframe, selectPill,
 } from '../../locators/select';
 
+const transparentBorderColor = 'rgba(0, 0, 0, 0.85)';
+const notTransparentBorderColor = 'rgb(102, 132, 145)';
+
 Then('Select typeAhead is disabled', () => {
   select().should('have.attr', 'placeholder', 'Please Select...');
 });
@@ -91,4 +94,24 @@ When('Type {string} text into input and select the value', (text) => {
 
 When('Type {string} text into input and select the value into iFrame', (text) => {
   selectInputNoIframe().type(`${text}{downarrow}{enter}`);
+});
+
+Then('Select is transparent', () => {
+  select().parent().should('have.css', 'background-color', 'rgba(0, 0, 0, 0)')
+    .and('have.css', 'border-left-color', transparentBorderColor)
+    .and('have.css', 'border-right-color', transparentBorderColor)
+    .and('have.css', 'border-top-color', transparentBorderColor);
+  select().should('have.css', 'font-weight', '900');
+});
+
+Then('Select is not transparent', () => {
+  select().parent().should('have.css', 'background-color', 'rgb(255, 255, 255)')
+    .and('have.css', 'border-left-color', notTransparentBorderColor)
+    .and('have.css', 'border-right-color', notTransparentBorderColor)
+    .and('have.css', 'border-top-color', notTransparentBorderColor);
+  select().should('have.css', 'font-weight', '400');
+});
+
+Then('Select placeholder align on preview is set to {string}', (direction) => {
+  select().should('have.css', 'text-align', direction);
 });

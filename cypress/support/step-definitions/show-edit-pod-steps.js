@@ -61,14 +61,6 @@ Then('Show Edit Pod component hasn\'t a cancel button', () => {
   showEditPodCancelButton().should('not.exist');
 });
 
-Then('Show Edit Pod classic component has saving property', () => {
-  showEditPodSaveButton().should('be.disabled')
-    .and('have.css', 'background', 'rgb(230, 235, 237) none repeat scroll 0% 0% / auto padding-box border-box')
-    .and('have.css', 'border', '1px solid rgba(0, 0, 0, 0)')
-    .and('have.css', 'color', 'rgba(0, 0, 0, 0.2)')
-    .and('have.attr', 'disabled');
-});
-
 Then('Show Edit Pod component has saving property', () => {
   showEditPodSaveButton().should('be.disabled')
     .and('have.css', 'background', 'rgb(229, 234, 236) none repeat scroll 0% 0% / auto padding-box border-box')

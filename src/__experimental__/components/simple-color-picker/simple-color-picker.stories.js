@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, array } from '@storybook/addon-knobs';
+import { text, object } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
@@ -30,7 +30,7 @@ function makeStory(storyName, themeSelector) {
     const name = text('name', 'basicPicker');
     const legend = text('legend', 'Pick a colour');
     const demoColors = [
-      { color: '#00A376', label: 'green' },
+      { color: 'transparent', label: 'transparent' },
       { color: '#0073C1', label: 'blue' },
       { color: '#582C83', label: 'purple' },
       { color: '#E96400', label: 'orange' },
@@ -41,7 +41,7 @@ function makeStory(storyName, themeSelector) {
       { color: '#335C6D', label: 'dark blue' },
       { color: '#00DC00', label: 'light blue' }
     ];
-    const availableColors = array('availableColors', demoColors, '/');
+    const availableColors = object('availableColors', demoColors);
 
     return (
       <State store={ store }>

@@ -153,21 +153,3 @@ Then('Split Button expandable {string} element has golden border on focus', (ele
     default: throw new Error('There are only three expandable elements in Split Button component');
   }
 });
-
-Then('Split Button expandable {string} element has no golden border on focus for classic story', (element) => {
-  switch (element) {
-    case 'third':
-      additionalButton(FIRST_ELEMENT).should('have.css', 'background-color', 'rgb(22, 55, 119)')
-        .and('have.css', 'box-shadow', 'rgba(25, 99, 246, 0.6) 0px 0px 6px 0px');
-      break;
-    case 'fourth':
-      additionalButton(SECOND_ELEMENT).should('have.css', 'background-color', 'rgb(22, 55, 119)')
-        .and('have.css', 'box-shadow', 'rgba(25, 99, 246, 0.6) 0px 0px 6px 0px');
-      break;
-    case 'fifth':
-      additionalButton(THIRD_ELEMENT).should('have.css', 'background-color', 'rgb(22, 55, 119)')
-        .and('have.css', 'box-shadow', 'rgba(25, 99, 246, 0.6) 0px 0px 6px 0px');
-      break;
-    default: throw new Error('There are only three expandable elements in Split Button component');
-  }
-});

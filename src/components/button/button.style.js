@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import BaseTheme from '../../style/themes/base';
 import buttonTypes from './button-types.style';
 import buttonSizes from './button-sizes.style';
-import buttonClassicStyle from './button-classic.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import StyledIcon from '../icon/icon.style';
-import { isClassic } from '../../utils/helpers/style-helper';
 
 const StyledButton = styled.button`
   align-items: center;
@@ -16,18 +14,21 @@ const StyledButton = styled.button`
   flex-flow: wrap;
   justify-content: center;
   vertical-align: middle;
-  ${addButtonStyle}
+  ${stylingForType}
 
-  ${({ iconPosition }) => css`
+  ${({ iconPosition, theme }) => css`
     ${StyledIcon} {
-      margin-left: ${iconPosition === 'before' ? '0px' : '8px'};
-      margin-right: ${iconPosition === 'before' ? '8px' : '0px'};
+      margin-left: ${iconPosition === 'before' ? '0px' : `${theme.spacing}px`};
+      margin-right: ${iconPosition === 'before' ? `${theme.spacing}px` : '0px'};
       height: ${additionalIconStyle};
       svg { 
         margin-top: 0;
       }
+      ${({ styleOverride }) => styleOverride.icon}
     }
   `}
+
+  ${({ styleOverride }) => styleOverride.root}
 `;
 
 export const StyledButtonSubtext = styled.span`
@@ -36,27 +37,17 @@ export const StyledButtonSubtext = styled.span`
   display: block;
 `;
 
-function additionalIconStyle({ theme, iconType }) {
-  if (isClassic(theme)) {
-    if (iconType === 'services') return '8px';
-
-    return '18px';
-  }
+function additionalIconStyle({ iconType }) {
   if (iconType === 'services') return '6px';
   return '16px;';
-}
-
-function addButtonStyle(props) {
-  if (isClassicButton(props)) return buttonClassicStyle(props);
-
-  return stylingForType(props);
 }
 
 function stylingForType({
   disabled,
   buttonType,
   theme,
-  size
+  size,
+  destructive
 }) {
   return css`
     border: 2px solid transparent;
@@ -68,25 +59,20 @@ function stylingForType({
     &:focus {
       outline: solid 3px ${theme.colors.focus};
     }
-    
-    margin-right: 16px;
 
-    ${buttonTypes(theme, disabled)[buttonType]};
+    & ~ & {
+      margin-left: 16px;
+    }
+    ${buttonTypes(theme, disabled, destructive)[buttonType]};
     ${buttonSizes(theme)[size]}
   `;
-}
-
-function isClassicButton({ theme, buttonType }) {
-  const isClassicButtonType = OptionsHelper.themesBinary.includes(buttonType);
-
-  return isClassic(theme) && isClassicButtonType;
 }
 
 StyledButton.defaultProps = {
   theme: BaseTheme,
   medium: true,
   buttonType: 'secondary',
-  legacyColorVariant: 'blue'
+  styleOverride: { root: {}, icon: {} }
 };
 
 StyledButton.propTypes = {
@@ -96,7 +82,7 @@ StyledButton.propTypes = {
   children: PropTypes.node.isRequired,
   /** Apply disabled state to the button */
   disabled: PropTypes.bool,
-  /** Used to transfrom button into anchor */
+  /** Used to transform button into anchor */
   href: PropTypes.string,
   /** Defines an Icon position within the button */
   iconPosition: PropTypes.oneOf([...OptionsHelper.buttonIconPositions, '']),
@@ -106,10 +92,12 @@ StyledButton.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   /** Second text child, renders under main text, only when size is "large" */
   subtext: PropTypes.string,
-  /** Set this prop to pass in legacy theme color variants */
-  legacyColorVariant: PropTypes.oneOf(OptionsHelper.buttonColors),
-  /** Used to transfrom button into anchor */
-  to: PropTypes.string
+  /** Used to transform button into anchor */
+  to: PropTypes.string,
+  styleOverride: PropTypes.shape({
+    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    icon: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+  })
 };
 
 export default StyledButton;

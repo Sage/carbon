@@ -36,7 +36,7 @@ const Demo = () => {
                 <Button buttonType='tertiary'>Tertiary</Button>
               </StyledComponentWrapper>
               <StyledComponentWrapper styling={{ padding: '1%' }}>
-                <Button buttonType='destructive'>Destructive</Button>
+                <Button buttonType='primary' destructive>Destructive</Button>
               </StyledComponentWrapper>
             </StyledDemoRow>
             <StyledDemoRow styling={{ display: 'flex' }}>

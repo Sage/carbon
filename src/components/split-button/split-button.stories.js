@@ -4,7 +4,6 @@ import {
   text, boolean, select
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import SplitButton from './split-button.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Button from '../button';
@@ -26,27 +25,17 @@ const getIconKnobs = () => {
   };
 };
 
-const getKnobs = (isClassic) => {
-  let as, buttonType, size;
-
-  if (isClassic) {
-    as = select('as', OptionsHelper.themesBinary, Button.defaultProps.as);
-  } else {
-    buttonType = select('buttonType', OptionsHelper.themesBinary, Button.defaultProps.as);
-    size = select('size', OptionsHelper.sizesRestricted, Button.defaultProps.size);
-  }
-
+const getKnobs = () => {
   return {
-    as,
-    buttonType,
+    buttonType: select('buttonType', OptionsHelper.themesBinary, Button.defaultProps.as),
     dataElement: text('data-element'),
     dataRole: text('data-role'),
     disabled: boolean('disabled', Button.defaultProps.disabled),
     onClick: ev => action('click')(ev),
-    size,
+    size: select('size', OptionsHelper.sizesRestricted, Button.defaultProps.size),
     align: select('align', OptionsHelper.alignBinary, SplitButton.defaultProps.align),
     textContent: text('text', 'Example Split Button'),
-    subtext: (size === OptionsHelper.sizesRestricted[2]) ? text('subtext', Button.defaultProps.subtext) : undefined
+    subtext: text('subtext', Button.defaultProps.subtext)
   };
 };
 
@@ -80,44 +69,7 @@ storiesOf('Split Button', module)
       );
     },
     {
-      themeSelector: dlsThemeSelector,
       info: { text: info, propTablesExclude: [Button] },
       notes: { markdown: notes }
     },
-  )
-  .add('classic', () => {
-    const props = getKnobs(true);
-    const {
-      as,
-      dataElement,
-      dataRole,
-      disabled,
-      onClick,
-      textContent
-    } = props;
-    return (
-      <SplitButton
-        as={ as }
-        data-element={ dataElement }
-        data-role={ dataRole }
-        disabled={ disabled }
-        onClick={ onClick }
-        text={ textContent }
-        { ...props }
-      >
-        <Button onClick={ onClick }>
-            Example Button
-        </Button>
-        <Button onClick={ onClick }>
-            Example Button
-        </Button>
-        <Button onClick={ onClick }>
-            Example Button
-        </Button>
-      </SplitButton>
-    );
-  }, {
-    themeSelector: classicThemeSelector,
-    info: { text: info, propTablesExclude: [Button] },
-    notes: { markdown: notes }
-  });
+  );

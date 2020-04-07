@@ -6,8 +6,8 @@ Feature: Pod component
 
   @positive
   Scenario: Enable border checkbox for a Pod component
-    When I uncheck border checkbox
-      And I check border checkbox
+    Given I uncheck border checkbox
+    When I check border checkbox
     Then Pod component has border
 
   @positive
@@ -26,32 +26,32 @@ Feature: Pod component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                       |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario Outline: Set Pod padding to <padding>
     When I select padding to "<padding>"
-    Then Pod padding on preview is "<padding>"
+    Then Pod padding on preview is "<px>"
     Examples:
-      | padding     |
-      | extra-small |
-      | small       |
-      | medium      |
-      | large       |
-      | extra-large |
+      | padding     | px        |
+      | extra-small | 6px       |
+      | small       | 10px      |
+      | medium      | 15px      |
+      | large       | 30px 25px |
+      | extra-large | 40px      |
 
   @positive
-  Scenario Outline: Set Pod as align to <as>
-    When I select as to "<as>"
-    Then Pod as on preview is "<as>"
+  Scenario Outline: Change Pod type to <podType>
+    When I select podType to "<podType>"
+    Then Pod on preview has background color "<color>"
     Examples:
-      | as          |
-      | primary     |
-      | secondary   |
-      | tertiary    |
-      | tile        |
-      | transparent |
+      | podType     | color              |
+      | primary     | rgb(255, 255, 255) |
+      | secondary   | rgb(242, 244, 245) |
+      | tertiary    | rgb(229, 234, 236) |
+      | tile        | rgb(255, 255, 255) |
+      | transparent | rgba(0, 0, 0, 0)   |
 
   @positive
   Scenario Outline: Change Pod title to <title>
@@ -64,13 +64,13 @@ Feature: Pod component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                       |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario Outline: Change Pod subtitle to <subtitle>
-    When I set title to "title"
-      And I set subtitle to "<subtitle>"
+    Given I set title to "title"
+    When I set subtitle to "<subtitle>"
     Then Pod subtitle on preview is set to "<subtitle>"
     Examples:
       | subtitle                |
@@ -79,16 +79,18 @@ Feature: Pod component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                       |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario Outline: Change Pod alignTitle to <alignTitle>
-    When I set title to "title"
+    Given I set title to "title"
       And I set subtitle to "subtitle"
       And I set footer to "footer"
-      And I select alignTitle to "<alignTitle>"
-    Then Pod alignTitle on preview is "<alignTitle>"
+    When I select alignTitle to "<alignTitle>"
+    Then Pod "title" on preview is "<alignTitle>"
+      And Pod "subtitle" on preview is "<alignTitle>"
+      And Pod "footer" on preview is "<alignTitle>"
     Examples:
       | alignTitle |
       | center     |
@@ -106,8 +108,8 @@ Feature: Pod component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                       |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario Outline: Change Pod footer to <footer>
@@ -120,49 +122,50 @@ Feature: Pod component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                       |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario: Enable and disable onEdit checkbox for a Pod component
-    When I check onEdit checkbox
-      And I uncheck onEdit checkbox
+    Given I check onEdit checkbox
+    When I uncheck onEdit checkbox
     Then Pod component has no onEdit property
 
   @positive
   Scenario: Enable onEdit checkbox for a Pod component
     When I check onEdit checkbox
-    Then Pod component has onEdit property
+    Then Edit property is visible
 
   @positive
   Scenario: Enable onEdit checkbox and check the edit event
-    When I check onEdit checkbox
+    Given I check onEdit checkbox
       And clear all actions in Actions Tab
-      And I click onEdit icon
+    When I click onEdit icon
     Then edit action was called in Actions Tab
-
+  
+  # width is properly for CI  
   @positive
   Scenario: Enable onEdit checkbox and check the editContentFullWidth checkbox
-    When I check onEdit checkbox
-      And I check editContentFullWidth checkbox
-    Then Pod component has editContentFullWidth property
+    Given I check onEdit checkbox
+    When I check editContentFullWidth checkbox
+    Then Pod component has width "1006px"
 
   @positive
   Scenario: Enable onEdit checkbox and check the displayEditButtonOnHover checkbox
-    When I check onEdit checkbox
+    Given I check onEdit checkbox
       And I set title to "title"
       And I check displayEditButtonOnHover checkbox
-      And I hover mouse onto Pod content
-    Then Pod component has displayEditButtonOnHover property
+    When I hover mouse onto Pod content
+    Then Pod component has "rgb(0, 128, 93)" background color
 
   @positive
   Scenario: Enable onEdit checkbox and check the triggerEditOnContent checkbox
-    When I check onEdit checkbox
-      And I check triggerEditOnContent checkbox
+    Given I check onEdit checkbox
+    When I check triggerEditOnContent checkbox
     Then Pod component has triggerEditOnContent property
 
   @positive
   Scenario: Enable onEdit checkbox and check the internalEditButton checkbox
-    When I check onEdit checkbox
-      And I check internalEditButton checkbox
+    Given I check onEdit checkbox
+    When I check internalEditButton checkbox
     Then Pod component has internalEditButton property

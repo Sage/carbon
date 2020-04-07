@@ -42,6 +42,7 @@ function renderStyledButton(buttonProps) {
     theme,
     forwardRef,
     href,
+    styleOverride,
     ...styleProps
   } = buttonProps;
 
@@ -57,11 +58,11 @@ function renderStyledButton(buttonProps) {
       disabled={ disabled }
       role='button'
       type='button'
-      legacyColorVariant={ theme }
       iconType={ iconType }
       { ...tagComponent('button', buttonProps) }
       { ...styleProps }
       ref={ forwardRef }
+      styleOverride={ styleOverride }
     >
       { renderChildren(buttonProps) }
     </StyledButton>
@@ -75,7 +76,6 @@ function renderChildren({
     primary: 'on-dark-background',
     secondary: 'business-color',
     tertiary: 'business-color',
-    destructive: 'on-dark-background',
     darkBackground: 'business-color'
   };
 
@@ -90,7 +90,13 @@ function renderChildren({
         />) }
       <span>
         <span data-element='main-text'>{ children }</span>
-        { size === 'large' && <StyledButtonSubtext data-element='subtext'>{ subtext }</StyledButtonSubtext> }
+        { size === 'large' && (
+          <StyledButtonSubtext
+            data-element='subtext'
+          >
+            { subtext }
+          </StyledButtonSubtext>
+        )}
       </span>
       { iconType && iconPosition === 'after' && (
         <Icon
@@ -104,12 +110,14 @@ function renderChildren({
 }
 
 Button.propTypes = {
-  /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "destructive" | "darkBackground" */
+  /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "darkBackground" */
   buttonType: PropTypes.oneOf(OptionsHelper.buttonTypes),
   /** The text the button displays */
   children: PropTypes.node.isRequired,
   /** Apply disabled state to the button */
   disabled: PropTypes.bool,
+  /** Apply destructive style to the button */
+  destructive: PropTypes.bool,
   /** Defines an Icon position within the button: "before" | "after" */
   iconPosition: PropTypes.oneOf([...OptionsHelper.buttonIconPositions]),
   /** Defines an Icon type within the button (see Icon for options) */
@@ -122,23 +130,25 @@ Button.propTypes = {
   forwardRef: PropTypes.func,
   /** Button types for legacy theme: "primary" | "secondary" */
   as: PropTypes.oneOf(OptionsHelper.themesBinary),
-  /** Set this prop to pass in legacy theme color variants */
-  theme: PropTypes.oneOf(OptionsHelper.buttonColors),
-  checkTheme: PropTypes.func,
-  /** Legacy - used to transfrom button into anchor */
+  /** Legacy - used to transform button into anchor */
   href: PropTypes.string,
-  /** Legacy - used to transfrom button into anchor */
-  to: PropTypes.string
-
+  /** Legacy - used to transform button into anchor */
+  to: PropTypes.string,
+  /** Allows override of existing component styles */
+  styleOverride: PropTypes.shape({
+    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    icon: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+  })
 };
 
 Button.defaultProps = {
   as: 'secondary',
   size: 'medium',
   disabled: false,
+  destructive: false,
   iconPosition: 'before',
-  theme: 'blue',
-  subtext: ''
+  subtext: '',
+  styleOverride: { root: {}, icon: {} }
 };
 
 const ButtonWithForwardRef = React.forwardRef((props, ref) => <Button forwardRef={ ref } { ...props } />);

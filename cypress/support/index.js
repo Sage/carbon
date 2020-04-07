@@ -1,6 +1,12 @@
 import { radioButtonComponent } from '../locators/radioButton';
 
+// Configure custom commands eyes-cypress
+import '@applitools/eyes-cypress/commands';
+import applitoolsSettings from '../../applitools.config.js';
+
 export const DEBUG_FLAG = true;
+require('cypress-plugin-retries');
+
 
 // ***********************************************************
 // This example support/index.js is processed and
@@ -28,11 +34,6 @@ export const DEBUG_FLAG = true;
 //     cy.server();
 //     cy.route('/countries*', {});
 // })
-
-// Configure custom commands eyes-cypress
-import '@applitools/eyes-cypress/commands'
-
-import applitools_settings from '../../applitools.config.js'
 
 /* returning false here prevents Cypress from failing the test */
 Cypress.on('uncaught:exception', (err, runnable) => false);
@@ -90,21 +91,18 @@ Cypress.Screenshot.defaults({ screenshotOnRunFailure: DEBUG_FLAG });
 
 const {
   Before,
-  After
-} = require("cypress-cucumber-preprocessor/steps");
+  After,
+} = require('cypress-cucumber-preprocessor/steps');
 
 
-if ( Cypress.env('CYPRESS_APPLITOOLS') ) {
-  Before({ tags: "@applitools" }, () => {
-    applitools_settings.testName = cy.state('ctx').test.title
-    applitools_settings.batchName = cy.state('ctx').test.parent.title
-
-    cy.eyesOpen(applitools_settings); 
+if (Cypress.env('CYPRESS_APPLITOOLS')) {
+  Before({ tags: '@applitools' }, () => {
+    applitoolsSettings.testName = cy.state('ctx').test.title;
+    applitoolsSettings.batchName = cy.state('ctx').test.parent.title;
+    cy.eyesOpen(applitoolsSettings);
   });
 
-  After({ tags: "@applitools" }, () => {
+  After({ tags: '@applitools' }, () => {
     cy.eyesClose();
   });
 }
-
-

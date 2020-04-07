@@ -52,7 +52,82 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   background-color: #0073C1;
 }
 
-.c7 {
+.c14 {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border: 2px solid transparent;
+  background-color: #582C83;
+}
+
+.c12 {
+  display: inline-block;
+  position: relative;
+  color: rgba(0,0,0,0.65);
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c12:hover {
+  color: rgba(0,0,0,0.90);
+  background-color: transparent;
+}
+
+.c12::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e950";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c13 {
+  height: 22px;
+  width: 22px;
+  pointer-events: none;
+  display: none;
+}
+
+.c13::before {
+  font-size: 22px;
+  color: #FFFFFF;
+}
+
+.c13 {
+  display: block;
+}
+
+.c6 {
   background: transparent;
   border: none;
   color: rgba(0,0,0,0.9);
@@ -65,28 +140,28 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   width: 30px;
 }
 
-.c7::-webkit-input-placeholder {
+.c6::-webkit-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c7::-moz-placeholder {
+.c6::-moz-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c7:-ms-input-placeholder {
+.c6:-ms-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c7::placeholder {
+.c6::placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c7:invalid,
-.c7:required {
+.c6:invalid,
+.c6:required {
   box-shadow: none;
 }
 
-.c6 {
+.c7 {
   position: absolute;
   opacity: 0;
   height: 56px;
@@ -94,27 +169,27 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   margin: 0;
 }
 
-.c6:hover {
+.c7:hover {
   cursor: pointer;
 }
 
-.c6:focus + .c8 {
+.c7:focus + .c8 {
   box-shadow: inset 0px 0px 0px 3px #FFFFFF;
   border: 2px solid #FFB500;
 }
 
-.c1 {
+.c0 {
   border: none;
   margin: 0;
   padding: 0;
 }
 
-.c1.c1.c1 .c13 {
+.c0.c0.c0 .c16 {
   margin-top: 0;
   margin-bottom: -1px;
 }
 
-.c1 .c14 {
+.c0 .c17 {
   padding-top: 8px;
   padding-bottom: 8px;
 }
@@ -137,20 +212,20 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   line-height: 24px;
 }
 
-.c3 .c12 .c11:focus {
+.c3 .c15 .c11:focus {
   outline: 2px solid #FFB500;
 }
 
-.c0 {
+.c1 {
   max-width: 300px;
 }
 
-.c0 .c2 {
+.c1 .c2 {
   margin-bottom: 16px;
   height: 26px;
 }
 
-.c0 .c2 legend {
+.c1 .c2 legend {
   font-size: 14px;
   margin-left: -2px;
 }
@@ -199,13 +274,16 @@ exports[`SimpleColorPicker renders as expected 1`] = `
           aria-checked={false}
           checked={false}
           className="c6 c7"
+          data-down={false}
           data-element="input"
+          data-up={false}
           id="rId-0"
           name="test-group"
           onBlur={[Function]}
           onChange={[Function]}
           onClick={[Function]}
           onFocus={[Function]}
+          onKeyDown={[Function]}
           onMouseDown={[Function]}
           role="radio"
           type="radio"
@@ -217,22 +295,25 @@ exports[`SimpleColorPicker renders as expected 1`] = `
         />
       </div>
       <div
-        checked={false}
+        checked={true}
         className="c5"
         color="#0073C1"
         data-component="simple-color"
       >
         <input
-          aria-checked={false}
-          checked={false}
+          aria-checked={true}
+          checked={true}
           className="c6 c7"
+          data-down={false}
           data-element="input"
+          data-up={false}
           id="rId-1"
           name="test-group"
           onBlur={[Function]}
           onChange={[Function]}
           onClick={[Function]}
           onFocus={[Function]}
+          onKeyDown={[Function]}
           onMouseDown={[Function]}
           role="radio"
           type="radio"
@@ -241,6 +322,47 @@ exports[`SimpleColorPicker renders as expected 1`] = `
         <div
           className="c8 c10"
           color="#0073C1"
+        >
+          <span
+            checked={true}
+            className="c11 c12 c13"
+            color="#0073C1"
+            data-component="icon"
+            data-element="tick"
+            disabled={false}
+            fontSize="small"
+            type="tick"
+          />
+        </div>
+      </div>
+      <div
+        checked={false}
+        className="c5"
+        color="#582C83"
+        data-component="simple-color"
+      >
+        <input
+          aria-checked={false}
+          checked={false}
+          className="c6 c7"
+          data-down={false}
+          data-element="input"
+          data-up={false}
+          id="rId-2"
+          name="test-group"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          role="radio"
+          type="radio"
+          value="#582C83"
+        />
+        <div
+          className="c8 c14"
+          color="#582C83"
         />
       </div>
     </div>

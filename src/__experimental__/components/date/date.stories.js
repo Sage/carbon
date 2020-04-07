@@ -109,11 +109,64 @@ function makeValidationsStory(name, themeSelector) {
   return [name, component, metadata];
 }
 
+function makeExternalValidationsStory(name, themeSelector) {
+  const component = () => {
+    return (
+      <State store={ store }>
+        <DateInput
+          name='dateinput'
+          placeholder={ text('placeholder') }
+          hasError
+          inputIcon='error'
+          tooltipMessage='Error'
+          onChange={ setValue }
+          onBlur={ ev => action('onBlur')(ev) }
+          allowEmptyValue={ boolean('allowEmptyValue', false) }
+        />
+        <div style={ { height: 24 } } />
+        <DateInput
+          name='dateinput'
+          placeholder={ text('placeholder') }
+          hasWarning
+          inputIcon='warning'
+          tooltipMessage='Warning'
+          onChange={ setValue }
+          onBlur={ ev => action('onBlur')(ev) }
+          allowEmptyValue={ boolean('allowEmptyValue', false) }
+        />
+        <div style={ { height: 24 } } />
+        <DateInput
+          name='dateinput'
+          placeholder={ text('placeholder') }
+          hasInfo
+          inputIcon='info'
+          tooltipMessage='Info'
+          onChange={ setValue }
+          onBlur={ ev => action('onBlur')(ev) }
+          allowEmptyValue={ boolean('allowEmptyValue', false) }
+        />
+      </State>
+    );
+  };
+
+  const metadata = {
+    themeSelector,
+    info: {
+      source: false,
+      propTables: [OriginalTextbox],
+      propTablesExclude: [State]
+    }
+  };
+
+  return [name, component, metadata];
+}
+
 storiesOf('Experimental/Date Input', module)
   .addDecorator(StateDecorator(store))
   .add(...makeStory('default', dlsThemeSelector, dateComponent))
   .add(...makeStory('classic', classicThemeSelector, dateComponent))
   .add(...makeValidationsStory('validations', dlsThemeSelector, dateComponent))
+  .add(...makeExternalValidationsStory('external validations', dlsThemeSelector, dateComponent))
   .add(...makeValidationsStory('validations classic', classicThemeSelector, dateComponent))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusDateComponent));
 

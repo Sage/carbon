@@ -10,3 +10,7 @@
 - Choosing one option from a longer list? Try Radio Button. [Try Radio Button](/components/radio-button "Try Radio Button").
 - Choosing one option from a very long list? Try Dropdown. [Try Dropdown](/components/dropdown "Try Dropdown")
 - Choosing one option from a highly visible range? Try Button Toggle. [Try Button Toggle](/components/button-toggle "Try Button Toggle")
+
+# Translations
+
+The switch component uses `switch.on` and `switch.off` to retrieve the translations from I18n-js.

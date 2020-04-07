@@ -5,6 +5,10 @@ import Button from '.';
 
 # Button
 
+```javascript
+import Button from 'carbon-react/lib/components/button';
+```
+
 ## Primary Buttons
 For the single most prominent call to action on the page (e.g. Save, Submit, Continue).
 <Preview>
@@ -21,9 +25,9 @@ Primary buttons can be destructive.
 <Preview>
   <Story name="primary/destructive" parameters={{ info: { disable: true }}} >
     <>
-      <Button buttonType="destructive" size="small">Small</Button>
-      <Button buttonType="destructive">Medium</Button>
-      <Button buttonType="destructive" size="large">Large</Button>
+      <Button buttonType="primary" destructive size="small">Small</Button>
+      <Button buttonType="primary" destructive >Medium</Button>
+      <Button buttonType="primary" destructive size="large">Large</Button>
     </>
   </Story>
 </Preview>
@@ -44,7 +48,7 @@ Primary buttons can have an icon positioned before or after the text.
   <Story name="primary/icon" parameters={{ info: { disable: true }}} >
   <>
     <Button buttonType="primary" iconType="print">Medium</Button>
-    <Button buttonType="destructive" iconType="delete" iconPosition="after">Medium</Button>
+    <Button buttonType="primary" destructive iconType="delete" iconPosition="after">Medium</Button>
     <Button buttonType="primary" disabled iconType="print" iconPosition="after">Medium</Button>
     </>
   </Story>
@@ -68,7 +72,9 @@ Secondary buttons can be destructive.
 <Preview>
   <Story name="secondary/destructive" parameters={{ info: { disable: true }}} >
     <>
-      Secondary destructive buttons have not been implemented yet.
+      <Button destructive size="small">Small</Button>
+      <Button destructive >Medium</Button>
+      <Button destructive size="large">Large</Button>
     </>
   </Story>
 </Preview>
@@ -88,8 +94,9 @@ Secondary buttons can have an icon positioned before or after the text.
 <Preview>
   <Story name="secondary/icon" parameters={{ info: { disable: true }}} >
   <>
-    <Button buttonType="secondary" iconType="print">Medium</Button>
-    <Button buttonType="secondary" disabled iconType="print" iconPosition="after">Medium</Button>
+    <Button iconType="print">Medium</Button>
+    <Button destructive iconType="delete" iconPosition="after">Medium</Button>
+    <Button disabled iconType="print" iconPosition="after">Medium</Button>
     </>
   </Story>
 </Preview>
@@ -112,7 +119,9 @@ Tertiary buttons can be destructive.
 <Preview>
   <Story name="tertiary/destructive" parameters={{ info: { disable: true }}} >
     <>
-      Tertiary destructive buttons have not been implemented yet.
+      <Button buttonType="tertiary" destructive size="small">Small</Button>
+      <Button buttonType="tertiary" destructive >Medium</Button>
+      <Button buttonType="tertiary" destructive size="large">Large</Button>
     </>
   </Story>
 </Preview>
@@ -133,7 +142,20 @@ Tertiary buttons can have an icon positioned before or after the text.
   <Story name="tertiary/icon" parameters={{ info: { disable: true }}} >
   <>
     <Button buttonType="tertiary" iconType="print">Medium</Button>
+    <Button buttonType="tertiary" destructive iconType="delete" iconPosition="after">Medium</Button>
     <Button buttonType="tertiary" disabled iconType="print" iconPosition="after">Medium</Button>
+    </>
+  </Story>
+</Preview>
+
+## With overriden styles
+It is possible to override the default styles of a Button by passing in a styleOverride object as a prop. 
+See the prop types for how this object should be formatted.
+<Preview>
+  <Story name="with overriden styles" parameters={{ info: { disable: true }}} >
+  <>
+    <Button buttonType="primary" iconType="print" styleOverride={ {root: { color: 'pink' }, icon : { color: 'pink' }} }>Pink Text</Button>
+    <Button buttonType="secondary" iconType="email" iconPosition="after" styleOverride={ {root: { color: 'purple' }, icon : { color: 'purple' }} }>Purple Text</Button>
     </>
   </Story>
 </Preview>

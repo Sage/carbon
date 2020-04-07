@@ -1,14 +1,13 @@
-Feature: Navigation Bar component
-  I want to change Navigation Bar component properties
+Feature: Navigation Bar default component
+  I want to test Navigation Bar default component properties
 
   Background: Open Navigation Bar component page
     Given I open "Navigation Bar" component page
 
-  @positive @applitools
+  @positive
   Scenario Outline: Change Navigation Bar children to <children>
     When I set children to "<children>"
     Then Navigation Bar children on preview is set to "<children>"
-      And Element displays correctly
     Examples:
       | children                |
       | Sample text             |
@@ -19,11 +18,10 @@ Feature: Navigation Bar component
   # @ignore because of FE-1447
   # | <>                       |
 
-  @positive @applitools
+  @positive
   Scenario Outline: Change as property of Navigation Bar component to <asProperty>
     When I select as to "<asProperty>"
     Then Navigation Bar as on preview is "<asProperty>"
-      And Element displays correctly
     Examples:
       | asProperty  |
       | primary     |

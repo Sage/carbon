@@ -1,14 +1,14 @@
 {
   "baseUrl": "http://localhost:9001/",
-  "blacklistHosts": [
-    "www.google-analytics.com",
-    "sockjs*",
-    "countries*"
-  ],
-  "env": {
-    "TAGS": "not @ignore",
-    "CYPRESS_APPLITOOLS": false
-  },
+  "blacklistHosts": ["www.google-analytics.com", "sockjs*", "countries*"],
+  "env":
+     {
+       "TAGS": "not @ignore",
+       "RETRIES": 3,
+       "RETRIES_HIDDEN": 1,
+       "RETRIES_NO_LOG": 1,
+       "CYPRESS_APPLITOOLS": false
+      },
   "failOnStatusCode": false,
   "ignoreTestFiles": [
     "**/examples/*",

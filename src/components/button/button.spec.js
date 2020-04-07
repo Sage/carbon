@@ -1,5 +1,5 @@
 import React from 'react';
-import 'jest-styled-components';
+import { css } from 'styled-components';
 import { shallow } from 'enzyme';
 import { Link as RouterLink } from 'react-router';
 import Icon from 'components/icon';
@@ -7,7 +7,6 @@ import TestRenderer from 'react-test-renderer';
 import Button from './button.component';
 import StyledButton from './button.style';
 import BaseTheme from '../../style/themes/base';
-import classicTheme from '../../style/themes/classic';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
@@ -19,9 +18,8 @@ const render = (props, renderer = shallow) => {
   );
 };
 
-const variants = ['primary', 'secondary', 'tertiary', 'destructive', 'darkBackground'];
+const variants = ['primary', 'secondary', 'tertiary', 'darkBackground'];
 const sizes = { small: [32, 16], medium: [40, 24], large: [48, 32] };
-const classicColorVariants = ['blue', 'grey', 'magenta', 'magenta-dull', 'red', 'white'];
 
 describe('Button', () => {
   describe('when no props other than children are passed into the component', () => {
@@ -31,7 +29,6 @@ describe('Button', () => {
       expect(wrapper.props().buttonType).toEqual('secondary');
       expect(wrapper.props().size).toEqual('medium');
       expect(wrapper.props().disabled).toEqual(false);
-      expect(wrapper.props().legacyColorVariant).toEqual('blue');
     });
   });
 
@@ -104,6 +101,79 @@ describe('Button', () => {
     }
   );
 
+  describe('when the destructive prop is passed', () => {
+    it('matches the expected destructive style for primary buttons', () => {
+      const wrapper = render({
+        children: 'foo', destructive: true, buttonType: 'primary'
+      }, TestRenderer.create).toJSON();
+
+      assertStyleMatch({
+        background: BaseTheme.colors.error,
+        borderColor: 'transparent',
+        color: BaseTheme.colors.white
+      }, wrapper);
+    });
+
+    it('matches the expected destructive style for secondary buttons', () => {
+      const wrapper = render({
+        children: 'foo', destructive: true
+      }, TestRenderer.create).toJSON();
+
+      assertStyleMatch({
+        background: 'transparent',
+        borderColor: BaseTheme.colors.error,
+        color: BaseTheme.colors.error
+      }, wrapper);
+
+      assertStyleMatch({
+        color: BaseTheme.colors.error
+      }, wrapper, { modifier: css`${StyledIcon}` });
+
+      assertStyleMatch({
+        background: BaseTheme.colors.destructive.hover,
+        color: BaseTheme.colors.white
+      }, wrapper, { modifier: ':focus' });
+
+      assertStyleMatch({
+        color: BaseTheme.colors.white
+      }, wrapper, { modifier: `:focus ${css`${StyledIcon}`}` });
+
+      assertStyleMatch({
+        background: BaseTheme.colors.destructive.hover,
+        borderColor: BaseTheme.colors.destructive.hover,
+        color: BaseTheme.colors.white
+      }, wrapper, { modifier: ':hover' });
+
+      assertStyleMatch({
+        color: BaseTheme.colors.white
+      }, wrapper, { modifier: `:hover ${css`${StyledIcon}`}` });
+    });
+  });
+
+  it('matches the expected destructive style for tertiary buttons', () => {
+    const wrapper = render({
+      children: 'foo', destructive: true, buttonType: 'tertiary'
+    }, TestRenderer.create).toJSON();
+
+    assertStyleMatch({
+      background: 'transparent',
+      borderColor: 'transparent',
+      color: BaseTheme.colors.error
+    }, wrapper);
+
+    assertStyleMatch({
+      color: BaseTheme.colors.error
+    }, wrapper, { modifier: css`${StyledIcon}` });
+
+    assertStyleMatch({
+      color: BaseTheme.colors.destructive.hover
+    }, wrapper, { modifier: ':hover' });
+
+    assertStyleMatch({
+      color: BaseTheme.colors.destructive.hover
+    }, wrapper, { modifier: `:hover ${css`${StyledIcon}`}` });
+  });
+
   describe('when the "disabled" prop is passed', () => {
     it('matches the style for the default Button when no "as" and "size" props are passed', () => {
       const wrapper = render({ children: 'foo', disabled: true }, TestRenderer.create).toJSON();
@@ -140,73 +210,34 @@ describe('Button', () => {
                 paddingRight: `${sizes[size][1].toString()}px`
               }, wrapper);
             });
+
+            it('matches the expected disabled style even if destructive', () => {
+              const wrapper = render({
+                children: 'foo', destructive: true, disabled: true, buttonType: variant, size
+              }, TestRenderer.create).toJSON();
+
+              assertStyleMatch({
+                background:
+                (variant === 'secondary' || variant === 'tertiary' ? 'transparent' : BaseTheme.disabled.button),
+                borderColor: (variant === 'secondary' ? BaseTheme.disabled.button : 'transparent'),
+                color: BaseTheme.disabled.text,
+                fontSize: (size === 'large' ? '16px' : '14px'),
+                height: `${sizes[size][0].toString()}px`,
+                paddingLeft: `${sizes[size][1].toString()}px`,
+                paddingRight: `${sizes[size][1].toString()}px`
+              }, wrapper);
+            });
           }
         );
       }
     );
   });
 
-  describe.each(classicColorVariants)(
-    'when the color variant is set to "%s"',
-    (variant) => {
-      const wrapper = TestRenderer.create(
-        <StyledButton
-          size='large'
-          theme={ classicTheme }
-          variant={ variant }
-        >Foo
-        </StyledButton>
-      );
-
-      it('matches the snapshot with the default props', () => {
-        expect(wrapper).toMatchSnapshot();
-      });
-    }
-  );
-
-  describe('when the classic theme is applied', () => {
-    describe.each(classicColorVariants)(
-      'setting the color variant to "%s"',
-      (variant) => {
-        const wrapper = TestRenderer.create(
-          <StyledButton
-            iconType='services'
-            theme={ classicTheme }
-            variant={ variant }
-          >Foo
-          </StyledButton>
-        );
-
-        it('matches the snapshot when default props are passed', () => {
-          expect(wrapper).toMatchSnapshot();
-        });
-      }
-    );
-
-    it('matches the expected style for a "blue" Button with default props', () => {
-      const wrapper = TestRenderer.create(<StyledButton theme={ classicTheme }>foo</StyledButton>);
-      assertStyleMatch({
-        background: 'transparent',
-        border: '1px solid #255bc7',
-        color: '#255bc7'
-      }, wrapper.toJSON());
-    });
-
-    it('matches the expected style default "disabled" Button', () => {
-      const wrapper = TestRenderer.create(<StyledButton disabled theme={ classicTheme }>foo</StyledButton>);
-      assertStyleMatch({
-        background: '#e6ebed'
-      }, wrapper.toJSON());
-    });
-  });
-
-  describe('when not in classic theme', () => {
-    it('matches the applies the expected style to the icon', () => {
-      const wrapper = TestRenderer.create(<StyledButton iconType='plus' />);
-      assertStyleMatch({
-        height: '16px'
-      }, wrapper.toJSON(), { modifier: `${StyledIcon}` });
-    });
+  it('matches the applies the expected style to the icon', () => {
+    const wrapper = TestRenderer.create(<StyledButton iconType='plus' />);
+    assertStyleMatch({
+      height: '16px'
+    }, wrapper.toJSON(), { modifier: `${StyledIcon}` });
   });
 
   describe('A primary button', () => {
@@ -360,6 +391,55 @@ describe('Button', () => {
       assertStyleMatch({
         height: '6px'
       }, buttonWithServiceIcon.toJSON(), { modifier: `${StyledIcon}` });
+    });
+  });
+
+  describe('when a style override object is passed in', () => {
+    it('matches the expected styling for the button', () => {
+      const styleOverride = {
+        root: {
+          padding: '10px',
+          color: 'pink',
+          '&:focus': {
+            outlineWidth: '2px'
+          }
+        }
+      };
+      const wrapper = render(
+        { children: 'foo', styleOverride }, TestRenderer.create
+      );
+      assertStyleMatch({
+        height: '40px',
+        padding: '10px',
+        color: 'pink'
+      }, wrapper.toJSON());
+
+      assertStyleMatch({
+        outlineWidth: '2px'
+      }, wrapper.toJSON(), { modifier: ':focus' });
+    });
+
+    it('matches the expected styling for the icon', () => {
+      const styleOverride = {
+        icon: {
+          color: 'pink',
+          '&:focus': {
+            outlineWidth: '2px'
+          }
+        }
+      };
+      const wrapper = render(
+        { children: 'foo', styleOverride }, TestRenderer.create
+      );
+
+      assertStyleMatch({
+        height: '16px',
+        color: 'pink'
+      }, wrapper.toJSON(), { modifier: `${StyledIcon}` });
+
+      assertStyleMatch({
+        outlineWidth: '2px'
+      }, wrapper.toJSON(), { modifier: `${StyledIcon}:focus` });
     });
   });
 });
