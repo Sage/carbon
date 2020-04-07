@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Create classic renders to match the expected style 1`] = `
-.c1 {
+.c0 {
   display: inline-block;
 }
 
-.c1 a,
-.c1 button {
+.c0 a,
+.c0 button {
   font-size: 14px;
   -webkit-text-decoration: underline;
   text-decoration: underline;
@@ -18,54 +18,54 @@ exports[`Create classic renders to match the expected style 1`] = `
   color: #255BC7;
 }
 
-.c1 a .c2,
-.c1 button .c2 {
+.c0 a .c2,
+.c0 button .c2 {
   margin-right: 5px;
   position: relative;
   vertical-align: middle;
   top: -2px;
 }
 
-.c1 a:hover,
-.c1 button:hover {
+.c0 a:hover,
+.c0 button:hover {
   cursor: pointer;
   color: #006045;
 }
 
-.c1 a .c2,
-.c1 button .c2 {
+.c0 a .c2,
+.c0 button .c2 {
   color: #255BC7;
 }
 
-.c1 a:hover,
-.c1 button:hover {
+.c0 a:hover,
+.c0 button:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   cursor: pointer;
   color: #004B87;
 }
 
-.c1 a:hover .c2,
-.c1 button:hover .c2 {
+.c0 a:hover .c2,
+.c0 button:hover .c2 {
   color: #004B87;
 }
 
-.c1 a:focus,
-.c1 button:focus {
+.c0 a:focus,
+.c0 button:focus {
   outline: none;
 }
 
-.c1 button {
+.c0 button {
   background-color: transparent;
   border: none;
   padding: 0;
 }
 
-.c0 {
+.c1 {
   display: block;
 }
 
-.c0 a {
+.c1 a {
   background-color: #1e499f;
   border: 1px dashed #668491;
   display: block;
@@ -79,33 +79,33 @@ exports[`Create classic renders to match the expected style 1`] = `
   background-color: transparent;
 }
 
-.c0 a:hover {
+.c1 a:hover {
   background-color: #FFFFFF;
 }
 
-.c0 a:focus {
+.c1 a:focus {
   color: #00805D;
   background-color: #FFFFFF;
   outline: 3px solid #FFB500;
 }
 
-.c0 a .c2::before {
+.c1 a .c2::before {
   font-size: 12px;
 }
 
-.c0 a .c2 {
+.c1 a .c2 {
   top: 0;
 }
 
-.c0 a .c2::before {
+.c1 a .c2::before {
   font-size: 16px;
 }
 
-.c0 a:hover {
+.c1 a:hover {
   background: #fff;
 }
 
-.c0 a:focus {
+.c1 a:focus {
   color: #255BC7;
   border: 1px dashed #99adb6;
   outline: -webkit-focus-ring-color auto 5px;

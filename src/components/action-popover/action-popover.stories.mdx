@@ -8,6 +8,7 @@ import { MenuItem } from './action-popover-item.component';
 import {
   Table, TableRow, TableCell, TableHeader
 } from '../table';
+import Button from '../button';
 import DocsWrapper from '../../../.storybook/docs-helpers/components/iframe-wrapper';
 
 <Meta title="Design System/ActionPopover" parameters={{ info: { disable: true }}}/>
@@ -75,30 +76,30 @@ ActionPopoverItem&apos;s can be disabled and will not dispatch an action but can
 <Preview>
   <Story name="with disabled item" parameters={{ info: { disable: true }}}>
     <div style={{ height: '250px' }}>
-    <Table>
-      <TableRow>
-        <TableHeader>First Name</TableHeader>
-        <TableHeader>Last Name</TableHeader>
-        <TableHeader>&nbsp;</TableHeader>
-      </TableRow>
-      <TableRow>
-        <TableCell>John</TableCell>
-        <TableCell>Doe</TableCell>
-        <TableCell>
-          <ActionPopover>
-            <ActionPopoverItem
-              icon='email'
-              disabled
-              onClick={() => {}}
-            >
-              Email Invoice
-            </ActionPopoverItem>
-            <ActionPopoverDivider />
-            <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
-          </ActionPopover>
-        </TableCell>
-      </TableRow>
-    </Table>
+      <Table>
+        <TableRow>
+          <TableHeader>First Name</TableHeader>
+          <TableHeader>Last Name</TableHeader>
+          <TableHeader>&nbsp;</TableHeader>
+        </TableRow>
+        <TableRow>
+          <TableCell>John</TableCell>
+          <TableCell>Doe</TableCell>
+          <TableCell>
+            <ActionPopover>
+              <ActionPopoverItem
+                icon='email'
+                disabled
+                onClick={() => {}}
+              >
+                Email Invoice
+              </ActionPopoverItem>
+              <ActionPopoverDivider />
+              <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+            </ActionPopover>
+          </TableCell>
+        </TableRow>
+      </Table>
     </div>
   </Story>
 </Preview>
@@ -107,30 +108,30 @@ It is possible to align the Menu to the right of the MenuButton by passing the &
 <Preview>
   <Story name="with menu right aligned" parameters={{ info: { disable: true }}}>
     <div style={{ height: '250px' }}>
-    <Table>
-      <TableRow>
-        <TableHeader>First Name</TableHeader>
-        <TableHeader>Last Name</TableHeader>
-        <TableHeader>&nbsp;</TableHeader>
-      </TableRow>
-      <TableRow>
-        <TableCell>John</TableCell>
-        <TableCell>Doe</TableCell>
-        <TableCell>
-          <ActionPopover rightAlignMenu>
-            <ActionPopoverItem
-              icon='email'
-              disabled
-              onClick={() => {}}
-            >
-              Email Invoice
-            </ActionPopoverItem>
-            <ActionPopoverDivider />
-            <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
-          </ActionPopover>
-        </TableCell>
-      </TableRow>
-    </Table>
+      <Table>
+        <TableRow>
+          <TableHeader>First Name</TableHeader>
+          <TableHeader>Last Name</TableHeader>
+          <TableHeader>&nbsp;</TableHeader>
+        </TableRow>
+        <TableRow>
+          <TableCell>John</TableCell>
+          <TableCell>Doe</TableCell>
+          <TableCell>
+            <ActionPopover rightAlignMenu>
+              <ActionPopoverItem
+                icon='email'
+                disabled
+                onClick={() => {}}
+              >
+                Email Invoice
+              </ActionPopoverItem>
+              <ActionPopoverDivider />
+              <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+            </ActionPopover>
+          </TableCell>
+        </TableRow>
+      </Table>
     </div>
   </Story>
 </Preview>
@@ -139,26 +140,62 @@ Menu items can also be displayed without icons.
 <Preview>
   <Story name="with no icons" parameters={{ info: { disable: true }}}>
     <div style={{ height: '250px' }}>
-    <Table>
-      <TableRow>
-        <TableHeader>First Name</TableHeader>
-        <TableHeader>Last Name</TableHeader>
-        <TableHeader>&nbsp;</TableHeader>
-      </TableRow>
-      <TableRow>
-        <TableCell>John</TableCell>
-        <TableCell>Doe</TableCell>
-        <TableCell>
-          <ActionPopover>
-            <ActionPopoverItem onClick={() => {}}>
-              Email Invoice
-            </ActionPopoverItem>
-            <ActionPopoverDivider />
-            <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
-          </ActionPopover>
-        </TableCell>
-      </TableRow>
-    </Table>
+      <Table>
+        <TableRow>
+          <TableHeader>First Name</TableHeader>
+          <TableHeader>Last Name</TableHeader>
+          <TableHeader>&nbsp;</TableHeader>
+        </TableRow>
+        <TableRow>
+          <TableCell>John</TableCell>
+          <TableCell>Doe</TableCell>
+          <TableCell>
+            <ActionPopover>
+              <ActionPopoverItem onClick={() => {}}>
+                Email Invoice
+              </ActionPopoverItem>
+              <ActionPopoverDivider />
+              <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
+            </ActionPopover>
+          </TableCell>
+        </TableRow>
+      </Table>
+    </div>
+  </Story>
+</Preview>
+
+
+## With a custom Menu Button
+It is possible to use the &quot;renderButton&quot; prop to override the default button used to trigger the opening and closing of 
+ActionPopoverMenu. See the prop tables below for the properties surfaced to any custom component being passed in.
+<Preview>
+  <Story name="popover with custom button" parameters={{ info: { disable: true }}}>
+    <div style={{ height: '250px' }}>
+      <Table>
+        <TableRow>
+          <TableHeader>First Name</TableHeader>
+          <TableHeader>Last Name</TableHeader>
+          <TableHeader>&nbsp;</TableHeader>
+        </TableRow>
+        <TableRow>
+          <TableCell>John</TableCell>
+          <TableCell>Doe</TableCell>
+          <TableCell>
+            <ActionPopover renderButton={(props) => (
+                <Button buttonType='tertiary' iconType='dropdown' iconPosition='after' { ...props }>More</Button>
+              )}>
+              <ActionPopoverItem
+                icon='email'
+                onClick={() => {}}
+              >
+                Email Invoice
+              </ActionPopoverItem>
+              <ActionPopoverDivider />
+              <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+            </ActionPopover>
+          </TableCell>
+        </TableRow>
+      </Table>
     </div>
   </Story>
 </Preview>
@@ -175,39 +212,39 @@ leave.
 <Preview>
   <Story name="with submenu" parameters={{ info: { disable: true }}}>
     <div style={{ height: '250px' }}>
-    <Table>
-      <TableRow>
-        <TableHeader>First Name</TableHeader>
-        <TableHeader>Last Name</TableHeader>
-        <TableHeader>&nbsp;</TableHeader>
-      </TableRow>
-      <TableRow>
-        <TableCell>John</TableCell>
-        <TableCell>Doe</TableCell>
-        <TableCell>
-          <ActionPopover>
-            <ActionPopoverItem
-              icon='print'
-              onClick={() => {}}
-              submenu={ 
-                <ActionPopoverMenu>
-                  <ActionPopoverItem onClick={() => {}}>
-                    CSV
-                  </ActionPopoverItem>
-                  <ActionPopoverItem onClick={() => {}}>
-                    PDF
-                  </ActionPopoverItem>
-                </ActionPopoverMenu> 
-              }
-            >
-              Print
-            </ActionPopoverItem>
-            <ActionPopoverDivider />
-            <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
-          </ActionPopover>
-        </TableCell>
-      </TableRow>
-    </Table>
+      <Table>
+        <TableRow>
+          <TableHeader>First Name</TableHeader>
+          <TableHeader>Last Name</TableHeader>
+          <TableHeader>&nbsp;</TableHeader>
+        </TableRow>
+        <TableRow>
+          <TableCell>John</TableCell>
+          <TableCell>Doe</TableCell>
+          <TableCell>
+            <ActionPopover>
+              <ActionPopoverItem
+                icon='print'
+                onClick={() => {}}
+                submenu={ 
+                  <ActionPopoverMenu>
+                    <ActionPopoverItem onClick={() => {}}>
+                      CSV
+                    </ActionPopoverItem>
+                    <ActionPopoverItem onClick={() => {}}>
+                      PDF
+                    </ActionPopoverItem>
+                  </ActionPopoverMenu> 
+                }
+              >
+                Print
+              </ActionPopoverItem>
+              <ActionPopoverDivider />
+              <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+            </ActionPopover>
+          </TableCell>
+        </TableRow>
+      </Table>
     </div>
   </Story>
 </Preview>
@@ -216,40 +253,40 @@ A sub-menu will not open if the item is in a disabled state.
 <Preview>
   <Story name="with disabled submenu" parameters={{ info: { disable: true }}}>
     <div style={{ height: '250px' }}>
-    <Table>
-      <TableRow>
-        <TableHeader>First Name</TableHeader>
-        <TableHeader>Last Name</TableHeader>
-        <TableHeader>&nbsp;</TableHeader>
-      </TableRow>
-      <TableRow>
-        <TableCell>John</TableCell>
-        <TableCell>Doe</TableCell>
-        <TableCell>
-          <ActionPopover>
-            <ActionPopoverItem
-              disabled
-              icon='print'
-              onClick={() => {}}
-              submenu={ 
-                <ActionPopoverMenu>
-                  <ActionPopoverItem onClick={() => {}}>
-                    CSV
-                  </ActionPopoverItem>
-                  <ActionPopoverItem onClick={() => {}}>
-                    PDF
-                  </ActionPopoverItem>
-                </ActionPopoverMenu> 
-              }
-            >
-              Print
-            </ActionPopoverItem>
-            <ActionPopoverDivider />
-            <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
-          </ActionPopover>
-        </TableCell>
-      </TableRow>
-    </Table>
+      <Table>
+        <TableRow>
+          <TableHeader>First Name</TableHeader>
+          <TableHeader>Last Name</TableHeader>
+          <TableHeader>&nbsp;</TableHeader>
+        </TableRow>
+        <TableRow>
+          <TableCell>John</TableCell>
+          <TableCell>Doe</TableCell>
+          <TableCell>
+            <ActionPopover>
+              <ActionPopoverItem
+                disabled
+                icon='print'
+                onClick={() => {}}
+                submenu={ 
+                  <ActionPopoverMenu>
+                    <ActionPopoverItem onClick={() => {}}>
+                      CSV
+                    </ActionPopoverItem>
+                    <ActionPopoverItem onClick={() => {}}>
+                      PDF
+                    </ActionPopoverItem>
+                  </ActionPopoverMenu> 
+                }
+              >
+                Print
+              </ActionPopoverItem>
+              <ActionPopoverDivider />
+              <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+            </ActionPopover>
+          </TableCell>
+        </TableRow>
+      </Table>
     </div>
   </Story>
 </Preview>
@@ -316,42 +353,42 @@ or "tab" key will close the menu with no action being triggered and focus the ne
 <Preview>
   <Story name="keyboard access" parameters={{ info: { disable: true }}}>
     <div style={{ height: '250px' }}>
-    <Table>
-      <TableRow>
-        <TableHeader>First Name</TableHeader>
-        <TableHeader>Last Name</TableHeader>
-        <TableHeader>&nbsp;</TableHeader>
-      </TableRow>
-      <TableRow>
-        <TableCell>John</TableCell>
-        <TableCell>Doe</TableCell>
-        <TableCell>
-          <ActionPopover>
-            <ActionPopoverItem
-              icon='email'
-              onClick={() => {}}
-            >
-              Email Invoice
-            </ActionPopoverItem>
-            <ActionPopoverItem
-              disabled
-              icon='csv'
-              onClick={() => {}}
-            >
-              Download CSV
-            </ActionPopoverItem>
-            <ActionPopoverItem
-              icon='pdf'
-              onClick={() => {}}
-            >
-              Download PDF
-            </ActionPopoverItem>
-            <ActionPopoverDivider />
-            <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
-          </ActionPopover>
-        </TableCell>
-      </TableRow>
-    </Table>
+      <Table>
+        <TableRow>
+          <TableHeader>First Name</TableHeader>
+          <TableHeader>Last Name</TableHeader>
+          <TableHeader>&nbsp;</TableHeader>
+        </TableRow>
+        <TableRow>
+          <TableCell>John</TableCell>
+          <TableCell>Doe</TableCell>
+          <TableCell>
+            <ActionPopover>
+              <ActionPopoverItem
+                icon='email'
+                onClick={() => {}}
+              >
+                Email Invoice
+              </ActionPopoverItem>
+              <ActionPopoverItem
+                disabled
+                icon='csv'
+                onClick={() => {}}
+              >
+                Download CSV
+              </ActionPopoverItem>
+              <ActionPopoverItem
+                icon='pdf'
+                onClick={() => {}}
+              >
+                Download PDF
+              </ActionPopoverItem>
+              <ActionPopoverDivider />
+              <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+            </ActionPopover>
+          </TableCell>
+        </TableRow>
+      </Table>
     </div>
   </Story>
 </Preview>
@@ -363,55 +400,55 @@ triggering an action.
 <Preview>
   <Story name="keyboard access left aligned submenu" parameters={{ info: { disable: true }}}>
     <div style={{ height: '250px' }}>
-    <Table>
-      <TableRow>
-        <TableHeader>First Name</TableHeader>
-        <TableHeader>Last Name</TableHeader>
-        <TableHeader>&nbsp;</TableHeader>
-      </TableRow>
-      <TableRow>
-        <TableCell>John</TableCell>
-        <TableCell>Doe</TableCell>
-        <TableCell>
-          <ActionPopover>
-            <ActionPopoverItem
-              icon='csv'
-              onClick={() => {}}
-              submenu={ 
-                <ActionPopoverMenu>
-                  <ActionPopoverItem icon='csv' onClick={() => {}}>
-                    CSV
-                  </ActionPopoverItem>
-                  <ActionPopoverItem icon='pdf' onClick={() => {}}>
-                    PDF
-                  </ActionPopoverItem>
-                </ActionPopoverMenu> 
-              }
-            >
-              Download
-            </ActionPopoverItem>
-            <ActionPopoverItem
-              icon='pdf'
-              onClick={() => {}}
-              submenu={ 
-                <ActionPopoverMenu>
-                  <ActionPopoverItem icon='csv' onClick={() => {}}>
-                    CSV
-                  </ActionPopoverItem>
-                  <ActionPopoverItem icon='pdf' onClick={() => {}}>
-                    PDF
-                  </ActionPopoverItem>
-                </ActionPopoverMenu> 
-              }
-            >
-              Print
-            </ActionPopoverItem>
-            <ActionPopoverDivider />
-            <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
-          </ActionPopover>
-        </TableCell>
-      </TableRow>
-    </Table>
+      <Table>
+        <TableRow>
+          <TableHeader>First Name</TableHeader>
+          <TableHeader>Last Name</TableHeader>
+          <TableHeader>&nbsp;</TableHeader>
+        </TableRow>
+        <TableRow>
+          <TableCell>John</TableCell>
+          <TableCell>Doe</TableCell>
+          <TableCell>
+            <ActionPopover>
+              <ActionPopoverItem
+                icon='csv'
+                onClick={() => {}}
+                submenu={ 
+                  <ActionPopoverMenu>
+                    <ActionPopoverItem icon='csv' onClick={() => {}}>
+                      CSV
+                    </ActionPopoverItem>
+                    <ActionPopoverItem icon='pdf' onClick={() => {}}>
+                      PDF
+                    </ActionPopoverItem>
+                  </ActionPopoverMenu> 
+                }
+              >
+                Download
+              </ActionPopoverItem>
+              <ActionPopoverItem
+                icon='pdf'
+                onClick={() => {}}
+                submenu={ 
+                  <ActionPopoverMenu>
+                    <ActionPopoverItem icon='csv' onClick={() => {}}>
+                      CSV
+                    </ActionPopoverItem>
+                    <ActionPopoverItem icon='pdf' onClick={() => {}}>
+                      PDF
+                    </ActionPopoverItem>
+                  </ActionPopoverMenu> 
+                }
+              >
+                Print
+              </ActionPopoverItem>
+              <ActionPopoverDivider />
+              <ActionPopoverItem onClick={() => {}} icon='delete'>Delete</ActionPopoverItem>
+            </ActionPopover>
+          </TableCell>
+        </TableRow>
+      </Table>
     </div>
   </Story>
 </Preview>
@@ -478,6 +515,83 @@ is on a item will open a sub-menu if it has one and pressing the "left" key will
     height='250px'
   />
 </MyPreview>
+
+## Services Column
+
+The ActionPopover can be composed in a number of ways: below is an example of a services column popover that is 
+populated with any additional overflow options for a given row. The popover's height is dynamic to the content placed 
+within it. Beyond a reasonable number of items, content may be truncated and the foot of the popover may then contain 
+a &quot;Manage&quot; option.
+
+<Preview>
+  <Story name="services column">
+    <div style={ { marginTop: '40px', height: '275px', maxWidth: '800px' } }>
+      <Table isZebra>
+        <TableRow>
+          <TableHeader colSpan='3'>Services</TableHeader>
+        </TableRow>
+        <TableRow>
+          <TableCell>Accounting</TableCell>
+          <TableCell>Payroll</TableCell>
+          <TableCell>
+            <ActionPopover
+              rightAlignMenu
+              renderButton={ ({ styleOverride, tabIndex, ...rest }) => (
+                <Button
+                  buttonType='tertiary'
+                  iconType='dropdown'
+                  iconPosition='after'
+                  size='small'
+                  tabIndex={ tabIndex }
+                  styleOverride={ styleOverride }
+                  date-element={ rest['data-element'] }
+                >
+                  More
+                </Button>
+              ) }
+            >
+              <ActionPopoverItem onClick={ () => {} }>Auto Entry</ActionPopoverItem>
+              <ActionPopoverItem onClick={ () => {} }>Corporation Tax</ActionPopoverItem>
+              <ActionPopoverItem onClick={ () => {} }>Final Accounts</ActionPopoverItem>
+              <ActionPopoverItem onClick={ () => {} }>VAT Centre</ActionPopoverItem>
+              <ActionPopoverDivider />
+              <ActionPopoverItem onClick={ () => {} }>Manage Services</ActionPopoverItem>
+            </ActionPopover>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Accounting</TableCell>
+          <TableCell>Payroll</TableCell>
+          <TableCell>
+            <ActionPopover
+              rightAlignMenu
+              renderButton={ ({ styleOverride, tabIndex, ...rest }) => (
+                <Button
+                  buttonType='tertiary'
+                  iconType='dropdown'
+                  iconPosition='after'
+                  size='small'
+                  tabIndex={ tabIndex }
+                  styleOverride={ styleOverride }
+                  date-element={ rest['data-element'] }
+                >
+                  More
+                </Button>
+              ) }
+            >
+              <ActionPopoverItem onClick={ () => {} }>Auto Entry</ActionPopoverItem>
+              <ActionPopoverItem onClick={ () => {} }>Corporation Tax</ActionPopoverItem>
+              <ActionPopoverItem onClick={ () => {} }>Final Accounts</ActionPopoverItem>
+              <ActionPopoverItem onClick={ () => {} }>VAT Centre</ActionPopoverItem>
+              <ActionPopoverDivider />
+              <ActionPopoverItem onClick={ () => {} }>Manage Services</ActionPopoverItem>
+            </ActionPopover>
+          </TableCell>
+        </TableRow>
+      </Table>
+    </div>
+  </Story>
+</Preview>
 
 ### ActionPopover Props
 <Props of={ActionPopover} />

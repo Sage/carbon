@@ -2,7 +2,7 @@ Feature: Button component
   I want to check Button component properties
 
   Background: Open Button component default page
-    Given I open "Button" component page
+    Given I open "Button" component page knobs
 
   @positive
   Scenario Outline: Set Button size to <size>
@@ -26,7 +26,6 @@ Feature: Button component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Set Button Type as <buttonType>
@@ -51,7 +50,6 @@ Feature: Button component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario: Disable Button
