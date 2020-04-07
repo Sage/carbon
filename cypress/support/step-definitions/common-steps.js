@@ -30,6 +30,14 @@ Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
 });
 
+Given('I open {string} component page knobs', (component) => {
+  visitComponentUrl(component, 'knobs');
+});
+
+Given('I open {string} component page knobs in noIFrame', (component) => {
+  visitComponentUrl(component, 'knobs', true);
+});
+
 Given('I open {string} component page basic', (component) => {
   visitComponentUrl(component, 'basic');
 });
