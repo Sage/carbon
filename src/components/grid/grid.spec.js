@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount as enzymeMount } from 'enzyme';
+import TestRenderer from 'react-test-renderer';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import { GridContainer, GridItem } from '.';
 
@@ -148,8 +149,15 @@ describe('Grid', () => {
     /* the aim here is not to test that CSS media queries work. we are simply */
     /* checking that styled components are built and applied correctly        */
     it('builds the style rules for the GridItem responsiveSettings', () => {
-      const elem = mount();
-      expect(elem).toMatchSnapshot();
+      expect(
+        TestRenderer.create(
+          <GridContainer id='testContainer'>
+            <GridItem responsiveSettings={ [item11500, item11300, item1900] }>1</GridItem>
+            <GridItem responsiveSettings={ [item21500, item21300, item2900] }>2</GridItem>
+            <GridItem responsiveSettings={ [item31500, item3900, item31300] }>3</GridItem>
+          </GridContainer>
+        )
+      ).toMatchSnapshot();
     });
   });
 });

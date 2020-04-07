@@ -1,49 +1,46 @@
 import { buttonSubtextPreview, buttonDataComponent } from '../../locators/button';
-import { commonButtonPreview, icon } from '../../locators';
+import { icon } from '../../locators';
 
 const FIRST_ELEMENT = 0;
 const SECOND_ELEMENT = 1;
 
 Then('Button label on preview is {string}', (label) => {
-  commonButtonPreview().should('have.text', label);
+  buttonDataComponent().should('have.text', label);
 });
 
 Then('Button as a sibling label on preview is {string}', (label) => {
-  commonButtonPreview().eq(FIRST_ELEMENT).should('have.text', label);
-  commonButtonPreview().eq(SECOND_ELEMENT).should('have.text', label);
+  buttonDataComponent().eq(FIRST_ELEMENT).should('have.text', label);
+  buttonDataComponent().eq(SECOND_ELEMENT).should('have.text', label);
 });
 
 Then('Button is disabled', () => {
-  commonButtonPreview().should('be.disabled')
+  buttonDataComponent().should('be.disabled')
     .and('have.attr', 'disabled');
 });
 
 Then('Button as a sibling is disabled', () => {
-  commonButtonPreview().eq(FIRST_ELEMENT).should('be.disabled')
+  buttonDataComponent().eq(FIRST_ELEMENT).should('be.disabled')
     .and('have.attr', 'disabled');
-  commonButtonPreview().eq(SECOND_ELEMENT).should('be.disabled')
+  buttonDataComponent().eq(SECOND_ELEMENT).should('be.disabled')
     .and('have.attr', 'disabled');
 });
 
 Then('Button is enabled', () => {
-  commonButtonPreview().should('be.enabled');
+  buttonDataComponent().should('be.enabled');
 });
 
 Then('Button as a sibling is enabled', () => {
-  commonButtonPreview().eq(FIRST_ELEMENT).should('be.enabled');
-  commonButtonPreview().eq(SECOND_ELEMENT).should('be.enabled');
+  buttonDataComponent().eq(FIRST_ELEMENT).should('be.enabled');
+  buttonDataComponent().eq(SECOND_ELEMENT).should('be.enabled');
 });
 
-Then('Button height is {string} and width is {string}', (height, width) => {
-  commonButtonPreview().should('have.css', 'height', `${height}px`);
-  commonButtonPreview().should('have.css', 'width', `${width}px`);
+Then('Button height is {string}', (height) => {
+  buttonDataComponent().should('have.css', 'height', `${height}px`);
 });
 
-Then('Button as a sibling height is {string} and width is {string}', (height, width) => {
-  commonButtonPreview().eq(FIRST_ELEMENT).should('have.css', 'width', `${width}px`);
-  commonButtonPreview().eq(FIRST_ELEMENT).should('have.css', 'height', `${height}px`);
-  commonButtonPreview().eq(SECOND_ELEMENT).should('have.css', 'height', `${height}px`);
-  commonButtonPreview().eq(SECOND_ELEMENT).should('have.css', 'width', `${width}px`);
+Then('Button as a sibling height is {string}', (height) => {
+  buttonDataComponent().eq(FIRST_ELEMENT).should('have.css', 'height', `${height}px`);
+  buttonDataComponent().eq(SECOND_ELEMENT).should('have.css', 'height', `${height}px`);
 });
 
 Then('Button width is {string}', (width) => {
@@ -60,21 +57,21 @@ Then('Button as a sibling subtext on preview is {string}', (subtext) => {
 });
 
 Then('Button font color is {string}', (color) => {
-  commonButtonPreview().should('have.css', 'color', color);
+  buttonDataComponent().should('have.css', 'color', color);
 });
 
 Then('Button as a sibling font color is {string}', (color) => {
-  commonButtonPreview().eq(FIRST_ELEMENT).should('have.css', 'color', color);
-  commonButtonPreview().eq(SECOND_ELEMENT).should('have.css', 'color', color);
+  buttonDataComponent().eq(FIRST_ELEMENT).should('have.css', 'color', color);
+  buttonDataComponent().eq(SECOND_ELEMENT).should('have.css', 'color', color);
 });
 
 Then('Button background color is {string}', (color) => {
-  commonButtonPreview().should('have.css', 'background-color', color);
+  buttonDataComponent().should('have.css', 'background-color', color);
 });
 
 Then('Button as a sibling background color is {string}', (color) => {
-  commonButtonPreview().eq(FIRST_ELEMENT).should('have.css', 'background-color', color);
-  commonButtonPreview().eq(SECOND_ELEMENT).should('have.css', 'background-color', color);
+  buttonDataComponent().eq(FIRST_ELEMENT).should('have.css', 'background-color', color);
+  buttonDataComponent().eq(SECOND_ELEMENT).should('have.css', 'background-color', color);
 });
 
 When('I click on {string}', (element) => {

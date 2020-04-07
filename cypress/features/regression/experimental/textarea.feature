@@ -11,8 +11,8 @@ Feature: Experimental Textarea component
 
   @positive
   Scenario: Enable and disable expandable checkbox for a Textarea component
-    When I check expandable checkbox
-      And I uncheck expandable checkbox
+    Given I check expandable checkbox
+    When I uncheck expandable checkbox
     Then Textarea component is not expandable
 
   @positive
@@ -44,8 +44,8 @@ Feature: Experimental Textarea component
 
   @positive
   Scenario: Uncheck disabled checkbox for a Textarea component
-    When I check disabled checkbox
-      And I uncheck disabled checkbox
+    Given I check disabled checkbox
+    When I uncheck disabled checkbox
     Then Textarea component is not disabled
 
   @positive
@@ -55,8 +55,8 @@ Feature: Experimental Textarea component
 
   @positive
   Scenario: Disable readOnly checkbox for a Textarea component
-    When I check readOnly checkbox
-      And I uncheck readOnly checkbox
+    Given I check readOnly checkbox
+    When I uncheck readOnly checkbox
     Then Textarea component is not readOnly
 
   @positive
@@ -159,8 +159,8 @@ Feature: Experimental Textarea component
 
   @positive
   Scenario: Enable labelInline checkbox for a Textarea component
-    When I set label to "label"
-      And I check labelInline checkbox
+    Given I set label to "label"
+    When I check labelInline checkbox
     Then Textarea component is labelInline
 
   @positive
@@ -186,16 +186,16 @@ Feature: Experimental Textarea component
 
   @positive
   Scenario Outline: Set labelAlign to <labelAlign>
-    When I set label to "label"
+    Given I set label to "label"
       And I check labelInline checkbox
-      And I select labelAlign to "<labelAlign>"
+    When I select labelAlign to "<labelAlign>"
     Then label Align on preview is "<labelAlign>"
     Examples:
       | labelAlign |
       | left       |
       | right      |
 
-  #double checking / unchecking warnOverLimit/enforceCharacterLimit should be fixed in FE-1778 and should be deleted
+#   #double checking / unchecking warnOverLimit/enforceCharacterLimit should be fixed in FE-1778 and should be deleted
   @positive
   Scenario Outline: Enable warnOverLimit checkbox for a Textarea component and check the warning
     When I set characterLimit to "<limit>"
@@ -206,8 +206,7 @@ Feature: Experimental Textarea component
     Then Textarea component has warnOverLimit and used characters <characters> of <limit>
     Examples:
       | limit | text            | characters |
-      # ignored regression
-      # | 0     | 12345           |     5      |
+      | 0     | 12345           |     5      |
       | 5     |áéíóú¿¡üñ        |     9      |
       | 10    |testTestTextTest |    16      |
 
@@ -230,8 +229,8 @@ Feature: Experimental Textarea component
  
   @positive
   Scenario Outline: Enable enforceCharacterLimit checkbox for a Textarea component and check the warning
-    When I set characterLimit to "<limit>"
-      And I input "<text>" into Textarea
+    Given I set characterLimit to "<limit>"
+    When I input "<text>" into Textarea
     Then Textarea component has enforceCharacterLimit enabled and used characters <characters> are equal to limit <limit>
     Examples:
       | limit | text             | characters |

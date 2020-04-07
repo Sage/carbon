@@ -6,17 +6,21 @@ Feature: Switch validations component
 
   @positive
   @validations
-  Scenario Outline: Verify the <position> <state> validation of Switch component
+  Scenario Outline: Verify the <state> validation of Switch component
     When I toggle "<position>" switch 2 times
-      And I hover mouse onto "<state>" icon in iFrame
+      And I hover mouse onto "<state>" icon in no iFrame
     Then tooltipPreview on preview into iFrame is set to "<text>"
       And icon name into iFrame on preview is "<state>"
     Examples:
       | state   | position | text          |
       | error   | first    | Show error!   |
       | warning | second   | Show warning! |
+  
+  @positive
+  @validations
+  Scenario: Verify the third info validation of Switch component
+    When I toggle "third" switch 2 times
+      And I hover mouse onto "third" "info" icon for validations component into iFrame
+    Then tooltipPreview on preview into iFrame is set to "Show info!"
+      And icon name into iFrame on preview is "info"
 
-  @ignore
-  # ignored regression
-    Examples:
-      | info    | third    | Show info!    |
