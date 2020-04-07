@@ -1,2 +1,2 @@
 // component preview locators
-export const CARD = 'button[data-component="card"]';
+export const CARD = '[data-component="card"]';

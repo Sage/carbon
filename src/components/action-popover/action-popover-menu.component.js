@@ -26,7 +26,9 @@ const ActionPopoverMenu = React.forwardRef(({
               clearTimeout(timer.current);
               timer.current = setTimeout(() => {
                 setOpen(false);
-                item.ref.current.focus();
+                if (item.ref && item.ref.current) {
+                  item.ref.current.focus();
+                }
               }, 0);
             } else {
               setFocusIndex(index);

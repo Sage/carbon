@@ -30,6 +30,7 @@ const Fieldset = (props) => {
       <LegendContainerStyle
         inline={ props.inline }
         data-component='legend-style'
+        styleOverride={ props.styleOverride.legend }
       >
         <legend data-element='legend'>
           { props.legend }
@@ -48,6 +49,7 @@ const Fieldset = (props) => {
     <FieldsetStyle
       { ...tagComponent('fieldset', props) }
       { ...safeProps }
+      styleOverride={ props.styleOverride.root }
     >
       <FieldsetContentStyle
         data-component='fieldset-style'
@@ -74,11 +76,17 @@ Fieldset.propTypes = {
   /** A message that the ValidationIcon component will display */
   tooltipMessage: PropTypes.string,
   /** When true, legend is placed in line with the children */
-  inline: PropTypes.bool
+  inline: PropTypes.bool,
+  /** Allows to override existing component styles */
+  styleOverride: PropTypes.shape({
+    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    legend: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+  })
 };
 
 Fieldset.defaultProps = {
-  inline: false
+  inline: false,
+  styleOverride: {}
 };
 
 export default Fieldset;

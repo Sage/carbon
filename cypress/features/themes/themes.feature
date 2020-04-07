@@ -3,11 +3,11 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Button component theme to <theme>
-    When I open "button" component with theme "<theme>"
+    When I open "button" component with theme "<theme>" knobs story
     Then "button" component css "color" is set to "<theme>" common
     Examples:
       | theme  |
-      | mint  |
+      | mint   |
       | aegean |
       | none   |
 
@@ -18,7 +18,7 @@ Feature: Theming addon
     Then Button Toggle component css background color is set to "<theme>"
     Examples:
       | theme  |
-      | mint  |
+      | mint   |
       | aegean |
       | none   |
 
@@ -28,7 +28,7 @@ Feature: Theming addon
     Then "icon" component css "background-color" is set to "<theme>" common
     Examples:
       | theme  |
-      | mint  |
+      | mint   |
       | aegean |
       | none   |
 
@@ -38,7 +38,7 @@ Feature: Theming addon
     Then Link component css color is set to "<theme>"
     Examples:
       | theme  |
-      | mint  |
+      | mint   |
       | aegean |
       | none   |
 
@@ -48,7 +48,7 @@ Feature: Theming addon
     Then Loader component css background color is set to "<theme>"
     Examples:
       | theme  |
-      | mint  |
+      | mint   |
       | aegean |
       | none   |
 
@@ -59,7 +59,7 @@ Feature: Theming addon
       And "button" component css "border-color" is set to "<theme>" common
     Examples:
       | theme  |
-      | mint  |
+      | mint   |
       | aegean |
       | none   |
 
@@ -69,7 +69,7 @@ Feature: Theming addon
     Then "pill" component css "border-color" is set to "<theme>" common
     Examples:
       | theme  |
-      | mint  |
+      | mint   |
       | aegean |
       | none   |
 
@@ -79,7 +79,7 @@ Feature: Theming addon
     Then Link component css color is set to "<theme>"
     Examples:
       | theme  |
-      | mint  |
+      | mint   |
       | aegean |
       | none   |
 
@@ -90,7 +90,7 @@ Feature: Theming addon
       And "button" component css "border-color" is set to "<theme>" common
     Examples:
       | theme  |
-      | mint  |
+      | mint   |
       | aegean |
       | none   |
 
@@ -100,7 +100,7 @@ Feature: Theming addon
     Then "step-sequence-item" component css "color" is set to "<theme>"
     Examples:
       | theme  |
-      | mint  |
+      | mint   |
       | aegean |
       | none   |
 
@@ -110,6 +110,6 @@ Feature: Theming addon
     Then "select-tab" element css "border-bottom-color" is set to "<theme>" common
     Examples:
       | theme  |
-      | mint  |
+      | mint   |
       | aegean |
       | none   |
