@@ -10,18 +10,18 @@ const info = (
 
     <p>Import the component:</p>
     <StoryCode padded>
-      import {'{ Sidebar }'} from {'"carbon-react/lib/components/sidebar"'}
+      import {'{ Sidebar }'} from &quot;carbon-react/lib/components/sidebar&quot;
     </StoryCode>
     <p>or</p>
     <StoryCode padded>
-      import {'{ Sidebar, SidebarHeader }'} from {'"carbon-react/lib/components/sidebar"'}
+      import {'{ Sidebar, SidebarHeader }'} from &quot;carbon-react/lib/components/sidebar&quot;
     </StoryCode>
 
     <p>To render the Sidebar:</p>
     <StoryCode padded> {'<Sidebar onCancel={ closeSidebar } open={ false }/>'}</StoryCode>
     <p>
       Side bar is positioned on the right hand screen of the window by default. To position the sidebar on the left hand
-      side pass <StoryCode padded>position={"'left'"}</StoryCode>to the component.
+      side pass <StoryCode padded>position=&apos;left&apos;</StoryCode>to the component.
     </p>
     <p>
       The background behind the sidebar is disabled by default. To allow the user to interact with all the UI pass{' '}

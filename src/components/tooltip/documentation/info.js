@@ -6,7 +6,7 @@ const info = (
     <p>A Tooltip Widget</p>
     <StoryHeader>Implementation</StoryHeader>
     <StoryCode>
-      {'import Tooltip from "carbon-react/lib/components/tooltip"'}
+      import Tooltip from &quot;carbon-react/lib/components/tooltip&quot;
     </StoryCode>
 
     <p>To render the Tooltip</p>
@@ -18,11 +18,11 @@ const info = (
     <ul>
       <li>
         You can pass a prop of <StoryCode>pointerAlign</StoryCode> to the component
-        which shifts the alignment of the pointer. This defaults to {'"center"'}.
+        which shifts the alignment of the pointer. This defaults to &quot;center&quot;.
       </li>
       <li>
         You can also pass a prop of <StoryCode>pointerPosition</StoryCode> to the
-        component which shifts the position of the pointer. This defaults to {'"bottom"'}.
+        component which shifts the position of the pointer. This defaults to &quot;bottom&quot;.
       </li>
       <li>
         The <StoryCode>showTooltip</StoryCode> boolean prop determines whether or not to render the

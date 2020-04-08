@@ -10,7 +10,7 @@ const Info = (
     <p>In your file</p>
 
     <StoryCode padded>
-      {'import DropdownFilterAjax from "carbon-react/lib/components/dropdown-filter-ajax";'}
+      import DropdownFilterAjax from &quot;carbon-react/lib/components/dropdown-filter-ajax&quot;;
     </StoryCode>
 
     <p>To render a DropdownFilterAjax:</p>
@@ -20,11 +20,12 @@ const Info = (
     </StoryCode>
 
     <p>
-      {"In 'suggest' mode, the dropdown only shows once a filter term has been entered."}
+      In &apos;suggest&apos; mode, the dropdown only shows once a filter term has been entered.
     </p>
 
     <p>
-      {"You can define a function using the 'create' prop, which allows you to trigger events to create new items."}
+      You can define a function using the &apos;create&apos; prop,
+      which allows you to trigger events to create new items.
     </p>
 
     <p>You can define the number of rows returned by the ajax request using the property rowsPerRequest.</p>

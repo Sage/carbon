@@ -40,7 +40,7 @@ function makeStory(name, themeSelector) {
           <p>Import the component:</p>
 
           <StoryCode padded>
-            {'import MountInApp from "carbon-react/lib/components/mount-in-app";'}
+            import MountInApp from &quot;carbon-react/lib/components/mount-in-app&quot;;
           </StoryCode>
 
           <p>

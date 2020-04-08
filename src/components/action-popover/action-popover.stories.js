@@ -224,7 +224,7 @@ export const StylesOverriden = () => (
                 styleOverride={ styleOverride }
                 date-element={ rest['data-element'] }
               >
-                  More
+                More
               </Button>
             ) }
           >
@@ -253,7 +253,7 @@ export const StylesOverriden = () => (
                 styleOverride={ styleOverride }
                 date-element={ rest['data-element'] }
               >
-                  More
+                More
               </Button>
             ) }
           >
