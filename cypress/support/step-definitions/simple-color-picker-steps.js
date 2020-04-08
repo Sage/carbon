@@ -37,6 +37,7 @@ Then('Simple Color Picker availableColors on preview is set to {string}', (value
 });
 
 Then('Simple Color Picker {int} element was picked up', (index) => {
+  cy.wait(500);
   for (let i = 1; i < index; ++i) {
     simpleColorPickerDiv(i + 1)
       .should('have.attr', 'data-element', 'tick')
@@ -54,11 +55,7 @@ When('I pick {int} color', (index) => {
   }
 });
 
-When('I pick simple {int} color', (index) => {
-  if (index === 1) {
-    experimentalSimpleColorPickerInput(SECOND_ELEMENT).click();
-    experimentalSimpleColorPickerInput(FIRST_ELEMENT).click();
-  }
+When('I pick {int} simple color input', (index) => {
   for (let i = 0; i < index; ++i) {
     experimentalSimpleColorPickerInput(i + 1).click();
   }

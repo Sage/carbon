@@ -10,7 +10,7 @@ const Info = (
     <p>In your file</p>
 
     <StoryCode padded>
-      {'import Icon from "carbon-react/lib/components/icon";'}
+      import Icon from &quot;carbon-react/lib/components/icon&quot;;
     </StoryCode>
 
     <p>To render an Icon:</p>
@@ -20,7 +20,7 @@ const Info = (
     </StoryCode>
 
     <p>
-      {"'type' is a required prop"}
+      &apos;type&apos; is a required prop
     </p>
 
     {/* eslint-disable-next-line */}

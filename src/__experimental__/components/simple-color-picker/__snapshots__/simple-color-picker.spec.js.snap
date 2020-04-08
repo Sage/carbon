@@ -72,7 +72,7 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   background-color: #582C83;
 }
 
-.c13 {
+.c12 {
   display: inline-block;
   position: relative;
   color: rgba(0,0,0,0.65);
@@ -93,12 +93,12 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   width: 24px;
 }
 
-.c13:hover {
+.c12:hover {
   color: rgba(0,0,0,0.90);
   background-color: transparent;
 }
 
-.c13::before {
+.c12::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -111,23 +111,23 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   display: block;
 }
 
-.c11 {
+.c13 {
   height: 22px;
   width: 22px;
   pointer-events: none;
   display: none;
 }
 
-.c11::before {
+.c13::before {
   font-size: 22px;
   color: #FFFFFF;
 }
 
-.c11 {
+.c13 {
   display: block;
 }
 
-.c7 {
+.c6 {
   background: transparent;
   border: none;
   color: rgba(0,0,0,0.9);
@@ -140,28 +140,28 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   width: 30px;
 }
 
-.c7::-webkit-input-placeholder {
+.c6::-webkit-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c7::-moz-placeholder {
+.c6::-moz-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c7:-ms-input-placeholder {
+.c6:-ms-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c7::placeholder {
+.c6::placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c7:invalid,
-.c7:required {
+.c6:invalid,
+.c6:required {
   box-shadow: none;
 }
 
-.c6 {
+.c7 {
   position: absolute;
   opacity: 0;
   height: 56px;
@@ -169,27 +169,27 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   margin: 0;
 }
 
-.c6:hover {
+.c7:hover {
   cursor: pointer;
 }
 
-.c6:focus + .c8 {
+.c7:focus + .c8 {
   box-shadow: inset 0px 0px 0px 3px #FFFFFF;
   border: 2px solid #FFB500;
 }
 
-.c1 {
+.c0 {
   border: none;
   margin: 0;
   padding: 0;
 }
 
-.c1.c1.c1 .c16 {
+.c0.c0.c0 .c16 {
   margin-top: 0;
   margin-bottom: -1px;
 }
 
-.c1 .c17 {
+.c0 .c17 {
   padding-top: 8px;
   padding-bottom: 8px;
 }
@@ -212,20 +212,20 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   line-height: 24px;
 }
 
-.c3 .c15 .c12:focus {
+.c3 .c15 .c11:focus {
   outline: 2px solid #FFB500;
 }
 
-.c0 {
+.c1 {
   max-width: 300px;
 }
 
-.c0 .c2 {
+.c1 .c2 {
   margin-bottom: 16px;
   height: 26px;
 }
 
-.c0 .c2 legend {
+.c1 .c2 legend {
   font-size: 14px;
   margin-left: -2px;
 }

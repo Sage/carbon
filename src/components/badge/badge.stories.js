@@ -23,5 +23,6 @@ export const Basic = () => {
   return (
     <Badge counter={ counter } onClick={ handleClick }>
       <Button style={ { marginRight: 0 } } buttonType='tertiary'>Filter</Button>
-    </Badge>);
+    </Badge>
+  );
 };
