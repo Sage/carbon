@@ -4,7 +4,7 @@ import ActionPopoverMenu from './action-popover-menu';
 
 export interface ActionPopoverItemProps {
   children: string;
-  icon: IconTypes;
+  icon?: IconTypes;
   disabled?: boolean;
   onClick: () => void;
   submenu?: typeof ActionPopoverMenu;

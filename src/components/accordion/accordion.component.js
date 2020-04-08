@@ -20,9 +20,9 @@ const Accordion = React.forwardRef(({
   expanded,
   onChange,
   children,
-  handleKeyboardAccessibility,
+  handleKeyboardAccessibility, // eslint-disable-line react/prop-types
   id,
-  index,
+  index, // eslint-disable-line react/prop-types
   iconType,
   iconAlign,
   styleOverride,

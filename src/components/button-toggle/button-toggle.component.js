@@ -32,7 +32,8 @@ const ButtonToggle = (props) => {
         buttonIcon={ buttonIcon }
         buttonIconSize={ buttonIconSize }
         disabled={ disabled }
-      />);
+      />
+    );
   }
 
   return (

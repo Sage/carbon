@@ -30,6 +30,14 @@ Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
 });
 
+Given('I open {string} component page knobs', (component) => {
+  visitComponentUrl(component, 'knobs');
+});
+
+Given('I open {string} component page knobs in noIFrame', (component) => {
+  visitComponentUrl(component, 'knobs', true);
+});
+
 Given('I open {string} component page basic', (component) => {
   visitComponentUrl(component, 'basic');
 });
@@ -139,6 +147,10 @@ Given('I open {string} component page with sticky footer', (component) => {
   visitComponentUrl(component, 'with_sticky_footer');
 });
 
+Given('I open {string} component page customFilter', (component) => {
+  visitComponentUrl(component, 'customFilter');
+});
+
 When('I open {word} tab', (text) => {
   cy.wait(1000, { log: DEBUG_FLAG }); // required because element needs to be loaded
   knobsNameTab(text).click();
@@ -227,6 +239,10 @@ When('I hover mouse onto icon', () => {
 
 Then('I hover mouse onto {string} icon in iFrame', (name) => {
   getElementNoIframe(name).trigger('mouseover');
+});
+
+Then('I hover mouse onto {string} icon in no iFrame', (name) => {
+  getDataElementByValueNoIframe(name).trigger('mouseover');
 });
 
 Then('I hover mouse onto {string} {string} icon for validations component into iFrame', (position, name) => {

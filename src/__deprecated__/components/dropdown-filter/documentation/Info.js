@@ -1,3 +1,4 @@
+/* eslint react/jsx-indent: 0 */
 import React from 'react';
 import { StoryHeader, StoryCode } from '../../../../../.storybook/style/storybook-info.styles';
 
@@ -10,7 +11,7 @@ const Info = (
     <p>In your file</p>
 
     <StoryCode padded>
-      {'import DropdownFilter from "carbon-react/lib/components/dropdown-filter";'}
+      import DropdownFilter from &quot;carbon-react/lib/components/dropdown-filter&quot;;
     </StoryCode>
 
     <p>To render a DropdownFilter:</p>
@@ -26,27 +27,28 @@ const Info = (
     </StoryCode>
 
     <p>
-      {"When using the component in 'suggest' mode, the dropdown only shows once a filter term has been entered."}
+      When using the component in &apos;suggest&apos; mode, the dropdown only shows once a filter term has been entered.
     </p>
 
     <p>
-      {"In 'freetext' mode, the component mimics 'suggest', but allows write-in text values as well as list options."}
+      In &apos;freetext&apos; mode, the component mimics &apos;suggest&apos;,
+       but allows write-in text values as well as list options.
     </p>
 
     <p>
-      {"Specify an initial write-in value with the 'visibleValue' property."}
+      Specify an initial write-in value with the &apos;visibleValue&apos; property.
     </p>
 
     <p>
-      {"Setting the 'freetextName' property adds a second hidden input for the write-in value."}
+      Setting the &apos;freetextName&apos; property adds a second hidden input for the write-in value.
     </p>
 
     <p>
-      {"Otherwise, the 'name' property is used for the option id."}
+      Otherwise, the &apos;name&apos; property is used for the option id.
     </p>
 
     <p>
-      {"You can define a function for the 'create' prop, which allows you to trigger events to create new items."}
+      You can define a function for the &apos;create&apos; prop, which allows you to trigger events to create new items.
     </p>
   </div>
 );

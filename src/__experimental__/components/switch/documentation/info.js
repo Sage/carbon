@@ -7,7 +7,7 @@ const info = (
     <StoryHeader>Implementation</StoryHeader>
 
     <p>Import the component:</p>
-    <StoryCode padded>import Switch from {'"carbon-react/lib/components/switch"'}</StoryCode>
+    <StoryCode padded>import Switch from &quot;carbon-react/lib/components/switch&quot;</StoryCode>
   </div>
 );
 
