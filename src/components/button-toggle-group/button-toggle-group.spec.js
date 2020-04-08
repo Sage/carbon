@@ -55,7 +55,7 @@ function renderWithTheme(props = {}, renderer = TestRenderer.create) {
           value='foo'
           { ...componentProps }
         >
-            Foo
+          Foo
         </ButtonToggle>
         <ButtonToggle
           name='button-toggle-group'
@@ -63,7 +63,7 @@ function renderWithTheme(props = {}, renderer = TestRenderer.create) {
           value='bar'
           { ...componentProps }
         >
-            Bar
+          Bar
         </ButtonToggle>
       </ButtonToggleGroup>
     </ThemeProvider>

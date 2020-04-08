@@ -355,6 +355,9 @@ class Select extends React.Component {
   }
 
   inputIcon(typeAhead) {
+    if (this.props.inputIcon) {
+      return this.props.inputIcon;
+    }
     if (this.openWhenTypeAhead(typeAhead, this.state.filter)) return 'cross';
     if (typeAhead) return 'search';
     return this.isMultiSelectEnabled() ? undefined : 'dropdown';
@@ -470,14 +473,16 @@ class Select extends React.Component {
 
 const valuePropType = PropTypes.oneOfType([
   PropTypes.string, // Single-select mode
-  PropTypes.arrayOf(PropTypes.string) // Multi-select mode
+  PropTypes.object, // CustomFilter-select mode
+  PropTypes.array // Multi-select mode
 ]);
 
 Select.propTypes = {
+  ...Textbox.propTypes,
   ariaLabel: PropTypes.string,
   /** Child components (such as <Option>) for the <SelectList> */
   children: PropTypes.node,
-  /** A custom function to filter the child components. Its interface is (text, value) => boolean */
+  /** A custom function to filter the child components. Its interface is (text, filter, value) => boolean */
   customFilter: PropTypes.func,
   /** Is the component disabled? */
   disabled: PropTypes.bool,

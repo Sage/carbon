@@ -23,7 +23,7 @@ const info = (
     <StoryHeader> Implementation</StoryHeader>
 
     <p>Import the component:</p>
-    <StoryCode padded>import SettingsRow from {'"carbon-react/lib/components/settings-row"'}</StoryCode>
+    <StoryCode padded>import SettingsRow from &quot;carbon-react/lib/components/settings-row&quot;</StoryCode>
 
     <p>To render the SettingsRow:</p>
     <StoryCodeBlock>{code}</StoryCodeBlock>

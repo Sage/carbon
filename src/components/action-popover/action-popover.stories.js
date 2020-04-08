@@ -7,6 +7,7 @@ import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/them
 import {
   Table, TableRow, TableCell, TableHeader
 } from '../table';
+import Button from '../button';
 
 const submenu = (
   <ActionPopoverMenu>
@@ -141,7 +142,7 @@ export const Classic = () => (
               disabled
               icon='graph'
               submenu={ submenu }
-              onClick={ action('email') }
+              onClick={ action('business') }
             >
               Business
             </ActionPopoverItem>
@@ -198,5 +199,81 @@ Classic.story = {
   name: 'classic',
   parameters: {
     themeSelector: classicThemeSelector
+  }
+};
+
+export const StylesOverriden = () => (
+  <div style={ { marginTop: '40px', height: '275px', maxWidth: '800px' } }>
+    <Table isZebra>
+      <TableRow>
+        <TableHeader colSpan='3'>Services</TableHeader>
+      </TableRow>
+      <TableRow>
+        <TableCell>Accounting</TableCell>
+        <TableCell>Payroll</TableCell>
+        <TableCell>
+          <ActionPopover
+            rightAlignMenu
+            renderButton={ ({ styleOverride, tabIndex, ...rest }) => (
+              <Button
+                buttonType='tertiary'
+                iconType='dropdown'
+                iconPosition='after'
+                size='small'
+                tabIndex={ tabIndex }
+                styleOverride={ styleOverride }
+                date-element={ rest['data-element'] }
+              >
+                More
+              </Button>
+            ) }
+          >
+            <ActionPopoverItem onClick={ action('auto entry') }>Auto Entry</ActionPopoverItem>
+            <ActionPopoverItem onClick={ action('corporation tax') }>Corporation Tax</ActionPopoverItem>
+            <ActionPopoverItem onClick={ action('final accounts') }>Final Accounts</ActionPopoverItem>
+            <ActionPopoverItem onClick={ action('vat centre') }>VAT Centre</ActionPopoverItem>
+            <ActionPopoverDivider />
+            <ActionPopoverItem onClick={ action('manage services') }>Manage Services</ActionPopoverItem>
+          </ActionPopover>
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Accounting</TableCell>
+        <TableCell>Payroll</TableCell>
+        <TableCell>
+          <ActionPopover
+            rightAlignMenu
+            renderButton={ ({ styleOverride, tabIndex, ...rest }) => (
+              <Button
+                buttonType='tertiary'
+                iconType='dropdown'
+                iconPosition='after'
+                size='small'
+                tabIndex={ tabIndex }
+                styleOverride={ styleOverride }
+                date-element={ rest['data-element'] }
+              >
+                More
+              </Button>
+            ) }
+          >
+            <ActionPopoverItem onClick={ action('auto entry') }>Auto Entry</ActionPopoverItem>
+            <ActionPopoverItem onClick={ action('corporation tax') }>Corporation Tax</ActionPopoverItem>
+            <ActionPopoverItem onClick={ action('final accounts') }>Final Accounts</ActionPopoverItem>
+            <ActionPopoverItem onClick={ action('vat centre') }>VAT Centre</ActionPopoverItem>
+            <ActionPopoverDivider />
+            <ActionPopoverItem onClick={ action('manage services') }>Manage Services</ActionPopoverItem>
+          </ActionPopover>
+        </TableCell>
+      </TableRow>
+    </Table>
+  </div>
+);
+
+
+StylesOverriden.story = {
+  name: 'styles overriden',
+  parameters: {
+    themeSelector: dlsThemeSelector
   }
 };

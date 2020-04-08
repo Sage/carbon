@@ -25,7 +25,7 @@ const DeprecationWarning = () => (
     backgroundColor: 'red', textAlign: 'center', color: 'white', padding: 20, fontWeight: 'bold', marginBottom: 10
   } }
   >
-  Form and validations have been deprecated please see <a href='https://github.com/Sage/carbon/pull/2481'>#2481</a>
+    Form and validations have been deprecated please see <a href='https://github.com/Sage/carbon/pull/2481'>#2481</a>
   </div>
 );
 

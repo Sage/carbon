@@ -8,13 +8,13 @@ const Info = (
     <StoryHeader>How to use the Flash component:</StoryHeader>
 
     <p>
-      {"Flash is rendered in two sections: a ventral message 'flash', and a dorsal coloured 'slider'."}
+      Flash is rendered in two sections: a ventral message &apos;flash&apos;, and a dorsal coloured &apos;slider&apos;.
     </p>
 
     <p>In your file</p>
 
     <StoryCode padded>
-      {'import Flash from "carbon-react/lib/components/flash";'}
+      import Flash from &quot;carbon-react/lib/components/flash&quot;;
     </StoryCode>
 
     <p>To render a Flash, setup open and cancel handlers in your view to trigger the message on and off:</p>
@@ -23,7 +23,7 @@ const Info = (
       {'<Flash open={ openStatus } onDismiss={ myOnDismiss } message="Alert!" />'}
     </StoryCode>
 
-    <p>By default, the flash renders with a clickable close icon that hooks up with the onDismiss unction.</p>
+    <p>By default, the flash renders with a clickable close icon that hooks up with the onDismiss function.</p>
 
     <p>To instead have the flash disappear after a given time period, pass a prop of timeout in milliseconds.</p>
 
@@ -35,10 +35,10 @@ const Info = (
 
     <ul>
       <li>
-        {'A string: "Alert"'}
+        A string: &quot;Alert&quot;
       </li>
       <li>
-        {'An array: ["Message One", "Message Two"]'}
+        An array: [&quot;Message One&quot;, &quot;Message Two&quot;]
       </li>
       <li>An object with description: <StoryCode>{'{ description: "My description" }'}</StoryCode></li>
       <li>
@@ -53,11 +53,11 @@ const Info = (
     </StoryCode>
 
     <p>
-      {"If a message is too long, it can be proxied to a dialog by adding 'more' in your description."}
+      If a message is too long, it can be proxied to a dialog by adding &apos;more&apos; in your description.
     </p>
 
     <StoryCode padded>
-      {'let message = "This is too long ::more:: This sentence is proxied to a dialog."'}
+      let message = &quot;This is too long ::more:: This sentence is proxied to a dialog.&quot;
     </StoryCode>
   </div>
 );

@@ -6,7 +6,7 @@ const info = (
     <p>Checkbox component</p>
     <StoryHeader> Implementation</StoryHeader>
     <StoryCode>
-      {'import Checkbox from "carbon-react/lib/components/checkbox"'}
+      import Checkbox from &quot;carbon-react/lib/components/checkbox&quot;
     </StoryCode>
 
     <p>To render a Checkbox</p>

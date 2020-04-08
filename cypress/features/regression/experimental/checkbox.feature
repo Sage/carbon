@@ -7,7 +7,7 @@ Feature: Experimental Checkbox component
   @positive
   Scenario Outline: Change Checkbox component label to <label>
     When I set label to "<label>"
-    Then checkbox on preview is "<label>"
+    Then checkbox label on preview is "<label>"
     Examples:
       | label                   |
       | Sample text             |
@@ -20,8 +20,8 @@ Feature: Experimental Checkbox component
 
   @positive
   Scenario: Disable and enable checkbox
-    When I check disabled checkbox
-      And I uncheck disabled checkbox
+    Given I check disabled checkbox
+    When I uncheck disabled checkbox
     Then Checkbox is enabled
 
   @positive
@@ -50,8 +50,8 @@ Feature: Experimental Checkbox component
 
   @positive
   Scenario: Enable and disable fieldHelpInline
-    When I check fieldHelpInline checkbox
-      And I uncheck fieldHelpInline checkbox
+    Given I check fieldHelpInline checkbox
+    When I uncheck fieldHelpInline checkbox
     Then Checkbox is not set to fieldHelpInline and has margin set to "0px 0px 0px 16px"
 
   @positive

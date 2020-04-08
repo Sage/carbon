@@ -11,7 +11,7 @@ const Info = (
       <p>In your file</p>
 
       <StoryCode padded>
-        {'import Pager from "carbon-react/lib/components/pager";'}
+        import Pager from &quot;carbon-react/lib/components/pager&quot;;
       </StoryCode>
 
       <p>To render a Pager:</p>
