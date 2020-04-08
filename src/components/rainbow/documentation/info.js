@@ -20,13 +20,13 @@ let myImmutableData = Immutable.fromJS([
 
 const info = (
   <div>
-    <p>Rainbow Component </p>
+    <p>Rainbow Component</p>
     <p>A rainbow chart using the Highcharts API.</p>
 
     <StoryHeader>Implementation</StoryHeader>
 
     <p>Import the component:</p>
-    <StoryCode padded>import Rainbow from {'"carbon-react/lib/components/rainbow"'}</StoryCode>
+    <StoryCode padded>import Rainbow from &quot;carbon-react/lib/components/rainbow&quot;</StoryCode>
 
     <p>
       Note that the Rainbow component expects that you already have the Highcharts library loaded. This may be true in
@@ -34,7 +34,7 @@ const info = (
       need to import Highcharts before importing Rainbow:
     </p>
 
-    <StoryCode padded>import {"'react-highcharts/dist/bundle/highcharts';"}</StoryCode>
+    <StoryCode padded>import &quot;react-highcharts/dist/bundle/highcharts&quot;;</StoryCode>
 
     <p>To render the Rainbow:</p>
     <StoryCodeBlock>{code}</StoryCodeBlock>

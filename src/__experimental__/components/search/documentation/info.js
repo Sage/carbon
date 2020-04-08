@@ -8,7 +8,7 @@ const info = (
 
     <p>Import the component:</p>
     <StoryCode padded>
-        import Search from {'"carbon-react/lib/_experimental_/components/search"'}
+      import Search from &quot;carbon-react/lib/_experimental_/components/search&quot;
     </StoryCode>
 
     <p>Render the component:</p>

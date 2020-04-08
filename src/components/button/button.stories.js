@@ -1,16 +1,8 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import { notes, Info } from './documentation';
 import Button from '.';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
-
-Button.__docgenInfo = getDocGenInfo(
-  require('./docgenInfo.json'),
-  /button\.component(?!spec)/
-);
 
 const getIconKnobs = () => {
   const defaultPosition = Button.defaultProps.iconPosition;
@@ -38,45 +30,112 @@ const getKnobs = () => {
   };
 };
 
-function makeStory(name, infotext) {
-  const component = () => {
-    const props = getKnobs();
-    const { children } = props; // eslint-disable-line react/prop-types
-    return (
-      <Button { ...props }>{ children }</Button>
-    );
-  };
-
-  const metadata = {
-    info: { text: infotext },
-    notes: { markdown: notes },
-    knobs: {
-      escapeHTML: false
+export default {
+  title: 'Button',
+  component: Button,
+  parameters: {
+    info: {
+      disable: true
+    },
+    docs: {
+      disable: true
     }
-  };
+  }
+};
 
-  return [name, component, metadata];
-}
+export const knobs = () => {
+  const props = getKnobs();
+  const { children } = props; // eslint-disable-line react/prop-types
+  return (
+    <Button { ...props }>{ children }</Button>
+  );
+};
 
-function makeSiblingStory(name, themeSelector) {
-  const component = () => {
-    const props = getKnobs();
-    const { children } = props; // eslint-disable-line react/prop-types
-    return (
-      <div>
-        <Button { ...props }>{ children }</Button>
-        <Button { ...props }>{ children }</Button>
-      </div>
-    );
-  };
+export const asASibling = () => {
+  const props = getKnobs();
+  const { children } = props; // eslint-disable-line react/prop-types
+  return (
+    <div>
+      <Button { ...props }>{ children }</Button>
+      <Button { ...props }>{ children }</Button>
+    </div>
+  );
+};
 
-  const metadata = {
-    themeSelector
-  };
+export const allButtons = () => {
+  return (
+    <>
+      {OptionsHelper.buttonIconPositions.map(iconPosition => (
+        OptionsHelper.buttonTypes.map(buttonType => (
+          ['', ...OptionsHelper.icons].map((iconType) => {
+            const props = { iconPosition, buttonType, iconType };
+            return (
+              <div>
+                {OptionsHelper.sizesRestricted.map(size => (
+                  <>
+                    <Button
+                      size={ size }
+                      { ...props }
+                    >{size}
+                    </Button>
 
-  return [name, component, metadata];
-}
+                    {size === 'large' && (
+                      <Button
+                        size={ size }
+                        subtext='line two'
+                        { ...props }
+                      >{size}
+                      </Button>
+                    )}
+                  </>
+                ))}
 
-storiesOf('Button', module)
-  .add(...makeStory('default', Info))
-  .add(...makeSiblingStory('as a sibling'));
+                {OptionsHelper.sizesRestricted.map(size => (
+                  <>
+                    <Button
+                      size={ size }
+                      destructive
+                      { ...props }
+                    >{size}
+                    </Button>
+
+                    {size === 'large' && (
+                      <Button
+                        size={ size }
+                        destructive
+                        subtext='line two'
+                        { ...props }
+                      >{size}
+                      </Button>
+                    )}
+                  </>
+                ))}
+
+                {OptionsHelper.sizesRestricted.map(size => (
+                  <>
+                    <Button
+                      size={ size }
+                      disabled
+                      { ...props }
+                    >{size}
+                    </Button>
+
+                    {size === 'large' && (
+                      <Button
+                        size={ size }
+                        disabled
+                        subtext='line two'
+                        { ...props }
+                      >{size}
+                      </Button>
+                    )}
+                  </>
+                ))}
+              </div>
+            );
+          })
+        ))
+      ))}
+    </>
+  );
+};

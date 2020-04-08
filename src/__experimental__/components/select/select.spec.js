@@ -9,7 +9,7 @@ import Events from '../../../utils/helpers/events';
 import classic from '../../../style/themes/classic';
 import StyledIcon from '../../../components/icon/icon.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
-import TextBox from '../textbox';
+import Textbox from '../textbox';
 import { Input } from '../input';
 import InputPresentationStyle from '../input/input-presentation.style';
 import StyledInput from '../input/input.style';
@@ -55,7 +55,7 @@ describe('Select', () => {
 
   // utility functions to fetch various elements from the wrapper
   const listOf = wrapper => wrapper.find('SelectList');
-  const textboxOf = wrapper => wrapper.find(TextBox);
+  const textboxOf = wrapper => wrapper.find(Textbox);
   const pillsOf = wrapper => wrapper.find('Pill');
 
   // open the list for the select component and returns the wrapper
@@ -523,6 +523,23 @@ describe('Select', () => {
       expect(props.onChange).toHaveBeenCalledWith({
         target: { value: [{ optionText: options[0].text, optionValue: options[0].value }] }
       });
+    });
+  });
+
+  describe('external validations', () => {
+    it.each([
+      ['error', { hasError: true }],
+      ['warning', { hasWarning: true }],
+      ['info', { hasInfo: true }]
+    ])('should pass %s props to the Textbox component', (type, prop) => {
+      const props = { ...prop, inputIcon: type, tooltipMessage: 'Validation message' };
+      const wrapper = renderWrapper({ props });
+      expect(wrapper.find(Textbox).props()).toMatchObject(props);
+    });
+
+    it('should render dropdown icon when no validationProps provided', () => {
+      const wrapper = renderWrapper();
+      expect(wrapper.find(Textbox).props().inputIcon).toBe('dropdown');
     });
   });
 });

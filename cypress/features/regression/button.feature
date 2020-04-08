@@ -2,18 +2,17 @@ Feature: Button component
   I want to check Button component properties
 
   Background: Open Button component default page
-    Given I open "Button" component page
+    Given I open "Button" component page knobs
 
-  @ignore
-  # ignored regression
+  @positive
   Scenario Outline: Set Button size to <size>
     When I select size to "<size>"
-    Then Button height is "<height>" and width is "<width>"
+    Then Button height is "<height>"
     Examples:
-      | size   | height | width     |
-      | small  | 32     | 136.4375  |
-      | medium | 40     | 152.4375  |
-      | large  | 48     | 182.78125 |
+      | size   | height |
+      | small  | 32     |
+      | medium | 40     |
+      | large  | 48     |
 
   @positive
   Scenario Outline: Set Button subtext to <subtext>
@@ -27,7 +26,6 @@ Feature: Button component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Set Button Type as <buttonType>
@@ -52,7 +50,6 @@ Feature: Button component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario: Disable Button
@@ -68,8 +65,8 @@ Feature: Button component
   @positive
   Scenario Outline: Change Button icon position to <iconPosition>
     Given I check has icon checkbox
-    When I select iconType to "add"
-      And I select iconPosition to "<iconPosition>"
+      And I select iconType to "add"
+    When I select iconPosition to "<iconPosition>"
     Then Button icon position is set to "<iconPosition>"
     Examples:
       | iconPosition |

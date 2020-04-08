@@ -6,6 +6,9 @@ import {
   radioButtonGroup,
   radioButtonFieldset,
   radioButtonLegend,
+  radioGroup,
+  radioButtonLegendInNoIFrame,
+  radioButtonGroupInNoIFrame,
 } from '../../locators/radioButton/index';
 import { setSlidebar } from '../helper';
 
@@ -141,4 +144,10 @@ Then('legend is not inline with RadioButton', () => {
   radioButtonFieldset().should('have.css', 'display', 'block');
   radioButtonLegend().should('have.css', 'margin-right', '0px')
     .and('have.css', 'height', '26px');
+});
+
+Then('RadioButtonGroup overriden styles rendered properly', () => {
+  radioGroup().should('have.css', 'background', 'rgb(240, 240, 240) none repeat scroll 0% 0% / auto padding-box border-box');
+  radioButtonLegendInNoIFrame().should('have.css', 'color', 'rgb(180, 212, 85)');
+  radioButtonGroupInNoIFrame().should('have.css', 'padding', '0px 12px');
 });

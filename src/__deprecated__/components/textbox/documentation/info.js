@@ -6,7 +6,7 @@ const info = (
     <p>Textbox component</p>
 
     <StoryHeader>Implementation</StoryHeader>
-    <StoryCodeBlock>import Textbox from {'"carbon-react/lib/components/textbox"'}</StoryCodeBlock>
+    <StoryCodeBlock>import Textbox from &quot;carbon-react/lib/components/textbox&quot;</StoryCodeBlock>
 
     <p>
       To render a<StoryCode padded>Textbox</StoryCode>

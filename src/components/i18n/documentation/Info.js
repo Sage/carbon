@@ -10,7 +10,7 @@ const Info = (
     <p>In your file:</p>
 
     <StoryCode padded>
-      {'import I18n from "carbon-react/lib/components/i18n";'}
+      import I18n from &quot;carbon-react/lib/components/i18n&quot;;
     </StoryCode>
 
     <p>To render the message:</p>

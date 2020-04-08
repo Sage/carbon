@@ -58,123 +58,125 @@ const InputIntegration = () => {
 
   return (
     <State store={ store }>
-      {state => <>
-        <Decimal
-          id='decimal'
-          label='Decimal Component'
-          labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
-          fieldHelp={ disableFieldHelp ? '' : 'Decimal component fieldHelp' }
-          { ...commonKnobs }
-        />
-        <NumberInput
-          id='number'
-          label='Number Input Component'
-          labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
-          fieldHelp={ disableFieldHelp ? '' : 'Number Input component fieldHelp' }
-          onChange={ ev => store.set({ numberInputValue: ev.target.value }) }
-          value={ state.numberInputValue }
-          { ...commonKnobs }
-        />
-        <GroupedCharacter
-          id='grouped-character'
-          label='Grouped Character Component'
-          labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
-          separator='-'
-          groups={ [2, 2, 4] }
-          onChange={ ev => store.set({ groupedCharacterValue: ev.target.value.rawValue }) }
-          fieldHelp={ disableFieldHelp ? '' : 'Grouped Character Component fieldHelp' }
-          value={ state.groupedCharacterValue }
-          { ...commonKnobs }
-        />
-        <Select
-          ariaLabel='singleSelect'
-          label='Select'
-          labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
-          fieldHelp={ disableFieldHelp ? '' : 'Select Component fieldHelp' }
-          { ...commonKnobs }
-        >
-          <Option
-            key='option1'
-            text='Option 1'
-            value='option1'
+      {state => (
+        <>
+          <Decimal
+            id='decimal'
+            label='Decimal Component'
+            labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
+            fieldHelp={ disableFieldHelp ? '' : 'Decimal component fieldHelp' }
+            { ...commonKnobs }
           />
-          <Option
-            key='option2'
-            text='Option 2'
-            value='option2'
+          <NumberInput
+            id='number'
+            label='Number Input Component'
+            labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
+            fieldHelp={ disableFieldHelp ? '' : 'Number Input component fieldHelp' }
+            onChange={ ev => store.set({ numberInputValue: ev.target.value }) }
+            value={ state.numberInputValue }
+            { ...commonKnobs }
           />
-          <Option
-            key='option3'
-            text='Option 3'
-            value='option3'
+          <GroupedCharacter
+            id='grouped-character'
+            label='Grouped Character Component'
+            labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
+            separator='-'
+            groups={ [2, 2, 4] }
+            onChange={ ev => store.set({ groupedCharacterValue: ev.target.value.rawValue }) }
+            fieldHelp={ disableFieldHelp ? '' : 'Grouped Character Component fieldHelp' }
+            value={ state.groupedCharacterValue }
+            { ...commonKnobs }
           />
-        </Select>
-        <Textarea
-          name='textarea'
-          label='Textarea'
-          labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
-          fieldHelp={ disableFieldHelp ? '' : 'Textarea fieldHelp' }
-          { ...commonKnobs }
-        />
-        <Checkbox
-          id='checkbox'
-          name='my-checkbox'
-          label='Checkbox'
-          labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
-          fieldHelp={ disableFieldHelp ? '' : 'Checkbox field help' }
-          value='checkbox-val'
-          reverse={ reverse }
-          fieldHelpInline={ fieldHelpInline }
-          onChange={ ev => store.set({ checkboxChecked: ev.target.checked }) }
-          checked={ state.checkboxChecked }
-          { ...commonKnobs }
-          inputWidth={ undefined }
-          labelWidth={ disableLabelWidth ? undefined : commonKnobs.labelWidth }
-        />
-        <RadioButtonGroup
-          name='radio-button-group'
-          legend='Please select an option'
-          onChange={ ev => store.set({ dateValue: ev.target.value }) }
-        >
-          {[1, 2, 3].map(num => (
-            <RadioButton
-              key={ `radio${num}` }
-              label={ `Radio ${num}` }
-              labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
-              fieldHelp={ disableFieldHelp ? '' : `Radio ${num} field help` }
-              value={ `radio${num}` }
-              reverse={ reverse }
-              fieldHelpInline={ fieldHelpInline }
-              { ...commonKnobs }
-              inputWidth={ undefined }
-              labelWidth={ disableLabelWidth ? undefined : commonKnobs.labelWidth }
-              size={ commonKnobs.size === 'medium' ? 'small' : commonKnobs.size }
+          <Select
+            ariaLabel='singleSelect'
+            label='Select'
+            labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
+            fieldHelp={ disableFieldHelp ? '' : 'Select Component fieldHelp' }
+            { ...commonKnobs }
+          >
+            <Option
+              key='option1'
+              text='Option 1'
+              value='option1'
             />
-          ))}
-        </RadioButtonGroup>
-        <Switch
-          name='switch'
-          label='Switch'
-          labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
-          fieldHelp={ disableFieldHelp ? '' : 'Switch field help' }
-          reverse={ reverse }
-          fieldHelpInline={ fieldHelpInline }
-          value={ state.switchValue }
-          { ...commonKnobs }
-          inputWidth={ undefined }
-          labelWidth={ disableLabelWidth ? undefined : commonKnobs.labelWidth }
-        />
-        <DateInput
-          id='date'
-          name='my-date'
-          label='Date'
-          labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
-          fieldHelp={ disableFieldHelp ? '' : 'Date field help' }
-          onChange={ ev => store.set({ dateValue: ev.target.value.rawValue }) }
-          value={ state.dateValue }
-          { ...commonKnobs }
-        />
-      </>}
+            <Option
+              key='option2'
+              text='Option 2'
+              value='option2'
+            />
+            <Option
+              key='option3'
+              text='Option 3'
+              value='option3'
+            />
+          </Select>
+          <Textarea
+            name='textarea'
+            label='Textarea'
+            labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
+            fieldHelp={ disableFieldHelp ? '' : 'Textarea fieldHelp' }
+            { ...commonKnobs }
+          />
+          <Checkbox
+            id='checkbox'
+            name='my-checkbox'
+            label='Checkbox'
+            labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
+            fieldHelp={ disableFieldHelp ? '' : 'Checkbox field help' }
+            value='checkbox-val'
+            reverse={ reverse }
+            fieldHelpInline={ fieldHelpInline }
+            onChange={ ev => store.set({ checkboxChecked: ev.target.checked }) }
+            checked={ state.checkboxChecked }
+            { ...commonKnobs }
+            inputWidth={ undefined }
+            labelWidth={ disableLabelWidth ? undefined : commonKnobs.labelWidth }
+          />
+          <RadioButtonGroup
+            name='radio-button-group'
+            legend='Please select an option'
+            onChange={ ev => store.set({ dateValue: ev.target.value }) }
+          >
+            {[1, 2, 3].map(num => (
+              <RadioButton
+                key={ `radio${num}` }
+                label={ `Radio ${num}` }
+                labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
+                fieldHelp={ disableFieldHelp ? '' : `Radio ${num} field help` }
+                value={ `radio${num}` }
+                reverse={ reverse }
+                fieldHelpInline={ fieldHelpInline }
+                { ...commonKnobs }
+                inputWidth={ undefined }
+                labelWidth={ disableLabelWidth ? undefined : commonKnobs.labelWidth }
+                size={ commonKnobs.size === 'medium' ? 'small' : commonKnobs.size }
+              />
+            ))}
+          </RadioButtonGroup>
+          <Switch
+            name='switch'
+            label='Switch'
+            labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
+            fieldHelp={ disableFieldHelp ? '' : 'Switch field help' }
+            reverse={ reverse }
+            fieldHelpInline={ fieldHelpInline }
+            value={ state.switchValue }
+            { ...commonKnobs }
+            inputWidth={ undefined }
+            labelWidth={ disableLabelWidth ? undefined : commonKnobs.labelWidth }
+          />
+          <DateInput
+            id='date'
+            name='my-date'
+            label='Date'
+            labelHelp={ disableLabelHelp ? '' : 'labelHelp' }
+            fieldHelp={ disableFieldHelp ? '' : 'Date field help' }
+            onChange={ ev => store.set({ dateValue: ev.target.value.rawValue }) }
+            value={ state.dateValue }
+            { ...commonKnobs }
+          />
+        </>
+      )}
     </State>
   );
 };

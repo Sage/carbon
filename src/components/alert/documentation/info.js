@@ -8,7 +8,7 @@ const info = (
     <StoryHeader>Implementation</StoryHeader>
 
     <p>Import the component:</p>
-    <StoryCode padded>import Alert from {'"carbon-react/lib/components/alert"'}</StoryCode>
+    <StoryCode padded>import Alert from &quot;carbon-react/lib/components/alert&quot;</StoryCode>
 
     <p>To render the Alert</p>
     <StoryCode padded>{'<Alert onCancel={ customEventHandler } open={ false } />'}</StoryCode>
