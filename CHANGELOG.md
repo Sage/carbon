@@ -1,3 +1,10 @@
+### [16.8.1](https://github.com/Sage/carbon/compare/v16.8.0...v16.8.1) (2020-04-07)
+
+
+### Bug Fixes
+
+* **select:** allow passing custom validation icon type prop to component ([a333235](https://github.com/Sage/carbon/commit/a3332359a5bc3e75ab427de52bfc41ec9f267c63))
+
 ## [16.8.0](https://github.com/Sage/carbon/compare/v16.7.0...v16.8.0) (2020-04-06)
 
 
