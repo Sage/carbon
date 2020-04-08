@@ -10,7 +10,7 @@ const Info = (
     <p>In your file</p>
 
     <StoryCode padded>
-      {'import Dropdown from "carbon-react/lib/components/dropdown";'}
+      import Dropdown from &quot;carbon-react/lib/components/dropdown&quot;;
     </StoryCode>
 
     <p>To render a Dropdown:</p>

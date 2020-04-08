@@ -8,7 +8,7 @@ const info = (
 
     <StoryHeader>Implementation</StoryHeader>
 
-    <StoryCode padded>import Textbox from {'carbon-react/lib/components/textbox'}</StoryCode>
+    <StoryCode padded>import Textbox from &quot;carbon-react/lib/components/textbox&quot;</StoryCode>
 
     <p>To render a Textarea:</p>
     <StoryCode padded>{'<Textbox name="myTexbox" />'}</StoryCode>

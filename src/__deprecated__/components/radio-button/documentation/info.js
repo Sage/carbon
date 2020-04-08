@@ -8,7 +8,7 @@ const info = (
     <StoryHeader>Implementation</StoryHeader>
 
     <p>Import the component:</p>
-    <StoryCode padded>import Radio Button from {'"carbon-react/lib/components/radio-button"'}</StoryCode>
+    <StoryCode padded>import Radio Button from &quot;carbon-react/lib/components/radio-button&quot;</StoryCode>
 
     <p>To render the radiobutton:</p>
     <StoryCodeBlock>

@@ -9,7 +9,7 @@ const info = (
     <StoryHeader> Implementation</StoryHeader>
 
     <p>Import the component:</p>
-    <StoryCode padded>import ShowEditPod from {'"carbon-react/lib/components/show-edit-pod"'}</StoryCode>
+    <StoryCode padded>import ShowEditPod from &quot;carbon-react/lib/components/show-edit-pod&quot;</StoryCode>
   </div>
 );
 

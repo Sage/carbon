@@ -28,7 +28,7 @@ describe('Toast', () => {
           className='custom'
           onDismiss={ () => {} }
         >
-        foobar
+          foobar
         </Toast>
       );
       expect(wrapper).toBeTruthy();

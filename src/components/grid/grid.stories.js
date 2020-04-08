@@ -143,7 +143,7 @@ export const basic = () => {
       border padding='medium'
       podType='primary'
     >
-        GridItem 1.
+      GridItem 1.
     </Pod>
   );
 
@@ -153,7 +153,7 @@ export const basic = () => {
       border padding='medium'
       podType='primary'
     >
-        GridItem 2.
+      GridItem 2.
     </Pod>
   );
 
@@ -163,7 +163,7 @@ export const basic = () => {
       border padding='medium'
       podType='primary'
     >
-        GridItem 3.
+      GridItem 3.
     </Pod>
   );
 

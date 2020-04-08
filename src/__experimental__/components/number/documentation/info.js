@@ -14,7 +14,7 @@ const Info = (
     <p>In your file</p>
 
     <StoryCode padded>
-      {'import Number from "carbon-react/lib/components/number";'}
+      import Number from &quot;carbon-react/lib/components/number&quot;;
     </StoryCode>
 
     <p>To render a Number:</p>
