@@ -19,14 +19,17 @@ const expectNavigationItemToBeSelected = (index, wrapper) => assertStyleMatch({
   borderLeftColor: baseTheme.colors.primary
 }, wrapper.find(StyledNavigationItem).at(index), { modifier: 'a' });
 
-const Content = React.forwardRef(({ title, noTextbox }, ref) => <>
-  <div ref={ ref } className='focusableContent'>
-    {!noTextbox && <Textbox label={ title } />}
-    <h2>
-      {title}
-    </h2>
-  </div>
-</>);
+// eslint-disable-next-line react/prop-types
+const Content = React.forwardRef(({ title, noTextbox }, ref) => (
+  <>
+    <div ref={ ref } className='focusableContent'>
+      {!noTextbox && <Textbox label={ title } />}
+      <h2>
+        {title}
+      </h2>
+    </div>
+  </>
+));
 
 
 describe('AnchorNavigation', () => {
@@ -55,7 +58,7 @@ describe('AnchorNavigation', () => {
 
     wrapper = mount(
       <AnchorNavigation
-        stickyNavigation={
+        stickyNavigation={ (
           <>
             <AnchorNavigationItem target={ ref1 }>
               First
@@ -73,7 +76,7 @@ describe('AnchorNavigation', () => {
               Fifth
             </AnchorNavigationItem>
           </>
-        }
+        ) }
         { ...props }
       >
         <Content ref={ ref1 } title='First section' />
@@ -196,11 +199,11 @@ describe('AnchorNavigation', () => {
     jest.spyOn(global.console, 'error').mockImplementation(() => {});
 
     mount(<AnchorNavigation
-      stickyNavigation={
+      stickyNavigation={ (
         <>
           <p>Invalid children</p>
         </>
-      }
+      ) }
     />);
 
     const expected = 'Warning: Failed prop type: `AnchorNavigation` only accepts children of'

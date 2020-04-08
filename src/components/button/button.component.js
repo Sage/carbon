@@ -70,6 +70,7 @@ function renderStyledButton(buttonProps) {
 }
 
 function renderChildren({
+  // eslint-disable-next-line react/prop-types
   iconType, iconPosition, size, subtext, children, disabled, buttonType
 }) {
   const iconColorMap = {
@@ -87,7 +88,8 @@ function renderChildren({
           disabled={ disabled }
           bgTheme='none'
           iconColor={ iconColorMap[buttonType] }
-        />) }
+        />
+      ) }
       <span>
         <span data-element='main-text'>{ children }</span>
         { size === 'large' && (
@@ -104,7 +106,8 @@ function renderChildren({
           disabled={ disabled }
           bgTheme='none'
           iconColor={ iconColorMap[buttonType] }
-        />) }
+        />
+      ) }
     </>
   );
 }

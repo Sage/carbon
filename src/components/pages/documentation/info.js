@@ -10,7 +10,7 @@ const Info = (
     <p>In your file</p>
 
     <StoryCode padded>
-      {'import pages from "carbon-react/lib/components/pages.component"'}
+      import pages from &quot;carbon-react/lib/components/pages.component&quot;
     </StoryCode>
 
     <p>To render a Pages:</p>

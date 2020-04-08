@@ -1,3 +1,4 @@
+/* eslint react/prop-types: 0 */
 import { text } from '@storybook/addon-knobs';
 import React, { useState } from 'react';
 import { action } from '@storybook/addon-actions';
