@@ -67,6 +67,10 @@ Then('Button background color is {string}', (color) => {
   buttonDataComponent().should('have.css', 'background-color', color);
 });
 
+Then('Button background style is {string}', (style) => {
+  buttonDataComponent().should('have.css', 'border-style', style);
+});
+
 Then('Button as a sibling background color is {string}', (color) => {
   buttonDataComponent().eq(positionOfElement('first')).should('have.css', 'background-color', color);
   buttonDataComponent().eq(positionOfElement('second')).should('have.css', 'background-color', color);

@@ -350,6 +350,7 @@ const OptionsHelper = {
     'primary',
     'secondary',
     'tertiary',
+    'dashed',
     'darkBackground'
   ],
 

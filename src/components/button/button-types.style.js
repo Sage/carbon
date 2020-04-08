@@ -100,6 +100,31 @@ export default ({ colors, disabled }, isDisabled, destructive) => ({
       }
     ` : ''}
   `,
+  dashed: `
+    background: transparent;
+    border: 2px solid ${colors.dashedBorder}
+    border-style: dashed;
+    color: ${colors.dashedButtonText};
+    &:hover {
+      background-color: ${colors.dashedHoverBackground}
+    }
+
+    ${destructive ? `
+      ${makeColors(colors.error)}
+      &:hover {
+        ${makeColors(colors.destructive.hover)}
+      }
+      ` : ''}
+
+    ${isDisabled ? `
+      border-color: ${disabled.button};
+      color: ${disabled.text};
+      &:hover {
+        background-color: transparent;
+        ${makeColors(disabled.text)}
+      }
+    ` : ''}
+  `,
   darkBackground: `
     background: ${colors.white};
     border-color: transparent;
