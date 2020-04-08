@@ -1,22 +1,22 @@
 Then('Element displays correctly', () => {
-  if ( Cypress.env('CYPRESS_APPLITOOLS') ) {
+  if (Cypress.env('CYPRESS_APPLITOOLS')) {
     cy.eyesCheckWindow({
       target: 'region',
-      selector: '#storybook-preview-iframe'
+      selector: '#storybook-preview-iframe',
     });
   }
 });
 
 Then('Element displays correctly in iframe', () => {
-  if ( Cypress.env('CYPRESS_APPLITOOLS') ) {
+  if (Cypress.env('CYPRESS_APPLITOOLS')) {
     cy.eyesCheckWindow({
       target: 'region',
-      selector: '#story-root'
+      selector: '#story-root',
     });
   }
 });
 
-const ensure_element_style = `
+const ensureElementStyle = `
   let frame = document.querySelector('#storybook-preview-iframe');
   let innerDoc = frame.contentDocument || frame.contentWindow.document;
   // let elem = innerDoc.evaluate('/html/body/div[5]/div/div[2]/div', innerDoc).iterateNext();
@@ -35,16 +35,16 @@ const ensure_element_style = `
   }
   elem.style.top = midPointY + 'px';
   elem.style.left = midPointX + 'px'; 
-`
+`;
 
 Then('Element displays correctly in full screen', () => {
   if (Cypress.env('CYPRESS_APPLITOOLS')) {
-      cy.get('.css-18i2ql3 > .css-9c2gku > .css-ha8kg').click()
-      cy.eyesCheckWindow({
-        scriptHooks: {
-          beforeCaptureScreenshot: ensure_element_style
-        }
-      })
-      cy.get('.css-18i2ql3 > .css-9c2gku > .css-ha8kg').click()
+    cy.get('.css-18i2ql3 > .css-9c2gku > .css-ha8kg').click();
+    cy.eyesCheckWindow({
+      scriptHooks: {
+        beforeCaptureScreenshot: ensureElementStyle,
+      },
+    });
+    cy.get('.css-18i2ql3 > .css-9c2gku > .css-ha8kg').click();
   }
 });

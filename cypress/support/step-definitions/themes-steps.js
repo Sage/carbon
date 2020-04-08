@@ -1,4 +1,4 @@
-import { visitComponentUrlByTheme, visitComponentUrlByThemeKnobsStory } from '../helper';
+import { visitComponentUrlByTheme, visitComponentUrlByThemeKnobsStory, visitComponentUrlByThemeAllButtonsStory } from '../helper';
 import { getComponentNoIframe, getElementNoIframe } from '../../locators/build';
 import { buttonToggleComponent, linkComponent, loaderComponent } from '../../locators/themes';
 
@@ -12,6 +12,10 @@ When('I open {string} component with theme {string}', (componentName, themeName)
 
 When('I open {string} component with theme {string} knobs story', (componentName, themeName) => {
   visitComponentUrlByThemeKnobsStory(componentName, themeName);
+});
+
+When('I open {string} component with theme {string} all buttons story', (componentName, themeName) => {
+  visitComponentUrlByThemeAllButtonsStory(componentName, themeName);
 });
 
 When('I open Icon component with theme {string}', (themeName) => {
