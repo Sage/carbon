@@ -118,13 +118,13 @@ function makeStory(name, themeSelector) {
             { ...themeProp }
           >
             <Content key='first_name' title='First Name'>
-            Alan
+              Alan
             </Content>
             <Content key='second_name' title='Last Name'>
-            Smith
+              Smith
             </Content>
             <Content key='telephone' title='Telephone'>
-            000 000 0000
+              000 000 0000
             </Content>
           </ShowEditPod>
         )}

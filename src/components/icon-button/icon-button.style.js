@@ -13,6 +13,7 @@ const StyledIconButton = styled.button`
       color: ${theme.text.color};
       background-color: transparent;
       outline: solid 3px ${theme.colors.focus};
+      z-index: 1;
     }
   `}
 

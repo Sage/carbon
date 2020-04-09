@@ -36,6 +36,7 @@ export const commonButtonPreviewNoIFrameRoot = () => cy.get(DLS_ROOT).find('butt
 export const commonInputPreview = () => storyRoot().find('input');
 export const labelPreview = () => storyRoot().find('label').first();
 export const label = () => cy.iFrame(LABEL);
+export const labelNoIFrame = () => cy.get(LABEL);
 export const labelByPosition = position => cy.iFrame(LABEL).eq(position);
 export const helpIcon = () => cy.iFrame(HELP_ICON_PREVIEW).first();
 export const helpIconByPosition = position => cy.iFrame(HELP_ICON_PREVIEW).eq(position);

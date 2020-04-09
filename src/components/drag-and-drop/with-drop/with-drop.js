@@ -35,11 +35,13 @@ class WithDrop extends React.Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    if (!this.props.isOver && nextProps.isOver) { // eslint-disable-line react/prop-types
+    // eslint-disable-next-line react/prop-types
+    if (!this.props.isOver && nextProps.isOver) {
       // Equivalent of `mouseover` / `mouseenter`
       this.setState({ isDraggedElementOver: true });
     }
 
+    // eslint-disable-next-line react/prop-types
     if (this.props.isOver && !nextProps.isOver) {
       // Equivalent of `mouseout` / `mouseleave`
       this.setState({ isDraggedElementOver: false });

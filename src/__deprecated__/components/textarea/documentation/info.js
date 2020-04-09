@@ -7,7 +7,7 @@ const info = (
 
     <StoryHeader>Implementation</StoryHeader>
 
-    <StoryCode padded>import Textarea from {'carbon-react/lib/components/textarea'}</StoryCode>
+    <StoryCode padded>import Textarea from carbon-react/lib/components/textarea</StoryCode>
 
     <p>To render a Textarea:</p>
     <StoryCode padded>{'<Textarea name="myTextarea" />'}</StoryCode>

@@ -29,7 +29,6 @@ exports[`Form When child is an html element it renders the child 1`] = `
   padding-bottom: 1px;
   -webkit-text-decoration: none;
   text-decoration: none;
-  margin-right: 16px;
   background: transparent;
   border-color: #26A826;
   color: #26A826;
@@ -43,23 +42,27 @@ exports[`Form When child is an html element it renders the child 1`] = `
   outline: solid 3px #FFB500;
 }
 
+.c6 ~ .c5 {
+  margin-left: 16px;
+}
+
 .c6:hover {
   background: #006300;
   border-color: #006300;
   color: #FFFFFF;
 }
 
-.c6:hover .c20 {
+.c6:hover .c21 {
   color: #FFFFFF;
 }
 
-.c6 .c20 {
+.c6 .c21 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c6 .c20 svg {
+.c6 .c21 svg {
   margin-top: 0;
 }
 
@@ -91,7 +94,6 @@ exports[`Form When child is an html element it renders the child 1`] = `
   padding-bottom: 1px;
   -webkit-text-decoration: none;
   text-decoration: none;
-  margin-right: 16px;
   background: #26A826;
   border-color: transparent;
   color: #FFFFFF;
@@ -105,18 +107,26 @@ exports[`Form When child is an html element it renders the child 1`] = `
   outline: solid 3px #FFB500;
 }
 
+.c9 ~ .c5 {
+  margin-left: 16px;
+}
+
 .c9:hover {
   background: #006300;
 }
 
-.c9 .c20 {
+.c9 .c21 {
   margin-left: 0px;
   margin-right: 8px;
   height: 16px;
 }
 
-.c9 .c20 svg {
+.c9 .c21 svg {
   margin-top: 0;
+}
+
+.c10 ~ .c5 {
+  margin-left: 16px;
 }
 
 .c8 {
@@ -133,14 +143,6 @@ exports[`Form When child is an html element it renders the child 1`] = `
   margin: -8px;
   white-space: nowrap;
   padding: 8px;
-}
-
-.c10.c10 .c5 {
-  margin-left: 0px;
-}
-
-.c10.c10 .c5:first-child {
-  margin-left: 0;
 }
 
 .c11.c11 .c5 {
@@ -167,6 +169,14 @@ exports[`Form When child is an html element it renders the child 1`] = `
   margin-left: 0;
 }
 
+.c14.c14 .c5 {
+  margin-left: 0px;
+}
+
+.c14.c14 .c5:first-child {
+  margin-left: 0;
+}
+
 .c4 {
   margin: 20px auto 0 auto;
   max-width: inherit;
@@ -190,16 +200,8 @@ exports[`Form When child is an html element it renders the child 1`] = `
   margin-left: 16px;
 }
 
-.c4 .c21:first-of-type {
+.c4 .c22:first-of-type {
   margin-left: 0;
-}
-
-.c14 div:first-of-type .c5 {
-  margin-left: 0;
-}
-
-.c14.c14 .c7 .c5 {
-  margin-left: 16px;
 }
 
 .c15 div:first-of-type .c5 {
@@ -207,6 +209,14 @@ exports[`Form When child is an html element it renders the child 1`] = `
 }
 
 .c15.c15 .c7 .c5 {
+  margin-left: 16px;
+}
+
+.c16 div:first-of-type .c5 {
+  margin-left: 0;
+}
+
+.c16.c16 .c7 .c5 {
   margin-left: 15px;
 }
 
@@ -221,7 +231,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
   justify-content: flex-end;
 }
 
-.c16 .c5 {
+.c17 .c5 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -245,24 +255,12 @@ exports[`Form When child is an html element it renders the child 1`] = `
   margin-left: 16px;
 }
 
-.c0.c0 .c19 {
+.c0.c0 .c20 {
   margin-bottom: 32px;
 }
 
 .c0 [data-component='icon'].common-input__icon {
   height: 19px;
-}
-
-.c17 .c5 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  margin-left: 15px;
 }
 
 .c18 .c5 {
@@ -277,7 +275,19 @@ exports[`Form When child is an html element it renders the child 1`] = `
   margin-left: 15px;
 }
 
-.c18 .c1 {
+.c19 .c5 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 15px;
+}
+
+.c19 .c1 {
   -webkit-animation: lhSDYf 0.25s ease-out;
   animation: lhSDYf 0.25s ease-out;
   background-color: #FFFFFF;
@@ -292,7 +302,7 @@ exports[`Form When child is an html element it renders the child 1`] = `
   z-index: 1000;
 }
 
-.c18 .c1 .c3 {
+.c19 .c1 .c3 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;

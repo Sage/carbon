@@ -29,6 +29,19 @@ describe('ColorSampleBox', () => {
     );
   });
 
+  it('applies transparent background when value "transparent" is given as color', () => {
+    wrapper = renderStyles({ color: 'transparent' });
+    assertStyleMatch(
+      {
+        backgroundColor: '#EEEEEE',
+        backgroundImage: 'url()',
+        backgroundSize: '14px 14px',
+        backgroundPosition: '-2px -2px'
+      },
+      wrapper.toJSON()
+    );
+  });
+
   describe('prop types', () => {
     const wrongColorValues = ['rgb(0,0,0)', '#fff', 'test'];
     describe.each(wrongColorValues)('when other than 6 digit hex format is passed', (color) => {

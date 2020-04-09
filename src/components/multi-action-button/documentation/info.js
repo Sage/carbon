@@ -10,7 +10,7 @@ const info = (
     <p>In your file:</p>
 
     <StoryCode padded>
-      {'import MultiActionButton from "carbon-react/lib/components/multi-action-button";'}
+      import MultiActionButton from &quot;carbon-react/lib/components/multi-action-button&quot;;
     </StoryCode>
 
     <p>To render a MultiActionButton (developer can add any buttons to dropdown):</p>

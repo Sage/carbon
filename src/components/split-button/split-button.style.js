@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import StyledButton from '../button/button.style';
-import { getMainSplitButtonClassicStyles } from './split-button-classic.style';
 import baseTheme from '../../style/themes/base';
 
 const StyledSplitButton = styled.div`
@@ -16,8 +15,6 @@ const StyledSplitButton = styled.div`
       margin: -1px;
     }
   }
-
-  ${getMainSplitButtonClassicStyles}
 `;
 
 StyledSplitButton.defaultProps = {

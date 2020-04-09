@@ -119,8 +119,7 @@ Feature: Dialog component
     Then Background UI is disabled
   # And Element displays correctly in full screen
 
-  @ignore
-  # ignored regression
+  @positive
   Scenario: Disable escape key
     Given I check disableEscKey checkbox
     When I hit ESC key
@@ -178,4 +177,3 @@ Feature: Dialog component
     # commented because of BDD default scenario Given - When - Then
     #  When I open component preview
     Then footer buttons have color "rgb(0, 128, 93)" and has 2 px border
-      And Element displays correctly in full screen

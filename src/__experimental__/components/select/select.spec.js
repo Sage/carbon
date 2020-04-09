@@ -9,8 +9,11 @@ import Events from '../../../utils/helpers/events';
 import classic from '../../../style/themes/classic';
 import StyledIcon from '../../../components/icon/icon.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
-import TextBox from '../textbox';
+import Textbox from '../textbox';
 import { Input } from '../input';
+import InputPresentationStyle from '../input/input-presentation.style';
+import StyledInput from '../input/input.style';
+import InputIconToggleStyle from '../input-icon-toggle/input-icon-toggle.style';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -36,10 +39,10 @@ const multiValueProp = options.map(({ value }) => value);
 const multiValueReturn = options.map(({ value, text }) => ({ optionValue: value, optionText: text }));
 
 describe('Select', () => {
-  const renderWrapper = ({ props, type = mount } = {}) => (
+  const renderWrapper = ({ props, type = mount, selectOptions = options } = {}) => (
     type(
       <Select { ...props }>
-        {options.map(({ value, text }) => (
+        {selectOptions.map(({ value, text }) => (
           <Option
             key={ text }
             text={ text }
@@ -52,7 +55,7 @@ describe('Select', () => {
 
   // utility functions to fetch various elements from the wrapper
   const listOf = wrapper => wrapper.find('SelectList');
-  const textboxOf = wrapper => wrapper.find(TextBox);
+  const textboxOf = wrapper => wrapper.find(Textbox);
   const pillsOf = wrapper => wrapper.find('Pill');
 
   // open the list for the select component and returns the wrapper
@@ -454,12 +457,89 @@ describe('Select', () => {
     });
   });
 
+  describe('when transparent is set to true', () => {
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = renderWrapper({ props: { transparent: true } });
+    });
+
+    it('then the input should have transparent background and no border', () => {
+      assertStyleMatch({
+        background: 'transparent',
+        border: 'none'
+      }, wrapper, { modifier: `${InputPresentationStyle}` });
+    });
+
+    it('then the input text should be right aligned with font weight set to 900', () => {
+      assertStyleMatch({
+        textAlign: 'right',
+        fontWeight: '900'
+      }, wrapper, { modifier: `${StyledInput}` });
+    });
+
+    it('then the input toggle text should have width set to auto', () => {
+      assertStyleMatch({
+        width: 'auto'
+      }, wrapper, { modifier: `${InputIconToggleStyle}` });
+    });
+  });
+
   describe('when in classic theme', () => {
     it('it applies expected icon styling', () => {
       const styleWrapper = TestRenderer.create(
         <StyledSelect theme={ classic }><StyledIcon type='dropdown' /></StyledSelect>
       );
       assertStyleMatch({ color: '#FFFFFF' }, styleWrapper.toJSON(), { modifier: `&:hover ${StyledIcon}` });
+    });
+  });
+
+  describe('renders select with one option', () => {
+    it('renders correctly', () => {
+      const wrapper = mount(
+        <Select value='1'>
+          <Option
+            key='Orange'
+            text='Orange'
+            value='1'
+          />
+        </Select>
+      );
+      wrapper.find('input').simulate('focus');
+      expect(wrapper.find(Option)).toHaveLength(1);
+    });
+
+    it('triggers onChange with one item when choosing the item', () => {
+      const option = (
+        <Option
+          key={ options[0].text }
+          text={ options[0].text }
+          value={ options[0].value }
+        />
+      );
+      const props = { selectOptions: option, value: '1', onChange: jest.fn() };
+      const list = listOf(openList(renderWrapper({ props })));
+      list.props().onSelect(options[0]);
+      expect(props.onChange).toHaveBeenCalledWith({
+        target: { value: [{ optionText: options[0].text, optionValue: options[0].value }] }
+      });
+    });
+  });
+
+  describe('external validations', () => {
+    it.each([
+      ['error', { hasError: true }],
+      ['warning', { hasWarning: true }],
+      ['info', { hasInfo: true }]
+    ])('should pass %s props to the Textbox component', (type, prop) => {
+      const props = { ...prop, inputIcon: type, tooltipMessage: 'Validation message' };
+      const wrapper = renderWrapper({ props });
+      expect(wrapper.find(Textbox).props()).toMatchObject(props);
+    });
+
+    it('should render dropdown icon when no validationProps provided', () => {
+      const wrapper = renderWrapper();
+      expect(wrapper.find(Textbox).props().inputIcon).toBe('dropdown');
     });
   });
 });

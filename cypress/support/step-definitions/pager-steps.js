@@ -128,10 +128,6 @@ Then('I press {word} button {int} times', (direction, count) => {
   }
 });
 
-When('I type {string} to input pagination for classic pager component', (pageNumber) => {
-  currentPageInput().clear().type(`${pageNumber}{enter}`);
-});
-
 When('I type {string} to input pagination', (pageNumber) => {
   currentPageInput().clear().type(`${pageNumber}{enter}`);
 });

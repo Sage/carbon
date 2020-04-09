@@ -13,13 +13,14 @@ import ActionPopoverItem from './action-popover-item.component';
 import ActionPopoverDivider from './action-popover-divider.component';
 
 const ActionPopover = ({
-  children, id, onOpen, onClose
+  children, id, onOpen, onClose, rightAlignMenu, renderButton, ...rest
 }) => {
   const [isOpen, setOpenState] = useState(false);
   const [focusIndex, setFocusIndex] = useState(0);
   const [items, setItems] = useState([]);
   const [guid] = useState(createGuid());
   const button = useRef();
+  const menu = useRef();
 
   const setOpen = useCallback((value) => {
     if (value && !isOpen) {
@@ -72,23 +73,43 @@ const ActionPopover = ({
     };
   }, [setOpen]);
 
-  const buttonID = id || `ActionPopoverButton_${guid}`;
+  const menuButton = () => {
+    if (renderButton) {
+      return renderButton({
+        tabIndex: -1,
+        'data-element': 'action-popover-menu-button',
+        styleOverride: {
+          root: {
+            '&:focus': { outlineWidth: '2px' },
+            paddingLeft: '8px',
+            paddingRight: '8px',
+            width: '100%'
+          }
+        }
+      });
+    }
+
+    return <ButtonIcon type='ellipsis_vertical' />;
+  };
+
+  const parentID = id || `ActionPopoverButton_${guid}`;
   const menuID = `ActionPopoverMenu_${guid}`;
   const menuProps = {
     button,
-    buttonID,
+    parentID,
     setFocusIndex,
     focusIndex,
     setItems,
     items,
     menuID,
     isOpen,
-    setOpen
+    setOpen,
+    rightAlignMenu
   };
 
   return (
     <MenuButton
-      id={ buttonID }
+      id={ parentID }
       data-component='action-popover-button'
       role='button'
       aria-haspopup='true'
@@ -98,11 +119,13 @@ const ActionPopover = ({
       tabIndex={ isOpen ? '-1' : '0' }
       { ...{ onKeyDown: onButtonKeyDown, onClick: onButtonClick, isOpen } }
       ref={ button }
+      { ...rest }
     >
-      <ButtonIcon type='ellipsis_vertical' />
+      { menuButton() }
       <ActionPopoverMenu
         data-component='action-popover'
         role='menu'
+        ref={ menu }
         { ...menuProps }
       >
         {children}
@@ -112,9 +135,15 @@ const ActionPopover = ({
 };
 
 ActionPopover.propTypes = {
+  /** Unique ID */
   id: PropTypes.string,
+  /** Callback to be called on menu open */
   onOpen: PropTypes.func,
+  /** Callback to be called on menu close */
   onClose: PropTypes.func,
+  /** Boolean to control whether menu should align to right */
+  rightAlignMenu: PropTypes.bool,
+  /** Children for popover component */
   children (props, propName, componentName) {
     let error;
     const prop = props[propName];
@@ -128,7 +157,9 @@ ActionPopover.propTypes = {
     });
 
     return error;
-  }
+  },
+  /** Render a custom menu button to override default ellipsis icon */
+  renderButton: PropTypes.func
 };
 
 ActionPopover.defaultProps = {

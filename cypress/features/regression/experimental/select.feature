@@ -113,4 +113,16 @@ Feature: Experimental Select component
     Given clear all actions in Actions Tab
     When Type "Black" text into input and select the value
     Then change action was called in Actions Tab
-      And Element displays correctly
+
+  @positive
+  Scenario: Select is transparent and has placeholder right aligned
+    When I check transparent checkbox
+    Then Select is transparent
+      And Select placeholder align on preview is set to "right"
+
+  @positive
+  Scenario: Select is not transparent and has placeholder left aligned
+    Given I check transparent checkbox
+    When I uncheck transparent checkbox
+    Then Select is not transparent
+      And Select placeholder align on preview is set to "start"

@@ -9,6 +9,11 @@ export interface RadioButtonGroupProps {
   hasError?: boolean;
   hasWarning?: boolean;
   hasInfo?: boolean;
+  styleOverride?: {
+    root?: object;
+    content?: object;
+    legend?: object;
+  };
 }
 
 declare const RadioButtonGroup: React.ComponentClass<WithValidationProps & RadioButtonGroupProps>;

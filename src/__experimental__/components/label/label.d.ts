@@ -11,6 +11,7 @@ export interface LabelPropTypes {
   tooltipMessage?: string;
   useValidationIcon?: boolean;
   tabIndex?: [string, number];
+  styleOverride?: () => object | object;
 }
 
 declare const Label: React.FunctionComponent<LabelPropTypes>;

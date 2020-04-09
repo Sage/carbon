@@ -4,16 +4,15 @@ Feature: Button as a sibling component
   Background: Open Button as a sibling component default page
     Given I open "Button" component page as sibling in no iframe
 
-  @ignore
-  # ignored regression
+  @positive
   Scenario Outline: Set Button as a sibling size to <size>
     When I select size to "<size>"
-    Then Button as a sibling height is "<height>" and width is "<width>"
+    Then Button as a sibling height is "<height>"
     Examples:
-      | size   | height | width     |
-      | small  | 32     | 136.4375  |
-      | medium | 40     | 152.4375  |
-      | large  | 48     | 182.78125 |
+      | size   | height |
+      | small  | 32     |
+      | medium | 40     |
+      | large  | 48     |
 
   @positive
   Scenario Outline: Set Button subtext to <subtext>
@@ -40,7 +39,6 @@ Feature: Button as a sibling component
       | primary        | rgb(255, 255, 255) | rgb(0, 128, 93)    |
       | secondary      | rgb(0, 128, 93)    | rgba(0, 0, 0, 0)   |
       | tertiary       | rgb(0, 128, 93)    | rgba(0, 0, 0, 0)   |
-      | destructive    | rgb(255, 255, 255) | rgb(199, 56, 79)   |
       | darkBackground | rgb(0, 128, 93)    | rgb(255, 255, 255) |
 
   @positive
@@ -64,15 +62,15 @@ Feature: Button as a sibling component
 
   @positive
   Scenario: Disable and enable Button as a sibling
-    When I disable Button component
-      And I enable Button component
+    Given I disable Button component
+    When I enable Button component
     Then Button as a sibling is enabled
 
   @positive
   Scenario Outline: Change Button icon position to <iconPosition>
-    When I check has icon checkbox
+    Given I check has icon checkbox
       And I select iconType to "add"
-      And I select iconPosition to "<iconPosition>"
+    When I select iconPosition to "<iconPosition>"
     Then Button as a sibling icon position is set to "<iconPosition>"
     Examples:
       | iconPosition |
@@ -84,3 +82,9 @@ Feature: Button as a sibling component
     Given clear all actions in Actions Tab
     When I click on "button" as a sibling
     Then click action was called in Actions Tab
+
+  @positive
+  Scenario: Set Button icon to alert
+    Given I check has icon checkbox
+    When I select iconType to "alert"
+    Then Button as a sibling icon is set to "alert"

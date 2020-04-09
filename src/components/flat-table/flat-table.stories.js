@@ -49,25 +49,23 @@ export const basic = () => {
     <div style={ tableSizeConstraints }>
       <FlatTable hasStickyHead={ hasStickyHead }>
         <FlatTableHead>
-          {
-            <FlatTableRow key={ processed.headData.id }>
-              {
-                processed.headData.data.map((cellData, index) => {
-                  let Component = FlatTableHeader;
+          <FlatTableRow key={ processed.headData.id }>
+            {
+              processed.headData.data.map((cellData, index) => {
+                let Component = FlatTableHeader;
 
-                  if (index === 0 && hasHeaderRow) {
-                    Component = FlatTableRowHeader;
-                  }
+                if (index === 0 && hasHeaderRow) {
+                  Component = FlatTableRowHeader;
+                }
 
-                  return (
-                    <Component key={ cellData.id }>
-                      { cellData.content }
-                    </Component>
-                  );
-                })
-              }
-            </FlatTableRow>
-          }
+                return (
+                  <Component key={ cellData.id }>
+                    { cellData.content }
+                  </Component>
+                );
+              })
+            }
+          </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>
           { rowWithInputs }

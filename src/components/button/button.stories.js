@@ -1,17 +1,8 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import { notes, Info, InfoClassic } from './documentation';
 import Button from '.';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
-
-Button.__docgenInfo = getDocGenInfo(
-  require('./docgenInfo.json'),
-  /button\.component(?!spec)/
-);
 
 const getIconKnobs = () => {
   const defaultPosition = Button.defaultProps.iconPosition;
@@ -23,77 +14,128 @@ const getIconKnobs = () => {
   };
 };
 
-const getKnobs = (isClassic) => {
+const getKnobs = () => {
   const size = select('size', OptionsHelper.sizesRestricted, Button.defaultProps.size);
-  let classicProps = {}, buttonType, destructive;
-
-  if (isClassic) {
-    classicProps = {
-      theme: select('theme', OptionsHelper.buttonColors, Button.defaultProps.theme),
-      as: select('as', OptionsHelper.themesBinary, Button.defaultProps.as),
-      href: text('href'),
-      to: text('to')
-    };
-  } else {
-    buttonType = select('buttonType', OptionsHelper.buttonTypes, Button.defaultProps.as);
-    destructive = boolean('destructive', false);
-  }
-
   return {
-    buttonType,
     children: text('children', 'Example Button'),
-    destructive,
     disabled: boolean('disabled', Button.defaultProps.disabled),
     onClick: ev => action('click')(ev),
     size,
     subtext: (size === OptionsHelper.sizesRestricted[2]) ? text('subtext', Button.defaultProps.subtext) : undefined,
-    ...classicProps,
+    buttonType: select('buttonType', OptionsHelper.buttonTypes, Button.defaultProps.as),
+    href: text('href'),
+    to: text('to'),
+    destructive: boolean('destructive', false),
     ...getIconKnobs()
   };
 };
 
-function makeStory(name, themeSelector, isClassic, infotext) {
-  const component = () => {
-    const props = getKnobs(isClassic);
-    const { children } = props; // eslint-disable-line react/prop-types
-    return (
-      <Button { ...props }>{ children }</Button>
-    );
-  };
-
-  const metadata = {
-    info: { text: infotext },
-    notes: { markdown: notes },
-    themeSelector,
-    knobs: {
-      escapeHTML: false
+export default {
+  title: 'Button',
+  component: Button,
+  parameters: {
+    info: {
+      disable: true
+    },
+    docs: {
+      disable: true
     }
-  };
+  }
+};
 
-  return [name, component, metadata];
-}
+export const knobs = () => {
+  const props = getKnobs();
+  const { children } = props; // eslint-disable-line react/prop-types
+  return (
+    <Button { ...props }>{ children }</Button>
+  );
+};
 
-function makeSiblingStory(name, themeSelector, isClassic) {
-  const component = () => {
-    const props = getKnobs(isClassic);
-    const { children } = props; // eslint-disable-line react/prop-types
-    return (
-      <div>
-        <Button { ...props }>{ children }</Button>
-        <Button { ...props }>{ children }</Button>
-      </div>
-    );
-  };
+export const asASibling = () => {
+  const props = getKnobs();
+  const { children } = props; // eslint-disable-line react/prop-types
+  return (
+    <div>
+      <Button { ...props }>{ children }</Button>
+      <Button { ...props }>{ children }</Button>
+    </div>
+  );
+};
 
-  const metadata = {
-    themeSelector
-  };
+export const allButtons = () => {
+  return (
+    <>
+      {OptionsHelper.buttonIconPositions.map(iconPosition => (
+        OptionsHelper.buttonTypes.map(buttonType => (
+          ['', ...OptionsHelper.icons].map((iconType) => {
+            const props = { iconPosition, buttonType, iconType };
+            return (
+              <div>
+                {OptionsHelper.sizesRestricted.map(size => (
+                  <>
+                    <Button
+                      size={ size }
+                      { ...props }
+                    >{size}
+                    </Button>
 
-  return [name, component, metadata];
-}
+                    {size === 'large' && (
+                      <Button
+                        size={ size }
+                        subtext='line two'
+                        { ...props }
+                      >{size}
+                      </Button>
+                    )}
+                  </>
+                ))}
 
-storiesOf('Button', module)
-  .add(...makeStory('default', dlsThemeSelector, false, Info))
-  .add(...makeStory('classic', classicThemeSelector, true, InfoClassic))
-  .add(...makeSiblingStory('as a sibling', dlsThemeSelector, false))
-  .add(...makeSiblingStory('as a sibling classic', classicThemeSelector, true));
+                {OptionsHelper.sizesRestricted.map(size => (
+                  <>
+                    <Button
+                      size={ size }
+                      destructive
+                      { ...props }
+                    >{size}
+                    </Button>
+
+                    {size === 'large' && (
+                      <Button
+                        size={ size }
+                        destructive
+                        subtext='line two'
+                        { ...props }
+                      >{size}
+                      </Button>
+                    )}
+                  </>
+                ))}
+
+                {OptionsHelper.sizesRestricted.map(size => (
+                  <>
+                    <Button
+                      size={ size }
+                      disabled
+                      { ...props }
+                    >{size}
+                    </Button>
+
+                    {size === 'large' && (
+                      <Button
+                        size={ size }
+                        disabled
+                        subtext='line two'
+                        { ...props }
+                      >{size}
+                      </Button>
+                    )}
+                  </>
+                ))}
+              </div>
+            );
+          })
+        ))
+      ))}
+    </>
+  );
+};
