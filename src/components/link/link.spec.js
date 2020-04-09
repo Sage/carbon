@@ -1,15 +1,17 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import 'jest-styled-components';
 import { ThemeProvider } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
-import { Link as RouterLink } from 'react-router';
 import Link from './link.component';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import classicTheme from '../../style/themes/classic';
 import LinkStyle from './link.style';
 import StyledIcon from '../icon/icon.style';
 
+const RouterLink = (props) => {
+  // eslint-disable-next-line jsx-a11y/anchor-has-content
+  return <a { ...props } />;
+};
 function renderLink(props, renderer = mount) {
   return renderer(<Link { ...props }>Link Component</Link>);
 }
@@ -39,11 +41,11 @@ describe('Link', () => {
 
   describe('when component has classic theme', () => {
     it('should render correct style', () => {
-      expect(renderWithTheme({ to: 'foo' }, classicTheme)).toMatchSnapshot();
+      expect(renderWithTheme({ to: 'foo', routerLink: RouterLink }, classicTheme)).toMatchSnapshot();
     });
 
     it('should render correct style when disabled', () => {
-      expect(renderWithTheme({ disabled: true, to: 'foo' }, classicTheme)).toMatchSnapshot();
+      expect(renderWithTheme({ disabled: true, to: 'foo', routerLink: RouterLink }, classicTheme)).toMatchSnapshot();
     });
   });
 
@@ -88,7 +90,7 @@ describe('Link', () => {
 
   describe('when component received a `to` prop', () => {
     it('should render a `<RouterLink />` element', () => {
-      wrapper.setProps({ to: 'route' });
+      wrapper.setProps({ to: 'route', routerLink: RouterLink });
 
       expect(wrapper.find(RouterLink)).toHaveLength(1);
     });
@@ -131,7 +133,7 @@ describe('Link', () => {
     });
 
     it('should trigger an `onKeyDown` prop', () => {
-      wrapper.setProps({ to: 'testRoute', onKeyDown: onKeyDownFn });
+      wrapper.setProps({ to: 'testRoute', onKeyDown: onKeyDownFn, routerLink: RouterLink });
       wrapper.find(RouterLink).simulate('keydown', { keyCode: 13 });
 
       expect(onKeyDownFn).toHaveBeenCalled();
@@ -140,7 +142,7 @@ describe('Link', () => {
     describe('and a `href` prop has been received', () => {
       it('should not trigger `onClick` prop', () => {
         wrapper.setProps({
-          href: '#', onKeyDown: onKeyDownFn, onClick: onClickFn, to: 'foo'
+          href: '#', onKeyDown: onKeyDownFn, onClick: onClickFn, to: 'foo', routerLink: RouterLink
         });
         wrapper.find('a').simulate('keydown', { which: 13 });
 
@@ -150,7 +152,7 @@ describe('Link', () => {
 
     describe('and a `to` props has been received', () => {
       it('should trigger `onClick` prop', () => {
-        wrapper.setProps({ to: 'testRoute', onClick: onClickFn });
+        wrapper.setProps({ to: 'testRoute', onClick: onClickFn, routerLink: RouterLink });
         wrapper.find(RouterLink).simulate('keydown', { which: 13 });
 
         expect(onClickFn).toHaveBeenCalled();
@@ -159,7 +161,7 @@ describe('Link', () => {
 
     describe('and component received a `to` prop but a `onClick` props is not available', () => {
       beforeEach(() => {
-        wrapper.setProps({ to: 'testRoute', onKeyDown: onKeyDownFn });
+        wrapper.setProps({ to: 'testRoute', onKeyDown: onKeyDownFn, routerLink: RouterLink });
         wrapper.find(RouterLink).simulate('keydown', { which: 13 });
       });
 

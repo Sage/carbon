@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import { Link as RouterLink } from 'react-router';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, Info } from './documentation';
@@ -52,6 +53,7 @@ function makeStory(name, themeSelector) {
         tooltipPosition={ tooltipPosition }
         tooltipAlign={ tooltipAlign }
         onClick={ onClick }
+        routerLink={ to ? RouterLink : undefined }
       >
         {children}
       </Link>

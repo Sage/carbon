@@ -1,7 +1,6 @@
 import React from 'react';
 import { css } from 'styled-components';
 import { shallow } from 'enzyme';
-import { Link as RouterLink } from 'react-router';
 import Icon from 'components/icon';
 import TestRenderer from 'react-test-renderer';
 import Button from './button.component';
@@ -11,6 +10,11 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import StyledIcon from '../icon/icon.style';
+
+const RouterLink = (props) => {
+  // eslint-disable-next-line jsx-a11y/anchor-has-content
+  return <a { ...props } />;
+};
 
 const render = (props, renderer = shallow) => {
   return renderer(
@@ -374,9 +378,9 @@ describe('Button', () => {
     describe('with to', () => {
       const wrapper = render({
         to: '/foo',
-        children: 'To'
+        children: 'To',
+        renderRouterLink: routerProps => <RouterLink { ...routerProps } />
       });
-
       it('renders a Button inside a Router Link component', () => {
         expect(wrapper.type()).toEqual(RouterLink);
       });
