@@ -1,3 +1,10 @@
+### [16.8.2](https://github.com/Sage/carbon/compare/v16.8.1...v16.8.2) (2020-04-10)
+
+
+### Bug Fixes
+
+* **action-popover:** add top position when menu right aligned in safari ([f9f8774](https://github.com/Sage/carbon/commit/f9f8774276c101647b29c991ed389eafd68e88d9))
+
 ### [16.8.1](https://github.com/Sage/carbon/compare/v16.8.0...v16.8.1) (2020-04-07)
 
 
