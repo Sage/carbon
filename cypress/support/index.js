@@ -104,5 +104,6 @@ if (Cypress.env('CYPRESS_APPLITOOLS')) {
 
   After({ tags: '@applitools' }, () => {
     cy.eyesClose();
+    cy.reload();
   });
 }
