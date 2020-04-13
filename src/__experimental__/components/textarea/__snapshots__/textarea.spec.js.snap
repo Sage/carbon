@@ -14,6 +14,11 @@ exports[`Textarea when rendered should render default 1`] = `
   width: 30px;
 }
 
+.c6:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+  -webkit-box-border: none;
+}
+
 .c6::-webkit-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
@@ -64,6 +69,11 @@ exports[`Textarea when rendered should render default 1`] = `
   height: calc(40px - 4px);
 }
 
+.c4 .c5:-webkit-autofill {
+  margin-top: 2px;
+  height: calc(40px - 8px);
+}
+
 .c4 input::-ms-clear {
   display: none;
 }
@@ -76,12 +86,27 @@ exports[`Textarea when rendered should render default 1`] = `
   height: calc(40px - 4px);
 }
 
+.c7 .c5:-webkit-autofill {
+  margin-top: 2px;
+  height: calc(40px - 8px);
+}
+
 .c8 .c5 {
   height: calc(40px - 4px);
 }
 
+.c8 .c5:-webkit-autofill {
+  margin-top: 2px;
+  height: calc(40px - 8px);
+}
+
 .c9 .c5 {
   height: calc(40px - 4px);
+}
+
+.c9 .c5:-webkit-autofill {
+  margin-top: 2px;
+  height: calc(40px - 8px);
 }
 
 .c2 + .c1 {
