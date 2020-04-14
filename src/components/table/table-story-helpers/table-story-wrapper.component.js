@@ -130,7 +130,7 @@ const Wrapper = (props) => {
   const [pageSize, setPageSize] = useState(10);
 
   const tableProps = { ...props };
-  tableProps.pageSize = tableProps.showPageSizeSelection ? pageSize : text('pageSize', '5');
+  tableProps.pageSize = tableProps.showPageSizeSelection ? pageSize : text('pageSize', '10');
 
   store.set({ currentPage: calculateCurrentPage(tableProps) });
   store.set({ sortOrder: tableProps.sortOrder });
