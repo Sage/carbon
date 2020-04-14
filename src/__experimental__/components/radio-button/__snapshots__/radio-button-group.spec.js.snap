@@ -97,9 +97,9 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 .c5 .c20 {
   padding-left: 6px;
   width: auto;
-  -webkit-flex: 1 1 calc(100% - 28px);
-  -ms-flex: 1 1 calc(100% - 28px);
-  flex: 1 1 calc(100% - 28px);
+  -webkit-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
 }
 
 .c5 .c16 {

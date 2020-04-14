@@ -884,9 +884,9 @@ exports[`RadioButton styles base renders as expected 1`] = `
 .c3 .c28 {
   padding-left: 6px;
   width: auto;
-  -webkit-flex: 1 1 calc(100% - 28px);
-  -ms-flex: 1 1 calc(100% - 28px);
-  flex: 1 1 calc(100% - 28px);
+  -webkit-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
 }
 
 .c3 .c25 {
