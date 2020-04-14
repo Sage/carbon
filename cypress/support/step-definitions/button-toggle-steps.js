@@ -1,22 +1,19 @@
 import { buttonToggleLabelPreview, buttonTogglePreview } from '../../locators/button-toggle';
 import { icon } from '../../locators';
-
-const FIRST_ELEMENT = 0;
-const SECOND_ELEMENT = 1;
-const THIRD_ELEMENT = 2;
+import { positionOfElement } from '../helper';
 
 Then('Button Toggle label on preview is {string}', (label) => {
-  buttonToggleLabelPreview(FIRST_ELEMENT).should('have.text', label);
-  buttonToggleLabelPreview(SECOND_ELEMENT).should('have.text', label);
-  buttonToggleLabelPreview(THIRD_ELEMENT).should('have.text', label);
+  buttonToggleLabelPreview(positionOfElement('first')).should('have.text', label);
+  buttonToggleLabelPreview(positionOfElement('second')).should('have.text', label);
+  buttonToggleLabelPreview(positionOfElement('third')).should('have.text', label);
 });
 
 Then('Button icon on preview is {string}', (iconName) => {
-  icon().eq(FIRST_ELEMENT).should('have.attr', 'data-element', iconName)
+  icon().eq(positionOfElement('first')).should('have.attr', 'data-element', iconName)
     .and('be.visible');
-  icon().eq(SECOND_ELEMENT).should('have.attr', 'data-element', iconName)
+  icon().eq(positionOfElement('second')).should('have.attr', 'data-element', iconName)
     .and('be.visible');
-  icon().eq(THIRD_ELEMENT).should('have.attr', 'data-element', iconName)
+  icon().eq(positionOfElement('third')).should('have.attr', 'data-element', iconName)
     .and('be.visible');
 });
 
@@ -25,12 +22,12 @@ Then('Button Toggle icon is set to {string}', (iconName) => {
 });
 
 Then('Button Toggle icon height is {string} and width is {string}', (height, width) => {
-  icon().eq(FIRST_ELEMENT).should('have.css', 'height', height);
-  icon().eq(FIRST_ELEMENT).should('have.css', 'width', width);
-  icon().eq(SECOND_ELEMENT).should('have.css', 'height', height);
-  icon().eq(SECOND_ELEMENT).should('have.css', 'width', width);
-  icon().eq(THIRD_ELEMENT).should('have.css', 'height', height);
-  icon().eq(THIRD_ELEMENT).should('have.css', 'width', width);
+  icon().eq(positionOfElement('first')).should('have.css', 'height', height)
+    .and('have.css', 'width', width);
+  icon().eq(positionOfElement('second')).should('have.css', 'height', height)
+    .and('have.css', 'width', width);
+  icon().eq(positionOfElement('third')).should('have.css', 'height', height)
+    .and('have.css', 'width', width);
 });
 
 Then('Button icon not exists on preview', () => {
@@ -38,38 +35,38 @@ Then('Button icon not exists on preview', () => {
 });
 
 Then('Button Toggle height is {string} and width is {string}', (height, width) => {
-  buttonTogglePreview().eq(FIRST_ELEMENT).should('have.css', 'height', `${height}px`);
-  buttonTogglePreview().eq(FIRST_ELEMENT).should('have.css', 'width', `${width}px`);
-  buttonTogglePreview().eq(SECOND_ELEMENT).should('have.css', 'height', `${height}px`);
-  buttonTogglePreview().eq(SECOND_ELEMENT).should('have.css', 'width', `${width}px`);
-  buttonTogglePreview().eq(THIRD_ELEMENT).should('have.css', 'height', `${height}px`);
-  buttonTogglePreview().eq(THIRD_ELEMENT).should('have.css', 'width', `${width}px`);
+  buttonTogglePreview().eq(positionOfElement('first')).should('have.css', 'height', `${height}px`)
+    .and('have.css', 'width', `${width}px`);
+  buttonTogglePreview().eq(positionOfElement('second')).should('have.css', 'height', `${height}px`)
+    .and('have.css', 'width', `${width}px`);
+  buttonTogglePreview().eq(positionOfElement('third')).should('have.css', 'height', `${height}px`)
+    .and('have.css', 'width', `${width}px`);
 });
 
 Then('Button Toggle is disabled', () => {
-  buttonTogglePreview().eq(FIRST_ELEMENT).children().should('have.attr', 'disabled');
-  buttonTogglePreview().eq(SECOND_ELEMENT).children().should('have.attr', 'disabled');
-  buttonTogglePreview().eq(THIRD_ELEMENT).children().should('have.attr', 'disabled');
+  buttonTogglePreview().eq(positionOfElement('first')).children().should('have.attr', 'disabled');
+  buttonTogglePreview().eq(positionOfElement('second')).children().should('have.attr', 'disabled');
+  buttonTogglePreview().eq(positionOfElement('third')).children().should('have.attr', 'disabled');
 });
 
 Then('Button Toggle is enabled', () => {
-  buttonTogglePreview().eq(FIRST_ELEMENT).children().should('not.have.attr', 'disabled');
-  buttonTogglePreview().eq(SECOND_ELEMENT).children().should('not.have.attr', 'disabled');
-  buttonTogglePreview().eq(THIRD_ELEMENT).children().should('not.have.attr', 'disabled');
+  buttonTogglePreview().eq(positionOfElement('first')).children().should('not.have.attr', 'disabled');
+  buttonTogglePreview().eq(positionOfElement('second')).children().should('not.have.attr', 'disabled');
+  buttonTogglePreview().eq(positionOfElement('third')).children().should('not.have.attr', 'disabled');
 });
 
 Then('Button Toggle is grouped', () => {
-  buttonTogglePreview().eq(FIRST_ELEMENT).should('have.css', 'display', 'inline-block');
-  buttonTogglePreview().eq(FIRST_ELEMENT).should('have.css', 'vertical-align', 'middle');
-  buttonTogglePreview().eq(SECOND_ELEMENT).should('have.css', 'margin-left', '0px');
-  buttonTogglePreview().eq(THIRD_ELEMENT).should('have.css', 'margin-left', '0px');
+  buttonTogglePreview().eq(positionOfElement('first')).should('have.css', 'display', 'inline-block')
+    .and('have.css', 'vertical-align', 'middle');
+  buttonTogglePreview().eq(positionOfElement('second')).should('have.css', 'margin-left', '0px');
+  buttonTogglePreview().eq(positionOfElement('third')).should('have.css', 'margin-left', '0px');
 });
 
 Then('Button Toggle is not grouped', () => {
-  buttonTogglePreview().eq(FIRST_ELEMENT).should('have.css', 'display', 'inline-block');
-  buttonTogglePreview().eq(FIRST_ELEMENT).should('have.css', 'vertical-align', 'middle');
-  buttonTogglePreview().eq(SECOND_ELEMENT).should('have.css', 'margin-left', '10px');
-  buttonTogglePreview().eq(THIRD_ELEMENT).should('have.css', 'margin-left', '10px');
+  buttonTogglePreview().eq(positionOfElement('first')).should('have.css', 'display', 'inline-block')
+    .and('have.css', 'vertical-align', 'middle');
+  buttonTogglePreview().eq(positionOfElement('second')).should('have.css', 'margin-left', '10px');
+  buttonTogglePreview().eq(positionOfElement('third')).should('have.css', 'margin-left', '10px');
 });
 
 When('I click on Button Toggle {int}', (index) => {

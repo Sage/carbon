@@ -47,8 +47,8 @@ Feature: Accordion component
     Then accordionRow is expanded
 
   @positive
-  Scenario: I expand accordion using enter key
-    When I expand accordionRow using enter key
+  Scenario: I expand accordion using Enter key
+    When I expand accordionRow using "Enter" key
     Then accordionRow is expanded
 
   @positive

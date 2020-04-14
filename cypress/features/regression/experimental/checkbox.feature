@@ -10,13 +10,8 @@ Feature: Experimental Checkbox component
     Then checkbox label on preview is "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario: Disable and enable checkbox
@@ -35,13 +30,8 @@ Feature: Experimental Checkbox component
     Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario: Enable fieldHelpInline
@@ -71,13 +61,8 @@ Feature: Experimental Checkbox component
     Then tooltipPreview on preview is set to "<labelHelp>"
     Examples:
       | labelHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario Outline: Change Checkbox label align to <direction>

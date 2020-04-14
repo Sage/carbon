@@ -16,7 +16,7 @@ Feature: Badge component
     Then Badge component counter is set to <counter>
     Examples:
       | counter |
-      | 10      |
+      | 1       |
       | 99      |
 
   @positive
@@ -25,8 +25,7 @@ Feature: Badge component
     Then Badge component counter is set to 99
     Examples:
       | counter |
-      | 101     |
-      | 250     |
+      | 100     |
       | 999     |
 
   @negative

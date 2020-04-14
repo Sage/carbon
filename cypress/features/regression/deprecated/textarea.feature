@@ -25,7 +25,6 @@ Feature: Deprecated Textarea component
     Examples:
       | cols |
       | 1    |
-      | 115  |
       | 299  |
       | 300  |
 
@@ -37,7 +36,6 @@ Feature: Deprecated Textarea component
     Examples:
       | rows |
       | 1    |
-      | 115  |
       | 299  |
       | 300  |
 
@@ -48,13 +46,8 @@ Feature: Deprecated Textarea component
     Then fieldHelp is set to "<fieldHelp>"
     Examples:
       | fieldHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <> |
 
   @positive
   @deprecated
@@ -65,7 +58,6 @@ Feature: Deprecated Textarea component
     Examples:
       | characterLimit |
       | 1              |
-      | 100            |
       | 299            |
       | 300            |
 
@@ -77,7 +69,6 @@ Feature: Deprecated Textarea component
     Examples:
       | inputWidth |
       | 1          |
-      | 111        |
       | 299        |
       | 300        |
 
@@ -88,13 +79,8 @@ Feature: Deprecated Textarea component
     Then label is set to "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <> |
 
   @positive
   @deprecated
@@ -104,13 +90,8 @@ Feature: Deprecated Textarea component
     Then tooltipPreview on preview is set to "<labelHelp>"
     Examples:
       | labelHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <> |
 
   @positive
   @deprecated
@@ -134,7 +115,6 @@ Feature: Deprecated Textarea component
     Examples:
       | labelWidth |
       | 1          |
-      | 111        |
       | 299        |
       | 300        |
 
@@ -156,10 +136,5 @@ Feature: Deprecated Textarea component
     Then Textarea input on preview is set to "<input>" for deprecated component
     Examples:
       | input                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-# @ignore because of FE-1447
-# | <>                     |

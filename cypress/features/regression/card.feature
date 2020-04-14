@@ -21,7 +21,6 @@ Feature: Card default component
     Examples:
       | width |
       | 550px |
-      | 700px |
       | 999px |
 
   @positive

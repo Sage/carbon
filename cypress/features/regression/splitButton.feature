@@ -49,13 +49,8 @@ Feature: Split Button component
     Then Button label on preview is "<text>"
     Examples:
       | text                    |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <> |
 
   @positive
   Scenario Outline: I set subtext to <subtext>
@@ -64,13 +59,8 @@ Feature: Split Button component
     Then Button subtext on preview is "<subtext>"
     Examples:
       | subtext                 |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <> |
 
   @positive
   Scenario Outline: I check icon positioning to <iconPosition>
@@ -114,9 +104,9 @@ Feature: Split Button component
       | rgb(0, 96, 69) |
 
   @positive
-  Scenario: Verify the click function for a first element of Split Button component
+  Scenario: Verify the click function for a main element of Split Button component
     Given clear all actions in Actions Tab
-    When I click "first" element of Split Button component
+    When I click "main" element of Split Button component
     Then click action was called in Actions Tab
 
   @positive
@@ -127,9 +117,9 @@ Feature: Split Button component
     Then click action was called in Actions Tab
     Examples:
       | element |
+      | first   |
+      | second  |
       | third   |
-      | fourth  |
-      | fifth   |
 
   @positive
   Scenario Outline: Verify hover color and golden border for <element> element of Split Button component
@@ -138,6 +128,6 @@ Feature: Split Button component
     Then Split Button expandable "<element>" element has golden border on focus
     Examples:
       | element |
+      | first   |
+      | second  |
       | third   |
-      | fourth  |
-      | fifth   |

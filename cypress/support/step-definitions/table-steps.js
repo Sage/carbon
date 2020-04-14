@@ -2,17 +2,7 @@ import {
   rows, checkboxCell, rowByNumber, caption, tableHeader, rowNumbers, sortIcon,
   actionToolbar, checkboxInHeader, actionToolbarButton,
 } from '../../locators/table';
-
-const ZERO = 0;
-const ONE = 1;
-const TWO = 2;
-const THREE = 3;
-const FOUR = 4;
-const FIVE = 5;
-const SIX = 6;
-const SEVEN = 7;
-const EIGHT = 8;
-const NINE = 9;
+import { themeColor, tableHeaderSize, positionOfElement } from '../helper';
 
 Then('I see {int} records', (records) => {
   rows().should('have.length', records);
@@ -40,51 +30,51 @@ When('row number {int} is not highlighted', (rowNumber) => {
 
 When('{string} Table column can be sorted', (headerName) => {
   if (headerName === 'Country') {
-    sortIcon(ZERO).should('have.attr', 'data-element', 'sort_up')
+    sortIcon(positionOfElement('first')).should('have.attr', 'data-element', 'sort_up')
       .and('be.visible');
   } else {
-    sortIcon(ONE).should('have.attr', 'data-element', 'sort_up')
+    sortIcon(positionOfElement('second')).should('have.attr', 'data-element', 'sort_up')
       .and('be.visible');
   }
 });
 
 When('Country column is sorted in {string} order', (sortOrder) => {
   if (sortOrder === 'desc') {
-    sortIcon(ZERO).should('have.attr', 'data-element', 'sort_down')
+    sortIcon(positionOfElement('first')).should('have.attr', 'data-element', 'sort_down')
       .and('be.visible');
-    rowNumbers(ZERO).should('have.text', 'Zimbabwe');
-    rowNumbers(TWO).should('have.text', 'Zambia');
-    rowNumbers(FOUR).should('have.text', 'Zaire');
-    rowNumbers(SIX).should('have.text', 'Yemen');
-    rowNumbers(EIGHT).should('have.text', 'Western Sahara');
+    rowNumbers(positionOfElement('first')).should('have.text', 'Zimbabwe');
+    rowNumbers(positionOfElement('third')).should('have.text', 'Zambia');
+    rowNumbers(positionOfElement('fifth')).should('have.text', 'Zaire');
+    rowNumbers(positionOfElement('seventh')).should('have.text', 'Yemen');
+    rowNumbers(positionOfElement('ninth')).should('have.text', 'Western Sahara');
   } else {
-    sortIcon(ZERO).should('have.attr', 'data-element', 'sort_up')
+    sortIcon(positionOfElement('first')).should('have.attr', 'data-element', 'sort_up')
       .and('be.visible');
-    rowNumbers(ZERO).should('have.text', 'Afghanistan');
-    rowNumbers(TWO).should('have.text', 'Albania');
-    rowNumbers(FOUR).should('have.text', 'Algeria');
-    rowNumbers(SIX).should('have.text', 'Andorra');
-    rowNumbers(EIGHT).should('have.text', 'Angola');
+    rowNumbers(positionOfElement('first')).should('have.text', 'Afghanistan');
+    rowNumbers(positionOfElement('third')).should('have.text', 'Albania');
+    rowNumbers(positionOfElement('fifth')).should('have.text', 'Algeria');
+    rowNumbers(positionOfElement('seventh')).should('have.text', 'Andorra');
+    rowNumbers(positionOfElement('ninth')).should('have.text', 'Angola');
   }
 });
 
 When('Code column is sorted in {string} order', (sortOrder) => {
   if (sortOrder === 'desc') {
-    sortIcon(ZERO).should('have.attr', 'data-element', 'sort_down')
+    sortIcon(positionOfElement('first')).should('have.attr', 'data-element', 'sort_down')
       .and('be.visible');
-    rowNumbers(ONE).should('have.text', 'ZW');
-    rowNumbers(THREE).should('have.text', 'ZM');
-    rowNumbers(FIVE).should('have.text', 'ZR');
-    rowNumbers(SEVEN).should('have.text', 'YE');
-    rowNumbers(NINE).should('have.text', 'EH');
+    rowNumbers(positionOfElement('second')).should('have.text', 'ZW');
+    rowNumbers(positionOfElement('fourth')).should('have.text', 'ZM');
+    rowNumbers(positionOfElement('sixth')).should('have.text', 'ZR');
+    rowNumbers(positionOfElement('eighth')).should('have.text', 'YE');
+    rowNumbers(positionOfElement('tenth')).should('have.text', 'EH');
   } else {
-    sortIcon(ZERO).should('have.attr', 'data-element', 'sort_up')
+    sortIcon(positionOfElement('first')).should('have.attr', 'data-element', 'sort_up')
       .and('be.visible');
-    rowNumbers(ONE).should('have.text', 'AF');
-    rowNumbers(THREE).should('have.text', 'AL');
-    rowNumbers(FIVE).should('have.text', 'DZ');
-    rowNumbers(SEVEN).should('have.text', 'AD');
-    rowNumbers(NINE).should('have.text', 'AO');
+    rowNumbers(positionOfElement('second')).should('have.text', 'AF');
+    rowNumbers(positionOfElement('fourth')).should('have.text', 'AL');
+    rowNumbers(positionOfElement('sixth')).should('have.text', 'DZ');
+    rowNumbers(positionOfElement('eighth')).should('have.text', 'AD');
+    rowNumbers(positionOfElement('tenth')).should('have.text', 'AO');
   }
 });
 
@@ -93,18 +83,7 @@ Then('caption is set to {string}', (text) => {
 });
 
 Then('theme on preview is {string}', (theme) => {
-  switch (theme) {
-    case 'primary':
-      tableHeader().should('have.css', 'background-color', 'rgb(51, 91, 109)');
-      break;
-    case 'secondary':
-      tableHeader().should('have.css', 'background-color', 'rgb(204, 214, 218)');
-      break;
-    case 'tertiary':
-      tableHeader().should('have.css', 'background-color', 'rgba(0, 0, 0, 0)');
-      break;
-    default: throw new Error('Themes are only primary or seconary');
-  }
+  tableHeader().should('have.css', 'background-color', themeColor(theme));
 });
 
 When('{int} row has zebra striping', (rowNumber) => {
@@ -112,37 +91,20 @@ When('{int} row has zebra striping', (rowNumber) => {
 });
 
 Then('Table header size on preview is set to {string}', (size) => {
-  switch (size) {
-    case 'compact':
-      tableHeader().eq(ZERO).should('have.css', 'height', '25px');
-      tableHeader().eq(ONE).should('have.css', 'height', '25px');
-      break;
-    case 'small':
-      tableHeader().eq(ZERO).should('have.css', 'height', '32px');
-      tableHeader().eq(ONE).should('have.css', 'height', '32px');
-      break;
-    case 'medium':
-      tableHeader().eq(ZERO).should('have.css', 'height', '40px');
-      tableHeader().eq(ONE).should('have.css', 'height', '40px');
-      break;
-    case 'large':
-      tableHeader().eq(ZERO).should('have.css', 'height', '48px');
-      tableHeader().eq(ONE).should('have.css', 'height', '48px');
-      break;
-    default: throw new Error('There is no such size for a Table header component');
-  }
+  tableHeader().eq(positionOfElement('first')).should('have.css', 'height', tableHeaderSize(size));
+  tableHeader().eq(positionOfElement('second')).should('have.css', 'height', tableHeaderSize(size));
 });
 
 Then('input type on preview is set to {string}', (type) => {
   switch (type) {
     case 'textbox':
-      rowNumbers(ZERO).find('input').should('have.attr', 'data-element', 'input');
+      rowNumbers(positionOfElement('first')).find('input').should('have.attr', 'data-element', 'input');
       break;
     case 'textarea':
-      rowNumbers(ZERO).find('textarea');
+      rowNumbers(positionOfElement('first')).find('textarea');
       break;
     case 'date':
-      rowNumbers(ZERO).children().should('have.attr', 'data-component', 'date');
+      rowNumbers(positionOfElement('first')).children().should('have.attr', 'data-component', 'date');
       break;
     default: throw new Error('There are only three input type of Table with inputs');
   }
@@ -150,24 +112,24 @@ Then('input type on preview is set to {string}', (type) => {
 
 Then('I click {string} header', (headerName) => {
   if (headerName === 'Country') {
-    tableHeader().eq(ZERO).click();
+    tableHeader().eq(positionOfElement('first')).click();
   } else {
-    tableHeader().eq(ONE).click();
+    tableHeader().eq(positionOfElement('second')).click();
   }
 });
 
 When('I check checkbox on header', () => {
-  checkboxInHeader().eq(ZERO).click();
+  checkboxInHeader().eq(positionOfElement('first')).click();
 });
 
 Then('Action Toolbar elemens are visible and have {string} color', (color) => {
-  actionToolbar(ZERO).find('span').should('have.attr', 'data-element', 'bin')
+  actionToolbar(positionOfElement('first')).find('span').should('have.attr', 'data-element', 'bin')
     .and('have.css', 'color', color)
     .and('be.visible');
-  actionToolbar(ONE).find('span').should('have.attr', 'data-element', 'settings')
+  actionToolbar(positionOfElement('second')).find('span').should('have.attr', 'data-element', 'settings')
     .and('have.css', 'color', color)
     .and('be.visible');
-  actionToolbar(TWO).find('button').should('have.attr', 'data-element', 'toggle-button')
+  actionToolbar(positionOfElement('third')).find('button').should('have.attr', 'data-element', 'toggle-button')
     .and('have.css', 'border-bottom-color', color)
     .and('have.css', 'border-left-color', color)
     .and('have.css', 'border-right-color', color)

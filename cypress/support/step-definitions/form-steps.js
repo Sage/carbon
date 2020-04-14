@@ -5,10 +5,7 @@ import {
 } from '../../locators/form';
 import { DEBUG_FLAG } from '..';
 import { tooltipPreview } from '../../locators/help';
-
-const FIRST_ELEMENT = 1;
-const SECOND_ELEMENT = 2;
-const THIRD_ELEMENT = 3;
+import { positionOfElement } from '../helper';
 
 Then('save button has golden border on focus', () => {
   saveButton().should('have.css', 'outline', 'rgb(255, 181, 0) solid 3px');
@@ -36,19 +33,19 @@ Then('cancel button is not visible', () => {
 
 Then('buttons are aligned to {string}', (direction) => {
   if (direction === 'right') {
-    buttons(FIRST_ELEMENT).should('have.attr', 'data-component', 'cancel');
-    buttons(SECOND_ELEMENT).should('have.attr', 'data-component', 'form-summary');
-    buttons(SECOND_ELEMENT).should('have.css', 'align-items', 'center')
+    buttons(positionOfElement('second')).should('have.attr', 'data-component', 'cancel');
+    buttons(positionOfElement('third')).should('have.attr', 'data-component', 'form-summary')
+      .and('have.css', 'align-items', 'center')
       .and('have.css', 'margin', '-8px')
       .and('have.css', 'white-space', 'nowrap')
       .and('have.css', 'padding', '8px');
   } else {
-    buttons(FIRST_ELEMENT).should('have.attr', 'data-component', 'form-summary');
-    buttons(FIRST_ELEMENT).should('have.css', 'align-items', 'center')
+    buttons(positionOfElement('second')).should('have.attr', 'data-component', 'form-summary')
+      .and('have.css', 'align-items', 'center')
       .and('have.css', 'margin', '-8px')
       .and('have.css', 'white-space', 'nowrap')
       .and('have.css', 'padding', '8px');
-    buttons(SECOND_ELEMENT).should('have.attr', 'data-component', 'cancel');
+    buttons(positionOfElement('third')).should('have.attr', 'data-component', 'cancel');
   }
 });
 
@@ -85,17 +82,17 @@ Then('additional actions text is set to {string}', (text) => {
 Then('additionalAction button is set to {string} and has text {string}', (buttonState, text) => {
   if (buttonState === 'Button') {
     cy.wait(500, { log: DEBUG_FLAG }); // added due to changing animation;
-    buttons(THIRD_ELEMENT).should('be.visible');
-    buttons(THIRD_ELEMENT).children().should('have.attr', 'role', 'button')
+    buttons(positionOfElement('fourth')).should('be.visible');
+    buttons(positionOfElement('fourth')).children().should('have.attr', 'role', 'button')
       .and('have.attr', 'data-component', 'button');
-    buttons(THIRD_ELEMENT).children().children().children()
+    buttons(positionOfElement('fourth')).children().children().children()
       .should('have.text', text);
   } else {
     cy.wait(500, { log: DEBUG_FLAG }); // added due to changing animation;
-    buttons(THIRD_ELEMENT).should('be.visible');
-    buttons(THIRD_ELEMENT).children().should('have.attr', 'data-component', 'link');
-    buttons(THIRD_ELEMENT).children().children().should('have.attr', 'tabindex', '0');
-    buttons(THIRD_ELEMENT).children().children().children()
+    buttons(positionOfElement('fourth')).should('be.visible');
+    buttons(positionOfElement('fourth')).children().should('have.attr', 'data-component', 'link');
+    buttons(positionOfElement('fourth')).children().children().should('have.attr', 'tabindex', '0');
+    buttons(positionOfElement('fourth')).children().children().children()
       .should('have.text', text);
   }
 });
@@ -103,17 +100,17 @@ Then('additionalAction button is set to {string} and has text {string}', (button
 Then('alignedActions button is set to {string} and has text {string}', (buttonState, text) => {
   if (buttonState === 'Button') {
     cy.wait(500, { log: DEBUG_FLAG }); // added due to changing animation;
-    buttons(FIRST_ELEMENT).should('be.visible');
-    buttons(FIRST_ELEMENT).children().should('have.attr', 'role', 'button')
+    buttons(positionOfElement('second')).should('be.visible');
+    buttons(positionOfElement('second')).children().should('have.attr', 'role', 'button')
       .and('have.attr', 'data-component', 'button');
-    buttons(FIRST_ELEMENT).children().children()
+    buttons(positionOfElement('second')).children().children()
       .contains(text);
   } else {
     cy.wait(500, { log: DEBUG_FLAG }); // added due to changing animation;
-    buttons(FIRST_ELEMENT).should('be.visible');
-    buttons(FIRST_ELEMENT).children().should('have.attr', 'data-component', 'link');
-    buttons(FIRST_ELEMENT).children().children().should('have.attr', 'tabindex', '0');
-    buttons(FIRST_ELEMENT).children().children()
+    buttons(positionOfElement('second')).should('be.visible');
+    buttons(positionOfElement('second')).children().should('have.attr', 'data-component', 'link');
+    buttons(positionOfElement('second')).children().children().should('have.attr', 'tabindex', '0');
+    buttons(positionOfElement('second')).children().children()
       .contains(text);
   }
 });

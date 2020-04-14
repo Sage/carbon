@@ -42,11 +42,8 @@ Feature: Pager component
       And I am on 1st of "1" pages
     Examples:
       | totalRecords            |
-      | Sample text             |
-      | áéíóú¿¡üñ               |
+      | mpú¿¡üßä                |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Set pageSize to <pageSize> items

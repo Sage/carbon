@@ -1,16 +1,9 @@
 import {
-  flatTableStickyRow, flatTableHeaderCells, flatTableHeader, flatTableBodyRows, flatTableNoiFrame,
+  flatTableHeaderCells, flatTableHeader, flatTableBodyRows, flatTableNoiFrame,
   flatTableHeaderCellsNoiFrame, flatTableBodyRowByPositionNoiFrame, flatTableBodyCellByPosition, flatTableBodyRowByPosition,
 } from '../../locators/flat-table';
 import { DEBUG_FLAG } from '..';
-
-const FIRST_ELEMENT = 0;
-const SECOND_ELEMENT = 1;
-const THIRD_ELEMENT = 2;
-const FOURTH_ELEMENT = 3;
-const FIFTH_ELEMENT = 4;
-const SIXTH_ELEMENT = 5;
-const SEVENTH_ELEMENT = 6;
+import { positionOfElement } from '../helper';
 
 Then('FlatTable rows are sticky', () => {
   cy.wait(500);
@@ -42,37 +35,8 @@ Then('FlatTable has seven columns', () => {
 });
 
 Then('{string} header cell has value {string}', (position, text) => {
-  switch (position) {
-    case 'first':
-      flatTableHeaderCells().eq(FIRST_ELEMENT).should('have.text', text)
-        .and('be.visible');
-      break;
-    case 'second':
-      flatTableHeaderCells().eq(SECOND_ELEMENT).should('have.text', text)
-        .and('be.visible');
-      break;
-    case 'third':
-      flatTableHeaderCells().eq(THIRD_ELEMENT).should('have.text', text)
-        .and('be.visible');
-      break;
-    case 'fourth':
-      flatTableHeaderCells().eq(FOURTH_ELEMENT).should('have.text', text)
-        .and('be.visible');
-      break;
-    case 'fifth':
-      flatTableHeaderCells().eq(FIFTH_ELEMENT).should('have.text', text)
-        .and('be.visible');
-      break;
-    case 'sixth':
-      flatTableHeaderCells().eq(SIXTH_ELEMENT).should('have.text', text)
-        .and('be.visible');
-      break;
-    case 'seventh':
-      flatTableHeaderCells().eq(SEVENTH_ELEMENT).should('have.text', text)
-        .and('be.visible');
-      break;
-    default: throw new Error('There are only seven FlatTable header cells on the page');
-  }
+  flatTableHeaderCells().eq(positionOfElement(position)).should('have.text', text)
+    .and('be.visible');
 });
 
 Then('{int} header cells are {string} visible', (count, state) => {
@@ -89,19 +53,19 @@ Then('{int} header cells are {string} visible', (count, state) => {
 });
 
 Then('FlatTable {int} row contains proper inner content', (indexRow) => {
-  flatTableBodyCellByPosition(indexRow, FIRST_ELEMENT).should('have.text', 'Soylent CorpJohn Doe')
+  flatTableBodyCellByPosition(indexRow, positionOfElement('first')).should('have.text', 'Soylent CorpJohn Doe')
     .and('be.visible');
-  flatTableBodyCellByPosition(indexRow, SECOND_ELEMENT).should('have.text', 'business')
+  flatTableBodyCellByPosition(indexRow, positionOfElement('second')).should('have.text', 'business')
     .and('be.visible');
-  flatTableBodyCellByPosition(indexRow, THIRD_ELEMENT).should('have.text', 'Group1, Group2, Group3')
+  flatTableBodyCellByPosition(indexRow, positionOfElement('third')).should('have.text', 'Group1, Group2, Group3')
     .and('be.visible');
-  flatTableBodyCellByPosition(indexRow, FOURTH_ELEMENT).should('have.text', 'Accounting')
+  flatTableBodyCellByPosition(indexRow, positionOfElement('fourth')).should('have.text', 'Accounting')
     .and('be.visible');
-  flatTableBodyCellByPosition(indexRow, FIFTH_ELEMENT).should('have.text', '12/12/20')
+  flatTableBodyCellByPosition(indexRow, positionOfElement('fifth')).should('have.text', '12/12/20')
     .and('be.visible');
-  flatTableBodyCellByPosition(indexRow, SIXTH_ELEMENT).should('have.text', '20/12/20')
+  flatTableBodyCellByPosition(indexRow, positionOfElement('sixth')).should('have.text', '20/12/20')
     .and('be.visible');
-  flatTableBodyCellByPosition(indexRow, SEVENTH_ELEMENT).should('have.text', '25/12/20')
+  flatTableBodyCellByPosition(indexRow, positionOfElement('seventh')).should('have.text', '25/12/20')
     .and('be.visible');
 });
 
@@ -131,6 +95,6 @@ Then('I focus {int} row and focused row element has golden border on focus', (in
   flatTableBodyRowByPosition(index).focus().should('have.css', 'outline-color', 'rgb(255, 181, 0)');
 });
 
-Then('press enter key on the row element', () => {
+Then('press Enter key on the row element', () => {
   flatTableBodyRowByPosition(2).focus().trigger('keydown', { keyCode: 13, which: 13, force: true });
 });

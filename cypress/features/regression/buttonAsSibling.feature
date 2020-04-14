@@ -21,13 +21,8 @@ Feature: Button as a sibling component
     Then Button as a sibling subtext on preview is "<subtext>"
     Examples:
       | subtext                 |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                      |
 
   @positive
   Scenario Outline: Set Button as a sibling Type as <buttonType>
@@ -47,13 +42,8 @@ Feature: Button as a sibling component
     Then Button as a sibling label on preview is "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                      |
 
   @positive
   Scenario: Disable Button as a sibling

@@ -24,12 +24,8 @@ Feature: Toast component
     Then Toast children is set to "<children>"
     Examples:
       | children                |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario: Enable open checkbox for a Toast component

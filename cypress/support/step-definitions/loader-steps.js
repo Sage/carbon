@@ -13,13 +13,13 @@ Then('Loader Legacy Spinner width and height is set to {string}', (value) => {
 });
 
 Then('Loader width is set to {int} px and height is set to {int} px', (width, height) => {
-  loader().should('have.css', 'height', `${height}px`);
-  loader().should('have.css', 'width', `${width}px`);
+  loader().should('have.css', 'height', `${height}px`)
+    .and('have.css', 'width', `${width}px`);
 });
 
 Then('button with loader width is set to {int} px and height is set to {int} px', (width, height) => {
-  loaderInsideButton().should('have.css', 'height', `${height}px`);
-  loaderInsideButton().should('have.css', 'width', `${width}px`);
+  loaderInsideButton().should('have.css', 'height', `${height}px`)
+    .and('have.css', 'width', `${width}px`);
 });
 
 Then('Loader {string} color is set to {string}', (parameter, color) => {

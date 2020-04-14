@@ -28,13 +28,8 @@ Feature: Profile default component
     Then email is set to "<email>"
     Examples:
       | email                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-    # @ignore because of FE-1447
-    # | <> |
 
   # value which is rendering as src doesn't work properly for CI
   # ignored regression
@@ -79,10 +74,5 @@ Feature: Profile default component
     Then name is set to "<name>"
     Examples:
       | name                    |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-    # @ignore because of FE-1447
-    # | <> |

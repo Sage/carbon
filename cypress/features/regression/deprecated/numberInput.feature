@@ -13,7 +13,6 @@ Feature: Deprecated Number Input component
       | inputWidth |
       | 0          |
       | 1          |
-      | 10         |
       | 100        |
 
   @negative
@@ -23,11 +22,8 @@ Feature: Deprecated Number Input component
     Then inputWidth is not set
     Examples:
       | inputWidth              |
-      | Sample text             |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @ignore
   # currently out of scope
@@ -42,13 +38,8 @@ Feature: Deprecated Number Input component
     Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @ignore
   # not working on storybook neither carbon demo site
@@ -70,13 +61,8 @@ Feature: Deprecated Number Input component
     Then label on preview is "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   @deprecated
@@ -101,7 +87,6 @@ Feature: Deprecated Number Input component
       | labelWidth |
       | 0          |
       | 1          |
-      | 10         |
       | 100        |
 
   @positive
@@ -123,10 +108,5 @@ Feature: Deprecated Number Input component
     Then tooltipPreview on preview is set to "<labelHelp>"
     Examples:
       | labelHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-# @ignore because of FE-1447
-# | <>                       |

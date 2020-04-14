@@ -45,11 +45,9 @@ Feature: Row component
     Examples:
       | columnOffset |
       | -100         |
-      | -10          |
       | -1           |
       | 0            |
       | 1            |
-      | 10           |
       | 100          |
 
   @negative
@@ -58,12 +56,8 @@ Feature: Row component
     Then columnOffset on preview is "<columnOffset>"
     Examples:
       | columnOffset            |
-      | Sample text             |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <> |
 
   @positive
   Scenario Outline: Set columnSpan to <columnSpan>
@@ -72,11 +66,9 @@ Feature: Row component
     Examples:
       | columnSpan |
       | -100       |
-      | -10        |
       | -1         |
       | 0          |
       | 1          |
-      | 10         |
       | 100        |
 
   @positive
@@ -85,12 +77,8 @@ Feature: Row component
     Then columnSpan on preview is "<columnSpan>"
     Examples:
       | columnSpan              |
-      | Sample text             |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <> |
 
 
   @positive
@@ -99,9 +87,5 @@ Feature: Row component
     Then column text is "<children>"
     Examples:
       | children                |
-      | Sample text             |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <> |

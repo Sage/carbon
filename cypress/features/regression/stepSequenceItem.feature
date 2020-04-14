@@ -11,16 +11,10 @@ Feature: Step Sequence Item component
     Examples:
       | indicator               |
       | -100                    |
-      | -1                      |
       | 0                       |
-      | 1                       |
       | 999                     |
-      | Sample text             |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>
 
   @positive
   Scenario Outline: I set status to <status>
@@ -39,10 +33,7 @@ Feature: Step Sequence Item component
     Then hidden label is set to "<hiddenCompleteLabel>"
     Examples:
       | hiddenCompleteLabel |
-      | Sample text         |
-      | 1234567890          |
-      | áéíóú¿¡üñ           |
-      | ÄÖÜßäöüß            |
+      | mp150ú¿¡üßä         |
 
   @positive
   Scenario Outline: I set hiddenCurrentLabel to <hiddenCurrentLabel>
@@ -51,10 +42,7 @@ Feature: Step Sequence Item component
     Then hidden label is set to "<hiddenCurrentLabel>"
     Examples:
       | hiddenCurrentLabel |
-      | Sample text        |
-      | 1234567890         |
-      | áéíóú¿¡üñ          |
-      | ÄÖÜßäöüß           |
+      | mp150ú¿¡üßä        |
 
   @positive
   Scenario Outline: I set ariaLabel to <ariaLabel>
@@ -62,10 +50,7 @@ Feature: Step Sequence Item component
     Then ariaLabel is set to "<ariaLabel>"
     Examples:
       | ariaLabel   |
-      | Sample text |
-      | 1234567890  |
-      | áéíóú¿¡üñ   |
-      | ÄÖÜßäöüß    |
+      | mp150ú¿¡üßä |
 
   @positive
   Scenario Outline: I set children to <children>
@@ -73,10 +58,5 @@ Feature: Step Sequence Item component
     Then children is set "<children>"
     Examples:
       | children                |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-# @ignore because of FE-1447
-# | <>                      |

@@ -38,5 +38,6 @@ Then('content preview has no inline parameter', () => {
 });
 
 Then('content preview width is {string}', (width) => {
-  contentTitle().should('have.attr', 'style').should('contain', `width: calc(${width}% - 30px);`);
+  contentTitle().should('have.attr', 'style')
+    .and('contain', `width: calc(${width}% - 30px);`);
 });

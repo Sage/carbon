@@ -22,25 +22,19 @@ Feature: Create component
     When I set children to "<children>"
     Then create children on preview is "<children>"
     Examples:
-      | children                 |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      # @ignore because of FE-1447
-      # | <>                       |
+      | children                |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario Outline: Change className in Create component <className>
     When I set className to "<className>"
     Then create className on preview is "<className>"
     Examples:
-      | className                |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      # @ignore because of FE-1447
-      # | <>                       |
+      | className               |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
+# @ignore because of FE-1447
+# | <>                       |
