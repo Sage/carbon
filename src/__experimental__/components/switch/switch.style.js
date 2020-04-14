@@ -15,7 +15,8 @@ const StyledSwitch = styled.div`
     fieldHelpInline, labelInline, labelWidth, reverse, size, theme
   }) => css`
     ${FieldLineStyle} {
-      display: block;
+      display: flex;
+      flex-flow: row wrap;
     }
 
     ${StyledCheckableInput}, ${HiddenCheckableInputStyle} {
@@ -76,7 +77,7 @@ const StyledSwitch = styled.div`
       ${FieldLineStyle} {
         display: flex;
       }
-  
+
       ${LabelStyle} {
         margin-bottom: 0;
         margin-right: 32px;
