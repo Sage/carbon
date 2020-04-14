@@ -129,7 +129,13 @@ exports[`Switch base theme renders as expected 1`] = `
 }
 
 .c15 .c4 {
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
 }
 
 .c15 .c6,
@@ -150,7 +156,13 @@ exports[`Switch base theme renders as expected 1`] = `
 }
 
 .c16 .c4 {
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
 }
 
 .c16 .c6,
@@ -189,7 +201,13 @@ exports[`Switch base theme renders as expected 1`] = `
 }
 
 .c17 .c4 {
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
 }
 
 .c17 .c6,
@@ -210,7 +228,13 @@ exports[`Switch base theme renders as expected 1`] = `
 }
 
 .c18 .c4 {
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
 }
 
 .c18 .c6,
@@ -244,7 +268,13 @@ exports[`Switch base theme renders as expected 1`] = `
 }
 
 .c19 .c4 {
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
 }
 
 .c19 .c6,
@@ -282,7 +312,13 @@ exports[`Switch base theme renders as expected 1`] = `
 }
 
 .c20 .c4 {
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
 }
 
 .c20 .c6,
@@ -310,7 +346,13 @@ exports[`Switch base theme renders as expected 1`] = `
 }
 
 .c21 .c4 {
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
 }
 
 .c21 .c6,
@@ -338,7 +380,13 @@ exports[`Switch base theme renders as expected 1`] = `
 }
 
 .c22 .c4 {
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
 }
 
 .c22 .c6,
@@ -388,7 +436,13 @@ exports[`Switch base theme renders as expected 1`] = `
 }
 
 .c0 .c4 {
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
 }
 
 .c0 .c6,
@@ -423,7 +477,13 @@ exports[`Switch base theme renders as expected 1`] = `
 }
 
 .c23 .c4 {
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
 }
 
 .c23 .c6,
@@ -469,7 +529,13 @@ exports[`Switch base theme renders as expected 1`] = `
 }
 
 .c24 .c4 {
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
 }
 
 .c24 .c6,
@@ -528,7 +594,13 @@ exports[`Switch base theme renders as expected 1`] = `
 }
 
 .c25 .c4 {
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
 }
 
 .c25 .c6,
@@ -592,7 +664,13 @@ exports[`Switch base theme renders as expected 1`] = `
 }
 
 .c26 .c4 {
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
 }
 
 .c26 .c6,
@@ -652,7 +730,13 @@ exports[`Switch base theme renders as expected 1`] = `
 }
 
 .c27 .c4 {
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
 }
 
 .c27 .c6,
@@ -712,7 +796,13 @@ exports[`Switch base theme renders as expected 1`] = `
 }
 
 .c28 .c4 {
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
 }
 
 .c28 .c6,
