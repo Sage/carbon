@@ -59,12 +59,8 @@ Feature: Experimental Form component
     Then cancel button text is set to "<cancelText>"
     Examples:
       | cancelText              |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Change save button text to <saveText>
@@ -72,12 +68,8 @@ Feature: Experimental Form component
     Then save button text is set to "<saveText>"
     Examples:
       | saveText                |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Change additional actions type to <additionalActions>

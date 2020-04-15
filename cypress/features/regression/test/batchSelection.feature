@@ -33,7 +33,6 @@ Feature: Batch selection component
     Examples:
       | selectedCount |
       | 0             |
-      | 1             |
       | 10            |
       | 100           |
 

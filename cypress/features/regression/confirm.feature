@@ -11,13 +11,10 @@ Feature: Confirm component
     Then cancel button content on preview is "<cancelLabel>"
     Examples:
       | cancelLabel             |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      # @ignore because of FE-1447
-      # | <>                       |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario Outline: Change confirmLabel in inner context in Confirm dialog to <confirmLabel>
@@ -26,13 +23,10 @@ Feature: Confirm component
     Then confirm button content on preview is "<confirmLabel>"
     Examples:
       | confirmLabel            |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      # @ignore because of FE-1447
-      # | <>                       |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario Outline: Change title in Confirm dialog to <title>
@@ -40,14 +34,11 @@ Feature: Confirm component
       And I open component preview
     Then dialog title context on preview is "<title>"
     Examples:
-      | title                    |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      # @ignore because of FE-1447
-      # | <>                       |
+      | title                   |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario Outline: Change subtitle in Confirm dialog to <subtitle>
@@ -55,14 +46,11 @@ Feature: Confirm component
       And I open component preview
     Then dialog subtitle context is "<subtitle>"
     Examples:
-      | subtitle                 |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      # @ignore because of FE-1447
-      # | <>                       |
+      | subtitle                |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario Outline: Change the height of Confirm dialog to <height>
@@ -72,12 +60,9 @@ Feature: Confirm component
     Examples:
       | height |
       | 0      |
-      | 100    |
       | 10     |
-      | 15     |
-      | 1500   |
-      | 2      |
       | 999    |
+      | 1500   |
 
   @positive
   Scenario Outline: Change the size of Confirm dialog to <sizeName>
@@ -86,13 +71,13 @@ Feature: Confirm component
     Then Confirm dialog size property on preview is "<sizePropertyInPx>"
     Examples:
       | sizeName     | sizePropertyInPx |
-      | extra-small  |       300        |
-      | small        |       380        |
-      | medium-small |       540        |
-      | medium       |       750        |
-      | medium-large |       850        |
-      | large        |       960        |
-      | extra-large  |       1080       |
+      | extra-small  | 300              |
+      | small        | 380              |
+      | medium-small | 540              |
+      | medium       | 750              |
+      | medium-large | 850              |
+      | large        | 960              |
+      | extra-large  | 1080             |
 
   @positive
   Scenario: Enable background UI

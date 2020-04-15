@@ -1,6 +1,6 @@
 import {
   visitComponentUrl, setSlidebar, pressESCKey, pressTABKey, asyncWaitForKnobs,
-  visitFlatTableComponentNoiFrame,
+  visitFlatTableComponentNoiFrame, positionOfElement, keyCode,
 } from '../helper';
 import {
   commonButtonPreview, labelPreview, helpIcon, helpIconByPosition, inputWidthSlider,
@@ -17,13 +17,6 @@ import { getElementNoIframe, commonButtonPreviewNoIframe } from '../../locators/
 import { pagerSummary } from '../../locators/pager';
 
 const LABEL_INPUT_INLINE_CLASS = 'common-input__label--inline';
-const FIRST_ELEMENT = 0;
-const SECOND_ELEMENT = 1;
-const THIRD_ELEMENT = 2;
-const FOURTH_ELEMENT = 3;
-const FIFTH_ELEMENT = 4;
-const SIXTH_ELEMENT = 5;
-const SEVENTH_ELEMENT = 6;
 const TEXT_ALIGN = 'text-align';
 
 Given('I open {string} component page', (component) => {
@@ -152,7 +145,7 @@ Given('I open {string} component page customFilter', (component) => {
 });
 
 When('I open {word} tab', (text) => {
-  cy.wait(1000, { log: DEBUG_FLAG }); // required because element needs to be loaded
+  cy.wait(500, { log: DEBUG_FLAG }); // required because element needs to be loaded
   knobsNameTab(text).click();
 });
 
@@ -218,18 +211,7 @@ When('I hover mouse onto help icon', () => {
 });
 
 When('I hover mouse onto {string} help icon', (position) => {
-  switch (position) {
-    case 'first':
-      helpIconByPosition(FIRST_ELEMENT).trigger('mouseover');
-      break;
-    case 'second':
-      helpIconByPosition(SECOND_ELEMENT).trigger('mouseover');
-      break;
-    case 'third':
-      helpIconByPosition(THIRD_ELEMENT).trigger('mouseover');
-      break;
-    default: throw new Error('There are only three help icons on the page');
-  }
+  helpIconByPosition(positionOfElement(position)).trigger('mouseover');
 });
 
 When('I hover mouse onto icon', () => {
@@ -246,30 +228,7 @@ Then('I hover mouse onto {string} icon in no iFrame', (name) => {
 });
 
 Then('I hover mouse onto {string} {string} icon for validations component into iFrame', (position, name) => {
-  switch (position) {
-    case 'first':
-      getDataElementByValueNoIframe(name).eq(FIRST_ELEMENT).trigger('mouseover');
-      break;
-    case 'second':
-      getDataElementByValueNoIframe(name).eq(SECOND_ELEMENT).trigger('mouseover');
-      break;
-    case 'third':
-      getDataElementByValueNoIframe(name).eq(THIRD_ELEMENT).trigger('mouseover');
-      break;
-    case 'fourth':
-      getDataElementByValueNoIframe(name).eq(FOURTH_ELEMENT).trigger('mouseover');
-      break;
-    case 'fifth':
-      getDataElementByValueNoIframe(name).eq(FIFTH_ELEMENT).trigger('mouseover');
-      break;
-    case 'sixth':
-      getDataElementByValueNoIframe(name).eq(SIXTH_ELEMENT).trigger('mouseover');
-      break;
-    case 'seventh':
-      getDataElementByValueNoIframe(name).eq(SEVENTH_ELEMENT).trigger('mouseover');
-      break;
-    default: throw new Error('There are only seven validation icon elements on the page');
-  }
+  getDataElementByValueNoIframe(name).eq(positionOfElement(position)).trigger('mouseover');
 });
 
 Then('tooltipPreview on preview is set to {string}', (text) => {
@@ -290,18 +249,7 @@ Then('fieldHelp on preview is set to {string}', (text) => {
 
 Then('{string} fieldHelp on preview is set to {string}', (position, text) => {
   cy.wait(1500, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
-  switch (position) {
-    case 'First':
-      fieldHelpPreviewByPosition(FIRST_ELEMENT).should('have.text', text);
-      break;
-    case 'Second':
-      fieldHelpPreviewByPosition(SECOND_ELEMENT).should('have.text', text);
-      break;
-    case 'Third':
-      fieldHelpPreviewByPosition(THIRD_ELEMENT).should('have.text', text);
-      break;
-    default: throw new Error('There are only three field help elements on the page');
-  }
+  fieldHelpPreviewByPosition(positionOfElement(position)).should('have.text', text);
 });
 
 When('I set label width slider to {int}', (width) => {
@@ -326,18 +274,7 @@ Then('labelAlign on preview is {string}', (direction) => {
 });
 
 Then('{string} label Align on preview is {string}', (position, direction) => {
-  switch (position) {
-    case 'First':
-      labelByPosition(FIRST_ELEMENT).should('have.css', TEXT_ALIGN, direction);
-      break;
-    case 'Second':
-      labelByPosition(SECOND_ELEMENT).should('have.css', TEXT_ALIGN, direction);
-      break;
-    case 'Third':
-      labelByPosition(THIRD_ELEMENT).should('have.css', TEXT_ALIGN, direction);
-      break;
-    default: throw new Error('There are only three label elements on the page');
-  }
+  labelByPosition(positionOfElement(position)).should('have.css', TEXT_ALIGN, direction);
 });
 
 Then('Background UI is enabled', () => {
@@ -478,65 +415,29 @@ When('I click above of the component into iFrame', () => {
 });
 
 Then('{string} tab in {string} tab list is visible', (knobsName, position) => {
-  cy.wait(3500, { log: DEBUG_FLAG }); // required because element needs to be loaded
-  switch (position) {
-    case 'first':
-      knobsNameTab(knobsName, FIRST_ELEMENT).should('be.visible')
-        .and('have.css', 'visibility', 'visible');
-      break;
-    case 'second':
-      knobsNameTab(knobsName, SECOND_ELEMENT).should('be.visible')
-        .and('have.css', 'visibility', 'visible');
-      break;
-    default: throw new Error('There are only two tab list elements on the page');
-  }
+  cy.wait(1500, { log: DEBUG_FLAG }); // required because element needs to be loaded
+  knobsNameTab(knobsName, positionOfElement(position)).should('be.visible')
+    .and('have.css', 'visibility', 'visible');
 });
 
-When('I press keyboard downarrow key times {int}', (times) => {
+When('I press keyboard {string} key times {int}', (key, times) => {
   for (let i = 0; i < times; i++) {
-    cy.focused().trigger('keydown', { keyCode: 40, which: 40 });
+    cy.focused().trigger('keydown', keyCode(key));
   }
 });
 
 When('I press {string} onto focused element', (arrow) => {
-  switch (arrow) {
-    case 'downarrow':
-      cy.focused().trigger('keydown', { keyCode: 40, which: 40 });
-      break;
-    case 'uparrow':
-      cy.focused().trigger('keydown', { keyCode: 38, which: 38 });
-      break;
-    case 'leftarrow':
-      cy.focused().trigger('keydown', { keyCode: 37, which: 37 });
-      break;
-    case 'rightarrow':
-      cy.focused().trigger('keydown', { keyCode: 39, which: 39 });
-      break;
-    case 'enter':
-      cy.focused().trigger('keydown', { keyCode: 13, which: 13 });
-      break;
-    case 'space':
-      cy.focused().trigger('keydown', { keyCode: 32, which: 32 });
-      break;
-    case 'ESC':
-      cy.focused().trigger('keydown', { keyCode: 16, which: 16, release: false });
-      cy.focused().trigger('keydown', { keyCode: 27, which: 27 });
-      break;
-    case 'Tab':
-      cy.focused().trigger('keydown', { keyCode: 9, which: 9 });
-      break;
-    case 'ShiftTab':
-      cy.focused().trigger('keydown', { keyCode: 16, which: 16, release: false });
-      cy.focused().trigger('keydown', { keyCode: 9, which: 9 });
-      break;
-    case 'Home':
-      cy.focused().trigger('keydown', { keyCode: 36, which: 36 });
-      break;
-    case 'End':
-      cy.focused().trigger('keydown', { keyCode: 35, which: 35 });
-      break;
-    default: throw new Error(`This key ${arrow} is not one of the allowed`);
-  }
+  cy.focused().trigger('keydown', keyCode(arrow));
+});
+
+When('I press ESC onto focused element', () => {
+  cy.focused().trigger('keydown', { keyCode: 16, which: 16, release: false });
+  cy.focused().trigger('keydown', { keyCode: 27, which: 27 });
+});
+
+When('I press ShiftTab onto focused element', () => {
+  cy.focused().trigger('keydown', { keyCode: 16, which: 16, release: false });
+  cy.focused().trigger('keydown', { keyCode: 9, which: 9 });
 });
 
 Then('focused element inner content is set to {string}', (text) => {
@@ -547,7 +448,7 @@ Then('focused element has golden border outline {string}', (color) => {
   cy.focused().should('have.css', 'outline', color);
 });
 
-When('I press keyboard {string} key times {int}', (key, times) => {
+When('I press {string} key times {int}', (key, times) => {
   for (let i = 0; i < times; i++) {
     cy.focused().type(`${key}`);
   }

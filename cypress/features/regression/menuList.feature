@@ -10,12 +10,8 @@ Feature: MenuList component
     Then title on preview is "<title>"
     Examples:
       | title                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @ignore
   # @positive doesn't work on Carbon Demo site
@@ -24,12 +20,8 @@ Feature: MenuList component
     Then filterPlaceholder on preview is "<text>"
     Examples:
       | text                    |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Check search field

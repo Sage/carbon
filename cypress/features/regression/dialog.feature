@@ -6,7 +6,7 @@ Feature: Dialog component
       And I open component preview
 
   @positive
-    Scenario: CloseIcon has the border outline
+  Scenario: CloseIcon has the border outline
     When closeIcon is focused
     Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
 
@@ -18,7 +18,6 @@ Feature: Dialog component
       | height |
       | 0      |
       | 1      |
-      | 10     |
       | 100    |
 
   @negative
@@ -36,26 +35,18 @@ Feature: Dialog component
     When I set title to "<title>"
     Then component title on preview is "<title>"
     Examples:
-      | title                    |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | title                   |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
 
   @positive
   Scenario Outline: Change Dialog subtitle to <subtitle>
     When I set subtitle to "<subtitle>"
     Then component subtitle on preview is "<subtitle>"
     Examples:
-      | subtitle                 |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | subtitle                |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
 
   @positive
   Scenario Outline: Set Dialog size to <sizeName>
@@ -63,13 +54,13 @@ Feature: Dialog component
     Then Dialog size property on preview is "<sizePropertyInPx>"
     Examples:
       | sizeName     | sizePropertyInPx |
-      | extra-small  |       300        |
-      | small        |       380        |
-      | medium-small |       540        |
-      | medium       |       750        |
-      | medium-large |       850        |
-      | large        |       960        |
-      | extra-large  |       1080       |
+      | extra-small  | 300              |
+      | small        | 380              |
+      | medium-small | 540              |
+      | medium       | 750              |
+      | medium-large | 850              |
+      | large        | 960              |
+      | extra-large  | 1080             |
 
   @positive
   Scenario: ShowCloseIcon can close Dialog

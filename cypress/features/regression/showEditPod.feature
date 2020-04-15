@@ -57,13 +57,8 @@ Feature: Show Edit Pod component
     Then Show Edit Pod cancelText on preview is set to "<cancelText>"
     Examples:
       | cancelText              |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario Outline: Enable cancel checkbox for a Show Edit Pod component
@@ -87,13 +82,8 @@ Feature: Show Edit Pod component
     Then Show Edit Pod deleteText on preview is set to "<deleteText>"
     Examples:
       | deleteText              |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario Outline: Change Show Edit Pod saveText to <saveText>
@@ -102,13 +92,8 @@ Feature: Show Edit Pod component
     Then Show Edit Pod saveText on preview is set to "<saveText>"
     Examples:
       | saveText                |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario: Enable saving checkbox for a Show Edit Pod component
@@ -129,13 +114,8 @@ Feature: Show Edit Pod component
     Then Show Edit Pod title on preview is set to "<title>"
     Examples:
       | title                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario Outline: Set Show Edit Pod podType property to <podType>

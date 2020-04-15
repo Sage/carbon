@@ -64,16 +64,14 @@ When('I set rows slider to {int}', (rowsValue) => {
 });
 
 Then('Textarea component is disabled', () => {
-  textareaChildren().should('be.disabled');
-  textareaChildren()
-    .should('have.css', 'color', 'rgba(0, 0, 0, 0.55)')
+  textareaChildren().should('be.disabled')
+    .and('have.css', 'color', 'rgba(0, 0, 0, 0.55)')
     .and('have.css', 'cursor', 'not-allowed');
 });
 
 Then('Textarea component is not disabled', () => {
-  textareaChildren().should('not.be.disabled');
-  textareaChildren()
-    .should('not.have.css', 'color', 'rgb(179, 194, 200)')
+  textareaChildren().should('not.be.disabled')
+    .and('not.have.css', 'color', 'rgb(179, 194, 200)')
     .and('not.have.css', 'cursor', 'not-allowed');
 });
 

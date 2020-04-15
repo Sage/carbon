@@ -60,13 +60,17 @@ When('I set maxDate to today', () => {
 });
 
 Then('the date before minDate is not available', () => {
-  dayPickerDay(YESTERDAY_CALENDAR).should('have.attr', 'aria-disabled').should('contains', 'true');
-  dayPickerDay(YESTERDAY_CALENDAR).should('have.attr', 'aria-selected').should('contains', 'false');
+  dayPickerDay(YESTERDAY_CALENDAR).should('have.attr', 'aria-disabled')
+    .and('contains', 'true');
+  dayPickerDay(YESTERDAY_CALENDAR).should('have.attr', 'aria-selected')
+    .and('contains', 'false');
 });
 
 Then('the date after maxDate is not available', () => {
-  dayPickerDay(TOMORROW_CALENDAR).should('have.attr', 'aria-disabled').should('contains', 'true');
-  dayPickerDay(TOMORROW_CALENDAR).should('have.attr', 'aria-selected').should('contains', 'false');
+  dayPickerDay(TOMORROW_CALENDAR).should('have.attr', 'aria-disabled')
+    .and('contains', 'true');
+  dayPickerDay(TOMORROW_CALENDAR).should('have.attr', 'aria-selected')
+    .and('contains', 'false');
 });
 
 When('I click dateInput', () => {
@@ -90,9 +94,12 @@ When('I type specific date {string} in iFrame', (day) => {
 });
 
 Then('the date is set to today', () => {
-  dayPickerDay(TODAY_CALENDAR).should('have.attr', 'aria-label').should('contains', TODAY_CALENDAR);
-  dayPickerDay(TODAY_CALENDAR).should('have.attr', 'class').should('contains', `${DAY_PICKER_PREFIX}today`);
-  dayPickerDay(TODAY_CALENDAR).should('have.attr', 'class').should('contains', `${DAY_PICKER_PREFIX}selected`);
+  dayPickerDay(TODAY_CALENDAR).should('have.attr', 'aria-label')
+    .and('contains', TODAY_CALENDAR);
+  dayPickerDay(TODAY_CALENDAR).should('have.attr', 'class')
+    .and('contains', `${DAY_PICKER_PREFIX}today`);
+  dayPickerDay(TODAY_CALENDAR).should('have.attr', 'class')
+    .and('contains', `${DAY_PICKER_PREFIX}selected`);
 });
 
 Then('I click onto specific day {string} via DayPicker for validation component into iFrame', (specificDay) => {

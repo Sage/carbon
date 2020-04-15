@@ -9,37 +9,31 @@ Feature: Content component
     When I set children to "<children>"
     Then content children on preview is "<children>"
     Examples:
-      | children                 |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      # @ignore because of FE-1447
-      # | <>                       |
+      | children                |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario Outline: Change title in Content dialog to <title>
     When I set title to "<title>"
     Then content title context children on preview is "<title>"
     Examples:
-      | title                    |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      # @ignore because of FE-1447
-      # | <>                       |
+      | title                   |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-1447
+  # | <>                       |
 
   @positive
   Scenario Outline: Change property in Content dialog to <property>
     When I select as to "<property>"
     Then content as property is set to "<property>"
     Examples:
-      | property   |
-      | primary    |
-      | secondary  |
+      | property  |
+      | primary   |
+      | secondary |
 
   @positive
   Scenario Outline: Change alignProperty in Content dialog to <alignProperty>
@@ -70,10 +64,10 @@ Feature: Content component
     Then content preview has inline parameter enabled
       And content preview width is "<width>"
     Examples:
-      | width  |
-      | 0      |
-      | 100    |
-      | 15     |
+      | width |
+      | 0     |
+      | 100   |
+      | 15    |
 
   @positive
   Scenario: Inline disabled

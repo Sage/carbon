@@ -5,7 +5,7 @@ Feature: Dialog Full Screen component
     Given I open "Dialog Full Screen" component page
 
   @positive
-    Scenario: CloseIcon has the border outline
+  Scenario: CloseIcon has the border outline
     Given I open component preview
     When closeIcon is focused
     Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
@@ -23,13 +23,9 @@ Feature: Dialog Full Screen component
       And I open component preview
     Then component title on preview is "<title>"
     Examples:
-      | title                    |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | title                   |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
 
   @positive
   Scenario Outline: Change Dialog Full Screen subtitle to <subtitle>
@@ -37,13 +33,9 @@ Feature: Dialog Full Screen component
       And I open component preview
     Then component subtitle on preview is "<subtitle>"
     Examples:
-      | subtitle                 |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | subtitle                |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
 
   @positive
   Scenario Outline: Change Dialog Full Screen children to <children>
@@ -51,13 +43,9 @@ Feature: Dialog Full Screen component
       And I open component preview
     Then Dialog Full Screen children on preview is "<children>"
     Examples:
-      | children                 |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | children                |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
 
   @positive
   Scenario: Enable background UI

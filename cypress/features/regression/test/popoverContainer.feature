@@ -17,12 +17,8 @@ Feature: Popover container component
     Then Popover title on preview is set to "<title>"
     Examples:
       | title                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario: Popover container component iconType to add
@@ -44,7 +40,7 @@ Feature: Popover container component
     Then Popover container is not visible
 
   @positive
-  Scenario Outline: Open Popover container is opened using <key> key
+  Scenario Outline: Popover container is opened using <key> key
     Given I click popover close icon
     When I click onto popover setting icon using "<key>" key
     Then Popover container is visible
@@ -54,9 +50,7 @@ Feature: Popover container component
       | Space |
 
   @positive
-  Scenario Outline: Open Popover container is closed using <key> key
-    Given I click popover close icon
-      And I click onto popover setting icon using "<key>" key
+  Scenario Outline: Popover container is closed using <key> key
     When I press onto closeIcon using "<key>" key
     Then Popover container is not visible
     Examples:

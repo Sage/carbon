@@ -11,12 +11,8 @@ Feature: Help component
     Then  tooltipPreview on preview is set to "<children>"
     Examples:
       | children                |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Change tooltip position to <tooltipPosition>
@@ -31,7 +27,7 @@ Feature: Help component
       | top             |
       | bottom          |
 
-@positive
+  @positive
   Scenario Outline: Change tooltip align to <tooltipAlign>
     When I select tooltipAlign to "<tooltipAlign>"
       And I select tooltipPosition to "bottom"
@@ -51,12 +47,8 @@ Feature: Help component
     Then Help href on preview is set to "<href>"
     Examples:
       | href                    |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario: Verify default color for help icon

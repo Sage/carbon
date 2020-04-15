@@ -42,7 +42,6 @@ Feature: Tile component
       | width |
       | 1     |
       | 100   |
-      | 533   |
       | 1999  |
 
   @positive
@@ -53,5 +52,4 @@ Feature: Tile component
       | width |
       | 1     |
       | 10    |
-      | 50    |
       | 90    |
