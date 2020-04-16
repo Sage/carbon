@@ -10,12 +10,9 @@ import {
   radioButtonLegendInNoIFrame,
   radioButtonGroupInNoIFrame,
 } from '../../locators/radioButton/index';
-import { setSlidebar } from '../helper';
+import { setSlidebar, positionOfElement } from '../helper';
 
 const INLINE = 'carbon-radio-button__help-text--inline';
-const FIRST_RADIOBUTTON = 0;
-const SECOND_RADIOBUTTON = 1;
-const THIRD_RADIOBUTTON = 2;
 const RADIOBUTTON_INPUT_CSS = 'div:nth-child(1) input';
 
 When('I click onto {string} radioButton for validations component in iFrame', (radioButtonName) => {
@@ -36,18 +33,7 @@ Then('fieldHelpInline is disabled', () => {
 });
 
 Then('{string} radioButton on preview is {string}', (position, text) => {
-  switch (position) {
-    case 'First':
-      labelByPosition(FIRST_RADIOBUTTON).should('have.text', text);
-      break;
-    case 'Second':
-      labelByPosition(SECOND_RADIOBUTTON).should('have.text', text);
-      break;
-    case 'Third':
-      labelByPosition(THIRD_RADIOBUTTON).should('have.text', text);
-      break;
-    default: throw new Error('There are only three radio button elements on the page');
-  }
+  labelByPosition(positionOfElement(position)).should('have.text', text);
 });
 
 Then('{string} RadioButton has value {string}', (radioButtonName, text) => {
@@ -95,21 +81,8 @@ Then('{string} field help is not set to fieldHelpInline and has margin-left set 
 });
 
 Then('{string} RadioButton {string} inputWidth is set to {string}', (position, name, width) => {
-  switch (position) {
-    case 'First':
-      radioButtonByPosition(FIRST_RADIOBUTTON).parent()
-        .should('have.css', 'width', `${width}px`);
-      break;
-    case 'Second':
-      radioButtonByPosition(SECOND_RADIOBUTTON).parent()
-        .should('have.css', 'width', `${width}px`);
-      break;
-    case 'Third':
-      radioButtonByPosition(THIRD_RADIOBUTTON).parent()
-        .should('have.css', 'width', `${width}px`);
-      break;
-    default: throw new Error('There are only three label elements on the page');
-  }
+  radioButtonByPosition(positionOfElement(position)).parent()
+    .should('have.css', 'width', `${width}px`);
 });
 
 Then('{string} RadioButton label width is set to {string}', (radioButtonName, width) => {
@@ -122,16 +95,16 @@ When('I set RadioButton {word} {word} slider to {int}', (propertyName, text, wid
 
 Then('RadioButton are inline', () => {
   radioButtonGroup().should('have.css', 'display', 'flex');
-  radioButtonComponentByPosition(FIRST_RADIOBUTTON).should('have.css', 'margin-left', '0px');
-  radioButtonComponentByPosition(SECOND_RADIOBUTTON).should('have.css', 'margin-left', '32px');
-  radioButtonComponentByPosition(THIRD_RADIOBUTTON).should('have.css', 'margin-left', '32px');
+  radioButtonComponentByPosition(positionOfElement('first')).should('have.css', 'margin-left', '0px');
+  radioButtonComponentByPosition(positionOfElement('second')).should('have.css', 'margin-left', '32px');
+  radioButtonComponentByPosition(positionOfElement('third')).should('have.css', 'margin-left', '32px');
 });
 
 Then('RadioButton are not inline', () => {
   radioButtonGroup().should('have.css', 'display', 'block');
-  radioButtonComponentByPosition(FIRST_RADIOBUTTON).should('have.css', 'margin-left', '0px');
-  radioButtonComponentByPosition(SECOND_RADIOBUTTON).should('have.css', 'margin-left', '0px');
-  radioButtonComponentByPosition(THIRD_RADIOBUTTON).should('have.css', 'margin-left', '0px');
+  radioButtonComponentByPosition(positionOfElement('first')).should('have.css', 'margin-left', '0px');
+  radioButtonComponentByPosition(positionOfElement('second')).should('have.css', 'margin-left', '0px');
+  radioButtonComponentByPosition(positionOfElement('third')).should('have.css', 'margin-left', '0px');
 });
 
 Then('legend is inline with RadioButton', () => {

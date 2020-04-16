@@ -9,28 +9,18 @@ Feature: Date Range component
     When I set startLabel to "<label>"
     Then startLabel on preview is "<label>"
     Examples:
-      | label                    |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      # @ignore because of FE-1447
-      # | <>                       |
+      | label                   |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
 
   @positive
   Scenario Outline: Change Date Range end label to <label>
     When I set endLabel to "<label>"
     Then endLabel on preview is "<label>"
     Examples:
-      | label                    |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      # @ignore because of FE-1447
-      # | <>                       |
+      | label                   |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
 
   @positive
   Scenario: Enable labels inline checkbox

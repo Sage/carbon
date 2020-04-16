@@ -22,8 +22,7 @@ Feature: Experimental Textarea component
     Examples:
       | cols |
       | 1    |
-      | 115  |
-      | 299  |
+      | 100  |
       | 300  |
 
   @positive
@@ -33,8 +32,7 @@ Feature: Experimental Textarea component
     Examples:
       | rows |
       | 1    |
-      | 115  |
-      | 299  |
+      | 100  |
       | 300  |
 
   @positive
@@ -65,13 +63,8 @@ Feature: Experimental Textarea component
     Then placeholder is set to "<placeholder>"
     Examples:
       | placeholder             |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <> |
 
   @positive
   Scenario Outline: Set fieldHelp to <fieldHelp>
@@ -79,13 +72,8 @@ Feature: Experimental Textarea component
     Then fieldHelp is set to "<fieldHelp>"
     Examples:
       | fieldHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <> |
 
   @positive
   Scenario Outline: Set characterLimit to <characterLimit>
@@ -108,10 +96,8 @@ Feature: Experimental Textarea component
     Then characterLimit for default Textarea is not set to "<characterLimit>"
     Examples:
       | characterLimit          |
-      | Sample text             |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
       | -0,112                  |
       | 0.1112333               |
 
@@ -122,8 +108,6 @@ Feature: Experimental Textarea component
     Examples:
       | inputWidth |
       | 0          |
-      | 1          |
-      | 35         |
       | 50         |
       | 100        |
 
@@ -133,13 +117,8 @@ Feature: Experimental Textarea component
     Then label is set to "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <> |
 
   @positive
   Scenario Outline: Set labelHelp to <labelHelp>
@@ -149,13 +128,8 @@ Feature: Experimental Textarea component
     Then tooltipPreview on preview is set to "<labelHelp>"
     Examples:
       | labelHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <> |
 
   @positive
   Scenario: Enable labelInline checkbox for a Textarea component
@@ -179,9 +153,7 @@ Feature: Experimental Textarea component
     Examples:
       | labelWidth |
       | 0          |
-      | 1          |
       | 25         |
-      | 75         |
       | 100        |
 
   @positive
@@ -195,7 +167,7 @@ Feature: Experimental Textarea component
       | left       |
       | right      |
 
-#   #double checking / unchecking warnOverLimit/enforceCharacterLimit should be fixed in FE-1778 and should be deleted
+  #   #double checking / unchecking warnOverLimit/enforceCharacterLimit should be fixed in FE-1778 and should be deleted
   @positive
   Scenario Outline: Enable warnOverLimit checkbox for a Textarea component and check the warning
     When I set characterLimit to "<limit>"
@@ -205,10 +177,10 @@ Feature: Experimental Textarea component
       And I input "<text>" into Textarea
     Then Textarea component has warnOverLimit and used characters <characters> of <limit>
     Examples:
-      | limit | text            | characters |
-      | 0     | 12345           |     5      |
-      | 5     |áéíóú¿¡üñ        |     9      |
-      | 10    |testTestTextTest |    16      |
+      | limit | text             | characters |
+      | 0     | 12345            | 5          |
+      | 5     | áéíóú¿¡üñ        | 9          |
+      | 10    | testTestTextTest | 16         |
 
   #double checking / unchecking warnOverLimit/enforceCharacterLimit should be fixed in FE-1778 and should be deleted
   @positive
@@ -224,9 +196,9 @@ Feature: Experimental Textarea component
       | limit | text              | characters |
       | 0     | !!                | 2          |
       | 3     | 123456            | 6          |
-      | 5     | áéíóú¿¡üñą        | 10         |
+      | 5     | áéíóú¿¡üñą       | 10         |
       | 10    | testTestTextTest! | 17         |
- 
+
   @positive
   Scenario Outline: Enable enforceCharacterLimit checkbox for a Textarea component and check the warning
     Given I set characterLimit to "<limit>"
@@ -255,17 +227,12 @@ Feature: Experimental Textarea component
       | 3     | 12345            | 5          |
       | 5     | áéíóú¿¡üñ        | 9          |
       | 10    | testTestTextTest | 16         |
- 
+
   @positive
   Scenario Outline: Verify input of Textarea component
     When I input "<input>" into Textarea
     Then Textarea input on preview is set to "<input>"
     Examples:
       | input                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-# @ignore because of FE-1447
-# | <>                     |

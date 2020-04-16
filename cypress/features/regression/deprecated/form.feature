@@ -60,12 +60,8 @@ Feature: Deprecated Form component
     Then cancel button text is set to "<cancelText>"
     Examples:
       | cancelText              |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   @deprecated
@@ -74,12 +70,8 @@ Feature: Deprecated Form component
     Then save button text is set to "<saveText>"
     Examples:
       | saveText                |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   @deprecated
@@ -88,12 +80,8 @@ Feature: Deprecated Form component
     Then additional actions text is set to "<additionalActions>"
     Examples:
       | additionalActions       |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   @deprecated
@@ -102,12 +90,8 @@ Feature: Deprecated Form component
     Then left aligned actions text is set to "<leftAlignedActions>"
     Examples:
       | leftAlignedActions      |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   @deprecated
@@ -116,12 +100,8 @@ Feature: Deprecated Form component
     Then right aligned actions text is set to "<rightAlignedActions>"
     Examples:
       | rightAlignedActions     |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   @deprecated

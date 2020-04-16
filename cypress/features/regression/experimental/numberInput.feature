@@ -74,13 +74,8 @@ Feature: Experimental Number Input component
     Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario Outline: Set label to <label>
@@ -88,13 +83,8 @@ Feature: Experimental Number Input component
     Then label on preview is "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario Outline: Set size to <size>
@@ -114,13 +104,8 @@ Feature: Experimental Number Input component
     Then tooltipPreview on preview is set to "<labelHelp>"
     Examples:
       | labelHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario: Enable label inline

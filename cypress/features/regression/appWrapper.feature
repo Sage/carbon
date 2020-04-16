@@ -7,11 +7,8 @@ Feature: App Wrapper component
     When I set children to "<children>"
     Then App Wrapper children on preview is "<children>"
     Examples:
-      | children                 |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      # @ignore because of FE-1447
-      # | <>                       |
+      | children                |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
+# @ignore because of FE-1447
+# | <>                       |

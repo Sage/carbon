@@ -9,15 +9,11 @@ Feature: Experimental RadioButton weekly component
   @positive
   Scenario Outline: Change RadioButton component weekly label to <label>
     When I set group weekly label to "<label>"
-    Then "First" radioButton on preview is "<label>"
+    Then "first" radioButton on preview is "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Change RadioButton component weekly help label to <labelHelp>
@@ -26,12 +22,8 @@ Feature: Experimental RadioButton weekly component
     Then tooltipPreview on preview is set to "<labelHelp>"
     Examples:
       | labelHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Change RadioButton component weekly value to <weeklyValue>
@@ -39,12 +31,8 @@ Feature: Experimental RadioButton weekly component
     Then "weekly" RadioButton has value "<weeklyValue>"
     Examples:
       | weeklyValue             |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario: Disable RadioButton
@@ -80,15 +68,11 @@ Feature: Experimental RadioButton weekly component
   @positive
   Scenario Outline: Change RadioButton component field help to <fieldHelp>
     When I set group weekly fieldHelp to "<fieldHelp>"
-    Then "First" fieldHelp on preview is set to "<fieldHelp>"
+    Then "first" fieldHelp on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario: Enable fieldHelpInline
@@ -106,11 +90,10 @@ Feature: Experimental RadioButton weekly component
   @positive
   Scenario Outline: Change RadioButton inputWidth to <width>
     When I set group weekly inputWidth slider to <width>
-    Then "First" RadioButton "weekly" inputWidth is set to "<px>"
+    Then "first" RadioButton "weekly" inputWidth is set to "<px>"
     Examples:
       | width | px         |
       | 1     | 16         |
-      | 10    | 98.71875   |
       | 50    | 358.234375 |
 
   # pixels are adjusted for Travis build. For normal cypress test runner test should fail
@@ -122,13 +105,12 @@ Feature: Experimental RadioButton weekly component
     Examples:
       | width | px        |
       | 1     | 10.609375 |
-      | 50    | 530.5     |
       | 100   | 847.78125 |
 
   @positive
   Scenario Outline: Change RadioButton label align to <direction>
     When I select group weekly labelAlign to "<direction>"
-    Then "First" label Align on preview is "<direction>"
+    Then "first" label Align on preview is "<direction>"
     Examples:
       | direction |
       | left      |

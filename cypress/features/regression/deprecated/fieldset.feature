@@ -11,12 +11,8 @@ Feature: Deprecated Fieldset component
     Then legend on preview is "<legend>"
     Examples:
       | legend                  |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @negative
   @deprecated

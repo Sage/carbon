@@ -10,13 +10,8 @@ Feature: Multi Action Button default component
     Then Multi Action Button text on preview is set to "<text>"
     Examples:
       | text                    |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario Outline: Change buttonType property of Multi Action Button component to <buttonType>
@@ -66,13 +61,8 @@ Feature: Multi Action Button default component
     Then Multi Action Button subtext on preview is "<subtext>"
     Examples:
       | subtext                 |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario: Invoking Multi Action Button component

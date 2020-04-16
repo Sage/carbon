@@ -32,13 +32,8 @@ Feature: Experimental Date Input component
     Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario Outline: Change DateInput label to <label>
@@ -46,13 +41,8 @@ Feature: Experimental Date Input component
     Then label on preview is "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario: Enable label inline checkbox for Date Input component
@@ -82,13 +72,12 @@ Feature: Experimental Date Input component
       | width |
       | 0     |
       | 10    |
-      | 50    |
       | 100   |
 
   @positive
   Scenario: Change Date Input component minDate
     Given I set minDate to today
-      And I set dateInput to today 
+      And I set dateInput to today
     When I choose date yesterday via DayPicker
     Then the date before minDate is not available
 
@@ -109,7 +98,6 @@ Feature: Experimental Date Input component
       | width |
       | 0     |
       | 10    |
-      | 50    |
       | 100   |
 
   @positive

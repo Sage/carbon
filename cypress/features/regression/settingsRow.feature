@@ -10,13 +10,8 @@ Feature: Settings Row component
     Then Settings Row children on preview is set to "<children>"
     Examples:
       | children                |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                       |
 
   @positive
   Scenario Outline: Change Settings Row title to <title>
@@ -24,13 +19,8 @@ Feature: Settings Row component
     Then Settings Row title on preview is set to "<title>"
     Examples:
       | title                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                       |
 
   @positive
   Scenario Outline: Change Settings Row description to <description>
@@ -38,13 +28,8 @@ Feature: Settings Row component
     Then Settings Row description on preview is set to "<description>"
     Examples:
       | description             |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                       |
 
   @positive
   Scenario: Enable divider checkbox for a Settings Row component
