@@ -1,22 +1,11 @@
 import {
-  checkboxHelpTextPreview, checkboxCommonInputField, checkboxLabelPreview,
+  checkboxCommonInputField, checkboxLabelPreview,
   checkbox, checkboxDataComponent, checkboxRole, checkboxByID, dataComponentGroup,
   labelForIconInCheckboxGroup,
 } from '../../locators/checkbox';
 import { label, fieldHelpPreview, getDataElementByValueNoIframe } from '../../locators';
 import { ICON } from '../../locators/locators';
 import { positionOfElement } from '../helper';
-
-const CHECKBOX_HELP_TEXT_CLASS_PREFIX = 'carbon-checkbox__help-text--';
-const CHECKBOX_LABEL_CLASS_PREFIX = 'common-input__label--';
-
-Then('checkbox helpText property is set to {string}', (property) => {
-  checkboxHelpTextPreview().should('have.class', CHECKBOX_HELP_TEXT_CLASS_PREFIX + property);
-});
-
-Then('checkbox helpText property is not set to {string}', (property) => {
-  checkboxHelpTextPreview().should('not.have.class', CHECKBOX_HELP_TEXT_CLASS_PREFIX + property);
-});
 
 Then('Checkbox is set to fieldHelpInline and has margin-left set to {string}', (marginLeft) => {
   fieldHelpPreview().should('have.css', 'margin-left', marginLeft)
@@ -49,19 +38,6 @@ Then('checkbox inputWidth is set to {int}', (width) => {
 
 Then('Checkbox inputWidth is not set', () => {
   checkboxCommonInputField().should('not.have.attr', 'style');
-});
-
-Then('Checkbox label property is set to {string}', (property) => {
-  checkboxLabelPreview().should('have.class', CHECKBOX_LABEL_CLASS_PREFIX + property);
-});
-
-Then('Checkbox label property is not set to {string}', (property) => {
-  checkboxLabelPreview().should('not.have.class', CHECKBOX_LABEL_CLASS_PREFIX + property);
-});
-
-Then('Checkbox deprecated label width is set to {int}', (width) => {
-  checkboxLabelPreview().should('have.attr', 'style')
-    .and('contain', `width: ${width}%`);
 });
 
 Then('Checkbox labelAlign on preview is set to {string}', (labelAlign) => {

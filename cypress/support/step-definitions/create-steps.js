@@ -19,5 +19,5 @@ Then('Create component has proper inner color {string} and background-color {str
 });
 
 Then('Create element has golden border on focus', () => {
-  link().children().should('have.css', 'outline-color', 'rgb(255, 181, 0)');   
+  link().children().should('have.css', 'outline-color', 'rgb(255, 181, 0)');
 });

@@ -4,12 +4,11 @@ import {
 } from '../../locators/textarea';
 import { setSlidebar } from '../helper';
 import {
-  fieldHelpPreview, label, inputWidthPreview, characterLimitSlider,
+  fieldHelpPreview, label,
 } from '../../locators';
 import { DEBUG_FLAG } from '..';
 
 const TEXT_ALIGN = 'text-align';
-const TEXTAREA_CLASS = 'carbon-textarea__input';
 
 Then('Textarea component is expandable', () => {
   textareaChildren()
@@ -21,16 +20,6 @@ Then('Textarea component is not expandable', () => {
     .should('not.have.attr', 'style', 'height: 50px;');
 });
 
-Then('Textarea component is expandable for deprecated component', () => {
-  inputWidthPreview().children()
-    .should('have.class', `${TEXTAREA_CLASS}--disable-scroll`);
-});
-
-Then('Textarea component is not expandable for deprecated component', () => {
-  inputWidthPreview().children()
-    .should('not.have.class', `${TEXTAREA_CLASS}--disable-scroll`);
-});
-
 Then('cols is set to {string}', (colsValue) => {
   textareaChildren()
     .should('have.attr', 'cols', colsValue);
@@ -39,20 +28,6 @@ Then('cols is set to {string}', (colsValue) => {
 Then('rows is set to {string}', (colsValue) => {
   textareaChildren()
     .should('have.attr', 'rows', colsValue);
-});
-
-Then('cols is set to {string} for deprecated component', (colsValue) => {
-  textareaInput()
-    .should('have.attr', 'cols', colsValue);
-});
-
-Then('rows is set to {string} for deprecated component', (colsValue) => {
-  textareaInput()
-    .should('have.attr', 'rows', colsValue);
-});
-
-When('I set characterLimit slider to {int} for deprecated component', (width) => {
-  setSlidebar(characterLimitSlider(), width);
 });
 
 When('I set cols slider to {int}', (colsValue) => {
@@ -93,10 +68,6 @@ Then('fieldHelp is set to {string}', (text) => {
 
 Then('characterLimit is set to {string}', (length) => {
   textareaChildren().should('have.attr', 'maxlength', length);
-});
-
-Then('characterLimit is set to {string} for deprecated component', (length) => {
-  textareaInput().should('have.attr', 'maxlength', length);
 });
 
 Then('characterLimit is shown as {string}', (length) => {
@@ -141,10 +112,6 @@ When('Type {string} into Textarea into iFrame', (text) => {
   textareaChildrenNoIframe().clear().type(text);
 });
 
-When('I input {string} into Textarea for deprecated component', (text) => {
-  textareaInput().clear().type(text);
-});
-
 Then('Textarea component has warnOverLimit and used characters {int} of {int}', (overCharacterLimit, limit) => {
   cy.wait(250, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
   characterLimitDefaultTextarea().should('have.text', `${overCharacterLimit}/${limit}`)
@@ -175,12 +142,6 @@ When('I input {string} into Textarea', (text) => {
 
 Then('Textarea input on preview is set to {string}', () => {
   textarea().children().invoke('text').then(((text) => {
-    expect(text.trim()).to.eq(text);
-  }));
-});
-
-Then('Textarea input on preview is set to {string} for deprecated component', () => {
-  textareaInput().invoke('text').then(((text) => {
     expect(text.trim()).to.eq(text);
   }));
 });

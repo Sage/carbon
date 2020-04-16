@@ -103,9 +103,9 @@ Feature: Experimental RadioButton weekly component
       And I set group weekly labelWidth slider to <width>
     Then "weekly" RadioButton label width is set to "<px>"
     Examples:
-      | width | px         |
-      | 1     | 10.609375  |
-      | 100   | 844.671875 |
+      | width | px        |
+      | 1     | 10.609375 |
+      | 100   | 847.78125 |
 
   @positive
   Scenario Outline: Change RadioButton label align to <direction>

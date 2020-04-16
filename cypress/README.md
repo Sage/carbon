@@ -32,12 +32,9 @@
 3. Install `npm install`.
 4. Run storybook `npm start`.
 5. Open a new terminal in the same path.
-6. Run cypress `npm run test-cypress`.
-7. If you would like to run specific cypress tests in command line (headless browser for continuous integration) use: `npm run test-cypress --spec 'cypress/features/[tests-type]/[featureFileName].feature'`.
-8. We have 3 test suites:
-  * Only build suite tests, which are running on Travis after every change/commit/push in the repository. To run use:`npm run test-cypress-build`;
-  * Only accessibility suite tests, which are running on TeamCity nightly and verifying do the components have the accessibility vulnerabilities. To run use:`npm run test-cypress-accessibility`;
-  * Regression test suite runs on TeamCity nightly and makes all regression tests. To use run: `npm run test-cypress-regression`.
+6. Run cypress using runner `npx cypress open` or `npm run test-cypress`, next select needed feature file.
+7. If you would like to run specific cypress tests in command line (headless browser for continuous integration) use: `npx cypress run --spec 'cypress/features/[tests-type]/[featureFileName].feature'`.
+  * to run on `chrome`/`firefox` browser add `--browser chrome` or `--browser firefox`. 
 
 ## Coding standards
 1. Use ESlint plugin to Visual Studio Code to make sure code format is preserved.
@@ -68,17 +65,15 @@ Use scenario tags:
 3. `@ignore` for temporarily ignored scenarios.
 4. `@[bug-number]` for example `@FE-1234` - use this tag after `@ignore` to explain why the test is ignored.
 5. `@ignore` and `@[bug-number]` should be removed after the bug fix.
-6. `@build` for the pipeline - each build is verified by those tests.
-7. `@accessibility` tests verify accessibility violations.
-8. `@validations` tests verify validation components.
-9. `@deprecated` tests verify deprecated components.
+6. `@accessibility` tests verify accessibility violations.
+7. `@validations` tests verify validation components.
+8. `@themes` tests verify themes colouristics.
 ## Files structure
 ```
 .
 ├── cypress
 │ ├── fixture
 │ ├── features
-│ │   ├── build
 │ │   ├── accessibility
 │ │   └── regression
 │ ├── locators
@@ -109,9 +104,11 @@ Always use unique selectors to locate elements with order below:
   * Knobs - `componentKnobs`.
 
 ## Continuous Integration (CI)
+Every commit / pull request in repository initializing cypress tests and runs:
 ### Travis
-Every commit / pull request in repository initializing cypress `@build` tests and runs:
+1. `npm run lint` - runs lint test
+2. `npm test` - runs jest tests.
+### GitHub Actions
 1. `npm start` - runs storybook.
-2. `npm run lint ./src && npm test -- --maxWorkers=2` - runs lint test and after that runs jest tests.
 3. `wait-on http://localhost:9001` - waits until storybook is up and running and is ready to run tests.
-4. `npm run test-cypress-build` - run `@build` tests suite.
+4. `npx cypress run --parallel --record` - run all tests suite.
