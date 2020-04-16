@@ -1,0 +1,17 @@
+# These owners will be the default owners for everything in
+# the repo. Unless a later match takes precedence,
+*     @sage/carbon
+
+# The Carbon Dev team are responsible for reviewing Pull Requests
+# that contain any change modifying JS or TS files
+*.js    @sage/carbon/carbon-dev
+*.ts    @sage/carbon/carbon-dev
+
+# The Carbon QA team are responsible for reviewing Pull Requests
+# that contain any change modifying only spec.js files or anything in
+# the cypress directory
+*.spec.js    @sage/carbon/carbon-qa
+/cypress/    @sage/carbon/carbon-qa
+
+# Codeowners file changes must be approved by a Carbon Admin.
+.github/CODEOWNERS @sage/carbon/carbon-admin
