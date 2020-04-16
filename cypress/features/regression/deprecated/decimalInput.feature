@@ -11,11 +11,8 @@ Feature: Deprecated Decimal component
     Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
 
   @positive
   @deprecated
@@ -24,11 +21,8 @@ Feature: Deprecated Decimal component
     Then label on preview is "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
 
   @positive
   @deprecated
@@ -49,11 +43,8 @@ Feature: Deprecated Decimal component
     Then tooltipPreview on preview is set to "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
 
   @positive
   @deprecated
@@ -77,7 +68,6 @@ Feature: Deprecated Decimal component
     Examples:
       | width |
       | 10    |
-      | 50    |
       | 100   |
       | 150   |
 
@@ -90,7 +80,6 @@ Feature: Deprecated Decimal component
     Examples:
       | width |
       | 10    |
-      | 50    |
       | 100   |
       | 150   |
 
@@ -112,8 +101,5 @@ Feature: Deprecated Decimal component
     Then Decimal label is not set to "<label>" for deprecated component
     Examples:
       | label                   |
-      | Sample text             |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |

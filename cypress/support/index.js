@@ -39,7 +39,7 @@ Cypress.Commands.overwrite(
   (originalFn, subject, string, options) => originalFn(
     subject,
     string,
-    Object.assign({}, options, { delay: 100 }),
+    Object.assign({}, options, { delay: 75 }),
   ),
 );
 
@@ -78,9 +78,5 @@ function getItem(selector, counter) {
 }
 
 Cypress.Commands.add('iFrame', (selector) => { getItem(selector, 50); });
-
-before(() => {
-  cy.wait(1000, { log: DEBUG_FLAG });
-});
 
 Cypress.Screenshot.defaults({ screenshotOnRunFailure: DEBUG_FLAG });

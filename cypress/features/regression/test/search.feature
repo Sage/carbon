@@ -10,11 +10,8 @@ Feature: Search component
     Then Search component placeholder is set to "<placeholder>"
     Examples:
       | placeholder             |
-      | Sample text             |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Verify inner text is set to <text> and threshold to <threshold> and search icon has golden border

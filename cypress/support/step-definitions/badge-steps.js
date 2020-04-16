@@ -19,7 +19,7 @@ Then('Badge component rendered properly', () => {
 
 Then('Badge component counter is set to {int}', (value) => {
   badgeCounter().invoke('show').should('be.visible').invoke('text')
-    .should('contain', value);
+    .and('contain', value);
 });
 
 Then('Badge component counter does not exist', () => {

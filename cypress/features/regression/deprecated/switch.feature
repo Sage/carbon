@@ -11,13 +11,8 @@ Feature: Deprecated Switch component
     Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   @deprecated
@@ -39,13 +34,8 @@ Feature: Deprecated Switch component
     Then label on preview is "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   @deprecated
@@ -68,7 +58,6 @@ Feature: Deprecated Switch component
     Examples:
       | width |
       | 1     |
-      | 10    |
       | 50    |
       | 150   |
 

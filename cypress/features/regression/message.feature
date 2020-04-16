@@ -15,14 +15,10 @@ Feature: Message component
     Then Message title on preview is set to "<title>"
     Examples:
       | title                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
-@positive
+  @positive
   Scenario Outline: Change type of Message component to <type>
     When I select type to "<type>"
     Then Message type on preview is "<typeResult>"
@@ -60,12 +56,8 @@ Feature: Message component
     Then Message children on preview is set to "<children>"
     Examples:
       | children                |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario: Enable on close state for a Message component

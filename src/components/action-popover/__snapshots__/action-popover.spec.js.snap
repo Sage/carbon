@@ -3873,6 +3873,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
 .c7 {
   position: absolute;
   right: 0px;
+  top: 8px;
 }
 
 .c7,
@@ -4618,6 +4619,7 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
 .c7 {
   position: absolute;
   right: 0px;
+  top: 8px;
 }
 
 .c7,

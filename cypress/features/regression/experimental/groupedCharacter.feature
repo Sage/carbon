@@ -60,12 +60,8 @@ Feature: Experimental GroupedCharacter component
     Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Set label to <label>
@@ -73,12 +69,8 @@ Feature: Experimental GroupedCharacter component
     Then label on preview is "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Set size to <size>
@@ -98,12 +90,8 @@ Feature: Experimental GroupedCharacter component
     Then tooltipPreview on preview is set to "<labelHelp>"
     Examples:
       | labelHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario: Enable label inline
