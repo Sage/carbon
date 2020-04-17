@@ -32,10 +32,11 @@ Feature: Accessibility tests
     Examples:
       | component             |
       | Advanced Color Picker |
+      | Inline-inputs         |
       | Numeral Date          |
       | Pager                 |
       | Search                |
-      | inline-inputs         |
+      | Toast                 |
 
   @accessibility
   Scenario Outline: Design System <component> component controlled page

@@ -1,14 +1,19 @@
 import styled, { css } from 'styled-components';
-import {
-  classicToastStyle,
-  classicToastTypeStyle,
-  classicToastContentStyle
-} from './toast-classic.style';
 import MessageStyle from '../message/message.style';
 import MessageContentStyle from '../message/message-content/message-content.style';
 import TypeIcon from '../message/type-icon/type-icon.style';
-import { isClassic } from '../../utils/helpers/style-helper';
 import StyledIconButton from '../icon-button/icon-button.style';
+import Portal from '../portal/portal';
+
+const StyledPortal = styled(Portal)`
+${({ isCenter }) => isCenter && css`
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  `}
+`;
 
 const animationName = '.toast';
 const ToastStyle = styled(MessageStyle)`
@@ -16,30 +21,27 @@ const ToastStyle = styled(MessageStyle)`
   line-height: 22px;
   margin-top: 30px;
   max-width: 300px;
-  position: ${({ isCenter }) => (isCenter ? '' : 'fixed')};
-  right: ${({ isCenter }) => (isCenter ? '0px' : '30px')};
-  top: 0;
+  position: relative;
+  margin-right: ${({ isCenter }) => (isCenter ? 'auto' : '30px')};
 
-  ${({ theme }) => !isClassic(theme) && css`
-    &${animationName}-appear,
-    &${animationName}-enter {
-      opacity: 0;
-      transform: scale(0.5)};
-    }
+  &${animationName}-appear,
+  &${animationName}-enter {
+    opacity: 0;
+    transform: scale(0.5)};
+  }
 
-    &${animationName}-appear.toast-appear-active,
-    &${animationName}-enter.toast-enter-active {
-      opacity: 1;
-      transform: ${({ isCenter }) => (isCenter ? ' scale(1) translateY(0)' : 'scale(1)')};
-      transition: all 300ms cubic-bezier(0.250, 0.250, 0.000, 1.500);
-    }
+  &${animationName}-appear.toast-appear-active,
+  &${animationName}-enter.toast-enter-active {
+    opacity: 1;
+    transform: ${({ isCenter }) => (isCenter ? ' scale(1) translateY(0)' : 'scale(1)')};
+    transition: all 300ms cubic-bezier(0.250, 0.250, 0.000, 1.500);
+  }
 
-    &${animationName}-exit.toast-exit-active {
-      opacity: 0;
-      transform: translateY(-20px);
-      transition: all 150ms ease-out;
-    }
-  `}
+  &${animationName}-exit.toast-exit-active {
+    opacity: 0;
+    margin-top: -40px;
+    transition: all 150ms ease-out;
+  }
 
   ${StyledIconButton} {
     position: absolute;
@@ -47,12 +49,6 @@ const ToastStyle = styled(MessageStyle)`
     top: 50%;
     transform: translateY(-50%);
   }
-
-  ${classicToastStyle}
-`;
-
-const ToastTypeStyle = styled(TypeIcon)`
-  ${classicToastTypeStyle};
 `;
 
 const ToastContentStyle = styled(MessageContentStyle)`
@@ -62,19 +58,21 @@ const ToastContentStyle = styled(MessageContentStyle)`
     && css`
       padding-right: 48px;
     `}
-
-  ${classicToastContentStyle};
 `;
 
 const ToastWrapper = styled.div`
   ${({ isCenter }) => isCenter && css`
-      position: fixed;
-      width: 100%;
-      height: 0;
+      position: relative;
+      width: auto;
+      height: auto;
       justify-content: center;
       display: flex;
   `}
 `;
 export {
-  ToastStyle, ToastTypeStyle, ToastContentStyle, ToastWrapper
+  ToastStyle,
+  TypeIcon,
+  ToastContentStyle,
+  ToastWrapper,
+  StyledPortal
 };
