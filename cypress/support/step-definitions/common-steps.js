@@ -10,6 +10,7 @@ import {
   precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
   knobsNameTab, fieldHelpPreviewByPosition, labelByPosition, dlsRoot,
   commonButtonPreviewNoIFrameRoot,
+  getDataElementByValue,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
@@ -219,12 +220,16 @@ When('I hover mouse onto icon', () => {
   icon().trigger('mouseover');
 });
 
-Then('I hover mouse onto {string} icon in iFrame', (name) => {
+Then('I hover mouse onto {string} icon in no iFrame', (name) => {
   getElementNoIframe(name).trigger('mouseover');
 });
 
 Then('I hover mouse onto {string} icon in no iFrame', (name) => {
   getDataElementByValueNoIframe(name).trigger('mouseover');
+});
+
+Then('I hover mouse onto {string} icon in iFrame', (name) => {
+  getDataElementByValue(name).trigger('mouseover');
 });
 
 Then('I hover mouse onto {string} {string} icon for validations component into iFrame', (position, name) => {
@@ -410,7 +415,7 @@ When('I click outside of the component in DLS directory', () => {
   dlsRoot().click();
 });
 
-When('I click above of the component into iFrame', () => {
+When('I click above of the component in no iFrame', () => {
   storyRootNoIframe().click('top');
 });
 
