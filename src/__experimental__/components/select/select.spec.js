@@ -14,6 +14,7 @@ import { Input } from '../input';
 import InputPresentationStyle from '../input/input-presentation.style';
 import StyledInput from '../input/input.style';
 import InputIconToggleStyle from '../input-icon-toggle/input-icon-toggle.style';
+import { ScrollableList } from '../../../components/scrollable-list';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -81,6 +82,14 @@ describe('Select', () => {
     list = listOf(openList(wrapper));
     expect(list.exists()).toBe(true);
     expect(list.props()).toMatchSnapshot();
+  });
+
+  it('sets the max height of the ScrollableList when the prop is set', () => {
+    const wrapper = renderWrapper({ props: { maxHeight: '150px' } });
+
+    let list = listOf(wrapper);
+    list = listOf(openList(wrapper));
+    expect(list.find(ScrollableList).props().maxHeight).toEqual('150px');
   });
 
   it('applies custom data-* attributes at the right level', () => {

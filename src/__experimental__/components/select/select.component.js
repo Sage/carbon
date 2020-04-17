@@ -422,6 +422,7 @@ class Select extends React.Component {
       typeAhead,
       filterable,
       transparent,
+      maxHeight,
       ...props
     } = this.props;
 
@@ -461,6 +462,7 @@ class Select extends React.Component {
               target={ this.input.current && this.input.current.parentElement }
               role='listbox'
               id={ this.listboxId }
+              maxHeight={ maxHeight }
             >
               { children }
             </SelectList>
@@ -488,7 +490,7 @@ Select.propTypes = {
   disabled: PropTypes.bool,
   /** Label text for the <Textbox> */
   label: PropTypes.string,
-  /** Flag to indicite whether select list is loopable while traversing using up and down keys */
+  /** Flag to indicate whether select list is loopable while traversing using up and down keys */
   isLoopable: PropTypes.bool,
   /** A custom callback for the <Textbox>'s Blur event */
   onBlur: PropTypes.func,
@@ -530,7 +532,9 @@ Select.propTypes = {
   /** Add additional child elements before the input */
   leftChildren: PropTypes.node,
   /** If true the component input has no border and is transparent */
-  transparent: PropTypes.bool
+  transparent: PropTypes.bool,
+  /** Sets the max height of the scrollable list */
+  maxHeight: PropTypes.string
 };
 
 Select.defaultProps = {

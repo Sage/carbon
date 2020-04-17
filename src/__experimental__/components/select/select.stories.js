@@ -43,6 +43,7 @@ const commonKnobs = (store, enableMultiSelect = false) => {
   const isLoopable = boolean('isLoopable', false);
   const preventFocusAutoOpen = boolean('preventFocusAutoOpen', false);
   const key = AutoFocus.getKey(autoFocus, previous);
+  const maxHeight = text('maxHeight', '');
 
   const knobs = {
     key,
@@ -67,7 +68,8 @@ const commonKnobs = (store, enableMultiSelect = false) => {
     autoFocus,
     label,
     isLoopable,
-    preventFocusAutoOpen
+    preventFocusAutoOpen,
+    maxHeight
   };
 
   if (label.length) {

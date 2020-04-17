@@ -120,6 +120,7 @@ Object {
   "filterValue": undefined,
   "id": "listbox-2",
   "isLoopable": undefined,
+  "maxHeight": undefined,
   "onLazyLoad": undefined,
   "onSelect": [Function],
   "open": true,

@@ -95,7 +95,8 @@ class SelectList extends React.Component {
       onMouseDown,
       onMouseEnter,
       onMouseLeave,
-      onSelect
+      onSelect,
+      maxHeight
     } = this.props;
 
     const filter = this.filter(filterValue, customFilter);
@@ -115,6 +116,7 @@ class SelectList extends React.Component {
             alwaysHighlight={ alwaysHighlight }
             isLoopable={ isLoopable }
             keyNavigation
+            maxHeight={ maxHeight }
           >
             {
               filter(children, (child) => {
@@ -169,7 +171,9 @@ SelectList.propTypes = {
   /** A callback for when a child is selected */
   onSelect: PropTypes.func,
   /** Target DOM element to position the dropdown menu list relative to */
-  target: PropTypes.object
+  target: PropTypes.object,
+  /** Sets the max height of the scrollable list */
+  maxHeight: PropTypes.string
 };
 
 export default SelectList;
