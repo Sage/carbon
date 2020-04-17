@@ -13,7 +13,6 @@ Feature: Deprecated GroupedCharacter component
       | inputWidth |
       | 0          |
       | 1          |
-      | 10         |
       | 100        |
 
   @negative
@@ -23,11 +22,8 @@ Feature: Deprecated GroupedCharacter component
     Then inputWidth is not set
     Examples:
       | inputWidth              |
-      | Sample text             |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   @deprecated
@@ -64,12 +60,8 @@ Feature: Deprecated GroupedCharacter component
     Then label on preview is "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   @deprecated
@@ -94,7 +86,6 @@ Feature: Deprecated GroupedCharacter component
       | labelWidth |
       | 0          |
       | 1          |
-      | 10         |
       | 100        |
 
   @positive
@@ -116,12 +107,8 @@ Feature: Deprecated GroupedCharacter component
     Then tooltipPreview on preview is set to "<labelHelp>"
     Examples:
       | labelHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   @deprecated
@@ -130,12 +117,8 @@ Feature: Deprecated GroupedCharacter component
     Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @ignore
   #not working on storybook neither carbon demo site

@@ -9,15 +9,11 @@ Feature: Experimental RadioButton monthly component
   @positive
   Scenario Outline: Change RadioButton component monthly label to <label>
     When I set group monthly label to "<label>"
-    Then "Second" radioButton on preview is "<label>"
+    Then "second" radioButton on preview is "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Change RadioButton component monthly help label to <labelHelp>
@@ -26,12 +22,9 @@ Feature: Experimental RadioButton monthly component
     Then tooltipPreview on preview is set to "<labelHelp>"
     Examples:
       | labelHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
+
 
   @positive
   Scenario Outline: Change RadioButton component monthly value to <monthlyValue>
@@ -39,12 +32,8 @@ Feature: Experimental RadioButton monthly component
     Then "monthly" RadioButton has value "<monthlyValue>"
     Examples:
       | monthlyValue            |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario: Disable RadioButton
@@ -80,15 +69,11 @@ Feature: Experimental RadioButton monthly component
   @positive
   Scenario Outline: Change RadioButton component field help to <fieldHelp>
     When I set group monthly fieldHelp to "<fieldHelp>"
-    Then "Second" fieldHelp on preview is set to "<fieldHelp>"
+    Then "second" fieldHelp on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario: Enable fieldHelpInline
@@ -106,11 +91,10 @@ Feature: Experimental RadioButton monthly component
   @positive
   Scenario Outline: Change RadioButton inputWidth to <width>
     When I set group monthly inputWidth slider to <width>
-    Then "Second" RadioButton "monthly" inputWidth is set to "<px>"
+    Then "second" RadioButton "monthly" inputWidth is set to "<px>"
     Examples:
       | width | px         |
       | 1     | 16         |
-      | 10    | 98.71875   |
       | 50    | 358.234375 |
 
   # pixels are adjusted for Travis build. For normal cypress test runner test should fail
@@ -122,13 +106,12 @@ Feature: Experimental RadioButton monthly component
     Examples:
       | width | px        |
       | 1     | 10.609375 |
-      | 50    | 530.5     |
       | 100   | 847.78125 |
 
   @positive
   Scenario Outline: Change RadioButton labelAlign to <direction>
     When I select group monthly labelAlign to "<direction>"
-    Then "Second" label Align on preview is "<direction>"
+    Then "second" label Align on preview is "<direction>"
     Examples:
       | direction |
       | left      |

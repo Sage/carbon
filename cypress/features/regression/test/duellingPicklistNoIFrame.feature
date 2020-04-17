@@ -36,8 +36,7 @@ Feature: Duelling Picklist Component
     Examples:
       | item | leftItems |
       | 1    | 19        |
-      | 5    | 15        |
-      | 10   | 10        |
+      | 20   | 0         |
 
   @positive
   Scenario: Add all items to Assigned picklist
@@ -54,7 +53,6 @@ Feature: Duelling Picklist Component
     Examples:
       | item |
       | 1    |
-      | 5    |
       | 10   |
 
   @positive
@@ -66,8 +64,8 @@ Feature: Duelling Picklist Component
       And assigned picklist has 0 items
     Examples:
       | key   |
-      | enter |
-      | space |
+      | Enter |
+      | Space |
 
   @positive
   Scenario Outline: Add element to assigned picklist after pressing <key> key
@@ -77,8 +75,8 @@ Feature: Duelling Picklist Component
       And unassigned picklist has 19 items
     Examples:
       | key   |
-      | enter |
-      | space |
+      | Enter |
+      | Space |
 
   @positive
   Scenario Outline: Verify that the <position> element in unassigned Duelling Picklist is focused using <key> key
@@ -87,9 +85,9 @@ Feature: Duelling Picklist Component
     Then focused element inner content is set to "<innerText>"
       And focused element has golden border outline "rgb(255, 181, 0) solid 2px"
     Examples:
-      | position | key       | innerText                |
-      | first    | uparrow   | Content 20Description 20 |
-      | last     | downarrow | Content 1Description 1   |
+      | position   | key       | innerText                |
+      | first      | uparrow   | Content 20Description 20 |
+      | nineteenth | downarrow | Content 1Description 1   |
 
   @positive
   Scenario Outline: Verify results of searching in duelling picklist

@@ -10,13 +10,8 @@ Feature: Experimental Textbox component
     Then Textbox placeholder is set to "<placeholder>"
     Examples:
       | placeholder             |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                    |
 
   @positive
   Scenario: Check disabled checkbox for a Textbox component
@@ -46,13 +41,8 @@ Feature: Experimental Textbox component
     Then fieldHelp is set to "<fieldHelp>"
     Examples:
       | fieldHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                  |
 
   @positive
   Scenario Outline: Set label to <label>
@@ -60,13 +50,8 @@ Feature: Experimental Textbox component
     Then label is set to "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                    |
 
   @positive
   Scenario Outline: Set labelHelp to <labelHelp>
@@ -76,13 +61,8 @@ Feature: Experimental Textbox component
     Then tooltipPreview on preview is set to "<labelHelp>"
     Examples:
       | labelHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                     |
 
   @positive
   Scenario: Enable labelInline checkbox for a Textbox component
@@ -106,9 +86,7 @@ Feature: Experimental Textbox component
     Examples:
       | labelWidth |
       | 0          |
-      | 1          |
       | 25         |
-      | 75         |
       | 100        |
 
   @positive
@@ -120,8 +98,6 @@ Feature: Experimental Textbox component
     Examples:
       | inputWidth |
       | 0          |
-      | 1          |
-      | 35         |
       | 50         |
       | 100        |
 
@@ -142,13 +118,8 @@ Feature: Experimental Textbox component
     Then Textbox input on preview is set to "<input>"
     Examples:
       | input                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                     |
 
   @positive
   Scenario Outline: Set label size to <size>

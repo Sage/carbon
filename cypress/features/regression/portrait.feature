@@ -10,13 +10,8 @@ Feature: Portrait default component
 		Then Portrait alt on preview is set to "<alt>"
 		Examples:
 			| alt                     |
-			| Sample text             |
-			| 1234567890              |
-			| áéíóú¿¡üñ               |
+			| mp150ú¿¡üßä             |
 			| !@#$%^*()_+-=~[];:.,?{} |
-			| ÄÖÜßäöüß                |
-		# @ignore because of FE-1447
-		# | <>                       |
 
 	# value which is rendering as src doesn't work properly for CI
 	# ignored regression

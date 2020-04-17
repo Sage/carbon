@@ -9,26 +9,18 @@ Feature: Decimal component
     When I set fieldHelp to "<fieldHelp>"
     Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
-      | fieldHelp                |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | fieldHelp               |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
 
   @positive
   Scenario Outline: Change Decimal component label to <label>
     When I set label to "<label>"
     Then label on preview is "<label>"
     Examples:
-      | label                    |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | label                   |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
 
   @positive
   Scenario Outline: Change Decimal input align to the <direction>
@@ -46,13 +38,9 @@ Feature: Decimal component
     When I hover mouse onto help icon
     Then tooltipPreview on preview is set to "<label>"
     Examples:
-      | label                    |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | label                   |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
 
   @positive
   Scenario: Change Decimal component label inline
@@ -69,10 +57,9 @@ Feature: Decimal component
     Then label width on preview is <width>
     Examples:
       | width |
-      |  0    |
-      |  10   |
-      |  50   |
-      |  100  |
+      | 0     |
+      | 10    |
+      | 100   |
 
   @positive
   Scenario Outline: Change Decimal component input width to <width>
@@ -82,10 +69,9 @@ Feature: Decimal component
     Then inputWidth on preview is <width>
     Examples:
       | width |
-      |  1    |
-      |  10   |
-      |  50   |
-      |  100  |
+      | 1     |
+      | 10    |
+      | 100   |
 
   @positive
   Scenario Outline: Change Decimal component label align to <labelAlign>
@@ -95,20 +81,17 @@ Feature: Decimal component
     Then label align on preview is set to "<labelAlign>"
     Examples:
       | labelAlign |
-      |  left      |
-      |  right     |
+      | left       |
+      | right      |
 
   @positive
   Scenario Outline: Check Decimal component input field will not accept characters except numbers to <label>
     When I set Decimal input to "<label>"
     Then Decimal label is not set to "<label>"
     Examples:
-      | label                    |
-      | Sample text              |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | label                   |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
 
   @positive
   Scenario: Disable Decimal component

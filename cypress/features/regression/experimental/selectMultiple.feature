@@ -14,10 +14,10 @@ Feature: Select multiple component
   Scenario: Disable and enable filterable for Select component
     When I uncheck filterable checkbox
       And I check filterable checkbox
-      And Type "Amber" text into input and select the value 
+      And Type "Amber" text into input and select the value
     Then Select multiple input 1 element and has "Amber" value
 
- @positive
+  @positive
   Scenario: Disable typeAhead for Select component
     Given I check typeAhead checkbox
     When I uncheck typeAhead checkbox
@@ -26,20 +26,16 @@ Feature: Select multiple component
   @positive
   Scenario: Enable typeAhead for Select component
     When I check typeAhead checkbox
-    Then Select typeAhead is enabled 
-  
+    Then Select typeAhead is enabled
+
   @positive
   Scenario Outline: Set Select label to <label>
     When I set label to "<label>"
     Then label is set to "<label>"
     Examples:
-      | label                    |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | label                   |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
 
   @positive
   Scenario: Disable Select
@@ -68,13 +64,9 @@ Feature: Select multiple component
     When I set placeholder to "<placeholder>"
     Then Select placeholder on preview is set to "<placeholder>"
     Examples:
-      | placeholder              |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | placeholder             |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
 
   @ignore
   # ignored because this functionality works only for modern theme
@@ -87,16 +79,16 @@ Feature: Select multiple component
       | medium |
       | large  |
 
- @positive
+  @positive
   Scenario: Verify the inner context of Select Multiple component
     When Type "Amber" text into input and select the value
-      And Type "Black" text into input and select the value 
-      And Type "Green" text into input and select the value 
+      And Type "Black" text into input and select the value
+      And Type "Green" text into input and select the value
     Then Select multiple input 1 element and has "Amber" value
       And Select multiple input 2 element and has "Black" value
       And Select multiple input 3 element and has "Green" value
-   
- @positive
+
+  @positive
   Scenario: Check the change function call for Select Multiple component
     Given clear all actions in Actions Tab
     When Type "Black" text into input and select the value

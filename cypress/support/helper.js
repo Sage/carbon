@@ -97,3 +97,59 @@ export async function asyncWaitForIcon(name) {
 export async function asyncWaitForKnobs(propertyName, fieldName) {
   await getKnobsInputWithName(propertyName, fieldName);
 }
+
+export function positionOfElement(type) {
+  return {
+    first: '0',
+    second: '1',
+    third: '2',
+    fourth: '3',
+    fifth: '4',
+    sixth: '5',
+    seventh: '6',
+    eighth: '7',
+    ninth: '8',
+    tenth: '9',
+    nineteenth: '19',
+  }[type];
+}
+
+export function positionOfPaginationButton(type) {
+  return {
+    first: '0',
+    previous: '1',
+    next: '2',
+    last: '3',
+  }[type];
+}
+
+export function themeColor(type) {
+  return {
+    primary: 'rgb(51, 91, 109)',
+    secondary: 'rgb(204, 214, 218)',
+    tertiary: 'rgba(0, 0, 0, 0)',
+  }[type];
+}
+
+export function tableHeaderSize(type) {
+  return {
+    compact: '25px',
+    small: '32px',
+    medium: '40px',
+    large: '48px',
+  }[type];
+}
+
+export function keyCode(type) {
+  return {
+    downarrow: { keyCode: 40, which: 40 },
+    uparrow: { keyCode: 38, which: 38 },
+    leftarrow: { keyCode: 37, which: 37 },
+    rightarrow: { keyCode: 39, which: 39 },
+    Enter: { keyCode: 13, which: 13 },
+    Space: { keyCode: 32, which: 32 },
+    Tab: { keyCode: 9, which: 9 },
+    Home: { keyCode: 36, which: 36 },
+    End: { keyCode: 35, which: 35 },
+  }[type];
+}

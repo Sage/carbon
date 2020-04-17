@@ -37,13 +37,8 @@ Feature: Deprecated Checkbox component
     Then label on preview is "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   @deprecated
@@ -53,13 +48,8 @@ Feature: Deprecated Checkbox component
     Then tooltipPreview on preview is set to "<labelHelp>"
     Examples:
       | labelHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   @deprecated
@@ -81,7 +71,6 @@ Feature: Deprecated Checkbox component
       | width |
       | -1    |
       | 0     |
-      | 51    |
       | 1000  |
 
   @positive
@@ -91,13 +80,8 @@ Feature: Deprecated Checkbox component
     Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   @deprecated
@@ -134,7 +118,6 @@ Feature: Deprecated Checkbox component
       | width |
       | -1    |
       | 0     |
-      | 51    |
       | 1000  |
 
   @positive
