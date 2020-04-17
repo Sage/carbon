@@ -36,7 +36,6 @@
     "babel": "cross-env NODE_ENV=production babel ./src --config-file ./babel.config.js --out-dir ./lib --ignore '**/*/__spec__.js','**/*.spec.js','**/__definition__.js' --quiet",
     "clean-lib": "rimraf ./lib",
     "copy-files": "cpx \"src/**/!(*.js|*.md|*.mdx|*.stories.*|*.snap|docgenInfo.json)\" lib",
-    "fixtures": "webpack-dev-server --config fixtures/webpack.config.js",
     "commit": "git-cz"
   },
   "repository": {
