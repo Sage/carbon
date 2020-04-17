@@ -1,0 +1,72 @@
+import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
+import NumeralDate from '.';
+
+<Meta title="Design System/Numeral Date" />
+
+# Numeral Date
+
+For dates far from today, use this Numeral Date component. It is advised to use Three inputs consisting of day, month, and year. 
+For dates close to today, we advise the use of a standard datepicker. If you require this, please see the "Date Input" component.
+
+## Quick Start
+Import `NumeralDate` into the project.
+
+```jsx
+import { NumeralDate } from "carbon-react/lib/components/numeral-date"
+
+const MyComponent = () => (
+  <NumeralDate dateFormat={['dd','mm','yyyy']} />
+);
+```
+
+Default Date Format
+<Preview>
+  <Story name="Default" parameters={{ info: { disable: true }}} >
+    <NumeralDate defaultValue="Numeral Date" dateFormat={['dd','mm','yyyy']}/>
+  </Story>
+</Preview>
+
+Custom Date Format
+<Preview>
+  <Story name="Custom" parameters={{ info: { disable: true }}} >
+    <NumeralDate defaultValue="Numeral Date" dateFormat={['mm','dd','yyyy']}/>
+  </Story>
+</Preview>
+
+Date Component has Error
+<Preview>
+  <Story name="Date Component has Error" parameters={{ info: { disable: true }}} >
+    <NumeralDate 
+    defaultValue="Numeral Date" 
+    dateFormat={['dd','mm','yyyy']}
+    inputIcon={'error'}
+    hasError
+    tooltipMessage={'This is an error message. It alerts the user to an error.'}/>
+  </Story>
+</Preview>
+
+Date Component has Warning
+<Preview>
+  <Story name="Date Component has Warning" parameters={{ info: { disable: true }}} >
+    <NumeralDate 
+    defaultValue="Numeral Date" 
+    dateFormat={['dd','mm','yyyy']}
+    inputIcon={'warning'} 
+    hasWarning
+    tooltipMessage={'This is an error message. It alerts the user to an error.'}/>
+  </Story>
+</Preview>
+
+Date Component has Info
+<Preview>
+  <Story name="Date Component has Info" parameters={{ info: { disable: true }}} >
+    <NumeralDate 
+    defaultValue="Numeral Date" 
+    dateFormat={['dd','mm','yyyy']} 
+    inputIcon={'info'} 
+    hasInfo
+    tooltipMessage={'This is an error message. It alerts the user to an error.'}/>
+  </Story>
+</Preview>
+
+<Props of={NumeralDate} />
