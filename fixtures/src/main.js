@@ -1,6 +1,6 @@
 import React from 'react';
-import { Route } from 'react-router';
-import { startRouter } from 'carbon-react/lib/utils/router';
+import { Router, Route, browserHistory } from 'react-router';
+import ReactDOM from 'react-dom';
 
 // Loads base css from carbon:
 import 'carbon-react/lib/utils/css';
@@ -89,39 +89,56 @@ const routes = {
   }
 };
 
+let isInitial = true;
+const onRouteUpdate = () => {
+  global.window.scrollTo(0, 0);
 
-startRouter(
-  [
-    <Route
-      key='0' path='/'
-      component={ Index }
-      routes={ routes }
-    />,
-    <Route
-      key='1' path='/'
-      component={ Chrome }
-    >
-      {Object.keys(routes).filter(key => routes[key].controlled).map((key) => {
-        const path = `/controlled/${key}`;
-        return (
-          <Route
-            key={ path } path={ path }
-            component={ routes[key].controlled }
-          />
-        );
-      })}
-      {Object.keys(routes).filter(key => routes[key].uncontrolled).map((key) => {
-        const path = `/uncontrolled/${key}`;
-        return (
-          <Route
-            key={ path } path={ path }
-            component={ routes[key].uncontrolled }
-          />
-        );
-      })}
-    </Route>
-  ]
-);
+  if (isInitial) {
+    isInitial = false;
+    return;
+  }
+
+  if (global.ga) {
+    global.ga('set', 'page', global.location.pathname);
+    global.ga('send', 'pageview');
+  }
+};
+
+ReactDOM.render((
+  <Router onUpdate={ onRouteUpdate } history={ browserHistory }>
+    { [
+      <Route
+        key='0' path='/'
+        component={ Index }
+        routes={ routes }
+      />,
+      <Route
+        key='1' path='/'
+        component={ Chrome }
+      >
+        {Object.keys(routes).filter(key => routes[key].controlled).map((key) => {
+          const path = `/controlled/${key}`;
+          return (
+            <Route
+              key={ path } path={ path }
+              component={ routes[key].controlled }
+            />
+          );
+        })}
+        {Object.keys(routes).filter(key => routes[key].uncontrolled).map((key) => {
+          const path = `/uncontrolled/${key}`;
+          return (
+            <Route
+              key={ path } path={ path }
+              component={ routes[key].uncontrolled }
+            />
+          );
+        })}
+      </Route>
+    ] }
+  </Router>
+), document.getElementById('app'));
+
 
 // Enables hot reloading through webpack:
 if (module.hot) {
