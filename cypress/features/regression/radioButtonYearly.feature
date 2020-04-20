@@ -103,9 +103,9 @@ Feature: Experimental RadioButton yearly component
       And I set group yearly labelWidth slider to <width>
     Then "yearly" RadioButton label width is set to "<px>"
     Examples:
-      | width | px        |
-      | 1     | 10.609375 |
-      | 100   | 847.78125 |
+      | width | px         |
+      | 1     | 10.609375  |
+      | 100   | 844.671875 |
 
   @positive
   Scenario Outline: Change RadioButton label align to <direction>
