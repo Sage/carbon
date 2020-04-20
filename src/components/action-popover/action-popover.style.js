@@ -72,7 +72,7 @@ const MenuButton = styled.div`
   && ${StyledIcon} {
     cursor: pointer;
   }
-  display: table;
+  width: fit-content;
   margin: auto;
   ${({ isOpen, theme }) => (isOpen && `background-color: ${theme.colors.white}`)}
   &:hover, &:focus {

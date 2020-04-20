@@ -1,3 +1,17 @@
+### [17.1.1](https://github.com/Sage/carbon/compare/v17.1.0...v17.1.1) (2020-04-20)
+
+
+### Bug Fixes
+
+* **action-popover:** remove display style attr and add width to menu btn ([cca36fe](https://github.com/Sage/carbon/commit/cca36feb0009540f361de8502f3b9f5fb32dc5f4))
+
+## [17.1.0](https://github.com/Sage/carbon/compare/v17.0.0...v17.1.0) (2020-04-17)
+
+
+### Features
+
+* **numeral date:** create numeral date component ([12f12d3](https://github.com/Sage/carbon/commit/12f12d3a0ee81d6744e28d91a6d99c9c7a061d6e))
+
 ## [17.0.0](https://github.com/Sage/carbon/compare/v16.8.2...v17.0.0) (2020-04-17)
 
 

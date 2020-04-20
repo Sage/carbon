@@ -1,5 +1,6 @@
 export default (palette) => {
   const { atOpacity } = palette,
+
       blackWithOpacity = atOpacity('#000000'),
       baseWithOpacity = atOpacity(palette.productGreen);
 
@@ -11,7 +12,6 @@ export default (palette) => {
     colors: {
       // main
       base: palette.productGreen,
-
       primary: palette.genericGreenTint(15),
       secondary: palette.genericGreenShade(35),
       tertiary: palette.genericGreenShade(55),
@@ -42,7 +42,6 @@ export default (palette) => {
         hover: palette.errorRedShade(20)
       }
     },
-
 
     anchorNavigation: {
       divider: palette.slateTint(80),
@@ -156,6 +155,11 @@ export default (palette) => {
 
     popoverContainer: {
       iconColor: 'rgba(0,0,0,0.90)'
+    },
+
+    numeralDate: {
+      passive: '#668592',
+      error: '#C7384F'
     },
 
     portrait: {
