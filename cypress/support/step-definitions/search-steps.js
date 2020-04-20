@@ -1,8 +1,7 @@
 import {
   searchComponent, searchInput, searchInnerIcon, searchIcon, searchInputNoiFrame,
 } from '../../locators/search';
-
-const FIRST_ELEMENT = 1;
+import { positionOfElement } from '../helper';
 
 Then('Search component placeholder is set to {string}', (placeholder) => {
   searchInput().should('have.attr', 'placeholder', placeholder);
@@ -18,13 +17,14 @@ When('Type {string} text into search input in no iFrame', (text) => {
 
 Then('Search component has input and {string} as icon', (iconType) => {
   searchInput().should('have.attr', 'data-element', 'input').and('be.visible');
-  searchInnerIcon().eq(FIRST_ELEMENT).should('have.attr', 'data-component', 'icon').and('be.visible')
+  searchInnerIcon().eq(positionOfElement('second')).should('have.attr', 'data-component', 'icon')
+    .and('be.visible')
     .and('have.attr', 'data-element', iconType)
     .and('be.visible');
 });
 
 Then('I click on cross icon', () => {
-  searchInnerIcon().eq(FIRST_ELEMENT).click();
+  searchInnerIcon().eq(positionOfElement('second')).click();
 });
 
 When('search input is empty', () => {

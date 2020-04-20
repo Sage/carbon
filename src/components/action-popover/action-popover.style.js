@@ -8,6 +8,7 @@ import StyledIcon from '../icon/icon.style';
 import {
   MenuClassic, MenuItemClassic, MenuButtonClassic, SubMenuItemIconClassic
 } from './action-popover-classic.style';
+import { isSafari } from '../../utils/helpers/browser-type-check';
 
 const Menu = styled.div`
   ${({ isOpen }) => (isOpen ? 'display: block;' : 'visibility: hidden;')}
@@ -71,7 +72,7 @@ const MenuButton = styled.div`
   && ${StyledIcon} {
     cursor: pointer;
   }
-  display: table;
+  width: fit-content;
   margin: auto;
   ${({ isOpen, theme }) => (isOpen && `background-color: ${theme.colors.white}`)}
   &:hover, &:focus {
@@ -123,6 +124,7 @@ const SubMenuItemIcon = styled(iconThemeProviderFactory(() => 'inherit')(Icon))`
 
     ${type === 'chevron_right' && css`
       right: 0px;
+      ${isSafari(navigator) && css`top: ${theme.spacing}px;`}
     `}
   `}
 

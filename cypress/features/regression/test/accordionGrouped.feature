@@ -7,7 +7,7 @@ Feature: Accordion grouped component
   @positive
   Scenario Outline: Navigate through all grouped accordion rows using downarrow key
     Given I focus first accordionRow
-    When I press keyboard downarrow key <count> times
+    When I press keyboard "downarrow" key times <count>
     Then Accordion <accordion> row is focused
     Examples:
       | count | accordion |
@@ -24,6 +24,6 @@ Feature: Accordion grouped component
 
   @positive
   Scenario: Navigate to the first grouped accordion row using Home key
-    Given I focus last accordionRow
+    Given I focus third accordionRow
     When I press "Home" onto focused element
     Then Accordion 0 row is focused

@@ -8,7 +8,8 @@ export interface ButtonProps {
   styleOverride?: {
     root?: () => object | object;
     icon?: () => object | object;
-   };
+  };
+  renderRouterLink?: (args: object) => React.ReactNode;
 }
 declare const Button: React.ComponentType<ButtonProps & React.HTMLProps<HTMLButtonElement>>;
 export default Button;

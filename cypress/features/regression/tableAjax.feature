@@ -25,11 +25,8 @@ Feature: Table Ajax component
       | pageSizeRecords         |
       | -1                      |
       | -10                     |
-      | Sample text             |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   @ignore
@@ -55,9 +52,5 @@ Feature: Table Ajax component
     Then getCustomHeaders is set to "<getCustomHeaders>"
     Examples:
       | getCustomHeaders        |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |

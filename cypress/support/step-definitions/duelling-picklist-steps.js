@@ -4,6 +4,7 @@ import {
   picklistDivider,
 } from '../../locators/duelling-picklist/index';
 import { checkboxRoleNoIFrame } from '../../locators/checkbox/index';
+import { positionOfElement } from '../helper';
 
 Then('unassigned picklist has {int} items', (items) => {
   unassignedPicklistItems().should('have.length', items);
@@ -72,15 +73,7 @@ When('I remove {int} item(s) from assigned picklist', () => {
 });
 
 Then('I check {string} element in unassigned picklist', (position) => {
-  switch (position) {
-    case 'first':
-      unassignedPicklistItems().eq(0).focus();
-      break;
-    case 'last':
-      unassignedPicklistItems().eq(19).focus();
-      break;
-    default: throw new Error('Only first or last element could be checked');
-  }
+  unassignedPicklistItems().eq(positionOfElement(position)).focus();
 });
 
 Then('element inner content is set to {string}', (text) => {

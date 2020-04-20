@@ -9,44 +9,35 @@ Feature: InlineInputs component
     When I set label to "<label>"
     Then label on preview is "<label>"
     Examples:
-      | label                    |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | label                   |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
 
   @positive
   Scenario Outline: Change first inline input to <label>
     When I set 1st inline input to "<label>"
     Then 1st inline input on preview is "<label>"
     Examples:
-      | label                    |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | label                   |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
 
   @positive
   Scenario Outline: Change second inline input to <input>
     When I set 2nd inline input to "<input>"
     Then 2nd inline input on preview is "<input>"
     Examples:
-      | input                    |
-      | 99999                    |
-      | 1234567890               |
-      | 0                        |
+      | input      |
+      | 99999      |
+      | 1          |
 
   @positive
   Scenario Outline: Change third inline input element select to <select>
     When I set 3rd inline input to "<select>"
     Then 3rd inline input on preview is "<select>"
     Examples:
-      | select  |
-      | Brown   |
-      | Green   |
-      | Orange  |
-      | Yellow  |
+      | select |
+      | Brown  |
+      | Green  |
+      | Orange |
+      | Yellow |

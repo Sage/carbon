@@ -11,13 +11,8 @@ Feature: Deprecated Simple Color Picker component
     Then Simple Color Picker name on preview is set to "<name>"
     Examples:
       | name                    |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @ignore
   # this functionality doesn't work on Electron / IE

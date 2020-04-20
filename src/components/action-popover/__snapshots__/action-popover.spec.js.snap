@@ -76,7 +76,9 @@ exports[`ActionPopover styles renders correctly for the "classic" theme 2`] = `
 exports[`ActionPopover styles renders correctly for the "classic" theme 3`] = `
 .c0 {
   position: relative;
-  display: table;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
   margin: auto;
 }
 
@@ -3873,6 +3875,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
 .c7 {
   position: absolute;
   right: 0px;
+  top: 8px;
 }
 
 .c7,
@@ -4618,6 +4621,7 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
 .c7 {
   position: absolute;
   right: 0px;
+  top: 8px;
 }
 
 .c7,

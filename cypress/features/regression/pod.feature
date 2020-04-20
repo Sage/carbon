@@ -21,13 +21,8 @@ Feature: Pod component
     Then Pod children on preview is set to "<children>"
     Examples:
       | children                |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario Outline: Set Pod padding to <padding>
@@ -59,13 +54,8 @@ Feature: Pod component
     Then Pod title on preview is set to "<title>"
     Examples:
       | title                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario Outline: Change Pod subtitle to <subtitle>
@@ -74,13 +64,8 @@ Feature: Pod component
     Then Pod subtitle on preview is set to "<subtitle>"
     Examples:
       | subtitle                |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario Outline: Change Pod alignTitle to <alignTitle>
@@ -103,13 +88,8 @@ Feature: Pod component
     Then Pod description on preview is set to "<description>"
     Examples:
       | description             |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario Outline: Change Pod footer to <footer>
@@ -117,13 +97,8 @@ Feature: Pod component
     Then Pod footer on preview is set to "<footer>"
     Examples:
       | footer                  |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario: Enable and disable onEdit checkbox for a Pod component
@@ -142,8 +117,8 @@ Feature: Pod component
       And clear all actions in Actions Tab
     When I click onEdit icon
     Then edit action was called in Actions Tab
-  
-  # width is properly for CI  
+
+  # width is properly for CI
   @positive
   Scenario: Enable onEdit checkbox and check the editContentFullWidth checkbox
     Given I check onEdit checkbox

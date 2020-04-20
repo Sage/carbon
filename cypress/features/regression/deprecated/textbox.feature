@@ -11,13 +11,8 @@ Feature: Deprecated Textbox component
     Then fieldHelp is set to "<fieldHelp>"
     Examples:
       | fieldHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  #     # @ignore because of FE-1447
-  #     # | <>                  |
 
   @positive
   @deprecated
@@ -26,13 +21,8 @@ Feature: Deprecated Textbox component
     Then label is set to "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                    |
 
   @positive
   @deprecated
@@ -43,13 +33,8 @@ Feature: Deprecated Textbox component
     Then tooltipPreview on preview is set to "<labelHelp>"
     Examples:
       | labelHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                     |
 
   @positive
   @deprecated
@@ -73,7 +58,6 @@ Feature: Deprecated Textbox component
     Examples:
       | labelWidth |
       | 1          |
-      | 125        |
       | 299        |
       | 300        |
 
@@ -86,7 +70,6 @@ Feature: Deprecated Textbox component
     Examples:
       | inputWidth |
       | 1          |
-      | 135        |
       | 299        |
       | 300        |
 
@@ -108,10 +91,5 @@ Feature: Deprecated Textbox component
     Then Textbox input on preview is set to "<input>" for deprecated component
     Examples:
       | input                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-# @ignore because of FE-1447
-# | <>                     |

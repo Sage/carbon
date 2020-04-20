@@ -91,13 +91,8 @@ Feature: Table With Inputs component
     Then caption is set to "<caption>"
     Examples:
       | caption                 |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <> |
 
   @positive
   Scenario Outline: TotalRecords is set to <totalRecords> items
@@ -107,10 +102,8 @@ Feature: Table With Inputs component
     Examples:
       | totalRecords |
       | 0            |
-      | 10           |
       | 100          |
       | 99999999     |
-      | -1           |
       | -10          |
 
   @positive
@@ -126,11 +119,8 @@ Feature: Table With Inputs component
     Then totalRecords is set to "" items
     Examples:
       | totalRecords            |
-      | Sample text             |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Set theme to <theme>
@@ -138,9 +128,9 @@ Feature: Table With Inputs component
     Then theme on preview is "<theme>"
     Examples:
       | theme     |
-			| primary   |
-			| secondary |
-			| tertiary  |
+      | primary   |
+      | secondary |
+      | tertiary  |
 
   @positive
   Scenario Outline: Change Table header size to <size>
@@ -187,11 +177,8 @@ Feature: Table With Inputs component
       | pageSizeRecords         |
       | -1                      |
       | -10                     |
-      | Sample text             |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Page size records is set to <pageSizeRecords>

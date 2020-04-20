@@ -5,7 +5,7 @@ Feature: Action Popover component
     Given I open "Test Action Popover" component page
       And I click the menu button element
       And clear all actions in Actions Tab
-      
+
   @positive
   Scenario: check email event
     When I click 1 actionPopoverInnerItem
@@ -22,18 +22,18 @@ Feature: Action Popover component
     Then delete action was called in Actions Tab
 
   @positive
-  Scenario: check email event after pressing enter key
-    When I press "enter" onto 1 actionPopoverInnerItem
+  Scenario: check email event after pressing Enter key
+    When I press "Enter" onto 1 actionPopoverInnerItem
     Then email action was called in Actions Tab
 
   @positive
-  Scenario: check csv event after pressing enter key
-    When I press "enter" onto 4 actionPopoverInnerItem
+  Scenario: check csv event after pressing Enter key
+    When I press "Enter" onto 4 actionPopoverInnerItem
     Then csv action was called in Actions Tab
 
   @positive
-  Scenario: check delete event after pressing enter key
-    When I press "enter" onto 6 actionPopoverInnerItem
+  Scenario: check delete event after pressing Enter key
+    When I press "Enter" onto 6 actionPopoverInnerItem
     Then delete action was called in Actions Tab
 
   @positive
@@ -46,8 +46,8 @@ Feature: Action Popover component
       | sub menu 2 | 1            |
 
   @positive
-  Scenario Outline: check <innerText> event for submenu after pressing enter key
-    When I press enter onto <innerElement> submenu actionPopoverInnerItem
+  Scenario Outline: check <innerText> event for submenu after pressing Enter key
+    When I press Enter onto <innerElement> submenu actionPopoverInnerItem
     Then "<innerText>" action was called in Actions Tab for actionPopover
     Examples:
       | innerText  | innerElement |
