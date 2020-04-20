@@ -43,6 +43,8 @@ Cypress.Commands.overwrite(
   ),
 );
 
+Cypress.Commands.overwrite('log', (subject, message) => cy.task('log', message));
+
 Cypress.Commands.add('radioButtonComponent', (radioButtonLabel) => {
   radioButtonComponent().each(($el) => {
     const labelText = $el.find('label').text();

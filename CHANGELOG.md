@@ -1,3 +1,26 @@
+## [17.1.0](https://github.com/Sage/carbon/compare/v17.0.0...v17.1.0) (2020-04-17)
+
+
+### Features
+
+* **numeral date:** create numeral date component ([12f12d3](https://github.com/Sage/carbon/commit/12f12d3a0ee81d6744e28d91a6d99c9c7a061d6e))
+
+## [17.0.0](https://github.com/Sage/carbon/compare/v16.8.2...v17.0.0) (2020-04-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **deps-dev:** react-router is no longer a dependency and the `router.js` util,
+including the startRouter function has been removed from the code base as it
+relied on react-router v3. Consuming projects are now required to install their
+own routing solution, in order for the `Button` and `Link` components to work as
+previously when passing in a `to` prop, a routing link component must also be
+passed in via renderProps
+
+### Miscellaneous Chores
+
+* **deps-dev:** move react router to dev dep and delete router util ([a7fc8a9](https://github.com/Sage/carbon/commit/a7fc8a9b864ea86309555d09a50b3725543cecb5))
+
 ### [16.8.2](https://github.com/Sage/carbon/compare/v16.8.1...v16.8.2) (2020-04-10)
 
 

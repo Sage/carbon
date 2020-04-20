@@ -128,8 +128,8 @@ exports[`Link when component has classic theme should render correct style 1`] =
   <a
     onClick={[Function]}
     onKeyDown={[Function]}
-    style={Object {}}
     tabIndex="0"
+    to="foo"
   >
     <span
       className="carbon-link__content"
@@ -233,8 +233,8 @@ exports[`Link when component has classic theme should render correct style when 
     disabled={true}
     onClick={[Function]}
     onKeyDown={[Function]}
-    style={Object {}}
     tabIndex="-1"
+    to="foo"
   >
     <span
       className="carbon-link__content"
