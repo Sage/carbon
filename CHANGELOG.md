@@ -1,3 +1,10 @@
+### [17.1.2](https://github.com/Sage/carbon/compare/v17.1.1...v17.1.2) (2020-04-20)
+
+
+### Bug Fixes
+
+* **tabs:** padding and outline styling to match dls ([a5f03c4](https://github.com/Sage/carbon/commit/a5f03c401b071b8dd270d1dcea3533694ecf0049))
+
 ### [17.1.1](https://github.com/Sage/carbon/compare/v17.1.0...v17.1.1) (2020-04-20)
 
 
