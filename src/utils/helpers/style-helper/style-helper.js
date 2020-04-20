@@ -1,6 +1,9 @@
-import { classicTheme } from '../../../style/themes';
+import { aegeanTheme, classicTheme, mintTheme } from '../../../style/themes';
 
-// eslint-disable-next-line import/prefer-default-export
 export function isClassic({ name }) {
   return name === classicTheme.name;
+}
+
+export function isDLS({ name }) {
+  return name === mintTheme.name || name === aegeanTheme.name;
 }
