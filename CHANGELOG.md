@@ -1,3 +1,10 @@
+### [17.2.2](https://github.com/Sage/carbon/compare/v17.2.1...v17.2.2) (2020-04-21)
+
+
+### Bug Fixes
+
+* **row:** allow number prop type for columns, columnSpan, columnOffset ([f9657f7](https://github.com/Sage/carbon/commit/f9657f7384308ae31c235ba08f60bf8c5dee09ab))
+
 ### [17.2.1](https://github.com/Sage/carbon/compare/v17.2.0...v17.2.1) (2020-04-21)
 
 
