@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
 import baseTheme from '../../style/themes/base';
-import { StyledFormFooter } from '../../__deprecated__/components/form/form.style';
+import StyledDeprecatedForm, { StyledFormFooter as StyledDeprecatedFormFooter }
+  from '../../__deprecated__/components/form/form.style';
+import { StyledForm, StyledFormFooter } from '../form/form.style';
 import StyledIconButton from '../icon-button/icon-button.style';
 
 const dialogSizes = {
@@ -36,16 +38,27 @@ const DialogStyle = styled.div`
   ${({ height }) => height && css`
     min-height: ${height - 40}px;
 
-    .carbon-form {
-      padding-bottom: 80px;
+    ${StyledDeprecatedForm}, ${StyledForm} {
+      min-height: inherit;
+      padding-bottom: 88px;
+      box-sizing: border-box;
     }
 
-    ${StyledFormFooter} {
+    ${StyledDeprecatedFormFooter}, ${StyledFormFooter} {
       bottom: 0px;
       position: absolute;
       width: 100%;
     }
   `};
+
+  ${({ size }) => css`
+    ${StyledFormFooter}.isSticky {
+      margin-left: -35px;
+      left: auto;
+      width: ${dialogSizes[size]};
+      position: fixed;
+    }
+  `}
 
   ${({ fixedBottom }) => fixedBottom && css`
       bottom: 0;
@@ -53,7 +66,7 @@ const DialogStyle = styled.div`
   `}
 
   ${({ fixedBottom, stickyFormFooter, size }) => fixedBottom && stickyFormFooter && css`
-      ${StyledFormFooter} {
+      ${StyledDeprecatedFormFooter} {
         box-sizing: border-box;
         animation: form-buttons-animate-in 0.25s ease-out;
         background-color: white;
