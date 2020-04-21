@@ -1,3 +1,10 @@
+### [17.2.1](https://github.com/Sage/carbon/compare/v17.2.0...v17.2.1) (2020-04-21)
+
+
+### Bug Fixes
+
+* **flat-table:** update hover color for flat table row and cell ([ba68e91](https://github.com/Sage/carbon/commit/ba68e91d9d2c5b4aea3f36188e492f4c04b9b6a0))
+
 ## [17.2.0](https://github.com/Sage/carbon/compare/v17.1.2...v17.2.0) (2020-04-21)
 
 
