@@ -204,7 +204,7 @@ describe('ConfigurableItemRowStyle', () => {
   describe('when classic theme is provided to the component', () => {
     it('should render correct styles', () => {
       assertStyleMatch({
-        borderBottom: '1px solid #CCD6DA',
+        borderBottom: '1px solid #CCD6DB',
         padding: '0.5em 0.5em 0.7em'
       }, mount(<ConfigurableItemRowStyle theme={ classicTheme } />));
     });

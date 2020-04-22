@@ -51,7 +51,7 @@ exports[`ActionPopover styles renders correctly for the "classic" theme 2`] = `
 
 .c0:focus,
 .c0:hover {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c0:focus {
@@ -187,7 +187,7 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
 
 .c1:focus,
 .c1:hover {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c1:focus {
@@ -318,7 +318,7 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
 
 .c5,
 .c5:hover {
-  color: #668491;
+  color: #668592;
 }
 
 .c2 {
@@ -387,7 +387,7 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
 
 .c0:focus,
 .c0:hover {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c0:focus {
@@ -932,7 +932,7 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
 
 .c1:focus,
 .c1:hover {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c1:focus {
@@ -1063,7 +1063,7 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
 
 .c5,
 .c5:hover {
-  color: #668491;
+  color: #668592;
 }
 
 .c2 {
@@ -1132,7 +1132,7 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
 
 .c0:focus,
 .c0:hover {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c0:focus {
@@ -1677,7 +1677,7 @@ exports[`ActionPopover submenu left aligned does not close the submenu unless ri
 
 .c1:focus,
 .c1:hover {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c1:focus {
@@ -1872,7 +1872,7 @@ exports[`ActionPopover submenu left aligned does not close the submenu unless ri
 
 .c1:focus,
 .c1:hover {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c1:focus {
@@ -2258,7 +2258,7 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
 
 .c1:focus,
 .c1:hover {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c1:focus {
@@ -2389,7 +2389,7 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
 
 .c5,
 .c5:hover {
-  color: #668491;
+  color: #668592;
 }
 
 .c2 {
@@ -2458,7 +2458,7 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
 
 .c0:focus,
 .c0:hover {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c0:focus {
@@ -3003,7 +3003,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
 
 .c1:focus,
 .c1:hover {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c1:focus {
@@ -3134,7 +3134,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
 
 .c5,
 .c5:hover {
-  color: #668491;
+  color: #668592;
 }
 
 .c2 {
@@ -3203,7 +3203,7 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
 
 .c0:focus,
 .c0:hover {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c0:focus {
@@ -3748,7 +3748,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
 
 .c1:focus,
 .c1:hover {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c1:focus {
@@ -3880,7 +3880,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
 
 .c7,
 .c7:hover {
-  color: #668491;
+  color: #668592;
 }
 
 .c2 {
@@ -3949,7 +3949,7 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
 
 .c0:focus,
 .c0:hover {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c0:focus {
@@ -4494,7 +4494,7 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
 
 .c1:focus,
 .c1:hover {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c1:focus {
@@ -4626,7 +4626,7 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
 
 .c7,
 .c7:hover {
-  color: #668491;
+  color: #668592;
 }
 
 .c2 {
@@ -4695,7 +4695,7 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
 
 .c0:focus,
 .c0:hover {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c0:focus {

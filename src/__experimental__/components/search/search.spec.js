@@ -23,7 +23,7 @@ describe('Search', () => {
   describe('styles', () => {
     it('matches the expected styles', () => {
       assertStyleMatch({
-        borderBottom: '2px solid #CCD6DA',
+        borderBottom: '2px solid #CCD6DB',
         display: 'inline-flex',
         fontSize: '14px',
         fontWeight: '700'

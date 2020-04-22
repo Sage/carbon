@@ -6,7 +6,7 @@ exports[`TabsHeader renders as expected 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  box-shadow: inset 0px -2px 0px 0px #E5EAEC;
+  box-shadow: inset 0px -2px 0px 0px #E6EBED;
   cursor: pointer;
   list-style: none;
   margin: 0 0 10px;

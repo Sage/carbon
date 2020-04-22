@@ -1,11 +1,11 @@
 {
     "button-toggle": {
-        "mint": "rgb(0, 63, 46)",
-        "aegean": "rgb(0, 67, 114)",
-        "none": "rgb(0, 68, 0)"
+        "mint": "rgb(0, 64, 46)",
+        "aegean": "rgb(0, 68, 114)",
+        "none": "rgb(0, 69, 0)"
     },
     "common": {
-        "mint": "rgb(0, 128, 93)",
+        "mint": "rgb(0, 129, 93)",
         "aegean": "rgb(0, 115, 194)",
         "none": "rgb(38, 168, 38)"
     },

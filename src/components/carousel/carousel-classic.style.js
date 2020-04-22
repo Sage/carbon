@@ -4,7 +4,7 @@ import { isClassic } from '../../utils/helpers/style-helper';
 const CarouselButtonStyleClassic = (({ theme }) => isClassic(theme) && css`
   width: 45px; 
   height: 45px;
-  background-color: #CCD6DA;
+  background-color: #CCD6DB;
   color: rgba(0,0,0, 0.85);
 
   :hover{

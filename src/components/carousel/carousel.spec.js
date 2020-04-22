@@ -603,7 +603,7 @@ describe('CarouselButtonStyle', () => {
     assertStyleMatch({
       width: '45px',
       height: '45px',
-      backgroundColor: '#CCD6DA',
+      backgroundColor: '#CCD6DB',
       color: 'rgba(0,0,0,0.85)'
     }, wrapper);
   });

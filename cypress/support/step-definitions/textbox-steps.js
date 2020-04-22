@@ -57,8 +57,8 @@ Then('Textbox multiple component is not disabled', () => {
 
 Then('Textbox component is readOnly', () => {
   cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
-  const borderColor = 'rgb(204, 214, 218)';
-  textbox().should('have.css', 'background-color', 'rgb(249, 250, 251)')
+  const borderColor = 'rgb(204, 214, 219)';
+  textbox().should('have.css', 'background-color', 'rgb(250, 251, 251)')
     .and('have.css', 'border-bottom-color', borderColor)
     .and('have.css', 'border-left-color', borderColor)
     .and('have.css', 'border-right-color', borderColor)
@@ -66,8 +66,8 @@ Then('Textbox component is readOnly', () => {
 });
 
 Then('Textbox multiple component is readOnly', () => {
-  const borderReadonlyColor = 'rgb(204, 214, 218)';
-  const backgroundColor = 'rgb(249, 250, 251)';
+  const borderReadonlyColor = 'rgb(204, 214, 219)';
+  const backgroundColor = 'rgb(250, 251, 251)';
   cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
   textbox(positionOfElement('first')).should('have.css', 'background-color', backgroundColor)
     .and('have.css', 'border-bottom-color', borderReadonlyColor)
@@ -237,7 +237,7 @@ Then('Textbox overriden styles rendered properly', () => {
     .and('have.css', 'padding-right', '11px')
     .and('have.css', 'color', 'rgb(180, 212, 85)');
   commonDataElementInputPreviewNoIframe().parent().should('have.css', 'background', 'rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box')
-    .and('have.css', 'border', '1px solid rgb(102, 132, 145)')
+    .and('have.css', 'border', '1px solid rgb(102, 133, 146)')
     .and('have.css', 'flex', '0 0 auto');
   commonDataElementInputPreviewNoIframe().should('have.css', 'background', 'rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box')
     .and('have.css', 'border', '0px none rgba(0, 0, 0, 0.9)')

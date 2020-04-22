@@ -14,12 +14,12 @@ Feature: Show Edit Pod component
   Scenario: Verify color of the edit icon
     # commented because of BDD default scenario Given - When - Then
     # When I open "ShowEditPod" component page
-    Then Edit icon has color "rgb(0, 128, 93)"
+    Then Edit icon has color "rgb(0, 129, 93)"
 
   @positive
   Scenario: Enable border checkbox for a Show Edit Pod component
     When I check border checkbox
-    Then Show Edit Pod component has border "rgb(204, 214, 218)" color
+    Then Show Edit Pod component has border "rgb(204, 214, 219)" color
 
   @positive
   Scenario: Enable and disable border checkbox for a Show Edit Pod component
@@ -31,7 +31,7 @@ Feature: Show Edit Pod component
   Scenario: Enable border on a edit dialog view for a Show Edit Pod component
     When I check border checkbox
       And I click edit Show Edit Pod component
-    Then Show Edit Pod component has border "rgb(204, 214, 218)" color
+    Then Show Edit Pod component has border "rgb(204, 214, 219)" color
 
   @positive
   Scenario: Enable and disable border on a edit dialog view for a Show Edit Pod component
@@ -66,7 +66,7 @@ Feature: Show Edit Pod component
     Then Show Edit Pod component cancel button has color "<color>" and borderColor "<color>"
     Examples:
       | color           |
-      | rgb(0, 128, 93) |
+      | rgb(0, 129, 93) |
 
   @positive
   Scenario: Enable and disable cancel checkbox for a Show Edit Pod component
@@ -124,8 +124,8 @@ Feature: Show Edit Pod component
     Examples:
       | podType     | background-color   |
       | primary     | rgb(255, 255, 255) |
-      | secondary   | rgb(242, 244, 245) |
-      | tertiary    | rgb(229, 234, 236) |
+      | secondary   | rgb(242, 245, 246) |
+      | tertiary    | rgb(230, 235, 237) |
       | tile        | rgb(255, 255, 255) |
       | transparent | rgba(0, 0, 0, 0)   |
 

@@ -10,7 +10,7 @@ Feature: Split Button component
     Then Button background color is "<color>"
     Examples:
       | buttonType | color            |
-      | primary    | rgb(0, 128, 93)  |
+      | primary    | rgb(0, 129, 93)  |
       | secondary  | rgba(0, 0, 0, 0) |
 
   @positive
@@ -86,13 +86,13 @@ Feature: Split Button component
       And Split Button second element has proper background-color "<background-color>" and border "<border-color>" color and has border-width 2 px
     Examples:
       | background-color | border-color    |
-      | rgba(0, 0, 0, 0) | rgb(0, 128, 93) |
+      | rgba(0, 0, 0, 0) | rgb(0, 129, 93) |
 
   @ignore
   # there is no possibility to trigger mouseover on first element
   Scenario: Verify color palette for first element of Split Button component with focus
     When I hover mouse onto split button
-    Then Split Button first element has proper background-color "rgb(0, 96, 69)" and border "rgb(0, 96, 69)" color and has border-width 2 px
+    Then Split Button first element has proper background-color "rgb(0, 96, 70)" and border "rgb(0, 96, 70)" color and has border-width 2 px
 
   @positive
   Scenario Outline: Verify color palette for second element of Split Button component with focus
@@ -101,7 +101,7 @@ Feature: Split Button component
       And Split Button additional buttons have proper background-color "<color>" and border "<color>" color and has border-width 1 px
     Examples:
       | color          |
-      | rgb(0, 96, 69) |
+      | rgb(0, 96, 70) |
 
   @positive
   Scenario: Verify the click function for a main element of Split Button component

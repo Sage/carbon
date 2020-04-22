@@ -40,7 +40,7 @@ Then('Pod component has border', () => {
     .and('have.css', 'border-left-width', '1px')
     .and('have.css', 'border-right-width', '1px')
     .and('have.css', 'border-bottom-style', 'solid')
-    .and('have.css', 'border-bottom-color', 'rgb(204, 214, 218)');
+    .and('have.css', 'border-bottom-color', 'rgb(204, 214, 219)');
 });
 
 Then('Pod component has no border', () => {

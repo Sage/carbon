@@ -43,8 +43,8 @@ Feature: Pod component
     Examples:
       | podType     | color              |
       | primary     | rgb(255, 255, 255) |
-      | secondary   | rgb(242, 244, 245) |
-      | tertiary    | rgb(229, 234, 236) |
+      | secondary   | rgb(242, 245, 246) |
+      | tertiary    | rgb(230, 235, 237) |
       | tile        | rgb(255, 255, 255) |
       | transparent | rgba(0, 0, 0, 0)   |
 
@@ -131,7 +131,7 @@ Feature: Pod component
       And I set title to "title"
       And I check displayEditButtonOnHover checkbox
     When I hover mouse onto Pod content
-    Then Pod component has "rgb(0, 128, 93)" background color
+    Then Pod component has "rgb(0, 129, 93)" background color
 
   @positive
   Scenario: Enable onEdit checkbox and check the triggerEditOnContent checkbox

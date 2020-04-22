@@ -30,7 +30,7 @@ exports[`Link renders as expected 1`] = `
 .c0 a:focus,
 .c0 button:focus {
   color: rgba(0,0,0,0.9);
-  background-color: #FFDA7F;
+  background-color: #FFDA80;
   outline: none;
 }
 
@@ -69,7 +69,7 @@ exports[`Link when component has classic theme should render correct style 1`] =
   font-size: 14px;
   -webkit-text-decoration: underline;
   text-decoration: underline;
-  color: #00805D;
+  color: #00815D;
   display: inline-block;
   font-weight: bold;
   -webkit-text-decoration: none;
@@ -88,7 +88,7 @@ exports[`Link when component has classic theme should render correct style 1`] =
 .c0 a:hover,
 .c0 button:hover {
   cursor: pointer;
-  color: #006045;
+  color: #006046;
 }
 
 .c0 a .c1,
@@ -150,7 +150,7 @@ exports[`Link when component has classic theme should render correct style when 
   font-size: 14px;
   -webkit-text-decoration: underline;
   text-decoration: underline;
-  color: #00805D;
+  color: #00815D;
   display: inline-block;
   color: #003349;
   font-weight: bold;
@@ -171,7 +171,7 @@ exports[`Link when component has classic theme should render correct style when 
 .c0 a:hover,
 .c0 button:hover {
   cursor: pointer;
-  color: #006045;
+  color: #006046;
 }
 
 .c0 a:hover,

@@ -13,8 +13,8 @@ Then('Badge component rendered properly', () => {
     .and('have.css', 'top', '-11px')
     .and('have.css', 'right', '-11px')
     .and('have.css', 'background', 'rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box')
-    .and('have.css', 'border', '2px solid rgb(0, 128, 93)')
-    .and('have.css', 'color', 'rgb(0, 128, 93)');
+    .and('have.css', 'border', '2px solid rgb(0, 129, 93)')
+    .and('have.css', 'color', 'rgb(0, 129, 93)');
 });
 
 Then('Badge component counter is set to {int}', (value) => {

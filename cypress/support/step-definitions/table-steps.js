@@ -87,7 +87,7 @@ Then('theme on preview is {string}', (theme) => {
 });
 
 When('{int} row has zebra striping', (rowNumber) => {
-  rowNumbers(rowNumber).should('have.css', 'background-color', 'rgb(249, 250, 251)');
+  rowNumbers(rowNumber).should('have.css', 'background-color', 'rgb(250, 251, 251)');
 });
 
 Then('Table header size on preview is set to {string}', (size) => {

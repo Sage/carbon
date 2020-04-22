@@ -48,7 +48,7 @@ Then('search icon has golden border', () => {
 });
 
 Then('search icon has proper inner color', () => {
-  const mintColor = 'rgb(0, 128, 93)';
+  const mintColor = 'rgb(0, 129, 93)';
   searchIcon().should('have.css', 'background-color', mintColor)
     .and('have.css', 'border-color', mintColor);
 });
@@ -66,5 +66,5 @@ When('Search component is focused', () => {
 });
 
 When('Search has golden bottom border', () => {
-  searchComponent().should('have.css', 'border-bottom-color', 'rgb(204, 214, 218)');
+  searchComponent().should('have.css', 'border-bottom-color', 'rgb(204, 214, 219)');
 });

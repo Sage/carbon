@@ -6,7 +6,7 @@ exports[`Weekday classic theme applies custom styling 1`] = `
   border: none;
   min-width: 40px;
   font-weight: 800;
-  color: #668491;
+  color: #668592;
   text-transform: uppercase;
   font-size: 12px;
   text-align: center;
@@ -46,7 +46,7 @@ exports[`Weekday renders presentational div and context provider for its childre
   border: none;
   min-width: 40px;
   font-weight: 800;
-  color: #668491;
+  color: #668592;
   text-transform: uppercase;
   font-size: 12px;
   text-align: center;

@@ -2,8 +2,8 @@
 
 exports[`Card CardFooter styling should match the expected styling when it has interactive styling 1`] = `
 .c0 {
-  background-color: #F2F4F5;
-  border-top: #E5EAEC;
+  background-color: #F2F5F6;
+  border-top: #E6EBED;
   border-top-width: 1px;
   border-top-style: solid;
   font-size: 14px;
@@ -60,8 +60,8 @@ exports[`Card CardFooter styling should match the expected styling when it has n
 }
 
 .c0 {
-  background-color: #F2F4F5;
-  border-top: #E5EAEC;
+  background-color: #F2F5F6;
+  border-top: #E6EBED;
   border-top-width: 1px;
   border-top-style: solid;
   font-size: 14px;
@@ -107,7 +107,7 @@ exports[`Card CardFooter styling should match the expected styling when it has n
 .c1 a:focus,
 .c1 button:focus {
   color: rgba(0,0,0,0.9);
-  background-color: #FFDA7F;
+  background-color: #FFDA80;
   outline: none;
 }
 

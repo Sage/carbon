@@ -57,8 +57,8 @@ Feature: Accordion component
     Then Accordion has proper "<type>" type color "<color>" palette
     Examples:
       | type      | color              |
-      | primary   | rgb(204, 214, 218) |
-      | secondary | rgb(204, 214, 218) |
+      | primary   | rgb(204, 214, 219) |
+      | secondary | rgb(204, 214, 219) |
 
   @positive
   Scenario: Verify color pallete for the Accordion row on focus

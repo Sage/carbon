@@ -3,7 +3,7 @@
 exports[`TabTitle renders as expected 1`] = `
 .c0 {
   background-color: transparent;
-  border-bottom: 2px solid #E5EAEC;
+  border-bottom: 2px solid #E6EBED;
   color: rgba(0,0,0,0.55);
   display: inline-block;
   font-weight: bold;
@@ -19,7 +19,7 @@ exports[`TabTitle renders as expected 1`] = `
 .c0:hover,
 .c0:focus {
   background: transparent;
-  border-bottom-color: #4CB74C;
+  border-bottom-color: #4DB84D;
   color: rgba(0,0,0,0.9);
   outline: none;
 }
@@ -33,7 +33,7 @@ exports[`TabTitle renders as expected 1`] = `
 exports[`TabTitle when in classic theme renders as expected 1`] = `
 .c0 {
   background-color: transparent;
-  border-bottom: 2px solid #E5EAEC;
+  border-bottom: 2px solid #E6EBED;
   color: #b3c2c8;
   display: inline-block;
   font-weight: bold;
@@ -41,7 +41,7 @@ exports[`TabTitle when in classic theme renders as expected 1`] = `
   margin-left: 2px;
   padding: 11px 15px 10px;
   background-color: #f5f6f7;
-  border-bottom: 2px solid #ccd6da;
+  border-bottom: 2px solid #CCD6DB;
   color: #003349;
 }
 
@@ -52,7 +52,7 @@ exports[`TabTitle when in classic theme renders as expected 1`] = `
 .c0:hover,
 .c0:focus {
   background: transparent;
-  border-bottom-color: #4CB74C;
+  border-bottom-color: #4DB84D;
   color: rgba(0,0,0,0.9);
   outline: none;
 }

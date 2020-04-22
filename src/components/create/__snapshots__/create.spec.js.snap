@@ -10,7 +10,7 @@ exports[`Create classic renders to match the expected style 1`] = `
   font-size: 14px;
   -webkit-text-decoration: underline;
   text-decoration: underline;
-  color: #00805D;
+  color: #00815D;
   display: inline-block;
   font-weight: bold;
   -webkit-text-decoration: none;
@@ -29,7 +29,7 @@ exports[`Create classic renders to match the expected style 1`] = `
 .c0 a:hover,
 .c0 button:hover {
   cursor: pointer;
-  color: #006045;
+  color: #006046;
 }
 
 .c0 a .c2,
@@ -67,7 +67,7 @@ exports[`Create classic renders to match the expected style 1`] = `
 
 .c1 a {
   background-color: #1e499f;
-  border: 1px dashed #668491;
+  border: 1px dashed #668592;
   display: block;
   padding: 12px 12px 10px;
   text-align: center;
@@ -84,7 +84,7 @@ exports[`Create classic renders to match the expected style 1`] = `
 }
 
 .c1 a:focus {
-  color: #00805D;
+  color: #00815D;
   background-color: #FFFFFF;
   outline: 3px solid #FFB500;
 }

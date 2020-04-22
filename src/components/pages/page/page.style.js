@@ -28,7 +28,7 @@ const StyledPage = styled.article`
         color: #4d7080;
 
         &:hover {
-          color: #335B6D;
+          color: #335C6D;
         }
 
         ${({ theme }) => !isClassic(theme) && css`

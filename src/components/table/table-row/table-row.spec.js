@@ -410,8 +410,8 @@ describe('TableRow', () => {
         </Table>
       );
       assertStyleMatch({
-        backgroundColor: '#D8E0E3',
-        borderBottomColor: '#D8E0E3',
+        backgroundColor: '#D9E0E4',
+        borderBottomColor: '#D9E0E4',
         position: 'relative'
       }, instance.find(TableRow), { modifier: `&&&& ${StyledTableCell}` });
     });
@@ -729,7 +729,7 @@ describe('TableRow', () => {
         row1.setContext({ dragAndDropActiveIndex: 0 });
 
         assertStyleMatch(
-          { backgroundColor: '#F2F4F5' },
+          { backgroundColor: '#F2F5F6' },
           row1.find(StyledTableRow),
           { modifier: `&&&&& ${StyledTableCell}` }
         );

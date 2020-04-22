@@ -282,8 +282,8 @@ describe('Icon component', () => {
         const wrapper = renderStyles({ bgTheme: status });
         const hoverColors = {
           info: '#005C9B',
-          error: '#9F2C3F',
-          success: '#008C00',
+          error: '#9F2D3F',
+          success: '#008D00',
           warning: '#BA5000'
         };
         it(`renders proper background color for ${status}`, () => {

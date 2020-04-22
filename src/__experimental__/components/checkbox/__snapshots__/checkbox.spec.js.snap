@@ -275,7 +275,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
 }
 
 .c18 .c8:checked ~ .c10 svg path {
-  fill: #CCD6DA;
+  fill: #CCD6DB;
 }
 
 .c18 .c10:hover,
@@ -545,7 +545,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
 
 .c0 svg {
   background-color: #FFFFFF;
-  border: 1px solid #668491;
+  border: 1px solid #668592;
 }
 
 .c0 .c8,

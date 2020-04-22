@@ -97,7 +97,7 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   background: #fff;
-  border: 1px solid #668491;
+  border: 1px solid #668592;
   box-sizing: border-box;
   cursor: text;
   display: -webkit-box;
@@ -157,8 +157,8 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
   max-height: 39px;
   border-width: 1px 1px 1px 1px;
   border-style: none solid solid solid;
-  border-color: #CCD6DA;
-  background-color: #F9FAFB;
+  border-color: #CCD6DB;
+  background-color: #FAFBFB;
   border-top: none;
 }
 
@@ -177,17 +177,17 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
 }
 
 .c0 .common-input__input {
-  border: 1px solid #668491;
+  border: 1px solid #668592;
 }
 
 .c0 .common-input__input:active,
 .c0 .common-input__input:hover,
 .c0 .common-input__input:focus {
-  border: 1px solid #668491;
+  border: 1px solid #668592;
 }
 
 .c0 .common-input__input:focus {
-  border: 1px solid #668491;
+  border: 1px solid #668592;
   color: #000000;
 }
 
@@ -583,7 +583,7 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   background: #fff;
-  border: 1px solid #668491;
+  border: 1px solid #668592;
   box-sizing: border-box;
   cursor: text;
   display: -webkit-box;
@@ -639,8 +639,8 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
   max-height: 39px;
   border-width: 1px 1px 1px 1px;
   border-style: none solid solid solid;
-  border-color: #CCD6DA;
-  background-color: #F9FAFB;
+  border-color: #CCD6DB;
+  background-color: #FAFBFB;
   border-top: none;
 }
 
@@ -659,17 +659,17 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
 }
 
 .c0 .common-input__input {
-  border: 1px solid #668491;
+  border: 1px solid #668592;
 }
 
 .c0 .common-input__input:active,
 .c0 .common-input__input:hover,
 .c0 .common-input__input:focus {
-  border: 1px solid #668491;
+  border: 1px solid #668592;
 }
 
 .c0 .common-input__input:focus {
-  border: 1px solid #668491;
+  border: 1px solid #668592;
   color: #000000;
 }
 

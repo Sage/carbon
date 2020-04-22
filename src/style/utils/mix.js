@@ -17,7 +17,7 @@ export default (inputColorA, inputColorB, weight = 50) => {
   const hex = colorAPairs.reduce((acc, pair, i) => {
     const val1 = hexToDec(pair), val2 = hexToDec(colorBPairs[i]);
 
-    const combination = decToHex(Math.floor(val2 + (val1 - val2) * (weight / 100.0)));
+    const combination = decToHex(Math.round(val2 + (val1 - val2) * (weight / 100.0)));
 
     return acc + combination.padStart(2, '0');
   }, '').toUpperCase();
