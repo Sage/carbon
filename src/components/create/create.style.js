@@ -9,7 +9,7 @@ const CreateStyle = styled(Link)`
   
   a {
       background-color: ${({ theme }) => theme.disabled.input};
-      border: 1px dashed ${({ theme }) => theme.colors.border};
+      border: 1px dashed ${({ theme }) => theme.create.border};
       display: block;
       padding: 12px 12px 10px;
       text-align: center;
@@ -19,20 +19,27 @@ const CreateStyle = styled(Link)`
 
       :hover {
         background-color: ${({ theme }) => theme.colors.white};
+
+        ${StyledIcon} {
+          color: ${({ theme }) => theme.colors.secondary};
+        }
       }
 
       :focus {
-        color: ${({ theme }) => theme.colors.primary};
         background-color: ${({ theme }) => theme.colors.white};
+        color: ${({ theme }) => theme.colors.secondary};
         outline: 3px solid ${({ theme }) => theme.colors.focus};
       }
 
       ${StyledIcon}::before {
-        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
+        vertical-align: middle;
       }
 
       ${StyledIcon} {
-        top: 0;
+        padding-left: 3px;
+        top: -2px;
       }
 
       ${createClassicStyle}
