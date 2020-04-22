@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
 import { AccordionGroup, Accordion } from '.';
 import Textbox from '../../__experimental__/components/textbox';
+import Button from '../button';
 
 <Meta
   title="Design System/Accordion"
@@ -99,6 +101,25 @@ import { Accordion, AccordionGroup } from "carbon-react/lib/components/accordion
 
 <Preview>
   <Story id="test-accordion--grouped" name="grouped">
+  </Story>
+</Preview>
+
+### With dynamic content
+Accordion adjust it's height properly when it's content is being dynamically changed
+
+<Preview>
+  <Story name="With dynamic content">
+    {() => {
+      const [contentCount, setContentCount] = useState(3);
+      return (
+        <>
+          <Button onClick={ () => setContentCount(contentCount + 1) }>Add content</Button>
+          <Accordion title="Title">
+            {Array.from({ length: contentCount }).map((_, index) => <div key={ index }>Content</div>)}
+          </Accordion>
+        </>
+      )
+    }}
   </Story>
 </Preview>
 
