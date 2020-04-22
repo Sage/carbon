@@ -67,7 +67,7 @@ exports[`Create classic renders to match the expected style 1`] = `
 
 .c1 a {
   background-color: #1e499f;
-  border: 1px dashed #668491;
+  border: 1px dashed #003349;
   display: block;
   padding: 12px 12px 10px;
   text-align: center;
@@ -83,18 +83,25 @@ exports[`Create classic renders to match the expected style 1`] = `
   background-color: #FFFFFF;
 }
 
+.c1 a:hover .c2 {
+  color: #006045;
+}
+
 .c1 a:focus {
-  color: #00805D;
   background-color: #FFFFFF;
+  color: #006045;
   outline: 3px solid #FFB500;
 }
 
 .c1 a .c2::before {
-  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  vertical-align: middle;
 }
 
 .c1 a .c2 {
-  top: 0;
+  padding-left: 3px;
+  top: -2px;
 }
 
 .c1 a .c2::before {

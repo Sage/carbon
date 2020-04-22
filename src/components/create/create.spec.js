@@ -19,7 +19,7 @@ describe('Create', () => {
   it('should render correctly', () => {
     wrapper = render({}, mount);
     assertStyleMatch({
-      border: `1px dashed ${baseTheme.colors.border}`,
+      border: `1px dashed ${baseTheme.create.border}`,
       backgroundColor: baseTheme.disabled.input,
       display: 'block',
       padding: '12px 12px 10px',
@@ -34,7 +34,7 @@ describe('Create', () => {
     wrapper.find(CreateStyle), { modifier: 'a:hover' });
 
     assertStyleMatch({
-      color: baseTheme.colors.primary,
+      color: baseTheme.colors.secondary,
       backgroundColor: baseTheme.colors.white,
       outline: `3px solid ${baseTheme.colors.focus}`
     },
