@@ -90,7 +90,7 @@ export default (palette) => {
       activeSelectorBackground: palette.slateTint(40),
       inactiveSelectorBackground: palette.slateTint(80)
     },
-    
+
     create: {
       border: palette.slate
     },
@@ -102,7 +102,7 @@ export default (palette) => {
     form: {
       invalid: palette.slateTint(95)
     },
-    
+
     flatTable: {
       default: {
         hover: palette.slateTint(95)
@@ -116,7 +116,7 @@ export default (palette) => {
       onLightBackgroundHover: palette.slateTint(20),
       disabled: 'rgba(0,0,0,0.30)'
     },
-    
+
     help: {
       color: blackWithOpacity(0.65),
       hover: blackWithOpacity(0.9)
