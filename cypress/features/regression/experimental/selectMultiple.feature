@@ -34,12 +34,8 @@ Feature: Select multiple component
     Then label is set to "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario: Disable Select
@@ -69,12 +65,8 @@ Feature: Select multiple component
     Then Select placeholder on preview is set to "<placeholder>"
     Examples:
       | placeholder             |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @ignore
   # ignored because this functionality works only for modern theme

@@ -10,12 +10,8 @@ Feature: Link component
     Then children on preview is "<children>"
     Examples:
       | children                |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario: Disable Link component
@@ -34,12 +30,8 @@ Feature: Link component
     Then Link on preview href is set to "<href>"
     Examples:
       | href                    |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Change link component icon align position to <iconAlign>

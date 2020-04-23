@@ -65,10 +65,10 @@ Feature: FlatTable component
     Then click action was called in Actions Tab
 
   @positive
-  Scenario: Click event after pressing enter key
+  Scenario: Click event after pressing Enter key
     Given I check hasClickableRows checkbox
       And clear all actions in Actions Tab
-    When press enter key on the row element
+    When press Enter key on the row element
     Then click action was called in Actions Tab
 
   @positive

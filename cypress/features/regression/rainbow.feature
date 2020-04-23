@@ -10,12 +10,8 @@ Feature: Rainbow component
     Then Rainbow title is "<title>"
     Examples:
       | title                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Set color from json file

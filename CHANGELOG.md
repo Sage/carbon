@@ -1,3 +1,82 @@
+### [17.2.3](https://github.com/Sage/carbon/compare/v17.2.2...v17.2.3) (2020-04-22)
+
+
+### Bug Fixes
+
+* update version for cucumber preprocessor ([f8b0b21](https://github.com/Sage/carbon/commit/f8b0b217ab8aa15d2e1ed9068c7eeb25be1ac19e))
+
+### [17.2.2](https://github.com/Sage/carbon/compare/v17.2.1...v17.2.2) (2020-04-21)
+
+
+### Bug Fixes
+
+* **row:** allow number prop type for columns, columnSpan, columnOffset ([f9657f7](https://github.com/Sage/carbon/commit/f9657f7384308ae31c235ba08f60bf8c5dee09ab))
+
+### [17.2.1](https://github.com/Sage/carbon/compare/v17.2.0...v17.2.1) (2020-04-21)
+
+
+### Bug Fixes
+
+* **flat-table:** update hover color for flat table row and cell ([ba68e91](https://github.com/Sage/carbon/commit/ba68e91d9d2c5b4aea3f36188e492f4c04b9b6a0))
+
+## [17.2.0](https://github.com/Sage/carbon/compare/v17.1.2...v17.2.0) (2020-04-21)
+
+
+### Features
+
+* **form:** create new form component ([eaa6f16](https://github.com/Sage/carbon/commit/eaa6f16238c68d800c05626c56423e69cf2f60bf))
+
+### [17.1.2](https://github.com/Sage/carbon/compare/v17.1.1...v17.1.2) (2020-04-20)
+
+
+### Bug Fixes
+
+* **tabs:** padding and outline styling to match dls ([a5f03c4](https://github.com/Sage/carbon/commit/a5f03c401b071b8dd270d1dcea3533694ecf0049))
+
+### [17.1.1](https://github.com/Sage/carbon/compare/v17.1.0...v17.1.1) (2020-04-20)
+
+
+### Bug Fixes
+
+* **action-popover:** remove display style attr and add width to menu btn ([cca36fe](https://github.com/Sage/carbon/commit/cca36feb0009540f361de8502f3b9f5fb32dc5f4))
+
+## [17.1.0](https://github.com/Sage/carbon/compare/v17.0.0...v17.1.0) (2020-04-17)
+
+
+### Features
+
+* **numeral date:** create numeral date component ([12f12d3](https://github.com/Sage/carbon/commit/12f12d3a0ee81d6744e28d91a6d99c9c7a061d6e))
+
+## [17.0.0](https://github.com/Sage/carbon/compare/v16.8.2...v17.0.0) (2020-04-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **deps-dev:** react-router is no longer a dependency and the `router.js` util,
+including the startRouter function has been removed from the code base as it
+relied on react-router v3. Consuming projects are now required to install their
+own routing solution, in order for the `Button` and `Link` components to work as
+previously when passing in a `to` prop, a routing link component must also be
+passed in via renderProps
+
+### Miscellaneous Chores
+
+* **deps-dev:** move react router to dev dep and delete router util ([a7fc8a9](https://github.com/Sage/carbon/commit/a7fc8a9b864ea86309555d09a50b3725543cecb5))
+
+### [16.8.2](https://github.com/Sage/carbon/compare/v16.8.1...v16.8.2) (2020-04-10)
+
+
+### Bug Fixes
+
+* **action-popover:** add top position when menu right aligned in safari ([f9f8774](https://github.com/Sage/carbon/commit/f9f8774276c101647b29c991ed389eafd68e88d9))
+
+### [16.8.1](https://github.com/Sage/carbon/compare/v16.8.0...v16.8.1) (2020-04-07)
+
+
+### Bug Fixes
+
+* **select:** allow passing custom validation icon type prop to component ([a333235](https://github.com/Sage/carbon/commit/a3332359a5bc3e75ab427de52bfc41ec9f267c63))
+
 ## [16.8.0](https://github.com/Sage/carbon/compare/v16.7.0...v16.8.0) (2020-04-06)
 
 

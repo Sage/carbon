@@ -7,6 +7,7 @@ import {
   popoverSettingsIcon,
   popoverCloseIcon,
 } from '../../locators/popover-container';
+import { keyCode } from '../helper';
 
 When('I open popover container', () => {
   popoverContainerDataComponent().click();
@@ -15,7 +16,6 @@ When('I open popover container', () => {
 Then('Popover container is visible', () => {
   popoverContainerDataComponent().should('exist');
   popoverSettingsIcon().should('exist');
-  popoverContainerContent().should('be.visible');
   popoverContainerContent().children().children().should('have.length', 2);
   popoverContainerContent().should('have.css', 'background', 'rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box')
     .and('have.css', 'box-shadow', 'rgba(0, 20, 29, 0.2) 0px 5px 5px 0px, rgba(0, 20, 29, 0.1) 0px 10px 10px 0px')
@@ -25,7 +25,8 @@ Then('Popover container is visible', () => {
     .and('have.css', 'top', '0px')
     .and('have.css', 'opacity', '1')
     .and('have.css', 'transform', 'matrix(1, 0, 0, 1, 0, 0)')
-    .and('have.css', 'transition', 'all 0.3s cubic-bezier(0.25, 0.25, 0, 1.5) 0s');
+    .and('have.css', 'transition', 'all 0.3s cubic-bezier(0.25, 0.25, 0, 1.5) 0s')
+    .and('be.visible');
   popoverContainerContentFirstInnerElement().should('have.attr', 'data-element', 'popover-container-title').and('be.visible')
     .and('have.css', 'font-size', '16px')
     .and('have.css', 'font-weight', '700');
@@ -60,27 +61,11 @@ Then('Popover container is not visible', () => {
 });
 
 When('I click onto popover setting icon using {string} key', (key) => {
-  switch (key) {
-    case 'Enter':
-      popoverSettingsIcon().trigger('keydown', { keyCode: 13, which: 13 });
-      break;
-    case 'Space':
-      popoverSettingsIcon().trigger('keydown', { keyCode: 32, which: 32 });
-      break;
-    default: throw new Error('Use Space or Enter key');
-  }
+  popoverSettingsIcon().trigger('keydown', keyCode(key));
 });
 
 Then('I press onto closeIcon using {string} key', (key) => {
-  switch (key) {
-    case 'Enter':
-      popoverCloseIcon().trigger('keydown', { keyCode: 13, which: 13 });
-      break;
-    case 'Space':
-      popoverCloseIcon().trigger('keydown', { keyCode: 32, which: 32 });
-      break;
-    default: throw new Error('Use Space or Enter key');
-  }
+  popoverCloseIcon().trigger('keydown', keyCode(key));
 });
 
 When('I click popover close icon', () => {

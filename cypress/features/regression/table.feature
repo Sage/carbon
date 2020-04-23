@@ -99,13 +99,8 @@ Feature: Table component
     Then caption is set to "<caption>"
     Examples:
       | caption                 |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <> |
 
   @positive
   Scenario Outline: Set theme to <theme>
@@ -151,11 +146,8 @@ Feature: Table component
       | pageSizeRecords         |
       | -1                      |
       | -10                     |
-      | Sample text             |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Page size records is set to <pageSizeRecords>

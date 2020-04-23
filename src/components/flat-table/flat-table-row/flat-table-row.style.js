@@ -40,9 +40,11 @@ const StyledFlatTableRow = styled.tr`
       }
     }
 
-    :hover ${StyledFlatTableCell},
-    :hover ${StyledFlatTableRowHeader} {
-      background-color: ${theme.table.hover};
+    :hover {
+      ${StyledFlatTableCell},
+      ${StyledFlatTableRowHeader} {
+        background-color: ${theme.flatTable.default.hover};
+      }
     }
   `}
 `;

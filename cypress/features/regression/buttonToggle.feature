@@ -10,13 +10,8 @@ Feature: Button Toggle component
     Then Button Toggle label on preview is "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <> |
 
   @ignore
   # @ignore until solution is applied to round sizes as integers as Chrome v80 has amended pixel sizes

@@ -10,13 +10,8 @@ Feature: Button Toggle Group component
     Then Button Toggle Group label on preview is "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario Outline: Change Button Toggle Group component label help to <labelHelp>
@@ -25,13 +20,8 @@ Feature: Button Toggle Group component
     Then tooltipPreview on preview is set to "<labelHelp>"
     Examples:
       | labelHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @ignore
   # @ignore until solution is applied to round sizes as integers as Chrome v80 has amended pixel sizes
@@ -42,7 +32,6 @@ Feature: Button Toggle Group component
     Examples:
       | width | px        |
       | 1     | 10.75     |
-      | 10    | 107.59375 |
       | 100   | 825.71875 |
 
   @negative
@@ -57,13 +46,8 @@ Feature: Button Toggle Group component
     Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario: Enable label inline checkbox
@@ -84,7 +68,6 @@ Feature: Button Toggle Group component
     Examples:
       | width |
       | 1     |
-      | 10    |
       | 100   |
 
   @negative

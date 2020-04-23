@@ -1,4 +1,3 @@
-import { isClassic } from './style-helper';
+import { isClassic, isDLS } from './style-helper';
 
-// eslint-disable-next-line import/prefer-default-export
-export { isClassic };
+export { isClassic, isDLS };

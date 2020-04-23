@@ -21,11 +21,8 @@ Feature: Button component
     Then Button subtext on preview is "<subtext>"
     Examples:
       | subtext                 |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
 
   @positive
   Scenario Outline: Set Button Type as <buttonType>
@@ -45,11 +42,8 @@ Feature: Button component
     Then Button label on preview is "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
 
   @positive
   Scenario: Disable Button

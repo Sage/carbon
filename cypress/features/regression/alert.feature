@@ -17,11 +17,8 @@ Feature: Alert component
     Then component title on preview is "<title>"
     Examples:
       | title                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
   # @ignore because of FE-1447
   # | <>                       |
 
@@ -32,11 +29,8 @@ Feature: Alert component
     Then component subtitle on preview is "<subtitle>"
     Examples:
       | subtitle                |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
   # @ignore because of FE-1447
   # | <>                       |
 
@@ -47,11 +41,8 @@ Feature: Alert component
     Then Alert children on preview is "<children>"
     Examples:
       | children                |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
   # @ignore because of FE-1447
   # | <>                       |
 
@@ -92,7 +83,6 @@ Feature: Alert component
       | height |
       | 0      |
       | 1      |
-      | 10     |
       | 100    |
 
   @negative
@@ -120,13 +110,13 @@ Feature: Alert component
     Then Alert size property on preview is "<sizePropertyInPx>"
     Examples:
       | sizeName     | sizePropertyInPx |
-      | extra-small  |       300        |
-      | small        |       380        |
-      | medium-small |       540        |
-      | medium       |       750        |
-      | medium-large |       850        |
-      | large        |       960        |
-      | extra-large  |       1080       |
+      | extra-small  | 300              |
+      | small        | 380              |
+      | medium-small | 540              |
+      | medium       | 750              |
+      | medium-large | 850              |
+      | large        | 960              |
+      | extra-large  | 1080             |
 
   @positive
   Scenario: Check open click event

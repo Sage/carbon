@@ -22,13 +22,8 @@ Feature: Preview default component
     Then Preview children is set to "<children>"
     Examples:
       | children                |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario Outline: Set width to <width>
@@ -39,7 +34,6 @@ Feature: Preview default component
       | width |
       | 0px   |
       | 1px   |
-      | 10px  |
       | 100px |
 
   @positive
@@ -51,7 +45,6 @@ Feature: Preview default component
       | height |
       | 0px    |
       | 1px    |
-      | 10px   |
       | 100px  |
 
   @positive
@@ -62,7 +55,6 @@ Feature: Preview default component
       | lines |
       | 0     |
       | 1     |
-      | 10    |
       | 100   |
 
   @positive
@@ -71,12 +63,8 @@ Feature: Preview default component
     Then Preview width is not set to "<width>"
     Examples:
       | width                   |
-      | Sample text             |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario Outline: Set height to out of scope to <height>
@@ -84,12 +72,8 @@ Feature: Preview default component
     Then Preview height is not set to "<height>"
     Examples:
       | height                  |
-      | Sample text             |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                       |
 
   @positive
   Scenario Outline: Set lines to out of scope to <lines>
@@ -97,9 +81,5 @@ Feature: Preview default component
     Then Preview lines is not set to "<lines>"
     Examples:
       | lines                   |
-      | Sample text             |
-      | áéíóú¿¡üñ               |
+      | mpú¿¡üßä                |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-# @ignore because of FE-1447
-# | <>                       |

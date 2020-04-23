@@ -67,7 +67,8 @@ class Textarea extends React.Component {
           type={ this.props.inputIcon }
           tooltipMessage={ this.props.tooltipMessage }
           isPartOfInput
-        />);
+        />
+      );
     }
 
     return null;

@@ -10,24 +10,17 @@ Feature: Heading component
     Then heading title is set to "<title>"
     Examples:
       | title                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Change children to <children>
     When I set children to "<children>"
     Then heading children on preview is "<children>"
     Examples:
-      | children    |
-      | Sample text |
-      | 1234567890  |
-      | áéíóú¿¡üñ   |
-      | ÄÖÜßäöüß    |
-      | <>          |
+      | children                |
+      | mp150ú¿¡üßä             |
+      | !@#$%^*()_+-=~[];:.,?{} |
 
   @positive
   Scenario Outline: Change subheader to <subheader>
@@ -35,12 +28,8 @@ Feature: Heading component
     Then subheader on preview is "<subheader>"
     Examples:
       | subheader               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Change help to <help>
@@ -49,12 +38,8 @@ Feature: Heading component
     Then tooltipPreview on preview is set to "<help>"
     Examples:
       | help                    |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Change helpLink to <helpLink>
@@ -62,12 +47,8 @@ Feature: Heading component
     Then link on preview is "<helpLink>"
     Examples:
       | helpLink                |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Change backLink to <backLink>
@@ -75,12 +56,8 @@ Feature: Heading component
     Then backLink on preview is "<backLink>"
     Examples:
       | backLink                |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario: Check divider

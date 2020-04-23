@@ -5,17 +5,10 @@ import {
 } from '../../locators/checkbox';
 import { label, fieldHelpPreview, getDataElementByValueNoIframe } from '../../locators';
 import { ICON } from '../../locators/locators';
+import { positionOfElement } from '../helper';
 
 const CHECKBOX_HELP_TEXT_CLASS_PREFIX = 'carbon-checkbox__help-text--';
 const CHECKBOX_LABEL_CLASS_PREFIX = 'common-input__label--';
-
-const FIRST_CHECKBOX = 0;
-const SECOND_CHECKBOX = 1;
-const THIRD_CHECKBOX = 2;
-const FOURTH_CHECKBOX = 3;
-const FIFTH_CHECKBOX = 4;
-const SIXTH_CHECKBOX = 5;
-const SEVENTH_CHECKBOX = 6;
 
 Then('checkbox helpText property is set to {string}', (property) => {
   checkboxHelpTextPreview().should('have.class', CHECKBOX_HELP_TEXT_CLASS_PREFIX + property);
@@ -37,20 +30,21 @@ Then('Checkbox is not set to fieldHelpInline and has margin set to {string}', (m
 
 Then('Checkbox is set to reverse and has width {string}', (width) => {
   checkboxDataComponent().children().children().children()
-    .find(`div:nth-child(${THIRD_CHECKBOX})`)
+    .find(`div:nth-child(${positionOfElement('third')})`)
     .should('have.css', 'box-sizing', 'border-box')
     .and('have.css', 'width', width);
 });
 
 Then('Checkbox is not set to reverse and has width {string}', (width) => {
   checkboxDataComponent().children().children().children()
-    .find(`div:nth-child(${SECOND_CHECKBOX})`)
+    .find(`div:nth-child(${positionOfElement('second')})`)
     .should('have.css', 'box-sizing', 'border-box')
     .and('have.css', 'width', width);
 });
 
 Then('checkbox inputWidth is set to {int}', (width) => {
-  checkboxCommonInputField().should('have.attr', 'style').should('contain', `width: ${width}%`);
+  checkboxCommonInputField().should('have.attr', 'style')
+    .and('contain', `width: ${width}%`);
 });
 
 Then('Checkbox inputWidth is not set', () => {
@@ -66,7 +60,8 @@ Then('Checkbox label property is not set to {string}', (property) => {
 });
 
 Then('Checkbox deprecated label width is set to {int}', (width) => {
-  checkboxLabelPreview().should('have.attr', 'style').should('contain', `width: ${width}%`);
+  checkboxLabelPreview().should('have.attr', 'style')
+    .and('contain', `width: ${width}%`);
 });
 
 Then('Checkbox labelAlign on preview is set to {string}', (labelAlign) => {
@@ -88,58 +83,12 @@ Then('Checkbox label width is not set', () => {
 });
 
 Given('I check {string} checkbox', (position) => {
-  switch (position) {
-    case 'first':
-      checkbox(FIRST_CHECKBOX).click();
-      break;
-    case 'second':
-      checkbox(SECOND_CHECKBOX).click();
-      break;
-    case 'third':
-      checkbox(THIRD_CHECKBOX).click();
-      break;
-    case 'fourth':
-      checkbox(FOURTH_CHECKBOX).click();
-      break;
-    case 'fifth':
-      checkbox(FIFTH_CHECKBOX).click();
-      break;
-    case 'sixth':
-      checkbox(SIXTH_CHECKBOX).click();
-      break;
-    case 'seventh':
-      checkbox(SEVENTH_CHECKBOX).click();
-      break;
-    default: throw new Error('There are only seven checkbox elements on the page');
-  }
+  checkbox(positionOfElement(position)).click();
 });
 
 When('I check {string} checkbox {int} times', (position, times) => {
   for (let i = 0; i < times; i++) {
-    switch (position) {
-      case 'first':
-        checkbox(FIRST_CHECKBOX, times).click();
-        break;
-      case 'second':
-        checkbox(SECOND_CHECKBOX, times).click();
-        break;
-      case 'third':
-        checkbox(THIRD_CHECKBOX, times).click();
-        break;
-      case 'fourth':
-        checkbox(FOURTH_CHECKBOX, times).click();
-        break;
-      case 'fifth':
-        checkbox(FIFTH_CHECKBOX, times).click();
-        break;
-      case 'sixth':
-        checkbox(SIXTH_CHECKBOX, times).click();
-        break;
-      case 'seventh':
-        checkbox(SEVENTH_CHECKBOX, times).click();
-        break;
-      default: throw new Error('There are only seven checkbox elements on the page');
-    }
+    checkbox(positionOfElement(position), times).click();
   }
 });
 
@@ -157,8 +106,8 @@ When('I hover mouse onto {string} icon in no iFrame for checkbox', (position) =>
   }
 });
 
-When('I hover mouse onto first icon in no iFrame for checkbox group', () => {
-  dataComponentGroup().find(ICON).eq(FIRST_CHECKBOX);
+When('I hover mouse onto {word} icon in no iFrame for checkbox group', (position) => {
+  dataComponentGroup().find(ICON).eq(positionOfElement(position));
 });
 
 Then('label icon for checkbox group on preview in no iFrame is set to {string}', (text) => {
@@ -166,21 +115,7 @@ Then('label icon for checkbox group on preview in no iFrame is set to {string}',
 });
 
 Then('{string} icon name in no iFrame on preview is {string}', (position, iconName) => {
-  switch (position) {
-    case 'first':
-      getDataElementByValueNoIframe(iconName).eq(FIRST_CHECKBOX);
-      break;
-    case 'second':
-      getDataElementByValueNoIframe(iconName).eq(SECOND_CHECKBOX);
-      break;
-    case 'third':
-      getDataElementByValueNoIframe(iconName).eq(THIRD_CHECKBOX);
-      break;
-    case 'fourth':
-      getDataElementByValueNoIframe(iconName).eq(FOURTH_CHECKBOX);
-      break;
-    default: throw new Error('There are only four icon elements on the page');
-  }
+  getDataElementByValueNoIframe(iconName).eq(positionOfElement(position));
 });
 
 Then('checkbox label on preview is {string}', (text) => {
@@ -188,12 +123,12 @@ Then('checkbox label on preview is {string}', (text) => {
 });
 
 Then('Checkbox is enabled', () => {
-  checkboxDataComponent().should('not.be.disabled');
-  checkboxDataComponent().should('not.have.attr', 'disabled');
-  checkboxDataComponent().children().should('not.be.disabled');
-  checkboxDataComponent().children().should('not.have.attr', 'disabled');
-  checkboxRole().should('not.be.disabled');
-  checkboxRole().should('not.have.attr', 'disabled');
+  checkboxDataComponent().should('not.be.disabled')
+    .and('not.have.attr', 'disabled');
+  checkboxDataComponent().children().should('not.be.disabled')
+    .and('not.have.attr', 'disabled');
+  checkboxRole().should('not.be.disabled')
+    .and('not.have.attr', 'disabled');
 });
 
 Then('Checkbox is disabled', () => {

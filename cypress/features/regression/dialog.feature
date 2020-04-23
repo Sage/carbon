@@ -18,7 +18,6 @@ Feature: Dialog component
       | height |
       | 0      |
       | 1      |
-      | 10     |
       | 100    |
 
   @negative
@@ -37,12 +36,8 @@ Feature: Dialog component
     Then component title on preview is "<title>"
     Examples:
       | title                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Change Dialog subtitle to <subtitle>
@@ -50,12 +45,8 @@ Feature: Dialog component
     Then component subtitle on preview is "<subtitle>"
     Examples:
       | subtitle                |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
 
   @positive
   Scenario Outline: Set Dialog size to <sizeName>

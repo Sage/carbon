@@ -11,11 +11,8 @@ Feature: Animated Menu Button component
     Then Animated Menu Button label on preview is "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
   # @ignore because of FE-1447
   # | <>                       |
 

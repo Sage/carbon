@@ -5,7 +5,8 @@ Then('Alert height is set to {string}', (height) => {
 });
 
 Then('Alert height is not set to {string}', (height) => {
-  alertDialogPreview().should('have.attr', 'height').should('not.contain', `${height}`);
+  alertDialogPreview().should('have.attr', 'height')
+    .and('not.contain', `${height}`);
 });
 
 Then('Alert size property on preview is {string}', (size) => {

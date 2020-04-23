@@ -10,13 +10,8 @@ Feature: Experimental Textbox multiple component
     Then Multiple Textbox placeholder is set to "<placeholder>"
     Examples:
       | placeholder             |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                    |
 
   @positive
   Scenario: Check disabled checkbox for a Textbox multiple component
@@ -46,13 +41,8 @@ Feature: Experimental Textbox multiple component
     Then Multiple fieldHelp on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                  |
 
   @positive
   Scenario Outline: Set label to <label>
@@ -60,13 +50,8 @@ Feature: Experimental Textbox multiple component
     Then Multiple label is set to "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                    |
 
   @positive
   Scenario Outline: Set labelHelp to <labelHelp>
@@ -77,13 +62,8 @@ Feature: Experimental Textbox multiple component
     Then Multiple tooltipPreview on preview is set to "<labelHelp>"
     Examples:
       | labelHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                     |
 
   @positive
   Scenario: Enable labelInline checkbox for a Textbox multiple component
@@ -107,9 +87,7 @@ Feature: Experimental Textbox multiple component
     Examples:
       | labelWidth |
       | 0          |
-      | 1          |
       | 25         |
-      | 75         |
       | 100        |
 
   @positive
@@ -121,8 +99,6 @@ Feature: Experimental Textbox multiple component
     Examples:
       | inputWidth |
       | 0          |
-      | 1          |
-      | 35         |
       | 50         |
       | 100        |
 
@@ -144,13 +120,8 @@ Feature: Experimental Textbox multiple component
     Then Multiple textbox input on preview is set to "<input>"
     Examples:
       | input                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
+      | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <>                     |
 
   @positive
   Scenario Outline: Set label size to <size>
