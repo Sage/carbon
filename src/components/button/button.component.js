@@ -16,7 +16,6 @@ const renderStyledButton = (buttonProps) => {
     theme,
     forwardRef,
     href,
-    styleOverride,
     ...styleProps
   } = buttonProps;
 
@@ -36,7 +35,6 @@ const renderStyledButton = (buttonProps) => {
       { ...tagComponent('button', buttonProps) }
       { ...styleProps }
       ref={ forwardRef }
-      styleOverride={ styleOverride }
     >
       { renderChildren(buttonProps) }
     </StyledButton>
@@ -145,11 +143,6 @@ Button.propTypes = {
   href: PropTypes.string,
   /** Legacy - transforms button into anchor, must be accompanied by a router link passed via `renderRouterLink` */
   to: PropTypes.string,
-  /** Allows override of existing component styles */
-  styleOverride: PropTypes.shape({
-    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    icon: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
-  }),
   /** Render prop that when coupled with the `to` prop will render the a routing anchor link */
   renderRouterLink: PropTypes.func
 };
@@ -160,8 +153,7 @@ Button.defaultProps = {
   disabled: false,
   destructive: false,
   iconPosition: 'before',
-  subtext: '',
-  styleOverride: { root: {}, icon: {} }
+  subtext: ''
 };
 
 const ButtonWithForwardRef = React.forwardRef((props, ref) => <Button forwardRef={ ref } { ...props } />);
