@@ -111,9 +111,18 @@ Accordion adjust it's height properly when it's content is being dynamically cha
   <Story name="With dynamic content">
     {() => {
       const [contentCount, setContentCount] = useState(3);
+      const modifyContentCount = modifier => {
+        if(modifier === 1) {
+          setContentCount(contentCount + 1)
+        }
+        if (modifier === -1 && contentCount > 0) {
+          setContentCount(contentCount - 1)
+        }
+      }
       return (
         <>
-          <Button onClick={ () => setContentCount(contentCount + 1) }>Add content</Button>
+          <Button onClick={ () => modifyContentCount(1) }>Add content</Button>
+          <Button onClick={ () => modifyContentCount(-1) }>Remove content</Button>
           <Accordion title="Title">
             {Array.from({ length: contentCount }).map((_, index) => <div key={ index }>Content</div>)}
           </Accordion>

@@ -25,7 +25,8 @@ const isExpanded = (wrapper) => {
   }, wrapper.find(StyledAccordionIcon));
   assertStyleMatch({
     visibility: undefined,
-    maxHeight: `${contentHeight}px`
+    maxHeight: `${contentHeight}px`,
+    height: `${contentHeight}px`
   }, wrapper.find(StyledAccordionContentContainer));
 };
 
@@ -35,7 +36,8 @@ const isCollapsed = (wrapper) => {
   }, wrapper.find(StyledAccordionIcon));
   assertStyleMatch({
     visibility: 'hidden',
-    maxHeight: '0px'
+    maxHeight: '0px',
+    height: '0px'
   }, wrapper.find(StyledAccordionContentContainer));
 };
 
