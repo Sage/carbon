@@ -118,8 +118,9 @@ describe('AnchorNavigation', () => {
 
       act(() => {
         window.dispatchEvent(new Event('scroll'));
+        jest.advanceTimersByTime(150);
       });
-      jest.advanceTimersByTime(150);
+      wrapper.update();
       expectNavigationItemToBeSelected(index, wrapper);
 
       if (hasFocusableElement) {
@@ -134,6 +135,10 @@ describe('AnchorNavigation', () => {
       (index, hasFocusableElement) => {
         const preventDefault = jest.fn();
         wrapper.find(`${StyledNavigationItem} a`).at(index).simulate('keydown', { preventDefault, which: keyCode });
+        act(() => {
+          jest.advanceTimersByTime(15);
+        });
+
         if (hasFocusableElement) {
           expect(wrapper.find(Content).at(index).find('input')).toBeFocused();
         }
