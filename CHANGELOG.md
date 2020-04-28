@@ -1,3 +1,10 @@
+### [17.3.1](https://github.com/Sage/carbon/compare/v17.3.0...v17.3.1) (2020-04-28)
+
+
+### Bug Fixes
+
+* **date:** allow to open date picker by clicking on calendar icon ([1fc5251](https://github.com/Sage/carbon/commit/1fc52515fa932106a3d9614658350460f0528d3e))
+
 ## [17.3.0](https://github.com/Sage/carbon/compare/v17.2.3...v17.3.0) (2020-04-27)
 
 
