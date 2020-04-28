@@ -104,3 +104,23 @@ Feature: Experimental Date Input component
   Scenario: Check Date Input today date
     When I set dateInput to today
     Then the date is set to today
+
+  @positive
+  Scenario: Open dayPickerDay via click on input
+    When I click dateInput
+    Then dayPickerDay is visible
+
+  @positive
+  Scenario: Close dayPickerDay via click on input
+    When I click dateInput twice
+    Then dayPickerDay is not visible
+
+  @positive
+  Scenario: Open dayPickerDay via click on icon
+    When I click onto date icon
+    Then dayPickerDay is visible
+
+  @positive
+  Scenario: Close dayPickerDay via click on icon
+    When I click onto date icon twice
+    Then dayPickerDay is not visible
