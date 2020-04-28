@@ -1,8 +1,7 @@
 import {
   flatTableHeaderCells, flatTableHeader, flatTableBodyRows, flatTableNoiFrame,
   flatTableHeaderCellsNoiFrame, flatTableBodyRowByPositionNoiFrame, flatTableBodyCellByPosition,
-  flatTableBodyRowByPosition,
-  flatTableCell,
+  flatTableBodyRowByPosition, flatTableCell, flatTableHeaderInnerContent,
 } from '../../locators/flat-table';
 import { DEBUG_FLAG } from '..';
 import { positionOfElement } from '../helper';
@@ -104,7 +103,7 @@ Then('press Enter key on the row element', () => {
 
 Then('I click on {string} header {int} times', (position, times) => {
   for (let i = 0; i < times; i++) {
-    flatTableHeaderCells().find('div').eq(positionOfElement(position)).click();
+    flatTableHeaderInnerContent().eq(positionOfElement(position)).click();
   }
 });
 
@@ -171,21 +170,23 @@ Then('Flat table header has {string} color', (colorTheme) => {
 });
 
 Then('{string} header has focus', (position) => {
-  flatTableHeaderCells().find('div').eq(positionOfElement(position)).should('have.css', 'outline-color', 'rgb(255, 181, 0)');
+  flatTableHeaderInnerContent().eq(positionOfElement(position)).should('have.css', 'outline-color', 'rgb(255, 181, 0)');
 });
 
 Then('I focus {string} header cell', (position) => {
-  flatTableHeaderCells().find('div').eq(positionOfElement(position)).focus();
+  flatTableHeaderInnerContent().eq(positionOfElement(position)).focus();
 });
 
 Then('I press {string} on {string} header {int} time(s)', (key, position, count) => {
   for (let i = 0; i < count; i++) {
     if (key === 'Enter') {
-      flatTableHeaderCells().find('div').eq(positionOfElement(position)).focus()
+      flatTableHeaderInnerContent().eq(positionOfElement(position)).focus()
         .trigger('keydown', { keyCode: 13, which: 13, force: true });
-    } else {
-      flatTableHeaderCells().find('div').eq(positionOfElement(position)).focus()
+    } else if (key === 'Space') {
+      flatTableHeaderInnerContent().eq(positionOfElement(position)).focus()
         .trigger('keydown', { keyCode: 32, which: 32, force: true });
+    } else {
+      throw new Error('Only Enter or Space key can be applied');
     }
   }
 });
