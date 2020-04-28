@@ -12,6 +12,7 @@ export const flatTableBodyRowByPosition = index => flatTableBodyRows().eq(index)
 export const flatTableStickyRow = index => flatTableBodyRowByPosition(index).find('th');
 export const flatTableBodyCellByPosition = (rowIndex, cellIndex) => flatTableBodyRowByPosition(rowIndex).find('td').eq(cellIndex);
 export const flatTableCell = index => cy.iFrame(FLAT_TABLE_CELL).eq(index);
+export const flatTableHeaderInnerContent = () => flatTableHeaderCells().find('div:nth-child(1)');
 
 export const flatTableNoiFrame = () => cy.get(FLAT_TABLE_COMPONENT);
 export const flatTableRowsNoiFrame = () => cy.get(FLAT_TABLE_ROW);
