@@ -43,7 +43,7 @@ const StyledFlatTableRow = styled.tr`
     :hover {
       ${StyledFlatTableCell},
       ${StyledFlatTableRowHeader} {
-        background-color: ${theme.flatTable.default.hover};
+        background-color: ${theme.flatTable.hover};
       }
     }
   `}
