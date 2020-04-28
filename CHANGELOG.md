@@ -1,3 +1,18 @@
+## [17.4.0](https://github.com/Sage/carbon/compare/v17.3.2...v17.4.0) (2020-04-28)
+
+
+### Features
+
+* **drawer:** create drawer component ([cee6f98](https://github.com/Sage/carbon/commit/cee6f98c4bfa5a513b4709f1b502c27ca0944e01))
+
+### [17.3.2](https://github.com/Sage/carbon/compare/v17.3.1...v17.3.2) (2020-04-28)
+
+
+### Bug Fixes
+
+* **accordion:** add content resize animation ([10d59ef](https://github.com/Sage/carbon/commit/10d59ef36236eb2334587da143ad19f1c2e41181))
+* **accordion:** lack of accordion resize when content size changes ([1f7267f](https://github.com/Sage/carbon/commit/1f7267f3c036331d32dafef35adf7decc5a4def6))
+
 ### [17.3.1](https://github.com/Sage/carbon/compare/v17.3.0...v17.3.1) (2020-04-28)
 
 

@@ -41,7 +41,7 @@ const Accordion = React.forwardRef(({
 
   useEffect(() => {
     setContentHeight(!isExpanded ? 0 : accordionContent.current.scrollHeight);
-  }, [isExpanded]);
+  }, [isExpanded, children]);
 
   const toggleAccordion = useCallback((ev) => {
     if (!isControlled) setIsExpandedInternal(!isExpanded);
