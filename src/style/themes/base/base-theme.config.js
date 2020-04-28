@@ -159,6 +159,10 @@ export default (palette) => {
       dragging: palette.slateTint(90)
     },
 
+    drawer: {
+      divider: palette.slateTint(85)
+    },
+
     pager: {
       active: 'rgba(0,0,0,0.74)',
       disabled: 'rgba(0,0,0,0.55)',
