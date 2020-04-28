@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import Form from '.';
 import Textbox from '../../__experimental__/components/textbox';
+import DateInput from '../../__experimental__/components/date';
 import Button from '../button';
 import DialogFullScreen from '../dialog-full-screen';
 import Dialog from '../dialog';
@@ -264,6 +265,12 @@ With sticky footer
               stickyFooter
             >
               {Array.from({ length: 15 }).map((_, index) => <Textbox key={ index } label='Textbox' />)}
+              <DateInput
+                label="Date"
+                name='dateinput'
+                value='2019-04-04'
+              />
+              {Array.from({ length: 15}).map((_, index) => <Textbox key={ index } label='Textbox' />)}
             </Form>
           </DialogFullScreen>
         </>

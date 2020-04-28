@@ -4,6 +4,7 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are inlin
 .c2 {
   width: 100%;
   display: inline-block;
+  position: relative;
 }
 
 .c2 .c4 {
@@ -46,6 +47,7 @@ exports[`StyledDateRange renders Date inputs correctly when the labels are not i
 .c2 {
   width: 100%;
   display: inline-block;
+  position: relative;
 }
 
 .c2 .c4 {
