@@ -64,17 +64,21 @@ const AnchorNavigation = ({ children, stickyNavigation, styleOverride }) => {
   };
 
   const scrollToSection = (section) => {
-    section.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'smooth' });
     isUserScroll.current = false;
+    section.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'smooth' });
   };
 
   const handleClick = (event, index) => {
     event.preventDefault();
     const sectionToScroll = sectionRefs.current[index].current;
 
-    scrollToSection(sectionToScroll);
     focusFirstFocusableChild(sectionToScroll);
-    setSelectedIndex(index);
+
+    // workaround due to preventScroll focus method option on firefox not working consistently
+    window.setTimeout(() => {
+      scrollToSection(sectionToScroll);
+      setSelectedIndex(index);
+    }, 10);
   };
 
   const focusNavItem = (event, index) => {
