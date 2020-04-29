@@ -1,12 +1,11 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import 'jest-styled-components';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
+import { ThemeProvider } from 'styled-components';
 import TabTitle from './tab-title.component';
 import StyledTabTitle from './tab-title.style';
-import classicTheme from '../../../style/themes/classic';
+import { aegeanTheme, baseTheme, classicTheme } from '../../../style/themes';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
-import baseTheme from '../../../style/themes/base';
 
 function render(props) {
   return shallow(
@@ -298,6 +297,62 @@ describe('TabTitle', () => {
           },
           wrapper.toJSON()
         );
+      });
+    });
+  });
+
+  describe('when in DLS theme', () => {
+    it('applies proper paddings', () => {
+      wrapper = renderStyles({ theme: aegeanTheme });
+      assertStyleMatch(
+        {
+          padding: '14px 16px 12px'
+        },
+        wrapper.toJSON()
+      );
+    });
+
+    it('applies proper outline style on focus', () => {
+      wrapper = mount(
+        <ThemeProvider theme={ aegeanTheme }>
+          <TabTitle
+            title='Tab Title 1'
+            dataTabId='uniqueid1'
+            theme={ aegeanTheme }
+            position='top'
+            isTabSelected
+          />
+        </ThemeProvider>
+      ).find(TabTitle);
+
+      wrapper.simulate('focus');
+      assertStyleMatch({ position: 'relative' }, wrapper, { modifier: ':focus' });
+      assertStyleMatch({
+        position: 'absolute',
+        boxShadow: 'inset 2px 0 0 0 #FFB500, inset -2px 0 0 0 #FFB500, inset 0 2px 0 0 #FFB500, 0 2px 0 0 #FFB500'
+      }, wrapper, { modifier: ':focus:after' });
+    });
+
+    describe('and position set to left', () => {
+      it('applies proper outline style on focus', () => {
+        wrapper = mount(
+          <ThemeProvider theme={ aegeanTheme }>
+            <TabTitle
+              title='Tab Title 1'
+              dataTabId='uniqueid1'
+              theme={ aegeanTheme }
+              position='left'
+              isTabSelected
+            />
+          </ThemeProvider>
+        ).find(TabTitle);
+
+        wrapper.simulate('focus');
+        assertStyleMatch({ position: 'relative' }, wrapper, { modifier: ':focus' });
+        assertStyleMatch({
+          position: 'absolute',
+          boxShadow: 'inset 2px 0 0 0 #FFB500, 2px 0 0 0 #FFB500, inset 0 2px 0 0 #FFB500, inset 0 -2px 0 0 #FFB500'
+        }, wrapper, { modifier: ':focus:after' });
       });
     });
   });

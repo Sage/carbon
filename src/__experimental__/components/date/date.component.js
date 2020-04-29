@@ -393,7 +393,8 @@ class BaseDateInput extends React.Component {
       onChange: this.handleVisibleInputChange,
       onFocus: this.handleFocus,
       onKeyDown: this.handleKeyDown,
-      onClick: this.handleIconClick
+      onClick: this.handleIconClick,
+      iconOnClick: this.handleIconClick
     };
 
     const validations = isDateRange ? concatAllValidations(inputProps) : this.state.validationsArray;

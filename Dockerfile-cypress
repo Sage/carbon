@@ -1,18 +1,26 @@
-FROM cypress/included:4.1.0
+FROM cypress/included:4.4.0
 
 ENV APP_HOME /usr/src/app
 RUN mkdir -p $APP_HOME
 WORKDIR $APP_HOME
 
 COPY . $APP_HOME
-RUN rm package-lock.json
-RUN rm /etc/apt/sources.list.d/google.list
 
 # install packages
 RUN apt-get update && \
     apt-get install -y curl \
     wget \
-    default-jre
+    default-jre \
+    libgtk2.0-0 \
+    libgtk-3-0 \
+    libnotify-dev \
+    libgconf-2-4 \
+    libnss3 \
+    libxss1 \
+    libasound2 \
+    libxtst6 \
+    xauth \
+    xvfb
 ENV JAVA_HOME=/usr/lib/jvm/default-java
 
 EXPOSE 9001

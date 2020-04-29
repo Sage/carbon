@@ -41,11 +41,11 @@ Feature: Batch selection component
     When I select colorTheme to "<colorTheme>"
     Then Batch selection component colorTheme "<colorTheme>" is set to "<color>"
     Examples:
-      | colorTheme  | color              |
-      | dark        | rgb(0, 51, 73)     |
-      | white       | rgba(0, 0, 0, 0)   |
-      | light       | rgb(178, 193, 200) |
-      | transparent | rgba(0, 0, 0, 0)   |
+      | colorTheme        | color              |
+      | dark              | rgb(0, 51, 73)     |
+      | transparent-white | rgba(0, 0, 0, 0)   |
+      | light             | rgb(178, 193, 200) |
+      | transparent-base  | rgba(0, 0, 0, 0)   |
 
   @positive
   Scenario Outline: I focus inner element for Batch selection component

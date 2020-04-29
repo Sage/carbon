@@ -90,10 +90,10 @@ const OptionsHelper = {
   ],
 
   flatTableThemes: [
-    'dark',
     'light',
-    'white',
-    'transparent'
+    'dark',
+    'transparent-base',
+    'transparent-white'
   ],
 
   iconBackgrounds: [

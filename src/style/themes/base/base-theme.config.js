@@ -1,5 +1,6 @@
 export default (palette) => {
   const { atOpacity } = palette,
+
       blackWithOpacity = atOpacity('#000000'),
       baseWithOpacity = atOpacity(palette.productGreen);
 
@@ -11,7 +12,6 @@ export default (palette) => {
     colors: {
       // main
       base: palette.productGreen,
-
       primary: palette.genericGreenTint(15),
       secondary: palette.genericGreenShade(35),
       tertiary: palette.genericGreenShade(55),
@@ -42,7 +42,6 @@ export default (palette) => {
         hover: palette.errorRedShade(20)
       }
     },
-
 
     anchorNavigation: {
       divider: palette.slateTint(80),
@@ -78,6 +77,30 @@ export default (palette) => {
     carousel: {
       activeSelectorBackground: palette.slateTint(40),
       inactiveSelectorBackground: palette.slateTint(80)
+    },
+
+    flatTable: {
+      light: {
+        headerBackground: palette.slateTint(80),
+        border: palette.slateTint(70)
+      },
+
+      dark: {
+        headerBackground: palette.slateTint(20),
+        border: palette.slateTint(40)
+      },
+
+      transparentWhite: {
+        headerBackground: '#fff',
+        border: '#fff'
+      },
+
+      transparentBase: {
+        headerBackground: palette.slateTint(95),
+        border: palette.slateTint(95)
+      },
+      hover: palette.slateTint(95),
+      headerIconColor: palette.slateTint(60)
     },
 
     help: {
@@ -136,6 +159,10 @@ export default (palette) => {
       dragging: palette.slateTint(90)
     },
 
+    drawer: {
+      divider: palette.slateTint(85)
+    },
+
     pager: {
       active: 'rgba(0,0,0,0.74)',
       disabled: 'rgba(0,0,0,0.55)',
@@ -156,6 +183,11 @@ export default (palette) => {
 
     popoverContainer: {
       iconColor: 'rgba(0,0,0,0.90)'
+    },
+
+    numeralDate: {
+      passive: '#668592',
+      error: '#C7384F'
     },
 
     portrait: {

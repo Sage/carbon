@@ -73,10 +73,8 @@ Then('ActionPopover submenu is not visible', () => {
 });
 
 Then('Action Popover overriden styles rendered properly', () => {
-  actionPopoverButton().should('have.css', 'display', 'table');
   actionPopoverButton().children().should('have.css', 'padding-left', '8px')
-    .and('have.css', 'padding-right', '8px')
-    .and('have.css', 'width', '78px');
+    .and('have.css', 'padding-right', '8px');
   buttonDataComponentNoIFrame().should('have.css', 'border', '2px solid rgba(0, 0, 0, 0)')
     .and('have.css', 'box-sizing', 'border-box')
     .and('have.css', 'padding-top', '1px')

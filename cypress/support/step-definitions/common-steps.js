@@ -10,6 +10,7 @@ import {
   precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
   knobsNameTab, fieldHelpPreviewByPosition, labelByPosition, dlsRoot,
   commonButtonPreviewNoIFrameRoot,
+  getDataElementByValue,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
@@ -18,6 +19,10 @@ import { pagerSummary } from '../../locators/pager';
 
 const LABEL_INPUT_INLINE_CLASS = 'common-input__label--inline';
 const TEXT_ALIGN = 'text-align';
+
+Given('I open design systems {word} {word} component page', (type, component) => {
+  visitComponentUrl(component, type, false, 'design-system-');
+});
 
 Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
@@ -120,6 +125,10 @@ Given('I open style override Test {string} component page in noIframe', (compone
   visitComponentUrl(component, 'style_override', true, 'test-');
 });
 
+Given('I open sortable Test {string} component page in Iframe', (component) => {
+  visitComponentUrl(component, 'sortable', false, 'test-');
+});
+
 When('I open Test {string} component basic page with prop value', (componentName) => {
   visitFlatTableComponentNoiFrame(componentName, 'basic', true, 'test-');
 });
@@ -219,12 +228,16 @@ When('I hover mouse onto icon', () => {
   icon().trigger('mouseover');
 });
 
-Then('I hover mouse onto {string} icon in iFrame', (name) => {
+Then('I hover mouse onto {string} icon in no iFrame', (name) => {
   getElementNoIframe(name).trigger('mouseover');
 });
 
 Then('I hover mouse onto {string} icon in no iFrame', (name) => {
   getDataElementByValueNoIframe(name).trigger('mouseover');
+});
+
+Then('I hover mouse onto {string} icon in iFrame', (name) => {
+  getDataElementByValue(name).trigger('mouseover');
 });
 
 Then('I hover mouse onto {string} {string} icon for validations component into iFrame', (position, name) => {
@@ -410,7 +423,7 @@ When('I click outside of the component in DLS directory', () => {
   dlsRoot().click();
 });
 
-When('I click above of the component into iFrame', () => {
+When('I click above of the component in no iFrame', () => {
   storyRootNoIframe().click('top');
 });
 

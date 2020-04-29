@@ -7,8 +7,8 @@ const classes = (props) => {
     'carbon-column',
     props.className,
     props.columnClasses, {
-      [`carbon-column--offset-${props.columnOffset}`]: props.columnOffset,
-      [`carbon-column--span-${props.columnSpan}`]: props.columnSpan,
+      [`carbon-column--offset-${props.columnOffset}`]: String(props.columnOffset),
+      [`carbon-column--span-${props.columnSpan}`]: String(props.columnSpan),
       [`carbon-column--align-${props.columnAlign}`]: props.columnAlign,
       'carbon-column--column-divide': props.columnDivide
     }
@@ -59,12 +59,18 @@ Column.propTypes = {
   /**
    * Offset this column by a certain number of columns.
    */
-  columnOffset: PropTypes.string,
+  columnOffset: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
 
   /**
    * Span this column by a certain number of columns.
    */
-  columnSpan: PropTypes.string
+  columnSpan: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ])
 };
 
 export default Column;

@@ -15,6 +15,7 @@ export interface LinkProps {
   tooltipPosition?: 'bottom' | 'left' | 'right' | 'top';
   tooltipAlign?: 'bottom' | 'center' | 'left' | 'right' | 'top';
   children?: React.ReactNode;
+  routerLink?: React.ReactNode;
 }
 
 declare const Link: React.ComponentType<LinkProps & React.HTMLProps<HTMLLinkElement>>;

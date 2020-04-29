@@ -1,10 +1,18 @@
 import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
-import { FlatTable, FlatTableHead, FlatTableBody, FlatTableRow, FlatTableHeader, FlatTableRowHeader, FlatTableCell } from '.';
+import { 
+  FlatTable, 
+  FlatTableHead, 
+  FlatTableBody, 
+  FlatTableRow, 
+  FlatTableHeader,
+  FlatTableRowHeader,
+  FlatTableCell,
+  Sort
+} from '.';
 
 <Meta title="Design System/Flat Table" />
 
 # Flat Table
-
 
 ### Basic usage:
 
@@ -181,8 +189,150 @@ import { FlatTable, FlatTableHead, FlatTableBody, FlatTableRow, FlatTableHeader,
   </Story>
 </Preview>
 
-## Props:
 
+### With transparent-white theme
+To create a transparent effect for the header, override the header background styling
+to match the same color as the background
+
+<Preview>
+  <Story name="transparent-white theme" parameters={{ info: { disable: true }}} >
+    <div>
+      <FlatTable colorTheme="transparent-white">
+        <FlatTableHead>
+          <FlatTableRow>
+            <FlatTableHeader>Client</FlatTableHeader>
+            <FlatTableHeader>Client Type</FlatTableHeader>
+            <FlatTableHeader>Categories</FlatTableHeader>
+            <FlatTableHeader>Services</FlatTableHeader>
+          </FlatTableRow>
+        </FlatTableHead>
+        <FlatTableBody>
+          <FlatTableRow onClick={ () => {} }>
+            <FlatTableCell>John Doe</FlatTableCell>
+            <FlatTableCell>Business</FlatTableCell>
+            <FlatTableCell>Group1, Group2</FlatTableCell>
+            <FlatTableCell>Accounting</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow onClick={ () => {} }>
+            <FlatTableCell>Jane Doe</FlatTableCell>
+            <FlatTableCell>Business</FlatTableCell>
+            <FlatTableCell>Group1, Group3</FlatTableCell>
+            <FlatTableCell>Accounting</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow onClick={ () => {} }>
+            <FlatTableCell>John Smith</FlatTableCell>
+            <FlatTableCell>Charity</FlatTableCell>
+            <FlatTableCell>Group3</FlatTableCell>
+            <FlatTableCell>Payroll</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow onClick={ () => {} }>
+            <FlatTableCell>Jane Smith</FlatTableCell>
+            <FlatTableCell>Partnership</FlatTableCell>
+            <FlatTableCell>Group3</FlatTableCell>
+            <FlatTableCell>Final Tax</FlatTableCell>
+          </FlatTableRow>
+        </FlatTableBody>
+      </FlatTable>
+    </div>
+  </Story>
+</Preview>
+
+
+### With transparent-base theme
+To create a transparent effect for the header, override the header background styling
+to match the same color as the background
+
+<Preview>
+  <Story name="transparent-base theme" parameters={{ info: { disable: true }}} >
+    <FlatTable colorTheme="transparent-base">
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Client</FlatTableHeader>
+          <FlatTableHeader>Client Type</FlatTableHeader>
+          <FlatTableHeader>Categories</FlatTableHeader>
+          <FlatTableHeader>Services</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow onClick={ () => {} }>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>Business</FlatTableCell>
+          <FlatTableCell>Group1, Group2</FlatTableCell>
+          <FlatTableCell>Accounting</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow onClick={ () => {} }>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>Business</FlatTableCell>
+          <FlatTableCell>Group1, Group3</FlatTableCell>
+          <FlatTableCell>Accounting</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow onClick={ () => {} }>
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Charity</FlatTableCell>
+          <FlatTableCell>Group3</FlatTableCell>
+          <FlatTableCell>Payroll</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow onClick={ () => {} }>
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Partnership</FlatTableCell>
+          <FlatTableCell>Group3</FlatTableCell>
+          <FlatTableCell>Final Tax</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  </Story>
+</Preview>
+
+### With light theme 
+
+<Preview>
+  <Story name="light theme" parameters={{ info: { disable: true }}} >
+      <FlatTable colorTheme="light">
+        <FlatTableHead>
+          <FlatTableRow>
+            <FlatTableHeader>Client</FlatTableHeader>
+            <FlatTableHeader>Client Type</FlatTableHeader>
+            <FlatTableHeader>Categories</FlatTableHeader>
+            <FlatTableHeader>Services</FlatTableHeader>
+          </FlatTableRow>
+        </FlatTableHead>
+        <FlatTableBody>
+          <FlatTableRow onClick={ () => {} }>
+            <FlatTableCell>John Doe</FlatTableCell>
+            <FlatTableCell>Business</FlatTableCell>
+            <FlatTableCell>Group1, Group2</FlatTableCell>
+            <FlatTableCell>Accounting</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow onClick={ () => {} }>
+            <FlatTableCell>Jane Doe</FlatTableCell>
+            <FlatTableCell>Business</FlatTableCell>
+            <FlatTableCell>Group1, Group3</FlatTableCell>
+            <FlatTableCell>Accounting</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow onClick={ () => {} }>
+            <FlatTableCell>John Smith</FlatTableCell>
+            <FlatTableCell>Charity</FlatTableCell>
+            <FlatTableCell>Group3</FlatTableCell>
+            <FlatTableCell>Payroll</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow onClick={ () => {} }>
+            <FlatTableCell>Jane Smith</FlatTableCell>
+            <FlatTableCell>Partnership</FlatTableCell>
+            <FlatTableCell>Group3</FlatTableCell>
+            <FlatTableCell>Final Tax</FlatTableCell>
+          </FlatTableRow>
+        </FlatTableBody>
+      </FlatTable>
+  </Story>
+</Preview>
+
+### With sorting headers
+
+<Preview>
+  <Story id="test-flat-table--sortable" name="with sorting headers" />
+</Preview>
+
+## Props:
 
 ### FlatTable
 
@@ -203,6 +353,10 @@ import { FlatTable, FlatTableHead, FlatTableBody, FlatTableRow, FlatTableHeader,
 ### FlatTableHeader
 
 <Props of={FlatTableHeader} />
+
+### Sort
+
+<Props of={Sort} />
 
 ### FlatTableCell
 

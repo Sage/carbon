@@ -102,7 +102,7 @@ fi
 
 if $RUN_REGRESSION; then
   echo 'Running all regression tests'
-  docker-compose exec -T cypress bash -c "wait-on http://storybook:9001 && npm run test-cypress-regression; npm run generate-cypress-allure-report"
+  docker-compose exec -T cypress bash -c "wait-on http://storybook:9001 && npm run test-cypress-regression"
 fi
 
 if $RUN_REGRESSION_COMMON; then
