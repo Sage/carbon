@@ -32,7 +32,10 @@ class Row extends React.Component {
     /**
      * Define a certain amount of columns, instead of basing it on the number of children.
      */
-    columns: PropTypes.string,
+    columns: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]),
 
     /**
      * Classes to apply to all column children.
@@ -69,7 +72,7 @@ class Row extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    const columns = this.props.columns || React.Children.toArray(this.props.children).length;
+    const columns = String(this.props.columns || React.Children.toArray(this.props.children).length);
 
     return classNames(
       'carbon-row',

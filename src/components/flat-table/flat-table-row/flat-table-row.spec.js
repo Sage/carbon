@@ -68,14 +68,14 @@ describe('FlatTableRow', () => {
 
     it('then all Cells of the Row should have proper hover color', () => {
       assertStyleMatch({
-        backgroundColor: baseTheme.table.hover
+        backgroundColor: baseTheme.flatTable.hover
       },
       wrapper, { modifier: `:hover ${StyledFlatTableCell}` });
     });
 
     it('then the Row Header of the Row should have proper hover color', () => {
       assertStyleMatch({
-        backgroundColor: baseTheme.table.hover
+        backgroundColor: baseTheme.flatTable.hover
       },
       wrapper, { modifier: `:hover ${StyledFlatTableRowHeader}` });
     });

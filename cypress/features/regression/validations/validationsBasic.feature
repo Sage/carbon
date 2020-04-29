@@ -8,8 +8,8 @@ Feature: Validations basic component
   @validations
   Scenario Outline: Verify the error validation of Validations basic component
     Given I click onto "<position>" input for validations component into iFrame
-      And I click above of the component into iFrame
-    When I hover mouse onto "error" icon in iFrame
+      And I click above of the component in no iFrame
+    When I hover mouse onto "error" icon in no iFrame
     Then tooltipPreview on preview into iFrame is set to "<text>"
       And icon name into iFrame on preview is "error"
     Examples:
@@ -22,8 +22,8 @@ Feature: Validations basic component
   @validations
   Scenario Outline: Verify the <state> validation of Validations basic component
     Given I click onto "<position>" input for validations component into iFrame
-      And I click above of the component into iFrame
-    When I hover mouse onto "<state>" icon in iFrame
+      And I click above of the component in no iFrame
+    When I hover mouse onto "<state>" icon in no iFrame
     Then tooltipPreview on preview into iFrame is set to '<text>'
       And icon name into iFrame on preview is "<state>"
     Examples:
@@ -35,8 +35,8 @@ Feature: Validations basic component
   @validations
   Scenario: Verify the error async validator input of Validations basic component
     Given I click onto "second" input for validations component into iFrame
-      And I click above of the component into iFrame
+      And I click above of the component in no iFrame
       And I wait on async "error" icon
-    When I hover mouse onto "error" icon in iFrame
+    When I hover mouse onto "error" icon in no iFrame
     Then tooltipPreview on preview into iFrame is set to 'This value must include the word "valid"!'
       And icon name into iFrame on preview is "error"

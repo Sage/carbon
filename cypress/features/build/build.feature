@@ -200,6 +200,7 @@ Feature: Build tests
       | Flat Table          | flat-table          |
       | Grid                | grid                |
       | Popover Container   | popover-container   |
+      | Numeral date        | numeral-date        |
       | Search              | search              |
 
   @build

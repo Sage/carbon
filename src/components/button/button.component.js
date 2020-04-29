@@ -1,40 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link as RouterLink } from 'react-router';
 import Icon from '../icon';
 import StyledButton, { StyledButtonSubtext } from './button.style';
 import tagComponent from '../../utils/helpers/tags';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
-const Button = (props) => {
-  const {
-    disabled, to, iconType, size, subtext
-  } = props;
-
-  const { as, buttonType, ...rest } = props;
-
-  const propsWithoutAs = {
-    ...rest,
-    buttonType: buttonType || as
-  };
-
-  if (subtext.length > 0 && size !== 'large') {
-    throw new Error('subtext prop has no effect unless the button is large');
-  }
-
-  // added to support legacy link buttons
-  if (!disabled && to) {
-    return (
-      <RouterLink to={ to } type={ iconType }>
-        {renderStyledButton(propsWithoutAs)}
-      </RouterLink>
-    );
-  }
-
-  return renderStyledButton(propsWithoutAs);
-};
-
-function renderStyledButton(buttonProps) {
+const renderStyledButton = (buttonProps) => {
   const {
     disabled,
     buttonType,
@@ -67,7 +38,37 @@ function renderStyledButton(buttonProps) {
       { renderChildren(buttonProps) }
     </StyledButton>
   );
-}
+};
+
+const Button = (props) => {
+  const {
+    disabled, to, iconType, renderRouterLink, size, subtext
+  } = props;
+
+  const { as, buttonType, ...rest } = props;
+
+  const propsWithoutAs = {
+    ...rest,
+    buttonType: buttonType || as
+  };
+
+  if (subtext.length > 0 && size !== 'large') {
+    throw new Error('subtext prop has no effect unless the button is large');
+  }
+
+  // added to support legacy link buttons
+  if (!disabled && to && renderRouterLink) {
+    return (
+      renderRouterLink({
+        to,
+        type: iconType,
+        children: renderStyledButton(propsWithoutAs)
+      })
+    );
+  }
+
+  return renderStyledButton(propsWithoutAs);
+};
 
 function renderChildren({
   // eslint-disable-next-line react/prop-types
@@ -135,13 +136,15 @@ Button.propTypes = {
   as: PropTypes.oneOf(OptionsHelper.themesBinary),
   /** Legacy - used to transform button into anchor */
   href: PropTypes.string,
-  /** Legacy - used to transform button into anchor */
+  /** Legacy - transforms button into anchor, must be accompanied by a router link passed via `renderRouterLink` */
   to: PropTypes.string,
   /** Allows override of existing component styles */
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     icon: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
-  })
+  }),
+  /** Render prop that when coupled with the `to` prop will render the a routing anchor link */
+  renderRouterLink: PropTypes.func
 };
 
 Button.defaultProps = {

@@ -13,7 +13,9 @@ import Heading from '../heading/heading';
 import { Row, Column } from '../row/row';
 import ElementResize from '../../utils/helpers/element-resize/element-resize';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-import Form from '../../__deprecated__/components/form';
+import Form from '../form';
+import { StyledForm, StyledFormFooter } from '../form/form.style';
+import DeprecatedForm from '../../__deprecated__/components/form';
 import IconButton from '../icon-button';
 
 /* global jest */
@@ -36,7 +38,7 @@ describe('Dialog', () => {
       describe('when dialog is open', () => {
         it('centers the dialog', () => {
           instance = TestUtils.renderIntoDocument(
-            <Dialog open onCancel={ onCancel }><Form /></Dialog>
+            <Dialog open onCancel={ onCancel }><DeprecatedForm /></Dialog>
           );
           spyOn(instance, 'centerDialog');
           instance.componentDidMount();
@@ -279,6 +281,43 @@ describe('Dialog', () => {
         instance.centerDialog();
         expect(instance.applyFixedBottom).toHaveBeenCalled();
       });
+    });
+  });
+
+  describe('form styles', () => {
+    it('applies proper styles to form and form footer when height prop is defined on dialog', () => {
+      const wrapper = mount(
+        <Dialog open height='500'>
+          <Form />
+        </Dialog>
+      );
+
+      assertStyleMatch({
+        minHeight: 'inherit',
+        paddingBottom: '88px',
+        boxSizing: 'border-box'
+      }, wrapper.find(DialogStyle), { modifier: `${StyledForm}` });
+
+      assertStyleMatch({
+        bottom: '0px',
+        position: 'absolute',
+        width: '100%'
+      }, wrapper.find(DialogStyle), { modifier: `${StyledFormFooter}` });
+    });
+
+    it('applies proper styles to sticky form footer', () => {
+      const wrapper = mount(
+        <Dialog open>
+          <Form />
+        </Dialog>
+      );
+
+      assertStyleMatch({
+        marginLeft: '-35px',
+        left: 'auto',
+        width: '750px',
+        position: 'fixed'
+      }, wrapper.find(DialogStyle), { modifier: `${StyledFormFooter}.isSticky` });
     });
   });
 

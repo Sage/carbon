@@ -71,10 +71,10 @@ We use a bot to help us manage issues. The bot automatically labels issues where
 * New tests need to be written using Enzyme - it's ok for a Testutils and Enzyme to be mixed in a legacy code file.
 
 ## Pull Request Guidelines
-Before submitting a pull request, check the [issue tracker](https://github.com/sage/carbon/issues) to see if the feature or bug has already been discussed. If it has, check with us before beginning work on it to avoid duplicated effort. If no issue has been raised, please raise one first before beginning work. You can then link back to this when submitting a pull request to address it.
+Before submitting a pull request, check the [issue tracker](https://github.com/sage/carbon/issues) to see if the feature or bug has already been discussed. If it has, check with us before beginning work on it to avoid duplicated effort. If no issue has been raised, please raise one and wait for approval before beginning work. You can then link back to this when submitting a pull request to address it.
 
 Pull requests can be used in conjunction with two workflows:
-### The **Feature Branch** workflow 
+### The **Feature Branch** workflow
 If you are a Carbon maintainer you should develop your feature in a branch of the Carbon repository. To merge into `master` you must first open a pull request with your feature branch as the source and `master` as the destination.
 
 ### The **Forking** workflow 
