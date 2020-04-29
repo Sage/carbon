@@ -361,6 +361,11 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
   width: 30px;
 }
 
+.c14:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+  -webkit-box-border: none;
+}
+
 .c14::-webkit-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
@@ -448,6 +453,11 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
 
 .c12 .c13 {
   height: calc(40px - 4px);
+}
+
+.c12 .c13:-webkit-autofill {
+  margin-top: 2px;
+  height: calc(40px - 8px);
 }
 
 .c12 input::-ms-clear {

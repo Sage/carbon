@@ -35,6 +35,11 @@ exports[`InputPresentation classic theme applies custom styling 1`] = `
   height: calc(40px - 4px);
 }
 
+.c0 .c2:-webkit-autofill {
+  margin-top: 2px;
+  height: calc(40px - 8px);
+}
+
 .c0 .c2 {
   height: 27px;
 }
@@ -103,6 +108,11 @@ exports[`InputPresentation renders presentational div and context provider for i
 
 .c0 .c1 {
   height: calc(40px - 4px);
+}
+
+.c0 .c1:-webkit-autofill {
+  margin-top: 2px;
+  height: calc(40px - 8px);
 }
 
 .c0 input::-ms-clear {

@@ -1,3 +1,10 @@
+### [17.4.1](https://github.com/Sage/carbon/compare/v17.4.0...v17.4.1) (2020-04-29)
+
+
+### Bug Fixes
+
+* **input:** update autofill style ([a4c6cae](https://github.com/Sage/carbon/commit/a4c6caea4330620e9086e3555c07dcbd8d365072))
+
 ## [17.4.0](https://github.com/Sage/carbon/compare/v17.3.2...v17.4.0) (2020-04-28)
 
 
