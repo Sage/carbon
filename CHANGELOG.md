@@ -1,3 +1,10 @@
+### [17.4.2](https://github.com/Sage/carbon/compare/v17.4.1...v17.4.2) (2020-04-29)
+
+
+### Bug Fixes
+
+* **anchor-navigation:** incorrect scroll animation in firefox ([96396f5](https://github.com/Sage/carbon/commit/96396f5ce48b7f0f5835c5250bc21f861a1f63c6))
+
 ### [17.4.1](https://github.com/Sage/carbon/compare/v17.4.0...v17.4.1) (2020-04-29)
 
 
