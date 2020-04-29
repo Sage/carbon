@@ -1,6 +1,8 @@
 import {
   dateInput, dayPickerDay, minDate, maxDate, dateInputNoIframe,
   dayPickerDayNoIframe,
+  dayPickerWrapper,
+  dateIcon,
 } from '../../locators/date-input/index';
 
 const DAY_PICKER_PREFIX = 'DayPicker-Day--';
@@ -104,4 +106,28 @@ Then('the date is set to today', () => {
 
 Then('I click onto specific day {string} via DayPicker for validation component into iFrame', (specificDay) => {
   dayPickerDayNoIframe(specificDay).click();
+});
+
+Then('dayPickerDay is visible', () => {
+  dayPickerWrapper().should('be.visible');
+});
+
+Then('dayPickerDay is not visible', () => {
+  dayPickerWrapper().should('not.exist');
+});
+
+When('I click onto date icon', () => {
+  dateIcon().click({ force: true });
+});
+
+When('I click onto date icon twice', () => {
+  dateIcon().click().then(($el) => {
+    $el.click();
+  });
+});
+
+When('I click dateInput twice', () => {
+  dateInput().click().then(($el) => {
+    $el.click();
+  });
 });

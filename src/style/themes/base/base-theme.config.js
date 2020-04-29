@@ -79,11 +79,28 @@ export default (palette) => {
       inactiveSelectorBackground: palette.slateTint(80)
     },
 
-
     flatTable: {
-      default: {
-        hover: palette.slateTint(95)
-      }
+      light: {
+        headerBackground: palette.slateTint(80),
+        border: palette.slateTint(70)
+      },
+
+      dark: {
+        headerBackground: palette.slateTint(20),
+        border: palette.slateTint(40)
+      },
+
+      transparentWhite: {
+        headerBackground: '#fff',
+        border: '#fff'
+      },
+
+      transparentBase: {
+        headerBackground: palette.slateTint(95),
+        border: palette.slateTint(95)
+      },
+      hover: palette.slateTint(95),
+      headerIconColor: palette.slateTint(60)
     },
 
     help: {
@@ -140,6 +157,10 @@ export default (palette) => {
       selected: palette.slateTint(85),
       zebra: palette.slateTint(98),
       dragging: palette.slateTint(90)
+    },
+
+    drawer: {
+      divider: palette.slateTint(85)
     },
 
     pager: {

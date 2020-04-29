@@ -20,6 +20,10 @@ import { pagerSummary } from '../../locators/pager';
 const LABEL_INPUT_INLINE_CLASS = 'common-input__label--inline';
 const TEXT_ALIGN = 'text-align';
 
+Given('I open design systems {word} {word} component page', (type, component) => {
+  visitComponentUrl(component, type, false, 'design-system-');
+});
+
 Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
 });
@@ -119,6 +123,10 @@ Given('I open basic Test {string} component page in noIframe', (component) => {
 
 Given('I open style override Test {string} component page in noIframe', (component) => {
   visitComponentUrl(component, 'style_override', true, 'test-');
+});
+
+Given('I open sortable Test {string} component page in Iframe', (component) => {
+  visitComponentUrl(component, 'sortable', false, 'test-');
 });
 
 When('I open Test {string} component basic page with prop value', (componentName) => {

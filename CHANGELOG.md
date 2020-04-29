@@ -1,3 +1,32 @@
+## [17.4.0](https://github.com/Sage/carbon/compare/v17.3.2...v17.4.0) (2020-04-28)
+
+
+### Features
+
+* **drawer:** create drawer component ([cee6f98](https://github.com/Sage/carbon/commit/cee6f98c4bfa5a513b4709f1b502c27ca0944e01))
+
+### [17.3.2](https://github.com/Sage/carbon/compare/v17.3.1...v17.3.2) (2020-04-28)
+
+
+### Bug Fixes
+
+* **accordion:** add content resize animation ([10d59ef](https://github.com/Sage/carbon/commit/10d59ef36236eb2334587da143ad19f1c2e41181))
+* **accordion:** lack of accordion resize when content size changes ([1f7267f](https://github.com/Sage/carbon/commit/1f7267f3c036331d32dafef35adf7decc5a4def6))
+
+### [17.3.1](https://github.com/Sage/carbon/compare/v17.3.0...v17.3.1) (2020-04-28)
+
+
+### Bug Fixes
+
+* **date:** allow to open date picker by clicking on calendar icon ([1fc5251](https://github.com/Sage/carbon/commit/1fc52515fa932106a3d9614658350460f0528d3e))
+
+## [17.3.0](https://github.com/Sage/carbon/compare/v17.2.3...v17.3.0) (2020-04-27)
+
+
+### Features
+
+* **flat-table:** add new component sort and table themes ([4e14426](https://github.com/Sage/carbon/commit/4e14426e2c42f6904c54b2c0038c6cad7115d1cd))
+
 ### [17.2.3](https://github.com/Sage/carbon/compare/v17.2.2...v17.2.3) (2020-04-22)
 
 

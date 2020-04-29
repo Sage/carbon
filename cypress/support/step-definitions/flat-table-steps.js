@@ -1,9 +1,11 @@
 import {
   flatTableHeaderCells, flatTableHeader, flatTableBodyRows, flatTableNoiFrame,
-  flatTableHeaderCellsNoiFrame, flatTableBodyRowByPositionNoiFrame, flatTableBodyCellByPosition, flatTableBodyRowByPosition,
+  flatTableHeaderCellsNoiFrame, flatTableBodyRowByPositionNoiFrame, flatTableBodyCellByPosition,
+  flatTableBodyRowByPosition, flatTableCell, flatTableHeaderInnerContent,
 } from '../../locators/flat-table';
 import { DEBUG_FLAG } from '..';
 import { positionOfElement } from '../helper';
+import { icon } from '../../locators';
 
 Then('FlatTable rows are sticky', () => {
   cy.wait(500);
@@ -97,4 +99,94 @@ Then('I focus {int} row and focused row element has golden border on focus', (in
 
 Then('press Enter key on the row element', () => {
   flatTableBodyRowByPosition(2).focus().trigger('keydown', { keyCode: 13, which: 13, force: true });
+});
+
+Then('I click on {string} header {int} times', (position, times) => {
+  for (let i = 0; i < times; i++) {
+    flatTableHeaderInnerContent().eq(positionOfElement(position)).click();
+  }
+});
+
+When('{string} column is sorted in {string} order', (position, sortOrder) => {
+  const valueOne = 'Tyler Webb';
+  const valueTwo = 'Monty Parker';
+  const valueThree = 'Jason Atkinson';
+  const valueFour = 'Blake Sutton';
+  const totalOne = '3840';
+  const totalTwo = '1349';
+  const totalThree = '849';
+  const totalFour = '280';
+  if (position === 'first' && sortOrder === 'desc') {
+    icon().should('have.attr', 'data-element', 'sort_down')
+      .and('be.visible');
+    flatTableCell(positionOfElement('first')).should('have.text', valueOne)
+      .and('be.visible');
+    flatTableCell(positionOfElement('third')).should('have.text', valueTwo)
+      .and('be.visible');
+    flatTableCell(positionOfElement('fifth')).should('have.text', valueThree)
+      .and('be.visible');
+    flatTableCell(positionOfElement('seventh')).should('have.text', valueFour)
+      .and('be.visible');
+  } else if (position === 'first' && sortOrder === 'asc') {
+    icon().should('have.attr', 'data-element', 'sort_up')
+      .and('be.visible');
+    flatTableCell(positionOfElement('first')).should('have.text', valueFour)
+      .and('be.visible');
+    flatTableCell(positionOfElement('third')).should('have.text', valueThree)
+      .and('be.visible');
+    flatTableCell(positionOfElement('fifth')).should('have.text', valueTwo)
+      .and('be.visible');
+    flatTableCell(positionOfElement('seventh')).should('have.text', valueOne)
+      .and('be.visible');
+  } else if (position === 'second' && sortOrder === 'desc') {
+    icon().should('have.attr', 'data-element', 'sort_down')
+      .and('be.visible');
+    flatTableCell(positionOfElement('second')).should('have.text', totalOne)
+      .and('be.visible');
+    flatTableCell(positionOfElement('fourth')).should('have.text', totalTwo)
+      .and('be.visible');
+    flatTableCell(positionOfElement('sixth')).should('have.text', totalThree)
+      .and('be.visible');
+    flatTableCell(positionOfElement('eighth')).should('have.text', totalFour)
+      .and('be.visible');
+  } else {
+    icon().should('have.attr', 'data-element', 'sort_up')
+      .and('be.visible');
+    flatTableCell(positionOfElement('second')).should('have.text', totalFour)
+      .and('be.visible');
+    flatTableCell(positionOfElement('fourth')).should('have.text', totalThree)
+      .and('be.visible');
+    flatTableCell(positionOfElement('sixth')).should('have.text', totalTwo)
+      .and('be.visible');
+    flatTableCell(positionOfElement('eighth')).should('have.text', totalOne)
+      .and('be.visible');
+  }
+});
+
+Then('Flat table header has {string} color', (colorTheme) => {
+  flatTableHeaderCells().each(($el) => {
+    cy.wrap($el).should('have.css', 'background-color', colorTheme);
+  });
+});
+
+Then('{string} header has focus', (position) => {
+  flatTableHeaderInnerContent().eq(positionOfElement(position)).should('have.css', 'outline-color', 'rgb(255, 181, 0)');
+});
+
+Then('I focus {string} header cell', (position) => {
+  flatTableHeaderInnerContent().eq(positionOfElement(position)).focus();
+});
+
+Then('I press {string} on {string} header {int} time(s)', (key, position, count) => {
+  for (let i = 0; i < count; i++) {
+    if (key === 'Enter') {
+      flatTableHeaderInnerContent().eq(positionOfElement(position)).focus()
+        .trigger('keydown', { keyCode: 13, which: 13, force: true });
+    } else if (key === 'Space') {
+      flatTableHeaderInnerContent().eq(positionOfElement(position)).focus()
+        .trigger('keydown', { keyCode: 32, which: 32, force: true });
+    } else {
+      throw new Error('Only Enter or Space key can be applied');
+    }
+  }
 });

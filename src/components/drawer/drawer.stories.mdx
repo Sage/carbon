@@ -1,0 +1,86 @@
+import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
+import Drawer from '.';
+import { useState, useCallback } from 'react';
+import { text } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
+
+<Meta title="Design System/Drawer" />
+
+# Drawer
+Drawer is a two column layout container.
+It is designed to have left hand side container expand and collapse to respectively reveal and hide the content of that container.
+Drawer component is designed to fill the space of the element that it is put inside.
+
+```javascript
+import Drawer from 'carbon-react/lib/components/drawer';
+```
+
+### Uncontrolled usage:
+
+<Preview>
+  <Story name="uncontrolled" parameters={{ info: { disable: true }}} >
+    return (
+      <div style={ { height: '200px' } }>
+        <Drawer
+          expandedWidth={ text('expandedWidth', '40%') }
+          animationDuration={ text('animationDuration', '0.5s') }
+          sidebar={ (
+            <ul>
+              <li>link a</li>
+              <li>link b</li>
+              <li>link c</li>
+            </ul>
+          ) }
+        >
+          content body content body content body content body content body content body content body
+        </Drawer>
+      </div>
+    )
+  </Story>
+</Preview>
+
+
+### Controlled Usage:
+
+<Preview>
+  <Story name="controlled" parameters={{ info: { disable: true }}} >
+    {() => {
+      const [isExpanded, setIsExpanded] = useState(true);
+      const onChangeHandler = useCallback(() => {
+        setIsExpanded(!isExpanded);
+        action('expansionToggled');
+      }, [isExpanded]);
+      return (
+        <div>
+          <p>
+            Note: if you experience glitchy animation on `Drawer` component,
+            please open canvas in new window (2nd icon in top right corner)
+          </p>
+          <div style={ { height: '200px' } }>
+            <Drawer
+              expandedWidth={ text('expandedWidth', '40%') }
+              animationDuration={ text('animationDuration', '0.5s') }
+              expanded={ isExpanded }
+              onChange={ onChangeHandler }
+              sidebar={ (
+                <ul>
+                  <li>link a</li>
+                  <li>link b</li>
+                  <li>link c</li>
+                </ul>
+              ) }
+            >
+              content body content body content body content body content body content body content body
+            </Drawer>
+          </div>
+        </div>
+      )
+    }}
+  </Story>
+</Preview>
+
+## Props:
+
+### Drawer
+
+<Props of={Drawer} />
