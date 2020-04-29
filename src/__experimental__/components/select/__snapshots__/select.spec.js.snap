@@ -155,6 +155,11 @@ Object {
   width: 30px;
 }
 
+.c2:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+  -webkit-box-border: none;
+}
+
 .c2::-webkit-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
@@ -219,6 +224,11 @@ Object {
   height: calc(40px - 4px);
 }
 
+.c5 .c1:-webkit-autofill {
+  margin-top: 2px;
+  height: calc(40px - 8px);
+}
+
 .c0 {
   -webkit-align-items: stretch;
   -webkit-box-align: stretch;
@@ -246,6 +256,11 @@ Object {
 
 .c0 .c1 {
   height: calc(40px - 4px);
+}
+
+.c0 .c1:-webkit-autofill {
+  margin-top: 2px;
+  height: calc(40px - 8px);
 }
 
 .c0.c0 {
