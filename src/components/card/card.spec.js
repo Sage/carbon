@@ -2,8 +2,10 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import Card from './card.component';
+import CardFooter from './card-footer/card-footer.component';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import Icon from '../icon';
+import Link from '../link';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
@@ -44,6 +46,28 @@ describe('Card', () => {
 
       expect(wrapper.find(Icon).exists()).toBe(true);
       expect(wrapper.find(Icon).props().type).toBe('drag');
+    });
+  });
+
+  describe('CardFooter styling', () => {
+    it('should match the expected styling when it has non-interactive content', () => {
+      const cardFooter = TestRenderer.create(
+        <CardFooter>
+          <Link icon='link' href='https://carbon.sage.com/'>View Stripe Dashboard</Link>
+        </CardFooter>
+      );
+
+      expect(cardFooter).toMatchSnapshot();
+    });
+
+    it('should match the expected styling when it has interactive styling', () => {
+      const cardFooter = TestRenderer.create(
+        <CardFooter>
+          <div id='non-interactive'>View Stripe Dashboard</div>
+        </CardFooter>
+      );
+
+      expect(cardFooter).toMatchSnapshot();
     });
   });
 
