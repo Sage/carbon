@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import OptionsHelper from '../../../utils/helpers/options-helper/options-helper';
 import BaseTheme from '../../../style/themes/base';
 import StyledCardColumn from '../card-column/card-column.style';
-import StyledIcon from '../../icon/icon.style';
-import LinkStyleAnchor from '../../link/link.style';
 
 const { sizesRestricted } = OptionsHelper;
 
@@ -27,20 +25,13 @@ const StyledCardFooter = styled.div`
     border-top-width: 1px;
     border-top-style: solid;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     margin: ${marginSizes[spacing]};
     display: flex;
 
     ${StyledCardColumn} {
       margin: 0;
-      color: ${theme.card.footerText};
       padding: ${paddingSizes[spacing]};
-    }
-
-    ${LinkStyleAnchor},
-    ${StyledIcon},
-    ${StyledIcon}:before {
-      color: ${theme.card.footerText};
     }
   `}
 `;
