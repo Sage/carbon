@@ -1,6 +1,7 @@
 import {
   visitComponentUrl, setSlidebar, pressESCKey, pressTABKey, asyncWaitForKnobs,
   visitFlatTableComponentNoiFrame, positionOfElement, keyCode,
+  visitDocsUrl,
 } from '../helper';
 import {
   commonButtonPreview, labelPreview, helpIcon, helpIconByPosition, inputWidthSlider,
@@ -131,6 +132,10 @@ Given('I open sortable Test {string} component page in Iframe', (component) => {
 
 When('I open Test {string} component basic page with prop value', (componentName) => {
   visitFlatTableComponentNoiFrame(componentName, 'basic', true, 'test-');
+});
+
+Given('I open basic Design System {string} component docs page', (component) => {
+  visitDocsUrl(component, 'basic', false, 'design-system-');
 });
 
 Given('I open grouped Test {string} component page in noIframe', (component) => {

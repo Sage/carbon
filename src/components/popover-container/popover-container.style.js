@@ -5,10 +5,7 @@ import StyledIcon from '../icon/icon.style';
 
 const PopoverContainerWrapperStyle = styled.div`
   position: relative;
-  border: none;
-  padding: 0;
-  width: 40px;
-  height: 40px;
+  display: inline-block;
 `;
 
 const PopoverContainerIcon = styled(IconButton)`
@@ -30,7 +27,8 @@ const PopoverContainerContentStyle = styled.div`
   padding: 16px 24px;
   min-width: 300px;
   position: absolute;
-  top: 0;
+  
+  ${({ shouldCoverButton }) => shouldCoverButton && 'top: 0'}
 
   ${({ position }) => (position === 'left' ? 'right: 0' : 'left: 0')};
 
@@ -59,6 +57,12 @@ const PopoverContainerContentStyle = styled.div`
   }}
 `;
 
+const PopoverContainerOpenIcon = styled(IconButton)`
+  ${StyledIcon}{
+    color: ${({ theme }) => theme.popoverContainer.iconColor};
+  }
+`;
+
 const PopoverContainerCloseIcon = styled(IconButton)`
   position: absolute;
   top: 16px;
@@ -69,7 +73,7 @@ const PopoverContainerCloseIcon = styled(IconButton)`
   };
 `;
 
-const PopoverContainerTitle = styled.div`
+const PopoverContainerTitleStyle = styled.div`
   font-size: 16px;
   font-weight: bold;
 `;
@@ -86,11 +90,16 @@ PopoverContainerCloseIcon.defaultProps = {
   theme: baseTheme
 };
 
+PopoverContainerOpenIcon.defaultProps = {
+  theme: baseTheme
+};
+
 export {
   PopoverContainerWrapperStyle,
   PopoverContainerIcon,
   PopoverContainerHeaderStyle,
   PopoverContainerContentStyle,
   PopoverContainerCloseIcon,
-  PopoverContainerTitle
+  PopoverContainerTitleStyle,
+  PopoverContainerOpenIcon
 };
