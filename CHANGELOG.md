@@ -1,3 +1,10 @@
+### [17.4.3](https://github.com/Sage/carbon/compare/v17.4.2...v17.4.3) (2020-04-30)
+
+
+### Bug Fixes
+
+* **card-footer:** update the footer non interactive text colour to black ([57488a7](https://github.com/Sage/carbon/commit/57488a7d245a1a81ba1e7fb550c029e7816b363b)), closes [#2900](https://github.com/Sage/carbon/issues/2900)
+
 ### [17.4.2](https://github.com/Sage/carbon/compare/v17.4.1...v17.4.2) (2020-04-29)
 
 
