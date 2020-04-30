@@ -1,3 +1,10 @@
+### [17.5.1](https://github.com/Sage/carbon/compare/v17.5.0...v17.5.1) (2020-04-30)
+
+
+### Bug Fixes
+
+* **popover-container:** revert previous release due to breaking change ([c33cef2](https://github.com/Sage/carbon/commit/c33cef2a57bb8027cabd2b8d45306143a112eaf1))
+
 ## [17.5.0](https://github.com/Sage/carbon/compare/v17.4.3...v17.5.0) (2020-04-30)
 
 
