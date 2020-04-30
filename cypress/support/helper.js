@@ -4,21 +4,17 @@ import {
 import { DEBUG_FLAG } from '.';
 import { getElementNoIframe } from '../locators/build';
 
-function prepareUrl(component, suffix, iFrameOnly, prefix, env) {
+function prepareUrl(component, suffix, iFrameOnly, prefix) {
   let url = Cypress.config().baseUrl;
   const iFrame = Cypress.env('iframe') + prefix;
-  const story = Cypress.env(env) + prefix;
+  const story = Cypress.env('story') + prefix;
   // eslint-disable-next-line no-unused-expressions
   iFrameOnly ? url += iFrame : url += story;
   return url + component.toLowerCase().replace(/ /g, '-') + Cypress.env(suffix);
 }
 
-export function visitDocsUrl(component, suffix = 'default', iFrameOnly = false, prefix = '', env = 'docs') {
-  cy.visit(prepareUrl(component, suffix, iFrameOnly, prefix, env));
-}
-
-export function visitComponentUrl(component, suffix = 'default', iFrameOnly = false, prefix = '', env = 'story') {
-  cy.visit(prepareUrl(component, suffix, iFrameOnly, prefix, env));
+export function visitComponentUrl(component, suffix = 'default', iFrameOnly = false, prefix = '') {
+  cy.visit(prepareUrl(component, suffix, iFrameOnly, prefix));
   if (!iFrameOnly) knobsTab().click();
 }
 

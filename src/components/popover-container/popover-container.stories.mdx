@@ -3,252 +3,101 @@ import PopoverContainer from "./popover-container.component";
 import {DraggableContainer, DraggableItem} from '../draggable'
 import { Checkbox } from '../../__experimental__/components/checkbox';
 import ButtonToggle from '../button-toggle';
-import { useState } from 'react';
 import Button from '../button';
 import Link from '../link';
-import Pill from '../pill';
-import Badge from '../badge';
 
 <Meta title="Design System/Popover Container" />
 
-# PopoverContainer
+# Popover Container
+
+## Quick Start
+
+To use Popover Container, import the `Popover Container` and pass the content as children.
 
 ```jsx
-import PopoverContainer from "carbon-react/lib/components/popover-container";
+import PopoverContainer from "carbon-react/lib/components/PopoverContainer";
+const MyComponent = () => (
+  <PopoverContainer iconType="settings" title="Popover Container Title">
+    <p>Content as a children</p>
+  </PopoverContainer>
+);
 ```
 
-### Quick Start
+### Basic Popover Container
 
-To use `PopoverContainer`, import the `PopoverContainer` and pass the content as children.
 <Preview>
-  <Story name="basic" parameters={{ info: { disable: true }}} >
-    <div style={{height: 100}}>
-      <PopoverContainer>
-      Contents
-      </PopoverContainer>
-      
-      </div>
+  <Story name="basic" parameters={{ info: { disable: true }}}>
+    <PopoverContainer iconType="settings" title="Popover Container Title" />
   </Story>
 </Preview>
 
-### With title
-Use the `title` prop to set a title within the `PopoverContainer`.
+### Popover Container with position left
+
 <Preview>
-  <Story name="title" parameters={{ info: { disable: true }}} >
-    <div style={{height: 100}}>
-      <PopoverContainer title="With a title">
-      Contents
-      </PopoverContainer>   
-      </div>
+  <Story name="with position left" parameters={{ info: { disable: true }}}>
+    <div style={{marginLeft: '300px'}}>
+      <PopoverContainer position="left" iconType="settings" title="Popover Container Title" />
+    </div>
   </Story>
 </Preview>
 
-### Right Aligned/Open Left
-Use the `position` prop to open the `PopoverContainer` to the left, this is useful if your open button is to the right
-of the screen.
+### Popover Container with different icon
+
 <Preview>
-  <Story name="position" parameters={{ info: { disable: true }}} >
-    <div style={{height: 100, float: 'right'}}>
-      <PopoverContainer title="Right Aligned" position="left">
-      Contents
-      </PopoverContainer>
-      </div>
+  <Story name="with different icon" parameters={{ info: { disable: true }}}>
+    <PopoverContainer iconType="edited" title="Popover Container Title" />
   </Story>
 </Preview>
 
-### Cover Button
-Use the `shouldCoverButton` prop to hide the open button when the `PopoverContainer` is open.
+### Popover Container with simple content
+
 <Preview>
-  <Story name="cover button" parameters={{ info: { disable: true }}} >
-    <div style={{height: 100}}>
-      <PopoverContainer title="Cover Button" shouldCoverButton>
-      Contents
+  <Story name="with simple content" parameters={{ info: { disable: true }}}>
+    <div style={{minHeight: '280px'}}>
+      <PopoverContainer iconType="settings" title="Popover Container Title">
+        <p>Ut consectetur elit non proident minim.
+          Aute ut Lorem excepteur enim excepteur et fugiat pariatur esse fugiat excepteur laborum est laboris.
+          Ad ad irure mollit incididunt. Veniam occaecat minim ad nisi. Adipisicing adipisicing aliquip deserunt esse Lorem anim pariatur id in sint.
+          Eiusmod aliquip magna ex dolore mollit ullamco.
+          Qui tempor nostrud reprehenderit elit est amet sit tempor deserunt et reprehenderit occaecat.
+          </p>
+          <Button>Button</Button>
       </PopoverContainer>
     </div>
   </Story>
 </Preview>
 
-### Custom Open/Close Button
-Use the `renderOpenComponent` and `renderCloseComponent` to render your own open or close buttons.
+### Popover Container with complex content
 
 <Preview>
-  <Story name="render props" parameters={{ info: { disable: true }}} >
-    <div style={{height: 250}}>
-      <PopoverContainer
-        title='Custom Open &amp; Close Button'
-        renderOpenComponent={ ({isOpen, ...rest}) => <Button iconType={ !isOpen ? 'filter_new' : 'close' } iconPosition='after' {...rest}>Filter</Button>}
-        renderCloseComponent={ ({isOpen, ...rest}) => <Button {...rest}>Close</Button>}
-      >
-      Content
-    </PopoverContainer>
-      </div>
-  </Story>
-</Preview>
-
-### Controlled
-You can use the `open`, `onOpen` and `onClose` props to control the open state of the `PopoverContainer`.
-<Preview>
-  <Story name="controlled" parameters={{ info: { disable: true }}}>
-    {() => {
-          const [open, setOpen] = useState(false);
-          const onOpen = () => setOpen(true);
-          const onClose = () => setOpen(false);
-          return (
-            <div style={{height: 150}}>
-            <Button onClick={ onOpen }>Open Popover</Button>
-            <Button onClick={ onClose }>Close Popover</Button>
-            <br />
-            <PopoverContainer
-              title='Controlled'
-              open={ open }
-              onOpen={ onOpen }
-              onClose={ onClose }
-            >Contents</PopoverContainer>
-            </div>
-          );
-        }}
-  </Story>
-</Preview>
-
-
-### Complex content
-
-You can easly use many different components to create your own compisition.
-
-<Preview>
-  <Story name="complex" parameters={{ info: { disable: true }}}>
-    <div style={{height: 330}}>
-      <PopoverContainer title='Popover Container Title'>
+  <Story name="with complex content" parameters={{ info: { disable: true }}}>
+    <div style={{minHeight: '330px'}}>
+      <PopoverContainer iconType="settings" title="Popover Container Title">
         <Link>This is example link text</Link>
-        <div style={ { padding: '25px 0 15px 0' } }>
-          <Button>Small</Button>
-          <Button>Compact</Button>
+        <div style={{padding: '25px 0 15px 0'}}>
+          <Button>
+            Small
+          </Button>
+          <Button>
+            Compact
+          </Button>
         </div>
         <DraggableContainer>
           <DraggableItem key='1' id={ 1 }>
-            <Checkbox name='one' label='Draggable Label One' />
+            <Checkbox name="one" label='Draggable Label One' />
           </DraggableItem>
           <DraggableItem key='2' id={ 2 }>
-            <Checkbox name='two' label='Draggable Label Two' />
+            <Checkbox name="two" label='Draggable Label Two' />
           </DraggableItem>
           <DraggableItem key='3' id={ 3 }>
-            <Checkbox name='three' label='Draggable Label Three' />
+            <Checkbox name="three" label='Draggable Label Three' />
           </DraggableItem>
           <DraggableItem key='4' id={ 4 }>
-            <Checkbox name='four' label='Draggable Label Four' />
+            <Checkbox name="four" label='Draggable Label Four' />
           </DraggableItem>
         </DraggableContainer>
       </PopoverContainer>
     </div>
-  </Story>
-</Preview>
-
-
-### Filter component
-
-If you want to use the `PopoverContainer` to create for example `Filter` component.
-
-You can do it easly in this way:
-
-<Preview>
-  <Story name="filter" parameters={{ info: { disable: true }}}>
-    {() => {
-        const initValues = [
-          { value: 'Option 1', checked: false },
-          { value: 'Option 2', checked: false },
-          { value: 'Option 3', checked: false }
-        ];
-        const [open, setOpen] = useState(false);
-        const [options, setOptions] = useState(initValues);
-        const [filters, setFilters] = useState([]);
-        const clearAllOptions = () => {
-          const temps = options;
-          for (let i = 0; i < temps.length; i++) {
-            temps[i].checked = false;
-          }
-          setOptions([...temps]);
-        };
-        const clearFilters = () => setFilters([]);
-        const updateCheckValue = (e) => {
-          const temps = options;
-          const findCorrectIndex = temps.findIndex(item => item.value === e.target.value);
-          if (findCorrectIndex !== -1) {
-            temps[findCorrectIndex].checked = !temps[findCorrectIndex].checked;
-            setOptions([...temps]);
-          }
-        };
-        const updateFilters = () => setFilters(options.filter(filter => filter.checked === true));
-        const handleBadgeClose = () => {
-          clearAllOptions();
-          clearFilters();
-        };
-        const applyFilters = () => {
-          updateFilters();
-          setOpen(false);
-        };
-        const onOpen = () => {
-          setOpen(true);
-        };
-        const onClose = () => {
-          setOpen(false);
-        };
-        const renderCheckboxes = () => {
-          const checkboxStyle = {
-            marginBottom: '10px'
-          };
-          return options.map((option) => {
-            return (
-              <Checkbox
-                onChange={ updateCheckValue }
-                style={ checkboxStyle }
-                label={ option.value }
-                name={ option.value }
-                value={ option.value }
-                checked={ option.checked }
-                key={ option.value }
-              />
-            );
-          });
-        };
-        const renderPills = () => {
-          const pillStyle = {
-            margin: '0 8px'
-          };
-          return filters.map((filter, index) => {
-            return filter.checked ? <Pill key={ index } style={ pillStyle }>{filter.value}</Pill> : null;
-          });
-        };
-        return (
-          <div style={{height: 280}}>
-            <PopoverContainer
-              title='How to create Filter component'
-              open={ open }
-              onOpen={ onOpen }
-              onClose={ onClose }
-              renderOpenComponent={ ({ isOpen, ref, ...rest }) => (
-                <Badge counter={ filters.length } onClick={ handleBadgeClose }>
-                  <Button
-                    style={ { marginRight: 0 } }
-                    buttonType={ isOpen ? 'primary' : 'darkBackground' }
-                    iconPosition='after'
-                    iconType={ !isOpen ? 'filter_new' : 'close' }
-                    size='small'
-                    { ...rest }
-                  >
-                  {console.log(ref)}
-                    Filter
-                  </Button>
-                </Badge>
-              ) }
-              renderCloseComponent={ () => {} }
-            >
-              {renderCheckboxes()}
-              <Button onClick={ applyFilters } style={ { margin: '20px 0' } }>Apply</Button>
-            </PopoverContainer>
-            {renderPills()}
-          </div>
-        );
-      }}
   </Story>
 </Preview>
 
