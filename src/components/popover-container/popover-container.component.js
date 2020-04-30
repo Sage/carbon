@@ -1,81 +1,46 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Transition } from 'react-transition-group';
 import {
   PopoverContainerWrapperStyle,
+  PopoverContainerIcon,
   PopoverContainerHeaderStyle,
   PopoverContainerContentStyle,
   PopoverContainerCloseIcon,
-  PopoverContainerTitleStyle,
-  PopoverContainerOpenIcon
+  PopoverContainerTitle
 } from './popover-container.style';
 import Icon from '../icon';
-import createGuid from '../../utils/helpers/guid';
 
 const PopoverContainer = ({
-  children,
-  title,
-  position,
-  open,
-  onOpen,
-  onClose,
-  renderOpenComponent,
-  renderCloseComponent,
-  shouldCoverButton,
-  ariaDescribedBy
+  children, iconType, title, position
 }) => {
-  const isControlled = open !== undefined;
-  const [isOpenInternal, setIsOpenInternal] = useState(false);
-
-  const closeButtonRef = useRef();
-  const openButtonRef = useRef();
-  const guid = useRef(createGuid());
-  const popoverContainerId = `PopoverContainer_${guid.current}`;
-
-  const isOpen = isControlled ? open : isOpenInternal;
+  const [isOpen, setOpen] = useState(false);
+  const iconRef = useRef();
+  const closeIconRef = useRef();
 
   useEffect(() => {
-    if (isOpen && closeButtonRef.current) closeButtonRef.current.focus();
+    if (isOpen) closeIconRef.current.focus();
   }, [isOpen]);
 
-  const handleOpenButtonClick = (e) => {
-    if (!isControlled) setIsOpenInternal(!isOpen);
-
-    // We want the open button to close the popover if it is already open
-    if (!isOpen) {
-      if (onOpen) onOpen(e);
-    } else if (onClose) onClose(e);
+  const handleOpen = () => {
+    setOpen(true);
   };
 
-  const handleCloseButtonClick = (e) => {
-    if (!isControlled) setIsOpenInternal(!isOpen);
-    if (onClose) onClose(e);
-    if (isOpen && openButtonRef.current) openButtonRef.current.focus();
-  };
-
-  const renderOpenComponentProps = {
-    tabIndex: isOpen ? -1 : 0,
-    isOpen,
-    dataElement: 'popover-container-open-component',
-    onClick: handleOpenButtonClick,
-    ref: openButtonRef,
-    ariaLabel: title
-  };
-
-  const renderCloseComponentProps = {
-    dataElement: 'popover-container-close-component',
-    tabIndex: 0,
-    onClick: handleCloseButtonClick,
-    ref: closeButtonRef,
-    ariaLabel: 'close'
+  const handleClose = () => {
+    setOpen(false);
+    iconRef.current.focus();
   };
 
   return (
-    <PopoverContainerWrapperStyle
-      data-component='popover-container'
-      aria-labelledby={ popoverContainerId }
-    >
-      {renderOpenComponent(renderOpenComponentProps)}
+    <PopoverContainerWrapperStyle data-component='popover-container'>
+      <PopoverContainerIcon
+        ref={ iconRef }
+        data-element='popover-container-icon'
+        tabIndex={ isOpen ? -1 : 0 }
+        onAction={ handleOpen }
+      >
+        <Icon type={ iconType } />
+      </PopoverContainerIcon>
       <Transition
         in={ isOpen }
         timeout={ { exit: 300 } }
@@ -86,21 +51,22 @@ const PopoverContainer = ({
         {state => (
           <PopoverContainerContentStyle
             data-element='popover-container-content'
-            role='dialog'
             animationState={ state }
             position={ position }
-            shouldCoverButton={ shouldCoverButton }
-            aria-labelledby={ popoverContainerId }
-            aria-describedby={ ariaDescribedBy }
           >
             <PopoverContainerHeaderStyle>
-              <PopoverContainerTitleStyle
-                id={ popoverContainerId }
-                data-element='popover-container-title'
-              >
+              <PopoverContainerTitle data-element='popover-container-title'>
                 {title}
-              </PopoverContainerTitleStyle>
-              {renderCloseComponent(renderCloseComponentProps)}
+              </PopoverContainerTitle>
+              <PopoverContainerCloseIcon
+                data-element='popover-container-close-icon'
+                type='close'
+                tabIndex='0'
+                onAction={ handleClose }
+                ref={ closeIconRef }
+              >
+                <Icon type='close' />
+              </PopoverContainerCloseIcon>
             </PopoverContainerHeaderStyle>
             {children}
           </PopoverContainerContentStyle>
@@ -111,70 +77,13 @@ const PopoverContainer = ({
 };
 
 PopoverContainer.propTypes = {
-  /** A function that will render the open component
-   *
-   * `({dataElement, tabIndex, onClick, ref, ariaLabel, isOpen}) => ()`
-   *
-  */
-  renderOpenComponent: PropTypes.func,
-  /** A function that will render the close component
-   *
-   * `({dataElement, tabIndex, onClick, ref, ariaLabel, isOpen}) => ()`
-   *
-  */
-  renderCloseComponent: PropTypes.func,
-  /** If `true` the popover-container will open */
-  open: PropTypes.bool,
-  /** Sets the popover-container title displayed in the dialog */
-  title: PropTypes.string,
-  /** If `true` the popover-container will cover open button */
-  shouldCoverButton: PropTypes.bool,
-  /** Callback fires when open component is clicked */
-  onOpen: PropTypes.func,
-  /** Callback fires when close component is clicked */
-  onClose: PropTypes.func,
-  /** Sets rendering position of the popover-container */
+  /** Sets the popover container dialog header name */
+  title: PropTypes.string.isRequired,
+  /** Sets the icon that opens dialog */
+  iconType: PropTypes.string.isRequired,
+  /** Sets rendering position of dialog */
   position: PropTypes.oneOf(['left', 'right']),
-  /** The content of the popover-container */
-  children: PropTypes.node,
-  /** The id of the element that describes the dialog */
-  ariaDescribedBy: PropTypes.string
-};
-
-PopoverContainer.defaultProps = {
-  position: 'right',
-  shouldCoverButton: false,
-  renderOpenComponent: ({
-    // eslint-disable-next-line react/prop-types
-    tabIndex, onClick, dataElement, ref, ariaLabel
-  }) => (
-    <PopoverContainerOpenIcon
-      tabIndex={ tabIndex }
-      onAction={ onClick }
-      data-element={ dataElement }
-      ref={ ref }
-      aria-label={ ariaLabel }
-      aria-haspopup
-    >
-      <Icon
-        type='settings'
-      />
-    </PopoverContainerOpenIcon>
-  ),
-  renderCloseComponent: ({
-    // eslint-disable-next-line react/prop-types
-    dataElement, tabIndex, onClick, ref, ariaLabel
-  }) => (
-    <PopoverContainerCloseIcon
-      data-element={ dataElement }
-      tabIndex={ tabIndex }
-      onAction={ onClick }
-      ref={ ref }
-      aria-label={ ariaLabel }
-    >
-      <Icon type='close' />
-    </PopoverContainerCloseIcon>
-  )
+  children: PropTypes.node
 };
 
 export default PopoverContainer;

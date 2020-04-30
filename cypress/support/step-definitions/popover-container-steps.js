@@ -1,44 +1,40 @@
 import {
+  popoverContainerDataComponent,
   popoverContainerContent,
   popoverContainerTitle,
+  popoverContainerContentFirstInnerElement,
   popoverContainerContentSecondInnerElement,
-  popoverSettingsIconBasic,
+  popoverSettingsIcon,
   popoverCloseIcon,
-  popoverSettingsIconRightAligned,
-  popoverSettingsIconCover,
-  popoverContainerDataComponent,
 } from '../../locators/popover-container';
 import { keyCode } from '../helper';
-
-When('I open popover container in basic component', () => {
-  popoverSettingsIconBasic().click();
-});
 
 When('I open popover container', () => {
   popoverContainerDataComponent().click();
 });
 
-When('I open popover container in open component', () => {
-  popoverSettingsIconCover().click();
-});
-
 Then('Popover container is visible', () => {
-  popoverContainerContent().should('exist');
-  popoverSettingsIconBasic().should('exist');
-  popoverContainerContent().should('be.visible');
-  popoverContainerContent().should('have.css', 'background-color', 'rgb(255, 255, 255)')
+  popoverContainerDataComponent().should('exist');
+  popoverSettingsIcon().should('exist');
+  popoverContainerContent().children().children().should('have.length', 2);
+  popoverContainerContent().should('have.css', 'background', 'rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box')
     .and('have.css', 'box-shadow', 'rgba(0, 20, 29, 0.2) 0px 5px 5px 0px, rgba(0, 20, 29, 0.1) 0px 10px 10px 0px')
     .and('have.css', 'padding', '16px 24px')
     .and('have.css', 'min-width', '300px')
     .and('have.css', 'position', 'absolute')
-    .and('have.css', 'left', '0px')
-    .and('have.css', 'opacity', '1');
-  popoverContainerContentSecondInnerElement().should('have.attr', 'data-element', 'popover-container-close-component')
+    .and('have.css', 'top', '0px')
+    .and('have.css', 'opacity', '1')
+    .and('have.css', 'transform', 'matrix(1, 0, 0, 1, 0, 0)')
+    .and('have.css', 'transition', 'all 0.3s cubic-bezier(0.25, 0.25, 0, 1.5) 0s')
+    .and('be.visible');
+  popoverContainerContentFirstInnerElement().should('have.attr', 'data-element', 'popover-container-title').and('be.visible')
+    .and('have.css', 'font-size', '16px')
+    .and('have.css', 'font-weight', '700');
+  popoverContainerContentSecondInnerElement().should('have.attr', 'data-element', 'popover-container-close-icon')
     .and('be.visible')
     .and('have.css', 'position', 'absolute')
-    .and('have.css', 'top', '16px')
-    .and('have.css', 'right', '24px')
-    .and('have.css', 'background-color', 'rgba(0, 0, 0, 0)')
+    .and('have.css', 'margin-right', '0px')
+    .and('have.css', 'background', 'rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box')
     .and('have.css', 'border', '0px none rgba(0, 0, 0, 0.9)')
     .and('have.css', 'padding', '0px');
   popoverContainerContentSecondInnerElement().children().should('have.attr', 'data-element', 'close').and('be.visible')
@@ -50,22 +46,13 @@ Then('Popover title on preview is set to {string}', (title) => {
   popoverContainerTitle().should('have.text', title);
 });
 
-Then('opening icon is on the {string} side', (side) => {
+Then('Popover component opened the {string} side', (side) => {
   if (side === 'left') {
-    popoverSettingsIconBasic().parent().should('not.have.css', 'float', 'right');
+    popoverContainerDataComponent().parent().should('have.attr', 'style').should('contain', 'margin-left', '400px');
+    popoverContainerContent().should('have.css', 'right', '0px');
   } else {
-    popoverSettingsIconRightAligned().parent().should('have.css', 'float', 'right');
-    popoverSettingsIconRightAligned().children().should('have.attr', 'aria-label', 'Right Aligned');
-  }
-});
-
-Then('Popover component is opened the {string} side', (side) => {
-  if (side === 'left') {
-    popoverSettingsIconBasic().click();
-    popoverSettingsIconBasic().should('have.css', 'right', '0px');
-  } else {
-    popoverSettingsIconRightAligned().click();
-    popoverSettingsIconRightAligned().should('have.css', 'right', '0px');
+    popoverContainerDataComponent().parent().should('not.have.attr', 'style');
+    popoverContainerContent().should('have.css', 'left', '0px');
   }
 });
 
@@ -74,7 +61,7 @@ Then('Popover container is not visible', () => {
 });
 
 When('I click onto popover setting icon using {string} key', (key) => {
-  popoverSettingsIconBasic().trigger('keydown', keyCode(key));
+  popoverSettingsIcon().trigger('keydown', keyCode(key));
 });
 
 Then('I press onto closeIcon using {string} key', (key) => {
@@ -83,9 +70,4 @@ Then('I press onto closeIcon using {string} key', (key) => {
 
 When('I click popover close icon', () => {
   popoverCloseIcon().click();
-});
-
-Then('opening icon is hide', () => {
-  popoverSettingsIconCover().parent().should('have.attr', 'tabindex', '-1');
-  popoverContainerContent().should('be.visible');
 });
