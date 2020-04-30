@@ -1,3 +1,16 @@
+## [18.0.0](https://github.com/Sage/carbon/compare/v17.5.1...v18.0.0) (2020-04-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* **popover-container:** `iconType` prop is no longer supported
+To upgrade you should use `renderOpenComponent` prop to customise the
+open button.
+
+### Features
+
+* **popover-container:** add render props and support controlled usage ([b53a77c](https://github.com/Sage/carbon/commit/b53a77cbd00b68dcaa686c15886ee90b4fffce71))
+
 ### [17.5.1](https://github.com/Sage/carbon/compare/v17.5.0...v17.5.1) (2020-04-30)
 
 
