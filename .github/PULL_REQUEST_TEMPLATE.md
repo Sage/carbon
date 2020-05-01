@@ -9,6 +9,7 @@
 ### Checklist
 <!-- Each PR should include the following, if something is not applicable please use <del>tags to strikethrough. -->
 
+- [ ] Carbon implementation and Design System documentation are congruent
 - [ ] Release notes (Conventional Commits) <!-- https://www.conventionalcommits.org/en/v1.0.0-beta.4/ -->
 - [ ] Unit tests
 - [ ] Cypress automation tests
