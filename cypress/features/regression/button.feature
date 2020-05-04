@@ -35,6 +35,7 @@ Feature: Button component
       | secondary      | rgb(0, 128, 93)    | rgba(0, 0, 0, 0)   |
       | tertiary       | rgb(0, 128, 93)    | rgba(0, 0, 0, 0)   |
       | darkBackground | rgb(0, 128, 93)    | rgb(255, 255, 255) |
+      | dashed         | rgba(0, 0, 0, 0.9) | rgba(0, 0, 0, 0)   |
 
   @positive
   Scenario Outline: Set Button component label to <label>
@@ -78,3 +79,8 @@ Feature: Button component
     Given I check has icon checkbox
     When I select iconType to "arrow_left_small"
     Then Button icon is set to "arrow_left_small"
+
+  @positive
+  Scenario: Verify dashed outline
+    When I select buttonType to "dashed"
+    Then Button background style is "dashed"
