@@ -1,3 +1,58 @@
+## [18.1.0](https://github.com/Sage/carbon/compare/v18.0.0...v18.1.0) (2020-05-04)
+
+
+### Features
+
+* **button:** add dashed button ([4fb2e30](https://github.com/Sage/carbon/commit/4fb2e307e52d7db6777ddff43aaaa96497c54b85))
+
+## [18.0.0](https://github.com/Sage/carbon/compare/v17.5.1...v18.0.0) (2020-04-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* **popover-container:** `iconType` prop is no longer supported
+To upgrade you should use `renderOpenComponent` prop to customise the
+open button.
+
+### Features
+
+* **popover-container:** add render props and support controlled usage ([b53a77c](https://github.com/Sage/carbon/commit/b53a77cbd00b68dcaa686c15886ee90b4fffce71))
+
+### [17.5.1](https://github.com/Sage/carbon/compare/v17.5.0...v17.5.1) (2020-04-30)
+
+
+### Bug Fixes
+
+* **popover-container:** revert previous release due to breaking change ([c33cef2](https://github.com/Sage/carbon/commit/c33cef2a57bb8027cabd2b8d45306143a112eaf1))
+
+## [17.5.0](https://github.com/Sage/carbon/compare/v17.4.3...v17.5.0) (2020-04-30)
+
+
+### Features
+
+* **popover-container:** add render props and support controlled usage ([6e1671f](https://github.com/Sage/carbon/commit/6e1671ff57816aa438ef9f9d4787583693c4467a))
+
+### [17.4.3](https://github.com/Sage/carbon/compare/v17.4.2...v17.4.3) (2020-04-30)
+
+
+### Bug Fixes
+
+* **card-footer:** update the footer non interactive text colour to black ([57488a7](https://github.com/Sage/carbon/commit/57488a7d245a1a81ba1e7fb550c029e7816b363b)), closes [#2900](https://github.com/Sage/carbon/issues/2900)
+
+### [17.4.2](https://github.com/Sage/carbon/compare/v17.4.1...v17.4.2) (2020-04-29)
+
+
+### Bug Fixes
+
+* **anchor-navigation:** incorrect scroll animation in firefox ([96396f5](https://github.com/Sage/carbon/commit/96396f5ce48b7f0f5835c5250bc21f861a1f63c6))
+
+### [17.4.1](https://github.com/Sage/carbon/compare/v17.4.0...v17.4.1) (2020-04-29)
+
+
+### Bug Fixes
+
+* **input:** update autofill style ([a4c6cae](https://github.com/Sage/carbon/commit/a4c6caea4330620e9086e3555c07dcbd8d365072))
+
 ## [17.4.0](https://github.com/Sage/carbon/compare/v17.3.2...v17.4.0) (2020-04-28)
 
 

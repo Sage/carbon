@@ -148,6 +148,42 @@ Tertiary buttons can have an icon positioned before or after the text.
   </Story>
 </Preview>
 
+## Dashed Buttons
+Dashed buttons are used for adding new content that replaces empty states.
+
+<Preview>
+  <Story name="dashed" parameters={{ info: { disable: true }}} >
+    <>
+      <Button buttonType="dashed" size="small">Small</Button>
+      <Button buttonType="dashed">Medium</Button>
+      <Button buttonType="dashed" size="large">Large</Button>
+    </>
+  </Story>
+</Preview>
+
+Dashed buttons can be disabled.
+<Preview>
+  <Story name="dashed/disabled" parameters={{ info: { disable: true }}} >
+    <>
+      <Button buttonType="dashed" disabled size="small">Small</Button>
+      <Button buttonType="dashed" disabled>Medium</Button>
+      <Button buttonType="dashed" disabled size="large">Large</Button>
+    </>
+  </Story>
+</Preview>
+
+Dashed buttons can have an icon positioned before or after the text.
+<Preview>
+  <Story name="dashed/icon" parameters={{ info: { disable: true }}} >
+  <>
+    <Button buttonType="dashed" iconType="add" size="small">Small</Button>
+    <Button buttonType="dashed" iconType="add" iconPosition="after">Medium</Button>
+    <Button buttonType="dashed" disabled iconType="add" size="small">Small</Button>
+    <Button buttonType="dashed" disabled iconType="add" iconPosition="after">Medium</Button>
+    </>
+  </Story>
+</Preview>
+
 ## With overriden styles
 It is possible to override the default styles of a Button by passing in a styleOverride object as a prop. 
 See the prop types for how this object should be formatted.

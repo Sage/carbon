@@ -251,6 +251,7 @@ describe('OptionsHelper', () => {
       'primary',
       'secondary',
       'tertiary',
+      'dashed',
       'darkBackground'
     ]);
   });

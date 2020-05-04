@@ -27,6 +27,9 @@ export default (palette) => {
 
       // element
       border: palette.slateTint(40),
+      dashedBorder: '#99ADB6',
+      dashedButtonText: 'rgba(0, 0, 0, 0.9)',
+      dashedHoverBackground: '#CCD6DB',
       focusedIcon: palette.slateTint(20),
       focusedLinkBackground: palette.goldTint(50),
       previewBackground: palette.slateTint(75),
@@ -70,8 +73,7 @@ export default (palette) => {
 
     card: {
       footerBackground: palette.slateTint(95),
-      footerBorder: palette.slateTint(90),
-      footerText: palette.productGreenShade(21)
+      footerBorder: palette.slateTint(90)
     },
 
     carousel: {
