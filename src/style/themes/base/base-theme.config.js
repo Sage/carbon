@@ -27,6 +27,9 @@ export default (palette) => {
 
       // element
       border: palette.slateTint(40),
+      dashedBorder: '#99ADB6',
+      dashedButtonText: 'rgba(0, 0, 0, 0.9)',
+      dashedHoverBackground: '#CCD6DB',
       focusedIcon: palette.slateTint(20),
       focusedLinkBackground: palette.goldTint(50),
       previewBackground: palette.slateTint(75),
