@@ -1,3 +1,10 @@
+## [18.1.0](https://github.com/Sage/carbon/compare/v18.0.0...v18.1.0) (2020-05-04)
+
+
+### Features
+
+* **button:** add dashed button ([4fb2e30](https://github.com/Sage/carbon/commit/4fb2e307e52d7db6777ddff43aaaa96497c54b85))
+
 ## [18.0.0](https://github.com/Sage/carbon/compare/v17.5.1...v18.0.0) (2020-04-30)
 
 
