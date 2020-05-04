@@ -1,7 +1,7 @@
 import 'jest-styled-components';
 import { ReactWrapper } from 'enzyme';
 
-const diff = require('jest-diff');
+const { diff } = require('jest-matcher-utils');
 
 expect.extend({
   toBeFocused(received) {

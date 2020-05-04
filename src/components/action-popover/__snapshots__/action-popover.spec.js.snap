@@ -463,18 +463,18 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
   isOpen={false}
   items={
     Array [
-      <WithTheme(ActionPopoverItem)
+      <ForwardRef
         disabled={false}
         onClick={[Function]}
       >
         Sub Menu 1
-      </WithTheme(ActionPopoverItem)>,
-      <WithTheme(ActionPopoverItem)
+      </ForwardRef>,
+      <ForwardRef
         disabled={true}
         onClick={[Function]}
       >
         Sub Menu 2
-      </WithTheme(ActionPopoverItem)>,
+      </ForwardRef>,
     ]
   }
   menuID="ActionPopoverMenu_guid-12345"
@@ -1208,18 +1208,18 @@ exports[`ActionPopover submenu left aligned closes the submenu when right key is
   isOpen={false}
   items={
     Array [
-      <WithTheme(ActionPopoverItem)
+      <ForwardRef
         disabled={false}
         onClick={[Function]}
       >
         Sub Menu 1
-      </WithTheme(ActionPopoverItem)>,
-      <WithTheme(ActionPopoverItem)
+      </ForwardRef>,
+      <ForwardRef
         disabled={true}
         onClick={[Function]}
       >
         Sub Menu 2
-      </WithTheme(ActionPopoverItem)>,
+      </ForwardRef>,
     ]
   }
   menuID="ActionPopoverMenu_guid-12345"
@@ -1700,18 +1700,18 @@ exports[`ActionPopover submenu left aligned does not close the submenu unless ri
   isOpen={false}
   items={
     Array [
-      <WithTheme(ActionPopoverItem)
+      <ForwardRef
         disabled={false}
         onClick={[Function]}
       >
         Sub Menu 1
-      </WithTheme(ActionPopoverItem)>,
-      <WithTheme(ActionPopoverItem)
+      </ForwardRef>,
+      <ForwardRef
         disabled={true}
         onClick={[Function]}
       >
         Sub Menu 2
-      </WithTheme(ActionPopoverItem)>,
+      </ForwardRef>,
     ]
   }
   menuID="ActionPopoverMenu_guid-12345"
@@ -2534,18 +2534,18 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
   isOpen={false}
   items={
     Array [
-      <WithTheme(ActionPopoverItem)
+      <ForwardRef
         disabled={false}
         onClick={[Function]}
       >
         Sub Menu 1
-      </WithTheme(ActionPopoverItem)>,
-      <WithTheme(ActionPopoverItem)
+      </ForwardRef>,
+      <ForwardRef
         disabled={true}
         onClick={[Function]}
       >
         Sub Menu 2
-      </WithTheme(ActionPopoverItem)>,
+      </ForwardRef>,
     ]
   }
   menuID="ActionPopoverMenu_guid-12345"
@@ -3279,18 +3279,18 @@ exports[`ActionPopover submenu left aligned opens the submenu when left key is p
   isOpen={false}
   items={
     Array [
-      <WithTheme(ActionPopoverItem)
+      <ForwardRef
         disabled={false}
         onClick={[Function]}
       >
         Sub Menu 1
-      </WithTheme(ActionPopoverItem)>,
-      <WithTheme(ActionPopoverItem)
+      </ForwardRef>,
+      <ForwardRef
         disabled={true}
         onClick={[Function]}
       >
         Sub Menu 2
-      </WithTheme(ActionPopoverItem)>,
+      </ForwardRef>,
     ]
   }
   menuID="ActionPopoverMenu_guid-12345"
@@ -4025,18 +4025,18 @@ exports[`ActionPopover submenu right aligned closes the submenu when left key is
   isOpen={false}
   items={
     Array [
-      <WithTheme(ActionPopoverItem)
+      <ForwardRef
         disabled={false}
         onClick={[Function]}
       >
         Sub Menu 1
-      </WithTheme(ActionPopoverItem)>,
-      <WithTheme(ActionPopoverItem)
+      </ForwardRef>,
+      <ForwardRef
         disabled={true}
         onClick={[Function]}
       >
         Sub Menu 2
-      </WithTheme(ActionPopoverItem)>,
+      </ForwardRef>,
     ]
   }
   menuID="ActionPopoverMenu_guid-12345"
@@ -4771,18 +4771,18 @@ exports[`ActionPopover submenu right aligned opens the submenu when right key is
   isOpen={false}
   items={
     Array [
-      <WithTheme(ActionPopoverItem)
+      <ForwardRef
         disabled={false}
         onClick={[Function]}
       >
         Sub Menu 1
-      </WithTheme(ActionPopoverItem)>,
-      <WithTheme(ActionPopoverItem)
+      </ForwardRef>,
+      <ForwardRef
         disabled={true}
         onClick={[Function]}
       >
         Sub Menu 2
-      </WithTheme(ActionPopoverItem)>,
+      </ForwardRef>,
     ]
   }
   menuID="ActionPopoverMenu_guid-12345"
