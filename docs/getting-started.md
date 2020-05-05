@@ -19,8 +19,13 @@ Carbon is available as an [npm package](https://www.npmjs.com/package/carbon-rea
 npm install carbon-react
 ```
 
-
 ### Peer Dependencies
+You will need to install the following dependencies in your project, these are peer-dependencies of carbon-react and are required.
+
+```sh
+npm install react@^16.12.0 react-dom@^16.12.0 i18n-js@^3.0.0 styled-components@^4.4.1
+```
+
 #### Fonts
 ##### CDN
 As a consumer you will be required to handle the importing of the `Lato` font. Typically, you can do this by including an `@import` in your main `css` file to get the font via a CDN.
