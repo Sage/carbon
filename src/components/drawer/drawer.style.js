@@ -1,4 +1,5 @@
 import styled, { css, keyframes } from 'styled-components';
+import baseTheme from '../../style/themes/base';
 
 const StyledDrawerChildren = styled.div`
   flex: 1;
@@ -7,6 +8,7 @@ const StyledDrawerChildren = styled.div`
 `;
 
 const StyledDrawerSidebar = styled.div`
+  overflow: auto;
   margin-top: 60px;
   display: none;
   opacity: 0;
@@ -108,6 +110,14 @@ const StyledDrawerWrapper = styled.div`
   display: flex;
   height: 100%;
 `;
+
+StyledDrawerContent.defaultProps = {
+  theme: baseTheme
+};
+
+StyledButton.defaultProps = {
+  theme: baseTheme
+};
 
 export {
   StyledDrawerWrapper,
