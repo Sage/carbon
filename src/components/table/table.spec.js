@@ -453,7 +453,7 @@ describe('Table', () => {
         data = data.set('foo', 'qux');
         instance.UNSAFE_componentWillReceiveProps({ filter: data });
         expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('filter', {
-          currentPage: '',
+          currentPage: 0,
           filter: { foo: 'qux' },
           pageSize: '',
           sortOrder: '',
@@ -744,7 +744,7 @@ describe('Table', () => {
         };
 
         expect(instanceCustomSort.emitOptions(props)).toEqual({
-          currentPage: '1',
+          currentPage: 1,
           filter: {},
           pageSize: '10',
           sortOrder: 'asc',

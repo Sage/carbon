@@ -166,9 +166,8 @@ export default (palette) => {
     },
 
     pager: {
-      active: 'rgba(0,0,0,0.74)',
-      disabled: 'rgba(0,0,0,0.55)',
-      hover: 'rgba(0,0,0,0.90)'
+      active: 'rgba(0,0,0,0.90)',
+      disabled: 'rgba(0,0,0,0.3)'
     },
 
     rainbow: {

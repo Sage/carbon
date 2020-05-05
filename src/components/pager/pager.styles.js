@@ -1,37 +1,82 @@
 import styled, { css } from 'styled-components';
-import {
-  PagerContainerClassicStyles,
-  PagerNavigationClassicStyles
-} from './pager-classic.styles';
 import StyledInput from '../../__experimental__/components/input/input.style';
 import StyledInputPresentation from '../../__experimental__/components/input/input-presentation.style';
-import mintTheme from '../../style/themes/mint';
+import Dropdown from '../../__deprecated__/components/dropdown';
+import baseTheme from '../../style/themes/base';
 
-const PagerContainerStyles = styled.div`
+const StyledDropdown = styled(Dropdown)`
+  input {
+    height: 26px;
+  }
+`;
+
+const StyledPagerContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 9px 24px;
+  padding: 0px 24px;
   align-items: center;
   border-top-width: 0;
-  font-size: 13px;  
+  font-size: 13px;
+  height: 39px;
+  max-height: 39px;
+
   ${({ theme }) => {
     return theme.table && theme.colors && css`
-      border: 1px solid ${theme.table.selected};
+
+      border-width: 1px 1px 1px 1px;
+      border-style: none solid solid solid;
+      border-color: ${theme.table.secondary};
       background-color: ${theme.table.zebra};
-      
+
+      .carbon-input-icon {
+        border: none;
+        background: none;
+
+        &:hover {
+          background: none;
+          color: ${theme.colors.black};
+        }
+      }
+
+      .common-input__field:focus-within {
+        outline: 3px solid ${theme.colors.focus};
+      }
+
       .common-input__input {
-        &:active, :hover {
-          border-color: ${theme.table.secondary};
+        border: 1px solid ${theme.colors.border};
+
+        &:active, &:hover, &:focus {
+          border: 1px solid ${theme.colors.border};
+        }
+
+        &:focus {
+          border: 1px solid ${theme.colors.border};
+          color: ${theme.colors.black};
+        }
+
+        &:focus ~ label .carbon-input-icon, &:focus ~ label .carbon-input-icon:hover {
+          border: none;
+          background: none;
+          color: ${theme.colors.black};
+        }
+
+        &:hover ~ label .carbon-input-icon {
+          border: none;
+          background: none;
+          color: ${theme.colors.black};
+        }
+
+        &:hover ~ label .carbon-input-icon:hover {
+          border: none;
+          background: none;
         }
       }
     `;
   }}
   border-top: none;
-
-  ${PagerContainerClassicStyles}
 `;
 
-const PagerSizeOptionsStyles = styled.div`
+const StyledPagerSizeOptions = styled.div`
   display: flex;
   flex: 1 1 30%;
   justify-content: flex-start;
@@ -39,15 +84,24 @@ const PagerSizeOptionsStyles = styled.div`
   .carbon-dropdown {
     width: 55px;
     margin: 0 4px;
+
+    input {
+      line-height: 26px;
+      padding: 0 8px;
+    }
+
+    span:before {
+      margin-top: 4px;
+    }
   }
 `;
 
-const PagerSizeOptionsInnerStyles = styled.div`
+const StyledPagerSizeOptionsInner = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const PagerNavigationStyles = styled.div`
+const StyledPagerNavigation = styled.div`
   display: flex;
   flex: 1 1 auto;
   justify-content: center;
@@ -55,123 +109,103 @@ const PagerNavigationStyles = styled.div`
 
   && ${StyledInputPresentation} {
     padding: 0;
-    margin: 0 4px;
-    line-height: 24px;
+    margin: 8px 4px 0 4px;
+    height: 26px;
+    line-height: 26px;
     min-height: 24px;
-  }
 
-  && ${StyledInput} {
-    text-align: center;
-    height: 24px;
+    ${StyledInput} {
+      text-align: center;
+      height: 24px;
+      padding: 0;
+    }
   }
-
-  ${PagerNavigationClassicStyles}
 `;
 
-const PagerNavInnerStyles = styled.div`
+const StyledPagerNavInner = styled.div`
   display: flex;
   align-items: center;
   padding: 0 12px;
 `;
 
-const PagerButtonWrapperStyles = styled.div`
-  display: inline-block;
-  transform: rotate(90deg) scale(1.4);
-  cursor: pointer;
-  margin-right: 8px;
-
-  ${({ disabled }) => disabled && css`
-    opacity: 0.3;
-    cursor: not-allowed;
-  `};
-
-  ${({ next }) => next && css`
-    transform: rotate(-90deg) scale(1.4);
-    margin-right: 0;
-    margin-left: 8px;
-  `};
-`;
-
-const PagerLinkStyles = styled.button`
-  padding: 0 4px;
+const StyledPagerLinkStyles = styled.button`
+  padding: 0 10px;
   font-size: 13px;
   border-width: 0;
-  text-decoration: underline;
   background-color: transparent;
   cursor: pointer;
+  margin-left: 7px;
+  margin-right: 7px;
 
   ${({ theme }) => theme.pager && css`
     color: ${theme.pager.active};
 
     ${({ disabled }) => !disabled && css`
       &:hover {
-        color: ${theme.pager.hover};
-      }
-
-      &:focus {
-        outline: none;
-        background-color: ${theme.colors.focusedLinkBackground};
-        color: ${theme.pager.hover};
+        text-decoration: underline;
+        padding: 5px 10px;
       }
     `}
+
+    &:focus {
+      outline: solid 3px ${theme.colors.focus};
+      padding: 5px 10px;
+    }
   `}
- 
-  ${({ disabled, theme }) => disabled && css`
-    color: ${theme.pager.disabled};
+
+  ${({ disabled, theme }) => disabled && theme && css`
+  color: ${theme.pager.disabled};
     cursor: not-allowed;
   `}
 `;
 
-const PagerNoSelectStyles = styled.span`
+const StyledPagerNoSelect = styled.span`
   user-select: none;
+  white-space: nowrap;
 `;
 
-const PagerSummaryStyles = styled.div`
+const StyledPagerSummary = styled.div`
   display: flex;
   flex: 1 1 30%;
   justify-content: flex-end;
 `;
 
-PagerContainerStyles.defaultProps = {
-  theme: mintTheme
+StyledPagerContainer.defaultProps = {
+  theme: baseTheme
 };
 
-PagerSizeOptionsStyles.defaultProps = {
-  theme: mintTheme
+StyledPagerSizeOptions.defaultProps = {
+  theme: baseTheme
 };
 
-PagerSizeOptionsInnerStyles.defaultProps = {
-  theme: mintTheme
+StyledPagerSizeOptionsInner.defaultProps = {
+  theme: baseTheme
 };
 
-PagerNavigationStyles.defaultProps = {
-  theme: mintTheme
+StyledPagerNavigation.defaultProps = {
+  theme: baseTheme
 };
 
-PagerNavInnerStyles.defaultProps = {
-  theme: mintTheme
+StyledPagerNavInner.defaultProps = {
+  theme: baseTheme
 };
 
-PagerLinkStyles.defaultProps = {
-  theme: mintTheme
+StyledPagerLinkStyles.defaultProps = {
+  theme: baseTheme
 };
 
-PagerButtonWrapperStyles.defaultProps = {
-  theme: mintTheme
-};
-
-PagerSummaryStyles.defaultProps = {
-  theme: mintTheme
+StyledPagerSummary.defaultProps = {
+  theme: baseTheme
 };
 
 export {
-  PagerContainerStyles,
-  PagerSizeOptionsStyles,
-  PagerSizeOptionsInnerStyles,
-  PagerNavigationStyles,
-  PagerNavInnerStyles,
-  PagerLinkStyles,
-  PagerButtonWrapperStyles,
-  PagerNoSelectStyles,
-  PagerSummaryStyles
+  StyledPagerContainer,
+  StyledPagerSizeOptions,
+  StyledPagerSizeOptionsInner,
+  StyledPagerNavigation,
+  StyledPagerNavInner,
+  StyledPagerLinkStyles,
+  StyledPagerNoSelect,
+  StyledPagerSummary,
+  StyledDropdown
 };

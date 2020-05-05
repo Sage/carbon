@@ -2,7 +2,7 @@ Feature: Pager component
   I want to test Pager component properties
 
   Background: Open Pager component default page
-    Given I open "Pager" component page
+    Given I open design systems default-story Pager component page
 
   @positive
   Scenario Outline: Set totalRecords to <totalRecords>
@@ -11,7 +11,7 @@ Feature: Pager component
       And I am on 1st of "<maxPages>" pages
     Examples:
       | totalRecords | maxPages |
-      | 0            | 1        |
+      | 0            | 0        |
       | 10           | 1        |
       | 100          | 10       |
       | 111          | 12       |
@@ -56,6 +56,7 @@ Feature: Pager component
       | 10       | 10       |
       | 25       | 4        |
       | 50       | 2        |
+      | 100      | 1        |
 
   @positive
   Scenario: Set pageSize to 1 item
