@@ -60,7 +60,7 @@ const CheckboxStyle = styled.div`
     ${StyledLabel} {
       padding-left: 6px;
       width: auto;
-      flex: 1 1 calc(100% - 28px);
+      flex: 0 1 auto;
     }
 
     ${StyledFieldHelp} {
