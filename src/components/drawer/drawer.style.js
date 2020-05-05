@@ -3,6 +3,7 @@ import styled, { css, keyframes } from 'styled-components';
 const StyledDrawerChildren = styled.div`
   flex: 1;
   margin-left: 1px;
+  overflow: auto;
 `;
 
 const StyledDrawerSidebar = styled.div`

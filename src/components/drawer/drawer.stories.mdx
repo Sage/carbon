@@ -3,6 +3,13 @@ import Drawer from '.';
 import { useState, useCallback } from 'react';
 import { text } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import FlatTable from '../flat-table/flat-table.component';
+import FlatTableHead from '../flat-table/flat-table-head/flat-table-head.component';
+import FlatTableBody from '../flat-table/flat-table-body/flat-table-body.component';
+import FlatTableRow from '../flat-table/flat-table-row/flat-table-row.component';
+import FlatTableHeader from '../flat-table/flat-table-header/flat-table-header.component';
+import FlatTableCell from '../flat-table/flat-table-cell/flat-table-cell.component';
+import FlatTableRowHeader from '../flat-table/flat-table-row-header/flat-table-row-header.component';
 
 <Meta title="Design System/Drawer" />
 
@@ -33,6 +40,85 @@ import Drawer from 'carbon-react/lib/components/drawer';
           ) }
         >
           content body content body content body content body content body content body content body
+        </Drawer>
+      </div>
+    )
+  </Story>
+</Preview>
+
+### Various content:
+
+<Preview>
+  <Story name="various-content" parameters={{ info: { disable: true }}} >
+    return (
+      <div style={ { height: '200px' } }>
+        <Drawer
+          expandedWidth={ text('expandedWidth', '40%') }
+          animationDuration={ text('animationDuration', '0.5s') }
+          sidebar={ (
+            <ul>
+              <li>link a</li>
+              <li>link b</li>
+              <li>link c</li>
+            </ul>
+          ) }
+        >
+          <FlatTable>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>Client</FlatTableHeader>
+                <FlatTableHeader>Client Type</FlatTableHeader>
+                <FlatTableHeader>Categories</FlatTableHeader>
+                <FlatTableHeader>Services</FlatTableHeader>
+                <FlatTableHeader>Client</FlatTableHeader>
+                <FlatTableHeader>Client Type</FlatTableHeader>
+                <FlatTableHeader>Categories</FlatTableHeader>
+                <FlatTableHeader>Services</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              <FlatTableRow>
+                <FlatTableCell>John Doe</FlatTableCell>
+                <FlatTableCell>Business</FlatTableCell>
+                <FlatTableCell>Group1, Group2</FlatTableCell>
+                <FlatTableCell>Accounting</FlatTableCell>
+                <FlatTableCell>John Doe</FlatTableCell>
+                <FlatTableCell>Business</FlatTableCell>
+                <FlatTableCell>Group1, Group2</FlatTableCell>
+                <FlatTableCell>Accounting</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableCell>Jane Doe</FlatTableCell>
+                <FlatTableCell>Business</FlatTableCell>
+                <FlatTableCell>Group1, Group3</FlatTableCell>
+                <FlatTableCell>Accounting</FlatTableCell>
+                <FlatTableCell>Jane Doe</FlatTableCell>
+                <FlatTableCell>Business</FlatTableCell>
+                <FlatTableCell>Group1, Group3</FlatTableCell>
+                <FlatTableCell>Accounting</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableCell>John Smith</FlatTableCell>
+                <FlatTableCell>Charity</FlatTableCell>
+                <FlatTableCell>Group3</FlatTableCell>
+                <FlatTableCell>Payroll</FlatTableCell>
+                <FlatTableCell>John Smith</FlatTableCell>
+                <FlatTableCell>Charity</FlatTableCell>
+                <FlatTableCell>Group3</FlatTableCell>
+                <FlatTableCell>Payroll</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableCell>Jane Smith</FlatTableCell>
+                <FlatTableCell>Partnership</FlatTableCell>
+                <FlatTableCell>Group3</FlatTableCell>
+                <FlatTableCell>Final Tax</FlatTableCell>
+                <FlatTableCell>Jane Smith</FlatTableCell>
+                <FlatTableCell>Partnership</FlatTableCell>
+                <FlatTableCell>Group3</FlatTableCell>
+                <FlatTableCell>Final Tax</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
         </Drawer>
       </div>
     )
