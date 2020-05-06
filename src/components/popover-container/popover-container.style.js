@@ -27,6 +27,7 @@ const PopoverContainerContentStyle = styled.div`
   padding: 16px 24px;
   min-width: 300px;
   position: absolute;
+  z-index: 1000;
   
   ${({ shouldCoverButton }) => shouldCoverButton && 'top: 0'}
 
