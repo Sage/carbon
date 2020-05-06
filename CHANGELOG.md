@@ -1,3 +1,16 @@
+## [20.0.0](https://github.com/Sage/carbon/compare/v19.0.1...v20.0.0) (2020-05-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* styled-components is now a peer dependency.
+
+To upgrade you should install styled-components@^4.4.1 in your project.
+
+### Miscellaneous Chores
+
+* make styled-component a peer dependency ([50a75a3](https://github.com/Sage/carbon/commit/50a75a3f7287a94e0e16a970a613136ffa527aa2))
+
 ### [19.0.1](https://github.com/Sage/carbon/compare/v19.0.0...v19.0.1) (2020-05-06)
 
 
