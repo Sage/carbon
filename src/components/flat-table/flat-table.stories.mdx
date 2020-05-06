@@ -1,4 +1,5 @@
 import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
+import { useState, useRef } from 'react';
 import { 
   FlatTable, 
   FlatTableHead, 
@@ -9,6 +10,11 @@ import {
   FlatTableCell,
   Sort
 } from '.';
+import BatchSelection from '../batch-selection';
+import IconButton from '../icon-button';
+import Icon from '../icon';
+import { Checkbox } from '../../__experimental__/components/checkbox';
+import Pager from '../pager'
 
 <Meta title="Design System/Flat Table" />
 
@@ -287,42 +293,42 @@ to match the same color as the background
 
 <Preview>
   <Story name="light theme" parameters={{ info: { disable: true }}} >
-      <FlatTable colorTheme="light">
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>Client</FlatTableHeader>
-            <FlatTableHeader>Client Type</FlatTableHeader>
-            <FlatTableHeader>Categories</FlatTableHeader>
-            <FlatTableHeader>Services</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow onClick={ () => {} }>
-            <FlatTableCell>John Doe</FlatTableCell>
-            <FlatTableCell>Business</FlatTableCell>
-            <FlatTableCell>Group1, Group2</FlatTableCell>
-            <FlatTableCell>Accounting</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow onClick={ () => {} }>
-            <FlatTableCell>Jane Doe</FlatTableCell>
-            <FlatTableCell>Business</FlatTableCell>
-            <FlatTableCell>Group1, Group3</FlatTableCell>
-            <FlatTableCell>Accounting</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow onClick={ () => {} }>
-            <FlatTableCell>John Smith</FlatTableCell>
-            <FlatTableCell>Charity</FlatTableCell>
-            <FlatTableCell>Group3</FlatTableCell>
-            <FlatTableCell>Payroll</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow onClick={ () => {} }>
-            <FlatTableCell>Jane Smith</FlatTableCell>
-            <FlatTableCell>Partnership</FlatTableCell>
-            <FlatTableCell>Group3</FlatTableCell>
-            <FlatTableCell>Final Tax</FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
+    <FlatTable colorTheme="light">
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Client</FlatTableHeader>
+          <FlatTableHeader>Client Type</FlatTableHeader>
+          <FlatTableHeader>Categories</FlatTableHeader>
+          <FlatTableHeader>Services</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow onClick={ () => {} }>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>Business</FlatTableCell>
+          <FlatTableCell>Group1, Group2</FlatTableCell>
+          <FlatTableCell>Accounting</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow onClick={ () => {} }>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>Business</FlatTableCell>
+          <FlatTableCell>Group1, Group3</FlatTableCell>
+          <FlatTableCell>Accounting</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow onClick={ () => {} }>
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Charity</FlatTableCell>
+          <FlatTableCell>Group3</FlatTableCell>
+          <FlatTableCell>Payroll</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow onClick={ () => {} }>
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Partnership</FlatTableCell>
+          <FlatTableCell>Group3</FlatTableCell>
+          <FlatTableCell>Final Tax</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
   </Story>
 </Preview>
 
@@ -386,6 +392,355 @@ to match the same color as the background
           </FlatTableRow>
         </FlatTableBody>
       </FlatTable>
+  </Story>
+</Preview>
+
+### With Selectable Rows
+<Preview>
+  <Story name="selectable rows" parameters={{ info: { disable: true }}} >
+    {() => {
+      const [selectAll, setSelectAll] = useState(false);
+      const [selectedRows, setSelectedRows] = useState({ one: false, two: false, three: false, four: false });
+      const refs = { one: useRef(null), two: useRef(null), three: useRef(null), four: useRef(null) };
+      const currentSelection = {};
+      const handleSelectAllRows = () => {
+        const newState = {};
+        Object.keys(selectedRows).forEach((key) => {
+          if (selectAll) {
+            delete currentSelection[key];
+          } else {
+            currentSelection[key] = refs[key];
+          }
+          newState[key] = !selectAll;
+        });
+        setSelectedRows({ ...newState });
+        setSelectAll(!selectAll);
+      };
+      const handleSelectRow = (id) => {
+        if (selectedRows[id]) {
+          setSelectAll(false);
+          delete currentSelection[id];
+        } else {
+          currentSelection[id] = refs[id];
+        }
+        setSelectedRows({ ...selectedRows, [id]: !selectedRows[id] });
+      };
+      const selectedCount = Object.keys(selectedRows).filter(key => Boolean(selectedRows[key])).length;
+      return (
+        <>
+          <BatchSelection selectedCount={ selectedCount }>
+            <IconButton onAction={ () => {} }><Icon type='csv' /></IconButton>
+            <IconButton onAction={ () => {} }><Icon type='bin' /></IconButton>
+            <IconButton onAction={ () => {} }><Icon type='pdf' /></IconButton>
+          </BatchSelection>
+          <FlatTable>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>
+                  <Checkbox checked={ selectAll }
+                    onChange={ () => handleSelectAllRows() }
+                  />
+                </FlatTableHeader>
+                <FlatTableHeader>Client</FlatTableHeader>
+                <FlatTableHeader>Client Type</FlatTableHeader>
+                <FlatTableHeader>Categories</FlatTableHeader>
+                <FlatTableHeader>Services</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              <FlatTableRow selectable ref={ refs.one } selected={ selectedRows.one }>
+                <FlatTableCell>
+                  <Checkbox checked={ selectedRows.one } onChange={ () => handleSelectRow('one')} />
+                </FlatTableCell>
+                <FlatTableCell>John Doe</FlatTableCell>
+                <FlatTableCell>Business</FlatTableCell>
+                <FlatTableCell>Group1, Group2</FlatTableCell>
+                <FlatTableCell>Accounting</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow selectable ref={ refs.two } selected={ selectedRows.two }>
+                <FlatTableCell>
+                  <Checkbox checked={ selectedRows.two } onChange={ () => handleSelectRow('two')} />
+                </FlatTableCell>
+                <FlatTableCell>Jane Doe</FlatTableCell>
+                <FlatTableCell>Business</FlatTableCell>
+                <FlatTableCell>Group1, Group3</FlatTableCell>
+                <FlatTableCell>Accounting</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow selectable ref={ refs.three } selected={ selectedRows.three }>
+                <FlatTableCell>
+                  <Checkbox checked={ selectedRows.three } onChange={ () => handleSelectRow('three')} />
+                </FlatTableCell>
+                <FlatTableCell>John Smith</FlatTableCell>
+                <FlatTableCell>Charity</FlatTableCell>
+                <FlatTableCell>Group3</FlatTableCell>
+                <FlatTableCell>Payroll</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow selectable ref={ refs.four } selected={ selectedRows.four }>
+                <FlatTableCell>
+                  <Checkbox checked={ selectedRows.four } onChange={ () => handleSelectRow('four')} />
+                </FlatTableCell>
+                <FlatTableCell>Jane Smith</FlatTableCell>
+                <FlatTableCell>Partnership</FlatTableCell>
+                <FlatTableCell>Group3</FlatTableCell>
+                <FlatTableCell>Final Tax</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        </>
+      );
+    }} 
+  </Story>
+</Preview>
+
+
+### With Highlightable Rows
+<Preview>
+  <Story name="highlightable rows" parameters={{ info: { disable: true }}} >
+    {() => {
+      const [highlightedRow, setHighlightedRow] = useState('');
+      const handleHighlightRow = (id) => {
+        if (highlightedRow === id) {
+          setHighlightedRow('')
+        } else {
+          setHighlightedRow(id);
+        }
+      }
+      return (
+        <FlatTable>
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Client</FlatTableHeader>
+              <FlatTableHeader>Client Type</FlatTableHeader>
+              <FlatTableHeader>Categories</FlatTableHeader>
+              <FlatTableHeader>Services</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow onClick={ () => handleHighlightRow('one') } selected={ highlightedRow === 'one' }>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableCell>Business</FlatTableCell>
+              <FlatTableCell>Group1, Group2</FlatTableCell>
+              <FlatTableCell>Accounting</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow onClick={ () => handleHighlightRow('two') } selected={ highlightedRow === 'two' }>
+              <FlatTableCell>Jane Doe</FlatTableCell>
+              <FlatTableCell>Business</FlatTableCell>
+              <FlatTableCell>Group1, Group3</FlatTableCell>
+              <FlatTableCell>Accounting</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow onClick={ () => handleHighlightRow('three') }selected={ highlightedRow === 'three' }>
+              <FlatTableCell>John Smith</FlatTableCell>
+              <FlatTableCell>Charity</FlatTableCell>
+              <FlatTableCell>Group3</FlatTableCell>
+              <FlatTableCell>Payroll</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow onClick={ () => handleHighlightRow('four') } selected={ highlightedRow === 'four' }>
+              <FlatTableCell>Jane Smith</FlatTableCell>
+              <FlatTableCell>Partnership</FlatTableCell>
+              <FlatTableCell>Group3</FlatTableCell>
+              <FlatTableCell>Final Tax</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      );
+    }} 
+  </Story>
+</Preview>
+
+### With Selectable and Highlightable Rows
+<Preview>
+  <Story name="selectable and highlightable rows" parameters={{ info: { disable: true }}} >
+    {() => {
+      const [selectAll, setSelectAll] = useState(false);
+      const [selectedRows, setSelectedRows] = useState({ one: false, two: false, three: false, four: false });
+      const [highlightedRow, setHighlightedRow] = useState('');
+      const refs = { one: useRef(null), two: useRef(null), three: useRef(null), four: useRef(null) };
+      const currentSelection = {};
+      const handleSelectAllRows = () => {
+        const newState = {};
+        Object.keys(selectedRows).forEach((key) => {
+          if (selectAll) {
+            delete currentSelection[key];
+          } else {
+            currentSelection[key] = refs[key];
+          }
+          newState[key] = !selectAll;
+        });
+        setSelectedRows({ ...newState });
+        setSelectAll(!selectAll);
+      };
+      const handleSelectRow = (id, ev) => {
+        ev.stopPropagation();
+        if (selectedRows[id]) {
+          setSelectAll(false);
+          delete currentSelection[id];
+        } else {
+          currentSelection[id] = refs[id];
+        }
+        setSelectedRows({ ...selectedRows, [id]: !selectedRows[id] });
+      };
+      const selectedCount = Object.keys(selectedRows).filter(key => Boolean(selectedRows[key])).length;
+      const handleHighlightRow = (id, ev) => {
+        if (highlightedRow === id) {
+          setHighlightedRow('')
+        } else {
+          setHighlightedRow(id);
+        }
+      }
+      return (
+        <>
+          <BatchSelection selectedCount={ selectedCount }>
+            <IconButton onAction={ () => {} }><Icon type='csv' /></IconButton>
+            <IconButton onAction={ () => {} }><Icon type='bin' /></IconButton>
+            <IconButton onAction={ () => {} }><Icon type='pdf' /></IconButton>
+          </BatchSelection>
+          <FlatTable>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>
+                  <Checkbox checked={ selectAll }
+                    onChange={ () => handleSelectAllRows() }
+                  />
+                </FlatTableHeader>
+                <FlatTableHeader>Client</FlatTableHeader>
+                <FlatTableHeader>Client Type</FlatTableHeader>
+                <FlatTableHeader>Categories</FlatTableHeader>
+                <FlatTableHeader>Services</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              <FlatTableRow onClick={() => handleHighlightRow('one') } selected={ selectedRows.one || highlightedRow === 'one' } selectable ref={ refs.one }>
+                <FlatTableCell>
+                  <Checkbox onClick={(e) => e.stopPropagation()} checked={ selectedRows.one } onChange={ (ev) => handleSelectRow('one', ev)} />
+                </FlatTableCell>
+                <FlatTableCell>John Doe</FlatTableCell>
+                <FlatTableCell>Business</FlatTableCell>
+                <FlatTableCell>Group1, Group2</FlatTableCell>
+                <FlatTableCell>Accounting</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow onClick={() => handleHighlightRow('two') } selected={ selectedRows.two || highlightedRow === 'two' } selectable ref={ refs.two }>
+                <FlatTableCell>
+                  <Checkbox onClick={(e) => e.stopPropagation()} checked={ selectedRows.two } onChange={ (ev) => handleSelectRow('two', ev)} />
+                </FlatTableCell>
+                <FlatTableCell>Jane Doe</FlatTableCell>
+                <FlatTableCell>Business</FlatTableCell>
+                <FlatTableCell>Group1, Group3</FlatTableCell>
+                <FlatTableCell>Accounting</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow onClick={() => handleHighlightRow('three') } selected={ selectedRows.three || highlightedRow === 'three' } selectable ref={ refs.three }>
+                <FlatTableCell>
+                  <Checkbox onClick={(e) => e.stopPropagation()} checked={ selectedRows.three } onChange={ (ev) => handleSelectRow('three', ev)} />
+                </FlatTableCell>
+                <FlatTableCell>John Smith</FlatTableCell>
+                <FlatTableCell>Charity</FlatTableCell>
+                <FlatTableCell>Group3</FlatTableCell>
+                <FlatTableCell>Payroll</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow onClick={() => handleHighlightRow('four') } selected={ selectedRows.four || highlightedRow === 'four' } selectable ref={ refs.four }>
+                <FlatTableCell>
+                  <Checkbox onClick={(e) => e.stopPropagation()} checked={ selectedRows.four } onChange={ (ev) => handleSelectRow('four', ev)} />
+                </FlatTableCell>
+                <FlatTableCell>Jane Smith</FlatTableCell>
+                <FlatTableCell>Partnership</FlatTableCell>
+                <FlatTableCell>Group3</FlatTableCell>
+                <FlatTableCell>Final Tax</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        </>
+      );
+    }} 
+  </Story>
+</Preview>
+
+### With Pagination
+<Preview>
+  <Story name="paginated" parameters={{ info: { disable: true }}} >
+    {() => {
+      const rows = [
+        <FlatTableRow key='0'>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>Business</FlatTableCell>
+          <FlatTableCell>Group1, Group2</FlatTableCell>
+          <FlatTableCell>Accounting</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key='1'>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>Business</FlatTableCell>
+          <FlatTableCell>Group1, Group3</FlatTableCell>
+          <FlatTableCell>Accounting</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key='2'>
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Charity</FlatTableCell>
+          <FlatTableCell>Group3</FlatTableCell>
+          <FlatTableCell>Payroll</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key='3'>
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Partnership</FlatTableCell>
+          <FlatTableCell>Group3</FlatTableCell>
+          <FlatTableCell>Final Tax</FlatTableCell>
+        </FlatTableRow>,
+       <FlatTableRow key='4'>
+          <FlatTableCell>Liz Anya</FlatTableCell>
+          <FlatTableCell>Charity</FlatTableCell>
+          <FlatTableCell>Group2</FlatTableCell>
+          <FlatTableCell>Final Tax</FlatTableCell>
+        </FlatTableRow>,
+        <FlatTableRow key='5'>
+          <FlatTableCell>Karl Ickbred</FlatTableCell>
+          <FlatTableCell>Partnership</FlatTableCell>
+          <FlatTableCell>Group1</FlatTableCell>
+          <FlatTableCell>Accounting</FlatTableCell>
+        </FlatTableRow>
+      ];
+      const [recordsRange, setRecordsRange] = useState({ start: 0, end: 5 });
+      const [currentPage, setCurrentPage] = useState(1);
+      const renderRows = () => {
+        const { start, end } = recordsRange;
+        if (start < 0) return rows;
+        if (end > rows.length) return rows.slice(start, rows.length);
+        return rows.slice(start, end);
+      };
+      const handlePagination = (newPage, newPageSize) => {
+        const adjustment = currentPage === newPage ? 0 : newPage - currentPage;
+        let start = adjustment > 0 ? recordsRange.start + newPageSize : recordsRange.start - newPageSize;
+        start = start < 0 || Math.abs(start - recordsRange.end) > newPageSize ? 0 : start;
+        const end = adjustment > 0 ? recordsRange.end + newPageSize : start + newPageSize;
+        setRecordsRange({ start, end });
+        setCurrentPage(newPage);
+      };
+      return (
+        <>
+          <FlatTable>
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>Client</FlatTableHeader>
+                <FlatTableHeader>Client Type</FlatTableHeader>
+                <FlatTableHeader>Categories</FlatTableHeader>
+                <FlatTableHeader>Services</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              { renderRows() }
+            </FlatTableBody>
+          </FlatTable>
+          <Pager
+            totalRecords={ rows.length }
+            showPageSizeSelection
+            pageSize={ 5 }
+            currentPage={ currentPage }
+            onPagination={ (next, size) => handlePagination(next, size) }
+            pageSizeSelectionOptions={ 
+              [
+                { id: '1', name: 1 },
+                { id: '5', name: 5 },
+              ]}
+          />
+        </>
+      );
+    }} 
   </Story>
 </Preview>
 

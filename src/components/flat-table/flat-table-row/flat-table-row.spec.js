@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
-import 'jest-styled-components';
 import FlatTableRow from './flat-table-row.component';
 import FlatTableCell from '../flat-table-cell/flat-table-cell.component';
 import StyledFlatTableRow from './flat-table-row.style';
@@ -115,6 +114,32 @@ describe('FlatTableRow', () => {
 
     it('then the component should have isRowInteractive prop undefined', () => {
       expect(wrapper.find(StyledFlatTableRow).prop('isRowInteractive')).toBe(undefined);
+    });
+  });
+
+  describe('when the "selected" prop is passed as true', () => {
+    let wrapper;
+    it('applies a "background-color" to the "TableCell"', () => {
+      wrapper = renderFlatTableRow({
+        selected: true
+      });
+      assertStyleMatch({
+        backgroundColor: baseTheme.table.selected,
+        borderBottomColor: baseTheme.table.selected
+      }, wrapper, { modifier: `${StyledFlatTableCell}` });
+    });
+
+    describe('when the "onClick" is also provided', () => {
+      it('it applies the correct "background-color" on hover', () => {
+        wrapper = renderFlatTableRow({
+          selected: true,
+          onClick: jest.fn()
+        });
+        wrapper.find(FlatTableRow).at(0).simulate('focus');
+        assertStyleMatch({
+          backgroundColor: baseTheme.table.selected
+        }, wrapper, { modifier: `:hover ${StyledFlatTableCell}` });
+      });
     });
   });
 });

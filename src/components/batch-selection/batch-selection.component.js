@@ -48,7 +48,7 @@ BatchSelection.propTypes = {
 };
 
 BatchSelection.defaultProps = {
-  colorTheme: 'transparent'
+  colorTheme: 'transparent-base'
 };
 
 export default BatchSelection;

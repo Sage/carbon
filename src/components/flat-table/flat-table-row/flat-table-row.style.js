@@ -47,6 +47,20 @@ const StyledFlatTableRow = styled.tr`
       }
     }
   `}
+
+  ${({ selected, theme }) => selected && css`
+    ${StyledFlatTableCell} {
+      background-color: ${theme.table.selected};
+      border-bottom-color: ${theme.table.selected};
+    }
+
+    :hover {
+      ${StyledFlatTableCell},
+      ${StyledFlatTableRowHeader} {
+        background-color: ${theme.table.selected};
+      }
+    }
+  `}
 `;
 
 StyledFlatTableRow.defaultProps = {
