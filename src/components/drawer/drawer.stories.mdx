@@ -48,10 +48,10 @@ import Drawer from 'carbon-react/lib/components/drawer';
   </Story>
 </Preview>
 
-### Various content:
+### Custom Sidebar - flattable component as sidebar content:
 
 <Preview>
-  <Story name="various-content" parameters={{ info: { disable: true }}} >
+  <Story name="custom-sidebar" parameters={{ info: { disable: true }}} >
     return (
       <div style={ { height: '200px' } }>
         <Drawer
@@ -116,6 +116,30 @@ import Drawer from 'carbon-react/lib/components/drawer';
           </FlatTable>
           ) }
         >
+        content body content body content body content body content body content body content body
+        </Drawer>
+      </div>
+    )
+  </Story>
+</Preview>
+
+### Custom Content - flattable component as drawer content:
+
+<Preview>
+  <Story name="custom-content" parameters={{ info: { disable: true }}} >
+    return (
+      <div style={ { height: '200px' } }>
+        <Drawer
+          expandedWidth={ text('expandedWidth', '20%') }
+          animationDuration={ text('animationDuration', '0.5s') }
+          sidebar={ (
+            <ul>
+              <li>link a</li>
+              <li>link b</li>
+              <li>link c</li>
+            </ul>
+          ) }
+        >
           <FlatTable>
             <FlatTableHead>
               <FlatTableRow>
@@ -177,7 +201,6 @@ import Drawer from 'carbon-react/lib/components/drawer';
     )
   </Story>
 </Preview>
-
 
 ### Controlled Usage:
 
