@@ -2,12 +2,16 @@ import React from 'react';
 import { mount } from 'enzyme';
 import Drawer from './drawer.component';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import guid from '../../utils/helpers/guid';
 import {
   StyledDrawerSidebar,
   StyledDrawerContent,
   StyledDrawerChildren,
   StyledButton
 } from './drawer.style';
+
+jest.mock('../../utils/helpers/guid');
+guid.mockImplementation(() => 'guid-123');
 
 const defaultProps = {
   expandedWidth: '20%',
