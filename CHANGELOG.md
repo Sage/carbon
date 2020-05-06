@@ -1,3 +1,11 @@
+### [19.0.1](https://github.com/Sage/carbon/compare/v19.0.0...v19.0.1) (2020-05-06)
+
+
+### Bug Fixes
+
+* **colors:** make used colors in Carbon DLS compliant ([d04e114](https://github.com/Sage/carbon/commit/d04e114e887a8dad65fe8544d65d4dfa37c24248))
+* **popover-container:** fix displaying under other components ([3db3fed](https://github.com/Sage/carbon/commit/3db3fed6214762350a42e292a1ddc6098b16c54f))
+
 ## [19.0.0](https://github.com/Sage/carbon/compare/v18.1.1...v19.0.0) (2020-05-05)
 
 
