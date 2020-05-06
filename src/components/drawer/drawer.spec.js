@@ -51,10 +51,10 @@ describe('Drawer', () => {
       expect(wrapper.find(Drawer).prop('aria-label')).toBe(ariaLabel);
     });
 
-    it('correctly sets data attribute', () => {
-      const dataStatus = 'good';
-      wrapper = render({ 'data-status': dataStatus });
-      expect(wrapper.find(Drawer).prop('data-status')).toBe(dataStatus);
+    it('renders drawer component correctly', () => {
+      const dataAttr = 'drawer';
+      wrapper = render({ 'data-component': dataAttr });
+      expect(wrapper.find(Drawer).prop('data-component')).toBe(dataAttr);
     });
 
     it('Drawer Sidebar should render as expected', () => {

@@ -37,7 +37,7 @@ const Drawer = ({
 
   return (
     <StyledDrawerWrapper
-      data-element='drawer'
+      data-component='drawer'
       { ...props }
     >
       <StyledDrawerContent

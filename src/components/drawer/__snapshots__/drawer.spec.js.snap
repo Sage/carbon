@@ -135,10 +135,10 @@ exports[`Drawer uncontrolled matches snapshot 1`] = `
   }
 >
   <styled.div
-    data-element="drawer"
+    data-component="drawer"
   >
     <StyledComponent
-      data-element="drawer"
+      data-component="drawer"
       forwardedComponent={
         Object {
           "$$typeof": Symbol(react.forward_ref),
@@ -168,7 +168,7 @@ exports[`Drawer uncontrolled matches snapshot 1`] = `
     >
       <div
         className="c0"
-        data-element="drawer"
+        data-component="drawer"
       >
         <styled.div
           animationDuration="0.5s"
