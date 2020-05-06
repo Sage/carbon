@@ -834,7 +834,7 @@ exports[`Drawer uncontrolled matches snapshot 1`] = `
             >
               <styled.button
                 animationDuration="0.5s"
-                aria-controls="DrawerSidebar_b6c15d26-338b-1b0b-a045-034a9efe480d"
+                aria-controls="DrawerSidebar_7fa5331d-fc55-8df5-9037-7db342b02f87"
                 aria-expanded={false}
                 aria-label="toggle sidebar"
                 data-element="drawer-toggle"
@@ -1035,7 +1035,7 @@ exports[`Drawer uncontrolled matches snapshot 1`] = `
               >
                 <StyledComponent
                   animationDuration="0.5s"
-                  aria-controls="DrawerSidebar_b6c15d26-338b-1b0b-a045-034a9efe480d"
+                  aria-controls="DrawerSidebar_7fa5331d-fc55-8df5-9037-7db342b02f87"
                   aria-expanded={false}
                   aria-label="toggle sidebar"
                   data-element="drawer-toggle"
@@ -1476,7 +1476,7 @@ exports[`Drawer uncontrolled matches snapshot 1`] = `
                   }
                 >
                   <button
-                    aria-controls="DrawerSidebar_b6c15d26-338b-1b0b-a045-034a9efe480d"
+                    aria-controls="DrawerSidebar_7fa5331d-fc55-8df5-9037-7db342b02f87"
                     aria-expanded={false}
                     aria-label="toggle sidebar"
                     className="c2"
@@ -2136,7 +2136,7 @@ exports[`Drawer uncontrolled matches snapshot 1`] = `
                 </StyledComponent>
               </styled.button>
               <styled.div
-                id="DrawerSidebar_b6c15d26-338b-1b0b-a045-034a9efe480d"
+                id="DrawerSidebar_7fa5331d-fc55-8df5-9037-7db342b02f87"
                 role="navigation"
               >
                 <StyledComponent
@@ -2168,12 +2168,12 @@ exports[`Drawer uncontrolled matches snapshot 1`] = `
                     }
                   }
                   forwardedRef={null}
-                  id="DrawerSidebar_b6c15d26-338b-1b0b-a045-034a9efe480d"
+                  id="DrawerSidebar_7fa5331d-fc55-8df5-9037-7db342b02f87"
                   role="navigation"
                 >
                   <div
                     className="c4 c5"
-                    id="DrawerSidebar_b6c15d26-338b-1b0b-a045-034a9efe480d"
+                    id="DrawerSidebar_7fa5331d-fc55-8df5-9037-7db342b02f87"
                     role="navigation"
                   >
                     <ul>
