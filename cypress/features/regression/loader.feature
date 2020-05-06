@@ -26,7 +26,7 @@ Feature: Loader default component
   @positive
   Scenario: Loader isInsideButton
     When I check isInsideButton checkbox
-    Then Loader isInsideButton and backgroundColor is "rgb(0, 128, 93)"
+    Then Loader isInsideButton and backgroundColor is "rgb(0, 129, 93)"
 
   @positive
   Scenario: Disabled loader button

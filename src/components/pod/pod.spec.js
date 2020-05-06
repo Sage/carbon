@@ -522,7 +522,7 @@ describe('StyledBlock', () => {
           wrapper = renderStyledBlock({ isFocused: true, internalEditButton: true });
           assertStyleMatch({
             outline: undefined,
-            border: '1px solid #CCD6DA'
+            border: '1px solid #CCD6DB'
           }, wrapper);
         });
       });

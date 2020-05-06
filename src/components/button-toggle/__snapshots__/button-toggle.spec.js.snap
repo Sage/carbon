@@ -24,7 +24,7 @@ exports[`ButtonToggle Classic theme renders correctly with default settings 1`] 
   padding: 0 24px;
   font-weight: 600;
   cursor: pointer;
-  border: 1px solid #668491;
+  border: 1px solid #668592;
   font-size: 14px;
   background-color: #FFFFFF;
   height: auto;
@@ -36,7 +36,7 @@ exports[`ButtonToggle Classic theme renders correctly with default settings 1`] 
 
 input:checked ~ .c2 {
   color: #FFFFFF;
-  background-color: #003F2E;
+  background-color: #00402E;
 }
 
 input:checked ~ .c2 .c4 {
@@ -48,8 +48,8 @@ input:focus ~ .c2 {
 }
 
 .c2:hover {
-  background-color: #E5F4E5;
-  border-color: #003F2E;
+  background-color: #E6F5E6;
+  border-color: #00402E;
 }
 
 input:checked ~ .c2 {
@@ -138,7 +138,7 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
   padding: 0 24px;
   font-weight: 600;
   cursor: pointer;
-  border: 1px solid #668491;
+  border: 1px solid #668592;
   font-size: 14px;
   background-color: #FFFFFF;
   height: auto;
@@ -150,7 +150,7 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
 
 input:checked ~ .c3 {
   color: #FFFFFF;
-  background-color: #003F2E;
+  background-color: #00402E;
 }
 
 input:checked ~ .c3 .c9 {
@@ -162,8 +162,8 @@ input:focus ~ .c3 {
 }
 
 .c3:hover {
-  background-color: #E5F4E5;
-  border-color: #003F2E;
+  background-color: #E6F5E6;
+  border-color: #00402E;
 }
 
 input:checked ~ .c3 {
@@ -313,14 +313,14 @@ exports[`ButtonToggle when the aegean theme is set renders correct styles 1`] = 
   padding: 0 24px;
   font-weight: 600;
   cursor: pointer;
-  border: 1px solid #668491;
+  border: 1px solid #668592;
   font-size: 14px;
   background-color: #FFFFFF;
 }
 
 input:checked ~ .c2 {
   color: #FFFFFF;
-  background-color: #004372;
+  background-color: #004472;
 }
 
 input:checked ~ .c2 .c7 {
@@ -332,8 +332,8 @@ input:focus ~ .c2 {
 }
 
 .c2:hover {
-  background-color: #E5F1F9;
-  border-color: #004372;
+  background-color: #E6F1FA;
+  border-color: #004472;
 }
 
 .c0 {
@@ -405,14 +405,14 @@ exports[`ButtonToggle when the mint theme is set renders correct styles 1`] = `
   padding: 0 24px;
   font-weight: 600;
   cursor: pointer;
-  border: 1px solid #668491;
+  border: 1px solid #668592;
   font-size: 14px;
   background-color: #FFFFFF;
 }
 
 input:checked ~ .c2 {
   color: #FFFFFF;
-  background-color: #003F2E;
+  background-color: #00402E;
 }
 
 input:checked ~ .c2 .c6 {
@@ -424,8 +424,8 @@ input:focus ~ .c2 {
 }
 
 .c2:hover {
-  background-color: #E5F5F1;
-  border-color: #003F2E;
+  background-color: #E6F6F1;
+  border-color: #00402E;
 }
 
 .c0 {

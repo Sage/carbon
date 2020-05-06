@@ -31,10 +31,10 @@ Feature: Button component
       And Button background color is "<background-color>"
     Examples:
       | buttonType     | font-color         | background-color   |
-      | primary        | rgb(255, 255, 255) | rgb(0, 128, 93)    |
-      | secondary      | rgb(0, 128, 93)    | rgba(0, 0, 0, 0)   |
-      | tertiary       | rgb(0, 128, 93)    | rgba(0, 0, 0, 0)   |
-      | darkBackground | rgb(0, 128, 93)    | rgb(255, 255, 255) |
+      | primary        | rgb(255, 255, 255) | rgb(0, 129, 93)    |
+      | secondary      | rgb(0, 129, 93)    | rgba(0, 0, 0, 0)   |
+      | tertiary       | rgb(0, 129, 93)    | rgba(0, 0, 0, 0)   |
+      | darkBackground | rgb(0, 129, 93)    | rgb(255, 255, 255) |
       | dashed         | rgba(0, 0, 0, 0.9) | rgba(0, 0, 0, 0)   |
 
   @positive

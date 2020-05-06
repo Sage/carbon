@@ -21,12 +21,12 @@ Feature: Pill component
       And Pill borderColor has "<color>" color
     Examples:
       | color           |
-      | rgb(0, 128, 93) |
+      | rgb(0, 129, 93) |
 
   @positive
   Scenario: Enable fill checkbox for a Pill component
     When I check fill checkbox
-    Then Pill component has "rgb(0, 128, 93)" fill color
+    Then Pill component has "rgb(0, 129, 93)" fill color
 
   @positive
   Scenario: Enable and disable onDelete checkbox for a Pill component
@@ -64,7 +64,7 @@ Feature: Pill component
     Then Pill borderColor has "<color>" color
     Examples:
       | colorVariant | color             |
-      | neutral      | rgb(76, 112, 127) |
+      | neutral      | rgb(77, 112, 128) |
       | negative     | rgb(199, 56, 79)  |
       | positive     | rgb(0, 99, 0)     |
       | warning      | rgb(237, 131, 51) |
@@ -74,4 +74,4 @@ Feature: Pill component
     Given I check onDelete checkbox
     When I focus Pill close icon
     Then Pill close icon has golden border outline
-      And Pill close icon has "rgb(0, 96, 69)" backgroundColor
+      And Pill close icon has "rgb(0, 96, 70)" backgroundColor

@@ -76,7 +76,7 @@ describe('InputPresentation', () => {
     describe('hasFocus', () => {
       it('has the correct style rules', () => {
         assertStyleMatch({
-          border: '1px solid #668491'
+          border: '1px solid #668592'
         }, render({ readOnly: true }));
       });
     });

@@ -189,7 +189,7 @@ describe('TabTitle', () => {
           {
             backgroundColor: '#f5f6f7',
             borderBottom: '0px',
-            borderRight: '2px solid #ccd6da'
+            borderRight: '2px solid #CCD6DB'
           },
           wrapper.toJSON()
         );

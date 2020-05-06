@@ -31,10 +31,10 @@ Feature: Button as a sibling component
       And Button as a sibling background color is "<background>"
     Examples:
       | buttonType     | font-color         | background         |
-      | primary        | rgb(255, 255, 255) | rgb(0, 128, 93)    |
-      | secondary      | rgb(0, 128, 93)    | rgba(0, 0, 0, 0)   |
-      | tertiary       | rgb(0, 128, 93)    | rgba(0, 0, 0, 0)   |
-      | darkBackground | rgb(0, 128, 93)    | rgb(255, 255, 255) |
+      | primary        | rgb(255, 255, 255) | rgb(0, 129, 93)    |
+      | secondary      | rgb(0, 129, 93)    | rgba(0, 0, 0, 0)   |
+      | tertiary       | rgb(0, 129, 93)    | rgba(0, 0, 0, 0)   |
+      | darkBackground | rgb(0, 129, 93)    | rgb(255, 255, 255) |
 
   @positive
   Scenario Outline: Set Button as a sibling component label to <label>

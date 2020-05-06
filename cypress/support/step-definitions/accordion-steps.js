@@ -38,10 +38,10 @@ Then('Accordion row is {string} then iconType property on preview is set to {str
 Then('Accordion type property on preview is set to {string}', (type) => {
   if (type === 'primary') {
     accordion().should('have.css', 'background-color', 'rgb(255, 255, 255)')
-      .and('have.css', 'border', '1px solid rgb(204, 214, 218)');
+      .and('have.css', 'border', '1px solid rgb(204, 214, 219)');
   } else {
     accordion().should('have.css', 'background-color', 'rgba(0, 0, 0, 0)')
-      .and('not.have.css', 'border', '1px solid rgb(204, 214, 218)');
+      .and('not.have.css', 'border', '1px solid rgb(204, 214, 219)');
   }
 });
 
@@ -59,7 +59,7 @@ Then('accordionRow is expanded', () => {
 });
 
 Then('Accordion has proper {word} type color {string} palette', (type, color) => {
-  const borderColor = 'rgb(204, 214, 218)';
+  const borderColor = 'rgb(204, 214, 219)';
   const borderWidth = '1px';
   const borderStyle = 'solid';
   accordion().should('have.css', 'border-bottom-color', color)

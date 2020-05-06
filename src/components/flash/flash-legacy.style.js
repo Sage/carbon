@@ -4,7 +4,7 @@ import Icon from '../icon';
 
 const colors = {
   warning: '#FF7D00',
-  default: '#335B6D',
+  default: '#335C6D',
   error: '#c7384f',
   info: '#1573E6',
   new: '#663399',

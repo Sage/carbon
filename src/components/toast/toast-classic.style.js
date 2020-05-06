@@ -3,7 +3,7 @@ import { isClassic } from '../../utils/helpers/style-helper';
 
 const colors = {
   warning: { color: '#FF7D00', backgroundColor: '#FFF8F2' },
-  default: { color: '#335B6D', backgroundColor: '#335B6D' },
+  default: { color: '#335C6D', backgroundColor: '#335C6D' },
   error: { color: '#c7384f', backgroundColor: '#FDF5F5' },
   info: { color: '#1573E6', backgroundColor: '#F3F8FE' },
   new: { color: '#663399', backgroundColor: '#F7F5FA' },

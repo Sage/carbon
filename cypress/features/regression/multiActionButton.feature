@@ -20,8 +20,8 @@ Feature: Multi Action Button default component
       And Multi Action Button border color is "<border-color>" border-color
     Examples:
       | buttonType | background-color | border-color     |
-      | primary    | rgb(0, 128, 93)  | rgba(0, 0, 0, 0) |
-      | secondary  | rgba(0, 0, 0, 0) | rgb(0, 128, 93)  |
+      | primary    | rgb(0, 129, 93)  | rgba(0, 0, 0, 0) |
+      | secondary  | rgba(0, 0, 0, 0) | rgb(0, 129, 93)  |
 
   @positive
   Scenario Outline: Set Multi Action Button size to <size>
@@ -83,4 +83,4 @@ Feature: Multi Action Button default component
   @positive
   Scenario: Verify background-color after hovering
     When I hover on Multi Action Button
-    Then Multi Action Button has "rgb(0, 96, 69)" background-color
+    Then Multi Action Button has "rgb(0, 96, 70)" background-color

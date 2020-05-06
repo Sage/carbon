@@ -3,7 +3,7 @@ import {
 } from '../../locators/select';
 
 const transparentBorderColor = 'rgba(0, 0, 0, 0.85)';
-const notTransparentBorderColor = 'rgb(102, 132, 145)';
+const notTransparentBorderColor = 'rgb(102, 133, 146)';
 
 Then('Select typeAhead is disabled', () => {
   select().should('have.attr', 'placeholder', 'Please Select...');

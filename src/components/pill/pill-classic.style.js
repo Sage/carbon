@@ -3,10 +3,10 @@ import StyledIcon from '../icon/icon.style';
 
 export const classicStyleConfig = {
   disabled: {
-    color: '#CCD6DA'
+    color: '#CCD6DB'
   },
   default: {
-    color: '#335B6D',
+    color: '#335C6D',
     hoverBackgroundColor: '#004b87',
     hoverColor: '#FFFFFF'
   },

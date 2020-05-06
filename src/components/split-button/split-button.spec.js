@@ -168,8 +168,8 @@ describe('SplitButton', () => {
 
       it('has the expected style', () => {
         const themeColors = {
-          small: '#006045',
-          medium: '#005B9A'
+          small: '#006046',
+          medium: '#005C9A'
         };
 
         assertStyleMatch({
@@ -180,8 +180,8 @@ describe('SplitButton', () => {
 
       it('matches the expected style for the focused "additional button"', () => {
         const themeColors = {
-          small: '#003F2E',
-          medium: '#004372'
+          small: '#00402E',
+          medium: '#004472'
         };
 
         themedWrapper.find('button').simulate('focus');

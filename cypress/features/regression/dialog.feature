@@ -149,4 +149,4 @@ Feature: Dialog component
   Scenario: Verify default story color
     # commented because of BDD default scenario Given - When - Then
     #  When I open component preview
-    Then footer buttons have color "rgb(0, 128, 93)" and has 2 px border
+    Then footer buttons have color "rgb(0, 129, 93)" and has 2 px border

@@ -88,7 +88,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
 
 .c8 svg {
   background-color: #FFFFFF;
-  border: 1px solid #668491;
+  border: 1px solid #668592;
 }
 
 .c8 .c13,

@@ -70,7 +70,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 
 .c5 svg {
   background-color: #FFFFFF;
-  border: 1px solid #668491;
+  border: 1px solid #668592;
 }
 
 .c5 .c13,

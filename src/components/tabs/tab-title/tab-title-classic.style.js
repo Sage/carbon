@@ -9,7 +9,7 @@ export default ({
   position
 }) => isClassic(theme) && css`
   background-color: #f5f6f7;
-  border-bottom: 2px solid #ccd6da;
+  border-bottom: 2px solid #CCD6DB;
   color: #003349;
 
   &:hover {
@@ -48,7 +48,7 @@ export default ({
   ${position === 'left' && css`
     background-color: #f5f6f7;
     border-bottom: 0px;
-    border-right: 2px solid #ccd6da;
+    border-right: 2px solid #CCD6DB;
 
     &:hover {
       border-right-color: #1963f6;

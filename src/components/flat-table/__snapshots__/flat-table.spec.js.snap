@@ -4,7 +4,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
 .c8 {
   background-color: transparent;
   border-width: 0;
-  border-bottom: 1px solid #CCD6DA;
+  border-bottom: 1px solid #CCD6DB;
   box-sizing: border-box;
   font-weight: 700;
   left: auto;
@@ -21,7 +21,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
 
 .c6 {
   background-color: #fff;
-  border: 1px solid #CCD6DA;
+  border: 1px solid #CCD6DB;
   border-top: none;
   box-sizing: border-box;
   left: 0;
@@ -51,8 +51,8 @@ exports[`FlatTable when rendered with proper table data should have expected str
 
 .c0 .c7,
 .c0 .c2 .c5 {
-  background-color: #335B6D;
-  border-right: 1px solid #668491;
+  background-color: #335C6D;
+  border-right: 1px solid #668592;
   color: #FFFFFF;
 }
 
@@ -69,7 +69,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
 .c9 {
   background-color: #fff;
   border-width: 0;
-  border-bottom: 1px solid #CCD6DA;
+  border-bottom: 1px solid #CCD6DB;
   overflow: visible;
   padding: 10px 24px;
   text-overflow: ellipsis;
@@ -79,11 +79,11 @@ exports[`FlatTable when rendered with proper table data should have expected str
 }
 
 .c9:first-of-type {
-  border-left: 1px solid #CCD6DA;
+  border-left: 1px solid #CCD6DB;
 }
 
 .c9:last-of-type {
-  border-right: 1px solid #CCD6DA;
+  border-right: 1px solid #CCD6DB;
 }
 
 .c4 {

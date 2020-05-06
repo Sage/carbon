@@ -71,8 +71,8 @@ describe('ButtonToggle', () => {
         disabled: true
       });
       assertStyleMatch({
-        backgroundColor: '#E5EAEC',
-        borderColor: '#E5EAEC',
+        backgroundColor: '#E6EBED',
+        borderColor: '#E6EBED',
         color: 'rgba(0,0,0,.2)'
       }, wrapper.find('label'), { modifier: '&' });
     });

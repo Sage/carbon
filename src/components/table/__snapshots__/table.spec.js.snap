@@ -24,15 +24,15 @@ exports[`Table when the table size is compact renders a table to match the expec
 }
 
 .c0 .c2:nth-child(2n) .c1 {
-  background-color: #F9FAFB;
+  background-color: #FAFBFB;
 }
 
 .c0 .c2:hover .c1 {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c0 .c2:hover .c1 {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c0 caption {
@@ -79,15 +79,15 @@ exports[`Table when the table size is small renders a table to match the expecte
 }
 
 .c0 .c2:nth-child(2n) .c1 {
-  background-color: #F9FAFB;
+  background-color: #FAFBFB;
 }
 
 .c0 .c2:hover .c1 {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c0 .c2:hover .c1 {
-  background-color: #F2F4F5;
+  background-color: #F2F5F6;
 }
 
 .c0 caption {

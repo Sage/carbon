@@ -129,8 +129,8 @@ export function positionOfPaginationButton(type) {
 
 export function themeColor(type) {
   return {
-    primary: 'rgb(51, 91, 109)',
-    secondary: 'rgb(204, 214, 218)',
+    primary: 'rgb(51, 92, 109)',
+    secondary: 'rgb(204, 214, 219)',
     tertiary: 'rgba(0, 0, 0, 0)',
   }[type];
 }

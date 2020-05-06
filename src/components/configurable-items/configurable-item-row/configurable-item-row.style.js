@@ -35,7 +35,7 @@ const ConfigurableItemRowStyle = styled.li`
   }
 
   ${({ theme }) => isClassic(theme) && css`
-    border-bottom: 1px solid #CCD6DA;
+    border-bottom: 1px solid #CCD6DB;
     padding: 0.5em 0.5em 0.7em;
   `}
 
