@@ -37,6 +37,22 @@ describe('Drawer', () => {
   });
 
   describe('uncontrolled', () => {
+    it('matches snapshot', () => {
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('correctly sets aria attribute', () => {
+      const ariaLabel = 'test';
+      wrapper = render({ 'aria-label': ariaLabel });
+      expect(wrapper.find(Drawer).prop('aria-label')).toBe(ariaLabel);
+    });
+
+    it('correctly sets data attribute', () => {
+      const dataStatus = 'good';
+      wrapper = render({ 'data-status': dataStatus });
+      expect(wrapper.find(Drawer).prop('data-status')).toBe(dataStatus);
+    });
+
     it('Drawer Sidebar should render as expected', () => {
       assertStyleMatch({
         overflow: 'auto'

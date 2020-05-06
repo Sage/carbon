@@ -1,0 +1,2237 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Drawer uncontrolled matches snapshot 1`] = `
+.c3 {
+  display: inline-block;
+  position: relative;
+  color: rgba(0,0,0,0.65);
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c3:hover {
+  color: rgba(0,0,0,0.90);
+  background-color: transparent;
+}
+
+.c3::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e917";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c6 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  margin-left: 1px;
+  overflow: auto;
+}
+
+.c5 {
+  overflow: auto;
+  margin-top: 60px;
+  display: none;
+  opacity: 0;
+}
+
+.c1 {
+  min-width: 40px;
+  width: 40px;
+  min-height: 40px;
+  height: auto;
+  position: relative;
+  overflow: hidden;
+  border-right: 1px solid #D8E0E3;
+}
+
+.c1.open {
+  min-width: 52px;
+  width: 20%;
+  -webkit-animation: jJcEdd 0.5s ease-in-out;
+  animation: jJcEdd 0.5s ease-in-out;
+}
+
+.c1.open .c4 {
+  display: block;
+  opacity: 1;
+  -webkit-animation: bMEJFW 0.5s ease-in-out;
+  animation: bMEJFW 0.5s ease-in-out;
+}
+
+.c1.closed {
+  -webkit-animation: izemid 0.5s ease-in-out;
+  animation: izemid 0.5s ease-in-out;
+}
+
+.c1.closed .c4 {
+  display: block;
+  opacity: 0;
+  -webkit-animation: ihifEv 0.5s ease-in-out;
+  animation: ihifEv 0.5s ease-in-out;
+}
+
+.c2 {
+  float: right;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  margin: 8px 8px auto 8px;
+  -webkit-transition: margin-right 0.5s ease-in-out;
+  transition: margin-right 0.5s ease-in-out;
+  background-color: transparent;
+  border: none;
+  -webkit-animation: iaYDxU 0.5s ease-in-out;
+  animation: iaYDxU 0.5s ease-in-out;
+}
+
+.c2:focus {
+  outline: 3px solid #FFB500;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+}
+
+<Drawer
+  animationDuration="0.5s"
+  expandedWidth="20%"
+  sidebar={
+    <ul>
+      <li>
+        link a
+      </li>
+      <li>
+        link b
+      </li>
+      <li>
+        link c
+      </li>
+    </ul>
+  }
+>
+  <styled.div
+    data-element="drawer"
+  >
+    <StyledComponent
+      data-element="drawer"
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "sc-htoDjs",
+            "isStatic": false,
+            "lastClassName": "c0",
+            "rules": Array [
+              "
+  display: flex;
+  height: 100%;
+",
+            ],
+          },
+          "displayName": "styled.div",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "sc-htoDjs",
+          "target": "div",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+    >
+      <div
+        className="c0"
+        data-element="drawer"
+      >
+        <styled.div
+          animationDuration="0.5s"
+          className=""
+          expandedWidth="20%"
+          theme={
+            Object {
+              "accordion": Object {
+                "background": "#E5EAEC",
+                "border": "#CCD6DA",
+              },
+              "anchorNavigation": Object {
+                "divider": "#CCD6DA",
+                "navItemHoverBackground": "#E5EAEC",
+              },
+              "batchSelection": Object {
+                "lightTheme": "#B2C1C8",
+              },
+              "card": Object {
+                "footerBackground": "#F2F4F5",
+                "footerBorder": "#E5EAEC",
+              },
+              "carousel": Object {
+                "activeSelectorBackground": "#668491",
+                "inactiveSelectorBackground": "#CCD6DA",
+              },
+              "checkable": Object {
+                "checked": "rgba(0,0,0,0.90)",
+              },
+              "colors": Object {
+                "base": "#00A376",
+                "black": "#000000",
+                "border": "#668491",
+                "brand": "#00DC00",
+                "dashedBorder": "#99ADB6",
+                "dashedButtonText": "rgba(0, 0, 0, 0.9)",
+                "dashedHoverBackground": "#CCD6DB",
+                "destructive": Object {
+                  "hover": "#9F2C3F",
+                },
+                "disabled": "#66C166",
+                "error": "#C7384F",
+                "focus": "#FFB500",
+                "focusedIcon": "#335B6D",
+                "focusedLinkBackground": "#FFDA7F",
+                "hoveredTabKeyline": "#4CB74C",
+                "info": "#0073C2",
+                "previewBackground": "#BFCCD1",
+                "primary": "#26A826",
+                "secondary": "#006300",
+                "slate": "#003349",
+                "success": "#00B000",
+                "tertiary": "#004400",
+                "warning": "#E96400",
+                "white": "#FFFFFF",
+                "whiteMix": "#E5F4E5",
+                "withOpacity": "rgba(0,163,118,0.55)",
+              },
+              "disabled": Object {
+                "background": "#E5EAEC",
+                "border": "#CCD6DA",
+                "button": "#E5EAEC",
+                "buttonText": "rgba(0,0,0,.2)",
+                "disabled": "rgba(0,0,0,0.55)",
+                "input": "#F2F4F5",
+                "switch": "#E4E9EB",
+                "text": "rgba(0,0,0,0.3)",
+              },
+              "draggableItem": Object {
+                "border": "#E5EAEC",
+              },
+              "drawer": Object {
+                "divider": "#D8E0E3",
+              },
+              "flatTable": Object {
+                "dark": Object {
+                  "border": "#668491",
+                  "headerBackground": "#335B6D",
+                },
+                "headerIconColor": "#99ADB6",
+                "hover": "#F2F4F5",
+                "light": Object {
+                  "border": "#B2C1C8",
+                  "headerBackground": "#CCD6DA",
+                },
+                "transparentBase": Object {
+                  "border": "#F2F4F5",
+                  "headerBackground": "#F2F4F5",
+                },
+                "transparentWhite": Object {
+                  "border": "#fff",
+                  "headerBackground": "#fff",
+                },
+              },
+              "form": Object {
+                "invalid": "#F2F4F5",
+              },
+              "help": Object {
+                "color": "rgba(0,0,0,0.65)",
+                "hover": "rgba(0,0,0,0.9)",
+              },
+              "icon": Object {
+                "default": "rgba(0,0,0,0.65)",
+                "defaultHover": "rgba(0,0,0,0.90)",
+                "disabled": "rgba(0,0,0,0.30)",
+                "onLightBackground": "#668491",
+                "onLightBackgroundHover": "#335B6D",
+              },
+              "menu": Object {
+                "divider": "#E5EAEC",
+                "focus": "#F2F4F5",
+                "itemColor": "rgba(0,0,0,0.9)",
+                "itemColorDisabled": "rgba(0,0,0,0.3)",
+              },
+              "name": "base",
+              "numeralDate": Object {
+                "error": "#C7384F",
+                "passive": "#668592",
+              },
+              "pager": Object {
+                "active": "rgba(0,0,0,0.90)",
+                "disabled": "rgba(0,0,0,0.3)",
+              },
+              "pill": Object {
+                "errorButtonFocus": "#9F2C3F",
+                "neutral": "#4C707F",
+                "neutralBackgroundFocus": "#19475B",
+                "warning": "#ED8333",
+                "warningButtonFocus": "#E96400",
+              },
+              "pod": Object {
+                "border": "#CCD6DA",
+                "footerBackground": "#F2F4F5",
+                "hoverBackground": "#D8E0E3",
+                "secondaryBackground": "#F2F4F5",
+                "tertiaryBackground": "#E5EAEC",
+                "tileBackground": "#FFFFFF",
+              },
+              "popoverContainer": Object {
+                "iconColor": "rgba(0,0,0,0.90)",
+              },
+              "portrait": Object {
+                "background": "#F2F4F5",
+                "border": "#7F99A4",
+                "initials": "rgba(0,0,0,0.65)",
+              },
+              "rainbow": Object {
+                "textColor": "#003349",
+              },
+              "readOnly": Object {
+                "textboxBackground": "#F9FAFB",
+                "textboxBorder": "#CCD6DA",
+                "textboxText": "rgba(0,0,0,0.74)",
+              },
+              "search": Object {
+                "active": "#FFDA7F",
+                "button": "#255BC7",
+                "passive": "#CCD6DA",
+                "searchActive": "#668592",
+              },
+              "select": Object {
+                "border": "#bfccd2",
+                "selected": "#F2F4F5",
+              },
+              "shadows": Object {
+                "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+                "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+                "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+              },
+              "spacing": 8,
+              "switch": Object {
+                "off": "#CCD6DB",
+              },
+              "table": Object {
+                "dragging": "#E5EAEC",
+                "header": "#335B6D",
+                "hover": "#E5EAEC",
+                "primary": "#F2F4F5",
+                "secondary": "#CCD6DA",
+                "selected": "#D8E0E3",
+                "tertiary": "#19475B",
+                "zebra": "#F9FAFB",
+              },
+              "text": Object {
+                "color": "rgba(0,0,0,0.9)",
+                "placeholder": "rgba(0,0,0,0.3)",
+                "size": "14px",
+              },
+              "tile": Object {
+                "border": "#CCD6DA",
+                "separator": "#E5EAEC",
+              },
+            }
+          }
+        >
+          <StyledComponent
+            animationDuration="0.5s"
+            className=""
+            expandedWidth="20%"
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "_foldedDefaultProps": Object {
+                  "theme": Object {
+                    "accordion": Object {
+                      "background": "#E5EAEC",
+                      "border": "#CCD6DA",
+                    },
+                    "anchorNavigation": Object {
+                      "divider": "#CCD6DA",
+                      "navItemHoverBackground": "#E5EAEC",
+                    },
+                    "batchSelection": Object {
+                      "lightTheme": "#B2C1C8",
+                    },
+                    "card": Object {
+                      "footerBackground": "#F2F4F5",
+                      "footerBorder": "#E5EAEC",
+                    },
+                    "carousel": Object {
+                      "activeSelectorBackground": "#668491",
+                      "inactiveSelectorBackground": "#CCD6DA",
+                    },
+                    "checkable": Object {
+                      "checked": "rgba(0,0,0,0.90)",
+                    },
+                    "colors": Object {
+                      "base": "#00A376",
+                      "black": "#000000",
+                      "border": "#668491",
+                      "brand": "#00DC00",
+                      "dashedBorder": "#99ADB6",
+                      "dashedButtonText": "rgba(0, 0, 0, 0.9)",
+                      "dashedHoverBackground": "#CCD6DB",
+                      "destructive": Object {
+                        "hover": "#9F2C3F",
+                      },
+                      "disabled": "#66C166",
+                      "error": "#C7384F",
+                      "focus": "#FFB500",
+                      "focusedIcon": "#335B6D",
+                      "focusedLinkBackground": "#FFDA7F",
+                      "hoveredTabKeyline": "#4CB74C",
+                      "info": "#0073C2",
+                      "previewBackground": "#BFCCD1",
+                      "primary": "#26A826",
+                      "secondary": "#006300",
+                      "slate": "#003349",
+                      "success": "#00B000",
+                      "tertiary": "#004400",
+                      "warning": "#E96400",
+                      "white": "#FFFFFF",
+                      "whiteMix": "#E5F4E5",
+                      "withOpacity": "rgba(0,163,118,0.55)",
+                    },
+                    "disabled": Object {
+                      "background": "#E5EAEC",
+                      "border": "#CCD6DA",
+                      "button": "#E5EAEC",
+                      "buttonText": "rgba(0,0,0,.2)",
+                      "disabled": "rgba(0,0,0,0.55)",
+                      "input": "#F2F4F5",
+                      "switch": "#E4E9EB",
+                      "text": "rgba(0,0,0,0.3)",
+                    },
+                    "draggableItem": Object {
+                      "border": "#E5EAEC",
+                    },
+                    "drawer": Object {
+                      "divider": "#D8E0E3",
+                    },
+                    "flatTable": Object {
+                      "dark": Object {
+                        "border": "#668491",
+                        "headerBackground": "#335B6D",
+                      },
+                      "headerIconColor": "#99ADB6",
+                      "hover": "#F2F4F5",
+                      "light": Object {
+                        "border": "#B2C1C8",
+                        "headerBackground": "#CCD6DA",
+                      },
+                      "transparentBase": Object {
+                        "border": "#F2F4F5",
+                        "headerBackground": "#F2F4F5",
+                      },
+                      "transparentWhite": Object {
+                        "border": "#fff",
+                        "headerBackground": "#fff",
+                      },
+                    },
+                    "form": Object {
+                      "invalid": "#F2F4F5",
+                    },
+                    "help": Object {
+                      "color": "rgba(0,0,0,0.65)",
+                      "hover": "rgba(0,0,0,0.9)",
+                    },
+                    "icon": Object {
+                      "default": "rgba(0,0,0,0.65)",
+                      "defaultHover": "rgba(0,0,0,0.90)",
+                      "disabled": "rgba(0,0,0,0.30)",
+                      "onLightBackground": "#668491",
+                      "onLightBackgroundHover": "#335B6D",
+                    },
+                    "menu": Object {
+                      "divider": "#E5EAEC",
+                      "focus": "#F2F4F5",
+                      "itemColor": "rgba(0,0,0,0.9)",
+                      "itemColorDisabled": "rgba(0,0,0,0.3)",
+                    },
+                    "name": "base",
+                    "numeralDate": Object {
+                      "error": "#C7384F",
+                      "passive": "#668592",
+                    },
+                    "pager": Object {
+                      "active": "rgba(0,0,0,0.90)",
+                      "disabled": "rgba(0,0,0,0.3)",
+                    },
+                    "pill": Object {
+                      "errorButtonFocus": "#9F2C3F",
+                      "neutral": "#4C707F",
+                      "neutralBackgroundFocus": "#19475B",
+                      "warning": "#ED8333",
+                      "warningButtonFocus": "#E96400",
+                    },
+                    "pod": Object {
+                      "border": "#CCD6DA",
+                      "footerBackground": "#F2F4F5",
+                      "hoverBackground": "#D8E0E3",
+                      "secondaryBackground": "#F2F4F5",
+                      "tertiaryBackground": "#E5EAEC",
+                      "tileBackground": "#FFFFFF",
+                    },
+                    "popoverContainer": Object {
+                      "iconColor": "rgba(0,0,0,0.90)",
+                    },
+                    "portrait": Object {
+                      "background": "#F2F4F5",
+                      "border": "#7F99A4",
+                      "initials": "rgba(0,0,0,0.65)",
+                    },
+                    "rainbow": Object {
+                      "textColor": "#003349",
+                    },
+                    "readOnly": Object {
+                      "textboxBackground": "#F9FAFB",
+                      "textboxBorder": "#CCD6DA",
+                      "textboxText": "rgba(0,0,0,0.74)",
+                    },
+                    "search": Object {
+                      "active": "#FFDA7F",
+                      "button": "#255BC7",
+                      "passive": "#CCD6DA",
+                      "searchActive": "#668592",
+                    },
+                    "select": Object {
+                      "border": "#bfccd2",
+                      "selected": "#F2F4F5",
+                    },
+                    "shadows": Object {
+                      "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+                      "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+                      "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                      "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                      "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                      "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                    },
+                    "spacing": 8,
+                    "switch": Object {
+                      "off": "#CCD6DB",
+                    },
+                    "table": Object {
+                      "dragging": "#E5EAEC",
+                      "header": "#335B6D",
+                      "hover": "#E5EAEC",
+                      "primary": "#F2F4F5",
+                      "secondary": "#CCD6DA",
+                      "selected": "#D8E0E3",
+                      "tertiary": "#19475B",
+                      "zebra": "#F9FAFB",
+                    },
+                    "text": Object {
+                      "color": "rgba(0,0,0,0.9)",
+                      "placeholder": "rgba(0,0,0,0.3)",
+                      "size": "14px",
+                    },
+                    "tile": Object {
+                      "border": "#CCD6DA",
+                      "separator": "#E5EAEC",
+                    },
+                  },
+                },
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-bZQynM",
+                  "isStatic": false,
+                  "lastClassName": "c1",
+                  "rules": Array [
+                    "
+  min-width: 40px;
+  width: 40px;
+  min-height: 40px;
+  height: auto;
+  position: relative;
+  overflow: hidden;
+  border-right: 1px solid ",
+                    [Function],
+                    ";
+
+  &.open {
+    min-width: 52px;
+    width: ",
+                    [Function],
+                    ";
+    animation: ",
+                    [Function],
+                    " ease-in-out;
+
+    ",
+                    ".c4",
+                    " {
+      display: block;
+      opacity: 1;
+      animation: ",
+                    [Function],
+                    " ",
+                    [Function],
+                    " ease-in-out;
+    }
+  }
+
+  &.closed {
+    animation: ",
+                    [Function],
+                    " ease-in-out;
+
+    ",
+                    ".c4",
+                    " {
+      display: block;
+      opacity: 0;
+      animation: ",
+                    [Function],
+                    " ",
+                    [Function],
+                    " ease-in-out;
+    }
+  }
+",
+                  ],
+                },
+                "displayName": "styled.div",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "sc-bZQynM",
+                "target": "div",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+            theme={
+              Object {
+                "accordion": Object {
+                  "background": "#E5EAEC",
+                  "border": "#CCD6DA",
+                },
+                "anchorNavigation": Object {
+                  "divider": "#CCD6DA",
+                  "navItemHoverBackground": "#E5EAEC",
+                },
+                "batchSelection": Object {
+                  "lightTheme": "#B2C1C8",
+                },
+                "card": Object {
+                  "footerBackground": "#F2F4F5",
+                  "footerBorder": "#E5EAEC",
+                },
+                "carousel": Object {
+                  "activeSelectorBackground": "#668491",
+                  "inactiveSelectorBackground": "#CCD6DA",
+                },
+                "checkable": Object {
+                  "checked": "rgba(0,0,0,0.90)",
+                },
+                "colors": Object {
+                  "base": "#00A376",
+                  "black": "#000000",
+                  "border": "#668491",
+                  "brand": "#00DC00",
+                  "dashedBorder": "#99ADB6",
+                  "dashedButtonText": "rgba(0, 0, 0, 0.9)",
+                  "dashedHoverBackground": "#CCD6DB",
+                  "destructive": Object {
+                    "hover": "#9F2C3F",
+                  },
+                  "disabled": "#66C166",
+                  "error": "#C7384F",
+                  "focus": "#FFB500",
+                  "focusedIcon": "#335B6D",
+                  "focusedLinkBackground": "#FFDA7F",
+                  "hoveredTabKeyline": "#4CB74C",
+                  "info": "#0073C2",
+                  "previewBackground": "#BFCCD1",
+                  "primary": "#26A826",
+                  "secondary": "#006300",
+                  "slate": "#003349",
+                  "success": "#00B000",
+                  "tertiary": "#004400",
+                  "warning": "#E96400",
+                  "white": "#FFFFFF",
+                  "whiteMix": "#E5F4E5",
+                  "withOpacity": "rgba(0,163,118,0.55)",
+                },
+                "disabled": Object {
+                  "background": "#E5EAEC",
+                  "border": "#CCD6DA",
+                  "button": "#E5EAEC",
+                  "buttonText": "rgba(0,0,0,.2)",
+                  "disabled": "rgba(0,0,0,0.55)",
+                  "input": "#F2F4F5",
+                  "switch": "#E4E9EB",
+                  "text": "rgba(0,0,0,0.3)",
+                },
+                "draggableItem": Object {
+                  "border": "#E5EAEC",
+                },
+                "drawer": Object {
+                  "divider": "#D8E0E3",
+                },
+                "flatTable": Object {
+                  "dark": Object {
+                    "border": "#668491",
+                    "headerBackground": "#335B6D",
+                  },
+                  "headerIconColor": "#99ADB6",
+                  "hover": "#F2F4F5",
+                  "light": Object {
+                    "border": "#B2C1C8",
+                    "headerBackground": "#CCD6DA",
+                  },
+                  "transparentBase": Object {
+                    "border": "#F2F4F5",
+                    "headerBackground": "#F2F4F5",
+                  },
+                  "transparentWhite": Object {
+                    "border": "#fff",
+                    "headerBackground": "#fff",
+                  },
+                },
+                "form": Object {
+                  "invalid": "#F2F4F5",
+                },
+                "help": Object {
+                  "color": "rgba(0,0,0,0.65)",
+                  "hover": "rgba(0,0,0,0.9)",
+                },
+                "icon": Object {
+                  "default": "rgba(0,0,0,0.65)",
+                  "defaultHover": "rgba(0,0,0,0.90)",
+                  "disabled": "rgba(0,0,0,0.30)",
+                  "onLightBackground": "#668491",
+                  "onLightBackgroundHover": "#335B6D",
+                },
+                "menu": Object {
+                  "divider": "#E5EAEC",
+                  "focus": "#F2F4F5",
+                  "itemColor": "rgba(0,0,0,0.9)",
+                  "itemColorDisabled": "rgba(0,0,0,0.3)",
+                },
+                "name": "base",
+                "numeralDate": Object {
+                  "error": "#C7384F",
+                  "passive": "#668592",
+                },
+                "pager": Object {
+                  "active": "rgba(0,0,0,0.90)",
+                  "disabled": "rgba(0,0,0,0.3)",
+                },
+                "pill": Object {
+                  "errorButtonFocus": "#9F2C3F",
+                  "neutral": "#4C707F",
+                  "neutralBackgroundFocus": "#19475B",
+                  "warning": "#ED8333",
+                  "warningButtonFocus": "#E96400",
+                },
+                "pod": Object {
+                  "border": "#CCD6DA",
+                  "footerBackground": "#F2F4F5",
+                  "hoverBackground": "#D8E0E3",
+                  "secondaryBackground": "#F2F4F5",
+                  "tertiaryBackground": "#E5EAEC",
+                  "tileBackground": "#FFFFFF",
+                },
+                "popoverContainer": Object {
+                  "iconColor": "rgba(0,0,0,0.90)",
+                },
+                "portrait": Object {
+                  "background": "#F2F4F5",
+                  "border": "#7F99A4",
+                  "initials": "rgba(0,0,0,0.65)",
+                },
+                "rainbow": Object {
+                  "textColor": "#003349",
+                },
+                "readOnly": Object {
+                  "textboxBackground": "#F9FAFB",
+                  "textboxBorder": "#CCD6DA",
+                  "textboxText": "rgba(0,0,0,0.74)",
+                },
+                "search": Object {
+                  "active": "#FFDA7F",
+                  "button": "#255BC7",
+                  "passive": "#CCD6DA",
+                  "searchActive": "#668592",
+                },
+                "select": Object {
+                  "border": "#bfccd2",
+                  "selected": "#F2F4F5",
+                },
+                "shadows": Object {
+                  "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+                  "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+                  "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                  "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                  "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                  "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                },
+                "spacing": 8,
+                "switch": Object {
+                  "off": "#CCD6DB",
+                },
+                "table": Object {
+                  "dragging": "#E5EAEC",
+                  "header": "#335B6D",
+                  "hover": "#E5EAEC",
+                  "primary": "#F2F4F5",
+                  "secondary": "#CCD6DA",
+                  "selected": "#D8E0E3",
+                  "tertiary": "#19475B",
+                  "zebra": "#F9FAFB",
+                },
+                "text": Object {
+                  "color": "rgba(0,0,0,0.9)",
+                  "placeholder": "rgba(0,0,0,0.3)",
+                  "size": "14px",
+                },
+                "tile": Object {
+                  "border": "#CCD6DA",
+                  "separator": "#E5EAEC",
+                },
+              }
+            }
+          >
+            <div
+              className="c1"
+            >
+              <styled.button
+                animationDuration="0.5s"
+                aria-controls="DrawerSidebar_b6c15d26-338b-1b0b-a045-034a9efe480d"
+                aria-expanded={false}
+                aria-label="toggle sidebar"
+                data-element="drawer-toggle"
+                isExpanded={false}
+                onClick={[Function]}
+                theme={
+                  Object {
+                    "accordion": Object {
+                      "background": "#E5EAEC",
+                      "border": "#CCD6DA",
+                    },
+                    "anchorNavigation": Object {
+                      "divider": "#CCD6DA",
+                      "navItemHoverBackground": "#E5EAEC",
+                    },
+                    "batchSelection": Object {
+                      "lightTheme": "#B2C1C8",
+                    },
+                    "card": Object {
+                      "footerBackground": "#F2F4F5",
+                      "footerBorder": "#E5EAEC",
+                    },
+                    "carousel": Object {
+                      "activeSelectorBackground": "#668491",
+                      "inactiveSelectorBackground": "#CCD6DA",
+                    },
+                    "checkable": Object {
+                      "checked": "rgba(0,0,0,0.90)",
+                    },
+                    "colors": Object {
+                      "base": "#00A376",
+                      "black": "#000000",
+                      "border": "#668491",
+                      "brand": "#00DC00",
+                      "dashedBorder": "#99ADB6",
+                      "dashedButtonText": "rgba(0, 0, 0, 0.9)",
+                      "dashedHoverBackground": "#CCD6DB",
+                      "destructive": Object {
+                        "hover": "#9F2C3F",
+                      },
+                      "disabled": "#66C166",
+                      "error": "#C7384F",
+                      "focus": "#FFB500",
+                      "focusedIcon": "#335B6D",
+                      "focusedLinkBackground": "#FFDA7F",
+                      "hoveredTabKeyline": "#4CB74C",
+                      "info": "#0073C2",
+                      "previewBackground": "#BFCCD1",
+                      "primary": "#26A826",
+                      "secondary": "#006300",
+                      "slate": "#003349",
+                      "success": "#00B000",
+                      "tertiary": "#004400",
+                      "warning": "#E96400",
+                      "white": "#FFFFFF",
+                      "whiteMix": "#E5F4E5",
+                      "withOpacity": "rgba(0,163,118,0.55)",
+                    },
+                    "disabled": Object {
+                      "background": "#E5EAEC",
+                      "border": "#CCD6DA",
+                      "button": "#E5EAEC",
+                      "buttonText": "rgba(0,0,0,.2)",
+                      "disabled": "rgba(0,0,0,0.55)",
+                      "input": "#F2F4F5",
+                      "switch": "#E4E9EB",
+                      "text": "rgba(0,0,0,0.3)",
+                    },
+                    "draggableItem": Object {
+                      "border": "#E5EAEC",
+                    },
+                    "drawer": Object {
+                      "divider": "#D8E0E3",
+                    },
+                    "flatTable": Object {
+                      "dark": Object {
+                        "border": "#668491",
+                        "headerBackground": "#335B6D",
+                      },
+                      "headerIconColor": "#99ADB6",
+                      "hover": "#F2F4F5",
+                      "light": Object {
+                        "border": "#B2C1C8",
+                        "headerBackground": "#CCD6DA",
+                      },
+                      "transparentBase": Object {
+                        "border": "#F2F4F5",
+                        "headerBackground": "#F2F4F5",
+                      },
+                      "transparentWhite": Object {
+                        "border": "#fff",
+                        "headerBackground": "#fff",
+                      },
+                    },
+                    "form": Object {
+                      "invalid": "#F2F4F5",
+                    },
+                    "help": Object {
+                      "color": "rgba(0,0,0,0.65)",
+                      "hover": "rgba(0,0,0,0.9)",
+                    },
+                    "icon": Object {
+                      "default": "rgba(0,0,0,0.65)",
+                      "defaultHover": "rgba(0,0,0,0.90)",
+                      "disabled": "rgba(0,0,0,0.30)",
+                      "onLightBackground": "#668491",
+                      "onLightBackgroundHover": "#335B6D",
+                    },
+                    "menu": Object {
+                      "divider": "#E5EAEC",
+                      "focus": "#F2F4F5",
+                      "itemColor": "rgba(0,0,0,0.9)",
+                      "itemColorDisabled": "rgba(0,0,0,0.3)",
+                    },
+                    "name": "base",
+                    "numeralDate": Object {
+                      "error": "#C7384F",
+                      "passive": "#668592",
+                    },
+                    "pager": Object {
+                      "active": "rgba(0,0,0,0.90)",
+                      "disabled": "rgba(0,0,0,0.3)",
+                    },
+                    "pill": Object {
+                      "errorButtonFocus": "#9F2C3F",
+                      "neutral": "#4C707F",
+                      "neutralBackgroundFocus": "#19475B",
+                      "warning": "#ED8333",
+                      "warningButtonFocus": "#E96400",
+                    },
+                    "pod": Object {
+                      "border": "#CCD6DA",
+                      "footerBackground": "#F2F4F5",
+                      "hoverBackground": "#D8E0E3",
+                      "secondaryBackground": "#F2F4F5",
+                      "tertiaryBackground": "#E5EAEC",
+                      "tileBackground": "#FFFFFF",
+                    },
+                    "popoverContainer": Object {
+                      "iconColor": "rgba(0,0,0,0.90)",
+                    },
+                    "portrait": Object {
+                      "background": "#F2F4F5",
+                      "border": "#7F99A4",
+                      "initials": "rgba(0,0,0,0.65)",
+                    },
+                    "rainbow": Object {
+                      "textColor": "#003349",
+                    },
+                    "readOnly": Object {
+                      "textboxBackground": "#F9FAFB",
+                      "textboxBorder": "#CCD6DA",
+                      "textboxText": "rgba(0,0,0,0.74)",
+                    },
+                    "search": Object {
+                      "active": "#FFDA7F",
+                      "button": "#255BC7",
+                      "passive": "#CCD6DA",
+                      "searchActive": "#668592",
+                    },
+                    "select": Object {
+                      "border": "#bfccd2",
+                      "selected": "#F2F4F5",
+                    },
+                    "shadows": Object {
+                      "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+                      "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+                      "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                      "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                      "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                      "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                    },
+                    "spacing": 8,
+                    "switch": Object {
+                      "off": "#CCD6DB",
+                    },
+                    "table": Object {
+                      "dragging": "#E5EAEC",
+                      "header": "#335B6D",
+                      "hover": "#E5EAEC",
+                      "primary": "#F2F4F5",
+                      "secondary": "#CCD6DA",
+                      "selected": "#D8E0E3",
+                      "tertiary": "#19475B",
+                      "zebra": "#F9FAFB",
+                    },
+                    "text": Object {
+                      "color": "rgba(0,0,0,0.9)",
+                      "placeholder": "rgba(0,0,0,0.3)",
+                      "size": "14px",
+                    },
+                    "tile": Object {
+                      "border": "#CCD6DA",
+                      "separator": "#E5EAEC",
+                    },
+                  }
+                }
+              >
+                <StyledComponent
+                  animationDuration="0.5s"
+                  aria-controls="DrawerSidebar_b6c15d26-338b-1b0b-a045-034a9efe480d"
+                  aria-expanded={false}
+                  aria-label="toggle sidebar"
+                  data-element="drawer-toggle"
+                  forwardedComponent={
+                    Object {
+                      "$$typeof": Symbol(react.forward_ref),
+                      "_foldedDefaultProps": Object {
+                        "theme": Object {
+                          "accordion": Object {
+                            "background": "#E5EAEC",
+                            "border": "#CCD6DA",
+                          },
+                          "anchorNavigation": Object {
+                            "divider": "#CCD6DA",
+                            "navItemHoverBackground": "#E5EAEC",
+                          },
+                          "batchSelection": Object {
+                            "lightTheme": "#B2C1C8",
+                          },
+                          "card": Object {
+                            "footerBackground": "#F2F4F5",
+                            "footerBorder": "#E5EAEC",
+                          },
+                          "carousel": Object {
+                            "activeSelectorBackground": "#668491",
+                            "inactiveSelectorBackground": "#CCD6DA",
+                          },
+                          "checkable": Object {
+                            "checked": "rgba(0,0,0,0.90)",
+                          },
+                          "colors": Object {
+                            "base": "#00A376",
+                            "black": "#000000",
+                            "border": "#668491",
+                            "brand": "#00DC00",
+                            "dashedBorder": "#99ADB6",
+                            "dashedButtonText": "rgba(0, 0, 0, 0.9)",
+                            "dashedHoverBackground": "#CCD6DB",
+                            "destructive": Object {
+                              "hover": "#9F2C3F",
+                            },
+                            "disabled": "#66C166",
+                            "error": "#C7384F",
+                            "focus": "#FFB500",
+                            "focusedIcon": "#335B6D",
+                            "focusedLinkBackground": "#FFDA7F",
+                            "hoveredTabKeyline": "#4CB74C",
+                            "info": "#0073C2",
+                            "previewBackground": "#BFCCD1",
+                            "primary": "#26A826",
+                            "secondary": "#006300",
+                            "slate": "#003349",
+                            "success": "#00B000",
+                            "tertiary": "#004400",
+                            "warning": "#E96400",
+                            "white": "#FFFFFF",
+                            "whiteMix": "#E5F4E5",
+                            "withOpacity": "rgba(0,163,118,0.55)",
+                          },
+                          "disabled": Object {
+                            "background": "#E5EAEC",
+                            "border": "#CCD6DA",
+                            "button": "#E5EAEC",
+                            "buttonText": "rgba(0,0,0,.2)",
+                            "disabled": "rgba(0,0,0,0.55)",
+                            "input": "#F2F4F5",
+                            "switch": "#E4E9EB",
+                            "text": "rgba(0,0,0,0.3)",
+                          },
+                          "draggableItem": Object {
+                            "border": "#E5EAEC",
+                          },
+                          "drawer": Object {
+                            "divider": "#D8E0E3",
+                          },
+                          "flatTable": Object {
+                            "dark": Object {
+                              "border": "#668491",
+                              "headerBackground": "#335B6D",
+                            },
+                            "headerIconColor": "#99ADB6",
+                            "hover": "#F2F4F5",
+                            "light": Object {
+                              "border": "#B2C1C8",
+                              "headerBackground": "#CCD6DA",
+                            },
+                            "transparentBase": Object {
+                              "border": "#F2F4F5",
+                              "headerBackground": "#F2F4F5",
+                            },
+                            "transparentWhite": Object {
+                              "border": "#fff",
+                              "headerBackground": "#fff",
+                            },
+                          },
+                          "form": Object {
+                            "invalid": "#F2F4F5",
+                          },
+                          "help": Object {
+                            "color": "rgba(0,0,0,0.65)",
+                            "hover": "rgba(0,0,0,0.9)",
+                          },
+                          "icon": Object {
+                            "default": "rgba(0,0,0,0.65)",
+                            "defaultHover": "rgba(0,0,0,0.90)",
+                            "disabled": "rgba(0,0,0,0.30)",
+                            "onLightBackground": "#668491",
+                            "onLightBackgroundHover": "#335B6D",
+                          },
+                          "menu": Object {
+                            "divider": "#E5EAEC",
+                            "focus": "#F2F4F5",
+                            "itemColor": "rgba(0,0,0,0.9)",
+                            "itemColorDisabled": "rgba(0,0,0,0.3)",
+                          },
+                          "name": "base",
+                          "numeralDate": Object {
+                            "error": "#C7384F",
+                            "passive": "#668592",
+                          },
+                          "pager": Object {
+                            "active": "rgba(0,0,0,0.90)",
+                            "disabled": "rgba(0,0,0,0.3)",
+                          },
+                          "pill": Object {
+                            "errorButtonFocus": "#9F2C3F",
+                            "neutral": "#4C707F",
+                            "neutralBackgroundFocus": "#19475B",
+                            "warning": "#ED8333",
+                            "warningButtonFocus": "#E96400",
+                          },
+                          "pod": Object {
+                            "border": "#CCD6DA",
+                            "footerBackground": "#F2F4F5",
+                            "hoverBackground": "#D8E0E3",
+                            "secondaryBackground": "#F2F4F5",
+                            "tertiaryBackground": "#E5EAEC",
+                            "tileBackground": "#FFFFFF",
+                          },
+                          "popoverContainer": Object {
+                            "iconColor": "rgba(0,0,0,0.90)",
+                          },
+                          "portrait": Object {
+                            "background": "#F2F4F5",
+                            "border": "#7F99A4",
+                            "initials": "rgba(0,0,0,0.65)",
+                          },
+                          "rainbow": Object {
+                            "textColor": "#003349",
+                          },
+                          "readOnly": Object {
+                            "textboxBackground": "#F9FAFB",
+                            "textboxBorder": "#CCD6DA",
+                            "textboxText": "rgba(0,0,0,0.74)",
+                          },
+                          "search": Object {
+                            "active": "#FFDA7F",
+                            "button": "#255BC7",
+                            "passive": "#CCD6DA",
+                            "searchActive": "#668592",
+                          },
+                          "select": Object {
+                            "border": "#bfccd2",
+                            "selected": "#F2F4F5",
+                          },
+                          "shadows": Object {
+                            "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+                            "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+                            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                          },
+                          "spacing": 8,
+                          "switch": Object {
+                            "off": "#CCD6DB",
+                          },
+                          "table": Object {
+                            "dragging": "#E5EAEC",
+                            "header": "#335B6D",
+                            "hover": "#E5EAEC",
+                            "primary": "#F2F4F5",
+                            "secondary": "#CCD6DA",
+                            "selected": "#D8E0E3",
+                            "tertiary": "#19475B",
+                            "zebra": "#F9FAFB",
+                          },
+                          "text": Object {
+                            "color": "rgba(0,0,0,0.9)",
+                            "placeholder": "rgba(0,0,0,0.3)",
+                            "size": "14px",
+                          },
+                          "tile": Object {
+                            "border": "#CCD6DA",
+                            "separator": "#E5EAEC",
+                          },
+                        },
+                      },
+                      "attrs": Array [],
+                      "componentStyle": ComponentStyle {
+                        "componentId": "sc-gzVnrw",
+                        "isStatic": false,
+                        "lastClassName": "c2",
+                        "rules": Array [
+                          "
+  float: right;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  margin: 8px 8px auto 8px;
+  transition: margin-right ",
+                          [Function],
+                          " ease-in-out;
+  background-color: transparent;
+  border: none;
+
+  &:focus {
+    outline: 3px solid ",
+                          [Function],
+                          ";
+  }
+  animation: ",
+                          [Function],
+                          " ",
+                          [Function],
+                          " ease-in-out;
+
+  ",
+                          [Function],
+                          "
+",
+                        ],
+                      },
+                      "displayName": "styled.button",
+                      "foldedComponentIds": Array [],
+                      "render": [Function],
+                      "styledComponentId": "sc-gzVnrw",
+                      "target": "button",
+                      "toString": [Function],
+                      "warnTooManyClasses": [Function],
+                      "withComponent": [Function],
+                    }
+                  }
+                  forwardedRef={null}
+                  isExpanded={false}
+                  onClick={[Function]}
+                  theme={
+                    Object {
+                      "accordion": Object {
+                        "background": "#E5EAEC",
+                        "border": "#CCD6DA",
+                      },
+                      "anchorNavigation": Object {
+                        "divider": "#CCD6DA",
+                        "navItemHoverBackground": "#E5EAEC",
+                      },
+                      "batchSelection": Object {
+                        "lightTheme": "#B2C1C8",
+                      },
+                      "card": Object {
+                        "footerBackground": "#F2F4F5",
+                        "footerBorder": "#E5EAEC",
+                      },
+                      "carousel": Object {
+                        "activeSelectorBackground": "#668491",
+                        "inactiveSelectorBackground": "#CCD6DA",
+                      },
+                      "checkable": Object {
+                        "checked": "rgba(0,0,0,0.90)",
+                      },
+                      "colors": Object {
+                        "base": "#00A376",
+                        "black": "#000000",
+                        "border": "#668491",
+                        "brand": "#00DC00",
+                        "dashedBorder": "#99ADB6",
+                        "dashedButtonText": "rgba(0, 0, 0, 0.9)",
+                        "dashedHoverBackground": "#CCD6DB",
+                        "destructive": Object {
+                          "hover": "#9F2C3F",
+                        },
+                        "disabled": "#66C166",
+                        "error": "#C7384F",
+                        "focus": "#FFB500",
+                        "focusedIcon": "#335B6D",
+                        "focusedLinkBackground": "#FFDA7F",
+                        "hoveredTabKeyline": "#4CB74C",
+                        "info": "#0073C2",
+                        "previewBackground": "#BFCCD1",
+                        "primary": "#26A826",
+                        "secondary": "#006300",
+                        "slate": "#003349",
+                        "success": "#00B000",
+                        "tertiary": "#004400",
+                        "warning": "#E96400",
+                        "white": "#FFFFFF",
+                        "whiteMix": "#E5F4E5",
+                        "withOpacity": "rgba(0,163,118,0.55)",
+                      },
+                      "disabled": Object {
+                        "background": "#E5EAEC",
+                        "border": "#CCD6DA",
+                        "button": "#E5EAEC",
+                        "buttonText": "rgba(0,0,0,.2)",
+                        "disabled": "rgba(0,0,0,0.55)",
+                        "input": "#F2F4F5",
+                        "switch": "#E4E9EB",
+                        "text": "rgba(0,0,0,0.3)",
+                      },
+                      "draggableItem": Object {
+                        "border": "#E5EAEC",
+                      },
+                      "drawer": Object {
+                        "divider": "#D8E0E3",
+                      },
+                      "flatTable": Object {
+                        "dark": Object {
+                          "border": "#668491",
+                          "headerBackground": "#335B6D",
+                        },
+                        "headerIconColor": "#99ADB6",
+                        "hover": "#F2F4F5",
+                        "light": Object {
+                          "border": "#B2C1C8",
+                          "headerBackground": "#CCD6DA",
+                        },
+                        "transparentBase": Object {
+                          "border": "#F2F4F5",
+                          "headerBackground": "#F2F4F5",
+                        },
+                        "transparentWhite": Object {
+                          "border": "#fff",
+                          "headerBackground": "#fff",
+                        },
+                      },
+                      "form": Object {
+                        "invalid": "#F2F4F5",
+                      },
+                      "help": Object {
+                        "color": "rgba(0,0,0,0.65)",
+                        "hover": "rgba(0,0,0,0.9)",
+                      },
+                      "icon": Object {
+                        "default": "rgba(0,0,0,0.65)",
+                        "defaultHover": "rgba(0,0,0,0.90)",
+                        "disabled": "rgba(0,0,0,0.30)",
+                        "onLightBackground": "#668491",
+                        "onLightBackgroundHover": "#335B6D",
+                      },
+                      "menu": Object {
+                        "divider": "#E5EAEC",
+                        "focus": "#F2F4F5",
+                        "itemColor": "rgba(0,0,0,0.9)",
+                        "itemColorDisabled": "rgba(0,0,0,0.3)",
+                      },
+                      "name": "base",
+                      "numeralDate": Object {
+                        "error": "#C7384F",
+                        "passive": "#668592",
+                      },
+                      "pager": Object {
+                        "active": "rgba(0,0,0,0.90)",
+                        "disabled": "rgba(0,0,0,0.3)",
+                      },
+                      "pill": Object {
+                        "errorButtonFocus": "#9F2C3F",
+                        "neutral": "#4C707F",
+                        "neutralBackgroundFocus": "#19475B",
+                        "warning": "#ED8333",
+                        "warningButtonFocus": "#E96400",
+                      },
+                      "pod": Object {
+                        "border": "#CCD6DA",
+                        "footerBackground": "#F2F4F5",
+                        "hoverBackground": "#D8E0E3",
+                        "secondaryBackground": "#F2F4F5",
+                        "tertiaryBackground": "#E5EAEC",
+                        "tileBackground": "#FFFFFF",
+                      },
+                      "popoverContainer": Object {
+                        "iconColor": "rgba(0,0,0,0.90)",
+                      },
+                      "portrait": Object {
+                        "background": "#F2F4F5",
+                        "border": "#7F99A4",
+                        "initials": "rgba(0,0,0,0.65)",
+                      },
+                      "rainbow": Object {
+                        "textColor": "#003349",
+                      },
+                      "readOnly": Object {
+                        "textboxBackground": "#F9FAFB",
+                        "textboxBorder": "#CCD6DA",
+                        "textboxText": "rgba(0,0,0,0.74)",
+                      },
+                      "search": Object {
+                        "active": "#FFDA7F",
+                        "button": "#255BC7",
+                        "passive": "#CCD6DA",
+                        "searchActive": "#668592",
+                      },
+                      "select": Object {
+                        "border": "#bfccd2",
+                        "selected": "#F2F4F5",
+                      },
+                      "shadows": Object {
+                        "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+                        "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+                        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                      },
+                      "spacing": 8,
+                      "switch": Object {
+                        "off": "#CCD6DB",
+                      },
+                      "table": Object {
+                        "dragging": "#E5EAEC",
+                        "header": "#335B6D",
+                        "hover": "#E5EAEC",
+                        "primary": "#F2F4F5",
+                        "secondary": "#CCD6DA",
+                        "selected": "#D8E0E3",
+                        "tertiary": "#19475B",
+                        "zebra": "#F9FAFB",
+                      },
+                      "text": Object {
+                        "color": "rgba(0,0,0,0.9)",
+                        "placeholder": "rgba(0,0,0,0.3)",
+                        "size": "14px",
+                      },
+                      "tile": Object {
+                        "border": "#CCD6DA",
+                        "separator": "#E5EAEC",
+                      },
+                    }
+                  }
+                >
+                  <button
+                    aria-controls="DrawerSidebar_b6c15d26-338b-1b0b-a045-034a9efe480d"
+                    aria-expanded={false}
+                    aria-label="toggle sidebar"
+                    className="c2"
+                    data-element="drawer-toggle"
+                    onClick={[Function]}
+                  >
+                    <Icon
+                      bgSize="small"
+                      disabled={false}
+                      fontSize="small"
+                      type="chevron_right"
+                    >
+                      <styled.span
+                        bgSize="small"
+                        className={null}
+                        data-component="icon"
+                        data-element="chevron_right"
+                        disabled={false}
+                        fontSize="small"
+                        key="icon"
+                        theme={
+                          Object {
+                            "accordion": Object {
+                              "background": "#E5EAEC",
+                              "border": "#CCD6DA",
+                            },
+                            "anchorNavigation": Object {
+                              "divider": "#CCD6DA",
+                              "navItemHoverBackground": "#E5EAEC",
+                            },
+                            "batchSelection": Object {
+                              "lightTheme": "#B2C1C8",
+                            },
+                            "card": Object {
+                              "footerBackground": "#F2F4F5",
+                              "footerBorder": "#E5EAEC",
+                            },
+                            "carousel": Object {
+                              "activeSelectorBackground": "#668491",
+                              "inactiveSelectorBackground": "#CCD6DA",
+                            },
+                            "checkable": Object {
+                              "checked": "rgba(0,0,0,0.90)",
+                            },
+                            "colors": Object {
+                              "base": "#00A376",
+                              "black": "#000000",
+                              "border": "#668491",
+                              "brand": "#00DC00",
+                              "dashedBorder": "#99ADB6",
+                              "dashedButtonText": "rgba(0, 0, 0, 0.9)",
+                              "dashedHoverBackground": "#CCD6DB",
+                              "destructive": Object {
+                                "hover": "#9F2C3F",
+                              },
+                              "disabled": "#66C166",
+                              "error": "#C7384F",
+                              "focus": "#FFB500",
+                              "focusedIcon": "#335B6D",
+                              "focusedLinkBackground": "#FFDA7F",
+                              "hoveredTabKeyline": "#4CB74C",
+                              "info": "#0073C2",
+                              "previewBackground": "#BFCCD1",
+                              "primary": "#26A826",
+                              "secondary": "#006300",
+                              "slate": "#003349",
+                              "success": "#00B000",
+                              "tertiary": "#004400",
+                              "warning": "#E96400",
+                              "white": "#FFFFFF",
+                              "whiteMix": "#E5F4E5",
+                              "withOpacity": "rgba(0,163,118,0.55)",
+                            },
+                            "disabled": Object {
+                              "background": "#E5EAEC",
+                              "border": "#CCD6DA",
+                              "button": "#E5EAEC",
+                              "buttonText": "rgba(0,0,0,.2)",
+                              "disabled": "rgba(0,0,0,0.55)",
+                              "input": "#F2F4F5",
+                              "switch": "#E4E9EB",
+                              "text": "rgba(0,0,0,0.3)",
+                            },
+                            "draggableItem": Object {
+                              "border": "#E5EAEC",
+                            },
+                            "drawer": Object {
+                              "divider": "#D8E0E3",
+                            },
+                            "flatTable": Object {
+                              "dark": Object {
+                                "border": "#668491",
+                                "headerBackground": "#335B6D",
+                              },
+                              "headerIconColor": "#99ADB6",
+                              "hover": "#F2F4F5",
+                              "light": Object {
+                                "border": "#B2C1C8",
+                                "headerBackground": "#CCD6DA",
+                              },
+                              "transparentBase": Object {
+                                "border": "#F2F4F5",
+                                "headerBackground": "#F2F4F5",
+                              },
+                              "transparentWhite": Object {
+                                "border": "#fff",
+                                "headerBackground": "#fff",
+                              },
+                            },
+                            "form": Object {
+                              "invalid": "#F2F4F5",
+                            },
+                            "help": Object {
+                              "color": "rgba(0,0,0,0.65)",
+                              "hover": "rgba(0,0,0,0.9)",
+                            },
+                            "icon": Object {
+                              "default": "rgba(0,0,0,0.65)",
+                              "defaultHover": "rgba(0,0,0,0.90)",
+                              "disabled": "rgba(0,0,0,0.30)",
+                              "onLightBackground": "#668491",
+                              "onLightBackgroundHover": "#335B6D",
+                            },
+                            "menu": Object {
+                              "divider": "#E5EAEC",
+                              "focus": "#F2F4F5",
+                              "itemColor": "rgba(0,0,0,0.9)",
+                              "itemColorDisabled": "rgba(0,0,0,0.3)",
+                            },
+                            "name": "base",
+                            "numeralDate": Object {
+                              "error": "#C7384F",
+                              "passive": "#668592",
+                            },
+                            "pager": Object {
+                              "active": "rgba(0,0,0,0.90)",
+                              "disabled": "rgba(0,0,0,0.3)",
+                            },
+                            "pill": Object {
+                              "errorButtonFocus": "#9F2C3F",
+                              "neutral": "#4C707F",
+                              "neutralBackgroundFocus": "#19475B",
+                              "warning": "#ED8333",
+                              "warningButtonFocus": "#E96400",
+                            },
+                            "pod": Object {
+                              "border": "#CCD6DA",
+                              "footerBackground": "#F2F4F5",
+                              "hoverBackground": "#D8E0E3",
+                              "secondaryBackground": "#F2F4F5",
+                              "tertiaryBackground": "#E5EAEC",
+                              "tileBackground": "#FFFFFF",
+                            },
+                            "popoverContainer": Object {
+                              "iconColor": "rgba(0,0,0,0.90)",
+                            },
+                            "portrait": Object {
+                              "background": "#F2F4F5",
+                              "border": "#7F99A4",
+                              "initials": "rgba(0,0,0,0.65)",
+                            },
+                            "rainbow": Object {
+                              "textColor": "#003349",
+                            },
+                            "readOnly": Object {
+                              "textboxBackground": "#F9FAFB",
+                              "textboxBorder": "#CCD6DA",
+                              "textboxText": "rgba(0,0,0,0.74)",
+                            },
+                            "search": Object {
+                              "active": "#FFDA7F",
+                              "button": "#255BC7",
+                              "passive": "#CCD6DA",
+                              "searchActive": "#668592",
+                            },
+                            "select": Object {
+                              "border": "#bfccd2",
+                              "selected": "#F2F4F5",
+                            },
+                            "shadows": Object {
+                              "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+                              "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+                              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                            },
+                            "spacing": 8,
+                            "switch": Object {
+                              "off": "#CCD6DB",
+                            },
+                            "table": Object {
+                              "dragging": "#E5EAEC",
+                              "header": "#335B6D",
+                              "hover": "#E5EAEC",
+                              "primary": "#F2F4F5",
+                              "secondary": "#CCD6DA",
+                              "selected": "#D8E0E3",
+                              "tertiary": "#19475B",
+                              "zebra": "#F9FAFB",
+                            },
+                            "text": Object {
+                              "color": "rgba(0,0,0,0.9)",
+                              "placeholder": "rgba(0,0,0,0.3)",
+                              "size": "14px",
+                            },
+                            "tile": Object {
+                              "border": "#CCD6DA",
+                              "separator": "#E5EAEC",
+                            },
+                          }
+                        }
+                        type="chevron_right"
+                      >
+                        <StyledComponent
+                          bgSize="small"
+                          className={null}
+                          data-component="icon"
+                          data-element="chevron_right"
+                          disabled={false}
+                          fontSize="small"
+                          forwardedComponent={
+                            Object {
+                              "$$typeof": Symbol(react.forward_ref),
+                              "_foldedDefaultProps": Object {
+                                "theme": Object {
+                                  "accordion": Object {
+                                    "background": "#E5EAEC",
+                                    "border": "#CCD6DA",
+                                  },
+                                  "anchorNavigation": Object {
+                                    "divider": "#CCD6DA",
+                                    "navItemHoverBackground": "#E5EAEC",
+                                  },
+                                  "batchSelection": Object {
+                                    "lightTheme": "#B2C1C8",
+                                  },
+                                  "card": Object {
+                                    "footerBackground": "#F2F4F5",
+                                    "footerBorder": "#E5EAEC",
+                                  },
+                                  "carousel": Object {
+                                    "activeSelectorBackground": "#668491",
+                                    "inactiveSelectorBackground": "#CCD6DA",
+                                  },
+                                  "checkable": Object {
+                                    "checked": "rgba(0,0,0,0.90)",
+                                  },
+                                  "colors": Object {
+                                    "base": "#00A376",
+                                    "black": "#000000",
+                                    "border": "#668491",
+                                    "brand": "#00DC00",
+                                    "dashedBorder": "#99ADB6",
+                                    "dashedButtonText": "rgba(0, 0, 0, 0.9)",
+                                    "dashedHoverBackground": "#CCD6DB",
+                                    "destructive": Object {
+                                      "hover": "#9F2C3F",
+                                    },
+                                    "disabled": "#66C166",
+                                    "error": "#C7384F",
+                                    "focus": "#FFB500",
+                                    "focusedIcon": "#335B6D",
+                                    "focusedLinkBackground": "#FFDA7F",
+                                    "hoveredTabKeyline": "#4CB74C",
+                                    "info": "#0073C2",
+                                    "previewBackground": "#BFCCD1",
+                                    "primary": "#26A826",
+                                    "secondary": "#006300",
+                                    "slate": "#003349",
+                                    "success": "#00B000",
+                                    "tertiary": "#004400",
+                                    "warning": "#E96400",
+                                    "white": "#FFFFFF",
+                                    "whiteMix": "#E5F4E5",
+                                    "withOpacity": "rgba(0,163,118,0.55)",
+                                  },
+                                  "disabled": Object {
+                                    "background": "#E5EAEC",
+                                    "border": "#CCD6DA",
+                                    "button": "#E5EAEC",
+                                    "buttonText": "rgba(0,0,0,.2)",
+                                    "disabled": "rgba(0,0,0,0.55)",
+                                    "input": "#F2F4F5",
+                                    "switch": "#E4E9EB",
+                                    "text": "rgba(0,0,0,0.3)",
+                                  },
+                                  "draggableItem": Object {
+                                    "border": "#E5EAEC",
+                                  },
+                                  "drawer": Object {
+                                    "divider": "#D8E0E3",
+                                  },
+                                  "flatTable": Object {
+                                    "dark": Object {
+                                      "border": "#668491",
+                                      "headerBackground": "#335B6D",
+                                    },
+                                    "headerIconColor": "#99ADB6",
+                                    "hover": "#F2F4F5",
+                                    "light": Object {
+                                      "border": "#B2C1C8",
+                                      "headerBackground": "#CCD6DA",
+                                    },
+                                    "transparentBase": Object {
+                                      "border": "#F2F4F5",
+                                      "headerBackground": "#F2F4F5",
+                                    },
+                                    "transparentWhite": Object {
+                                      "border": "#fff",
+                                      "headerBackground": "#fff",
+                                    },
+                                  },
+                                  "form": Object {
+                                    "invalid": "#F2F4F5",
+                                  },
+                                  "help": Object {
+                                    "color": "rgba(0,0,0,0.65)",
+                                    "hover": "rgba(0,0,0,0.9)",
+                                  },
+                                  "icon": Object {
+                                    "default": "rgba(0,0,0,0.65)",
+                                    "defaultHover": "rgba(0,0,0,0.90)",
+                                    "disabled": "rgba(0,0,0,0.30)",
+                                    "onLightBackground": "#668491",
+                                    "onLightBackgroundHover": "#335B6D",
+                                  },
+                                  "menu": Object {
+                                    "divider": "#E5EAEC",
+                                    "focus": "#F2F4F5",
+                                    "itemColor": "rgba(0,0,0,0.9)",
+                                    "itemColorDisabled": "rgba(0,0,0,0.3)",
+                                  },
+                                  "name": "base",
+                                  "numeralDate": Object {
+                                    "error": "#C7384F",
+                                    "passive": "#668592",
+                                  },
+                                  "pager": Object {
+                                    "active": "rgba(0,0,0,0.90)",
+                                    "disabled": "rgba(0,0,0,0.3)",
+                                  },
+                                  "pill": Object {
+                                    "errorButtonFocus": "#9F2C3F",
+                                    "neutral": "#4C707F",
+                                    "neutralBackgroundFocus": "#19475B",
+                                    "warning": "#ED8333",
+                                    "warningButtonFocus": "#E96400",
+                                  },
+                                  "pod": Object {
+                                    "border": "#CCD6DA",
+                                    "footerBackground": "#F2F4F5",
+                                    "hoverBackground": "#D8E0E3",
+                                    "secondaryBackground": "#F2F4F5",
+                                    "tertiaryBackground": "#E5EAEC",
+                                    "tileBackground": "#FFFFFF",
+                                  },
+                                  "popoverContainer": Object {
+                                    "iconColor": "rgba(0,0,0,0.90)",
+                                  },
+                                  "portrait": Object {
+                                    "background": "#F2F4F5",
+                                    "border": "#7F99A4",
+                                    "initials": "rgba(0,0,0,0.65)",
+                                  },
+                                  "rainbow": Object {
+                                    "textColor": "#003349",
+                                  },
+                                  "readOnly": Object {
+                                    "textboxBackground": "#F9FAFB",
+                                    "textboxBorder": "#CCD6DA",
+                                    "textboxText": "rgba(0,0,0,0.74)",
+                                  },
+                                  "search": Object {
+                                    "active": "#FFDA7F",
+                                    "button": "#255BC7",
+                                    "passive": "#CCD6DA",
+                                    "searchActive": "#668592",
+                                  },
+                                  "select": Object {
+                                    "border": "#bfccd2",
+                                    "selected": "#F2F4F5",
+                                  },
+                                  "shadows": Object {
+                                    "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+                                    "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+                                    "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                    "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                    "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                    "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                  },
+                                  "spacing": 8,
+                                  "switch": Object {
+                                    "off": "#CCD6DB",
+                                  },
+                                  "table": Object {
+                                    "dragging": "#E5EAEC",
+                                    "header": "#335B6D",
+                                    "hover": "#E5EAEC",
+                                    "primary": "#F2F4F5",
+                                    "secondary": "#CCD6DA",
+                                    "selected": "#D8E0E3",
+                                    "tertiary": "#19475B",
+                                    "zebra": "#F9FAFB",
+                                  },
+                                  "text": Object {
+                                    "color": "rgba(0,0,0,0.9)",
+                                    "placeholder": "rgba(0,0,0,0.3)",
+                                    "size": "14px",
+                                  },
+                                  "tile": Object {
+                                    "border": "#CCD6DA",
+                                    "separator": "#E5EAEC",
+                                  },
+                                },
+                              },
+                              "attrs": Array [],
+                              "componentStyle": ComponentStyle {
+                                "componentId": "sc-bxivhb",
+                                "isStatic": false,
+                                "lastClassName": "c3",
+                                "rules": Array [
+                                  "
+  ",
+                                  [Function],
+                                  "
+",
+                                ],
+                              },
+                              "displayName": "styled.span",
+                              "foldedComponentIds": Array [],
+                              "propTypes": Object {
+                                "bgShape": [Function],
+                                "bgSize": [Function],
+                                "bgTheme": [Function],
+                                "disabled": [Function],
+                                "fontSize": [Function],
+                                "iconColor": [Function],
+                                "theme": [Function],
+                                "type": [Function],
+                              },
+                              "render": [Function],
+                              "styledComponentId": "sc-bxivhb",
+                              "target": "span",
+                              "toString": [Function],
+                              "warnTooManyClasses": [Function],
+                              "withComponent": [Function],
+                            }
+                          }
+                          forwardedRef={[Function]}
+                          theme={
+                            Object {
+                              "accordion": Object {
+                                "background": "#E5EAEC",
+                                "border": "#CCD6DA",
+                              },
+                              "anchorNavigation": Object {
+                                "divider": "#CCD6DA",
+                                "navItemHoverBackground": "#E5EAEC",
+                              },
+                              "batchSelection": Object {
+                                "lightTheme": "#B2C1C8",
+                              },
+                              "card": Object {
+                                "footerBackground": "#F2F4F5",
+                                "footerBorder": "#E5EAEC",
+                              },
+                              "carousel": Object {
+                                "activeSelectorBackground": "#668491",
+                                "inactiveSelectorBackground": "#CCD6DA",
+                              },
+                              "checkable": Object {
+                                "checked": "rgba(0,0,0,0.90)",
+                              },
+                              "colors": Object {
+                                "base": "#00A376",
+                                "black": "#000000",
+                                "border": "#668491",
+                                "brand": "#00DC00",
+                                "dashedBorder": "#99ADB6",
+                                "dashedButtonText": "rgba(0, 0, 0, 0.9)",
+                                "dashedHoverBackground": "#CCD6DB",
+                                "destructive": Object {
+                                  "hover": "#9F2C3F",
+                                },
+                                "disabled": "#66C166",
+                                "error": "#C7384F",
+                                "focus": "#FFB500",
+                                "focusedIcon": "#335B6D",
+                                "focusedLinkBackground": "#FFDA7F",
+                                "hoveredTabKeyline": "#4CB74C",
+                                "info": "#0073C2",
+                                "previewBackground": "#BFCCD1",
+                                "primary": "#26A826",
+                                "secondary": "#006300",
+                                "slate": "#003349",
+                                "success": "#00B000",
+                                "tertiary": "#004400",
+                                "warning": "#E96400",
+                                "white": "#FFFFFF",
+                                "whiteMix": "#E5F4E5",
+                                "withOpacity": "rgba(0,163,118,0.55)",
+                              },
+                              "disabled": Object {
+                                "background": "#E5EAEC",
+                                "border": "#CCD6DA",
+                                "button": "#E5EAEC",
+                                "buttonText": "rgba(0,0,0,.2)",
+                                "disabled": "rgba(0,0,0,0.55)",
+                                "input": "#F2F4F5",
+                                "switch": "#E4E9EB",
+                                "text": "rgba(0,0,0,0.3)",
+                              },
+                              "draggableItem": Object {
+                                "border": "#E5EAEC",
+                              },
+                              "drawer": Object {
+                                "divider": "#D8E0E3",
+                              },
+                              "flatTable": Object {
+                                "dark": Object {
+                                  "border": "#668491",
+                                  "headerBackground": "#335B6D",
+                                },
+                                "headerIconColor": "#99ADB6",
+                                "hover": "#F2F4F5",
+                                "light": Object {
+                                  "border": "#B2C1C8",
+                                  "headerBackground": "#CCD6DA",
+                                },
+                                "transparentBase": Object {
+                                  "border": "#F2F4F5",
+                                  "headerBackground": "#F2F4F5",
+                                },
+                                "transparentWhite": Object {
+                                  "border": "#fff",
+                                  "headerBackground": "#fff",
+                                },
+                              },
+                              "form": Object {
+                                "invalid": "#F2F4F5",
+                              },
+                              "help": Object {
+                                "color": "rgba(0,0,0,0.65)",
+                                "hover": "rgba(0,0,0,0.9)",
+                              },
+                              "icon": Object {
+                                "default": "rgba(0,0,0,0.65)",
+                                "defaultHover": "rgba(0,0,0,0.90)",
+                                "disabled": "rgba(0,0,0,0.30)",
+                                "onLightBackground": "#668491",
+                                "onLightBackgroundHover": "#335B6D",
+                              },
+                              "menu": Object {
+                                "divider": "#E5EAEC",
+                                "focus": "#F2F4F5",
+                                "itemColor": "rgba(0,0,0,0.9)",
+                                "itemColorDisabled": "rgba(0,0,0,0.3)",
+                              },
+                              "name": "base",
+                              "numeralDate": Object {
+                                "error": "#C7384F",
+                                "passive": "#668592",
+                              },
+                              "pager": Object {
+                                "active": "rgba(0,0,0,0.90)",
+                                "disabled": "rgba(0,0,0,0.3)",
+                              },
+                              "pill": Object {
+                                "errorButtonFocus": "#9F2C3F",
+                                "neutral": "#4C707F",
+                                "neutralBackgroundFocus": "#19475B",
+                                "warning": "#ED8333",
+                                "warningButtonFocus": "#E96400",
+                              },
+                              "pod": Object {
+                                "border": "#CCD6DA",
+                                "footerBackground": "#F2F4F5",
+                                "hoverBackground": "#D8E0E3",
+                                "secondaryBackground": "#F2F4F5",
+                                "tertiaryBackground": "#E5EAEC",
+                                "tileBackground": "#FFFFFF",
+                              },
+                              "popoverContainer": Object {
+                                "iconColor": "rgba(0,0,0,0.90)",
+                              },
+                              "portrait": Object {
+                                "background": "#F2F4F5",
+                                "border": "#7F99A4",
+                                "initials": "rgba(0,0,0,0.65)",
+                              },
+                              "rainbow": Object {
+                                "textColor": "#003349",
+                              },
+                              "readOnly": Object {
+                                "textboxBackground": "#F9FAFB",
+                                "textboxBorder": "#CCD6DA",
+                                "textboxText": "rgba(0,0,0,0.74)",
+                              },
+                              "search": Object {
+                                "active": "#FFDA7F",
+                                "button": "#255BC7",
+                                "passive": "#CCD6DA",
+                                "searchActive": "#668592",
+                              },
+                              "select": Object {
+                                "border": "#bfccd2",
+                                "selected": "#F2F4F5",
+                              },
+                              "shadows": Object {
+                                "cards": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15)",
+                                "cardsIE": "0 3px 3px 0 rgba(0,20,29,0.2),0 2px 4px 0 rgba(0,20,29,0.15), 0 0 1px 0 rgba(0,20,29,0.15)",
+                                "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                              },
+                              "spacing": 8,
+                              "switch": Object {
+                                "off": "#CCD6DB",
+                              },
+                              "table": Object {
+                                "dragging": "#E5EAEC",
+                                "header": "#335B6D",
+                                "hover": "#E5EAEC",
+                                "primary": "#F2F4F5",
+                                "secondary": "#CCD6DA",
+                                "selected": "#D8E0E3",
+                                "tertiary": "#19475B",
+                                "zebra": "#F9FAFB",
+                              },
+                              "text": Object {
+                                "color": "rgba(0,0,0,0.9)",
+                                "placeholder": "rgba(0,0,0,0.3)",
+                                "size": "14px",
+                              },
+                              "tile": Object {
+                                "border": "#CCD6DA",
+                                "separator": "#E5EAEC",
+                              },
+                            }
+                          }
+                          type="chevron_right"
+                        >
+                          <span
+                            className="c3"
+                            data-component="icon"
+                            data-element="chevron_right"
+                            disabled={false}
+                            fontSize="small"
+                            type="chevron_right"
+                          />
+                        </StyledComponent>
+                      </styled.span>
+                    </Icon>
+                  </button>
+                </StyledComponent>
+              </styled.button>
+              <styled.div
+                id="DrawerSidebar_b6c15d26-338b-1b0b-a045-034a9efe480d"
+                role="navigation"
+              >
+                <StyledComponent
+                  forwardedComponent={
+                    Object {
+                      "$$typeof": Symbol(react.forward_ref),
+                      "attrs": Array [],
+                      "componentStyle": ComponentStyle {
+                        "componentId": "c4",
+                        "isStatic": false,
+                        "lastClassName": "c5",
+                        "rules": Array [
+                          "
+  overflow: auto;
+  margin-top: 60px;
+  display: none;
+  opacity: 0;
+",
+                        ],
+                      },
+                      "displayName": "styled.div",
+                      "foldedComponentIds": Array [],
+                      "render": [Function],
+                      "styledComponentId": "c4",
+                      "target": "div",
+                      "toString": [Function],
+                      "warnTooManyClasses": [Function],
+                      "withComponent": [Function],
+                    }
+                  }
+                  forwardedRef={null}
+                  id="DrawerSidebar_b6c15d26-338b-1b0b-a045-034a9efe480d"
+                  role="navigation"
+                >
+                  <div
+                    className="c4 c5"
+                    id="DrawerSidebar_b6c15d26-338b-1b0b-a045-034a9efe480d"
+                    role="navigation"
+                  >
+                    <ul>
+                      <li>
+                        link a
+                      </li>
+                      <li>
+                        link b
+                      </li>
+                      <li>
+                        link c
+                      </li>
+                    </ul>
+                  </div>
+                </StyledComponent>
+              </styled.div>
+            </div>
+          </StyledComponent>
+        </styled.div>
+        <styled.div>
+          <StyledComponent
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-ifAKCX",
+                  "isStatic": false,
+                  "lastClassName": "c6",
+                  "rules": Array [
+                    "
+  flex: 1;
+  margin-left: 1px;
+  overflow: auto;
+",
+                  ],
+                },
+                "displayName": "styled.div",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "sc-ifAKCX",
+                "target": "div",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+          >
+            <div
+              className="c6"
+            >
+              content body content body content body content body content body content body content body
+            </div>
+          </StyledComponent>
+        </styled.div>
+      </div>
+    </StyledComponent>
+  </styled.div>
+</Drawer>
+`;
