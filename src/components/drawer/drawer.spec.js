@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import Drawer from './drawer.component';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import guid from '../../utils/helpers/guid';
@@ -42,6 +42,7 @@ describe('Drawer', () => {
 
   describe('uncontrolled', () => {
     it('matches snapshot', () => {
+      wrapper = render(defaultProps, shallow);
       expect(wrapper).toMatchSnapshot();
     });
 
