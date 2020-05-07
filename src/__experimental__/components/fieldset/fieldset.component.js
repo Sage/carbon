@@ -5,10 +5,18 @@ import tagComponent from '../../../utils/helpers/tags';
 import { FieldsetStyle, LegendContainerStyle, FieldsetContentStyle } from './fieldset.style';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
 import { getValidationType } from '../../../components/validations/with-validation.hoc';
+import Logger from '../../../utils/logger/logger';
 
 const validationsPresent = ({ hasError, hasWarning, hasInfo }) => hasError || hasWarning || hasInfo;
+let deprecatedWarnTriggered = false;
 
 const Fieldset = (props) => {
+  if (!deprecatedWarnTriggered) {
+    deprecatedWarnTriggered = true;
+    // eslint-disable-next-line max-len
+    Logger.deprecate('`styleOverride` that is used in the `Fieldset` component is deprecated and will soon be removed.');
+  }
+
   const validationIcon = () => {
     if (validationsPresent(props) && props.tooltipMessage) {
       return (
@@ -46,6 +54,7 @@ const Fieldset = (props) => {
   });
 
   return (
+
     <FieldsetStyle
       { ...tagComponent('fieldset', props) }
       { ...safeProps }
