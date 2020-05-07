@@ -5,7 +5,6 @@ Feature: Advanced Color Picker component
     Given I open basic Test "Advanced Color Picker" component page in noIframe
       And I open Advanced Color Picker in noIFrame
 
-
   @positive
   Scenario Outline: <key> moves selection
     When I press "<key>" onto focused element

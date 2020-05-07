@@ -1,10 +1,10 @@
 import {
   assignedPicklist, unassignedPicklistItems, duellingPicklistComponent, picklistRightLabel,
   picklistLeftLabel, assignedPicklistItems, unassignedPicklist, addButton, removeButton,
-  picklistDivider,
+  picklistDivider, duellingSearchInput,
 } from '../../locators/duelling-picklist/index';
-import { checkboxRoleNoIFrame } from '../../locators/checkbox/index';
-import { positionOfElement } from '../helper';
+import { checkboxRole } from '../../locators/checkbox/index';
+import { positionOfElement, keyCode } from '../helper';
 
 Then('unassigned picklist has {int} items', (items) => {
   unassignedPicklistItems().should('have.length', items);
@@ -39,11 +39,11 @@ Then('unassigned picklist is empty', () => {
 });
 
 Then('I check Access to all current and new clients checkbox', () => {
-  checkboxRoleNoIFrame().check();
+  checkboxRole().check();
 });
 
 Then('I uncheck Access to all current and new clients checkbox', () => {
-  checkboxRoleNoIFrame().uncheck();
+  checkboxRole().uncheck();
 });
 
 Then('Duelling Picklist is disabled', () => {
@@ -64,6 +64,14 @@ Then('I focus first element in assigned picklist', () => {
   assignedPicklistItems().eq(0).focus();
 });
 
+When('I press {string} onto element in assigned pick list', (arrow) => {
+  assignedPicklistItems().eq(0).trigger('keydown', keyCode(arrow));
+});
+
+When('I press {string} onto element in unassigned pick list', (arrow) => {
+  unassignedPicklistItems().eq(0).trigger('keydown', keyCode(arrow));
+});
+
 Then('I focus first element in unassigned picklist', () => {
   unassignedPicklistItems().eq(0).focus();
 });
@@ -72,10 +80,18 @@ When('I remove {int} item(s) from assigned picklist', () => {
   removeButton().click({ multiple: true });
 });
 
+When('Type {string} text into duelling picklist search input', (text) => {
+  duellingSearchInput().clear().type(text);
+});
+
 Then('I check {string} element in unassigned picklist', (position) => {
   unassignedPicklistItems().eq(positionOfElement(position)).focus();
 });
 
-Then('element inner content is set to {string}', (text) => {
-  unassignedPicklistItems().eq(0).should('contain', text);
+Then('{string} element inner content is set to {string}', (position, text) => {
+  unassignedPicklistItems().eq(positionOfElement(position)).should('contain', text);
+});
+
+Then('{string} element has golden border outline {string}', (position, color) => {
+  unassignedPicklistItems().eq(positionOfElement(position)).should('have.css', 'outline', color);
 });

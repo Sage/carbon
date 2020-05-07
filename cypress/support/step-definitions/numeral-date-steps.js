@@ -1,4 +1,4 @@
-import { numeralDateInputByPosition, numeralDateComponent } from '../../locators/numeralDate';
+import { numeralDateInputByPosition, numeralDateComponent, numeralDateInputByPositionDS } from '../../locators/numeralDate';
 import { ERROR_TOOLTIP } from '../../locators/form/locators';
 import { positionOfElement } from '../helper';
 
@@ -29,26 +29,26 @@ Then('error icon is visible in third input', () => {
 });
 
 Then('I click on first input', () => {
-  numeralDateInputByPosition(positionOfElement('first')).click();
+  numeralDateInputByPositionDS(positionOfElement('first')).click();
 });
 
 Then('I type numeral characters {string} in {string} inputs', (text, position) => {
-  numeralDateInputByPosition(positionOfElement(position)).clear().type(text);
-  numeralDateInputByPosition(positionOfElement(position)).parent().should('have.css', 'outline-color', 'rgb(255, 181, 0)');
+  numeralDateInputByPositionDS(positionOfElement(position)).clear().type(text);
+  numeralDateInputByPositionDS(positionOfElement(position)).parent().should('have.css', 'outline-color', 'rgb(255, 181, 0)');
 });
 
 Then('{string} numeral input is set to {string}', (position, text) => {
-  numeralDateInputByPosition(positionOfElement(position)).should('have.value', text);
+  numeralDateInputByPositionDS(positionOfElement(position)).should('have.value', text);
 });
 
 Then('I type no numeral characters {string} in inputs', (text) => {
-  numeralDateInputByPosition(positionOfElement('first')).clear().type(text);
-  numeralDateInputByPosition(positionOfElement('second')).clear().type(text);
-  numeralDateInputByPosition(positionOfElement('third')).clear().type(text);
+  numeralDateInputByPositionDS(positionOfElement('first')).clear().type(text);
+  numeralDateInputByPositionDS(positionOfElement('second')).clear().type(text);
+  numeralDateInputByPositionDS(positionOfElement('third')).clear().type(text);
 });
 
 Then('inputs have value {string}', (text) => {
-  numeralDateInputByPosition(positionOfElement('first')).should('have.value', text);
-  numeralDateInputByPosition(positionOfElement('second')).should('have.value', text);
-  numeralDateInputByPosition(positionOfElement('third')).should('have.value', text);
+  numeralDateInputByPositionDS(positionOfElement('first')).should('have.value', text);
+  numeralDateInputByPositionDS(positionOfElement('second')).should('have.value', text);
+  numeralDateInputByPositionDS(positionOfElement('third')).should('have.value', text);
 });

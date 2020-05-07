@@ -2,7 +2,7 @@ Feature: Drawer component
   I want to test Drawer component
 
   Background: Open Drawer component page
-    Given I open design systems uncontrolled Drawer component page
+    Given I open design systems uncontrolled "Drawer" component page
 
   @positive
   Scenario: Expanding Drawer
