@@ -6,8 +6,16 @@ import RadioButtonFieldsetStyle from './radio-button-fieldset.style';
 import RadioButtonGroupStyle from './radio-button-group.style';
 import RadioButtonMapper from './radio-button-mapper.component';
 import withValidation from '../../../components/validations/with-validation.hoc';
+import Logger from '../../../utils/logger/logger';
+
+let deprecatedWarnTriggered = false;
 
 const RadioButtonGroup = (props) => {
+  if (!deprecatedWarnTriggered) {
+    deprecatedWarnTriggered = true;
+    // eslint-disable-next-line max-len
+    Logger.deprecate('`styleOverride` that is used in the `RadioButtonGroup` component is deprecated and will soon be removed.');
+  }
   const {
     children, name, legend, hasError, hasWarning, hasInfo, onBlur,
     onChange, value, tooltipMessage, inline, labelInline, styleOverride
