@@ -53,7 +53,7 @@ const StyledDrawerContent = styled.div`
   min-height: 40px;
   height: auto;
   position: relative;
-  overflow: hidden;
+  overflow: auto;
   border-right: 1px solid ${({ theme }) => theme.drawer.divider};
 
   &.open {
