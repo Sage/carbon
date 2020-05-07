@@ -14,7 +14,6 @@ Feature: Accessibility tests
       | mount-in-app                     |
       | multi-action-button              |
       | navigation-bar                   |
-      | pager                            |
       | pill                             |
       | pod                              |
       | portrait                         |

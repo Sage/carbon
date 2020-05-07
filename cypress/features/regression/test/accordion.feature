@@ -4,6 +4,7 @@ Feature: Accordion component
   Background: Open Accordion component page
     Given I open basic Test "Accordion" component page
 
+  # will remove when Applitools will be implemented
   @positive
   Scenario Outline: Set Accordion iconType to <iconType>
     When I select iconType to "<iconType>"
@@ -13,6 +14,7 @@ Feature: Accordion component
       | chevron_down |
       | dropdown     |
 
+  # will remove when Applitools will be implemented
   @positive
   Scenario Outline: Open accordion and set Accordion iconType to <iconType>
     Given I expand accordionRow via click
@@ -23,6 +25,7 @@ Feature: Accordion component
       | chevron_down |
       | dropdown     |
 
+  # will remove when Applitools will be implemented
   @positive
   Scenario Outline: Set Accordion iconAlign to <iconAlign>
     When I select iconAlign to "<iconAlign>"
@@ -32,6 +35,7 @@ Feature: Accordion component
       | left      |
       | right     |
 
+  # will remove when Applitools will be implemented
   @positive
   Scenario Outline: Set Accordion type to <type>
     When I select type to "<type>"
@@ -41,16 +45,7 @@ Feature: Accordion component
       | primary   |
       | secondary |
 
-  @positive
-  Scenario: I expand accordion using click
-    When I expand accordionRow via click
-    Then accordionRow is expanded
-
-  @positive
-  Scenario: I expand accordion using Enter key
-    When I expand accordionRow using "Enter" key
-    Then accordionRow is expanded
-
+  # will remove when Applitools will be implemented
   @positive
   Scenario Outline: Verify color pallete for <type> type Accordion
     # When I open "Accordion" component page
@@ -59,11 +54,6 @@ Feature: Accordion component
       | type      | color              |
       | primary   | rgb(204, 214, 219) |
       | secondary | rgb(204, 214, 219) |
-
-  @positive
-  Scenario: Verify color pallete for the Accordion row on focus
-    When I focus accordionRow
-    Then accordionRow has golden border outline
 
   @positive
   Scenario: Check expansion toggled event for the Accordion row on focus

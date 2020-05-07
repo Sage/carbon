@@ -18,9 +18,8 @@ Feature: Heading component
     When I set children to "<children>"
     Then heading children on preview is "<children>"
     Examples:
-      | children                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | children    |
+      | mp150ú¿¡üßä |
 
   @positive
   Scenario Outline: Change subheader to <subheader>

@@ -1,7 +1,8 @@
 import {
   flatTableHeaderCells, flatTableHeader, flatTableBodyRows, flatTableNoiFrame,
   flatTableHeaderCellsNoiFrame, flatTableBodyRowByPositionNoiFrame, flatTableBodyCellByPosition,
-  flatTableBodyRowByPosition, flatTableCell, flatTableHeaderInnerContent,
+  flatTableBodyRowByPosition, flatTableBodyRowByPositionDS, flatTableHeaderCellDS,
+  flatTableClickableRowByPositionDS, fltaTableSortableDS, flatTableCellDS,
 } from '../../locators/flat-table';
 import { DEBUG_FLAG } from '..';
 import { positionOfElement } from '../helper';
@@ -9,9 +10,9 @@ import { icon } from '../../locators';
 
 Then('FlatTable rows are sticky', () => {
   cy.wait(500);
-  for (let i = 0; i <= 7; i++) {
+  for (let i = 0; i <= 3; i++) {
     const color = 'rgb(204, 214, 219)';
-    flatTableBodyRowByPosition(i).find('th').should('have.css', 'border-right-color', color)
+    flatTableBodyRowByPositionDS(i).find('th').should('have.css', 'border-right-color', color)
       .and('have.css', 'border-left-color', color)
       .and('have.css', 'border-bottom-color', color)
       .and('have.css', 'position', 'sticky')
@@ -21,7 +22,7 @@ Then('FlatTable rows are sticky', () => {
 
 Then('FlatTable has sticky header', () => {
   cy.wait(300, { log: DEBUG_FLAG }); // required because element needs to be loaded
-  flatTableHeaderCells().each(($el) => {
+  flatTableHeaderCellDS().each(($el) => {
     cy.wrap($el).should('have.css', 'position', 'sticky')
       .and('be.visible');
   });
@@ -94,7 +95,7 @@ Then('I click on {int} body row', (index) => {
 
 Then('I focus {int} row and focused row element has golden border on focus', (index) => {
   cy.wait(500, { log: DEBUG_FLAG }); // wait was added due to changing animation
-  flatTableBodyRowByPosition(index).focus().should('have.css', 'outline-color', 'rgb(255, 181, 0)');
+  flatTableClickableRowByPositionDS(index).focus().should('have.css', 'outline-color', 'rgb(255, 181, 0)');
 });
 
 Then('press Enter key on the row element', () => {
@@ -103,7 +104,7 @@ Then('press Enter key on the row element', () => {
 
 Then('I click on {string} header {int} times', (position, times) => {
   for (let i = 0; i < times; i++) {
-    flatTableHeaderInnerContent().eq(positionOfElement(position)).click();
+    fltaTableSortableDS().eq(positionOfElement(position)).click();
   }
 });
 
@@ -112,53 +113,53 @@ When('{string} column is sorted in {string} order', (position, sortOrder) => {
   const valueTwo = 'Monty Parker';
   const valueThree = 'Jason Atkinson';
   const valueFour = 'Blake Sutton';
-  const totalOne = '3840';
+  const totalOne = '280';
   const totalTwo = '1349';
   const totalThree = '849';
-  const totalFour = '280';
+  const totalFour = '3840';
   if (position === 'first' && sortOrder === 'desc') {
     icon().should('have.attr', 'data-element', 'sort_down')
       .and('be.visible');
-    flatTableCell(positionOfElement('first')).should('have.text', valueOne)
+    flatTableCellDS(positionOfElement('first')).should('have.text', valueOne)
       .and('be.visible');
-    flatTableCell(positionOfElement('third')).should('have.text', valueTwo)
+    flatTableCellDS(positionOfElement('third')).should('have.text', valueTwo)
       .and('be.visible');
-    flatTableCell(positionOfElement('fifth')).should('have.text', valueThree)
+    flatTableCellDS(positionOfElement('fifth')).should('have.text', valueThree)
       .and('be.visible');
-    flatTableCell(positionOfElement('seventh')).should('have.text', valueFour)
+    flatTableCellDS(positionOfElement('seventh')).should('have.text', valueFour)
       .and('be.visible');
   } else if (position === 'first' && sortOrder === 'asc') {
     icon().should('have.attr', 'data-element', 'sort_up')
       .and('be.visible');
-    flatTableCell(positionOfElement('first')).should('have.text', valueFour)
+    flatTableCellDS(positionOfElement('first')).should('have.text', valueFour)
       .and('be.visible');
-    flatTableCell(positionOfElement('third')).should('have.text', valueThree)
+    flatTableCellDS(positionOfElement('third')).should('have.text', valueThree)
       .and('be.visible');
-    flatTableCell(positionOfElement('fifth')).should('have.text', valueTwo)
+    flatTableCellDS(positionOfElement('fifth')).should('have.text', valueTwo)
       .and('be.visible');
-    flatTableCell(positionOfElement('seventh')).should('have.text', valueOne)
+    flatTableCellDS(positionOfElement('seventh')).should('have.text', valueOne)
       .and('be.visible');
   } else if (position === 'second' && sortOrder === 'desc') {
     icon().should('have.attr', 'data-element', 'sort_down')
       .and('be.visible');
-    flatTableCell(positionOfElement('second')).should('have.text', totalOne)
+    flatTableCellDS(positionOfElement('second')).should('have.text', totalFour)
       .and('be.visible');
-    flatTableCell(positionOfElement('fourth')).should('have.text', totalTwo)
+    flatTableCellDS(positionOfElement('fourth')).should('have.text', totalTwo)
       .and('be.visible');
-    flatTableCell(positionOfElement('sixth')).should('have.text', totalThree)
+    flatTableCellDS(positionOfElement('sixth')).should('have.text', totalThree)
       .and('be.visible');
-    flatTableCell(positionOfElement('eighth')).should('have.text', totalFour)
+    flatTableCellDS(positionOfElement('eighth')).should('have.text', totalOne)
       .and('be.visible');
   } else {
     icon().should('have.attr', 'data-element', 'sort_up')
       .and('be.visible');
-    flatTableCell(positionOfElement('second')).should('have.text', totalFour)
+    flatTableCellDS(positionOfElement('second')).should('have.text', totalOne)
       .and('be.visible');
-    flatTableCell(positionOfElement('fourth')).should('have.text', totalThree)
+    flatTableCellDS(positionOfElement('fourth')).should('have.text', totalThree)
       .and('be.visible');
-    flatTableCell(positionOfElement('sixth')).should('have.text', totalTwo)
+    flatTableCellDS(positionOfElement('sixth')).should('have.text', totalTwo)
       .and('be.visible');
-    flatTableCell(positionOfElement('eighth')).should('have.text', totalOne)
+    flatTableCellDS(positionOfElement('eighth')).should('have.text', totalFour)
       .and('be.visible');
   }
 });
@@ -170,20 +171,20 @@ Then('Flat table header has {string} color', (colorTheme) => {
 });
 
 Then('{string} header has focus', (position) => {
-  flatTableHeaderInnerContent().eq(positionOfElement(position)).should('have.css', 'outline-color', 'rgb(255, 181, 0)');
+  fltaTableSortableDS().eq(positionOfElement(position)).should('have.css', 'outline-color', 'rgb(255, 181, 0)');
 });
 
 Then('I focus {string} header cell', (position) => {
-  flatTableHeaderInnerContent().eq(positionOfElement(position)).focus();
+  fltaTableSortableDS().eq(positionOfElement(position)).focus();
 });
 
 Then('I press {string} on {string} header {int} time(s)', (key, position, count) => {
   for (let i = 0; i < count; i++) {
     if (key === 'Enter') {
-      flatTableHeaderInnerContent().eq(positionOfElement(position)).focus()
+      fltaTableSortableDS().eq(positionOfElement(position)).focus()
         .trigger('keydown', { keyCode: 13, which: 13, force: true });
     } else if (key === 'Space') {
-      flatTableHeaderInnerContent().eq(positionOfElement(position)).focus()
+      fltaTableSortableDS().eq(positionOfElement(position)).focus()
         .trigger('keydown', { keyCode: 32, which: 32, force: true });
     } else {
       throw new Error('Only Enter or Space key can be applied');

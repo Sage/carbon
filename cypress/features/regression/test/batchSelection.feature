@@ -1,11 +1,12 @@
 Feature: Batch selection component
-  I want to change Batch selection component properties
+  I want to test Batch selection component properties
 
   Background: Open Batch selection component page
     Given I open basic Test "Batch selection" component page
 
+  # will remove when Applitools will be implemented
   @positive
-  Scenario Outline: Batch selection component is rendered properly
+  Scenario Outline: Batch selection component <icon> icon is rendered properly
     # commented because of BDD default scenario Given - When - Then
     # When I open basic Test "Batch selection" component page
     Then Batch selection component is rendered properly
@@ -16,16 +17,19 @@ Feature: Batch selection component
       | 1     | bin  |
       | 2     | pdf  |
 
+  # will remove when Applitools will be implemented
   @positive
   Scenario: Disable Batch selection component
     When I check disabled checkbox
     Then Batch selection component is disabled
 
+  # will remove when Applitools will be implemented
   @positive
   Scenario: Hide Batch selection component
     When I check hidden checkbox
     Then Batch selection component is hidden
 
+  # will remove when Applitools will be implemented
   @positive
   Scenario Outline: Set selectedCount Batch selection component to <selectedCount>
     When I set selectedCount to "<selectedCount>"
@@ -36,6 +40,7 @@ Feature: Batch selection component
       | 10            |
       | 100           |
 
+  # will remove when Applitools will be implemented
   @positive
   Scenario Outline: Set Batch selection colorTheme to <colorTheme>
     When I select colorTheme to "<colorTheme>"
@@ -44,7 +49,7 @@ Feature: Batch selection component
       | colorTheme        | color              |
       | dark              | rgb(0, 51, 73)     |
       | transparent-white | rgba(0, 0, 0, 0)   |
-      | light             | rgb(179, 194, 200) |
+      | light             | rgb(178, 193, 200) |
       | transparent-base  | rgba(0, 0, 0, 0)   |
 
   @positive

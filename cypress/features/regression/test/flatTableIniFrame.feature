@@ -4,28 +4,21 @@ Feature: FlatTable component
   Background: Open FlatTable component page
     Given I open basic Test "Flat Table" component page
 
-  @positive
-  Scenario: FlatTable has sticky row
-    When I check hasHeaderRow checkbox
-    Then FlatTable rows are sticky
-
-  @positive
-  Scenario: FlatTable has sticky header
-    When I check hasStickyHead checkbox
-    Then FlatTable has sticky header
-
+  # will remove when Applitools will be implemented
   @positive
   Scenario: FlatTable has nine rows
     # commented because of BDD default scenario Given - When - Then
     # When I open basic Test "Flat Table" component page
     Then FlatTable has nine rows
 
+  # will remove when Applitools will be implemented
   @positive
   Scenario: FlatTable has seven columns
     # commented because of BDD default scenario Given - When - Then
     # When I open basic Test "Flat Table" component page
     Then FlatTable has seven columns
 
+  # will remove when Applitools will be implemented
   @positive
   Scenario Outline: Check value in <position> header cell
     # commented because of BDD default scenario Given - When - Then
@@ -41,6 +34,7 @@ Feature: FlatTable component
       | sixth    | Corp Tax Due      |
       | seventh  | VAT due           |
 
+  # will remove when Applitools will be implemented
   @positive
   Scenario Outline: Check value in <position> row
     # commented because of BDD default scenario Given - When - Then
@@ -70,8 +64,3 @@ Feature: FlatTable component
       And clear all actions in Actions Tab
     When press Enter key on the row element
     Then click action was called in Actions Tab
-
-  @positive
-  Scenario: Verify outline color
-    When I check hasClickableRows checkbox
-    Then I focus 2 row and focused row element has golden border on focus
