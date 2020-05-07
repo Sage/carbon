@@ -20,11 +20,15 @@ import { pagerSummary } from '../../locators/pager';
 
 const TEXT_ALIGN = 'text-align';
 
-Given('I open design systems {word} {word} component page', (type, component) => {
+Given('I open design systems {word} {string} component page', (type, component) => {
   visitComponentUrl(component, type, false, 'design-system-');
 });
 
-Given('I open design systems {word} {word} component page in noIFrame', (type, component) => {
+Given('I open Design Systems {word} {string} component docs page', (type, component) => {
+  visitDocsUrl(component, type, false, 'design-system-');
+});
+
+Given('I open design systems {word} {string} component in no iframe', (type, component) => {
   visitComponentUrl(component, type, true, 'design-system-');
 });
 
@@ -74,10 +78,6 @@ Given('I open {string} component page legacy spinner in iframe', (component) => 
 
 Given('I open {string} component in iframe', (component) => {
   visitComponentUrl(component, 'default', true);
-});
-
-Given('I open design systems {word} {word} component in iframe', (component, type) => {
-  visitComponentUrl(component, type, true);
 });
 
 // the step above should be refactored and changed to in noiFrame
@@ -131,10 +131,6 @@ Given('I open sortable Test {string} component page in Iframe', (component) => {
 
 When('I open Test {string} component basic page with prop value', (componentName) => {
   visitFlatTableComponentNoiFrame(componentName, 'basic', true, 'test-');
-});
-
-Given('I open basic Design System {string} component docs page', (component) => {
-  visitDocsUrl(component, 'basic', false, 'design-system-');
 });
 
 Given('I open grouped Test {string} component page in noIframe', (component) => {

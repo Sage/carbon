@@ -2,7 +2,7 @@ Feature: Pager component
   I want to test Pager component properties
 
   Background: Open Pager component default page
-    Given I open design systems default-story Pager component page
+    Given I open design systems default_story "Pager" component page
 
   @positive
   Scenario Outline: Set totalRecords to <totalRecords>

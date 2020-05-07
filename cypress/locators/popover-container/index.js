@@ -10,17 +10,17 @@ import {
 } from './locators';
 
 // DS locators
-export const popoverSettingsIconBasic = () => cy.iFrame(POPOVER_CONTAINER_BASIC_ID)
+export const popoverSettingsIconBasicDS = () => cy.iFrame(POPOVER_CONTAINER_BASIC_ID)
   .find(POPOVER_CONTAINER_DATA_COMPONENT);
-export const popoverSettingsIconRightAligned = () => cy.iFrame(POPOVER_CONTAINER_RIGHT_ALIGNED_ID)
+export const popoverSettingsIconRightAlignedDS = () => cy.iFrame(POPOVER_CONTAINER_RIGHT_ALIGNED_ID)
   .find(POPOVER_CONTAINER_DATA_COMPONENT);
-export const popoverSettingsIconCover = () => cy.iFrame(POPOVER_CONTENT_COVER_BUTTON_ID)
+export const popoverSettingsIconCoverDS = () => cy.iFrame(POPOVER_CONTENT_COVER_BUTTON_ID)
   .find(POPOVER_SETTINGS_ICON);
-export const popoverContainerContent = () => cy.iFrame(POPOVER_CONTAINER_CONTENT);
-export const popoverCloseIcon = () => cy.iFrame(POPOVER_CONTENT_CLOSE_ICON);
+export const popoverContainerContentDS = () => cy.iFrame(POPOVER_CONTAINER_CONTENT);
+export const popoverCloseIconDS = () => cy.iFrame(POPOVER_CONTENT_CLOSE_ICON);
 
 // component preview locators
 export const popoverContainerTitle = () => cy.iFrame(POPOVER_CONTAINER_TITLE);
-export const popoverContainerContentSecondInnerElement = () => popoverContainerContent().children()
+export const popoverContainerContentSecondInnerElement = () => popoverContainerContentDS().children()
   .find('button');
 export const popoverContainerDataComponent = () => cy.iFrame(POPOVER_CONTAINER_DATA_COMPONENT);

@@ -1,6 +1,6 @@
 import {
   accordionTitleContainer, accordionIcon, accordion, accordionTitleContainerByPosition,
-  accordionTitleContainerNoIFrame, accordionTitleContainerByPositionNoIFrame,
+  accordionTitleContainerNoIFrame, accordionTitleContainerByPositionNoIFrame, accordionPrimaryTitleDS,
 } from '../../locators/accordion';
 import { positionOfElement, keyCode } from '../helper';
 
@@ -45,12 +45,16 @@ Then('Accordion type property on preview is set to {string}', (type) => {
   }
 });
 
+When('I expand Design System accordionRow via click', () => {
+  accordionPrimaryTitleDS().click();
+});
+
 When('I expand accordionRow via click', () => {
   accordionTitleContainer().click();
 });
 
 When('I expand accordionRow using {string} key', (key) => {
-  accordionTitleContainer().trigger('keydown', keyCode(key));
+  accordionPrimaryTitleDS().trigger('keydown', keyCode(key));
 });
 
 Then('accordionRow is expanded', () => {
@@ -77,12 +81,12 @@ Then('Accordion has proper {word} type color {string} palette', (type, color) =>
 });
 
 Then('accordionRow has golden border outline', () => {
-  accordionTitleContainer().should('have.css', 'outline', 'rgb(255, 181, 0) solid 2px')
+  accordionPrimaryTitleDS().should('have.css', 'outline', 'rgb(255, 181, 0) solid 2px')
     .and('be.visible');
 });
 
 When('I focus accordionRow', () => {
-  accordionTitleContainer(positionOfElement('first')).focus();
+  accordionPrimaryTitleDS().focus();
 });
 
 Then('Accordion {int} row is focused', (index) => {

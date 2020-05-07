@@ -2,7 +2,9 @@ import {
   batchSelectionComponent,
   batchSelectionCounter,
   batchSelectionButtons,
+  batchSelectionButtonsDS,
 } from '../../locators/batch-selection';
+import { positionOfElement } from '../helper';
 
 Then('Batch selection component is rendered properly', () => {
   batchSelectionComponent().should('have.css', 'align-items', 'center');
@@ -39,10 +41,10 @@ Then('Batch selection component colorTheme {string} is set to {string}', (color,
   }
 });
 
-When('I focus Batch selection {int} button', (index) => {
-  batchSelectionButtons(index).parent().focus();
+When('I focus Batch selection {string} button', (index) => {
+  batchSelectionButtonsDS(positionOfElement(index)).parent().focus();
 });
 
-Then('Batch selection component {int} button is focused', (index) => {
-  batchSelectionButtons(index).parent().should('have.css', 'outline', 'rgb(255, 181, 0) solid 3px');
+Then('Batch selection component {string} button is focused', (index) => {
+  batchSelectionButtonsDS(positionOfElement(index)).parent().should('have.css', 'outline', 'rgb(255, 181, 0) solid 3px');
 });
