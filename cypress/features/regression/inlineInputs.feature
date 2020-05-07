@@ -2,12 +2,12 @@ Feature: InlineInputs component
   I want to change InlineInputs component properties
 
   Background: Open InlineInputs component default page
-    Given I open "InlineInputs" component page
+    Given I open design systems default-story Inline-Inputs component page
 
   @positive
   Scenario Outline: Change InlineInputs label to <label>
     When I set label to "<label>"
-    Then label on preview is "<label>"
+    Then label is set to "<label>"
     Examples:
       | label                   |
       | mp150ú¿¡üßä             |

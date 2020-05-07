@@ -1,7 +1,6 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import LabelStyle from '../../__experimental__/components/label/label.style';
 import baseTheme from '../../style/themes/base';
-import { isClassic } from '../../utils/helpers/style-helper';
 
 const StyledInlineInputs = styled.div`
   display: flex;
@@ -14,7 +13,7 @@ const StyledInlineInputs = styled.div`
   }
 
   input {
-    width: 100%;
+    width: 1px;
   }
 
   [data-component="carbon-select"] input {
@@ -28,16 +27,6 @@ const StyledInlineInputs = styled.div`
   .carbon-column + .carbon-column {
     margin-left: -1px;
   }
-
-  ${({ theme }) => isClassic(theme) && css`
-    ${LabelStyle} {
-      padding-right: 0;
-    }
-
-    .carbon-row {
-      flex-grow: 0;
-    }
-  `}
 
   .carbon-row.carbon-row--gutter-extra-small {
     margin-bottom: 0;
