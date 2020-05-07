@@ -5,6 +5,9 @@ import Label from '../label';
 import FieldHelp from '../field-help';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import tagComponent from '../../../utils/helpers/tags';
+import Logger from '../../../utils/logger/logger';
+
+let deprecatedWarnTriggered = false;
 
 const FormField = ({
   children,
@@ -35,55 +38,62 @@ const FormField = ({
   useValidationIcon,
   styleOverride,
   ...props
-}) => (
-  <FormFieldStyle { ...tagComponent(props['data-component'], props) } styleOverride={ styleOverride.root }>
-    <FieldLineStyle inline={ labelInline }>
-      {reverse && children}
+}) => {
+  if (!deprecatedWarnTriggered) {
+    deprecatedWarnTriggered = true;
+    // eslint-disable-next-line max-len
+    Logger.deprecate('`styleOverride` that is used in the `FormField` component is deprecated and will soon be removed.');
+  }
+  return (
+    <FormFieldStyle { ...tagComponent(props['data-component'], props) } styleOverride={ styleOverride.root }>
+      <FieldLineStyle inline={ labelInline }>
+        {reverse && children}
 
-      {label && (
-        <Label
-          labelId={ labelId }
-          align={ labelAlign }
-          disabled={ disabled }
-          readOnly={ readOnly }
-          hasError={ hasError }
-          hasWarning={ hasWarning }
-          hasInfo={ hasInfo }
-          help={ labelHelp }
-          helpId={ helpId }
-          helpTag={ helpTag }
-          helpTabIndex={ helpTabIndex }
-          htmlFor={ id }
-          helpIcon={ labelHelpIcon }
-          inline={ labelInline }
-          inputSize={ size }
-          width={ labelWidth }
-          childOfForm={ childOfForm }
-          optional={ isOptional }
-          tooltipMessage={ tooltipMessage }
-          useValidationIcon={ useValidationIcon }
-          styleOverride={ styleOverride.label }
-        >
-          {label}
-        </Label>
-      )}
+        {label && (
+          <Label
+            labelId={ labelId }
+            align={ labelAlign }
+            disabled={ disabled }
+            readOnly={ readOnly }
+            hasError={ hasError }
+            hasWarning={ hasWarning }
+            hasInfo={ hasInfo }
+            help={ labelHelp }
+            helpId={ helpId }
+            helpTag={ helpTag }
+            helpTabIndex={ helpTabIndex }
+            htmlFor={ id }
+            helpIcon={ labelHelpIcon }
+            inline={ labelInline }
+            inputSize={ size }
+            width={ labelWidth }
+            childOfForm={ childOfForm }
+            optional={ isOptional }
+            tooltipMessage={ tooltipMessage }
+            useValidationIcon={ useValidationIcon }
+            styleOverride={ styleOverride.label }
+          >
+            {label}
+          </Label>
+        )}
 
-      {fieldHelp && fieldHelpInline && (
+        {fieldHelp && fieldHelpInline && (
+          <FieldHelp labelInline={ labelInline } labelWidth={ labelWidth }>
+            {fieldHelp}
+          </FieldHelp>
+        )}
+
+        {!reverse && children}
+      </FieldLineStyle>
+
+      {fieldHelp && !fieldHelpInline && (
         <FieldHelp labelInline={ labelInline } labelWidth={ labelWidth }>
           {fieldHelp}
         </FieldHelp>
       )}
-
-      {!reverse && children}
-    </FieldLineStyle>
-
-    {fieldHelp && !fieldHelpInline && (
-      <FieldHelp labelInline={ labelInline } labelWidth={ labelWidth }>
-        {fieldHelp}
-      </FieldHelp>
-    )}
-  </FormFieldStyle>
-);
+    </FormFieldStyle>
+  );
+};
 
 FormField.defaultProps = {
   size: 'medium',
