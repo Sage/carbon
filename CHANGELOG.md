@@ -1,3 +1,16 @@
+### [20.1.1](https://github.com/Sage/carbon/compare/v20.1.0...v20.1.1) (2020-05-11)
+
+
+### Bug Fixes
+
+* **drawer:** add unit test ([65c4b44](https://github.com/Sage/carbon/commit/65c4b4492db92a86600c506819a1f636a8906fc5))
+* **drawer:** improve stories ([885c933](https://github.com/Sage/carbon/commit/885c933ae70cd52c9d22deedd80fb46de137e965))
+* **drawer:** make content overflow ([6c3414b](https://github.com/Sage/carbon/commit/6c3414b536d192f1b556bdb8f77a51d6e8e4c9de))
+* **drawer:** story update ([b1c2bb8](https://github.com/Sage/carbon/commit/b1c2bb85c8048ef603858c6e67d4e0813ed95342))
+* **drawer:** update data attribute and spec ([3b1ca57](https://github.com/Sage/carbon/commit/3b1ca57d897ca707238e04b8ee85f99f04c47134))
+* **drawer:** update snapshot ([a5746e0](https://github.com/Sage/carbon/commit/a5746e05c543ae4207235e868a9c339d8cb4a076))
+* **drawer:** update style ([eae6c55](https://github.com/Sage/carbon/commit/eae6c558c113db31b4de0cc14ff7280aa66492b2))
+
 ## [20.1.0](https://github.com/Sage/carbon/compare/v20.0.1...v20.1.0) (2020-05-11)
 
 
