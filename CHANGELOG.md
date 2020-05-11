@@ -1,3 +1,30 @@
+## [20.1.0](https://github.com/Sage/carbon/compare/v20.0.1...v20.1.0) (2020-05-11)
+
+
+### Features
+
+* **flat-table:** add colspan and rowspan props ([c968e01](https://github.com/Sage/carbon/commit/c968e01eace657a4571d95d5e633eda7dde1cfa0))
+
+### [20.0.1](https://github.com/Sage/carbon/compare/v20.0.0...v20.0.1) (2020-05-07)
+
+
+### Bug Fixes
+
+* **inline-input:** fix responsive width ([f8b9df8](https://github.com/Sage/carbon/commit/f8b9df8a328a3e9b6b7859a5459a6e661f8b8b1d)), closes [#2748](https://github.com/Sage/carbon/issues/2748)
+
+## [20.0.0](https://github.com/Sage/carbon/compare/v19.0.1...v20.0.0) (2020-05-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* styled-components is now a peer dependency.
+
+To upgrade you should install styled-components@^4.4.1 in your project.
+
+### Miscellaneous Chores
+
+* make styled-component a peer dependency ([50a75a3](https://github.com/Sage/carbon/commit/50a75a3f7287a94e0e16a970a613136ffa527aa2))
+
 ### [19.0.1](https://github.com/Sage/carbon/compare/v19.0.0...v19.0.1) (2020-05-06)
 
 

@@ -332,6 +332,63 @@ to match the same color as the background
   <Story id="test-flat-table--sortable" name="with sorting headers" />
 </Preview>
 
+### With a cell spanning the whole row 
+
+<Preview>
+  <Story name="with colspan" parameters={{ info: { disable: true }}} >
+      <FlatTable>
+        <FlatTableHead>
+          <FlatTableRow>
+            <FlatTableHeader>Client</FlatTableHeader>
+            <FlatTableHeader>Client Type</FlatTableHeader>
+            <FlatTableHeader>Categories</FlatTableHeader>
+            <FlatTableHeader>Services</FlatTableHeader>
+          </FlatTableRow>
+        </FlatTableHead>
+        <FlatTableBody>
+          <FlatTableRow>
+            <FlatTableCell colspan='4' align='center'>No results</FlatTableCell>
+          </FlatTableRow>
+        </FlatTableBody>
+      </FlatTable>
+  </Story>
+</Preview>
+
+### With a cell spanning the whole column 
+
+<Preview>
+  <Story name="with rowspan" parameters={{ info: { disable: true }}} >
+      <FlatTable>
+        <FlatTableHead>
+          <FlatTableRow>
+            <FlatTableHeader>Client</FlatTableHeader>
+            <FlatTableHeader>Client Type</FlatTableHeader>
+            <FlatTableHeader>Categories</FlatTableHeader>
+            <FlatTableHeader>Services</FlatTableHeader>
+          </FlatTableRow>
+        </FlatTableHead>
+        <FlatTableBody>
+          <FlatTableRow>
+            <FlatTableCell rowspan='3'>John Smith</FlatTableCell>
+            <FlatTableCell>Business</FlatTableCell>
+            <FlatTableCell>Group1, Group3</FlatTableCell>
+            <FlatTableCell>Accounting</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableCell>Charity</FlatTableCell>
+            <FlatTableCell>Group3</FlatTableCell>
+            <FlatTableCell>Payroll</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableCell>Partnership</FlatTableCell>
+            <FlatTableCell>Group3</FlatTableCell>
+            <FlatTableCell>Final Tax</FlatTableCell>
+          </FlatTableRow>
+        </FlatTableBody>
+      </FlatTable>
+  </Story>
+</Preview>
+
 ## Props:
 
 ### FlatTable

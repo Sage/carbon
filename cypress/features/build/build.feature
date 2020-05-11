@@ -2,6 +2,14 @@ Feature: Build tests
   I want to check all components exists
 
   @build
+  Scenario Outline: Component <component> without activation button
+    When I open design systems <component> <story> component in iframe
+    Then "<data-component>" component is visible
+    Examples:
+      | component                   | story          | data-component |
+      | design-system-inline-inputs | default-story | inline-inputs  |
+
+  @build
   Scenario Outline: Component <component> page with button
     When I open "<component>" component with button page in iframe
       And I open component preview no iframe
@@ -57,7 +65,6 @@ Feature: Build tests
       | help                             | help                 |
       | i18ncomponent                    | i18n                 |
       | icon                             | icon                 |
-      | inlineInputs                     | inline-inputs        |
       | link                             | link                 |
       | loader                           | loader               |
       | menulist                         | menu-list            |

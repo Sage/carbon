@@ -77,6 +77,10 @@ Given('I open {string} component in iframe', (component) => {
   visitComponentUrl(component, 'default', true);
 });
 
+Given('I open design systems {word} {word} component in iframe', (component, type) => {
+  visitComponentUrl(component, type, true);
+});
+
 // the step above should be refactored and changed to in noiFrame
 Given('I open {string} component in noiFrame', (component) => {
   visitComponentUrl(component, 'default', true);

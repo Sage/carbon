@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import baseTheme from '../../../style/themes/base';
 
 const StyledFlatTableCell = styled.td`
-  ${({ align, theme }) => css`
+  ${({ align, theme, rowSpan }) => css`
     background-color: #fff;
     border-width: 0;
     border-bottom: 1px solid ${theme.table.secondary};
@@ -20,6 +20,12 @@ const StyledFlatTableCell = styled.td`
     &:last-of-type {
       border-right: 1px solid ${theme.table.secondary};
     }
+
+    ${rowSpan && css`
+      &:first-of-type + & {
+        border-left: 1px solid ${theme.table.secondary};
+      }
+    `}
   `}
 `;
 
