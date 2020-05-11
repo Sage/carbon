@@ -142,11 +142,14 @@ class MenuItem extends React.Component {
       className: this.classes,
       href: this.props.href,
       to: this.props.to,
-      routerLink: this.props.routerLink,
       target: this.props.target,
       onClick: this.props.onClick,
       icon: this.props.icon
     };
+
+    if (component !== 'div') {
+      props.routerLink = this.props.routerLink;
+    }
 
     props = assign({}, props, tagComponent('menu-item', this.props));
 
