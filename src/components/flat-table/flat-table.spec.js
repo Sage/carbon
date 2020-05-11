@@ -100,6 +100,7 @@ function renderFlatTable(props = {}, renderer = TestRenderer.create) {
           <FlatTableRowHeader>row header</FlatTableRowHeader>
           <FlatTableHeader>header1</FlatTableHeader>
           <FlatTableHeader>header2</FlatTableHeader>
+          <FlatTableHeader>header3</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -107,6 +108,11 @@ function renderFlatTable(props = {}, renderer = TestRenderer.create) {
           <FlatTableRowHeader>row header</FlatTableRowHeader>
           <FlatTableCell>cell1</FlatTableCell>
           <FlatTableCell>cell2</FlatTableCell>
+          <FlatTableCell rowspan='2'>cell3</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableRowHeader>row header</FlatTableRowHeader>
+          <FlatTableCell colspan='2'>cell1</FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
     </FlatTable>
