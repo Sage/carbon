@@ -65,6 +65,11 @@ class MenuItem extends React.Component {
     to: PropTypes.string,
 
     /**
+     * The link element to use when providing the to value
+     */
+
+    routerLink: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+    /**
      * The target to use for the menu item.
      */
     target: PropTypes.string
@@ -137,6 +142,7 @@ class MenuItem extends React.Component {
       className: this.classes,
       href: this.props.href,
       to: this.props.to,
+      routerLink: this.props.routerLink,
       target: this.props.target,
       onClick: this.props.onClick,
       icon: this.props.icon
