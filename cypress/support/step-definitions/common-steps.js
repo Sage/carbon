@@ -25,6 +25,10 @@ Given('I open design systems {word} {word} component page', (type, component) =>
   visitComponentUrl(component, type, false, 'design-system-');
 });
 
+Given('I open design systems {word} {word} component page in noIFrame', (type, component) => {
+  visitComponentUrl(component, type, true, 'design-system-');
+});
+
 Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
 });

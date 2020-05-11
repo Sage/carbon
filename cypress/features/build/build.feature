@@ -214,3 +214,8 @@ Feature: Build tests
   Scenario: Component Draggable basic default page and verify data-element
     When I open basic Test "Draggable" component page in noIframe
     Then "draggable" element is visible
+
+  @build
+  Scenario: Component Drawer - Design Systems - uncontrolled story
+    When I open design systems uncontrolled Drawer component page in noIFrame
+    Then "drawer" component is visible

@@ -1,11 +1,14 @@
 import styled, { css, keyframes } from 'styled-components';
+import baseTheme from '../../style/themes/base';
 
 const StyledDrawerChildren = styled.div`
   flex: 1;
   margin-left: 1px;
+  overflow: auto;
 `;
 
 const StyledDrawerSidebar = styled.div`
+  overflow: auto;
   margin-top: 60px;
   display: none;
   opacity: 0;
@@ -50,7 +53,7 @@ const StyledDrawerContent = styled.div`
   min-height: 40px;
   height: auto;
   position: relative;
-  overflow: hidden;
+  overflow: auto;
   border-right: 1px solid ${({ theme }) => theme.drawer.divider};
 
   &.open {
@@ -107,6 +110,14 @@ const StyledDrawerWrapper = styled.div`
   display: flex;
   height: 100%;
 `;
+
+StyledDrawerContent.defaultProps = {
+  theme: baseTheme
+};
+
+StyledButton.defaultProps = {
+  theme: baseTheme
+};
 
 export {
   StyledDrawerWrapper,

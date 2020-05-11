@@ -99,7 +99,7 @@ Feature: Accessibility tests
       | experimental-switch              |
       | experimental-decimal-input       |
 
-  @build
+  @accessibility
   Scenario: Component Button using Knobs story
     Given I open "Button" component page knobs
     When I open Accessibility Tab
@@ -125,3 +125,9 @@ Feature: Accessibility tests
       | Search              | search              |
       | Pager               | pager               |
       | Popover Container   | popover-container   |
+
+  @accessibility
+  Scenario: Component Drawer - Design Systems - uncontrolled story
+    Given I open design systems uncontrolled Drawer component page
+    When I open Accessibility Tab
+    Then "Drawer" component has no violations in Accessibility section
