@@ -236,6 +236,15 @@ export default (palette) => {
     tile: {
       border: palette.slateTint(80),
       separator: palette.slateTint(90)
+    },
+
+    zIndex: {
+      overlay: 1000,
+      popover: 2000,
+      modal: 3000,
+      header: 4000,
+      fullScreenModal: 5000,
+      notification: 6000
     }
   };
 };
