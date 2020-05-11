@@ -6,12 +6,12 @@ Feature: Experimental Textbox component
 
   @positive
   Scenario Outline: Set placeholder to <placeholder>
-    When I set placeholder to "<placeholder>"
-    Then Textbox placeholder is set to "<placeholder>"
+    When I set placeholder to <placeholder> word
+    Then Textbox placeholder is set to <placeholder>
     Examples:
-      | placeholder             |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | placeholder                  |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Check disabled checkbox for a Textbox component
@@ -37,32 +37,32 @@ Feature: Experimental Textbox component
 
   @positive
   Scenario Outline: Set fieldHelp to <fieldHelp>
-    When I set fieldHelp to "<fieldHelp>"
-    Then fieldHelp is set to "<fieldHelp>"
+    When I set fieldHelp to <fieldHelp> word
+    Then fieldHelp is set to <fieldHelp>
     Examples:
-      | fieldHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | fieldHelp                    |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Set label to <label>
-    When I set label to "<label>"
-    Then label is set to "<label>"
+    When I set label to <label> word
+    Then label is set to <label>
     Examples:
-      | label                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | label                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Set labelHelp to <labelHelp>
     When I set label to "label"
-      And I set labelHelp to "<labelHelp>"
+      And I set labelHelp to <labelHelp> word
       And I hover mouse onto help icon
-    Then tooltipPreview on preview is set to "<labelHelp>"
+    Then tooltipPreview on preview is set to <labelHelp>
     Examples:
-      | labelHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | labelHelp                    |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Enable labelInline checkbox for a Textbox component
@@ -114,12 +114,12 @@ Feature: Experimental Textbox component
 
   @positive
   Scenario Outline: Verify input of Textbox component
-    When I input "<input>" into Textbox
-    Then Textbox input on preview is set to "<input>"
+    When I type <input> into Textbox
+    Then Textbox input on preview is set to <input>
     Examples:
-      | input                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | input                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Set label size to <size>

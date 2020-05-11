@@ -17,12 +17,14 @@ Feature: Button as a sibling component
   @positive
   Scenario Outline: Set Button subtext to <subtext>
     Given I select size to "large"
-    When I set subtext to "<subtext>"
-    Then Button as a sibling subtext on preview is "<subtext>"
+    When I set subtext to <subtext> word
+    Then Button as a sibling subtext on preview is <subtext>
     Examples:
       | subtext                 |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Set Button as a sibling Type as <buttonType>
@@ -38,12 +40,14 @@ Feature: Button as a sibling component
 
   @positive
   Scenario Outline: Set Button as a sibling component label to <label>
-    When I set children to "<label>"
-    Then Button as a sibling label on preview is "<label>"
+    When I set children to <label> word
+    Then Button as a sibling label on preview is <label>
     Examples:
       | label                   |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario: Disable Button as a sibling

@@ -7,11 +7,11 @@ Feature: Popover container component
 
   @positive
   Scenario Outline: Change Popover container component title to <title>
-    When I set title to "<title>"
-    Then Popover title on preview is set to "<title>"
+    When I set title to <title> word
+    Then Popover title on preview is set to <title>
     Examples:
       | title                   |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-  # @ignore because of FE-1447
-  # | <>                       |
+# @ignore because of FE-2782
+# | &"'<>|

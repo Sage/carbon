@@ -6,51 +6,51 @@ Feature: Confirm component
 
   @positive
   Scenario Outline: Change cancelLabel in inner context in Confirm dialog to <cancelLabel>
-    When I set cancelLabel to "<cancelLabel>"
+    When I set cancelLabel to <cancelLabel> word
       And I open component preview
-    Then cancel button content on preview is "<cancelLabel>"
+    Then cancel button content on preview is <cancelLabel>
     Examples:
       | cancelLabel             |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-  # @ignore because of FE-1447
-  # | <>                       |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Change confirmLabel in inner context in Confirm dialog to <confirmLabel>
-    When I set confirmLabel to "<confirmLabel>"
+    When I set confirmLabel to <confirmLabel> word
       And I open component preview
-    Then confirm button content on preview is "<confirmLabel>"
+    Then confirm button content on preview is <confirmLabel>
     Examples:
       | confirmLabel            |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-  # @ignore because of FE-1447
-  # | <>                       |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Change title in Confirm dialog to <title>
-    When I set title to "<title>"
+    When I set title to <title> word
       And I open component preview
-    Then dialog title context on preview is "<title>"
+    Then dialog title context on preview is <title>
     Examples:
       | title                   |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-  # @ignore because of FE-1447
-  # | <>                       |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Change subtitle in Confirm dialog to <subtitle>
-    When I set subtitle to "<subtitle>"
+    When I set subtitle to <subtitle> word
       And I open component preview
-    Then dialog subtitle context is "<subtitle>"
+    Then dialog subtitle context is <subtitle>
     Examples:
       | subtitle                |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-  # @ignore because of FE-1447
-  # | <>                       |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Change the height of Confirm dialog to <height>

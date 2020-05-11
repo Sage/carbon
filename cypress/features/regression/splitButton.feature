@@ -45,22 +45,26 @@ Feature: Split Button component
 
   @positive
   Scenario Outline: I set text to <text>
-    When I set text to "<text>"
-    Then Button label on preview is "<text>"
+    When I set text to <text> word
+    Then Button label on preview is <text>
     Examples:
       | text                    |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: I set subtext to <subtext>
     Given I select size to "large"
-    When I set subtext to "<subtext>"
-    Then Button subtext on preview is "<subtext>"
+    When I set subtext to <subtext> word
+    Then Button subtext on preview is <subtext>
     Examples:
       | subtext                 |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: I check icon positioning to <iconPosition>

@@ -3,7 +3,7 @@ import {
   dialogSubtitle, confirmButton, cancelButton,
 } from '../../locators/confirm';
 
-Then('component subtitle on preview is {string}', (subtitle) => {
+Then('component subtitle on preview is {word}', (subtitle) => {
   dialogSubtitle().should('have.text', subtitle);
 });
 
@@ -15,15 +15,15 @@ When('I click on a confirmButton', () => {
   confirmButton().click();
 });
 
-Then('confirm button content on preview is {string}', (confirmButtonText) => {
+Then('confirm button content on preview is {word}', (confirmButtonText) => {
   confirmButton().should('have.text', confirmButtonText);
 });
 
-Then('cancel button content on preview is {string}', (cancelButtonText) => {
+Then('cancel button content on preview is {word}', (cancelButtonText) => {
   cancelButton().should('have.text', cancelButtonText);
 });
 
-Then('dialog title context on preview is {string}', (title) => {
+Then('dialog title context on preview is {word}', (title) => {
   dialogTitle().should('have.text', title);
 });
 
@@ -39,7 +39,7 @@ Then('Close icon is not visible', () => {
   closeIconButton().should('not.exist');
 });
 
-Then('dialog subtitle context is {string}', (title) => {
+Then('dialog subtitle context is {word}', (title) => {
   dialogSubtitle().should('have.text', title);
 });
 

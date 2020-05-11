@@ -70,21 +70,25 @@ Feature: Experimental Number Input component
 
   @positive
   Scenario Outline: Change field help text to <fieldHelp>
-    When I set fieldHelp to "<fieldHelp>"
-    Then fieldHelp on preview is set to "<fieldHelp>"
+    When I set fieldHelp to <fieldHelp> word
+    Then fieldHelp on preview is set to <fieldHelp>
     Examples:
       | fieldHelp               |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Set label to <label>
-    When I set label to "<label>"
-    Then label on preview is "<label>"
+    When I set label to <label> word
+    Then label on preview is <label>
     Examples:
       | label                   |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Set size to <size>
@@ -99,13 +103,15 @@ Feature: Experimental Number Input component
   @positive
   Scenario Outline: Change label help text to <labelHelp>
     Given I set label to "label"
-      And I set labelHelp to "<labelHelp>"
+      And I set labelHelp to <labelHelp> word
     When I hover mouse onto help icon
-    Then tooltipPreview on preview is set to "<labelHelp>"
+    Then tooltipPreview on preview is set to <labelHelp>
     Examples:
       | labelHelp               |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario: Enable label inline

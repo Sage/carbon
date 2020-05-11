@@ -52,13 +52,13 @@ Feature: Show Edit Pod component
 
   @positive
   Scenario Outline: Change Show Edit Pod cancelText to <cancelText>
-    When I set cancelText to "<cancelText>"
+    When I set cancelText to <cancelText> word
       And I click edit Show Edit Pod component
-    Then Show Edit Pod cancelText on preview is set to "<cancelText>"
+    Then Show Edit Pod cancelText on preview is set to <cancelText>
     Examples:
-      | cancelText              |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | cancelText                   |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Enable cancel checkbox for a Show Edit Pod component
@@ -77,23 +77,23 @@ Feature: Show Edit Pod component
 
   @positive
   Scenario Outline: Change Show Edit Pod deleteText to <deleteText>
-    When I set deleteText to "<deleteText>"
+    When I set deleteText to <deleteText> word
       And I click edit Show Edit Pod component
-    Then Show Edit Pod deleteText on preview is set to "<deleteText>"
+    Then Show Edit Pod deleteText on preview is set to <deleteText>
     Examples:
-      | deleteText              |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | deleteText                   |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change Show Edit Pod saveText to <saveText>
-    When I set saveText to "<saveText>"
+    When I set saveText to <saveText> word
       And I click edit Show Edit Pod component
-    Then Show Edit Pod saveText on preview is set to "<saveText>"
+    Then Show Edit Pod saveText on preview is set to <saveText>
     Examples:
-      | saveText                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | saveText                     |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Enable saving checkbox for a Show Edit Pod component
@@ -110,12 +110,12 @@ Feature: Show Edit Pod component
 
   @positive
   Scenario Outline: Change Show Edit Pod title to <title>
-    When I set title to "<title>"
-    Then Show Edit Pod title on preview is set to "<title>"
+    When I set title to <title> word
+    Then Show Edit Pod title on preview is set to <title>
     Examples:
-      | title                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | title                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Set Show Edit Pod podType property to <podType>

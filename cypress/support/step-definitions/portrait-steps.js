@@ -3,7 +3,7 @@ import { portraitPreview, portraitInitials, portraitUserImage } from '../../loca
 const INITIALS_FOLDER = 'initials/';
 const DATA_IMAGE_PREFIX = 'data:image/png;base64,';
 
-Then('Portrait alt on preview is set to {string}', (text) => {
+Then('Portrait alt on preview is set to {word}', (text) => {
   portraitPreview().should('have.attr', 'alt', `${text}`);
   portraitInitials().children().should('have.attr', 'alt', `${text}`);
 });

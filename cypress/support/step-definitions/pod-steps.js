@@ -6,23 +6,23 @@ import { DEBUG_FLAG } from '..';
 
 const POD_DIV_PROPERTY = 'carbon-pod';
 
-Then('Pod children on preview is set to {string}', (text) => {
+Then('Pod children on preview is set to {word}', (text) => {
   podContent().should('have.text', text);
 });
 
-Then('Pod title on preview is set to {string}', (text) => {
+Then('Pod title on preview is set to {word}', (text) => {
   podTitle().should('have.text', text);
 });
 
-Then('Pod subtitle on preview is set to {string}', (text) => {
+Then('Pod subtitle on preview is set to {word}', (text) => {
   podSubTitle().should('have.text', text);
 });
 
-Then('Pod description on preview is set to {string}', (text) => {
+Then('Pod description on preview is set to {word}', (text) => {
   podDescription().should('have.text', text);
 });
 
-Then('Pod footer on preview is set to {string}', (text) => {
+Then('Pod footer on preview is set to {word}', (text) => {
   podFooter().should('have.text', text);
 });
 

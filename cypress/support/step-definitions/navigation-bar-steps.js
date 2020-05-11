@@ -2,7 +2,7 @@ import { navigationBarPreview, navigationBarChildren } from '../../locators/navi
 
 const NAVIGATION_BAR_AS_CLASS = 'carbon-navigation-bar--';
 
-Then('Navigation Bar children on preview is set to {string}', (text) => {
+Then('Navigation Bar children on preview is set to {word}', (text) => {
   navigationBarChildren()
     .should('have.text', text);
 });

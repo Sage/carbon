@@ -1,6 +1,6 @@
 import { linkPreview, linkChildren, linkIcon } from '../../locators/link';
 
-Then('children on preview is {string}', (children) => {
+Then('children on preview is {word}', (children) => {
   linkChildren().should('have.text', children);
 });
 
@@ -12,7 +12,7 @@ Then('Link is enabled', () => {
   linkPreview().should('not.have.attr', 'disabled');
 });
 
-Then('Link on preview href is set to {string}', (href) => {
+Then('Link on preview href is set to {word}', (href) => {
   linkPreview().children().should('have.attr', 'href', `${href}`);
 });
 

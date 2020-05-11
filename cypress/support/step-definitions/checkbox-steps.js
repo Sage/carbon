@@ -94,7 +94,7 @@ Then('{string} icon name in no iFrame on preview is {string}', (position, iconNa
   getDataElementByValueNoIframe(iconName).eq(positionOfElement(position));
 });
 
-Then('checkbox label on preview is {string}', (text) => {
+Then('checkbox label on preview is {word}', (text) => {
   label().should('have.text', `${text} (default)`);
 });
 

@@ -11,19 +11,19 @@ const THIRD_DIV = 2;
 const INNER_CONTENT_TITLE = 'title';
 const INNER_CONTENT_BODY = 'body';
 
-Then('Show Edit Pod saveText on preview is set to {string}', (text) => {
+Then('Show Edit Pod saveText on preview is set to {word}', (text) => {
   showEditPodSaveButton().should('have.text', text);
 });
 
-Then('Show Edit Pod cancelText on preview is set to {string}', (text) => {
+Then('Show Edit Pod cancelText on preview is set to {word}', (text) => {
   showEditPodCancelButton().should('have.text', text);
 });
 
-Then('Show Edit Pod deleteText on preview is set to {string}', (text) => {
+Then('Show Edit Pod deleteText on preview is set to {word}', (text) => {
   showEditPodDeleteButton().should('have.text', text);
 });
 
-Then('Show Edit Pod title on preview is set to {string}', (text) => {
+Then('Show Edit Pod title on preview is set to {word}', (text) => {
   showEditPodTitle().should('have.text', text);
 });
 

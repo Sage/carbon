@@ -40,15 +40,15 @@ Then('label align on preview is set to {string}', (labelAlign) => {
   label().should('have.css', TEXT_ALIGN, `${labelAlign}`);
 });
 
-When('I set Decimal input to {string}', (labelInput) => {
+When('I set Decimal input to {word}', (labelInput) => {
   commonDataElementInputPreview().clear().type(labelInput);
 });
 
-Then('Decimal Input is set to {string}', (labelInput) => {
+Then('Decimal Input is set to {word}', (labelInput) => {
   commonDataElementInputPreview().should('have.attr', 'value').should('contain', `${labelInput}`);
 });
 
-Then('Decimal label is not set to {string}', (labelInput) => {
+Then('Decimal label is not set to {word}', (labelInput) => {
   commonDataElementInputPreview().should('have.attr', 'value').should('not.contain', `${labelInput}`);
 });
 
@@ -60,6 +60,6 @@ Then('input precision slider is set to {int}', (precision) => {
   inputPrecisionSlider().should('have.attr', 'value').should('contain', `${precision}`);
 });
 
-Then('label is set to inline', () => {
+Then('label is inline', () => {
   label().should('have.css', TEXT_ALIGN, 'left');
 });

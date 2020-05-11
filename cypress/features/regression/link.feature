@@ -6,12 +6,12 @@ Feature: Link component
 
   @positive
   Scenario Outline: Change Link children to <children>
-    When I set children to "<children>"
-    Then children on preview is "<children>"
+    When I set children to <children> word
+    Then children on preview is <children>
     Examples:
-      | children                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | children                     |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Disable Link component
@@ -26,12 +26,12 @@ Feature: Link component
 
   @positive
   Scenario Outline: Change Link href to <href>
-    When I set href to "<href>"
-    Then Link on preview href is set to "<href>"
+    When I set href to <href> word
+    Then Link on preview href is set to <href>
     Examples:
-      | href                    |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | href                         |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change link component icon align position to <iconAlign>

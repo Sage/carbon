@@ -14,7 +14,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 ### Basic usage:
 
 <Preview>
-  <Story name="default" parameters={{ info: { disable: true }}} >
+  <Story name="default" parameters={{ info: { disable: true }, knobs: { escapeHTML: false }}} >
   {() => {
     const label = text('label', 'Inline Inputs');
     const gutter = select('gutter size', ['none', ...OptionsHelper.sizesFull], InlineInputs.defaultProps.gutter);
