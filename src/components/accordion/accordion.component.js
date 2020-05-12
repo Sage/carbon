@@ -14,6 +14,9 @@ import {
   StyledAccordionContentContainer,
   StyledAccordionContent
 } from './accordion.style';
+import Logger from '../../utils/logger/logger';
+
+let deprecatedWarnTriggered = false;
 
 const Accordion = React.forwardRef(({
   defaultExpanded,
@@ -29,6 +32,12 @@ const Accordion = React.forwardRef(({
   type,
   title
 }, ref) => {
+  if (!deprecatedWarnTriggered) {
+    deprecatedWarnTriggered = true;
+    // eslint-disable-next-line max-len
+    Logger.deprecate('`styleOverride` that is used in the `Accordion` component is deprecated and will soon be removed.');
+  }
+
   const isControlled = expanded !== undefined;
 
   const [isExpandedInternal, setIsExpandedInternal] = useState(defaultExpanded || false);

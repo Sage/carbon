@@ -4,6 +4,9 @@ import Icon from '../icon';
 import StyledButton, { StyledButtonSubtext } from './button.style';
 import tagComponent from '../../utils/helpers/tags';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import Logger from '../../utils/logger/logger';
+
+let deprecatedWarnTriggered = false;
 
 const renderStyledButton = (buttonProps) => {
   const {
@@ -41,6 +44,10 @@ const renderStyledButton = (buttonProps) => {
 };
 
 const Button = (props) => {
+  if (!deprecatedWarnTriggered) {
+    deprecatedWarnTriggered = true;
+    Logger.deprecate('`styleOverride` that is used in the `Button` component is deprecated and will soon be removed.');
+  }
   const {
     disabled, to, iconType, renderRouterLink, size, subtext
   } = props;

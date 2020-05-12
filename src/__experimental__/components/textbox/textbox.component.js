@@ -6,10 +6,13 @@ import FormField from '../form-field';
 import { withValidation, validationsPropTypes } from '../../../components/validations';
 import withUniqueIdProps from '../../../utils/helpers/with-unique-id-props';
 import OptionsHelper from '../../../utils/helpers/options-helper';
+import Logger from '../../../utils/logger/logger';
 
 // This component is a working example of what a Textbox might look like
 // using only the new input componentry. It is still under development with
 // subject to change as we continue to remove the decorator classes.
+
+let deprecatedWarnTriggered = false;
 
 const Textbox = ({
   children,
@@ -23,6 +26,11 @@ const Textbox = ({
   styleOverride,
   ...props
 }) => {
+  if (!deprecatedWarnTriggered) {
+    deprecatedWarnTriggered = true;
+    Logger.deprecate('`styleOverride` that is used in the `Textbox` component is deprecated and will soon be removed.');
+  }
+
   return (
     <FormField
       childOfForm={ childOfForm }
