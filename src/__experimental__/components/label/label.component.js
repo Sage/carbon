@@ -6,10 +6,16 @@ import ValidationIcon from '../../../components/validations/validation-icon.comp
 import { getValidationType } from '../../../components/validations/with-validation.hoc';
 import { filterByProps } from '../../../utils/ether';
 import IconWrapperStyle from './icon-wrapper.style';
+import Logger from '../../../utils/logger/logger';
 
 const validationsPresent = ({ hasError, hasWarning, hasInfo }) => hasError || hasWarning || hasInfo;
+let deprecatedWarnTriggered = false;
 
 const Label = (props) => {
+  if (!deprecatedWarnTriggered) {
+    deprecatedWarnTriggered = true;
+    Logger.deprecate('`styleOverride` that is used in the `Label` component is deprecated and will soon be removed.');
+  }
   const [isFocused, setFocus] = useState(false);
   const {
     labelId,

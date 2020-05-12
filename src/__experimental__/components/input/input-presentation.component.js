@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import InputPresentationStyle from './input-presentation.style';
 import extractProps from '../../../utils/helpers/extract-props';
+import Logger from '../../../utils/logger/logger';
 
 const InputPresentationContext = React.createContext();
 
@@ -12,6 +13,8 @@ const InputPresentationContext = React.createContext();
 // to use the full supported feature set of a Carbon component. Over time we
 // will add additional supported on the decorated features without the need
 // for the decorators themselves.
+
+let deprecatedWarnTriggered = false;
 
 class InputPresentation extends React.Component {
   static propTypes = {
@@ -56,6 +59,11 @@ class InputPresentation extends React.Component {
   handleMouseLeave = () => this.setState({ hasMouseOver: false });
 
   render() {
+    if (!deprecatedWarnTriggered) {
+      deprecatedWarnTriggered = true;
+      // eslint-disable-next-line max-len
+      Logger.deprecate('`styleOverride` that is used in the `InputPresentation` component is deprecated and will soon be removed.');
+    }
     const { children, styleOverride, ...props } = this.props;
     const styleProps = extractProps(props, InputPresentationStyle);
 
