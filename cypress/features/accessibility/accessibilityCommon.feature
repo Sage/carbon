@@ -54,7 +54,6 @@ Feature: Accessibility tests
       | help                             |
       | i18ncomponent                    |
       | icon                             |
-      | inlineInputs                     |
       | link                             |
       | loader                           |
 
