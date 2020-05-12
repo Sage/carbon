@@ -1,20 +1,20 @@
-Feature: Duelling Picklist Component
-  I want to test Duelling Picklist component
+Feature: Design System Duelling Picklist Component
+  I want to test Design System Duelling Picklist component
 
-  Background: Duelling Picklist Component in noIframe
-    Given I open basic Test "duellingpicklist" component page in noIframe
+  Background: Design System Duelling Picklist Component in noIframe
+    Given I open Design Systems page "duellingpicklist" component docs page
 
   @positive
   Scenario: All items are unassigned
     # commented because of BDD default scenario Given - When - Then
-    # Given I open basic Test "Duelling Picklist" component page in noIframe
+    # Given I open Design Systems page "duellingpicklist" component docs page
     Then unassigned picklist has 20 items
       And assigned picklist is empty
 
   @positive
   Scenario: Divider between picklists is visible
     # commented because of BDD default scenario Given - When - Then
-    # Given I open basic Test "Duelling Picklist" component page in noIframe
+    # Given I open Design Systems page "duellingpicklist" component docs page
     Then divider is visible
 
   @positive
@@ -59,7 +59,7 @@ Feature: Duelling Picklist Component
   Scenario Outline: Remove element from assigned picklist after pressing <key> key
     Given I add 1 item from unassigned picklist to assigned picklist
       And I focus first element in assigned picklist
-    When I press "<key>" onto focused element
+    When I press "<key>" onto element in assigned pick list
     Then unassigned picklist has 20 items
       And assigned picklist has 0 items
     Examples:
@@ -70,7 +70,7 @@ Feature: Duelling Picklist Component
   @positive
   Scenario Outline: Add element to assigned picklist after pressing <key> key
     Given I focus first element in unassigned picklist
-    When I press "<key>" onto focused element
+    When I press "<key>" onto element in unassigned pick list
     Then assigned picklist has 1 items
       And unassigned picklist has 19 items
     Examples:
@@ -79,19 +79,15 @@ Feature: Duelling Picklist Component
       | Space |
 
   @positive
-  Scenario Outline: Verify that the <position> element in unassigned Duelling Picklist is focused using <key> key
-    Given I check "<position>" element in unassigned picklist
-    When I press "<key>" onto focused element
-    Then focused element inner content is set to "<innerText>"
-      And focused element has golden border outline "rgb(255, 181, 0) solid 2px"
-    Examples:
-      | position   | key       | innerText                |
-      | first      | uparrow   | Content 20Description 20 |
-      | nineteenth | downarrow | Content 1Description 1   |
+  Scenario: Verify that the nineteenth element in unassigned Duelling Picklist is focused using uparrow key
+    Given I check "first" element in unassigned picklist
+    When I press "uparrow" onto element in unassigned pick list
+    Then "nineteenth" element inner content is set to "Content 20Description 20"
+      And "nineteenth" element has golden border outline "rgb(255, 181, 0) solid 2px"
 
   @positive
   Scenario Outline: Verify results of searching in duelling picklist
-    When Type "<search>" text into search input in no iFrame
+    When Type "<search>" text into duelling picklist search input
     Then unassigned picklist contains <result> items
     Examples:
       | search     | result |

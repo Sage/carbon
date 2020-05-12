@@ -80,7 +80,8 @@ Then('It renders with all colors', () => {
 
 When('I input new color json into {string} input field', (inputFieldName) => {
   cy.fixture('simpleColorPickerNew.json').then(($json) => {
-    getKnobsInput(inputFieldName).clear({ force: true }).then($selector => $selector.val(JSON.stringify($json)))
+    getKnobsInput(inputFieldName).clear({ force: true })
+      .then($selector => $selector.val(JSON.stringify($json)))
       .type(' ');
   });
 });

@@ -1,6 +1,5 @@
 import { childrenPreview, footnotePreview, iconSelect } from '../../locators/detail';
-import { icon } from '../../locators';
-import { getElementNoIframe } from '../../locators/build';
+import { icon, getElementNoIframe } from '../../locators';
 
 Then('detail children on preview is {string}', (children) => {
   childrenPreview().should('have.text', children);

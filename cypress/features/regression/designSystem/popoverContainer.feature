@@ -1,8 +1,8 @@
 Feature: Design System Popover container component
-  I want to test Design System Popover container component properties
+  I want to test Design System Popover container component
 
   Background: Open Design System Popover container component page
-    Given I open basic Design System "Popover container" component docs page
+    Given I open Design Systems basic "Popover container" component docs page
 
   @positive
   Scenario: Popover container is opened
@@ -38,14 +38,14 @@ Feature: Design System Popover container component
   Scenario: Popover container component is left aligned
     # commented because of BDD default scenario Given - When - Then
     # When I open basic Design System "Popover container" component docs page
-    Then opening icon is on the "left" side 
+    Then opening icon is on the "left" side
       And Popover component is opened the "left" side
 
   @positive
   Scenario: Popover container component is right aligned
     # commented because of BDD default scenario Given - When - Then
     # When I open basic Design System "Popover container" component docs page
-    Then opening icon is on the "right" side 
+    Then opening icon is on the "right" side
       And Popover component is opened the "right" side
 
   @positive

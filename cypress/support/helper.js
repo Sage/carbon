@@ -1,8 +1,8 @@
 import {
   knobsTab, actionsTab, clearButton, accessibilityTab, getKnobsInputWithName,
+  getElementNoIframe,
 } from '../locators';
 import { DEBUG_FLAG } from '.';
-import { getElementNoIframe } from '../locators/build';
 
 function prepareUrl(component, suffix, iFrameOnly, prefix, env) {
   let url = Cypress.config().baseUrl;

@@ -119,19 +119,8 @@ When('I click {string} element of Split Button component', (element) => {
   if (element === 'first' || element === 'second' || element === 'third') {
     additionalButton(positionOfElement(element)).click();
   } else {
-    splitMainButtonDataComponent(positionOfElement('second')).first().click();    
+    splitMainButtonDataComponent(positionOfElement('second')).first().click();
   }
-  // switch (element) {
-  //   case 'main':
-  //     splitMainButtonDataComponent(positionOfElement('second')).first().click();
-  //     break;
-  //   case 'first':
-  //   case 'second':
-  //   case 'third':
-  //     additionalButton(positionOfElement(element)).click();
-  //     break;
-  //   default: throw new Error('There are only five elements in Split Button component');
-  // }
 });
 
 Then('Split Button expandable {string} element has golden border on focus', (element) => {

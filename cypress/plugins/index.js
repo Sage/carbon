@@ -31,6 +31,12 @@ module.exports = (on, config) => {
       launchOptions.args.push('--disable-site-isolation-trials');
       return launchOptions;
     }
+    if (browser.name === 'firefox') {
+      // works only for macOS
+      // issue for Win https://bugzilla.mozilla.org/show_bug.cgi?id=855899
+      launchOptions.args.push('-new-instance');
+      return launchOptions;
+    }
   });
   require('cypress-plugin-retries/lib/plugin')(on);
 };

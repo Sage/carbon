@@ -12,20 +12,23 @@ import {
   knobsNameTab, fieldHelpPreviewByPosition, labelByPosition, dlsRoot,
   commonButtonPreviewNoIFrameRoot,
   getDataElementByValue,
+  getElementNoIframe, commonButtonPreviewNoIframe,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
-import { getElementNoIframe, commonButtonPreviewNoIframe } from '../../locators/build';
 import { pagerSummary } from '../../locators/pager';
 
-const LABEL_INPUT_INLINE_CLASS = 'common-input__label--inline';
 const TEXT_ALIGN = 'text-align';
 
-Given('I open design systems {word} {word} component page', (type, component) => {
+Given('I open design systems {word} {string} component page', (type, component) => {
   visitComponentUrl(component, type, false, 'design-system-');
 });
 
-Given('I open design systems {word} {word} component page in noIFrame', (type, component) => {
+Given('I open Design Systems {word} {string} component docs page', (type, component) => {
+  visitDocsUrl(component, type, false, 'design-system-');
+});
+
+Given('I open design systems {word} {string} component in no iframe', (type, component) => {
   visitComponentUrl(component, type, true, 'design-system-');
 });
 
@@ -77,21 +80,9 @@ Given('I open {string} component in iframe', (component) => {
   visitComponentUrl(component, 'default', true);
 });
 
-Given('I open design systems {word} {word} component in iframe', (component, type) => {
-  visitComponentUrl(component, type, true);
-});
-
 // the step above should be refactored and changed to in noiFrame
 Given('I open {string} component in noiFrame', (component) => {
   visitComponentUrl(component, 'default', true);
-});
-
-Given('I open deprecated {string} component in iframe', (component) => {
-  visitComponentUrl(component, 'classic', true, 'deprecated-');
-});
-
-Given('I open deprecated {string} component page', (component) => {
-  visitComponentUrl(component, 'classic', false, 'deprecated-');
 });
 
 Given('I open {string} textbox based component page in iframe', (component) => {
@@ -140,10 +131,6 @@ Given('I open sortable Test {string} component page in Iframe', (component) => {
 
 When('I open Test {string} component basic page with prop value', (componentName) => {
   visitFlatTableComponentNoiFrame(componentName, 'basic', true, 'test-');
-});
-
-Given('I open basic Design System {string} component docs page', (component) => {
-  visitDocsUrl(component, 'basic', false, 'design-system-');
 });
 
 Given('I open grouped Test {string} component page in noIframe', (component) => {
@@ -290,15 +277,6 @@ When('I set precision slider to {int}', (width) => {
   setSlidebar(precisionSlider(), width);
 });
 
-Then('labelAlign on preview is {string}', (direction) => {
-  if (direction === 'left') {
-    // left is default property that's why it's absent inside class
-    labelPreview().should('not.have.class', `common-input__label--align-${direction}`);
-  } else {
-    labelPreview().should('have.class', `common-input__label--align-${direction}`);
-  }
-});
-
 Then('{string} label Align on preview is {string}', (position, direction) => {
   labelByPosition(positionOfElement(position)).should('have.css', TEXT_ALIGN, direction);
 });
@@ -400,14 +378,6 @@ Then('inputWidth is not set', () => {
   inputWidthPreview().should('not.have.attr', 'style');
 });
 
-Then('{word} labelInline is enabled', () => {
-  label().should('have.class', LABEL_INPUT_INLINE_CLASS);
-});
-
-Then('{word} labelInline is disabled', () => {
-  label().should('not.have.class', LABEL_INPUT_INLINE_CLASS);
-});
-
 Then('{word} labelWidth is set to {string}', (componentName, width) => {
   label().should('have.attr', 'style', `width: ${width}%;`);
 });
@@ -490,4 +460,8 @@ When('I click onto root in Test directory in iFrame', () => {
 
 Then('totalRecords is set to {string} {word}', (totalRecords, element) => {
   pagerSummary().invoke('text').should('contain', `${totalRecords} ${element}`);
+});
+
+When('I open component preview no iframe', () => {
+  commonButtonPreviewNoIframe().click();
 });

@@ -7,11 +7,19 @@ import throttle from 'lodash/throttle';
 import Event from '../../utils/helpers/events';
 import { StyledAnchorNavigation, StyledNavigation, StyledContent } from './anchor-navigation.style';
 import AnchorNavigationItem from './anchor-navigation-item.component';
+import Logger from '../../utils/logger/logger';
 
 const SECTION_VISIBILITY_OFFSET = 200;
 const SCROLL_THROTTLE = 100;
 
+let deprecatedWarnTriggered = false;
+
 const AnchorNavigation = ({ children, stickyNavigation, styleOverride }) => {
+  if (!deprecatedWarnTriggered) {
+    deprecatedWarnTriggered = true;
+    // eslint-disable-next-line max-len
+    Logger.deprecate('`styleOverride` that is used in the `AnchorNavigation` component is deprecated and will soon be removed.');
+  }
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const sectionRefs = useRef(React.Children.map(stickyNavigation.props.children, child => child.props.target));

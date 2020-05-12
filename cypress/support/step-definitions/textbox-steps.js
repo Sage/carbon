@@ -161,10 +161,6 @@ When('I input {string} into {string} Textbox', (text, position) => {
   textboxByPosition(positionOfElement(position)).children().clear().type(text);
 });
 
-When('I input {string} into Textbox for deprecated component', (text) => {
-  commonDataElementInputPreview().clear().type(text);
-});
-
 Then('Textbox input on preview is set to {string}', () => {
   textbox().children().invoke('text').then(((text) => {
     expect(text.trim()).to.eq(text);
@@ -176,12 +172,6 @@ Then('Multiple textbox input on preview is set to {string}', () => {
     expect(text.trim()).to.eq(text);
   }));
   textbox(positionOfElement('second')).children().invoke('text').then(((text) => {
-    expect(text.trim()).to.eq(text);
-  }));
-});
-
-Then('Textbox input on preview is set to {string} for deprecated component', () => {
-  textboxDataComponent().children().invoke('text').then(((text) => {
     expect(text.trim()).to.eq(text);
   }));
 });

@@ -7,7 +7,6 @@ const START_LABEL = 'start';
 const END_LABEL = 'end';
 const START_LABEL_INDEX = 1;
 const END_LABEL_INDEX = 2;
-const LABEL_INLINE_CLASS = 'common-input__label--inline';
 
 Then('startLabel on preview is {string}', (label) => {
   labelPreview(START_LABEL_INDEX).should('have.text', label);
@@ -25,16 +24,6 @@ Then('labels are set to inline', () => {
 Then('labels are not set to inline', () => {
   labelPreview(START_LABEL_INDEX).should('not.have.css', TEXT_ALIGN, 'left');
   labelPreview(END_LABEL_INDEX).should('not.have.css', TEXT_ALIGN, 'left');
-});
-
-Then('labels are set to inline for deprecated component', () => {
-  labelPreview(START_LABEL_INDEX).should('have.class', LABEL_INLINE_CLASS);
-  labelPreview(END_LABEL_INDEX).should('have.class', LABEL_INLINE_CLASS);
-});
-
-Then('labels are not set to inline for deprecated component', () => {
-  labelPreview(START_LABEL_INDEX).should('not.have.class', LABEL_INLINE_CLASS);
-  labelPreview(END_LABEL_INDEX).should('not.have.class', LABEL_INLINE_CLASS);
 });
 
 Then('startMessage error on preview is {string}', (errorMessage) => {

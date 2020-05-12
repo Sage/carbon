@@ -1,5 +1,5 @@
 import { visitComponentUrlByTheme, visitComponentUrlByThemeKnobsStory } from '../helper';
-import { getComponentNoIframe, getElementNoIframe } from '../../locators/build';
+import { getComponentNoIframe, getElementNoIframe } from '../../locators';
 import { buttonToggleComponent, linkComponent, loaderComponent } from '../../locators/themes';
 
 const COLOR = 'color';

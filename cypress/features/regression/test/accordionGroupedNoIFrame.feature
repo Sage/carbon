@@ -1,5 +1,5 @@
 Feature: Accordion grouped component
-  I want to change Accordion grouped component properties
+  I want to test Accordion grouped component properties
 
   Background: Open Accordion grouped component page
     Given I open grouped Test "Accordion" component page in noIframe

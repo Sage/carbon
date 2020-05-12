@@ -60,3 +60,7 @@ export const tooltipPreviewNoIframe = () => cy.get(TOOLTIP_PREVIEW);
 export const iconNoIframe = () => cy.get(ICON);
 export const getDataElementByValueNoIframe = element => cy.get(`[data-element="${element}"]`);
 export const commonDataElementInputPreviewNoIframe = () => cy.get(COMMMON_DATA_ELEMENT_INPUT);
+export const getComponentNoIframe = component => cy.get(`[data-component="${component}"]`);
+export const getElementNoIframe = element => cy.get(`[data-element="${element}"]`).first();
+export const getElementNoIframeByName = element => cy.get(`[name="${element}"]`);
+export const commonButtonPreviewNoIframe = () => cy.get(STORY_ROOT).find('button');

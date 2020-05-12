@@ -11,10 +11,18 @@ import createGuid from '../../utils/helpers/guid';
 import ActionPopoverMenu from './action-popover-menu.component';
 import ActionPopoverItem from './action-popover-item.component';
 import ActionPopoverDivider from './action-popover-divider.component';
+import Logger from '../../utils/logger/logger';
+
+let deprecatedWarnTriggered = false;
 
 const ActionPopover = ({
   children, id, onOpen, onClose, rightAlignMenu, renderButton, ...rest
 }) => {
+  if (!deprecatedWarnTriggered) {
+    deprecatedWarnTriggered = true;
+    // eslint-disable-next-line max-len
+    Logger.deprecate('`styleOverride` that is used in the `ActionPopover` component is deprecated and will soon be removed.');
+  }
   const [isOpen, setOpenState] = useState(false);
   const [focusIndex, setFocusIndex] = useState(0);
   const [items, setItems] = useState([]);
