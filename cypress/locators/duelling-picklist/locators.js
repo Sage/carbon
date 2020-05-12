@@ -6,3 +6,4 @@ export const PICKLIST_RIGHT_LABEL = '[data-element="picklist-right-label"]';
 export const ADD_ELEMENT = '[data-element="add"]';
 export const REMOVE_ELEMENT = '[data-element="remove"]';
 export const PICKLIST_DIVIDER = '[data-element="picklist-divider"]';
+export const PICKLIST_ID = '[id="story--test-duellingpicklist--basic"]';

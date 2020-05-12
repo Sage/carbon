@@ -2,7 +2,7 @@ Feature: Advanced Color Picker component
   I want to test Advanced Color Picker component
 
   Background: Open Advanced Color Picker component page
-    Given I open basic Test "Advanced Color Picker" component page
+    Given I open Design Systems default_story "Advanced Color Picker" component docs page
       And I open Advanced Color Picker
 
   @positive

@@ -1,5 +1,5 @@
 Feature: Anchor Navigation component
-  I want to change Anchor Navigation component properties
+  I want to test Anchor Navigation component properties
 
   Background: Open Anchor Navigation component page
     Given I open in full screen Test "AnchorNavigation" component page in noIframe

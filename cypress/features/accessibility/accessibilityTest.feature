@@ -8,15 +8,6 @@ Feature: Accessibility tests -> Test directory
     Then "<component>" component has no violations in Accessibility section
     Examples:
       | component           | data-component      |
-      | Accordion           | accordion           |
       | Anchornavigation    | anchor-navigation   |
-      | Badge               | badge               |
-      | Batch Selection     | batch-selection     |
       | Button Toggle Group | button-toggle-group |
       | duellingpicklist    | duelling-picklist   |
-      | Draggable           | draggable           |
-      | Flat Table          | flat-table          |
-      | Grid                | grid                |
-      | Numeral Date        | numeral-date        |
-      | Search              | search              |
-      | Popover Container   | popover-container   |

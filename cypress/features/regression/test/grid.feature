@@ -4,6 +4,7 @@ Feature: Grid component
   Background: Open Grid component page
     Given I open basic Test "Grid" component page in noIframe
 
+# will remove when Applitools will be implemented
   @positive
   Scenario Outline: Check Grid has "<title>" as title
     # commented because of BDD default scenario Given - When - Then
