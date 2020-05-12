@@ -13,6 +13,7 @@
     "test-update": "jest --config=./jest.conf.json --updateSnapshot",
     "test-cypress": "cypress open",
     "cypress:ci": "cypress run --record --parallel",
+    "cypress:ci:visual": "npm run cypress:ci -- --spec './cypress/features/visual/*' --env CYPRESS_APPLITOOLS=true --browser chrome --group chrome-visual",
     "debug": "node --inspect ./node_modules/jest-cli/bin/jest --watch --config=./jest.conf.json",
     "lint": "eslint ./src",
     "lint-ts": "./node_modules/.bin/tslint 'src/**/*.ts'",
@@ -42,6 +43,7 @@
     "styled-components": "^4.4.1"
   },
   "devDependencies": {
+    "@applitools/eyes-cypress": "^3.10.4",
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "7.8.3",
