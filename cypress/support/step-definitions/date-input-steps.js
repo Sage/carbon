@@ -33,22 +33,6 @@ Then('Date input component is not readOnly', () => {
     .should('not.have.attr', 'readonly');
 });
 
-Then('Date input is disabled for deprecated component', () => {
-  dateInput().should('have.attr', 'disabled');
-});
-
-Then('Date input is enabled for deprecated component', () => {
-  dateInput().should('not.have.attr', 'disabled');
-});
-
-Then('Date input component is readOnly for deprecated component', () => {
-  dateInput().should('have.attr', 'readonly');
-});
-
-Then('Date input component is not readOnly for deprecated component', () => {
-  dateInput().should('not.have.attr', 'readonly');
-});
-
 When('I set dateInput to today', () => {
   dateInput().clear().type(TODAY_DATE_INPUT);
 });

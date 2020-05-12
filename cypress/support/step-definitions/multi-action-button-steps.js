@@ -1,4 +1,5 @@
-import { multiActionButtonList, multiActionButtonText, multiActionButton, 
+import {
+  multiActionButtonList, multiActionButtonText, multiActionButton,
   multiActionButtonComponent,
 } from '../../locators/multi-action-button';
 import { buttonSubtextPreview } from '../../locators/button';

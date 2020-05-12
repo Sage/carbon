@@ -105,7 +105,7 @@ Feature: Experimental RadioButton yearly component
     Examples:
       | width | px         |
       | 1     | 10.609375  |
-      | 100   | 844.671875 |
+      | 100   | 847.78125  |
 
   @positive
   Scenario Outline: Change RadioButton label align to <direction>

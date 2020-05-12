@@ -16,6 +16,5 @@ export const rightAlignedActions = () => cy.iFrame(RIGHT_ALIGNED_ACTIONS);
 export const errorsSummary = () => cy.iFrame(ERRORS);
 export const errorMessage = () => cy.iFrame(ERROR_MESSAGE);
 export const inputValidation = () => cy.iFrame(INPUT_VALIDATION);
-export const formDataComponent = () => cy.iFrame(FORM_DATA_ELEMENT);
 export const errorTooltip = () => cy.iFrame(ERROR_TOOLTIP);
 export const footerDataComponent = () => cy.iFrame(FORM_FOOTER);

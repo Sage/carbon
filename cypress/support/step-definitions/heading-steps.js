@@ -6,7 +6,7 @@ import { helpIcon, link } from '../../locators';
 const DIVIDER = 'carbon-heading--has-divider';
 
 Then('heading children on preview is {string}', (children) => {
-  headingPreview().should('contain', children);
+  headingPreview().invoke('text').should('contain', children);
 });
 
 Then('heading title is set to {string}', (title) => {
