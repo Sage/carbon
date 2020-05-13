@@ -9,7 +9,7 @@ exports[`ActionPopover styles renders correctly for the "classic" theme 1`] = `
   position: absolute;
   right: 0;
   background-color: #FFFFFF;
-  z-index: 1;
+  z-index: 2000;
   box-shadow: 0 10px 10px 0 rgba(0,20,29,0.1), 0 5px 5px 0 rgba(0,20,29,0.2);
   padding: 5px 0;
 }
@@ -157,7 +157,7 @@ exports[`ActionPopover submenu left aligned closes the submenu on mouseleave eve
   position: absolute;
   right: 0;
   background-color: #FFFFFF;
-  z-index: 1;
+  z-index: 2000;
 }
 
 .c5.c5 .c2 {
@@ -325,7 +325,7 @@ exports[`ActionPopover submenu left aligned opens the submenu on mouseenter 1`] 
   position: absolute;
   right: 0;
   background-color: #FFFFFF;
-  z-index: 1;
+  z-index: 2000;
 }
 
 .c5.c5 .c2 {
