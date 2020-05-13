@@ -6,28 +6,11 @@ exports[`Drawer uncontrolled matches snapshot 1`] = `
 >
   <styled.div
     animationDuration="0.5s"
-    aria-expanded="false"
-    className="closed"
+    aria-expanded="true"
+    className="open"
     expandedWidth="20%"
     theme="[ theme object ]"
   >
-    <styled.button
-      animationDuration="0.5s"
-      aria-controls="DrawerSidebar_guid-123"
-      aria-expanded={false}
-      aria-label="toggle sidebar"
-      data-element="drawer-toggle"
-      isExpanded={false}
-      onClick={[Function]}
-      theme="[ theme object ]"
-    >
-      <Icon
-        bgSize="small"
-        disabled={false}
-        fontSize="small"
-        type="chevron_right"
-      />
-    </styled.button>
     <styled.div
       id="DrawerSidebar_guid-123"
       role="navigation"
