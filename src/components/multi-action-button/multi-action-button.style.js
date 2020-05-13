@@ -28,7 +28,7 @@ const StyledMultiActionButton = styled.div`
     white-space: nowrap;
     left: 0;
     right: auto;
-    z-index: 12;
+    z-index: ${({ theme }) => theme.zIndex.popover};
 
     ${({ align }) => align === 'right' && css`
       left: auto;
