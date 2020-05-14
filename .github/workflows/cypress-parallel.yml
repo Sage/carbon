@@ -21,6 +21,7 @@ jobs:
             11, 12, 13, 14, 15, 
             16, 17, 18, 19, 20
             ]
+    container: cypress/browsers:node12.13.0-chrome80-ff74
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -35,12 +36,13 @@ jobs:
           wait-on-timeout: 250
           record: true
           parallel: true
-          group: Ubuntu-chrome
+          group: chrome-${{ github.run_id }}
           browser: chrome
           headless: true
         env:
           # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CI: 'true'
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -49,6 +51,7 @@ jobs:
     if: ${{ github.event.pull_request.head.repo.full_name != 'Sage/carbon' }}  
     name: Cypress regression on forked PR
     runs-on: ubuntu-16.04
+    container: cypress/browsers:node12.13.0-chrome80-ff74
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -66,3 +69,4 @@ jobs:
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CI: 'true'
