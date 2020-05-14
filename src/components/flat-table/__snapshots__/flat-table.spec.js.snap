@@ -35,7 +35,8 @@ exports[`FlatTable when rendered with proper table data should have expected str
   white-space: nowrap;
 }
 
-.c3 .c5 {
+.c3 .c5,
+.c3 .c12 {
   border-left: none;
   border-right: none;
   font-weight: 700;
@@ -49,6 +50,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
   height: 100%;
 }
 
+.c0 .c2 .c12,
 .c0 .c7,
 .c0 .c2 .c5 {
   background-color: #335C6D;
@@ -118,10 +120,6 @@ exports[`FlatTable when rendered with proper table data should have expected str
   table-layout: fixed;
   width: auto;
   word-break: break-all;
-}
-
-.c4 .c12 {
-  padding-top: 0px;
 }
 
 <div

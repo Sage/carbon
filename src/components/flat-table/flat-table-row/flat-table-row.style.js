@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import { baseTheme } from '../../../style/themes';
 import StyledFlatTableCell from '../flat-table-cell/flat-table-cell.style';
 import StyledFlatTableRowHeader from '../flat-table-row-header/flat-table-row-header.style';
+import StyledFlatTableCheckbox from '../flat-table-checkbox/flat-table-checkbox.style';
 
 const StyledFlatTableRow = styled.tr`
   border-collapse: separate;
@@ -42,21 +43,22 @@ const StyledFlatTableRow = styled.tr`
 
     :hover {
       ${StyledFlatTableCell},
-      ${StyledFlatTableRowHeader} {
+      ${StyledFlatTableRowHeader}, ${StyledFlatTableCheckbox} {
         background-color: ${theme.flatTable.hover};
       }
     }
   `}
 
   ${({ selected, theme }) => selected && css`
-    ${StyledFlatTableCell} {
+    ${StyledFlatTableCell}, ${StyledFlatTableCheckbox} {
       background-color: ${theme.table.selected};
       border-bottom-color: ${theme.table.selected};
     }
 
     :hover {
       ${StyledFlatTableCell},
-      ${StyledFlatTableRowHeader} {
+      ${StyledFlatTableRowHeader},
+      ${StyledFlatTableCheckbox} {
         background-color: ${theme.table.selected};
       }
     }

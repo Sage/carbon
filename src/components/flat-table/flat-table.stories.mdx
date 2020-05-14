@@ -8,12 +8,12 @@ import {
   FlatTableHeader,
   FlatTableRowHeader,
   FlatTableCell,
+  FlatTableCheckbox,
   Sort
 } from '.';
 import BatchSelection from '../batch-selection';
 import IconButton from '../icon-button';
 import Icon from '../icon';
-import { Checkbox } from '../../__experimental__/components/checkbox';
 import Pager from '../pager'
 
 <Meta title="Design System/Flat Table" />
@@ -63,7 +63,7 @@ import Pager from '../pager'
   </Story>
 </Preview>
 
-### With row headers:
+### With row headers
 <Preview>
   <Story name="with row header" parameters={{ info: { disable: true }}} >
     <div style={ { width: '380px', overflowX: 'auto' } }>
@@ -108,7 +108,6 @@ import Pager from '../pager'
 </Preview>
 
 ### With stickyHead prop set to true
-
 <Preview>
   <Story name="with sticky head" parameters={{ info: { disable: true }}} >
     <div style={ { height: '150px' } }>
@@ -152,8 +151,7 @@ import Pager from '../pager'
   </Story>
 </Preview>
 
-### With clickable rows:
-
+### With clickable rows
 <Preview>
   <Story name="with clickable rows" parameters={{ info: { disable: true }}} >
     <FlatTable>
@@ -199,7 +197,6 @@ import Pager from '../pager'
 ### With transparent-white theme
 To create a transparent effect for the header, override the header background styling
 to match the same color as the background
-
 <Preview>
   <Story name="transparent-white theme" parameters={{ info: { disable: true }}} >
     <div>
@@ -247,7 +244,6 @@ to match the same color as the background
 ### With transparent-base theme
 To create a transparent effect for the header, override the header background styling
 to match the same color as the background
-
 <Preview>
   <Story name="transparent-base theme" parameters={{ info: { disable: true }}} >
     <FlatTable colorTheme="transparent-base">
@@ -290,7 +286,6 @@ to match the same color as the background
 </Preview>
 
 ### With light theme 
-
 <Preview>
   <Story name="light theme" parameters={{ info: { disable: true }}} >
     <FlatTable colorTheme="light">
@@ -333,13 +328,11 @@ to match the same color as the background
 </Preview>
 
 ### With sorting headers
-
 <Preview>
   <Story id="test-flat-table--sortable" name="with sorting headers" />
 </Preview>
 
 ### With a cell spanning the whole row 
-
 <Preview>
   <Story name="with colspan" parameters={{ info: { disable: true }}} >
       <FlatTable>
@@ -361,7 +354,6 @@ to match the same color as the background
 </Preview>
 
 ### With a cell spanning the whole column 
-
 <Preview>
   <Story name="with rowspan" parameters={{ info: { disable: true }}} >
       <FlatTable>
@@ -396,32 +388,29 @@ to match the same color as the background
 </Preview>
 
 ### With Selectable Rows
+It is possible to use the selected prop on the FlatTableRow to handle the selection of multiple rows of data.
+
+To take an action across multiple table rows, the user can first select relevant rows with their checkboxes, then apply an action at the top left of the table.
+
+If a given action isn’t available for a single selected item, the option appears disabled. A tooltip may explain why.
+
+If a given action is available for some, but not all, selected rows, then the action is performed, but the user is notified.
+
+Where icons are used for batch actions, they have text labels too, or tooltips to make their function clear. There are always confirmation dialogs for destructive actions, or those difficult to undo.
 <Preview>
-  <Story name="selectable rows" parameters={{ info: { disable: true }}} >
+  <Story name="selectable rows" parameters={{ info: { disable: true } }} >
     {() => {
       const [selectAll, setSelectAll] = useState(false);
       const [selectedRows, setSelectedRows] = useState({ one: false, two: false, three: false, four: false });
-      const refs = { one: useRef(null), two: useRef(null), three: useRef(null), four: useRef(null) };
-      const currentSelection = {};
       const handleSelectAllRows = () => {
         const newState = {};
-        Object.keys(selectedRows).forEach((key) => {
-          if (selectAll) {
-            delete currentSelection[key];
-          } else {
-            currentSelection[key] = refs[key];
-          }
-          newState[key] = !selectAll;
-        });
+        Object.keys(selectedRows).forEach((key) => newState[key] = !selectAll);
         setSelectedRows({ ...newState });
         setSelectAll(!selectAll);
       };
       const handleSelectRow = (id) => {
         if (selectedRows[id]) {
           setSelectAll(false);
-          delete currentSelection[id];
-        } else {
-          currentSelection[id] = refs[id];
         }
         setSelectedRows({ ...selectedRows, [id]: !selectedRows[id] });
       };
@@ -436,11 +425,11 @@ to match the same color as the background
           <FlatTable>
             <FlatTableHead>
               <FlatTableRow>
-                <FlatTableHeader>
-                  <Checkbox checked={ selectAll }
-                    onChange={ () => handleSelectAllRows() }
-                  />
-                </FlatTableHeader>
+                <FlatTableCheckbox
+                  as='th'
+                  checked={ selectAll }
+                  onChange={ () => handleSelectAllRows() }
+                />
                 <FlatTableHeader>Client</FlatTableHeader>
                 <FlatTableHeader>Client Type</FlatTableHeader>
                 <FlatTableHeader>Categories</FlatTableHeader>
@@ -448,37 +437,29 @@ to match the same color as the background
               </FlatTableRow>
             </FlatTableHead>
             <FlatTableBody>
-              <FlatTableRow selectable ref={ refs.one } selected={ selectedRows.one }>
-                <FlatTableCell>
-                  <Checkbox checked={ selectedRows.one } onChange={ () => handleSelectRow('one')} />
-                </FlatTableCell>
+              <FlatTableRow selected={ selectedRows.one }>
+                <FlatTableCheckbox checked={ selectedRows.one } onChange={ () => handleSelectRow('one')} />
                 <FlatTableCell>John Doe</FlatTableCell>
                 <FlatTableCell>Business</FlatTableCell>
                 <FlatTableCell>Group1, Group2</FlatTableCell>
                 <FlatTableCell>Accounting</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow selectable ref={ refs.two } selected={ selectedRows.two }>
-                <FlatTableCell>
-                  <Checkbox checked={ selectedRows.two } onChange={ () => handleSelectRow('two')} />
-                </FlatTableCell>
+              <FlatTableRow selected={ selectedRows.two }>
+                <FlatTableCheckbox checked={ selectedRows.two } onChange={ () => handleSelectRow('two')} />
                 <FlatTableCell>Jane Doe</FlatTableCell>
                 <FlatTableCell>Business</FlatTableCell>
                 <FlatTableCell>Group1, Group3</FlatTableCell>
                 <FlatTableCell>Accounting</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow selectable ref={ refs.three } selected={ selectedRows.three }>
-                <FlatTableCell>
-                  <Checkbox checked={ selectedRows.three } onChange={ () => handleSelectRow('three')} />
-                </FlatTableCell>
+              <FlatTableRow selected={ selectedRows.three }>
+                <FlatTableCheckbox checked={ selectedRows.three } onChange={ () => handleSelectRow('three')} />
                 <FlatTableCell>John Smith</FlatTableCell>
                 <FlatTableCell>Charity</FlatTableCell>
                 <FlatTableCell>Group3</FlatTableCell>
                 <FlatTableCell>Payroll</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow selectable ref={ refs.four } selected={ selectedRows.four }>
-                <FlatTableCell>
-                  <Checkbox checked={ selectedRows.four } onChange={ () => handleSelectRow('four')} />
-                </FlatTableCell>
+              <FlatTableRow selected={ selectedRows.four }>
+                <FlatTableCheckbox checked={ selectedRows.four } onChange={ () => handleSelectRow('four')} />
                 <FlatTableCell>Jane Smith</FlatTableCell>
                 <FlatTableCell>Partnership</FlatTableCell>
                 <FlatTableCell>Group3</FlatTableCell>
@@ -492,10 +473,10 @@ to match the same color as the background
   </Story>
 </Preview>
 
-
 ### With Highlightable Rows
+It is possible to utilise the selected and onClick props on the FlatTableRow to highlight single rows of data.
 <Preview>
-  <Story name="highlightable rows" parameters={{ info: { disable: true }}} >
+  <Story name="highlightable rows" parameters={{ info: { disable: true } }} >
     {() => {
       const [highlightedRow, setHighlightedRow] = useState('');
       const handleHighlightRow = (id) => {
@@ -548,39 +529,27 @@ to match the same color as the background
 </Preview>
 
 ### With Selectable and Highlightable Rows
+It is also possible to integrate selection of multiple rows and the highlighting of single rows.
 <Preview>
-  <Story name="selectable and highlightable rows" parameters={{ info: { disable: true }}} >
+  <Story name="selectable and highlightable rows" parameters={{ info: { disable: true } }} >
     {() => {
       const [selectAll, setSelectAll] = useState(false);
       const [selectedRows, setSelectedRows] = useState({ one: false, two: false, three: false, four: false });
       const [highlightedRow, setHighlightedRow] = useState('');
-      const refs = { one: useRef(null), two: useRef(null), three: useRef(null), four: useRef(null) };
-      const currentSelection = {};
       const handleSelectAllRows = () => {
         const newState = {};
-        Object.keys(selectedRows).forEach((key) => {
-          if (selectAll) {
-            delete currentSelection[key];
-          } else {
-            currentSelection[key] = refs[key];
-          }
-          newState[key] = !selectAll;
-        });
+        Object.keys(selectedRows).forEach((key) => newState[key] = !selectAll);
         setSelectedRows({ ...newState });
         setSelectAll(!selectAll);
       };
-      const handleSelectRow = (id, ev) => {
-        ev.stopPropagation();
+      const handleSelectRow = (id) => {
         if (selectedRows[id]) {
           setSelectAll(false);
-          delete currentSelection[id];
-        } else {
-          currentSelection[id] = refs[id];
         }
         setSelectedRows({ ...selectedRows, [id]: !selectedRows[id] });
       };
       const selectedCount = Object.keys(selectedRows).filter(key => Boolean(selectedRows[key])).length;
-      const handleHighlightRow = (id, ev) => {
+      const handleHighlightRow = (id) => {
         if (highlightedRow === id) {
           setHighlightedRow('')
         } else {
@@ -597,11 +566,11 @@ to match the same color as the background
           <FlatTable>
             <FlatTableHead>
               <FlatTableRow>
-                <FlatTableHeader>
-                  <Checkbox checked={ selectAll }
-                    onChange={ () => handleSelectAllRows() }
-                  />
-                </FlatTableHeader>
+                <FlatTableCheckbox
+                  as='th'
+                  checked={ selectAll }
+                  onChange={ () => handleSelectAllRows() }
+                />
                 <FlatTableHeader>Client</FlatTableHeader>
                 <FlatTableHeader>Client Type</FlatTableHeader>
                 <FlatTableHeader>Categories</FlatTableHeader>
@@ -609,37 +578,29 @@ to match the same color as the background
               </FlatTableRow>
             </FlatTableHead>
             <FlatTableBody>
-              <FlatTableRow onClick={() => handleHighlightRow('one') } selected={ selectedRows.one || highlightedRow === 'one' } selectable ref={ refs.one }>
-                <FlatTableCell>
-                  <Checkbox onClick={(e) => e.stopPropagation()} checked={ selectedRows.one } onChange={ (ev) => handleSelectRow('one', ev)} />
-                </FlatTableCell>
+              <FlatTableRow onClick={() => handleHighlightRow('one') } selected={ selectedRows.one || highlightedRow === 'one' }>
+                <FlatTableCheckbox checked={ selectedRows.one } onChange={ () => handleSelectRow('one')} />
                 <FlatTableCell>John Doe</FlatTableCell>
                 <FlatTableCell>Business</FlatTableCell>
                 <FlatTableCell>Group1, Group2</FlatTableCell>
                 <FlatTableCell>Accounting</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow onClick={() => handleHighlightRow('two') } selected={ selectedRows.two || highlightedRow === 'two' } selectable ref={ refs.two }>
-                <FlatTableCell>
-                  <Checkbox onClick={(e) => e.stopPropagation()} checked={ selectedRows.two } onChange={ (ev) => handleSelectRow('two', ev)} />
-                </FlatTableCell>
+              <FlatTableRow onClick={() => handleHighlightRow('two') } selected={ selectedRows.two || highlightedRow === 'two' }>
+                <FlatTableCheckbox checked={ selectedRows.two } onChange={ () => handleSelectRow('two')} />
                 <FlatTableCell>Jane Doe</FlatTableCell>
                 <FlatTableCell>Business</FlatTableCell>
                 <FlatTableCell>Group1, Group3</FlatTableCell>
                 <FlatTableCell>Accounting</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow onClick={() => handleHighlightRow('three') } selected={ selectedRows.three || highlightedRow === 'three' } selectable ref={ refs.three }>
-                <FlatTableCell>
-                  <Checkbox onClick={(e) => e.stopPropagation()} checked={ selectedRows.three } onChange={ (ev) => handleSelectRow('three', ev)} />
-                </FlatTableCell>
+              <FlatTableRow onClick={() => handleHighlightRow('three') } selected={ selectedRows.three || highlightedRow === 'three' }>
+                <FlatTableCheckbox checked={ selectedRows.three } onChange={ () => handleSelectRow('three')} />
                 <FlatTableCell>John Smith</FlatTableCell>
                 <FlatTableCell>Charity</FlatTableCell>
                 <FlatTableCell>Group3</FlatTableCell>
                 <FlatTableCell>Payroll</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow onClick={() => handleHighlightRow('four') } selected={ selectedRows.four || highlightedRow === 'four' } selectable ref={ refs.four }>
-                <FlatTableCell>
-                  <Checkbox onClick={(e) => e.stopPropagation()} checked={ selectedRows.four } onChange={ (ev) => handleSelectRow('four', ev)} />
-                </FlatTableCell>
+              <FlatTableRow onClick={() => handleHighlightRow('four') } selected={ selectedRows.four || highlightedRow === 'four' }>
+                <FlatTableCheckbox checked={ selectedRows.four } onChange={ () => handleSelectRow('four')} />
                 <FlatTableCell>Jane Smith</FlatTableCell>
                 <FlatTableCell>Partnership</FlatTableCell>
                 <FlatTableCell>Group3</FlatTableCell>
@@ -654,6 +615,9 @@ to match the same color as the background
 </Preview>
 
 ### With Pagination
+If pagination is needed, this can be shown at the bottom of the table.
+
+Balance performance concerns with the convenience of the user being able to see more data - we suggest giving the user the option of showing 25, 50, and 100 table rows before pagination, with a default of 50. Whatever the user selects, make this sticky per user, per table, and between sessions.
 <Preview>
   <Story name="paginated" parameters={{ info: { disable: true }}} >
     {() => {
@@ -777,3 +741,7 @@ to match the same color as the background
 ### FlatTableRowHeader
 
 <Props of={FlatTableRowHeader} />
+
+### FlatTableCheckbox
+
+<Props of={FlatTableCheckbox} />
