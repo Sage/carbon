@@ -1,8 +1,9 @@
 import React from 'react';
+import {Link as RouterLink} from 'react-router';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
+import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs/tags-specs';
 import MenuItem from './menu-item';
-import Link from './../../link';
+import Link from '../../link';
 
 describe('MenuItem', () => {
   let wrapper;
@@ -62,4 +63,16 @@ describe('MenuItem', () => {
       rootTagTest(wrapper, 'menu-item', 'bar', 'baz');
     });
   });
+
+  describe('with link', () => {
+    it('renders a link with the routerLink element', () => {
+      const menuItemWrapper = shallow(
+        <MenuItem data-element='bar' data-role='baz' to='/test' routerLink={RouterLink}>
+          Test
+        </MenuItem>
+      );
+      expect(menuItemWrapper.find(Link).props().routerLink).toEqual(RouterLink);
+      expect(menuItemWrapper.find(Link).props().to).toEqual('/test');
+    });
+  })
 });

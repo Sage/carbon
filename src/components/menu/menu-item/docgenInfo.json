@@ -118,6 +118,21 @@
           "required": false,
           "description": "The to link to use for the menu item."
         },
+        "routerLink": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "object"
+              },
+              {
+                "name": "func"
+              }
+            ]
+          },
+          "required": false,
+          "description": "The router link to be used with the to prop."
+        },
         "target": {
           "type": {
             "name": "string"
