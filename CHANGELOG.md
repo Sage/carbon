@@ -1,3 +1,11 @@
+### [20.1.2](https://github.com/Sage/carbon/compare/v20.1.1...v20.1.2) (2020-05-14)
+
+
+### Bug Fixes
+
+* **link:** update routerLink prop to allow Router Link as prop ([8e66353](https://github.com/Sage/carbon/commit/8e663534e8a227ed29c74755c92cc7da7e4199e2)), closes [#2924](https://github.com/Sage/carbon/issues/2924)
+* **menu:** add routerLink prop as no longer provided by link component ([44035b4](https://github.com/Sage/carbon/commit/44035b48075a1a0a255db118961d66da74090393))
+
 ### [20.1.1](https://github.com/Sage/carbon/compare/v20.1.0...v20.1.1) (2020-05-11)
 
 
