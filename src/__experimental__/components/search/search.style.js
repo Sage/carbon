@@ -55,7 +55,7 @@ const StyledSearch = styled.div`
       }
       ${StyledFormField} {
         flex: 1;
-        z-index: 10;
+        z-index: ${theme.zIndex.overlay};
       }
       ${StyledButton} { 
         background-color: ${theme.search.button};
@@ -95,7 +95,7 @@ export const StyledSearchButton = styled.div`
     margin: 0px 0px;
     padding-bottom: 3px;
     :focus {
-      z-index: 10;
+      z-index: ${({ theme }) => theme.zIndex.overlay};
     }
   }
 `;
