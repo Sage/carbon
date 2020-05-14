@@ -49,7 +49,7 @@ describe('FlatTableRow', () => {
         borderBottom: '1px solid transparent',
         borderLeft: `1px solid ${baseTheme.colors.focus}`,
         backgroundClip: 'padding-box',
-        zIndex: '1'
+        zIndex: '1000'
       }, wrapper, { modifier: `:focus ${StyledFlatTableRowHeader}` });
 
       assertStyleMatch({
@@ -61,7 +61,7 @@ describe('FlatTableRow', () => {
         height: '100%',
         width: '101%',
         position: 'absolute',
-        zIndex: '1'
+        zIndex: '1000'
       }, wrapper, { modifier: `:focus ${StyledFlatTableRowHeader}:before` });
     });
 

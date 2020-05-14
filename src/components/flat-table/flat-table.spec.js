@@ -85,7 +85,7 @@ describe('FlatTable', () => {
 
     it('then the Row Header in the table Head should have proper z-index', () => {
       assertStyleMatch({
-        zIndex: '2'
+        zIndex: '1002'
       }, wrapper, { modifier: `${StyledFlatTableHead} ${StyledFlatTableRowHeader}` });
     });
   });

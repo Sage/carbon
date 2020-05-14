@@ -43,7 +43,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
   left: 0;
   padding: 8px 24px;
   top: 0;
-  z-index: 1;
+  z-index: 1000;
 }
 
 .c0 {
