@@ -32,11 +32,11 @@ describe('AdvancedColorPicker', () => {
     defaultColor
   };
 
-  const container = { current: null };
-  const wrapper = { current: null };
+  let container;
+  let wrapper;
 
   const mount = (jsx) => {
-    wrapper.current = enzymeMount(jsx, { attachTo: container.current });
+    wrapper = enzymeMount(jsx, { attachTo: container });
   };
 
   function render(props = {}, renderer = mount) {
@@ -54,16 +54,16 @@ describe('AdvancedColorPicker', () => {
   }
 
   beforeEach(() => {
-    container.current = document.createElement('div');
-    document.body.appendChild(container.current);
+    container = document.createElement('div');
+    document.body.appendChild(container);
   });
 
   afterEach(() => {
-    document.body.removeChild(container.current);
-    container.current = null;
-    if (wrapper.current) {
-      wrapper.current.unmount();
-      wrapper.current = null;
+    document.body.removeChild(container);
+    container = null;
+    if (wrapper) {
+      wrapper.unmount();
+      wrapper = null;
     }
   });
 
@@ -105,7 +105,7 @@ describe('AdvancedColorPicker', () => {
           it('on Tab key focuses selectedColor', () => {
             render({ ...requiredProps, open: true });
 
-            const closeButton = wrapper.current.find('[data-element="close"]').first();
+            const closeButton = wrapper.find('[data-element="close"]').first();
             closeButton.getDOMNode().focus();
 
             expect(document.activeElement).toBe(closeButton.getDOMNode());
@@ -135,11 +135,11 @@ describe('AdvancedColorPicker', () => {
 
             expect(document.activeElement).toBe(simpleColors[0]);
 
-            const simpleColor = wrapper.current.find(SimpleColor).at(0);
+            const simpleColor = wrapper.find(SimpleColor).at(0);
             const colorPreviewCell = simpleColor.find('ColorSampleBox').first().find('div').first();
             expect(
               document.activeElement.getAttribute('value')
-            ).toBe(wrapper.current.find(SimpleColor).at(0).prop('value'));
+            ).toBe(wrapper.find(SimpleColor).at(0).prop('value'));
             assertStyleMatch(
               {
                 backgroundColor: '#EEEEEE',
@@ -170,13 +170,13 @@ describe('AdvancedColorPicker', () => {
 
             expect(document.activeElement).toBe(simpleColors[7]);
 
-            const color = wrapper.current.find(SimpleColor).at(8);
+            const color = wrapper.find(SimpleColor).at(8);
             color.find('input').first().getDOMNode().click();
 
             expect(onChange).toHaveBeenCalled();
             expect(
               document.activeElement.getAttribute('value')
-            ).toBe(wrapper.current.find(SimpleColor).at(8).prop('value'));
+            ).toBe(wrapper.find(SimpleColor).at(8).prop('value'));
           });
         });
 
@@ -193,14 +193,14 @@ describe('AdvancedColorPicker', () => {
             const { simpleColors } = getElements();
 
             expect(document.activeElement).toBe(simpleColors[7]);
-            const color = wrapper.current.find(SimpleColor).at(8);
+            const color = wrapper.find(SimpleColor).at(8);
 
             color.find('input').first().getDOMNode().click();
 
             expect(onChange).not.toHaveBeenCalled();
             expect(
               document.activeElement.getAttribute('value')
-            ).toBe(wrapper.current.find(SimpleColor).at(8).prop('value'));
+            ).toBe(wrapper.find(SimpleColor).at(8).prop('value'));
           });
         });
 
@@ -218,13 +218,13 @@ describe('AdvancedColorPicker', () => {
 
           expect(document.activeElement).toBe(simpleColors[7]);
 
-          const color = wrapper.current.find(SimpleColor).at(8);
+          const color = wrapper.find(SimpleColor).at(8);
           color.find('input').first().getDOMNode().click();
 
           expect(onBlur).toHaveBeenCalled();
           expect(
             document.activeElement.getAttribute('value')
-          ).toBe(wrapper.current.find(SimpleColor).at(8).prop('value'));
+          ).toBe(wrapper.find(SimpleColor).at(8).prop('value'));
         });
       });
     });
@@ -246,7 +246,7 @@ describe('AdvancedColorPicker', () => {
         (name, result, expectedResult, key) => {
           render(extraProps);
           act(() => {
-            wrapper.current.find(SimpleColor).at(8).find('input').first()
+            wrapper.find(SimpleColor).at(8).find('input').first()
               .simulate('keydown', { which: key.keyCode });
           });
           expect(result).toEqual(expectedResult);
@@ -264,20 +264,20 @@ describe('AdvancedColorPicker', () => {
             ...requiredProps,
             open: result
           });
-          expect(wrapper.current.find(Dialog).first().prop('open')).toEqual(expectedResult);
+          expect(wrapper.find(Dialog).first().prop('open')).toEqual(expectedResult);
         }
       );
 
       describe('when dialog is closed', () => {
         it('uses defaultColor when selectedColor is not provided', () => {
           render({ ...requiredProps });
-          expect(wrapper.current.find(AdvancedColorPicker).first().prop('defaultColor')).toBe(defaultColor);
+          expect(wrapper.find(AdvancedColorPicker).first().prop('defaultColor')).toBe(defaultColor);
         });
 
         it('uses selectedColor when provided', () => {
           const selectedColor = '#AEECD6';
           render({ ...requiredProps, selectedColor });
-          expect(wrapper.current.find(AdvancedColorPicker).first().prop('selectedColor')).toBe(selectedColor);
+          expect(wrapper.find(AdvancedColorPicker).first().prop('selectedColor')).toBe(selectedColor);
         });
 
         describe('when focused on picker cell', () => {
@@ -285,7 +285,7 @@ describe('AdvancedColorPicker', () => {
 
           beforeEach(() => {
             render({ ...requiredProps });
-            colorPickerCell = wrapper.current.find('[data-element="color-picker-cell"]').first();
+            colorPickerCell = wrapper.find('[data-element="color-picker-cell"]').first();
             colorPickerCell.getDOMNode().focus();
           });
 
@@ -313,16 +313,16 @@ describe('AdvancedColorPicker', () => {
             describe('when open prop is uncontrolled', () => {
               it('opens color picker and calls onOpen callback function', () => {
                 const onOpen = jest.fn();
-                wrapper.current.setProps({ onOpen });
-                wrapper.current.update();
-                colorPickerCell = wrapper.current.find('[data-element="color-picker-cell"]').first();
+                wrapper.setProps({ onOpen });
+                wrapper.update();
+                colorPickerCell = wrapper.find('[data-element="color-picker-cell"]').first();
                 colorPickerCell.getDOMNode().focus();
 
                 act(() => {
                   colorPickerCell.simulate('click');
                 });
 
-                const dialog = wrapper.current.find(Dialog).first();
+                const dialog = wrapper.find(Dialog).first();
                 expect(dialog.prop('open')).toBeTruthy();
                 expect(onOpen).toBeCalledTimes(1);
               });
@@ -333,25 +333,25 @@ describe('AdvancedColorPicker', () => {
             it('closes color picker and calls onClose callback function', () => {
               const onClose = jest.fn();
 
-              wrapper.current.setProps({ onClose });
-              wrapper.current.update();
+              wrapper.setProps({ onClose });
+              wrapper.update();
 
               act(() => {
                 colorPickerCell.simulate('click');
               });
 
-              expect(wrapper.current.find(Dialog).first().prop('open')).toBeTruthy();
+              expect(wrapper.find(Dialog).first().prop('open')).toBeTruthy();
 
-              const closeButton = wrapper.current.find('[data-element="close"]').first();
+              const closeButton = wrapper.find('[data-element="close"]').first();
 
               act(() => {
                 closeButton.simulate('click');
               });
 
-              wrapper.current.update();
+              wrapper.update();
 
               expect(onClose).toBeCalledTimes(1);
-              expect(wrapper.current.find(Dialog).first().prop('open')).toBeFalsy();
+              expect(wrapper.find(Dialog).first().prop('open')).toBeFalsy();
             });
 
             it('when callback function is not proivided', () => {
@@ -361,18 +361,18 @@ describe('AdvancedColorPicker', () => {
                 colorPickerCell.simulate('click');
               });
 
-              expect(wrapper.current.find(Dialog).first().prop('open')).toBeTruthy();
+              expect(wrapper.find(Dialog).first().prop('open')).toBeTruthy();
 
-              const closeButton = wrapper.current.find('[data-element="close"]').first();
+              const closeButton = wrapper.find('[data-element="close"]').first();
 
               act(() => {
                 closeButton.simulate('click');
               });
 
-              wrapper.current.update();
+              wrapper.update();
 
               expect(onClose).toBeCalledTimes(0);
-              expect(wrapper.current.find(Dialog).first().prop('open')).toBeFalsy();
+              expect(wrapper.find(Dialog).first().prop('open')).toBeFalsy();
             });
           });
         });
