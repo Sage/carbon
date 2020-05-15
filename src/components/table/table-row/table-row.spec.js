@@ -786,14 +786,14 @@ describe('TableRow', () => {
 });
 
 describe('TableRow', () => {
-  const container = { current: null };
-  const wrapper = { current: null };
+  let container;
+  let wrapper;
 
   const onOpen = jest.fn();
   const onClose = jest.fn();
 
   function render() {
-    wrapper.current = mount(
+    wrapper = mount(
       <ThemeProvider { ...{ theme: baseTheme } }>
         <Table>
           <TableRow>
@@ -813,32 +813,32 @@ describe('TableRow', () => {
             </TableCell>
           </TableRow>
         </Table>
-      </ThemeProvider>, { attachTo: container.current }
+      </ThemeProvider>, { attachTo: container }
     );
   }
 
   function getMenuButton() {
-    return wrapper.current.find(MenuButton);
+    return wrapper.find(MenuButton);
   }
 
   function getRow() {
-    return wrapper.current.find(TableRow).at(1);
+    return wrapper.find(TableRow).at(1);
   }
 
   beforeEach(() => {
-    container.current = document.createElement('div');
-    document.body.appendChild(container.current);
+    container = document.createElement('div');
+    document.body.appendChild(container);
     onOpen.mockReset();
     onClose.mockReset();
   });
 
 
   afterEach(() => {
-    document.body.removeChild(container.current);
-    container.current = null;
-    if (wrapper.current) {
-      wrapper.current.unmount();
-      wrapper.current = null;
+    document.body.removeChild(container);
+    container = null;
+    if (wrapper) {
+      wrapper.unmount();
+      wrapper = null;
     }
   });
 

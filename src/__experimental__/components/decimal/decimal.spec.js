@@ -14,16 +14,16 @@ import StyledWiggle, { wiggleAnimation } from './decimal.style';
 // input, not calling the prop directly, this is important. By mounting we can make these assertions with
 // confidence that the `onChange` will not be dispatched if e.preventDefault has been called
 describe('Decimal', () => {
-  const container = { current: null };
-  const wrapper = { current: null };
+  let wrapper;
+  let container;
   const onChange = jest.fn();
 
   const mount = (jsx) => {
-    wrapper.current = enzymeMount(jsx, { attachTo: container.current });
+    wrapper = enzymeMount(jsx, { attachTo: container });
   };
 
   const DOM = (jsx) => {
-    ReactDOM.render(jsx, container.current);
+    ReactDOM.render(jsx, container);
   };
 
   function render(props = {}, renderer = mount) {
@@ -38,18 +38,18 @@ describe('Decimal', () => {
   }
 
   function setProps(obj) {
-    wrapper.current.setProps(obj);
-    wrapper.current.update();
+    wrapper.setProps(obj);
+    wrapper.update();
   }
 
   function getElements() {
-    const cw = wrapper.current;
+    const cw = wrapper;
     if (cw) {
       const textbox = cw.find(Textbox);
       return {
         input: textbox.find('input'),
         textbox,
-        hiddenInput: wrapper.current.find('input').at(1)
+        hiddenInput: wrapper.find('input').at(1)
       };
     }
     throw new Error('No wrapper found');
@@ -126,18 +126,18 @@ describe('Decimal', () => {
   });
 
   beforeEach(() => {
-    container.current = document.createElement('div');
-    document.body.appendChild(container.current);
+    container = document.createElement('div');
+    document.body.appendChild(container);
     onChange.mockReset();
   });
 
 
   afterEach(() => {
-    document.body.removeChild(container.current);
-    container.current = null;
-    if (wrapper.current) {
-      wrapper.current.unmount();
-      wrapper.current = null;
+    document.body.removeChild(container);
+    container = null;
+    if (wrapper) {
+      wrapper.unmount();
+      wrapper = null;
     }
   });
 
@@ -151,32 +151,32 @@ describe('Decimal', () => {
     it('is triggered by invalid keypress', () => {
       render();
       press({ key: '-' }, '0.|00');
-      assertStyleMatch({ animation }, wrapper.current.find(StyledWiggle));
+      assertStyleMatch({ animation }, wrapper.find(StyledWiggle));
     });
 
     it('is triggered by pasting an invalid value', () => {
       render();
       paste({ key: 'a' }, '0.|00');
-      assertStyleMatch({ animation }, wrapper.current.find(StyledWiggle));
+      assertStyleMatch({ animation }, wrapper.find(StyledWiggle));
     });
 
     it('is not triggered when Decimal has readOnly prop', () => {
       render({ readOnly: true });
 
       paste({ key: 'a' }, '0.|00');
-      expect(wrapper.current.find(StyledWiggle)).not.toHaveStyleRule('animation');
+      expect(wrapper.find(StyledWiggle)).not.toHaveStyleRule('animation');
 
       press({ key: '-' }, '0.|00');
-      expect(wrapper.current.find(StyledWiggle)).not.toHaveStyleRule('animation');
+      expect(wrapper.find(StyledWiggle)).not.toHaveStyleRule('animation');
     });
 
     it('turns off the animation after finishing', () => {
       render();
       paste({ key: 'a' }, '0.|00');
-      assertStyleMatch({ animation }, wrapper.current.find(StyledWiggle));
-      wrapper.current.find(StyledWiggle).props().onAnimationEnd();
-      wrapper.current.update();
-      expect(wrapper.current.find(StyledWiggle)).not.toHaveStyleRule('animation');
+      assertStyleMatch({ animation }, wrapper.find(StyledWiggle));
+      wrapper.find(StyledWiggle).props().onAnimationEnd();
+      wrapper.update();
+      expect(wrapper.find(StyledWiggle)).not.toHaveStyleRule('animation');
     });
   });
 
@@ -1537,7 +1537,7 @@ describe('Decimal', () => {
 
     it('has the correct automation selectors', () => {
       render();
-      expect(wrapper.current.find(Textbox).getDOMNode().getAttribute('data-component')).toBe('decimal');
+      expect(wrapper.find(Textbox).getDOMNode().getAttribute('data-component')).toBe('decimal');
     });
 
     it('works as a form-data component', () => {
