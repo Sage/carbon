@@ -25,15 +25,15 @@ guid.mockImplementation(() => 'guid-12345');
 jest.useFakeTimers();
 
 describe('ActionPopover', () => {
-  const container = { current: null };
-  const wrapper = { current: null };
+  let container;
+  let wrapper;
 
   const mount = (jsx) => {
-    wrapper.current = enzymeMount(jsx, { attachTo: container.current });
+    wrapper = enzymeMount(jsx, { attachTo: container });
   };
 
   const DOM = (jsx) => {
-    ReactDOM.render(jsx, container.current);
+    ReactDOM.render(jsx, container);
   };
 
   const onClick = jest.fn();
@@ -159,7 +159,7 @@ describe('ActionPopover', () => {
   }
 
   function getElements() {
-    const cw = wrapper.current;
+    const cw = wrapper;
     if (cw) {
       return {
         items: cw.find(ActionPopoverItem),
@@ -174,8 +174,8 @@ describe('ActionPopover', () => {
   }
 
   beforeEach(() => {
-    container.current = document.createElement('div');
-    document.body.appendChild(container.current);
+    container = document.createElement('div');
+    document.body.appendChild(container);
     onClick.mockReset();
     onOpen.mockReset();
     onClose.mockReset();
@@ -183,11 +183,11 @@ describe('ActionPopover', () => {
 
 
   afterEach(() => {
-    document.body.removeChild(container.current);
-    container.current = null;
-    if (wrapper.current) {
-      wrapper.current.unmount();
-      wrapper.current = null;
+    document.body.removeChild(container);
+    container = null;
+    if (wrapper) {
+      wrapper.unmount();
+      wrapper = null;
     }
   });
 
@@ -343,7 +343,7 @@ describe('ActionPopover', () => {
         });
 
         act(() => {
-          wrapper.current.update();
+          wrapper.update();
         });
         const { menu } = getElements();
         assertStyleMatch({
@@ -373,7 +373,7 @@ describe('ActionPopover', () => {
         });
 
         act(() => {
-          wrapper.current.update();
+          wrapper.update();
         });
 
         const { menu } = getElements();
@@ -398,7 +398,7 @@ describe('ActionPopover', () => {
         });
 
         act(() => {
-          wrapper.current.update();
+          wrapper.update();
         });
 
         const { menu } = getElements();
@@ -459,7 +459,7 @@ describe('ActionPopover', () => {
           });
 
           act(() => {
-            wrapper.current.update();
+            wrapper.update();
           });
         }],
         ['Escape', item => simulate.keydown.pressEscape(item)]
@@ -659,7 +659,7 @@ describe('ActionPopover', () => {
     ReactDOM.render(
       <ThemeProvider theme={ mintTheme }>
         <ActionPopover><p>invalid children</p></ActionPopover>
-      </ThemeProvider>, container.current
+      </ThemeProvider>, container
     );
     expect(console.error).toHaveBeenCalledWith('Warning: Failed prop type: `ActionPopover` only accepts children of'
     + ' type `WithTheme(ActionPopoverItem)` and `ActionPopoverDivider`.\n    in ActionPopover');
@@ -917,7 +917,7 @@ describe('ActionPopover', () => {
             >item
             </ActionPopoverItem>
           </ActionPopover>
-        </ThemeProvider>, container.current
+        </ThemeProvider>, container
       );
       expect(console.error).toHaveBeenCalledWith('Warning: Failed prop type: `WithTheme(ActionPopoverItem)` only'
       + ' accepts submenu of type `ActionPopoverMenu`\n    in WithTheme(ActionPopoverItem)');

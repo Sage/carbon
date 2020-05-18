@@ -14,7 +14,8 @@ let definition = new Definition('menu-item', MenuItem, {
     submenu: "String",
     submenuDirection: "String",
     target: "String",
-    to: "String"
+    to: "String",
+    routerLink: "Object | Function"
   },
   propDescriptions: {
     children: "This component supports children.",
@@ -26,7 +27,8 @@ let definition = new Definition('menu-item', MenuItem, {
     submenu: "Text for the menu item if the children are a submenu.",
     submenuDirection: "Direction for the submenu to align.",
     target: "Target for the link (eg. _blank)",
-    to: "A React Router link for the menu item."
+    to: "A React Router link for the menu item.",
+    routerLink: "The router link to be used with the to prop."
   }
 });
 

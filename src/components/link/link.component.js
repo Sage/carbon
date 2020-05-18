@@ -153,7 +153,7 @@ Link.propTypes = {
   /** Aligns the tooltip. */
   tooltipAlign: PropTypes.oneOf(OptionsHelper.alignAroundEdges),
   /** A routing component to render when the to prop is set */
-  routerLink: PropTypes.func
+  routerLink: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 };
 
 Link.defaultProps = {
