@@ -187,6 +187,16 @@ describe('Accordion', () => {
     });
   });
 
+  describe('props', () => {
+    it('passes data-role attribute to the root element of component', () => {
+      render({
+        'data-role': 'role'
+      });
+
+      expect(wrapper.find(StyledAccordionContainer).props()['data-role']).toBe('role');
+    });
+  });
+
   describe('style overrides', () => {
     const randomStyleObject = {
       backgroundColor: 'red',
