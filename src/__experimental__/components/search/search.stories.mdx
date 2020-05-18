@@ -4,19 +4,76 @@ import Search from '.';
 <Meta title="Design System/Search" />
 
 # Search
+This search component should be used if you require the user to conduct a search.
 
+## Quick Start
+Import `Search` into the project.
+
+```jsx
+import { Search } from "carbon-react/lib/components/search"
+
+const MyComponent = () => (
+  <Search placeholder="Search..." defaultValue="" searchWidth="" />
+);
+```
+
+Search component without Search Button and default width. 
 <Preview>
   <Story name="default" parameters={{ info: { disable: true }}} >
-    <Search defaultValue="Search"/>
+    <Search placeholder="Search..." defaultValue=""/>
   </Story>
 </Preview>
 
+Search component with Search Button and default width.
 <Preview>
-  <Story name="withSearchButton" parameters={{ info: { disable: true }}} >
+  <Story name="with SearchButton" parameters={{ info: { disable: true }}} >
     <Search defaultValue="Search" searchButton/>
   </Story>
 </Preview>
 
+Search component without Search Button, default width and colour background. 
+<Preview style={{backgroundColor: '#e6ebed'}}>
+  <Story name="default with colour background" parameters={{ info: { disable: true }}} >
+    <Search placeholder="Search..." defaultValue=""/>
+  </Story>
+</Preview>
+
+Search component with Search Button, default width and colour background.
+<Preview style={{backgroundColor: '#e6ebed'}}>
+  <Story name="with SearchButton and colour background" parameters={{ info: { disable: true }}} >
+    <Search placeholder="Search..." defaultValue="Search" searchButton/>
+  </Story>
+</Preview>
+
+Search component without Search Button and custom width. In this example the searchWidth prop is 375px.
+<Preview>
+  <Story name="Custom Width using px" parameters={{ info: { disable: true }}} >
+    <Search placeholder="Search..." defaultValue="" searchWidth="375px"/>
+  </Story>
+</Preview>
+
+Search component with Search Button and custom width. In this example the searchWidth prop is 375px.
+<Preview>
+  <Story name="with SearchButton and Custom Width using px" parameters={{ info: { disable: true }}} >
+    <Search defaultValue="Search" searchButton searchWidth="375px"/>
+  </Story>
+</Preview>
+
+Search component without Search Button and custom width. In this example the searchWidth prop is 70%.
+<Preview>
+  <Story name="Custom Width using %" parameters={{ info: { disable: true }}} >
+    <Search placeholder="Search..." defaultValue="" searchWidth="70%"/>
+  </Story>
+</Preview>
+
+Search component with Search Button and custom width. In this example the searchWidth prop is 70%.
+<Preview>
+  <Story name="with SearchButton and Custom Width using %" parameters={{ info: { disable: true }}} >
+    <Search defaultValue="Search" searchButton searchWidth="70%"/>
+  </Story>
+</Preview>
+
+Storybook CSF version of the search component.
 <Preview>
   <Story id="test-search--basic" parameters={{ info: { disable: true }}} />
 </Preview>

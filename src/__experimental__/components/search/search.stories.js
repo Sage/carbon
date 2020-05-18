@@ -44,6 +44,7 @@ export const Basic = () => {
       placeholder={ text('placeholder', 'Search...') }
       threshold={ number('threshold', Search.defaultProps.threshold) }
       searchButton={ boolean('searchButton', true) }
+      searchWidth={ text('searchWidth', undefined) }
       onChange={ handleChange }
       onBlur={ handleBlur }
       onClick={ handleClick }
