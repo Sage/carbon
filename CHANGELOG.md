@@ -1,3 +1,10 @@
+### [20.1.3](https://github.com/Sage/carbon/compare/v20.1.2...v20.1.3) (2020-05-18)
+
+
+### Bug Fixes
+
+* **search:** fix height, width and background style bugs ([86147a6](https://github.com/Sage/carbon/commit/86147a6d44ef0c07256a6b3a347e1e8be869da21))
+
 ### [20.1.2](https://github.com/Sage/carbon/compare/v20.1.1...v20.1.2) (2020-05-14)
 
 
