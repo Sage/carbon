@@ -149,6 +149,13 @@ exports[`Drawer uncontrolled matches snapshot 1`] = `
           "border": "#8099A4",
           "initials": "rgba(0,0,0,0.65)",
         },
+        "radioTile": Object {
+          "border": "#BFCCD2",
+          "checkedBorder": "#00815D",
+          "descriptionColor": "rgba(0,0,0,0.55)",
+          "hoverBackground": "#F2F5F6",
+          "selectedBackground": "linear-gradient(0deg,rgba(255,255,255,0.95),rgba(255,255,255,0.95)),#00815D",
+        },
         "rainbow": Object {
           "textColor": "#003349",
         },
@@ -349,6 +356,13 @@ exports[`Drawer uncontrolled matches snapshot 1`] = `
             "background": "#F2F5F6",
             "border": "#8099A4",
             "initials": "rgba(0,0,0,0.65)",
+          },
+          "radioTile": Object {
+            "border": "#BFCCD2",
+            "checkedBorder": "#00815D",
+            "descriptionColor": "rgba(0,0,0,0.55)",
+            "hoverBackground": "#F2F5F6",
+            "selectedBackground": "linear-gradient(0deg,rgba(255,255,255,0.95),rgba(255,255,255,0.95)),#00815D",
           },
           "rainbow": Object {
             "textColor": "#003349",

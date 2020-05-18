@@ -56,6 +56,15 @@ export default (palette) => {
       background: palette.slateTint(90)
     },
 
+    radioTile: {
+      border: palette.slateTint(75),
+      checkedBorder: palette.productGreenShade(21),
+      // eslint-disable-next-line max-len
+      selectedBackground: `linear-gradient(0deg,rgba(255,255,255,0.95),rgba(255,255,255,0.95)),${palette.productGreenShade(21)}`,
+      hoverBackground: palette.slateTint(95),
+      descriptionColor: blackWithOpacity(0.55)
+    },
+
     batchSelection: {
       lightTheme: palette.slateTint(70)
     },
