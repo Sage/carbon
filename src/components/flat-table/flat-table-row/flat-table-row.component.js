@@ -4,7 +4,7 @@ import Event from '../../../utils/helpers/events';
 import StyledFlatTableRow from './flat-table-row.style';
 
 const FlatTableRow = React.forwardRef(({
-  children, onClick, selected
+  children, onClick, highlighted, selected
 }, ref) => {
   let interactiveRowProps = {};
 
@@ -28,6 +28,7 @@ const FlatTableRow = React.forwardRef(({
   return (
     <StyledFlatTableRow
       data-element='flat-table-row'
+      highlighted={ highlighted }
       selected={ selected }
       ref={ ref }
       { ...interactiveRowProps }
@@ -42,6 +43,8 @@ FlatTableRow.propTypes = {
   children: PropTypes.node.isRequired,
   /** Function to handle click event. If provided the Component could be focused with tab key. */
   onClick: PropTypes.func,
+  /** Allows developers to manually control highlighted state for the row. */
+  highlighted: PropTypes.bool,
   /** Allows developers to manually control selected state for the row. */
   selected: PropTypes.bool
 };

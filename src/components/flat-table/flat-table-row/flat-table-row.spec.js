@@ -124,8 +124,8 @@ describe('FlatTableRow', () => {
         selected: true
       });
       assertStyleMatch({
-        backgroundColor: baseTheme.table.selected,
-        borderBottomColor: baseTheme.table.selected
+        backgroundColor: baseTheme.flatTable.selected,
+        borderBottomColor: baseTheme.flatTable.selected
       }, wrapper, { modifier: `${StyledFlatTableCell}` });
     });
 
@@ -137,7 +137,35 @@ describe('FlatTableRow', () => {
         });
         wrapper.find(FlatTableRow).at(0).simulate('focus');
         assertStyleMatch({
-          backgroundColor: baseTheme.table.selected
+          backgroundColor: baseTheme.flatTable.selected
+        }, wrapper, { modifier: `:hover ${StyledFlatTableCell}` });
+      });
+    });
+  });
+
+  describe('when the "highlighted" prop is passed as true', () => {
+    let wrapper;
+    it('applies a "background-color" to the "TableCell"', () => {
+      wrapper = renderFlatTableRow({
+        highlighted: true,
+        onClick: jest.fn()
+      });
+      assertStyleMatch({
+        backgroundColor: baseTheme.flatTable.highlighted,
+        borderBottomColor: baseTheme.flatTable.highlighted
+      }, wrapper, { modifier: `${StyledFlatTableCell}` });
+    });
+
+    describe('when the "selected" is also passed as true', () => {
+      it('it applies the correct "background-color"', () => {
+        wrapper = renderFlatTableRow({
+          selected: true,
+          highlighted: true,
+          onClick: jest.fn()
+        });
+        wrapper.find(FlatTableRow).at(0).simulate('focus');
+        assertStyleMatch({
+          backgroundColor: baseTheme.flatTable.selected
         }, wrapper, { modifier: `:hover ${StyledFlatTableCell}` });
       });
     });

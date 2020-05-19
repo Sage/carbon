@@ -49,19 +49,36 @@ const StyledFlatTableRow = styled.tr`
     }
   `}
 
-  ${({ selected, theme }) => selected && css`
-    ${StyledFlatTableCell}, ${StyledFlatTableCheckbox} {
-      background-color: ${theme.table.selected};
-      border-bottom-color: ${theme.table.selected};
-    }
-
-    :hover {
-      ${StyledFlatTableCell},
-      ${StyledFlatTableRowHeader},
-      ${StyledFlatTableCheckbox} {
-        background-color: ${theme.table.selected};
+  ${({ selected, highlighted, theme }) => css`
+    ${highlighted && `
+      ${StyledFlatTableCell}, ${StyledFlatTableCheckbox} {
+        background-color: ${theme.flatTable.highlighted};
+        border-bottom-color: ${theme.flatTable.highlighted};
       }
-    }
+
+      :hover {
+        ${StyledFlatTableCell},
+        ${StyledFlatTableRowHeader},
+        ${StyledFlatTableCheckbox} {
+          background-color: ${theme.flatTable.highlighted};
+        }
+      }
+    `}
+
+    ${selected && `
+      ${StyledFlatTableCell}, ${StyledFlatTableCheckbox} {
+        background-color: ${theme.flatTable.selected};
+        border-bottom-color: ${theme.flatTable.selected};
+      }
+
+      :hover {
+        ${StyledFlatTableCell},
+        ${StyledFlatTableRowHeader},
+        ${StyledFlatTableCheckbox} {
+          background-color: ${theme.flatTable.selected};
+        }
+      }
+    `}
   `}
 `;
 
