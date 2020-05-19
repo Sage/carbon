@@ -411,7 +411,7 @@ When('I click above of the component in no iFrame', () => {
 });
 
 Then('{string} tab in {string} tab list is visible', (knobsName, position) => {
-  cy.wait(1500, { log: DEBUG_FLAG }); // required because element needs to be loaded
+  cy.wait(2500, { log: DEBUG_FLAG }); // required because element needs to be loaded
   knobsNameTab(knobsName, positionOfElement(position)).should('be.visible')
     .and('have.css', 'visibility', 'visible');
 });

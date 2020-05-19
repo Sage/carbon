@@ -36,9 +36,9 @@ jobs:
           wait-on-timeout: 250
           record: true
           parallel: true
-          group: chrome-${{ github.run_id }}
           browser: chrome
-          headless: true
+          group: ubuntu-regression
+          spec: './cypress/features/regression/**/*.feature'
         env:
           # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
@@ -63,9 +63,9 @@ jobs:
           wait-on-timeout: 250
           record: true
           parallel: true
-          group: Ubuntu-chrome-fork
           browser: chrome
-          headless: true
+          group: ubuntu-regression-fork
+          spec: './cypress/features/regression/**/*.feature'
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

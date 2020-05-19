@@ -26,6 +26,7 @@
   * All component functionality is testing using all Knobs configuration.
   * Events are tested as well (could be checked in Actions section).
   * Accessibility is also testing using Axe framework.
+  * Visual tests are performed using [Applitools](https://applitools.com) framework.
 
 ## Getting started
 1. Clone the carbon repository `git clone git@github.com:Sage/carbon.git`.
@@ -68,14 +69,22 @@ Use scenario tags:
 6. `@accessibility` tests verify accessibility violations.
 7. `@validations` tests verify validation components.
 8. `@themes` tests verify themes colouristics.
+9. `@applitools` visual tests for components based on comparing screenshots base / actual.
 ## Files structure
 ```
 .
 ├── cypress
 │ ├── fixture
 │ ├── features
-│ │   ├── accessibility
-│ │   └── regression
+│ │   ├── regression
+│ │       ├── accessibility
+│ │       ├── designSystem
+│ │       ├── experimental
+│ │       ├── test
+│ │       ├── themes
+│ │       ├── validations
+│ │       └── common
+│ │   └── visual
 │ ├── locators
 │ │   └── [component-name]
 │ │       ├── index.js (exported arrow functions for locators)
@@ -106,8 +115,11 @@ Always use unique selectors to locate elements with order below:
 ## Continuous Integration (CI)
 Every commit / pull request in repository initializing cypress tests and runs:
 ### Travis
-1. `npm run lint` - runs lint test
+1. `npm run lint` - runs lint test.
 2. `npm test` - runs jest tests.
+3. `npm start` - runs storybook.
+4. `wait-on http://localhost:9001` - waits until storybook is up and running and is ready to run tests.
+5. `npm run cypress:ci:visual` - run all `visual` test suite.
 ### GitHub Actions
 1. `npm start` - runs storybook.
 3. `wait-on http://localhost:9001` - waits until storybook is up and running and is ready to run tests.

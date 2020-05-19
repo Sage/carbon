@@ -157,3 +157,7 @@ export function keyCode(type) {
     End: { keyCode: 35, which: 35 },
   }[type];
 }
+
+export function visitComponentUrlByThemeAllButtonsStory(component, theme, sufix = '') {
+  cy.visit(`${prepareUrl(component, 'all_buttons', true, '')}&theme=${theme}${sufix}`);
+}

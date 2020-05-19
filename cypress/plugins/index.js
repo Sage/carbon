@@ -40,3 +40,6 @@ module.exports = (on, config) => {
   });
   require('cypress-plugin-retries/lib/plugin')(on);
 };
+
+// Configure Eyes-Cypress plugin
+require('@applitools/eyes-cypress')(module);
