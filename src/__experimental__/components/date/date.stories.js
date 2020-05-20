@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { StateDecorator, Store, State } from '@sambego/storybook-state';
@@ -9,9 +9,11 @@ import {
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import DateInput from './date.component';
 import { OriginalTextbox } from '../textbox';
+import Button from '../../../components/button';
 import { getCommonTextboxProps } from '../textbox/textbox.stories';
 import { notes, info, infoValidations } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
+
 
 DateInput.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -34,13 +36,11 @@ const setValue = (ev) => {
   store.set({ value: ev.target.value.rawValue });
 };
 
-
 const dateComponent = () => {
   const minDate = text('minDate', '');
   const maxDate = text('maxDate', '');
   const allowEmptyValue = boolean('allowEmptyValue', false);
   const autoFocus = boolean('autoFocus', false);
-
 
   return (
     <DateInput
@@ -161,10 +161,35 @@ function makeExternalValidationsStory(name, themeSelector) {
   return [name, component, metadata];
 }
 
+const EmptyDateComponent = () => {
+  const [date, setDate] = useState('2019-04-04');
+  const handleDate = (ev) => {
+    setDate(ev.target.value.rawValue);
+  };
+
+  return (
+    <>
+      <div style={ { marginBottom: 16 } }>
+        <Button onClick={ () => setDate('') }>Set empty date</Button>
+        <Button onClick={ () => setDate('2019-04-01') }>Set 2019-04-01</Button>
+      </div>
+      <DateInput
+        { ...getCommonTextboxProps({ inputWidthEnabled: false }) }
+        label='Date'
+        name='dateinput'
+        value={ date }
+        onChange={ handleDate }
+        allowEmptyValue
+      />
+    </>
+  );
+};
+
 storiesOf('Experimental/Date Input', module)
   .addDecorator(StateDecorator(store))
   .add(...makeStory('default', dlsThemeSelector, dateComponent))
   .add(...makeStory('classic', classicThemeSelector, dateComponent))
+  .add(...makeStory('empty', dlsThemeSelector, EmptyDateComponent))
   .add(...makeValidationsStory('validations', dlsThemeSelector, dateComponent))
   .add(...makeExternalValidationsStory('external validations', dlsThemeSelector, dateComponent))
   .add(...makeValidationsStory('validations classic', classicThemeSelector, dateComponent))
