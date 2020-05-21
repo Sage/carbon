@@ -30,7 +30,8 @@ const Accordion = React.forwardRef(({
   iconAlign,
   styleOverride,
   type,
-  title
+  title,
+  ...rest
 }, ref) => {
   if (!deprecatedWarnTriggered) {
     deprecatedWarnTriggered = true;
@@ -78,6 +79,7 @@ const Accordion = React.forwardRef(({
       data-component='accordion'
       accordionType={ type }
       styleOverride={ styleOverride.root }
+      { ...rest }
     >
       <StyledAccordionTitleContainer
         data-element='accordion-title-container'
