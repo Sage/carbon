@@ -1,4 +1,6 @@
-import { visitComponentUrlByTheme, visitComponentUrlByThemeKnobsStory, visitComponentUrlByThemeAllButtonsStory } from '../helper';
+import {
+  visitComponentUrlByTheme, visitComponentUrlByThemeKnobsStory, visitComponentUrlByThemeByStory,
+} from '../helper';
 import { getComponentNoIframe, getElementNoIframe } from '../../locators';
 import { buttonToggleComponent, linkComponent, loaderComponent } from '../../locators/themes';
 
@@ -58,6 +60,6 @@ Then('Loader component css background color is set to {string}', (themeName) => 
   });
 });
 
-When('I open {string} component with theme {string} all buttons story', (componentName, themeName) => {
-  visitComponentUrlByThemeAllButtonsStory(componentName, themeName);
+When('I open {string} component {word} story with theme {string}', (componentName, storyName, themeName) => {
+  visitComponentUrlByThemeByStory(componentName, storyName, themeName);
 });

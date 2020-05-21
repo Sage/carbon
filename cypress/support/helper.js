@@ -158,6 +158,6 @@ export function keyCode(type) {
   }[type];
 }
 
-export function visitComponentUrlByThemeAllButtonsStory(component, theme, sufix = '') {
-  cy.visit(`${prepareUrl(component, 'all_buttons', true, '')}&theme=${theme}${sufix}`);
+export function visitComponentUrlByThemeByStory(component, story, theme, sufix = '') {
+  cy.visit(`${prepareUrl(component, story, true, '')}&theme=${theme}${sufix}`);
 }
