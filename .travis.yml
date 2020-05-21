@@ -9,11 +9,27 @@ branches:
   - /^\d+\.x.x$/ # 1.x.x
   - /^\d+\.\d+\.x$/ # 1.1.x
 
+addons:
+   apt:
+     packages:
+       # Ubuntu 16+ does not install this dependency by default, so we need to install it ourselves
+       - libgconf-2-4
+   chrome: stable
+  
+cypressVisual: &cypressVisual
+  script:
+  - export APPLITOOLS_BATCH_ID=`echo ${TRAVIS_PULL_REQUEST_SHA:=$TRAVIS_COMMIT}`
+  - npm start -- --ci </dev/null &>/dev/null &
+  - wait-on http://localhost:9001
+  - npm run cypress:ci:visual -- --ci-build-id chrome-visual-$TRAVIS_BUILD_ID
+  - kill $(jobs -p) || true
+
 stages:
   - test
   - deploy
 
 jobs:
+  fast_finish: true
   include:
     - stage: test
       name: "lint"
@@ -22,6 +38,12 @@ jobs:
         - npm run lint-ts
     - name: "unit tests"
       script: npm test
+    - script:
+      name: "applitools tests for storybook with cypress 1t thread"
+      <<: *cypressVisual
+    - script:
+      name: "applitools tests for storybook with cypress 2d thread"
+      <<: *cypressVisual
     - stage: deploy
       name: "s3"
       script: skip

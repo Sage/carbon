@@ -7,7 +7,17 @@ import Textbox from '../textbox';
 import Button from '../../../components/button';
 
 const Search = ({
-  defaultValue, onChange, onClick, value, id, name, threshold, searchButton, placeholder, ...rest
+  defaultValue,
+  onChange,
+  onClick,
+  value,
+  id,
+  name,
+  threshold,
+  searchWidth,
+  searchButton,
+  placeholder,
+  ...rest
 }) => {
   const isControlled = value !== undefined;
   const initialValue = isControlled ? value : defaultValue;
@@ -81,6 +91,7 @@ const Search = ({
 
   return (
     <StyledSearch
+      searchWidth={ searchWidth }
       onFocus={ handleOnFocus }
       onClick={ handleOnFocus }
       onBlur={ handleBlur }
@@ -91,7 +102,6 @@ const Search = ({
       data-component='search'
       name={ name }
       searchHasValue={ searchValue && searchValue.length }
-      hasSearchButton={ Boolean(searchButton) }
     >
       <Textbox
         { ...rest }
@@ -123,7 +133,8 @@ Search.propTypes = {
   defaultValue: PropTypes.string,
   /** Prop for `controlled` use */
   value: PropTypes.string,
-  /** Prop for `onClick` events */
+  /** Prop for `onClick` events.
+   * `onClick` events are triggered when the `searchButton` is clicked.  */
   onClick: PropTypes.func,
   /** Prop for `onChange` events */
   onChange: PropTypes.func,
@@ -131,6 +142,9 @@ Search.propTypes = {
   onKeyDown: PropTypes.func,
   /** Prop boolean to state whether the `search` icon renders */
   searchButton: PropTypes.bool,
+  /** Prop for specifing an input width length.
+   * Leaving the `searchWidth` prop with no value will default the width to '100%' */
+  searchWidth: PropTypes.string,
   /** Prop for `onBlur` events */
   onBlur: PropTypes.func,
   /** Prop for `id` events */
@@ -145,7 +159,7 @@ Search.propTypes = {
     }
     return error;
   },
-  /** Prop for placeholder */
+  /** Prop for a placeholder */
   placeholder: PropTypes.string
 };
 

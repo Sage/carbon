@@ -1,5 +1,10 @@
 import { radioButtonComponent } from '../locators/radioButton';
 
+// Configure custom commands eyes-cypress
+import '@applitools/eyes-cypress/commands';
+
+import applitoolsSettings from '../../applitools.config';
+
 export const DEBUG_FLAG = false;
 require('cypress-plugin-retries');
 
@@ -82,3 +87,21 @@ function getItem(selector, counter) {
 Cypress.Commands.add('iFrame', (selector) => { getItem(selector, 50); });
 
 Cypress.Screenshot.defaults({ screenshotOnRunFailure: DEBUG_FLAG });
+
+const {
+  Before,
+  After,
+} = require('cypress-cucumber-preprocessor/steps');
+
+
+if (Cypress.env('CYPRESS_APPLITOOLS')) {
+  Before({ tags: '@applitools' }, () => {
+    applitoolsSettings.testName = cy.state('ctx').test.title;
+    applitoolsSettings.batchName = cy.state('ctx').test.parent.title;
+    cy.eyesOpen(applitoolsSettings);
+  });
+
+  After({ tags: '@applitools' }, () => {
+    cy.eyesClose();
+  });
+}

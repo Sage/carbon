@@ -1,5 +1,5 @@
 {
-  "baseUrl": "http://localhost:9001/",
+  "baseUrl": "http://127.0.0.1:9001/",
   "blacklistHosts": [
     "www.google-analytics.com",
     "sockjs*",
@@ -9,7 +9,8 @@
     "TAGS": "not @ignore",
     "RETRIES": 3,
     "RETRIES_HIDDEN": 1,
-    "RETRIES_NO_LOG": 1
+    "RETRIES_NO_LOG": 1,
+    "CYPRESS_APPLITOOLS": false
   },
   "failOnStatusCode": false,
   "ignoreTestFiles": [
@@ -22,5 +23,6 @@
   "viewportWidth": 1366,
   "viewportHeight": 768,
   "chromeWebSecurity": false,
-  "projectId": "8458bb"
+  "projectId": "8458bb",
+  "eyesTimeout": 600000
 }
