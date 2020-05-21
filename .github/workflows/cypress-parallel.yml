@@ -36,7 +36,6 @@ jobs:
           wait-on-timeout: 250
           record: true
           parallel: true
-          browser: chrome
           group: ubuntu-regression
           spec: './cypress/features/regression/**/*.feature'
         env:
@@ -63,7 +62,6 @@ jobs:
           wait-on-timeout: 250
           record: true
           parallel: true
-          browser: chrome
           group: ubuntu-regression-fork
           spec: './cypress/features/regression/**/*.feature'
         env:
