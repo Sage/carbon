@@ -1,3 +1,10 @@
+### [21.0.1](https://github.com/Sage/carbon/compare/v21.0.0...v21.0.1) (2020-05-22)
+
+
+### Bug Fixes
+
+* **inline-input:** implement aria-labelledby ([59aae72](https://github.com/Sage/carbon/commit/59aae7268c926f4f1935deb280fa9ea830af66e7))
+
 ## [21.0.0](https://github.com/Sage/carbon/compare/v20.2.0...v21.0.0) (2020-05-22)
 
 
