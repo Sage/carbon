@@ -3,7 +3,7 @@ import FlatTableRow from '../flat-table-row';
 
 export interface FlatTableHeadProps {
   /** Array of FlatTableRow. */
-  children: FlatTableRow[];
+  children: Array<typeof FlatTableRow>;
 }
 
 declare const FlatTableHead: React.FunctionComponent<FlatTableHeadProps>;

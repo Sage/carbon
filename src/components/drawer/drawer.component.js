@@ -11,6 +11,8 @@ import {
   StyledDrawerSidebar
 } from './drawer.style';
 
+const SidebarContext = React.createContext();
+
 const Drawer = ({
   defaultExpanded,
   expanded,
@@ -57,7 +59,9 @@ const Drawer = ({
           <Icon type='chevron_right' />
         </StyledButton>
         <StyledDrawerSidebar id={ sidebarId } role='navigation'>
-          { sidebar }
+          <SidebarContext.Provider value>
+            {sidebar}
+          </SidebarContext.Provider>
         </StyledDrawerSidebar>
       </StyledDrawerContent>
       <StyledDrawerChildren>
@@ -87,5 +91,7 @@ Drawer.defaultProps = {
   expandedWidth: '40%',
   animationDuration: '400ms'
 };
+
+export { SidebarContext };
 
 export default Drawer;

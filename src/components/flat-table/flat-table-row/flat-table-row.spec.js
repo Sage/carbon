@@ -8,6 +8,9 @@ import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import { baseTheme } from '../../../style/themes';
 import StyledFlatTableRowHeader from '../flat-table-row-header/flat-table-row-header.style';
 import StyledFlatTableCell from '../flat-table-cell/flat-table-cell.style';
+import StyledFlatTableHeader from '../flat-table-header/flat-table-header.style';
+import StyledFlatTableCheckbox from '../flat-table-checkbox/flat-table-checkbox.style';
+import { SidebarContext } from '../../drawer';
 
 describe('FlatTableRow', () => {
   it('should have expected styles', () => {
@@ -156,7 +159,7 @@ describe('FlatTableRow', () => {
       }, wrapper, { modifier: `${StyledFlatTableCell}` });
     });
 
-    describe('when the "selected" is also passed as true', () => {
+    describe('when the "selected" prop is also passed as true', () => {
       it('it applies the correct "background-color"', () => {
         wrapper = renderFlatTableRow({
           selected: true,
@@ -167,6 +170,128 @@ describe('FlatTableRow', () => {
         assertStyleMatch({
           backgroundColor: baseTheme.flatTable.selected
         }, wrapper, { modifier: `:hover ${StyledFlatTableCell}` });
+      });
+    });
+  });
+
+  describe('when a child of Sidebar', () => {
+    let wrapper;
+    it.each([
+      ['StyledFlatTableHeader', StyledFlatTableHeader],
+      ['StyledFlatTableRowHeader', StyledFlatTableRowHeader],
+      ['StyledFlatTableCell', StyledFlatTableCell],
+      ['StyledFlatTableCheckbox', StyledFlatTableCheckbox]
+    ])('applies the expected styling to %s', (id, el) => {
+      wrapper = renderRowWithContext();
+      assertStyleMatch({
+        backgroundColor: baseTheme.flatTable.drawerSidebar.headerBackground
+      }, wrapper, { modifier: `${el}` });
+
+      const modifierString = id === 'StyledFlatTableCheckbox' ? `${el}:not(th)` : el;
+
+      if (!['StyledFlatTableHeader', 'StyledFlatTableRowHeader'].includes(id)) {
+        assertStyleMatch({
+          backgroundColor: baseTheme.flatTable.drawerSidebar.hover
+        }, wrapper, { modifier: `:hover ${modifierString}` });
+      }
+
+      if (id === 'StyledFlatTableCheckbox') {
+        assertStyleMatch({
+          borderRight: `1px solid ${baseTheme.flatTable.drawerSidebar.highlighted}`
+        }, wrapper, { modifier: `${el}` });
+      }
+    });
+
+    it('applies an additional "padding-left" to the "FLatTableRow" and removes "border-left" from first child', () => {
+      wrapper = renderRowWithContext();
+      assertStyleMatch({
+        borderLeft: 'none'
+      }, wrapper, { modifier: 'td:first-of-type' });
+    });
+
+    it('removes "border-right" from "FLatTableRow" first child', () => {
+      wrapper = renderRowWithContext();
+      assertStyleMatch({
+        borderRight: 'none'
+      }, wrapper, { modifier: 'td:last-of-type' });
+    });
+
+    describe('and the "selected" prop is passed as true', () => {
+      it.each([
+        ['StyledFlatTableRowHeader', StyledFlatTableRowHeader],
+        ['StyledFlatTableCell', StyledFlatTableCell],
+        ['StyledFlatTableCheckbox', StyledFlatTableCheckbox]
+      ])('applies the correct "background-color" to %s', (id, el) => {
+        wrapper = renderRowWithContext({
+          selected: true
+        });
+
+        if (id !== 'StyledFlatTableRowHeader') {
+          assertStyleMatch({
+            backgroundColor: baseTheme.flatTable.drawerSidebar.selected,
+            borderBottomColor: baseTheme.flatTable.drawerSidebar.selected
+          }, wrapper, { modifier: `${el}` });
+        }
+
+        const modifierString = id === 'StyledFlatTableCheckbox' ? `${el}:not(th)` : el;
+
+        assertStyleMatch({
+          backgroundColor: baseTheme.flatTable.drawerSidebar.selected
+        }, wrapper, { modifier: `:hover ${modifierString}` });
+      });
+    });
+
+    describe('and the "highlighted" prop is passed as true', () => {
+      it.each([
+        ['StyledFlatTableRowHeader', StyledFlatTableRowHeader],
+        ['StyledFlatTableCell', StyledFlatTableCell],
+        ['StyledFlatTableCheckbox', StyledFlatTableCheckbox]
+      ])('applies the correct "background-color" to %s', (id, el) => {
+        wrapper = renderRowWithContext({
+          highlighted: true,
+          onClick: jest.fn()
+        });
+
+        if (id !== 'StyledFlatTableRowHeader') {
+          assertStyleMatch({
+            backgroundColor: baseTheme.flatTable.drawerSidebar.highlighted,
+            borderBottomColor: baseTheme.flatTable.drawerSidebar.highlighted
+          }, wrapper, { modifier: `${el}` });
+        }
+
+        const modifierString = id === 'StyledFlatTableCheckbox' ? `${el}:not(th)` : el;
+
+        assertStyleMatch({
+          backgroundColor: baseTheme.flatTable.drawerSidebar.highlighted
+        }, wrapper, { modifier: `:hover ${modifierString}` });
+      });
+
+      describe('and the "selected" prop is also passed as true', () => {
+        it.each([
+          ['StyledFlatTableRowHeader', StyledFlatTableRowHeader],
+          ['StyledFlatTableCell', StyledFlatTableCell],
+          ['StyledFlatTableCheckbox', StyledFlatTableCheckbox]
+        ])('applies the correct "background-color" to %s', (id, el) => {
+          wrapper = renderRowWithContext({
+            selected: true,
+            highlighted: true,
+            onClick: jest.fn()
+          });
+          wrapper.find(FlatTableRow).at(0).simulate('focus');
+
+          if (id !== 'StyledFlatTableRowHeader') {
+            assertStyleMatch({
+              backgroundColor: baseTheme.flatTable.drawerSidebar.selected,
+              borderBottomColor: baseTheme.flatTable.drawerSidebar.selected
+            }, wrapper, { modifier: `${el}` });
+          }
+
+          const modifierString = id === 'StyledFlatTableCheckbox' ? `${el}:not(th)` : el;
+
+          assertStyleMatch({
+            backgroundColor: baseTheme.flatTable.drawerSidebar.selected
+          }, wrapper, { modifier: `:hover ${modifierString}` });
+        });
       });
     });
   });
@@ -182,5 +307,22 @@ function renderFlatTableRow(props = {}, renderer = mount) {
         </FlatTableRow>
       </tbody>
     </table>
+  );
+}
+
+function renderRowWithContext(props = {}) {
+  return (
+    mount(
+      <SidebarContext.Provider value>
+        <table>
+          <tbody>
+            <FlatTableRow { ...props }>
+              <FlatTableCell>cell1</FlatTableCell>
+              <FlatTableCell>cell2</FlatTableCell>
+            </FlatTableRow>
+          </tbody>
+        </table>
+      </SidebarContext.Provider>
+    )
   );
 }

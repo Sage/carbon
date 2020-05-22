@@ -15,6 +15,7 @@ import BatchSelection from '../batch-selection';
 import IconButton from '../icon-button';
 import Icon from '../icon';
 import Pager from '../pager'
+import { SidebarContext } from '../drawer';
 
 <Meta title="Design System/Flat Table" />
 
@@ -195,8 +196,8 @@ import Pager from '../pager'
 
 
 ### With transparent-white theme
-To create a transparent effect for the header, override the header background styling
-to match the same color as the background
+To create a transparent effect for the header, the background-color is set to match a white background
+
 <Preview>
   <Story name="transparent-white theme" parameters={{ info: { disable: true }}} >
     <div>
@@ -242,8 +243,8 @@ to match the same color as the background
 
 
 ### With transparent-base theme
-To create a transparent effect for the header, override the header background styling
-to match the same color as the background
+To create a transparent effect for the header, the background-color is set to match the base app background
+
 <Preview>
   <Story name="transparent-base theme" parameters={{ info: { disable: true }}} >
     <FlatTable colorTheme="transparent-base">
@@ -702,6 +703,93 @@ Balance performance concerns with the convenience of the user being able to see 
                 { id: '5', name: 5 },
               ]}
           />
+        </>
+      );
+    }} 
+  </Story>
+</Preview>
+
+### When a child of Sidebar
+<Preview>
+  <Story name="when a child of sidebar" parameters={{ info: { disable: true }}} >
+    {() => {
+      const [selectAll, setSelectAll] = useState(false);
+      const [selectedRows, setSelectedRows] = useState({ one: false, two: false, three: false, four: false });
+      const [highlightedRow, setHighlightedRow] = useState('');
+      const handleSelectAllRows = () => {
+        const newState = {};
+        Object.keys(selectedRows).forEach((key) => newState[key] = !selectAll);
+        setSelectedRows({ ...newState });
+        setSelectAll(!selectAll);
+      };
+      const handleSelectRow = (id) => {
+        if (selectedRows[id]) {
+          setSelectAll(false);
+        }
+        setSelectedRows({ ...selectedRows, [id]: !selectedRows[id] });
+      };
+      const selectedCount = Object.keys(selectedRows).filter(key => Boolean(selectedRows[key])).length;
+      const handleHighlightRow = (id) => {
+        if (highlightedRow === id) {
+          setHighlightedRow('')
+        } else {
+          setHighlightedRow(id);
+        }
+      }
+      return (
+        <>
+          <BatchSelection disabled={ selectedCount === 0 } selectedCount={ selectedCount }>
+            <IconButton onAction={ () => {} }><Icon type='csv' /></IconButton>
+            <IconButton onAction={ () => {} }><Icon type='bin' /></IconButton>
+            <IconButton onAction={ () => {} }><Icon type='pdf' /></IconButton>
+          </BatchSelection>
+          <SidebarContext.Provider value={true}>
+            <FlatTable>
+              <FlatTableHead>
+                <FlatTableRow>
+                  <FlatTableCheckbox
+                    as='th'
+                    checked={ selectAll }
+                    onChange={ () => handleSelectAllRows() }
+                  />
+                  <FlatTableHeader>Client</FlatTableHeader>
+                  <FlatTableHeader>Client Type</FlatTableHeader>
+                  <FlatTableHeader>Categories</FlatTableHeader>
+                  <FlatTableHeader>Services</FlatTableHeader>
+                </FlatTableRow>
+              </FlatTableHead>
+              <FlatTableBody>
+                <FlatTableRow onClick={() => handleHighlightRow('one') } selected={ selectedRows.one } highlighted={ highlightedRow === 'one' }>
+                  <FlatTableCheckbox checked={ selectedRows.one } onChange={ () => handleSelectRow('one')} />
+                  <FlatTableCell>John Doe</FlatTableCell>
+                  <FlatTableCell>Business</FlatTableCell>
+                  <FlatTableCell>Group1, Group2</FlatTableCell>
+                  <FlatTableCell>Accounting</FlatTableCell>
+                </FlatTableRow>
+                <FlatTableRow onClick={() => handleHighlightRow('two') } selected={ selectedRows.two } highlighted={ highlightedRow === 'two' }>
+                  <FlatTableCheckbox checked={ selectedRows.two } onChange={ () => handleSelectRow('two')} />
+                  <FlatTableCell>Jane Doe</FlatTableCell>
+                  <FlatTableCell>Business</FlatTableCell>
+                  <FlatTableCell>Group1, Group3</FlatTableCell>
+                  <FlatTableCell>Accounting</FlatTableCell>
+                </FlatTableRow>
+                <FlatTableRow onClick={() => handleHighlightRow('three') } selected={ selectedRows.three } highlighted={ highlightedRow === 'three' }>
+                  <FlatTableCheckbox checked={ selectedRows.three } onChange={ () => handleSelectRow('three')} />
+                  <FlatTableCell>John Smith</FlatTableCell>
+                  <FlatTableCell>Charity</FlatTableCell>
+                  <FlatTableCell>Group3</FlatTableCell>
+                  <FlatTableCell>Payroll</FlatTableCell>
+                </FlatTableRow>
+                <FlatTableRow onClick={() => handleHighlightRow('four') } selected={ selectedRows.four } highlighted={ highlightedRow === 'four' }>
+                  <FlatTableCheckbox checked={ selectedRows.four } onChange={ () => handleSelectRow('four')} />
+                  <FlatTableCell>Jane Smith</FlatTableCell>
+                  <FlatTableCell>Partnership</FlatTableCell>
+                  <FlatTableCell>Group3</FlatTableCell>
+                  <FlatTableCell>Final Tax</FlatTableCell>
+                </FlatTableRow>
+              </FlatTableBody>
+            </FlatTable>
+          </SidebarContext.Provider>
         </>
       );
     }} 

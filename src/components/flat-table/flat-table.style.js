@@ -5,6 +5,16 @@ import StyledFlatTableHead from './flat-table-head/flat-table-head.style';
 import StyledFlatTableCheckbox from './flat-table-checkbox/flat-table-checkbox.style';
 import { baseTheme } from '../../style/themes';
 
+const StyledFlatTable = styled.table`
+  border-collapse: separate;
+  border-radius: 0px;
+  border-spacing: 0;
+  min-width: 100%;
+  table-layout: fixed;
+  width: auto;
+  word-break: break-all;
+`;
+
 const StyledFlatTableWrapper = styled.div`
   height: 100%;
 
@@ -55,6 +65,15 @@ const StyledFlatTableWrapper = styled.div`
     }
   }}
 
+  ${({ isInSidebar, theme }) => isInSidebar && css`
+    ${StyledFlatTableHeader}, ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
+    ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
+      background-color: ${theme.flatTable.drawerSidebar.headerBackground};
+      border-right: 2px solid ${theme.flatTable.drawerSidebar.headerBackground};
+      color: ${theme.colors.black};
+    }
+  `}
+
   ${({ hasStickyHead }) => hasStickyHead && css`
     overflow-y: auto;
 
@@ -68,16 +87,6 @@ const StyledFlatTableWrapper = styled.div`
       z-index: 2;
     }
   `}
-`;
-
-const StyledFlatTable = styled.table`
-  border-collapse: separate;
-  border-radius: 0px;
-  border-spacing: 0;
-  min-width: 100%;
-  table-layout: fixed;
-  width: auto;
-  word-break: break-all;
 `;
 
 StyledFlatTableWrapper.defaultProps = {
