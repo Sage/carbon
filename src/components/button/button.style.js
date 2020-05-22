@@ -24,11 +24,8 @@ const StyledButton = styled.button`
       svg { 
         margin-top: 0;
       }
-      ${({ styleOverride }) => styleOverride.icon}
     }
   `}
-
-  ${({ styleOverride }) => styleOverride.root}
 `;
 
 export const StyledButtonSubtext = styled.span`
@@ -71,8 +68,7 @@ function stylingForType({
 StyledButton.defaultProps = {
   theme: BaseTheme,
   medium: true,
-  buttonType: 'secondary',
-  styleOverride: { root: {}, icon: {} }
+  buttonType: 'secondary'
 };
 
 StyledButton.propTypes = {
@@ -93,11 +89,7 @@ StyledButton.propTypes = {
   /** Second text child, renders under main text, only when size is "large" */
   subtext: PropTypes.string,
   /** Used to transform button into anchor */
-  to: PropTypes.string,
-  styleOverride: PropTypes.shape({
-    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    icon: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
-  })
+  to: PropTypes.string
 };
 
 export default StyledButton;
