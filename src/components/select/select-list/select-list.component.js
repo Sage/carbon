@@ -20,7 +20,9 @@ const SelectList = React.forwardRef(({
   onSelectListClose,
   filterText,
   anchorElement,
-  highlightedValue
+  highlightedValue,
+  repositionTrigger,
+  ...listProps
 }, listRef) => {
   const [currentOptionsListIndex, setCurrentOptionsListIndex] = useState(-1);
 
@@ -61,6 +63,7 @@ const SelectList = React.forwardRef(({
   const repositionList = useCallback(() => {
     if (anchorElement) {
       const inputBoundingRect = anchorElement.getBoundingClientRect();
+
       const top = `${window.pageYOffset + inputBoundingRect.top + inputBoundingRect.height}px`;
       const width = `${inputBoundingRect.width + 2 * overhang}px`;
       const left = `${window.pageXOffset + inputBoundingRect.left - overhang}px`;
@@ -105,7 +108,7 @@ const SelectList = React.forwardRef(({
 
   useEffect(() => {
     repositionList();
-  }, [repositionList]);
+  }, [repositionList, repositionTrigger]);
 
   useEffect(() => {
     if (!highlightedValue) {
@@ -147,6 +150,7 @@ const SelectList = React.forwardRef(({
         role='listbox'
         ref={ listRef }
         tabIndex='0'
+        { ...listProps }
       >
         { getChildrenWithListProps() }
       </StyledSelectList>
@@ -170,7 +174,9 @@ SelectList.propTypes = {
   /** Text value to highlight an option */
   filterText: PropTypes.string,
   /** Value of option to be highlighted on component render */
-  highlightedValue: PropTypes.string
+  highlightedValue: PropTypes.string,
+  /** A trigger to manually reposition the list */
+  repositionTrigger: PropTypes.bool
 };
 
 export default SelectList;

@@ -121,7 +121,8 @@ SelectTextbox.propTypes = {
    * Value of the Select Input */
   selectedValue: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.object
+    PropTypes.object,
+    PropTypes.arrayOf(PropTypes.string)
   ])
 };
 
