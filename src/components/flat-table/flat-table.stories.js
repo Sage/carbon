@@ -12,6 +12,7 @@ import {
   FlatTableCell,
   Sort
 } from '.';
+import FlatTableCheckbox from './flat-table-checkbox';
 import guid from '../../utils/helpers/guid';
 
 export default {
@@ -50,6 +51,7 @@ export const basic = () => {
 
   return (
     <div style={ tableSizeConstraints }>
+      <FlatTableCheckbox />
       <FlatTable
         colorTheme={ colorTheme }
         hasStickyHead={ hasStickyHead }
