@@ -9,6 +9,7 @@ import {
   StyledDrawerChildren,
   StyledButton
 } from './drawer.style';
+import { noThemeSnapshot } from '../../__spec_helper__/enzyme-snapshot-helper';
 
 jest.mock('../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-123');
@@ -43,7 +44,7 @@ describe('Drawer', () => {
   describe('uncontrolled', () => {
     it('matches snapshot', () => {
       wrapper = render(defaultProps, shallow);
-      expect(wrapper).toMatchSnapshot();
+      expect(noThemeSnapshot(wrapper)).toMatchSnapshot();
     });
 
     it('correctly sets aria attribute', () => {
