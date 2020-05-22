@@ -184,16 +184,4 @@ Dashed buttons can have an icon positioned before or after the text.
   </Story>
 </Preview>
 
-## With overriden styles
-It is possible to override the default styles of a Button by passing in a styleOverride object as a prop. 
-See the prop types for how this object should be formatted.
-<Preview>
-  <Story name="with overriden styles" parameters={{ info: { disable: true }}} >
-  <>
-    <Button buttonType="primary" iconType="print" styleOverride={ {root: { color: 'pink' }, icon : { color: 'pink' }} }>Pink Text</Button>
-    <Button buttonType="secondary" iconType="email" iconPosition="after" styleOverride={ {root: { color: 'purple' }, icon : { color: 'purple' }} }>Purple Text</Button>
-    </>
-  </Story>
-</Preview>
-
 <Props of={Button} />
