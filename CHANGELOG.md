@@ -1,3 +1,34 @@
+### [21.0.1](https://github.com/Sage/carbon/compare/v21.0.0...v21.0.1) (2020-05-22)
+
+
+### Bug Fixes
+
+* **inline-input:** implement aria-labelledby ([59aae72](https://github.com/Sage/carbon/commit/59aae7268c926f4f1935deb280fa9ea830af66e7))
+
+## [21.0.0](https://github.com/Sage/carbon/compare/v20.2.0...v21.0.0) (2020-05-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **action-popover:** In order for the styling to work as before you should pass this component into the `renderButton` prop to guarantee the same look as previously
+* **button:** The `styleOverride` prop has been removed
+
+### Features
+
+* **action-popover:** add a menu button wrapper component ([0cecc47](https://github.com/Sage/carbon/commit/0cecc4748a7967eae04002e5185f41e898ab95af))
+
+
+### Code Refactoring
+
+* **button:** remove style override prop from component ([39df8bc](https://github.com/Sage/carbon/commit/39df8bc0218bb6b9a3e2a2ed858b5475fd09fa4f))
+
+## [20.2.0](https://github.com/Sage/carbon/compare/v20.1.3...v20.2.0) (2020-05-21)
+
+
+### Features
+
+* **accordion:** allow passing data-role prop to the root element ([5b08c5d](https://github.com/Sage/carbon/commit/5b08c5d7da72c2715936de5d3c63cb38ad1d7772))
+
 ### [20.1.3](https://github.com/Sage/carbon/compare/v20.1.2...v20.1.3) (2020-05-18)
 
 
