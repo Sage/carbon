@@ -1,3 +1,10 @@
+### [21.1.2](https://github.com/Sage/carbon/compare/v21.1.1...v21.1.2) (2020-05-22)
+
+
+### Bug Fixes
+
+* **date:** allow to programatically set date as empty string ([7d9e596](https://github.com/Sage/carbon/commit/7d9e596d50971a8d36000726aa4eac31691b5cde))
+
 ### [21.1.1](https://github.com/Sage/carbon/compare/v21.1.0...v21.1.1) (2020-05-22)
 
 
