@@ -11,10 +11,6 @@ export interface ButtonProps {
   iconType?: IconTypes;
   subtext?: string;
   children?: React.ReactNode;
-  styleOverride?: {
-    root?: () => object | object;
-    icon?: () => object | object;
-  };
   renderRouterLink?: (args: object) => React.ReactNode;
   forwardRef?: () => void;
   onClick?: () => void;
