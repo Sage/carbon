@@ -103,7 +103,7 @@ Portrait.propTypes = {
   /** The `alt` HTML string. */
   alt: PropTypes.string,
   /** The shape of the Portrait. */
-  shape: PropTypes.oneOf([...OptionsHelper.shapesVaried, ...OptionsHelper.shapesPortrait]),
+  shape: PropTypes.oneOf(OptionsHelper.shapesPortrait),
   /** The initials to render in the Portrait. */
   initials: PropTypes.string,
   /** Use a dark background. */
