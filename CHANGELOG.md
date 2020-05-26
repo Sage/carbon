@@ -1,3 +1,14 @@
+## [22.0.0](https://github.com/Sage/carbon/compare/v21.1.2...v22.0.0) (2020-05-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **portrait:** removes classic theme support from portrait
+
+### Bug Fixes
+
+* **portrait:** portrait story not loading in storybook ([667a89a](https://github.com/Sage/carbon/commit/667a89a5d67a2138a8ee748a288af913cf2a111e))
+
 ### [21.1.2](https://github.com/Sage/carbon/compare/v21.1.1...v21.1.2) (2020-05-22)
 
 
