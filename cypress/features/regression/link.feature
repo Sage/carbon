@@ -5,6 +5,16 @@ Feature: Link component
     Given I open "Link" component page
 
   @positive
+  Scenario Outline: Change Link target to <target>
+    When I set target to <target> word
+    Then Link on preview target is set to <target>
+    Examples:
+      | target |
+      | _blank |
+      | _self  |
+      | _top   |
+
+  @positive
   Scenario Outline: Change Link children to <children>
     When I set children to <children> word
     Then children on preview is <children>
