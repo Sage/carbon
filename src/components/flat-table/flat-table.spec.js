@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
-import 'jest-styled-components';
 import FlatTable from './flat-table.component';
 import FlatTableHead from './flat-table-head/flat-table-head.component';
 import FlatTableBody from './flat-table-body/flat-table-body.component';
@@ -35,7 +34,7 @@ describe('FlatTable', () => {
       wrapper = renderFlatTable({ hasStickyHead: true }, mount);
     });
 
-    it('should have the overflow-y css property seto to auto', () => {
+    it('should have the overflow-y css property set to to auto', () => {
       expect(wrapper).toHaveStyleRule('overflow-y', 'auto');
     });
 

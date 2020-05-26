@@ -1,3 +1,45 @@
+## [22.0.0](https://github.com/Sage/carbon/compare/v21.1.2...v22.0.0) (2020-05-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **portrait:** removes classic theme support from portrait
+
+### Bug Fixes
+
+* **portrait:** portrait story not loading in storybook ([667a89a](https://github.com/Sage/carbon/commit/667a89a5d67a2138a8ee748a288af913cf2a111e))
+
+### [21.1.2](https://github.com/Sage/carbon/compare/v21.1.1...v21.1.2) (2020-05-22)
+
+
+### Bug Fixes
+
+* **date:** allow to programatically set date as empty string ([7d9e596](https://github.com/Sage/carbon/commit/7d9e596d50971a8d36000726aa4eac31691b5cde))
+
+### [21.1.1](https://github.com/Sage/carbon/compare/v21.1.0...v21.1.1) (2020-05-22)
+
+
+### Bug Fixes
+
+* **button:** add missing type declarations ([36aeedc](https://github.com/Sage/carbon/commit/36aeedcaff749244712b71f9ca8736b6c288e3b4))
+* **content:** add typescript declarations ([de8c335](https://github.com/Sage/carbon/commit/de8c335f8c6ef96f3e69ebb37b7e605eeec73c6d))
+
+## [21.1.0](https://github.com/Sage/carbon/compare/v21.0.1...v21.1.0) (2020-05-22)
+
+
+### Features
+
+* **flat-table-checkbox:** add new component used when rows selectable ([ca387f1](https://github.com/Sage/carbon/commit/ca387f16d5a78650f8dd870ddc9830e4c038e95e))
+* **flat-table-row:** add new prop to apply highlighted styling ([28ecefa](https://github.com/Sage/carbon/commit/28ecefa203843df00d8cacaa0a5384085a31d0a9))
+* **flat-table-row:** add new prop to apply styling when row is selected ([19c60ff](https://github.com/Sage/carbon/commit/19c60ffe4d942cdae1918b2948cc678bb949d7b6))
+
+### [21.0.1](https://github.com/Sage/carbon/compare/v21.0.0...v21.0.1) (2020-05-22)
+
+
+### Bug Fixes
+
+* **inline-input:** implement aria-labelledby ([59aae72](https://github.com/Sage/carbon/commit/59aae7268c926f4f1935deb280fa9ea830af66e7))
+
 ## [21.0.0](https://github.com/Sage/carbon/compare/v20.2.0...v21.0.0) (2020-05-22)
 
 

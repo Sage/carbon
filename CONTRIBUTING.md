@@ -25,6 +25,7 @@ We love contributions, so thanks for choosing to get involved with the Carbon pr
 
 [Styleguides](#styleguides)
 * [Git commit messages](#git-commit-messages)
+* [JavaScript guide](./docs/javascript-styleguide.md)
 
 ## What is Carbon?
 Carbon is an [open source](https://opensource.com/resources/what-open-source) library of user interface components. These components are intentionally designed to be reusable, accessible, easy to use, and easy to develop with. We follow the principles of atomic design and strive to provide elements that are the building blocks of a user interface.

@@ -78,6 +78,9 @@ class BaseDateInput extends React.Component {
   }
 
   hasValueChanged = (prevProps) => {
+    if (this.props.allowEmptyValue) {
+      return prevProps.value !== this.props.value;
+    }
     return this.props.value && prevProps.value !== this.props.value;
   };
 
@@ -287,9 +290,17 @@ class BaseDateInput extends React.Component {
   };
 
   updateSelectedDate = (newValue) => {
-    const newDate = this.getDateObject(newValue);
+    let selectedDate;
+    let visibleValue;
+    if (!newValue.length) {
+      selectedDate = newValue;
+      visibleValue = newValue;
+    } else {
+      selectedDate = this.getDateObject(newValue);
+      visibleValue = DateHelper.formatDateToCurrentLocale(newValue);
+    }
 
-    this.setState({ selectedDate: newDate, visibleValue: DateHelper.formatDateToCurrentLocale(newValue) });
+    this.setState({ selectedDate, visibleValue });
   };
 
   getDateObject = (newValue) => {
