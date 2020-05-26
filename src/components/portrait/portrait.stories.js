@@ -2,11 +2,10 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { select, text, boolean } from '@storybook/addon-knobs';
 import { ThemeProvider } from 'styled-components';
-import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
+import { dlsThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Portrait from './portrait.component';
 import { notes, info } from './documentation';
-import classicTheme from '../../style/themes/classic';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Portrait.__docgenInfo = getDocGenInfo(
@@ -26,12 +25,6 @@ function commonKnobs() {
   });
 }
 
-function classicKnobs() {
-  return {
-    size: select('size', OptionsHelper.sizesFull, 'medium'),
-    shape: select('shape', OptionsHelper.shapesVaried, 'standard')
-  };
-}
 
 function dlsKnobs() {
   return {
@@ -41,20 +34,6 @@ function dlsKnobs() {
 }
 
 storiesOf('Portrait', module)
-  .add('classic', () => (
-    <ThemeProvider theme={ classicTheme }>
-      <Portrait
-        { ...commonKnobs() }
-        { ...classicKnobs() }
-      />
-    </ThemeProvider>
-  ),
-  {
-    themeSelector: classicThemeSelector,
-    info: { text: info, propTablesExclude: [ThemeProvider] },
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false }
-  })
   .add('default', () => (
     <Portrait
       { ...commonKnobs() }
