@@ -4,9 +4,6 @@ import Icon from '../icon';
 import StyledButton, { StyledButtonSubtext } from './button.style';
 import tagComponent from '../../utils/helpers/tags';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import Logger from '../../utils/logger/logger';
-
-let deprecatedWarnTriggered = false;
 
 const renderStyledButton = (buttonProps) => {
   const {
@@ -16,7 +13,6 @@ const renderStyledButton = (buttonProps) => {
     theme,
     forwardRef,
     href,
-    styleOverride,
     ...styleProps
   } = buttonProps;
 
@@ -36,7 +32,6 @@ const renderStyledButton = (buttonProps) => {
       { ...tagComponent('button', buttonProps) }
       { ...styleProps }
       ref={ forwardRef }
-      styleOverride={ styleOverride }
     >
       { renderChildren(buttonProps) }
     </StyledButton>
@@ -44,10 +39,6 @@ const renderStyledButton = (buttonProps) => {
 };
 
 const Button = (props) => {
-  if (!deprecatedWarnTriggered) {
-    deprecatedWarnTriggered = true;
-    Logger.deprecate('`styleOverride` that is used in the `Button` component is deprecated and will soon be removed.');
-  }
   const {
     disabled, to, iconType, renderRouterLink, size, subtext
   } = props;
@@ -145,11 +136,6 @@ Button.propTypes = {
   href: PropTypes.string,
   /** Legacy - transforms button into anchor, must be accompanied by a router link passed via `renderRouterLink` */
   to: PropTypes.string,
-  /** Allows override of existing component styles */
-  styleOverride: PropTypes.shape({
-    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    icon: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
-  }),
   /** Render prop that when coupled with the `to` prop will render the a routing anchor link */
   renderRouterLink: PropTypes.func
 };
@@ -160,8 +146,7 @@ Button.defaultProps = {
   disabled: false,
   destructive: false,
   iconPosition: 'before',
-  subtext: '',
-  styleOverride: { root: {}, icon: {} }
+  subtext: ''
 };
 
 const ButtonWithForwardRef = React.forwardRef((props, ref) => <Button forwardRef={ ref } { ...props } />);

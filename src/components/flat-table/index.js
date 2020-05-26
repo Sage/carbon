@@ -5,4 +5,5 @@ export { default as FlatTableBody } from './flat-table-body/flat-table-body.comp
 export { default as FlatTableRow } from './flat-table-row/flat-table-row.component';
 export { default as FlatTableRowHeader } from './flat-table-row-header/flat-table-row-header.component';
 export { default as FlatTableCell } from './flat-table-cell/flat-table-cell.component';
+export { default as FlatTableCheckbox } from './flat-table-checkbox/flat-table-checkbox.component';
 export { default as Sort } from './sort/sort.component';

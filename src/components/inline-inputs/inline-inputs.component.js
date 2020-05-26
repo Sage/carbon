@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { Row, Column } from '../row';
 import Label from '../../__experimental__/components/label';
 import StyledInlineInputs from './inline-inputs.style';
+import createGuid from '../../utils/helpers/guid';
 
 const columnWrapper = (children) => {
   let inputs = children;
@@ -32,17 +33,33 @@ const InlineInputs = (props) => {
     gutter
   } = props;
 
+  const labelId = useRef(createGuid());
+
   function renderLabel() {
     if (!label) return null;
 
-    return <Label inline htmlFor={ htmlFor }>{ label }</Label>;
+    return (
+      <Label
+        labelId={ labelId.current }
+        inline
+        htmlFor={ htmlFor }
+      >
+        { label }
+      </Label>
+    );
+  }
+
+  function renderChildren() {
+    if (!label) return children;
+
+    return React.Children.map(children, child => React.cloneElement(child, { 'aria-labelledby': labelId.current }));
   }
 
   return (
     <StyledInlineInputs data-component='inline-inputs' className={ className }>
       { renderLabel() }
       <Row gutter={ gutter }>
-        { columnWrapper(children) }
+        { columnWrapper(renderChildren()) }
       </Row>
     </StyledInlineInputs>
   );
