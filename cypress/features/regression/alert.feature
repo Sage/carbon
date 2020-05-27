@@ -12,27 +12,27 @@ Feature: Alert component
 
   @positive
   Scenario Outline: Change Alert component title to <title>
-    When I set title to "<title>"
+    When I set title to <title> word
       And I open component preview
-    Then component title on preview is "<title>"
+    Then component title on preview is <title>
     Examples:
       | title                   |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-  # @ignore because of FE-1447
-  # | <>                       |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Change Alert subtitle to <subtitle>
-    When I set subtitle to "<subtitle>"
+    When I set subtitle to <subtitle> word
       And I open component preview
-    Then component subtitle on preview is "<subtitle>"
+    Then component subtitle on preview is <subtitle>
     Examples:
       | subtitle                |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-  # @ignore because of FE-1447
-  # | <>                       |
+  # @ignore because of FE-2782
+  # | &"'<>|                     |
 
   @positive
   Scenario Outline: Change Alert children to <children>
@@ -43,8 +43,8 @@ Feature: Alert component
       | children                |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-  # @ignore because of FE-1447
-  # | <>                       |
+  # @ignore because of FE-2782
+  # | &"'<>|                   |
 
   @positive
   Scenario: Enable background UI
@@ -91,10 +91,9 @@ Feature: Alert component
       And I open component preview
     Then Alert height is set to "<height>"
     Examples:
-      | height                   |
-      | -1                       |
-      | -10                      |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | height                  |
+      | -1                      |
+      | -10                     |
 
   @positive
   Scenario: Clicking close icon, closes Alert dialog

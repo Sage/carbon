@@ -6,12 +6,12 @@ Feature: Experimental Checkbox component
 
   @positive
   Scenario Outline: Change Checkbox component label to <label>
-    When I set label to "<label>"
-    Then checkbox label on preview is "<label>"
+    When I set label to <label> word
+    Then checkbox label on preview is <label>
     Examples:
-      | label                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | label                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Disable and enable checkbox
@@ -26,12 +26,12 @@ Feature: Experimental Checkbox component
 
   @positive
   Scenario Outline: Change Checkbox component field help to <fieldHelp>
-    When I set fieldHelp to "<fieldHelp>"
-    Then fieldHelp on preview is set to "<fieldHelp>"
+    When I set fieldHelp to <fieldHelp> word
+    Then fieldHelp on preview is set to <fieldHelp>
     Examples:
-      | fieldHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | fieldHelp                    |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Enable fieldHelpInline
@@ -56,13 +56,13 @@ Feature: Experimental Checkbox component
 
   @positive
   Scenario Outline: Change Checkbox component label help to <labelHelp>
-    When I set labelHelp to "<labelHelp>"
+    When I set labelHelp to <labelHelp> word
       And I hover mouse onto help icon
-    Then tooltipPreview on preview is set to "<labelHelp>"
+    Then tooltipPreview on preview is set to <labelHelp>
     Examples:
-      | labelHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | labelHelp                    |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change Checkbox label align to <direction>

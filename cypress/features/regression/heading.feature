@@ -6,57 +6,58 @@ Feature: Heading component
 
   @positive
   Scenario Outline: Change heading title to <title>
-    When I set title to "<title>"
-    Then heading title is set to "<title>"
+    When I set title to <title> word
+    Then heading title is set to <title>
     Examples:
-      | title                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | title                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change children to <children>
-    When I set children to "<children>"
-    Then heading children on preview is "<children>"
+    When I set children to <children> word
+    Then heading children on preview is <children>
     Examples:
-      | children    |
-      | mp150ú¿¡üßä |
+      | children                     |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change subheader to <subheader>
-    When I set subheader to "<subheader>"
-    Then subheader on preview is "<subheader>"
+    When I set subheader to <subheader> word
+    Then subheader on preview is <subheader>
     Examples:
-      | subheader               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | subheader                    |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change help to <help>
-    When I set help to "<help>"
+    When I set help to <help> word
       And I hover mouse onto help icon
-    Then tooltipPreview on preview is set to "<help>"
+    Then tooltipPreview on preview is set to <help>
     Examples:
-      | help                    |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | help                         |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change helpLink to <helpLink>
-    When I set helpLink to "<helpLink>"
-    Then link on preview is "<helpLink>"
+    When I set helpLink to <helpLink> word
+    Then link on preview is <helpLink>
     Examples:
-      | helpLink                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | helpLink                     |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change backLink to <backLink>
-    When I set backLink to "<backLink>"
-    Then backLink on preview is "<backLink>"
+    When I set backLink to <backLink> word
+    Then backLink on preview is <backLink>
     Examples:
-      | backLink                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | backLink                     |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Check divider

@@ -3,7 +3,7 @@ import {
   menuSecondOption, menuList,
 } from '../../locators/menu-list';
 
-Then('title on preview is {string}', (title) => {
+Then('title on preview is {word}', (title) => {
   menuTitle().should('have.text', title);
 });
 

@@ -1,7 +1,7 @@
 import { dialogFullScreenChildren, dialogFullScreenPreview, dialogFullScreenPreviewClosedState } from '../../locators/dialog-full-screen';
 import { dialogStickyFormFooter } from '../../locators/dialog';
 
-Then('Dialog Full Screen children on preview is {string}', (children) => {
+Then('Dialog Full Screen children on preview is {word}', (children) => {
   dialogFullScreenChildren().should('have.text', children);
 });
 

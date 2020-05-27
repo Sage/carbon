@@ -5,11 +5,11 @@ const CONTENT_ALIGN_LABEL = `${CONTENT_AS_LABEL}align-`;
 const BODY_FULL_WIDTH_PARAMETR = `${CONTENT_AS_LABEL}body-full-width`;
 const INLINE = `${CONTENT_AS_LABEL}inline`;
 
-Then('content children on preview is {string}', (children) => {
+Then('content children on preview is {word}', (children) => {
   contentBody().should('have.text', children);
 });
 
-Then('content title context children on preview is {string}', (title) => {
+Then('content title context children on preview is {word}', (title) => {
   contentTitle().should('have.text', title);
 });
 

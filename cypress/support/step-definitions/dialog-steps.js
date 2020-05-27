@@ -11,7 +11,7 @@ Then('Dialog height is set to {string}', (height) => {
   dialogPreview().should('have.attr', 'style').should('contain', `min-height: ${height}px`);
 });
 
-Then('Dialog height is not set to {string}', (height) => {
+Then('Dialog height is not set to {word}', (height) => {
   dialogPreview().should('have.attr', 'style').should('not.contain', `min-height: ${height}px`);
 });
 

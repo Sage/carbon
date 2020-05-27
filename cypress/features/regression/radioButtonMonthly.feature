@@ -8,32 +8,32 @@ Feature: Experimental RadioButton monthly component
 
   @positive
   Scenario Outline: Change RadioButton component monthly label to <label>
-    When I set group monthly label to "<label>"
-    Then "second" radioButton on preview is "<label>"
+    When I set group monthly label to <label>
+    Then "second" radioButton on preview is <label>
     Examples:
-      | label                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | label                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change RadioButton component monthly help label to <labelHelp>
-    When I set group monthly labelHelp to "<labelHelp>"
+    When I set group monthly labelHelp to <labelHelp>
       And I hover mouse onto "second" help icon
-    Then tooltipPreview on preview is set to "<labelHelp>"
+    Then tooltipPreview on preview is set to <labelHelp>
     Examples:
-      | labelHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | labelHelp                    |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
 
   @positive
   Scenario Outline: Change RadioButton component monthly value to <monthlyValue>
-    When I set group monthly value to "<monthlyValue>"
-    Then "monthly" RadioButton has value "<monthlyValue>"
+    When I set group monthly value to <monthlyValue>
+    Then "monthly" RadioButton has value <monthlyValue>
     Examples:
-      | monthlyValue            |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | monthlyValue                 |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Disable RadioButton
@@ -68,12 +68,12 @@ Feature: Experimental RadioButton monthly component
 
   @positive
   Scenario Outline: Change RadioButton component field help to <fieldHelp>
-    When I set group monthly fieldHelp to "<fieldHelp>"
-    Then "second" fieldHelp on preview is set to "<fieldHelp>"
+    When I set group monthly fieldHelp to <fieldHelp>
+    Then "second" fieldHelp on preview is set to <fieldHelp>
     Examples:
-      | fieldHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | fieldHelp                    |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Enable fieldHelpInline

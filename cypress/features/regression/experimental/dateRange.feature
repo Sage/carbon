@@ -6,21 +6,25 @@ Feature: Date Range component
 
   @positive
   Scenario Outline: Change Date Range start label to <label>
-    When I set startLabel to "<label>"
-    Then startLabel on preview is "<label>"
+    When I set startLabel to <label> word
+    Then startLabel on preview is <label>
     Examples:
       | label                   |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Change Date Range end label to <label>
-    When I set endLabel to "<label>"
-    Then endLabel on preview is "<label>"
+    When I set endLabel to <label> word
+    Then endLabel on preview is <label>
     Examples:
       | label                   |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario: Enable labels inline checkbox

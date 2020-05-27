@@ -6,12 +6,14 @@ Feature: Button Toggle component
 
   @positive
   Scenario Outline: Set Button Toggle childen to <label>
-    When I set children to "<label>"
-    Then Button Toggle label on preview is "<label>"
+    When I set children to <label> word
+    Then Button Toggle label on preview is <label>
     Examples:
       | label                   |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @ignore
   # @ignore until solution is applied to round sizes as integers as Chrome v80 has amended pixel sizes

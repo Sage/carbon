@@ -8,7 +8,7 @@ When('I trigger Animated Menu Button preview', () => {
   animatedMenuButtonPreview().trigger('mouseover');
 });
 
-Then('Animated Menu Button label on preview is {string}', (text) => {
+Then('Animated Menu Button label on preview is {word}', (text) => {
   label().should('have.text', text);
 });
 

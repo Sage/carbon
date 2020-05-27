@@ -6,30 +6,36 @@ Feature: Settings Row component
 
   @positive
   Scenario Outline: Change Settings Row children to <children>
-    When I set children to "<children>"
-    Then Settings Row children on preview is set to "<children>"
+    When I set children to <children> word
+    Then Settings Row children on preview is set to <children>
     Examples:
       | children                |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Change Settings Row title to <title>
-    When I set title to "<title>"
-    Then Settings Row title on preview is set to "<title>"
+    When I set title to <title> word
+    Then Settings Row title on preview is set to <title>
     Examples:
       | title                   |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Change Settings Row description to <description>
-    When I set description to "<description>"
-    Then Settings Row description on preview is set to "<description>"
+    When I set description to <description> word
+    Then Settings Row description on preview is set to <description>
     Examples:
       | description             |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario: Enable divider checkbox for a Settings Row component

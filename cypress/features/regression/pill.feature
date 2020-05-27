@@ -6,12 +6,12 @@ Feature: Pill component
 
   @positive
   Scenario Outline: Change Pill children to <children>
-    When I set children to "<children>"
-    Then Pill children on preview is set to "<children>"
+    When I set children to <children> word
+    Then Pill children on preview is set to <children>
     Examples:
-      | children                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | children                     |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Enable and disable fill checkbox for a Pill component

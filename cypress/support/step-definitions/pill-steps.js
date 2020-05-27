@@ -3,7 +3,7 @@ import { pillPreview, pillCloseIcon } from '../../locators/pill';
 const PILL_ON_DELETE_PROPERTY = 'carbon-pill--is-deletable';
 const BORDER_SOLID_VALUE = '1px solid ';
 
-Then('Pill children on preview is set to {string}', (text) => {
+Then('Pill children on preview is set to {word}', (text) => {
   pillPreview().should('have.text', text);
 });
 

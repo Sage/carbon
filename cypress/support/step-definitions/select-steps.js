@@ -29,7 +29,7 @@ Then('Select multiple input {int} element and has {string} value', (index, text)
   selectPill(index).should('have.attr', 'title', text);
 });
 
-Then('Select placeholder on preview is set to {string}', (text) => {
+Then('Select placeholder on preview is set to {word}', (text) => {
   select().should('have.attr', 'placeholder', text);
 });
 

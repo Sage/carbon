@@ -22,31 +22,31 @@ Feature: Dialog component
 
   @negative
   Scenario Outline: Set out of scope characters to <height>
-    When I set height to "<height>"
-    Then Dialog height is not set to "<height>"
+    When I set height to <height> word
+    Then Dialog height is not set to <height>
     Examples:
-      | height                   |
-      | -1                       |
-      | -10                      |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | height                       |
+      | -1                           |
+      | -10                          |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change Dialog component title to <title>
-    When I set title to "<title>"
-    Then component title on preview is "<title>"
+    When I set title to <title> word
+    Then component title on preview is <title>
     Examples:
-      | title                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | title                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change Dialog subtitle to <subtitle>
-    When I set subtitle to "<subtitle>"
-    Then component subtitle on preview is "<subtitle>"
+    When I set subtitle to <subtitle> word
+    Then component subtitle on preview is <subtitle>
     Examples:
-      | subtitle                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | subtitle                     |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Set Dialog size to <sizeName>

@@ -6,13 +6,13 @@ Feature: Search component
 
   @positive
   Scenario Outline: Set placeholder to <placeholder>
-    When I set placeholder to "<placeholder>"
-    Then Search component placeholder is set to "<placeholder>"
+    When I set placeholder to <placeholder> word
+    Then Search component placeholder is set to <placeholder>
     Examples:
-      | placeholder             |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
-  
+      | placeholder                  |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
+
   # will remove when Applitools will be implemented
   @positive
   Scenario: Verify proper color for search icon button

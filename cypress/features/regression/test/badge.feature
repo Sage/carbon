@@ -30,14 +30,14 @@ Feature: Badge component
 
   @negative
   Scenario Outline: Set Badge component to out of scope to <counter>
-    When I set counter to "<counter>"
+    When I set counter to <counter> word
     Then Badge component counter does not exist
     Examples:
-      | counter                 |
-      | 0                       |
-      | -12                     |
-      | test                    |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | counter                      |
+      | 0                            |
+      | -12                          |
+      | test                         |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Hover Badge component and verify that cross icon appears

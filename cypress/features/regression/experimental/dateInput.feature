@@ -28,27 +28,31 @@ Feature: Experimental Date Input component
 
   @positive
   Scenario Outline: Change DateInput component field help to <fieldHelp>
-    When I set fieldHelp to "<fieldHelp>"
-    Then fieldHelp on preview is set to "<fieldHelp>"
+    When I set fieldHelp to <fieldHelp> word
+    Then fieldHelp on preview is set to <fieldHelp>
     Examples:
       | fieldHelp               |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Change DateInput label to <label>
-    When I set label to "<label>"
-    Then label on preview is "<label>"
+    When I set label to <label> word
+    Then label on preview is <label>
     Examples:
       | label                   |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario: Enable label inline checkbox for Date Input component
     When I set label to "labelSample"
       And I check labelInline checkbox
-    Then label is set to inline
+    Then label is inline
 
   @positive
   Scenario Outline: Change Date Input component label align to <labelAlign>

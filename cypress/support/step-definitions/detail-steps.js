@@ -1,11 +1,11 @@
 import { childrenPreview, footnotePreview, iconSelect } from '../../locators/detail';
 import { icon, getElementNoIframe } from '../../locators';
 
-Then('detail children on preview is {string}', (children) => {
+Then('detail children on preview is {word}', (children) => {
   childrenPreview().should('have.text', children);
 });
 
-Then('detail footnote on preview is {string}', (footnote) => {
+Then('detail footnote on preview is {word}', (footnote) => {
   footnotePreview().should('have.text', footnote);
 });
 

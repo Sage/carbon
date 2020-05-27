@@ -6,12 +6,12 @@ Feature: Experimental Textbox multiple component
 
   @positive
   Scenario Outline: Set placeholder to <placeholder>
-    When I set placeholder to "<placeholder>"
-    Then Multiple Textbox placeholder is set to "<placeholder>"
+    When I set placeholder to <placeholder> word
+    Then Multiple Textbox placeholder is set to <placeholder>
     Examples:
-      | placeholder             |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | placeholder                  |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Check disabled checkbox for a Textbox multiple component
@@ -37,33 +37,33 @@ Feature: Experimental Textbox multiple component
 
   @positive
   Scenario Outline: Set fieldHelp to <fieldHelp>
-    When I set fieldHelp to "<fieldHelp>"
-    Then Multiple fieldHelp on preview is set to "<fieldHelp>"
+    When I set fieldHelp to <fieldHelp> word
+    Then Multiple fieldHelp on preview is set to <fieldHelp>
     Examples:
-      | fieldHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | fieldHelp                    |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Set label to <label>
-    When I set label to "<label>"
-    Then Multiple label is set to "<label>"
+    When I set label to <label> word
+    Then Multiple label is set to <label>
     Examples:
-      | label                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | label                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Set labelHelp to <labelHelp>
     Given I set label to "label"
-      And I set labelHelp to "<labelHelp>"
+      And I set labelHelp to <labelHelp> word
     When I hover mouse onto "first" help icon
       And I hover mouse onto "second" help icon
-    Then Multiple tooltipPreview on preview is set to "<labelHelp>"
+    Then Multiple tooltipPreview on preview is set to <labelHelp>
     Examples:
-      | labelHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | labelHelp                    |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Enable labelInline checkbox for a Textbox multiple component
@@ -115,13 +115,13 @@ Feature: Experimental Textbox multiple component
 
   @positive
   Scenario Outline: Verify input of Textbox multiple component
-    When I input "<input>" into "first" Textbox
-      And I input "<input>" into "second" Textbox
-    Then Multiple textbox input on preview is set to "<input>"
+    When I type <input> into "first" Textbox
+      And I type <input> into "second" Textbox
+    Then Multiple textbox input on preview is set to <input>
     Examples:
-      | input                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | input                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Set label size to <size>

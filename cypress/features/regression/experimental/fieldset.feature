@@ -6,12 +6,12 @@ Feature: Experimental Fieldset component
 
   @positive
   Scenario Outline: Change legend in Fieldset to <legend>
-    When I set legend to "<legend>"
-    Then legend on preview is "<legend>"
+    When I set legend to <legend> word
+    Then legend on preview is <legend>
     Examples:
-      | legend                  |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | legend                       |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @negative
   Scenario: Set legend in Fieldset to empty

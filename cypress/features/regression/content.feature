@@ -6,25 +6,25 @@ Feature: Content component
 
   @positive
   Scenario Outline: Change children in Content dialog to <children>
-    When I set children to "<children>"
-    Then content children on preview is "<children>"
+    When I set children to <children> word
+    Then content children on preview is <children>
     Examples:
       | children                |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-  # @ignore because of FE-1447
-  # | <>                       |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Change title in Content dialog to <title>
-    When I set title to "<title>"
-    Then content title context children on preview is "<title>"
+    When I set title to <title> word
+    Then content title context children on preview is <title>
     Examples:
       | title                   |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-  # @ignore because of FE-1447
-  # | <>                       |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Change property in Content dialog to <property>

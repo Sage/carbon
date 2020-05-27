@@ -6,12 +6,12 @@ Feature: Rainbow component
 
   @positive
   Scenario Outline: Set title to <title>
-    When I set title to "<title>"
-    Then Rainbow title is "<title>"
+    When I set title to <title> word
+    Then Rainbow title is <title>
     Examples:
-      | title                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | title                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Set color from json file
