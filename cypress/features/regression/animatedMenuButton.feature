@@ -6,15 +6,15 @@ Feature: Animated Menu Button component
 
   @positive
   Scenario Outline: Change Animated Menu Button label to <label>
-    When I set label to "<label>"
+    When I set label to <label> word
       And I trigger Animated Menu Button preview
-    Then Animated Menu Button label on preview is "<label>"
+    Then Animated Menu Button label on preview is <label>
     Examples:
       | label                   |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-  # @ignore because of FE-1447
-  # | <>                       |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Change Animated Menu Button direction to <direction>

@@ -10,11 +10,11 @@ import { positionOfElement } from '../helper';
 
 const TEXT_ALIGN = 'text-align';
 
-Then('Textbox placeholder is set to {string}', (text) => {
+Then('Textbox placeholder is set to {word}', (text) => {
   textbox().children().should('have.attr', 'placeholder', text);
 });
 
-Then('Multiple Textbox placeholder is set to {string}', (text) => {
+Then('Multiple Textbox placeholder is set to {word}', (text) => {
   textbox(positionOfElement('first')).children().should('have.attr', 'placeholder', text);
   textbox(positionOfElement('second')).children().should('have.attr', 'placeholder', text);
 });
@@ -106,12 +106,12 @@ Then('Textbox multiple component is not readOnly', () => {
     .and('have.css', 'background-color', backgroundColor);
 });
 
-Then('Multiple fieldHelp on preview is set to {string}', (text) => {
+Then('Multiple fieldHelp on preview is set to {word}', (text) => {
   fieldHelpPreviewByPosition(positionOfElement('first')).should('have.text', text);
   fieldHelpPreviewByPosition(positionOfElement('second')).should('have.text', text);
 });
 
-Then('Multiple label is set to {string}', (text) => {
+Then('Multiple label is set to {word}', (text) => {
   labelByPosition(positionOfElement('first')).should('have.text', text);
   labelByPosition(positionOfElement('second')).should('have.text', text);
 });
@@ -134,7 +134,7 @@ Then('Multiple Textbox component is not labelInline', () => {
   labelByPosition(positionOfElement('second')).should('not.have.css', TEXT_ALIGN, 'left');
 });
 
-Then('Multiple tooltipPreview on preview is set to {string}', (text) => {
+Then('Multiple tooltipPreview on preview is set to {word}', (text) => {
   tooltipPreviewByPosition(positionOfElement('first')).should('have.text', text);
   tooltipPreviewByPosition(positionOfElement('second')).should('have.text', text);
 });
@@ -153,21 +153,21 @@ Then('Multiple label width is set to {string}', (width) => {
   labelByPosition(positionOfElement('second')).should('have.attr', 'width', `${width}`);
 });
 
-When('I input {string} into Textbox', (text) => {
+When('I type {word} into Textbox', (text) => {
   textbox().children().clear().type(text);
 });
 
-When('I input {string} into {string} Textbox', (text, position) => {
+When('I type {word} into {string} Textbox', (text, position) => {
   textboxByPosition(positionOfElement(position)).children().clear().type(text);
 });
 
-Then('Textbox input on preview is set to {string}', () => {
+Then('Textbox input on preview is set to {word}', () => {
   textbox().children().invoke('text').then(((text) => {
     expect(text.trim()).to.eq(text);
   }));
 });
 
-Then('Multiple textbox input on preview is set to {string}', () => {
+Then('Multiple textbox input on preview is set to {word}', () => {
   textbox(positionOfElement('first')).children().invoke('text').then(((text) => {
     expect(text.trim()).to.eq(text);
   }));

@@ -17,12 +17,12 @@ Feature: Pod component
 
   @positive
   Scenario Outline: Change Pod children to <children>
-    When I set children to "<children>"
-    Then Pod children on preview is set to "<children>"
+    When I set children to <children> word
+    Then Pod children on preview is set to <children>
     Examples:
-      | children                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | children                     |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Set Pod padding to <padding>
@@ -50,22 +50,22 @@ Feature: Pod component
 
   @positive
   Scenario Outline: Change Pod title to <title>
-    When I set title to "<title>"
-    Then Pod title on preview is set to "<title>"
+    When I set title to <title> word
+    Then Pod title on preview is set to <title>
     Examples:
-      | title                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | title                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change Pod subtitle to <subtitle>
     Given I set title to "title"
-    When I set subtitle to "<subtitle>"
-    Then Pod subtitle on preview is set to "<subtitle>"
+    When I set subtitle to <subtitle> word
+    Then Pod subtitle on preview is set to <subtitle>
     Examples:
-      | subtitle                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | subtitle                     |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change Pod alignTitle to <alignTitle>
@@ -84,21 +84,21 @@ Feature: Pod component
 
   @positive
   Scenario Outline: Change Pod description to <description>
-    When I set description to "<description>"
-    Then Pod description on preview is set to "<description>"
+    When I set description to <description> word
+    Then Pod description on preview is set to <description>
     Examples:
-      | description             |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | description                  |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change Pod footer to <footer>
-    When I set footer to "<footer>"
-    Then Pod footer on preview is set to "<footer>"
+    When I set footer to <footer> word
+    Then Pod footer on preview is set to <footer>
     Examples:
-      | footer                  |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | footer                       |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Enable and disable onEdit checkbox for a Pod component

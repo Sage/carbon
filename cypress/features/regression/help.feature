@@ -6,13 +6,13 @@ Feature: Help component
 
   @positive
   Scenario Outline: Change children to <children>
-    When I set children to "<children>"
+    When I set children to <children> word
       And I hover mouse onto help icon
-    Then  tooltipPreview on preview is set to "<children>"
+    Then  tooltipPreview on preview is set to <children>
     Examples:
-      | children                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | children                     |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change tooltip position to <tooltipPosition>
@@ -43,12 +43,12 @@ Feature: Help component
 
   @positive
   Scenario Outline: Change href to <href>
-    When I set href to "<href>"
-    Then Help href on preview is set to "<href>"
+    When I set href to <href> word
+    Then Help href on preview is set to <href>
     Examples:
-      | href                    |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | href                         |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Verify default color for help icon

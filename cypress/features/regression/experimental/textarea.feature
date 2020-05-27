@@ -59,21 +59,25 @@ Feature: Experimental Textarea component
 
   @positive
   Scenario Outline: Set placeholder to <placeholder>
-    When I set placeholder to "<placeholder>"
-    Then placeholder is set to "<placeholder>"
+    When I set placeholder to <placeholder> word
+    Then placeholder is set to <placeholder>
     Examples:
       | placeholder             |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Set fieldHelp to <fieldHelp>
-    When I set fieldHelp to "<fieldHelp>"
-    Then fieldHelp is set to "<fieldHelp>"
+    When I set fieldHelp to <fieldHelp> word
+    Then fieldHelp is set to <fieldHelp>
     Examples:
       | fieldHelp               |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Set characterLimit to <characterLimit>
@@ -92,14 +96,16 @@ Feature: Experimental Textarea component
 
   @negative
   Scenario Outline: Set characterLimit out of scope to <characterLimit>
-    When I set characterLimit to "<characterLimit>"
-    Then characterLimit for default Textarea is not set to "<characterLimit>"
+    When I set characterLimit to <characterLimit> word
+    Then characterLimit for default Textarea is not set to <characterLimit>
     Examples:
       | characterLimit          |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
       | -0,112                  |
       | 0.1112333               |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Set inputWidth to <inputWidth>
@@ -113,23 +119,27 @@ Feature: Experimental Textarea component
 
   @positive
   Scenario Outline: Set label to <label>
-    When I set label to "<label>"
-    Then label is set to "<label>"
+    When I set label to <label> word
+    Then label is set to <label>
     Examples:
       | label                   |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Set labelHelp to <labelHelp>
     When I set label to "label"
-      And I set labelHelp to "<labelHelp>"
+      And I set labelHelp to <labelHelp> word
       And I hover mouse onto help icon
-    Then tooltipPreview on preview is set to "<labelHelp>"
+    Then tooltipPreview on preview is set to <labelHelp>
     Examples:
       | labelHelp               |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario: Enable labelInline checkbox for a Textarea component
@@ -174,7 +184,7 @@ Feature: Experimental Textarea component
       And I check warnOverLimit checkbox
       And I check enforceCharacterLimit checkbox
       And I uncheck enforceCharacterLimit checkbox
-      And I input "<text>" into Textarea
+      And I input <text> into Textarea
     Then Textarea component has warnOverLimit and used characters <characters> of <limit>
     Examples:
       | limit | text             | characters |
@@ -190,27 +200,26 @@ Feature: Experimental Textarea component
       And I uncheck warnOverLimit checkbox
       And I check enforceCharacterLimit checkbox
       And I uncheck enforceCharacterLimit checkbox
-      And I input "<text>" into Textarea
+      And I input <text> into Textarea
     Then Textarea component has no warnOverLimit and used characters <characters> of <limit>
     Examples:
-      | limit | text              | characters |
-      | 0     | !!                | 2          |
-      | 3     | 123456            | 6          |
-      | 5     | áéíóú¿¡üñą       | 10         |
-      | 10    | testTestTextTest! | 17         |
+      | limit | text        | characters |
+      | 0     | !!          | 2          |
+      | 3     | 123456      | 6          |
+      | 5     | áéíóú¿¡üñą | 10         |
 
   @positive
   Scenario Outline: Enable enforceCharacterLimit checkbox for a Textarea component and check the warning
     Given I set characterLimit to "<limit>"
-    When I input "<text>" into Textarea
+    When I input <text> into Textarea
     Then Textarea component has enforceCharacterLimit enabled and used characters <characters> are equal to limit <limit>
     Examples:
-      | limit | text             | characters |
-      | -1    | ?                | 1          |
-      | 2     | !!!              | 2          |
-      | 5     | testText         | 5          |
-      | 7     | áéíóú¿¡üñ        | 7          |
-      | 10    | testTestTextTest | 10         |
+      | limit | text      | characters |
+      | -1    | ?         | 1          |
+      | 2     | !!!       | 2          |
+      | 5     | testText  | 5          |
+      | 7     | áéíóú¿¡üñ | 7          |
+
 
   #double checking / unchecking warnOverLimit/enforceCharacterLimit should be fixed in FE-1778 and should be deleted
   @positive
@@ -218,21 +227,22 @@ Feature: Experimental Textarea component
     When I set characterLimit to "<limit>"
       And I check enforceCharacterLimit checkbox
       And I uncheck enforceCharacterLimit checkbox
-      And I input "<text>" into Textarea
+      And I input <text> into Textarea
     Then Textarea component has enforceCharacterLimit disabled and used characters <characters> are more than limit <limit>
     Examples:
-      | limit | text             | characters |
-      | -1    | testText         | 8          |
-      | 0     | !                | 1          |
-      | 3     | 12345            | 5          |
-      | 5     | áéíóú¿¡üñ        | 9          |
-      | 10    | testTestTextTest | 16         |
+      | limit | text      | characters |
+      | -1    | testText  | 8          |
+      | 0     | !         | 1          |
+      | 3     | 12345     | 5          |
+      | 5     | áéíóú¿¡üñ | 9          |
 
   @positive
   Scenario Outline: Verify input of Textarea component
-    When I input "<input>" into Textarea
-    Then Textarea input on preview is set to "<input>"
+    When I input <input> into Textarea
+    Then Textarea input on preview is set to <input>
     Examples:
       | input                   |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+# @ignore because of FE-2782
+# | &"'<>|

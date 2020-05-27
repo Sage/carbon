@@ -55,21 +55,21 @@ Feature: Experimental Form component
 
   @positive
   Scenario Outline: Change cancel button text to <cancelText>
-    When I set cancelText to "<cancelText>"
-    Then cancel button text is set to "<cancelText>"
+    When I set cancelText to <cancelText> word
+    Then cancel button text is set to <cancelText>
     Examples:
-      | cancelText              |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | cancelText                   |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change save button text to <saveText>
-    When I set saveText to "<saveText>"
-    Then save button text is set to "<saveText>"
+    When I set saveText to <saveText> word
+    Then save button text is set to <saveText>
     Examples:
-      | saveText                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | saveText                     |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change additional actions type to <additionalActions>

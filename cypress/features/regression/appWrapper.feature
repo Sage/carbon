@@ -4,11 +4,11 @@ Feature: App Wrapper component
   @positive
   Scenario Outline: Change App Wrapper children to <children>
     Given I open "App Wrapper" component page
-    When I set children to "<children>"
-    Then App Wrapper children on preview is "<children>"
+    When I set children to <children> word
+    Then App Wrapper children on preview is <children>
     Examples:
       | children                |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-# @ignore because of FE-1447
-# | <>                       |
+# @ignore because of FE-2782
+# | &"'<>|

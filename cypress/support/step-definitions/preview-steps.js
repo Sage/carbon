@@ -9,7 +9,7 @@ Then('Preview component is not loading', () => {
   preview().should('not.exist');
 });
 
-Then('Preview children is set to {string}', (text) => {
+Then('Preview children is set to {word}', (text) => {
   cy.iFrame(STORY_ROOT).should('have.text', text);
 });
 
@@ -17,7 +17,7 @@ Then('Preview {word} is set to {string}', (parameter, text) => {
   preview().should('have.attr', 'style', `${parameter}: ${text};`);
 });
 
-Then('Preview {word} is not set to {string}', (parameter, text) => {
+Then('Preview {word} is not set to {word}', (parameter, text) => {
   if (parameter === 'lines') {
     cy.iFrame(STORY_ROOT).children().should('have.length', 0);
     preview().should('not.exist');

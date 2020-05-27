@@ -3,7 +3,7 @@ import {
 } from '../../locators/message';
 import { clickActionsTab, clickClear } from '../helper';
 
-Then('Message title on preview is set to {string}', (text) => {
+Then('Message title on preview is set to {word}', (text) => {
   messageTitle().should('have.text', text);
 });
 
@@ -32,7 +32,7 @@ Then('Message component is not transparent', () => {
   messagePreview().should('not.have.css', 'background-color', 'rgba(0, 0, 0, 0)');
 });
 
-Then('Message children on preview is set to {string}', (text) => {
+Then('Message children on preview is set to {word}', (text) => {
   messageChildren().should('have.text', text);
 });
 

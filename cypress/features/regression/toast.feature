@@ -20,12 +20,12 @@ Feature: Toast component
 
   @positive
   Scenario Outline: Change Toast children to <children>
-    When I set children to "<children>"
-    Then Toast children is set to "<children>"
+    When I set children to <children> word
+    Then Toast children is set to <children>
     Examples:
-      | children                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | children                     |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Enable open checkbox for a Toast component

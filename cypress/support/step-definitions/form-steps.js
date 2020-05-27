@@ -57,11 +57,11 @@ Then('save button is not disabled', () => {
   saveButton().should('not.have.attr', 'disabled');
 });
 
-Then('cancel button text is set to {string}', (text) => {
+Then('cancel button text is set to {word}', (text) => {
   cancelButton().should('have.text', text);
 });
 
-Then('save button text is set to {string}', (text) => {
+Then('save button text is set to {word}', (text) => {
   saveButton().should('have.text', text);
 });
 

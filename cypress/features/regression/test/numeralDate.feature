@@ -27,7 +27,7 @@ Feature: Numeral Date component
       | prop       | borderColor      |
       | hasWarning | rgb(233, 100, 0) |
       | hasInfo    | rgb(0, 115, 194) |
-      
+
   # will remove when Applitools will be implemented
   @positive
   Scenario: Verify the third Numeral Date input has error icon
@@ -41,10 +41,10 @@ Feature: Numeral Date component
     Given I check hasError checkbox
       And I select icon to "warning"
       And I select icon to "error"
-      And I set tooltipMessage to "<message>"
+      And I set tooltipMessage to <message> word
     When I hover mouse onto "error" icon in iFrame
-    Then error message for Numeral Date input is "<message>"
+    Then error message for Numeral Date input is <message>
     Examples:
-      | message                 |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | message                      |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |

@@ -37,13 +37,15 @@ Feature: Pager component
 
   @negative
   Scenario Outline: Set totalRecords out of scope to <totalRecords>
-    When I set totalRecords to "<totalRecords>"
+    When I set totalRecords to <totalRecords> word
     Then totalRecords is set to "" items
       And I am on 1st of "1" pages
     Examples:
       | totalRecords            |
       | mpú¿¡üßä                |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Set pageSize to <pageSize> items

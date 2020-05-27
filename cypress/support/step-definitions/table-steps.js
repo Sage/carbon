@@ -78,7 +78,7 @@ When('Code column is sorted in {string} order', (sortOrder) => {
   }
 });
 
-Then('caption is set to {string}', (text) => {
+Then('caption is set to {word}', (text) => {
   caption().should('have.text', text);
 });
 

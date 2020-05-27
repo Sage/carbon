@@ -7,7 +7,7 @@ import { buttonSubtextPreview } from '../../locators/button';
 const MULTI_ACTION_BUTTON_INNER_TEXT = 'Example ButtonExample Button with long textShort';
 const TEXT_ALIGN = 'text-align';
 
-Then('Multi Action Button text on preview is set to {string}', (text) => {
+Then('Multi Action Button text on preview is set to {word}', (text) => {
   multiActionButtonText().should('have.text', text);
 });
 
@@ -39,7 +39,7 @@ Then('Multi Action Button align on preview is {string}', (align) => {
     .should('have.css', TEXT_ALIGN, `${align}`);
 });
 
-Then('Multi Action Button subtext on preview is {string}', (subtext) => {
+Then('Multi Action Button subtext on preview is {word}', (subtext) => {
   buttonSubtextPreview().should('have.text', subtext);
 });
 

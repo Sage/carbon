@@ -6,25 +6,25 @@ Feature: Detail component
 
   @positive
   Scenario Outline: Change Detail children to <children>
-    When I set children to "<children>"
-    Then detail children on preview is "<children>"
+    When I set children to <children> word
+    Then detail children on preview is <children>
     Examples:
       | children                |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-  # @ignore because of FE-1447
-  # | <>                       |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Change Detail footnote to <footnote>
-    When I set footnote to "<footnote>"
-    Then detail footnote on preview is "<footnote>"
+    When I set footnote to <footnote> word
+    Then detail footnote on preview is <footnote>
     Examples:
       | footnote                |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
-  # @ignore because of FE-1447
-  # | <>                       |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario: Change Detail icon to chevron_up

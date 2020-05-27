@@ -5,15 +5,15 @@ import {
 
 const DIVIDER_CLASS = 'carbon-settings-row--has-divider';
 
-Then('Settings Row title on preview is set to {string}', (text) => {
+Then('Settings Row title on preview is set to {word}', (text) => {
   settingsRowTitle().should('have.text', `${text}`);
 });
 
-Then('Settings Row children on preview is set to {string}', (text) => {
+Then('Settings Row children on preview is set to {word}', (text) => {
   settingsRowChildren().should('have.text', `${text}`);
 });
 
-Then('Settings Row description on preview is set to {string}', (text) => {
+Then('Settings Row description on preview is set to {word}', (text) => {
   settingsRowDescription().should('have.text', `${text}`);
 });
 
