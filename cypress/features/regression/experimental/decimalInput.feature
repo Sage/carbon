@@ -6,21 +6,21 @@ Feature: Decimal component
 
   @positive
   Scenario Outline: Change Decimal component fieldHelp to <fieldHelp>
-    When I set fieldHelp to "<fieldHelp>"
-    Then fieldHelp on preview is set to "<fieldHelp>"
+    When I set fieldHelp to <fieldHelp> word
+    Then fieldHelp on preview is set to <fieldHelp>
     Examples:
-      | fieldHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | fieldHelp                    |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change Decimal component label to <label>
-    When I set label to "<label>"
-    Then label on preview is "<label>"
+    When I set label to <label> word
+    Then label on preview is <label>
     Examples:
-      | label                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | label                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change Decimal input align to the <direction>
@@ -33,20 +33,20 @@ Feature: Decimal component
 
   @positive
   Scenario Outline: Change Decimal component label help to <label>
-    Given I set label to "<label>"
-      And I set labelHelp to "<label>"
+    Given I set label to <label> word
+      And I set labelHelp to <label> word
     When I hover mouse onto help icon
-    Then tooltipPreview on preview is set to "<label>"
+    Then tooltipPreview on preview is set to <label>
     Examples:
-      | label                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | label                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Change Decimal component label inline
     When I set label to "label"
       And I check labelInline checkbox
-    Then label is set to inline
+    Then label is inline
 
   @positive
   Scenario Outline: Change Decimal component label width to <width>
@@ -86,12 +86,12 @@ Feature: Decimal component
 
   @positive
   Scenario Outline: Check Decimal component input field will not accept characters except numbers to <label>
-    When I set Decimal input to "<label>"
-    Then Decimal label is not set to "<label>"
+    When I set Decimal input to <label>
+    Then Decimal label is not set to <label>
     Examples:
-      | label                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | label                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Disable Decimal component

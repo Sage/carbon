@@ -6,12 +6,14 @@ Feature: Multi Action Button default component
 
   @positive
   Scenario Outline: Change Multi Action Button text to <text>
-    When I set text to "<text>"
-    Then Multi Action Button text on preview is set to "<text>"
+    When I set text to <text> word
+    Then Multi Action Button text on preview is set to <text>
     Examples:
       | text                    |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Change buttonType property of Multi Action Button component to <buttonType>
@@ -57,12 +59,14 @@ Feature: Multi Action Button default component
   @positive
   Scenario Outline: Set Multi Action Button subtext to <subtext>
     Given I select size to "large"
-    When I set subtext to "<subtext>"
-    Then Multi Action Button subtext on preview is "<subtext>"
+    When I set subtext to <subtext> word
+    Then Multi Action Button subtext on preview is <subtext>
     Examples:
       | subtext                 |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario: Invoking Multi Action Button component

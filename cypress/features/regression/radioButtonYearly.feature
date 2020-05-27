@@ -8,31 +8,31 @@ Feature: Experimental RadioButton yearly component
 
   @positive
   Scenario Outline: Change RadioButton component yearly label to <label>
-    When I set group yearly label to "<label>"
-    Then "third" radioButton on preview is "<label>"
+    When I set group yearly label to <label>
+    Then "third" radioButton on preview is <label>
     Examples:
-      | label                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | label                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change RadioButton component yearly help label to <labelHelp>
-    When I set group yearly labelHelp to "<labelHelp>"
+    When I set group yearly labelHelp to <labelHelp>
       And I hover mouse onto "third" help icon
-    Then tooltipPreview on preview is set to "<labelHelp>"
+    Then tooltipPreview on preview is set to <labelHelp>
     Examples:
-      | labelHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | labelHelp                    |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change RadioButton component yearly value to <yearlyValue>
-    When I set group yearly value to "<yearlyValue>"
-    Then "yearly" RadioButton has value "<yearlyValue>"
+    When I set group yearly value to <yearlyValue>
+    Then "yearly" RadioButton has value <yearlyValue>
     Examples:
-      | yearlyValue             |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | yearlyValue                  |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Disable RadioButton
@@ -67,12 +67,12 @@ Feature: Experimental RadioButton yearly component
 
   @positive
   Scenario Outline: Change RadioButton component field help to <fieldHelp>
-    When I set group yearly fieldHelp to "<fieldHelp>"
-    Then "third" fieldHelp on preview is set to "<fieldHelp>"
+    When I set group yearly fieldHelp to <fieldHelp>
+    Then "third" fieldHelp on preview is set to <fieldHelp>
     Examples:
-      | fieldHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | fieldHelp                    |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Enable fieldHelpInline

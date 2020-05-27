@@ -11,12 +11,12 @@ Feature: Message component
 
   @positive
   Scenario Outline: Change Message title to <title>
-    When I set title to "<title>"
-    Then Message title on preview is set to "<title>"
+    When I set title to <title> word
+    Then Message title on preview is set to <title>
     Examples:
-      | title                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | title                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change type of Message component to <type>
@@ -52,12 +52,12 @@ Feature: Message component
 
   @positive
   Scenario Outline: Change Message children to <children>
-    When I set children to "<children>"
-    Then Message children on preview is set to "<children>"
+    When I set children to <children> word
+    Then Message children on preview is set to <children>
     Examples:
-      | children                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | children                     |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Enable on close state for a Message component

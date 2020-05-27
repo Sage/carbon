@@ -17,12 +17,14 @@ Feature: Button component
   @positive
   Scenario Outline: Set Button subtext to <subtext>
     Given I select size to "large"
-    When I set subtext to "<subtext>"
-    Then Button subtext on preview is "<subtext>"
+    When I set subtext to <subtext> word
+    Then Button subtext on preview is <subtext>
     Examples:
       | subtext                 |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Set Button Type as <buttonType>
@@ -39,12 +41,14 @@ Feature: Button component
 
   @positive
   Scenario Outline: Set Button component label to <label>
-    When I set children to "<label>"
-    Then Button label on preview is "<label>"
+    When I set children to <label> word
+    Then Button label on preview is <label>
     Examples:
       | label                   |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario: Disable Button

@@ -40,8 +40,8 @@ Feature: Row component
 
   @positive
   Scenario Outline: Set columnOffset to <columnOffset>
-    When I set columnOffset to "<columnOffset>"
-    Then columnOffset on preview is "<columnOffset>"
+    When I set columnOffset to <columnOffset> word
+    Then columnOffset on preview is <columnOffset>
     Examples:
       | columnOffset |
       | -100         |
@@ -52,17 +52,19 @@ Feature: Row component
 
   @negative
   Scenario Outline: Set columnOffset out of scope to <columnOffset>
-    When I set columnOffset to "<columnOffset>"
-    Then columnOffset on preview is "<columnOffset>"
+    When I set columnOffset to <columnOffset> word
+    Then columnOffset on preview is <columnOffset>
     Examples:
       | columnOffset            |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Set columnSpan to <columnSpan>
-    When I set columnSpan to "<columnSpan>"
-    Then columnSpan on preview is "<columnSpan>"
+    When I set columnSpan to <columnSpan> word
+    Then columnSpan on preview is <columnSpan>
     Examples:
       | columnSpan |
       | -100       |
@@ -73,19 +75,23 @@ Feature: Row component
 
   @positive
   Scenario Outline: Set columnSpan out of scope to <columnSpan>
-    When I set columnSpan to "<columnSpan>"
-    Then columnSpan on preview is "<columnSpan>"
+    When I set columnSpan to <columnSpan> word
+    Then columnSpan on preview is <columnSpan>
     Examples:
       | columnSpan              |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
 
   @positive
   Scenario Outline: Set children to <children>
-    When I set children to "<children>"
-    Then column text is "<children>"
+    When I set children to <children> word
+    Then column text is <children>
     Examples:
       | children                |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+# @ignore because of FE-2782
+# | &"'<>|

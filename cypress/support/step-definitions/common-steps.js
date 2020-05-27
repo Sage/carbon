@@ -158,11 +158,15 @@ When('I open {word} tab', (text) => {
   knobsNameTab(text).click();
 });
 
+When('I set {word} to {word} word', (propertyName, text) => {
+  getKnobsInput(propertyName).clear().type(text);
+});
+
 When('I set {word} to {string}', (propertyName, text) => {
   getKnobsInput(propertyName).clear().type(text);
 });
 
-When('I set group {word} {word} to {string}', (groupName, propertyName, text) => {
+When('I set group {word} {word} to {word}', (groupName, propertyName, text) => {
   getKnobsInputByGroup(groupName, propertyName).clear().type(text);
 });
 
@@ -199,19 +203,15 @@ When('I open component preview in noIFrame', () => {
   commonButtonPreviewNoIFrameRoot().click();
 });
 
-Then('component title on preview is {string}', (title) => {
+Then('component title on preview is {word}', (title) => {
   dialogTitle().should('have.text', title);
 });
 
-Then('component subtitle on preview is {string}', (subtitle) => {
-  dialogSubtitle().should('have.text', subtitle);
-});
-
-Then('label on preview is {string}', (text) => {
+Then('label on preview is {word}', (text) => {
   labelPreview().should('have.text', text);
 });
 
-Then('label is set to {string}', (text) => {
+Then('label is set to {word}', (text) => {
   label().should('have.text', text);
 });
 
@@ -244,7 +244,7 @@ Then('I hover mouse onto {string} {string} icon for validations component into i
   getDataElementByValueNoIframe(name).eq(positionOfElement(position)).trigger('mouseover');
 });
 
-Then('tooltipPreview on preview is set to {string}', (text) => {
+Then('tooltipPreview on preview is set to {word}', (text) => {
   tooltipPreview().should('have.text', text);
 });
 
@@ -256,11 +256,11 @@ When('I set inputWidth slider to {int}', (width) => {
   setSlidebar(inputWidthSlider(), width);
 });
 
-Then('fieldHelp on preview is set to {string}', (text) => {
+Then('fieldHelp on preview is set to {word}', (text) => {
   fieldHelpPreview().should('have.text', text);
 });
 
-Then('{string} fieldHelp on preview is set to {string}', (position, text) => {
+Then('{string} fieldHelp on preview is set to {word}', (position, text) => {
   cy.wait(1500, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
   fieldHelpPreviewByPosition(positionOfElement(position)).should('have.text', text);
 });

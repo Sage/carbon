@@ -8,31 +8,31 @@ Feature: Experimental RadioButton weekly component
 
   @positive
   Scenario Outline: Change RadioButton component weekly label to <label>
-    When I set group weekly label to "<label>"
-    Then "first" radioButton on preview is "<label>"
+    When I set group weekly label to <label>
+    Then "first" radioButton on preview is <label>
     Examples:
-      | label                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | label                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change RadioButton component weekly help label to <labelHelp>
-    When I set group weekly labelHelp to "<labelHelp>"
+    When I set group weekly labelHelp to <labelHelp>
       And I hover mouse onto "first" help icon
-    Then tooltipPreview on preview is set to "<labelHelp>"
+    Then tooltipPreview on preview is set to <labelHelp>
     Examples:
-      | labelHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | labelHelp                    |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change RadioButton component weekly value to <weeklyValue>
-    When I set group weekly value to "<weeklyValue>"
-    Then "weekly" RadioButton has value "<weeklyValue>"
+    When I set group weekly value to <weeklyValue>
+    Then "weekly" RadioButton has value <weeklyValue>
     Examples:
-      | weeklyValue             |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | weeklyValue                  |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Disable RadioButton
@@ -67,12 +67,12 @@ Feature: Experimental RadioButton weekly component
 
   @positive
   Scenario Outline: Change RadioButton component field help to <fieldHelp>
-    When I set group weekly fieldHelp to "<fieldHelp>"
-    Then "first" fieldHelp on preview is set to "<fieldHelp>"
+    When I set group weekly fieldHelp to <fieldHelp>
+    Then "first" fieldHelp on preview is set to <fieldHelp>
     Examples:
-      | fieldHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | fieldHelp                    |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Enable fieldHelpInline
