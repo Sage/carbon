@@ -6,8 +6,8 @@ Feature: Profile default component
 
   @positive
   Scenario Outline: Set email to <email>
-    When I set email to "<email>"
-    Then email is set to "<email>"
+    When I set email to <email> word
+    Then email is set to <email>
     Examples:
       | email              |
       | example@email.com  |
@@ -15,8 +15,8 @@ Feature: Profile default component
 
   @positive
   Scenario Outline: Get avatar via email
-    When I set email to "<email>"
-    Then email is set to "<email>"
+    When I set email to <email> word
+    Then email is set to <email>
       And avatar is taken from "<avatar>"
     Examples:
       | email                | avatar                                                                      |
@@ -24,12 +24,12 @@ Feature: Profile default component
 
   @negative
   Scenario Outline: Set email out of scope to <email>
-    When I set email to "<email>"
-    Then email is set to "<email>"
+    When I set email to <email> word
+    Then email is set to <email>
     Examples:
-      | email                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | email                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   # value which is rendering as src doesn't work properly for CI
   # ignored regression
@@ -46,9 +46,9 @@ Feature: Profile default component
   # ignored regression
   @ignore
   Scenario Outline: Get initials from name <name>
-    When I set name to "<name>"
+    When I set name to <name> word
       And I set initials to empty
-    Then initials is set to "<result>"
+    Then initials is set to <result>
     Examples:
       | name                 | result |
       | Oscar Wilde          | OW     |
@@ -70,9 +70,9 @@ Feature: Profile default component
 
   @positive
   Scenario Outline: Set name to <name>
-    When I set name to "<name>"
-    Then name is set to "<name>"
+    When I set name to <name> word
+    Then name is set to <name>
     Examples:
-      | name                    |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | name                         |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |

@@ -17,13 +17,15 @@ Feature: Preview default component
 
   @positive
   Scenario Outline: Change Preview children to <children>
-    Given I set children to "<children>"
+    Given I set children to <children> word
     When I uncheck loading checkbox
-    Then Preview children is set to "<children>"
+    Then Preview children is set to <children>
     Examples:
       | children                |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+      # @ignore because of FE-2782
+# | &"'<>|
 
   @positive
   Scenario Outline: Set width to <width>
@@ -59,27 +61,33 @@ Feature: Preview default component
 
   @positive
   Scenario Outline: Set width to out of scope to <width>
-    When I set width to "<width>"
-    Then Preview width is not set to "<width>"
+    When I set width to <width> word
+    Then Preview width is not set to <width>
     Examples:
       | width                   |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+      # @ignore because of FE-2782
+# | &"'<>|
 
   @positive
   Scenario Outline: Set height to out of scope to <height>
-    When I set height to "<height>"
-    Then Preview height is not set to "<height>"
+    When I set height to <height> word
+    Then Preview height is not set to <height>
     Examples:
       | height                  |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+      # @ignore because of FE-2782
+# | &"'<>|
 
   @positive
   Scenario Outline: Set lines to out of scope to <lines>
-    When I set lines to "<lines>"
-    Then Preview lines is not set to "<lines>"
+    When I set lines to <lines> word
+    Then Preview lines is not set to <lines>
     Examples:
       | lines                   |
       | mpú¿¡üßä                |
       | !@#$%^*()_+-=~[];:.,?{} |
+      # @ignore because of FE-2782
+# | &"'<>|

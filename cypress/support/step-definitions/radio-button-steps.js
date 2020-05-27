@@ -32,11 +32,11 @@ Then('fieldHelpInline is disabled', () => {
   fieldHelpPreview().should('not.have.class', INLINE);
 });
 
-Then('{string} radioButton on preview is {string}', (position, text) => {
+Then('{string} radioButton on preview is {word}', (position, text) => {
   labelByPosition(positionOfElement(position)).should('have.text', text);
 });
 
-Then('{string} RadioButton has value {string}', (radioButtonName, text) => {
+Then('{string} RadioButton has value {word}', (radioButtonName, text) => {
   cy.radioButton(radioButtonName, RADIOBUTTON_INPUT_CSS).should('have.attr', 'value').should('contain', text);
 });
 

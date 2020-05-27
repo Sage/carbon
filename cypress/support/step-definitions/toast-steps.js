@@ -7,7 +7,7 @@ Then('Toast icon is set to {string}', (icon) => {
     .and('be.visible');
 });
 
-Then('Toast children is set to {string}', (text) => {
+Then('Toast children is set to {word}', (text) => {
   toastPreview().invoke('text').should('contain', text);
 });
 

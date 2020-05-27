@@ -46,7 +46,7 @@ Then('Popover container is visible', () => {
     .and('have.css', 'position', 'relative');
 });
 
-Then('Popover title on preview is set to {string}', (title) => {
+Then('Popover title on preview is set to {word}', (title) => {
   popoverContainerTitle().should('have.text', title);
 });
 

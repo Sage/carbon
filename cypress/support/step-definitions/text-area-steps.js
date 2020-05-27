@@ -58,11 +58,11 @@ Then('Textarea component is not readOnly', () => {
   textareaChildren().should('not.have.attr', 'readonly');
 });
 
-Then('placeholder is set to {string}', (text) => {
+Then('placeholder is set to {word}', (text) => {
   textareaChildren().should('have.attr', 'placeholder', text);
 });
 
-Then('fieldHelp is set to {string}', (text) => {
+Then('fieldHelp is set to {word}', (text) => {
   fieldHelpPreview().should('have.text', text);
 });
 
@@ -85,7 +85,7 @@ Then('characterLimit is not set to {string}', (length) => {
   }
 });
 
-Then('characterLimit for default Textarea is not set to {string}', (length) => {
+Then('characterLimit for default Textarea is not set to {word}', (length) => {
   textareaChildren().should('have.attr', 'maxlength', length);
   if (isNaN(length)) {
     characterLimitDefaultTextarea().contains('NaN');
@@ -104,8 +104,12 @@ Then('Textarea component is not labelInline', () => {
   label().should('not.have.css', TEXT_ALIGN, 'left');
 });
 
-When('I input {string} into Textarea', (text) => {
+When('I input {word} into Textarea', (text) => {
   textareaChildren().clear().type(text);
+});
+
+When('I type {string} into Textarea input', (text) => {
+  textareaInput().children().clear().type(text);
 });
 
 When('Type {string} into Textarea into iFrame', (text) => {
@@ -136,11 +140,7 @@ Then('Textarea component has enforceCharacterLimit disabled and used characters 
     .and('have.css', 'color', 'rgba(0, 0, 0, 0.55)');
 });
 
-When('I input {string} into Textarea', (text) => {
-  textareaInput().children().clear().type(text);
-});
-
-Then('Textarea input on preview is set to {string}', () => {
+Then('Textarea input on preview is set to {word}', () => {
   textarea().children().invoke('text').then(((text) => {
     expect(text.trim()).to.eq(text);
   }));

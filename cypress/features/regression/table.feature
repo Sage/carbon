@@ -95,12 +95,14 @@ Feature: Table component
 
   @positive
   Scenario Outline: Set caption to <caption>
-    When I set caption to "<caption>"
-    Then caption is set to "<caption>"
+    When I set caption to <caption> word
+    Then caption is set to <caption>
     Examples:
       | caption                 |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Set theme to <theme>
@@ -140,14 +142,14 @@ Feature: Table component
   @negative
   # ignored because not working correctly during development
   Scenario Outline: Page size records is set out of scope <pageSizeRecords>
-    When I set pageSize to "<pageSizeRecords>"
+    When I set pageSize to <pageSizeRecords> word
     Then I see 0 records
     Examples:
-      | pageSizeRecords         |
-      | -1                      |
-      | -10                     |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | pageSizeRecords              |
+      | -1                           |
+      | -10                          |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Page size records is set to <pageSizeRecords>

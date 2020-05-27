@@ -6,12 +6,14 @@ Feature: Navigation Bar default component
 
   @positive
   Scenario Outline: Change Navigation Bar children to <children>
-    When I set children to "<children>"
-    Then Navigation Bar children on preview is set to "<children>"
+    When I set children to <children> word
+    Then Navigation Bar children on preview is set to <children>
     Examples:
       | children                |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Change as property of Navigation Bar component to <asProperty>

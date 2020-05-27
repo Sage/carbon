@@ -6,12 +6,12 @@ Feature: Portrait default component
 
 	@positive
 	Scenario Outline: Change Portrait alt to <alt>
-		When I set alt to "<alt>"
-		Then Portrait alt on preview is set to "<alt>"
+		When I set alt to <alt> word
+		Then Portrait alt on preview is set to <alt>
 		Examples:
 			| alt                     |
 			| mp150ú¿¡üßä             |
-			| !@#$%^*()_+-=~[];:.,?{} |
+			| !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
 	# value which is rendering as src doesn't work properly for CI
 	# ignored regression

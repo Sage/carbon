@@ -19,7 +19,7 @@ Then('Numeral Date inputs have {string} border color', (color) => {
   }
 });
 
-Then('error message for Numeral Date input is {string}', (text) => {
+Then('error message for Numeral Date input is {word}', (text) => {
   numeralDateInputByPosition(2).parent().find(ERROR_TOOLTIP).should('have.attr', 'aria-label', text)
     .and('be.visible');
 });

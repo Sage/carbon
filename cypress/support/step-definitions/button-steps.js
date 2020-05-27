@@ -2,11 +2,11 @@ import { buttonSubtextPreview, buttonDataComponent } from '../../locators/button
 import { icon } from '../../locators';
 import { positionOfElement } from '../helper';
 
-Then('Button label on preview is {string}', (label) => {
+Then('Button label on preview is {word}', (label) => {
   buttonDataComponent().should('have.text', label);
 });
 
-Then('Button as a sibling label on preview is {string}', (label) => {
+Then('Button as a sibling label on preview is {word}', (label) => {
   buttonDataComponent().eq(positionOfElement('first')).should('have.text', label);
   buttonDataComponent().eq(positionOfElement('second')).should('have.text', label);
 });
@@ -45,11 +45,11 @@ Then('Button width is {string}', (width) => {
   buttonDataComponent().should('have.css', 'width', width);
 });
 
-Then('Button subtext on preview is {string}', (subtext) => {
+Then('Button subtext on preview is {word}', (subtext) => {
   buttonSubtextPreview().should('have.text', subtext);
 });
 
-Then('Button as a sibling subtext on preview is {string}', (subtext) => {
+Then('Button as a sibling subtext on preview is {word}', (subtext) => {
   buttonSubtextPreview().eq(positionOfElement('first')).should('have.text', subtext);
   buttonSubtextPreview().eq(positionOfElement('second')).should('have.text', subtext);
 });

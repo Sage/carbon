@@ -22,11 +22,11 @@ Feature: Table Ajax component
     When I set pageSize to "<pageSizeRecords>"
     Then I see 0 records
     Examples:
-      | pageSizeRecords         |
-      | -1                      |
-      | -10                     |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | pageSizeRecords              |
+      | -1                           |
+      | -10                          |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   @ignore
@@ -51,6 +51,6 @@ Feature: Table Ajax component
     When I set getCustomHeaders to "<getCustomHeaders>"
     Then getCustomHeaders is set to "<getCustomHeaders>"
     Examples:
-      | getCustomHeaders        |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | getCustomHeaders             |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |

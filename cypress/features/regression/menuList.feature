@@ -6,22 +6,22 @@ Feature: MenuList component
 
   @positive
   Scenario Outline: Change MenuList title to <title>
-    When I set title to "<title>"
-    Then title on preview is "<title>"
+    When I set title to <title> word
+    Then title on preview is <title>
     Examples:
-      | title                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | title                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @ignore
   # @positive doesn't work on Carbon Demo site
   Scenario Outline: Change MenuList filterPlaceholder to <text>
-    When I set filterPlaceholder to "<text>"
-    Then filterPlaceholder on preview is "<text>"
+    When I set filterPlaceholder to <text> word
+    Then filterPlaceholder on preview is <text>
     Examples:
-      | text                    |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | text                         |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Check search field
