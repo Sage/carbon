@@ -1,4 +1,8 @@
-import { pod, gridPod, gridComponent } from '../../locators/grid';
+import {
+  pod,
+  gridPod,
+  gridComponent,
+} from '../../locators/grid';
 
 Then('pod {int} is {string}', (index, title) => {
   pod(index).should('have.text', title);

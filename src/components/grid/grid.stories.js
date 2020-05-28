@@ -184,6 +184,274 @@ basic.story = {
   }
 };
 
+export const Visual = () => {
+  return (
+    <div>
+      <GridContainer>
+        <GridItem
+          alignSelf='stretch'
+          justifySelf='stretch'
+        >
+          <Pod
+            alignTitle='left'
+            as='primary'
+            border
+            padding='medium'
+            podType='primary'
+          >
+            1
+          </Pod>
+        </GridItem>
+        <GridItem
+          alignSelf='stretch'
+          justifySelf='stretch'
+        >
+          <Pod
+            alignTitle='left'
+            as='primary'
+            border
+            padding='medium'
+            podType='primary'
+          >
+            2
+          </Pod>
+        </GridItem>
+        <GridItem
+          alignSelf='stretch'
+          justifySelf='stretch'
+        >
+          <Pod
+            alignTitle='left'
+            as='primary'
+            border
+            padding='medium'
+            podType='primary'
+          >
+            3
+          </Pod>
+        </GridItem>
+      </GridContainer>
+      <GridContainer>
+        <GridItem
+          alignSelf='stretch'
+          justifySelf='left'
+        >
+          <Pod
+            alignTitle='left'
+            as='primary'
+            border
+            padding='medium'
+            podType='primary'
+          >
+            1
+          </Pod>
+        </GridItem>
+        <GridItem
+          alignSelf='stretch'
+          justifySelf='center'
+        >
+          <Pod
+            alignTitle='left'
+            as='primary'
+            border
+            padding='medium'
+            podType='primary'
+          >
+            2
+          </Pod>
+        </GridItem>
+        <GridItem
+          alignSelf='stretch'
+          justifySelf='right'
+        >
+          <Pod
+            alignTitle='left'
+            as='primary'
+            border
+            padding='medium'
+            podType='primary'
+          >
+            3
+          </Pod>
+        </GridItem>
+      </GridContainer>
+      <GridContainer>
+        <GridItem
+          alignSelf='end'
+          justifySelf='left'
+          gridColumnStart='1'
+          gridColumnEnd='1'
+        >
+          <Pod
+            alignTitle='left'
+            as='primary'
+            border
+            padding='medium'
+            podType='primary'
+          >
+            1
+          </Pod>
+        </GridItem>
+        <GridItem
+          alignSelf='stretch'
+          justifySelf='center'
+          gridColumnStart='2'
+          gridColumnEnd='2'
+        >
+          <Pod
+            alignTitle='left'
+            as='primary'
+            border
+            padding='medium'
+            podType='primary'
+            style={ { height: '100px' } }
+          >
+            2
+          </Pod>
+        </GridItem>
+        <GridItem
+          alignSelf='stretch'
+          justifySelf='right'
+          gridColumnStart='1'
+          gridColumnEnd='1'
+          gridRowStart='2'
+          gridRowEnd='2'
+        >
+          <Pod
+            alignTitle='left'
+            as='primary'
+            border
+            padding='medium'
+            podType='primary'
+          >
+            3
+          </Pod>
+        </GridItem>
+      </GridContainer>
+      <GridContainer>
+        <GridItem responsiveSettings={ [
+          {
+            maxWidth: '1500px',
+            colStart: 1,
+            colEnd: 7,
+            rowStart: 1,
+            rowEnd: 1,
+            alignSelf: 'stretch',
+            justifySelf: 'stretch'
+          }, {
+            maxWidth: '1300px',
+            colStart: 1,
+            colEnd: 13,
+            rowStart: 1,
+            rowEnd: 1,
+            alignSelf: 'stretch',
+            justifySelf: 'stretch'
+          }, {
+            maxWidth: '900px',
+            colStart: 1,
+            colEnd: 9,
+            rowStart: 2,
+            rowEnd: 2,
+            alignSelf: 'stretch',
+            justifySelf: 'stretch'
+          }] }
+        >
+          <Pod
+            alignTitle='left' as='primary'
+            border padding='medium'
+            podType='primary'
+          >
+            1
+          </Pod>
+        </GridItem>
+        <GridItem responsiveSettings={ [
+          {
+            maxWidth: '1500px',
+            colStart: 7,
+            colEnd: 13,
+            rowStart: 1,
+            rowEnd: 1,
+            alignSelf: 'stretch',
+            justifySelf: 'stretch'
+          }, {
+            maxWidth: '1300px',
+            colStart: 1,
+            colEnd: 13,
+            rowStart: 2,
+            rowEnd: 2,
+            alignSelf: 'stretch',
+            justifySelf: 'stretch'
+          }, {
+            maxWidth: '900px',
+            colStart: 1,
+            colEnd: 9,
+            rowStart: 3,
+            rowEnd: 3,
+            alignSelf: 'stretch',
+            justifySelf: 'stretch'
+          }] }
+        >
+          <Pod
+            alignTitle='left'
+            as='primary'
+            border
+            padding='medium'
+            podType='primary'
+          >
+            2
+          </Pod>
+        </GridItem>
+        <GridItem
+          responsiveSettings={ [
+            {
+              maxWidth: '1500px',
+              colStart: 1,
+              colEnd: 13,
+              rowStart: 2,
+              rowEnd: 2,
+              alignSelf: 'stretch',
+              justifySelf: 'stretch'
+            }, {
+              maxWidth: '1300px',
+              colStart: 1,
+              colEnd: 13,
+              rowStart: 3,
+              rowEnd: 3,
+              alignSelf: 'stretch',
+              justifySelf: 'stretch'
+            }, {
+              maxWidth: '900px',
+              colStart: 1,
+              colEnd: 9,
+              rowStart: 1,
+              rowEnd: 1,
+              alignSelf: 'stretch',
+              justifySelf: 'stretch'
+            }] }
+        >
+          <Pod
+            alignTitle='left'
+            as='primary'
+            border
+            padding='medium'
+            podType='primary'
+          >
+            3
+          </Pod>
+        </GridItem>
+      </GridContainer>
+    </div>
+  );
+};
+
+Visual.story = {
+  name: 'visual',
+  parameters: {
+    info: { disable: true },
+    docs: { page: null }
+  }
+};
+
 export default {
   title: 'Test/Grid',
   component: GridContainer,
