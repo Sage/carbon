@@ -80,6 +80,15 @@ describe('Link', () => {
     });
   });
 
+  describe('when component received a `target` prop', () => {
+    it('should render an `<a>`  element with target attribute', () => {
+      const target = '_blank';
+      wrapper.setProps({ target });
+
+      expect(wrapper.find('a').prop('target')).toBe(target);
+    });
+  });
+
   describe('when component received a `href` prop', () => {
     it('should render an `<a>` element', () => {
       wrapper.setProps({ href: '#' });
