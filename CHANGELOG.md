@@ -1,3 +1,10 @@
+### [22.0.2](https://github.com/Sage/carbon/compare/v22.0.1...v22.0.2) (2020-05-28)
+
+
+### Bug Fixes
+
+* **checkbox:** update typescript definitions ([578de51](https://github.com/Sage/carbon/commit/578de51964caf864bf7f22224ff2388ca07fb48b)), closes [#2813](https://github.com/Sage/carbon/issues/2813)
+
 ### [22.0.1](https://github.com/Sage/carbon/compare/v22.0.0...v22.0.1) (2020-05-27)
 
 
