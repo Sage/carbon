@@ -27,7 +27,7 @@ jobs:
       # because of "record" and "parallel" parameters
       # these containers will load balance all found tests among themselves
       - name: Cypress run
-        uses: cypress-io/github-action@v1.24.2
+        uses: cypress-io/github-action@v1.24.3
         with:
           start: npm start
           # quote the url to be safe against YML parsing surprises
@@ -53,7 +53,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Cypress run
-        uses: cypress-io/github-action@v1.24.2
+        uses: cypress-io/github-action@v1.24.3
         with:
           start: npm start
           wait-on: "http://localhost:9001"
