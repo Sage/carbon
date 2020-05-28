@@ -7,7 +7,15 @@ import CheckboxSvg from './checkbox-svg.component';
 import withValidations from '../../../components/validations/with-validation.hoc';
 
 const Checkbox = ({
-  id, label, onChange, onBlur, value, ...props
+  id,
+  label,
+  onChange,
+  onBlur,
+  value,
+  fieldHelp,
+  autoFocus,
+  labelHelp,
+  ...props
 }) => {
   const inputProps = {
     ...props,
@@ -18,7 +26,10 @@ const Checkbox = ({
     inputLabel: label,
     inputValue: value,
     inputType: 'checkbox',
-    reverse: !props.reverse
+    reverse: !props.reverse,
+    fieldHelp,
+    autoFocus,
+    labelHelp
   };
 
   return (
@@ -38,6 +49,8 @@ Checkbox.propTypes = {
   checked: PropTypes.bool,
   /** Toggles disabling of input */
   disabled: PropTypes.bool,
+  /** The fieldHelp content to display for the input */
+  fieldHelp: PropTypes.node,
   /** Displays fieldHelp inline with the checkbox */
   fieldHelpInline: PropTypes.bool,
   /** Unique Identifier for the input. Will use a randomly generated GUID if none is provided */
@@ -62,7 +75,11 @@ Checkbox.propTypes = {
    */
   size: PropTypes.string,
   /** the value of the checkbox, passed on form submit */
-  value: PropTypes.string
+  value: PropTypes.string,
+  /** Allows component to be focused on page load */
+  autoFocus: PropTypes.bool,
+  /** The content for the help tooltip, to appear next to the Label */
+  labelHelp: PropTypes.node
 };
 
 Checkbox.defaultProps = {
