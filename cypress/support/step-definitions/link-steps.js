@@ -12,6 +12,10 @@ Then('Link is enabled', () => {
   linkPreview().should('not.have.attr', 'disabled');
 });
 
+Then('Link on preview target is set to {word}', (target) => {
+  linkPreview().children().should('have.attr', 'target', `${target}`);
+});
+
 Then('Link on preview href is set to {word}', (href) => {
   linkPreview().children().should('have.attr', 'href', `${href}`);
 });
