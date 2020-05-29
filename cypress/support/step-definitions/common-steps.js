@@ -121,6 +121,10 @@ Given('I open basic Test {string} component page in noIframe', (component) => {
   visitComponentUrl(component, 'basic', true, 'test-');
 });
 
+Given('I open visual Test {string} component page in noIframe', (component) => {
+  visitComponentUrl(component, 'visual', true, 'test-');
+});
+
 Given('I open style override Test {string} component page in noIframe', (component) => {
   visitComponentUrl(component, 'style_override', true, 'test-');
 });
