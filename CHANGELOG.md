@@ -1,3 +1,10 @@
+### [22.1.1](https://github.com/Sage/carbon/compare/v22.1.0...v22.1.1) (2020-05-29)
+
+
+### Bug Fixes
+
+* **drawer:** update overflow behaviour ([5883c89](https://github.com/Sage/carbon/commit/5883c89ff50282e706e02c98b69db3a5a275b8c7))
+
 ## [22.1.0](https://github.com/Sage/carbon/compare/v22.0.3...v22.1.0) (2020-05-29)
 
 
