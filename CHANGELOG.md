@@ -1,3 +1,15 @@
+## [22.1.0](https://github.com/Sage/carbon/compare/v22.0.3...v22.1.0) (2020-05-29)
+
+
+### Features
+
+* **toast:** multiple toasts can now stack ([f508f0f](https://github.com/Sage/carbon/commit/f508f0f9a3ed861a7514da9c5dde74662f733339)), closes [#2737](https://github.com/Sage/carbon/issues/2737)
+
+
+### Bug Fixes
+
+* **portal:** compatibility with styled components lib ([3688c34](https://github.com/Sage/carbon/commit/3688c348be18f24a0ad238b7209f41637b3fc7de))
+
 ### [22.0.3](https://github.com/Sage/carbon/compare/v22.0.2...v22.0.3) (2020-05-28)
 
 
