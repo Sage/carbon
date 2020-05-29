@@ -1,0 +1,24 @@
+import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
+import { useState, useRef } from 'react';
+import {
+  EditorState
+} from "draft-js";
+import TextEditor from '.';
+
+<Meta title="Design System/Text Editor" parameters={{ info: { disable: true }}} />
+
+# Text Editor
+
+### Basic usage:
+
+<Preview>
+  <Story name="basic">
+    {() => {
+      const [value, setValue] = useState(EditorState.createEmpty());
+      const ref = useRef(null);
+      return (
+        <TextEditor onChange={(newValue) => setValue(newValue)} value={ value } ref={ ref }/>
+      );
+    }}
+  </Story>
+</Preview>
