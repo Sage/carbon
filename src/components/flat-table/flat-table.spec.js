@@ -12,7 +12,9 @@ import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import StyledFlatTableHeader from './flat-table-header/flat-table-header.style';
 import StyledFlatTableHead from './flat-table-head/flat-table-head.style';
 import StyledFlatTableRowHeader from './flat-table-row-header/flat-table-row-header.style';
+import StyledFlatTableCheckbox from './flat-table-checkbox/flat-table-checkbox.style';
 import { baseTheme } from '../../style/themes';
+import { SidebarContext } from '../drawer';
 
 describe('FlatTable', () => {
   describe('when rendered with proper table data', () => {
@@ -88,6 +90,32 @@ describe('FlatTable', () => {
         zIndex: '1002'
       }, wrapper, { modifier: `${StyledFlatTableHead} ${StyledFlatTableRowHeader}` });
     });
+  });
+
+  describe('when FlatTable is a child of Sidebar', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = TestRenderer.create(
+        <SidebarContext.Provider value>
+          <FlatTable>foo</FlatTable>
+        </SidebarContext.Provider>
+      );
+    });
+
+    it.each([
+      ['StyledFlatTableHeader', StyledFlatTableHeader],
+      ['StyledFlatTableRowHeader', StyledFlatTableRowHeader],
+      ['StyledFlatTableCheckbox', StyledFlatTableCheckbox]
+    ])(
+      'should override the styles for %s', (id, el) => {
+        const modifierString = id === 'StyledFlatTableHeader' ? el : `${StyledFlatTableHead} ${el}`;
+        assertStyleMatch({
+          backgroundColor: `${baseTheme.flatTable.drawerSidebar.headerBackground}`,
+          borderRight: `2px solid ${baseTheme.flatTable.drawerSidebar.headerBackground}`,
+          color: `${baseTheme.colors.black}`
+        }, wrapper.toJSON(), { modifier: `${modifierString}` });
+      }
+    );
   });
 });
 

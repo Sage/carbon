@@ -32,17 +32,21 @@ exports[`Drawer uncontrolled matches snapshot 1`] = `
       id="DrawerSidebar_guid-123"
       role="navigation"
     >
-      <ul>
-        <li>
-          link a
-        </li>
-        <li>
-          link b
-        </li>
-        <li>
-          link c
-        </li>
-      </ul>
+      <ContextProvider
+        value={true}
+      >
+        <ul>
+          <li>
+            link a
+          </li>
+          <li>
+            link b
+          </li>
+          <li>
+            link c
+          </li>
+        </ul>
+      </ContextProvider>
     </styled.div>
   </styled.div>
   <styled.div>

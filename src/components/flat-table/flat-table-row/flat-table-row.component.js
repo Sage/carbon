@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Event from '../../../utils/helpers/events';
 import StyledFlatTableRow from './flat-table-row.style';
+import { SidebarContext } from '../../drawer';
 
 const FlatTableRow = React.forwardRef(({
   children, onClick, highlighted, selected
@@ -26,15 +27,20 @@ const FlatTableRow = React.forwardRef(({
   }
 
   return (
-    <StyledFlatTableRow
-      data-element='flat-table-row'
-      highlighted={ highlighted }
-      selected={ selected }
-      ref={ ref }
-      { ...interactiveRowProps }
-    >
-      { children }
-    </StyledFlatTableRow>
+    <SidebarContext.Consumer>
+      {isInSidebar => (
+        <StyledFlatTableRow
+          isInSidebar={ isInSidebar }
+          data-element='flat-table-row'
+          highlighted={ highlighted }
+          selected={ selected }
+          ref={ ref }
+          { ...interactiveRowProps }
+        >
+          { children }
+        </StyledFlatTableRow>
+      )}
+    </SidebarContext.Consumer>
   );
 });
 
