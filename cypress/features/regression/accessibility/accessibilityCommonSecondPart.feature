@@ -31,5 +31,4 @@ Feature: Accessibility tests
       | table                            |
       | tabs                             |
       | tile                             |
-      | toast                            |
       | tooltip                          |

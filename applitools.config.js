@@ -7,9 +7,7 @@ const applitoolsSettings = {
   saveNewTests: true,
   concurrency: 10,
   browser: [
-    { width: 2560, height: 1440, name: 'chrome' },
-    { width: 2560, height: 1440, name: 'firefox' },
-    { width: 2560, height: 1440, name: 'safari' }
+    { width: 2560, height: 1440, name: 'chrome' }
   ]
 };
 export default applitoolsSettings;

@@ -4,9 +4,12 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import Icon from '../icon';
 import tagComponent from '../../utils/helpers/tags/tags';
-import Portal from '../portal/portal';
 import {
-  ToastStyle, ToastTypeStyle, ToastContentStyle, ToastWrapper
+  ToastStyle,
+  TypeIcon,
+  ToastContentStyle,
+  ToastWrapper,
+  StyledPortal
 } from './toast.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import IconButton from '../icon-button';
@@ -20,9 +23,7 @@ class Toast extends React.Component {
   }
 
   closeIcon() {
-    const {
-      onDismiss
-    } = this.props;
+    const { onDismiss } = this.props;
     if (!onDismiss) return null;
 
     return (
@@ -37,45 +38,66 @@ class Toast extends React.Component {
 
   /** Content rendered for the toast. */
   toastContent() {
-    if (this.props.open) {
-      return (
-        <CSSTransition
-          enter
-          classNames='toast'
-          timeout={ { appear: 1600, enter: 1500, exit: 500 } }
+    if (!this.props.open) return null;
+
+    const {
+      isCenter,
+      variant,
+      id,
+      as,
+      onDismiss,
+      children
+    } = this.props;
+
+    const toastProps = {
+      isCenter,
+      variant: variant || as,
+      id
+    };
+
+    return (
+      <CSSTransition
+        enter
+        classNames='toast'
+        timeout={ { appear: 1600, enter: 1500, exit: 500 } }
+      >
+        <ToastStyle
+          className={ this.componentClasses }
+          { ...tagComponent((this.props['data-component'] || 'toast'), this.props) }
+          { ...toastProps }
         >
-          <ToastStyle
-            isCenter={ this.props.isCenter }
-            variant={ this.props.variant || this.props.as }
-            className={ this.componentClasses }
-            { ...tagComponent((this.props['data-component'] || 'toast'), this.props) }
+          <TypeIcon variant={ toastProps.variant }>
+            <Icon type={ toastProps.variant } />
+          </TypeIcon>
+          <ToastContentStyle
+            variant={ toastProps.variant }
+            isDismiss={ onDismiss }
           >
-            <ToastTypeStyle variant={ this.props.variant || this.props.as }>
-              <Icon type={ this.props.variant || this.props.as } />
-            </ToastTypeStyle>
-            <ToastContentStyle
-              variant={ this.props.variant || this.props.as }
-              isDismiss={ this.props.onDismiss }
-            >
-              { this.props.children }
-            </ToastContentStyle>
-            { this.closeIcon() }
-          </ToastStyle>
-        </CSSTransition>
-      );
-    }
-    return null;
+            { children }
+          </ToastContentStyle>
+          { this.closeIcon() }
+        </ToastStyle>
+      </CSSTransition>
+    );
   }
 
   render() {
+    const {
+      targetPortalId,
+      isCenter
+    } = this.props;
+
     return (
-      <Portal>
-        <ToastWrapper isCenter={ this.props.isCenter }>
+      <StyledPortal
+        id={ targetPortalId }
+        isCenter={ isCenter }
+      >
+        <ToastWrapper isCenter={ isCenter }>
           <TransitionGroup>
             { this.toastContent() }
           </TransitionGroup>
         </ToastWrapper>
-      </Portal>
+      </StyledPortal>
     );
   }
 }
@@ -98,7 +120,9 @@ Toast.propTypes = {
   /** Callback for when dismissed. */
   onDismiss: PropTypes.func,
   /** props used with flash component. Allow to center a component */
-  isCenter: PropTypes.bool
+  isCenter: PropTypes.bool,
+  /** Target Portal ID where the toast will render */
+  targetPortalId: PropTypes.string
 };
 
 Toast.defaultProps = {

@@ -47,12 +47,6 @@ jobs:
     - script:
       name: "applitools tests for storybook with cypress 3d thread"
       <<: *cypressVisual
-    - script:
-      name: "applitools tests for storybook with cypress 4th thread"
-      <<: *cypressVisual
-    - script:
-      name: "applitools tests for storybook with cypress 5th thread"
-      <<: *cypressVisual
     - stage: deploy
       name: "s3"
       script: skip

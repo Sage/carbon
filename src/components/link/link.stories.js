@@ -40,6 +40,7 @@ function makeStory(name, themeSelector) {
     ) : undefined;
     const hasOnClick = boolean('onClick', false);
     const onClick = hasOnClick ? action('click') : undefined;
+    const target = text('target', '_blank');
 
     return (
       <Link
@@ -54,6 +55,7 @@ function makeStory(name, themeSelector) {
         tooltipAlign={ tooltipAlign }
         onClick={ onClick }
         routerLink={ to ? RouterLink : undefined }
+        target={ target }
       >
         {children}
       </Link>
