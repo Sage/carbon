@@ -3,8 +3,8 @@ Feature: Flat table component
 
   @positive
   @applitools
-  Scenario Outline: Check that Flat table component <story> rendered correctly
-    Given I open design systems <story> "Flat table" component in no iframe
+  Scenario Outline: Check that Flat table component <story> renders correctly
+    When I open design systems <story> "Flat table" component in no iframe
     Then Element displays correctly
     Examples:
       | story                   |
@@ -34,7 +34,7 @@ Feature: Flat table component
 
   @positive
   @applitools
-  Scenario: Verify Flat table color row when row hovers
+  Scenario: Verify Flat table color row when row is hovered
     Given I open design systems when_a_child_of_sidebar "Flat table" component in no iframe
     When I hover mouse onto "first" row
     Then Element displays correctly
