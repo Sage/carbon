@@ -19,7 +19,7 @@ const Menu = styled.div`
   position: absolute;
   ${({ rightAlignMenu }) => (rightAlignMenu ? 'left: 0;' : 'right: 0;')}
   background-color: ${({ theme }) => theme.colors.white};
-  z-index: 1;
+  z-index: ${({ theme }) => `${theme.zIndex.popover}`};
 
   ${MenuClassic}
 `;

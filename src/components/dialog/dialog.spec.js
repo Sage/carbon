@@ -65,7 +65,7 @@ describe('Dialog', () => {
         beforeEach(() => {
           jest.useFakeTimers();
           wrapper = mount(
-            <Dialog onCancel={ onCancel } />
+            <Dialog open={ false } onCancel={ onCancel } />
           );
           instance = wrapper.instance();
         });

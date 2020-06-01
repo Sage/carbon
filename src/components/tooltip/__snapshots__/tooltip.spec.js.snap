@@ -27,7 +27,7 @@ exports[`Tooltip visible and has children matches snapshot 1`] = `
   position: relative;
   -webkit-animation: bcCCNc 0.2s linear;
   animation: bcCCNc 0.2s linear;
-  z-index: 1003;
+  z-index: 2000;
   text-align: center;
 }
 

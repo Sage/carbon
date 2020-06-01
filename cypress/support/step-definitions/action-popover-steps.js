@@ -91,5 +91,5 @@ Then('Action Popover overriden styles rendered properly', () => {
     .and('have.css', 'position', 'absolute')
     .and('have.css', 'left', '0px')
     .and('have.css', 'background-color', 'rgb(255, 255, 255)')
-    .and('have.css', 'z-index', '1');
+    .and('have.css', 'z-index', '2000');
 });

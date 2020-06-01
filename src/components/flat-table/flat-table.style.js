@@ -79,12 +79,12 @@ const StyledFlatTableWrapper = styled.div`
 
     ${StyledFlatTableHeader} {
       position: sticky;
-      z-index: 1;
+      z-index:${({ theme }) => theme.zIndex.overlay};
     }
 
     ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
     ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
-      z-index: 2;
+      z-index: ${({ theme }) => theme.zIndex.overlay + 2};
     }
   `}
 `;

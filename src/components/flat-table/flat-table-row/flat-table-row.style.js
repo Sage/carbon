@@ -25,7 +25,7 @@ const StyledFlatTableRow = styled.tr`
         border-bottom: 1px solid transparent;
         border-left: 1px solid ${theme.colors.focus};
         background-clip: padding-box;
-        z-index: 1;
+        z-index: ${theme.zIndex.overlay};
 
         :before {
           content: '';
@@ -37,7 +37,7 @@ const StyledFlatTableRow = styled.tr`
           height: 100%;
           width: 101%;
           position: absolute;
-          z-index: 1;
+          z-index: ${theme.zIndex.overlay};
         }
       }
     }
