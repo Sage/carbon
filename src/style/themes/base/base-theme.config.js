@@ -70,6 +70,7 @@ export default (palette) => {
 
     editor: {
       border: palette.slateTint(40),
+      placeholder: 'rgba(0,0,0,0.30)',
       toolbar: {
         background: palette.slateTint(95)
       }
