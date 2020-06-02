@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 export interface ContentProps {
-  align?: "left" | "center" | "right";
+  align?: 'left' | 'center' | 'right';
   as?: 'primary' | 'secondary';
   bodyFullWidth?: boolean;
   children?: React.ReactNode;

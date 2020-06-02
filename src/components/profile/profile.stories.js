@@ -1,11 +1,11 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, boolean, select } from '@storybook/addon-knobs';
+import { text, select } from '@storybook/addon-knobs';
 import { ThemeProvider } from 'styled-components';
-import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
-import Profile, { OriginalProfile } from './profile.component';
+import { dlsThemeSelector } from '../../../.storybook/theme-selectors';
+import Profile from './profile.component';
 import { info, notes } from './documentation';
-import classicTheme from '../../style/themes/classic';
+
 import OptionsHelper from '../../utils/helpers/options-helper';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
@@ -35,31 +35,6 @@ storiesOf('Profile', module)
   },
   {
     themeSelector: dlsThemeSelector,
-    info: { text: info, propTablesExclude: [ThemeProvider] },
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false }
-  })
-  .add('classic', () => {
-    const email = text('email', 'johnsmith@sage.com');
-    const initials = text('initials', 'JS');
-    const large = boolean('large', OriginalProfile.defaultProps.large);
-    const name = text('name', 'John Smith');
-    const src = text('src', '');
-
-    return (
-      <ThemeProvider theme={ classicTheme }>
-        <ProfileWrapper
-          email={ email }
-          initials={ initials }
-          large={ large }
-          name={ name }
-          src={ src }
-        />
-      </ThemeProvider>
-    );
-  },
-  {
-    themeSelector: classicThemeSelector,
     info: { text: info, propTablesExclude: [ThemeProvider] },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }

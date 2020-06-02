@@ -1,5 +1,4 @@
 import React from 'react';
-import { withTheme } from 'styled-components';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { acronymize } from '../../utils/ether/ether';
@@ -11,8 +10,6 @@ import {
   ProfileAvatarStyle,
   ProfileEmailStyle
 } from './profile.style';
-import { isClassic } from '../../utils/helpers/style-helper';
-import baseTheme from '../../style/themes/base';
 
 class Profile extends React.Component {
   /** Determines whether a `src` prop has been supplied */
@@ -39,7 +36,7 @@ class Profile extends React.Component {
           src={ this.props.src }
           alt={ this.initials }
           initials={ this.initials }
-          size={ isClassic(this.props.theme) ? 'medium-small' : this.props.size }
+          size={ this.props.size }
           shape='square'
           data-element='user-image'
         />
@@ -49,7 +46,7 @@ class Profile extends React.Component {
       <ProfileAvatarStyle
         initials={ this.initials }
         gravatar={ this.props.email }
-        size={ isClassic(this.props.theme) ? 'medium-small' : this.props.size }
+        size={ this.props.size }
       />
     );
   }
@@ -96,15 +93,11 @@ Profile.propTypes = {
   /** [Legacy] Enable a larger theme for the name. */
   large: PropTypes.bool,
   /** Allow to setup size for the component */
-  size: PropTypes.string,
-  /** theme to detect which component should be rendered */
-  theme: PropTypes.object
+  size: PropTypes.string
 };
 
 Profile.defaultProps = {
-  large: false,
-  theme: baseTheme
+  large: false
 };
 
-export { Profile as OriginalProfile };
-export default withTheme(Profile);
+export default Profile;
