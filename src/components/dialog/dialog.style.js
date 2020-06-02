@@ -78,7 +78,7 @@ const DialogStyle = styled.div`
         padding-left: 35px;
         padding-right: 35px;
         position: fixed;
-        z-index: 1000;
+        z-index: ${({ theme }) => theme.zIndex.overlay};
         width: ${dialogSizes[size]};
       }
   `}

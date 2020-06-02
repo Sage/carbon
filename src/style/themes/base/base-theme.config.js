@@ -101,6 +101,14 @@ export default (palette) => {
         headerBackground: palette.slateTint(95),
         border: palette.slateTint(95)
       },
+
+      drawerSidebar: {
+        headerBackground: palette.slateTint(93),
+        hover: palette.slateTint(85),
+        highlighted: palette.slateTint(80),
+        selected: palette.slateTint(70)
+      },
+
       hover: palette.slateTint(95),
       headerIconColor: palette.slateTint(60),
       selected: palette.slateTint(85),
@@ -236,6 +244,15 @@ export default (palette) => {
     tile: {
       border: palette.slateTint(80),
       separator: palette.slateTint(90)
+    },
+
+    zIndex: {
+      overlay: 1000,
+      popover: 2000,
+      modal: 3000,
+      header: 4000,
+      fullScreenModal: 5000,
+      notification: 6000
     }
   };
 };

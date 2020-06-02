@@ -167,7 +167,7 @@ describe('SidebarStyle', () => {
         position: 'fixed',
         top: '0',
         padding: '20px',
-        zIndex: '1002'
+        zIndex: '5000'
       }, wrapper);
     });
 

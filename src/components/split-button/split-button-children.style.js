@@ -9,7 +9,7 @@ const StyledSplitButtonChildrenContainer = styled.div`
     background-color: ${theme.colors.secondary};
     min-width: 75%;
     white-space: nowrap;
-    z-index: 100;
+    z-index: ${theme.zIndex.popover};
 
     ${StyledButton} {
       background-color: ${theme.colors.secondary};
@@ -21,7 +21,7 @@ const StyledSplitButtonChildrenContainer = styled.div`
       margin-bottom: 3px;
       min-width: 100%;
       text-align: ${align};
-      z-index: 10;
+      z-index: ${theme.zIndex.overlay};
 
       &:focus,
       &:hover {

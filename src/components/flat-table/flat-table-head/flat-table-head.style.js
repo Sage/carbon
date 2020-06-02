@@ -11,7 +11,7 @@ const StyledFlatTableHead = styled.thead`
     left: 0;
     padding: 8px 24px;
     top: 0;
-    z-index: 1;
+    z-index: ${({ theme }) => theme.zIndex.overlay};
   }
 `;
 

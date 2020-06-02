@@ -70,7 +70,8 @@ const renderWithNoChildren = (mainProps = {}, renderer = shallow) => {
       text='Split button'
       data-element='bar'
       data-role='baz'
-    />
+    >{singleButton}
+    </SplitButton>
   );
 };
 

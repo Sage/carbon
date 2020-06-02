@@ -212,7 +212,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  z-index: 10;
+  z-index: 1000;
 }
 
 .c8 .c1:focus,
@@ -233,7 +233,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  z-index: 10;
+  z-index: 1000;
 }
 
 .c9 .c1:focus,

@@ -1,3 +1,10 @@
+## [22.2.0](https://github.com/Sage/carbon/compare/v22.1.1...v22.2.0) (2020-06-01)
+
+
+### Features
+
+* **drawer, flat-table, flat-table-row:** add sidebar context ([4351fae](https://github.com/Sage/carbon/commit/4351fae87dce5648542b027e2d6f18a14970a9f9))
+
 ### [22.1.1](https://github.com/Sage/carbon/compare/v22.1.0...v22.1.1) (2020-05-29)
 
 
