@@ -14,7 +14,7 @@ import {
   getDataElementByValue,
   getElementNoIframe, commonButtonPreviewNoIframe,
 } from '../../locators';
-import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
+import { dialogTitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
 import { pagerSummary } from '../../locators/pager';
 

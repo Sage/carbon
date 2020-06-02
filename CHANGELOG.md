@@ -1,3 +1,18 @@
+## [23.0.0](https://github.com/Sage/carbon/compare/v22.2.0...v23.0.0) (2020-06-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* removes classic theme support from profile
+* **profile:** removes classic theme support from profile
+
+### Bug Fixes
+
+* **profile:** profile story not loading in storybook ([2599f42](https://github.com/Sage/carbon/commit/2599f428121e321da79db031e314e7bd3a1c2368))
+
+
+* Merge pull request #2966 from Sage/FE-2822-profile-storybook-error ([619da30](https://github.com/Sage/carbon/commit/619da3029b5bd5e4a39c45586e8d92002330abbb)), closes [#2966](https://github.com/Sage/carbon/issues/2966)
+
 ## [22.2.0](https://github.com/Sage/carbon/compare/v22.1.1...v22.2.0) (2020-06-01)
 
 
