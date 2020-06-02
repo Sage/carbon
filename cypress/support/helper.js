@@ -30,6 +30,14 @@ export function visitComponentUrlByThemeKnobsStory(component, theme, sufix = '')
   cy.visit(`${prepareUrl(component, 'knobs', true, '')}&theme=${theme}${sufix}`);
 }
 
+export function visitComponentUrlByThemeByStory(component, story, theme, sufix = '') {
+  cy.visit(`${prepareUrl(component, story, true, '')}&theme=${theme}${sufix}`);
+}
+
+export function visitDesignSystemComponentUrlByThemeByStory(component, prefix, story, theme, sufix = '') {
+  cy.visit(`${prepareUrl(component, story, true, prefix)}&theme=${theme}${sufix}`);
+}
+
 export function visitFlatTableComponentNoiFrame(component, suffix = 'default', iFrameOnly = false, prefix = '', stickyRow = true, stickyHead = true, clickableRow = true) {
   cy.visit(`${prepareUrl(component, suffix, iFrameOnly, prefix, stickyRow, stickyHead, clickableRow)}&knob-hasHeaderRow=${stickyRow}&knob-hasStickyHead=${stickyHead}&knob-hasClickableRows=${clickableRow}`);
 }
@@ -156,8 +164,4 @@ export function keyCode(type) {
     Home: { keyCode: 36, which: 36 },
     End: { keyCode: 35, which: 35 },
   }[type];
-}
-
-export function visitComponentUrlByThemeByStory(component, story, theme, sufix = '') {
-  cy.visit(`${prepareUrl(component, story, true, '')}&theme=${theme}${sufix}`);
 }
