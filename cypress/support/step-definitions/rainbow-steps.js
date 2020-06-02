@@ -11,7 +11,7 @@ When('I put {string} json to {string} input field', (json, inputFieldName) => {
   });
 });
 
-Then('Rainbow title is {string}', (title) => {
+Then('Rainbow title is {word}', (title) => {
   cy.wait(500, { log: DEBUG_FLAG }); // required because element exists before change
   titlePreview().should('have.text', title);
 });

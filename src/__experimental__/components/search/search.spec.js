@@ -30,27 +30,46 @@ describe('Search', () => {
       }, renderWrapper({ value: '' }, mount));
     });
 
+    it('applies the default width when the user does not specify a width', () => {
+      assertStyleMatch({
+        borderBottom: '2px solid #CCD6DB',
+        display: 'inline-flex',
+        fontSize: '14px',
+        fontWeight: '700',
+        width: '100%'
+      }, renderWrapper({ value: '', searchWidth: null }, mount));
+    });
+
+    it('applies the correct width specified by the user', () => {
+      assertStyleMatch({
+        borderBottom: '2px solid #CCD6DB',
+        display: 'inline-flex',
+        fontSize: '14px',
+        fontWeight: '700',
+        width: '400px'
+      }, renderWrapper({ value: '', searchWidth: '400px' }, mount));
+    });
+
     it('matches the expected styles when the input is focused', () => {
       wrapper = renderWrapper({ value: '' }, mount);
       const input = wrapper.find('input');
       input.simulate('focus');
       assertStyleMatch({
-        borderBottom: '2px solid transparent'
+        borderBottom: '2px solid #CCD6DB'
       }, wrapper);
     });
 
-    it('matches the expected styles when the search is active', () => {
+    it('matches the expected styles when the search is active and has a value', () => {
       wrapper = renderWrapper({ value: 'Foo' }, mount);
       assertStyleMatch({
-        borderBottom: '2px solid transparent',
-        color: 'rgba(0,0,0,0.9)'
+        borderBottom: '2px solid #CCD6DB',
+        color: 'rgba(0,0,0,0.90)'
       }, wrapper);
     });
 
     it('applies the expected styling to the input', () => {
       wrapper = renderWrapper({ value: '' }, mount);
       assertStyleMatch({
-        width: '375px',
         fontSize: '14px',
         fontWeight: '700'
       }, wrapper, { modifier: `${StyledTextInput}` });
@@ -60,7 +79,7 @@ describe('Search', () => {
       wrapper = renderWrapper({ value: 'FooBar', searchButton: true }, mount).find(StyledSearchButton);
       assertStyleMatch({
         display: 'inline-flex',
-        borderBottom: '2px solid transparent'
+        borderBottom: 'none'
       }, wrapper);
     });
   });

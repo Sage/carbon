@@ -6,10 +6,9 @@ import guid from '../../utils/helpers/guid/guid';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 import Toast from './toast.component';
 import {
-  ToastStyle, ToastTypeStyle, ToastContentStyle, ToastWrapper
+  ToastStyle, ToastContentStyle, ToastWrapper
 } from './toast.style';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-import classicTheme from '../../style/themes/classic';
 import IconButton from '../icon-button';
 
 jest.mock('../../utils/helpers/guid');
@@ -54,9 +53,9 @@ describe('Toast', () => {
     describe('with prop isCenter', () => {
       it('should render Toast in the center of the document', () => {
         assertStyleMatch({
-          position: 'fixed',
-          width: '100%',
-          height: '0',
+          position: 'relative',
+          width: 'auto',
+          height: 'auto',
           justifyContent: 'center',
           display: 'flex'
         }, mount(
@@ -71,8 +70,9 @@ describe('Toast', () => {
     });
 
     it('renders the component with correct id', () => {
-      const wrapper = mount(<Toast open id='toast-id' />);
-      expect(wrapper.find('#toast-id')).toHaveLength(1);
+      const toastId = 'toast-id';
+      const wrapper = shallow(<Toast open id={ toastId } />);
+      expect(wrapper.find('[data-component="toast"]').prop('id')).toBe(toastId);
     });
 
     it('renders child content', () => {
@@ -164,50 +164,28 @@ describe('Toast', () => {
 });
 
 describe('ToastStyle', () => {
-  it('should render correct style based on classic theme', () => {
+  it('should render with correct style based on default theme', () => {
     assertStyleMatch({
+      boxShadow: '0 10px 30px 0 rgba(0,20,29,.1),0 30px 60px 0 rgba(0,20,29,.1)',
+      lineHeight: '22px',
       marginTop: '30px',
-      position: 'fixed',
-      right: '30px',
-      top: '0',
-      width: '300px',
-      zIndex: '2001',
-      boxShadow: '0 15px 20px 0 rgba(2,18,36,0.2)',
-      border: 'none',
-      backgroundColor: '#FFFBF2'
+      maxWidth: '300px',
+      position: 'relative',
+      marginRight: '30px'
     }, mount(<ToastStyle
-      theme={ classicTheme } variant='help'
-      open
-    />));
-  });
-});
-
-describe('ToastTypeStyle', () => {
-  it('should render correct style based on classic theme', () => {
-    assertStyleMatch({
-      alignItems: 'center',
-      display: 'flex',
-      height: '100%',
-      justifyContent: 'center',
-      position: 'absolute',
-      top: '0',
-      left: '-1px',
-      width: '31px',
-      backgroundColor: '#FFAB00'
-    }, mount(<ToastTypeStyle
-      theme={ classicTheme } variant='help'
+      variant='help'
       open
     />));
   });
 });
 
 describe('TestContentStyle', () => {
-  it('should render cnrrect style based on classic theme', () => {
+  it('should render with correct style based on default theme', () => {
     assertStyleMatch({
-      padding: '15px 20px 15px 50px',
+      padding: '8px 16px 8px 16px',
       whiteSpace: 'pre-wrap'
     }, mount(<ToastContentStyle
-      theme={ classicTheme } variant='help'
+      variant='help'
       open
     />));
   });

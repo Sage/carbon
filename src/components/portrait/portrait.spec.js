@@ -3,7 +3,7 @@ import TestRenderer from 'react-test-renderer';
 import ReactTestUtils from 'react-dom/test-utils';
 import { shallow } from 'enzyme';
 import { ThemeProvider } from 'styled-components';
-import { classicTheme, carbonThemeList } from '../../style/themes';
+import { carbonThemeList } from '../../style/themes';
 import Browser from '../../utils/helpers/browser';
 import Portrait from './portrait.component';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
@@ -31,14 +31,6 @@ const mockDocumentWithCanvas = {
 function renderDLS(element) {
   return TestRenderer.create(
     <ThemeProvider theme={ carbonThemeList[0] }>
-      {element}
-    </ThemeProvider>
-  );
-}
-
-function renderClassic(element) {
-  return TestRenderer.create(
-    <ThemeProvider theme={ classicTheme }>
       {element}
     </ThemeProvider>
   );
@@ -82,13 +74,6 @@ describe('PortraitComponent', () => {
     });
 
     describe('shape', () => {
-      it('accepts valid Classic shapes', () => {
-        renderClassic(<Portrait src='foo' shape='standard' />);
-        renderClassic(<Portrait src='foo' shape='circle' />);
-        renderClassic(<Portrait src='foo' shape='leaf' />);
-        expect(console.error).toHaveBeenCalledTimes(0);
-      });
-
       it('accepts valid DLS shapes', () => {
         renderDLS(<Portrait src='foo' shape='square' />);
         renderDLS(<Portrait src='foo' shape='circle' />);
@@ -176,26 +161,6 @@ describe('PortraitComponent', () => {
 
       /* eslint-disable no-console */
 
-      it('accepts a valid Classic size', () => {
-        const styledIconDark = (
-          <StyledIcon
-            type='individual'
-            size='small'
-            darkBackground
-          />
-        );
-        const styledIconLight = (
-          <StyledIcon
-            type='individual'
-            size='small'
-            darkBackground={ false }
-          />
-        );
-        renderClassic(styledIconDark);
-        renderClassic(styledIconLight);
-        expect(console.error).toHaveBeenCalledTimes(0);
-      });
-
       it('accepts a valid DLS size', () => {
         const styledIconDark = (
           <StyledIcon
@@ -242,7 +207,6 @@ describe('PortraitComponent', () => {
     const testFail = element => renderFindTypeFail(element, PortraitInitials);
 
     it('renders initials when supplied with initials but no Gravatar or src', () => {
-      renderClassic(<Portrait initials='AB' size='medium' />);
       testSuccess(<Portrait initials='AB' />);
     });
 
@@ -273,17 +237,6 @@ describe('PortraitComponent', () => {
       renderDLS(<PortraitInitials { ...props } />);
       expect(console.error).toHaveBeenCalledTimes(0); // eslint-disable-line no-console
     });
-
-    it('can render the Classic theme', () => {
-      spyOn(console, 'error');
-      const props = {
-        size: 'medium', initials: 'AB', darkBackground: false, theme: classicTheme
-      };
-      renderClassic(<PortraitInitials { ...props } />);
-      props.darkBackground = true;
-      renderClassic(<PortraitInitials { ...props } />);
-      expect(console.error).toHaveBeenCalledTimes(0); // eslint-disable-line no-console
-    });
   });
 
   describe('render Gravatar', () => {
@@ -299,19 +252,6 @@ describe('PortraitComponent', () => {
       testSuccess(
         <Portrait gravatar={ gravatarEmail } alt='foo' />
       );
-    });
-
-    it('can render the Classic theme', () => {
-      spyOn(console, 'error');
-      renderClassic(
-        <PortraitGravatar
-          gravatarEmail={ gravatarEmail }
-          size='medium'
-          alt='foo'
-          theme={ classicTheme }
-        />
-      );
-      expect(console.error).toHaveBeenCalledTimes(0); // eslint-disable-line no-console
     });
   });
 

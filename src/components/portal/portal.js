@@ -21,7 +21,9 @@ class Portal extends React.Component {
      * @property onReposition
      * @type {Node}
      */
-    onReposition: PropTypes.func
+    onReposition: PropTypes.func,
+    id: PropTypes.string,
+    className: PropTypes.string
   }
 
   constructor(...args) {
@@ -56,18 +58,39 @@ class Portal extends React.Component {
       Browser.getWindow().removeEventListener('resize', this.props.onReposition);
       if (this.scrollParent) { this.scrollParent.removeEventListener('scroll', this.props.onReposition); }
     }
-    Browser.getDocument().body.removeChild(this.defaultNode);
+    this.defaultNode.remove();
     this.defaultNode = null;
     this.scrollParent = null;
   }
 
+  updateClassNames(portalClassName) {
+    this.defaultNode.removeAttribute('class');
+    this.defaultNode.setAttribute('class', portalClassName);
+    if (this.props.className) {
+      this.props.className.split(' ').forEach((el) => {
+        this.defaultNode.classList.add(el);
+      });
+    }
+  }
+
   getPortalDiv() {
-    if (!this.defaultNode) {
+    const portalClassName = 'carbon-portal';
+    if (this.props.id !== undefined && Browser.getDocument().getElementById(this.props.id)) {
+      this.defaultNode = Browser.getDocument().getElementById(this.props.id);
+    }
+
+    if (!this.defaultNode || (this.props.id !== undefined && !Browser.getDocument().getElementById(this.props.id))) {
       this.defaultNode = Browser.getDocument().createElement('div');
-      this.defaultNode.classList.add('carbon-portal');
+      this.defaultNode.classList.add(portalClassName);
       this.defaultNode.setAttribute('data-portal-exit', this.guid);
+      if (this.props.id !== undefined) {
+        this.defaultNode.setAttribute('id', this.props.id);
+      }
       Browser.getDocument().body.appendChild(this.defaultNode);
     }
+
+    this.updateClassNames(portalClassName);
+
     return this.defaultNode;
   }
 

@@ -26,6 +26,14 @@ export function visitComponentUrlByTheme(component, theme, sufix = '') {
   cy.visit(`${prepareUrl(component, 'default', true, '')}&theme=${theme}${sufix}`);
 }
 
+export function visitComponentUrlByThemeByStory(component, story, theme, sufix = '') {
+  cy.visit(`${prepareUrl(component, story, true, '')}&theme=${theme}${sufix}`);
+}
+
+export function visitDesignSystemComponentUrlByThemeByStory(component, prefix, story, theme, sufix = '') {
+  cy.visit(`${prepareUrl(component, story, true, prefix)}&theme=${theme}${sufix}`);
+}
+
 export function visitComponentUrlByThemeKnobsStory(component, theme, sufix = '') {
   cy.visit(`${prepareUrl(component, 'knobs', true, '')}&theme=${theme}${sufix}`);
 }

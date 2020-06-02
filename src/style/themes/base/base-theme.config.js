@@ -56,13 +56,12 @@ export default (palette) => {
       background: palette.slateTint(90)
     },
 
-    radioTile: {
+    tileSelect: {
       border: palette.slateTint(75),
-      checkedBorder: palette.productGreenShade(21),
-      // eslint-disable-next-line max-len
-      selectedBackground: `linear-gradient(0deg,rgba(255,255,255,0.95),rgba(255,255,255,0.95)),${palette.productGreenShade(21)}`,
+      disabledBackground: palette.slateTint(90),
       hoverBackground: palette.slateTint(95),
-      descriptionColor: blackWithOpacity(0.55)
+      descriptionColor: blackWithOpacity(0.55),
+      disabledText: blackWithOpacity(0.3)
     },
 
     batchSelection: {
@@ -110,8 +109,18 @@ export default (palette) => {
         headerBackground: palette.slateTint(95),
         border: palette.slateTint(95)
       },
+
+      drawerSidebar: {
+        headerBackground: palette.slateTint(93),
+        hover: palette.slateTint(85),
+        highlighted: palette.slateTint(80),
+        selected: palette.slateTint(70)
+      },
+
       hover: palette.slateTint(95),
-      headerIconColor: palette.slateTint(60)
+      headerIconColor: palette.slateTint(60),
+      selected: palette.slateTint(85),
+      highlighted: palette.slateTint(90)
     },
 
     help: {

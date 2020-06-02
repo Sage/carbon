@@ -26,6 +26,7 @@
   * All component functionality is testing using all Knobs configuration.
   * Events are tested as well (could be checked in Actions section).
   * Accessibility is also testing using Axe framework.
+  * Visual tests are performed using [Applitools](https://applitools.com) framework.
 
 ## Getting started
 1. Clone the carbon repository `git clone git@github.com:Sage/carbon.git`.
@@ -34,7 +35,12 @@
 5. Open a new terminal in the same path.
 6. Run cypress using runner `npx cypress open` or `npm run test-cypress`, next select needed feature file.
 7. If you would like to run specific cypress tests in command line (headless browser for continuous integration) use: `npx cypress run --spec 'cypress/features/[tests-type]/[featureFileName].feature'`.
-  * to run on `chrome`/`firefox` browser add `--browser chrome` or `--browser firefox`. 
+  * to run on `chrome`/`firefox` browser add `--browser chrome` or `--browser firefox`.
+8. To run `visual` tests using `applitools` locally first of all you need to:
+  * export secret `APPLITOOLS_API_KEY` to make possible use `applitools` to compare screenshots;
+  * run `npx cypress open --env CYPRESS_APPLITOOLS=true` and select proper `*.feature` file;
+  or
+  * run `npx cypress run --spec './cypress/features/visual/*' --env CYPRESS_APPLITOOLS=true` in command line (headless browser for continuous integration) runner.
 
 ## Coding standards
 1. Use ESlint plugin to Visual Studio Code to make sure code format is preserved.
@@ -68,14 +74,23 @@ Use scenario tags:
 6. `@accessibility` tests verify accessibility violations.
 7. `@validations` tests verify validation components.
 8. `@themes` tests verify themes colouristics.
+9. `@applitools` visual tests for components based on comparing screenshots base / actual.
+
 ## Files structure
 ```
 .
 ├── cypress
 │ ├── fixture
 │ ├── features
-│ │   ├── accessibility
-│ │   └── regression
+│ │   ├── regression
+│ │       ├── accessibility
+│ │       ├── designSystem
+│ │       ├── experimental
+│ │       ├── test
+│ │       ├── themes
+│ │       ├── validations
+│ │       └── common
+│ │   └── visual
 │ ├── locators
 │ │   └── [component-name]
 │ │       ├── index.js (exported arrow functions for locators)
@@ -106,10 +121,21 @@ Always use unique selectors to locate elements with order below:
 ## Continuous Integration (CI)
 Every commit / pull request in repository initializing cypress tests and runs:
 ### Travis
-1. `npm run lint` - runs lint test
+1. `npm run lint` - runs lint test.
 2. `npm test` - runs jest tests.
+3. `npm start` - runs storybook.
+4. `wait-on http://localhost:9001` - waits until storybook is up and running and is ready to run tests.
+5. `npm run cypress:ci:visual` - run all `visual` test suite.
 ### GitHub Actions
 1. `npm start` - runs storybook.
 3. `wait-on http://localhost:9001` - waits until storybook is up and running and is ready to run tests.
 4. `npx cypress run --parallel --record` - run all tests suite.
   * NOTE: if the tests failed you need to make another `commit`/`push` to generate `cypress run_id` to make possible to re-run cypress tests (on each run `run_id` should be unique).
+
+## Dashboards
+
+### Cypress dashboard
+[Cypress.io - dashboard](https://dashboard.cypress.io/projects/8458bb/runs)
+
+### Applitools dashboard
+[Applitools - dashboard](https://eyes.applitools.com/app/test-results/00000251812391553929/?accountId=MZDiTwN5_kOmMbjBqRi9pw~~)

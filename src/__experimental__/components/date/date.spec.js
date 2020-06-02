@@ -81,7 +81,7 @@ describe('Date', () => {
         expect(wrapper.find('input').findWhere(n => n.props().type !== 'hidden').prop('value')).toBe(currentDate);
       });
 
-      it('then the input element value should not be updated if the "allowEmptyValue" prop is truthy', () => {
+      it('then the input element value should be an empty string if "allowEmptyValue" prop is truthy', () => {
         wrapper = render({ [prop]: '', allowEmptyValue: true });
         simulateBlurOnInput(wrapper);
         expect(wrapper.find('input').findWhere(n => n.props().type !== 'hidden').prop('value')).toBe('');
@@ -446,6 +446,81 @@ describe('Date', () => {
         jest.runAllTimers();
         wrapper.update();
         expect(wrapper.find('input').findWhere(n => n.props().type !== 'hidden').props().value).toBe(emptyDate);
+      });
+    });
+  });
+
+  describe('when value prop is changed to an empty string', () => {
+    describe('and "allowEmptyValue" is false', () => {
+      const initialDate = '2019-04-01';
+      const formattedDate = '01/04/2019';
+      const emptyDate = '';
+
+      it('reformats the "visibleValue" back to the previous valid date', () => {
+        wrapper = render({
+          onChange: jest.fn(),
+          name: 'Date input',
+          value: initialDate
+        });
+        wrapper.setProps({ value: emptyDate });
+
+        simulateFocusOnInput(wrapper);
+        jest.runAllTimers();
+        wrapper.update();
+        expect(wrapper.find('input').findWhere(n => n.props().type !== 'hidden').props().value).toBe(formattedDate);
+      });
+
+      it('reformats the "selectedDate" back to the previous valid date', () => {
+        wrapper = render({
+          onChange: jest.fn(),
+          name: 'Date input',
+          value: initialDate
+        });
+        wrapper.setProps({ value: emptyDate });
+
+        simulateFocusOnInput(wrapper);
+        jest.runAllTimers();
+        wrapper.update();
+        expect(
+          wrapper.find(DatePicker).props().selectedDate
+        ).toEqual(DateHelper.stringToDate(DateHelper.formatValue(initialDate)));
+      });
+    });
+
+    describe('and "allowEmptyValue" is true', () => {
+      const initialDate = '2019-04-01';
+      const emptyDate = '';
+
+      it('sets an empty string as the "visibleValue"', () => {
+        wrapper = render({
+          onChange: jest.fn(),
+          name: 'Date input',
+          value: initialDate,
+          allowEmptyValue: true
+        });
+
+        wrapper.setProps({ value: emptyDate });
+        simulateFocusOnInput(wrapper);
+        jest.runAllTimers();
+        wrapper.update();
+
+        expect(wrapper.find('input').findWhere(n => n.props().type !== 'hidden').props().value).toBe(emptyDate);
+      });
+
+      it('sets an empty string as the "selectedDate"', () => {
+        wrapper = render({
+          onChange: jest.fn(),
+          name: 'Date input',
+          value: initialDate,
+          allowEmptyValue: true
+        });
+
+        wrapper.setProps({ value: emptyDate });
+        simulateFocusOnInput(wrapper);
+        jest.runAllTimers();
+        wrapper.update();
+
+        expect(wrapper.find(DatePicker).props().selectedDate).toBe(emptyDate);
       });
     });
   });

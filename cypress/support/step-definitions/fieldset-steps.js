@@ -1,7 +1,7 @@
 import { legendPreview, fieldsetFieldName } from '../../locators/fieldset';
 import { positionOfElement } from '../helper';
 
-Then('legend on preview is {string}', (legend) => {
+Then('legend on preview is {word}', (legend) => {
   legendPreview().should('have.text', legend);
 });
 

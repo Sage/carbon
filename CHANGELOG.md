@@ -1,3 +1,116 @@
+### [22.1.1](https://github.com/Sage/carbon/compare/v22.1.0...v22.1.1) (2020-05-29)
+
+
+### Bug Fixes
+
+* **drawer:** update overflow behaviour ([5883c89](https://github.com/Sage/carbon/commit/5883c89ff50282e706e02c98b69db3a5a275b8c7))
+
+## [22.1.0](https://github.com/Sage/carbon/compare/v22.0.3...v22.1.0) (2020-05-29)
+
+
+### Features
+
+* **toast:** multiple toasts can now stack ([f508f0f](https://github.com/Sage/carbon/commit/f508f0f9a3ed861a7514da9c5dde74662f733339)), closes [#2737](https://github.com/Sage/carbon/issues/2737)
+
+
+### Bug Fixes
+
+* **portal:** compatibility with styled components lib ([3688c34](https://github.com/Sage/carbon/commit/3688c348be18f24a0ad238b7209f41637b3fc7de))
+
+### [22.0.3](https://github.com/Sage/carbon/compare/v22.0.2...v22.0.3) (2020-05-28)
+
+
+### Bug Fixes
+
+* **link:** add target prop ([87bc937](https://github.com/Sage/carbon/commit/87bc937e5c0163d52a75694a37f167dbab5ae131)), closes [#2921](https://github.com/Sage/carbon/issues/2921)
+
+### [22.0.2](https://github.com/Sage/carbon/compare/v22.0.1...v22.0.2) (2020-05-28)
+
+
+### Bug Fixes
+
+* **checkbox:** update typescript definitions ([578de51](https://github.com/Sage/carbon/commit/578de51964caf864bf7f22224ff2388ca07fb48b)), closes [#2813](https://github.com/Sage/carbon/issues/2813)
+
+### [22.0.1](https://github.com/Sage/carbon/compare/v22.0.0...v22.0.1) (2020-05-27)
+
+
+### Bug Fixes
+
+* **inline-input:** update story and knobs ([9a7daff](https://github.com/Sage/carbon/commit/9a7daffa3871a4885f73c9c0c869185989ae9d04))
+
+## [22.0.0](https://github.com/Sage/carbon/compare/v21.1.2...v22.0.0) (2020-05-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **portrait:** removes classic theme support from portrait
+
+### Bug Fixes
+
+* **portrait:** portrait story not loading in storybook ([667a89a](https://github.com/Sage/carbon/commit/667a89a5d67a2138a8ee748a288af913cf2a111e))
+
+### [21.1.2](https://github.com/Sage/carbon/compare/v21.1.1...v21.1.2) (2020-05-22)
+
+
+### Bug Fixes
+
+* **date:** allow to programatically set date as empty string ([7d9e596](https://github.com/Sage/carbon/commit/7d9e596d50971a8d36000726aa4eac31691b5cde))
+
+### [21.1.1](https://github.com/Sage/carbon/compare/v21.1.0...v21.1.1) (2020-05-22)
+
+
+### Bug Fixes
+
+* **button:** add missing type declarations ([36aeedc](https://github.com/Sage/carbon/commit/36aeedcaff749244712b71f9ca8736b6c288e3b4))
+* **content:** add typescript declarations ([de8c335](https://github.com/Sage/carbon/commit/de8c335f8c6ef96f3e69ebb37b7e605eeec73c6d))
+
+## [21.1.0](https://github.com/Sage/carbon/compare/v21.0.1...v21.1.0) (2020-05-22)
+
+
+### Features
+
+* **flat-table-checkbox:** add new component used when rows selectable ([ca387f1](https://github.com/Sage/carbon/commit/ca387f16d5a78650f8dd870ddc9830e4c038e95e))
+* **flat-table-row:** add new prop to apply highlighted styling ([28ecefa](https://github.com/Sage/carbon/commit/28ecefa203843df00d8cacaa0a5384085a31d0a9))
+* **flat-table-row:** add new prop to apply styling when row is selected ([19c60ff](https://github.com/Sage/carbon/commit/19c60ffe4d942cdae1918b2948cc678bb949d7b6))
+
+### [21.0.1](https://github.com/Sage/carbon/compare/v21.0.0...v21.0.1) (2020-05-22)
+
+
+### Bug Fixes
+
+* **inline-input:** implement aria-labelledby ([59aae72](https://github.com/Sage/carbon/commit/59aae7268c926f4f1935deb280fa9ea830af66e7))
+
+## [21.0.0](https://github.com/Sage/carbon/compare/v20.2.0...v21.0.0) (2020-05-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **action-popover:** In order for the styling to work as before you should pass this component into the `renderButton` prop to guarantee the same look as previously
+* **button:** The `styleOverride` prop has been removed
+
+### Features
+
+* **action-popover:** add a menu button wrapper component ([0cecc47](https://github.com/Sage/carbon/commit/0cecc4748a7967eae04002e5185f41e898ab95af))
+
+
+### Code Refactoring
+
+* **button:** remove style override prop from component ([39df8bc](https://github.com/Sage/carbon/commit/39df8bc0218bb6b9a3e2a2ed858b5475fd09fa4f))
+
+## [20.2.0](https://github.com/Sage/carbon/compare/v20.1.3...v20.2.0) (2020-05-21)
+
+
+### Features
+
+* **accordion:** allow passing data-role prop to the root element ([5b08c5d](https://github.com/Sage/carbon/commit/5b08c5d7da72c2715936de5d3c63cb38ad1d7772))
+
+### [20.1.3](https://github.com/Sage/carbon/compare/v20.1.2...v20.1.3) (2020-05-18)
+
+
+### Bug Fixes
+
+* **search:** fix height, width and background style bugs ([86147a6](https://github.com/Sage/carbon/commit/86147a6d44ef0c07256a6b3a347e1e8be869da21))
+
 ### [20.1.2](https://github.com/Sage/carbon/compare/v20.1.1...v20.1.2) (2020-05-14)
 
 

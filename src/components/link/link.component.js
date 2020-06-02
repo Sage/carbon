@@ -55,7 +55,8 @@ class Link extends React.Component {
       onMouseDown: this.props.onMouseDown,
       disabled: this.props.disabled,
       onClick: this.handleClick,
-      tabIndex: this.tabIndex
+      tabIndex: this.tabIndex,
+      target: this.props.target
     };
 
     if (this.props.to) {
@@ -153,7 +154,9 @@ Link.propTypes = {
   /** Aligns the tooltip. */
   tooltipAlign: PropTypes.oneOf(OptionsHelper.alignAroundEdges),
   /** A routing component to render when the to prop is set */
-  routerLink: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+  routerLink: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  /** Target property in which link should open ie: _blank, _self, _parent, _top */
+  target: PropTypes.string
 };
 
 Link.defaultProps = {

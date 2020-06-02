@@ -6,22 +6,26 @@ Feature: Button Toggle Group component
 
   @positive
   Scenario Outline: Change Button Toggle Group component label to <label>
-    When I set label to "<label>"
+    When I set label to <label> word
     Then Button Toggle Group label on preview is "<label>"
     Examples:
       | label                   |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Change Button Toggle Group component label help to <labelHelp>
-    When I set labelHelp to "<labelHelp>"
+    When I set labelHelp to <labelHelp> word
       And I hover mouse onto help icon
-    Then tooltipPreview on preview is set to "<labelHelp>"
+    Then tooltipPreview on preview is set to <labelHelp>
     Examples:
       | labelHelp               |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @ignore
   # @ignore until solution is applied to round sizes as integers as Chrome v80 has amended pixel sizes
@@ -42,12 +46,14 @@ Feature: Button Toggle Group component
 
   @positive
   Scenario Outline: Change Button Toggle Group component field help to <fieldHelp>
-    When I set fieldHelp to "<fieldHelp>"
-    Then fieldHelp on preview is set to "<fieldHelp>"
+    When I set fieldHelp to <fieldHelp> word
+    Then fieldHelp on preview is set to <fieldHelp>
     Examples:
       | fieldHelp               |
       | mp150ú¿¡üßä             |
       | !@#$%^*()_+-=~[];:.,?{} |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario: Enable label inline checkbox

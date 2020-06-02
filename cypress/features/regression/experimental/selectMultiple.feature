@@ -30,12 +30,12 @@ Feature: Select multiple component
 
   @positive
   Scenario Outline: Set Select label to <label>
-    When I set label to "<label>"
-    Then label is set to "<label>"
+    When I set label to <label> word
+    Then label is set to <label>
     Examples:
-      | label                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | label                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Disable Select
@@ -61,12 +61,12 @@ Feature: Select multiple component
 
   @positive
   Scenario Outline: Change Select component placeholder to <placeholder>
-    When I set placeholder to "<placeholder>"
-    Then Select placeholder on preview is set to "<placeholder>"
+    When I set placeholder to <placeholder> word
+    Then Select placeholder on preview is set to <placeholder>
     Examples:
-      | placeholder             |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | placeholder                  |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @ignore
   # ignored because this functionality works only for modern theme

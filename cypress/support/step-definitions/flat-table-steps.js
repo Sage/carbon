@@ -1,8 +1,8 @@
 import {
-  flatTableHeaderCells, flatTableHeader, flatTableBodyRows, flatTableNoiFrame,
-  flatTableHeaderCellsNoiFrame, flatTableBodyRowByPositionNoiFrame, flatTableBodyCellByPosition,
-  flatTableBodyRowByPosition, flatTableBodyRowByPositionDS, flatTableHeaderCellDS,
-  flatTableClickableRowByPositionDS, fltaTableSortableDS, flatTableCellDS,
+  flatTableNoiFrame, flatTableHeaderCellsNoiFrame, flatTableBodyRowByPositionNoiFrame,
+  flatTableBodyRowByPosition, flatTableBodyRowByPositionDS,
+  flatTableHeaderCellDS, flatTableClickableRowByPositionDS, fltaTableSortableDS,
+  flatTableCellDS, flatTableCheckbox, flatTableBodyRowByPositionDSnoiFrame,
 } from '../../locators/flat-table';
 import { DEBUG_FLAG } from '..';
 import { positionOfElement } from '../helper';
@@ -28,20 +28,6 @@ Then('FlatTable has sticky header', () => {
   });
 });
 
-Then('FlatTable has nine rows', () => {
-  flatTableHeader().should('have.length', 1);
-  flatTableBodyRows().should('have.length', 8);
-});
-
-Then('FlatTable has seven columns', () => {
-  flatTableHeaderCells().should('have.length', 7);
-});
-
-Then('{string} header cell has value {string}', (position, text) => {
-  flatTableHeaderCells().eq(positionOfElement(position)).should('have.text', text)
-    .and('be.visible');
-});
-
 Then('{int} header cells are {string} visible', (count, state) => {
   if (state === 'not') {
     for (let i = 1; i < count; i++) {
@@ -53,23 +39,6 @@ Then('{int} header cells are {string} visible', (count, state) => {
       flatTableHeaderCellsNoiFrame().eq(i).should('be.visible');
     }
   }
-});
-
-Then('FlatTable {int} row contains proper inner content', (indexRow) => {
-  flatTableBodyCellByPosition(indexRow, positionOfElement('first')).should('have.text', 'Soylent CorpJohn Doe')
-    .and('be.visible');
-  flatTableBodyCellByPosition(indexRow, positionOfElement('second')).should('have.text', 'business')
-    .and('be.visible');
-  flatTableBodyCellByPosition(indexRow, positionOfElement('third')).should('have.text', 'Group1, Group2, Group3')
-    .and('be.visible');
-  flatTableBodyCellByPosition(indexRow, positionOfElement('fourth')).should('have.text', 'Accounting')
-    .and('be.visible');
-  flatTableBodyCellByPosition(indexRow, positionOfElement('fifth')).should('have.text', '12/12/20')
-    .and('be.visible');
-  flatTableBodyCellByPosition(indexRow, positionOfElement('sixth')).should('have.text', '20/12/20')
-    .and('be.visible');
-  flatTableBodyCellByPosition(indexRow, positionOfElement('seventh')).should('have.text', '25/12/20')
-    .and('be.visible');
 });
 
 Then('I scroll table content to right bottom', () => {
@@ -164,12 +133,6 @@ When('{string} column is sorted in {string} order', (position, sortOrder) => {
   }
 });
 
-Then('Flat table header has {string} color', (colorTheme) => {
-  flatTableHeaderCells().each(($el) => {
-    cy.wrap($el).should('have.css', 'background-color', colorTheme);
-  });
-});
-
 Then('{string} header has focus', (position) => {
   fltaTableSortableDS().eq(positionOfElement(position)).should('have.css', 'outline-color', 'rgb(255, 181, 0)');
 });
@@ -190,4 +153,16 @@ Then('I press {string} on {string} header {int} time(s)', (key, position, count)
       throw new Error('Only Enter or Space key can be applied');
     }
   }
+});
+
+When('I check {string} flat table checkbox', (position) => {
+  flatTableCheckbox(positionOfElement(position)).click();
+});
+
+When('I hover mouse onto {string} row', (position) => {
+  flatTableBodyRowByPositionDSnoiFrame(positionOfElement(position)).trigger('mouseover');
+});
+
+When('I click onto {string} row', (position) => {
+  flatTableBodyRowByPositionDSnoiFrame(positionOfElement(position)).click();
 });

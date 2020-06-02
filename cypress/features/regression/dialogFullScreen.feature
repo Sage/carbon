@@ -19,33 +19,33 @@ Feature: Dialog Full Screen component
 
   @positive
   Scenario Outline: Change Dialog Full Screen component title to <title>
-    When I set title to "<title>"
+    When I set title to <title> word
       And I open component preview
-    Then component title on preview is "<title>"
+    Then component title on preview is <title>
     Examples:
-      | title                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | title                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change Dialog Full Screen subtitle to <subtitle>
-    When I set subtitle to "<subtitle>"
+    When I set subtitle to <subtitle> word
       And I open component preview
-    Then component subtitle on preview is "<subtitle>"
+    Then component subtitle on preview is <subtitle>
     Examples:
-      | subtitle                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | subtitle                     |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario Outline: Change Dialog Full Screen children to <children>
-    When I set children to "<children>"
+    When I set children to <children> word
       And I open component preview
-    Then Dialog Full Screen children on preview is "<children>"
+    Then Dialog Full Screen children on preview is <children>
     Examples:
-      | children                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | children                     |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
   @positive
   Scenario: Enable background UI

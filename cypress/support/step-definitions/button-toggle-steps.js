@@ -2,7 +2,7 @@ import { buttonToggleLabelPreview, buttonTogglePreview } from '../../locators/bu
 import { icon } from '../../locators';
 import { positionOfElement } from '../helper';
 
-Then('Button Toggle label on preview is {string}', (label) => {
+Then('Button Toggle label on preview is {word}', (label) => {
   buttonToggleLabelPreview(positionOfElement('first')).should('have.text', label);
   buttonToggleLabelPreview(positionOfElement('second')).should('have.text', label);
   buttonToggleLabelPreview(positionOfElement('third')).should('have.text', label);

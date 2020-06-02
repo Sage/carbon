@@ -63,80 +63,84 @@ export const asASibling = () => {
   );
 };
 
-export const allButtons = () => {
+const generateButtons = buttonType => () => {
   return (
     <>
       {OptionsHelper.buttonIconPositions.map(iconPosition => (
-        OptionsHelper.buttonTypes.map(buttonType => (
-          ['', ...OptionsHelper.icons].map((iconType) => {
-            const props = { iconPosition, buttonType, iconType };
-            return (
-              <div>
-                {OptionsHelper.sizesRestricted.map(size => (
-                  <>
+        ['', ...OptionsHelper.icons].map((iconType) => {
+          const props = { iconPosition, buttonType, iconType };
+          return (
+            <div>
+              {OptionsHelper.sizesRestricted.map(size => (
+                <>
+                  <Button
+                    size={ size }
+                    { ...props }
+                  >{size}
+                  </Button>
+
+                  {size === 'large' && (
                     <Button
                       size={ size }
+                      subtext='line two'
                       { ...props }
                     >{size}
                     </Button>
+                  )}
+                </>
+              ))}
 
-                    {size === 'large' && (
-                      <Button
-                        size={ size }
-                        subtext='line two'
-                        { ...props }
-                      >{size}
-                      </Button>
-                    )}
-                  </>
-                ))}
+              {OptionsHelper.sizesRestricted.map(size => (
+                <>
+                  <Button
+                    size={ size }
+                    destructive
+                    { ...props }
+                  >{size}
+                  </Button>
 
-                {OptionsHelper.sizesRestricted.map(size => (
-                  <>
+                  {size === 'large' && (
                     <Button
                       size={ size }
                       destructive
+                      subtext='line two'
                       { ...props }
                     >{size}
                     </Button>
+                  )}
+                </>
+              ))}
 
-                    {size === 'large' && (
-                      <Button
-                        size={ size }
-                        destructive
-                        subtext='line two'
-                        { ...props }
-                      >{size}
-                      </Button>
-                    )}
-                  </>
-                ))}
+              {OptionsHelper.sizesRestricted.map(size => (
+                <>
+                  <Button
+                    size={ size }
+                    disabled
+                    { ...props }
+                  >{size}
+                  </Button>
 
-                {OptionsHelper.sizesRestricted.map(size => (
-                  <>
+                  {size === 'large' && (
                     <Button
                       size={ size }
                       disabled
+                      subtext='line two'
                       { ...props }
                     >{size}
                     </Button>
-
-                    {size === 'large' && (
-                      <Button
-                        size={ size }
-                        disabled
-                        subtext='line two'
-                        { ...props }
-                      >{size}
-                      </Button>
-                    )}
-                  </>
-                ))}
-              </div>
-            );
-          })
-        ))
+                  )}
+                </>
+              ))}
+            </div>
+          );
+        })
       ))}
     </>
   );
 };
+
+export const primaryButtons = generateButtons('primary');
+export const secondaryButtons = generateButtons('secondary');
+export const tertiaryButtons = generateButtons('tertiary');
+export const dashedButtons = generateButtons('dashed');
+export const darkBackgroundButtons = generateButtons('darkBackground');

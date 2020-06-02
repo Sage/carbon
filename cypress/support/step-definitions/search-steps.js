@@ -3,7 +3,7 @@ import {
   searchDefaultInputDS, searchCrossIconDS, searchButtonDS, searchWitchButtonInputDS, searchDefaultInnerIconDS, searchInnerIconDS,
 } from '../../locators/search';
 
-Then('Search component placeholder is set to {string}', (placeholder) => {
+Then('Search component placeholder is set to {word}', (placeholder) => {
   searchInput().should('have.attr', 'placeholder', placeholder);
 });
 

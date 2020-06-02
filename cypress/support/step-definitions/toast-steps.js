@@ -1,14 +1,17 @@
-import { toastPreview, toastComponent } from '../../locators/toast';
+import { toastPreview, toastComponent, toastTogglePreview } from '../../locators/toast';
 import { getDataElementByValue } from '../../locators';
 
-Then('Toast icon is set to {string}', (icon) => {
-  toastPreview().children().should('have.attr', 'type', `${icon}`)
-    .and('have.attr', 'data-element', `${icon}`)
-    .and('be.visible');
+When('I click on {string} Toggle Preview', (e) => {
+  toastTogglePreview(e).scrollIntoView();
+  toastTogglePreview(e).click();
+});
+
+Then('Toast icon is set to {string}', (val) => {
+  toastPreview().children().first().should('have.attr', 'data-element', val);
 });
 
 Then('Toast children is set to {string}', (text) => {
-  toastPreview().invoke('text').should('contain', text);
+  toastComponent().children().should('have.text', text);
 });
 
 Then('Toast component is visible', () => {
@@ -16,7 +19,7 @@ Then('Toast component is visible', () => {
 });
 
 Then('Toast component is not visible', () => {
-  toastPreview().should('not.exist');
+  toastComponent().should('not.exist');
 });
 
 Then('Toast component has a close icon', () => {
@@ -28,9 +31,37 @@ Then('Toast component has no close icon', () => {
 });
 
 Then('Toast has background-color {string} and border {string} color', (color) => {
-  toastPreview().should('have.css', 'background-color', color);
-  toastComponent().should('have.css', 'border-bottom-color', color)
-    .and('have.css', 'border-left-color', color)
-    .and('have.css', 'border-right-color', color)
-    .and('have.css', 'border-top-color', color);
+  toastComponent().children().first().should('have.css', 'background-color', color);
+  toastComponent().should('have.css', 'border-color', color);
+});
+
+Then('Toast is centred', () => {
+  toastComponent().should('have.css', 'margin-right', '0px');
+});
+
+Then('Toast is not centred', () => {
+  toastComponent().should('have.css', 'margin-right', '30px');
+});
+
+Then('Toast component is stacked', () => {
+  toastComponent().parent().parent().as('toastParent');
+  cy.get('@toastParent').should('have.length', 2);
+  cy.get('@toastParent').children().eq(0).find('div')
+    .should('have.attr', 'data-component', 'toast');
+  cy.get('@toastParent').children().eq(1).find('div')
+    .should('have.attr', 'data-component', 'toast');
+});
+
+Then('Toast component is stacked delayed', () => {
+  toastComponent().parent().parent().as('toastParent');
+  cy.get('@toastParent').should('have.length', 1);
+  cy.get('@toastParent').children().eq(0).find('div')
+    .should('have.attr', 'data-component', 'toast');
+  cy.wait(1500);
+  toastComponent().parent().parent()
+    .as('toastParentDelayed');
+  cy.get('@toastParentDelayed').children().eq(1)
+    .find('div')
+    .should('have.attr', 'data-component', 'toast');
+  cy.get('@toastParentDelayed').should('have.length', 2);
 });

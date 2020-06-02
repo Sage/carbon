@@ -4,6 +4,9 @@ import { WithValidationProps } from '../../../components/validations/with-valida
 interface CheckboxProps {
   checked?: boolean;
   disabled?: boolean;
+  fieldHelp?: React.ReactNode;
+  labelHelp?: React.ReactNode;
+  autoFocus?: boolean;
   fieldHelpInline?: boolean;
   id?: string;
   inputWidth?: number | string;

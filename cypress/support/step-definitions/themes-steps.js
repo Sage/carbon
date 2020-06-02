@@ -1,4 +1,6 @@
-import { visitComponentUrlByTheme, visitComponentUrlByThemeKnobsStory } from '../helper';
+import {
+  visitComponentUrlByTheme, visitComponentUrlByThemeKnobsStory, visitComponentUrlByThemeByStory, visitDesignSystemComponentUrlByThemeByStory,
+} from '../helper';
 import { getComponentNoIframe, getElementNoIframe } from '../../locators';
 import { buttonToggleComponent, linkComponent, loaderComponent } from '../../locators/themes';
 
@@ -56,4 +58,12 @@ Then('Loader component css background color is set to {string}', (themeName) => 
   cy.fixture('themes/themes.json').then((json) => {
     loaderComponent().should('have.css', BACKGROUND_COLOR, json.common[themeName]);
   });
+});
+
+When('I open {string} component {word} story with theme {string}', (componentName, storyName, themeName) => {
+  visitComponentUrlByThemeByStory(componentName, storyName, themeName);
+});
+
+Given('I open design systems {word} {string} component with theme {string}', (storyName, componentName, themeName) => {
+  visitDesignSystemComponentUrlByThemeByStory(componentName, 'design-system-', storyName, themeName);
 });

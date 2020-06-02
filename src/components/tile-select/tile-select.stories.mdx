@@ -1,0 +1,218 @@
+
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { useState } from 'react';
+
+import { TileSelect, TileSelectGroup } from '.';
+import Pill from "../pill/"
+import Icon from '../icon';
+
+<Meta
+  title="Design System/Tile Select"
+  parameters={{ info: { disable: true }}}
+/>
+
+# TileSelect
+Is a deselectable radio button input visualized as a single or grouped set of tiles
+
+## Quick Start
+
+To use this component, import the `TileSelect` and `TileSelectGroup` if you want to have `TileSelects` grouped.
+
+```jsx
+import { TileSelectGroup, TileSelect } from "carbon-react/lib/components/radio-tile"
+
+const MyComponent = () => (
+  const [value, setValue] = useState(null);
+  <TileSelectGroup
+    name="MyInputName"
+    value={value}
+    legend="Tile Select"
+    description="Pick one of the available options"
+    onChange={(e) => setValue(e.target.value)}
+  >
+    <TileSelect 
+      value="1"
+      title="Title"
+      subtitle="Subtitle"
+      description="Short and descriptive description"
+    />
+    <TileSelect 
+      value="2"
+      title="Title"
+      subtitle="Subtitle"
+      titleAdornment={<Pill>Message</Pill>}
+      description="Short and descriptive description"
+    />
+  </TileSelectGroup>
+);
+```
+
+## Examples
+
+### Single Select
+
+When grouped with `TileSelectGroup` component by default operates in single select mode and `TileSelect` inputs are of type `radio`.
+
+In this mode all input props like `onChange`, `onBlur`, `name` and currently selected `value` are meant to be passed on the `TileSelectGroup`.
+These props are then internally distributed on each of the `TileSelects` making whole composed group act like a single form field.
+
+<Preview>
+  <Story name="Basic">
+    {() => {
+      const [value, setValue] = useState(null);
+      return (
+        <TileSelectGroup
+          name="Tile Select"
+          value={value}
+          legend="Tile Select"
+          description="Pick one of the available options"
+          onChange={(e) => setValue(e.target.value)}
+        >
+          <TileSelect 
+            value="1"
+            id="1"
+            aria-label="1"
+            title="Title"
+            subtitle="Subtitle"
+            description="Short and descriptive description"
+          />
+          <TileSelect 
+            value="2"
+            id="2"
+            aria-label="2"
+            title="Title"
+            subtitle="Subtitle"
+            titleAdornment={<Pill>Message</Pill>}
+            description="Short and descriptive description"
+          />
+          <TileSelect 
+            value="3"
+            id="3"
+            aria-label="3"
+            disabled
+            title="Title" 
+            subtitle="Subtitle"
+            titleAdornment={<Icon type='info' tooltipMessage="Short and non descriptive message" />}
+            description="Short and descriptive description"
+          />
+          <TileSelect 
+            value="4"
+            id="4"
+            aria-label="4"
+            title="Title"
+            subtitle="Subtitle"
+            titleAdornment={<Icon type='info' tooltipMessage="Short and non descriptive message" />}
+            description="Short and descriptive description"
+          />
+        </TileSelectGroup>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Multi select
+To enable multi select mode on a `TileSelectGroup` `multiSelect` boolean prop has to be passed as `true`, `TileSelects` in this mode are of type `checkbox`.
+
+In multi select mode all input props like `onChange`, `onBlur`, `name`, `value` and `checked` are meant to be passed individually on each of the `TileSelects` instead of on the `TileSelectGroup`.
+
+In this mode `TileSelectGroup` serves only a visual purpose - it only renders `legend` and `description` props and applies spacing to each of the `TileSelects`
+
+<Preview>
+  <Story name="Single Select">
+    {() => {
+      const [value1, setValue1] = useState(false);
+      const [value2, setValue2] = useState(false);
+      const [value3, setValue3] = useState(false);
+      const [value4, setValue4] = useState(false);
+      return (
+        <TileSelectGroup
+          legend="Tile Select"
+          description="Pick any number of available options"
+          multiSelect
+        >
+          <TileSelect 
+            value="1"
+            name="multi-1"
+            id="multi-1"
+            aria-label="multi-1"
+            title="Title"
+            subtitle="Subtitle"
+            description="Short and descriptive description"
+            checked={value1}
+            onChange={e => setValue1(e.target.checked)}
+          />
+          <TileSelect
+            value="2"
+            name="multi-2"
+            id="multi-2"
+            aria-label="multi-2"
+            subtitle="Subtitle"
+            titleAdornment={<Pill>Message</Pill>}
+            description="Short and descriptive description"
+            checked={value2}
+            onChange={e => setValue2(e.target.checked)}
+          />
+          <TileSelect
+            value="3"
+            name="multi-3"
+            id="multi-3"
+            aria-label="multi-3"
+            disabled
+            title="Title" 
+            subtitle="Subtitle"
+            titleAdornment={<Icon type='info' tooltipMessage="Short and non descriptive message" />}
+            description="Short and descriptive description"
+            checked={value3}
+            onChange={e => setValue3(e.target.checked)}
+          />
+          <TileSelect
+            value="4"
+            name="multi-4"
+            id="multi-4"
+            aria-label="multi-4"
+            title="Title"
+            subtitle="Subtitle"
+            titleAdornment={<Icon type='info' tooltipMessage="Short and non descriptive message" />}
+            description="Short and descriptive description"
+            checked={value4}
+            onChange={e => setValue4(e.target.checked)}
+          />
+        </TileSelectGroup>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Single tile
+`TileSelect` can be also used as a single component - it operates as a type `checkbox` by default.
+
+Same as in multi select example grouped by `TileSelectGroup`, `onChange`, `onBlur`, `name`, `value` and `checked` are meant to be passed directly on the `TileSelect`.
+
+<Preview>
+  <Story name="Single tile">
+    {() => {
+      const [isChecked, setIsChecked] = useState(false);
+      return (
+        <TileSelect 
+          value="1"
+          id="single-1"
+          aria-label="single-1"
+          name="single"
+          title="Title"
+          subtitle="Subtitle"
+          description="Short and descriptive description"
+          checked={isChecked}
+          onChange={e => setIsChecked(e.target.checked)}
+        />
+      )
+    }}
+  </Story>
+</Preview>
+
+## Props
+
+### TileSelect
+<Props of={TileSelect} />
+
+### TileSelectGroup
+<Props of={TileSelectGroup} />
