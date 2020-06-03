@@ -1,4 +1,4 @@
-import SubmenuBlock from './';
+import SubmenuBlock from './submenu-block.component';
 import Definition from './../../../../demo/utils/definition';
 
 let definition = new Definition('submenu-block', SubmenuBlock, {

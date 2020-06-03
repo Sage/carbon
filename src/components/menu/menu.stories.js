@@ -4,7 +4,7 @@ import { select } from '@storybook/addon-knobs';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation';
-import { Menu, MenuItem, SubmenuBlock } from './menu';
+import { Menu, MenuItem, SubmenuBlock } from '.';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Menu.__docgenInfo = getDocGenInfo(
@@ -24,11 +24,11 @@ SubmenuBlock.__docgenInfo = getDocGenInfo(
 
 function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
-    const as = select('as', OptionsHelper.themesBinary, Menu.defaultProps.as);
+    const menuType = select('menuType', OptionsHelper.themesBinary, Menu.defaultProps.menuType);
 
     return (
       <Menu
-        as={ as }
+        menuType={ menuType }
       >
         <MenuItem>
           Item One
