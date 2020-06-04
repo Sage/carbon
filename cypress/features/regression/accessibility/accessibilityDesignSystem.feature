@@ -37,6 +37,7 @@ Feature: Accessibility tests
       | Pager                 |
       | Search                |
       | Toast                 |
+      | Menu                  |
 
   @accessibility
   Scenario Outline: Design System <component> component controlled page

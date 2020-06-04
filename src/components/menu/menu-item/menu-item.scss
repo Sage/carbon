@@ -144,6 +144,23 @@
       }
     }
   }
+
+  &.carbon-menu-item--has-link {
+    button {
+      font-weight: 700;
+      color: $slate;
+      text-decoration: none;
+      height: 100%;
+
+      &:focus {
+        background-color: transparent;
+      }
+
+      .carbon-link__content {
+        text-decoration: none;
+      }
+    }
+  }
 }
 
 .carbon-menu-item--has-submenu {

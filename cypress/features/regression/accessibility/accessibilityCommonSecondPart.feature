@@ -9,7 +9,6 @@ Feature: Accessibility tests
     Examples:
       | component                        |
       | menulist                         |
-      | menu                             |
       | message                          |
       | mount-in-app                     |
       | multi-action-button              |

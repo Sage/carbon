@@ -1,0 +1,123 @@
+import {
+  Meta,
+  Props,
+  Preview,
+  Story
+} from '@storybook/addon-docs/blocks';
+import {
+  Menu,
+  MenuItem,
+  SubmenuBlock
+} from './menu';
+import { useState, useCallback } from 'react';
+import { text, object } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
+
+<Meta title="Design System/Menu" />
+
+# Menu
+Menu Navigation
+
+```javascript
+import { Menu, MenuItem, SubmenuBlock } from 'carbon-react/lib/components/menu';
+```
+
+### Primary usage:
+
+<Preview>
+  <Story name="primary" parameters={{ info: { disable: true }}} >
+      {() => {
+        const handleOnClick = (e) => {
+          action('onClick')(e);
+        };
+        return (
+          <div style={ { height: '200px' } }>
+            <Menu as="primary">
+              <MenuItem onClick={ handleOnClick }>
+                Item One
+              </MenuItem>
+              <MenuItem submenu='Item Two'>
+                <SubmenuBlock>
+                  <MenuItem href='#'>Sub Menu Item One</MenuItem>
+                  <MenuItem href='#'>Sub Menu Item Two</MenuItem>
+                </SubmenuBlock>
+              </MenuItem>
+              <MenuItem submenu='Item Two'>
+                <MenuItem href='#'>Sub Menu Item One</MenuItem>
+                <SubmenuBlock>
+                  <MenuItem icon='settings' href='#'>Sub Menu Item Two</MenuItem>
+                  <MenuItem href='#'>Sub Menu Item Three</MenuItem>
+                  <MenuItem divide href='#'>Sub Menu Item Four</MenuItem>
+                </SubmenuBlock>
+              </MenuItem>
+            </Menu>
+          </div>
+        );
+      }}
+  </Story>
+</Preview>
+
+### Secondary usage:
+
+<Preview>
+  <Story name="secondary" parameters={{ info: { disable: true }}} >
+      {() => {
+        const handleOnClick = (e) => {
+          action('onClick')(e);
+        };
+        return (
+          <div style={ { height: '200px' } }>
+            <Menu as="secondary">
+              <MenuItem onClick={ handleOnClick }>
+                Item One
+              </MenuItem>
+              <MenuItem submenu='Item Two'>
+                <SubmenuBlock>
+                  <MenuItem href='#'>Sub Menu Item One</MenuItem>
+                  <MenuItem href='#'>Sub Menu Item Two</MenuItem>
+                </SubmenuBlock>
+              </MenuItem>
+              <MenuItem submenu='Item Two'>
+                <MenuItem href='#'>Sub Menu Item One</MenuItem>
+                <SubmenuBlock>
+                  <MenuItem icon='settings' href='#'>Sub Menu Item Two</MenuItem>
+                  <MenuItem href='#'>Sub Menu Item Three</MenuItem>
+                  <MenuItem divide href='#'>Sub Menu Item Four</MenuItem>
+                </SubmenuBlock>
+              </MenuItem>
+            </Menu>
+          </div>
+        );
+      }}
+  </Story>
+</Preview>
+
+### Default usage:
+
+<Preview>
+  <Story name="default" parameters={{ info: { disable: true }}} >
+      {() => {
+        const handleOnClick = (e) => {
+          action('onClick')(e);
+        };
+        return (
+          <div style={ { height: '200px' } }>
+            <Menu>
+              <MenuItem onClick={ handleOnClick }>
+                Item One
+              </MenuItem>
+              <MenuItem onClick={ handleOnClick }>
+                Item Two
+              </MenuItem>
+            </Menu>
+          </div>
+        );
+      }}
+  </Story>
+</Preview>
+
+## Props:
+
+### Menu
+
+<Props of={Menu} />
