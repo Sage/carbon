@@ -18,6 +18,8 @@ We love contributions, so thanks for choosing to get involved with the Carbon pr
 [Automated issue management](#automated-issue-management)
 
 [Testing](#testing)
+* [Unit Testing](#unit-testing)
+* [Functional Browser Testing](#functional-browser-testing)
 
 [Pull Request Guidelines](#pull-request-guidelines)
 * [The **Feature Branch** workflow](#the-feature-branch-workflow)
@@ -70,10 +72,17 @@ For features that you have a proposed solution for, please write an [Request For
 We use a bot to help us manage issues. The bot automatically labels issues where there has been no activity for 365 days as `stale`. We then consider the issue for closure. 
 
 ## Testing
-
+### Unit Testing
 * Carbon has a 100% coverage policy. Testing is done using [Jest](https://facebook.github.io/jest/). We use the [Enzyme](https://github.com/airbnb/enzyme) testing utility for interacting with components in tests.
 * Legacy code used React Testutils - we are currently in the process of migrating to 100% Enzyme usage.
-* New tests need to be written using Enzyme - it's ok for a Testutils and Enzyme to be mixed in a legacy code file.
+* New tests need to be written using Enzyme.
+
+### Functional Browser Testing
+* All components are fully tested manually in terms of functionality, accessibility, internationalisation and action events.
+* Automated testing is done using the [Cypress.io](https://www.cypress.io) framework with the addition of [Applitools Eyes](https://applitools.com) for visual UI testing.
+* The [Axe](https://chrome.google.com/webstore/detail/axe-web-accessibility-tes/lhdoppojpmngadmnindnejefpokejbdd) extension is used for testing accessibility in accordance with the WCAG 2 and Section 508 accessibility standards.
+
+More details about how we test can be found in the [Carbon Testing Styleguide](https://github.com/Sage/carbon/blob/master/docs/testing-styleguide.md).
 
 ## Pull Request Guidelines
 Before submitting a pull request, check the [issue tracker](https://github.com/sage/carbon/issues) to see if the feature or bug has already been discussed. If it has, check with us before beginning work on it to avoid duplicated effort. If no issue has been raised, please raise one and wait for approval before beginning work. You can then link back to this when submitting a pull request to address it.
