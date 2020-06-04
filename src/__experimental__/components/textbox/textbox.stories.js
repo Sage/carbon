@@ -6,10 +6,9 @@ import {
   select,
   number
 } from '@storybook/addon-knobs';
-import { Store, State } from '@sambego/storybook-state';
 import { action } from '@storybook/addon-actions';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
-import { notes, info, infoValidations } from './documentation';
+import { notes, info } from './documentation';
 import Textbox, { OriginalTextbox } from '.';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
@@ -34,7 +33,7 @@ function makeStory(name, themeSelector, component) {
     info: {
       text: info,
       propTables: [OriginalTextbox],
-      propTablesExclude: [State, Textbox]
+      propTablesExclude: [Textbox]
     },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
@@ -86,29 +85,47 @@ const multipleTextboxAutoFocus = () => {
   return multipleTextbox();
 };
 
+
 function makeValidationsStory(name, themeSelector) {
-  const store = new Store(
-    {
-      value: ''
-    }
-  );
-
-  const setValue = (ev) => {
-    store.set({ value: ev.target.value });
-  };
-
+  const validationTypes = ['error', 'warning', 'info'];
   const component = () => {
     return (
-      <State store={ store }>
-        <Textbox
-          placeholder={ text('placeholder') }
-          name='textbox'
-          warnings={ [warningValidator] }
-          validations={ [errorValidator] }
-          info={ [lengthValidator] }
-          onChange={ setValue }
-        />
-      </State>
+      <>
+        <h4>Validation as string</h4>
+        <h6>On component</h6>
+        {validationTypes.map(validation => (
+          <Textbox
+            key={ `${validation}-string-component` }
+            placeholder={ text('placeholder') }
+            label='Label'
+            name='textbox'
+            { ...{ [validation]: 'Message' } }
+          />
+        ))}
+
+        <h6>On label</h6>
+        {validationTypes.map(validation => (
+          <Textbox
+            key={ `${validation}-string-label` }
+            placeholder={ text('placeholder') }
+            label='Label'
+            name='textbox'
+            validationOnLabel
+            { ...{ [validation]: 'Message' } }
+          />
+        ))}
+
+        <h4>Validation as boolean</h4>
+        {validationTypes.map(validation => (
+          <Textbox
+            key={ `${validation}-boolean` }
+            placeholder={ text('placeholder') }
+            label='Label'
+            name='textbox'
+            { ...{ [validation]: true } }
+          />
+        ))}
+      </>
     );
   };
 
@@ -116,8 +133,8 @@ function makeValidationsStory(name, themeSelector) {
     themeSelector,
     info: {
       source: false,
-      text: infoValidations,
-      propTablesExclude: [State, Textbox]
+      propTables: [OriginalTextbox],
+      propTablesExclude: [Textbox]
     }
   };
 
@@ -150,7 +167,7 @@ export function getCommonTextboxProps(config = defaultStoryPropsConfig) {
   const readOnly = boolean('readOnly', false);
   const autoFocus = boolean('autoFocus', false);
   const fieldHelp = text('fieldHelp');
-  const label = text('label');
+  const label = text('label', 'Label');
   const labelHelp = label ? text('labelHelp') : undefined;
   const labelInline = label ? boolean('labelInline', false) : undefined;
   const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
@@ -179,31 +196,4 @@ export function getCommonTextboxProps(config = defaultStoryPropsConfig) {
     iconOnClick,
     inputIcon
   };
-}
-
-function errorValidator(value) {
-  return new Promise((resolve, reject) => {
-    if (!value.includes('error')) {
-      resolve();
-    } else {
-      reject(new Error('This value must not include the word "error"!'));
-    }
-  });
-}
-
-function warningValidator(value) {
-  return new Promise((resolve, reject) => {
-    if (!value.includes('warning')) {
-      resolve();
-    } else {
-      reject(new Error('This value must not include the word "warning"!'));
-    }
-  });
-}
-
-function lengthValidator(value) {
-  return new Promise((resolve, reject) => {
-    if (value.length > 12) return resolve(true);
-    return reject(Error('This value should be longer than 12 characters'));
-  });
 }

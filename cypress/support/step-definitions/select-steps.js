@@ -58,15 +58,15 @@ Then('Select size on preview for default component is set to {string}', (size) =
   switch (size) {
     case 'small':
       select().should('have.css', 'height', '28px')
-        .and('have.css', 'width', '1019px');
+        .and('have.css', 'width', '1027px');
       break;
     case 'medium':
       select().should('have.css', 'height', '36px')
-        .and('have.css', 'width', '1008px');
+        .and('have.css', 'width', '1019px');
       break;
     case 'large':
       select().should('have.css', 'height', '44px')
-        .and('have.css', 'width', '998px');
+        .and('have.css', 'width', '1011px');
       break;
     default: throw new Error('There is no such size for a Select component input');
   }
@@ -90,10 +90,6 @@ Then('Select is not readOnly', () => {
 
 When('Type {string} text into input and select the value', (text) => {
   selectInput().type(`${text}{downarrow}{enter}`);
-});
-
-When('Type {string} text into input and select the value into iFrame', (text) => {
-  selectInputNoIframe().type(`${text}{downarrow}{enter}`);
 });
 
 Then('Select is transparent', () => {

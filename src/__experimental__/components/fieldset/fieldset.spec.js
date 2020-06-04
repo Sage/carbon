@@ -4,10 +4,9 @@ import { css } from 'styled-components';
 import { shallow, mount } from 'enzyme';
 import Fieldset from './fieldset.component';
 import Textbox from '../textbox';
-import { LegendContainerStyle, FieldsetContentStyle } from './fieldset.style';
+import { LegendContainerStyle, FieldsetStyle, FieldsetContentStyle } from './fieldset.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import classicTheme from '../../../style/themes/classic';
-import ValidationIcon from '../../../components/validations/validation-icon.component';
 
 function render(props, renderer = shallow) {
   return renderer(
@@ -18,7 +17,6 @@ function render(props, renderer = shallow) {
 }
 
 const basicWrapper = render();
-const validationTypes = ['hasError', 'hasWarning', 'hasInfo'];
 
 describe('Fieldset', () => {
   it('renders correctly', () => {
@@ -74,12 +72,28 @@ describe('Fieldset', () => {
     });
   });
 
-  describe.each(validationTypes)('when prop %s === true', (vType) => {
-    it('show validation icon', () => {
-      const wrapper = render({ legend: 'Legend', [vType]: true, tooltipMessage: 'Message!' }, mount);
-      const icon = wrapper.find(ValidationIcon);
+  describe('style overrides', () => {
+    let wrapper;
+    const customStyleObject = {
+      backgroundColor: 'red',
+      display: 'flex',
+      fontSize: '200px'
+    };
+    const styleOverride = {
+      root: customStyleObject,
+      legend: customStyleObject
+    };
 
-      expect(icon.exists()).toEqual(true);
+    beforeEach(() => {
+      wrapper = render({ styleOverride, legend: 'Legend' }, mount);
+    });
+
+    it('renders root element with properly assigned styles', () => {
+      assertStyleMatch(customStyleObject, wrapper.find(FieldsetStyle));
+    });
+
+    it('renders legend element with properly assigned styles', () => {
+      assertStyleMatch(customStyleObject, wrapper.find(LegendContainerStyle));
     });
   });
 });

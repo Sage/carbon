@@ -123,6 +123,13 @@
         }
       ],
       "props": {
+        "id": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "id of the input"
+        },
         "characterLimit": {
           "type": {
             "name": "string"
@@ -184,6 +191,13 @@
           "required": false,
           "description": "The content of the label for the input"
         },
+        "labelInline": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "When true, label is placed in line with an input"
+        },
         "name": {
           "type": {
             "name": "string"
@@ -196,7 +210,7 @@
             "name": "func"
           },
           "required": false,
-          "description": "Specify a callback triggered on change"
+          "description": "Callback fired when the user types in the Textarea"
         },
         "placeholder": {
           "type": {
@@ -250,42 +264,89 @@
             "computed": false
           }
         },
-        "hasError": {
+        "error": {
           "type": {
-            "name": "bool"
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
           },
           "required": false,
-          "description": "Status of error validations"
+          "description": "Indicate that error has occurred\n  Pass string to display icon, tooltip and red border\n  Pass true boolean to only display red border"
         },
-        "hasWarning": {
+        "warning": {
           "type": {
-            "name": "bool"
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
           },
           "required": false,
-          "description": "Status of warnings"
+          "description": "Indicate that warning has occurred\n  Pass string to display icon, tooltip and orange border\n  Pass true boolean to only display orange border"
         },
-        "hasInfo": {
+        "info": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Indicate additional information\n  Pass string to display icon, tooltip and blue border\n  Pass true boolean to only display blue border"
+        },
+        "validationOnLabel": {
           "type": {
             "name": "bool"
           },
           "required": false,
-          "description": "Status of info"
+          "description": "When true, validation icon will be placed on label instead of being placed on the input",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
         },
         "inputIcon": {
           "type": {
             "name": "string"
           },
           "required": false,
-          "description": "Icon associated with this component"
+          "description": "Icon to display inside of the Textarea"
         },
         "tooltipMessage": {
           "type": {
             "name": "string"
           },
           "required": false,
-          "description": "A message to display as a tooltip to the component."
+          "description": "Message to be displayed in a Tooltip when the user hovers over the help icon"
         }
       }
+    }
+  ],
+  "src/__experimental__/components/textarea/textarea.stories.js": [
+    {
+      "description": "",
+      "displayName": "defaultComponent",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "autoFocusComponent",
+      "methods": []
     }
   ]
 }

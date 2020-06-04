@@ -42,7 +42,6 @@ exports[`FlatTableCheckbox "th" is passed in via the "as" prop renders to match 
 .c3 .c17 .c16 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
-  top: -1px;
 }
 
 .c3 .c17 .c15:hover,
@@ -176,8 +175,6 @@ exports[`FlatTableCheckbox "th" is passed in via the "as" prop renders to match 
               className="c10 c11"
               id="guid-12345"
               name="flat-table-checkbox"
-              onBlur={[Function]}
-              onChange={[Function]}
               onClick={[Function]}
               role="checkbox"
               type="checkbox"
@@ -248,7 +245,6 @@ exports[`FlatTableCheckbox the "as" prop is not passed in renders to match the e
 .c3 .c16 .c15 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
-  top: -1px;
 }
 
 .c3 .c16 .c14:hover,
@@ -380,8 +376,6 @@ exports[`FlatTableCheckbox the "as" prop is not passed in renders to match the e
               className="c10 c11"
               id="guid-12345"
               name="flat-table-checkbox"
-              onBlur={[Function]}
-              onChange={[Function]}
               onClick={[Function]}
               role="checkbox"
               type="checkbox"

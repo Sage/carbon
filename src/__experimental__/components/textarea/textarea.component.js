@@ -6,8 +6,8 @@ import { InputPresentation } from '../input';
 import FormField from '../form-field';
 import CharacterCount from './character-count';
 import TextareaInput from './textarea-input.component';
-import withValidations from '../../../components/validations/with-validation.hoc';
-import ValidationIcon from '../../../components/validations/validation-icon.component';
+import InputIconToggle from '../input-icon-toggle';
+
 import guid from '../../../utils/helpers/guid/guid';
 import StyledTextarea from './textarea.style';
 
@@ -61,17 +61,21 @@ class Textarea extends React.Component {
   }
 
   renderValidation() {
-    if (hasFailedValidation(this.props)) {
-      return (
-        <ValidationIcon
-          type={ this.props.inputIcon }
-          tooltipMessage={ this.props.tooltipMessage }
-          isPartOfInput
-        />
-      );
-    }
-
-    return null;
+    const {
+      disabled, readOnly, inputIcon, size, error, warning, info, validationOnLabel
+    } = this.props;
+    return (
+      <InputIconToggle
+        disabled={ disabled }
+        readOnly={ readOnly }
+        inputIcon={ inputIcon }
+        size={ size }
+        error={ error }
+        warning={ warning }
+        info={ info }
+        useValidationIcon={ !validationOnLabel }
+      />
+    );
   }
 
   get overLimit() {
@@ -113,6 +117,7 @@ class Textarea extends React.Component {
       placeholder,
       rows,
       cols,
+      validationOnLabel,
       ...props
     } = this.props;
 
@@ -124,7 +129,7 @@ class Textarea extends React.Component {
           id={ this.id }
           labelInline={ labelInline }
           { ...props }
-          useValidationIcon={ false }
+          useValidationIcon={ validationOnLabel }
         >
           <InputPresentation
             type='text'
@@ -191,12 +196,20 @@ Textarea.propTypes = {
   value: PropTypes.string,
   /** Whether to display the character count message in red */
   warnOverLimit: PropTypes.bool,
-  /** Status of error validations */
-  hasError: PropTypes.bool,
-  /** Status of warnings */
-  hasWarning: PropTypes.bool,
-  /** Status of info */
-  hasInfo: PropTypes.bool,
+  /** Indicate that error has occurred
+  Pass string to display icon, tooltip and red border
+  Pass true boolean to only display red border */
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate that warning has occurred
+  Pass string to display icon, tooltip and orange border
+  Pass true boolean to only display orange border */
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate additional information
+  Pass string to display icon, tooltip and blue border
+  Pass true boolean to only display blue border */
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** When true, validation icon will be placed on label instead of being placed on the input */
+  validationOnLabel: PropTypes.bool,
   /** Icon to display inside of the Textarea */
   inputIcon: PropTypes.string,
   /** Message to be displayed in a Tooltip when the user hovers over the help icon */
@@ -208,12 +221,9 @@ Textarea.defaultProps = {
   expandable: false,
   enforceCharacterLimit: true,
   readOnly: false,
-  warnOverLimit: false
+  warnOverLimit: false,
+  validationOnLabel: false
 };
 
-function hasFailedValidation({ hasError, hasWarning, hasInfo }) {
-  return hasError || hasWarning || hasInfo;
-}
-
 export { Textarea as OriginalTextarea };
-export default withValidations(Textarea);
+export default Textarea;

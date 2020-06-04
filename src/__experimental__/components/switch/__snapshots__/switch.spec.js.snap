@@ -43,7 +43,6 @@ exports[`Switch base theme renders as expected 1`] = `
 .c1 .c33 .c32 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
-  top: -1px;
 }
 
 .c1 .c33 .c31:hover,
@@ -126,6 +125,11 @@ exports[`Switch base theme renders as expected 1`] = `
   transition: transform .4s;
   width: 20px;
   z-index: 1;
+}
+
+.c11 .c32 {
+  position: absolute;
+  right: -30px;
 }
 
 .c15 .c4 {
@@ -907,7 +911,6 @@ exports[`Switch base theme renders as expected 1`] = `
             className="c8 c9"
             id="guid-12345"
             name="my-switch"
-            onBlur={[Function]}
             onChange={[Function]}
             role="checkbox"
             type="checkbox"

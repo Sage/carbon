@@ -5,13 +5,6 @@ Feature: Experimental Form component
     Given I open "Experimental Form" component page
 
   @positive
-  Scenario: Check focus on failed validation
-    When I check stickyFooter checkbox
-      And I save form
-    Then save button is focused
-      And save button has golden border on focus
-
-  @positive
   Scenario: Show save button
     When I uncheck save checkbox
       And I check save checkbox
@@ -97,22 +90,3 @@ Feature: Experimental Form component
       | rightAlignedActions |
       | Button              |
       | Link                |
-
-  @positive
-  Scenario: Enable show summary
-    When I check showSummary checkbox
-      And I save form
-    Then summary is visible
-
-  @positive
-  Scenario: Disable show summary
-    When I check showSummary checkbox
-      And I uncheck showSummary checkbox
-      And I save form
-    Then summary is not visible
-
-  @positive
-  Scenario: Check validation
-    When I save form
-    Then input is validated for default component
-      And error message is "This field is required." for default component

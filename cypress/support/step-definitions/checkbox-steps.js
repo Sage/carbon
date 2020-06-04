@@ -90,10 +90,6 @@ Then('label icon for checkbox group on preview in no iFrame is set to {string}',
   labelForIconInCheckboxGroup().should('have.attr', 'aria-label', text);
 });
 
-Then('{string} icon name in no iFrame on preview is {string}', (position, iconName) => {
-  getDataElementByValueNoIframe(iconName).eq(positionOfElement(position));
-});
-
 Then('checkbox label on preview is {word}', (text) => {
   label().should('have.text', `${text} (default)`);
 });

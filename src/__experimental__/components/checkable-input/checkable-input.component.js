@@ -21,7 +21,15 @@ class CheckableInput extends React.Component {
     const helpId = `${id}-help`;
 
     const formFieldProps = {
-      ...validProps(this, ['fieldHelp', 'fieldHelpInline', 'labelHelp', 'reverse']),
+      ...validProps(this, [
+        'fieldHelp',
+        'fieldHelpInline',
+        'labelHelp',
+        'reverse',
+        'error',
+        'warning',
+        'info'
+      ]),
       labelId,
       helpId,
       label: rest.inputLabel,
@@ -59,8 +67,18 @@ CheckableInput.propTypes = {
   children: PropTypes.node,
   /** Toggles disabling of input */
   disabled: PropTypes.bool,
-  /** Toggles error styles */
-  error: PropTypes.bool,
+  /** Indicate that error has occurred
+  Pass string to display icon, tooltip and red border
+  Pass true boolean to only display red border */
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate that warning has occurred
+  Pass string to display icon, tooltip and orange border
+  Pass true boolean to only display orange border */
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate additional information
+  Pass string to display icon, tooltip and blue border
+  Pass true boolean to only display blue border */
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** The fieldHelp content to display for the input */
   fieldHelp: PropTypes.node,
   /** Displays fieldHelp inline with the CheckableInput */

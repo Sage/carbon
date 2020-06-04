@@ -7,7 +7,7 @@ import { isClassic } from '../../../utils/helpers/style-helper';
 const IconWrapperStyle = styled.div`
   display: inline-block;
   margin: 0;
-  margin-left: 8px;
+  margin-left: 4px;
   width: 24px;
   height: 24px;
   position: relative;
@@ -19,8 +19,6 @@ const IconWrapperStyle = styled.div`
   }
 
   ${ValidationIconStyle}, ${StyledHelp} {
-    margin-left: 0;
-    padding: 0;
     position: static;
   }
 `;

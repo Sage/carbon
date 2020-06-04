@@ -18,6 +18,7 @@ exports[`Tooltip visible and has children matches snapshot 1`] = `
   max-width: 300px;
   word-break: normal;
   white-space: pre-wrap;
+  font-weight: 700;
 }
 
 .c0 {

@@ -56,6 +56,8 @@ const InputPresentationStyle = styled.div`
     box-shadow: none;
   `}
 
+  ${({ align }) => align === 'right' && 'flex-direction: row-reverse'}
+
   ${inputClassicStyling}
 
   input::-ms-clear {
@@ -70,38 +72,39 @@ const InputPresentationStyle = styled.div`
 
 function stylingForValidations({
   theme,
-  hasError,
-  hasWarning,
-  hasInfo
+  error,
+  warning,
+  info
 }) {
   let validationColor;
 
-  if (hasError) {
+  if (error) {
     validationColor = theme.colors.error;
-  } else if (hasWarning) {
+  } else if (warning) {
     validationColor = theme.colors.warning;
-  } else if (hasInfo) {
+  } else if (info) {
     validationColor = theme.colors.info;
   } else {
     return '';
   }
 
-  return `
+  return css`
     border-color: ${validationColor} !important;
-    box-shadow: inset 1px 1px 0 ${validationColor},
-                inset -1px -1px 0 ${validationColor};
+    z-index: 1;
+    ${error && `box-shadow: inset 1px 1px 0 ${validationColor}, inset -1px -1px 0 ${validationColor};`}
   `;
 }
 
 InputPresentationStyle.safeProps = [
+  'align',
   'disabled',
   'hasFocus',
   'inputWidth',
   'readOnly',
   'size',
-  'hasError',
-  'hasWarning',
-  'hasInfo'
+  'error',
+  'warning',
+  'info'
 ];
 
 InputPresentationStyle.defaultProps = {
@@ -111,14 +114,15 @@ InputPresentationStyle.defaultProps = {
 };
 
 InputPresentationStyle.propTypes = {
+  align: PropTypes.string,
   disabled: PropTypes.bool,
   hasFocus: PropTypes.bool,
   inputWidth: PropTypes.number,
   readOnly: PropTypes.bool,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
-  hasError: PropTypes.bool,
-  hasWarning: PropTypes.bool,
-  hasInfo: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 };
 

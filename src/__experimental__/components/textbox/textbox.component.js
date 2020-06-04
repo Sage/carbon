@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Input, InputPresentation } from '../input';
 import InputIconToggle from '../input-icon-toggle';
 import FormField from '../form-field';
-import { withValidation, validationsPropTypes } from '../../../components/validations';
 import withUniqueIdProps from '../../../utils/helpers/with-unique-id-props';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import Logger from '../../../utils/logger/logger';
@@ -24,6 +23,7 @@ const Textbox = ({
   isOptional,
   iconOnClick,
   styleOverride,
+  validationOnLabel,
   ...props
 }) => {
   if (!deprecatedWarnTriggered) {
@@ -36,7 +36,7 @@ const Textbox = ({
       childOfForm={ childOfForm }
       isOptional={ isOptional }
       { ...props }
-      useValidationIcon={ false }
+      useValidationIcon={ validationOnLabel }
       styleOverride={ styleOverride }
     >
       <InputPresentation
@@ -48,17 +48,17 @@ const Textbox = ({
         <Input
           { ...removeParentProps(props) }
           placeholder={ (props.disabled || props.readOnly) ? '' : props.placeholder }
-          aria-invalid={ props.hasError }
+          aria-invalid={ props.error }
           value={ visibleValue(value, formattedValue) }
         />
         { children }
-        { inputIcon && (
-          <InputIconToggle
-            { ...removeParentProps(props) }
-            onClick={ iconOnClick || props.onClick }
-            inputIcon={ inputIcon }
-          />
-        ) }
+
+        <InputIconToggle
+          { ...removeParentProps(props) }
+          useValidationIcon={ !validationOnLabel }
+          onClick={ iconOnClick || props.onClick }
+          inputIcon={ inputIcon }
+        />
       </InputPresentation>
     </FormField>
   );
@@ -120,22 +120,24 @@ Textbox.propTypes = {
   inputIcon: PropTypes.string,
   /** Additional child elements to display before the input */
   leftChildren: PropTypes.node,
-  /** List of error validation functions */
-  validations: validationsPropTypes,
-  /** List of warning validation functions */
-  warnings: validationsPropTypes,
-  /** List of info validation functions */
-  info: validationsPropTypes,
   /** Flag to configure component when in a Form */
   childOfForm: PropTypes.bool,
   /** Flag to configure component as optional in Form */
   isOptional: PropTypes.bool,
-  /** Status of error validations */
-  hasError: PropTypes.bool,
-  /** Status of warnings */
-  hasWarning: PropTypes.bool,
-  /** Status of info */
-  hasInfo: PropTypes.bool,
+  /** Indicate that error has occurred
+  Pass string to display icon, tooltip and red border
+  Pass true boolean to only display red border */
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate that warning has occurred
+  Pass string to display icon, tooltip and orange border
+  Pass true boolean to only display orange border */
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate additional information
+  Pass string to display icon, tooltip and blue border
+  Pass true boolean to only display blue border */
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** When true, validation icon will be placed on label instead of being placed on the input */
+  validationOnLabel: PropTypes.bool,
   /** Size of an input */
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   /** Placeholder string to be displayed in input */
@@ -156,8 +158,9 @@ Textbox.defaultProps = {
   labelWidth: 30,
   inputWidth: 70,
   size: 'medium',
-  styleOverride: {}
+  styleOverride: {},
+  validationOnLabel: false
 };
 
 export { Textbox as OriginalTextbox };
-export default withUniqueIdProps(withValidation(Textbox));
+export default withUniqueIdProps(Textbox);

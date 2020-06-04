@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import tagComponent from '../../../utils/helpers/tags';
-import RadioButtonFieldsetStyle from './radio-button-fieldset.style';
+import Fieldset from '../../../__internal__/fieldset';
 import RadioButtonGroupStyle from './radio-button-group.style';
 import RadioButtonMapper from './radio-button-mapper.component';
-import withValidation from '../../../components/validations/with-validation.hoc';
 import Logger from '../../../utils/logger/logger';
 
 let deprecatedWarnTriggered = false;
@@ -17,26 +16,18 @@ const RadioButtonGroup = (props) => {
     Logger.deprecate('`styleOverride` that is used in the `RadioButtonGroup` component is deprecated and will soon be removed.');
   }
   const {
-    children, name, legend, hasError, hasWarning, hasInfo, onBlur,
-    onChange, value, tooltipMessage, inline, labelInline, styleOverride
+    children, name, legend, error, warning, info, onBlur,
+    onChange, value, inline, legendInline, styleOverride
   } = props;
 
-  const groupLabelId = `${name}-label`;
-
-  const renderChildren = () => {
-    return React.Children.map(children, child => React.cloneElement(child, { inline }));
-  };
-
   return (
-    <RadioButtonFieldsetStyle
-      aria-labelledby={ groupLabelId }
+    <Fieldset
       role='radiogroup'
       legend={ legend }
-      hasError={ hasError }
-      hasWarning={ hasWarning }
-      hasInfo={ hasInfo }
-      tooltipMessage={ tooltipMessage }
-      inline={ labelInline }
+      error={ error }
+      warning={ warning }
+      info={ info }
+      inline={ legendInline }
       styleOverride={ styleOverride }
       { ...tagComponent('radiogroup', props) }
     >
@@ -52,10 +43,16 @@ const RadioButtonGroup = (props) => {
           onChange={ onChange }
           value={ value }
         >
-          {renderChildren()}
+          {React.Children.map(children, child => React.cloneElement(child, {
+            inline,
+            error: !!error,
+            warning: !!warning,
+            info: !!info,
+            ...child.props
+          }))}
         </RadioButtonMapper>
       </RadioButtonGroupStyle>
-    </RadioButtonFieldsetStyle>
+    </Fieldset>
   );
 };
 
@@ -65,27 +62,29 @@ RadioButtonGroup.propTypes = {
   /** Specifies the name prop to be applied to each button in the group */
   name: PropTypes.string.isRequired,
   /** The content for the RadioGroup Legend */
-  legend: PropTypes.string.isRequired,
-  /** Help text */
-  labelHelp: PropTypes.string,
-  /** Prop to indicate that an error has occurred */
-  hasError: PropTypes.bool,
-  /** Prop to indicate that a warning has occurred */
-  hasWarning: PropTypes.bool,
-  /** Prop to indicate additional information  */
-  hasInfo: PropTypes.bool,
+  legend: PropTypes.string,
+  /** Indicate that error has occurred
+  Pass string to display icon, tooltip and red border
+  Pass true boolean to only display red border */
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate that warning has occurred
+  Pass string to display icon, tooltip and orange border
+  Pass true boolean to only display orange border */
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate additional information
+  Pass string to display icon, tooltip and blue border
+  Pass true boolean to only display blue border */
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** Callback fired when each RadioButton is blurred */
   onBlur: PropTypes.func,
   /** Callback fired when the user selects a RadioButton */
   onChange: PropTypes.func,
   /** value of the selected RadioButton */
   value: PropTypes.string,
-  /** Message to be displayed in a Tooltip when the user hovers over the help icon */
-  tooltipMessage: PropTypes.string,
-  /** When true, radiobutton is placed in line */
+  /** When true, RadioButtons are in line */
   inline: PropTypes.bool,
-  /** When true, legend is placed in line with an radiobutton */
-  labelInline: PropTypes.bool,
+  /** When true, legend is placed in line with the radiobuttons */
+  legendInline: PropTypes.bool,
   /** Allows to override existing component styles */
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
@@ -95,12 +94,9 @@ RadioButtonGroup.propTypes = {
 };
 
 RadioButtonGroup.defaultProps = {
-  hasError: false,
-  hasWarning: false,
-  hasInfo: false,
   inline: false,
-  labelInline: false,
+  legendInline: false,
   styleOverride: {}
 };
 
-export default withValidation(RadioButtonGroup, { unblockValidation: true });
+export default RadioButtonGroup;

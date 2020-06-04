@@ -8,7 +8,9 @@ export interface LabelPropTypes {
   helpId?: string;
   helpTag?: string;
   helpTabIndex?: string;
-  tooltipMessage?: string;
+  error?: string | boolean;
+  warning?: string | boolean;
+  info?: string | boolean;
   useValidationIcon?: boolean;
   tabIndex?: [string, number];
   styleOverride?: () => object | object;

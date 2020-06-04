@@ -8,10 +8,11 @@ import Loader from '../../../components/loader/loader.component';
 import StyledSwitchSlider from './switch-slider.style';
 import SwitchSliderPanel from './switch-slider-panel.style';
 import { isClassic } from '../../../utils/helpers/style-helper';
+import ValidationIcon from '../../../components/validations/validation-icon.component';
 
 const SwitchSlider = (props) => {
   const {
-    theme, checked, disabled, loading, size
+    theme, checked, disabled, loading, size, error, warning, info, useValidationIcon
   } = props;
 
   let on = I18n.t('switch.on', { defaultValue: 'ON' }).toUpperCase();
@@ -28,7 +29,10 @@ const SwitchSlider = (props) => {
     isLoading: loading,
     checked,
     disabled,
-    size
+    size,
+    error,
+    warning,
+    info
   };
 
   const sliderPanelStyleProps = {
@@ -52,6 +56,15 @@ const SwitchSlider = (props) => {
   return (
     <StyledSwitchSlider { ...switchSliderStyleProps }>
       {sliderContent}
+      { useValidationIcon && (
+        <ValidationIcon
+          error={ error }
+          warning={ warning }
+          info={ info }
+          size={ props.size }
+          tabIndex={ 0 }
+        />
+      )}
     </StyledSwitchSlider>
   );
 };
@@ -61,7 +74,11 @@ SwitchSlider.propTypes = {
   disabled: PropTypes.bool,
   loading: PropTypes.bool,
   size: PropTypes.string,
-  theme: PropTypes.object
+  theme: PropTypes.object,
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  warning: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  info: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  useValidationIcon: PropTypes.bool
 };
 
 SwitchSlider.defaultProps = {

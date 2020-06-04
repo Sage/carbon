@@ -31,22 +31,11 @@ describe('Date', () => {
   let wrapper;
 
   describe('external validations', () => {
-    it('should pass error props to the Textbox component', () => {
-      const validationPropsBag = { hasError: true, inputIcon: 'error', tooltipMessage: 'Error' };
-      wrapper = render(validationPropsBag);
-      expect(wrapper.find(Textbox).props()).toMatchObject(validationPropsBag);
-    });
-
-    it('should pass warning props to the Textbox component', () => {
-      const validationPropsBag = { hasWarning: true, inputIcon: 'warning', tooltipMessage: 'Warning' };
-      wrapper = render(validationPropsBag);
-      expect(wrapper.find(Textbox).props()).toMatchObject(validationPropsBag);
-    });
-
-    it('should pass info props to the Textbox component', () => {
-      const validationPropsBag = { hasInfo: true, inputIcon: 'info', tooltipMessage: 'Info' };
-      wrapper = render(validationPropsBag);
-      expect(wrapper.find(Textbox).props()).toMatchObject(validationPropsBag);
+    it.each([
+      ['error'], ['warning'], ['info']
+    ])('should pass validation prop to the Textbox component', (validation) => {
+      wrapper = render({ [validation]: true });
+      expect(wrapper.find(Textbox).props()[validation]).toBe(true);
     });
 
     it('should render calendar icon when no validationProps provided', () => {
@@ -673,43 +662,6 @@ describe('Date', () => {
         wrapper.update();
         expect(wrapper.find(Textbox).props().value).toEqual('12/12/2012');
       });
-    });
-  });
-
-  describe('when additional validations are provided with the "validations" prop', () => {
-    const mockValidationFunction = () => {};
-    const mockValidationFunction2 = () => {};
-
-    describe('as a function', () => {
-      it('then these validations should be passed with internal validations to the Textbox Component', () => {
-        wrapper = render({ validations: mockValidationFunction });
-        const { internalValidations } = wrapper.find(BaseDateInput).instance().props;
-        expect(wrapper.find(Textbox).props().validations).toEqual([mockValidationFunction, ...internalValidations]);
-      });
-    });
-
-    describe('as an array', () => {
-      it('then these validations should be passed with internal validations to the Textbox Component', () => {
-        wrapper = render({ validations: [mockValidationFunction] });
-        const { internalValidations } = wrapper.find(BaseDateInput).instance().props;
-        expect(wrapper.find(Textbox).props().validations).toEqual([mockValidationFunction, ...internalValidations]);
-      });
-    });
-
-    describe('when the validations update', () => {
-      it('appends the new validator to the validations array', () => {
-        wrapper = render({ validations: [mockValidationFunction] });
-        wrapper.setProps({ validations: [mockValidationFunction, mockValidationFunction2] });
-
-        expect(wrapper.find(BaseDateInput).state().validationsArray.length).toEqual(3);
-      });
-    });
-
-    it('updates the validation array in state when there is a difference', () => {
-      wrapper = render({ validations: [mockValidationFunction] });
-      wrapper.setProps({ validations: [mockValidationFunction2] });
-
-      expect(wrapper.find(BaseDateInput).state().validationsArray.length).toEqual(2);
     });
   });
 });

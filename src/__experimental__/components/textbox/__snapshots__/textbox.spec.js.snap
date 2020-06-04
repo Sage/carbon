@@ -2,60 +2,41 @@
 
 exports[`Textbox renders with InputPresentation and Input and all props passed to Input 1`] = `
 <FormField
-  hasError={false}
-  hasInfo={false}
-  hasWarning={false}
   id="mocked-guid"
-  info={Array []}
   inputWidth={70}
   labelWidth={30}
   name="mocked-guid"
-  onBlur={[Function]}
-  onChange={[Function]}
   size="medium"
   styleOverride={Object {}}
   useValidationIcon={false}
-  validations={Array []}
-  warnings={Array []}
 >
   <InputPresentation
-    hasError={false}
-    hasInfo={false}
-    hasWarning={false}
     id="mocked-guid"
-    info={Array []}
     inputWidth={70}
     labelWidth={30}
     name="mocked-guid"
-    onBlur={[Function]}
-    onChange={[Function]}
     size="medium"
     type="text"
-    useValidationIcon={true}
-    validations={Array []}
-    warnings={Array []}
   >
     southpaw children
     <Input
-      aria-invalid={false}
-      hasError={false}
-      hasInfo={false}
-      hasWarning={false}
       id="mocked-guid"
-      info={Array []}
       inputWidth={70}
       labelWidth={30}
       name="mocked-guid"
-      onBlur={[Function]}
-      onChange={[Function]}
       size="medium"
       type="text"
-      useValidationIcon={true}
-      validations={Array []}
       value="foobar"
-      warnings={Array []}
     />
     normal children
+    <InputIconToggle
+      id="mocked-guid"
+      inputWidth={70}
+      labelWidth={30}
+      name="mocked-guid"
+      size="medium"
+      useValidationIcon={true}
+    />
   </InputPresentation>
 </FormField>
 `;

@@ -58,7 +58,6 @@ exports[`CheckboxGroup renders as expected 1`] = `
 .c9 .c5 .c19 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
-  top: -1px;
 }
 
 .c9 .c5 .c18:hover,
@@ -199,8 +198,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
                   className="c13 c14"
                   id="cId-required"
                   name="check-required"
-                  onBlur={[Function]}
-                  onChange={[Function]}
+                  onChange={[MockFunction]}
                   role="checkbox"
                   type="checkbox"
                   value="required"
@@ -250,8 +248,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
                   className="c13 c14"
                   id="cId-optional"
                   name="check-optional"
-                  onBlur={[Function]}
-                  onChange={[Function]}
+                  onChange={[MockFunction]}
                   role="checkbox"
                   type="checkbox"
                   value="optional"

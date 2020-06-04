@@ -317,21 +317,4 @@ Please see https://github.com/Sage/carbon/pull/2481 for more details.`);
   return WithValidation;
 };
 
-function getValidationType({ hasError, hasWarning, hasInfo }) {
-  if (hasError) {
-    return 'error';
-  }
-
-  if (hasWarning) {
-    return 'warning';
-  }
-
-  if (hasInfo) {
-    return 'info';
-  }
-
-  return '';
-}
-
-export { validationsPropTypes, getValidationType };
 export default withValidation;

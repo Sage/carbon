@@ -5,54 +5,62 @@ import InputIconToggleStyle from './input-icon-toggle.style';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
 
+const shouldDisplayValidationIcon = ({ error, warning, info }) => {
+  const validation = error || warning || info;
+  return typeof validation === 'string';
+};
+
 const InputIconToggle = ({
-  children,
   disabled,
   readOnly,
   size,
   inputIcon: type,
-  tooltipMessage,
   onClick,
-  ...props
+  error,
+  warning,
+  info,
+  useValidationIcon,
+  align
 }) => {
   if (disabled || readOnly) return null;
 
-  if (hasFailedValidation(props)) {
+  if (useValidationIcon && shouldDisplayValidationIcon({ error, warning, info })) {
     return (
-      <ValidationIcon
-        type={ type }
-        tooltipMessage={ tooltipMessage }
-        size={ size }
-        isPartOfInput
-        onClick={ onClick }
-      />
+      <InputIconToggleStyle size={ size }>
+        <ValidationIcon
+          error={ error }
+          warning={ warning }
+          info={ info }
+          size={ size }
+          onClick={ onClick }
+          isPartOfInput
+          tooltipPosition={ align === 'right' ? 'left' : 'right' }
+        />
+      </InputIconToggleStyle>
     );
   }
 
-  return (
-    <InputIconToggleStyle
-      key='label-icon'
-      type={ type }
-      size={ size }
-      onClick={ onClick }
-    >
-      { children || <Icon type={ type } /> }
-    </InputIconToggleStyle>
-  );
+  if (type) {
+    return (
+      <InputIconToggleStyle size={ size } onClick={ onClick }>
+        <Icon type={ type } />
+      </InputIconToggleStyle>
+    );
+  }
+  return null;
 };
 
-function hasFailedValidation({ hasError, hasWarning, hasInfo }) {
-  return hasError || hasWarning || hasInfo;
-}
-
 InputIconToggle.propTypes = {
-  children: PropTypes.node, // can override the icon
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
   onClick: PropTypes.func,
   inputIcon: PropTypes.string,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
-  tooltipMessage: PropTypes.string
+  align: PropTypes.oneOf(['left', 'right']),
+  useValidationIcon: PropTypes.bool
 };
 
 export default InputIconToggle;

@@ -3,7 +3,17 @@ import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import sizes from '../input/input-sizes.style';
-import { isClassic } from '../../../utils/helpers/style-helper';
+
+const getWidth = (size) => {
+  switch (size) {
+    case 'small':
+      return '32px';
+    case 'large':
+      return '48px';
+    default:
+      return '40px';
+  }
+};
 
 const InputIconToggleStyle = styled.span`
   align-items: center;
@@ -13,37 +23,12 @@ const InputIconToggleStyle = styled.span`
 
   ${({ size }) => css`
     margin-right: -${sizes[size].horizontalPadding};
+    margin-left: -${sizes[size].horizontalPadding};
     width: ${getWidth(size)};
-  `}
-
-  ${({ type, theme }) => isClassic(theme) && css`
-    background-color: #e6ebed;
-    border-left: 1px solid #bfccd2;
-    margin-left: 6px;
-    margin-right: -6px;
-    
-    &:hover {
-      color: #fff;
-    }
-
-    ${type === 'dropdown' && css`
-      width: 20px;
-    `}
   `}
 `;
 
-function getWidth(size) {
-  switch (size) {
-    case 'small':
-      return '32px';
-    case 'large':
-      return '48px';
-    default:
-      return '40px';
-  }
-}
-
-InputIconToggleStyle.safeProps = ['size', 'type'];
+InputIconToggleStyle.safeProps = ['size', 'error', 'warning', 'info'];
 
 InputIconToggleStyle.defaultProps = {
   size: 'medium',
@@ -52,7 +37,9 @@ InputIconToggleStyle.defaultProps = {
 
 InputIconToggleStyle.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
-  type: PropTypes.string
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  warning: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  info: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
 };
 
 export default InputIconToggleStyle;

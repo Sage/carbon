@@ -38,7 +38,7 @@ const radioDLSToggleGroupStore = new Store({ value: '' });
 const radioClassicToggleGroupStore = new Store({ value: '' });
 
 
-function renderButtons(groupName) {
+function renderButtons(groupName, grouped) {
   const buttonNames = ['Foo', 'Bar', 'Baz'];
 
   return buttonNames.map((name) => {
@@ -48,6 +48,7 @@ function renderButtons(groupName) {
         id={ name.toLowerCase() }
         key={ name }
         value={ name }
+        grouped={ grouped }
       >
         { name }
       </ButtonToggle>
@@ -55,7 +56,8 @@ function renderButtons(groupName) {
   });
 }
 
-export const Basic = () => {
+// eslint-disable-next-line react/prop-types
+export const Basic = ({ grouped }) => {
   const label = text('label', 'Example ButtonToggleGroup');
   const labelInline = boolean('labelInline', false);
   const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
@@ -83,15 +85,73 @@ export const Basic = () => {
         name='button-toggle-group-dls'
         onChange={ handleGroupChangeFactory(radioDLSToggleGroupStore) }
       >
-        { renderButtons('button-toggle-group-dls') }
+        { renderButtons('button-toggle-group-dls', grouped) }
       </ButtonToggleGroup>
     </State>
   );
 };
 
-Basic.story = {
-  name: 'Basic'
+export const BasicGrouped = () => <Basic grouped />;
+
+// eslint-disable-next-line react/prop-types
+export const Validations = ({ grouped }) => {
+  const validationTypes = ['error', 'warning', 'info'];
+  const label = text('label', 'Example ButtonToggleGroup');
+  const labelHelp = text('labelHelp', 'This text provides more information for the label.');
+  const fieldHelp = text('fieldHelp', 'This text provides help for the input.');
+
+  return (
+    <>
+      <h4>Validation as string</h4>
+      <h6>On component</h6>
+      {validationTypes.map(validation => (
+        <ButtonToggleGroup
+          label={ label }
+          labelHelp={ labelHelp }
+          fieldHelp={ fieldHelp }
+          name={ `button-toggle-group-validations_${validation}` }
+          onChange={ () => {} }
+          key={ `${validation}-string-component` }
+          { ...{ [validation]: 'Message' } }
+        >
+          { renderButtons('button-toggle-group-validations', grouped) }
+        </ButtonToggleGroup>
+      ))}
+      <h6>On label</h6>
+      {validationTypes.map(validation => (
+        <ButtonToggleGroup
+          label={ label }
+          labelHelp={ labelHelp }
+          fieldHelp={ fieldHelp }
+          name={ `button-toggle-group-validations_${validation}_label` }
+          onChange={ () => {} }
+          validationOnLabel
+          key={ `${validation}-string-label` }
+          { ...{ [validation]: 'Message' } }
+        >
+          { renderButtons('button-toggle-group-validations', grouped) }
+        </ButtonToggleGroup>
+      ))}
+
+      <h4>Validation as boolean</h4>
+      {validationTypes.map(validation => (
+        <ButtonToggleGroup
+          label={ label }
+          labelHelp={ labelHelp }
+          fieldHelp={ fieldHelp }
+          name={ `button-toggle-group-validations_${validation}_boolean` }
+          onChange={ () => {} }
+          key={ `${validation}-boolean` }
+          { ...{ [validation]: true } }
+        >
+          { renderButtons('button-toggle-group-validations', grouped) }
+        </ButtonToggleGroup>
+      ))}
+    </>
+  );
 };
+
+export const ValidationsGrouped = () => <Validations grouped />;
 
 export const Classic = () => {
   const label = text('label', 'Example ButtonToggleGroup');

@@ -156,22 +156,42 @@ describe('Checkbox', () => {
         ));
       });
 
-      describe('when hasError is true', () => {
-        it('render correct color for errors', () => {
-          wrapper.setProps({
-            hasError: true
-          });
-
+      describe.each(['error', 'warning', 'info'])('when %s is true', (type) => {
+        it('show correct border on radio', () => {
+          wrapper.setProps({ [type]: true });
+          const borderWidth = type === 'error' ? 2 : 1;
           assertStyleMatch({
-            border: `1px solid ${baseTheme.colors.error}`
+            border: `${borderWidth}px solid ${baseTheme.colors[type]}`
           }, wrapper, { modifier: 'svg' });
         });
       });
 
-      describe('when hasWarning is true', () => {
+      describe.each(['error', 'warning', 'info'])('when %s is "string', (type) => {
+        it('show correct border on radio', () => {
+          wrapper.setProps({ [type]: 'Message' });
+          const borderWidth = type === 'error' ? 2 : 1;
+          assertStyleMatch({
+            border: `${borderWidth}px solid ${baseTheme.colors[type]}`
+          }, wrapper, { modifier: 'svg' });
+        });
+      });
+
+      describe('when error is true', () => {
+        it('render correct color for errors', () => {
+          wrapper.setProps({
+            error: true
+          });
+
+          assertStyleMatch({
+            border: `2px solid ${baseTheme.colors.error}`
+          }, wrapper, { modifier: 'svg' });
+        });
+      });
+
+      describe('when warning is true', () => {
         it('render correct color for warnings', () => {
           wrapper.setProps({
-            hasWarning: true
+            warning: true
           });
 
           assertStyleMatch({
@@ -180,10 +200,10 @@ describe('Checkbox', () => {
         });
       });
 
-      describe('when hasInfo is true', () => {
+      describe('when info is true', () => {
         it('render correct color for info', () => {
           wrapper.setProps({
-            hasInfo: true
+            info: true
           });
 
           assertStyleMatch({

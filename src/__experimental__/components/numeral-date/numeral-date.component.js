@@ -8,15 +8,13 @@ import Textbox from '../textbox';
 const NumeralDate = ({
   dateFormat,
   defaultValue,
-  hasError,
-  hasInfo,
-  hasWarning,
+  error,
+  info,
+  warning,
   id,
-  inputIcon,
   name,
   onBlur,
   onChange,
-  tooltipMessage,
   value
 }) => {
   const isControlled = value !== undefined;
@@ -85,6 +83,7 @@ const NumeralDate = ({
               isYearInput={ datePart.length === 4 }
               isMiddle={ textboxNumber === 1 }
               isEnd={ isEnd }
+              hasValidationIcon={ error || warning || info }
               twoPartDate={ textboxNumber <= 1 }
               dateFormatLength={ dateFormat.length }
             >
@@ -93,11 +92,14 @@ const NumeralDate = ({
                 value={ dateValue[datePart] }
                 onChange={ e => handleChange(e, datePart) }
                 onBlur={ handleBlur }
-                { ...{ hasError, hasWarning, hasInfo } }
+                error={ !!error }
+                warning={ !!warning }
+                info={ !!info }
                 {
                 ...(isEnd && {
-                  inputIcon,
-                  tooltipMessage
+                  error,
+                  warning,
+                  info
                 })
                 }
               />
@@ -116,12 +118,18 @@ NumeralDate.propTypes = {
   defaultValue: PropTypes.object,
   /** Prop for `controlled` use */
   value: PropTypes.object,
-  /** Status of error validations */
-  hasError: PropTypes.bool,
-  /** Status of warnings */
-  hasWarning: PropTypes.bool,
-  /** Status of info */
-  hasInfo: PropTypes.bool,
+  /** Indicate that error has occurred
+  Pass string to display icon, tooltip and red border
+  Pass true boolean to only display red border */
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate that warning has occurred
+  Pass string to display icon, tooltip and orange border
+  Pass true boolean to only display orange border */
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate additional information
+  Pass string to display icon, tooltip and blue border
+  Pass true boolean to only display blue border */
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** Prop for `onBlur` events */
   onBlur: PropTypes.func,
   /** Prop for `onChange` events */

@@ -1,15 +1,12 @@
 import {
-  dateInput, dayPickerDay, minDate, maxDate, dateInputNoIframe,
-  dayPickerDayNoIframe,
-  dayPickerWrapper,
-  dateIcon,
+  dateInput, dayPickerDay, minDate, maxDate,
+  dayPickerWrapper, dateIcon,
 } from '../../locators/date-input/index';
 
 const DAY_PICKER_PREFIX = 'DayPicker-Day--';
 const TODAY_CALENDAR = Cypress.moment().format('ddd MMM D, YYYY');
 const YESTERDAY_CALENDAR = Cypress.moment().subtract(1, 'days').format('ddd MMM D, YYYY');
 const TOMORROW_CALENDAR = Cypress.moment().add(1, 'days').format('ddd MMM D, YYYY');
-const VALIDATION_DATE = '/04/2019';
 const TODAY_KNOBS = Cypress.moment().format('YYYY-MM-DD');
 const TODAY_DATE_INPUT = Cypress.moment().format('DD/MM/YYYY');
 
@@ -71,14 +68,6 @@ When('I choose date tomorrow via DayPicker', () => {
   dayPickerDay(TOMORROW_CALENDAR).click();
 });
 
-When('I type specific date {string}', (day) => {
-  dateInput().clear().type(`${day}${VALIDATION_DATE}`);
-});
-
-When('I type specific date {string} in iFrame', (day) => {
-  dateInputNoIframe().clear().type(`${day}${VALIDATION_DATE}`);
-});
-
 Then('the date is set to today', () => {
   dayPickerDay(TODAY_CALENDAR).should('have.attr', 'aria-label')
     .and('contains', TODAY_CALENDAR);
@@ -86,10 +75,6 @@ Then('the date is set to today', () => {
     .and('contains', `${DAY_PICKER_PREFIX}today`);
   dayPickerDay(TODAY_CALENDAR).should('have.attr', 'class')
     .and('contains', `${DAY_PICKER_PREFIX}selected`);
-});
-
-Then('I click onto specific day {string} via DayPicker for validation component into iFrame', (specificDay) => {
-  dayPickerDayNoIframe(specificDay).click();
 });
 
 Then('dayPickerDay is visible', () => {
