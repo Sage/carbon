@@ -1,3 +1,10 @@
+## [23.1.0](https://github.com/Sage/carbon/compare/v23.0.0...v23.1.0) (2020-06-03)
+
+
+### Features
+
+* **tile-select:** create tile-select component ([ec7273f](https://github.com/Sage/carbon/commit/ec7273fb53593d76a07ddb8bd83db815a6cf787a))
+
 ## [23.0.0](https://github.com/Sage/carbon/compare/v22.2.0...v23.0.0) (2020-06-02)
 
 

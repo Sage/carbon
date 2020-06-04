@@ -56,6 +56,14 @@ export default (palette) => {
       background: palette.slateTint(90)
     },
 
+    tileSelect: {
+      border: palette.slateTint(75),
+      disabledBackground: palette.slateTint(90),
+      hoverBackground: palette.slateTint(95),
+      descriptionColor: blackWithOpacity(0.55),
+      disabledText: blackWithOpacity(0.3)
+    },
+
     batchSelection: {
       lightTheme: palette.slateTint(70)
     },
