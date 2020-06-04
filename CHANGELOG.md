@@ -1,3 +1,10 @@
+## [23.2.0](https://github.com/Sage/carbon/compare/v23.1.0...v23.2.0) (2020-06-04)
+
+
+### Features
+
+* **grid-item:** add align and justify props ([e8ed5ef](https://github.com/Sage/carbon/commit/e8ed5efd9f93205c054c679bdac2db4e29735272))
+
 ## [23.1.0](https://github.com/Sage/carbon/compare/v23.0.0...v23.1.0) (2020-06-03)
 
 

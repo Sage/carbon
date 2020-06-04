@@ -59,7 +59,7 @@ Gutters for the `GridItem` are set automatically in the CSS, following the value
 <Props of={GridItem} />
 
 ### responsiveSettings Props
-<PropsTable 
+<PropsTable
   rows={
     [
       {
@@ -101,10 +101,149 @@ Gutters for the `GridItem` are set automatically in the CSS, following the value
   }
 />
 
-## Example
-This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation. Note how the order and position of each `GridItem`, responds according to an array of `responsiveSettings` allowing reordering and respositioning as required.
+## Basic example
+This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 <Preview>
   <Story name="basic" parameters={{ info: { disable: true }}} >
+    <GridContainer>
+      <GridItem alignSelf="stretch" justifySelf="stretch">
+        <Pod
+          alignTitle='left' as='primary'
+          border padding='medium'
+          podType='primary'
+        >
+          1
+        </Pod>
+      </GridItem>
+      <GridItem alignSelf="stretch" justifySelf="stretch">
+        <Pod
+          alignTitle='left' as='primary'
+          border padding='medium'
+          podType='primary'
+        >
+          2
+        </Pod>
+      </GridItem>
+      <GridItem alignSelf="stretch" justifySelf="stretch">
+        <Pod
+          alignTitle='left' as='primary'
+          border padding='medium'
+          podType='primary'
+        >
+          3
+        </Pod>
+      </GridItem>
+    </GridContainer>
+  </Story>
+</Preview>
+
+## Justify example
+This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
+<Preview>
+  <Story name="justify" parameters={{ info: { disable: true }}} >
+    <div id="grid-justify">
+      <GridContainer>
+        <GridItem
+          alignSelf="stretch"
+          justifySelf="left"
+        >
+          <Pod
+            alignTitle='left' as='primary'
+            border padding='medium'
+            podType='primary'
+          >
+            1
+          </Pod>
+        </GridItem>
+        <GridItem
+          alignSelf="stretch"
+          justifySelf="center"
+        >
+          <Pod
+            alignTitle='left' as='primary'
+            border padding='medium'
+            podType='primary'
+          >
+            2
+          </Pod>
+        </GridItem>
+        <GridItem
+          alignSelf="stretch"
+          justifySelf="right"
+        >
+          <Pod
+            alignTitle='left' as='primary'
+            border padding='medium'
+            podType='primary'
+          >
+            3
+          </Pod>
+        </GridItem>
+      </GridContainer>
+    </div>
+  </Story>
+</Preview>
+
+## Align example
+This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
+<Preview>
+  <Story name="align" parameters={{ info: { disable: true }}} >
+    <div id="grid-align">
+      <GridContainer>
+        <GridItem
+          alignSelf="end"
+          justifySelf="left"
+          gridColumnStart="1"
+          gridColumnEnd="1"
+        >
+          <Pod
+            alignTitle='left' as='primary'
+            border padding='medium'
+            podType='primary'
+          >
+            1
+          </Pod>
+        </GridItem>
+        <GridItem
+          alignSelf="stretch"
+          justifySelf="center"
+          gridColumnStart="2"
+          gridColumnEnd="2"
+        >
+          <Pod
+            alignTitle='left' as='primary'
+            border padding='medium'
+            podType='primary'
+            style={ { height: '100px' } }
+          >
+            2
+          </Pod>
+        </GridItem>
+        <GridItem
+          alignSelf="stretch"
+          justifySelf="right"
+          gridColumnStart="1"
+          gridColumnEnd="1"
+          gridRowStart="2"
+          gridRowEnd="2"
+        >
+          <Pod
+            alignTitle='left' as='primary'
+            border padding='medium'
+            podType='primary'
+          >
+            3
+          </Pod>
+        </GridItem>
+      </GridContainer>
+    </div>
+  </Story>
+</Preview>
+
+## Responsive Settings Example
+This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation. Note how the order and position of each `GridItem`, responds according to an array of `responsiveSettings` allowing reordering and respositioning as required.
+<Preview>
+  <Story name="responsive-settings" parameters={{ info: { disable: true }}} >
     <GridContainer>
       <GridItem responsiveSettings={[
         {
@@ -122,7 +261,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
           rowStart: 1,
           rowEnd: 1,
           alignSelf: 'stretch',
-          justifySelf: 'stretch'  
+          justifySelf: 'stretch'
         },{
           maxWidth: '900px',
           colStart: 1,
