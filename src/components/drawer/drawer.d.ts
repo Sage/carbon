@@ -8,6 +8,9 @@ export interface DrawerPropTypes {
   sidebar?: React.ReactNode;
   animationDuration?: string;
   expandedWidth?: string;
+  backgroundColor?: string;
+  title?: string;
+  showControls?: boolean;
 }
 
 declare const Drawer: React.FunctionComponent<DrawerPropTypes>;

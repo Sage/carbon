@@ -1,6 +1,10 @@
 import styled, { css, keyframes } from 'styled-components';
 import baseTheme from '../../style/themes/base';
 
+const StyledSidebarTitle = styled.div`
+  margin: 24px 36px 24px 24px;
+`;
+
 const StyledDrawerChildren = styled.div`
   flex: 1;
   margin-left: 1px;
@@ -9,7 +13,6 @@ const StyledDrawerChildren = styled.div`
 
 const StyledDrawerSidebar = styled.div`
   overflow: auto;
-  margin-top: 60px;
   display: none;
   opacity: 0;
 `;
@@ -28,12 +31,13 @@ const sidebarHidden = () => keyframes`
 const drawerOpen = expandedWidth => keyframes`
   0% {
     width: 40px;
-    overflow-y: hidden;
+    overflow: hidden;
+    min-width: 40px;
   }
-  30% {
-    overflow-y: hidden;
+  100% {
+    width: ${expandedWidth};
+    min-width: 52px;
   }
-  100% {width: ${expandedWidth};}
 `;
 
 const drawerClose = expandedWidth => keyframes`
@@ -60,12 +64,13 @@ const StyledDrawerContent = styled.div`
   position: relative;
   overflow: auto;
   border-right: 1px solid ${({ theme }) => theme.drawer.divider};
+  background-color: ${({ backgroundColor, theme }) => backgroundColor || theme.drawer.background}};
 
   &.open {
     min-width: 52px;
     width: ${({ expandedWidth }) => expandedWidth};
 
-    ${StyledDrawerSidebar} {
+    ${StyledDrawerSidebar}, ${StyledSidebarTitle} {
       display: block;
       opacity: 1;
     }
@@ -73,17 +78,17 @@ const StyledDrawerContent = styled.div`
 
   &.opening {
     animation: ${({ animationDuration, expandedWidth }) => css`
-      ${drawerOpen(expandedWidth)} ${animationDuration}
+    ${drawerOpen(expandedWidth)} ${animationDuration}
     `} ease-in-out;
 
-    ${StyledDrawerSidebar} {
+    ${StyledDrawerSidebar}, ${StyledSidebarTitle} {
       animation: ${sidebarVisible} ${({ animationDuration }) => animationDuration} ease-in-out;
     }
   }
 
   &.closed {
-    overflow-y: hidden;
-    ${StyledDrawerSidebar} {
+    overflow: hidden;
+    ${StyledDrawerSidebar}, ${StyledSidebarTitle} {
       display: block;
       opacity: 0;
     }
@@ -94,21 +99,23 @@ const StyledDrawerContent = styled.div`
       ${drawerClose(expandedWidth)} ${animationDuration}
     `} ease-in-out;
 
-    ${StyledDrawerSidebar} {
+    ${StyledDrawerSidebar}, ${StyledSidebarTitle} {
       animation: ${sidebarHidden} ${({ animationDuration }) => animationDuration} ease-in-out;
     }
   }
 `;
 
 const StyledButton = styled.button`
-  float: right;
+  position: absolute;
+  top: 18px;
+  right: 6px;
   padding: 0;
   width: 24px;
   height: 24px;
-  margin: 8px 8px auto 8px;
   transition: margin-right ${({ animationDuration }) => animationDuration} ease-in-out;
   background-color: transparent;
   border: none;
+  z-index: 1;
 
   &:focus {
     outline: 3px solid ${({ theme }) => theme.colors.focus};
@@ -121,9 +128,7 @@ const StyledButton = styled.button`
   animation: ${buttonClose} ${({ animationDuration }) => animationDuration} ease-in-out;
 
   ${({ isExpanded }) => isExpanded && css`
-    float: right;
     transform: scaleX(-1);
-    margin-right: 20px;
     animation: ${buttonOpen} ${({ animationDuration }) => animationDuration} ease-in-out;
   `}
 `;
@@ -146,5 +151,6 @@ export {
   StyledDrawerContent,
   StyledDrawerChildren,
   StyledDrawerSidebar,
+  StyledSidebarTitle,
   StyledButton
 };

@@ -180,6 +180,7 @@ export default (palette) => {
     },
 
     drawer: {
+      background: palette.slateTint(93),
       divider: palette.slateTint(85)
     },
 

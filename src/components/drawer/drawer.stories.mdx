@@ -1,7 +1,7 @@
 import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
 import Drawer from '.';
 import { useState, useCallback } from 'react';
-import { text } from '@storybook/addon-knobs';
+import { text, object } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import {
   FlatTable,
@@ -55,6 +55,135 @@ import Drawer from 'carbon-react/lib/components/drawer';
       <div style={ { height: '200px' } }>
         <Drawer
           defaultExpanded
+          expandedWidth={ text('expandedWidth', '40%') }
+          animationDuration={ text('animationDuration', '0.5s') }
+          sidebar={ (
+            <ul>
+              <li>link a</li>
+              <li>link b</li>
+              <li>link c</li>
+            </ul>
+          ) }
+        >
+          content body content body content body content body content body content body content body
+        </Drawer>
+      </div>
+    )
+  </Story>
+</Preview>
+
+### Custom Background Color (Red):
+
+<Preview>
+  <Story name="background-color-red" parameters={{ info: { disable: true }}} >
+    return (
+      <div style={ { height: '200px' } }>
+        <Drawer
+          id="background-color-red-drawer"
+          expandedWidth={ text('expandedWidth', '40%') }
+          animationDuration={ text('animationDuration', '0.5s') }
+          backgroundColor={ text('backgroundColorA', '#FF0000') }
+          sidebar={ (
+            <ul>
+              <li>link a</li>
+              <li>link b</li>
+              <li>link c</li>
+            </ul>
+          ) }
+        >
+          content body content body content body content body content body content body content body
+        </Drawer>
+      </div>
+    )
+  </Story>
+</Preview>
+
+### Custom Background Color (White):
+Note: parent container background-color is set to red for demonstration purpose.
+
+<Preview>
+  <Story name="background-color-white" parameters={{ info: { disable: true }}} >
+    return (
+      <div style={ { height: '200px', backgroundColor: '#FF0000' } }>
+        <Drawer
+          expandedWidth={ text('expandedWidth', '40%') }
+          animationDuration={ text('animationDuration', '0.5s') }
+          backgroundColor={ text('backgroundColorB', '#FFFFFF') }
+          sidebar={ (
+            <ul>
+              <li>link a</li>
+              <li>link b</li>
+              <li>link c</li>
+            </ul>
+          ) }
+        >
+          content body content body content body content body content body content body content body
+        </Drawer>
+      </div>
+    )
+  </Story>
+</Preview>
+
+### Custom Background Color (Transparent):
+Note: parent container background-color is set to red for demonstration purpose.
+
+<Preview>
+  <Story name="background-color-transparent" parameters={{ info: { disable: true }}} >
+    return (
+      <div style={ { height: '200px', backgroundColor: '#FF0000' } }>
+        <Drawer
+          expandedWidth={ text('expandedWidth', '40%') }
+          animationDuration={ text('animationDuration', '0.5s') }
+          backgroundColor={ text('backgroundColorC', 'transparent') }
+          sidebar={ (
+            <ul>
+              <li>link a</li>
+              <li>link b</li>
+              <li>link c</li>
+            </ul>
+          ) }
+        >
+          content body content body content body content body content body content body content body
+        </Drawer>
+      </div>
+    )
+  </Story>
+</Preview>
+
+### Custom Title:
+
+<Preview>
+  <Story name="title" parameters={{ info: { disable: true }}} >
+    return (
+      <div style={ { height: '200px' } }>
+        <Drawer
+          expandedWidth={ text('expandedWidth', '40%') }
+          animationDuration={ text('animationDuration', '0.5s') }
+          title={ text('title', 'My custom title') }
+          sidebar={ (
+            <ul>
+              <li>link a</li>
+              <li>link b</li>
+              <li>link c</li>
+            </ul>
+          ) }
+        >
+          content body content body content body content body content body content body content body
+        </Drawer>
+      </div>
+    )
+  </Story>
+</Preview>
+
+### With Controls usage:
+
+<Preview>
+  <Story name="with-controls" parameters={{ info: { disable: true }}} >
+    return (
+      <div style={ { height: '200px' } }>
+        <Drawer
+          id="with-controls"
+          showControls={ true }
           expandedWidth={ text('expandedWidth', '40%') }
           animationDuration={ text('animationDuration', '0.5s') }
           sidebar={ (
@@ -287,12 +416,12 @@ import Drawer from 'carbon-react/lib/components/drawer';
   </Story>
 </Preview>
 
-### Controlled Usage:
+### Animation Speed (2 second):
 
 <Preview>
-  <Story name="controlled" parameters={{ info: { disable: true }}} >
+  <Story name="two-second-animation" parameters={{ info: { disable: true }}} >
     {() => {
-      const [isExpanded, setIsExpanded] = useState(true);
+      const [isExpanded, setIsExpanded] = useState(false);
       const onChangeHandler = useCallback(() => {
         setIsExpanded(!isExpanded);
         action('expansionToggled');
@@ -305,6 +434,186 @@ import Drawer from 'carbon-react/lib/components/drawer';
           </p>
           <div style={ { height: '200px' } }>
             <Drawer
+              id="two-second-animation-drawer"
+              title={ (
+                <h2>Controllage Usage Drawer</h2>
+              )}
+              showControls
+              expandedWidth={ text('expandedWidth', '40%') }
+              animationDuration='2s'
+              expanded={ isExpanded }
+              onChange={ onChangeHandler }
+              sidebar={ (
+                <ul>
+                  <li>link a</li>
+                  <li>link b</li>
+                  <li>link c</li>
+                </ul>
+              ) }
+            >
+              content body content body content body content body content body content body content body
+            </Drawer>
+          </div>
+        </div>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Expanded width 30%:
+
+<Preview>
+  <Story name="expanded-width-30" parameters={{ info: { disable: true }}} >
+    {() => {
+      const [isExpanded, setIsExpanded] = useState(false);
+      const onChangeHandler = useCallback(() => {
+        setIsExpanded(!isExpanded);
+        action('expansionToggled');
+      }, [isExpanded]);
+      return (
+        <div>
+          <p>
+            Note: if you experience glitchy animation on `Drawer` component,
+            please open canvas in new window (2nd icon in top right corner)
+          </p>
+          <div style={ { height: '200px' } }>
+            <Drawer
+              id="expanded-width-30-drawer"
+              title={ (
+                <h2>Controllage Usage Drawer</h2>
+              )}
+              showControls
+              expandedWidth='30%'
+              expanded={ isExpanded }
+              onChange={ onChangeHandler }
+              sidebar={ (
+                <ul>
+                  <li>link a</li>
+                  <li>link b</li>
+                  <li>link c</li>
+                </ul>
+              ) }
+            >
+              content body content body content body content body content body content body content body
+            </Drawer>
+          </div>
+        </div>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Expanded width 62%:
+
+<Preview>
+  <Story name="expanded-width-62" parameters={{ info: { disable: true }}} >
+    {() => {
+      const [isExpanded, setIsExpanded] = useState(false);
+      const onChangeHandler = useCallback(() => {
+        setIsExpanded(!isExpanded);
+        action('expansionToggled');
+      }, [isExpanded]);
+      return (
+        <div>
+          <p>
+            Note: if you experience glitchy animation on `Drawer` component,
+            please open canvas in new window (2nd icon in top right corner)
+          </p>
+          <div style={ { height: '200px' } }>
+            <Drawer
+              id="expanded-width-62-drawer"
+              title={ (
+                <h2>Controllage Usage Drawer</h2>
+              )}
+              showControls
+              expandedWidth='62%'
+              expanded={ isExpanded }
+              onChange={ onChangeHandler }
+              sidebar={ (
+                <ul>
+                  <li>link a</li>
+                  <li>link b</li>
+                  <li>link c</li>
+                </ul>
+              ) }
+            >
+              content body content body content body content body content body content body content body
+            </Drawer>
+          </div>
+        </div>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Animation Speed (2 second):
+
+<Preview>
+  <Story name="three-second-animation" parameters={{ info: { disable: true }}} >
+    {() => {
+      const [isExpanded, setIsExpanded] = useState(false);
+      const onChangeHandler = useCallback(() => {
+        setIsExpanded(!isExpanded);
+        action('expansionToggled');
+      }, [isExpanded]);
+      return (
+        <div>
+          <p>
+            Note: if you experience glitchy animation on `Drawer` component,
+            please open canvas in new window (2nd icon in top right corner)
+          </p>
+          <div style={ { height: '200px' } }>
+            <Drawer
+              id="three-second-animation-drawer"
+              title={ (
+                <h2>Controllage Usage Drawer</h2>
+              )}
+              showControls
+              expandedWidth={ text('expandedWidth', '40%') }
+              animationDuration='3s'
+              expanded={ isExpanded }
+              onChange={ onChangeHandler }
+              sidebar={ (
+                <ul>
+                  <li>link a</li>
+                  <li>link b</li>
+                  <li>link c</li>
+                </ul>
+              ) }
+            >
+              content body content body content body content body content body content body content body
+            </Drawer>
+          </div>
+        </div>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Controlled Usage:
+
+<Preview>
+  <Story name="controlled" parameters={{ info: { disable: true }}} >
+    {() => {
+      const [isExpanded, setIsExpanded] = useState(false);
+      const onChangeHandler = useCallback(() => {
+        setIsExpanded(!isExpanded);
+        action('expansionToggled');
+      }, [isExpanded]);
+      return (
+        <div>
+          <p>
+            Note: if you experience glitchy animation on `Drawer` component,
+            please open canvas in new window (2nd icon in top right corner)
+          </p>
+          <div style={ { height: '200px' } }>
+            <Drawer
+              id="controlled-drawer"
+              backgroundColor='#FFF000'
+              title={ (
+                <h2>Controllage Usage Drawer</h2>
+              )}
+              showControls
               expandedWidth={ text('expandedWidth', '40%') }
               animationDuration={ text('animationDuration', '0.5s') }
               expanded={ isExpanded }
