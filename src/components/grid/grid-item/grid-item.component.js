@@ -10,7 +10,9 @@ const GridItem = (props) => {
     gridColumnStart,
     gridColumnEnd,
     gridRowStart,
-    gridRowEnd
+    gridRowEnd,
+    alignSelf,
+    justifySelf
   } = props;
 
   return (
@@ -19,7 +21,9 @@ const GridItem = (props) => {
         gridColumnStart,
         gridColumnEnd,
         gridRowStart,
-        gridRowEnd
+        gridRowEnd,
+        alignSelf,
+        justifySelf
       } }
       responsiveSettings={ responsiveSettings }
     >
@@ -39,7 +43,10 @@ GridItem.propTypes = {
   gridRowStart: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Ending row position of the GridItem within the GridContainer by referring to the grid line where the item ends */
   gridRowEnd: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
+  /** How the grid item is aligned along the block (column) axis. Values: start, end, center, stretch */
+  alignSelf: PropTypes.string,
+  /** How the grid item is aligned along the inline (row) axis. Values: start, end, center, stretch */
+  justifySelf: PropTypes.string,
   responsiveSettings: PropTypes.arrayOf(
     PropTypes.shape({
       /** How the grid item is aligned along the block (column) axis. Values: start, end, center, stretch */

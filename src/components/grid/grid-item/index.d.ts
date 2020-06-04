@@ -12,6 +12,8 @@ interface ResponsiveSettingsShape {
 }
 
 export interface GridItemProps {
+  alignSelf: string;
+  justifySelf: string;
   children: string;
   gridColumnStart: string | number;
   gridColumnEnd: string | number;
