@@ -36,6 +36,9 @@ storiesOf('Carousel', module)
     info: {
       propTablesExclude: [Slide, Carousel, ExampleCustomElement, ThemeProvider],
       propTables: [BaseCarousel]
+    },
+    chromatic: {
+      disable: true
     }
   })
   .add('classic', () => {

@@ -24,7 +24,8 @@
     "babel": "cross-env NODE_ENV=production babel ./src --config-file ./babel.config.js --out-dir ./lib --ignore '**/*/__spec__.js','**/*.spec.js','**/__definition__.js' --quiet",
     "clean-lib": "rimraf ./lib",
     "copy-files": "cpx \"src/**/!(*.js|*.md|*.mdx|*.stories.*|*.snap|docgenInfo.json)\" lib",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "chromatic": "chromatic"
   },
   "repository": {
     "type": "git",
@@ -78,6 +79,7 @@
     "babel-loader": "8.1.0",
     "babel-standalone": "~6.17.0",
     "carbon-state-management": "^1.0.0",
+    "chromatic": "^4.0.3",
     "commitizen": "^4.0.4",
     "conventional-changelog-conventionalcommits": "^4.2.3",
     "core-js": "^3.1.4",

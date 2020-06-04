@@ -33,7 +33,8 @@ addParameters({
       }
       return a[1].id.localeCompare(b[1].id);
     }
-  }
+  },
+  chromatic: { disable: false }
 });
 
 setupI18n();
