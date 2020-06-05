@@ -9,7 +9,7 @@ import {
 export const clearButton = () => cy.get(FORM).find('button').contains('Clear');
 
 // accessibility locators
-// this timeout is only for docker accessibility tests
+// this timeout is only for accessibility tests
 export const reRunTestsButton = () => cy.get(RERUN_TESTS_BUTTON, { timeout: 15000 });
 
 // knobs locators
