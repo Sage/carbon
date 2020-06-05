@@ -1,3 +1,10 @@
+### [23.2.1](https://github.com/Sage/carbon/compare/v23.2.0...v23.2.1) (2020-06-05)
+
+
+### Bug Fixes
+
+* **drawer:** drawer update ([2835f99](https://github.com/Sage/carbon/commit/2835f99569615ce3164ff6e5691d31393f27a131)), closes [#2918](https://github.com/Sage/carbon/issues/2918)
+
 ## [23.2.0](https://github.com/Sage/carbon/compare/v23.1.0...v23.2.0) (2020-06-04)
 
 
