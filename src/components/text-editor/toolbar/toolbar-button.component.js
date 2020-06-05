@@ -4,6 +4,13 @@ import { StyledToolbarButton } from './toolbar.style';
 import TooltipDecorator from '../../../utils/decorators/tooltip-decorator';
 
 class ToolbarButton extends React.Component {
+  componentDidUpdate() {
+    // prevents a race condition where the tooltip state does not update fast enough
+    if (!this.props.tooltipVisible) {
+      this.onHide();
+    }
+  }
+
   render() {
     return (
       <>
@@ -30,7 +37,12 @@ ToolbarButton.propTypes = {
   onKeyDown: PropTypes.func.isRequired,
   onMouseDown: PropTypes.func.isRequired,
   onMouseOver: PropTypes.func.isRequired,
-  onMouseLeave: PropTypes.func.isRequired
+  onMouseLeave: PropTypes.func.isRequired,
+  tooltipVisible: PropTypes.bool
+};
+
+ToolbarButton.defaultProps = {
+  tooltipVisible: false
 };
 
 export default TooltipDecorator(ToolbarButton);

@@ -12,11 +12,13 @@ const Toolbar = ({
 
   const handleInlineStyleChange = useCallback((ev, inlineType) => {
     setInlineStyle(inlineType);
+    setShowTooltip('');
     ev.preventDefault();
   }, [setInlineStyle]);
 
   const handleBlockType = useCallback((ev, blockType) => {
     setBlockStyle(blockType);
+    setShowTooltip('');
     ev.preventDefault();
   }, [setBlockStyle]);
 
@@ -45,13 +47,6 @@ const Toolbar = ({
         { ...tooltipProps('Italic', showTooltip, setShowTooltip) }
       >
         I
-      </ToolbarButton>
-      <ToolbarButton
-        onKeyDown={ ev => handleKeyDown(ev, 'unordered-list-item') }
-        onMouseDown={ ev => handleBlockType(ev, 'unordered-list-item') }
-        { ...tooltipProps('Link', showTooltip, setShowTooltip) }
-      >
-        L
       </ToolbarButton>
       <ToolbarButton
         onKeyDown={ ev => handleKeyDown(ev, 'unordered-list-item') }
