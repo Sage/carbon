@@ -180,4 +180,4 @@ const App = props => {
 
 ReactDOM.render(<App />, document.getElementById("app"));
 ```
-This can also be found in our [Codesandbox template](https://codesandbox.io/embed/carbon-quickstart-xi5jc).
+This can also be found in our [Codesandbox template](https://codesandbox.io/s/carbon-quickstart-xi5jc).
