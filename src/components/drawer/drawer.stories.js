@@ -28,7 +28,7 @@ export const Visual = () => {
   }, [isExpanded]);
   return (
     <div>
-      <div style={ { height: '250px', marginBottom: '20px' } }>
+      <div style={ { height: '200px', marginBottom: '20px' } }>
         <Drawer
           expandedWidth='40%'
           animationDuration='0.5s'
@@ -43,7 +43,7 @@ export const Visual = () => {
           content body content body content body content body content body content body content body
         </Drawer>
       </div>
-      <div style={ { height: '250px', marginBottom: '20px' } }>
+      <div style={ { height: '200px', marginBottom: '20px' } }>
         <Drawer
           defaultExpanded
           expandedWidth='20%'
@@ -140,7 +140,7 @@ export const Visual = () => {
           content body content body content body content body content body content body content body
         </Drawer>
       </div>
-      <div style={ { height: '250px', marginBottom: '20px' } }>
+      <div style={ { height: '200px', marginBottom: '20px' } }>
         <Drawer
           expandedWidth='20%'
           animationDuration='0.5s'
@@ -240,12 +240,61 @@ export const Visual = () => {
           </FlatTable>
         </Drawer>
       </div>
-      <div style={ { height: '250px', marginBottom: '20px' } }>
+      <div style={ { height: '200px', marginBottom: '20px' } }>
         <Drawer
           expandedWidth='40%'
           animationDuration='0.5s'
           expanded={ isExpanded }
           onChange={ onChangeHandler }
+          sidebar={ (
+            <ul>
+              <li>link a</li>
+              <li>link b</li>
+              <li>link c</li>
+            </ul>
+          ) }
+        >
+          content body content body content body content body content body content body content body
+        </Drawer>
+      </div>
+      <div style={ { height: '200px', marginBottom: '20px' } }>
+        <Drawer
+          defaultExpanded
+          expandedWidth='40%'
+          animationDuration='0.5s'
+          sidebar={ (
+            <ul>
+              <li>link a</li>
+              <li>link b</li>
+              <li>link c</li>
+            </ul>
+          ) }
+        >
+          content body content body content body content body content body content body content body
+        </Drawer>
+      </div>
+      <div style={ { height: '200px', marginBottom: '20px' } }>
+        <Drawer
+          expandedWidth='40%'
+          animationDuration='0.5s'
+          backgroundColor='#FF0000'
+          sidebar={ (
+            <ul>
+              <li>link a</li>
+              <li>link b</li>
+              <li>link c</li>
+            </ul>
+          ) }
+        >
+          content body content body content body content body content body content body content body
+        </Drawer>
+      </div>
+      <div style={ { height: '200px', marginBottom: '20px' } }>
+        <Drawer
+          title='My custom title'
+          showControls
+          expandedWidth='40%'
+          animationDuration='0.5s'
           sidebar={ (
             <ul>
               <li>link a</li>

@@ -5,46 +5,50 @@ import {
 } from '../../locators/drawer';
 import { positionOfElement } from '../helper';
 
-When('I click on Drawer arrow {int} time(s)', (count) => {
+When('I click on {word} Drawers arrow {int} time(s)', (drawer, count) => {
   for (let i = 0; i < count; i++) {
-    drawerToggle().first().click();
+    drawerToggle(drawer).first().click();
   }
 });
 
-Then('sidebar should have class {word}', (className) => {
-  drawerSidebar().should('have.class', className);
+Then('Drawers {word} sidebar should have class {word}', (drawer, className) => {
+  drawerSidebar(drawer).should('have.class', className);
 });
 
-Then('sidebar text is visible', () => {
-  drawerSidebarContentInnerElement(positionOfElement('second')).should('have.text', 'link a')
+Then('Drawer {word} sidebar text is visible', (drawer) => {
+  drawerSidebarContentInnerElement(drawer, positionOfElement('second')).should('have.text', 'link a')
     .and('be.visible');
-  drawerSidebarContentInnerElement(positionOfElement('third')).should('have.text', 'link b')
+  drawerSidebarContentInnerElement(drawer, positionOfElement('third')).should('have.text', 'link b')
     .and('be.visible');
-  drawerSidebarContentInnerElement(positionOfElement('fourth')).should('have.text', 'link c')
+  drawerSidebarContentInnerElement(drawer, positionOfElement('fourth')).should('have.text', 'link c')
     .and('be.visible');
 });
 
-Then('sidebar text is not visible', () => {
-  drawerSidebarContentInnerElement(positionOfElement('second')).should('have.text', 'link a')
+Then('Drawer {word} sidebar text is not visible', (drawer) => {
+  drawerSidebarContentInnerElement(drawer, positionOfElement('second')).should('have.text', 'link a')
     .and('not.be.visible');
-  drawerSidebarContentInnerElement(positionOfElement('third')).should('have.text', 'link b')
+  drawerSidebarContentInnerElement(drawer, positionOfElement('third')).should('have.text', 'link b')
     .and('not.be.visible');
-  drawerSidebarContentInnerElement(positionOfElement('fourth')).should('have.text', 'link c')
+  drawerSidebarContentInnerElement(drawer, positionOfElement('fourth')).should('have.text', 'link c')
     .and('not.be.visible');
 });
 
-Then('toggle icon switched orientation to open', () => {
-  drawerToggle().should('have.css', 'transform', 'matrix(-1, 0, 0, 1, 0, 0)');
+Then('toggle {word} Drawers icon switched orientation to open', (drawer) => {
+  drawerToggle(drawer).should('have.css', 'transform', 'matrix(-1, 0, 0, 1, 0, 0)');
 });
 
-Then('toggle icon switched orientation to closed', () => {
-  drawerToggle().should('have.css', 'transform', 'none');
+Then('toggle {word} Drawers icon switched orientation to closed', (drawer) => {
+  drawerToggle(drawer).should('have.css', 'transform', 'none');
 });
 
-Then('expandedWidth is set to {string}', (width) => {
-  drawerSidebar().should('have.css', 'width', width);
+Then('Drawer {string} expandedWidth is set to {string}', (drawer, width) => {
+  drawerSidebar(drawer).should('have.css', 'width', width);
 });
 
-Then('animationDuration is set to {string}', (animationDuration) => {
-  drawerSidebar().should('have.css', 'animation-duration', animationDuration);
+Then('Drawer {word} animationDuration is set to {string}', (drawer, animationDuration) => {
+  drawerSidebar(drawer).should('have.css', 'animation-duration', animationDuration);
+});
+
+Then('Drawer {string} backgroundColor is set to {string}', (drawer, backgroundColor) => {
+  drawerSidebar(drawer).should('have.css', 'background-color', backgroundColor);
 });
