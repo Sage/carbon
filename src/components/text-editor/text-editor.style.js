@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { isDLS } from '../../utils/helpers/style-helper';
+import { isClassic } from '../../utils/helpers/style-helper';
 import baseTheme from '../../style/themes/base';
 
 const StyledEditorWrapper = styled.div`
@@ -8,52 +8,51 @@ const StyledEditorWrapper = styled.div`
 
 const StyledEditorContainer = styled.div`
   min-height: 220px;
+  min-width: 450px;
+  margin-right: 2px;
   
   div.DraftEditor-root {
     min-height: inherit;
     height: 100%;
+    width: 100%;
+    min-width: 450px;
   }
+
   div.DraftEditor-editorContainer,
   div.public-DraftEditor-content {
-    padding: 4px;
+    padding: 8px;
     min-height: inherit;
     height: 100%;
+    min-width: 420px;
   }
 
   .public-DraftEditorPlaceholder-root {
-    position: relative;
-    top: 8px;
-    left 8px;
+    position: absolute;
+    height: 21px;
+    top: 16px;
+    left 16px;
     width: fit-content;
+    min-width: 450px;
     ${({ theme }) => css`
       color: ${theme.editor.placeholder};
     `}
   }
 
-  .public-DraftEditorPlaceholder-root:not(.public-DraftEditorPlaceholder-hasFocus) + div.DraftEditor-editorContainer {
-    height: 211px;
-    min-height: 211px;
-  }
-
   .public-DraftEditorPlaceholder-inner {
     width: fit-content;
   }
-
-  .RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
-    display: none;
-  }
   
-  ${({ theme, isFocused }) => css`
+  ${({ theme, isFocused, showPlaceholder }) => css`
     .public-DraftEditorPlaceholder-root {
-      ${isFocused && css`
+      display: inline-block;
+      ${(isFocused || !showPlaceholder) && css`
         display: none;
-        height: 211px;
-        min-height: 211px;
       `}
     }
+
     background-color: ${theme.colors.white};
     border: 1px solid ${theme.editor.border};
-    ${isDLS(theme) && isFocused && `outline: 3px solid ${theme.colors.focus};`}
+    ${!isClassic(theme) && isFocused && `outline: 3px solid ${theme.colors.focus};`}
   `}
 `;
 

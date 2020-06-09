@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyledToolbarButton } from './toolbar.style';
-import TooltipDecorator from '../../../utils/decorators/tooltip-decorator';
+import StyledToolbarButton from './toolbar-button.style';
+import TooltipDecorator from '../../../../utils/decorators/tooltip-decorator/tooltip-decorator';
 
 class ToolbarButton extends React.Component {
   componentDidUpdate() {
-    // prevents a race condition where the tooltip state does not update fast enough
+    // ensure tooltip is hidden when prop updates
     if (!this.props.tooltipVisible) {
       this.onHide();
     }
@@ -22,6 +22,7 @@ class ToolbarButton extends React.Component {
           onKeyDown={ this.props.onKeyDown }
           onMouseDown={ this.props.onMouseDown }
           onBlur={ this.props.onMouseLeave }
+          isActive={ this.props.activated }
         >
           { this.props.children }
         </StyledToolbarButton>
@@ -34,6 +35,7 @@ class ToolbarButton extends React.Component {
 
 ToolbarButton.propTypes = {
   children: PropTypes.node.isRequired,
+  activated: PropTypes.bool,
   onKeyDown: PropTypes.func.isRequired,
   onMouseDown: PropTypes.func.isRequired,
   onMouseOver: PropTypes.func.isRequired,

@@ -71,6 +71,9 @@ export default (palette) => {
     editor: {
       border: palette.slateTint(40),
       placeholder: 'rgba(0,0,0,0.30)',
+      button: {
+        hover: palette.slateTint(80)
+      },
       toolbar: {
         background: palette.slateTint(95)
       }

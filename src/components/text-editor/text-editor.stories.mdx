@@ -15,7 +15,7 @@ import TextEditor, { EditorState } from '.';
       const [value, setValue] = useState(EditorState.createEmpty());
       const ref = useRef(null);
       return (
-        <TextEditor onChange={(newValue) => setValue(newValue)} value={ value } ref={ ref }/>
+        <TextEditor onChange={(newValue) => {setValue(newValue)}} value={ value } ref={ ref } onSubmit={ () => {} }/>
       );
     }}
   </Story>

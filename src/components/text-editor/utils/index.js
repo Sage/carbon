@@ -1,10 +1,21 @@
 import {
   Block,
-  EditorState
+  EditorState,
+  getDefaultKeyBinding,
+  KeyBindingUtil
 } from 'draft-js';
 
 const ORDERLIST_TYPE = 'ordered-list-item';
 const UNORDERLIST_TYPE = 'unordered-list-item';
+
+const { hasCommandModifier } = KeyBindingUtil;
+
+export function myKeyBindingFn(ev) {
+  if ((ev.keyCode === 8 || ev.keyCode === 46) && hasCommandModifier(ev)) {
+    return 'editor-delete';
+  }
+  return getDefaultKeyBinding(ev);
+}
 
 export const computeBlockType = (char, type) => {
   switch (char) {

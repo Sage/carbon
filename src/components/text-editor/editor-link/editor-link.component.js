@@ -14,6 +14,7 @@ const EditorLink = ({
       aria-label={ url }
       target='_blank'
       rel='noopener noreferrer'
+      tabbable={ false } // set to true when in view mode
       { ...rest }
     >
       { children }
