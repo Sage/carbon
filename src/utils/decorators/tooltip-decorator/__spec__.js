@@ -2,10 +2,10 @@ import React from 'react';
 import 'jest-styled-components';
 import TestUtils from 'react-dom/test-utils';
 import TooltipDecorator from './tooltip-decorator';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import Tooltip from '../../../components/tooltip';
 
-const mockPositionValues = {
+const notOffscreenPositionValues = {
   horizontal: {
     bottom: 80,
     center: 90,
@@ -13,7 +13,7 @@ const mockPositionValues = {
   },
   tooltipDistances: {
     bottom: 105,
-    left: -5,
+    left: 20,
     right: 105,
     top: 45,
   },
@@ -22,25 +22,27 @@ const mockPositionValues = {
     left: 95,
     right: 30,
   }
-};
+}
+
+let mockPositionValues = notOffscreenPositionValues;
 
 const expecterModernThemesPositionValues = {
   small: {
     top: '34px',
     bottom: '116px',
-    left: '-16px',
+    left: '9px',
     right: '116px'
   },
   medium: {
     top: '31px',
     bottom: '119px',
-    left: '-19px',
+    left: '6px',
     right: '119px'
   },
   large: {
     top: '27px',
     bottom: '123px',
-    left: '-21px',
+    left: '4px',
     right: '121px'
  }
 }
@@ -395,7 +397,7 @@ describe('tooltip-decorator', () => {
     });
   });
 
-  describe.each([['left', '-5px'], ['right', '105px']])('when the position prop is set to %s', (position, expectedHorizontalValue) => {
+  describe.each([['left', '20px'], ['right', '105px']])('when the position prop is set to %s', (position, expectedHorizontalValue) => {
     describe.each([['top', '100px'], ['center', '90px'], ['bottom', '80px']])('and when the align prop is set to %s', (align, expectedVerticalValue) => {
       it('sets the correct "top" and "left" styles', () => {
         const wrapper = render({
@@ -411,7 +413,70 @@ describe('tooltip-decorator', () => {
     });
   });
 
-  describe('when the tooltip is offscreen', () => {
+  describe('when the tooltip is offscreen left', () => {
+    beforeAll(() => {
+      mockPositionValues = {
+        horizontal: {
+          bottom: 80,
+          center: 90,
+          top: 100,
+        },
+        tooltipDistances: {
+          bottom: 105,
+          left: 0,
+          right: 105,
+          top: 45,
+        },
+        vertical: {
+          center: 10,
+          left: 95,
+          right: 30,
+        }
+      };
+    });
+  
+    afterAll(() => {
+      mockPositionValues = notOffscreenPositionValues;
+    });
+
+    describe('and positioned to the top with center align', () => {
+      it('should realign to the left', () => {
+        const wrapper = render({
+          tooltipMessage: 'Hello',
+          tooltipPosition: 'top',
+          tooltipAlign: 'center'
+        }, mount);
+        const tooltip = wrapper.find(Tooltip);
+        expect(tooltip.props().align).toBe('left');
+      });
+    });
+
+    describe('and positioned to the left with center align', () => {
+      it('should realign to the left', () => {
+        const wrapper = render({
+          tooltipMessage: 'Hello',
+          tooltipPosition: 'left',
+          tooltipAlign: 'center'
+        }, mount);
+        const tooltip = wrapper.find(Tooltip);
+        expect(tooltip.props().align).toBe('left');
+      });
+    });
+
+    describe('and positioned to the right with center align', () => {
+      it('should not realign', () => {
+        const wrapper = render({
+          tooltipMessage: 'Hello',
+          tooltipPosition: 'right',
+          tooltipAlign: 'center'
+        }, mount);
+        const tooltip = wrapper.find(Tooltip);
+        expect(tooltip.props().align).toBe('center');
+      });
+    });
+  });
+
+  describe('when the tooltip is offscreen right', () => {
     const innerWidth = window.innerWidth;
 
     beforeEach(() => {
