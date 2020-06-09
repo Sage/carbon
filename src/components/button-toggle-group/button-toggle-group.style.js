@@ -4,21 +4,23 @@ import ValidationIconStyle from '../validations/validation-icon.style';
 import baseTheme from '../../style/themes/base';
 
 const ButtonToggleGroupStyle = styled.div`
+  display: flex;
+
   ${({ inputWidth }) => inputWidth && css`
     width: ${`${inputWidth}%`};
   `};
-  
-  ${({ theme, errorMessage }) => errorMessage && css`
-    ${StyledButtonToggleLabel} {
+
+  ${StyledButtonToggleLabel} {
+    ${({ theme, info }) => info && css`border-color: ${theme.colors.info};`};
+    ${({ theme, warning }) => warning && css`border-color: ${theme.colors.warning};`}
+    ${({ theme, error }) => error && css`
+      box-shadow: inset 1px 1px 0 ${theme.colors.error}, inset -1px -1px 0 ${theme.colors.error};
       border-color: ${theme.colors.error};
-    }
-  `};
+    `}
+  };
 
   ${ValidationIconStyle} {
-    display: inline-block;
-    margin-left: 10px;
-    margin-top: -4px;
-    vertical-align: middle;
+    margin-left: 4px;
   }
 `;
 

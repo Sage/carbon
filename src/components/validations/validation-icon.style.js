@@ -8,10 +8,8 @@ const ValidationIconStyle = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
-  padding: 1px;
   margin-top: 0;
   margin-bottom: 0;
-  margin-left: 8px;
   border: 0;
   outline: none;
 

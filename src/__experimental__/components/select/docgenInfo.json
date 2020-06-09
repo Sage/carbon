@@ -10,21 +10,29 @@
             "name": "string"
           },
           "required": true,
-          "description": "if children is undefined, text will be rendered as the Option content"
+          "description": "The option's visible text, displayed within <Textbox> of <Select>, and used for filtering"
         },
         "children": {
           "type": {
             "name": "node"
           },
           "required": false,
-          "description": "if defined, children will be rendered as the Option content"
+          "description": "Optional: alternative rendered content, displayed within <SelectList> of <Select> (eg: an icon, an image, etc)"
         },
         "value": {
           "type": {
-            "name": "string"
+            "name": "union",
+            "value": [
+              {
+                "name": "object"
+              },
+              {
+                "name": "string"
+              }
+            ]
           },
           "required": true,
-          "description": "the value of the Option"
+          "description": "The option's invisible internal value"
         },
         "options": {
           "type": {
@@ -140,6 +148,13 @@
           "required": false,
           "description": "The value to filter the children by"
         },
+        "isLoopable": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Flag to indicite whether select list is loopable while traversing using up and down keys"
+        },
         "onLazyLoad": {
           "type": {
             "name": "func"
@@ -191,6 +206,13 @@
       "displayName": "Select",
       "methods": [
         {
+          "name": "getInitialStateValue",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
           "name": "assignInput",
           "docblock": null,
           "modifiers": [],
@@ -220,12 +242,7 @@
           "name": "handleBlur",
           "docblock": null,
           "modifiers": [],
-          "params": [
-            {
-              "name": "ev",
-              "type": null
-            }
-          ],
+          "params": [],
           "returns": null
         },
         {
@@ -262,16 +279,48 @@
           "returns": null
         },
         {
+          "name": "verifyControlledIntegrity",
+          "docblock": "Verifies the integrity of the props `enableMultiSelect` and `value` (if this component is currently controlled).\n`invariant()` will throw an error if verification fails.",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Verifies the integrity of the props `enableMultiSelect` and `value` (if this component is currently controlled).\n`invariant()` will throw an error if verification fails."
+        },
+        {
+          "name": "isMultiSelectEnabled",
+          "docblock": "Is the component currently in multi-select mode? (If not, then it's in single-select mode.)",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Is the component currently in multi-select mode? (If not, then it's in single-select mode.)"
+        },
+        {
+          "name": "getValue",
+          "docblock": "Gets this component's current value.\nThis will be either a string (single-select mode) or an array of strings (multi-select mode).",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Gets this component's current value.\nThis will be either a string (single-select mode) or an array of strings (multi-select mode)."
+        },
+        {
+          "name": "getMultiSelectValues",
+          "docblock": "Gets this component's current multi-select values.\nShould only be called when the component is in multi-select mode.",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Gets this component's current multi-select values.\nShould only be called when the component is in multi-select mode."
+        },
+        {
           "name": "handleChange",
-          "docblock": null,
+          "docblock": "This handler is attached to `SelectList.onSelect()`, which is attached to `ScrollableList.onSelect()`,\nwhich passes `selectedItem.props.id` as the parameter to this handler.\n\n`selectedItem` is a <ScrollableListItem> instance, and its `id` prop is an object with this data structure:\n    { value, text, ...options }\nwhich is constructed from the props of the chosen <Option> child of this <Select> component.\n\nSo this handler's `optionProps` argument object contains:\n\n  - `text`  - The option's visible text, displayed in the browser.\n  - `value` - The option's invisible internal value.",
           "modifiers": [],
           "params": [
             {
-              "name": "newValue",
-              "type": null
+              "name": "optionProps"
             }
           ],
-          "returns": null
+          "returns": null,
+          "description": "This handler is attached to `SelectList.onSelect()`, which is attached to `ScrollableList.onSelect()`,\nwhich passes `selectedItem.props.id` as the parameter to this handler.\n\n`selectedItem` is a <ScrollableListItem> instance, and its `id` prop is an object with this data structure:\n    { value, text, ...options }\nwhich is constructed from the props of the chosen <Option> child of this <Select> component.\n\nSo this handler's `optionProps` argument object contains:\n\n  - `text`  - The option's visible text, displayed in the browser.\n  - `value` - The option's invisible internal value."
         },
         {
           "name": "handleFilter",
@@ -322,34 +371,59 @@
         },
         {
           "name": "triggerChange",
-          "docblock": null,
+          "docblock": "Changes the component's currently-selected option(s). This can be caused by:\n\n  - The user clicking an <Option> in the <SelectList>, to select/add that option.\n  - The user pressing the backspace key, to clear the selected option (or delete a chosen option).\n  - The user clicking the \"X\" (delete) button on a <Pill> (when in multi-select mode).\n\nThe `value` argument refers to the `value` prop(s) of the chosen <Option> component(s):\n\n  - In single-select mode, the `value` argument is a single string.\n  - In  multi-select mode, the `value` argument is an array of strings.",
           "modifiers": [],
           "params": [
             {
-              "name": "value",
-              "type": null
+              "name": "value"
             }
           ],
-          "returns": null
+          "returns": null,
+          "description": "Changes the component's currently-selected option(s). This can be caused by:\n\n  - The user clicking an <Option> in the <SelectList>, to select/add that option.\n  - The user pressing the backspace key, to clear the selected option (or delete a chosen option).\n  - The user clicking the \"X\" (delete) button on a <Pill> (when in multi-select mode).\n\nThe `value` argument refers to the `value` prop(s) of the chosen <Option> component(s):\n\n  - In single-select mode, the `value` argument is a single string.\n  - In  multi-select mode, the `value` argument is an array of strings."
+        },
+        {
+          "name": "createCustomEvent",
+          "docblock": "Creates a custom event object, suitable for passing to the\nonBlur() and onChange() callback props of this component.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "value"
+            }
+          ],
+          "returns": null,
+          "description": "Creates a custom event object, suitable for passing to the\nonBlur() and onChange() callback props of this component."
         },
         {
           "name": "removeMultiItem",
-          "docblock": null,
+          "docblock": "Removes the specified multi-select item.\nShould only be called when the component is in multi-select mode.",
           "modifiers": [],
           "params": [
             {
-              "name": "index",
-              "type": null
+              "name": "index"
             }
           ],
-          "returns": null
+          "returns": null,
+          "description": "Removes the specified multi-select item.\nShould only be called when the component is in multi-select mode."
         },
         {
           "name": "removeSingleItem",
-          "docblock": null,
+          "docblock": "Removes this component's current single-select item.\nShould only be called when the component is in single-select mode.",
           "modifiers": [],
           "params": [],
-          "returns": null
+          "returns": null,
+          "description": "Removes this component's current single-select item.\nShould only be called when the component is in single-select mode."
+        },
+        {
+          "name": "getTextForValue",
+          "docblock": "Finds the <Option> child with the specified `value` prop, and returns its `text` prop.",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "value"
+            }
+          ],
+          "returns": null,
+          "description": "Finds the <Option> child with the specified `value` prop, and returns its `text` prop."
         },
         {
           "name": "formattedValue",
@@ -360,18 +434,6 @@
               "name": "filterValue",
               "type": null
             },
-            {
-              "name": "value",
-              "type": null
-            }
-          ],
-          "returns": null
-        },
-        {
-          "name": "value",
-          "docblock": null,
-          "modifiers": [],
-          "params": [
             {
               "name": "value",
               "type": null
@@ -393,15 +455,15 @@
         },
         {
           "name": "isMultiValue",
-          "docblock": null,
+          "docblock": "Determines whether `value` indicates a single value (when the component is operating in single-select mode)\nor multiple values (when the component is operating in multi-select mode).",
           "modifiers": [],
           "params": [
             {
-              "name": "value",
-              "type": null
+              "name": "value"
             }
           ],
-          "returns": null
+          "returns": null,
+          "description": "Determines whether `value` indicates a single value (when the component is operating in single-select mode)\nor multiple values (when the component is operating in multi-select mode)."
         },
         {
           "name": "placeholder",
@@ -429,10 +491,6 @@
           "params": [
             {
               "name": "typeAhead",
-              "type": null
-            },
-            {
-              "name": "value",
               "type": null
             }
           ],
@@ -485,7 +543,7 @@
             "name": "func"
           },
           "required": false,
-          "description": "A custom function to filter the children. Its interface is (text, filter, value) => boolean"
+          "description": "A custom function to filter the child components. Its interface is (text, filter, value) => boolean"
         },
         "disabled": {
           "type": {
@@ -500,6 +558,13 @@
           },
           "required": false,
           "description": "Label text for the <Textbox>"
+        },
+        "isLoopable": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Flag to indicite whether select list is loopable while traversing using up and down keys"
         },
         "onBlur": {
           "type": {
@@ -529,6 +594,13 @@
           "required": false,
           "description": "A custom callback for when the dropdown menu opens"
         },
+        "onKeyDown": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A custom callback for when the key is pressed"
+        },
         "onLazyLoad": {
           "type": {
             "name": "func"
@@ -557,28 +629,49 @@
           "required": false,
           "description": "Is the component read-only?"
         },
-        "value": {
+        "enableMultiSelect": {
           "type": {
-            "name": "union",
-            "value": [
-              {
-                "name": "string"
-              },
-              {
-                "name": "custom",
-                "raw": "optionShape"
-              },
-              {
-                "name": "arrayOf",
-                "value": {
-                  "name": "custom",
-                  "raw": "optionShape"
-                }
-              }
-            ]
+            "name": "bool"
           },
           "required": false,
-          "description": "The current value"
+          "description": "Should multi-select mode be enabled?"
+        },
+        "preventFocusAutoOpen": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Prevents list from automatically opening on focus"
+        },
+        "value": {
+          "type": {
+            "name": "custom",
+            "raw": "valuePropType"
+          },
+          "required": false,
+          "description": "The selected value(s), when the component is operating in controlled mode"
+        },
+        "defaultValue": {
+          "type": {
+            "name": "custom",
+            "raw": "valuePropType"
+          },
+          "required": false,
+          "description": "The default selected value(s), when the component is operating in uncontrolled mode"
+        },
+        "id": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "ID attribute of the component"
+        },
+        "name": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Name attribute of the component"
         },
         "data-component": {
           "type": {
@@ -615,8 +708,47 @@
           },
           "required": false,
           "description": ""
+        },
+        "leftChildren": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Add additional child elements before the input"
+        },
+        "transparent": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "If true the component input has no border and is transparent"
         }
-      }
+      },
+      "composes": [
+        "../textbox"
+      ]
+    }
+  ],
+  "src/__experimental__/components/select/select.stories.js": [
+    {
+      "description": "",
+      "displayName": "selectOptions",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "defaultComponent",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "autoFocusComponent",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "customFilterComponent",
+      "methods": []
     }
   ]
 }

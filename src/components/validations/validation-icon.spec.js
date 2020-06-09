@@ -9,25 +9,38 @@ import 'jest-styled-components';
 import Icon from '../icon';
 
 describe('ValidationIcon', () => {
-  it('renders with an icon for the given type', () => {
-    const wrapper = mount(<ValidationIcon type='error' />);
-    expect(wrapper.find(ValidationIconStyle).prop('validationType')).toEqual('error');
+  it.each([
+    [{ error: 'Message' }, 'error'],
+    [{ warning: 'Message' }, 'warning'],
+    [{ info: 'Message' }, 'info']
+  ])('renders with a proper icon if validation prop is passed as string', (validation, iconType) => {
+    const wrapper = mount(<ValidationIcon { ...validation } />);
+    expect(wrapper.find(ValidationIconStyle).prop('validationType')).toEqual(iconType);
+  });
+
+  it.each([
+    [{ error: true }],
+    [{ warning: true }],
+    [{ info: true }]
+  ])('does not render any icon if validation prop is a string', (validation) => {
+    const wrapper = mount(<ValidationIcon { ...validation } />);
+    expect(wrapper.find(ValidationIconStyle).exists()).toBe(false);
   });
 
   it('renders with an icon with classic styling', () => {
-    const wrapper = TestRenderer.create(<ValidationIconStyle type='error' theme={ ClassicTheme } />);
+    const wrapper = TestRenderer.create(<ValidationIconStyle theme={ ClassicTheme } />);
     expect(wrapper).toMatchSnapshot();
   });
 
   it('"tooltipPosition" and "tooltipAlign" props in its icon should be "right" and "center" respectively', () => {
-    const wrapper = mount(<ValidationIcon type='error' />);
+    const wrapper = mount(<ValidationIcon error='error' />);
     const iconProps = wrapper.find(Icon).props();
     expect(iconProps.tooltipPosition).toBe('right');
     expect(iconProps.tooltipAlign).toBe('center');
   });
 
   it('does not pass "tooltipPosition" and "tooltipAlign" props to its icon for the classic theme', () => {
-    const wrapper = mount(<ValidationIcon type='error' theme={ ClassicTheme } />);
+    const wrapper = mount(<ValidationIcon error='error' theme={ ClassicTheme } />);
     const iconProps = wrapper.find(Icon).props();
     expect(iconProps.tooltipPosition).toBe(undefined);
     expect(iconProps.tooltipAlign).toBe(undefined);
@@ -47,7 +60,7 @@ describe('ValidationIcon', () => {
 function renderWithContext(props) {
   return mount(
     <InputPresentationContext.Provider value={ props }>
-      <ValidationIcon type='error' />
+      <ValidationIcon error='Message' />
     </InputPresentationContext.Provider>
   );
 }

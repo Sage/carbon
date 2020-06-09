@@ -19,6 +19,13 @@
           "required": false,
           "description": "Maximum possible date"
         },
+        "inputDate": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": ""
+        },
         "inputElement": {
           "type": {
             "name": "object"
@@ -46,7 +53,7 @@
   "src/__experimental__/components/date/date.component.js": [
     {
       "description": "",
-      "displayName": "DateInput",
+      "displayName": "BaseDateInput",
       "methods": [
         {
           "name": "hasValueChanged",
@@ -73,22 +80,24 @@
           "returns": null
         },
         {
+          "name": "shouldAllowBlur",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
           "name": "shouldBlockBlur",
           "docblock": null,
           "modifiers": [],
           "params": [],
-          "returns": "boolean"
+          "returns": null
         },
         {
           "name": "handleBlur",
           "docblock": null,
           "modifiers": [],
-          "params": [
-            {
-              "name": "ev",
-              "type": null
-            }
-          ],
+          "params": [],
           "returns": null
         },
         {
@@ -104,7 +113,7 @@
           "returns": null
         },
         {
-          "name": "handleTabKeyDown",
+          "name": "handleKeyDown",
           "docblock": null,
           "modifiers": [],
           "params": [
@@ -119,7 +128,24 @@
           "name": "openDatePicker",
           "docblock": null,
           "modifiers": [],
-          "params": [],
+          "params": [
+            {
+              "name": "openedOnMount",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "updateValidEventValues",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "value",
+              "type": null
+            }
+          ],
           "returns": null
         },
         {
@@ -131,6 +157,13 @@
         },
         {
           "name": "closeDatePicker",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "handleIconClick",
           "docblock": null,
           "modifiers": [],
           "params": [],
@@ -192,12 +225,56 @@
           "returns": null
         },
         {
+          "name": "getDateObject",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "newValue",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
           "name": "emitOnChangeCallback",
           "docblock": null,
           "modifiers": [],
           "params": [
             {
-              "name": "stringDate",
+              "name": "ev",
+              "type": null
+            },
+            {
+              "name": "isoFormattedValue",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "canBeEmptyValues",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "value",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "buildCustomEvent",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev",
+              "type": null
+            },
+            {
+              "name": "isoFormattedValue",
               "type": null
             }
           ],
@@ -216,32 +293,25 @@
           "returns": null
         },
         {
-          "name": "canBeEmptyValues",
+          "name": "markCurrentDatepicker",
           "docblock": null,
           "modifiers": [],
-          "params": [
-            {
-              "name": "value",
-              "type": "string"
-            }
-          ],
-          "returns": "boolean"
+          "params": [],
+          "returns": null
         },
         {
-          "name": "buildCustomEvent",
+          "name": "hiddenValue",
           "docblock": null,
           "modifiers": [],
-          "params": [
-            {
-              "name": "ev",
-              "type": null
-            },
-            {
-              "name": "isoFormattedValue",
-              "type": "string"
-            }
-          ],
-          "returns": "object"
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "renderHiddenInput",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
         }
       ],
       "props": {
@@ -258,17 +328,6 @@
           },
           "required": false,
           "description": "Automatically focus on component mount"
-        },
-        "internalValidations": {
-          "type": {
-            "name": "array"
-          },
-          "required": false,
-          "description": "Used to provide additional validations on composed components",
-          "defaultValue": {
-            "value": "[new DateValidator()]",
-            "computed": false
-          }
         },
         "minDate": {
           "type": {
@@ -305,28 +364,36 @@
           "required": false,
           "description": "Specify a callback triggered on focus"
         },
+        "name": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Name of the input"
+        },
         "value": {
           "type": {
             "name": "string"
           },
           "required": false,
-          "description": "The current date YYYY-MM-DD",
-          "defaultValue": {
-            "value": "DateHelper.todayFormatted()",
-            "computed": true
-          }
-        },
-        "forceUpdateTriggerToggle": {
-          "type": {
-            "name": "bool"
-          },
-          "required": false,
-          "description": "Triggers textbox validation when it's boolean value changes"
+          "description": "The current date YYYY-MM-DD"
         }
       },
       "composes": [
         "../textbox"
       ]
+    }
+  ],
+  "src/__experimental__/components/date/date.stories.js": [
+    {
+      "description": "",
+      "displayName": "dateComponent",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "autoFocusDateComponent",
+      "methods": []
     }
   ],
   "src/__experimental__/components/date/navbar/navbar.component.js": [

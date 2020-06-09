@@ -41,6 +41,45 @@ const defaultComponent = () => {
   );
 };
 
+
+const validationsComponent = () => {
+  const validationTypes = ['error', 'warning', 'info'];
+  return (
+    <>
+      <h4>Validation as string</h4>
+      <h6>On component</h6>
+      {validationTypes.map(validation => (
+        <Number
+          { ...getCommonTextboxProps() }
+          key={ `${validation}-string-component` }
+          onChange={ () => {} }
+          { ...{ [validation]: 'Message' } }
+        />
+      ))}
+      <h6>On label</h6>
+      {validationTypes.map(validation => (
+        <Number
+          { ...getCommonTextboxProps() }
+          key={ `${validation}-string-label` }
+          onChange={ () => {} }
+          validationOnLabel
+          { ...{ [validation]: 'Message' } }
+        />
+      ))}
+
+      <h4>Validation as boolean</h4>
+      {validationTypes.map(validation => (
+        <Number
+          { ...getCommonTextboxProps() }
+          key={ `${validation}-boolean` }
+          onChange={ () => {} }
+          { ...{ [validation]: true } }
+        />
+      ))}
+    </>
+  );
+};
+
 const autoFocusComponent = () => {
   boolean('autoFocus', true);
   return defaultComponent();
@@ -65,4 +104,5 @@ storiesOf('Experimental/Number Input', module)
   .addDecorator(StateDecorator(store))
   .add(...makeStory('default', dlsThemeSelector, defaultComponent))
   .add(...makeStory('classic', classicThemeSelector, defaultComponent))
+  .add(...makeStory('validations', dlsThemeSelector, validationsComponent))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent));

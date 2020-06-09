@@ -86,6 +86,56 @@ const defaultComponent = () => {
   );
 };
 
+const componentWithValidations = () => {
+  const validationTypes = ['error', 'warning', 'info'];
+  return (
+    <>
+      <h4>Validation as string</h4>
+      <h6>On component</h6>
+      {validationTypes.map(validation => (
+        <State store={ store } key={ `${validation}-string-component` }>
+          <Decimal
+            { ...commonProps() }
+            { ...getCommonTextboxProps() }
+            { ...{ [validation]: 'Message' } }
+            value={ store.get('value') }
+            onChange={ setValue }
+            onBlur={ action('onBlur') }
+          />
+        </State>
+      ))}
+      <h6>On label</h6>
+      {validationTypes.map(validation => (
+        <State store={ store } key={ `${validation}-string-label` }>
+          <Decimal
+            { ...commonProps() }
+            { ...getCommonTextboxProps() }
+            { ...{ [validation]: 'Message' } }
+            validationOnLabel
+            value={ store.get('value') }
+            onChange={ setValue }
+            onBlur={ action('onBlur') }
+          />
+        </State>
+      ))}
+
+      <h4>Validation as boolean</h4>
+      {validationTypes.map(validation => (
+        <State store={ store } key={ `${validation}-boolean` }>
+          <Decimal
+            { ...commonProps() }
+            { ...getCommonTextboxProps() }
+            { ...{ [validation]: true } }
+            value={ store.get('value') }
+            onChange={ setValue }
+            onBlur={ action('onBlur') }
+          />
+        </State>
+      ))}
+    </>
+  );
+};
+
 const autoFocusComponent = () => {
   boolean('autoFocus', true);
   return defaultComponent();
@@ -106,9 +156,10 @@ storiesOf('Experimental/Decimal Input', module)
     info: {
       text: info,
       propTablesExclude: [State, Textbox],
-      propTables: [OriginalTextbox]
+      propTables: [Decimal, OriginalTextbox]
     }
   })
   .add(...makeStory('default', dlsThemeSelector, defaultComponent))
   .add(...makeStory('classic', classicThemeSelector, defaultComponent))
-  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent));
+  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent))
+  .add(...makeStory('validations', dlsThemeSelector, componentWithValidations));

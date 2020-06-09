@@ -5,6 +5,25 @@
       "displayName": "DateRange",
       "methods": [
         {
+          "name": "hasUpdated",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "prevProps",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "updateValues",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
           "name": "_onChange",
           "docblock": "onChange function -triggers validations on both fields and updates opposing field when one changed.",
           "modifiers": [],
@@ -18,6 +37,27 @@
           ],
           "returns": null,
           "description": "onChange function -triggers validations on both fields and updates opposing field when one changed."
+        },
+        {
+          "name": "_onBlur",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "isBlurBlocked",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "buildCustomEvent",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
         },
         {
           "name": "startDate",
@@ -40,26 +80,6 @@
           "description": "The endDate value"
         },
         {
-          "name": "startMessage",
-          "docblock": "The error message for the start message.",
-          "modifiers": [
-            "get"
-          ],
-          "params": [],
-          "returns": null,
-          "description": "The error message for the start message."
-        },
-        {
-          "name": "endMessage",
-          "docblock": "The error message for the end message.",
-          "modifiers": [
-            "get"
-          ],
-          "params": [],
-          "returns": null,
-          "description": "The error message for the end message."
-        },
-        {
           "name": "focusStart",
           "docblock": "Handle focus on start date field",
           "modifiers": [],
@@ -76,17 +96,15 @@
           "description": "Handle focus on end date field"
         },
         {
-          "name": "startDateProps",
+          "name": "blockBlur",
           "docblock": null,
           "modifiers": [],
-          "params": [],
-          "returns": null
-        },
-        {
-          "name": "endDateProps",
-          "docblock": null,
-          "modifiers": [],
-          "params": [],
+          "params": [
+            {
+              "name": "id",
+              "type": null
+            }
+          ],
           "returns": null
         },
         {
@@ -96,10 +114,6 @@
           "params": [
             {
               "name": "propsKey",
-              "type": null
-            },
-            {
-              "name": "defaultValidations",
               "type": null
             }
           ],
@@ -112,42 +126,145 @@
             "name": "string"
           },
           "required": false,
-          "description": "Optional label for endDate field\neslint is disabled because the prop is used to determine the label in the dateProps function"
+          "description": "Optional label for endDate field"
         },
         "onChange": {
           "type": {
             "name": "func"
           },
-          "required": true,
+          "required": false,
+          "description": "Custom callback - receives array of startDate and endDate"
+        },
+        "onBlur": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
           "description": "Custom callback - receives array of startDate and endDate"
         },
         "value": {
           "type": {
-            "name": "array"
+            "name": "arrayOf",
+            "value": {
+              "name": "string"
+            }
           },
-          "required": true,
+          "required": false,
           "description": "An array containing the value of startDate and endDate"
+        },
+        "defaultValue": {
+          "type": {
+            "name": "arrayOf",
+            "value": {
+              "name": "string"
+            }
+          },
+          "required": false,
+          "description": ""
+        },
+        "startError": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Indicate that error has occurred on start date\n  Pass string to display icon, tooltip and red border\n  Pass true boolean to only display red border"
+        },
+        "startWarning": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Indicate that warning has occurred on start date\n  Pass string to display icon, tooltip and orange border\n  Pass true boolean to only display orange border"
+        },
+        "startInfo": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Indicate additional information for start date\n  Pass string to display icon, tooltip and blue border\n  Pass true boolean to only display blue border"
+        },
+        "endError": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Indicate that error has occurred on end date\n  Pass string to display icon, tooltip and red border\n  Pass true boolean to only display red border"
+        },
+        "endWarning": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Indicate that warning has occurred on end date\n  Pass string to display icon, tooltip and orange border\n  Pass true boolean to only display orange border"
+        },
+        "endInfo": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Indicate additional information for end date\n  Pass string to display icon, tooltip and blue border\n  Pass true boolean to only display blue border"
+        },
+        "validationOnLabel": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "When true, validation icons will be placed on labels instead of being placed on the inputs"
         },
         "startLabel": {
           "type": {
             "name": "string"
           },
           "required": false,
-          "description": "Optional label for startDate field\neslint is disabled because the prop is used to determine the label in the dateProps function"
-        },
-        "startMessage": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "Custom message for startDate field"
-        },
-        "endMessage": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "Custom message for endDate field"
+          "description": "Optional label for startDate field"
         },
         "labelsInline": {
           "type": {
@@ -181,6 +298,20 @@
           },
           "required": false,
           "description": "Props for the child end Date component"
+        },
+        "name": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "An optional string prop to provide a name to the component"
+        },
+        "id": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "An optional string prop to provide an id to the component"
         }
       }
     }

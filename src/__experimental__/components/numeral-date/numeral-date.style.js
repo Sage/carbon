@@ -25,9 +25,9 @@ StyledNumeralDate.defaultProps = { theme: baseTheme };
 export const StyledDateField = styled.div`
 
 ${({
-    isYearInput, theme, isEnd, hasError, isMiddle, dateFormatLength
+    isYearInput, theme, isEnd, hasValidationIcon, isMiddle, dateFormatLength
   }) => {
-    const yearInputOrError = isYearInput || (isEnd && hasError);
+    const yearInputOrError = isYearInput || (isEnd && hasValidationIcon);
 
     return css`
 
@@ -66,8 +66,6 @@ ${({
         }
 
         ${StyledValidationIcon} {
-          margin-left: 0px;
-          padding: 0px;
           z-index: 9000;
         }
       `;

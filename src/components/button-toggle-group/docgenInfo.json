@@ -2,45 +2,15 @@
   "src/components/button-toggle-group/button-toggle-group.component.js": [
     {
       "description": "",
-      "displayName": "ButtonToggleGroup",
+      "displayName": "BaseButtonToggleGroup",
       "methods": [],
       "props": {
-        "disabled": {
-          "type": {
-            "name": "bool"
-          },
-          "required": false,
-          "description": "flag to indicate if the component is disabled"
-        },
-        "hasError": {
-          "type": {
-            "name": "bool"
-          },
-          "required": false,
-          "description": "flag to indicate if the component is in an error state"
-        },
         "name": {
           "type": {
             "name": "string"
           },
-          "required": false,
-          "description": "label for the component"
-        },
-        "reverse": {
-          "type": {
-            "name": "bool"
-          },
-          "required": false,
-          "description": "flag to indicate the reverse state of the component"
-        },
-        "size": {
-          "type": {
-            "name": "enum",
-            "computed": true,
-            "value": "OptionsHelper.sizesRestricted"
-          },
-          "required": false,
-          "description": "size property of the component"
+          "required": true,
+          "description": "Specifies the name prop to be applied to each button in the group"
         },
         "children": {
           "type": {
@@ -48,6 +18,62 @@
           },
           "required": true,
           "description": "Children to be rendered (ButtonToggle)."
+        },
+        "error": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Indicate that error has occurred\n  Pass string to display icon, tooltip and red border\n  Pass true boolean to only display red border"
+        },
+        "warning": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Indicate that warning has occurred\n  Pass string to display icon, tooltip and orange border\n  Pass true boolean to only display orange border"
+        },
+        "info": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Indicate additional information\n  Pass string to display icon, tooltip and blue border\n  Pass true boolean to only display blue border"
+        },
+        "validationOnLabel": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "When true, validation icon will be placed on label instead of being placed on the input",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
         },
         "label": {
           "type": {
@@ -105,74 +131,55 @@
           "required": false,
           "description": "The alignment for the text in the label."
         },
-        "value": {
+        "onChange": {
           "type": {
-            "name": "union",
-            "value": [
-              {
-                "name": "string"
-              },
-              {
-                "name": "array"
-              }
-            ]
+            "name": "func"
           },
           "required": false,
-          "description": "The current value of the component"
+          "description": "callback to handle change event"
         },
         "onBlur": {
           "type": {
             "name": "func"
           },
           "required": false,
-          "description": "Custom function to be called when the component blurs"
+          "description": "Callback fired when each RadioButton is blurred"
         },
-        "onChange": {
+        "value": {
           "type": {
-            "name": "func"
+            "name": "string"
           },
           "required": false,
-          "description": "Custom function called when component value changes"
-        },
-        "validations": {
-          "type": {
-            "name": "custom",
-            "raw": "validationsPropTypes"
-          },
-          "required": false,
-          "description": "An array of validations to apply to the input."
-        },
-        "warnings": {
-          "type": {
-            "name": "custom",
-            "raw": "validationsPropTypes"
-          },
-          "required": false,
-          "description": "An array of warnings to apply to the input."
-        },
-        "info": {
-          "type": {
-            "name": "custom",
-            "raw": "validationsPropTypes"
-          },
-          "required": false,
-          "description": "An array of info messages to apply to the input."
-        },
-        "forceUpdateTriggerToggle": {
-          "type": {
-            "name": "bool"
-          },
-          "required": false,
-          "description": "triggers validation when it's boolean value changes"
-        },
-        "addInputToFormState": {
-          "type": {
-            "name": "func"
-          },
-          "required": false,
-          "description": "Custom function to add input form to state"
+          "description": "The value of the Button Toggle Group"
         }
       }
+    }
+  ],
+  "src/components/button-toggle-group/button-toggle-group.stories.js": [
+    {
+      "description": "",
+      "displayName": "Basic",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "BasicGrouped",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "Validations",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "ValidationsGrouped",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "Classic",
+      "methods": []
     }
   ]
 }

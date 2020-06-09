@@ -74,7 +74,7 @@ describe('NumeralDate', () => {
       wrapper = renderThemedWrapper({
         value: { dd: '03', mm: '03', yyyy: '2003' },
         dateFormat: ['yyyy', 'mm', 'dd'],
-        hasError: true
+        error: true
       }, mount);
       assertStyleMatch({
         fontSize: '14px',
@@ -87,7 +87,7 @@ describe('NumeralDate', () => {
       wrapper = renderThemedWrapper({
         value: { dd: '03', mm: '03' },
         dateFormat: ['dd', 'mm'],
-        hasError: true
+        error: true
       }, mount);
       assertStyleMatch({
         fontSize: '14px',

@@ -26,6 +26,13 @@
           "required": false,
           "description": ""
         },
+        "size": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": ""
+        },
         "theme": {
           "type": {
             "name": "object"
@@ -36,6 +43,58 @@
             "value": "baseTheme",
             "computed": true
           }
+        },
+        "error": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "bool"
+              }
+            ]
+          },
+          "required": false,
+          "description": ""
+        },
+        "warning": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "bool"
+              }
+            ]
+          },
+          "required": false,
+          "description": ""
+        },
+        "info": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "bool"
+              }
+            ]
+          },
+          "required": false,
+          "description": ""
+        },
+        "useValidationIcon": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": ""
         }
       }
     }
@@ -110,19 +169,19 @@
           "required": false,
           "description": "The content of the label for the input"
         },
-        "labelHelp": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "Help text"
-        },
         "labelAlign": {
           "type": {
             "name": "string"
           },
           "required": false,
           "description": "Sets label alignment - accepted values: 'left' (default), 'right'"
+        },
+        "labelHelp": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Help text"
         },
         "labelInline": {
           "type": {
@@ -150,6 +209,62 @@
           "required": false,
           "description": "Sets percentage-based label width"
         },
+        "error": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Indicate that error has occurred\n  Pass string to display icon, tooltip and red border\n  Pass true boolean to only display red border"
+        },
+        "warning": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Indicate that warning has occurred\n  Pass string to display icon, tooltip and orange border\n  Pass true boolean to only display orange border"
+        },
+        "info": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Indicate additional information\n  Pass string to display icon, tooltip and blue border\n  Pass true boolean to only display blue border"
+        },
+        "validationOnLabel": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "When true, validation icon will be placed on label instead of being placed by the input",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
         "helpTabIndex": {
           "type": {
             "name": "union",
@@ -163,11 +278,7 @@
             ]
           },
           "required": false,
-          "description": "Override tab index on the validation and help icon",
-          "defaultValue": {
-            "value": "0",
-            "computed": false
-          }
+          "description": "Override tab index on the validation and help icon"
         },
         "loading": {
           "type": {
@@ -183,6 +294,13 @@
           "required": false,
           "description": "Accepts a callback function which can be used to update parent state on change"
         },
+        "onBlur": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Accepts a callback function which is triggered on blur event"
+        },
         "reverse": {
           "type": {
             "name": "bool"
@@ -190,7 +308,7 @@
           "required": false,
           "description": "Reverses label and Switch display",
           "defaultValue": {
-            "value": "false",
+            "value": "true",
             "computed": false
           }
         },
@@ -201,52 +319,12 @@
           "required": false,
           "description": "Set the size of the Switch to 'small' (16x16 - default) or 'large' (24x24).\nNo effect when using Classic theme."
         },
-        "theme": {
-          "type": {
-            "name": "object"
-          },
-          "required": false,
-          "description": "Current theme"
-        },
         "value": {
           "type": {
             "name": "string"
           },
           "required": true,
           "description": "the value of the checkbox, passed on form submit"
-        },
-        "hasError": {
-          "type": {
-            "name": "bool"
-          },
-          "required": false,
-          "description": "Prop to indicate that an error has occurred",
-          "defaultValue": {
-            "value": "false",
-            "computed": false
-          }
-        },
-        "hasWarning": {
-          "type": {
-            "name": "bool"
-          },
-          "required": false,
-          "description": "Prop to indicate that a warning has occurred",
-          "defaultValue": {
-            "value": "false",
-            "computed": false
-          }
-        },
-        "hasInfo": {
-          "type": {
-            "name": "bool"
-          },
-          "required": false,
-          "description": "Prop to indicate additional information",
-          "defaultValue": {
-            "value": "false",
-            "computed": false
-          }
         }
       }
     }

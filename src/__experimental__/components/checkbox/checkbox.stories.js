@@ -5,11 +5,10 @@ import {
   boolean, text, number, select
 } from '@storybook/addon-knobs';
 import { Store, State } from '@sambego/storybook-state';
-import Form from '../form';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import { Checkbox, CheckboxGroup } from '.';
-import { info, notes, infoValidations } from './documentation';
+import { info, notes } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 import AutoFocus from '../../../utils/helpers/auto-focus';
 import guid from '../../../utils/helpers/guid';
@@ -19,56 +18,20 @@ Checkbox.__docgenInfo = getDocGenInfo(
   /checkbox\.component(?!spec)/
 );
 
-function testValidator(value, props) {
-  return new Promise((resolve, reject) => {
-    if (['required', 'mandatory'].indexOf(value) !== -1 && !props.checked) {
-      reject(new Error('This checkbox is required!'));
-    } else if (props.name === 'checkbox-group' && value === '0') {
-      reject(new Error('This checkbox is required!'));
-    } else {
-      resolve();
-    }
-  });
-}
-
-function testWarning(value, props) {
-  return new Promise((resolve, reject) => {
-    if (['warning', 'alert'].indexOf(value) !== -1 && !props.checked) {
-      reject(new Error('Show warning!'));
-    } else if (props.name === 'checkbox-group' && value === '1') {
-      reject(new Error('Show warning!'));
-    } else {
-      resolve();
-    }
-  });
-}
-
-function testInfo(value, props) {
-  return new Promise((resolve, reject) => {
-    if (['info', 'example'].indexOf(value) !== -1 && !props.checked) {
-      reject(new Error('Show this information'));
-    } else if (props.name === 'checkbox-group' && value === '2') {
-      reject(new Error('Show this information'));
-    } else {
-      resolve();
-    }
-  });
-}
-
 const checkboxes = {
-  default: {}, required: {}, warning: {}, info: {}, optional: {}, one: {}, two: {}, three: {}
+  default: {}, error: {}, warning: {}, info: {}, one: {}, two: {}, three: {}
 };
+
 const checkboxKeys = Object.keys(checkboxes);
 
 checkboxKeys.forEach((id) => {
   checkboxes[id] = {
     store: new Store({
-      checked: false,
-      forceUpdateTriggerToggle: false
+      checked: false
     })
   };
 });
-const formCheckbox = checkboxKeys.filter(name => ['required', 'warning', 'info', 'optional'].indexOf(name) !== -1);
+const validationCheckboxes = checkboxKeys.filter(name => ['error', 'warning', 'info'].indexOf(name) !== -1);
 const groupCheckbox = checkboxKeys.filter(name => ['one', 'two', 'three'].indexOf(name) !== -1);
 
 const groupStore = new Store({
@@ -134,7 +97,7 @@ function makeStory(name, themeSelector, component) {
   const metadata = {
     themeSelector,
     info: {
-      text: name.search('validations') !== -1 ? infoValidations : info,
+      text: info,
       propTablesExclude: [State],
       excludedPropTypes: ['children']
     },
@@ -149,8 +112,7 @@ function handleChange(ev, id) {
   const { checked } = ev.target;
 
   checkboxes[id].store.set({
-    checked,
-    forceUpdateTriggerToggle: !checked
+    checked
   });
 
   action('change')(`checked: ${checked}`);
@@ -163,14 +125,8 @@ function handleGroupChange(ev, id) {
 
   groupStore.set({
     value: value.toString(),
-    [id]: checked,
-    forceUpdateTriggerToggle: checked
+    [id]: checked
   });
-}
-
-function handleSubmit(ev) {
-  ev.preventDefault();
-  action('submit')();
 }
 
 const checkboxComponent = () => {
@@ -189,59 +145,103 @@ const checkboxComponentAutoFocus = () => {
   return checkboxComponent();
 };
 
-const checkboxGroupComponent = () => (
+const checkboxValidations = () => (
   <div>
-    <h3>In Form</h3>
-    <Form onSubmit={ handleSubmit }>
-      {formCheckbox.map(type => (
-        <State store={ checkboxes[type].store } key={ `check-state-${type}` }>
-          <Checkbox
-            id={ `checkbox_${type}` }
-            key={ `checkbox-input-${type}` }
-            validations={ testValidator }
-            warnings={ testWarning }
-            info={ testInfo }
-            onChange={ ev => handleChange(ev, type) }
-            name={ `my-checkbox-${type}` }
-            unblockValidation
-            { ...defaultKnobs(type) }
-          />
-        </State>
-      ))}
-    </Form>
+    <h4>Applied to single Checkbox</h4>
+    <h6>As string</h6>
+    {validationCheckboxes.map(type => (
+      <State store={ checkboxes[type].store } key={ `check-state-${type}` }>
+        <Checkbox
+          id={ `checkbox_${type}` }
+          key={ `checkbox-input-${type}` }
+          { ...{ [type]: 'Message' } }
+          onChange={ ev => handleChange(ev, type) }
+          name={ `my-checkbox-${type}` }
+          { ...defaultKnobs(type) }
+        />
+      </State>
+    ))}
 
-    <h3>In Group</h3>
-    <State store={ groupStore }>
-      {state => (
-        <CheckboxGroup
-          id='checkbox-group'
-          name='checkbox-group'
-          groupName='checkbox-group'
-          label={ text('label', 'What would you choose?', 'group') }
-          labelHelp={ text('labelHelp', 'Some helpful information', 'group') }
-          validations={ testValidator }
-          warnings={ testWarning }
-          info={ testInfo }
-          value={ state.value }
-        >
-          {groupCheckbox.map(id => (
-            <Checkbox
-              checked={ state[id] }
-              name={ `checkbox-input-${id}` }
-              onChange={ ev => handleGroupChange(ev, id) }
-              { ...defaultKnobs(id) }
-              key={ `checkbox-input-${id}` }
-            />
-          ))}
-        </CheckboxGroup>
-      )}
-    </State>
+    <h6>As boolean</h6>
+    {validationCheckboxes.map(type => (
+      <State store={ checkboxes[type].store } key={ `check-state-${type}-boolean` }>
+        <Checkbox
+          id={ `checkbox_${type}-boolean` }
+          key={ `checkbox-input-${type}-boolean` }
+          { ...{ [type]: true } }
+          onChange={ ev => handleChange(ev, type) }
+          name={ `my-checkbox-${type}-boolean` }
+          { ...defaultKnobs(type) }
+        />
+      </State>
+    ))}
+
+    <h4>Applied to CheckboxGroup</h4>
+    <h6>As string</h6>
+    {validationCheckboxes.map(type => (
+      <State store={ groupStore } key={ `check-state-group-${type}` }>
+        {state => (
+          <>
+            <CheckboxGroup
+              id='checkbox-group'
+              name='checkbox-group'
+              { ...{ [type]: 'Message' } }
+              groupName='checkbox-group'
+              label={ text('label', 'What would you choose?', 'group') }
+              labelHelp={ text('labelHelp', 'Some helpful information', 'group') }
+              value={ state.value }
+            >
+              {groupCheckbox.map(id => (
+                <Checkbox
+                  checked={ state[id] }
+                  name={ `checkbox-input-${id}` }
+                  onChange={ ev => handleGroupChange(ev, id) }
+                  { ...defaultKnobs(id) }
+                  key={ `checkbox-input-${id}` }
+                />
+              ))}
+            </CheckboxGroup>
+            <div style={ { marginTop: 24 } } />
+          </>
+        )}
+      </State>
+    ))}
+
+    <h6>As bolean</h6>
+    {validationCheckboxes.map(type => (
+      <State key={ `check-state-group-${type}-boolean` } store={ groupStore }>
+        {state => (
+          <>
+            <CheckboxGroup
+              id='checkbox-group'
+              name='checkbox-group'
+              { ...{ [type]: true } }
+              groupName='checkbox-group'
+              label={ text('label', 'What would you choose?', 'group') }
+              labelHelp={ text('labelHelp', 'Some helpful information', 'group') }
+              value={ state.value }
+            >
+              {groupCheckbox.map(id => (
+                <Checkbox
+                  checked={ state[id] }
+                  name={ `checkbox-input-${id}` }
+                  onChange={ ev => handleGroupChange(ev, id) }
+                  { ...defaultKnobs(id) }
+                  key={ `checkbox-input-${id}` }
+                />
+              ))}
+            </CheckboxGroup>
+            <div style={ { marginTop: 24 } } />
+          </>
+        )}
+      </State>
+    ))}
   </div>
 );
 
 storiesOf('Experimental/Checkbox', module)
   .add(...makeStory('default', dlsThemeSelector, checkboxComponent))
   .add(...makeStory('classic', classicThemeSelector, checkboxComponent))
-  .add(...makeStory('validations', dlsThemeSelector, checkboxGroupComponent))
-  .add(...makeStory('validations classic', classicThemeSelector, checkboxGroupComponent))
+  .add(...makeStory('validations', dlsThemeSelector, checkboxValidations))
+  .add(...makeStory('validations classic', classicThemeSelector, checkboxValidations))
   .add(...makeStory('autoFocus', dlsThemeSelector, checkboxComponentAutoFocus));

@@ -1,7 +1,6 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
-import { css, ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
 import { RadioButton, RadioButtonGroup } from '.';
 import FieldHelpStyle from '../field-help/field-help.style';
@@ -14,7 +13,6 @@ import guid from '../../../utils/helpers/guid';
 import baseTheme from '../../../style/themes/base';
 import classicTheme from '../../../style/themes/classic';
 import mintTheme from '../../../style/themes/mint';
-import { getValidationType } from '../../../components/validations/with-validation.hoc';
 import RadioButtonStyle from './radio-button.style';
 
 jest.mock('../../../utils/helpers/guid');
@@ -22,10 +20,10 @@ guid.mockImplementation(() => 'guid-12345');
 
 function render(props = {}, theme = mintTheme, renderer = mount) {
   const {
-    hasError, hasInfo, hasWarning, ...buttonProps
+    error, info, warning, ...buttonProps
   } = props;
   const groupProps = {
-    hasError, hasInfo, hasWarning
+    error, info, warning
   };
   return renderer(
     <ThemeProvider theme={ theme }>
@@ -44,7 +42,7 @@ const getRadioButton = wrapper => wrapper.find(RadioButton);
 
 const renderClassic = props => render(props, classicTheme);
 
-const validationTypes = ['hasError', 'hasWarning', 'hasInfo'];
+const validationTypes = ['error', 'warning', 'info'];
 
 describe('RadioButton', () => {
   describe('propTypes', () => {
@@ -56,18 +54,6 @@ describe('RadioButton', () => {
           + 'You should probably use the label prop instead.';
       const actual = console.error.calls.argsFor(0)[0];
       expect(actual).toMatch(expected);
-    });
-  });
-
-  describe('default props', () => {
-    it('onChange', () => {
-      const button = getRadioButton(render());
-      const e = {
-        target: button.getDOMNode()
-      };
-      act(() => {
-        expect(button.prop('onChange')(e)).toBeUndefined();
-      });
     });
   });
 
@@ -90,7 +76,7 @@ describe('RadioButton', () => {
           assertStyleMatch(
             { fill: baseTheme.disabled.border }, getRadioButton(wrapper),
             {
-              modifier: css`${`${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle`}`
+              modifier: `${`${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle`}`
             }
           );
         });
@@ -103,19 +89,19 @@ describe('RadioButton', () => {
         const dimensions = { height: '24px', width: '24px' };
 
         it('applies the correct Label styles', () => {
-          assertStyleMatch({ padding: '4px 0' }, wrapper, { modifier: css`${LabelStyle}` });
+          assertStyleMatch({ padding: '4px 0' }, wrapper, { modifier: `${LabelStyle}` });
         });
 
         it('applies the correct input styles', () => {
-          assertStyleMatch({ marginRight: '14px', ...dimensions }, wrapper, { modifier: css`${StyledCheckableInput}` });
+          assertStyleMatch({ marginRight: '14px', ...dimensions }, wrapper, { modifier: `${StyledCheckableInput}` });
         });
 
         it('applies the correct hidden input styles', () => {
-          assertStyleMatch(dimensions, wrapper, { modifier: css`${HiddenCheckableInputStyle}` });
+          assertStyleMatch(dimensions, wrapper, { modifier: `${HiddenCheckableInputStyle}` });
         });
 
         it('applies the correct svg wrapper styles', () => {
-          assertStyleMatch(dimensions, wrapper, { modifier: css`${StyledCheckableInputSvgWrapper}` });
+          assertStyleMatch(dimensions, wrapper, { modifier: `${StyledCheckableInputSvgWrapper}` });
         });
 
         it('applies the correct svg styles', () => {
@@ -132,18 +118,18 @@ describe('RadioButton', () => {
           const wrapper = getRadioButton(render({ reverse: true, size: 'large' }));
 
           it('applies the correct input styles', () => {
-            assertStyleMatch({ marginLeft: '16px' }, wrapper, { modifier: css`${StyledCheckableInput}` });
+            assertStyleMatch({ marginLeft: '16px' }, wrapper, { modifier: `${StyledCheckableInput}` });
           });
 
           it('applies the correct FieldHelp styles', () => {
-            assertStyleMatch({ padding: '0' }, wrapper, { modifier: css`${FieldHelpStyle}` });
+            assertStyleMatch({ padding: '0' }, wrapper, { modifier: `${FieldHelpStyle}` });
           });
         });
 
         describe('and fieldHelpInline === true', () => {
           it('does not apply padding changes to FieldHelp', () => {
             const wrapper = render({ fieldHelpInline: true, reverse: true, size: 'large' });
-            assertStyleMatch({ padding: undefined }, getRadioButton(wrapper), { modifier: css`${FieldHelpStyle}` });
+            assertStyleMatch({ padding: undefined }, getRadioButton(wrapper), { modifier: `${FieldHelpStyle}` });
           });
         });
       });
@@ -158,7 +144,7 @@ describe('RadioButton', () => {
           assertStyleMatch(
             { fill: 'rgba(0,0,0,0.85)' }, wrapper,
             {
-              modifier: css`${`${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle`}`
+              modifier: `${`${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle`}`
             }
           );
         });
@@ -168,15 +154,15 @@ describe('RadioButton', () => {
         });
 
         it('applies the correct input styles', () => {
-          assertStyleMatch({ marginRight: '6px', ...dimensions }, wrapper, { modifier: css`${StyledCheckableInput}` });
+          assertStyleMatch({ marginRight: '6px', ...dimensions }, wrapper, { modifier: `${StyledCheckableInput}` });
         });
 
         it('applies the correct hidden input styles', () => {
-          assertStyleMatch(dimensions, wrapper, { modifier: css`${HiddenCheckableInputStyle}` });
+          assertStyleMatch(dimensions, wrapper, { modifier: `${HiddenCheckableInputStyle}` });
         });
 
         it('applies the correct svg wrapper styles', () => {
-          assertStyleMatch(dimensions, wrapper, { modifier: css`${StyledCheckableInputSvgWrapper}` });
+          assertStyleMatch(dimensions, wrapper, { modifier: `${StyledCheckableInputSvgWrapper}` });
         });
 
         it('applies the correct svg styles', () => {
@@ -184,11 +170,11 @@ describe('RadioButton', () => {
         });
 
         it('applies the correct FieldHelp styles', () => {
-          assertStyleMatch({ marginLeft: '22px', padding: '0 6px' }, wrapper, { modifier: css`${FieldHelpStyle}` });
+          assertStyleMatch({ marginLeft: '22px', padding: '0 6px' }, wrapper, { modifier: `${FieldHelpStyle}` });
         });
 
         it('applies the correct Label styles', () => {
-          assertStyleMatch({ padding: '0 6px' }, wrapper, { modifier: css`${LabelStyle}` });
+          assertStyleMatch({ padding: '0 6px' }, wrapper, { modifier: `${LabelStyle}` });
         });
 
         it('applies the correct hidden input svg focus styles', () => {
@@ -199,7 +185,7 @@ describe('RadioButton', () => {
             },
             wrapper,
             {
-              modifier: css`
+              modifier: `
                 ${`${HiddenCheckableInputStyle}:not([disabled]):focus + ${StyledCheckableInputSvgWrapper} > svg`}
               `
             }
@@ -220,7 +206,7 @@ describe('RadioButton', () => {
           assertStyleMatch(
             { fill: '#8099a4' }, wrapper,
             {
-              modifier: css`${`${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle`}`
+              modifier: `${`${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle`}`
             }
           );
         });
@@ -232,22 +218,31 @@ describe('RadioButton', () => {
         const wrapper = getRadioButton(renderClassic(opts));
 
         it('applies the correct FieldHelp styles', () => {
-          assertStyleMatch({ marginLeft: '0', marginRight: '6px' }, wrapper, { modifier: css`${FieldHelpStyle}` });
+          assertStyleMatch({ marginLeft: '0', marginRight: '6px' }, wrapper, { modifier: `${FieldHelpStyle}` });
         });
 
         it('applies the correct input styles', () => {
-          assertStyleMatch({ marginLeft: '6px' }, wrapper, { modifier: css`${StyledCheckableInput}` });
+          assertStyleMatch({ marginLeft: '6px' }, wrapper, { modifier: `${StyledCheckableInput}` });
         });
       });
 
       describe.each(validationTypes)('%s === true', (type) => {
-        it('show correct color on radio', () => {
-          const vType = getValidationType({ [type]: true });
+        it('show correct border on radio', () => {
           const wrapper = render({ [type]: true });
-
+          const borderWidth = type === 'error' ? 2 : 1;
           assertStyleMatch({
-            borderColor: `${baseTheme.colors[vType]}`
-          }, wrapper, { modifier: css`${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} svg` });
+            border: `${borderWidth}px solid ${baseTheme.colors[type]}`
+          }, wrapper.find(RadioButton).at(0), { modifier: 'svg' });
+        });
+      });
+
+      describe.each(validationTypes)('%s === "string"', (type) => {
+        it('show correct border on radio', () => {
+          const wrapper = render({ [type]: 'Message' });
+          const borderWidth = type === 'error' ? 2 : 1;
+          assertStyleMatch({
+            border: `${borderWidth}px solid ${baseTheme.colors[type]}`
+          }, wrapper.find(RadioButton).at(0), { modifier: 'svg' });
         });
       });
     });

@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import Help from '../../../components/help';
 import StyledLabel from './label.style';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
-import { getValidationType } from '../../../components/validations/with-validation.hoc';
 import { filterByProps } from '../../../utils/ether';
 import IconWrapperStyle from './icon-wrapper.style';
 import Logger from '../../../utils/logger/logger';
 
-const validationsPresent = ({ hasError, hasWarning, hasInfo }) => hasError || hasWarning || hasInfo;
+const shouldDisplayValidationIcon = ({ error, warning, info }) => {
+  const validation = error || warning || info;
+  return typeof validation === 'string';
+};
+
 let deprecatedWarnTriggered = false;
 
 const Label = (props) => {
@@ -21,11 +24,13 @@ const Label = (props) => {
     labelId,
     helpId,
     children,
+    error,
+    warning,
+    info,
     help,
     helpIcon,
     helpTag,
     helpTabIndex,
-    tooltipMessage,
     useValidationIcon,
     htmlFor,
     tabIndex,
@@ -49,13 +54,14 @@ const Label = (props) => {
       onBlur: () => setFocus(false)
     };
 
-    if (useValidationIcon && validationsPresent(props) && tooltipMessage) {
+    if (useValidationIcon && shouldDisplayValidationIcon(props)) {
       return (
         <IconWrapperStyle { ...wrapperProps }>
           <ValidationIcon
             iconId={ helpId }
-            type={ getValidationType(props) }
-            tooltipMessage={ tooltipMessage }
+            error={ error }
+            warning={ warning }
+            info={ info }
             tabIndex={ helpTabIndex }
             isFocused={ isFocused }
           />
@@ -100,6 +106,12 @@ Label.propTypes = {
   helpId: PropTypes.string,
   /** Children elements */
   children: PropTypes.node,
+  /** Status of error validations */
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Status of warnings */
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Status of info */
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** A message that the Help component will display */
   help: PropTypes.string,
   /** Icon type */
@@ -108,8 +120,6 @@ Label.propTypes = {
   helpTag: PropTypes.string,
   /** Overrides the default tabindex of the Help component */
   helpTabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  /** A message that the ValidationIcon component will display */
-  tooltipMessage: PropTypes.string,
   /** Whether to show the validation icon */
   useValidationIcon: PropTypes.bool,
   /** A string that represents the ID of another form element */
@@ -123,7 +133,7 @@ Label.propTypes = {
 };
 
 Label.defaultProps = {
-  useValidationIcon: false,
+  useValidationIcon: true,
   tabIndex: 0,
   styleOverride: {}
 };

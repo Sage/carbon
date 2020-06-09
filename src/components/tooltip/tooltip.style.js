@@ -25,13 +25,13 @@ const StyledTooltipInner = styled.div`
     max-width: 300px;
     word-break: normal;
     white-space: pre-wrap;
+    font-weight: 700;
 
     ${type === 'error' && css`
       background-color: ${theme.colors.error};
     `}
 
     ${isClassic(theme) && css`
-      font-weight: 700;
       padding: 10px 15px;
     `}
   `}

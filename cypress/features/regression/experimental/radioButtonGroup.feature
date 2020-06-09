@@ -14,16 +14,16 @@ Feature: Experimental RadioButtonGroup component
   @positive
   Scenario: RadioButton not inline
     When I check inline checkbox
-    And I uncheck inline checkbox
+      And I uncheck inline checkbox
     Then RadioButton are not inline
 
   @positive
-  Scenario: Legend inline
-    When I check labelInline checkbox
-    Then legend is inline with RadioButton
+  Scenario: LegendInline inline
+    When I check legendInline checkbox
+    Then legendInline is inline with RadioButton
 
   @positive
-  Scenario: Legend not inline
-    When I check labelInline checkbox
-    And I uncheck labelInline checkbox
-    Then legend is not inline with RadioButton
+  Scenario: legendInline not inline
+    When I check legendInline checkbox
+      And I uncheck legendInline checkbox
+    Then legendInline is not inline with RadioButton

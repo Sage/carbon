@@ -5,7 +5,6 @@ import 'jest-styled-components';
 import { css, ThemeProvider } from 'styled-components';
 import { mount } from 'enzyme';
 import I18n from 'i18n-js';
-import text from '../../../utils/helpers/text/text';
 import Switch from '.';
 import CheckableInput from '../checkable-input';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
@@ -278,34 +277,70 @@ describe('Switch', () => {
     });
   });
 
-  describe('check icon when validating', () => {
+  describe('validations', () => {
     const wrapper = render({
       label: 'My Label',
-      labelHelp: 'Please help me?',
-      unblockValidation: true,
-      useValidationIcon: true
+      labelHelp: 'Please help me?'
     }, mount);
     const validationTypes = ['error', 'warning', 'info'];
 
     beforeEach(() => {
       const props = {
-        tooltipMessage: 'The message',
-        hasError: false,
-        hasWarning: false,
-        hasInfo: false
+        error: false,
+        warning: false,
+        info: false,
+        validationOnLabel: false
       };
 
       wrapper.setProps(props);
     });
 
-    describe.each(validationTypes)('validation %s', (type) => {
-      it(`displays ${type} icon`, () => {
-        const propName = `has${text.titleCase(type)}`;
+    describe.each(validationTypes)('when %s prop passed as string', (type) => {
+      it(`displays ${type} icon by the input`, () => {
         wrapper.setProps({
-          [propName]: true
+          [type]: 'Message'
         });
+        expect(wrapper.find(StyledSwitchSlider).find(StyledValidationIcon).prop('validationType')).toEqual(type);
+      });
 
-        expect(wrapper.find(StyledValidationIcon).prop('validationType')).toEqual(type);
+      it(`displays ${type} icon by the label when validationOnLabel is passed as true`, () => {
+        wrapper.setProps({
+          [type]: 'Message',
+          validationOnLabel: true
+        });
+        expect(wrapper.find(LabelStyle).find(StyledValidationIcon).prop('validationType')).toEqual(type);
+      });
+
+      it('renders proper validation styles', () => {
+        wrapper.setProps({
+          [type]: 'Message'
+        });
+        const shadowWidth = type === 'error' ? 2 : 1;
+        assertStyleMatch({
+          // eslint-disable-next-line max-len
+          boxShadow: `inset ${shadowWidth}px ${shadowWidth}px 0 ${baseTheme.colors[type]},inset -${shadowWidth}px -${shadowWidth}px 0 ${baseTheme.colors[type]}`
+        }, wrapper.find(StyledSwitchSlider));
+      });
+    });
+
+    describe.each(validationTypes)('when %s prop passed as true boolean', (type) => {
+      it(`displays ${type} icon by the label when validationOnLabel is passed as true`, () => {
+        wrapper.setProps({
+          [type]: true,
+          validationOnLabel: true
+        });
+        expect(wrapper.find(StyledValidationIcon).exists()).toBe(false);
+      });
+
+      it('renders proper validation styles', () => {
+        wrapper.setProps({
+          [type]: true
+        });
+        const shadowWidth = type === 'error' ? 2 : 1;
+        assertStyleMatch({
+          // eslint-disable-next-line max-len
+          boxShadow: `inset ${shadowWidth}px ${shadowWidth}px 0 ${baseTheme.colors[type]},inset -${shadowWidth}px -${shadowWidth}px 0 ${baseTheme.colors[type]}`
+        }, wrapper.find(StyledSwitchSlider));
       });
     });
   });

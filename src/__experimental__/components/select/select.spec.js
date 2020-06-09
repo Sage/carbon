@@ -528,13 +528,12 @@ describe('Select', () => {
 
   describe('external validations', () => {
     it.each([
-      ['error', { hasError: true }],
-      ['warning', { hasWarning: true }],
-      ['info', { hasInfo: true }]
-    ])('should pass %s props to the Textbox component', (type, prop) => {
-      const props = { ...prop, inputIcon: type, tooltipMessage: 'Validation message' };
-      const wrapper = renderWrapper({ props });
-      expect(wrapper.find(Textbox).props()).toMatchObject(props);
+      ['error'],
+      ['warning'],
+      ['info']
+    ])('should pass %s validation prop to the Textbox component', (validation) => {
+      const wrapper = renderWrapper({ props: { [validation]: true } });
+      expect(wrapper.find(Textbox).props()[validation]).toBe(true);
     });
 
     it('should render dropdown icon when no validationProps provided', () => {

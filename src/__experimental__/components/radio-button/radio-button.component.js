@@ -19,7 +19,6 @@ const RadioButton = ({
     ...props,
     onChange: handleChange,
     onBlur,
-    helpTabIndex: 0,
     helpTag: 'span',
     inputId: id,
     inputLabel: label,

@@ -1,10 +1,9 @@
 import { withValidations, ValidationsContext } from './form-with-validations.hoc';
-import withValidation, { validationsPropTypes } from './with-validation.hoc';
+import withValidation from './with-validation.hoc';
 
 export {
   withValidations,
   withValidation,
-  ValidationsContext,
-  validationsPropTypes
+  ValidationsContext
 };
 export default withValidations;

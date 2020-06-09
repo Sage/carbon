@@ -1,12 +1,10 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import { css } from 'styled-components';
 import { mount } from 'enzyme';
-import { RadioButton, RadioButtonGroup } from '.';
-import { LegendContainerStyle } from '../fieldset/fieldset.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import { RadioButton, RadioButtonGroup } from '.';
+import { StyledFieldset, StyledLegendContainer } from '../../../__internal__/fieldset/fieldset.style';
 import RadioButtonGroupStyle from './radio-button-group.style';
-import Fieldset from '../fieldset';
 
 const buttonValues = ['test-1', 'test-2'];
 const name = 'test-group';
@@ -41,32 +39,24 @@ describe('RadioButtonGroup', () => {
     it('applies the correct Legend Container styles', () => {
       assertStyleMatch(
         {
-          height: '26px',
-          marginBottom: '16px'
-        },
-        render().toJSON(),
-        { modifier: css`${LegendContainerStyle}` }
-      );
-    });
-
-    it('applies the correct legend styles', () => {
-      assertStyleMatch(
-        {
-          fontSize: '14px',
-          marginLeft: '-2px'
-        },
-        render().toJSON(),
-        { modifier: css`${LegendContainerStyle} legend` }
-      );
-    });
-
-    it('applies the correct Legend Container styles', () => {
-      assertStyleMatch(
-        {
           display: 'flex'
         },
         mount(<RadioButtonGroupStyle inline />)
       );
+    });
+  });
+
+  describe('validations', () => {
+    it.each([
+      ['error', 'string'],
+      ['error', true],
+      ['warning', 'string'],
+      ['warning', true],
+      ['info', 'string'],
+      ['info', true]
+    ])('when %s is passed as %s it is passed as boolean to RadioButton', (type, value) => {
+      const wrapper = render(mount, { [type]: value });
+      wrapper.find(RadioButton).forEach(node => expect(node.props()[type]).toBe(true));
     });
   });
 
@@ -88,7 +78,7 @@ describe('RadioButtonGroup', () => {
     });
 
     it('renders root element with properly assigned styles', () => {
-      assertStyleMatch(customStyleObject, wrapper.find(Fieldset));
+      assertStyleMatch(customStyleObject, wrapper.find(StyledFieldset));
     });
 
     it('renders content wrapper with properly assigned styles', () => {
@@ -96,7 +86,7 @@ describe('RadioButtonGroup', () => {
     });
 
     it('renders legend element with properly assigned styles', () => {
-      assertStyleMatch(customStyleObject, wrapper.find(LegendContainerStyle));
+      assertStyleMatch(customStyleObject, wrapper.find(StyledLegendContainer));
     });
   });
 });

@@ -30,7 +30,6 @@ const StyledCheckableInputWrapper = styled.div`
       & ${StyledValidationIcon} {
         color: ${theme.help.color};
         vertical-align: middle;
-        top: -1px;
 
         &:hover, &:focus {
           color: ${theme.text.color};
