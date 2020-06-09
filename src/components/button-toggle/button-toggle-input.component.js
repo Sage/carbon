@@ -13,6 +13,7 @@ function ButtonToggleInput(props) {
       disabled={ props.disabled }
       checked={ props.checked }
       onChange={ props.onChange }
+      onBlur={ props.onBlur }
       value={ props.value }
     />
   );
@@ -29,8 +30,10 @@ ButtonToggleInput.propTypes = {
   guid: PropTypes.string,
   /** Value for the input */
   value: PropTypes.string,
-  /** Change handler passed in from parent. */
-  onChange: PropTypes.func
+  /** Callback triggered by change event on the input. */
+  onChange: PropTypes.func,
+  /** Callback triggered by blur event on the input. */
+  onBlur: PropTypes.func
 };
 
 export default ButtonToggleInput;

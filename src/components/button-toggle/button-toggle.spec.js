@@ -2,10 +2,10 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { ThemeProvider } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
-import 'jest-styled-components';
 import guid from '../../utils/helpers/guid';
-import { classicTheme } from '../../style/themes';
+import { classicTheme, baseTheme } from '../../style/themes';
 import ButtonToggle from './button-toggle.component';
+import ButtonToggleInput from './button-toggle-input.component';
 import { assertStyleMatch, carbonThemesJestTable } from '../../__spec_helper__/test-utils';
 import { StyledButtonToggleIcon } from './button-toggle.style';
 
@@ -13,6 +13,30 @@ jest.mock('../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
 
 describe('ButtonToggle', () => {
+  describe('functionality', () => {
+    it('pass onChange props to input', () => {
+      const onChangeMock = jest.fn();
+      const wrapper = renderWithTheme({
+        theme: baseTheme,
+        onChange: onChangeMock
+      });
+
+      wrapper.find(ButtonToggleInput).prop('onChange')();
+      expect(onChangeMock.mock.calls.length).toBe(1);
+    });
+
+    it('pass onBlur props to input', () => {
+      const onBlurMock = jest.fn();
+      const wrapper = renderWithTheme({
+        theme: baseTheme,
+        onBlur: onBlurMock
+      });
+
+      wrapper.find(ButtonToggleInput).prop('onBlur')();
+      expect(onBlurMock.mock.calls.length).toBe(1);
+    });
+  });
+
   describe('Classic theme', () => {
     it('renders correctly with default settings', () => {
       const wrapper = renderWithTheme({ theme: classicTheme }, TestRenderer.create);
