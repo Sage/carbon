@@ -4,7 +4,6 @@ import tagComponent from '../../../utils/helpers/tags';
 import CheckboxStyle from './checkbox.style';
 import CheckableInput from '../checkable-input/checkable-input.component';
 import CheckboxSvg from './checkbox-svg.component';
-import withValidations from '../../../components/validations/with-validation.hoc';
 
 const Checkbox = ({
   id,
@@ -76,6 +75,18 @@ Checkbox.propTypes = {
   size: PropTypes.string,
   /** the value of the checkbox, passed on form submit */
   value: PropTypes.string,
+  /** Indicate that error has occurred
+  Pass string to display icon, tooltip and red border
+  Pass true boolean to only display red border */
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate that warning has occurred
+  Pass string to display icon, tooltip and orange border
+  Pass true boolean to only display orange border */
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate additional information
+  Pass string to display icon, tooltip and blue border
+  Pass true boolean to only display blue border */
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** Allows component to be focused on page load */
   autoFocus: PropTypes.bool,
   /** The content for the help tooltip, to appear next to the Label */
@@ -86,4 +97,4 @@ Checkbox.defaultProps = {
   reverse: false
 };
 
-export default withValidations(Checkbox);
+export default Checkbox;

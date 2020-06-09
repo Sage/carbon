@@ -27,8 +27,6 @@ function makeStory(name, themeSelector) {
   const component = () => {
     const startLabel = text('startLabel', '');
     const endLabel = text('endLabel', '');
-    const startMessage = text('startMessage', 'Start date must not be later than the end date');
-    const endMessage = text('endMessage', 'End date cannot be earlier than the start date');
     const labelsInline = (startLabel || endLabel) ? boolean('labelsInline', false) : undefined;
 
     return (
@@ -38,8 +36,6 @@ function makeStory(name, themeSelector) {
           endLabel={ endLabel }
           value={ store.get('value') }
           startLabel={ startLabel }
-          startMessage={ startMessage }
-          endMessage={ endMessage }
           labelsInline={ labelsInline }
           onBlur={ ev => action('blur')(ev) }
         />
@@ -59,6 +55,145 @@ function makeStory(name, themeSelector) {
   return [name, component, metadata];
 }
 
+function makeValidationStory(name, themeSelector) {
+  const component = () => {
+    const startLabel = text('startLabel', 'From');
+    const endLabel = text('endLabel', 'To');
+    const labelsInline = (startLabel || endLabel) ? boolean('labelsInline', false) : undefined;
+
+    return (
+      <>
+        <h4>Validation as string</h4>
+        <h6>On components</h6>
+        {[
+          { startError: 'Start Error', endError: 'End Error' },
+          { startWarning: 'Start Warning', endWarning: 'End Warning' },
+          { startInfo: 'Start Info', endInfo: 'End Info' }
+        ].map(validation => (
+          <State store={ store } key={ `${Object.keys(validation)[0]}-string-component` }>
+            <DateRange
+              onChange={ handleChange }
+              endLabel={ endLabel }
+              value={ store.get('value') }
+              startLabel={ startLabel }
+              labelsInline={ labelsInline }
+              onBlur={ ev => action('blur')(ev) }
+              { ...validation }
+            />
+          </State>
+        ))}
+        <h6>On components - only one input</h6>
+        {[
+          { startError: 'Start Error' },
+          { endWarning: 'End Warning' },
+          { startInfo: 'Start Info' }
+        ].map(validation => (
+          <State store={ store } key={ `${Object.keys(validation)[0]}-string-component` }>
+            <DateRange
+              onChange={ handleChange }
+              endLabel={ endLabel }
+              value={ store.get('value') }
+              startLabel={ startLabel }
+              labelsInline={ labelsInline }
+              onBlur={ ev => action('blur')(ev) }
+              { ...validation }
+            />
+          </State>
+        ))}
+
+        <h6>On labels</h6>
+        {[
+          { startError: 'Start Error', endError: 'End Error' },
+          { startWarning: 'Start Warning', endWarning: 'End Warning' },
+          { startInfo: 'Start Info', endInfo: 'End Info' }
+        ].map(validation => (
+          <State store={ store } key={ `${Object.keys(validation)[0]}-string-label` }>
+            <DateRange
+              onChange={ handleChange }
+              endLabel={ endLabel }
+              value={ store.get('value') }
+              startLabel={ startLabel }
+              labelsInline={ labelsInline }
+              onBlur={ ev => action('blur')(ev) }
+              validationOnLabel
+              { ...validation }
+            />
+          </State>
+        ))}
+        <h6>On labels - only one input</h6>
+        {[
+          { endError: 'End Error' },
+          { startWarning: 'Start Warning' },
+          { endInfo: 'End Info' }
+        ].map(validation => (
+          <State store={ store } key={ `${Object.keys(validation)[0]}-string-label` }>
+            <DateRange
+              onChange={ handleChange }
+              endLabel={ endLabel }
+              value={ store.get('value') }
+              startLabel={ startLabel }
+              labelsInline={ labelsInline }
+              onBlur={ ev => action('blur')(ev) }
+              validationOnLabel
+              { ...validation }
+            />
+          </State>
+        ))}
+
+        <h4>Validation as boolean</h4>
+        <h6>On both inputs</h6>
+        {[
+          { startError: true, endError: true },
+          { startWarning: true, endWarning: true },
+          { startInfo: true, endInfo: true }
+        ].map(validation => (
+          <State store={ store } key={ `${Object.keys(validation)[0]}-boolean` }>
+            <DateRange
+              onChange={ handleChange }
+              endLabel={ endLabel }
+              value={ store.get('value') }
+              startLabel={ startLabel }
+              labelsInline={ labelsInline }
+              onBlur={ ev => action('blur')(ev) }
+              { ...validation }
+            />
+          </State>
+        ))}
+        <h6>On only one input</h6>
+        {[
+          { startError: true },
+          { endWarning: true },
+          { startInfo: true }
+        ].map(validation => (
+          <State store={ store } key={ `${Object.keys(validation)[0]}-boolean` }>
+            <DateRange
+              onChange={ handleChange }
+              endLabel={ endLabel }
+              value={ store.get('value') }
+              startLabel={ startLabel }
+              labelsInline={ labelsInline }
+              onBlur={ ev => action('blur')(ev) }
+              { ...validation }
+            />
+          </State>
+        ))}
+      </>
+    );
+  };
+
+  const metadata = {
+    themeSelector,
+    notes: { markdown: notes },
+    info: {
+      text: info,
+      propTablesExclude: [State]
+    }
+  };
+
+  return [name, component, metadata];
+}
+
 storiesOf('Experimental/Date Range', module)
   .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeValidationStory('validations', dlsThemeSelector))
   .add(...makeStory('classic', classicThemeSelector));

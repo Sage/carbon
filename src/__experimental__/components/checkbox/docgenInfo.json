@@ -1,4 +1,72 @@
 {
+  "src/__experimental__/components/checkbox/checkbox-group.component.js": [
+    {
+      "description": "",
+      "displayName": "CheckboxGroup",
+      "methods": [],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": true,
+          "description": "The RadioButton objects to be rendered in the group"
+        },
+        "groupName": {
+          "type": {
+            "name": "string"
+          },
+          "required": true,
+          "description": "Specifies the name prop to be applied to each button in the group"
+        },
+        "error": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Indicate that error has occurred\n  Pass string to display icon, tooltip and red border\n  Pass true boolean to only display red border"
+        },
+        "warning": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Indicate that warning has occurred\n  Pass string to display icon, tooltip and orange border\n  Pass true boolean to only display orange border"
+        },
+        "info": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Indicate additional information\n  Pass string to display icon, tooltip and blue border\n  Pass true boolean to only display blue border"
+        }
+      }
+    }
+  ],
   "src/__experimental__/components/checkbox/checkbox-svg.component.js": [
     {
       "description": "",
@@ -33,12 +101,34 @@
           "required": false,
           "description": "Displays fieldHelp inline with the checkbox"
         },
+        "id": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Unique Identifier for the input. Will use a randomly generated GUID if none is provided"
+        },
         "inputWidth": {
           "type": {
-            "name": "number"
+            "name": "union",
+            "value": [
+              {
+                "name": "number"
+              },
+              {
+                "name": "string"
+              }
+            ]
           },
           "required": false,
           "description": "Sets percentage-based input width"
+        },
+        "label": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The content of the label for the input"
         },
         "labelAlign": {
           "type": {
@@ -49,7 +139,15 @@
         },
         "labelWidth": {
           "type": {
-            "name": "number"
+            "name": "union",
+            "value": [
+              {
+                "name": "number"
+              },
+              {
+                "name": "string"
+              }
+            ]
           },
           "required": false,
           "description": "Sets percentage-based label width"
@@ -60,6 +158,13 @@
           },
           "required": false,
           "description": "Accepts a callback function which can be used to update parent state on change"
+        },
+        "onBlur": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Accepts a callback function which is triggered on blur event"
         },
         "reverse": {
           "type": {
@@ -78,8 +183,77 @@
           },
           "required": false,
           "description": "Set the size of the checkbox to 'small' (16x16 - default) or 'large' (24x24).\nNo effect when using Classic theme."
+        },
+        "value": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "the value of the checkbox, passed on form submit"
+        },
+        "error": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Indicate that error has occurred\n  Pass string to display icon, tooltip and red border\n  Pass true boolean to only display red border"
+        },
+        "warning": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Indicate that warning has occurred\n  Pass string to display icon, tooltip and orange border\n  Pass true boolean to only display orange border"
+        },
+        "info": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Indicate additional information\n  Pass string to display icon, tooltip and blue border\n  Pass true boolean to only display blue border"
         }
       }
+    }
+  ],
+  "src/__experimental__/components/checkbox/checkbox.stories.js": [
+    {
+      "description": "",
+      "displayName": "checkboxComponent",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "checkboxComponentAutoFocus",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "checkboxValidations",
+      "methods": []
     }
   ]
 }

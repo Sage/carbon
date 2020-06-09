@@ -46,6 +46,53 @@ const autoFocusComponent = () => {
   return defaultComponent();
 };
 
+const validationsComponent = () => {
+  const validationTypes = ['error', 'warning', 'info'];
+  const groups = object('groups', [2, 2, 4]);
+  const separator = text('separator', '-');
+
+  return (
+    <>
+      <h4>Validation as string</h4>
+      <h6>On component</h6>
+      {validationTypes.map(validation => (
+        <GroupedCharacter
+          { ...getCommonTextboxProps() }
+          key={ `${validation}-string-component` }
+          groups={ groups }
+          separator={ separator }
+          onChange={ () => {} }
+          { ...{ [validation]: 'Message' } }
+        />
+      ))}
+      <h6>On label</h6>
+      {validationTypes.map(validation => (
+        <GroupedCharacter
+          { ...getCommonTextboxProps() }
+          key={ `${validation}-string-label` }
+          groups={ groups }
+          separator={ separator }
+          onChange={ () => {} }
+          validationOnLabel
+          { ...{ [validation]: 'Message' } }
+        />
+      ))}
+
+      <h4>Validation as boolean</h4>
+      {validationTypes.map(validation => (
+        <GroupedCharacter
+          { ...getCommonTextboxProps() }
+          key={ `${validation}-boolean` }
+          groups={ groups }
+          separator={ separator }
+          onChange={ () => {} }
+          { ...{ [validation]: true } }
+        />
+      ))}
+    </>
+  );
+};
+
 function makeStory(name, themeSelector, component) {
   const metadata = {
     themeSelector,
@@ -62,9 +109,10 @@ function makeStory(name, themeSelector, component) {
 
 storiesOf('Experimental/GroupedCharacter', module)
   .addParameters({
-    info: { text: info, propTables: [OriginalTextbox], propTablesExclude: [State] },
+    info: { text: info, propTables: [GroupedCharacter, OriginalTextbox], propTablesExclude: [State] },
     knobs: { escapeHTML: false }
   })
   .add(...makeStory('default', dlsThemeSelector, defaultComponent))
   .add(...makeStory('classic', classicThemeSelector, defaultComponent))
+  .add(...makeStory('validations', dlsThemeSelector, validationsComponent))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent));

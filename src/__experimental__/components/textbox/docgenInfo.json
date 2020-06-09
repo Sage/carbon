@@ -20,6 +20,9 @@
                 "name": "string"
               },
               {
+                "name": "object"
+              },
+              {
                 "name": "array"
               }
             ]
@@ -147,30 +150,6 @@
           "required": false,
           "description": "Additional child elements to display before the input"
         },
-        "validations": {
-          "type": {
-            "name": "custom",
-            "raw": "validationsPropTypes"
-          },
-          "required": false,
-          "description": "List of error validation functions"
-        },
-        "warnings": {
-          "type": {
-            "name": "custom",
-            "raw": "validationsPropTypes"
-          },
-          "required": false,
-          "description": "List of warning validation functions"
-        },
-        "info": {
-          "type": {
-            "name": "custom",
-            "raw": "validationsPropTypes"
-          },
-          "required": false,
-          "description": "List of info validation functions"
-        },
         "childOfForm": {
           "type": {
             "name": "bool"
@@ -185,26 +164,61 @@
           "required": false,
           "description": "Flag to configure component as optional in Form"
         },
-        "hasError": {
+        "error": {
           "type": {
-            "name": "bool"
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
           },
           "required": false,
-          "description": "Status of error validations"
+          "description": "Indicate that error has occurred\n  Pass string to display icon, tooltip and red border\n  Pass true boolean to only display red border"
         },
-        "hasWarning": {
+        "warning": {
           "type": {
-            "name": "bool"
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
           },
           "required": false,
-          "description": "Status of warnings"
+          "description": "Indicate that warning has occurred\n  Pass string to display icon, tooltip and orange border\n  Pass true boolean to only display orange border"
         },
-        "hasInfo": {
+        "info": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Indicate additional information\n  Pass string to display icon, tooltip and blue border\n  Pass true boolean to only display blue border"
+        },
+        "validationOnLabel": {
           "type": {
             "name": "bool"
           },
           "required": false,
-          "description": "Status of info"
+          "description": "When true, validation icon will be placed on label instead of being placed on the input",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
         },
         "size": {
           "type": {
@@ -239,6 +253,55 @@
           },
           "required": false,
           "description": "Handler for onClick events"
+        },
+        "styleOverride": {
+          "type": {
+            "name": "shape",
+            "value": {
+              "root": {
+                "name": "union",
+                "value": [
+                  {
+                    "name": "func"
+                  },
+                  {
+                    "name": "object"
+                  }
+                ],
+                "required": false
+              },
+              "input": {
+                "name": "union",
+                "value": [
+                  {
+                    "name": "func"
+                  },
+                  {
+                    "name": "object"
+                  }
+                ],
+                "required": false
+              },
+              "label": {
+                "name": "union",
+                "value": [
+                  {
+                    "name": "func"
+                  },
+                  {
+                    "name": "object"
+                  }
+                ],
+                "required": false
+              }
+            }
+          },
+          "required": false,
+          "description": "Allows to override existing component styles",
+          "defaultValue": {
+            "value": "{}",
+            "computed": false
+          }
         }
       }
     }
@@ -252,6 +315,16 @@
     {
       "description": "",
       "displayName": "autoFocusTextbox",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "multipleTextbox",
+      "methods": []
+    },
+    {
+      "description": "",
+      "displayName": "multipleTextboxAutoFocus",
       "methods": []
     }
   ]

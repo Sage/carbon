@@ -17,11 +17,12 @@ const StyledButtonToggleContentWrapper = styled.div`
 
 const StyledButtonToggleLabel = styled.label`
   display: inline-block;
+  position: relative;
   height: 38px;
   padding: 0 24px;
   font-weight: 600;
   cursor: pointer;
-  
+
   ${({ theme }) => css`
     border: 1px solid ${theme.colors.border};
     font-size: ${theme.text.size};
@@ -38,6 +39,7 @@ const StyledButtonToggleLabel = styled.label`
 
     input:focus ~ & {
       outline: 3px solid ${theme.colors.focus};
+      z-index: 100;
     }
 
     &:hover {
@@ -108,13 +110,10 @@ const StyledButtonToggle = styled.div`
   &:not(:first-of-type) {
     margin-left: 10px;
   }
-  
+
   ${({ grouped }) => grouped && css`
     &:not(:first-of-type) {
-      margin-left: 0;
-      ${StyledButtonToggleLabel} {
-        border-left-width: 0;
-      }
+      margin-left: -1px;
     }
   `};
 `;

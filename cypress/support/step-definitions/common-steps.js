@@ -48,16 +48,8 @@ Given('I open {string} component page basic', (component) => {
   visitComponentUrl(component, 'basic');
 });
 
-Given('I open {string} component page basic in iframe', (component) => {
-  visitComponentUrl(component, 'basic', true);
-});
-
 Given('I open in full screen Test {string} component page in noIframe', (component) => {
   visitComponentUrl(component, 'in_full_screen_dialog', true, 'test-');
-});
-
-Given('I open {string} component page buttonToogleGroup validation in iframe', (component) => {
-  visitComponentUrl(component, 'buttonToogleGroup', true);
 });
 
 Given('I open {string} component page with button', (component) => {
@@ -85,10 +77,6 @@ Given('I open {string} component in noiFrame', (component) => {
   visitComponentUrl(component, 'default', true);
 });
 
-Given('I open {string} textbox based component page in iframe', (component) => {
-  visitComponentUrl(component, 'textbox_based', true);
-});
-
 Given('I open {string} component with button page in iframe', (component) => {
   visitComponentUrl(component, 'with_button', true);
 });
@@ -109,7 +97,7 @@ Given('I open {string} component page as sibling in no iframe', (component) => {
   visitComponentUrl(component, 'as_a_sibling');
 });
 
-Given('I open {string} component page validations in iframe', (component) => {
+Given('I open {string} component page validations in noIframe', (component) => {
   visitComponentUrl(component, 'validations', true);
 });
 
@@ -242,10 +230,6 @@ Then('I hover mouse onto {string} icon in no iFrame', (name) => {
 
 Then('I hover mouse onto {string} icon in iFrame', (name) => {
   getDataElementByValue(name).trigger('mouseover');
-});
-
-Then('I hover mouse onto {string} {string} icon for validations component into iFrame', (position, name) => {
-  getDataElementByValueNoIframe(name).eq(positionOfElement(position)).trigger('mouseover');
 });
 
 Then('tooltipPreview on preview is set to {word}', (text) => {

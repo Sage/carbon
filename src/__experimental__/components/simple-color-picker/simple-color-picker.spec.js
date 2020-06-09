@@ -1,11 +1,13 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import { act } from 'react-dom/test-utils';
-import { css } from 'styled-components';
 import { mount } from 'enzyme';
 import { SimpleColor, SimpleColorPicker } from '.';
-import { LegendContainerStyle } from '../fieldset/fieldset.style';
+import { StyledColorOptions } from './simple-color-picker.style';
+import baseTheme from '../../../style/themes/base';
+import { StyledLegendContainer } from '../../../__internal__/fieldset/fieldset.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 
 const colorValues = [
   { color: '#00A376' },
@@ -295,31 +297,44 @@ describe('SimpleColorPicker', () => {
       });
     });
   });
-  describe('styles', () => {
-    it('applies the correct Legend Container styles', () => {
-      assertStyleMatch(
-        {
-          height: '26px',
-          marginBottom: '16px'
-        },
-        render().toJSON(),
-        {
-          modifier: css`
-            ${LegendContainerStyle}
-          `
-        }
-      );
+
+  describe('validations', () => {
+    const validationTypes = ['error', 'warning', 'info'];
+
+    describe.each(validationTypes)('when %s passed as string', (type) => {
+      it('renders validation icon by the input', () => {
+        const wrapper = render(mount, { [type]: 'Message' });
+        expect(wrapper.find(StyledLegendContainer).find(StyledValidationIcon).exists()).toBe(false);
+        expect(wrapper.find(StyledValidationIcon).exists()).toBe(true);
+      });
+
+      it('renders validation icon by the label if validationOnLegend is also passed as true', () => {
+        const wrapper = render(mount, { [type]: 'Message', validationOnLegend: true });
+        expect(wrapper.find(StyledLegendContainer).find(StyledValidationIcon).exists()).toBe(true);
+      });
+
+      it('renders proper outline', () => {
+        const wrapper = render(mount, { [type]: 'Message' });
+        const outlineWidth = type === 'error' ? 2 : 1;
+        assertStyleMatch({
+          outline: `${outlineWidth}px solid ${baseTheme.colors[type]}`
+        }, wrapper.find(StyledColorOptions));
+      });
     });
 
-    it('applies the correct legend styles', () => {
-      assertStyleMatch(
-        {
-          fontSize: '14px',
-          marginLeft: '-2px'
-        },
-        render().toJSON(),
-        { modifier: css`${LegendContainerStyle} legend` }
-      );
+    describe.each(validationTypes)('when %s passed as true boolean', (type) => {
+      it('do not renders validation icon', () => {
+        const wrapper = render(mount, { [type]: true });
+        expect(wrapper.find(StyledValidationIcon).exists()).toBe(false);
+      });
+
+      it('renders proper outline', () => {
+        const wrapper = render(mount, { [type]: true });
+        const outlineWidth = type === 'error' ? 2 : 1;
+        assertStyleMatch({
+          outline: `${outlineWidth}px solid ${baseTheme.colors[type]}`
+        }, wrapper.find(StyledColorOptions));
+      });
     });
   });
 

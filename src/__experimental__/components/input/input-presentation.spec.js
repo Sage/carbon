@@ -38,18 +38,40 @@ describe('InputPresentation', () => {
     });
 
     describe.each([
-      ['hasError', 'error'],
-      ['hasWarning', 'warning'],
-      ['hasInfo', 'info']
-    ])('when %s prop is set to true', (validationProp, expectedColor) => {
+      ['error'],
+      ['warning'],
+      ['info']
+    ])('when %s prop is set to true', (validation) => {
       it('has the right style', () => {
-        const boxShadow = `inset 1px 1px 0 ${baseTheme.colors[expectedColor]}, `
-                        + `inset -1px -1px 0 ${baseTheme.colors[expectedColor]}`;
+        const boxShadow = `inset 1px 1px 0 ${baseTheme.colors[validation]},`
+                        + `inset -1px -1px 0 ${baseTheme.colors[validation]}`;
 
         assertStyleMatch({
-          borderColor: `${baseTheme.colors[expectedColor]} !important`,
-          boxShadow
-        }, render({ [validationProp]: true }));
+          borderColor: `${baseTheme.colors[validation]} !important`,
+          boxShadow: validation === 'error' ? boxShadow : undefined
+        }, render({ [validation]: true }));
+      });
+    });
+
+    describe.each([
+      ['error'],
+      ['warning'],
+      ['info']
+    ])('when %s prop is a string', (validation) => {
+      it('has the right style', () => {
+        const boxShadow = `inset 1px 1px 0 ${baseTheme.colors[validation]},`
+                        + `inset -1px -1px 0 ${baseTheme.colors[validation]}`;
+
+        assertStyleMatch({
+          borderColor: `${baseTheme.colors[validation]} !important`,
+          boxShadow: validation === 'error' ? boxShadow : undefined
+        }, render({ [validation]: 'Message' }));
+      });
+    });
+
+    describe('when align prop is passed as "right"', () => {
+      it('has the correct style rules', () => {
+        assertStyleMatch({ flexDirection: 'row-reverse' }, render({ align: 'right' }));
       });
     });
 

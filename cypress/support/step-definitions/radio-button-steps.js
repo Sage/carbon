@@ -1,28 +1,15 @@
 import { fieldHelpPreview, labelByPosition, labelWidthSliderByName } from '../../locators';
 import {
-  radioButtonComponentNoiFrame,
   radioButtonByPosition,
   radioButtonComponentByPosition,
   radioButtonGroup,
   radioButtonFieldset,
   radioButtonLegend,
-  radioGroup,
-  radioButtonLegendInNoIFrame,
-  radioButtonGroupInNoIFrame,
 } from '../../locators/radioButton/index';
 import { setSlidebar, positionOfElement } from '../helper';
 
 const INLINE = 'carbon-radio-button__help-text--inline';
 const RADIOBUTTON_INPUT_CSS = 'div:nth-child(1) input';
-
-When('I click onto {string} radioButton for validations component in iFrame', (radioButtonName) => {
-  radioButtonComponentNoiFrame().each(($el) => {
-    const labelText = $el.find('label').text();
-    if (labelText.includes(radioButtonName)) {
-      cy.wrap($el).find(RADIOBUTTON_INPUT_CSS).should('have.attr', 'type', 'radio').click();
-    }
-  });
-});
 
 Then('fieldHelpInline is enabled', () => {
   fieldHelpPreview().should('have.class', INLINE);
@@ -107,20 +94,12 @@ Then('RadioButton are not inline', () => {
   radioButtonComponentByPosition(positionOfElement('third')).should('have.css', 'margin-left', '0px');
 });
 
-Then('legend is inline with RadioButton', () => {
+Then('legendInline is inline with RadioButton', () => {
   radioButtonFieldset().should('have.css', 'display', 'flex');
   radioButtonLegend().should('have.css', 'margin-right', '32px')
     .and('have.css', 'height', '34px');
 });
 
-Then('legend is not inline with RadioButton', () => {
+Then('legendInline is not inline with RadioButton', () => {
   radioButtonFieldset().should('have.css', 'display', 'block');
-  radioButtonLegend().should('have.css', 'margin-right', '0px')
-    .and('have.css', 'height', '26px');
-});
-
-Then('RadioButtonGroup overriden styles rendered properly', () => {
-  radioGroup().should('have.css', 'background', 'rgb(240, 240, 240) none repeat scroll 0% 0% / auto padding-box border-box');
-  radioButtonLegendInNoIFrame().should('have.css', 'color', 'rgb(180, 212, 85)');
-  radioButtonGroupInNoIFrame().should('have.css', 'padding', '0px 12px');
 });

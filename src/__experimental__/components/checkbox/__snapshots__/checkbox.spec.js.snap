@@ -42,7 +42,6 @@ exports[`Checkbox base theme renders as expected 1`] = `
 .c1 .c27 .c26 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
-  top: -1px;
 }
 
 .c1 .c27 .c25:hover,
@@ -616,8 +615,6 @@ exports[`Checkbox base theme renders as expected 1`] = `
             className="c8 c9"
             id="guid-12345"
             name="my-checkbox"
-            onBlur={[Function]}
-            onChange={[Function]}
             role="checkbox"
             type="checkbox"
             value="test"

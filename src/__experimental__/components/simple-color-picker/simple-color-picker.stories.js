@@ -74,12 +74,115 @@ function makeStory(storyName, themeSelector) {
   return [storyName, component, metadata];
 }
 
+function makeValidationsStory(storyName, themeSelector) {
+  const validationTypes = ['error', 'warning', 'info'];
+  const component = () => {
+    const demoColors = [
+      { color: 'transparent', label: 'transparent' },
+      { color: '#0073C1', label: 'blue' },
+      { color: '#582C83', label: 'purple' },
+      { color: '#E96400', label: 'orange' },
+      { color: '#99ADB6', label: 'gray' },
+      { color: '#C7384F', label: 'flush mahogany' },
+      { color: '#004500', label: 'dark green' },
+      { color: '#FFB500', label: 'yellow' },
+      { color: '#335C6D', label: 'dark blue' },
+      { color: '#00DC00', label: 'light blue' }
+    ];
+
+    return (
+      <>
+        <h4>Validation as string</h4>
+        <h6>On component</h6>
+        {validationTypes.map(validation => (
+          <State store={ store } key={ `${validation}-string-component-state` }>
+            <SimpleColorPicker
+              name={ `picker-${validation}-validation` }
+              legend='Legend'
+              { ...{ [validation]: 'Message' } }
+              onChange={ onChange }
+              onBlur={ ev => action('Blur')(ev) }
+            >
+              {demoColors.map(({ color, label }) => (
+                <SimpleColor
+                  value={ color }
+                  key={ color }
+                  aria-label={ label }
+                  id={ color }
+                  defaultChecked={ color === '#582C83' }
+                />
+              ))}
+            </SimpleColorPicker>
+          </State>
+        ))}
+
+        <h6>On legend</h6>
+        {validationTypes.map(validation => (
+          <State store={ store } key={ `${validation}-string-label-state` }>
+            <SimpleColorPicker
+              name={ `picker-${validation}-validation-label` }
+              legend='Legend'
+              { ...{ [validation]: 'Message' } }
+              validationOnLegend
+              onChange={ onChange }
+              onBlur={ ev => action('Blur')(ev) }
+            >
+              {demoColors.map(({ color, label }) => (
+                <SimpleColor
+                  value={ color }
+                  key={ color }
+                  aria-label={ label }
+                  id={ color }
+                  defaultChecked={ color === '#582C83' }
+                />
+              ))}
+            </SimpleColorPicker>
+          </State>
+        ))}
+
+        <h4>Validation as boolean</h4>
+        {validationTypes.map(validation => (
+          <State store={ store } key={ `${validation}-boolean-state` }>
+            <SimpleColorPicker
+              name={ `picker-${validation}-validation-bool` }
+              legend='Legend'
+              { ...{ [validation]: true } }
+              onChange={ onChange }
+              onBlur={ ev => action('Blur')(ev) }
+            >
+              {demoColors.map(({ color, label }) => (
+                <SimpleColor
+                  value={ color }
+                  key={ color }
+                  aria-label={ label }
+                  id={ color }
+                  defaultChecked={ color === '#582C83' }
+                />
+              ))}
+            </SimpleColorPicker>
+          </State>
+        ))}
+      </>
+    );
+  };
+
+  const metadata = {
+    themeSelector,
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
+  };
+
+  return [storyName, component, metadata];
+}
+
 storiesOf('Experimental/Simple Color Picker', module)
   .addParameters({
     info: {
+      propTable: [SimpleColor, SimpleColorPicker],
       propTablesExclude: [State],
       text: info
     }
   })
   .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeValidationsStory('validations', dlsThemeSelector))
   .add(...makeStory('classic', classicThemeSelector));

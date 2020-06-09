@@ -1,11 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import PropTypes from 'prop-types';
-import text from '../../utils/helpers/text/text';
 import { withValidation } from '.';
 import guid from '../../utils/helpers/guid';
 import VALIDATION_TYPES from './validation-types.config';
-import { getValidationType } from './with-validation.hoc';
 
 const presErr = new Error('this value is required!');
 
@@ -386,25 +384,8 @@ describe('when the withValidations HOC wraps a component', () => {
     });
   });
 
-  describe('get validation type', () => {
-    const valTypes = ['error', 'warning', 'info', 'empty'];
-
-    describe.each(valTypes)('%s', (type) => {
-      it(`type should be ${type}`, () => {
-        const obj = {
-          hasError: false,
-          hasWarning: false,
-          hasInfo: false
-        };
-        const typeToKey = `has${text.titleCase(type)}`;
-        const value = type === 'empty' ? '' : type;
-
-        if (Object.prototype.hasOwnProperty.call(obj, typeToKey)) {
-          obj[typeToKey] = true;
-        }
-
-        expect(getValidationType(obj)).toEqual(value);
-      });
-    });
+  it('does not invoke components onChange if it is not passed as a prop', () => {
+    wrapper = shallow(<InputComponent name='foo' />, {});
+    wrapper.simulate('change', { target: { value: 'newText' } });
   });
 });

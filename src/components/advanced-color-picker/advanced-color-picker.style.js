@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import StyledAdvancedColorPickerCell from './advanced-color-picker-cell.style';
-import { SimpleColorFieldset } from '../../__experimental__/components/simple-color-picker/simple-color-picker.style';
+import { StyledColorOptions } from '../../__experimental__/components/simple-color-picker/simple-color-picker.style';
 import StyledSimpleColor from '../../__experimental__/components/simple-color-picker/simple-color/simple-color.style';
 import { DialogContentStyle, DialogInnerContentStyle } from '../dialog/dialog.style';
 import Dialog from '../dialog/dialog.component';
@@ -42,7 +42,7 @@ const DialogStyle = styled(Dialog)`
     padding: 0;
   }
 
-  ${SimpleColorFieldset} {
+  ${StyledColorOptions} {
     max-width: 285px;
     ${StyledSimpleColor} {
       border: 1px solid #3C514E;
@@ -54,6 +54,10 @@ const DialogStyle = styled(Dialog)`
         transform: scale(1.1);
       }
     }
+  }
+
+  ${StyledColorOptions} {
+    border: none;
   }
 
   ${StyledIconButton} {

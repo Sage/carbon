@@ -24,7 +24,48 @@
             "name": "bool"
           },
           "required": false,
-          "description": "Pass true to format the children/legend inline"
+          "description": "When true, legend is placed in line with the children",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "styleOverride": {
+          "type": {
+            "name": "shape",
+            "value": {
+              "root": {
+                "name": "union",
+                "value": [
+                  {
+                    "name": "func"
+                  },
+                  {
+                    "name": "object"
+                  }
+                ],
+                "required": false
+              },
+              "legend": {
+                "name": "union",
+                "value": [
+                  {
+                    "name": "func"
+                  },
+                  {
+                    "name": "object"
+                  }
+                ],
+                "required": false
+              }
+            }
+          },
+          "required": false,
+          "description": "Allows to override existing component styles",
+          "defaultValue": {
+            "value": "{}",
+            "computed": false
+          }
         }
       }
     }

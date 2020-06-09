@@ -5,6 +5,7 @@ import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/t
 import notes from './documentation';
 import Fieldset from './fieldset.component';
 import Textbox from '../textbox';
+import { Select, Option } from '../select';
 import { Checkbox } from '../checkbox';
 
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
@@ -75,6 +76,64 @@ function makeStory(name, themeSelector) {
   return [name, component, metadata];
 }
 
+function makeValidationsStory(name) {
+  const component = () => {
+    return (
+      <>
+        {['error', 'warning', 'info'].map(type => ['Message', true].map(content => (
+          <Fieldset legend={ `${type} validation as ${typeof content === 'string' ? 'string' : 'boolean'}` }>
+            <Textbox
+              label='Address'
+              labelInline
+              labelAlign='right'
+              { ...{ [type]: content } }
+            />
+            <Textbox
+              label='Town/City'
+              labelInline
+              labelAlign='right'
+            />
+            <Select
+              label='Province'
+              labelInline
+              labelAlign='right'
+              { ...{ [type]: content } }
+            >
+              <Option
+                key='ab'
+                text='Alberta'
+                value='ab'
+              />
+              <Option
+                key='on'
+                text='Ontario'
+                value='on'
+              />
+              <Option
+                key='qc'
+                text='Quebec'
+                value='qc'
+              />
+            </Select>
+            <Textbox
+              label='ZIP Code'
+              labelInline
+              labelAlign='right'
+              styleOverride={ { input: { width: '120px', flex: 'none' } } }
+            />
+          </Fieldset>
+        )))}
+      </>
+    );
+  };
+
+  const metadata = {
+    themeSelector: dlsThemeSelector
+  };
+
+  return [name, component, metadata];
+}
+
 storiesOf('Experimental/Fieldset', module)
   .addParameters({
     info: {
@@ -84,4 +143,5 @@ storiesOf('Experimental/Fieldset', module)
     knobs: { escapeHTML: false }
   })
   .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeValidationsStory('validations'))
   .add(...makeStory('classic', classicThemeSelector));

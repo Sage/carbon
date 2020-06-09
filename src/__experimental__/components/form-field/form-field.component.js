@@ -14,9 +14,9 @@ const FormField = ({
   disabled,
   fieldHelp,
   fieldHelpInline,
-  hasError,
-  hasWarning,
-  hasInfo,
+  error,
+  warning,
+  info,
   helpId,
   helpTag,
   helpTabIndex,
@@ -34,7 +34,6 @@ const FormField = ({
   childOfForm,
   isOptional,
   readOnly,
-  tooltipMessage,
   useValidationIcon,
   styleOverride,
   ...props
@@ -55,9 +54,9 @@ const FormField = ({
             align={ labelAlign }
             disabled={ disabled }
             readOnly={ readOnly }
-            hasError={ hasError }
-            hasWarning={ hasWarning }
-            hasInfo={ hasInfo }
+            error={ error }
+            warning={ warning }
+            info={ info }
             help={ labelHelp }
             helpId={ helpId }
             helpTag={ helpTag }
@@ -69,7 +68,6 @@ const FormField = ({
             width={ labelWidth }
             childOfForm={ childOfForm }
             optional={ isOptional }
-            tooltipMessage={ tooltipMessage }
             useValidationIcon={ useValidationIcon }
             styleOverride={ styleOverride.label }
           >
@@ -107,10 +105,10 @@ FormField.propTypes = {
   'data-component': PropTypes.string,
   fieldHelp: PropTypes.node,
   fieldHelpInline: PropTypes.bool,
-  hasError: PropTypes.bool,
-  hasWarning: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   helpId: PropTypes.string,
-  hasInfo: PropTypes.bool,
   helpTag: PropTypes.string,
   helpTabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   id: PropTypes.string.isRequired,
@@ -126,7 +124,6 @@ FormField.propTypes = {
   readOnly: PropTypes.bool,
   reverse: PropTypes.bool,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
-  tooltipMessage: PropTypes.string,
   useValidationIcon: PropTypes.bool,
   /** Allows to override existing component styles */
   styleOverride: PropTypes.shape({

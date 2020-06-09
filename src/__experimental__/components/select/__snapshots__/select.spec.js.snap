@@ -139,6 +139,7 @@ Object {
   -ms-flex-pack: center;
   justify-content: center;
   margin-right: -11px;
+  margin-left: -11px;
   width: 40px;
 }
 
@@ -285,7 +286,6 @@ Object {
     role="presentation"
   >
     <input
-      aria-invalid="false"
       aria-label="Please Select..."
       class="c1 c2"
       data-element="input"
@@ -300,7 +300,6 @@ Object {
     />
     <span
       class="c3"
-      type="dropdown"
     >
       <span
         class="c4"

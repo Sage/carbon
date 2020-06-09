@@ -72,9 +72,8 @@ Use scenario tags:
 4. `@[bug-number]` for example `@FE-1234` - use this tag after `@ignore` to explain why the test is ignored.
 5. `@ignore` and `@[bug-number]` should be removed after the bug fix.
 6. `@accessibility` tests verify accessibility violations.
-7. `@validations` tests verify validation components.
-8. `@themes` tests verify themes colouristics.
-9. `@applitools` visual tests for components based on comparing screenshots base / actual.
+7. `@themes` tests verify themes colouristics.
+8. `@applitools` visual tests for components based on comparing screenshots base / actual.
 
 ## Files structure
 ```
@@ -88,7 +87,6 @@ Use scenario tags:
 │ │       ├── experimental
 │ │       ├── test
 │ │       ├── themes
-│ │       ├── validations
 │ │       └── common
 │ │   └── visual
 │ ├── locators

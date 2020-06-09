@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
 import SwitchSliderPanel from './switch-slider-panel.style';
 import ClassicSwitchSliderStyles from './switch-slider-classic.style';
+import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 
 const StyledSwitchSlider = styled.span`
   ${({
-    checked, disabled, size, theme
+    checked, disabled, size, theme, error, warning, info
   }) => css`
     background-color: ${theme.switch.off};
     display: flex;
@@ -19,6 +20,10 @@ const StyledSwitchSlider = styled.span`
     top: 0;
     width: 60px;
     z-index: 2;
+
+    ${info && css`box-shadow: inset 1px 1px 0 ${theme.colors.info}, inset -1px -1px 0 ${theme.colors.info};`}
+    ${warning && css`box-shadow: inset 1px 1px 0 ${theme.colors.warning}, inset -1px -1px 0 ${theme.colors.warning};`}
+    ${error && css`box-shadow: inset 2px 2px 0 ${theme.colors.error}, inset -2px -2px 0 ${theme.colors.error};`}
 
     &::before {
       background-color: ${theme.colors.white};
@@ -69,6 +74,11 @@ const StyledSwitchSlider = styled.span`
     `}
 
     ${ClassicSwitchSliderStyles}
+
+    ${StyledValidationIcon} {
+      position: absolute;
+      right: -30px;
+    }
   `}
 `;
 

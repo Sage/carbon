@@ -1,6 +1,6 @@
 import {
   textarea, textareaChildren, colsSlider, rowsSlider,
-  characterLimit, characterLimitDefaultTextarea, textareaInput, textareaChildrenNoIframe,
+  characterLimit, characterLimitDefaultTextarea, textareaInput,
 } from '../../locators/textarea';
 import { setSlidebar } from '../helper';
 import {
@@ -110,10 +110,6 @@ When('I input {word} into Textarea', (text) => {
 
 When('I type {string} into Textarea input', (text) => {
   textareaInput().children().clear().type(text);
-});
-
-When('Type {string} into Textarea into iFrame', (text) => {
-  textareaChildrenNoIframe().clear().type(text);
 });
 
 Then('Textarea component has warnOverLimit and used characters {int} of {int}', (overCharacterLimit, limit) => {

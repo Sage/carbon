@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import invariant from 'invariant';
 import Events from '../../../utils/helpers/events';
 import DateHelper from '../../../utils/helpers/date';
-import DateValidator from '../../../utils/validations/date';
 import tagComponent from '../../../utils/helpers/tags';
 import DatePicker from './date-picker.component';
 import StyledDateInput from './date.style';
@@ -51,7 +50,6 @@ class BaseDateInput extends React.Component {
       this.openDatePicker(true);
       this.setState({ shouldPickerOpen: true });
     }
-    this.handleValidationUpdate();
   }
 
   componentDidUpdate(prevProps) {
@@ -62,19 +60,10 @@ class BaseDateInput extends React.Component {
     if (this.isControlled && !this.inputHasFocus && this.hasValueChanged(prevProps)) {
       this.updateSelectedDate(this.props.value);
     }
-
-    if (this.hasValidationsChanged()) {
-      this.handleValidationUpdate();
-    }
   }
 
   componentWillUnmount() {
     this.isMounted = false;
-  }
-
-  inputProps = () => {
-    const { minDate, maxDate, ...inputProps } = this.props;
-    return inputProps;
   }
 
   hasValueChanged = (prevProps) => {
@@ -83,27 +72,6 @@ class BaseDateInput extends React.Component {
     }
     return this.props.value && prevProps.value !== this.props.value;
   };
-
-  hasValidationsChanged = () => {
-    const { validationsArray } = this.state;
-
-    const currentValidations = concatAllValidations(this.inputProps());
-
-    if (validationsArray.length !== currentValidations.length) {
-      return true;
-    }
-
-    if (validationsArray.some((val, index) => val !== currentValidations[index])) {
-      return true;
-    }
-
-    return false;
-  }
-
-  handleValidationUpdate = () => {
-    const inputProps = this.inputProps();
-    this.setState({ validationsArray: concatAllValidations(inputProps) });
-  }
 
   assignInput = (input) => {
     this.input = input.current;
@@ -383,15 +351,9 @@ class BaseDateInput extends React.Component {
     return <input { ...props } />;
   }
 
-  getInputIcon () {
-    const { inputIcon } = this.props;
-
-    return inputIcon || 'calendar';
-  }
-
   render() {
     const {
-      minDate, maxDate, isDateRange, labelInline, ...inputProps
+      minDate, maxDate, labelInline, ...inputProps
     } = this.props;
 
     let events = {};
@@ -408,8 +370,6 @@ class BaseDateInput extends React.Component {
       iconOnClick: this.handleIconClick
     };
 
-    const validations = isDateRange ? concatAllValidations(inputProps) : this.state.validationsArray;
-
     return (
       <StyledDateInput
         role='presentation'
@@ -419,8 +379,7 @@ class BaseDateInput extends React.Component {
       >
         <Textbox
           { ...inputProps }
-          validations={ validations }
-          inputIcon={ this.getInputIcon() }
+          inputIcon='calendar'
           value={ this.state.visibleValue }
           labelInline={ labelInline }
           rawValue={ isoFormattedValueString(this.state.visibleValue) }
@@ -432,13 +391,6 @@ class BaseDateInput extends React.Component {
       </StyledDateInput>
     );
   }
-}
-
-function concatAllValidations(props) {
-  if (!props.validations) props.validations = [];
-  if (typeof props.validations === 'function') props.validations = [props.validations];
-
-  return [...props.validations, ...props.internalValidations];
 }
 
 function isoFormattedValueString(valueToFormat) {
@@ -476,8 +428,6 @@ BaseDateInput.propTypes = {
   allowEmptyValue: PropTypes.bool,
   /** Automatically focus on component mount */
   autoFocus: PropTypes.bool,
-  /** Used to provide additional validations on composed components */
-  internalValidations: PropTypes.array,
   /** Minimum possible date YYYY-MM-DD */
   minDate: PropTypes.string,
   /** Maximum possible date YYYY-MM-DD */
@@ -491,15 +441,7 @@ BaseDateInput.propTypes = {
   /** Name of the input */
   name: PropTypes.string,
   /** The current date YYYY-MM-DD */
-  value: PropTypes.string,
-  /** Triggers textbox validation when it's boolean value changes */
-  forceUpdateTriggerToggle: PropTypes.bool,
-  /** Temporary flag to indicate if input is part of DateRange */
-  isDateRange: PropTypes.bool
-};
-
-BaseDateInput.defaultProps = {
-  internalValidations: [new DateValidator()]
+  value: PropTypes.string
 };
 
 export { defaultDateFormat, BaseDateInput };

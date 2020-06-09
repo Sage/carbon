@@ -40,7 +40,6 @@ Array [
 .c1 .c14 .c13 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
-  top: -1px;
 }
 
 .c1 .c14 .c12:hover,
@@ -263,7 +262,6 @@ Array [
 .c1 .c14 .c13 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
-  top: -1px;
 }
 
 .c1 .c14 .c12:hover,

@@ -1,7 +1,7 @@
 import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
 import NumeralDate from '.';
 
-<Meta title="Design System/Numeral Date" />
+<Meta title="Design System/Numeral Date" parameters={{ info: { disable: true }}} />
 
 # Numeral Date
 
@@ -21,51 +21,75 @@ const MyComponent = () => (
 
 Default Date Format
 <Preview>
-  <Story name="Default" parameters={{ info: { disable: true }}} >
+  <Story name="Default">
     <NumeralDate defaultValue="Numeral Date" dateFormat={['dd','mm','yyyy']}/>
   </Story>
 </Preview>
 
 Custom Date Format
 <Preview>
-  <Story name="Custom" parameters={{ info: { disable: true }}} >
+  <Story name="Custom" >
     <NumeralDate defaultValue="Numeral Date" dateFormat={['mm','dd','yyyy']}/>
   </Story>
 </Preview>
 
-Date Component has Error
+Date Component with Error
 <Preview>
-  <Story name="Date Component has Error" parameters={{ info: { disable: true }}} >
-    <NumeralDate 
-    defaultValue="Numeral Date" 
-    dateFormat={['dd','mm','yyyy']}
-    inputIcon={'error'}
-    hasError
-    tooltipMessage={'This is an error message. It alerts the user to an error.'}/>
+  <Story name="Date Component has Error">
+    <>
+      <h6>As string</h6>
+      <NumeralDate
+        defaultValue="Numeral Date" 
+        dateFormat={['dd','mm','yyyy']}
+        error="This is an error message. It alerts the user to an error"
+      />
+      <h6>As boolean</h6>
+      <NumeralDate
+        defaultValue="Numeral Date" 
+        dateFormat={['dd','mm','yyyy']}
+        error={ true }
+      />
+    </>
   </Story>
 </Preview>
 
-Date Component has Warning
+Date Component with Warning
 <Preview>
-  <Story name="Date Component has Warning" parameters={{ info: { disable: true }}} >
-    <NumeralDate 
-    defaultValue="Numeral Date" 
-    dateFormat={['dd','mm','yyyy']}
-    inputIcon={'warning'} 
-    hasWarning
-    tooltipMessage={'This is an error message. It alerts the user to an error.'}/>
+  <Story name="Date Component has Warning">
+    <>
+      <h6>As string</h6>
+      <NumeralDate
+        defaultValue="Numeral Date" 
+        dateFormat={['dd','mm','yyyy']}
+        warning="This is a warning message. It alerts the user to a warning."
+      />
+      <h6>As boolean</h6>
+      <NumeralDate
+        defaultValue="Numeral Date" 
+        dateFormat={['dd','mm','yyyy']}
+        warning={ true }
+      />
+    </>
   </Story>
 </Preview>
 
-Date Component has Info
+Date Component with Info
 <Preview>
-  <Story name="Date Component has Info" parameters={{ info: { disable: true }}} >
-    <NumeralDate 
-    defaultValue="Numeral Date" 
-    dateFormat={['dd','mm','yyyy']} 
-    inputIcon={'info'} 
-    hasInfo
-    tooltipMessage={'This is an error message. It alerts the user to an error.'}/>
+  <Story name="Date Component has Info">
+    <>
+      <h6>As string</h6>
+      <NumeralDate 
+        defaultValue="Numeral Date" 
+        dateFormat={['dd','mm','yyyy']} 
+        info="This is an info message. It alerts the user to an info."
+      />
+      <h6>As boolean</h6>
+      <NumeralDate 
+        defaultValue="Numeral Date" 
+        dateFormat={['dd','mm','yyyy']} 
+        info={ true }
+      />
+    </>
   </Story>
 </Preview>
 

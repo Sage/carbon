@@ -13,7 +13,7 @@ import baseTheme from '../../../style/themes/base';
 import mintTheme from '../../../style/themes/mint';
 import IconWrapperStyle from './icon-wrapper.style';
 
-const validationTypes = ['hasError', 'hasWarning', 'hasInfo'];
+const validationTypes = ['error', 'warning', 'info'];
 
 describe('Label', () => {
   it('renders the label', () => {
@@ -71,7 +71,7 @@ describe('Label', () => {
     it('applies disabled color', () => {
       assertStyleMatch({
         color: baseTheme.text.color
-      }, render({ hasError: true, readOnly: true }, TestRenderer.create).toJSON());
+      }, render({ error: true, readOnly: true }, TestRenderer.create).toJSON());
     });
   });
 
@@ -79,7 +79,7 @@ describe('Label', () => {
     it('applies disabled color', () => {
       assertStyleMatch({
         color: baseTheme.disabled.disabled
-      }, render({ hasError: true, disabled: true }, TestRenderer.create).toJSON());
+      }, render({ error: true, disabled: true }, TestRenderer.create).toJSON());
     });
   });
 
@@ -148,8 +148,7 @@ describe('Label', () => {
       beforeEach(() => {
         wrapper = render({
           useValidationIcon: true,
-          hasError: true,
-          tooltipMessage: 'test'
+          error: 'Message'
         }, mount);
       });
 
@@ -178,12 +177,21 @@ describe('Label', () => {
     });
   });
 
-  describe.each(validationTypes)('when prop %s === true', (vType) => {
+  describe.each(validationTypes)('when %s prop is passed as string', (vType) => {
     it('show validation icon', () => {
-      const wrapper = render({ [vType]: true, useValidationIcon: true, tooltipMessage: 'Message!' }, mount);
+      const wrapper = render({ [vType]: 'Message', useValidationIcon: true }, mount);
       const icon = wrapper.find(ValidationIcon);
 
       expect(icon.exists()).toEqual(true);
+    });
+  });
+
+  describe.each(validationTypes)('when %s prop is passed as true boolean', (vType) => {
+    it('do not show validation icon', () => {
+      const wrapper = render({ [vType]: true, useValidationIcon: true }, mount);
+      const icon = wrapper.find(ValidationIcon);
+
+      expect(icon.exists()).toEqual(false);
     });
   });
 });

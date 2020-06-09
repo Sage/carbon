@@ -472,7 +472,6 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
               size="medium"
             >
               <input
-                aria-invalid={false}
                 className="c15 c16"
                 data-element="input"
                 id="Pager_guid-12345"
@@ -867,7 +866,6 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
               size="medium"
             >
               <input
-                aria-invalid={false}
                 className="c12 c13"
                 data-element="input"
                 id="Pager_guid-12345"

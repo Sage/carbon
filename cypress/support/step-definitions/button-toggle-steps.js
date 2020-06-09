@@ -58,8 +58,8 @@ Then('Button Toggle is enabled', () => {
 Then('Button Toggle is grouped', () => {
   buttonTogglePreview().eq(positionOfElement('first')).should('have.css', 'display', 'inline-block')
     .and('have.css', 'vertical-align', 'middle');
-  buttonTogglePreview().eq(positionOfElement('second')).should('have.css', 'margin-left', '0px');
-  buttonTogglePreview().eq(positionOfElement('third')).should('have.css', 'margin-left', '0px');
+  buttonTogglePreview().eq(positionOfElement('second')).should('have.css', 'margin-left', '-1px');
+  buttonTogglePreview().eq(positionOfElement('third')).should('have.css', 'margin-left', '-1px');
 });
 
 Then('Button Toggle is not grouped', () => {

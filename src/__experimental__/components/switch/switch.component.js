@@ -4,7 +4,6 @@ import tagComponent from '../../../utils/helpers/tags';
 import SwitchStyle from './switch.style';
 import CheckableInput from '../checkable-input';
 import SwitchSlider from './switch-slider.component';
-import withValidation from '../../../components/validations/with-validation.hoc';
 
 const Switch = ({
   id,
@@ -17,6 +16,7 @@ const Switch = ({
   disabled,
   loading,
   reverse,
+  validationOnLabel,
   ...props
 }) => {
   const isControlled = checked !== undefined;
@@ -54,8 +54,12 @@ const Switch = ({
       { ...tagComponent('Switch', props) }
       { ...switchProps }
     >
-      <CheckableInput { ...inputProps }>
-        <SwitchSlider { ...switchProps } loading={ loading } />
+      <CheckableInput useValidationIcon={ validationOnLabel } { ...inputProps }>
+        <SwitchSlider
+          useValidationIcon={ !validationOnLabel }
+          { ...switchProps }
+          loading={ loading }
+        />
       </CheckableInput>
     </SwitchStyle>
   );
@@ -86,12 +90,20 @@ Switch.propTypes = {
   labelInline: PropTypes.bool,
   /** Sets percentage-based label width */
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  /** Prop to indicate that an error has occurred */
-  hasError: PropTypes.bool,
-  /** Prop to indicate that a warning has occurred */
-  hasWarning: PropTypes.bool,
-  /** Prop to indicate additional information  */
-  hasInfo: PropTypes.bool,
+  /** Indicate that error has occurred
+  Pass string to display icon, tooltip and red border
+  Pass true boolean to only display red border */
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate that warning has occurred
+  Pass string to display icon, tooltip and orange border
+  Pass true boolean to only display orange border */
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** Indicate additional information
+  Pass string to display icon, tooltip and blue border
+  Pass true boolean to only display blue border */
+  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  /** When true, validation icon will be placed on label instead of being placed by the input */
+  validationOnLabel: PropTypes.bool,
   /** Override tab index on the validation and help icon */
   helpTabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Triggers loading animation */
@@ -114,11 +126,8 @@ Switch.propTypes = {
 Switch.defaultProps = {
   labelInline: false,
   reverse: true,
-  hasError: false,
-  hasWarning: false,
-  hasInfo: false,
-  helpTabIndex: 0
+  validationOnLabel: false
 };
 
 export { Switch as BaseSwitch };
-export default withValidation(Switch);
+export default Switch;
