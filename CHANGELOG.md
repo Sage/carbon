@@ -1,3 +1,19 @@
+## [24.0.0](https://github.com/Sage/carbon/compare/v23.2.1...v24.0.0) (2020-06-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **validations:** validator functions applied to inputs no longer work, validations have to be handled externally by the consumer of the library
+* **validations:** remove support for `validations`, `warnings`, `info`, `hasError`, `hasWarning`, `hasInfo`, `tooltipMessage`, `inputIcon`, `forceUpdateTriggerToggle`, `addInputToFormState`, `unblockValidation`, `useValidationIcon` from all inputs and input groups
+to display validation visuals use new `error`, `warning` and `info` props - check components props descriptions for more details
+* **validations:** remove support for `startMessage` and `endMessage` from `DateRange`
+to display validation visuals use new `startError`, `endError`, `startWarning`, `endWarning`, `startInfo` and `endInfo` props - check `DateRange` props description for more details
+* **validations:** rename `labelInline` to `legendInline` on `RadioButtonGroup`
+
+### Features
+
+* **validations:** implement new input validations interface ([0015029](https://github.com/Sage/carbon/commit/0015029c46d75f68d60884019d59e5d01afd2ce4))
+
 ### [23.2.1](https://github.com/Sage/carbon/compare/v23.2.0...v23.2.1) (2020-06-05)
 
 
