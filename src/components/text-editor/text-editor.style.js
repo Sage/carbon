@@ -16,14 +16,15 @@ const StyledEditorContainer = styled.div`
     height: 100%;
     width: 100%;
     min-width: 450px;
+    padding: 4px;
   }
 
   div.DraftEditor-editorContainer,
   div.public-DraftEditor-content {
-    padding: 8px;
     min-height: inherit;
     height: 100%;
     min-width: 420px;
+    padding: 4px;
   }
 
   .public-DraftEditorPlaceholder-root {

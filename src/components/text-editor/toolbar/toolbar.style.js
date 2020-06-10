@@ -35,7 +35,7 @@ StyledEditorStyleControls.defaultProps = {
   theme: baseTheme
 };
 
-const StyledEditorFormControls = styled.div`
+const StyledEditorActionControls = styled.div`
   display: inline-block;
   text-align: right;
   width: 50%;
@@ -51,8 +51,8 @@ const StyledEditorFormControls = styled.div`
   }
 `;
 
-StyledEditorFormControls.defaultProps = {
+StyledEditorActionControls.defaultProps = {
   theme: baseTheme
 };
 
-export { StyledToolbar, StyledEditorFormControls, StyledEditorStyleControls };
+export { StyledToolbar, StyledEditorActionControls, StyledEditorStyleControls };

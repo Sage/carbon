@@ -42,6 +42,10 @@ const TextEditor = React.forwardRef(({
   const [activeControls, setActiveControls] = useReducer(activeControlsReducer, {});
   const [inlineStyles, setInlineStyles] = useState([]);
   const editor = ref || useRef();
+  const contentLength = value.getCurrentContent().getPlainText('').length;
+  const showPlaceholder = (
+    !activeControls['unordered-list-item'] && !activeControls['ordered-list-item'] && contentLength === 0
+  );
 
   useEffect(() => {
     // iterate over the list of inlineStyles and apply them
@@ -115,25 +119,20 @@ const TextEditor = React.forwardRef(({
   };
 
   useEffect(() => {
-    if (value.getCurrentContent().getPlainText().length && !hadText) {
+    if (contentLength && !hadText) {
       setHadText(true);
     }
-  }, [hadText, value]);
+  }, [contentLength, hadText]);
 
   useEffect(() => {
-    if (!value.getCurrentContent().getPlainText().length && hadText) {
+    if (!contentLength && hadText) {
       setHadText(false);
 
       Object.keys(activeControls)
         .filter(id => !['unordered-list-item', 'ordered-list-item'].includes(id))
         .forEach(style => onChange(RichUtils.toggleInlineStyle(value, style)));
     }
-  }, [activeControls, hadText, onChange, value]);
-
-  const contentLength = value.getCurrentContent().getPlainText('').length;
-  const showPlaceholder = (
-    !activeControls['unordered-list-item'] && !activeControls['ordered-list-item'] && contentLength === 0
-  );
+  }, [activeControls, contentLength, hadText, onChange, value]);
 
   return (
     <StyledEditorWrapper>
@@ -146,8 +145,7 @@ const TextEditor = React.forwardRef(({
         isFocused={ isFocused }
         showPlaceholder={ showPlaceholder }
       >
-        <Counter limit={ charLimit } contentLength={ contentLength } />
-
+        <Counter limit={ charLimit } count={ contentLength } />
         <Editor
           ref={ editor }
           onFocus={ () => setIsFocused(true) }
@@ -163,7 +161,7 @@ const TextEditor = React.forwardRef(({
           onCancel={ onCancel }
           setBlockStyle={ blockType => handleBlockStyleChange(blockType) }
           setInlineStyle={ inlineStyle => handleInlineStyleChange(inlineStyle) }
-          isDisabled={ value.getCurrentContent().getPlainText().length === 0 }
+          isDisabled={ contentLength === 0 }
           activeControls={ activeControls }
           updateActiveControls={ updateActiveControls }
         />

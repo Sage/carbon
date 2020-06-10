@@ -2,19 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyledCounter from './editor-counter.style';
 
-const Counter = ({ contentLength, limit }) => (
+const Counter = ({ count, limit }) => (
   <StyledCounter data-component='text-editor-counter'>
-    { `${limit - contentLength}` }
+    { `${limit - count}` }
   </StyledCounter>
 );
 
 Counter.propTypes = {
-  contentLength: PropTypes.number,
+  count: PropTypes.number,
   limit: PropTypes.number
 };
 
 Counter.defaultProps = {
-  contentLength: 0,
+  count: 0,
   limit: 3000
 };
 

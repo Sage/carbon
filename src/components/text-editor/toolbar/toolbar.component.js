@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import { StyledToolbar, StyledEditorStyleControls, StyledEditorFormControls } from './toolbar.style';
+import { StyledToolbar, StyledEditorStyleControls, StyledEditorActionControls } from './toolbar.style';
 import ToolbarButton from './toolbar-button/toolbar-button.component';
 import Button from '../../button';
 import Events from '../../../utils/helpers/events';
@@ -72,8 +72,8 @@ const Toolbar = ({
       </StyledEditorStyleControls>
 
       { onSubmit && (
-        <StyledEditorFormControls>
-          <Button onClick={ ev => onCancel(ev) } buttonType='tertiary'>Cancel</Button>
+        <StyledEditorActionControls>
+          <Button onClick={ onCancel ? ev => onCancel(ev) : undefined } buttonType='tertiary'>Cancel</Button>
           <Button
             buttonType='primary'
             onSubmit={ onSubmit }
@@ -81,7 +81,7 @@ const Toolbar = ({
           >
             Save
           </Button>
-        </StyledEditorFormControls>
+        </StyledEditorActionControls>
       ) }
     </StyledToolbar>
   );
