@@ -32,6 +32,10 @@ function makeStory(name, themeSelector) {
       action('onChange')(ev);
     };
 
+    const onBlur = (ev) => {
+      action('onBlur')(ev);
+    };
+
     return (
       <div>
         <ButtonToggle
@@ -42,6 +46,7 @@ function makeStory(name, themeSelector) {
           disabled={ disabled }
           grouped={ grouped }
           onChange={ onChange }
+          onBlur={ onBlur }
           key='button-toggle-1'
         >
           {children}
@@ -54,6 +59,7 @@ function makeStory(name, themeSelector) {
           disabled={ disabled }
           grouped={ grouped }
           onChange={ onChange }
+          onBlur={ onBlur }
           key='button-toggle-2'
         >
           {children}
@@ -66,6 +72,7 @@ function makeStory(name, themeSelector) {
           disabled={ disabled }
           grouped={ grouped }
           onChange={ onChange }
+          onBlur={ onBlur }
           key='button-toggle-3'
         >
           {children}
