@@ -1,3 +1,10 @@
+### [24.0.1](https://github.com/Sage/carbon/compare/v24.0.0...v24.0.1) (2020-06-10)
+
+
+### Bug Fixes
+
+* **button-toggle:** onBlur not being passed on button toggle input ([1287a19](https://github.com/Sage/carbon/commit/1287a19631298f928ed91025dec2601f0a376b7a))
+
 ## [24.0.0](https://github.com/Sage/carbon/compare/v23.2.1...v24.0.0) (2020-06-09)
 
 
