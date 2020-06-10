@@ -20,6 +20,7 @@ const ButtonToggle = (props) => {
     buttonIcon,
     buttonIconSize,
     onChange,
+    onBlur,
     value,
     size
   } = props;
@@ -48,6 +49,7 @@ const ButtonToggle = (props) => {
         guid={ inputGuid }
         value={ value }
         onChange={ onChange }
+        onBlur={ onBlur }
       />
       <StyledButtonToggleLabel
         buttonIcon={ buttonIcon }
@@ -70,8 +72,10 @@ ButtonToggle.propTypes = {
   checked: PropTypes.bool,
   /** Name used on the hidden radio button. */
   name: PropTypes.string,
-  /** Change handler passed in from parent. */
+  /** Callback triggered by change event on the input. */
   onChange: PropTypes.func,
+  /** Callback triggered by blur event on the input. */
+  onBlur: PropTypes.func,
   /** buttonIcon to render. */
   buttonIcon: PropTypes.string,
   /** Sets the size of the buttonIcon (eg. large) */

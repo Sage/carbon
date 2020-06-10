@@ -11,6 +11,15 @@
           },
           "required": false,
           "description": "buttonIcon to render."
+        },
+        "buttonIconSize": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.sizesBinary"
+          },
+          "required": false,
+          "description": "Sets the size of the buttonIcon (eg. large)"
         }
       }
     }
@@ -21,6 +30,13 @@
       "displayName": "ButtonToggleInput",
       "methods": [],
       "props": {
+        "checked": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Set the checked value of the radio button"
+        },
         "name": {
           "type": {
             "name": "string"
@@ -48,6 +64,13 @@
           },
           "required": false,
           "description": "Value for the input"
+        },
+        "onChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Change handler passed in from parent."
         }
       }
     }
@@ -58,6 +81,13 @@
       "displayName": "ButtonToggle",
       "methods": [],
       "props": {
+        "checked": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Set the checked value of the radio button"
+        },
         "name": {
           "type": {
             "name": "string"
@@ -70,7 +100,14 @@
             "name": "func"
           },
           "required": false,
-          "description": "Change handler passed in from parent."
+          "description": "Callback triggered by change event on the input."
+        },
+        "onBlur": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Callback triggered by blur event on the input."
         },
         "buttonIcon": {
           "type": {
@@ -81,10 +118,16 @@
         },
         "buttonIconSize": {
           "type": {
-            "name": "string"
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.sizesBinary"
           },
           "required": false,
-          "description": "Sets the size of the buttonIcon (eg. large)"
+          "description": "Sets the size of the buttonIcon (eg. large)",
+          "defaultValue": {
+            "value": "'small'",
+            "computed": false
+          }
         },
         "size": {
           "type": {
@@ -117,6 +160,13 @@
           },
           "required": true,
           "description": "A required prop. This is the button text."
+        },
+        "defaultChecked": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Set the default value of the Group if component is meant to be used as uncontrolled."
         },
         "value": {
           "type": {
