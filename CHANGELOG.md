@@ -1,3 +1,17 @@
+## [25.0.0](https://github.com/Sage/carbon/compare/v24.0.1...v25.0.0) (2020-06-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* The deprecated switch component has been removed. To
+upgrade please use the experimental switch component.
+
+Fixes FE-1921
+
+### Miscellaneous Chores
+
+* remove deprecated switch component ([fe7ddc2](https://github.com/Sage/carbon/commit/fe7ddc2548964f5aa3c9538d1ab762db80844810))
+
 ### [24.0.1](https://github.com/Sage/carbon/compare/v24.0.0...v24.0.1) (2020-06-10)
 
 
