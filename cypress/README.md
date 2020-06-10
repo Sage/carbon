@@ -1,139 +1,52 @@
-# Testing Strategy
+# Getting Started with Cypress
+## Contents
+[Installation](#installation)
 
-## Unit Testing
-   Unit tests are written and maintained by developers.
+[Running Tests](#running-tests)
 
-## Manual Testing
-### Components:
-1. Every component should be fully tested using functional testing / UI testing / Internationalization testing.
-2. Every component should have a dedicated story (default / multiple / validation / themes etc.),
-   notes section and accessibility section.
-3. Supporting browsers:
-  * Chrome,
-  * Firefox,
-  * Safari,
-  * Edge Chromium.
-4. Jira:
-  * For every testable task, a JIRA test session needs to be created for each of the supported browsers;
-  * Results should be added to the created test sessions with pass / fail mark;
-  * Any issues found during testing should be raised as a "Defect" JIRA;
-  * If the issue is present on the `master` branch it should be raised as a "Bug" in JIRA, not as a "Defect".
+[Visual Testing](#visual-testing)
 
-# Cypress Cucumber tests for Carbon storybook (Automation Testing)
+[Continuous Integration (CI)](#continuous-integration)
+* [Start Storybook](#start-storybook)
+* [Travis](#travis)
+* [GitHub Actions](#github-actions)
 
-## Description
-  * Automation tests are written using [Cypress.io](https://www.cypress.io/) framework.
-  * All component functionality is testing using all Knobs configuration.
-  * Events are tested as well (could be checked in Actions section).
-  * Accessibility is also testing using Axe framework.
-  * Visual tests are performed using [Applitools](https://applitools.com) framework.
+## Installation
+We use the [Cypress.io]( https://www.cypress.io) testing framework for functional and regression testing. Cypress is already installed in the Carbon project. Clone and install the carbon repository to apply the installation:
+1.	Clone the carbon repository `git clone git@github.com:Sage/carbon.git`.
+2.	Install with `npm install`.
 
-## Getting started
-1. Clone the carbon repository `git clone git@github.com:Sage/carbon.git`.
-3. Install `npm install`.
-4. Run storybook `npm start`.
-5. Open a new terminal in the same path.
-6. Run cypress using runner `npx cypress open` or `npm run test-cypress`, next select needed feature file.
-7. If you would like to run specific cypress tests in command line (headless browser for continuous integration) use: `npx cypress run --spec 'cypress/features/[tests-type]/[featureFileName].feature'`.
-  * to run on `chrome`/`firefox` browser add `--browser chrome` or `--browser firefox`.
-8. To run `visual` tests using `applitools` locally first of all you need to:
-  * export secret `APPLITOOLS_API_KEY` to make possible use `applitools` to compare screenshots;
-  * run `npx cypress open --env CYPRESS_APPLITOOLS=true` and select proper `*.feature` file;
-  or
-  * run `npx cypress run --spec './cypress/features/visual/*' --env CYPRESS_APPLITOOLS=true` in command line (headless browser for continuous integration) runner.
+## Running Tests
+Storybook must be running before Cypress tests can be run:
+1.	Run Storybook `npm start`.
+2.	Open a new terminal in the root path of the project.
+3.	Run Cypress using the runner with `npx cypress open` or `npm run test-cypress`, then select the required feature file. Test results can be seen directly in the Cypress Test Runner UI.
+4.	To run specific Cypress tests at the command line (headless browser for continuous integration) use: `npx cypress run --spec 'cypress/features/[tests-type]/[featureFileName].feature'`. Test results can be seen in the console run summary.
+5.	To run in the Chrome/Firefox browser add `--browser chrome` or `--browser firefox` to the above command.
 
-## Coding standards
-1. Use ESlint plugin to Visual Studio Code to make sure code format is preserved.
-2. Use kebab-case for all `*.js` file names.
-3. Use camelCase for `*.feature` file names.
-4. Use BDD keywords:
-  * GIVEN - the given part describes the state of the world before you begin the behavior you are specifying in this scenario. You can think of it as the pre-conditions to the test;
-  * WHEN - the when section is that behavior that you are specifying. All the action you need to perform before making an assertion;
-  * THEN - the then section describes the changes you expect due to the specified behavior. Regular assertion;
-  * AND - each of the sections could have own and state. You can use and to avoid using duplication of the keywords (Given / When / Then);
-  * Scenario outline - tests that are using parameters from given Examples under the test and will run as much as there are examples;
-  * Scenario - tests that are run once.
-5. Step definitions for BDD:
-  * Step definitions are created per component as `component-steps.js`. And should be used in exactly `component.feature`;
-  * Common steps (`common-steps.js`) are used to use steps written inside for all common actions.
-6. Common test steps:
-  * I set `<knobs field>` to `<parameter>`;
-  * I select `<knobs field>` to `<parameter>`;
-  * I check / uncheck `<knobs filed>` checkbox;
-  * I open `<name>` component page;
-    * To open different stories on storybook;
-      * I open `<name>` component page `default` / `basic` / `with button` / `legacy spinner` / `iframe` / `with button page in iframe` / `multiple` /`validations`.
+## Visual Testing
+We use [Applitools](https://applitools.com) integrated with Cypress for visual testing. Applitools is already installed in the Carbon project. Visual test results can be seen in the [Applitools dashboard](https://eyes.applitools.com/app/test-results/00000251811810944038/?accountId=MZDiTwN5_kOmMbjBqRi9pw~~).
 
-## Scenario tags
-Use scenario tags:
-1. `@positive` for a happy path.
-2. `@negative` for the negative scenario.
-3. `@ignore` for temporarily ignored scenarios.
-4. `@[bug-number]` for example `@FE-1234` - use this tag after `@ignore` to explain why the test is ignored.
-5. `@ignore` and `@[bug-number]` should be removed after the bug fix.
-6. `@accessibility` tests verify accessibility violations.
-7. `@themes` tests verify themes colouristics.
-8. `@applitools` visual tests for components based on comparing screenshots base / actual.
+Instructions to integrate Applitools with GitHub can be found [here](https://applitools.com/docs/topics/integrations/github-integration.html).
 
-## Files structure
-```
-.
-├── cypress
-│ ├── fixture
-│ ├── features
-│ │   ├── regression
-│ │       ├── accessibility
-│ │       ├── designSystem
-│ │       ├── experimental
-│ │       ├── test
-│ │       ├── themes
-│ │       └── common
-│ │   └── visual
-│ ├── locators
-│ │   └── [component-name]
-│ │       ├── index.js (exported arrow functions for locators)
-│ │       └── locators.js (string const locators)
-│ ├── plugins
-│ └── support
-│     └── step-definitions
-│         └── [component-name]-steps.js (files with cucumber steps)
-├── .eslintrc.json
-├── README.md
-└── tsconfig.json
-```
-
-## Locators
-### How to locate elements
-Always use unique selectors to locate elements with order below:
-1. `[data-component="unique-tag"]` for component and `[data-element="unique-tag"]` for component's element.
-2. `#id`.
-3. `.class-name`.
-
-### How to use locators
-1. Locators are used, the same as step-definitions, per component.
-2. Common locators should be used when the components / elements are common for all stories.
-3. Locators should be named:
-  * Component on preview - `componentPreview`;
-  * Knobs - `componentKnobs`.
+Details of how to write Cypress tests, including coding standards and Applitools integration, can be found in the [Carbon Testing Styleguide](https://github.com/Sage/carbon/blob/master/docs/testing-styleguide.md).
 
 ## Continuous Integration (CI)
-Every commit / pull request in repository initializing cypress tests and runs:
+Every commit/pull request in the repository initiates Cypress test runs. Visual regression tests run in Travis. All other regression tests run in GitHub Actions.
+
+### Start Storybook
+Storybook must be running before either CI service can run tests. Once it is running, tests in Travis or GitHub Actions can be run.
+1.	`npm start` - runs Storybook.
+2.	`wait-on http://localhost:9001` - waits until Storybook is up and running and is ready to run tests.
+
 ### Travis
-1. `npm run lint` - runs lint test.
-2. `npm test` - runs jest tests.
-3. `npm start` - runs storybook.
-4. `wait-on http://localhost:9001` - waits until storybook is up and running and is ready to run tests.
-5. `npm run cypress:ci:visual` - run all `visual` test suite.
+1.	`npm run cypress:ci:visual` - runs the complete visual test suite.
+2.	The build result can be seen in GitHub in the pull request/branch and the detailed results can be seen in the [Applitools dashboard](https://eyes.applitools.com/app/test-results/00000251811810944038/?accountId=MZDiTwN5_kOmMbjBqRi9pw~~) linked from the pull request/branch checks.
+
+  NOTE: If you need to accept new snapshots to resolve a failing build, once they've been accepted and Saved in Applitools, go to the failed job in the [Travis dashboard](https://travis-ci.org/github/Sage/carbon/builds/) then select `Restart build`.
+
 ### GitHub Actions
-1. `npm start` - runs storybook.
-3. `wait-on http://localhost:9001` - waits until storybook is up and running and is ready to run tests.
-4. `npx cypress run --parallel --record` - run all tests suite.
-  * NOTE: if the tests failed you need to make another `commit`/`push` to generate `cypress run_id` to make possible to re-run cypress tests (on each run `run_id` should be unique).
+1.	`npx cypress run --parallel -–record --spec './cypress/features/regression/**/*.feature'` - runs the complete test suite.
+2.	The build result can be seen in GitHub in the pull request/branch and the detailed results can be seen in the [Cypress.io dashboard](https://dashboard.cypress.io/projects/8458bb/runs) or in GitHub Actions, both linked from the pull request/branch checks.
 
-## Dashboards
-
-### Cypress dashboard
-[Cypress.io - dashboard](https://dashboard.cypress.io/projects/8458bb/runs)
-
-### Applitools dashboard
-[Applitools - dashboard](https://eyes.applitools.com/app/test-results/00000251812391553929/?accountId=MZDiTwN5_kOmMbjBqRi9pw~~)
+  NOTE: If the tests failed for a reason such as if there is an issue with GitHub or the Cypress dashboard and we need to re-run the run exactly as it was, select `Cancel workflow` in the `Actions` tab and then select `Re-run jobs` -> `Re-run all jobs` from the `Checks` tab.
