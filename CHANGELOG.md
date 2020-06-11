@@ -1,3 +1,15 @@
+## [27.0.0](https://github.com/Sage/carbon/compare/v26.0.0...v27.0.0) (2020-06-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* The deprecated decimal component has been removed. To
+upgrade please use the experimental decimal component.
+
+### Miscellaneous Chores
+
+* remove deprecated decimal component ([78eb3ce](https://github.com/Sage/carbon/commit/78eb3ce723d2f78d24d2de97d0d6f67fb00702be))
+
 ## [26.0.0](https://github.com/Sage/carbon/compare/v25.0.0...v26.0.0) (2020-06-11)
 
 
