@@ -77,7 +77,7 @@ For every testable task, a test session needs to be created for each of the supp
 
 Any issues found during testing should be raised as a "Defect" in Jira unless the ticket is already of a “Bug” type, in which case comments and screenshots/recordings/GIFs can be added to the existing ticket.
 
-If the issue is present on the master branch you should first check if the issue has already been logged in GitHub. If it is present, it should be upvoted with a “+1” comment. If it has not been logged, details of how to do this are contained in the [CONTRIBUTING.MD](https://github.com/Sage/carbon/blob/master/CONTRIBUTING.md) guide. Collaborators internal to Sage should also log a separate Jira ticket for the issue, not blocking this one, as a "Bug" type with the GitHub issue linked. The Jira ticket number should be included in the GitHub issue, e.g. `FE-1234`, but do not include the full Jira URL.
+If the issue is present on the master branch you should first check if the issue has already been logged in GitHub. If it is present, it should be upvoted with a “+1” comment. If it has not been logged, details of how to do this are contained in the [CONTRIBUTING.md](../CONTRIBUTING.md) guide. Collaborators internal to Sage should also log a separate Jira ticket for the issue, not blocking this one, as a "Bug" type with the GitHub issue linked. The Jira ticket number should be included in the GitHub issue, e.g. `FE-1234`, but do not include the full Jira URL.
 
 ##### Storybook
 Storybook forms our Carbon component library documentation. The component stories are written in `MDX` format containing as many examples as required in set states to showcase our components. Every component should have at least one story (named `default`/`multiple`/`validation` etc.) located in the `Design System` directory. Where required, it should be possible to test all events, e.g. `onClick`, `drag` etc., in these stories. Results of events tests can be found in the `Actions` tab.
@@ -92,7 +92,7 @@ To clarify the purpose of each directory,
 | Test          | Additional stories for Cypress regression tests, visual regression tests |
 
 #### Automated Testing
-All regression, accessibility, theme and visual tests are written using the [Cypress.io](https://www.cypress.io) framework with all knob configurations (where applicable) and events tested, along with accessibility via the [Axe](https://chrome.google.com/webstore/detail/axe-web-accessibility-tes/lhdoppojpmngadmnindnejefpokejbdd) add on. Instructions of how to install Cypress can be found in the [Getting Started](https://github.com/Sage/carbon/blob/master/cypress/README.md) guide.
+All regression, accessibility, theme and visual tests are written using the [Cypress.io](https://www.cypress.io) framework with all knob configurations (where applicable) and events tested, along with accessibility via the [Axe](https://chrome.google.com/webstore/detail/axe-web-accessibility-tes/lhdoppojpmngadmnindnejefpokejbdd) add on. Instructions of how to install Cypress can be found in the [Getting Started](../cypress/README.md) guide.
 
 Where functionality is already tested in unit testing, this does not need to be repeated in assertions in Cypress tests, with the exception of events tests which should be repeated here in order to test actions in a manner more closely resembling that of a user in a browser.
 
@@ -229,7 +229,7 @@ Other support files include the `helper.js` file which contains functions such a
 
 
 ##### Test Results
-Depending on how Cypress was run, you will find test results in either the Cypress Test Runner UI, the console or in GitHub Actions linked from the build checks in GitHub. For further information see the [Getting Started Guide](https://github.com/Sage/carbon/blob/master/cypress/README.md).
+Depending on how Cypress was run, you will find test results in either the Cypress Test Runner UI, the console or in GitHub Actions linked from the build checks in GitHub. For further information see the [Getting Started Guide](../cypress/README.md).
 
 ##### Applitools
 ###### Integration with Cypress
@@ -258,14 +258,14 @@ Results can be found in the [Applitools dashboard](https://eyes.applitools.com/a
 ###### Passing or failing tests
 When tests have passed, i.e. there are no differences between the new snapshot and the baseline snapshot, the tests will be marked as “Passed” in Applitools. If the test has failed it will be marked as “Unresolved”. Differences between the baseline snapshot and the one from the current run are highlighted in pink:
 
-![Applitools](../images/applitools_differences_identified.png)
+![Differences](./images/applitools_differences_identified.png)
 
 It is then up to the user to decide whether the snapshot has changed intentionally, such as when changes have been made, or unintentionally i.e. due to a regression. If the test is confirmed as failed, then select the 👎 symbol against the snapshot. This will update the test status to “Failed”.
 
 ###### Updating baseline snapshots
 Where tests have failed because of intentional changes, the baseline snapshot will need to be updated to prevent further failures. To update a baseline snapshot, select the 👍 symbol against the required snapshot:
 
-![Applitools](../images/applitools_accept_new_snapshot.png)
+![Accept](./images/applitools_accept_new_snapshot.png)
 
 Select the `Save` icon located in the right-hand side of the results panel. This will update the stored baseline and compare every subsequent snapshot in this test step and similar steps to this new one. 
 

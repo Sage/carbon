@@ -27,14 +27,14 @@ We love contributions, so thanks for choosing to get involved with the Carbon pr
 
 [Styleguides](#styleguides)
 * [Git commit messages](#git-commit-messages)
-* [JavaScript guide](./docs/javascript-styleguide.md)
+* [JavaScript guide](docs/javascript-styleguide.md)
 
 ## What is Carbon?
 Carbon is an [open source](https://opensource.com/resources/what-open-source) library of user interface components. These components are intentionally designed to be reusable, accessible, easy to use, and easy to develop with. We follow the principles of atomic design and strive to provide elements that are the building blocks of a user interface.
 
 ## Getting Started with Carbon
 
-In order to help you get started with Carbon, we have written two helpful documents. The [dev-environemt-setup](https://github.com/Sage/carbon/blob/master/docs/dev-environment-setup.md) document will provide you with the information you require to get your development environment started. The second document is our [getting-started](https://github.com/Sage/carbon/blob/master/docs/getting-started.md) guide and this is aimed at someone who already has a development environment setup but wants to add Carbon to their existing project.
+In order to help you get started with Carbon, we have written two helpful documents. The [dev-environemt-setup](docs/dev-environment-setup.md) document will provide you with the information you require to get your development environment started. The second document is our [getting-started](docs/getting-started.md) guide and this is aimed at someone who already has a development environment setup but wants to add Carbon to their existing project.
 
 ## I have a question
  - Internal **Sage** contributors are invited to post in our #carbon Slack channel, in the first instance. 
@@ -51,8 +51,8 @@ Before you create a new issue please search our [open issues](https://github.com
 
 If you can't find an existing issue that describes your bug or feature then you have three choices:
 1. For a simple **bug fix** follow the [Pull Request Guidelines](#pull-request-guidelines) and submit a PR.
-1. To introduce a **new feature** either create a new issue via the [issue tracker](https://github.com/sage/carbon/issues), or propose the change using a [Request For Comment](https://github.com/Sage/carbon/blob/master/rfcs/README.md). Which is right for you is a judgement call based on the size and complexity of the feature.
-3. **Breaking changes** should always be introduced with a [Request For Comment](https://github.com/Sage/carbon/blob/master/rfcs/README.md).
+1. To introduce a **new feature** either create a new issue via the [issue tracker](https://github.com/sage/carbon/issues), or propose the change using a [Request For Comment](rfcs/README.md). Which is right for you is a judgement call based on the size and complexity of the feature.
+3. **Breaking changes** should always be introduced with a [Request For Comment](rfcs/README.md).
 
 ## Issue tracker
 The [issue tracker](https://github.com/sage/carbon/issues) is the preferred way to report any bugs or issues with the codebase. Once an issue is submitted, it will be reviewed by the team and we will either add a task to our backlog, describe a workaround if appropriate, or advise you of the next steps that we plan to take.
@@ -65,7 +65,7 @@ For any feature requests, please use the [issue tracker](https://github.com/sage
 
 ## Defining Features
 
-For features that you have a proposed solution for, please write an [Request For Comment](https://github.com/Sage/carbon/blob/master/rfcs/README.md).
+For features that you have a proposed solution for, please write an [Request For Comment](rfcs/README.md).
 
 ## Automated issue management
 
@@ -82,7 +82,7 @@ We use a bot to help us manage issues. The bot automatically labels issues where
 * Automated testing is done using the [Cypress.io](https://www.cypress.io) framework with the addition of [Applitools Eyes](https://applitools.com) for visual UI testing.
 * The [Axe](https://chrome.google.com/webstore/detail/axe-web-accessibility-tes/lhdoppojpmngadmnindnejefpokejbdd) extension is used for testing accessibility in accordance with the WCAG 2 and Section 508 accessibility standards.
 
-More details about how we test can be found in the [Carbon Testing Styleguide](https://github.com/Sage/carbon/blob/master/docs/testing-styleguide.md).
+More details about how we test can be found in the [Carbon Testing Styleguide](docs/testing-styleguide.md).
 
 ## Pull Request Guidelines
 Before submitting a pull request, check the [issue tracker](https://github.com/sage/carbon/issues) to see if the feature or bug has already been discussed. If it has, check with us before beginning work on it to avoid duplicated effort. If no issue has been raised, please raise one and wait for approval before beginning work. You can then link back to this when submitting a pull request to address it.
@@ -168,5 +168,5 @@ Any of these types can trigger a `major` release by including `BREAKING CHANGE:`
 
 To accept any third party contributions we require a Contributor License Agreement to be signed. Please find links to the relevent documents below:
 
-* [Individual CLA](https://github.com/Sage/carbon/blob/master/cla/SAGE-CLA.docx)
-* [Corporate CLA](https://github.com/Sage/carbon/blob/master/cla/SAGE-CCLA.docx)
+* [Individual CLA](cla/SAGE-CLA.docx)
+* [Corporate CLA](cla/SAGE-CCLA.docx)

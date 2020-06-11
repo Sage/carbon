@@ -29,7 +29,7 @@ We use [Applitools](https://applitools.com) integrated with Cypress for visual t
 
 Instructions to integrate Applitools with GitHub can be found [here](https://applitools.com/docs/topics/integrations/github-integration.html).
 
-Details of how to write Cypress tests, including coding standards and Applitools integration, can be found in the [Carbon Testing Styleguide](https://github.com/Sage/carbon/blob/master/docs/testing-styleguide.md).
+Details of how to write Cypress tests, including coding standards and Applitools integration, can be found in the [Carbon Testing Styleguide](../docs/testing-styleguide.md).
 
 ## Continuous Integration (CI)
 Every commit/pull request in the repository initiates Cypress test runs. Visual regression tests run in Travis. All other regression tests run in GitHub Actions.
