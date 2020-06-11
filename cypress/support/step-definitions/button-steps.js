@@ -1,6 +1,10 @@
-import { buttonSubtextPreview, buttonDataComponent } from '../../locators/button';
+import { buttonSubtextPreview, buttonDataComponent, buttonDataComponentNoIFrame } from '../../locators/button';
 import { icon } from '../../locators';
 import { positionOfElement } from '../helper';
+
+When('the button story has loaded', () => {
+  buttonDataComponentNoIFrame();
+});
 
 Then('Button label on preview is {word}', (label) => {
   buttonDataComponent().should('have.text', label);

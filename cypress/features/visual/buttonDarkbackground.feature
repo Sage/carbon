@@ -5,6 +5,7 @@ Feature: Button component - dark background type
   @applitools
   Scenario Outline: Check that dark background buttons render correctly with theme set to <theme>
     When I open "button" component dark_background_buttons story with theme "<theme>"
+    And the button story has loaded
     Then Element displays correctly
     Examples:
       | theme  |
