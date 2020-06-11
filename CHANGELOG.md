@@ -1,3 +1,18 @@
+## [26.0.0](https://github.com/Sage/carbon/compare/v25.0.0...v26.0.0) (2020-06-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* The deprecated checkbox component has been removed. To
+upgrade please use the experimental checkbox.
+* The classic theme is no longer supported. To upgrade
+please use a DLS theme.
+
+### Miscellaneous Chores
+
+* remove classic theme from configurable-items ([74e1434](https://github.com/Sage/carbon/commit/74e1434fd587d00c6208e54f5d67bfc95eaa62d9))
+* remove deprecated checkbox component ([1f30e6d](https://github.com/Sage/carbon/commit/1f30e6dde3108a0c53f4e9df1b15b83c517c1c68))
+
 ## [25.0.0](https://github.com/Sage/carbon/compare/v24.0.1...v25.0.0) (2020-06-10)
 
 
