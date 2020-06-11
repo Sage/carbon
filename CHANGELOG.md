@@ -1,3 +1,17 @@
+## [28.0.0](https://github.com/Sage/carbon/compare/v27.0.0...v28.0.0) (2020-06-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* The deprecated number component has been removed. To
+upgrade please use the experimental number component.
+
+Fixes FE-1921
+
+### Miscellaneous Chores
+
+* remove deprecated number component ([badcaf1](https://github.com/Sage/carbon/commit/badcaf1763b69d1ad912114b19ce7a739ee682fb))
+
 ## [27.0.0](https://github.com/Sage/carbon/compare/v26.0.0...v27.0.0) (2020-06-11)
 
 
