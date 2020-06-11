@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { State, Store } from '@sambego/storybook-state';
 import { action } from '@storybook/addon-actions';
 import { cloneDeep } from 'lodash';
-import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
+import { dlsThemeSelector } from '../../../.storybook/theme-selectors';
 import notes from './documentation';
 import { ConfigurableItems, ConfigurableItemRow } from '.';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
@@ -112,5 +112,4 @@ function makeStory(name, themeSelector) {
 }
 
 storiesOf('Configurable Items', module)
-  .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('default', dlsThemeSelector));
