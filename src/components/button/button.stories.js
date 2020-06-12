@@ -63,70 +63,82 @@ export const asASibling = () => {
   );
 };
 
-const generateButtons = buttonType => () => {
+const generateButtons = (buttonType, iconPosition) => () => {
   return (
     <>
-      {OptionsHelper.buttonIconPositions.map(iconPosition => (
+      {
         ['', ...OptionsHelper.icons].map((iconType) => {
           const props = { iconPosition, buttonType, iconType };
           return (
             <div>
-              {OptionsHelper.sizesRestricted.map(size => (
+              {OptionsHelper.sizesRestricted.map((size, index) => (
                 <>
                   <Button
+                    key={ String(index) }
                     size={ size }
                     { ...props }
-                  >{size}
+                  >
+                    {size}
                   </Button>
 
                   {size === 'large' && (
                     <Button
+                      key={ String(index) }
                       size={ size }
                       subtext='line two'
                       { ...props }
-                    >{size}
+                    >
+                      {size}
                     </Button>
                   )}
                 </>
               ))}
 
-              {OptionsHelper.sizesRestricted.map(size => (
+              {OptionsHelper.sizesRestricted.map((size, index) => (
                 <>
                   <Button
+                    key={ String(index) }
                     size={ size }
                     destructive
                     { ...props }
-                  >{size}
+                  >
+                    {size}
                   </Button>
 
                   {size === 'large' && (
                     <Button
+                      key={ String(index) }
                       size={ size }
                       destructive
                       subtext='line two'
                       { ...props }
-                    >{size}
+                    >
+                      {size}
                     </Button>
                   )}
                 </>
               ))}
 
-              {OptionsHelper.sizesRestricted.map(size => (
+              {OptionsHelper.sizesRestricted.map((size, index) => (
                 <>
                   <Button
+                    key={ String(index) }
                     size={ size }
                     disabled
                     { ...props }
-                  >{size}
+                  >
+                    {size}
                   </Button>
 
                   {size === 'large' && (
                     <Button
+                      key={ String(index) }
                       size={ size }
                       disabled
                       subtext='line two'
                       { ...props }
-                    >{size}
+                    >
+                      {size}
                     </Button>
                   )}
                 </>
@@ -134,13 +146,18 @@ const generateButtons = buttonType => () => {
             </div>
           );
         })
-      ))}
+      }
     </>
   );
 };
 
-export const primaryButtons = generateButtons('primary');
-export const secondaryButtons = generateButtons('secondary');
-export const tertiaryButtons = generateButtons('tertiary');
-export const dashedButtons = generateButtons('dashed');
-export const darkBackgroundButtons = generateButtons('darkBackground');
+export const primaryButtonsIconsBefore = generateButtons('primary', 'before');
+export const primaryButtonsIconsAfter = generateButtons('primary', 'after');
+export const secondaryButtonsIconsBefore = generateButtons('secondary', 'before');
+export const secondaryButtonsIconsAfter = generateButtons('secondary', 'after');
+export const tertiaryButtonsIconsBefore = generateButtons('tertiary', 'before');
+export const tertiaryButtonsIconsAfter = generateButtons('tertiary', 'after');
+export const dashedButtonsIconsBefore = generateButtons('dashed', 'before');
+export const dashedButtonsIconsAfter = generateButtons('dashed', 'after');
+export const darkBackgroundButtonsIconsBefore = generateButtons('darkBackground', 'before');
+export const darkBackgroundButtonsIconsAfter = generateButtons('darkBackground', 'after');
