@@ -1,3 +1,17 @@
+## [29.0.0](https://github.com/Sage/carbon/compare/v28.0.0...v29.0.0) (2020-06-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* The deprecated textarea component has been removed. To
+upgrade please use the experimental textarea component.
+
+Fixes FE-1921
+
+### Miscellaneous Chores
+
+* remove deprecated textarea component ([052ce56](https://github.com/Sage/carbon/commit/052ce5623674994a0bf6d6757db124db30e74e9f))
+
 ## [28.0.0](https://github.com/Sage/carbon/compare/v27.0.0...v28.0.0) (2020-06-11)
 
 
