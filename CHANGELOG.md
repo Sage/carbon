@@ -1,3 +1,16 @@
+## [30.0.0](https://github.com/Sage/carbon/compare/v29.0.0...v30.0.0) (2020-06-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* The deprecated grouped-character component has been
+removed. To upgrade please use the experimental grouped-character
+component.
+
+### Miscellaneous Chores
+
+* remove deprecated grouped-character component ([44d26b2](https://github.com/Sage/carbon/commit/44d26b20ebe68776434d37dad2f6481ab45c0a0a))
+
 ## [29.0.0](https://github.com/Sage/carbon/compare/v28.0.0...v29.0.0) (2020-06-12)
 
 
