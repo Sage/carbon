@@ -148,7 +148,7 @@ If you are new to Git, it can be a little overwhelming at first. Luckily there a
 
 You need to add the following to ~/.gitconfig
 ````
-alias
+[alias]
         pr = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
         pr-clean = "!git checkout master ; git for-each-ref refs/heads/pr/* --format=\"%(refname)\" | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
 ````
