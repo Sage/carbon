@@ -11,6 +11,11 @@ Feature: Icon component
     Examples:
       | type               |
       | feedback           |
+      | file_excel         |
+      | file_generic       |
+      | file_image         | 
+      | file_pdf           |
+      | file_word          | 
       | files_leaning      |
       | filter             |
       | filter_new         |
@@ -26,6 +31,7 @@ Feature: Icon component
       | in_transit         |
       | info               |
       | individual         |
+      | italic             |
       | key                |
       | ledger             |
       | ledger_arrow_left  |
@@ -45,7 +51,9 @@ Feature: Icon component
       | pause_circle       |
       | pdf                |
       | people             |
+      | people_switch      |
       | person             |
+      | person_info        |
       | person_tick        |
       | phone              |
       | play               |
@@ -78,6 +86,7 @@ Feature: Icon component
       | tag                |
       | three_boxes        |
       | tick               |
+      | tick_circle        |
       | unlocked           |
       | upload             |
       | uploaded           |
