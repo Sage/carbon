@@ -28,7 +28,11 @@ Feature: Icon component
       | blocked                 |
       | blocked_square          |
       | block_arrow_right       |
+      | bold                    |
       | boxed_shapes            |
+      | bullet_list             |
+      | bullet_list_dotted      |
+      | bullet_list_numbers     |
       | bulk_destroy            |
       | business                |
       | calendar                |
@@ -52,11 +56,13 @@ Feature: Icon component
       | close                   |
       | coins                   |
       | collaborate             |
+      | computer_clock          |
       | copy                    |
       | connect                 |
       | credit_card             |
       | credit_card_slash       |
       | cross                   |
+      | cross_circle            |
       | csv                     |
       | delete                  |
       | delivery                |
