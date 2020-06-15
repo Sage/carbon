@@ -9,11 +9,11 @@
 * [Continuous Integration (CI)](#continuous-integration)
 
 [Functional Browser Testing](#functional-browser-testing)
-* [Manual Testing](#manual-testing)
+[Manual Testing](#manual-testing)
   * [Browser Support](#browser-support)
   * [Jira](#jira)
   * [Storybook](#storybook)
-* [Automated Testing](#automated-testing)
+[Automated Testing](#automated-testing)
   * [Cypress File Structure](#cypress-file-structure)
   * [Coding Standards](#coding-standards)
   * [Scenario Tags](#scenario-tags)
@@ -21,12 +21,6 @@
     * [How to locate elements](#how-to-locate-elements)
     * [How to name locators](#how-to-name-locators)
   * [Test Results](#test-results)
-  * [Applitools](#applitools)
-    * [Integration with Cypress](#integration-with-cypress)
-    * [Passing or failing tests](#passing-or-failing-tests)
-    * [Updating baseline snapshots](#updating-baseline-snapshots)
-    * [Integration with GitHub](#integration-with-github)
-    * [Account limits](#account-limits)
 
 ### Introduction
 This testing styleguide is provided to help you test your contributions to the Carbon repository in a way that other developers and testers can understand quickly and easily.
@@ -54,10 +48,11 @@ Snapshots render a string output of what the DOM receives. The first time the te
 You should use snapshots in tests if amendments are being made to non-styled components to check styling is applied, but where existing and new styled components are concerned the use of snapshots is left up to the developer to decide if there is value. If you do want to use them, ensure they are small, focussed and effective.
 
 #### Continuous Integration (CI)
-The Travis CI service runs unit tests at every commit/push/pull request creation. You can manually run the tests with:
-1.	`npm run lint` - runs lint test.
-2.	`npm test` - runs Jest tests.
-3.	Results can be investigated from the terminal or from the Travis dashboard linked from the branch/pull request checks.
+GitHub Actions runs unit tests at every commit/push/pull request creation. You can manually run the steps with:
+1. `npm run lint` - lints JavaScript.
+2. `npm run ts-lint` - lints TypeScript.
+3. `npm test` - runs unit tests.
+4. Results can be investigated from the terminal or from the GitHub Actions linked from the branch/pull request checks.
 
 ### Functional Browser Testing
 #### Manual Testing
@@ -92,11 +87,11 @@ To clarify the purpose of each directory,
 | Test          | Additional stories for Cypress regression tests, visual regression tests |
 
 #### Automated Testing
-All regression, accessibility, theme and visual tests are written using the [Cypress.io](https://www.cypress.io) framework with all knob configurations (where applicable) and events tested, along with accessibility via the [Axe](https://chrome.google.com/webstore/detail/axe-web-accessibility-tes/lhdoppojpmngadmnindnejefpokejbdd) add on. Instructions of how to install Cypress can be found in the [Getting Started](../cypress/README.md) guide.
+All regression, accessibility and theme tests are written using the [Cypress.io](https://www.cypress.io) framework with all knob configurations (where applicable) and events tested, along with accessibility via the [Axe](https://chrome.google.com/webstore/detail/axe-web-accessibility-tes/lhdoppojpmngadmnindnejefpokejbdd) add on. Instructions of how to install Cypress can be found in the [Getting Started](../cypress/README.md) guide.
 
 Where functionality is already tested in unit testing, this does not need to be repeated in assertions in Cypress tests, with the exception of events tests which should be repeated here in order to test actions in a manner more closely resembling that of a user in a browser.
 
-The visual comparison testing tool [Applitools](https://applitools.com) is used to test for UI regressions at each build by comparing new snapshots of the component preview iFrame with previous baseline ones. Applitools Eyes commands are included in Cypress tests where required. Visual test files should be stored in the `/visual` directory.
+[Chromatic](https://www.chromatic.com/builds?appId=5ecf782fe724630022d27d7d) is used to test for visual regressions during each build by comparing snapshots of the storybook canvas with previous baseline snapshots. Chromatic automatically snapshots every story canvas. You should not need to run Chromatic locally.
 
 ##### Cypress File Structure
 ```
@@ -111,7 +106,6 @@ The visual comparison testing tool [Applitools](https://applitools.com) is used 
 │ │       ├── test
 │ │       ├── themes
 │ │       └── common
-│ │   └── visual
 │ ├── locators
 │ │   └── [component-name]
 │ │       ├── index.js (exported arrow functions for locators)
@@ -161,7 +155,6 @@ Test scenarios in feature files can be tagged to enable a subset of scenarios to
 5.	`@ignore` and `@[bug-number]` should be removed after the bug fix.
 6.	`@accessibility` tests verify accessibility violations.
 7.	`@themes` tests verify theme colouristics.
-8.	`@applitools` visual tests for components based on comparing base/current screenshots.
 
 Additional tags can be used to indicate other components/features are linked/dependent on this one.
 
@@ -230,49 +223,3 @@ Other support files include the `helper.js` file which contains functions such a
 
 ##### Test Results
 Depending on how Cypress was run, you will find test results in either the Cypress Test Runner UI, the console or in GitHub Actions linked from the build checks in GitHub. For further information see the [Getting Started Guide](../cypress/README.md).
-
-##### Applitools
-###### Integration with Cypress
-Instructions for adding Applitools to an existing Cypress project can be found [here](https://applitools.com/tutorials/cypress.html). Applitools is integrated with Cypress by means of various configuration and settings in the `cypress/support/index.js` file, `applitools.config.js` file, and with additional feature files and corresponding step definitions of those components/stories where we want to do visual testing. When the relevant tests are run from Cypress, snapshots will be taken where specified in the feature files. We currently run visual tests in Chrome browser only.
-
-An example of a feature file for a visual testing step follows. The `Then` step is where Applitools will take a snapshot:
-
-```
-Feature: Button component - primary type
-  I want to check that all examples of Button component - primary type render correctly per theme
-
-  @positive
-  @applitools
-  Scenario Outline: Check that primary buttons render correctly with theme set to <theme>
-    When I open "button" component primary_buttons story with theme "<theme>"
-    Then Element displays correctly
-    Examples:
-      | theme  |
-      | mint   |
-      | aegean |
-      | none   |
-```
-
-Results can be found in the [Applitools dashboard](https://eyes.applitools.com/app/test-results/00000251812838508713/?accountId=MZDiTwN5_kOmMbjBqRi9pw~~) for our open source Sage team account. It is a public account so all interested parties should be able to view the results providing they have access. If you do not have access and believe you need it, contact the Carbon Team.
-
-###### Passing or failing tests
-When tests have passed, i.e. there are no differences between the new snapshot and the baseline snapshot, the tests will be marked as “Passed” in Applitools. If the test has failed it will be marked as “Unresolved”. Differences between the baseline snapshot and the one from the current run are highlighted in pink:
-
-![Differences](./images/applitools_differences_identified.png)
-
-It is then up to the user to decide whether the snapshot has changed intentionally, such as when changes have been made, or unintentionally i.e. due to a regression. If the test is confirmed as failed, then select the 👎 symbol against the snapshot. This will update the test status to “Failed”.
-
-###### Updating baseline snapshots
-Where tests have failed because of intentional changes, the baseline snapshot will need to be updated to prevent further failures. To update a baseline snapshot, select the 👍 symbol against the required snapshot:
-
-![Accept](./images/applitools_accept_new_snapshot.png)
-
-Select the `Save` icon located in the right-hand side of the results panel. This will update the stored baseline and compare every subsequent snapshot in this test step and similar steps to this new one. 
-
-###### Integration with GitHub
-Instructions for integrating Applitools with the Carbon repository in GitHub can be found [here](https://applitools.com/docs/topics/integrations/github-integration.html).
-
-Results can be seen in the pull request/branch in GitHub. Following the link takes you to the Applitools dashboard where the results can be investigated in detail. If you do not have access, contact the Carbon Team.
-
-###### Account limits
-It is important to snapshot only what is deemed important and necessary for visual testing. Maximum value must be obtained from the minimum number of visual testing stories to maintain a rapid run time of the regression suite and ensure that we do not exceed our account snapshot limits. Direct any queries about this to the Carbon Team.

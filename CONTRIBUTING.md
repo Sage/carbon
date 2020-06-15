@@ -79,7 +79,8 @@ We use a bot to help us manage issues. The bot automatically labels issues where
 
 ### Functional Browser Testing
 * All components are fully tested manually in terms of functionality, accessibility, internationalisation and action events.
-* Automated testing is done using the [Cypress.io](https://www.cypress.io) framework with the addition of [Applitools Eyes](https://applitools.com) for visual UI testing.
+* [Cypress.io](https://www.cypress.io) is used for automated regression testing.
+* [Chromatic](https://www.chromatic.com/builds?appId=5ecf782fe724630022d27d7d) is used to test for visual regressions.
 * The [Axe](https://chrome.google.com/webstore/detail/axe-web-accessibility-tes/lhdoppojpmngadmnindnejefpokejbdd) extension is used for testing accessibility in accordance with the WCAG 2 and Section 508 accessibility standards.
 
 More details about how we test can be found in the [Carbon Testing Styleguide](docs/testing-styleguide.md).
