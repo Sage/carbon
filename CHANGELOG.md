@@ -1,3 +1,10 @@
+## [30.1.0](https://github.com/Sage/carbon/compare/v30.0.0...v30.1.0) (2020-06-15)
+
+
+### Features
+
+* **icon:** added 15 new icons ([922d68d](https://github.com/Sage/carbon/commit/922d68dd784b7d3e147f1cbc773fa9727ff6d836))
+
 ## [30.0.0](https://github.com/Sage/carbon/compare/v29.0.0...v30.0.0) (2020-06-12)
 
 
