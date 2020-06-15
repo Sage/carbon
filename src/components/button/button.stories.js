@@ -4,6 +4,7 @@ import { action } from '@storybook/addon-actions';
 import { Link as RouterLink } from 'react-router';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Button from '.';
+import createGuid from '../../utils/helpers/guid';
 
 const getIconKnobs = () => {
   const defaultPosition = Button.defaultProps.iconPosition;
@@ -70,11 +71,11 @@ const generateButtons = (buttonType, iconPosition) => () => {
         ['', ...OptionsHelper.icons].map((iconType) => {
           const props = { iconPosition, buttonType, iconType };
           return (
-            <div>
-              {OptionsHelper.sizesRestricted.map((size, index) => (
+            <div key={ createGuid() }>
+              {OptionsHelper.sizesRestricted.map(size => (
                 <>
                   <Button
-                    key={ String(index) }
+                    key={ createGuid() }
                     size={ size }
                     { ...props }
                   >
@@ -83,7 +84,7 @@ const generateButtons = (buttonType, iconPosition) => () => {
 
                   {size === 'large' && (
                     <Button
-                      key={ String(index) }
+                      key={ createGuid() }
                       size={ size }
                       subtext='line two'
                       { ...props }
@@ -94,10 +95,10 @@ const generateButtons = (buttonType, iconPosition) => () => {
                 </>
               ))}
 
-              {OptionsHelper.sizesRestricted.map((size, index) => (
+              {OptionsHelper.sizesRestricted.map(size => (
                 <>
                   <Button
-                    key={ String(index) }
+                    key={ createGuid() }
                     size={ size }
                     destructive
                     { ...props }
@@ -107,7 +108,7 @@ const generateButtons = (buttonType, iconPosition) => () => {
 
                   {size === 'large' && (
                     <Button
-                      key={ String(index) }
+                      key={ createGuid() }
                       size={ size }
                       destructive
                       subtext='line two'
@@ -119,10 +120,10 @@ const generateButtons = (buttonType, iconPosition) => () => {
                 </>
               ))}
 
-              {OptionsHelper.sizesRestricted.map((size, index) => (
+              {OptionsHelper.sizesRestricted.map(size => (
                 <>
                   <Button
-                    key={ String(index) }
+                    key={ createGuid() }
                     size={ size }
                     disabled
                     { ...props }
@@ -132,7 +133,7 @@ const generateButtons = (buttonType, iconPosition) => () => {
 
                   {size === 'large' && (
                     <Button
-                      key={ String(index) }
+                      key={ createGuid() }
                       size={ size }
                       disabled
                       subtext='line two'
