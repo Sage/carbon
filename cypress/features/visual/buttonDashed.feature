@@ -5,7 +5,7 @@ Feature: Button component - dashed type
   @applitools
   Scenario Outline: Check that dashed buttons render correctly with theme set to <theme>
     When I open "button" component dashed_buttons story with theme "<theme>"
-    And the button story has loaded
+    # And the button story has loaded
     Then Element displays correctly
     Examples:
       | theme  |

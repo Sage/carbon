@@ -1,5 +1,12 @@
+import applitoolsSettings from '../../../applitools.config';
+
 Then('Element displays correctly', () => {
-  if (Cypress.env('CYPRESS_APPLITOOLS')) {
-    cy.eyesCheckWindow();
-  }
+  applitoolsSettings.testName = cy.state('ctx').test.title;
+  applitoolsSettings.batchName = cy.state('ctx').test.parent.title;
+
+  cy.eyesOpen(applitoolsSettings).then(() => {
+    cy.eyesCheckWindow().then(() => {
+      cy.eyesClose();
+    });
+  });
 });
