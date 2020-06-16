@@ -13,7 +13,6 @@
     "test-update": "jest --config=./jest.conf.json --updateSnapshot",
     "test-cypress": "cypress open",
     "cypress:ci": "cypress run --record --parallel",
-    "cypress:ci:visual": "npm run cypress:ci -- --spec './cypress/features/visual/*' --env CYPRESS_APPLITOOLS=true --browser chrome --group chrome-visual",
     "debug": "node --inspect ./node_modules/jest-cli/bin/jest --watch --config=./jest.conf.json",
     "lint": "eslint ./src",
     "lint-ts": "./node_modules/.bin/tslint 'src/**/*.ts'",
@@ -24,7 +23,8 @@
     "babel": "cross-env NODE_ENV=production babel ./src --config-file ./babel.config.js --out-dir ./lib --ignore '**/*/__spec__.js','**/*.spec.js','**/__definition__.js' --quiet",
     "clean-lib": "rimraf ./lib",
     "copy-files": "cpx \"src/**/!(*.js|*.md|*.mdx|*.stories.*|*.snap|docgenInfo.json)\" lib",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "chromatic": "chromatic"
   },
   "repository": {
     "type": "git",
@@ -43,7 +43,6 @@
     "styled-components": "^4.4.1"
   },
   "devDependencies": {
-    "@applitools/eyes-cypress": "^3.12.0",
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "7.8.3",
@@ -78,6 +77,7 @@
     "babel-loader": "8.1.0",
     "babel-standalone": "~6.17.0",
     "carbon-state-management": "^1.0.0",
+    "chromatic": "^4.0.3",
     "commitizen": "^4.0.4",
     "conventional-changelog-conventionalcommits": "^4.2.3",
     "core-js": "^3.1.4",

@@ -180,7 +180,8 @@ basic.story = {
   name: 'basic',
   parameters: {
     info: { disable: true },
-    docs: { page: null }
+    docs: { page: null },
+    chromatic: { viewports: [320, 1200] }
   }
 };
 

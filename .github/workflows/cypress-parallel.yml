@@ -1,12 +1,18 @@
 name: Cypress tests
 
-on: [pull_request]
+on:
+  push:
+    # There is no need to run CI again because we use  "Require branches to be up to date before merging"
+    branches-ignore:    
+      - master
+      - '[0-9]+.x'
+      - '[0-9]+.x.x'
+      - '[0-9]+.[0-9]+.x'
 
 jobs:
   test:
-    if: ${{ github.event.pull_request.head.repo.full_name == 'Sage/carbon' }} 
     name: Cypress regression
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     strategy:
       # when one test fails, DO NOT cancel the other
       # containers, because this will kill Cypress processes
@@ -73,54 +79,3 @@ jobs:
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  fork-test:
-    if: ${{ github.event.pull_request.head.repo.full_name != 'Sage/carbon' }}  
-    name: Cypress regression on forked PR
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2.2.0
-      # Restore the previous NPM modules and Cypress binary archives.
-      # Any updated archives will be saved automatically after the entire
-      # workflow successfully finishes.
-      # See https://github.com/actions/cache
-      - name: Cache central NPM modules
-        uses: actions/cache@v2.0.0
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Cache Cypress binary
-        uses: actions/cache@v2.0.0
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            cypress-${{ runner.os }}-cypress-
-      - name: install dependencies and verify Cypress
-        env:
-          # make sure every Cypress install prints minimal information
-          CI: 1
-        run: |
-          npm ci
-          npx cypress cache path
-          npx cypress cache list
-          npx cypress verify
-          npx cypress info
-      - name: Cypress run
-        uses: cypress-io/github-action@v1.24.3
-        with:
-          install: false
-          start: npm start
-          wait-on: "http://localhost:9001"
-          wait-on-timeout: 250
-          record: true
-          parallel: true
-          group: ubuntu-regression-fork
-          spec: './cypress/features/regression/**/*.feature'
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CI: 'true'
