@@ -6,6 +6,7 @@ import baseTheme from '../../../../style/themes/base';
 import classicTheme from '../../../../style/themes/classic';
 import ToolbarButton from './toolbar-button.component';
 import Tooltip from '../../../tooltip';
+import StyledIcon from '../../../icon/icon.style';
 
 const onKeyDown = jest.fn();
 const onMouseDown = jest.fn();
@@ -34,7 +35,6 @@ describe('ToolbarButton', () => {
         border: 'none',
         margin: '0px 4px',
         cursor: 'pointer',
-        padding: '0px 12px',
         width: '32px',
         fontSize: '14px',
         height: '32px'
@@ -46,9 +46,12 @@ describe('ToolbarButton', () => {
 
       assertStyleMatch({
         outline: `2px solid ${baseTheme.colors.focus}`,
-        backgroundColor: baseTheme.colors.white,
         zIndex: '10'
       }, wrapper, { modifier: ':focus' });
+
+      assertStyleMatch({
+        width: 'auto'
+      }, wrapper, { modifier: `${StyledIcon}` });
     });
 
     it('does not apply a gold outline when theme is classic and component is focused', () => {
@@ -56,7 +59,6 @@ describe('ToolbarButton', () => {
 
       assertStyleMatch({
         outline: undefined,
-        backgroundColor: baseTheme.colors.white,
         zIndex: '10'
       }, wrapper, { modifier: ':focus' });
     });

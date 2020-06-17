@@ -11,7 +11,7 @@ const render = (props = {}, renderer = mount) => {
 describe('EditorCounter', () => {
   it('has the expected styles', () => {
     assertStyleMatch({
-      color: baseTheme.editor.placeholder,
+      color: baseTheme.editor.counter,
       marginTop: '10px',
       minWidth: '40px',
       height: '21px',

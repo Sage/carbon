@@ -2,6 +2,7 @@ import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
 import { useState, useRef } from 'react';
 import EditorLink from './editor-link';
 import TextEditor, { EditorState } from '.';
+import Label from '../../__experimental__/components/label';
 
 <Meta title="Design System/Text Editor" parameters={{ info: { disable: true }}} />
 
@@ -15,7 +16,48 @@ import TextEditor, { EditorState } from '.';
       const [value, setValue] = useState(EditorState.createEmpty());
       const ref = useRef(null);
       return (
-        <TextEditor onChange={(newValue) => {setValue(newValue)}} value={ value } ref={ ref } onSubmit={ () => {} }/>
+        <TextEditor
+          onChange={(newValue) => {setValue(newValue)}}
+          value={ value } ref={ ref }
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+### With label:
+
+<Preview>
+  <Story name="with label">
+    {() => {
+      const [value, setValue] = useState(EditorState.createEmpty());
+      const ref = useRef(null);
+      const labelId = 'foo';
+      return (
+        <TextEditor
+          onChange={(newValue) => {setValue(newValue)}}
+          value={ value } ref={ ref }
+          label={ <Label labelId={ labelId }>Body</Label> }
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+### With optional Save/ Cancel buttons
+
+<Preview>
+  <Story name="with optional buttons">
+    {() => {
+      const [value, setValue] = useState(EditorState.createEmpty());
+      const ref = useRef(null);
+      const labelId = 'foo';
+      return (
+        <TextEditor
+          onChange={(newValue) => {setValue(newValue)}}
+          value={ value } ref={ ref }
+          onSubmit={ () => {} }
+        />
       );
     }}
   </Story>

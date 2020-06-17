@@ -1,5 +1,5 @@
 import React, {
-  useCallback, useEffect, useState, useReducer, useRef
+  useCallback, useEffect, useReducer, useRef, useState
 } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -7,54 +7,49 @@ import {
   Editor,
   RichUtils
 } from 'draft-js';
-import { computeBlockType, resetBlockType } from './utils';
-import decorators from './decorators';
+import {
+  computeBlockType, getContent, getContentInfo, getDecoratedValue, getSelection, resetBlockType
+} from './utils';
 import { StyledEditorWrapper, StyledEditorContainer } from './text-editor.style';
-import Toolbar from './toolbar';
 import Counter from './editor-counter';
+import Toolbar from './toolbar';
+import Label from '../../__experimental__/components/label';
+import createGuid from '../../utils/helpers/guid';
 
+const GUID = createGuid();
 const NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-
-// return mutated editorState with decorators added
-const getDecoratedValue = value => EditorState.set(value, { decorator: decorators });
+const INLINE_STYLES = ['BOLD', 'ITALIC'];
+const BLOCK_TYPES = ['unordered-list-item', 'ordered-list-item'];
 
 function activeControlsReducer(activeControls, controlId) {
-  if (activeControls[controlId] || !['unordered-list-item', 'ordered-list-item'].includes(controlId)) {
+  if (activeControls[controlId] || !BLOCK_TYPES.includes(controlId)) {
     return { ...activeControls, [controlId]: !activeControls[controlId] };
   } if (controlId === 'unordered-list-item' && activeControls['ordered-list-item']) {
     return { ...activeControls, [controlId]: !activeControls[controlId], 'ordered-list-item': false };
   } if (controlId === 'ordered-list-item' && activeControls['unordered-list-item']) {
     return { ...activeControls, [controlId]: !activeControls[controlId], 'unordered-list-item': false };
   }
+
   return { ...activeControls, [controlId]: !activeControls[controlId] };
 }
 
 const TextEditor = React.forwardRef(({
   charLimit,
+  label,
   onChange,
   onCancel,
   onSubmit,
-  placeholder,
   value
 }, ref) => {
+  const [activeControls, setActiveControls] = useReducer(activeControlsReducer, {
+    BOLD: false,
+    ITALIC: false,
+    'unordered-list-item': false,
+    'ordered-list-item': false
+  });
   const [isFocused, setIsFocused] = useState(false);
-  const [hadText, setHadText] = useState(false);
-  const [activeControls, setActiveControls] = useReducer(activeControlsReducer, {});
-  const [inlineStyles, setInlineStyles] = useState([]);
   const editor = ref || useRef();
-  const contentLength = value.getCurrentContent().getPlainText('').length;
-  const showPlaceholder = (
-    !activeControls['unordered-list-item'] && !activeControls['ordered-list-item'] && contentLength === 0
-  );
-
-  useEffect(() => {
-    // iterate over the list of inlineStyles and apply them
-    inlineStyles.forEach((inlineStyle) => {
-      onChange(RichUtils.toggleInlineStyle(value, inlineStyle));
-      // clean up style so it isn't toggled again with next onChange event
-      setInlineStyles([...inlineStyles.filter(style => style !== inlineStyle)]);
-    });
-  }, [value, onChange, inlineStyles]);
+  const contentLength = getContent(value).getPlainText('').length;
 
   const updateActiveControls = useCallback((controlId) => {
     setActiveControls(controlId);
@@ -63,22 +58,22 @@ const TextEditor = React.forwardRef(({
   function handleKeyCommand(command) {
     // if the backspace or enter is pressed get block type and text
     if (command.includes('backspace') || command.includes('split-block')) {
-      const selection = value.getSelection();
-      const content = value.getCurrentContent();
-      const currentBlock = content.getBlockForKey(selection.getStartKey());
-      const blockType = currentBlock.getType();
-      const blockLength = currentBlock.getText();
+      const { blockType, blockLength } = getContentInfo(value);
 
-      // if a block control is active and there is no text, deactivate it
-      if (['unordered-list-item', 'ordered-list-item'].includes(blockType) && !blockLength) {
-        setActiveControls({ ...activeControls, [blockType]: false });
+      // if a block control is active and there is no text, deactivate it and reset the block
+      if (BLOCK_TYPES.includes(blockType) && !blockLength) {
+        updateActiveControls(blockType);
+        onChange(resetBlockType(value, 'unstyled'));
+
+        return true;
       }
     }
 
-    const newState = RichUtils.handleKeyCommand(value, command);
+    // if formatting shortcut used eg. command is "bold" or "italic"
+    if (INLINE_STYLES.includes(command.toUpperCase())) {
+      updateActiveControls(command.toUpperCase());
+      onChange(RichUtils.handleKeyCommand(value, command));
 
-    if (newState) {
-      onChange(newState);
       return true;
     }
     return false;
@@ -90,71 +85,97 @@ const TextEditor = React.forwardRef(({
       return false;
     }
 
-    const selection = value.getSelection();
-    const content = value.getCurrentContent();
-    const currentBlock = content.getBlockForKey(selection.getStartKey());
-    const blockType = currentBlock.getType();
-    const blockLength = currentBlock.getLength();
-    const text = currentBlock.getText();
+    const { blockType, blockLength, blockText } = getContentInfo(value);
 
-    if ((blockLength === 1 && NUMBERS.includes(text)) || (blockLength === 0 && str === '*')) {
-      onChange(resetBlockType(value, computeBlockType(str, blockType)));
-      return true;
+    if ((blockLength === 1 && NUMBERS.includes(blockText) && str === '.') || (blockLength === 0 && str === '*')) {
+      const newBlockType = computeBlockType(str, blockType);
+
+      if (BLOCK_TYPES.includes(newBlockType) && !activeControls[BLOCK_TYPES[0]] && !activeControls[BLOCK_TYPES[1]]) {
+        onChange(resetBlockType(value, newBlockType));
+        updateActiveControls(newBlockType);
+
+        return true;
+      }
     }
+    onChange(value);
+
     return false;
   }
 
-  const handleInlineStyleChange = (inlineStyle) => {
-    editor.current.focus();
-    setInlineStyles([...inlineStyles, inlineStyle]);
+  const handleInlineStyleChange = (inlineType) => {
+    onChange(RichUtils.toggleInlineStyle(value, inlineType));
+    updateActiveControls(inlineType);
   };
 
   const handleBlockStyleChange = (blockType) => {
-    editor.current.focus();
-    const newState = RichUtils.toggleBlockType(value, blockType);
+    onChange(RichUtils.toggleBlockType(value, blockType));
+    updateActiveControls(blockType);
+  };
 
-    if (newState) {
-      onChange(newState);
-    }
+  const handleEditorFocus = (focusValue) => {
+    setIsFocused(focusValue);
   };
 
   useEffect(() => {
-    if (contentLength && !hadText) {
-      setHadText(true);
-    }
-  }, [contentLength, hadText]);
+    function hasNoSelection() {
+      const selection = getSelection(value);
+      const selectionStart = selection.getStartOffset();
+      const selectionEnd = selection.getEndOffset();
 
-  useEffect(() => {
-    if (!contentLength && hadText) {
-      setHadText(false);
-
-      Object.keys(activeControls)
-        .filter(id => !['unordered-list-item', 'ordered-list-item'].includes(id))
-        .forEach(style => onChange(RichUtils.toggleInlineStyle(value, style)));
+      return selectionStart === selectionEnd;
     }
-  }, [activeControls, contentLength, hadText, onChange, value]);
+
+    // add any inline styles that are active
+    INLINE_STYLES.forEach((style) => {
+      if (hasNoSelection() && value.getCurrentInlineStyle().has(style) !== activeControls[style]) {
+        onChange(RichUtils.toggleInlineStyle(value, style));
+      }
+    });
+
+    function hasBlockStyle(type) {
+      const { blockType } = getContentInfo(value);
+      return blockType === type;
+    }
+
+    // ensures block controls are activated
+    BLOCK_TYPES.forEach((type) => {
+      if (hasBlockStyle(type) && !activeControls[type]) {
+        updateActiveControls(type);
+      }
+    });
+  }, [activeControls, onChange, updateActiveControls, value]);
+
+  const editorState = getDecoratedValue(value);
+
+  // const editorState = isFocused && contentLength ? moveSelectionToEnd(value) : getDecoratedValue(value);
+
+  const editorLabel = label || <Label labelId={ `carbon-text-editor-label-${GUID}` }>{ GUID }</Label>;
+
+  const { labelId } = editorLabel.props;
 
   return (
-    <StyledEditorWrapper>
+    <StyledEditorWrapper hideLabel={ !label } ariaLabelledBy={ labelId }>
+      { editorLabel }
       <StyledEditorContainer
         data-component='text-editor-container'
         onClick={ () => {
-          setIsFocused(true);
+          handleEditorFocus(true);
           editor.current.focus();
         } }
         isFocused={ isFocused }
-        showPlaceholder={ showPlaceholder }
+        ariaLabelledBy={ labelId }
       >
         <Counter limit={ charLimit } count={ contentLength } />
         <Editor
           ref={ editor }
-          onFocus={ () => setIsFocused(true) }
-          onBlur={ () => setIsFocused(false) }
-          editorState={ getDecoratedValue(value) }
+          onFocus={ () => handleEditorFocus(true) }
+          onBlur={ () => handleEditorFocus(false) }
+          editorState={ editorState }
           onChange={ onChange }
-          placeholder={ showPlaceholder ? placeholder : undefined }
           handleBeforeInput={ handleBeforeInput }
           handleKeyCommand={ handleKeyCommand }
+          ariaLabelledBy={ labelId }
+          ariaDescribedBy={ labelId }
         />
         <Toolbar
           onSubmit={ onSubmit }
@@ -172,15 +193,11 @@ const TextEditor = React.forwardRef(({
 
 TextEditor.propTypes = {
   charLimit: PropTypes.number,
+  label: PropTypes.node,
   onChange: PropTypes.func.isRequired,
   onCancel: PropTypes.func,
   onSubmit: PropTypes.func,
-  placeholder: PropTypes.string,
   value: PropTypes.object.isRequired
-};
-
-TextEditor.defaultProps = {
-  placeholder: 'Leave a comment...'
 };
 
 export const TextEditorState = EditorState;

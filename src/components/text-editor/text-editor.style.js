@@ -1,22 +1,37 @@
 import styled, { css } from 'styled-components';
 import { isClassic } from '../../utils/helpers/style-helper';
+import StyledLabel from '../../__experimental__/components/label/label.style';
 import baseTheme from '../../style/themes/base';
 
 const StyledEditorWrapper = styled.div`
   padding: 4px;
+
+  ${StyledLabel} {
+    padding-left: 8px;
+  }
+
+  ${({ hideLabel }) => hideLabel && css`
+    ${StyledLabel} {
+      border: 0;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+  `}
 `;
 
 const StyledEditorContainer = styled.div`
   min-height: 220px;
   min-width: 450px;
-  margin-right: 2px;
   
   div.DraftEditor-root {
     min-height: inherit;
     height: 100%;
-    width: 100%;
-    min-width: 450px;
-    padding: 4px;
+    min-width: 444px;
   }
 
   div.DraftEditor-editorContainer,
@@ -24,33 +39,18 @@ const StyledEditorContainer = styled.div`
     min-height: inherit;
     height: 100%;
     min-width: 420px;
-    padding: 4px;
+    background-color: #ffffff;
   }
 
-  .public-DraftEditorPlaceholder-root {
-    position: absolute;
-    height: 21px;
-    top: 16px;
-    left 16px;
-    width: fit-content;
-    min-width: 450px;
-    ${({ theme }) => css`
-      color: ${theme.editor.placeholder};
-    `}
+  div.public-DraftEditor-content {
+    padding: 12px;
   }
 
   .public-DraftEditorPlaceholder-inner {
     width: fit-content;
   }
   
-  ${({ theme, isFocused, showPlaceholder }) => css`
-    .public-DraftEditorPlaceholder-root {
-      display: inline-block;
-      ${(isFocused || !showPlaceholder) && css`
-        display: none;
-      `}
-    }
-
+  ${({ theme, isFocused }) => css`
     background-color: ${theme.colors.white};
     border: 1px solid ${theme.editor.border};
     ${!isClassic(theme) && isFocused && `outline: 3px solid ${theme.colors.focus};`}

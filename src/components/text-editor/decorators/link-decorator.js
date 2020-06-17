@@ -10,17 +10,9 @@ function findWithRegex(regex, contentBlock, callback) {
   }
 }
 
-const linkStrategy = (contentBlock, callback, contentState) => {
-  // eslint-disable-next-line consistent-return
-  contentBlock.findEntityRanges((character) => {
-    const entityKey = character.getEntity();
-    if (entityKey !== null) {
-      // for pasted links
-      return contentState.getEntity(entityKey).getType() === 'LINK';
-    }
-    // for strings or non link entity pasting
-    findWithRegex(RegExp('http+', 'g'), contentBlock, callback);
-  }, callback);
+const linkStrategy = (contentBlock, callback) => {
+  const expr = /(https:\/\/|http:\/\/|www\.)\w+(\.)[a-z+]/g;
+  findWithRegex(RegExp(expr), contentBlock, callback);
 };
 
 export default {

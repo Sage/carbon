@@ -4,25 +4,24 @@ import { StyledToolbar, StyledEditorStyleControls, StyledEditorActionControls } 
 import ToolbarButton from './toolbar-button/toolbar-button.component';
 import Button from '../../button';
 import Events from '../../../utils/helpers/events';
+import Icon from '../../icon';
 
 const Toolbar = ({
-  activeControls, isDisabled, onCancel, onSubmit, setBlockStyle, setInlineStyle, updateActiveControls
+  activeControls, isDisabled, onCancel, onSubmit, setBlockStyle, setInlineStyle
 }) => {
   const [showTooltip, setShowTooltip] = useState('');
 
   const handleInlineStyleChange = useCallback((ev, inlineType) => {
     setInlineStyle(inlineType);
     setShowTooltip('');
-    updateActiveControls(inlineType);
     ev.preventDefault();
-  }, [updateActiveControls, setInlineStyle]);
+  }, [setInlineStyle]);
 
   const handleBlockType = useCallback((ev, blockType) => {
     setBlockStyle(blockType);
     setShowTooltip('');
-    updateActiveControls(blockType);
     ev.preventDefault();
-  }, [updateActiveControls, setBlockStyle]);
+  }, [setBlockStyle]);
 
   const handleKeyDown = useCallback((ev, type) => {
     if (Events.isSpaceKey(ev) || Events.isEnterKey(ev)) {
@@ -38,36 +37,40 @@ const Toolbar = ({
     <StyledToolbar data-component='editor-toolbar'>
       <StyledEditorStyleControls>
         <ToolbarButton
+          ariaLabel='bold'
           onKeyDown={ ev => handleKeyDown(ev, 'BOLD') }
           onMouseDown={ ev => handleInlineStyleChange(ev, 'BOLD') }
           activated={ activeControls.BOLD }
           { ...tooltipProps('Bold', showTooltip, setShowTooltip) }
         >
-          B
+          <Icon type='bold' />
         </ToolbarButton>
         <ToolbarButton
+          ariaLabel='italic'
           onKeyDown={ ev => handleKeyDown(ev, 'ITALIC') }
           onMouseDown={ ev => handleInlineStyleChange(ev, 'ITALIC') }
           activated={ activeControls.ITALIC }
           { ...tooltipProps('Italic', showTooltip, setShowTooltip) }
         >
-          I
+          <Icon type='italic' />
         </ToolbarButton>
         <ToolbarButton
+          ariaLabel='bullet-list'
           onKeyDown={ ev => handleKeyDown(ev, 'unordered-list-item') }
           onMouseDown={ ev => handleBlockType(ev, 'unordered-list-item') }
           activated={ activeControls['unordered-list-item'] }
           { ...tooltipProps('Bulleted List', showTooltip, setShowTooltip) }
         >
-          *
+          <Icon type='bullet_list_dotted' />
         </ToolbarButton>
         <ToolbarButton
+          ariaLabel='number-list'
           onKeyDown={ ev => handleKeyDown(ev, 'ordered-list-item') }
           onMouseDown={ ev => handleBlockType(ev, 'ordered-list-item') }
           activated={ activeControls['ordered-list-item'] }
           { ...tooltipProps('Numbered List', showTooltip, setShowTooltip) }
         >
-          1
+          <Icon type='bullet_list_numbers' />
         </ToolbarButton>
       </StyledEditorStyleControls>
 
@@ -104,13 +107,11 @@ Toolbar.propTypes = {
   onCancel: PropTypes.func,
   onSubmit: PropTypes.func,
   setInlineStyle: PropTypes.func.isRequired,
-  setBlockStyle: PropTypes.func.isRequired,
-  updateActiveControls: PropTypes.func
+  setBlockStyle: PropTypes.func.isRequired
 };
 
 Toolbar.defaultProps = {
-  activeControls: {},
-  updateActiveControls: () => {}
+  activeControls: {}
 };
 
 export default Toolbar;

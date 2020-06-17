@@ -5,13 +5,13 @@ import Link from '../../link';
 const EditorLink = ({
   children, contentState, entityKey, ...rest
 }) => {
-  const url = contentState && entityKey ? contentState.getEntity(entityKey).getData() : children[0].props.text;
+  const url = !!contentState && !!entityKey ? contentState.getEntity(entityKey).getData() : children[0].props.text;
 
   return (
     <Link
-      href={ url }
-      title={ url }
-      aria-label={ url }
+      href={ url.url || url }
+      title={ url.url || url }
+      aria-label={ url.url || url }
       target='_blank'
       rel='noopener noreferrer'
       tabbable={ false } // set to true when in view mode

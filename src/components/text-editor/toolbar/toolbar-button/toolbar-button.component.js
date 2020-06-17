@@ -23,6 +23,7 @@ class ToolbarButton extends React.Component {
           onMouseDown={ this.props.onMouseDown }
           onBlur={ this.props.onMouseLeave }
           isActive={ this.props.activated }
+          aria-label={ this.props.ariaLabel }
         >
           { this.props.children }
         </StyledToolbarButton>
@@ -34,6 +35,7 @@ class ToolbarButton extends React.Component {
 }
 
 ToolbarButton.propTypes = {
+  ariaLabel: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   activated: PropTypes.bool,
   onKeyDown: PropTypes.func.isRequired,

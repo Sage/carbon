@@ -70,6 +70,7 @@ export default (palette) => {
 
     editor: {
       border: palette.slateTint(40),
+      counter: 'rgba(0,0,0,0.55)',
       placeholder: 'rgba(0,0,0,0.30)',
       button: {
         hover: palette.slateTint(80)

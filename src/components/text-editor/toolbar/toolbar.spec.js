@@ -217,13 +217,13 @@ describe('Toolbar', () => {
           jest.clearAllMocks();
         });
 
-        it(`sets the active background-color when '${id.toLowerCase()}' is active`, () => {
+        it(`sets expected background-color when '${id.toLowerCase()}' is active`, () => {
           assertStyleMatch({
             backgroundColor: baseTheme.editor.button.hover
           }, wrapper.find(ToolbarButton).at(index));
         });
 
-        it(`calls the expected callback when the '${id.toLowerCase()}' button is clicked`, () => {
+        it(`calls expected callback when the '${id.toLowerCase()}' button is clicked`, () => {
           wrapper.find(ToolbarButton).at(index).props().onMouseDown({ preventDefault: () => {} });
           if (index < 2) {
             expect(setInlineStyle).toHaveBeenCalledWith(id);
@@ -234,7 +234,7 @@ describe('Toolbar', () => {
           }
         });
 
-        it(`calls the expected callback when 'enter' key is pressed and '${id.toLowerCase()}' button is focused`, () => {
+        it(`calls expected callback when 'enter' key is pressed and '${id.toLowerCase()}' button is focused`, () => {
           act(() => {
             wrapper.find(StyledToolbarButton).at(index).props().onFocus();
           });
@@ -249,7 +249,7 @@ describe('Toolbar', () => {
           }
         });
 
-        it(`calls the expected callback when 'space' key is pressed and '${id.toLowerCase()}' button is focused`, () => {
+        it(`calls expected callback when 'space' key is pressed and '${id.toLowerCase()}' button is focused`, () => {
           act(() => {
             wrapper.find(StyledToolbarButton).at(index).props().onFocus();
           });
