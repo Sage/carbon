@@ -1,16 +1,9 @@
-name: CI
+name: Chromatic
 
-on:
-  push:
-    # We want to auto-accept these baselines
-    branches:
-      - master
-      - '[0-9]+.x'
-      - '[0-9]+.x.x'
-      - '[0-9]+.[0-9]+.x'
+on: push # We need chromatic to upload from every branch
 
 jobs:
-  visual-regression-release:
+  chromatic:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -24,5 +17,4 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-        exitOnceUploaded: true
-        autoAcceptChanges: true
+        exitOnceUploaded: true # We don't want it to fail CI, we'll be using the GitHub Check
