@@ -29,17 +29,3 @@ jobs:
         node-version: '12'
     - run: npm ci
     - run: npm test
-  visual-regression:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '12'
-    - run: npm ci
-    - uses: chromaui/action@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
