@@ -183,6 +183,7 @@ describe('ActionPopover', () => {
 
   beforeEach(() => {
     container = document.createElement('div');
+    container.id = 'enzymeContainer';
     document.body.appendChild(container);
     onClick.mockReset();
     onOpen.mockReset();
@@ -385,10 +386,12 @@ describe('ActionPopover', () => {
         });
 
         const { menu } = getElements();
-        assertStyleMatch({
-          display: 'block'
-        }, menu);
-        expect(onClose).toHaveBeenCalledTimes(0);
+
+        expect(
+          getComputedStyle(
+            menu.getDOMNode()
+          ).getPropertyValue('display')
+        ).toBe('block');
       });
 
       it('Clicking elsewhere on the document closes the menu', () => {
@@ -669,6 +672,7 @@ describe('ActionPopover', () => {
         <ActionPopover><p>invalid children</p></ActionPopover>
       </ThemeProvider>, container
     );
+    // eslint-disable-next-line no-console
     expect(console.error).toHaveBeenCalledWith('Warning: Failed prop type: `ActionPopover` only accepts children of'
     + ' type `WithTheme(ActionPopoverItem)` and `ActionPopoverDivider`.\n    in ActionPopover');
     global.console.error.mockReset();
@@ -1022,6 +1026,7 @@ describe('ActionPopover', () => {
           </ActionPopover>
         </ThemeProvider>, container
       );
+      // eslint-disable-next-line no-console
       expect(console.error).toHaveBeenCalledWith('Warning: Failed prop type: `WithTheme(ActionPopoverItem)` only'
       + ' accepts submenu of type `ActionPopoverMenu`\n    in WithTheme(ActionPopoverItem)');
       global.console.error.mockReset();
