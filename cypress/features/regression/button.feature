@@ -5,16 +5,6 @@ Feature: Button component
     Given I open "Button" component page knobs
 
   @positive
-  Scenario Outline: Set Button size to <size>
-    When I select size to "<size>"
-    Then Button height is "<height>"
-    Examples:
-      | size   | height |
-      | small  | 32     |
-      | medium | 40     |
-      | large  | 48     |
-
-  @positive
   Scenario Outline: Set Button subtext to <subtext>
     Given I select size to "large"
     When I set subtext to <subtext> word
@@ -33,11 +23,7 @@ Feature: Button component
       And Button background color is "<background-color>"
     Examples:
       | buttonType     | font-color         | background-color   |
-      | primary        | rgb(255, 255, 255) | rgb(0, 129, 93)    |
-      | secondary      | rgb(0, 129, 93)    | rgba(0, 0, 0, 0)   |
-      | tertiary       | rgb(0, 129, 93)    | rgba(0, 0, 0, 0)   |
       | darkBackground | rgb(0, 129, 93)    | rgb(255, 255, 255) |
-      | dashed         | rgba(0, 0, 0, 0.9) | rgba(0, 0, 0, 0)   |
 
   @positive
   Scenario Outline: Set Button component label to <label>
@@ -49,11 +35,6 @@ Feature: Button component
       | !@#$%^*()_+-=~[];:.,?{} |
   # @ignore because of FE-2782
   # | &"'<>|
-
-  @positive
-  Scenario: Disable Button
-    When I disable Button component
-    Then Button is disabled
 
   @positive
   Scenario: Disable and enable Button
@@ -83,8 +64,3 @@ Feature: Button component
     Given I check has icon checkbox
     When I select iconType to "arrow_left_small"
     Then Button icon is set to "arrow_left_small"
-
-  @positive
-  Scenario: Verify dashed outline
-    When I select buttonType to "dashed"
-    Then Button background style is "dashed"

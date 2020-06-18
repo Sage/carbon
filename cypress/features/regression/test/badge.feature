@@ -5,12 +5,6 @@ Feature: Badge component
     Given I open basic Test "Badge" component page
 
   @positive
-  Scenario: Badge component rendered properly
-    # commented because of BDD default scenario Given - When - Then
-    # When I open basic Test "Badge" component page
-    Then Badge component rendered properly
-
-  @positive
   Scenario Outline: Set Badge component to <counter>
     When I set counter to "<counter>"
     Then Badge component counter is set to <counter>

@@ -13,7 +13,6 @@ Feature: Search component
       | mp150ú¿¡üßä                  |
       | !@#$%^*()_+-=~[];:.,?{}&"'<> |
 
-  # will remove when Applitools will be implemented
   @positive
   Scenario: Verify proper color for search icon button
     Given Type "Sea" text into search input

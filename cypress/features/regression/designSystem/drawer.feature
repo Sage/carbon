@@ -45,15 +45,3 @@ Feature: Drawer component
   Scenario: Set expandedWidth to 62%
     When I click on expanded-width-62-drawer Drawers arrow 1 time
     Then Drawer "expanded-width-62-drawer" expandedWidth is set to "593.953125px"
-
-  @positive
-  Scenario: Drawer backgroundColor is set to yellow
-    # commented because of BDD default scenario Given - When - Then
-    # When I open "background-color-red-drawer" Drawer
-    Then Drawer "controlled-drawer" backgroundColor is set to "rgb(255, 240, 0)"
-
-  @positive
-  Scenario: Drawer backgroundColor is set to red
-    # commented because of BDD default scenario Given - When - Then
-    # When I open "background-color-red-drawer" Drawer
-    Then Drawer "background-color-red-drawer" backgroundColor is set to "rgb(255, 0, 0)"
