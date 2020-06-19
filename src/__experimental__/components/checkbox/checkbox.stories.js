@@ -93,13 +93,16 @@ function defaultKnobs(type) {
   });
 }
 
-function makeStory(name, themeSelector, component) {
+function makeStory(name, themeSelector, component, disableChromatic = true) {
   const metadata = {
     themeSelector,
     info: {
       text: info,
       propTablesExclude: [State],
       excludedPropTypes: ['children']
+    },
+    chromatic: {
+      disable: disableChromatic
     },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
@@ -241,7 +244,7 @@ const checkboxValidations = () => (
 
 storiesOf('Experimental/Checkbox', module)
   .add(...makeStory('default', dlsThemeSelector, checkboxComponent))
-  .add(...makeStory('classic', classicThemeSelector, checkboxComponent))
+  .add(...makeStory('classic', classicThemeSelector, checkboxComponent, false))
   .add(...makeStory('validations', dlsThemeSelector, checkboxValidations))
-  .add(...makeStory('validations classic', classicThemeSelector, checkboxValidations))
+  .add(...makeStory('validations classic', classicThemeSelector, checkboxValidations, false))
   .add(...makeStory('autoFocus', dlsThemeSelector, checkboxComponentAutoFocus));

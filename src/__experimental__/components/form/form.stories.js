@@ -41,7 +41,7 @@ const additionalFormActions = (innerText) => {
   };
 };
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = true) {
   const component = () => {
     const formActionOptions = ['', ...OptionsHelper.actionOptions];
     const unsavedWarning = boolean('unsavedWarning', true);
@@ -109,13 +109,16 @@ function makeStory(name, themeSelector) {
   };
 
   const metadata = {
-    themeSelector
+    themeSelector,
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
 }
 
-function makeFieldsetTextboxStory(name, themeSelector) {
+function makeFieldsetTextboxStory(name, themeSelector, disableChromatic = true) {
   const component = () => {
     const stickyFooter = boolean('stickyFooter', false);
     const legend = text('legend', '');
@@ -175,7 +178,10 @@ function makeFieldsetTextboxStory(name, themeSelector) {
   };
 
   const metadata = {
-    themeSelector
+    themeSelector,
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -192,6 +198,6 @@ storiesOf('Experimental/Form', module)
     knobs: { escapeHTML: false }
   })
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector, false))
   .add(...makeFieldsetTextboxStory('fieldset > textbox', dlsThemeSelector))
-  .add(...makeFieldsetTextboxStory('fieldset > textbox classic', classicThemeSelector));
+  .add(...makeFieldsetTextboxStory('fieldset > textbox classic', classicThemeSelector, false));

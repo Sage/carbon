@@ -181,13 +181,16 @@ const InputIntegration = () => {
   );
 };
 
-function makeStory(name, themeSelector, component) {
+function makeStory(name, themeSelector, component, disableChromatic = true) {
   const metadata = {
     themeSelector,
     info: {
       text: info,
       source: false,
       propTablesExclude: [State]
+    },
+    chromatic: {
+      disable: disableChromatic
     }
   };
 
@@ -196,4 +199,4 @@ function makeStory(name, themeSelector, component) {
 
 storiesOf('Experimental/Input Integration', module)
   .add(...makeStory('default', dlsThemeSelector, InputIntegration))
-  .add(...makeStory('classic', classicThemeSelector, InputIntegration));
+  .add(...makeStory('classic', classicThemeSelector, InputIntegration, false));

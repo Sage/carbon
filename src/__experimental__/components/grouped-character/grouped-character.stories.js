@@ -93,13 +93,16 @@ const validationsComponent = () => {
   );
 };
 
-function makeStory(name, themeSelector, component) {
+function makeStory(name, themeSelector, component, disableChromatic = true) {
   const metadata = {
     themeSelector,
     info: {
       text: info,
       propTables: [OriginalTextbox],
       propTablesExclude: [State]
+    },
+    chromatic: {
+      disable: disableChromatic
     },
     knobs: { escapeHTML: false }
   };
@@ -113,6 +116,6 @@ storiesOf('Experimental/GroupedCharacter', module)
     knobs: { escapeHTML: false }
   })
   .add(...makeStory('default', dlsThemeSelector, defaultComponent))
-  .add(...makeStory('classic', classicThemeSelector, defaultComponent))
+  .add(...makeStory('classic', classicThemeSelector, defaultComponent, false))
   .add(...makeStory('validations', dlsThemeSelector, validationsComponent))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent));
