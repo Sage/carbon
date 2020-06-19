@@ -75,5 +75,8 @@ storiesOf('__deprecated__/Date Input', module)
   }, {
     info: { text: info, propTablesExclude: [State] },
     notes: { markdown: notes },
-    themeSelector: classicThemeSelector
+    themeSelector: classicThemeSelector,
+    chromatic: {
+      disable: true
+    }
   });

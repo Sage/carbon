@@ -37,6 +37,9 @@ storiesOf('__deprecated__/Textbox', module)
       propTablesExclude: [State],
       text: info
     },
+    chromatic: {
+      disable: true
+    },
     notes: { markdown: notes },
     themeSelector: classicThemeSelector
   })
