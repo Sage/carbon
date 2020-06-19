@@ -22,7 +22,7 @@ SubmenuBlock.__docgenInfo = getDocGenInfo(
   /submenu-block(?!spec)/
 );
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const as = select('as', OptionsHelper.themesBinary, Menu.defaultProps.as);
 
@@ -53,7 +53,10 @@ function makeStory(name, themeSelector) {
 
   const metadata = {
     themeSelector,
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -61,4 +64,4 @@ function makeStory(name, themeSelector) {
 
 storiesOf('Menu', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

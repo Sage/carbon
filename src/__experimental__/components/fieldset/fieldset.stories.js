@@ -15,7 +15,7 @@ Fieldset.__docgenInfo = getDocGenInfo(
   /fieldset\.component(?!spec)/
 );
 
-function makeStory(name, themeSelector, disableChromatic = true) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const legend = text('legend', '');
 
@@ -147,4 +147,4 @@ storiesOf('Experimental/Fieldset', module)
   })
   .add(...makeStory('default', dlsThemeSelector))
   .add(...makeValidationsStory('validations'))
-  .add(...makeStory('classic', classicThemeSelector, false));
+  .add(...makeStory('classic', classicThemeSelector, true));

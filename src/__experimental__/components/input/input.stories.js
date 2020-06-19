@@ -181,7 +181,7 @@ const InputIntegration = () => {
   );
 };
 
-function makeStory(name, themeSelector, component, disableChromatic = true) {
+function makeStory(name, themeSelector, component, disableChromatic = false) {
   const metadata = {
     themeSelector,
     info: {
@@ -199,4 +199,4 @@ function makeStory(name, themeSelector, component, disableChromatic = true) {
 
 storiesOf('Experimental/Input Integration', module)
   .add(...makeStory('default', dlsThemeSelector, InputIntegration))
-  .add(...makeStory('classic', classicThemeSelector, InputIntegration, false));
+  .add(...makeStory('classic', classicThemeSelector, InputIntegration, true));

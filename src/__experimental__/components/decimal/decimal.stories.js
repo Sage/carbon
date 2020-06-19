@@ -141,7 +141,7 @@ const autoFocusComponent = () => {
   return defaultComponent();
 };
 
-function makeStory(name, themeSelector, component, disableChromatic = true) {
+function makeStory(name, themeSelector, component, disableChromatic = false) {
   const metadata = {
     themeSelector,
     notes: { markdown: notes },
@@ -163,6 +163,6 @@ storiesOf('Experimental/Decimal Input', module)
     }
   })
   .add(...makeStory('default', dlsThemeSelector, defaultComponent))
-  .add(...makeStory('classic', classicThemeSelector, defaultComponent, false))
+  .add(...makeStory('classic', classicThemeSelector, defaultComponent, true))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent))
   .add(...makeStory('validations', dlsThemeSelector, componentWithValidations));

@@ -31,7 +31,7 @@ const handleGroupChangeFactory = store => (event) => {
   action('onChange')(value);
 };
 
-function makeStory(name, themeSelector, component, disableChromatic = true) {
+function makeStory(name, themeSelector, component, disableChromatic = false) {
   const metadata = {
     themeSelector,
     info: {
@@ -217,6 +217,6 @@ storiesOf('Experimental/RadioButton', module)
     }
   })
   .add(...makeStory('default', dlsThemeSelector, radioComponent()))
-  .add(...makeStory('classic', classicThemeSelector, radioComponent('classic'), false))
+  .add(...makeStory('classic', classicThemeSelector, radioComponent('classic'), true))
   .add(...makeStory('validations', dlsThemeSelector, radioComponentWithValidation()))
-  .add(...makeStory('validations classic', classicThemeSelector, radioComponentWithValidation('classic'), false));
+  .add(...makeStory('validations classic', classicThemeSelector, radioComponentWithValidation('classic'), true));

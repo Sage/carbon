@@ -54,7 +54,7 @@ const Wrapper = ({
 Wrapper.propTypes = { ...AnimatedMenuButton.propTypes };
 Wrapper.displayName = 'AnimatedMenuButton';
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const direction = select('direction', OptionsHelper.alignBinary, OptionsHelper.alignBinary[1]);
     const label = text('label', '');
@@ -89,7 +89,10 @@ function makeStory(name, themeSelector) {
 
   const metadata = {
     themeSelector,
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -103,4 +106,4 @@ storiesOf('Animated Menu Button', module)
     }
   })
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

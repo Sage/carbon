@@ -14,7 +14,7 @@ Link.__docgenInfo = getDocGenInfo(
   /link\.component(?!spec)/
 );
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const children = text('children', 'Link');
     const disabled = boolean('disabled', false);
@@ -66,7 +66,10 @@ function makeStory(name, themeSelector) {
     themeSelector,
     info: { text: Info },
     notes: { markdown: notes },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -74,4 +77,4 @@ function makeStory(name, themeSelector) {
 
 storiesOf('Link', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

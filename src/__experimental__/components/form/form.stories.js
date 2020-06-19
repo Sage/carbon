@@ -41,7 +41,7 @@ const additionalFormActions = (innerText) => {
   };
 };
 
-function makeStory(name, themeSelector, disableChromatic = true) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const formActionOptions = ['', ...OptionsHelper.actionOptions];
     const unsavedWarning = boolean('unsavedWarning', true);
@@ -118,7 +118,7 @@ function makeStory(name, themeSelector, disableChromatic = true) {
   return [name, component, metadata];
 }
 
-function makeFieldsetTextboxStory(name, themeSelector, disableChromatic = true) {
+function makeFieldsetTextboxStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const stickyFooter = boolean('stickyFooter', false);
     const legend = text('legend', '');
@@ -198,6 +198,6 @@ storiesOf('Experimental/Form', module)
     knobs: { escapeHTML: false }
   })
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector, false))
+  .add(...makeStory('classic', classicThemeSelector, true))
   .add(...makeFieldsetTextboxStory('fieldset > textbox', dlsThemeSelector))
-  .add(...makeFieldsetTextboxStory('fieldset > textbox classic', classicThemeSelector, false));
+  .add(...makeFieldsetTextboxStory('fieldset > textbox classic', classicThemeSelector, true));

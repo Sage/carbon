@@ -157,7 +157,7 @@ const customFilterComponent = () => {
   );
 };
 
-function makeStory(name, themeSelector, component, disableChromatic = true) {
+function makeStory(name, themeSelector, component, disableChromatic = false) {
   const metadata = {
     themeSelector,
     chromatic: {
@@ -297,7 +297,7 @@ storiesOf('Experimental/Select', module)
     knobs: { escapeHTML: false }
   })
   .add(...makeStory('default', dlsThemeSelector, defaultComponent))
-  .add(...makeStory('classic', classicThemeSelector, defaultComponent, false))
+  .add(...makeStory('classic', classicThemeSelector, defaultComponent, true))
   .add(...makeMultipleStory('multiple', dlsThemeSelector))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent))

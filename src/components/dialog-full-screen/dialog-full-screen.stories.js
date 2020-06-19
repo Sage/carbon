@@ -33,7 +33,7 @@ const handleClick = (evt) => {
   action('click')(evt);
 };
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const title = text('title', 'Example Dialog');
     const subtitle = text('subtitle', 'Example Subtitle');
@@ -66,13 +66,16 @@ function makeStory(name, themeSelector) {
   };
 
   const metadata = {
-    themeSelector
+    themeSelector,
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
 }
 
-function makeStickyFooterStory(name, themeSelector) {
+function makeStickyFooterStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const title = text('title', 'Example Dialog');
     const subtitle = text('subtitle', 'Example Subtitle');
@@ -109,7 +112,10 @@ function makeStickyFooterStory(name, themeSelector) {
   };
 
   const metadata = {
-    themeSelector
+    themeSelector,
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -125,6 +131,6 @@ storiesOf('Dialog Full Screen', module)
     knobs: { escapeHTML: false }
   })
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector, true))
   .add(...makeStickyFooterStory('with sticky footer', dlsThemeSelector))
-  .add(...makeStickyFooterStory('with sticky footer classic', classicThemeSelector));
+  .add(...makeStickyFooterStory('with sticky footer classic', classicThemeSelector, true));

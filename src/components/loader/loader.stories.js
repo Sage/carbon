@@ -24,7 +24,7 @@ const styles = {
   textAlign: 'left'
 };
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const size = select('size', OptionsHelper.sizesBinary, Loader.defaultProps.size);
     const isInsideButton = boolean('isInsideButton', false);
@@ -49,13 +49,16 @@ function makeStory(name, themeSelector) {
       text: info,
       propTablesExclude: [Button]
     },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
 }
 
-function makeLegacySpinnerStory(name, themeSelector) {
+function makeLegacySpinnerStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const type = select('as', OptionsHelper.colors, Spinner.defaultProps.as);
     const size = select('size', OptionsHelper.sizesFull, Spinner.defaultProps.size);
@@ -66,7 +69,10 @@ function makeLegacySpinnerStory(name, themeSelector) {
   const metadata = {
     themeSelector,
     info: { text: infoSpinner },
-    notes: { markdown: notesSpinner }
+    notes: { markdown: notesSpinner },
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -74,6 +80,6 @@ function makeLegacySpinnerStory(name, themeSelector) {
 
 storiesOf('Loader', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector, true))
   .add(...makeLegacySpinnerStory('legacy spinner', dlsThemeSelector))
-  .add(...makeLegacySpinnerStory('legacy spinner classic', classicThemeSelector));
+  .add(...makeLegacySpinnerStory('legacy spinner classic', classicThemeSelector, true));

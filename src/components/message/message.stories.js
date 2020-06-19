@@ -13,7 +13,7 @@ Message.__docgenInfo = getDocGenInfo(
   /message\.component(?!spec)/
 );
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const variant = select('type', OptionsHelper.messages, Message.defaultProps.variant);
     const open = boolean('open', Message.defaultProps.open);
@@ -40,7 +40,10 @@ function makeStory(name, themeSelector) {
   const metadata = {
     themeSelector,
     notes: { markdown: notes },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -48,4 +51,4 @@ function makeStory(name, themeSelector) {
 
 storiesOf('Message', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

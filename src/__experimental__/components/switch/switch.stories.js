@@ -52,7 +52,7 @@ validationTypes.forEach((type) => {
   };
 });
 
-function makeStory(name, themeSelector, component, disableChromatic = true) {
+function makeStory(name, themeSelector, component, disableChromatic = false) {
   const metadata = {
     themeSelector,
     knobs: { escapeHTML: false },
@@ -231,6 +231,7 @@ storiesOf('Experimental/Switch', module)
     info: { text: info, propTablesExclude: [State] }
   })
   .add(...makeStory('default', dlsThemeSelector, switchComponent))
-  .add(...makeStory('classic', classicThemeSelector, switchClassic, false))
+  .add(...makeStory('classic', classicThemeSelector, switchClassic, true))
   .add(...makeStory('validations', dlsThemeSelector, switchComponentValidation('validations')))
-  .add(...makeStory('validations classic', classicThemeSelector, switchComponentValidation('validationsclassic'), false));
+  .add(...makeStory('validations classic', classicThemeSelector,
+    switchComponentValidation('validationsclassic'), true));

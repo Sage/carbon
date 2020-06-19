@@ -181,7 +181,7 @@ basic.story = {
   parameters: {
     info: { disable: true },
     docs: { page: null },
-    chromatic: { viewports: [320, 1200] }
+    chromatic: { viewports: [1500, 1300, 900] }
   }
 };
 
@@ -449,12 +449,16 @@ Visual.story = {
   name: 'visual',
   parameters: {
     info: { disable: true },
-    docs: { page: null }
+    docs: { page: null },
+    chromatic: { viewports: [1500, 1300, 900] }
   }
 };
 
 export default {
   title: 'Test/Grid',
   component: GridContainer,
-  decorators: [withKnobs]
+  decorators: [withKnobs],
+  chromatic: {
+    disable: true
+  }
 };

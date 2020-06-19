@@ -27,7 +27,7 @@ const defaultStoryPropsConfig = {
   inputWidthEnabled: true
 };
 
-function makeStory(name, themeSelector, component, disableChromatic = true) {
+function makeStory(name, themeSelector, component, disableChromatic = false) {
   const metadata = {
     themeSelector,
     info: {
@@ -89,7 +89,7 @@ const multipleTextboxAutoFocus = () => {
 };
 
 
-function makeValidationsStory(name, themeSelector, disableChromatic = true) {
+function makeValidationsStory(name, themeSelector, disableChromatic = false) {
   const validationTypes = ['error', 'warning', 'info'];
   const component = () => {
     return (
@@ -154,10 +154,10 @@ const previous = {
 
 storiesOf('Experimental/Textbox', module)
   .add(...makeStory('default', dlsThemeSelector, defaultTextbox))
-  .add(...makeStory('classic', classicThemeSelector, defaultTextbox, false))
+  .add(...makeStory('classic', classicThemeSelector, defaultTextbox, true))
   .add(...makeStory('multiple', dlsThemeSelector, multipleTextbox))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
-  .add(...makeValidationsStory('validations classic', classicThemeSelector, false))
+  .add(...makeValidationsStory('validations classic', classicThemeSelector, true))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusTextbox))
   .add(...makeStory('multiple autoFocus', dlsThemeSelector, multipleTextboxAutoFocus));
 

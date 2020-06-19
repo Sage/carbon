@@ -62,7 +62,7 @@ const autoFocusDateComponent = () => {
   return dateComponent();
 };
 
-function makeStory(name, themeSelector, component, disableChromatic = true) {
+function makeStory(name, themeSelector, component, disableChromatic = false) {
   const metadata = {
     themeSelector,
     info: {
@@ -164,7 +164,7 @@ const EmptyDateComponent = () => {
 storiesOf('Experimental/Date Input', module)
   .addDecorator(StateDecorator(store))
   .add(...makeStory('default', dlsThemeSelector, dateComponent))
-  .add(...makeStory('classic', classicThemeSelector, dateComponent, false))
+  .add(...makeStory('classic', classicThemeSelector, dateComponent, true))
   .add(...makeStory('empty', dlsThemeSelector, EmptyDateComponent))
   .add(...makeStory('validations', dlsThemeSelector, ValidationDateComponent))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusDateComponent));

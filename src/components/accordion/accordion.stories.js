@@ -15,7 +15,10 @@ export default {
     info: {
       disable: true
     },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    chromatic: {
+      disabled: true
+    }
   }
 };
 
@@ -69,3 +72,19 @@ export const Grouped = () => (
     </Accordion>
   </AccordionGroup>
 );
+
+Basic.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
+};
+
+Grouped.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
+};

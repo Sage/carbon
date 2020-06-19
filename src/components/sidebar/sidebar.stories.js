@@ -34,7 +34,7 @@ const openSidebar = () => {
   store.set({ open: true });
 };
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const enableBackgroundUI = boolean('enableBackgroundUI', Sidebar.defaultProps.enableBackgroundUI);
     const position = select('position', OptionsHelper.alignBinary, Sidebar.defaultProps.position);
@@ -54,13 +54,16 @@ function makeStory(name, themeSelector) {
   };
 
   const metadata = {
-    themeSelector
+    themeSelector,
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
 }
 
-function makeButtonStory(name, themeSelector) {
+function makeButtonStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const enableBackgroundUI = boolean('enableBackgroundUI', Sidebar.defaultProps.enableBackgroundUI);
     const position = select('position', OptionsHelper.alignBinary, Sidebar.defaultProps.position);
@@ -89,7 +92,10 @@ function makeButtonStory(name, themeSelector) {
   };
 
   const metadata = {
-    themeSelector
+    themeSelector,
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -106,6 +112,6 @@ storiesOf('Sidebar', module)
     }
   })
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector, true))
   .add(...makeButtonStory('with button', dlsThemeSelector))
-  .add(...makeButtonStory('with button classic', classicThemeSelector));
+  .add(...makeButtonStory('with button classic', classicThemeSelector, true));

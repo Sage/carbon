@@ -15,7 +15,10 @@ export default {
   component: Drawer,
   title: 'Test/Drawer',
   parameters: {
-    info: { disable: true }
+    info: { disable: true },
+    chromatic: {
+      disable: true
+    }
   }
 };
 
@@ -311,5 +314,10 @@ export const Visual = () => {
 };
 
 Visual.story = {
-  name: 'visual'
+  name: 'visual',
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
 };

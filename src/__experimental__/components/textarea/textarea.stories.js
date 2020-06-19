@@ -100,7 +100,7 @@ const autoFocusComponent = () => {
   return defaultComponent();
 };
 
-function makeStory(name, themeSelector, component, disableChromatic = true) {
+function makeStory(name, themeSelector, component, disableChromatic = false) {
   const metadata = {
     themeSelector,
     info: { text: info, propTables: [OriginalTextarea], propTablesExclude: [Textarea] },
@@ -113,7 +113,7 @@ function makeStory(name, themeSelector, component, disableChromatic = true) {
   return [name, component, metadata];
 }
 
-function makeValidationsStory(name, themeSelector, disableChromatic = true) {
+function makeValidationsStory(name, themeSelector, disableChromatic = false) {
   const validationTypes = ['error', 'warning', 'info'];
   const component = () => {
     return (
@@ -177,7 +177,7 @@ storiesOf('Experimental/Textarea', module)
     }
   })
   .add(...makeStory('default', dlsThemeSelector, defaultComponent))
-  .add(...makeStory('classic', classicThemeSelector, defaultComponent, false))
+  .add(...makeStory('classic', classicThemeSelector, defaultComponent, true))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
-  .add(...makeValidationsStory('validations classic', classicThemeSelector, false))
+  .add(...makeValidationsStory('validations classic', classicThemeSelector, true))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent));

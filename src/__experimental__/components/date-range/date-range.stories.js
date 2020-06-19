@@ -23,7 +23,7 @@ const handleChange = (evt) => {
   action('changed')(evt.target.value);
 };
 
-function makeStory(name, themeSelector, disableChromatic = true) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const startLabel = text('startLabel', '');
     const endLabel = text('endLabel', '');
@@ -199,4 +199,4 @@ function makeValidationStory(name, themeSelector) {
 storiesOf('Experimental/Date Range', module)
   .add(...makeStory('default', dlsThemeSelector))
   .add(...makeValidationStory('validations', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector, false));
+  .add(...makeStory('classic', classicThemeSelector, true));
