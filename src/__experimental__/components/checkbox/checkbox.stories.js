@@ -11,7 +11,6 @@ import { Checkbox, CheckboxGroup } from '.';
 import { info, notes } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 import AutoFocus from '../../../utils/helpers/auto-focus';
-import guid from '../../../utils/helpers/guid';
 
 Checkbox.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -44,12 +43,8 @@ const groupStore = new Store({
   three: false
 });
 
-const previous = {
-  key: guid(),
-  autoFocus: false
-};
 
-function defaultKnobs(type) {
+function defaultKnobs(type, autoFocusDefault = false) {
   let theType = '';
   if (type === undefined) {
     theType = 'default';
@@ -57,7 +52,11 @@ function defaultKnobs(type) {
     theType = type;
   }
   const label = `${text('label', 'Example Checkbox', type)} (${theType})`;
-  const autoFocus = boolean('autoFocus', false, type);
+  const autoFocus = boolean('autoFocus', autoFocusDefault, type);
+  const previous = {
+    key: 'checkbox',
+    autoFocus: autoFocusDefault
+  };
   const key = AutoFocus.getKey(autoFocus, previous);
 
   return ({
@@ -132,20 +131,15 @@ function handleGroupChange(ev, id) {
   });
 }
 
-const checkboxComponent = () => {
+const checkboxComponent = (autoFocus = false) => () => {
   return (
     <State store={ checkboxes.default.store }>
       <Checkbox
         onChange={ ev => handleChange(ev, 'default') }
-        { ...defaultKnobs() }
+        { ...defaultKnobs(undefined, autoFocus) }
       />
     </State>
   );
-};
-
-const checkboxComponentAutoFocus = () => {
-  boolean('autoFocus', true, 'Checkbox default');
-  return checkboxComponent();
 };
 
 const checkboxValidations = () => (
@@ -243,8 +237,8 @@ const checkboxValidations = () => (
 );
 
 storiesOf('Experimental/Checkbox', module)
-  .add(...makeStory('default', dlsThemeSelector, checkboxComponent))
-  .add(...makeStory('classic', classicThemeSelector, checkboxComponent, true))
+  .add(...makeStory('default', dlsThemeSelector, checkboxComponent()))
+  .add(...makeStory('classic', classicThemeSelector, checkboxComponent(), true))
   .add(...makeStory('validations', dlsThemeSelector, checkboxValidations))
   .add(...makeStory('validations classic', classicThemeSelector, checkboxValidations, true))
-  .add(...makeStory('autoFocus', dlsThemeSelector, checkboxComponentAutoFocus));
+  .add(...makeStory('autoFocus', dlsThemeSelector, checkboxComponent(true)));

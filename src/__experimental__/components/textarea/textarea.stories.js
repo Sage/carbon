@@ -11,7 +11,6 @@ import { notes, info } from './documentation';
 import { OriginalTextarea } from './textarea.component';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 import AutoFocus from '../../../utils/helpers/auto-focus';
-import guid from '../../../utils/helpers/guid';
 
 OriginalTextarea.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -39,17 +38,17 @@ const percentageRange = {
   step: 1
 };
 
-const previous = {
-  key: guid(),
-  autoFocus: false
-};
 
-const defaultComponent = () => {
+const defaultComponent = (autoFocusDefault = false) => () => {
+  const previous = {
+    key: 'textarea',
+    autoFocus: autoFocusDefault
+  };
   const expandable = boolean('expandable', Textarea.defaultProps.expandable);
   const cols = number('cols', 0, rangeOptions);
   const rows = number('rows', 0, rangeOptions);
   const disabled = boolean('disabled', false);
-  const autoFocus = boolean('autoFocus', false);
+  const autoFocus = boolean('autoFocus', autoFocusDefault);
   const readOnly = boolean('readOnly', false);
   const placeholder = text('placeholder', '');
   const fieldHelp = text('fieldHelp', '');
@@ -93,11 +92,6 @@ const defaultComponent = () => {
       />
     </State>
   );
-};
-
-const autoFocusComponent = () => {
-  boolean('autoFocus', true);
-  return defaultComponent();
 };
 
 function makeStory(name, themeSelector, component, disableChromatic = false) {
@@ -176,8 +170,8 @@ storiesOf('Experimental/Textarea', module)
       propTablesExclude: [State]
     }
   })
-  .add(...makeStory('default', dlsThemeSelector, defaultComponent))
-  .add(...makeStory('classic', classicThemeSelector, defaultComponent, true))
+  .add(...makeStory('default', dlsThemeSelector, defaultComponent()))
+  .add(...makeStory('classic', classicThemeSelector, defaultComponent(), true))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
   .add(...makeValidationsStory('validations classic', classicThemeSelector, true))
-  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent));
+  .add(...makeStory('autoFocus', dlsThemeSelector, defaultComponent(true)));

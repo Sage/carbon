@@ -13,7 +13,6 @@ import Textbox, { OriginalTextbox } from '.';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 import AutoFocus from '../../../utils/helpers/auto-focus';
-import guid from '../../../utils/helpers/guid';
 
 OriginalTextbox.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -55,11 +54,10 @@ const defaultTextbox = () => {
 };
 
 const autoFocusTextbox = () => {
-  boolean('autoFocus', true);
   return (
     <Textbox
       placeholder={ text('placeholder') }
-      { ...getCommonTextboxProps() }
+      { ...getCommonTextboxProps(defaultStoryPropsConfig, true) }
     />
   );
 };
@@ -147,10 +145,6 @@ function makeValidationsStory(name, themeSelector, disableChromatic = false) {
   return [name, component, metadata];
 }
 
-const previous = {
-  key: guid(),
-  autoFocus: false
-};
 
 storiesOf('Experimental/Textbox', module)
   .add(...makeStory('default', dlsThemeSelector, defaultTextbox))
@@ -162,7 +156,11 @@ storiesOf('Experimental/Textbox', module)
   .add(...makeStory('multiple autoFocus', dlsThemeSelector, multipleTextboxAutoFocus));
 
 // eslint-disable-next-line
-export function getCommonTextboxProps(config = defaultStoryPropsConfig) {
+export function getCommonTextboxProps(config = defaultStoryPropsConfig, autoFocusDefault = false) {
+  const previous = {
+    key: 'textbox',
+    autoFocus: autoFocusDefault
+  };
   const percentageRange = {
     range: true,
     min: 0,
@@ -171,7 +169,7 @@ export function getCommonTextboxProps(config = defaultStoryPropsConfig) {
   };
   const disabled = boolean('disabled', false);
   const readOnly = boolean('readOnly', false);
-  const autoFocus = boolean('autoFocus', false);
+  const autoFocus = boolean('autoFocus', autoFocusDefault);
   const fieldHelp = text('fieldHelp');
   const label = text('label', 'Label');
   const labelHelp = label ? text('labelHelp') : undefined;
