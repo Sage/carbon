@@ -11,7 +11,7 @@ Create.__docgenInfo = getDocGenInfo(
   /create\.component(?!spec)/
 );
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const children = text('children', 'Resource Name');
     const className = text('className', '');
@@ -27,7 +27,10 @@ function makeStory(name, themeSelector) {
 
   const metadata = {
     themeSelector,
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -35,4 +38,4 @@ function makeStory(name, themeSelector) {
 
 storiesOf('Create', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

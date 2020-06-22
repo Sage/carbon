@@ -36,9 +36,6 @@ storiesOf('Carousel', module)
     info: {
       propTablesExclude: [Slide, Carousel, ExampleCustomElement, ThemeProvider],
       propTables: [BaseCarousel]
-    },
-    chromatic: {
-      disable: true
     }
   })
   .add('classic', () => {
@@ -84,7 +81,10 @@ storiesOf('Carousel', module)
       </ThemeProvider>
     );
   }, {
-    themeSelector: classicThemeSelector
+    themeSelector: classicThemeSelector,
+    chromatic: {
+      disable: true
+    }
   })
   .add('default', () => {
     const indexConfig = [0, 1, 2, 3, 4];
@@ -129,5 +129,11 @@ storiesOf('Carousel', module)
     );
   }, {
     themeSelector: dlsThemeSelector,
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    // disabled because of chromatic lack of possibility to render story
+    // Your story couldn’t be captured because it exceeds our 25,000,000px limit.
+    // Its dimensions are 1,200x25,498px. Possible ways to resolve
+    chromatic: {
+      disable: true
+    }
   });

@@ -16,6 +16,9 @@ storiesOf('__deprecated__/Fieldset', module)
   .addParameters({
     info: {
       propTablesExclude: [Textbox]
+    },
+    chromatic: {
+      disable: true
     }
   })
   .add('classic', () => {

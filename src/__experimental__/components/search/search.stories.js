@@ -17,7 +17,10 @@ export default {
     info: {
       disable: true
     },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    chromatic: {
+      disabled: true
+    }
   }
 };
 
@@ -53,4 +56,12 @@ export const Basic = () => {
       id='search_id'
     />
   );
+};
+
+Basic.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
 };

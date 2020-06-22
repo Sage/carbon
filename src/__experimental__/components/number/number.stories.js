@@ -85,7 +85,7 @@ const autoFocusComponent = () => {
   return defaultComponent();
 };
 
-function makeStory(name, themeSelector, component) {
+function makeStory(name, themeSelector, component, disableChromatic = false) {
   const metadata = {
     themeSelector,
     info: {
@@ -93,6 +93,9 @@ function makeStory(name, themeSelector, component) {
       propTables: [OriginalTextbox],
       propTablesExclude: [Number, State, Textbox],
       excludedPropTypes: ['children', 'leftChildren', 'inputIcon']
+    },
+    chromatic: {
+      disable: disableChromatic
     },
     notes: { markdown: notes }
   };
@@ -103,6 +106,6 @@ function makeStory(name, themeSelector, component) {
 storiesOf('Experimental/Number Input', module)
   .addDecorator(StateDecorator(store))
   .add(...makeStory('default', dlsThemeSelector, defaultComponent))
-  .add(...makeStory('classic', classicThemeSelector, defaultComponent))
+  .add(...makeStory('classic', classicThemeSelector, defaultComponent, true))
   .add(...makeStory('validations', dlsThemeSelector, validationsComponent))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent));

@@ -13,7 +13,12 @@ import Icon from '../icon';
 export default {
   title: 'Test/Batch Selection',
   component: BatchSelection,
-  decorators: [withKnobs]
+  decorators: [withKnobs],
+  parameters: {
+    chromatic: {
+      disable: true
+    }
+  }
 };
 
 export const basic = () => {
@@ -39,6 +44,9 @@ basic.story = {
     info: { disable: true },
     docs: {
       page: null
+    },
+    chromatic: {
+      disable: false
     }
   }
 };

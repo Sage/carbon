@@ -17,7 +17,7 @@ StepSequenceItem.__docgenInfo = getDocGenInfo(
   /step-sequence-item\.component(?!spec)/
 );
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const orientation = select('orientation', OptionsHelper.orientation, StepSequence.defaultProps.orientation);
 
@@ -73,7 +73,10 @@ function makeStory(name, themeSelector) {
   };
 
   const metadata = {
-    themeSelector
+    themeSelector,
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -81,4 +84,4 @@ function makeStory(name, themeSelector) {
 
 storiesOf('Step Sequence', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

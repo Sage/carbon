@@ -111,6 +111,11 @@ Your branch should meet the following criteria:
 
 **To be merged, the pull request must be approved by at least two project maintainers**
 
+#### GitHub Checks
+Our GitHub checks don't run on a forked PR because the Chromatic and Cypress Dashboard require credentials. When you submit a PR a project maintainer will review your code.
+If there are no changes that could expose our credentials they will use [`git-push-fork-to-upstream-branch`](https://github.com/jklukas/git-push-fork-to-upstream-branch) to
+copy your branch into our repo. Doing this will trigger a `push` build and your PR checks will be updated. This is documented on the [Circle CI blog](https://circleci.com/blog/triggering-trusted-ci-jobs-on-untrusted-forks/).
+
 ## Styleguides
 ### Git commit messages
 We use the [`conventional-commits`](https://www.conventionalcommits.org/en/v1.0.0/) commit message format. This specification is a lightweight convention on top of commit messages. It provides an easy set of rules for creating an explicit commit history; which makes it easier to write automated tools on top of. This convention dovetails with [SemVer](https://semver.org/), by describing the features, fixes, and breaking changes made in commit messages.

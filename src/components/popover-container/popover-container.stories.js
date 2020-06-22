@@ -10,6 +10,9 @@ export default {
     info: { disable: true },
     docs: {
       page: null
+    },
+    chromatic: {
+      disable: true
     }
   }
 };
@@ -20,4 +23,12 @@ export const Basic = () => {
   return (
     <PopoverContainer title={ title } />
   );
+};
+
+Basic.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
 };

@@ -102,7 +102,7 @@ const PageState = props => new CustomState(props);
 const indexConfig = [0, 1, 2];
 const pageIndex = () => select('pageIndex', indexConfig, indexConfig[0]);
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     return (
       <div>
@@ -141,6 +141,9 @@ function makeStory(name, themeSelector) {
     info: {
       text: <p>Allows to slide to different pages in a full screen dialog.</p>,
       propTablesExclude: [Button, DialogFullScreen, DialogState, PageState, DefaultPages, Page, State]
+    },
+    chromatic: {
+      disable: disableChromatic
     }
   };
 
@@ -149,4 +152,4 @@ function makeStory(name, themeSelector) {
 
 storiesOf('Pages', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

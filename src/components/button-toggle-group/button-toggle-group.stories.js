@@ -23,6 +23,9 @@ export default {
     info: {
       disable: true
     },
+    chromatic: {
+      disable: true
+    },
     propTablesInclude: [ButtonToggle, ButtonToggleGroup]
   }
 };
@@ -190,6 +193,41 @@ export const Classic = () => {
 Classic.story = {
   name: 'classic',
   parameters: {
-    themeSelector: classicThemeSelector
+    themeSelector: classicThemeSelector,
+    chromatic: {
+      disable: true
+    }
+  }
+};
+
+Basic.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
+};
+
+BasicGrouped.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
+};
+
+ValidationsGrouped.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
+};
+
+Validations.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
   }
 };

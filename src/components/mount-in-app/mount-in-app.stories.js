@@ -11,7 +11,7 @@ MountInApp.__docgenInfo = getDocGenInfo(
   /mount-in-app.js(?!spec)/
 );
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     return (
       <div>
@@ -60,7 +60,10 @@ function makeStory(name, themeSelector) {
         </div>
       )
     },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -68,4 +71,4 @@ function makeStory(name, themeSelector) {
 
 storiesOf('Mount In App', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

@@ -17,6 +17,9 @@ export default {
     themeSelector: dlsThemeSelector,
     info: {
       disable: true
+    },
+    chromatic: {
+      disable: true
     }
   }
 };
@@ -167,4 +170,20 @@ export const InDialog = () => {
       </Dialog>
     </>
   );
+};
+
+Basic.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
+};
+
+InDialog.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
 };

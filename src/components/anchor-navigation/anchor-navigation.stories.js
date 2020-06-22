@@ -33,6 +33,9 @@ export default {
     themeSelector: dlsThemeSelector,
     info: {
       disable: true
+    },
+    chromatic: {
+      disabled: true
     }
   }
 };
@@ -221,4 +224,28 @@ export const WithOverridenStyles = () => {
       </div>
     </AnchorNavigation>
   );
+};
+
+Basic.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
+};
+
+InFullScreenDialog.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
+};
+
+WithOverridenStyles.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
 };

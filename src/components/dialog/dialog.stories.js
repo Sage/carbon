@@ -40,7 +40,7 @@ const handleClick = (evt) => {
   action('click')(evt);
 };
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const height = text('height', '400');
     const title = text('title', 'Example Dialog');
@@ -130,7 +130,10 @@ function makeStory(name, themeSelector) {
       ]
     },
     notes: { markdown: notes },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -138,4 +141,4 @@ function makeStory(name, themeSelector) {
 
 storiesOf('Dialog', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

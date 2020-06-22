@@ -12,7 +12,7 @@ Filter.__docgenInfo = getDocGenInfo(
   /filter(?!spec)/
 );
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const align = select('labelAlign', OptionsHelper.alignBinary);
 
@@ -31,7 +31,10 @@ function makeStory(name, themeSelector) {
   };
 
   const metadata = {
-    themeSelector
+    themeSelector,
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -44,4 +47,4 @@ storiesOf('Filter Component', module)
     }
   })
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

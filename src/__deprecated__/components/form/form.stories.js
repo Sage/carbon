@@ -21,6 +21,9 @@ storiesOf('__deprecated__/Form', module)
     info: {
       text: Info,
       propTablesExclude: [Textbox]
+    },
+    chromatic: {
+      disable: true
     }
   })
   .add('classic', () => {

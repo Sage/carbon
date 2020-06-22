@@ -77,7 +77,7 @@ const BuildRows = props => (
   ))
 );
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const autoScroll = boolean('autoScroll', true);
 
@@ -108,7 +108,10 @@ function makeStory(name, themeSelector) {
   const metadata = {
     themeSelector,
     info: { text: Info },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -129,4 +132,4 @@ storiesOf('DraggableContext', module)
     }
   })
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

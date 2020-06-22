@@ -10,6 +10,9 @@ export default {
   parameters: {
     info: {
       disable: true
+    },
+    chromatic: {
+      disable: true
     }
   }
 };
@@ -25,4 +28,12 @@ export const Basic = () => {
       <Button style={ { marginRight: 0 } } buttonType='tertiary'>Filter</Button>
     </Badge>
   );
+};
+
+Basic.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
 };
