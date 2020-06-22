@@ -167,4 +167,4 @@ storiesOf('Experimental/Date Input', module)
   .add(...makeStory('classic', classicThemeSelector, dateComponent, true))
   .add(...makeStory('empty', dlsThemeSelector, EmptyDateComponent))
   .add(...makeStory('validations', dlsThemeSelector, ValidationDateComponent))
-  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusDateComponent));
+  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusDateComponent, true));

@@ -293,5 +293,5 @@ storiesOf('Experimental/Select', module)
   .add(...makeStory('classic', classicThemeSelector, defaultComponent(), true))
   .add(...makeMultipleStory('multiple', dlsThemeSelector))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
-  .add(...makeStory('autoFocus', dlsThemeSelector, defaultComponent(true)))
+  .add(...makeStory('autoFocus', dlsThemeSelector, defaultComponent(true), true))
   .add(...makeStory('customFilter', dlsThemeSelector, customFilterComponent));
