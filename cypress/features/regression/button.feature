@@ -17,15 +17,6 @@ Feature: Button component
   # | &"'<>|
 
   @positive
-  Scenario Outline: Set Button Type as <buttonType>
-    When I select buttonType to "<buttonType>"
-    Then Button font color is "<font-color>"
-      And Button background color is "<background-color>"
-    Examples:
-      | buttonType     | font-color         | background-color   |
-      | darkBackground | rgb(0, 129, 93)    | rgb(255, 255, 255) |
-
-  @positive
   Scenario Outline: Set Button component label to <label>
     When I set children to <label> word
     Then Button label on preview is <label>
@@ -43,24 +34,7 @@ Feature: Button component
     Then Button is enabled
 
   @positive
-  Scenario Outline: Change Button icon position to <iconPosition>
-    Given I check has icon checkbox
-      And I select iconType to "add"
-    When I select iconPosition to "<iconPosition>"
-    Then Button icon position is set to "<iconPosition>"
-    Examples:
-      | iconPosition |
-      | after        |
-      | before       |
-
-  @positive
   Scenario: Verify the click function for a Button component
     Given clear all actions in Actions Tab
     When I click on "button"
     Then click action was called in Actions Tab
-
-  @positive
-  Scenario: Set Button icon to arrow_left_small
-    Given I check has icon checkbox
-    When I select iconType to "arrow_left_small"
-    Then Button icon is set to "arrow_left_small"

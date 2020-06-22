@@ -35,13 +35,3 @@ Feature: Drawer component
   Scenario: Confirm that animationDuration is set to 3 seconds
     When I click on three-second-animation-drawer Drawers arrow 1 time
     Then Drawer three-second-animation-drawer animationDuration is set to "3s"
-
-  @positive
-  Scenario: Set expandedWidth to 30%
-    When I click on expanded-width-30-drawer Drawers arrow 1 time
-    Then Drawer "expanded-width-30-drawer" expandedWidth is set to "287.390625px"
-
-  @positive
-  Scenario: Set expandedWidth to 62%
-    When I click on expanded-width-62-drawer Drawers arrow 1 time
-    Then Drawer "expanded-width-62-drawer" expandedWidth is set to "593.953125px"
