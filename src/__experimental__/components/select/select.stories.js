@@ -10,7 +10,6 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 import docgenInfo from './docgenInfo.json';
 import AutoFocus from '../../../utils/helpers/auto-focus';
-import guid from '../../../utils/helpers/guid';
 
 Select.__docgenInfo = getDocGenInfo(
   docgenInfo,
@@ -30,16 +29,15 @@ const multiSelectStore = new Store({
   value: []
 });
 
-const previous = {
-  key: guid(),
-  autoFocus: false
-};
-
-const commonKnobs = (store, enableMultiSelect = false) => {
+const commonKnobs = (store, enableMultiSelect = false, autoFocusDefault = false) => {
   const filterable = boolean('filterable', Select.defaultProps.filterable);
   const typeAhead = filterable && boolean('typeAhead', Select.defaultProps.typeAhead);
   const label = text('label', 'Label');
-  const autoFocus = boolean('autoFocus', false);
+  const previous = {
+    key: 'select',
+    autoFocus: autoFocusDefault
+  };
+  const autoFocus = boolean('autoFocus', autoFocusDefault);
   const isLoopable = boolean('isLoopable', false);
   const preventFocusAutoOpen = boolean('preventFocusAutoOpen', false);
   const key = AutoFocus.getKey(autoFocus, previous);
@@ -108,19 +106,14 @@ const objectOptions = [
   }
 ];
 
-const defaultComponent = () => {
+const defaultComponent = (autoFocus = false) => () => {
   return (
     <State store={ singleSelectStore }>
-      <Select ariaLabel='singleSelect' { ...commonKnobs(singleSelectStore) }>
+      <Select ariaLabel='singleSelect' { ...commonKnobs(singleSelectStore, false, autoFocus) }>
         { selectOptions }
       </Select>
     </State>
   );
-};
-
-const autoFocusComponent = () => {
-  boolean('autoFocus', true);
-  return defaultComponent();
 };
 
 const customFilterComponent = () => {
@@ -296,9 +289,9 @@ storiesOf('Experimental/Select', module)
     },
     knobs: { escapeHTML: false }
   })
-  .add(...makeStory('default', dlsThemeSelector, defaultComponent))
-  .add(...makeStory('classic', classicThemeSelector, defaultComponent, true))
+  .add(...makeStory('default', dlsThemeSelector, defaultComponent()))
+  .add(...makeStory('classic', classicThemeSelector, defaultComponent(), true))
   .add(...makeMultipleStory('multiple', dlsThemeSelector))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
-  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent))
+  .add(...makeStory('autoFocus', dlsThemeSelector, defaultComponent(true)))
   .add(...makeStory('customFilter', dlsThemeSelector, customFilterComponent));
