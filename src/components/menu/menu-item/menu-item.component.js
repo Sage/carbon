@@ -4,30 +4,44 @@ import classNames from 'classnames';
 import Link from '../../link';
 import StyledMenuItemWrapper from './menu-item.style';
 import { StyledSubmenu, StyledSubmenuItem, StyledSubmenuTitle } from '../submenu-block/submenu.style';
+import OptionHelper from '../../../utils/helpers/options-helper';
 
-const MenuItem = (props) => {
+
+const MenuItem = ({
+  submenu,
+  children,
+  href,
+  to,
+  menuType,
+  onClick,
+  target,
+  submenuDirection,
+  icon,
+  divide,
+  selected,
+  routerLink
+}) => {
   const content = () => {
-    // if does not have a submenu, just render the children
-    if (!props.submenu) return props.children;
+    if (!submenu) return children;
 
     return (
       <>
         <StyledSubmenuTitle>
           <MenuItem
-            href={ props.href }
-            to={ props.to }
-            menuType={ props.menuType }
+            href={ href }
+            to={ to }
+            menuType={ menuType }
           >
-            { props.submenu }
+            { submenu }
           </MenuItem>
         </StyledSubmenuTitle>
-        <StyledSubmenu submenuDirection={ props.submenuDirection }>
+        <StyledSubmenu submenuDirection={ submenuDirection }>
           {
             React.Children.map(
-              props.children,
+              children,
               child => (
                 <StyledSubmenuItem>
-                  {React.cloneElement(child, { menuType: props.menuType })}
+                  {React.cloneElement(child, { menuType })}
                 </StyledSubmenuItem>
               )
             )
@@ -38,29 +52,29 @@ const MenuItem = (props) => {
   };
 
   const classes = () => {
-    return classNames({ 'carbon-menu-item--has-link': props.href || props.to || props.onClick });
+    return classNames({ 'carbon-menu-item--has-link': href || to || onClick });
   };
 
   const elementProps = {
     className: classes(),
-    href: props.href,
-    to: props.to,
-    target: props.target,
-    onClick: props.onClick,
-    icon: props.icon,
-    divide: props.divide,
-    hasSubmenu: Boolean(props.submenu),
-    selected: props.selected,
-    menuType: props.menuType
+    href,
+    to,
+    target,
+    onClick,
+    icon,
+    divide,
+    hasSubmenu: Boolean(submenu),
+    selected,
+    menuType
   };
 
-  if (props.submenu) {
-    elementProps.routerLink = props.routerLink;
+  if (submenu) {
+    elementProps.routerLink = routerLink;
   }
 
   return (
     <StyledMenuItemWrapper
-      as={ props.submenu ? 'div' : Link }
+      as={ submenu ? 'div' : Link }
       data-component='menu-item'
       { ...elementProps }
     >
@@ -77,7 +91,7 @@ MenuItem.propTypes = {
   /** onClick handler */
   onClick: PropTypes.func,
   /** Adds an icon to the menu item. */
-  icon: PropTypes.string,
+  icon: PropTypes.oneOf(OptionHelper.icons),
   /** Defines which direction the submenu will hang eg. left/right */
   submenuDirection: PropTypes.string,
   /** Is the menu item the currently selected item. */

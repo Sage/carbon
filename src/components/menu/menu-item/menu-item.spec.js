@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router';
 import { shallow, mount } from 'enzyme';
-import { Menu, MenuItem } from '..';
+import { MenuItem } from '..';
 import Link from '../../link';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import { baseTheme } from '../../../style/themes';
