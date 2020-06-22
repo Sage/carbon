@@ -69,6 +69,9 @@ storiesOf('Flash', module)
       text: Info,
       propTables: [FlashWithoutHOC, Button],
       propTablesExclude: [State, ThemeProvider, Button, Flash]
+    },
+    chromatic: {
+      disable: true
     }
   })
   .add('default', () => {

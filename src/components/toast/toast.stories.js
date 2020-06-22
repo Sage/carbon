@@ -12,7 +12,10 @@ export default {
     info: {
       disable: true
     },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    chromatic: {
+      disable: true
+    }
   }
 };
 
@@ -113,6 +116,9 @@ Visual.story = {
   name: 'visual',
   parameters: {
     info: { disable: true },
-    docs: { page: null }
+    docs: { page: null },
+    chromatic: {
+      disable: false
+    }
   }
 };

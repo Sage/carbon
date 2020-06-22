@@ -31,7 +31,7 @@ const handleConfirm = () => {
   store.set({ open: false });
 };
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const children = text('children', 'This is an example of a confirm.');
     const title = text('title', 'Are you sure?');
@@ -77,7 +77,10 @@ function makeStory(name, themeSelector) {
       propTablesExclude: [State, Button],
       text: info
     },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -85,4 +88,4 @@ function makeStory(name, themeSelector) {
 
 storiesOf('Confirm', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

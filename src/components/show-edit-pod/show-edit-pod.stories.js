@@ -48,7 +48,7 @@ const setField = fieldName => (e) => {
   store.set({ [fieldName]: e.target.value });
 };
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const fieldProps = [{
     key: 'edit_first_name',
     label: 'First Name'
@@ -134,7 +134,10 @@ function makeStory(name, themeSelector) {
   };
 
   const metadata = {
-    themeSelector
+    themeSelector,
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -150,4 +153,4 @@ storiesOf('ShowEditPod', module)
     notes: { markdown: notes }
   })
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

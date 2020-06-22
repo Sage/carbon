@@ -12,53 +12,59 @@ RadioButton.__docgenInfo = getDocGenInfo(
   /radio-button(?!spec)/
 );
 
-storiesOf('__deprecated__/Radio Button', module).add(
-  'classic',
-  () => {
-    const fieldHelp = text('fieldHelp', 'Additional information below the input.');
-    const fieldHelpInline = boolean('fieldHelpInline', RadioButton.defaultProps.fieldHelpInline);
-    const label = text('label', 'Example RadioButton');
-    const labelInline = boolean('labelInline', false);
-    const labelWidth = labelInline ? text('labelWidth', '') : undefined;
-    const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary, 'left') : undefined;
-    const labelHelp = text('labelHelp', 'Example label help text');
-    const inputWidth = text('inputWidth', '');
+storiesOf('__deprecated__/Radio Button', module)
+  .addParameters({
+    chromatic: {
+      disable: true
+    }
+  })
+  .add(
+    'classic',
+    () => {
+      const fieldHelp = text('fieldHelp', 'Additional information below the input.');
+      const fieldHelpInline = boolean('fieldHelpInline', RadioButton.defaultProps.fieldHelpInline);
+      const label = text('label', 'Example RadioButton');
+      const labelInline = boolean('labelInline', false);
+      const labelWidth = labelInline ? text('labelWidth', '') : undefined;
+      const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary, 'left') : undefined;
+      const labelHelp = text('labelHelp', 'Example label help text');
+      const inputWidth = text('inputWidth', '');
 
-    return (
-      <React.Fragment>
-        <RadioButton
-          key='first-button'
-          fieldHelp={ fieldHelp }
-          fieldHelpInline={ fieldHelpInline }
-          inputWidth={ inputWidth }
-          label={ label }
-          labelAlign={ labelAlign }
-          labelHelp={ labelHelp }
-          labelInline={ labelInline }
-          labelWidth={ labelWidth }
-          name='radio-buttons-example'
-        />
-        <RadioButton
-          key='second-button'
-          fieldHelp={ fieldHelp }
-          fieldHelpInline={ fieldHelpInline }
-          inputWidth={ inputWidth }
-          label={ label }
-          labelAlign={ labelAlign }
-          labelHelp={ labelHelp }
-          labelInline={ labelInline }
-          labelWidth={ labelWidth }
-          name='radio-buttons-example'
-        />
-      </React.Fragment>
-    );
-  },
-  {
-    notes: { markdown: notes },
-    info: {
-      text: info,
-      propTablesExclude: [React.Fragment]
+      return (
+        <React.Fragment>
+          <RadioButton
+            key='first-button'
+            fieldHelp={ fieldHelp }
+            fieldHelpInline={ fieldHelpInline }
+            inputWidth={ inputWidth }
+            label={ label }
+            labelAlign={ labelAlign }
+            labelHelp={ labelHelp }
+            labelInline={ labelInline }
+            labelWidth={ labelWidth }
+            name='radio-buttons-example'
+          />
+          <RadioButton
+            key='second-button'
+            fieldHelp={ fieldHelp }
+            fieldHelpInline={ fieldHelpInline }
+            inputWidth={ inputWidth }
+            label={ label }
+            labelAlign={ labelAlign }
+            labelHelp={ labelHelp }
+            labelInline={ labelInline }
+            labelWidth={ labelWidth }
+            name='radio-buttons-example'
+          />
+        </React.Fragment>
+      );
     },
-    themeSelector: classicThemeSelector
-  }
-);
+    {
+      notes: { markdown: notes },
+      info: {
+        text: info,
+        propTablesExclude: [React.Fragment]
+      },
+      themeSelector: classicThemeSelector
+    }
+  );

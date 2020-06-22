@@ -38,7 +38,7 @@ const myImmutableData = Immutable.fromJS([
   }
 ]);
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const data = object('data', myImmutableData);
     const title = text('title', 'Rainbow chart');
@@ -49,7 +49,10 @@ function makeStory(name, themeSelector) {
   const metadata = {
     themeSelector,
     notes: { markdown: notes },
-    info: { text: info }
+    info: { text: info },
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -57,4 +60,4 @@ function makeStory(name, themeSelector) {
 
 storiesOf('Rainbow ', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

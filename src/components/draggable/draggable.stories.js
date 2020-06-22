@@ -8,7 +8,10 @@ export default {
   component: DraggableContainer,
   title: 'Test/Draggable',
   parameters: {
-    info: { disable: true }
+    info: { disable: true },
+    chromatic: {
+      disable: true
+    }
   }
 };
 
@@ -33,4 +36,12 @@ export const basic = () => {
       </DraggableItem>
     </DraggableContainer>
   );
+};
+
+basic.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
 };

@@ -46,6 +46,9 @@ export default {
     themeSelector: dlsThemeSelector,
     info: {
       disable: true
+    },
+    chromatic: {
+      disable: true
     }
   }
 };
@@ -121,7 +124,12 @@ export const Default = () => (
 );
 
 Default.story = {
-  name: 'default'
+  name: 'default',
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
 };
 
 export const Classic = () => (
@@ -197,7 +205,10 @@ export const Classic = () => (
 Classic.story = {
   name: 'classic',
   parameters: {
-    themeSelector: classicThemeSelector
+    themeSelector: classicThemeSelector,
+    chromatic: {
+      disable: true
+    }
   }
 };
 
@@ -271,6 +282,9 @@ export const StylesOverriden = () => (
 StylesOverriden.story = {
   name: 'styles overriden',
   parameters: {
-    themeSelector: dlsThemeSelector
+    themeSelector: dlsThemeSelector,
+    chromatic: {
+      disable: false
+    }
   }
 };

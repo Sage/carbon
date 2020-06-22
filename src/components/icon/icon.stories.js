@@ -60,7 +60,12 @@ storiesOf('Icon', module)
       themeSelector: classicThemeSelector,
       info: { text: Info },
       notes: { markdown: notes },
-      knobs: { escapeHTML: false }
+      knobs: { escapeHTML: false },
+      parameters: {
+        chromatic: {
+          disable: true
+        }
+      }
     }
   )
   .add('default', () => {

@@ -31,7 +31,7 @@ const checkIfSelected = (tabId) => {
   return false;
 };
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const selectOption = ['top', 'left'];
     const align = select('align', OptionsHelper.alignBinary, Tabs.defaultProps.align);
@@ -78,7 +78,10 @@ function makeStory(name, themeSelector) {
   const metadata = {
     themeSelector,
     info: { text: info },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -91,4 +94,4 @@ storiesOf('Tabs', module)
     }
   })
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

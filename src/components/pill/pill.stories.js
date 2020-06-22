@@ -72,7 +72,10 @@ storiesOf('Pill', module)
       propTablesExclude: [ThemeProvider]
     },
     notes: { markdown: notes },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    chromatic: {
+      disable: true
+    }
   }).add('default', () => {
     const {
       children,

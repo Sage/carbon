@@ -16,7 +16,10 @@ export default {
     info: {
       disable: true
     },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    chromatic: {
+      disable: true
+    }
   }
 };
 
@@ -77,4 +80,12 @@ export const Basic = () => {
       }
     />
   );
+};
+
+Basic.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
 };

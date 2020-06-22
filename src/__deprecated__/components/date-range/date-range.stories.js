@@ -25,6 +25,9 @@ storiesOf('__deprecated__/Date Range', module)
   .addParameters({
     info: {
       propTablesExclude: [State]
+    },
+    chromatic: {
+      disable: true
     }
   })
   .add('classic', () => {

@@ -70,6 +70,9 @@ storiesOf('__deprecated__/DropdownFilterAjax', module)
   .addParameters({
     info: {
       propTablesExclude: [State]
+    },
+    chromatic: {
+      disable: true
     }
   })
   .add('classic', () => {

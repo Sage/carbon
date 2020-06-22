@@ -34,6 +34,9 @@ storiesOf('__deprecated__/Dropdown', module)
   .addParameters({
     info: {
       propTablesExclude: [State]
+    },
+    chromatic: {
+      disable: true
     }
   })
   .add('classic', () => {

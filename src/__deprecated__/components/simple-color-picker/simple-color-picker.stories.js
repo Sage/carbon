@@ -28,6 +28,9 @@ storiesOf('__deprecated__/SimpleColorPicker', module)
   .addParameters({
     info: {
       propTablesExclude: [State]
+    },
+    chromatic: {
+      disable: true
     }
   })
 

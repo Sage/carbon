@@ -28,7 +28,7 @@ const handleOpen = () => {
   action('open')();
 };
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const title = text('title', 'Attention');
     const subtitle = text('subtitle', '');
@@ -62,13 +62,16 @@ function makeStory(name, themeSelector) {
   };
 
   const metadata = {
-    themeSelector
+    themeSelector,
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
 }
 
-function makeButtonStory(name, themeSelector) {
+function makeButtonStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const title = text('title', 'Attention');
     const subtitle = text('subtitle', '');
@@ -105,7 +108,10 @@ function makeButtonStory(name, themeSelector) {
   };
 
   const metadata = {
-    themeSelector
+    themeSelector,
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -120,6 +126,6 @@ storiesOf('Alert', module)
     notes: { markdown: notes }
   })
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector))
+  .add(...makeStory('classic', classicThemeSelector, true))
   .add(...makeButtonStory('with button', dlsThemeSelector))
-  .add(...makeButtonStory('with button classic', classicThemeSelector));
+  .add(...makeButtonStory('with button classic', classicThemeSelector, true));

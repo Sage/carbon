@@ -25,7 +25,7 @@ const onChange = (e) => {
   action(`Selected - ${value}`)(e);
 };
 
-function makeStory(storyName, themeSelector) {
+function makeStory(storyName, themeSelector, disableChromatic = false) {
   const component = () => {
     const name = text('name', 'basicPicker');
     const legend = text('legend', 'Pick a colour');
@@ -68,7 +68,10 @@ function makeStory(storyName, themeSelector) {
   const metadata = {
     themeSelector,
     notes: { markdown: notes },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [storyName, component, metadata];
@@ -185,4 +188,4 @@ storiesOf('Experimental/Simple Color Picker', module)
   })
   .add(...makeStory('default', dlsThemeSelector))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

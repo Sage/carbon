@@ -12,7 +12,7 @@ Help.__docgenInfo = getDocGenInfo(
   /help\.component(?!spec)/
 );
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const children = text('children', 'This is help text');
     const tooltipPosition = children ? select(
@@ -43,7 +43,10 @@ function makeStory(name, themeSelector) {
   const metadata = {
     themeSelector,
     notes: { markdown: notes },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -51,4 +54,4 @@ function makeStory(name, themeSelector) {
 
 storiesOf('Help', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

@@ -15,7 +15,7 @@ Fieldset.__docgenInfo = getDocGenInfo(
   /fieldset\.component(?!spec)/
 );
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const legend = text('legend', '');
 
@@ -70,7 +70,10 @@ function makeStory(name, themeSelector) {
   };
 
   const metadata = {
-    themeSelector
+    themeSelector,
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -144,4 +147,4 @@ storiesOf('Experimental/Fieldset', module)
   })
   .add(...makeStory('default', dlsThemeSelector))
   .add(...makeValidationsStory('validations'))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

@@ -100,7 +100,10 @@ storiesOf('Table', module)
       <TableWrapper { ...tableProps } />
     );
   }, {
-    themeSelector: classicThemeSelector
+    themeSelector: classicThemeSelector,
+    chromatic: {
+      disable: true
+    }
   })
   .add(
     'default',
@@ -132,7 +135,10 @@ storiesOf('Table', module)
       );
     },
     {
-      themeSelector: classicThemeSelector
+      themeSelector: classicThemeSelector,
+      chromatic: {
+        disable: true
+      }
     },
   )
   .add(

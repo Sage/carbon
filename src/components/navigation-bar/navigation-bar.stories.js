@@ -12,7 +12,7 @@ NavigationBar.__docgenInfo = getDocGenInfo(
   /navigation-bar\.js(?!spec)/
 );
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const children = text('children', '');
     const as = select(
@@ -33,7 +33,10 @@ function makeStory(name, themeSelector) {
   const metadata = {
     themeSelector,
     info: { text: <p>Renders a full width application bar.</p> },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -41,4 +44,4 @@ function makeStory(name, themeSelector) {
 
 storiesOf('Navigation Bar', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

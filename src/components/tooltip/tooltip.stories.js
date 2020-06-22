@@ -30,7 +30,7 @@ const props = () => {
 
 const content = () => (validTooltip(props()) ? <Tooltip { ...props() } /> : null);
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     return <div style={ { position: 'absolute' } }>{content()}</div>;
   };
@@ -38,7 +38,10 @@ function makeStory(name, themeSelector) {
   const metadata = {
     themeSelector,
     info: { text: info },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -49,4 +52,4 @@ storiesOf('Tooltip', module)
     knobs: { escapeHTML: false }
   })
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));

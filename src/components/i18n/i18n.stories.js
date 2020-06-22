@@ -17,7 +17,7 @@ i18n.translations.en['my'] = {
   example: '# My __example__ translation.'
 };
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const markdown = boolean('markdown', true);
     const inline = markdown ? boolean('inline', I18nComponent.defaultProps.inline) : undefined;
@@ -35,7 +35,10 @@ function makeStory(name, themeSelector) {
     themeSelector,
     info: { text: Info },
     notes: { markdown: notes },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -43,4 +46,4 @@ function makeStory(name, themeSelector) {
 
 storiesOf('I18nComponent', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));
