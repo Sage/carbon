@@ -5,12 +5,6 @@ Feature: Create component
     Given I open "Create" component page
 
   @positive
-  Scenario: Verify inner content and colors of Create component
-    # commented because of BDD default scenario Given - When - Then
-    # When I open "Create" component page
-    Then Create component has proper inner color "rgb(0, 129, 93)" and background-color "rgb(242, 245, 246)" and border color "rgb(102, 133, 146)"
-
-  @positive
   Scenario: Verify inner content and colors of Create component on hover state
     Given I click outside of the component
     When I hit Tab key 1 time
