@@ -59,5 +59,5 @@ function makeStory(name, themeSelector, disableChromatic = false) {
 }
 
 storiesOf('Rainbow ', module)
-  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory('default', dlsThemeSelector, true))
   .add(...makeStory('classic', classicThemeSelector, true));

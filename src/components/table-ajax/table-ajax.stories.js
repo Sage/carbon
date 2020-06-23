@@ -99,7 +99,8 @@ function makeStory(name, themeSelector, disableChromatic = false) {
   const metadata = {
     themeSelector,
     chromatic: {
-      disable: disableChromatic
+      disable: disableChromatic,
+      delay: 500
     }
   };
 

@@ -44,5 +44,8 @@ storiesOf('Portrait', module)
     themeSelector: dlsThemeSelector,
     info: { text: info, propTablesExclude: [ThemeProvider] },
     notes: { markdown: notes },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    chromatic: {
+      disable: true
+    }
   });
