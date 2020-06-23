@@ -12,7 +12,7 @@ import Form from '../../__deprecated__/components/form';
 import Textbox from '../../__deprecated__/components/textbox';
 import Button from '../button';
 import Modal from '../modal';
-import DateInput from '../../__deprecated__/components/date';
+import Date from '../../__experimental__/components/date';
 import { Checkbox } from '../../__experimental__/components/checkbox';
 import Dropdown from '../../__deprecated__/components/dropdown';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
@@ -78,7 +78,7 @@ function makeStory(name, themeSelector, disableChromatic = false) {
               <Textbox label='Birth Place' />
               <Textbox label='Favourite Colour' />
               <Textbox label='Address' />
-              <DateInput
+              <Date
                 name='date' label='Birthday'
                 value={ date }
                 onChange={ e => setDate(e.target.value) }
@@ -110,7 +110,7 @@ function makeStory(name, themeSelector, disableChromatic = false) {
                 value='1'
               />
               <Textbox label='Pet Name' />
-              <DateInput
+              <Date
                 name='date' label="Pet's birthday"
                 value={ date }
                 onChange={ e => setDate(e.target.value) }
@@ -133,7 +133,7 @@ function makeStory(name, themeSelector, disableChromatic = false) {
         Form,
         Textbox,
         Checkbox,
-        DateInput,
+        Date,
         Dropdown,
         Modal
       ]
