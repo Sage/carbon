@@ -3,7 +3,6 @@ import { radioButtonComponent } from '../locators/radioButton';
 export const DEBUG_FLAG = false;
 require('cypress-plugin-retries');
 
-
 // ***********************************************************
 // This example support/index.js is processed and
 // loaded automatically before your test files.
