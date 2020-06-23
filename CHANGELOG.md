@@ -1,21 +1,6 @@
 ## [31.0.0](https://github.com/Sage/carbon/compare/v30.1.0...v31.0.0) (2020-06-23)
 
-
-### ⚠ BREAKING CHANGES
-
-* The deprecated fieldset component has been removed. To
-upgrade please use the experimental fieldset component.
-
-Fixes FE-1921
-* The deprecated radio-button component has been removed.
-To upgrade please use the experimental radio-button component.
-
-Fixes FE-1921
-
-### Miscellaneous Chores
-
-* remove deprecated fieldset component ([abd385d](https://github.com/Sage/carbon/commit/abd385d16bc80e806ff8ab0a01ec539140c30b2b))
-* remove deprecated radio-button component ([0c849b2](https://github.com/Sage/carbon/commit/0c849b2b84e309439ac9d38bc61ffcced0d24bb0))
+These breaking changes were reverted, there are no breaking changes in this release.
 
 ## [30.1.0](https://github.com/Sage/carbon/compare/v30.0.0...v30.1.0) (2020-06-15)
 
