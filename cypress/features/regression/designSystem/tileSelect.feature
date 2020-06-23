@@ -15,9 +15,3 @@ Feature: Design System TileSelect component
     Given I click on single tile component
     When I click deselect button
     Then Single tile is not check
-
-    @positive
-  Scenario: TileSelect is disabled
-    # commented because of BDD default scenario Given - When - Then
-    # When I open Design Systems basic "tile-select" component docs page
-    Then Tile is disabled

@@ -12,12 +12,6 @@ Feature: Design System Duelling Picklist Component
       And assigned picklist is empty
 
   @positive
-  Scenario: Divider between picklists is visible
-    # commented because of BDD default scenario Given - When - Then
-    # Given I open Design Systems page "duellingpicklist" component docs page
-    Then divider is visible
-
-  @positive
   Scenario: Disable Duelling Picklist
     When I check Access to all current and new clients checkbox
     Then Duelling Picklist is disabled

@@ -5,18 +5,6 @@ Feature: Show Edit Pod component
     Given I open "ShowEditPod" component page
 
   @positive
-  Scenario: Verify the inner content of the component
-    # commented because of BDD default scenario Given - When - Then
-    # When I open "ShowEditPod" component page
-    Then Show Edit Pod component has proper content inside itself
-
-  @positive
-  Scenario: Verify color of the edit icon
-    # commented because of BDD default scenario Given - When - Then
-    # When I open "ShowEditPod" component page
-    Then Edit icon has color "rgb(0, 129, 93)"
-
-  @positive
   Scenario: Enable border checkbox for a Show Edit Pod component
     When I check border checkbox
     Then Show Edit Pod component has border "rgb(204, 214, 219)" color
