@@ -1,17 +1,17 @@
-import { violations } from '../../locators/accessibility';
-import { clickAccessebilityTab } from '../helper';
-import { reRunTestsButton } from '../../locators';
+const A11YOptions = {
+  runOnly: {
+    type: 'tag',
+    values: [
+      'wcag2a', // WCAG 2.0 & WCAG 2.1 Level A
+      'wcag2aa', // WCAG 2.0 & WCAG 2.1 Level AA
+      'wcag21a', // WCAG 2.1 Level A
+      'wcag21aa', // WCAG 2.1 Level AA
+      // 'best-practice', // Best practices endorsed by Deque
+    ],
+  },
+};
 
-Then('{string} component has no violations in Accessibility section', () => {
-  // wait for storybook accessibility tests finished
-  reRunTestsButton().should('have.text', 'Rerun tests');
-  violations().invoke('text').then(($text) => {
-    const text = $text.split(' ');
-    const amountOfViolations = parseInt(text[0], 0);
-    expect(amountOfViolations).to.be.at.most(Cypress.env('max_violation_value'));
-  });
-});
-
-When('I open Accessibility Tab', () => {
-  clickAccessebilityTab();
+Then('{string} component has no accessibility violations', () => {
+  cy.injectAxe();
+  cy.checkA11y(null, A11YOptions);
 });
