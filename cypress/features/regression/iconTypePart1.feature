@@ -4,7 +4,7 @@ Feature: Icon component
   Background: Open Icon component page
     Given I open "Icon" component page
 
-  @positive
+  @ignore
   Scenario Outline: Change type to <type>
     When I select type to "<type>"
     Then icon on preview is "<type>"
@@ -87,7 +87,7 @@ Feature: Icon component
       | favourite_lined         |
       | fax                     |
 
-  @positive
+  @ignore
   Scenario Outline: Change type to <iconName>
     When I select type to "<iconName>"
     Then icon on preview is "<iconDataElement>"

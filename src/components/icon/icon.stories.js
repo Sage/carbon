@@ -79,17 +79,42 @@ storiesOf('Icon', module)
     themeSelector: dlsThemeSelector,
     info: { text: Info },
     notes: { markdown: notes },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    parameters: {
+      chromatic: {
+        disable: true
+      }
+    }
   })
   .add('all', () => {
     return (
       <>
-        {OptionsHelper.icons.map(type => (
-          <Icon
-            type={ type }
-            key={ createGuid() }
-          />
-        ))}
+        {OptionsHelper.icons.map(type => OptionsHelper.sizesBinary.map((fontSize) => {
+          return OptionsHelper.shapes.map((bgShape) => {
+            if (fontSize === 'large') {
+              return (
+                <Icon
+                  type={ type }
+                  fontSize={ fontSize }
+                  key={ createGuid() }
+                  bgTheme='info'
+                  bgShape={ bgShape }
+                />
+              );
+            }
+            return OptionsHelper.sizesRestricted.map(bgSize => (
+              <Icon
+                type={ type }
+                fontSize={ fontSize }
+                key={ createGuid() }
+                bgTheme='info'
+                bgShape={ bgShape }
+                bgSize={ bgSize }
+              />
+            ));
+          });
+        }))}
+
         {OptionsHelper.sizesBinary.map(fontSize => (
           [true, false].map(disabled => (
             OptionsHelper.iconBackgrounds.map((bgTheme) => {
@@ -138,5 +163,10 @@ storiesOf('Icon', module)
   }, {
     themeSelector: dlsThemeSelector,
     info: { disable: true },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    parameters: {
+      chromatic: {
+        disable: false
+      }
+    }
   });
