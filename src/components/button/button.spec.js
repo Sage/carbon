@@ -412,4 +412,19 @@ describe('Button', () => {
       }, buttonWithServiceIcon.toJSON(), { modifier: `${StyledIcon}` });
     });
   });
+
+  describe('when the fullWidth prop is provided', () => {
+    it.each(variants)('applies the expected style to the "%s" button', (variant) => {
+      const button = render(
+        {
+          children: 'foo',
+          fullWidth: true,
+          buttonType: variant
+        }, TestRenderer.create
+      );
+      assertStyleMatch({
+        width: '100%'
+      }, button.toJSON());
+    });
+  });
 });

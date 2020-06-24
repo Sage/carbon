@@ -40,7 +40,12 @@ const renderStyledButton = (buttonProps) => {
 
 const Button = (props) => {
   const {
-    disabled, to, iconType, renderRouterLink, size, subtext
+    disabled,
+    to,
+    iconType,
+    renderRouterLink,
+    size,
+    subtext
   } = props;
 
   const { as, buttonType, ...rest } = props;
@@ -137,12 +142,15 @@ Button.propTypes = {
   /** Legacy - transforms button into anchor, must be accompanied by a router link passed via `renderRouterLink` */
   to: PropTypes.string,
   /** Render prop that when coupled with the `to` prop will render the a routing anchor link */
-  renderRouterLink: PropTypes.func
+  renderRouterLink: PropTypes.func,
+  /** Apply fullWidth style to the button */
+  fullWidth: PropTypes.bool
 };
 
 Button.defaultProps = {
   as: 'secondary',
   size: 'medium',
+  fullWidth: false,
   disabled: false,
   destructive: false,
   iconPosition: 'before',

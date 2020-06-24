@@ -4,18 +4,15 @@ import { action } from '@storybook/addon-actions';
 import { Link as RouterLink } from 'react-router';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Button from '.';
-import createGuid from '../../utils/helpers/guid';
 
 const getIconKnobs = () => {
   const defaultPosition = Button.defaultProps.iconPosition;
   const hasIcon = boolean('has icon', false);
-
   return {
     iconType: hasIcon ? select('iconType', [...OptionsHelper.icons, ''], '') : undefined,
     iconPosition: hasIcon ? select('iconPosition', [...OptionsHelper.buttonIconPositions], defaultPosition) : undefined
   };
 };
-
 const getKnobs = () => {
   const size = select('size', OptionsHelper.sizesRestricted, Button.defaultProps.size);
   return {
@@ -23,6 +20,7 @@ const getKnobs = () => {
     disabled: boolean('disabled', Button.defaultProps.disabled),
     onClick: ev => action('click')(ev),
     size,
+    fullWidth: boolean('fullWidth', false),
     subtext: (size === OptionsHelper.sizesRestricted[2]) ? text('subtext', Button.defaultProps.subtext) : undefined,
     buttonType: select('buttonType', OptionsHelper.buttonTypes, Button.defaultProps.as),
     href: text('href'),
@@ -31,20 +29,6 @@ const getKnobs = () => {
     ...getIconKnobs()
   };
 };
-
-export default {
-  title: 'Button',
-  component: Button,
-  parameters: {
-    info: {
-      disable: true
-    },
-    docs: {
-      disable: true
-    }
-  }
-};
-
 export const knobs = () => {
   const props = getKnobs();
   const { children } = props; // eslint-disable-line react/prop-types
@@ -52,7 +36,6 @@ export const knobs = () => {
     <Button { ...props } renderRouterLink={ routerProps => <RouterLink { ...routerProps } /> }>{ children }</Button>
   );
 };
-
 export const asASibling = () => {
   const props = getKnobs();
   const { children } = props; // eslint-disable-line react/prop-types
@@ -63,7 +46,6 @@ export const asASibling = () => {
     </div>
   );
 };
-
 const generateButtons = (buttonType, iconPosition) => () => {
   return (
     <>
@@ -71,20 +53,19 @@ const generateButtons = (buttonType, iconPosition) => () => {
         ['', ...OptionsHelper.icons].map((iconType) => {
           const props = { iconPosition, buttonType, iconType };
           return (
-            <div key={ createGuid() }>
+            <div key={ `${buttonType}-${iconPosition}-${iconType}` }>
               {OptionsHelper.sizesRestricted.map(size => (
-                <>
+                <React.Fragment key={ `${buttonType}-${iconPosition}-${iconType}-${size}` }>
                   <Button
-                    key={ createGuid() }
+                    key='basic'
                     size={ size }
                     { ...props }
                   >
                     {size}
                   </Button>
-
                   {size === 'large' && (
                     <Button
-                      key={ createGuid() }
+                      key='subtext'
                       size={ size }
                       subtext='line two'
                       { ...props }
@@ -92,23 +73,21 @@ const generateButtons = (buttonType, iconPosition) => () => {
                       {size}
                     </Button>
                   )}
-                </>
+                </React.Fragment>
               ))}
-
               {OptionsHelper.sizesRestricted.map(size => (
-                <>
+                <React.Fragment key={ `${buttonType}-${iconPosition}-${iconType}-${size}-destructive` }>
                   <Button
-                    key={ createGuid() }
+                    key='basic'
                     size={ size }
                     destructive
                     { ...props }
                   >
                     {size}
                   </Button>
-
                   {size === 'large' && (
                     <Button
-                      key={ createGuid() }
+                      key='subtext'
                       size={ size }
                       destructive
                       subtext='line two'
@@ -117,23 +96,21 @@ const generateButtons = (buttonType, iconPosition) => () => {
                       {size}
                     </Button>
                   )}
-                </>
+                </React.Fragment>
               ))}
-
               {OptionsHelper.sizesRestricted.map(size => (
-                <>
+                <React.Fragment key={ `${buttonType}-${iconPosition}-${iconType}-${size}-disabled` }>
                   <Button
-                    key={ createGuid() }
+                    key='basic'
                     size={ size }
                     disabled
                     { ...props }
                   >
                     {size}
                   </Button>
-
                   {size === 'large' && (
                     <Button
-                      key={ createGuid() }
+                      key='subtext'
                       size={ size }
                       disabled
                       subtext='line two'
@@ -142,7 +119,7 @@ const generateButtons = (buttonType, iconPosition) => () => {
                       {size}
                     </Button>
                   )}
-                </>
+                </React.Fragment>
               ))}
             </div>
           );
@@ -151,7 +128,6 @@ const generateButtons = (buttonType, iconPosition) => () => {
     </>
   );
 };
-
 export const primaryButtonsIconsBefore = generateButtons('primary', 'before');
 export const primaryButtonsIconsAfter = generateButtons('primary', 'after');
 export const secondaryButtonsIconsBefore = generateButtons('secondary', 'before');
@@ -162,3 +138,323 @@ export const dashedButtonsIconsBefore = generateButtons('dashed', 'before');
 export const dashedButtonsIconsAfter = generateButtons('dashed', 'after');
 export const darkBackgroundButtonsIconsBefore = generateButtons('darkBackground', 'before');
 export const darkBackgroundButtonsIconsAfter = generateButtons('darkBackground', 'after');
+
+export const fullWidthButtons = () => {
+  return (
+    <>
+      {
+        OptionsHelper.buttonTypes.map((buttonType) => {
+          const props = { buttonType, fullWidth: true };
+          return (
+            <React.Fragment key={ `${buttonType}-${buttonType}` }>
+              {OptionsHelper.sizesRestricted.map(size => (
+                <React.Fragment key={ `${buttonType}-${buttonType}-${size}` }>
+                  <Button
+                    key='basic'
+                    size={ size }
+                    { ...props }
+                  >
+                    {size}
+                  </Button>
+                  <Button
+                    key='basic-icon'
+                    size={ size }
+                    { ...props }
+                    iconType='bin'
+                  >
+                    {size}
+                  </Button>
+                  <Button
+                    key='basic-icon-after'
+                    size={ size }
+                    { ...props }
+                    iconType='bin'
+                    iconPosition='after'
+                  >
+                    {size}
+                  </Button>
+                  {size === 'large' && (
+                    <>
+                      <Button
+                        key='subtext'
+                        size={ size }
+                        subtext='line two'
+                        { ...props }
+                      >
+                        {size}
+                      </Button>
+                      <Button
+                        key='subtext-icon'
+                        size={ size }
+                        subtext='line two'
+                        iconType='bin'
+                        { ...props }
+                      >
+                        {size}
+                      </Button>
+                      <Button
+                        key='subtext-icon-after'
+                        size={ size }
+                        subtext='line two'
+                        iconType='bin'
+                        iconPosition='after'
+                        { ...props }
+                      >
+                        {size}
+                      </Button>
+                    </>
+                  )}
+                </React.Fragment>
+              ))}
+              {OptionsHelper.sizesRestricted.map(size => (
+                <React.Fragment key={ `${buttonType}-${buttonType}-${size}-destructive` }>
+                  <Button
+                    key='basic'
+                    size={ size }
+                    destructive
+                    { ...props }
+                  >
+                    {size}
+                  </Button>
+                  <Button
+                    key='basic-icon'
+                    size={ size }
+                    destructive
+                    iconType='bin'
+                    { ...props }
+                  >
+                    {size}
+                  </Button>
+                  <Button
+                    key='basic-icon-after'
+                    size={ size }
+                    destructive
+                    iconType='bin'
+                    iconPosition='after'
+                    { ...props }
+                  >
+                    {size}
+                  </Button>
+                  {size === 'large' && (
+                  <>
+                    <Button
+                      key='subtext'
+                      size={ size }
+                      destructive
+                      subtext='line two'
+                      { ...props }
+                    >
+                      {size}
+                    </Button>
+                    <Button
+                      key='subtext-icon'
+                      size={ size }
+                      destructive
+                      subtext='line two'
+                      iconType='bin'
+                      { ...props }
+                    >
+                      {size}
+                    </Button>
+                    <Button
+                      key='subtext-icon-after'
+                      size={ size }
+                      destructive
+                      subtext='line two'
+                      iconType='bin'
+                      iconPosition='after'
+                      { ...props }
+                    >
+                      {size}
+                    </Button>
+                  </>
+                  )}
+                </React.Fragment>
+              ))}
+              {OptionsHelper.sizesRestricted.map(size => (
+                <React.Fragment key={ `${buttonType}-${buttonType}-${size}-disabled` }>
+                  <Button
+                    key='basic'
+                    size={ size }
+                    disabled
+                    { ...props }
+                  >
+                    {size}
+                  </Button>
+                  <Button
+                    key='basic-icon'
+                    size={ size }
+                    disabled
+                    iconType='bin'
+                    { ...props }
+                  >
+                    {size}
+                  </Button>
+                  <Button
+                    key='basic-icon-after'
+                    size={ size }
+                    disabled
+                    iconType='bin'
+                    iconPosition='after'
+                    { ...props }
+                  >
+                    {size}
+                  </Button>
+                  {size === 'large' && (
+                    <>
+                      <Button
+                        key='subtext'
+                        size={ size }
+                        disabled
+                        subtext='line two'
+                        { ...props }
+                      >
+                        {size}
+                      </Button>
+                      <Button
+                        key='subtext-icon'
+                        size={ size }
+                        disabled
+                        subtext='line two'
+                        iconType='bin'
+                        { ...props }
+                      >
+                        {size}
+                      </Button>
+                      <Button
+                        key='subtext-icon-after'
+                        size={ size }
+                        disabled
+                        subtext='line two'
+                        iconType='bin'
+                        iconPosition='after'
+                        { ...props }
+                      >
+                        {size}
+                      </Button>
+                    </>
+                  )}
+                </React.Fragment>
+              ))}
+            </React.Fragment>
+          );
+        })
+      }
+    </>
+  );
+};
+
+export default {
+  component: Button,
+  title: 'Test/Button',
+  parameters: {
+    info: { disable: true },
+    chromatic: {
+      disable: true
+    }
+  }
+};
+
+primaryButtonsIconsBefore.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
+};
+
+primaryButtonsIconsAfter.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
+};
+
+secondaryButtonsIconsBefore.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
+};
+
+secondaryButtonsIconsAfter.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
+};
+
+tertiaryButtonsIconsBefore.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
+};
+
+tertiaryButtonsIconsAfter.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
+};
+
+dashedButtonsIconsBefore.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
+};
+
+dashedButtonsIconsAfter.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
+};
+
+darkBackgroundButtonsIconsBefore.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
+};
+
+darkBackgroundButtonsIconsAfter.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
+};
+
+asASibling.story = {
+  parameters: {
+    chromatic: {
+      disable: true
+    }
+  }
+};
+
+knobs.story = {
+  parameters: {
+    chromatic: {
+      disable: true
+    }
+  }
+};
+
+fullWidthButtons.story = {
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
+};

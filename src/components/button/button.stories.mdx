@@ -54,6 +54,15 @@ Primary buttons can have an icon positioned before or after the text.
   </Story>
 </Preview>
 
+Primary buttons can be `fullWidth`.
+<Preview>
+  <Story name="primary/full-width" parameters={{ info: { disable: true }}} >
+    <>
+      <Button buttonType="primary" fullWidth>Full Width</Button>
+    </>
+  </Story>
+</Preview>
+
 ## Secondary Buttons
 Less prominent, there can be multiple secondary buttons on a page.
 Secondary buttons are transparent, rather than white.
@@ -97,6 +106,15 @@ Secondary buttons can have an icon positioned before or after the text.
     <Button iconType="print">Medium</Button>
     <Button destructive iconType="delete" iconPosition="after">Medium</Button>
     <Button disabled iconType="print" iconPosition="after">Medium</Button>
+    </>
+  </Story>
+</Preview>
+
+Secondary buttons can be `fullWidth`.
+<Preview>
+  <Story name="secondary/full-width" parameters={{ info: { disable: true }}} >
+    <>
+      <Button buttonType="secondary" fullWidth>Full Width</Button>
     </>
   </Story>
 </Preview>
@@ -148,6 +166,15 @@ Tertiary buttons can have an icon positioned before or after the text.
   </Story>
 </Preview>
 
+Tertiary buttons can be `fullWidth`.
+<Preview>
+  <Story name="tertiary/full-width" parameters={{ info: { disable: true }}} >
+    <>
+      <Button buttonType="tertiary" fullWidth>Full Width</Button>
+    </>
+  </Story>
+</Preview>
+
 ## Dashed Buttons
 Dashed buttons are used for adding new content that replaces empty states.
 
@@ -180,6 +207,15 @@ Dashed buttons can have an icon positioned before or after the text.
     <Button buttonType="dashed" iconType="add" iconPosition="after">Medium</Button>
     <Button buttonType="dashed" disabled iconType="add" size="small">Small</Button>
     <Button buttonType="dashed" disabled iconType="add" iconPosition="after">Medium</Button>
+    </>
+  </Story>
+</Preview>
+
+Dashed buttons can be `fullWidth`.
+<Preview>
+  <Story name="dashed/full-width" parameters={{ info: { disable: true }}} >
+    <>
+      <Button buttonType="dashed" fullWidth>Full Width</Button>
     </>
   </Story>
 </Preview>
