@@ -1,3 +1,10 @@
+## [31.1.0](https://github.com/Sage/carbon/compare/v31.0.0...v31.1.0) (2020-06-25)
+
+
+### Features
+
+* **button:** add full-width buttons ([82e96b4](https://github.com/Sage/carbon/commit/82e96b4e24601bd7232759f08caa50d28db01934))
+
 ## [31.0.0](https://github.com/Sage/carbon/compare/v30.1.0...v31.0.0) (2020-06-23)
 
 These breaking changes were reverted, there are no breaking changes in this release.
