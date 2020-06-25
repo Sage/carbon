@@ -12,8 +12,8 @@ When('I open {string} component with theme {string}', (componentName, themeName)
   visitComponentUrlByTheme(componentName, themeName);
 });
 
-When('I open {string} component with theme {string} knobs story', (componentName, themeName) => {
-  visitComponentUrlByThemeKnobsStory(componentName, themeName);
+When('I open Test {string} component with theme {string} knobs story', (componentName, themeName) => {
+  visitComponentUrlByThemeKnobsStory(componentName, themeName, '', 'test-');
 });
 
 When('I open Icon component with theme {string}', (themeName) => {
@@ -60,8 +60,8 @@ Then('Loader component css background color is set to {string}', (themeName) => 
   });
 });
 
-When('I open {string} component {word} story with theme {string}', (componentName, storyName, themeName) => {
-  visitComponentUrlByThemeByStory(componentName, storyName, themeName);
+When('I open Test {string} component {word} story with theme {string}', (componentName, storyName, themeName) => {
+  visitComponentUrlByThemeByStory(componentName, storyName, themeName, '', 'test-');
 });
 
 Given('I open design systems {word} {string} component with theme {string}', (storyName, componentName, themeName) => {

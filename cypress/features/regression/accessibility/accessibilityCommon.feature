@@ -13,7 +13,7 @@ Feature: Accessibility tests
 
   @accessibility
   Scenario: Component button as sibling
-    Given I open "button" component page as sibling in no iframe
+    Given I open Test "Button" component page as sibling in no iframe
     When I open Accessibility Tab
     Then "button" component has no violations in Accessibility section
 
@@ -59,6 +59,6 @@ Feature: Accessibility tests
 
   @accessibility
   Scenario: Component Button using Knobs story
-    Given I open "Button" component page knobs
+    Given I open Test "Button" component page knobs
     When I open Accessibility Tab
     Then "Button" component has no violations in Accessibility section

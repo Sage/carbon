@@ -16,12 +16,16 @@ const StyledButton = styled.button`
   vertical-align: middle;
   ${stylingForType}
 
+  ${({ fullWidth }) => fullWidth && css`
+    width: 100%;
+  `}
+
   ${({ iconPosition, theme }) => css`
     ${StyledIcon} {
       margin-left: ${iconPosition === 'before' ? '0px' : `${theme.spacing}px`};
       margin-right: ${iconPosition === 'before' ? `${theme.spacing}px` : '0px'};
       height: ${additionalIconStyle};
-      svg { 
+      svg {
         margin-top: 0;
       }
     }
@@ -44,7 +48,8 @@ function stylingForType({
   buttonType,
   theme,
   size,
-  destructive
+  destructive,
+  fullWidth
 }) {
   return css`
     border: 2px solid transparent;
@@ -57,9 +62,11 @@ function stylingForType({
       outline: solid 3px ${theme.colors.focus};
     }
 
-    & ~ & {
+    ${!fullWidth && css`
+      & ~ & {
       margin-left: 16px;
-    }
+      }
+    `}
     ${buttonTypes(theme, disabled, destructive)[buttonType]};
     ${buttonSizes(theme)[size]}
   `;

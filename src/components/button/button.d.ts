@@ -6,6 +6,7 @@ export interface ButtonProps {
   buttonType?: 'primary' | 'secondary' | 'tertiary' | 'dashed' | 'destructive' | 'darkBackground';
   disabled?: boolean;
   destructive?: boolean;
+  fullWidth?: boolean;
   size?: 'small' | 'medium' | 'large';
   iconPosition?: 'before' | 'after';
   iconType?: IconTypes;

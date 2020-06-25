@@ -2,7 +2,7 @@ Feature: Button component
   I want to check Button component properties
 
   Background: Open Button component default page
-    Given I open "Button" component page knobs
+    Given I open Test "Button" component page knobs
 
   @positive
   Scenario Outline: Set Button subtext to <subtext>
