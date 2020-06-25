@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
@@ -41,7 +41,8 @@ const handleClick = (evt) => {
 };
 
 function makeStory(name, themeSelector, disableChromatic = false) {
-  const component = () => {
+  const Component = () => {
+    const [date, setDate] = useState('2020-06-01');
     const height = text('height', '400');
     const title = text('title', 'Example Dialog');
     const subtitle = text('subtitle', 'Example Subtitle');
@@ -77,7 +78,11 @@ function makeStory(name, themeSelector, disableChromatic = false) {
               <Textbox label='Birth Place' />
               <Textbox label='Favourite Colour' />
               <Textbox label='Address' />
-              <DateInput name='date' label='Birthday' />
+              <DateInput
+                name='date' label='Birthday'
+                value={ date }
+                onChange={ e => setDate(e.target.value) }
+              />
               <Dropdown
                 name='foo' options={ fromJS([{
                   id: '1', name: 'Orange'
@@ -105,7 +110,11 @@ function makeStory(name, themeSelector, disableChromatic = false) {
                 value='1'
               />
               <Textbox label='Pet Name' />
-              <DateInput name='date' label="Pet's birthday" />
+              <DateInput
+                name='date' label="Pet's birthday"
+                value={ date }
+                onChange={ e => setDate(e.target.value) }
+              />
               <Checkbox name='checkbox' label='Do you like my Dog' />
               <div>This is an example of a dialog with a Form as content</div>
             </Form>
@@ -136,7 +145,7 @@ function makeStory(name, themeSelector, disableChromatic = false) {
     }
   };
 
-  return [name, component, metadata];
+  return [name, Component, metadata];
 }
 
 storiesOf('Dialog', module)
