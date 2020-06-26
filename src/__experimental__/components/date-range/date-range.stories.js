@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import { text, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
@@ -8,6 +9,11 @@ import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/t
 import DateRange from './date-range.component';
 
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
+
+const ColumnsWrapper = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+`;
 
 DateRange.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -59,13 +65,13 @@ function makeStory(name, themeSelector, disableChromatic = false) {
 }
 
 function makeValidationStory(name, themeSelector) {
-  const component = () => {
+  const component = (labelsInline) => {
     const startLabel = text('startLabel', 'From');
     const endLabel = text('endLabel', 'To');
-    const labelsInline = (startLabel || endLabel) ? boolean('labelsInline', false) : undefined;
 
     return (
-      <>
+      <div>
+        <h3>labelsInline prop {labelsInline.toString()}</h3>
         <h4>Validation as string</h4>
         <h6>On components</h6>
         {[
@@ -180,7 +186,16 @@ function makeValidationStory(name, themeSelector) {
             />
           </State>
         ))}
-      </>
+      </div>
+    );
+  };
+
+  const columns = () => {
+    return (
+      <ColumnsWrapper>
+        {component(false)}
+        {component(true)}
+      </ColumnsWrapper>
     );
   };
 
@@ -189,11 +204,11 @@ function makeValidationStory(name, themeSelector) {
     notes: { markdown: notes },
     info: {
       text: info,
-      propTablesExclude: [State]
+      propTables: [DateRange]
     }
   };
 
-  return [name, component, metadata];
+  return [name, columns, metadata];
 }
 
 storiesOf('Experimental/Date Range', module)
