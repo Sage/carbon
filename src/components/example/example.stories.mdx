@@ -1,0 +1,92 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import * as stories from './example-future.stories';
+import {Example} from './example.component';
+import {useState} from "react";
+
+<Meta title="Design System/Example" component={Example} parameters={{ info: { disable: true }}}/>
+
+# Reccomended
+
+Always show the import path, they're not included in the preview examples below.
+Don't include any other code blocks, unless essential, a working code example is better.
+
+We should use named exports.
+```javascript
+import {Example} from 'carbon-react/lib/components/example';
+```
+
+<Preview>
+  <Story name="mdx with preview">
+    <>
+      <p>This is a good example, you can click on the show code button to see how it works.</p>
+      <Example>This example has a preview</Example>
+    </>
+  </Story> 
+</Preview>
+
+We should have an example for each variation shown in the DLS.
+<Preview>
+  <Story name="mdx with super power">
+    <>
+      <p>This is a good example, you can click on the show code button to see how it works.</p>
+      <Example enableSuperPower>This example has a preview</Example>
+    </>
+  </Story> 
+</Preview>
+
+You can use JS in MDX to write more complex examples. Ensure the code that you write is as simple as possible to render
+the component. Do not try to write a solution, instead try to demonstrate the props of the component.
+<Preview>
+  <Story name="mdx with js">
+   {() => {
+      const [count, setCount] = useState(5);
+      return (
+        <>
+          <Example onClick={ () => setCount(count + 1) }>Add</Example>
+          <Example onClick={ () => setCount(count - 1) }>Remove</Example>
+          <p>The count is {count} </p>
+        </>
+      )
+    }}
+  </Story> 
+</Preview>
+
+
+## Markdown
+You can use markdown and JSX to document the component. 
+
+1. One
+1. Two
+
+## PropTypes
+Ensure you include the prop types of the component and that the descriptions make sense.
+The component should be written in a way that does not expose the internal props that we may need.
+In this example I am using `Button`, but you can't pass all of the props to it.
+
+Don't add descriptions to self explanatory props. e.g. children, onClick or onBlur unless they have some special behaviour that the user
+needs to be aware of.
+<Props of={Example} />
+
+## Chromatic/Cypress
+Chromatic will run against each canvas, if there is a story that we do not want in the `docs` page, we can write a seperate story in CSF.
+See the sidebar for examples. They should be in the Test folder within the component folder.
+
+
+# Avoid
+
+1. Don't use knobs, they make the code previews hard to understand. It's better to have multple examples which we can then
+use for automated testing.
+1. Don't use stories without a preview, they don't help users.
+
+<Story name="mdx without preview">
+  <>
+      <p>This is a bad example, you can't see how it works.</p>
+      <Example>This example has no preview</Example>
+    </>
+</Story> 
+
+
+# Future
+In the future we can write all our stories in CSF then import them. This is less prone to whitespace errors and gives
+us more flexability. This is the Storybook reccomended approach for using CSF and MDX together.
+<Story name="csf import">{stories.csf()}</Story>
