@@ -1,3 +1,10 @@
+### [31.1.1](https://github.com/Sage/carbon/compare/v31.1.0...v31.1.1) (2020-06-26)
+
+
+### Bug Fixes
+
+* increase width on validation labels ([a10e90e](https://github.com/Sage/carbon/commit/a10e90eafe336c35b6b8d878caf38efbefa41026))
+
 ## [31.1.0](https://github.com/Sage/carbon/compare/v31.0.0...v31.1.0) (2020-06-25)
 
 

@@ -18,6 +18,8 @@ class DateRange extends React.Component {
 
   isBlurBlocked = true;
 
+  inlineLabelWidth = 40;
+
   state = {
     startDateValue: {
       formattedValue: DateHelper.formatDateToCurrentLocale(this.startDate),
@@ -170,12 +172,14 @@ class DateRange extends React.Component {
           onFocus={ this.focusStart }
           data-element='start-date'
           ref={ this.startDateInputRef }
+          labelWidth={ this.inlineLabelWidth } // Textbox only applies this when labelsInLine prop is true
         />
         <DateInput
           { ...this.dateProps('end') }
           onFocus={ this.focusEnd }
           data-element='end-date'
           ref={ this.endDateInputRef }
+          labelWidth={ this.inlineLabelWidth } // Textbox only applies this when labelsInLine prop is true
         />
       </StyledDateRange>
     );
