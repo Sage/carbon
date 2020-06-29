@@ -3,10 +3,14 @@ import {
 } from '../../locators/menu';
 import { positionOfElement } from '../helper';
 
-const CARBON_BUTTON_PREFIX = 'carbon-menu carbon-menu--';
-
-Then('Menu as property on preview is {string}', (as) => {
-  menuPreview().should('have.class', `${CARBON_BUTTON_PREFIX}${as}`);
+Then('Menu {string} element menuType property on preview is {string}', (as, elementPosition) => {
+  if (as === 'primary') {
+    menuListItems((positionOfElement(elementPosition))).should('have.css', 'background-color', 'rgb(0, 51, 73)')
+      .and('have.css', 'color', 'rgb(255, 255, 255)');
+  } else if (as === 'secondary') {
+    menuListItems((positionOfElement(elementPosition))).should('have.css', 'background-color', 'rgb(255, 255, 255)')
+      .and('have.css', 'color', 'rgb(0, 51, 73)');
+  }
 });
 
 Then('Menu elements are visible', () => {
@@ -14,11 +18,11 @@ Then('Menu elements are visible', () => {
 });
 
 When('I invoke first expandable Menu component', () => {
-  menuListItems(positionOfElement('second')).trigger('mouseover');
+  menuListItems(positionOfElement('second')).first().trigger('mouseover');
 });
 
 When('I invoke second expandable Menu component', () => {
-  menuListItems(positionOfElement('third')).trigger('mouseover');
+  menuListItems(positionOfElement('third')).first().trigger('mouseover');
 });
 
 Then('Menu first expandable element has {int} items', (parameter) => {
