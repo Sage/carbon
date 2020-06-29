@@ -1,3 +1,17 @@
+## [32.0.0](https://github.com/Sage/carbon/compare/v31.1.1...v32.0.0) (2020-06-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu:** prop `as` has been replaced with `menuType`. Keyword `as` is reserved for
+Styled-Components.
+To update your components you will need to replace
+`<Menu as="primary" />` with `<Menu menuType="primary" />`
+
+### Code Refactoring
+
+* **menu:** refactor component ([ea2e727](https://github.com/Sage/carbon/commit/ea2e7272faadfeea4b2a08caf3367db1e6e7f137))
+
 ### [31.1.1](https://github.com/Sage/carbon/compare/v31.1.0...v31.1.1) (2020-06-26)
 
 
