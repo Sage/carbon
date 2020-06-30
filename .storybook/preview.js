@@ -34,7 +34,22 @@ addParameters({
       return a[1].id.localeCompare(b[1].id);
     }
   },
-  chromatic: { disable: false }
+  a11y: {
+    // axe-core optionsParameter (https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter)
+    options: {
+      runOnly: {
+        type: 'tag',
+        values: [
+          'wcag2a', // WCAG 2.0 & WCAG 2.1 Level A
+          'wcag2aa', // WCAG 2.0 & WCAG 2.1 Level AA
+          'wcag21a', // WCAG 2.1 Level A
+          'wcag21aa', // WCAG 2.1 Level AA
+          'best-practice' // Best practices endorsed by Deque
+        ],
+      }
+    }
+  },
+  chromatic: { disable: false },
 });
 
 setupI18n();

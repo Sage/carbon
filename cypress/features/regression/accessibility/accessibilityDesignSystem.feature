@@ -3,9 +3,8 @@ Feature: Accessibility tests
 
   @accessibility
   Scenario Outline: Design System <component> component basic page
-    Given I open design systems basic "<component>" component page
-    When I open Accessibility Tab
-    Then "<component>" component has no violations in Accessibility section
+    When I open design systems basic "<component>" component in no iframe
+    Then "<component>" component has no accessibility violations
     Examples:
       | component         |
       | Badge             |
@@ -17,18 +16,16 @@ Feature: Accessibility tests
 
   @accessibility
   Scenario Outline: Design System <component> component primary page
-    Given I open design systems primary "<component>" component page
-    When I open Accessibility Tab
-    Then "<component>" component has no violations in Accessibility section
+    When I open design systems primary "<component>" component in no iframe
+    Then "<component>" component has no accessibility violations
     Examples:
       | component |
       | Accordion |
 
   @accessibility
   Scenario Outline: Design System <component> component default story page
-    Given I open design systems default_story "<component>" component page
-    When I open Accessibility Tab
-    Then "<component>" component has no violations in Accessibility section
+    When I open design systems default_story "<component>" component in no iframe
+    Then "<component>" component has no accessibility violations
     Examples:
       | component             |
       | Advanced Color Picker |
@@ -40,9 +37,8 @@ Feature: Accessibility tests
 
   @accessibility
   Scenario Outline: Design System <component> component controlled page
-    Given I open design systems controlled "<component>" component page
-    When I open Accessibility Tab
-    Then "<component>" component has no violations in Accessibility section
+    When I open design systems controlled "<component>" component in no iframe
+    Then "<component>" component has no accessibility violations
     Examples:
       | component |
       | Drawer    |

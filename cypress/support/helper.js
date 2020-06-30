@@ -1,5 +1,5 @@
 import {
-  knobsTab, actionsTab, clearButton, accessibilityTab, getKnobsInputWithName,
+  knobsTab, actionsTab, clearButton, getKnobsInputWithName,
   getElementNoIframe,
 } from '../locators';
 import { DEBUG_FLAG } from '.';
@@ -44,10 +44,6 @@ export function visitFlatTableComponentNoiFrame(component, suffix = 'default', i
 
 export function clickActionsTab(iFrameOnly = false) {
   if (!iFrameOnly) actionsTab().click();
-}
-
-export function clickAccessebilityTab(iFrameOnly = false) {
-  if (!iFrameOnly) accessibilityTab().click();
 }
 
 export function clickClear() {
