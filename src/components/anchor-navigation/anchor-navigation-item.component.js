@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -33,7 +34,9 @@ AnchorNavigationItem.propTypes = {
   /** Indicates if component is selected */
   isSelected: PropTypes.bool,
   /** Allows to override existing component styles */
-  styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+  styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  /** Reference to the section html element meant to be shown   */
+  target: PropTypes.shape({ current: PropTypes.instanceOf(Element) })
 };
 
 AnchorNavigationItem.displayName = 'AnchorNavigationItem';
