@@ -1,3 +1,10 @@
+### [32.0.1](https://github.com/Sage/carbon/compare/v32.0.0...v32.0.1) (2020-06-30)
+
+
+### Bug Fixes
+
+* **anchor-navigation:** fix anchor navigation item prop type definitions ([0605c7a](https://github.com/Sage/carbon/commit/0605c7a25523ebff2748bda96a7452b309caa6ad))
+
 ## [32.0.0](https://github.com/Sage/carbon/compare/v31.1.1...v32.0.0) (2020-06-29)
 
 
