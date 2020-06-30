@@ -8,6 +8,7 @@ import { notes, Info } from './documentation';
 import Icon from '.';
 import classicTheme from '../../style/themes/classic';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
+import createGuid from '../../utils/helpers/guid';
 
 Icon.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -78,5 +79,94 @@ storiesOf('Icon', module)
     themeSelector: dlsThemeSelector,
     info: { text: Info },
     notes: { markdown: notes },
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    parameters: {
+      chromatic: {
+        disable: true
+      }
+    }
+  })
+  .add('all', () => {
+    return (
+      <>
+        {OptionsHelper.icons.map(type => OptionsHelper.sizesBinary.map((fontSize) => {
+          return OptionsHelper.shapes.map((bgShape) => {
+            if (fontSize === 'large') {
+              return (
+                <Icon
+                  type={ type }
+                  fontSize={ fontSize }
+                  key={ createGuid() }
+                  bgTheme='info'
+                  bgShape={ bgShape }
+                />
+              );
+            }
+            return OptionsHelper.sizesRestricted.map(bgSize => (
+              <Icon
+                type={ type }
+                fontSize={ fontSize }
+                key={ createGuid() }
+                bgTheme='info'
+                bgShape={ bgShape }
+                bgSize={ bgSize }
+              />
+            ));
+          });
+        }))}
+
+        {OptionsHelper.sizesBinary.map(fontSize => (
+          [true, false].map(disabled => (
+            OptionsHelper.iconBackgrounds.map((bgTheme) => {
+              if (bgTheme !== 'none') {
+                return OptionsHelper.shapes.map((bgShape) => {
+                  if (fontSize === 'large') {
+                    return (
+                      <Icon
+                        type='add'
+                        fontSize={ fontSize }
+                        disabled={ disabled }
+                        key={ createGuid() }
+                        bgTheme={ bgTheme }
+                        bgShape={ bgShape }
+                      />
+                    );
+                  }
+                  return OptionsHelper.sizesRestricted.map(bgSize => (
+                    <Icon
+                      type='add'
+                      fontSize={ fontSize }
+                      disabled={ disabled }
+                      key={ createGuid() }
+                      bgTheme={ bgTheme }
+                      bgShape={ bgShape }
+                      bgSize={ bgSize }
+                    />
+                  ));
+                });
+              }
+              return OptionsHelper.iconColors.map(iconColor => (
+                <Icon
+                  type='add'
+                  fontSize={ fontSize }
+                  disabled={ disabled }
+                  key={ createGuid() }
+                  bgTheme={ iconColor === 'on-dark-background' ? 'info' : bgTheme }
+                  iconColor={ iconColor }
+                />
+              ));
+            })
+          ))
+        ))}
+      </>
+    );
+  }, {
+    themeSelector: dlsThemeSelector,
+    info: { disable: true },
+    knobs: { escapeHTML: false },
+    parameters: {
+      chromatic: {
+        disable: false
+      }
+    }
   });

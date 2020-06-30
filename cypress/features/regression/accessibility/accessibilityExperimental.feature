@@ -2,10 +2,9 @@ Feature: Accessibility tests
   I want to check that all components have no violations
 
   @accessibility
-  Scenario Outline: Component <component> without activation button
-    Given I open "<component>" component page
-    When I open Accessibility Tab
-    Then "<component>" component has no violations in Accessibility section
+  Scenario Outline: Component <component> default story
+    When I open "<component>" component page in noIFrame
+    Then "<component>" component has no accessibility violations
     Examples:
       | component                        |
       | experimental-checkbox            |

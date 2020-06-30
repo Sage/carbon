@@ -3,9 +3,8 @@ Feature: Accessibility tests -> Test directory
 
   @accessibility
   Scenario Outline: Component <component> basic default page
-    Given I open basic Test "<component>" component page
-    When I open Accessibility Tab
-    Then "<component>" component has no violations in Accessibility section
+    When I open basic Test "<component>" component page in noIframe
+    Then "<component>" component has no accessibility violations
     Examples:
       | component           | data-component      |
       | Anchornavigation    | anchor-navigation   |
