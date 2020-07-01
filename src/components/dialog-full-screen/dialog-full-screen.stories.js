@@ -7,7 +7,7 @@ import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/them
 import { notes, info } from './documentation';
 import DialogFullScreen from '.';
 import Button from '../button';
-import Form from '../../__deprecated__/components/form';
+import Form from '../form';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 DialogFullScreen.__docgenInfo = getDocGenInfo(
@@ -101,7 +101,11 @@ function makeStickyFooterStory(name, themeSelector, disableChromatic = false) {
             onClick={ handleClick }
             showCloseIcon={ showCloseIcon }
           >
-            <Form stickyFooter>
+            <Form
+              stickyFooter
+              leftSideButtons={ <Button onClick={ handleCancel }>Cancel</Button> }
+              saveButton={ <Button buttonType='primary' type='submit'>Save</Button> }
+            >
               { children }
               <div style={ { height: formHeight } } />
             </Form>
