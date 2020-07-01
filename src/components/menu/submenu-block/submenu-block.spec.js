@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import SubmenuBlock from './submenu-block.component';
-import MenuItem from '../menu-item';
+import { MenuItem, SubmenuBlock } from '..';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import { baseTheme } from '../../../style/themes';
 import { StyledSubmenuItem, StyledSubmenu } from './submenu.style';
@@ -25,9 +24,9 @@ describe('SubmenuBlock', () => {
     expect(wrapper.prop('data-component')).toBe('submenu-block');
   });
 
-  it('should render correct styles if `menuType="primary"`', () => {
+  it('should render correct styles if `menuType="light"`', () => {
     wrapper = mount(
-      <StyledSubmenu menuType='primary'>
+      <StyledSubmenu menuType='light'>
         <MenuItem>Item Submenu One</MenuItem>
       </StyledSubmenu>
     );
@@ -39,7 +38,7 @@ describe('SubmenuBlock', () => {
 
   it('should render correct styles if `menuType="secondary"`', () => {
     wrapper = mount(
-      <StyledSubmenu menuType='secondary'>
+      <StyledSubmenu menuType='dark'>
         <MenuItem>Item Submenu One</MenuItem>
       </StyledSubmenu>
     );

@@ -18,7 +18,7 @@ describe('Menu', () => {
   });
 
   it('should have default theme as primary', () => {
-    expect(wrapper.props().menuType).toBe('primary');
+    expect(wrapper.props().menuType).toBe('light');
   });
 
   it('should render children correctly', () => {
@@ -26,6 +26,6 @@ describe('Menu', () => {
   });
 
   it('should provide menu type to the children component', () => {
-    expect(wrapper.find(MenuItem).props().menuType).toBe('primary');
+    expect(wrapper.find(MenuItem).props().menuType).toBe('light');
   });
 });

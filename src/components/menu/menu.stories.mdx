@@ -1,0 +1,192 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import {
+  Menu, MenuItem, SubmenuBlock, MenuDivider
+} from '.';
+
+<Meta
+  title="Design System/Menu"
+  parameters={{ info: { disable: true }}}
+/>
+
+## Quick Start
+
+```jsx
+import {Menu, MenuItem, SubmenuBlock, MenuDivider} from "carbon-react/lib/components/menu";
+```
+
+## Visuals
+
+## Default
+
+<Preview>
+  <Story name="default">
+    <div style={{minHeight: '150px'}}>
+      <Menu>
+        <MenuItem href="#">
+          Menu Item One
+        </MenuItem>
+        <MenuItem href="#">
+          Menu Item Two
+        </MenuItem>
+        <MenuItem submenu="Menu Item Three">
+          <MenuItem href="#">
+            Item Submenu One
+          </MenuItem>
+          <MenuItem href="#">
+            Item Submenu Two
+          </MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
+## Default selected
+
+<Preview>
+  <Story name="default selected">
+    <div style={{minHeight: '150px'}}>
+      <Menu>
+        <MenuItem selected href="#">
+          Menu Item One
+        </MenuItem>
+        <MenuItem href="#">
+          Menu Item Two
+        </MenuItem>
+        <MenuItem submenu="Menu Item Three">
+          <MenuItem href="#">
+            Item Submenu One
+          </MenuItem>
+          <MenuItem href="#">
+            Item Submenu Two
+          </MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
+## Default divider
+
+<Preview>
+  <Story name="default divider">
+    <div style={{minHeight: '150px'}}>
+      <Menu>
+        <MenuItem href="#">
+          Menu Item One
+        </MenuItem>
+        <MenuItem href="#">
+          Menu Item Two
+        </MenuItem>
+        <MenuItem submenu="Menu Item Three">
+          <MenuItem href="#">
+            Item Submenu One
+          </MenuItem>
+          <MenuDivider />
+          <MenuItem href="#">
+            Item Submenu Two
+          </MenuItem>
+          <MenuItem href="#">
+            Item Submenu Three
+          </MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
+
+## Dark theme
+
+<Preview>
+  <Story name="dark theme">
+    <div style={{minHeight: '150px'}}>
+      <Menu menuType="dark">
+        <MenuItem href="#">
+          Menu Item One
+        </MenuItem>
+        <MenuItem href="#">
+          Menu Item Two
+        </MenuItem>
+        <MenuItem submenu="Menu Item Three">
+          <MenuItem href="#">
+            Item Submenu One
+          </MenuItem>
+          <MenuItem href="#">
+            Item Submenu Two
+          </MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
+## Dark theme selected
+
+<Preview>
+  <Story name="dark theme selected">
+    <div style={{minHeight: '150px'}}>
+      <Menu menuType="dark">
+        <MenuItem selected href="#">
+          Menu Item One
+        </MenuItem>
+        <MenuItem href="#">
+          Menu Item Two
+        </MenuItem>
+        <MenuItem submenu="Menu Item Three">
+          <MenuItem href="#">
+            Item Submenu One
+          </MenuItem>
+          <MenuItem href="#">
+            Item Submenu Two
+          </MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
+## Dark theme divider
+
+<Preview>
+  <Story name="dark theme divider">
+    <div style={{minHeight: '150px'}}>
+      <Menu menuType="dark">
+        <MenuItem href="#">
+          Menu Item One
+        </MenuItem>
+        <MenuItem href="#">
+          Menu Item Two
+        </MenuItem>
+        <MenuItem submenu="Menu Item Three">
+          <MenuItem href="#">
+            Item Submenu One
+          </MenuItem>
+          <MenuDivider />
+          <MenuItem href="#">
+            Item Submenu Two
+          </MenuItem>
+          <MenuItem href="#">
+            Item Submenu Three
+          </MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
+  </Story>
+</Preview>
+
+## Menu Props
+
+<Props of={Menu} />
+
+## MenuItem Props
+
+<Props of={MenuItem} />
+
+## SubmenuBlock Props
+
+<Props of={SubmenuBlock} />
+
+## MenuDivider Props
+
+<Props of={MenuDivider} />
