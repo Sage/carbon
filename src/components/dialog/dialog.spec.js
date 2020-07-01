@@ -581,4 +581,34 @@ describe('Dialog', () => {
       assertStyleMatch({ paddingRight: '85px' }, DialogTitle);
     });
   });
+
+  describe('when focus trap disabled', () => {
+    it('should not have a removeFocusTrap method', () => {
+      const wrapper = mount(
+        <Dialog
+          open
+          disableFocusTrap
+        />
+      );
+      instance = wrapper.instance();
+      instance.handleClose();
+      expect(instance.removeFocusTrap).toEqual(undefined);
+    });
+  });
+
+  describe('when auto focus disabled', () => {
+    it('should not focus the first element by default', () => {
+      mount(
+        <Dialog
+          open
+          disableAutoFocus
+        >
+          <input type='text' />
+        </Dialog>
+      );
+
+      const firstFocusableElement = document.querySelector('input');
+      expect(document.activeElement).not.toBe(firstFocusableElement);
+    });
+  });
 });

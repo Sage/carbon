@@ -10,7 +10,7 @@ exports[`AdvancedColorPicker when uncontrolled should render internal compositio
     tabIndex="0"
   />
   <Styled(Dialog)
-    focusFirstElement={[Function]}
+    bespokeFocusTrap={[Function]}
     onCancel={[Function]}
     open={false}
     size="auto"

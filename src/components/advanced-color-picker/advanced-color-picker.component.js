@@ -50,8 +50,20 @@ const AdvancedColorPicker = ({
     }
   }, [colors, currentColor, dialogOpen, isOpen]);
 
-  const handleFocus = useCallback(() => {
-    selectedColorRef.current.input.current.focus();
+  const handleFocus = useCallback((e, firstFocusableElement, lastFocusableElement) => {
+    if (e.key === 'Tab') {
+      /* istanbul ignore else */
+      if (e.shiftKey) {
+        /* istanbul ignore else */
+        if (document.activeElement === selectedColorRef.current.input.current) {
+          lastFocusableElement.focus();
+          e.preventDefault();
+        }
+      } else if (document.activeElement === lastFocusableElement) {
+        selectedColorRef.current.input.current.focus();
+        e.preventDefault();
+      }
+    }
   }, [selectedColorRef]);
 
   const handleOnOpen = useCallback((e) => {
@@ -112,7 +124,7 @@ const AdvancedColorPicker = ({
         open={ dialogOpen || isOpen }
         size='auto'
         onCancel={ handleOnClose }
-        focusFirstElement={ handleFocus }
+        bespokeFocusTrap={ handleFocus }
       >
         <StyledAdvancedColorPickerPreview
           data-element='color-picker-preview'

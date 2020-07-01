@@ -7,7 +7,8 @@ Feature: Sidebar component
 
   @positive
   Scenario: CloseIcon has the border outline
-    When closeIcon is focused
+  # Commented because of BDD default scenario Given - When - Then
+  # When I open checkbox
     Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
 
   @positive

@@ -59,22 +59,27 @@ const definition = new Definition('dialog', Dialog, {
       This is an example of a dialog with a Form as content`
   },
   propTypes: {
-    autoFocus: 'Boolean',
     height: 'String',
     title: 'String',
     size: 'String',
     showCloseIcon: 'Boolean',
     subtitle: 'String',
     stickyFormFooter: 'Boolean',
+    focusFirstElement: 'Function',
+    disableFocusTrap: 'Boolean',
+    disableAutoFocus: 'Boolean'
   },
   propDescriptions: {
-    autoFocus: 'When set to true the dialog will receive keyboard focus when it opens.',
     height: 'Sets a value for a specific height the dialog should take (for example "500px").',
     showCloseIcon: 'Set this prop to false to hide the close icon within the dialog.',
     size: `Change this prop to set the dialog to a specific size. Possible values include:
      ${OptionsHelper.sizesFull.join(', ')}`,
     subtitle: 'Controls the subtitle of the dialog.',
-    title: 'Controls the main title of the dialog.'
+    title: 'Controls the main title of the dialog.',
+    focusFirstElement: 'Function or reference to first element to focus',
+    disableFocusTrap: 'Disables the focus trap when the dialog is open',
+    disableAutoFocus: 'Disables auto focus functionality on child elements',
+    bespokeFocusTrap: 'Function to replace focus trap'
   }
 });
 
