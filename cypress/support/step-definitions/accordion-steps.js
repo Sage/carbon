@@ -1,6 +1,6 @@
 import {
   accordionTitleContainer, accordionIcon, accordion, accordionTitleContainerByPosition,
-  accordionTitleContainerNoIFrame, accordionTitleContainerByPositionNoIFrame, accordionPrimaryTitleDS,
+  accordionTitleContainerNoIFrame, accordionTitleContainerByPositionNoIFrame, accordionPrimaryTitleDS, accordionPrimaryTitleNoIFrame,
 } from '../../locators/accordion';
 import { positionOfElement, keyCode } from '../helper';
 
@@ -47,6 +47,10 @@ Then('Accordion type property on preview is set to {string}', (type) => {
 
 When('I expand Design System accordionRow via click', () => {
   accordionPrimaryTitleDS().click();
+});
+
+When('I expand Design System accordionRow via click in NoIFrame', () => {
+  accordionPrimaryTitleNoIFrame().click();
 });
 
 When('I expand accordionRow via click', () => {

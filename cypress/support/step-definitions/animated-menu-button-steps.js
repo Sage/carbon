@@ -1,4 +1,4 @@
-import { animatedMenuButtonPreview } from '../../locators/animated-menu-button';
+import { animatedMenuButtonPreview, animatedMenuButtonPreviewNoIFrame } from '../../locators/animated-menu-button';
 import { DEBUG_FLAG } from '..';
 import { label } from '../../locators';
 
@@ -6,6 +6,10 @@ const CLASS_PREFIX = 'carbon-animated-menu-button--';
 
 When('I trigger Animated Menu Button preview', () => {
   animatedMenuButtonPreview().trigger('mouseover');
+});
+
+When('I open Animated Menu Button preview in noIFrame', () => {
+  animatedMenuButtonPreviewNoIFrame().trigger('mouseover');
 });
 
 Then('Animated Menu Button label on preview is {word}', (text) => {
