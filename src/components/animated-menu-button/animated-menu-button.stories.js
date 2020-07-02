@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { select, text } from '@storybook/addon-knobs';
 import styled from 'styled-components';
-import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
+import { dlsThemeSelector } from '../../../.storybook/theme-selectors';
 import notes from './notes.md';
 import AnimatedMenuButton from './animated-menu-button';
 import OptionsHelper from '../../utils/helpers/options-helper';
@@ -105,5 +105,4 @@ storiesOf('Animated Menu Button', module)
       propTables: [AnimatedMenuButton]
     }
   })
-  .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector, true));
+  .add(...makeStory('default', dlsThemeSelector));
