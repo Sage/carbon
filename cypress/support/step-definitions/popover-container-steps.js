@@ -7,6 +7,7 @@ import {
   popoverSettingsIconRightAlignedDS,
   popoverSettingsIconCoverDS,
   popoverContainerDataComponent,
+  popoverSettingsIconNoIFrame,
 } from '../../locators/popover-container';
 import { keyCode } from '../helper';
 
@@ -88,4 +89,8 @@ When('I click popover close icon', () => {
 Then('opening icon is hide', () => {
   popoverSettingsIconCoverDS().parent().should('have.attr', 'tabindex', '-1');
   popoverContainerContentDS().should('be.visible');
+});
+
+When('I open popover container in NoIFrame', () => {
+  popoverSettingsIconNoIFrame().click();
 });
