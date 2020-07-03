@@ -114,9 +114,8 @@ const Input = (ComposedComponent) => {
      * @method componentDidUpdate
      * @return {void}
      */
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
       // call the components super method if it exists
-      if (super.componentDidUpdate) { super.componentDidUpdate(prevProps, prevState); }
 
       if (this.props.prefix !== prevProps.prefix || this.props.icon !== prevProps.icon) {
         this.setTextIndentation();
