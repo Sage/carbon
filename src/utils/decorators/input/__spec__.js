@@ -32,7 +32,6 @@ class TestClassTwo extends React.Component {
 
   get inputProps() {
     let { ...props } = this.props;
-    console.log(this.props)
     return props;
   }
 
