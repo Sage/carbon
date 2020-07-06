@@ -123,7 +123,7 @@ Feature: Show Edit Pod component
     When I click edit Show Edit Pod component
     Then edit action was called in Actions Tab
 
-  @ignore
+  @positive
   Scenario: Delete action was called
     Given I click edit Show Edit Pod component
     When clear all actions in Actions Tab
