@@ -1,3 +1,10 @@
+### [32.0.2](https://github.com/Sage/carbon/compare/v32.0.1...v32.0.2) (2020-07-02)
+
+
+### Bug Fixes
+
+* **filter:** add deprecation warning ([373a9b4](https://github.com/Sage/carbon/commit/373a9b416277aea11ee36c40db48cd5c070a7baa))
+
 ### [32.0.1](https://github.com/Sage/carbon/compare/v32.0.0...v32.0.1) (2020-06-30)
 
 
