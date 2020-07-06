@@ -116,6 +116,20 @@ Our GitHub checks don't run on a forked PR because the Chromatic and Cypress Das
 If there are no changes that could expose our credentials they will use [`git-push-fork-to-upstream-branch`](https://github.com/jklukas/git-push-fork-to-upstream-branch) to
 copy your branch into our repo. Doing this will trigger a `push` build and your PR checks will be updated. This is documented on the [Circle CI blog](https://circleci.com/blog/triggering-trusted-ci-jobs-on-untrusted-forks/).
 
+#### Long lived branches
+Sometimes it is necessary to work on a feature for an extended amount of time. If you're aware of the pros/cons of doing such you can choose to use a `major/**` branch.
+
+1. Create a long lived branch off master e.g. `git checkout -b major/remove_classic_theme origin/master`
+1. Create a feature branch from the long lived branch e.g. `git checkout -b remove_classic_alert origin/major/remove_classic_theme`
+1. Dev creates PR and `remove_classic_alert` is merged back into `major/remove_classic_theme`
+1. Dev repeats steps 2 & 3 until the feature is complete.
+1. When the feature is complete the master and the long lived branch will have diverged, you'll need to merge master in to the long lived branch, resolving any conflicts. `git merge origin/master`
+1. Now that the two branches are up to date you can make a PR from the long lived branch into master
+
+*N.B. It's recommended that development on master is paused while this long lived branch is merged into master, otherwise you will have to re-integrate each time master changes.*
+
+*A long lived branch will only trigger one release, when it is merged into master.*
+
 ## Styleguides
 ### Git commit messages
 We use the [`conventional-commits`](https://www.conventionalcommits.org/en/v1.0.0/) commit message format. This specification is a lightweight convention on top of commit messages. It provides an easy set of rules for creating an explicit commit history; which makes it easier to write automated tools on top of. This convention dovetails with [SemVer](https://semver.org/), by describing the features, fixes, and breaking changes made in commit messages.
