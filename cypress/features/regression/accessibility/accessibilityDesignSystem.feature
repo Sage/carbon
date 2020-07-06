@@ -231,3 +231,8 @@ Feature: Accessibility tests - Design System folder
       | story    |
       | disabled |
       | readOnly |
+    
+  @accessibility
+  Scenario: Design System Note component with_footer page
+    When I open design systems with_footer "Note" component in no iframe
+    Then "Note with_footer" component has no accessibility violations
