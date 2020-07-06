@@ -1,6 +1,5 @@
 import { alertDialogPreview as dialogPreview, dialogStickyFormFooter, dialogStickyFormFooterButton } from '../../locators/dialog/index';
 import { closeIconButton, backgroundUILocator, storyRoot } from '../../locators/index';
-import { DEBUG_FLAG } from '..';
 import { positionOfElement } from '../helper';
 
 When('I click close icon', () => {
@@ -27,13 +26,8 @@ Then('Dialog is not visible', () => {
   dialogPreview().should('not.exist');
 });
 
-Then('stickyFormFooter is enabled', () => {
-  cy.wait(500, { log: DEBUG_FLAG }); // storybook needs time to render properly stickyFormFooter
+Then('Dialog stickyFormFooter is visible', () => {
   dialogStickyFormFooter().should('be.visible');
-});
-
-Then('stickyFormFooter is disabled', () => {
-  dialogStickyFormFooter().should('not.be.visible');
 });
 
 When('I click on {string} outside dialog', (position) => {
@@ -47,8 +41,12 @@ When('I click on background {string} outside dialog', (position) => {
 Then('footer buttons have color {string} and has {int} px border', (color, px) => {
   dialogStickyFormFooterButton(positionOfElement('first')).should('have.css', 'border', `${px}px solid ${color}`)
     .and('have.css', 'color', color);
-  dialogStickyFormFooterButton(positionOfElement('second')).children().should('have.css', 'background')
+  dialogStickyFormFooterButton(positionOfElement('first')).children().should('have.css', 'color')
     .and('contain', color);
-  dialogStickyFormFooterButton(positionOfElement('second')).children().should('have.css', 'border-color', 'rgba(0, 0, 0, 0)')
+  dialogStickyFormFooterButton(positionOfElement('first')).children()
+    .should('have.css', 'border-color', color);
+  dialogStickyFormFooterButton(positionOfElement('second')).should('have.css', 'border', `${px}px solid rgba(0, 0, 0, 0)`)
     .and('have.css', 'color', 'rgb(255, 255, 255)');
+  dialogStickyFormFooterButton(positionOfElement('second')).should('have.css', 'background-color')
+    .and('contain', color);
 });

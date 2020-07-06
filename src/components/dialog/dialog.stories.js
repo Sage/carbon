@@ -156,4 +156,4 @@ function makeStory(name, themeSelector, stickyFooter) {
 
 storiesOf('Dialog', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('with sticky Form footer', dlsThemeSelector, true));
+  .add(...makeStory('with sticky footer', dlsThemeSelector, true));
