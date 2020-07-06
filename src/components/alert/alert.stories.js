@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { boolean, text, select } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
 import { action } from '@storybook/addon-actions';
-import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
+import { dlsThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Button from '../button';
 import Alert from '.';
@@ -28,7 +28,7 @@ const handleOpen = () => {
   action('open')();
 };
 
-function makeStory(name, themeSelector, disableChromatic = false) {
+function makeStory(name, themeSelector, disableChromatic = true) {
   const component = () => {
     const title = text('title', 'Attention');
     const subtitle = text('subtitle', '');
@@ -126,6 +126,4 @@ storiesOf('Alert', module)
     notes: { markdown: notes }
   })
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector, true))
-  .add(...makeButtonStory('with button', dlsThemeSelector))
-  .add(...makeButtonStory('with button classic', classicThemeSelector, true));
+  .add(...makeButtonStory('with button', dlsThemeSelector));
