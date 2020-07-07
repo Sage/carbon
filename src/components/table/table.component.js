@@ -13,7 +13,7 @@ import TableHeader from './table-header';
 import TableSubheader from './table-subheader';
 import DraggableTableCell from './draggable-table-cell';
 import Pager from '../pager';
-import Spinner from '../../__deprecated__/components/spinner';
+import Loader from '../loader';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 class Table extends React.Component {
@@ -387,7 +387,7 @@ class Table extends React.Component {
               timeout={ 300 }
               appear
             >
-              <Spinner size='small' className='table__spinner' />
+              <Loader size='small' />
             </CSSTransition>
           </TransitionGroup>
         </TableCell>
