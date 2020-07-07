@@ -130,6 +130,7 @@ exports[`Switch base theme renders as expected 1`] = `
 .c11 .c32 {
   position: absolute;
   right: -30px;
+  height: 100%;
 }
 
 .c15 .c4 {
