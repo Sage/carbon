@@ -36,12 +36,20 @@ Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
 });
 
+Given('I open Test {string} component page knobs in noIFrame', (component) => {
+  visitComponentUrl(component, 'knobs', true, 'test-');
+});
+
 Given('I open Test {string} component page knobs', (component) => {
   visitComponentUrl(component, 'knobs', false, 'test-');
 });
 
-Given('I open {string} component page knobs in noIFrame', (component) => {
-  visitComponentUrl(component, 'knobs', true);
+Given('I open {string} component page in noIFrame', (component) => {
+  visitComponentUrl(component, 'default', true);
+});
+
+Given('I open Experimental {string} component page in noIFrame', (component) => {
+  visitComponentUrl(component, 'default', true, 'experimental-');
 });
 
 Given('I open {string} component page basic', (component) => {
@@ -56,6 +64,10 @@ Given('I open {string} component page with button', (component) => {
   visitComponentUrl(component, 'with_button');
 });
 
+Given('I open {string} component page with button in noIFrame', (component) => {
+  visitComponentUrl(component, 'with_button', true);
+});
+
 Given('I open {string} component page with inputs', (component) => {
   visitComponentUrl(component, 'default_with_inputs');
 });
@@ -64,8 +76,12 @@ Given('I open {string} component page legacy spinner', (component) => {
   visitComponentUrl(component, 'legacy_spinner');
 });
 
-Given('I open {string} component page legacy spinner in iframe', (component) => {
+Given('I open {string} component page legacy spinner in noIFrame', (component) => {
   visitComponentUrl(component, 'legacy_spinner', true);
+});
+
+Given('I open dark theme {string} component page in noIFrame', (component) => {
+  visitComponentUrl(component, 'dark_theme', true);
 });
 
 Given('I open {string} component in iframe', (component) => {
@@ -89,11 +105,11 @@ Given('I open {string} component page multiple in iframe', (component) => {
   visitComponentUrl(component, 'multiple', true);
 });
 
-Given('I open {string} component page as sibling in iframe', (component) => {
-  visitComponentUrl(component, 'as_a_sibling', true);
+Given('I open Test {string} component page as sibling in no iframe', (component) => {
+  visitComponentUrl(component, 'as_a_sibling', true, 'test-');
 });
 
-Given('I open Test {string} component page as sibling in no iframe', (component) => {
+Given('I open Test {string} component page as sibling', (component) => {
   visitComponentUrl(component, 'as_a_sibling', false, 'test-');
 });
 
@@ -101,36 +117,28 @@ Given('I open {string} component page full-width in no iframe', (component) => {
   visitComponentUrl(component, 'full_width');
 });
 
-Given('I open {string} component page validations in noIframe', (component) => {
-  visitComponentUrl(component, 'validations', true);
+Given('I open {string} component page as sibling', (component) => {
+  visitComponentUrl(component, 'as_a_sibling');
 });
 
-Given('I open basic Test {string} component page', (component) => {
-  visitComponentUrl(component, 'basic', false, 'test-');
+Given('I open Experimental {string} component page validations in noIframe', (component) => {
+  visitComponentUrl(component, 'validations', true, 'experimental-');
 });
 
-Given('I open basic Test {string} component page in noIframe', (component) => {
-  visitComponentUrl(component, 'basic', true, 'test-');
+Given('I open {word} Test {string} component page', (type, component) => {
+  visitComponentUrl(component, type, false, 'test-');
 });
 
-Given('I open visual Test {string} component page in noIframe', (component) => {
-  visitComponentUrl(component, 'visual', true, 'test-');
+Given('I open {word} Test {string} component page in noIframe', (type, component) => {
+  visitComponentUrl(component, type, true, 'test-');
 });
 
 Given('I open style override Test {string} component page in noIframe', (component) => {
   visitComponentUrl(component, 'style_override', true, 'test-');
 });
 
-Given('I open sortable Test {string} component page in Iframe', (component) => {
-  visitComponentUrl(component, 'sortable', false, 'test-');
-});
-
 When('I open Test {string} component basic page with prop value', (componentName) => {
   visitFlatTableComponentNoiFrame(componentName, 'basic', true, 'test-');
-});
-
-Given('I open grouped Test {string} component page in noIframe', (component) => {
-  visitComponentUrl(component, 'grouped', true, 'test-');
 });
 
 Given('I open {string} component page autoFocus in iframe', (component) => {

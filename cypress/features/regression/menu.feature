@@ -5,13 +5,18 @@ Feature: Menu component
     Given I open "Menu" component page
 
   @positive
-  Scenario Outline: Change Menu 'as' property to <as>
-    When I select as to "<as>"
-    Then Menu as property on preview is "<as>"
+  Scenario Outline: Change <menuElement> element of Menu component with set menuType property to <menuType>
+    When I select menuType to "<menuType>"
+    Then Menu "<menuElement>" element menuType property on preview is "<menuType>"
     Examples:
-      | as        |
-      | primary   |
-      | secondary |
+      | menuElement | menuType  |
+      | first       | primary   |
+      | second      | primary   |
+      | third       | primary   |
+      | first       | secondary |
+      | second      | secondary |
+      | third       | secondary |
+
 
   @positive
   Scenario: Check the persistence of Menu element
