@@ -1,3 +1,10 @@
+### [32.0.3](https://github.com/Sage/carbon/compare/v32.0.2...v32.0.3) (2020-07-08)
+
+
+### Bug Fixes
+
+* **switch:** fix misaligned validation icon on large switch ([afc2f68](https://github.com/Sage/carbon/commit/afc2f68b5a6de1a9001ca18daf4b30bf94db89dc))
+
 ### [32.0.2](https://github.com/Sage/carbon/compare/v32.0.1...v32.0.2) (2020-07-02)
 
 
