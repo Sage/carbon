@@ -3,8 +3,14 @@ import PropTypes from 'prop-types';
 import { merge } from 'lodash';
 import tagComponent from '../../utils/helpers/tags';
 import { RainbowStyle } from './rainbow.style';
+import Logger from '../../utils/logger';
 
 class Rainbow extends React.Component {
+  constructor(props) {
+    super(props);
+    Logger.deprecate('Rainbow component is scheduled to be removed from Carbon.');
+  }
+
   /** Renders the initial chart, and stores it on the ref so it can be updated later */
   componentDidMount() {
     const config = generateConfig(this.props.data, this.props.title);
