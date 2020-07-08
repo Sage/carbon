@@ -65,6 +65,7 @@ jobs:
           record: true
           parallel: true
           group: ubuntu-regression
+          quiet: true
         env:
           # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
@@ -72,4 +73,3 @@ jobs:
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEBUG: 'cypress:*'
