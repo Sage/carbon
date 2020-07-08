@@ -1,6 +1,7 @@
 @import "./../../style-config/general";
 
 .carbon-app-wrapper {
+  box-sizing: border-box;
   max-width: $app-max-width;
   min-width: $app-width;
   margin: 0 auto;
