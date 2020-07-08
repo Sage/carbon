@@ -2,7 +2,7 @@
 
 # Summary
 
-Introduce `__internal__` folders to distinguish when components/utilities are for internal use only.
+Introduce `__internal__` folders to distinguish when components/utilities are not intended for use outside of this project.
 
 Introduce `@private` and `@ignore` JSDoc annotations to document prop types.
 
@@ -68,7 +68,7 @@ export Example;
 
 # Alternatives
 
-1. Add JSDoc but no `__internal__` folders
+1. Add JSDoc but no `__internal__` folders, documenting that `Example.component.js` files are internal and that users should use the `index.js` to import the component.
 
 The purpose of the `__internal__` folder name is to make it clear to reviewers that the consumer is using part of `carbon-react` internals. It should be clear to people that are unfamiliar with `carbon-react` and JavaScript development in general.
 
