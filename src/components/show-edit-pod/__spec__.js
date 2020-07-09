@@ -3,8 +3,9 @@ import { ThemeProvider } from 'styled-components';
 import { shallow, mount } from 'enzyme';
 import 'jest-styled-components';
 import ShowEditPod from './show-edit-pod';
-import Form from '../../__deprecated__/components/form';
-import Pod from '../../components/pod';
+import Form from '../form';
+import Pod from '../pod';
+import Button from '../button';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import StyledDeleteButton from './delete-button.style';
 import classic from '../../style/themes/classic';
@@ -66,7 +67,7 @@ describe('ShowEditPod', () => {
 
      describe('and then the onCancel prop is called on the Edit Form', () => {
         it('does not display the Edit Form', () => {
-          wrapper.update().find(Form).props().onCancel();
+          wrapper.update().find(Form).find(Button).at(0).props().onClick();
           jest.runAllTimers();
 
           expect(wrapper.update().find('[data-element="edit-form"]').exists()).toBe(false);
@@ -110,24 +111,24 @@ describe('ShowEditPod', () => {
     });
   
     describe('with the "editing" prop not set', () => {
-      let afterFormValidation;
+      let onSave;
 
       beforeEach(() => {
         jest.useFakeTimers()
-        afterFormValidation = jest.fn();
+        onSave = jest.fn();
         wrapper = renderShowEditPod({
-          afterFormValidation,
+          onSave,
           onEdit: jest.fn()
         });
         wrapper.find(Pod).props().onEdit();
         jest.runAllTimers();
       });
 
-      describe('after the Edit Form validation', () => {
+      describe('after the Edit Form saving', () => {
         it('does not display the Edit Form', () => {
           const ev = { preventDefault: jest.fn() };
 
-          wrapper.update().find(Form).props().afterFormValidation(ev, true);
+          wrapper.update().find(Form).props().onSubmit(ev);
           jest.runAllTimers();
 
           expect(wrapper.update().find(Form).exists()).toBe(false);
@@ -178,14 +179,14 @@ describe('ShowEditPod', () => {
     });
   });
 
-  describe('after the Edit Form validation', () => {
-    let wrapper, afterFormValidation;
+  describe('after the Edit Form saving', () => {
+    let wrapper, onSave;
     const mockEvent = { preventDefault: () => {} };
 
     beforeEach(() => {
-      afterFormValidation = jest.fn();
+      onSave = jest.fn();
       wrapper = renderShowEditPod({
-        afterFormValidation,
+        onSave,
         editing: true
       });
     });
@@ -194,22 +195,13 @@ describe('ShowEditPod', () => {
       const preventSpy = jasmine.createSpy('prevent');
       const ev = { preventDefault: preventSpy };
 
-      wrapper.find(Form).props().afterFormValidation(ev, true);
+      wrapper.find(Form).props().onSubmit(ev);
       expect(preventSpy).toHaveBeenCalled();
     });
 
-    describe('when the form is valid', () => {
-      it('calls the afterFormValidation callback', () => {
-        wrapper.find(Form).props().afterFormValidation(mockEvent, true);
-        expect(afterFormValidation).toHaveBeenCalled();
-      });
-    });
-
-    describe('when the form is invalid', () => {
-      it('calls the afterFormValidation callback', () => {
-        wrapper.find(Form).props().afterFormValidation(mockEvent, false);
-        expect(afterFormValidation).not.toHaveBeenCalled();
-      });
+    it('calls the onSave callback', () => {
+      wrapper.find(Form).props().onSubmit(mockEvent);
+      expect(onSave).toHaveBeenCalled();
     });
   });
 
@@ -227,7 +219,7 @@ describe('ShowEditPod', () => {
 
     describe('and the cancel is triggered on Edit Form', () => {
       it('calls the onCancel function', () => {
-        wrapper.find(Form).props().onCancel(mockEvent);
+        wrapper.find(Form).find(Button).at(0).props().onClick(mockEvent);
         expect(onCancel).toHaveBeenCalledWith(mockEvent);
       });
     });
@@ -264,7 +256,7 @@ describe('ShowEditPod', () => {
         onDelete,
         editing: true
       });
-      additionalComponent = mount(wrapper.find(Form).props().additionalActions);
+      additionalComponent = mount(wrapper.find(Form).props().rightSideButtons);
 
       expect(additionalComponent.type()).toBe(StyledDeleteButton);
     });
@@ -276,7 +268,7 @@ describe('ShowEditPod', () => {
           editing: true,
           deleteText: mockText
         });
-        additionalComponent = mount(wrapper.find(Form).props().additionalActions);
+        additionalComponent = mount(wrapper.find(Form).props().rightSideButtons);
 
         expect(additionalComponent.text()).toBe(mockText);
       });
@@ -288,7 +280,7 @@ describe('ShowEditPod', () => {
           onDelete,
           editing: true
         });
-        additionalComponent = mount(wrapper.find(Form).props().additionalActions);
+        additionalComponent = mount(wrapper.find(Form).props().rightSideButtons);
 
         expect(additionalComponent.text()).toBe('Delete');
       });
@@ -362,7 +354,7 @@ describe('ShowEditPod', () => {
           onDelete,
           editing: true
         }, classic);
-        additionalComponent = mount(wrapper.find(Form).props().additionalActions);
+        additionalComponent = mount(wrapper.find(Form).props().rightSideButtons);
   
         expect(additionalComponent.type()).toBe(StyledLink);
       });
@@ -374,7 +366,7 @@ describe('ShowEditPod', () => {
             editing: true,
             deleteText: mockText
           });
-          additionalComponent = mount(wrapper.find(Form).props().additionalActions);
+          additionalComponent = mount(wrapper.find(Form).props().rightSideButtons);
   
           expect(additionalComponent.text()).toBe(mockText);
         });
@@ -386,7 +378,7 @@ describe('ShowEditPod', () => {
             onDelete,
             editing: true
           });
-          additionalComponent = mount(wrapper.find(Form).props().additionalActions);
+          additionalComponent = mount(wrapper.find(Form).props().rightSideButtons);
   
           expect(additionalComponent.text()).toBe('Delete');
         });

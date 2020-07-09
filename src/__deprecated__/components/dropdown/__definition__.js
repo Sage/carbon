@@ -11,8 +11,6 @@ let definition = new Definition('dropdown', Dropdown, {
 * Consider a ‘smart default’ selection, based on what your user is likely to choose. But, users may well leave the defaults in place, so make sure any consequences are easy to undo, and not harmful.
   `,
   relatedComponentsNotes: `
-* Filtering menu options to find the right one? [Try Dropdown Filter](/components/dropdown-filter).
-* Adding a new option within the menu? [Try Dropdown Filter](/components/dropdown-filter).
 * Choosing one option from a shorter list? [Try Radio Button](/components/radio-button).
 * Choosing more than one option? [Try Checkbox](/components/checkbox).
 * Choosing one option from a highly visible range? [Try Button Toggle](/components/button-toggle).

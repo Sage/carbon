@@ -339,6 +339,9 @@ describe('Dropdown', () => {
   describe('nameByID', () => {
     describe('if there are no options', () => {
       it('returns the visible value', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Dropdown name="foo" value="" />
+        );
         expect(instance.nameByID()).toEqual(instance.visibleValue);
       });
     });

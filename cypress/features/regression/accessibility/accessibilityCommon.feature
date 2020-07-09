@@ -53,7 +53,6 @@ Feature: Accessibility tests - Common list
       | card                             |
       | configurable-items               |
       | content                          |
-      | create                           |
       | detail                           |
       | draggableContext                 |
       | filter component                 |

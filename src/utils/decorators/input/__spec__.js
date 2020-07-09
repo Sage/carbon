@@ -40,8 +40,31 @@ class TestClassTwo extends React.Component {
   }
 }
 
+class TestClassThree extends React.Component {
+  count = 0;
+
+  shouldComponentUpdate(nextProps, nextState) {
+    this.count++;
+  }
+
+  handleChange() {
+    console.log('test')
+  }
+
+  get inputProps() {
+    let { ...props } = this.props;
+    props.onChange = this.handleChange;
+    return props;
+  }
+
+  render() {
+    return <div></div>;
+  }
+}
+
 let ExtendedClassOne = Input(TestClassOne);
 let ExtendedClassTwo = Input(TestClassTwo);
+let ExtendedClassThree = Input(TestClassThree);
 let klass = new ExtendedClassOne;
 
 describe('Input', () => {
@@ -345,6 +368,13 @@ describe('Input', () => {
       it('passes the change event through the Input change handler', () => {
         instanceTwo.inputProps.onChange = onChange;
         expect(instanceTwo.inputProps.onChange).toEqual(instanceTwo._handleOnChange);
+      });
+    });
+
+    describe('when the component does not have its own onChange handler', () => {
+      const newInstance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassThree));
+      it('does not pass the change event through the Input change handler', () => {
+        expect(newInstance.inputProps.onChange).toEqual(newInstance.inputProps.onChange);
       });
     });
 
