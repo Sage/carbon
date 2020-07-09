@@ -7,6 +7,21 @@ import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import baseTheme from '../../../style/themes/base';
 
 describe('Input', () => {
+  let container;
+  beforeEach(() => {
+    container = document.createElement('div');
+    container.id = 'enzymeContainer';
+    document.body.appendChild(container);
+  });
+
+  afterEach(() => {
+    if (container && container.parentNode) {
+      container.parentNode.removeChild(container);
+    }
+
+    container = null;
+  });
+
   const renderMount = (props, context) => {
     let component = <Input { ...props } />;
 
@@ -18,7 +33,7 @@ describe('Input', () => {
       );
     }
 
-    return mount(component);
+    return mount(component, { attachTo: document.getElementById('enzymeContainer') });
   };
 
   it('renders with an input', () => {

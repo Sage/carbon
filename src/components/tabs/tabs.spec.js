@@ -524,11 +524,31 @@ describe('Tabs', () => {
   });
 
   describe('Keyboard navigation', () => {
-    let wrapper, replaceSpy;
+    let wrapper;
+    let replaceSpy;
+    let container;
+
+    beforeEach(() => {
+      container = document.createElement('div');
+      container.id = 'enzymeContainer';
+      document.body.appendChild(container);
+    });
+
+    afterEach(() => {
+      if (container && container.parentNode) {
+        container.parentNode.removeChild(container);
+      }
+
+      container = null;
+    });
+
+    function mountAttached(component) {
+      return mount(component, { attachTo: document.getElementById('enzymeContainer') });
+    }
 
     describe('when the orientation is horizontal', () => {
       beforeEach(() => {
-        wrapper = mount(
+        wrapper = mountAttached(
           <Tabs setLocation>
             <Tab tabId='tab1' title='Test 1' />
             <Tab tabId='tab2' title='Test 2' />
@@ -638,7 +658,7 @@ describe('Tabs', () => {
 
     describe('when the orientation is vertical', () => {
       beforeEach(() => {
-        wrapper = mount(
+        wrapper = mountAttached(
           <Tabs position='left' setLocation>
             <Tab tabId='tab1' title='Test 1' />
             <Tab tabId='tab2' title='Test 2' />

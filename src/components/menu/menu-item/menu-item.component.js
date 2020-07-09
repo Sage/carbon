@@ -6,7 +6,6 @@ import StyledMenuItemWrapper from './menu-item.style';
 import { StyledSubmenu, StyledSubmenuItem, StyledSubmenuTitle } from '../submenu-block/submenu.style';
 import OptionHelper from '../../../utils/helpers/options-helper';
 
-
 const MenuItem = ({
   submenu,
   children,
@@ -68,7 +67,7 @@ const MenuItem = ({
     menuType
   };
 
-  if (submenu) {
+  if (!submenu) {
     elementProps.routerLink = routerLink;
   }
 

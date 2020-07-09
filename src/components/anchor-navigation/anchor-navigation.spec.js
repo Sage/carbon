@@ -35,6 +35,7 @@ const Content = React.forwardRef(({ title, noTextbox }, ref) => (
 describe('AnchorNavigation', () => {
   let wrapper;
   let scrollIntoViewMock;
+  let container;
 
   let ref1;
   let ref2;
@@ -96,9 +97,74 @@ describe('AnchorNavigation', () => {
     );
   };
 
+  const renderAttached = (props) => {
+    ref1 = React.createRef();
+    ref2 = React.createRef();
+    ref3 = React.createRef();
+    ref4 = React.createRef();
+    ref5 = React.createRef();
+
+    function mockFunction(options) {
+      return { options, element: this };
+    }
+    scrollIntoViewMock = jest.fn().mockImplementation(mockFunction);
+
+    Element.prototype.scrollIntoView = scrollIntoViewMock;
+
+    wrapper = mount(
+      <AnchorNavigation
+        stickyNavigation={ (
+          <>
+            <AnchorNavigationItem target={ ref1 }>
+              First
+            </AnchorNavigationItem>
+            <AnchorNavigationItem target={ ref2 }>
+              Second
+            </AnchorNavigationItem>
+            <AnchorNavigationItem target={ ref3 }>
+              Third
+            </AnchorNavigationItem>
+            <AnchorNavigationItem target={ ref4 }>
+              The slighly longer than expected fourth navigation item
+            </AnchorNavigationItem>
+            <AnchorNavigationItem target={ ref5 }>
+              Fifth
+            </AnchorNavigationItem>
+          </>
+        ) }
+        { ...props }
+      >
+        <Content ref={ ref1 } title='First section' />
+        <AnchorSectionDivider />
+        <Content ref={ ref2 } title='Second section' />
+        <AnchorSectionDivider />
+        <Content
+          ref={ ref3 }
+          title='Third section'
+          noTextbox
+        />
+        <AnchorSectionDivider />
+        <Content ref={ ref4 } title='Fourth section' />
+        <AnchorSectionDivider />
+        <Content ref={ ref5 } title='Fifth section' />
+      </AnchorNavigation>, { attachTo: document.getElementById('enzymeContainer') }
+    );
+  };
+
   beforeEach(() => {
     jest.useFakeTimers();
-    render();
+    container = document.createElement('div');
+    container.id = 'enzymeContainer';
+    document.body.appendChild(container);
+    renderAttached();
+  });
+
+  afterEach(() => {
+    if (container && container.parentNode) {
+      container.parentNode.removeChild(container);
+    }
+
+    container = null;
   });
 
   it('has proper data attributes applied to elements', () => {
