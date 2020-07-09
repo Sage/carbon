@@ -78,6 +78,7 @@ const StyledSwitchSlider = styled.span`
     ${StyledValidationIcon} {
       position: absolute;
       right: -30px;
+      height: 100%;
     }
   `}
 `;

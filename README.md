@@ -1,10 +1,9 @@
-# Carbon [![npm](https://img.shields.io/npm/v/carbon-react.svg)](https://www.npmjs.com/package/carbon-react) ![Cypress tests](https://github.com/Sage/carbon/workflows/Cypress%20tests/badge.svg)
-<img src="https://raw.githubusercontent.com/Sage/carbon/master/logo/carbon-logo.png" width="50">
+# Carbon [![npm](https://img.shields.io/npm/v/carbon-react.svg)](https://www.npmjs.com/package/carbon-react)
 
 Carbon is a [React](https://facebook.github.io/react/) component library developed by Sage.
 
 ## Getting started
-Our [getting started guide](docs/getting-started.md) provides intructions on how to install and use the Carbon library.
+Our [getting started guide](docs/getting-started.stories.mdx) provides intructions on how to install and use the Carbon library.
 
 ## Examples
 See the [storybook](https://carbon.sage.com/) for live examples.

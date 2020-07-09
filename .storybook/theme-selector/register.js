@@ -10,8 +10,15 @@ import {
   Icons
 } from '@storybook/components';
 import addons, { types } from '@storybook/addons';
-import { FORCE_RE_RENDER } from '@storybook/core-events';
+import { FORCE_RE_RENDER, STORY_MISSING } from '@storybook/core-events';
 import styled from 'styled-components';
+
+addons.register('sage/first-page', api => {
+  api.on(STORY_MISSING, () => {
+    api.selectStory('Welcome', 'Welcome Page');
+    api.togglePanel(false);
+  })
+})
 
 addons.register('sage/theme-switcher', api => {
   addons.add('sage/theme-switcher', {

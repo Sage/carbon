@@ -1,9 +1,9 @@
-Feature: Accessibility tests
+Feature: Accessibility tests - Common list
   I want to check that all components have no violations
 
   @ignore
   # ignored because of accessibility issues after
-  # changing state of components -> https://jira.sage.com/browse/FE-2894
+  # changing state of components -> FE-2894
   Scenario Outline: Component <component> page with button
     Given I open "<component>" component page with button in noIFrame
     When I open component preview no iframe
@@ -13,6 +13,14 @@ Feature: Accessibility tests
       | alert     |
       | sidebar   |
 
+  @ignore
+  # ignored because of accessibility issues after
+  # changing state of components -> FE-2894
+  Scenario: Component Animated menu button default page
+    Given I open "Animated menu button" component page in noIFrame
+    When I open Animated Menu Button preview in noIFrame
+    Then "Animated menu button" component has no accessibility violations
+
   @accessibility
   Scenario: Component button as sibling
     When I open Test "button" component page as sibling in no iframe
@@ -20,7 +28,7 @@ Feature: Accessibility tests
 
   @ignore
   # ignored because of accessibility issues after
-  # changing state of components -> https://jira.sage.com/browse/FE-2894
+  # changing state of components -> FE-2894
   Scenario Outline: Component <component> page with preview button
     Given I open "<component>" component page in noIFrame
     When I open component preview no iframe
@@ -39,8 +47,6 @@ Feature: Accessibility tests
     Then "<component>" component has no accessibility violations
     Examples:
       | component                        |
-      | test-action-popover              |
-      | animated menu button             |
       | app wrapper                      |
       | button toggle                    |
       | carousel                         |
@@ -57,8 +63,36 @@ Feature: Accessibility tests
       | icon                             |
       | link                             |
       | loader                           |
+      | menulist                         |
+      | menu                             |
+      | message                          |
+      | mount-in-app                     |
+      | multi-action-button              |
+      | navigation-bar                   |
+      | pill                             |
+      | pod                              |
+      | portrait                         |
+      | preview                          |
+      | profile                          |
+      | rainbow                          |
+      | row                              |
+      | showeditpod                      |
+      | settingsrow                      |
+      | split-button                     |
+      | step-sequence-item               |
+      | step-sequence                    |
+      | table-ajax                       |
+      | table                            |
+      | tabs                             |
+      | tile                             |
+      | tooltip                          |
 
   @accessibility
-  Scenario: Component Button using Knobs story
-    When I open Test "Button" component page knobs in noIFrame
-    Then "Button" component has no accessibility violations
+  Scenario: Component Loader legacy spinner
+    When I open "Loader" component page legacy spinner in noIFrame
+    Then "Loader legacy spinner" component has no accessibility violations
+
+  @accessibility
+  Scenario: Component Menu dark story
+    When I open dark theme "Menu" component page in noIFrame
+    Then "Menu dark theme" component has no accessibility violations

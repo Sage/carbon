@@ -4,8 +4,19 @@ import classNames from 'classnames';
 import Form from '../../__deprecated__/components/form';
 import tagComponent from '../../utils/helpers/tags';
 import './filter.scss';
+import Logger from '../../utils/logger/logger';
+
+let deprecatedWarnTriggered = false;
 
 class Filter extends Form {
+  constructor() {
+    super();
+    if (!deprecatedWarnTriggered) {
+      deprecatedWarnTriggered = true;
+      Logger.deprecate('The Filter component is scheduled to be removed from Carbon.');
+    }
+  }
+
   static propTypes = {
     /**
      * Aligns the children in the filter.

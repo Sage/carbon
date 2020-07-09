@@ -205,6 +205,18 @@ export default (palette) => {
       iconColor: 'rgba(0,0,0,0.90)'
     },
 
+    navigationBar: {
+      light: {
+        background: palette.slateTint(90),
+        borderBottom: palette.slateTint(85)
+      },
+
+      dark: {
+        background: '#003349',
+        borderBottom: '#003349'
+      }
+    },
+
     numeralDate: {
       passive: '#668592',
       error: '#C7384F'
