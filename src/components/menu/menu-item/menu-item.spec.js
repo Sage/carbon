@@ -4,6 +4,7 @@ import { MenuItem } from '..';
 import Link from '../../link';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import { baseTheme } from '../../../style/themes';
+import StyledMenuItemWrapper from './menu-item.style';
 
 describe('MenuItem', () => {
   let wrapper;
@@ -28,6 +29,18 @@ describe('MenuItem', () => {
     expect(wrapper.props().className).toBe('carbon-menu-item--has-link');
   });
 
+  it('should provide prop `routerLink` correctly', () => {
+    const CustomRouterLink = () => <a href='/test'>custom link</a>;
+
+    wrapper = mount(
+      <MenuItem routerLink={ <CustomRouterLink /> }>
+        Item
+      </MenuItem>
+    );
+
+    expect(wrapper.find(StyledMenuItemWrapper).first().props().routerLink).toEqual(<CustomRouterLink />);
+  });
+
   describe('props.submenu', () => {
     it('should render `div` if prop submenu exists', () => {
       wrapper = mount(
@@ -47,6 +60,18 @@ describe('MenuItem', () => {
       );
 
       expect(wrapper.find(Link).exists()).toBe(true);
+    });
+
+    it('should not provide prop `routerLink` if prop `submenu` exists', () => {
+      const CustomRouterLink = () => <a href='/test'>custom link</a>;
+
+      wrapper = mount(
+        <MenuItem submenu='submenu' routerLink={ <CustomRouterLink /> }>
+          <MenuItem>Submenu Item</MenuItem>
+        </MenuItem>
+      );
+
+      expect(wrapper.find(StyledMenuItemWrapper).first().props().routerLink).toBe(undefined);
     });
 
     it('should render nested `<MenuItem />` with `submenuDirection="right"` as default if prop submenu exists', () => {
