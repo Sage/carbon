@@ -1,3 +1,10 @@
+### [33.0.1](https://github.com/Sage/carbon/compare/v33.0.0...v33.0.1) (2020-07-09)
+
+
+### Bug Fixes
+
+* **menu-item:** `routerLink` prop is not provided when there is no submenu ([92b601e](https://github.com/Sage/carbon/commit/92b601e62a3b7081faba94d976794f43f2ce58cb)), closes [#3056](https://github.com/Sage/carbon/issues/3056)
+
 ## [33.0.0](https://github.com/Sage/carbon/compare/v32.0.3...v33.0.0) (2020-07-08)
 
 
