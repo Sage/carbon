@@ -239,8 +239,9 @@ describe('Accordion', () => {
 
 describe('AccordionGroup', () => {
   let wrapper;
+  let container;
 
-  const render = () => {
+  const renderAttached = () => {
     wrapper = mount(
       <AccordionGroup>
         <Accordion title='Title_1' defaultExpanded>
@@ -252,12 +253,23 @@ describe('AccordionGroup', () => {
         <Accordion title='Title_3' defaultExpanded>
           <Textbox label='Textbox in an Accordion' />
         </Accordion>
-      </AccordionGroup>
+      </AccordionGroup>, { attachTo: document.getElementById('enzymeContainer') }
     );
   };
 
   beforeEach(() => {
-    render();
+    container = document.createElement('div');
+    container.id = 'enzymeContainer';
+    document.body.appendChild(container);
+    renderAttached();
+  });
+
+  afterEach(() => {
+    if (container && container.parentNode) {
+      container.parentNode.removeChild(container);
+    }
+
+    container = null;
   });
 
   it.each(

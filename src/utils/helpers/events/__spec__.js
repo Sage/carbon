@@ -399,6 +399,14 @@ describe('Events', () => {
       expect(Events.composedPath(new CustomEvent('click'))).toEqual([]);
     });
 
+    it('returns an empty array if target is null', () => {
+      const ev = {
+        target: null
+      };
+      
+      expect(Events.composedPath(ev)).toEqual([]);
+    });
+
     it('returns an empty array if there is no parent element', () => {
       const ev = {
         target: document
@@ -433,7 +441,7 @@ describe('Events', () => {
         
         expect(Events.composedPath(ev)).toEqual(path);
       }],
-    ])('builds the path if it is not avaiable on the element from %s', (str, assertion) => {
+    ])('builds the path if it is not available on the element from %s', (str, assertion) => {
       const div = document.createElement('div');
       const ul = document.createElement('ul');
       const li = document.createElement('li');
