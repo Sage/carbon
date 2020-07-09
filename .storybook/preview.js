@@ -27,12 +27,7 @@ addParameters({
     showNav: true,
     showPanel: true,
     theme: sageTheme,
-    storySort: (a, b) => {
-      if (a[1].kind === 'Welcome' || b[1].kind === 'Welcome') {
-        return 1;
-      }
-      return a[1].id.localeCompare(b[1].id);
-    }
+    storySort: (a, b) => a[1].id.localeCompare(b[1].id)
   },
   a11y: {
     // axe-core optionsParameter (https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter)
