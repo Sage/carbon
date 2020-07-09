@@ -1,3 +1,27 @@
+### [33.0.1](https://github.com/Sage/carbon/compare/v33.0.0...v33.0.1) (2020-07-09)
+
+
+### Bug Fixes
+
+* **menu-item:** `routerLink` prop is not provided when there is no submenu ([92b601e](https://github.com/Sage/carbon/commit/92b601e62a3b7081faba94d976794f43f2ce58cb)), closes [#3056](https://github.com/Sage/carbon/issues/3056)
+
+## [33.0.0](https://github.com/Sage/carbon/compare/v32.0.3...v33.0.0) (2020-07-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **navigation-bar:** `as` prop is no more supported as the prop is reserved for Styled-Components.
+there is new prop called `navigationType`.
+Also `primary` and `secondary` has been replaced with `light` and `dark`.
+After update you will need to replace
+`<NavigationBar as="primary" />` with `<NavigationBar />`
+or
+`NavigationBar as="secondary" />` with `<NavigationBar navigationType="dark" />`
+
+### Features
+
+* **navigation-bar:** update component ([7815170](https://github.com/Sage/carbon/commit/7815170858f05a90b8747f8f616e9f7909f96386))
+
 ### [32.0.3](https://github.com/Sage/carbon/compare/v32.0.2...v32.0.3) (2020-07-08)
 
 
