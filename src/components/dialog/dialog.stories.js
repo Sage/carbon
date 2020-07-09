@@ -106,7 +106,7 @@ function makeStory(name, themeSelector, stickyFooter) {
               <DateInput
                 name='date' label='Birthday'
                 value={ date }
-                onChange={ e => setDate(e.target.value) }
+                onChange={ e => setDate(e.target.value.rawValue) }
               />
               <Select label='Color'>
                 {selectOptions.map(option => (
@@ -121,7 +121,7 @@ function makeStory(name, themeSelector, stickyFooter) {
               <DateInput
                 name='date' label="Pet's birthday"
                 value={ date }
-                onChange={ e => setDate(e.target.value) }
+                onChange={ e => setDate(e.target.value.rawValue) }
               />
               <Checkbox name='checkbox' label='Do you like my Dog' />
               <div>This is an example of a dialog with a Form as content</div>
