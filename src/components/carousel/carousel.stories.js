@@ -2,12 +2,11 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { select, boolean } from '@storybook/addon-knobs';
+import { select } from '@storybook/addon-knobs';
 import { ThemeProvider } from 'styled-components';
-import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
+import { dlsThemeSelector } from '../../../.storybook/theme-selectors';
 import notes from './documentation';
 import BaseCarousel, { Carousel, Slide } from './carousel.component';
-import classic from '../../style/themes/classic';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 import docgenInfo from './docgenInfo.json';
 
@@ -38,54 +37,7 @@ storiesOf('Carousel', module)
       propTables: [BaseCarousel]
     }
   })
-  .add('classic', () => {
-    const indexConfig = [0, 1, 2, 3, 4];
-    const transitionConfig = ['slide', 'fade'];
-    const initialSlideIndex = select('initialSlideIndex', indexConfig, BaseCarousel.defaultProps.initialSlideIndex);
-    const slideIndex = select('slideIndex', indexConfig, indexConfig[0]);
-    const enableSlideSelector = boolean('enableSlideSelector', BaseCarousel.defaultProps.enableSlideSelector);
-    const enablePreviousButton = boolean('enablePreviousButton', BaseCarousel.defaultProps.enablePreviousButton);
-    const enableNextButton = boolean('enableNextButton', BaseCarousel.defaultProps.enableNextButton);
-    const transition = select(
-      'transition',
-      transitionConfig,
-      BaseCarousel.defaultProps.transition
-    );
 
-    return (
-      <ThemeProvider theme={ classic }>
-        <Carousel
-          initialSlideIndex={ initialSlideIndex }
-          slideIndex={ slideIndex }
-          enableSlideSelector={ enableSlideSelector }
-          enablePreviousButton={ enablePreviousButton }
-          enableNextButton={ enableNextButton }
-          transition={ transition }
-        >
-          <Slide className='TestClassName'>
-            <h1 style={ { textAlign: 'center' } }>Slide One</h1>
-          </Slide>
-          <Slide>
-            <h1 style={ { textAlign: 'center' } }>Slide Two</h1>
-          </Slide>
-          <Slide>
-            <h1 style={ { textAlign: 'center' } }>Slide Three</h1>
-          </Slide>
-          <Slide>
-            <h1 style={ { textAlign: 'center' } }>Slide Four</h1>
-          </Slide>
-          <Slide>
-            <h1 style={ { textAlign: 'center' } }>Slide Five</h1>
-          </Slide>
-        </Carousel>
-      </ThemeProvider>
-    );
-  }, {
-    themeSelector: classicThemeSelector,
-    chromatic: {
-      disable: true
-    }
-  })
   .add('default', () => {
     const indexConfig = [0, 1, 2, 3, 4];
     const initialSlideIndex = select('initialSlideIndex', indexConfig, BaseCarousel.defaultProps.initialSlideIndex);
