@@ -1,8 +1,8 @@
 import { radioButtonComponent } from '../locators/radioButton';
+import 'cypress-axe';
 
 export const DEBUG_FLAG = false;
 require('cypress-plugin-retries');
-
 
 // ***********************************************************
 // This example support/index.js is processed and

@@ -1,3 +1,31 @@
+### [32.0.2](https://github.com/Sage/carbon/compare/v32.0.1...v32.0.2) (2020-07-02)
+
+
+### Bug Fixes
+
+* **filter:** add deprecation warning ([373a9b4](https://github.com/Sage/carbon/commit/373a9b416277aea11ee36c40db48cd5c070a7baa))
+
+### [32.0.1](https://github.com/Sage/carbon/compare/v32.0.0...v32.0.1) (2020-06-30)
+
+
+### Bug Fixes
+
+* **anchor-navigation:** fix anchor navigation item prop type definitions ([0605c7a](https://github.com/Sage/carbon/commit/0605c7a25523ebff2748bda96a7452b309caa6ad))
+
+## [32.0.0](https://github.com/Sage/carbon/compare/v31.1.1...v32.0.0) (2020-06-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu:** prop `as` has been replaced with `menuType`. Keyword `as` is reserved for
+Styled-Components.
+To update your components you will need to replace
+`<Menu as="primary" />` with `<Menu menuType="primary" />`
+
+### Code Refactoring
+
+* **menu:** refactor component ([ea2e727](https://github.com/Sage/carbon/commit/ea2e7272faadfeea4b2a08caf3367db1e6e7f137))
+
 ### [31.1.1](https://github.com/Sage/carbon/compare/v31.1.0...v31.1.1) (2020-06-26)
 
 
