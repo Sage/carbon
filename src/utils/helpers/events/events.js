@@ -357,7 +357,10 @@ const Events = {
    * @returns {EventTarget[]} objects representing the objects on which an event listener will be invoked
    */
   composedPath: (ev) => {
-    return ev.path || (ev.composedPath && ev.composedPath()) || composedPath(ev);
+    return ev.path
+    || (ev.detail && ev.detail.enzymeTestingTarget && composedPath(ev))
+    || (ev.composedPath && ev.composedPath())
+    || composedPath(ev);
   }
 };
 

@@ -48,6 +48,19 @@ const render = (mainProps = {}, childButtons = singleButton, renderer = shallow)
   );
 };
 
+const renderAttached = (mainProps = {}, childButtons = singleButton, renderer = mount) => {
+  return renderer(
+    <SplitButton
+      { ...mainProps }
+      text='Split button'
+      data-element='bar'
+      data-role='baz'
+    >
+      { childButtons }
+    </SplitButton>, { attachTo: document.getElementById('enzymeContainer') }
+  );
+};
+
 const renderWithTheme = (mainProps = {}, childButtons = singleButton, renderer = shallow) => {
   return renderer(
     <ThemeProvider theme={ mainProps.carbonTheme }>
@@ -472,11 +485,23 @@ describe('SplitButton', () => {
 
   describe('when focused on the toggle button', () => {
     const additionalButtonsSelector = '[data-element="additional-buttons"]';
+    let container;
 
     beforeEach(() => {
-      wrapper = render({}, multipleButtons, mount);
+      container = document.createElement('div');
+      container.id = 'enzymeContainer';
+      document.body.appendChild(container);
+      wrapper = renderAttached({}, multipleButtons);
       toggle = wrapper.find(StyledSplitButtonToggle);
       toggle.simulate('focus');
+    });
+
+    afterEach(() => {
+      if (container && container.parentNode) {
+        container.parentNode.removeChild(container);
+      }
+
+      container = null;
     });
 
     describe.each([['enter', 13], ['space', 32]])('the %s key is pressed', (name, keyCode) => {

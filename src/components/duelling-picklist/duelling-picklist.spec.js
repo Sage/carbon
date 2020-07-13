@@ -88,13 +88,65 @@ describe('DuellingPicklist', () => {
     );
   };
 
-  beforeEach(() => {
-    onAdd = jest.fn();
-    onRemove = jest.fn();
-    render({});
-  });
+  const renderAttached = ({
+    disabled,
+    selected = selectedItems,
+    notSelected = notSelectedItems,
+    leftControls,
+    rightControls,
+    leftLabel,
+    rightLabel,
+    placeholder
+  }) => {
+    wrapper = mount(
+      <DuellingPicklist
+        disabled={ disabled }
+        leftControls={ leftControls }
+        leftLabel={ leftLabel }
+        rightControls={ rightControls }
+        rightLabel={ rightLabel }
+      >
+        <Picklist
+          disabled={ disabled }
+          placeholder={ placeholder }
+        >
+          {notSelected.map(item => (
+            <PicklistItem
+              key={ item.key }
+              type='add'
+              item={ item }
+              onChange={ onAdd }
+            >
+              {item.title}
+            </PicklistItem>
+          ))}
+        </Picklist>
+        <PicklistDivider />
+        <Picklist
+          disabled={ disabled }
+          placeholder={ placeholder }
+        >
+          {selected.map(item => (
+            <PicklistItem
+              key={ item.key }
+              type='remove'
+              item={ item }
+              onChange={ onRemove }
+            >
+              {item.title}
+            </PicklistItem>
+          ))}
+        </Picklist>
+      </DuellingPicklist>, { attachTo: document.getElementById('enzymeContainer') }
+    );
+  };
 
   describe('Styles', () => {
+    beforeEach(() => {
+      onAdd = jest.fn();
+      onRemove = jest.fn();
+      render({});
+    });
     it('renders overlay if DuellingPicklistOverlay has disabled prop set', () => {
       render({ disabled: true });
 
@@ -145,6 +197,24 @@ describe('DuellingPicklist', () => {
   });
 
   describe('functionality', () => {
+    let container;
+    beforeEach(() => {
+      container = document.createElement('div');
+      container.id = 'enzymeContainer';
+      document.body.appendChild(container);
+      onAdd = jest.fn();
+      onRemove = jest.fn();
+      renderAttached({});
+    });
+
+    afterEach(() => {
+      if (container && container.parentNode) {
+        container.parentNode.removeChild(container);
+      }
+
+      container = null;
+    });
+
     it.each([[0, 1], [1, 2], [2, 0], [0, 1]])(
       'focuses on next PicklistItem in a loop when down arrow is pressed',
       (focused, nextFocused) => {
@@ -196,7 +266,7 @@ describe('DuellingPicklist', () => {
           .props()
           .onKeyDown({ which: 87, preventDefault: () => { } });
 
-        expect(wrapper.find(Picklist).at(0).find(StyledPicklistItem).at(0)).toBeFocused();
+        expect(wrapper.find(Picklist).at(0).find(StyledPicklistItem).at(0)).not.toBeFocused();
       }
     );
 
