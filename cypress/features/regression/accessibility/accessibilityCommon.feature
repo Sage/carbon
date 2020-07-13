@@ -55,7 +55,6 @@ Feature: Accessibility tests - Common list
       | content                          |
       | detail                           |
       | draggableContext                 |
-      | filter component                 |
       | heading                          |
       | help                             |
       | i18ncomponent                    |
