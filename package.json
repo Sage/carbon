@@ -37,6 +37,7 @@
   },
   "homepage": "https://github.com/Sage/carbon#readme",
   "peerDependencies": {
+    "draft-js": "^0.11.5",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "i18n-js": "^3.0.0",
@@ -90,6 +91,7 @@
     "cypress-cucumber-preprocessor": "2.5.0",
     "cypress-plugin-retries": "^1.5.2",
     "cz-conventional-changelog": "^3.0.2",
+    "draft-js": "^0.11.5",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "enzyme-to-json": "^3.4.0",

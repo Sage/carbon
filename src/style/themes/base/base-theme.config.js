@@ -68,6 +68,18 @@ export default (palette) => {
       lightTheme: palette.slateTint(70)
     },
 
+    editor: {
+      border: palette.slateTint(40),
+      counter: 'rgba(0,0,0,0.55)',
+      placeholder: 'rgba(0,0,0,0.30)',
+      button: {
+        hover: palette.slateTint(80)
+      },
+      toolbar: {
+        background: palette.slateTint(95)
+      }
+    },
+
     menu: {
       focus: palette.slateTint(95),
       divider: palette.slateTint(90),
