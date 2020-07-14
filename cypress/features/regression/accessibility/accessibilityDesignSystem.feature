@@ -152,9 +152,9 @@ Feature: Accessibility tests - Design System folder
     When I open visual Test "<component>" component page in noIframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component   |
-      | Drawer      |
-      | Grid        |
+      | component |
+      | Drawer    |
+      | Grid      |
 
   @accessibility
   Scenario: Design System Form component
@@ -185,6 +185,16 @@ Feature: Accessibility tests - Design System folder
       | Draggable       |
       | Flat Table      |
       | Tile Select     |
+      | Text Editor     |
+
+  @accessibility
+  Scenario Outline: Design System Text Editor component <story> page
+    When I open design systems <story> "Text Editor" component in no iframe
+    Then "Text Editor component <story> page" component has no accessibility violations
+    Examples:
+      | story                 |
+      | with_content          |
+      | with_optional_buttons |
 
   @accessibility
   Scenario Outline: Design System <component> component default story page

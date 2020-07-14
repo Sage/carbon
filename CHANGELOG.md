@@ -1,3 +1,17 @@
+## [33.2.0](https://github.com/Sage/carbon/compare/v33.1.0...v33.2.0) (2020-07-13)
+
+
+### Features
+
+* **text-editor:** add new text editor component ([3717bb9](https://github.com/Sage/carbon/commit/3717bb9fd9b37ee5c9266aeacac7b02f2140e713))
+
+## [33.1.0](https://github.com/Sage/carbon/compare/v33.0.1...v33.1.0) (2020-07-13)
+
+
+### Features
+
+* **table-ajax:** replace deprecated spinner with loader component ([855bc25](https://github.com/Sage/carbon/commit/855bc2576bc2c2d4bbeef0483bb9a7344da102ad))
+
 ### [33.0.1](https://github.com/Sage/carbon/compare/v33.0.0...v33.0.1) (2020-07-09)
 
 
