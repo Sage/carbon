@@ -6,7 +6,7 @@ import { Link as RouterLink } from 'react-router';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, Info } from './documentation';
-import Link from './link.component';
+import Link, { InternalLink } from './link.component';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Link.__docgenInfo = getDocGenInfo(
@@ -23,9 +23,9 @@ function makeStory(name, themeSelector, disableChromatic = false) {
     const iconAlign = select(
       'iconAlign',
       OptionsHelper.alignBinary,
-      Link.defaultProps.iconAlign
+      'left'
     );
-    const tabbable = boolean('tabbable', Link.defaultProps.tabbable);
+    const tabbable = boolean('tabbable', true);
     const to = text('to', '');
     const tooltipMessage = icon ? text('tooltipMessage', '') : undefined;
     const tooltipPosition = tooltipMessage ? select(
@@ -66,7 +66,7 @@ function makeStory(name, themeSelector, disableChromatic = false) {
 
   const metadata = {
     themeSelector,
-    info: { text: Info },
+    info: { text: Info, propTablesExclude: [InternalLink] },
     notes: { markdown: notes },
     knobs: { escapeHTML: false },
     chromatic: {

@@ -13,6 +13,7 @@ import CardColumn from './card-column';
 import CardFooter from './card-footer';
 import CardRow from './card-row';
 import { dlsThemeSelector } from '../../../.storybook/theme-selectors';
+import { InternalLink } from '../link/link.component';
 
 Card.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
@@ -125,7 +126,7 @@ function makeStory(name, themeSelector) {
 
   const metadata = {
     themeSelector,
-    info: { text: Info, propTablesExclude: [Icon, Link, Heading] },
+    info: { text: Info, propTablesExclude: [Icon, Link, Heading, InternalLink] },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
   };
