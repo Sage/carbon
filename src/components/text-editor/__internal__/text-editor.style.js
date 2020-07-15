@@ -24,25 +24,18 @@ const StyledEditorContainer = styled.div`
 
       .text-editor-block-ordered {
         position: relative;
-        left: -26px;
-        top: -12px;
-        bottom: 4px;
-        padding-left: 8px;
+        left: -4px;
+        padding-left: 4px;
       }
 
       .text-editor-block-unordered {
         position: relative;
-        left: -22px;
-        top: -12px;
-        bottom: 4px;
-        padding-left: 8px;
       }
     }
 
     div.public-DraftEditor-content {
       padding: 8px;
     }
-  
   
     background-color: ${theme.colors.white};
     border: 1px solid ${theme.editor.border};
