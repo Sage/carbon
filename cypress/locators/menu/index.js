@@ -1,9 +1,14 @@
-import { MENU_PREVIEW, SUBMENU_BLOCK } from './locators';
+import {
+  MENU_PREVIEW,
+  MENU_ITEM,
+} from './locators';
 
 // component preview locators
-export const menuPreview = () => cy.iFrame(MENU_PREVIEW);
-export const menuListItems = index => cy.iFrame(MENU_PREVIEW)
-  .find(`ul > li:nth-child(${index})`);
-export const submenuBlock = (firstLiIndex, secondLiIndex) => cy.iFrame(SUBMENU_BLOCK)
-  .find(`li:nth-child(${firstLiIndex}) > div > ul`)
-  .find(`li:nth-child(${secondLiIndex}) > div`).children();
+export const menuPreview = () => cy.get(MENU_PREVIEW);
+export const menuListItems = () => cy.get(MENU_PREVIEW)
+  .find(MENU_ITEM);
+export const submenuBlock = () => cy.get(MENU_ITEM)
+  .find('ul');
+export const innerMenu = index => submenuBlock()
+  .find(`li:nth-child(${index})`)
+  .find('div');

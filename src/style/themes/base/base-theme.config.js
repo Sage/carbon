@@ -84,7 +84,19 @@ export default (palette) => {
       focus: palette.slateTint(95),
       divider: palette.slateTint(90),
       itemColor: blackWithOpacity(0.9),
-      itemColorDisabled: blackWithOpacity(0.3)
+      itemColorDisabled: blackWithOpacity(0.3),
+
+      light: {
+        background: palette.slateTint(90),
+        selected: palette.slateTint(85),
+        divider: palette.slateTint(80)
+      },
+
+      dark: {
+        divider: palette.slateTint(10),
+        submenuBackground: palette.slateShade(50),
+        selected: palette.slateTint(10)
+      }
     },
 
     form: {
