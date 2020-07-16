@@ -179,13 +179,15 @@ Feature: Accessibility tests - Design System folder
     When I open design systems basic "<component>" component in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component       |
-      | Badge           |
-      | Batch Selection |
-      | Draggable       |
-      | Flat Table      |
-      | Tile Select     |
-      | Text Editor     |
+      | component         |
+      | Badge             |
+      | Batch Selection   |
+      | Draggable         |
+      | Flat Table        |
+      | Tile Select       |
+      | Select            |
+      | Select Filterable |
+      | Text Editor       |
 
   @accessibility
   Scenario Outline: Design System Text Editor component <story> page
@@ -204,3 +206,28 @@ Feature: Accessibility tests - Design System folder
       | component |
       | Pager     |
       | Search    |
+
+  @accessibility
+  Scenario Outline: Design System Select component <story> page
+    When I open design systems <story> "Select" component in no iframe
+    Then "Select" component has no accessibility violations
+    Examples:
+      | story       |
+      | disabled    |
+      | readOnly    |
+      | transparent |
+
+  @accessibility
+  Scenario: Design System Select component basic page
+    Given I open design systems basic "Select" component in no iframe
+    When I click on Select input in noIframe
+    Then "Select" component has no accessibility violations
+
+  @accessibility
+  Scenario Outline: Design System Filterable Select component <story> page
+    When I open design systems <story> "Select filterable" component in no iframe
+    Then "Select" component has no accessibility violations
+    Examples:
+      | story    |
+      | disabled |
+      | readOnly |

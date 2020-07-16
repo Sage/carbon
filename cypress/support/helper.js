@@ -118,6 +118,7 @@ export function positionOfElement(type) {
     eighth: '7',
     ninth: '8',
     tenth: '9',
+    eleventh: '10',
     nineteenth: '19',
   }[type];
 }

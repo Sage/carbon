@@ -1,3 +1,16 @@
+## [33.3.0](https://github.com/Sage/carbon/compare/v33.2.0...v33.3.0) (2020-07-15)
+
+
+### Features
+
+* add new FilterableSelect Component ([ae2833b](https://github.com/Sage/carbon/commit/ae2833b595d0fba22b9094aa8f151915ccfb2f2a))
+* add new SimpleSelect Component ([d6c6ec3](https://github.com/Sage/carbon/commit/d6c6ec33bd9ab4a6a75b3402a4eac582f5555c84))
+
+
+### Bug Fixes
+
+* **input-icon-toggle:** add missing onMouseDown prop ([b0ab93a](https://github.com/Sage/carbon/commit/b0ab93a84ebd4b7ec4660b726f72a0067c02f561))
+
 ## [33.2.0](https://github.com/Sage/carbon/compare/v33.1.0...v33.2.0) (2020-07-13)
 
 
