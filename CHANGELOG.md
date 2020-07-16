@@ -1,3 +1,10 @@
+### [34.0.2](https://github.com/Sage/carbon/compare/v34.0.1...v34.0.2) (2020-07-16)
+
+
+### Bug Fixes
+
+* **text-editor:** update styling for lists ([a2fe8eb](https://github.com/Sage/carbon/commit/a2fe8ebbf37419d2f9f87bb7ad5b0d980dbb8b87))
+
 ### [34.0.1](https://github.com/Sage/carbon/compare/v34.0.0...v34.0.1) (2020-07-16)
 
 
