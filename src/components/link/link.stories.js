@@ -43,22 +43,24 @@ function makeStory(name, themeSelector, disableChromatic = false) {
     const target = text('target', '_blank');
 
     return (
-      <Link
-        disabled={ disabled }
-        href={ href }
-        icon={ icon }
-        iconAlign={ iconAlign }
-        tabbable={ tabbable }
-        to={ to }
-        tooltipMessage={ tooltipMessage }
-        tooltipPosition={ tooltipPosition }
-        tooltipAlign={ tooltipAlign }
-        onClick={ onClick }
-        routerLink={ to ? RouterLink : undefined }
-        target={ target }
-      >
-        {children}
-      </Link>
+      <div style={ { marginLeft: '125px' } }>
+        <Link
+          disabled={ disabled }
+          href={ href }
+          icon={ icon }
+          iconAlign={ iconAlign }
+          tabbable={ tabbable }
+          to={ to }
+          tooltipMessage={ tooltipMessage }
+          tooltipPosition={ tooltipPosition }
+          tooltipAlign={ tooltipAlign }
+          onClick={ onClick }
+          routerLink={ to ? RouterLink : undefined }
+          target={ target }
+        >
+          {children}
+        </Link>
+      </div>
     );
   };
 

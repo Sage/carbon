@@ -81,58 +81,49 @@ describe('MenuItem', () => {
         </MenuItem>
       );
 
-      expect(wrapper.find(MenuItem).at(1).props().submenuDirection).toBe('right');
+      expect(wrapper.find(MenuItem).props().submenuDirection).toBe('right');
     });
 
-    describe('`menuType=primary`', () => {
+    describe('`menuType="light"`', () => {
       it('should render correct styles', () => {
         wrapper = mount(
-          <MenuItem menuType='primary'>
+          <MenuItem menuType='light'>
             Item one
           </MenuItem>
         );
 
         assertStyleMatch({
-          backgroundColor: baseTheme.colors.white,
-          color: baseTheme.colors.slate
+          backgroundColor: baseTheme.menu.light.background
         }, wrapper);
       });
 
-      it('should render correct styles if is `selected`', () => {
+      it('should render correct styles if is `selected` in a `light` scheme', () => {
         wrapper = mount(
-          <MenuItem menuType='primary' selected>
+          <MenuItem menuType='light' selected>
             Item one
           </MenuItem>
         );
 
         assertStyleMatch({
-          left: '10px',
-          right: '10px',
-          backgroundColor: '#00DC00',
-          height: '3px'
-        }, wrapper, { modifier: '&:after' });
+          backgroundColor: baseTheme.menu.light.selected
+        }, wrapper);
       });
 
-      it('should render correct styles if has `divide` prop', () => {
+      it('should render correct styles if is `selected` in a `light` scheme', () => {
         wrapper = mount(
-          <MenuItem menuType='primary' divide>
+          <MenuItem menuType='dark' selected>
             Item one
           </MenuItem>
         );
 
         assertStyleMatch({
-          height: '1px',
-          left: '15px',
-          right: '15px',
-          top: '0',
-          position: 'absolute',
-          backgroundColor: '#CCD6DB'
-        }, wrapper, { modifier: '&:before' });
+          backgroundColor: baseTheme.menu.dark.selected
+        }, wrapper);
       });
 
       it('should render correct styles if `hasSubmenu`', () => {
         wrapper = mount(
-          <MenuItem menuType='primary' submenu='submenu'>
+          <MenuItem menuType='light' submenu='submenu'>
             <MenuItem>
               Item one
             </MenuItem>
@@ -150,23 +141,22 @@ describe('MenuItem', () => {
       });
     });
 
-    describe('`menuType="secondary`', () => {
+    describe('`menuType="dark"`', () => {
       it('should render correct styles', () => {
         wrapper = mount(
-          <MenuItem menuType='secondary'>
+          <MenuItem menuType='dark'>
             Item one
           </MenuItem>
         );
 
         assertStyleMatch({
-          backgroundColor: baseTheme.colors.slate,
-          color: baseTheme.colors.white
+          backgroundColor: baseTheme.colors.slate
         }, wrapper);
       });
 
       it('should render correct styles if `hasSubmenu`', () => {
         wrapper = mount(
-          <MenuItem menuType='secondary' submenu='submenu'>
+          <MenuItem menuType='dark' submenu='submenu'>
             <MenuItem>
               Item one
             </MenuItem>
@@ -181,24 +171,6 @@ describe('MenuItem', () => {
           borderBottom: '4px solid transparent',
           borderLeft: '4px solid transparent'
         }, wrapper, { modifier: ':before' });
-      });
-
-
-      it('should render correct styles if has `divide` prop', () => {
-        wrapper = mount(
-          <MenuItem menuType='secondary' divide>
-            Item one
-          </MenuItem>
-        );
-
-        assertStyleMatch({
-          height: '1px',
-          left: '15px',
-          right: '15px',
-          top: '0',
-          position: 'absolute',
-          backgroundColor: '#335C6D'
-        }, wrapper, { modifier: '&:before' });
       });
     });
   });

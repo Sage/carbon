@@ -29,14 +29,16 @@ function makeStory(name, themeSelector, disableChromatic = false) {
     const type = select('type', OptionsHelper.icons, 'help');
 
     return (
-      <Help
-        tooltipPosition={ tooltipPosition }
-        tooltipAlign={ tooltipAlign }
-        href={ href }
-        type={ type }
-      >
-        {children}
-      </Help>
+      <div style={ { marginLeft: '125px' } }>
+        <Help
+          tooltipPosition={ tooltipPosition }
+          tooltipAlign={ tooltipAlign }
+          href={ href }
+          type={ type }
+        >
+          {children}
+        </Help>
+      </div>
     );
   };
 
