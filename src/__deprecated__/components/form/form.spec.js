@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { mount, shallow } from 'enzyme';
 import FormWithValidations, { BaseForm as Form } from './form.component';
 import { StyledAdditionalFormAction, StyledResponsiveFooterWrapper } from './form.style';
-import Textbox from '../textbox';
+import Textbox from '../../../__experimental__/components/textbox';
 import Validation from '../../../utils/validations/presence';
 import Dialog from '../../../components/dialog';
 import FormSummary from './form-summary';

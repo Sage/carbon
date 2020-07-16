@@ -418,6 +418,8 @@ const InputValidation = (ComposedComponent) => {
       return valid;
     }
 
+    // test ignored, this decorator is scheduled for removal
+    /* istanbul ignore next */
     validateFromForm = () => this.validate();
 
     /**

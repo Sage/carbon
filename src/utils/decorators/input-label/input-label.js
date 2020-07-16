@@ -236,6 +236,8 @@ const InputLabel = (ComposedComponent) => {
       const inputProps = super.inputProps || {};
 
       // set id so label will focus on input when clicked
+      // test ignored, this decorator is scheduled for removal
+      /* istanbul ignore else */
       if (!inputProps.id) {
         inputProps.id = this.labelID;
       }

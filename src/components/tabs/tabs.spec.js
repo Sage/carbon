@@ -5,7 +5,7 @@ import { shallow, mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { Tabs, Tab } from './tabs.component';
-import Textbox from '../../__deprecated__/components/textbox';
+import Textbox from '../../__experimental__/components/textbox';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Browser from '../../utils/helpers/browser';
 import TabsHeader from './tabs-header/tabs-header.component';
