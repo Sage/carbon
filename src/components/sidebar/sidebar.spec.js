@@ -3,7 +3,7 @@ import 'jest-styled-components';
 import { ThemeProvider } from 'styled-components';
 import { mount } from 'enzyme';
 import Sidebar from './sidebar.component';
-import Textbox from '../../__deprecated__/components/textbox';
+import Textbox from '../../__experimental__/components/textbox';
 import SidebarStyle from './sidebar.style';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import classicTheme from '../../style/themes/classic';

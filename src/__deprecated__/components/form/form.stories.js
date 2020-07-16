@@ -4,11 +4,10 @@ import { boolean, text, select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import OptionsHelper from '../../../utils/helpers/options-helper';
-import PresenceValidation from '../../../utils/validations/presence';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
 import Form, { BaseForm } from '.';
-import Textbox from '../textbox';
+import Textbox from '../../../__experimental__/components/textbox';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
 Form.__docgenInfo = getDocGenInfo(
@@ -68,7 +67,6 @@ storiesOf('__deprecated__/Form', module)
           label='Full Name'
           labelInline
           labelAlign='right'
-          validations={ [new PresenceValidation()] }
         />
       </Form>
     );

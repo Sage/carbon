@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 import Link from './../link';
-import Textbox from './../../__deprecated__/components/textbox';
+import Textbox from './../../__experimental__/components/textbox';
 
 import { MenuList, MenuListItem } from 'components/menu-list'
 
