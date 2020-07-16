@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Link from '../../link';
 import StyledMenuItemWrapper from './menu-item.style';
 import { StyledSubmenu, StyledSubmenuItem, StyledSubmenuTitle } from '../submenu-block/submenu.style';
 import OptionHelper from '../../../utils/helpers/options-helper';
+import Link from '../../link';
 
 const MenuItem = ({
   submenu,
@@ -16,23 +16,21 @@ const MenuItem = ({
   target,
   submenuDirection,
   icon,
-  divide,
   selected,
   routerLink
 }) => {
   const content = () => {
     if (!submenu) return children;
-
     return (
       <>
         <StyledSubmenuTitle>
-          <MenuItem
+          <StyledMenuItemWrapper
             href={ href }
             to={ to }
             menuType={ menuType }
           >
             { submenu }
-          </MenuItem>
+          </StyledMenuItemWrapper>
         </StyledSubmenuTitle>
         <StyledSubmenu submenuDirection={ submenuDirection }>
           {
@@ -61,7 +59,6 @@ const MenuItem = ({
     target,
     onClick,
     icon,
-    divide,
     hasSubmenu: Boolean(submenu),
     selected,
     menuType
@@ -95,8 +92,6 @@ MenuItem.propTypes = {
   submenuDirection: PropTypes.string,
   /** Is the menu item the currently selected item. */
   selected: PropTypes.bool,
-  /** (for submenus) renders with a divide between items. */
-  divide: PropTypes.bool,
   /** A title for the menu item that has a submenu. */
   submenu: PropTypes.oneOfType([
     PropTypes.string,
@@ -110,8 +105,13 @@ MenuItem.propTypes = {
   routerLink: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
   /** The target to use for the menu item. */
   target: PropTypes.string,
-  /** menu theme provided by <Menu /> */
-  menuType: PropTypes.oneOf(['primary', 'secondary'])
+  /**
+   * menu color scheme provided by <Menu />
+   * @private
+   * @ignore
+   *
+  */
+  menuType: PropTypes.oneOf(['light', 'dark'])
 };
 
 MenuItem.defaultProps = {

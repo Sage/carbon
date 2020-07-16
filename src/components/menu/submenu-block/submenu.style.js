@@ -12,6 +12,7 @@ const StyledSubmenuTitle = styled('div')``;
 const StyledSubmenuBlock = styled.div``;
 
 const StyledSubmenu = styled.ul`
+  ${({ menuType, theme, submenuDirection }) => css`
     box-shadow: 0 5px 5px 0 rgba(0, 20, 29 ,0.2), 0 10px 10px 0 rgba(0, 20, 29 ,0.1);
     display: none;
     list-style: none;
@@ -23,7 +24,6 @@ const StyledSubmenu = styled.ul`
 
     [data-component='icon'] {
       line-height: 16px;
-      margin: 0 10px 0 0;
       top: -1px;
 
       &:before {
@@ -40,12 +40,8 @@ const StyledSubmenu = styled.ul`
       }
     }
 
-    ${({ menuType }) => menuType === 'secondary' && css`
-      background-color: #002333;
-
-      [data-component='icon'] {
-        margin: 0 8px 0 0;
-      }
+    ${menuType === 'dark' && css`
+      background-color: ${theme.menu.dark.submenuBackground};
     `}
 
     &:before {
@@ -60,18 +56,16 @@ const StyledSubmenu = styled.ul`
 
     > *:not(${StyledSubmenuItem}) {
       padding: 8px 15px 10px;
+      background-color: ${theme.colors.white};
 
-      ${({ menuType, theme }) => menuType === 'primary' && css`
-        background-color: ${theme.colors.white};
-      `}
-
-      ${({ menuType }) => menuType === 'secondary' && css`
+      ${menuType === 'dark' && css`
         background-color: #1B1D21 ;
       `}
     }
 
-  ${({ submenuDirection }) => submenuDirection === 'left' && css`
-    right: 0;
+    ${submenuDirection === 'left' && css`
+      right: 0;
+    `}
   `}
 `;
 

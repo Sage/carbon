@@ -2,25 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyledMenuWrapper, StyledMenuItemsWrapper, StyledMenuItem } from './menu.style';
 
-const Menu = ({ menuType, children }) => {
+const Menu = ({ menuType = 'light', children }) => {
   return (
     <StyledMenuWrapper
       data-component='menu'
       menuType={ menuType }
     >
-      <StyledMenuItemsWrapper>
+      <StyledMenuItemsWrapper
+        role='menubar'
+      >
         {
           React.Children.map(
             children,
-            child => (
-              <StyledMenuItem>{
-                React.cloneElement(
-                  child,
-                  { menuType }
-                )
-              }
-              </StyledMenuItem>
-            )
+            (child) => {
+              return (
+                <StyledMenuItem>{
+                  React.cloneElement(
+                    child,
+                    { menuType },
+                  )
+                }
+                </StyledMenuItem>
+              );
+            }
           )
         }
       </StyledMenuItemsWrapper>
@@ -29,14 +33,10 @@ const Menu = ({ menuType, children }) => {
 };
 
 Menu.propTypes = {
-  /** Defines the style of the component eg. primary/secondary */
-  menuType: PropTypes.oneOf(['primary', 'secondary']),
+  /** Defines the color scheme of the component */
+  menuType: PropTypes.oneOf(['light', 'dark']),
   /** Children elements */
   children: PropTypes.node
-};
-
-Menu.defaultProps = {
-  menuType: 'primary'
 };
 
 export default Menu;
