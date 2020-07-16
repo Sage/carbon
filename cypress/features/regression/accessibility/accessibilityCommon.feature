@@ -74,7 +74,6 @@ Feature: Accessibility tests - Common list
       | portrait                         |
       | preview                          |
       | profile                          |
-      | rainbow                          |
       | row                              |
       | showeditpod                      |
       | settingsrow                      |

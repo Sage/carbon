@@ -213,10 +213,6 @@ export default (palette) => {
       disabled: 'rgba(0,0,0,0.3)'
     },
 
-    rainbow: {
-      textColor: '#003349'
-    },
-
     icon: {
       default: 'rgba(0,0,0,0.65)',
       defaultHover: 'rgba(0,0,0,0.90)',
