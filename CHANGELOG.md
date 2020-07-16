@@ -1,3 +1,24 @@
+## [34.0.0](https://github.com/Sage/carbon/compare/v33.3.0...v34.0.0) (2020-07-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu:** `Menu` scheme colors `primary` and `secondary` no
+longer exists.
+To upgrade replace
+`<Menu menuType="primary" />` with `<Menu />`
+or
+`<Menu menuType="secondary" />` with `<Menu menuType="dark" />`
+* **menu:** The `Menu` prop `divide` no longer exists.
+To upgrade replace `<MenuItem divide />` with
+`<MenuDivider /><MenuItem />`
+
+Fixes FE-2315
+
+### Features
+
+* **menu:** update visual appearance to match design system ([3b30e4e](https://github.com/Sage/carbon/commit/3b30e4e79d264fb83d8c86dfc87ff89149eadbc1))
+
 ## [33.3.0](https://github.com/Sage/carbon/compare/v33.2.0...v33.3.0) (2020-07-15)
 
 

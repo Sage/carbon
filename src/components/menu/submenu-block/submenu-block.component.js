@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyledSubmenuBlock } from './submenu.style';
 
-const SubmenuBlock = (props) => {
+const SubmenuBlock = ({ children, menuType }) => {
   return (
     <StyledSubmenuBlock data-component='submenu-block'>
       {React.Children.map(
-        props.children,
-        child => React.cloneElement(child, { menuType: props.menuType })
+        children,
+        child => React.cloneElement(child, { menuType })
       )}
     </StyledSubmenuBlock>
   );
@@ -16,8 +16,13 @@ const SubmenuBlock = (props) => {
 SubmenuBlock.propTypes = {
   /** Children elements */
   children: PropTypes.node.isRequired,
-  /** menu theme provided by <Menu /> */
-  menuType: PropTypes.oneOf(['primary', 'secondary'])
+  /**
+   * menu color scheme provided by <Menu />
+   * @private
+   * @ignore
+   *
+  */
+  menuType: PropTypes.oneOf(['light', 'dark'])
 
 };
 
