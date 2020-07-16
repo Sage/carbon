@@ -1,3 +1,10 @@
+### [34.0.1](https://github.com/Sage/carbon/compare/v34.0.0...v34.0.1) (2020-07-16)
+
+
+### Bug Fixes
+
+* **tooltip:** ensure toolip repositions when off screen ([25b1c4a](https://github.com/Sage/carbon/commit/25b1c4af989621f2b20901956fd942df61bed083))
+
 ## [34.0.0](https://github.com/Sage/carbon/compare/v33.3.0...v34.0.0) (2020-07-16)
 
 
