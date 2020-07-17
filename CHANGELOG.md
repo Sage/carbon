@@ -1,3 +1,14 @@
+## [35.0.0](https://github.com/Sage/carbon/compare/v34.0.2...v35.0.0) (2020-07-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* The deprecated rainbow component has been removed. There is no suitable replacement within carbon so please find an alternative library for your use case.
+
+### Miscellaneous Chores
+
+* remove deprecated rainbow component ([f0b97ef](https://github.com/Sage/carbon/commit/f0b97efa565fbda0f9d8baf7c806f27b649e0012)), closes [#3008](https://github.com/Sage/carbon/issues/3008)
+
 ### [34.0.2](https://github.com/Sage/carbon/compare/v34.0.1...v34.0.2) (2020-07-16)
 
 
