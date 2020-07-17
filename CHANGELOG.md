@@ -1,3 +1,10 @@
+### [35.1.1](https://github.com/Sage/carbon/compare/v35.1.0...v35.1.1) (2020-07-17)
+
+
+### Bug Fixes
+
+* **dialog:** auto focus dialog when opened ([4322681](https://github.com/Sage/carbon/commit/432268110a1feea23d60e7b77f6e493c5b3cfd87)), closes [#2960](https://github.com/Sage/carbon/issues/2960)
+
 ## [35.1.0](https://github.com/Sage/carbon/compare/v35.0.0...v35.1.0) (2020-07-17)
 
 
