@@ -83,19 +83,40 @@
           "required": false,
           "description": "Determines if the close icon is shown"
         },
-        "autoFocus": {
-          "type": {
-            "name": "bool"
-          },
-          "required": false,
-          "description": "If true then the dialog receives focus when it opens"
-        },
         "stickyFormFooter": {
           "type": {
             "name": "bool"
           },
           "required": false,
           "description": "Determines if the sticky footer is shown"
+        },
+        "focusFirstElement": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Function or ref to first element to focus"
+        },
+        "disableFocusTrap": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Disables the focus trap when the dialog is open"
+        },
+        "disableAutoFocus": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Disables auto focus functionality on child elements"
+        },
+        "bespokeFocusTrap": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Function to replace focus trap"
         }
       }
     }

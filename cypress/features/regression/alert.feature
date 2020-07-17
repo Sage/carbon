@@ -6,8 +6,7 @@ Feature: Alert component
 
   @positive
   Scenario: CloseIcon has the border outline
-    Given I open component preview
-    When closeIcon is focused
+    When I open component preview
     Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
 
   @positive

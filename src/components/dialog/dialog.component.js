@@ -41,12 +41,22 @@ class Dialog extends Modal {
     this.centerDialog(true);
     ElementResize.addListener(this._innerContent, this.applyFixedBottom);
     this.window.addEventListener('resize', this.centerDialog);
-    this.removeFocusTrap = focusTrap(this._dialog, this.props.focusFirstElement);
+
+    if (!this.props.disableFocusTrap) {
+      this.removeFocusTrap = focusTrap(
+        this._dialog,
+        !this.props.disableAutoFocus,
+        this.props.focusFirstElement,
+        this.props.bespokeFocusTrap
+      );
+    }
   }
 
   handleClose() {
     super.handleClose();
-    this.removeFocusTrap();
+    if (this.removeFocusTrap) {
+      this.removeFocusTrap();
+    }
     this.appliedFixedBottom = false;
     this.document.documentElement.style.overflow = '';
     this.window.removeEventListener('resize', this.centerDialog);
@@ -256,13 +266,26 @@ Dialog.propTypes = {
   showCloseIcon: PropTypes.bool,
   stickyFormFooter: PropTypes.bool,
   /** function runs when user click close button */
-  onCancel: PropTypes.func
+  onCancel: PropTypes.func,
+  /* Function or reference to first element to focus */
+  focusFirstElement: PropTypes.func,
+  /* Disables the focus trap when the dialog is open */
+  disableFocusTrap: PropTypes.bool,
+  /* Disables auto focus functionality on child elements */
+  disableAutoFocus: PropTypes.bool,
+  /**
+   * Function to replace focus trap
+   * @ignore
+   * @private
+   */
+  bespokeFocusTrap: PropTypes.func
 };
 
 Dialog.defaultProps = {
   size: 'medium',
   showCloseIcon: true,
-  ariaRole: 'dialog'
+  ariaRole: 'dialog',
+  disableAutoFocus: false
 };
 
 export default Dialog;

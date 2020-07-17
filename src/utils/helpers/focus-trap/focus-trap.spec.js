@@ -5,9 +5,9 @@ import focusTrap from './focus-trap';
 jest.useFakeTimers();
 
 // eslint-disable-next-line
-const TestComponent = ({ children, focusFirstElement }) => {
+const TestComponent = ({ children, focusFirstElement, autoFocus }) => {
   useEffect(() => {
-    const removeFocusTrap = focusTrap(document.getElementById('myComponent'), focusFirstElement);
+    const removeFocusTrap = focusTrap(document.getElementById('myComponent'), autoFocus, focusFirstElement);
 
     return () => removeFocusTrap();
   });
@@ -25,10 +25,32 @@ const TestComponent = ({ children, focusFirstElement }) => {
 describe('focusTrap', () => {
   const element = document.createElement('div');
   const htmlElement = document.body.appendChild(element);
-  const tabKey = new KeyboardEvent('keydown', { keyCode: 9 });
+  const tabKey = new KeyboardEvent('keydown', { key: 'Tab' });
   const shiftKey = new KeyboardEvent('keydown', { shiftKey: true });
-  const shiftTabKey = new KeyboardEvent('keydown', { keyCode: 9, shiftKey: true });
+  const shiftTabKey = new KeyboardEvent('keydown', { key: 'Tab', shiftKey: true });
   const otherKey = new KeyboardEvent('keydown', { keyCode: 32 });
+
+  describe('when autoFocus is false', () => {
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = mount(
+        <TestComponent focusFirstElement autoFocus={ false }>
+          <button type='button'>Test button One</button>
+          <input type='text' />
+        </TestComponent>,
+        { attachTo: htmlElement }
+      );
+    });
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
+
+    it('should not focus the first focusable element by default', () => {
+      expect(document.activeElement).toMatchObject(wrapper.find('body').at(0));
+    });
+  });
 
   describe('and element has callback function for focus', () => {
     let wrapper, onFocus;
