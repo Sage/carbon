@@ -1,0 +1,196 @@
+import { useState } from 'react';
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import Note from './note.component';
+import Content from '../../content';
+import {
+  ActionPopover,
+  ActionPopoverDivider,
+  ActionPopoverItem
+} from '../../action-popover';
+import { EditorState, ContentState, convertFromHTML } from 'draft-js';
+import Icon from '../../icon';
+import DateHelper from '../../../utils/helpers/date';
+
+<Meta title="Design System/Note" />
+
+# Note
+The `Note` was created using the `draft-js` framework which allows rich text content to be rendered. It requires 
+consuming projects to install `draft-js` as a peer-dependency to enable it to work. 
+
+```jsx
+import Note from "carbon-react/lib/components/note";
+import { EditorState, ContentState, convertFromHTML } from 'draft-js';
+```
+
+## Quick Start
+To use `Note`, use the import path above and pass the content via the `noteContent` prop by utilising the static 
+methods provided by the `draft-js` (see the import above) framework https://draftjs.org/docs/api-reference-content-state#static-methods.
+
+### Basic Usage:
+In its basic form, the component can render plain text content by passing a value via the `noteContent` prop using 
+`EditorState.createWithContent(ContentState.createFromText(''))` to ensure the value is in the correct format.
+<Preview>
+  <Story name="basic" parameters={{ info: { disable: true }}}>
+    {() => {
+      const noteContent = EditorState.createWithContent(ContentState.createFromText('Here is some plain text content'));
+      return (
+        <div style={{ height: 200, width: '50%' }}>
+          <Note width={ 100 } noteContent={ noteContent } />
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### With rich text content:
+It is also possible to render rich text content: below is an example of how the component supports rendering `html`
+content but there is a range of supporting packages that will support converting 
+content to a format you prefer and back into one that `draft-js` supports, again utilising the `createWithContent` 
+static method.  
+<Preview>
+  <Story name="with rich text" parameters={{ info: { disable: true }}}>
+    {() => {
+      const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
+      <ul><li>unordered</li></ul>
+      <ol><li>ordered</li></ol></br>
+      <p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i></p>
+      <p>Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>`;
+      const blocksFromHTML = convertFromHTML(html);
+      const content = ContentState.createFromBlockArray(
+        blocksFromHTML.contentBlocks,
+        blocksFromHTML.entityMap
+      );
+      const noteContent = EditorState.createWithContent(content);
+      return (
+        <div style={{ height: 200, width: '50%' }}>
+          <Note
+            width={ 100 }
+            noteContent={ noteContent }
+          />
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### With optional title:
+Passing a string value to the `title` prop will render it in the `Note`.
+<Preview>
+  <Story name="with optional title" parameters={{ info: { disable: true }}}>
+    {() => {
+      const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
+      <ul><li>unordered</li></ul>
+      <ol><li>ordered</li></ol></br>
+      <p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i></p>
+      <p>Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>`;
+      const blocksFromHTML = convertFromHTML(html);
+      const content = ContentState.createFromBlockArray(
+        blocksFromHTML.contentBlocks,
+        blocksFromHTML.entityMap
+      );
+      const noteContent = EditorState.createWithContent(content);
+      return (
+        <div style={{ height: 200, width: '50%' }}>
+          <Note
+            width={ 100 }
+            title='Here is a Title'
+            noteContent={ noteContent }
+          />
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### With optional inline control:
+The component supports adding an control to perform desired actions, this can be rendered compositionally by passing in 
+the control you wish to use to the `inlineControl` prop. The example below renders an `ActionPopover` control.
+<Preview>
+  <Story name="with optional inline control" parameters={{ info: { disable: true }}}>
+    {() => {
+      const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
+      <ul><li>unordered</li></ul>
+      <ol><li>ordered</li></ol></br>
+      <p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i></p>
+      <p>Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>`;
+      const blocksFromHTML = convertFromHTML(html);
+      const content = ContentState.createFromBlockArray(
+        blocksFromHTML.contentBlocks,
+        blocksFromHTML.entityMap
+      );
+      const noteContent = EditorState.createWithContent(content);
+      const control = (
+        <ActionPopover>
+          <ActionPopoverItem onClick={ () => {} }>
+            Edit
+          </ActionPopoverItem>
+          <ActionPopoverDivider />
+          <ActionPopoverItem onClick={ () => {} }>
+            Delete
+          </ActionPopoverItem>
+        </ActionPopover>
+      );
+      return (
+        <div style={{ height: 200, width: '50%' }}>
+          <Note
+            width={ 100 }
+            title='Here is a Title'
+            inlineControl={ control }
+            noteContent={ noteContent }
+          />
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### With footer:
+A `Note` footer can be rendered by passing values to the `name` and `createdDate` props. An optional `status` can also 
+be rendered, this can be seen below when you click the `Edit` button in the inline control.
+<Preview>
+  <Story name="with footer" parameters={{ info: { disable: true }}}>
+    {() => {
+      const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
+      <ul><li>unordered</li></ul>
+      <ol><li>ordered</li></ol></br>
+      <p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i></p>
+      <p>Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>`;
+      const blocksFromHTML = convertFromHTML(html);
+      const content = ContentState.createFromBlockArray(
+        blocksFromHTML.contentBlocks,
+        blocksFromHTML.entityMap
+      );
+      const noteContent = EditorState.createWithContent(content);
+      const [status, setStatus] = useState({ text: '', timeStamp: '' })
+      const control = (
+        <ActionPopover>
+          <ActionPopoverItem onClick={ () => {
+            const now = new Date(Date.now());
+            setStatus({ text: 'EDITED', timeStamp: DateHelper.formatDateString(now.toString(), 'DD MMM YYYY, LT') })
+          }}>
+            Edit
+          </ActionPopoverItem>
+          <ActionPopoverDivider />
+          <ActionPopoverItem onClick={ () => {} }>
+            Delete
+          </ActionPopoverItem>
+        </ActionPopover>
+      );
+      return (
+        <div style={{ height: 250, width: '50%' }}>
+          <Note
+            width={ 100 }
+            title='Here is a Title'
+            inlineControl={ control }
+            name='Lauren Smith'
+            createdDate={ DateHelper.formatDateString('Wed May 23 2020 12:08:00 GMT+0100 (BST)', 'DD MMM YYYY, LT') }
+            status={ status }
+            noteContent={ noteContent }
+          />
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+<Props of={Note} />
