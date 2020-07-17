@@ -1,3 +1,10 @@
+## [35.1.0](https://github.com/Sage/carbon/compare/v35.0.0...v35.1.0) (2020-07-17)
+
+
+### Features
+
+* **note:** create component and tooltip status ([834fe52](https://github.com/Sage/carbon/commit/834fe529fb42a501a9ec2627b4f2204a3e8ff6b7))
+
 ## [35.0.0](https://github.com/Sage/carbon/compare/v34.0.2...v35.0.0) (2020-07-17)
 
 

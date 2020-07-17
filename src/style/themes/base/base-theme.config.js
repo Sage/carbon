@@ -287,6 +287,10 @@ export default (palette) => {
       separator: palette.slateTint(90)
     },
 
+    note: {
+      timeStamp: 'rgba(0,0,0,0.65)'
+    },
+
     zIndex: {
       overlay: 1000,
       popover: 2000,
