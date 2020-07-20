@@ -57,7 +57,7 @@ jobs:
       # these containers will load balance all found tests among themselves
       - name: Cypress run
         timeout-minutes: 25
-        uses: cypress-io/github-action@v2.2.1
+        uses: cypress-io/github-action@v2.2.2
         with:
           install: false
           start: npm start
