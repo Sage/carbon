@@ -422,8 +422,8 @@ When('I press keyboard {string} key times {int}', (key, times) => {
   }
 });
 
-When('I press {string} onto focused element', (arrow) => {
-  cy.focused().trigger('keydown', keyCode(arrow));
+When('I press {string} onto focused element', (key) => {
+  cy.focused().trigger('keydown', keyCode(key));
 });
 
 When('I press ESC onto focused element', () => {

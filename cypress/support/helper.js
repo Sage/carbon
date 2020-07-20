@@ -157,7 +157,7 @@ export function keyCode(type) {
     rightarrow: { keyCode: 39, which: 39 },
     Enter: { keyCode: 13, which: 13 },
     Space: { keyCode: 32, which: 32 },
-    Tab: { keyCode: 9, which: 9 },
+    Tab: { key: 'Tab', keyCode: 9, which: 9 },
     Home: { keyCode: 36, which: 36 },
     End: { keyCode: 35, which: 35 },
   }[type];
