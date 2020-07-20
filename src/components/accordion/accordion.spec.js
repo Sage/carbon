@@ -168,7 +168,7 @@ describe('Accordion', () => {
       }, wrapper.find(StyledAccordionContainer));
     });
 
-    it('renders accordion with transpart background and border when scheme is set to "transparent"', () => {
+    it('renders accordion with transparent background and border when scheme is set to "transparent"', () => {
       render({ scheme: 'transparent' });
       assertStyleMatch({
         backgroundColor: 'transparent',

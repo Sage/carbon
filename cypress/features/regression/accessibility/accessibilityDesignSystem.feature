@@ -7,16 +7,15 @@ Feature: Accessibility tests - Design System folder
     Then "Accordion <story> page" component has no accessibility violations
     Examples:
       | story                |
-      | primary              |
-      | secondary            |
+      | default              |
       | styles_overriden     |
       | with_dynamic_content |
 
   @accessibility
   Scenario: Design System Accordion component primary page opened state
-    Given I open design systems primary "Accordion" component in no iframe
+    Given I open design systems default_story "Accordion" component in no iframe
     When I expand Design System accordionRow via click in NoIFrame
-    Then "Accordion primary page" component has no accessibility violations
+    Then "Accordion default page" component has no accessibility violations
 
   @accessibility
   Scenario: Design System Action Popover component keyboard_access page
