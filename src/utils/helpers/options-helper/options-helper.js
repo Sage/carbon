@@ -96,6 +96,16 @@ const OptionsHelper = {
     'transparent-white'
   ],
 
+  formSpacingMultiplier: [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    7
+  ],
+
   iconBackgrounds: [
     'info',
     'error',

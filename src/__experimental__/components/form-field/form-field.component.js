@@ -35,6 +35,7 @@ const FormField = ({
   isOptional,
   readOnly,
   useValidationIcon,
+  formSpacingOverride,
   styleOverride,
   ...props
 }) => {
@@ -43,8 +44,13 @@ const FormField = ({
     // eslint-disable-next-line max-len
     Logger.deprecate('`styleOverride` that is used in the `FormField` component is deprecated and will soon be removed.');
   }
+
   return (
-    <FormFieldStyle { ...tagComponent(props['data-component'], props) } styleOverride={ styleOverride.root }>
+    <FormFieldStyle
+      { ...tagComponent(props['data-component'], props) }
+      styleOverride={ styleOverride.root }
+      formSpacingOverride={ formSpacingOverride }
+    >
       <FieldLineStyle inline={ labelInline }>
         {reverse && children}
 
@@ -125,6 +131,8 @@ FormField.propTypes = {
   reverse: PropTypes.bool,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   useValidationIcon: PropTypes.bool,
+  /** Override form spacing (margin bottom) */
+  formSpacingOverride: PropTypes.oneOf(OptionsHelper.formSpacingMultiplier),
   /** Allows to override existing component styles */
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),

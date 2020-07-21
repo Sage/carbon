@@ -20,6 +20,12 @@ describe('FormField', () => {
     });
   });
 
+  describe('with formSpacingOverride prop set', () => {
+    it('should set the correct bottom margin', () => {
+      expect(render({ formSpacingOverride: 5 }, TestRenderer.create)).toMatchSnapshot();
+    });
+  });
+
   describe('with a label', () => {
     it('renders the label component above the childen', () => {
       expect(render({

@@ -1,5 +1,6 @@
 
 import * as React from 'react';
+import { FormSpacingMultiplier } from '../../utils/helpers/options-helper/options-helper';
 
 export interface FormProps {
  /** Alignment of buttons */
@@ -28,6 +29,9 @@ export interface FormProps {
 
  /** The total number of warnings present in the form */
  warningCount?: number;
+
+ /** Multipler for vertical spacing between fields, times theme.spacing */
+ fieldSpacingMultiplier?: FormSpacingMultiplier;
 }
 
 declare const Form: React.FunctionComponent<FormProps>;

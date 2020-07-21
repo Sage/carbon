@@ -7,8 +7,9 @@ import baseTheme from '../../style/themes/base';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 export const StyledForm = styled.form`
-  && ${StyledFormField}:not(:first-of-type) {
-    margin-top: 32px;
+  & ${StyledFormField} {
+    margin-top: 0;
+    margin-bottom: ${({ fieldSpacingMultiplier, theme }) => (theme.spacing * fieldSpacingMultiplier)}px;
   }
 
   ${({ stickyFooter }) => stickyFooter && css`
@@ -67,7 +68,12 @@ export const StyledFormFooter = styled.div`
 
 
 StyledForm.propTypes = {
+  theme: PropTypes.object,
   stickyFooter: PropTypes.bool
+};
+
+StyledForm.defaultProps = {
+  theme: baseTheme
 };
 
 StyledLeftButtons.propTypes = {
@@ -83,6 +89,7 @@ StyledFormFooter.propTypes = {
   buttonAlignment: PropTypes.oneOf(OptionsHelper.alignBinary),
   stickyFooter: PropTypes.bool
 };
+
 StyledFormFooter.defaultProps = {
   theme: baseTheme
 };

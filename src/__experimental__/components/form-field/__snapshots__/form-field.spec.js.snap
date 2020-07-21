@@ -5,6 +5,10 @@ exports[`FormField classic theme adds custom margin top 1`] = `
   margin-top: 16px;
 }
 
+.c3 + .c0 {
+  margin-top: 16px;
+}
+
 .c1 + .c0 {
   margin-top: 10px;
 }
@@ -20,6 +24,10 @@ exports[`FormField classic theme when inline renders the FieldHelp component bel
 }
 
 .c2 + .c0 {
+  margin-top: 16px;
+}
+
+.c3 + .c0 {
   margin-top: 10px;
 }
 
@@ -93,4 +101,32 @@ Array [
     Help me!
   </FieldHelp>,
 ]
+`;
+
+exports[`FormField with formSpacingOverride prop set should set the correct bottom margin 1`] = `
+.c3 + .c0 {
+  margin-top: 16px;
+}
+
+.c1 + .c0 {
+  margin-top: 16px;
+}
+
+.c1.c1.c1 {
+  margin-bottom: 40px;
+}
+
+.c2 {
+  display: block;
+}
+
+<div
+  className="c0 c1"
+>
+  <div
+    className="c2"
+  >
+    <input />
+  </div>
+</div>
 `;

@@ -1,10 +1,15 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import BaseTheme from '../../../style/themes/base';
 import { isClassic } from '../../../utils/helpers/style-helper';
 
 const FormFieldStyle = styled.div`
   & + & {
     margin-top: ${({ theme }) => (isClassic(theme) ? '10px' : '16px')};
+  }
+
+  &&& {
+    ${({ formSpacingOverride, theme }) => (formSpacingOverride || formSpacingOverride === 0)
+  && css`margin-bottom: ${formSpacingOverride * theme.spacing}px`};
   }
 
   ${({ styleOverride }) => styleOverride};
