@@ -1,13 +1,11 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import 'jest-styled-components';
 import { shallow } from 'enzyme';
 import TabsHeader from './tabs-header.component';
 import StyledTabsHeader from './tabs-header.style';
-import classicTheme from '../../../style/themes/classic';
 import TabTitle from '../tab-title/tab-title.component';
-import baseTheme from '../../../style/themes/base';
-import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import baseTheme from '../../../../style/themes/base';
+import { assertStyleMatch } from '../../../../__spec_helper__/test-utils';
 
 function render(props) {
   return shallow(
@@ -62,18 +60,6 @@ describe('TabsHeader', () => {
         {
           justifyContent: 'flex-end',
           textAlign: 'right'
-        },
-        wrapper.toJSON()
-      );
-    });
-  });
-
-  describe('when in classic style', () => {
-    it('renders as expected', () => {
-      wrapper = renderStyles({ theme: classicTheme });
-      assertStyleMatch(
-        {
-          boxShadow: 'inset 0px -2px 0px 0px #CCD6DB'
         },
         wrapper.toJSON()
       );

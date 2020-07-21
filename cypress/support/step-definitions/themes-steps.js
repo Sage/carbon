@@ -1,5 +1,9 @@
 import {
-  visitComponentUrlByTheme, visitComponentUrlByThemeKnobsStory, visitComponentUrlByThemeByStory, visitDesignSystemComponentUrlByThemeByStory,
+  visitComponentUrlByTheme,
+  visitComponentUrlByThemeKnobsStory,
+  visitComponentUrlByThemeByStory,
+  visitDesignSystemComponentUrlByThemeByStory,
+  visitComponentUrlByThemeByStoryDesignSystemTest,
 } from '../helper';
 import { getComponentNoIframe, getElementNoIframe } from '../../locators';
 import { buttonToggleComponent, linkComponent, loaderComponent } from '../../locators/themes';
@@ -10,6 +14,10 @@ const BUSINESS_BGTHEME = '&knob-bgTheme=business';
 
 When('I open {string} component with theme {string}', (componentName, themeName) => {
   visitComponentUrlByTheme(componentName, themeName);
+});
+
+When('I open {word} page {string} component with theme {string}', (type, componentName, themeName) => {
+  visitComponentUrlByThemeByStoryDesignSystemTest(componentName, type, themeName);
 });
 
 When('I open {string} component with theme {string} knobs story', (componentName, themeName) => {

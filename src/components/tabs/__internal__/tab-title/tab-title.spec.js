@@ -4,8 +4,8 @@ import { mount, shallow } from 'enzyme';
 import { ThemeProvider } from 'styled-components';
 import TabTitle from './tab-title.component';
 import StyledTabTitle from './tab-title.style';
-import { aegeanTheme, baseTheme, classicTheme } from '../../../style/themes';
-import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import { aegeanTheme, baseTheme } from '../../../../style/themes';
+import { assertStyleMatch } from '../../../../__spec_helper__/test-utils';
 
 function render(props) {
   return shallow(
@@ -68,8 +68,7 @@ describe('TabTitle', () => {
           borderRight: `2px solid ${baseTheme.disabled.background}`,
           display: 'block',
           height: 'auto',
-          marginLeft: '0px',
-          marginTop: '2px'
+          marginLeft: '0px'
         },
         wrapper.toJSON()
       );
@@ -161,6 +160,32 @@ describe('TabTitle', () => {
         },
         wrapper.toJSON()
       );
+
+      assertStyleMatch(
+        {
+          borderBottomColor: baseTheme.colors.warning
+        },
+        wrapper.toJSON(),
+        { modifier: ':hover' }
+      );
+    });
+
+    it('applies proper styling when position is "left"', () => {
+      wrapper = renderStyles({ position: 'left', tabHasWarning: true });
+      assertStyleMatch(
+        {
+          borderRightColor: baseTheme.colors.warning
+        },
+        wrapper.toJSON()
+      );
+
+      assertStyleMatch(
+        {
+          borderRightColor: baseTheme.colors.warning
+        },
+        wrapper.toJSON(),
+        { modifier: ':hover' }
+      );
     });
   });
 
@@ -173,131 +198,32 @@ describe('TabTitle', () => {
         },
         wrapper.toJSON()
       );
-    });
-  });
 
-  describe('when in classic theme', () => {
-    it('renders as expected', () => {
-      wrapper = renderStyles({ theme: classicTheme });
-      expect(wrapper.toJSON()).toMatchSnapshot();
-    });
-
-    describe('when position prop is set to left', () => {
-      it('applies proper styling', () => {
-        wrapper = renderStyles({ theme: classicTheme, position: 'left' });
-        assertStyleMatch(
-          {
-            backgroundColor: '#f5f6f7',
-            borderBottom: '0px',
-            borderRight: '2px solid #CCD6DB'
-          },
-          wrapper.toJSON()
-        );
-
-        assertStyleMatch(
-          {
-            borderRightColor: '#1963f6',
-            background: '#004b87'
-          },
-          wrapper.toJSON(),
-          { modifier: ':hover' }
-        );
-      });
+      assertStyleMatch(
+        {
+          borderBottomColor: baseTheme.colors.error
+        },
+        wrapper.toJSON(),
+        { modifier: ':hover' }
+      );
     });
 
-    describe('when tab is selected', () => {
-      it('applies proper styling', () => {
-        wrapper = renderStyles({ theme: classicTheme, isTabSelected: true });
+    it('applies proper styling when position is "left"', () => {
+      wrapper = renderStyles({ position: 'left', tabHasError: true });
+      assertStyleMatch(
+        {
+          borderRightColor: baseTheme.colors.error
+        },
+        wrapper.toJSON()
+      );
 
-        assertStyleMatch(
-          {
-            backgroundColor: '#fff',
-            borderBottomColor: '#1963f6'
-          },
-          wrapper.toJSON()
-        );
-
-        assertStyleMatch(
-          {
-            background: '#fff',
-            borderBottomColor: '#004b87',
-            color: '#003349'
-          },
-          wrapper.toJSON(),
-          { modifier: ':hover' }
-        );
-      });
-
-      describe('and the position prop is set to left', () => {
-        it('applies proper styling', () => {
-          wrapper = renderStyles({ theme: classicTheme, position: 'left', isTabSelected: true });
-
-          assertStyleMatch(
-            {
-              borderRightColor: '#1963f6',
-              backgroundColor: '#fff'
-            },
-            wrapper.toJSON()
-          );
-
-          assertStyleMatch(
-            {
-              borderRightColor: '#1963f6',
-              backgroundColor: '#fff'
-            },
-            wrapper.toJSON(),
-            { modifier: ':hover' }
-          );
-        });
-
-        describe('when tab has en error', () => {
-          it('applies proper border-bottom color', () => {
-            wrapper = renderStyles({ theme: classicTheme, position: 'left', tabHasError: true });
-            assertStyleMatch(
-              {
-                borderRightColor: '#D63F40'
-              },
-              wrapper.toJSON()
-            );
-          });
-        });
-
-        describe('when tab has warning', () => {
-          it('applies proper border-bottom color', () => {
-            wrapper = renderStyles({ theme: classicTheme, position: 'left', tabHasWarning: true });
-            assertStyleMatch(
-              {
-                borderBottomColor: '#FF7D00'
-              },
-              wrapper.toJSON()
-            );
-          });
-        });
-      });
-    });
-
-    describe('when tab has error', () => {
-      it('applies proper border-bottom color', () => {
-        wrapper = renderStyles({ theme: classicTheme, tabHasError: true });
-        assertStyleMatch(
-          {
-            borderBottomColor: '#D63F40'
-          },
-          wrapper.toJSON()
-        );
-      });
-    });
-
-    describe('when tab has warning', () => {
-      it('applies proper border-bottom color', () => {
-        wrapper = renderStyles({ theme: classicTheme, tabHasWarning: true });
-        assertStyleMatch(
-          {
-            borderBottomColor: '#FF7D00'
-          },
-          wrapper.toJSON()
-        );
-      });
+      assertStyleMatch(
+        {
+          borderRightColor: baseTheme.colors.error
+        },
+        wrapper.toJSON(),
+        { modifier: ':hover' }
+      );
     });
   });
 

@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TabTitle renders as expected 1`] = `
+.c0 {
+  background-color: transparent;
+  border-bottom: 2px solid #E6EBED;
+  color: rgba(0,0,0,0.55);
+  display: inline-block;
+  font-weight: bold;
+  height: 100%;
+  line-height: 20px;
+  margin: 0;
+  padding: 14px 16px 12px;
+}
+
+.c0:first-child {
+  margin-left: 0;
+}
+
+.c0:hover,
+.c0:focus {
+  background: transparent;
+  border-bottom-color: #4DB84D;
+  color: rgba(0,0,0,0.9);
+  outline: none;
+}
+
+<li
+  className="c0"
+  title="Tab Title 1"
+/>
+`;
