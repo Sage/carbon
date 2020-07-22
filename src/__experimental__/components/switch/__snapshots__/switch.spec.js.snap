@@ -18,7 +18,10 @@ exports[`Switch base theme renders as expected 1`] = `
 }
 
 .c5 {
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .c7 {

@@ -26,6 +26,7 @@ const FormField = ({
   labelHelp,
   labelHelpIcon,
   labelInline,
+  labelSpacing = 16,
   labelWidth,
   name,
   id,
@@ -75,6 +76,7 @@ const FormField = ({
             childOfForm={ childOfForm }
             optional={ isOptional }
             useValidationIcon={ useValidationIcon }
+            rightSpacing={ labelSpacing }
             styleOverride={ styleOverride.label }
           >
             {label}
@@ -126,6 +128,8 @@ FormField.propTypes = {
   labelHelp: PropTypes.node,
   labelHelpIcon: PropTypes.string,
   labelInline: PropTypes.bool,
+  /** Space between label and field (label padding right) in px */
+  labelSpacing: PropTypes.oneOf([8, 16]),
   labelWidth: PropTypes.number,
   readOnly: PropTypes.bool,
   reverse: PropTypes.bool,

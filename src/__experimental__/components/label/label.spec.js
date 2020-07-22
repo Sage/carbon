@@ -57,6 +57,12 @@ describe('Label', () => {
       }, TestRenderer.create).toJSON(),
       { modifier: '::after' });
     });
+
+    it('applies styling when rightSpacing prop set', () => {
+      assertStyleMatch({
+        paddingRight: '16px'
+      }, render({ inline: true, rightSpacing: 16 }, TestRenderer.create).toJSON());
+    });
   });
 
   describe('when disabled', () => {

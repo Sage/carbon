@@ -56,8 +56,8 @@ const RadioButtonStyle = styled(CheckboxStyle)`
       flex: 1 1 calc(100% - 44px);
       padding-left: 0;
 
-      ${reverse && css`
-        margin-right: 6px;
+      ${!reverse && css`
+        padding-right: 0;
       `}
     }
 

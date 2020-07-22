@@ -65,6 +65,7 @@ exports[`FormField with a label renders the label component above the childen 1`
     help="Help me!"
     inline={true}
     inputSize="small"
+    rightSpacing={16}
     width={20}
   >
     Name
