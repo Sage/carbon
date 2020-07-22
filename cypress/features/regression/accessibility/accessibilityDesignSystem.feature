@@ -39,9 +39,16 @@ Feature: Accessibility tests - Design System folder
     Examples:
       | component           |
       | Anchornavigation    |
-      | Button Toggle Group |
       | duellingpicklist    |
       | Numeral Date        |
+
+  @accessibility
+  Scenario Outline: Component <component> basic default page
+    When I open "<component>" component page "basic" in no iframe
+    Then "<component>" component has no accessibility violations
+    Examples:
+      | component                |
+      | Button Toggle Group Test |
 
   @accessibility
   Scenario Outline: Design System Button component <story> page
