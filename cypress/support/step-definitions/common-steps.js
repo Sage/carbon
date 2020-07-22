@@ -40,8 +40,12 @@ Given('I open Test {string} component page knobs in noIFrame', (component) => {
   visitComponentUrl(component, 'knobs', true, 'test-');
 });
 
-Given('I open Test {string} component page knobs', (component) => {
-  visitComponentUrl(component, 'knobs', false, 'test-');
+Given('I open {string} component page {string}', (component, story) => {
+  visitComponentUrl(component, story, false);
+});
+
+Given('I open {string} component page {string} in no iframe', (component, story) => {
+  visitComponentUrl(component, story, true);
 });
 
 Given('I open {string} component page in noIFrame', (component) => {
@@ -105,20 +109,8 @@ Given('I open {string} component page multiple in iframe', (component) => {
   visitComponentUrl(component, 'multiple', true);
 });
 
-Given('I open Test {string} component page as sibling in no iframe', (component) => {
-  visitComponentUrl(component, 'as_a_sibling', true, 'test-');
-});
-
-Given('I open Test {string} component page as sibling', (component) => {
-  visitComponentUrl(component, 'as_a_sibling', false, 'test-');
-});
-
 Given('I open {string} component page full-width in no iframe', (component) => {
   visitComponentUrl(component, 'full_width');
-});
-
-Given('I open {string} component page as sibling', (component) => {
-  visitComponentUrl(component, 'as_a_sibling');
 });
 
 Given('I open Experimental {string} component page validations in noIframe', (component) => {

@@ -346,7 +346,7 @@ export const fullWidthButtons = () => {
 
 export default {
   component: Button,
-  title: 'Test/Button',
+  title: 'Design System/Button/Test',
   parameters: {
     info: { disable: true },
     chromatic: {
