@@ -29,6 +29,7 @@ describe('StyledDateInput', () => {
 
 describe('Date', () => {
   let wrapper;
+  let container;
 
   describe('external validations', () => {
     it.each([
@@ -79,6 +80,19 @@ describe('Date', () => {
   );
 
   describe('when "autoFocus" prop is defined', () => {
+    beforeEach(() => {
+      container = document.createElement('div');
+      container.id = 'enzymeContainer';
+      document.body.appendChild(container);
+    });
+
+    afterEach(() => {
+      if (container && container.parentNode) {
+        container.parentNode.removeChild(container);
+      }
+
+      container = null;
+    });
     it("then component's input should be focused after render", () => {
       wrapper = render({ autoFocus: true });
       const input = wrapper.find('input').findWhere(n => n.props().type !== 'hidden');
@@ -293,12 +307,23 @@ describe('Date', () => {
     const mockDate = moment('2012-02-01');
 
     beforeEach(() => {
+      container = document.createElement('div');
+      container.id = 'enzymeContainer';
+      document.body.appendChild(container);
       wrapper = render({ value: '' });
       simulateFocusOnInput(wrapper);
       wrapper
         .find(DatePicker)
         .props()
         .handleDateSelect(mockDate);
+    });
+
+    afterEach(() => {
+      if (container && container.parentNode) {
+        container.parentNode.removeChild(container);
+      }
+
+      container = null;
     });
 
     it('should not contain the DatePicker component', () => {
@@ -688,7 +713,7 @@ describe('when the calendar icon is clicked', () => {
 });
 
 function render(props, renderer = mount) {
-  return renderer(<DateInput { ...props } />);
+  return renderer(<DateInput { ...props } />, { attachTo: document.getElementById('enzymeContainer') });
 }
 
 function getFormattedDate(date) {

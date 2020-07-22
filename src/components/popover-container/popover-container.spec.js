@@ -26,6 +26,15 @@ const render = (props, renderMethod = mount) => {
   return (renderMethod(<PopoverContainer title='PopoverContainerSettings' { ...props } />));
 };
 
+const renderAttached = (props, renderMethod = mount) => {
+  return (
+    renderMethod(
+      <PopoverContainer title='PopoverContainerSettings' { ...props } />,
+      { attachTo: document.getElementById('enzymeContainer') }
+    )
+  );
+};
+
 describe('PopoverContainer', () => {
   jest.useFakeTimers();
   let wrapper;
@@ -234,9 +243,13 @@ describe('PopoverContainer', () => {
           ref={ ref }
         />
       ));
+      let container;
 
       beforeEach(() => {
-        wrapper = render({
+        container = document.createElement('div');
+        container.id = 'enzymeContainer';
+        document.body.appendChild(container);
+        wrapper = renderAttached({
           title: 'render props',
           renderOpenComponent: ({
             tabIndex, dataElement, ariaLabel, ref, onClick
@@ -252,6 +265,14 @@ describe('PopoverContainer', () => {
             </MyOpenButton>
           )
         });
+      });
+
+      afterEach(() => {
+        if (container && container.parentNode) {
+          container.parentNode.removeChild(container);
+        }
+
+        container = null;
       });
 
       it('should be focused when user clicks the close icon', () => {
@@ -320,9 +341,13 @@ describe('PopoverContainer', () => {
           ref={ ref }
         />
       ));
+      let container;
 
       beforeEach(() => {
-        wrapper = render({
+        container = document.createElement('div');
+        container.id = 'enzymeContainer';
+        document.body.appendChild(container);
+        wrapper = renderAttached({
           open: true,
           renderCloseComponent: ({
             tabIndex, dataElement, ariaLabel, ref
@@ -339,6 +364,14 @@ describe('PopoverContainer', () => {
         });
       });
 
+      afterEach(() => {
+        if (container && container.parentNode) {
+          container.parentNode.removeChild(container);
+        }
+
+        container = null;
+      });
+
       it('should be focused if `ref` is provided', () => {
         expect(wrapper.find(MyCloseButton)).toBeFocused();
       });
@@ -353,8 +386,23 @@ describe('PopoverContainer', () => {
 
   describe('if close button is clicked ', () => {
     describe('and `ref` of opening button exists', () => {
+      let container;
+      beforeEach(() => {
+        container = document.createElement('div');
+        container.id = 'enzymeContainer';
+        document.body.appendChild(container);
+      });
+
+      afterEach(() => {
+        if (container && container.parentNode) {
+          container.parentNode.removeChild(container);
+        }
+
+        container = null;
+      });
+
       it('should set focus to the opening button', () => {
-        wrapper = render();
+        wrapper = renderAttached();
 
         act(() => {
           wrapper.find(PopoverContainerOpenIcon).props().onAction();

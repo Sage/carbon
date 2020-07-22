@@ -1,3 +1,121 @@
+### [35.1.1](https://github.com/Sage/carbon/compare/v35.1.0...v35.1.1) (2020-07-17)
+
+
+### Bug Fixes
+
+* **dialog:** auto focus dialog when opened ([4322681](https://github.com/Sage/carbon/commit/432268110a1feea23d60e7b77f6e493c5b3cfd87)), closes [#2960](https://github.com/Sage/carbon/issues/2960)
+
+## [35.1.0](https://github.com/Sage/carbon/compare/v35.0.0...v35.1.0) (2020-07-17)
+
+
+### Features
+
+* **note:** create component and tooltip status ([834fe52](https://github.com/Sage/carbon/commit/834fe529fb42a501a9ec2627b4f2204a3e8ff6b7))
+
+## [35.0.0](https://github.com/Sage/carbon/compare/v34.0.2...v35.0.0) (2020-07-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* The deprecated rainbow component has been removed. There is no suitable replacement within carbon so please find an alternative library for your use case.
+
+### Miscellaneous Chores
+
+* remove deprecated rainbow component ([f0b97ef](https://github.com/Sage/carbon/commit/f0b97efa565fbda0f9d8baf7c806f27b649e0012)), closes [#3008](https://github.com/Sage/carbon/issues/3008)
+
+### [34.0.2](https://github.com/Sage/carbon/compare/v34.0.1...v34.0.2) (2020-07-16)
+
+
+### Bug Fixes
+
+* **text-editor:** update styling for lists ([a2fe8eb](https://github.com/Sage/carbon/commit/a2fe8ebbf37419d2f9f87bb7ad5b0d980dbb8b87))
+
+### [34.0.1](https://github.com/Sage/carbon/compare/v34.0.0...v34.0.1) (2020-07-16)
+
+
+### Bug Fixes
+
+* **tooltip:** ensure toolip repositions when off screen ([25b1c4a](https://github.com/Sage/carbon/commit/25b1c4af989621f2b20901956fd942df61bed083))
+
+## [34.0.0](https://github.com/Sage/carbon/compare/v33.3.0...v34.0.0) (2020-07-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu:** `Menu` scheme colors `primary` and `secondary` no
+longer exists.
+To upgrade replace
+`<Menu menuType="primary" />` with `<Menu />`
+or
+`<Menu menuType="secondary" />` with `<Menu menuType="dark" />`
+* **menu:** The `Menu` prop `divide` no longer exists.
+To upgrade replace `<MenuItem divide />` with
+`<MenuDivider /><MenuItem />`
+
+Fixes FE-2315
+
+### Features
+
+* **menu:** update visual appearance to match design system ([3b30e4e](https://github.com/Sage/carbon/commit/3b30e4e79d264fb83d8c86dfc87ff89149eadbc1))
+
+## [33.3.0](https://github.com/Sage/carbon/compare/v33.2.0...v33.3.0) (2020-07-15)
+
+
+### Features
+
+* add new FilterableSelect Component ([ae2833b](https://github.com/Sage/carbon/commit/ae2833b595d0fba22b9094aa8f151915ccfb2f2a))
+* add new SimpleSelect Component ([d6c6ec3](https://github.com/Sage/carbon/commit/d6c6ec33bd9ab4a6a75b3402a4eac582f5555c84))
+
+
+### Bug Fixes
+
+* **input-icon-toggle:** add missing onMouseDown prop ([b0ab93a](https://github.com/Sage/carbon/commit/b0ab93a84ebd4b7ec4660b726f72a0067c02f561))
+
+## [33.2.0](https://github.com/Sage/carbon/compare/v33.1.0...v33.2.0) (2020-07-13)
+
+
+### Features
+
+* **text-editor:** add new text editor component ([3717bb9](https://github.com/Sage/carbon/commit/3717bb9fd9b37ee5c9266aeacac7b02f2140e713))
+
+## [33.1.0](https://github.com/Sage/carbon/compare/v33.0.1...v33.1.0) (2020-07-13)
+
+
+### Features
+
+* **table-ajax:** replace deprecated spinner with loader component ([855bc25](https://github.com/Sage/carbon/commit/855bc2576bc2c2d4bbeef0483bb9a7344da102ad))
+
+### [33.0.1](https://github.com/Sage/carbon/compare/v33.0.0...v33.0.1) (2020-07-09)
+
+
+### Bug Fixes
+
+* **menu-item:** `routerLink` prop is not provided when there is no submenu ([92b601e](https://github.com/Sage/carbon/commit/92b601e62a3b7081faba94d976794f43f2ce58cb)), closes [#3056](https://github.com/Sage/carbon/issues/3056)
+
+## [33.0.0](https://github.com/Sage/carbon/compare/v32.0.3...v33.0.0) (2020-07-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **navigation-bar:** `as` prop is no more supported as the prop is reserved for Styled-Components.
+there is new prop called `navigationType`.
+Also `primary` and `secondary` has been replaced with `light` and `dark`.
+After update you will need to replace
+`<NavigationBar as="primary" />` with `<NavigationBar />`
+or
+`NavigationBar as="secondary" />` with `<NavigationBar navigationType="dark" />`
+
+### Features
+
+* **navigation-bar:** update component ([7815170](https://github.com/Sage/carbon/commit/7815170858f05a90b8747f8f616e9f7909f96386))
+
+### [32.0.3](https://github.com/Sage/carbon/compare/v32.0.2...v32.0.3) (2020-07-08)
+
+
+### Bug Fixes
+
+* **switch:** fix misaligned validation icon on large switch ([afc2f68](https://github.com/Sage/carbon/commit/afc2f68b5a6de1a9001ca18daf4b30bf94db89dc))
+
 ### [32.0.2](https://github.com/Sage/carbon/compare/v32.0.1...v32.0.2) (2020-07-02)
 
 

@@ -15,12 +15,6 @@ function applyClassicTableStyling(props) {
   return css`
     background-color: #ffffff;
 
-    .table__spinner {
-      height: 8px;
-      width: 8px;
-      margin-bottom: -4px;
-    }
-
     ${props.tableType === 'secondary' && `
       ${StyledTableHeader} {
         background-color: #CCD6DB;

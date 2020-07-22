@@ -14,9 +14,13 @@ import { StyledLink } from './show-edit-pod.style';
 describe('ShowEditPod', () => {
   describe('when the "editing" prop is set on mount', () => {
     let wrapper;
+    let container;
 
     beforeEach(() => {
-      jest.useFakeTimers()
+      jest.useFakeTimers();
+      container = document.createElement('div');
+      container.id = 'enzymeContainer';
+      document.body.appendChild(container);
       wrapper = renderShowEditPod({ editing: true });
     });
 
@@ -41,6 +45,11 @@ describe('ShowEditPod', () => {
 
     afterEach(() => {
       wrapper.unmount();
+      if (container && container.parentNode) {
+        container.parentNode.removeChild(container);
+      }
+    
+      container = null;
       jest.useRealTimers();
     });
   });
@@ -83,6 +92,8 @@ describe('ShowEditPod', () => {
 
   describe('when the "onEdit" prop is passed', () => {
     let wrapper;
+    let wrapperAttached;
+    let container;
 
     describe('and "onEdit" prop is called on Pod Component', () => {
       let onEditSpy;
@@ -99,14 +110,35 @@ describe('ShowEditPod', () => {
         expect(onEditSpy).toHaveBeenCalled();
       });
 
-      it('sets focus on the pod DOM node', () => {
-        const focusedElement = document.activeElement;
-
-        expect(focusedElement.dataset.component).toBe('pod');
-      });
-
       it('displays the Edit Form', () => {
         expect(wrapper.update().find(Form).exists()).toBe(true);
+      });
+
+      describe('and focus is set', () => {
+        beforeEach(() => {
+          container = document.createElement('div');
+          container.id = 'enzymeContainer';
+          document.body.appendChild(container);
+          onEditSpy = jest.fn();
+          wrapperAttached = renderShowEditPod({
+            onEdit: onEditSpy
+          });
+          wrapperAttached.find(Pod).props().onEdit();
+        });
+
+        afterEach(() => {
+          if (container && container.parentNode) {
+            container.parentNode.removeChild(container);
+          }
+
+          container = null;
+        });
+
+        it('sets focus on the pod DOM node', () => {
+          const focusedElement = document.activeElement;
+  
+          expect(focusedElement.dataset.component).toBe('pod');
+        });
       });
     });
   
@@ -393,7 +425,7 @@ describe('ShowEditPod', () => {
 
 function renderShowEditPod(props, renderer = mount) {
   return renderer(
-    <ShowEditPod { ...props } />
+    <ShowEditPod { ...props } />, { attachTo: document.getElementById('enzymeContainer') }
   );
 }
 

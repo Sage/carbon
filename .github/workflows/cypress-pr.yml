@@ -55,7 +55,8 @@ jobs:
       # because of "record" and "parallel" parameters
       # these containers will load balance all found tests among themselves
       - name: Cypress run
-        uses: cypress-io/github-action@v2.2.1
+        timeout-minutes: 25
+        uses: cypress-io/github-action@v2.2.2
         with:
           install: false
           start: npm start

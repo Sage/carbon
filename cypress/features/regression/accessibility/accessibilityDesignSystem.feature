@@ -2,30 +2,21 @@ Feature: Accessibility tests - Design System folder
   I want to check that all components have no violations
 
   @accessibility
-  Scenario: Design System Accordion component primary page closed state
-    When I open design systems primary "Accordion" component in no iframe
-    Then "Accordion primary page" component has no accessibility violations
+  Scenario Outline: Design System Accordion component <story> page closed state
+    When I open design systems <story> "Accordion" component in no iframe
+    Then "Accordion <story> page" component has no accessibility violations
+    Examples:
+      | story                |
+      | primary              |
+      | secondary            |
+      | styles_overriden     |
+      | with_dynamic_content |
 
   @accessibility
   Scenario: Design System Accordion component primary page opened state
     Given I open design systems primary "Accordion" component in no iframe
     When I expand Design System accordionRow via click in NoIFrame
     Then "Accordion primary page" component has no accessibility violations
-
-  @accessibility
-  Scenario: Design System Accordion component secondary page
-    When I open design systems secondary "Accordion" component in no iframe
-    Then "Accordion secondary page" component has no accessibility violations
-
-  @accessibility
-  Scenario: Design System Accordion component styles_overriden page
-    When I open design systems styles_overriden "Accordion" component in no iframe
-    Then "Accordion styles_overriden page" component has no accessibility violations
-
-  @accessibility
-  Scenario: Design System Accordion component with_dynamic_content page
-    When I open design systems with_dynamic_content "Accordion" component in no iframe
-    Then "Accordion with_dynamic_content page" component has no accessibility violations
 
   @accessibility
   Scenario: Design System Action Popover component keyboard_access page
@@ -53,108 +44,40 @@ Feature: Accessibility tests - Design System folder
       | Numeral Date        |
 
   @accessibility
-  Scenario: Design System Button component primary page
-    When I open design systems primary "Button" component in no iframe
-    Then "Button primary page" component has no accessibility violations
-
-  @accessibility
-  Scenario: Design System Button component primary_destructive page
-    When I open design systems primary_destructive "Button" component in no iframe
-    Then "Button primary_destructive page" component has no accessibility violations
-
-  @accessibility
-  Scenario: Design System Button component primary_disabled page
-    When I open design systems primary_disabled "Button" component in no iframe
-    Then "Button primary_disabled page" component has no accessibility violations
-
-  @accessibility
-  Scenario: Design System Button component primary_full_width page
-    When I open design systems primary_full_width "Button" component in no iframe
-    Then "Button primary_full_width page" component has no accessibility violations
-
-  @accessibility
-  Scenario: Design System Button component primary_icon page
-    When I open design systems primary_icon "Button" component in no iframe
-    Then "Button primary_icon page" component has no accessibility violations
-
-  @accessibility
-  Scenario: Design System Button component secondary page
-    When I open design systems secondary "Button" component in no iframe
-    Then "Button secondary page" component has no accessibility violations
-
-  @accessibility
-  Scenario: Design System Button component secondary_destructive page
-    When I open design systems secondary_destructive "Button" component in no iframe
-    Then "Button secondary_destructive page" component has no accessibility violations
-
-  @accessibility
-  Scenario: Design System Button component secondary_disabled page
-    When I open design systems secondary_disabled "Button" component in no iframe
-    Then "Button secondary_disabled page" component has no accessibility violations
-
-  @accessibility
-  Scenario: Design System Button component secondary_full_width page
-    When I open design systems secondary_full_width "Button" component in no iframe
-    Then "Button secondary_full_width page" component has no accessibility violations
-
-  @accessibility
-  Scenario: Design System Button component secondary_icon page
-    When I open design systems secondary_icon "Button" component in no iframe
-    Then "Button secondary_icon page" component has no accessibility violations
-
-  @accessibility
-  Scenario: Design System Button component tertiary page
-    When I open design systems tertiary "Button" component in no iframe
-    Then "Button tertiary page" component has no accessibility violations
-
-  @accessibility
-  Scenario: Design System Button component tertiary_destructive page
-    When I open design systems tertiary_destructive "Button" component in no iframe
-    Then "Button tertiary_destructive page" component has no accessibility violations
-
-  @accessibility
-  Scenario: Design System Button component tertiary_disabled page
-    When I open design systems tertiary_disabled "Button" component in no iframe
-    Then "Button tertiary_disabled page" component has no accessibility violations
-
-  @accessibility
-  Scenario: Design System Button component tertiary_full_width page
-    When I open design systems tertiary_full_width "Button" component in no iframe
-    Then "Button tertiary_full_width page" component has no accessibility violations
-
-  @accessibility
-  Scenario: Design System Button component tertiary_icon page
-    When I open design systems tertiary_icon "Button" component in no iframe
-    Then "Button tertiary_icon page" component has no accessibility violations
-
-  @accessibility
-  Scenario: Design System Button component dashed page
-    When I open design systems dashed "Button" component in no iframe
-    Then "Button dashed page" component has no accessibility violations
-
-  @accessibility
-  Scenario: Design System Button component dashed_disabled page
-    When I open design systems dashed_disabled "Button" component in no iframe
-    Then "Button dashed_disabled page" component has no accessibility violations
-
-  @accessibility
-  Scenario: Design System Button component dashed_full_width page
-    When I open design systems dashed_full_width "Button" component in no iframe
-    Then "Button dashed_full_width page" component has no accessibility violations
-
-  @accessibility
-  Scenario: Design System Button component dashed_icon page
-    When I open design systems dashed_icon "Button" component in no iframe
-    Then "Button dashed_icon page" component has no accessibility violations
+  Scenario Outline: Design System Button component <story> page
+    When I open design systems <story> "Button" component in no iframe
+      And I wait 1000
+    Then "Button <story> page" component has no accessibility violations
+    Examples:
+      | story                 |
+      | primary               |
+      | primary_destructive   |
+      | primary_disabled      |
+      | primary_full_width    |
+      | primary_icon          |
+      | secondary             |
+      | secondary_destructive |
+      | secondary_disabled    |
+      | secondary_full_width  |
+      | secondary_icon        |
+      | tertiary              |
+      | tertiary_destructive  |
+      | tertiary_disabled     |
+      | tertiary_full_width   |
+      | tertiary_icon         |
+      | dashed                |
+      | dashed_disabled       |
+      | dashed_full_width     |
+      | dashed_icon           |
 
   @accessibility
   Scenario Outline: Design System <component> component visual page
     When I open visual Test "<component>" component page in noIframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component   |
-      | Drawer      |
-      | Grid        |
+      | component |
+      | Drawer    |
+      | Grid      |
 
   @accessibility
   Scenario: Design System Form component
@@ -179,12 +102,24 @@ Feature: Accessibility tests - Design System folder
     When I open design systems basic "<component>" component in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component       |
-      | Badge           |
-      | Batch Selection |
-      | Draggable       |
-      | Flat Table      |
-      | Tile Select     |
+      | component         |
+      | Badge             |
+      | Batch Selection   |
+      | Draggable         |
+      | Flat Table        |
+      | Tile Select       |
+      | Select            |
+      | Select Filterable |
+      | Text Editor       |
+
+  @accessibility
+  Scenario Outline: Design System Text Editor component <story> page
+    When I open design systems <story> "Text Editor" component in no iframe
+    Then "Text Editor component <story> page" component has no accessibility violations
+    Examples:
+      | story                 |
+      | with_content          |
+      | with_optional_buttons |
 
   @accessibility
   Scenario Outline: Design System <component> component default story page
@@ -194,3 +129,33 @@ Feature: Accessibility tests - Design System folder
       | component |
       | Pager     |
       | Search    |
+
+  @accessibility
+  Scenario Outline: Design System Select component <story> page
+    When I open design systems <story> "Select" component in no iframe
+    Then "Select" component has no accessibility violations
+    Examples:
+      | story       |
+      | disabled    |
+      | readOnly    |
+      | transparent |
+
+  @accessibility
+  Scenario: Design System Select component basic page
+    Given I open design systems basic "Select" component in no iframe
+    When I click on Select input in noIframe
+    Then "Select" component has no accessibility violations
+
+  @accessibility
+  Scenario Outline: Design System Filterable Select component <story> page
+    When I open design systems <story> "Select filterable" component in no iframe
+    Then "Select" component has no accessibility violations
+    Examples:
+      | story    |
+      | disabled |
+      | readOnly |
+
+  @accessibility
+  Scenario: Design System Note component with_footer page
+    When I open design systems with_footer "Note" component in no iframe
+    Then "Note with_footer" component has no accessibility violations

@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount as enzymeMount, shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { act } from 'react-test-renderer';
 import AdvancedColorPicker from './advanced-color-picker.component';
 import Dialog from '../dialog/dialog.component';
@@ -11,6 +11,8 @@ jest.mock('../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
 
 describe('AdvancedColorPicker', () => {
+  const element = document.createElement('div');
+  const htmlElement = document.body.appendChild(element);
   const defaultColor = '#EBAEDE';
   const demoColors = [
     { value: '#FFFFFF', label: 'white' },
@@ -32,35 +34,24 @@ describe('AdvancedColorPicker', () => {
     defaultColor
   };
 
-  let container;
   let wrapper;
 
-  const mount = (jsx) => {
-    wrapper = enzymeMount(jsx, { attachTo: container });
-  };
-
-  function render(props = {}, renderer = mount) {
-    return renderer(
-      <AdvancedColorPicker { ...props } />
+  function render(props = {}) {
+    wrapper = mount(
+      <AdvancedColorPicker { ...props } />,
+      { attachTo: htmlElement }
     );
   }
 
   function getElements() {
-    const closeIcon = document.querySelector('[data-element="close"]');
+    const closeIcon = document.querySelector('button[data-element="close"]');
     const defaultSimpleColor = document.querySelector(`input[value="${defaultColor}"]`);
     const simpleColors = document.querySelectorAll('[data-component="simple-color"] > input');
 
     return { closeIcon, defaultSimpleColor, simpleColors };
   }
 
-  beforeEach(() => {
-    container = document.createElement('div');
-    document.body.appendChild(container);
-  });
-
   afterEach(() => {
-    document.body.removeChild(container);
-    container = null;
     if (wrapper) {
       wrapper.unmount();
       wrapper = null;
@@ -71,7 +62,7 @@ describe('AdvancedColorPicker', () => {
   const spaceKey = new KeyboardEvent('keydown', { which: 32, keyCode: 32, key: 'Space' });
   const enterKey = new KeyboardEvent('keydown', { which: 13, keyCode: 13, key: 'Enter' });
   const tabKey = new KeyboardEvent('keydown', { which: 9, keyCode: 9, key: 'Tab' });
-
+  const shiftTabKey = new KeyboardEvent('keydown', { keyCode: 9, key: 'Tab', shiftKey: true });
 
   describe('when uncontrolled', () => {
     it('should render internal composition to match uncontrolled snapshot', () => {
@@ -80,45 +71,45 @@ describe('AdvancedColorPicker', () => {
   });
 
   describe('when controlled', () => {
-    describe('on tabKey changes focus', () => {
-      it('triggers focusTrap', () => {
-        const additionalProps = {
-          ...requiredProps,
-          open: true
-        };
-
-        render(additionalProps);
-
-        const { closeIcon, defaultSimpleColor } = getElements();
-
-        expect(document.activeElement).toBe(defaultSimpleColor);
-        closeIcon.focus();
-        expect(document.activeElement).toBe(closeIcon);
-        document.dispatchEvent(tabKey);
-        expect(document.activeElement).toBe(defaultSimpleColor);
-      });
-    });
-
     describe('when dialog is open', () => {
-      describe('for focus event', () => {
-        describe('when activeElement is not selectedColor', () => {
-          it('on Tab key focuses selectedColor', () => {
+      describe('handleFocus focus trap callback', () => {
+        describe('when key other than tab pressed', () => {
+          it('should not change the focus', () => {
             render({ ...requiredProps, open: true });
-
-            const closeButton = wrapper.find('[data-element="close"]').first();
-            closeButton.getDOMNode().focus();
-
-            expect(document.activeElement).toBe(closeButton.getDOMNode());
-
-            document.dispatchEvent(tabKey);
-
             const { defaultSimpleColor } = getElements();
 
-            expect(
-              document.activeElement.getAttribute('value')
-            ).toBe(defaultSimpleColor.getAttribute('value'));
+            expect(document.activeElement).toBe(defaultSimpleColor);
+            document.dispatchEvent(aKey);
+            expect(document.activeElement).toBe(defaultSimpleColor);
           });
+        });
 
+        describe('when tab key pressed on the close button', () => {
+          it('should switch focus to the selected color input', () => {
+            render({ ...requiredProps, open: true });
+            const { closeIcon, defaultSimpleColor } = getElements();
+
+            closeIcon.focus();
+            expect(document.activeElement).toBe(closeIcon);
+            document.dispatchEvent(tabKey);
+            expect(document.activeElement).toBe(defaultSimpleColor);
+          });
+        });
+
+        describe('when shift tab keys pressed on the selected color input', () => {
+          it('should switch focus to the close button', () => {
+            render({ ...requiredProps, open: true });
+            const { closeIcon, defaultSimpleColor } = getElements();
+
+            expect(document.activeElement).toBe(defaultSimpleColor);
+            document.dispatchEvent(shiftTabKey);
+            expect(document.activeElement).toBe(closeIcon);
+          });
+        });
+      });
+
+      describe('for focus event', () => {
+        describe('when activeElement is not selectedColor', () => {
           it('renders transparent color', () => {
             const extraProps = {
               name: 'advancedPicker',

@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Option renders properly 1`] = `
+.c0 {
+  cursor: pointer;
+  box-sizing: content-box;
+  line-height: 16px;
+  padding: 12px 16px;
+  width: 100%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c0:hover {
+  background-color: #F2F5F6;
+}
+
+<li
+  className="c0"
+  data-component="option"
+  onClick={[Function]}
+  role="option"
+>
+  bar
+</li>
+`;
+
+exports[`Option when no children are provided renders with the text prop as children 1`] = `
+.c0 {
+  cursor: pointer;
+  box-sizing: content-box;
+  line-height: 16px;
+  padding: 12px 16px;
+  width: 100%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c0:hover {
+  background-color: #F2F5F6;
+}
+
+<li
+  className="c0"
+  data-component="option"
+  onClick={[Function]}
+  role="option"
+>
+  foo
+</li>
+`;

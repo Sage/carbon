@@ -16,6 +16,7 @@ const InputIconToggle = ({
   size,
   inputIcon: type,
   onClick,
+  onMouseDown,
   error,
   warning,
   info,
@@ -42,7 +43,11 @@ const InputIconToggle = ({
 
   if (type) {
     return (
-      <InputIconToggleStyle size={ size } onClick={ onClick }>
+      <InputIconToggleStyle
+        size={ size }
+        onClick={ onClick }
+        onMouseDown={ onMouseDown }
+      >
         <Icon type={ type } />
       </InputIconToggleStyle>
     );
@@ -57,6 +62,7 @@ InputIconToggle.propTypes = {
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
   onClick: PropTypes.func,
+  onMouseDown: PropTypes.func,
   inputIcon: PropTypes.string,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   align: PropTypes.oneOf(['left', 'right']),

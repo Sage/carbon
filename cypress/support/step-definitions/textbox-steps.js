@@ -1,8 +1,8 @@
 import {
-  textbox, textboxByPosition, textboxDataComponent, textboxIcon, textboxInput,
+  textbox, textboxByPosition, textboxIcon, textboxInput,
 } from '../../locators/textbox';
 import {
-  label, labelByPosition, commonDataElementInputPreview, commonInputPreview,
+  label, labelByPosition, commonInputPreview,
   fieldHelpPreviewByPosition, tooltipPreviewByPosition, labelNoIFrame, commonDataElementInputPreviewNoIframe,
 } from '../../locators';
 import { DEBUG_FLAG } from '..';

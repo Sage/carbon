@@ -7,6 +7,7 @@ import tagComponent from '../../utils/helpers/tags';
 import Devices from '../../utils/helpers/devices';
 import { validProps } from '../../utils/ether';
 import './animated-menu-button.scss';
+import Logger from '../../utils/logger';
 
 /**
  * An AnimatedMenuButton widget.
@@ -34,6 +35,7 @@ import './animated-menu-button.scss';
 class AnimatedMenuButton extends React.Component {
   constructor(...args) {
     super(...args);
+    Logger.deprecate('Animated Menu Button component is scheduled to be removed from Carbon.');
 
     this.blockBlur = false;
 

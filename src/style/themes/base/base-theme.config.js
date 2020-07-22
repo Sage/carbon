@@ -68,11 +68,35 @@ export default (palette) => {
       lightTheme: palette.slateTint(70)
     },
 
+    editor: {
+      border: palette.slateTint(40),
+      counter: 'rgba(0,0,0,0.55)',
+      placeholder: 'rgba(0,0,0,0.30)',
+      button: {
+        hover: palette.slateTint(80)
+      },
+      toolbar: {
+        background: palette.slateTint(95)
+      }
+    },
+
     menu: {
       focus: palette.slateTint(95),
       divider: palette.slateTint(90),
       itemColor: blackWithOpacity(0.9),
-      itemColorDisabled: blackWithOpacity(0.3)
+      itemColorDisabled: blackWithOpacity(0.3),
+
+      light: {
+        background: palette.slateTint(90),
+        selected: palette.slateTint(85),
+        divider: palette.slateTint(80)
+      },
+
+      dark: {
+        divider: palette.slateTint(10),
+        submenuBackground: palette.slateShade(50),
+        selected: palette.slateTint(10)
+      }
     },
 
     form: {
@@ -189,10 +213,6 @@ export default (palette) => {
       disabled: 'rgba(0,0,0,0.3)'
     },
 
-    rainbow: {
-      textColor: '#003349'
-    },
-
     icon: {
       default: 'rgba(0,0,0,0.65)',
       defaultHover: 'rgba(0,0,0,0.90)',
@@ -203,6 +223,18 @@ export default (palette) => {
 
     popoverContainer: {
       iconColor: 'rgba(0,0,0,0.90)'
+    },
+
+    navigationBar: {
+      light: {
+        background: palette.slateTint(90),
+        borderBottom: palette.slateTint(85)
+      },
+
+      dark: {
+        background: '#003349',
+        borderBottom: '#003349'
+      }
     },
 
     numeralDate: {
@@ -253,6 +285,10 @@ export default (palette) => {
     tile: {
       border: palette.slateTint(80),
       separator: palette.slateTint(90)
+    },
+
+    note: {
+      timeStamp: 'rgba(0,0,0,0.65)'
     },
 
     zIndex: {

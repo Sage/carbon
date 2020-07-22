@@ -511,19 +511,33 @@ describe('Form', () => {
         });
 
         describe('with sticky footer enabled', () => {
+          let container;
+          beforeEach(() => {
+            container = document.createElement('div');
+            container.id = 'enzymeContainer';
+            document.body.appendChild(container);
+          });
+
+          afterEach(() => {
+            if (container && container.parentNode) {
+              container.parentNode.removeChild(container);
+            }
+
+            container = null;
+          });
+
           it('regains focus on submit button', () => {
-            instance = TestUtils.renderIntoDocument(
+            instance = mount(
               <Form stickyFooter>
                 <Textbox
                   validations={ [new Validation()] } name='test'
                   value=''
                 />
-              </Form>
+              </Form>, { attachTo: document.getElementById('enzymeContainer') }
             );
-            const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
-            form.submit = jest.fn();
-            TestUtils.Simulate.submit(form);
-            expect(document.activeElement).toBe(form.getElementsByTagName('button')[1]);
+            instance.submit = jest.fn();
+            instance.simulate('submit');
+            expect(document.activeElement).toBe(document.getElementsByTagName('button')[1]);
           });
         });
       });

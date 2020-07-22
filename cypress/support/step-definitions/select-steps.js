@@ -1,6 +1,19 @@
 import {
-  select, selectInput, selectInputNoIframe, selectPill,
+  select,
+  selectInput,
+  selectInputNoIframe,
+  selectPill,
+  simpleSelectID,
+  selectOption,
+  dropdownButton,
+  controlledLabel,
+  selectList,
+  simpleSelectNoIframe,
+  selectDataComponent,
+  simpleSelectIframe,
 } from '../../locators/select';
+import { positionOfElement, keyCode } from '../helper';
+import { label } from '../../locators';
 
 const transparentBorderColor = 'rgba(0, 0, 0, 0.85)';
 const notTransparentBorderColor = 'rgb(102, 133, 146)';
@@ -110,4 +123,83 @@ Then('Select is not transparent', () => {
 
 Then('Select placeholder align on preview is set to {string}', (direction) => {
   select().should('have.css', 'text-align', direction);
+});
+
+When('I focus select input', () => {
+  simpleSelectID().focus();
+});
+
+When('I focus basic Select input', () => {
+  simpleSelectIframe().focus();
+});
+
+Then('{string} {word} Select list is opened', (index, name) => {
+  selectDataComponent(positionOfElement(index), name).should('have.attr', 'aria-expanded', 'true');
+  selectList().should('be.visible');
+});
+
+Then('{string} {word} Select list is closed', (index, name) => {
+  selectDataComponent(positionOfElement(index), name).should('have.attr', 'aria-expanded', 'false');
+  selectList().should('not.be.visible');
+});
+
+When('I click on Select input', () => {
+  simpleSelectID().click();
+});
+
+When('I click on basic Select input', () => {
+  simpleSelectIframe().click();
+});
+
+When('I click on Select input in noIframe', () => {
+  simpleSelectNoIframe().click();
+});
+
+When('{string} option on the list is highlighted', (position) => {
+  selectOption(positionOfElement(position)).should('have.attr', 'aria-selected', 'true')
+    .and('have.css', 'background-color', 'rgb(242, 245, 246)');
+});
+
+When('I click onto controlled select using {string} key', (key) => {
+  simpleSelectID().trigger('keydown', keyCode(key));
+});
+
+When('I click onto basic select using {string} key', (key) => {
+  simpleSelectIframe().trigger('keydown', keyCode(key));
+});
+
+Then('Design system Select input has {string} value', (text) => {
+  simpleSelectID().should('have.attr', 'value', text);
+});
+
+When('I click on {string} dropdown button', (position) => {
+  dropdownButton(positionOfElement(position)).click();
+});
+
+When('I click out of controlled input', () => {
+  controlledLabel().click();
+});
+
+When('I select value {string}', (text) => {
+  simpleSelectID().type(`${text}{enter}`);
+});
+
+When('I type {string} into input', (text) => {
+  simpleSelectID().type(text);
+});
+
+When('I type {string} into basic input', (text) => {
+  simpleSelectIframe().type(text);
+});
+
+When('{string} option on Select list is {string}', (position, text) => {
+  selectOption(positionOfElement(position)).should('have.text', text);
+});
+
+When('I click on {string} option on Select list', (position) => {
+  selectOption(positionOfElement(position)).click();
+});
+
+When('I click on Select label', () => {
+  label().click();
 });

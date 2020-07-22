@@ -28,6 +28,15 @@ describe('Ether', () => {
       styleElement(domInstance, 'left', '10px');
       expect(domInstance.style.left).toEqual('10px');
     });
+
+    describe('when the style attribute is already set to the passed in value', () => {
+      it('does not change the attribute style', () => {
+        let domInstance = TestUtils.findRenderedDOMComponentWithClass(element, 'ether-test');
+        expect(domInstance.style.left).toEqual('');
+        styleElement(domInstance, 'left', '');
+        expect(domInstance.style.left).toEqual('');
+      });
+    });
   });
 
   describe('append', () => {

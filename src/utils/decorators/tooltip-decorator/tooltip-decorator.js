@@ -173,51 +173,77 @@ const TooltipDecorator = (ComposedComponent) => {
         if (this.state.isVisible) this.setState({ isVisible: false });
         return;
       }
-      const alignment = this.state.tooltipAlign || this.props.tooltipAlign || 'center';
-      const position = this.state.tooltipPosition || this.props.tooltipPosition || 'top';
+      const tooltipAlign = this.state.tooltipAlign || this.props.tooltipAlign || 'center';
+      const tooltipPosition = this.state.tooltipPosition || this.props.tooltipPosition || 'top';
       const shifts = calculatePosition(tooltip, target);
-      const isTooltipOffScreenRight = this.isTooltipOffScreenRight(position, alignment, tooltip.offsetWidth, shifts);
-      const inputDistanceOffset = this.getInputDistanceOffset(position);
+      const isTooltipOffScreenLeft = this.isTooltipOffScreenLeft(tooltipPosition, tooltipAlign, shifts);
+      const isTooltipOffScreenRight = this.isTooltipOffScreenRight(
+        tooltipPosition,
+        tooltipAlign,
+        tooltip.offsetWidth,
+        shifts
+      );
+      const inputDistanceOffset = this.getInputDistanceOffset(tooltipPosition);
 
-      if (isTooltipOffScreenRight) {
-        this.realignOffscreenTooltip(position, alignment);
+      if (isTooltipOffScreenLeft) {
+        this.realignOffscreenTooltip(tooltipPosition, 'left');
+        return;
       }
 
-      if (position === 'top' || position === 'bottom') {
-        topPosition = shifts.tooltipDistances[position] + inputDistanceOffset;
-        leftPosition = shifts.vertical[alignment] + this.getHorizontalOffset();
+      if (isTooltipOffScreenRight) {
+        this.realignOffscreenTooltip(tooltipPosition, 'right');
+        return;
+      }
+
+      if (tooltipPosition === 'top' || tooltipPosition === 'bottom') {
+        topPosition = shifts.tooltipDistances[tooltipPosition] + inputDistanceOffset;
+        leftPosition = shifts.vertical[tooltipAlign] + this.getHorizontalOffset();
       } else {
-        topPosition = shifts.horizontal[alignment];
-        leftPosition = shifts.tooltipDistances[position] + inputDistanceOffset;
+        topPosition = shifts.horizontal[tooltipAlign];
+        leftPosition = shifts.tooltipDistances[tooltipPosition] + inputDistanceOffset;
       }
 
       styleElement(tooltip, 'top', `${topPosition}px`);
       styleElement(tooltip, 'left', `${leftPosition}px`);
     };
 
-    isTooltipOffScreenRight = (position, alignment, tooltipWidth, shifts) => {
+    isTooltipOffScreenLeft = (tooltipPosition, tooltipAlign, shifts) => {
       let pointerX;
 
-      if (position === 'left') {
+      if (tooltipPosition === 'right' || tooltipAlign === 'left') {
         return false;
       }
 
-      if (position === 'right') {
-        pointerX = shifts.tooltipDistances.right;
+      if (tooltipPosition === 'left') {
+        pointerX = shifts.tooltipDistances.left;
       } else {
-        pointerX = shifts.vertical[alignment];
+        pointerX = shifts.vertical[tooltipAlign];
       }
 
-      return window.innerWidth < pointerX + tooltipWidth;
+      return pointerX < 16;
     }
 
-    realignOffscreenTooltip = (position, alignment) => {
-      if (alignment === 'right' || position === 'left') return;
+    isTooltipOffScreenRight = (tooltipPosition, tooltipAlign, tooltipWidth, shifts) => {
+      let pointerX;
 
-      if (position === 'right') {
-        this.setState({ tooltipPosition: 'top', tooltipAlign: 'right' });
+      if (tooltipPosition === 'left' || tooltipAlign === 'right') {
+        return false;
+      }
+
+      if (tooltipPosition === 'right') {
+        pointerX = shifts.tooltipDistances.right;
       } else {
-        this.setState({ tooltipAlign: 'right' });
+        pointerX = shifts.vertical[tooltipAlign];
+      }
+
+      return window.innerWidth < pointerX + tooltipWidth + 16;
+    }
+
+    realignOffscreenTooltip = (tooltipPosition, offscreenDirection) => {
+      if (tooltipPosition === offscreenDirection) {
+        this.setState({ tooltipPosition: 'top', tooltipAlign: offscreenDirection });
+      } else {
+        this.setState({ tooltipAlign: offscreenDirection });
       }
     }
 
