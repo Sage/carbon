@@ -125,8 +125,8 @@ Given('I open {word} Test {string} component page in noIframe', (type, component
   visitComponentUrl(component, type, true, 'test-');
 });
 
-When('I open Test {string} component basic page with prop value', (componentName) => {
-  visitFlatTableComponentNoiFrame(componentName, 'basic', true, 'test-');
+When('I open Design System Flat Table Test component basic page with prop value', () => {
+  visitFlatTableComponentNoiFrame('Design System Flat Table Test', 'basic', true);
 });
 
 Given('I open {string} component page autoFocus in iframe', (component) => {
