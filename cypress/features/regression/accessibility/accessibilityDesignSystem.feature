@@ -20,7 +20,7 @@ Feature: Accessibility tests - Design System folder
 
   @accessibility
   Scenario: Design System Action Popover component keyboard_access page
-    Given I open design systems keyboard_access "ActionPopover" component in no iframe
+    Given I open design systems keyboard_access "Action Popover" component in no iframe
     When I click the menu button element in noiFrame
     Then "Action Popover keyboard_access page" component has no accessibility violations
 
