@@ -8,8 +8,8 @@ const FormFieldStyle = styled.div`
   }
 
   &&& {
-    ${({ formSpacingOverride, theme }) => (formSpacingOverride || formSpacingOverride === 0)
-  && css`margin-bottom: ${formSpacingOverride * theme.spacing}px`};
+    ${({ marginBottom, theme }) => (marginBottom || marginBottom === 0)
+  && css`margin-bottom: ${marginBottom * theme.spacing}px`};
   }
 
   ${({ styleOverride }) => styleOverride};

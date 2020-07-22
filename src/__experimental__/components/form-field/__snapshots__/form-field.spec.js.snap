@@ -65,7 +65,7 @@ exports[`FormField with a label renders the label component above the childen 1`
     help="Help me!"
     inline={true}
     inputSize="small"
-    rightSpacing={16}
+    rightSpacing={2}
     width={20}
   >
     Name
@@ -104,7 +104,7 @@ Array [
 ]
 `;
 
-exports[`FormField with formSpacingOverride prop set should set the correct bottom margin 1`] = `
+exports[`FormField with marginBottom prop set should set the correct bottom margin 1`] = `
 .c3 + .c0 {
   margin-top: 16px;
 }

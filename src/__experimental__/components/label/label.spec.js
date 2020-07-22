@@ -32,7 +32,7 @@ describe('Label', () => {
       assertStyleMatch({
         boxSizing: 'border-box',
         paddingBottom: '0',
-        paddingRight: '11px',
+        paddingRight: '16px',
         textAlign: 'left',
         width: '30%'
       }, render({ inline: true }, TestRenderer.create).toJSON());
@@ -61,7 +61,7 @@ describe('Label', () => {
     it('applies styling when rightSpacing prop set', () => {
       assertStyleMatch({
         paddingRight: '16px'
-      }, render({ inline: true, rightSpacing: 16 }, TestRenderer.create).toJSON());
+      }, render({ inline: true, rightSpacing: 2 }, TestRenderer.create).toJSON());
     });
   });
 

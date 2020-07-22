@@ -63,7 +63,7 @@ When `stickyFooter` prop is set as true, footer becomes stickied to the bottom o
 </Preview>
 
 ### With different spacing
-When `fieldSpacingMultiplier` prop is given a value, the vertical spacing between the form fields is changed (margin bottom on each field), the value of the prop multiplied by the base theme `8px` spacing value. The default is value `3` which is therefore `24px`. This can be overriden on a specific field if needed.
+When `fieldSpacing` prop is given a value, the vertical spacing between the form fields is changed (margin bottom on each field), the value of the prop multiplied by the base theme `8px` spacing value. The default is value `3` which is therefore `24px`. This can be overriden on a specific field if needed.
 
 <Preview>
   <Story name="With different spacing">
@@ -71,7 +71,7 @@ When `fieldSpacingMultiplier` prop is given a value, the vertical spacing betwee
       onSubmit={ () => console.log('submit')}
       leftSideButtons={ <Button onClick={ () => console.log('cancel') }>Cancel</Button> }
       saveButton={ <Button buttonType='primary' type="submit">Save</Button> }
-      fieldSpacingMultiplier={5}
+      fieldSpacing={5}
     >
       <Textbox label="Textbox" />
       <Textbox label="Textbox" />
@@ -82,7 +82,7 @@ When `fieldSpacingMultiplier` prop is given a value, the vertical spacing betwee
 </Preview>
 
 ### Override spacing on one field
-A child component (which uses `FormField`) can be given a `formSpacingOverride` prop which overrides the bottom margin for that particular field. This uses the same base theme `8px` multiplier as the Form `fieldSpacingMultiplier` prop. 
+A child component (which uses `FormField`) can be given a `marginBottom` prop which overrides the bottom margin for that particular field. This uses the same base theme `8px` multiplier as the Form `fieldSpacing` prop. 
 
 <Preview>
   <Story name="Override field spacing">
@@ -93,7 +93,7 @@ A child component (which uses `FormField`) can be given a `formSpacingOverride` 
     >
       <Textbox label="Textbox" />
       <Textbox label="Textbox" />
-      <Textbox label="Textbox" formSpacingOverride={7} />
+      <Textbox label="Textbox" marginBottom={7} />
       <Textbox label="Textbox" />
     </Form>
   </Story> 

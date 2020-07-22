@@ -60,6 +60,8 @@ RadioButton.propTypes = {
   label: PropTypes.string,
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
   labelAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
+  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
+  labelSpacing: PropTypes.oneOf([1, 2]),
   /** Sets percentage-based label width */
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** The name of the the RadioButton (can also be set via the 'name' prop of the RadioButtonGroup component) */
@@ -77,6 +79,8 @@ RadioButton.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesBinary),
   /** the value of the Radio Button, passed on form submit */
   value: PropTypes.string.isRequired,
+  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
+  marginBottom: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   children: (props, propName, componentName) => {
     if (props[propName]) {
       return new Error(

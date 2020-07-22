@@ -9,7 +9,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 export const StyledForm = styled.form`
   & ${StyledFormField} {
     margin-top: 0;
-    margin-bottom: ${({ fieldSpacingMultiplier, theme }) => (theme.spacing * fieldSpacingMultiplier)}px;
+    margin-bottom: ${({ fieldSpacing, theme }) => (theme.spacing * fieldSpacing)}px;
   }
 
   ${({ stickyFooter }) => stickyFooter && css`
@@ -69,7 +69,8 @@ export const StyledFormFooter = styled.div`
 
 StyledForm.propTypes = {
   theme: PropTypes.object,
-  stickyFooter: PropTypes.bool
+  stickyFooter: PropTypes.bool,
+  fieldSpacing: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7])
 };
 
 StyledForm.defaultProps = {

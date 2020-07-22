@@ -20,9 +20,9 @@ describe('FormField', () => {
     });
   });
 
-  describe('with formSpacingOverride prop set', () => {
+  describe('with marginBottom prop set', () => {
     it('should set the correct bottom margin', () => {
-      expect(render({ formSpacingOverride: 5 }, TestRenderer.create)).toMatchSnapshot();
+      expect(render({ marginBottom: 5 }, TestRenderer.create)).toMatchSnapshot();
     });
   });
 

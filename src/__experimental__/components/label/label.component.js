@@ -34,7 +34,7 @@ const Label = (props) => {
     useValidationIcon,
     htmlFor,
     tabIndex,
-    rightSpacing,
+    rightSpacing = 2,
     styleOverride
   } = props;
   const labelProps = filterByProps(props, [
@@ -131,7 +131,7 @@ Label.propTypes = {
   */
   tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Set padding right */
-  rightSpacing: PropTypes.number,
+  rightSpacing: PropTypes.oneOf([1, 2]),
   /** Allows to override existing component styles */
   styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 };
