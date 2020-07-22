@@ -1,10 +1,19 @@
 import {
-  dialogTitle, dialogPreview, closeIconButton,
-  dialogSubtitle, confirmButton, cancelButton,
+  dialogTitle,
+  dialogPreview,
+  closeIconButton,
+  dialogSubtitle,
+  confirmButton,
+  cancelButton,
+  dialogSubtitleNoIFrame,
 } from '../../locators/confirm';
 
 Then('component subtitle on preview is {word}', (subtitle) => {
   dialogSubtitle().should('have.text', subtitle);
+});
+
+Then('component subtitle on preview is {word} in NoIFrame', (subtitle) => {
+  dialogSubtitleNoIFrame().should('have.text', subtitle);
 });
 
 When('I click on a cancelButton', () => {
