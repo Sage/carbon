@@ -3,7 +3,7 @@ import { withKnobs, text } from '@storybook/addon-knobs';
 import PopoverContainer from './popover-container.component';
 
 export default {
-  title: 'Test/Popover Container',
+  title: 'Design System/Popover Container/Test',
   component: PopoverContainer,
   decorators: [withKnobs],
   parameters: {
