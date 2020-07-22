@@ -2,7 +2,7 @@ import {
   visitComponentUrl, setSlidebar, pressESCKey, pressTABKey, asyncWaitForKnobs,
   visitFlatTableComponentNoiFrame, positionOfElement, keyCode,
   visitDocsUrl,
-  visitComponentUrlOneFewParameters,
+  visitComponentUrlWithParameters,
 } from '../helper';
 import {
   commonButtonPreview, labelPreview, helpIcon, helpIconByPosition, inputWidthSlider,
@@ -36,11 +36,11 @@ Given('I open design systems {word} {string} component in no iframe', (type, com
 });
 
 Given('I open Test {word} {string} component in noIFrame with {string} json from {string} using {string} object name', (type, component, json, path, nameOfObject) => {
-  visitComponentUrlOneFewParameters(component, type, true, 'test-', json, path, nameOfObject);
+  visitComponentUrlWithParameters(component, type, true, 'design-system-', json, path, nameOfObject);
 });
 
 Given('I open {word} {string} component in noIFrame with {string} json from {string} using {string} object name', (type, component, json, path, nameOfObject) => {
-  visitComponentUrlOneFewParameters(component, type, true, '', json, path, nameOfObject);
+  visitComponentUrlWithParameters(component, type, true, '', json, path, nameOfObject);
 });
 
 Given('I open {string} component page', (component) => {

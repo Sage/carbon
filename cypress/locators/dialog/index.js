@@ -5,7 +5,7 @@ import {
   DIALOG_SUBTITLE,
 } from './locators';
 
-// component preview locators in NoIFrame
+// component preview locators
 export const alertDialogPreview = () => cy.iFrame(ALERT_DIALOG);
 export const alertChildren = () => cy.iFrame(ALERT_DIALOG)
   .find('div:nth-child(2)').children();
@@ -15,7 +15,7 @@ export const dialogStickyFormFooter = () => cy.iFrame(STICKY_FORM_FOOTER_ELEMENT
 export const dialogStickyFormFooterButton = index => cy.iFrame(STICKY_FORM_FOOTER_ELEMENT).children()
   .eq(index).children();
 
-// component preview locators
+// component preview locators in NoIFrame
 export const alertDialogPreviewNoIFrame = () => cy.get(ALERT_DIALOG);
 export const alertChildrenNoIframe = () => alertDialogPreviewNoIFrame()
   .find('div:nth-child(2)').children();

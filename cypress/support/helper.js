@@ -32,12 +32,12 @@ export function visitComponentUrlByThemeKnobsStory(component, theme, sufix = '',
   cy.visit(`${prepareUrl(component, 'knobs', true, prefix)}&theme=${theme}${sufix}`);
 }
 
-export function visitComponentUrlOneFewParameters(component, story, sufix = '', prefix = '', json = '', path = '', nameOfObject = '') {
+export function visitComponentUrlWithParameters(component, story, sufix = '', prefix = '', json = '', path = '', nameOfObject = '') {
   cy.fixture(`${path}/${json}`).then(($json) => {
     const el = $json[nameOfObject];
     let url = '';
     for (var prop in el) {
-        url += `&knob-${prop}=${el[prop]}`;
+        url += `&knob-${prop}=${encodeURIComponent(el[prop])}`;
     }
     cy.visit(`${prepareUrl(component, story, true, prefix)}${url}`);
   });

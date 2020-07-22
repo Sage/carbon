@@ -8,7 +8,7 @@
   },
   "openTitleSpecialCharacter": {
     "open": true,
-    "title": "!@$^*()_%2B-=~[];:.,?{}"
+    "title": "!@#$%^*()_+-=~[];:.,?{}"
   },
   "openSubtitleOtherLanguage": {
     "open": true,
@@ -16,7 +16,7 @@
   },
   "openSubtitleSpecialCharacter": {
     "open": true,
-    "subtitle": "!@$^*()_%2B-=~[];:.,?{}"
+    "subtitle": "!@#$%^*()_+-=~[];:.,?{}"
   },
   "openChildrenOtherLanguage": {
     "open": true,
@@ -24,7 +24,7 @@
   },
   "openChildrenSpecialCharacter": {
     "open": true,
-    "children": "!@$^*()_%2B-=~[];:.,?{}"
+    "children": "!@#$%^*()_+-=~[];:.,?{}"
   },
   "openDisableEscKey": {
     "open": true,

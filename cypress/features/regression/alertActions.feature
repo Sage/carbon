@@ -1,5 +1,5 @@
-Feature: Alert component
-  I want to change Alert component properties
+Feature: Alert component actions
+  I want to check Alert component actions
 
   Background: Open Alert component page
     Given I open "Alert" component page with button
