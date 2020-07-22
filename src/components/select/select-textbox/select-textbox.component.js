@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
 import Textbox from '../../../__experimental__/components/textbox';
 import OptionsHelper from '../../../utils/helpers/options-helper/options-helper';
-import StyledSelectTextbox from './select-textbox.style';
 
 const SelectTextbox = ({
   value,
@@ -58,16 +57,14 @@ const SelectTextbox = ({
   }
 
   return (
-    <StyledSelectTextbox size={ size }>
-      <Textbox
-        data-element='select-input'
-        inputIcon='dropdown'
-        autoComplete='off'
-        size={ size }
-        value={ selectedValue }
-        { ...getTextboxProps() }
-      />
-    </StyledSelectTextbox>
+    <Textbox
+      data-element='select-input'
+      inputIcon='dropdown'
+      autoComplete='off'
+      size={ size }
+      value={ selectedValue }
+      { ...getTextboxProps() }
+    />
   );
 };
 
