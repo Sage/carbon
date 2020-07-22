@@ -40,7 +40,6 @@ Feature: Accessibility tests - Design System folder
       | component           |
       | Anchornavigation    |
       | duellingpicklist    |
-      | Numeral Date        |
 
   @accessibility
   Scenario Outline: Component <component> basic default page
@@ -49,6 +48,7 @@ Feature: Accessibility tests - Design System folder
     Examples:
       | component                |
       | Button Toggle Group Test |
+      | Numeral Date             |
 
   @accessibility
   Scenario Outline: Design System Button component <story> page
