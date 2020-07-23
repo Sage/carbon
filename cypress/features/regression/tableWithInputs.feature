@@ -5,19 +5,6 @@ Feature: Table With Inputs component
     Given I open "Table" component page with inputs
 
   @positive
-  Scenario: I enable showPageSizeSelection
-    Given I check paginate checkbox
-    When I check showPageSizeSelection checkbox
-    Then pageSize is visible
-
-  @positive
-  Scenario: I disable showPageSizeSelection
-    Given I check paginate checkbox
-      And I check showPageSizeSelection checkbox
-    When I uncheck showPageSizeSelection checkbox
-    Then pageSize is not visible
-
-  @positive
   Scenario: I enable selectable
     When I check selectable checkbox
     Then rows are selectable
