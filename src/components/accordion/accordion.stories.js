@@ -8,7 +8,7 @@ import AccordionGroup from './accordion-group.component';
 import Textbox from '../../__experimental__/components/textbox';
 
 export default {
-  title: 'Test/Accordion',
+  title: 'Design System/Accordion/Test',
   component: Accordion,
   parameters: {
     themeSelector: dlsThemeSelector,

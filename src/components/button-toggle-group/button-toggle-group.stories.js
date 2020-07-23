@@ -16,7 +16,7 @@ ButtonToggleGroup.__docgenInfo = getDocGenInfo(
 );
 
 export default {
-  title: 'Test/Button Toggle Group',
+  title: 'Button Toggle Group/Test',
   component: ButtonToggleGroup,
   parameters: {
     themeSelector: dlsThemeSelector,

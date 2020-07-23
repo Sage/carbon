@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions';
 import NumeralDate from '.';
 
 export default {
-  title: 'Test/Numeral Date',
+  title: 'Design System/Numeral Date/Test',
   component: NumeralDate,
   decorators: [withKnobs],
   parameters: {
