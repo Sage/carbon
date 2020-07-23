@@ -9,7 +9,7 @@ import { action } from '@storybook/addon-actions';
 import Pager from '.';
 
 export default {
-  title: 'Test/Pager',
+  title: 'Design System/Pager/Test',
   component: Pager,
   decorators: [withKnobs],
   parameters: {

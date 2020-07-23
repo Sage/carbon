@@ -20,7 +20,7 @@ Feature: Accessibility tests - Design System folder
 
   @accessibility
   Scenario: Design System Action Popover component keyboard_access page
-    Given I open design systems keyboard_access "ActionPopover" component in no iframe
+    Given I open design systems keyboard_access "Action Popover" component in no iframe
     When I click the menu button element in noiFrame
     Then "Action Popover keyboard_access page" component has no accessibility violations
 
@@ -39,9 +39,16 @@ Feature: Accessibility tests - Design System folder
     Examples:
       | component           |
       | Anchornavigation    |
-      | Button Toggle Group |
       | duellingpicklist    |
-      | Numeral Date        |
+
+  @accessibility
+  Scenario Outline: Component <component> basic default page
+    When I open "<component>" component page "basic" in no iframe
+    Then "<component>" component has no accessibility violations
+    Examples:
+      | component                |
+      | Button Toggle Group Test |
+      | Numeral Date             |
 
   @accessibility
   Scenario Outline: Design System Button component <story> page

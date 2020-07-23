@@ -2,7 +2,7 @@ Feature: Badge component
   I want to test Badge component properties
 
   Background: Open Badge component page
-    Given I open basic Test "Badge" component page
+    Given I open "Design System Badge Test" component page "basic"
 
   @positive
   Scenario Outline: Set Badge component to <counter>
