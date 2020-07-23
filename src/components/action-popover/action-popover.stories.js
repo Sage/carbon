@@ -41,7 +41,7 @@ const submenuWithIcons = (
 );
 
 export default {
-  title: 'Test/Action Popover',
+  title: 'Design System/Action Popover/Test',
   parameters: {
     themeSelector: dlsThemeSelector,
     info: {

@@ -4,13 +4,15 @@ import {
 } from '../locators';
 import { DEBUG_FLAG } from '.';
 
+const stringToURL = str => str.toLowerCase().replace(/ /g, '-');
+
 function prepareUrl(component, suffix, iFrameOnly, prefix, env) {
   let url = Cypress.config().baseUrl;
   const iFrame = Cypress.env('iframe') + prefix;
   const story = Cypress.env(env) + prefix;
   // eslint-disable-next-line no-unused-expressions
   iFrameOnly ? url += iFrame : url += story;
-  return url + component.toLowerCase().replace(/ /g, '-') + Cypress.env(suffix);
+  return url + stringToURL(component) + (Cypress.env(suffix) || `--${stringToURL(suffix)}`);
 }
 
 export function visitDocsUrl(component, suffix = 'default', iFrameOnly = false, prefix = '', env = 'docs') {

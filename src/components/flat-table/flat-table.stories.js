@@ -15,7 +15,7 @@ import {
 import guid from '../../utils/helpers/guid';
 
 export default {
-  title: 'Test/Flat Table',
+  title: 'Design System/Flat Table/Test',
   component: FlatTable,
   decorators: [withKnobs],
   parameters: {

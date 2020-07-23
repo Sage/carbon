@@ -8,7 +8,7 @@ import { action } from '@storybook/addon-actions';
 import AdvancedColorPicker from '.';
 
 export default {
-  title: 'Test/Advanced Color Picker',
+  title: 'Design System/Advanced Color Picker/Test',
   component: AdvancedColorPicker,
   decorators: [withKnobs],
   parameters: {

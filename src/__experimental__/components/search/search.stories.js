@@ -10,7 +10,7 @@ import { action } from '@storybook/addon-actions';
 import Search from '.';
 
 export default {
-  title: 'Test/Search',
+  title: 'Design System/Search/Test',
   component: Search,
   decorators: [withKnobs],
   parameters: {

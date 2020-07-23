@@ -2,7 +2,7 @@ Feature: Batch selection component
   I want to test Batch selection component properties
 
   Background: Open Batch selection component page
-    Given I open basic Test "Batch selection" component page
+    Given I open "Design System Batch Selection Test" component page "basic"
 
   @positive
   Scenario: Hide Batch selection component

@@ -11,7 +11,7 @@ import IconButton from '../icon-button';
 import Icon from '../icon';
 
 export default {
-  title: 'Test/Batch Selection',
+  title: 'Design System/Batch Selection/Test',
   component: BatchSelection,
   decorators: [withKnobs],
   parameters: {
