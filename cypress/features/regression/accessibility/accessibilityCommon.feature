@@ -77,11 +77,6 @@ Feature: Accessibility tests - Common list
       | tooltip                          |
 
   @accessibility
-  Scenario: Component Loader legacy spinner
-    When I open "Loader" component page legacy spinner in noIFrame
-    Then "Loader legacy spinner" component has no accessibility violations
-
-  @accessibility
   Scenario: Component Menu dark story
     When I open dark theme "Menu" component page in noIFrame
     Then "Menu dark theme" component has no accessibility violations
