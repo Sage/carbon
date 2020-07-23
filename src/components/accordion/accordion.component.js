@@ -8,8 +8,10 @@ import createGuid from '../../utils/helpers/guid';
 import Events from '../../utils/helpers/events';
 import {
   StyledAccordionContainer,
+  StyledAccordionHeadingsContainer,
   StyledAccordionTitleContainer,
   StyledAccordionTitle,
+  StyledAccordionSubTitle,
   StyledAccordionIcon,
   StyledAccordionContentContainer,
   StyledAccordionContent
@@ -19,6 +21,8 @@ import Logger from '../../utils/logger/logger';
 let deprecatedWarnTriggered = false;
 
 const Accordion = React.forwardRef(({
+  borders = 'default',
+  customPadding,
   defaultExpanded,
   expanded,
   onChange,
@@ -26,11 +30,14 @@ const Accordion = React.forwardRef(({
   handleKeyboardAccessibility, // eslint-disable-line react/prop-types
   id,
   index, // eslint-disable-line react/prop-types
-  iconType,
-  iconAlign,
-  styleOverride,
-  type,
+  iconType = 'chevron_down',
+  iconAlign = 'right',
+  scheme = 'white',
+  size = 'large',
+  styleOverride = {},
+  subTitle,
   title,
+  width,
   ...rest
 }, ref) => {
   if (!deprecatedWarnTriggered) {
@@ -77,7 +84,10 @@ const Accordion = React.forwardRef(({
     <StyledAccordionContainer
       id={ accordionId }
       data-component='accordion'
-      accordionType={ type }
+      width={ width }
+      borders={ borders }
+      customPadding={ customPadding }
+      scheme={ scheme }
       styleOverride={ styleOverride.root }
       { ...rest }
     >
@@ -91,14 +101,27 @@ const Accordion = React.forwardRef(({
         iconAlign={ iconAlign }
         ref={ ref }
         tabIndex='0'
+        size={ size }
         styleOverride={ styleOverride.headerArea }
       >
-        <StyledAccordionTitle
-          data-element='accordion-title'
-          styleOverride={ styleOverride.header }
+        <StyledAccordionHeadingsContainer
+          data-element='accordion-headings-container'
         >
-          { title }
-        </StyledAccordionTitle>
+          <StyledAccordionTitle
+            data-element='accordion-title'
+            size={ size }
+            styleOverride={ styleOverride.header }
+          >
+            { title }
+          </StyledAccordionTitle>
+
+          {(subTitle && size === 'large') && (
+            <StyledAccordionSubTitle>
+              { subTitle }
+            </StyledAccordionSubTitle>
+          )}
+        </StyledAccordionHeadingsContainer>
+
         <StyledAccordionIcon
           data-element='accordion-icon'
           type={ iconType }
@@ -147,17 +170,20 @@ Accordion.propTypes = {
   }),
   /** Callback fired when expansion state changes, onChange(event: object, isExpanded: boolean) */
   onChange: PropTypes.func,
-  /** Sets accordion type to either primary (default), or secondary */
-  type: PropTypes.oneOf(OptionsHelper.themesBinary),
   /** Sets accordion title */
-  title: PropTypes.string.isRequired
-};
-
-Accordion.defaultProps = {
-  iconType: 'chevron_down',
-  iconAlign: 'right',
-  type: 'primary',
-  styleOverride: {}
+  title: PropTypes.string.isRequired,
+  /** Sets accordion sub title */
+  subTitle: PropTypes.string,
+  /** Sets accordion size */
+  size: PropTypes.oneOf(['large', 'small']),
+  /** Adds additional top and bottom padding */
+  customPadding: PropTypes.number,
+  /** Toggles left and right borders */
+  borders: PropTypes.oneOf(['default', 'full']),
+  /** Sets background as white or transparent */
+  scheme: PropTypes.oneOf(['white', 'transparent']),
+  /** Sets accordion width */
+  width: PropTypes.string
 };
 
 Accordion.displayName = 'Accordion';
