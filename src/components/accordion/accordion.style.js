@@ -73,10 +73,6 @@ const StyledAccordionTitleContainer = styled.div`
 
   &:hover {
     background-color: ${({ theme }) => theme.accordion.background};
-
-    ${StyledAccordionTitle} {
-      color: ${({ theme }) => theme.colors.primary};
-    }
   }
   ${({ styleOverride }) => styleOverride};
 `;
