@@ -1,12 +1,18 @@
 import {
-  accordionTitleContainer, accordionIcon, accordion, accordionTitleContainerByPosition,
-  accordionTitleContainerNoIFrame, accordionTitleContainerByPositionNoIFrame, accordionPrimaryTitleDS, accordionPrimaryTitleNoIFrame,
+  accordionTitleContainer,
+  accordionIcon,
+  accordion,
+  accordionTitleContainerByPosition,
+  accordionTitleContainerNoIFrame,
+  accordionTitleContainerByPositionNoIFrame,
+  accordionDefaultTitleDS,
+  accordionDefaultTitleNoIFrame,
 } from '../../locators/accordion';
 import { positionOfElement, keyCode } from '../helper';
 
 Then('Accordion iconAlign property on preview is set to {string}', (iconAlign) => {
   accordionTitleContainerByPosition(positionOfElement('first')).first()
-    .should('have.attr', 'data-element', 'accordion-title')
+    .should('have.attr', 'data-element', 'accordion-headings-container')
     .and('be.visible');
   accordionTitleContainerByPosition(positionOfElement('first')).last()
     .should('have.attr', 'data-component', 'icon')
@@ -46,11 +52,11 @@ Then('Accordion type property on preview is set to {string}', (type) => {
 });
 
 When('I expand Design System accordionRow via click', () => {
-  accordionPrimaryTitleDS().click();
+  accordionDefaultTitleDS().click();
 });
 
 When('I expand Design System accordionRow via click in NoIFrame', () => {
-  accordionPrimaryTitleNoIFrame().click();
+  accordionDefaultTitleNoIFrame().click();
 });
 
 When('I expand accordionRow via click', () => {
@@ -58,7 +64,7 @@ When('I expand accordionRow via click', () => {
 });
 
 When('I expand accordionRow using {string} key', (key) => {
-  accordionPrimaryTitleDS().trigger('keydown', keyCode(key));
+  accordionDefaultTitleDS().trigger('keydown', keyCode(key));
 });
 
 Then('accordionRow is expanded', () => {
@@ -85,12 +91,12 @@ Then('Accordion has proper {word} type color {string} palette', (type, color) =>
 });
 
 Then('accordionRow has golden border outline', () => {
-  accordionPrimaryTitleDS().should('have.css', 'outline', 'rgb(255, 181, 0) solid 2px')
+  accordionDefaultTitleDS().should('have.css', 'outline', 'rgb(255, 181, 0) solid 2px')
     .and('be.visible');
 });
 
 When('I focus accordionRow', () => {
-  accordionPrimaryTitleDS().focus();
+  accordionDefaultTitleDS().focus();
 });
 
 Then('Accordion {int} row is focused', (index) => {

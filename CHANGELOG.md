@@ -1,3 +1,14 @@
+## [35.2.0](https://github.com/Sage/carbon/compare/v35.1.1...v35.2.0) (2020-07-23)
+
+
+### Features
+
+* **accordion:** enable custom padding ([cd67639](https://github.com/Sage/carbon/commit/cd6763964b88de4194537d58ea853d228c31c5a2))
+* **accordion:** enable custom width ([61651e8](https://github.com/Sage/carbon/commit/61651e8bf6c7707e6ccf2d570ae9db1cbbb47b61))
+* **accordion:** implement full border ([ef02757](https://github.com/Sage/carbon/commit/ef02757634f713f7e9c749a9827900ce93f980c2))
+* **accordion:** implement large and small size ([00374c3](https://github.com/Sage/carbon/commit/00374c3506749947965b534c0a53848cf52a1814))
+* **accordion:** implement white and transparent scheme ([f6490d0](https://github.com/Sage/carbon/commit/f6490d0cb9220873db2ba90cd5fc8bba03349863))
+
 ### [35.1.1](https://github.com/Sage/carbon/compare/v35.1.0...v35.1.1) (2020-07-17)
 
 

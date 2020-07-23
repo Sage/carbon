@@ -66,10 +66,10 @@ const MyComponent = () => (
 
 ## Visuals
 
-### Primary
-Primary version of accordion has white background and a border.
+### Default
+Default version of accordion has white background and no side borders.
 <Preview>
-  <Story name="primary">
+  <Story name="default">
     <Accordion title='Heading'>
       <div>Content</div>
       <div>Content</div>
@@ -78,11 +78,83 @@ Primary version of accordion has white background and a border.
   </Story>
 </Preview>
 
-### Secondary
-Secondary version is transparent and has no borders.
+### Transparent
+Transparent scheme has transparent background.
 <Preview>
-  <Story name="secondary">
-    <Accordion type="secondary" title='Heading'>
+  <Story name="transparent">
+    <Accordion scheme="transparent" title='Heading'>
+      <div>Content</div>
+      <div>Content</div>
+      <div>Content</div>
+    </Accordion>
+  </Story>
+</Preview>
+
+### Small
+Small version has a smaller heading and less padding.
+<Preview>
+  <Story name="small">
+    <Accordion size="small" title='Heading'>
+      <div>Content</div>
+      <div>Content</div>
+      <div>Content</div>
+    </Accordion>
+  </Story>
+</Preview>
+
+### Sub title
+A sub title can be added when the size is large (default).
+<Preview>
+  <Story name="sub title">
+    <Accordion subTitle='Sub title' title='Heading'>
+      <div>Content</div>
+      <div>Content</div>
+      <div>Content</div>
+    </Accordion>
+  </Story>
+</Preview>
+
+### Full border
+The accordion can have side borders along with the default top and bottom.
+<Preview>
+  <Story name="full border">
+    <Accordion borders='full' title='Heading'>
+      <div>Content</div>
+      <div>Content</div>
+      <div>Content</div>
+    </Accordion>
+  </Story>
+</Preview>
+
+### Left aligned icon
+The accordion icon can be left aligned.
+<Preview>
+  <Story name="icon left">
+    <Accordion iconAlign='left' title='Heading'>
+      <div>Content</div>
+      <div>Content</div>
+      <div>Content</div>
+    </Accordion>
+  </Story>
+</Preview>
+
+### Different width
+The default width of 100% can be overriden.
+<Preview>
+  <Story name="different width">
+    <Accordion width="500px" title='Heading'>
+      <div>Content</div>
+      <div>Content</div>
+      <div>Content</div>
+    </Accordion>
+  </Story>
+</Preview>
+
+### Custom padding
+Extra padding be be added top and bottom.
+<Preview>
+  <Story name="custom padding">
+    <Accordion customPadding={50} title='Heading'>
       <div>Content</div>
       <div>Content</div>
       <div>Content</div>
@@ -108,7 +180,7 @@ import { Accordion, AccordionGroup } from "carbon-react/lib/components/accordion
 Accordion adjust it's height properly when it's content is being dynamically changed
 
 <Preview>
-  <Story name="With dynamic content">
+  <Story name="with dynamic content">
     {() => {
       const [contentCount, setContentCount] = useState(3);
       const modifyContentCount = modifier => {
