@@ -13,14 +13,6 @@ Feature: Accessibility tests - Common list
       | alert     |
       | sidebar   |
 
-  @ignore
-  # ignored because of accessibility issues after
-  # changing state of components -> FE-2894
-  Scenario: Component Animated menu button default page
-    Given I open "Animated menu button" component page in noIFrame
-    When I open Animated Menu Button preview in noIFrame
-    Then "Animated menu button" component has no accessibility violations
-
   @accessibility
   Scenario: Component button as sibling
     When I open Test "button" component page as sibling in no iframe
