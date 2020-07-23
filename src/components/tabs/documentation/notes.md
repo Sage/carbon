@@ -11,4 +11,4 @@
 # Related Components
 - Navigating the hierarchy of the app? [Try Menu](/components/menu "Try Menu")
 - Positioning your primary navigation? [Try Navigation Bar](/components/navigation-bar "Try Navigation Bar")
-- Quickly accessing useful hyperlinks? [Try Animated Menu Button](/components/animated-menu-button "Try Animation Menu Button")
+
