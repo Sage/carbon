@@ -72,14 +72,6 @@ Given('I open {string} component page with inputs', (component) => {
   visitComponentUrl(component, 'default_with_inputs');
 });
 
-Given('I open {string} component page legacy spinner', (component) => {
-  visitComponentUrl(component, 'legacy_spinner');
-});
-
-Given('I open {string} component page legacy spinner in noIFrame', (component) => {
-  visitComponentUrl(component, 'legacy_spinner', true);
-});
-
 Given('I open dark theme {string} component page in noIFrame', (component) => {
   visitComponentUrl(component, 'dark_theme', true);
 });

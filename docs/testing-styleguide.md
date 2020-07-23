@@ -143,7 +143,7 @@ Some common test steps:
   * I check/uncheck `<knobs field>` checkbox;
   * I open `<name>` component page;
     * To open different stories on Storybook;
-      * I open `<name>` component page `default`/`basic`/`with button`/`legacy spinner`/`iframe`/`with button page in iframe`/`multiple`/`validations`.
+      * I open `<name>` component page `default`/`basic`/`with button`/`iframe`/`with button page in iframe`/`multiple`/`validations`.
 
 ##### Scenario tags
 Test scenarios in feature files can be tagged to enable a subset of scenarios to be run, ignored or identified in some manner. Use the following tags:
