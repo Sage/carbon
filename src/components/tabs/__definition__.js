@@ -19,7 +19,6 @@ let definition = new Definition('tabs', Tabs, {
   relatedComponentsNotes: `
 * Navigating the hierarchy of the app? [Try Menu](/components/menu).
 * Positioning your primary navigation? [Try Navigation Bar](/components/navigation-bar).
-* Quickly accessing useful hyperlinks? [Try Animated Menu Button](/components/animated-menu-button).
 `,
   type: 'layout',
   associatedDefinitions: [tabDefinition],
