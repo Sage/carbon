@@ -2,6 +2,7 @@ import {
   visitComponentUrl, setSlidebar, pressESCKey, pressTABKey, asyncWaitForKnobs,
   visitFlatTableComponentNoiFrame, positionOfElement, keyCode,
   visitDocsUrl,
+  visitComponentUrlWithParameters,
 } from '../helper';
 import {
   commonButtonPreview, labelPreview, helpIcon, helpIconByPosition, inputWidthSlider,
@@ -13,8 +14,10 @@ import {
   commonButtonPreviewNoIFrameRoot,
   getDataElementByValue,
   getElementNoIframe, commonButtonPreviewNoIframe,
+  backgroundUILocatorNoIFrame,
+  closeIconButtonNoIFrame,
 } from '../../locators';
-import { dialogTitle } from '../../locators/dialog';
+import { dialogTitle, dialogTitleNoIFrame } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
 import { pagerSummary } from '../../locators/pager';
 
@@ -30,6 +33,14 @@ Given('I open Design Systems {word} {string} component docs page', (type, compon
 
 Given('I open design systems {word} {string} component in no iframe', (type, component) => {
   visitComponentUrl(component, type, true, 'design-system-');
+});
+
+Given('I open Test {word} {string} component in noIFrame with {string} json from {string} using {string} object name', (type, component, json, path, nameOfObject) => {
+  visitComponentUrlWithParameters(component, type, true, 'design-system-', json, path, nameOfObject);
+});
+
+Given('I open {word} {string} component in noIFrame with {string} json from {string} using {string} object name', (type, component, json, path, nameOfObject) => {
+  visitComponentUrlWithParameters(component, type, true, '', json, path, nameOfObject);
 });
 
 Given('I open {string} component page', (component) => {
@@ -199,6 +210,10 @@ Then('component title on preview is {word}', (title) => {
   dialogTitle().should('have.text', title);
 });
 
+Then('component title on preview is {word} in NoIFrame', (title) => {
+  dialogTitleNoIFrame().should('have.text', title);
+});
+
 Then('label on preview is {word}', (text) => {
   labelPreview().should('have.text', text);
 });
@@ -277,12 +292,28 @@ Then('Background UI is disabled', () => {
   backgroundUILocator().should('exist');
 });
 
+Then('Background UI is enabled in NoIFrame', () => {
+  backgroundUILocatorNoIFrame().should('not.exist');
+});
+
+Then('Background UI is disabled in NoIFrame', () => {
+  backgroundUILocatorNoIFrame().should('exist');
+});
+
 Then('closeIcon is visible', () => {
   closeIconButton().should('be.visible');
 });
 
+Then('closeIcon is visible in NoIFrame', () => {
+  closeIconButtonNoIFrame().should('be.visible');
+});
+
 Then('I click closeIcon', () => {
   closeIconButton().click();
+});
+
+Then('I click closeIcon in NoIFrame', () => {
+  closeIconButtonNoIFrame().click();
 });
 
 When('I click {string} button into iFrame', (text) => {
@@ -295,6 +326,11 @@ Then('closeIcon is not visible', () => {
 
 Then('closeIcon has the border outline color {string} and width {string}', (color, width) => {
   closeIconButton().should('have.css', 'outline-color', color)
+    .and('have.css', 'outline-width', width);
+});
+
+Then('closeIcon has the border outline color {string} and width {string} in NoIFrame', (color, width) => {
+  closeIconButtonNoIFrame().should('have.css', 'outline-color', color)
     .and('have.css', 'outline-width', width);
 });
 
