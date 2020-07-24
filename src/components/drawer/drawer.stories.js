@@ -13,7 +13,7 @@ import {
 
 export default {
   component: Drawer,
-  title: 'Test/Drawer',
+  title: 'Design System/Drawer/Test',
   parameters: {
     info: { disable: true },
     chromatic: {

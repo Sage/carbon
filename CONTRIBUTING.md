@@ -116,6 +116,17 @@ Our GitHub checks don't run on a forked PR because the Chromatic and Cypress Das
 If there are no changes that could expose our credentials they will use [`git-push-fork-to-upstream-branch`](https://github.com/jklukas/git-push-fork-to-upstream-branch) to
 copy your branch into our repo. Doing this will trigger a `push` build and your PR checks will be updated. This is documented on the [Circle CI blog](https://circleci.com/blog/triggering-trusted-ci-jobs-on-untrusted-forks/).
 
+#### Preventing unnecessary builds
+
+Our CI resources are finite, it's important that we only trigger a CI build when required. There are some best practices that you can follow to reduce the number of builds
+that you trigger.
+1. Work on a branch until you want to trigger CI, don't create a draft PR until you are ready to run CI.
+1. Create a draft PR when you want to trigger CI.
+1. Convert it to a regular PR when you want a peer review.
+1. Address any peer review comments in as many commits as required, but only push them once you're finished addressing all comments.
+1. Don't press the "Update Branch" button unless you're about to merge the branch. Once you have pressed "Update Branch" you shouldn't work on anything else
+until that branch is merged.
+
 #### Long lived branches
 Sometimes it is necessary to work on a feature for an extended amount of time. If you're aware of the pros/cons of doing such you can choose to use a `major/**` branch.
 

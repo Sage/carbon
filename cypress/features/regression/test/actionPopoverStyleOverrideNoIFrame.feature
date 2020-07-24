@@ -2,7 +2,7 @@ Feature: Style overriden Action Popover component
   I want to verify overriden styles for Action Popover component
 
   Background: Style overriden Action Popover component
-    Given I open style override Test "Action Popover" component page in noIframe
+    Given I open "Design System Action Popover Test" component page "styles overriden" in no iframe
 
   @positive
   Scenario: Overriden button opens Action Popover

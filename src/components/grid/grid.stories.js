@@ -455,7 +455,7 @@ Visual.story = {
 };
 
 export default {
-  title: 'Test/Grid',
+  title: 'Design System/Grid/Test',
   component: GridContainer,
   decorators: [withKnobs],
   chromatic: {

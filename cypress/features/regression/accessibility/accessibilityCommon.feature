@@ -14,8 +14,8 @@ Feature: Accessibility tests - Common list
       | sidebar   |
 
   @accessibility
-  Scenario: Component button as sibling
-    When I open Test "button" component page as sibling in no iframe
+  Scenario: Component button as a sibling
+    When I open "Design System Button Test" component page "as a sibling" in no iframe
     Then "button" component has no accessibility violations
 
   @ignore

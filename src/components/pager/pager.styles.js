@@ -1,13 +1,12 @@
 import styled, { css } from 'styled-components';
 import StyledInput from '../../__experimental__/components/input/input.style';
 import StyledInputPresentation from '../../__experimental__/components/input/input-presentation.style';
-import Dropdown from '../../__deprecated__/components/dropdown';
+import InputIconToggleStyle from '../../__experimental__/components/input-icon-toggle/input-icon-toggle.style';
+import Select from '../select/simple-select/simple-select.component';
 import baseTheme from '../../style/themes/base';
 
-const StyledDropdown = styled(Dropdown)`
-  input {
-    height: 26px;
-  }
+const StyledSelect = styled(Select)`
+  height: 26px;
 `;
 
 const StyledPagerContainer = styled.div`
@@ -81,17 +80,25 @@ const StyledPagerSizeOptions = styled.div`
   flex: 1 1 30%;
   justify-content: flex-start;
 
-  .carbon-dropdown {
+  ${StyledInputPresentation} {
     width: 55px;
-    margin: 0 4px;
+    height: 26px;
+    min-height: 26px;
+    min-width: 10px;
+    margin: 0px 4px;
 
-    input {
-      line-height: 26px;
-      padding: 0 8px;
+    ${StyledInput} {
+      font-size: 14px;
+      padding-right: 0px;
+      padding-left: 8px;
+      height: 22px;
+      width: 13px;
     }
 
-    span:before {
-      margin-top: 4px;
+    ${InputIconToggleStyle} {
+      margin-left: 0;
+      width: 20px;
+      height: 24px;
     }
   }
 `;
@@ -207,5 +214,5 @@ export {
   StyledPagerLinkStyles,
   StyledPagerNoSelect,
   StyledPagerSummary,
-  StyledDropdown
+  StyledSelect
 };

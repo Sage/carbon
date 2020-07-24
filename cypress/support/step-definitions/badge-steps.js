@@ -1,4 +1,8 @@
-import { badge, badgeCounter } from '../../locators/badge';
+import {
+  badge,
+  badgeCounterNoIFrame, 
+  badgeNoIFrame,
+} from '../../locators/badge';
 
 Then('Badge component rendered properly', () => {
   badge().should('have.css', 'padding', '0px')
@@ -18,16 +22,16 @@ Then('Badge component rendered properly', () => {
 });
 
 Then('Badge component counter is set to {int}', (value) => {
-  badgeCounter().invoke('show').should('be.visible').invoke('text')
+  badgeCounterNoIFrame().invoke('show').should('be.visible').invoke('text')
     .and('contain', value);
 });
 
 Then('Badge component counter does not exist', () => {
-  badge().should('not.exist');
+  badgeNoIFrame().should('not.exist');
 });
 
 When('I focus onto Badge component', () => {
-  badge().focus();
+  badgeNoIFrame().focus();
 });
 
 When('I click onto Badge component', () => {

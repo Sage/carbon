@@ -5,7 +5,7 @@ import Badge from './badge.component';
 import Button from '../button';
 
 export default {
-  title: 'Test/Badge',
+  title: 'Design system/Badge/Test',
   component: Badge,
   parameters: {
     info: {

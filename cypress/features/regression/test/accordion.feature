@@ -2,7 +2,7 @@ Feature: Accordion component
   I want to change Accordion component properties
 
   Background: Open Accordion component page
-    Given I open basic Test "Accordion" component page
+    Given I open "Design System Accordion Test" component page "basic"
 
   @positive
   Scenario Outline: Set Accordion iconType to <iconType>

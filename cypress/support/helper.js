@@ -4,13 +4,15 @@ import {
 } from '../locators';
 import { DEBUG_FLAG } from '.';
 
+const stringToURL = str => str.toLowerCase().replace(/ /g, '-');
+
 function prepareUrl(component, suffix, iFrameOnly, prefix, env) {
   let url = Cypress.config().baseUrl;
   const iFrame = Cypress.env('iframe') + prefix;
   const story = Cypress.env(env) + prefix;
   // eslint-disable-next-line no-unused-expressions
   iFrameOnly ? url += iFrame : url += story;
-  return url + component.toLowerCase().replace(/ /g, '-') + Cypress.env(suffix);
+  return url + stringToURL(component) + (Cypress.env(suffix) || `--${stringToURL(suffix)}`);
 }
 
 export function visitDocsUrl(component, suffix = 'default', iFrameOnly = false, prefix = '', env = 'docs') {
@@ -28,6 +30,17 @@ export function visitComponentUrlByTheme(component, theme, sufix = '') {
 
 export function visitComponentUrlByThemeKnobsStory(component, theme, sufix = '', prefix = '') {
   cy.visit(`${prepareUrl(component, 'knobs', true, prefix)}&theme=${theme}${sufix}`);
+}
+
+export function visitComponentUrlWithParameters(component, story, sufix = '', prefix = '', json = '', path = '', nameOfObject = '') {
+  cy.fixture(`${path}/${json}`).then(($json) => {
+    const el = $json[nameOfObject];
+    let url = '';
+    for (var prop in el) {
+        url += `&knob-${prop}=${encodeURIComponent(el[prop])}`;
+    }
+    cy.visit(`${prepareUrl(component, story, true, prefix)}${url}`);
+  });
 }
 
 export function visitComponentUrlByThemeByStory(component, story, theme, sufix = '', prefix = '') {
