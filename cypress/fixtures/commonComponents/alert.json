@@ -1,0 +1,93 @@
+{ 
+  "open": {
+    "open": true
+  },
+  "openTitleOtherLanguage": {
+    "open": true,
+    "title": "mp150ú¿¡üßä"
+  },
+  "openTitleSpecialCharacter": {
+    "open": true,
+    "title": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "openSubtitleOtherLanguage": {
+    "open": true,
+    "subtitle": "mp150ú¿¡üßä"
+  },
+  "openSubtitleSpecialCharacter": {
+    "open": true,
+    "subtitle": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "openChildrenOtherLanguage": {
+    "open": true,
+    "children": "mp150ú¿¡üßä"
+  },
+  "openChildrenSpecialCharacter": {
+    "open": true,
+    "children": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "openDisableEscKey": {
+    "open": true,
+    "disableEscKey": true
+  },
+  "openDisableEscKeyFalse": {
+    "open": true,
+    "disableEscKey": false
+  },
+  "openEnableBackgroundUI":{
+    "open": true,
+    "enableBackgroundUI": true
+  },
+  "openEnableBackgroundUIFalse":{
+    "open": true,
+    "enableBackgroundUI": false
+  },
+  "openHeight0": {
+    "open": true,
+    "height": 0
+  },
+  "openHeight1": {
+    "open": true,
+    "height": 1
+  },
+  "openHeight100": {
+    "open": true,
+    "height": 100
+  },
+  "openHeight-1": {
+    "open": true,
+    "height": -1
+  },
+  "openHeight-10": {
+    "open": true,
+    "height": -10
+  },
+  "openSizeExtraSmall": {
+    "open": true,
+    "size": "extra-small"
+  },
+  "openSizeSmall": {
+    "open": true,
+    "size": "small"
+  },
+  "openSizeMediumSmall": {
+    "open": true,
+    "size": "medium-small"
+  },
+  "openSizeMedium": {
+    "open": true,
+    "size": "medium"
+  },
+  "openSizeMediumLarge": {
+    "open": true,
+    "size": "medium-large"
+  },
+  "openSizeLarge": {
+    "open": true,
+    "size": "large"
+  },
+  "openSizeExtraLarge": {
+    "open": true,
+    "size": "extra-large"
+  }
+}
