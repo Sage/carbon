@@ -16,6 +16,7 @@ import {
   getElementNoIframe, commonButtonPreviewNoIframe,
   backgroundUILocatorNoIFrame,
   closeIconButtonNoIFrame,
+  fieldHelpPreviewNoIFrame,
 } from '../../locators';
 import { dialogTitle, dialogTitleNoIFrame } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
@@ -218,6 +219,10 @@ Then('label on preview is {word}', (text) => {
   labelPreview().should('have.text', text);
 });
 
+Then('label on preview is {word} in NoIFrame', (text) => {
+  getDataElementByValueNoIframe('label').should('have.text', text);
+});
+
 Then('label is set to {word}', (text) => {
   label().should('have.text', text);
 });
@@ -235,9 +240,9 @@ When('I hover mouse onto icon', () => {
   icon().trigger('mouseover');
 });
 
-Then('I hover mouse onto {string} icon in no iFrame', (name) => {
-  getElementNoIframe(name).trigger('mouseover');
-});
+// Then('I hover mouse onto {string} icon in no iFrame', (name) => {
+//   getElementNoIframe(name).trigger('mouseover');
+// });
 
 Then('I hover mouse onto {string} icon in no iFrame', (name) => {
   getDataElementByValueNoIframe(name).trigger('mouseover');
@@ -251,7 +256,7 @@ Then('tooltipPreview on preview is set to {word}', (text) => {
   tooltipPreview().should('have.text', text);
 });
 
-Then('tooltipPreview on preview into iFrame is set to {string}', (text) => {
+Then('tooltipPreview on preview into iFrame is set to {word}', (text) => {
   tooltipPreviewNoIframe().should('have.text', text);
 });
 
@@ -261,6 +266,10 @@ When('I set inputWidth slider to {int}', (width) => {
 
 Then('fieldHelp on preview is set to {word}', (text) => {
   fieldHelpPreview().should('have.text', text);
+});
+
+Then('fieldHelp on preview is set to {word} in NoIFrame', (text) => {
+  fieldHelpPreviewNoIFrame().should('have.text', text);
 });
 
 Then('{string} fieldHelp on preview is set to {word}', (position, text) => {

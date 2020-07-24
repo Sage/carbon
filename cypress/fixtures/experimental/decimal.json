@@ -1,0 +1,135 @@
+{ 
+  "fieldHelpOtherLanguage": {
+    "fieldHelp": "mp150ú¿¡üßä"
+  },
+  "fieldHelpSpecialCharacter": {
+    "fieldHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "labelOtherLanguage": {
+    "label": "mp150ú¿¡üßä"
+  },
+  "labelSpecialCharacter": {
+    "label": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "inputAlignLeft": {
+    "align": "left"
+  },
+  "inputAlignRight": {
+    "align": "right"
+  },
+  "labelHelpOtherLanguage": {
+    "label": "label",
+    "labelHelp": "mp150ú¿¡üßä"
+  },
+  "labelHelpSpecialCharacter": {
+    "label": "label",
+    "labelHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "labelInline": {
+    "label": "label",
+    "labelInline": true
+  },
+  "labelWidth0": {
+    "label": "label",
+    "labelHelp": "label help",
+    "labelInline": true,
+    "labelWidth": 0
+  },
+  "labelWidth10": {
+    "label": "label",
+    "labelHelp": "label help",
+    "labelInline": true,
+    "labelWidth": 10
+  },
+  "labelWidth100": {
+    "label": "label",
+    "labelHelp": "label help",
+    "labelInline": true,
+    "labelWidth": 100
+  },
+  "inputWidth1": {
+    "label": "label",
+    "labelInline": true,
+    "inputWidth": 1
+  },
+  "inputWidth10": {
+    "label": "label",
+    "labelInline": true,
+    "inputWidth": 10
+  },
+  "inputWidth100": {
+    "label": "label",
+    "labelInline": true,
+    "inputWidth": 100
+  },
+  "labelAlignLeft": {
+    "label": "label",
+    "labelInline": true,
+    "labelAlign": "left"
+  },
+  "labelAlignRight": {
+    "label": "label",
+    "labelInline": true,
+    "labelAlign": "right"
+  },
+  "disabled": {
+    "disabled": true
+  },
+  "disabledFalse": {
+    "disabled": false
+  },
+  "readOnly": {
+    "readOnly": true
+  },
+  "readOnlyFalse": {
+    "readOnly": false
+  },
+  "precision0": {
+    "precision": 0
+  },
+  "precision1": {
+    "precision": 1
+  },
+  "precision2": {
+    "precision": 2
+  },
+  "precision3": {
+    "precision": 3
+  },
+  "precision4": {
+    "precision": 4
+  },
+  "precision5": {
+    "precision": 5
+  },
+  "precision6": {
+    "precision": 6
+  },
+  "precision7": {
+    "precision": 7
+  },
+  "precision8": {
+    "precision": 8
+  },
+  "precision9": {
+    "precision": 9
+  },
+  "precision10": {
+    "precision": 10
+  },
+  "precision11": {
+    "precision": 11
+  },
+  "precision12": {
+    "precision": 12
+  },
+  "precision13": {
+    "precision": 13
+  },
+  "precision14": {
+    "precision": 14
+  },
+  "precision15": {
+    "precision": 15
+  }
+}
