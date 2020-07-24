@@ -1,8 +1,10 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import BaseTheme from '../../../style/themes/base';
 
 const StyledTabs = styled.div`
   margin-top: 15px;
+  color: ${({ theme }) => `${theme.text.color};`}
   
   ${({ position }) => position === 'left' && css`
     display: flex;
@@ -12,7 +14,8 @@ const StyledTabs = styled.div`
 `;
 
 StyledTabs.defaultProps = {
-  position: 'top'
+  position: 'top',
+  theme: BaseTheme
 };
 
 StyledTabs.propTypes = {
