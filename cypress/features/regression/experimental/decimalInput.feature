@@ -34,7 +34,7 @@ Feature: Decimal component
     When I hover mouse onto "question" icon in no iFrame
     Then tooltipPreview on preview into iFrame is set to <label>
     Examples:
-      | label                        | nameOfObject                   |
+      | label                        | nameOfObject              |
       | mp150ú¿¡üßä                  | labelHelpOtherLanguage    |
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelHelpSpecialCharacter |
 

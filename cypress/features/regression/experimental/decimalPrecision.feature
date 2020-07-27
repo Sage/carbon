@@ -2,7 +2,7 @@ Feature: Decimal component - precision
   I want to check Decimal component precision propertiy
 
   @positive
-  Scenario Outline: Check Decimal component input field with precision <precision> and input <labelInput>
+  Scenario Outline: Check Decimal component input field with <nameOfObject> and input <labelInput>
     Given I open default "Experimental-Decimal-Input" component in noIFrame with "decimal" json from "experimental" using "<nameOfObject>" object name
     When I set Decimal input to <labelInput>
     Then Decimal Input is set to <fieldHelpOutput>

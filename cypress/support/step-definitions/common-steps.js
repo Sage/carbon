@@ -17,6 +17,7 @@ import {
   backgroundUILocatorNoIFrame,
   closeIconButtonNoIFrame,
   fieldHelpPreviewNoIFrame,
+  commonDataElementInputPreviewNoIframe,
 } from '../../locators';
 import { dialogTitle, dialogTitleNoIFrame } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
@@ -239,10 +240,6 @@ When('I hover mouse onto icon', () => {
   cy.wait(100, { log: DEBUG_FLAG }); // delayed in case the element need to be reloaded
   icon().trigger('mouseover');
 });
-
-// Then('I hover mouse onto {string} icon in no iFrame', (name) => {
-//   getElementNoIframe(name).trigger('mouseover');
-// });
 
 Then('I hover mouse onto {string} icon in no iFrame', (name) => {
   getDataElementByValueNoIframe(name).trigger('mouseover');
@@ -497,4 +494,36 @@ Then('totalRecords is set to {string} {word}', (totalRecords, element) => {
 
 When('I open component preview no iframe', () => {
   commonButtonPreviewNoIframe().click();
+});
+
+Then('input direction is {string}', (direction) => {
+  commonDataElementInputPreviewNoIframe().should('have.css', TEXT_ALIGN, `${direction}`);
+});
+
+Then('label width on preview is {int}', (width) => {
+  getDataElementByValueNoIframe('label').should('have.attr', 'width').should('contain', `${width}`);
+});
+
+Then('label width on preview is {int} in IFrame', (width) => {
+  label().should('have.attr', 'width').should('contain', `${width}`);
+});
+
+Then('inputWidth on preview is {int}', (width) => {
+  commonDataElementInputPreviewNoIframe().parent().should('have.css', 'flex').should('contain', `${width}%`);
+});
+
+Then('label align on preview is set to {string}', (labelAlign) => {
+  getDataElementByValueNoIframe('label').should('have.css', TEXT_ALIGN, `${labelAlign}`);
+});
+
+Then('label align on preview is set to {string} in IFrame', (labelAlign) => {
+  label().should('have.css', TEXT_ALIGN, `${labelAlign}`);
+});
+
+Then('label is inline', () => {
+  getDataElementByValueNoIframe('label').should('have.css', TEXT_ALIGN, 'left');
+});
+
+Then('label is inline in IFrame', () => {
+  label().should('have.css', TEXT_ALIGN, 'left');
 });

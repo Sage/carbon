@@ -52,7 +52,7 @@ Feature: Experimental Date Input component
   Scenario: Enable label inline checkbox for Date Input component
     When I set label to "labelSample"
       And I check labelInline checkbox
-    Then label is inline
+    Then label is inline in IFrame
 
   @positive
   Scenario Outline: Change Date Input component label align to <labelAlign>
@@ -60,7 +60,7 @@ Feature: Experimental Date Input component
       And I set labelHelp to "label"
       And I check labelInline checkbox
       And I select labelAlign to "<labelAlign>"
-    Then label align on preview is set to "<labelAlign>"
+    Then label align on preview is set to "<labelAlign>" in IFrame
     Examples:
       | labelAlign |
       | left       |
@@ -71,7 +71,7 @@ Feature: Experimental Date Input component
     When I set label to "label"
       And I check labelInline checkbox
       And I set label width slider to <width>
-    Then label width on preview is <width>
+    Then label width on preview is <width> in IFrame
     Examples:
       | width |
       | 0     |
@@ -97,7 +97,7 @@ Feature: Experimental Date Input component
     When I set label to "Sample text"
       And I check labelInline checkbox
       And I set label width slider to <width>
-    Then label width on preview is <width>
+    Then label width on preview is <width> in IFrame
     Examples:
       | width |
       | 0     |
