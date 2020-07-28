@@ -12,7 +12,6 @@ Feature: Accessibility tests - Experimental folder
       | date-input          |
       | decimal-input       |
       | fieldset            |
-      | form                |
       | radiobutton         |
       | simple-color-picker |
       | groupedcharacter    |
