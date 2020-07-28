@@ -1,5 +1,4 @@
 import { omit, difference, includes } from 'lodash';
-import guid from '../helpers/guid/guid';
 
 /**
  * Ether
