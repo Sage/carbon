@@ -35,6 +35,7 @@ const Label = (props) => {
     htmlFor,
     tabIndex,
     rightSpacing = 2,
+    leftSpacing = 2,
     styleOverride
   } = props;
   const labelProps = filterByProps(props, [
@@ -93,6 +94,7 @@ const Label = (props) => {
       id={ labelId }
       htmlFor={ htmlFor }
       rightSpacing={ rightSpacing }
+      leftSpacing={ leftSpacing }
       styleOverride={ styleOverride }
     >
       {children}
@@ -132,6 +134,8 @@ Label.propTypes = {
   tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Set padding right */
   rightSpacing: PropTypes.oneOf([1, 2]),
+  /** Set padding left */
+  leftSpacing: PropTypes.oneOf([1, 2]),
   /** Allows to override existing component styles */
   styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 };

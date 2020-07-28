@@ -86,7 +86,8 @@ const FormField = ({
             childOfForm={ childOfForm }
             optional={ isOptional }
             useValidationIcon={ useValidationIcon }
-            rightSpacing={ labelSpacing }
+            rightSpacing={ !reverse && labelSpacing }
+            leftSpacing={ reverse && labelSpacing }
             styleOverride={ styleOverride.label }
           >
             {label}

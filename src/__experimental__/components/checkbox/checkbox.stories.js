@@ -87,6 +87,7 @@ function defaultKnobs(type, autoFocusDefault = false) {
       OptionsHelper.alignBinary[0],
       type
     ),
+    labelSpacing: select('labelSpacing', [1, 2], 2),
     size: select('size', OptionsHelper.sizesBinary, 'small', type),
     value: text('value', type, type)
   });

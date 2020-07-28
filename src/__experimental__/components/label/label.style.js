@@ -20,12 +20,13 @@ const StyledLabel = styled.label`
   }
 
   ${({
-    align, inline, inputSize, rightSpacing, width, theme
+    align, inline, inputSize, rightSpacing, leftSpacing, width, theme
   }) => inline && css`
     box-sizing: border-box;
     padding-bottom: 0;
     padding-top: ${sizes[inputSize].verticalPadding};
     padding-right: ${rightSpacing * theme.spacing}px;
+    padding-left: ${leftSpacing * theme.spacing}px;
     text-align: ${align};
     width: ${width === 0 ? StyledLabel.defaultProps.width : width}%;
   `}

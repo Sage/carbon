@@ -96,7 +96,6 @@ exports[`FlatTableCheckbox "th" is passed in via the "as" prop renders to match 
 }
 
 .c2 .c17 {
-  padding-left: 6px;
   width: auto;
   -webkit-flex: 0 1 auto;
   -ms-flex: 0 1 auto;
@@ -299,7 +298,6 @@ exports[`FlatTableCheckbox the "as" prop is not passed in renders to match the e
 }
 
 .c2 .c16 {
-  padding-left: 6px;
   width: auto;
   -webkit-flex: 0 1 auto;
   -ms-flex: 0 1 auto;

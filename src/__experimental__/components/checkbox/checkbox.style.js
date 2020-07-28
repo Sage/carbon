@@ -58,7 +58,6 @@ const CheckboxStyle = styled.div`
     }
 
     ${StyledLabel} {
-      padding-left: 6px;
       width: auto;
       flex: 0 1 auto;
     }
@@ -95,8 +94,7 @@ const CheckboxStyle = styled.div`
         margin-left: 24px;
       }
 
-      ${StyledFieldHelp},
-      ${StyledLabel} {
+      ${StyledFieldHelp} {
         padding-left: 8px;
       }
 
@@ -156,7 +154,6 @@ const CheckboxStyle = styled.div`
       }
 
       ${StyledLabel} {
-        padding-left: 0;
         flex: 0 1 auto;
       }
 

@@ -71,7 +71,6 @@ describe('Checkbox', () => {
       it('applies the appropriate Label styles', () => {
         assertStyleMatch({
           paddingBottom: '4px',
-          paddingLeft: '8px',
           paddingTop: '4px'
         }, wrapper, { modifier: css`${LabelStyle}` });
       });
