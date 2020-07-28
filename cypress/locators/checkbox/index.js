@@ -16,3 +16,4 @@ export const checkboxRoleNoIFrame = () => cy.get(CHECKBOX);
 export const checkboxByID = element => cy.get(`[id="checkbox_${element}-help"]`);
 export const dataComponentGroup = () => cy.get(CHECKBOX_DATA_COMPONENT_GROUP);
 export const labelForIconInCheckboxGroup = () => dataComponentGroup().find(LABEL).find('div').eq(1);
+export const checkboxDataComponentNoIframe = () => cy.get(CHECKBOX_DATA_COMPONENT);
