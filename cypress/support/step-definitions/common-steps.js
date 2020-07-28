@@ -536,3 +536,15 @@ Then('label is inline', () => {
 Then('label is inline in IFrame', () => {
   label().should('have.css', TEXT_ALIGN, 'left');
 });
+
+Then('label width is set to {string} in NoIFrame', (width) => {
+  getDataElementByValueNoIframe('label').should('have.attr', 'width', `${width}`);
+});
+
+Then('label Align on preview is {string}', (direction) => {
+  label().should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
+});
+
+Then('label Align on preview is {string} in NoIFrame', (direction) => {
+  getDataElementByValueNoIframe('label').should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
+});
