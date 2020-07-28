@@ -1,0 +1,11 @@
+{ 
+  "legendOtherLanguage": {
+    "legend": "mp150ú¿¡üßä"
+  },
+  "legendSpecialCharacter": {
+    "legend": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "legendEmpty": {
+    "legend": ""
+  }
+}

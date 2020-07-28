@@ -61,3 +61,4 @@ export const getElementNoIframeByName = element => cy.get(`[name="${element}"]`)
 export const commonButtonPreviewNoIframe = () => cy.get(STORY_ROOT).find('button');
 export const backgroundUILocatorNoIFrame = () => cy.get(BACKGROUND_UI_LOCATOR);
 export const closeIconButtonNoIFrame = () => cy.get(CLOSE_ICON_BUTTON);
+export const fieldHelpPreviewNoIFrame = () => cy.get(FIELD_HELP_PREVIEW).first();

@@ -1,10 +1,11 @@
 import {
-  saveButton, cancelButton, leftAlignedActions, rightAlignedActions,
-  errorsSummary, errorMessage, inputValidation, buttons, errorTooltip,
+  saveButton,
+  cancelButton, 
+  leftAlignedActions,
+  rightAlignedActions,
+  buttons,
   additionalActions,
 } from '../../locators/form';
-import { DEBUG_FLAG } from '..';
-import { tooltipPreview } from '../../locators/help';
 import { positionOfElement } from '../helper';
 
 Then('save button has golden border on focus', () => {
@@ -71,14 +72,12 @@ Then('additional actions text is set to {string}', (text) => {
 
 Then('additionalAction button is set to {string} and has text {string}', (buttonState, text) => {
   if (buttonState === 'Button') {
-    cy.wait(500, { log: DEBUG_FLAG }); // added due to changing animation;
     buttons(positionOfElement('fourth')).should('be.visible');
     buttons(positionOfElement('fourth')).children().should('have.attr', 'role', 'button')
       .and('have.attr', 'data-component', 'button');
     buttons(positionOfElement('fourth')).children().children().children()
       .should('have.text', text);
   } else {
-    cy.wait(500, { log: DEBUG_FLAG }); // added due to changing animation;
     buttons(positionOfElement('fourth')).should('be.visible');
     buttons(positionOfElement('fourth')).children().should('have.attr', 'data-component', 'link');
     buttons(positionOfElement('fourth')).children().children().should('have.attr', 'tabindex', '0');
@@ -89,14 +88,12 @@ Then('additionalAction button is set to {string} and has text {string}', (button
 
 Then('alignedActions button is set to {string} and has text {string}', (buttonState, text) => {
   if (buttonState === 'Button') {
-    cy.wait(500, { log: DEBUG_FLAG }); // added due to changing animation;
     buttons(positionOfElement('second')).should('be.visible');
     buttons(positionOfElement('second')).children().should('have.attr', 'role', 'button')
       .and('have.attr', 'data-component', 'button');
     buttons(positionOfElement('second')).children().children()
       .contains(text);
   } else {
-    cy.wait(500, { log: DEBUG_FLAG }); // added due to changing animation;
     buttons(positionOfElement('second')).should('be.visible');
     buttons(positionOfElement('second')).children().should('have.attr', 'data-component', 'link');
     buttons(positionOfElement('second')).children().children().should('have.attr', 'tabindex', '0');
@@ -111,35 +108,4 @@ Then('left aligned actions text is set to {string}', (text) => {
 
 Then('right aligned actions text is set to {string}', (text) => {
   rightAlignedActions().should('have.text', text);
-});
-
-Then('summary is visible', () => {
-  errorsSummary().should('be.visible');
-});
-
-Then('summary is not visible', () => {
-  errorsSummary().should('not.be.visible');
-});
-
-Then('I save form', () => {
-  saveButton().click();
-});
-
-Then('input is validated', () => {
-  inputValidation().should('be.visible');
-  inputValidation().trigger('mouseover');
-});
-
-Then('error message is {string}', (text) => {
-  errorMessage().should('have.text', text);
-});
-
-Then('input is validated for default component', () => {
-  errorTooltip().should('be.visible');
-  errorTooltip().trigger('mouseover');
-});
-
-Then('error message is {string} for default component', (text) => {
-  tooltipPreview().first().should('have.text', text);
-  errorsSummary().should('have.text', 'There is 1 error');
 });
