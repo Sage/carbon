@@ -1,8 +1,7 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import tabsHeaderClassicStyle from './tabs-header-classic.style';
-import OptionsHelper from '../../../utils/helpers/options-helper';
-import baseTheme from '../../../style/themes/base';
+import OptionsHelper from '../../../../utils/helpers/options-helper/options-helper';
+import baseTheme from '../../../../style/themes/base';
 
 const StyledTabHeaders = styled.ul`
   display: flex;
@@ -23,8 +22,6 @@ const StyledTabHeaders = styled.ul`
     width: 20%;
     margin: 0 10px 0;
   `}
-  
-  ${tabsHeaderClassicStyle}
 `;
 
 StyledTabHeaders.defaultProps = {

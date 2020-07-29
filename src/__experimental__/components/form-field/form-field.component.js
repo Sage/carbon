@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import FormFieldStyle, { FieldLineStyle } from './form-field.style';
 import Label from '../label';
@@ -6,6 +6,7 @@ import FieldHelp from '../field-help';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import tagComponent from '../../../utils/helpers/tags';
 import Logger from '../../../utils/logger/logger';
+import { TabContext } from '../../../components/tabs/__internal__/tab';
 
 let deprecatedWarnTriggered = false;
 
@@ -43,6 +44,16 @@ const FormField = ({
     // eslint-disable-next-line max-len
     Logger.deprecate('`styleOverride` that is used in the `FormField` component is deprecated and will soon be removed.');
   }
+
+  const context = useContext(TabContext);
+
+  useEffect(() => {
+    if (context && context.setError && context.setWarning) {
+      context.setError(id, !!error);
+      context.setWarning(id, !!warning);
+    }
+  }, [id, context, error, warning]);
+
   return (
     <FormFieldStyle { ...tagComponent(props['data-component'], props) } styleOverride={ styleOverride.root }>
       <FieldLineStyle inline={ labelInline }>

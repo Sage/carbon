@@ -1,21 +1,37 @@
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
 import TestRenderer from 'react-test-renderer';
-import { shallow } from 'enzyme';
-import 'jest-styled-components';
+import { mount } from 'enzyme';
 import Tab from './tab.component';
+import Textbox from '../../../../__experimental__/components/textbox';
 import StyledTab from './tab.style';
-import Textbox from '../../../__deprecated__/components/textbox';
-import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import { assertStyleMatch } from '../../../../__spec_helper__/test-utils';
 
+const updateErrors = jest.fn();
+const updateWarnings = jest.fn();
+const tabId = 'uniqueid1';
 function render(props) {
-  return shallow(
+  return mount(
     <Tab
-      title='Tab Title 1' tabId='uniqueid1'
+      title='Tab Title 1' tabId={ tabId }
       { ...props }
     >
       <p>TabContent 1</p>
       <p>TabContent 2</p>
+    </Tab>
+  );
+}
+
+function renderWithValidation(props) {
+  return mount(
+    <Tab
+      title='Tab Title 1' tabId={ tabId }
+      { ...props }
+    >
+      <Textbox
+        value='' onChange={ jest.fn() }
+        id={ props.id }
+        { ...props.validations }
+      />
     </Tab>
   );
 }
@@ -43,7 +59,7 @@ describe('Tab', () => {
   });
 
   it('renders its children correctly', () => {
-    expect(render().children()).toHaveLength(2);
+    expect(render().find(StyledTab).find('div').children()).toHaveLength(2);
   });
 
   it('contains custom className if passed as a prop', () => {
@@ -97,37 +113,21 @@ describe('Tab', () => {
   });
 
   describe('Tab validation', () => {
-    let instance;
-
-    beforeEach(() => {
-      instance = TestUtils.renderIntoDocument(
-        <Tab
-          title='Tab Title 1' tabId='uniqueid1'
-          id='uniqueid1'
-        >
-          <Textbox name='foo' />
-          <Textbox name='bar' />
-        </Tab>
-      );
-    });
-
-    describe('setValidity', () => {
+    describe('updateErrors', () => {
       it('calls the parent tab context with the new state', () => {
-        const spy = jasmine.createSpy('spy');
-        instance.context = { tabs: { changeValidity: spy } };
-        instance.setValidity(false);
-
-        expect(spy).toHaveBeenCalledWith(instance.props.id, false);
+        wrapper = renderWithValidation({
+          updateErrors, updateWarnings, id: 'foo', validations: { error: true }
+        });
+        expect(updateErrors).toHaveBeenCalledWith(tabId, { foo: true });
       });
     });
 
-    describe('setWarning', () => {
+    describe('updateWarnings', () => {
       it('calls the parent tab context with the new state', () => {
-        const spy = jasmine.createSpy('spy');
-        instance.context = { tabs: { changeWarning: spy } };
-        instance.setWarning(true);
-
-        expect(spy).toHaveBeenCalledWith(instance.props.id, true);
+        wrapper = renderWithValidation({
+          updateErrors, updateWarnings, id: 'foo', validations: { warning: true }
+        });
+        expect(updateWarnings).toHaveBeenCalledWith(tabId, { foo: true });
       });
     });
   });

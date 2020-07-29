@@ -1,8 +1,6 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import BaseTheme from '../../../style/themes/base';
-import { isDLS } from '../../../utils/helpers/style-helper';
-import TabTitleClassicStyle from './tab-title-classic.style';
+import BaseTheme from '../../../../style/themes/base';
 
 const StyledTabTitle = styled.li`
   background-color: transparent;
@@ -11,14 +9,9 @@ const StyledTabTitle = styled.li`
   display: inline-block;
   font-weight: bold;
   height: 100%;
-  ${({ theme }) => (isDLS(theme) ? css`
-    line-height: 20px;
-    margin: 0;
-    padding: 14px 16px 12px;
-  ` : css`
-    margin-left: 2px;
-    padding: 11px 15px 10px;
-  `)}
+  line-height: 20px;
+  margin: 0;
+  padding: 14px 16px 12px;
 
   &:first-child {
     margin-left: 0;
@@ -41,34 +34,33 @@ const StyledTabTitle = styled.li`
     
     &:focus {
       outline: none;
-    ${({ theme, position }) => (isDLS(theme) ? css`
-      position: relative;
-      &:after {
-        content: '';
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        ${position === 'top' && css`
-          bottom: -2px;
-          left: 0;
-          box-shadow: 
-            inset 2px 0 0 0 ${theme.colors.focus}, 
-            inset -2px 0 0 0 ${theme.colors.focus}, 
-            inset 0 2px 0 0 ${theme.colors.focus}, 
-            0 2px 0 0 ${theme.colors.focus}; `}
-        ${position === 'left' && css`
-          bottom: 0;
-          left: 2px; 
-          box-shadow: 
-            inset 2px 0 0 0 ${theme.colors.focus}, 
-            2px 0 0 0 ${theme.colors.focus}, 
-            inset 0 2px 0 0 ${theme.colors.focus}, 
-            inset 0 -2px 0 0 ${theme.colors.focus};
-        `}  
-      }
-    ` : css`
-      box-shadow: 0 0 6px ${theme.colors.focus};
-    `)} 
+      ${({ theme, position }) => css`
+        position: relative;
+        &:after {
+          content: '';
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          ${position === 'top' && css`
+            bottom: -2px;
+            left: 0;
+            box-shadow: 
+              inset 2px 0 0 0 ${theme.colors.focus}, 
+              inset -2px 0 0 0 ${theme.colors.focus}, 
+              inset 0 2px 0 0 ${theme.colors.focus}, 
+              0 2px 0 0 ${theme.colors.focus};
+          `}
+          ${position === 'left' && css`
+            bottom: 0;
+            left: 2px; 
+            box-shadow: 
+              inset 2px 0 0 0 ${theme.colors.focus}, 
+              2px 0 0 0 ${theme.colors.focus}, 
+              inset 0 2px 0 0 ${theme.colors.focus}, 
+              inset 0 -2px 0 0 ${theme.colors.focus};
+          `}  
+        }
+      `}
     }
 
     &:hover {
@@ -85,9 +77,6 @@ const StyledTabTitle = styled.li`
     display: block;
     height: auto;
     margin-left: 0px;
-    ${({ theme }) => (!isDLS(theme) && css`
-      margin-top: 2px;
-    `)}
 
     &:first-child {
       margin-top: 0;
@@ -108,24 +97,34 @@ const StyledTabTitle = styled.li`
       }
     `}
 
-    ${({ tabHasWarning }) => tabHasWarning && css`
-      border-right-color: ${({ theme }) => theme.colors.warning};
+    ${({ tabHasWarning, theme }) => tabHasWarning && css`
+      border-right-color: ${theme.colors.warning};
+      :hover {
+        border-right-color: ${theme.colors.warning};
+      }
     `}
 
-    ${({ tabHasError }) => tabHasError && css`
-      border-right-color: ${({ theme }) => theme.colors.error};
+    ${({ tabHasError, theme }) => tabHasError && css`
+      border-right-color: ${theme.colors.error};
+      :hover {
+        border-right-color: ${theme.colors.error};
+      }
     `}
   `}
 
-  ${({ tabHasWarning }) => tabHasWarning && css`
-    border-bottom-color: ${({ theme }) => theme.colors.warning};
+  ${({ tabHasWarning, theme }) => tabHasWarning && css`
+    border-bottom-color: ${theme.colors.warning};
+    :hover {
+      border-bottom-color: ${theme.colors.warning};
+    }
   `}
 
-  ${({ tabHasError }) => tabHasError && css`
-    border-bottom-color: ${({ theme }) => theme.colors.error};
+  ${({ tabHasError, theme }) => tabHasError && css`
+    border-bottom-color: ${theme.colors.error};
+    :hover {
+      border-bottom-color: ${theme.colors.error};
+    }
   `}
-
-  ${TabTitleClassicStyle}
 `;
 
 StyledTabTitle.propTypes = {

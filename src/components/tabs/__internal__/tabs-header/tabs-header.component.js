@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyledTabsHeader from './tabs-header.style';
-import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const TabsHeader = ({
-  align, children, position, role
+  align = 'left', children, position = 'top', role
 }) => {
   return (
     <StyledTabsHeader
@@ -17,13 +16,8 @@ const TabsHeader = ({
   );
 };
 
-TabsHeader.defaultProps = {
-  align: 'left',
-  position: 'top'
-};
-
 TabsHeader.propTypes = {
-  align: PropTypes.oneOf(OptionsHelper.alignBinary),
+  align: PropTypes.oneOf(['left', 'right']),
   children: PropTypes.node.isRequired,
   position: PropTypes.oneOf(['top', 'left']),
   role: PropTypes.string
