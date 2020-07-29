@@ -5,7 +5,7 @@ import { dlsThemeSelector } from '../../../.storybook/theme-selectors';
 import Toast from '.';
 
 export default {
-  title: 'Test/Toast',
+  title: 'Design System/Toast/Test',
   component: Toast,
   parameters: {
     themeSelector: dlsThemeSelector,

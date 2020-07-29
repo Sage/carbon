@@ -9,8 +9,11 @@ import StyledFormField from '../../__experimental__/components/form-field/form-f
 import baseTheme from '../../style/themes/base';
 
 const ConfigurableItemsButtonReset = styled(Button)`
-  padding-left: 0px;
-  padding-right: 0px;
+  &&& {
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-right: auto;
+  }
 `;
 
 const ConfigurableItemsWrapper = styled.ol`

@@ -25,36 +25,20 @@ exports[`Dialog when fixedBottom and stickyFormFooter are passed to the DialogSt
   outline: none;
 }
 
-.c0 .c2.isSticky {
+.c0 .c1.isSticky {
   margin-left: -35px;
   left: auto;
   position: fixed;
 }
 
-.c0 .c1 {
-  box-sizing: border-box;
-  -webkit-animation: form-buttons-animate-in 0.25s ease-out;
-  animation: form-buttons-animate-in 0.25s ease-out;
-  background-color: white;
-  bottom: 0;
-  left: auto;
-  margin-left: -35px;
-  box-shadow: 0 -4px 12px 0 rgba(0,0,0,0.05);
-  padding-bottom: 13px;
-  padding-left: 35px;
-  padding-right: 35px;
-  position: fixed;
-  z-index: 1000;
-}
-
-.c0 .c3 {
+.c0 .c2 {
   position: absolute;
   right: 33px;
   top: 32px;
   z-index: 1;
 }
 
-.c0 .c3:hover {
+.c0 .c2:hover {
   color: #255BC7;
 }
 

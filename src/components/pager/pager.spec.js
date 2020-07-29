@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Immutable from 'immutable';
+import { act } from 'react-dom/test-utils';
 import 'jest-styled-components';
 import { ThemeProvider } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
@@ -10,14 +10,15 @@ import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import baseTheme from '../../style/themes/base';
 import mintTheme from '../../style/themes/mint';
 import Pager from './pager.component';
-import Dropdown from '../../__deprecated__/components/dropdown';
+import Select from '../select/simple-select/simple-select.component';
+import SelectList from '../select/select-list/select-list.component';
 import { StyledPagerLinkStyles } from './pager.styles';
 import NumberInput from '../../__experimental__/components/number';
 
 jest.mock('../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
 
-const pageSizeSelectionOptions = Immutable.fromJS([
+const pageSizeSelectionOptions = ([
   { id: '10', name: 10 },
   { id: '25', name: 25 },
   { id: '50', name: 50 },
@@ -305,10 +306,13 @@ describe('Pager', () => {
       I18n.locale = locale;
     });
 
-    const getShow = wrapper => wrapper.find("div[data-element='page-select']").getDOMNode().parentElement.firstChild
+    const getShow = wrapper => wrapper.find(
+      "div[data-component='simple-select']"
+    ).getDOMNode().parentElement.firstChild
       .textContent;
-    const getRecords = wrapper => wrapper.find("div[data-element='page-select']").getDOMNode().parentElement.lastChild
-      .textContent;
+    const getRecords = wrapper => wrapper.find(
+      "div[data-component='simple-select']"
+    ).getDOMNode().parentElement.lastChild.textContent;
     const getTotalRecords = wrapper => wrapper.getDOMNode().lastChild.textContent;
 
     describe('default', () => {
@@ -382,8 +386,17 @@ describe('Pager', () => {
           },
           mount
         );
-        const dropdown = wrapper.find(Dropdown);
-        dropdown.instance().selectValue('25', '25');
+        const selectOptions = {
+          value: 25,
+          text: '25'
+        };
+
+        act(() => {
+          wrapper.find(Select).find('input').simulate('click');
+        });
+        wrapper.find(Select).update();
+        expect(wrapper.find(Select).find(SelectList).exists()).toBe(true);
+        wrapper.find(Select).find(SelectList).prop('onSelect')(selectOptions);
         expect(onPagination).toHaveBeenCalledWith(1, 25, 'page-select');
       });
     });

@@ -1,14 +1,14 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
-import Immutable from 'immutable';
 import PagerNavigation from './pager-navigation.component';
+import Option from '../select/option/option.component';
 import {
   StyledPagerContainer,
   StyledPagerSizeOptions,
   StyledPagerSummary,
   StyledPagerSizeOptionsInner,
-  StyledDropdown
+  StyledSelect
 } from './pager.styles';
 
 
@@ -104,12 +104,18 @@ const Pager = ({
 
   const sizeSelector = () => {
     return (
-      <StyledDropdown
-        options={ Immutable.fromJS(pageSizeSelectionOptions) }
+      <StyledSelect
         value={ currentPageSize }
         onChange={ (ev) => { handleOnPagination(ev); } }
         data-element='page-select'
-      />
+      >
+        { pageSizeSelectionOptions.map(sizeOption => (
+          <Option
+            text={ sizeOption.id }
+            value={ sizeOption.name }
+          />
+        ))}
+      </StyledSelect>
     );
   };
 

@@ -55,7 +55,17 @@ export const tooltipPreviewNoIframe = () => cy.get(TOOLTIP_PREVIEW);
 export const iconNoIframe = () => cy.get(ICON);
 export const getDataElementByValueNoIframe = element => cy.get(`[data-element="${element}"]`);
 export const commonDataElementInputPreviewNoIframe = () => cy.get(COMMMON_DATA_ELEMENT_INPUT);
+export const commonDataElementInputPreviewByPositionNoIFrame = position => cy.get(COMMMON_DATA_ELEMENT_INPUT)
+  .eq(position);
 export const getComponentNoIframe = component => cy.get(`[data-component="${component}"]`);
 export const getElementNoIframe = element => cy.get(`[data-element="${element}"]`).first();
 export const getElementNoIframeByName = element => cy.get(`[name="${element}"]`);
 export const commonButtonPreviewNoIframe = () => cy.get(STORY_ROOT).find('button');
+export const backgroundUILocatorNoIFrame = () => cy.get(BACKGROUND_UI_LOCATOR);
+export const closeIconButtonNoIFrame = () => cy.get(CLOSE_ICON_BUTTON);
+export const fieldHelpPreviewNoIFrame = () => cy.get(FIELD_HELP_PREVIEW).first();
+export const helpIconNoIFrame = () => cy.get(HELP_ICON_PREVIEW).first();
+export const fieldHelpPreviewByPositionNoIFrame = position => cy.get(FIELD_HELP_PREVIEW).eq(position);
+export const labelByPositionNoIFrame = position => cy.get(LABEL).eq(position);
+export const helpIconByPositionNoIFrame = position => cy.get(HELP_ICON_PREVIEW).eq(position);
+export const tooltipPreviewByPositionNoIFrame = position => cy.get(TOOLTIP_PREVIEW).eq(position);

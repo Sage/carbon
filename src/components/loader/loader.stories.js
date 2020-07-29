@@ -5,19 +5,13 @@ import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/them
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Loader from '.';
 import Button from '../button';
-import Spinner from '../../__deprecated__/components/spinner';
+
 import { notes, info } from './documentation';
-import { notesSpinner, infoSpinner } from '../../__deprecated__/components/spinner/documentation';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Loader.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
   /loader\.component(?!spec)/
-);
-
-Spinner.__docgenInfo = getDocGenInfo(
-  require('../../__deprecated__/components/spinner/docgenInfo.json'),
-  /spinner\.component(?!spec)/
 );
 
 const styles = {
@@ -58,28 +52,6 @@ function makeStory(name, themeSelector, disableChromatic = false) {
   return [name, component, metadata];
 }
 
-function makeLegacySpinnerStory(name, themeSelector, disableChromatic = false) {
-  const component = () => {
-    const type = select('as', OptionsHelper.colors, Spinner.defaultProps.as);
-    const size = select('size', OptionsHelper.sizesFull, Spinner.defaultProps.size);
-
-    return <Spinner as={ type } size={ size } />;
-  };
-
-  const metadata = {
-    themeSelector,
-    info: { text: infoSpinner },
-    notes: { markdown: notesSpinner },
-    chromatic: {
-      disable: disableChromatic
-    }
-  };
-
-  return [name, component, metadata];
-}
-
 storiesOf('Loader', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector, true))
-  .add(...makeLegacySpinnerStory('legacy spinner', dlsThemeSelector))
-  .add(...makeLegacySpinnerStory('legacy spinner classic', classicThemeSelector, true));
+  .add(...makeStory('classic', classicThemeSelector, true));

@@ -76,17 +76,6 @@ Feature: Dialog component
     Then closeIcon is not visible
 
   @positive
-  Scenario: Enable StickyFormFooter
-    When I check stickyFormFooter checkbox
-    Then stickyFormFooter is enabled
-
-  @positive
-  Scenario: Disable StickyFormFooter
-    Given I check stickyFormFooter checkbox
-    When I uncheck stickyFormFooter checkbox
-    Then stickyFormFooter is disabled
-
-  @positive
   Scenario: Enable background UI
     When I check enableBackgroundUI checkbox
     Then Background UI is enabled
@@ -144,9 +133,3 @@ Feature: Dialog component
     Given clear all actions in Actions Tab
     When I click closeIcon
     Then cancel action was called in Actions Tab
-
-  @positive
-  Scenario: Verify default story color
-    # commented because of BDD default scenario Given - When - Then
-    #  When I open component preview
-    Then footer buttons have color "rgb(0, 129, 93)" and has 2 px border

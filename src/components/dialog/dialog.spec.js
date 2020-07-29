@@ -15,7 +15,6 @@ import ElementResize from '../../utils/helpers/element-resize/element-resize';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import Form from '../form';
 import { StyledForm, StyledFormFooter } from '../form/form.style';
-import DeprecatedForm from '../../__deprecated__/components/form';
 import IconButton from '../icon-button';
 
 /* global jest */
@@ -38,7 +37,7 @@ describe('Dialog', () => {
       describe('when dialog is open', () => {
         it('centers the dialog', () => {
           instance = TestUtils.renderIntoDocument(
-            <Dialog open onCancel={ onCancel }><DeprecatedForm /></Dialog>
+            <Dialog open onCancel={ onCancel }><Form /></Dialog>
           );
           spyOn(instance, 'centerDialog');
           instance.componentDidMount();

@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Link from '../link';
-import Textbox from '../../__deprecated__/components/textbox';
+import Textbox from '../../__experimental__/components/textbox';
 
 import MenuListItem from './menu-list-item';
 import tagComponent from '../../utils/helpers/tags';
@@ -95,8 +95,9 @@ class MenuList extends React.Component {
           onChange={ this.onSearch }
           value={ this.state.filter || '' }
           autoFocus
-          icon='search'
+          inputIcon='search'
           placeholder={ this.props.filterPlaceholder }
+          size='small'
         />
       </MenuListItem>
     );

@@ -1,119 +1,105 @@
 Feature: Experimental Textbox multiple component
-  I want to change Experimental Textbox multiple component properties
-
-  Background: Open Experimental Textbox multiple component page
-    Given I open "Experimental Textbox" component page multiple
+  I want to check Experimental Textbox multiple component properties
 
   @positive
   Scenario Outline: Set placeholder to <placeholder>
-    When I set placeholder to <placeholder> word
+    When I open multiple "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
     Then Multiple Textbox placeholder is set to <placeholder>
     Examples:
-      | placeholder                  |
-      | mp150ú¿¡üßä                  |
-      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
+      | placeholder                  | nameOfObject                |
+      | mp150ú¿¡üßä                  | placeholderOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | placeholderSpecialCharacter |
 
   @positive
   Scenario: Check disabled checkbox for a Textbox multiple component
-    When I check disabled checkbox
+    When I open multiple "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "disabled" object name
     Then Textbox multiple component is disabled
 
   @positive
   Scenario: Uncheck disabled checkbox for a Textbox multiple component
-    When I check disabled checkbox
-      And I uncheck disabled checkbox
+    When I open multiple "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "disabledFalse" object name
     Then Textbox multiple component is not disabled
 
   @positive
   Scenario: Enable readOnly checkbox for a Textbox multiple component
-    When I check readOnly checkbox
+    When I open multiple "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "readOnly" object name
     Then Textbox multiple component is readOnly
 
   @positive
   Scenario: Disable readOnly checkbox for a Textbox multiple component
-    When I check readOnly checkbox
-      And I uncheck readOnly checkbox
+    When I open multiple "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "readOnlyFalse" object name
     Then Textbox multiple component is not readOnly
 
   @positive
   Scenario Outline: Set fieldHelp to <fieldHelp>
-    When I set fieldHelp to <fieldHelp> word
+    When I open multiple "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
     Then Multiple fieldHelp on preview is set to <fieldHelp>
     Examples:
-      | fieldHelp                    |
-      | mp150ú¿¡üßä                  |
-      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
+      | fieldHelp                    | nameOfObject              |
+      | mp150ú¿¡üßä                  | fieldHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | fieldHelpSpecialCharacter |
 
   @positive
   Scenario Outline: Set label to <label>
-    When I set label to <label> word
+    When I open multiple "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
     Then Multiple label is set to <label>
     Examples:
-      | label                        |
-      | mp150ú¿¡üßä                  |
-      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
+      | label                        | nameOfObject          |
+      | mp150ú¿¡üßä                  | labelOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelSpecialCharacter |
 
   @positive
   Scenario Outline: Set labelHelp to <labelHelp>
-    Given I set label to "label"
-      And I set labelHelp to <labelHelp> word
-    When I hover mouse onto "first" help icon
-      And I hover mouse onto "second" help icon
+    Given I open multiple "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
+    When I hover mouse onto "first" help icon in NoIFrame
+      And I hover mouse onto "second" help icon in NoIFrame
     Then Multiple tooltipPreview on preview is set to <labelHelp>
     Examples:
-      | labelHelp                    |
-      | mp150ú¿¡üßä                  |
-      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
+      | labelHelp                    | nameOfObject              |
+      | mp150ú¿¡üßä                  | labelHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelHelpSpecialCharacter |
 
   @positive
   Scenario: Enable labelInline checkbox for a Textbox multiple component
-    When I set label to "label"
-      And I check labelInline checkbox
+    When I open multiple "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "labelInline" object name
     Then Multiple Textbox component is labelInline
 
   @positive
-  Scenario: Enable and disable labelInline checkbox for a Textbox multiple component
-    When I set label to "label"
-      And I check labelInline checkbox
-      And I uncheck labelInline checkbox
+  Scenario: Disable labelInline checkbox for a Textbox multiple component
+    When I open multiple "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "labelInlineFalse" object name
     Then Multiple Textbox component is not labelInline
 
   @positive
   Scenario Outline: Set labelWidth to <labelWidth>
-    When I set label to "label"
-      And I check labelInline checkbox
-      And I set label width slider to <labelWidth>
+    When I open multiple "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
     Then Multiple label width is set to "<labelWidth>"
     Examples:
-      | labelWidth |
-      | 0          |
-      | 25         |
-      | 100        |
+      | labelWidth | nameOfObject  |
+      | 0          | labelWidth0   |
+      | 25         | labelWidth25  |
+      | 100        | labelWidth100 |
 
   @positive
   Scenario Outline: Set inputWidth to <inputWidth>
-    When I set label to "label"
-      And I check labelInline checkbox
-      And I set inputWidth slider to <inputWidth>
+    When I open multiple "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
     Then Multiple Textbox inputWidth is set to "<inputWidth>"
     Examples:
-      | inputWidth |
-      | 50         |
-      | 100        |
+      | inputWidth | nameOfObject  |
+      | 50         | inputWidth50  |
+      | 100        | inputWidth100 |
 
   @positive
   Scenario Outline: Set labelAlign to <labelAlign>
-    When I set label to "label"
-      And I check labelInline checkbox
-      And I select labelAlign to "<labelAlign>"
+    When I open multiple "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
     Then Multiple label Align on preview is "<labelAlign>"
     Examples:
-      | labelAlign |
-      | left       |
-      | right      |
+      | labelAlign | nameOfObject    |
+      | left       | labelAlignLeft  |
+      | right      | labelAlignRight |
 
   @positive
   Scenario Outline: Verify input of Textbox multiple component
+    Given I open "Experimental Textbox" component page multiple in NoIFrame
     When I type <input> into "first" Textbox
       And I type <input> into "second" Textbox
     Then Multiple textbox input on preview is set to <input>
@@ -124,11 +110,11 @@ Feature: Experimental Textbox multiple component
 
   @positive
   Scenario Outline: Set label size to <size>
-    When I select size to "<size>"
+    When I open multiple "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
     Then Multiple Textbox height is "<height>"
       And Multiple Textbox width is "<width>"
     Examples:
-      | size   | height | width  |
-      | small  | 28px   | 1043px |
-      | medium | 36px   | 1037px |
-      | large  | 44px   | 1033px |
+      | size   | height | width  | nameOfObject |
+      | small  | 28px   | 1263px | sizeSmall    |
+      | medium | 36px   | 1257px | sizeMedium   |
+      | large  | 44px   | 1253px | sizeLarge    |

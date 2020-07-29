@@ -2,7 +2,7 @@ Feature: Grid component
   I want to check Grid component properties
 
   Background: Open Grid component page
-    Given I open basic Test "Grid" component page in noIframe
+    Given I open "Design System Grid Test" component page "basic" in no iframe
 
   @positive
   Scenario Outline: Set viewport to default and check size of <podTitle>

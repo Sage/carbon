@@ -1,5 +1,9 @@
 import {
-  visitComponentUrlByTheme, visitComponentUrlByThemeKnobsStory, visitComponentUrlByThemeByStory, visitDesignSystemComponentUrlByThemeByStory,
+  visitComponentUrlByTheme,
+  visitComponentUrlByThemeKnobsStory,
+  visitComponentUrlByThemeByStory,
+  visitDesignSystemComponentUrlByThemeByStory,
+  visitComponentUrlByThemeByStoryDesignSystemTest,
 } from '../helper';
 import { getComponentNoIframe, getElementNoIframe } from '../../locators';
 import { buttonToggleComponent, linkComponent, loaderComponent } from '../../locators/themes';
@@ -12,8 +16,12 @@ When('I open {string} component with theme {string}', (componentName, themeName)
   visitComponentUrlByTheme(componentName, themeName);
 });
 
-When('I open Test {string} component with theme {string} knobs story', (componentName, themeName) => {
-  visitComponentUrlByThemeKnobsStory(componentName, themeName, '', 'test-');
+When('I open {word} page {string} component with theme {string}', (type, componentName, themeName) => {
+  visitComponentUrlByThemeByStoryDesignSystemTest(componentName, type, themeName);
+});
+
+When('I open {string} component with theme {string} knobs story', (componentName, themeName) => {
+  visitComponentUrlByThemeKnobsStory(componentName, themeName);
 });
 
 When('I open Icon component with theme {string}', (themeName) => {

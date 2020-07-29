@@ -13,17 +13,9 @@ Feature: Accessibility tests - Common list
       | alert     |
       | sidebar   |
 
-  @ignore
-  # ignored because of accessibility issues after
-  # changing state of components -> FE-2894
-  Scenario: Component Animated menu button default page
-    Given I open "Animated menu button" component page in noIFrame
-    When I open Animated Menu Button preview in noIFrame
-    Then "Animated menu button" component has no accessibility violations
-
   @accessibility
-  Scenario: Component button as sibling
-    When I open Test "button" component page as sibling in no iframe
+  Scenario: Component button as a sibling
+    When I open "Design System Button Test" component page "as a sibling" in no iframe
     Then "button" component has no accessibility violations
 
   @ignore
@@ -53,10 +45,8 @@ Feature: Accessibility tests - Common list
       | card                             |
       | configurable-items               |
       | content                          |
-      | create                           |
       | detail                           |
       | draggableContext                 |
-      | filter component                 |
       | heading                          |
       | help                             |
       | i18ncomponent                    |
@@ -85,11 +75,6 @@ Feature: Accessibility tests - Common list
       | tabs                             |
       | tile                             |
       | tooltip                          |
-
-  @accessibility
-  Scenario: Component Loader legacy spinner
-    When I open "Loader" component page legacy spinner in noIFrame
-    Then "Loader legacy spinner" component has no accessibility violations
 
   @accessibility
   Scenario: Component Menu dark story

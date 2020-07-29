@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import 'jest-styled-components';
 import SidebarHeader from './sidebar-header.component';
 import SidebarHeaderStyle from './sidebar-header.style';
-import Textbox from '../../../__deprecated__/components/textbox';
+import Textbox from '../../../__experimental__/components/textbox';
 import baseTheme from '../../../style/themes/base';
 import classicTheme from '../../../style/themes/classic';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';

@@ -2,7 +2,7 @@ Feature: Toast component
   I want to test Toast component properties
 
   Background: Open Toast component default page
-    Given I open basic Test "Toast" component page
+    Given I open "Design System Toast Test" component page "basic"
 
   @positive
   Scenario: Verify the click action in Actions Tab
