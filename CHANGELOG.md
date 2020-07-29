@@ -1,3 +1,10 @@
+## [35.3.0](https://github.com/Sage/carbon/compare/v35.2.0...v35.3.0) (2020-07-29)
+
+
+### Features
+
+* **hr:** add new hr component ([f57fc38](https://github.com/Sage/carbon/commit/f57fc38e6a5f181c9fa8be7a1202f70467a2d5fa))
+
 ## [35.2.0](https://github.com/Sage/carbon/compare/v35.1.1...v35.2.0) (2020-07-23)
 
 
