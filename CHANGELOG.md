@@ -1,3 +1,79 @@
+## [36.0.0](https://github.com/Sage/carbon/compare/v35.4.0...v36.0.0) (2020-07-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* The with-validation higher order component and custom validators have been removed.
+To update please check our validations guide in docs/validations
+* The deprecated form component has been
+removed. To upgrade please use the new form component.
+* The experimental form component has been
+removed. To upgrade please use the new form component.
+* The deprecated input-label decorator has been removed
+* The deprecated input-validation decorator has been removed
+* The deprecated input decorator has been removed
+* The deprecated input-decorator-bridge has been removed.
+* The deprecated dropdown component has been removed. To upgrade please use the select component.
+* The deprecated spinner component has been
+removed. To upgrade please use the loader component.
+* The deprecated animated-menu-button component has been removed.
+* Deprecated Textbox has been removed. To upgrade please use the experimental Textbox component.
+* The deprecated Filter component has been removed
+* **show-edit-pod:** afterFormValidation, beforeFormValidation and validateOnMount props on ShowEditPod has been removed, onSave callback has been added which is triggered by clicking on save button
+* The deprecated create component has been removed.
+To upgrade please use the Button component. [There is codemod to help with this upgrade.](
+https://github.com/Sage/carbon-codemod/tree/master/transforms/deprecate-create)
+
+Fixes FE-1921, fixes FE-2875
+* The deprecated dropdown-filter component has been removed.
+* The deprecated dropdown-filter-ajax component has been removed.
+
+Fixes FE-1921
+* The deprecated date component has been removed. To
+upgrade please use the experimental date component.
+
+Fixes FE-1921
+* The deprecated date-range component has been removed. To
+upgrade please use the experimental date-range component.
+
+Fixes FE-1921
+* The deprecated fieldset component has been removed. To
+upgrade please use the experimental fieldset component.
+
+Fixes FE-1921
+* The deprecated radio-button component has been removed.
+To upgrade please use the experimental radio-button component.
+
+Fixes FE-1921
+* The deprecated simple-color-picker component has been
+removed. To upgrade please use the experimental simple-color-picker component.
+
+Fixes FE-1921
+
+### Miscellaneous Chores
+
+* remove custom validators and with-validation hoc ([ee37d49](https://github.com/Sage/carbon/commit/ee37d4955b4ab757b7220eeb9a911a8ca7cc00a9))
+* remove deprecated animated-menu-button component ([8332008](https://github.com/Sage/carbon/commit/8332008a811d02487c7c41ba548d009cecb7de3e))
+* remove deprecated create component ([6801af4](https://github.com/Sage/carbon/commit/6801af4655647e4b90860b4fea68de842aae2508))
+* remove deprecated date component ([e32dbbf](https://github.com/Sage/carbon/commit/e32dbbf21b7e47480aa9d1ed1b2d2d82e14540af))
+* remove deprecated date-range component ([f7e3d20](https://github.com/Sage/carbon/commit/f7e3d20bda2eb7064811e1c60a098f170384b5b7))
+* remove deprecated dropdown component ([b0ba9be](https://github.com/Sage/carbon/commit/b0ba9be1d8fe66758a1bb652b06240efe75bb9b7))
+* remove deprecated dropdown-filter component ([a7d0a5c](https://github.com/Sage/carbon/commit/a7d0a5ceb9d11396d7aa3169647468c7db512e44)), closes [#2913](https://github.com/Sage/carbon/issues/2913)
+* remove deprecated dropdown-filter-ajax component ([a97082b](https://github.com/Sage/carbon/commit/a97082b1683ee43578fc6eef650c413bf7f42e8e))
+* remove deprecated fieldset component ([b43c9f5](https://github.com/Sage/carbon/commit/b43c9f5fc9c1292a76e9e503068eca1ae60ad69b))
+* remove deprecated filter component ([ced84b7](https://github.com/Sage/carbon/commit/ced84b759826993c63de1a3aa36aa5db0d5ff18c))
+* remove deprecated form component ([9b2f62f](https://github.com/Sage/carbon/commit/9b2f62fb377ddbceb54d6666deeb229e5129d824))
+* remove deprecated input decorator ([e5f5c9e](https://github.com/Sage/carbon/commit/e5f5c9e780183c7e3a7b700aa575676c53e9f94b))
+* remove deprecated input-decorator-bridge ([fc9e19b](https://github.com/Sage/carbon/commit/fc9e19bb08228d361c52c252b1e151f45793e700))
+* remove deprecated input-label decorator ([8bc6963](https://github.com/Sage/carbon/commit/8bc69631c69c190e112f4b63a5c78289b9058088))
+* remove deprecated input-validation decorator ([a63b192](https://github.com/Sage/carbon/commit/a63b19273436931c772b719a259a3ef30aad62b2))
+* remove deprecated radio-button component ([1b380cd](https://github.com/Sage/carbon/commit/1b380cd496cff2f17a5437144e6505209c928966))
+* remove deprecated simple-color-picker component ([f0360f9](https://github.com/Sage/carbon/commit/f0360f937b2247fa14f0f910fb37ce155220c707))
+* remove deprecated spinner component ([4806a2a](https://github.com/Sage/carbon/commit/4806a2a8194907a8cd416a0eb1ab1af5df5ec89a))
+* remove deprecated textbox ([d438355](https://github.com/Sage/carbon/commit/d43835524046e4ac37d1ba2c5e3a207499fb0594))
+* remove experimental form component ([d1b7f4f](https://github.com/Sage/carbon/commit/d1b7f4f80eb1326e6d716e6509e53905a1fa26c9))
+* **show-edit-pod:** replace deprecated Form component ([9cb9faa](https://github.com/Sage/carbon/commit/9cb9faa001689d857b30ed1d397f0a6db8354221))
+
 ## [35.4.0](https://github.com/Sage/carbon/compare/v35.3.0...v35.4.0) (2020-07-29)
 
 
