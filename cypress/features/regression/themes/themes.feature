@@ -106,7 +106,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Tabs component theme to <theme>
-    When I open "tabs" component with theme "<theme>"
+    When I open test_basic page "Tabs" component with theme "<theme>"
     Then "select-tab" element css "border-bottom-color" is set to "<theme>" common
     Examples:
       | theme  |

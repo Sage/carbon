@@ -1,3 +1,10 @@
+## [35.4.0](https://github.com/Sage/carbon/compare/v35.3.0...v35.4.0) (2020-07-29)
+
+
+### Features
+
+* **tabs, tab:** make components functional use new context api and ([e0bb281](https://github.com/Sage/carbon/commit/e0bb281c6f3f7b19bf1093dd0afec45d8b563a19))
+
 ## [35.3.0](https://github.com/Sage/carbon/compare/v35.2.0...v35.3.0) (2020-07-29)
 
 
