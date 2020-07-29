@@ -1,11 +1,4 @@
 {
-  "src/components/validations/form-with-validations.spec.js": [
-    {
-      "description": "",
-      "displayName": "MockComponent",
-      "methods": []
-    }
-  ],
   "src/components/validations/validation-icon.component.js": [
     {
       "description": "",
@@ -19,23 +12,131 @@
             "value": "OptionsHelper.validationTypes"
           },
           "required": false,
-          "description": ""
+          "description": "A string to represent the type of validation"
         },
-        "message": {
+        "size": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.sizesRestricted"
+          },
+          "required": false,
+          "description": "A small string to indicate the size of the icon"
+        },
+        "iconId": {
           "type": {
             "name": "string"
           },
           "required": false,
-          "description": ""
+          "description": "The unique id of the component (used with aria-describedby for accessibility)"
+        },
+        "tooltipMessage": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A message that the ValidationIcon component will display"
+        },
+        "tooltipPosition": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Define position of the tooltip",
+          "defaultValue": {
+            "value": "'right'",
+            "computed": false
+          }
+        },
+        "theme": {
+          "type": {
+            "name": "object"
+          },
+          "required": false,
+          "description": "Properties related to the theme",
+          "defaultValue": {
+            "value": "baseTheme",
+            "computed": true
+          }
+        },
+        "onClick": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "A boolean to indicate if the icon is part of an input"
+        },
+        "isPartOfInput": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "An onClick handler"
+        },
+        "tabIndex": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Overrides the default tabindex of the component",
+          "defaultValue": {
+            "value": "-1",
+            "computed": false
+          }
+        },
+        "isFocused": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "A boolean received from IconWrapper"
+        },
+        "error": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Status of error validations"
+        },
+        "warning": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Status of warnings"
+        },
+        "info": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "bool"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Status of info"
         }
       }
-    }
-  ],
-  "src/components/validations/with-validation.spec.js": [
-    {
-      "description": "",
-      "displayName": "MockComponent",
-      "methods": []
     }
   ]
 }
