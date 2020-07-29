@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Browser from '../../utils/helpers/browser';
 import Modal from '../modal';
 import Heading from '../heading';
-import Form from '../../__deprecated__/components/form';
+
 import ElementResize from '../../utils/helpers/element-resize';
 import {
   DialogStyle,
@@ -180,18 +180,6 @@ class Dialog extends Modal {
     return null;
   }
 
-  renderChildren() {
-    return React.Children.map(this.props.children, (child) => {
-      if (child && child.type === Form) {
-        return React.cloneElement(child, {
-          fixedBottom: this.appliedFixedBottom
-        });
-      }
-
-      return child;
-    });
-  }
-
   get modalHTML() {
     let { height } = this.props;
 
@@ -205,7 +193,6 @@ class Dialog extends Modal {
       },
       size: this.props.size,
       fixedBottom: this.appliedFixedBottom,
-      stickyFormFooter: this.props.stickyFormFooter,
       height: this.props.height,
       theme: this.props.theme
     };
@@ -239,7 +226,7 @@ class Dialog extends Modal {
             ref={ (innerContent) => { this._innerContent = innerContent; } }
             height={ this.props.height }
           >
-            {this.renderChildren()}
+            {this.props.children}
             {this.additionalContent()}
           </DialogInnerContentStyle>
         </DialogContentStyle>
@@ -264,7 +251,6 @@ Dialog.propTypes = {
   size: PropTypes.string,
   /** Determines if the close icon is shown */
   showCloseIcon: PropTypes.bool,
-  stickyFormFooter: PropTypes.bool,
   /** function runs when user click close button */
   onCancel: PropTypes.func,
   /* Function or reference to first element to focus */

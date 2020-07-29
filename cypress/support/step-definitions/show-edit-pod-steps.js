@@ -4,10 +4,8 @@ import {
   showEditPodCollapsibleInnerContent, showEditPodFooter, showEditPodComponent,
 } from '../../locators/show-edit-pod';
 import { icon } from '../../locators';
+import { positionOfElement } from '../helper';
 
-const FIRST_DIV = 0;
-const SECOND_DIV = 1;
-const THIRD_DIV = 2;
 const INNER_CONTENT_TITLE = 'title';
 const INNER_CONTENT_BODY = 'body';
 
@@ -36,7 +34,7 @@ When('Edit icon has color {string}', (color) => {
 });
 
 Then('Show Edit Pod component has border {string} color', (color) => {
-  showEditPodComponent().find('div').eq(FIRST_DIV).should('have.css', 'border-bottom-color', color)
+  showEditPodComponent().find('div').eq(positionOfElement('first')).should('have.css', 'border-bottom-color', color)
     .and('have.css', 'border-left-color', color)
     .and('have.css', 'border-right-color', color)
     .and('have.css', 'border-top-color', color);
@@ -74,14 +72,14 @@ Then('Show Edit Pod component has no saving property', () => {
 });
 
 Then('Show Edit Pod background-color is set to {string}', (color) => {
-  showEditPodComponent().find('div').eq(FIRST_DIV).should('have.css', 'background-color', color);
+  showEditPodComponent().find('div').eq(positionOfElement('first')).should('have.css', 'background-color', color);
 });
 
 Then('Show Edit Pod buttons are aligned to {string}', (position) => {
   if (position === 'left') {
-    showEditPodFooter().first().should('have.text', 'Save');
-  } else {
-    showEditPodFooter().first().should('have.text', 'Cancel');
+    showEditPodFooter().parent().should('not.have.css', '-webkit-box-pack', 'end');
+  } else if (position === 'right') {
+    showEditPodFooter().parent().should('have.css', '-webkit-box-pack', 'end');
   }
 });
 
@@ -95,10 +93,10 @@ When('I click cancel button', () => {
 
 Then('Show Edit Pod component has proper content inside itself', () => {
   showEditPodTitle().should('have.text', 'Person');
-  showEditPodCollapsibleInnerContent(INNER_CONTENT_TITLE, FIRST_DIV).should('have.text', 'First Name');
-  showEditPodCollapsibleInnerContent(INNER_CONTENT_BODY, FIRST_DIV).should('have.text', 'Alan');
-  showEditPodCollapsibleInnerContent(INNER_CONTENT_TITLE, SECOND_DIV).should('have.text', 'Last Name');
-  showEditPodCollapsibleInnerContent(INNER_CONTENT_BODY, SECOND_DIV).should('have.text', 'Smith');
-  showEditPodCollapsibleInnerContent(INNER_CONTENT_TITLE, THIRD_DIV).should('have.text', 'Telephone');
-  showEditPodCollapsibleInnerContent(INNER_CONTENT_BODY, THIRD_DIV).should('have.text', '000 000 0000');
+  showEditPodCollapsibleInnerContent(INNER_CONTENT_TITLE, positionOfElement('first')).should('have.text', 'First Name');
+  showEditPodCollapsibleInnerContent(INNER_CONTENT_BODY, positionOfElement('first')).should('have.text', 'Alan');
+  showEditPodCollapsibleInnerContent(INNER_CONTENT_TITLE, positionOfElement('second')).should('have.text', 'Last Name');
+  showEditPodCollapsibleInnerContent(INNER_CONTENT_BODY, positionOfElement('second')).should('have.text', 'Smith');
+  showEditPodCollapsibleInnerContent(INNER_CONTENT_TITLE, positionOfElement('third')).should('have.text', 'Telephone');
+  showEditPodCollapsibleInnerContent(INNER_CONTENT_BODY, positionOfElement('third')).should('have.text', '000 000 0000');
 });

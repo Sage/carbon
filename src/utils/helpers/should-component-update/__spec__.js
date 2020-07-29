@@ -1,6 +1,5 @@
 import shouldComponentUpdate from './should-component-update';
 import Immutable from 'immutable';
-import PresenceValidator from './../../validations/presence';
 import { cloneDeep } from 'lodash';
 
 describe('shouldComponentUpdate', () => {
@@ -42,41 +41,6 @@ describe('shouldComponentUpdate', () => {
         nextProps = cloneDeep(instance.props);
         nextState = cloneDeep(instance.state);
         nextState.foo = "not foo";
-        expect(shouldComponentUpdate(instance, nextProps, nextState)).toBeTruthy();
-      });
-    });
-  });
-
-  describe('objects with validations', () => {
-    beforeEach(() => {
-      instance = {
-        props: {
-          foo: "foo",
-          bar: "bar",
-          validations: [new PresenceValidator()]
-        },
-        state: {
-          foo: "foo",
-          bar: "bar"
-        }
-      };
-    });
-
-    describe('two object which are the same but contain validations', () => {
-      it('comparison to return false', () => {
-        nextProps = cloneDeep(instance.props);
-        nextState = cloneDeep(instance.state);
-        nextProps.validations = [new PresenceValidator()];
-        expect(shouldComponentUpdate(instance, nextProps, nextState)).toBeFalsy();
-      });
-    });
-
-    describe('two object which are different but contain validations', () => {
-      it('comparison to return true', () => {
-        nextProps = cloneDeep(instance.props);
-        nextState = cloneDeep(instance.state);
-        nextProps.validations = [new PresenceValidator()];
-        nextProps.foo = "not foo";
         expect(shouldComponentUpdate(instance, nextProps, nextState)).toBeTruthy();
       });
     });

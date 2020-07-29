@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { StyledFormFooter } from '../../__deprecated__/components/form/form.style.js';
+import { StyledFormFooter } from '../form/form.style.js';
 import { StyledEditAction } from '../pod/pod.style.js';
 import Pod from '../pod';
 import Link from '../link';

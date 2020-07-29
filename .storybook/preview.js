@@ -9,6 +9,7 @@ import { withThemeSelector } from './theme-selector'
 import { addParameters } from '@storybook/react';
 import { configureActions } from '@storybook/addon-actions';
 import sageTheme from './sageTheme';
+import "../src/utils/css";
 
 // Temporary fix for issue mentioned in FE-2565 ticket
 // Should be solved by the storybook team in foreseeable future
