@@ -36,8 +36,8 @@ export function visitComponentUrlWithParameters(component, story, sufix = '', pr
   cy.fixture(`${path}/${json}`).then(($json) => {
     const el = $json[nameOfObject];
     let url = '';
-    for (var prop in el) {
-        url += `&knob-${prop}=${encodeURIComponent(el[prop])}`;
+    for (const prop in el) {
+      url += `&knob-${prop}=${encodeURIComponent(el[prop])}`;
     }
     cy.visit(`${prepareUrl(component, story, true, prefix)}${url}`);
   });
@@ -45,6 +45,10 @@ export function visitComponentUrlWithParameters(component, story, sufix = '', pr
 
 export function visitComponentUrlByThemeByStory(component, story, theme, sufix = '', prefix = '') {
   cy.visit(`${prepareUrl(component, story, true, prefix)}&theme=${theme}${sufix}`);
+}
+
+export function visitComponentUrlByThemeByStoryDesignSystemTest(component, story, theme, sufix = '', prefix = '') {
+  cy.visit(`${prepareUrl(component, story, true, 'design-system-', prefix)}&theme=${theme}${sufix}`);
 }
 
 export function visitDesignSystemComponentUrlByThemeByStory(component, prefix, story, theme, sufix = '') {
