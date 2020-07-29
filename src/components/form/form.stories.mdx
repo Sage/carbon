@@ -43,22 +43,61 @@ const MyComponent = () => (
 ### With sticky footer
 When `stickyFooter` prop is set as true, footer becomes stickied to the bottom of the screen when necessary - this also works in `Dialog` and `DialogFullScreen`
 
-<Story name="Basic with sticky footer">
-  <Form
-    onSubmit={ () => console.log('submit')}
-    leftSideButtons={ <Button onClick={ () => console.log('cancel') }>Cancel</Button> }
-    saveButton={ <Button buttonType='primary' type="submit">Save</Button> }
-    stickyFooter
-  >
-    <Textbox label="Textbox" />
-    <Textbox label="Textbox" />
-    <Textbox label="Textbox" />
-    <Textbox label="Textbox" />
-    <Textbox label="Textbox" />
-    <Textbox label="Textbox" />
-    <Textbox label="Textbox" />
-  </Form>
-</Story> 
+<Preview>
+  <Story name="Basic with sticky footer">
+    <Form
+      onSubmit={ () => console.log('submit')}
+      leftSideButtons={ <Button onClick={ () => console.log('cancel') }>Cancel</Button> }
+      saveButton={ <Button buttonType='primary' type="submit">Save</Button> }
+      stickyFooter
+    >
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+    </Form>
+  </Story> 
+</Preview>
+
+### With different spacing
+When `fieldSpacing` prop is given a value, the vertical spacing between the form fields is changed (margin bottom on each field), the value of the prop multiplied by the base theme `8px` spacing value. The default is value `3` which is therefore `24px`. This can be overriden on a specific field if needed.
+
+<Preview>
+  <Story name="With different spacing">
+    <Form
+      onSubmit={ () => console.log('submit')}
+      leftSideButtons={ <Button onClick={ () => console.log('cancel') }>Cancel</Button> }
+      saveButton={ <Button buttonType='primary' type="submit">Save</Button> }
+      fieldSpacing={5}
+    >
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+    </Form>
+  </Story> 
+</Preview>
+
+### Override spacing on one field
+A child component (which uses `FormField`) can be given a `marginBottom` prop which overrides the bottom margin for that particular field. This uses the same base theme `8px` multiplier as the Form `fieldSpacing` prop. 
+
+<Preview>
+  <Story name="Override field spacing">
+    <Form
+      onSubmit={ () => console.log('submit')}
+      leftSideButtons={ <Button onClick={ () => console.log('cancel') }>Cancel</Button> }
+      saveButton={ <Button buttonType='primary' type="submit">Save</Button> }
+    >
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" marginBottom={7} />
+      <Textbox label="Textbox" />
+    </Form>
+  </Story> 
+</Preview>
 
 ### Validations
 When either `errorCount` or `warningCount` or both are provided, summary with the number of errors and/or warnings is rendered wrapping the save button.

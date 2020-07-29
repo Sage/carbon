@@ -8,7 +8,7 @@ import StyledHelpIcon from '../../../components/help/help.style';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 import { isClassic } from '../../../utils/helpers/style-helper';
 
-const LabelStyle = styled.label`
+const StyledLabel = styled.label`
   color: ${({ theme }) => theme.text.color};
   display: block;
   font-weight: 600;
@@ -20,14 +20,14 @@ const LabelStyle = styled.label`
   }
 
   ${({
-    align, inline, inputSize, width
+    align, inline, inputSize, rightSpacing, width, theme
   }) => inline && css`
     box-sizing: border-box;
     padding-bottom: 0;
     padding-top: ${sizes[inputSize].verticalPadding};
-    padding-right: ${sizes[inputSize].horizontalPadding};
+    padding-right: ${rightSpacing * theme.spacing}px;
     text-align: ${align};
-    width: ${width === 0 ? LabelStyle.defaultProps.width : width}%;
+    width: ${width === 0 ? StyledLabel.defaultProps.width : width}%;
   `}
 
   ${({ disabled, theme }) => disabled && css`
@@ -77,20 +77,21 @@ const LabelStyle = styled.label`
   ${({ styleOverride }) => styleOverride};
 `;
 
-LabelStyle.defaultProps = {
+StyledLabel.defaultProps = {
   align: 'left',
   inputSize: 'medium',
   theme: BaseTheme,
   width: 30
 };
 
-LabelStyle.propTypes = {
+StyledLabel.propTypes = {
   align: PropTypes.oneOf(OptionsHelper.alignBinary),
   inline: PropTypes.bool,
   inputSize: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   width: PropTypes.number,
   readOnly: PropTypes.bool,
+  rightSpacing: PropTypes.number,
   styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 };
 
-export default LabelStyle;
+export default StyledLabel;

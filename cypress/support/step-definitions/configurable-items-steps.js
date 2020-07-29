@@ -19,6 +19,6 @@ Then('Configurable Items {string} is dragged to {int}', (record, destinationId) 
 Then('Grouped character component label Inline is enabled', () => {
   label().should('have.css', 'box-sizing', 'border-box')
     .and('have.css', 'padding-bottom', '0px')
-    .and('have.css', 'padding-right', '11px')
+    .and('have.css', 'padding-right', '16px')
     .and('have.css', 'text-align', 'left');
 });

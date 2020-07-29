@@ -97,7 +97,6 @@ Feature: Experimental Textbox component
     Then Textbox inputWidth is set to "<inputWidth>"
     Examples:
       | inputWidth |
-      | 0          |
       | 50         |
       | 100        |
 

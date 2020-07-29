@@ -5,6 +5,10 @@ exports[`FormField classic theme adds custom margin top 1`] = `
   margin-top: 16px;
 }
 
+.c3 + .c0 {
+  margin-top: 16px;
+}
+
 .c1 + .c0 {
   margin-top: 10px;
 }
@@ -20,6 +24,10 @@ exports[`FormField classic theme when inline renders the FieldHelp component bel
 }
 
 .c2 + .c0 {
+  margin-top: 16px;
+}
+
+.c3 + .c0 {
   margin-top: 10px;
 }
 
@@ -57,6 +65,7 @@ exports[`FormField with a label renders the label component above the childen 1`
     help="Help me!"
     inline={true}
     inputSize="small"
+    rightSpacing={2}
     width={20}
   >
     Name
@@ -93,4 +102,32 @@ Array [
     Help me!
   </FieldHelp>,
 ]
+`;
+
+exports[`FormField with marginBottom prop set should set the correct bottom margin 1`] = `
+.c3 + .c0 {
+  margin-top: 16px;
+}
+
+.c1 + .c0 {
+  margin-top: 16px;
+}
+
+.c1.c1.c1 {
+  margin-bottom: 40px;
+}
+
+.c2 {
+  display: block;
+}
+
+<div
+  className="c0 c1"
+>
+  <div
+    className="c2"
+  >
+    <input />
+  </div>
+</div>
 `;

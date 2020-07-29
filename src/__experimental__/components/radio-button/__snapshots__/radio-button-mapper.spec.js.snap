@@ -7,7 +7,10 @@ Array [
 }
 
 .c5 {
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .c9 {
@@ -156,6 +159,7 @@ Array [
   -ms-flex: 1 1 calc(100% - 44px);
   flex: 1 1 calc(100% - 44px);
   padding-left: 0;
+  padding-right: 0;
 }
 
 .c0 .c8:checked + .c10 circle {
@@ -229,7 +233,10 @@ Array [
 }
 
 .c5 {
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .c9 {
@@ -378,6 +385,7 @@ Array [
   -ms-flex: 1 1 calc(100% - 44px);
   flex: 1 1 calc(100% - 44px);
   padding-left: 0;
+  padding-right: 0;
 }
 
 .c0 .c8:checked + .c10 circle {

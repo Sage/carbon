@@ -60,6 +60,8 @@ Checkbox.propTypes = {
   label: PropTypes.string,
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
   labelAlign: PropTypes.string,
+  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
+  labelSpacing: PropTypes.oneOf([1, 2]),
   /** Sets percentage-based label width */
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Accepts a callback function which can be used to update parent state on change */
@@ -90,7 +92,9 @@ Checkbox.propTypes = {
   /** Allows component to be focused on page load */
   autoFocus: PropTypes.bool,
   /** The content for the help tooltip, to appear next to the Label */
-  labelHelp: PropTypes.node
+  labelHelp: PropTypes.node,
+  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
+  marginBottom: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7])
 };
 
 Checkbox.defaultProps = {

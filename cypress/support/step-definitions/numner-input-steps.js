@@ -49,7 +49,7 @@ Then('{word} input component size is set to {string} and has min-height set to {
 Then('NumberInput component labelInline is enabled', () => {
   label().should('have.css', 'box-sizing', 'border-box')
     .and('have.css', 'padding-bottom', '0px')
-    .and('have.css', 'padding-right', '11px')
+    .and('have.css', 'padding-right', '16px')
     .and('have.css', 'text-align', 'left');
 });
 
