@@ -175,6 +175,8 @@ export type IconTypes =
 
 export type AlignBinaryType = 'left' | 'right';
 
+export type FormFieldSpacing = 0 | 1 | 2 | 3 | 4 | 5 | 7;
+
 export type SizesType = 'small' | 'large';
 
 export type ThemesBinary = 'primary' | 'secondary';
