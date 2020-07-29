@@ -1,47 +1,42 @@
-Feature: Decimal component
-  I want to change Decimal component properties
+Feature: Decimal component - precision
+  I want to check Decimal component precision propertiy
 
-  Background: Open Decimal component page
-    Given I open "Experimental-Decimal-Input" component page
-
- @positive
-  Scenario Outline: Check Decimal component input field with precision <precision> and input <labelInput>
-    When I set input precision slider to <precision>
-      And I wait 500
-      And I set Decimal input to <labelInput>
-    Then input precision slider is set to <precision>
-      And Decimal Input is set to <fieldHelpOutput>
+  @positive
+  Scenario Outline: Check Decimal component input field with <nameOfObject> and input <labelInput>
+    Given I open default "Experimental-Decimal-Input" component in noIFrame with "decimal" json from "experimental" using "<nameOfObject>" object name
+    When I set Decimal input to <labelInput>
+    Then Decimal Input is set to <fieldHelpOutput>
     Examples:
-      | labelInput        | precision | fieldHelpOutput   |
-      | 150               |  0        | 150               |
-      | 1234567890.5      |  1        | 1234567890.5      |
-      | 0.12              |  2        | 0.12              |
-      | 0.123             |  3        | 0.123             |
-      | 111.9090          |  4        | 111.9090          |
-      | 1.00001           |  5        | 1.00001           |
-      | 1.000075          |  6        | 1.000075          |
-      | 1553.1400013      |  7        | 1553.1400013      |
-      | 150.90909090      |  8        | 150.90909090      |
-      | 1234.517567891    |  9        | 1234.517567891    |
-      | 1.0000000001      |  10       | 1.0000000001      |
-      | 1.00000000012     |  11       | 1.00000000012     |
-      | 1234.517567891111 |  12       | 1234.517567891111 |
-      | 7.5175678911113   |  13       | 7.5175678911113   |
-      | 17.51756789111139 |  14       | 17.51756789111139 |
-      | 9.517567891111398 |  15       | 9.517567891111398 |
-      | 17.517567891111390|  15       | 17.51756789111139 |
-      | 150.091           |  0        | 150               |
-      | 0.12114           |  2        | 0.12              |
-      | 0.1234            |  3        | 0.123             |
-      | 111.90909090      |  4        | 111.9090          |
-      | 1.000090000000001 |  5        | 1.00009           |
-      | 1.000077000000015 |  6        | 1.000077          |
-      | 1553.1400110      |  7        | 1553.140011       |
-      | 150.9090909011    |  8        | 150.90909090      |
-      | 1234.51756789199  |  9        | 1234.517567891    |
-      | 1.00000000011445  |  10       | 1.0000000001      |
-      | 1.000000000129999 |  11       | 1.00000000012     |
-      | 1234.5175678911199|  12       | 1234.517567891119 |
-      | 7.5175678911      |  13       | 7.5175678911      |
-      | 1.517567891111399 |  14       | 1.51756789111139  |
-      | 9.5175678911113981|  15       | 9.517567891111398 |
+      | labelInput         | nameOfObject | fieldHelpOutput   |
+      | 150                | precision0   | 150               |
+      | 1234567890.5       | precision1   | 1234567890.5      |
+      | 0.12               | precision2   | 0.12              |
+      | 0.123              | precision3   | 0.123             |
+      | 111.9090           | precision4   | 111.9090          |
+      | 1.00001            | precision5   | 1.00001           |
+      | 1.000075           | precision6   | 1.000075          |
+      | 1553.1400013       | precision7   | 1553.1400013      |
+      | 150.90909090       | precision8   | 150.90909090      |
+      | 1234.517567891     | precision9   | 1234.517567891    |
+      | 1.0000000001       | precision10  | 1.0000000001      |
+      | 1.00000000012      | precision11  | 1.00000000012     |
+      | 1234.517567891111  | precision12  | 1234.517567891111 |
+      | 7.5175678911113    | precision13  | 7.5175678911113   |
+      | 17.51756789111139  | precision14  | 17.51756789111139 |
+      | 9.517567891111398  | precision15  | 9.517567891111398 |
+      | 17.517567891111390 | precision15  | 17.51756789111139 |
+      | 150.091            | precision0   | 150               |
+      | 0.12114            | precision2   | 0.12              |
+      | 0.1234             | precision3   | 0.123             |
+      | 111.90909090       | precision4   | 111.9090          |
+      | 1.000090000000001  | precision5   | 1.00009           |
+      | 1.000077000000015  | precision6   | 1.000077          |
+      | 1553.1400110       | precision7   | 1553.140011       |
+      | 150.9090909011     | precision8   | 150.90909090      |
+      | 1234.51756789199   | precision9   | 1234.517567891    |
+      | 1.00000000011445   | precision10  | 1.0000000001      |
+      | 1.000000000129999  | precision11  | 1.00000000012     |
+      | 1234.5175678911199 | precision12  | 1234.517567891119 |
+      | 7.5175678911       | precision13  | 7.5175678911      |
+      | 1.517567891111399  | precision14  | 1.51756789111139  |
+      | 9.5175678911113981 | precision15  | 9.517567891111398 |

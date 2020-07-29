@@ -1,6 +1,6 @@
 import {
   dateInput, dayPickerDay, minDate, maxDate,
-  dayPickerWrapper, dateIcon,
+  dayPickerWrapper, dateIcon, dateInputNoIFrame,
 } from '../../locators/date-input/index';
 
 const DAY_PICKER_PREFIX = 'DayPicker-Day--';
@@ -11,23 +11,19 @@ const TODAY_KNOBS = Cypress.moment().format('YYYY-MM-DD');
 const TODAY_DATE_INPUT = Cypress.moment().format('DD/MM/YYYY');
 
 Then('Date input is disabled', () => {
-  dateInput().parent()
-    .should('have.attr', 'disabled');
+  dateInputNoIFrame().should('have.attr', 'disabled');
 });
 
 Then('Date input is enabled', () => {
-  dateInput().parent()
-    .should('not.have.attr', 'disabled');
+  dateInputNoIFrame().should('not.have.attr', 'disabled');
 });
 
 Then('Date input component is readOnly', () => {
-  dateInput().parent()
-    .should('have.attr', 'readonly');
+  dateInputNoIFrame().should('have.attr', 'readonly');
 });
 
 Then('Date input component is not readOnly', () => {
-  dateInput().parent()
-    .should('not.have.attr', 'readonly');
+  dateInputNoIFrame().should('not.have.attr', 'readonly');
 });
 
 When('I set dateInput to today', () => {
