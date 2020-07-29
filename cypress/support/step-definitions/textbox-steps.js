@@ -1,11 +1,19 @@
 import {
-  textbox, textboxByPosition, textboxIcon, textboxInput,
+  textbox,
+  textboxByPosition,
+  textboxIcon,
+  textboxInput,
+  textboxInIFrame,
 } from '../../locators/textbox';
 import {
-  label, labelByPosition, commonInputPreview,
-  fieldHelpPreviewByPosition, tooltipPreviewByPosition, labelNoIFrame, commonDataElementInputPreviewNoIframe,
+  labelNoIFrame,
+  commonDataElementInputPreviewNoIframe,
+  getDataElementByValueNoIframe,
+  tooltipPreviewByPositionNoIFrame,
+  labelByPositionNoIFrame,
+  fieldHelpPreviewByPositionNoIFrame,
+  commonDataElementInputPreviewByPositionNoIFrame,
 } from '../../locators';
-import { DEBUG_FLAG } from '..';
 import { positionOfElement } from '../helper';
 
 const TEXT_ALIGN = 'text-align';
@@ -26,7 +34,6 @@ Then('Textbox component is disabled', () => {
 });
 
 Then('Textbox multiple component is disabled', () => {
-  cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
   textbox(positionOfElement('first')).children()
     .should('have.css', 'color', 'rgba(0, 0, 0, 0.55)')
     .and('have.css', 'cursor', 'not-allowed');
@@ -36,7 +43,6 @@ Then('Textbox multiple component is disabled', () => {
 });
 
 Then('Textbox component is not disabled', () => {
-  cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
   textbox().should('not.be.disabled');
   textbox().children()
     .should('not.have.css', 'color', 'rgba(0, 0, 0, 0.55)')
@@ -44,7 +50,6 @@ Then('Textbox component is not disabled', () => {
 });
 
 Then('Textbox multiple component is not disabled', () => {
-  cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
   textbox(positionOfElement('first')).should('not.be.disabled');
   textbox(positionOfElement('first')).children()
     .should('not.have.css', 'color', 'rgba(0, 0, 0, 0.55)')
@@ -56,7 +61,6 @@ Then('Textbox multiple component is not disabled', () => {
 });
 
 Then('Textbox component is readOnly', () => {
-  cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
   const borderColor = 'rgb(204, 214, 219)';
   textbox().should('have.css', 'background-color', 'rgb(250, 251, 251)')
     .and('have.css', 'border-bottom-color', borderColor)
@@ -68,7 +72,6 @@ Then('Textbox component is readOnly', () => {
 Then('Textbox multiple component is readOnly', () => {
   const borderReadonlyColor = 'rgb(204, 214, 219)';
   const backgroundColor = 'rgb(250, 251, 251)';
-  cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
   textbox(positionOfElement('first')).should('have.css', 'background-color', backgroundColor)
     .and('have.css', 'border-bottom-color', borderReadonlyColor)
     .and('have.css', 'border-left-color', borderReadonlyColor)
@@ -82,7 +85,6 @@ Then('Textbox multiple component is readOnly', () => {
 });
 
 Then('Textbox component is not readOnly', () => {
-  cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
   textbox().should('not.have.css', 'background', 'rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box')
     .and('not.have.css', 'border-color', 'rgba(0, 0, 0, 0)')
     .and('have.css', 'background', 'rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box');
@@ -91,7 +93,6 @@ Then('Textbox component is not readOnly', () => {
 Then('Textbox multiple component is not readOnly', () => {
   const borderNoReadonlyColor = 'rgba(0, 0, 0, 0)';
   const backgroundColor = 'rgb(255, 255, 255)';
-  cy.wait(100, { log: DEBUG_FLAG }); // added due to animation changing
   textbox(positionOfElement('first')).should('not.have.css', 'background-color', borderNoReadonlyColor)
     .and('not.have.css', 'border-bottom-color', borderNoReadonlyColor)
     .and('not.have.css', 'border-left-color', borderNoReadonlyColor)
@@ -107,36 +108,36 @@ Then('Textbox multiple component is not readOnly', () => {
 });
 
 Then('Multiple fieldHelp on preview is set to {word}', (text) => {
-  fieldHelpPreviewByPosition(positionOfElement('first')).should('have.text', text);
-  fieldHelpPreviewByPosition(positionOfElement('second')).should('have.text', text);
+  fieldHelpPreviewByPositionNoIFrame(positionOfElement('first')).should('have.text', text);
+  fieldHelpPreviewByPositionNoIFrame(positionOfElement('second')).should('have.text', text);
 });
 
 Then('Multiple label is set to {word}', (text) => {
-  labelByPosition(positionOfElement('first')).should('have.text', text);
-  labelByPosition(positionOfElement('second')).should('have.text', text);
+  labelByPositionNoIFrame(positionOfElement('first')).should('have.text', text);
+  labelByPositionNoIFrame(positionOfElement('second')).should('have.text', text);
 });
 
 Then('Textbox component is labelInline', () => {
-  label().should('have.css', TEXT_ALIGN, 'left');
+  getDataElementByValueNoIframe('label').should('have.css', TEXT_ALIGN, 'left');
 });
 
 Then('Multiple Textbox component is labelInline', () => {
-  labelByPosition(positionOfElement('first')).should('have.css', TEXT_ALIGN, 'left');
-  labelByPosition(positionOfElement('second')).should('have.css', TEXT_ALIGN, 'left');
+  labelByPositionNoIFrame(positionOfElement('first')).should('have.css', TEXT_ALIGN, 'left');
+  labelByPositionNoIFrame(positionOfElement('second')).should('have.css', TEXT_ALIGN, 'left');
 });
 
 Then('Textbox component is not labelInline', () => {
-  label().should('not.have.css', TEXT_ALIGN, 'left');
+  getDataElementByValueNoIframe('label').should('not.have.css', TEXT_ALIGN, 'left');
 });
 
 Then('Multiple Textbox component is not labelInline', () => {
-  labelByPosition(positionOfElement('first')).should('not.have.css', TEXT_ALIGN, 'left');
-  labelByPosition(positionOfElement('second')).should('not.have.css', TEXT_ALIGN, 'left');
+  labelByPositionNoIFrame(positionOfElement('first')).should('not.have.css', TEXT_ALIGN, 'left');
+  labelByPositionNoIFrame(positionOfElement('second')).should('not.have.css', TEXT_ALIGN, 'left');
 });
 
 Then('Multiple tooltipPreview on preview is set to {word}', (text) => {
-  tooltipPreviewByPosition(positionOfElement('first')).should('have.text', text);
-  tooltipPreviewByPosition(positionOfElement('second')).should('have.text', text);
+  tooltipPreviewByPositionNoIFrame(positionOfElement('first')).wait(250).should('have.text', text);
+  tooltipPreviewByPositionNoIFrame(positionOfElement('second')).wait(250).should('have.text', text);
 });
 
 Then('Textbox inputWidth is set to {string}', (width) => {
@@ -144,13 +145,13 @@ Then('Textbox inputWidth is set to {string}', (width) => {
 });
 
 Then('Multiple Textbox inputWidth is set to {string}', (width) => {
-  textbox(positionOfElement('first')).should('have.css', 'flex', `0 0 ${width}%`);
-  textbox(positionOfElement('second')).should('have.css', 'flex', `0 0 ${width}%`);
+  textboxByPosition(positionOfElement('first')).should('have.css', 'flex', `0 0 ${width}%`);
+  textboxByPosition(positionOfElement('second')).should('have.css', 'flex', `0 0 ${width}%`);
 });
 
 Then('Multiple label width is set to {string}', (width) => {
-  labelByPosition(positionOfElement('first')).should('have.attr', 'width', `${width}`);
-  labelByPosition(positionOfElement('second')).should('have.attr', 'width', `${width}`);
+  labelByPositionNoIFrame(positionOfElement('first')).should('have.attr', 'width', `${width}`);
+  labelByPositionNoIFrame(positionOfElement('second')).should('have.attr', 'width', `${width}`);
 });
 
 When('I type {word} into Textbox', (text) => {
@@ -177,26 +178,26 @@ Then('Multiple textbox input on preview is set to {word}', () => {
 });
 
 Then('Textbox height is {string}', (height) => {
-  commonInputPreview().should('have.css', 'height', height);
+  commonDataElementInputPreviewNoIframe().should('have.css', 'height', height);
 });
 
 Then('Multiple Textbox height is {string}', (height) => {
-  commonInputPreview(positionOfElement('first')).should('have.css', 'height', height);
-  commonInputPreview(positionOfElement('second')).should('have.css', 'height', height);
+  commonDataElementInputPreviewByPositionNoIFrame(positionOfElement('first')).should('have.css', 'height', height);
+  commonDataElementInputPreviewByPositionNoIFrame(positionOfElement('second')).should('have.css', 'height', height);
 });
 
 Then('Textbox width is {string}', (width) => {
-  commonInputPreview().should('have.css', 'width', width);
+  commonDataElementInputPreviewNoIframe().should('have.css', 'width', width);
 });
 
 Then('Multiple Textbox width is {string}', (width) => {
-  commonInputPreview(positionOfElement('first')).should('have.css', 'width', width);
-  commonInputPreview(positionOfElement('second')).should('have.css', 'width', width);
+  commonDataElementInputPreviewByPositionNoIFrame(positionOfElement('first')).should('have.css', 'width', width);
+  commonDataElementInputPreviewByPositionNoIFrame(positionOfElement('second')).should('have.css', 'width', width);
 });
 
 Then('Multiple label Align on preview is {string}', (direction) => {
-  labelByPosition(positionOfElement('first')).should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
-  labelByPosition(positionOfElement('second')).should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
+  labelByPositionNoIFrame(positionOfElement('first')).should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
+  labelByPositionNoIFrame(positionOfElement('second')).should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
 });
 
 Then('I click on icon inside of Textbox', () => {
@@ -213,7 +214,7 @@ When('I click on Textbox', () => {
 });
 
 Then('Textbox input has golden border on focus', () => {
-  textbox().should('have.css', 'outline', 'rgb(255, 181, 0) solid 3px');
+  textboxInIFrame().should('have.css', 'outline', 'rgb(255, 181, 0) solid 3px');
 });
 
 Then('Textbox overriden styles rendered properly', () => {

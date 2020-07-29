@@ -4,30 +4,25 @@ import {
 } from '../../locators/textarea';
 import { setSlidebar } from '../helper';
 import {
-  fieldHelpPreview, label,
+  fieldHelpPreviewNoIFrame, getDataElementByValueNoIframe,
 } from '../../locators';
-import { DEBUG_FLAG } from '..';
 
 const TEXT_ALIGN = 'text-align';
 
 Then('Textarea component is expandable', () => {
-  textareaChildren()
-    .should('have.attr', 'style', 'height: 44px;');
+  textareaChildren().should('have.css', 'height', '89px');
 });
 
 Then('Textarea component is not expandable', () => {
-  textareaChildren()
-    .should('not.have.attr', 'style', 'height: 50px;');
+  textareaChildren().should('not.have.css', 'height', '89px');
 });
 
 Then('cols is set to {string}', (colsValue) => {
-  textareaChildren()
-    .should('have.attr', 'cols', colsValue);
+  textareaChildren().should('have.attr', 'cols', colsValue);
 });
 
 Then('rows is set to {string}', (colsValue) => {
-  textareaChildren()
-    .should('have.attr', 'rows', colsValue);
+  textareaChildren().should('have.attr', 'rows', colsValue);
 });
 
 When('I set cols slider to {int}', (colsValue) => {
@@ -63,7 +58,7 @@ Then('placeholder is set to {word}', (text) => {
 });
 
 Then('fieldHelp is set to {word}', (text) => {
-  fieldHelpPreview().should('have.text', text);
+  fieldHelpPreviewNoIFrame().should('have.text', text);
 });
 
 Then('characterLimit is set to {string}', (length) => {
@@ -97,11 +92,11 @@ Then('Textarea inputWidth is set to {string}', (width) => {
 });
 
 Then('Textarea component is labelInline', () => {
-  label().should('have.css', TEXT_ALIGN, 'left');
+  getDataElementByValueNoIframe('label').parent().should('have.css', 'display', 'flex');
 });
 
 Then('Textarea component is not labelInline', () => {
-  label().should('not.have.css', TEXT_ALIGN, 'left');
+  getDataElementByValueNoIframe('label').parent().should('have.css', 'display', 'block');
 });
 
 When('I input {word} into Textarea', (text) => {
@@ -113,25 +108,21 @@ When('I type {string} into Textarea input', (text) => {
 });
 
 Then('Textarea component has warnOverLimit and used characters {int} of {int}', (overCharacterLimit, limit) => {
-  cy.wait(250, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
   characterLimitDefaultTextarea().should('have.text', `${overCharacterLimit}/${limit}`)
     .and('have.css', 'color', 'rgb(199, 56, 79)');
 });
 
 Then('Textarea component has no warnOverLimit and used characters {int} of {int}', (charactersUsed, limit) => {
-  cy.wait(250, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
   characterLimitDefaultTextarea().should('have.text', `${charactersUsed}/${limit}`)
     .and('have.css', 'color', 'rgba(0, 0, 0, 0.55)');
 });
 
 Then('Textarea component has enforceCharacterLimit enabled and used characters {int} are equal to limit {int}', (charactersUsed, limit) => {
-  cy.wait(250, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
   characterLimitDefaultTextarea().should('have.text', `${charactersUsed}/${limit}`)
     .and('have.css', 'color', 'rgba(0, 0, 0, 0.55)');
 });
 
 Then('Textarea component has enforceCharacterLimit disabled and used characters {int} are more than limit {int}', (charactersUsed, limit) => {
-  cy.wait(200, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
   characterLimitDefaultTextarea().should('have.text', `${charactersUsed}/${limit}`)
     .and('have.css', 'color', 'rgba(0, 0, 0, 0.55)');
 });

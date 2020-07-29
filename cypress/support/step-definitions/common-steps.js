@@ -19,6 +19,7 @@ import {
   fieldHelpPreviewNoIFrame,
   commonDataElementInputPreviewNoIframe,
   helpIconNoIFrame,
+  helpIconByPositionNoIFrame,
 } from '../../locators';
 import { dialogTitle, dialogTitleNoIFrame } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
@@ -119,7 +120,7 @@ Given('I open {string} component page multiple', (component) => {
   visitComponentUrl(component, 'multiple');
 });
 
-Given('I open {string} component page multiple in iframe', (component) => {
+Given('I open {string} component page multiple in NoIFrame', (component) => {
   visitComponentUrl(component, 'multiple', true);
 });
 
@@ -239,6 +240,10 @@ When('I hover mouse onto help icon', () => {
 
 When('I hover mouse onto {string} help icon', (position) => {
   helpIconByPosition(positionOfElement(position)).trigger('mouseover');
+});
+
+When('I hover mouse onto {string} help icon in NoIFrame', (position) => {
+  helpIconByPositionNoIFrame(positionOfElement(position)).trigger('mouseover');
 });
 
 When('I hover mouse onto icon', () => {
@@ -535,4 +540,16 @@ Then('label is inline', () => {
 
 Then('label is inline in IFrame', () => {
   label().should('have.css', TEXT_ALIGN, 'left');
+});
+
+Then('label width is set to {string} in NoIFrame', (width) => {
+  getDataElementByValueNoIframe('label').should('have.attr', 'width', `${width}`);
+});
+
+Then('label Align on preview is {string}', (direction) => {
+  label().should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
+});
+
+Then('label Align on preview is {string} in NoIFrame', (direction) => {
+  getDataElementByValueNoIframe('label').should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
 });

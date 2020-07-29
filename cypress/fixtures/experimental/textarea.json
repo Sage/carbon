@@ -1,0 +1,201 @@
+{ 
+  "expandable": {
+    "expandable": true
+  },
+  "expandableFalse": {
+    "expandable": false
+  },
+  "cols1": {
+    "cols": 1
+  },
+  "cols100": {
+    "cols": 100
+  },
+  "cols300": {
+    "cols": 300
+  },
+  "rows1": {
+    "rows": 1
+  },
+  "rows100": {
+    "rows": 100
+  },
+  "rows300": {
+    "rows": 300
+  },
+  "disabled": {
+    "disabled": true
+  },
+  "disabledFalse": {
+    "disabled": false
+  },
+  "readOnly": {
+    "readOnly": true
+  },
+  "readOnlyFalse": {
+    "readOnly": false
+  },
+  "placeholderOtherLanguage": {
+    "placeholder": "mp150ú¿¡üßä"
+  },
+  "placeholderSpecialCharacter": {
+    "placeholder": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "fieldHelpOtherLanguage": {
+    "fieldHelp": "mp150ú¿¡üßä"
+  },
+  "fieldHelpSpecialCharacter": {
+    "fieldHelp": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "characterLimit-1000": {
+    "characterLimit": -1000
+  },
+  "characterLimit-1": {
+    "characterLimit": -1
+  },
+  "characterLimit0": {
+    "characterLimit": 0
+  },
+  "characterLimit1": {
+    "characterLimit": 1
+  },
+  "characterLimit100": {
+    "characterLimit": 100
+  },
+  "characterLimit1000": {
+    "characterLimit": 1000
+  },
+  "characterLimit555555": {
+    "characterLimit": 555555
+  },
+  "characterLimitOtherLanguage": {
+    "characterLimit": "mp150ú¿¡üßä"
+  },
+  "characterLimitSpecialCharacter": {
+    "characterLimit": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "characterLimit-0,112": {
+    "characterLimit": "-0,112"
+  },
+  "characterLimit0.1112333": {
+    "characterLimit": 0.1112333
+  },
+  "inputWidth0": {
+    "inputWidth": 0
+  },
+  "inputWidth50": {
+    "inputWidth": 50
+  },
+  "inputWidth100": {
+    "inputWidth": 100
+  },
+  "labelOtherLanguage": {
+    "label": "mp150ú¿¡üßä"
+  },
+  "labelSpecialCharacter": {
+    "label": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "labelHelpOtherLanguage": {
+    "label": "label",
+    "labelHelp": "mp150ú¿¡üßä"
+  },
+  "labelHelpSpecialCharacter": {
+    "label": "label",
+    "labelHelp": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "labelInline": {
+    "label": "label",
+    "labelInline": true
+  },
+  "labelInlineFalse": {
+    "label": "label",
+    "labelInline": false
+  },
+  "labelAlignRight": {
+    "label": "label",
+    "labelInline": true,
+    "labelAlign": "right"
+  },
+  "labelAlignLeft": {
+    "label": "label",
+    "labelInline": true,
+    "labelAlign": "left"
+  },
+  "labelWidth0": {
+    "label": "label",
+    "labelInline": true,
+    "labelWidth": 0
+  },
+  "labelWidth25": {
+    "label": "label",
+    "labelInline": true,
+    "labelWidth": 25
+  },
+  "labelWidth100": {
+    "label": "label",
+    "labelInline": true,
+    "labelWidth": 100
+  },
+  "characterLimit0warnOverLimitenforceCharacterLimitFalse": {
+    "characterLimit": 0,
+    "warnOverLimit": true,
+    "enforceCharacterLimit": false
+  },
+  "characterLimit5warnOverLimitenforceCharacterLimitFalse": {
+    "characterLimit": 5,
+    "warnOverLimit": true,
+    "enforceCharacterLimit": false
+  },
+  "characterLimit10warnOverLimitenforceCharacterLimitFalse": {
+    "characterLimit": 10,
+    "warnOverLimit": true,
+    "enforceCharacterLimit": false
+  },
+  "characterLimit0warnOverLimitFalse": {
+    "characterLimit": 0,
+    "warnOverLimit": false,
+    "enforceCharacterLimit": false
+  },
+  "characterLimit3warnOverLimitFalse": {
+    "characterLimit": 3,
+    "warnOverLimit": false,
+    "enforceCharacterLimit": false
+  },
+  "characterLimit5warnOverLimitFalse": {
+    "characterLimit": 5,
+    "warnOverLimit": false,
+    "enforceCharacterLimit": false
+  },
+  "characterLimit-1enforceCharacterLimit": {
+    "characterLimit": -1,
+    "enforceCharacterLimit": true
+  },
+  "characterLimit2enforceCharacterLimit": {
+    "characterLimit": 2,
+    "enforceCharacterLimit": true
+  },
+  "characterLimit5enforceCharacterLimit": {
+    "characterLimit": 5,
+    "enforceCharacterLimit": true
+  },
+  "characterLimit7enforceCharacterLimit": {
+    "characterLimit": 7,
+    "enforceCharacterLimit": true
+  },
+  "characterLimit-1enforceCharacterLimitFalse": {
+    "characterLimit": -1,
+    "enforceCharacterLimit": false
+  },
+  "characterLimit0enforceCharacterLimitFalse": {
+    "characterLimit": 0,
+    "enforceCharacterLimit": false
+  },
+  "characterLimit3enforceCharacterLimitFalse": {
+    "characterLimit": 3,
+    "enforceCharacterLimit": false
+  },
+  "characterLimit5enforceCharacterLimitFalse": {
+    "characterLimit": 5,
+    "enforceCharacterLimit": false
+  }
+}
