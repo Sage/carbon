@@ -1,0 +1,24 @@
+{
+  "startLabelOtherLanguage": {
+    "startLabel": "mp150ú¿¡üßä"
+  },
+  "startLabelSpecialCharacter": {
+    "startLabel": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "endLabelOtherLanguage": {
+    "endLabel": "mp150ú¿¡üßä"
+  },
+  "endLabelSpecialCharacter": {
+    "endLabel": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "labelsInline": {
+    "startLabel": "label",
+    "endLabel": "label",
+    "labelsInline": true
+  },
+  "labelsInlineFalse": {
+    "startLabel": "label",
+    "endLabel": "label",
+    "labelsInline": false
+  }
+}

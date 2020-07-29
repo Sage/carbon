@@ -13,11 +13,12 @@ import {
   knobsNameTab, fieldHelpPreviewByPosition, labelByPosition, dlsRoot,
   commonButtonPreviewNoIFrameRoot,
   getDataElementByValue,
-  getElementNoIframe, commonButtonPreviewNoIframe,
+  commonButtonPreviewNoIframe,
   backgroundUILocatorNoIFrame,
   closeIconButtonNoIFrame,
   fieldHelpPreviewNoIFrame,
   commonDataElementInputPreviewNoIframe,
+  helpIconNoIFrame,
 } from '../../locators';
 import { dialogTitle, dialogTitleNoIFrame } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
@@ -228,6 +229,10 @@ Then('label is set to {word}', (text) => {
   label().should('have.text', text);
 });
 
+When('I hover mouse onto help icon in noIFrame', () => {
+  helpIconNoIFrame().trigger('mouseover');
+});
+
 When('I hover mouse onto help icon', () => {
   helpIcon().trigger('mouseover');
 });
@@ -247,6 +252,10 @@ Then('I hover mouse onto {string} icon in no iFrame', (name) => {
 
 Then('I hover mouse onto {string} icon in iFrame', (name) => {
   getDataElementByValue(name).trigger('mouseover');
+});
+
+Then('tooltipPreview on preview is set to {word} in NoIFrame', (text) => {
+  tooltipPreviewNoIframe().should('have.text', text);
 });
 
 Then('tooltipPreview on preview is set to {word}', (text) => {
