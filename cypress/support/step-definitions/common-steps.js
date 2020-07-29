@@ -19,6 +19,7 @@ import {
   fieldHelpPreviewNoIFrame,
   commonDataElementInputPreviewNoIframe,
   helpIconNoIFrame,
+  helpIconByPositionNoIFrame,
 } from '../../locators';
 import { dialogTitle, dialogTitleNoIFrame } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
@@ -119,7 +120,7 @@ Given('I open {string} component page multiple', (component) => {
   visitComponentUrl(component, 'multiple');
 });
 
-Given('I open {string} component page multiple in iframe', (component) => {
+Given('I open {string} component page multiple in NoIFrame', (component) => {
   visitComponentUrl(component, 'multiple', true);
 });
 
@@ -239,6 +240,10 @@ When('I hover mouse onto help icon', () => {
 
 When('I hover mouse onto {string} help icon', (position) => {
   helpIconByPosition(positionOfElement(position)).trigger('mouseover');
+});
+
+When('I hover mouse onto {string} help icon in NoIFrame', (position) => {
+  helpIconByPositionNoIFrame(positionOfElement(position)).trigger('mouseover');
 });
 
 When('I hover mouse onto icon', () => {

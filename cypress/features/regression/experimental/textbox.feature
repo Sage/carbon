@@ -114,9 +114,9 @@ Feature: Experimental Textbox component
       And Textbox width is "<width>"
     Examples:
       | size   | height | width  | nameOfObject |
-      | small  | 28px   | 1043px | sizeSmall    |
-      | medium | 36px   | 1037px | sizeMedium   |
-      | large  | 44px   | 1033px | sizeLarge    |
+      | small  | 28px   | 1263px | sizeSmall    |
+      | medium | 36px   | 1257px | sizeMedium   |
+      | large  | 44px   | 1253px | sizeLarge    |
 
   @positive
   Scenario: Check icon inside of Textbox is visible

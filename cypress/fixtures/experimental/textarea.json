@@ -1,8 +1,8 @@
 { 
-  "expandableEnabled": {
+  "expandable": {
     "expandable": true
   },
-  "expandableDisabled": {
+  "expandableFalse": {
     "expandable": false
   },
   "cols1": {

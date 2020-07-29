@@ -3,7 +3,7 @@ Feature: Experimental Textarea component
 
   @positive
   Scenario Outline: Enable expandable checkbox for a Textarea component
-    Given I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "expandableEnabled" object name
+    Given I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "expandable" object name
     When I input <text> into Textarea
     Then Textarea component is expandable
     Examples:
@@ -12,7 +12,7 @@ Feature: Experimental Textarea component
 
   @positive
   Scenario Outline: Enable and disable expandable checkbox for a Textarea component
-    Given I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "expandableDisabled" object name
+    Given I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "expandableFalse" object name
     When I input <text> into Textarea
     Then Textarea component is not expandable
     Examples:

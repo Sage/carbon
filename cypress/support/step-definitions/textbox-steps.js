@@ -6,13 +6,13 @@ import {
   textboxInIFrame,
 } from '../../locators/textbox';
 import {
-  labelByPosition,
-  commonInputPreview,
-  fieldHelpPreviewByPosition,
-  tooltipPreviewByPosition,
   labelNoIFrame,
   commonDataElementInputPreviewNoIframe,
   getDataElementByValueNoIframe,
+  tooltipPreviewByPositionNoIFrame,
+  labelByPositionNoIFrame,
+  fieldHelpPreviewByPositionNoIFrame,
+  commonDataElementInputPreviewByPositionNoIFrame,
 } from '../../locators';
 import { positionOfElement } from '../helper';
 
@@ -108,13 +108,13 @@ Then('Textbox multiple component is not readOnly', () => {
 });
 
 Then('Multiple fieldHelp on preview is set to {word}', (text) => {
-  fieldHelpPreviewByPosition(positionOfElement('first')).should('have.text', text);
-  fieldHelpPreviewByPosition(positionOfElement('second')).should('have.text', text);
+  fieldHelpPreviewByPositionNoIFrame(positionOfElement('first')).should('have.text', text);
+  fieldHelpPreviewByPositionNoIFrame(positionOfElement('second')).should('have.text', text);
 });
 
 Then('Multiple label is set to {word}', (text) => {
-  labelByPosition(positionOfElement('first')).should('have.text', text);
-  labelByPosition(positionOfElement('second')).should('have.text', text);
+  labelByPositionNoIFrame(positionOfElement('first')).should('have.text', text);
+  labelByPositionNoIFrame(positionOfElement('second')).should('have.text', text);
 });
 
 Then('Textbox component is labelInline', () => {
@@ -122,8 +122,8 @@ Then('Textbox component is labelInline', () => {
 });
 
 Then('Multiple Textbox component is labelInline', () => {
-  labelByPosition(positionOfElement('first')).should('have.css', TEXT_ALIGN, 'left');
-  labelByPosition(positionOfElement('second')).should('have.css', TEXT_ALIGN, 'left');
+  labelByPositionNoIFrame(positionOfElement('first')).should('have.css', TEXT_ALIGN, 'left');
+  labelByPositionNoIFrame(positionOfElement('second')).should('have.css', TEXT_ALIGN, 'left');
 });
 
 Then('Textbox component is not labelInline', () => {
@@ -131,13 +131,13 @@ Then('Textbox component is not labelInline', () => {
 });
 
 Then('Multiple Textbox component is not labelInline', () => {
-  labelByPosition(positionOfElement('first')).should('not.have.css', TEXT_ALIGN, 'left');
-  labelByPosition(positionOfElement('second')).should('not.have.css', TEXT_ALIGN, 'left');
+  labelByPositionNoIFrame(positionOfElement('first')).should('not.have.css', TEXT_ALIGN, 'left');
+  labelByPositionNoIFrame(positionOfElement('second')).should('not.have.css', TEXT_ALIGN, 'left');
 });
 
 Then('Multiple tooltipPreview on preview is set to {word}', (text) => {
-  tooltipPreviewByPosition(positionOfElement('first')).should('have.text', text);
-  tooltipPreviewByPosition(positionOfElement('second')).should('have.text', text);
+  tooltipPreviewByPositionNoIFrame(positionOfElement('first')).wait(250).should('have.text', text);
+  tooltipPreviewByPositionNoIFrame(positionOfElement('second')).wait(250).should('have.text', text);
 });
 
 Then('Textbox inputWidth is set to {string}', (width) => {
@@ -145,13 +145,13 @@ Then('Textbox inputWidth is set to {string}', (width) => {
 });
 
 Then('Multiple Textbox inputWidth is set to {string}', (width) => {
-  textbox(positionOfElement('first')).should('have.css', 'flex', `0 0 ${width}%`);
-  textbox(positionOfElement('second')).should('have.css', 'flex', `0 0 ${width}%`);
+  textboxByPosition(positionOfElement('first')).should('have.css', 'flex', `0 0 ${width}%`);
+  textboxByPosition(positionOfElement('second')).should('have.css', 'flex', `0 0 ${width}%`);
 });
 
 Then('Multiple label width is set to {string}', (width) => {
-  labelByPosition(positionOfElement('first')).should('have.attr', 'width', `${width}`);
-  labelByPosition(positionOfElement('second')).should('have.attr', 'width', `${width}`);
+  labelByPositionNoIFrame(positionOfElement('first')).should('have.attr', 'width', `${width}`);
+  labelByPositionNoIFrame(positionOfElement('second')).should('have.attr', 'width', `${width}`);
 });
 
 When('I type {word} into Textbox', (text) => {
@@ -182,8 +182,8 @@ Then('Textbox height is {string}', (height) => {
 });
 
 Then('Multiple Textbox height is {string}', (height) => {
-  commonDataElementInputPreviewNoIframe(positionOfElement('first')).should('have.css', 'height', height);
-  commonDataElementInputPreviewNoIframe(positionOfElement('second')).should('have.css', 'height', height);
+  commonDataElementInputPreviewByPositionNoIFrame(positionOfElement('first')).should('have.css', 'height', height);
+  commonDataElementInputPreviewByPositionNoIFrame(positionOfElement('second')).should('have.css', 'height', height);
 });
 
 Then('Textbox width is {string}', (width) => {
@@ -191,13 +191,13 @@ Then('Textbox width is {string}', (width) => {
 });
 
 Then('Multiple Textbox width is {string}', (width) => {
-  commonInputPreview(positionOfElement('first')).should('have.css', 'width', width);
-  commonInputPreview(positionOfElement('second')).should('have.css', 'width', width);
+  commonDataElementInputPreviewByPositionNoIFrame(positionOfElement('first')).should('have.css', 'width', width);
+  commonDataElementInputPreviewByPositionNoIFrame(positionOfElement('second')).should('have.css', 'width', width);
 });
 
 Then('Multiple label Align on preview is {string}', (direction) => {
-  labelByPosition(positionOfElement('first')).should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
-  labelByPosition(positionOfElement('second')).should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
+  labelByPositionNoIFrame(positionOfElement('first')).should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
+  labelByPositionNoIFrame(positionOfElement('second')).should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
 });
 
 Then('I click on icon inside of Textbox', () => {
