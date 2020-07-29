@@ -1,0 +1,26 @@
+{ 
+  "counter1": {
+    "counter": 1
+  },
+  "counter99": {
+    "counter": 99
+  },
+  "counter100": {
+    "counter": 100
+  },
+  "counter999": {
+    "counter": 999
+  },
+  "counter0": {
+    "counter": 0
+  },
+  "counter-12": {
+    "counter": -12
+  },
+  "counterTest": {
+    "counter": "test"
+  },
+  "counterSpecialCharacter": {
+    "counter": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  }
+}

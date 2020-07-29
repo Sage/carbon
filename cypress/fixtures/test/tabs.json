@@ -1,0 +1,14 @@
+{ 
+  "alignRignt": {
+    "align": "right"
+  },
+  "alignLeft": {
+    "align": "left"
+  },
+  "positionTop": {
+    "position": "top"
+  },
+  "positionLeft": {
+    "position": "left"
+  }
+} 

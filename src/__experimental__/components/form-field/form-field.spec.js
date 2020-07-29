@@ -1,15 +1,26 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import 'jest-styled-components';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import FormField from '.';
 import FormFieldStyle from './form-field.style';
 import classicTheme from '../../../style/themes/classic';
 import Label from '../label/label.component';
+import { TabContext } from '../../../components/tabs/__internal__/tab';
+
+const setError = jest.fn();
+const setWarning = jest.fn();
 
 function render(props, renderer = shallow) {
   return renderer(
     <FormField { ...props }><input /></FormField>
+  );
+}
+
+function renderWithContext(props) {
+  return mount(
+    <TabContext.Provider value={ { setError, setWarning } }>
+      <FormField { ...props }><input /></FormField>
+    </TabContext.Provider>
   );
 }
 
@@ -67,6 +78,18 @@ describe('FormField', () => {
           labelInline: true,
           labelWidth: 20
         }).children()).toMatchSnapshot();
+      });
+    });
+
+    describe('with TabContext', () => {
+      it('calls "setError" when has "error" is true', () => {
+        renderWithContext({ error: true, id: 'foo' });
+        expect(setError).toHaveBeenCalledWith('foo', true);
+      });
+
+      it('calls "setWarning" when has "warning" is true', () => {
+        renderWithContext({ warning: true, id: 'foo' });
+        expect(setWarning).toHaveBeenCalledWith('foo', true);
       });
     });
   });

@@ -19,9 +19,14 @@ TableWrapper.__docgenInfo = getDocGenInfo(
   /table\.component(?!spec)/
 );
 
-const commonKnobs = () => {
-  const paginate = boolean('paginate', false);
-  const showPageSizeSelection = paginate && boolean('showPageSizeSelection', false);
+const commonKnobs = (
+  {
+    paginate: defaultPaginate = false,
+    showPageSizeSelection: defaultShowPageSizeSelection = false
+  } = {}
+) => {
+  const paginate = boolean('paginate', defaultPaginate);
+  const showPageSizeSelection = paginate && boolean('showPageSizeSelection', defaultShowPageSizeSelection);
   const selectable = boolean('selectable', false);
   const highlightable = boolean('highlightable', false);
 
@@ -146,6 +151,40 @@ storiesOf('Table', module)
     () => {
       const tableProps = {
         ...commonKnobs(),
+        ...dlsKnobs(),
+        ...inputKnobs()
+      };
+
+      return (
+        <TableWrapper { ...tableProps } />
+      );
+    },
+    {
+      themeSelector: dlsThemeSelector
+    },
+  )
+  .add(
+    'default with inputs and paginate',
+    () => {
+      const tableProps = {
+        ...commonKnobs({ paginate: true }),
+        ...dlsKnobs(),
+        ...inputKnobs()
+      };
+
+      return (
+        <TableWrapper { ...tableProps } />
+      );
+    },
+    {
+      themeSelector: dlsThemeSelector
+    },
+  )
+  .add(
+    'default with inputs and paginate and page size',
+    () => {
+      const tableProps = {
+        ...commonKnobs({ paginate: true, showPageSizeSelection: true }),
         ...dlsKnobs(),
         ...inputKnobs()
       };

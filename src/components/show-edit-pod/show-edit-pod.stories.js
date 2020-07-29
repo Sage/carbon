@@ -40,8 +40,8 @@ const onDelete = () => {
   action('delete')();
 };
 
-const afterFormValidation = () => {
-  action('afterFormValidation')();
+const onSave = () => {
+  action('onSave')();
 };
 
 const setField = fieldName => (e) => {
@@ -83,7 +83,6 @@ function makeStory(name, themeSelector, disableChromatic = false) {
     const saving = boolean('saving', BaseShowEditPod.defaultProps.saving);
     const title = text('title', 'Person');
     const transitionName = text('transitionName', BaseShowEditPod.defaultProps.transitionName);
-    const validateOnMount = boolean('validateOnMount', BaseShowEditPod.defaultProps.validateOnMount);
 
     let editFields;
     const themeProp = {};
@@ -112,9 +111,8 @@ function makeStory(name, themeSelector, disableChromatic = false) {
             saving={ saving }
             title={ title }
             transitionName={ transitionName }
-            validateOnMount={ validateOnMount }
             editFields={ editFields(state) }
-            afterFormValidation={ afterFormValidation }
+            onSave={ onSave }
             { ...themeProp }
           >
             <Content key='first_name' title='First Name'>

@@ -2,7 +2,7 @@ Feature: Design System Accordion component
   I want to test Design System Accordion component
 
   Background: Open Design System Accordion component page
-    Given I open Design Systems primary "Accordion" component docs page
+    Given I open Design Systems default_story "Accordion" component docs page
 
   @positive
   Scenario: I expand accordion using click

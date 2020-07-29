@@ -1,130 +1,110 @@
 Feature: Experimental Date Input component
-  I want to change Experimental Date Input component properties
-
-  Background: Open Experimental Date Input component page
-    Given I open "Experimental Date Input" component page
+  I want to check Experimental Date Input component properties
 
   @positive
   Scenario: Disable Date Input
-    When I disable DateInput component
+    When I open default "Experimental Date Input" component in noIFrame with "dateInput" json from "experimental" using "disabled" object name
     Then Date input is disabled
 
   @negative
   Scenario: Disable and enable Date Input
-    When I disable DateInput component
-      And I enable DateInput component
+    When I open default "Experimental Date Input" component in noIFrame with "dateInput" json from "experimental" using "disabledFalse" object name
     Then Date input is enabled
 
   @positive
   Scenario: Date Input component is readOnly
-    When I check readOnly checkbox
+    When I open default "Experimental Date Input" component in noIFrame with "dateInput" json from "experimental" using "readOnly" object name
     Then Date input component is readOnly
 
   @negative
   Scenario: Date Input component is not readOnly
-    When I check readOnly checkbox
-      And I uncheck readOnly checkbox
+    When I open default "Experimental Date Input" component in noIFrame with "dateInput" json from "experimental" using "readOnlyFalse" object name
     Then Date input component is not readOnly
 
   @positive
   Scenario Outline: Change DateInput component field help to <fieldHelp>
-    When I set fieldHelp to <fieldHelp> word
-    Then fieldHelp on preview is set to <fieldHelp>
+    When I open default "Experimental Date Input" component in noIFrame with "dateInput" json from "experimental" using "<nameOfObject>" object name
+    Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
     Examples:
-      | fieldHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | fieldHelp               | nameOfObject              |
+      | mp150ú¿¡üßä             | fieldHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{} | fieldHelpSpecialCharacter |
 
   @positive
   Scenario Outline: Change DateInput label to <label>
-    When I set label to <label> word
-    Then label on preview is <label>
+    When I open default "Experimental Date Input" component in noIFrame with "dateInput" json from "experimental" using "<nameOfObject>" object name
+    Then label on preview is <label> in NoIFrame
     Examples:
-      | label                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | label                   | nameOfObject          |
+      | mp150ú¿¡üßä             | labelOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{} | labelSpecialCharacter |
 
   @positive
   Scenario: Enable label inline checkbox for Date Input component
-    When I set label to "labelSample"
-      And I check labelInline checkbox
+    When I open default "Experimental Date Input" component in noIFrame with "dateInput" json from "experimental" using "labelInline" object name
     Then label is inline
 
   @positive
   Scenario Outline: Change Date Input component label align to <labelAlign>
-    When I set label to "label"
-      And I set labelHelp to "label"
-      And I check labelInline checkbox
-      And I select labelAlign to "<labelAlign>"
+    When I open default "Experimental Date Input" component in noIFrame with "dateInput" json from "experimental" using "<nameOfObject>" object name
     Then label align on preview is set to "<labelAlign>"
     Examples:
-      | labelAlign |
-      | left       |
-      | right      |
+      | labelAlign | nameOfObject    |
+      | left       | labelAlignLeft  |
+      | right      | labelAlignRight |
 
   @positive
   Scenario Outline: Change Date Input component label width to <width>
-    When I set label to "label"
-      And I check labelInline checkbox
-      And I set label width slider to <width>
+    When I open default "Experimental Date Input" component in noIFrame with "dateInput" json from "experimental" using "<nameOfObject>" object name
     Then label width on preview is <width>
     Examples:
-      | width |
-      | 0     |
-      | 10    |
-      | 100   |
+      | width | nameOfObject  |
+      | 0     | labelWidth0   |
+      | 10    | labelWidth10  |
+      | 100   | labelWidth100 |
 
   @positive
   Scenario: Change Date Input component minDate
-    Given I set minDate to today
+    Given I open "Experimental Date Input" component page
+      And I set minDate to today
       And I set dateInput to today
     When I choose date yesterday via DayPicker
     Then the date before minDate is not available
 
   @positive
   Scenario: Change Date Input component maxDate
-    Given I set maxDate to today
+    Given I open "Experimental Date Input" component page
+      And I set maxDate to today
       And I set dateInput to today
     When I choose date tomorrow via DayPicker
     Then the date after maxDate is not available
 
   @positive
-  Scenario Outline: Change Date Input component label width with slider to <width>
-    When I set label to "Sample text"
-      And I check labelInline checkbox
-      And I set label width slider to <width>
-    Then label width on preview is <width>
-    Examples:
-      | width |
-      | 0     |
-      | 10    |
-      | 100   |
-
-  @positive
   Scenario: Check Date Input today date
+    Given I open "Experimental Date Input" component page
     When I set dateInput to today
     Then the date is set to today
 
   @positive
   Scenario: Open dayPickerDay via click on input
+    Given I open "Experimental Date Input" component page
     When I click dateInput
     Then dayPickerDay is visible
 
   @positive
   Scenario: Close dayPickerDay via click on input
+    Given I open "Experimental Date Input" component page
     When I click dateInput twice
     Then dayPickerDay is not visible
 
   @positive
   Scenario: Open dayPickerDay via click on icon
+    Given I open "Experimental Date Input" component page
     When I click onto date icon
     Then dayPickerDay is visible
 
   @positive
   Scenario: Close dayPickerDay via click on icon
+    Given I open "Experimental Date Input" component page
     When I click onto date icon twice
     Then dayPickerDay is not visible

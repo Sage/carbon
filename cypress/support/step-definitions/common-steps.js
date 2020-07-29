@@ -2,6 +2,7 @@ import {
   visitComponentUrl, setSlidebar, pressESCKey, pressTABKey, asyncWaitForKnobs,
   visitFlatTableComponentNoiFrame, positionOfElement, keyCode,
   visitDocsUrl,
+  visitComponentUrlWithParameters,
 } from '../helper';
 import {
   commonButtonPreview, labelPreview, helpIcon, helpIconByPosition, inputWidthSlider,
@@ -12,9 +13,15 @@ import {
   knobsNameTab, fieldHelpPreviewByPosition, labelByPosition, dlsRoot,
   commonButtonPreviewNoIFrameRoot,
   getDataElementByValue,
-  getElementNoIframe, commonButtonPreviewNoIframe,
+  commonButtonPreviewNoIframe,
+  backgroundUILocatorNoIFrame,
+  closeIconButtonNoIFrame,
+  fieldHelpPreviewNoIFrame,
+  commonDataElementInputPreviewNoIframe,
+  helpIconNoIFrame,
+  helpIconByPositionNoIFrame,
 } from '../../locators';
-import { dialogTitle } from '../../locators/dialog';
+import { dialogTitle, dialogTitleNoIFrame } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
 import { pagerSummary } from '../../locators/pager';
 
@@ -32,6 +39,14 @@ Given('I open design systems {word} {string} component in no iframe', (type, com
   visitComponentUrl(component, type, true, 'design-system-');
 });
 
+Given('I open Test {word} {string} component in noIFrame with {string} json from {string} using {string} object name', (type, component, json, path, nameOfObject) => {
+  visitComponentUrlWithParameters(component, type, true, 'design-system-', json, path, nameOfObject);
+});
+
+Given('I open {word} {string} component in noIFrame with {string} json from {string} using {string} object name', (type, component, json, path, nameOfObject) => {
+  visitComponentUrlWithParameters(component, type, true, '', json, path, nameOfObject);
+});
+
 Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
 });
@@ -40,8 +55,12 @@ Given('I open Test {string} component page knobs in noIFrame', (component) => {
   visitComponentUrl(component, 'knobs', true, 'test-');
 });
 
-Given('I open Test {string} component page knobs', (component) => {
-  visitComponentUrl(component, 'knobs', false, 'test-');
+Given('I open {string} component page {string}', (component, story) => {
+  visitComponentUrl(component, story, false);
+});
+
+Given('I open {string} component page {string} in no iframe', (component, story) => {
+  visitComponentUrl(component, story, true);
 });
 
 Given('I open {string} component page in noIFrame', (component) => {
@@ -72,14 +91,6 @@ Given('I open {string} component page with inputs', (component) => {
   visitComponentUrl(component, 'default_with_inputs');
 });
 
-Given('I open {string} component page legacy spinner', (component) => {
-  visitComponentUrl(component, 'legacy_spinner');
-});
-
-Given('I open {string} component page legacy spinner in noIFrame', (component) => {
-  visitComponentUrl(component, 'legacy_spinner', true);
-});
-
 Given('I open dark theme {string} component page in noIFrame', (component) => {
   visitComponentUrl(component, 'dark_theme', true);
 });
@@ -101,24 +112,12 @@ Given('I open {string} component page multiple', (component) => {
   visitComponentUrl(component, 'multiple');
 });
 
-Given('I open {string} component page multiple in iframe', (component) => {
+Given('I open {string} component page multiple in NoIFrame', (component) => {
   visitComponentUrl(component, 'multiple', true);
-});
-
-Given('I open Test {string} component page as sibling in no iframe', (component) => {
-  visitComponentUrl(component, 'as_a_sibling', true, 'test-');
-});
-
-Given('I open Test {string} component page as sibling', (component) => {
-  visitComponentUrl(component, 'as_a_sibling', false, 'test-');
 });
 
 Given('I open {string} component page full-width in no iframe', (component) => {
   visitComponentUrl(component, 'full_width');
-});
-
-Given('I open {string} component page as sibling', (component) => {
-  visitComponentUrl(component, 'as_a_sibling');
 });
 
 Given('I open Experimental {string} component page validations in noIframe', (component) => {
@@ -133,12 +132,8 @@ Given('I open {word} Test {string} component page in noIframe', (type, component
   visitComponentUrl(component, type, true, 'test-');
 });
 
-Given('I open style override Test {string} component page in noIframe', (component) => {
-  visitComponentUrl(component, 'style_override', true, 'test-');
-});
-
-When('I open Test {string} component basic page with prop value', (componentName) => {
-  visitFlatTableComponentNoiFrame(componentName, 'basic', true, 'test-');
+When('I open Design System Flat Table Test component basic page with prop value', () => {
+  visitFlatTableComponentNoiFrame('Design System Flat Table Test', 'basic', true);
 });
 
 Given('I open {string} component page autoFocus in iframe', (component) => {
@@ -211,12 +206,24 @@ Then('component title on preview is {word}', (title) => {
   dialogTitle().should('have.text', title);
 });
 
+Then('component title on preview is {word} in NoIFrame', (title) => {
+  dialogTitleNoIFrame().should('have.text', title);
+});
+
 Then('label on preview is {word}', (text) => {
   labelPreview().should('have.text', text);
 });
 
+Then('label on preview is {word} in NoIFrame', (text) => {
+  getDataElementByValueNoIframe('label').should('have.text', text);
+});
+
 Then('label is set to {word}', (text) => {
   label().should('have.text', text);
+});
+
+When('I hover mouse onto help icon in noIFrame', () => {
+  helpIconNoIFrame().trigger('mouseover');
 });
 
 When('I hover mouse onto help icon', () => {
@@ -227,13 +234,13 @@ When('I hover mouse onto {string} help icon', (position) => {
   helpIconByPosition(positionOfElement(position)).trigger('mouseover');
 });
 
+When('I hover mouse onto {string} help icon in NoIFrame', (position) => {
+  helpIconByPositionNoIFrame(positionOfElement(position)).trigger('mouseover');
+});
+
 When('I hover mouse onto icon', () => {
   cy.wait(100, { log: DEBUG_FLAG }); // delayed in case the element need to be reloaded
   icon().trigger('mouseover');
-});
-
-Then('I hover mouse onto {string} icon in no iFrame', (name) => {
-  getElementNoIframe(name).trigger('mouseover');
 });
 
 Then('I hover mouse onto {string} icon in no iFrame', (name) => {
@@ -244,11 +251,15 @@ Then('I hover mouse onto {string} icon in iFrame', (name) => {
   getDataElementByValue(name).trigger('mouseover');
 });
 
+Then('tooltipPreview on preview is set to {word} in NoIFrame', (text) => {
+  tooltipPreviewNoIframe().should('have.text', text);
+});
+
 Then('tooltipPreview on preview is set to {word}', (text) => {
   tooltipPreview().should('have.text', text);
 });
 
-Then('tooltipPreview on preview into iFrame is set to {string}', (text) => {
+Then('tooltipPreview on preview into iFrame is set to {word}', (text) => {
   tooltipPreviewNoIframe().should('have.text', text);
 });
 
@@ -258,6 +269,10 @@ When('I set inputWidth slider to {int}', (width) => {
 
 Then('fieldHelp on preview is set to {word}', (text) => {
   fieldHelpPreview().should('have.text', text);
+});
+
+Then('fieldHelp on preview is set to {word} in NoIFrame', (text) => {
+  fieldHelpPreviewNoIFrame().should('have.text', text);
 });
 
 Then('{string} fieldHelp on preview is set to {word}', (position, text) => {
@@ -289,12 +304,28 @@ Then('Background UI is disabled', () => {
   backgroundUILocator().should('exist');
 });
 
+Then('Background UI is enabled in NoIFrame', () => {
+  backgroundUILocatorNoIFrame().should('not.exist');
+});
+
+Then('Background UI is disabled in NoIFrame', () => {
+  backgroundUILocatorNoIFrame().should('exist');
+});
+
 Then('closeIcon is visible', () => {
   closeIconButton().should('be.visible');
 });
 
+Then('closeIcon is visible in NoIFrame', () => {
+  closeIconButtonNoIFrame().should('be.visible');
+});
+
 Then('I click closeIcon', () => {
   closeIconButton().click();
+});
+
+Then('I click closeIcon in NoIFrame', () => {
+  closeIconButtonNoIFrame().click();
 });
 
 When('I click {string} button into iFrame', (text) => {
@@ -307,6 +338,11 @@ Then('closeIcon is not visible', () => {
 
 Then('closeIcon has the border outline color {string} and width {string}', (color, width) => {
   closeIconButton().should('have.css', 'outline-color', color)
+    .and('have.css', 'outline-width', width);
+});
+
+Then('closeIcon has the border outline color {string} and width {string} in NoIFrame', (color, width) => {
+  closeIconButtonNoIFrame().should('have.css', 'outline-color', color)
     .and('have.css', 'outline-width', width);
 });
 
@@ -464,4 +500,48 @@ Then('totalRecords is set to {string} {word}', (totalRecords, element) => {
 
 When('I open component preview no iframe', () => {
   commonButtonPreviewNoIframe().click();
+});
+
+Then('input direction is {string}', (direction) => {
+  commonDataElementInputPreviewNoIframe().should('have.css', TEXT_ALIGN, `${direction}`);
+});
+
+Then('label width on preview is {int}', (width) => {
+  getDataElementByValueNoIframe('label').should('have.attr', 'width').should('contain', `${width}`);
+});
+
+Then('label width on preview is {int} in IFrame', (width) => {
+  label().should('have.attr', 'width').should('contain', `${width}`);
+});
+
+Then('inputWidth on preview is {int}', (width) => {
+  commonDataElementInputPreviewNoIframe().parent().should('have.css', 'flex').should('contain', `${width}%`);
+});
+
+Then('label align on preview is set to {string}', (labelAlign) => {
+  getDataElementByValueNoIframe('label').should('have.css', TEXT_ALIGN, `${labelAlign}`);
+});
+
+Then('label align on preview is set to {string} in IFrame', (labelAlign) => {
+  label().should('have.css', TEXT_ALIGN, `${labelAlign}`);
+});
+
+Then('label is inline', () => {
+  getDataElementByValueNoIframe('label').should('have.css', TEXT_ALIGN, 'left');
+});
+
+Then('label is inline in IFrame', () => {
+  label().should('have.css', TEXT_ALIGN, 'left');
+});
+
+Then('label width is set to {string} in NoIFrame', (width) => {
+  getDataElementByValueNoIframe('label').should('have.attr', 'width', `${width}`);
+});
+
+Then('label Align on preview is {string}', (direction) => {
+  label().should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
+});
+
+Then('label Align on preview is {string} in NoIFrame', (direction) => {
+  getDataElementByValueNoIframe('label').should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
 });

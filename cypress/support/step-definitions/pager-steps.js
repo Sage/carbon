@@ -1,5 +1,11 @@
 import {
-  pageSelect, maxPages, previousArrow, nextArrow, currentPageInput, pageSelectItems,
+  pageSelect,
+  maxPages,
+  previousArrow,
+  nextArrow,
+  currentPageInput,
+  pageSelectItems,
+  pageSelectMainComponent,
 } from '../../locators/pager';
 import { DEBUG_FLAG } from '..';
 import { pagination, paginationButtonByIndex } from '../../locators/table';
@@ -11,11 +17,11 @@ Then('pageSize is set to {string} {word}', (pageSize, item) => {
 });
 
 Then('pageSize is visible', () => {
-  pageSelect().should('be.visible');
+  pageSelectMainComponent().should('be.visible');
 });
 
 Then('pageSize is not visible', () => {
-  pageSelect().should('not.be.visible');
+  pageSelectMainComponent().should('not.be.visible');
 });
 
 Then('I am on 1st of {string} pages', (count) => {

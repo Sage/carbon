@@ -1,130 +1,83 @@
 Feature: Alert component
   I want to change Alert component properties
 
-  Background: Open Alert component page
-    Given I open "Alert" component page with button
-
   @positive
   Scenario: CloseIcon has the border outline
-    When I open component preview
-    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
+    When I open default "Alert" component in noIFrame with "alert" json from "commonComponents" using "open" object name
+    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px" in NoIFrame
 
   @positive
   Scenario Outline: Change Alert component title to <title>
-    When I set title to <title> word
-      And I open component preview
-    Then component title on preview is <title>
+    Given I open default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
+    Then component title on preview is <title> in NoIFrame
     Examples:
-      | title                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | title                   | nameOfObject              |
+      | mp150ú¿¡üßä             | openTitleOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{} | openTitleSpecialCharacter |
 
   @positive
-  Scenario Outline: Change Alert subtitle to <subtitle>
-    When I set subtitle to <subtitle> word
-      And I open component preview
-    Then component subtitle on preview is <subtitle>
+  Scenario Outline: Change Alert component subtitle to <subtitle>
+    Given I open default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
+    Then component subtitle on preview is <subtitle> in NoIFrame
     Examples:
-      | subtitle                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
-  # @ignore because of FE-2782
-  # | &"'<>|                     |
+      | subtitle                | nameOfObject                 |
+      | mp150ú¿¡üßä             | openSubtitleOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{} | openSubtitleSpecialCharacter |
 
   @positive
-  Scenario Outline: Change Alert children to <children>
-    When I set children to "<children>"
-      And I open component preview
+  Scenario Outline: Change Alert component children to <children>
+    Given I open default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
     Then Alert children on preview is "<children>"
     Examples:
-      | children                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
-  # @ignore because of FE-2782
-  # | &"'<>|                   |
+      | children                | nameOfObject                 |
+      | mp150ú¿¡üßä             | openChildrenOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{} | openChildrenSpecialCharacter |
 
   @positive
   Scenario: Enable background UI
-    When I check enableBackgroundUI checkbox
-      And I open component preview
-    Then Background UI is enabled
+    When I open default "Alert" component in noIFrame with "alert" json from "commonComponents" using "openEnableBackgroundUI" object name
+    Then Background UI is enabled in NoIFrame
 
   @negative
   Scenario: Disable background UI
-    When I check enableBackgroundUI checkbox
-      And I uncheck enableBackgroundUI checkbox
-      And I open component preview
-    Then Background UI is disabled
+    When I open default "Alert" component in noIFrame with "alert" json from "commonComponents" using "openEnableBackgroundUIFalse" object name
+    Then Background UI is disabled in NoIFrame
 
   @positive
   Scenario: Disable escape key
-    When I check disableEscKey checkbox
-      And I open component preview
-      And I hit ESC key
-    Then Alert is visible
-
-  @negative
-  Scenario: Enable escape key
-    When I check disableEscKey checkbox
-      And I uncheck disableEscKey checkbox
-      And I open component preview
-      And I hit ESC key
-    Then Alert is not visible
+    When I open default "Alert" component in noIFrame with "alert" json from "commonComponents" using "openDisableEscKey" object name
+      And I press ESC onto focused element
+    Then Alert is visible in NoIFrame
 
   @positive
   Scenario Outline: Set height for Alert dialog to <height>
-    When I set height to "<height>"
-      And I open component preview
+    When I open default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
     Then Alert height is set to "<height>"
     Examples:
-      | height |
-      | 0      |
-      | 1      |
-      | 100    |
+      | height | nameOfObject  |
+      | 0      | openHeight0   |
+      | 1      | openHeight1   |
+      | 100    | openHeight100 |
 
   @negative
   Scenario Outline: Set out of scope characters to height for Alert dialog
-    When I set height to "<height>"
-      And I open component preview
+    When I open default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
     Then Alert height is set to "<height>"
     Examples:
-      | height                  |
-      | -1                      |
-      | -10                     |
-
-  @positive
-  Scenario: Clicking close icon, closes Alert dialog
-    When I open component preview
-    Then closeIcon is visible
-      And I click closeIcon
-      And Alert is not visible
+      | height | nameOfObject  |
+      | -1     | openHeight-1  |
+      | -10    | openHeight-10 |
 
   @positive
   Scenario Outline: Set Alert size to <sizeName>
-    When I select size to "<sizeName>"
-      And I open component preview
+    When I open default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
     Then Alert size property on preview is "<sizePropertyInPx>"
     Examples:
-      | sizeName     | sizePropertyInPx |
-      | extra-small  | 300              |
-      | small        | 380              |
-      | medium-small | 540              |
-      | medium       | 750              |
-      | medium-large | 850              |
-      | large        | 960              |
-      | extra-large  | 1080             |
-
-  @positive
-  Scenario: Check open click event
-    When clear all actions in Actions Tab
-      And I open component preview
-    Then open action was called in Actions Tab
-
-  @positive
-  Scenario: Check cancel click event
-    Given clear all actions in Actions Tab
-      And I open component preview
-    When I click closeIcon
-    Then cancel action was called in Actions Tab
+      | sizeName     | sizePropertyInPx | nameOfObject        |
+      | extra-small  | 300              | openSizeExtraSmall  |
+      | small        | 380              | openSizeSmall       |
+      | medium-small | 540              | openSizeMediumSmall |
+      | medium       | 750              | openSizeMedium      |
+      | medium-large | 850              | openSizeMediumLarge |
+      | large        | 960              | openSizeLarge       |
+      | extra-large  | 1080             | openSizeExtraLarge  |

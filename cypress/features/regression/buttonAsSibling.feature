@@ -2,7 +2,7 @@ Feature: Button as a sibling component
   I want to check Button as a sibling component properties
 
   Background: Open Button as a sibling component default page
-    Given I open Test "Button" component page as sibling
+    Given I open "Design System Button Test" component page "as a sibling"
 
   @positive
   Scenario Outline: Set Button as a sibling size to <size>

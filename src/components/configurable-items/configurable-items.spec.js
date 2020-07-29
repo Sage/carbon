@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { ConfigurableItems } from '.';
 import { DraggableContext } from '../drag-and-drop';
-import Form from '../../__deprecated__/components/form';
+import Form from '../form';
 
 describe('ConfigurableItems', () => {
   let wrapper;
@@ -27,22 +27,6 @@ describe('ConfigurableItems', () => {
     it('renders child nodes', () => {
       const childNode = wrapper.find('.child-node');
       expect(childNode.length).toEqual(1);
-    });
-  });
-
-  describe('onCancel', () => {
-    beforeEach(() => {
-      wrapper = mount(
-        <ConfigurableItems
-          onCancel={ onCancel }
-          onClick={ onClick }
-          onDrag={ onDrag }
-          onSave={ onSave }
-        />
-      );
-    });
-    it('passes the onCancel prop through to the Form onCancel prop', () => {
-      expect(wrapper.find(Form).props().onCancel).toEqual(onCancel);
     });
   });
 
@@ -118,7 +102,7 @@ describe('ConfigurableItems', () => {
       });
 
       it('does not pass leftAlignedActions to the form', () => {
-        expect(form.props().leftAlignedActions).toBeNull();
+        expect(form.props().leftSideButtons).toBeNull();
       });
     });
   });
