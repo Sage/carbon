@@ -97,7 +97,6 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 }
 
 .c2 .c16 {
-  padding-left: 6px;
   width: auto;
   -webkit-flex: 0 1 auto;
   -ms-flex: 0 1 auto;
@@ -122,10 +121,6 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 .c2 .c13 {
   margin-left: 32px;
   padding-left: 0;
-}
-
-.c2 .c8 {
-  margin-right: 16px;
 }
 
 .c2 .c12 {
@@ -157,8 +152,6 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   -webkit-flex: 1 1 calc(100% - 44px);
   -ms-flex: 1 1 calc(100% - 44px);
   flex: 1 1 calc(100% - 44px);
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .c2 .c10:checked + .c12 circle {
@@ -189,7 +182,6 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   padding: 0;
   font-weight: 600;
   line-height: 24px;
-  margin-right: 4px;
 }
 
 <fieldset

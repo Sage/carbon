@@ -1,11 +1,346 @@
-import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
 import { RadioButtonGroup, RadioButton } from '.';
 
 <Meta
-  title="Experimental/RadioButton/Test"
+  title="Experimental/RadioButton"
   parameters={{ info: { disable: true }}}
 />
+
+# RadioButton/RadioButtonGroup
+Used to provide a group of selectable radio buttons.
+
+## Quick Start 
+
+To use these components, import both `RadioButtonGroup` and `RadioButton`, and pass the radio buttons as children of the radio group.
+
+```jsx
+import { RadioButton, RadioButtonGroup } from "carbon-react/lib/__experimental__/components/radio-button";
+
+const MyComponent = () => (
+  <RadioButtonGroup
+    name="mybuttongroup"
+    onChange={ handleChange }
+  >
+    <RadioButton id="radio1" value="radio1" />
+    <RadioButton id="radio2" value="radio2" />
+    <RadioButton id="radio3" value="radio3" />
+
+  </RadioButtonGroup>
+)
+```
+
+## Visuals
+
+### With legend and labels
+A legend can be set for the group, and each radio button can have a label.
+
+<Preview>
+  <Story name="With legend and labels">
+    <RadioButtonGroup
+      name="mybuttongroup"
+      onChange={ () => console.log('change') }
+      legend="Radio group legend"
+    >
+    <RadioButton 
+      id="radio1" 
+      value="radio1"
+      label="Radio Option 1"
+    />
+    <RadioButton 
+      id="radio2" 
+      value="radio2" 
+      label="Radio Option 2"
+    />
+    <RadioButton 
+      id="radio3" 
+      value="radio3" 
+      label="Radio Option 3"
+    />
+  </RadioButtonGroup>
+  </Story> 
+</Preview>
+
+### With inline legend
+The legend can be made inline. Its width can be changed with the `legendWidth` prop, its text alignment with `legendAlign`. 
+
+The spacing between the legend and the radio buttons can be changed with the `legendSpacing` prop, this can be `1` or `2`, which is multiplied by the base theme spacing constant of `8px`, so therefore `8px` or `16px`. The default is `2` for this prop.
+
+<Preview>
+  <Story name="With inline legend">
+    <RadioButtonGroup
+      name="mybuttongroup"
+      onChange={ () => console.log('change') }
+      legend="Radio group legend"
+      legendInline
+    >
+    <RadioButton 
+      id="radio1" 
+      value="radio1"
+      label="Radio Option 1"
+    />
+    <RadioButton 
+      id="radio2" 
+      value="radio2" 
+      label="Radio Option 2"
+    />
+    <RadioButton 
+      id="radio3" 
+      value="radio3" 
+      label="Radio Option 3"
+    />
+  </RadioButtonGroup>
+  </Story> 
+</Preview>
+
+### With left margin
+A `marginLeft` prop can be supplied to align the `RadioButtonGroup` with above and below components. This prop is a percentage.
+
+<Preview>
+  <Story name="With left margin">
+    <RadioButtonGroup
+      name="mybuttongroup"
+      onChange={ () => console.log('change') }
+      legend="Radio group legend"
+      marginLeft={20}
+    >
+    <RadioButton 
+      id="radio1" 
+      value="radio1"
+      label="Radio Option 1"
+    />
+    <RadioButton 
+      id="radio2" 
+      value="radio2" 
+      label="Radio Option 2"
+    />
+    <RadioButton 
+      id="radio3" 
+      value="radio3" 
+      label="Radio Option 3"
+    />
+  </RadioButtonGroup>
+  </Story> 
+</Preview>
+
+### Different label spacing 
+The spacing between radio buttons and their labels can be changed with the `labelSpacing` prop. Similarly to the `legendSpacing` prop, this is a number which is multiplied by the base theme spacing constant. It defaults to `1` which is therefore `8px`.
+
+<Preview>
+  <Story name="Different label spacing">
+    <RadioButtonGroup
+      name="mybuttongroup"
+      onChange={ () => console.log('change') }
+      legend="Radio group legend"
+      labelSpacing={2}
+    >
+    <RadioButton 
+      id="radio1" 
+      value="radio1"
+      label="Radio Option 1"
+    />
+    <RadioButton 
+      id="radio2" 
+      value="radio2" 
+      label="Radio Option 2"
+    />
+    <RadioButton 
+      id="radio3" 
+      value="radio3" 
+      label="Radio Option 3"
+    />
+  </RadioButtonGroup>
+  </Story> 
+</Preview>
+
+### Inline radio buttons 
+The radio buttons can be made inline with the `inline` prop.
+
+<Preview>
+  <Story name="Inline radio buttons">
+    <RadioButtonGroup
+      name="mybuttongroup"
+      onChange={ () => console.log('change') }
+      legend="Radio group legend"
+      inline
+    >
+    <RadioButton 
+      id="radio1" 
+      value="radio1"
+      label="Radio Option 1"
+    />
+    <RadioButton 
+      id="radio2" 
+      value="radio2" 
+      label="Radio Option 2"
+    />
+    <RadioButton 
+      id="radio3" 
+      value="radio3" 
+      label="Radio Option 3"
+    />
+  </RadioButtonGroup>
+  </Story> 
+</Preview>
+
+### Reverse radio buttons 
+The radio buttons and labels can be flipped around using the `reverse` prop on each radio button. The same spacing options between the label and radio button as above apply.
+
+<Preview>
+  <Story name="Reverse radio buttons">
+    <RadioButtonGroup
+      name="mybuttongroup"
+      onChange={ () => console.log('change') }
+      legend="Radio group legend"
+    >
+    <RadioButton 
+      id="radio1" 
+      value="radio1"
+      label="Radio Option 1"
+      reverse
+    />
+    <RadioButton 
+      id="radio2" 
+      value="radio2" 
+      label="Radio Option 2"
+      reverse
+    />
+    <RadioButton 
+      id="radio3" 
+      value="radio3" 
+      label="Radio Option 3"
+      reverse
+    />
+  </RadioButtonGroup>
+  </Story> 
+</Preview>
+
+### Disable radio buttons 
+The radio buttons and labels can be disabled using the `disabled` prop on each radio button.
+
+<Preview>
+  <Story name="Disable radio buttons">
+    <RadioButtonGroup
+      name="mybuttongroup"
+      onChange={ () => console.log('change') }
+      legend="Radio group legend"
+    >
+    <RadioButton 
+      id="radio1" 
+      value="radio1"
+      label="Radio Option 1"
+      disabled
+    />
+    <RadioButton 
+      id="radio2" 
+      value="radio2" 
+      label="Radio Option 2"
+      disabled
+    />
+    <RadioButton 
+      id="radio3" 
+      value="radio3" 
+      label="Radio Option 3"
+      disabled
+    />
+  </RadioButtonGroup>
+  </Story> 
+</Preview>
+
+### With field help
+Help text for each input can be added with the `fieldHelp` prop on `RadioButton`. This can be made inline with the `fieldHelpInline` prop.
+
+<Preview>
+  <Story name="With field help">
+    <RadioButtonGroup
+      name="mybuttongroup"
+      onChange={ () => console.log('change') }
+      legend="Radio group legend"
+    >
+    <RadioButton 
+      id="radio1" 
+      value="radio1"
+      label="Radio Option 1"
+      fieldHelp="Some help text for this input."
+    />
+    <RadioButton 
+      id="radio2" 
+      value="radio2" 
+      label="Radio Option 2"
+      fieldHelp="Some help text for this input."
+    />
+    <RadioButton 
+      id="radio3" 
+      value="radio3" 
+      label="Radio Option 3"
+      fieldHelp="Some help text for this input."
+    />
+  </RadioButtonGroup>
+  </Story> 
+</Preview>
+
+### With validations on radio buttons
+Validations can be added to the radio buttons as strings or booleans.
+
+<Preview>
+  <Story name="With validations on buttons">
+    <RadioButtonGroup
+      name="mybuttongroup"
+      onChange={ () => console.log('change') }
+      legend="Radio group legend"
+    >
+    <RadioButton 
+      id="radio1" 
+      value="radio1"
+      label="Radio Option 1"
+      error="message"
+    />
+    <RadioButton 
+      id="radio2" 
+      value="radio2" 
+      label="Radio Option 2"
+      warning="message"
+    />
+    <RadioButton 
+      id="radio3" 
+      value="radio3" 
+      label="Radio Option 3"
+      info="message"
+    />
+  </RadioButtonGroup>
+  </Story> 
+</Preview>
+
+### With validations on radio group
+Validations can be added to the radio group as a string or boolean.
+
+<Preview>
+  <Story name="With validations on group">
+    <RadioButtonGroup
+      name="mybuttongroup"
+      onChange={ () => console.log('change') }
+      legend="Radio group legend"
+      error="message"
+    >
+      <RadioButton 
+        id="radio1" 
+        value="radio1"
+        label="Radio Option 1"
+      />
+      <RadioButton 
+        id="radio2" 
+        value="radio2" 
+        label="Radio Option 2"
+      />
+      <RadioButton 
+        id="radio3" 
+        value="radio3" 
+        label="Radio Option 3"
+      />
+    </RadioButtonGroup>
+    
+  </Story>
+</Preview>
 
 ### With styles overriden
 With custom wrapper, label and input styles
@@ -44,3 +379,8 @@ With custom wrapper, label and input styles
     </RadioButtonGroup>
   </Story>
 </Preview>
+
+## Props
+
+### RadioButtonGroup
+<Props of={RadioButtonGroup} />

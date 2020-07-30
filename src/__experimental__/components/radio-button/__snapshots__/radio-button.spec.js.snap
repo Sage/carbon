@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RadioButton styles base renders as expected 1`] = `
+exports[`RadioButton base renders as expected 1`] = `
 .c4 + .c3 {
   margin-top: 16px;
 }
@@ -156,10 +156,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
   cursor: not-allowed;
 }
 
-.c16 .c7 {
-  margin-right: 16px;
-}
-
 .c16 .c11 {
   padding: 0;
 }
@@ -236,10 +232,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
   fill: rgba(0,0,0,0.90);
 }
 
-.c17 .c7 {
-  margin-right: 16px;
-}
-
 .c17 .c11 {
   padding: 0;
 }
@@ -259,10 +251,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
 
 .c17 .c9:checked + .c11 circle {
   fill: rgba(0,0,0,0.9);
-}
-
-.c17 .c7 {
-  margin-right: 14px;
 }
 
 .c17 .c7,
@@ -324,10 +312,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
   fill: rgba(0,0,0,0.90);
 }
 
-.c18 .c7 {
-  margin-right: 16px;
-}
-
 .c18 .c11 {
   padding: 0;
 }
@@ -349,21 +333,12 @@ exports[`RadioButton styles base renders as expected 1`] = `
   fill: rgba(0,0,0,0.9);
 }
 
-.c18 .c7 {
-  margin-right: 14px;
-}
-
 .c18 .c7,
 .c18 .c9,
 .c18 .c11,
 .c18 svg {
   height: 24px;
   width: 24px;
-}
-
-.c18 .c7 {
-  margin-right: 0;
-  margin-left: 16px;
 }
 
 .c19 .c7 {
@@ -429,10 +404,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
 
 .c19 .c9:checked ~ .c11 svg path {
   fill: rgba(0,0,0,0.85);
-}
-
-.c19 .c7 {
-  margin-right: 16px;
 }
 
 .c19 .c11 {
@@ -557,10 +528,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
   fill: #8099a4;
 }
 
-.c20 .c7 {
-  margin-right: 16px;
-}
-
 .c20 .c11 {
   padding: 0;
 }
@@ -677,10 +644,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
   fill: rgba(0,0,0,0.85);
 }
 
-.c21 .c7 {
-  margin-right: 16px;
-}
-
 .c21 .c11 {
   padding: 0;
 }
@@ -793,10 +756,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
   fill: rgba(0,0,0,0.85);
 }
 
-.c22 .c7 {
-  margin-right: 16px;
-}
-
 .c22 .c11 {
   padding: 0;
 }
@@ -884,7 +843,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
 }
 
 .c1 .c26 {
-  padding-left: 6px;
   width: auto;
   -webkit-flex: 0 1 auto;
   -ms-flex: 0 1 auto;
@@ -909,10 +867,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
 .c1 .c23 {
   margin-left: 32px;
   padding-left: 0;
-}
-
-.c1 .c7 {
-  margin-right: 16px;
 }
 
 .c1 .c11 {
@@ -944,8 +898,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
   -webkit-flex: 1 1 calc(100% - 44px);
   -ms-flex: 1 1 calc(100% - 44px);
   flex: 1 1 calc(100% - 44px);
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .c1 .c9:checked + .c11 circle {
