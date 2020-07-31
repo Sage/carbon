@@ -120,6 +120,10 @@ StyledFooter.defaultProps = {
   theme: baseTheme
 };
 
+StyledFooterContent.defaultProps = {
+  theme: baseTheme
+};
+
 export {
   StyledNote, StyledNoteContent, StyledInlineControl, StyledTitle, StyledFooter, StyledFooterContent
 };
