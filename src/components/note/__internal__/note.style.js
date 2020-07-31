@@ -91,10 +91,8 @@ const StyledNote = styled.div`
     flex-direction: column;
     padding: 24px;
     position: relative;
-    width: 100%;
+    width: ${width}%;
     min-width: 314px;
-
-    ${(width && width !== 0) ? `width: ${width}%;` : ''}
 
     ${StyledNoteContent} {
       box-sizing: border-box;
