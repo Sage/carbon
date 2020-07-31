@@ -6,8 +6,9 @@ export interface NoteProps {
    inlineControl?: React.ReactNode;
    title?: string;
    name?: string;
+   createdDate?: string;
    status?: {
-    text?: string;
+    text: string;
     timeStamp?: string;
   };
 }

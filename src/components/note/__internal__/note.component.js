@@ -102,7 +102,7 @@ Note.propTypes = {
   /** Adds a created on date to the Note footer */
   createdDate: PropTypes.string,
   /** Adds a status and tooltip to the Note footer */
-  status: PropTypes.shape({ text: PropTypes.string, timeStamp: PropTypes.string })
+  status: PropTypes.shape({ text: PropTypes.string.isRequired, timeStamp: PropTypes.string })
 };
 
 export default Note;
