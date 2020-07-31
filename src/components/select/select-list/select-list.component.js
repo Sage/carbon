@@ -1,7 +1,8 @@
 import React, {
   useEffect,
   useState,
-  useCallback
+  useCallback,
+  useRef
 } from 'react';
 import PropTypes from 'prop-types';
 import StyledSelectList from './select-list.style';
@@ -25,19 +26,33 @@ const SelectList = React.forwardRef(({
   ...listProps
 }, listRef) => {
   const [currentOptionsListIndex, setCurrentOptionsListIndex] = useState(-1);
+  const lastFilter = useRef('');
 
-  const highlightItem = useCallback((newIndex, optionList) => {
-    const { text, value } = optionList[newIndex].props;
+  const getIndexOfMatch = useCallback((valueToMatch) => {
+    return React.Children.toArray(children).findIndex(child => child.props.value === valueToMatch);
+  }, [children]);
 
-    setCurrentOptionsListIndex(newIndex);
-    updateListScrollTop(newIndex, listRef.current);
+  const highlightNextItem = useCallback((key, optionList) => {
+    const lastIndex = optionList.length - 1;
+    let nextIndex;
+
+    if (highlightedValue) {
+      const indexOfHighlighted = getIndexOfMatch(highlightedValue);
+
+      nextIndex = getNextIndexByKey(key, indexOfHighlighted, lastIndex);
+    } else {
+      nextIndex = getNextIndexByKey(key, currentOptionsListIndex, lastIndex);
+    }
+    const { text, value } = optionList[nextIndex].props;
+
+    setCurrentOptionsListIndex(nextIndex);
+    updateListScrollTop(nextIndex, listRef.current);
     onSelect({ text, value, selectionType: 'navigationKey' });
-  }, [listRef, onSelect]);
+  }, [currentOptionsListIndex, getIndexOfMatch, highlightedValue, listRef, onSelect]);
 
   const handleGlobalKeydown = useCallback((event) => {
     const { key } = event;
     const optionList = React.Children.toArray(children);
-    const lastIndex = optionList.length - 1;
 
     if (key === 'Tab' || key === 'Escape') {
       onSelectListClose();
@@ -54,11 +69,9 @@ const SelectList = React.forwardRef(({
 
       onSelect({ text, value, selectionType: 'enterKey' });
     } else if (isNavigationKey(key)) {
-      const nextIndex = getNextIndexByKey(key, currentOptionsListIndex, lastIndex);
-
-      highlightItem(nextIndex, optionList);
+      highlightNextItem(key, optionList);
     }
-  }, [currentOptionsListIndex, children, onSelectListClose, onSelect, highlightItem]);
+  }, [children, onSelectListClose, currentOptionsListIndex, onSelect, highlightNextItem]);
 
   const repositionList = useCallback(() => {
     if (anchorElement) {
@@ -72,10 +85,6 @@ const SelectList = React.forwardRef(({
     }
   }, [anchorElement, listRef]);
 
-  const getIndexOfMatch = useCallback((valueToMatch) => {
-    return React.Children.toArray(children).findIndex(child => child.props.value === valueToMatch);
-  }, [children]);
-
   useEffect(() => {
     const keyboardEvent = 'keydown';
 
@@ -87,9 +96,13 @@ const SelectList = React.forwardRef(({
   }, [handleGlobalKeydown]);
 
   useEffect(() => {
-    if (!filterText) {
+    if (!filterText || filterText === lastFilter.current) {
+      lastFilter.current = filterText;
+
       return;
     }
+
+    lastFilter.current = filterText;
 
     setCurrentOptionsListIndex((previousIndex) => {
       const match = getNextChildByText(filterText, children, previousIndex);
@@ -104,7 +117,7 @@ const SelectList = React.forwardRef(({
 
       return indexOfMatch;
     });
-  }, [children, filterText, getIndexOfMatch, listRef]);
+  }, [children, filterText, getIndexOfMatch, lastFilter, listRef]);
 
   useEffect(() => {
     repositionList();
