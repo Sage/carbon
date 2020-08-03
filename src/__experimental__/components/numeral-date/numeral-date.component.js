@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import invariant from 'invariant';
+
 import Events from '../../../utils/helpers/events';
 import { StyledNumeralDate, StyledDateField } from './numeral-date.style';
 import Textbox from '../textbox';
+import guid from '../../../utils/helpers/guid';
+import FormField from '../form-field';
 
 const NumeralDate = ({
-  dateFormat,
+  dateFormat = ['dd', 'mm', 'yyyy'],
   defaultValue,
   error,
   info,
@@ -15,16 +17,19 @@ const NumeralDate = ({
   name,
   onBlur,
   onChange,
-  value
+  value,
+  validationOnLabel = false,
+  label,
+  labelInline,
+  labelWidth,
+  labelAlign,
+  labelHelp,
+  fieldHelp
 }) => {
+  const { current: uniqueId } = useRef(id || guid());
   const isControlled = value !== undefined;
   const initialValue = isControlled ? value : defaultValue;
-  invariant(
-    initialValue !== undefined,
-    'This component has no initial value'
-  );
 
-  const [isActive, setIsActive] = useState();
   const [dateValue, setDateValue] = useState({
     ...initialValue
   });
@@ -37,17 +42,13 @@ const NumeralDate = ({
     }
   };
 
-  const handleChange = (e, itemId) => {
+  const handleChange = (e, datePart) => {
     if (onChange) {
       onChange(e);
     }
-    if (e.target.value !== dateValue[itemId] && e.target.value.length <= itemId.length) {
-      setDateValue({ ...dateValue, [itemId]: e.target.value });
+    if (e.target.value !== dateValue[datePart] && e.target.value.length <= datePart.length) {
+      setDateValue({ ...dateValue, [datePart]: e.target.value });
     }
-  };
-
-  const handleOnFocus = () => {
-    setIsActive(true);
   };
 
   const handleBlur = (ev) => {
@@ -57,66 +58,75 @@ const NumeralDate = ({
       value: { ...dateValue }
     };
 
-    setIsActive(false);
-
     if (onBlur) {
       onBlur(targetObject);
     }
   };
 
   return (
-    <StyledNumeralDate
-      name={ name }
-      id={ id }
-      isActive={ isActive }
-      onBlur={ handleBlur }
-      onKeyPress={ onKeyPress }
-      onFocus={ handleOnFocus }
-      data-component='numeral-date'
+    <FormField
+      label={ label }
+      useValidationIcon={ validationOnLabel }
+      id={ uniqueId }
+      error={ error }
+      warning={ warning }
+      info={ info }
+      labelInline={ labelInline }
+      labelWidth={ labelWidth }
+      labelAlign={ labelAlign }
+      labelHelp={ labelHelp }
+      fieldHelp={ fieldHelp }
     >
-      {
-        dateFormat.map((datePart, textboxNumber) => {
-          const isEnd = textboxNumber === dateFormat.length - 1;
-          return (
-            <StyledDateField
-              key={ datePart }
-              isYearInput={ datePart.length === 4 }
-              isMiddle={ textboxNumber === 1 }
-              isEnd={ isEnd }
-              hasValidationIcon={ error || warning || info }
-              twoPartDate={ textboxNumber <= 1 }
-              dateFormatLength={ dateFormat.length }
-            >
-              <Textbox
-                placeholder={ datePart }
-                value={ dateValue[datePart] }
-                onChange={ e => handleChange(e, datePart) }
-                onBlur={ handleBlur }
-                error={ !!error }
-                warning={ !!warning }
-                info={ !!info }
-                {
-                ...(isEnd && {
-                  error,
-                  warning,
-                  info
-                })
-                }
-              />
-            </StyledDateField>
-          );
-        })
-      }
-    </StyledNumeralDate>
+      <StyledNumeralDate
+        name={ name }
+        onBlur={ handleBlur }
+        onKeyPress={ onKeyPress }
+        data-component='numeral-date'
+      >
+        {
+          dateFormat.map((datePart, index) => {
+            const isEnd = index === dateFormat.length - 1;
+            const isMiddle = index === 1;
+
+            return (
+              <StyledDateField
+                key={ datePart }
+                isYearInput={ datePart.length === 4 }
+                isMiddle={ isMiddle }
+                isEnd={ isEnd }
+                hasValidationIcon={ typeof (error || warning || info) === 'string' }
+              >
+                <Textbox
+                  placeholder={ datePart }
+                  value={ dateValue[datePart] }
+                  onChange={ e => handleChange(e, datePart) }
+                  onBlur={ handleBlur }
+                  error={ !!error }
+                  warning={ !!warning }
+                  info={ !!info }
+                  {
+                  ...(isEnd && !validationOnLabel && {
+                    error,
+                    warning,
+                    info
+                  })
+                  }
+                />
+              </StyledDateField>
+            );
+          })
+        }
+      </StyledNumeralDate>
+    </FormField>
   );
 };
 
 NumeralDate.propTypes = {
-  /** Prop array string to define custom layout. Use a comma to seperate values. */
+  /** Array of strings to define custom input layout. I.e ['dd', 'mm'] */
   dateFormat: PropTypes.arrayOf(PropTypes.string),
-  /** Prop for `uncontrolled` use */
+  /** Default value for use in 'uncontrolled` mode  */
   defaultValue: PropTypes.object,
-  /** Prop for `controlled` use */
+  /**  Value for use in 'controlled` mode  */
   value: PropTypes.object,
   /** Indicate that error has occurred
   Pass string to display icon, tooltip and red border
@@ -130,23 +140,28 @@ NumeralDate.propTypes = {
   Pass string to display icon, tooltip and blue border
   Pass true boolean to only display blue border */
   info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  /** Prop for `onBlur` events */
+  /** Blur event handler  */
   onBlur: PropTypes.func,
-  /** Prop for `onChange` events */
+  /** Change event handler */
   onChange: PropTypes.func,
-  /** Prop for `id` events */
+  /** `id` for events */
   id: PropTypes.string,
-  /** Prop for `inputIcon` events */
-  inputIcon: PropTypes.string,
-  /** Prop for `tooltipMessage` events */
-  tooltipMessage: PropTypes.string,
-  /** Prop for `name` events */
+  /** `name` for events */
   name: PropTypes.string,
-  /** Prop for placeholder */
-  // eslint-disable-next-line react/no-unused-prop-types
-  placeholder: PropTypes.string
+  /** When true, validation icon will be placed on label instead of being placed on the input */
+  validationOnLabel: PropTypes.bool,
+  /** Label */
+  label: PropTypes.string,
+  /** Text applied to label help tooltip */
+  labelHelp: PropTypes.string,
+  /** When true, label is placed in line with an input */
+  labelInline: PropTypes.bool,
+  /** Label alignment. Works only when labelInline is true */
+  labelAlign: PropTypes.oneOf(['left', 'right']),
+  /** Width of a label in percentage. Works only when labelInline is true */
+  labelWidth: PropTypes.number,
+  /** Help content to be displayed under an input */
+  fieldHelp: PropTypes.node
 };
-
-NumeralDate.defaultProps = { dateFormat: ['dd', 'mm', 'yyyy'] };
 
 export default NumeralDate;

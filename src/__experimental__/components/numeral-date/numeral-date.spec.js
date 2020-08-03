@@ -2,11 +2,14 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { ThemeProvider } from 'styled-components';
 import { act } from 'react-dom/test-utils';
+
 import mintTheme from '../../../style/themes/mint';
 import NumeralDate from './numeral-date.component';
-import { StyledNumeralDate } from './numeral-date.style';
+import Textbox from '../textbox';
+import { StyledNumeralDate, StyledDateField } from './numeral-date.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
-import StyledTextInput from '../input/input-presentation.style';
+import StyledInputPresentantion from '../input/input-presentation.style';
+import FormField from '../form-field';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 
 describe('NumeralDate', () => {
@@ -15,10 +18,10 @@ describe('NumeralDate', () => {
   const onChange = jest.fn();
   const onKeyDown = jest.fn();
 
-  const renderThemedWrapper = (props, render = shallow) => {
-    const defaultProps = { value: { dd: '12', mm: '', yyyy: '' }, dateFormat: ['dd', 'mm', 'yyyy'] };
+  const renderThemedWrapper = (props) => {
+    const defaultProps = { value: { dd: '12', mm: '', yyyy: '' } };
     return (
-      render(
+      mount(
         <ThemeProvider theme={ mintTheme }>
           <NumeralDate
             { ...defaultProps }
@@ -29,7 +32,7 @@ describe('NumeralDate', () => {
     );
   };
 
-  const renderThemelessWrapper = (props, render = shallow) => {
+  const renderThemelessWrapper = (props) => {
     const defaultProps = {
       dateFormat: ['dd'],
       defaultValue: { dd: '30' },
@@ -40,7 +43,7 @@ describe('NumeralDate', () => {
       name: 'numeralDate_name'
     };
     return (
-      render(
+      mount(
         <NumeralDate
           { ...defaultProps }
           { ...props }
@@ -50,63 +53,89 @@ describe('NumeralDate', () => {
   };
 
   describe('styles', () => {
-    it('matches the expected styles', () => {
-      assertStyleMatch({
-        display: 'inline-flex',
-        fontSize: '14px',
-        fontWeight: '400'
-      }, renderThemedWrapper({ }, mount));
-    });
-
-    it('applies the expected styling when component has focus', () => {
-      wrapper = renderThemedWrapper({
-        value: { dd: '03' },
-        dateFormat: ['dd'],
-        isActive: true
-      }, mount);
-      const input = wrapper.find('input');
-      input.simulate('focus');
-      assertStyleMatch({
-      }, wrapper, { modifer: `${StyledTextInput}` });
-    });
-
-    it('applies the expected styling when component has an error', () => {
-      wrapper = renderThemedWrapper({
-        value: { dd: '03', mm: '03', yyyy: '2003' },
-        dateFormat: ['yyyy', 'mm', 'dd'],
-        error: true
-      }, mount);
-      assertStyleMatch({
-        fontSize: '14px',
-        fontWeight: '400',
-        border: '1px solid transparent'
-      }, wrapper);
-    });
-
-    it('applies the expected styling when component has an error and component consists of two textboxes', () => {
+    it('renders the component wrapped with FormField component with proper props passed on', () => {
+      const formFieldProps = {
+        label: 'Label',
+        id: 'id',
+        error: 'Error',
+        warning: 'Warning',
+        info: 'Info',
+        labelInline: true,
+        labelWidth: 30,
+        labelAlign: 'right',
+        labelHelp: 'label help',
+        fieldHelp: 'field help'
+      };
       wrapper = renderThemedWrapper({
         value: { dd: '03', mm: '03' },
         dateFormat: ['dd', 'mm'],
-        error: true
-      }, mount);
+        validationOnLabel: true,
+        ...formFieldProps
+      });
+
+      expect(wrapper.find(FormField).first().props()).toMatchObject({ ...formFieldProps, useValidationIcon: true });
+    });
+
+    it('matches the expected styles', () => {
       assertStyleMatch({
+        display: 'inline-flex',
+        border: '1px solid transparent',
+        height: '40px',
         fontSize: '14px',
         fontWeight: '400',
-        border: '1px solid transparent'
-      }, wrapper);
+        paddingBottom: '2px',
+        paddingTop: '1px'
+      }, renderThemedWrapper().find(StyledNumeralDate));
+    });
+
+    it('applies the expected styling when last input has a validation icon', () => {
+      wrapper = renderThemedWrapper({
+        value: { dd: '03', mm: '03' },
+        dateFormat: ['dd', 'mm'],
+        error: 'Error'
+      });
+
+      assertStyleMatch({
+        width: '78px'
+      }, wrapper.find(StyledDateField).at(1), { modifier: `${StyledInputPresentantion}` });
+    });
+
+    it('applies the expected styling when input is a year input', () => {
+      wrapper = renderThemedWrapper({
+        value: { dd: '03', mm: '03', yyyy: '2000' },
+        dateFormat: ['dd', 'mm', 'yyyy']
+      });
+
+      assertStyleMatch({
+        width: '78px'
+      }, wrapper.find(StyledDateField).at(2), { modifier: `${StyledInputPresentantion}` });
+    });
+
+    it('renders validation icon only on last input when validationOnLabel prop is passed as false', () => {
+      wrapper = renderThemedWrapper({
+        value: { dd: '03', mm: '03', yyyy: '2000' },
+        dateFormat: ['dd', 'mm', 'yyyy'],
+        validationOnLabel: false,
+        error: 'Error',
+        warning: 'Warning',
+        info: 'Info'
+      });
+      expect(wrapper.find(Textbox).at(0).props()).toMatchObject({ error: true, warning: true, info: true });
+      expect(wrapper.find(Textbox).at(1).props()).toMatchObject({ error: true, warning: true, info: true });
+      expect(wrapper.find(Textbox).at(2).props()).toMatchObject({ error: 'Error', warning: 'Warning', info: 'Info' });
     });
   });
 
   describe('Clicking off the component', () => {
     it('does not call onBlur when no prop is passed', () => {
-      wrapper = renderThemelessWrapper({ onBlur: undefined }, mount);
+      wrapper = renderThemelessWrapper({ onBlur: undefined });
       const input = wrapper.find('input');
       input.simulate('blur');
       expect(onBlur).not.toHaveBeenCalled();
     });
 
     it('calls onBlur if prop is passed', () => {
-      wrapper = renderThemelessWrapper({}, mount);
+      wrapper = renderThemelessWrapper();
       const input = wrapper.find('input');
       input.simulate('blur');
       expect(onBlur).toHaveBeenCalled();
@@ -115,7 +144,7 @@ describe('NumeralDate', () => {
 
   describe('supports being a controlled component', () => {
     it('does not call onChange prop', () => {
-      wrapper = renderThemelessWrapper({ onChange: undefined }, mount);
+      wrapper = renderThemelessWrapper({ onChange: undefined });
       const input = wrapper.find('input');
       act(() => {
         input.simulate('change', { target: { value: '45' } });
@@ -124,7 +153,7 @@ describe('NumeralDate', () => {
     });
 
     it('accepts a value and calls onChange prop', () => {
-      wrapper = renderThemelessWrapper({}, mount);
+      wrapper = renderThemelessWrapper();
       const input = wrapper.find('input');
       act(() => {
         input.simulate('change', { target: { value: '45' } });
@@ -134,7 +163,7 @@ describe('NumeralDate', () => {
 
     // Need this test to hit else branch statement coverage
     it('accepts the same value and calls onChange prop', () => {
-      wrapper = renderThemelessWrapper({}, mount);
+      wrapper = renderThemelessWrapper();
       const input = wrapper.find('input');
       act(() => {
         input.simulate('change', { target: { value: '30' } });
@@ -175,7 +204,7 @@ describe('NumeralDate', () => {
         onKeyDown,
         id: 'numeralDate_id',
         name: 'numeralDate_name'
-      }, mount);
+      });
     });
     afterEach(() => jest.clearAllMocks());
     it.each([['a', 65], ['/', 191]])('does not allow input', (key) => {
@@ -197,7 +226,7 @@ describe('NumeralDate', () => {
         onKeyDown,
         id: 'numeralDate_id',
         name: 'numeralDate_name'
-      }, mount);
+      });
     });
     it('allows numeric key presses', () => {
       const input = wrapper.find('input');
