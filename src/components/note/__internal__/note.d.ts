@@ -5,10 +5,11 @@ export interface NoteProps {
    width?: number;
    inlineControl?: React.ReactNode;
    title?: string;
-   name?: string;
+   name: string;
+   createdDate: string;
    status?: {
-    text?: string;
-    timeStamp?: string;
+    text: string;
+    timeStamp: string;
   };
 }
 
