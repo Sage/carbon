@@ -1,3 +1,21 @@
+## [37.0.0](https://github.com/Sage/carbon/compare/v36.0.0...v37.0.0) (2020-08-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* **note:** The following props are now required for the Note component.
+- noteContent
+- name
+- createdDate
+- status.text if status is provided
+- status.timeStamp if status is provided
+- inlineControl must be an instance of ActionPopover
+
+### Bug Fixes
+
+* **note:** add default theme ([915dbcf](https://github.com/Sage/carbon/commit/915dbcf183b32aa2c155409f0770818c46d7fea2))
+* **note:** enforce required props ([4e8f09a](https://github.com/Sage/carbon/commit/4e8f09abb2490cb3114e70e0720db9b7baabf2c2))
+
 ## [36.0.0](https://github.com/Sage/carbon/compare/v35.4.0...v36.0.0) (2020-07-29)
 
 
