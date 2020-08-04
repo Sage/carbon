@@ -31,7 +31,18 @@ const NumeralDate = ({
   const initialValue = isControlled ? value : defaultValue;
 
   const [dateValue, setDateValue] = useState({
-    ...initialValue
+    ...initialValue || dateFormat.reduce((dateObject, key) => {
+      dateObject[key] = '';
+      return dateObject;
+    }, {})
+  });
+
+  const createCustomEventObject = newValue => ({
+    target: {
+      name,
+      id: uniqueId,
+      value: newValue
+    }
   });
 
   const onKeyPress = (ev) => {
@@ -43,23 +54,23 @@ const NumeralDate = ({
   };
 
   const handleChange = (e, datePart) => {
-    if (onChange) {
-      onChange(e);
-    }
-    if (e.target.value !== dateValue[datePart] && e.target.value.length <= datePart.length) {
-      setDateValue({ ...dateValue, [datePart]: e.target.value });
+    const { value: newValue } = e.target;
+
+    if (newValue.length <= datePart.length) {
+      const newDateValue = { ...dateValue, [datePart]: newValue };
+      setDateValue(newDateValue);
+
+      /* istanbul ignore else */
+      if (onChange) {
+        onChange(createCustomEventObject(newDateValue));
+      }
     }
   };
 
-  const handleBlur = (ev) => {
-    const targetObject = {
-      name: ev.target.name,
-      id: ev.target.id,
-      value: { ...dateValue }
-    };
-
+  const handleBlur = () => {
+    /* istanbul ignore else */
     if (onBlur) {
-      onBlur(targetObject);
+      onBlur(createCustomEventObject(dateValue));
     }
   };
 

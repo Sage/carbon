@@ -19,12 +19,11 @@ export default {
 };
 
 export const Basic = () => {
-  const [dateValue, setDateValue] = useState({});
+  const [dateValue, setDateValue] = useState({ dd: '', mm: '', yyyy: '' });
   const dateFormat = array('dateFormat', ['dd', 'mm', 'yyyy']);
 
-  const handleChange = (ev, itemId) => {
-    setDateValue({ ...dateValue, [itemId]: ev.target.value });
-    console.log(ev, itemId);
+  const handleChange = (ev) => {
+    setDateValue(ev.target.value);
     action('change')(ev);
   };
 
