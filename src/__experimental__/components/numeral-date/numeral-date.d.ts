@@ -11,7 +11,7 @@ export interface NumeralDateProps {
   dateFormat?: ['dd', 'mm', 'yyyy'] | ['mm', 'dd', 'yyyy'] | ['dd', 'mm'] | ['mm', 'dd'] | ['mm', 'yyyy'];
   /** Default value for use in uncontrolled mode  */
   defaultValue?: object;
-  /**  Value for use in 'controlled` mode  */
+  /**  Value for use in controlled mode  */
   value?: object;
   /* Indicate that error has occurred
   Pass string to display icon, tooltip and red border

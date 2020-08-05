@@ -1,5 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import invariant from 'invariant';
 
 import Events from '../../../utils/helpers/events';
 import OptionsHelper from '../../../utils/helpers/options-helper';
@@ -28,8 +29,15 @@ const NumeralDate = ({
   fieldHelp
 }) => {
   const { current: uniqueId } = useRef(id || guid());
-  const isControlled = value !== undefined;
-  const initialValue = isControlled ? value : defaultValue;
+  const isControlled = useRef(value !== undefined);
+  const initialValue = isControlled.current ? value : defaultValue;
+
+  useEffect(() => {
+    const modeSwitchedMessage = 'Input elements should not switch from uncontrolled to controlled (or vice versa). '
+    + 'Decide between using a controlled or uncontrolled input element for the lifetime of the component';
+
+    invariant(isControlled.current === (value !== undefined), modeSwitchedMessage);
+  }, [value]);
 
   const [dateValue, setDateValue] = useState({
     ...initialValue || dateFormat.reduce((dateObject, key) => {
@@ -162,7 +170,7 @@ NumeralDate.propTypes = {
   },
   /** Default value for use in uncontrolled mode  */
   defaultValue: PropTypes.object,
-  /**  Value for use in 'controlled` mode  */
+  /**  Value for use in controlled mode  */
   value: PropTypes.object,
   /** Indicate that error has occurred
   Pass string to display icon, tooltip and red border

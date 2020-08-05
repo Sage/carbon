@@ -1,4 +1,5 @@
-import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
+import { useState } from 'react';
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import NumeralDate from '.';
 
 <Meta title="Design System/Numeral Date" parameters={{ info: { disable: true }}} />
@@ -15,14 +16,27 @@ Import `NumeralDate` into the project.
 import { NumeralDate } from "carbon-react/lib/__experimental__/components/numeral-date"
 
 const MyComponent = () => (
-  <NumeralDate dateFormat={['dd','mm','yyyy']} value={{ dd: 27, mm: 04, yyyy: 1989 }} />
+  <NumeralDate dateFormat={['dd','mm','yyyy']} onChange={ onChange } value={{ dd: '27', mm: '04', yyyy: '1989' }} />
 );
 ```
 
-### Default Date Format
+### Controlled
 <Preview>
-  <Story name="Default">
-    <NumeralDate defaultValue={{dd: '02', mm: '04', yyyy: '2020'}} label="Default" dateFormat={['dd','mm','yyyy']}/>
+  <Story name="Controlled">
+    {() => {
+      const [value, setValue] = useState({ dd: '', mm: '', yyyy: '' })
+      return <NumeralDate value={ value } onChange={e => setValue(e.target.value)} label="Default" dateFormat={['dd','mm','yyyy']}/>
+    }}
+  </Story>
+</Preview>
+
+### Uncontrolled
+<Preview>
+  <Story name="Uncontrolled">
+    {() => {
+      const [value, setValue] = useState()
+      return <NumeralDate defaultValue={{ dd: '01', mm: '02', yyyy: '2020' }} onChange={e => setValue(e.target.value)} label="Default" dateFormat={['dd','mm','yyyy']}/>
+    }}
   </Story>
 </Preview>
 
@@ -30,7 +44,7 @@ const MyComponent = () => (
 <Preview>
   <Story name="Allowed date formats">
     <>
-      <NumeralDate label="DD/MM/YYYY" dateFormat={['dd','mm','yyyy']}/>
+      <NumeralDate label="DD/MM/YYYY - default" dateFormat={['dd','mm','yyyy']}/>
       <NumeralDate label="MM/DD/YYYY" dateFormat={['mm','dd','yyyy']}/>
       <NumeralDate label="DD/MM" dateFormat={['dd','mm']}/>
       <NumeralDate label="MM/DD" dateFormat={['mm','dd']}/>

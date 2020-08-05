@@ -39,7 +39,7 @@ describe('NumeralDate', () => {
 
   describe('propTypes', () => {
     it('does not allow an incorrect dateFormat prop', () => {
-      spyOn(console, 'error');
+      spyOn(global.console, 'error');
       renderWrapper({ dateFormat: ['xx'] });
       const expected = 'Forbidden prop `dateFormat` supplied to `NumeralDate`. '
       + 'Onle one of these date formats is allowed: '
@@ -51,6 +51,24 @@ describe('NumeralDate', () => {
 
       const actual = console.error.calls.argsFor(0)[0];
       expect(actual).toMatch(expected);
+    });
+  });
+
+  describe('invariant', () => {
+    it('throws when component changes from uncontrolled to controlled', () => {
+      wrapper = renderWrapper({ value: undefined });
+      expect(() => {
+        wrapper.setProps({ value: { dd: '02' } });
+      }).toThrow('Input elements should not switch from uncontrolled to controlled (or vice versa). '
+      + 'Decide between using a controlled or uncontrolled input element for the lifetime of the component');
+    });
+
+    it('throws when component changes from controlled to uncontrolled', () => {
+      wrapper = renderWrapper({ value: { dd: '02' } });
+      expect(() => {
+        wrapper.setProps({ value: undefined });
+      }).toThrow('Input elements should not switch from uncontrolled to controlled (or vice versa). '
+      + 'Decide between using a controlled or uncontrolled input element for the lifetime of the component');
     });
   });
 
