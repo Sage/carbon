@@ -37,6 +37,23 @@ describe('NumeralDate', () => {
     );
   };
 
+  describe('propTypes', () => {
+    it('does not allow an incorrect dateFormat prop', () => {
+      spyOn(console, 'error');
+      renderWrapper({ dateFormat: ['xx'] });
+      const expected = 'Forbidden prop `dateFormat` supplied to `NumeralDate`. '
+      + 'Onle one of these date formats is allowed: '
+      + "['dd', 'mm', 'yyyy'], "
+      + "['mm', 'dd', 'yyyy'], "
+      + "['dd', 'mm'], "
+      + "['mm', 'dd'], "
+      + "['mm', 'yyyy']";
+
+      const actual = console.error.calls.argsFor(0)[0];
+      expect(actual).toMatch(expected);
+    });
+  });
+
   describe('styles', () => {
     it('renders the component wrapped with FormField component with proper props passed on', () => {
       const formFieldProps = {

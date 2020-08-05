@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import Events from '../../../utils/helpers/events';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 import { StyledNumeralDate, StyledDateField } from './numeral-date.style';
 import Textbox from '../textbox';
 import guid from '../../../utils/helpers/guid';
@@ -108,6 +109,7 @@ const NumeralDate = ({
                 hasValidationIcon={ typeof (error || warning || info) === 'string' }
               >
                 <Textbox
+                  { ...(index === 0 && { id: uniqueId }) }
                   placeholder={ datePart }
                   value={ dateValue[datePart] }
                   onChange={ e => handleChange(e, datePart) }
@@ -133,9 +135,32 @@ const NumeralDate = ({
 };
 
 NumeralDate.propTypes = {
-  /** Array of strings to define custom input layout. I.e ['dd', 'mm'] */
-  dateFormat: PropTypes.arrayOf(PropTypes.string),
-  /** Default value for use in 'uncontrolled` mode  */
+  /** Array of strings to define custom input layout.
+  Allowed formats:
+  ['dd', 'mm', 'yyyy'],
+  ['mm', 'dd', 'yyyy'],
+  ['dd', 'mm'],
+  ['mm', 'dd'],
+  ['mm', 'yyyy'] */
+  dateFormat: (props, propName, componentName) => {
+    const dateFormat = props[propName];
+    const isAllowed = OptionsHelper.dateFormats.find(
+      allowedDateFormat => JSON.stringify(allowedDateFormat) === JSON.stringify(dateFormat)
+    );
+    if (!isAllowed) {
+      return new Error(
+        `Forbidden prop \`${propName}\` supplied to \`${componentName}\`. `
+          + 'Onle one of these date formats is allowed: '
+          + "['dd', 'mm', 'yyyy'], "
+          + "['mm', 'dd', 'yyyy'], "
+          + "['dd', 'mm'], "
+          + "['mm', 'dd'], "
+          + "['mm', 'yyyy']"
+      );
+    }
+    return null;
+  },
+  /** Default value for use in uncontrolled mode  */
   defaultValue: PropTypes.object,
   /**  Value for use in 'controlled` mode  */
   value: PropTypes.object,

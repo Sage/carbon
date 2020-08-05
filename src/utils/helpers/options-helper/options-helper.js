@@ -434,6 +434,14 @@ const OptionsHelper = {
     'header',
     'rowHeader',
     'cell'
+  ],
+
+  dateFormats: [
+    ['dd', 'mm', 'yyyy'],
+    ['mm', 'dd', 'yyyy'],
+    ['dd', 'mm'],
+    ['mm', 'dd'],
+    ['mm', 'yyyy']
   ]
 };
 

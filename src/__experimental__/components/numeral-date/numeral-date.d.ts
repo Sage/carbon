@@ -1,9 +1,15 @@
 import * as React from 'react';
 
 export interface NumeralDateProps {
-  /** Array of strings to define custom input layout. I.e ['dd', 'mm'] */
-  dateFormat?: string[];
-  /** Default value for use in 'uncontrolled` mode  */
+  /* Array of strings to define custom input layout.
+  Allowed formats:
+  ['dd', 'mm', 'yyyy'],
+  ['mm', 'dd', 'yyyy'],
+  ['dd', 'mm'],
+  ['mm', 'dd'],
+  ['mm', 'yyyy'] */
+  dateFormat?: ['dd', 'mm', 'yyyy'] | ['mm', 'dd', 'yyyy'] | ['dd', 'mm'] | ['mm', 'dd'] | ['mm', 'yyyy'];
+  /** Default value for use in uncontrolled mode  */
   defaultValue?: object;
   /**  Value for use in 'controlled` mode  */
   value?: object;

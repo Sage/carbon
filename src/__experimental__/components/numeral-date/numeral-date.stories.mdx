@@ -12,10 +12,10 @@ For dates close to today, we advise the use of a standard datepicker. If you req
 Import `NumeralDate` into the project.
 
 ```jsx
-import { NumeralDate } from "carbon-react/lib/components/numeral-date"
+import { NumeralDate } from "carbon-react/lib/__experimental__/components/numeral-date"
 
 const MyComponent = () => (
-  <NumeralDate dateFormat={['dd','mm','yyyy']} />
+  <NumeralDate dateFormat={['dd','mm','yyyy']} value={{ dd: 27, mm: 04, yyyy: 1989 }} />
 );
 ```
 
@@ -26,12 +26,15 @@ const MyComponent = () => (
   </Story>
 </Preview>
 
-### Custom Date Format
+### Allowed date formats
 <Preview>
-  <Story name="Custom">
+  <Story name="Allowed date formats">
     <>
-      <NumeralDate label="American date" dateFormat={['mm','dd','yyyy']}/>
-      <NumeralDate label="Only month and year" dateFormat={['mm','yyyy']}/>
+      <NumeralDate label="DD/MM/YYYY" dateFormat={['dd','mm','yyyy']}/>
+      <NumeralDate label="MM/DD/YYYY" dateFormat={['mm','dd','yyyy']}/>
+      <NumeralDate label="DD/MM" dateFormat={['dd','mm']}/>
+      <NumeralDate label="MM/DD" dateFormat={['mm','dd']}/>
+      <NumeralDate label="MM/YYYY" dateFormat={['mm','yyyy']}/>
     </>
   </Story>
 </Preview>
