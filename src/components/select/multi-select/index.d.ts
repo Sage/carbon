@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Option from '../option';
 
-export interface FilterableSelectProps {
+export interface MultiSelectProps {
   /** Id attribute of the input element */
   id?: string;
   /** Name attribute of the input element */
@@ -50,6 +50,6 @@ export interface FilterableSelectProps {
   onKeyDown?: () => void;
 }
 
-declare const FilterableSelect: React.ComponentType<FilterableSelectProps>;
+declare const MultiSelect: React.ComponentType<MultiSelectProps>;
 
-export default FilterableSelect;
+export default MultiSelect;

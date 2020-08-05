@@ -288,7 +288,6 @@ const FilterableSelect = React.forwardRef(({
           ref={ listboxRef }
           id={ selectListId.current }
           labelId={ labelId.current }
-          role='listbox'
           anchorElement={ textboxRef.parentElement }
           onSelect={ onSelectOption }
           onSelectListClose={ onSelectListClose }

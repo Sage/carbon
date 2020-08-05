@@ -1,7 +1,8 @@
 import React, {
   useEffect,
   useState,
-  useCallback
+  useCallback,
+  useRef
 } from 'react';
 import PropTypes from 'prop-types';
 import StyledSelectList from './select-list.style';
@@ -20,22 +21,38 @@ const SelectList = React.forwardRef(({
   onSelectListClose,
   filterText,
   anchorElement,
-  highlightedValue
+  highlightedValue,
+  repositionTrigger,
+  ...listProps
 }, listRef) => {
   const [currentOptionsListIndex, setCurrentOptionsListIndex] = useState(-1);
+  const lastFilter = useRef('');
 
-  const highlightItem = useCallback((newIndex, optionList) => {
-    const { text, value } = optionList[newIndex].props;
+  const getIndexOfMatch = useCallback((valueToMatch) => {
+    return React.Children.toArray(children).findIndex(child => child.props.value === valueToMatch);
+  }, [children]);
 
-    setCurrentOptionsListIndex(newIndex);
-    updateListScrollTop(newIndex, listRef.current);
+  const highlightNextItem = useCallback((key, optionList) => {
+    const lastIndex = optionList.length - 1;
+    let nextIndex;
+
+    if (highlightedValue) {
+      const indexOfHighlighted = getIndexOfMatch(highlightedValue);
+
+      nextIndex = getNextIndexByKey(key, indexOfHighlighted, lastIndex);
+    } else {
+      nextIndex = getNextIndexByKey(key, currentOptionsListIndex, lastIndex);
+    }
+    const { text, value } = optionList[nextIndex].props;
+
+    setCurrentOptionsListIndex(nextIndex);
+    updateListScrollTop(nextIndex, listRef.current);
     onSelect({ text, value, selectionType: 'navigationKey' });
-  }, [listRef, onSelect]);
+  }, [currentOptionsListIndex, getIndexOfMatch, highlightedValue, listRef, onSelect]);
 
   const handleGlobalKeydown = useCallback((event) => {
     const { key } = event;
     const optionList = React.Children.toArray(children);
-    const lastIndex = optionList.length - 1;
 
     if (key === 'Tab' || key === 'Escape') {
       onSelectListClose();
@@ -52,15 +69,14 @@ const SelectList = React.forwardRef(({
 
       onSelect({ text, value, selectionType: 'enterKey' });
     } else if (isNavigationKey(key)) {
-      const nextIndex = getNextIndexByKey(key, currentOptionsListIndex, lastIndex);
-
-      highlightItem(nextIndex, optionList);
+      highlightNextItem(key, optionList);
     }
-  }, [currentOptionsListIndex, children, onSelectListClose, onSelect, highlightItem]);
+  }, [children, onSelectListClose, currentOptionsListIndex, onSelect, highlightNextItem]);
 
   const repositionList = useCallback(() => {
     if (anchorElement) {
       const inputBoundingRect = anchorElement.getBoundingClientRect();
+
       const top = `${window.pageYOffset + inputBoundingRect.top + inputBoundingRect.height}px`;
       const width = `${inputBoundingRect.width + 2 * overhang}px`;
       const left = `${window.pageXOffset + inputBoundingRect.left - overhang}px`;
@@ -68,10 +84,6 @@ const SelectList = React.forwardRef(({
       listRef.current.setAttribute('style', `top: ${top}; width: ${width}; left: ${left}`);
     }
   }, [anchorElement, listRef]);
-
-  const getIndexOfMatch = useCallback((valueToMatch) => {
-    return React.Children.toArray(children).findIndex(child => child.props.value === valueToMatch);
-  }, [children]);
 
   useEffect(() => {
     const keyboardEvent = 'keydown';
@@ -84,9 +96,13 @@ const SelectList = React.forwardRef(({
   }, [handleGlobalKeydown]);
 
   useEffect(() => {
-    if (!filterText) {
+    if (!filterText || filterText === lastFilter.current) {
+      lastFilter.current = filterText;
+
       return;
     }
+
+    lastFilter.current = filterText;
 
     setCurrentOptionsListIndex((previousIndex) => {
       const match = getNextChildByText(filterText, children, previousIndex);
@@ -101,11 +117,11 @@ const SelectList = React.forwardRef(({
 
       return indexOfMatch;
     });
-  }, [children, filterText, getIndexOfMatch, listRef]);
+  }, [children, filterText, getIndexOfMatch, lastFilter, listRef]);
 
   useEffect(() => {
     repositionList();
-  }, [repositionList]);
+  }, [repositionList, repositionTrigger]);
 
   useEffect(() => {
     if (!highlightedValue) {
@@ -147,6 +163,7 @@ const SelectList = React.forwardRef(({
         role='listbox'
         ref={ listRef }
         tabIndex='0'
+        { ...listProps }
       >
         { getChildrenWithListProps() }
       </StyledSelectList>
@@ -170,7 +187,9 @@ SelectList.propTypes = {
   /** Text value to highlight an option */
   filterText: PropTypes.string,
   /** Value of option to be highlighted on component render */
-  highlightedValue: PropTypes.string
+  highlightedValue: PropTypes.string,
+  /** A trigger to manually reposition the list */
+  repositionTrigger: PropTypes.bool
 };
 
 export default SelectList;
