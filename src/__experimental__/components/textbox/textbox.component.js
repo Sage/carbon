@@ -6,10 +6,7 @@ import FormField from '../form-field';
 import withUniqueIdProps from '../../../utils/helpers/with-unique-id-props';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import Logger from '../../../utils/logger/logger';
-
-// This component is a working example of what a Textbox might look like
-// using only the new input componentry. It is still under development with
-// subject to change as we continue to remove the decorator classes.
+import { InputBehaviour } from '../../../__internal__/input-behaviour';
 
 let deprecatedWarnTriggered = false;
 
@@ -32,35 +29,37 @@ const Textbox = ({
   }
 
   return (
-    <FormField
-      childOfForm={ childOfForm }
-      isOptional={ isOptional }
-      { ...props }
-      useValidationIcon={ validationOnLabel }
-      styleOverride={ styleOverride }
-    >
-      <InputPresentation
-        type='text'
-        { ...removeParentProps(props) }
-        styleOverride={ styleOverride.input }
+    <InputBehaviour>
+      <FormField
+        childOfForm={ childOfForm }
+        isOptional={ isOptional }
+        { ...props }
+        useValidationIcon={ validationOnLabel }
+        styleOverride={ styleOverride }
       >
-        { leftChildren }
-        <Input
+        <InputPresentation
+          type='text'
           { ...removeParentProps(props) }
-          placeholder={ (props.disabled || props.readOnly) ? '' : props.placeholder }
-          aria-invalid={ props.error }
-          value={ visibleValue(value, formattedValue) }
-        />
-        { children }
+          styleOverride={ styleOverride.input }
+        >
+          { leftChildren }
+          <Input
+            { ...removeParentProps(props) }
+            placeholder={ (props.disabled || props.readOnly) ? '' : props.placeholder }
+            aria-invalid={ !!props.error }
+            value={ visibleValue(value, formattedValue) }
+          />
+          { children }
 
-        <InputIconToggle
-          { ...removeParentProps(props) }
-          useValidationIcon={ !validationOnLabel }
-          onClick={ iconOnClick || props.onClick }
-          inputIcon={ inputIcon }
-        />
-      </InputPresentation>
-    </FormField>
+          <InputIconToggle
+            { ...removeParentProps(props) }
+            useValidationIcon={ !validationOnLabel }
+            onClick={ iconOnClick || props.onClick }
+            inputIcon={ inputIcon }
+          />
+        </InputPresentation>
+      </FormField>
+    </InputBehaviour>
   );
 };
 

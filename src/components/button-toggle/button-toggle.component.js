@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import {
   StyledButtonToggle,
@@ -9,6 +9,8 @@ import guid from '../../utils/helpers/guid';
 import ButtonToggleIcon from './button-toggle-icon.component';
 import ButtonToggleInput from './button-toggle-input.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
+
+import { InputGroupContext } from '../../__internal__/input-behaviour';
 
 const ButtonToggle = (props) => {
   const {
@@ -24,6 +26,8 @@ const ButtonToggle = (props) => {
     value,
     size
   } = props;
+  const { onMouseEnter, onMouseLeave } = useContext(InputGroupContext);
+
   const inputGuid = guid();
   let icon;
 
@@ -57,6 +61,8 @@ const ButtonToggle = (props) => {
         disabled={ disabled }
         htmlFor={ inputGuid }
         size={ size }
+        onMouseEnter={ onMouseEnter }
+        onMouseLeave={ onMouseLeave }
       >
         <StyledButtonToggleContentWrapper>
           { icon }

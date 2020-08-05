@@ -4,8 +4,8 @@ import Textbox from '.';
 import InputIconToggle from '../input-icon-toggle';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import FormField from '../form-field';
-import { InputPresentation } from '../input/input-presentation.component';
-import Label from '../label';
+import InputPresentation from '../input/input-presentation.component';
+import { StyledLabelContainer } from '../label/label.style';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 
 jest.mock('../../../utils/helpers/guid', () => () => 'mocked-guid');
@@ -91,7 +91,7 @@ describe('Textbox', () => {
     });
 
     it('renders label element with properly assigned styles', () => {
-      assertStyleMatch(randomStyleObject, wrapper.find(Label));
+      assertStyleMatch(randomStyleObject, wrapper.find(StyledLabelContainer));
     });
   });
 });

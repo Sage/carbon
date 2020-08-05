@@ -4,6 +4,7 @@ import invariant from 'invariant';
 import Events from '../../../utils/helpers/events';
 import { StyledNumeralDate, StyledDateField } from './numeral-date.style';
 import Textbox from '../textbox';
+import { InputGroupBehaviour } from '../../../__internal__/input-behaviour';
 
 const NumeralDate = ({
   dateFormat,
@@ -65,49 +66,51 @@ const NumeralDate = ({
   };
 
   return (
-    <StyledNumeralDate
-      name={ name }
-      id={ id }
-      isActive={ isActive }
-      onBlur={ handleBlur }
-      onKeyPress={ onKeyPress }
-      onFocus={ handleOnFocus }
-      data-component='numeral-date'
-    >
-      {
-        dateFormat.map((datePart, textboxNumber) => {
-          const isEnd = textboxNumber === dateFormat.length - 1;
-          return (
-            <StyledDateField
-              key={ datePart }
-              isYearInput={ datePart.length === 4 }
-              isMiddle={ textboxNumber === 1 }
-              isEnd={ isEnd }
-              hasValidationIcon={ error || warning || info }
-              twoPartDate={ textboxNumber <= 1 }
-              dateFormatLength={ dateFormat.length }
-            >
-              <Textbox
-                placeholder={ datePart }
-                value={ dateValue[datePart] }
-                onChange={ e => handleChange(e, datePart) }
-                onBlur={ handleBlur }
-                error={ !!error }
-                warning={ !!warning }
-                info={ !!info }
-                {
-                ...(isEnd && {
-                  error,
-                  warning,
-                  info
-                })
-                }
-              />
-            </StyledDateField>
-          );
-        })
-      }
-    </StyledNumeralDate>
+    <InputGroupBehaviour>
+      <StyledNumeralDate
+        name={ name }
+        id={ id }
+        isActive={ isActive }
+        onBlur={ handleBlur }
+        onKeyPress={ onKeyPress }
+        onFocus={ handleOnFocus }
+        data-component='numeral-date'
+      >
+        {
+          dateFormat.map((datePart, textboxNumber) => {
+            const isEnd = textboxNumber === dateFormat.length - 1;
+            return (
+              <StyledDateField
+                key={ datePart }
+                isYearInput={ datePart.length === 4 }
+                isMiddle={ textboxNumber === 1 }
+                isEnd={ isEnd }
+                hasValidationIcon={ error || warning || info }
+                twoPartDate={ textboxNumber <= 1 }
+                dateFormatLength={ dateFormat.length }
+              >
+                <Textbox
+                  placeholder={ datePart }
+                  value={ dateValue[datePart] }
+                  onChange={ e => handleChange(e, datePart) }
+                  onBlur={ handleBlur }
+                  error={ !!error }
+                  warning={ !!warning }
+                  info={ !!info }
+                  {
+                  ...(isEnd && {
+                    error,
+                    warning,
+                    info
+                  })
+                  }
+                />
+              </StyledDateField>
+            );
+          })
+        }
+      </StyledNumeralDate>
+    </InputGroupBehaviour>
   );
 };
 

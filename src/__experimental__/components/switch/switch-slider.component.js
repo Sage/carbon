@@ -62,7 +62,6 @@ const SwitchSlider = (props) => {
           warning={ warning }
           info={ info }
           size={ props.size }
-          tabIndex={ 0 }
         />
       )}
     </StyledSwitchSlider>
