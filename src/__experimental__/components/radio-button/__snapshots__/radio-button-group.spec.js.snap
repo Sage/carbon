@@ -6,7 +6,10 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 }
 
 .c7 {
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .c11 {
@@ -29,22 +32,20 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   display: flex;
 }
 
-.c3 .c16 {
-  text-align: left;
-  padding-top: 0;
+.c3 .c14 {
   width: auto;
 }
 
-.c3 .c16 .c14,
-.c3 .c16 .c15 {
+.c3 .c14 .c15,
+.c3 .c14 .c16 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
 }
 
-.c3 .c16 .c14:hover,
-.c3 .c16 .c15:hover,
-.c3 .c16 .c14:focus,
-.c3 .c16 .c15:focus {
+.c3 .c14 .c15:hover,
+.c3 .c14 .c16:hover,
+.c3 .c14 .c15:focus,
+.c3 .c14 .c16:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -93,8 +94,8 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c2 .c16 {
-  padding-left: 6px;
+.c2 .c14 {
+  margin-left: 8px;
   width: auto;
   -webkit-flex: 0 1 auto;
   -ms-flex: 0 1 auto;
@@ -102,12 +103,11 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 }
 
 .c2 .c13 {
-  margin-left: 16px;
+  margin-left: 24px;
   margin-top: 0;
-  padding-left: 6px;
 }
 
-.c2 .c15 {
+.c2 .c16 {
   position: relative;
   display: inline-block;
 }
@@ -150,11 +150,11 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   r: 5;
 }
 
-.c2 .c16 {
+.c2 .c14 {
   -webkit-flex: 1 1 calc(100% - 44px);
   -ms-flex: 1 1 calc(100% - 44px);
   flex: 1 1 calc(100% - 44px);
-  padding-left: 0;
+  margin-left: 0;
 }
 
 .c2 .c10:checked + .c12 circle {
@@ -199,7 +199,10 @@ exports[`RadioButtonGroup renders as expected 1`] = `
     <div
       className="c1"
     >
-      <legend>
+      <legend
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
         Test RadioButtonGroup Legend
       </legend>
     </div>
@@ -236,8 +239,11 @@ exports[`RadioButtonGroup renders as expected 1`] = `
                   className="c10 c11"
                   id="rId-0"
                   name="test-group"
-                  onBlur={[MockFunction]}
+                  onBlur={[Function]}
                   onChange={[Function]}
+                  onFocus={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   role="radio"
                   type="radio"
                   value="test-1"
@@ -298,8 +304,11 @@ exports[`RadioButtonGroup renders as expected 1`] = `
                   className="c10 c11"
                   id="rId-1"
                   name="test-group"
-                  onBlur={[MockFunction]}
+                  onBlur={[Function]}
                   onChange={[Function]}
+                  onFocus={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   role="radio"
                   type="radio"
                   value="test-2"

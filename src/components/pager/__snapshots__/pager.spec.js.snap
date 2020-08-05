@@ -98,16 +98,22 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
   display: block;
 }
 
-.c18 {
+.c19 {
   color: rgba(0,0,0,0.9);
   display: block;
   font-weight: 600;
-  padding-bottom: 8px;
 }
 
-.c18 .c21,
-.c18 .sc-ifAKCX {
-  vertical-align: middle;
+.c18 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 8px;
 }
 
 .c8 {
@@ -378,7 +384,7 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
   padding: 5px 10px;
 }
 
-.c19 {
+.c20 {
   padding: 0 10px;
   font-size: 13px;
   border-width: 0;
@@ -389,13 +395,13 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
   color: rgba(0,0,0,0.90);
 }
 
-.c19:hover {
+.c20:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   padding: 5px 10px;
 }
 
-.c19:focus {
+.c20:focus {
   outline: solid 3px #FFB500;
   padding: 5px 10px;
 }
@@ -408,7 +414,7 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
   white-space: nowrap;
 }
 
-.c20 {
+.c21 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -459,6 +465,7 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
             >
               <input
                 aria-controls=""
+                aria-invalid={false}
                 autoComplete="off"
                 className="c9 c10"
                 data-element="input"
@@ -524,46 +531,53 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
       >
         Page 
       </span>
-      <label
+      <div
         className="c18"
-        data-element="label"
-        htmlFor="Pager_guid-12345"
         width={30}
       >
-        <div
-          className="c4 c5"
-          data-element="current-page"
+        <label
+          className="c19"
+          data-element="label"
+          htmlFor="Pager_guid-12345"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
-            className="c6"
+            className="c4 c5"
+            data-element="current-page"
           >
             <div
-              className="c7 c8"
-              onMouseDown={[Function]}
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              role="presentation"
-              size="medium"
+              className="c6"
             >
-              <input
-                className="c9 c10"
-                data-element="input"
-                id="Pager_guid-12345"
-                name="guid-12345"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onClick={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onKeyUp={[Function]}
+              <div
+                className="c7 c8"
+                onMouseDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                role="presentation"
                 size="medium"
-                type="text"
-                value="1"
-              />
+              >
+                <input
+                  aria-invalid={false}
+                  className="c9 c10"
+                  data-element="input"
+                  id="Pager_guid-12345"
+                  name="guid-12345"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  size="medium"
+                  type="text"
+                  value="1"
+                />
+              </div>
             </div>
           </div>
-        </div>
-      </label>
+        </label>
+      </div>
       <span
         className="c17"
       >
@@ -572,7 +586,7 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
       </span>
     </div>
     <button
-      className="c19"
+      className="c20"
       data-element="pager-link-next"
       disabled={false}
       onClick={[Function]}
@@ -580,7 +594,7 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
       Next
     </button>
     <button
-      className="c19"
+      className="c20"
       data-element="pager-link-last"
       disabled={false}
       onClick={[Function]}
@@ -589,7 +603,7 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
     </button>
   </div>
   <div
-    className="c20"
+    className="c21"
   >
     100
      
@@ -599,7 +613,7 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
 `;
 
 exports[`Pager renders the Pager without pageSizeSelection 1`] = `
-.c13 {
+.c14 {
   background: transparent;
   border: none;
   color: rgba(0,0,0,0.9);
@@ -612,45 +626,51 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
   width: 30px;
 }
 
-.c13:-webkit-autofill {
+.c14:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
   -webkit-box-border: none;
 }
 
-.c13::-webkit-input-placeholder {
+.c14::-webkit-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c13::-moz-placeholder {
+.c14::-moz-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c13:-ms-input-placeholder {
+.c14:-ms-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c13::placeholder {
+.c14::placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c13:invalid,
-.c13:required {
+.c14:invalid,
+.c14:required {
   box-shadow: none;
 }
 
-.c6 {
+.c7 {
   color: rgba(0,0,0,0.9);
   display: block;
   font-weight: 600;
-  padding-bottom: 8px;
 }
 
-.c6 .c17,
-.c6 .sc-ifAKCX {
-  vertical-align: middle;
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 8px;
 }
 
-.c11 {
+.c12 {
   -webkit-align-items: stretch;
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
@@ -675,24 +695,24 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
   padding-right: 11px;
 }
 
-.c11 .c12 {
+.c12 .c13 {
   height: calc(40px - 4px);
 }
 
-.c11 .c12:-webkit-autofill {
+.c12 .c13:-webkit-autofill {
   margin-top: 2px;
   height: calc(40px - 8px);
 }
 
-.c11 input::-ms-clear {
+.c12 input::-ms-clear {
   display: none;
 }
 
-.c11 input::-webkit-contacts-auto-fill-button {
+.c12 input::-webkit-contacts-auto-fill-button {
   display: none!important;
 }
 
-.c15 .c12 {
+.c16 .c13 {
   cursor: pointer;
   color: transparent;
   -webkit-user-select: none;
@@ -703,33 +723,33 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
   padding-left: 11px;
 }
 
-.c15 .c12::-webkit-input-placeholder {
+.c16 .c13::-webkit-input-placeholder {
   text-shadow: 0 0 0 rgba(0,0,0,0.3);
 }
 
-.c15 .c12::-moz-placeholder {
+.c16 .c13::-moz-placeholder {
   text-shadow: 0 0 0 rgba(0,0,0,0.3);
 }
 
-.c15 .c12:-ms-input-placeholder {
+.c16 .c13:-ms-input-placeholder {
   text-shadow: 0 0 0 rgba(0,0,0,0.3);
 }
 
-.c15 .c12::placeholder {
+.c16 .c13::placeholder {
   text-shadow: 0 0 0 rgba(0,0,0,0.3);
 }
 
-.c15 .c10 {
+.c16 .c11 {
   cursor: pointer;
   padding-left: 0;
   padding-right: 0;
 }
 
-.c8 + .c7 {
+.c9 + .c8 {
   margin-top: 16px;
 }
 
-.c9 {
+.c10 {
   display: block;
 }
 
@@ -819,7 +839,7 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
   justify-content: flex-start;
 }
 
-.c1 .c10 {
+.c1 .c11 {
   width: 55px;
   height: 26px;
   min-height: 26px;
@@ -827,7 +847,7 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
   margin: 0px 4px;
 }
 
-.c1 .c10 .c12 {
+.c1 .c11 .c13 {
   font-size: 14px;
   padding-right: 0px;
   padding-left: 8px;
@@ -835,7 +855,7 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
   width: 13px;
 }
 
-.c1 .c10 .c16 {
+.c1 .c11 .c17 {
   margin-left: 0;
   width: 20px;
   height: 24px;
@@ -859,7 +879,7 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
   align-items: center;
 }
 
-.c2.c2 .c10 {
+.c2.c2 .c11 {
   padding: 0;
   margin: 8px 4px 0 4px;
   height: 26px;
@@ -867,7 +887,7 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
   min-height: 24px;
 }
 
-.c2.c2 .c10 .c12 {
+.c2.c2 .c11 .c13 {
   text-align: center;
   height: 24px;
   padding: 0;
@@ -911,7 +931,7 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
   white-space: nowrap;
 }
 
-.c14 {
+.c15 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -959,46 +979,53 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
       >
         Page 
       </span>
-      <label
+      <div
         className="c6"
-        data-element="label"
-        htmlFor="Pager_guid-12345"
         width={30}
       >
-        <div
-          className="c7 c8"
-          data-element="current-page"
+        <label
+          className="c7"
+          data-element="label"
+          htmlFor="Pager_guid-12345"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
-            className="c9"
+            className="c8 c9"
+            data-element="current-page"
           >
             <div
-              className="c10 c11"
-              onMouseDown={[Function]}
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              role="presentation"
-              size="medium"
+              className="c10"
             >
-              <input
-                className="c12 c13"
-                data-element="input"
-                id="Pager_guid-12345"
-                name="guid-12345"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onClick={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onKeyUp={[Function]}
+              <div
+                className="c11 c12"
+                onMouseDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                role="presentation"
                 size="medium"
-                type="text"
-                value=""
-              />
+              >
+                <input
+                  aria-invalid={false}
+                  className="c13 c14"
+                  data-element="input"
+                  id="Pager_guid-12345"
+                  name="guid-12345"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  size="medium"
+                  type="text"
+                  value=""
+                />
+              </div>
             </div>
           </div>
-        </div>
-      </label>
+        </label>
+      </div>
       <span
         className="c5"
       >
@@ -1024,7 +1051,7 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
     </button>
   </div>
   <div
-    className="c14"
+    className="c15"
   >
     100
      

@@ -6,7 +6,7 @@ import Label from '../../__experimental__/components/label';
 import Textbox from '../../__experimental__/components/textbox';
 import InlineInputs from './inline-inputs.component';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-import LabelStyle from '../../__experimental__/components/label/label.style';
+import { StyledLabelContainer } from '../../__experimental__/components/label/label.style';
 
 describe('Inline Inputs', () => {
   let wrapper;
@@ -33,10 +33,9 @@ describe('Inline Inputs', () => {
 
     it('then the label should have specific styles', () => {
       assertStyleMatch({
-        fontWeight: 'bold',
         marginRight: '15px',
         width: 'auto'
-      }, wrapper, { modifier: `${LabelStyle}` });
+      }, wrapper, { modifier: `${StyledLabelContainer}` });
     });
   });
 

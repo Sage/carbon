@@ -124,26 +124,7 @@ Object {
   "onSelect": [Function],
   "open": true,
   "role": "listbox",
-  "target": .c3 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  margin-right: -11px;
-  margin-left: -11px;
-  width: 40px;
-}
-
-.c2 {
+  "target": .c2 {
   background: transparent;
   border: none;
   color: rgba(0,0,0,0.9);
@@ -180,6 +161,25 @@ Object {
 .c2:invalid,
 .c2:required {
   box-shadow: none;
+}
+
+.c3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: -11px;
+  margin-left: -11px;
+  width: 40px;
 }
 
 .c4 {
@@ -286,6 +286,7 @@ Object {
     role="presentation"
   >
     <input
+      aria-invalid="false"
       aria-label="Please Select..."
       class="c1 c2"
       data-element="input"
