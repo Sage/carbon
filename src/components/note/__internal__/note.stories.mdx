@@ -1,15 +1,12 @@
 import { useState } from 'react';
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 import Note from './note.component';
-import Content from '../../content';
 import {
   ActionPopover,
   ActionPopoverDivider,
   ActionPopoverItem
 } from '../../action-popover';
 import { EditorState, ContentState, convertFromHTML } from 'draft-js';
-import Icon from '../../icon';
-import DateHelper from '../../../utils/helpers/date';
 
 <Meta title="Design System/Note" />
 
@@ -35,7 +32,7 @@ In its basic form, the component can render plain text content by passing a valu
       const noteContent = EditorState.createWithContent(ContentState.createFromText('Here is some plain text content'));
       return (
         <div style={{ height: 200, width: '50%' }}>
-          <Note width={ 100 } noteContent={ noteContent } />
+          <Note name='Lauren Smith' noteContent={ noteContent } createdDate ='23 May 2020, 12:08 PM'/>
         </div>
       );
     }}
@@ -62,129 +59,125 @@ static method.
       );
       const noteContent = EditorState.createWithContent(content);
       return (
-        <div style={{ height: 200, width: '50%' }}>
+        <div style={{ height: 300, width: '50%' }}>
           <Note
-            width={ 100 }
             noteContent={ noteContent }
-          />
-        </div>
-      );
-    }}
-  </Story>
-</Preview>
-
-### With optional title:
-Passing a string value to the `title` prop will render it in the `Note`.
-<Preview>
-  <Story name="with optional title" parameters={{ info: { disable: true }}}>
-    {() => {
-      const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
-      <ul><li>unordered</li></ul>
-      <ol><li>ordered</li></ol></br>
-      <p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i></p>
-      <p>Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>`;
-      const blocksFromHTML = convertFromHTML(html);
-      const content = ContentState.createFromBlockArray(
-        blocksFromHTML.contentBlocks,
-        blocksFromHTML.entityMap
-      );
-      const noteContent = EditorState.createWithContent(content);
-      return (
-        <div style={{ height: 200, width: '50%' }}>
-          <Note
-            width={ 100 }
-            title='Here is a Title'
-            noteContent={ noteContent }
-          />
-        </div>
-      );
-    }}
-  </Story>
-</Preview>
-
-### With optional inline control:
-The component supports adding an control to perform desired actions, this can be rendered compositionally by passing in 
-the control you wish to use to the `inlineControl` prop. The example below renders an `ActionPopover` control.
-<Preview>
-  <Story name="with optional inline control" parameters={{ info: { disable: true }}}>
-    {() => {
-      const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
-      <ul><li>unordered</li></ul>
-      <ol><li>ordered</li></ol></br>
-      <p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i></p>
-      <p>Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>`;
-      const blocksFromHTML = convertFromHTML(html);
-      const content = ContentState.createFromBlockArray(
-        blocksFromHTML.contentBlocks,
-        blocksFromHTML.entityMap
-      );
-      const noteContent = EditorState.createWithContent(content);
-      const control = (
-        <ActionPopover>
-          <ActionPopoverItem onClick={ () => {} }>
-            Edit
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={ () => {} }>
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-      );
-      return (
-        <div style={{ height: 200, width: '50%' }}>
-          <Note
-            width={ 100 }
-            title='Here is a Title'
-            inlineControl={ control }
-            noteContent={ noteContent }
-          />
-        </div>
-      );
-    }}
-  </Story>
-</Preview>
-
-### With footer:
-A `Note` footer can be rendered by passing values to the `name` and `createdDate` props. An optional `status` can also 
-be rendered, this can be seen below when you click the `Edit` button in the inline control.
-<Preview>
-  <Story name="with footer" parameters={{ info: { disable: true }}}>
-    {() => {
-      const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
-      <ul><li>unordered</li></ul>
-      <ol><li>ordered</li></ol></br>
-      <p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i></p>
-      <p>Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>`;
-      const blocksFromHTML = convertFromHTML(html);
-      const content = ContentState.createFromBlockArray(
-        blocksFromHTML.contentBlocks,
-        blocksFromHTML.entityMap
-      );
-      const noteContent = EditorState.createWithContent(content);
-      const [status, setStatus] = useState({ text: '', timeStamp: '' })
-      const control = (
-        <ActionPopover>
-          <ActionPopoverItem onClick={ () => {
-            const now = new Date(Date.now());
-            setStatus({ text: 'EDITED', timeStamp: DateHelper.formatDateString(now.toString(), 'DD MMM YYYY, LT') })
-          }}>
-            Edit
-          </ActionPopoverItem>
-          <ActionPopoverDivider />
-          <ActionPopoverItem onClick={ () => {} }>
-            Delete
-          </ActionPopoverItem>
-        </ActionPopover>
-      );
-      return (
-        <div style={{ height: 250, width: '50%' }}>
-          <Note
-            width={ 100 }
-            title='Here is a Title'
-            inlineControl={ control }
             name='Lauren Smith'
-            createdDate={ DateHelper.formatDateString('Wed May 23 2020 12:08:00 GMT+0100 (BST)', 'DD MMM YYYY, LT') }
-            status={ status }
+            createdDate ='23 May 2020, 12:08 PM'
+          />
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### With title
+An optional title can be provided using the `title` prop.
+<Preview>
+  <Story name="title" parameters={{ info: { disable: true }}}>
+    {() => {
+      const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
+      <ul><li>unordered</li></ul>
+      <ol><li>ordered</li></ol></br>
+      <p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i></p>
+      <p>Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>`;
+      const blocksFromHTML = convertFromHTML(html);
+      const content = ContentState.createFromBlockArray(
+        blocksFromHTML.contentBlocks,
+        blocksFromHTML.entityMap
+      );
+      const noteContent = EditorState.createWithContent(content);
+      return (
+        <div style={{ height: 300, width: '50%' }}>
+          <Note
+            title='Here is a Title'
+            noteContent={ noteContent }
+            name='Lauren Smith'
+            createdDate ='23 May 2020, 12:08 PM'
+          />
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### With inline controls:
+Optional inline controls can be provided using the `inlineControl` prop. This should be an `ActionPopover`.
+<Preview>
+  <Story name="inline controls" parameters={{ info: { disable: true }}}>
+    {() => {
+      const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
+      <ul><li>unordered</li></ul>
+      <ol><li>ordered</li></ol></br>
+      <p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i></p>
+      <p>Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>`;
+      const blocksFromHTML = convertFromHTML(html);
+      const content = ContentState.createFromBlockArray(
+        blocksFromHTML.contentBlocks,
+        blocksFromHTML.entityMap
+      );
+      const noteContent = EditorState.createWithContent(content);
+      const inlineControl = (
+        <ActionPopover>
+          <ActionPopoverItem onClick={ () => {} }>
+            Edit
+          </ActionPopoverItem>
+          <ActionPopoverDivider />
+          <ActionPopoverItem onClick={ () => {} }>
+            Delete
+          </ActionPopoverItem>
+        </ActionPopover>
+      );
+      return (
+        <div style={{ height: 300, width: '50%' }}>
+          <Note
+            title='Here is a Title'
+            inlineControl={ inlineControl }
+            noteContent={ noteContent }
+            name='Lauren Smith'
+            createdDate ='23 May 2020, 12:08 PM'
+          />
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### With status:
+An optional status can be provided using the `status` prop.
+<Preview>
+  <Story name="status" parameters={{ info: { disable: true }}}>
+    {() => {
+      const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
+      <ul><li>unordered</li></ul>
+      <ol><li>ordered</li></ol></br>
+      <p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i></p>
+      <p>Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>`;
+      const blocksFromHTML = convertFromHTML(html);
+      const content = ContentState.createFromBlockArray(
+        blocksFromHTML.contentBlocks,
+        blocksFromHTML.entityMap
+      );
+      const noteContent = EditorState.createWithContent(content);
+      const inlineControl = (
+        <ActionPopover>
+          <ActionPopoverItem onClick={ () => {}}>
+            Edit
+          </ActionPopoverItem>
+          <ActionPopoverDivider />
+          <ActionPopoverItem onClick={ () => {} }>
+            Delete
+          </ActionPopoverItem>
+        </ActionPopover>
+      );
+      return (
+        <div style={{ height: 300, width: '50%' }}>
+          <Note
+            title='Here is a Title'
+            inlineControl={ inlineControl }
+            name='Lauren Smith'
+            createdDate ='23 May 2020, 12:08 PM'
+            status={ {text: 'Edited', timeStamp: '23 May 2020, 12:08 PM' } }
             noteContent={ noteContent }
           />
         </div>
