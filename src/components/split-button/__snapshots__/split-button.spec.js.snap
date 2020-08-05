@@ -79,6 +79,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   height: 40px;
   padding-left: 24px;
   padding-right: 24px;
+  margin-left: 0;
 }
 
 .c2:focus {
@@ -159,6 +160,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   height: 40px;
   padding-left: 24px;
   padding-right: 24px;
+  margin-left: 0;
   border-left-width: 0;
   padding: 0 10px;
 }

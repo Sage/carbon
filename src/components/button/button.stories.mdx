@@ -220,4 +220,45 @@ Dashed buttons can be `fullWidth`.
   </Story>
 </Preview>
 
+## Shared Props
+Options shared between all of the above types of buttons.
+
+### Left margin
+The `marginLeft` prop controls the left margin of the button (from the left edge of the button content, not the left edge of the button). It is a percentage prop and works for all button sizes.
+
+<Preview>
+  <Story name="all types/left-margin" parameters={{ info: { disable: true }}} >
+  <>
+    <div style={{ marginBottom: '10px'}}>
+      <Button marginLeft={10} size="small">Small</Button>
+    </div>
+    <div style={{ marginBottom: '10px'}}>
+      <Button marginLeft={10}>Medium</Button>
+    </div>
+    <div>
+      <Button marginLeft={10} size="large">Large</Button>
+    </div>
+  </>
+  </Story>
+</Preview>
+
+### Bottom margin
+The `marginBottom` prop controls the bottom margin of the button. It is an integer which is multiplied by the base theme constant (8px). 
+
+<Preview>
+  <Story name="all types/bottom-margin" parameters={{ info: { disable: true }}} >
+  <>
+    <div>
+      <Button marginBottom={1}>8px bottom margin</Button>
+    </div>
+    <div>
+      <Button marginBottom={2}>16px bottom margin</Button>
+    </div>
+    <div>
+      <Button marginBottom={3}>24px bottom margin</Button>
+    </div>
+  </>
+  </Story>
+</Preview>
+
 <Props of={Button} />
