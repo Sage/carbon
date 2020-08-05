@@ -1,11 +1,18 @@
-import { commonDataElementInputPreview, getKnobsInput } from '../../locators';
+import { commonDataElementInputPreview, 
+  getKnobsInput, 
+  commonDataElementInputPreviewNoIframe 
+} from '../../locators';
 
 When('I put {string} example grouped character', (text) => {
   commonDataElementInputPreview().clear().type(text, { delay: 1000, force: true });
 });
 
+When('I put {string} example grouped character in no Iframe', (text) => {
+  commonDataElementInputPreviewNoIframe().clear().type(text, { delay: 1000, force: true });
+});
+
 Then('example grouped character is {string}', (text) => {
-  commonDataElementInputPreview().should('have.value', text);
+  commonDataElementInputPreviewNoIframe().should('have.value', text);
 });
 
 Then('Input component inputWidth is set to {string}', (width) => {

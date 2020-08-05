@@ -20,6 +20,7 @@ import {
   commonDataElementInputPreviewNoIframe,
   helpIconNoIFrame,
   helpIconByPositionNoIFrame,
+  getElementNoIframe,
 } from '../../locators';
 import { dialogTitle, dialogTitleNoIFrame } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
@@ -97,11 +98,6 @@ Given('I open dark theme {string} component page in noIFrame', (component) => {
   visitComponentUrl(component, 'dark_theme', true);
 });
 
-Given('I open {string} component in iframe', (component) => {
-  visitComponentUrl(component, 'default', true);
-});
-
-// the step above should be refactored and changed to in noiFrame
 Given('I open {string} component in noiFrame', (component) => {
   visitComponentUrl(component, 'default', true);
 });
@@ -261,7 +257,7 @@ Then('tooltipPreview on preview is set to {word}', (text) => {
   tooltipPreview().should('have.text', text);
 });
 
-Then('tooltipPreview on preview into iFrame is set to {word}', (text) => {
+Then('tooltipPreview on preview in noIframe is set to {word}', (text) => {
   tooltipPreviewNoIframe().should('have.text', text);
 });
 
@@ -562,4 +558,8 @@ Then('label Align on preview is {string} in NoIFrame', (direction) => {
   } else {
     getDataElementByValueNoIframe('label').parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_END));
   }
+});
+
+Then('icon name in noIframe on preview is {string}', (iconName) => {
+  getElementNoIframe(iconName);
 });
