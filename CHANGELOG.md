@@ -1,3 +1,10 @@
+## [37.1.0](https://github.com/Sage/carbon/compare/v37.0.0...v37.1.0) (2020-08-05)
+
+
+### Features
+
+* add new MultiSelect component ([fe43a50](https://github.com/Sage/carbon/commit/fe43a50e99107b5e6b551cfc32d07d7f93b2bd94))
+
 ## [37.0.0](https://github.com/Sage/carbon/compare/v36.0.0...v37.0.0) (2020-08-03)
 
 
