@@ -47,7 +47,7 @@ Feature: Experimental Date Input component
   @positive
   Scenario Outline: Change Date Input component label align to <labelAlign>
     When I open default "Experimental Date Input" component in noIFrame with "dateInput" json from "experimental" using "<nameOfObject>" object name
-    Then label align on preview is set to "<labelAlign>"
+    Then label Align on preview is "<labelAlign>" in NoIFrame
     Examples:
       | labelAlign | nameOfObject    |
       | left       | labelAlignLeft  |

@@ -7,8 +7,6 @@ import {
   fieldHelpPreviewNoIFrame, getDataElementByValueNoIframe,
 } from '../../locators';
 
-const TEXT_ALIGN = 'text-align';
-
 Then('Textarea component is expandable', () => {
   textareaChildren().should('have.css', 'height', '89px');
 });
@@ -92,11 +90,11 @@ Then('Textarea inputWidth is set to {string}', (width) => {
 });
 
 Then('Textarea component is labelInline', () => {
-  getDataElementByValueNoIframe('label').parent().should('have.css', 'display', 'flex');
+  getDataElementByValueNoIframe('label').parent().should('have.css', 'align-items', 'flex-start');
 });
 
 Then('Textarea component is not labelInline', () => {
-  getDataElementByValueNoIframe('label').parent().should('have.css', 'display', 'block');
+  getDataElementByValueNoIframe('label').parent().should('have.css', 'align-items', 'center');
 });
 
 When('I input {word} into Textarea', (text) => {
