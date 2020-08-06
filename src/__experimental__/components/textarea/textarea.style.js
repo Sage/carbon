@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import StyledInput from '../input/input.style';
-import StyledLabel from '../label/label.style';
+import { StyledLabelContainer } from '../label/label.style';
 import InputIconToggleStyle from '../input-icon-toggle/input-icon-toggle.style';
 
 const StyledTextarea = styled.div`
@@ -12,7 +12,8 @@ const StyledTextarea = styled.div`
   }
 
   ${({ labelInline }) => labelInline && css`
-    ${StyledLabel} {
+    ${StyledLabelContainer} {
+      align-items: flex-start;
       padding-top: 8px;
     }
   `}

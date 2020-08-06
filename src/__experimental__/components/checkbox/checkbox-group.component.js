@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import { StyledCheckboxGroup } from './checkbox.style';
 import FormField from '../form-field';
+import { InputGroupBehaviour } from '../../../__internal__/input-behaviour';
 
 const CheckboxGroup = (props) => {
   const {
@@ -16,24 +17,26 @@ const CheckboxGroup = (props) => {
   const groupLabelId = `${groupName}-label`;
 
   return (
-    <StyledCheckboxGroup
-      aria-labelledby={ groupLabelId }
-      role='checkbox'
-      error={ error }
-      warning={ warning }
-      info={ info }
-      { ...tagComponent('checkboxgroup', props) }
-    >
-      <FormField { ...props }>
-        {React.Children.map(children, child => React.cloneElement(child, {
-          inputName: groupName,
-          error: !!error,
-          warning: !!warning,
-          info: !!info,
-          ...child.props
-        }))}
-      </FormField>
-    </StyledCheckboxGroup>
+    <InputGroupBehaviour>
+      <StyledCheckboxGroup
+        aria-labelledby={ groupLabelId }
+        role='checkbox'
+        error={ error }
+        warning={ warning }
+        info={ info }
+        { ...tagComponent('checkboxgroup', props) }
+      >
+        <FormField { ...props }>
+          {React.Children.map(children, child => React.cloneElement(child, {
+            inputName: groupName,
+            error: !!error,
+            warning: !!warning,
+            info: !!info,
+            ...child.props
+          }))}
+        </FormField>
+      </StyledCheckboxGroup>
+    </InputGroupBehaviour>
   );
 };
 

@@ -89,17 +89,6 @@ function insertAt(value, options) {
   return result;
 }
 
-/**
- * Filter by prop names
- * @param {Object} props
- * @param {Array} filterBy
- * @return {Object}
- */
-function filterByProps(props, filterBy) {
-  const filtered = difference(Object.keys(props), filterBy);
-  return omit(props, filtered);
-}
-
 export {
-  acronymize, append, insertAt, styleElement, validProps, filterByProps
+  acronymize, append, insertAt, styleElement, validProps
 };

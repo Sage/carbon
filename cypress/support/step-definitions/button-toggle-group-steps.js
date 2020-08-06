@@ -6,8 +6,8 @@ Then('Button Toggle Group label on preview is {string}', (text) => {
 });
 
 Then('Button Toggle Group component has label-inline property', () => {
-  label().should('have.css', 'box-sizing', 'border-box')
-    .and('have.css', 'text-align', 'left');
+  label().parent().should('have.css', 'box-sizing', 'border-box')
+    .and('have.css', 'justify-content', 'flex-start');
 });
 
 Then('Button Toggle Group component does not have label-inline property', () => {
@@ -16,7 +16,7 @@ Then('Button Toggle Group component does not have label-inline property', () => 
 });
 
 Then('label width is set to {string}', (width) => {
-  label().should('have.attr', 'width', `${width}`);
+  label().parent().should('have.attr', 'width', `${width}`);
 });
 
 Then('label width is not set {string}', (width) => {

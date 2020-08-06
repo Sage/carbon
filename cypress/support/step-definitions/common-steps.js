@@ -25,7 +25,9 @@ import { dialogTitle, dialogTitleNoIFrame } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
 import { pagerSummary } from '../../locators/pager';
 
-const TEXT_ALIGN = 'text-align';
+const TEXT_ALIGN = 'justify-content';
+const TEXT_ALIGN_START = 'flex-start';
+const TEXT_ALIGN_END = 'flex-end';
 
 Given('I open design systems {word} {string} component page', (type, component) => {
   visitComponentUrl(component, type, false, 'design-system-');
@@ -293,7 +295,19 @@ When('I set precision slider to {int}', (width) => {
 });
 
 Then('{string} label Align on preview is {string}', (position, direction) => {
-  labelByPosition(positionOfElement(position)).should('have.css', TEXT_ALIGN, direction);
+  if (direction === 'left') {
+    labelByPosition(positionOfElement(position)).parent().should('have.css', TEXT_ALIGN, TEXT_ALIGN_START);
+  } else {
+    labelByPosition(positionOfElement(position)).parent().should('have.css', TEXT_ALIGN, TEXT_ALIGN_END);
+  }
+});
+
+Then('label Align on preview is {string}', (direction) => {
+  if (direction === 'left') {
+    label().parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_START));
+  } else {
+    label().parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_END));
+  }
 });
 
 Then('Background UI is enabled', () => {
@@ -415,7 +429,7 @@ Then('inputWidth is not set', () => {
 });
 
 Then('{word} labelWidth is set to {string}', (componentName, width) => {
-  label().should('have.attr', 'style', `width: ${width}%;`);
+  label().should('contain', `width: ${width}%;`);
 });
 
 Then('{word} action was called in Actions Tab', (event) => {
@@ -503,11 +517,11 @@ When('I open component preview no iframe', () => {
 });
 
 Then('input direction is {string}', (direction) => {
-  commonDataElementInputPreviewNoIframe().should('have.css', TEXT_ALIGN, `${direction}`);
+  commonDataElementInputPreviewNoIframe().should('have.css', 'text-align', `${direction}`);
 });
 
 Then('label width on preview is {int}', (width) => {
-  getDataElementByValueNoIframe('label').should('have.attr', 'width').should('contain', `${width}`);
+  getDataElementByValueNoIframe('label').parent().should('have.attr', 'width').should('contain', `${width}`);
 });
 
 Then('label width on preview is {int} in IFrame', (width) => {
@@ -527,7 +541,7 @@ Then('label align on preview is set to {string} in IFrame', (labelAlign) => {
 });
 
 Then('label is inline', () => {
-  getDataElementByValueNoIframe('label').should('have.css', TEXT_ALIGN, 'left');
+  getDataElementByValueNoIframe('label').parent().should('have.css', TEXT_ALIGN, TEXT_ALIGN_START);
 });
 
 Then('label is inline in IFrame', () => {
@@ -535,7 +549,7 @@ Then('label is inline in IFrame', () => {
 });
 
 Then('label width is set to {string} in NoIFrame', (width) => {
-  getDataElementByValueNoIframe('label').should('have.attr', 'width', `${width}`);
+  getDataElementByValueNoIframe('label').parent().should('have.attr', 'width', `${width}`);
 });
 
 Then('label Align on preview is {string}', (direction) => {
@@ -543,5 +557,9 @@ Then('label Align on preview is {string}', (direction) => {
 });
 
 Then('label Align on preview is {string} in NoIFrame', (direction) => {
-  getDataElementByValueNoIframe('label').should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
+  if (direction === 'left') {
+    getDataElementByValueNoIframe('label').parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_START));
+  } else {
+    getDataElementByValueNoIframe('label').parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_END));
+  }
 });

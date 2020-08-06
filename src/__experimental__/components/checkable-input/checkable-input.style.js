@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import FieldHelpStyle from '../field-help/field-help.style';
 import { FieldLineStyle } from '../form-field/form-field.style';
 import HiddenCheckableInputStyle from './hidden-checkable-input.style';
-import LabelStyle from '../label/label.style';
+import LabelStyle, { StyledLabelContainer } from '../label/label.style';
 import StyledHelp from '../../../components/help/help.style';
 import baseTheme from '../../../style/themes/base';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
@@ -15,15 +15,13 @@ const StyledCheckableInput = styled.div`
 
 const StyledCheckableInputWrapper = styled.div`
   ${({
-    disabled, fieldHelpInline, inputWidth, labelAlign, labelWidth, reverse, theme
+    disabled, fieldHelpInline, inputWidth, labelWidth, reverse, theme
   }) => css`
     ${FieldLineStyle} {
       display: flex;
     }
 
-    ${LabelStyle} {
-      text-align: ${labelAlign};
-      padding-top: 0;
+    ${StyledLabelContainer} {
       width: auto;
 
       & ${StyledHelp},
@@ -42,13 +40,7 @@ const StyledCheckableInputWrapper = styled.div`
     }
 
     ${disabled && css`
-      ${LabelStyle} {
-        &, & ${StyledHelp} {
-          color: ${theme.disabled.disabled};
-        }
-      }
-
-      ${HiddenCheckableInputStyle},
+         ${HiddenCheckableInputStyle},
       ${LabelStyle} {
         &:hover, &:focus {
           outline: none;
@@ -92,7 +84,7 @@ const StyledCheckableInputWrapper = styled.div`
     `}
 
     ${labelWidth !== undefined && labelWidth !== 0 && `
-      ${LabelStyle} {
+      ${StyledLabelContainer} {
         width: ${labelWidth}% !important;
       }
     `}
@@ -103,13 +95,11 @@ StyledCheckableInputWrapper.propTypes = {
   disabled: PropTypes.bool,
   fieldHelpInline: PropTypes.bool,
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  labelAlign: PropTypes.string,
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   theme: PropTypes.object
 };
 
 StyledCheckableInputWrapper.defaultProps = {
-  labelAlign: 'left',
   theme: baseTheme
 };
 

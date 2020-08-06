@@ -66,7 +66,7 @@ Feature: Decimal component
   @positive
   Scenario Outline: Change Decimal component label align to <labelAlign>
     When I open default "Experimental-Decimal-Input" component in noIFrame with "decimal" json from "experimental" using "<nameOfObject>" object name
-    Then label align on preview is set to "<labelAlign>"
+    Then label Align on preview is "<labelAlign>" in NoIFrame
     Examples:
       | labelAlign | nameOfObject    |
       | left       | labelAlignLeft  |

@@ -88,10 +88,6 @@ describe('RadioButton', () => {
         const wrapper = getRadioButton(render({ size: 'large' }));
         const dimensions = { height: '24px', width: '24px' };
 
-        it('applies the correct Label styles', () => {
-          assertStyleMatch({ padding: '4px 0' }, wrapper, { modifier: `${LabelStyle}` });
-        });
-
         it('applies the correct input styles', () => {
           assertStyleMatch({ marginRight: '14px', ...dimensions }, wrapper, { modifier: `${StyledCheckableInput}` });
         });

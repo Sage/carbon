@@ -1,8 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
-import 'jest-styled-components';
-import { Input, InputPresentationContext } from '.';
+import { Input } from '.';
+import StyledInput from './input.style';
+
+import { InputContext } from '../../../__internal__/input-behaviour';
+
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import baseTheme from '../../../style/themes/base';
 
@@ -27,9 +30,9 @@ describe('Input', () => {
 
     if (context) {
       component = (
-        <InputPresentationContext.Provider value={ context }>
+        <InputContext.Provider value={ context }>
           { component }
-        </InputPresentationContext.Provider>
+        </InputContext.Provider>
       );
     }
 
@@ -58,8 +61,8 @@ describe('Input', () => {
 
   it('sends the input ref to the inputRef callback', () => {
     const inputRef = jest.fn();
-    const wrapper = renderMount({ inputRef });
-    expect(inputRef).toHaveBeenCalledWith(wrapper.instance().input);
+    renderMount({ inputRef });
+    expect(inputRef).toHaveBeenCalled();
   });
 
   it('does not fail onBlur or Focus if none are defined', () => {
@@ -189,10 +192,8 @@ describe('Input', () => {
   describe('onClick', () => {
     it('triggers focus on the input', () => {
       const wrapper = renderMount();
-      const focus = jest.fn();
-      wrapper.instance().input.current = { focus };
       wrapper.find('input').simulate('click');
-      expect(focus).toHaveBeenCalled();
+      expect(wrapper.find(StyledInput).getDOMNode()).toBe(document.activeElement);
     });
 
     it('triggers onClick prop if one is passed', () => {

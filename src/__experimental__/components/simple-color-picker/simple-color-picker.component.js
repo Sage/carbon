@@ -12,6 +12,7 @@ import SimpleColor from './simple-color';
 import RadioButtonMapper from '../radio-button/radio-button-mapper.component';
 import { StyledContent, StyledColorOptions } from './simple-color-picker.style';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
+import { InputGroupContext } from '../../../__internal__/input-behaviour';
 
 const SimpleColorPicker = (props) => {
   const {
@@ -73,7 +74,7 @@ const SimpleColorPicker = (props) => {
     }
 
     const childProps = {
-      ref: child.ref || gridItemRefs.current[index],
+      ref: gridItemRefs.current[index],
       'data-up': allowUp,
       'data-down': allowDown,
       'data-item-up': upItem,
@@ -113,7 +114,7 @@ const SimpleColorPicker = (props) => {
 
     if (Events.isLeftKey(e) || Events.isRightKey(e)) {
       const position = (element) => {
-        return e.target.getAttribute('value') === element.ref.current.props.value;
+        return e.target.getAttribute('value') === element.props.value;
       };
 
       if (Events.isLeftKey(e)) {
@@ -130,9 +131,8 @@ const SimpleColorPicker = (props) => {
     }
 
     const item = navigationGrid[itemIndex].ref.current;
-    const { value: colorValue } = item.props;
-    item.input.current.focus();
-    item.props.onChange({ target: { checked: true, value: colorValue } });
+    item.focus();
+    item.click();
   }, [onKeyDown, navigationGrid]);
 
   const handleClickOutside = (ev) => {
@@ -190,28 +190,34 @@ const SimpleColorPicker = (props) => {
       { ...tagComponent('simple-color-picker', props) }
     >
       <StyledContent>
-        <StyledColorOptions
-          maxWidth={ maxWidth }
-          childWidth={ childWidth }
-          error={ error }
-          warning={ warning }
-          info={ info }
-          ref={ myRef }
-          { ...validationProps }
-        >
-          <RadioButtonMapper
-            name={ name }
-            value={ value }
-            onChange={ onChange }
-            onMouseDown={ handleOnMouseDown }
-            onKeyDown={ onKeyDownHandler }
-            onBlur={ handleOnBlur }
-          >
-            { navigationGrid }
-          </RadioButtonMapper>
-        </StyledColorOptions>
+        <InputGroupContext.Consumer>
+          {({ onMouseEnter, onMouseLeave }) => (
+            <StyledColorOptions
+              maxWidth={ maxWidth }
+              childWidth={ childWidth }
+              error={ error }
+              warning={ warning }
+              info={ info }
+              ref={ myRef }
+              onMouseEnter={ onMouseEnter }
+              onMouseLeave={ onMouseLeave }
+              { ...validationProps }
+            >
+              <RadioButtonMapper
+                name={ name }
+                value={ value }
+                onChange={ onChange }
+                onMouseDown={ handleOnMouseDown }
+                onKeyDown={ onKeyDownHandler }
+                onBlur={ handleOnBlur }
+              >
+                { navigationGrid }
+              </RadioButtonMapper>
+            </StyledColorOptions>
+          )}
+        </InputGroupContext.Consumer>
         { !validationOnLegend && (
-          <ValidationIcon { ...validationProps } tabIndex={ 0 } />
+          <ValidationIcon { ...validationProps } />
         )}
       </StyledContent>
     </Fieldset>

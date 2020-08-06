@@ -5,7 +5,9 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import { InputPresentation } from '../input';
 import FormField from '../form-field';
 import CharacterCount from './character-count';
-import TextareaInput from './textarea-input.component';
+import Input from '../input/input.component';
+import { InputBehaviour } from '../../../__internal__/input-behaviour';
+
 import InputIconToggle from '../input-icon-toggle';
 
 import guid from '../../../utils/helpers/guid/guid';
@@ -19,6 +21,8 @@ class Textarea extends React.Component {
 
   id = this.props.id || guid();
 
+  _input = React.createRef()
+
   /**
    * A lifecycle method that is called after initial render.
    * Allows access to refs and DOM to set expandable variables
@@ -29,7 +33,7 @@ class Textarea extends React.Component {
       // Set the min height to the initially rendered height.
       // Without minHeight expandable textareas will only have
       // one line when no content is present.
-      this.minHeight = this._input.clientHeight;
+      this.minHeight = this._input.current.clientHeight;
 
       this.expandTextarea();
     }
@@ -50,7 +54,7 @@ class Textarea extends React.Component {
   }
 
   expandTextarea = () => {
-    const textarea = this._input;
+    const textarea = this._input.current;
 
     if (textarea.scrollHeight > this.minHeight) {
       // Reset height to zero - IE specific
@@ -99,10 +103,6 @@ class Textarea extends React.Component {
     );
   }
 
-  inputRefCallback = (inputRef) => {
-    this._input = inputRef.current;
-  }
-
   render() {
     const {
       label,
@@ -122,41 +122,44 @@ class Textarea extends React.Component {
     } = this.props;
 
     return (
-      <StyledTextarea labelInline={ labelInline }>
-        <FormField
-          label={ label }
-          disabled={ disabled }
-          id={ this.id }
-          labelInline={ labelInline }
-          { ...props }
-          useValidationIcon={ validationOnLabel }
-        >
-          <InputPresentation
-            type='text'
-            size={ size }
+      <InputBehaviour>
+        <StyledTextarea labelInline={ labelInline }>
+          <FormField
+            label={ label }
             disabled={ disabled }
-            readOnly={ readOnly }
+            id={ this.id }
+            labelInline={ labelInline }
             { ...props }
+            useValidationIcon={ validationOnLabel }
           >
-            <TextareaInput
-              inputRef={ this.inputRefCallback }
-              maxLength={ enforceCharacterLimit && characterLimit ? characterLimit : undefined }
-              onChange={ onChange }
+            <InputPresentation
+              type='text'
+              size={ size }
               disabled={ disabled }
               readOnly={ readOnly }
-              labelInline={ labelInline }
-              placeholder={ disabled ? '' : placeholder }
-              rows={ rows }
-              cols={ cols }
-              id={ this.id }
               { ...props }
-            />
-            { children }
-            { this.renderValidation() }
-          </InputPresentation>
-        </FormField>
-        {this.characterCount}
-      </StyledTextarea>
+            >
+              <Input
+                ref={ this._input }
+                maxLength={ enforceCharacterLimit && characterLimit ? characterLimit : undefined }
+                onChange={ onChange }
+                disabled={ disabled }
+                readOnly={ readOnly }
+                labelInline={ labelInline }
+                placeholder={ disabled ? '' : placeholder }
+                rows={ rows }
+                cols={ cols }
+                id={ this.id }
+                as='textarea'
+                { ...props }
+              />
+              { children }
+              { this.renderValidation() }
+            </InputPresentation>
+          </FormField>
+          {this.characterCount}
+        </StyledTextarea>
+      </InputBehaviour>
     );
   }
 }

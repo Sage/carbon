@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
-import LabelStyle from '../label/label.style';
+import { StyledLabelContainer } from '../label/label.style';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import StyledSwitchSlider from './switch-slider.style';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
@@ -41,10 +41,7 @@ const StyledSwitch = styled.div`
       margin-left: 0;
     }
 
-    ${LabelStyle} {
-      padding: 0;
-      margin-bottom: 8px;
-
+    ${StyledLabelContainer} {
       ${StyledValidationIcon} {
         position: relative;
         display: inline-block;
@@ -57,13 +54,13 @@ const StyledSwitch = styled.div`
 
     ${fieldHelpInline && css`
       ${FieldHelpStyle} {
-        margin-bottom: 10px;
+        margin: 0;
       }
     `}
 
     ${reverse && css`
       ${!labelInline && css`
-        ${LabelStyle} {
+        ${StyledLabelContainer} {
           margin-top: 8px;
         }
       `}
@@ -78,10 +75,10 @@ const StyledSwitch = styled.div`
         display: flex;
       }
 
-      ${LabelStyle} {
+      ${StyledLabelContainer} {
         margin-bottom: 0;
+        padding-right: 0;
         margin-right: 32px;
-        padding-top: 4px;
         width: auto;
       }
 
@@ -96,7 +93,7 @@ const StyledSwitch = styled.div`
           margin-top: 0;
         }
 
-        ${LabelStyle} {
+        ${StyledLabelContainer} {
           margin-left: 10px;
         }
 
@@ -112,13 +109,12 @@ const StyledSwitch = styled.div`
           margin-left: 10px;
         }
 
-        ${LabelStyle} {
+        ${StyledLabelContainer} {
           margin-right: 10px;
         }
 
         ${FieldHelpStyle} {
           margin-left: 0;
-          margin-top: -1px;
           align-self: center;
         }
       `}
@@ -130,23 +126,10 @@ const StyledSwitch = styled.div`
         width: 78px;
       }
 
-      ${fieldHelpInline && `
+      ${labelInline && !fieldHelpInline && reverse && css`
         ${FieldHelpStyle} {
-          padding: 10px 0;
+          margin-left: 88px;
         }
-      `}
-
-      ${labelInline && css`
-        ${LabelStyle} {
-          margin-top: 1px;
-          padding: 10px 0;
-        }
-
-        ${!fieldHelpInline && reverse && `
-          ${FieldHelpStyle} {
-            margin-left: 88px;
-          }
-        `}
       `}
     `}
 

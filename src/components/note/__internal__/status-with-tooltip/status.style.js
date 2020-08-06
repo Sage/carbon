@@ -14,6 +14,7 @@ const StyledStatusIconWrapper = styled.div`
   display: list-item;
   left: -4px;
   position: relative;
+  text-transform: uppercase;
 `;
 
 export default StyledStatusIconWrapper;
