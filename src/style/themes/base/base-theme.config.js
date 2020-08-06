@@ -179,6 +179,12 @@ export default (palette) => {
       textboxText: blackWithOpacity(0.74)
     },
 
+    definitionList: {
+      dtTextDark: blackWithOpacity(0.9),
+      dtTextLight: blackWithOpacity(0.65),
+      ddText: blackWithOpacity(0.65)
+    },
+
     disabled: {
       border: palette.slateTint(80),
       button: palette.slateTint(90),

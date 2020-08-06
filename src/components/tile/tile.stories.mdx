@@ -1,0 +1,280 @@
+import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
+import OptionsHelper from '../../utils/helpers/options-helper';
+import Tile from '.';
+import Content from '../content';
+import { info, notes } from './documentation';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+import { dlsThemeSelector } from '../../../.storybook/theme-selectors';
+import { action } from '@storybook/addon-actions';
+import Dl from '../definition-list/dl.component';
+import Dt from '../definition-list/dt.component';
+import Dd from '../definition-list/dd.component';
+import Link from '../link/link.component';
+import Button from '../button/button.component';
+import Heading from '../heading/heading';
+
+<Meta title="Design System/Tile" parameters={{ info: { disable: true }}} />
+
+# Tile
+Tiles contain static content for visual scanning only, and don't contain controls.
+
+## Quick Start
+```jsx
+import Tile from 'carbon-react/lib/components/tile';
+```
+## Tile - Default
+By default, the Tile component will have a horizontal layout.
+
+<Preview>
+    <Story name ='Default'>
+        <Tile>
+        <Content title="Test Title One">
+            Test Body One
+        </Content>
+        <Content title="Test Title Two">
+            Test Body Two
+        </Content>
+        <Content title="Test Title Three">
+            Test Body Three
+        </Content>
+        </Tile>
+    </Story>
+</Preview>
+
+## Tile - Vertical
+The Tile component can be also have a vertical layout. 
+
+<Preview>
+    <Story name ='Vertical'>
+        <Tile  orientation='Vertical'>
+        <Content title="Test Title One">
+            Test Body One
+        </Content>
+        <Content title="Test Title Two">
+            Test Body Two
+        </Content>
+        <Content title="Test Title Three">
+            Test Body Three
+        </Content>
+        </Tile>
+    </Story>
+</Preview>
+
+## Tile with Custom Widths
+The Tile component can also have custom widths. Any child wrapped by a Tile component can be passed an optional `width` prop - this is a percent value, dictating the width of the child element within the tile. 
+Please note that it will not have any effect if the Tile orientation is set to `vertical`.
+
+<Preview>
+    <Story name ='Custom Widths'>
+        <Tile
+        as="tile"
+        orientation="horizontal"
+        padding="M"
+        pixelWidth={0}
+        width={75}
+        >
+        <Content
+            align="left"
+            as="primary"
+            bodyFullWidth={false}
+            inline={false}
+            title="Test Title One"
+            width={40}
+        >
+            Test Body One
+        </Content>
+        <Content
+            align="left"
+            as="primary"
+            bodyFullWidth={false}
+            inline={false}
+            title="Test Title Two"
+            width={80}
+        >
+            Test Body Two
+        </Content>
+        <Content
+            align="left"
+            as="primary"
+            bodyFullWidth={false}
+            inline={false}
+            title="Test Title Three"
+            width={120}
+        >
+            Test Body Three
+        </Content>
+        </Tile>
+    </Story>
+</Preview>
+
+## Tile with Inline Styling
+The Tile component can also have inline styling applied to the content.
+
+<Preview>
+    <Story name ='with Inline'>
+        <Tile
+        as="tile"
+        orientation="horizontal"
+        padding="M"
+        pixelWidth={0}
+        width={0}
+        >
+        <Content
+            align="left"
+            as="primary"
+            bodyFullWidth={false}
+            inline={true}
+            title="Test Title One"
+            width={80}
+        >
+            Test Body One
+        </Content>
+        <Content
+            align="left"
+            as="primary"
+            bodyFullWidth={false}
+            inline={true}
+            title="Test Title Two"
+            width={80}
+        >
+            Test Body Two
+        </Content>
+        <Content
+            align="left"
+            as="primary"
+            bodyFullWidth={false}
+            inline={true}
+            title="Test Title Three"
+            width={80}
+        >
+            Test Body Three
+        </Content>
+        </Tile>
+    </Story>
+</Preview>
+
+## Props of Tile
+<Props of={ Tile } />
+
+# Tile with Definition List
+The Definition List component should only be used inside of the Tile component. The purpose of the Definition List component is to mimic
+the same tags used in HTML5 but instead they are React elements. 
+
+Please note that Dl, Dd and Dt use our common spacing props, the following are all available for use and each of these can be a number (which is a multiple of the base spacing constant, 8px) or any valid CSS string. 
+### Margin props 
+m, mt, mr, mb, ml, mx, my
+
+### Padding props 
+p, pt, pr, pb, pl, px, py
+
+## Quick Start
+```jsx
+import Tile from 'carbon-react/lib/components/tile';
+import {Dl, Dt, Dd} from 'carbon-react/lib/components/definition-list';
+```
+<Preview>
+  <Story name ='Tile with Definition List - default'>
+    <Tile width={95}>
+      <Dl>
+        <Dt>Drink</Dt>
+        <Dd>Coffee</Dd>
+        <Dt>Brew Method</Dt>
+        <Dd>Stove Top Moka Pot</Dd>
+        <Dt>Brand of Coffee</Dt>
+        <Dd>Magic Coffee Beans</Dd>
+        <Dt>Website</Dt>
+        <Dd><Link href='www.sage.com'>Magic Coffee Beans' Website</Link></Dd>
+        <Dt>Email</Dt>
+        <Dd><Link href='magic@coffeebeans.com'>magic@coffeebeans.com</Link></Dd>
+        <Dt>Main and Registered Address</Dt>
+        <Dd mb='4px'>Magic Coffee Beans,</Dd>
+        <Dd mb='4px'>In The Middle of Our Street,</Dd>
+        <Dd mb='4px'>Madness,</Dd>
+        <Dd mb='4px'>CO4 3VE</Dd>
+        <Dd>
+          <Button 
+            buttonType='tertiary' 
+            iconType="link" 
+            iconPosition="after"
+            href='https://goo.gl/maps/GMReLoBpbn9mdZVZ7'>
+            View in Google Maps
+          </Button> 
+        </Dd>
+      </Dl>
+    </Tile>
+  </Story>
+</Preview>
+
+## Tile with Definition List and Custom `StyledDtDiv` Width
+
+Providing a number value to the `w` prop, sets the width of the `<Dt />` element as a percentage. The remaining percentage is then assigned to `<Dd />` to occupy the available space.
+
+<Preview>
+  <Story name ='Tile with Definition List with custom width'>
+    <Tile width={95}>
+      <Dl w={40}>
+        <Dt>Drink</Dt>
+        <Dd>Coffee</Dd>
+        <Dt>Brew Method</Dt>
+        <Dd>Stove Top Moka Pot</Dd>
+        <Dt>Brand of Coffee</Dt>
+        <Dd>Magic Coffee Beans</Dd>
+        <Dt>Website</Dt>
+        <Dd><Link href='www.sage.com'>Magic Coffee Beans' Website</Link></Dd>
+        <Dt>Email</Dt>
+        <Dd><Link href='magic@coffeebeans.com'>magic@coffeebeans.com</Link></Dd>
+        <Dt>Main and Registered Address</Dt>
+        <Dd mb='4px'>Magic Coffee Beans,</Dd>
+        <Dd mb='4px'>In The Middle of Our Street,</Dd>
+        <Dd mb='4px'>Madness,</Dd>
+        <Dd mb='4px'>CO4 3VE</Dd>
+        <Dd>
+          <Button 
+            buttonType='tertiary' 
+            iconType="link" 
+            iconPosition="after"
+            href='https://goo.gl/maps/GMReLoBpbn9mdZVZ7'>
+            View in Google Maps
+          </Button> 
+        </Dd>
+      </Dl>
+    </Tile>
+  </Story>
+</Preview>
+
+## Tile with Definition List with Custom Text Alignments
+
+In this example `dtTextAlign` has been provided the string 'left' and `ddTextAlign` has been provided the string 'right'.
+
+<Preview>
+  <Story name ='Tile with Definition with List Custom Text Alignments'>
+    <Tile width={40}>
+      <Dl w={40} dtTextAlign='left' ddTextAlign='right'>
+        <Dt>Coffee Subscription</Dt>
+        <Dd>£7.00 a month</Dd>
+        <Dt>Grind Size</Dt>
+        <Dd>Espresso</Dd>
+        <Dt>Quantity</Dt>
+        <Dd>3kg</Dd>
+        <Dd> 
+          <Button 
+            buttonType='tertiary' 
+            href='https://goo.gl/maps/GMReLoBpbn9mdZVZ7'>
+            Have a promo code?
+          </Button> 
+        </Dd>
+      </Dl>
+    </Tile>
+  </Story>
+</Preview>
+
+## Props of Definition List:
+
+### Props of Dl:
+<Props of={ Dl } />
+
+### Props of Dd:
+<Props of={ Dd } />
+
+### Props of Dt:
+<Props of={ Dt } />
