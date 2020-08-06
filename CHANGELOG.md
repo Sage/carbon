@@ -1,3 +1,15 @@
+## [37.2.0](https://github.com/Sage/carbon/compare/v37.1.0...v37.2.0) (2020-08-06)
+
+
+### Features
+
+* **validations:** show tooltip when input is hovered or focused ([c8d9360](https://github.com/Sage/carbon/commit/c8d9360fdd8145796e973ed035d69aae1815c2e1))
+
+
+### Bug Fixes
+
+* **label:** render icons outside of label element ([e1fc428](https://github.com/Sage/carbon/commit/e1fc4281119ab53557d00f961bf290a8e891143e))
+
 ## [37.1.0](https://github.com/Sage/carbon/compare/v37.0.0...v37.1.0) (2020-08-05)
 
 
