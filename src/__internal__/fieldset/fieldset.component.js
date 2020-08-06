@@ -7,37 +7,41 @@ import ValidationIcon from '../../components/validations/validation-icon.compone
 const Fieldset = ({
   legend, children, inline, legendWidth, legendAlign, legendSpacing = 2, error,
   warning, info, marginLeft, styleOverride, ...rest
-}) => (
-  <StyledFieldset
-    data-component='fieldset'
-    styleOverride={ styleOverride.root }
-    marginLeft={ marginLeft }
-    { ...rest }
-  >
-    <StyledFieldsetContent inline={ inline }>
-      {legend && (
-        <StyledLegendContainer
-          inline={ inline }
-          styleOverride={ styleOverride.legend }
-          width={ legendWidth }
-          align={ legendAlign }
-          rightPadding={ legendSpacing }
-        >
-          <legend>
-            { legend }
-          </legend>
-          <ValidationIcon
-            error={ error }
-            warning={ warning }
-            info={ info }
-            tabIndex={ 0 }
-          />
-        </StyledLegendContainer>
-      )}
-      { children }
-    </StyledFieldsetContent>
-  </StyledFieldset>
-);
+}) => {
+  const legendTextAlign = inline ? (legendAlign || 'right') : legendAlign;
+
+  return (
+    <StyledFieldset
+      data-component='fieldset'
+      styleOverride={ styleOverride.root }
+      marginLeft={ marginLeft }
+      { ...rest }
+    >
+      <StyledFieldsetContent inline={ inline }>
+        {legend && (
+          <StyledLegendContainer
+            inline={ inline }
+            styleOverride={ styleOverride.legend }
+            width={ legendWidth }
+            align={ legendTextAlign }
+            rightPadding={ legendSpacing }
+          >
+            <legend>
+              { legend }
+            </legend>
+            <ValidationIcon
+              error={ error }
+              warning={ warning }
+              info={ info }
+              tabIndex={ 0 }
+            />
+          </StyledLegendContainer>
+        )}
+        { children }
+      </StyledFieldsetContent>
+    </StyledFieldset>
+  );
+};
 
 Fieldset.propTypes = {
   /** Fieldset content */

@@ -69,7 +69,7 @@ describe('Fieldset', () => {
           boxSizing: 'border-box',
           margin: '0',
           height: '34px',
-          justifyContent: 'flex-start',
+          justifyContent: 'flex-end',
           paddingRight: '16px'
         }, wrapper.find(StyledLegendContainer));
       });
@@ -93,6 +93,15 @@ describe('Fieldset', () => {
         assertStyleMatch({
           paddingRight: '8px'
         }, wrapper.find(StyledLegendContainer));
+      });
+
+      describe('when legendAlign set to "left"', () => {
+        it('should apply the correct justifyContent style', () => {
+          wrapper = render({ inline: true, legend: 'Legend', legendAlign: 'left' });
+          assertStyleMatch({
+            justifyContent: 'flex-start'
+          }, wrapper.find(StyledLegendContainer));
+        });
       });
     });
   });

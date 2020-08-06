@@ -36,6 +36,8 @@ const Label = (props) => {
     tabIndex,
     rightSpacing = 2,
     leftSpacing = 2,
+    inline,
+    align,
     styleOverride
   } = props;
   const labelProps = filterByProps(props, [
@@ -48,6 +50,8 @@ const Label = (props) => {
     'childOfForm',
     'optional'
   ]);
+
+  const labelAlign = inline ? (align || 'right') : align;
 
   const icon = () => {
     const wrapperProps = {
@@ -93,6 +97,7 @@ const Label = (props) => {
       { ...labelProps }
       id={ labelId }
       htmlFor={ htmlFor }
+      align={ labelAlign }
       rightSpacing={ rightSpacing }
       leftSpacing={ leftSpacing }
       styleOverride={ styleOverride }
@@ -132,10 +137,14 @@ Label.propTypes = {
    *  More information: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex
   */
   tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  /** Set padding right */
+  /** Padding right, integer multiplied by base spacing constant (8) */
   rightSpacing: PropTypes.oneOf([1, 2]),
-  /** Set padding left */
+  /** Padding left, integer multiplied by base spacing constant (8) */
   leftSpacing: PropTypes.oneOf([1, 2]),
+  /** When true label is inline */
+  inline: PropTypes.bool,
+  /** Text alignment of label */
+  align: PropTypes.oneOf(['left', 'right']),
   /** Allows to override existing component styles */
   styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 };
