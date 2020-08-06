@@ -35,7 +35,11 @@ describe('Checkbox', () => {
     });
 
     describe('when size=large', () => {
-      const wrapper = render({ size: 'large' }).toJSON();
+      let wrapper;
+
+      beforeEach(() => {
+        wrapper = render({ size: 'large' }).toJSON();
+      });
 
       it('applies the appropriate input display element styles', () => {
         const styles = {
@@ -73,6 +77,16 @@ describe('Checkbox', () => {
           paddingBottom: '4px',
           paddingTop: '4px'
         }, wrapper, { modifier: css`${LabelStyle}` });
+      });
+
+      describe('when labelSpacing is 2', () => {
+        it('should apply the correct fieldHelp styles', () => {
+          wrapper = render({ labelSpacing: 2, size: 'large' }).toJSON();
+          assertStyleMatch({
+            paddingLeft: '16px',
+            marginLeft: '24px'
+          }, wrapper, { modifier: css`${FieldHelpStyle}` });
+        });
       });
     });
 
@@ -263,6 +277,14 @@ describe('Checkbox', () => {
         });
       });
     });
+
+    describe('when labelSpacing is 2', () => {
+      const wrapper = render({ labelSpacing: 2 }).toJSON();
+      assertStyleMatch({
+        paddingLeft: '16px',
+        marginLeft: '16px'
+      }, wrapper, { modifier: css`${FieldHelpStyle}` });
+    });
   });
 
   describe('Classic theme', () => {
@@ -297,7 +319,7 @@ describe('Checkbox', () => {
       it('applies appropriate FieldHelp styles', () => {
         assertStyleMatch({
           marginLeft: '15px',
-          paddingLeft: '6px'
+          paddingLeft: '5px'
         }, wrapper, { modifier: css`${FieldHelpStyle}` });
       });
 

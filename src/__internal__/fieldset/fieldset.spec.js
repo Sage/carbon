@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import Fieldset from './fieldset.component';
 
-import { 
+import {
   StyledFieldset,
   StyledLegendContainer,
   StyledFieldsetContent

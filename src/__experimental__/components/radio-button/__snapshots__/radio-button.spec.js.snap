@@ -852,7 +852,7 @@ exports[`RadioButton base renders as expected 1`] = `
 .c1 .c23 {
   margin-left: 16px;
   margin-top: 0;
-  padding-left: 6px;
+  padding-left: 8px;
 }
 
 .c1 .c25 {
