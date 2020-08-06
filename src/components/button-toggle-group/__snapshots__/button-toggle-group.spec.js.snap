@@ -131,13 +131,17 @@ input:focus ~ .c6 {
           checked={false}
           className="c5"
           id="guid-12345"
+          onBlur={[Function]}
           onChange={[Function]}
+          onFocus={[Function]}
           type="radio"
           value="foo"
         />
         <label
           className="c6"
           htmlFor="guid-12345"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
           size="large"
         >
           <div
@@ -155,13 +159,17 @@ input:focus ~ .c6 {
           checked={false}
           className="c5"
           id="guid-12345"
+          onBlur={[Function]}
           onChange={[Function]}
+          onFocus={[Function]}
           type="radio"
           value="bar"
         />
         <label
           className="c6"
           htmlFor="guid-12345"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
           size="large"
         >
           <div
@@ -283,13 +291,17 @@ input:focus ~ .c6 {
           checked={false}
           className="c5"
           id="guid-12345"
+          onBlur={[Function]}
           onChange={[Function]}
+          onFocus={[Function]}
           type="radio"
           value="foo"
         />
         <label
           className="c6"
           htmlFor="guid-12345"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
           size="large"
         >
           <div
@@ -307,13 +319,17 @@ input:focus ~ .c6 {
           checked={false}
           className="c5"
           id="guid-12345"
+          onBlur={[Function]}
           onChange={[Function]}
+          onFocus={[Function]}
           type="radio"
           value="bar"
         />
         <label
           className="c6"
           htmlFor="guid-12345"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
           size="large"
         >
           <div

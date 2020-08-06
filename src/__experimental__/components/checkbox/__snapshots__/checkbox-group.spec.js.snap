@@ -9,14 +9,14 @@ exports[`CheckboxGroup renders as expected 1`] = `
   display: block;
 }
 
-.c10 {
+.c11 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-.c14 {
+.c15 {
   cursor: pointer;
   opacity: 0;
   margin: 0;
@@ -24,134 +24,133 @@ exports[`CheckboxGroup renders as expected 1`] = `
   z-index: 999;
 }
 
-.c6 {
+.c7 {
   color: rgba(0,0,0,0.9);
   display: block;
   font-weight: 600;
-  padding-bottom: 8px;
 }
 
-.c6 .c18,
-.c6 .c19 {
-  vertical-align: middle;
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 8px;
 }
 
-.c12 {
+.c13 {
   display: inline-block;
   position: relative;
 }
 
-.c9 .c3 {
+.c10 .c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-.c9 .c5 {
-  text-align: left;
-  padding-top: 0;
+.c10 .c5 {
   width: auto;
 }
 
-.c9 .c5 .c18,
-.c9 .c5 .c19 {
+.c10 .c5 .c19,
+.c10 .c5 .c20 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
 }
 
-.c9 .c5 .c18:hover,
-.c9 .c5 .c19:hover,
-.c9 .c5 .c18:focus,
-.c9 .c5 .c19:focus {
+.c10 .c5 .c19:hover,
+.c10 .c5 .c20:hover,
+.c10 .c5 .c19:focus,
+.c10 .c5 .c20:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c9 .c16 {
+.c10 .c17 {
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
 }
 
-.c8 {
+.c9 {
   padding-top: 8px;
 }
 
-.c8 .c11 {
+.c9 .c12 {
   padding-top: 1px;
 }
 
-.c8 .c15 {
+.c9 .c16 {
   height: 16px;
 }
 
-.c8 svg {
+.c9 svg {
   background-color: #FFFFFF;
   border: 1px solid #668592;
 }
 
-.c8 .c13,
-.c8 svg {
+.c9 .c14,
+.c9 svg {
   height: 16px;
   position: absolute;
   padding: 1px;
 }
 
-.c8 .c11,
-.c8 .c13,
-.c8 .c15,
-.c8 svg {
+.c9 .c12,
+.c9 .c14,
+.c9 .c16,
+.c9 svg {
   box-sizing: border-box;
   min-width: 16px;
   width: 16px;
 }
 
-.c8 .c13:not([disabled]):focus + .c15,
-.c8 .c13:not([disabled]):hover + .c15 {
+.c9 .c14:not([disabled]):focus + .c16,
+.c9 .c14:not([disabled]):hover + .c16 {
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c8 .c5 {
-  padding-left: 6px;
+.c9 .c5 {
+  margin-left: 8px;
   width: auto;
   -webkit-flex: 0 1 auto;
   -ms-flex: 0 1 auto;
   flex: 0 1 auto;
 }
 
-.c8 .c16 {
-  margin-left: 16px;
+.c9 .c17 {
+  margin-left: 24px;
   margin-top: 0;
-  padding-left: 6px;
 }
 
-.c8 .c19 {
+.c9 .c20 {
   position: relative;
   display: inline-block;
 }
 
-.c8 .c13:checked ~ .c15 svg path {
+.c9 .c14:checked ~ .c16 svg path {
   fill: rgba(0,0,0,0.90);
 }
 
-.c0 .c17::before {
+.c0 .c18::before {
   font-size: 16px;
 }
 
-.c0 .c7 {
+.c0 .c8 {
   padding-top: 12px;
 }
 
-.c0 .c7 .c1 .c5 {
-  line-height: 21px;
-}
-
 .c0 > .c1 > .c5 {
-  padding-bottom: 4px;
+  margin-bottom: 4px;
   vertical-align: middle;
 }
 
-.c0 > .c1 > .c5 .c19 {
+.c0 > .c1 > .c5 .c20 {
   display: inline-block;
 }
 
@@ -167,44 +166,54 @@ exports[`CheckboxGroup renders as expected 1`] = `
     <div
       className="c3 c4"
     >
-      <label
+      <div
         className="c5 c6"
-        data-element="label"
         width={30}
       >
-        Test CheckboxGroup Label
-      </label>
+        <label
+          className="c7"
+          data-element="label"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          Test CheckboxGroup Label
+        </label>
+      </div>
       <div
-        className="c7 c8"
+        className="c8 c9"
         data-component="checkbox"
         name="check-required"
       >
         <div
-          className="c9"
+          className="c10"
           name="check-required"
         >
           <div
             className="c1 c2"
           >
             <div
-              className="c3 c10"
+              className="c3 c11"
             >
               <div
-                className="c11 c12"
+                className="c12 c13"
               >
                 <input
                   aria-describedby="cId-required-help"
                   aria-labelledby="cId-required-label"
-                  className="c13 c14"
+                  className="c14 c15"
                   id="cId-required"
                   name="check-required"
+                  onBlur={[Function]}
                   onChange={[MockFunction]}
+                  onFocus={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   role="checkbox"
                   type="checkbox"
                   value="required"
                 />
                 <div
-                  className="c15 "
+                  className="c16 "
                 >
                   <svg
                     focusable="false"
@@ -225,36 +234,40 @@ exports[`CheckboxGroup renders as expected 1`] = `
         </div>
       </div>
       <div
-        className="c7 c8"
+        className="c8 c9"
         data-component="checkbox"
         name="check-optional"
       >
         <div
-          className="c9"
+          className="c10"
           name="check-optional"
         >
           <div
             className="c1 c2"
           >
             <div
-              className="c3 c10"
+              className="c3 c11"
             >
               <div
-                className="c11 c12"
+                className="c12 c13"
               >
                 <input
                   aria-describedby="cId-optional-help"
                   aria-labelledby="cId-optional-label"
-                  className="c13 c14"
+                  className="c14 c15"
                   id="cId-optional"
                   name="check-optional"
+                  onBlur={[Function]}
                   onChange={[MockFunction]}
+                  onFocus={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   role="checkbox"
                   type="checkbox"
                   value="optional"
                 />
                 <div
-                  className="c15 "
+                  className="c16 "
                 >
                   <svg
                     focusable="false"

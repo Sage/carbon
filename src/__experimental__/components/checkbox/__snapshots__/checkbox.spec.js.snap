@@ -32,26 +32,24 @@ exports[`Checkbox base theme renders as expected 1`] = `
   display: flex;
 }
 
-.c1 .c27 {
-  text-align: left;
-  padding-top: 0;
+.c1 .c24 {
   width: auto;
 }
 
-.c1 .c27 .c25,
-.c1 .c27 .c26 {
+.c1 .c24 .c25,
+.c1 .c24 .c26 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
 }
 
-.c1 .c27 .c25:hover,
-.c1 .c27 .c26:hover,
-.c1 .c27 .c25:focus,
-.c1 .c27 .c26:focus {
+.c1 .c24 .c25:hover,
+.c1 .c24 .c26:hover,
+.c1 .c24 .c25:focus,
+.c1 .c24 .c26:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c1 .c24 {
+.c1 .c23 {
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
@@ -87,9 +85,9 @@ exports[`Checkbox base theme renders as expected 1`] = `
 }
 
 .c12 .c8:hover,
-.c12 .c27:hover,
+.c12 .sc-ifAKCX:hover,
 .c12 .c8:focus,
-.c12 .c27:focus {
+.c12 .sc-ifAKCX:focus {
   outline: none;
   cursor: not-allowed;
 }
@@ -123,19 +121,49 @@ exports[`Checkbox base theme renders as expected 1`] = `
   margin-left: 8px;
 }
 
-.c15 .c4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+.c15 .c6 {
+  padding-top: 1px;
 }
 
-.c15 .c8:hover,
-.c15 .c27:hover,
-.c15 .c8:focus,
-.c15 .c27:focus {
-  outline: none;
-  cursor: not-allowed;
+.c15 .c10 {
+  height: 16px;
+}
+
+.c15 .c8,
+.c15 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c15 .c6,
+.c15 .c8,
+.c15 .c10,
+.c15 svg {
+  box-sizing: border-box;
+  min-width: 16px;
+  width: 16px;
+}
+
+.c15 .c8:not([disabled]):focus + .c10,
+.c15 .c8:not([disabled]):hover + .c10 {
+  box-shadow: 0 0 0 3px #FFB500;
+}
+
+.c15 .c10 {
+  height: 24px;
+}
+
+.c15 .c6,
+.c15 .c8,
+.c15 .c10,
+.c15 svg {
+  height: 24px;
+  width: 24px;
+}
+
+.c15 .c8:checked ~ .c10 svg path {
+  fill: rgba(0,0,0,0.90);
 }
 
 .c16 .c6 {
@@ -169,12 +197,6 @@ exports[`Checkbox base theme renders as expected 1`] = `
 
 .c16 .c10 {
   height: 24px;
-}
-
-.c16 .c6,
-.c16 .c8,
-.c16 svg {
-  padding: 2px;
 }
 
 .c16 .c6,
@@ -218,26 +240,18 @@ exports[`Checkbox base theme renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c17 .c10 {
-  height: 24px;
-}
-
-.c17 .c6,
-.c17 .c8,
-.c17 svg {
-  padding: 2px;
-}
-
-.c17 .c6,
-.c17 .c8,
-.c17 .c10,
-.c17 svg {
-  height: 24px;
-  width: 24px;
+.c17 .c8:checked ~ .c10 svg path {
+  fill: rgba(0,0,0,0.90);
 }
 
 .c17 .c8:checked ~ .c10 svg path {
-  fill: rgba(0,0,0,0.90);
+  fill: #CCD6DB;
+}
+
+.c17 .c10:hover,
+.c17 .c10:focus {
+  outline: none;
+  cursor: not-allowed;
 }
 
 .c18 .c6 {
@@ -271,16 +285,6 @@ exports[`Checkbox base theme renders as expected 1`] = `
 
 .c18 .c8:checked ~ .c10 svg path {
   fill: rgba(0,0,0,0.90);
-}
-
-.c18 .c8:checked ~ .c10 svg path {
-  fill: #CCD6DB;
-}
-
-.c18 .c10:hover,
-.c18 .c10:focus {
-  outline: none;
-  cursor: not-allowed;
 }
 
 .c19 .c6 {
@@ -349,6 +353,10 @@ exports[`Checkbox base theme renders as expected 1`] = `
   fill: rgba(0,0,0,0.90);
 }
 
+.c20 .c6 {
+  margin-right: 8px;
+}
+
 .c21 .c6 {
   padding-top: 1px;
 }
@@ -383,7 +391,35 @@ exports[`Checkbox base theme renders as expected 1`] = `
 }
 
 .c21 .c6 {
-  margin-right: 8px;
+  padding: 1px 0 0 0;
+}
+
+.c21 .c8,
+.c21 svg {
+  padding: 1px;
+}
+
+.c21 .c6,
+.c21 .c8,
+.c21 .c10,
+.c21 svg {
+  height: 15px;
+  width: 15px;
+}
+
+.c21 .c8:not([disabled]):focus + .c10,
+.c21 .c8:not([disabled]):hover + .c10 {
+  box-shadow: none;
+}
+
+.c21 .c8:not([disabled]):focus + .c10 > svg,
+.c21 .c8:not([disabled]):hover + .c10 > svg {
+  border: 1px solid #1963f6;
+  outline: none;
+}
+
+.c21 .c8:checked ~ .c10 svg path {
+  fill: rgba(0,0,0,0.85);
 }
 
 .c22 .c6 {
@@ -419,6 +455,16 @@ exports[`Checkbox base theme renders as expected 1`] = `
   fill: rgba(0,0,0,0.90);
 }
 
+.c22 .c8:checked ~ .c10 svg path {
+  fill: #4d7080;
+}
+
+.c22 .c10:hover,
+.c22 .c10:focus {
+  outline: none;
+  cursor: not-allowed;
+}
+
 .c22 .c6 {
   padding: 1px 0 0 0;
 }
@@ -451,82 +497,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
   fill: rgba(0,0,0,0.85);
 }
 
-.c23 .c6 {
-  padding-top: 1px;
-}
-
-.c23 .c10 {
-  height: 16px;
-}
-
-.c23 .c8,
-.c23 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c23 .c6,
-.c23 .c8,
-.c23 .c10,
-.c23 svg {
-  box-sizing: border-box;
-  min-width: 16px;
-  width: 16px;
-}
-
-.c23 .c8:not([disabled]):focus + .c10,
-.c23 .c8:not([disabled]):hover + .c10 {
-  box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c23 .c8:checked ~ .c10 svg path {
-  fill: rgba(0,0,0,0.90);
-}
-
-.c23 .c8:checked ~ .c10 svg path {
-  fill: #4d7080;
-}
-
-.c23 .c10:hover,
-.c23 .c10:focus {
-  outline: none;
-  cursor: not-allowed;
-}
-
-.c23 .c6 {
-  padding: 1px 0 0 0;
-}
-
-.c23 .c8,
-.c23 svg {
-  padding: 1px;
-}
-
-.c23 .c6,
-.c23 .c8,
-.c23 .c10,
-.c23 svg {
-  height: 15px;
-  width: 15px;
-}
-
-.c23 .c8:not([disabled]):focus + .c10,
-.c23 .c8:not([disabled]):hover + .c10 {
-  box-shadow: none;
-}
-
-.c23 .c8:not([disabled]):focus + .c10 > svg,
-.c23 .c8:not([disabled]):hover + .c10 > svg {
-  border: 1px solid #1963f6;
-  outline: none;
-}
-
-.c23 .c8:checked ~ .c10 svg path {
-  fill: rgba(0,0,0,0.85);
-}
-
-.c23 .c8:checked ~ .c10 svg path {
+.c22 .c8:checked ~ .c10 svg path {
   fill: #8099a4;
 }
 
@@ -568,18 +539,17 @@ exports[`Checkbox base theme renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c0 .c27 {
-  padding-left: 6px;
+.c0 .c24 {
+  margin-left: 8px;
   width: auto;
   -webkit-flex: 0 1 auto;
   -ms-flex: 0 1 auto;
   flex: 0 1 auto;
 }
 
-.c0 .c24 {
-  margin-left: 16px;
+.c0 .c23 {
+  margin-left: 24px;
   margin-top: 0;
-  padding-left: 6px;
 }
 
 .c0 .c26 {
@@ -615,6 +585,10 @@ exports[`Checkbox base theme renders as expected 1`] = `
             className="c8 c9"
             id="guid-12345"
             name="my-checkbox"
+            onBlur={[Function]}
+            onFocus={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
             role="checkbox"
             type="checkbox"
             value="test"

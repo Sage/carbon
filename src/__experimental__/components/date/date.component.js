@@ -46,7 +46,6 @@ class BaseDateInput extends React.Component {
     this.isMounted = true;
     if (this.props.autoFocus) {
       this.isAutoFocused = true;
-      this.input.focus();
       this.openDatePicker(true);
       this.setState({ shouldPickerOpen: true });
     }
@@ -357,7 +356,6 @@ class BaseDateInput extends React.Component {
     } = this.props;
 
     let events = {};
-    delete inputProps.autoFocus;
     delete inputProps.defaultValue;
     delete inputProps.value;
 

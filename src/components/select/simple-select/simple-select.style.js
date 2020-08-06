@@ -3,6 +3,7 @@ import InputPresentationStyle from '../../../__experimental__/components/input/i
 import StyledInput from '../../../__experimental__/components/input/input.style';
 import InputIconToggleStyle from '../../../__experimental__/components/input-icon-toggle/input-icon-toggle.style';
 import { baseTheme } from '../../../style/themes';
+import sizes from '../../../__experimental__/components/input/input-sizes.style';
 
 const StyledSimpleSelect = styled.div`
   ${StyledInput} {
@@ -10,6 +11,7 @@ const StyledSimpleSelect = styled.div`
     color: transparent;
     user-select: none;
     text-shadow: 0 0 0 ${({ theme }) => theme.text.color};
+    padding-left: ${({ size }) => sizes[size].horizontalPadding};
 
     ::placeholder {
       text-shadow: 0 0 0 ${({ theme }) => theme.text.placeholder};
@@ -30,6 +32,8 @@ const StyledSimpleSelect = styled.div`
 
   ${InputPresentationStyle} {
     cursor: pointer;
+    padding-left: 0;
+    padding-right: 0;
 
     ${({ disabled }) => disabled && css`
       cursor: not-allowed;
@@ -38,6 +42,10 @@ const StyledSimpleSelect = styled.div`
     ${({ readOnly }) => readOnly && css`
       cursor: default;
     `}
+  }
+
+  ${InputIconToggleStyle} {
+    margin-right: 0;
   }
 
   ${({ transparent }) => transparent && css`
@@ -59,6 +67,7 @@ const StyledSimpleSelect = styled.div`
 `;
 
 StyledSimpleSelect.defaultProps = {
+  size: 'medium',
   theme: baseTheme
 };
 

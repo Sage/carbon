@@ -7,7 +7,10 @@ Array [
 }
 
 .c5 {
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .c9 {
@@ -30,22 +33,20 @@ Array [
   display: flex;
 }
 
-.c1 .c14 {
-  text-align: left;
-  padding-top: 0;
+.c1 .c12 {
   width: auto;
 }
 
-.c1 .c14 .c12,
-.c1 .c14 .c13 {
+.c1 .c12 .c13,
+.c1 .c12 .c14 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
 }
 
-.c1 .c14 .c12:hover,
-.c1 .c14 .c13:hover,
-.c1 .c14 .c12:focus,
-.c1 .c14 .c13:focus {
+.c1 .c12 .c13:hover,
+.c1 .c12 .c14:hover,
+.c1 .c12 .c13:focus,
+.c1 .c12 .c14:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -94,8 +95,8 @@ Array [
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c0 .c14 {
-  padding-left: 6px;
+.c0 .c12 {
+  margin-left: 8px;
   width: auto;
   -webkit-flex: 0 1 auto;
   -ms-flex: 0 1 auto;
@@ -103,12 +104,11 @@ Array [
 }
 
 .c0 .c11 {
-  margin-left: 16px;
+  margin-left: 24px;
   margin-top: 0;
-  padding-left: 6px;
 }
 
-.c0 .c13 {
+.c0 .c14 {
   position: relative;
   display: inline-block;
 }
@@ -151,11 +151,11 @@ Array [
   r: 5;
 }
 
-.c0 .c14 {
+.c0 .c12 {
   -webkit-flex: 1 1 calc(100% - 44px);
   -ms-flex: 1 1 calc(100% - 44px);
   flex: 1 1 calc(100% - 44px);
-  padding-left: 0;
+  margin-left: 0;
 }
 
 .c0 .c8:checked + .c10 circle {
@@ -190,8 +190,11 @@ Array [
               className="c8 c9"
               id="rId-0"
               name="test-group"
-              onBlur={[MockFunction]}
+              onBlur={[Function]}
               onChange={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               role="radio"
               type="radio"
               value="test-1"
@@ -229,7 +232,10 @@ Array [
 }
 
 .c5 {
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .c9 {
@@ -252,22 +258,20 @@ Array [
   display: flex;
 }
 
-.c1 .c14 {
-  text-align: left;
-  padding-top: 0;
+.c1 .c12 {
   width: auto;
 }
 
-.c1 .c14 .c12,
-.c1 .c14 .c13 {
+.c1 .c12 .c13,
+.c1 .c12 .c14 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
 }
 
-.c1 .c14 .c12:hover,
-.c1 .c14 .c13:hover,
-.c1 .c14 .c12:focus,
-.c1 .c14 .c13:focus {
+.c1 .c12 .c13:hover,
+.c1 .c12 .c14:hover,
+.c1 .c12 .c13:focus,
+.c1 .c12 .c14:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -316,8 +320,8 @@ Array [
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c0 .c14 {
-  padding-left: 6px;
+.c0 .c12 {
+  margin-left: 8px;
   width: auto;
   -webkit-flex: 0 1 auto;
   -ms-flex: 0 1 auto;
@@ -325,12 +329,11 @@ Array [
 }
 
 .c0 .c11 {
-  margin-left: 16px;
+  margin-left: 24px;
   margin-top: 0;
-  padding-left: 6px;
 }
 
-.c0 .c13 {
+.c0 .c14 {
   position: relative;
   display: inline-block;
 }
@@ -373,11 +376,11 @@ Array [
   r: 5;
 }
 
-.c0 .c14 {
+.c0 .c12 {
   -webkit-flex: 1 1 calc(100% - 44px);
   -ms-flex: 1 1 calc(100% - 44px);
   flex: 1 1 calc(100% - 44px);
-  padding-left: 0;
+  margin-left: 0;
 }
 
 .c0 .c8:checked + .c10 circle {
@@ -412,8 +415,11 @@ Array [
               className="c8 c9"
               id="rId-1"
               name="test-group"
-              onBlur={[MockFunction]}
+              onBlur={[Function]}
               onChange={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               role="radio"
               type="radio"
               value="test-2"

@@ -11,6 +11,10 @@ import {
   simpleSelectNoIframe,
   selectDataComponent,
   simpleSelectIframe,
+  multiSelectDataComponent,
+  openOnFocusID,
+  multiSelectPill,
+  multiSelectPillByPosition,
 } from '../../locators/select';
 import { positionOfElement, keyCode } from '../helper';
 import { label } from '../../locators';
@@ -133,13 +137,27 @@ When('I focus basic Select input', () => {
   simpleSelectIframe().focus();
 });
 
-Then('{string} {word} Select list is opened', (index, name) => {
+When('I focus openOnFocus Select input', () => {
+  openOnFocusID().focus();
+});
+
+Then('{string} {string} Select list is opened', (index, name) => {
   selectDataComponent(positionOfElement(index), name).should('have.attr', 'aria-expanded', 'true');
   selectList().should('be.visible');
 });
 
-Then('{string} {word} Select list is closed', (index, name) => {
+Then('{string} {string} Select list is closed', (index, name) => {
   selectDataComponent(positionOfElement(index), name).should('have.attr', 'aria-expanded', 'false');
+  selectList().should('not.be.visible');
+});
+
+Then('{string} multi Select list is opened', (index) => {
+  multiSelectDataComponent(positionOfElement(index)).should('have.attr', 'aria-expanded', 'true');
+  selectList().should('be.visible');
+});
+
+Then('{string} multi Select list is closed', (index) => {
+  multiSelectDataComponent(positionOfElement(index)).should('have.attr', 'aria-expanded', 'false');
   selectList().should('not.be.visible');
 });
 
@@ -172,6 +190,18 @@ Then('Design system Select input has {string} value', (text) => {
   simpleSelectID().should('have.attr', 'value', text);
 });
 
+Then('Multi select input has {string} pill', (text) => {
+  multiSelectPill().should('have.attr', 'title', text);
+});
+
+Then('Multi select {string} pill has {string} value', (int, text) => {
+  multiSelectPillByPosition(positionOfElement(int)).should('have.attr', 'title', text);
+});
+
+Then('Multi select input has not any value', () => {
+  multiSelectDataComponent(1).should('not.have.attr', 'data-component', 'pill');
+});
+
 When('I click on {string} dropdown button', (position) => {
   dropdownButton(positionOfElement(position)).click();
 });
@@ -188,6 +218,10 @@ When('I type {string} into input', (text) => {
   simpleSelectID().type(text);
 });
 
+When('Type {string} text into multi select input and select the value', (text) => {
+  simpleSelectID().type(`${text}{downarrow}{enter}`);
+});
+
 When('I type {string} into basic input', (text) => {
   simpleSelectIframe().type(text);
 });
@@ -202,4 +236,8 @@ When('I click on {string} option on Select list', (position) => {
 
 When('I click on Select label', () => {
   label().click();
+});
+
+When('I click {string} onto multi select input', (key) => {
+  simpleSelectID().trigger('keydown', keyCode(key));
 });

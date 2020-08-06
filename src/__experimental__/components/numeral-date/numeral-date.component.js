@@ -8,6 +8,7 @@ import { StyledNumeralDate, StyledDateField } from './numeral-date.style';
 import Textbox from '../textbox';
 import guid from '../../../utils/helpers/guid';
 import FormField from '../form-field';
+import { InputGroupBehaviour } from '../../../__internal__/input-behaviour';
 
 const NumeralDate = ({
   dateFormat = ['dd', 'mm', 'yyyy'],
@@ -84,61 +85,63 @@ const NumeralDate = ({
   };
 
   return (
-    <FormField
-      label={ label }
-      useValidationIcon={ validationOnLabel }
-      id={ uniqueId }
-      error={ error }
-      warning={ warning }
-      info={ info }
-      labelInline={ labelInline }
-      labelWidth={ labelWidth }
-      labelAlign={ labelAlign }
-      labelHelp={ labelHelp }
-      fieldHelp={ fieldHelp }
-    >
-      <StyledNumeralDate
-        name={ name }
-        onBlur={ handleBlur }
-        onKeyPress={ onKeyPress }
-        data-component='numeral-date'
+    <InputGroupBehaviour>
+      <FormField
+        label={ label }
+        useValidationIcon={ validationOnLabel }
+        id={ uniqueId }
+        error={ error }
+        warning={ warning }
+        info={ info }
+        labelInline={ labelInline }
+        labelWidth={ labelWidth }
+        labelAlign={ labelAlign }
+        labelHelp={ labelHelp }
+        fieldHelp={ fieldHelp }
       >
-        {
-          dateFormat.map((datePart, index) => {
-            const isEnd = index === dateFormat.length - 1;
-            const isMiddle = index === 1;
+        <StyledNumeralDate
+          name={ name }
+          onBlur={ handleBlur }
+          onKeyPress={ onKeyPress }
+          data-component='numeral-date'
+        >
+          {
+            dateFormat.map((datePart, index) => {
+              const isEnd = index === dateFormat.length - 1;
+              const isMiddle = index === 1;
 
-            return (
-              <StyledDateField
-                key={ datePart }
-                isYearInput={ datePart.length === 4 }
-                isMiddle={ isMiddle }
-                isEnd={ isEnd }
-                hasValidationIcon={ typeof (error || warning || info) === 'string' }
-              >
-                <Textbox
-                  { ...(index === 0 && { id: uniqueId }) }
-                  placeholder={ datePart }
-                  value={ dateValue[datePart] }
-                  onChange={ e => handleChange(e, datePart) }
-                  onBlur={ handleBlur }
-                  error={ !!error }
-                  warning={ !!warning }
-                  info={ !!info }
-                  {
-                  ...(isEnd && !validationOnLabel && {
-                    error,
-                    warning,
-                    info
-                  })
-                  }
-                />
-              </StyledDateField>
-            );
-          })
-        }
-      </StyledNumeralDate>
-    </FormField>
+              return (
+                <StyledDateField
+                  key={ datePart }
+                  isYearInput={ datePart.length === 4 }
+                  isMiddle={ isMiddle }
+                  isEnd={ isEnd }
+                  hasValidationIcon={ typeof (error || warning || info) === 'string' }
+                >
+                  <Textbox
+                    { ...(index === 0 && { id: uniqueId }) }
+                    placeholder={ datePart }
+                    value={ dateValue[datePart] }
+                    onChange={ e => handleChange(e, datePart) }
+                    onBlur={ handleBlur }
+                    error={ !!error }
+                    warning={ !!warning }
+                    info={ !!info }
+                    {
+                    ...(isEnd && !validationOnLabel && {
+                      error,
+                      warning,
+                      info
+                    })
+                    }
+                  />
+                </StyledDateField>
+              );
+            })
+          }
+        </StyledNumeralDate>
+      </FormField>
+    </InputGroupBehaviour>
   );
 };
 

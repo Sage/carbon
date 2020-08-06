@@ -3,7 +3,7 @@ import TestRenderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import ValidationIcon from './validation-icon.component';
 import ValidationIconStyle from './validation-icon.style';
-import { InputPresentationContext } from '../../__experimental__/components/input';
+import { InputContext, InputGroupContext } from '../../__internal__/input-behaviour';
 import ClassicTheme from '../../style/themes/classic';
 import 'jest-styled-components';
 import Icon from '../icon';
@@ -46,21 +46,33 @@ describe('ValidationIcon', () => {
     expect(iconProps.tooltipAlign).toBe(undefined);
   });
 
-  it('shows the tooltip if context has focus', () => {
-    const icon = renderWithContext({ hasFocus: true }).find('Icon');
+  it('shows the tooltip if input context has focus', () => {
+    const icon = renderWithInputContext({ hasFocus: true }).find('Icon');
     expect(icon.props().tooltipVisible).toEqual(true);
   });
 
-  it('shows the tooltip if context has mouse over', () => {
-    const icon = renderWithContext({ hasMouseOver: true }).find('Icon');
+  it('shows the tooltip if input context has mouse over', () => {
+    const icon = renderWithInputContext({ hasMouseOver: true }).find('Icon');
+    expect(icon.props().tooltipVisible).toEqual(true);
+  });
+
+  it('shows the tooltip if input group context has focus', () => {
+    const icon = renderWithInputContext({}, { hasFocus: true }).find('Icon');
+    expect(icon.props().tooltipVisible).toEqual(true);
+  });
+
+  it('shows the tooltip if input group context has mouse over', () => {
+    const icon = renderWithInputContext({}, { hasMouseOver: true }).find('Icon');
     expect(icon.props().tooltipVisible).toEqual(true);
   });
 });
 
-function renderWithContext(props) {
+function renderWithInputContext(inputContextValue = {}, inputGroupContextValue = {}) {
   return mount(
-    <InputPresentationContext.Provider value={ props }>
-      <ValidationIcon error='Message' />
-    </InputPresentationContext.Provider>
+    <InputContext.Provider value={ inputContextValue }>
+      <InputGroupContext.Provider value={ inputGroupContextValue }>
+        <ValidationIcon error='Message' />
+      </InputGroupContext.Provider>
+    </InputContext.Provider>
   );
 }

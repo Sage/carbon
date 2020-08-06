@@ -1,3 +1,40 @@
+## [37.2.0](https://github.com/Sage/carbon/compare/v37.1.0...v37.2.0) (2020-08-06)
+
+
+### Features
+
+* **validations:** show tooltip when input is hovered or focused ([c8d9360](https://github.com/Sage/carbon/commit/c8d9360fdd8145796e973ed035d69aae1815c2e1))
+
+
+### Bug Fixes
+
+* **label:** render icons outside of label element ([e1fc428](https://github.com/Sage/carbon/commit/e1fc4281119ab53557d00f961bf290a8e891143e))
+
+## [37.1.0](https://github.com/Sage/carbon/compare/v37.0.0...v37.1.0) (2020-08-05)
+
+
+### Features
+
+* add new MultiSelect component ([fe43a50](https://github.com/Sage/carbon/commit/fe43a50e99107b5e6b551cfc32d07d7f93b2bd94))
+
+## [37.0.0](https://github.com/Sage/carbon/compare/v36.0.0...v37.0.0) (2020-08-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* **note:** The following props are now required for the Note component.
+- noteContent
+- name
+- createdDate
+- status.text if status is provided
+- status.timeStamp if status is provided
+- inlineControl must be an instance of ActionPopover
+
+### Bug Fixes
+
+* **note:** add default theme ([915dbcf](https://github.com/Sage/carbon/commit/915dbcf183b32aa2c155409f0770818c46d7fea2))
+* **note:** enforce required props ([4e8f09a](https://github.com/Sage/carbon/commit/4e8f09abb2490cb3114e70e0720db9b7baabf2c2))
+
 ## [36.0.0](https://github.com/Sage/carbon/compare/v35.4.0...v36.0.0) (2020-07-29)
 
 

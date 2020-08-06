@@ -14,6 +14,7 @@ const colorValues = [
   { color: '#0073C1' },
   { color: '#582C83' }
 ];
+
 const name = 'test-group';
 
 function render(renderer = TestRenderer.create, props, childProps) {
@@ -48,7 +49,7 @@ describe('SimpleColorPicker', () => {
   });
 
   describe('it renders childs in rows based on maxWidth and childWith', () => {
-    let wrapper, onChange, colorTwo;
+    let wrapper, onChange, secondColor;
 
     describe('onKeyDown', () => {
       beforeEach(() => {
@@ -74,17 +75,15 @@ describe('SimpleColorPicker', () => {
       });
 
       it('confirms that 2nd color is checked by default', () => {
-        colorTwo = wrapper.find(SimpleColor).at(1);
-        colorTwo.getDOMNode().focus();
+        secondColor = wrapper.find(SimpleColor).at(1);
         const selectedColor = wrapper.find(SimpleColor).at(1).find('input');
         expect(selectedColor.prop('aria-checked')).toBeTruthy();
       });
 
       it('if unhandled key is pressed', () => {
-        colorTwo = wrapper.find(SimpleColor).at(1);
-        colorTwo.getDOMNode().focus();
+        secondColor = wrapper.find(SimpleColor).at(1);
         act(() => {
-          colorTwo.find('input').first().simulate('keydown', { which: 17, key: 'ctrl' });
+          secondColor.find('input').first().simulate('keydown', { which: 17, key: 'ctrl' });
         });
 
         expect(onChange).not.toHaveBeenCalled();
@@ -108,13 +107,13 @@ describe('SimpleColorPicker', () => {
         describe('when on first color ', () => {
           it('does change selection to last color', () => {
             const colorOne = wrapper.find(SimpleColor).at(0);
-            colorOne.getDOMNode().focus();
+            spyOn(wrapper.find(SimpleColor).last().find('input').getDOMNode(), 'click');
 
             act(() => {
               colorOne.find('input').first().simulate('keydown', { which: 37, key: 'ArrowLeft' });
             });
 
-            expect(onChange).toHaveBeenCalled();
+            expect(wrapper.find(SimpleColor).last().find('input').getDOMNode().click).toHaveBeenCalled();
 
             expect(
               document.activeElement.getAttribute('value')
@@ -140,27 +139,34 @@ describe('SimpleColorPicker', () => {
         });
         describe('when up is allowed due to multi rows', () => {
           it('changes selection on up key', () => {
-            colorTwo = wrapper.find(SimpleColor).at(1);
-            colorTwo.getDOMNode().focus();
+            spyOn(wrapper.find(SimpleColor).first().find('input').getDOMNode(), 'click');
+            secondColor = wrapper.find(SimpleColor).at(1);
 
             act(() => {
-              colorTwo.find('input').first().simulate('keydown', { which: 38, key: 'ArrowUp' });
+              secondColor.find('input').first().simulate('keydown', { which: 38, key: 'ArrowUp' });
             });
 
-            expect(onChange).toHaveBeenCalled();
+            expect(wrapper.find(SimpleColor).first().find('input').getDOMNode().click).toHaveBeenCalled();
+
             expect(document.activeElement.getAttribute('value')).toBe(colorValues[0].color);
           });
         });
 
         describe('when up is disallowed due to top row', () => {
           it('changes selection on up key', () => {
-            colorTwo = wrapper.find(SimpleColor).at(0);
-            colorTwo.getDOMNode().focus();
+            spyOn(wrapper.find(SimpleColor).at(0).find('input').getDOMNode(), 'click');
+            spyOn(wrapper.find(SimpleColor).at(1).find('input').getDOMNode(), 'click');
+            secondColor = wrapper.find(SimpleColor).at(0);
 
             act(() => {
-              colorTwo.find('input').first().simulate('keydown', { which: 38, key: 'ArrowUp' });
+              secondColor.find('input').first().simulate('click');
+              secondColor.find('input').first().simulate('keydown', { which: 38, key: 'ArrowUp' });
             });
 
+            expect(wrapper.find(SimpleColor).at(0).find('input').getDOMNode().click).not.toHaveBeenCalled();
+            expect(wrapper.find(SimpleColor).at(1).find('input').getDOMNode().click).not.toHaveBeenCalled();
+
+            expect(document.activeElement.getAttribute('value')).toBe(colorValues[0].color);
             expect(onChange).not.toHaveBeenCalled();
           });
         });
@@ -184,14 +190,15 @@ describe('SimpleColorPicker', () => {
         });
         describe('when on last color ', () => {
           it('does change selection to first color', () => {
-            const colorThree = wrapper.find(SimpleColor).at(2);
-            colorThree.getDOMNode().focus();
+            const thirdColor = wrapper.find(SimpleColor).at(2);
+
+            spyOn(wrapper.find(SimpleColor).first().find('input').getDOMNode(), 'click');
 
             act(() => {
-              colorThree.find('input').first().simulate('keydown', { which: 39, key: 'ArrowRight' });
+              thirdColor.find('input').first().simulate('keydown', { which: 39, key: 'ArrowRight' });
             });
 
-            expect(onChange).toHaveBeenCalled();
+            expect(wrapper.find(SimpleColor).first().find('input').getDOMNode().click).toHaveBeenCalled();
             expect(
               document.activeElement.getAttribute('value')
             ).toBe(wrapper.find(SimpleColor).first().prop('value'));
@@ -200,19 +207,19 @@ describe('SimpleColorPicker', () => {
 
         describe('when on 2nd color ', () => {
           it('changes selection on right key', () => {
-            colorTwo = wrapper.find(SimpleColor).at(1);
-            colorTwo.getDOMNode().focus();
+            spyOn(wrapper.find(SimpleColor).last().find('input').getDOMNode(), 'click');
+            secondColor = wrapper.find(SimpleColor).at(1);
 
             act(() => {
-              colorTwo.find('input').first().simulate('keydown', { which: 39, key: 'ArrowRight' });
+              secondColor.find('input').first().simulate('keydown', { which: 39, key: 'ArrowRight' });
             });
 
-            expect(onChange).toHaveBeenCalled();
+            expect(wrapper.find(SimpleColor).last().find('input').getDOMNode().click).toHaveBeenCalled();
+
             expect(document.activeElement.getAttribute('value')).toBe(colorValues[2].color);
           });
         });
       });
-
 
       describe('on down key', () => {
         let container;
@@ -232,27 +239,34 @@ describe('SimpleColorPicker', () => {
         });
         describe('when down is allowed due to multi rows', () => {
           it('changes selection on down key', () => {
-            colorTwo = wrapper.find(SimpleColor).at(1);
-            colorTwo.getDOMNode().focus();
+            spyOn(wrapper.find(SimpleColor).last().find('input').getDOMNode(), 'click');
+            secondColor = wrapper.find(SimpleColor).at(1);
 
             act(() => {
-              colorTwo.find('input').first().simulate('keydown', { which: 40, key: 'ArrowDown' });
+              secondColor.find('input').first().simulate('keydown', { which: 40, key: 'ArrowDown' });
             });
 
-            expect(onChange).toHaveBeenCalled();
+            expect(wrapper.find(SimpleColor).last().find('input').getDOMNode().click).toHaveBeenCalled();
+
             expect(document.activeElement.getAttribute('value')).toBe(colorValues[2].color);
           });
         });
 
         describe('when down is disallowed due to bottom row', () => {
           it('changes selection on down key', () => {
-            const colorThree = wrapper.find(SimpleColor).at(2);
-            colorThree.getDOMNode().focus();
+            const thirdColor = wrapper.find(SimpleColor).at(2);
+
+            spyOn(wrapper.find(SimpleColor).at(0).find('input').getDOMNode(), 'click');
+            spyOn(wrapper.find(SimpleColor).at(1).find('input').getDOMNode(), 'click');
 
             act(() => {
-              colorThree.find('input').first().simulate('keydown', { which: 40, key: 'ArrowDown' });
+              thirdColor.find('input').first().simulate('click');
+              thirdColor.find('input').first().simulate('keydown', { which: 40, key: 'ArrowDown' });
             });
 
+            expect(wrapper.find(SimpleColor).at(0).find('input').getDOMNode().click).not.toHaveBeenCalled();
+            expect(wrapper.find(SimpleColor).at(1).find('input').getDOMNode().click).not.toHaveBeenCalled();
+            expect(document.activeElement.getAttribute('value')).toBe(colorValues[2].color);
             expect(onChange).not.toHaveBeenCalled();
           });
         });

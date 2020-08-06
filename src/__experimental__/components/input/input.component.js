@@ -1,102 +1,101 @@
-import React from 'react';
+import React, { useEffect, useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { InputPresentationContext } from './input-presentation.component';
 import StyledInput from './input.style';
+import { InputContext, InputGroupContext } from '../../../__internal__/input-behaviour';
 
-// This is a component in progress to incrementally remove the reliance
-// on the input decorators. For now we still rely on inputProps being
-// fed into this component from the decorated parent component if you want
-// to use the full supported feature set of a Carbon component. Over time we
-// will add additional supported on the decorated features without the need
-// for the decorators themselves.
+const Input = React.forwardRef(({
+  autoFocus,
+  inputRef,
+  onClick,
+  onChangeDeferred,
+  onChange,
+  onBlur,
+  onFocus,
+  deferTimeout,
+  type = 'text',
+  id,
+  name,
+  ...rest
+}, ref) => {
+  const context = useContext(InputContext);
+  const groupContext = useContext(InputGroupContext);
+  const deferredTimeout = useRef(null);
+  const input = ref || useRef(null);
 
-class Input extends React.Component {
-  static propTypes = {
-    className: PropTypes.string,
-    id: PropTypes.string,
-    inputRef: PropTypes.func, // a callback to retrieve the input reference
-    name: PropTypes.string,
-    onBlur: PropTypes.func,
-    onClick: PropTypes.func,
-    onKeyDown: PropTypes.func,
-    onFocus: PropTypes.func,
-    autoFocus: PropTypes.bool,
-    onChange: PropTypes.func,
-    onChangeDeferred: PropTypes.func,
-    deferTimeout: PropTypes.number,
-    type: PropTypes.string
+  useEffect(() => {
+    if (autoFocus && input.current) input.current.focus();
+  }, [autoFocus, input]);
+
+  useEffect(() => {
+    if (inputRef) inputRef(input);
+  }, [input, inputRef]);
+
+  useEffect(() => {
+    if (context.inputRef) context.inputRef(input);
+  }, [context, input]);
+
+  const handleClick = (ev) => {
+    if (onClick) onClick(ev);
+    input.current.focus();
   };
 
-  static contextType = InputPresentationContext;
-
-  input = React.createRef();
-
-  componentDidMount() {
-    if (this.props.inputRef) this.props.inputRef(this.input);
-    if (this.context && this.context.inputRef) this.context.inputRef(this.input);
-    if (this.props.autoFocus && this.input.current) this.input.current.focus();
-  }
-
-  handleClick = (ev) => {
-    if (this.props.onClick) this.props.onClick(ev);
-    this.input.current.focus();
+  const handleFocus = (ev) => {
+    if (onFocus) onFocus(ev);
+    if (context.onFocus) context.onFocus(ev);
+    if (groupContext.onFocus) groupContext.onFocus(ev);
+    if (type === 'text') selectTextOnFocus(input);
   };
 
-  handleFocus = (ev) => {
-    if (this.props.onFocus) this.props.onFocus(ev);
-    if (this.context && this.context.onFocus) this.context.onFocus(ev);
-    if (this.props.type === 'text') selectTextOnFocus(this.input);
+  const handleBlur = (ev) => {
+    if (onBlur) onBlur(ev);
+    if (context.onBlur) context.onBlur(ev);
+    if (groupContext.onBlur) groupContext.onBlur(ev);
   };
 
-  handleBlur = (ev) => {
-    if (this.props.onBlur) this.props.onBlur(ev);
-    if (this.context && this.context.onBlur) this.context.onBlur(ev);
-  };
-
-  handleChange = (ev) => {
-    if (this.props.onChange) {
-      this.props.onChange(ev);
+  const handleDeferred = ({ currentTarget, target }) => {
+    if (onChangeDeferred) {
+      clearTimeout(deferredTimeout.current);
+      deferredTimeout.current = setTimeout(() => {
+        onChangeDeferred({ currentTarget, target });
+      }, (deferTimeout || 750));
     }
+  };
 
-    this.handleDeferred(ev);
-  }
+  const handleChange = (ev) => {
+    if (onChange) onChange(ev);
+    handleDeferred(ev);
+  };
 
-  handleDeferred = ({ currentTarget, target }) => {
-    if (this.props.onChangeDeferred) {
-      clearTimeout(this.deferredTimeout);
-      this.deferredTimeout = setTimeout(() => {
-        this.props.onChangeDeferred({ currentTarget, target });
-      }, (this.props.deferTimeout || 750));
-    }
-  }
+  return (
+    <StyledInput
+      { ...rest }
+      name={ name }
+      type={ type }
+      id={ id || name }
+      ref={ input }
+      data-element='input'
+      onFocus={ handleFocus }
+      onBlur={ handleBlur }
+      onClick={ handleClick }
+      onChange={ handleChange }
+    />
+  );
+});
 
-  render() {
-    const {
-      inputRef,
-      onChangeDeferred,
-      ...props
-    } = this.props;
-    const eventHandlers = {
-      onFocus: this.handleFocus,
-      onBlur: this.handleBlur,
-      onClick: this.handleClick,
-      onChange: this.handleChange
-    };
-
-    return (
-      <StyledInput
-        { ...props }
-        id={ this.props.id || this.props.name }
-        ref={ this.input }
-        data-element='input'
-        { ...eventHandlers }
-      />
-    );
-  }
-}
-
-Input.defaultProps = {
-  type: 'text'
+Input.propTypes = {
+  className: PropTypes.string,
+  id: PropTypes.string,
+  inputRef: PropTypes.func, // a callback to retrieve the input reference
+  name: PropTypes.string,
+  onBlur: PropTypes.func,
+  onClick: PropTypes.func,
+  onKeyDown: PropTypes.func,
+  onFocus: PropTypes.func,
+  autoFocus: PropTypes.bool,
+  onChange: PropTypes.func,
+  onChangeDeferred: PropTypes.func,
+  deferTimeout: PropTypes.number,
+  type: PropTypes.string
 };
 
 function selectTextOnFocus(input) {

@@ -1,6 +1,8 @@
 import { enableOnChangeDeferredAction, enableKeyDownAction } from '../../locators/number-input';
 import { commonDataElementInputPreview, label } from '../../locators';
 
+const TEXT_ALIGN_START = 'flex-start';
+
 When('I check Enable onChangeDeferred Action property', () => {
   enableOnChangeDeferredAction().click();
 });
@@ -47,20 +49,14 @@ Then('{word} input component size is set to {string} and has min-height set to {
 });
 
 Then('NumberInput component labelInline is enabled', () => {
-  label().should('have.css', 'box-sizing', 'border-box')
+  label().parent().should('have.css', 'box-sizing', 'border-box')
+    .and('have.css', 'justify-content', TEXT_ALIGN_START)
     .and('have.css', 'padding-bottom', '0px')
-    .and('have.css', 'padding-right', '11px')
-    .and('have.css', 'text-align', 'left');
 });
 
 Then('{word} component labelInline is disabled', () => {
-  label().should('have.css', 'display', 'block')
-    .and('have.css', 'padding-bottom', '8px')
-    .and('not.have.css', 'align-self', 'center')
-    .and('not.have.css', 'box-sizing', 'border-box')
-    .and('not.have.css', 'padding-bottom', '0px')
-    .and('not.have.css', 'padding-right', '11px')
-    .and('not.have.css', 'text-align', 'left');
+  label().parent().should('not.have.css', 'box-sizing', 'border-box')
+    .and('not.have.css', 'justify-content', TEXT_ALIGN_START)
 });
 
 Then('{word} Input component inputWidth is set to {int}', (componentName, width) => {
@@ -68,5 +64,5 @@ Then('{word} Input component inputWidth is set to {int}', (componentName, width)
 });
 
 Then('{word} Input component labelWidth is set to {string}', (componentName, width) => {
-  label().should('have.attr', 'width', width);
+  label().parent().should('have.attr', 'width', width);
 });
