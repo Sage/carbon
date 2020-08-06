@@ -3,35 +3,41 @@ import PropTypes from 'prop-types';
 
 import { StyledFieldset, StyledFieldsetContent, StyledLegendContainer } from './fieldset.style';
 import ValidationIcon from '../../components/validations/validation-icon.component';
+import { InputGroupBehaviour, InputGroupContext } from '../input-behaviour';
 
 const Fieldset = ({
   legend, children, inline, error, warning, info, styleOverride, ...rest
 }) => (
-  <StyledFieldset
-    data-component='fieldset'
-    styleOverride={ styleOverride.root }
-    { ...rest }
-  >
-    <StyledFieldsetContent inline={ inline }>
-      {legend && (
-        <StyledLegendContainer
-          inline={ inline }
-          styleOverride={ styleOverride.legend }
-        >
-          <legend>
-            { legend }
-          </legend>
-          <ValidationIcon
-            error={ error }
-            warning={ warning }
-            info={ info }
-            tabIndex={ 0 }
-          />
-        </StyledLegendContainer>
-      )}
-      { children }
-    </StyledFieldsetContent>
-  </StyledFieldset>
+  <InputGroupBehaviour>
+    <StyledFieldset
+      data-component='fieldset'
+      styleOverride={ styleOverride.root }
+      { ...rest }
+    >
+      <StyledFieldsetContent inline={ inline }>
+        {legend && (
+          <StyledLegendContainer
+            inline={ inline }
+            styleOverride={ styleOverride.legend }
+          >
+            <InputGroupContext.Consumer>
+              {({ onMouseEnter, onMouseLeave }) => (
+                <legend onMouseEnter={ onMouseEnter } onMouseLeave={ onMouseLeave }>
+                  { legend }
+                </legend>
+              ) }
+            </InputGroupContext.Consumer>
+            <ValidationIcon
+              error={ error }
+              warning={ warning }
+              info={ info }
+            />
+          </StyledLegendContainer>
+        )}
+        { children }
+      </StyledFieldsetContent>
+    </StyledFieldset>
+  </InputGroupBehaviour>
 );
 
 Fieldset.propTypes = {

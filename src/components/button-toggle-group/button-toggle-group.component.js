@@ -4,6 +4,7 @@ import FormField from '../../__experimental__/components/form-field';
 import ButtonToggleGroupStyle from './button-toggle-group.style';
 import RadioButtonMapper from '../../__experimental__/components/radio-button/radio-button-mapper.component';
 import ValidationIcon from '../validations/validation-icon.component';
+import { InputGroupBehaviour } from '../../__internal__/input-behaviour';
 
 const BaseButtonToggleGroup = ((props) => {
   const {
@@ -24,27 +25,29 @@ const BaseButtonToggleGroup = ((props) => {
     error, warning, info
   };
   return (
-    <FormField useValidationIcon={ validationOnLabel } { ...props }>
-      <ButtonToggleGroupStyle
-        data-component='button-toggle-group'
-        aria-label={ label }
-        role='group'
-        inputWidth={ inputWidth }
-        { ...validationProps }
-      >
-        <RadioButtonMapper
-          name={ name }
-          onBlur={ onBlur }
-          onChange={ onChange }
-          value={ value }
+    <InputGroupBehaviour>
+      <FormField useValidationIcon={ validationOnLabel } { ...props }>
+        <ButtonToggleGroupStyle
+          data-component='button-toggle-group'
+          aria-label={ label }
+          role='group'
+          inputWidth={ inputWidth }
+          { ...validationProps }
         >
-          {children}
-        </RadioButtonMapper>
-        { !validationOnLabel && (
-          <ValidationIcon { ...validationProps } tabIndex={ 0 } />
-        )}
-      </ButtonToggleGroupStyle>
-    </FormField>
+          <RadioButtonMapper
+            name={ name }
+            onBlur={ onBlur }
+            onChange={ onChange }
+            value={ value }
+          >
+            {children}
+          </RadioButtonMapper>
+          { !validationOnLabel && (
+            <ValidationIcon { ...validationProps } />
+          )}
+        </ButtonToggleGroupStyle>
+      </FormField>
+    </InputGroupBehaviour>
   );
 });
 

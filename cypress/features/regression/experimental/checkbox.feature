@@ -32,7 +32,7 @@ Feature: Experimental Checkbox component
   @positive
   Scenario: Enable fieldHelpInline
     When I open default "Experimental Checkbox" component in noIFrame with "checkbox" json from "experimental" using "fieldHelpInlineDisabled" object name
-    Then Checkbox is set to fieldHelpInline and has margin-left set to "16px"
+    Then Checkbox is set to fieldHelpInline and has margin-left set to "24px"
 
   @positive
   Scenario: Enable and disable fieldHelpInline
@@ -62,7 +62,7 @@ Feature: Experimental Checkbox component
   @positive
   Scenario Outline: Change Checkbox label align to <direction>
     When I open default "Experimental Checkbox" component in noIFrame with "checkbox" json from "experimental" using "<nameOfObject>" object name
-    Then Checkbox labelAlign on preview is set to "<direction>"
+    Then label Align on preview is "<direction>" in NoIFrame
     Examples:
       | direction | nameOfObject    |
       | left      | labelAlignLeft  |

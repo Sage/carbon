@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from 'styled-components';
 import Icon from '../icon';
 import ValidationIconStyle from './validation-icon.style';
-import { InputPresentationContext } from '../../__experimental__/components/input';
+import { InputContext, InputGroupContext } from '../../__internal__/input-behaviour';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import { isClassic } from '../../utils/helpers/style-helper';
 import baseTheme from '../../style/themes/base';
@@ -24,11 +24,13 @@ const ValidationIcon = ({
   iconId,
   isPartOfInput,
   tabIndex,
-  isFocused,
   onClick,
   tooltipPosition
 }) => {
   let modernTooltipProps = {};
+
+  const { hasFocus, hasMouseOver } = useContext(InputContext);
+  const { hasFocus: groupHasFocus, hasMouseOver: groupHasMouseOver } = useContext(InputGroupContext);
 
   if (!isClassic(theme)) {
     // overrides default positioning for non legacy themes
@@ -49,30 +51,24 @@ const ValidationIcon = ({
   }
 
   return (
-    <InputPresentationContext.Consumer>
-      {
-        context => (
-          <ValidationIconStyle
-            id={ iconId }
-            validationType={ validationType }
-            role='tooltip'
-            aria-label={ validationMessage }
-            onClick={ onClick }
-          >
-            <Icon
-              key={ `${validationType}-icon` }
-              tooltipType={ validationType }
-              tooltipMessage={ validationMessage }
-              tooltipVisible={ isFocused || (context && (context.hasFocus || context.hasMouseOver)) }
-              type={ validationType }
-              size={ size }
-              tabIndex={ tabIndex }
-              { ...modernTooltipProps }
-            />
-          </ValidationIconStyle>
-        )
-      }
-    </InputPresentationContext.Consumer>
+    <ValidationIconStyle
+      id={ iconId }
+      validationType={ validationType }
+      role='tooltip'
+      aria-label={ validationMessage }
+      onClick={ onClick }
+    >
+      <Icon
+        key={ `${validationType}-icon` }
+        tooltipType={ validationType }
+        tooltipMessage={ validationMessage }
+        tooltipVisible={ (hasFocus || hasMouseOver || groupHasFocus || groupHasMouseOver) }
+        type={ validationType }
+        size={ size }
+        tabIndex={ tabIndex }
+        { ...modernTooltipProps }
+      />
+    </ValidationIconStyle>
   );
 };
 
@@ -95,8 +91,6 @@ ValidationIcon.propTypes = {
   isPartOfInput: PropTypes.bool,
   /** Overrides the default tabindex of the component */
   tabIndex: PropTypes.number,
-  /** A boolean received from IconWrapper */
-  isFocused: PropTypes.bool,
   /** Status of error validations */
   error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** Status of warnings */

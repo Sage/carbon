@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import {
   StyledButtonToggleInput
 } from './button-toggle.style';
 
+import { InputGroupContext } from '../../__internal__/input-behaviour';
+
 function ButtonToggleInput(props) {
+  const { onFocus, onBlur } = useContext(InputGroupContext);
+
+  const handleBlur = (ev) => {
+    if (props.onBlur) { props.onBlur(ev); }
+    if (onBlur) onBlur(ev);
+  };
+
   return (
     <StyledButtonToggleInput
       type='radio'
@@ -13,7 +22,8 @@ function ButtonToggleInput(props) {
       disabled={ props.disabled }
       checked={ props.checked }
       onChange={ props.onChange }
-      onBlur={ props.onBlur }
+      onBlur={ handleBlur }
+      onFocus={ onFocus }
       value={ props.value }
     />
   );

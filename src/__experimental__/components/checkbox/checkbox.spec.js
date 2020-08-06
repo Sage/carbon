@@ -7,7 +7,7 @@ import Checkbox from './checkbox.component';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
-import LabelStyle from '../label/label.style';
+import LabelStyle, { StyledLabelContainer } from '../label/label.style';
 import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
 import StyledHelp from '../../../components/help/help.style';
 import guid from '../../../utils/helpers/guid';
@@ -40,7 +40,6 @@ describe('Checkbox', () => {
       it('applies the appropriate input display element styles', () => {
         const styles = {
           height: '24px',
-          padding: '2px',
           width: '24px'
         };
 
@@ -63,17 +62,14 @@ describe('Checkbox', () => {
 
       it('applies the appropriate FieldHelp styles', () => {
         assertStyleMatch({
-          marginLeft: '24px',
-          paddingLeft: '8px'
+          marginLeft: '32px'
         }, wrapper, { modifier: css`${FieldHelpStyle}` });
       });
 
       it('applies the appropriate Label styles', () => {
         assertStyleMatch({
-          paddingBottom: '4px',
-          paddingLeft: '8px',
-          paddingTop: '4px'
-        }, wrapper, { modifier: css`${LabelStyle}` });
+          marginLeft: '8px'
+        }, wrapper, { modifier: css`${StyledLabelContainer}` });
       });
     });
 
@@ -82,9 +78,15 @@ describe('Checkbox', () => {
 
       it('applies the appropriate FieldHelp styles', () => {
         assertStyleMatch({
-          paddingBottom: '4px',
-          paddingTop: '4px'
+          marginTop: '0'
         }, wrapper, { modifier: css`${FieldHelpStyle}` });
+      });
+
+
+      it('applies the appropriate Label styles', () => {
+        assertStyleMatch({
+          marginLeft: '8px'
+        }, wrapper, { modifier: css`${StyledLabelContainer}` });
       });
     });
 
@@ -217,7 +219,7 @@ describe('Checkbox', () => {
       it('renders the correct FieldHelp styles', () => {
         const wrapper = render({ fieldHelpInline: true }).toJSON();
 
-        assertStyleMatch({ margin: '0' }, wrapper, { modifier: css`${FieldHelpStyle}` });
+        assertStyleMatch({ marginLeft: '0' }, wrapper, { modifier: css`${FieldHelpStyle}` });
       });
     });
 
@@ -297,8 +299,7 @@ describe('Checkbox', () => {
 
       it('applies appropriate FieldHelp styles', () => {
         assertStyleMatch({
-          marginLeft: '15px',
-          paddingLeft: '6px'
+          marginLeft: '15px'
         }, wrapper, { modifier: css`${FieldHelpStyle}` });
       });
 

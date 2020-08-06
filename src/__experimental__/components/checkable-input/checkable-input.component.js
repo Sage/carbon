@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { validProps } from '../../../utils/ether';
 import { StyledCheckableInput, StyledCheckableInputWrapper } from './checkable-input.style';
+import { InputBehaviour } from '../../../__internal__/input-behaviour';
+
 import FormField from '../form-field';
 import HiddenCheckableInput from './hidden-checkable-input.component';
 import guid from '../../../utils/helpers/guid';
@@ -28,7 +30,9 @@ class CheckableInput extends React.Component {
         'reverse',
         'error',
         'warning',
-        'info'
+        'info',
+        'labelAlign',
+        'disabled'
       ]),
       labelId,
       helpId,
@@ -49,12 +53,14 @@ class CheckableInput extends React.Component {
 
     return (
       <StyledCheckableInputWrapper { ...rest }>
-        <FormField { ...formFieldProps }>
-          <StyledCheckableInput>
-            <HiddenCheckableInput { ...inputProps } />
-            {children}
-          </StyledCheckableInput>
-        </FormField>
+        <InputBehaviour>
+          <FormField { ...formFieldProps }>
+            <StyledCheckableInput>
+              <HiddenCheckableInput { ...inputProps } />
+              {children}
+            </StyledCheckableInput>
+          </FormField>
+        </InputBehaviour>
       </StyledCheckableInputWrapper>
     );
   }
