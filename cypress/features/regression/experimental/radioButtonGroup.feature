@@ -1,29 +1,31 @@
 Feature: Experimental RadioButtonGroup component
   I want to change Experimental RadioButtonGroup component properties
 
-  Background: Open Experimental RadioButton other component page
-    Given I open "Experimental RadioButton" component page
-      And "Other" tab in "second" tab list is visible
-      And I open Other tab
-
   @positive
   Scenario: RadioButton inline
-    When I check inline checkbox
-    Then RadioButton are inline
+    When I open default "Experimental RadioButton" component in noIFrame with "radioButtonGroup" json from "experimental" using "inline" object name
+    Then RadioButtons are inline
 
   @positive
   Scenario: RadioButton not inline
-    When I check inline checkbox
-      And I uncheck inline checkbox
-    Then RadioButton are not inline
+    When I open default "Experimental RadioButton" component in noIFrame with "radioButtonGroup" json from "experimental" using "inlineFalse" object name
+    Then RadioButtons are not inline
 
   @positive
   Scenario: LegendInline inline
-    When I check legendInline checkbox
+    When I open default "Experimental RadioButton" component in noIFrame with "radioButtonGroup" json from "experimental" using "legendInline" object name
     Then legendInline is inline with RadioButton
 
   @positive
   Scenario: legendInline not inline
-    When I check legendInline checkbox
-      And I uncheck legendInline checkbox
+    When I open default "Experimental RadioButton" component in noIFrame with "radioButtonGroup" json from "experimental" using "legendInlineFalse" object name
     Then legendInline is not inline with RadioButton
+
+  @positive
+  Scenario Outline: Set groupLabel to <groupLabel>
+    When I open default "Experimental RadioButton" component in noIFrame with "radioButtonGroup" json from "experimental" using "<nameOfObject>" object name
+    Then legend on preview is <groupLabel> in NoIFrame
+    Examples:
+      | groupLabel                   | nameOfObject               |
+      | mp150ú¿¡üßä                  | groupLabelOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | groupLabelSpecialCharacter |

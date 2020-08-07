@@ -1,10 +1,10 @@
 import { fieldHelpPreview, labelByPosition, labelWidthSliderByName } from '../../locators';
 import {
   radioButtonByPosition,
-  radioButtonComponentByPosition,
-  radioButtonGroup,
   radioButtonFieldset,
   radioButtonLegend,
+  radioButtonGroupNoIframe,
+  radioButtonComponentByPositionNoIframe,
 } from '../../locators/radioButton/index';
 import { setSlidebar, positionOfElement } from '../helper';
 
@@ -80,18 +80,18 @@ When('I set RadioButton {word} {word} slider to {int}', (propertyName, text, wid
   setSlidebar(labelWidthSliderByName(propertyName, text), width);
 });
 
-Then('RadioButton are inline', () => {
-  radioButtonGroup().should('have.css', 'display', 'flex');
-  radioButtonComponentByPosition(positionOfElement('first')).should('have.css', 'margin-left', '0px');
-  radioButtonComponentByPosition(positionOfElement('second')).should('have.css', 'margin-left', '32px');
-  radioButtonComponentByPosition(positionOfElement('third')).should('have.css', 'margin-left', '32px');
+Then('RadioButtons are inline', () => {
+  radioButtonGroupNoIframe().should('have.css', 'display', 'flex');
+  radioButtonComponentByPositionNoIframe(positionOfElement('first')).should('have.css', 'margin-left', '0px');
+  radioButtonComponentByPositionNoIframe(positionOfElement('second')).should('have.css', 'margin-left', '32px');
+  radioButtonComponentByPositionNoIframe(positionOfElement('third')).should('have.css', 'margin-left', '32px');
 });
 
-Then('RadioButton are not inline', () => {
-  radioButtonGroup().should('have.css', 'display', 'block');
-  radioButtonComponentByPosition(positionOfElement('first')).should('have.css', 'margin-left', '0px');
-  radioButtonComponentByPosition(positionOfElement('second')).should('have.css', 'margin-left', '0px');
-  radioButtonComponentByPosition(positionOfElement('third')).should('have.css', 'margin-left', '0px');
+Then('RadioButtons are not inline', () => {
+  radioButtonGroupNoIframe().should('have.css', 'display', 'block');
+  radioButtonComponentByPositionNoIframe(positionOfElement('first')).should('have.css', 'margin-left', '0px');
+  radioButtonComponentByPositionNoIframe(positionOfElement('second')).should('have.css', 'margin-left', '0px');
+  radioButtonComponentByPositionNoIframe(positionOfElement('third')).should('have.css', 'margin-left', '0px');
 });
 
 Then('legendInline is inline with RadioButton', () => {
@@ -102,4 +102,8 @@ Then('legendInline is inline with RadioButton', () => {
 
 Then('legendInline is not inline with RadioButton', () => {
   radioButtonFieldset().should('have.css', 'display', 'block');
+});
+
+Then('legend on preview is {word} in NoIFrame', (text) => {
+  radioButtonLegend().should('have.text', text);
 });

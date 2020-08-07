@@ -1,7 +1,7 @@
 Feature: Draggable Component
   I want to change Draggable component
 
-  Background: Open Draggable Component in iframe
+  Background: Open Draggable Component in no iframe
     Given I open "Design System Draggable Test" component page "basic" in no iframe
 
   @positive
