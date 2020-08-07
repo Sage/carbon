@@ -34,8 +34,8 @@ const Label = (props) => {
     useValidationIcon,
     htmlFor,
     tabIndex,
-    rightSpacing = 2,
-    leftSpacing = 2,
+    rightSpacing,
+    leftSpacing,
     inline,
     align,
     styleOverride

@@ -61,7 +61,7 @@ describe('StyledCheckableInputWrapper', () => {
     it('applies the correct Label styles', () => {
       assertStyleMatch(
         {
-          textAlign: 'left',
+          textAlign: 'right',
           width: 'auto'
         },
         wrapper, { modifier: css`${LabelStyle}` }

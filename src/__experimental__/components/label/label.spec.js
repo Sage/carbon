@@ -32,7 +32,6 @@ describe('Label', () => {
       assertStyleMatch({
         boxSizing: 'border-box',
         paddingBottom: '0',
-        paddingRight: '16px',
         textAlign: 'right',
         width: '30%'
       }, render({ inline: true }, TestRenderer.create).toJSON());

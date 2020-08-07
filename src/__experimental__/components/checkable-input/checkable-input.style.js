@@ -18,7 +18,6 @@ const StyledCheckableInputWrapper = styled.div`
     disabled,
     fieldHelpInline,
     inputWidth,
-    labelAlign,
     labelWidth,
     marginLeft,
     reverse,
@@ -33,7 +32,7 @@ const StyledCheckableInputWrapper = styled.div`
     `}
 
     ${LabelStyle} {
-      text-align: ${labelAlign};
+      text-align: ${reverse ? 'left' : 'right'}
       padding-top: 0;
       width: auto;
 

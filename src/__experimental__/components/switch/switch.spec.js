@@ -145,22 +145,12 @@ describe('Switch', () => {
         });
       });
 
-      describe('and labelInline=true', () => {
-        const wrapper = render({ reverse: false, labelInline: true }).toJSON();
-
-        it('applies the correct Label styles', () => {
-          assertStyleMatch({
-            marginLeft: '10px'
-          }, wrapper, { modifier: css`${LabelStyle}` });
-        });
-      });
-
       describe('and labelInline=true, fieldHelpInline=false', () => {
         const wrapper = render({ fieldHelpInline: false, labelInline: true, reverse: false }).toJSON();
 
         it('applies the correct FieldHelp styles', () => {
           assertStyleMatch({
-            marginLeft: '70px'
+            marginLeft: '60px'
           }, wrapper, { modifier: css`${FieldHelpStyle}` });
         });
       });
@@ -182,7 +172,6 @@ describe('Switch', () => {
       it('applies the correct Label styles', () => {
         assertStyleMatch({
           marginBottom: '0',
-          marginRight: '32px',
           paddingTop: '4px',
           width: 'auto'
         }, wrapper, { modifier: css`${LabelStyle}` });
@@ -209,16 +198,6 @@ describe('Switch', () => {
           marginLeft: '0',
           marginTop: '-1px'
         }, wrapper, { modifier: css`${FieldHelpStyle}` });
-      });
-    });
-
-    describe('when setting a custom labelWidth', () => {
-      it('renders the correct Label styles', () => {
-        const wrapper = render({ labelWidth: 60 }).toJSON();
-
-        assertStyleMatch({
-          marginRight: '40%'
-        }, wrapper, { modifier: css`${LabelStyle}` });
       });
     });
 
@@ -260,7 +239,8 @@ describe('Switch', () => {
 
           assertStyleMatch({
             marginTop: '1px',
-            padding: '10px 0'
+            paddingTop: '10px',
+            paddingBottom: '10px'
           }, wrapper, { modifier: css`${LabelStyle}` });
         });
 
@@ -269,7 +249,7 @@ describe('Switch', () => {
 
           it('applies the correct FieldHelp styles', () => {
             assertStyleMatch({
-              marginLeft: '88px'
+              marginLeft: '78px'
             }, wrapper, { modifier: css`${FieldHelpStyle}` });
           });
         });

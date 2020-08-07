@@ -25,8 +25,8 @@ const StyledLabel = styled.label`
     box-sizing: border-box;
     padding-bottom: 0;
     padding-top: ${sizes[inputSize].verticalPadding};
-    padding-right: ${rightSpacing * theme.spacing}px;
-    padding-left: ${leftSpacing * theme.spacing}px;
+    ${rightSpacing && css`padding-right: ${rightSpacing * theme.spacing}px;`};
+    ${leftSpacing && css`padding-left: ${leftSpacing * theme.spacing}px;`};
     text-align: ${align};
     width: ${width === 0 ? StyledLabel.defaultProps.width : width}%;
   `}
