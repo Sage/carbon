@@ -32,7 +32,7 @@ Feature: Decimal component
   Scenario Outline: Change Decimal component label help to <label>
     Given I open default "Experimental-Decimal-Input" component in noIFrame with "decimal" json from "experimental" using "<nameOfObject>" object name
     When I hover mouse onto "question" icon in no iFrame
-    Then tooltipPreview on preview into iFrame is set to <label>
+    Then tooltipPreview on preview in noIframe is set to <label>
     Examples:
       | label                        | nameOfObject              |
       | mp150ú¿¡üßä                  | labelHelpOtherLanguage    |

@@ -3,9 +3,7 @@ import {
   characterLimit, characterLimitDefaultTextarea, textareaInput,
 } from '../../locators/textarea';
 import { setSlidebar } from '../helper';
-import {
-  fieldHelpPreviewNoIFrame, getDataElementByValueNoIframe,
-} from '../../locators';
+import { getDataElementByValueNoIframe } from '../../locators';
 
 Then('Textarea component is expandable', () => {
   textareaChildren().should('have.css', 'height', '89px');
@@ -53,10 +51,6 @@ Then('Textarea component is not readOnly', () => {
 
 Then('placeholder is set to {word}', (text) => {
   textareaChildren().should('have.attr', 'placeholder', text);
-});
-
-Then('fieldHelp is set to {word}', (text) => {
-  fieldHelpPreviewNoIFrame().should('have.text', text);
 });
 
 Then('characterLimit is set to {string}', (length) => {

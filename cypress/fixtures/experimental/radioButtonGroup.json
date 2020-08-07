@@ -1,0 +1,20 @@
+{
+  "inline": {
+    "inline": true
+  },
+  "inlineFalse": {
+    "inline": false
+  },
+  "legendInline": {
+    "legendInline": true
+  },
+  "legendInlineFalse": {
+    "legendInline": false
+  },
+  "groupLabelOtherLanguage": {
+    "groupLabel": "mp150ú¿¡üßä"
+  },
+  "groupLabelSpecialCharacter": {
+    "groupLabel": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  }
+}

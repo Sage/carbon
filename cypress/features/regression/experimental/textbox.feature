@@ -33,7 +33,7 @@ Feature: Experimental Textbox component
   @positive
   Scenario Outline: Set fieldHelp to <fieldHelp>
     When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
-    Then fieldHelp is set to <fieldHelp>
+    Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
     Examples:
       | fieldHelp                    | nameOfObject              |
       | mp150ú¿¡üßä                  | fieldHelpOtherLanguage    |
@@ -52,7 +52,7 @@ Feature: Experimental Textbox component
   Scenario Outline: Set labelHelp to <labelHelp>
     When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
       And I hover mouse onto "question" icon in no iFrame
-    Then tooltipPreview on preview into iFrame is set to <labelHelp>
+    Then tooltipPreview on preview in noIframe is set to <labelHelp>
     Examples:
       | labelHelp                    | nameOfObject              |
       | mp150ú¿¡üßä                  | labelHelpOtherLanguage    |
@@ -71,7 +71,7 @@ Feature: Experimental Textbox component
   @positive
   Scenario Outline: Set labelWidth to <labelWidth>
     When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
-    Then label width is set to "<labelWidth>" in NoIFrame
+    Then label width on preview is <labelWidth>
     Examples:
       | labelWidth | nameOfObject  |
       | 0          | labelWidth0   |
@@ -121,4 +121,4 @@ Feature: Experimental Textbox component
   @positive
   Scenario: Check icon inside of Textbox is visible
     When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "inputIconAdd" object name
-    Then icon name into iFrame on preview is "add"
+    Then icon name in noIframe on preview is "add"
