@@ -18,7 +18,7 @@ const RadioButtonGroup = (props) => {
   const {
     children, name, legend, error, warning, info, onBlur,
     onChange, value, inline, legendInline, legendWidth, legendAlign,
-    legendSpacing, marginLeft, labelSpacing = 1, styleOverride
+    legendSpacing, ml, labelSpacing = 1, styleOverride
   } = props;
 
   return (
@@ -32,7 +32,7 @@ const RadioButtonGroup = (props) => {
       legendWidth={ legendWidth }
       legendAlign={ legendAlign }
       legendSpacing={ legendSpacing }
-      marginLeft={ marginLeft }
+      ml={ ml }
       styleOverride={ styleOverride }
       { ...tagComponent('radiogroup', props) }
     >
@@ -98,7 +98,7 @@ RadioButtonGroup.propTypes = {
   /** Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
   legendSpacing: PropTypes.oneOf([1, 2]),
   /** Margin left as a percentage */
-  marginLeft: PropTypes.number,
+  ml: PropTypes.number,
   /** Spacing between labels and radio buttons, given number will be multiplied by base spacing unit (8) */
   labelSpacing: PropTypes.oneOf([1, 2]),
   /** Allows to override existing component styles */

@@ -252,10 +252,10 @@ describe('Button', () => {
     );
   });
 
-  describe('when marginLeft prop passed in', () => {
+  describe('when ml prop passed in', () => {
     describe('when large button', () => {
       it('adds the correct left margin', () => {
-        const wrapper = TestRenderer.create(<StyledButton size='large' marginLeft={ 10 } />);
+        const wrapper = TestRenderer.create(<StyledButton size='large' ml={ 10 } />);
         assertStyleMatch({
           marginLeft: 'calc(10% - 32px)'
         }, wrapper.toJSON());
@@ -264,7 +264,7 @@ describe('Button', () => {
 
     describe('when medium button', () => {
       it('adds the correct left margin', () => {
-        const wrapper = TestRenderer.create(<StyledButton size='medium' marginLeft={ 10 } />);
+        const wrapper = TestRenderer.create(<StyledButton size='medium' ml={ 10 } />);
         assertStyleMatch({
           marginLeft: 'calc(10% - 24px)'
         }, wrapper.toJSON());
@@ -273,7 +273,7 @@ describe('Button', () => {
 
     describe('when small button', () => {
       it('adds the correct left margin', () => {
-        const wrapper = TestRenderer.create(<StyledButton size='small' marginLeft={ 10 } />);
+        const wrapper = TestRenderer.create(<StyledButton size='small' ml={ 10 } />);
         assertStyleMatch({
           marginLeft: 'calc(10% - 16px)'
         }, wrapper.toJSON());
@@ -281,9 +281,9 @@ describe('Button', () => {
     });
   });
 
-  describe('when marginBottom prop passed in', () => {
+  describe('when mb prop passed in', () => {
     it('should add the correct bottom margin', () => {
-      const wrapper = TestRenderer.create(<StyledButton marginBottom={ 4 } />);
+      const wrapper = TestRenderer.create(<StyledButton mb={ 4 } />);
       assertStyleMatch({
         marginBottom: '32px'
       }, wrapper.toJSON());

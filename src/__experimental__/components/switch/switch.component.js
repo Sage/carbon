@@ -124,7 +124,7 @@ Switch.propTypes = {
   /** the value of the checkbox, passed on form submit */
   value: PropTypes.string.isRequired,
   /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  marginBottom: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7])
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7])
 };
 
 Switch.defaultProps = {

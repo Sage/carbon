@@ -34,8 +34,8 @@ const Label = (props) => {
     useValidationIcon,
     htmlFor,
     tabIndex,
-    rightSpacing,
-    leftSpacing,
+    pr,
+    pl,
     inline,
     align,
     styleOverride
@@ -98,8 +98,8 @@ const Label = (props) => {
       id={ labelId }
       htmlFor={ htmlFor }
       align={ labelAlign }
-      rightSpacing={ rightSpacing }
-      leftSpacing={ leftSpacing }
+      pr={ pr }
+      pl={ pl }
       styleOverride={ styleOverride }
     >
       {children}
@@ -138,9 +138,9 @@ Label.propTypes = {
   */
   tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Padding right, integer multiplied by base spacing constant (8) */
-  rightSpacing: PropTypes.oneOf([1, 2]),
+  pr: PropTypes.oneOf([1, 2]),
   /** Padding left, integer multiplied by base spacing constant (8) */
-  leftSpacing: PropTypes.oneOf([1, 2]),
+  pl: PropTypes.oneOf([1, 2]),
   /** When true label is inline */
   inline: PropTypes.bool,
   /** Text alignment of label */

@@ -36,7 +36,7 @@ export interface RadioButtonGroupProps {
   /** Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
   legendSpacing?: 1 | 2;
   /** Margin left as a percentage */
-  marginLeft?: number;
+  ml?: number;
   /** Spacing between labels and radio buttons, given number will be multiplied by base spacing unit (8) */
   labelSpacing?: 1 | 2;
   /** Allows to override existing component styles */

@@ -14,9 +14,9 @@ export interface LabelPropTypes {
   useValidationIcon?: boolean;
   tabIndex?: [string, number];
   /** Padding right, integer multiplied by base spacing constant (8) */
-  rightSpacing?: 1 | 2;
+  pr?: 1 | 2;
   /** Padding left, integer multiplied by base spacing constant (8) */
-  leftSpacing?: 1 | 2;
+  pl?: 1 | 2;
   /** When true label is inline */
   inline: boolean;
   /** Text alignment of label */

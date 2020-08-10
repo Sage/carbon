@@ -82,7 +82,7 @@ When `fieldSpacing` prop is given a value, the vertical spacing between the form
 </Preview>
 
 ### Override spacing on one field
-A child component (which uses `FormField`) can be given a `marginBottom` prop which overrides the bottom margin for that particular field. This uses the same base theme `8px` multiplier as the Form `fieldSpacing` prop. 
+A child component (which uses `FormField`) can be given a `mb` prop which overrides the bottom margin for that particular field. This uses the same base theme `8px` multiplier as the Form `fieldSpacing` prop. 
 
 <Preview>
   <Story name="Override field spacing">
@@ -93,7 +93,7 @@ A child component (which uses `FormField`) can be given a `marginBottom` prop wh
     >
       <Textbox label="Textbox" />
       <Textbox label="Textbox" />
-      <Textbox label="Textbox" marginBottom={7} />
+      <Textbox label="Textbox" mb={7} />
       <Textbox label="Textbox" />
     </Form>
   </Story> 

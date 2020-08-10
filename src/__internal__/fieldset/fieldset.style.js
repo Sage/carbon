@@ -10,8 +10,8 @@ const StyledFieldset = styled.fieldset`
   min-inline-size: 0;
 
   ${({
-    marginLeft
-  }) => marginLeft && `margin-left: ${marginLeft}%;`}
+    ml
+  }) => ml && `margin-left: ${ml}%;`}
 
   ${({ styleOverride }) => styleOverride};
 `;

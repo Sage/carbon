@@ -271,7 +271,7 @@
           "required": false,
           "description": "Handler for onClick events"
         },
-        "marginBottom": {
+        "mb": {
           "type": {
             "name": "enum",
             "value": [

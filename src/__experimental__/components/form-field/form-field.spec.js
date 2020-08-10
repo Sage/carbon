@@ -31,9 +31,9 @@ describe('FormField', () => {
     });
   });
 
-  describe('with marginBottom prop set', () => {
+  describe('with mb prop set', () => {
     it('should set the correct bottom margin', () => {
-      expect(render({ marginBottom: 5 }, TestRenderer.create)).toMatchSnapshot();
+      expect(render({ mb: 5 }, TestRenderer.create)).toMatchSnapshot();
     });
   });
 

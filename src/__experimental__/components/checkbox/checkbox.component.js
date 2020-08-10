@@ -15,7 +15,7 @@ const Checkbox = ({
   autoFocus,
   labelHelp,
   labelSpacing = 1,
-  marginLeft,
+  ml,
   ...props
 }) => {
   const inputProps = {
@@ -32,7 +32,7 @@ const Checkbox = ({
     autoFocus,
     labelHelp,
     labelSpacing,
-    marginLeft
+    ml
   };
 
   return (
@@ -99,9 +99,9 @@ Checkbox.propTypes = {
   /** The content for the help tooltip, to appear next to the Label */
   labelHelp: PropTypes.node,
   /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  marginBottom: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   /** Margin left as a percentage */
-  marginLeft: PropTypes.number
+  ml: PropTypes.number
 };
 
 Checkbox.defaultProps = {

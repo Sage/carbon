@@ -92,7 +92,7 @@ BaseButtonToggleGroup.propTypes = {
   /** The value of the Button Toggle Group */
   value: PropTypes.string,
   /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  marginBottom: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7])
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7])
 };
 
 BaseButtonToggleGroup.defaultProps = {

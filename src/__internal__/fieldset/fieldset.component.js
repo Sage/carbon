@@ -6,7 +6,7 @@ import ValidationIcon from '../../components/validations/validation-icon.compone
 
 const Fieldset = ({
   legend, children, inline, legendWidth, legendAlign, legendSpacing = 2, error,
-  warning, info, marginLeft, styleOverride, ...rest
+  warning, info, ml, styleOverride, ...rest
 }) => {
   const legendTextAlign = inline ? (legendAlign || 'right') : legendAlign;
 
@@ -14,7 +14,7 @@ const Fieldset = ({
     <StyledFieldset
       data-component='fieldset'
       styleOverride={ styleOverride.root }
-      marginLeft={ marginLeft }
+      ml={ ml }
       { ...rest }
     >
       <StyledFieldsetContent inline={ inline }>
@@ -69,7 +69,7 @@ Fieldset.propTypes = {
   /** Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
   legendSpacing: PropTypes.oneOf([1, 2]),
   /** Margin left as a percentage */
-  marginLeft: PropTypes.number,
+  ml: PropTypes.number,
   /** Allows to override existing component styles */
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),

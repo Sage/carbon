@@ -37,7 +37,7 @@ const FormField = ({
   isOptional,
   readOnly,
   useValidationIcon,
-  marginBottom,
+  mb,
   styleOverride,
   ...props
 }) => {
@@ -60,7 +60,7 @@ const FormField = ({
     <FormFieldStyle
       { ...tagComponent(props['data-component'], props) }
       styleOverride={ styleOverride.root }
-      marginBottom={ marginBottom }
+      mb={ mb }
     >
       <FieldLineStyle inline={ labelInline }>
         {reverse && children}
@@ -86,8 +86,8 @@ const FormField = ({
             childOfForm={ childOfForm }
             optional={ isOptional }
             useValidationIcon={ useValidationIcon }
-            rightSpacing={ !reverse ? labelSpacing : undefined }
-            leftSpacing={ reverse ? labelSpacing : undefined }
+            pr={ !reverse ? labelSpacing : undefined }
+            pl={ reverse ? labelSpacing : undefined }
             styleOverride={ styleOverride.label }
           >
             {label}
@@ -147,7 +147,7 @@ FormField.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   useValidationIcon: PropTypes.bool,
   /** Override form spacing (margin bottom) */
-  marginBottom: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   /** Allows to override existing component styles */
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),

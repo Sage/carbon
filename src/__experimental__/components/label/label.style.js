@@ -20,13 +20,13 @@ const StyledLabel = styled.label`
   }
 
   ${({
-    align, inline, inputSize, rightSpacing, leftSpacing, width, theme
+    align, inline, inputSize, pr, pl, width, theme
   }) => inline && css`
     box-sizing: border-box;
     padding-bottom: 0;
     padding-top: ${sizes[inputSize].verticalPadding};
-    ${rightSpacing && css`padding-right: ${rightSpacing * theme.spacing}px;`};
-    ${leftSpacing && css`padding-left: ${leftSpacing * theme.spacing}px;`};
+    ${pr && css`padding-right: ${pr * theme.spacing}px;`};
+    ${pl && css`padding-left: ${pl * theme.spacing}px;`};
     text-align: ${align};
     width: ${width === 0 ? StyledLabel.defaultProps.width : width}%;
   `}
@@ -91,7 +91,8 @@ StyledLabel.propTypes = {
   inputSize: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   width: PropTypes.number,
   readOnly: PropTypes.bool,
-  rightSpacing: PropTypes.number,
+  pr: PropTypes.number,
+  pl: PropTypes.number,
   styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 };
 
