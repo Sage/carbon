@@ -97,7 +97,7 @@ Feature: Experimental GroupedCharacter component
   Scenario: Enable label inline
     Given I set label to "label"
     When I check labelInline checkbox
-    Then Grouped character component label Inline is enabled
+    Then Grouped character component labelInline is enabled
 
   @positive
   Scenario: Disable label inline

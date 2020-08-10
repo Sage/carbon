@@ -118,12 +118,12 @@ Then('Multiple label is set to {word}', (text) => {
 });
 
 Then('Textbox component is labelInline', () => {
-  getDataElementByValueNoIframe('label').should('have.css', TEXT_ALIGN, 'left');
+  getDataElementByValueNoIframe('label').should('have.css', TEXT_ALIGN, 'right');
 });
 
 Then('Multiple Textbox component is labelInline', () => {
-  labelByPositionNoIFrame(positionOfElement('first')).should('have.css', TEXT_ALIGN, 'left');
-  labelByPositionNoIFrame(positionOfElement('second')).should('have.css', TEXT_ALIGN, 'left');
+  labelByPositionNoIFrame(positionOfElement('first')).should('have.css', TEXT_ALIGN, 'right');
+  labelByPositionNoIFrame(positionOfElement('second')).should('have.css', TEXT_ALIGN, 'right');
 });
 
 Then('Textbox component is not labelInline', () => {

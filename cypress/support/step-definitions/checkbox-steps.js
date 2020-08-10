@@ -10,7 +10,7 @@ import { positionOfElement } from '../helper';
 Then('Checkbox is set to fieldHelpInline and has margin-left set to {string}', (marginLeft) => {
   fieldHelpPreviewNoIFrame().should('have.css', 'margin-left', marginLeft)
     .and('have.css', 'margin-top', '0px')
-    .and('have.css', 'padding-left', '6px');
+    .and('have.css', 'padding-left', '8px');
 });
 
 Then('Checkbox is not set to fieldHelpInline and has margin set to {string}', (margin) => {
