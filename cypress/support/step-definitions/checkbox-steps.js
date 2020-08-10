@@ -7,8 +7,6 @@ import {
 import { labelNoIFrame, fieldHelpPreviewNoIFrame } from '../../locators';
 import { positionOfElement } from '../helper';
 
-const TEXT_ALIGN = 'justify-content';
-
 Then('Checkbox is set to fieldHelpInline and has margin-left set to {string}', (marginLeft) => {
   fieldHelpPreviewNoIFrame().should('have.css', 'margin-left', marginLeft)
     .and('have.css', 'margin-top', '0px')
