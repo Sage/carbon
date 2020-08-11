@@ -8,7 +8,7 @@ import {
   pageSelectMainComponent,
 } from '../../locators/pager';
 import { DEBUG_FLAG } from '..';
-import { pagination, paginationButtonByIndex } from '../../locators/table';
+import { paginationButtonByIndex, paginationButtonByIndexInIFrame } from '../../locators/table';
 import { positionOfPaginationButton } from '../helper';
 
 Then('pageSize is set to {string} {word}', (pageSize, item) => {
@@ -35,6 +35,10 @@ Then('pagination {string} button is disabled', (button) => {
 
 Then('I click {string} pagination button', (button) => {
   paginationButtonByIndex(positionOfPaginationButton(button)).click();
+});
+
+Then('I click {string} pagination button in IFrame', (button) => {
+  paginationButtonByIndexInIFrame(positionOfPaginationButton(button)).click();
 });
 
 Then('I click {string} pagination arrow', (arrow) => {
@@ -92,15 +96,6 @@ Then('I press {word} button {int} times', (direction, count) => {
 
 When('I type {string} to input pagination', (pageNumber) => {
   currentPageInput().clear().type(`${pageNumber}{enter}`);
-});
-
-Then('pagination is visible', () => {
-  pagination().should('be.visible');
-});
-
-
-Then('pagination is not visible', () => {
-  pagination().should('not.exist');
 });
 
 When('I click on pagination input', () => {

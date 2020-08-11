@@ -1,0 +1,71 @@
+{ 
+  "totalRecords0": {
+    "totalRecords": 0
+  },
+  "totalRecords1": {
+    "totalRecords": 1
+  },
+  "totalRecords10": {
+    "totalRecords": 10
+  },
+  "totalRecords100": {
+    "totalRecords": 100
+  },
+  "totalRecords111": {
+    "totalRecords": 111
+  },
+  "totalRecords1000": {
+    "totalRecords": 1000
+  },
+  "totalRecords99999": {
+    "totalRecords": 99999
+  },
+  "totalRecords-1": {
+    "totalRecords": -1
+  },
+  "totalRecords-10": {
+    "totalRecords": -10
+  },
+  "totalRecords-100": {
+    "totalRecords": -100
+  },
+  "totalRecordsOtherLanguage": {
+    "totalRecords": "mp150ú¿¡üßä"
+  },
+  "totalRecordsSpecialCharacter": {
+    "totalRecords": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "pageSize10": {
+    "showPageSizeSelection": true,
+    "pageSize": 10
+  },
+  "pageSize25": {
+    "showPageSizeSelection": true,
+    "pageSize": 25
+  },
+  "pageSize50": {
+    "showPageSizeSelection": true,
+    "pageSize": 50
+  },
+  "pageSize100": {
+    "showPageSizeSelection": true,
+    "pageSize": 100
+  },
+  "pageSize1": {
+    "showPageSizeSelection": true,
+    "pageSize": 1
+  },
+  "showPageSizeSelection": {
+    "showPageSizeSelection": true
+  },
+  "showPageSizeSelectionFalse": {
+    "showPageSizeSelection": false
+  },
+  "default": {
+
+  },
+  "paginationButtonsDisabled": {
+    "totalRecors": 1,
+    "pageSize": 10
+  }
+}
