@@ -90,10 +90,6 @@ Given('I open {string} component page with button in noIFrame', (component) => {
   visitComponentUrl(component, 'with_button', true);
 });
 
-Given('I open {string} component page with inputs', (component) => {
-  visitComponentUrl(component, 'default_with_inputs');
-});
-
 Given('I open dark theme {string} component page in noIFrame', (component) => {
   visitComponentUrl(component, 'dark_theme', true);
 });

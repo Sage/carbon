@@ -1,11 +1,25 @@
 import {
   rows, checkboxCell, rowByNumber, caption, tableHeader, rowNumbers, sortIcon,
-  actionToolbar, checkboxInHeader, actionToolbarButton,
+  actionToolbar, checkboxInHeader, actionToolbarButton, pagination, tableBody,
+  tableHeaderInIFrame,
+  tableAjax,
 } from '../../locators/table';
 import { themeColor, tableHeaderSize, positionOfElement } from '../helper';
 
 Then('I see {int} records', (records) => {
-  rows().should('have.length', records);
+  if (records === 0) {
+    tableBody().should('have.length', 1);
+  } else {
+    rows().should('have.length', records);
+  }
+});
+
+Then('I see {int} records for Table Ajax', (records) => {
+  if (records === 0) {
+    tableAjax().children().should('have.length', 1);
+  } else {
+    tableAjax().children().should('have.length', records + 1);
+  }
 });
 
 Then('rows are selectable', () => {
@@ -118,6 +132,14 @@ Then('I click {string} header', (headerName) => {
   }
 });
 
+Then('I click {string} header in IFrame', (headerName) => {
+  if (headerName === 'Country') {
+    tableHeaderInIFrame().eq(positionOfElement('first')).click();
+  } else {
+    tableHeaderInIFrame().eq(positionOfElement('second')).click();
+  }
+});
+
 When('I check checkbox on header', () => {
   checkboxInHeader().eq(positionOfElement('first')).click();
 });
@@ -145,4 +167,13 @@ Then('Action Toolbar elemens are visible and have {string} color', (color) => {
     .and('have.css', 'color', color)
     .and('be.visible')
     .and('contain', 'Test Action');
+});
+
+Then('pagination is visible', () => {
+  pagination().should('be.visible');
+});
+
+
+Then('pagination is not visible', () => {
+  pagination().should('not.exist');
 });
