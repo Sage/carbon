@@ -10,7 +10,7 @@ import {
   closeIconButton, tooltipPreview, getKnobsInput, getKnobsInputWithName, getKnobsInputByGroup,
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
   precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
-  knobsNameTab, fieldHelpPreviewByPosition, labelByPosition, dlsRoot,
+  knobsNameTab, dlsRoot,
   commonButtonPreviewNoIFrameRoot,
   getDataElementByValue,
   commonButtonPreviewNoIframe,
@@ -21,6 +21,7 @@ import {
   helpIconNoIFrame,
   helpIconByPositionNoIFrame,
   getElementNoIframe,
+  labelByPosition,
 } from '../../locators';
 import { dialogTitle, dialogTitleNoIFrame } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
@@ -270,8 +271,7 @@ Then('fieldHelp on preview is set to {word} in NoIFrame', (text) => {
 });
 
 Then('{string} fieldHelp on preview is set to {word}', (position, text) => {
-  cy.wait(1500, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
-  fieldHelpPreviewByPosition(positionOfElement(position)).should('have.text', text);
+  fieldHelpPreviewNoIFrame(positionOfElement(position)).should('have.text', text);
 });
 
 When('I set label width slider to {int}', (width) => {

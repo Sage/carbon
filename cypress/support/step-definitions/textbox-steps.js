@@ -10,7 +10,7 @@ import {
   commonDataElementInputPreviewNoIframe,
   getDataElementByValueNoIframe,
   tooltipPreviewByPositionNoIFrame,
-  labelByPositionNoIFrame,
+  labelByPosition,
   fieldHelpPreviewByPositionNoIFrame,
   commonDataElementInputPreviewByPositionNoIFrame,
   getDataElementByValueAndPositionNoIframe,
@@ -116,8 +116,8 @@ Then('Multiple fieldHelp on preview is set to {word}', (text) => {
 });
 
 Then('Multiple label is set to {word}', (text) => {
-  labelByPositionNoIFrame(positionOfElement('first')).should('have.text', text);
-  labelByPositionNoIFrame(positionOfElement('second')).should('have.text', text);
+  labelByPosition(positionOfElement('first')).should('have.text', text);
+  labelByPosition(positionOfElement('second')).should('have.text', text);
 });
 
 Then('Textbox component is labelInline', () => {
@@ -134,8 +134,8 @@ Then('Textbox component is not labelInline', () => {
 });
 
 Then('Multiple Textbox component is not labelInline', () => {
-  labelByPositionNoIFrame(positionOfElement('first')).should('not.have.css', TEXT_ALIGN, 'left');
-  labelByPositionNoIFrame(positionOfElement('second')).should('not.have.css', TEXT_ALIGN, 'left');
+  labelByPosition(positionOfElement('first')).should('not.have.css', TEXT_ALIGN, 'left');
+  labelByPosition(positionOfElement('second')).should('not.have.css', TEXT_ALIGN, 'left');
 });
 
 Then('Multiple tooltipPreview on preview is set to {word}', (text) => {
@@ -200,11 +200,11 @@ Then('Multiple Textbox width is {string}', (width) => {
 
 Then('Multiple label Align on preview is {string}', (direction) => {
   if(direction === 'left') {
-    labelByPositionNoIFrame(positionOfElement('first')).parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_START));
-    labelByPositionNoIFrame(positionOfElement('second')).parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_START));
+    labelByPosition(positionOfElement('first')).parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_START));
+    labelByPosition(positionOfElement('second')).parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_START));
   } else {
-    labelByPositionNoIFrame(positionOfElement('first')).parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_END));
-    labelByPositionNoIFrame(positionOfElement('second')).parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_END));
+    labelByPosition(positionOfElement('first')).parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_END));
+    labelByPosition(positionOfElement('second')).parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_END));
   }
 });
 
