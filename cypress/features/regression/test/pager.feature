@@ -126,7 +126,7 @@ Feature: Pager component
 
   @positive
   Scenario: Pagination buttons are disabled
-    When I open Test test_basic "Pager" component in noIFrame with "pager" json from "test" using "paginationButtonsDisabled" object name
+    When I open Test test_basic "Pager" component in noIFrame with "pager" json from "test" using "disabled" object name
     Then pagination buttons are disabled
 
   @positive
