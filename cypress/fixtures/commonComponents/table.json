@@ -1,0 +1,121 @@
+{ 
+  "paginate": {
+    "paginate": true
+  },
+  "selectable": {
+    "selectable": true
+  },
+  "selectableFalse": {
+    "selectable": false
+  },
+  "highlightable": {
+    "highlightable": true
+  },
+  "highlightableFalse": {
+    "highlightable": false
+  },
+  "sortColumnName": {
+    "sortColumn": "name"
+  },
+  "sortColumnCode": {
+    "sortColumn": "code"
+  },
+  "sortCountryDesc": {
+    "sortColumn": "name",
+    "sortOrder": "desc"
+  },
+  "sortCountryAsc": {
+    "sortColumn": "name",
+    "sortOrder": "asc"
+  },
+  "sortCodeDesc": {
+    "sortColumn": "code",
+    "sortOrder": "desc"
+  },
+  "sortCodeAsc": {
+    "sortColumn": "code",
+    "sortOrder": "asc"
+  },
+  "captionOtherLanguage": {
+    "caption": "mp150ú¿¡üßä"
+  },
+  "captionSpecialCharacter": {
+    "caption": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "themePrimary": {
+    "theme": "primary"
+  },
+  "themeSecondary": {
+    "theme": "secondary"
+  },
+  "themeTertiary": {
+    "theme": "tertiary"
+  },
+  "sizeCompact": {
+    "size": "compact"
+  },
+  "sizeSmall": {
+    "size": "small"
+  },
+  "sizeMedium": {
+    "size": "medium"
+  },
+  "sizeLarge": {
+    "size": "large"
+  },
+  "zebraStriping": {
+    "zebra striping": true
+  },
+  "pageSize0": {
+    "pageSize": 0
+  },
+  "pageSize1": {
+    "pageSize": 1
+  },
+  "pageSize2": {
+    "pageSize": 2
+  },
+  "pageSize5": {
+    "pageSize": 5
+  },
+  "totalRecords0": {
+    "paginate": true,
+    "totalRecords": 0
+  },
+  "totalRecords100": {
+    "paginate": true,
+    "totalRecords": 100
+  },
+  "totalRecords99999999": {
+    "paginate": true,
+    "totalRecords": 99999999
+  },
+  "totalRecords-10": {
+    "paginate": true,
+    "totalRecords": -10
+  },
+  "totalRecords1": {
+    "paginate": true,
+    "totalRecords": 1
+  },
+  "totalRecordsOtherLanguage": {
+    "paginate": true,
+    "totalRecords": "mp150ú¿¡üßä"
+  },
+  "totalRecordsSpecialCharacter": {
+    "paginate": true,
+    "totalRecords": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "inputTypeTextbox": {
+    "pageSize": 1,
+    "input type": "textbox"
+  },
+  "inputTypeTextarea": {
+    "pageSize": 1,
+    "input type": "textarea"
+  },
+  "inputTypeDate": {
+    "pageSize": 1,
+    "input type": "date"
+  }
+}
