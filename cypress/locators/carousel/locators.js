@@ -1,6 +1,3 @@
-// knobs locators
-export const TRANSITION_SELECT = 'select[name="transition"]';
-
 // component preview locators
 export const SLIDE = '[data-component="slide"]';
 export const PREVIOUS_ARROW_BUTTON = '[data-element=previous]';
