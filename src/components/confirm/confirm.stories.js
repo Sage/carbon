@@ -31,7 +31,55 @@ const handleConfirm = () => {
   store.set({ open: false });
 };
 
-function makeStory(name, themeSelector, disableChromatic = false) {
+function makeStory(name, themeSelector, disableChromatic = true) {
+  const component = () => {
+    const children = text('children', 'This is an example of a confirm.');
+    const title = text('title', 'Are you sure?');
+    const enableBackgroundUI = boolean('enableBackgroundUI', false);
+    const disableEscKey = boolean('disableEscKey', false);
+    const ariaRole = text('ariaRole', Confirm.defaultProps.ariaRole);
+    const height = text('height', '');
+    const subtitle = text('subtitle', '');
+    const size = select('size', OptionsHelper.sizesFull, Confirm.defaultProps.size);
+    const showCloseIcon = boolean('showCloseIcon', Confirm.defaultProps.showCloseIcon);
+    const autoFocus = boolean('autoFocus', Confirm.defaultProps.autoFocus);
+    const confirmLabel = text('confirmLabel', '');
+    const cancelLabel = text('cancelLabel', '');
+    const open = boolean('open', false);
+
+    return (
+      <Confirm
+        title={ title }
+        enableBackgroundUI={ enableBackgroundUI }
+        disableEscKey={ disableEscKey }
+        ariaRole={ ariaRole }
+        height={ height }
+        subtitle={ subtitle }
+        size={ size }
+        showCloseIcon={ showCloseIcon }
+        autoFocus={ autoFocus }
+        confirmLabel={ confirmLabel }
+        cancelLabel={ cancelLabel }
+        onConfirm={ handleConfirm }
+        onCancel={ handleCancel }
+        open={ open }
+      >
+        { children }
+      </Confirm>
+    );
+  };
+
+  const metadata = {
+    themeSelector,
+    chromatic: {
+      disable: disableChromatic
+    }
+  };
+
+  return [name, component, metadata];
+}
+
+function makeButtonStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const children = text('children', 'This is an example of a confirm.');
     const title = text('title', 'Are you sure?');
@@ -48,8 +96,9 @@ function makeStory(name, themeSelector, disableChromatic = false) {
 
     return (
       <State store={ store }>
-        <Button onClick={ handleOpen }>Open Preview</Button>
+        <Button key='button' onClick={ handleOpen }>Open Preview</Button>
         <Confirm
+          key='confirm'
           title={ title }
           open={ store.get('open') }
           enableBackgroundUI={ enableBackgroundUI }
@@ -65,7 +114,7 @@ function makeStory(name, themeSelector, disableChromatic = false) {
           onConfirm={ handleConfirm }
           onCancel={ handleCancel }
         >
-          {children}
+          { children }
         </Confirm>
       </State>
     );
@@ -73,11 +122,6 @@ function makeStory(name, themeSelector, disableChromatic = false) {
 
   const metadata = {
     themeSelector,
-    info: {
-      propTablesExclude: [State, Button],
-      text: info
-    },
-    notes: { markdown: notes },
     chromatic: {
       disable: disableChromatic
     }
@@ -87,5 +131,13 @@ function makeStory(name, themeSelector, disableChromatic = false) {
 }
 
 storiesOf('Confirm', module)
+  .addParameters({
+    info: {
+      propTablesExclude: [State, Button],
+      text: info
+    },
+    notes: { markdown: notes }
+  })
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector, true));
+  .add(...makeStory('classic', classicThemeSelector))
+  .add(...makeButtonStory('with button', dlsThemeSelector));
