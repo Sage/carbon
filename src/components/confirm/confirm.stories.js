@@ -45,25 +45,79 @@ function makeStory(name, themeSelector, disableChromatic = false) {
     const autoFocus = boolean('autoFocus', Confirm.defaultProps.autoFocus);
     const confirmLabel = text('confirmLabel', '');
     const cancelLabel = text('cancelLabel', '');
+    const open = boolean('open', false);
 
     return (
-      <State store={ store }>
-        <Button onClick={ handleOpen }>Open Preview</Button>
+      <Confirm
+        title={title}
+        open={store.get('open')}
+        enableBackgroundUI={enableBackgroundUI}
+        disableEscKey={disableEscKey}
+        ariaRole={ariaRole}
+        height={height}
+        subtitle={subtitle}
+        size={size}
+        showCloseIcon={showCloseIcon}
+        autoFocus={autoFocus}
+        confirmLabel={confirmLabel}
+        cancelLabel={cancelLabel}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+        open={open}
+      >
+        {children}
+      </Confirm>
+    );
+  };
+
+  const metadata = {
+    themeSelector,
+    info: {
+      propTablesExclude: [State, Button],
+      text: info
+    },
+    notes: { markdown: notes },
+    chromatic: {
+      disable: disableChromatic
+    }
+  };
+
+  return [name, component, metadata];
+}
+
+function makeButtonStory(name, themeSelector, disableChromatic = false) {
+  const component = () => {
+    const children = text('children', 'This is an example of a confirm.');
+    const title = text('title', 'Are you sure?');
+    const enableBackgroundUI = boolean('enableBackgroundUI', false);
+    const disableEscKey = boolean('disableEscKey', false);
+    const ariaRole = text('ariaRole', Confirm.defaultProps.ariaRole);
+    const height = text('height', '');
+    const subtitle = text('subtitle', '');
+    const size = select('size', OptionsHelper.sizesFull, Confirm.defaultProps.size);
+    const showCloseIcon = boolean('showCloseIcon', Confirm.defaultProps.showCloseIcon);
+    const autoFocus = boolean('autoFocus', Confirm.defaultProps.autoFocus);
+    const confirmLabel = text('confirmLabel', '');
+    const cancelLabel = text('cancelLabel', '');
+
+    return (
+      <State store={store}>
+        <Button onClick={handleOpen}>Open Preview</Button>
         <Confirm
-          title={ title }
-          open={ store.get('open') }
-          enableBackgroundUI={ enableBackgroundUI }
-          disableEscKey={ disableEscKey }
-          ariaRole={ ariaRole }
-          height={ height }
-          subtitle={ subtitle }
-          size={ size }
-          showCloseIcon={ showCloseIcon }
-          autoFocus={ autoFocus }
-          confirmLabel={ confirmLabel }
-          cancelLabel={ cancelLabel }
-          onConfirm={ handleConfirm }
-          onCancel={ handleCancel }
+          title={title}
+          open={store.get('open')}
+          enableBackgroundUI={enableBackgroundUI}
+          disableEscKey={disableEscKey}
+          ariaRole={ariaRole}
+          height={height}
+          subtitle={subtitle}
+          size={size}
+          showCloseIcon={showCloseIcon}
+          autoFocus={autoFocus}
+          confirmLabel={confirmLabel}
+          cancelLabel={cancelLabel}
+          onConfirm={handleConfirm}
+          onCancel={handleCancel}
         >
           {children}
         </Confirm>
@@ -88,4 +142,5 @@ function makeStory(name, themeSelector, disableChromatic = false) {
 
 storiesOf('Confirm', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector, true));
+  .add(...makeStory('classic', classicThemeSelector, true))
+  .add(...makeButtonStory('with button', dlsThemeSelector), true);
