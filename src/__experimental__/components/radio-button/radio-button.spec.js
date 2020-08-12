@@ -93,7 +93,10 @@ describe('RadioButton', () => {
       const dimensions = { height: '24px', width: '24px' };
 
       it('applies the correct Label styles', () => {
-        assertStyleMatch({ padding: '4px 0' }, wrapper, { modifier: `${LabelStyle}` });
+        assertStyleMatch({
+          paddingTop: '4px',
+          paddingBottom: '4px'
+        }, wrapper, { modifier: `${LabelStyle}` });
       });
 
       it('applies the correct input styles', () => {

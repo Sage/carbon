@@ -164,7 +164,7 @@ describe('StyledCheckableInputWrapper', () => {
 
   describe('when setting ml', () => {
     it('renders the correct left margin', () => {
-      const wrapper = render({ ml: 50 }).toJSON();
+      const wrapper = render({ ml: '50%' }).toJSON();
 
       assertStyleMatch({
         marginLeft: '50%'

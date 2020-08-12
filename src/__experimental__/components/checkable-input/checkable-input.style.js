@@ -28,7 +28,7 @@ const StyledCheckableInputWrapper = styled.div`
     }
 
     ${ml && css`
-      margin-left: ${ml}%
+      margin-left: ${ml};
     `}
 
     ${LabelStyle} {

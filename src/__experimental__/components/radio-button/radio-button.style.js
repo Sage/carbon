@@ -78,10 +78,6 @@ const RadioButtonStyle = styled(CheckboxStyle)`
     `}
 
     ${size === 'large' && css`
-      ${LabelStyle} {
-        padding: 4px 0;
-      }
-
       ${StyledCheckableInput},
       ${HiddenCheckableInputStyle},
       ${StyledCheckableInputSvgWrapper},

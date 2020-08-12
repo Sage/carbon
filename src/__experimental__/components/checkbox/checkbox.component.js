@@ -100,8 +100,8 @@ Checkbox.propTypes = {
   labelHelp: PropTypes.node,
   /** Margin bottom, given number will be multiplied by base spacing unit (8) */
   mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
-  /** Margin left as a percentage */
-  ml: PropTypes.number
+  /** Margin left, any valid CSS value */
+  ml: PropTypes.string
 };
 
 Checkbox.defaultProps = {

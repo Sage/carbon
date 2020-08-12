@@ -79,7 +79,7 @@ const StyledLabel = styled.label`
 `;
 
 StyledLabel.defaultProps = {
-  align: 'left',
+  align: 'right',
   inputSize: 'medium',
   theme: BaseTheme,
   width: 30

@@ -11,7 +11,7 @@ const StyledFieldset = styled.fieldset`
 
   ${({
     ml
-  }) => ml && `margin-left: ${ml}%;`}
+  }) => ml && `margin-left: ${ml};`}
 
   ${({ styleOverride }) => styleOverride};
 `;
@@ -50,7 +50,7 @@ const StyledLegendContainer = styled.div`
 `;
 
 StyledLegendContainer.defaultProps = {
-  align: 'left',
+  align: 'right',
   theme: BaseTheme
 };
 

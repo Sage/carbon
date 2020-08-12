@@ -5,11 +5,9 @@ import { StyledFieldset, StyledFieldsetContent, StyledLegendContainer } from './
 import ValidationIcon from '../../components/validations/validation-icon.component';
 
 const Fieldset = ({
-  legend, children, inline, legendWidth, legendAlign, legendSpacing = 2, error,
+  legend, children, inline, legendWidth, legendAlign = 'right', legendSpacing = 2, error,
   warning, info, ml, styleOverride, ...rest
 }) => {
-  const legendTextAlign = inline ? (legendAlign || 'right') : legendAlign;
-
   return (
     <StyledFieldset
       data-component='fieldset'
@@ -23,7 +21,7 @@ const Fieldset = ({
             inline={ inline }
             styleOverride={ styleOverride.legend }
             width={ legendWidth }
-            align={ legendTextAlign }
+            align={ legendAlign }
             rightPadding={ legendSpacing }
           >
             <legend>
@@ -68,8 +66,8 @@ Fieldset.propTypes = {
   legendAlign: PropTypes.oneOf(['left', 'right']),
   /** Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
   legendSpacing: PropTypes.oneOf([1, 2]),
-  /** Margin left as a percentage */
-  ml: PropTypes.number,
+  /** Margin left, any valid CSS value  */
+  ml: PropTypes.string,
   /** Allows to override existing component styles */
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),

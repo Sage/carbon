@@ -107,7 +107,7 @@ Array [
 .c0 .c11 {
   margin-left: 16px;
   margin-top: 0;
-  padding-left: NaNpx;
+  padding-left: 8px;
 }
 
 .c0 .c13 {
@@ -326,7 +326,7 @@ Array [
 .c0 .c11 {
   margin-left: 16px;
   margin-top: 0;
-  padding-left: NaNpx;
+  padding-left: 8px;
 }
 
 .c0 .c13 {

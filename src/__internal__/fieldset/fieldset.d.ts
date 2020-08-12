@@ -25,6 +25,8 @@ export interface FieldsetProps {
   legendAlign?: 'left' | 'right';
   /** Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
   legendSpacing?: 1 | 2;
+  /** Margin left, any valid CSS value */
+  ml?: string;
   /** Allows to override existing component styles */
   styleOverride?: {
     root?: object;

@@ -36,8 +36,7 @@ const Label = (props) => {
     tabIndex,
     pr,
     pl,
-    inline,
-    align,
+    align = 'right',
     styleOverride
   } = props;
   const labelProps = filterByProps(props, [
@@ -50,8 +49,6 @@ const Label = (props) => {
     'childOfForm',
     'optional'
   ]);
-
-  const labelAlign = inline ? (align || 'right') : align;
 
   const icon = () => {
     const wrapperProps = {
@@ -97,7 +94,7 @@ const Label = (props) => {
       { ...labelProps }
       id={ labelId }
       htmlFor={ htmlFor }
-      align={ labelAlign }
+      align={ align }
       pr={ pr }
       pl={ pl }
       styleOverride={ styleOverride }

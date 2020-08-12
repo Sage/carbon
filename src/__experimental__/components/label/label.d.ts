@@ -18,9 +18,9 @@ export interface LabelPropTypes {
   /** Padding left, integer multiplied by base spacing constant (8) */
   pl?: 1 | 2;
   /** When true label is inline */
-  inline: boolean;
+  inline?: boolean;
   /** Text alignment of label */
-  align: 'left' | 'right';
+  align?: 'left' | 'right';
   styleOverride?: () => object | object;
 }
 

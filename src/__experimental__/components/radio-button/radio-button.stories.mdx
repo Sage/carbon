@@ -94,7 +94,7 @@ The spacing between the legend and the radio buttons can be changed with the `le
 </Preview>
 
 ### With left margin
-A `ml` prop can be supplied to align the `RadioButtonGroup` with above and below components. This prop is a percentage.
+A `ml` prop can be supplied to align the `RadioButtonGroup` with above and below components. This prop is a CSS string.
 
 <Preview>
   <Story name="With left margin">
@@ -102,7 +102,7 @@ A `ml` prop can be supplied to align the `RadioButtonGroup` with above and below
       name="mybuttongroup"
       onChange={ () => console.log('change') }
       legend="Radio group legend"
-      ml={20}
+      ml="20%"
     >
     <RadioButton 
       id="radio1" 
@@ -274,6 +274,38 @@ Help text for each input can be added with the `fieldHelp` prop on `RadioButton`
       value="radio3" 
       label="Radio Option 3"
       fieldHelp="Some help text for this input."
+    />
+  </RadioButtonGroup>
+  </Story> 
+</Preview>
+
+### With large radio buttons
+Passing in `large` for the `size` prop on each radio button will increase the size of the button.
+
+<Preview>
+  <Story name="With large radio buttons">
+    <RadioButtonGroup
+      name="mybuttongroup"
+      onChange={ () => console.log('change') }
+      legend="Radio group legend"
+    >
+    <RadioButton 
+      id="radio1" 
+      value="radio1"
+      label="Radio Option 1"
+      size="large"
+    />
+    <RadioButton 
+      id="radio2" 
+      value="radio2" 
+      label="Radio Option 2"
+      size="large"
+    />
+    <RadioButton 
+      id="radio3" 
+      value="radio3" 
+      label="Radio Option 3"
+      size="large"
     />
   </RadioButtonGroup>
   </Story> 

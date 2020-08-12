@@ -41,7 +41,7 @@ describe('Fieldset', () => {
 
   describe('when ml prop set', () => {
     it('should apply the correct left margin', () => {
-      wrapper = render({ ml: 10 });
+      wrapper = render({ ml: '10%' });
       assertStyleMatch(
         {
           marginLeft: '10%'

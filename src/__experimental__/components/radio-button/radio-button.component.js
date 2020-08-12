@@ -94,7 +94,8 @@ RadioButton.propTypes = {
 };
 
 RadioButton.defaultProps = {
-  reverse: false
+  reverse: false,
+  labelSpacing: 1
 };
 
 export { RadioButton as PrivateRadioButton };
