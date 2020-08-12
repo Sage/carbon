@@ -6,8 +6,8 @@ Feature: Experimental Select component customFilter story
 
   @positive
   Scenario Outline: Verify Select component input <value> could be selected using synonyms <synonyms>
-    When Type "<synonyms>" text into input and select the value
-    Then Select input has "<value>" value
+    When Type "<synonyms>" text into input and select the value in iFrame
+    Then Select input has "<value>" value in iFrame
     Examples:
       | synonyms         | value           |
       | payment received | Book collection |
