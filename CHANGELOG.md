@@ -1,3 +1,21 @@
+## [38.0.0](https://github.com/Sage/carbon/compare/v37.3.0...v38.0.0) (2020-08-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **numeral-date:** NumeralDate onChange prop method arguments have been changed. Event.target.value will now have the same structure as the value passed as a prop to the component.
+
+### Features
+
+* **numeral-date:** add controlled uncontrolled mode switch warning ([e795696](https://github.com/Sage/carbon/commit/e795696e96dfdb272890cc5c8976d59adbd5dc6b))
+* **numeral-date:** add label support to numeral date component ([c51ddd9](https://github.com/Sage/carbon/commit/c51ddd9cb9e9ed949179f56d28d9264aaaba9e05))
+* **numeral-date:** restrict available date formats ([500a0f2](https://github.com/Sage/carbon/commit/500a0f23e72d502fae98d05429376faebf94ab4f))
+
+
+### Bug Fixes
+
+* **numeral-date:** fix incorrect onchange prop method arguments ([3828664](https://github.com/Sage/carbon/commit/3828664d752c861eb76d97ad9ca463b847cd5965))
+
 ## [37.3.0](https://github.com/Sage/carbon/compare/v37.2.0...v37.3.0) (2020-08-07)
 
 

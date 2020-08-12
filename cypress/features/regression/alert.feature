@@ -18,7 +18,7 @@ Feature: Alert component
   @positive
   Scenario Outline: Change Alert component subtitle to <subtitle>
     Given I open default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
-    Then component subtitle on preview is <subtitle> in NoIFrame
+    Then component subtitle on preview is <subtitle>
     Examples:
       | subtitle                | nameOfObject                 |
       | mp150ú¿¡üßä             | openSubtitleOtherLanguage    |

@@ -42,7 +42,7 @@ Feature: Dialog component
   @positive
   Scenario Outline: Change Dialog subtitle to <subtitle>
     When I set subtitle to <subtitle> word
-    Then component subtitle on preview is <subtitle>
+    Then component subtitle on preview is <subtitle> in IFrame
     Examples:
       | subtitle                     |
       | mp150ú¿¡üßä                  |

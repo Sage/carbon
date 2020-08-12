@@ -14,7 +14,7 @@ Then('content title context children on preview is {word}', (title) => {
 });
 
 Then('content as property is set to {string}', (sourseButton) => {
-  contentPreview().should('have.class', CONTENT_AS_LABEL + sourseButton);
+  contentPreview().should('have.class', `${CONTENT_AS_LABEL}${sourseButton}`);
 });
 
 Then('content align property is set to {string}', (as) => {
