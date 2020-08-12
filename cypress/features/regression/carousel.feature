@@ -51,3 +51,11 @@ Feature: Carousel component
   Scenario: Carousel next arrow is disabled
     Given I open default "Carousel" component in noIFrame with "carousel" json from "commonComponents" using "slideIndex4" object name
     Then next button is disabled
+
+  @positive
+  Scenario: Verify the click event for a clickable slide
+    Given I open "Carousel" component page
+      And I select slideIndex to "1"
+      And clear all actions in Actions Tab
+    When I click clickable slide
+    Then click action was called in Actions Tab

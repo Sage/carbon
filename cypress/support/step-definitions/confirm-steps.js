@@ -55,11 +55,11 @@ Then('dialog subtitle context is {word}', (title) => {
   dialogSubtitle().should('have.text', title);
 });
 
-Then('Confirm dialog input height is {string}', (height) => {
+Then('Confirm dialog input height is {int}', (height) => {
   dialogPreview().should('have.attr', 'style')
     .and('contain', `min-height: ${height}px`);
 });
 
-Then('Confirm dialog size property on preview is {string}', (size) => {
+Then('Confirm dialog size property on preview is {int}', (size) => {
   dialogPreview().should('have.css', 'width', `${size}px`);
 });

@@ -48,7 +48,7 @@ Feature: Confirm component
   @positive
   Scenario Outline: Change the height of Confirm dialog to <height>
     When I open default "Confirm" component in noIFrame with "confirm" json from "commonComponents" using "<nameOfObject>" object name
-    Then Confirm dialog input height is "<height>"
+    Then Confirm dialog input height is <height>
     Examples:
       | height | nameOfObject |
       | 0      | height0      |
@@ -59,16 +59,16 @@ Feature: Confirm component
   @positive
   Scenario Outline: Change the size of Confirm dialog to <sizeName>
     When I open default "Confirm" component in noIFrame with "confirm" json from "commonComponents" using "<nameOfObject>" object name
-    Then Confirm dialog size property on preview is "<sizePropertyInPx>"
+    Then Confirm dialog size property on preview is <sizePropertyInPx>
     Examples:
-      | sizeName     | sizePropertyInPx | nameOfObject |
-      | extra-small  | 300              | sizeExtraSmall |
-      | small        | 380              | sizeSmall |
+      | sizeName     | sizePropertyInPx | nameOfObject    |
+      | extra-small  | 300              | sizeExtraSmall  |
+      | small        | 380              | sizeSmall       |
       | medium-small | 540              | sizeMediumSmall |
-      | medium       | 750              | sizeMedium |
+      | medium       | 750              | sizeMedium      |
       | medium-large | 850              | sizeMediumLarge |
-      | large        | 960              | sizeLarge |
-      | extra-large  | 1080             | sizeExtraLarge |
+      | large        | 960              | sizeLarge       |
+      | extra-large  | 1080             | sizeExtraLarge  |
 
   @positive
   Scenario: Enable background UI

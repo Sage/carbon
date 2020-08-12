@@ -19,3 +19,5 @@ export const giveTransition = (transition, direction) => {
   }
   return cy.get(`.${prefix}${transition}${directionString}-enter-active`);
 };
+
+export const slideIFrame = index => cy.iFrame(SLIDE).eq(index);

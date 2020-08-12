@@ -4,6 +4,7 @@ import {
   previousArrowButton,
   slideSelector,
   giveTransition,
+  slideIFrame,
 } from '../../locators/carousel';
 
 function clickCarouselButton(direction) {
@@ -69,5 +70,5 @@ Then('transition is set to {string} with {string}', (transition, direction) => {
 });
 
 When('I click clickable slide', () => {
-  slide(1).click();
+  slideIFrame(1).click();
 });

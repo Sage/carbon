@@ -31,7 +31,7 @@ const handleConfirm = () => {
   store.set({ open: false });
 };
 
-function makeStory(name, themeSelector, disableChromatic = false) {
+function makeStory(name, themeSelector, disableChromatic = true) {
   const component = () => {
     const children = text('children', 'This is an example of a confirm.');
     const title = text('title', 'Are you sure?');
@@ -49,34 +49,28 @@ function makeStory(name, themeSelector, disableChromatic = false) {
 
     return (
       <Confirm
-        title={title}
-        open={store.get('open')}
-        enableBackgroundUI={enableBackgroundUI}
-        disableEscKey={disableEscKey}
-        ariaRole={ariaRole}
-        height={height}
-        subtitle={subtitle}
-        size={size}
-        showCloseIcon={showCloseIcon}
-        autoFocus={autoFocus}
-        confirmLabel={confirmLabel}
-        cancelLabel={cancelLabel}
-        onConfirm={handleConfirm}
-        onCancel={handleCancel}
-        open={open}
+        title={ title }
+        enableBackgroundUI={ enableBackgroundUI }
+        disableEscKey={ disableEscKey }
+        ariaRole={ ariaRole }
+        height={ height }
+        subtitle={ subtitle }
+        size={ size }
+        showCloseIcon={ showCloseIcon }
+        autoFocus={ autoFocus }
+        confirmLabel={ confirmLabel }
+        cancelLabel={ cancelLabel }
+        onConfirm={ handleConfirm }
+        onCancel={ handleCancel }
+        open={ open }
       >
-        {children}
+        { children }
       </Confirm>
     );
   };
 
   const metadata = {
     themeSelector,
-    info: {
-      propTablesExclude: [State, Button],
-      text: info
-    },
-    notes: { markdown: notes },
     chromatic: {
       disable: disableChromatic
     }
@@ -101,25 +95,26 @@ function makeButtonStory(name, themeSelector, disableChromatic = false) {
     const cancelLabel = text('cancelLabel', '');
 
     return (
-      <State store={store}>
-        <Button onClick={handleOpen}>Open Preview</Button>
+      <State store={ store }>
+        <Button key='button' onClick={ handleOpen }>Open Preview</Button>
         <Confirm
-          title={title}
-          open={store.get('open')}
-          enableBackgroundUI={enableBackgroundUI}
-          disableEscKey={disableEscKey}
-          ariaRole={ariaRole}
-          height={height}
-          subtitle={subtitle}
-          size={size}
-          showCloseIcon={showCloseIcon}
-          autoFocus={autoFocus}
-          confirmLabel={confirmLabel}
-          cancelLabel={cancelLabel}
-          onConfirm={handleConfirm}
-          onCancel={handleCancel}
+          key='confirm'
+          title={ title }
+          open={ store.get('open') }
+          enableBackgroundUI={ enableBackgroundUI }
+          disableEscKey={ disableEscKey }
+          ariaRole={ ariaRole }
+          height={ height }
+          subtitle={ subtitle }
+          size={ size }
+          showCloseIcon={ showCloseIcon }
+          autoFocus={ autoFocus }
+          confirmLabel={ confirmLabel }
+          cancelLabel={ cancelLabel }
+          onConfirm={ handleConfirm }
+          onCancel={ handleCancel }
         >
-          {children}
+          { children }
         </Confirm>
       </State>
     );
@@ -127,11 +122,6 @@ function makeButtonStory(name, themeSelector, disableChromatic = false) {
 
   const metadata = {
     themeSelector,
-    info: {
-      propTablesExclude: [State, Button],
-      text: info
-    },
-    notes: { markdown: notes },
     chromatic: {
       disable: disableChromatic
     }
@@ -141,6 +131,13 @@ function makeButtonStory(name, themeSelector, disableChromatic = false) {
 }
 
 storiesOf('Confirm', module)
+  .addParameters({
+    info: {
+      propTablesExclude: [State, Button],
+      text: info
+    },
+    notes: { markdown: notes }
+  })
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector, true))
-  .add(...makeButtonStory('with button', dlsThemeSelector), true);
+  .add(...makeStory('classic', classicThemeSelector))
+  .add(...makeButtonStory('with button', dlsThemeSelector));
