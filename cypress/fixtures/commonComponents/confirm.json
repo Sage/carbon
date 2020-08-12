@@ -1,0 +1,90 @@
+{ 
+  "cancelLabelOtherLanguage": {
+    "open": true,
+    "cancelLabel": "mp150ú¿¡üßä"
+  },
+  "cancelLabelSpecialCharacter": {
+    "open": true,
+    "cancelLabel": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "confirmLabelOtherLanguage": {
+    "open": true,
+    "confirmLabel": "mp150ú¿¡üßä"
+  },
+  "confirmLabelSpecialCharacter": {
+    "open": true,
+    "confirmLabel": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "titleOtherLanguage": {
+    "open": true,
+    "title": "mp150ú¿¡üßä"
+  },
+  "titleSpecialCharacter": {
+    "open": true,
+    "title": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "subtitleOtherLanguage": {
+    "open": true,
+    "subtitle": "mp150ú¿¡üßä"
+  },
+  "subtitleSpecialCharacter": {
+    "open": true,
+    "subtitle": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "height0": {
+    "open": true,
+    "height": 0
+  },
+  "height10": {
+    "open": true,
+    "height": 10
+  },
+  "height999": {
+    "open": true,
+    "height": 999
+  },
+  "height1500": {
+    "open": true,
+    "height": 1500
+  },
+  "sizeExtraSmall": {
+    "open": true,
+    "size": "extra-small"
+  },
+  "sizeSmall": {
+    "open": true,
+    "size": "small"
+  },
+  "sizeMediumSmall": {
+    "open": true,
+    "size": "medium-small"
+  },
+  "sizeMedium": {
+    "open": true,
+    "size": "medium"
+  },
+  "sizeMediumLarge": {
+    "open": true,
+    "size": "medium-large"
+  },
+  "sizeLarge": {
+    "open": true,
+    "size": "large"
+  },
+  "sizeExtraLarge": {
+    "open": true,
+    "size": "extra-large"
+  },
+  "enableBackgroundUI":{
+    "open": true,
+    "enableBackgroundUI": true
+  },
+  "enableBackgroundUIFalse":{
+    "open": true,
+    "enableBackgroundUI": false
+  },
+  "showCloseIconFalse": {
+    "open": true,
+    "showCloseIcon": false
+  }
+}

@@ -4,24 +4,27 @@ import {
   closeIconButton,
   dialogSubtitle,
   confirmButton,
+  confirmButtonIFrame,
   cancelButton,
-  dialogSubtitleNoIFrame,
+  cancelButtonIFrame,
+  dialogPreviewIFrame,
+  dialogSubtitleIFrame,
 } from '../../locators/confirm';
 
 Then('component subtitle on preview is {word}', (subtitle) => {
   dialogSubtitle().should('have.text', subtitle);
 });
 
-Then('component subtitle on preview is {word} in NoIFrame', (subtitle) => {
-  dialogSubtitleNoIFrame().should('have.text', subtitle);
+Then('component subtitle on preview is {word} in IFrame', (subtitle) => {
+  dialogSubtitleIFrame().should('have.text', subtitle);
 });
 
 When('I click on a cancelButton', () => {
-  cancelButton().click();
+  cancelButtonIFrame().click();
 });
 
 When('I click on a confirmButton', () => {
-  confirmButton().click();
+  confirmButtonIFrame().click();
 });
 
 Then('confirm button content on preview is {word}', (confirmButtonText) => {
@@ -37,11 +40,11 @@ Then('dialog title context on preview is {word}', (title) => {
 });
 
 Then('Confirm dialog is visible', () => {
-  dialogPreview().should('be.visible');
+  dialogPreviewIFrame().should('be.visible');
 });
 
 Then('Confirm dialog is not visible', () => {
-  dialogPreview().should('not.exist');
+  dialogPreviewIFrame().should('not.exist');
 });
 
 Then('Close icon is not visible', () => {

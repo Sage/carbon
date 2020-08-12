@@ -30,7 +30,7 @@ Feature: Dialog Full Screen component
   Scenario Outline: Change Dialog Full Screen subtitle to <subtitle>
     When I set subtitle to <subtitle> word
       And I open component preview
-    Then component subtitle on preview is <subtitle>
+    Then component subtitle on preview is <subtitle> in IFrame
     Examples:
       | subtitle                     |
       | mp150ú¿¡üßä                  |
