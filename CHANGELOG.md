@@ -1,3 +1,10 @@
+## [37.3.0](https://github.com/Sage/carbon/compare/v37.2.0...v37.3.0) (2020-08-07)
+
+
+### Features
+
+* **icon:** added 2 new icons, flag and hide ([fb18f43](https://github.com/Sage/carbon/commit/fb18f43c991806ae46ebf03d7cc153b2007465f3))
+
 ## [37.2.0](https://github.com/Sage/carbon/compare/v37.1.0...v37.2.0) (2020-08-06)
 
 

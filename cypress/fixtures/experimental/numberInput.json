@@ -1,0 +1,94 @@
+{
+  "disabled": {
+    "disabled": true
+  },
+  "disabledFalse": {
+    "disabled": false
+  },
+  "readOnly": {
+    "readOnly": true
+  },
+  "readOnlyFalse": {
+    "readOnly": false
+  },
+  "fieldHelpOtherLanguage": {
+    "fieldHelp": "mp150ú¿¡üßä"
+  },
+  "fieldHelpSpecialCharacter": {
+    "fieldHelp": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "labelOtherLanguage": {
+    "label": "mp150ú¿¡üßä"
+  },
+  "labelSpecialCharacter": {
+    "label": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "labelHelpOtherLanguage": {
+    "label": "label",
+    "labelHelp": "mp150ú¿¡üßä"
+  },
+  "labelHelpSpecialCharacter": {
+    "label": "label",
+    "labelHelp": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "labelInline": {
+    "label": "label",
+    "labelInline": true
+  },
+  "labelInlineFalse": {
+    "label": "label",
+    "labelInline": false
+  },
+  "labelWidth1": {
+    "label": "label",
+    "labelInline": true,
+    "labelWidth": 1
+  },
+  "labelWidth10": {
+    "label": "label",
+    "labelInline": true,
+    "labelWidth": 10
+  },
+  "labelWidth100": {
+    "label": "label",
+    "labelInline": true,
+    "labelWidth": 100
+  },
+  "inputWidth1": {
+    "label": "label",
+    "labelInline": true,
+    "inputWidth": 1
+  },
+  "inputWidth10": {
+    "label": "label",
+    "labelInline": true,
+    "inputWidth": 10
+  },
+  "inputWidth100": {
+    "label": "label",
+    "labelInline": true,
+    "inputWidth": 100
+  },
+  "labelAlignRight": {
+    "label": "label",
+    "labelInline": true,
+    "labelAlign": "right"
+  },
+  "labelAlignLeft": {
+    "label": "label",
+    "labelInline": true,
+    "labelAlign": "left"
+  },
+  "sizeSmall": {
+    "size": "small"
+  },
+  "sizeMedium": {
+    "size": "medium"
+  },
+  "sizeLarge": {
+    "size": "large"
+  },
+  "inputIconAdd": {
+    "inputIcon": "add"
+  }
+}

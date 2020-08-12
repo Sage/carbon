@@ -10,7 +10,7 @@ import {
   closeIconButton, tooltipPreview, getKnobsInput, getKnobsInputWithName, getKnobsInputByGroup,
   icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
   precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
-  knobsNameTab, fieldHelpPreviewByPosition, labelByPosition, dlsRoot,
+  knobsNameTab, dlsRoot,
   commonButtonPreviewNoIFrameRoot,
   getDataElementByValue,
   commonButtonPreviewNoIframe,
@@ -20,6 +20,8 @@ import {
   commonDataElementInputPreviewNoIframe,
   helpIconNoIFrame,
   helpIconByPositionNoIFrame,
+  getElementNoIframe,
+  labelByPosition,
 } from '../../locators';
 import { dialogTitle, dialogTitleNoIFrame } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
@@ -89,19 +91,10 @@ Given('I open {string} component page with button in noIFrame', (component) => {
   visitComponentUrl(component, 'with_button', true);
 });
 
-Given('I open {string} component page with inputs', (component) => {
-  visitComponentUrl(component, 'default_with_inputs');
-});
-
 Given('I open dark theme {string} component page in noIFrame', (component) => {
   visitComponentUrl(component, 'dark_theme', true);
 });
 
-Given('I open {string} component in iframe', (component) => {
-  visitComponentUrl(component, 'default', true);
-});
-
-// the step above should be refactored and changed to in noiFrame
 Given('I open {string} component in noiFrame', (component) => {
   visitComponentUrl(component, 'default', true);
 });
@@ -261,7 +254,7 @@ Then('tooltipPreview on preview is set to {word}', (text) => {
   tooltipPreview().should('have.text', text);
 });
 
-Then('tooltipPreview on preview into iFrame is set to {word}', (text) => {
+Then('tooltipPreview on preview in noIframe is set to {word}', (text) => {
   tooltipPreviewNoIframe().should('have.text', text);
 });
 
@@ -278,8 +271,7 @@ Then('fieldHelp on preview is set to {word} in NoIFrame', (text) => {
 });
 
 Then('{string} fieldHelp on preview is set to {word}', (position, text) => {
-  cy.wait(1500, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
-  fieldHelpPreviewByPosition(positionOfElement(position)).should('have.text', text);
+  fieldHelpPreviewNoIFrame(positionOfElement(position)).should('have.text', text);
 });
 
 When('I set label width slider to {int}', (width) => {
@@ -562,4 +554,8 @@ Then('label Align on preview is {string} in NoIFrame', (direction) => {
   } else {
     getDataElementByValueNoIframe('label').parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_END));
   }
+});
+
+Then('icon name in noIframe on preview is {string}', (iconName) => {
+  getElementNoIframe(iconName);
 });

@@ -1,162 +1,110 @@
 Feature: Experimental Number Input component
-  I want to change Experimental Number Input component properties
-
-  Background: Open Experimental Number Input component page
-    Given I open "Experimental Number Input" component page
+  I want to check Experimental Number Input component properties
 
   @positive
-  Scenario: Enable onChangeDeferred action
-    Given I check Enable onChangeDeferred Action property
-      And clear all actions in Actions Tab
-    When I input 1 into NumberInput component
-      And I wait 1000
-    Then onChangeDeferred action was called in Actions Tab
-
-  @positive
-  Scenario: Disable onChangeDeferred action
-    Given clear all actions in Actions Tab
-    When I input 1 into NumberInput component
-    Then onChange action was called in Actions Tab
-
-  @positive
-  Scenario Outline: Enable onKeyDown action uses <key>
-    Given I check Enable onKeyDown Action property
-      And clear all actions in Actions Tab
-    When I press keyboard "<key>" keys into NumberInput input component
-    Then onKeyDown action was called in Actions Tab
+  Scenario Outline: Change field help text to <fieldHelp>
+    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
+    Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
     Examples:
-      | key        |
-      | downarrow  |
-      | leftarrow  |
-      | rightarrow |
-      | uparrow    |
+      | fieldHelp               | nameOfObject              |
+      | mp150ú¿¡üßä             | fieldHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{} | fieldHelpSpecialCharacter |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario: Disable and enable Number input component
-    Given I check disabled checkbox
-    When I uncheck disabled checkbox
+    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "disabledFalse" object name
     Then Number input component is not disabled
 
   @positive
   Scenario: Disable Number input component
-    When I check disabled checkbox
+    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "disabled" object name
     Then Number input component is disabled
 
   @positive
   Scenario: Disable and enable readOnly property for Number input component
-    Given I check readOnly checkbox
-    When I uncheck readOnly checkbox
+    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "readOnlyFalse" object name
     Then Number input component is not readonly
 
   @positive
   Scenario: Disable readOnly property for Number input component
-    When I check readOnly checkbox
+    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "readOnly" object name
     Then Number input component is readonly
 
   @positive
-  Scenario Outline: Enable onChangeDeferred action and check deferTimeout set to <deferTimeout>
-    Given I check Enable onChangeDeferred Action property
-      And I set deferTimeout to "<deferTimeout>"
-      And clear all actions in Actions Tab
-    When I input 1 into NumberInput component
-      And onChange action was called in Actions Tab
-      And I wait <deferTimeout>
-    Then onChangeDeferred action was called in Actions Tab
-    Examples:
-      | deferTimeout |
-      | 1000         |
-      | 5000         |
-      | 10000        |
-
-  @positive
-  Scenario Outline: Change field help text to <fieldHelp>
-    When I set fieldHelp to <fieldHelp> word
-    Then fieldHelp on preview is set to <fieldHelp>
-    Examples:
-      | fieldHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
-  # @ignore because of FE-2782
-  # | &"'<>|
-
-  @positive
   Scenario Outline: Set label to <label>
-    When I set label to <label> word
-    Then label on preview is <label>
+    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
+    Then label on preview is <label> in NoIFrame
     Examples:
-      | label                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | label                   | nameOfObject          |
+      | mp150ú¿¡üßä             | labelOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{} | labelSpecialCharacter |
   # @ignore because of FE-2782
   # | &"'<>|
-
-  @positive
-  Scenario Outline: Set size to <size>
-    When I select size to "<size>"
-    Then Number input component size is set to "<size>" and has min-height set to <minHeight> and paddings set to <px>
-    Examples:
-      | size   | minHeight | px |
-      | small  | 32        | 8  |
-      | medium | 40        | 11 |
-      | large  | 48        | 13 |
 
   @positive
   Scenario Outline: Change label help text to <labelHelp>
-    Given I set label to "label"
-      And I set labelHelp to <labelHelp> word
-    When I hover mouse onto help icon
-    Then tooltipPreview on preview is set to <labelHelp>
+    Given I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
+    When I hover mouse onto help icon in noIFrame
+    Then tooltipPreview on preview in noIframe is set to <labelHelp>
     Examples:
-      | labelHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | labelHelp               | nameOfObject              |
+      | mp150ú¿¡üßä             | labelHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{} | labelHelpSpecialCharacter |
   # @ignore because of FE-2782
   # | &"'<>|
 
   @positive
   Scenario: Enable label inline
-    Given I set label to "label"
-    When I check labelInline checkbox
-    Then NumberInput component labelInline is enabled
+    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "labelInline" object name
+    Then label is inline
 
   @positive
   Scenario: Disable label inline
-    Given I set label to "label"
-      And I check labelInline checkbox
-    When I uncheck labelInline checkbox
+    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "labelInlineFalse" object name
     Then NumberInput component labelInline is disabled
 
   @positive
-  Scenario Outline: Set label width to <labelWidth>
-    Given I set label to "label"
-      And I check labelInline checkbox
-    When I set label width slider to <labelWidth>
-    Then Number Input component labelWidth is set to "<labelWidth>"
+  Scenario Outline: Set input width to <inputWidth>
+    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
+    Then inputWidth on preview is <inputWidth>
     Examples:
-      | labelWidth |
-      | 1          |
-      | 10         |
-      | 100        |
+      | inputWidth | nameOfObject  |
+      | 1          | inputWidth1   |
+      | 10         | inputWidth10  |
+      | 100        | inputWidth100 |
 
   @positive
-  Scenario Outline: Set input width to <inputWidth>
-    Given I set label to "label"
-      And I check labelInline checkbox
-    When I set inputWidth slider to <inputWidth>
-    Then Number Input component inputWidth is set to <inputWidth>
+  Scenario Outline: Set label width to <labelWidth>
+    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
+    Then label width on preview is <labelWidth>
     Examples:
-      | inputWidth |
-      | 1          |
-      | 10         |
-      | 100        |
+      | labelWidth | nameOfObject  |
+      | 1          | labelWidth1   |
+      | 10         | labelWidth10  |
+      | 100        | labelWidth100 |
 
   @positive
   Scenario Outline: Set label align to <labelAlign>
-    Given I set label to "label"
-      And I check labelInline checkbox
-    When I select labelAlign to "<labelAlign>"
-    Then label Align on preview is "<labelAlign>"
+    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
+    Then label Align on preview is "<labelAlign>" in NoIFrame
     Examples:
-      | labelAlign |
-      | right      |
-      | left       |
+      | labelAlign | nameOfObject    |
+      | right      | labelAlignRight |
+      | left       | labelAlignLeft  |
+
+  @positive
+  Scenario Outline: Set size to <size>
+    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
+    Then Number input component size is set to "<size>" and has min-height set to <minHeight> and paddings set to <px>
+    Examples:
+      | size   | minHeight | px | nameOfObject |
+      | small  | 32        | 8  | sizeSmall    |
+      | medium | 40        | 11 | sizeMedium   |
+      | large  | 48        | 13 | sizeLarge    |
+
+  @positive
+  Scenario: Check icon inside of input is visible
+    When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "inputIconAdd" object name
+    Then icon name in noIframe on preview is "add"
