@@ -5,6 +5,7 @@ export interface NavigationBarProp {
   children?: React.ReactNode;
   ariaLabel?: string;
   navigationType?: 'light' | 'dark';
+  isLoading?: boolean;
 }
 
 declare const NavigationBar: React.FunctionComponent<NavigationBarProp>;
