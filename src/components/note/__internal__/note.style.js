@@ -45,24 +45,21 @@ const StyledTitle = styled.header`
 `;
 
 const StyledFooterContent = styled.div`
-  position: relative;
   line-height: 21px;
-
-  &:first-of-type {
-    font-weight: bold;
-    font-size: 14px;
-    top: 16px;
-    height: 21px;
-  }
-
+  align-items: baseline
   ${({ theme }) => `
+    &:first-of-type {
+      font-weight: bold;
+      font-size: 14px;
+      margin-top: ${2 * theme.spacing}px;
+    }
+
     &:nth-of-type(2) {
       font-weight: bold;
       font-size: 12px;
       color: ${theme.note.timeStamp};
-      left: 16px;
-      top: 17px;
-      height: 21px;
+      margin-left: ${2 * theme.spacing}px;
+      margin-top: ${2 * theme.spacing}px;
     }
 
     &:last-of-type:not(:nth-of-type(2)) {
@@ -70,17 +67,16 @@ const StyledFooterContent = styled.div`
       font-size: 12px;
       color: ${theme.note.timeStamp};
       cursor: pointer;
-      top: 17px;
-      height: 21px;
-      left: 40px;
+      margin-top: ${2 * theme.spacing}px;
+      margin-left: ${3 * theme.spacing}px;
     }
   `}
 `;
 
 const StyledFooter = styled.div`
   display: flex;
-  top: 4px;
-  height: 32px;
+  margin-bottom: ${({ theme }) => `${-theme.spacing}px;`}
+  flex-wrap: wrap;
 `;
 
 const StyledNote = styled.div`
@@ -92,7 +88,7 @@ const StyledNote = styled.div`
     padding: 24px;
     position: relative;
     width: ${width}%;
-    min-width: 314px;
+    box-sizing: border-box;
 
     ${StyledNoteContent} {
       box-sizing: border-box;
@@ -123,5 +119,10 @@ StyledFooterContent.defaultProps = {
 };
 
 export {
-  StyledNote, StyledNoteContent, StyledInlineControl, StyledTitle, StyledFooter, StyledFooterContent
+  StyledNote,
+  StyledNoteContent,
+  StyledInlineControl,
+  StyledTitle,
+  StyledFooter,
+  StyledFooterContent
 };
