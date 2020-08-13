@@ -46,7 +46,7 @@ Feature: Split Button component
   @positive
   Scenario Outline: I set text to <text>
     When I set text to <text> word
-    Then Button label on preview is <text>
+    Then Button label on preview is <text> in IFrame
     Examples:
       | text                    |
       | mp150ú¿¡üßä             |
@@ -58,7 +58,7 @@ Feature: Split Button component
   Scenario Outline: I set subtext to <subtext>
     Given I select size to "large"
     When I set subtext to <subtext> word
-    Then Button subtext on preview is <subtext>
+    Then Button subtext on preview is <subtext> in IFrame
     Examples:
       | subtext                 |
       | mp150ú¿¡üßä             |
