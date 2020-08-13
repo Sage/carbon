@@ -1,3 +1,10 @@
+### [38.0.1](https://github.com/Sage/carbon/compare/v38.0.0...v38.0.1) (2020-08-13)
+
+
+### Bug Fixes
+
+* **note:** remove min width to allow note to size dynamically ([8b0bef3](https://github.com/Sage/carbon/commit/8b0bef33c4e3b60cfd6774971f63055265450093))
+
 ## [38.0.0](https://github.com/Sage/carbon/compare/v37.3.0...v38.0.0) (2020-08-12)
 
 
