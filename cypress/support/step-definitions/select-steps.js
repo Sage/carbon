@@ -1,7 +1,6 @@
 import {
   select,
   selectInput,
-  selectInputNoIframe,
   selectPill,
   simpleSelectID,
   selectOption,
@@ -15,6 +14,8 @@ import {
   openOnFocusID,
   multiSelectPill,
   multiSelectPillByPosition,
+  selectInputIframe,
+  selectPillIframe,
 } from '../../locators/select';
 import { positionOfElement, keyCode } from '../helper';
 import { label } from '../../locators';
@@ -35,15 +36,23 @@ When('Type {string} text into input', (text) => {
 });
 
 When('Type {string} text into input into iFrame', (text) => {
-  selectInputNoIframe().clear().type(text);
+  selectInputIframe().clear().type(text);
 });
 
 Then('Select input has {string} value', (text) => {
   selectInput().should('have.attr', 'value', text);
 });
 
+Then('Select input has {string} value in iFrame', (text) => {
+  selectInputIframe().should('have.attr', 'value', text);
+});
+
 Then('Select multiple input {int} element and has {string} value', (index, text) => {
   selectPill(index).should('have.attr', 'title', text);
+});
+
+Then('Select multiple input {int} element and has {string} value in Iframe', (index, text) => {
+  selectPillIframe(index).should('have.attr', 'title', text);
 });
 
 Then('Select placeholder on preview is set to {word}', (text) => {
@@ -75,22 +84,23 @@ Then('Select size on preview for default component is set to {string}', (size) =
   switch (size) {
     case 'small':
       select().should('have.css', 'height', '28px')
-        .and('have.css', 'width', '1027px');
+        .and('have.css', 'width', '1247px');
       break;
     case 'medium':
       select().should('have.css', 'height', '36px')
-        .and('have.css', 'width', '1019px');
+        .and('have.css', 'width', '1239px');
       break;
     case 'large':
-      select().should('have.css', 'height', '44px')
-        .and('have.css', 'width', '1011px');
+      select().should('have.css', 'height', '36px')
+        .and('have.css', 'width', '1239px');
       break;
     default: throw new Error('There is no such size for a Select component input');
   }
 });
 
 Then('Select is disabled', () => {
-  select().should('have.attr', 'disabled');
+  select().should('be.disabled')
+    .and('have.attr', 'disabled');
 });
 
 Then('Select is enabled', () => {
@@ -103,6 +113,10 @@ Then('Select is readOnly', () => {
 
 Then('Select is not readOnly', () => {
   select().should('not.have.attr', 'readOnly');
+});
+
+When('Type {string} text into input and select the value in iFrame', (text) => {
+  selectInputIframe().type(`${text}{downarrow}{enter}`);
 });
 
 When('Type {string} text into input and select the value', (text) => {
