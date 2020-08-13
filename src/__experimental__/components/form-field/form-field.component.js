@@ -104,6 +104,17 @@ const FormField = ({
   );
 };
 
+const errorPropType = (props, propName, componentName, ...rest) => {
+  if (props[propName] && props.disabled) {
+    return new Error(
+      `Prop \`${propName}\` cannot be used in conjunction with disabled. `
+      + 'Use readOnly if you require users to see errors with a non-interactive field'
+    );
+  }
+
+  return PropTypes.oneOfType([PropTypes.bool, PropTypes.string])(props, propName, componentName, ...rest);
+};
+
 FormField.defaultProps = {
   size: 'medium',
   styleOverride: {}
@@ -116,9 +127,9 @@ FormField.propTypes = {
   'data-component': PropTypes.string,
   fieldHelp: PropTypes.node,
   fieldHelpInline: PropTypes.bool,
-  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  error: errorPropType,
+  warning: errorPropType,
+  info: errorPropType,
   helpId: PropTypes.string,
   helpTag: PropTypes.string,
   helpTabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

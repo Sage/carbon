@@ -116,17 +116,28 @@ function makeValidationsStory(name, themeSelector, disableChromatic = false) {
         <h6>On component</h6>
         {validationTypes.map(validation => (
           <Textarea
-            name='textarea'
+            name={ `${validation}-textarea` }
             label='Textarea Validation'
             labelHelp={ `${validation} prop is passed as string` }
             key={ `${validation}-string-component` }
             { ...{ [validation]: 'Message' } }
           />
         ))}
+
+        <h6>Read Only</h6>
+
+        <Textarea
+          name='textarea-readonly'
+          label='Textarea Validation'
+          labelHelp='error prop is passed as string'
+          error='Message'
+          readOnly
+        />
+
         <h6>On label</h6>
         {validationTypes.map(validation => (
           <Textarea
-            name='textarea'
+            name={ `${validation}-textarea-label` }
             label='Textarea Validation'
             labelHelp={ `${validation} prop is passed as string` }
             validationOnLabel
@@ -134,6 +145,17 @@ function makeValidationsStory(name, themeSelector, disableChromatic = false) {
             { ...{ [validation]: 'Message' } }
           />
         ))}
+
+        <h6>Read Only</h6>
+
+        <Textarea
+          name='textarea-readonly-label'
+          label='Textarea Validation'
+          labelHelp='error prop is passed as string'
+          error='Message'
+          readOnly
+          validationOnLabel
+        />
 
         <h4>Validation as boolean</h4>
         {validationTypes.map(validation => (

@@ -12,7 +12,6 @@ const shouldDisplayValidationIcon = ({ error, warning, info }) => {
 
 const InputIconToggle = ({
   disabled,
-  readOnly,
   size,
   inputIcon: type,
   onClick,
@@ -23,7 +22,7 @@ const InputIconToggle = ({
   useValidationIcon,
   align
 }) => {
-  if (disabled || readOnly) return null;
+  if (disabled) return null;
 
   if (useValidationIcon && shouldDisplayValidationIcon({ error, warning, info })) {
     return (
@@ -60,7 +59,6 @@ InputIconToggle.propTypes = {
   warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   disabled: PropTypes.bool,
-  readOnly: PropTypes.bool,
   onClick: PropTypes.func,
   onMouseDown: PropTypes.func,
   inputIcon: PropTypes.string,

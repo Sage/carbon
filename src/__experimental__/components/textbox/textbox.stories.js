@@ -53,6 +53,29 @@ const defaultTextbox = () => {
   );
 };
 
+const disabledTextbox = () => {
+  const commonProps = getCommonTextboxProps();
+  commonProps.disabled = true;
+  return (
+    <Textbox
+      placeholder={ text('placeholder') }
+      value='value'
+      { ...commonProps }
+    />
+  );
+};
+const readOnlyTextbox = () => {
+  const commonProps = getCommonTextboxProps();
+  commonProps.readOnly = true;
+  return (
+    <Textbox
+      placeholder={ text('placeholder') }
+      value='value'
+      { ...commonProps }
+    />
+  );
+};
+
 const autoFocusTextbox = () => {
   return (
     <Textbox
@@ -104,6 +127,16 @@ function makeValidationsStory(name, themeSelector, disableChromatic = false) {
           />
         ))}
 
+        <h6>Read Only</h6>
+        <Textbox
+          key='error-string-component'
+          placeholder={ text('placeholder') }
+          label='Label '
+          name='textbox'
+          error='Message'
+          readOnly
+        />
+
         <h6>On label</h6>
         {validationTypes.map(validation => (
           <Textbox
@@ -116,6 +149,17 @@ function makeValidationsStory(name, themeSelector, disableChromatic = false) {
           />
         ))}
 
+        <h6>Read Only</h6>
+        <Textbox
+          key='error-string-component'
+          placeholder={ text('placeholder') }
+          label='Label'
+          name='textbox'
+          error='Message'
+          validationOnLabel
+          readOnly
+        />
+
         <h4>Validation as boolean</h4>
         {validationTypes.map(validation => (
           <Textbox
@@ -126,6 +170,16 @@ function makeValidationsStory(name, themeSelector, disableChromatic = false) {
             { ...{ [validation]: true } }
           />
         ))}
+
+        <h6>Read Only</h6>
+        <Textbox
+          key='error-string-component'
+          placeholder={ text('placeholder') }
+          label='Label'
+          name='textbox'
+          error
+          readOnly
+        />
       </>
     );
   };
@@ -148,6 +202,8 @@ function makeValidationsStory(name, themeSelector, disableChromatic = false) {
 
 storiesOf('Experimental/Textbox', module)
   .add(...makeStory('default', dlsThemeSelector, defaultTextbox))
+  .add(...makeStory('readOnly', dlsThemeSelector, readOnlyTextbox))
+  .add(...makeStory('disabled', dlsThemeSelector, disabledTextbox))
   .add(...makeStory('classic', classicThemeSelector, defaultTextbox, true))
   .add(...makeStory('multiple', dlsThemeSelector, multipleTextbox))
   .add(...makeValidationsStory('validations', dlsThemeSelector))

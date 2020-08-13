@@ -106,6 +106,15 @@ describe('FormField', () => {
       });
     });
   });
+
+  it('validates the error,warning and info props', () => {
+    jest.spyOn(global.console, 'error').mockImplementation(() => {});
+    renderWithContext({ error: true, id: 'foo', disabled: true });
+    // eslint-disable-next-line no-console
+    expect(console.error).toHaveBeenCalledWith('Warning: Failed prop type: Prop `error` cannot be used in conjunction '
+    + 'with disabled. Use readOnly if you require users to see errors with a non-interactive field\n    in FormField');
+    global.console.error.mockReset();
+  });
 });
 
 function renderFormFieldStyle(props) {
