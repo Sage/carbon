@@ -2,7 +2,7 @@ import {
   multiActionButtonList, multiActionButtonText, multiActionButton,
   multiActionButtonComponent,
 } from '../../locators/multi-action-button';
-import { buttonSubtextPreview } from '../../locators/button';
+import { buttonSubtextPreviewIframe } from '../../locators/button';
 
 const MULTI_ACTION_BUTTON_INNER_TEXT = 'Example ButtonExample Button with long textShort';
 const TEXT_ALIGN = 'text-align';
@@ -40,7 +40,7 @@ Then('Multi Action Button align on preview is {string}', (align) => {
 });
 
 Then('Multi Action Button subtext on preview is {word}', (subtext) => {
-  buttonSubtextPreview().should('have.text', subtext);
+  buttonSubtextPreviewIframe().should('have.text', subtext);
 });
 
 Then('Multi Action Button has golden border color', () => {
