@@ -201,6 +201,17 @@ function makeValidationsStory(name, themeSelector) {
             { selectOptions }
           </Select>
         ))}
+
+        <h6>Read Only</h6>
+        <Select
+          ariaLabel='singleSelect'
+          { ...commonKnobs(singleSelectStore) }
+          error='Message'
+          readOnly
+        >
+          { selectOptions }
+        </Select>
+
         <h6>On label</h6>
         {validationTypes.map(validation => (
           <Select
@@ -213,6 +224,17 @@ function makeValidationsStory(name, themeSelector) {
             { selectOptions }
           </Select>
         ))}
+
+        <h6>Read Only</h6>
+        <Select
+          ariaLabel='singleSelect'
+          { ...commonKnobs(singleSelectStore) }
+          error='Message'
+          validationOnLabel
+          readOnly
+        >
+          { selectOptions }
+        </Select>
 
         <h4>Single select - validations as boolean</h4>
         {validationTypes.map(validation => (

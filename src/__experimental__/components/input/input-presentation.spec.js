@@ -90,8 +90,7 @@ describe('InputPresentation', () => {
       it('has the correct style rules', () => {
         assertStyleMatch({
           backgroundColor: baseTheme.readOnly.textboxBackground,
-          borderColor: baseTheme.readOnly.textboxBorder,
-          boxShadow: 'none'
+          borderColor: baseTheme.readOnly.textboxBorder
         }, render({ readOnly: true }));
       });
     });
