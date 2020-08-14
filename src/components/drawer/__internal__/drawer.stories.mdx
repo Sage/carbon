@@ -8,7 +8,7 @@ import Button from '../button';
 import PopoverContainer from '../popover-container';
 import Search from '../../__experimental__/components/search';
 import DialogFullScreen from '../dialog-full-screen';
-import {StyledDrawerContent, StyledDrawerSidebar} from './drawer.style';
+import { StyledDrawerContent, StyledDrawerSidebar } from './drawer.style';
 import Heading from '../heading';
 import {
   FlatTable,
@@ -19,6 +19,7 @@ import {
   FlatTableCell,
   Sort
 } from '../flat-table'
+import { Tabs, Tab } from '../'
 
 <Meta title="Design System/Drawer" />
 
@@ -803,8 +804,30 @@ Note: parent container background-color is set to red for demonstration purpose.
   </Story>
 </Preview>
 
-## Props:
+### With Tab controls
 
-### Drawer
+<Preview>
+  <Story name="with controls" parameters={{ info: { disable: true }}} >
+    return (
+      <div style={ { height: '200px' } }>
+        <Drawer
+          id="with-controls"
+          showControls={ true }
+          expandedWidth={ text('expandedWidth', '40%') }
+          animationDuration={ text('animationDuration', '0.5s') }
+          sidebar={ (
+            <Tabs setLocation={ false } position='left'>
+              <Tab />
+            </Tabs>
+          ) }
+        >
+          content body content body content body content body content body content body content body
+        </Drawer>
+      </div>
+    )
+  </Story>
+</Preview>
+
+### Drawer Props
 
 <Props of={Drawer} />

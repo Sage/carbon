@@ -7,8 +7,8 @@ import React, {
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import invariant from 'invariant';
-import createGuid from '../../utils/helpers/guid';
-import Icon from '../icon';
+import createGuid from '../../../utils/helpers/guid/guid';
+import Icon from '../../icon';
 
 import {
   StyledDrawerWrapper,

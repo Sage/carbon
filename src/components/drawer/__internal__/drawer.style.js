@@ -1,5 +1,5 @@
 import styled, { css, keyframes } from 'styled-components';
-import baseTheme from '../../style/themes/base';
+import baseTheme from '../../../style/themes/base';
 
 const StyledSidebarTitle = styled.div`
   margin: 24px 36px 24px 24px;

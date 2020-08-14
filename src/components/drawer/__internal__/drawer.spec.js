@@ -2,8 +2,8 @@ import React from 'react';
 import { act } from 'react-dom/test-utils';
 import { mount as enzymeMount, shallow } from 'enzyme';
 import Drawer from './drawer.component';
-import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-import guid from '../../utils/helpers/guid';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import guid from '../../../utils/helpers/guid/guid';
 import {
   StyledDrawerSidebar,
   StyledDrawerContent,
@@ -11,7 +11,7 @@ import {
   StyledSidebarTitle,
   StyledButton
 } from './drawer.style';
-import { noThemeSnapshot } from '../../__spec_helper__/enzyme-snapshot-helper';
+import { noThemeSnapshot } from '../../../__spec_helper__/enzyme-snapshot-helper';
 
 jest.mock('../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-123');
