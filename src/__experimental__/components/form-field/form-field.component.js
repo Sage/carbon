@@ -107,8 +107,8 @@ const FormField = ({
 const errorPropType = (props, propName, componentName, ...rest) => {
   if (props[propName] && props.disabled) {
     return new Error(
-      `Prop \`${propName}\` cannot be used in conjunction with disabled. `
-      + 'Use readOnly if you require users to see errors with a non-interactive field'
+      `Prop \`${propName}\` cannot be used in conjunction with \`disabled\`. `
+      + 'Use `readOnly` if you require users to see validations with a non-interactive field'
     );
   }
 

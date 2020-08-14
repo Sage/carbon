@@ -65,12 +65,35 @@ describe('InputIconToggle', () => {
   )(
     'when %s validation prop is true', (validationProp) => {
       it('renders input icon instead of validation icon', () => {
-        const wrapper = render({ inputIcon: 'dropdown', [validationProp]: true }, mount);
+        const wrapper = render({ inputIcon: 'dropdown', [validationProp]: true, useValidationIcon: false }, mount);
         expect(wrapper.find(ValidationIcon).exists()).toBe(false);
         expect(wrapper.find(Icon).props().type).toBe('dropdown');
       });
     }
   );
+
+  describe.each(
+    ['error', 'warning', 'info']
+  )(
+    'when %s validation prop is true', (validationProp) => {
+      it('does not render an icon when disabled is also true', () => {
+        const wrapper = render({ inputIcon: 'dropdown', [validationProp]: true, disabled: true }, mount);
+        expect(wrapper.find(ValidationIcon).exists()).toBe(false);
+        expect(wrapper.find(Icon).exists()).toBe(false);
+      });
+    }
+  );
+
+  describe('does not render input icon', () => {
+    it('when disabled prop is true', () => {
+      const wrapper = render({ inputIcon: 'dropdown', disabled: true }, mount);
+      expect(wrapper.find(Icon).exists()).toBe(false);
+    });
+    it('when readOnly prop is true', () => {
+      const wrapper = render({ inputIcon: 'dropdown', readOnly: true }, mount);
+      expect(wrapper.find(Icon).exists()).toBe(false);
+    });
+  });
 
   describe('sizes', () => {
     [['small', '32px'], ['medium', '40px'], ['large', '48px']].forEach((size) => {

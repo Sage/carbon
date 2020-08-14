@@ -114,8 +114,8 @@ describe('FormField', () => {
     renderWithContext({ disabled: true, id: 'foo', [validation]: true });
     // eslint-disable-next-line no-console
     expect(console.error).toHaveBeenCalledWith(`Warning: Failed prop type: Prop \`${validation}\` cannot `
-    + 'be used in conjunction with disabled. Use readOnly if you require users to see errors with a non-interactive '
-    + 'field\n    in FormField');
+    + 'be used in conjunction with disabled. Use readOnly if you require users to see validations with a '
+    + 'non-interactive field\n    in FormField');
     global.console.error.mockReset();
   });
 });
