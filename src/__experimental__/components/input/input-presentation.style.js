@@ -34,7 +34,6 @@ const InputPresentationStyle = styled.div`
   ${({ disabled, theme }) => disabled && css`
     background: ${theme.disabled.input};
     border-color: ${theme.disabled.border};
-    box-shadow: none;
     cursor: not-allowed;
   `}
 

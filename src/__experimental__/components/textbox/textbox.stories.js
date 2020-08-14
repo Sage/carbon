@@ -54,24 +54,20 @@ const defaultTextbox = () => {
 };
 
 const disabledTextbox = () => {
-  const commonProps = getCommonTextboxProps();
-  commonProps.disabled = true;
   return (
     <Textbox
       placeholder={ text('placeholder') }
       value='value'
-      { ...commonProps }
+      { ...getCommonTextboxProps(defaultStoryPropsConfig, false, true, false) }
     />
   );
 };
 const readOnlyTextbox = () => {
-  const commonProps = getCommonTextboxProps();
-  commonProps.readOnly = true;
   return (
     <Textbox
       placeholder={ text('placeholder') }
       value='value'
-      { ...commonProps }
+      { ...getCommonTextboxProps(defaultStoryPropsConfig, false, false, true) }
     />
   );
 };
@@ -129,7 +125,6 @@ function makeValidationsStory(name, themeSelector, disableChromatic = false) {
 
         <h6>Read Only</h6>
         <Textbox
-          key='error-string-component'
           placeholder={ text('placeholder') }
           label='Label '
           name='textbox'
@@ -151,7 +146,6 @@ function makeValidationsStory(name, themeSelector, disableChromatic = false) {
 
         <h6>Read Only</h6>
         <Textbox
-          key='error-string-component'
           placeholder={ text('placeholder') }
           label='Label'
           name='textbox'
@@ -212,7 +206,7 @@ storiesOf('Experimental/Textbox', module)
   .add(...makeStory('multiple autoFocus', dlsThemeSelector, multipleTextboxAutoFocus));
 
 // eslint-disable-next-line
-export function getCommonTextboxProps(config = defaultStoryPropsConfig, autoFocusDefault = false) {
+export function getCommonTextboxProps(config = defaultStoryPropsConfig, autoFocusDefault = false, disabledDefault = false, readOnlyDefault = false) {
   const previous = {
     key: 'textbox',
     autoFocus: autoFocusDefault
@@ -223,8 +217,8 @@ export function getCommonTextboxProps(config = defaultStoryPropsConfig, autoFocu
     max: 100,
     step: 1
   };
-  const disabled = boolean('disabled', false);
-  const readOnly = boolean('readOnly', false);
+  const disabled = boolean('disabled', disabledDefault);
+  const readOnly = boolean('readOnly', readOnlyDefault);
   const autoFocus = boolean('autoFocus', autoFocusDefault);
   const fieldHelp = text('fieldHelp');
   const label = text('label', 'Label');

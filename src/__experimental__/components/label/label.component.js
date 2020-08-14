@@ -11,7 +11,7 @@ const shouldDisplayValidationIcon = ({
   error, warning, info, disabled
 }) => {
   const validation = (error || warning || info);
-  return !disabled ? typeof validation === 'string' : false;
+  return disabled ? false : typeof validation === 'string';
 };
 
 let deprecatedWarnTriggered = false;

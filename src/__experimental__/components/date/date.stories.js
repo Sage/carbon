@@ -106,7 +106,6 @@ const ValidationDateComponent = () => {
       <h6>readOnly</h6>
       <DateInput
         name='dateinput'
-        key='readonly-string-component'
         placeholder={ text('placeholder') }
         label='Label'
         error='Message'
@@ -135,7 +134,6 @@ const ValidationDateComponent = () => {
       <h6>readOnly</h6>
       <DateInput
         name='dateinput'
-        key='readonlylabel-string-component'
         placeholder={ text('placeholder') }
         label='Label'
         error='Message'
