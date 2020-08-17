@@ -1,5 +1,5 @@
 import { buttonToggleLabelPreview, buttonTogglePreview } from '../../locators/button-toggle';
-import { icon } from '../../locators';
+import { iconIFrame } from '../../locators';
 import { positionOfElement } from '../helper';
 
 Then('Button Toggle label on preview is {word}', (label) => {
@@ -9,29 +9,29 @@ Then('Button Toggle label on preview is {word}', (label) => {
 });
 
 Then('Button icon on preview is {string}', (iconName) => {
-  icon().eq(positionOfElement('first')).should('have.attr', 'data-element', iconName)
+  iconIFrame().eq(positionOfElement('first')).should('have.attr', 'data-element', iconName)
     .and('be.visible');
-  icon().eq(positionOfElement('second')).should('have.attr', 'data-element', iconName)
+  iconIFrame().eq(positionOfElement('second')).should('have.attr', 'data-element', iconName)
     .and('be.visible');
-  icon().eq(positionOfElement('third')).should('have.attr', 'data-element', iconName)
+  iconIFrame().eq(positionOfElement('third')).should('have.attr', 'data-element', iconName)
     .and('be.visible');
 });
 
 Then('Button Toggle icon is set to {string}', (iconName) => {
-  icon().should('have.attr', 'data-element', iconName);
+  iconIFrame().should('have.attr', 'data-element', iconName);
 });
 
 Then('Button Toggle icon height is {string} and width is {string}', (height, width) => {
-  icon().eq(positionOfElement('first')).should('have.css', 'height', height)
+  iconIFrame().eq(positionOfElement('first')).should('have.css', 'height', height)
     .and('have.css', 'width', width);
-  icon().eq(positionOfElement('second')).should('have.css', 'height', height)
+  iconIFrame().eq(positionOfElement('second')).should('have.css', 'height', height)
     .and('have.css', 'width', width);
-  icon().eq(positionOfElement('third')).should('have.css', 'height', height)
+  iconIFrame().eq(positionOfElement('third')).should('have.css', 'height', height)
     .and('have.css', 'width', width);
 });
 
 Then('Button icon not exists on preview', () => {
-  icon().should('not.exist');
+  iconIFrame().should('not.exist');
 });
 
 Then('Button Toggle height is {string} and width is {string}', (height, width) => {

@@ -7,7 +7,7 @@ Feature: Toast component
   @positive
   Scenario: Verify the click action in Actions Tab
     When clear all actions in Actions Tab
-      And I click closeIcon
+      And I click closeIcon in IFrame
     Then click action was called in Actions Tab
 
   @positive
