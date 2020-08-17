@@ -4,7 +4,7 @@ import {
   buttonDataComponentIFrame, 
   buttonSubtextPreviewIframe,
 } from '../../locators/button';
-import { icon } from '../../locators';
+import { iconIFrame } from '../../locators';
 import { positionOfElement } from '../helper';
 
 Then('Button label on preview is {word}', (label) => {
@@ -99,31 +99,31 @@ When('I click on {string} as a sibling', (element) => {
 });
 
 Then('Button icon is set to {string}', (iconName) => {
-  icon().should('have.attr', 'data-element', iconName)
+  iconIFrame().should('have.attr', 'data-element', iconName)
     .and('be.visible');
 });
 
 Then('Button as a sibling icon is set to {string}', (iconName) => {
-  icon().eq(positionOfElement('first')).should('have.attr', 'data-element', iconName)
+  iconIFrame().eq(positionOfElement('first')).should('have.attr', 'data-element', iconName)
     .and('be.visible');
-  icon().eq(positionOfElement('second')).should('have.attr', 'data-element', iconName)
+  iconIFrame().eq(positionOfElement('second')).should('have.attr', 'data-element', iconName)
     .and('be.visible');
 });
 
 Then('Button icon position is set to {string}', (iconPosition) => {
   if (iconPosition === 'after') {
-    icon().should('have.css', 'margin-right', '0px');
+    iconIFrame().should('have.css', 'margin-right', '0px');
   } else {
-    icon().should('have.css', 'margin-right', '8px');
+    iconIFrame().should('have.css', 'margin-right', '8px');
   }
 });
 
 Then('Button as a sibling icon position is set to {string}', (iconPosition) => {
   if (iconPosition === 'after') {
-    icon().eq(positionOfElement('first')).should('have.css', 'margin-right', '0px');
-    icon().eq(positionOfElement('second')).should('have.css', 'margin-right', '0px');
+    iconIFrame().eq(positionOfElement('first')).should('have.css', 'margin-right', '0px');
+    iconIFrame().eq(positionOfElement('second')).should('have.css', 'margin-right', '0px');
   } else {
-    icon().eq(positionOfElement('first')).should('have.css', 'margin-right', '8px');
-    icon().eq(positionOfElement('second')).should('have.css', 'margin-right', '8px');
+    iconIFrame().eq(positionOfElement('first')).should('have.css', 'margin-right', '8px');
+    iconIFrame().eq(positionOfElement('second')).should('have.css', 'margin-right', '8px');
   }
 });

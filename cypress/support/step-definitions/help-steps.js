@@ -1,9 +1,9 @@
-import { icon } from '../../locators';
+import { iconIFrame } from '../../locators';
 import { tooltipPreview, tooltipPointer, helpHref } from '../../locators/help';
 
 Then('tooltipPosition is set to {string}', (tooltipPosition) => {
   tooltipPreview().should('be.visible');
-  icon().trigger('mouseover');
+  iconIFrame().trigger('mouseover');
   tooltipPointer().invoke('show');
   switch (tooltipPosition) {
     case 'top':
@@ -28,7 +28,7 @@ Then('tooltipPosition is set to {string}', (tooltipPosition) => {
 
 Then('tooltipAlign is set to {string}', (tooltipAlign) => {
   tooltipPreview().should('be.visible');
-  icon().trigger('mouseover');
+  iconIFrame().trigger('mouseover');
   tooltipPointer().invoke('show');
   switch (tooltipAlign) {
     case 'bottom':
@@ -60,5 +60,5 @@ Then('Help href on preview is set to {word}', (href) => {
 });
 
 Then('icon on preview has {string} color', (color) => {
-  icon().should('have.css', 'color', color);
+  iconIFrame().should('have.css', 'color', color);
 });
