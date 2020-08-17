@@ -1,5 +1,5 @@
 Feature: Portrait default component
-	I want to check Portrait default component
+	I want to test Portrait default component
 
 	@positive
 	Scenario Outline: Change Portrait alt to <alt>
@@ -40,7 +40,7 @@ Feature: Portrait default component
 	@positive
 	Scenario Outline: Set Portrait src to <source>
 		When I open default "Portrait" component in noIFrame with "portrait" json from "commonComponents" using "src" object name
-		Then Portrait src value is set to "<source>"
+		Then Portrait src value is set to "https://photos.smugmug.com/Portfolio/Business-Portrait-Examples/i-qFTj2wW/0/1f8956e8/M/163-FCP%20Moriah%20Thomas-M.jpg"
 
 	# value which is rendering as src doesn't work properly for CI
 	# ignored regression

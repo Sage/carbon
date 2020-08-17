@@ -17,5 +17,26 @@
   },
   "shapeSquare": {
     "shape": "square"
-  }   
+  },
+  "sizeXS": {
+    "size": "XS"
+  },
+  "sizeS": {
+    "size": "S"
+  },
+  "sizeM": {
+    "size": "M"
+  },
+  "sizeML": {
+    "size": "ML"
+  },
+  "sizeL": {
+    "size": "L"
+  },
+  "sizeXL": {
+    "size": "XL"
+  },
+  "sizeXXL": {
+    "size": "XXL"
+  }
 }

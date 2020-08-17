@@ -1,5 +1,5 @@
 Feature: Pod component
-  I want to check Pod component
+  I want to test Pod component
 
   @positive
   Scenario: Enable border checkbox for a Pod component
@@ -102,11 +102,10 @@ Feature: Pod component
     When I open default "Pod" component in noIFrame with "pod" json from "commonComponents" using "onEdit" object name
     Then Edit property is visible
 
-  # width is properly for CI
   @positive
   Scenario: Check the editContentFullWidth checkbox
     When I open default "Pod" component in noIFrame with "pod" json from "commonComponents" using "editContentFullWidth" object name
-    Then Pod component has width "1006px"
+    Then Pod component has width "1226px"
 
   @positive
   Scenario: Check the displayEditButtonOnHover checkbox
