@@ -15,8 +15,8 @@ Then('endLabel on preview is {word}', (label) => {
 });
 
 Then('labels are set to inline', () => {
-  labelPreview(START_LABEL_INDEX).should('have.css', TEXT_ALIGN, 'left');
-  labelPreview(END_LABEL_INDEX).should('have.css', TEXT_ALIGN, 'left');
+  labelPreview(START_LABEL_INDEX).should('have.css', TEXT_ALIGN, 'right');
+  labelPreview(END_LABEL_INDEX).should('have.css', TEXT_ALIGN, 'right');
 });
 
 Then('labels are not set to inline', () => {

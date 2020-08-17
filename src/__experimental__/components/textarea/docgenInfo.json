@@ -351,7 +351,7 @@
           "required": false,
           "description": "Message to be displayed in a Tooltip when the user hovers over the help icon"
         },
-        "marginBottom": {
+        "mb": {
           "type": {
             "name": "enum",
             "value": [

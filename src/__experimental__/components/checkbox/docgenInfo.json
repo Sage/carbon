@@ -253,7 +253,7 @@
           "required": false,
           "description": "Indicate additional information\n  Pass string to display icon, tooltip and blue border\n  Pass true boolean to only display blue border"
         },
-        "marginBottom": {
+        "mb": {
           "type": {
             "name": "enum",
             "value": [

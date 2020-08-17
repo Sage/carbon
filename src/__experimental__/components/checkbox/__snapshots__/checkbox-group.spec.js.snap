@@ -112,7 +112,6 @@ exports[`CheckboxGroup renders as expected 1`] = `
 }
 
 .c8 .c5 {
-  padding-left: 6px;
   width: auto;
   -webkit-flex: 0 1 auto;
   -ms-flex: 0 1 auto;
@@ -122,7 +121,7 @@ exports[`CheckboxGroup renders as expected 1`] = `
 .c8 .c16 {
   margin-left: 16px;
   margin-top: 0;
-  padding-left: 6px;
+  padding-left: 8px;
 }
 
 .c8 .c19 {

@@ -4,6 +4,15 @@ import { useState } from 'react';
 
 import Form from '.';
 import Textbox from '../../__experimental__/components/textbox';
+import Textarea from '../../__experimental__/components/textarea';
+import {
+  RadioButton,
+  RadioButtonGroup
+} from "../../__experimental__/components/radio-button";
+import DateInput from "../../__experimental__/components/date";
+import { Checkbox } from "../../__experimental__/components/checkbox";
+import Hr from "../../components/hr";
+import Switch from "../../__experimental__/components/switch";
 import Button from '../button';
 import DialogFullScreen from '../dialog-full-screen';
 import Dialog from '../dialog';
@@ -82,7 +91,7 @@ When `fieldSpacing` prop is given a value, the vertical spacing between the form
 </Preview>
 
 ### Override spacing on one field
-A child component (which uses `FormField`) can be given a `marginBottom` prop which overrides the bottom margin for that particular field. This uses the same base theme `8px` multiplier as the Form `fieldSpacing` prop. 
+A child component (which uses `FormField`) can be given a `mb` prop which overrides the bottom margin for that particular field. This uses the same base theme `8px` multiplier as the Form `fieldSpacing` prop. 
 
 <Preview>
   <Story name="Override field spacing">
@@ -93,7 +102,7 @@ A child component (which uses `FormField`) can be given a `marginBottom` prop wh
     >
       <Textbox label="Textbox" />
       <Textbox label="Textbox" />
-      <Textbox label="Textbox" marginBottom={7} />
+      <Textbox label="Textbox" mb={7} />
       <Textbox label="Textbox" />
     </Form>
   </Story> 
@@ -281,6 +290,166 @@ It is possible to render `Form` as a content of `DialogFullScreen` component.
   </Story>
 </Preview>
 
+### Form alignment 
+An example of how to align different kinds of input components within a `Form`. It is possible to line up all of the inputs and all of the labels in any configuration required. The spacing between inputs and labels can be `8px` or `16px`, and this can be controlled with the `labelSpacing` prop on the input components. Most of them default to `16px`
+
+These input components are spaced vertically with the `fieldSpacing` prop on `Form`, and this can be overriden on any input component using the `mb` (margin bottom) prop.
+
+If a component doesn't have an inline labels on the left (see the Checkboxes below), it is possible to align them using a `ml` (margin left) prop. The left margins on these components should be the same as the label width of the above and below components in order to align correctly. 
+
+Please click on "Show code" below to see how to set these components up for alignment. 
+
+<Preview>
+  <Story name="Form alignment example">
+    <Form
+      onSubmit={() => console.log("submit")}
+      leftSideButtons={
+        <Button onClick={() => console.log("cancel")}>Cancel</Button>
+      }
+      saveButton={
+        <Button buttonType="primary" type="submit">
+          Save
+        </Button>
+      }
+      fieldSpacing={4}
+    >
+      <Textbox
+        childofForm
+        key="input-one"
+        label="Field 1"
+        placeholder="placeholder"
+        name="textbox"
+        labelInline
+        labelWidth={10}
+        inputWidth={30}
+        fieldHelp="This is some help text"
+        isOptional={false}
+      />
+      <Textbox
+        childofForm
+        key="input-two"
+        label="Field 2"
+        placeholder="placeholder"
+        name="textbox"
+        labelInline
+        labelWidth={10}
+        inputWidth={30}
+        labelSpacing={2}
+      />
+      <RadioButtonGroup
+        name="legend"
+        onChange={() => console.log("RADIO CHANGE")}
+        legend="Legend"
+        legendInline
+        legendWidth={10}
+        legendSpacing={2}
+      >
+        <RadioButton
+          id="input-1"
+          value="input-1"
+          label="Radio Option 1"
+          labelWidth={10}
+          mb={1}
+        />
+        <RadioButton
+          id="input-2"
+          value="input-2"
+          label="Radio Option 2"
+          labelWidth={10}
+        />
+      </RadioButtonGroup>
+      <DateInput
+        name="date"
+        label="Date picker"
+        labelInline
+        labelWidth={10}
+      />
+      <RadioButtonGroup
+        name="nolegend"
+        onChange={() => console.log("RADIO CHANGE")}
+        legend="Legend above"
+        ml="10%"
+      >
+        <RadioButton
+          id="input-1"
+          value="input-1"
+          label="Radio Option 1"
+          labelWidth={10}
+          mb={1}
+        />
+        <RadioButton
+          id="input-2"
+          value="input-2"
+          label="Radio Option 2"
+          labelWidth={10}
+        />
+      </RadioButtonGroup>
+      <Textarea
+        childofForm
+        key="input-three"
+        label="Field 3"
+        placeholder="placeholder"
+        name="textbox"
+        labelInline
+        labelWidth={10}
+        inputWidth={30}
+      />
+      <Checkbox
+        name="checkbox1"
+        onChange={() => console.log("CHECKBOX 1")}
+        label="Checkbox 1"
+        mb={1}
+        ml="10%"
+      />
+      <Checkbox
+        name="checkbox2"
+        onChange={() => console.log("CHECKBOX 2")}
+        label="Checkbox 2"
+        mb={1}
+        ml="10%"
+      />
+      <Checkbox
+        name="checkbox3"
+        onChange={() => console.log("CHECKBOX 3")}
+        label="Checkbox 3"
+        mb={7}
+        ml="10%"
+      />
+      <Hr ml="10%" mr="60%" mb={7} />
+      <Button buttonType="tertiary" mb={4} ml={10}>
+        Tertiary
+      </Button>
+      <Textbox
+        childofForm
+        key="input-four"
+        label="Field 4"
+        placeholder="placeholder"
+        name="textbox"
+        labelInline
+        labelWidth={10}
+        inputWidth={30}
+      />
+      <Switch
+        name="switch"
+        label="Switch"
+        labelInline
+        onChange={() => console.log("SWITCH")}
+        labelWidth={10}
+        labelSpacing={2}
+      />
+      <Textbox
+        childofForm
+        key="input-five"
+        label="Field 5"
+        placeholder="placeholder"
+        name="textbox"
+        labelInline
+        labelWidth={10}
+        inputWidth={30}
+      />
+    </Form>
+  </Story>
+</Preview>
 
 With sticky footer
 

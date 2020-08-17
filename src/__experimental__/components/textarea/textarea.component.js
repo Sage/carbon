@@ -217,7 +217,7 @@ Textarea.propTypes = {
   /** Message to be displayed in a Tooltip when the user hovers over the help icon */
   tooltipMessage: PropTypes.string,
   /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  marginBottom: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7])
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7])
 };
 
 Textarea.defaultProps = {

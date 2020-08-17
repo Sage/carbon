@@ -60,15 +60,6 @@ Feature: Experimental Checkbox component
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelHelpSpecialCharacter |
 
   @positive
-  Scenario Outline: Change Checkbox label align to <direction>
-    When I open default "Experimental Checkbox" component in noIFrame with "checkbox" json from "experimental" using "<nameOfObject>" object name
-    Then Checkbox labelAlign on preview is set to "<direction>"
-    Examples:
-      | direction | nameOfObject    |
-      | left      | labelAlignLeft  |
-      | right     | labelAlignRight |
-
-  @positive
   Scenario Outline: Change Checkbox size to <size>
     When I open default "Experimental Checkbox" component in noIFrame with "checkbox" json from "experimental" using "<nameOfObject>" object name
     Then Checkbox size on preview is set to "<size>"

@@ -7,6 +7,10 @@ export interface ButtonProps {
   disabled?: boolean;
   destructive?: boolean;
   fullWidth?: boolean;
+  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
+  mb?: 0 | 1 | 2 | 3 | 4 | 5 | 7;
+  /** Margin left as a percentage */
+  ml?: number;
   size?: 'small' | 'medium' | 'large';
   iconPosition?: 'before' | 'after';
   iconType?: IconTypes;

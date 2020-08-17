@@ -16,6 +16,10 @@ const StyledButton = styled.button`
   vertical-align: middle;
   ${stylingForType}
 
+  ${({ mb, theme }) => mb && css`
+    margin-bottom: ${mb * theme.spacing}px;
+  `}
+
   ${({ fullWidth }) => fullWidth && css`
     width: 100%;
   `}
@@ -49,7 +53,8 @@ function stylingForType({
   theme,
   size,
   destructive,
-  fullWidth
+  fullWidth,
+  ml
 }) {
   return css`
     border: 2px solid transparent;
@@ -68,7 +73,7 @@ function stylingForType({
       }
     `}
     ${buttonTypes(theme, disabled, destructive)[buttonType]};
-    ${buttonSizes(theme)[size]}
+    ${buttonSizes(theme, ml)[size]}
   `;
 }
 
@@ -96,7 +101,11 @@ StyledButton.propTypes = {
   /** Second text child, renders under main text, only when size is "large" */
   subtext: PropTypes.string,
   /** Used to transform button into anchor */
-  to: PropTypes.string
+  to: PropTypes.string,
+  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
+  /** Margin left as a percentage, calculated from the left edge of the button content */
+  ml: PropTypes.number
 };
 
 export default StyledButton;

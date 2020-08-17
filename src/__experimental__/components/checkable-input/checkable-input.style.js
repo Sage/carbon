@@ -15,14 +15,24 @@ const StyledCheckableInput = styled.div`
 
 const StyledCheckableInputWrapper = styled.div`
   ${({
-    disabled, fieldHelpInline, inputWidth, labelAlign, labelWidth, reverse, theme
+    disabled,
+    fieldHelpInline,
+    inputWidth,
+    labelWidth,
+    ml,
+    reverse,
+    theme
   }) => css`
     ${FieldLineStyle} {
       display: flex;
     }
 
+    ${ml && css`
+      margin-left: ${ml};
+    `}
+
     ${LabelStyle} {
-      text-align: ${labelAlign};
+      text-align: ${reverse ? 'left' : 'right'}
       padding-top: 0;
       width: auto;
 

@@ -527,7 +527,7 @@ Then('label align on preview is set to {string} in IFrame', (labelAlign) => {
 });
 
 Then('label is inline', () => {
-  getDataElementByValueNoIframe('label').should('have.css', TEXT_ALIGN, 'left');
+  getDataElementByValueNoIframe('label').should('have.css', TEXT_ALIGN, 'right');
 });
 
 Then('label is inline in IFrame', () => {

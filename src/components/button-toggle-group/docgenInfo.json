@@ -169,7 +169,7 @@
           "required": false,
           "description": "The value of the Button Toggle Group"
         },
-        "marginBottom": {
+        "mb": {
           "type": {
             "name": "enum",
             "value": [

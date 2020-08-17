@@ -13,7 +13,7 @@ import StyledIcon from '../../../components/icon/icon.style';
 
 const CheckboxStyle = styled.div`
   ${({
-    disabled, error, warning, info, fieldHelpInline, inputWidth, reverse, size, theme
+    disabled, error, warning, info, fieldHelpInline, labelSpacing, inputWidth, reverse, size, theme
   }) => css`
     padding-top: 8px;
 
@@ -58,7 +58,6 @@ const CheckboxStyle = styled.div`
     }
 
     ${StyledLabel} {
-      padding-left: 6px;
       width: auto;
       flex: 0 1 auto;
     }
@@ -66,7 +65,7 @@ const CheckboxStyle = styled.div`
     ${StyledFieldHelp} {
       margin-left: 16px;
       margin-top: 0;
-      padding-left: 6px;
+      padding-left: ${labelSpacing * theme.spacing}px;
     }
 
     ${StyledValidationIcon} {
@@ -93,11 +92,7 @@ const CheckboxStyle = styled.div`
 
       ${StyledFieldHelp} {
         margin-left: 24px;
-      }
-
-      ${StyledFieldHelp},
-      ${StyledLabel} {
-        padding-left: 8px;
+        padding-left: ${labelSpacing * theme.spacing}px;
       }
 
       ${fieldHelpInline && `${StyledFieldHelp},`}
@@ -156,7 +151,6 @@ const CheckboxStyle = styled.div`
       }
 
       ${StyledLabel} {
-        padding-left: 0;
         flex: 0 1 auto;
       }
 

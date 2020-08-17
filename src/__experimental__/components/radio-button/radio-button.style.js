@@ -24,10 +24,6 @@ const RadioButtonStyle = styled(CheckboxStyle)`
       padding-left: 0;
     }
 
-    ${StyledCheckableInput} {
-      margin-right: 16px;
-    }
-
     ${StyledCheckableInputSvgWrapper} {
       padding: 0;
     }
@@ -54,11 +50,6 @@ const RadioButtonStyle = styled(CheckboxStyle)`
 
     ${LabelStyle} {
       flex: 1 1 calc(100% - 44px);
-      padding-left: 0;
-
-      ${!reverse && css`
-        padding-right: 0;
-      `}
     }
 
     ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle {
@@ -87,14 +78,6 @@ const RadioButtonStyle = styled(CheckboxStyle)`
     `}
 
     ${size === 'large' && css`
-      ${LabelStyle} {
-        padding: 4px 0;
-      }
-
-      ${StyledCheckableInput} {
-        margin-right: 14px;
-      }
-
       ${StyledCheckableInput},
       ${HiddenCheckableInputStyle},
       ${StyledCheckableInputSvgWrapper},
@@ -108,11 +91,6 @@ const RadioButtonStyle = styled(CheckboxStyle)`
       }
 
       ${reverse && css`
-        ${StyledCheckableInput} {
-          margin-right: 0;
-          margin-left: 16px;
-        }
-
         ${!fieldHelpInline && `
           ${FieldHelpStyle} {
             padding: 0;

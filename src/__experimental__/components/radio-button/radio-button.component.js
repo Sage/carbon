@@ -80,7 +80,7 @@ RadioButton.propTypes = {
   /** the value of the Radio Button, passed on form submit */
   value: PropTypes.string.isRequired,
   /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  marginBottom: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   children: (props, propName, componentName) => {
     if (props[propName]) {
       return new Error(
@@ -94,7 +94,8 @@ RadioButton.propTypes = {
 };
 
 RadioButton.defaultProps = {
-  reverse: false
+  reverse: false,
+  labelSpacing: 1
 };
 
 export { RadioButton as PrivateRadioButton };

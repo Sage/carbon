@@ -252,6 +252,44 @@ describe('Button', () => {
     );
   });
 
+  describe('when ml prop passed in', () => {
+    describe('when large button', () => {
+      it('adds the correct left margin', () => {
+        const wrapper = TestRenderer.create(<StyledButton size='large' ml={ 10 } />);
+        assertStyleMatch({
+          marginLeft: 'calc(10% - 32px)'
+        }, wrapper.toJSON());
+      });
+    });
+
+    describe('when medium button', () => {
+      it('adds the correct left margin', () => {
+        const wrapper = TestRenderer.create(<StyledButton size='medium' ml={ 10 } />);
+        assertStyleMatch({
+          marginLeft: 'calc(10% - 24px)'
+        }, wrapper.toJSON());
+      });
+    });
+
+    describe('when small button', () => {
+      it('adds the correct left margin', () => {
+        const wrapper = TestRenderer.create(<StyledButton size='small' ml={ 10 } />);
+        assertStyleMatch({
+          marginLeft: 'calc(10% - 16px)'
+        }, wrapper.toJSON());
+      });
+    });
+  });
+
+  describe('when mb prop passed in', () => {
+    it('should add the correct bottom margin', () => {
+      const wrapper = TestRenderer.create(<StyledButton mb={ 4 } />);
+      assertStyleMatch({
+        marginBottom: '32px'
+      }, wrapper.toJSON());
+    });
+  });
+
   it('matches the applies the expected style to the icon', () => {
     const wrapper = TestRenderer.create(<StyledButton iconType='plus' />);
     assertStyleMatch({

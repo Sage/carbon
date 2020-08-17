@@ -61,7 +61,7 @@ describe('StyledCheckableInputWrapper', () => {
     it('applies the correct Label styles', () => {
       assertStyleMatch(
         {
-          textAlign: 'left',
+          textAlign: 'right',
           width: 'auto'
         },
         wrapper, { modifier: css`${LabelStyle}` }
@@ -159,6 +159,16 @@ describe('StyledCheckableInputWrapper', () => {
       assertStyleMatch({
         width: '50% !important'
       }, wrapper, { modifier: css`${LabelStyle}` });
+    });
+  });
+
+  describe('when setting ml', () => {
+    it('renders the correct left margin', () => {
+      const wrapper = render({ ml: '50%' }).toJSON();
+
+      assertStyleMatch({
+        marginLeft: '50%'
+      }, wrapper);
     });
   });
 });

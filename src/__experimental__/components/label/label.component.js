@@ -34,7 +34,9 @@ const Label = (props) => {
     useValidationIcon,
     htmlFor,
     tabIndex,
-    rightSpacing = 2,
+    pr,
+    pl,
+    align = 'right',
     styleOverride
   } = props;
   const labelProps = filterByProps(props, [
@@ -92,7 +94,9 @@ const Label = (props) => {
       { ...labelProps }
       id={ labelId }
       htmlFor={ htmlFor }
-      rightSpacing={ rightSpacing }
+      align={ align }
+      pr={ pr }
+      pl={ pl }
       styleOverride={ styleOverride }
     >
       {children}
@@ -130,8 +134,14 @@ Label.propTypes = {
    *  More information: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex
   */
   tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  /** Set padding right */
-  rightSpacing: PropTypes.oneOf([1, 2]),
+  /** Padding right, integer multiplied by base spacing constant (8) */
+  pr: PropTypes.oneOf([1, 2]),
+  /** Padding left, integer multiplied by base spacing constant (8) */
+  pl: PropTypes.oneOf([1, 2]),
+  /** When true label is inline */
+  inline: PropTypes.bool,
+  /** Text alignment of label */
+  align: PropTypes.oneOf(['left', 'right']),
   /** Allows to override existing component styles */
   styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 };
