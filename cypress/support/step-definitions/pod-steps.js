@@ -1,6 +1,7 @@
 import {
   podComponent, podPreview, podContent,
-  podTitle, podSubTitle, podDescription, podFooter, podEdit,
+  podTitle, podSubTitle, podDescription, podFooter, podEdit, 
+  podEditIframe,
 } from '../../locators/pod';
 import { DEBUG_FLAG } from '..';
 
@@ -81,8 +82,8 @@ Then('Pod component has no onEdit property', () => {
   podEdit().should('not.exist');
 });
 
-Then('I click onEdit icon', () => {
-  podEdit().first().click();
+Then('I click onEdit icon in Iframe', () => {
+  podEditIframe().first().click();
 });
 
 Then('Pod component has width {string}', (width) => {

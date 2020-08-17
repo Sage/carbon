@@ -1,0 +1,48 @@
+{
+  "childrenOtherLanguage": {
+    "children": "mp150ú¿¡üßä"
+  },
+  "childrenSpecialCharacter": {
+    "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "fill": {
+    "fill": true
+  },
+  "fillFalse": {
+    "fill": false
+  },
+  "onDelete": {
+    "onDelete": true
+  },
+  "onDeleteFalse": {
+    "onDelete": false
+  },
+  "sizeS": {
+    "size": "S"
+  },
+  "sizeM": {
+    "size": "M"
+  },
+  "sizeL": {
+    "size": "L"
+  },
+  "sizeXL": {
+    "size": "XL"
+  },
+  "colorVariantNeutral": {
+    "pillRole": "status",
+    "colorVariant": "neutral"
+  },
+  "colorVariantNegative": {
+    "pillRole": "status",
+    "colorVariant": "negative"
+  },
+  "colorVariantPositive": {
+    "pillRole": "status",
+    "colorVariant": "positive"
+  },
+  "colorVariantWarning": {
+    "pillRole": "status",
+    "colorVariant": "warning"
+  }
+}
