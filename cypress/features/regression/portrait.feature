@@ -1,17 +1,14 @@
 Feature: Portrait default component
-	I want to test Portrait default component
-
-	Background: Open Portrait default component page
-		Given I open "Portrait" component page
+	I want to check Portrait default component
 
 	@positive
 	Scenario Outline: Change Portrait alt to <alt>
-		When I set alt to <alt> word
+		When I open default "Portrait" component in noIFrame with "portrait" json from "commonComponents" using "<nameOfObject>" object name
 		Then Portrait alt on preview is set to <alt>
 		Examples:
-			| alt                     |
-			| mp150ú¿¡üßä             |
-			| !@#$%^*()_+-=~[];:.,?{}&"'<> |
+			| alt                          | nameOfObject        |
+			| mp150ú¿¡üßä                  | altOtherLanguage    |
+			| !@#$%^*()_+-=~[];:.,?{}&"'<> | altSpecialCharacter |
 
 	# value which is rendering as src doesn't work properly for CI
 	# ignored regression
@@ -30,7 +27,7 @@ Feature: Portrait default component
 
 	@positive
 	Scenario: Set Portrait source to src
-		When I select source to "src"
+		When I open default "Portrait" component in noIFrame with "portrait" json from "commonComponents" using "sourceSrc" object name
 		Then Portrait source is set to "src"
 
 	# src is rendering as img
@@ -42,12 +39,8 @@ Feature: Portrait default component
 
 	@positive
 	Scenario Outline: Set Portrait src to <source>
-		Given I select source to "src"
-		When I set src to "<source>"
+		When I open default "Portrait" component in noIFrame with "portrait" json from "commonComponents" using "src" object name
 		Then Portrait src value is set to "<source>"
-		Examples:
-			| source                                                                                                                 |
-			| https://photos.smugmug.com/Portfolio/Business-Portrait-Examples/i-qFTj2wW/0/1f8956e8/M/163-FCP%20Moriah%20Thomas-M.jpg |
 
 	# value which is rendering as src doesn't work properly for CI
 	# ignored regression
@@ -75,23 +68,23 @@ Feature: Portrait default component
 
 	@positive
 	Scenario Outline: Set Portrait shape to <shape>
-		When I select shape to "<shape>"
+		When I open default "Portrait" component in noIFrame with "portrait" json from "commonComponents" using "<nameOfObject>" object name
 		Then Portrait shape value is set to "<shape>"
 		Examples:
-			| shape  |
-			| circle |
-			| square |
+			| shape  | nameOfObject |
+			| circle | shapeCircle  |
+			| square | shapeSquare  |
 
 	@positive
 	Scenario Outline: Set Portrait size to <size>
-		When I select size to "<size>"
+		When I open default "Portrait" component in noIFrame with "portrait" json from "commonComponents" using "<nameOfObject>" object name
 		Then Portrait size has "<sizeInPx>"
 		Examples:
-			| size | sizeInPx |
-			| XS   | 24       |
-			| S    | 32       |
-			| M    | 40       |
-			| ML   | 56       |
-			| L    | 72       |
-			| XL   | 104      |
-			| XXL  | 128      |
+			| size | sizeInPx | nameOfObject |
+			| XS   | 24       | sizeXS       |
+			| S    | 32       | sizeS        |
+			| M    | 40       | sizeM        |
+			| ML   | 56       | sizeML       |
+			| L    | 72       | sizeL        |
+			| XL   | 104      | sizeXL       |
+			| XXL  | 128      | sizeXXL      |
