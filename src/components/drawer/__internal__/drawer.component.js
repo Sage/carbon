@@ -155,8 +155,13 @@ const Drawer = ({
       >
         { getTitle() }
         { getControls() }
-        <StyledDrawerSidebar id={ sidebarId } role='navigation'>
-          <SidebarContext.Provider value={ { isInSidebar: true } }>
+        <StyledDrawerSidebar
+          hasControls={ !!showControls }
+          id={ sidebarId }
+          isExpanded={ isExpanded }
+          role='navigation'
+        >
+          <SidebarContext.Provider value={ { isInSidebar: true, setTarget: id => setTarget(id) } }>
             { sidebar }
           </SidebarContext.Provider>
         </StyledDrawerSidebar>
@@ -188,7 +193,7 @@ Drawer.propTypes = {
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   /** Enables expand/collapse button that controls drawer */
   showControls: PropTypes.bool,
-
+  /** Callback to be used as part of SidebarContext to override targeting of Tabs */
   setTarget: PropTypes.func
 };
 

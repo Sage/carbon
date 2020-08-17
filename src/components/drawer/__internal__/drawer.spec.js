@@ -1,7 +1,9 @@
-import React from 'react';
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+import React, { useContext } from 'react';
 import { act } from 'react-dom/test-utils';
 import { mount as enzymeMount, shallow } from 'enzyme';
-import Drawer from './drawer.component';
+import Drawer, { SidebarContext } from './drawer.component';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import guid from '../../../utils/helpers/guid/guid';
 import {
@@ -13,7 +15,7 @@ import {
 } from './drawer.style';
 import { noThemeSnapshot } from '../../../__spec_helper__/enzyme-snapshot-helper';
 
-jest.mock('../../utils/helpers/guid');
+jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-123');
 
 let container = null;
@@ -388,6 +390,20 @@ describe('Drawer', () => {
           + ' using a controlled or uncontrolled Drawer element for the lifetime of the component'
         );
       });
+    });
+  });
+
+  describe('context', () => {
+    it('calls the callback when a consuming component is clicked', () => {
+      const MockComponent = () => {
+        const context = useContext(SidebarContext);
+
+        return <div onClick={ () => context.setTarget() } />;
+      };
+      const setTarget = jest.fn();
+      const wrapper = render({ setTarget, sidebar: <MockComponent /> });
+      wrapper.find(MockComponent).find('div').props().onClick();
+      expect(setTarget).toHaveBeenCalled();
     });
   });
 });

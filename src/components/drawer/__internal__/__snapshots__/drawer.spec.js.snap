@@ -12,7 +12,9 @@ exports[`Drawer uncontrolled matches snapshot 1`] = `
     theme="[ theme object ]"
   >
     <styled.div
+      hasControls={false}
       id="DrawerSidebar_guid-123"
+      isExpanded={true}
       role="navigation"
     >
       <ContextProvider

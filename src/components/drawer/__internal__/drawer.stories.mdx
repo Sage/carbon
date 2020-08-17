@@ -1,15 +1,15 @@
 import { Meta, Props, Preview, Story } from '@storybook/addon-docs/blocks';
-import Drawer from '.';
-import { useMemo, useState, useCallback } from 'react';
+import Drawer from '..';
+import { useMemo, useState, useCallback, useContext } from 'react';
 import { text, object } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import styled from 'styled-components';
-import Button from '../button';
-import PopoverContainer from '../popover-container';
-import Search from '../../__experimental__/components/search';
-import DialogFullScreen from '../dialog-full-screen';
+import Button from '../../button';
+import PopoverContainer from '../../popover-container';
+import Search from '../../../__experimental__/components/search';
+import DialogFullScreen from '../../dialog-full-screen';
 import { StyledDrawerContent, StyledDrawerSidebar } from './drawer.style';
-import Heading from '../heading';
+import Heading from '../../heading';
 import {
   FlatTable,
   FlatTableHead,
@@ -18,8 +18,9 @@ import {
   FlatTableHeader,
   FlatTableCell,
   Sort
-} from '../flat-table'
-import { Tabs, Tab } from '../'
+} from '../../flat-table'
+import { Tabs, Tab } from '../../tabs';
+import { Checkbox } from '../../../__experimental__/components/checkbox';
 
 <Meta title="Design System/Drawer" />
 
@@ -807,24 +808,203 @@ Note: parent container background-color is set to red for demonstration purpose.
 ### With Tab controls
 
 <Preview>
-  <Story name="with controls" parameters={{ info: { disable: true }}} >
-    return (
-      <div style={ { height: '200px' } }>
-        <Drawer
-          id="with-controls"
-          showControls={ true }
-          expandedWidth={ text('expandedWidth', '40%') }
-          animationDuration={ text('animationDuration', '0.5s') }
-          sidebar={ (
-            <Tabs setLocation={ false } position='left'>
-              <Tab />
-            </Tabs>
-          ) }
-        >
-          content body content body content body content body content body content body content body
+  <Story name="with tab controls" parameters={{ info: { disable: true }}} >
+    {() => {
+      const [active, setAcitve] = useState('tab-1');
+      const [errors, setErrors] = useState({one: false, two: false, three: false, four: false});
+      const [warnings, setWarnings] = useState({one: false, two: false, three: false, four: false});
+      const [infos, setInfos] = useState({one: false, two: false, three: false, four: false});
+      const vaidationStatus = {
+        'tab-1': { error: errors.one, warning: warnings.one, info: infos.one },
+        'tab-2': { error: errors.two, warning: warnings.two, info: infos.two },
+        'tab-3': { error: errors.three, warning: warnings.three, info: infos.three },
+        'tab-4': { error: errors.four, warning: warnings.four, info: infos.four }
+      }
+      return (
+        <div style={ { height: '200px' } }>
+          <Drawer
+            id="with-tab-controls"
+            expandedWidth='30%'
+            sidebar={ (
+              <Tabs
+                borders='no sides'
+                setLocation={ false }
+                position='left'
+                validationStatusOverride={ vaidationStatus }>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 1'
+                  tabId='tab-1'
+                />
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 2'
+                  tabId='tab-2'
+                />
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 3'
+                  tabId='tab-3'
+                />
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 4'
+                  tabId='tab-4'
+                />
+              </Tabs>
+            ) }
+            setTarget={ (id) => setAcitve(id) }
+          >
+          <div>
+            <div style={{ display: active === 'tab-1' ? 'block' : 'none' }}>
+              <Tabs setLocation={ false } extendedLine={ false }>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 1'
+                  tabId='tab-1'
+                >
+                  Content 1
+                </Tab>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 2'
+                  tabId='tab-2'
+                >
+                  Content 2
+                </Tab>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 3'
+                  tabId='tab-3'
+                >
+                  Content 3
+                </Tab>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 4'
+                  tabId='tab-4'
+                >
+                  Content 4
+                </Tab>
+              </Tabs>
+            </div>
+            <div style={{ display: active === 'tab-2' ? 'block' : 'none' }}>
+              <Tabs setLocation={ false } extendedLine={ false }>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 1'
+                  tabId='tab-1'
+                >
+                  Content 1
+                </Tab>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 2'
+                  tabId='tab-2'
+                >
+                  Content 2
+                </Tab>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 3'
+                  tabId='tab-3'
+                >
+                  Content 3
+                </Tab>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 4'
+                  tabId='tab-4'
+                >
+                  Content 4
+                </Tab>
+              </Tabs>
+            </div>
+            <div style={{ display: active === 'tab-3' ? 'block' : 'none' }}>
+              <Tabs setLocation={ false } extendedLine={ false }>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 1'
+                  tabId='tab-1'
+                >
+                  Content 1
+                </Tab>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 2'
+                  tabId='tab-2'
+                >
+                  Content 2
+                </Tab>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 3'
+                  tabId='tab-3'
+                >
+                  Content 3
+                </Tab>
+                <Tab
+                  errorMessage='error'
+                  warningMessage='warning'
+                  infoMessage='info'
+                  title='Tab 4'
+                  tabId='tab-4'
+                >
+                  Content 4
+                </Tab>
+              </Tabs>
+            </div>
+            <div style={{ display: active === 'tab-4' ? 'block' : 'none', padding: '4px' }}>
+              <Checkbox
+                label='Add error'
+                error={ errors.four }
+                onChange={ () => setErrors({ ...errors, four: !errors.four })}
+              />
+              <Checkbox
+                label='Add warning'
+                warning={ warnings.four }
+                onChange={ () => setWarnings({ ...warnings, four: !warnings.four })}
+              />
+              <Checkbox
+                label='Add info'
+                info={ infos.four }
+                onChange={ () => setInfos({ ...infos, four: !infos.four })}
+              />
+            </div>
+          </div>
         </Drawer>
       </div>
-    )
+    )}}
   </Story>
 </Preview>
 
