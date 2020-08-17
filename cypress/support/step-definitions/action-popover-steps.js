@@ -5,7 +5,10 @@ import {
   actionPopoverSubmenuNoIFrame,
   actionPopoverSubmenuInnerElementNoIFrame,
 } from '../../locators/action-popover';
-import { eventInAction, iconNoIframe } from '../../locators';
+import {
+  eventInAction,
+  icon
+} from '../../locators';
 import { buttonDataComponent } from '../../locators/button';
 import { keyCode } from '../helper';
 
@@ -79,7 +82,7 @@ Then('Action Popover overriden styles rendered properly', () => {
     .and('have.css', 'box-sizing', 'border-box')
     .and('have.css', 'padding-top', '0px')
     .and('have.css', 'padding-bottom', '0px');
-  iconNoIframe().should('have.attr', 'data-element', 'dropdown')
+  icon().should('have.attr', 'data-element', 'dropdown')
     .and('have.css', 'margin-left', '8px')
     .and('have.css', 'margin-right', '0px')
     .and('have.css', 'height', '16px');

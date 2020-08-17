@@ -3,7 +3,7 @@ import {
   footnotePreview
 } from '../../locators/detail';
 import {
-  iconNoIframe
+  icon
 } from '../../locators';
 
 Then('detail children on preview is {word}', (children) => {
@@ -15,10 +15,10 @@ Then('detail footnote on preview is {word}', (footnote) => {
 });
 
 Then('icon not exists on preview', () => {
-  iconNoIframe().should('not.exist');
+  icon().should('not.exist');
 });
 
 Then('icon on preview is {string}', (iconName) => {
-  iconNoIframe().should('have.attr', 'data-element', iconName)
+  icon().should('have.attr', 'data-element', iconName)
     .and('be.visible');
 });

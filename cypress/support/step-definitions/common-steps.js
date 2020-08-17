@@ -7,15 +7,15 @@ import {
 import {
   commonButtonPreview, labelPreview, helpIcon, helpIconByPosition, inputWidthSlider,
   fieldHelpPreview, labelWidthSlider, backgroundUILocator,
-  closeIconButton, tooltipPreview, getKnobsInput, getKnobsInputWithName, getKnobsInputByGroup,
-  icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
+  closeIconButtonIFrame, tooltipPreview, getKnobsInput, getKnobsInputWithName, getKnobsInputByGroup,
+  iconIFrame, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
   precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
   knobsNameTab, dlsRoot,
   commonButtonPreviewNoIFrameRoot,
   getDataElementByValue,
   commonButtonPreviewNoIframe,
   backgroundUILocatorNoIFrame,
-  closeIconButtonNoIFrame,
+  closeIconButton,
   fieldHelpPreviewNoIFrame,
   commonDataElementInputPreviewNoIframe,
   helpIconNoIFrame,
@@ -235,7 +235,7 @@ When('I hover mouse onto {string} help icon in NoIFrame', (position) => {
 
 When('I hover mouse onto icon', () => {
   cy.wait(100, { log: DEBUG_FLAG }); // delayed in case the element need to be reloaded
-  icon().trigger('mouseover');
+  iconIFrame().trigger('mouseover');
 });
 
 Then('I hover mouse onto {string} icon in no iFrame', (name) => {
@@ -319,27 +319,36 @@ Then('Background UI is disabled in NoIFrame', () => {
 });
 
 Then('closeIcon is visible', () => {
+  closeIconButtonIFrame().should('be.visible');
+});
+
+Then('closeIcon is visible', () => {
   closeIconButton().should('be.visible');
 });
 
-Then('closeIcon is visible in NoIFrame', () => {
-  closeIconButtonNoIFrame().should('be.visible');
+Then('I click closeIcon in IFrame', () => {
+  closeIconButtonIFrame().click();
 });
 
 Then('I click closeIcon', () => {
   closeIconButton().click();
 });
 
-Then('I click closeIcon in NoIFrame', () => {
-  closeIconButtonNoIFrame().click();
-});
-
 When('I click {string} button into iFrame', (text) => {
   commonButtonPreviewNoIframe().contains(text).click();
 });
 
+Then('closeIcon is not visible in IFrame', () => {
+  closeIconButtonIFrame().should('not.exist');
+});
+
 Then('closeIcon is not visible', () => {
   closeIconButton().should('not.exist');
+});
+
+Then('closeIcon has the border outline color {string} and width {string} in IFrame', (color, width) => {
+  closeIconButtonIFrame().should('have.css', 'outline-color', color)
+    .and('have.css', 'outline-width', width);
 });
 
 Then('closeIcon has the border outline color {string} and width {string}', (color, width) => {
@@ -347,13 +356,8 @@ Then('closeIcon has the border outline color {string} and width {string}', (colo
     .and('have.css', 'outline-width', width);
 });
 
-Then('closeIcon has the border outline color {string} and width {string} in NoIFrame', (color, width) => {
-  closeIconButtonNoIFrame().should('have.css', 'outline-color', color)
-    .and('have.css', 'outline-width', width);
-});
-
 Then('closeIcon is focused', () => {
-  closeIconButton().focus();
+  closeIconButtonIFrame().focus();
 });
 
 When('I hit ESC key', () => {
@@ -429,7 +433,7 @@ Then('{word} action was called in Actions Tab', (event) => {
 });
 
 When('I close Sidebar', () => {
-  closeIconButton().click();
+  closeIconButtonIFrame().click();
 });
 
 Then('data-{word} {string} is present', (element, value) => {

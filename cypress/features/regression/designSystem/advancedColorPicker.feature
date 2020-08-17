@@ -15,12 +15,12 @@ Feature: Advanced Color Picker component
   @positive
   Scenario: Space key on checked color closes picker
     When I press Space on 7 element
-    Then closeIcon is not visible
+    Then closeIcon is not visible in IFrame
 
   @positive
   Scenario: Enter key on checked color closes picker
     When I press Enter on 7 element
-    Then closeIcon is not visible
+    Then closeIcon is not visible in IFrame
 
   @positive
   Scenario: Upon opening color picker the default dolor is pre-selected and is focused
