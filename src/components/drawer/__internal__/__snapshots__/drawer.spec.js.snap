@@ -16,7 +16,12 @@ exports[`Drawer uncontrolled matches snapshot 1`] = `
       role="navigation"
     >
       <ContextProvider
-        value={true}
+        value={
+          Object {
+            "isInSidebar": true,
+            "setTarget": [Function],
+          }
+        }
       >
         <ul>
           <li>

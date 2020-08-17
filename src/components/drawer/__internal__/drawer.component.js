@@ -32,6 +32,7 @@ const Drawer = ({
   backgroundColor,
   title,
   showControls,
+  setTarget,
   ...props
 }) => {
   const drawerSidebarContentRef = useRef();
@@ -155,8 +156,8 @@ const Drawer = ({
         { getTitle() }
         { getControls() }
         <StyledDrawerSidebar id={ sidebarId } role='navigation'>
-          <SidebarContext.Provider value>
-            {sidebar}
+          <SidebarContext.Provider value={ { isInSidebar: true } }>
+            { sidebar }
           </SidebarContext.Provider>
         </StyledDrawerSidebar>
       </StyledDrawerContent>
@@ -177,7 +178,7 @@ Drawer.propTypes = {
   onChange: PropTypes.func,
   /* Sidebar object either html or react component */
   sidebar: PropTypes.node,
-  /* The (% or px) width of the expanded sizebar  */
+  /* The (% or px) width of the expanded sidebar  */
   expandedWidth: PropTypes.string,
   /** Duration of a animation */
   animationDuration: PropTypes.string,
@@ -186,7 +187,9 @@ Drawer.propTypes = {
   /** Sets title heading of sidebar's content */
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   /** Enables expand/collapse button that controls drawer */
-  showControls: PropTypes.bool
+  showControls: PropTypes.bool,
+
+  setTarget: PropTypes.func
 };
 
 Drawer.defaultProps = {
