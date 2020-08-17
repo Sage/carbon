@@ -45,9 +45,7 @@ describe('Note', () => {
         flexDirection: 'column',
         padding: '24px',
         position: 'relative',
-        width: '100%',
-        minWidth: '314px'
-
+        width: '100%'
       }, wrapper);
 
       const content = wrapper.find(StyledNoteContent);
@@ -122,6 +120,46 @@ describe('Note', () => {
   describe('Footer Props', () => {
     const name = 'foo';
     const createdDate = '25/12/20';
+
+    it('renders the correct styling for the footer and content', () => {
+      const wrapper = render({ name, createdDate });
+
+      assertStyleMatch({
+        display: 'flex',
+        marginBottom: '-8px',
+        flexWrap: 'wrap'
+      }, wrapper.find(StyledFooter));
+
+      assertStyleMatch({
+        alignItems: 'baseline'
+      }, wrapper.find(StyledFooterContent));
+
+      assertStyleMatch({
+        fontWeight: 'bold',
+        fontSize: '14px',
+        marginTop: '16px'
+      }, wrapper.find(StyledFooterContent),
+      { modifier: ':first-of-type' });
+
+      assertStyleMatch({
+        fontWeight: 'bold',
+        fontSize: '12px',
+        marginTop: '16px',
+        color: baseTheme.note.timeStamp,
+        marginLeft: '16px'
+      }, wrapper.find(StyledFooterContent),
+      { modifier: ':nth-of-type(2)' });
+
+      assertStyleMatch({
+        fontWeight: 'bold',
+        fontSize: '12px',
+        marginTop: '16px',
+        color: baseTheme.note.timeStamp,
+        cursor: 'pointer',
+        marginLeft: '24px'
+      }, wrapper.find(StyledFooterContent),
+      { modifier: ':last-of-type:not(:nth-of-type(2))' });
+    });
 
     it('renders the "name" and "createdDate" when props have value', () => {
       const wrapper = render({ name, createdDate });
