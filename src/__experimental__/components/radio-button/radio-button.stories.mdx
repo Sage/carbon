@@ -123,6 +123,38 @@ A `ml` prop can be supplied to align the `RadioButtonGroup` with above and below
   </Story> 
 </Preview>
 
+### Enable adaptive behaviour
+Passing in the `adaptiveLegendBreakpoint` and `adaptiveSpacingBreakpoint` props will enable the adaptive behaviour. 
+
+<Preview>
+  <Story name="Enable adaptive behaviour" parameters={{ chromatic: { disable: true }}}>
+    <RadioButtonGroup
+      name="mybuttongroup"
+      onChange={ () => console.log('change') }
+      legend="Radio group legend"
+      ml="20%"
+      adaptiveLegendBreakpoint={960}
+      adaptiveSpacingBreakpoint={960}
+    >
+    <RadioButton 
+      id="radio1" 
+      value="radio1"
+      label="Radio Option 1"
+    />
+    <RadioButton 
+      id="radio2" 
+      value="radio2" 
+      label="Radio Option 2"
+    />
+    <RadioButton 
+      id="radio3" 
+      value="radio3" 
+      label="Radio Option 3"
+    />
+  </RadioButtonGroup>
+  </Story> 
+</Preview>
+
 ### Different label spacing 
 The spacing between radio buttons and their labels can be changed with the `labelSpacing` prop. Similarly to the `legendSpacing` prop, this is a number which is multiplied by the base theme spacing constant. It defaults to `1` which is therefore `8px`.
 

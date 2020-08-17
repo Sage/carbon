@@ -54,6 +54,8 @@ export interface TextboxProps {
   onClick?: function;
   /** Emphasized part of the displayed text */
   prefix?: string;
+  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  adaptiveLabelBreakpoint?: number;
 }
 declare const Textbox: React.ComponentType<TextboxProps>;
 export default Textbox;
