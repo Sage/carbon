@@ -1,5 +1,9 @@
-import { buttonToggleLabelPreview, buttonTogglePreview } from '../../locators/button-toggle';
-import { iconIFrame } from '../../locators';
+import {
+  buttonToggleLabelPreview,
+  buttonTogglePreview,
+  buttonTogglePreviewIFrame,
+} from '../../locators/button-toggle';
+import { icon } from '../../locators';
 import { positionOfElement } from '../helper';
 
 Then('Button Toggle label on preview is {word}', (label) => {
@@ -9,32 +13,24 @@ Then('Button Toggle label on preview is {word}', (label) => {
 });
 
 Then('Button icon on preview is {string}', (iconName) => {
-  iconIFrame().eq(positionOfElement('first')).should('have.attr', 'data-element', iconName)
+  icon().eq(positionOfElement('first')).should('have.attr', 'data-element', iconName)
     .and('be.visible');
-  iconIFrame().eq(positionOfElement('second')).should('have.attr', 'data-element', iconName)
+  icon().eq(positionOfElement('second')).should('have.attr', 'data-element', iconName)
     .and('be.visible');
-  iconIFrame().eq(positionOfElement('third')).should('have.attr', 'data-element', iconName)
+  icon().eq(positionOfElement('third')).should('have.attr', 'data-element', iconName)
     .and('be.visible');
 });
 
-Then('Button Toggle icon is set to {string}', (iconName) => {
-  iconIFrame().should('have.attr', 'data-element', iconName);
+Then('Button Toggle icon height is {int} and width is {int}', (height, width) => {
+  icon().eq(positionOfElement('first')).should('have.css', 'height', `${height}px`)
+    .and('have.css', 'width', `${width}px`);
+  icon().eq(positionOfElement('second')).should('have.css', 'height', `${height}px`)
+    .and('have.css', 'width', `${width}px`);
+  icon().eq(positionOfElement('third')).should('have.css', 'height', `${height}px`)
+    .and('have.css', 'width', `${width}px`);
 });
 
-Then('Button Toggle icon height is {string} and width is {string}', (height, width) => {
-  iconIFrame().eq(positionOfElement('first')).should('have.css', 'height', height)
-    .and('have.css', 'width', width);
-  iconIFrame().eq(positionOfElement('second')).should('have.css', 'height', height)
-    .and('have.css', 'width', width);
-  iconIFrame().eq(positionOfElement('third')).should('have.css', 'height', height)
-    .and('have.css', 'width', width);
-});
-
-Then('Button icon not exists on preview', () => {
-  iconIFrame().should('not.exist');
-});
-
-Then('Button Toggle height is {string} and width is {string}', (height, width) => {
+Then('Button Toggle height is {int} and width is {int}', (height, width) => {
   buttonTogglePreview().eq(positionOfElement('first')).should('have.css', 'height', `${height}px`)
     .and('have.css', 'width', `${width}px`);
   buttonTogglePreview().eq(positionOfElement('second')).should('have.css', 'height', `${height}px`)
@@ -70,5 +66,5 @@ Then('Button Toggle is not grouped', () => {
 });
 
 When('I click on Button Toggle {int}', (index) => {
-  buttonTogglePreview().eq(index).click();
+  buttonTogglePreviewIFrame().eq(index).click();
 });
