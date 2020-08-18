@@ -1,5 +1,5 @@
 import { toastPreview, toastComponent, toastTogglePreview } from '../../locators/toast';
-import { getDataElementByValue } from '../../locators';
+import { getDataElementByValueIframe } from '../../locators';
 
 When('I click on {string} Toggle Preview', (e) => {
   toastTogglePreview(e).scrollIntoView();
@@ -23,11 +23,11 @@ Then('Toast component is not visible', () => {
 });
 
 Then('Toast component has a close icon', () => {
-  getDataElementByValue('close').should('be.visible');
+  getDataElementByValueIframe('close').should('be.visible');
 });
 
 Then('Toast component has no close icon', () => {
-  getDataElementByValue('close').should('not.exist');
+  getDataElementByValueIframe('close').should('not.exist');
 });
 
 Then('Toast has background-color {string} and border {string} color', (color) => {

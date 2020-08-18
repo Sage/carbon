@@ -1,5 +1,4 @@
 import {
-  dialogTitle,
   dialogPreview,
   closeIconButton,
   dialogSubtitle,
@@ -10,6 +9,7 @@ import {
   dialogPreviewIFrame,
   dialogSubtitleIFrame,
 } from '../../locators/confirm';
+import { getDataElementByValue } from '../../locators';
 
 Then('component subtitle on preview is {word}', (subtitle) => {
   dialogSubtitle().should('have.text', subtitle);
@@ -36,7 +36,7 @@ Then('cancel button content on preview is {word}', (cancelButtonText) => {
 });
 
 Then('dialog title context on preview is {word}', (title) => {
-  dialogTitle().should('have.text', title);
+  getDataElementByValue('title').should('have.text', title);
 });
 
 Then('Confirm dialog is visible', () => {

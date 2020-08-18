@@ -1,0 +1,34 @@
+{
+  "titleOtherLanguage": {
+    "title": "mp150ú¿¡üßä"
+  },
+  "titleSpecialCharacter": {
+    "title": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "collapsibleFalse": {
+    "title": "title",
+    "collapsible": false
+  },
+  "collapsible": {
+    "title": "title",
+    "collapsible": true
+  },
+  "filter":{
+    "filter": true
+  },
+  "filterFalse":{
+    "filter": false
+  },
+  "initiallyOpen": {
+    "initiallyOpen": true
+  },
+  "initiallyOpenFalse": {
+    "initiallyOpen": false
+  },
+  "filterPlaceholderOtherLanguage": {
+    "filterPlaceholder": "mp150ú¿¡üßä"
+  },
+  "filterPlaceholderSpecialCharacter": {
+    "filterPlaceholder": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  }
+}

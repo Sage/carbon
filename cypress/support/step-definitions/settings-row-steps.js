@@ -1,12 +1,13 @@
 import {
-  settingsRowTitle, settingsRowChildren, settingsRowDescription,
+  settingsRowChildren, settingsRowDescription,
   settingsRowPreview,
 } from '../../locators/settings-row';
+import { getDataElementByValueIframe } from '../../locators';
 
 const DIVIDER_CLASS = 'carbon-settings-row--has-divider';
 
 Then('Settings Row title on preview is set to {word}', (text) => {
-  settingsRowTitle().should('have.text', `${text}`);
+  getDataElementByValueIframe('title').should('have.text', `${text}`);
 });
 
 Then('Settings Row children on preview is set to {word}', (text) => {

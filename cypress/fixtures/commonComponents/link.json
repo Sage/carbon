@@ -1,0 +1,91 @@
+{
+  "targetBlank": {
+    "target": "_blank"
+  },
+  "targetSelf": {
+    "target": "_self"
+  },
+  "targetTop": {
+    "target": "_top"
+  },
+  "childrenOtherLanguage": {
+    "children": "mp150ú¿¡üßä"
+  },
+  "childrenSpecialCharacter": {
+    "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "disabled": {
+    "disabled": true
+  },
+  "disabledFalse": {
+    "disabled": false
+  },
+  "hrefOtherLanguage": {
+    "href": "mp150ú¿¡üßä"
+  },
+  "hrefSpecialCharacter": {
+    "href": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "iconAlignRight": {
+    "icon": "add",
+    "iconAlign": "right"
+  },
+  "iconAlignLeft": {
+    "icon": "add",
+    "iconAlign": "left"
+  },
+  "tooltipAlignLeft": {
+    "icon": "add",
+    "tooltipMessage": "sample message",
+    "tooltipAlign": "left"
+  },
+  "tooltipAlignRight": {
+    "icon": "add",
+    "tooltipMessage": "sample message",
+    "tooltipAlign": "right"
+  },
+  "tooltipAlignTop": {
+    "icon": "add",
+    "tooltipMessage": "sample message",
+    "tooltipAlign": "top"
+  },
+  "tooltipAlignBottom": {
+    "icon": "add",
+    "tooltipMessage": "sample message",
+    "tooltipAlign": "bottom"
+  },
+  "tooltipAlignCenter": {
+    "icon": "add",
+    "tooltipMessage": "sample message",
+    "tooltipAlign": "center"
+  },
+  "tooltipPositionLeft": {
+    "icon": "add",
+    "tooltipMessage": "sample message",
+    "tooltipPosition": "left"
+  },
+  "tooltipPositionBottom": {
+    "icon": "add",
+    "tooltipMessage": "sample message",
+    "tooltipPosition": "bottom"
+  },
+  "tooltipPositionRight": {
+    "icon": "add",
+    "tooltipMessage": "sample message",
+    "tooltipPosition": "right"
+  },
+  "tooltipPositionTop": {
+    "icon": "add",
+    "tooltipMessage": "sample message",
+    "tooltipPosition": "top"
+  },
+  "tabbable": {
+    "tabbable": true
+  },
+  "tabbableFlase": {
+    "tabbable": false
+  },
+  "icon": {
+    "icon": "feedback"
+  }
+}

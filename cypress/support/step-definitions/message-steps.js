@@ -1,10 +1,11 @@
 import {
-  messageTitle, messageType, messagePreview, messageChildren, messageDismissIcon,
+  messageType, messagePreview, messageChildren, messageDismissIcon,
 } from '../../locators/message';
 import { clickActionsTab, clickClear } from '../helper';
+import { getDataElementByValueIframe } from '../../locators';
 
 Then('Message title on preview is set to {word}', (text) => {
-  messageTitle().should('have.text', text);
+  getDataElementByValueIframe('title').should('have.text', text);
 });
 
 Then('Message type on preview is {string}', (type) => {
