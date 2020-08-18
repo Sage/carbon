@@ -5,20 +5,20 @@ import {
   visitComponentUrlWithParameters,
 } from '../helper';
 import {
-  commonButtonPreview, labelPreview, helpIcon, helpIconByPosition, inputWidthSlider,
+  commonButtonPreview, labelPreview, helpIconIframe, helpIconByPosition, inputWidthSlider,
   fieldHelpPreview, labelWidthSlider, backgroundUILocator,
   closeIconButtonIFrame, tooltipPreview, getKnobsInput, getKnobsInputWithName, getKnobsInputByGroup,
   iconIFrame, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
-  precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
+  precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValue,
   knobsNameTab, dlsRoot,
   commonButtonPreviewNoIFrameRoot,
-  getDataElementByValue,
+  getDataElementByValueIframe,
   commonButtonPreviewNoIframe,
   backgroundUILocatorNoIFrame,
   closeIconButton,
   fieldHelpPreviewNoIFrame,
   commonDataElementInputPreviewNoIframe,
-  helpIconNoIFrame,
+  helpIcon,
   helpIconByPositionNoIFrame,
   getElementNoIframe,
   labelByPosition,
@@ -210,7 +210,7 @@ Then('label on preview is {word}', (text) => {
 });
 
 Then('label on preview is {word} in NoIFrame', (text) => {
-  getDataElementByValueNoIframe('label').should('have.text', text);
+  getDataElementByValue('label').should('have.text', text);
 });
 
 Then('label is set to {word}', (text) => {
@@ -218,11 +218,11 @@ Then('label is set to {word}', (text) => {
 });
 
 When('I hover mouse onto help icon in noIFrame', () => {
-  helpIconNoIFrame().trigger('mouseover');
+  helpIcon().trigger('mouseover');
 });
 
 When('I hover mouse onto help icon', () => {
-  helpIcon().trigger('mouseover');
+  helpIconIframe().trigger('mouseover');
 });
 
 When('I hover mouse onto {string} help icon', (position) => {
@@ -239,11 +239,11 @@ When('I hover mouse onto icon', () => {
 });
 
 Then('I hover mouse onto {string} icon in no iFrame', (name) => {
-  getDataElementByValueNoIframe(name).trigger('mouseover');
+  getDataElementByValue(name).trigger('mouseover');
 });
 
 Then('I hover mouse onto {string} icon in iFrame', (name) => {
-  getDataElementByValue(name).trigger('mouseover');
+  getDataElementByValueIframe(name).trigger('mouseover');
 });
 
 Then('tooltipPreview on preview is set to {word} in NoIFrame', (text) => {
@@ -517,7 +517,7 @@ Then('input direction is {string}', (direction) => {
 });
 
 Then('label width on preview is {int}', (width) => {
-  getDataElementByValueNoIframe('label').parent().should('have.attr', 'width').should('contain', `${width}`);
+  getDataElementByValue('label').parent().should('have.attr', 'width').should('contain', `${width}`);
 });
 
 Then('label width on preview is {int} in IFrame', (width) => {
@@ -529,7 +529,7 @@ Then('inputWidth on preview is {int}', (width) => {
 });
 
 Then('label align on preview is set to {string}', (labelAlign) => {
-  getDataElementByValueNoIframe('label').should('have.css', TEXT_ALIGN, `${labelAlign}`);
+  getDataElementByValue('label').should('have.css', TEXT_ALIGN, `${labelAlign}`);
 });
 
 Then('label align on preview is set to {string} in IFrame', (labelAlign) => {
@@ -537,7 +537,7 @@ Then('label align on preview is set to {string} in IFrame', (labelAlign) => {
 });
 
 Then('label is inline', () => {
-  getDataElementByValueNoIframe('label').parent().should('have.css', TEXT_ALIGN, TEXT_ALIGN_START);
+  getDataElementByValue('label').parent().should('have.css', TEXT_ALIGN, TEXT_ALIGN_START);
 });
 
 Then('label is inline in IFrame', () => {
@@ -545,7 +545,7 @@ Then('label is inline in IFrame', () => {
 });
 
 Then('label width is set to {string} in NoIFrame', (width) => {
-  getDataElementByValueNoIframe('label').parent().should('have.attr', 'width', `${width}`);
+  getDataElementByValue('label').parent().should('have.attr', 'width', `${width}`);
 });
 
 Then('label Align on preview is {string}', (direction) => {
@@ -554,9 +554,9 @@ Then('label Align on preview is {string}', (direction) => {
 
 Then('label Align on preview is {string} in NoIFrame', (direction) => {
   if (direction === 'left') {
-    getDataElementByValueNoIframe('label').parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_START));
+    getDataElementByValue('label').parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_START));
   } else {
-    getDataElementByValueNoIframe('label').parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_END));
+    getDataElementByValue('label').parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_END));
   }
 });
 

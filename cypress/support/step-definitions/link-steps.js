@@ -20,7 +20,7 @@ Then('Link on preview href is set to {word}', (href) => {
   linkPreview().children().should('have.attr', 'href', `${href}`);
 });
 
-Then('icon on link componenent preview is {string}', (iconName) => {
+Then('icon on link component preview is {string}', (iconName) => {
   linkIcon().should('have.attr', 'data-element', iconName)
     .and('be.visible');
 });
@@ -40,12 +40,4 @@ Then('Link is tabbable', () => {
 
 Then('Link is not tabbable', () => {
   linkPreview().children().should('have.attr', 'tabindex', '-1');
-});
-
-Then('Link component is focused', () => {
-  cy.focused().should('have', linkPreview());
-});
-
-Then('Link component is not focused', () => {
-  cy.focused().should('not.have', linkPreview());
 });

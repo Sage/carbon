@@ -1,6 +1,5 @@
 // component preview locators
 export const DIALOG_INNER_CONTENT = '.carbon-dialog__inner-content';
-export const DIALOG_TITLE = '[data-element="title"]';
 export const DIALOG = '[data-element="dialog"]';
 export const CLOSE_ICON_BUTTON = 'button[data-element="close"]';
 export const DIALOG_SUBTITLE = '[data-element="subtitle"]';
