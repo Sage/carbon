@@ -147,8 +147,8 @@ Button.propTypes = {
   fullWidth: PropTypes.bool,
   /** Margin bottom, given number will be multiplied by base spacing unit (8) */
   mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
-  /** Margin left as a percentage, calculated from the left edge of the button content */
-  ml: PropTypes.number
+  /** Margin left, any valid CSS value */
+  ml: PropTypes.string
 };
 
 Button.defaultProps = {

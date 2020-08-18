@@ -214,9 +214,7 @@ Dashed buttons can have an icon positioned before or after the text.
 Dashed buttons can be `fullWidth`.
 <Preview>
   <Story name="dashed/full-width" parameters={{ info: { disable: true }}} >
-    <>
-      <Button buttonType="dashed" fullWidth>Full Width</Button>
-    </>
+    <Button buttonType="dashed" fullWidth>Full Width</Button>
   </Story>
 </Preview>
 
@@ -224,21 +222,11 @@ Dashed buttons can be `fullWidth`.
 Options shared between all of the above types of buttons.
 
 ### Left margin
-The `ml` prop controls the left margin of the button (from the left edge of the button content, not the left edge of the button). It is a percentage prop and works for all button sizes.
+The `ml` prop controls the left margin of the button. Any valid CSS string can be used.
 
 <Preview>
   <Story name="all types/left-margin" parameters={{ info: { disable: true }}} >
-  <>
-    <div style={{ marginBottom: '10px'}}>
-      <Button ml={10} size="small">Small</Button>
-    </div>
-    <div style={{ marginBottom: '10px'}}>
-      <Button ml={10}>Medium</Button>
-    </div>
-    <div>
-      <Button ml={10} size="large">Large</Button>
-    </div>
-  </>
+    <Button ml="10%">Left margin</Button>
   </Story>
 </Preview>
 
