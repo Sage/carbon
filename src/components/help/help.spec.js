@@ -82,11 +82,11 @@ describe('Help', () => {
     });
   });
 
-  it('calls preventDefault to prevent clicking interacting with the input', () => {
+  it('do not prevent default on anchor', () => {
     wrapper = renderHelp({}, mount);
     const preventDefault = jest.fn();
     wrapper.simulate('click', { preventDefault });
-    expect(preventDefault).toHaveBeenCalled();
+    expect(preventDefault).not.toHaveBeenCalled();
   });
 
   describe('when the Help component is focused', () => {
