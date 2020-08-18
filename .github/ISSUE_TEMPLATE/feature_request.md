@@ -10,7 +10,13 @@ assignees: ''
 ## Feature request
 
 ### Current behaviour
-<!-- A clear and concise description of what is the current behaviour.  -->
+<!--
+A clear and concise description of what is the current behaviour.
+
+If applicable, add screenshots of a codesandbox to help explain your request. You can paste these directly into GitHub.
+
+Please DO NOT share screenshots or the source code of your project.
+-->
 
 ### Desired behaviour
 <!-- A clear and concise description of what you want to happen.  -->
