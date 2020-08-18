@@ -8,7 +8,7 @@ Feature: Alert component actions
   Scenario: Clicking close icon, closes Alert dialog
     When I open component preview
     Then closeIcon is visible
-      And I click closeIcon
+      And I click closeIcon in IFrame
       And Alert is not visible
 
   @positive
@@ -28,5 +28,5 @@ Scenario: Check open click event
 Scenario: Check cancel click event
   Given clear all actions in Actions Tab
     And I open component preview
-  When I click closeIcon
+  When I click closeIcon in IFrame
   Then cancel action was called in Actions Tab

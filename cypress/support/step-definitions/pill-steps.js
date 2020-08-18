@@ -1,4 +1,4 @@
-import { pillPreview, pillCloseIcon } from '../../locators/pill';
+import { pillPreview, pillCloseIcon, pillCloseIconIframe } from '../../locators/pill';
 
 const PILL_ON_DELETE_PROPERTY = 'carbon-pill--is-deletable';
 const BORDER_SOLID_VALUE = '1px solid ';
@@ -36,8 +36,8 @@ Then('Pill component has no onDelete property', () => {
   pillCloseIcon().should('not.exist');
 });
 
-When('I click cross icon', () => {
-  pillCloseIcon().click();
+When('I click cross icon in Iframe', () => {
+  pillCloseIconIframe().click();
 });
 
 Then('Pill height is {string}', (height) => {
