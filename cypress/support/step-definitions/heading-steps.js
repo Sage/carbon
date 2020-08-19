@@ -1,7 +1,7 @@
 import {
-  headingPreview, titlePreview, subheaderPreview, separatorPreview,
+  headingPreview, subheaderPreview, separatorPreview,
 } from '../../locators/heading';
-import { helpIcon, link } from '../../locators';
+import { helpIconIframe, link, getDataElementByValueIframe } from '../../locators';
 
 const DIVIDER = 'carbon-heading--has-divider';
 
@@ -10,7 +10,7 @@ Then('heading children on preview is {word}', (children) => {
 });
 
 Then('heading title is set to {word}', (title) => {
-  titlePreview().should('have.text', title);
+  getDataElementByValueIframe('title').should('have.text', title);
 });
 
 Then('subheader on preview is {word}', (subheader) => {
@@ -18,7 +18,7 @@ Then('subheader on preview is {word}', (subheader) => {
 });
 
 Then('link on preview is {word}', (helpLink) => {
-  helpIcon().should('have.attr', 'href', helpLink);
+  helpIconIframe().should('have.attr', 'href', helpLink);
 });
 
 Then('backLink on preview is {word}', (backLink) => {

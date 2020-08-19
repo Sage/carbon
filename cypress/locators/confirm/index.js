@@ -1,7 +1,6 @@
 import { CLOSE_ICON_BUTTON } from '../locators';
 import {
   DIALOG_INNER_CONTENT,
-  DIALOG_TITLE,
   DIALOG,
   CANCEL_BUTTON,
   CONFIRM_BUTTON,
@@ -10,7 +9,6 @@ import {
 
 // component preview locators
 export const dialogInnerContent = () => cy.get(DIALOG_INNER_CONTENT);
-export const dialogTitle = () => cy.get(DIALOG_TITLE);
 export const dialogPreview = () => cy.get(DIALOG);
 export const closeIconButton = () => cy.get(CLOSE_ICON_BUTTON);
 export const dialogSubtitle = () => cy.get(DIALOG_SUBTITLE);

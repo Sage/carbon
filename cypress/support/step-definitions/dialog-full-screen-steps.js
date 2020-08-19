@@ -1,5 +1,5 @@
 import { dialogFullScreenChildren, dialogFullScreenPreview, dialogFullScreenPreviewClosedState } from '../../locators/dialog-full-screen';
-import { dialogStickyFormFooter } from '../../locators/dialog';
+import { dialogStickyFormFooterIFrame } from '../../locators/dialog';
 
 Then('Dialog Full Screen children on preview is {word}', (children) => {
   dialogFullScreenChildren().should('have.text', children);
@@ -14,6 +14,6 @@ Then('Dialog Full Screen is not visible', () => {
 });
 
 Then('Dialog Full Screen stickyFormFooter is visible', () => {
-  dialogStickyFormFooter().should('exist')
+  dialogStickyFormFooterIFrame().should('exist')
     .and('be.visible');
 });

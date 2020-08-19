@@ -7,7 +7,7 @@ Feature: Dialog Full Screen component
   @positive
   Scenario: CloseIcon has the border outline
     When I open component preview
-    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
+    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px" in IFrame
 
   @positive
   Scenario: Clicking close icon closes Dialog Full Screen
@@ -84,5 +84,5 @@ Feature: Dialog Full Screen component
   Scenario: Cancel event
     Given clear all actions in Actions Tab
       And I open component preview
-    When I click closeIcon
+    When I click closeIcon in IFrame
     Then cancel action was called in Actions Tab

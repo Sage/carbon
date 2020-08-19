@@ -1,46 +1,41 @@
 Feature: Loader default component
-  I want to change Loader component properties
-
-  Background: Open Loader default component page
-    Given I open "Loader" component page
+  I want to test Loader component properties
 
   @positive
   Scenario Outline: I set Loader component size to <size>
-    When I select size to "<size>"
-    Then Loader width is set to 1061 px and height is set to <height> px
+    When I open default "Loader" component in noIFrame with "loader" json from "commonComponents" using "<nameOfObject>" object name
+    Then Loader width is set to 1281 px and height is set to <height> px
     Examples:
-      | size  | height |
-      | small | 17     |
-      | large | 19     |
+      | size  | height | nameOfObject |
+      | small | 17     | sizeSmall    |
+      | large | 19     | sizeLarge    |
 
   @positive
   Scenario Outline: Verify size of button with loader
-    Given I check isInsideButton checkbox
-    When I select size to "<size>"
+    When I open default "Loader" component in noIFrame with "loader" json from "commonComponents" using "<nameOfObject>" object name
     Then button with loader width is set to <width> px and height is set to 40 px
     Examples:
-      | size  | width |
-      | small | 88    |
-      | large | 120   |
+      | size  | width | nameOfObject        |
+      | small | 88    | isInsideButtonSmall |
+      | large | 120   | isInsideButtonLarge |
 
   @positive
   Scenario: Loader isInsideButton
-    When I check isInsideButton checkbox
+    When I open default "Loader" component in noIFrame with "loader" json from "commonComponents" using "isInsideButton" object name
     Then Loader isInsideButton and backgroundColor is "rgb(0, 129, 93)"
 
   @positive
   Scenario: Disabled loader button
-    Given I check isInsideButton checkbox
-    When I uncheck isActive checkbox
+    When I open default "Loader" component in noIFrame with "loader" json from "commonComponents" using "isActiveFalse" object name
     Then Loader button is disabled
 
   @positive
   Scenario: Enabled loader button
-    When I check isInsideButton checkbox
+    When I open default "Loader" component in noIFrame with "loader" json from "commonComponents" using "isActive" object name
     Then Loader button is enabled
 
   @positive
   Scenario: Verify border outline color on focus
-    Given I check isInsideButton checkbox
+    Given I open default "Loader" component in noIFrame with "loader" json from "commonComponents" using "default" object name
     When I focus loader button
     Then loader button has golden border outline

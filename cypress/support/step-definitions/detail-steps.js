@@ -1,5 +1,10 @@
-import { childrenPreview, footnotePreview, iconSelect } from '../../locators/detail';
-import { icon } from '../../locators';
+import {
+  childrenPreview,
+  footnotePreview
+} from '../../locators/detail';
+import {
+  icon
+} from '../../locators';
 
 Then('detail children on preview is {word}', (children) => {
   childrenPreview().should('have.text', children);
@@ -7,10 +12,6 @@ Then('detail children on preview is {word}', (children) => {
 
 Then('detail footnote on preview is {word}', (footnote) => {
   footnotePreview().should('have.text', footnote);
-});
-
-When('I set detail icon to {string}', (iconName) => {
-  iconSelect().select(iconName);
 });
 
 Then('icon not exists on preview', () => {

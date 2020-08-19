@@ -4,7 +4,7 @@ Feature: Alert component
   @positive
   Scenario: CloseIcon has the border outline
     When I open default "Alert" component in noIFrame with "alert" json from "commonComponents" using "open" object name
-    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px" in NoIFrame
+    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
 
   @positive
   Scenario Outline: Change Alert component title to <title>
