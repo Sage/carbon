@@ -25,7 +25,7 @@ function makeStory(name, themeSelector, disableChromatic = false) {
       OptionsHelper.alignAroundEdges,
       Help.defaultProps.tooltipAlign
     ) : undefined;
-    const href = text('href', '');
+    const href = text('href', 'http://www.sage.com');
     const type = select('type', OptionsHelper.icons, 'help');
 
     return (
