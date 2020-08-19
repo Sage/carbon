@@ -4,8 +4,8 @@ Feature: Help component
   @positive
   Scenario Outline: Change children to <children>
     When I open default "Help" component in noIFrame with "help" json from "commonComponents" using "<nameOfObject>" object name
-      And I hover mouse onto help icon in noIFrame
-    Then tooltipPreview on preview is set to <children> in NoIFrame
+      And I hover mouse onto help icon
+    Then tooltipPreview on preview is set to <children>
     Examples:
       | children                     | nameOfObject             |
       | mp150ú¿¡üßä                  | childrenOtherLanguage    |
@@ -14,7 +14,7 @@ Feature: Help component
   @positive
   Scenario Outline: Change tooltip position to <tooltipPosition>
     When I open default "Help" component in noIFrame with "help" json from "commonComponents" using "<nameOfObject>" object name
-      And I hover mouse onto help icon in noIFrame
+      And I hover mouse onto help icon
     Then tooltipPosition is set to "<tooltipPosition>"
     Examples:
       | tooltipPosition | nameOfObject          |
@@ -26,7 +26,7 @@ Feature: Help component
   @positive
   Scenario Outline: Change tooltip align to <tooltipAlign>
     When I open default "Help" component in noIFrame with "help" json from "commonComponents" using "<nameOfObject>" object name
-      And I hover mouse onto help icon in noIFrame
+      And I hover mouse onto help icon
     Then tooltipAlign is set to "<tooltipAlign>"
     Examples:
       | tooltipAlign | nameOfObject       |

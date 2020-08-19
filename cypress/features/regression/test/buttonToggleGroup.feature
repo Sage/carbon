@@ -18,8 +18,8 @@ Feature: Button Toggle Group component
   @positive
   Scenario Outline: Change Button Toggle Group component label help to <labelHelp>
     When I set labelHelp to <labelHelp> word
-      And I hover mouse onto help icon
-    Then tooltipPreview on preview is set to <labelHelp>
+      And I hover mouse onto help icon in IFrame
+    Then tooltipPreview on preview is set to <labelHelp> in IFrame
     Examples:
       | labelHelp               |
       | mp150ú¿¡üßä             |

@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { text, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
+import { dlsThemeSelector } from '../../../.storybook/theme-selectors';
 import { notes, info } from './documentation';
 import DialogFullScreen from '.';
 import Button from '../button';

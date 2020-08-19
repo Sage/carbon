@@ -32,7 +32,7 @@ Feature: Heading component
   Scenario Outline: Change help to <help>
     Given I open default "Heading" component in noIFrame with "heading" json from "commonComponents" using "<nameOfObject>" object name
     When I hover mouse onto help icon
-    Then tooltipPreview on preview in noIframe is set to <help>
+    Then tooltipPreview on preview is set to <help>
     Examples:
       | help                         | nameOfObject         |
       | mp150ú¿¡üßä                  | helpOtherLanguage    |

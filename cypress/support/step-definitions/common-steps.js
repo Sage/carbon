@@ -7,9 +7,9 @@ import {
 import {
   commonButtonPreview, labelPreview, helpIconByPosition, inputWidthSlider,
   fieldHelpPreview, labelWidthSlider, backgroundUILocator,
-  closeIconButtonIFrame, tooltipPreview, getKnobsInput, getKnobsInputWithName, getKnobsInputByGroup,
+  closeIconButtonIFrame, tooltipPreviewIFrame, getKnobsInput, getKnobsInputWithName, getKnobsInputByGroup,
   iconIFrame, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
-  precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValue,
+  precisionSlider, storyRootNoIframe, tooltipPreview, getDataElementByValue,
   knobsNameTab, dlsRoot,
   commonButtonPreviewNoIFrameRoot,
   getDataElementByValueIframe,
@@ -17,10 +17,11 @@ import {
   closeIconButton,
   fieldHelpPreviewNoIFrame,
   commonDataElementInputPreviewNoIframe,
-  helpIcon,
+  helpIconIframe,
   helpIconByPositionNoIFrame,
   getElementNoIframe,
   labelByPosition,
+  helpIcon,
 } from '../../locators';
 import { dialogTitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
@@ -212,8 +213,12 @@ Then('label is set to {word}', (text) => {
   label().should('have.text', text);
 });
 
-When('I hover mouse onto help icon', () => {
+When('I hover mouse onto help icon in IFrame', () => {
   helpIconIframe().trigger('mouseover');
+});
+
+When('I hover mouse onto help icon', () => {
+  helpIcon().trigger('mouseover');
 });
 
 When('I hover mouse onto {string} help icon', (position) => {
@@ -237,16 +242,12 @@ Then('I hover mouse onto {string} icon in iFrame', (name) => {
   getDataElementByValueIframe(name).trigger('mouseover');
 });
 
-Then('tooltipPreview on preview is set to {word} in NoIFrame', (text) => {
-  tooltipPreviewNoIframe().should('have.text', text);
-});
-
 Then('tooltipPreview on preview is set to {word}', (text) => {
   tooltipPreview().should('have.text', text);
 });
 
-Then('tooltipPreview on preview in noIframe is set to {word}', (text) => {
-  tooltipPreviewNoIframe().should('have.text', text);
+Then('tooltipPreview on preview is set to {word} in IFrame', (text) => {
+  tooltipPreviewIFrame().should('have.text', text);
 });
 
 When('I set inputWidth slider to {int}', (width) => {
