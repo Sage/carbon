@@ -9,7 +9,7 @@ Feature: Alert component
   @positive
   Scenario Outline: Change Alert component title to <title>
     Given I open default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
-    Then component title on preview is <title> in NoIFrame
+    Then component title on preview is <title>
     Examples:
       | title                   | nameOfObject              |
       | mp150ú¿¡üßä             | openTitleOtherLanguage    |
@@ -36,12 +36,12 @@ Feature: Alert component
   @positive
   Scenario: Enable background UI
     When I open default "Alert" component in noIFrame with "alert" json from "commonComponents" using "openEnableBackgroundUI" object name
-    Then Background UI is enabled in NoIFrame
+    Then Background UI is enabled
 
   @negative
   Scenario: Disable background UI
     When I open default "Alert" component in noIFrame with "alert" json from "commonComponents" using "openEnableBackgroundUIFalse" object name
-    Then Background UI is disabled in NoIFrame
+    Then Background UI is disabled
 
   @positive
   Scenario: Disable escape key

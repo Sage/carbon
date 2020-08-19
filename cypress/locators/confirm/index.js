@@ -17,6 +17,5 @@ export const cancelButton = () => cy.get(CANCEL_BUTTON);
 
 // component preview locators in IFrame
 export const dialogPreviewIFrame = () => cy.iFrame(DIALOG);
-export const dialogSubtitleIFrame = () => cy.iFrame(DIALOG_SUBTITLE);
 export const confirmButtonIFrame = () => cy.iFrame(CONFIRM_BUTTON);
 export const cancelButtonIFrame = () => cy.iFrame(CANCEL_BUTTON);

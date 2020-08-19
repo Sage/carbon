@@ -14,7 +14,6 @@ import {
   commonButtonPreviewNoIFrameRoot,
   getDataElementByValueIframe,
   commonButtonPreviewNoIframe,
-  backgroundUILocatorNoIFrame,
   closeIconButton,
   fieldHelpPreviewNoIFrame,
   commonDataElementInputPreviewNoIframe,
@@ -23,7 +22,7 @@ import {
   getElementNoIframe,
   labelByPosition,
 } from '../../locators';
-import { dialogTitle, dialogTitleNoIFrame } from '../../locators/dialog';
+import { dialogTitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
 import { pagerSummary } from '../../locators/pager';
 
@@ -201,10 +200,6 @@ Then('component title on preview is {word}', (title) => {
   dialogTitle().should('have.text', title);
 });
 
-Then('component title on preview is {word} in NoIFrame', (title) => {
-  dialogTitleNoIFrame().should('have.text', title);
-});
-
 Then('label on preview is {word}', (text) => {
   labelPreview().should('have.text', text);
 });
@@ -310,20 +305,8 @@ Then('Background UI is disabled', () => {
   backgroundUILocator().should('exist');
 });
 
-Then('Background UI is enabled in NoIFrame', () => {
-  backgroundUILocatorNoIFrame().should('not.exist');
-});
-
-Then('Background UI is disabled in NoIFrame', () => {
-  backgroundUILocatorNoIFrame().should('exist');
-});
-
 Then('closeIcon is visible', () => {
   closeIconButtonIFrame().should('be.visible');
-});
-
-Then('closeIcon is visible', () => {
-  closeIconButton().should('be.visible');
 });
 
 Then('I click closeIcon in IFrame', () => {

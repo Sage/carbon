@@ -17,26 +17,26 @@ Feature: Confirm component - in iFrame
       And I uncheck disableEscKey checkbox
       And I open component preview
       And I hit ESC key
-    Then Confirm dialog is not visible
+    Then Confirm dialog is not visible in iFrame
 
   @positive
   Scenario: Close icon enabled
     When I check showCloseIcon checkbox
       And I open component preview
-      And I click close icon
-    Then Confirm dialog is not visible
+      And I click close icon in IFrame
+    Then Confirm dialog is not visible in iFrame
 
   @positive
   Scenario: Confirm dialog should dissapear after click onto cancelButton
     When I open component preview
       And I click on a cancelButton
-    Then Confirm dialog is not visible
+    Then Confirm dialog is not visible in iFrame
 
   @positive
   Scenario: Confirm dialog should dissapear after click onto confirmButton
     When I open component preview
       And I click on a confirmButton
-    Then Confirm dialog is not visible
+    Then Confirm dialog is not visible in iFrame
 
   @positive
   Scenario: Verify the open action for Confirm dialog

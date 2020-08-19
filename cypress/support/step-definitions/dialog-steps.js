@@ -1,5 +1,5 @@
 import { 
-  alertDialogPreviewNoIFrame as dialogPreview,
+  alertDialogPreview as dialogPreview,
   dialogStickyFormFooterButton,
   dialogStickyFormFooter
 } from '../../locators/dialog/index';
@@ -14,7 +14,7 @@ import {
 } from '../helper';
 import { dialogPreviewIFrame } from '../../locators/confirm';
 
-When('I click close icon', () => {
+When('I click close icon in IFrame', () => {
   closeIconButtonIFrame().click();
 });
 
