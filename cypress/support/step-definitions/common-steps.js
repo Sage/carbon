@@ -5,7 +5,7 @@ import {
   visitComponentUrlWithParameters,
 } from '../helper';
 import {
-  commonButtonPreview, labelPreview, helpIconIframe, helpIconByPosition, inputWidthSlider,
+  commonButtonPreview, labelPreview, helpIconByPosition, inputWidthSlider,
   fieldHelpPreview, labelWidthSlider, backgroundUILocator,
   closeIconButtonIFrame, tooltipPreview, getKnobsInput, getKnobsInputWithName, getKnobsInputByGroup,
   iconIFrame, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
@@ -210,10 +210,6 @@ Then('label on preview is {word} in NoIFrame', (text) => {
 
 Then('label is set to {word}', (text) => {
   label().should('have.text', text);
-});
-
-When('I hover mouse onto help icon in noIFrame', () => {
-  helpIcon().trigger('mouseover');
 });
 
 When('I hover mouse onto help icon', () => {
