@@ -81,8 +81,8 @@ Feature: Experimental GroupedCharacter component
   @positive
   Scenario Outline: Change labelHelp text to <labelHelp>
     Given I open default "Experimental GroupedCharacter" component in noIFrame with "groupedCharacter" json from "experimental" using "<nameOfObject>" object name
-    When I hover mouse onto help icon in noIFrame
-    Then tooltipPreview on preview in noIframe is set to <labelHelp>
+    When I hover mouse onto help icon
+    Then tooltipPreview on preview is set to <labelHelp>
     Examples:
       | labelHelp                    | nameOfObject              |
       | mp150ú¿¡üßä                  | labelHelpOtherLanguage    |

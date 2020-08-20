@@ -1,11 +1,11 @@
 import { 
-  alertDialogPreviewNoIFrame as dialogPreview,
+  alertDialogPreview as dialogPreview,
   dialogStickyFormFooterButton,
   dialogStickyFormFooter
 } from '../../locators/dialog/index';
 import {
   closeIconButtonIFrame,
-  backgroundUILocator,
+  backgroundUILocatorIFrame,
   storyRoot,
   closeIconButton
 } from '../../locators/index';
@@ -14,7 +14,7 @@ import {
 } from '../helper';
 import { dialogPreviewIFrame } from '../../locators/confirm';
 
-When('I click close icon', () => {
+When('I click close icon in IFrame', () => {
   closeIconButtonIFrame().click();
 });
 
@@ -59,7 +59,7 @@ When('I click on {string} outside dialog', (position) => {
 });
 
 When('I click on background {string} outside dialog', (position) => {
-  backgroundUILocator().click(position, { force: true });
+  backgroundUILocatorIFrame().click(position, { force: true });
 });
 
 Then('footer buttons have color {string} and has {int} px border', (color, px) => {
