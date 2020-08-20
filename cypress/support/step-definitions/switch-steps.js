@@ -1,51 +1,48 @@
 import {
-  switchPreview, switchProperties, switchInput, switchDataComponent,
+  switchLoading, switchInput, switchInputByPosition,
 } from '../../locators/switch';
-import { label } from '../../locators';
+import { getDataElementByValue } from '../../locators';
 import { positionOfElement } from '../helper';
 
-const COMMON_INPUT = 'common-input';
-
-Then('Switch component is set to fieldHelpInline', () => {
-  switchProperties().should('have.class', 'carbon-checkbox__help-text--inline');
+Then('Switch is disabled', () => {
+  getDataElementByValue('label').should('have.attr', 'disabled');
+  switchInput().should('be.disabled')
+    .and('have.attr', 'disabled');
 });
 
-Then('Switch component is not set to fieldHelpInline', () => {
-  switchProperties().should('not.have.class', 'carbon-checkbox__help-text--inline');
+Then('Switch is enabled', () => {
+  getDataElementByValue('label').should('not.be.disabled')
+    .and('not.have.attr', 'disabled');
+  switchInput().should('not.be.disabled')
+    .and('not.have.attr', 'disabled');
 });
 
-Then('Switch component is set to labelInline', () => {
-  label().should('have.class', `${COMMON_INPUT}__label--inline`);
-});
-
-Then('Switch component is not set to labelInline', () => {
-  label().should('not.have.class', `${COMMON_INPUT}__label--inline`);
-});
-
-Then('Switch component is reversed', () => {
-  switchPreview().should('have.class', 'carbon-switch__reverse');
-});
-
-Then('Switch component is not reversed', () => {
-  switchPreview().should('not.have.class', 'carbon-switch__reverse');
+Then('Switch is set to {string}', (size) => {
+  if (size === 'small') {
+    switchInput().should('have.css', 'width', '60px')
+      .and('have.css', 'height', '24px');
+  } else if (size === 'large') {
+    switchInput().should('have.css', 'width', '78px')
+      .and('have.css', 'height', '40px');
+  } else {
+    throw new Error('Only small or large size can be applied');
+  }
 });
 
 Then('Switch component is loading', () => {
-  switchPreview().should('have.class', `${COMMON_INPUT}--readonly`)
-    .and('have.class', `${COMMON_INPUT}--disabled`);
-  switchInput().should('have.attr', 'disabled')
-    .and('have.attr', 'readonly');
+  switchInput().should('have.attr', 'disabled');
+  switchLoading().should('have.attr', 'data-component', 'loader');
 });
 
 Then('Switch component is not loading', () => {
-  switchPreview().should('not.have.class', `${COMMON_INPUT}--readonly`)
-    .and('not.have.class', `${COMMON_INPUT}--disabled`);
-  switchInput().should('not.have.attr', 'disabled')
-    .and('not.have.attr', 'readonly');
+  switchInput().should('not.have.attr', 'disabled');
+  switchLoading().should('not.have.attr', 'data-component', 'loader');
 });
 
-Then('I toggle {string} switch {int} times', (position, times) => {
-  for (let i = 0; i < times; i++) {
-    switchDataComponent(positionOfElement(position), times).click();
-  }
+Then('Switch component is reversed', () => {
+  switchInputByPosition(positionOfElement('second')).should('have.attr', 'name', 'switch-default');
+});
+
+Then('Switch component is not reversed', () => {
+  switchInputByPosition(positionOfElement('first')).should('have.attr', 'name', 'switch-default');
 });

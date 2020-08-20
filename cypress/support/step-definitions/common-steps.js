@@ -270,6 +270,17 @@ Then('fieldHelp on preview is set to {word} in NoIFrame', (text) => {
   fieldHelpPreviewNoIFrame().should('have.text', text);
 });
 
+Then('{word} is set to fieldHelpInline and has marginLeft set to {string}', (componentName, marginLeft) => {
+  fieldHelpPreviewNoIFrame().should('have.css', 'margin-left', marginLeft)
+    .and('have.css', 'margin-top', '0px')
+    .and('have.css', 'padding-left', '0px');
+});
+
+Then('{word} is not set to fieldHelpInline and has marginTop set to {string}', (componentName, marginTop) => {
+  fieldHelpPreviewNoIFrame().should('have.css', 'margin-left', '0px')
+    .and('have.css', 'margin-top', marginTop);
+});
+
 Then('{string} fieldHelp on preview is set to {word}', (position, text) => {
   fieldHelpPreviewNoIFrame(positionOfElement(position)).should('have.text', text);
 });
@@ -538,6 +549,10 @@ Then('label align on preview is set to {string} in IFrame', (labelAlign) => {
 
 Then('label is inline', () => {
   getDataElementByValue('label').parent().should('have.css', TEXT_ALIGN, TEXT_ALIGN_START);
+});
+
+Then('label is not inline', () => {
+  getDataElementByValue('label').parent().should('not.have.css', TEXT_ALIGN, TEXT_ALIGN_START);
 });
 
 Then('label is inline in IFrame', () => {
