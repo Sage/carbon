@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import propTypes from '@styled-system/prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import CheckboxStyle from './checkbox.style';
 import CheckableInput from '../checkable-input/checkable-input.component';
@@ -14,6 +15,7 @@ const Checkbox = ({
   fieldHelp,
   autoFocus,
   labelHelp,
+  pt = 1,
   ...props
 }) => {
   const inputProps = {
@@ -35,6 +37,7 @@ const Checkbox = ({
     <CheckboxStyle
       { ...tagComponent('checkbox', props) }
       { ...props }
+      pt={ pt }
     >
       <CheckableInput { ...inputProps }>
         <CheckboxSvg />
@@ -44,6 +47,7 @@ const Checkbox = ({
 };
 
 Checkbox.propTypes = {
+  ...propTypes.space,
   /** Set the value of the checkbox */
   checked: PropTypes.bool,
   /** Toggles disabling of input */
