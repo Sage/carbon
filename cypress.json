@@ -1,6 +1,6 @@
 {
   "baseUrl": "http://127.0.0.1:9001/",
-  "blacklistHosts": [
+  "blockHosts": [
     "www.google-analytics.com",
     "sockjs*",
     "countries*"
@@ -19,5 +19,9 @@
   "viewportWidth": 1366,
   "viewportHeight": 768,
   "chromeWebSecurity": false,
-  "projectId": "8458bb"
+  "projectId": "8458bb",
+  "retries": {
+    "runMode": 1,
+    "openMode": 1
+  }
 }
