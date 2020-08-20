@@ -1,5 +1,4 @@
-import { tile, pixelWidthSlider, widthSlider } from '../../locators/tile';
-import { setSlidebar } from '../helper';
+import { tile } from '../../locators/tile';
 
 Then('Tile component as property is set to {string}', (value) => {
   tile().should('have.css', 'background-color', value);
@@ -13,18 +12,10 @@ Then('Tile component padding property is set to {string}', (value) => {
   tile().should('have.css', 'padding', `${value}px`);
 });
 
-Then('Tile width is set to {string}', (width) => {
+Then('Tile width is set to {int}', (width) => {
   tile().should('have.attr', 'width', width);
 });
 
-Then('Tile pixel width is set to {string}', (width) => {
+Then('Tile pixel width is set to {int}', (width) => {
   tile().should('have.css', 'width', `${width}px`);
-});
-
-When('I set pixelWidth slider to {int}', (width) => {
-  setSlidebar(pixelWidthSlider(), width);
-});
-
-When('I set width slider to {int}', (width) => {
-  setSlidebar(widthSlider(), width);
 });
