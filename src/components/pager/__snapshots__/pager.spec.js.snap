@@ -469,6 +469,7 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
                 autoComplete="off"
                 className="c9 c10"
                 data-element="input"
+                id="page-select"
                 onBlur={[Function]}
                 onChange={[Function]}
                 onClick={[Function]}
