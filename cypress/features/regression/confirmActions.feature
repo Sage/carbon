@@ -23,8 +23,8 @@ Feature: Confirm component - in iFrame
   Scenario: Close icon enabled
     When I check showCloseIcon checkbox
       And I open component preview
-      And I click close icon in IFrame
-    Then Confirm dialog is not visible in iFrame
+      And I click closeIcon in IFrame
+    Then Confirm dialog is not visible
 
   @positive
   Scenario: Confirm dialog should dissapear after click onto cancelButton

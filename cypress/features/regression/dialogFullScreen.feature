@@ -8,8 +8,10 @@ Feature: Dialog Full Screen component
 
   @positive
   Scenario: Clicking close icon closes Dialog Full Screen
-    Given I open default "Dialog Full Screen" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "showCloseIcon" object name
-    When I click close icon
+    Given I open "Dialog Full Screen" component page with button
+      And I check showCloseIcon checkbox
+      And I open component preview
+    When I click closeIcon in IFrame
     Then Confirm dialog is not visible
 
   @positive

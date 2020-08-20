@@ -1,26 +1,16 @@
-import { 
+import {
   alertDialogPreview as dialogPreview,
   dialogStickyFormFooterButton,
-  dialogStickyFormFooter
+  dialogStickyFormFooter,
 } from '../../locators/dialog/index';
 import {
-  closeIconButtonIFrame,
   backgroundUILocatorIFrame,
   storyRoot,
-  closeIconButton
 } from '../../locators/index';
 import {
-  positionOfElement
+  positionOfElement,
 } from '../helper';
 import { dialogPreviewIFrame } from '../../locators/confirm';
-
-When('I click close icon in IFrame', () => {
-  closeIconButtonIFrame().click();
-});
-
-When('I click close icon', () => {
-  closeIconButton().click();
-});
 
 Then('Dialog height is set to {int}', (height) => {
   dialogPreview().should('have.attr', 'style').should('contain', `min-height: ${height}px`);

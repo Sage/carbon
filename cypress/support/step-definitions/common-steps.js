@@ -7,7 +7,8 @@ import {
 import {
   commonButtonPreview, labelPreview, helpIconByPosition, inputWidthSlider,
   fieldHelpPreview, labelWidthSlider, backgroundUILocator,
-  closeIconButtonIFrame, tooltipPreviewIFrame, getKnobsInput, getKnobsInputWithName, getKnobsInputByGroup,
+  closeIconButtonIFrame, tooltipPreviewIFrame, getKnobsInput, getKnobsInputWithName,
+  getKnobsInputByGroup,
   iconIFrame, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
   precisionSlider, storyRootNoIframe, tooltipPreview, getDataElementByValue,
   knobsNameTab, dlsRoot,
@@ -557,4 +558,8 @@ Then('label Align on preview is {string} in NoIFrame', (direction) => {
 
 Then('icon name in noIframe on preview is {string}', (iconName) => {
   getElementNoIframe(iconName);
+});
+
+When('I click {string} icon in iFrame', (iconName) => {
+  getDataElementByValueIframe(iconName).click();
 });

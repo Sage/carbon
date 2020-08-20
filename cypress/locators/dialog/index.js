@@ -1,7 +1,7 @@
 import {
   ALERT_DIALOG,
   STICKY_FORM_FOOTER_ELEMENT,
-  DIALOG_TITLE, 
+  DIALOG_TITLE,
 } from './locators';
 
 // component preview locators
