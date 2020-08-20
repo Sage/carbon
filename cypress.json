@@ -6,10 +6,7 @@
     "countries*"
   ],
   "env": {
-    "TAGS": "not @ignore",
-    "RETRIES": 1,
-    "RETRIES_HIDDEN": 1,
-    "RETRIES_NO_LOG": 1
+    "TAGS": "not @ignore"
   },
   "failOnStatusCode": false,
   "ignoreTestFiles": [
