@@ -99,12 +99,6 @@ describe('Sidebar', () => {
       expect(spy).toHaveBeenCalled();
     });
 
-    it('closes when close icon is focused and ESC key is pressed', () => {
-      const icon = wrapper.find(IconButton).first();
-      icon.simulate('keyDown', { which: 27, key: 'Escape' });
-      expect(spy).toHaveBeenCalled();
-    });
-
     it('does not close when close icon is focused any other key is pressed', () => {
       const icon = wrapper.find(IconButton).first();
       icon.simulate('keyDown', { which: 65, key: 'a' });
