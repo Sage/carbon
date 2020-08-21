@@ -5,7 +5,7 @@ Feature: Help component
   Scenario Outline: Change children to <children>
     When I open default "Help" component in noIFrame with "help" json from "commonComponents" using "<nameOfObject>" object name
       And I hover mouse onto help icon
-    Then tooltipPreview on preview is set to <children> in NoIFrame
+    Then tooltipPreview on preview is set to <children>
     Examples:
       | children                     | nameOfObject             |
       | mp150ú¿¡üßä                  | childrenOtherLanguage    |

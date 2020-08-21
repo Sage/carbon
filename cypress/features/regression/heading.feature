@@ -1,82 +1,77 @@
 Feature: Heading component
-  I want to change Heading component properties
-
-  Background: Open Heading component page
-    Given I open "Heading" component page
+  I want to test Heading component properties
 
   @positive
   Scenario Outline: Change heading title to <title>
-    When I set title to <title> word
+    When I open default "Heading" component in noIFrame with "heading" json from "commonComponents" using "<nameOfObject>" object name
     Then heading title is set to <title>
     Examples:
-      | title                        |
-      | mp150ú¿¡üßä                  |
-      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
+      | title                        | nameOfObject          |
+      | mp150ú¿¡üßä                  | titleOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | titleSpecialCharacter |
 
   @positive
   Scenario Outline: Change children to <children>
-    When I set children to <children> word
+    When I open default "Heading" component in noIFrame with "heading" json from "commonComponents" using "<nameOfObject>" object name
     Then heading children on preview is <children>
     Examples:
-      | children                     |
-      | mp150ú¿¡üßä                  |
-      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
+      | children                     | nameOfObject             |
+      | mp150ú¿¡üßä                  | childrenOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | childrenSpecialCharacter |
 
   @positive
   Scenario Outline: Change subheader to <subheader>
-    When I set subheader to <subheader> word
+    When I open default "Heading" component in noIFrame with "heading" json from "commonComponents" using "<nameOfObject>" object name
     Then subheader on preview is <subheader>
     Examples:
-      | subheader                    |
-      | mp150ú¿¡üßä                  |
-      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
+      | subheader                    | nameOfObject              |
+      | mp150ú¿¡üßä                  | subheaderOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | subheaderSpecialCharacter |
 
   @positive
   Scenario Outline: Change help to <help>
-    When I set help to <help> word
-      And I hover mouse onto help icon in Iframe
+    Given I open default "Heading" component in noIFrame with "heading" json from "commonComponents" using "<nameOfObject>" object name
+    When I hover mouse onto help icon
     Then tooltipPreview on preview is set to <help>
     Examples:
-      | help                         |
-      | mp150ú¿¡üßä                  |
-      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
+      | help                         | nameOfObject         |
+      | mp150ú¿¡üßä                  | helpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | helpSpecialCharacter |
 
   @positive
   Scenario Outline: Change helpLink to <helpLink>
-    When I set helpLink to <helpLink> word
+    Given I open default "Heading" component in noIFrame with "heading" json from "commonComponents" using "<nameOfObject>" object name
     Then link on preview is <helpLink>
     Examples:
-      | helpLink                     |
-      | mp150ú¿¡üßä                  |
-      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
+      | helpLink                     | nameOfObject             |
+      | mp150ú¿¡üßä                  | helpLinkOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | helpLinkSpecialCharacter |
 
   @positive
   Scenario Outline: Change backLink to <backLink>
-    When I set backLink to <backLink> word
+    Given I open default "Heading" component in noIFrame with "heading" json from "commonComponents" using "<nameOfObject>" object name
     Then backLink on preview is <backLink>
     Examples:
-      | backLink                     |
-      | mp150ú¿¡üßä                  |
-      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
+      | backLink                     | nameOfObject             |
+      | mp150ú¿¡üßä                  | backLinkOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | backLinkSpecialCharacter |
 
   @positive
   Scenario: Check divider
-    Given I uncheck divider checkbox
-    When I check divider checkbox
+    When I open default "Heading" component in noIFrame with "heading" json from "commonComponents" using "divider" object name
     Then Heading divider is visible
 
   @positive
   Scenario: Uncheck divider
-    When I uncheck divider checkbox
+    When I open default "Heading" component in noIFrame with "heading" json from "commonComponents" using "dividerFalse" object name
     Then divider is not visible
 
   @positive
   Scenario: Check separator
-    When I check separator checkbox
+    When I open default "Heading" component in noIFrame with "heading" json from "commonComponents" using "separator" object name
     Then separator is visible
 
   @positive
   Scenario: Uncheck separator
-    Given I check separator checkbox
-    When I uncheck separator checkbox
+    When I open default "Heading" component in noIFrame with "heading" json from "commonComponents" using "separatorFalse" object name
     Then separator is not visible

@@ -43,7 +43,7 @@ Feature: Experimental RadioButtonGroup component
   Scenario Outline: Change labelHelp to <labelHelp>
     When I open default "Experimental RadioButton" component in noIFrame with "radioButtonGroup" json from "experimental" using "<nameOfObject>" object name
       And I hover mouse onto "first" help icon in NoIFrame
-    Then tooltipPreview on preview in noIframe is set to <labelHelp>
+    Then tooltipPreview on preview is set to <labelHelp>
     Examples:
       | labelHelp                    | nameOfObject              |
       | mp150ú¿¡üßä                  | labelHelpOtherLanguage    |

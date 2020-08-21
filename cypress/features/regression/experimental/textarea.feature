@@ -134,7 +134,7 @@ Feature: Experimental Textarea component
   Scenario Outline: Set labelHelp to <labelHelp>
     When I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "<nameOfObject>" object name
       And I hover mouse onto "question" icon in no iFrame
-    Then tooltipPreview on preview in noIframe is set to <labelHelp>
+    Then tooltipPreview on preview is set to <labelHelp>
     Examples:
       | labelHelp               | nameOfObject              |
       | mp150ú¿¡üßä             | labelHelpOtherLanguage    |

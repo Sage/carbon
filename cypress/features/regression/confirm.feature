@@ -73,12 +73,12 @@ Feature: Confirm component
   @positive
   Scenario: Enable background UI
     When I open default "Confirm" component in noIFrame with "confirm" json from "commonComponents" using "enableBackgroundUI" object name
-    Then Background UI is enabled in NoIFrame
+    Then Background UI is enabled
 
   @negative
   Scenario: Disable background UI
     When I open default "Confirm" component in noIFrame with "confirm" json from "commonComponents" using "enableBackgroundUIFalse" object name
-    Then Background UI is disabled in NoIFrame
+    Then Background UI is disabled
 
   @negative
   Scenario: Close icon disabled
