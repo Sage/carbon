@@ -1,0 +1,162 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+import Entity from './entity.component.js'
+import EntityHeader from './entity-header.component.js'
+import EntityContent from './entity-content.component.js'
+import EntityContentDivider from './entity-content-divider.component.js'
+import Icon from '../../icon'
+import Pill from '../../pill'
+import Hr from '../../hr/'
+import { ActionPopover, ActionPopoverItem } from '../../action-popover';
+
+<Meta
+  title="Design System/Entity"
+  parameters={{ info: { disable: true }}}
+/>
+
+# Entity
+Display a brief summary of an entity.
+
+## Quick Start
+
+To create fully functioning `Entity` component you can compose it yourself out of provided `Carbon` components.
+
+`Entity` should be composed of one `EntityHeader` passed as `header` prop and multiple `EntityContent` with an `EntityContentDivider` between them passed as a `content` prop.
+
+`EntityHeader` accepts `title` prop to be rendered as main header of `Entity`, `fontSize` where either `14` or `16` might be picked for the `title's` font-size,
+`adornments` prop where additional visual adornments like `Pill` or `Icon` components can be passed and `menu` prop which is a space for an `ActionPopover` component.
+
+`EntityContent` is a component meant to display one of the informations about the `Entity` subject, it accepts both text and other components like `Icon` as it's children.
+
+`EntityContentDivider` as name states is a component meant to visually divide `EntityContents`, to change its default margin values pass a number to `ml` or `mr` props - given value ultimately will be multiplied by the base spacing unit (8px).
+
+`Hr` can be used to visually separate `Entities`.
+
+```jsx
+import { Entity, EntityHeader, EntityContent, EntityContentDivider } from "carbon-react/lib/components/entity"
+import Hr from "carbon-react/lib/components/hr"
+
+const MyComponent = () => (
+  <>
+    <Entity
+      header={ <EntityHeader title="Entity 1" /> }
+      content={
+        <>
+          <EntityContent>Content 1</EntityContent>
+          <EntityContentDivider />
+          <EntityContent>Content 2</EntityContent>
+        </>
+      }
+    />
+    <Hr />
+    <Entity
+      header={ <EntityHeader title="Entity 2" /> }
+      content={
+        <>
+          <EntityContent>Content 1</EntityContent>
+          <EntityContentDivider />
+          <EntityContent>Content 2</EntityContent>
+        </>
+      }
+    />
+  </>
+);
+```
+## Examples
+
+### Basic
+Example of two Entities with multiple additional adornments added.
+
+<Preview>
+  <Story name="Basic">
+    <>
+      <Entity
+        header={
+          <EntityHeader 
+            title="Header Example"
+            adornments={
+              <>
+                <Pill ml={1} pillRole="status">
+                  Pill Example
+                </Pill>
+                <Icon ml={1} type='flag' />
+              </>
+            }
+            menu={ (
+              <ActionPopover>
+                <ActionPopoverItem icon='email' onClick={ () => {} }>Action 1</ActionPopoverItem>
+                <ActionPopoverDivider />
+                <ActionPopoverItem onClick={ () => {} } icon='delete'>Action 2</ActionPopoverItem>
+              </ActionPopover>
+            ) }
+          />
+        }
+        content={
+          <>
+            <EntityContent>
+              <Icon mr={1} type='phone' />
+              0191 954456
+            </EntityContent>
+            <EntityContentDivider />
+            <EntityContent>
+              <Icon mr={1} type='mobile' />
+              +44 785564325
+            </EntityContent>
+            <EntityContentDivider />
+            <EntityContent>
+              <Icon mr={1} type='email' />
+              email@email.com
+            </EntityContent>
+          </>
+        }
+      />
+      <Hr />
+      <Entity
+        header={
+          <EntityHeader 
+            title="Header Example"
+            menu={ (
+              <ActionPopover>
+                <ActionPopoverItem icon='email' onClick={ () => {} }>Action 1</ActionPopoverItem>
+                <ActionPopoverDivider />
+                <ActionPopoverItem onClick={ () => {} } icon='delete'>Action 2</ActionPopoverItem>
+              </ActionPopover>
+            ) }
+          />
+        }
+        content={
+          <>
+            <EntityContent>
+              <Icon mr={1} type='phone' />
+              0191 954456
+            </EntityContent>
+            <EntityContentDivider />
+            <EntityContent>
+              <Icon mr={1} type='mobile' />
+              +44 785564325
+            </EntityContent>
+            <EntityContentDivider />
+            <EntityContent>
+              <Icon mr={1} type='email' />
+              email@email.com
+            </EntityContent>
+          </>
+        }
+      />
+    </>
+  </Story>
+</Preview>
+
+## Props:
+
+### Entity
+<Props of={Entity} />
+
+### EntityHeader
+<Props of={EntityHeader} />
+
+### EntityContent
+<Props of={EntityContent} />
+
+### EntityContentDivider
+<Props of={EntityContentDivider} />

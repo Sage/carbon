@@ -84,6 +84,11 @@ export default (palette) => {
       }
     },
 
+    entity: {
+      divider: palette.slateTint(80),
+      menuButton: blackWithOpacity(0.65)
+    },
+
     menu: {
       focus: palette.slateTint(95),
       divider: palette.slateTint(90),
