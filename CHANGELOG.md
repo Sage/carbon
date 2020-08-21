@@ -1,3 +1,10 @@
+### [38.0.2](https://github.com/Sage/carbon/compare/v38.0.1...v38.0.2) (2020-08-21)
+
+
+### Bug Fixes
+
+* **pager:** fix incorrect prop types passed to page size select ([61bab41](https://github.com/Sage/carbon/commit/61bab41a5c91250d6500194ef7b6727e041da347)), closes [#3152](https://github.com/Sage/carbon/issues/3152)
+
 ### [38.0.1](https://github.com/Sage/carbon/compare/v38.0.0...v38.0.1) (2020-08-13)
 
 
