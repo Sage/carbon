@@ -217,11 +217,11 @@ Then('label is set to {word}', (text) => {
   label().should('have.text', text);
 });
 
-When('I hover mouse onto help icon in noIFrame', () => {
+When('I hover mouse onto help icon', () => {
   helpIcon().trigger('mouseover');
 });
 
-When('I hover mouse onto help icon', () => {
+When('I hover mouse onto help icon in Iframe', () => {
   helpIconIframe().trigger('mouseover');
 });
 

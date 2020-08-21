@@ -34,7 +34,7 @@ Feature: Heading component
   @positive
   Scenario Outline: Change help to <help>
     When I set help to <help> word
-      And I hover mouse onto help icon
+      And I hover mouse onto help icon in Iframe
     Then tooltipPreview on preview is set to <help>
     Examples:
       | help                         |
