@@ -69,7 +69,7 @@ Feature: Message component
   @positive
   Scenario: Verify the click function for a Message component
     Given clear all actions in Actions Tab
-    When I click close icon in IFrame
+    When I click closeIcon in IFrame
     Then click action was called in Actions Tab
 
   @positive

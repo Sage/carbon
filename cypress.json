@@ -1,15 +1,12 @@
 {
   "baseUrl": "http://127.0.0.1:9001/",
-  "blacklistHosts": [
+  "blockHosts": [
     "www.google-analytics.com",
     "sockjs*",
     "countries*"
   ],
   "env": {
-    "TAGS": "not @ignore",
-    "RETRIES": 1,
-    "RETRIES_HIDDEN": 1,
-    "RETRIES_NO_LOG": 1
+    "TAGS": "not @ignore"
   },
   "failOnStatusCode": false,
   "ignoreTestFiles": [
@@ -22,5 +19,9 @@
   "viewportWidth": 1366,
   "viewportHeight": 768,
   "chromeWebSecurity": false,
-  "projectId": "8458bb"
+  "projectId": "8458bb",
+  "retries": {
+    "runMode": 1,
+    "openMode": 1
+  }
 }
