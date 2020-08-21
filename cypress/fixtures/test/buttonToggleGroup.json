@@ -23,7 +23,8 @@
   "fieldHelpSpecialCharacter": {
     "fieldHelp": "!@#$%^*()_+-=~[];:.,?{}"
   },
-  "inputWidth": {
+  "inputWidthOut": {
+    "labelInline": true,
     "inputWidth": "TextáéíÄÖÜß!@#$%<>"
   },
   "labelAlignLeft": {

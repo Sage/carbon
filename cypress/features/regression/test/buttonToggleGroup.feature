@@ -37,7 +37,7 @@ Feature: Button Toggle Group component
 
   @negative
   Scenario: Set Button Toggle Group input width to out of scope characters
-    When I open basic "Button Toggle Group Test" component in noIFrame with "buttonToggleGroup" json from "test" using "labelInline" object name
+    When I open basic "Button Toggle Group Test" component in noIFrame with "buttonToggleGroup" json from "test" using "inputWidthOut" object name
     Then input width is not set to "TextáéíÄÖÜß!@#$%<>"
 
   @positive
@@ -72,7 +72,7 @@ Feature: Button Toggle Group component
 
   @negative
   Scenario: Set Button Toggle Group label width to out of scope characters
-    When I open basic "Button Toggle Group Test" component in noIFrame with "buttonToggleGroup" json from "test" using "<nameOfObject>" object name
+    When I open basic "Button Toggle Group Test" component in noIFrame with "buttonToggleGroup" json from "test" using "labelWidthOut" object name
     Then label width is not set "TextáéíÄÖÜß!@#$%<>"
 
   @positive

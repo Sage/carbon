@@ -1,4 +1,4 @@
-import { labelPreviewWidth, labelPreviewByText, labelPreviewWidthIframe } from '../../locators/button-toggle-group';
+import { labelPreviewWidth, labelPreviewByTextIFrame, labelPreviewWidthIFrame } from '../../locators/button-toggle-group';
 import { label, getDataElementByValue } from '../../locators';
 
 Then('Button Toggle Group label on preview is {string}', (text) => {
@@ -24,7 +24,7 @@ Then('label width is not set {string}', (width) => {
 });
 
 Then('input width is set to {string}', (width) => {
-  labelPreviewWidthIframe().should($element => expect($element).to.have.css('width', `${width}px`));
+  labelPreviewWidthIFrame().should($element => expect($element).to.have.css('width', `${width}px`));
 });
 
 Then('input width is not set to {string}', (width) => {
@@ -32,5 +32,5 @@ Then('input width is not set to {string}', (width) => {
 });
 
 When('I click on Button Toggle Group {string}', (buttonName) => {
-  labelPreviewByText().contains(buttonName).click();
+  labelPreviewByTextIFrame().contains(buttonName).click();
 });
