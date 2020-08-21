@@ -1,0 +1,50 @@
+{
+  "labelOtherLanguage": {
+    "label": "mp150ú¿¡üßä"
+  },
+  "labelSpecialCharacter": {
+    "label": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "labelHelpOtherLanguage": {
+    "labelHelp": "mp150ú¿¡üßä"
+  },
+  "labelHelpSpecialCharacter": {
+    "labelHelp": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "labelInline": {
+    "labelInline": true
+  },
+  "labelInlineFalse": {
+    "labelInline": false
+  },
+  "fieldHelpOtherLanguage": {
+    "fieldHelp": "mp150ú¿¡üßä"
+  },
+  "fieldHelpSpecialCharacter": {
+    "fieldHelp": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "inputWidthOut": {
+    "labelInline": true,
+    "inputWidth": "TextáéíÄÖÜß!@#$%<>"
+  },
+  "labelAlignLeft": {
+    "labelInline": true,
+    "labelAlign": "left"
+  },
+  "labelAlignRight": {
+    "labelInline": true,
+    "labelAlign": "right"
+  },
+  "labelWidth1": {
+    "labelInline": true,
+    "labelWidth": 1
+  },
+  "labelWidth100": {
+    "labelInline": true,
+    "labelWidth": 100
+  },
+  "labelWidthOut": {
+    "labelInline": true,
+    "labelWidth": "TextáéíÄÖÜß!@#$%<>"
+  }
+}
