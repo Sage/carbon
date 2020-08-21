@@ -1,26 +1,16 @@
-import { 
-  alertDialogPreviewNoIFrame as dialogPreview,
+import {
+  alertDialogPreview as dialogPreview,
   dialogStickyFormFooterButton,
-  dialogStickyFormFooter
+  dialogStickyFormFooter,
 } from '../../locators/dialog/index';
 import {
-  closeIconButtonIFrame,
-  backgroundUILocator,
+  backgroundUILocatorIFrame,
   storyRoot,
-  closeIconButton
 } from '../../locators/index';
 import {
-  positionOfElement
+  positionOfElement,
 } from '../helper';
 import { dialogPreviewIFrame } from '../../locators/confirm';
-
-When('I click close icon', () => {
-  closeIconButtonIFrame().click();
-});
-
-When('I click close icon', () => {
-  closeIconButton().click();
-});
 
 Then('Dialog height is set to {int}', (height) => {
   dialogPreview().should('have.attr', 'style').should('contain', `min-height: ${height}px`);
@@ -59,7 +49,7 @@ When('I click on {string} outside dialog', (position) => {
 });
 
 When('I click on background {string} outside dialog', (position) => {
-  backgroundUILocator().click(position, { force: true });
+  backgroundUILocatorIFrame().click(position, { force: true });
 });
 
 Then('footer buttons have color {string} and has {int} px border', (color, px) => {

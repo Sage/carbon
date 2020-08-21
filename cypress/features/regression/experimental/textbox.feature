@@ -52,7 +52,7 @@ Feature: Experimental Textbox component
   Scenario Outline: Set labelHelp to <labelHelp>
     When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
       And I hover mouse onto "question" icon in no iFrame
-    Then tooltipPreview on preview in noIframe is set to <labelHelp>
+    Then tooltipPreview on preview is set to <labelHelp>
     Examples:
       | labelHelp                    | nameOfObject              |
       | mp150ú¿¡üßä                  | labelHelpOtherLanguage    |
@@ -114,9 +114,9 @@ Feature: Experimental Textbox component
       And Textbox width is "<width>"
     Examples:
       | size   | height | width  | nameOfObject |
-      | small  | 28px   | 1263px | sizeSmall    |
-      | medium | 36px   | 1257px | sizeMedium   |
-      | large  | 44px   | 1253px | sizeLarge    |
+      | small  | 28px   | 1259px | sizeSmall    |
+      | medium | 36px   | 1253px | sizeMedium   |
+      | large  | 44px   | 1249px | sizeLarge    |
 
   @positive
   Scenario: Check icon inside of Textbox is visible

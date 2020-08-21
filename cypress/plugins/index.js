@@ -38,5 +38,4 @@ module.exports = (on, config) => {
       return launchOptions;
     }
   });
-  require('cypress-plugin-retries/lib/plugin')(on);
 };
