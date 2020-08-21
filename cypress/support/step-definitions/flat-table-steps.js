@@ -6,7 +6,7 @@ import {
 } from '../../locators/flat-table';
 import { DEBUG_FLAG } from '..';
 import { positionOfElement } from '../helper';
-import { icon } from '../../locators';
+import { iconIFrame } from '../../locators';
 
 Then('FlatTable rows are sticky', () => {
   cy.wait(500);
@@ -87,7 +87,7 @@ When('{string} column is sorted in {string} order', (position, sortOrder) => {
   const totalThree = '849';
   const totalFour = '3840';
   if (position === 'first' && sortOrder === 'desc') {
-    icon().should('have.attr', 'data-element', 'sort_down')
+    iconIFrame().should('have.attr', 'data-element', 'sort_down')
       .and('be.visible');
     flatTableCellDS(positionOfElement('first')).should('have.text', valueOne)
       .and('be.visible');
@@ -98,7 +98,7 @@ When('{string} column is sorted in {string} order', (position, sortOrder) => {
     flatTableCellDS(positionOfElement('seventh')).should('have.text', valueFour)
       .and('be.visible');
   } else if (position === 'first' && sortOrder === 'asc') {
-    icon().should('have.attr', 'data-element', 'sort_up')
+    iconIFrame().should('have.attr', 'data-element', 'sort_up')
       .and('be.visible');
     flatTableCellDS(positionOfElement('first')).should('have.text', valueFour)
       .and('be.visible');
@@ -109,7 +109,7 @@ When('{string} column is sorted in {string} order', (position, sortOrder) => {
     flatTableCellDS(positionOfElement('seventh')).should('have.text', valueOne)
       .and('be.visible');
   } else if (position === 'second' && sortOrder === 'desc') {
-    icon().should('have.attr', 'data-element', 'sort_down')
+    iconIFrame().should('have.attr', 'data-element', 'sort_down')
       .and('be.visible');
     flatTableCellDS(positionOfElement('second')).should('have.text', totalFour)
       .and('be.visible');
@@ -120,7 +120,7 @@ When('{string} column is sorted in {string} order', (position, sortOrder) => {
     flatTableCellDS(positionOfElement('eighth')).should('have.text', totalOne)
       .and('be.visible');
   } else {
-    icon().should('have.attr', 'data-element', 'sort_up')
+    iconIFrame().should('have.attr', 'data-element', 'sort_up')
       .and('be.visible');
     flatTableCellDS(positionOfElement('second')).should('have.text', totalOne)
       .and('be.visible');

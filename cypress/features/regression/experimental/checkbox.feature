@@ -1,5 +1,5 @@
 Feature: Experimental Checkbox component
-  I want to check Experimental Checkbox properties
+  I want to test Experimental Checkbox properties
 
   @positive
   Scenario Outline: Change Checkbox component label to <label>
@@ -32,12 +32,12 @@ Feature: Experimental Checkbox component
   @positive
   Scenario: Enable fieldHelpInline
     When I open default "Experimental Checkbox" component in noIFrame with "checkbox" json from "experimental" using "fieldHelpInlineDisabled" object name
-    Then Checkbox is set to fieldHelpInline and has margin-left set to "24px"
+    Then Checkbox is set to fieldHelpInline and has marginLeft set to "24px"
 
   @positive
   Scenario: Enable and disable fieldHelpInline
     When I open default "Experimental Checkbox" component in noIFrame with "checkbox" json from "experimental" using "fieldHelpInline" object name
-    Then Checkbox is not set to fieldHelpInline and has margin set to "0px"
+    Then Checkbox is not set to fieldHelpInline and has marginTop set to "0px"
 
   @positive
   Scenario: Enable reverse checkbox
@@ -52,8 +52,8 @@ Feature: Experimental Checkbox component
   @positive
   Scenario Outline: Change Checkbox component label help to <labelHelp>
     When I open default "Experimental Checkbox" component in noIFrame with "checkbox" json from "experimental" using "<nameOfObject>" object name
-      And I hover mouse onto help icon in noIFrame
-    Then tooltipPreview on preview is set to <labelHelp> in NoIFrame
+      And I hover mouse onto help icon
+    Then tooltipPreview on preview is set to <labelHelp>
     Examples:
       | labelHelp                    | nameOfObject              |
       | mp150ú¿¡üßä                  | labelHelpOtherLanguage    |

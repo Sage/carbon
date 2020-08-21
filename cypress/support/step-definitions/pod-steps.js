@@ -1,8 +1,10 @@
 import {
   podComponent, podPreview, podContent,
-  podTitle, podSubTitle, podDescription, podFooter, podEdit,
+  podSubTitle, podDescription, podFooter, podEdit, 
+  podEditIframe,
 } from '../../locators/pod';
 import { DEBUG_FLAG } from '..';
+import { getDataElementByValue } from '../../locators';
 
 const POD_DIV_PROPERTY = 'carbon-pod';
 
@@ -11,7 +13,7 @@ Then('Pod children on preview is set to {word}', (text) => {
 });
 
 Then('Pod title on preview is set to {word}', (text) => {
-  podTitle().should('have.text', text);
+  getDataElementByValue('title').should('have.text', text);
 });
 
 Then('Pod subtitle on preview is set to {word}', (text) => {
@@ -55,7 +57,7 @@ Then('Pod component has no border', () => {
 Then('Pod {string} on preview is {string}', (element, alignTitle) => {
   switch (element) {
     case 'title':
-      podTitle().parent().should('have.css', 'text-align', alignTitle);
+      getDataElementByValue('title').parent().should('have.css', 'text-align', alignTitle);
       break;
     case 'subtitle':
       podSubTitle().should('have.css', 'text-align', alignTitle);
@@ -81,8 +83,8 @@ Then('Pod component has no onEdit property', () => {
   podEdit().should('not.exist');
 });
 
-Then('I click onEdit icon', () => {
-  podEdit().first().click();
+Then('I click onEdit icon in Iframe', () => {
+  podEditIframe().first().click();
 });
 
 Then('Pod component has width {string}', (width) => {
@@ -106,5 +108,5 @@ Then('Pod component has internalEditButton property', () => {
 });
 
 When('I hover mouse onto Pod content', () => {
-  podTitle().trigger('mouseover');
+  getDataElementByValue('title').trigger('mouseover');
 });

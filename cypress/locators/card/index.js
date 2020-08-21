@@ -1,4 +1,4 @@
 import { CARD } from './locators';
 
 // component preview locators
-export const card = () => cy.iFrame(CARD).eq(0);
+export const card = () => cy.get(CARD).eq(0);

@@ -8,12 +8,12 @@ import {
 import {
   labelNoIFrame,
   commonDataElementInputPreviewNoIframe,
-  getDataElementByValueNoIframe,
+  getDataElementByValue,
   tooltipPreviewByPositionNoIFrame,
   labelByPosition,
   fieldHelpPreviewByPositionNoIFrame,
   commonDataElementInputPreviewByPositionNoIFrame,
-  getDataElementByValueAndPositionNoIframe,
+  getDataElementByValueAndPosition,
 } from '../../locators';
 import { positionOfElement } from '../helper';
 
@@ -121,16 +121,16 @@ Then('Multiple label is set to {word}', (text) => {
 });
 
 Then('Textbox component is labelInline', () => {
-  getDataElementByValueNoIframe('label').parent().should('have.css', TEXT_ALIGN, TEXT_ALIGN_START);
+  getDataElementByValue('label').parent().should('have.css', TEXT_ALIGN, TEXT_ALIGN_START);
 });
 
 Then('Multiple Textbox component is labelInline', () => {
-  getDataElementByValueAndPositionNoIframe('label', positionOfElement('first')).parent().should('have.css', TEXT_ALIGN, TEXT_ALIGN_START);
-  getDataElementByValueAndPositionNoIframe('label', positionOfElement('second')).parent().should('have.css', TEXT_ALIGN, TEXT_ALIGN_START);
+  getDataElementByValueAndPosition('label', positionOfElement('first')).parent().should('have.css', TEXT_ALIGN, TEXT_ALIGN_START);
+  getDataElementByValueAndPosition('label', positionOfElement('second')).parent().should('have.css', TEXT_ALIGN, TEXT_ALIGN_START);
 });
 
 Then('Textbox component is not labelInline', () => {
-  getDataElementByValueNoIframe('label').parent().should('not.have.css', TEXT_ALIGN, TEXT_ALIGN_START);
+  getDataElementByValue('label').parent().should('not.have.css', TEXT_ALIGN, TEXT_ALIGN_START);
 });
 
 Then('Multiple Textbox component is not labelInline', () => {
@@ -153,8 +153,8 @@ Then('Multiple Textbox inputWidth is set to {string}', (width) => {
 });
 
 Then('Multiple label width is set to {string}', (width) => {
-  getDataElementByValueAndPositionNoIframe('label', positionOfElement('first')).parent().should('have.attr', 'width', `${width}`);
-  getDataElementByValueAndPositionNoIframe('label', positionOfElement('second')).parent().should('have.attr', 'width', `${width}`);
+  getDataElementByValueAndPosition('label', positionOfElement('first')).parent().should('have.attr', 'width', `${width}`);
+  getDataElementByValueAndPosition('label', positionOfElement('second')).parent().should('have.attr', 'width', `${width}`);
 });
 
 When('I type {word} into Textbox', (text) => {

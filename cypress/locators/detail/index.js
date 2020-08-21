@@ -1,10 +1,7 @@
 import {
-  CHILDREN_PREVIEW, FOOTNOTE_PREVIEW, ICON_SELECT,
+  CHILDREN_PREVIEW, FOOTNOTE_PREVIEW,
 } from './locators';
 
-// knobs locators
-export const iconSelect = () => cy.get(ICON_SELECT);
-
 // component preview locators
-export const childrenPreview = () => cy.iFrame(CHILDREN_PREVIEW);
-export const footnotePreview = () => cy.iFrame(FOOTNOTE_PREVIEW);
+export const childrenPreview = () => cy.get(CHILDREN_PREVIEW);
+export const footnotePreview = () => cy.get(FOOTNOTE_PREVIEW);

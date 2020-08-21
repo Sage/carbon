@@ -6,8 +6,8 @@ Feature: Message component
 
   @positive
   Scenario: CloseIcon has correct border colour
-    Given I click closeIcon
-    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
+    Given I click closeIcon in IFrame
+    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px" in IFrame
 
   @positive
   Scenario Outline: Change Message title to <title>
@@ -31,6 +31,7 @@ Feature: Message component
 
   @positive
   Scenario: Enable open state of Message component
+    # Commented because of BDD default scenario Given - When - Then
     # When I check open checkbox
     Then Message component is visible
 
@@ -61,13 +62,14 @@ Feature: Message component
 
   @positive
   Scenario: Enable on close state for a Message component
+    # Commented because of BDD default scenario Given - When - Then
     # When I check onDismiss checkbox
     Then Message has cross icon
 
   @positive
   Scenario: Verify the click function for a Message component
     Given clear all actions in Actions Tab
-    When I click close icon
+    When I click closeIcon in IFrame
     Then click action was called in Actions Tab
 
   @positive

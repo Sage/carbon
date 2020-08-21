@@ -4,18 +4,8 @@ import {
   checkboxDataComponentNoIframe,
   checkboxRoleNoIFrame,
 } from '../../locators/checkbox';
-import { labelNoIFrame, fieldHelpPreviewNoIFrame } from '../../locators';
+import { labelNoIFrame } from '../../locators';
 import { positionOfElement } from '../helper';
-
-Then('Checkbox is set to fieldHelpInline and has margin-left set to {string}', (marginLeft) => {
-  fieldHelpPreviewNoIFrame().should('have.css', 'margin-left', marginLeft)
-    .and('have.css', 'margin-top', '0px')
-    .and('have.css', 'padding-left', '0px');
-});
-
-Then('Checkbox is not set to fieldHelpInline and has margin set to {string}', (margin) => {
-  fieldHelpPreviewNoIFrame().should('have.css', 'margin', margin);
-});
 
 Then('Checkbox is set to reverse and has width {string}', (width) => {
   checkboxDataComponentNoIframe().children().children().children()

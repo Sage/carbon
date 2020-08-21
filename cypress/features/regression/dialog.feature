@@ -1,135 +1,80 @@
 Feature: Dialog component
-  I want to change Dialog component properties
-
-  Background: Open Dialog component page
-    Given I open "Dialog" component page
-      And I open component preview
-
-  @positive
-  Scenario: CloseIcon has the border outline
-    When closeIcon is focused
-    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
+  I want to test Dialog component properties
 
   @positive
   Scenario Outline: Set height for Dialog to <height>
-    When I set height to "<height>"
-    Then Dialog height is set to "<height>"
+    When I open default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "<nameOfObject>" object name
+    Then Dialog height is set to <height>
     Examples:
-      | height |
-      | 0      |
-      | 1      |
-      | 100    |
+      | height | nameOfObject |
+      | 0      | height0      |
+      | 1      | height1      |
+      | 100    | height100    |
 
   @negative
   Scenario Outline: Set out of scope characters to <height>
-    When I set height to <height> word
+    When I open default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "<nameOfObject>" object name
     Then Dialog height is not set to <height>
     Examples:
-      | height                       |
-      | -1                           |
-      | -10                          |
-      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
+      | height                       | nameOfObject           |
+      | -1                           | height-1               |
+      | -10                          | height-10              |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | heightSpecialCharacter |
 
   @positive
   Scenario Outline: Change Dialog component title to <title>
-    When I set title to <title> word
+    When I open default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "<nameOfObject>" object name
     Then component title on preview is <title>
     Examples:
-      | title                        |
-      | mp150ú¿¡üßä                  |
-      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
+      | title                        | nameOfObject          |
+      | mp150ú¿¡üßä                  | titleOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | titleSpecialCharacter |
 
   @positive
   Scenario Outline: Change Dialog subtitle to <subtitle>
-    When I set subtitle to <subtitle> word
-    Then component subtitle on preview is <subtitle> in IFrame
+    When I open default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "<nameOfObject>" object name
+    Then component subtitle on preview is <subtitle>
     Examples:
-      | subtitle                     |
-      | mp150ú¿¡üßä                  |
-      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
+      | subtitle                     | nameOfObject             |
+      | mp150ú¿¡üßä                  | subtitleOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | subtitleSpecialCharacter |
 
   @positive
   Scenario Outline: Set Dialog size to <sizeName>
-    When I select size to "<sizeName>"
+    When I open default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "<nameOfObject>" object name
     Then Dialog size property on preview is "<sizePropertyInPx>"
     Examples:
-      | sizeName     | sizePropertyInPx |
-      | extra-small  | 300              |
-      | small        | 380              |
-      | medium-small | 540              |
-      | medium       | 750              |
-      | medium-large | 850              |
-      | large        | 960              |
-      | extra-large  | 1080             |
-
-  @positive
-  Scenario: ShowCloseIcon can close Dialog
-    Given I uncheck showCloseIcon checkbox
-    When I check showCloseIcon checkbox
-    Then closeIcon is visible
-      And I click closeIcon
-      And Dialog is not visible
+      | sizeName     | sizePropertyInPx | nameOfObject    |
+      | extra-small  | 300              | sizeExtraSmall  |
+      | small        | 380              | sizeSmall       |
+      | medium-small | 540              | sizeMediumSmall |
+      | medium       | 750              | sizeMedium      |
+      | medium-large | 850              | sizeMediumLarge |
+      | large        | 960              | sizeLarge       |
+      | extra-large  | 1080             | sizeExtraLarge  |
 
   @positive
   Scenario: Disable ShowCloseIcon
-    When I uncheck showCloseIcon checkbox
+    When I open default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "showCloseIconFalse" object name
     Then closeIcon is not visible
 
   @positive
   Scenario: Enable background UI
-    When I check enableBackgroundUI checkbox
+    When I open default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "enableBackgroundUI" object name
     Then Background UI is enabled
 
   @positive
   Scenario: Disable background UI
-    Given I check enableBackgroundUI checkbox
-    When I uncheck enableBackgroundUI checkbox
+    When I open default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "enableBackgroundUIFalse" object name
     Then Background UI is disabled
 
+  # Sticky form footer tests
   @positive
-  Scenario: Disable escape key
-    Given I check disableEscKey checkbox
-    When I hit ESC key
-    Then Dialog is visible
+  Scenario: Verify that stickyFormFooter is visible
+    When I open with_sticky_footer "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "open" object name
+    Then Dialog stickyFormFooter is visible
 
   @positive
-  Scenario: Enable escape key
-    Given I check disableEscKey checkbox
-    When I uncheck disableEscKey checkbox
-      And I hit ESC key
-    Then Dialog is not visible
-
-  @positive
-  Scenario Outline: Click outside Dialog without background and Dialog remains open
-    Given I check enableBackgroundUI checkbox
-      And I uncheck enableBackgroundUI checkbox
-    When I click on "<position>" outside dialog
-    Then Dialog is visible
-    Examples:
-      | position |
-      | top      |
-      | topRight |
-      | right    |
-
-  @positive
-  Scenario Outline: Click on background outside Dialog and Dialog remains open
-    When I click on background "<position>" outside dialog
-    Then Dialog is visible
-    Examples:
-      | position |
-      | top      |
-      | topRight |
-      | right    |
-
-  @positive
-  Scenario: Open dialog event
-    Given I click closeIcon
-      And clear all actions in Actions Tab
-    When I open component preview
-    Then open action was called in Actions Tab
-
-  @positive
-  Scenario: Cancel event
-    Given clear all actions in Actions Tab
-    When I click closeIcon
-    Then cancel action was called in Actions Tab
+  Scenario: Verify default story color
+    When I open with_sticky_footer "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "open" object name
+    Then footer buttons have color "rgb(0, 129, 93)" and has 2 px border

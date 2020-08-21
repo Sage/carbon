@@ -1,50 +1,47 @@
 Feature: Card default component
   I want to test Card default component properties
 
-  Background: Open Card default component page
-    Given I open "Card" component page
-
   @positive
   Scenario Outline: I set Card component spacing to <spacing>
-    When I select card spacing to "<spacing>"
+    When I open default "Card" component in noIFrame with "card" json from "commonComponents" using "<nameOfObject>" object name
     Then Card component has <padding> padding and <margin> margin
     Examples:
-      | spacing | padding | margin |
-      | small   | 24      | 16     |
-      | medium  | 32      | 24     |
-      | large   | 48      | 32     |
+      | spacing | padding | margin | nameOfObject      |
+      | small   | 24      | 16     | cardSpacingSmall  |
+      | medium  | 32      | 24     | cardSpacingMedium |
+      | large   | 48      | 32     | cardSpacingLarge  |
 
   @positive
   Scenario Outline: Set the width of Card component to <width>
-    When I set width to "<width>"
+    When I open default "Card" component in noIFrame with "card" json from "commonComponents" using "<nameOfObject>" object name
     Then Card component has set width to "<width>"
     Examples:
-      | width |
-      | 550px |
-      | 999px |
+      | width | nameOfObject |
+      | 550px | width550     |
+      | 999px | width999     |
 
   @positive
   Scenario Outline: Set the width of Card component to outOfScope <width>
-    When I set width to "<width>"
+    When I open default "Card" component in noIFrame with "card" json from "commonComponents" using "<nameOfObject>" object name
     Then Card component has not set width to "<width>"
     Examples:
-      | width  |
-      | -10px  |
-      | -999px |
-      | test   |
+      | width | nameOfObject |
+      | -10   | width-10     |
+      | -999  | width-999    |
+      | test  | widthTest    |
 
   @positive
   Scenario: Enable interactive card checkbox
-    When I check interactive card checkbox
+    When I open default "Card" component in noIFrame with "card" json from "commonComponents" using "interactiveCard" object name
     Then Card component is interactive
 
   @positive
   Scenario: Verify the shadow whithout interactive card
-    # When I open "Card" component page
+    When I open default "Card" component in noIFrame with "card" json from "commonComponents" using "interactiveCardFalse" object name
     Then Card component has non-interactive shadow
 
   @positive
   Scenario: Verify the interactive card shadow
-    Given I check interactive card checkbox
+    Given I open default "Card" component in noIFrame with "card" json from "commonComponents" using "interactiveCard" object name
     When I hover mouse onto Card component
     Then Card component has interactive shadow

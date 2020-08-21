@@ -1,7 +1,7 @@
 import {
-  headingPreview, titlePreview, subheaderPreview, separatorPreview,
+  headingPreview, subheaderPreview, separatorPreview,
 } from '../../locators/heading';
-import { helpIcon, link } from '../../locators';
+import { helpIcon, link, getDataElementByValue } from '../../locators';
 
 const DIVIDER = 'carbon-heading--has-divider';
 
@@ -10,7 +10,7 @@ Then('heading children on preview is {word}', (children) => {
 });
 
 Then('heading title is set to {word}', (title) => {
-  titlePreview().should('have.text', title);
+  getDataElementByValue('title').should('have.text', title);
 });
 
 Then('subheader on preview is {word}', (subheader) => {

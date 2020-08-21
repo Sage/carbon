@@ -1,51 +1,46 @@
 Feature: Help component
-  I want to change Help component properties
-
-  Background: Open Help component page
-    Given I open "Help" component page
+  I want to test Help component properties
 
   @positive
   Scenario Outline: Change children to <children>
-    When I set children to <children> word
+    When I open default "Help" component in noIFrame with "help" json from "commonComponents" using "<nameOfObject>" object name
       And I hover mouse onto help icon
-    Then  tooltipPreview on preview is set to <children>
+    Then tooltipPreview on preview is set to <children>
     Examples:
-      | children                     |
-      | mp150ú¿¡üßä                  |
-      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
+      | children                     | nameOfObject             |
+      | mp150ú¿¡üßä                  | childrenOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | childrenSpecialCharacter |
 
   @positive
   Scenario Outline: Change tooltip position to <tooltipPosition>
-    When I select tooltipPosition to "<tooltipPosition>"
-      And I select tooltipAlign to "center"
+    When I open default "Help" component in noIFrame with "help" json from "commonComponents" using "<nameOfObject>" object name
       And I hover mouse onto help icon
     Then tooltipPosition is set to "<tooltipPosition>"
     Examples:
-      | tooltipPosition |
-      | left            |
-      | right           |
-      | top             |
-      | bottom          |
+      | tooltipPosition | nameOfObject          |
+      | left            | tooltipPositionLeft   |
+      | right           | tooltipPositionRight  |
+      | top             | tooltipPositionTop    |
+      | bottom          | tooltipPositionBottom |
 
   @positive
   Scenario Outline: Change tooltip align to <tooltipAlign>
-    When I select tooltipAlign to "<tooltipAlign>"
-      And I select tooltipPosition to "bottom"
+    When I open default "Help" component in noIFrame with "help" json from "commonComponents" using "<nameOfObject>" object name
       And I hover mouse onto help icon
     Then tooltipAlign is set to "<tooltipAlign>"
     Examples:
-      | tooltipAlign |
-      | center       |
-      | bottom       |
-      | left         |
-      | right        |
-      | top          |
+      | tooltipAlign | nameOfObject       |
+      | center       | tooltipAlignCenter |
+      | bottom       | tooltipAlignBottom |
+      | left         | tooltipAlignLeft   |
+      | right        | tooltipAlignRight  |
+      | top          | tooltipAlignTop    |
 
   @positive
   Scenario Outline: Change href to <href>
-    When I set href to <href> word
+    When I open default "Help" component in noIFrame with "help" json from "commonComponents" using "<nameOfObject>" object name
     Then Help href on preview is set to <href>
     Examples:
-      | href                         |
-      | mp150ú¿¡üßä                  |
-      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
+      | href                         | nameOfObject         |
+      | mp150ú¿¡üßä                  | hrefOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | hrefSpecialCharacter |
