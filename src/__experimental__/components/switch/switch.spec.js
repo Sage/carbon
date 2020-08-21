@@ -5,6 +5,7 @@ import 'jest-styled-components';
 import { css, ThemeProvider } from 'styled-components';
 import { mount } from 'enzyme';
 import I18n from 'i18n-js';
+
 import Switch from '.';
 import CheckableInput from '../checkable-input';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
@@ -274,6 +275,7 @@ describe('Switch', () => {
       wrapper.setProps(props);
     });
 
+
     describe.each(validationTypes)('when %s prop passed as string', (type) => {
       it(`displays ${type} icon by the input`, () => {
         wrapper.setProps({
@@ -321,6 +323,14 @@ describe('Switch', () => {
           boxShadow: `inset ${shadowWidth}px ${shadowWidth}px 0 ${baseTheme.colors[type]},inset -${shadowWidth}px -${shadowWidth}px 0 ${baseTheme.colors[type]}`
         }, wrapper.find(StyledSwitchSlider));
       });
+    });
+
+
+    it('forces validation icon to be displayed on label when labelInline = true and reverse = false', () => {
+      wrapper.setProps({ error: 'Error', labelInline: true, reverse: false });
+
+      expect(wrapper.find(StyledLabelContainer).find(StyledValidationIcon).exists()).toEqual(true);
+      expect(wrapper.find(StyledSwitchSlider).find(StyledValidationIcon).exists()).toEqual(false);
     });
   });
 
