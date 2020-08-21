@@ -1,29 +1,26 @@
 Feature: Button Toggle Group component
-  I want to change Button Toggle Group label, help label, input width, field help properties
-
-  Background: Open Button Toggle Group component page
-    Given I open "Button Toggle Group Test" component page "basic"
+  I want to test Button Toggle Group properties
 
   @positive
   Scenario Outline: Change Button Toggle Group component label to <label>
-    When I set label to <label> word
+    When I open basic "Button Toggle Group Test" component in noIFrame with "buttonToggleGroup" json from "test" using "<nameOfObject>" object name
     Then Button Toggle Group label on preview is "<label>"
     Examples:
-      | label                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | label                   | nameOfObject          |
+      | mp150ú¿¡üßä             | labelOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{} | labelSpecialCharacter |
   # @ignore because of FE-2782
-  # | &"'<>|
+  # | &"'<> |
 
   @positive
   Scenario Outline: Change Button Toggle Group component label help to <labelHelp>
-    When I set labelHelp to <labelHelp> word
-      And I hover mouse onto help icon in IFrame
-    Then tooltipPreview on preview is set to <labelHelp> in IFrame
+    When I open basic "Button Toggle Group Test" component in noIFrame with "buttonToggleGroup" json from "test" using "<nameOfObject>" object name
+      And I hover mouse onto help icon
+    Then tooltipPreview on preview is set to <labelHelp>
     Examples:
-      | labelHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | labelHelp               | nameOfObject              |
+      | mp150ú¿¡üßä             | labelHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{} | labelHelpSpecialCharacter |
   # @ignore because of FE-2782
   # | &"'<>|
 
@@ -40,61 +37,57 @@ Feature: Button Toggle Group component
 
   @negative
   Scenario: Set Button Toggle Group input width to out of scope characters
-    Given I check labelInline checkbox
-    When I set inputWidth to "TextáéíÄÖÜß!@#$%<>"
+    When I open basic "Button Toggle Group Test" component in noIFrame with "buttonToggleGroup" json from "test" using "inputWidthOut" object name
     Then input width is not set to "TextáéíÄÖÜß!@#$%<>"
 
   @positive
   Scenario Outline: Change Button Toggle Group component field help to <fieldHelp>
-    When I set fieldHelp to <fieldHelp> word
-    Then fieldHelp on preview is set to <fieldHelp>
+    When I open basic "Button Toggle Group Test" component in noIFrame with "buttonToggleGroup" json from "test" using "<nameOfObject>" object name
+    Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
     Examples:
-      | fieldHelp               |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | fieldHelp               | nameOfObject              |
+      | mp150ú¿¡üßä             | fieldHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{} | fieldHelpSpecialCharacter |
   # @ignore because of FE-2782
   # | &"'<>|
 
   @positive
   Scenario: Enable label inline checkbox
-    When I check labelInline checkbox
+    When I open basic "Button Toggle Group Test" component in noIFrame with "buttonToggleGroup" json from "test" using "labelInline" object name
     Then Button Toggle Group component has label-inline property
 
   @positive
   Scenario: Disable label inline checkbox
-    Given I check labelInline checkbox
-    When I uncheck labelInline checkbox
+    When I open basic "Button Toggle Group Test" component in noIFrame with "buttonToggleGroup" json from "test" using "labelInlineFalse" object name
     Then Button Toggle Group component does not have label-inline property
 
   @positive
-  Scenario Outline: Change Button Toggle Group label width to <width>
-    Given I check labelInline checkbox
-    When I set labelWidth to "<width>"
-    Then label width is set to "<width>"
+  Scenario Outline: Change Button Toggle Group label width to <labelWidth>
+    When I open basic "Button Toggle Group Test" component in noIFrame with "buttonToggleGroup" json from "test" using "<nameOfObject>" object name
+    Then label width is set to "<labelWidth>" in NoIFrame
     Examples:
-      | width |
-      | 1     |
-      | 100   |
+      | labelWidth | nameOfObject  |
+      | 1          | labelWidth1   |
+      | 100        | labelWidth100 |
 
   @negative
   Scenario: Set Button Toggle Group label width to out of scope characters
-    Given I check labelInline checkbox
-    When I set labelWidth to "TextáéíÄÖÜß!@#$%<>"
+    When I open basic "Button Toggle Group Test" component in noIFrame with "buttonToggleGroup" json from "test" using "labelWidthOut" object name
     Then label width is not set "TextáéíÄÖÜß!@#$%<>"
 
   @positive
-  Scenario Outline: Change Toggle Button Group label align to <direction>
-    Given I check labelInline checkbox
-    When I select labelAlign to "<direction>"
-    Then label Align on preview is "<direction>"
+  Scenario Outline: Change Toggle Button Group label align to <labelAlign>
+    When I open basic "Button Toggle Group Test" component in noIFrame with "buttonToggleGroup" json from "test" using "<nameOfObject>" object name
+    Then label Align on preview is "<labelAlign>" in NoIFrame
     Examples:
-      | direction |
-      | left      |
-      | right     |
+      | labelAlign | nameOfObject    |
+      | left       | labelAlignLeft  |
+      | right      | labelAlignRight |
 
   @positive
   Scenario Outline: Verify the onChange  event for a Button Toggle Group <buttonName> button
-    Given clear all actions in Actions Tab
+    Given I open "Button Toggle Group Test" component page "basic"
+      And clear all actions in Actions Tab
     When I click on Button Toggle Group "<buttonName>"
     Then onChange action was called in Actions Tab
     Examples:
