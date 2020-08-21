@@ -5,6 +5,10 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   margin-top: 16px;
 }
 
+.c5.c5.c5 {
+  margin-bottom: 16px;
+}
+
 .c7 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -61,8 +65,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 }
 
 .c2 {
-  padding-top: 8px;
-  margin-bottom: 12px;
+  margin-top: 8px;
 }
 
 .c2 .c8 {
@@ -119,11 +122,6 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 
 .c2 .c10:checked ~ .c12 svg path {
   fill: rgba(0,0,0,0.90);
-}
-
-.c2 .c13 {
-  margin-left: 32px;
-  padding-left: 0;
 }
 
 .c2 .c12 {

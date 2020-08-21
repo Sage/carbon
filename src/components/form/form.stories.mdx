@@ -343,13 +343,13 @@ Please click on "Show code" below to see how to set these components up for alig
         legendInline
         legendWidth={10}
         legendSpacing={2}
+        mb={2}
       >
         <RadioButton
           id="input-1"
           value="input-1"
           label="Radio Option 1"
           labelWidth={10}
-          mb={1}
         />
         <RadioButton
           id="input-2"
@@ -369,13 +369,13 @@ Please click on "Show code" below to see how to set these components up for alig
         onChange={() => console.log("RADIO CHANGE")}
         legend="Legend above"
         ml="10%"
+        mb={2}
       >
         <RadioButton
           id="input-1"
           value="input-1"
           label="Radio Option 1"
           labelWidth={10}
-          mb={1}
         />
         <RadioButton
           id="input-2"
@@ -398,14 +398,12 @@ Please click on "Show code" below to see how to set these components up for alig
         name="checkbox1"
         onChange={() => console.log("CHECKBOX 1")}
         label="Checkbox 1"
-        mb={1}
         ml="10%"
       />
       <Checkbox
         name="checkbox2"
         onChange={() => console.log("CHECKBOX 2")}
         label="Checkbox 2"
-        mb={1}
         ml="10%"
       />
       <Checkbox
@@ -436,6 +434,7 @@ Please click on "Show code" below to see how to set these components up for alig
         onChange={() => console.log("SWITCH")}
         labelWidth={10}
         labelSpacing={2}
+        mb={4}
       />
       <Textbox
         childofForm

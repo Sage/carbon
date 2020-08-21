@@ -82,10 +82,6 @@ exports[`CheckboxGroup renders as expected 1`] = `
   flex-basis: 100%;
 }
 
-.c9 {
-  padding-top: 8px;
-}
-
 .c9 .c12 {
   padding-top: 1px;
 }

@@ -27,6 +27,8 @@ export interface FieldsetProps {
   legendSpacing?: 1 | 2;
   /** Margin left, any valid CSS value */
   ml?: string;
+  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
+  mb?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
   /** Allows to override existing component styles */
   styleOverride?: {
     root?: object;

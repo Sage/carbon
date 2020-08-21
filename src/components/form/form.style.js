@@ -2,12 +2,14 @@ import styled, { css, keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 
 import StyledFormField from '../../__experimental__/components/form-field/form-field.style';
+import { StyledFieldset } from '../../__internal__/fieldset/fieldset.style';
+
 import StyledButton from '../button/button.style';
 import baseTheme from '../../style/themes/base';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 export const StyledForm = styled.form`
-  & ${StyledFormField} {
+  & ${StyledFormField}, ${StyledFieldset} {
     margin-top: 0;
     margin-bottom: ${({ fieldSpacing, theme }) => (theme.spacing * fieldSpacing)}px;
   }
