@@ -1,3 +1,10 @@
+## [38.1.0](https://github.com/Sage/carbon/compare/v38.0.2...v38.1.0) (2020-08-21)
+
+
+### Features
+
+* **navigation-bar:** add a loading state ([c5b5355](https://github.com/Sage/carbon/commit/c5b5355d01ca8b0d2c8f809ebfdd09f16b21ea35))
+
 ### [38.0.2](https://github.com/Sage/carbon/compare/v38.0.1...v38.0.2) (2020-08-21)
 
 
