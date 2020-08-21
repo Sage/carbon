@@ -64,7 +64,7 @@ function adjustIconBgSize(fontSize, bgSize) {
 
 const StyledIcon = styled.span`
   ${({
-    bgTheme, theme, iconColor, bgSize, bgShape, type, fontSize, disabled
+    bgTheme, theme, iconColor, bgSize, bgShape, type, fontSize, disabled, mr, ml
   }) => css`
 
     display: inline-block;
@@ -104,6 +104,8 @@ const StyledIcon = styled.span`
       display: block;
     }
 
+    ${ml && css`margin-left: ${ml * theme.spacing}px`}
+    ${mr && css`margin-right: ${mr * theme.spacing}px`}
     ${classicIconStyles};
   `}
 `;
@@ -116,7 +118,9 @@ StyledIcon.propTypes = {
   bgShape: PropTypes.oneOf(OptionsHelper.shapes),
   bgTheme: PropTypes.oneOf([...OptionsHelper.colors, ...OptionsHelper.iconBackgrounds, '']),
   fontSize: PropTypes.oneOf(OptionsHelper.sizesBinary),
-  iconColor: PropTypes.oneOf(OptionsHelper.iconColors)
+  iconColor: PropTypes.oneOf(OptionsHelper.iconColors),
+  mr: PropTypes.number,
+  ml: PropTypes.number
 };
 
 StyledIcon.defaultProps = {
