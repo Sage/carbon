@@ -46,8 +46,8 @@ Feature: Experimental Number Input component
   @positive
   Scenario Outline: Change label help text to <labelHelp>
     Given I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
-    When I hover mouse onto help icon in noIFrame
-    Then tooltipPreview on preview in noIframe is set to <labelHelp>
+    When I hover mouse onto help icon
+    Then tooltipPreview on preview is set to <labelHelp>
     Examples:
       | labelHelp               | nameOfObject              |
       | mp150ú¿¡üßä             | labelHelpOtherLanguage    |

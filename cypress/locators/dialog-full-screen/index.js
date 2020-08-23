@@ -1,7 +1,10 @@
-import { DIALOG_FULL_SCREEN_CHILDREN, DIALOG_FULL_SCREEN, DIALOG_FULL_SCREEN_CLOSE_STATE } from './locators';
+import {
+  DIALOG_FULL_SCREEN_CHILDREN,
+  DIALOG_FULL_SCREEN,
+  DIALOG_FULL_SCREEN_CLOSE_STATE
+} from './locators';
 
 // component preview locators
-export const dialogFullScreenChildren = () => cy.iFrame(DIALOG_FULL_SCREEN_CHILDREN)
-  .then($element => $element.children());
-export const dialogFullScreenPreview = () => cy.iFrame(DIALOG_FULL_SCREEN);
-export const dialogFullScreenPreviewClosedState = () => cy.iFrame(DIALOG_FULL_SCREEN_CLOSE_STATE);
+export const dialogFullScreenChildren = () => cy.get(DIALOG_FULL_SCREEN_CHILDREN).eq(0);
+export const dialogFullScreenPreviewIFrame = () => cy.iFrame(DIALOG_FULL_SCREEN);
+export const dialogFullScreenPreviewClosedStateIFrame = () => cy.iFrame(DIALOG_FULL_SCREEN_CLOSE_STATE);

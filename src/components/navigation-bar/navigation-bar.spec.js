@@ -18,6 +18,16 @@ describe('NavigationBar', () => {
     expect(wrapper.find('div').text()).toBe('test content');
   });
 
+  it('should not render a child if `isLoading={true}`', () => {
+    wrapper = shallow(
+      <NavigationBar isLoading>
+        <div>test content</div>
+      </NavigationBar>
+    );
+
+    expect(wrapper.find('div').exists()).toBe(false);
+  });
+
   it('should render `data-component="navigation-bar"` by default', () => {
     wrapper = shallow(
       <NavigationBar>

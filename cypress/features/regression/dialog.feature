@@ -24,7 +24,7 @@ Feature: Dialog component
   @positive
   Scenario Outline: Change Dialog component title to <title>
     When I open default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "<nameOfObject>" object name
-    Then component title on preview is <title> in NoIFrame
+    Then component title on preview is <title>
     Examples:
       | title                        | nameOfObject          |
       | mp150ú¿¡üßä                  | titleOtherLanguage    |
@@ -61,12 +61,12 @@ Feature: Dialog component
   @positive
   Scenario: Enable background UI
     When I open default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "enableBackgroundUI" object name
-    Then Background UI is enabled in NoIFrame
+    Then Background UI is enabled
 
   @positive
   Scenario: Disable background UI
     When I open default "Dialog" component in noIFrame with "dialog" json from "commonComponents" using "enableBackgroundUIFalse" object name
-    Then Background UI is disabled in NoIFrame
+    Then Background UI is disabled
 
   # Sticky form footer tests
   @positive

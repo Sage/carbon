@@ -5,25 +5,26 @@ import {
   visitComponentUrlWithParameters,
 } from '../helper';
 import {
-  commonButtonPreview, labelPreview, helpIconIframe, helpIconByPosition, inputWidthSlider,
+  commonButtonPreview, labelPreview, helpIconByPosition, inputWidthSlider,
   fieldHelpPreview, labelWidthSlider, backgroundUILocator,
-  closeIconButtonIFrame, tooltipPreview, getKnobsInput, getKnobsInputWithName, getKnobsInputByGroup,
+  closeIconButtonIFrame, tooltipPreviewIFrame, getKnobsInput, getKnobsInputWithName,
+  getKnobsInputByGroup,
   iconIFrame, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
-  precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValue,
+  precisionSlider, storyRootNoIframe, tooltipPreview, getDataElementByValue,
   knobsNameTab, dlsRoot,
   commonButtonPreviewNoIFrameRoot,
   getDataElementByValueIframe,
   commonButtonPreviewNoIframe,
-  backgroundUILocatorNoIFrame,
   closeIconButton,
   fieldHelpPreviewNoIFrame,
   commonDataElementInputPreviewNoIframe,
-  helpIcon,
+  helpIconIframe,
   helpIconByPositionNoIFrame,
   getElementNoIframe,
   labelByPosition,
+  helpIcon,
 } from '../../locators';
-import { dialogTitle, dialogTitleNoIFrame } from '../../locators/dialog';
+import { dialogTitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
 import { pagerSummary } from '../../locators/pager';
 
@@ -201,10 +202,6 @@ Then('component title on preview is {word}', (title) => {
   dialogTitle().should('have.text', title);
 });
 
-Then('component title on preview is {word} in NoIFrame', (title) => {
-  dialogTitleNoIFrame().should('have.text', title);
-});
-
 Then('label on preview is {word}', (text) => {
   labelPreview().should('have.text', text);
 });
@@ -217,12 +214,12 @@ Then('label is set to {word}', (text) => {
   label().should('have.text', text);
 });
 
-When('I hover mouse onto help icon in noIFrame', () => {
-  helpIcon().trigger('mouseover');
+When('I hover mouse onto help icon in IFrame', () => {
+  helpIconIframe().trigger('mouseover');
 });
 
 When('I hover mouse onto help icon', () => {
-  helpIconIframe().trigger('mouseover');
+  helpIcon().trigger('mouseover');
 });
 
 When('I hover mouse onto {string} help icon', (position) => {
@@ -246,16 +243,12 @@ Then('I hover mouse onto {string} icon in iFrame', (name) => {
   getDataElementByValueIframe(name).trigger('mouseover');
 });
 
-Then('tooltipPreview on preview is set to {word} in NoIFrame', (text) => {
-  tooltipPreviewNoIframe().should('have.text', text);
-});
-
 Then('tooltipPreview on preview is set to {word}', (text) => {
   tooltipPreview().should('have.text', text);
 });
 
-Then('tooltipPreview on preview in noIframe is set to {word}', (text) => {
-  tooltipPreviewNoIframe().should('have.text', text);
+Then('tooltipPreview on preview is set to {word} in IFrame', (text) => {
+  tooltipPreviewIFrame().should('have.text', text);
 });
 
 When('I set inputWidth slider to {int}', (width) => {
@@ -321,20 +314,8 @@ Then('Background UI is disabled', () => {
   backgroundUILocator().should('exist');
 });
 
-Then('Background UI is enabled in NoIFrame', () => {
-  backgroundUILocatorNoIFrame().should('not.exist');
-});
-
-Then('Background UI is disabled in NoIFrame', () => {
-  backgroundUILocatorNoIFrame().should('exist');
-});
-
 Then('closeIcon is visible', () => {
   closeIconButtonIFrame().should('be.visible');
-});
-
-Then('closeIcon is visible', () => {
-  closeIconButton().should('be.visible');
 });
 
 Then('I click closeIcon in IFrame', () => {
@@ -577,4 +558,8 @@ Then('label Align on preview is {string} in NoIFrame', (direction) => {
 
 Then('icon name in noIframe on preview is {string}', (iconName) => {
   getElementNoIframe(iconName);
+});
+
+When('I click {string} icon in iFrame', (iconName) => {
+  getDataElementByValueIframe(iconName).click();
 });
