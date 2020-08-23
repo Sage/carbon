@@ -43,7 +43,7 @@ PortraitGravatar.propTypes = {
   /** The user's email address for the Gravatar. */
   gravatarEmail: PropTypes.string.isRequired,
   /** The size of the Gravatar. */
-  size: PropTypes.oneOf([...OptionsHelper.sizesFull, ...OptionsHelper.sizesPortrait]).isRequired,
+  size: PropTypes.oneOf(OptionsHelper.sizesPortrait).isRequired,
   /** The shape of the Gravatar. */
   shape: PropTypes.oneOf(OptionsHelper.shapesPortrait),
   /** The `alt` HTML string. */
