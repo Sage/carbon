@@ -1,3 +1,10 @@
+### [38.1.1](https://github.com/Sage/carbon/compare/v38.1.0...v38.1.1) (2020-08-23)
+
+
+### Bug Fixes
+
+* **portrait:** remove incorrect size propType values ([8bcc171](https://github.com/Sage/carbon/commit/8bcc17101edaff59abe4c47c2f5aeb28a0029bb4))
+
 ## [38.1.0](https://github.com/Sage/carbon/compare/v38.0.2...v38.1.0) (2020-08-21)
 
 
