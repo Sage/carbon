@@ -98,8 +98,7 @@ function makeStory(name, themeSelector, component, disableChromatic = false) {
     themeSelector,
     info: {
       text: info,
-      propTables: [OriginalTextbox],
-      propTablesExclude: [State]
+      propTables: [GroupedCharacter, OriginalTextbox]
     },
     chromatic: {
       disable: disableChromatic
@@ -112,7 +111,7 @@ function makeStory(name, themeSelector, component, disableChromatic = false) {
 
 storiesOf('Experimental/GroupedCharacter', module)
   .addParameters({
-    info: { text: info, propTables: [GroupedCharacter, OriginalTextbox], propTablesExclude: [State] },
+    info: { text: info, propTables: [GroupedCharacter, OriginalTextbox] },
     knobs: { escapeHTML: false }
   })
   .add(...makeStory('default', dlsThemeSelector, defaultComponent))
