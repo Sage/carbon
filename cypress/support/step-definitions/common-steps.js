@@ -433,7 +433,7 @@ Then('data-{word} {string} is present', (element, value) => {
 });
 
 Then('text {string} color is set to {string}', (text, color) => {
-  storyRoot().contains(text).should('have.css', 'color', color);
+  storyRootNoIframe().contains(text).should('have.css', 'color', color);
 });
 
 When('I click outside of the component', () => {

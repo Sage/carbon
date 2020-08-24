@@ -1,7 +1,9 @@
 import {
-  stepSequence, stepSequenceElement, stepSequenceItemIndicator, ariaLabel,
+  stepSequence,
+  stepSequenceElement,
+  stepSequenceItemIndicator,
+  ariaLabel,
 } from '../../locators/step-sequence';
-import { DEBUG_FLAG } from '..';
 
 const ARIA_LABEL = 'Step 1 of 5';
 const INDICATOR = '1';
@@ -12,7 +14,6 @@ Then('orientation is set to {string}', (orientation) => {
 });
 
 Then('indicator is set to {word}', (indicator) => {
-  cy.wait(500, { log: DEBUG_FLAG }); // required because iframe content is changed
   stepSequenceItemIndicator().should('have.text', indicator);
 });
 
