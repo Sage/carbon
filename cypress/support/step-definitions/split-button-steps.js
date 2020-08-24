@@ -131,8 +131,10 @@ When('I click {string} element of Split Button component', (element) => {
 When('I click {string} element of Split Button component in IFrame', (element) => {
   if (element === 'first' || element === 'second' || element === 'third') {
     additionalButtonIFrame(positionOfElement(element)).click();
-  } else {
+  } else if (element === 'main-button'){
     splitMainButtonDataComponentIFrame(positionOfElement('first')).click();
+  } else {
+    throw new Error('There is no such split button element');
   }
 });
 
