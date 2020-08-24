@@ -8,7 +8,7 @@ import { positionOfElement, keyCode } from '../helper';
 
 Then('unassigned picklist has {int} items', (items) => {
   unassignedPicklistItems().should('have.length', items);
-  picklistLeftLabel().should('have.text', `UNASSIGNED (${items})`);
+  picklistLeftLabel().should('have.text', `List 1 (${items})`);
 });
 
 Then('unassigned picklist contains {int} items', (items) => {
@@ -17,7 +17,7 @@ Then('unassigned picklist contains {int} items', (items) => {
 
 Then('assigned picklist has {int} items', (items) => {
   assignedPicklistItems().should('have.length', items);
-  picklistRightLabel().should('have.text', `ASSIGNED (${items})`);
+  picklistRightLabel().should('have.text', `List 2 (${items})`);
 });
 
 Then('divider is visible', () => {
@@ -29,13 +29,13 @@ Then('divider is visible', () => {
 Then('assigned picklist is empty', () => {
   assignedPicklistItems().should('have.length', '0');
   assignedPicklist().find('div').should('have.text', 'Nothing to see here');
-  picklistRightLabel().should('have.text', 'ASSIGNED (0)');
+  picklistRightLabel().should('have.text', 'List 2 (0)');
 });
 
 Then('unassigned picklist is empty', () => {
   unassignedPicklistItems().should('have.length', '0');
   unassignedPicklist().find('div').should('have.text', 'Your own placeholder');
-  picklistLeftLabel().should('have.text', 'UNASSIGNED (0)');
+  picklistLeftLabel().should('have.text', 'List 1 (0)');
 });
 
 Then('I check Access to all current and new clients checkbox', () => {
