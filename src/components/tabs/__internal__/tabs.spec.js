@@ -251,7 +251,7 @@ describe('Tabs', () => {
       expect(wrapper.find(Tab).at(1).props().isTabSelected).toEqual(true);
     });
 
-    it('calls the "onTabChange" callback if one is passed', () => {
+    it('calls the "onTabChange" callback if one is passed on click of a TabTitle', () => {
       const onTabChange = jest.fn();
       const wrapper = render({ onTabChange });
       act(() => {
@@ -259,6 +259,29 @@ describe('Tabs', () => {
       });
       wrapper.update();
       expect(onTabChange).toHaveBeenCalledWith('uniqueid2');
+    });
+
+    it('calls the "onTabChange" callback if one is passed and a new selectedTabId value is passed', () => {
+      const onTabChange = jest.fn();
+      const wrapper = render({ onTabChange, selectedTabId: 'uniqueid1' });
+      wrapper.setProps({ selectedTabId: 'uniqueid2' });
+      wrapper.update();
+      expect(onTabChange).toHaveBeenCalledWith('uniqueid2');
+      wrapper.setProps({ selectedTabId: 'uniqueid1' });
+      wrapper.update();
+      expect(onTabChange).toHaveBeenCalledWith('uniqueid1');
+    });
+
+    it('only calls the "onTabChange" callback when visible tabId does not match new tabId', () => {
+      const onTabChange = jest.fn();
+      const wrapper = render({ onTabChange, selectedTabId: 'uniqueid1' });
+      act(() => {
+        wrapper.find(TabTitle).at(1).props().onClick({ type: 'click', target: { dataset: { tabid: 'uniqueid2' } } });
+      });
+      wrapper.update();
+      wrapper.setProps({ selectedTabId: 'uniqueid2' });
+      wrapper.update();
+      expect(onTabChange).toHaveBeenCalledTimes(1);
     });
   });
 

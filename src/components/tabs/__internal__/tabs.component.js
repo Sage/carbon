@@ -31,7 +31,8 @@ const Tabs = ({
 }) => {
   const firstRender = useRef(true);
   const tabRefs = useRef([]);
-  const [selectedTabIdState, setSelectedTabIdState] = useState(selectedTabId);
+  const previousSelectedTabId = useRef(selectedTabId);
+  const [selectedTabIdState, setSelectedTabIdState] = useState();
   const [tabsErrors, setTabsErrors] = useState({});
   const [tabsWarnings, setTabsWarnings] = useState({});
   const [tabsInfos, setTabsInfos] = useState({});
@@ -291,10 +292,13 @@ const Tabs = ({
   };
 
   useEffect(() => {
-    if (selectedTabId !== selectedTabIdState) {
-      updateVisibleTab(selectedTabIdState);
+    if (previousSelectedTabId.current !== selectedTabId) {
+      if (selectedTabId !== selectedTabIdState) {
+        updateVisibleTab(selectedTabId);
+      }
+      previousSelectedTabId.current = selectedTabId;
     }
-  }, [selectedTabId, selectedTabIdState, updateVisibleTab]);
+  }, [previousSelectedTabId, selectedTabId, selectedTabIdState, updateVisibleTab]);
 
   return (
     <StyledTabs
