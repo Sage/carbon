@@ -5,6 +5,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Events from '../../utils/helpers/events';
 import Browser from '../../utils/helpers/browser';
 import Portal from '../portal';
+import ModalManager from './__internal__/modal-manager';
 import {
   StyledModal, StyledModalBackground
 } from './modal.style';
@@ -27,6 +28,7 @@ class Modal extends React.Component {
     this.state = {
       state: this.props.open ? 'open' : 'closed'
     };
+    this.modalRef = React.createRef();
   }
 
   updateDataState = () => {
@@ -49,6 +51,7 @@ class Modal extends React.Component {
   }
 
   componentWillUnmount() {
+    ModalManager.removeModal(this.modalRef.current);
     if (this.listening) this.handleClose();
   }
 
@@ -63,18 +66,24 @@ class Modal extends React.Component {
   handleOpen() {
     this.listening = true;
     this.updateDataState();
+    ModalManager.addModal(this.modalRef.current);
     Browser.getWindow().addEventListener('keyup', this.closeModal);
   }
 
   handleClose() {
     this.listening = false;
+    ModalManager.removeModal(this.modalRef.current);
     this.updateDataState();
     Browser.getWindow().removeEventListener('keyup', this.closeModal);
   }
 
   closeModal = (ev) => {
-    if (this.props.open && this.props.onCancel && !this.props.disableEscKey && Events.isEscKey(ev)) {
-      this.props.onCancel(ev);
+    const { open, onCancel, disableEscKey } = this.props;
+    const isTopmost = ModalManager.isTopmost(this.modalRef.current);
+
+    if (open && onCancel && !disableEscKey && Events.isEscKey(ev) && isTopmost) {
+      ev.stopImmediatePropagation();
+      onCancel(ev);
     }
   }
 
@@ -116,6 +125,7 @@ class Modal extends React.Component {
           { ...this.componentTags(this.props) }
           data-state={ this.state.state }
           transitionName={ this.transitionName }
+          ref={ this.modalRef }
         >
           <TransitionGroup>
             {backgroundHTML && (
