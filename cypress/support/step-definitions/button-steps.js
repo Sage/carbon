@@ -21,7 +21,7 @@ Then('Button as a sibling label on preview is {word}', (label) => {
 });
 
 Then('Button is disabled', () => {
-  buttonDataComponentIFrame().should('be.disabled')
+  buttonDataComponent().should('be.disabled')
     .and('have.attr', 'disabled');
 });
 
@@ -33,7 +33,7 @@ Then('Button as a sibling is disabled', () => {
 });
 
 Then('Button is enabled', () => {
-  buttonDataComponentIFrame().should('be.enabled');
+  buttonDataComponent().should('be.enabled');
 });
 
 Then('Button as a sibling is enabled', () => {
@@ -73,7 +73,7 @@ Then('Button as a sibling font color is {string}', (color) => {
 });
 
 Then('Button background color is {string}', (color) => {
-  buttonDataComponentIFrame().should('have.css', 'background-color', color);
+  buttonDataComponent().should('have.css', 'background-color', color);
 });
 
 Then('Button background style is {string}', (style) => {

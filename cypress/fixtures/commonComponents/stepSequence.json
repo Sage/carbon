@@ -1,0 +1,52 @@
+{ 
+  "orientationVertical": {
+    "orientation": "vertical"
+  },
+  "orientationHorizontal": {
+    "orientation": "horizontal"
+  },
+  "indicator-100": {
+    "indicator": -100
+  },
+  "indicator0": {
+    "indicator": 0
+  },
+  "indicator999": {
+    "indicator": 999
+  },
+  "indicatorOtherLanguage": {
+    "indicator": "mp150ú¿¡üßä"
+  },
+  "indicatorSpecialCharacter": {
+    "indicator": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "statusComplete": {
+    "status": "complete"
+  },
+  "statusCurrent": {
+    "status": "current"
+  },
+  "statusIncomplete": {
+    "status": "incomplete"
+  },
+  "hiddenCompleteLabelOtherLanguage": {
+    "status": "complete",
+    "hiddenCompleteLabel": "mp150ú¿¡üßä"
+  },
+  "hiddenCurrentLabelOtherLanguage": {
+    "status": "current",
+    "hiddenCurrentLabel": "mp150ú¿¡üßä"
+  },
+  "ariaLabelOtherLanguage": {
+    "ariaLabel": "mp150ú¿¡üßä"
+  },
+  "ariaLabelSpecialCharacter": {
+    "ariaLabel": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "childrenOtherLanguage": {
+    "children": "mp150ú¿¡üßä"
+  },
+  "childrenSpecialCharacter": {
+    "children": "!@#$%^*()_+-=~[];:.,?{}"
+  }
+}

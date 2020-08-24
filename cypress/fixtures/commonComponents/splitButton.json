@@ -1,0 +1,55 @@
+{ 
+  "buttonTypePrimary": {
+    "buttonType": "primary"
+  },
+  "buttonTypeSecondary": {
+    "buttonType": "secondary"
+  },
+  "sizeSmall": {
+    "size": "small"
+  },
+  "sizeMedium": {
+    "size": "medium"
+  },
+  "sizeLarge": {
+    "size": "large"
+  },
+  "disabled": {
+    "disabled": true
+  },
+  "disabledFalse": {
+    "disabled": false
+  },
+  "alignLeft": {
+    "align": "left"
+  },
+  "alignRight": {
+    "align": "right"
+  },
+  "textSpecialCharacter": {
+    "text": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "textOtherLanguage": {
+    "text": "mp150ú¿¡üßä"
+  },
+  "subtextSpecialCharacter": {
+    "size": "large",
+    "subtext": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "subtextOtherLanguage": {
+    "size": "large",
+    "subtext": "mp150ú¿¡üßä"
+  },
+  "iconPositionAfter": {
+    "has icon": true,
+    "iconType": "warning",
+    "iconPosition": "after"
+  },
+  "iconPositionBefore": {
+    "has icon": true,
+    "iconType": "warning",
+    "iconPosition": "before"
+  },
+  "default": {
+  }
+}
