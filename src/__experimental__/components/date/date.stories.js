@@ -7,7 +7,7 @@ import {
   text
 } from '@storybook/addon-knobs';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
-import DateInput, { BaseDateInput } from './date.component';
+import DateInput from './date.component';
 import { OriginalTextbox } from '../textbox';
 import Button from '../../../components/button';
 import { getCommonTextboxProps } from '../textbox/textbox.stories';
@@ -67,7 +67,7 @@ function makeStory(name, themeSelector, component, disableChromatic = false) {
     themeSelector,
     info: {
       text: info,
-      propTables: [OriginalTextbox, BaseDateInput],
+      propTables: [OriginalTextbox, DateInput],
       propTablesExclude: [State],
       excludedPropTypes: ['children', 'leftChildren', 'inputIcon', 'placeholder', 'inputWidth']
     },
