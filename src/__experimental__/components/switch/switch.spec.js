@@ -156,6 +156,17 @@ describe('Switch', () => {
         });
       });
 
+      describe('and fieldHelpInline=true', () => {
+        const wrapper = render({ reverse: false, fieldHelpInline: true }).toJSON();
+
+        it('applies the correct FieldHelp styles', () => {
+          assertStyleMatch({
+            margin: '0',
+            marginTop: '8px'
+          }, wrapper, { modifier: css`${FieldHelpStyle}` });
+        });
+      });
+
       describe('and labelInline=true, fieldHelpInline=false', () => {
         const wrapper = render({ fieldHelpInline: false, labelInline: true, reverse: false }).toJSON();
 
@@ -197,6 +208,12 @@ describe('Switch', () => {
 
     describe('when fieldHelpInline=true and labelInline=true', () => {
       const wrapper = render({ fieldHelpInline: true, labelInline: true }).toJSON();
+
+      it('applies the correct CheckableInput styles', () => {
+        assertStyleMatch({
+          marginLeft: '10px'
+        }, wrapper, { modifier: css`${StyledCheckableInput}` });
+      });
 
       it('applies the correct Label styles', () => {
         assertStyleMatch({
