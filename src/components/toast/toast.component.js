@@ -13,6 +13,8 @@ import {
 } from './toast.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import IconButton from '../icon-button';
+import ModalManager from '../modal/__internal__/modal-manager';
+import Events from '../../utils/helpers/events/events';
 
 class Toast extends React.Component {
   /** Classes to be applied to the component. */
@@ -20,6 +22,30 @@ class Toast extends React.Component {
     return classNames(
       this.props.className,
     );
+  }
+
+  constructor(props) {
+    super(props);
+    this.toastRef = React.createRef();
+  }
+
+  componentDidMount() {
+    ModalManager.addModal(this.toastRef.current);
+    document.addEventListener('keyup', this.dismissToast);
+  }
+
+  componentWillUnmount() {
+    ModalManager.removeModal(this.toastRef.current);
+    document.removeEventListener('keyup', this.dismissToast);
+  }
+
+  dismissToast = (ev) => {
+    const isTopmost = ModalManager.isTopmost(this.toastRef.current);
+
+    if (this.props.onDismiss && Events.isEscKey(ev) && isTopmost) {
+      ev.stopImmediatePropagation();
+      this.props.onDismiss(ev);
+    }
   }
 
   closeIcon() {
@@ -92,7 +118,7 @@ class Toast extends React.Component {
         id={ targetPortalId }
         isCenter={ isCenter }
       >
-        <ToastWrapper isCenter={ isCenter }>
+        <ToastWrapper isCenter={ isCenter } ref={ this.toastRef }>
           <TransitionGroup>
             { this.toastContent() }
           </TransitionGroup>
