@@ -19,11 +19,7 @@
             "name": "object"
           },
           "required": false,
-          "description": "The theme to use.",
-          "defaultValue": {
-            "value": "BaseTheme",
-            "computed": true
-          }
+          "description": "The theme to use."
         },
         "gravatarEmail": {
           "type": {
@@ -35,16 +31,8 @@
         "size": {
           "type": {
             "name": "enum",
-            "value": [
-              {
-                "value": "...OptionsHelper.sizesFull",
-                "computed": true
-              },
-              {
-                "value": "...OptionsHelper.sizesPortrait",
-                "computed": true
-              }
-            ]
+            "computed": true,
+            "value": "OptionsHelper.sizesPortrait"
           },
           "required": true,
           "description": "The size of the Gravatar."
@@ -52,16 +40,8 @@
         "shape": {
           "type": {
             "name": "enum",
-            "value": [
-              {
-                "value": "...OptionsHelper.shapesVaried",
-                "computed": true
-              },
-              {
-                "value": "...OptionsHelper.shapesPortrait",
-                "computed": true
-              }
-            ]
+            "computed": true,
+            "value": "OptionsHelper.shapesPortrait"
           },
           "required": false,
           "description": "The shape of the Gravatar.",
@@ -159,16 +139,8 @@
         "size": {
           "type": {
             "name": "enum",
-            "value": [
-              {
-                "value": "...OptionsHelper.sizesFull",
-                "computed": true
-              },
-              {
-                "value": "...OptionsHelper.sizesPortrait",
-                "computed": true
-              }
-            ]
+            "computed": true,
+            "value": "OptionsHelper.sizesPortrait"
           },
           "required": true,
           "description": "The size of the initials image."
@@ -183,16 +155,8 @@
         "shape": {
           "type": {
             "name": "enum",
-            "value": [
-              {
-                "value": "...OptionsHelper.shapesVaried",
-                "computed": true
-              },
-              {
-                "value": "...OptionsHelper.shapesPortrait",
-                "computed": true
-              }
-            ]
+            "computed": true,
+            "value": "OptionsHelper.shapesPortrait"
           },
           "required": false,
           "description": "The shape of the Portrait.",
@@ -228,16 +192,8 @@
         "size": {
           "type": {
             "name": "enum",
-            "value": [
-              {
-                "value": "...OptionsHelper.sizesFull",
-                "computed": true
-              },
-              {
-                "value": "...OptionsHelper.sizesPortrait",
-                "computed": true
-              }
-            ]
+            "computed": true,
+            "value": "OptionsHelper.sizesPortrait"
           },
           "required": false,
           "description": "The size of the Portrait.",
@@ -275,16 +231,8 @@
         "shape": {
           "type": {
             "name": "enum",
-            "value": [
-              {
-                "value": "...OptionsHelper.shapesVaried",
-                "computed": true
-              },
-              {
-                "value": "...OptionsHelper.shapesPortrait",
-                "computed": true
-              }
-            ]
+            "computed": true,
+            "value": "OptionsHelper.shapesPortrait"
           },
           "required": false,
           "description": "The shape of the Portrait.",

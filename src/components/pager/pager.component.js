@@ -11,7 +11,6 @@ import {
   StyledSelect
 } from './pager.styles';
 
-
 const Pager = ({
   currentPage,
   pageSizeSelectionOptions,
@@ -105,14 +104,16 @@ const Pager = ({
   const sizeSelector = () => {
     return (
       <StyledSelect
-        value={ currentPageSize }
+        value={ String(currentPageSize) }
         onChange={ (ev) => { handleOnPagination(ev); } }
         data-element='page-select'
+        id='page-select'
       >
         { pageSizeSelectionOptions.map(sizeOption => (
           <Option
+            key={ sizeOption.id }
             text={ sizeOption.id }
-            value={ sizeOption.name }
+            value={ String(sizeOption.name) }
           />
         ))}
       </StyledSelect>

@@ -52,8 +52,8 @@ Feature: Experimental Checkbox component
   @positive
   Scenario Outline: Change Checkbox component label help to <labelHelp>
     When I open default "Experimental Checkbox" component in noIFrame with "checkbox" json from "experimental" using "<nameOfObject>" object name
-      And I hover mouse onto help icon in noIFrame
-    Then tooltipPreview on preview is set to <labelHelp> in NoIFrame
+      And I hover mouse onto help icon
+    Then tooltipPreview on preview is set to <labelHelp>
     Examples:
       | labelHelp                    | nameOfObject              |
       | mp150ú¿¡üßä                  | labelHelpOtherLanguage    |
