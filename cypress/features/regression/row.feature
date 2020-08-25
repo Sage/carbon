@@ -1,5 +1,5 @@
 Feature: Row component
-  I want to change Row component properties
+  I want to test Row component properties
 
   @positive
   Scenario: Enable columnDivide

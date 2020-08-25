@@ -7,7 +7,7 @@ Feature: Preview default component
     Then Preview component is loading
 
   @positive
-  Scenario: Enable and disable loading checkbox for a Preview component
+  Scenario: Disable loading checkbox for a Preview component
     When I open default "Preview" component in noIFrame with "preview" json from "commonComponents" using "loadingFalse" object name
     Then Preview component is not loading
 
