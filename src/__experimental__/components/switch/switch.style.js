@@ -63,6 +63,12 @@ const StyledSwitch = styled.div`
         ${StyledLabelContainer} {
           margin-top: 8px;
         }
+
+        ${fieldHelpInline && css`
+          ${FieldHelpStyle} {
+            margin-top: 8px;
+          }
+        `}
       `}
     `}
 
@@ -104,10 +110,12 @@ const StyledSwitch = styled.div`
         `}
       `}
 
-      ${fieldHelpInline && `
-        ${StyledCheckableInput} {
-          margin-left: 10px;
-        }
+      ${fieldHelpInline && css`
+        ${!reverse && `
+          ${StyledCheckableInput} {
+            margin-left: 10px;
+          }
+        `}
 
         ${StyledLabelContainer} {
           margin-right: 10px;
