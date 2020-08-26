@@ -167,6 +167,7 @@ export function getCommonTextboxProps(config = defaultStoryPropsConfig, autoFocu
   };
   const disabled = boolean('disabled', false);
   const readOnly = boolean('readOnly', false);
+  const prefix = text('prefix', '');
   const autoFocus = boolean('autoFocus', autoFocusDefault);
   const fieldHelp = text('fieldHelp');
   const label = text('label', 'Label');
@@ -196,6 +197,7 @@ export function getCommonTextboxProps(config = defaultStoryPropsConfig, autoFocu
     size,
     onClick,
     iconOnClick,
-    inputIcon
+    inputIcon,
+    prefix
   };
 }

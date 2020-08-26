@@ -7,6 +7,7 @@ import FormField from '../form-field';
 import InputPresentation from '../input/input-presentation.component';
 import { StyledLabelContainer } from '../label/label.style';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
+import StyledPrefix from './__internal__/prefix.style';
 
 jest.mock('../../../utils/helpers/guid', () => () => 'mocked-guid');
 
@@ -92,6 +93,30 @@ describe('Textbox', () => {
 
     it('renders label element with properly assigned styles', () => {
       assertStyleMatch(randomStyleObject, wrapper.find(StyledLabelContainer));
+    });
+  });
+
+  describe('when the prefix prop is set', () => {
+    it('then a StyledPrefix should be rendered with this prop value', () => {
+      const prefixValue = 'bar';
+      const wrapper = mount(
+        <Textbox
+          value='foo'
+          prefix={ prefixValue }
+        />
+      );
+      expect(wrapper.find(StyledPrefix).exists()).toBe(true);
+      expect(wrapper.find(StyledPrefix).text()).toBe(prefixValue);
+    });
+  });
+
+  describe('Prefix', () => {
+    it('should have expected styles', () => {
+      assertStyleMatch({
+        alignSelf: 'center',
+        fontWeight: '900',
+        marginRight: '8px'
+      }, mount(<StyledPrefix>abc</StyledPrefix>));
     });
   });
 });

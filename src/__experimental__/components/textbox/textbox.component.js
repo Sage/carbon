@@ -7,6 +7,7 @@ import withUniqueIdProps from '../../../utils/helpers/with-unique-id-props';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import Logger from '../../../utils/logger/logger';
 import { InputBehaviour } from '../../../__internal__/input-behaviour';
+import StyledPrefix from './__internal__/prefix.style';
 
 let deprecatedWarnTriggered = false;
 
@@ -21,6 +22,7 @@ const Textbox = ({
   iconOnClick,
   styleOverride,
   validationOnLabel,
+  prefix,
   ...props
 }) => {
   if (!deprecatedWarnTriggered) {
@@ -43,6 +45,7 @@ const Textbox = ({
           styleOverride={ styleOverride.input }
         >
           { leftChildren }
+          { prefix ? <StyledPrefix>{ prefix }</StyledPrefix> : null }
           <Input
             { ...removeParentProps(props) }
             placeholder={ (props.disabled || props.readOnly) ? '' : props.placeholder }
@@ -145,6 +148,8 @@ Textbox.propTypes = {
   iconOnClick: PropTypes.func,
   /** Handler for onClick events */
   onClick: PropTypes.func,
+  /** Emphasized part of the displayed text */
+  prefix: PropTypes.string,
   /** Allows to override existing component styles */
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
