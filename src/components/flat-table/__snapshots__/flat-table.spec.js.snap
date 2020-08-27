@@ -1,5 +1,884 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`FlatTable when rendered with pager prop set should have expected structure and styles 1`] = `
+.c8 {
+  background-color: transparent;
+  border-width: 0;
+  border-bottom: 1px solid #CCD6DB;
+  box-sizing: border-box;
+  font-weight: 700;
+  left: auto;
+  padding: 8px 24px;
+  text-align: left;
+  top: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.c6 {
+  background-color: #fff;
+  border: 1px solid #CCD6DB;
+  border-top: none;
+  box-sizing: border-box;
+  left: 0;
+  font-weight: normal;
+  padding: 10px 24px;
+  position: -webkit-sticky;
+  position: sticky;
+  text-align: left;
+  top: auto;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.c17 + .c16 {
+  margin-top: 16px;
+}
+
+.c18 {
+  display: block;
+}
+
+.c31 {
+  color: rgba(0,0,0,0.9);
+  display: block;
+  font-weight: 600;
+}
+
+.c30 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.c25 {
+  display: inline-block;
+  position: relative;
+  color: rgba(0,0,0,0.65);
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c25:hover {
+  color: rgba(0,0,0,0.90);
+  background-color: transparent;
+}
+
+.c25::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e910";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+  display: block;
+}
+
+.c3 .c5,
+.c3 .c39 {
+  border-left: none;
+  border-right: none;
+  font-weight: 700;
+  left: 0;
+  padding: 8px 24px;
+  top: 0;
+  z-index: 1000;
+}
+
+.c1 {
+  border-collapse: separate;
+  border-radius: 0px;
+  border-spacing: 0;
+  min-width: 100%;
+  table-layout: fixed;
+  width: auto;
+  word-break: break-all;
+}
+
+.c0 {
+  height: 100%;
+}
+
+.c0 .c2 .c39,
+.c0 .c7,
+.c0 .c2 .c5 {
+  background-color: #335C6D;
+  border-right: 1px solid #668592;
+  color: #FFFFFF;
+}
+
+.c33 .c2 .c39,
+.c33 .c7,
+.c33 .c2 .c5 {
+  background-color: #335C6D;
+  border-right: 1px solid #668592;
+  color: #FFFFFF;
+}
+
+.c33 .c7 {
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 1000;
+}
+
+.c33 .c2 .c5,
+.c33 .c2 .c39 {
+  z-index: 1002;
+}
+
+.c34 .c2 .c39,
+.c34 .c7,
+.c34 .c2 .c5 {
+  background-color: #335C6D;
+  border-right: 1px solid #668592;
+  color: #FFFFFF;
+}
+
+.c34 .c7 {
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 1000;
+}
+
+.c34 .c2 .c5,
+.c34 .c2 .c39 {
+  z-index: 1002;
+}
+
+.c35 .c7,
+.c35 .c2 .c5,
+.c35 .c2 .c39 {
+  background-color: #CCD6DB;
+  border-right: 1px solid #B3C2C8;
+}
+
+.c36 .c7,
+.c36 .c2 .c5,
+.c36 .c2 .c39 {
+  background-color: #F2F5F6;
+  border-right: 1px solid #F2F5F6;
+}
+
+.c37 .c7,
+.c37 .c2 .c5,
+.c37 .c2 .c39 {
+  background-color: #fff;
+  border-right: 1px solid #fff;
+}
+
+.c38 .c2 .c39,
+.c38 .c7,
+.c38 .c2 .c5 {
+  background-color: #335C6D;
+  border-right: 1px solid #668592;
+  color: #FFFFFF;
+}
+
+.c38 .c7,
+.c38 .c2 .c5,
+.c38 .c2 .c39 {
+  background-color: #EDF1F2;
+  border-right: 2px solid #EDF1F2;
+  color: #000000;
+}
+
+.c10 {
+  background-color: #fff;
+  border-width: 0;
+  border-bottom: 1px solid #CCD6DB;
+  overflow: visible;
+  padding: 10px 24px;
+  text-overflow: ellipsis;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.c10:first-of-type {
+  border-left: 1px solid #CCD6DB;
+}
+
+.c10:last-of-type {
+  border-right: 1px solid #CCD6DB;
+}
+
+.c11 {
+  background-color: #fff;
+  border-width: 0;
+  border-bottom: 1px solid #CCD6DB;
+  overflow: visible;
+  padding: 10px 24px;
+  text-overflow: ellipsis;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.c11:first-of-type {
+  border-left: 1px solid #CCD6DB;
+}
+
+.c11:last-of-type {
+  border-right: 1px solid #CCD6DB;
+}
+
+.c11:first-of-type + .c9 {
+  border-left: 1px solid #CCD6DB;
+}
+
+.c4 {
+  border-collapse: separate;
+  border-radius: 0px;
+  border-spacing: 0;
+  min-width: 100%;
+  table-layout: fixed;
+  width: auto;
+  word-break: break-all;
+}
+
+.c22 {
+  background: transparent;
+  border: none;
+  color: rgba(0,0,0,0.9);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-size: 14px;
+  outline: none;
+  width: 30px;
+}
+
+.c22:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+  -webkit-box-border: none;
+}
+
+.c22::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c22::-moz-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c22:-ms-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c22::placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c22:invalid,
+.c22:required {
+  box-shadow: none;
+}
+
+.c24 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: -11px;
+  margin-left: -11px;
+  width: 40px;
+}
+
+.c20 {
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  background: #fff;
+  border: 1px solid #668592;
+  box-sizing: border-box;
+  cursor: text;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-flex: 0 0 70%;
+  -ms-flex: 0 0 70%;
+  flex: 0 0 70%;
+  margin: 0;
+  min-height: 40px;
+  padding-left: 11px;
+  padding-right: 11px;
+}
+
+.c20 .c21 {
+  height: calc(40px - 4px);
+}
+
+.c20 .c21:-webkit-autofill {
+  margin-top: 2px;
+  height: calc(40px - 8px);
+}
+
+.c20 input::-ms-clear {
+  display: none;
+}
+
+.c20 input::-webkit-contacts-auto-fill-button {
+  display: none!important;
+}
+
+.c15 .c21 {
+  cursor: pointer;
+  color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-shadow: 0 0 0 rgba(0,0,0,0.9);
+  padding-left: 11px;
+}
+
+.c15 .c21::-webkit-input-placeholder {
+  text-shadow: 0 0 0 rgba(0,0,0,0.3);
+}
+
+.c15 .c21::-moz-placeholder {
+  text-shadow: 0 0 0 rgba(0,0,0,0.3);
+}
+
+.c15 .c21:-ms-input-placeholder {
+  text-shadow: 0 0 0 rgba(0,0,0,0.3);
+}
+
+.c15 .c21::placeholder {
+  text-shadow: 0 0 0 rgba(0,0,0,0.3);
+}
+
+.c15 .c19 {
+  cursor: pointer;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c15 .c23 {
+  margin-right: 0;
+}
+
+.c12 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 0px 24px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-top-width: 0;
+  font-size: 13px;
+  height: 39px;
+  max-height: 39px;
+  border-width: 1px 1px 1px 1px;
+  border-style: none solid solid solid;
+  border-color: #CCD6DB;
+  background-color: #FAFBFB;
+  border-top: none;
+}
+
+.c12 .carbon-input-icon {
+  border: none;
+  background: none;
+}
+
+.c12 .carbon-input-icon:hover {
+  background: none;
+  color: #000000;
+}
+
+.c12 .common-input__field:focus-within {
+  outline: 3px solid #FFB500;
+}
+
+.c12 .common-input__input {
+  border: 1px solid #668592;
+}
+
+.c12 .common-input__input:active,
+.c12 .common-input__input:hover,
+.c12 .common-input__input:focus {
+  border: 1px solid #668592;
+}
+
+.c12 .common-input__input:focus {
+  border: 1px solid #668592;
+  color: #000000;
+}
+
+.c12 .common-input__input:focus ~ label .carbon-input-icon,
+.c12 .common-input__input:focus ~ label .carbon-input-icon:hover {
+  border: none;
+  background: none;
+  color: #000000;
+}
+
+.c12 .common-input__input:hover ~ label .carbon-input-icon {
+  border: none;
+  background: none;
+  color: #000000;
+}
+
+.c12 .common-input__input:hover ~ label .carbon-input-icon:hover {
+  border: none;
+  background: none;
+}
+
+.c13 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 30%;
+  -ms-flex: 1 1 30%;
+  flex: 1 1 30%;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+}
+
+.c13 .c19 {
+  width: 55px;
+  height: 26px;
+  min-height: 26px;
+  min-width: 10px;
+  margin: 0px 4px;
+}
+
+.c13 .c19 .c21 {
+  font-size: 14px;
+  padding-right: 0px;
+  padding-left: 8px;
+  height: 22px;
+  width: 13px;
+}
+
+.c13 .c19 .c23 {
+  margin-left: 0;
+  width: 20px;
+  height: 24px;
+}
+
+.c14 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c26 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c26.c26 .c19 {
+  padding: 0;
+  margin: 8px 4px 0 4px;
+  height: 26px;
+  line-height: 26px;
+  min-height: 24px;
+}
+
+.c26.c26 .c19 .c21 {
+  text-align: center;
+  height: 24px;
+  padding: 0;
+}
+
+.c28 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.c27 {
+  padding: 0 10px;
+  font-size: 13px;
+  border-width: 0;
+  background-color: transparent;
+  cursor: pointer;
+  margin-left: 7px;
+  margin-right: 7px;
+  color: rgba(0,0,0,0.90);
+  color: rgba(0,0,0,0.3);
+  cursor: not-allowed;
+}
+
+.c27:focus {
+  outline: solid 3px #FFB500;
+  padding: 5px 10px;
+}
+
+.c29 {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.c32 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 30%;
+  -ms-flex: 1 1 30%;
+  flex: 1 1 30%;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+<div
+  className="c0"
+>
+  <table
+    className="c1"
+    data-component="flat-table"
+  >
+    <thead
+      className="c2 c3"
+    >
+      <tr
+        className="c4"
+        data-element="flat-table-row"
+      >
+        <th
+          className="c5 c6"
+          data-element="flat-table-row-header"
+        >
+          row header
+        </th>
+        <th
+          className="c7 c8"
+          data-element="flat-table-header"
+        >
+          header1
+        </th>
+        <th
+          className="c7 c8"
+          data-element="flat-table-header"
+        >
+          header2
+        </th>
+        <th
+          className="c7 c8"
+          data-element="flat-table-header"
+        >
+          header3
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        className="c4"
+        data-element="flat-table-row"
+      >
+        <th
+          className="c5 c6"
+          data-element="flat-table-row-header"
+        >
+          row header
+        </th>
+        <td
+          className="c9 c10"
+          data-element="flat-table-cell"
+        >
+          cell1
+        </td>
+        <td
+          className="c9 c10"
+          data-element="flat-table-cell"
+        >
+          cell2
+        </td>
+        <td
+          className="c9 c11"
+          data-element="flat-table-cell"
+          rowSpan="2"
+        >
+          cell3
+        </td>
+      </tr>
+      <tr
+        className="c4"
+        data-element="flat-table-row"
+      >
+        <th
+          className="c5 c6"
+          data-element="flat-table-row-header"
+        >
+          row header
+        </th>
+        <td
+          className="c9 c10"
+          colSpan="2"
+          data-element="flat-table-cell"
+        >
+          cell1
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div
+    className="c12"
+    data-component="pager"
+  >
+    <div
+      className="c13"
+    >
+      <div
+        className="c14"
+      >
+        <span>
+          Show
+        </span>
+        <div
+          aria-expanded={false}
+          aria-haspopup="listbox"
+          className="c15"
+          data-component="simple-select"
+          size="medium"
+        >
+          <div
+            className="c16 c17"
+            data-element="page-select"
+          >
+            <div
+              className="c18"
+            >
+              <div
+                className="c19 c20"
+                onMouseDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                role="presentation"
+                size="medium"
+              >
+                <input
+                  aria-controls=""
+                  aria-invalid={false}
+                  autoComplete="off"
+                  className="c21 c22"
+                  data-element="input"
+                  id="page-select"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseDown={[Function]}
+                  placeholder="Please Select..."
+                  size="medium"
+                  type="select"
+                  value=""
+                />
+                <span
+                  className="c23 c24"
+                  onClick={[Function]}
+                  onMouseDown={[Function]}
+                  size="medium"
+                >
+                  <span
+                    className="c25"
+                    data-component="icon"
+                    data-element="dropdown"
+                    disabled={false}
+                    fontSize="small"
+                    type="dropdown"
+                  />
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span>
+          item
+        </span>
+      </div>
+    </div>
+    <div
+      className="c26"
+    >
+      <button
+        className="c27"
+        data-element="pager-link-first"
+        disabled={true}
+        onClick={[Function]}
+      >
+        First
+      </button>
+      <button
+        className="c27"
+        data-element="pager-link-previous"
+        disabled={true}
+        onClick={[Function]}
+      >
+        Previous
+      </button>
+      <div
+        className="c28"
+      >
+        <span
+          className="c29"
+        >
+          Page 
+        </span>
+        <div
+          className="c30"
+          width={30}
+        >
+          <label
+            className="c31"
+            data-element="label"
+            htmlFor="Pager_guid-12345"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <div
+              className="c16 c17"
+              data-element="current-page"
+            >
+              <div
+                className="c18"
+              >
+                <div
+                  className="c19 c20"
+                  onMouseDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="presentation"
+                  size="medium"
+                >
+                  <input
+                    aria-invalid={false}
+                    className="c21 c22"
+                    data-element="input"
+                    id="Pager_guid-12345"
+                    name="guid-12345"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyUp={[Function]}
+                    size="medium"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </label>
+        </div>
+        <span
+          className="c29"
+        >
+           of 
+          1
+        </span>
+      </div>
+      <button
+        className="c27"
+        data-element="pager-link-next"
+        disabled={true}
+        onClick={[Function]}
+      >
+        Next
+      </button>
+      <button
+        className="c27"
+        data-element="pager-link-last"
+        disabled={true}
+        onClick={[Function]}
+      >
+        Last
+      </button>
+    </div>
+    <div
+      className="c32"
+    >
+      100
+       
+      items
+    </div>
+  </div>
+</div>
+`;
+
 exports[`FlatTable when rendered with proper table data should have expected structure and styles 1`] = `
 .c8 {
   background-color: transparent;

@@ -15,6 +15,11 @@ import StyledFlatTableRowHeader from './flat-table-row-header/flat-table-row-hea
 import StyledFlatTableCheckbox from './flat-table-checkbox/flat-table-checkbox.style';
 import { baseTheme } from '../../style/themes';
 import { SidebarContext } from '../drawer';
+import Pager from '../pager';
+import guid from '../../utils/helpers/guid';
+
+jest.mock('../../utils/helpers/guid');
+guid.mockImplementation(() => 'guid-12345');
 
 describe('FlatTable', () => {
   describe('when rendered with proper table data', () => {
@@ -38,6 +43,11 @@ describe('FlatTable', () => {
 
     it('should have the overflow-y css property set to to auto', () => {
       expect(wrapper).toHaveStyleRule('overflow-y', 'auto');
+    });
+
+    it('should not have the overflow-y css property set to to auto when it has a Pager', () => {
+      expect(renderFlatTable({ hasStickyHead: true, pager: <Pager /> }, mount))
+        .not.toHaveStyleRule('overflow-y', 'auto');
     });
 
     it('then all Headers should have proper styling if `colorTheme="dark"`', () => {
@@ -116,6 +126,29 @@ describe('FlatTable', () => {
         }, wrapper.toJSON(), { modifier: `${modifierString}` });
       }
     );
+  });
+
+  describe('when rendered with pager prop set', () => {
+    const pager = (
+      <Pager
+        totalRecords={ 100 }
+        showPageSizeSelection
+        pageSize={ 1 }
+        currentPage={ 1 }
+        onPagination={ () => {} }
+        pageSizeSelectionOptions={ [{ id: '1', name: 1 }, { id: '5', name: 5 }] }
+      />
+    );
+
+    it('should have expected structure and styles', () => {
+      expect(renderFlatTable({ pager }).toJSON()).toMatchSnapshot();
+    });
+
+    it('validates whether pager type is correct', () => {
+      expect(() => {
+        renderFlatTable({ pager: <button type='button'>A Button</button> });
+      }).toThrow('<FlatTable> pager must be an instance of <Pager>');
+    });
   });
 });
 

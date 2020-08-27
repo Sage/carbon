@@ -74,8 +74,8 @@ const StyledFlatTableWrapper = styled.div`
     }
   `}
 
-  ${({ hasStickyHead }) => hasStickyHead && css`
-    overflow-y: auto;
+  ${({ hasStickyHead, hasPager }) => hasStickyHead && css`
+    ${!hasPager && css`overflow-y: auto;`}
 
     ${StyledFlatTableHeader} {
       position: sticky;
