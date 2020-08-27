@@ -1,17 +1,21 @@
 import { CLOSE_ICON_BUTTON } from '../locators';
 import {
-  DIALOG_INNER_CONTENT, DIALOG_TITLE, DIALOG, CANCEL_BUTTON, CONFIRM_BUTTON,
+  DIALOG_INNER_CONTENT,
+  DIALOG,
+  CANCEL_BUTTON,
+  CONFIRM_BUTTON,
+  DIALOG_SUBTITLE,
 } from './locators';
-import { DIALOG_SUBTITLE } from '../dialog/locators';
 
 // component preview locators
-export const dialogInnerContent = () => cy.iFrame(DIALOG_INNER_CONTENT);
-export const dialogTitle = () => cy.iFrame(DIALOG_TITLE);
-export const dialogPreview = () => cy.iFrame(DIALOG);
-export const closeIconButton = () => cy.iFrame(CLOSE_ICON_BUTTON);
-export const dialogSubtitle = () => cy.iFrame(DIALOG_SUBTITLE);
-export const confirmButton = () => cy.iFrame(CONFIRM_BUTTON);
-export const cancelButton = () => cy.iFrame(CANCEL_BUTTON);
+export const dialogInnerContent = () => cy.get(DIALOG_INNER_CONTENT);
+export const dialogPreview = () => cy.get(DIALOG);
+export const closeIconButton = () => cy.get(CLOSE_ICON_BUTTON);
+export const dialogSubtitle = () => cy.get(DIALOG_SUBTITLE);
+export const confirmButton = () => cy.get(CONFIRM_BUTTON);
+export const cancelButton = () => cy.get(CANCEL_BUTTON);
 
-// component preview locators in NoIFrame
-export const dialogSubtitleNoIFrame = () => cy.get(DIALOG_SUBTITLE);
+// component preview locators in IFrame
+export const dialogPreviewIFrame = () => cy.iFrame(DIALOG);
+export const confirmButtonIFrame = () => cy.iFrame(CONFIRM_BUTTON);
+export const cancelButtonIFrame = () => cy.iFrame(CANCEL_BUTTON);

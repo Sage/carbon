@@ -1,8 +1,8 @@
 Feature: Configurable Items component
   I want to change Configurable Items component
 
-  Background: Open Configurable Items component in iframe
-    Given I open "Configurable Items" component in iframe
+  Background: Open Configurable Items component in noIframe
+    Given I open "Configurable Items" component in noiFrame
 
   @positive
   Scenario Outline: Drag record inside Configurable Items element <record> to <destinationId> element position

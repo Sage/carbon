@@ -1,7 +1,6 @@
 import {
   select,
   selectInput,
-  selectInputNoIframe,
   selectPill,
   simpleSelectID,
   selectOption,
@@ -11,6 +10,12 @@ import {
   simpleSelectNoIframe,
   selectDataComponent,
   simpleSelectIframe,
+  multiSelectDataComponent,
+  openOnFocusID,
+  multiSelectPill,
+  multiSelectPillByPosition,
+  selectInputIframe,
+  selectPillIframe,
 } from '../../locators/select';
 import { positionOfElement, keyCode } from '../helper';
 import { label } from '../../locators';
@@ -31,15 +36,23 @@ When('Type {string} text into input', (text) => {
 });
 
 When('Type {string} text into input into iFrame', (text) => {
-  selectInputNoIframe().clear().type(text);
+  selectInputIframe().clear().type(text);
 });
 
 Then('Select input has {string} value', (text) => {
   selectInput().should('have.attr', 'value', text);
 });
 
+Then('Select input has {string} value in iFrame', (text) => {
+  selectInputIframe().should('have.attr', 'value', text);
+});
+
 Then('Select multiple input {int} element and has {string} value', (index, text) => {
   selectPill(index).should('have.attr', 'title', text);
+});
+
+Then('Select multiple input {int} element and has {string} value in Iframe', (index, text) => {
+  selectPillIframe(index).should('have.attr', 'title', text);
 });
 
 Then('Select placeholder on preview is set to {word}', (text) => {
@@ -71,22 +84,23 @@ Then('Select size on preview for default component is set to {string}', (size) =
   switch (size) {
     case 'small':
       select().should('have.css', 'height', '28px')
-        .and('have.css', 'width', '1027px');
+        .and('have.css', 'width', '1243px');
       break;
     case 'medium':
       select().should('have.css', 'height', '36px')
-        .and('have.css', 'width', '1019px');
+        .and('have.css', 'width', '1235px');
       break;
     case 'large':
-      select().should('have.css', 'height', '44px')
-        .and('have.css', 'width', '1011px');
+      select().should('have.css', 'height', '36px')
+        .and('have.css', 'width', '1235px');
       break;
     default: throw new Error('There is no such size for a Select component input');
   }
 });
 
 Then('Select is disabled', () => {
-  select().should('have.attr', 'disabled');
+  select().should('be.disabled')
+    .and('have.attr', 'disabled');
 });
 
 Then('Select is enabled', () => {
@@ -99,6 +113,10 @@ Then('Select is readOnly', () => {
 
 Then('Select is not readOnly', () => {
   select().should('not.have.attr', 'readOnly');
+});
+
+When('Type {string} text into input and select the value in iFrame', (text) => {
+  selectInputIframe().type(`${text}{downarrow}{enter}`);
 });
 
 When('Type {string} text into input and select the value', (text) => {
@@ -133,13 +151,27 @@ When('I focus basic Select input', () => {
   simpleSelectIframe().focus();
 });
 
-Then('{string} {word} Select list is opened', (index, name) => {
+When('I focus openOnFocus Select input', () => {
+  openOnFocusID().focus();
+});
+
+Then('{string} {string} Select list is opened', (index, name) => {
   selectDataComponent(positionOfElement(index), name).should('have.attr', 'aria-expanded', 'true');
   selectList().should('be.visible');
 });
 
-Then('{string} {word} Select list is closed', (index, name) => {
+Then('{string} {string} Select list is closed', (index, name) => {
   selectDataComponent(positionOfElement(index), name).should('have.attr', 'aria-expanded', 'false');
+  selectList().should('not.be.visible');
+});
+
+Then('{string} multi Select list is opened', (index) => {
+  multiSelectDataComponent(positionOfElement(index)).should('have.attr', 'aria-expanded', 'true');
+  selectList().should('be.visible');
+});
+
+Then('{string} multi Select list is closed', (index) => {
+  multiSelectDataComponent(positionOfElement(index)).should('have.attr', 'aria-expanded', 'false');
   selectList().should('not.be.visible');
 });
 
@@ -172,6 +204,18 @@ Then('Design system Select input has {string} value', (text) => {
   simpleSelectID().should('have.attr', 'value', text);
 });
 
+Then('Multi select input has {string} pill', (text) => {
+  multiSelectPill().should('have.attr', 'title', text);
+});
+
+Then('Multi select {string} pill has {string} value', (int, text) => {
+  multiSelectPillByPosition(positionOfElement(int)).should('have.attr', 'title', text);
+});
+
+Then('Multi select input has not any value', () => {
+  multiSelectDataComponent(1).should('not.have.attr', 'data-component', 'pill');
+});
+
 When('I click on {string} dropdown button', (position) => {
   dropdownButton(positionOfElement(position)).click();
 });
@@ -188,6 +232,10 @@ When('I type {string} into input', (text) => {
   simpleSelectID().type(text);
 });
 
+When('Type {string} text into multi select input and select the value', (text) => {
+  simpleSelectID().type(`${text}{downarrow}{enter}`);
+});
+
 When('I type {string} into basic input', (text) => {
   simpleSelectIframe().type(text);
 });
@@ -202,4 +250,8 @@ When('I click on {string} option on Select list', (position) => {
 
 When('I click on Select label', () => {
   label().click();
+});
+
+When('I click {string} onto multi select input', (key) => {
+  simpleSelectID().trigger('keydown', keyCode(key));
 });

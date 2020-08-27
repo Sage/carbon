@@ -115,6 +115,6 @@ Feature: Experimental Textbox multiple component
       And Multiple Textbox width is "<width>"
     Examples:
       | size   | height | width  | nameOfObject |
-      | small  | 28px   | 1263px | sizeSmall    |
-      | medium | 36px   | 1257px | sizeMedium   |
-      | large  | 44px   | 1253px | sizeLarge    |
+      | small  | 28px   | 1259px | sizeSmall    |
+      | medium | 36px   | 1253px | sizeMedium   |
+      | large  | 44px   | 1249px | sizeLarge    |

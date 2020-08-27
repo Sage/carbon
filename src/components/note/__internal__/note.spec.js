@@ -1,6 +1,7 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { mount } from 'enzyme';
+import { EditorState } from 'draft-js';
 import Note from './note.component';
 import baseTheme from '../../../style/themes/base';
 import {
@@ -10,14 +11,24 @@ import {
   StyledFooter,
   StyledFooterContent
 } from './note.style';
+import {
+  ActionPopover,
+  ActionPopoverItem
+} from '../../action-popover';
 import StatusWithTooltip from './status-with-tooltip';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import Tooltip from '../../tooltip';
 
 function render(props = {}) {
+  const defaultProps = {
+    name: 'Carbon',
+    createdDate: '23 May 2020, 12:08 PM',
+    noteContent: EditorState.createEmpty(),
+    ...props
+  };
   return mount(
     <ThemeProvider theme={ baseTheme }>
-      <Note { ...props } />
+      <Note { ...defaultProps } />
     </ThemeProvider>
   );
 }
@@ -34,9 +45,7 @@ describe('Note', () => {
         flexDirection: 'column',
         padding: '24px',
         position: 'relative',
-        width: '100%',
-        minWidth: '314px'
-
+        width: '100%'
       }, wrapper);
 
       const content = wrapper.find(StyledNoteContent);
@@ -84,7 +93,11 @@ describe('Note', () => {
   });
 
   describe('StyledInlineControl', () => {
-    const inlineControl = <div>inlineControl</div>;
+    const inlineControl = (
+      <ActionPopover>
+        <ActionPopoverItem onClick={ () => {} }>Edit</ActionPopoverItem>
+      </ActionPopover>
+    );
 
     it('does not render the "inlineControl" when prop is undefined', () => {
       expect(render().find(StyledInlineControl).exists()).toBeFalsy();
@@ -108,10 +121,44 @@ describe('Note', () => {
     const name = 'foo';
     const createdDate = '25/12/20';
 
-    it('does not render the "name" and "createdDate" when either prop is undefined', () => {
-      expect(render().find(StyledNoteContent)).toHaveLength(1);
-      expect(render({ name }).find(StyledNoteContent)).toHaveLength(1);
-      expect(render({ createdDate }).find(StyledNoteContent)).toHaveLength(1);
+    it('renders the correct styling for the footer and content', () => {
+      const wrapper = render({ name, createdDate });
+
+      assertStyleMatch({
+        display: 'flex',
+        marginBottom: '-8px',
+        flexWrap: 'wrap'
+      }, wrapper.find(StyledFooter));
+
+      assertStyleMatch({
+        alignItems: 'baseline'
+      }, wrapper.find(StyledFooterContent));
+
+      assertStyleMatch({
+        fontWeight: 'bold',
+        fontSize: '14px',
+        marginTop: '16px'
+      }, wrapper.find(StyledFooterContent),
+      { modifier: ':first-of-type' });
+
+      assertStyleMatch({
+        fontWeight: 'bold',
+        fontSize: '12px',
+        marginTop: '16px',
+        color: baseTheme.note.timeStamp,
+        marginLeft: '16px'
+      }, wrapper.find(StyledFooterContent),
+      { modifier: ':nth-of-type(2)' });
+
+      assertStyleMatch({
+        fontWeight: 'bold',
+        fontSize: '12px',
+        marginTop: '16px',
+        color: baseTheme.note.timeStamp,
+        cursor: 'pointer',
+        marginLeft: '24px'
+      }, wrapper.find(StyledFooterContent),
+      { modifier: ':last-of-type:not(:nth-of-type(2))' });
     });
 
     it('renders the "name" and "createdDate" when props have value', () => {
@@ -124,29 +171,70 @@ describe('Note', () => {
       expect(footerContent.at(1).text()).toEqual('25/12/20');
     });
 
-    it('does not render the "status" when no "text" has no value', () => {
-      const wrapper = render({ name, createdDate, status: { timeStamp: '123' } });
-      expect(wrapper.find(StyledFooterContent)).toHaveLength(2);
-    });
-
     it('renders the "status" with tooltip when "text" and "timeStamp" have values', () => {
       const wrapper = render({ name, createdDate, status: { text: 'foo', timeStamp: '123' } });
-      const status = () => wrapper.find(StatusWithTooltip);
+      const status = wrapper.find(StatusWithTooltip);
       expect(wrapper.find(StyledFooterContent)).toHaveLength(3);
-      expect(status().exists()).toBeTruthy();
-      expect(status().text()).toEqual('foo');
-      status().simulate('mouseover');
-      expect(status().find(Tooltip).exists()).toBeTruthy();
+      expect(status.exists()).toBeTruthy();
+      expect(status.text()).toEqual('foo');
+
+      status.simulate('mouseover');
+      expect(wrapper.find(StatusWithTooltip).find(Tooltip).exists()).toBeTruthy();
+
+      status.simulate('mouseleave');
+      expect(wrapper.find(StatusWithTooltip).find(Tooltip).exists()).toBeFalsy();
+    });
+  });
+
+  describe('invariant', () => {
+    beforeEach(() => {
+      jest.spyOn(global.console, 'error').mockImplementation(() => {});
     });
 
-    it('renders the "status" with no tooltip when "text" has value but "timeStamp" has no value', () => {
-      const wrapper = render({ name, createdDate, status: { text: 'foo' } });
-      const status = () => wrapper.find(StatusWithTooltip);
+    afterEach(() => {
+      global.console.error.mockReset();
+    });
 
-      status().simulate('mouseover');
-      expect(status().find(Tooltip).exists()).toBeFalsy();
-      // coverage
-      status().simulate('mouseleave');
+    it('throws if the width is < 0', () => {
+      expect(() => {
+        render({ width: 0 });
+      }).toThrow('<Note> width must be greater than 0');
+    });
+
+    it('throws if createdDate is not defined', () => {
+      expect(() => {
+        render({ createdDate: undefined });
+      }).toThrow('<Note> createdDate is required');
+    });
+
+    it('throws if name is not defined', () => {
+      expect(() => {
+        render({ name: undefined });
+      }).toThrow('<Note> name is required');
+    });
+
+    it('throws if noteContent is not defined', () => {
+      expect(() => {
+        render({ noteContent: undefined });
+      }).toThrow('<Note> noteContent is required');
+    });
+
+    it('throws if status.text is not defined', () => {
+      expect(() => {
+        render({ status: {} });
+      }).toThrow('<Note> status.text is required');
+    });
+
+    it('throws if status.timeStamp is not defined', () => {
+      expect(() => {
+        render({ status: { text: 'Edited' } });
+      }).toThrow('<Note> status.timeStamp is required');
+    });
+
+    it('throws if inlineControl is not an ActionPopover', () => {
+      expect(() => {
+        render({ inlineControl: <button type='button'>A Button</button> });
+      }).toThrow('<Note> inlineControl must be an instance of <ActionPopover>');
     });
   });
 });

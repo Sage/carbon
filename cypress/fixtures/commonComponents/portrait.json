@@ -1,0 +1,42 @@
+{
+  "altOtherLanguage": {
+    "alt": "mp150ú¿¡üßä"
+  },
+  "altSpecialCharacter": {
+    "alt": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "sourceSrc": {
+    "source": "src"
+  },
+  "src": {
+    "source": "src",
+    "src": "https://photos.smugmug.com/Portfolio/Business-Portrait-Examples/i-qFTj2wW/0/1f8956e8/M/163-FCP%20Moriah%20Thomas-M.jpg"
+  },
+  "shapeCircle":{
+    "shape": "circle"
+  },
+  "shapeSquare": {
+    "shape": "square"
+  },
+  "sizeXS": {
+    "size": "XS"
+  },
+  "sizeS": {
+    "size": "S"
+  },
+  "sizeM": {
+    "size": "M"
+  },
+  "sizeML": {
+    "size": "ML"
+  },
+  "sizeL": {
+    "size": "L"
+  },
+  "sizeXL": {
+    "size": "XL"
+  },
+  "sizeXXL": {
+    "size": "XXL"
+  }
+}

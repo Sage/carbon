@@ -3,8 +3,8 @@ import {
 } from './locators';
 
 // component preview locators
-export const stepSequence = () => cy.iFrame(STEP_SEQUENCE);
-export const stepSequenceElement = () => cy.iFrame(STEP_SEQUENCE_ELEMENT);
-export const stepSequenceItem = () => cy.iFrame(STEP_SEQUENCE_ITEM);
-export const stepSequenceItemIndicator = () => cy.iFrame(STEP_SEQUENCE_ITEM_INDICATOR);
-export const ariaLabel = label => cy.iFrame(`li[aria-label="${label}"]`);
+export const stepSequence = () => cy.get(STEP_SEQUENCE);
+export const stepSequenceElement = () => cy.get(STEP_SEQUENCE_ELEMENT);
+export const stepSequenceItem = () => cy.get(STEP_SEQUENCE_ITEM);
+export const stepSequenceItemIndicator = () => cy.get(STEP_SEQUENCE_ITEM_INDICATOR);
+export const ariaLabel = label => cy.get(`li[aria-label="${label}"]`);

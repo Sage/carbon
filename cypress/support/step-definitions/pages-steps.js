@@ -1,10 +1,11 @@
 import {
-  dataComponentButtonByText, title, closeDataElement, backArrow,
+  dataComponentButtonByText, closeDataElement, backArrow,
 } from '../../locators/pages';
 import { DEBUG_FLAG } from '..';
+import { getDataElementByValueIframe } from '../../locators';
 
 Then('My {word} Page is visible', (word) => {
-  title().should('have.text', `My ${word} Page`);
+  getDataElementByValueIframe('title').should('have.text', `My ${word} Page`);
 });
 
 When('I go to {word} page', (word) => {
@@ -25,21 +26,21 @@ Then('I go back', () => {
 Then('other pages except {word} Page are not visible', (word) => {
   switch (word) {
     case 'First':
-      title().should('not.have.text', 'My Second Page');
-      title().should('not.have.text', 'My Third Page');
+      getDataElementByValueIframe('title').should('not.have.text', 'My Second Page');
+      getDataElementByValueIframe('title').should('not.have.text', 'My Third Page');
       break;
     case 'Second':
-      title().should('not.have.text', 'My First Page');
-      title().should('not.have.text', 'My Third Page');
+      getDataElementByValueIframe('title').should('not.have.text', 'My First Page');
+      getDataElementByValueIframe('title').should('not.have.text', 'My Third Page');
       break;
     case 'Third':
-      title().should('not.have.text', 'My First Page');
-      title().should('not.have.text', 'My Second Page');
+      getDataElementByValueIframe('title').should('not.have.text', 'My First Page');
+      getDataElementByValueIframe('title').should('not.have.text', 'My Second Page');
       break;
     default: throw new Error(`Unknown page ${word}`);
   }
 });
 
 Then('page is closed', () => {
-  title().should('not.exist');
+  getDataElementByValueIframe('title').should('not.exist');
 });

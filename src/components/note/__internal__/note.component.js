@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Editor, EditorState } from 'draft-js';
+import { Editor } from 'draft-js';
+import invariant from 'invariant';
 import {
   StyledNote,
   StyledNoteContent,
@@ -12,8 +13,8 @@ import {
 import StatusWithTooltip from './status-with-tooltip';
 
 const Note = ({
-  noteContent = EditorState.createEmpty(),
-  width,
+  noteContent,
+  width = 100,
   inlineControl,
   title,
   name,
@@ -23,8 +24,17 @@ const Note = ({
 }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
+  invariant(width > 0, '<Note> width must be greater than 0');
+  invariant(createdDate, '<Note> createdDate is required');
+  invariant(name, '<Note> name is required');
+  invariant(noteContent, '<Note> noteContent is required');
+  invariant(!status || status.text, '<Note> status.text is required');
+  invariant(!status || status.timeStamp, '<Note> status.timeStamp is required');
+  invariant(!inlineControl || inlineControl.type.name === 'ActionPopover',
+    '<Note> inlineControl must be an instance of <ActionPopover>');
+
   const renderStatus = () => {
-    if (!status || !status.text || !status.text.length) {
+    if (!status) {
       return null;
     }
 
@@ -87,22 +97,19 @@ function tooltipProps(id, showTooltip, setShowTooltip) {
 
 Note.propTypes = {
   /**  The rich text content to display in the Note */
-  noteContent: PropTypes.object,
-  /**
-   * Set a percentage-based width for the whole Note component, relative to its parent.
-   * If unset or zero, this will default to 100%.
-   */
+  noteContent: PropTypes.object.isRequired,
+  /** Set a percentage-based width for the whole Note component, relative to its parent. */
   width: PropTypes.number,
   /** renders a control for the Note */
   inlineControl: PropTypes.node,
   /** Adds a Title to the Note */
   title: PropTypes.string,
   /** Adds a name to the Note footer */
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   /** Adds a created on date to the Note footer */
-  createdDate: PropTypes.string,
+  createdDate: PropTypes.string.isRequired,
   /** Adds a status and tooltip to the Note footer */
-  status: PropTypes.shape({ text: PropTypes.string, timeStamp: PropTypes.string })
+  status: PropTypes.shape({ text: PropTypes.string.isRequired, timeStamp: PropTypes.string.isRequired })
 };
 
 export default Note;

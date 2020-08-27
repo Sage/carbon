@@ -5,27 +5,32 @@ import {
   visitComponentUrlWithParameters,
 } from '../helper';
 import {
-  commonButtonPreview, labelPreview, helpIcon, helpIconByPosition, inputWidthSlider,
+  commonButtonPreview, labelPreview, helpIconByPosition, inputWidthSlider,
   fieldHelpPreview, labelWidthSlider, backgroundUILocator,
-  closeIconButton, tooltipPreview, getKnobsInput, getKnobsInputWithName, getKnobsInputByGroup,
-  icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
-  precisionSlider, storyRootNoIframe, tooltipPreviewNoIframe, getDataElementByValueNoIframe,
-  knobsNameTab, fieldHelpPreviewByPosition, labelByPosition, dlsRoot,
+  closeIconButtonIFrame, tooltipPreviewIFrame, getKnobsInput, getKnobsInputWithName,
+  getKnobsInputByGroup,
+  iconIFrame, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
+  precisionSlider, storyRootNoIframe, tooltipPreview, getDataElementByValue,
+  knobsNameTab, dlsRoot,
   commonButtonPreviewNoIFrameRoot,
-  getDataElementByValue,
+  getDataElementByValueIframe,
   commonButtonPreviewNoIframe,
-  backgroundUILocatorNoIFrame,
-  closeIconButtonNoIFrame,
+  closeIconButton,
   fieldHelpPreviewNoIFrame,
   commonDataElementInputPreviewNoIframe,
-  helpIconNoIFrame,
+  helpIconIframe,
   helpIconByPositionNoIFrame,
+  getElementNoIframe,
+  labelByPosition,
+  helpIcon,
 } from '../../locators';
-import { dialogTitle, dialogTitleNoIFrame } from '../../locators/dialog';
+import { dialogTitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
 import { pagerSummary } from '../../locators/pager';
 
-const TEXT_ALIGN = 'text-align';
+const TEXT_ALIGN = 'justify-content';
+const TEXT_ALIGN_START = 'flex-start';
+const TEXT_ALIGN_END = 'flex-end';
 
 Given('I open design systems {word} {string} component page', (type, component) => {
   visitComponentUrl(component, type, false, 'design-system-');
@@ -87,19 +92,10 @@ Given('I open {string} component page with button in noIFrame', (component) => {
   visitComponentUrl(component, 'with_button', true);
 });
 
-Given('I open {string} component page with inputs', (component) => {
-  visitComponentUrl(component, 'default_with_inputs');
-});
-
 Given('I open dark theme {string} component page in noIFrame', (component) => {
   visitComponentUrl(component, 'dark_theme', true);
 });
 
-Given('I open {string} component in iframe', (component) => {
-  visitComponentUrl(component, 'default', true);
-});
-
-// the step above should be refactored and changed to in noiFrame
 Given('I open {string} component in noiFrame', (component) => {
   visitComponentUrl(component, 'default', true);
 });
@@ -206,24 +202,20 @@ Then('component title on preview is {word}', (title) => {
   dialogTitle().should('have.text', title);
 });
 
-Then('component title on preview is {word} in NoIFrame', (title) => {
-  dialogTitleNoIFrame().should('have.text', title);
-});
-
 Then('label on preview is {word}', (text) => {
   labelPreview().should('have.text', text);
 });
 
 Then('label on preview is {word} in NoIFrame', (text) => {
-  getDataElementByValueNoIframe('label').should('have.text', text);
+  getDataElementByValue('label').should('have.text', text);
 });
 
 Then('label is set to {word}', (text) => {
   label().should('have.text', text);
 });
 
-When('I hover mouse onto help icon in noIFrame', () => {
-  helpIconNoIFrame().trigger('mouseover');
+When('I hover mouse onto help icon in IFrame', () => {
+  helpIconIframe().trigger('mouseover');
 });
 
 When('I hover mouse onto help icon', () => {
@@ -240,27 +232,23 @@ When('I hover mouse onto {string} help icon in NoIFrame', (position) => {
 
 When('I hover mouse onto icon', () => {
   cy.wait(100, { log: DEBUG_FLAG }); // delayed in case the element need to be reloaded
-  icon().trigger('mouseover');
+  iconIFrame().trigger('mouseover');
 });
 
 Then('I hover mouse onto {string} icon in no iFrame', (name) => {
-  getDataElementByValueNoIframe(name).trigger('mouseover');
-});
-
-Then('I hover mouse onto {string} icon in iFrame', (name) => {
   getDataElementByValue(name).trigger('mouseover');
 });
 
-Then('tooltipPreview on preview is set to {word} in NoIFrame', (text) => {
-  tooltipPreviewNoIframe().should('have.text', text);
+Then('I hover mouse onto {string} icon in iFrame', (name) => {
+  getDataElementByValueIframe(name).trigger('mouseover');
 });
 
 Then('tooltipPreview on preview is set to {word}', (text) => {
   tooltipPreview().should('have.text', text);
 });
 
-Then('tooltipPreview on preview into iFrame is set to {word}', (text) => {
-  tooltipPreviewNoIframe().should('have.text', text);
+Then('tooltipPreview on preview is set to {word} in IFrame', (text) => {
+  tooltipPreviewIFrame().should('have.text', text);
 });
 
 When('I set inputWidth slider to {int}', (width) => {
@@ -275,9 +263,19 @@ Then('fieldHelp on preview is set to {word} in NoIFrame', (text) => {
   fieldHelpPreviewNoIFrame().should('have.text', text);
 });
 
+Then('{word} is set to fieldHelpInline and has marginLeft set to {string}', (componentName, marginLeft) => {
+  fieldHelpPreviewNoIFrame().should('have.css', 'margin-left', marginLeft)
+    .and('have.css', 'margin-top', '0px')
+    .and('have.css', 'padding-left', '0px');
+});
+
+Then('{word} is not set to fieldHelpInline and has marginTop set to {string}', (componentName, marginTop) => {
+  fieldHelpPreviewNoIFrame().should('have.css', 'margin-left', '0px')
+    .and('have.css', 'margin-top', marginTop);
+});
+
 Then('{string} fieldHelp on preview is set to {word}', (position, text) => {
-  cy.wait(1500, { log: DEBUG_FLAG }); // delayed to ensure it to run on CI
-  fieldHelpPreviewByPosition(positionOfElement(position)).should('have.text', text);
+  fieldHelpPreviewNoIFrame(positionOfElement(position)).should('have.text', text);
 });
 
 When('I set label width slider to {int}', (width) => {
@@ -293,7 +291,19 @@ When('I set precision slider to {int}', (width) => {
 });
 
 Then('{string} label Align on preview is {string}', (position, direction) => {
-  labelByPosition(positionOfElement(position)).should('have.css', TEXT_ALIGN, direction);
+  if (direction === 'left') {
+    labelByPosition(positionOfElement(position)).parent().should('have.css', TEXT_ALIGN, TEXT_ALIGN_START);
+  } else {
+    labelByPosition(positionOfElement(position)).parent().should('have.css', TEXT_ALIGN, TEXT_ALIGN_END);
+  }
+});
+
+Then('label Align on preview is {string}', (direction) => {
+  if (direction === 'left') {
+    label().parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_START));
+  } else {
+    label().parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_END));
+  }
 });
 
 Then('Background UI is enabled', () => {
@@ -304,36 +314,33 @@ Then('Background UI is disabled', () => {
   backgroundUILocator().should('exist');
 });
 
-Then('Background UI is enabled in NoIFrame', () => {
-  backgroundUILocatorNoIFrame().should('not.exist');
-});
-
-Then('Background UI is disabled in NoIFrame', () => {
-  backgroundUILocatorNoIFrame().should('exist');
-});
-
 Then('closeIcon is visible', () => {
-  closeIconButton().should('be.visible');
+  closeIconButtonIFrame().should('be.visible');
 });
 
-Then('closeIcon is visible in NoIFrame', () => {
-  closeIconButtonNoIFrame().should('be.visible');
+Then('I click closeIcon in IFrame', () => {
+  closeIconButtonIFrame().click();
 });
 
 Then('I click closeIcon', () => {
   closeIconButton().click();
 });
 
-Then('I click closeIcon in NoIFrame', () => {
-  closeIconButtonNoIFrame().click();
-});
-
 When('I click {string} button into iFrame', (text) => {
   commonButtonPreviewNoIframe().contains(text).click();
 });
 
+Then('closeIcon is not visible in IFrame', () => {
+  closeIconButtonIFrame().should('not.exist');
+});
+
 Then('closeIcon is not visible', () => {
   closeIconButton().should('not.exist');
+});
+
+Then('closeIcon has the border outline color {string} and width {string} in IFrame', (color, width) => {
+  closeIconButtonIFrame().should('have.css', 'outline-color', color)
+    .and('have.css', 'outline-width', width);
 });
 
 Then('closeIcon has the border outline color {string} and width {string}', (color, width) => {
@@ -341,13 +348,8 @@ Then('closeIcon has the border outline color {string} and width {string}', (colo
     .and('have.css', 'outline-width', width);
 });
 
-Then('closeIcon has the border outline color {string} and width {string} in NoIFrame', (color, width) => {
-  closeIconButtonNoIFrame().should('have.css', 'outline-color', color)
-    .and('have.css', 'outline-width', width);
-});
-
 Then('closeIcon is focused', () => {
-  closeIconButton().focus();
+  closeIconButtonIFrame().focus();
 });
 
 When('I hit ESC key', () => {
@@ -415,7 +417,7 @@ Then('inputWidth is not set', () => {
 });
 
 Then('{word} labelWidth is set to {string}', (componentName, width) => {
-  label().should('have.attr', 'style', `width: ${width}%;`);
+  label().should('contain', `width: ${width}%;`);
 });
 
 Then('{word} action was called in Actions Tab', (event) => {
@@ -423,7 +425,7 @@ Then('{word} action was called in Actions Tab', (event) => {
 });
 
 When('I close Sidebar', () => {
-  closeIconButton().click();
+  closeIconButtonIFrame().click();
 });
 
 Then('data-{word} {string} is present', (element, value) => {
@@ -431,7 +433,7 @@ Then('data-{word} {string} is present', (element, value) => {
 });
 
 Then('text {string} color is set to {string}', (text, color) => {
-  storyRoot().contains(text).should('have.css', 'color', color);
+  storyRootNoIframe().contains(text).should('have.css', 'color', color);
 });
 
 When('I click outside of the component', () => {
@@ -503,11 +505,11 @@ When('I open component preview no iframe', () => {
 });
 
 Then('input direction is {string}', (direction) => {
-  commonDataElementInputPreviewNoIframe().should('have.css', TEXT_ALIGN, `${direction}`);
+  commonDataElementInputPreviewNoIframe().should('have.css', 'text-align', `${direction}`);
 });
 
 Then('label width on preview is {int}', (width) => {
-  getDataElementByValueNoIframe('label').should('have.attr', 'width').should('contain', `${width}`);
+  getDataElementByValue('label').parent().should('have.attr', 'width').should('contain', `${width}`);
 });
 
 Then('label width on preview is {int} in IFrame', (width) => {
@@ -519,7 +521,7 @@ Then('inputWidth on preview is {int}', (width) => {
 });
 
 Then('label align on preview is set to {string}', (labelAlign) => {
-  getDataElementByValueNoIframe('label').should('have.css', TEXT_ALIGN, `${labelAlign}`);
+  getDataElementByValue('label').should('have.css', TEXT_ALIGN, `${labelAlign}`);
 });
 
 Then('label align on preview is set to {string} in IFrame', (labelAlign) => {
@@ -527,7 +529,11 @@ Then('label align on preview is set to {string} in IFrame', (labelAlign) => {
 });
 
 Then('label is inline', () => {
-  getDataElementByValueNoIframe('label').should('have.css', TEXT_ALIGN, 'right');
+  getDataElementByValue('label').parent().should('have.css', TEXT_ALIGN, TEXT_ALIGN_END);
+});
+
+Then('label is not inline', () => {
+  getDataElementByValue('label').parent().should('not.have.css', TEXT_ALIGN, TEXT_ALIGN_END);
 });
 
 Then('label is inline in IFrame', () => {
@@ -535,7 +541,7 @@ Then('label is inline in IFrame', () => {
 });
 
 Then('label width is set to {string} in NoIFrame', (width) => {
-  getDataElementByValueNoIframe('label').should('have.attr', 'width', `${width}`);
+  getDataElementByValue('label').parent().should('have.attr', 'width', `${width}`);
 });
 
 Then('label Align on preview is {string}', (direction) => {
@@ -543,5 +549,17 @@ Then('label Align on preview is {string}', (direction) => {
 });
 
 Then('label Align on preview is {string} in NoIFrame', (direction) => {
-  getDataElementByValueNoIframe('label').should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
+  if (direction === 'left') {
+    getDataElementByValue('label').parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_START));
+  } else {
+    getDataElementByValue('label').parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_END));
+  }
+});
+
+Then('icon name in noIframe on preview is {string}', (iconName) => {
+  getElementNoIframe(iconName);
+});
+
+When('I click {string} icon in iFrame', (iconName) => {
+  getDataElementByValueIframe(iconName).click();
 });

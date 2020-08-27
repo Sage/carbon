@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Help from '../../../components/help';
-import StyledLabel from './label.style';
+import StyledLabel, { StyledLabelContainer } from './label.style';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
-import { filterByProps } from '../../../utils/ether';
 import IconWrapperStyle from './icon-wrapper.style';
 import Logger from '../../../utils/logger/logger';
+import { InputContext, InputGroupContext } from '../../../__internal__/input-behaviour';
 
 const shouldDisplayValidationIcon = ({ error, warning, info }) => {
   const validation = error || warning || info;
@@ -14,62 +14,64 @@ const shouldDisplayValidationIcon = ({ error, warning, info }) => {
 
 let deprecatedWarnTriggered = false;
 
-const Label = (props) => {
+const Label = ({
+  disabled,
+  inline,
+  align = 'right',
+  inputSize,
+  width,
+  childOfForm,
+  optional,
+  labelId,
+  helpId,
+  children,
+  error,
+  warning,
+  info,
+  help,
+  helpIcon,
+  helpTag,
+  helpTabIndex,
+  useValidationIcon = true,
+  htmlFor,
+  pr,
+  pl,
+  styleOverride = {}
+}) => {
   if (!deprecatedWarnTriggered) {
     deprecatedWarnTriggered = true;
     Logger.deprecate('`styleOverride` that is used in the `Label` component is deprecated and will soon be removed.');
   }
   const [isFocused, setFocus] = useState(false);
-  const {
-    labelId,
-    helpId,
-    children,
-    error,
-    warning,
-    info,
-    help,
-    helpIcon,
-    helpTag,
-    helpTabIndex,
-    useValidationIcon,
-    htmlFor,
-    tabIndex,
-    pr,
-    pl,
-    align = 'right',
-    styleOverride
-  } = props;
-  const labelProps = filterByProps(props, [
-    'theme',
-    'disabled',
-    'inline',
-    'align',
-    'inputSize',
-    'width',
-    'childOfForm',
-    'optional'
-  ]);
+  const { onMouseEnter, onMouseLeave } = useContext(InputContext);
+  const { onMouseEnter: onGroupMouseEnter, onMouseLeave: onGroupMouseLeave } = useContext(InputGroupContext);
+
+  const handleMouseEnter = (ev) => {
+    if (onMouseEnter) onMouseEnter(ev);
+    if (onGroupMouseEnter) onGroupMouseEnter(ev);
+  };
+
+  const handleMouseLeave = (ev) => {
+    if (onMouseLeave) onMouseLeave(ev);
+    if (onGroupMouseLeave) onGroupMouseLeave(ev);
+  };
 
   const icon = () => {
     const wrapperProps = {
-      tabIndex,
       onFocus: () => setFocus(true),
       onBlur: () => setFocus(false)
     };
 
-    if (useValidationIcon && shouldDisplayValidationIcon(props)) {
+    if (useValidationIcon && shouldDisplayValidationIcon({ error, warning, info })) {
       return (
-        <IconWrapperStyle { ...wrapperProps }>
+        <IconWrapperStyle>
           <ValidationIcon
             iconId={ helpId }
             error={ error }
             warning={ warning }
             info={ info }
-            tabIndex={ helpTabIndex }
-            isFocused={ isFocused }
           />
         </IconWrapperStyle>
-
       );
     }
 
@@ -78,7 +80,7 @@ const Label = (props) => {
         <Help
           helpId={ helpId }
           as={ helpTag }
-          tabIndex={ -1 }
+          tabIndex={ helpTabIndex }
           type={ helpIcon }
           isFocused={ isFocused }
         >
@@ -89,23 +91,47 @@ const Label = (props) => {
   };
 
   return (
-    <StyledLabel
-      data-element='label'
-      { ...labelProps }
-      id={ labelId }
-      htmlFor={ htmlFor }
+    <StyledLabelContainer
       align={ align }
+      inline={ inline }
+      inputSize={ inputSize }
+      width={ width }
+      optional={ optional }
+      childOfForm={ childOfForm }
       pr={ pr }
       pl={ pl }
       styleOverride={ styleOverride }
     >
-      {children}
+      <StyledLabel
+        data-element='label'
+        disabled={ disabled }
+        id={ labelId }
+        htmlFor={ htmlFor }
+        onMouseEnter={ handleMouseEnter }
+        onMouseLeave={ handleMouseLeave }
+      >
+        {children}
+      </StyledLabel>
       {icon()}
-    </StyledLabel>
+    </StyledLabelContainer>
   );
 };
 
 Label.propTypes = {
+  /** Label width */
+  width: PropTypes.number,
+  /** Label alignment */
+  align: PropTypes.oneOf(['left', 'right']),
+  /** Size of an input Label is used in */
+  inputSize: PropTypes.oneOf(['small', 'medium', 'large']),
+  /** Flag to indicate that component is used in a Form */
+  childOfForm: PropTypes.bool,
+  /** When true, label is placed in line an input */
+  inline: PropTypes.bool,
+  /** If true, the component will be disabled */
+  disabled: PropTypes.bool,
+  /** Flag to configure component as optional in Form */
+  optional: PropTypes.bool,
   /** The unique id of the label element */
   labelId: PropTypes.string,
   /** The unique id of the Help component */
@@ -130,26 +156,12 @@ Label.propTypes = {
   useValidationIcon: PropTypes.bool,
   /** A string that represents the ID of another form element */
   htmlFor: PropTypes.string,
-  /** Set focus possibilities to an <IconWrapperStyle /> element.
-   *  More information: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex
-  */
-  tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Padding right, integer multiplied by base spacing constant (8) */
   pr: PropTypes.oneOf([1, 2]),
   /** Padding left, integer multiplied by base spacing constant (8) */
   pl: PropTypes.oneOf([1, 2]),
-  /** When true label is inline */
-  inline: PropTypes.bool,
-  /** Text alignment of label */
-  align: PropTypes.oneOf(['left', 'right']),
   /** Allows to override existing component styles */
   styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
-};
-
-Label.defaultProps = {
-  useValidationIcon: true,
-  tabIndex: 0,
-  styleOverride: {}
 };
 
 export default React.memo(Label);

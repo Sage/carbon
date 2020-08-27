@@ -15,6 +15,9 @@ export default {
     },
     options: {
       showPanel: false
+    },
+    chromatic: {
+      disable: true
     }
   }
 };

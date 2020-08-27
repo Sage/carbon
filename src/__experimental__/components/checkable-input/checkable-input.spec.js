@@ -9,7 +9,7 @@ import FieldHelpStyle from '../field-help/field-help.style';
 import { FieldLineStyle } from '../form-field/form-field.style';
 import Label from '../label';
 import HiddenCheckableInputStyle from './hidden-checkable-input.style';
-import LabelStyle from '../label/label.style';
+import LabelStyle, { StyledLabelContainer } from '../label/label.style';
 import { StyledCheckableInput, StyledCheckableInputWrapper } from './checkable-input.style';
 import StyledHelp from '../../../components/help/help.style';
 import baseTheme from '../../../style/themes/base';
@@ -61,10 +61,9 @@ describe('StyledCheckableInputWrapper', () => {
     it('applies the correct Label styles', () => {
       assertStyleMatch(
         {
-          textAlign: 'right',
           width: 'auto'
         },
-        wrapper, { modifier: css`${LabelStyle}` }
+        wrapper, { modifier: css`${StyledLabelContainer}` }
       );
     });
 
@@ -74,27 +73,20 @@ describe('StyledCheckableInputWrapper', () => {
           color: baseTheme.help.color,
           verticalAlign: 'middle'
         },
-        wrapper, { modifier: css`${`${LabelStyle} ${StyledHelp}`}` }
+        wrapper, { modifier: css`${`${StyledLabelContainer} ${StyledHelp}`}` }
       );
     });
 
     it.each(states)('applies the correct Help %s styles', (state) => {
       assertStyleMatch(
         { color: baseTheme.text.color },
-        wrapper, { modifier: css`${`${LabelStyle} ${StyledHelp}:${state}`}` }
+        wrapper, { modifier: css`${`${StyledLabelContainer} ${StyledHelp}:${state}`}` }
       );
     });
   });
 
   describe('when disabled = true', () => {
     const wrapper = render({ disabled: true }).toJSON();
-
-    it('applies the correct Label styles', () => {
-      assertStyleMatch(
-        { color: baseTheme.disabled.disabled },
-        wrapper, { modifier: css`${LabelStyle}` }
-      );
-    });
 
     it.each(states)('applies the correct Label %s styles', (state) => {
       assertStyleMatch(
@@ -103,13 +95,6 @@ describe('StyledCheckableInputWrapper', () => {
           cursor: 'not-allowed'
         },
         wrapper, { modifier: css`${`${LabelStyle}:${state}`}` }
-      );
-    });
-
-    it('applies the correct Help styles', () => {
-      assertStyleMatch(
-        { color: baseTheme.disabled.disabled },
-        wrapper, { modifier: css`${`${LabelStyle} ${StyledHelp}`}` }
       );
     });
 
@@ -158,7 +143,7 @@ describe('StyledCheckableInputWrapper', () => {
 
       assertStyleMatch({
         width: '50% !important'
-      }, wrapper, { modifier: css`${LabelStyle}` });
+      }, wrapper, { modifier: css`${StyledLabelContainer}` });
     });
   });
 

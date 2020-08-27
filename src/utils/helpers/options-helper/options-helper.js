@@ -202,11 +202,13 @@ const OptionsHelper = {
     'filter_new',
     'fit_height',
     'fit_width',
+    'flag',
     'folder',
     'gift',
     'graph',
     'grid',
     'help',
+    'hide',
     'home',
     'image',
     'in_progress',
@@ -434,6 +436,14 @@ const OptionsHelper = {
     'header',
     'rowHeader',
     'cell'
+  ],
+
+  dateFormats: [
+    ['dd', 'mm', 'yyyy'],
+    ['mm', 'dd', 'yyyy'],
+    ['dd', 'mm'],
+    ['mm', 'dd'],
+    ['mm', 'yyyy']
   ]
 };
 

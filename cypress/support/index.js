@@ -1,8 +1,6 @@
-import { radioButtonComponent } from '../locators/radioButton';
 import 'cypress-axe';
 
 export const DEBUG_FLAG = false;
-require('cypress-plugin-retries');
 
 // ***********************************************************
 // This example support/index.js is processed and
@@ -44,24 +42,6 @@ Cypress.Commands.overwrite(
 );
 
 Cypress.Commands.overwrite('log', (subject, message) => cy.task('log', message));
-
-Cypress.Commands.add('radioButtonComponent', (radioButtonLabel) => {
-  radioButtonComponent().each(($el) => {
-    const labelText = $el.find('label').text();
-    if (labelText.includes(radioButtonLabel)) {
-      cy.wrap($el);
-    }
-  });
-});
-
-Cypress.Commands.add('radioButton', (radioButtonLabel, findBy) => {
-  radioButtonComponent().each(($el) => {
-    const labelText = $el.find('label').text();
-    if (labelText.includes(radioButtonLabel)) {
-      cy.wrap($el).find(findBy);
-    }
-  });
-});
 
 function getItem(selector, counter) {
   if ((document.readyState === 'loading' || document.readyState === 'interactive') && document.readyState !== 'completed') { // Loading hasn't finished yet

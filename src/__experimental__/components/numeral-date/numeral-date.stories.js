@@ -19,11 +19,11 @@ export default {
 };
 
 export const Basic = () => {
-  const [dateValue, setDateValue] = useState({});
-  const dateFormat = array('dateFormat', NumeralDate.defaultProps.dateFormat);
+  const [dateValue, setDateValue] = useState({ dd: '', mm: '', yyyy: '' });
+  const dateFormat = array('dateFormat', ['dd', 'mm', 'yyyy']);
 
-  const handleChange = (ev, itemId) => {
-    setDateValue({ ...dateValue, [itemId]: ev.target.value });
+  const handleChange = (ev) => {
+    setDateValue(ev.target.value);
     action('change')(ev);
   };
 
@@ -47,7 +47,7 @@ export const Basic = () => {
 export const Validations = () => {
   const validationTypes = ['error', 'warning', 'info'];
   const [dateValue, setDateValue] = useState({});
-  const dateFormat = array('dateFormat', NumeralDate.defaultProps.dateFormat);
+  const dateFormat = array('dateFormat', ['dd', 'mm', 'yyyy']);
 
   const handleChange = (ev, itemId) => {
     setDateValue({ ...dateValue, [itemId]: ev.target.value });

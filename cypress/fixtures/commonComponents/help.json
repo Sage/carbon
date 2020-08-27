@@ -1,0 +1,46 @@
+{
+  "childrenOtherLanguage": {
+    "children": "mp150ú¿¡üßä"
+  },
+  "childrenSpecialCharacter": {
+    "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "tooltipPositionLeft": {
+    "tooltipPosition": "left"
+  },
+  "tooltipPositionBottom": {
+    "tooltipPosition": "bottom"
+  },
+  "tooltipPositionRight": {
+    "tooltipPosition": "right"
+  },
+  "tooltipPositionTop": {
+    "tooltipPosition": "top"
+  },
+  "tooltipAlignLeft": {
+    "tooltipAlign": "left",
+    "tooltipPosition": "bottom"
+  },
+  "tooltipAlignRight": {
+    "tooltipAlign": "right",
+    "tooltipPosition": "bottom"
+  },
+  "tooltipAlignTop": {
+    "tooltipAlign": "top",
+    "tooltipPosition": "bottom"
+  },
+  "tooltipAlignBottom": {
+    "tooltipAlign": "bottom",
+    "tooltipPosition": "bottom"
+  },
+  "tooltipAlignCenter": {
+    "tooltipAlign": "center",
+    "tooltipPosition": "bottom"
+  },
+  "hrefOtherLanguage": {
+    "href": "mp150ú¿¡üßä"
+  },
+  "hrefSpecialCharacter": {
+    "href": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  }
+}

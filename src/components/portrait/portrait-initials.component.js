@@ -108,7 +108,7 @@ PortraitInitials.propTypes = {
   /** The user's initials to render. */
   initials: PropTypes.string.isRequired,
   /** The size of the initials image. */
-  size: PropTypes.oneOf([...OptionsHelper.sizesFull, ...OptionsHelper.sizesPortrait]).isRequired,
+  size: PropTypes.oneOf(OptionsHelper.sizesPortrait).isRequired,
   /** Use a dark background. */
   darkBackground: PropTypes.bool,
   /** The shape of the Portrait. */

@@ -32,8 +32,10 @@ export interface SimpleSelectProps {
   defaultValue?: string | object;
   /** Child components (such as Option) for the SelectList */
   children: Array<typeof Option>;
-  /** If true, prevents opening the menu on focus */
-  preventFocusAutoOpen?: boolean;
+  /** If true the Component opens on focus */
+  openOnFocus?: boolean;
+  /** A custom message to be displayed when any option does not match the filter text */
+  noResultsMessage?: string;
   /** If true the component input has no border and is transparent */
   transparent?: boolean;
   /** A custom callback for when the dropdown menu opens */
@@ -46,6 +48,8 @@ export interface SimpleSelectProps {
   onFocus?: () => void;
   /** Callback function for when the Select Textbox loses it's focus. */
   onBlur?: () => void;
+  /** Callback function for when the key is pressed when focused on Select Textbox. */
+  onKeyDown?: () => void;
 }
 
 declare const SimpleSelect: React.ComponentType<SimpleSelectProps>;

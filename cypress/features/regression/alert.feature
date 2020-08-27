@@ -4,12 +4,12 @@ Feature: Alert component
   @positive
   Scenario: CloseIcon has the border outline
     When I open default "Alert" component in noIFrame with "alert" json from "commonComponents" using "open" object name
-    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px" in NoIFrame
+    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
 
   @positive
   Scenario Outline: Change Alert component title to <title>
     Given I open default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
-    Then component title on preview is <title> in NoIFrame
+    Then component title on preview is <title>
     Examples:
       | title                   | nameOfObject              |
       | mp150ú¿¡üßä             | openTitleOtherLanguage    |
@@ -18,7 +18,7 @@ Feature: Alert component
   @positive
   Scenario Outline: Change Alert component subtitle to <subtitle>
     Given I open default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
-    Then component subtitle on preview is <subtitle> in NoIFrame
+    Then component subtitle on preview is <subtitle>
     Examples:
       | subtitle                | nameOfObject                 |
       | mp150ú¿¡üßä             | openSubtitleOtherLanguage    |
@@ -36,12 +36,12 @@ Feature: Alert component
   @positive
   Scenario: Enable background UI
     When I open default "Alert" component in noIFrame with "alert" json from "commonComponents" using "openEnableBackgroundUI" object name
-    Then Background UI is enabled in NoIFrame
+    Then Background UI is enabled
 
   @negative
   Scenario: Disable background UI
     When I open default "Alert" component in noIFrame with "alert" json from "commonComponents" using "openEnableBackgroundUIFalse" object name
-    Then Background UI is disabled in NoIFrame
+    Then Background UI is disabled
 
   @positive
   Scenario: Disable escape key

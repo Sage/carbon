@@ -8,7 +8,7 @@ import SelectList from '../select-list/select-list.component';
 
 describe('FilterableSelect', () => {
   it('the Textbox should have type of "text"', () => {
-    const wrapper = renderSelect({ filterable: true });
+    const wrapper = renderSelect();
 
     expect(wrapper.find(Textbox).prop('type')).toBe('text');
   });
@@ -217,7 +217,7 @@ describe('FilterableSelect', () => {
 
     it('the SelectList should have the filterText prop the same as the value', () => {
       const changeEventObject = { target: { value: 'Foo' } };
-      const wrapper = renderSelect({ filterable: true });
+      const wrapper = renderSelect();
 
       wrapper.find('input').simulate('click');
       wrapper.find('input').simulate('change', changeEventObject);
@@ -318,7 +318,7 @@ describe('FilterableSelect', () => {
       it('then the formattedValue prop in Textbox should be reverted to previous value', () => {
         const selectedOptionTextValue = 'green';
         const onChangeFn = jest.fn();
-        const wrapper = renderSelect({ onChange: onChangeFn, defaultValue: 'opt2', filterable: true });
+        const wrapper = renderSelect({ onChange: onChangeFn, defaultValue: 'opt2' });
         const changeEventObject = { target: { value: 'Foo' } };
 
         wrapper.find(Textbox).find('[type="dropdown"]').first().simulate('click');
@@ -367,14 +367,6 @@ describe('FilterableSelect', () => {
 
     afterEach(() => {
       document.body.removeChild(domNode);
-    });
-  });
-
-  describe('when the "filterable" prop has been set to true', () => {
-    it('the Textbox should have type of "text"', () => {
-      const wrapper = renderSelect({ filterable: true });
-
-      expect(wrapper.find(Textbox).prop('type')).toBe('text');
     });
   });
 });

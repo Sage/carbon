@@ -43,7 +43,32 @@ describe('SimpleSelect', () => {
     expect(mockRef.current).toBe(wrapper.find('input').getDOMNode());
   });
 
-  it('the input text should have proper styling', () => {
+  it('the input text should have proper paddings', () => {
+    const wrapper = renderSelect();
+
+    assertStyleMatch({
+      paddingLeft: '11px'
+    }, wrapper, { modifier: `${StyledInput}` });
+  });
+
+  it('the input toggle icon should have proper left margin', () => {
+    const wrapper = renderSelect();
+
+    assertStyleMatch({
+      marginRight: '0'
+    }, wrapper, { modifier: `${InputIconToggleStyle}` });
+  });
+
+  it('the input text should have proper paddings', () => {
+    const wrapper = renderSelect();
+
+    assertStyleMatch({
+      paddingLeft: '0',
+      paddingRight: '0'
+    }, wrapper, { modifier: `${InputPresentationStyle}` });
+  });
+
+  it('the input text should have proper styling for the transparent type', () => {
     const wrapper = renderSelect({ transparent: true });
 
     assertStyleMatch({

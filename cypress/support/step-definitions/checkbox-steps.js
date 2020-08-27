@@ -7,19 +7,9 @@ import {
 import { labelNoIFrame, fieldHelpPreviewNoIFrame } from '../../locators';
 import { positionOfElement } from '../helper';
 
-Then('Checkbox is set to fieldHelpInline and has margin-left set to {string}', (marginLeft) => {
-  fieldHelpPreviewNoIFrame().should('have.css', 'margin-left', marginLeft)
-    .and('have.css', 'margin-top', '0px')
-    .and('have.css', 'padding-left', '8px');
-});
-
-Then('Checkbox is not set to fieldHelpInline and has margin set to {string}', (margin) => {
-  fieldHelpPreviewNoIFrame().should('have.css', 'margin', margin);
-});
-
 Then('Checkbox is set to reverse and has width {string}', (width) => {
   checkboxDataComponentNoIframe().children().children().children()
-    .find(`div:nth-child(${positionOfElement('third')})`)
+    .find(`div:nth-child(${positionOfElement('third')}) > input`)
     .should('have.css', 'box-sizing', 'border-box')
     .and('have.css', 'width', width);
 });
@@ -31,10 +21,6 @@ Then('Checkbox is not set to reverse and has width {string}', (width) => {
     .and('have.css', 'width', width);
 });
 
-Then('Checkbox labelAlign on preview is set to {string}', (labelAlign) => {
-  labelNoIFrame().should('have.css', 'text-align', labelAlign);
-});
-
 Then('Checkbox size on preview is set to {string}', (size) => {
   if (size === 'small') {
     checkboxRoleNoIFrame().should('have.css', 'width', '16px')
@@ -43,6 +29,18 @@ Then('Checkbox size on preview is set to {string}', (size) => {
     checkboxRoleNoIFrame().should('have.css', 'width', '24px')
       .and('have.css', 'height', '24px');
   }
+});
+
+Then('Checkbox field help is inline', () => {
+  fieldHelpPreviewNoIFrame().should('have.css', 'margin-left', '0px')
+    .and('have.css', 'margin-top', '0px')
+    .and('have.css', 'padding-left', '8px');
+});
+
+Then('Checkbox field help is not inline', () => {
+  fieldHelpPreviewNoIFrame().should('have.css', 'margin-left', '16px')
+    .and('have.css', 'margin-top', '0px')
+    .and('have.css', 'padding-left', '8px');
 });
 
 Given('I check {string} checkbox', (position) => {

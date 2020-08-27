@@ -29,7 +29,7 @@ Feature: Search component
   Scenario: Check the blur event for Search component
     Given clear all actions in Actions Tab
       And I click inside input
-    When I click outside of the component in DLS directory
+    When I click "search" icon in iFrame
     Then blur action was called in Actions Tab
 
   @positive

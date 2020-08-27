@@ -117,12 +117,12 @@ export const Basic = () => {
       <Checkbox
         onChange={ () => setIsEachItemSelected(!isEachItemSelected) }
         checked={ isEachItemSelected }
-        label='Access to all current and new clients'
+        label='Example checkbox'
       />
 
       <DuellingPicklist
-        leftLabel={ `UNASSIGNED (${Object.keys(notSelectedItems).length})` }
-        rightLabel={ `ASSIGNED (${Object.keys(selectedItems).length})` }
+        leftLabel={ `List 1 (${Object.keys(notSelectedItems).length})` }
+        rightLabel={ `List 2 (${Object.keys(selectedItems).length})` }
         leftControls={ (
           <Search
             tabIndex={ isEachItemSelected ? -1 : 0 }

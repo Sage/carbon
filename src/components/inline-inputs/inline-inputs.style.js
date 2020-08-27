@@ -1,13 +1,13 @@
 import styled from 'styled-components';
-import LabelStyle from '../../__experimental__/components/label/label.style';
+import { StyledLabelContainer } from '../../__experimental__/components/label/label.style';
 import baseTheme from '../../style/themes/base';
 
 const StyledInlineInputs = styled.div`
   display: flex;
   align-items: center;
 
-  ${LabelStyle} {
-    font-weight: bold;
+  ${StyledLabelContainer} {
+    margin-bottom: 0;
     margin-right: 15px;
     width: auto;
   }
