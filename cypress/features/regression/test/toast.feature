@@ -16,3 +16,9 @@ Feature: Toast component
       | children                | nameOfObject             |
       | mp150ú¿¡üßä             | childrenOtherLanguage    |
       | !@#$%^*()_+-=~[];:.,?{} | childrenSpecialCharacter |
+
+  @positive
+  Scenario: Verify that Toast is closed by pressing Esc key
+    Given I open "Design System Toast Test" component page "basic"
+    When I hit ESC key
+    Then Toast component is not visible
