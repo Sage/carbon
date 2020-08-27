@@ -1,8 +1,7 @@
 import {
   buttonSubtextPreview,
   buttonDataComponent,
-  buttonDataComponentIFrame, 
-  buttonSubtextPreviewIframe,
+  buttonDataComponentIFrame,
 } from '../../locators/button';
 import { iconIFrame, icon } from '../../locators';
 import { positionOfElement } from '../helper';
@@ -55,7 +54,7 @@ Then('Button subtext on preview is {word}', (subtext) => {
 });
 
 Then('Button subtext on preview is {word} in IFrame', (subtext) => {
-  buttonSubtextPreviewIframe().should('have.text', subtext);
+  buttonSubtextPreview().should('have.text', subtext);
 });
 
 Then('Button as a sibling subtext on preview is {word}', (subtext) => {
