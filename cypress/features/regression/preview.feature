@@ -1,93 +1,86 @@
 Feature: Preview default component
   I want to test Preview component
 
-  Background: Open Preview component default page
-    Given I open "Preview" component page
-
   @positive
   Scenario: Enable loading checkbox for a Preview component
-    Given I uncheck loading checkbox
-    When I check loading checkbox
+    When I open default "Preview" component in noIFrame with "preview" json from "commonComponents" using "loading" object name
     Then Preview component is loading
 
   @positive
-  Scenario: Enable and disable loading checkbox for a Preview component
-    When I uncheck loading checkbox
+  Scenario: Disable loading checkbox for a Preview component
+    When I open default "Preview" component in noIFrame with "preview" json from "commonComponents" using "loadingFalse" object name
     Then Preview component is not loading
 
   @positive
   Scenario Outline: Change Preview children to <children>
-    Given I set children to <children> word
-    When I uncheck loading checkbox
+    When I open default "Preview" component in noIFrame with "preview" json from "commonComponents" using "<nameOfObject>" object name
     Then Preview children is set to <children>
     Examples:
-      | children                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
-      # @ignore because of FE-2782
-# | &"'<>|
+      | children                | nameOfObject             |
+      | mp150ú¿¡üßä             | childrenOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{} | childrenSpecialCharacter |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Set width to <width>
-    When I set width to "<width>"
-      And I check loading checkbox
+    When I open default "Preview" component in noIFrame with "preview" json from "commonComponents" using "<nameOfObject>" object name
     Then Preview width is set to "<width>"
     Examples:
-      | width |
-      | 0px   |
-      | 1px   |
-      | 100px |
+      | width | nameOfObject |
+      | 0px   | width0       |
+      | 1px   | width1       |
+      | 100px | width100     |
 
   @positive
   Scenario Outline: Set height to <height>
-    When I set height to "<height>"
-      And I check loading checkbox
+    When I open default "Preview" component in noIFrame with "preview" json from "commonComponents" using "<nameOfObject>" object name
     Then Preview height is set to "<height>"
     Examples:
-      | height |
-      | 0px    |
-      | 1px    |
-      | 100px  |
+      | height | nameOfObject |
+      | 0px    | height0      |
+      | 1px    | height1      |
+      | 100px  | height100    |
 
   @positive
   Scenario Outline: Set lines to <lines>
-    When I set lines to "<lines>"
-    Then Preview has "<lines>" lines
+    When I open default "Preview" component in noIFrame with "preview" json from "commonComponents" using "<nameOfObject>" object name
+    Then Preview has <lines> lines
     Examples:
-      | lines |
-      | 0     |
-      | 1     |
-      | 100   |
+      | lines | nameOfObject |
+      | 0     | lines0       |
+      | 1     | lines1       |
+      | 100   | lines100     |
 
   @positive
   Scenario Outline: Set width to out of scope to <width>
-    When I set width to <width> word
+    When I open default "Preview" component in noIFrame with "preview" json from "commonComponents" using "<nameOfObject>" object name
     Then Preview width is not set to <width>
     Examples:
-      | width                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
-      # @ignore because of FE-2782
-# | &"'<>|
+      | width                   | nameOfObject          |
+      | mp150ú¿¡üßä             | widthOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{} | widthSpecialCharacter |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Set height to out of scope to <height>
-    When I set height to <height> word
+    When I open default "Preview" component in noIFrame with "preview" json from "commonComponents" using "<nameOfObject>" object name
     Then Preview height is not set to <height>
     Examples:
-      | height                  |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
-      # @ignore because of FE-2782
-# | &"'<>|
+      | height                  | nameOfObject           |
+      | mp150ú¿¡üßä             | heightOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{} | heightSpecialCharacter |
+  # @ignore because of FE-2782
+  # | &"'<>|
 
   @positive
   Scenario Outline: Set lines to out of scope to <lines>
-    When I set lines to <lines> word
+    When I open default "Preview" component in noIFrame with "preview" json from "commonComponents" using "<nameOfObject>" object name
     Then Preview lines is not set to <lines>
     Examples:
-      | lines                   |
-      | mpú¿¡üßä                |
-      | !@#$%^*()_+-=~[];:.,?{} |
-      # @ignore because of FE-2782
+      | lines                   | nameOfObject          |
+      | mp150ú¿¡üßä             | linesOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{} | linesSpecialCharacter |
+# @ignore because of FE-2782
 # | &"'<>|
