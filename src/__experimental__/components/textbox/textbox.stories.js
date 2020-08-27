@@ -31,8 +31,7 @@ function makeStory(name, themeSelector, component, disableChromatic = false) {
     themeSelector,
     info: {
       text: info,
-      propTables: [OriginalTextbox],
-      propTablesExclude: [Textbox]
+      propTables: [OriginalTextbox]
     },
     notes: { markdown: notes },
     knobs: { escapeHTML: false },
@@ -134,8 +133,7 @@ function makeValidationsStory(name, themeSelector, disableChromatic = false) {
     themeSelector,
     info: {
       source: false,
-      propTables: [OriginalTextbox],
-      propTablesExclude: [Textbox]
+      propTables: [OriginalTextbox]
     },
     chromatic: {
       disable: disableChromatic

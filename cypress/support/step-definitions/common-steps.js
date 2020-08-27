@@ -3,6 +3,8 @@ import {
   visitFlatTableComponentNoiFrame, positionOfElement, keyCode,
   visitDocsUrl,
   visitComponentUrlWithParameters,
+  clickActionsTab,
+  clickClear,
 } from '../helper';
 import {
   commonButtonPreview, labelPreview, helpIconByPosition, inputWidthSlider,
@@ -562,4 +564,9 @@ Then('icon name in noIframe on preview is {string}', (iconName) => {
 
 When('I click {string} icon in iFrame', (iconName) => {
   getDataElementByValueIframe(iconName).click();
+});
+
+When('clear all actions in Actions Tab', () => {
+  clickActionsTab();
+  clickClear();
 });

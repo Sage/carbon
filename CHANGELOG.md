@@ -1,3 +1,25 @@
+### [38.1.4](https://github.com/Sage/carbon/compare/v38.1.3...v38.1.4) (2020-08-27)
+
+
+### Bug Fixes
+
+* **batch-selection:** fix incorrect colorTheme proptypes ([1c20a37](https://github.com/Sage/carbon/commit/1c20a37e52a2c973f8fadbc0d524d5ea77666624))
+* **storybook:** fix various story related errors ([07c96f4](https://github.com/Sage/carbon/commit/07c96f451832e90c90ffc7cfe9ecc130d48bee99))
+
+### [38.1.3](https://github.com/Sage/carbon/compare/v38.1.2...v38.1.3) (2020-08-26)
+
+
+### Bug Fixes
+
+* **switch:** fix switch validation icon overlapping the label ([ce6575f](https://github.com/Sage/carbon/commit/ce6575f6939762b5f9ef8e3f9a0a2aa67b81cad7))
+
+### [38.1.2](https://github.com/Sage/carbon/compare/v38.1.1...v38.1.2) (2020-08-26)
+
+
+### Bug Fixes
+
+* **confirm:** fix incorrect button order ([9ac9aea](https://github.com/Sage/carbon/commit/9ac9aea87e7d996cd2a1522abc73776e316e11bd))
+
 ### [38.1.1](https://github.com/Sage/carbon/compare/v38.1.0...v38.1.1) (2020-08-23)
 
 

@@ -17,6 +17,7 @@ const Switch = ({
   loading,
   reverse,
   validationOnLabel,
+  labelInline,
   ...props
 }) => {
   const isControlled = checked !== undefined;
@@ -33,6 +34,7 @@ const Switch = ({
 
   const switchProps = {
     ...props,
+    labelInline,
     disabled: disabled || loading,
     checked: isControlled ? checked : checkedInternal,
     reverse: !reverse // switched to preserve backward compatibility
@@ -49,14 +51,16 @@ const Switch = ({
     reverse: !reverse // switched to preserve backward compatibility
   };
 
+  const shouldValidationBeOnLabel = labelInline && !reverse ? true : validationOnLabel;
+
   return (
     <SwitchStyle
       { ...tagComponent('Switch', props) }
       { ...switchProps }
     >
-      <CheckableInput useValidationIcon={ validationOnLabel } { ...inputProps }>
+      <CheckableInput useValidationIcon={ shouldValidationBeOnLabel } { ...inputProps }>
         <SwitchSlider
-          useValidationIcon={ !validationOnLabel }
+          useValidationIcon={ !shouldValidationBeOnLabel }
           { ...switchProps }
           loading={ loading }
         />

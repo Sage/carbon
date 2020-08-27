@@ -4,7 +4,7 @@ import {
 } from './locators';
 
 // component preview locators
-export const messagePreview = () => cy.iFrame(MESSAGE_PREVIEW);
-export const messageType = () => cy.iFrame(MESSAGE_TYPE);
-export const messageChildren = () => cy.iFrame(MESSAGE_CHILDREN);
-export const messageDismissIcon = () => cy.iFrame(MESSAGE_DISMISS_ICON);
+export const messagePreview = () => cy.get(MESSAGE_PREVIEW);
+export const messageType = () => cy.get(MESSAGE_TYPE);
+export const messageChildren = () => cy.get(MESSAGE_CHILDREN);
+export const messageDismissIcon = () => cy.get(MESSAGE_DISMISS_ICON);
