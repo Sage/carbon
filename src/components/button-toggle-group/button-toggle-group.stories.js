@@ -77,6 +77,7 @@ export const Basic = ({ grouped }) => {
   return (
     <State store={ radioDLSToggleGroupStore }>
       <ButtonToggleGroup
+        id='button-toggle-group-id'
         label={ label }
         labelInline={ labelInline }
         labelWidth={ labelWidth }
@@ -113,6 +114,7 @@ export const Validations = ({ grouped }) => {
           labelHelp={ labelHelp }
           fieldHelp={ fieldHelp }
           name={ `button-toggle-group-validations_${validation}` }
+          id={ `button-toggle-group-validations_${validation}` }
           onChange={ () => {} }
           key={ `${validation}-string-component` }
           { ...{ [validation]: 'Message' } }
@@ -127,6 +129,7 @@ export const Validations = ({ grouped }) => {
           labelHelp={ labelHelp }
           fieldHelp={ fieldHelp }
           name={ `button-toggle-group-validations_${validation}_label` }
+          id={ `button-toggle-group-validations_${validation}_label` }
           onChange={ () => {} }
           validationOnLabel
           key={ `${validation}-string-label` }
@@ -143,6 +146,7 @@ export const Validations = ({ grouped }) => {
           labelHelp={ labelHelp }
           fieldHelp={ fieldHelp }
           name={ `button-toggle-group-validations_${validation}_boolean` }
+          id={ `button-toggle-group-validations_${validation}_boolean` }
           onChange={ () => {} }
           key={ `${validation}-boolean` }
           { ...{ [validation]: true } }
@@ -182,6 +186,7 @@ export const Classic = () => {
         fieldHelp={ fieldHelp }
         fieldHelpInline={ fieldHelpInline }
         name='button-toggle-group-classic'
+        id='button-toggle-group-classic'
         onChange={ handleGroupChangeFactory(radioClassicToggleGroupStore) }
       >
         { renderButtons('button-toggle-group-classic') }

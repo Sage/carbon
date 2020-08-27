@@ -181,8 +181,7 @@ function makeValidationsStory(storyName, themeSelector) {
 storiesOf('Experimental/Simple Color Picker', module)
   .addParameters({
     info: {
-      propTable: [SimpleColor, SimpleColorPicker],
-      propTablesExclude: [State],
+      propTables: [SimpleColor, SimpleColorPicker],
       text: info
     }
   })

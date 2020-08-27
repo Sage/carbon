@@ -8,7 +8,7 @@ import {
 } from '@storybook/addon-knobs';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import Number from './number.component';
-import Textbox, { OriginalTextbox } from '../textbox';
+import { OriginalTextbox } from '../textbox';
 import { getCommonTextboxProps } from '../textbox/textbox.stories';
 import notes from './documentation/notes.md';
 import info from './documentation/info';
@@ -91,7 +91,7 @@ function makeStory(name, themeSelector, component, disableChromatic = false) {
     info: {
       text: info,
       propTables: [OriginalTextbox],
-      propTablesExclude: [Number, State, Textbox],
+      propTablesExclude: [Number, State],
       excludedPropTypes: ['children', 'leftChildren', 'inputIcon']
     },
     chromatic: {

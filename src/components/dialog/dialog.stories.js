@@ -10,7 +10,6 @@ import Dialog from './dialog.component';
 import Form from '../form';
 import Textbox from '../../__experimental__/components/textbox';
 import Button from '../button';
-import Modal from '../modal';
 import DateInput from '../../__experimental__/components/date';
 import { Checkbox } from '../../__experimental__/components/checkbox';
 import { Select, Option } from '../../__experimental__/components/select';
@@ -246,17 +245,7 @@ function makeButtonStory(name, themeSelector, stickyFooter, disableChromatic = f
 storiesOf('Dialog', module)
   .addParameters({
     info: {
-      propTablesExclude: [
-        Button,
-        State,
-        Form,
-        Textbox,
-        Checkbox,
-        DateInput,
-        Select,
-        Option,
-        Modal
-      ]
+      propTables: [Dialog]
     },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
