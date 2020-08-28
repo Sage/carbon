@@ -213,7 +213,7 @@ Then('label on preview is {word} in NoIFrame', (text) => {
 });
 
 Then('label is set to {word}', (text) => {
-  label().should('have.text', text);
+  getDataElementByValue('label').should('have.text', text);
 });
 
 When('I hover mouse onto help icon in IFrame', () => {

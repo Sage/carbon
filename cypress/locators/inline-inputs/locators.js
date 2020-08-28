@@ -1,2 +1,2 @@
 // component preview locators
-export const INLINE_INPUT = 'div[data-component="row"]';
+export const INLINE_INPUT = '[data-component="row"]';
