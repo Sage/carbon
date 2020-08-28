@@ -23,13 +23,19 @@ const Tabs = ({
   renderHiddenTabs = true,
   position = 'top',
   setLocation = true,
+  extendedLine = true,
+  size = 'default',
+  borders = 'off',
+  variant = 'default',
   ...rest
 }) => {
   const firstRender = useRef(true);
   const tabRefs = useRef([]);
-  const [selectedTabIdState, setSelectedTabIdState] = useState(selectedTabId);
+  const previousSelectedTabId = useRef(selectedTabId);
+  const [selectedTabIdState, setSelectedTabIdState] = useState();
   const [tabsErrors, setTabsErrors] = useState({});
   const [tabsWarnings, setTabsWarnings] = useState({});
+  const [tabsInfos, setTabsInfos] = useState({});
   const _window = Browser.getWindow();
 
   useLayoutEffect(() => {
@@ -81,6 +87,15 @@ const Tabs = ({
       }
     },
     [tabsWarnings]
+  );
+
+  const updateInfos = useCallback(
+    (id, hasInfo) => {
+      if (tabsInfos[id] !== hasInfo) {
+        setTabsInfos({ ...tabsInfos, [id]: hasInfo });
+      }
+    },
+    [tabsInfos]
   );
 
   /** Updates the currently visible tab */
@@ -167,18 +182,31 @@ const Tabs = ({
   /** Build the headers for the tab component */
   const renderTabHeaders = () => {
     const tabTitles = filteredChildren().map((child, index) => {
-      const { tabId } = child.props;
+      const {
+        tabId,
+        title,
+        siblings,
+        titlePosition,
+        errorMessage,
+        warningMessage,
+        infoMessage,
+        customLayout
+      } = child.props;
       const refId = `${tabId}-tab`;
 
       const errors = tabsErrors[tabId] ? Object.entries(tabsErrors[tabId]).filter(tab => tab[1] === true).length : 0;
       const warnings = (
         tabsWarnings[tabId] ? Object.entries(tabsWarnings[tabId]).filter(tab => tab[1] === true).length : 0
       );
+      const infos = (
+        tabsInfos[tabId] ? Object.entries(tabsInfos[tabId]).filter(tab => tab[1] === true).length : 0
+      );
 
       const tabHasError = errors > 0;
       const tabHasWarning = warnings > 0 && !tabHasError;
+      const tabHasInfo = infos > 0 && !tabHasError && !tabHasWarning;
 
-      const title = (
+      const tabTitle = (
         <TabTitle
           position={ position }
           className={ child.props.className || '' }
@@ -189,20 +217,36 @@ const Tabs = ({
           onKeyDown={ handleKeyDown(index) }
           ref={ node => addRef(node) }
           tabIndex={ isTabSelected(tabId) ? '0' : '-1' }
-          title={ child.props.title }
+          title={ title }
           isTabSelected={ isTabSelected(tabId) }
-          tabHasError={ tabHasError }
-          tabHasWarning={ tabHasWarning }
+          error={ tabHasError }
+          warning={ tabHasWarning }
+          info={ tabHasInfo }
+          size={ size }
+          borders={ borders !== 'off' }
+          siblings={ siblings }
+          titlePosition={ titlePosition }
+          errorMessage={ errorMessage }
+          warningMessage={ warningMessage }
+          infoMessage={ infoMessage }
+          alternateStyling={ variant === 'alternate' }
+          noLeftBorder={ ['no left side', 'no sides'].includes(borders) }
+          noRightBorder={ ['no right side', 'no sides'].includes(borders) }
+          customLayout={ customLayout }
         />
       );
 
-      return title;
+      return tabTitle;
     });
 
     return (
       <TabsHeader
-        align={ align } position={ position }
+        align={ align }
+        position={ position }
         role='tablist'
+        extendedLine={ extendedLine }
+        alternateStyling={ variant === 'alternate' }
+        noRightBorder={ ['no right side', 'no sides'].includes(borders) }
       >
         { tabTitles }
       </TabsHeader>
@@ -238,7 +282,8 @@ const Tabs = ({
           key: `${child.props.tabId}-tab`,
           ariaLabelledby: `${child.props.tabId}-tab`,
           updateErrors,
-          updateWarnings
+          updateWarnings,
+          updateInfos
         })
       );
     });
@@ -247,10 +292,13 @@ const Tabs = ({
   };
 
   useEffect(() => {
-    if (selectedTabId !== selectedTabIdState) {
-      updateVisibleTab(selectedTabIdState);
+    if (previousSelectedTabId.current !== selectedTabId) {
+      if (selectedTabId !== selectedTabIdState) {
+        updateVisibleTab(selectedTabId);
+      }
+      previousSelectedTabId.current = selectedTabId;
     }
-  }, [selectedTabId, selectedTabIdState, updateVisibleTab]);
+  }, [previousSelectedTabId, selectedTabId, selectedTabIdState, updateVisibleTab]);
 
   return (
     <StyledTabs
@@ -267,7 +315,7 @@ const Tabs = ({
 };
 
 Tabs.propTypes = {
-  /** @ignore */
+  /** @ignore @private */
   className: PropTypes.string,
   /** Prevent rendering of hidden tabs, by default this is set to true and therefore all tabs will be rendered */
   renderHiddenTabs: PropTypes.bool,
@@ -282,8 +330,16 @@ Tabs.propTypes = {
   onTabChange: PropTypes.func,
   /** The position of the tab title. */
   position: PropTypes.oneOf(['top', 'left']),
-  /** Sets the selected tabId in  the URL. */
-  setLocation: PropTypes.bool
+  /** Sets the selected tabId in the URL. */
+  setLocation: PropTypes.bool,
+  /** Sets size of the tab titles. */
+  size: PropTypes.oneOf(['default', 'large']),
+  /** Sets the divider of the tab titles header to extend the full width of the parent. */
+  extendedLine: PropTypes.bool,
+  /** Adds a combination of borders to the tab titles. */
+  borders: PropTypes.oneOf(['off', 'on', 'no left side', 'no right side', 'no sides']),
+  /** Adds a alternate styling variant to the tab titles. */
+  variant: PropTypes.oneOf(['default', 'alternate'])
 };
 
 export { Tabs, Tab };

@@ -291,6 +291,11 @@ export default (palette) => {
       separator: palette.slateTint(90)
     },
 
+    tab: {
+      background: palette.slateTint(80),
+      altHover: palette.slateTint(85)
+    },
+
     note: {
       timeStamp: 'rgba(0,0,0,0.65)'
     },

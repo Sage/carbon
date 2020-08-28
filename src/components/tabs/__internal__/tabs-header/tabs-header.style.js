@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import OptionsHelper from '../../../../utils/helpers/options-helper/options-helper';
 import baseTheme from '../../../../style/themes/base';
 
+const computeLineWidth = ({ alternateStyling }) => (alternateStyling ? '-1px' : '-2px');
+
 const StyledTabHeaders = styled.ul`
   display: flex;
-  box-shadow: inset 0px -2px 0px 0px ${({ theme }) => theme.disabled.background};
+  box-shadow: inset 0px ${computeLineWidth} 0px 0px ${({ theme }) => theme.tab.background};
+  ${({ extendedLine }) => !extendedLine && css`width: fit-content;`}
   cursor: pointer;
   list-style: none;
   margin: 0 0 10px;
@@ -16,17 +19,23 @@ const StyledTabHeaders = styled.ul`
     text-align: right;
   `}
 
-  ${({ position }) => position === 'left' && css`
+  ${({ position, noRightBorder }) => position === 'left' && css`
     flex-direction: column;
-    box-shadow: inset -2px 0px 0px 0px ${({ theme }) => theme.disabled.background};
+    box-shadow: inset ${computeLineWidth} 0px 0px 0px ${({ theme }) => theme.tab.background};
+    ${noRightBorder && css`box-shadow: none;`}
     width: 20%;
     margin: 0 10px 0;
+
+    ${({ align }) => align === 'right' && css`
+      justify-content: flex-start;
+    `}
   `}
 `;
 
 StyledTabHeaders.defaultProps = {
   align: 'left',
   position: 'top',
+  extendedLine: true,
   theme: baseTheme
 };
 
