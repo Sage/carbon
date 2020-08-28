@@ -1,3 +1,15 @@
+## [38.2.0](https://github.com/Sage/carbon/compare/v38.1.4...v38.2.0) (2020-08-28)
+
+
+### Features
+
+* **tabs, tab:** add extendedline, borders, size, siblings, customlayout ([dbf7ce2](https://github.com/Sage/carbon/commit/dbf7ce2358b9e6cb5930b5ff8d62adf791cfeb39))
+
+
+### Bug Fixes
+
+* **tabs:** add support for component being controlled via ontabchange ([f70f4bb](https://github.com/Sage/carbon/commit/f70f4bb9639f231f581133f97c6e45bc92d40eac)), closes [#3170](https://github.com/Sage/carbon/issues/3170)
+
 ### [38.1.4](https://github.com/Sage/carbon/compare/v38.1.3...v38.1.4) (2020-08-27)
 
 
