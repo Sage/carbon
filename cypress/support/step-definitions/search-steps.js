@@ -4,7 +4,7 @@ import {
 } from '../../locators/search';
 
 Then('Search component placeholder is set to {word}', (placeholder) => {
-  searchInput().should('have.attr', 'placeholder', placeholder);
+  searchInputNoiFrame().should('have.attr', 'placeholder', placeholder);
 });
 
 When('I clear default search input', () => {

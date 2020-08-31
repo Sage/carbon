@@ -1,40 +1,41 @@
 Feature: Search component
-  I want to change Search component properties
-
-  Background: Open Search component page
-    Given I open "Design System Search Test" component page "basic"
+  I want to test Search component properties
 
   @positive
   Scenario Outline: Set placeholder to <placeholder>
-    When I set placeholder to <placeholder> word
+    When I open Test test_basic "Search" component in noIFrame with "search" json from "test" using "<nameOfObject>" object name
     Then Search component placeholder is set to <placeholder>
     Examples:
-      | placeholder                  |
-      | mp150ú¿¡üßä                  |
-      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
+      | placeholder                  | nameOfObject |
+      | mp150ú¿¡üßä                  | placeholderOtherLanguage |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | placeholderSpecialCharacter |
 
   @positive
   Scenario: Verify proper color for search icon button
-    Given Type "Sea" text into search input
+    Given I open "Design System Search Test" component page "basic"
+      And Type "Sea" text into search input
     When I click onto search icon
     Then search icon has proper inner color
 
   @positive
   Scenario: Check the change event for Search component
-    Given clear all actions in Actions Tab
+    Given I open "Design System Search Test" component page "basic"
+      And clear all actions in Actions Tab
     When Type "Search" text into search input
     Then change action was called in Actions Tab
 
   @positive
   Scenario: Check the blur event for Search component
-    Given clear all actions in Actions Tab
+    Given I open "Design System Search Test" component page "basic"
+      And clear all actions in Actions Tab
       And I click inside input
     When I click "search" icon in iFrame
     Then blur action was called in Actions Tab
 
   @positive
   Scenario: Click event for Search icon
-    Given Type "Search" text into search input
+    Given I open "Design System Search Test" component page "basic"
+      And Type "Search" text into search input
       And clear all actions in Actions Tab
     When I click onto search icon
     Then click action was called in Actions Tab
