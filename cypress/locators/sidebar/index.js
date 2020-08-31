@@ -1,4 +1,4 @@
 import { SIDEBAR_PREVIEW } from './locators';
 
 // component preview locators
-export const sidebarPreview = () => cy.iFrame(SIDEBAR_PREVIEW);
+export const sidebarPreview = () => cy.get(SIDEBAR_PREVIEW);
