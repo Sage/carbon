@@ -20,7 +20,7 @@ export const popoverContainerContentDS = () => cy.iFrame(POPOVER_CONTAINER_CONTE
 export const popoverCloseIconDS = () => cy.iFrame(POPOVER_CONTENT_CLOSE_ICON);
 
 // component preview locators
-export const popoverContainerTitle = () => cy.iFrame(POPOVER_CONTAINER_TITLE);
+export const popoverContainerTitle = () => cy.get(POPOVER_CONTAINER_TITLE);
 export const popoverContainerContentSecondInnerElement = () => popoverContainerContentDS().children()
   .find('button');
 export const popoverContainerDataComponent = () => cy.iFrame(POPOVER_CONTAINER_DATA_COMPONENT);
