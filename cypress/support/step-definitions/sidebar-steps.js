@@ -1,5 +1,5 @@
 import { sidebarPreview } from '../../locators/sidebar';
-import { backgroundUILocatorIFrame } from '../../locators';
+import { backgroundUILocator } from '../../locators';
 
 Then('Sidebar position value is set to {string}', (value) => {
   sidebarPreview().should('have.css', `${value}`);
@@ -10,11 +10,11 @@ Then('Sidebar size value is set to {string}', (value) => {
 });
 
 Then('Sidebar component has enabled background UI', () => {
-  backgroundUILocatorIFrame().should('not.exist');
+  backgroundUILocator().should('not.exist');
 });
 
 Then('Sidebar component has disabled background UI', () => {
-  backgroundUILocatorIFrame().should('be.visible');
+  backgroundUILocator().should('be.visible');
 });
 
 Then('Sidebar component is visible', () => {
@@ -22,5 +22,5 @@ Then('Sidebar component is visible', () => {
 });
 
 Then('Sidebar component is not visible', () => {
-  backgroundUILocatorIFrame().should('not.exist');
+  backgroundUILocator().should('not.exist');
 });
