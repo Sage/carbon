@@ -6,8 +6,8 @@ Feature: Search component
     When I open Test test_basic "Search" component in noIFrame with "search" json from "test" using "<nameOfObject>" object name
     Then Search component placeholder is set to <placeholder>
     Examples:
-      | placeholder                  | nameOfObject |
-      | mp150ú¿¡üßä                  | placeholderOtherLanguage |
+      | placeholder                  | nameOfObject                |
+      | mp150ú¿¡üßä                  | placeholderOtherLanguage    |
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | placeholderSpecialCharacter |
 
   @positive
