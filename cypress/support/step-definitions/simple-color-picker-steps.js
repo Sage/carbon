@@ -3,8 +3,10 @@ import {
   simpleColorPickerDiv,
   simpleColorPickerPreview,
   experimentalSimpleColorPickerInput,
+  simpleColorPickerLegend,
+  simpleColorPickerLegendNoIFrame,
 } from '../../locators/simple-color-picker';
-import { getKnobsInput } from '../../locators';
+import { getKnobsInput, commonDataElementInputPreviewNoIframe } from '../../locators';
 import { keyCode, positionOfElement } from '../helper';
 
 Then('Simple Color Picker name on preview is set to {string}', (value) => {
@@ -93,4 +95,12 @@ Then('It renders with all new colors', () => {
         .and('have.attr', 'aria-label', $json[i].label);
     }
   });
+});
+
+When('simple color picker legend on preview is {string} in NoIFrame', (text) => {
+  simpleColorPickerLegendNoIFrame().should('have.text', text);
+});
+
+When('simple color picker name {string} in NoIFrame', (name) => {
+  commonDataElementInputPreviewNoIframe().should('have.attr', 'name', name);
 });
