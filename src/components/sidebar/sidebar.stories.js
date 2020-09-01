@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { boolean, select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
+import { dlsThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { Sidebar, SidebarHeader } from '.';
 import Button from '../button';
@@ -113,6 +113,4 @@ storiesOf('Sidebar', module)
     }
   })
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector, true))
-  .add(...makeButtonStory('with button', dlsThemeSelector))
-  .add(...makeButtonStory('with button classic', classicThemeSelector, true));
+  .add(...makeButtonStory('with button', dlsThemeSelector));
