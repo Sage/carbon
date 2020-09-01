@@ -7,7 +7,7 @@ import baseTheme from '../../style/themes/base';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 export const StyledForm = styled.form`
-  & ${StyledFormField} {
+  ${StyledFormField} {
     margin-top: 0;
     margin-bottom: ${({ fieldSpacing, theme }) => (theme.spacing * fieldSpacing)}px;
   }

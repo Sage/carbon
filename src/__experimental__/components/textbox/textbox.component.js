@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import propTypes from '@styled-system/prop-types';
+
+import TextboxStyle from './textbox.style';
 import { Input, InputPresentation } from '../input';
 import InputIconToggle from '../input-icon-toggle';
 import FormField from '../form-field';
@@ -32,38 +34,40 @@ const Textbox = ({
   }
 
   return (
-    <InputBehaviour>
-      <FormField
-        childOfForm={ childOfForm }
-        isOptional={ isOptional }
-        { ...props }
-        useValidationIcon={ validationOnLabel }
-        labelWidth={ labelWidth }
-        styleOverride={ styleOverride }
-      >
-        <InputPresentation
-          type='text'
-          { ...removeParentProps(props) }
-          styleOverride={ styleOverride.input }
-          inputWidth={ inputWidth || (100 - labelWidth) }
+    <TextboxStyle { ...props }>
+      <InputBehaviour>
+        <FormField
+          childOfForm={ childOfForm }
+          isOptional={ isOptional }
+          { ...props }
+          useValidationIcon={ validationOnLabel }
+          labelWidth={ labelWidth }
+          styleOverride={ styleOverride }
         >
-          { leftChildren }
-          <Input
+          <InputPresentation
+            type='text'
             { ...removeParentProps(props) }
-            placeholder={ (props.disabled || props.readOnly) ? '' : props.placeholder }
-            aria-invalid={ !!props.error }
-            value={ visibleValue(value, formattedValue) }
-          />
-          { children }
-          <InputIconToggle
-            { ...removeParentProps(props) }
-            useValidationIcon={ !validationOnLabel }
-            onClick={ iconOnClick || props.onClick }
-            inputIcon={ inputIcon }
-          />
-        </InputPresentation>
-      </FormField>
-    </InputBehaviour>
+            styleOverride={ styleOverride.input }
+            inputWidth={ inputWidth || (100 - labelWidth) }
+          >
+            { leftChildren }
+            <Input
+              { ...removeParentProps(props) }
+              placeholder={ (props.disabled || props.readOnly) ? '' : props.placeholder }
+              aria-invalid={ !!props.error }
+              value={ visibleValue(value, formattedValue) }
+            />
+            { children }
+            <InputIconToggle
+              { ...removeParentProps(props) }
+              useValidationIcon={ !validationOnLabel }
+              onClick={ iconOnClick || props.onClick }
+              inputIcon={ inputIcon }
+            />
+          </InputPresentation>
+        </FormField>
+      </InputBehaviour>
+    </TextboxStyle>
   );
 };
 
@@ -152,8 +156,6 @@ Textbox.propTypes = {
   iconOnClick: PropTypes.func,
   /** Handler for onClick events */
   onClick: PropTypes.func,
-  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   /** Allows to override existing component styles */
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),

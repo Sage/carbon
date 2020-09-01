@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { space } from 'styled-system';
 import CheckboxStyle from '../checkbox/checkbox.style';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
@@ -9,6 +10,7 @@ import ClassicRadioButtonStyles from './radio-button-classic.style';
 import baseTheme from '../../../style/themes/base';
 
 const RadioButtonStyle = styled(CheckboxStyle)`
+  ${space}
   ${({
     disabled,
     fieldHelpInline,

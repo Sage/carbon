@@ -13,7 +13,10 @@ import StyledFormField from '../form-field/form-field.style';
 import StyledIcon from '../../../components/icon/icon.style';
 
 const CheckboxStyle = styled.div`
-  ${space}
+  & ${StyledFormField} {
+    ${space}
+  }
+  
   ${({
     disabled, error, warning, info, fieldHelpInline, labelSpacing, inputWidth, reverse, size, theme
   }) => css`

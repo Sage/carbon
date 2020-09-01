@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import propTypes from '@styled-system/prop-types';
 import FormFieldStyle, { FieldLineStyle } from './form-field.style';
 import Label from '../label';
 import FieldHelp from '../field-help';
@@ -118,7 +117,6 @@ FormField.defaultProps = {
 };
 
 FormField.propTypes = {
-  ...propTypes.space,
   children: PropTypes.node,
   childOfForm: PropTypes.bool,
   disabled: PropTypes.bool,

@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
+import propTypes from '@styled-system/prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import RadioButtonStyle from './radio-button.style';
 import CheckableInput from '../checkable-input/checkable-input.component';
@@ -47,6 +48,7 @@ const RadioButton = ({
 };
 
 RadioButton.propTypes = {
+  ...propTypes.space,
   /** Set the value of the radio button */
   checked: PropTypes.bool,
   /** Toggles disabling of input */
@@ -80,8 +82,6 @@ RadioButton.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesBinary),
   /** the value of the Radio Button, passed on form submit */
   value: PropTypes.string.isRequired,
-  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   children: (props, propName, componentName) => {
     if (props[propName]) {
       return new Error(
