@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import propTypes from '@styled-system/prop-types';
 import { validProps } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
 import { FieldsetStyle, LegendContainerStyle, FieldsetContentStyle } from './fieldset.style';
@@ -39,6 +40,7 @@ const Fieldset = (props) => {
     <FieldsetStyle
       { ...tagComponent('fieldset', props) }
       { ...safeProps }
+      { ...props }
       styleOverride={ props.styleOverride.root }
     >
       <FieldsetContentStyle
@@ -53,6 +55,7 @@ const Fieldset = (props) => {
 };
 
 Fieldset.propTypes = {
+  ...propTypes.space,
   /** Child elements */
   children: PropTypes.node,
   /** The text for the fieldsets legend element. */

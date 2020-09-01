@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { space } from 'styled-system';
 import FormFieldStyle from '../form-field/form-field.style';
 import fieldsetClassicStyle from './fieldset-classic.style';
 import ValidationIconStyle from '../../../components/validations/validation-icon.style';
@@ -6,9 +7,8 @@ import StyledIcon from '../../../components/icon/icon.style';
 import CheckboxStyle from '../checkbox/checkbox.style';
 
 const FieldsetStyle = styled.fieldset`
+  ${space}
   border: none;
-  margin: 0;
-  padding: 0;
 
   &&&& ${FormFieldStyle} {
     margin-top: 0;

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import propTypes from '@styled-system/prop-types';
 import { uniqueId } from 'lodash';
 import invariant from 'invariant';
 import SelectList from './select-list.component';
@@ -439,6 +440,7 @@ class Select extends React.Component {
         aria-label={ ariaLabel }
         isAnyValueSelected={ this.isMultiSelectEnabled() && (this.getMultiSelectValues().length >= 1) }
         transparent={ transparent }
+        { ...props }
       >
         <Textbox
           { ...props } // this needs to send all of the original props
@@ -475,6 +477,7 @@ const valuePropType = PropTypes.oneOfType([
 ]);
 
 Select.propTypes = {
+  ...propTypes.space,
   ...Textbox.propTypes,
   ariaLabel: PropTypes.string,
   /** Child components (such as <Option>) for the <SelectList> */

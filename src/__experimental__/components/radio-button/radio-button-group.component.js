@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import propTypes from '@styled-system/prop-types';
 
 import tagComponent from '../../../utils/helpers/tags';
 import Fieldset from '../../../__internal__/fieldset';
@@ -63,6 +64,7 @@ const RadioButtonGroup = (props) => {
 };
 
 RadioButtonGroup.propTypes = {
+  ...propTypes.space,
   /** The RadioButton objects to be rendered in the group */
   children: PropTypes.node.isRequired,
   /** Specifies the name prop to be applied to each button in the group */

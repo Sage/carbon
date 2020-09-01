@@ -1,8 +1,10 @@
 import styled from 'styled-components';
+import { space } from 'styled-system';
 import StyledPill from '../../pill/pill.style';
 import { baseTheme } from '../../../style/themes';
 
 const StyledMultiSelect = styled.div`
+  ${space}
   position: relative;
 `;
 

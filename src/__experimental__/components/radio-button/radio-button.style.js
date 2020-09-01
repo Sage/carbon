@@ -17,7 +17,7 @@ const RadioButtonStyle = styled(CheckboxStyle)`
     theme,
     inline
   }) => css`
-    margin-bottom: 12px;
+    padding-top: 8px;
 
     ${FieldHelpStyle} {
       margin-left: 32px;

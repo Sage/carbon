@@ -5,6 +5,7 @@ import React, {
   useCallback
 } from 'react';
 import PropTypes from 'prop-types';
+import propTypes from '@styled-system/prop-types';
 import invariant from 'invariant';
 import SelectTextbox, { formInputPropTypes } from '../select-textbox/select-textbox.component';
 import guid from '../../../utils/helpers/guid';
@@ -421,6 +422,7 @@ const MultiSelect = React.forwardRef(({
 });
 
 MultiSelect.propTypes = {
+  ...propTypes.space,
   ...formInputPropTypes,
   /** The selected value(s), when the component is operating in controlled mode */
   value: PropTypes.arrayOf(PropTypes.string),

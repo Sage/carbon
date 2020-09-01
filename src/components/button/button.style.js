@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { space } from 'styled-system';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../style/themes/base';
 import buttonTypes from './button-types.style';
@@ -7,6 +8,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import StyledIcon from '../icon/icon.style';
 
 const StyledButton = styled.button`
+  ${space}
   align-items: center;
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   display: inline-flex;
@@ -15,10 +17,6 @@ const StyledButton = styled.button`
   justify-content: center;
   vertical-align: middle;
   ${stylingForType}
-
-  ${({ mb, theme }) => mb && css`
-    margin-bottom: ${mb * theme.spacing}px;
-  `}
 
   ${({ fullWidth }) => fullWidth && css`
     width: 100%;
@@ -53,7 +51,6 @@ function stylingForType({
   theme,
   size,
   destructive,
-  fullWidth,
   ml
 }) {
   return css`
@@ -67,11 +64,6 @@ function stylingForType({
       outline: solid 3px ${theme.colors.focus};
     }
 
-    ${!fullWidth && css`
-      & ~ & {
-      margin-left: 16px;
-      }
-    `}
     ${buttonTypes(theme, disabled, destructive)[buttonType]};
     ${buttonSizes(theme, ml)[size]}
   `;
@@ -101,11 +93,7 @@ StyledButton.propTypes = {
   /** Second text child, renders under main text, only when size is "large" */
   subtext: PropTypes.string,
   /** Used to transform button into anchor */
-  to: PropTypes.string,
-  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
-  /** Margin left as a percentage, calculated from the left edge of the button content */
-  ml: PropTypes.number
+  to: PropTypes.string
 };
 
 export default StyledButton;

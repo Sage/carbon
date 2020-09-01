@@ -133,6 +133,7 @@
     "xhr-mock": "git://github.com/resin-io-modules/xhr-mock.git#improvements"
   },
   "dependencies": {
+    "@styled-system/prop-types": "^5.1.5",
     "axios": "^0.19.0",
     "bignumber.js": "^9.0.0",
     "bowser": "~1.5.0",
@@ -153,6 +154,7 @@
     "react-dnd-touch-backend": "0.2.7",
     "react-transition-group": "^4.3.0",
     "regenerator-runtime": "^0.13.2",
+    "styled-system": "^5.1.5",
     "superagent": "~3.8.2",
     "wait-on": "^3.2.0"
   },

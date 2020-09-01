@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { space } from 'styled-system';
 import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
@@ -12,11 +13,10 @@ import StyledFormField from '../form-field/form-field.style';
 import StyledIcon from '../../../components/icon/icon.style';
 
 const CheckboxStyle = styled.div`
+  ${space}
   ${({
     disabled, error, warning, info, fieldHelpInline, labelSpacing, inputWidth, reverse, size, theme
   }) => css`
-    padding-top: 8px;
-
     ${StyledCheckableInput} {
       padding-top: 1px;
     }

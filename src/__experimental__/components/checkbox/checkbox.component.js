@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import propTypes from '@styled-system/prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import CheckboxStyle from './checkbox.style';
 import CheckableInput from '../checkable-input/checkable-input.component';
@@ -15,11 +16,9 @@ const Checkbox = ({
   autoFocus,
   labelHelp,
   labelSpacing = 1,
-  ml,
   ...props
 }) => {
   const inputProps = {
-    ...props,
     onChange,
     onBlur,
     labelInline: true,
@@ -31,8 +30,7 @@ const Checkbox = ({
     fieldHelp,
     autoFocus,
     labelHelp,
-    labelSpacing,
-    ml
+    labelSpacing
   };
 
   return (
@@ -49,6 +47,7 @@ const Checkbox = ({
 };
 
 Checkbox.propTypes = {
+  ...propTypes.space,
   /** Set the value of the checkbox */
   checked: PropTypes.bool,
   /** Toggles disabling of input */
@@ -95,11 +94,7 @@ Checkbox.propTypes = {
   /** Allows component to be focused on page load */
   autoFocus: PropTypes.bool,
   /** The content for the help tooltip, to appear next to the Label */
-  labelHelp: PropTypes.node,
-  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
-  /** Margin left, any valid CSS value */
-  ml: PropTypes.string
+  labelHelp: PropTypes.node
 };
 
 Checkbox.defaultProps = {

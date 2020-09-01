@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import propTypes from '@styled-system/prop-types';
 import Icon from '../icon';
 import StyledButton, { StyledButtonSubtext } from './button.style';
 import tagComponent from '../../utils/helpers/tags';
@@ -117,6 +118,7 @@ function renderChildren({
 }
 
 Button.propTypes = {
+  ...propTypes.space,
   /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "darkBackground" */
   buttonType: PropTypes.oneOf(OptionsHelper.buttonTypes),
   /** The text the button displays */
@@ -144,11 +146,7 @@ Button.propTypes = {
   /** Render prop that when coupled with the `to` prop will render the a routing anchor link */
   renderRouterLink: PropTypes.func,
   /** Apply fullWidth style to the button */
-  fullWidth: PropTypes.bool,
-  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
-  /** Margin left as a percentage, calculated from the left edge of the button content */
-  ml: PropTypes.number
+  fullWidth: PropTypes.bool
 };
 
 Button.defaultProps = {

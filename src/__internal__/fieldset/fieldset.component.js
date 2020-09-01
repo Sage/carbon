@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import propTypes from '@styled-system/prop-types';
 
 import { StyledFieldset, StyledFieldsetContent, StyledLegendContainer } from './fieldset.style';
 import ValidationIcon from '../../components/validations/validation-icon.component';
@@ -7,13 +8,12 @@ import { InputGroupBehaviour, InputGroupContext } from '../input-behaviour';
 
 const Fieldset = ({
   legend, children, inline, legendWidth, legendAlign = 'right', legendSpacing = 2, error,
-  warning, info, ml, styleOverride, ...rest
+  warning, info, styleOverride, ...rest
 }) => (
   <InputGroupBehaviour>
     <StyledFieldset
       data-component='fieldset'
       styleOverride={ styleOverride.root }
-      ml={ ml }
       { ...rest }
     >
       <StyledFieldsetContent inline={ inline }>
@@ -46,6 +46,7 @@ const Fieldset = ({
 );
 
 Fieldset.propTypes = {
+  ...propTypes.space,
   /** Fieldset content */
   children: PropTypes.node.isRequired,
   /** The content for the Fieldset Legend */

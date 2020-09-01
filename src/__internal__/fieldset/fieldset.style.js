@@ -1,17 +1,15 @@
 import styled, { css } from 'styled-components';
+import { space } from 'styled-system';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../style/themes/base';
 
 const StyledFieldset = styled.fieldset`
+  ${space}
   border: none;
   margin: 0;
   padding: 0;
   min-width: 0;
   min-inline-size: 0;
-
-  ${({
-    ml
-  }) => ml && `margin-left: ${ml};`}
 
   ${({ styleOverride }) => styleOverride};
 `;

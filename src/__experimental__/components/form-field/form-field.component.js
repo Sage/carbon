@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import propTypes from '@styled-system/prop-types';
 import FormFieldStyle, { FieldLineStyle } from './form-field.style';
 import Label from '../label';
 import FieldHelp from '../field-help';
@@ -37,7 +38,6 @@ const FormField = ({
   isOptional,
   readOnly,
   useValidationIcon,
-  mb,
   styleOverride,
   ...props
 }) => {
@@ -60,7 +60,7 @@ const FormField = ({
     <FormFieldStyle
       { ...tagComponent(props['data-component'], props) }
       styleOverride={ styleOverride.root }
-      mb={ mb }
+      { ...props }
     >
       <FieldLineStyle inline={ labelInline }>
         {reverse && children}
@@ -118,6 +118,7 @@ FormField.defaultProps = {
 };
 
 FormField.propTypes = {
+  ...propTypes.space,
   children: PropTypes.node,
   childOfForm: PropTypes.bool,
   disabled: PropTypes.bool,
@@ -146,8 +147,6 @@ FormField.propTypes = {
   reverse: PropTypes.bool,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   useValidationIcon: PropTypes.bool,
-  /** Override form spacing (margin bottom) */
-  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   /** Allows to override existing component styles */
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),

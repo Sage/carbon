@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { space } from 'styled-system';
 import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
 import StyledPill from '../../../components/pill/pill.style';
@@ -9,6 +10,7 @@ import InputPresentationStyle from '../input/input-presentation.style';
 import InputIconToggleStyle from '../input-icon-toggle/input-icon-toggle.style';
 
 const StyledSelect = styled.div`
+  ${space}
   ${({ isAnyValueSelected }) => isAnyValueSelected && css`
     ${StyledInput}::placeholder {
       opacity: 0;
