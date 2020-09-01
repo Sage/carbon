@@ -1,4 +1,4 @@
-{ 
+{
   "cancelLabelOtherLanguage": {
     "open": true,
     "cancelLabel": "mp150ú¿¡üßä"
@@ -86,5 +86,20 @@
   "showCloseIconFalse": {
     "open": true,
     "showCloseIcon": false
+  },
+  "destructive": {
+    "open": true,
+    "destructive": true
+  },
+  "iconError": {
+    "open": true,
+    "iconType": "error"
+  },
+  "iconWarning": {
+    "open": true,
+    "iconType": "warning"
+  },
+  "iconEmpty": {
+    "open": true
   }
 }

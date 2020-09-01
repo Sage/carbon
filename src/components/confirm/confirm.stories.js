@@ -46,6 +46,8 @@ function makeStory(name, themeSelector, disableChromatic = true) {
     const confirmLabel = text('confirmLabel', '');
     const cancelLabel = text('cancelLabel', '');
     const open = boolean('open', false);
+    const destructive = boolean('destructive', false);
+    const iconType = select('iconType', ['error', 'warning', null], null);
 
     return (
       <Confirm
@@ -63,6 +65,8 @@ function makeStory(name, themeSelector, disableChromatic = true) {
         onConfirm={ handleConfirm }
         onCancel={ handleCancel }
         open={ open }
+        destructive={ destructive }
+        iconType={ iconType }
       >
         { children }
       </Confirm>
@@ -93,6 +97,8 @@ function makeButtonStory(name, themeSelector, disableChromatic = false) {
     const autoFocus = boolean('autoFocus', Confirm.defaultProps.autoFocus);
     const confirmLabel = text('confirmLabel', '');
     const cancelLabel = text('cancelLabel', '');
+    const destructive = boolean('destructive', false);
+    const iconType = select('iconType', ['error', 'warning', null], null);
 
     return (
       <State store={ store }>
@@ -113,6 +119,8 @@ function makeButtonStory(name, themeSelector, disableChromatic = false) {
           cancelLabel={ cancelLabel }
           onConfirm={ handleConfirm }
           onCancel={ handleCancel }
+          destructive={ destructive }
+          iconType={ iconType }
         >
           { children }
         </Confirm>
