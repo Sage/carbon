@@ -1,6 +1,6 @@
 Feature: Design System Navigation Bar Test component
-  I want to test Design System Navigation Bar Test component children property
-
+  I want to test Design System Navigation Bar component property
+  
   @positive
   Scenario Outline: Change Navigation Bar children to <children>
     When I open Test test_basic "Navigation Bar" component in noIFrame with "navigationBar" json from "test" using "<nameOfObject>" object name
