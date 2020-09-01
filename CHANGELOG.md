@@ -1,3 +1,24 @@
+## [39.0.0](https://github.com/Sage/carbon/compare/v38.2.0...v39.0.0) (2020-09-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* **toast:** toast will be dismissed when esc key
+is pressed, regardless of the focus on the close button
+* **modal:** when multiple modals are being open,
+esc key will close only the topmost one
+* **icon-button:** esc key will no longer trigger onAction prop
+
+### Features
+
+* **toast:** dismiss toast on esc without focussing on the component ([ace80dd](https://github.com/Sage/carbon/commit/ace80dd0f9fd6a234413821b99a33e48dbc6d41f))
+
+
+### Bug Fixes
+
+* **icon-button:** 'esc' key triggers onAction closing a modal ([0fd16ba](https://github.com/Sage/carbon/commit/0fd16ba1f901d5f80d3de19ef967c316981c3f92))
+* **modal:** esc key closes all nested modals ([47c4c26](https://github.com/Sage/carbon/commit/47c4c26bf6ab1a1be7b31db2020065b4a6803ca7))
+
 ## [38.2.0](https://github.com/Sage/carbon/compare/v38.1.4...v38.2.0) (2020-08-28)
 
 
