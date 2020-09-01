@@ -87,3 +87,18 @@ Feature: Dialog Full Screen component
       And I open component preview
     When I click closeIcon in IFrame
     Then cancel action was called in Actions Tab
+
+  @positive
+  Scenario: Verify that nested dialog is closed by pressing Esc key
+    Given I open "Dialog Full Screen" component page "with-nested-dialog"
+      And I open component preview
+      And I wait 500
+      And I "Open Nested Dialog" button on preview
+      And Dialog is visible in IFrame
+    When I hit ESC key
+    Then Dialog Full Screen is visible
+      And Dialog is not visible in IFrame
+      And I hit ESC key
+      And Dialog Full Screen is not visible
+
+    

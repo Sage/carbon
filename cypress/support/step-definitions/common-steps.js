@@ -200,6 +200,10 @@ When('I open component preview in noIFrame', () => {
   commonButtonPreviewNoIFrameRoot().click();
 });
 
+When('I {string} button on preview', (text) => {
+  getDataElementByValueIframe('main-text').contains(text).click();
+});
+
 Then('component title on preview is {word}', (title) => {
   dialogTitle().should('have.text', title);
 });

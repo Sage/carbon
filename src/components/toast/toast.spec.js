@@ -109,12 +109,6 @@ describe('Toast', () => {
           icon.simulate('keyDown', { which: 13, key: 'Enter' });
           expect(onDismiss).toHaveBeenCalled();
         });
-
-        it('dismiss icon is focused and ESC key is pressed', () => {
-          const icon = wrapper.find(IconButton).first();
-          icon.simulate('keyDown', { which: 27, key: 'Escape' });
-          expect(onDismiss).toHaveBeenCalled();
-        });
       });
 
       describe('does not call onDismiss method when', () => {
@@ -176,6 +170,44 @@ describe('ToastStyle', () => {
       variant='help'
       open
     />));
+  });
+
+  describe('when the toast is displayed', () => {
+    let domNode;
+    let escapeKeyEvent;
+    let wrapper;
+    const onDismissFn = jest.fn();
+
+    beforeEach(() => {
+      escapeKeyEvent = new KeyboardEvent('keyup', {
+        key: 'Escape',
+        which: 27,
+        bubbles: true
+      });
+      wrapper = mount(
+        <Toast open onDismiss={ onDismissFn } />
+      );
+      domNode = wrapper.getDOMNode();
+      document.body.appendChild(domNode);
+    });
+
+    afterEach(() => {
+      document.body.removeChild(domNode);
+    });
+
+    describe('and the esc key is released', () => {
+      it('stopImmediatePropagation function should have been called on the event', () => {
+        jest.spyOn(escapeKeyEvent, 'stopImmediatePropagation');
+        domNode.dispatchEvent(escapeKeyEvent);
+        expect(escapeKeyEvent.stopImmediatePropagation).toHaveBeenCalled();
+      });
+
+      it('then the onDismiss method should have been called', () => {
+        onDismissFn.mockReset();
+        domNode.dispatchEvent(escapeKeyEvent);
+        expect(onDismissFn).toHaveBeenCalled();
+      });
+    });
   });
 });
 
