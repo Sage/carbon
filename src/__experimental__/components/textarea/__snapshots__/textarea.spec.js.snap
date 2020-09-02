@@ -11,6 +11,7 @@ exports[`Textarea when rendered should render default 1`] = `
   flex-grow: 1;
   font-size: 14px;
   outline: none;
+  padding: 0;
   width: 30px;
 }
 
