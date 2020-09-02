@@ -1,91 +1,84 @@
 Feature: Split Button component
-  I want to change Split Button component properties
-
-  Background: Open Split Button component default page
-    Given I open "Split Button" component page
+  I want to test Split Button component properties
 
   @positive
   Scenario Outline: I select buttonType to <buttonType>
-    When I select buttonType to "<buttonType>"
+    When I open default "Split Button" component in noIFrame with "splitButton" json from "commonComponents" using "<nameOfObject>" object name
     Then Button background color is "<color>"
     Examples:
-      | buttonType | color            |
-      | primary    | rgb(0, 129, 93)  |
-      | secondary  | rgba(0, 0, 0, 0) |
+      | buttonType | color            | nameOfObject        |
+      | primary    | rgb(0, 129, 93)  | buttonTypePrimary   |
+      | secondary  | rgba(0, 0, 0, 0) | buttonTypeSecondary |
 
   @positive
   Scenario Outline: I select size to <size>
-    When I select size to "<size>"
+    When I open default "Split Button" component in noIFrame with "splitButton" json from "commonComponents" using "<nameOfObject>" object name
     Then Split Button is set to "<size>" size and has <px> px height
     Examples:
-      | size   | px |
-      | small  | 32 |
-      | medium | 40 |
-      | large  | 48 |
+      | size   | px | nameOfObject |
+      | small  | 32 | sizeSmall    |
+      | medium | 40 | sizeMedium   |
+      | large  | 48 | sizeLarge    |
 
   @positive
   Scenario: I disable Split Button component
-    When I disable SplitButton component
+    When I open default "Split Button" component in noIFrame with "splitButton" json from "commonComponents" using "disabled" object name
     Then Button is disabled
 
   @positive
   Scenario: I enable Split Button component
-    Given I disable SplitButton component
-    When I enable SplitButton component
+    When I open default "Split Button" component in noIFrame with "splitButton" json from "commonComponents" using "disabledFalse" object name
     Then Button is enabled
 
   @positive
   Scenario Outline: I set Split Button text align to <align>
-    When I select align to "<align>"
+    When I open default "Split Button" component in noIFrame with "splitButton" json from "commonComponents" using "<nameOfObject>" object name
     Then Split Button component additional buttons text align is set to "<align>" align
     Examples:
-      | align |
-      | left  |
-      | right |
+      | align | nameOfObject |
+      | left  | alignLeft    |
+      | right | alignRight   |
 
   @positive
   Scenario Outline: I set text to <text>
-    When I set text to <text> word
+    When I open default "Split Button" component in noIFrame with "splitButton" json from "commonComponents" using "<nameOfObject>" object name
     Then Button label on preview is <text>
     Examples:
-      | text                    |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | text                    | nameOfObject         |
+      | mp150ú¿¡üßä             | textOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{} | textSpecialCharacter |
   # @ignore because of FE-2782
   # | &"'<>|
 
   @positive
   Scenario Outline: I set subtext to <subtext>
-    Given I select size to "large"
-    When I set subtext to <subtext> word
+    When I open default "Split Button" component in noIFrame with "splitButton" json from "commonComponents" using "<nameOfObject>" object name
     Then Button subtext on preview is <subtext>
     Examples:
-      | subtext                 |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | subtext                 | nameOfObject            |
+      | mp150ú¿¡üßä             | subtextOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{} | subtextSpecialCharacter |
   # @ignore because of FE-2782
   # | &"'<>|
 
   @positive
   Scenario Outline: I check icon positioning to <iconPosition>
-    Given I check has icon checkbox
-    When I select iconType to "warning"
-      And I select iconPosition to "<iconPosition>"
+    When I open default "Split Button" component in noIFrame with "splitButton" json from "commonComponents" using "<nameOfObject>" object name
     Then Split Button iconPosition is set to "<iconPosition>" and has "warning" icon
     Examples:
-      | iconPosition |
-      | after        |
-      | before       |
+      | iconPosition | nameOfObject       |
+      | after        | iconPositionAfter  |
+      | before       | iconPositionBefore |
 
   @positive
   Scenario: I expand Split Button component
-    When I hover mouse onto icon
+    Given I open default "Split Button" component in noIFrame with "splitButton" json from "commonComponents" using "default" object name
+    When I hover mouse onto "dropdown" icon in no iFrame
     Then Split Button is expanded
 
   @positive
   Scenario Outline: Verify color palette for Split Button component without focus
-    # commented because of BDD default scenario Given - When - Then
-    # When I open "Split Button" component page
+    When I open default "Split Button" component in noIFrame with "splitButton" json from "commonComponents" using "default" object name
     Then Split Button first element has proper background-color "<background-color>" and border "<border-color>" color and has border-width 2 px
       And Split Button second element has proper background-color "<background-color>" and border "<border-color>" color and has border-width 2 px
     Examples:
@@ -95,12 +88,14 @@ Feature: Split Button component
   @ignore
   # there is no possibility to trigger mouseover on first element
   Scenario: Verify color palette for first element of Split Button component with focus
+    Given I open default "Split Button" component in noIFrame with "splitButton" json from "commonComponents" using "default" object name
     When I hover mouse onto split button
     Then Split Button first element has proper background-color "rgb(0, 96, 70)" and border "rgb(0, 96, 70)" color and has border-width 2 px
 
   @positive
   Scenario Outline: Verify color palette for second element of Split Button component with focus
-    When I hover mouse onto icon
+    Given I open default "Split Button" component in noIFrame with "splitButton" json from "commonComponents" using "default" object name
+    When I hover mouse onto "dropdown" icon in no iFrame
     Then Split Button second element has proper background-color "<color>" and border "<color>" color and has border-width 2 px
       And Split Button additional buttons have proper background-color "<color>" and border "<color>" color and has border-width 1 px
     Examples:
@@ -108,17 +103,11 @@ Feature: Split Button component
       | rgb(0, 96, 70) |
 
   @positive
-  Scenario: Verify the click function for a main element of Split Button component
-    Given clear all actions in Actions Tab
-    When I click "main" element of Split Button component
-    Then click action was called in Actions Tab
-
-  @positive
-  Scenario Outline: Verify the click function for a <element> element of Split Button component
-    Given clear all actions in Actions Tab
-      And I hover mouse onto icon
+  Scenario Outline: Verify hover color and golden border for <element> element of Split Button component
+    Given I open default "Split Button" component in noIFrame with "splitButton" json from "commonComponents" using "default" object name
+      And I hover mouse onto "dropdown" icon in no iFrame
     When I click "<element>" element of Split Button component
-    Then click action was called in Actions Tab
+    Then Split Button expandable "<element>" element has golden border on focus
     Examples:
       | element |
       | first   |
@@ -126,10 +115,19 @@ Feature: Split Button component
       | third   |
 
   @positive
-  Scenario Outline: Verify hover color and golden border for <element> element of Split Button component
-    Given I hover mouse onto icon
-    When I click "<element>" element of Split Button component
-    Then Split Button expandable "<element>" element has golden border on focus
+  Scenario: Verify the click function for a main element of Split Button component
+    Given I open "Split Button" component page
+      And clear all actions in Actions Tab
+    When I click "main-button" element of Split Button component in IFrame
+    Then click action was called in Actions Tab
+
+  @positive
+  Scenario Outline: Verify the click function for a <element> element of Split Button component
+    Given I open "Split Button" component page
+      And clear all actions in Actions Tab
+      And I hover mouse onto icon
+    When I click "<element>" element of Split Button component in IFrame
+    Then click action was called in Actions Tab
     Examples:
       | element |
       | first   |

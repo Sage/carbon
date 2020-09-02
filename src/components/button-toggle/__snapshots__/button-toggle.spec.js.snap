@@ -100,6 +100,7 @@ input:focus ~ .c2 {
   <input
     className="c1"
     id="guid-12345"
+    onBlur={[Function]}
     type="radio"
   />
   <label
@@ -239,6 +240,7 @@ input:focus ~ .c2 {
     <input
       className="c1"
       id="guid-12345"
+      onBlur={[Function]}
       type="radio"
     />
     <label
@@ -260,6 +262,7 @@ input:focus ~ .c2 {
     <input
       className="c1"
       id="guid-12345"
+      onBlur={[Function]}
       type="radio"
     />
     <label
@@ -361,6 +364,7 @@ input:focus ~ .c2 {
   <input
     className="c1"
     id="guid-12345"
+    onBlur={[Function]}
     type="radio"
   />
   <label
@@ -455,6 +459,7 @@ input:focus ~ .c2 {
   <input
     className="c1"
     id="guid-12345"
+    onBlur={[Function]}
     type="radio"
   />
   <label

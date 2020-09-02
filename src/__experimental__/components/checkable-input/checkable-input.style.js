@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import FieldHelpStyle from '../field-help/field-help.style';
 import { FieldLineStyle } from '../form-field/form-field.style';
 import HiddenCheckableInputStyle from './hidden-checkable-input.style';
-import LabelStyle from '../label/label.style';
+import LabelStyle, { StyledLabelContainer } from '../label/label.style';
 import StyledHelp from '../../../components/help/help.style';
 import baseTheme from '../../../style/themes/base';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
@@ -19,6 +19,7 @@ const StyledCheckableInputWrapper = styled.div`
     fieldHelpInline,
     inputWidth,
     labelWidth,
+    labelInline,
     ml,
     reverse,
     theme
@@ -31,8 +32,10 @@ const StyledCheckableInputWrapper = styled.div`
       margin-left: ${ml};
     `}
 
-    ${LabelStyle} {
-      text-align: ${reverse ? 'left' : 'right'}
+    ${StyledLabelContainer} {
+      ${labelInline && css`
+        justify-content: ${reverse ? 'flex-start' : 'flex-end'};
+      `}
       padding-top: 0;
       width: auto;
 
@@ -52,12 +55,6 @@ const StyledCheckableInputWrapper = styled.div`
     }
 
     ${disabled && css`
-      ${LabelStyle} {
-        &, & ${StyledHelp} {
-          color: ${theme.disabled.disabled};
-        }
-      }
-
       ${HiddenCheckableInputStyle},
       ${LabelStyle} {
         &:hover, &:focus {
@@ -102,7 +99,7 @@ const StyledCheckableInputWrapper = styled.div`
     `}
 
     ${labelWidth !== undefined && labelWidth !== 0 && `
-      ${LabelStyle} {
+      ${StyledLabelContainer} {
         width: ${labelWidth}% !important;
       }
     `}
@@ -113,13 +110,11 @@ StyledCheckableInputWrapper.propTypes = {
   disabled: PropTypes.bool,
   fieldHelpInline: PropTypes.bool,
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  labelAlign: PropTypes.string,
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   theme: PropTypes.object
 };
 
 StyledCheckableInputWrapper.defaultProps = {
-  labelAlign: 'left',
   theme: baseTheme
 };
 

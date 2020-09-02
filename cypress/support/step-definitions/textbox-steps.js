@@ -8,15 +8,18 @@ import {
 import {
   labelNoIFrame,
   commonDataElementInputPreviewNoIframe,
-  getDataElementByValueNoIframe,
+  getDataElementByValue,
   tooltipPreviewByPositionNoIFrame,
-  labelByPositionNoIFrame,
+  labelByPosition,
   fieldHelpPreviewByPositionNoIFrame,
   commonDataElementInputPreviewByPositionNoIFrame,
+  getDataElementByValueAndPosition,
 } from '../../locators';
 import { positionOfElement } from '../helper';
 
-const TEXT_ALIGN = 'text-align';
+const TEXT_ALIGN = 'justify-content';
+const TEXT_ALIGN_START = 'flex-start';
+const TEXT_ALIGN_END = 'flex-end';
 
 Then('Textbox placeholder is set to {word}', (text) => {
   textbox().children().should('have.attr', 'placeholder', text);
@@ -113,26 +116,26 @@ Then('Multiple fieldHelp on preview is set to {word}', (text) => {
 });
 
 Then('Multiple label is set to {word}', (text) => {
-  labelByPositionNoIFrame(positionOfElement('first')).should('have.text', text);
-  labelByPositionNoIFrame(positionOfElement('second')).should('have.text', text);
+  labelByPosition(positionOfElement('first')).should('have.text', text);
+  labelByPosition(positionOfElement('second')).should('have.text', text);
 });
 
 Then('Textbox component is labelInline', () => {
-  getDataElementByValueNoIframe('label').should('have.css', TEXT_ALIGN, 'right');
+  getDataElementByValue('label').parent().should('have.css', TEXT_ALIGN, TEXT_ALIGN_END);
 });
 
 Then('Multiple Textbox component is labelInline', () => {
-  labelByPositionNoIFrame(positionOfElement('first')).should('have.css', TEXT_ALIGN, 'right');
-  labelByPositionNoIFrame(positionOfElement('second')).should('have.css', TEXT_ALIGN, 'right');
+  getDataElementByValueAndPosition('label', positionOfElement('first')).parent().should('have.css', TEXT_ALIGN, TEXT_ALIGN_END);
+  getDataElementByValueAndPosition('label', positionOfElement('second')).parent().should('have.css', TEXT_ALIGN, TEXT_ALIGN_END);
 });
 
 Then('Textbox component is not labelInline', () => {
-  getDataElementByValueNoIframe('label').should('not.have.css', TEXT_ALIGN, 'left');
+  getDataElementByValue('label').parent().should('not.have.css', TEXT_ALIGN, TEXT_ALIGN_START);
 });
 
 Then('Multiple Textbox component is not labelInline', () => {
-  labelByPositionNoIFrame(positionOfElement('first')).should('not.have.css', TEXT_ALIGN, 'left');
-  labelByPositionNoIFrame(positionOfElement('second')).should('not.have.css', TEXT_ALIGN, 'left');
+  labelByPosition(positionOfElement('first')).should('not.have.css', TEXT_ALIGN, 'left');
+  labelByPosition(positionOfElement('second')).should('not.have.css', TEXT_ALIGN, 'left');
 });
 
 Then('Multiple tooltipPreview on preview is set to {word}', (text) => {
@@ -150,8 +153,8 @@ Then('Multiple Textbox inputWidth is set to {string}', (width) => {
 });
 
 Then('Multiple label width is set to {string}', (width) => {
-  labelByPositionNoIFrame(positionOfElement('first')).should('have.attr', 'width', `${width}`);
-  labelByPositionNoIFrame(positionOfElement('second')).should('have.attr', 'width', `${width}`);
+  getDataElementByValueAndPosition('label', positionOfElement('first')).parent().should('have.attr', 'width', `${width}`);
+  getDataElementByValueAndPosition('label', positionOfElement('second')).parent().should('have.attr', 'width', `${width}`);
 });
 
 When('I type {word} into Textbox', (text) => {
@@ -196,8 +199,13 @@ Then('Multiple Textbox width is {string}', (width) => {
 });
 
 Then('Multiple label Align on preview is {string}', (direction) => {
-  labelByPositionNoIFrame(positionOfElement('first')).should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
-  labelByPositionNoIFrame(positionOfElement('second')).should($element => expect($element).to.have.css(TEXT_ALIGN, `${direction}`));
+  if(direction === 'left') {
+    labelByPosition(positionOfElement('first')).parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_START));
+    labelByPosition(positionOfElement('second')).parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_START));
+  } else {
+    labelByPosition(positionOfElement('first')).parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_END));
+    labelByPosition(positionOfElement('second')).parent().should($element => expect($element).to.have.css(TEXT_ALIGN, TEXT_ALIGN_END));
+  }
 });
 
 Then('I click on icon inside of Textbox', () => {

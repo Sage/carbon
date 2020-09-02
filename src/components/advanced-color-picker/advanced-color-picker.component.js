@@ -46,7 +46,7 @@ const AdvancedColorPicker = ({
     if (dialogOpen || isOpen) {
       const selected = colors.find(c => currentColor === c.value);
       selectedColorRef.current = selected.ref.current;
-      selected.ref.current.input.current.focus();
+      selected.ref.current.focus();
     }
   }, [colors, currentColor, dialogOpen, isOpen]);
 
@@ -55,12 +55,12 @@ const AdvancedColorPicker = ({
       /* istanbul ignore else */
       if (e.shiftKey) {
         /* istanbul ignore else */
-        if (document.activeElement === selectedColorRef.current.input.current) {
+        if (document.activeElement === selectedColorRef.current) {
           lastFocusableElement.focus();
           e.preventDefault();
         }
       } else if (document.activeElement === lastFocusableElement) {
-        selectedColorRef.current.input.current.focus();
+        selectedColorRef.current.focus();
         e.preventDefault();
       }
     }
@@ -144,7 +144,7 @@ const AdvancedColorPicker = ({
               aria-label={ label }
               id={ value }
               defaultChecked={ value === currentColor }
-              ref={ ref }
+              inputRef={ (input) => { ref.current = input.current; } }
             />
           ))}
         </SimpleColorPicker>

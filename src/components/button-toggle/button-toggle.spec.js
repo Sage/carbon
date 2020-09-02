@@ -7,7 +7,8 @@ import { classicTheme, baseTheme } from '../../style/themes';
 import ButtonToggle from './button-toggle.component';
 import ButtonToggleInput from './button-toggle-input.component';
 import { assertStyleMatch, carbonThemesJestTable } from '../../__spec_helper__/test-utils';
-import { StyledButtonToggleIcon } from './button-toggle.style';
+import { StyledButtonToggleIcon, StyledButtonToggleLabel, StyledButtonToggleInput } from './button-toggle.style';
+import { InputGroupContext } from '../../__internal__/input-behaviour';
 
 jest.mock('../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -36,6 +37,73 @@ describe('ButtonToggle', () => {
       expect(onBlurMock.mock.calls.length).toBe(1);
     });
   });
+
+
+  describe('HiddenCheckableInput', () => {
+    let propOnBlur;
+    let groupContextOnBlur;
+
+    let groupContextOnFocus;
+
+    let groupContextOnMouseEnter;
+
+    let groupContextOnMouseLeave;
+
+    let wrapper;
+
+    beforeEach(() => {
+      propOnBlur = jest.fn();
+      groupContextOnBlur = jest.fn();
+
+      groupContextOnFocus = jest.fn();
+
+      groupContextOnMouseEnter = jest.fn();
+
+      groupContextOnMouseLeave = jest.fn();
+
+      wrapper = renderWithContext(
+        {
+          onBlur: propOnBlur
+        },
+        {
+          onBlur: groupContextOnBlur,
+          onFocus: groupContextOnFocus,
+          onMouseEnter: groupContextOnMouseEnter,
+          onMouseLeave: groupContextOnMouseLeave
+        },
+      );
+    });
+
+
+    it('triggers onFocus callbacks passed from props and context', () => {
+      wrapper.find(StyledButtonToggleInput).props().onFocus();
+      expect(groupContextOnFocus).toHaveBeenCalled();
+    });
+
+    it('triggers onBlur callbacks passed from props and context', () => {
+      wrapper.find(StyledButtonToggleInput).props().onBlur();
+      expect(propOnBlur).toHaveBeenCalled();
+      expect(groupContextOnBlur).toHaveBeenCalled();
+    });
+
+    it('triggers onMouseEnter callback passed from context', () => {
+      wrapper.find(StyledButtonToggleLabel).props().onMouseEnter();
+      expect(groupContextOnMouseEnter).toHaveBeenCalled();
+    });
+
+    it('triggers onMouseLeave callback passed from context', () => {
+      wrapper.find(StyledButtonToggleLabel).props().onMouseLeave();
+      expect(groupContextOnMouseLeave).toHaveBeenCalled();
+    });
+
+    it('does nothing if onBlur callbacks are not provided', () => {
+      wrapper = renderWithContext();
+      const inputProps = wrapper.find(StyledButtonToggleInput).props();
+
+      inputProps.onBlur();
+    });
+  });
+
 
   describe('Classic theme', () => {
     it('renders correctly with default settings', () => {
@@ -136,5 +204,13 @@ function renderWithTheme(props = {}, renderer = mount) {
     <ThemeProvider theme={ theme }>
       <ButtonToggle { ...componentProps }>Button</ButtonToggle>
     </ThemeProvider>
+  );
+}
+
+function renderWithContext(props = {}, inputGroupContextValue = {}) {
+  return mount(
+    <InputGroupContext.Provider value={ inputGroupContextValue }>
+      <ButtonToggle { ...props }>Button</ButtonToggle>
+    </InputGroupContext.Provider>
   );
 }

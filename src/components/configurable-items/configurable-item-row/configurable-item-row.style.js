@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import Icon from '../../icon';
 import baseTheme from '../../../style/themes/base';
-import LabelStyle from '../../../__experimental__/components/label/label.style';
+import { StyledLabelContainer } from '../../../__experimental__/components/label/label.style';
 
 const ConfigurableItemRowIconStyle = styled(Icon)`
   cursor: grab;
@@ -25,8 +25,8 @@ const ConfigurableItemRowStyle = styled.li`
   font-weight: bold;
   padding: 5px 0.5em 5px 0px;
 
-  ${LabelStyle}{
-    padding: 0px 6px 6px 6px;
+  ${StyledLabelContainer} {
+    margin: 0px 6px 6px 6px;
   }
 
   ${({ isDragging, isDragged }) => (isDragging || isDragged)

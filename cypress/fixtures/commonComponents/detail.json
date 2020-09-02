@@ -1,0 +1,17 @@
+{ 
+  "childrenOtherLanguage": {
+    "children": "mp150ú¿¡üßä"
+  },
+  "childrenSpecialCharacter": {
+    "children": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "footnoteOtherLanguage": {
+    "footnote": "mp150ú¿¡üßä"
+  },
+  "footnoteSpecialCharacter": {
+    "footnote": "!@#$%^*()_+-=~[];:.,?{}"
+  },
+  "iconChervonUp": {
+    "icon": "chevron_up"
+  }
+}

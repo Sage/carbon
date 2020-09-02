@@ -3,11 +3,7 @@ import {
   characterLimit, characterLimitDefaultTextarea, textareaInput,
 } from '../../locators/textarea';
 import { setSlidebar } from '../helper';
-import {
-  fieldHelpPreviewNoIFrame, getDataElementByValueNoIframe,
-} from '../../locators';
-
-const TEXT_ALIGN = 'text-align';
+import { getDataElementByValue } from '../../locators';
 
 Then('Textarea component is expandable', () => {
   textareaChildren().should('have.css', 'height', '89px');
@@ -57,10 +53,6 @@ Then('placeholder is set to {word}', (text) => {
   textareaChildren().should('have.attr', 'placeholder', text);
 });
 
-Then('fieldHelp is set to {word}', (text) => {
-  fieldHelpPreviewNoIFrame().should('have.text', text);
-});
-
 Then('characterLimit is set to {string}', (length) => {
   textareaChildren().should('have.attr', 'maxlength', length);
 });
@@ -92,11 +84,11 @@ Then('Textarea inputWidth is set to {string}', (width) => {
 });
 
 Then('Textarea component is labelInline', () => {
-  getDataElementByValueNoIframe('label').parent().should('have.css', 'display', 'flex');
+  getDataElementByValue('label').parent().should('have.css', 'align-items', 'flex-start');
 });
 
 Then('Textarea component is not labelInline', () => {
-  getDataElementByValueNoIframe('label').parent().should('have.css', 'display', 'block');
+  getDataElementByValue('label').parent().should('have.css', 'align-items', 'center');
 });
 
 When('I input {word} into Textarea', (text) => {

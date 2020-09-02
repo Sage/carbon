@@ -20,6 +20,7 @@ const RadioButton = ({
     onChange: handleChange,
     onBlur,
     helpTag: 'span',
+    labelInline: true,
     inputId: id,
     inputLabel: label,
     inputValue: value,

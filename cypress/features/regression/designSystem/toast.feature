@@ -18,7 +18,7 @@ Feature: Toast Design System component
   Scenario: CloseIcon has the border outline
     Given I click on "button-toast-dismissible" Toggle Preview
     When closeIcon is focused
-    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
+    Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px" in IFrame
 
   @positive
   Scenario Outline: Change Toast variant to <variant>

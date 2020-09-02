@@ -1,10 +1,10 @@
 import { flashPreview, messagePreview } from '../../locators/flash';
-import { getDataElementByValue } from '../../locators';
+import { getDataElementByValueIframe } from '../../locators';
 import { DEBUG_FLAG } from '..';
 
 Then('Flash as is set to {string} and icon is set to {string}', (as, iconValue) => {
   flashPreview().should('exist');
-  getDataElementByValue(iconValue).should('exist');
+  getDataElementByValueIframe(iconValue).should('exist');
 });
 
 Then('Flash message is set to {string}', (message) => {

@@ -1,17 +1,18 @@
 import {
-  slide, nextArrowButton, previousArrowButton,
-  slideSelector, transitionSelect, giveTransition,
+  slide,
+  nextArrowButton,
+  previousArrowButton,
+  slideSelector,
+  giveTransition,
+  slideIFrame,
 } from '../../locators/carousel';
-import { DEBUG_FLAG } from '..';
 
 function clickCarouselButton(direction) {
   switch (direction) {
     case 'left':
-      cy.wait(1500, { log: DEBUG_FLAG }); // required because of component refresh
       previousArrowButton().click();
       break;
     case 'right':
-      cy.wait(1500, { log: DEBUG_FLAG }); // required because of component refresh
       nextArrowButton().click();
       break;
     default: throw new Error('Direction can be only left or right');
@@ -19,7 +20,6 @@ function clickCarouselButton(direction) {
 }
 
 Then('slide {int} title is {string}', (index, title) => {
-  cy.wait(1500, { log: DEBUG_FLAG }); // required because of component refresh
   slide(index).should('have.text', title);
 });
 
@@ -65,15 +65,10 @@ Then('next button is disabled', () => {
     .and('have.attr', 'disabled');
 });
 
-When('I set transition to {string}', (transition) => {
-  transitionSelect().select(transition);
-  cy.wait(300, { log: DEBUG_FLAG }); // required because of component refresh
-});
-
 Then('transition is set to {string} with {string}', (transition, direction) => {
   giveTransition(transition, direction).should('exist');
 });
 
 When('I click clickable slide', () => {
-  slide(1).click();
+  slideIFrame(1).click();
 });

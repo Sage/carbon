@@ -10,7 +10,6 @@ interface CheckboxProps {
   id?: string;
   inputWidth?: number | string;
   label?: string;
-  labelAlign?: string;
   labelWidth?: number | string;
   labelSpacing?: 1 | 2;
   onChange?: (ev: React.ChangeEvent<HTMLElement>) => void;

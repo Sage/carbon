@@ -32,22 +32,25 @@ exports[`FlatTableCheckbox "th" is passed in via the "as" prop renders to match 
   display: flex;
 }
 
-.c3 .c17 {
-  text-align: left;
+.c3 .c15 {
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   padding-top: 0;
   width: auto;
 }
 
-.c3 .c17 .c15,
-.c3 .c17 .c16 {
+.c3 .c15 .c16,
+.c3 .c15 .c17 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
 }
 
-.c3 .c17 .c15:hover,
-.c3 .c17 .c16:hover,
-.c3 .c17 .c15:focus,
-.c3 .c17 .c16:focus {
+.c3 .c15 .c16:hover,
+.c3 .c15 .c17:hover,
+.c3 .c15 .c16:focus,
+.c3 .c15 .c17:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -95,7 +98,7 @@ exports[`FlatTableCheckbox "th" is passed in via the "as" prop renders to match 
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c2 .c17 {
+.c2 .c15 {
   width: auto;
   -webkit-flex: 0 1 auto;
   -ms-flex: 0 1 auto;
@@ -108,7 +111,7 @@ exports[`FlatTableCheckbox "th" is passed in via the "as" prop renders to match 
   padding-left: 8px;
 }
 
-.c2 .c16 {
+.c2 .c17 {
   position: relative;
   display: inline-block;
 }
@@ -174,7 +177,11 @@ exports[`FlatTableCheckbox "th" is passed in via the "as" prop renders to match 
               className="c10 c11"
               id="guid-12345"
               name="flat-table-checkbox"
+              onBlur={[Function]}
               onClick={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               role="checkbox"
               type="checkbox"
             />
@@ -234,22 +241,25 @@ exports[`FlatTableCheckbox the "as" prop is not passed in renders to match the e
   display: flex;
 }
 
-.c3 .c16 {
-  text-align: left;
+.c3 .c14 {
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   padding-top: 0;
   width: auto;
 }
 
-.c3 .c16 .c14,
-.c3 .c16 .c15 {
+.c3 .c14 .c15,
+.c3 .c14 .c16 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
 }
 
-.c3 .c16 .c14:hover,
-.c3 .c16 .c15:hover,
-.c3 .c16 .c14:focus,
-.c3 .c16 .c15:focus {
+.c3 .c14 .c15:hover,
+.c3 .c14 .c16:hover,
+.c3 .c14 .c15:focus,
+.c3 .c14 .c16:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -297,7 +307,7 @@ exports[`FlatTableCheckbox the "as" prop is not passed in renders to match the e
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c2 .c16 {
+.c2 .c14 {
   width: auto;
   -webkit-flex: 0 1 auto;
   -ms-flex: 0 1 auto;
@@ -310,7 +320,7 @@ exports[`FlatTableCheckbox the "as" prop is not passed in renders to match the e
   padding-left: 8px;
 }
 
-.c2 .c15 {
+.c2 .c16 {
   position: relative;
   display: inline-block;
 }
@@ -374,7 +384,11 @@ exports[`FlatTableCheckbox the "as" prop is not passed in renders to match the e
               className="c10 c11"
               id="guid-12345"
               name="flat-table-checkbox"
+              onBlur={[Function]}
               onClick={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               role="checkbox"
               type="checkbox"
             />

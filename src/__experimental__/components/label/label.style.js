@@ -2,62 +2,47 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
 import OptionsHelper from '../../../utils/helpers/options-helper';
-import sizes from '../input/input-sizes.style';
-import InputIconToggleStyle from '../input-icon-toggle/input-icon-toggle.style';
-import StyledHelpIcon from '../../../components/help/help.style';
-import StyledValidationIcon from '../../../components/validations/validation-icon.style';
-import { isClassic } from '../../../utils/helpers/style-helper';
 
-const StyledLabel = styled.label`
+const LabelStyle = styled.label`
   color: ${({ theme }) => theme.text.color};
   display: block;
   font-weight: 600;
-  padding-bottom: 8px;
-
-  ${StyledHelpIcon},
-  ${StyledValidationIcon} {
-    vertical-align: middle;
-  }
-
-  ${({
-    align, inline, inputSize, pr, pl, width, theme
-  }) => inline && css`
-    box-sizing: border-box;
-    padding-bottom: 0;
-    padding-top: ${sizes[inputSize].verticalPadding};
-    ${pr && css`padding-right: ${pr * theme.spacing}px;`};
-    ${pl && css`padding-left: ${pl * theme.spacing}px;`};
-    text-align: ${align};
-    width: ${width === 0 ? StyledLabel.defaultProps.width : width}%;
-  `}
 
   ${({ disabled, theme }) => disabled && css`
     color: ${theme.disabled.disabled};
   `}
+`;
 
-  ${({ inline, theme }) => isClassic(theme) && css`
-    color: #003349;
-    padding-left: 6px;
-    padding-right: 6px;
+LabelStyle.defaultProps = {
+  theme: BaseTheme
+};
 
-    ${inline && css`
-      padding-left: 0;
-      padding-right: 8px;
-    `}
+LabelStyle.propTypes = {
+  disabled: PropTypes.bool
+};
 
-    &:hover ${InputIconToggleStyle} {
-      background-color: #1e499f;
-      border-color: #1e499f;
-    }
+export const StyledLabelContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+
+  ${({
+    align, inline, pr, pl, width, theme
+  }) => inline && css`
+    box-sizing: border-box;
+    margin-bottom: 0;
+    ${pr && css`padding-right: ${pr * theme.spacing}px;`};
+    ${pl && css`padding-left: ${pl * theme.spacing}px;`};
+    justify-content: ${align === 'right' ? 'flex-end' : 'flex-start'};
+    width: ${width === 0 ? StyledLabelContainer.defaultProps.width : width}%;
   `}
 
   ${({
     childOfForm,
     inline,
     align,
-    optional,
-    theme
-  }) => childOfForm && !isClassic(theme) && css`
+    optional
+  }) => childOfForm && css`
     ${!inline && css`
       margin-bottom: 12px;
     `}
@@ -78,14 +63,14 @@ const StyledLabel = styled.label`
   ${({ styleOverride }) => styleOverride};
 `;
 
-StyledLabel.defaultProps = {
+StyledLabelContainer.defaultProps = {
   align: 'right',
   inputSize: 'medium',
   theme: BaseTheme,
   width: 30
 };
 
-StyledLabel.propTypes = {
+StyledLabelContainer.propTypes = {
   align: PropTypes.oneOf(OptionsHelper.alignBinary),
   inline: PropTypes.bool,
   inputSize: PropTypes.oneOf(OptionsHelper.sizesRestricted),
@@ -96,4 +81,4 @@ StyledLabel.propTypes = {
   styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 };
 
-export default StyledLabel;
+export default LabelStyle;

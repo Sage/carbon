@@ -63,8 +63,6 @@ Checkbox.propTypes = {
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** The content of the label for the input */
   label: PropTypes.string,
-  /** Sets label alignment - accepted values: 'left' (default), 'right' */
-  labelAlign: PropTypes.string,
   /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
   labelSpacing: PropTypes.oneOf([1, 2]),
   /** Sets percentage-based label width */

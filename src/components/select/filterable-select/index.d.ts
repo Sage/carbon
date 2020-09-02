@@ -32,12 +32,10 @@ export interface FilterableSelectProps {
   defaultValue?: string | object;
   /** Child components (such as Option) for the SelectList */
   children: Array<typeof Option>;
-  /** If true, prevents opening the menu on focus */
-  preventFocusAutoOpen?: boolean;
-  /** If true the component input has no border and is transparent */
-  transparent?: boolean;
-  /** If true the Component has filter functionality (filtering starts when two or more characters are typed) */
-  filterable?: boolean;
+  /** If true the Component opens on focus */
+  openOnFocus?: boolean;
+  /** A custom message to be displayed when any option does not match the filter text */
+  noResultsMessage?: string;
   /** A custom callback for when the dropdown menu opens */
   onOpen?: () => void;
   /** A custom callback for when changes occur */
@@ -48,6 +46,8 @@ export interface FilterableSelectProps {
   onFocus?: () => void;
   /** Callback function for when the Select Textbox loses it's focus. */
   onBlur?: () => void;
+  /** Callback function for when the key is pressed when focused on Select Textbox. */
+  onKeyDown?: () => void;
 }
 
 declare const FilterableSelect: React.ComponentType<FilterableSelectProps>;

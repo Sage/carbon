@@ -66,45 +66,6 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   display: block;
 }
 
-.c5 {
-  background: transparent;
-  border: none;
-  color: rgba(0,0,0,0.9);
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-size: 14px;
-  outline: none;
-  width: 30px;
-}
-
-.c5:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
-  -webkit-box-border: none;
-}
-
-.c5::-webkit-input-placeholder {
-  color: rgba(0,0,0,0.3);
-}
-
-.c5::-moz-placeholder {
-  color: rgba(0,0,0,0.3);
-}
-
-.c5:-ms-input-placeholder {
-  color: rgba(0,0,0,0.3);
-}
-
-.c5::placeholder {
-  color: rgba(0,0,0,0.3);
-}
-
-.c5:invalid,
-.c5:required {
-  box-shadow: none;
-}
-
 .c4 {
   width: 56px;
   height: 56px;
@@ -192,6 +153,45 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   display: block;
 }
 
+.c5 {
+  background: transparent;
+  border: none;
+  color: rgba(0,0,0,0.9);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-size: 14px;
+  outline: none;
+  width: 30px;
+}
+
+.c5:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+  -webkit-box-border: none;
+}
+
+.c5::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c5::-moz-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c5:-ms-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c5::placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c5:invalid,
+.c5:required {
+  box-shadow: none;
+}
+
 .c6 {
   position: absolute;
   opacity: 0;
@@ -249,7 +249,10 @@ exports[`SimpleColorPicker renders as expected 1`] = `
     <div
       className="c1"
     >
-      <legend>
+      <legend
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
         SimpleColorPicker Legend
       </legend>
     </div>
@@ -258,6 +261,8 @@ exports[`SimpleColorPicker renders as expected 1`] = `
     >
       <div
         className="c3"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
       >
         <div
           checked={false}

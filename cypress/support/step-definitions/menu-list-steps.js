@@ -1,18 +1,26 @@
 import {
-  menuTitle, menuListChildren, menuListSearchInput,
-  menuSecondOption, menuList,
+  menuListChildren, menuListSearchInput,
+  menuSecondOption, menuList, menuSecondOptionIframe,
+  menuListSearchInputIframe,
+  menuListElements,
 } from '../../locators/menu-list';
+import { getDataElementByValueAndPosition } from '../../locators';
+import { positionOfElement } from '../helper';
 
 Then('title on preview is {word}', (title) => {
-  menuTitle().should('have.text', title);
+  getDataElementByValueAndPosition('title', positionOfElement('first')).should('have.text', title);
 });
 
 When('I click into title', () => {
-  menuTitle().click();
+  getDataElementByValueAndPosition('title', positionOfElement('first')).click();
 });
 
 When('I click into menu item second element', () => {
   menuSecondOption().click();
+});
+
+When('I click into menu item second element in Iframe', () => {
+  menuSecondOptionIframe().click();
 });
 
 Then('MenuList component is expanded', () => {
@@ -20,7 +28,7 @@ Then('MenuList component is expanded', () => {
 });
 
 Then('MenuList component is not expanded', () => {
-  menuListChildren().should('have.length', 0);
+  menuListElements().should('have.length', 1);
 });
 
 Then('filter is disabled', () => {
@@ -32,7 +40,7 @@ Then('filter is enabled', () => {
 });
 
 When('I change search parameter to {string}', (parameter) => {
-  menuListSearchInput().clear().type(parameter);
+  menuListSearchInputIframe().clear().type(parameter);
 });
 
 Then('search result is {string}', (text) => {

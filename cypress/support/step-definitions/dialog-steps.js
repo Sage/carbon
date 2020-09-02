@@ -1,12 +1,18 @@
-import { alertDialogPreview as dialogPreview, dialogStickyFormFooter, dialogStickyFormFooterButton } from '../../locators/dialog/index';
-import { closeIconButton, backgroundUILocator, storyRoot } from '../../locators/index';
-import { positionOfElement } from '../helper';
+import {
+  alertDialogPreview as dialogPreview,
+  dialogStickyFormFooterButton,
+  dialogStickyFormFooter,
+} from '../../locators/dialog/index';
+import {
+  backgroundUILocatorIFrame,
+  storyRoot,
+} from '../../locators/index';
+import {
+  positionOfElement,
+} from '../helper';
+import { dialogPreviewIFrame } from '../../locators/confirm';
 
-When('I click close icon', () => {
-  closeIconButton().click();
-});
-
-Then('Dialog height is set to {string}', (height) => {
+Then('Dialog height is set to {int}', (height) => {
   dialogPreview().should('have.attr', 'style').should('contain', `min-height: ${height}px`);
 });
 
@@ -22,8 +28,16 @@ Then('Dialog is visible', () => {
   dialogPreview().should('be.visible');
 });
 
+Then('Dialog is visible in IFrame', () => {
+  dialogPreviewIFrame().should('be.visible');
+});
+
 Then('Dialog is not visible', () => {
   dialogPreview().should('not.exist');
+});
+
+Then('Dialog is not visible in IFrame', () => {
+  dialogPreviewIFrame().should('not.exist');
 });
 
 Then('Dialog stickyFormFooter is visible', () => {
@@ -35,7 +49,7 @@ When('I click on {string} outside dialog', (position) => {
 });
 
 When('I click on background {string} outside dialog', (position) => {
-  backgroundUILocator().click(position, { force: true });
+  backgroundUILocatorIFrame().click(position, { force: true });
 });
 
 Then('footer buttons have color {string} and has {int} px border', (color, px) => {

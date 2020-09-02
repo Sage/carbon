@@ -4,7 +4,7 @@ import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
-import LabelStyle from '../label/label.style';
+import { StyledLabelContainer } from '../label/label.style';
 import ClassicRadioButtonStyles from './radio-button-classic.style';
 import baseTheme from '../../../style/themes/base';
 
@@ -48,7 +48,7 @@ const RadioButtonStyle = styled(CheckboxStyle)`
       r: 5;
     }
 
-    ${LabelStyle} {
+    ${StyledLabelContainer} {
       flex: 1 1 calc(100% - 44px);
     }
 
@@ -72,7 +72,7 @@ const RadioButtonStyle = styled(CheckboxStyle)`
         margin-right: 6px;
       }
 
-      ${LabelStyle} {
+      ${StyledLabelContainer} {
         flex: 0 1 auto;
       }
     `}

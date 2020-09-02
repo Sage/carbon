@@ -149,10 +149,12 @@ exports[`Textarea when rendered should render default 1`] = `
       >
         <textarea
           className="c5 c6"
+          data-element="input"
           disabled={false}
           id="guid-12345"
           name="textarea"
           onBlur={[Function]}
+          onChange={[Function]}
           onClick={[Function]}
           onFocus={[Function]}
           readOnly={false}

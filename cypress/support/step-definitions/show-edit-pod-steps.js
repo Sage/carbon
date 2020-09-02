@@ -3,7 +3,7 @@ import {
   showEditPodTitle, showEditPodSecondaryBlock,
   showEditPodCollapsibleInnerContent, showEditPodFooter, showEditPodComponent,
 } from '../../locators/show-edit-pod';
-import { icon } from '../../locators';
+import { iconIFrame } from '../../locators';
 import { positionOfElement } from '../helper';
 
 const INNER_CONTENT_TITLE = 'title';
@@ -30,7 +30,7 @@ When('I click edit Show Edit Pod component', () => {
 });
 
 When('Edit icon has color {string}', (color) => {
-  icon().should('have.css', 'color', color);
+  iconIFrame().should('have.css', 'color', color);
 });
 
 Then('Show Edit Pod component has border {string} color', (color) => {

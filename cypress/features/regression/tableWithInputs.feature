@@ -1,24 +1,20 @@
 Feature: Table With Inputs component
-  I want to change Table With Inputs component properties
-
-  Background: Open Table With Inputs component default page
-    Given I open "Table" component page with inputs
+  I want to check Table With Inputs component properties
 
   @positive
   Scenario: I enable selectable
-    When I check selectable checkbox
+    When I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "selectable" object name
     Then rows are selectable
 
   @positive
   Scenario: I disable selectable
-    Given I check selectable checkbox
-    When I uncheck selectable checkbox
+    When I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "selectableFalse" object name
     Then rows are not selectable
 
   @positive
   Scenario Outline: Row <rowNumber> is highlighted
-    When I check highlightable checkbox
-      And I click row by number <rowNumber>
+    Given I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "highlightable" object name
+    When I click row by number <rowNumber>
     Then row number <rowNumber> is highlighted
     Examples:
       | rowNumber |
@@ -28,9 +24,8 @@ Feature: Table With Inputs component
 
   @positive
   Scenario Outline: Row <rowNumber> is not highlighted
-    Given I check highlightable checkbox
-    When I uncheck highlightable checkbox
-      And I click row by number <rowNumber>
+    Given I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "highlightableFalse" object name
+    When I click row by number <rowNumber>
     Then row number <rowNumber> is not highlighted
     Examples:
       | rowNumber |
@@ -40,101 +35,82 @@ Feature: Table With Inputs component
 
   @positive
   Scenario Outline: Sort Table <headerName> Column by <sortColumn>
-    When I select sortColumn to "<sortColumn>"
+    Given I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then "<headerName>" Table column can be sorted
     Examples:
-      | sortColumn | headerName |
-      | name       | Country    |
-      | code       | Code       |
+      | nameOfObject   | headerName |
+      | sortColumnName | Country    |
+      | sortColumnCode | Code       |
 
   @positive
   Scenario Outline: Sort Code column in <sortOrder> order
-    Given I select sortColumn to "code"
-    When I select sortOrder to "<sortOrder>"
+    Given I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then Code column is sorted in "<sortOrder>" order
     Examples:
-      | sortOrder |
-      | desc      |
-      | asc       |
-
-  @ignore
-  @positive
-  #ignored because it is not working correctly during development
-  Scenario: Enable shrink property
-    When I check shrink checkbox
-    Then row is shrinked
-
-  @ignore
-  @positive
-  #ignored because it is not working correctly during development
-  Scenario: Disable shrink property
-    When I check shrink checkbox
-      And I uncheck shrink checkbox
-    Then row is not shrinked
+      | sortOrder | nameOfObject |
+      | desc      | sortCodeDesc |
+      | asc       | sortCodeAsc  |
 
   @positive
   Scenario Outline: Set caption to <caption>
-    When I set caption to <caption> word
+    When I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then caption is set to <caption>
     Examples:
-      | caption                 |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | caption                 | nameOfObject            |
+      | mp150ú¿¡üßä             | captionOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{} | captionSpecialCharacter |
   # @ignore because of FE-2782
   # | &"'<>|
 
   @positive
   Scenario Outline: TotalRecords is set to <totalRecords> items
-    When I set totalRecords to "<totalRecords>"
-      And I check paginate checkbox
+    When I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then totalRecords is set to "<totalRecords>" items
     Examples:
-      | totalRecords |
-      | 0            |
-      | 100          |
-      | 99999999     |
-      | -10          |
+      | totalRecords | nameOfObject         |
+      | 0            | totalRecords0        |
+      | 100          | totalRecords100      |
+      | 99999999     | totalRecords99999999 |
+      | -10          | totalRecords-10      |
 
   @positive
   Scenario: TotalRecords is set to 1 item
-    When I set totalRecords to "1"
-      And I check paginate checkbox
+    When I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "totalRecords1" object name
     Then totalRecords is set to "1" item
 
   @positive
   Scenario Outline: TotalRecords is set out of scope to <totalRecords>
-    When I set totalRecords to <totalRecords> word
-      And I check paginate checkbox
+    When I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then totalRecords is set to "" items
     Examples:
-      | totalRecords                 |
-      | mp150ú¿¡üßä                  |
-      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
+      | totalRecords                 | nameOfObject                 |
+      | mp150ú¿¡üßä                  | totalRecordsOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | totalRecordsSpecialCharacter |
 
   @positive
   Scenario Outline: Set theme to <theme>
-    When I select theme to "<theme>"
+    When I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then theme on preview is "<theme>"
     Examples:
-      | theme     |
-      | primary   |
-      | secondary |
-      | tertiary  |
+      | theme     | nameOfObject   |
+      | primary   | themePrimary   |
+      | secondary | themeSecondary |
+      | tertiary  | themeTertiary  |
 
   @positive
   Scenario Outline: Change Table header size to <size>
-    When I select size to "<size>"
+    When I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then Table header size on preview is set to "<size>"
     Examples:
-      | size    |
-      | compact |
-      | small   |
-      | medium  |
-      | large   |
+      | size    | nameOfObject |
+      | compact | sizeCompact  |
+      | small   | sizeSmall    |
+      | medium  | sizeMedium   |
+      | large   | sizeLarge    |
 
   @positive
   Scenario Outline: I enable zebra striping for <position> row in Table
-    When I check zebra striping checkbox
+    When I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "zebraStriping" object name
     Then <position> row has zebra striping
     Examples:
       | position |
@@ -147,35 +123,21 @@ Feature: Table With Inputs component
 
   @positive
   Scenario Outline: Set input type to <inputType>
-    Given I set pageSize to "1"
-    When I select input type to "<inputType>"
+    When I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then input type on preview is set to "<inputType>"
     Examples:
-      | inputType |
-      | textbox   |
-      | textarea  |
-      | date      |
-
-  @ignore
-  @negative
-  # ignored because not working correctly during development
-  Scenario Outline: Page size records is set out of scope <pageSizeRecords>
-    When I set pageSize to <pageSizeRecords> word
-    Then I see 0 records
-    Examples:
-      | pageSizeRecords              |
-      | -1                           |
-      | -10                          |
-      | mp150ú¿¡üßä                  |
-      | !@#$%^*()_+-=~[];:.,?{}&"'<> |
+      | inputType | nameOfObject      |
+      | textbox   | inputTypeTextbox  |
+      | textarea  | inputTypeTextarea |
+      | date      | inputTypeDate     |
 
   @positive
   Scenario Outline: Page size records is set to <pageSizeRecords>
-    When I set pageSize to "<pageSizeRecords>"
+    When I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then I see <pageSizeRecords> records
     Examples:
-      | pageSizeRecords |
-      | 0               |
-      | 1               |
-      | 2               |
-      | 5               |
+      | pageSizeRecords | nameOfObject |
+      | 0               | pageSize0    |
+      | 1               | pageSize1    |
+      | 2               | pageSize2    |
+      | 5               | pageSize5    |

@@ -87,7 +87,7 @@ class Portrait extends React.Component {
 
 Portrait.propTypes = {
   /** The size of the Portrait. */
-  size: PropTypes.oneOf([...OptionsHelper.sizesFull, ...OptionsHelper.sizesPortrait]),
+  size: PropTypes.oneOf(OptionsHelper.sizesPortrait),
   /** A custom image URL. */
   src: (props) => {
     if (props.src && typeof props.src !== 'string') {

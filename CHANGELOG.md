@@ -1,3 +1,107 @@
+### [38.1.3](https://github.com/Sage/carbon/compare/v38.1.2...v38.1.3) (2020-08-26)
+
+
+### Bug Fixes
+
+* **switch:** fix switch validation icon overlapping the label ([ce6575f](https://github.com/Sage/carbon/commit/ce6575f6939762b5f9ef8e3f9a0a2aa67b81cad7))
+
+### [38.1.2](https://github.com/Sage/carbon/compare/v38.1.1...v38.1.2) (2020-08-26)
+
+
+### Bug Fixes
+
+* **confirm:** fix incorrect button order ([9ac9aea](https://github.com/Sage/carbon/commit/9ac9aea87e7d996cd2a1522abc73776e316e11bd))
+
+### [38.1.1](https://github.com/Sage/carbon/compare/v38.1.0...v38.1.1) (2020-08-23)
+
+
+### Bug Fixes
+
+* **portrait:** remove incorrect size propType values ([8bcc171](https://github.com/Sage/carbon/commit/8bcc17101edaff59abe4c47c2f5aeb28a0029bb4))
+
+## [38.1.0](https://github.com/Sage/carbon/compare/v38.0.2...v38.1.0) (2020-08-21)
+
+
+### Features
+
+* **navigation-bar:** add a loading state ([c5b5355](https://github.com/Sage/carbon/commit/c5b5355d01ca8b0d2c8f809ebfdd09f16b21ea35))
+
+### [38.0.2](https://github.com/Sage/carbon/compare/v38.0.1...v38.0.2) (2020-08-21)
+
+
+### Bug Fixes
+
+* **pager:** fix incorrect prop types passed to page size select ([61bab41](https://github.com/Sage/carbon/commit/61bab41a5c91250d6500194ef7b6727e041da347)), closes [#3152](https://github.com/Sage/carbon/issues/3152)
+
+### [38.0.1](https://github.com/Sage/carbon/compare/v38.0.0...v38.0.1) (2020-08-13)
+
+
+### Bug Fixes
+
+* **note:** remove min width to allow note to size dynamically ([8b0bef3](https://github.com/Sage/carbon/commit/8b0bef33c4e3b60cfd6774971f63055265450093))
+
+## [38.0.0](https://github.com/Sage/carbon/compare/v37.3.0...v38.0.0) (2020-08-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **numeral-date:** NumeralDate onChange prop method arguments have been changed. Event.target.value will now have the same structure as the value passed as a prop to the component.
+
+### Features
+
+* **numeral-date:** add controlled uncontrolled mode switch warning ([e795696](https://github.com/Sage/carbon/commit/e795696e96dfdb272890cc5c8976d59adbd5dc6b))
+* **numeral-date:** add label support to numeral date component ([c51ddd9](https://github.com/Sage/carbon/commit/c51ddd9cb9e9ed949179f56d28d9264aaaba9e05))
+* **numeral-date:** restrict available date formats ([500a0f2](https://github.com/Sage/carbon/commit/500a0f23e72d502fae98d05429376faebf94ab4f))
+
+
+### Bug Fixes
+
+* **numeral-date:** fix incorrect onchange prop method arguments ([3828664](https://github.com/Sage/carbon/commit/3828664d752c861eb76d97ad9ca463b847cd5965))
+
+## [37.3.0](https://github.com/Sage/carbon/compare/v37.2.0...v37.3.0) (2020-08-07)
+
+
+### Features
+
+* **icon:** added 2 new icons, flag and hide ([fb18f43](https://github.com/Sage/carbon/commit/fb18f43c991806ae46ebf03d7cc153b2007465f3))
+
+## [37.2.0](https://github.com/Sage/carbon/compare/v37.1.0...v37.2.0) (2020-08-06)
+
+
+### Features
+
+* **validations:** show tooltip when input is hovered or focused ([c8d9360](https://github.com/Sage/carbon/commit/c8d9360fdd8145796e973ed035d69aae1815c2e1))
+
+
+### Bug Fixes
+
+* **label:** render icons outside of label element ([e1fc428](https://github.com/Sage/carbon/commit/e1fc4281119ab53557d00f961bf290a8e891143e))
+
+## [37.1.0](https://github.com/Sage/carbon/compare/v37.0.0...v37.1.0) (2020-08-05)
+
+
+### Features
+
+* add new MultiSelect component ([fe43a50](https://github.com/Sage/carbon/commit/fe43a50e99107b5e6b551cfc32d07d7f93b2bd94))
+
+## [37.0.0](https://github.com/Sage/carbon/compare/v36.0.0...v37.0.0) (2020-08-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* **note:** The following props are now required for the Note component.
+- noteContent
+- name
+- createdDate
+- status.text if status is provided
+- status.timeStamp if status is provided
+- inlineControl must be an instance of ActionPopover
+
+### Bug Fixes
+
+* **note:** add default theme ([915dbcf](https://github.com/Sage/carbon/commit/915dbcf183b32aa2c155409f0770818c46d7fea2))
+* **note:** enforce required props ([4e8f09a](https://github.com/Sage/carbon/commit/4e8f09abb2490cb3114e70e0720db9b7baabf2c2))
+
 ## [36.0.0](https://github.com/Sage/carbon/compare/v35.4.0...v36.0.0) (2020-07-29)
 
 

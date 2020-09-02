@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 
 import { StyledFieldset, StyledFieldsetContent, StyledLegendContainer } from './fieldset.style';
 import ValidationIcon from '../../components/validations/validation-icon.component';
+import { InputGroupBehaviour, InputGroupContext } from '../input-behaviour';
 
 const Fieldset = ({
   legend, children, inline, legendWidth, legendAlign = 'right', legendSpacing = 2, error,
   warning, info, ml, styleOverride, ...rest
-}) => {
-  return (
+}) => (
+  <InputGroupBehaviour>
     <StyledFieldset
       data-component='fieldset'
       styleOverride={ styleOverride.root }
@@ -24,22 +25,25 @@ const Fieldset = ({
             align={ legendAlign }
             rightPadding={ legendSpacing }
           >
-            <legend>
-              { legend }
-            </legend>
+            <InputGroupContext.Consumer>
+              {({ onMouseEnter, onMouseLeave }) => (
+                <legend onMouseEnter={ onMouseEnter } onMouseLeave={ onMouseLeave }>
+                  { legend }
+                </legend>
+              ) }
+            </InputGroupContext.Consumer>
             <ValidationIcon
               error={ error }
               warning={ warning }
               info={ info }
-              tabIndex={ 0 }
             />
           </StyledLegendContainer>
         )}
         { children }
       </StyledFieldsetContent>
     </StyledFieldset>
-  );
-};
+  </InputGroupBehaviour>
+);
 
 Fieldset.propTypes = {
   /** Fieldset content */

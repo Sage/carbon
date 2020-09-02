@@ -17,16 +17,16 @@ class Confirm extends Dialog {
     return (
       <StyledConfirmButtons>
         <Button
-          onClick={ this.props.onConfirm } data-element='confirm'
-          buttonType='primary'
-        >
-          {this.props.confirmLabel || I18n.t('confirm.yes', { defaultValue: 'Yes' })}
-        </Button>
-        <Button
           onClick={ this.props.onCancel } data-element='cancel'
           buttonType='secondary'
         >
           {this.props.cancelLabel || I18n.t('confirm.no', { defaultValue: 'No' })}
+        </Button>
+        <Button
+          onClick={ this.props.onConfirm } data-element='confirm'
+          buttonType='primary'
+        >
+          {this.props.confirmLabel || I18n.t('confirm.yes', { defaultValue: 'Yes' })}
         </Button>
       </StyledConfirmButtons>
     );

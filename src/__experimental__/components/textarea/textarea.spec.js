@@ -1,18 +1,17 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
-import 'jest-styled-components';
+
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import CharacterCount from './character-count';
 import Textarea from '.';
 import baseTheme from '../../../style/themes/base';
-import { InputPresentation } from '../input/input-presentation.component';
-
+import InputPresentation from '../input/input-presentation.component';
+import { Input } from '../input';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
 import Label from '../label';
-import TextareaInput from './textarea-input.component';
 import guid from '../../../utils/helpers/guid';
-import StyledLabel from '../label/label.style';
+import { StyledLabelContainer } from '../label/label.style';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -111,7 +110,7 @@ describe('Textarea', () => {
 
     it('should only have a placeholder if not disabled', () => {
       wrapper = renderTextarea({ placeholder: 'foo', disabled: true });
-      expect(wrapper.find(TextareaInput).props().placeholder).toEqual('');
+      expect(wrapper.find(Input).props().placeholder).toEqual('');
     });
 
     describe('and when characterLimit prop is defined', () => {
@@ -138,7 +137,7 @@ describe('Textarea', () => {
     wrapper = renderTextarea({ label: 'This is a Text Area' });
 
     const labelHtmlFor = wrapper.find(Label).prop('htmlFor');
-    const textAreaId = wrapper.find(TextareaInput).prop('id');
+    const textAreaId = wrapper.find(Input).prop('id');
     expect(labelHtmlFor).toEqual(textAreaId);
   });
 
@@ -147,8 +146,9 @@ describe('Textarea', () => {
       wrapper = renderTextarea({ label: 'foo', labelInline: true });
 
       assertStyleMatch({
-        paddingTop: '8px'
-      }, wrapper, { modifier: `${StyledLabel}` });
+        paddingTop: '8px',
+        alignItems: 'flex-start'
+      }, wrapper, { modifier: `${StyledLabelContainer}` });
     });
   });
 });
