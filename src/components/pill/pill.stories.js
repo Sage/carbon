@@ -2,7 +2,9 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { storiesOf } from '@storybook/react';
-import { text, select, boolean } from '@storybook/addon-knobs';
+import {
+  text, number, select, boolean
+} from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import Pill from './pill.component';
@@ -29,6 +31,8 @@ const getStatusKnobs = () => {
 
 const getKnobs = (theme) => {
   const knobs = {
+    ml: number('ml', 0),
+    mr: number('mr', 0),
     children: text('children', 'Pill'),
     fill: boolean('fill', Pill.defaultProps.fill),
     onDelete: boolean('onDelete', false),
@@ -83,7 +87,9 @@ storiesOf('Pill', module)
       fill,
       onDelete,
       pillRole,
-      size
+      size,
+      ml,
+      mr
     } = getKnobs();
     return (
       <Pill
@@ -92,6 +98,8 @@ storiesOf('Pill', module)
         onDelete={ onDelete ? action('delete') : null }
         pillRole={ pillRole }
         size={ size }
+        ml={ ml }
+        mr={ mr }
       >
         { children }
       </Pill>

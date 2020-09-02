@@ -22,7 +22,7 @@ function addStyleToPillIcon(padding, fontSize, margin) {
 
 const PillStyle = styled.span`
  ${({
-    colorVariant, theme, inFill, isDeletable, pillRole, size
+    colorVariant, theme, inFill, isDeletable, pillRole, size, ml, mr
   }) => {
     const { colors, text } = baseTheme;
 
@@ -233,6 +233,9 @@ const PillStyle = styled.span`
           `}
         `}
       `}
+
+      ${ml && css`margin-left: ${ml * theme.spacing}px`};
+      ${mr && css`margin-right: ${mr * theme.spacing}px`};
 
       ${isClassic(theme) && classicThemeForPill(colorVariant, inFill, isDeletable, size)}
     `;

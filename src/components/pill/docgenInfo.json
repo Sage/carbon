@@ -107,8 +107,45 @@
             "value": "null",
             "computed": false
           }
+        },
+        "size": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.pillSizesRestricted"
+          },
+          "required": false,
+          "description": "Assigns a size to the button: \"S\" | \"M\" | \"L\" | \"XL\"",
+          "defaultValue": {
+            "value": "'M'",
+            "computed": false
+          }
+        },
+        "mr": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Margin right, given number will be multiplied by base spacing unit (8)"
+        },
+        "ml": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Margin left, given number will be multiplied by base spacing unit (8)"
         }
       }
+    }
+  ],
+  "src/components/pill/pill.stories.js": [
+    {
+      "description": "",
+      "methods": []
+    },
+    {
+      "description": "",
+      "methods": []
     }
   ]
 }
