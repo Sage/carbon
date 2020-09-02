@@ -222,13 +222,8 @@ Object {
   display: block;
 }
 
-.c5 .c1 {
-  height: calc(40px - 4px);
-}
-
 .c5 .c1:-webkit-autofill {
   margin-top: 2px;
-  height: calc(40px - 8px);
 }
 
 .c0 {
@@ -256,13 +251,8 @@ Object {
   padding-right: 11px;
 }
 
-.c0 .c1 {
-  height: calc(40px - 4px);
-}
-
 .c0 .c1:-webkit-autofill {
   margin-top: 2px;
-  height: calc(40px - 8px);
 }
 
 .c0.c0 {

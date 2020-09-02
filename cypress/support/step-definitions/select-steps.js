@@ -83,16 +83,16 @@ Then('Select size on preview is set to {string}', (size) => {
 Then('Select size on preview for default component is set to {string}', (size) => {
   switch (size) {
     case 'small':
-      select().should('have.css', 'height', '28px')
-        .and('have.css', 'width', '1243px');
+      select().should('have.css', 'height', '30px')
+        .and('have.css', 'width', '1247px');
       break;
     case 'medium':
-      select().should('have.css', 'height', '36px')
-        .and('have.css', 'width', '1235px');
+      select().should('have.css', 'height', '38px')
+        .and('have.css', 'width', '1239px');
       break;
     case 'large':
-      select().should('have.css', 'height', '36px')
-        .and('have.css', 'width', '1235px');
+      select().should('have.css', 'height', '38px')
+        .and('have.css', 'width', '1239px');
       break;
     default: throw new Error('There is no such size for a Select component input');
   }

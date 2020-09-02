@@ -6,11 +6,11 @@ import { setSlidebar } from '../helper';
 import { getDataElementByValue } from '../../locators';
 
 Then('Textarea component is expandable', () => {
-  textareaChildren().should('have.css', 'height', '89px');
+  textareaChildren().should('have.css', 'height', '85px');
 });
 
 Then('Textarea component is not expandable', () => {
-  textareaChildren().should('not.have.css', 'height', '89px');
+  textareaChildren().should('not.have.css', 'height', '85px');
 });
 
 Then('cols is set to {string}', (colsValue) => {
