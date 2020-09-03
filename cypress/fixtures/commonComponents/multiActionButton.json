@@ -3,7 +3,7 @@
     "text": "mp150ú¿¡üßä"
   },
   "textSpecialCharacter": {
-    "text": "!@#$%^*()_+-=~[];:.,?{}"
+    "text": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "buttonTypePrimary": {
     "buttonType": "primary"
@@ -38,7 +38,7 @@
   },
   "subtextSpecialCharacter": {
     "size": "large",
-    "subtext": "!@#$%^*()_+-=~[];:.,?{}"
+    "subtext": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "default": {
   }

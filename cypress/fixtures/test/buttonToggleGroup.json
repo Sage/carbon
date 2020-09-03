@@ -3,13 +3,13 @@
     "label": "mp150ú¿¡üßä"
   },
   "labelSpecialCharacter": {
-    "label": "!@#$%^*()_+-=~[];:.,?{}"
+    "label": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "labelHelpOtherLanguage": {
     "labelHelp": "mp150ú¿¡üßä"
   },
   "labelHelpSpecialCharacter": {
-    "labelHelp": "!@#$%^*()_+-=~[];:.,?{}"
+    "labelHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "labelInline": {
     "labelInline": true
@@ -21,7 +21,7 @@
     "fieldHelp": "mp150ú¿¡üßä"
   },
   "fieldHelpSpecialCharacter": {
-    "fieldHelp": "!@#$%^*()_+-=~[];:.,?{}"
+    "fieldHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "inputWidthOut": {
     "labelInline": true,

@@ -5,12 +5,12 @@
   },
   "subtextSpecialCharacter": {
     "size": "large",
-    "subtext": "!@#$%^*()_+-=~[];:.,?{}"
+    "subtext": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "childrenOtherLanguage": {
     "children": "mp150ú¿¡üßä"
   },
   "childrenSpecialCharacter": {
-    "children": "!@#$%^*()_+-=~[];:.,?{}"
+    "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   }
 }

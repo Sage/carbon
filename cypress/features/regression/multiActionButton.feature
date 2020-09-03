@@ -6,11 +6,9 @@ Feature: Multi Action Button default component
     When I open default "Multi Action Button" component in noIFrame with "multiActionButton" json from "commonComponents" using "<nameOfObject>" object name
     Then Multi Action Button text on preview is set to <text>
     Examples:
-      | text                    | nameOfObject         |
-      | mp150ú¿¡üßä             | textOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | textSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | text                         | nameOfObject         |
+      | mp150ú¿¡üßä                  | textOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | textSpecialCharacter |
 
   @positive
   Scenario Outline: Change buttonType property of Multi Action Button component to <buttonType>
@@ -57,11 +55,9 @@ Feature: Multi Action Button default component
     When I open default "Multi Action Button" component in noIFrame with "multiActionButton" json from "commonComponents" using "<nameOfObject>" object name
     Then Multi Action Button subtext on preview is <subtext>
     Examples:
-      | subtext                 | nameOfObject            |
-      | mp150ú¿¡üßä             | subtextOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | subtextSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | subtext                      | nameOfObject            |
+      | mp150ú¿¡üßä                  | subtextOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | subtextSpecialCharacter |
 
   @positive
   Scenario: Invoking Multi Action Button component
