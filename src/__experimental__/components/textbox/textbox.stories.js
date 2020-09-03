@@ -52,6 +52,25 @@ const defaultTextbox = () => {
   );
 };
 
+const disabledTextbox = () => {
+  return (
+    <Textbox
+      placeholder={ text('placeholder') }
+      value='value'
+      { ...getCommonTextboxProps(defaultStoryPropsConfig, false, true, false) }
+    />
+  );
+};
+const readOnlyTextbox = () => {
+  return (
+    <Textbox
+      placeholder={ text('placeholder') }
+      value='value'
+      { ...getCommonTextboxProps(defaultStoryPropsConfig, false, false, true) }
+    />
+  );
+};
+
 const autoFocusTextbox = () => {
   return (
     <Textbox
@@ -103,6 +122,15 @@ function makeValidationsStory(name, themeSelector, disableChromatic = false) {
           />
         ))}
 
+        <h6>Read Only</h6>
+        <Textbox
+          placeholder={ text('placeholder') }
+          label='Label '
+          name='textbox'
+          error='Message'
+          readOnly
+        />
+
         <h6>On label</h6>
         {validationTypes.map(validation => (
           <Textbox
@@ -115,6 +143,16 @@ function makeValidationsStory(name, themeSelector, disableChromatic = false) {
           />
         ))}
 
+        <h6>Read Only</h6>
+        <Textbox
+          placeholder={ text('placeholder') }
+          label='Label'
+          name='textbox'
+          error='Message'
+          validationOnLabel
+          readOnly
+        />
+
         <h4>Validation as boolean</h4>
         {validationTypes.map(validation => (
           <Textbox
@@ -125,6 +163,16 @@ function makeValidationsStory(name, themeSelector, disableChromatic = false) {
             { ...{ [validation]: true } }
           />
         ))}
+
+        <h6>Read Only</h6>
+        <Textbox
+          key='error-string-component'
+          placeholder={ text('placeholder') }
+          label='Label'
+          name='textbox'
+          error
+          readOnly
+        />
       </>
     );
   };
@@ -146,6 +194,8 @@ function makeValidationsStory(name, themeSelector, disableChromatic = false) {
 
 storiesOf('Experimental/Textbox', module)
   .add(...makeStory('default', dlsThemeSelector, defaultTextbox))
+  .add(...makeStory('readOnly', dlsThemeSelector, readOnlyTextbox))
+  .add(...makeStory('disabled', dlsThemeSelector, disabledTextbox))
   .add(...makeStory('classic', classicThemeSelector, defaultTextbox, true))
   .add(...makeStory('multiple', dlsThemeSelector, multipleTextbox))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
@@ -154,7 +204,7 @@ storiesOf('Experimental/Textbox', module)
   .add(...makeStory('multiple autoFocus', dlsThemeSelector, multipleTextboxAutoFocus));
 
 // eslint-disable-next-line
-export function getCommonTextboxProps(config = defaultStoryPropsConfig, autoFocusDefault = false) {
+export function getCommonTextboxProps(config = defaultStoryPropsConfig, autoFocusDefault = false, disabledDefault = false, readOnlyDefault = false) {
   const previous = {
     key: 'textbox',
     autoFocus: autoFocusDefault
@@ -165,8 +215,8 @@ export function getCommonTextboxProps(config = defaultStoryPropsConfig, autoFocu
     max: 100,
     step: 1
   };
-  const disabled = boolean('disabled', false);
-  const readOnly = boolean('readOnly', false);
+  const disabled = boolean('disabled', disabledDefault);
+  const readOnly = boolean('readOnly', readOnlyDefault);
   const autoFocus = boolean('autoFocus', autoFocusDefault);
   const fieldHelp = text('fieldHelp');
   const label = text('label', 'Label');

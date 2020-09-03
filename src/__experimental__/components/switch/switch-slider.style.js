@@ -21,9 +21,9 @@ const StyledSwitchSlider = styled.span`
     width: 60px;
     z-index: 2;
 
-    ${info && css`box-shadow: inset 1px 1px 0 ${theme.colors.info}, inset -1px -1px 0 ${theme.colors.info};`}
-    ${warning && css`box-shadow: inset 1px 1px 0 ${theme.colors.warning}, inset -1px -1px 0 ${theme.colors.warning};`}
-    ${error && css`box-shadow: inset 2px 2px 0 ${theme.colors.error}, inset -2px -2px 0 ${theme.colors.error};`}
+    ${info && !disabled && css`box-shadow: inset 1px 1px 0 ${theme.colors.info}, inset -1px -1px 0 ${theme.colors.info};`}
+    ${warning && !disabled && css`box-shadow: inset 1px 1px 0 ${theme.colors.warning}, inset -1px -1px 0 ${theme.colors.warning};`}
+    ${error && !disabled && css`box-shadow: inset 2px 2px 0 ${theme.colors.error}, inset -2px -2px 0 ${theme.colors.error};`}
 
     &::before {
       background-color: ${theme.colors.white};

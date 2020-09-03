@@ -112,6 +112,18 @@ describe('FormField', () => {
       });
     });
   });
+
+  it.each([
+    'error', 'warning', 'info'
+  ])('validates the %s prop to throw an error if disabled is set as well', (validation) => {
+    jest.spyOn(global.console, 'error').mockImplementation(() => {});
+    renderWithContext({ disabled: true, id: 'foo', [validation]: true });
+    // eslint-disable-next-line no-console
+    expect(console.error).toHaveBeenCalledWith(`Warning: Failed prop type: Prop \`${validation}\` cannot `
+    + 'be used in conjunction with `disabled`. Use `readOnly` if you require users to see validations with a '
+    + 'non-interactive field\n    in FormField');
+    global.console.error.mockReset();
+  });
 });
 
 function renderFormFieldStyle(props) {
