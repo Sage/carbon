@@ -4,8 +4,6 @@ import {
 
 const TEXT_ALIGN = 'justify-content';
 const TEXT_ALIGN_START = 'flex-start';
-const START_LABEL = 'start';
-const END_LABEL = 'end';
 const START_LABEL_INDEX = 1;
 const END_LABEL_INDEX = 2;
 

@@ -97,10 +97,10 @@ Then('It renders with all new colors', () => {
   });
 });
 
-When('simple color picker legend on preview is {string} in NoIFrame', (text) => {
+When('simple color picker legend on preview is {word} in NoIFrame', (text) => {
   simpleColorPickerLegendNoIFrame().should('have.text', text);
 });
 
-When('simple color picker name {string} in NoIFrame', (name) => {
+When('simple color picker name {word} in NoIFrame', (name) => {
   commonDataElementInputPreviewNoIframe().should('have.attr', 'name', name);
 });

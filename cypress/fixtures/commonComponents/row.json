@@ -51,7 +51,7 @@
     "columnOffset": "mp150ú¿¡üßä"
   },
   "columnOffsetSpecialCharacter": {
-    "columnOffset": "!@#$%^*()_+-=~[];:.,?{}"
+    "columnOffset": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "columnSpan-100": {
     "columnSpan": -100
@@ -72,12 +72,12 @@
     "columnSpan": "mp150ú¿¡üßä"
   },
   "columnSpanSpecialCharacter": {
-    "columnSpan": "!@#$%^*()_+-=~[];:.,?{}"
+    "columnSpan": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "childrenOtherLanguage": {
     "children": "mp150ú¿¡üßä"
   },
   "childrenSpecialCharacter": {
-    "children": "!@#$%^*()_+-=~[];:.,?{}"
+    "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   }
 }

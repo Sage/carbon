@@ -38,11 +38,9 @@ Feature: Pager component
     Then totalRecords is set to "" items
       And I am on 1st of "1" pages
     Examples:
-      | totalRecords            | nameOfObject                 |
-      | mp150ú¿¡üßä             | totalRecordsOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | totalRecordsSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | totalRecords                 | nameOfObject                 |
+      | mp150ú¿¡üßä                  | totalRecordsOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | totalRecordsSpecialCharacter |
 
   @positive
   Scenario Outline: Set pageSize to <pageSize> items
