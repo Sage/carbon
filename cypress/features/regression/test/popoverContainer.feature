@@ -7,8 +7,6 @@ Feature: Popover container component
     When I open popover container in NoIFrame
     Then Popover title on preview is set to <title>
     Examples:
-      | title                   | nameOfObject          |
-      | mp150ú¿¡üßä             | titleOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | titleSpecialCharacter |
-# @ignore because of FE-2782
-# | &"'<>|
+      | title                        | nameOfObject          |
+      | mp150ú¿¡üßä                  | titleOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | titleSpecialCharacter |

@@ -351,7 +351,8 @@ export default {
     info: { disable: true },
     chromatic: {
       disable: true
-    }
+    },
+    knobs: { escapeHTML: false }
   }
 };
 
@@ -439,7 +440,8 @@ asASibling.story = {
   parameters: {
     chromatic: {
       disable: true
-    }
+    },
+    knobs: { escapeHTML: false }
   }
 };
 
@@ -447,7 +449,8 @@ knobs.story = {
   parameters: {
     chromatic: {
       disable: true
-    }
+    },
+    knobs: { escapeHTML: false }
   }
 };
 
