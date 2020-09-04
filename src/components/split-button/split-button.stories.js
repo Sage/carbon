@@ -70,6 +70,7 @@ storiesOf('Split Button', module)
     },
     {
       info: { text: info, propTablesExclude: [Button] },
-      notes: { markdown: notes }
+      notes: { markdown: notes },
+      knobs: { escapeHTML: false }
     },
   );

@@ -5,6 +5,7 @@ import Link from '../../link';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import { baseTheme } from '../../../style/themes';
 import StyledMenuItemWrapper from './menu-item.style';
+import { StyledSubmenuTitle, StyledSubmenu } from '../submenu-block/submenu.style';
 
 describe('MenuItem', () => {
   let wrapper;
@@ -81,7 +82,7 @@ describe('MenuItem', () => {
         </MenuItem>
       );
 
-      expect(wrapper.find(MenuItem).props().submenuDirection).toBe('right');
+      expect(wrapper.find(StyledSubmenu).props().submenuDirection).toBe('right');
     });
 
     describe('`menuType="light"`', () => {
@@ -137,7 +138,24 @@ describe('MenuItem', () => {
           borderRight: '4px solid transparent',
           borderBottom: '4px solid transparent',
           borderLeft: '4px solid transparent'
-        }, wrapper, { modifier: ':before' });
+        }, wrapper, { modifier: `${StyledSubmenuTitle} ${StyledMenuItemWrapper}::before` });
+      });
+
+      it('should render correct styles if `isOpen` is true', () => {
+        wrapper = mount(
+          <StyledMenuItemWrapper
+            menuType='light'
+            isOpen
+            hasSubmenu
+          >
+            test
+          </StyledMenuItemWrapper>
+        );
+
+        assertStyleMatch({
+          backgroundColor: `${baseTheme.colors.white}`,
+          color: `${baseTheme.colors.black}`
+        }, wrapper, { modifier: `& ${StyledMenuItemWrapper}` });
       });
     });
 
@@ -170,7 +188,24 @@ describe('MenuItem', () => {
           borderRight: '4px solid transparent',
           borderBottom: '4px solid transparent',
           borderLeft: '4px solid transparent'
-        }, wrapper, { modifier: ':before' });
+        }, wrapper, { modifier: `${StyledSubmenuTitle} ${StyledMenuItemWrapper}::before` });
+      });
+
+      it('should render correct styles if `isOpen` is true', () => {
+        wrapper = mount(
+          <StyledMenuItemWrapper
+            menuType='dark'
+            isOpen
+            hasSubmenu
+          >
+            test
+          </StyledMenuItemWrapper>
+        );
+
+        assertStyleMatch({
+          backgroundColor: `${baseTheme.menu.dark.submenuBackground}`,
+          color: `${baseTheme.colors.white}`
+        }, wrapper, { modifier: `& ${StyledMenuItemWrapper}` });
       });
     });
   });

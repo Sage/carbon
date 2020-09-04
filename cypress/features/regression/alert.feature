@@ -11,27 +11,27 @@ Feature: Alert component
     Given I open default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
     Then component title on preview is <title>
     Examples:
-      | title                   | nameOfObject              |
-      | mp150ú¿¡üßä             | openTitleOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | openTitleSpecialCharacter |
+      | title                        | nameOfObject              |
+      | mp150ú¿¡üßä                  | openTitleOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | openTitleSpecialCharacter |
 
   @positive
   Scenario Outline: Change Alert component subtitle to <subtitle>
     Given I open default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
     Then component subtitle on preview is <subtitle>
     Examples:
-      | subtitle                | nameOfObject                 |
-      | mp150ú¿¡üßä             | openSubtitleOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | openSubtitleSpecialCharacter |
+      | subtitle                     | nameOfObject                 |
+      | mp150ú¿¡üßä                  | openSubtitleOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | openSubtitleSpecialCharacter |
 
   @positive
   Scenario Outline: Change Alert component children to <children>
     Given I open default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
-    Then Alert children on preview is "<children>"
+    Then Alert children on preview is <children>
     Examples:
-      | children                | nameOfObject                 |
-      | mp150ú¿¡üßä             | openChildrenOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | openChildrenSpecialCharacter |
+      | children                     | nameOfObject                 |
+      | mp150ú¿¡üßä                  | openChildrenOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | openChildrenSpecialCharacter |
 
   @positive
   Scenario: Enable background UI

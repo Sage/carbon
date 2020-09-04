@@ -33,7 +33,7 @@
     "totalRecords": "mp150ú¿¡üßä"
   },
   "totalRecordsSpecialCharacter": {
-    "totalRecords": "!@#$%^*()_+-=~[];:.,?{}"
+    "totalRecords": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "pageSize10": {
     "showPageSizeSelection": true,

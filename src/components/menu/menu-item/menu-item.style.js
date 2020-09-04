@@ -6,7 +6,7 @@ import LinkStyle from '../../link/link.style';
 
 const StyledMenuItemWrapper = styled.a`
   ${({
-    menuType, theme, selected, hasSubmenu
+    menuType, theme, selected, hasSubmenu, isOpen
   }) => css`
     display: inline-block;
     font-size: 14px;
@@ -16,9 +16,22 @@ const StyledMenuItemWrapper = styled.a`
     cursor: pointer;
     background-color: ${theme.menu.light.background};
 
+    && a:focus{
+      outline: none;
+      box-shadow:inset 0 0 0 2px ${theme.colors.focus};
+      background: ${theme.colors.primary};
+      color: ${theme.colors.white};
+      z-index: 1;
+      position: relative;
+
+      [data-component="icon"]{
+        color: ${theme.colors.white};
+      }
+    }
+
     a,
     button,
-    ${LinkStyle} a, 
+    ${LinkStyle} a,
     ${LinkStyle} button{
       padding: 0 16px;
     }
@@ -38,21 +51,21 @@ const StyledMenuItemWrapper = styled.a`
     a:focus, 
     button:hover, 
     button:focus{
-      color: ${theme.colors.white};
-      background: transparent;
+    color: ${theme.colors.white};
+    background: transparent;
     }
 
     a:focus,
     button:focus,
     ${LinkStyle} a:focus, 
     ${LinkStyle} button:focus{
-      color: ${theme.colors.black};
-    }
-
-    &:focus {
+      color: ${theme.colors.white};
+      box-shadow: inset 0 0 0 2px ${theme.colors.focus};
+      background: ${theme.colors.primary};
       z-index: 1;
+      position: relative;
     }
-
+  
     :hover{
       background: ${theme.colors.primary};
 
@@ -68,8 +81,23 @@ const StyledMenuItemWrapper = styled.a`
 
           a, button, [data-component="icon"] {
             color: ${theme.colors.black};
+          }
+
+          a:focus, button:focus {
+            color: ${theme.colors.white};
           }    
         }
+
+      ${isOpen && css`
+        & &{
+          background-color: ${theme.colors.white};
+          color: ${theme.colors.black};
+
+          a, button, [data-component="icon"] {
+            color: ${theme.colors.black};
+          }  
+        }
+      `}
     `}
 
     ${selected && css`
@@ -86,7 +114,8 @@ const StyledMenuItemWrapper = styled.a`
       button,
       button:hover,
       button:focus,
-      [data-component="icon"] {
+      [data-component="icon"],
+      ${LinkStyle} [data-component="icon"]{
         font-weight: 700;
         text-decoration: none;
         color: ${theme.colors.white};
@@ -110,6 +139,17 @@ const StyledMenuItemWrapper = styled.a`
             color: ${theme.colors.white};
           } 
         }
+
+        ${isOpen && css`
+          & &{
+            background-color: ${theme.menu.dark.submenuBackground};
+            color: ${theme.colors.white};
+
+            a, button, [data-component="icon"] {
+              color: ${theme.colors.white};
+            } 
+          }
+        `}
       `}
     `}
 
@@ -119,23 +159,28 @@ const StyledMenuItemWrapper = styled.a`
       ${StyledSubmenuTitle}{
         ${StyledMenuItemWrapper}{
           padding-right: 32px;
-        }
-      }
 
-      :before {
-        margin-top: -2px;
-        pointer-events: none;
-        position: absolute;
-        right: 16px;
-        top: 50%;
-        z-index: 2;
-        content: "";
-        width: 0;
-        height: 0;
-        border-top: 5px solid ${menuType !== 'dark' ? theme.colors.slate : theme.colors.white};
-        border-right: 4px solid transparent;
-        border-bottom: 4px solid transparent;
-        border-left: 4px solid transparent;
+          &::before {
+            display: block;
+            margin-top: -2px;
+            pointer-events: none;
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            z-index: 2;
+            content: "";
+            width: 0;
+            height: 0;
+            border-top: 5px solid ${menuType !== 'dark' ? theme.colors.slate : theme.colors.white};
+            border-right: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+            border-left: 4px solid transparent;
+          }
+
+          &:focus::before{
+            border-top-color: ${theme.colors.white};
+          }
+        }
       }
 
       &:hover {
@@ -143,11 +188,24 @@ const StyledMenuItemWrapper = styled.a`
           display: block;
         }
       }
+
+      ${isOpen && css`
+        ${StyledSubmenu}{
+          display: block;
+        }
+      `}
     `}
 
     ${StyledSubmenu}{
       background-color: ${theme.colors.white};
       
+      a,
+      button,
+      ${LinkStyle} a,
+      ${LinkStyle} button{
+        width: 100%;
+      }
+
       ${StyledMenuItemWrapper}:after, ${StyledMenuItemWrapper}:hover:after{
         display: none;
       }

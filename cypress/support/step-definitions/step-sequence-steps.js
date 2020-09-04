@@ -3,6 +3,7 @@ import {
   stepSequenceElement,
   stepSequenceItemIndicator,
   ariaLabel,
+  stepSequenceDataComponent,
 } from '../../locators/step-sequence';
 
 const ARIA_LABEL = 'Step 1 of 5';
@@ -22,7 +23,7 @@ Then('hidden label is set to {word}', (hiddenLabel) => {
 });
 
 Then('ariaLabel is set to {word}', (label) => {
-  ariaLabel(label).should('exist');
+  stepSequenceDataComponent().should('have.attr', 'aria-label', label);
 });
 
 Then('children is set {word}', (children) => {

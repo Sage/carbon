@@ -3,12 +3,12 @@
     "legend": "mp150ú¿¡üßä"
   },
   "legendSpecialCharacter": {
-    "legend": "!@#$%^*()_+-=~[];:.,?{}"
+    "legend": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "nameOtherLanguage": {
     "name": "mp150ú¿¡üßä"
   },
   "nameSpecialCharacter": {
-    "name": "!@#$%^*()_+-=~[];:.,?{}"
+    "name": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   }
 }

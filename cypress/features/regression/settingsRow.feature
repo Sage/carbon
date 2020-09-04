@@ -6,33 +6,27 @@ Feature: Settings Row component
     When I open default "SettingsRow" component in noIFrame with "settingsRow" json from "commonComponents" using "<nameOfObject>" object name
     Then Settings Row children on preview is set to <children>
     Examples:
-      | children                | nameOfObject             |
-      | mp150ú¿¡üßä             | childrenOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | childrenSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | children                     | nameOfObject             |
+      | mp150ú¿¡üßä                  | childrenOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | childrenSpecialCharacter |
 
   @positive
   Scenario Outline: Change Settings Row title to <title>
     When I open default "SettingsRow" component in noIFrame with "settingsRow" json from "commonComponents" using "<nameOfObject>" object name
     Then Settings Row title on preview is set to <title>
     Examples:
-      | title                   | nameOfObject          |
-      | mp150ú¿¡üßä             | titleOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | titleSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | title                        | nameOfObject          |
+      | mp150ú¿¡üßä                  | titleOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | titleSpecialCharacter |
 
   @positive
   Scenario Outline: Change Settings Row description to <description>
     When I open default "SettingsRow" component in noIFrame with "settingsRow" json from "commonComponents" using "<nameOfObject>" object name
     Then Settings Row description on preview is set to <description>
     Examples:
-      | description             | nameOfObject                |
-      | mp150ú¿¡üßä             | descriptionOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | descriptionSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | description                  | nameOfObject                |
+      | mp150ú¿¡üßä                  | descriptionOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | descriptionSpecialCharacter |
 
   @positive
   Scenario: Enable divider for a Settings Row component

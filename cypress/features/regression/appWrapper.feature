@@ -6,8 +6,6 @@ Feature: App Wrapper component
     When I open default "App Wrapper" component in noIFrame with "appWrapper" json from "commonComponents" using "<nameOfObject>" object name
     Then App Wrapper children on preview is <children>
     Examples:
-      | children                | nameOfObject             |
-      | mp150ú¿¡üßä             | childrenOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | childrenSpecialCharacter |
-# @ignore because of FE-2782
-# | &"'<>|
+      | children                     | nameOfObject             |
+      | mp150ú¿¡üßä                  | childrenOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | childrenSpecialCharacter |
