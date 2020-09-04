@@ -18,7 +18,7 @@
     "indicator": "mp150ú¿¡üßä"
   },
   "indicatorSpecialCharacter": {
-    "indicator": "!@#$%^*()_+-=~[];:.,?{}"
+    "indicator": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "statusComplete": {
     "status": "complete"
@@ -41,12 +41,12 @@
     "ariaLabel": "mp150ú¿¡üßä"
   },
   "ariaLabelSpecialCharacter": {
-    "ariaLabel": "!@#$%^*()_+-=~[];:.,?{}"
+    "ariaLabel": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "childrenOtherLanguage": {
     "children": "mp150ú¿¡üßä"
   },
   "childrenSpecialCharacter": {
-    "children": "!@#$%^*()_+-=~[];:.,?{}"
+    "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   }
 }

@@ -4,13 +4,11 @@ Feature: Button Toggle Group component
   @positive
   Scenario Outline: Change Button Toggle Group component label to <label>
     When I open basic "Button Toggle Group Test" component in noIFrame with "buttonToggleGroup" json from "test" using "<nameOfObject>" object name
-    Then Button Toggle Group label on preview is "<label>"
+    Then Button Toggle Group label on preview is <label>
     Examples:
-      | label                   | nameOfObject          |
-      | mp150ú¿¡üßä             | labelOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | labelSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<> |
+      | label                        | nameOfObject          |
+      | mp150ú¿¡üßä                  | labelOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelSpecialCharacter |
 
   @positive
   Scenario Outline: Change Button Toggle Group component label help to <labelHelp>
@@ -18,11 +16,9 @@ Feature: Button Toggle Group component
       And I hover mouse onto help icon
     Then tooltipPreview on preview is set to <labelHelp>
     Examples:
-      | labelHelp               | nameOfObject              |
-      | mp150ú¿¡üßä             | labelHelpOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | labelHelpSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | labelHelp                    | nameOfObject              |
+      | mp150ú¿¡üßä                  | labelHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelHelpSpecialCharacter |
 
   @ignore
   # @ignore until solution is applied to round sizes as integers as Chrome v80 has amended pixel sizes
@@ -45,11 +41,9 @@ Feature: Button Toggle Group component
     When I open basic "Button Toggle Group Test" component in noIFrame with "buttonToggleGroup" json from "test" using "<nameOfObject>" object name
     Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
     Examples:
-      | fieldHelp               | nameOfObject              |
-      | mp150ú¿¡üßä             | fieldHelpOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | fieldHelpSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | fieldHelp                    | nameOfObject              |
+      | mp150ú¿¡üßä                  | fieldHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | fieldHelpSpecialCharacter |
 
   @positive
   Scenario: Enable label inline checkbox
