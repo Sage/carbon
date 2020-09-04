@@ -3,18 +3,22 @@ import PropTypes from 'prop-types';
 import BaseTheme from '../../style/themes/base';
 
 const StyledFieldset = styled.fieldset`
-  border: none;
-  margin: 0;
-  padding: 0;
-  min-width: 0;
-  min-inline-size: 0;
+  ${({ ml, mb, theme }) => css`
+    border: none;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+    min-inline-size: 0;
 
-  ${({
-    ml
-  }) => ml && `margin-left: ${ml};`}
-
-  ${({ styleOverride }) => styleOverride};
+    ${ml && `margin-left: ${ml};`}
+    ${mb && `margin-bottom: ${mb * theme.spacing}px;`}
+    ${({ styleOverride }) => styleOverride};
+  `}
 `;
+
+StyledFieldset.defaultProps = {
+  theme: BaseTheme
+};
 
 
 const StyledFieldsetContent = styled.div`

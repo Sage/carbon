@@ -15,14 +15,10 @@ const RadioButtonStyle = styled(CheckboxStyle)`
     reverse,
     size,
     theme,
-    inline
+    inline,
+    mt
   }) => css`
-    margin-bottom: 12px;
-
-    ${FieldHelpStyle} {
-      margin-left: 32px;
-      padding-left: 0;
-    }
+    margin-top: ${mt * theme.spacing}px;
 
     ${StyledCheckableInputSvgWrapper} {
       padding: 0;

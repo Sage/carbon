@@ -7,13 +7,14 @@ import { InputGroupBehaviour, InputGroupContext } from '../input-behaviour';
 
 const Fieldset = ({
   legend, children, inline, legendWidth, legendAlign = 'right', legendSpacing = 2, error,
-  warning, info, ml, styleOverride, ...rest
+  warning, info, ml, mb, styleOverride, ...rest
 }) => (
   <InputGroupBehaviour>
     <StyledFieldset
       data-component='fieldset'
       styleOverride={ styleOverride.root }
       ml={ ml }
+      mb={ mb }
       { ...rest }
     >
       <StyledFieldsetContent inline={ inline }>
@@ -72,6 +73,8 @@ Fieldset.propTypes = {
   legendSpacing: PropTypes.oneOf([1, 2]),
   /** Margin left, any valid CSS value  */
   ml: PropTypes.string,
+  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6, 7]),
   /** Allows to override existing component styles */
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),

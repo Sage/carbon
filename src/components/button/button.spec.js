@@ -253,31 +253,11 @@ describe('Button', () => {
   });
 
   describe('when ml prop passed in', () => {
-    describe('when large button', () => {
-      it('adds the correct left margin', () => {
-        const wrapper = TestRenderer.create(<StyledButton size='large' ml={ 10 } />);
-        assertStyleMatch({
-          marginLeft: 'calc(10% - 32px)'
-        }, wrapper.toJSON());
-      });
-    });
-
-    describe('when medium button', () => {
-      it('adds the correct left margin', () => {
-        const wrapper = TestRenderer.create(<StyledButton size='medium' ml={ 10 } />);
-        assertStyleMatch({
-          marginLeft: 'calc(10% - 24px)'
-        }, wrapper.toJSON());
-      });
-    });
-
-    describe('when small button', () => {
-      it('adds the correct left margin', () => {
-        const wrapper = TestRenderer.create(<StyledButton size='small' ml={ 10 } />);
-        assertStyleMatch({
-          marginLeft: 'calc(10% - 16px)'
-        }, wrapper.toJSON());
-      });
+    it('adds the correct left margin', () => {
+      const wrapper = TestRenderer.create(<StyledButton size='medium' ml='10%' />);
+      assertStyleMatch({
+        marginLeft: '10%'
+      }, wrapper.toJSON());
     });
   });
 

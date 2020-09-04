@@ -5,6 +5,10 @@ exports[`RadioButton base renders as expected 1`] = `
   margin-top: 16px;
 }
 
+.c4.c4.c4 {
+  margin-bottom: 16px;
+}
+
 .c12 + .c3 {
   margin-top: 10px;
 }
@@ -787,8 +791,7 @@ exports[`RadioButton base renders as expected 1`] = `
 }
 
 .c1 {
-  padding-top: 8px;
-  margin-bottom: 12px;
+  margin-top: 8px;
 }
 
 .c1 .c7 {
@@ -845,11 +848,6 @@ exports[`RadioButton base renders as expected 1`] = `
 
 .c1 .c9:checked ~ .c11 svg path {
   fill: rgba(0,0,0,0.90);
-}
-
-.c1 .c23 {
-  margin-left: 32px;
-  padding-left: 0;
 }
 
 .c1 .c11 {

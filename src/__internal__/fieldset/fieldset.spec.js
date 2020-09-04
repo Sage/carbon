@@ -51,6 +51,18 @@ describe('Fieldset', () => {
     });
   });
 
+  describe('when mb prop set', () => {
+    it('should apply the correct bottom margin', () => {
+      wrapper = render({ mb: 2 });
+      assertStyleMatch(
+        {
+          marginBottom: '16px'
+        },
+        wrapper.find(StyledFieldset),
+      );
+    });
+  });
+
   describe('Fieldset Legend', () => {
     it('is rendered if supplied', () => {
       wrapper = render({ legend: 'Legend' });

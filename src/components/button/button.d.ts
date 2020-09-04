@@ -9,8 +9,8 @@ export interface ButtonProps {
   fullWidth?: boolean;
   /** Margin bottom, given number will be multiplied by base spacing unit (8) */
   mb?: 0 | 1 | 2 | 3 | 4 | 5 | 7;
-  /** Margin left as a percentage */
-  ml?: number;
+  /** Margin left, any valid CSS value */
+  ml?: string;
   size?: 'small' | 'medium' | 'large';
   iconPosition?: 'before' | 'after';
   iconType?: IconTypes;

@@ -15,7 +15,6 @@ const CheckboxStyle = styled.div`
   ${({
     disabled, error, warning, info, fieldHelpInline, labelSpacing, inputWidth, reverse, size, theme
   }) => css`
-    padding-top: 8px;
 
     ${StyledCheckableInput} {
       padding-top: 1px;

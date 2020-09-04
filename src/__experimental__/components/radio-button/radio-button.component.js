@@ -7,7 +7,7 @@ import RadioButtonSvg from './radio-button-svg.component';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const RadioButton = ({
-  id, label, onChange, onBlur, value, ...props
+  id, label, onChange, onBlur, value, mt = 1, mb = 2, ...props
 }) => {
   const handleChange = useCallback((ev) => {
     onChange(ev);
@@ -25,6 +25,7 @@ const RadioButton = ({
     inputLabel: label,
     inputValue: value,
     inputType: 'radio',
+    mb,
     /**
      * Invert the reverse prop, to ensure the FormField component renders the components
      * in the desired order (other elements which use FormField render their sub-components the
@@ -37,6 +38,7 @@ const RadioButton = ({
   return (
     <RadioButtonStyle
       { ...tagComponent('radio-button', props) }
+      mt={ mt }
       { ...props }
     >
       <CheckableInput { ...inputProps }>
@@ -80,6 +82,8 @@ RadioButton.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesBinary),
   /** the value of the Radio Button, passed on form submit */
   value: PropTypes.string.isRequired,
+  /** Margin top, given number will be multiplied by base spacing unit (8) */
+  mt: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   /** Margin bottom, given number will be multiplied by base spacing unit (8) */
   mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   children: (props, propName, componentName) => {
