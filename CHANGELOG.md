@@ -1,3 +1,25 @@
+### [39.2.1](https://github.com/Sage/carbon/compare/v39.2.0...v39.2.1) (2020-09-04)
+
+
+### Bug Fixes
+
+* **button:** update onClick typescript definition ([bdd2dca](https://github.com/Sage/carbon/commit/bdd2dcaf9c9699173b8a19bdbca2c1ea7307364f))
+* **numeral-date:** update onClick and onBlur typescript definition ([de25f13](https://github.com/Sage/carbon/commit/de25f1318b09a10a0bb7671b7a4463cf62073a23))
+
+## [39.2.0](https://github.com/Sage/carbon/compare/v39.1.0...v39.2.0) (2020-09-04)
+
+
+### Features
+
+* **checkbox:** add spacing props ([e2a7c39](https://github.com/Sage/carbon/commit/e2a7c391c8c4c49c5b30818bdd25cffec5101c39))
+
+## [39.1.0](https://github.com/Sage/carbon/compare/v39.0.0...v39.1.0) (2020-09-03)
+
+
+### Features
+
+* **menu:** add keyboard navigation ([8fa77e1](https://github.com/Sage/carbon/commit/8fa77e11b3c9b04158fc4c99d901c9d693ce8597))
+
 ## [39.0.0](https://github.com/Sage/carbon/compare/v38.2.0...v39.0.0) (2020-09-01)
 
 

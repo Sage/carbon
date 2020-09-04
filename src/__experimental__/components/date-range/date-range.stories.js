@@ -58,7 +58,8 @@ function makeStory(name, themeSelector, disableChromatic = false) {
     },
     chromatic: {
       disable: disableChromatic
-    }
+    },
+    knobs: { escapeHTML: false }
   };
 
   return [name, component, metadata];

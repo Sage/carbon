@@ -1,7 +1,7 @@
 import { labelPreviewWidth, labelPreviewByTextIFrame, labelPreviewWidthIFrame } from '../../locators/button-toggle-group';
 import { label, getDataElementByValue } from '../../locators';
 
-Then('Button Toggle Group label on preview is {string}', (text) => {
+Then('Button Toggle Group label on preview is {word}', (text) => {
   getDataElementByValue('label').should('have.text', text);
 });
 

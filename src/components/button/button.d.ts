@@ -14,7 +14,7 @@ export interface ButtonProps {
   children?: React.ReactNode;
   renderRouterLink?: (args: object) => React.ReactNode;
   forwardRef?: () => void;
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLLinkElement>) => void;
 }
 declare const Button: React.ComponentType<ButtonProps | React.HTMLProps<HTMLButtonElement>>;
 export default Button;

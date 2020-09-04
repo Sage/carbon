@@ -16,11 +16,9 @@ Feature: Preview default component
     When I open default "Preview" component in noIFrame with "preview" json from "commonComponents" using "<nameOfObject>" object name
     Then Preview children is set to <children>
     Examples:
-      | children                | nameOfObject             |
-      | mp150ú¿¡üßä             | childrenOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | childrenSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | children                     | nameOfObject             |
+      | mp150ú¿¡üßä                  | childrenOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | childrenSpecialCharacter |
 
   @positive
   Scenario Outline: Set width to <width>
@@ -57,30 +55,24 @@ Feature: Preview default component
     When I open default "Preview" component in noIFrame with "preview" json from "commonComponents" using "<nameOfObject>" object name
     Then Preview width is not set to <width>
     Examples:
-      | width                   | nameOfObject          |
-      | mp150ú¿¡üßä             | widthOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | widthSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | width                        | nameOfObject          |
+      | mp150ú¿¡üßä                  | widthOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | widthSpecialCharacter |
 
   @positive
   Scenario Outline: Set height to out of scope to <height>
     When I open default "Preview" component in noIFrame with "preview" json from "commonComponents" using "<nameOfObject>" object name
     Then Preview height is not set to <height>
     Examples:
-      | height                  | nameOfObject           |
-      | mp150ú¿¡üßä             | heightOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | heightSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | height                       | nameOfObject           |
+      | mp150ú¿¡üßä                  | heightOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | heightSpecialCharacter |
 
   @positive
   Scenario Outline: Set lines to out of scope to <lines>
     When I open default "Preview" component in noIFrame with "preview" json from "commonComponents" using "<nameOfObject>" object name
     Then Preview lines is not set to <lines>
     Examples:
-      | lines                   | nameOfObject          |
-      | mp150ú¿¡üßä             | linesOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | linesSpecialCharacter |
-# @ignore because of FE-2782
-# | &"'<>|
+      | lines                        | nameOfObject          |
+      | mp150ú¿¡üßä                  | linesOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | linesSpecialCharacter |

@@ -123,7 +123,8 @@ storiesOf('Table', module)
       );
     },
     {
-      themeSelector: dlsThemeSelector
+      themeSelector: dlsThemeSelector,
+      knobs: { escapeHTML: false }
     },
   )
   .add(
@@ -160,7 +161,8 @@ storiesOf('Table', module)
       );
     },
     {
-      themeSelector: dlsThemeSelector
+      themeSelector: dlsThemeSelector,
+      knobs: { escapeHTML: false }
     },
   )
   .add(

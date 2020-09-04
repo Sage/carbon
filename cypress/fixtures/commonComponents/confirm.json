@@ -5,7 +5,7 @@
   },
   "cancelLabelSpecialCharacter": {
     "open": true,
-    "cancelLabel": "!@#$%^*()_+-=~[];:.,?{}"
+    "cancelLabel": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "confirmLabelOtherLanguage": {
     "open": true,
@@ -13,7 +13,7 @@
   },
   "confirmLabelSpecialCharacter": {
     "open": true,
-    "confirmLabel": "!@#$%^*()_+-=~[];:.,?{}"
+    "confirmLabel": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "titleOtherLanguage": {
     "open": true,
@@ -21,7 +21,7 @@
   },
   "titleSpecialCharacter": {
     "open": true,
-    "title": "!@#$%^*()_+-=~[];:.,?{}"
+    "title": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "subtitleOtherLanguage": {
     "open": true,
@@ -29,7 +29,7 @@
   },
   "subtitleSpecialCharacter": {
     "open": true,
-    "subtitle": "!@#$%^*()_+-=~[];:.,?{}"
+    "subtitle": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "height0": {
     "open": true,

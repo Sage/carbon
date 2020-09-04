@@ -40,7 +40,7 @@
     "caption": "mp150ú¿¡üßä"
   },
   "captionSpecialCharacter": {
-    "caption": "!@#$%^*()_+-=~[];:.,?{}"
+    "caption": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "themePrimary": {
     "theme": "primary"
