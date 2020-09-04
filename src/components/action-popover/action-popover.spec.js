@@ -678,6 +678,18 @@ describe('ActionPopover', () => {
     global.console.error.mockReset();
   });
 
+  it('validates the children prop of ActionPopoverItem', () => {
+    jest.spyOn(global.console, 'error').mockImplementation(() => {});
+    ReactDOM.render(
+      <ThemeProvider theme={ mintTheme }>
+        <ActionPopoverItem onClick={ () => {} }><p>invalid children</p></ActionPopoverItem>
+      </ThemeProvider>, container
+    );
+    // eslint-disable-next-line no-console
+    expect(console.error).toBeCalledTimes(0);
+    global.console.error.mockReset();
+  });
+
   describe('submenu', () => {
     describe('left aligned', () => {
       beforeEach(() => renderWithSubmenu());

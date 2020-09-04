@@ -191,7 +191,7 @@ const ActionPopoverItem = withTheme(StyledActionPopoverItem);
 
 const propTypes = {
   /** The text label to display for this Item */
-  children: PropTypes.string.isRequired,
+  children: PropTypes.element.isRequired,
   /** Flag to indicate if item is disabled */
   disabled: PropTypes.bool,
   /** The name of the icon to display next to the label */

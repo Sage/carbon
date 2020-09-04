@@ -3,7 +3,7 @@ import { IconTypes } from '../../utils/helpers/options-helper/options-helper';
 import ActionPopoverMenu from './action-popover-menu';
 
 export interface ActionPopoverItemProps {
-  children: string;
+  children: string | React.ReactNode;
   icon?: IconTypes;
   disabled?: boolean;
   onClick: () => void;

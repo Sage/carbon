@@ -7,6 +7,7 @@ import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/them
 import {
   Table, TableRow, TableCell, TableHeader
 } from '../table';
+import Loader from '../loader';
 
 const submenu = (
   <ActionPopoverMenu>
@@ -283,6 +284,69 @@ StylesOverriden.story = {
   name: 'styles overriden',
   parameters: {
     themeSelector: dlsThemeSelector,
+    chromatic: {
+      disable: false
+    }
+  }
+};
+
+export const CustomContent = () => (
+  <div style={ { marginTop: '40px', height: '275px' } }>
+    <Table isZebra>
+      <TableRow>
+        <TableHeader>First Name</TableHeader>
+        <TableHeader>Last Name</TableHeader>
+        <TableHeader>&nbsp;</TableHeader>
+      </TableRow>
+      <TableRow>
+        <TableCell>John</TableCell>
+        <TableCell>Doe</TableCell>
+        <TableCell>
+          <ActionPopover>
+            <ActionPopoverItem>
+              <Loader />
+            </ActionPopoverItem>
+            <ActionPopoverItem>
+              This is a loader as ActionPopoverItem-Content
+            </ActionPopoverItem>
+          </ActionPopover>
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Jane</TableCell>
+        <TableCell>Smith</TableCell>
+        <TableCell>
+          <ActionPopover>
+            <ActionPopoverItem>
+              <Loader />
+            </ActionPopoverItem>
+            <ActionPopoverItem>
+              This is a loader as ActionPopoverItem-Content
+            </ActionPopoverItem>
+          </ActionPopover>
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Bob</TableCell>
+        <TableCell>Jones</TableCell>
+        <TableCell>
+          <ActionPopover>
+            <ActionPopoverItem>
+              <Loader />
+            </ActionPopoverItem>
+            <ActionPopoverItem>
+              This is a loader as ActionPopoverItem-Content
+            </ActionPopoverItem>
+          </ActionPopover>
+        </TableCell>
+      </TableRow>
+    </Table>
+  </div>
+);
+
+CustomContent.story = {
+  name: 'popover with custom item content',
+  parameters: {
     chromatic: {
       disable: false
     }
