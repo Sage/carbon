@@ -1,3 +1,10 @@
+## [39.2.0](https://github.com/Sage/carbon/compare/v39.1.0...v39.2.0) (2020-09-04)
+
+
+### Features
+
+* **checkbox:** add spacing props ([e2a7c39](https://github.com/Sage/carbon/commit/e2a7c391c8c4c49c5b30818bdd25cffec5101c39))
+
 ## [39.1.0](https://github.com/Sage/carbon/compare/v39.0.0...v39.1.0) (2020-09-03)
 
 
