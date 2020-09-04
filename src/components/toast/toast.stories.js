@@ -3,19 +3,18 @@ import { text } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { dlsThemeSelector } from '../../../.storybook/theme-selectors';
 import Toast from '.';
+import Button from '../button';
 
 export default {
   title: 'Design System/Toast/Test',
   component: Toast,
   parameters: {
     themeSelector: dlsThemeSelector,
+    docs: { page: null },
     info: {
       disable: true
     },
-    knobs: { escapeHTML: false },
-    chromatic: {
-      disable: true
-    }
+    knobs: { escapeHTML: false }
   }
 };
 
@@ -25,17 +24,35 @@ export const Basic = () => {
     setIsOpen(!isOpen);
     action('click')(evt);
   };
+
+  const handleOpen = () => {
+    setIsOpen(!isOpen);
+  };
+
   const children = text('children', 'My text');
+
   return (
-    <Toast
-      variant='warning'
-      id='toast-dismissible'
-      open={ isOpen }
-      onDismiss={ onDismissClick }
-    >
-      { children }
-    </Toast>
+    <>
+      <Button onClick={ handleOpen }>Open Toast</Button>
+
+      <Toast
+        variant='warning'
+        id='toast-dismissible'
+        open={ isOpen }
+        onDismiss={ onDismissClick }
+      >
+        { children }
+      </Toast>
+    </>
   );
+};
+
+Basic.story = {
+  parameters: {
+    chromatic: {
+      disable: true
+    }
+  }
 };
 
 export const Visual = () => {
@@ -113,12 +130,6 @@ export const Visual = () => {
 };
 
 Visual.story = {
-  name: 'visual',
-  parameters: {
-    info: { disable: true },
-    docs: { page: null },
-    chromatic: {
-      disable: false
-    }
-  }
+  name: 'visual'
+
 };

@@ -1,0 +1,87 @@
+import { useState } from 'react';
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+import { Sidebar, SidebarHeader } from '.';
+import Button from '../button';
+
+<Meta
+  title="Sidebar"
+  parameters={{ info: { disable: true }}}
+/>
+
+# Sidebar
+Useful to perform an action in context without navigating the user to a separate page.
+
+Useful if the user might need to refer back to the page behind the sidebar. For example, the user could select from a list of clients on the page, with detailed information on the client loading in the sidebar.
+
+Several pre-set widths are available, and the height is always 100%. It’s best to avoid sidebars that are taller than the user’s viewport height, as a scroll would hide some information. Typical user viewport heights can be as little as 650 pixels.
+
+Choose whether a dark tint is applied behind the dialog which helps to focus the user on the sidebar, but don’t select this option if the user needs to refer back to the underlying page.
+
+## Related Components
+- Simple task in context? [Try Dialog](/?path=/docs/dialog--default-story "Try Dialog").
+- Complex task that needs more space?  [Try Dialog Full Screen](/?path=/docs/dialog-full-screen--default-story "Try Dialog Full Screen").
+
+## Quick Start
+
+Side bar is positioned on the right hand screen of the window by default.
+To position the sidebar on the left hand side pass `position='left'` to the component.
+
+The background behind the sidebar is disabled by default. To allow the user to interact
+with all the UI pass `enableBackgroundUI={ true }` to the component
+
+A Sidebar header is also provided as a sub component and can be used as the first child
+of the sidebar component
+
+To render content within the SidebarHeader pass a children prop
+
+Import the components and use as shown below:
+
+```jsx
+import { Sidebar, SidebarHeader } from "carbon-react/lib/components/sidebar"
+
+const MyComponent = ({ isOpen, handleClose }) => (
+  <Sidebar
+    open={ isOpen }
+    onCancel={ handleClose }
+  >
+    <SidebarHeader>Sidebar</SidebarHeader>
+  </Sidebar>
+);
+```
+
+### Default
+
+<Preview>
+  <Story name="default">
+    {() => {
+      const [isOpen, setIsOpen] = useState(true);
+      return (
+        <>
+          <Button onClick={ () => setIsOpen(true) }>Open sidebar</Button>
+          <Sidebar
+            open={ isOpen }
+            onCancel={ () => setIsOpen(false) }
+          >
+            <SidebarHeader>Header Content</SidebarHeader>
+            <div>
+              <Button as='primary'>Test</Button>
+              <Button as='secondary'>Last</Button>
+            </div>
+            Main Content
+          </Sidebar>
+        </>
+      )
+    }}
+  </Story>
+</Preview>
+
+## Props:
+
+### Sidebar
+
+<Props of={Sidebar} />
+
+### SidebarHeader
+
+<Props of={SidebarHeader} />
