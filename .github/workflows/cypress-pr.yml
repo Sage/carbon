@@ -7,6 +7,7 @@ jobs:
      # if not a fork
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-18.04
+    timeout-minutes: 12
     strategy:
       # when one test fails, DO NOT cancel the other
       # containers, because this will kill Cypress processes
@@ -21,6 +22,7 @@ jobs:
             11, 12, 13, 14, 15, 
             16, 17, 18, 19, 20
             ]
+    container: cypress/browsers:node14.7.0-chrome84
     steps:
       - name: Checkout
         uses: actions/checkout@v2.2.0
@@ -55,18 +57,19 @@ jobs:
       # because of "record" and "parallel" parameters
       # these containers will load balance all found tests among themselves
       - name: Cypress run
-        timeout-minutes: 25
-        uses: cypress-io/github-action@v2.2.2
+        uses: cypress-io/github-action@v2.2.6
         with:
           install: false
           start: npm start
           # quote the url to be safe against YML parsing surprises
           wait-on: 'http://localhost:9001'
-          wait-on-timeout: 250
+          wait-on-timeout: 150
           record: true
           parallel: true
           group: ubuntu-regression
           quiet: true
+          browser: chrome
+          headless: true
         env:
           # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
