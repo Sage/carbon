@@ -1,3 +1,10 @@
+## [39.3.0](https://github.com/Sage/carbon/compare/v39.2.1...v39.3.0) (2020-09-07)
+
+
+### Features
+
+* **drawer, tabs:** add support for custom target overrides via context ([7fe79d3](https://github.com/Sage/carbon/commit/7fe79d3d9ae9039a2ed34d1cb075df2bcc455d7d))
+
 ### [39.2.1](https://github.com/Sage/carbon/compare/v39.2.0...v39.2.1) (2020-09-04)
 
 
