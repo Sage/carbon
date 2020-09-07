@@ -6,22 +6,18 @@ Feature: Content component
     When I open default "Content" component in noIFrame with "content" json from "commonComponents" using "<nameOfObject>" object name
     Then content children on preview is <children>
     Examples:
-      | children                | nameOfObject             |
-      | mp150ú¿¡üßä             | childrenOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | childrenSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | children                     | nameOfObject             |
+      | mp150ú¿¡üßä                  | childrenOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | childrenSpecialCharacter |
 
   @positive
   Scenario Outline: Change title in Content dialog to <title>
     When I open default "Content" component in noIFrame with "content" json from "commonComponents" using "<nameOfObject>" object name
     Then content title context children on preview is <title>
     Examples:
-      | title                   | nameOfObject          |
-      | mp150ú¿¡üßä             | titleOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | titleSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | title                        | nameOfObject          |
+      | mp150ú¿¡üßä                  | titleOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | titleSpecialCharacter |
 
   @positive
   Scenario Outline: Change property in Content dialog to <property>
@@ -41,7 +37,6 @@ Feature: Content component
       | right         | alignRight   |
       | center        | alignCenter  |
       | left          | alignLeft    |
-
 
   @positive
   Scenario: BodyFullWidth enabled

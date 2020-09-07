@@ -39,6 +39,14 @@ const multiValueProp = options.map(({ value }) => value);
 const multiValueReturn = options.map(({ value, text }) => ({ optionValue: value, optionText: text }));
 
 describe('Select', () => {
+  beforeAll(() => {
+    jest.spyOn(global.console, 'warn');
+  });
+
+  afterAll(() => {
+    global.console.warn.mockReset();
+  });
+
   const renderWrapper = ({ props, type = mount, selectOptions = options } = {}) => (
     type(
       <Select { ...props }>
@@ -540,5 +548,10 @@ describe('Select', () => {
       const wrapper = renderWrapper();
       expect(wrapper.find(Textbox).props().inputIcon).toBe('dropdown');
     });
+  });
+
+  it('warns about deprecation', () => {
+    // eslint-disable-next-line max-len, no-console
+    expect(console.warn).toHaveBeenCalledWith('[Deprecation] The `lib/__experimental__/select` component is deprecated and will soon be removed. Please use `lib/select` instead.');
   });
 });

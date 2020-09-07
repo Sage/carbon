@@ -3,7 +3,7 @@
     "children": "mp150ú¿¡üßä"
   },
   "childrenSpecialCharacter": {
-    "children": "!@#$%^*()_+-=~[];:.,?{}"
+    "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "iconSizeSmall": {
     "buttonIcon": "arrow_left",

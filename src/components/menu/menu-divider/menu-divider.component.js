@@ -2,7 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyledDivider from './menu-divider.style';
 
-const MenuDivider = ({ menuType }) => (<StyledDivider data-component='menu-divider' menuType={ menuType } />);
+const MenuDivider = React.forwardRef(({ menuType }, ref) => (
+  <StyledDivider
+    data-component='menu-divider'
+    menuType={ menuType }
+    ref={ ref }
+  />
+));
 
 MenuDivider.propTypes = {
   /**

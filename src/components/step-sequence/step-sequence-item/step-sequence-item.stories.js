@@ -28,7 +28,8 @@ function makeStory(name, themeSelector) {
   };
 
   const metadata = {
-    themeSelector
+    themeSelector,
+    knobs: { escapeHTML: false }
   };
 
   return [name, component, metadata];

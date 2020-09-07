@@ -44,9 +44,18 @@ describe('Heading', () => {
   });
 
   it('renders a back link', () => {
-    const link = TestUtils.findRenderedComponentWithType(instance, Link);
-    expect(link.props.className).toEqual('carbon-heading__back');
-    expect(link.props.href).toEqual('/foobar');
+    const wrapper = mount(<Heading
+        className='custom'
+        title='foo'
+        subheader='subheader'
+        help='bar'
+        helpLink='/bar'
+        backLink='/foobar'
+      />)
+    
+    const link = wrapper.find(Link);
+    expect(link.prop('className')).toEqual('carbon-heading__back');
+    expect(link.prop('href')).toEqual('/foobar');
   });
 
   it('renders a back link as a button with focus support on Internet Explorer', () => {

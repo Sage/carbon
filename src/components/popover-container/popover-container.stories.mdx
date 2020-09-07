@@ -76,8 +76,8 @@ Use the `renderOpenComponent` and `renderCloseComponent` to render your own open
     <div style={{height: 250}}>
       <PopoverContainer
         title='Custom Open &amp; Close Button'
-        renderOpenComponent={ ({isOpen, ...rest}) => <Button iconType={ !isOpen ? 'filter_new' : 'close' } iconPosition='after' {...rest}>Filter</Button>}
-        renderCloseComponent={ ({isOpen, ...rest}) => <Button {...rest}>Close</Button>}
+        renderOpenComponent={ ({isOpen, ref,...rest}) => <Button iconType={ !isOpen ? 'filter_new' : 'close' } iconPosition='after' {...rest}>Filter</Button>}
+        renderCloseComponent={ ({isOpen, ref, ...rest}) => <Button {...rest}>Close</Button>}
       >
       Content
     </PopoverContainer>
@@ -235,7 +235,6 @@ You can do it easly in this way:
                     size='small'
                     { ...rest }
                   >
-                  {console.log(ref)}
                     Filter
                   </Button>
                 </Badge>

@@ -64,6 +64,10 @@ exports[`FlatTableCheckbox "th" is passed in via the "as" prop renders to match 
   flex-basis: 100%;
 }
 
+.c2 {
+  margin-bottom: 0;
+}
+
 .c2 .c8 {
   padding-top: 1px;
 }
@@ -271,6 +275,10 @@ exports[`FlatTableCheckbox the "as" prop is not passed in renders to match the e
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
+}
+
+.c2 {
+  margin-bottom: 0;
 }
 
 .c2 .c8 {

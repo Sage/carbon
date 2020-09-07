@@ -39,13 +39,13 @@
     "placeholder": "mp150ú¿¡üßä"
   },
   "placeholderSpecialCharacter": {
-    "placeholder": "!@#$%^*()_+-=~[];:.,?{}"
+    "placeholder": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "fieldHelpOtherLanguage": {
     "fieldHelp": "mp150ú¿¡üßä"
   },
   "fieldHelpSpecialCharacter": {
-    "fieldHelp": "!@#$%^*()_+-=~[];:.,?{}"
+    "fieldHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "characterLimit-1000": {
     "characterLimit": -1000
@@ -72,7 +72,7 @@
     "characterLimit": "mp150ú¿¡üßä"
   },
   "characterLimitSpecialCharacter": {
-    "characterLimit": "!@#$%^*()_+-=~[];:.,?{}"
+    "characterLimit": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "characterLimit-0,112": {
     "characterLimit": "-0,112"
@@ -93,7 +93,7 @@
     "label": "mp150ú¿¡üßä"
   },
   "labelSpecialCharacter": {
-    "label": "!@#$%^*()_+-=~[];:.,?{}"
+    "label": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "labelHelpOtherLanguage": {
     "label": "label",
@@ -101,7 +101,7 @@
   },
   "labelHelpSpecialCharacter": {
     "label": "label",
-    "labelHelp": "!@#$%^*()_+-=~[];:.,?{}"
+    "labelHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "labelInline": {
     "label": "label",

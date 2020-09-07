@@ -27,14 +27,14 @@
     "align": "right"
   },
   "textSpecialCharacter": {
-    "text": "!@#$%^*()_+-=~[];:.,?{}"
+    "text": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "textOtherLanguage": {
     "text": "mp150ú¿¡üßä"
   },
   "subtextSpecialCharacter": {
     "size": "large",
-    "subtext": "!@#$%^*()_+-=~[];:.,?{}"
+    "subtext": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "subtextOtherLanguage": {
     "size": "large",

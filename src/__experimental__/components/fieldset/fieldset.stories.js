@@ -85,7 +85,10 @@ function makeValidationsStory(name) {
     return (
       <>
         {['error', 'warning', 'info'].map(type => ['Message', true].map(content => (
-          <Fieldset legend={ `${type} validation as ${typeof content === 'string' ? 'string' : 'boolean'}` }>
+          <Fieldset
+            key={ `${type}_${content}` }
+            legend={ `${type} validation as ${typeof content === 'string' ? 'string' : 'boolean'}` }
+          >
             <Textbox
               label='Address'
               labelInline
@@ -141,7 +144,7 @@ function makeValidationsStory(name) {
 storiesOf('Experimental/Fieldset', module)
   .addParameters({
     info: {
-      propTablesExclude: [Textbox]
+      propTables: [Fieldset]
     },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }

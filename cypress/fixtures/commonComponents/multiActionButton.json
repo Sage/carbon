@@ -1,0 +1,45 @@
+{
+  "textOtherLanguage": {
+    "text": "mp150ú¿¡üßä"
+  },
+  "textSpecialCharacter": {
+    "text": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "buttonTypePrimary": {
+    "buttonType": "primary"
+  },
+  "buttonTypeSecondary": {
+    "buttonType": "secondary"
+  },
+  "sizeSmall": {
+    "size": "small"
+  },
+  "sizeMedium": {
+    "size": "medium"
+  },
+  "sizeLarge": {
+    "size": "large"
+  },
+  "alignLeft": {
+    "align": "left"
+  },
+  "alignRight": {
+    "align": "right"
+  },
+  "disabledFalse": {
+    "disabled": false
+  },
+  "disabled": {
+    "disabled": true
+  },
+  "subtextOtherLanguage": {
+    "size": "large",
+    "subtext": "mp150ú¿¡üßä"
+  },
+  "subtextSpecialCharacter": {
+    "size": "large",
+    "subtext": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "default": {
+  }
+}
