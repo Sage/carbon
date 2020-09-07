@@ -96,7 +96,7 @@ describe('FlatTable', () => {
     let wrapper;
     beforeEach(() => {
       wrapper = TestRenderer.create(
-        <SidebarContext.Provider value>
+        <SidebarContext.Provider value={ { isInSidebar: true } }>
           <FlatTable>foo</FlatTable>
         </SidebarContext.Provider>
       );
