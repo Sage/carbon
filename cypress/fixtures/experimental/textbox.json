@@ -96,5 +96,11 @@
   },
   "inputIconAdd": {
     "inputIcon": "add"
+  },
+  "prefixOtherLanguage": {
+    "prefix": "mp150ú¿¡üßä"
+  },
+  "prefixSpecialCharacter": {
+    "prefix": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   }
 }

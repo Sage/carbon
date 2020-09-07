@@ -31,6 +31,15 @@ Feature: Experimental Textbox component
     Then Textbox component is not readOnly
 
   @positive
+  Scenario Outline: Set prefix to <prefix>
+    When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
+    Then Prefix is set to <prefix>
+    Examples:
+      | prefix                       | nameOfObject           |
+      | mp150ú¿¡üßä                  | prefixOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | prefixSpecialCharacter |
+
+  @positive
   Scenario Outline: Set fieldHelp to <fieldHelp>
     When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
     Then fieldHelp on preview is set to <fieldHelp> in NoIFrame

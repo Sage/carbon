@@ -45,7 +45,7 @@ const Textbox = ({
           styleOverride={ styleOverride.input }
         >
           { leftChildren }
-          { prefix ? <StyledPrefix>{ prefix }</StyledPrefix> : null }
+          { prefix ? <StyledPrefix data-element='textbox-prefix'>{ prefix }</StyledPrefix> : null }
           <Input
             { ...removeParentProps(props) }
             placeholder={ (props.disabled || props.readOnly) ? '' : props.placeholder }

@@ -4,6 +4,7 @@ import {
   textboxIcon,
   textboxInput,
   textboxInIFrame,
+  textboxPrefixByPosition,
 } from '../../locators/textbox';
 import {
   labelNoIFrame,
@@ -241,4 +242,22 @@ Then('Textbox overriden styles rendered properly', () => {
   commonDataElementInputPreviewNoIframe().should('have.css', 'background', 'rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box')
     .and('have.css', 'border', '0px none rgba(0, 0, 0, 0.9)')
     .and('have.css', 'color', 'rgba(0, 0, 0, 0.9)');
+});
+
+Then('Prefix is set to {word}', (prefix) => {
+  textboxPrefixByPosition(positionOfElement('first')).should('have.text', prefix)
+    .and('have.css', 'font-size', '14px')
+    .and('have.css', 'font-weight', '900')
+    .and('have.css', 'margin-right', '8px');
+});
+
+Then('Multiple textbox prefix is set to {word}', (prefix) => {
+  textboxPrefixByPosition(positionOfElement('first')).should('have.text', prefix)
+    .and('have.css', 'font-size', '14px')
+    .and('have.css', 'font-weight', '900')
+    .and('have.css', 'margin-right', '8px');
+  textboxPrefixByPosition(positionOfElement('second')).should('have.text', prefix)
+    .and('have.css', 'font-size', '14px')
+    .and('have.css', 'font-weight', '900')
+    .and('have.css', 'margin-right', '8px');
 });
