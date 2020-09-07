@@ -50,11 +50,12 @@ const FormField = ({
   const context = useContext(TabContext);
 
   useEffect(() => {
-    if (context && context.setError && context.setWarning) {
+    if (context && context.setError && context.setWarning && context.setInfo) {
       context.setError(id, !!error);
       context.setWarning(id, !!warning);
+      context.setInfo(id, !!info);
     }
-  }, [id, context, error, warning]);
+  }, [id, context, error, warning, info]);
 
   return (
     <FormFieldStyle

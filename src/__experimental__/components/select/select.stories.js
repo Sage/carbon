@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { boolean, text, select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { Store, State } from '@sambego/storybook-state';
+import LinkTo from '@storybook/addon-links/react';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import { Select, Option } from '.';
 import { OriginalTextbox } from '../textbox';
@@ -10,6 +11,13 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 import docgenInfo from './docgenInfo.json';
 import AutoFocus from '../../../utils/helpers/auto-focus';
+import DeprecationWarning from '../../../__internal__/DeprecationWarning';
+
+const SelectDeprecationWarning = () => (
+  <DeprecationWarning>This component is no longer maintained and will be removed in a future version. To upgrade please
+    use the <LinkTo kind='Design System/Select' story='basic'>Design System/Select</LinkTo> component.
+  </DeprecationWarning>
+);
 
 Select.__docgenInfo = getDocGenInfo(
   docgenInfo,
@@ -109,6 +117,7 @@ const objectOptions = [
 const defaultComponent = (autoFocus = false) => () => {
   return (
     <State store={ singleSelectStore }>
+      <SelectDeprecationWarning />
       <Select ariaLabel='singleSelect' { ...commonKnobs(singleSelectStore, false, autoFocus) }>
         { selectOptions }
       </Select>
@@ -130,6 +139,7 @@ const customFilterComponent = () => {
 
   return (
     <State store={ singleSelectStore }>
+      <SelectDeprecationWarning />
       <p key='description'>For example type &apos;piece&apos;, article will be shown because that is a synonym</p>
       <Select
         key='select'
@@ -165,6 +175,7 @@ function makeMultipleStory(name, themeSelector) {
   const component = () => {
     return (
       <State store={ multiSelectStore }>
+        <SelectDeprecationWarning />
         <Select
           ariaLabel='multiSelect'
           enableMultiSelect
@@ -189,6 +200,7 @@ function makeValidationsStory(name, themeSelector) {
   const component = () => {
     return (
       <>
+        <SelectDeprecationWarning />
         <h4>Single select - validations as string</h4>
         <h6>On component</h6>
         {validationTypes.map(validation => (

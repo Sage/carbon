@@ -12,13 +12,31 @@ import TabTitle from './tab-title/tab-title.component';
 function render(props) {
   return mount(
     <Tabs { ...props }>
-      <Tab title='Tab Title 1' tabId='uniqueid1'>
+      <Tab
+        errorMessage=''
+        warningMessage=''
+        infoMessage=''
+        title='Tab Title 1'
+        tabId='uniqueid1'
+      >
         TabContent
       </Tab>
-      <Tab title='Tab Title 2' tabId='uniqueid2'>
+      <Tab
+        errorMessage=''
+        warningMessage=''
+        infoMessage=''
+        title='Tab Title 2'
+        tabId='uniqueid2'
+      >
         TabContent
       </Tab>
-      <Tab title='Tab Title 3' tabId='uniqueid3'>
+      <Tab
+        errorMessage=''
+        warningMessage=''
+        infoMessage=''
+        title='Tab Title 3'
+        tabId='uniqueid3'
+      >
         TabContent
       </Tab>
     </Tabs>
@@ -30,14 +48,15 @@ function renderStyles(props) {
 }
 
 const TabChildren = ({
-  id, error, warning, text
+  id, error, warning, info, text
 }) => {
   const context = useContext(TabContext);
 
   useEffect(() => {
     context.setError(id, !!error);
     context.setWarning(id, !!warning);
-  }, [id, context, error, warning]);
+    context.setInfo(id, !!info);
+  }, [id, context, error, warning, info]);
 
   return (
     <div style={ { height: '28px', width: '50px', backgroundColor: 'pink' } }>
@@ -46,26 +65,46 @@ const TabChildren = ({
   );
 };
 
-const MockWrapper = ({ errors = {}, warnings = {} }) => {
+const MockWrapper = ({ errors = {}, warnings = {}, infos = {} }) => {
   return (
     <Tabs>
-      <Tab title='Tab Title 1' tabId='uniqueid1'>
+      <Tab
+        title='Tab Title 1'
+        tabId='uniqueid1'
+        errorMessage='error'
+        warningMessage='warning'
+        infoMessage='info'
+      >
         <TabChildren
-          error={ errors.one } warning={ warnings.one }
+          error={ errors.one }
+          warning={ warnings.one }
+          info={ infos.one }
           id='foo'
         />
         <TabChildren
-          error={ errors.two } warning={ warnings.two }
+          error={ errors.two }
+          warning={ warnings.two }
+          info={ infos.two }
           id='bar'
         />
       </Tab>
-      <Tab title='Tab Title 2' tabId='uniqueid2'>
+      <Tab
+        title='Tab Title 2'
+        tabId='uniqueid2'
+        errorMessage='error'
+        warningMessage='warning'
+        infoMessage='info'
+      >
         <TabChildren
-          error={ errors.three } warning={ warnings.three }
+          error={ errors.three }
+          warning={ warnings.three }
+          info={ infos.three }
           id='baz'
         />
         <TabChildren
-          error={ errors.four } warning={ warnings.four }
+          error={ errors.four }
+          warning={ warnings.four }
+          info={ infos.four }
           id='bax'
         />
       </Tab>
@@ -107,15 +146,33 @@ describe('Tabs', () => {
       it('renders only the currently visible tab', () => {
         const tab = mount(
           <Tabs renderHiddenTabs={ false }>
-            <Tab title='Tab Title 1' tabId='uniqueid1'>
+            <Tab
+              errorMessage=''
+              warningMessage=''
+              infoMessage=''
+              title='Tab Title 1'
+              tabId='uniqueid1'
+            >
               <div name='foo' />
               <div name='bar' />
             </Tab>
-            <Tab title='Tab Title 2' tabId='uniqueid2'>
+            <Tab
+              errorMessage=''
+              warningMessage=''
+              infoMessage=''
+              title='Tab Title 2'
+              tabId='uniqueid2'
+            >
               <div name='baz' />
               <div name='bax' />
             </Tab>
-            <Tab title='Tab Title 3' tabId='uniqueid3'>
+            <Tab
+              errorMessage=''
+              warningMessage=''
+              infoMessage=''
+              title='Tab Title 3'
+              tabId='uniqueid3'
+            >
               <div name='baz' />
               <div name='bax' />
             </Tab>
@@ -133,15 +190,34 @@ describe('Tabs', () => {
       it('returns an array of all Tab components with the first selected', () => {
         const tabs = mount(
           <Tabs renderHiddenTabs>
-            <Tab title='Tab Title 1' tabId='uniqueid1'>
+            <Tab
+              errorMessage=''
+              warningMessage=''
+              infoMessage=''
+              title='Tab Title 1'
+              tabId='uniqueid1'
+            >
               <div name='foo' />
               <div name='bar' />
             </Tab>
-            <Tab title='Tab Title 2' tabId='uniqueid2'>
+            <Tab
+              errorMessage=''
+              warningMessage=''
+              infoMessage=''
+              title='Tab Title 2'
+              tabId='uniqueid2'
+            >
+
               <div name='baz' />
               <div name='bax' />
             </Tab>
-            <Tab title='Tab Title 3' tabId='uniqueid3'>
+            <Tab
+              errorMessage=''
+              warningMessage=''
+              infoMessage=''
+              title='Tab Title 3'
+              tabId='uniqueid3'
+            >
               <div name='baz' />
               <div name='bax' />
             </Tab>
@@ -175,7 +251,7 @@ describe('Tabs', () => {
       expect(wrapper.find(Tab).at(1).props().isTabSelected).toEqual(true);
     });
 
-    it('calls the "onTabChange" callback if one is passed', () => {
+    it('calls the "onTabChange" callback if one is passed on click of a TabTitle', () => {
       const onTabChange = jest.fn();
       const wrapper = render({ onTabChange });
       act(() => {
@@ -183,6 +259,29 @@ describe('Tabs', () => {
       });
       wrapper.update();
       expect(onTabChange).toHaveBeenCalledWith('uniqueid2');
+    });
+
+    it('calls the "onTabChange" callback if one is passed and a new selectedTabId value is passed', () => {
+      const onTabChange = jest.fn();
+      const wrapper = render({ onTabChange, selectedTabId: 'uniqueid1' });
+      wrapper.setProps({ selectedTabId: 'uniqueid2' });
+      wrapper.update();
+      expect(onTabChange).toHaveBeenCalledWith('uniqueid2');
+      wrapper.setProps({ selectedTabId: 'uniqueid1' });
+      wrapper.update();
+      expect(onTabChange).toHaveBeenCalledWith('uniqueid1');
+    });
+
+    it('only calls the "onTabChange" callback when visible tabId does not match new tabId', () => {
+      const onTabChange = jest.fn();
+      const wrapper = render({ onTabChange, selectedTabId: 'uniqueid1' });
+      act(() => {
+        wrapper.find(TabTitle).at(1).props().onClick({ type: 'click', target: { dataset: { tabid: 'uniqueid2' } } });
+      });
+      wrapper.update();
+      wrapper.setProps({ selectedTabId: 'uniqueid2' });
+      wrapper.update();
+      expect(onTabChange).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -245,7 +344,13 @@ describe('Tabs', () => {
     it('renders as the visible tab', () => {
       const tab = mount(
         <Tabs renderHiddenTabs={ false }>
-          <Tab title='Tab Title 1' tabId='uniqueid1'>
+          <Tab
+            errorMessage=''
+            warningMessage=''
+            infoMessage=''
+            title='Tab Title 1'
+            tabId='uniqueid1'
+          >
             <div />
           </Tab>
         </Tabs>
@@ -261,7 +366,8 @@ describe('Tabs', () => {
     const updateProps = (wrapper, props) => {
       wrapper.setProps({
         errors: { ...wrapper.props().errors, ...props.errors },
-        warnings: { ...wrapper.props().warnings, ...props.warnings }
+        warnings: { ...wrapper.props().warnings, ...props.warnings },
+        infos: { ...wrapper.props().infos, ...props.infos }
       });
       wrapper.update();
     };
@@ -272,8 +378,8 @@ describe('Tabs', () => {
           <MockWrapper />
         ).find(TabTitle);
 
-        expect(tabTitle.at(0).props().tabHasError).toEqual(false);
-        expect(tabTitle.at(1).props().tabHasError).toEqual(false);
+        expect(tabTitle.at(0).props().error).toEqual(false);
+        expect(tabTitle.at(1).props().error).toEqual(false);
       });
 
       it('sets "tabHasError" to true when a Tab has errors', () => {
@@ -281,8 +387,8 @@ describe('Tabs', () => {
           <MockWrapper errors={ { one: true } } />
         ).find(TabTitle);
 
-        expect(tabTitle.at(0).props().tabHasError).toEqual(true);
-        expect(tabTitle.at(1).props().tabHasError).toEqual(false);
+        expect(tabTitle.at(0).props().error).toEqual(true);
+        expect(tabTitle.at(1).props().error).toEqual(false);
       });
 
       it('sets "tabHasError" to true for any Tab that has an error', () => {
@@ -290,8 +396,8 @@ describe('Tabs', () => {
           <MockWrapper errors={ { one: true, three: true } } />
         ).find(TabTitle);
 
-        expect(tabTitle.at(0).props().tabHasError).toEqual(true);
-        expect(tabTitle.at(1).props().tabHasError).toEqual(true);
+        expect(tabTitle.at(0).props().error).toEqual(true);
+        expect(tabTitle.at(1).props().error).toEqual(true);
       });
 
       it('maintains "tabHasError" status when Tab children update', () => {
@@ -300,11 +406,28 @@ describe('Tabs', () => {
         );
         updateProps(wrapper, { errors: { two: true, three: false } });
         let tabTitle = wrapper.find(TabTitle);
-        expect(tabTitle.at(0).props().tabHasError).toEqual(true);
-        expect(tabTitle.at(1).props().tabHasError).toEqual(false);
+        expect(tabTitle.at(0).props().error).toEqual(true);
+        expect(tabTitle.at(1).props().error).toEqual(false);
         updateProps(wrapper, { errors: { one: false, two: false } });
         tabTitle = wrapper.find(TabTitle);
-        expect(tabTitle.at(0).props().tabHasError).toEqual(false);
+        expect(tabTitle.at(0).props().error).toEqual(false);
+      });
+
+      it('does not set warnings and infos if "tabHasErrors" is true', () => {
+        const tabTitle = mount(
+          <MockWrapper
+            errors={ { one: true, three: true } }
+            warnings={ { one: true, three: true } }
+            infos={ { one: true, three: true } }
+          />
+        ).find(TabTitle);
+
+        expect(tabTitle.at(0).props().error).toEqual(true);
+        expect(tabTitle.at(1).props().error).toEqual(true);
+        expect(tabTitle.at(0).props().warning).toEqual(false);
+        expect(tabTitle.at(1).props().warning).toEqual(false);
+        expect(tabTitle.at(0).props().info).toEqual(false);
+        expect(tabTitle.at(1).props().info).toEqual(false);
       });
     });
 
@@ -314,8 +437,8 @@ describe('Tabs', () => {
           <MockWrapper />
         ).find(TabTitle);
 
-        expect(tabTitle.at(0).props().tabHasWarning).toEqual(false);
-        expect(tabTitle.at(1).props().tabHasWarning).toEqual(false);
+        expect(tabTitle.at(0).props().warning).toEqual(false);
+        expect(tabTitle.at(1).props().warning).toEqual(false);
       });
 
       it('does not set "tabHasWarning" when "tabHasError" is true', () => {
@@ -323,8 +446,8 @@ describe('Tabs', () => {
           <MockWrapper errors={ { one: true } } warnings={ { one: true } } />
         ).find(TabTitle);
 
-        expect(tabTitle.at(0).props().tabHasError).toEqual(true);
-        expect(tabTitle.at(0).props().tabHasWarning).toEqual(false);
+        expect(tabTitle.at(0).props().error).toEqual(true);
+        expect(tabTitle.at(0).props().warning).toEqual(false);
       });
     });
 
@@ -334,8 +457,8 @@ describe('Tabs', () => {
           <MockWrapper warnings={ { one: true } } />
         ).find(TabTitle);
 
-        expect(tabTitle.at(0).props().tabHasWarning).toEqual(true);
-        expect(tabTitle.at(1).props().tabHasWarning).toEqual(false);
+        expect(tabTitle.at(0).props().warning).toEqual(true);
+        expect(tabTitle.at(1).props().warning).toEqual(false);
       });
 
       it('sets "tabHasWarning" for each Tab that has warning and "tabHasError" is falsy', () => {
@@ -343,8 +466,8 @@ describe('Tabs', () => {
           <MockWrapper warnings={ { one: true, three: true } } />
         ).find(TabTitle);
 
-        expect(tabTitle.at(0).props().tabHasWarning).toEqual(true);
-        expect(tabTitle.at(1).props().tabHasWarning).toEqual(true);
+        expect(tabTitle.at(0).props().warning).toEqual(true);
+        expect(tabTitle.at(1).props().warning).toEqual(true);
       });
 
       it('maintains "tabHasWarning" status when Tab children update', () => {
@@ -353,11 +476,44 @@ describe('Tabs', () => {
         );
         updateProps(wrapper, { warnings: { two: true, three: false } });
         let tabTitle = wrapper.find(TabTitle);
-        expect(tabTitle.at(0).props().tabHasWarning).toEqual(true);
-        expect(tabTitle.at(1).props().tabHasWarning).toEqual(false);
+        expect(tabTitle.at(0).props().warning).toEqual(true);
+        expect(tabTitle.at(1).props().warning).toEqual(false);
         updateProps(wrapper, { warnings: { one: false, two: false } });
         tabTitle = wrapper.find(TabTitle);
-        expect(tabTitle.at(0).props().tabHasWarning).toEqual(false);
+        expect(tabTitle.at(0).props().warning).toEqual(false);
+      });
+    });
+
+    describe('When a Tab child has an info and no errors or warnings', () => {
+      it('sets "tabHasWarning" is true and "tabHasError" is falsy', () => {
+        const tabTitle = mount(
+          <MockWrapper infos={ { one: true } } />
+        ).find(TabTitle);
+
+        expect(tabTitle.at(0).props().info).toEqual(true);
+        expect(tabTitle.at(1).props().info).toEqual(false);
+      });
+
+      it('sets "tabHasInfo" for each Tab that has info and "tabHasError" and "tabHasWarning" are falsy', () => {
+        const tabTitle = mount(
+          <MockWrapper infos={ { one: true, three: true } } />
+        ).find(TabTitle);
+
+        expect(tabTitle.at(0).props().info).toEqual(true);
+        expect(tabTitle.at(1).props().info).toEqual(true);
+      });
+
+      it('maintains "tabHasInfo" status when Tab children update', () => {
+        const wrapper = mount(
+          <MockWrapper infos={ { one: true, three: true } } />
+        );
+        updateProps(wrapper, { infos: { two: true, three: false } });
+        let tabTitle = wrapper.find(TabTitle);
+        expect(tabTitle.at(0).props().info).toEqual(true);
+        expect(tabTitle.at(1).props().info).toEqual(false);
+        updateProps(wrapper, { infos: { one: false, two: false } });
+        tabTitle = wrapper.find(TabTitle);
+        expect(tabTitle.at(0).props().info).toEqual(false);
       });
     });
   });
@@ -366,7 +522,13 @@ describe('Tabs', () => {
     describe('on component', () => {
       const wrapper = shallow(
         <Tabs data-element='bar' data-role='baz'>
-          <Tab tabId='1' title='Test' />
+          <Tab
+            tabId='1'
+            title='Test'
+            errorMessage=''
+            warningMessage=''
+            infoMessage=''
+          />
         </Tabs>
       ).find(StyledTabs);
 

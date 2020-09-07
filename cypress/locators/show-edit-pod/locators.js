@@ -8,5 +8,4 @@ export const SHOW_EDIT_SAVE_BUTTON = 'button[data-element="submit-button"]';
 export const SHOW_EDIT_CANCEL_BUTTON = 'button[data-element="cancel-button"]';
 export const SHOW_EDIT_DELETE_BUTTON = '[data-element=delete-button]';
 export const SHOW_EDIT_POD_EDIT = '[data-element="edit"]';
-export const SHOW_EDIT_POD_SECONDARY_BLOCK = 'div[class="carbon-pod__block--secondary"]';
 export const SHOW_EDIT_POD_FOOTER = '[data-element="form-footer"]';

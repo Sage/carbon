@@ -3,13 +3,13 @@
     "startLabel": "mp150ú¿¡üßä"
   },
   "startLabelSpecialCharacter": {
-    "startLabel": "!@#$%^*()_+-=~[];:.,?{}"
+    "startLabel": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "endLabelOtherLanguage": {
     "endLabel": "mp150ú¿¡üßä"
   },
   "endLabelSpecialCharacter": {
-    "endLabel": "!@#$%^*()_+-=~[];:.,?{}"
+    "endLabel": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "labelsInline": {
     "startLabel": "label",

@@ -7,7 +7,7 @@ import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import Decimal from './decimal.component';
-import Textbox, { OriginalTextbox } from '../textbox';
+import { OriginalTextbox } from '../textbox';
 import { getCommonTextboxProps } from '../textbox/textbox.stories';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import { info, notes } from './documentation';
@@ -158,7 +158,6 @@ storiesOf('Experimental/Decimal Input', module)
   .addParameters({
     info: {
       text: info,
-      propTablesExclude: [State, Textbox],
       propTables: [Decimal, OriginalTextbox]
     }
   })

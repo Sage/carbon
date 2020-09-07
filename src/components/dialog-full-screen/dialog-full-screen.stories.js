@@ -6,6 +6,7 @@ import { State, Store } from '@sambego/storybook-state';
 import { dlsThemeSelector } from '../../../.storybook/theme-selectors';
 import { notes, info } from './documentation';
 import DialogFullScreen from '.';
+import Dialog from '../dialog';
 import Button from '../button';
 import Form from '../form';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
@@ -16,7 +17,9 @@ DialogFullScreen.__docgenInfo = getDocGenInfo(
 );
 
 const store = new Store({
-  open: false
+  open: false,
+  mainDialogOpen: false,
+  nestedDialogOpen: false
 });
 
 const handleCancel = () => {
@@ -31,6 +34,26 @@ const handleOpen = () => {
 
 const handleClick = (evt) => {
   action('click')(evt);
+};
+
+const handleMainDialogOpen = () => {
+  store.set({ mainDialogOpen: true });
+  action('main dialog open')();
+};
+
+const handleMainDialogCancel = () => {
+  store.set({ mainDialogOpen: false });
+  action('main dialog cancel')();
+};
+
+const handleNestedDialogOpen = () => {
+  store.set({ nestedDialogOpen: true });
+  action('nested dialog open')();
+};
+
+const handleNestedDialogCancel = () => {
+  store.set({ nestedDialogOpen: false });
+  action('nested dialog cancel')();
 };
 
 function makeStory(name, themeSelector, stickyFooter, disableChromatic = false) {
@@ -131,6 +154,41 @@ function makeButtonStory(name, themeSelector, stickyFooter, disableChromatic = f
   return [name, component, metadata];
 }
 
+function makeNested(name, themeSelector) {
+  const component = () => (
+    <State store={ store }>
+      { state => (
+        <div>
+          <Button onClick={ handleMainDialogOpen }>Open Main Dialog</Button>
+          <DialogFullScreen
+            open={ state.mainDialogOpen }
+            onCancel={ handleMainDialogCancel }
+            title='Main Dialog'
+          >
+            <Button onClick={ handleNestedDialogOpen }>Open Nested Dialog</Button>
+            <Dialog
+              open={ state.nestedDialogOpen }
+              onCancel={ handleNestedDialogCancel }
+              title='Nested Dialog'
+            >
+              Nested Dialog Content
+            </Dialog>
+          </DialogFullScreen>
+        </div>
+      ) }
+    </State>
+  );
+
+  const metadata = {
+    themeSelector,
+    chromatic: {
+      disable: true
+    }
+  };
+
+  return [name, component, metadata];
+}
+
 storiesOf('Dialog Full Screen', module)
   .addParameters({
     info: {
@@ -143,4 +201,5 @@ storiesOf('Dialog Full Screen', module)
   .add(...makeStory('default', dlsThemeSelector, false))
   .add(...makeButtonStory('with button', dlsThemeSelector, false, true))
   .add(...makeStory('with sticky footer', dlsThemeSelector, true, true))
-  .add(...makeButtonStory('with button with sticky footer', dlsThemeSelector, true, true));
+  .add(...makeButtonStory('with button with sticky footer', dlsThemeSelector, true, true))
+  .add(...makeNested('with nested dialog', dlsThemeSelector));

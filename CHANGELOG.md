@@ -1,3 +1,66 @@
+### [39.2.1](https://github.com/Sage/carbon/compare/v39.2.0...v39.2.1) (2020-09-04)
+
+
+### Bug Fixes
+
+* **button:** update onClick typescript definition ([bdd2dca](https://github.com/Sage/carbon/commit/bdd2dcaf9c9699173b8a19bdbca2c1ea7307364f))
+* **numeral-date:** update onClick and onBlur typescript definition ([de25f13](https://github.com/Sage/carbon/commit/de25f1318b09a10a0bb7671b7a4463cf62073a23))
+
+## [39.2.0](https://github.com/Sage/carbon/compare/v39.1.0...v39.2.0) (2020-09-04)
+
+
+### Features
+
+* **checkbox:** add spacing props ([e2a7c39](https://github.com/Sage/carbon/commit/e2a7c391c8c4c49c5b30818bdd25cffec5101c39))
+
+## [39.1.0](https://github.com/Sage/carbon/compare/v39.0.0...v39.1.0) (2020-09-03)
+
+
+### Features
+
+* **menu:** add keyboard navigation ([8fa77e1](https://github.com/Sage/carbon/commit/8fa77e11b3c9b04158fc4c99d901c9d693ce8597))
+
+## [39.0.0](https://github.com/Sage/carbon/compare/v38.2.0...v39.0.0) (2020-09-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* **toast:** toast will be dismissed when esc key
+is pressed, regardless of the focus on the close button
+* **modal:** when multiple modals are being open,
+esc key will close only the topmost one
+* **icon-button:** esc key will no longer trigger onAction prop
+
+### Features
+
+* **toast:** dismiss toast on esc without focussing on the component ([ace80dd](https://github.com/Sage/carbon/commit/ace80dd0f9fd6a234413821b99a33e48dbc6d41f))
+
+
+### Bug Fixes
+
+* **icon-button:** 'esc' key triggers onAction closing a modal ([0fd16ba](https://github.com/Sage/carbon/commit/0fd16ba1f901d5f80d3de19ef967c316981c3f92))
+* **modal:** esc key closes all nested modals ([47c4c26](https://github.com/Sage/carbon/commit/47c4c26bf6ab1a1be7b31db2020065b4a6803ca7))
+
+## [38.2.0](https://github.com/Sage/carbon/compare/v38.1.4...v38.2.0) (2020-08-28)
+
+
+### Features
+
+* **tabs, tab:** add extendedline, borders, size, siblings, customlayout ([dbf7ce2](https://github.com/Sage/carbon/commit/dbf7ce2358b9e6cb5930b5ff8d62adf791cfeb39))
+
+
+### Bug Fixes
+
+* **tabs:** add support for component being controlled via ontabchange ([f70f4bb](https://github.com/Sage/carbon/commit/f70f4bb9639f231f581133f97c6e45bc92d40eac)), closes [#3170](https://github.com/Sage/carbon/issues/3170)
+
+### [38.1.4](https://github.com/Sage/carbon/compare/v38.1.3...v38.1.4) (2020-08-27)
+
+
+### Bug Fixes
+
+* **batch-selection:** fix incorrect colorTheme proptypes ([1c20a37](https://github.com/Sage/carbon/commit/1c20a37e52a2c973f8fadbc0d524d5ea77666624))
+* **storybook:** fix various story related errors ([07c96f4](https://github.com/Sage/carbon/commit/07c96f451832e90c90ffc7cfe9ecc130d48bee99))
+
 ### [38.1.3](https://github.com/Sage/carbon/compare/v38.1.2...v38.1.3) (2020-08-26)
 
 

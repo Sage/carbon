@@ -1,15 +1,11 @@
-Feature: Test Navigation Bar component
-  I want to test Test Navigation Bar component children property
-
-  Background: Open Test Navigation Bar component basic page
-    Given I open "Design System Navigation Bar Test" component page "basic"
-
+Feature: Design System Navigation Bar Test component
+  I want to test Design System Navigation Bar component property
+  
   @positive
   Scenario Outline: Change Navigation Bar children to <children>
-    When I set children to <children> word
+    When I open Test test_basic "Navigation Bar" component in noIFrame with "navigationBar" json from "test" using "<nameOfObject>" object name
     Then Navigation Bar children on preview is set to <children>
     Examples:
-      | children                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
-      | &"'<>                   |
+      | children                     | nameOfObject             |
+      | mp150ú¿¡üßä                  | childrenOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | childrenSpecialCharacter |

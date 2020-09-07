@@ -71,8 +71,9 @@ function makeButtonStory(name, themeSelector, disableChromatic = false) {
 
     return (
       <State store={ store }>
-        <Button onClick={ openSidebar }>Open sidebar</Button>
+        <Button key='button' onClick={ openSidebar }>Open sidebar</Button>
         <Sidebar
+          key='sidebar'
           enableBackgroundUI={ enableBackgroundUI }
           open={ store.get('open') }
           position={ position }

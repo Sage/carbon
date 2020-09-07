@@ -1,0 +1,65 @@
+{
+  "border": {
+    "border": true
+  },
+  "borderFalse": {
+    "border": false
+  },
+  "buttonAlignLeft": {
+    "buttonAlign": "left"
+  },
+  "buttonAlignRight": {
+    "buttonAlign": "right"
+  },
+  "cancelTextOtherLanguage": {
+    "cancelText": "mp150ú¿¡üßä"
+  },
+  "cancelTextSpecialCharacter": {
+    "cancelText": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "cancel": {
+    "cancel": true
+  },
+  "cancelFalse": {
+    "cancel": false
+  },
+  "deleteTextOtherLanguage": {
+    "deleteText": "mp150ú¿¡üßä"
+  },
+  "deleteTextSpecialCharacter": {
+    "deleteText": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "saving": {
+    "saving": true
+  },
+  "savingFalse": {
+    "saving": false
+  },
+  "titleOtherLanguage": {
+    "title": "mp150ú¿¡üßä"
+  },
+  "titleSpecialCharacter": {
+    "title": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "podTypePrimary": {
+    "podType": "primary"
+  },
+  "podTypeSecondary": {
+    "podType": "secondary"
+  },  
+  "podTypeTertiary": {
+    "podType": "tertiary"
+  },  
+  "podTypeTile": {
+    "podType": "tile"
+  },  
+  "podTypeTransparent": {
+    "podType": "transparent"
+  },
+  "saveTextOtherLanguage": {
+    "saveText": "mp150ú¿¡üßä"
+  },
+  "saveTextSpecialCharacter": {
+    "saveText": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "divider": {
+    "divider": true
+  },
+  "dividerFalse": {
+    "divider": false
+  },
+  "childrenOtherLanguage": {
+    "children": "mp150ú¿¡üßä"
+  },
+  "childrenSpecialCharacter": {
+    "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "titleOtherLanguage": {
+    "title": "mp150ú¿¡üßä"
+  },
+  "titleSpecialCharacter": {
+    "title": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "descriptionOtherLanguage": {
+    "description": "mp150ú¿¡üßä"
+  },
+  "descriptionSpecialCharacter": {
+    "description": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  }
+}

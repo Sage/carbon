@@ -9,6 +9,7 @@ import { TabContext } from '../../../components/tabs/__internal__/tab';
 
 const setError = jest.fn();
 const setWarning = jest.fn();
+const setInfo = jest.fn();
 
 function render(props, renderer = shallow) {
   return renderer(
@@ -18,7 +19,7 @@ function render(props, renderer = shallow) {
 
 function renderWithContext(props) {
   return mount(
-    <TabContext.Provider value={ { setError, setWarning } }>
+    <TabContext.Provider value={ { setError, setWarning, setInfo } }>
       <FormField { ...props }><input /></FormField>
     </TabContext.Provider>
   );
@@ -90,6 +91,11 @@ describe('FormField', () => {
       it('calls "setWarning" when has "warning" is true', () => {
         renderWithContext({ warning: true, id: 'foo' });
         expect(setWarning).toHaveBeenCalledWith('foo', true);
+      });
+
+      it('calls "setInfo" when has "info" is true', () => {
+        renderWithContext({ info: true, id: 'foo' });
+        expect(setInfo).toHaveBeenCalledWith('foo', true);
       });
     });
   });

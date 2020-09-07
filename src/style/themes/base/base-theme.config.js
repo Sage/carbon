@@ -9,6 +9,8 @@ export default (palette) => {
 
     spacing: 8,
 
+    space: [0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80],
+
     colors: {
       // main
       base: palette.productGreen,
@@ -289,6 +291,11 @@ export default (palette) => {
     tile: {
       border: palette.slateTint(80),
       separator: palette.slateTint(90)
+    },
+
+    tab: {
+      background: palette.slateTint(80),
+      altHover: palette.slateTint(85)
     },
 
     note: {

@@ -714,14 +714,14 @@ Note: parent container background-color is set to red for demonstration purpose.
         return sortedData;
       });
       return sortedData.map(dataItem => (
-        <FlatTableRow onClick={() => setPickedUpData(dataItem)} key={ dataItem.ColumnA.name }>
+        <FlatTableRow key={dataItem.ColumnA.name} onClick={() => setPickedUpData(dataItem)} key={ dataItem.ColumnA.name }>
           <FlatTableCell>
             <div>
               {dataItem.ColumnA.name}
             </div>
           </FlatTableCell>
           <FlatTableCell>{dataItem.ColumnB.map(role => (
-            <div>
+            <div key={role}>
               {`${role}, `}
             </div>
           ))}

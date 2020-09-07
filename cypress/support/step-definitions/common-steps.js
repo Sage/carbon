@@ -3,6 +3,8 @@ import {
   visitFlatTableComponentNoiFrame, positionOfElement, keyCode,
   visitDocsUrl,
   visitComponentUrlWithParameters,
+  clickActionsTab,
+  clickClear,
 } from '../helper';
 import {
   commonButtonPreview, labelPreview, helpIconByPosition, inputWidthSlider,
@@ -198,6 +200,10 @@ When('I open component preview in noIFrame', () => {
   commonButtonPreviewNoIFrameRoot().click();
 });
 
+When('I {string} button on preview', (text) => {
+  getDataElementByValueIframe('main-text').contains(text).click();
+});
+
 Then('component title on preview is {word}', (title) => {
   dialogTitle().should('have.text', title);
 });
@@ -211,7 +217,7 @@ Then('label on preview is {word} in NoIFrame', (text) => {
 });
 
 Then('label is set to {word}', (text) => {
-  label().should('have.text', text);
+  getDataElementByValue('label').should('have.text', text);
 });
 
 When('I hover mouse onto help icon in IFrame', () => {
@@ -562,4 +568,9 @@ Then('icon name in noIframe on preview is {string}', (iconName) => {
 
 When('I click {string} icon in iFrame', (iconName) => {
   getDataElementByValueIframe(iconName).click();
+});
+
+When('clear all actions in Actions Tab', () => {
+  clickActionsTab();
+  clickClear();
 });
