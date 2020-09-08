@@ -17,11 +17,12 @@ export default {
     },
     chromatic: {
       disable: true
-    }
+    },
+    knobs: { escapeHTML: false }
   }
 };
 
-export const Defaut = () => {
+export const Default = () => {
   const [isOpen, setIsOpen] = useState(true);
   const title = text('title', 'Example Dialog');
   const subtitle = text('subtitle', 'Example Subtitle');
