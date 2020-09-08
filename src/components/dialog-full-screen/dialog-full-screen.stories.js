@@ -15,9 +15,6 @@ export default {
     info: {
       disable: true
     },
-    chromatic: {
-      disable: true
-    },
     knobs: { escapeHTML: false }
   }
 };
@@ -118,4 +115,20 @@ export const Nested = () => {
       </DialogFullScreen>
     </>
   );
+};
+
+Default.story = {
+  parameters: {
+    chromatic: {
+      disable: true
+    }
+  }
+};
+
+Nested.story = {
+  parameters: {
+    chromatic: {
+      disable: true
+    }
+  }
 };

@@ -19,9 +19,6 @@ export default {
     info: {
       disable: true
     },
-    chromatic: {
-      disable: true
-    },
     knobs: { escapeHTML: false }
   }
 };
@@ -127,15 +124,10 @@ export const Default = () => {
   );
 };
 
-
-// storiesOf('Dialog', module)
-//   .addParameters({
-//     info: {
-//       propTables: [Dialog]
-//     },
-//     knobs: { escapeHTML: false }
-//   })
-//   .add(...makeStory('default', dlsThemeSelector))
-//   .add(...makeStory('with sticky footer', dlsThemeSelector, true))
-//   .add(...makeButtonStory('with button', dlsThemeSelector))
-//   .add(...makeButtonStory('with button with sticky footer', dlsThemeSelector, true));
+Default.story = {
+  parameters: {
+    chromatic: {
+      disable: true
+    }
+  }
+};

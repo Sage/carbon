@@ -14,9 +14,6 @@ export default {
     info: {
       disable: true
     },
-    chromatic: {
-      disable: true
-    },
     knobs: { escapeHTML: false }
   }
 };
@@ -65,4 +62,12 @@ export const Default = () => {
       </Alert>
     </>
   );
+};
+
+Default.story = {
+  parameters: {
+    chromatic: {
+      disable: true
+    }
+  }
 };

@@ -3,6 +3,7 @@ import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { dlsThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import Button from '../button';
 import Message from './message.component';
 
 export default {
@@ -13,9 +14,7 @@ export default {
     info: {
       disable: true
     },
-    chromatic: {
-      disable: true
-    }
+    knobs: { escapeHTML: false }
   }
 };
 
@@ -33,18 +32,36 @@ export const Default = () => {
     action('click')(evt);
   };
 
+  const handleOpen = () => {
+    setIsOpen(true);
+    action('open')();
+  };
+
   return (
-    <Message
-      variant={ variant }
-      open={ isOpen }
-      title={ title }
-      transparent={ transparent }
-      onDismiss={ onDismiss }
-      id={ id }
-      showCloseIcon={ showCloseIcon }
-      roundedCorners={ roundedCorners }
-    >
-      {children}
-    </Message>
+    <>
+      <Button onClick={ handleOpen }>
+        Open Message
+      </Button>
+      <Message
+        variant={ variant }
+        open={ isOpen }
+        title={ title }
+        transparent={ transparent }
+        onDismiss={ onDismiss }
+        id={ id }
+        showCloseIcon={ showCloseIcon }
+        roundedCorners={ roundedCorners }
+      >
+        {children}
+      </Message>
+    </>
   );
+};
+
+Default.story = {
+  parameters: {
+    chromatic: {
+      disable: true
+    }
+  }
 };

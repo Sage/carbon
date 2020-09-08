@@ -8,7 +8,7 @@ Feature: Alert component
 
   @positive
   Scenario Outline: Change Alert component title to <title>
-    Given I open test_default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
+    When I open test_default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
     Then component title on preview is <title>
     Examples:
       | title                        | nameOfObject          |
@@ -17,7 +17,7 @@ Feature: Alert component
 
   @positive
   Scenario Outline: Change Alert component subtitle to <subtitle>
-    Given I open test_default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
+    When I open test_default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
     Then component subtitle on preview is <subtitle>
     Examples:
       | subtitle                     | nameOfObject             |
@@ -26,7 +26,7 @@ Feature: Alert component
 
   @positive
   Scenario Outline: Change Alert component children to <children>
-    Given I open test_default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
+    When I open test_default "Alert" component in noIFrame with "alert" json from "commonComponents" using "<nameOfObject>" object name
     Then Alert children on preview is <children>
     Examples:
       | children                     | nameOfObject             |

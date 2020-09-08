@@ -3,7 +3,7 @@ Feature: Dialog Full Screen component
 
   @positive
   Scenario: CloseIcon has the border outline
-    Given I open test_default "Dialog Full Screen" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "default" object name
+    When I open test_default "Dialog Full Screen" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "default" object name
     Then closeIcon has the border outline color "rgb(255, 181, 0)" and width "3px"
 
   @positive
@@ -15,7 +15,7 @@ Feature: Dialog Full Screen component
 
   @positive
   Scenario Outline: Change Dialog Full Screen component title to <title>
-    Given I open test_default "Dialog Full Screen" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "<nameOfObject>" object name
+    When I open test_default "Dialog Full Screen" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "<nameOfObject>" object name
     Then component title on preview is <title>
     Examples:
       | title                        | nameOfObject          |
@@ -24,7 +24,7 @@ Feature: Dialog Full Screen component
 
   @positive
   Scenario Outline: Change Dialog Full Screen subtitle to <subtitle>
-    Given I open test_default "Dialog Full Screen" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "<nameOfObject>" object name
+    When I open test_default "Dialog Full Screen" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "<nameOfObject>" object name
     Then component subtitle on preview is <subtitle>
     Examples:
       | subtitle                     | nameOfObject             |
@@ -33,7 +33,7 @@ Feature: Dialog Full Screen component
 
   @positive
   Scenario Outline: Change Dialog Full Screen children to <children>
-    Given I open test_default "Dialog Full Screen" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "<nameOfObject>" object name
+    When I open test_default "Dialog Full Screen" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "<nameOfObject>" object name
     Then Dialog Full Screen children on preview is <children>
     Examples:
       | children                     | nameOfObject             |
@@ -42,12 +42,12 @@ Feature: Dialog Full Screen component
 
   @positive
   Scenario: Enable background UI
-    Given I open test_default "Dialog Full Screen" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "enableBackgroundUI" object name
+    When I open test_default "Dialog Full Screen" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "enableBackgroundUI" object name
     Then Background UI is enabled
 
   @negative
   Scenario: Disable background UI
-    Given I open test_default "Dialog Full Screen" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "enableBackgroundUIFalse" object name
+    When I open test_default "Dialog Full Screen" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "enableBackgroundUIFalse" object name
     Then Background UI is disabled
 
   @positive
@@ -67,7 +67,7 @@ Feature: Dialog Full Screen component
 
   @positive
   Scenario: Verify that stickyFormFooter is visible
-    Given I open test_default "Dialog Full Screen" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "stickyFooter" object name
+    When I open test_default "Dialog Full Screen" component in noIFrame with "dialogFullScreen" json from "commonComponents" using "stickyFooter" object name
     Then Dialog Full Screen stickyFormFooter is visible
 
   @positive

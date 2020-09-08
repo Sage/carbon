@@ -19,6 +19,7 @@ export const eventInAction = event => cy.get(FORM).find('span').contains(event);
 
 // component preview locators
 export const storyRoot = () => cy.iFrame(STORY_ROOT);
+export const dlsRoot = () => cy.iFrame(DLS_ROOT);
 export const commonButtonPreview = () => storyRoot().find('button');
 export const commonButtonPreviewNoIFrameRoot = () => cy.get(DLS_ROOT).find('button');
 export const labelPreview = () => storyRoot().find('label').first();

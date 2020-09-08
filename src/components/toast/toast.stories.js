@@ -130,6 +130,10 @@ export const Visual = () => {
 };
 
 Visual.story = {
-  name: 'visual'
-
+  name: 'visual',
+  parameters: {
+    chromatic: {
+      disable: false
+    }
+  }
 };
