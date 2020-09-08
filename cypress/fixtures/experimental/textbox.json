@@ -60,11 +60,6 @@
     "labelInline": true,
     "labelWidth": 100
   },
-  "inputWidth0": {
-    "label": "label",
-    "labelInline": true,
-    "inputWidth": 0
-  },
   "inputWidth50": {
     "label": "label",
     "labelInline": true,

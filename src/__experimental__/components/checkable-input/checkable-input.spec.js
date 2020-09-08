@@ -146,4 +146,14 @@ describe('StyledCheckableInputWrapper', () => {
       }, wrapper, { modifier: css`${StyledLabelContainer}` });
     });
   });
+
+  describe('when setting ml', () => {
+    it('renders the correct left margin', () => {
+      const wrapper = render({ ml: '50%' }).toJSON();
+
+      assertStyleMatch({
+        marginLeft: '50%'
+      }, wrapper);
+    });
+  });
 });
