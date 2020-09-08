@@ -10,9 +10,9 @@ const FlatTable = ({
 }) => {
   return (
     <SidebarContext.Consumer>
-      {isInSidebar => (
+      {context => (
         <StyledFlatTableWrapper
-          isInSidebar={ isInSidebar }
+          isInSidebar={ context && context.isInSidebar }
           hasStickyHead={ hasStickyHead }
           colorTheme={ colorTheme }
         >

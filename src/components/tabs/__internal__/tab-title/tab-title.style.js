@@ -266,7 +266,8 @@ const StyledTabTitle = styled.li`
     error,
     warning,
     info,
-    size
+    size,
+    hasCustomTarget
   }) => isTabSelected && css`
     color: ${theme.text.color};
     background-color: ${theme.colors.white};
@@ -277,7 +278,7 @@ const StyledTabTitle = styled.li`
     ${error || warning || info ? 'border-bottom: none;' : ''}
 
     &:focus {
-      outline: 2px solid ${theme.colors.focus};
+      outline: ${(hasCustomTarget ? 'none;' : `2px solid ${theme.colors.focus};`)}
       z-index: 10;
     }
 

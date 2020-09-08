@@ -5,12 +5,12 @@ import {
   StyledPagerNavigation,
   StyledPagerNavInner,
   StyledPagerNoSelect
-} from './pager.styles';
-import NumberInput from '../../__experimental__/components/number';
-import Events from '../../utils/helpers/events';
-import createGuid from '../../utils/helpers/guid';
+} from './pager.style';
+import NumberInput from '../../../__experimental__/components/number';
+import Events from '../../../utils/helpers/events';
+import createGuid from '../../../utils/helpers/guid';
 import PagerNavigationLink from './pager-navigation-link.component';
-import Label from '../../__experimental__/components/label';
+import Label from '../../../__experimental__/components/label';
 
 const PagerNavigation = ({
   pageSize,

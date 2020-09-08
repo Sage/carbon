@@ -2,14 +2,14 @@ import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
 import PagerNavigation from './pager-navigation.component';
-import Option from '../select/option/option.component';
+import Option from '../../select/option/option.component';
 import {
   StyledPagerContainer,
   StyledPagerSizeOptions,
   StyledPagerSummary,
   StyledPagerSizeOptionsInner,
   StyledSelect
-} from './pager.styles';
+} from './pager.style';
 
 const Pager = ({
   currentPage,

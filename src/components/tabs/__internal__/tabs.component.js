@@ -1,5 +1,6 @@
 import React, {
   useCallback,
+  useContext,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -13,6 +14,7 @@ import Browser from '../../../utils/helpers/browser/browser';
 import StyledTabs from './tabs.style';
 import TabsHeader from './tabs-header';
 import TabTitle from './tab-title';
+import { SidebarContext } from '../../drawer';
 
 const Tabs = ({
   align = 'left',
@@ -27,12 +29,15 @@ const Tabs = ({
   size = 'default',
   borders = 'off',
   variant = 'default',
+  validationStatusOverride,
   ...rest
 }) => {
   const firstRender = useRef(true);
   const tabRefs = useRef([]);
   const previousSelectedTabId = useRef(selectedTabId);
   const [selectedTabIdState, setSelectedTabIdState] = useState();
+  const sidebarContext = useContext(SidebarContext);
+  const hasCustomTarget = useRef(Boolean(sidebarContext && sidebarContext.setTarget));
   const [tabsErrors, setTabsErrors] = useState({});
   const [tabsWarnings, setTabsWarnings] = useState({});
   const [tabsInfos, setTabsInfos] = useState({});
@@ -100,9 +105,13 @@ const Tabs = ({
 
   /** Updates the currently visible tab */
   const updateVisibleTab = useCallback((tabid) => {
-    if (setLocation) {
+    if (setLocation && !hasCustomTarget.current) {
       const url = `${_window.location.origin}${_window.location.pathname}#${tabid}`;
       _window.history.replaceState(null, 'change-tab', url);
+    }
+
+    if (hasCustomTarget.current) {
+      sidebarContext.setTarget(tabid);
     }
 
     setSelectedTabIdState(tabid);
@@ -110,7 +119,7 @@ const Tabs = ({
     if (onTabChange) {
       onTabChange(tabid);
     }
-  }, [_window.history, _window.location.origin, _window.location.pathname, onTabChange, setLocation]);
+  }, [_window.history, _window.location.origin, _window.location.pathname, sidebarContext, onTabChange, setLocation]);
 
   /** Determines if the tab titles are in a vertical format. */
   const isVertical = currentPosition => currentPosition === 'left';
@@ -202,9 +211,13 @@ const Tabs = ({
         tabsInfos[tabId] ? Object.entries(tabsInfos[tabId]).filter(tab => tab[1] === true).length : 0
       );
 
-      const tabHasError = errors > 0;
-      const tabHasWarning = warnings > 0 && !tabHasError;
-      const tabHasInfo = infos > 0 && !tabHasError && !tabHasWarning;
+      const hasOverride = validationStatusOverride && validationStatusOverride[tabId];
+      const errorOverride = hasOverride && validationStatusOverride[tabId].error;
+      const warningOverride = hasOverride && validationStatusOverride[tabId].warning;
+      const infoOverride = hasOverride && validationStatusOverride[tabId].info;
+      const tabHasError = errorOverride !== undefined ? errorOverride : errors > 0;
+      const tabHasWarning = warningOverride !== undefined ? warningOverride : (warnings > 0 && !tabHasError);
+      const tabHasInfo = infoOverride !== undefined ? infoOverride : (infos > 0 && !tabHasError && !tabHasWarning);
 
       const tabTitle = (
         <TabTitle
@@ -233,6 +246,7 @@ const Tabs = ({
           noLeftBorder={ ['no left side', 'no sides'].includes(borders) }
           noRightBorder={ ['no right side', 'no sides'].includes(borders) }
           customLayout={ customLayout }
+          hasCustomTarget={ hasCustomTarget.current }
         />
       );
 
@@ -245,8 +259,9 @@ const Tabs = ({
         position={ position }
         role='tablist'
         extendedLine={ extendedLine }
-        alternateStyling={ variant === 'alternate' }
+        alternateStyling={ variant === 'alternate' || hasCustomTarget.current }
         noRightBorder={ ['no right side', 'no sides'].includes(borders) }
+        hasCustomTarget={ hasCustomTarget.current }
       >
         { tabTitles }
       </TabsHeader>
@@ -268,6 +283,8 @@ const Tabs = ({
 
   /** Builds all tabs where non selected tabs have class of hidden */
   const renderTabs = () => {
+    if (hasCustomTarget.current) return null;
+
     if (!renderHiddenTabs) {
       return visibleTab();
     }
@@ -283,7 +300,8 @@ const Tabs = ({
           ariaLabelledby: `${child.props.tabId}-tab`,
           updateErrors,
           updateWarnings,
-          updateInfos
+          updateInfos,
+          hasCustomTarget: hasCustomTarget.current
         })
       );
     });
@@ -307,6 +325,7 @@ const Tabs = ({
       updateErrors={ updateErrors }
       updateWarnings={ updateWarnings }
       { ...tagComponent('tabs', rest) }
+      hasCustomTarget={ hasCustomTarget.current }
     >
       { renderTabHeaders() }
       { renderTabs() }
@@ -338,8 +357,17 @@ Tabs.propTypes = {
   extendedLine: PropTypes.bool,
   /** Adds a combination of borders to the tab titles. */
   borders: PropTypes.oneOf(['off', 'on', 'no left side', 'no right side', 'no sides']),
-  /** Adds a alternate styling variant to the tab titles. */
-  variant: PropTypes.oneOf(['default', 'alternate'])
+  /** Adds an alternate styling variant to the tab titles. */
+  variant: PropTypes.oneOf(['default', 'alternate']),
+  /** An object to support overriding validation statuses, when the Tabs have custom targets for example.
+   * The `id` property should match the `tabId`s for the rendered Tabs. */
+  validationStatusOverride: PropTypes.shape({
+    id: PropTypes.shape({
+      error: PropTypes.bool,
+      warning: PropTypes.bool,
+      info: PropTypes.bool
+    })
+  })
 };
 
 export { Tabs, Tab };

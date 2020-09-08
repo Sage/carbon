@@ -7,8 +7,8 @@ import React, {
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import invariant from 'invariant';
-import createGuid from '../../utils/helpers/guid';
-import Icon from '../icon';
+import createGuid from '../../../utils/helpers/guid/guid';
+import Icon from '../../icon';
 
 import {
   StyledDrawerWrapper,
@@ -32,6 +32,7 @@ const Drawer = ({
   backgroundColor,
   title,
   showControls,
+  setTarget,
   ...props
 }) => {
   const drawerSidebarContentRef = useRef();
@@ -154,9 +155,14 @@ const Drawer = ({
       >
         { getTitle() }
         { getControls() }
-        <StyledDrawerSidebar id={ sidebarId } role='navigation'>
-          <SidebarContext.Provider value>
-            {sidebar}
+        <StyledDrawerSidebar
+          hasControls={ !!showControls }
+          id={ sidebarId }
+          isExpanded={ isExpanded }
+          role='navigation'
+        >
+          <SidebarContext.Provider value={ { isInSidebar: true, setTarget: id => setTarget(id) } }>
+            { sidebar }
           </SidebarContext.Provider>
         </StyledDrawerSidebar>
       </StyledDrawerContent>
@@ -177,7 +183,7 @@ Drawer.propTypes = {
   onChange: PropTypes.func,
   /* Sidebar object either html or react component */
   sidebar: PropTypes.node,
-  /* The (% or px) width of the expanded sizebar  */
+  /* The (% or px) width of the expanded sidebar  */
   expandedWidth: PropTypes.string,
   /** Duration of a animation */
   animationDuration: PropTypes.string,
@@ -186,7 +192,9 @@ Drawer.propTypes = {
   /** Sets title heading of sidebar's content */
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   /** Enables expand/collapse button that controls drawer */
-  showControls: PropTypes.bool
+  showControls: PropTypes.bool,
+  /** Callback to be used as part of SidebarContext to override targeting of Tabs */
+  setTarget: PropTypes.func
 };
 
 Drawer.defaultProps = {

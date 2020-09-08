@@ -6,7 +6,7 @@ import {
   withKnobs
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import Pager from '.';
+import Pager from '..';
 
 export default {
   title: 'Design System/Pager/Test',

@@ -5,17 +5,17 @@ import 'jest-styled-components';
 import { ThemeProvider } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
 import I18n from 'i18n-js';
-import guid from '../../utils/helpers/guid';
-import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-import baseTheme from '../../style/themes/base';
-import mintTheme from '../../style/themes/mint';
+import guid from '../../../utils/helpers/guid';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import baseTheme from '../../../style/themes/base';
+import mintTheme from '../../../style/themes/mint';
 import Pager from './pager.component';
-import Select from '../select/simple-select/simple-select.component';
-import SelectList from '../select/select-list/select-list.component';
-import { StyledPagerLinkStyles } from './pager.styles';
-import NumberInput from '../../__experimental__/components/number';
+import Select from '../../select/simple-select/simple-select.component';
+import SelectList from '../../select/select-list/select-list.component';
+import { StyledPagerLinkStyles } from './pager.style';
+import NumberInput from '../../../__experimental__/components/number';
 
-jest.mock('../../utils/helpers/guid');
+jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
 
 const pageSizeSelectionOptions = ([
@@ -396,7 +396,9 @@ describe('Pager', () => {
         });
         wrapper.find(Select).update();
         expect(wrapper.find(Select).find(SelectList).exists()).toBe(true);
-        wrapper.find(Select).find(SelectList).prop('onSelect')(selectOptions);
+        act(() => {
+          wrapper.find(Select).find(SelectList).prop('onSelect')(selectOptions);
+        });
         expect(onPagination).toHaveBeenCalledWith(1, 25, 'page-select');
       });
     });

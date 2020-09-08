@@ -11,6 +11,7 @@ export interface DrawerPropTypes {
   backgroundColor?: string;
   title?: string;
   showControls?: boolean;
+  setTarget?: (tabId: string) => void;
 }
 
 declare const Drawer: React.FunctionComponent<DrawerPropTypes>;

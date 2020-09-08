@@ -28,9 +28,9 @@ const FlatTableRow = React.forwardRef(({
 
   return (
     <SidebarContext.Consumer>
-      {isInSidebar => (
+      {context => (
         <StyledFlatTableRow
-          isInSidebar={ isInSidebar }
+          isInSidebar={ context && context.isInSidebar }
           data-element='flat-table-row'
           highlighted={ highlighted }
           selected={ selected }
