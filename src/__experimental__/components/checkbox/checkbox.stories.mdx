@@ -1,0 +1,249 @@
+import { useState } from 'react';
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+import { Checkbox, CheckboxGroup } from '.';
+
+
+<Meta
+  title="Experimental/Checkbox"
+  parameters={{ info: { disable: true }}}
+/>
+
+# Checkbox
+Checkbox provides a way to efficiently select more than one item from a list.
+
+Disabled or read-only checkboxes might be difficult for a user to distinguish visually, so try to avoid this.
+
+Consider ‘smart default’ selections, based on what your user is likely to choose. But, users may well leave the defaults in place, so make sure any consequences are easy to undo, and not harmful.
+
+Rather than a checkbox to accept legal terms, consider labelling a button ‘Accept Terms and Continue’ instead.
+
+# Related Components
+- Choosing one option from a longer list? [Try Radio Button](/?path=/docs/experimental-radiobutton--default "Radio Button").
+- Choosing one option from a very long list? [Try Select](?path=/docs/design-system-select--basic "Select").
+- Choosing one option from a highly visible range? [Try Button Toggle](/?path=/story/button-toggle--default "Button Toggle").
+
+## Quick Start
+
+```jsx
+import { Checkbox } from "carbon-react/lib/components/anchor-navigation"
+
+const MyComponent = () => (
+  const [isChecked, setIsChecked] = useState(false);
+  return (
+    <Checkbox
+      label="Label"
+      name="checkbox-name"
+      checked={isChecked}
+      onChange={ e => setIsChecked(e.target.checked) }
+    />
+  )
+);
+```
+### Basic
+
+<Preview>
+  <Story name="Basic">
+    {() => {
+      const [isChecked, setIsChecked] = useState(false);
+      return (
+        <Checkbox
+          label="Example checkbox"
+          name="checkbox-basic"
+          checked={isChecked}
+          onChange={ e => setIsChecked(e.target.checked) }
+        />
+      )
+    }}
+  </Story>
+</Preview>
+
+### Sizes
+
+<Preview>
+  <Story name="Sizes">
+    {() => {
+      return ['small', 'large'].map(size =>
+        <Checkbox
+          label={size}
+          key={ `checkbox-${size}` }
+          name={ `checkbox-basic` }
+          size={size}
+        />
+      )
+    }}
+  </Story>
+</Preview>
+
+### Disabled
+
+<Preview>
+  <Story name="Disabled">
+    <Checkbox label="Disabled checkbox" disabled />
+  </Story>
+</Preview>
+
+### Reversed
+
+<Preview>
+  <Story name="Reversed">
+    <Checkbox label="Reversed checkbox" reverse />
+  </Story>
+</Preview>
+
+### With fieldHelp
+
+<Preview>
+  <Story name="With fieldHelp">
+    <>
+      <Checkbox
+        label="With fieldHelp"
+        fieldHelp="This text provides help for the input."
+      />
+      <Checkbox
+        label="With inline fieldHelp"
+        fieldHelp="This text provides help for the input."
+        fieldHelpInline
+      />
+    </>
+  </Story>
+</Preview>
+
+### With labelHelp
+
+<Preview>
+  <Story name="With labelHelp">
+    <Checkbox
+      label="With labelHelp"
+      labelHelp="This text provides more information for the label."
+    />
+  </Story>
+</Preview>
+
+### With custom labelWidth
+
+<Preview>
+  <Story name="With custom labelWidth">
+    <>
+      <Checkbox
+        label="With custom labelWidth"
+        labelWidth={100}
+      />
+      <Checkbox
+        label="With custom labelWidth and label aligned to right"
+        labelWidth={100}
+        labelAlign="right"
+      />
+    </>
+  </Story>
+</Preview>
+
+## Validations
+
+Validation status can be set by passing `error`, `warning` or `info` prop to the component
+
+Passing a string to these props will display a border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+
+Passing a boolean to these props will display a border and validation icon without the additional tooltip information.
+
+For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page
+
+### As a string applied to single Checkbox
+
+<Preview>
+  <Story name="Single checkbox - string validation">
+    {() => ['error', 'warning', 'info'].map(type => (
+      <Checkbox
+        id={ `checkbox_${type}` }
+        key={ `checkbox-${type}` }
+        { ...{ [type]: 'Message' } }
+        label={ `Example checkbox (${type})` }
+        name={ `checkbox-${type}` }
+      />
+    ))}
+  </Story>
+</Preview>
+
+### As a boolean applied to single Checkbox
+<Preview>
+  <Story name="Single checkbox - boolean validation">
+    {() => ['error', 'warning', 'info'].map(type => (
+      <Checkbox
+        id={ `checkbox_${type}-boolean` }
+        key={ `checkbox-${type}-boolean` }
+        { ...{ [type]: true } }
+        label={ `Example checkbox (${type})` }
+        name={ `checkbox-${type}-boolean` }
+      />
+    ))}
+  </Story>
+</Preview>
+
+### As a string applied to CheckboxGroup
+<Preview>
+  <Story name="Group checkbox - string validation">
+    {() => ['error', 'warning', 'info'].map(type => (
+      <div 
+        key={`checkbox-group-${type}`}
+        style={{ marginBottom: 16 }}
+      >
+        <CheckboxGroup
+          id={`checkbox-group-${type}`}
+          name={`checkbox-group-${type}`}
+          groupName={`checkbox-group-${type}`}
+          { ...{ [type]: 'Message' } }
+          label={ `Group ${type}` }
+        >
+          {['One', 'Two', 'Three'].map((label) => 
+            <Checkbox
+              id={ `checkbox_${type}-${label}` }
+              key={ `checkbox_${type}-${label}` }
+              name={ `checkbox_${type}-${label}` }
+              label={ label }
+            />
+          )}
+        </CheckboxGroup>
+      </div>
+    ))}
+  </Story>
+</Preview>
+
+### As a boolean applied to CheckboxGroup
+<Preview>
+  <Story name="Group checkbox - boolean validation">
+    {() => ['error', 'warning', 'info'].map(type => (
+      <div 
+        key={`checkbox-group-${type}-boolean`}
+        style={{ marginBottom: 16 }}
+      >
+        <CheckboxGroup
+          id={`checkbox-group-${type}-boolean`}
+          name={`checkbox-group-${type}-boolean`}
+          key={`checkbox-group-${type}-boolean`}
+          groupName={`checkbox-group-${type}-boolean`}
+          { ...{ [type]: true } }
+          label={ `Group ${type}` }
+        >
+          {['One', 'Two', 'Three'].map((label) => 
+            <Checkbox
+              id={ `checkbox_${type}-${label}-boolean` }
+              key={ `checkbox_${type}-${label}-boolean` }
+              name={ `checkbox_${type}-${label}-boolean` }
+              label={ label }
+            />
+          )}
+        </CheckboxGroup>
+      </div>
+    ))}
+  </Story>
+</Preview>
+
+## Props:
+
+### Checkbox
+
+<Props of={Checkbox} />
+
+### CheckboxGroup
+
+<Props of={CheckboxGroup} />
