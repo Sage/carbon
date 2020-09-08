@@ -35,12 +35,6 @@ Given('I check {string} checkbox', (position) => {
   checkbox(positionOfElement(position)).click();
 });
 
-When('I check {string} checkbox {int} times', (position, times) => {
-  for (let i = 0; i < times; i++) {
-    checkbox(positionOfElement(position), times).click();
-  }
-});
-
 Then('checkbox label on preview is {word}', (text) => {
   labelNoIFrame().should('have.text', `${text} (default)`);
 });
