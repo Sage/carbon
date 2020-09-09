@@ -1,3 +1,30 @@
+## [40.0.0](https://github.com/Sage/carbon/compare/v39.3.0...v40.0.0) (2020-09-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* default spacings for input components have changed
+
+### Features
+
+* **button:** add margin props ([722b3d6](https://github.com/Sage/carbon/commit/722b3d6c08bc43b354442fbdc67bf9369fe27286))
+* **form:** implement vertical spacing option ([87a53a8](https://github.com/Sage/carbon/commit/87a53a890eca60bf414a638f751d1ea7442c4933))
+* **form-field:** implement horizontal label spacing option ([ffee308](https://github.com/Sage/carbon/commit/ffee308a979cf39f8af94fd46b47b6411c5d12d2))
+* **switch:** add new props for switch alignment ([7b50282](https://github.com/Sage/carbon/commit/7b50282376cbed334365cc2ccdcafcf4ccd1b0b7))
+* add margin left prop to checkable inputs ([70167ef](https://github.com/Sage/carbon/commit/70167efa00c05c26488437f045ae565edff49053))
+
+
+### Miscellaneous Chores
+
+* add breaking change message ([670851a](https://github.com/Sage/carbon/commit/670851a100f2166924eb6142ef30d8e65869e4f4))
+
+## [39.3.0](https://github.com/Sage/carbon/compare/v39.2.1...v39.3.0) (2020-09-07)
+
+
+### Features
+
+* **drawer, tabs:** add support for custom target overrides via context ([7fe79d3](https://github.com/Sage/carbon/commit/7fe79d3d9ae9039a2ed34d1cb075df2bcc455d7d))
+
 ### [39.2.1](https://github.com/Sage/carbon/compare/v39.2.0...v39.2.1) (2020-09-04)
 
 

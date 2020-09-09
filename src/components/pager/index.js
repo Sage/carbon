@@ -1,1 +1,1 @@
-export { default } from './pager.component';
+export { default } from './__internal__/pager.component';

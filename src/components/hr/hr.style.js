@@ -7,17 +7,17 @@ const StyledHr = styled.hr`
   border: 0;
   height: 1px;
   background: ${({ theme }) => theme.hr.background};
-  margin-top: ${({ marginTop, theme }) => marginTop * theme.spacing}px;
-  margin-bottom: ${({ marginBottom, theme }) => marginBottom * theme.spacing}px;
-  margin-left: ${({ marginLeft }) => marginLeft};
-  margin-right: ${({ marginRight }) => marginRight};
+  margin-top: ${({ mt, theme }) => mt * theme.spacing}px;
+  margin-bottom: ${({ mb, theme }) => mb * theme.spacing}px;
+  margin-left: ${({ ml }) => ml};
+  margin-right: ${({ mr }) => mr};
 `;
 
 StyledHr.propTypes = {
-  marginTop: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
-  marginBottom: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
-  marginLeft: PropTypes.string,
-  marginRight: PropTypes.string
+  mt: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
+  ml: PropTypes.string,
+  mr: PropTypes.string
 };
 
 StyledHr.defaultProps = {

@@ -535,11 +535,11 @@ Then('label align on preview is set to {string} in IFrame', (labelAlign) => {
 });
 
 Then('label is inline', () => {
-  getDataElementByValue('label').parent().should('have.css', TEXT_ALIGN, TEXT_ALIGN_START);
+  getDataElementByValue('label').parent().should('have.css', TEXT_ALIGN, TEXT_ALIGN_END);
 });
 
 Then('label is not inline', () => {
-  getDataElementByValue('label').parent().should('not.have.css', TEXT_ALIGN, TEXT_ALIGN_START);
+  getDataElementByValue('label').parent().should('not.have.css', TEXT_ALIGN, TEXT_ALIGN_END);
 });
 
 Then('label is inline in IFrame', () => {

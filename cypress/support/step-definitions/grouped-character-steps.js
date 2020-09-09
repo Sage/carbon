@@ -1,6 +1,7 @@
-import { commonDataElementInputPreview, 
-  getKnobsInput, 
-  commonDataElementInputPreviewNoIframe 
+import { 
+  commonDataElementInputPreview,
+  getKnobsInput,
+  commonDataElementInputPreviewNoIframe,
 } from '../../locators';
 
 When('I put {string} example grouped character', (text) => {

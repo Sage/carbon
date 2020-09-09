@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components';
-import StyledInput from '../../__experimental__/components/input/input.style';
-import StyledInputPresentation from '../../__experimental__/components/input/input-presentation.style';
-import InputIconToggleStyle from '../../__experimental__/components/input-icon-toggle/input-icon-toggle.style';
-import Select from '../select/simple-select/simple-select.component';
-import baseTheme from '../../style/themes/base';
+import StyledInput from '../../../__experimental__/components/input/input.style';
+import StyledInputPresentation from '../../../__experimental__/components/input/input-presentation.style';
+import InputIconToggleStyle from '../../../__experimental__/components/input-icon-toggle/input-icon-toggle.style';
+import Select from '../../select/simple-select/simple-select.component';
+import baseTheme from '../../../style/themes/base';
 
 const StyledSelect = styled(Select)`
   height: 26px;

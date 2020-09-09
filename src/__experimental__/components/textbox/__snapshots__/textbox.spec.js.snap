@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Textbox renders with InputPresentation and Input and all props passed to Input 1`] = `
+exports[`Textbox renders with InputPresentation and Input and correct props passed to Input 1`] = `
 <InputBehaviour>
   <FormField
     id="mocked-guid"
-    inputWidth={70}
     labelWidth={30}
     name="mocked-guid"
     size="medium"
@@ -14,7 +13,6 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
     <InputPresentation
       id="mocked-guid"
       inputWidth={70}
-      labelWidth={30}
       name="mocked-guid"
       size="medium"
       type="text"
@@ -23,8 +21,6 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
       <ForwardRef
         aria-invalid={false}
         id="mocked-guid"
-        inputWidth={70}
-        labelWidth={30}
         name="mocked-guid"
         size="medium"
         value="foobar"
@@ -32,8 +28,6 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
       normal children
       <InputIconToggle
         id="mocked-guid"
-        inputWidth={70}
-        labelWidth={30}
         name="mocked-guid"
         size="medium"
         useValidationIcon={true}
