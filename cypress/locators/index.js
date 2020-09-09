@@ -19,7 +19,6 @@ export const knobsNameInSecondTabList = name => cy.get(TAB_LIST).eq(2).find('but
 export const eventInAction = event => cy.get(FORM).find('span').contains(event);
 export const inputWidthSlider = () => cy.get(INPUT_WIDTH_SLIDER);
 export const labelWidthSlider = () => cy.get(LABEL_WIDTH_SLIDER);
-export const labelWidthSliderByName = (propertyName, name) => cy.get(`input[name="${propertyName} ${name}"]`);
 export const precisionSlider = () => cy.get(PRECISION_SLIDER);
 export const characterLimitSlider = () => cy.get(CHARACTER_LIMIT);
 
