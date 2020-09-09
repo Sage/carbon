@@ -30,5 +30,3 @@ export const tableAjax = () => cy.get(TABLE_AJAX)
 
 //components in IFrame
 export const tableHeaderInIFrame = () => cy.iFrame(TABLE_HEADER);
-export const paginationButtonByIndexInIFrame = index => cy.iFrame(PAGINATION_BUTTON)
-  .find('div:nth-child(2) > button').eq(index);
