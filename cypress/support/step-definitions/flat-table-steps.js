@@ -2,7 +2,7 @@ import {
   flatTableNoiFrame, flatTableHeaderCellsNoiFrame, flatTableBodyRowByPositionNoiFrame,
   flatTableBodyRowByPosition, flatTableBodyRowByPositionDS,
   flatTableHeaderCellDS, flatTableClickableRowByPositionDS, fltaTableSortableDS,
-  flatTableCellDS, flatTableCheckbox, flatTableBodyRowByPositionDSnoiFrame,
+  flatTableCellDS,
 } from '../../locators/flat-table';
 import { DEBUG_FLAG } from '..';
 import { positionOfElement } from '../helper';
@@ -153,16 +153,4 @@ Then('I press {string} on {string} header {int} time(s)', (key, position, count)
       throw new Error('Only Enter or Space key can be applied');
     }
   }
-});
-
-When('I check {string} flat table checkbox', (position) => {
-  flatTableCheckbox(positionOfElement(position)).click();
-});
-
-When('I hover mouse onto {string} row', (position) => {
-  flatTableBodyRowByPositionDSnoiFrame(positionOfElement(position)).trigger('mouseover');
-});
-
-When('I click onto {string} row', (position) => {
-  flatTableBodyRowByPositionDSnoiFrame(positionOfElement(position)).click();
 });
