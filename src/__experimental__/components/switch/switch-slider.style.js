@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
 import SwitchSliderPanel from './switch-slider-panel.style';
-import ClassicSwitchSliderStyles from './switch-slider-classic.style';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 
 const StyledSwitchSlider = styled.span`
@@ -72,8 +71,6 @@ const StyledSwitchSlider = styled.span`
         `}
       }
     `}
-
-    ${ClassicSwitchSliderStyles}
 
     ${StyledValidationIcon} {
       position: absolute;

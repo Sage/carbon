@@ -124,7 +124,7 @@ Switch.propTypes = {
    */
   size: PropTypes.string,
   /** the value of the checkbox, passed on form submit */
-  value: PropTypes.string.isRequired
+  value: PropTypes.string
 };
 
 Switch.defaultProps = {

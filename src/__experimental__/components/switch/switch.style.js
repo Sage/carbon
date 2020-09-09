@@ -8,7 +8,6 @@ import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import StyledSwitchSlider from './switch-slider.style';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 import { FieldLineStyle } from '../form-field/form-field.style';
-import ClassicSwitchStyles from './switch-classic.style';
 
 const StyledSwitch = styled.div`
   ${({
@@ -140,8 +139,6 @@ const StyledSwitch = styled.div`
         }
       `}
     `}
-
-    ${ClassicSwitchStyles}
   `}
 `;
 
