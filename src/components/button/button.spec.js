@@ -252,6 +252,24 @@ describe('Button', () => {
     );
   });
 
+  describe('when ml prop passed in', () => {
+    it('adds the correct left margin', () => {
+      const wrapper = TestRenderer.create(<StyledButton size='medium' ml='10%' />);
+      assertStyleMatch({
+        marginLeft: '10%'
+      }, wrapper.toJSON());
+    });
+  });
+
+  describe('when mb prop passed in', () => {
+    it('should add the correct bottom margin', () => {
+      const wrapper = TestRenderer.create(<StyledButton mb={ 4 } />);
+      assertStyleMatch({
+        marginBottom: '32px'
+      }, wrapper.toJSON());
+    });
+  });
+
   it('matches the applies the expected style to the icon', () => {
     const wrapper = TestRenderer.create(<StyledButton iconType='plus' />);
     assertStyleMatch({

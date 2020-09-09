@@ -79,6 +79,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   height: 40px;
   padding-left: 24px;
   padding-right: 24px;
+  margin-left: 0;
 }
 
 .c1:focus {
@@ -196,6 +197,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   height: 40px;
   padding-left: 24px;
   padding-right: 24px;
+  margin-left: 0;
 }
 
 .c1:focus {

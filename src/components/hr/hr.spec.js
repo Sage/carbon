@@ -23,7 +23,7 @@ describe('Hr', () => {
 
   describe('margin props', () => {
     it('should apply the correct top margin', () => {
-      wrapper.setProps({ marginTop: 7 });
+      wrapper.setProps({ mt: 7 });
 
       assertStyleMatch({
         marginTop: '56px'
@@ -31,7 +31,7 @@ describe('Hr', () => {
     });
 
     it('should apply the correct bottom margin', () => {
-      wrapper.setProps({ marginBottom: 7 });
+      wrapper.setProps({ mb: 7 });
 
       assertStyleMatch({
         marginBottom: '56px'
@@ -39,7 +39,7 @@ describe('Hr', () => {
     });
 
     it('should apply the correct left margin', () => {
-      wrapper.setProps({ marginLeft: '100px' });
+      wrapper.setProps({ ml: '100px' });
 
       assertStyleMatch({
         marginLeft: '100px'
@@ -47,7 +47,7 @@ describe('Hr', () => {
     });
 
     it('should apply the correct right margin', () => {
-      wrapper.setProps({ marginRight: '100px' });
+      wrapper.setProps({ mr: '100px' });
 
       assertStyleMatch({
         marginRight: '100px'

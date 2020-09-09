@@ -94,7 +94,6 @@ Feature: Experimental Textbox multiple component
     Then Multiple Textbox inputWidth is set to "<inputWidth>"
     Examples:
       | inputWidth | nameOfObject  |
-      | 0          | inputWidth0   |
       | 50         | inputWidth50  |
       | 100        | inputWidth100 |
 
