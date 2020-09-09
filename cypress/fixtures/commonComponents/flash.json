@@ -1,0 +1,14 @@
+{
+  "messageOtherLanguage": {
+    "message": "mp150ú¿¡üßä"
+  },
+  "messageSpecialCharacter": {
+    "message": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "asSuccess": {
+    "as": "success"
+  },
+  "asError": {
+    "as": "error"
+  }
+}
