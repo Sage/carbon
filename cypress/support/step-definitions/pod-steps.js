@@ -6,8 +6,6 @@ import {
 import { DEBUG_FLAG } from '..';
 import { getDataElementByValue } from '../../locators';
 
-const POD_DIV_PROPERTY = 'carbon-pod';
-
 Then('Pod children on preview is set to {word}', (text) => {
   podContent().should('have.text', text);
 });
@@ -89,12 +87,6 @@ Then('I click onEdit icon in Iframe', () => {
 
 Then('Pod component has width {string}', (width) => {
   podComponent().children().should('have.css', 'width', width);
-});
-
-Then('Pod component has displayEditButtonOnHover property', () => {
-  podComponent().should('have.class', `${POD_DIV_PROPERTY}--content-triggers-edit`)
-    .and('have.class', `${POD_DIV_PROPERTY}--is-hovered`);
-  podEdit().should('be.visible');
 });
 
 Then('Pod component has triggerEditOnContent property', () => {
