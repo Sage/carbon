@@ -415,11 +415,11 @@ Then('inputWidth on preview is {int}', (width) => {
 });
 
 Then('label is inline', () => {
-  getDataElementByValue('label').parent().should('have.css', TEXT_ALIGN, TEXT_ALIGN_START);
+  getDataElementByValue('label').parent().should('have.css', TEXT_ALIGN, TEXT_ALIGN_END);
 });
 
 Then('label is not inline', () => {
-  getDataElementByValue('label').parent().should('not.have.css', TEXT_ALIGN, TEXT_ALIGN_START);
+  getDataElementByValue('label').parent().should('not.have.css', TEXT_ALIGN, TEXT_ALIGN_END);
 });
 
 Then('label width is set to {string} in NoIFrame', (width) => {

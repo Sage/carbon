@@ -12,11 +12,18 @@ exports[`Drawer uncontrolled matches snapshot 1`] = `
     theme="[ theme object ]"
   >
     <styled.div
+      hasControls={false}
       id="DrawerSidebar_guid-123"
+      isExpanded={true}
       role="navigation"
     >
       <ContextProvider
-        value={true}
+        value={
+          Object {
+            "isInSidebar": true,
+            "setTarget": [Function],
+          }
+        }
       >
         <ul>
           <li>

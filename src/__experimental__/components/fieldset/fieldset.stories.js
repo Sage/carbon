@@ -45,6 +45,7 @@ function makeStory(name, themeSelector, disableChromatic = false) {
           label='Checkbox'
           labelAlign='right'
           labelWidth={ 30 }
+          labelSpacing={ 2 }
           reverse
         />
         <Textbox

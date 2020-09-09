@@ -4,31 +4,31 @@ import PropTypes from 'prop-types';
 import StyledHr from './hr.style';
 
 const Hr = ({
-  marginTop = 3,
-  marginBottom = 3,
-  marginLeft,
-  marginRight
+  mt = 3,
+  mb = 3,
+  ml,
+  mr
 }) => {
   return (
     <StyledHr
       data-component='hr'
-      marginTop={ marginTop }
-      marginBottom={ marginBottom }
-      marginLeft={ marginLeft }
-      marginRight={ marginRight }
+      mt={ mt }
+      mb={ mb }
+      ml={ ml }
+      mr={ mr }
     />
   );
 };
 
 Hr.propTypes = {
   /** Margin top, this value will be multiplied by the theme spacing constant (8) */
-  marginTop: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
+  mt: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   /** Margin bottom, this value will be multiplied by the theme spacing constant (8) */
-  marginBottom: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   /** Margin left, any valid css value */
-  marginLeft: PropTypes.string,
+  ml: PropTypes.string,
   /** Margin right, any valid css value */
-  marginRight: PropTypes.string
+  mr: PropTypes.string
 };
 
 export default Hr;

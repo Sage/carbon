@@ -38,11 +38,11 @@ By default the hr is 100% width and has top and bottom margins of 24px.
 </Preview>
 
 ### With different vertical spacing 
-The `marginBottom` and `marginTop` props set the vertical spacing. These props are mulitipliers and are therefore multiplied by the base theme spacing which is `8px`. The default for both is `3` and therefore `24px`.
+The `mb` and `mt` props set the vertical spacing. These props are mulitipliers and are therefore multiplied by the base theme spacing which is `8px`. The default for both is `3` and therefore `24px`.
 
 <Preview>
   <Story name="different spacing">
-    <Hr marginTop={7} marginBottom={7} />
+    <Hr mt={7} mb={7} />
   </Story>
 </Preview>
 
@@ -58,7 +58,7 @@ The `marginBottom` and `marginTop` props set the vertical spacing. These props a
     >
       <Textbox label="Textbox" />
       <Textbox label="Textbox" />
-      <Hr marginBottom={7} marginTop={7} />
+      <Hr mb={7} mt={7} />
       <Textbox label="Textbox" />
     </Form>
   </Story> 
@@ -76,7 +76,7 @@ The `marginBottom` and `marginTop` props set the vertical spacing. These props a
     >
       <Textbox label="Textbox" labeAlign="right" labelInline labelWidth={10} inputWidth={50} />
       <Textbox label="Textbox" labeAlign="right"  labelInline labelWidth={10} inputWidth={50} />
-      <Hr marginBottom={7} marginTop={7} marginLeft="10%" marginRight="40%" />
+      <Hr mb={7} mt={7} ml="10%" mr="40%" />
       <Textbox label="Textbox" labeAlign="right"  labelInline labelWidth={10} inputWidth={50}  />
     </Form>
   </Story> 

@@ -146,16 +146,6 @@ describe('Switch', () => {
         });
       });
 
-      describe('and labelInline=true', () => {
-        const wrapper = render({ reverse: false, labelInline: true }).toJSON();
-
-        it('applies the correct Label styles', () => {
-          assertStyleMatch({
-            marginLeft: '10px'
-          }, wrapper, { modifier: css`${StyledLabelContainer}` });
-        });
-      });
-
       describe('and fieldHelpInline=true', () => {
         const wrapper = render({ reverse: false, fieldHelpInline: true }).toJSON();
 
@@ -172,7 +162,7 @@ describe('Switch', () => {
 
         it('applies the correct FieldHelp styles', () => {
           assertStyleMatch({
-            marginLeft: '70px'
+            marginLeft: '60px'
           }, wrapper, { modifier: css`${FieldHelpStyle}` });
         });
       });
@@ -194,7 +184,6 @@ describe('Switch', () => {
       it('applies the correct Label styles', () => {
         assertStyleMatch({
           marginBottom: '0',
-          marginRight: '32px',
           width: 'auto'
         }, wrapper, { modifier: css`${StyledLabelContainer}` });
       });
@@ -228,16 +217,6 @@ describe('Switch', () => {
       });
     });
 
-    describe('when setting a custom labelWidth', () => {
-      it('renders the correct Label styles', () => {
-        const wrapper = render({ labelWidth: 60 }).toJSON();
-
-        assertStyleMatch({
-          marginRight: '40%'
-        }, wrapper, { modifier: css`${StyledLabelContainer}` });
-      });
-    });
-
     describe('when size=large', () => {
       describe('default', () => {
         const wrapper = render({ size: 'large' }).toJSON();
@@ -261,12 +240,22 @@ describe('Switch', () => {
       });
 
       describe('and labelInline=true', () => {
+        it('applies the correct Label styles', () => {
+          const wrapper = render({ size: 'large', labelInline: true }).toJSON();
+
+          assertStyleMatch({
+            marginTop: '1px',
+            paddingTop: '10px',
+            paddingBottom: '10px'
+          }, wrapper, { modifier: css`${StyledLabelContainer}` });
+        });
+
         describe('and reverse=false', () => {
           const wrapper = render({ size: 'large', labelInline: true, reverse: false }).toJSON();
 
           it('applies the correct FieldHelp styles', () => {
             assertStyleMatch({
-              marginLeft: '88px'
+              marginLeft: '78px'
             }, wrapper, { modifier: css`${FieldHelpStyle}` });
           });
         });

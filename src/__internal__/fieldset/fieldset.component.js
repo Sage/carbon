@@ -6,12 +6,15 @@ import ValidationIcon from '../../components/validations/validation-icon.compone
 import { InputGroupBehaviour, InputGroupContext } from '../input-behaviour';
 
 const Fieldset = ({
-  legend, children, inline, error, warning, info, styleOverride, ...rest
+  legend, children, inline, legendWidth, legendAlign = 'right', legendSpacing = 2, error,
+  warning, info, ml, mb, styleOverride, ...rest
 }) => (
   <InputGroupBehaviour>
     <StyledFieldset
       data-component='fieldset'
       styleOverride={ styleOverride.root }
+      ml={ ml }
+      mb={ mb }
       { ...rest }
     >
       <StyledFieldsetContent inline={ inline }>
@@ -19,6 +22,9 @@ const Fieldset = ({
           <StyledLegendContainer
             inline={ inline }
             styleOverride={ styleOverride.legend }
+            width={ legendWidth }
+            align={ legendAlign }
+            rightPadding={ legendSpacing }
           >
             <InputGroupContext.Consumer>
               {({ onMouseEnter, onMouseLeave }) => (
@@ -59,6 +65,16 @@ Fieldset.propTypes = {
   info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   /** When true, legend is placed in line with the children */
   inline: PropTypes.bool,
+  /** Percentage width of legend (only when legend is inline)  */
+  legendWidth: PropTypes.number,
+  /** Text alignment of legend when inline */
+  legendAlign: PropTypes.oneOf(['left', 'right']),
+  /** Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
+  legendSpacing: PropTypes.oneOf([1, 2]),
+  /** Margin left, any valid CSS value  */
+  ml: PropTypes.string,
+  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6, 7]),
   /** Allows to override existing component styles */
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),

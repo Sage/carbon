@@ -2,13 +2,16 @@ import styled, { css, keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 
 import StyledFormField from '../../__experimental__/components/form-field/form-field.style';
+import { StyledFieldset } from '../../__internal__/fieldset/fieldset.style';
+
 import StyledButton from '../button/button.style';
 import baseTheme from '../../style/themes/base';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 export const StyledForm = styled.form`
-  && ${StyledFormField}:not(:first-of-type) {
-    margin-top: 32px;
+  & ${StyledFormField}, ${StyledFieldset} {
+    margin-top: 0;
+    margin-bottom: ${({ fieldSpacing, theme }) => (theme.spacing * fieldSpacing)}px;
   }
 
   ${({ stickyFooter }) => stickyFooter && css`
@@ -67,7 +70,13 @@ export const StyledFormFooter = styled.div`
 
 
 StyledForm.propTypes = {
-  stickyFooter: PropTypes.bool
+  theme: PropTypes.object,
+  stickyFooter: PropTypes.bool,
+  fieldSpacing: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7])
+};
+
+StyledForm.defaultProps = {
+  theme: baseTheme
 };
 
 StyledLeftButtons.propTypes = {
@@ -83,6 +92,7 @@ StyledFormFooter.propTypes = {
   buttonAlignment: PropTypes.oneOf(OptionsHelper.alignBinary),
   stickyFooter: PropTypes.bool
 };
+
 StyledFormFooter.defaultProps = {
   theme: baseTheme
 };

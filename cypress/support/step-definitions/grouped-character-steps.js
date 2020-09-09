@@ -1,5 +1,6 @@
-import { commonDataElementInputPreview, 
-  getKnobsInput, 
+import { 
+  commonDataElementInputPreview,
+  getKnobsInput,
   commonDataElementInputPreviewNoIframe,
 } from '../../locators';
 
