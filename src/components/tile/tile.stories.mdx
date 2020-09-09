@@ -1,0 +1,144 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import Tile, { TileHeader} from '.';
+import Content from '../content';
+
+<Meta
+  title="Design System/Tile"
+  parameters={{ info: { disable: true }}}
+/>
+
+# Tile
+
+```jsx
+import Form from "carbon-react/lib/components/form"
+```
+
+### default
+
+<Preview>
+  <Story name="basic">
+    <Tile>
+      <Content title="content 1">
+        Example Content
+      </Content>
+      <Content title="content 2">
+        Example Content
+      </Content>
+      <Content title="content 3">
+        Example Content
+      </Content>
+    </Tile>
+  </Story> 
+</Preview>
+
+### orientation vertical
+
+<Preview>
+  <Story name="horizontal">
+    <Tile pixelWidth={500} orientation="vertical">
+      <Content title="content 1">
+        Example Content
+      </Content>
+      <Content title="content 2">
+        Example Content
+      </Content>
+      <Content title="content 3">
+        Example Content
+      </Content>
+    </Tile>
+  </Story> 
+</Preview>
+
+### pixelWidth 500
+
+<Preview>
+  <Story name="pixelWidth">
+    <Tile pixelWidth={500}>
+      <Content title="content 1">
+        Example Content
+      </Content>
+      <Content title="content 2">
+        Example Content
+      </Content>
+      <Content title="content 3">
+        Example Content
+      </Content>
+    </Tile>
+  </Story> 
+</Preview>
+
+### width 50
+
+<Preview>
+  <Story name="width">
+    <Tile width={50}>
+      <Content title="content 1">
+        Example Content
+      </Content>
+      <Content title="content 2">
+        Example Content
+      </Content>
+      <Content title="content 3">
+        Example Content
+      </Content>
+    </Tile>
+  </Story> 
+</Preview>
+
+### Tile with p={0}
+
+<Preview>
+  <Story name="tile with p={0}">
+    <Tile p={0}>
+      <Content title="content 1">
+        Example Content
+      </Content>
+      <Content title="content 2">
+        Example Content
+      </Content>
+      <Content title="content 3">
+        Example Content
+      </Content>
+    </Tile>
+  </Story> 
+</Preview>
+
+### TileHeader
+
+<Preview>
+  <Story name="TileHeader">
+    <Tile>
+      <TileHeader title="Tile header">
+        Example Content
+      </TileHeader>
+    </Tile>
+  </Story> 
+</Preview>
+
+### TileHeader collapsable
+
+<Preview>
+  <Story name="TileHeader collapsable">
+    <Tile>
+      <TileHeader collapsable title="Tile header">
+        Example Content
+      </TileHeader>
+    </Tile>
+  </Story> 
+</Preview>
+
+### TileHeader collapsable with Tile p={0}
+
+<Preview>
+  <Story name="TileHeader collapsable with tile p={0}">
+    <Tile p={0}>
+      <TileHeader collapsable title="Tile header">
+        Example Content
+      </TileHeader>
+    </Tile>
+  </Story> 
+</Preview>
+
+<Props of={Tile} />
+
+<Props of={TileHeader} />

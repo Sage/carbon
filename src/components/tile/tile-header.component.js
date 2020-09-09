@@ -66,8 +66,11 @@ const TileHeader = ({
 
 TileHeader.propTypes = {
   ...propTypes.space,
+  /** main content of `TileHeader` */
   title: PropTypes.string,
+  /** if true `TileHeader` will hide the content */
   collapsable: PropTypes.bool,
+  /** the content of `TileHeader`. With `collapsable` prop this will be hidden part */
   children: PropTypes.node
 };
 

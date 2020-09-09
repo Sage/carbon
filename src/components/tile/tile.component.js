@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import tagComponent from '../../utils/helpers/tags';
+import propTypes from '@styled-system/prop-types';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { StyledTile, TileContent } from './tile.style.js';
 
@@ -37,7 +37,6 @@ const Tile = (props) => {
       orientation={ orientation }
       width={ width }
       { ...rest }
-      { ...tagComponent('tile', props) }
     >
       {wrappedChildren}
     </StyledTile>
@@ -46,11 +45,11 @@ const Tile = (props) => {
 
 Tile.defaultProps = {
   as: 'tile',
-  orientation: 'horizontal',
-  padding: 'M'
+  orientation: 'horizontal'
 };
 
 Tile.propTypes = {
+  ...propTypes.space,
   /** Sets the theme of the tile - either 'tile' or 'transparent' */
   as: PropTypes.oneOf(OptionsHelper.tileThemes),
   /**
@@ -63,15 +62,6 @@ Tile.propTypes = {
   children: PropTypes.node,
   /** The orientation of the tile - set to either horizontal or vertical */
   orientation: PropTypes.oneOf(OptionsHelper.orientation),
-  /**
-   * Sets the Tile padding. Accepted values are:
-   * 'XS' = 8px
-   * 'S' = 16px
-   * 'M' = 24px
-   * 'L' = 32px
-   * 'XL' = 40px
-   */
-  padding: PropTypes.oneOf(OptionsHelper.sizesTile),
   /**
    * Set a pixel with for the Tile component. If both are set to non-zero values, this
    * takes precedence over the percentage-based "width" prop.
