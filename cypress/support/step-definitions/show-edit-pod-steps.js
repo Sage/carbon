@@ -1,12 +1,9 @@
 import {
   showEditPodEdit, showEditPodCancelButton, showEditPodSaveButton, showEditPodDeleteButton,
-  showEditPodTitle, showEditPodCollapsibleInnerContent, showEditPodFooter, showEditPodComponent,
+  showEditPodTitle, showEditPodFooter, showEditPodComponent,
   showEditPodEditIFrame, showEditPodCancelButtonIFrame, showEditPodDeleteButtonIFrame,
 } from '../../locators/show-edit-pod';
 import { positionOfElement } from '../helper';
-
-const INNER_CONTENT_TITLE = 'title';
-const INNER_CONTENT_BODY = 'body';
 
 Then('Show Edit Pod saveText on preview is set to {word}', (text) => {
   showEditPodSaveButton().should('have.text', text);
@@ -80,14 +77,4 @@ When('I click delete button', () => {
 
 When('I click cancel button', () => {
   showEditPodCancelButtonIFrame().click();
-});
-
-Then('Show Edit Pod component has proper content inside itself', () => {
-  showEditPodTitle().should('have.text', 'Person');
-  showEditPodCollapsibleInnerContent(INNER_CONTENT_TITLE, positionOfElement('first')).should('have.text', 'First Name');
-  showEditPodCollapsibleInnerContent(INNER_CONTENT_BODY, positionOfElement('first')).should('have.text', 'Alan');
-  showEditPodCollapsibleInnerContent(INNER_CONTENT_TITLE, positionOfElement('second')).should('have.text', 'Last Name');
-  showEditPodCollapsibleInnerContent(INNER_CONTENT_BODY, positionOfElement('second')).should('have.text', 'Smith');
-  showEditPodCollapsibleInnerContent(INNER_CONTENT_TITLE, positionOfElement('third')).should('have.text', 'Telephone');
-  showEditPodCollapsibleInnerContent(INNER_CONTENT_BODY, positionOfElement('third')).should('have.text', '000 000 0000');
 });
