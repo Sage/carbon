@@ -371,38 +371,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
 }
 
 .c18 .c7 {
-  padding: 1px 0 0 0;
-}
-
-.c18 .c9,
-.c18 svg {
-  padding: 1px;
-}
-
-.c18 .c7,
-.c18 .c9,
-.c18 .c11,
-.c18 svg {
-  height: 15px;
-  width: 15px;
-}
-
-.c18 .c9:not([disabled]):focus + .c11,
-.c18 .c9:not([disabled]):hover + .c11 {
-  box-shadow: none;
-}
-
-.c18 .c9:not([disabled]):focus + .c11 > svg,
-.c18 .c9:not([disabled]):hover + .c11 > svg {
-  border: 1px solid #1963f6;
-  outline: none;
-}
-
-.c18 .c9:checked ~ .c11 svg path {
-  fill: rgba(0,0,0,0.85);
-}
-
-.c18 .c7 {
   margin-right: 16px;
 }
 
@@ -490,42 +458,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
 .c19 .c11:focus {
   outline: none;
   cursor: not-allowed;
-}
-
-.c19 .c7 {
-  padding: 1px 0 0 0;
-}
-
-.c19 .c9,
-.c19 svg {
-  padding: 1px;
-}
-
-.c19 .c7,
-.c19 .c9,
-.c19 .c11,
-.c19 svg {
-  height: 15px;
-  width: 15px;
-}
-
-.c19 .c9:not([disabled]):focus + .c11,
-.c19 .c9:not([disabled]):hover + .c11 {
-  box-shadow: none;
-}
-
-.c19 .c9:not([disabled]):focus + .c11 > svg,
-.c19 .c9:not([disabled]):hover + .c11 > svg {
-  border: 1px solid #1963f6;
-  outline: none;
-}
-
-.c19 .c9:checked ~ .c11 svg path {
-  fill: rgba(0,0,0,0.85);
-}
-
-.c19 .c9:checked ~ .c11 svg path {
-  fill: #8099a4;
 }
 
 .c19 .c7 {
@@ -617,38 +549,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
 }
 
 .c20 .c7 {
-  padding: 1px 0 0 0;
-}
-
-.c20 .c9,
-.c20 svg {
-  padding: 1px;
-}
-
-.c20 .c7,
-.c20 .c9,
-.c20 .c11,
-.c20 svg {
-  height: 15px;
-  width: 15px;
-}
-
-.c20 .c9:not([disabled]):focus + .c11,
-.c20 .c9:not([disabled]):hover + .c11 {
-  box-shadow: none;
-}
-
-.c20 .c9:not([disabled]):focus + .c11 > svg,
-.c20 .c9:not([disabled]):hover + .c11 > svg {
-  border: 1px solid #1963f6;
-  outline: none;
-}
-
-.c20 .c9:checked ~ .c11 svg path {
-  fill: rgba(0,0,0,0.85);
-}
-
-.c20 .c7 {
   margin-right: 16px;
 }
 
@@ -730,38 +630,6 @@ exports[`RadioButton styles base renders as expected 1`] = `
 
 .c21 .c9:checked ~ .c11 svg path {
   fill: rgba(0,0,0,0.90);
-}
-
-.c21 .c7 {
-  padding: 1px 0 0 0;
-}
-
-.c21 .c9,
-.c21 svg {
-  padding: 1px;
-}
-
-.c21 .c7,
-.c21 .c9,
-.c21 .c11,
-.c21 svg {
-  height: 15px;
-  width: 15px;
-}
-
-.c21 .c9:not([disabled]):focus + .c11,
-.c21 .c9:not([disabled]):hover + .c11 {
-  box-shadow: none;
-}
-
-.c21 .c9:not([disabled]):focus + .c11 > svg,
-.c21 .c9:not([disabled]):hover + .c11 > svg {
-  border: 1px solid #1963f6;
-  outline: none;
-}
-
-.c21 .c9:checked ~ .c11 svg path {
-  fill: rgba(0,0,0,0.85);
 }
 
 .c21 .c7 {
