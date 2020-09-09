@@ -293,6 +293,10 @@ export default (palette) => {
       separator: palette.slateTint(90)
     },
 
+    tileHeader: {
+      hoverBackground: palette.slateTint(90)
+    },
+
     tab: {
       background: palette.slateTint(80),
       altHover: palette.slateTint(85)

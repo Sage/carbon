@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import { space } from 'styled-system';
 import baseTheme from '../../style/themes/base';
+import StyledIcon from '../icon/icon.style';
 
 const paddingSizes = {
   XS: '8px',
@@ -29,6 +31,7 @@ const StyledTile = styled.div`
   ${({
     orientation, padding, pixelWidth, tileTheme, theme, width
   }) => css`
+  
     background-color: ${tileTheme === 'tile' ? theme.colors.white : 'transparent'};
     border: 1px solid ${theme.tile.border};
     display: flex;
@@ -68,6 +71,51 @@ const StyledTile = styled.div`
   `}
 `;
 
+const StyledHeadingWrapper = styled.div`
+  ${({ theme, isExpanded }) => css`
+    display:flex 
+    justify-content: space-between;
+    align-items: center;
+
+    :focus{
+      outline:2px solid ${theme.colors.focus};
+    }
+
+    :hover{
+      background: ${theme.tileHeader.hoverBackground};
+      cursor: pointer;
+    }
+  
+    ${StyledIcon}{
+      transition: all 0.3s;
+      
+     ${!isExpanded && 'transform: rotate(90deg)'};
+    }
+
+    ${space};
+  `}
+`;
+
+const StyledCollapsableContent = styled.div`
+  ${({ isExpanded, maxHeight }) => css`
+    overflow: hidden;
+    transition: all 0.3s;
+    
+    ${space};
+
+    ${isExpanded && space};
+
+    ${!isExpanded && css`
+      visibility: 'hidden';
+      opacity: '0';
+      height: ${maxHeight};
+      padding-top: 0;
+      padding-bottom: 0;
+    `}
+  `}
+`;
+
+
 TileContent.propTypes = {
   width: PropTypes.number
 };
@@ -83,4 +131,6 @@ StyledTile.defaultProps = {
   theme: baseTheme
 };
 
-export { StyledTile, TileContent };
+export {
+  StyledTile, TileContent, StyledCollapsableContent, StyledHeadingWrapper
+};
