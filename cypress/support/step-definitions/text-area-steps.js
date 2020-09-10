@@ -1,8 +1,6 @@
 import {
-  textarea, textareaChildren, colsSlider, rowsSlider,
-  characterLimit, characterLimitDefaultTextarea, textareaInput,
+  textarea, textareaChildren, characterLimitDefaultTextarea, 
 } from '../../locators/textarea';
-import { setSlidebar } from '../helper';
 import { getDataElementByValue } from '../../locators';
 
 Then('Textarea component is expandable', () => {
@@ -19,14 +17,6 @@ Then('cols is set to {string}', (colsValue) => {
 
 Then('rows is set to {string}', (colsValue) => {
   textareaChildren().should('have.attr', 'rows', colsValue);
-});
-
-When('I set cols slider to {int}', (colsValue) => {
-  setSlidebar(colsSlider(), colsValue);
-});
-
-When('I set rows slider to {int}', (rowsValue) => {
-  setSlidebar(rowsSlider(), rowsValue);
 });
 
 Then('Textarea component is disabled', () => {
@@ -57,19 +47,8 @@ Then('characterLimit is set to {string}', (length) => {
   textareaChildren().should('have.attr', 'maxlength', length);
 });
 
-Then('characterLimit is shown as {string}', (length) => {
-  characterLimit().should('have.text', length);
-});
-
 Then('characterLimit for default Textarea is shown as {string}', (length) => {
   characterLimitDefaultTextarea().contains(length);
-});
-
-Then('characterLimit is not set to {string}', (length) => {
-  textareaChildren().should('have.attr', 'maxlength', length);
-  if (isNaN(length)) {
-    characterLimit().should('have.text', 'NaN');
-  }
 });
 
 Then('characterLimit for default Textarea is not set to {word}', (length) => {
@@ -93,10 +72,6 @@ Then('Textarea component is not labelInline', () => {
 
 When('I input {word} into Textarea', (text) => {
   textareaChildren().clear().type(text);
-});
-
-When('I type {string} into Textarea input', (text) => {
-  textareaInput().children().clear().type(text);
 });
 
 Then('Textarea component has warnOverLimit and used characters {int} of {int}', (overCharacterLimit, limit) => {

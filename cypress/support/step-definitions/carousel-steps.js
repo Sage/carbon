@@ -2,8 +2,6 @@ import {
   slide,
   nextArrowButton,
   previousArrowButton,
-  slideSelector,
-  giveTransition,
   slideIFrame,
 } from '../../locators/carousel';
 
@@ -27,46 +25,14 @@ Then('I move carousel {string}', (direction) => {
   clickCarouselButton(direction);
 });
 
-Then('I click carousel {string} button', (direction) => {
-  clickCarouselButton(direction);
-});
-
-Then('slide selector is visible', () => {
-  slideSelector().should('be.visible');
-});
-
-Then('slide selector is not visible', () => {
-  slideSelector().should('not.exist');
-});
-
-Then('previous button is visible', () => {
-  previousArrowButton().should('be.visible');
-});
-
-Then('previous button is not visible', () => {
-  previousArrowButton().should('not.exist');
-});
-
 Then('previous button is disabled', () => {
   previousArrowButton().should('be.disabled')
     .and('have.attr', 'disabled');
 });
 
-Then('next button is visible', () => {
-  nextArrowButton().should('be.visible');
-});
-
-Then('next button is not visible', () => {
-  nextArrowButton().should('not.exist');
-});
-
 Then('next button is disabled', () => {
   nextArrowButton().should('be.disabled')
     .and('have.attr', 'disabled');
-});
-
-Then('transition is set to {string} with {string}', (transition, direction) => {
-  giveTransition(transition, direction).should('exist');
 });
 
 When('I click clickable slide', () => {

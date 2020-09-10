@@ -3,8 +3,9 @@ import {
   actionToolbar, checkboxInHeader, actionToolbarButton, pagination, tableBody,
   tableHeaderInIFrame,
   tableAjax,
+  paginationButtonByIndexInIFrame,
 } from '../../locators/table';
-import { themeColor, tableHeaderSize, positionOfElement } from '../helper';
+import { themeColor, tableHeaderSize, positionOfElement, positionOfPaginationButton } from '../helper';
 
 Then('I see {int} records', (records) => {
   if (records === 0) {
@@ -173,7 +174,6 @@ Then('pagination is visible', () => {
   pagination().should('be.visible');
 });
 
-
-Then('pagination is not visible', () => {
-  pagination().should('not.exist');
+Then('I click {string} pagination button in IFrame', (button) => {
+  paginationButtonByIndexInIFrame(positionOfPaginationButton(button)).click();
 });

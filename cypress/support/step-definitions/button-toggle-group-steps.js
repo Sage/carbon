@@ -1,5 +1,5 @@
 import { labelPreviewWidth, labelPreviewByTextIFrame, labelPreviewWidthIFrame } from '../../locators/button-toggle-group';
-import { label, getDataElementByValue } from '../../locators';
+import { getDataElementByValue } from '../../locators';
 
 Then('Button Toggle Group label on preview is {word}', (text) => {
   getDataElementByValue('label').should('have.text', text);
@@ -13,10 +13,6 @@ Then('Button Toggle Group component has label-inline property', () => {
 Then('Button Toggle Group component does not have label-inline property', () => {
   getDataElementByValue('label').should('not.have.css', 'align-self', 'center')
     .and('not.have.css', 'text-align', 'left');
-});
-
-Then('label width is set to {string}', (width) => {
-  label().parent().should('have.attr', 'width', `${width}`);
 });
 
 Then('label width is not set {string}', (width) => {

@@ -1,7 +1,7 @@
 import {
   CONTENT_PREVIEW,
   CONTENT_TITLE,
-  CONTENT_BODY
+  CONTENT_BODY,
 } from './locators';
 
 // component preview locators
