@@ -4,16 +4,14 @@ import propTypes from '@styled-system/prop-types';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { StyledTile, TileContent } from './tile.style.js';
 
-const Tile = (props) => {
-  const {
-    as,
-    children,
-    padding,
-    orientation,
-    width,
-    ...rest
-  } = props;
-
+const Tile = ({
+  as = 'tile',
+  orientation = 'horizontal',
+  p = 3,
+  children,
+  width,
+  ...rest
+}) => {
   const wrappedChildren = React.Children.map(children, (child, index) => {
     if (!child) { return null; }
 
@@ -32,20 +30,16 @@ const Tile = (props) => {
 
   return (
     <StyledTile
-      padding={ padding }
+      p={ p }
       tileTheme={ as }
       orientation={ orientation }
       width={ width }
+      data-component='tile'
       { ...rest }
     >
       {wrappedChildren}
     </StyledTile>
   );
-};
-
-Tile.defaultProps = {
-  as: 'tile',
-  orientation: 'horizontal'
 };
 
 Tile.propTypes = {

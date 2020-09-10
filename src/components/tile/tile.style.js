@@ -4,14 +4,6 @@ import { space } from 'styled-system';
 import baseTheme from '../../style/themes/base';
 import StyledIcon from '../icon/icon.style';
 
-const paddingSizes = {
-  XS: '8px',
-  S: '16px',
-  M: '24px',
-  L: '32px',
-  XL: '40px'
-};
-
 const isHorizontal = orientation => orientation === 'horizontal';
 const isVertical = orientation => orientation === 'vertical';
 
@@ -29,16 +21,17 @@ const TileContent = styled.div`
 
 const StyledTile = styled.div`
   ${({
-    orientation, padding, pixelWidth, tileTheme, theme, width
+    orientation, p, pixelWidth, tileTheme, theme, width
   }) => css`
   
     background-color: ${tileTheme === 'tile' ? theme.colors.white : 'transparent'};
     border: 1px solid ${theme.tile.border};
     display: flex;
     flex-direction: ${isHorizontal(orientation) ? 'row' : 'column'};
-    padding: ${paddingSizes[padding]};
+    ${space};
     position: relative;
     width: 100%;
+
 
     ${(width && width !== 0) ? `width: ${width}%;` : ''}
     ${(pixelWidth && pixelWidth !== 0) ? `width: ${pixelWidth}px;` : ''}
@@ -51,7 +44,7 @@ const StyledTile = styled.div`
       ${isVertical(orientation) && 'width: auto;'}
 
       &:not(:last-of-type) {
-        padding-${isHorizontal(orientation) ? 'right' : 'bottom'}: ${paddingSizes[padding]};
+        padding-${isHorizontal(orientation) ? 'right' : 'bottom'}: ${theme.space[p]}px;
       }
 
       & + ${TileContent} {
@@ -59,12 +52,12 @@ const StyledTile = styled.div`
 
         ${isHorizontal(orientation) && css`
           border-left: solid 1px ${theme.tile.separator};
-          padding-left: ${paddingSizes[padding]};
+          padding-left: ${theme.space[p]}px;
         `}
-
+          
         ${isVertical(orientation) && css`
           border-top: solid 1px ${theme.tile.separator};
-          padding-top: ${paddingSizes[padding]};
+          padding-top: ${theme.space[p]}px;
         `}
       }
     }
@@ -128,6 +121,10 @@ StyledTile.propTypes = {
 };
 
 StyledTile.defaultProps = {
+  theme: baseTheme
+};
+
+StyledHeadingWrapper.defaultProps = {
   theme: baseTheme
 };
 
