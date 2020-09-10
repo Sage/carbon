@@ -17,7 +17,7 @@ export interface SwitchProps {
   reverse?: boolean;
   size?: string;
   theme?: object;
-  value: string;
+  value?: string;
   /* Indicate that error has occurred
   Pass string to display icon, tooltip and red border
   Pass true boolean to only display red border */
