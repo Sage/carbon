@@ -1,3 +1,10 @@
+## [40.2.0](https://github.com/Sage/carbon/compare/v40.1.0...v40.2.0) (2020-09-10)
+
+
+### Features
+
+* **definition list:** create definition list component ([6af9b9b](https://github.com/Sage/carbon/commit/6af9b9b02095b79da5967c7dd31beb5b2d0b76c8))
+
 ## [40.1.0](https://github.com/Sage/carbon/compare/v40.0.0...v40.1.0) (2020-09-10)
 
 
