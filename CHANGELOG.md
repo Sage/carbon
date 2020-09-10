@@ -1,3 +1,15 @@
+## [40.1.0](https://github.com/Sage/carbon/compare/v40.0.0...v40.1.0) (2020-09-10)
+
+
+### Features
+
+* **textbox:** add prefix prop to display emphasized prefix ([bbbfdbb](https://github.com/Sage/carbon/commit/bbbfdbb44b3f6fc97af709cd733f9cd10f4cea66))
+
+
+### Bug Fixes
+
+* **input:** remove user agent input padding ([89d811e](https://github.com/Sage/carbon/commit/89d811ec48d21c0ca521acf9df279eb21f456915))
+
 ## [40.0.0](https://github.com/Sage/carbon/compare/v39.3.0...v40.0.0) (2020-09-08)
 
 
