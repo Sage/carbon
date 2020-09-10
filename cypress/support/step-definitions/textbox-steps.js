@@ -4,6 +4,7 @@ import {
   textboxIcon,
   textboxInput,
   textboxInIFrame,
+  textboxPrefixByPosition,
 } from '../../locators/textbox';
 import {
   commonDataElementInputPreviewNoIframe,
@@ -222,4 +223,22 @@ When('I click on Textbox', () => {
 
 Then('Textbox input has golden border on focus', () => {
   textboxInIFrame().should('have.css', 'outline', 'rgb(255, 181, 0) solid 3px');
+});
+
+Then('Prefix is set to {word}', (prefix) => {
+  textboxPrefixByPosition(positionOfElement('first')).should('have.text', prefix)
+    .and('have.css', 'font-size', '14px')
+    .and('have.css', 'font-weight', '900')
+    .and('have.css', 'margin-right', '8px');
+});
+
+Then('Multiple textbox prefix is set to {word}', (prefix) => {
+  textboxPrefixByPosition(positionOfElement('first')).should('have.text', prefix)
+    .and('have.css', 'font-size', '14px')
+    .and('have.css', 'font-weight', '900')
+    .and('have.css', 'margin-right', '8px');
+  textboxPrefixByPosition(positionOfElement('second')).should('have.text', prefix)
+    .and('have.css', 'font-size', '14px')
+    .and('have.css', 'font-weight', '900')
+    .and('have.css', 'margin-right', '8px');
 });

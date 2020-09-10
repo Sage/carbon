@@ -31,6 +31,15 @@ Feature: Experimental Textbox multiple component
     Then Textbox multiple component is not readOnly
 
   @positive
+  Scenario Outline: Set <prefix> for multiple component
+    When I open multiple "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
+    Then Multiple textbox prefix is set to <prefix>
+    Examples:
+      | prefix                       | nameOfObject           |
+      | mp150ú¿¡üßä                  | prefixOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | prefixSpecialCharacter |
+
+  @positive
   Scenario Outline: Set fieldHelp to <fieldHelp>
     When I open multiple "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
     Then Multiple fieldHelp on preview is set to <fieldHelp>
@@ -115,6 +124,6 @@ Feature: Experimental Textbox multiple component
       And Multiple Textbox width is "<width>"
     Examples:
       | size   | height | width  | nameOfObject |
-      | small  | 28px   | 1259px | sizeSmall    |
-      | medium | 36px   | 1253px | sizeMedium   |
-      | large  | 44px   | 1249px | sizeLarge    |
+      | small  | 30px   | 1263px | sizeSmall    |
+      | medium | 38px   | 1257px | sizeMedium   |
+      | large  | 46px   | 1253px | sizeLarge    |

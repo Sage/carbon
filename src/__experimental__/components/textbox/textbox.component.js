@@ -7,6 +7,7 @@ import withUniqueIdProps from '../../../utils/helpers/with-unique-id-props';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import Logger from '../../../utils/logger/logger';
 import { InputBehaviour } from '../../../__internal__/input-behaviour';
+import StyledPrefix from './__internal__/prefix.style';
 
 let deprecatedWarnTriggered = false;
 
@@ -23,6 +24,7 @@ const Textbox = ({
   validationOnLabel,
   labelWidth,
   inputWidth,
+  prefix,
   ...props
 }) => {
   if (!deprecatedWarnTriggered) {
@@ -47,6 +49,7 @@ const Textbox = ({
           inputWidth={ inputWidth || (100 - labelWidth) }
         >
           { leftChildren }
+          { prefix ? <StyledPrefix data-element='textbox-prefix'>{ prefix }</StyledPrefix> : null }
           <Input
             { ...removeParentProps(props) }
             placeholder={ (props.disabled || props.readOnly) ? '' : props.placeholder }
@@ -150,6 +153,8 @@ Textbox.propTypes = {
   iconOnClick: PropTypes.func,
   /** Handler for onClick events */
   onClick: PropTypes.func,
+  /** Emphasized part of the displayed text */
+  prefix: PropTypes.string,
   /** Margin bottom, given number will be multiplied by base spacing unit (8) */
   mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   /** Allows to override existing component styles */

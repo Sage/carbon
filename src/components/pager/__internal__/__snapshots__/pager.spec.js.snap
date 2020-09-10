@@ -11,6 +11,7 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
   flex-grow: 1;
   font-size: 14px;
   outline: none;
+  padding: 0;
   width: 30px;
 }
 
@@ -141,13 +142,8 @@ exports[`Pager renders the Pager correctly with the Mint Theme 1`] = `
   padding-right: 11px;
 }
 
-.c8 .c9 {
-  height: calc(40px - 4px);
-}
-
 .c8 .c9:-webkit-autofill {
   margin-top: 2px;
-  height: calc(40px - 8px);
 }
 
 .c8 input::-ms-clear {
@@ -624,6 +620,7 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
   flex-grow: 1;
   font-size: 14px;
   outline: none;
+  padding: 0;
   width: 30px;
 }
 
@@ -696,13 +693,8 @@ exports[`Pager renders the Pager without pageSizeSelection 1`] = `
   padding-right: 11px;
 }
 
-.c12 .c13 {
-  height: calc(40px - 4px);
-}
-
 .c12 .c13:-webkit-autofill {
   margin-top: 2px;
-  height: calc(40px - 8px);
 }
 
 .c12 input::-ms-clear {
