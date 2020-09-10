@@ -164,18 +164,10 @@ describe('Tile', () => {
       });
 
       describe('padding', () => {
-        const paddingSizes = [
-          ['XS', '8px'],
-          ['S', '16px'],
-          ['M', '24px'],
-          ['L', '32px'],
-          ['XL', '40px']
-        ];
+        it('should render correct padding', () => {
+          const wrapper = render({ p: 2 }).toJSON();
 
-        it.each(paddingSizes)('when %s, padding is set to %s', (option, value) => {
-          const wrapper = render({ padding: option }).toJSON();
-
-          assertStyleMatch({ padding: value }, wrapper);
+          assertStyleMatch({ padding: '16px' }, wrapper);
         });
       });
     });
