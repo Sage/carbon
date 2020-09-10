@@ -31,7 +31,7 @@ const StyledTile = styled.div`
     ${space};
     position: relative;
     width: 100%;
-
+    box-sizing: border-box;
 
     ${(width && width !== 0) ? `width: ${width}%;` : ''}
     ${(pixelWidth && pixelWidth !== 0) ? `width: ${pixelWidth}px;` : ''}
@@ -93,13 +93,14 @@ const StyledCollapsableContent = styled.div`
   ${({ isExpanded, maxHeight }) => css`
     overflow: hidden;
     transition: all 0.3s;
-    
+    visibility: visible;
+
     ${space};
 
     ${isExpanded && space};
 
     ${!isExpanded && css`
-      visibility: 'hidden';
+      visibility: hidden;
       opacity: '0';
       height: ${maxHeight};
       padding-top: 0;

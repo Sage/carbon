@@ -22,6 +22,7 @@ exports[`Tile renders base styles 1`] = `
   padding: 24px;
   position: relative;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .c0 .c1 {
