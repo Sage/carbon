@@ -1,9 +1,9 @@
 import {
   childrenPreview,
-  footnotePreview
+  footnotePreview,
 } from '../../locators/detail';
 import {
-  icon
+  icon,
 } from '../../locators';
 
 Then('detail children on preview is {word}', (children) => {

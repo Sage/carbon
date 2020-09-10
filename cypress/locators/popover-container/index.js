@@ -23,7 +23,6 @@ export const popoverCloseIconDS = () => cy.iFrame(POPOVER_CONTENT_CLOSE_ICON);
 export const popoverContainerTitle = () => cy.get(POPOVER_CONTAINER_TITLE);
 export const popoverContainerContentSecondInnerElement = () => popoverContainerContentDS().children()
   .find('button');
-export const popoverContainerDataComponent = () => cy.iFrame(POPOVER_CONTAINER_DATA_COMPONENT);
 
 // component preview in NoIFrame
 export const popoverSettingsIconNoIFrame = () => cy.get(POPOVER_CONTAINER_DATA_COMPONENT);
