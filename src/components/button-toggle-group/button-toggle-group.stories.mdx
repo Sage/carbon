@@ -41,17 +41,17 @@ import ButtonToggleGroup from 'carbon-react/lib/components/button-toggle-group';
       onChange={ action('onChange') }
     >
       <ButtonToggle
-        key='first'
-        value='first'
-      >Small</ButtonToggle>
+        key='foo'
+        value='foo'
+      >Foo</ButtonToggle>
       <ButtonToggle
-        key='second'
-        value='second'
-      >Medium</ButtonToggle>
+        key='bar'
+        value='bar'
+      >Bar</ButtonToggle>
       <ButtonToggle
-        key='third'
-        value='third'
-      >Large</ButtonToggle>
+        key='baz'
+        value='baz'
+      >Baz</ButtonToggle>
     </ButtonToggleGroup>
   </Story>
 </Preview>
@@ -61,7 +61,7 @@ import ButtonToggleGroup from 'carbon-react/lib/components/button-toggle-group';
 <Preview>
   <Story name="controlled" parameters={{ info: { disable: true }}} >
     {() => {
-      const [value, setValue] = useState('second');
+      const [value, setValue] = useState('bar');
       function onChangeHandler(event) {
         setValue(event.target.value);
         action('value set');
@@ -77,17 +77,17 @@ import ButtonToggleGroup from 'carbon-react/lib/components/button-toggle-group';
           value={ value }
         >
           <ButtonToggle
-            key='first'
-            value='first'
-          >Small</ButtonToggle>
+            key='foo'
+            value='foo'
+          >Foo</ButtonToggle>
           <ButtonToggle
-            key='second'
-            value='second'
-          >Medium</ButtonToggle>
+            key='bar'
+            value='bar'
+          >Bar</ButtonToggle>
           <ButtonToggle
-            key='third'
-            value='third'
-          >Large</ButtonToggle>
+            key='baz'
+            value='baz'
+          >Baz</ButtonToggle>
         </ButtonToggleGroup>
       );
     }}
@@ -107,20 +107,20 @@ import ButtonToggleGroup from 'carbon-react/lib/components/button-toggle-group';
       onChange={ () => {} }
     >
       <ButtonToggle
-        key='first'
-        value='first'
+        key='foo'
+        value='foo'
         grouped
-      >Small</ButtonToggle>
+      >Foo</ButtonToggle>
       <ButtonToggle
-        key='second'
-        value='second'
+        key='bar'
+        value='bar'
         grouped
-      >Medium</ButtonToggle>
+      >Bar</ButtonToggle>
       <ButtonToggle
-        key='third'
-        value='third'
+        key='baz'
+        value='baz'
         grouped
-      >Large</ButtonToggle>
+      >Baz</ButtonToggle>
     </ButtonToggleGroup>
   </Story>
 </Preview>
@@ -139,17 +139,17 @@ import ButtonToggleGroup from 'carbon-react/lib/components/button-toggle-group';
       onChange={ () => {} }
     >
       <ButtonToggle
-        key='first'
-        value='first'
-      >Small</ButtonToggle>
+        key='foo'
+        value='foo'
+      >Foo</ButtonToggle>
       <ButtonToggle
-        key='second'
-        value='second'
-      >Medium</ButtonToggle>
+        key='bar'
+        value='bar'
+      >Bar</ButtonToggle>
       <ButtonToggle
-        key='third'
-        value='third'
-      >Large</ButtonToggle>
+        key='baz'
+        value='baz'
+      >Baz</ButtonToggle>
     </ButtonToggleGroup>
   </Story>
 </Preview>
@@ -168,17 +168,17 @@ import ButtonToggleGroup from 'carbon-react/lib/components/button-toggle-group';
       onChange={ () => {} }
     >
       <ButtonToggle
-        key='first'
-        value='first'
-      >Small</ButtonToggle>
+        key='foo'
+        value='foo'
+      >Foo</ButtonToggle>
       <ButtonToggle
-        key='second'
-        value='second'
-      >Medium</ButtonToggle>
+        key='bar'
+        value='bar'
+      >Bar</ButtonToggle>
       <ButtonToggle
-        key='third'
-        value='third'
-      >Large</ButtonToggle>
+        key='baz'
+        value='baz'
+      >Baz</ButtonToggle>
     </ButtonToggleGroup>
   </Story>
 </Preview>

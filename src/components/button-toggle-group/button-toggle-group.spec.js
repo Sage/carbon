@@ -15,11 +15,53 @@ import Label from '../../__experimental__/components/label';
 import ButtonToggleGroup from './button-toggle-group.component';
 import ButtonToggle from '../button-toggle/button-toggle.component';
 import ButtonToggleGroupStyle from './button-toggle-group.style';
+import FormField from '../../__experimental__/components/form-field';
 
 jest.mock('../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
 
+const formFieldProps = [
+  ['label', 'label'],
+  ['labelHelp', 'label help'],
+  ['fieldHelp', 'field help'],
+  ['labelInline', true],
+  ['labelWidth', 30],
+  ['labelAlign', 'right']
+];
+
 describe('ButtonToggleGroup', () => {
+  it('wraps ButtonToggle components in a FormField', () => {
+    const wrapper = renderWithTheme({ theme: baseTheme }, mount);
+    expect(wrapper.find(FormField).exists()).toBe(true);
+    expect(wrapper.find(FormField).find(ButtonToggle).exists()).toBe(true);
+  });
+
+  describe.each(formFieldProps)('when the %s prop is set in the main component', (propName, propValue) => {
+    it('then it should be passed to the FormField', () => {
+      const wrapper = renderWithTheme({ theme: baseTheme, [propName]: propValue }, mount);
+      expect(wrapper.find(FormField).exists()).toBe(true);
+      expect(wrapper.find(FormField).prop(propName)).toBe(propValue);
+    });
+  });
+
+  describe('when the onChange function prop is set on the main component', () => {
+    it('then it should be called on single input change', () => {
+      const onChangeFn = jest.fn();
+      const wrapper = renderWithTheme({ theme: baseTheme, onChange: onChangeFn }, mount);
+      wrapper.find(ButtonToggle).first().find('input').simulate('change');
+      expect(onChangeFn).toHaveBeenCalled();
+    });
+  });
+
+  describe('when the onBlur function prop is set on the main component', () => {
+    it('then it should be called when a single input has been blurred', () => {
+      const onBlurFn = jest.fn();
+      const wrapper = renderWithTheme({ theme: baseTheme, onBlur: onBlurFn }, mount);
+      wrapper.find(ButtonToggle).first().find('input').simulate('blur');
+      expect(onBlurFn).toHaveBeenCalled();
+    });
+  });
+
   describe('Classic theme', () => {
     it('renders correctly with default settings', () => {
       const wrapper = renderWithTheme({ theme: classicTheme });
@@ -97,20 +139,20 @@ function renderWithTheme(props = {}, renderer = TestRenderer.create) {
 
   return renderer(
     <ThemeProvider theme={ theme }>
-      <ButtonToggleGroup { ...componentProps }>
+      <ButtonToggleGroup
+        id='button-toggle-group-id'
+        name='button-toggle-group'
+        { ...componentProps }
+      >
         <ButtonToggle
-          name='button-toggle-group'
           id='foo'
           value='foo'
-          { ...componentProps }
         >
           Foo
         </ButtonToggle>
         <ButtonToggle
-          name='button-toggle-group'
           id='bar'
           value='bar'
-          { ...componentProps }
         >
           Bar
         </ButtonToggle>
