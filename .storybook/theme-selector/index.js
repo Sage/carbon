@@ -2,6 +2,7 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { mintTheme, aegeanTheme, noTheme, classicTheme } from '../../src/style/themes';
 import addons, { makeDecorator } from '@storybook/addons';
+import DeprecationWarning from "../../src/__internal__/DeprecationWarning";
 
 export const ADDON_ID = 'carbon/theme-selector';
 export const PARAMS_EVENT = `${ADDON_ID}/params`
@@ -32,6 +33,7 @@ export const withThemeSelector = makeDecorator({
     channel.emit(PARAMS_EVENT, parameters);
     return (
       <ThemeProvider theme={theme}>
+        {parameters.isClassic && <DeprecationWarning>Classic theme is not supported and is being removed</DeprecationWarning>}
         {getStory(context)}
       </ThemeProvider>
     )
