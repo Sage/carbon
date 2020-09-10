@@ -33,11 +33,11 @@ function makeStory(name, themeSelector, disableChromatic = false) {
     };
 
     const onFocus = (ev) => {
-      action('onFocus')(ev);
+      action('onFocus', { depth: 2 })(ev);
     };
 
     const onBlur = (ev) => {
-      action('onBlur')(ev);
+      action('onBlur', { depth: 2 })(ev);
     };
 
     return (
