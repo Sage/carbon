@@ -74,6 +74,8 @@ BaseButtonToggleGroup.propTypes = {
   label: PropTypes.string,
   /** Text for the labels help tooltip. */
   labelHelp: PropTypes.string,
+  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
+  labelSpacing: PropTypes.oneOf([1, 2]),
   /** The percentage width of the ButtonToggleGroup. */
   inputWidth: PropTypes.number,
   /** The text for the field help. */
@@ -91,7 +93,9 @@ BaseButtonToggleGroup.propTypes = {
   /** Callback fired when each RadioButton is blurred */
   onBlur: PropTypes.func,
   /** The value of the Button Toggle Group */
-  value: PropTypes.string
+  value: PropTypes.string,
+  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7])
 };
 
 BaseButtonToggleGroup.defaultProps = {

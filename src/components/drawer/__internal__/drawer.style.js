@@ -1,5 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
-import baseTheme from '../../style/themes/base';
+import baseTheme from '../../../style/themes/base';
+import StyledTabs from '../../tabs/__internal__/tabs.style';
 
 const StyledSidebarTitle = styled.div`
   margin: 24px 36px 24px 24px;
@@ -15,6 +16,15 @@ const StyledDrawerSidebar = styled.div`
   overflow: auto;
   display: none;
   opacity: 0;
+
+  ${({ hasControls, isExpanded }) => hasControls && css`
+    ${StyledTabs} {
+      margin-top: 48px;
+      ${!isExpanded && css`
+        display: none;
+      `}
+    }
+  `}
 `;
 
 const sidebarVisible = () => keyframes`

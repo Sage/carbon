@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { action } from '@storybook/addon-actions';
-import Drawer from '.';
+import Drawer from '..';
 import {
   FlatTable,
   FlatTableHead,
@@ -8,7 +8,7 @@ import {
   FlatTableRow,
   FlatTableHeader,
   FlatTableCell
-} from '../flat-table';
+} from '../../flat-table';
 
 
 export default {

@@ -11,7 +11,7 @@ import StyledValidationIcon from '../../../components/validations/validation-ico
 jest.mock('../../../utils/helpers/guid', () => () => 'mocked-guid');
 
 describe('Textbox', () => {
-  it('renders with InputPresentation and Input and all props passed to Input', () => {
+  it('renders with InputPresentation and Input and correct props passed to Input', () => {
     const wrapper = shallow(
       <Textbox value='foobar' leftChildren='southpaw children'>
         normal children

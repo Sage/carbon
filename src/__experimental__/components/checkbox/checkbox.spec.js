@@ -7,7 +7,7 @@ import Checkbox from './checkbox.component';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
-import LabelStyle, { StyledLabelContainer } from '../label/label.style';
+import LabelStyle from '../label/label.style';
 import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
 import StyledHelp from '../../../components/help/help.style';
 import guid from '../../../utils/helpers/guid';
@@ -35,7 +35,11 @@ describe('Checkbox', () => {
     });
 
     describe('when size=large', () => {
-      const wrapper = render({ size: 'large' }).toJSON();
+      let wrapper;
+
+      beforeEach(() => {
+        wrapper = render({ size: 'large' }).toJSON();
+      });
 
       it('applies the appropriate input display element styles', () => {
         const styles = {
@@ -62,14 +66,18 @@ describe('Checkbox', () => {
 
       it('applies the appropriate FieldHelp styles', () => {
         assertStyleMatch({
-          marginLeft: '32px'
+          marginLeft: '24px'
         }, wrapper, { modifier: css`${FieldHelpStyle}` });
       });
 
-      it('applies the appropriate Label styles', () => {
-        assertStyleMatch({
-          marginLeft: '8px'
-        }, wrapper, { modifier: css`${StyledLabelContainer}` });
+      describe('when labelSpacing is 2', () => {
+        it('should apply the correct fieldHelp styles', () => {
+          wrapper = render({ labelSpacing: 2, size: 'large' }).toJSON();
+          assertStyleMatch({
+            paddingLeft: '16px',
+            marginLeft: '24px'
+          }, wrapper, { modifier: css`${FieldHelpStyle}` });
+        });
       });
     });
 
@@ -80,13 +88,6 @@ describe('Checkbox', () => {
         assertStyleMatch({
           marginTop: '0'
         }, wrapper, { modifier: css`${FieldHelpStyle}` });
-      });
-
-
-      it('applies the appropriate Label styles', () => {
-        assertStyleMatch({
-          marginLeft: '8px'
-        }, wrapper, { modifier: css`${StyledLabelContainer}` });
       });
     });
 
@@ -266,6 +267,14 @@ describe('Checkbox', () => {
         });
       });
     });
+
+    describe('when labelSpacing is 2', () => {
+      const wrapper = render({ labelSpacing: 2 }).toJSON();
+      assertStyleMatch({
+        paddingLeft: '16px',
+        marginLeft: '16px'
+      }, wrapper, { modifier: css`${FieldHelpStyle}` });
+    });
   });
 
   describe('Classic theme', () => {
@@ -299,7 +308,8 @@ describe('Checkbox', () => {
 
       it('applies appropriate FieldHelp styles', () => {
         assertStyleMatch({
-          marginLeft: '15px'
+          marginLeft: '15px',
+          paddingLeft: '5px'
         }, wrapper, { modifier: css`${FieldHelpStyle}` });
       });
 

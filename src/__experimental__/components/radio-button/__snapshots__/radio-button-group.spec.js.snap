@@ -5,6 +5,10 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   margin-top: 16px;
 }
 
+.c5.c5.c5 {
+  margin-bottom: 16px;
+}
+
 .c7 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -33,6 +37,11 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 }
 
 .c3 .c14 {
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  padding-top: 0;
   width: auto;
 }
 
@@ -56,8 +65,8 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 }
 
 .c2 {
-  padding-top: 8px;
-  margin-bottom: 12px;
+  margin-top: 8px;
+  margin-top: 8px;
 }
 
 .c2 .c8 {
@@ -95,7 +104,6 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 }
 
 .c2 .c14 {
-  margin-left: 8px;
   width: auto;
   -webkit-flex: 0 1 auto;
   -ms-flex: 0 1 auto;
@@ -103,8 +111,9 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 }
 
 .c2 .c13 {
-  margin-left: 24px;
+  margin-left: 16px;
   margin-top: 0;
+  padding-left: 8px;
 }
 
 .c2 .c16 {
@@ -114,15 +123,6 @@ exports[`RadioButtonGroup renders as expected 1`] = `
 
 .c2 .c10:checked ~ .c12 svg path {
   fill: rgba(0,0,0,0.90);
-}
-
-.c2 .c13 {
-  margin-left: 32px;
-  padding-left: 0;
-}
-
-.c2 .c8 {
-  margin-right: 16px;
 }
 
 .c2 .c12 {
@@ -154,7 +154,6 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   -webkit-flex: 1 1 calc(100% - 44px);
   -ms-flex: 1 1 calc(100% - 44px);
   flex: 1 1 calc(100% - 44px);
-  margin-left: 0;
 }
 
 .c2 .c10:checked + .c12 circle {
@@ -185,7 +184,6 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   padding: 0;
   font-weight: 600;
   line-height: 24px;
-  margin-right: 4px;
 }
 
 <fieldset

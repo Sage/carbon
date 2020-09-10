@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import propTypes from '@styled-system/prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import CheckboxStyle from './checkbox.style';
 import CheckableInput from '../checkable-input/checkable-input.component';
@@ -14,6 +15,8 @@ const Checkbox = ({
   fieldHelp,
   autoFocus,
   labelHelp,
+  labelSpacing = 1,
+  ml,
   ...props
 }) => {
   const inputProps = {
@@ -28,13 +31,16 @@ const Checkbox = ({
     reverse: !props.reverse,
     fieldHelp,
     autoFocus,
-    labelHelp
+    labelHelp,
+    labelSpacing,
+    ml
   };
 
   return (
     <CheckboxStyle
       { ...tagComponent('checkbox', props) }
       { ...props }
+      labelSpacing={ labelSpacing }
     >
       <CheckableInput { ...inputProps }>
         <CheckboxSvg />
@@ -44,6 +50,7 @@ const Checkbox = ({
 };
 
 Checkbox.propTypes = {
+  ...propTypes.space,
   /** Set the value of the checkbox */
   checked: PropTypes.bool,
   /** Toggles disabling of input */
@@ -58,8 +65,8 @@ Checkbox.propTypes = {
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** The content of the label for the input */
   label: PropTypes.string,
-  /** Sets label alignment - accepted values: 'left' (default), 'right' */
-  labelAlign: PropTypes.string,
+  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
+  labelSpacing: PropTypes.oneOf([1, 2]),
   /** Sets percentage-based label width */
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Accepts a callback function which can be used to update parent state on change */
