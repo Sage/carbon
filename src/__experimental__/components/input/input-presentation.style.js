@@ -22,12 +22,8 @@ const InputPresentationStyle = styled.div`
   padding-right: ${({ size }) => sizes[size].horizontalPadding};
 
   ${StyledInput} {
-    /* this is required for an IE11 fix: */
-    height: calc(${({ size }) => sizes[size].height} - 4px);
-
     &:-webkit-autofill {
       margin-top: 2px;
-      height: calc(${({ size }) => sizes[size].height} - 8px);
     }
   }
 

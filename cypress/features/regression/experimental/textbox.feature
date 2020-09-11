@@ -31,6 +31,15 @@ Feature: Experimental Textbox component
     Then Textbox component is not readOnly
 
   @positive
+  Scenario Outline: Set prefix to <prefix>
+    When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
+    Then Prefix is set to <prefix>
+    Examples:
+      | prefix                       | nameOfObject           |
+      | mp150ú¿¡üßä                  | prefixOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | prefixSpecialCharacter |
+
+  @positive
   Scenario Outline: Set fieldHelp to <fieldHelp>
     When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "<nameOfObject>" object name
     Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
@@ -113,9 +122,9 @@ Feature: Experimental Textbox component
       And Textbox width is "<width>"
     Examples:
       | size   | height | width  | nameOfObject |
-      | small  | 28px   | 1259px | sizeSmall    |
-      | medium | 36px   | 1253px | sizeMedium   |
-      | large  | 44px   | 1249px | sizeLarge    |
+      | small  | 30px   | 1263px | sizeSmall    |
+      | medium | 38px   | 1257px | sizeMedium   |
+      | large  | 46px   | 1253px | sizeLarge    |
 
   @positive
   Scenario: Check icon inside of Textbox is visible

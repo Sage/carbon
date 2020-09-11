@@ -41,14 +41,6 @@ Then('toggle {word} Drawers icon switched orientation to closed', (drawer) => {
   drawerToggle(drawer).should('have.css', 'transform', 'none');
 });
 
-Then('Drawer {string} expandedWidth is set to {string}', (drawer, width) => {
-  drawerSidebar(drawer).should('have.css', 'width', width);
-});
-
 Then('Drawer {word} animationDuration is set to {string}', (drawer, animationDuration) => {
   drawerSidebar(drawer).should('have.css', 'animation-duration', animationDuration);
-});
-
-Then('Drawer {string} backgroundColor is set to {string}', (drawer, backgroundColor) => {
-  drawerSidebar(drawer).should('have.css', 'background-color', backgroundColor);
 });

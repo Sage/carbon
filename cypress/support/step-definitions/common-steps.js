@@ -1,5 +1,5 @@
 import {
-  visitComponentUrl, setSlidebar, pressESCKey, pressTABKey, asyncWaitForKnobs,
+  visitComponentUrl, pressESCKey, pressTABKey, asyncWaitForKnobs,
   visitFlatTableComponentNoiFrame, positionOfElement, keyCode,
   visitDocsUrl,
   visitComponentUrlWithParameters,
@@ -7,13 +7,12 @@ import {
   clickClear,
 } from '../helper';
 import {
-  commonButtonPreview, labelPreview, helpIconByPosition, inputWidthSlider,
-  fieldHelpPreview, labelWidthSlider, backgroundUILocator,
+  commonButtonPreview, labelPreview, helpIconByPosition, backgroundUILocator,
   closeIconButtonIFrame, tooltipPreviewIFrame, getKnobsInput, getKnobsInputWithName,
   getKnobsInputByGroup,
-  iconIFrame, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
-  precisionSlider, storyRootNoIframe, tooltipPreview, getDataElementByValue,
-  knobsNameTab, dlsRoot,
+  iconIFrame, inputWidthPreview, label, eventInAction,
+  storyRootNoIframe, tooltipPreview, getDataElementByValue,
+  knobsNameTab,
   commonButtonPreviewNoIFrameRoot,
   getDataElementByValueIframe,
   commonButtonPreviewNoIframe,
@@ -56,10 +55,6 @@ Given('I open {word} {string} component in noIFrame with {string} json from {str
 
 Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
-});
-
-Given('I open Test {string} component page knobs in noIFrame', (component) => {
-  visitComponentUrl(component, 'knobs', true, 'test-');
 });
 
 Given('I open {string} component page {string}', (component, story) => {
@@ -134,18 +129,6 @@ When('I open Design System Flat Table Test component basic page with prop value'
   visitFlatTableComponentNoiFrame('Design System Flat Table Test', 'basic', true);
 });
 
-Given('I open {string} component page autoFocus in iframe', (component) => {
-  visitComponentUrl(component, 'autofocus', true);
-});
-
-Given('I open {string} component page autoFocus multiple in iframe', (component) => {
-  visitComponentUrl(component, 'autofocus_multiple', true);
-});
-
-Given('I open {string} component page with sticky footer', (component) => {
-  visitComponentUrl(component, 'with_sticky_footer');
-});
-
 Given('I open {string} component page customFilter', (component) => {
   visitComponentUrl(component, 'customFilter');
 });
@@ -161,10 +144,6 @@ When('I set {word} to {word} word', (propertyName, text) => {
 
 When('I set {word} to {string}', (propertyName, text) => {
   getKnobsInput(propertyName).clear().type(text);
-});
-
-When('I set group {word} {word} to {word}', (groupName, propertyName, text) => {
-  getKnobsInputByGroup(groupName, propertyName).clear().type(text);
 });
 
 When('I set {string} {string} to {string}', (propertyName, fieldName, text) => {
@@ -257,14 +236,6 @@ Then('tooltipPreview on preview is set to {word} in IFrame', (text) => {
   tooltipPreviewIFrame().should('have.text', text);
 });
 
-When('I set inputWidth slider to {int}', (width) => {
-  setSlidebar(inputWidthSlider(), width);
-});
-
-Then('fieldHelp on preview is set to {word}', (text) => {
-  fieldHelpPreview().should('have.text', text);
-});
-
 Then('fieldHelp on preview is set to {word} in NoIFrame', (text) => {
   fieldHelpPreviewNoIFrame().should('have.text', text);
 });
@@ -282,18 +253,6 @@ Then('{word} is not set to fieldHelpInline and has marginTop set to {string}', (
 
 Then('{string} fieldHelp on preview is set to {word}', (position, text) => {
   fieldHelpPreviewNoIFrame(positionOfElement(position)).should('have.text', text);
-});
-
-When('I set label width slider to {int}', (width) => {
-  setSlidebar(labelWidthSlider(), width);
-});
-
-When('I set group {word} {word} slider to {int}', (groupName, propertyName, width) => {
-  setSlidebar(getKnobsInputByGroup(groupName, propertyName), width);
-});
-
-When('I set precision slider to {int}', (width) => {
-  setSlidebar(precisionSlider(), width);
 });
 
 Then('{string} label Align on preview is {string}', (position, direction) => {
@@ -330,10 +289,6 @@ Then('I click closeIcon in IFrame', () => {
 
 Then('I click closeIcon', () => {
   closeIconButton().click();
-});
-
-When('I click {string} button into iFrame', (text) => {
-  commonButtonPreviewNoIframe().contains(text).click();
 });
 
 Then('closeIcon is not visible in IFrame', () => {
@@ -379,19 +334,9 @@ When('I check {word} checkbox', (checkboxName) => {
   getKnobsInput(checkboxName).check();
 });
 
-When('I check group {word} {word} checkbox', (groupName, checkboxName) => {
-  getKnobsInputByGroup(groupName, checkboxName).scrollIntoView();
-  getKnobsInputByGroup(groupName, checkboxName).check();
-});
-
 When('I check {word} {word} checkbox', (checkboxName, text) => {
   getKnobsInputWithName(checkboxName, text).scrollIntoView();
   getKnobsInputWithName(checkboxName, text).check();
-});
-
-When('I check group {word} {word} {word} checkbox', (groupName, checkboxName, text) => {
-  getKnobsInputByGroup(groupName, checkboxName, text).scrollIntoView();
-  getKnobsInputByGroup(groupName, checkboxName, text).check();
 });
 
 When('I uncheck {word} checkbox', (checkboxName) => {
@@ -399,31 +344,8 @@ When('I uncheck {word} checkbox', (checkboxName) => {
   getKnobsInput(checkboxName).uncheck();
 });
 
-When('I uncheck group {word} {word} checkbox', (groupName, checkboxName) => {
-  getKnobsInputByGroup(groupName, checkboxName).scrollIntoView();
-  getKnobsInputByGroup(groupName, checkboxName).uncheck();
-});
-
-When('I uncheck {word} {word} checkbox', (checkboxName, text) => {
-  getKnobsInputWithName(checkboxName, text).scrollIntoView();
-  getKnobsInputWithName(checkboxName, text).uncheck();
-});
-
-When('I uncheck group {word} {word} {word} checkbox', (groupName, checkboxName, text) => {
-  getKnobsInputByGroup(groupName, checkboxName, text).scrollIntoView();
-  getKnobsInputByGroup(groupName, checkboxName, text).uncheck();
-});
-
 Then('inputWidth is set to {string}', (width) => {
   inputWidthPreview().should('have.attr', 'style').should('contain', `width: ${width}%`);
-});
-
-Then('inputWidth is not set', () => {
-  inputWidthPreview().should('not.have.attr', 'style');
-});
-
-Then('{word} labelWidth is set to {string}', (componentName, width) => {
-  label().should('contain', `width: ${width}%;`);
 });
 
 Then('{word} action was called in Actions Tab', (event) => {
@@ -434,30 +356,8 @@ When('I close Sidebar', () => {
   closeIconButtonIFrame().click();
 });
 
-Then('data-{word} {string} is present', (element, value) => {
-  getDataElementByNameAndValue(element, value).should('be.visible');
-});
-
 Then('text {string} color is set to {string}', (text, color) => {
   storyRootNoIframe().contains(text).should('have.css', 'color', color);
-});
-
-When('I click outside of the component', () => {
-  storyRoot().click();
-});
-
-When('I click outside of the component in DLS directory', () => {
-  dlsRoot().click();
-});
-
-When('I click above of the component in no iFrame', () => {
-  storyRootNoIframe().click('top');
-});
-
-Then('{string} tab in {string} tab list is visible', (knobsName, position) => {
-  cy.wait(2500, { log: DEBUG_FLAG }); // required because element needs to be loaded
-  knobsNameTab(knobsName, positionOfElement(position)).should('be.visible')
-    .and('have.css', 'visibility', 'visible');
 });
 
 When('I press keyboard {string} key times {int}', (key, times) => {
@@ -484,18 +384,10 @@ Then('focused element inner content is set to {string}', (text) => {
   cy.focused().should('contain', text);
 });
 
-Then('focused element has golden border outline {string}', (color) => {
-  cy.focused().should('have.css', 'outline', color);
-});
-
 When('I press {string} key times {int}', (key, times) => {
   for (let i = 0; i < times; i++) {
     cy.focused().type(`${key}`);
   }
-});
-
-When('I click on outside dialog in iFrame', () => {
-  cy.get('#story-root').click({ force: true });
 });
 
 When('I click onto root in Test directory in iFrame', () => {
@@ -518,20 +410,8 @@ Then('label width on preview is {int}', (width) => {
   getDataElementByValue('label').parent().should('have.attr', 'width').should('contain', `${width}`);
 });
 
-Then('label width on preview is {int} in IFrame', (width) => {
-  label().should('have.attr', 'width').should('contain', `${width}`);
-});
-
 Then('inputWidth on preview is {int}', (width) => {
   commonDataElementInputPreviewNoIframe().parent().should('have.css', 'flex').should('contain', `${width}%`);
-});
-
-Then('label align on preview is set to {string}', (labelAlign) => {
-  getDataElementByValue('label').should('have.css', TEXT_ALIGN, `${labelAlign}`);
-});
-
-Then('label align on preview is set to {string} in IFrame', (labelAlign) => {
-  label().should('have.css', TEXT_ALIGN, `${labelAlign}`);
 });
 
 Then('label is inline', () => {
@@ -540,10 +420,6 @@ Then('label is inline', () => {
 
 Then('label is not inline', () => {
   getDataElementByValue('label').parent().should('not.have.css', TEXT_ALIGN, TEXT_ALIGN_END);
-});
-
-Then('label is inline in IFrame', () => {
-  label().should('have.css', TEXT_ALIGN, 'left');
 });
 
 Then('label width is set to {string} in NoIFrame', (width) => {

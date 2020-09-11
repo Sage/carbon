@@ -4,9 +4,9 @@ import {
   textboxIcon,
   textboxInput,
   textboxInIFrame,
+  textboxPrefixByPosition,
 } from '../../locators/textbox';
 import {
-  labelNoIFrame,
   commonDataElementInputPreviewNoIframe,
   getDataElementByValue,
   tooltipPreviewByPositionNoIFrame,
@@ -225,20 +225,20 @@ Then('Textbox input has golden border on focus', () => {
   textboxInIFrame().should('have.css', 'outline', 'rgb(255, 181, 0) solid 3px');
 });
 
-Then('Textbox overriden styles rendered properly', () => {
-  labelNoIFrame().parent().parent().should('have.css', 'background', 'rgb(240, 240, 240) none repeat scroll 0% 0% / auto padding-box border-box');
-  labelNoIFrame().parent().should('have.css', 'display', 'flex');
-  labelNoIFrame().should('have.css', 'display', 'block')
-    .and('have.css', 'font-weight', '600')
-    .and('have.css', 'box-sizing', 'border-box')
-    .and('have.css', 'padding-bottom', '0px')
-    .and('have.css', 'padding-top', '12px')
-    .and('have.css', 'padding-right', '11px')
-    .and('have.css', 'color', 'rgb(180, 212, 85)');
-  commonDataElementInputPreviewNoIframe().parent().should('have.css', 'background', 'rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box')
-    .and('have.css', 'border', '1px solid rgb(102, 133, 146)')
-    .and('have.css', 'flex', '0 0 auto');
-  commonDataElementInputPreviewNoIframe().should('have.css', 'background', 'rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box')
-    .and('have.css', 'border', '0px none rgba(0, 0, 0, 0.9)')
-    .and('have.css', 'color', 'rgba(0, 0, 0, 0.9)');
+Then('Prefix is set to {word}', (prefix) => {
+  textboxPrefixByPosition(positionOfElement('first')).should('have.text', prefix)
+    .and('have.css', 'font-size', '14px')
+    .and('have.css', 'font-weight', '900')
+    .and('have.css', 'margin-right', '8px');
+});
+
+Then('Multiple textbox prefix is set to {word}', (prefix) => {
+  textboxPrefixByPosition(positionOfElement('first')).should('have.text', prefix)
+    .and('have.css', 'font-size', '14px')
+    .and('have.css', 'font-weight', '900')
+    .and('have.css', 'margin-right', '8px');
+  textboxPrefixByPosition(positionOfElement('second')).should('have.text', prefix)
+    .and('have.css', 'font-size', '14px')
+    .and('have.css', 'font-weight', '900')
+    .and('have.css', 'margin-right', '8px');
 });

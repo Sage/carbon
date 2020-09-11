@@ -24,16 +24,8 @@ Then('Dialog size property on preview is {string}', (size) => {
   dialogPreview().should('have.css', 'width', `${size}px`);
 });
 
-Then('Dialog is visible', () => {
-  dialogPreview().should('be.visible');
-});
-
 Then('Dialog is visible in IFrame', () => {
   dialogPreviewIFrame().should('be.visible');
-});
-
-Then('Dialog is not visible', () => {
-  dialogPreview().should('not.exist');
 });
 
 Then('Dialog is not visible in IFrame', () => {
