@@ -1,5 +1,5 @@
 import {
-  singleTileSelectInput, tileSelectDataComponent, deselectButton, disabledTileSelect,
+  singleTileSelectInput, tileSelectDataComponent, deselectButton,
 } from '../../locators/tileSelect';
 
 When('I click on single tile component', () => {
@@ -20,8 +20,4 @@ Then('Single tile is not check', () => {
 
 Then('Single tile has golden focus', () => {
   tileSelectDataComponent().find('div').should('have.css', 'outline', 'rgb(255, 181, 0) solid 3px');
-});
-
-Then('Tile is disabled', () => {
-  disabledTileSelect().should('have.attr', 'disabled');
 });

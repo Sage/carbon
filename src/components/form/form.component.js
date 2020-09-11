@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import throttle from 'lodash/throttle';
 
 import ElementResize from '../../utils/helpers/element-resize';
+
 import FormSummary from './form-summary.component';
 import {
   StyledForm,
@@ -23,8 +24,9 @@ const Form = ({
   errorCount,
   warningCount,
   onSubmit,
-  buttonAlignment,
+  buttonAlignment = 'right',
   stickyFooter,
+  fieldSpacing = 3,
   ...rest
 }) => {
   const [isFooterSticky, setIsFooterSticky] = useState(false);
@@ -79,6 +81,7 @@ const Form = ({
       stickyFooter={ stickyFooter && isFooterSticky }
       onSubmit={ onSubmit }
       data-component='form'
+      fieldSpacing={ fieldSpacing }
       { ...rest }
     >
       { children }
@@ -135,11 +138,10 @@ Form.propTypes = {
   errorCount: PropTypes.number,
 
   /** The total number of warnings present in the form */
-  warningCount: PropTypes.number
-};
+  warningCount: PropTypes.number,
 
-Form.defaultProps = {
-  buttonAlignment: 'right'
+  /** Spacing between form fields, given number will be multiplied by base spacing unit (8) */
+  fieldSpacing: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7])
 };
 
 export default Form;

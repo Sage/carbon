@@ -27,10 +27,12 @@ class CheckableInput extends React.Component {
         'fieldHelp',
         'fieldHelpInline',
         'labelHelp',
+        'labelSpacing',
         'reverse',
         'error',
         'warning',
         'info',
+        'mb',
         'labelAlign',
         'disabled'
       ]),
@@ -38,6 +40,7 @@ class CheckableInput extends React.Component {
       helpId,
       label: rest.inputLabel,
       labelHelpIcon: 'info',
+      labelInline: rest.labelInline,
       name: id,
       id
     };
@@ -95,10 +98,14 @@ CheckableInput.propTypes = {
   inputLabel: PropTypes.node,
   /** Sets percentage-based input width */
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  /** When true, label is placed in line an input */
+  labelInline: PropTypes.bool,
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
   labelAlign: PropTypes.string,
   /** The content for the help tooltip, to appear next to the Label */
   labelHelp: PropTypes.node,
+  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
+  labelSpacing: PropTypes.oneOf([1, 2]),
   /** Sets percentage-based label width */
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Accepts a callback function which can be used to update parent state on change */
@@ -108,11 +115,17 @@ CheckableInput.propTypes = {
   /** Reverses label and CheckableInput display */
   reverse: PropTypes.bool,
   /** Specifies input type, 'checkbox' or 'switch' */
-  inputType: PropTypes.string.isRequired
+  inputType: PropTypes.string.isRequired,
+  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
+  /** Margin left, any valid CSS value */
+  ml: PropTypes.string
 };
 
 CheckableInput.defaultProps = {
-  reverse: false
+  reverse: false,
+  labelSpacing: 1,
+  labelInline: true
 };
 
 export default CheckableInput;

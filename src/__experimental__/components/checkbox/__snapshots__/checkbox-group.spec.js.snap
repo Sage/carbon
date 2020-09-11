@@ -55,6 +55,11 @@ exports[`CheckboxGroup renders as expected 1`] = `
 }
 
 .c10 .c5 {
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  padding-top: 0;
   width: auto;
 }
 
@@ -75,10 +80,6 @@ exports[`CheckboxGroup renders as expected 1`] = `
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
-}
-
-.c9 {
-  padding-top: 8px;
 }
 
 .c9 .c12 {
@@ -116,7 +117,6 @@ exports[`CheckboxGroup renders as expected 1`] = `
 }
 
 .c9 .c5 {
-  margin-left: 8px;
   width: auto;
   -webkit-flex: 0 1 auto;
   -ms-flex: 0 1 auto;
@@ -124,8 +124,9 @@ exports[`CheckboxGroup renders as expected 1`] = `
 }
 
 .c9 .c17 {
-  margin-left: 24px;
+  margin-left: 16px;
   margin-top: 0;
+  padding-left: 8px;
 }
 
 .c9 .c20 {

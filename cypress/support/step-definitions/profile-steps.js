@@ -1,9 +1,8 @@
 import {
-  emailPreview, avatarPreview, initialsPreview, profile, namePreview,
+  emailPreview, avatarPreview, initialsPreview, namePreview,
 } from '../../locators/profile';
 
 const INITIALS_FOLDER = 'initials/';
-const PROFILE_LARGE = 'carbon-profile--large';
 const DATA_IMAGE_PREFIX = 'data:image/png;base64,';
 
 Then('email is set to {word}', (email) => {
@@ -12,10 +11,6 @@ Then('email is set to {word}', (email) => {
 
 Then('avatar is taken from {string}', (avatarUrl) => {
   avatarPreview().should('have.attr', 'src', avatarUrl);
-});
-
-Then('Profile is set to large', () => {
-  profile().should('have.class', PROFILE_LARGE);
 });
 
 Then('name is set to {word}', (name) => {

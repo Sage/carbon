@@ -4,7 +4,7 @@ import {
   checkboxDataComponentNoIframe,
   checkboxRoleNoIFrame,
 } from '../../locators/checkbox';
-import { labelNoIFrame } from '../../locators';
+import { labelNoIFrame, fieldHelpPreviewNoIFrame } from '../../locators';
 import { positionOfElement } from '../helper';
 
 Then('Checkbox is set to reverse and has width {string}', (width) => {
@@ -31,14 +31,20 @@ Then('Checkbox size on preview is set to {string}', (size) => {
   }
 });
 
-Given('I check {string} checkbox', (position) => {
-  checkbox(positionOfElement(position)).click();
+Then('Checkbox field help is inline', () => {
+  fieldHelpPreviewNoIFrame().should('have.css', 'margin-left', '0px')
+    .and('have.css', 'margin-top', '0px')
+    .and('have.css', 'padding-left', '8px');
 });
 
-When('I check {string} checkbox {int} times', (position, times) => {
-  for (let i = 0; i < times; i++) {
-    checkbox(positionOfElement(position), times).click();
-  }
+Then('Checkbox field help is not inline', () => {
+  fieldHelpPreviewNoIFrame().should('have.css', 'margin-left', '16px')
+    .and('have.css', 'margin-top', '0px')
+    .and('have.css', 'padding-left', '8px');
+});
+
+Given('I check {string} checkbox', (position) => {
+  checkbox(positionOfElement(position)).click();
 });
 
 Then('checkbox label on preview is {word}', (text) => {

@@ -3,7 +3,7 @@ Feature: Tile component
 
   @positive
   Scenario Outline: I select Tile component as to <as>
-    When I open default "Tile" component in noIFrame with "tile" json from "commonComponents" using "<nameOfObject>" object name
+    When I open Test test_basic "Tile" component in noIFrame with "tile" json from "commonComponents" using "<nameOfObject>" object name
     Then Tile component as property is set to "<color>"
     Examples:
       | as          | color              | nameOfObject  |
@@ -12,7 +12,7 @@ Feature: Tile component
 
   @positive
   Scenario Outline: I select Tile component orientation to <orientation>
-    When I open default "Tile" component in noIFrame with "tile" json from "commonComponents" using "<nameOfObject>" object name
+    When I open Test test_basic "Tile" component in noIFrame with "tile" json from "commonComponents" using "<nameOfObject>" object name
     Then Tile component orientation property is set to "<orientation>"
     Examples:
       | orientation | nameOfObject          |
@@ -21,7 +21,7 @@ Feature: Tile component
 
   @positive
   Scenario Outline: I select Tile component padding to <padding>
-    When I open default "Tile" component in noIFrame with "tile" json from "commonComponents" using "<nameOfObject>" object name
+    When I open Test test_basic "Tile" component in noIFrame with "tile" json from "commonComponents" using "<nameOfObject>" object name
     Then Tile component padding property is set to "<px>"
     Examples:
       | padding | px | nameOfObject |
@@ -33,7 +33,7 @@ Feature: Tile component
 
   @positive
   Scenario Outline: Change Tile pixelWidth to <pixelWidth>
-    When I open default "Tile" component in noIFrame with "tile" json from "commonComponents" using "<nameOfObject>" object name
+    When I open Test test_basic "Tile" component in noIFrame with "tile" json from "commonComponents" using "<nameOfObject>" object name
     Then Tile pixel width is set to <pixelWidth>
     Examples:
       | pixelWidth | nameOfObject   |
@@ -43,7 +43,7 @@ Feature: Tile component
 
   @positive
   Scenario Outline: Change Tile width to <width>
-    When I open default "Tile" component in noIFrame with "tile" json from "commonComponents" using "<nameOfObject>" object name
+    When I open Test test_basic "Tile" component in noIFrame with "tile" json from "commonComponents" using "<nameOfObject>" object name
     Then Tile width is set to <width>
     Examples:
       | width | nameOfObject |

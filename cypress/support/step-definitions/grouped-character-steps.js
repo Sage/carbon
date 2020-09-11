@@ -1,6 +1,7 @@
-import { commonDataElementInputPreview, 
-  getKnobsInput, 
-  commonDataElementInputPreviewNoIframe 
+import { 
+  commonDataElementInputPreview,
+  getKnobsInput,
+  commonDataElementInputPreviewNoIframe,
 } from '../../locators';
 
 When('I put {string} example grouped character', (text) => {
@@ -13,10 +14,6 @@ When('I put {string} example grouped character in no Iframe', (text) => {
 
 Then('example grouped character is {string}', (text) => {
   commonDataElementInputPreviewNoIframe().should('have.value', text);
-});
-
-Then('Input component inputWidth is set to {string}', (width) => {
-  commonDataElementInputPreview().parent().should('have.css', 'flex', `0 0 ${width}%`);
 });
 
 When('I input json to {string} input field the {string}', (inputFieldName, value) => {

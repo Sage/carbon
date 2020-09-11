@@ -112,6 +112,7 @@ const validationGroupedKnobs = (type, storyName) => {
       OptionsHelper.alignBinary[0],
       group
     ),
+    labelSpacing: select('labelSpacing', [1, 2], 1),
     reverse: boolean(`${type} reverse`, BaseSwitch.defaultProps.reverse, group)
   };
 };
@@ -214,6 +215,7 @@ function commonKnobs() {
       OptionsHelper.alignBinary,
       OptionsHelper.alignBinary[0]
     ),
+    labelSpacing: select('labelSpacing', [1, 2], 1),
     reverse: boolean('reverse', BaseSwitch.defaultProps.reverse),
     value: text('value', 'test-value')
   });

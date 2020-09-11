@@ -2,10 +2,10 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import 'jest-styled-components';
 import PagerNavigation from './pager-navigation.component';
-import { StyledPagerLinkStyles } from './pager.styles';
-import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-import StyledInputPresentation from '../../__experimental__/components/input/input-presentation.style';
-import StyledInput from '../../__experimental__/components/input/input.style';
+import { StyledPagerLinkStyles } from './pager.style';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import StyledInputPresentation from '../../../__experimental__/components/input/input-presentation.style';
+import StyledInput from '../../../__experimental__/components/input/input.style';
 
 const pageSizeSelectionOptions = [
   { id: '10', name: 10 },
