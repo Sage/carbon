@@ -9,6 +9,7 @@ const StyledInput = styled.input`
   flex-grow: 1;
   font-size: ${({ theme }) => theme.text.size};
   outline: none;
+  padding: 0;
   width: 30px;
 
   &:-webkit-autofill {

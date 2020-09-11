@@ -15,7 +15,8 @@ const Checkbox = ({
   fieldHelp,
   autoFocus,
   labelHelp,
-  pt = 1,
+  labelSpacing = 1,
+  ml,
   ...props
 }) => {
   const inputProps = {
@@ -30,14 +31,16 @@ const Checkbox = ({
     reverse: !props.reverse,
     fieldHelp,
     autoFocus,
-    labelHelp
+    labelHelp,
+    labelSpacing,
+    ml
   };
 
   return (
     <CheckboxStyle
       { ...tagComponent('checkbox', props) }
       { ...props }
-      pt={ pt }
+      labelSpacing={ labelSpacing }
     >
       <CheckableInput { ...inputProps }>
         <CheckboxSvg />
@@ -62,8 +65,8 @@ Checkbox.propTypes = {
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** The content of the label for the input */
   label: PropTypes.string,
-  /** Sets label alignment - accepted values: 'left' (default), 'right' */
-  labelAlign: PropTypes.string,
+  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
+  labelSpacing: PropTypes.oneOf([1, 2]),
   /** Sets percentage-based label width */
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Accepts a callback function which can be used to update parent state on change */

@@ -1,3 +1,57 @@
+## [40.2.0](https://github.com/Sage/carbon/compare/v40.1.0...v40.2.0) (2020-09-10)
+
+
+### Features
+
+* **definition list:** create definition list component ([6af9b9b](https://github.com/Sage/carbon/commit/6af9b9b02095b79da5967c7dd31beb5b2d0b76c8))
+
+## [40.1.0](https://github.com/Sage/carbon/compare/v40.0.0...v40.1.0) (2020-09-10)
+
+
+### Features
+
+* **textbox:** add prefix prop to display emphasized prefix ([bbbfdbb](https://github.com/Sage/carbon/commit/bbbfdbb44b3f6fc97af709cd733f9cd10f4cea66))
+
+
+### Bug Fixes
+
+* **input:** remove user agent input padding ([89d811e](https://github.com/Sage/carbon/commit/89d811ec48d21c0ca521acf9df279eb21f456915))
+
+## [40.0.0](https://github.com/Sage/carbon/compare/v39.3.0...v40.0.0) (2020-09-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* default spacings for input components have changed
+
+### Features
+
+* **button:** add margin props ([722b3d6](https://github.com/Sage/carbon/commit/722b3d6c08bc43b354442fbdc67bf9369fe27286))
+* **form:** implement vertical spacing option ([87a53a8](https://github.com/Sage/carbon/commit/87a53a890eca60bf414a638f751d1ea7442c4933))
+* **form-field:** implement horizontal label spacing option ([ffee308](https://github.com/Sage/carbon/commit/ffee308a979cf39f8af94fd46b47b6411c5d12d2))
+* **switch:** add new props for switch alignment ([7b50282](https://github.com/Sage/carbon/commit/7b50282376cbed334365cc2ccdcafcf4ccd1b0b7))
+* add margin left prop to checkable inputs ([70167ef](https://github.com/Sage/carbon/commit/70167efa00c05c26488437f045ae565edff49053))
+
+
+### Miscellaneous Chores
+
+* add breaking change message ([670851a](https://github.com/Sage/carbon/commit/670851a100f2166924eb6142ef30d8e65869e4f4))
+
+## [39.3.0](https://github.com/Sage/carbon/compare/v39.2.1...v39.3.0) (2020-09-07)
+
+
+### Features
+
+* **drawer, tabs:** add support for custom target overrides via context ([7fe79d3](https://github.com/Sage/carbon/commit/7fe79d3d9ae9039a2ed34d1cb075df2bcc455d7d))
+
+### [39.2.1](https://github.com/Sage/carbon/compare/v39.2.0...v39.2.1) (2020-09-04)
+
+
+### Bug Fixes
+
+* **button:** update onClick typescript definition ([bdd2dca](https://github.com/Sage/carbon/commit/bdd2dcaf9c9699173b8a19bdbca2c1ea7307364f))
+* **numeral-date:** update onClick and onBlur typescript definition ([de25f13](https://github.com/Sage/carbon/commit/de25f1318b09a10a0bb7671b7a4463cf62073a23))
+
 ## [39.2.0](https://github.com/Sage/carbon/compare/v39.1.0...v39.2.0) (2020-09-04)
 
 
