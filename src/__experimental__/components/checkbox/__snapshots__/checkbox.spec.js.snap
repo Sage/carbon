@@ -32,24 +32,24 @@ exports[`Checkbox base theme renders as expected 1`] = `
   display: flex;
 }
 
-.c1 .c24 {
+.c1 .c22 {
   width: auto;
 }
 
-.c1 .c24 .c25,
-.c1 .c24 .c26 {
+.c1 .c22 .c23,
+.c1 .c22 .c24 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
 }
 
-.c1 .c24 .c25:hover,
-.c1 .c24 .c26:hover,
-.c1 .c24 .c25:focus,
-.c1 .c24 .c26:focus {
+.c1 .c22 .c23:hover,
+.c1 .c22 .c24:hover,
+.c1 .c22 .c23:focus,
+.c1 .c22 .c24:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c1 .c23 {
+.c1 .c21 {
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
@@ -357,150 +357,6 @@ exports[`Checkbox base theme renders as expected 1`] = `
   margin-right: 8px;
 }
 
-.c21 .c6 {
-  padding-top: 1px;
-}
-
-.c21 .c10 {
-  height: 16px;
-}
-
-.c21 .c8,
-.c21 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c21 .c6,
-.c21 .c8,
-.c21 .c10,
-.c21 svg {
-  box-sizing: border-box;
-  min-width: 16px;
-  width: 16px;
-}
-
-.c21 .c8:not([disabled]):focus + .c10,
-.c21 .c8:not([disabled]):hover + .c10 {
-  box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c21 .c8:checked ~ .c10 svg path {
-  fill: rgba(0,0,0,0.90);
-}
-
-.c21 .c6 {
-  padding: 1px 0 0 0;
-}
-
-.c21 .c8,
-.c21 svg {
-  padding: 1px;
-}
-
-.c21 .c6,
-.c21 .c8,
-.c21 .c10,
-.c21 svg {
-  height: 15px;
-  width: 15px;
-}
-
-.c21 .c8:not([disabled]):focus + .c10,
-.c21 .c8:not([disabled]):hover + .c10 {
-  box-shadow: none;
-}
-
-.c21 .c8:not([disabled]):focus + .c10 > svg,
-.c21 .c8:not([disabled]):hover + .c10 > svg {
-  border: 1px solid #1963f6;
-  outline: none;
-}
-
-.c21 .c8:checked ~ .c10 svg path {
-  fill: rgba(0,0,0,0.85);
-}
-
-.c22 .c6 {
-  padding-top: 1px;
-}
-
-.c22 .c10 {
-  height: 16px;
-}
-
-.c22 .c8,
-.c22 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c22 .c6,
-.c22 .c8,
-.c22 .c10,
-.c22 svg {
-  box-sizing: border-box;
-  min-width: 16px;
-  width: 16px;
-}
-
-.c22 .c8:not([disabled]):focus + .c10,
-.c22 .c8:not([disabled]):hover + .c10 {
-  box-shadow: 0 0 0 3px #FFB500;
-}
-
-.c22 .c8:checked ~ .c10 svg path {
-  fill: rgba(0,0,0,0.90);
-}
-
-.c22 .c8:checked ~ .c10 svg path {
-  fill: #4d7080;
-}
-
-.c22 .c10:hover,
-.c22 .c10:focus {
-  outline: none;
-  cursor: not-allowed;
-}
-
-.c22 .c6 {
-  padding: 1px 0 0 0;
-}
-
-.c22 .c8,
-.c22 svg {
-  padding: 1px;
-}
-
-.c22 .c6,
-.c22 .c8,
-.c22 .c10,
-.c22 svg {
-  height: 15px;
-  width: 15px;
-}
-
-.c22 .c8:not([disabled]):focus + .c10,
-.c22 .c8:not([disabled]):hover + .c10 {
-  box-shadow: none;
-}
-
-.c22 .c8:not([disabled]):focus + .c10 > svg,
-.c22 .c8:not([disabled]):hover + .c10 > svg {
-  border: 1px solid #1963f6;
-  outline: none;
-}
-
-.c22 .c8:checked ~ .c10 svg path {
-  fill: rgba(0,0,0,0.85);
-}
-
-.c22 .c8:checked ~ .c10 svg path {
-  fill: #8099a4;
-}
-
 .c0 {
   padding-top: 8px;
 }
@@ -539,7 +395,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c0 .c24 {
+.c0 .c22 {
   margin-left: 8px;
   width: auto;
   -webkit-flex: 0 1 auto;
@@ -547,12 +403,12 @@ exports[`Checkbox base theme renders as expected 1`] = `
   flex: 0 1 auto;
 }
 
-.c0 .c23 {
+.c0 .c21 {
   margin-left: 24px;
   margin-top: 0;
 }
 
-.c0 .c26 {
+.c0 .c24 {
   position: relative;
   display: inline-block;
 }
