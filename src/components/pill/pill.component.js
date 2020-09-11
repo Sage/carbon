@@ -35,7 +35,9 @@ class Pill extends React.Component {
       colorVariant,
       pillRole,
       children,
-      size
+      size,
+      ml,
+      mr
     } = this.props;
     return (
       <StyledPill
@@ -45,6 +47,8 @@ class Pill extends React.Component {
         isDeletable={ onDelete }
         pillRole={ pillRole }
         size={ size }
+        ml={ ml }
+        mr={ mr }
         { ...tagComponent('pill', this.props) }
       >
         { children }
@@ -78,7 +82,13 @@ Pill.propTypes = {
   onDelete: PropTypes.func,
 
   /** Assigns a size to the button: "S" | "M" | "L" | "XL" */
-  size: PropTypes.oneOf(OptionsHelper.pillSizesRestricted)
+  size: PropTypes.oneOf(OptionsHelper.pillSizesRestricted),
+
+  /** Margin right, given number will be multiplied by base spacing unit (8) */
+  mr: PropTypes.number,
+
+  /** Margin left, given number will be multiplied by base spacing unit (8) */
+  ml: PropTypes.number
 };
 
 Pill.defaultProps = {
