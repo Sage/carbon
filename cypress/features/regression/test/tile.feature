@@ -20,18 +20,6 @@ Feature: Tile component
       | vertical    | orientationVertical   |
 
   @positive
-  Scenario Outline: I select Tile component padding to <padding>
-    When I open Test test_basic "Tile" component in noIFrame with "tile" json from "commonComponents" using "<nameOfObject>" object name
-    Then Tile component padding property is set to "<px>"
-    Examples:
-      | padding | px | nameOfObject |
-      | XS      | 8  | paddingXS    |
-      | S       | 16 | paddingS     |
-      | M       | 24 | paddingM     |
-      | L       | 32 | paddingL     |
-      | XL      | 40 | paddingXL    |
-
-  @positive
   Scenario Outline: Change Tile pixelWidth to <pixelWidth>
     When I open Test test_basic "Tile" component in noIFrame with "tile" json from "commonComponents" using "<nameOfObject>" object name
     Then Tile pixel width is set to <pixelWidth>
