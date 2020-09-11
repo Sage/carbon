@@ -171,6 +171,26 @@ describe('Pill', () => {
             });
           });
 
+          describe('when the mr prop is passed', () => {
+            it('renders with proper margin-right', () => {
+              const wrapper = render({
+                children: 'My Text',
+                mr: 2
+              }, TestRenderer.create).toJSON();
+              assertStyleMatch({ marginRight: '16px' }, wrapper);
+            });
+          });
+
+          describe('when the ml prop is passed', () => {
+            it('renders with proper margin-left', () => {
+              const wrapper = render({
+                children: 'My Text',
+                ml: 2
+              }, TestRenderer.create).toJSON();
+              assertStyleMatch({ marginLeft: '16px' }, wrapper);
+            });
+          });
+
           describe('when pillRole is status', () => {
             const pillRole = 'status';
             const styleSet = styleConfig(theme)[pillRole];

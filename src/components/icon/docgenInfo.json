@@ -1,9 +1,30 @@
 {
-  "src/components/icon/icon.js": [
+  "src/components/icon/icon.component.js": [
     {
       "description": "",
       "displayName": "Icon",
-      "methods": [],
+      "methods": [
+        {
+          "name": "componentProps",
+          "docblock": "Return component props",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Return component props"
+        },
+        {
+          "name": "type",
+          "docblock": "Return Icon type with overrides",
+          "modifiers": [
+            "get"
+          ],
+          "params": [],
+          "returns": null,
+          "description": "Return Icon type with overrides"
+        }
+      ],
       "props": {
         "className": {
           "type": {
@@ -22,74 +43,108 @@
         "bgSize": {
           "type": {
             "name": "enum",
-            "value": [
-              {
-                "value": "'small'",
-                "computed": false
-              },
-              {
-                "value": "'medium'",
-                "computed": false
-              },
-              {
-                "value": "'large'",
-                "computed": false
-              }
-            ]
+            "computed": true,
+            "value": "OptionsHelper.sizesRestricted"
           },
           "required": false,
-          "description": "Background size"
+          "description": "Background size",
+          "defaultValue": {
+            "value": "'small'",
+            "computed": false
+          }
         },
         "bgShape": {
           "type": {
             "name": "enum",
-            "value": [
-              {
-                "value": "'square'",
-                "computed": false
-              },
-              {
-                "value": "'rounded-rect'",
-                "computed": false
-              },
-              {
-                "value": "'circle'",
-                "computed": false
-              }
-            ]
+            "computed": true,
+            "value": "OptionsHelper.shapes"
           },
           "required": false,
           "description": "Background shape"
         },
         "bgTheme": {
           "type": {
-            "name": "string"
+            "name": "enum",
+            "value": [
+              {
+                "value": "...OptionsHelper.colors",
+                "computed": true
+              },
+              {
+                "value": "...OptionsHelper.iconBackgrounds",
+                "computed": true
+              },
+              {
+                "value": "''",
+                "computed": false
+              }
+            ]
           },
           "required": false,
           "description": "Background color theme"
         },
-        "tooltipMessage": {
+        "fontSize": {
           "type": {
-            "name": "node"
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.sizesBinary"
           },
           "required": false,
-          "description": "The message for this tooltip"
+          "description": "Icon font size",
+          "defaultValue": {
+            "value": "'small'",
+            "computed": false
+          }
         },
-        "tooltipPosition": {
+        "iconColor": {
           "type": {
-            "name": "string"
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.iconColors"
           },
           "required": false,
-          "description": "The position of this tooltip: top, bottom, left or right"
+          "description": "Icon color"
         },
-        "tooltipAlign": {
+        "disabled": {
           "type": {
-            "name": "string"
+            "name": "bool"
           },
           "required": false,
-          "description": "The alignment of this tooltip: left, right or center"
+          "description": "Sets the icon in the disabled state",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "mr": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Margin right, given number will be multiplied by base spacing unit (8)"
+        },
+        "ml": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Margin left, given number will be multiplied by base spacing unit (8)"
         }
       }
+    }
+  ],
+  "src/components/icon/icon.stories.js": [
+    {
+      "description": "",
+      "methods": []
+    },
+    {
+      "description": "",
+      "methods": []
+    },
+    {
+      "description": "",
+      "methods": []
     }
   ]
 }
