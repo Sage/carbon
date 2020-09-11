@@ -1,3 +1,16 @@
+## [40.3.0](https://github.com/Sage/carbon/compare/v40.2.0...v40.3.0) (2020-09-11)
+
+
+### Features
+
+* **icon:** add spacing props support ([193545b](https://github.com/Sage/carbon/commit/193545b2139bb1ccea06cfa101b74e64e614ff86))
+* **pill:** add spacing props support ([e4b7ede](https://github.com/Sage/carbon/commit/e4b7ede8088d0c8d1c8edb63d1e819586abe941a))
+
+
+### Bug Fixes
+
+* **pill:** fix incorrect margin top applied to pill ([5be5816](https://github.com/Sage/carbon/commit/5be5816414a7f7d831ce366507a71dd7080ef468))
+
 ## [40.2.0](https://github.com/Sage/carbon/compare/v40.1.0...v40.2.0) (2020-09-10)
 
 

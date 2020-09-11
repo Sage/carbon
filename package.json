@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "40.2.0",
+  "version": "40.3.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
