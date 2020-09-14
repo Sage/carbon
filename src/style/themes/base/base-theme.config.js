@@ -9,6 +9,8 @@ export default (palette) => {
 
     spacing: 8,
 
+    space: [0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80],
+
     colors: {
       // main
       base: palette.productGreen,
@@ -175,6 +177,12 @@ export default (palette) => {
       textboxBackground: palette.slateTint(98),
       textboxBorder: palette.slateTint(80),
       textboxText: blackWithOpacity(0.74)
+    },
+
+    definitionList: {
+      dtTextDark: blackWithOpacity(0.9),
+      dtTextLight: blackWithOpacity(0.65),
+      ddText: blackWithOpacity(0.65)
     },
 
     disabled: {

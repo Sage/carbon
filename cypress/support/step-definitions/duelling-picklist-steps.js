@@ -1,7 +1,7 @@
 import {
   assignedPicklist, unassignedPicklistItems, duellingPicklistComponent, picklistRightLabel,
   picklistLeftLabel, assignedPicklistItems, unassignedPicklist, addButton, removeButton,
-  picklistDivider, duellingSearchInput,
+  duellingSearchInput,
 } from '../../locators/duelling-picklist/index';
 import { checkboxRole } from '../../locators/checkbox/index';
 import { positionOfElement, keyCode } from '../helper';
@@ -18,12 +18,6 @@ Then('unassigned picklist contains {int} items', (items) => {
 Then('assigned picklist has {int} items', (items) => {
   assignedPicklistItems().should('have.length', items);
   picklistRightLabel().should('have.text', `List 2 (${items})`);
-});
-
-Then('divider is visible', () => {
-  picklistDivider().should('be.visible')
-    .and('have.css', 'width', '2px')
-    .and('have.css', 'background-image', 'linear-gradient(rgb(191, 203, 209) 0%, rgba(191, 203, 209, 0) 99.9%)');
 });
 
 Then('assigned picklist is empty', () => {

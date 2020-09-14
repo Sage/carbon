@@ -27,6 +27,7 @@ const FormField = ({
   labelHelp,
   labelHelpIcon,
   labelInline,
+  labelSpacing = 2,
   labelWidth,
   name,
   id,
@@ -36,6 +37,7 @@ const FormField = ({
   isOptional,
   readOnly,
   useValidationIcon,
+  mb,
   styleOverride,
   ...props
 }) => {
@@ -56,7 +58,11 @@ const FormField = ({
   }, [id, context, error, warning, info]);
 
   return (
-    <FormFieldStyle { ...tagComponent(props['data-component'], props) } styleOverride={ styleOverride.root }>
+    <FormFieldStyle
+      { ...tagComponent(props['data-component'], props) }
+      styleOverride={ styleOverride.root }
+      mb={ mb }
+    >
       <FieldLineStyle inline={ labelInline }>
         {reverse && children}
 
@@ -81,6 +87,8 @@ const FormField = ({
             childOfForm={ childOfForm }
             optional={ isOptional }
             useValidationIcon={ useValidationIcon }
+            pr={ !reverse ? labelSpacing : undefined }
+            pl={ reverse ? labelSpacing : undefined }
             styleOverride={ styleOverride.label }
           >
             {label}
@@ -143,11 +151,15 @@ FormField.propTypes = {
   labelHelp: PropTypes.node,
   labelHelpIcon: PropTypes.string,
   labelInline: PropTypes.bool,
+  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
+  labelSpacing: PropTypes.oneOf([1, 2]),
   labelWidth: PropTypes.number,
   readOnly: PropTypes.bool,
   reverse: PropTypes.bool,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   useValidationIcon: PropTypes.bool,
+  /** Override form spacing (margin bottom) */
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   /** Allows to override existing component styles */
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),

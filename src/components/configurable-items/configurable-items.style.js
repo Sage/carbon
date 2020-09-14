@@ -6,6 +6,8 @@ import {
   ConfigurableItemRowStyle
 } from './configurable-item-row/configurable-item-row.style';
 import StyledFormField from '../../__experimental__/components/form-field/form-field.style';
+import StyledCheckbox from '../../__experimental__/components/checkbox/checkbox.style';
+
 import baseTheme from '../../style/themes/base';
 
 const ConfigurableItemsButtonReset = styled(Button)`
@@ -20,6 +22,10 @@ const ConfigurableItemsWrapper = styled.ol`
   list-style: none;
   margin: 0;
   padding: 0;
+
+  && ${StyledCheckbox} {
+    margin-top: 8px;
+  }
 
   && ${StyledFormField}{
     margin-bottom: 0px;

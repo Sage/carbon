@@ -6,17 +6,12 @@ import {
   popoverCloseIconDS,
   popoverSettingsIconRightAlignedDS,
   popoverSettingsIconCoverDS,
-  popoverContainerDataComponent,
   popoverSettingsIconNoIFrame,
 } from '../../locators/popover-container';
 import { keyCode } from '../helper';
 
 When('I open popover container in basic component', () => {
   popoverSettingsIconBasicDS().click();
-});
-
-When('I open popover container', () => {
-  popoverContainerDataComponent().click();
 });
 
 When('I open popover container in open component', () => {

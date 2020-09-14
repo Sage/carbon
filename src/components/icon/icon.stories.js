@@ -1,6 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, select, boolean } from '@storybook/addon-knobs';
+import {
+  text, number, select, boolean
+} from '@storybook/addon-knobs';
 import { ThemeProvider } from 'styled-components';
 import { dlsThemeSelector, classicThemeSelector } from '../../../.storybook/theme-selectors';
 import OptionsHelper from '../../utils/helpers/options-helper';
@@ -41,6 +43,8 @@ function dlsKnobs() {
   return {
     bgTheme,
     fontSize,
+    ml: number('ml', 0),
+    mr: number('mr', 0),
     bgSize: canSizeBg ? select('bgSize', OptionsHelper.sizesRestricted, Icon.defaultProps.bgSize) : undefined,
     bgShape: bgTheme !== 'none' ? select('bgShape', OptionsHelper.shapes, OptionsHelper.shapes[0]) : undefined,
     iconColor:

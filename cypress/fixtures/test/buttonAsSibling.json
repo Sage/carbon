@@ -14,7 +14,7 @@
   },
   "subtextSpecialCharacter": {
     "size": "large",
-    "subtext": "!@#$%^*()_+-=~[];:.,?{}"
+    "subtext": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "buttonTypePrimary": {
     "buttonType": "primary"
@@ -32,7 +32,7 @@
     "children": "mp150ú¿¡üßä"
   },
   "childrenSpecialCharacter": {
-    "children": "!@#$%^*()_+-=~[];:.,?{}"
+    "children": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "disabled": {
     "disabled": true

@@ -313,7 +313,7 @@ function renderFlatTableRow(props = {}, renderer = mount) {
 function renderRowWithContext(props = {}) {
   return (
     mount(
-      <SidebarContext.Provider value>
+      <SidebarContext.Provider value={ { isInSidebar: true } }>
         <table>
           <tbody>
             <FlatTableRow { ...props }>

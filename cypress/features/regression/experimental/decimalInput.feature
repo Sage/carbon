@@ -1,4 +1,4 @@
-Feature: Decimal component
+Feature: Decimal input component
   I want to check Decimal component properties
 
   @positive

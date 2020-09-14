@@ -19,7 +19,7 @@ let deprecatedWarnTriggered = false;
 const Label = ({
   disabled,
   inline,
-  align,
+  align = 'right',
   inputSize,
   width,
   childOfForm,
@@ -36,6 +36,8 @@ const Label = ({
   helpTabIndex,
   useValidationIcon = true,
   htmlFor,
+  pr,
+  pl,
   styleOverride = {}
 }) => {
   if (!deprecatedWarnTriggered) {
@@ -100,6 +102,8 @@ const Label = ({
       width={ width }
       optional={ optional }
       childOfForm={ childOfForm }
+      pr={ pr }
+      pl={ pl }
       styleOverride={ styleOverride }
     >
       <StyledLabel
@@ -156,6 +160,10 @@ Label.propTypes = {
   useValidationIcon: PropTypes.bool,
   /** A string that represents the ID of another form element */
   htmlFor: PropTypes.string,
+  /** Padding right, integer multiplied by base spacing constant (8) */
+  pr: PropTypes.oneOf([1, 2]),
+  /** Padding left, integer multiplied by base spacing constant (8) */
+  pl: PropTypes.oneOf([1, 2]),
   /** Allows to override existing component styles */
   styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 };

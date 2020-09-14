@@ -32,6 +32,12 @@ describe('FormField', () => {
     });
   });
 
+  describe('with mb prop set', () => {
+    it('should set the correct bottom margin', () => {
+      expect(render({ mb: 5 }, TestRenderer.create)).toMatchSnapshot();
+    });
+  });
+
   describe('with a label', () => {
     it('renders the label component above the childen', () => {
       expect(render({

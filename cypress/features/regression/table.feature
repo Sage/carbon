@@ -76,11 +76,9 @@ Feature: Table component
     When I open default "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then caption is set to <caption>
     Examples:
-      | caption                 | nameOfObject            |
-      | mp150ú¿¡üßä             | captionOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | captionSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | caption                      | nameOfObject            |
+      | mp150ú¿¡üßä                  | captionOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | captionSpecialCharacter |
 
   @positive
   Scenario Outline: Set theme to <theme>
