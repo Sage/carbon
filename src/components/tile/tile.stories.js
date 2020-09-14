@@ -29,11 +29,11 @@ export const Basic = () => {
     step: 1
   };
 
-  const as = select('as', OptionsHelper.tileThemes);
-  const orientation = select('orientation', OptionsHelper.orientation, 'horizontal');
-  const pixelWidth = number('pixelWidth', 0, { ...percentageOpts, max: 2000 });
-  const width = number('width', 0, percentageOpts);
-
+  const as = select('as', OptionsHelper.tileThemes, Tile.propTypes.as, 'Default');
+  const orientation = select('orientation', OptionsHelper.orientation, Tile.propTypes.orientation, 'Default');
+  const pixelWidth = number('pixelWidth', 0, { ...percentageOpts, max: 2000 }, 'Default');
+  const width = number('width', 0, percentageOpts, 'Default');
+  
   const contentOneProps = {
     key: 'one',
     children: text('contentOneChildren', 'Test Body One', 'TileContent One'),
