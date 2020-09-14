@@ -18,7 +18,7 @@ Consider ‘smart default’ selections, based on what your user is likely to ch
 
 Rather than a checkbox to accept legal terms, consider labelling a button ‘Accept Terms and Continue’ instead.
 
-# Related Components
+## Related Components
 - Choosing one option from a longer list? [Try Radio Button](/?path=/docs/experimental-radiobutton--default "Radio Button").
 - Choosing one option from a very long list? [Try Select](?path=/docs/design-system-select--basic "Select").
 - Choosing one option from a highly visible range? [Try Button Toggle](/?path=/story/button-toggle--default "Button Toggle").
@@ -26,7 +26,7 @@ Rather than a checkbox to accept legal terms, consider labelling a button ‘Acc
 ## Quick Start
 
 ```jsx
-import { Checkbox } from "carbon-react/lib/components/anchor-navigation"
+import { Checkbox } from "carbon-react/lib/__experimental__/components/checkbox"
 
 const MyComponent = () => (
   const [isChecked, setIsChecked] = useState(false);
@@ -142,9 +142,9 @@ const MyComponent = () => (
 
 Validation status can be set by passing `error`, `warning` or `info` prop to the component
 
-Passing a string to these props will display a border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
 
-Passing a boolean to these props will display a border and validation icon without the additional tooltip information.
+Passing a boolean to these props will display only a properly colored border.
 
 For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page
 
