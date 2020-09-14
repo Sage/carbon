@@ -33,7 +33,7 @@ export const Basic = () => {
   const orientation = select('orientation', OptionsHelper.orientation, Tile.propTypes.orientation, 'Default');
   const pixelWidth = number('pixelWidth', 0, { ...percentageOpts, max: 2000 }, 'Default');
   const width = number('width', 0, percentageOpts, 'Default');
-  
+
   const contentOneProps = {
     key: 'one',
     children: text('contentOneChildren', 'Test Body One', 'TileContent One'),
