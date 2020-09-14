@@ -17,5 +17,9 @@ Then('Tile width is set to {int}', (width) => {
 });
 
 Then('Tile pixel width is set to {int}', (width) => {
-  tile().should('have.css', 'width', `${width}px`);
+  if (width < 50) {
+    tile().should('have.css', 'width', '50px');
+  } else {
+    tile().should('have.css', 'width', `${width}px`);
+  }
 });
