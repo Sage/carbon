@@ -1,3 +1,10 @@
+### [40.3.1](https://github.com/Sage/carbon/compare/v40.3.0...v40.3.1) (2020-09-14)
+
+
+### Bug Fixes
+
+* **note:** update invariant to check inline control constructor ([8d504f0](https://github.com/Sage/carbon/commit/8d504f0a25ffc4a8d26466a26507342cad32b411)), closes [#3208](https://github.com/Sage/carbon/issues/3208)
+
 ## [40.3.0](https://github.com/Sage/carbon/compare/v40.2.0...v40.3.0) (2020-09-11)
 
 
