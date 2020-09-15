@@ -1,3 +1,10 @@
+### [40.4.1](https://github.com/Sage/carbon/compare/v40.4.0...v40.4.1) (2020-09-15)
+
+
+### Bug Fixes
+
+* **button-toggle:** no focus outline when button is clicked ([af821eb](https://github.com/Sage/carbon/commit/af821ebf72b6e7529b6a343ff64cbefb8a168ece))
+
 ## [40.4.0](https://github.com/Sage/carbon/compare/v40.3.1...v40.4.0) (2020-09-15)
 
 
