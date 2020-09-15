@@ -807,6 +807,9 @@ Note: parent container background-color is set to red for demonstration purpose.
 
 ### With Tab controls
 
+You will need to override the targeting when using Tabs inside of the Drawer's sidebar. This can be done using the 
+`onTabChange` callback. If you also need to override the validation statuses, this can be done using the 
+`validationStatusOverride` prop.
 <Preview>
   <Story name="with tab controls" parameters={{ info: { disable: true }}} >
     {() => {
@@ -827,9 +830,8 @@ Note: parent container background-color is set to red for demonstration purpose.
             expandedWidth='30%'
             sidebar={ (
               <Tabs
+                onTabChange={(id) => setAcitve(id)}
                 borders='no sides'
-                setLocation={ false }
-                position='left'
                 validationStatusOverride={ vaidationStatus }>
                 <Tab
                   errorMessage='error'
@@ -861,7 +863,6 @@ Note: parent container background-color is set to red for demonstration purpose.
                 />
               </Tabs>
             ) }
-            setTarget={ (id) => setAcitve(id) }
           >
           <div>
             <div style={{ display: active === 'tab-1' ? 'block' : 'none' }}>
@@ -913,7 +914,7 @@ Note: parent container background-color is set to red for demonstration purpose.
                   title='Tab 1'
                   tabId='tab-1'
                 >
-                  Content 1
+                  Content 5
                 </Tab>
                 <Tab
                   errorMessage='error'
@@ -922,7 +923,7 @@ Note: parent container background-color is set to red for demonstration purpose.
                   title='Tab 2'
                   tabId='tab-2'
                 >
-                  Content 2
+                  Content 6
                 </Tab>
                 <Tab
                   errorMessage='error'
@@ -931,7 +932,7 @@ Note: parent container background-color is set to red for demonstration purpose.
                   title='Tab 3'
                   tabId='tab-3'
                 >
-                  Content 3
+                  Content 7
                 </Tab>
                 <Tab
                   errorMessage='error'
@@ -940,7 +941,7 @@ Note: parent container background-color is set to red for demonstration purpose.
                   title='Tab 4'
                   tabId='tab-4'
                 >
-                  Content 4
+                  Content 8
                 </Tab>
               </Tabs>
             </div>
@@ -953,7 +954,7 @@ Note: parent container background-color is set to red for demonstration purpose.
                   title='Tab 1'
                   tabId='tab-1'
                 >
-                  Content 1
+                  Content 9
                 </Tab>
                 <Tab
                   errorMessage='error'
@@ -962,7 +963,7 @@ Note: parent container background-color is set to red for demonstration purpose.
                   title='Tab 2'
                   tabId='tab-2'
                 >
-                  Content 2
+                  Content 10
                 </Tab>
                 <Tab
                   errorMessage='error'
@@ -971,7 +972,7 @@ Note: parent container background-color is set to red for demonstration purpose.
                   title='Tab 3'
                   tabId='tab-3'
                 >
-                  Content 3
+                  Content 11
                 </Tab>
                 <Tab
                   errorMessage='error'
@@ -980,7 +981,7 @@ Note: parent container background-color is set to red for demonstration purpose.
                   title='Tab 4'
                   tabId='tab-4'
                 >
-                  Content 4
+                  Content 12
                 </Tab>
               </Tabs>
             </div>

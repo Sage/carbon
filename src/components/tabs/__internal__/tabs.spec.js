@@ -522,9 +522,8 @@ describe('Tabs', () => {
 
     describe('custom targeting', () => {
       it('supports overriding the targeted content', () => {
-        const setTarget = jest.fn();
         const wrapper = mount(
-          <SidebarContext.Provider value={ { isInSidebar: true, setTarget } }>
+          <SidebarContext.Provider value={ { isInSidebar: true } }>
             <Tabs>
               <Tab
                 title='Tab Title 1'
@@ -541,7 +540,7 @@ describe('Tabs', () => {
         act(() => {
           wrapper.find(TabTitle).props().onClick({ type: 'click', target: { dataset: { tabid: 'uniqueid1' } } });
         });
-        expect(setTarget).toHaveBeenCalledWith('uniqueid1');
+        expect(wrapper.find(Tab).exists()).toEqual(false);
       });
     });
 
