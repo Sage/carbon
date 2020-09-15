@@ -23,9 +23,7 @@ const InputIconToggle = ({
   useValidationIcon,
   align
 }) => {
-  if (disabled || readOnly) return null;
-
-  if (useValidationIcon && shouldDisplayValidationIcon({ error, warning, info })) {
+  if (useValidationIcon && !disabled && shouldDisplayValidationIcon({ error, warning, info })) {
     return (
       <InputIconToggleStyle size={ size }>
         <ValidationIcon
@@ -41,7 +39,7 @@ const InputIconToggle = ({
     );
   }
 
-  if (type) {
+  if (type && !(disabled || readOnly)) {
     return (
       <InputIconToggleStyle
         size={ size }
