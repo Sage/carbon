@@ -1,3 +1,10 @@
+## [40.4.0](https://github.com/Sage/carbon/compare/v40.3.1...v40.4.0) (2020-09-15)
+
+
+### Features
+
+* **validations:** display validations when field is readOnly ([12a7047](https://github.com/Sage/carbon/commit/12a70475e29e6fcb4f6b8db191c711520737d21e)), closes [#3097](https://github.com/Sage/carbon/issues/3097)
+
 ### [40.3.1](https://github.com/Sage/carbon/compare/v40.3.0...v40.3.1) (2020-09-14)
 
 
