@@ -30,6 +30,8 @@ export interface SwitchProps {
   Pass string to display icon, tooltip and blue border
   Pass true boolean to only display blue border */
   info?: boolean | string;
+  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  adaptiveLabelBreakpoint?: number;
 }
 
 declare const Switch: React.ComponentClass<SwitchProps>;

@@ -2,10 +2,12 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import { shallow, mount } from 'enzyme';
 import FormField from '.';
-import FormFieldStyle from './form-field.style';
+import FieldHelp from '../field-help';
+import FormFieldStyle, { FieldLineStyle } from './form-field.style';
 import classicTheme from '../../../style/themes/classic';
 import Label from '../label/label.component';
 import { TabContext } from '../../../components/tabs/__internal__/tab';
+import { mockMatchMedia } from '../../../__spec_helper__/test-utils';
 
 const setError = jest.fn();
 const setWarning = jest.fn();
@@ -57,6 +59,46 @@ describe('FormField', () => {
         label: 'Name'
       });
       expect(comp.find(Label).props().htmlFor).toEqual('foo');
+    });
+
+    describe('when adaptiveLabelBreakpoint prop is set', () => {
+      describe('when screen bigger than breakpoint', () => {
+        beforeEach(() => {
+          mockMatchMedia(true);
+        });
+
+        it('should pass labelInline to its children', () => {
+          const wrapper = render({
+            label: 'Name',
+            labelInline: true,
+            fieldHelp: 'Help',
+            adaptiveLabelBreakpoint: 1000
+          }, mount);
+
+          expect(wrapper.find(FieldLineStyle).props().inline).toEqual(true);
+          expect(wrapper.find(Label).props().inline).toEqual(true);
+          expect(wrapper.find(FieldHelp).props().labelInline).toEqual(true);
+        });
+      });
+
+      describe('when screen smaller than breakpoint', () => {
+        beforeEach(() => {
+          mockMatchMedia(false);
+        });
+
+        it('should pass labelInline to its children', () => {
+          const wrapper = render({
+            label: 'Name',
+            labelInline: true,
+            fieldHelp: 'Help',
+            adaptiveLabelBreakpoint: 1000
+          }, mount);
+
+          expect(wrapper.find(FieldLineStyle).props().inline).toEqual(false);
+          expect(wrapper.find(Label).props().inline).toEqual(false);
+          expect(wrapper.find(FieldHelp).props().labelInline).toEqual(false);
+        });
+      });
     });
   });
 

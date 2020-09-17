@@ -1,4 +1,5 @@
 import { carbonThemeList } from '../style/themes';
+import { mockMatchMedia } from './mock-match-media';
 
 const isUpper = char => char.toUpperCase() === char;
 const humpToDash = (acc, char) => `${acc}${isUpper(char) ? `-${char.toLowerCase()}` : char}`;
@@ -110,5 +111,6 @@ export {
   listFrom,
   click,
   simulate,
-  carbonThemesJestTable
+  carbonThemesJestTable,
+  mockMatchMedia
 };

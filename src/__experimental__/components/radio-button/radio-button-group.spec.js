@@ -1,15 +1,16 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import { mount } from 'enzyme';
-import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import { assertStyleMatch, mockMatchMedia } from '../../../__spec_helper__/test-utils';
 import { RadioButton, RadioButtonGroup } from '.';
 import { StyledFieldset, StyledLegendContainer } from '../../../__internal__/fieldset/fieldset.style';
 import RadioButtonGroupStyle from './radio-button-group.style';
+import Fieldset from '../../../__internal__/fieldset';
 
 const buttonValues = ['test-1', 'test-2'];
 const name = 'test-group';
 
-function render(renderer = TestRenderer.create, props) {
+function render(props, renderer = TestRenderer.create) {
   const children = buttonValues.map((value, index) => (
     <RadioButton
       id={ `rId-${index}` } key={ `radio-key-${value}` }
@@ -32,7 +33,81 @@ function render(renderer = TestRenderer.create, props) {
 
 describe('RadioButtonGroup', () => {
   it('renders as expected', () => {
-    expect(render()).toMatchSnapshot();
+    expect(render({ })).toMatchSnapshot();
+  });
+
+  describe('with an inline legend', () => {
+    describe('when adaptiveLegendBreakpoint prop is set', () => {
+      describe('when screen bigger than breakpoint', () => {
+        beforeEach(() => {
+          mockMatchMedia(true);
+        });
+
+        it('should pass legendInline to Fieldset', () => {
+          const wrapper = render({
+            legend: 'Legend',
+            legendInline: true,
+            adaptiveLegendBreakpoint: 1000
+          }, mount);
+
+          expect(wrapper.find(Fieldset).props().inline).toEqual(true);
+        });
+      });
+
+      describe('when screen smaller than breakpoint', () => {
+        beforeEach(() => {
+          mockMatchMedia(false);
+        });
+
+        it('should pass legendInline to Fieldset', () => {
+          const wrapper = render({
+            legend: 'Legend',
+            legendInline: true,
+            adaptiveLegendBreakpoint: 1000
+          }, mount);
+
+          expect(wrapper.find(Fieldset).props().inline).toEqual(false);
+        });
+      });
+    });
+  });
+
+  describe('with a left margin (ml prop)', () => {
+    describe('when adaptiveSpacingBreakpoint prop is set', () => {
+      describe('when screen bigger than breakpoint', () => {
+        beforeEach(() => {
+          mockMatchMedia(true);
+        });
+
+        it('should pass the correct margin to Fieldset', () => {
+          const wrapper = render({
+            legend: 'Legend',
+            legendInline: true,
+            adaptiveSpacingBreakpoint: 1000,
+            ml: '10%'
+          }, mount);
+
+          expect(wrapper.find(Fieldset).props().ml).toEqual('10%');
+        });
+      });
+
+      describe('when screen smaller than breakpoint', () => {
+        beforeEach(() => {
+          mockMatchMedia(false);
+        });
+
+        it('should pass "0" to Fieldset', () => {
+          const wrapper = render({
+            legend: 'Legend',
+            legendInline: true,
+            adaptiveSpacingBreakpoint: 1000,
+            ml: '10%'
+          }, mount);
+
+          expect(wrapper.find(Fieldset).props().ml).toEqual(undefined);
+        });
+      });
+    });
   });
 
   describe('styles', () => {
@@ -55,7 +130,7 @@ describe('RadioButtonGroup', () => {
       ['info', 'string'],
       ['info', true]
     ])('when %s is passed as %s it is passed as boolean to RadioButton', (type, value) => {
-      const wrapper = render(mount, { [type]: value });
+      const wrapper = render({ [type]: value }, mount);
       wrapper.find(RadioButton).forEach(node => expect(node.props()[type]).toBe(true));
     });
   });
@@ -74,7 +149,7 @@ describe('RadioButtonGroup', () => {
     };
 
     beforeEach(() => {
-      wrapper = render(mount, { styleOverride });
+      wrapper = render({ styleOverride }, mount);
     });
 
     it('renders root element with properly assigned styles', () => {

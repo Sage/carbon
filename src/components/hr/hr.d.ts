@@ -10,6 +10,10 @@ export interface HrProps {
   ml?: string;
   /** Margin right, any valid css value */
   mr?: string;
+  /** Breakpoint for adaptive left and right margins (below the breakpoint they go to 0).
+   * Enables the adaptive behaviour when set
+   */
+  adaptiveMxBreakpoint?: number;
 }
 
 declare const Hr: React.FunctionComponent<HrProps>;

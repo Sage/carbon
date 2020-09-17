@@ -7,6 +7,7 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import tagComponent from '../../../utils/helpers/tags';
 import Logger from '../../../utils/logger/logger';
 import { TabContext } from '../../../components/tabs/__internal__/tab';
+import useIsAboveBreakpoint from '../../../hooks/__internal__/useIsAboveBreakpoint';
 
 let deprecatedWarnTriggered = false;
 
@@ -32,13 +33,14 @@ const FormField = ({
   name,
   id,
   reverse,
-  size,
+  size = 'medium',
   childOfForm,
   isOptional,
   readOnly,
   useValidationIcon,
   mb,
-  styleOverride,
+  adaptiveLabelBreakpoint,
+  styleOverride = {},
   ...props
 }) => {
   if (!deprecatedWarnTriggered) {
@@ -48,6 +50,11 @@ const FormField = ({
   }
 
   const context = useContext(TabContext);
+  const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
+  let inlineLabel = labelInline;
+  if (adaptiveLabelBreakpoint) {
+    inlineLabel = largeScreen;
+  }
 
   useEffect(() => {
     if (context && context.setError && context.setWarning && context.setInfo) {
@@ -63,7 +70,7 @@ const FormField = ({
       styleOverride={ styleOverride.root }
       mb={ mb }
     >
-      <FieldLineStyle inline={ labelInline }>
+      <FieldLineStyle inline={ inlineLabel }>
         {reverse && children}
 
         {label && (
@@ -81,7 +88,7 @@ const FormField = ({
             helpTabIndex={ helpTabIndex }
             htmlFor={ id }
             helpIcon={ labelHelpIcon }
-            inline={ labelInline }
+            inline={ inlineLabel }
             inputSize={ size }
             width={ labelWidth }
             childOfForm={ childOfForm }
@@ -96,7 +103,7 @@ const FormField = ({
         )}
 
         {fieldHelp && fieldHelpInline && (
-          <FieldHelp labelInline={ labelInline } labelWidth={ labelWidth }>
+          <FieldHelp labelInline={ inlineLabel } labelWidth={ labelWidth }>
             {fieldHelp}
           </FieldHelp>
         )}
@@ -105,7 +112,7 @@ const FormField = ({
       </FieldLineStyle>
 
       {fieldHelp && !fieldHelpInline && (
-        <FieldHelp labelInline={ labelInline } labelWidth={ labelWidth }>
+        <FieldHelp labelInline={ inlineLabel } labelWidth={ labelWidth }>
           {fieldHelp}
         </FieldHelp>
       )}
@@ -122,11 +129,6 @@ const errorPropType = (props, propName, componentName, ...rest) => {
   }
 
   return PropTypes.oneOfType([PropTypes.bool, PropTypes.string])(props, propName, componentName, ...rest);
-};
-
-FormField.defaultProps = {
-  size: 'medium',
-  styleOverride: {}
 };
 
 FormField.propTypes = {
@@ -160,6 +162,8 @@ FormField.propTypes = {
   useValidationIcon: PropTypes.bool,
   /** Override form spacing (margin bottom) */
   mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
+  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  adaptiveLabelBreakpoint: PropTypes.number,
   /** Allows to override existing component styles */
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),

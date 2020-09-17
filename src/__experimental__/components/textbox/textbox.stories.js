@@ -223,6 +223,7 @@ export function getCommonTextboxProps(config = defaultStoryPropsConfig, autoFocu
   const label = text('label', 'Label');
   const labelHelp = label ? text('labelHelp') : undefined;
   const labelInline = label ? boolean('labelInline', false) : undefined;
+  const adaptiveLabelBreakpoint = labelInline ? number('adaptiveLabelBreakpoint') : undefined;
   const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
   const inputWidth = labelInline && config.inputWidthEnabled ? number('inputWidth', 70, percentageRange) : undefined;
   const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
@@ -242,6 +243,7 @@ export function getCommonTextboxProps(config = defaultStoryPropsConfig, autoFocu
     label,
     labelHelp,
     labelInline,
+    adaptiveLabelBreakpoint,
     labelWidth,
     labelAlign,
     size,

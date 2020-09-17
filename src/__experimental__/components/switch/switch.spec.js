@@ -14,10 +14,17 @@ import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input
 import LabelStyle, { StyledLabelContainer } from '../label/label.style';
 import StyledSwitchSlider from './switch-slider.style';
 import guid from '../../../utils/helpers/guid';
-import { assertStyleMatch, carbonThemesJestTable } from '../../../__spec_helper__/test-utils';
+import {
+  assertStyleMatch,
+  carbonThemesJestTable,
+  mockMatchMedia
+} from '../../../__spec_helper__/test-utils';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 import { baseTheme, classicTheme } from '../../../style/themes';
 import SwitchSliderPanel from './switch-slider-panel.style';
+import SwitchStyle from './switch.style';
+import SwitchSlider from './switch-slider.component';
+
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -179,19 +186,56 @@ describe('Switch', () => {
     });
 
     describe('when labelInline=true', () => {
-      const wrapper = render({ labelInline: true }).toJSON();
-
       it('applies the correct Label styles', () => {
+        const wrapper = render({ labelInline: true }).toJSON();
         assertStyleMatch({
-          marginBottom: '0',
-          width: 'auto'
+          marginBottom: '0'
         }, wrapper, { modifier: css`${StyledLabelContainer}` });
       });
 
       it('applies the correct FieldHelp styles', () => {
+        const wrapper = render({ labelInline: true }).toJSON();
         assertStyleMatch({
           marginTop: '0'
         }, wrapper, { modifier: css`${FieldHelpStyle}` });
+      });
+
+      describe('when adaptiveLabelBreakpoint prop is set', () => {
+        describe('when screen bigger than breakpoint', () => {
+          beforeEach(() => {
+            mockMatchMedia(true);
+          });
+
+          it('should pass labelInline to its children', () => {
+            const wrapper = render({
+              label: 'Label',
+              labelInline: true,
+              adaptiveLabelBreakpoint: 1000
+            }, mount);
+
+            expect(wrapper.find(SwitchStyle).props().labelInline).toEqual(true);
+            expect(wrapper.find(CheckableInput).props().labelInline).toEqual(true);
+            expect(wrapper.find(SwitchSlider).props().labelInline).toEqual(true);
+          });
+        });
+
+        describe('when screen smaller than breakpoint', () => {
+          beforeEach(() => {
+            mockMatchMedia(false);
+          });
+
+          it('should pass labelInline as false to its children', () => {
+            const wrapper = render({
+              label: 'Label',
+              labelInline: true,
+              adaptiveLabelBreakpoint: 1000
+            }, mount);
+
+            expect(wrapper.find(SwitchStyle).props().labelInline).toEqual(false);
+            expect(wrapper.find(CheckableInput).props().labelInline).toEqual(false);
+            expect(wrapper.find(SwitchSlider).props().labelInline).toEqual(false);
+          });
+        });
       });
     });
 
