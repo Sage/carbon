@@ -1,3 +1,10 @@
+## [40.5.0](https://github.com/Sage/carbon/compare/v40.4.1...v40.5.0) (2020-09-17)
+
+
+### Features
+
+* add adaptive props to input components ([7ed9b9c](https://github.com/Sage/carbon/commit/7ed9b9c21f0345cb2e12378d321a832b4c8cc9c6))
+
 ### [40.4.1](https://github.com/Sage/carbon/compare/v40.4.0...v40.4.1) (2020-09-15)
 
 
