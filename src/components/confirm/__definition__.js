@@ -32,7 +32,9 @@ let definition = new Definition('confirm', Confirm, {
     showCloseIcon: "Boolean",
     size: "String",
     subtitle: "String",
-    title: "String"
+    title: "String",
+    destructive: "Boolean",
+    iconType: "String"
   },
   propDescriptions: {
     cancelLabel: "Define custom text for the cancel button.",
@@ -41,7 +43,9 @@ let definition = new Definition('confirm', Confirm, {
     showCloseIcon: "Set this prop to false to hide the close icon within the dialog.",
     size: "Change this prop to set the dialog to a specific size. Possible values include: " + OptionsHelper.sizesFull.join(", "),
     subtitle: "Controls the subtitle of the dialog.",
-    title: "Controls the main title of the dialog."
+    title: "Controls the main title of the dialog.",
+    destructive: "Set this prop to true to have a destructive primary button.",
+    iconType: "Controls the icon on the header. Possible values include: 'error' or 'warning'"
   }
 });
 

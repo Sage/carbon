@@ -120,10 +120,14 @@ class Dialog extends Modal {
     return contentHeight > windowHeight;
   }
 
+  getTitle(title) {
+    return title;
+  }
+
   get dialogTitle() {
     if (!this.props.title) return null;
 
-    const { showCloseIcon } = this.props;
+    const { showCloseIcon, subtitle } = this.props;
     let { title } = this.props;
 
     if (typeof title === 'string') {
@@ -140,9 +144,10 @@ class Dialog extends Modal {
     return (
       <DialogTitleStyle
         showCloseIcon={ showCloseIcon }
+        hasSubtitle={ !!subtitle }
         ref={ (titleRef) => { this._title = titleRef; } }
       >
-        {title}
+        {this.getTitle(title)}
       </DialogTitleStyle>
     );
   }
