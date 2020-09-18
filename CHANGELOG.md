@@ -1,3 +1,10 @@
+## [40.6.0](https://github.com/Sage/carbon/compare/v40.5.0...v40.6.0) (2020-09-18)
+
+
+### Features
+
+* **confirm:** add props (destructive and iconType) ([92fa833](https://github.com/Sage/carbon/commit/92fa8335b8ae263a29e5bc6d1740153de0012f9f))
+
 ## [40.5.0](https://github.com/Sage/carbon/compare/v40.4.1...v40.5.0) (2020-09-17)
 
 
