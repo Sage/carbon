@@ -1,0 +1,194 @@
+import { useState } from 'react';
+import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import ButtonToggle from '../button-toggle';
+import ButtonToggleGroup from './button-toggle-group.component';
+
+<Meta title="Button Toggle Group" />
+
+# Button Toggle Group
+
+Press one of the buttons to make selection
+
+## Overview 
+
+ButtonToggleGroup component should be used when user has to make a choice between a small number of options.
+
+## Guidance, hints and tips 
+
+- Always insert `ButtonToggle` Components inside the `ButtonToggleGroup`.
+- An icon could be added to make the meaning of an option clearer.
+
+## Quick Start 
+
+To use the `ButtonToggleGroup` component you have to import two components: `<ButtonToggleGroup />` and `<ButtonToggle />`:
+
+```javascript
+import ButtonToggle from 'carbon-react/lib/components/button-toggle';
+import ButtonToggleGroup from 'carbon-react/lib/components/button-toggle-group';
+```
+
+## Basic usage
+
+<Preview>
+  <Story name='basic' parameters={{ info: { disable: true }}} >
+    <ButtonToggleGroup
+      id='button-toggle-group-basic-id'
+      name='button-toggle-group-basic'
+      label='Basic example'
+      labelHelp='help message'
+      fieldHelp='field help mesage'
+      onChange={ action('onChange') }
+    >
+      <ButtonToggle
+        key='foo'
+        value='foo'
+      >Foo</ButtonToggle>
+      <ButtonToggle
+        key='bar'
+        value='bar'
+      >Bar</ButtonToggle>
+      <ButtonToggle
+        key='baz'
+        value='baz'
+      >Baz</ButtonToggle>
+    </ButtonToggleGroup>
+  </Story>
+</Preview>
+
+### Controlled usage:
+
+<Preview>
+  <Story name="controlled" parameters={{ info: { disable: true }}} >
+    {() => {
+      const [value, setValue] = useState('bar');
+      function onChangeHandler(event) {
+        setValue(event.target.value);
+        action('value set');
+      };
+      return (
+        <ButtonToggleGroup
+          id='button-toggle-group-controlled-id'
+          name='button-toggle-group-controlled'
+          label='Controlled example'
+          labelHelp='help message'
+          fieldHelp='field help mesage'
+          onChange={ onChangeHandler }
+          value={ value }
+        >
+          <ButtonToggle
+            key='foo'
+            value='foo'
+          >Foo</ButtonToggle>
+          <ButtonToggle
+            key='bar'
+            value='bar'
+          >Bar</ButtonToggle>
+          <ButtonToggle
+            key='baz'
+            value='baz'
+          >Baz</ButtonToggle>
+        </ButtonToggleGroup>
+      );
+    }}
+  </Story>
+</Preview>
+
+## Grouped
+
+<Preview>
+  <Story name='grouped' parameters={{ info: { disable: true }}} >
+    <ButtonToggleGroup
+      id='button-toggle-group-grouped-id'
+      name='button-toggle-group-grouped'
+      label='Grouped example'
+      labelHelp='help message'
+      fieldHelp='field help mesage'
+      onChange={ () => {} }
+    >
+      <ButtonToggle
+        key='foo'
+        value='foo'
+        grouped
+      >Foo</ButtonToggle>
+      <ButtonToggle
+        key='bar'
+        value='bar'
+        grouped
+      >Bar</ButtonToggle>
+      <ButtonToggle
+        key='baz'
+        value='baz'
+        grouped
+      >Baz</ButtonToggle>
+    </ButtonToggleGroup>
+  </Story>
+</Preview>
+
+## With field help inline
+
+<Preview>
+  <Story name='fieldhelp inline' parameters={{ info: { disable: true }}} >
+    <ButtonToggleGroup
+      id='button-toggle-group-help-inline-id'
+      name='button-toggle-group-help-inline'
+      label='FieldHelp inline example'
+      labelHelp='help message'
+      fieldHelp='field help mesage'
+      fieldHelpInline
+      onChange={ () => {} }
+    >
+      <ButtonToggle
+        key='foo'
+        value='foo'
+      >Foo</ButtonToggle>
+      <ButtonToggle
+        key='bar'
+        value='bar'
+      >Bar</ButtonToggle>
+      <ButtonToggle
+        key='baz'
+        value='baz'
+      >Baz</ButtonToggle>
+    </ButtonToggleGroup>
+  </Story>
+</Preview>
+
+## With label inline
+
+<Preview>
+  <Story name='label inline' parameters={{ info: { disable: true }}} >
+    <ButtonToggleGroup
+      id='button-toggle-group-label-inline-id'
+      name='button-toggle-group-label-inline'
+      label='Label inline example'
+      labelHelp='help message'
+      fieldHelp='field help mesage'
+      labelInline
+      onChange={ () => {} }
+    >
+      <ButtonToggle
+        key='foo'
+        value='foo'
+      >Foo</ButtonToggle>
+      <ButtonToggle
+        key='bar'
+        value='bar'
+      >Bar</ButtonToggle>
+      <ButtonToggle
+        key='baz'
+        value='baz'
+      >Baz</ButtonToggle>
+    </ButtonToggleGroup>
+  </Story>
+</Preview>
+
+## Props:
+
+### Props of the ButtonToggleGroup
+
+<Props of={ButtonToggleGroup} />
+
+### Props of the ButtonToggle
+
+<Props of={ButtonToggle} />

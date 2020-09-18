@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "39.0.0",
+  "version": "40.5.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -134,6 +134,7 @@
   },
   "dependencies": {
     "@storybook/addon-links": "^5.3.18",
+    "@styled-system/prop-types": "^5.1.5",
     "axios": "^0.19.0",
     "bignumber.js": "^9.0.0",
     "bowser": "~1.5.0",
@@ -154,6 +155,7 @@
     "react-dnd-touch-backend": "0.2.7",
     "react-transition-group": "^4.3.0",
     "regenerator-runtime": "^0.13.2",
+    "styled-system": "^5.1.5",
     "superagent": "~3.8.2",
     "wait-on": "^3.2.0"
   },

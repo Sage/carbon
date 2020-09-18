@@ -13,7 +13,7 @@ For dates close to today, we advise the use of a standard datepicker. If you req
 Import `NumeralDate` into the project.
 
 ```jsx
-import { NumeralDate } from "carbon-react/lib/__experimental__/components/numeral-date"
+import NumeralDate from "carbon-react/lib/__experimental__/components/numeral-date"
 
 const MyComponent = () => (
   <NumeralDate dateFormat={['dd','mm','yyyy']} onChange={ onChange } value={{ dd: '27', mm: '04', yyyy: '1989' }} />
@@ -137,6 +137,21 @@ const MyComponent = () => (
       labelInline
       labelAlign="right"
       labelWidth={30}
+    />
+  </Story>
+</Preview>
+
+### Enabling the adaptive behaviour
+The inline label can change to be top aligned at a breakpoint. Enable this by passing in a number to the `adaptiveLabelBreakpoint` prop. This corresponds to a px screen width
+
+<Preview>
+  <Story name="enabling adaptive behaviour" parameters={{ chromatic: { disable: true }}}>
+    <NumeralDate 
+      dateFormat={['dd','mm','yyyy']} 
+      label="Inline"
+      labelAlign="right"
+      labelWidth={30}
+      adaptiveLabelBreakpoint={960}
     />
   </Story>
 </Preview>

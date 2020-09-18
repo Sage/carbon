@@ -15,13 +15,28 @@ const StyledCheckableInput = styled.div`
 
 const StyledCheckableInputWrapper = styled.div`
   ${({
-    disabled, fieldHelpInline, inputWidth, labelWidth, reverse, theme
+    disabled,
+    fieldHelpInline,
+    inputWidth,
+    labelWidth,
+    labelInline,
+    ml,
+    reverse,
+    theme
   }) => css`
     ${FieldLineStyle} {
       display: flex;
     }
 
+    ${ml && css`
+      margin-left: ${ml};
+    `}
+
     ${StyledLabelContainer} {
+      ${labelInline && css`
+        justify-content: ${reverse ? 'flex-start' : 'flex-end'};
+      `}
+      padding-top: 0;
       width: auto;
 
       & ${StyledHelp},
@@ -40,7 +55,7 @@ const StyledCheckableInputWrapper = styled.div`
     }
 
     ${disabled && css`
-         ${HiddenCheckableInputStyle},
+      ${HiddenCheckableInputStyle},
       ${LabelStyle} {
         &:hover, &:focus {
           outline: none;

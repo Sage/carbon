@@ -6,11 +6,9 @@ Feature: Button Toggle component
     When I open default "Button Toggle" component in noIFrame with "buttonToggle" json from "commonComponents" using "<nameOfObject>" object name
     Then Button Toggle label on preview is <label>
     Examples:
-      | label                   | nameOfObject             |
-      | mp150ú¿¡üßä             | childrenOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | childrenSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | label                        | nameOfObject             |
+      | mp150ú¿¡üßä                  | childrenOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | childrenSpecialCharacter |
 
   @positive
   Scenario Outline: Set button icon size to <size>

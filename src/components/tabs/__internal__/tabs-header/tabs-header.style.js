@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import OptionsHelper from '../../../../utils/helpers/options-helper/options-helper';
 import baseTheme from '../../../../style/themes/base';
 
-const computeLineWidth = ({ alternateStyling }) => (alternateStyling ? '-1px' : '-2px');
+const computeLineWidth = ({ alternateStyling, hasCustomTarget, position }) => {
+  if (hasCustomTarget && position === 'left') {
+    return '0px';
+  }
+  return (alternateStyling ? '-1px' : '-2px');
+};
 
 const StyledTabHeaders = styled.ul`
   display: flex;
@@ -19,12 +24,25 @@ const StyledTabHeaders = styled.ul`
     text-align: right;
   `}
 
-  ${({ position, noRightBorder }) => position === 'left' && css`
+  ${({
+    position, noRightBorder, hasCustomTarget, theme
+  }) => position === 'left' && css`
     flex-direction: column;
-    box-shadow: inset ${computeLineWidth} 0px 0px 0px ${({ theme }) => theme.tab.background};
-    ${noRightBorder && css`box-shadow: none;`}
-    width: 20%;
-    margin: 0 10px 0;
+    box-shadow: inset ${computeLineWidth} 0px 0px 0px ${theme.tab.background};
+    
+    ${noRightBorder && css`
+      box-shadow: none;
+    `}
+
+    ${!hasCustomTarget && css`
+      width: 20%;
+      margin: 0 10px 0;
+    `}
+
+    ${hasCustomTarget && css`
+      width: 100%;
+      margin: auto;
+    `}
 
     ${({ align }) => align === 'right' && css`
       justify-content: flex-start;

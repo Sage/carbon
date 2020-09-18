@@ -1,2 +1,2 @@
-export { default } from './drawer';
-export * from './drawer';
+export { default } from './__internal__/drawer';
+export * from './__internal__/drawer';

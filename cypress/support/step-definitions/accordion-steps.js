@@ -1,7 +1,6 @@
 import {
   accordionTitleContainer,
   accordionIcon,
-  accordion,
   accordionTitleContainerByPosition,
   accordionTitleContainerNoIFrame,
   accordionTitleContainerByPositionNoIFrame,
@@ -41,16 +40,6 @@ Then('Accordion row is {string} then iconType property on preview is set to {str
   }
 });
 
-Then('Accordion type property on preview is set to {string}', (type) => {
-  if (type === 'primary') {
-    accordion().should('have.css', 'background-color', 'rgb(255, 255, 255)')
-      .and('have.css', 'border', '1px solid rgb(204, 214, 219)');
-  } else {
-    accordion().should('have.css', 'background-color', 'rgba(0, 0, 0, 0)')
-      .and('not.have.css', 'border', '1px solid rgb(204, 214, 219)');
-  }
-});
-
 When('I expand Design System accordionRow via click', () => {
   accordionDefaultTitleDS().click();
 });
@@ -72,24 +61,6 @@ Then('accordionRow is expanded', () => {
     .and('be.visible');
 });
 
-Then('Accordion has proper {word} type color {string} palette', (type, color) => {
-  const borderColor = 'rgb(204, 214, 219)';
-  const borderWidth = '1px';
-  const borderStyle = 'solid';
-  accordion().should('have.css', 'border-bottom-color', color)
-    .and('have.css', 'border-left-color', borderColor)
-    .and('have.css', 'border-right-color', borderColor)
-    .and('have.css', 'border-top-color', borderColor)
-    .and('have.css', 'border-bottom-style', borderStyle)
-    .and('have.css', 'border-left-style', borderStyle)
-    .and('have.css', 'border-right-style', borderStyle)
-    .and('have.css', 'border-top-style', borderStyle)
-    .and('have.css', 'border-bottom-width', borderWidth)
-    .and('have.css', 'border-left-width', borderWidth)
-    .and('have.css', 'border-right-width', borderWidth)
-    .and('have.css', 'border-top-width', borderWidth);
-});
-
 Then('accordionRow has golden border outline', () => {
   accordionDefaultTitleDS().should('have.css', 'outline', 'rgb(255, 181, 0) solid 2px')
     .and('be.visible');
@@ -106,8 +77,4 @@ Then('Accordion {int} row is focused', (index) => {
 
 When('I focus {word} accordionRow', (position) => {
   accordionTitleContainerNoIFrame(positionOfElement(position)).first().focus({ force: true });
-});
-
-Then('Accordion inner element is focused', () => {
-  cy.focused().should('have.attr', 'data-element', 'input');
 });

@@ -51,11 +51,9 @@ Feature: Row component
     When I open default "Row" component in noIFrame with "row" json from "commonComponents" using "<nameOfObject>" object name
     Then columnOffset on preview is <columnOffset>
     Examples:
-      | columnOffset            | nameOfObject                 |
-      | mp150ú¿¡üßä             | columnOffsetOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | columnOffsetSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | columnOffset                 | nameOfObject                 |
+      | mp150ú¿¡üßä                  | columnOffsetOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | columnOffsetSpecialCharacter |
 
   @positive
   Scenario Outline: Set columnSpan to <columnSpan>
@@ -74,20 +72,15 @@ Feature: Row component
     When I open default "Row" component in noIFrame with "row" json from "commonComponents" using "<nameOfObject>" object name
     Then columnSpan on preview is <columnSpan>
     Examples:
-      | columnSpan              | nameOfObject               |
-      | mp150ú¿¡üßä             | columnSpanOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | columnSpanSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
-
+      | columnSpan                   | nameOfObject               |
+      | mp150ú¿¡üßä                  | columnSpanOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | columnSpanSpecialCharacter |
 
   @positive
   Scenario Outline: Set children to <children>
     When I open default "Row" component in noIFrame with "row" json from "commonComponents" using "<nameOfObject>" object name
     Then column text is <children>
     Examples:
-      | children                | nameOfObject             |
-      | mp150ú¿¡üßä             | childrenOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | childrenSpecialCharacter |
-# @ignore because of FE-2782
-# | &"'<>|
+      | children                     | nameOfObject             |
+      | mp150ú¿¡üßä                  | childrenOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | childrenSpecialCharacter |

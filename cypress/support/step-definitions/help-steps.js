@@ -58,7 +58,3 @@ Then('tooltipAlign is set to {string}', (tooltipAlign) => {
 Then('Help href on preview is set to {word}', (href) => {
   helpHref().should('have.attr', 'href', href);
 });
-
-Then('icon on preview has {string} color', (color) => {
-  icon().should('have.css', 'color', color);
-});

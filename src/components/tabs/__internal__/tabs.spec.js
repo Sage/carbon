@@ -8,6 +8,7 @@ import { rootTagTest } from '../../../utils/helpers/tags/tags-specs/tags-specs';
 import StyledTabs from './tabs.style';
 import { assertStyleMatch, simulate } from '../../../__spec_helper__/test-utils';
 import TabTitle from './tab-title/tab-title.component';
+import { SidebarContext } from '../../drawer';
 
 function render(props) {
   return mount(
@@ -65,9 +66,11 @@ const TabChildren = ({
   );
 };
 
-const MockWrapper = ({ errors = {}, warnings = {}, infos = {} }) => {
+const MockWrapper = ({
+  errors = {}, warnings = {}, infos = {}, validationStatusOverride = undefined
+}) => {
   return (
-    <Tabs>
+    <Tabs validationStatusOverride={ validationStatusOverride }>
       <Tab
         title='Tab Title 1'
         tabId='uniqueid1'
@@ -514,6 +517,69 @@ describe('Tabs', () => {
         updateProps(wrapper, { infos: { one: false, two: false } });
         tabTitle = wrapper.find(TabTitle);
         expect(tabTitle.at(0).props().info).toEqual(false);
+      });
+    });
+
+    describe('custom targeting', () => {
+      it('supports overriding the targeted content', () => {
+        const setTarget = jest.fn();
+        const wrapper = mount(
+          <SidebarContext.Provider value={ { isInSidebar: true, setTarget } }>
+            <Tabs>
+              <Tab
+                title='Tab Title 1'
+                tabId='uniqueid1'
+                errorMessage=''
+                warningMessage=''
+                infoMessage=''
+              >
+                TabContent
+              </Tab>
+            </Tabs>
+          </SidebarContext.Provider>
+        );
+        act(() => {
+          wrapper.find(TabTitle).props().onClick({ type: 'click', target: { dataset: { tabid: 'uniqueid1' } } });
+        });
+        expect(setTarget).toHaveBeenCalledWith('uniqueid1');
+      });
+    });
+
+    describe('validation status overrides', () => {
+      it('sets "tabHasError" to true when override is set', () => {
+        const tabTitle = mount(
+          <MockWrapper
+            errors={ { one: false, three: true } }
+            validationStatusOverride={ { uniqueid1: { error: true }, uniqueid2: { error: false } } }
+          />
+        ).find(TabTitle);
+
+        expect(tabTitle.at(0).props().error).toEqual(true);
+        expect(tabTitle.at(1).props().error).toEqual(false);
+      });
+
+      it('sets "tabHasWarning" to true when override is set', () => {
+        const tabTitle = mount(
+          <MockWrapper
+            warnings={ { one: false, three: true } }
+            validationStatusOverride={ { uniqueid1: { warning: true }, uniqueid2: { warning: false } } }
+          />
+        ).find(TabTitle);
+
+        expect(tabTitle.at(0).props().warning).toEqual(true);
+        expect(tabTitle.at(1).props().warning).toEqual(false);
+      });
+
+      it('sets "tabHasInfo" to true when override is set', () => {
+        const tabTitle = mount(
+          <MockWrapper
+            infos={ { one: false, three: true } }
+            validationStatusOverride={ { uniqueid1: { info: true }, uniqueid2: { info: false } } }
+          />
+        ).find(TabTitle);
+
+        expect(tabTitle.at(0).props().info).toEqual(true);
+        expect(tabTitle.at(1).props().info).toEqual(false);
       });
     });
   });

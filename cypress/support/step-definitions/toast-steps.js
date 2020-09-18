@@ -2,7 +2,7 @@ import {
   toastPreview,
   toastComponent,
   toastTogglePreview,
-  toastComponentIFrame
+  toastComponentIFrame,
 } from '../../locators/toast';
 import { getDataElementByValueIframe } from '../../locators';
 
@@ -19,16 +19,8 @@ Then('Toast children is set to {string}', (text) => {
   toastComponent().children().should('have.text', text);
 });
 
-Then('Toast component is visible', () => {
-  toastPreview().should('be.visible');
-});
-
 Then('Toast component is not visible', () => {
   toastComponentIFrame().should('not.exist');
-});
-
-Then('Toast component has a close icon', () => {
-  getDataElementByValueIframe('close').should('be.visible');
 });
 
 Then('Toast component has no close icon', () => {
@@ -55,18 +47,4 @@ Then('Toast component is stacked', () => {
     .should('have.attr', 'data-component', 'toast');
   cy.get('@toastParent').children().eq(1).find('div')
     .should('have.attr', 'data-component', 'toast');
-});
-
-Then('Toast component is stacked delayed', () => {
-  toastComponentIFrame().parent().parent().as('toastParent');
-  cy.get('@toastParent').should('have.length', 1);
-  cy.get('@toastParent').children().eq(0).find('div')
-    .should('have.attr', 'data-component', 'toast');
-  cy.wait(1500);
-  toastComponentIFrame().parent().parent()
-    .as('toastParentDelayed');
-  cy.get('@toastParentDelayed').children().eq(1)
-    .find('div')
-    .should('have.attr', 'data-component', 'toast');
-  cy.get('@toastParentDelayed').should('have.length', 2);
 });

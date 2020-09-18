@@ -6,14 +6,12 @@ Feature: Step Sequence Item component
     When I open default "Step Sequence Item" component in noIFrame with "stepSequence" json from "commonComponents" using "<nameOfObject>" object name
     Then indicator is set to <indicator>
     Examples:
-      | indicator               | nameOfObject              |
-      | -100                    | indicator-100             |
-      | 0                       | indicator0                |
-      | 999                     | indicator999              |
-      | mp150ú¿¡üßä             | indicatorOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | indicatorSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | indicator                    | nameOfObject              |
+      | -100                         | indicator-100             |
+      | 0                            | indicator0                |
+      | 999                          | indicator999              |
+      | mp150ú¿¡üßä                  | indicatorOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | indicatorSpecialCharacter |
 
   @positive
   Scenario Outline: I set status to <status>
@@ -40,19 +38,15 @@ Feature: Step Sequence Item component
     When I open default "Step Sequence Item" component in noIFrame with "stepSequence" json from "commonComponents" using "<nameOfObject>" object name
     Then ariaLabel is set to <ariaLabel>
     Examples:
-      | ariaLabel               | nameOfObject              |
-      | mp150ú¿¡üßä             | ariaLabelOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | ariaLabelSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | ariaLabel                    | nameOfObject              |
+      | mp150ú¿¡üßä                  | ariaLabelOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | ariaLabelSpecialCharacter |
 
   @positive
   Scenario Outline: I set children to <children>
     When I open default "Step Sequence Item" component in noIFrame with "stepSequence" json from "commonComponents" using "<nameOfObject>" object name
     Then children is set <children>
     Examples:
-      | children                | nameOfObject             |
-      | mp150ú¿¡üßä             | childrenOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | childrenSpecialCharacter |
-# @ignore because of FE-2782
-# | &"'<>|
+      | children                     | nameOfObject             |
+      | mp150ú¿¡üßä                  | childrenOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | childrenSpecialCharacter |

@@ -8,7 +8,7 @@ import {
   pageSelectMainComponent,
 } from '../../locators/pager';
 import { DEBUG_FLAG } from '..';
-import { paginationButtonByIndex, paginationButtonByIndexInIFrame } from '../../locators/table';
+import { paginationButtonByIndex } from '../../locators/table';
 import { positionOfPaginationButton } from '../helper';
 
 Then('pageSize is set to {string} {word}', (pageSize, item) => {
@@ -37,36 +37,11 @@ Then('I click {string} pagination button', (button) => {
   paginationButtonByIndex(positionOfPaginationButton(button)).click();
 });
 
-Then('I click {string} pagination button in IFrame', (button) => {
-  paginationButtonByIndexInIFrame(positionOfPaginationButton(button)).click();
-});
-
-Then('I click {string} pagination arrow', (arrow) => {
-  switch (arrow) {
-    case 'previousArrow':
-      nextArrow().parent().click();
-      previousArrow().parent().click();
-      break;
-    case 'nextArrow':
-      nextArrow().parent().click();
-      break;
-    default: throw new Error('There are only two pagination arrows');
-  }
-});
-
 Then('pagination buttons are disabled', () => {
   const buttonsAmount = 4;
   for (let i = 0; i < buttonsAmount; i++) {
     paginationButtonByIndex(i).should('have.attr', 'disabled');
   }
-});
-
-Then('previous pagination arrow is disabled', () => {
-  previousArrow().parent().should('have.attr', 'disabled');
-});
-
-Then('next pagination arrow is disabled', () => {
-  nextArrow().parent().should('have.attr', 'disabled');
 });
 
 Then('I click {word} {int} times', (direction, count) => {

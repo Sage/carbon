@@ -15,18 +15,10 @@ const RadioButtonStyle = styled(CheckboxStyle)`
     reverse,
     size,
     theme,
-    inline
+    inline,
+    mt
   }) => css`
-    margin-bottom: 12px;
-
-    ${FieldHelpStyle} {
-      margin-left: 32px;
-      padding-left: 0;
-    }
-
-    ${StyledCheckableInput} {
-      margin-right: 16px;
-    }
+    margin-top: ${mt * theme.spacing}px;
 
     ${StyledCheckableInputSvgWrapper} {
       padding: 0;
@@ -54,12 +46,6 @@ const RadioButtonStyle = styled(CheckboxStyle)`
 
     ${StyledLabelContainer} {
       flex: 1 1 calc(100% - 44px);
-      margin-left: 0;
-
-      ${reverse && css`
-        padding-right: 0;
-        margin-right: 8px;
-      `}
     }
 
     ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle {
@@ -88,10 +74,6 @@ const RadioButtonStyle = styled(CheckboxStyle)`
     `}
 
     ${size === 'large' && css`
-      ${StyledCheckableInput} {
-        margin-right: 14px;
-      }
-
       ${StyledCheckableInput},
       ${HiddenCheckableInputStyle},
       ${StyledCheckableInputSvgWrapper},
@@ -105,11 +87,6 @@ const RadioButtonStyle = styled(CheckboxStyle)`
       }
 
       ${reverse && css`
-        ${StyledCheckableInput} {
-          margin-right: 0;
-          margin-left: 16px;
-        }
-
         ${!fieldHelpInline && `
           ${FieldHelpStyle} {
             padding: 0;

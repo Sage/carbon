@@ -27,7 +27,8 @@ const NumeralDate = ({
   labelWidth,
   labelAlign,
   labelHelp,
-  fieldHelp
+  fieldHelp,
+  adaptiveLabelBreakpoint
 }) => {
   const { current: uniqueId } = useRef(id || guid());
   const isControlled = useRef(value !== undefined);
@@ -98,6 +99,7 @@ const NumeralDate = ({
         labelAlign={ labelAlign }
         labelHelp={ labelHelp }
         fieldHelp={ fieldHelp }
+        adaptiveLabelBreakpoint={ adaptiveLabelBreakpoint }
       >
         <StyledNumeralDate
           name={ name }
@@ -208,7 +210,9 @@ NumeralDate.propTypes = {
   /** Width of a label in percentage. Works only when labelInline is true */
   labelWidth: PropTypes.number,
   /** Help content to be displayed under an input */
-  fieldHelp: PropTypes.node
+  fieldHelp: PropTypes.node,
+  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  adaptiveLabelBreakpoint: PropTypes.number
 };
 
 export default NumeralDate;

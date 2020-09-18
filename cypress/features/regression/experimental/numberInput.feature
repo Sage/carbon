@@ -6,11 +6,9 @@ Feature: Experimental Number Input component
     When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
     Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
     Examples:
-      | fieldHelp               | nameOfObject              |
-      | mp150ú¿¡üßä             | fieldHelpOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | fieldHelpSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | fieldHelp                    | nameOfObject              |
+      | mp150ú¿¡üßä                  | fieldHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | fieldHelpSpecialCharacter |
 
   @positive
   Scenario: Disable and enable Number input component
@@ -37,11 +35,9 @@ Feature: Experimental Number Input component
     When I open default "Experimental Number Input" component in noIFrame with "numberInput" json from "experimental" using "<nameOfObject>" object name
     Then label on preview is <label> in NoIFrame
     Examples:
-      | label                   | nameOfObject          |
-      | mp150ú¿¡üßä             | labelOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | labelSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | label                        | nameOfObject          |
+      | mp150ú¿¡üßä                  | labelOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelSpecialCharacter |
 
   @positive
   Scenario Outline: Change label help text to <labelHelp>
@@ -49,11 +45,9 @@ Feature: Experimental Number Input component
     When I hover mouse onto help icon
     Then tooltipPreview on preview is set to <labelHelp>
     Examples:
-      | labelHelp               | nameOfObject              |
-      | mp150ú¿¡üßä             | labelHelpOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | labelHelpSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | labelHelp                    | nameOfObject              |
+      | mp150ú¿¡üßä                  | labelHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelHelpSpecialCharacter |
 
   @positive
   Scenario: Enable label inline
