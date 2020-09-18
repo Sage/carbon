@@ -65,7 +65,7 @@ Feature: Theming addon
 
   @positive
   Scenario Outline: I set Pill component theme to <theme>
-    When I open "pill" component with theme "<theme>"
+    When I open Basic page "Pill Test" component with theme "<theme>"
     Then "pill" component css "border-color" is set to "<theme>" common
     Examples:
       | theme  |
