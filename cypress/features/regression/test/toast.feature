@@ -1,21 +1,24 @@
 Feature: Toast component
   I want to test Toast component properties
 
-  Background: Open Toast component default page
-    Given I open "Design System Toast Test" component page "basic"
-
   @positive
   Scenario: Verify the click action in Actions Tab
+    Given I open "Design System Toast Test" component page "basic"
     When clear all actions in Actions Tab
       And I click closeIcon in IFrame
     Then click action was called in Actions Tab
 
   @positive
   Scenario Outline: Change Toast children to <children>
-    When I set children to "<children>"
-    And I wait 500
+    When I open Test test_basic "Toast" component in noIFrame with "toast" json from "test" using "<nameOfObject>" object name
     Then Toast children is set to "<children>"
     Examples:
-      | children                |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
+      | children                | nameOfObject             |
+      | mp150ú¿¡üßä             | childrenOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{} | childrenSpecialCharacter |
+
+  @positive
+  Scenario: Verify that Toast is closed by pressing Esc key
+    Given I open "Design System Toast Test" component page "basic"
+    When I hit ESC key
+    Then Toast component is not visible

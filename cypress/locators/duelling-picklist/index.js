@@ -1,6 +1,6 @@
 import {
   DUELLING_PICKLIST_COMPONENT, PICKLIST, PICKLIST_ITEMS, PICKLIST_LEFT_LABEL,
-  PICKLIST_RIGHT_LABEL, ADD_ELEMENT, REMOVE_ELEMENT, PICKLIST_DIVIDER, PICKLIST_ID,
+  PICKLIST_RIGHT_LABEL, ADD_ELEMENT, REMOVE_ELEMENT, PICKLIST_ID,
 } from './locators';
 import { SEARCH_COMPONENT } from '../search/locators';
 
@@ -15,5 +15,4 @@ export const picklistRightLabel = () => cy.iFrame(PICKLIST_RIGHT_LABEL);
 export const picklistLeftLabel = () => cy.iFrame(PICKLIST_LEFT_LABEL);
 export const addButton = index => unassignedPicklistItems().eq(index).find(ADD_ELEMENT);
 export const removeButton = () => assignedPicklist().find(REMOVE_ELEMENT);
-export const picklistDivider = () => cy.iFrame(PICKLIST_DIVIDER);
 export const duellingSearchInput = () => cy.iFrame(PICKLIST_ID).find(SEARCH_COMPONENT).find('input');

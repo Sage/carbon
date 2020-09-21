@@ -3,13 +3,17 @@ import { FormFieldSpacing } from '../../utils/helpers/options-helper/options-hel
 
 export interface HrProps {
   /** Margin top, this value will be multiplied by the theme spacing constant (8) */
-  marginTop: FormFieldSpacing;
+  mt?: FormFieldSpacing;
   /** Margin bottom, this value will be multiplied by the theme spacing constant (8) */
-  marginBottom: FormFieldSpacing;
+  mb?: FormFieldSpacing;
   /** Margin left, any valid css value */
-  marginLeft?: string;
+  ml?: string;
   /** Margin right, any valid css value */
-  marginRight?: string;
+  mr?: string;
+  /** Breakpoint for adaptive left and right margins (below the breakpoint they go to 0).
+   * Enables the adaptive behaviour when set
+   */
+  adaptiveMxBreakpoint?: number;
 }
 
 declare const Hr: React.FunctionComponent<HrProps>;

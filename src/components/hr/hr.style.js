@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import baseTheme from '../../style/themes/base';
 
 const StyledHr = styled.hr`
@@ -7,18 +6,11 @@ const StyledHr = styled.hr`
   border: 0;
   height: 1px;
   background: ${({ theme }) => theme.hr.background};
-  margin-top: ${({ marginTop, theme }) => marginTop * theme.spacing}px;
-  margin-bottom: ${({ marginBottom, theme }) => marginBottom * theme.spacing}px;
-  margin-left: ${({ marginLeft }) => marginLeft};
-  margin-right: ${({ marginRight }) => marginRight};
+  margin-top: ${({ mt, theme }) => mt * theme.spacing}px;
+  margin-bottom: ${({ mb, theme }) => mb * theme.spacing}px;
+  margin-left: ${({ ml }) => ml};
+  margin-right: ${({ mr }) => mr};
 `;
-
-StyledHr.propTypes = {
-  marginTop: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
-  marginBottom: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
-  marginLeft: PropTypes.string,
-  marginRight: PropTypes.string
-};
 
 StyledHr.defaultProps = {
   theme: baseTheme

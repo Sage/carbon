@@ -1,4 +1,4 @@
-import { labelWidthSliderByName, labelByPosition } from '../../locators';
+import { labelByPosition } from '../../locators';
 import {
   radioButtonFieldset,
   radioButtonLegend,
@@ -7,7 +7,7 @@ import {
   radioButtonInputByPosition,
   radioButtonFieldHelp,
 } from '../../locators/radioButton/index';
-import { setSlidebar, positionOfElement } from '../helper';
+import { positionOfElement } from '../helper';
 
 Then('{string} radioButton on preview is {word}', (position, text) => {
   labelByPosition(positionOfElement(position)).should('have.text', text);
@@ -51,10 +51,6 @@ Then('{string} field help is set to fieldHelpInline and has margin-left set to {
 
 Then('{string} field help is not set to fieldHelpInline and has margin-left set to {string}', (position, marginLeft) => {
   radioButtonFieldHelp(positionOfElement(position)).should('have.css', 'margin-left', marginLeft);
-});
-
-When('I set RadioButton {word} {word} slider to {int}', (propertyName, text, width) => {
-  setSlidebar(labelWidthSliderByName(propertyName, text), width);
 });
 
 Then('RadioButtons are inline', () => {

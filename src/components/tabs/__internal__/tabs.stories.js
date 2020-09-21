@@ -24,32 +24,50 @@ export const Basic = () => {
     <Tabs
       align={ select('align', ['left', 'right'], 'left') }
       position={ select('position', ['top', 'left'], 'top') }
+      borders={ select('borders', ['off', 'on', 'no sides', 'no left side', 'no right side'], 'off') }
+      size={ select('size', ['default', 'large'], 'default') }
+      variant={ select('variant', ['default', 'alternate'], 'default') }
     >
       <Tab
+        errorMessage='error'
+        warningMessage='warning'
+        infoMessage='info'
         tabId='tab-1' title='Tab 1'
         key='tab-1'
       >
         Content for tab 1
       </Tab>
       <Tab
+        errorMessage='error'
+        warningMessage='warning'
+        infoMessage='info'
         tabId='tab-2' title='Tab 2'
         key='tab-2'
       >
         Content for tab 2
       </Tab>
       <Tab
+        errorMessage='error'
+        warningMessage='warning'
+        infoMessage='info'
         tabId='tab-3' title='Tab 3'
         key='tab-3'
       >
         Content for tab 3
       </Tab>
       <Tab
+        errorMessage='error'
+        warningMessage='warning'
+        infoMessage='info'
         tabId='tab-4' title='Tab 4'
         key='tab-4'
       >
         Content for tab 4
       </Tab>
       <Tab
+        errorMessage='error'
+        warningMessage='warning'
+        infoMessage='info'
         tabId='tab-5' title='Tab 5'
         key='tab-5'
       >

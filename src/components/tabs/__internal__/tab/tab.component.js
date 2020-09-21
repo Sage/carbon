@@ -19,15 +19,17 @@ const Tab = ({
   tabId,
   updateErrors,
   updateWarnings,
+  updateInfos,
   ...rest
 }) => {
-  const [tabErrors, setBarErrors] = useState({});
-  const [tabWarnings, setBarWarnings] = useState({});
+  const [tabErrors, setTabErrors] = useState({});
+  const [tabWarnings, setTabWarnings] = useState({});
+  const [tabInfos, setTabInfos] = useState({});
 
   const setError = useCallback(
     (childId, hasError) => {
       if (tabErrors[childId] !== hasError) {
-        setBarErrors({ ...tabErrors, [childId]: hasError });
+        setTabErrors({ ...tabErrors, [childId]: hasError });
       }
     },
     [tabErrors]
@@ -36,10 +38,19 @@ const Tab = ({
   const setWarning = useCallback(
     (childId, hasWarning) => {
       if (tabWarnings[childId] !== hasWarning) {
-        setBarWarnings({ ...tabWarnings, [childId]: hasWarning });
+        setTabWarnings({ ...tabWarnings, [childId]: hasWarning });
       }
     },
     [tabWarnings]
+  );
+
+  const setInfo = useCallback(
+    (childId, hasInfo) => {
+      if (tabInfos[childId] !== hasInfo) {
+        setTabInfos({ ...tabInfos, [childId]: hasInfo });
+      }
+    },
+    [tabInfos]
   );
 
   useEffect(() => {
@@ -54,8 +65,14 @@ const Tab = ({
     }
   }, [tabId, tabWarnings, updateWarnings]);
 
+  useEffect(() => {
+    if (updateInfos) {
+      updateInfos(tabId, tabInfos);
+    }
+  }, [tabId, tabInfos, updateInfos]);
+
   return (
-    <TabContext.Provider value={ { setError, setWarning } }>
+    <TabContext.Provider value={ { setError, setWarning, setInfo } }>
       <StyledTab
         className={ className }
         role={ role }
@@ -71,9 +88,10 @@ const Tab = ({
 };
 
 Tab.propTypes = {
+  title: PropTypes.string,
   /** A unique ID to identify this specific tab. */
   tabId: PropTypes.string.isRequired,
-  /** @ignore */
+  /** @ignore @private */
   className: PropTypes.string,
   /** The child elements of Tab component. */
   children: PropTypes.node,
@@ -81,14 +99,26 @@ Tab.propTypes = {
   isTabSelected: PropTypes.bool,
   /** The position of the Tab. */
   position: PropTypes.oneOf(['top', 'left']),
-  /** @ignore */
+  /** @ignore @private */
   role: PropTypes.string,
-  /** @ignore */
+  /** @ignore @private */
   ariaLabelledby: PropTypes.string,
-  /** @ignore */
+  /** @ignore @private */
   updateErrors: PropTypes.func,
-  /** @ignore */
-  updateWarnings: PropTypes.func
+  /** @ignore @private */
+  updateWarnings: PropTypes.func,
+  /** @ignore @private */
+  updateInfos: PropTypes.func,
+  /** Message displayed when Tab has error */
+  errorMessage: PropTypes.string.isRequired,
+  /** Message displayed when Tab has warning */
+  warningMessage: PropTypes.string.isRequired,
+  /** Message displayed when Tab has warning */
+  infoMessage: PropTypes.string.isRequired,
+  /** Additional content to display with title */
+  siblings: PropTypes.arrayOf(PropTypes.node),
+  /** Position title before or after siblings */
+  titlePosition: PropTypes.oneOf(['before', 'after'])
 };
 
 export { TabContext };

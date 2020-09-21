@@ -1,0 +1,58 @@
+{ 
+  "email1": {
+    "email": "example@email.com"
+  },
+  "email2": {
+    "email": "johnsmith@sage.com"
+  },
+  "emailGravatar": {
+    "email": "andrew.tait@sage.com"
+  },
+  "emailOtherLanguage": {
+    "email": "mp150ú¿¡üßä"
+  },
+  "emailSpecialCharacter": {
+    "email": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  },
+  "initialsOW": {
+    "initials": "OW"
+  },
+  "initialsTJH": {
+    "initials": "TJH"
+  },
+  "nameOscarWilde": {
+    "name": "Oscar Wilde",
+    "initials": ""
+  },
+  "nameThomasJeffreyHanks": {
+    "name": "Thomas Jeffrey Hanks",
+    "initials": ""
+  },
+  "sizeXS": {
+    "size": "XS"
+  },
+  "sizeS": {
+    "size": "S"
+  },
+  "sizeM": {
+    "size": "M"
+  },
+  "sizeML": {
+    "size": "ML"
+  },
+  "sizeL": {
+    "size": "L"
+  },
+  "sizeXL": {
+    "size": "XL"
+  },
+  "sizeXXL": {
+    "size": "XXL"
+  },
+  "nameOtherLanguage": {
+    "name": "mp150ú¿¡üßä"
+  },
+  "nameSpecialCharacter": {
+    "name": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
+  }
+}

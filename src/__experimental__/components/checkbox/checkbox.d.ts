@@ -10,8 +10,8 @@ interface CheckboxProps {
   id?: string;
   inputWidth?: number | string;
   label?: string;
-  labelAlign?: string;
   labelWidth?: number | string;
+  labelSpacing?: 1 | 2;
   onChange?: (ev: React.ChangeEvent<HTMLElement>) => void;
   reverse?: boolean;
   size?: string;
@@ -28,6 +28,8 @@ interface CheckboxProps {
   Pass string to display icon, tooltip and blue border
   Pass true boolean to only display blue border */
   info?: boolean | string;
+  /** Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */
+  adaptiveSpacingBreakpoint?: number;
 }
 
 declare const Checkbox: React.ComponentClass<CheckboxProps>;

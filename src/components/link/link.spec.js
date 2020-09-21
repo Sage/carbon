@@ -60,7 +60,7 @@ describe('Link', () => {
       const spy = jest.fn();
       const event = { preventDefault: spy };
       wrapper = renderLink({ disabled: true }, mount);
-      wrapper.instance().handleClick(event);
+      wrapper.find('InternalLink').instance().handleClick(event);
       expect(spy).toHaveBeenCalled();
     });
 
@@ -68,14 +68,14 @@ describe('Link', () => {
       const spy = jest.fn();
       const event = { preventDefault: spy };
       wrapper = renderLink({ disabled: false }, mount);
-      wrapper.instance().handleClick(event);
+      wrapper.find('InternalLink').instance().handleClick(event);
       expect(spy).not.toHaveBeenCalled();
     });
 
     it('should not call passed onClick function when disabled is false and link is clicked', () => {
       const spy = jest.fn();
       wrapper = renderLink({ disabled: false, onClick: spy }, mount);
-      wrapper.instance().handleClick();
+      wrapper.find('InternalLink').instance().handleClick();
       expect(spy).toHaveBeenCalled();
     });
   });

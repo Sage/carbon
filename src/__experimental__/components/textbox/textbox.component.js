@@ -7,6 +7,7 @@ import withUniqueIdProps from '../../../utils/helpers/with-unique-id-props';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import Logger from '../../../utils/logger/logger';
 import { InputBehaviour } from '../../../__internal__/input-behaviour';
+import StyledPrefix from './__internal__/prefix.style';
 
 let deprecatedWarnTriggered = false;
 
@@ -21,6 +22,10 @@ const Textbox = ({
   iconOnClick,
   styleOverride,
   validationOnLabel,
+  labelWidth,
+  inputWidth,
+  prefix,
+  adaptiveLabelBreakpoint,
   ...props
 }) => {
   if (!deprecatedWarnTriggered) {
@@ -35,14 +40,18 @@ const Textbox = ({
         isOptional={ isOptional }
         { ...props }
         useValidationIcon={ validationOnLabel }
+        labelWidth={ labelWidth }
+        adaptiveLabelBreakpoint={ adaptiveLabelBreakpoint }
         styleOverride={ styleOverride }
       >
         <InputPresentation
           type='text'
           { ...removeParentProps(props) }
           styleOverride={ styleOverride.input }
+          inputWidth={ inputWidth || (100 - labelWidth) }
         >
           { leftChildren }
+          { prefix ? <StyledPrefix data-element='textbox-prefix'>{ prefix }</StyledPrefix> : null }
           <Input
             { ...removeParentProps(props) }
             placeholder={ (props.disabled || props.readOnly) ? '' : props.placeholder }
@@ -50,7 +59,6 @@ const Textbox = ({
             value={ visibleValue(value, formattedValue) }
           />
           { children }
-
           <InputIconToggle
             { ...removeParentProps(props) }
             useValidationIcon={ !validationOnLabel }
@@ -107,6 +115,8 @@ Textbox.propTypes = {
   labelHelp: PropTypes.string,
   /** When true, label is placed in line an input */
   labelInline: PropTypes.bool,
+  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
+  labelSpacing: PropTypes.oneOf([1, 2]),
   /** Width of a label in percentage. Works only when labelInline is true */
   labelWidth: PropTypes.number,
   /** Width of an input in percentage. Works only when labelInline is true */
@@ -145,6 +155,12 @@ Textbox.propTypes = {
   iconOnClick: PropTypes.func,
   /** Handler for onClick events */
   onClick: PropTypes.func,
+  /** Emphasized part of the displayed text */
+  prefix: PropTypes.string,
+  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
+  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  adaptiveLabelBreakpoint: PropTypes.number,
   /** Allows to override existing component styles */
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
@@ -155,7 +171,6 @@ Textbox.propTypes = {
 
 Textbox.defaultProps = {
   labelWidth: 30,
-  inputWidth: 70,
   size: 'medium',
   styleOverride: {},
   validationOnLabel: false

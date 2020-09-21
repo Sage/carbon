@@ -1,13 +1,9 @@
 import {
   showEditPodEdit, showEditPodCancelButton, showEditPodSaveButton, showEditPodDeleteButton,
-  showEditPodTitle, showEditPodSecondaryBlock,
-  showEditPodCollapsibleInnerContent, showEditPodFooter, showEditPodComponent,
+  showEditPodTitle, showEditPodFooter, showEditPodComponent,
+  showEditPodEditIFrame, showEditPodCancelButtonIFrame, showEditPodDeleteButtonIFrame,
 } from '../../locators/show-edit-pod';
-import { iconIFrame } from '../../locators';
 import { positionOfElement } from '../helper';
-
-const INNER_CONTENT_TITLE = 'title';
-const INNER_CONTENT_BODY = 'body';
 
 Then('Show Edit Pod saveText on preview is set to {word}', (text) => {
   showEditPodSaveButton().should('have.text', text);
@@ -29,8 +25,8 @@ When('I click edit Show Edit Pod component', () => {
   showEditPodEdit().first().click();
 });
 
-When('Edit icon has color {string}', (color) => {
-  iconIFrame().should('have.css', 'color', color);
+When('I click edit Show Edit Pod component in Iframe', () => {
+  showEditPodEditIFrame().first().click();
 });
 
 Then('Show Edit Pod component has border {string} color', (color) => {
@@ -38,14 +34,6 @@ Then('Show Edit Pod component has border {string} color', (color) => {
     .and('have.css', 'border-left-color', color)
     .and('have.css', 'border-right-color', color)
     .and('have.css', 'border-top-color', color);
-});
-
-Then('Show Edit Pod component on a secondary block has border property', () => {
-  showEditPodSecondaryBlock().should('have.css', 'border', '1px solid rgb(204, 214, 219)');
-});
-
-Then('Show Edit Pod component on a secondary block has no border property', () => {
-  showEditPodSecondaryBlock().should('have.css', 'border', '0px none rgba(0, 0, 0, 0.85)');
 });
 
 Then('Show Edit Pod component cancel button has color {string} and borderColor {string}', (color, borderColor) => {
@@ -84,19 +72,9 @@ Then('Show Edit Pod buttons are aligned to {string}', (position) => {
 });
 
 When('I click delete button', () => {
-  showEditPodDeleteButton().click();
+  showEditPodDeleteButtonIFrame().click();
 });
 
 When('I click cancel button', () => {
-  showEditPodCancelButton().click();
-});
-
-Then('Show Edit Pod component has proper content inside itself', () => {
-  showEditPodTitle().should('have.text', 'Person');
-  showEditPodCollapsibleInnerContent(INNER_CONTENT_TITLE, positionOfElement('first')).should('have.text', 'First Name');
-  showEditPodCollapsibleInnerContent(INNER_CONTENT_BODY, positionOfElement('first')).should('have.text', 'Alan');
-  showEditPodCollapsibleInnerContent(INNER_CONTENT_TITLE, positionOfElement('second')).should('have.text', 'Last Name');
-  showEditPodCollapsibleInnerContent(INNER_CONTENT_BODY, positionOfElement('second')).should('have.text', 'Smith');
-  showEditPodCollapsibleInnerContent(INNER_CONTENT_TITLE, positionOfElement('third')).should('have.text', 'Telephone');
-  showEditPodCollapsibleInnerContent(INNER_CONTENT_BODY, positionOfElement('third')).should('have.text', '000 000 0000');
+  showEditPodCancelButtonIFrame().click();
 });

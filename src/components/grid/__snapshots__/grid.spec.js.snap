@@ -12,38 +12,32 @@ exports[`Grid GridItem builds the style rules for the GridItem with custom align
 
 .c1 {
   margin: 0;
-  grid-column-start: 1;
-  grid-column-end: 13;
-  grid-row-start: auto;
-  grid-row-end: auto;
   -webkit-align-self: start;
   -ms-flex-item-align: start;
   align-self: start;
   justify-self: left;
+  grid-column: 1 / 13;
+  grid-row: auto;
 }
 
 .c2 {
   margin: 0;
-  grid-column-start: 1;
-  grid-column-end: 13;
-  grid-row-start: auto;
-  grid-row-end: auto;
   -webkit-align-self: start;
   -ms-flex-item-align: start;
   align-self: start;
   justify-self: center;
+  grid-column: 1 / 13;
+  grid-row: auto;
 }
 
 .c3 {
   margin: 0;
-  grid-column-start: 1;
-  grid-column-end: 13;
-  grid-row-start: auto;
-  grid-row-end: auto;
   -webkit-align-self: start;
   -ms-flex-item-align: start;
   align-self: start;
   justify-self: right;
+  grid-column: 1 / 13;
+  grid-row: auto;
 }
 
 @media screen and (max-width:1920px) {
@@ -105,26 +99,20 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
 
 .c1 {
   margin: 0;
-  grid-column-start: 1;
-  grid-column-end: 13;
-  grid-row-start: auto;
-  grid-row-end: auto;
+  grid-column: 1 / 13;
+  grid-row: auto;
 }
 
 .c2 {
   margin: 0;
-  grid-column-start: 1;
-  grid-column-end: 13;
-  grid-row-start: auto;
-  grid-row-end: auto;
+  grid-column: 1 / 13;
+  grid-row: auto;
 }
 
 .c3 {
   margin: 0;
-  grid-column-start: 1;
-  grid-column-end: 13;
-  grid-row-start: auto;
-  grid-row-end: auto;
+  grid-column: 1 / 13;
+  grid-row: auto;
 }
 
 @media screen and (max-width:1920px) {
@@ -158,10 +146,8 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
     -ms-flex-item-align: stretch;
     align-self: stretch;
     justify-self: stretch;
-    grid-column-start: 1;
-    grid-column-end: 7;
-    grid-row-start: 1;
-    grid-row-end: 1;
+    grid-column: 1 / 7;
+    grid-row: 1;
   }
 }
 
@@ -171,10 +157,8 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
     -ms-flex-item-align: stretch;
     align-self: stretch;
     justify-self: stretch;
-    grid-column-start: 1;
-    grid-column-end: 13;
-    grid-row-start: 1;
-    grid-row-end: 1;
+    grid-column: 1 / 13;
+    grid-row: 1;
   }
 }
 
@@ -184,10 +168,8 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
     -ms-flex-item-align: stretch;
     align-self: stretch;
     justify-self: stretch;
-    grid-column-start: 1;
-    grid-column-end: 9;
-    grid-row-start: 2;
-    grid-row-end: 2;
+    grid-column: 1 / 9;
+    grid-row: 2;
   }
 }
 
@@ -197,10 +179,8 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
     -ms-flex-item-align: stretch;
     align-self: stretch;
     justify-self: stretch;
-    grid-column-start: 7;
-    grid-column-end: 13;
-    grid-row-start: 1;
-    grid-row-end: 1;
+    grid-column: 7 / 13;
+    grid-row: 1;
   }
 }
 
@@ -210,10 +190,8 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
     -ms-flex-item-align: stretch;
     align-self: stretch;
     justify-self: stretch;
-    grid-column-start: 1;
-    grid-column-end: 13;
-    grid-row-start: 2;
-    grid-row-end: 2;
+    grid-column: 1 / 13;
+    grid-row: 2;
   }
 }
 
@@ -223,10 +201,8 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
     -ms-flex-item-align: stretch;
     align-self: stretch;
     justify-self: stretch;
-    grid-column-start: 1;
-    grid-column-end: 9;
-    grid-row-start: 3;
-    grid-row-end: 3;
+    grid-column: 1 / 9;
+    grid-row: 3;
   }
 }
 
@@ -236,10 +212,8 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
     -ms-flex-item-align: stretch;
     align-self: stretch;
     justify-self: stretch;
-    grid-column-start: 1;
-    grid-column-end: 13;
-    grid-row-start: 2;
-    grid-row-end: 2;
+    grid-column: 1 / 13;
+    grid-row: 2;
   }
 }
 
@@ -249,10 +223,8 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
     -ms-flex-item-align: stretch;
     align-self: stretch;
     justify-self: stretch;
-    grid-column-start: 1;
-    grid-column-end: 9;
-    grid-row-start: 1;
-    grid-row-end: 1;
+    grid-column: 1 / 9;
+    grid-row: 1;
   }
 }
 
@@ -262,10 +234,8 @@ exports[`Grid GridItem builds the style rules for the GridItem with responsiveSe
     -ms-flex-item-align: stretch;
     align-self: stretch;
     justify-self: stretch;
-    grid-column-start: 1;
-    grid-column-end: 13;
-    grid-row-start: 3;
-    grid-row-end: 3;
+    grid-column: 1 / 13;
+    grid-row: 3;
   }
 }
 

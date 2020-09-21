@@ -4,14 +4,19 @@ import { mount } from 'enzyme';
 import 'jest-styled-components';
 import { css } from 'styled-components';
 import Checkbox from './checkbox.component';
+import CheckableInput from '../checkable-input/checkable-input.component';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
-import LabelStyle, { StyledLabelContainer } from '../label/label.style';
+import LabelStyle from '../label/label.style';
 import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
 import StyledHelp from '../../../components/help/help.style';
 import guid from '../../../utils/helpers/guid';
-import { assertStyleMatch, carbonThemesJestTable } from '../../../__spec_helper__/test-utils';
+import {
+  assertStyleMatch,
+  carbonThemesJestTable,
+  mockMatchMedia
+} from '../../../__spec_helper__/test-utils';
 import { baseTheme, classicTheme } from '../../../style/themes';
 
 jest.mock('../../../utils/helpers/guid');
@@ -31,11 +36,15 @@ function render(props, renderer = TestRenderer.create, options = {}) {
 describe('Checkbox', () => {
   describe('base theme', () => {
     it('renders as expected', () => {
-      expect(render()).toMatchSnapshot();
+      expect(render({ })).toMatchSnapshot();
     });
 
     describe('when size=large', () => {
-      const wrapper = render({ size: 'large' }).toJSON();
+      let wrapper;
+
+      beforeEach(() => {
+        wrapper = render({ size: 'large' }).toJSON();
+      });
 
       it('applies the appropriate input display element styles', () => {
         const styles = {
@@ -62,14 +71,18 @@ describe('Checkbox', () => {
 
       it('applies the appropriate FieldHelp styles', () => {
         assertStyleMatch({
-          marginLeft: '32px'
+          marginLeft: '24px'
         }, wrapper, { modifier: css`${FieldHelpStyle}` });
       });
 
-      it('applies the appropriate Label styles', () => {
-        assertStyleMatch({
-          marginLeft: '8px'
-        }, wrapper, { modifier: css`${StyledLabelContainer}` });
+      describe('when labelSpacing is 2', () => {
+        it('should apply the correct fieldHelp styles', () => {
+          wrapper = render({ labelSpacing: 2, size: 'large' }).toJSON();
+          assertStyleMatch({
+            paddingLeft: '16px',
+            marginLeft: '24px'
+          }, wrapper, { modifier: css`${FieldHelpStyle}` });
+        });
       });
     });
 
@@ -80,13 +93,6 @@ describe('Checkbox', () => {
         assertStyleMatch({
           marginTop: '0'
         }, wrapper, { modifier: css`${FieldHelpStyle}` });
-      });
-
-
-      it('applies the appropriate Label styles', () => {
-        assertStyleMatch({
-          marginLeft: '8px'
-        }, wrapper, { modifier: css`${StyledLabelContainer}` });
       });
     });
 
@@ -142,6 +148,42 @@ describe('Checkbox', () => {
 
         it('applies the appropriate svg focus styles', () => {
           assertStyleMatch(hoverFocusStyles, wrapper, { modifier: css`${`${StyledCheckableInputSvgWrapper}:focus`}` });
+        });
+      });
+    });
+
+    describe('with a left margin (ml prop)', () => {
+      describe('when adaptiveSpacingBreakpoint prop is set', () => {
+        describe('when screen bigger than breakpoint', () => {
+          beforeEach(() => {
+            mockMatchMedia(true);
+          });
+
+          it('should pass the correct margin to CheckableInput', () => {
+            const wrapper = render({
+              label: 'Label',
+              adaptiveSpacingBreakpoint: 1000,
+              ml: '10%'
+            }, mount);
+
+            expect(wrapper.find(CheckableInput).props().ml).toEqual('10%');
+          });
+        });
+
+        describe('when screen smaller than breakpoint', () => {
+          beforeEach(() => {
+            mockMatchMedia(false);
+          });
+
+          it('should pass "0" to CheckableInput', () => {
+            const wrapper = render({
+              label: 'Label',
+              adaptiveSpacingBreakpoint: 1000,
+              ml: '10%'
+            }, mount);
+
+            expect(wrapper.find(CheckableInput).props().ml).toEqual('0');
+          });
         });
       });
     });
@@ -266,6 +308,14 @@ describe('Checkbox', () => {
         });
       });
     });
+
+    describe('when labelSpacing is 2', () => {
+      const wrapper = render({ labelSpacing: 2 }).toJSON();
+      assertStyleMatch({
+        paddingLeft: '16px',
+        marginLeft: '16px'
+      }, wrapper, { modifier: css`${FieldHelpStyle}` });
+    });
   });
 
   describe('Classic theme', () => {
@@ -299,7 +349,8 @@ describe('Checkbox', () => {
 
       it('applies appropriate FieldHelp styles', () => {
         assertStyleMatch({
-          marginLeft: '15px'
+          marginLeft: '15px',
+          paddingLeft: '5px'
         }, wrapper, { modifier: css`${FieldHelpStyle}` });
       });
 

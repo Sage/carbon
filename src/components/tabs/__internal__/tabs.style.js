@@ -1,22 +1,32 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import BaseTheme from '../../../style/themes/base';
 
 const StyledTabs = styled.div`
   margin-top: 15px;
   
-  ${({ position }) => position === 'left' && css`
-    display: flex;
-    width: 100%;
-    margin-top: 0;
+  ${({ position, hasCustomTarget, theme }) => css`
+    color: ${theme.text.color};
+
+    ${position === 'left' && css`
+      ${!hasCustomTarget && css`
+        display: flex;
+      `}
+      
+      width: 100%;
+      margin-top: 0;
+    `}
   `}
 `;
 
 StyledTabs.defaultProps = {
-  position: 'top'
+  position: 'top',
+  theme: BaseTheme
 };
 
 StyledTabs.propTypes = {
-  position: PropTypes.oneOf(['top', 'left'])
+  position: PropTypes.oneOf(['top', 'left']),
+  hasCustomTarget: PropTypes.bool
 };
 
 export default StyledTabs;

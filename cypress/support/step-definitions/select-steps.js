@@ -35,10 +35,6 @@ When('Type {string} text into input', (text) => {
   selectInput().clear().type(text);
 });
 
-When('Type {string} text into input into iFrame', (text) => {
-  selectInputIframe().clear().type(text);
-});
-
 Then('Select input has {string} value', (text) => {
   selectInput().should('have.attr', 'value', text);
 });
@@ -59,40 +55,19 @@ Then('Select placeholder on preview is set to {word}', (text) => {
   select().should('have.attr', 'placeholder', text);
 });
 
-Then('Select size on preview is set to {string}', (size) => {
-  switch (size) {
-    case 'small':
-      select().should('have.css', 'min-height', '32px')
-        .and('have.css', 'padding-left', '8px')
-        .and('have.css', 'padding-right', '8px');
-      break;
-    case 'medium':
-      select().should('have.css', 'min-height', '40px')
-        .and('have.css', 'padding-left', '11px')
-        .and('have.css', 'padding-right', '11px');
-      break;
-    case 'large':
-      select().should('have.css', 'min-height', '48px')
-        .and('have.css', 'padding-left', '13px')
-        .and('have.css', 'padding-right', '13px');
-      break;
-    default: throw new Error('There is no such size for a Select component input');
-  }
-});
-
 Then('Select size on preview for default component is set to {string}', (size) => {
   switch (size) {
     case 'small':
-      select().should('have.css', 'height', '28px')
-        .and('have.css', 'width', '1243px');
+      select().should('have.css', 'height', '30px')
+        .and('have.css', 'width', '1247px');
       break;
     case 'medium':
-      select().should('have.css', 'height', '36px')
-        .and('have.css', 'width', '1235px');
+      select().should('have.css', 'height', '38px')
+        .and('have.css', 'width', '1239px');
       break;
     case 'large':
-      select().should('have.css', 'height', '36px')
-        .and('have.css', 'width', '1235px');
+      select().should('have.css', 'height', '38px')
+        .and('have.css', 'width', '1239px');
       break;
     default: throw new Error('There is no such size for a Select component input');
   }
@@ -250,8 +225,4 @@ When('I click on {string} option on Select list', (position) => {
 
 When('I click on Select label', () => {
   label().click();
-});
-
-When('I click {string} onto multi select input', (key) => {
-  simpleSelectID().trigger('keydown', keyCode(key));
 });

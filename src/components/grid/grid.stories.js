@@ -15,12 +15,10 @@ export const basic = () => {
     `${viewportSettings} (i)`,
     {
       alignSelf: 'stretch',
-      colStart: 1,
-      colEnd: 7,
+      gridColumn: '1 / 7',
+      gridRow: '1 / 1',
       justifySelf: 'stretch',
-      maxWidth: '1500px',
-      rowStart: 1,
-      rowEnd: 1
+      maxWidth: '1500px'
     },
     groupID1
   );
@@ -29,12 +27,10 @@ export const basic = () => {
     `${viewportSettings} (ii)`,
     {
       alignSelf: 'stretch',
-      colStart: 1,
-      colEnd: 13,
+      gridColumn: '1 / 13',
+      gridRow: '1 / 1',
       justifySelf: 'stretch',
-      maxWidth: '1300px',
-      rowStart: 1,
-      rowEnd: 1
+      maxWidth: '1300px'
     },
     groupID1
   );
@@ -43,12 +39,10 @@ export const basic = () => {
     `${viewportSettings} (iii)`,
     {
       alignSelf: 'stretch',
-      colStart: 1,
-      colEnd: 9,
+      gridColumn: '1 / 9',
+      gridRow: '2 / 2',
       justifySelf: 'stretch',
-      maxWidth: '900px',
-      rowStart: 2,
-      rowEnd: 2
+      maxWidth: '900px'
     },
     groupID1
   );
@@ -57,12 +51,10 @@ export const basic = () => {
     `${viewportSettings} (i)`,
     {
       alignSelf: 'stretch',
-      colStart: 7,
-      colEnd: 13,
+      gridColumn: '7 / 13',
+      gridRow: '1 / 1',
       justifySelf: 'stretch',
-      maxWidth: '1500px',
-      rowStart: 1,
-      rowEnd: 1
+      maxWidth: '1500px'
     },
     groupID2
   );
@@ -71,12 +63,10 @@ export const basic = () => {
     `${viewportSettings} (ii)`,
     {
       alignSelf: 'stretch',
-      colStart: 1,
-      colEnd: 13,
+      gridColumn: '1 / 13',
+      gridRow: '2 / 2',
       justifySelf: 'stretch',
-      maxWidth: '1300px',
-      rowStart: 2,
-      rowEnd: 2
+      maxWidth: '1300px'
     },
     groupID2
   );
@@ -85,12 +75,10 @@ export const basic = () => {
     `${viewportSettings} (iii)`,
     {
       alignSelf: 'stretch',
-      colStart: 1,
-      colEnd: 9,
+      gridColumn: '1 / 9',
+      gridRow: '3 / 3',
       justifySelf: 'stretch',
-      maxWidth: '900px',
-      rowStart: 3,
-      rowEnd: 3
+      maxWidth: '900px'
     },
     groupID2
   );
@@ -99,12 +87,10 @@ export const basic = () => {
     `${viewportSettings} (i)`,
     {
       alignSelf: 'stretch',
-      colStart: 1,
-      colEnd: 13,
+      gridColumn: '1 / 13',
+      gridRow: '2 / 2',
       justifySelf: 'stretch',
-      maxWidth: '1500px',
-      rowStart: 2,
-      rowEnd: 2
+      maxWidth: '1500px'
     },
     groupID3
   );
@@ -113,12 +99,10 @@ export const basic = () => {
     `${viewportSettings} (ii)`,
     {
       alignSelf: 'stretch',
-      colStart: 1,
-      colEnd: 13,
+      gridColumn: '1 / 13',
+      gridRow: '3 / 3',
       justifySelf: 'stretch',
-      maxWidth: '1300px',
-      rowStart: 3,
-      rowEnd: 3
+      maxWidth: '1300px'
     },
     groupID3
   );
@@ -127,12 +111,10 @@ export const basic = () => {
     `${viewportSettings} (iii)`,
     {
       alignSelf: 'stretch',
-      colStart: 1,
-      colEnd: 9,
+      gridColumn: '1 / 9',
+      gridRow: '1 / 1',
       justifySelf: 'stretch',
-      maxWidth: '900px',
-      rowStart: 1,
-      rowEnd: 1
+      maxWidth: '900px'
     },
     groupID3
   );
@@ -280,8 +262,7 @@ export const Visual = () => {
         <GridItem
           alignSelf='end'
           justifySelf='left'
-          gridColumnStart='1'
-          gridColumnEnd='1'
+          gridColumn='1 / 1'
         >
           <Pod
             alignTitle='left'
@@ -296,8 +277,7 @@ export const Visual = () => {
         <GridItem
           alignSelf='stretch'
           justifySelf='center'
-          gridColumnStart='2'
-          gridColumnEnd='2'
+          gridColumn='2 / 2'
         >
           <Pod
             alignTitle='left'
@@ -313,10 +293,8 @@ export const Visual = () => {
         <GridItem
           alignSelf='stretch'
           justifySelf='right'
-          gridColumnStart='1'
-          gridColumnEnd='1'
-          gridRowStart='2'
-          gridRowEnd='2'
+          gridColumn='1 / 1'
+          gridRow='2 / 2'
         >
           <Pod
             alignTitle='left'
@@ -333,26 +311,21 @@ export const Visual = () => {
         <GridItem responsiveSettings={ [
           {
             maxWidth: '1500px',
-            colStart: 1,
-            colEnd: 7,
-            rowStart: 1,
-            rowEnd: 1,
+            gridColumn: '1 / 7',
+            gridRow: '1 / 1',
             alignSelf: 'stretch',
             justifySelf: 'stretch'
           }, {
             maxWidth: '1300px',
-            colStart: 1,
-            colEnd: 13,
-            rowStart: 1,
-            rowEnd: 1,
+            gridColumn: '1 / 13',
+            gridRow: '1 / 1',
             alignSelf: 'stretch',
             justifySelf: 'stretch'
           }, {
             maxWidth: '900px',
             colStart: 1,
             colEnd: 9,
-            rowStart: 2,
-            rowEnd: 2,
+            gridRow: '2 / 2',
             alignSelf: 'stretch',
             justifySelf: 'stretch'
           }] }
@@ -368,26 +341,20 @@ export const Visual = () => {
         <GridItem responsiveSettings={ [
           {
             maxWidth: '1500px',
-            colStart: 7,
-            colEnd: 13,
-            rowStart: 1,
-            rowEnd: 1,
+            gridColumn: '7 / 13',
+            gridRow: '1 / 1',
             alignSelf: 'stretch',
             justifySelf: 'stretch'
           }, {
             maxWidth: '1300px',
-            colStart: 1,
-            colEnd: 13,
-            rowStart: 2,
-            rowEnd: 2,
+            gridColumn: '1 / 13',
+            gridRow: '2 / 2',
             alignSelf: 'stretch',
             justifySelf: 'stretch'
           }, {
             maxWidth: '900px',
-            colStart: 1,
-            colEnd: 9,
-            rowStart: 3,
-            rowEnd: 3,
+            gridColumn: '1 / 9',
+            gridRow: '3 / 3',
             alignSelf: 'stretch',
             justifySelf: 'stretch'
           }] }
@@ -406,26 +373,20 @@ export const Visual = () => {
           responsiveSettings={ [
             {
               maxWidth: '1500px',
-              colStart: 1,
-              colEnd: 13,
-              rowStart: 2,
-              rowEnd: 2,
+              gridColumn: '1 / 13',
+              gridRow: '2 / 2',
               alignSelf: 'stretch',
               justifySelf: 'stretch'
             }, {
               maxWidth: '1300px',
-              colStart: 1,
-              colEnd: 13,
-              rowStart: 3,
-              rowEnd: 3,
+              gridColumn: '1 / 13',
+              gridRow: '3 / 3',
               alignSelf: 'stretch',
               justifySelf: 'stretch'
             }, {
               maxWidth: '900px',
-              colStart: 1,
-              colEnd: 9,
-              rowStart: 1,
-              rowEnd: 1,
+              gridColumn: '1 / 9',
+              gridRow: '1 / 1',
               alignSelf: 'stretch',
               justifySelf: 'stretch'
             }] }

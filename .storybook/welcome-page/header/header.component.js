@@ -43,7 +43,7 @@ const Header = () => (
           <div data-component="link">
             <a tabIndex="0" href="https://www.npmjs.com/package/carbon-react">
               <span>
-                <img src="https://img.shields.io/npm/v/carbon-react.svg" data-chromatic="ignore" alt="npm" />
+                <img src="https://img.shields.io/npm/v/carbon-react.svg" alt="npm" />
               </span>
             </a>
           </div>

@@ -15,13 +15,13 @@
     "fieldHelp": "mp150ú¿¡üßä"
   },
   "fieldHelpSpecialCharacter": {
-    "fieldHelp": "!@#$%^*()_+-=~[];:.,?{}"
+    "fieldHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "labelOtherLanguage": {
     "label": "mp150ú¿¡üßä"
   },
   "labelSpecialCharacter": {
-    "label": "!@#$%^*()_+-=~[];:.,?{}"
+    "label": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "labelHelpOtherLanguage": {
     "label": "label",
@@ -29,7 +29,7 @@
   },
   "labelHelpSpecialCharacter": {
     "label": "label",
-    "labelHelp": "!@#$%^*()_+-=~[];:.,?{}"
+    "labelHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "labelInline": {
     "label": "label",

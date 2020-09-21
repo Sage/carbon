@@ -12,7 +12,11 @@ const tabId = 'uniqueid1';
 function render(props) {
   return mount(
     <Tab
-      title='Tab Title 1' tabId={ tabId }
+      errorMessage='error'
+      warningMessage='warning'
+      infoMessage='info'
+      title='Tab Title 1'
+      tabId={ tabId }
       { ...props }
     >
       <p>TabContent 1</p>
@@ -24,7 +28,11 @@ function render(props) {
 function renderWithValidation(props) {
   return mount(
     <Tab
-      title='Tab Title 1' tabId={ tabId }
+      errorMessage='error'
+      warningMessage='warning'
+      infoMessage='info'
+      title='Tab Title 1'
+      tabId={ tabId }
       { ...props }
     >
       <Textbox

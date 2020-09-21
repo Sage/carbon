@@ -3,7 +3,7 @@
     "fieldHelp": "mp150ú¿¡üßä"
   },
   "fieldHelpSpecialCharacter": {
-    "fieldHelp": "!@#$%^*()_+-=~[];:.,?{}"
+    "fieldHelp": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "fieldHelpInline": {
     "fieldHelpInline": true
@@ -15,7 +15,7 @@
     "label": "mp150ú¿¡üßä"
   },
   "labelSpecialCharacter": {
-    "label": "!@#$%^*()_+-=~[];:.,?{}"
+    "label": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "inputWidth1": {
     "labelInline": true,

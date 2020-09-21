@@ -6,7 +6,6 @@ import {
 // component preview locators
 export const flatTable = () => cy.iFrame(FLAT_TABLE_COMPONENT);
 export const flatTableBodyRows = () => flatTable().find('tbody tr');
-export const flatTableHeader = () => flatTable().find('thead tr');
 export const flatTableBodyRowByPosition = index => flatTableBodyRows().eq(index);
 
 export const flatTableNoiFrame = () => cy.get(FLAT_TABLE_COMPONENT);
@@ -26,7 +25,3 @@ export const fltaTableSortableDS = () => cy.iFrame(FLAT_TABLE_SORTABLE_ID)
   .find(FLAT_TABLE_COMPONENT).find('thead tr th div:nth-child(1)');
 export const flatTableCellDS = index => cy.iFrame(FLAT_TABLE_SORTABLE_ID)
   .find(FLAT_TABLE_CELL).eq(index);
-
-  // locators in no iFrame
-export const flatTableBodyRowByPositionDSnoiFrame = index => cy.get(FLAT_TABLE_COMPONENT).find('tbody tr').eq(index);
-export const flatTableCheckbox = index => flatTableBodyRowByPositionDSnoiFrame(index).find('input');

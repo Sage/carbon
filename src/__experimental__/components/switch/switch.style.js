@@ -12,7 +12,7 @@ import ClassicSwitchStyles from './switch-classic.style';
 
 const StyledSwitch = styled.div`
   ${({
-    fieldHelpInline, labelInline, labelWidth, reverse, size, theme
+    fieldHelpInline, labelInline, labelSpacing, reverse, size, theme
   }) => css`
     ${FieldLineStyle} {
       display: flex;
@@ -28,8 +28,6 @@ const StyledSwitch = styled.div`
       margin-left: 0;
     }
 
-    margin-bottom: 24px;
-
     ${HiddenCheckableInputStyle}:not([disabled]) {
       &:focus + ${StyledSwitchSlider},
       &:hover + ${StyledSwitchSlider} {
@@ -42,14 +40,13 @@ const StyledSwitch = styled.div`
     }
 
     ${StyledLabelContainer} {
+      ${!labelInline && css`padding: 0;`};
+      margin-bottom: 8px;
+
       ${StyledValidationIcon} {
         position: relative;
         display: inline-block;
       }
-
-      ${labelWidth && css`
-        margin-right: ${100 - labelWidth}%;
-      `}
     }
 
     ${fieldHelpInline && css`
@@ -63,6 +60,12 @@ const StyledSwitch = styled.div`
         ${StyledLabelContainer} {
           margin-top: 8px;
         }
+
+        ${fieldHelpInline && css`
+          ${FieldHelpStyle} {
+            margin-top: 8px;
+          }
+        `}
       `}
     `}
 
@@ -77,9 +80,6 @@ const StyledSwitch = styled.div`
 
       ${StyledLabelContainer} {
         margin-bottom: 0;
-        padding-right: 0;
-        margin-right: 32px;
-        width: auto;
       }
 
       ${FieldHelpStyle} {
@@ -93,21 +93,20 @@ const StyledSwitch = styled.div`
           margin-top: 0;
         }
 
-        ${StyledLabelContainer} {
-          margin-left: 10px;
-        }
-
         ${!fieldHelpInline && `
           ${FieldHelpStyle} {
-            margin-left: 70px;
+            margin-left: 60px;
+            padding-left: ${labelSpacing * theme.spacing}px;
           }
         `}
       `}
 
-      ${fieldHelpInline && `
-        ${StyledCheckableInput} {
-          margin-left: 10px;
-        }
+      ${fieldHelpInline && css`
+        ${!reverse && `
+          ${StyledCheckableInput} {
+            margin-left: 10px;
+          }
+        `}
 
         ${StyledLabelContainer} {
           margin-right: 10px;
@@ -128,8 +127,23 @@ const StyledSwitch = styled.div`
 
       ${labelInline && !fieldHelpInline && reverse && css`
         ${FieldHelpStyle} {
-          margin-left: 88px;
+          padding: 10px 0;
         }
+      `}
+
+      ${labelInline && css`
+        ${StyledLabelContainer} {
+          margin-top: 1px;
+          padding-top: 10px;
+          padding-bottom: 10px;
+        }
+
+        ${!fieldHelpInline && reverse && `
+          ${FieldHelpStyle} {
+            margin-left: 78px;
+            padding-left: ${labelSpacing * theme.spacing}px;
+          }
+        `}
       `}
     `}
 

@@ -6,11 +6,9 @@ Feature: Switch component
     When I open default "Experimental Switch" component in noIFrame with "switch" json from "experimental" using "<nameOfObject>" object name
     Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
     Examples:
-      | fieldHelp               | nameOfObject              |
-      | mp150ú¿¡üßä             | fieldHelpOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | fieldHelpSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | fieldHelp                    | nameOfObject              |
+      | mp150ú¿¡üßä                  | fieldHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | fieldHelpSpecialCharacter |
 
   @positive
   Scenario: Enable fieldHelpInline
@@ -27,11 +25,9 @@ Feature: Switch component
     When I open default "Experimental Switch" component in noIFrame with "switch" json from "experimental" using "<nameOfObject>" object name
     Then label on preview is <label> in NoIFrame
     Examples:
-      | label                   | nameOfObject          |
-      | mp150ú¿¡üßä             | labelOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | labelSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | label                        | nameOfObject          |
+      | mp150ú¿¡üßä                  | labelOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelSpecialCharacter |
 
   @positive
   Scenario: Enable labelInline property

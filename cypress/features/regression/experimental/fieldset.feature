@@ -6,8 +6,8 @@ Feature: Experimental Fieldset component
     When I open default "Experimental-Fieldset" component in noIFrame with "fieldset" json from "experimental" using "<nameOfObject>" object name
     Then legend on preview is <legend>
     Examples:
-      | legend                       | nameOfObject |
-      | mp150ú¿¡üßä                  | legendOtherLanguage | 
+      | legend                       | nameOfObject           |
+      | mp150ú¿¡üßä                  | legendOtherLanguage    |
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | legendSpecialCharacter |
 
   @negative

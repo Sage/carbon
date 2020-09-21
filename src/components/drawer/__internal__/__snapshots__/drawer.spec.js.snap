@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Drawer uncontrolled matches snapshot 1`] = `
+<styled.div
+  data-component="drawer"
+>
+  <styled.div
+    animationDuration="0.5s"
+    aria-expanded="true"
+    className="open"
+    expandedWidth="20%"
+    theme="[ theme object ]"
+  >
+    <styled.div
+      hasControls={false}
+      id="DrawerSidebar_guid-123"
+      isExpanded={true}
+      role="navigation"
+    >
+      <ContextProvider
+        value={
+          Object {
+            "isInSidebar": true,
+            "setTarget": [Function],
+          }
+        }
+      >
+        <ul>
+          <li>
+            link a
+          </li>
+          <li>
+            link b
+          </li>
+          <li>
+            link c
+          </li>
+        </ul>
+      </ContextProvider>
+    </styled.div>
+  </styled.div>
+  <styled.div>
+    content body content body content body content body content body content body content body
+  </styled.div>
+</styled.div>
+`;

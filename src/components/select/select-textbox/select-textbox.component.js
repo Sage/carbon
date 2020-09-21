@@ -102,7 +102,9 @@ const formInputPropTypes = {
   /** Callback function for when the Select Textbox loses it's focus. */
   onBlur: PropTypes.func,
   /** Callback function for when the key is pressed when focused on Select Textbox. */
-  onKeyDown: PropTypes.func
+  onKeyDown: PropTypes.func,
+  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  adaptiveLabelBreakpoint: PropTypes.number
 };
 
 SelectTextbox.propTypes = {

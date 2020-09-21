@@ -31,8 +31,7 @@ function makeStory(name, themeSelector, component, disableChromatic = false) {
     themeSelector,
     info: {
       text: info,
-      propTables: [OriginalTextbox],
-      propTablesExclude: [Textbox]
+      propTables: [OriginalTextbox]
     },
     notes: { markdown: notes },
     knobs: { escapeHTML: false },
@@ -49,6 +48,25 @@ const defaultTextbox = () => {
     <Textbox
       placeholder={ text('placeholder') }
       { ...getCommonTextboxProps() }
+    />
+  );
+};
+
+const disabledTextbox = () => {
+  return (
+    <Textbox
+      placeholder={ text('placeholder') }
+      value='value'
+      { ...getCommonTextboxProps(defaultStoryPropsConfig, false, true, false) }
+    />
+  );
+};
+const readOnlyTextbox = () => {
+  return (
+    <Textbox
+      placeholder={ text('placeholder') }
+      value='value'
+      { ...getCommonTextboxProps(defaultStoryPropsConfig, false, false, true) }
     />
   );
 };
@@ -104,6 +122,15 @@ function makeValidationsStory(name, themeSelector, disableChromatic = false) {
           />
         ))}
 
+        <h6>Read Only</h6>
+        <Textbox
+          placeholder={ text('placeholder') }
+          label='Label '
+          name='textbox'
+          error='Message'
+          readOnly
+        />
+
         <h6>On label</h6>
         {validationTypes.map(validation => (
           <Textbox
@@ -116,6 +143,16 @@ function makeValidationsStory(name, themeSelector, disableChromatic = false) {
           />
         ))}
 
+        <h6>Read Only</h6>
+        <Textbox
+          placeholder={ text('placeholder') }
+          label='Label'
+          name='textbox'
+          error='Message'
+          validationOnLabel
+          readOnly
+        />
+
         <h4>Validation as boolean</h4>
         {validationTypes.map(validation => (
           <Textbox
@@ -126,6 +163,16 @@ function makeValidationsStory(name, themeSelector, disableChromatic = false) {
             { ...{ [validation]: true } }
           />
         ))}
+
+        <h6>Read Only</h6>
+        <Textbox
+          key='error-string-component'
+          placeholder={ text('placeholder') }
+          label='Label'
+          name='textbox'
+          error
+          readOnly
+        />
       </>
     );
   };
@@ -134,8 +181,7 @@ function makeValidationsStory(name, themeSelector, disableChromatic = false) {
     themeSelector,
     info: {
       source: false,
-      propTables: [OriginalTextbox],
-      propTablesExclude: [Textbox]
+      propTables: [OriginalTextbox]
     },
     chromatic: {
       disable: disableChromatic
@@ -148,6 +194,8 @@ function makeValidationsStory(name, themeSelector, disableChromatic = false) {
 
 storiesOf('Experimental/Textbox', module)
   .add(...makeStory('default', dlsThemeSelector, defaultTextbox))
+  .add(...makeStory('readOnly', dlsThemeSelector, readOnlyTextbox))
+  .add(...makeStory('disabled', dlsThemeSelector, disabledTextbox))
   .add(...makeStory('classic', classicThemeSelector, defaultTextbox, true))
   .add(...makeStory('multiple', dlsThemeSelector, multipleTextbox))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
@@ -156,7 +204,7 @@ storiesOf('Experimental/Textbox', module)
   .add(...makeStory('multiple autoFocus', dlsThemeSelector, multipleTextboxAutoFocus));
 
 // eslint-disable-next-line
-export function getCommonTextboxProps(config = defaultStoryPropsConfig, autoFocusDefault = false) {
+export function getCommonTextboxProps(config = defaultStoryPropsConfig, autoFocusDefault = false, disabledDefault = false, readOnlyDefault = false) {
   const previous = {
     key: 'textbox',
     autoFocus: autoFocusDefault
@@ -167,13 +215,15 @@ export function getCommonTextboxProps(config = defaultStoryPropsConfig, autoFocu
     max: 100,
     step: 1
   };
-  const disabled = boolean('disabled', false);
-  const readOnly = boolean('readOnly', false);
+  const disabled = boolean('disabled', disabledDefault);
+  const readOnly = boolean('readOnly', readOnlyDefault);
+  const prefix = text('prefix', '');
   const autoFocus = boolean('autoFocus', autoFocusDefault);
   const fieldHelp = text('fieldHelp');
   const label = text('label', 'Label');
   const labelHelp = label ? text('labelHelp') : undefined;
   const labelInline = label ? boolean('labelInline', false) : undefined;
+  const adaptiveLabelBreakpoint = labelInline ? number('adaptiveLabelBreakpoint') : undefined;
   const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
   const inputWidth = labelInline && config.inputWidthEnabled ? number('inputWidth', 70, percentageRange) : undefined;
   const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
@@ -193,11 +243,13 @@ export function getCommonTextboxProps(config = defaultStoryPropsConfig, autoFocu
     label,
     labelHelp,
     labelInline,
+    adaptiveLabelBreakpoint,
     labelWidth,
     labelAlign,
     size,
     onClick,
     iconOnClick,
-    inputIcon
+    inputIcon,
+    prefix
   };
 }

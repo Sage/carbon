@@ -5,6 +5,7 @@ import 'jest-styled-components';
 import { css, ThemeProvider } from 'styled-components';
 import { mount } from 'enzyme';
 import I18n from 'i18n-js';
+
 import Switch from '.';
 import CheckableInput from '../checkable-input';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
@@ -13,10 +14,17 @@ import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input
 import LabelStyle, { StyledLabelContainer } from '../label/label.style';
 import StyledSwitchSlider from './switch-slider.style';
 import guid from '../../../utils/helpers/guid';
-import { assertStyleMatch, carbonThemesJestTable } from '../../../__spec_helper__/test-utils';
+import {
+  assertStyleMatch,
+  carbonThemesJestTable,
+  mockMatchMedia
+} from '../../../__spec_helper__/test-utils';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 import { baseTheme, classicTheme } from '../../../style/themes';
 import SwitchSliderPanel from './switch-slider-panel.style';
+import SwitchStyle from './switch.style';
+import SwitchSlider from './switch-slider.component';
+
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -145,13 +153,14 @@ describe('Switch', () => {
         });
       });
 
-      describe('and labelInline=true', () => {
-        const wrapper = render({ reverse: false, labelInline: true }).toJSON();
+      describe('and fieldHelpInline=true', () => {
+        const wrapper = render({ reverse: false, fieldHelpInline: true }).toJSON();
 
-        it('applies the correct Label styles', () => {
+        it('applies the correct FieldHelp styles', () => {
           assertStyleMatch({
-            marginLeft: '10px'
-          }, wrapper, { modifier: css`${StyledLabelContainer}` });
+            margin: '0',
+            marginTop: '8px'
+          }, wrapper, { modifier: css`${FieldHelpStyle}` });
         });
       });
 
@@ -160,7 +169,7 @@ describe('Switch', () => {
 
         it('applies the correct FieldHelp styles', () => {
           assertStyleMatch({
-            marginLeft: '70px'
+            marginLeft: '60px'
           }, wrapper, { modifier: css`${FieldHelpStyle}` });
         });
       });
@@ -177,25 +186,67 @@ describe('Switch', () => {
     });
 
     describe('when labelInline=true', () => {
-      const wrapper = render({ labelInline: true }).toJSON();
-
       it('applies the correct Label styles', () => {
+        const wrapper = render({ labelInline: true }).toJSON();
         assertStyleMatch({
-          marginBottom: '0',
-          marginRight: '32px',
-          width: 'auto'
+          marginBottom: '0'
         }, wrapper, { modifier: css`${StyledLabelContainer}` });
       });
 
       it('applies the correct FieldHelp styles', () => {
+        const wrapper = render({ labelInline: true }).toJSON();
         assertStyleMatch({
           marginTop: '0'
         }, wrapper, { modifier: css`${FieldHelpStyle}` });
+      });
+
+      describe('when adaptiveLabelBreakpoint prop is set', () => {
+        describe('when screen bigger than breakpoint', () => {
+          beforeEach(() => {
+            mockMatchMedia(true);
+          });
+
+          it('should pass labelInline to its children', () => {
+            const wrapper = render({
+              label: 'Label',
+              labelInline: true,
+              adaptiveLabelBreakpoint: 1000
+            }, mount);
+
+            expect(wrapper.find(SwitchStyle).props().labelInline).toEqual(true);
+            expect(wrapper.find(CheckableInput).props().labelInline).toEqual(true);
+            expect(wrapper.find(SwitchSlider).props().labelInline).toEqual(true);
+          });
+        });
+
+        describe('when screen smaller than breakpoint', () => {
+          beforeEach(() => {
+            mockMatchMedia(false);
+          });
+
+          it('should pass labelInline as false to its children', () => {
+            const wrapper = render({
+              label: 'Label',
+              labelInline: true,
+              adaptiveLabelBreakpoint: 1000
+            }, mount);
+
+            expect(wrapper.find(SwitchStyle).props().labelInline).toEqual(false);
+            expect(wrapper.find(CheckableInput).props().labelInline).toEqual(false);
+            expect(wrapper.find(SwitchSlider).props().labelInline).toEqual(false);
+          });
+        });
       });
     });
 
     describe('when fieldHelpInline=true and labelInline=true', () => {
       const wrapper = render({ fieldHelpInline: true, labelInline: true }).toJSON();
+
+      it('applies the correct CheckableInput styles', () => {
+        assertStyleMatch({
+          marginLeft: '10px'
+        }, wrapper, { modifier: css`${StyledCheckableInput}` });
+      });
 
       it('applies the correct Label styles', () => {
         assertStyleMatch({
@@ -207,16 +258,6 @@ describe('Switch', () => {
         assertStyleMatch({
           marginLeft: '0'
         }, wrapper, { modifier: css`${FieldHelpStyle}` });
-      });
-    });
-
-    describe('when setting a custom labelWidth', () => {
-      it('renders the correct Label styles', () => {
-        const wrapper = render({ labelWidth: 60 }).toJSON();
-
-        assertStyleMatch({
-          marginRight: '40%'
-        }, wrapper, { modifier: css`${StyledLabelContainer}` });
       });
     });
 
@@ -243,12 +284,22 @@ describe('Switch', () => {
       });
 
       describe('and labelInline=true', () => {
+        it('applies the correct Label styles', () => {
+          const wrapper = render({ size: 'large', labelInline: true }).toJSON();
+
+          assertStyleMatch({
+            marginTop: '1px',
+            paddingTop: '10px',
+            paddingBottom: '10px'
+          }, wrapper, { modifier: css`${StyledLabelContainer}` });
+        });
+
         describe('and reverse=false', () => {
           const wrapper = render({ size: 'large', labelInline: true, reverse: false }).toJSON();
 
           it('applies the correct FieldHelp styles', () => {
             assertStyleMatch({
-              marginLeft: '88px'
+              marginLeft: '78px'
             }, wrapper, { modifier: css`${FieldHelpStyle}` });
           });
         });
@@ -273,6 +324,7 @@ describe('Switch', () => {
 
       wrapper.setProps(props);
     });
+
 
     describe.each(validationTypes)('when %s prop passed as string', (type) => {
       it(`displays ${type} icon by the input`, () => {
@@ -321,6 +373,14 @@ describe('Switch', () => {
           boxShadow: `inset ${shadowWidth}px ${shadowWidth}px 0 ${baseTheme.colors[type]},inset -${shadowWidth}px -${shadowWidth}px 0 ${baseTheme.colors[type]}`
         }, wrapper.find(StyledSwitchSlider));
       });
+    });
+
+
+    it('forces validation icon to be displayed on label when labelInline = true and reverse = false', () => {
+      wrapper.setProps({ error: 'Error', labelInline: true, reverse: false });
+
+      expect(wrapper.find(StyledLabelContainer).find(StyledValidationIcon).exists()).toEqual(true);
+      expect(wrapper.find(StyledSwitchSlider).find(StyledValidationIcon).exists()).toEqual(false);
     });
   });
 

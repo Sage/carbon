@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
 import {
   StyledButtonToggle,
@@ -22,6 +22,7 @@ const ButtonToggle = (props) => {
     buttonIcon,
     buttonIconSize,
     onChange,
+    onFocus,
     onBlur,
     value,
     size
@@ -29,6 +30,7 @@ const ButtonToggle = (props) => {
   const { onMouseEnter, onMouseLeave } = useContext(InputGroupContext);
 
   const inputGuid = guid();
+  const inputRef = useRef(null);
   let icon;
 
   if (buttonIcon) {
@@ -41,10 +43,15 @@ const ButtonToggle = (props) => {
     );
   }
 
+  function handleClick() {
+    inputRef.current.focus();
+  }
+
   return (
     <StyledButtonToggle
       data-component='button-toggle'
       grouped={ grouped }
+      onClick={ handleClick }
     >
       <ButtonToggleInput
         name={ name }
@@ -53,7 +60,9 @@ const ButtonToggle = (props) => {
         guid={ inputGuid }
         value={ value }
         onChange={ onChange }
+        onFocus={ onFocus }
         onBlur={ onBlur }
+        ref={ inputRef }
       />
       <StyledButtonToggleLabel
         buttonIcon={ buttonIcon }
@@ -80,6 +89,8 @@ ButtonToggle.propTypes = {
   name: PropTypes.string,
   /** Callback triggered by change event on the input. */
   onChange: PropTypes.func,
+  /** Callback triggered by focus event on the input. */
+  onFocus: PropTypes.func,
   /** Callback triggered by blur event on the input. */
   onBlur: PropTypes.func,
   /** buttonIcon to render. */

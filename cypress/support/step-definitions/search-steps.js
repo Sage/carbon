@@ -1,10 +1,11 @@
 import {
   searchInput, searchIcon, searchInputNoiFrame,
-  searchDefaultInputDS, searchCrossIconDS, searchButtonDS, searchWitchButtonInputDS, searchDefaultInnerIconDS, searchInnerIconDS,
+  searchDefaultInputDS, searchCrossIconDS, searchButtonDS, 
+  searchWitchButtonInputDS, searchDefaultInnerIconDS, searchInnerIconDS,
 } from '../../locators/search';
 
 Then('Search component placeholder is set to {word}', (placeholder) => {
-  searchInput().should('have.attr', 'placeholder', placeholder);
+  searchInputNoiFrame().should('have.attr', 'placeholder', placeholder);
 });
 
 When('I clear default search input', () => {
@@ -21,10 +22,6 @@ When('Type {string} text into search with button input', (text) => {
 
 When('Type {string} text into search input', (text) => {
   searchInput().clear().type(text);
-});
-
-When('Type {string} text into search input in no iFrame', (text) => {
-  searchInputNoiFrame().clear().type(text);
 });
 
 Then('Search component has input and {string} as icon', (iconType) => {

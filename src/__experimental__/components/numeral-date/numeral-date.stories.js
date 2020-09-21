@@ -71,7 +71,7 @@ export const Validations = () => {
           dateFormat={ dateFormat }
           value={ dateValue }
           name='numeralDate_name'
-          id='numeralDate_id'
+          id={ `numeralDate_id_${validation}-string` }
         />
       ))}
 
@@ -86,7 +86,7 @@ export const Validations = () => {
           dateFormat={ dateFormat }
           value={ dateValue }
           name='numeralDate_name'
-          id='numeralDate_id'
+          id={ `numeralDate_id_${validation}-boolean` }
         />
       ))}
 
