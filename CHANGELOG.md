@@ -1,3 +1,17 @@
+## [41.0.0](https://github.com/Sage/carbon/compare/v40.6.0...v41.0.0) (2020-09-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* **grid:** gridColumnStart and gridColumnEnd props in GridItem
+and GridItem responsiveSettings replaced with gridColumn styled-system compatible prop,
+gridRowStart and gridRowEnd props in GridItem and GridItem responsiveSettings
+replaced with gridRow styled-system compatible prop
+
+### Features
+
+* **grid:** add styled-system cusom padding and margin props ([1144f9a](https://github.com/Sage/carbon/commit/1144f9a49e78446bf9f09de77f9fcf1d5d1603dc))
+
 ## [40.6.0](https://github.com/Sage/carbon/compare/v40.5.0...v40.6.0) (2020-09-18)
 
 
