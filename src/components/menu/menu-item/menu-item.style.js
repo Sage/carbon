@@ -50,9 +50,9 @@ const StyledMenuItemWrapper = styled.a`
     a:hover, 
     a:focus, 
     button:hover, 
-    button:focus{
-    color: ${theme.colors.white};
-    background: transparent;
+    button:focus {
+      color: ${theme.colors.white};
+      background: transparent;
     }
 
     a:focus,
