@@ -1,3 +1,10 @@
+### [41.1.1](https://github.com/Sage/carbon/compare/v41.1.0...v41.1.1) (2020-09-21)
+
+
+### Bug Fixes
+
+* **help:** navigate to URL when href is set ([c7a3a7d](https://github.com/Sage/carbon/commit/c7a3a7d4c44fad74d1b109a08b277e19b11c22e9)), closes [#3009](https://github.com/Sage/carbon/issues/3009)
+
 ## [41.1.0](https://github.com/Sage/carbon/compare/v41.0.0...v41.1.0) (2020-09-21)
 
 
