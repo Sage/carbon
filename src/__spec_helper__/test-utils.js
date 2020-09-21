@@ -1,3 +1,5 @@
+import { mount } from 'enzyme';
+
 import { carbonThemeList } from '../style/themes';
 import { mockMatchMedia } from './mock-match-media';
 
@@ -98,6 +100,103 @@ const assertHoverTraversal = assertCorrectTraversal(wrapper => hoverList(wrapper
 
 const carbonThemesJestTable = carbonThemeList.map(theme => [theme.name, theme]);
 
+const spacingProps = [
+  ['m', 'margin'],
+  ['ml', 'marginLeft'],
+  ['mr', 'marginRight'],
+  ['mt', 'marginTop'],
+  ['mb', 'marginBottom'],
+  ['mx', 'marginLeft'],
+  ['mx', 'marginRight'],
+  ['my', 'marginTop'],
+  ['my', 'marginBottom'],
+  ['p', 'padding'],
+  ['pl', 'paddingLeft'],
+  ['pr', 'paddingRight'],
+  ['pt', 'paddingTop'],
+  ['pb', 'paddingBottom'],
+  ['px', 'paddingLeft'],
+  ['px', 'paddingRight'],
+  ['py', 'paddingTop'],
+  ['py', 'paddingBottom']
+];
+
+const getDefaultValue = (value) => {
+  if (typeof value === 'number') {
+    return `${value * 8}px`;
+  }
+  return value;
+};
+
+const testStyledSystemSpacing = (component, defaults, styleContainer) => {
+  describe('default props', () => {
+    const wrapper = mount(component());
+
+    it('should set the correct margins', () => {
+      let marginLeft;
+      let marginRight;
+      let marginTop;
+      let marginBottom;
+
+      if (defaults) {
+        marginLeft = getDefaultValue(defaults.ml || defaults.mx || defaults.m || undefined);
+        marginRight = getDefaultValue(defaults.mr || defaults.mx || defaults.m || undefined);
+        marginTop = getDefaultValue(defaults.mt || defaults.my || defaults.m || undefined);
+        marginBottom = getDefaultValue(defaults.mb || defaults.my || defaults.m || undefined);
+      }
+
+      expect(assertStyleMatch(
+        {
+          marginLeft,
+          marginRight,
+          marginTop,
+          marginBottom
+        },
+        styleContainer ? styleContainer(wrapper) : wrapper
+      ));
+    });
+
+    it('should set the correct paddings', () => {
+      let paddingLeft;
+      let paddingRight;
+      let paddingTop;
+      let paddingBottom;
+
+      if (defaults) {
+        paddingLeft = getDefaultValue(defaults.pl || defaults.px || defaults.p || undefined);
+        paddingRight = getDefaultValue(defaults.pr || defaults.px || defaults.p || undefined);
+        paddingTop = getDefaultValue(defaults.pt || defaults.py || defaults.p || undefined);
+        paddingBottom = getDefaultValue(defaults.pb || defaults.py || defaults.p || undefined);
+      }
+
+      expect(assertStyleMatch(
+        {
+          paddingLeft,
+          paddingRight,
+          paddingTop,
+          paddingBottom
+        },
+        styleContainer ? styleContainer(wrapper) : wrapper
+      ));
+    });
+  });
+
+  describe.each(spacingProps)('when a custom spacing is specified using the "%s" styled system props',
+    (styledSystemProp, propName) => {
+      it(`then that ${propName} should have been set correctly`, () => {
+        let wrapper = mount(component());
+
+        const props = { [styledSystemProp]: 2 };
+        wrapper = mount(component({ ...props }));
+
+        expect(assertStyleMatch(
+          { [propName]: '16px' },
+          styleContainer ? styleContainer(wrapper) : wrapper
+        ));
+      });
+    });
+};
+
 export {
   assertStyleMatch,
   toCSSCase,
@@ -112,5 +211,6 @@ export {
   click,
   simulate,
   carbonThemesJestTable,
-  mockMatchMedia
+  mockMatchMedia,
+  testStyledSystemSpacing
 };

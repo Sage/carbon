@@ -1,7 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { assertStyleMatch, mockMatchMedia } from '../../__spec_helper__/test-utils';
+import {
+  assertStyleMatch,
+  mockMatchMedia,
+  testStyledSystemSpacing
+} from '../../__spec_helper__/test-utils';
 import Hr from './hr.component';
 import StyledHr from './hr.style';
 
@@ -18,14 +22,7 @@ describe('Hr', () => {
     wrapper = render();
   });
 
-  describe('default props', () => {
-    it('should apply the correct margins', () => {
-      assertStyleMatch({
-        marginTop: '24px',
-        marginBottom: '24px'
-      }, wrapper.find(StyledHr));
-    });
-  });
+  testStyledSystemSpacing(props => <Hr { ...props } />, { mt: '24px', mb: '24px' });
 
   describe('margin props', () => {
     it('should apply the correct top margin', () => {

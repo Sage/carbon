@@ -154,6 +154,21 @@ When you have three or more points you want to highlight, use a list. If the ord
 #### Tables
 If you want to lay out information where each item has more than one piece of data, use a table. A glossary, for instance, can be neatly presented in a table. One benefit of using a table rather than a description list with a heading and an explanation, especially when there are many rows, is that when viewed in GitHub the rows are zebra-striped which makes reading it easier.
 
+### Documenting component props
+In order to generate prop tables for components you should use the `StyledSystemProps` component which generates the tables for you. As shown below, you pass your component into the `of` prop and this will generate the prop table for your component. 
+
+It will also generate a second prop table containing all of the spacing props added to the component by `styled-system` if you add the `spacing` prop. To set the defaults for these spacing props, set the `spacingDefault` prop as shown below.  
+
+```
+import StyledSystemProps from '{path to}/.storybook/utils/styled-system-props';
+
+<StyledSystemProps 
+  of={MyComponent}
+  spacing
+  spacingDefault={{ ml: '10%', mt: 3 }}
+/>
+```
+
 ### Use of Links
 You can use links to third-party sites and other documents in this repository in your own document to avoid duplication of information, unless the details you wish to refer to are short. Ensure the links are correct by trying them from your branch via GitHub.
 
