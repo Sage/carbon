@@ -182,3 +182,22 @@ export type FormFieldSpacing = 0 | 1 | 2 | 3 | 4 | 5 | 7;
 export type SizesType = 'small' | 'large';
 
 export type ThemesBinary = 'primary' | 'secondary';
+
+export interface SpacingProps {
+  /** Margins */
+  m?: number | string;
+  mt?: number | string;
+  mr?: number | string;
+  mb?: number | string;
+  ml?: number | string;
+  mx?: number | string;
+  my?: number | string;
+  /** Paddings */
+  p?: number | string;
+  pt?: number | string;
+  pr?: number | string;
+  pb?: number | string;
+  pl?: number | string;
+  px?: number | string;
+  py?: number | string;
+}
