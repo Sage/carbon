@@ -1,3 +1,10 @@
+## [41.1.0](https://github.com/Sage/carbon/compare/v41.0.0...v41.1.0) (2020-09-21)
+
+
+### Features
+
+* **hr:** add styled-system spacing props ([4058325](https://github.com/Sage/carbon/commit/40583259b5f96b4aaba72cda28a3816d8e06c2d2))
+
 ## [41.0.0](https://github.com/Sage/carbon/compare/v40.6.0...v41.0.0) (2020-09-21)
 
 
