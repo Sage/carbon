@@ -3,6 +3,7 @@ import { action } from '@storybook/addon-actions';
 import { useState } from 'react';
 import { Select, Option } from '../';
 import SelectTextbox from '../select-textbox/select-textbox.component';
+import StyledSystemProps from '../../../../.storybook/utils/styled-system-props';
 
 <Meta title="Design System/Select" />
 
@@ -199,9 +200,11 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
   </Story>
 </Preview>
 
-## Props:
-
-<Props of={ Select } />
+<StyledSystemProps
+  of={ Select }
+  spacing
+  spacingDefaults={{ mt: '3', mb: '3' }}
+/>
 
 ### Props derived from the Textbox Component
 

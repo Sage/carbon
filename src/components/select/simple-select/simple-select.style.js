@@ -1,4 +1,6 @@
 import styled, { css } from 'styled-components';
+import { space } from 'styled-system';
+
 import InputPresentationStyle from '../../../__experimental__/components/input/input-presentation.style';
 import StyledInput from '../../../__experimental__/components/input/input.style';
 import InputIconToggleStyle from '../../../__experimental__/components/input-icon-toggle/input-icon-toggle.style';
@@ -6,6 +8,8 @@ import { baseTheme } from '../../../style/themes';
 import sizes from '../../../__experimental__/components/input/input-sizes.style';
 
 const StyledSimpleSelect = styled.div`
+  ${space}
+  
   ${StyledInput} {
     cursor: pointer;
     color: transparent;
