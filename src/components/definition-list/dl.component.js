@@ -11,22 +11,38 @@ const Dl = ({
   dtTextAlign = 'right',
   ddTextAlign = 'left'
 }) => {
-  const dtLabels = React.Children.toArray(children).filter(child => child.type === Dt);
-  const ddContent = React.Children.toArray(children).filter(child => child.type === Dd);
+  const dlComponent = [];
+  const listChildren = React.Children.toArray(children);
+  let dtLabel;
+  let ddContent = [];
 
-  return (
-    <StyledDl data-component='dl'>
+  Object.keys(listChildren).forEach((key) => {
+    if (listChildren[key].type === Dt) {
+      dtLabel = listChildren[key];
+    } else if (listChildren[key].type === Dd) {
+      ddContent.push(listChildren[key]);
+    }
+    if (dtLabel
+      && (parseInt(key, 10) === (listChildren.length - 1) || listChildren[parseInt(key, 10) + 1].type === Dt)) {
+      dlComponent.push(
+        <StyledDl data-component='dl' key={ `dl_${key}` }>
 
-      <StyledDtDiv w={ w } dtTextAlign={ dtTextAlign }>
-        {dtLabels}
-      </StyledDtDiv>
+          <StyledDtDiv w={ w } dtTextAlign={ dtTextAlign }>
+            {dtLabel}
+          </StyledDtDiv>
 
-      <StyledDdDiv w={ w } ddTextAlign={ ddTextAlign }>
-        {ddContent}
-      </StyledDdDiv>
+          <StyledDdDiv w={ w } ddTextAlign={ ddTextAlign }>
+            {ddContent}
+          </StyledDdDiv>
 
-    </StyledDl>
-  );
+        </StyledDl>
+      );
+      dtLabel = undefined;
+      ddContent = [];
+    }
+  });
+
+  return (dlComponent);
 };
 
 Dl.propTypes = {

@@ -20,7 +20,8 @@ describe('DefinitionList', () => {
         </Dl>
       ),
       Dt: <Dt { ...props }>Foo</Dt>,
-      Dd: <Dd { ...props }>Barr</Dd>
+      Dd: <Dd { ...props }>Barr</Dd>,
+      Error: <Dl { ...props }><span>Foo</span></Dl>
     };
 
     return (
@@ -50,8 +51,7 @@ describe('DefinitionList', () => {
         fontSize: '14px',
         fontWeight: '700',
         paddingRight: '24px',
-        color: 'rgba(0,0,0,0.9)',
-        marginBottom: '16px'
+        color: 'rgba(0,0,0,0.9)'
       }, wrapper);
     });
 
@@ -61,7 +61,6 @@ describe('DefinitionList', () => {
         fontSize: '14px',
         fontWeight: '700',
         color: 'rgba(0,0,0,0.65)',
-        marginBottom: '16px',
         marginLeft: '0px'
       }, wrapper);
     });
@@ -72,8 +71,7 @@ describe('DefinitionList', () => {
         fontSize: '14px',
         fontWeight: '700',
         paddingRight: '16px',
-        color: 'rgba(0,0,0,0.9)',
-        marginBottom: '8px'
+        color: 'rgba(0,0,0,0.9)'
       }, wrapper);
     });
 
@@ -83,7 +81,6 @@ describe('DefinitionList', () => {
         fontSize: '14px',
         fontWeight: '700',
         color: 'rgba(0,0,0,0.65)',
-        marginBottom: '8px',
         marginLeft: '0px'
       }, wrapper);
     });
@@ -100,11 +97,20 @@ describe('DefinitionList', () => {
       wrapper = renderWrapper('Dl', { });
     });
     it('should contain dt', () => {
-      expect(wrapper.find(StyledDtDiv).props().children.length).toEqual(1);
+      expect(wrapper.find(StyledDtDiv).props().children).toBeDefined();
     });
 
     it('should contain dd', () => {
       expect(wrapper.find(StyledDdDiv).props().children.length).toEqual(1);
+    });
+  });
+  describe('Wrong children', () => {
+    beforeEach(() => {
+      wrapper = renderWrapper('Error', { });
+    });
+    it('should contain nothing', () => {
+      expect(wrapper.find(StyledDdDiv)).toEqual({});
+      expect(wrapper.find(StyledDtDiv)).toEqual({});
     });
   });
 });

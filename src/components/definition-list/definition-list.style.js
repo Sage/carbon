@@ -18,20 +18,21 @@ export const StyledDtDiv = styled.div`
   ${({ w, dtTextAlign }) => css`
     text-align: ${dtTextAlign};
     width: ${w}%;
-    white-space: nowrap;
   `}
 `;
 
 export const StyledDdDiv = styled.div`
   ${({ ddTextAlign }) => css`
     text-align: ${ddTextAlign};
-    width: auto;
-    white-space: nowrap;
+    width: inherit;
+    width: -moz-available;
+    width: -webkit-fill-available;
   `}
 `;
 
 export const StyledDt = styled.dt`
   ${space}
+  margin-bottom: 0px;
   ${({ theme }) => css`
     font-size: 14px
     font-weight: 700;
@@ -45,6 +46,7 @@ StyledDt.defaultProps = {
 
 export const StyledDd = styled.dd`
   ${space}
+  margin-bottom: 0px;
   ${({ theme }) => css`
     font-size: 14px
     font-weight: 700;
