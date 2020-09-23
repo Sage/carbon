@@ -1,10 +1,12 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import { PropsTable } from '@storybook/components';
 import { useState } from 'react';
 
 import Hr from '.';
 import Form from '../form';
 import Textbox from '../../__experimental__/components/textbox';
 import Button from '../button';
+import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
 
 <Meta
   title="Design System/Hr"
@@ -81,3 +83,19 @@ The `mb` and `mt` props set the vertical spacing. These props are mulitipliers a
     </Form>
   </Story> 
 </Preview>
+
+### Enabling the adaptive behaviour
+The left and right margins can be set to 0 below a screen width breakpoint. This can be switched on with the `adaptiveMxBreakpoint` prop by passing in a number corresponding to a px value screen width.
+
+<Preview>
+  <Story name="Enabling adaptive behaviour" parameters={{ chromatic: { disable: true }}}>
+    <Hr mb={7} mt={7} ml="10%" mr="40%" adaptiveMxBreakpoint={960} />
+  </Story> 
+</Preview>
+
+
+<StyledSystemProps
+  of={Hr}
+  spacing
+  spacingDefaults={{ mt: '3', mb: '3' }}
+/>

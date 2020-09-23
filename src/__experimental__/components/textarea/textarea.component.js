@@ -118,6 +118,7 @@ class Textarea extends React.Component {
       rows,
       cols,
       validationOnLabel,
+      adaptiveLabelBreakpoint,
       ...props
     } = this.props;
 
@@ -131,6 +132,7 @@ class Textarea extends React.Component {
             labelInline={ labelInline }
             { ...props }
             useValidationIcon={ validationOnLabel }
+            adaptiveLabelBreakpoint={ adaptiveLabelBreakpoint }
           >
             <InputPresentation
               type='text'
@@ -220,7 +222,9 @@ Textarea.propTypes = {
   /** Message to be displayed in a Tooltip when the user hovers over the help icon */
   tooltipMessage: PropTypes.string,
   /** Margin bottom, given number will be multiplied by base spacing unit (8) */
-  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7])
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
+  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  adaptiveLabelBreakpoint: PropTypes.number
 };
 
 Textarea.defaultProps = {

@@ -69,6 +69,8 @@ export interface NumeralDateProps {
   labelWidth?: number;
   /** Help content to be displayed under an input */
   fieldHelp?: string;
+  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  adaptiveLabelBreakpoint?: number;
 }
 
 declare const NumeralDate: React.ComponentType<NumeralDateProps>;

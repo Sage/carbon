@@ -5,6 +5,7 @@ import tagComponent from '../../../utils/helpers/tags';
 import CheckboxStyle from './checkbox.style';
 import CheckableInput from '../checkable-input/checkable-input.component';
 import CheckboxSvg from './checkbox-svg.component';
+import useIsAboveBreakpoint from '../../../hooks/__internal__/useIsAboveBreakpoint';
 
 const Checkbox = ({
   id,
@@ -17,8 +18,16 @@ const Checkbox = ({
   labelHelp,
   labelSpacing = 1,
   ml,
+  adaptiveSpacingBreakpoint,
   ...props
 }) => {
+  const largeScreen = useIsAboveBreakpoint(adaptiveSpacingBreakpoint);
+
+  let marginLeft = ml;
+  if (adaptiveSpacingBreakpoint && !largeScreen) {
+    marginLeft = '0';
+  }
+
   const inputProps = {
     ...props,
     onChange,
@@ -33,7 +42,7 @@ const Checkbox = ({
     autoFocus,
     labelHelp,
     labelSpacing,
-    ml
+    ml: marginLeft
   };
 
   return (
@@ -97,7 +106,9 @@ Checkbox.propTypes = {
   /** Allows component to be focused on page load */
   autoFocus: PropTypes.bool,
   /** The content for the help tooltip, to appear next to the Label */
-  labelHelp: PropTypes.node
+  labelHelp: PropTypes.node,
+  /** Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */
+  adaptiveSpacingBreakpoint: PropTypes.number
 };
 
 Checkbox.defaultProps = {

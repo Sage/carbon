@@ -76,3 +76,22 @@ Feature: Confirm component
   Scenario: Close icon disabled
     When I open test_default "Confirm" component in noIFrame with "confirm" json from "commonComponents" using "enableBackgroundUIFalse" object name
     Then Close icon is not visible
+
+  @positive
+  Scenario Outline: Primary <buttonType> Button
+    When I open test_default "Confirm" component in noIFrame with "confirm" json from "commonComponents" using "<nameOfObject>" object name
+    Then Button type is <buttonType>
+    Examples:
+      | buttonType   | nameOfObject |
+      | destructive  | destructive  |
+      | default      | iconEmpty    |
+
+  @positive
+  Scenario Outline: <icon> icon on the header
+    When I open test_default "Confirm" component in noIFrame with "confirm" json from "commonComponents" using "<nameOfObject>" object name
+    Then <icon> icon is displayed on the header
+    Examples:
+      | icon      | nameOfObject |
+      | error     | iconError    |
+      | warning   | iconWarning  |
+      | empty     | iconEmpty    |

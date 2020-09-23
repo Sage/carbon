@@ -35,6 +35,8 @@ export const Default = () => {
   const autoFocus = boolean('autoFocus', Confirm.defaultProps.autoFocus);
   const confirmLabel = text('confirmLabel', '');
   const cancelLabel = text('cancelLabel', '');
+  const destructive = boolean('destructive', false);
+  const iconType = select('iconType', ['error', 'warning', null], null);
 
   const handleCancel = () => {
     action('cancel')();
@@ -71,6 +73,8 @@ export const Default = () => {
         cancelLabel={ cancelLabel }
         onConfirm={ handleConfirm }
         onCancel={ handleCancel }
+        destructive={ destructive }
+        iconType={ iconType }
       >
         { children }
       </Confirm>

@@ -263,10 +263,7 @@ describe('Button', () => {
 
   describe('when mb prop passed in', () => {
     it('should add the correct bottom margin', () => {
-      const wrapper = TestRenderer.create(<StyledButton mb={ 4 } />);
-      assertStyleMatch({
-        marginBottom: '32px'
-      }, wrapper.toJSON());
+      expect(TestRenderer.create(<StyledButton mb={ 4 } />)).toMatchSnapshot();
     });
   });
 

@@ -1,3 +1,45 @@
+### [41.1.1](https://github.com/Sage/carbon/compare/v41.1.0...v41.1.1) (2020-09-21)
+
+
+### Bug Fixes
+
+* **help:** navigate to URL when href is set ([c7a3a7d](https://github.com/Sage/carbon/commit/c7a3a7d4c44fad74d1b109a08b277e19b11c22e9)), closes [#3009](https://github.com/Sage/carbon/issues/3009)
+
+## [41.1.0](https://github.com/Sage/carbon/compare/v41.0.0...v41.1.0) (2020-09-21)
+
+
+### Features
+
+* **hr:** add styled-system spacing props ([4058325](https://github.com/Sage/carbon/commit/40583259b5f96b4aaba72cda28a3816d8e06c2d2))
+
+## [41.0.0](https://github.com/Sage/carbon/compare/v40.6.0...v41.0.0) (2020-09-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* **grid:** gridColumnStart and gridColumnEnd props in GridItem
+and GridItem responsiveSettings replaced with gridColumn styled-system compatible prop,
+gridRowStart and gridRowEnd props in GridItem and GridItem responsiveSettings
+replaced with gridRow styled-system compatible prop
+
+### Features
+
+* **grid:** add styled-system cusom padding and margin props ([1144f9a](https://github.com/Sage/carbon/commit/1144f9a49e78446bf9f09de77f9fcf1d5d1603dc))
+
+## [40.6.0](https://github.com/Sage/carbon/compare/v40.5.0...v40.6.0) (2020-09-18)
+
+
+### Features
+
+* **confirm:** add props (destructive and iconType) ([92fa833](https://github.com/Sage/carbon/commit/92fa8335b8ae263a29e5bc6d1740153de0012f9f))
+
+## [40.5.0](https://github.com/Sage/carbon/compare/v40.4.1...v40.5.0) (2020-09-17)
+
+
+### Features
+
+* add adaptive props to input components ([7ed9b9c](https://github.com/Sage/carbon/commit/7ed9b9c21f0345cb2e12378d321a832b4c8cc9c6))
+
 ### [40.4.1](https://github.com/Sage/carbon/compare/v40.4.0...v40.4.1) (2020-09-15)
 
 

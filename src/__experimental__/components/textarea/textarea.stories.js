@@ -64,6 +64,7 @@ const defaultComponent = (autoFocusDefault = false) => () => {
   const labelInline = label ? boolean('labelInline', false) : undefined;
   const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
   const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
+  const adaptiveLabelBreakpoint = labelInline ? number('adaptiveLabelBreakpoint') : undefined;
   const key = AutoFocus.getKey(autoFocus, previous);
 
   return (
@@ -89,6 +90,7 @@ const defaultComponent = (autoFocusDefault = false) => () => {
         labelWidth={ labelWidth }
         inputWidth={ inputWidth }
         labelAlign={ labelAlign }
+        adaptiveLabelBreakpoint={ adaptiveLabelBreakpoint }
       />
     </State>
   );

@@ -289,6 +289,18 @@
           },
           "required": false,
           "description": "Margin bottom, given number will be multiplied by base spacing unit (8)"
+        },
+        "ml": {
+          "type": "string",
+          "required": false,
+          "description": "Margin left, any valid CSS value"
+        },
+        "adaptiveSpacingBreakpoint": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set"
         }
       }
     }
