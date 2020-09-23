@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, object } from '@storybook/addon-knobs';
+import { text, object, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
@@ -25,46 +25,52 @@ const onChange = (e) => {
   action(`Selected - ${value}`)(e);
 };
 
-function makeStory(storyName, themeSelector, disableChromatic = false) {
-  const component = () => {
-    const name = text('name', 'basicPicker');
-    const legend = text('legend', 'Pick a colour');
-    const demoColors = [
-      { color: 'transparent', label: 'transparent' },
-      { color: '#0073C1', label: 'blue' },
-      { color: '#582C83', label: 'purple' },
-      { color: '#E96400', label: 'orange' },
-      { color: '#99ADB6', label: 'gray' },
-      { color: '#C7384F', label: 'flush mahogany' },
-      { color: '#004500', label: 'dark green' },
-      { color: '#FFB500', label: 'yellow' },
-      { color: '#335C6D', label: 'dark blue' },
-      { color: '#00DC00', label: 'light blue' }
-    ];
-    const availableColors = object('availableColors', demoColors);
+// eslint-disable-next-line react/prop-types
+const Component = ({ required }) => {
+  const name = text('name', 'basicPicker');
+  const legend = text('legend', 'Pick a colour');
+  const demoColors = [
+    { color: 'transparent', label: 'transparent' },
+    { color: '#0073C1', label: 'blue' },
+    { color: '#582C83', label: 'purple' },
+    { color: '#E96400', label: 'orange' },
+    { color: '#99ADB6', label: 'gray' },
+    { color: '#C7384F', label: 'flush mahogany' },
+    { color: '#004500', label: 'dark green' },
+    { color: '#FFB500', label: 'yellow' },
+    { color: '#335C6D', label: 'dark blue' },
+    { color: '#00DC00', label: 'light blue' }
+  ];
+  const availableColors = object('availableColors', demoColors);
 
-    return (
-      <State store={ store }>
-        <SimpleColorPicker
-          name={ name }
-          legend={ legend }
-          onChange={ onChange }
-          onBlur={ ev => action('Blur')(ev) }
-        >
-          {availableColors.map(({ color, label }) => (
-            <SimpleColor
-              value={ color }
-              key={ color }
-              aria-label={ label }
-              id={ color }
-              defaultChecked={ color === '#582C83' }
-            />
-          ))}
-        </SimpleColorPicker>
-      </State>
-    );
-  };
+  return (
+    <State store={ store }>
+      <SimpleColorPicker
+        name={ name }
+        legend={ legend }
+        onChange={ onChange }
+        onBlur={ ev => action('Blur')(ev) }
+        required={ required || boolean('required', false) }
+      >
+        {availableColors.map(({ color, label }) => (
+          <SimpleColor
+            value={ color }
+            key={ color }
+            aria-label={ label }
+            id={ color }
+            defaultChecked={ color === '#582C83' }
+          />
+        ))}
+      </SimpleColorPicker>
+    </State>
+  );
+};
 
+const Required = () => {
+  return (<Component required name='required' />);
+};
+
+function makeStory(component, storyName, themeSelector, disableChromatic = false) {
   const metadata = {
     themeSelector,
     notes: { markdown: notes },
@@ -185,6 +191,7 @@ storiesOf('Experimental/Simple Color Picker', module)
       text: info
     }
   })
-  .add(...makeStory('default', dlsThemeSelector))
+  .add(...makeStory(Component, 'default', dlsThemeSelector))
   .add(...makeValidationsStory('validations', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector, true));
+  .add(...makeStory(Required, 'required', dlsThemeSelector))
+  .add(...makeStory(Component, 'classic', classicThemeSelector, true));

@@ -238,6 +238,27 @@ For more information check our [Validations](?path=/docs/documentation-validatio
   </Story>
 </Preview>
 
+### Required
+
+You can use the `required` prop to indicate if the field is mandatory.
+
+<Preview>
+  <Story name="Required">
+    {() => {
+      const [checked, setChecked] = useState(false);
+      return (
+       <Checkbox
+          label="I agree to the Terms and Conditions"
+          name="required"
+          required
+          checked={checked}
+          onChange={ e => setChecked(checked => !checked) }
+        />
+      )
+    }}
+  </Story>
+</Preview>
+
 ## Props:
 
 ### Checkbox

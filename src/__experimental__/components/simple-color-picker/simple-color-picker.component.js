@@ -29,7 +29,8 @@ const SimpleColorPicker = (props) => {
     isBlurBlocked = false,
     maxWidth = 300,
     childWidth = 58,
-    validationOnLegend
+    validationOnLegend,
+    required
   } = props;
 
   const myRef = useRef(null);
@@ -78,7 +79,8 @@ const SimpleColorPicker = (props) => {
       'data-up': allowUp,
       'data-down': allowDown,
       'data-item-up': upItem,
-      'data-item-down': downItem
+      'data-item-down': downItem,
+      required
     };
 
     loopCounter += 1;
@@ -186,6 +188,7 @@ const SimpleColorPicker = (props) => {
     <Fieldset
       role='radiogroup'
       legend={ legend }
+      isRequired={ required }
       { ...(validationOnLegend && validationProps) }
       { ...tagComponent('simple-color-picker', props) }
     >
@@ -269,7 +272,9 @@ SimpleColorPicker.propTypes = {
   /** prop that sets max-width in css */
   maxWidth: PropTypes.string,
   /** prop that represents childWidth */
-  childWidth: PropTypes.string
+  childWidth: PropTypes.string,
+  /** Flag to configure component as mandatory */
+  required: PropTypes.bool
 };
 
 export default SimpleColorPicker;

@@ -27,6 +27,7 @@ const Form = ({
   buttonAlignment = 'right',
   stickyFooter,
   fieldSpacing = 3,
+  noValidate = true,
   ...rest
 }) => {
   const [isFooterSticky, setIsFooterSticky] = useState(false);
@@ -82,6 +83,7 @@ const Form = ({
       onSubmit={ onSubmit }
       data-component='form'
       fieldSpacing={ fieldSpacing }
+      noValidate={ noValidate }
       { ...rest }
     >
       { children }
@@ -141,7 +143,10 @@ Form.propTypes = {
   warningCount: PropTypes.number,
 
   /** Spacing between form fields, given number will be multiplied by base spacing unit (8) */
-  fieldSpacing: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7])
+  fieldSpacing: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
+
+  /** Disable HTML5 validation */
+  noValidate: PropTypes.bool
 };
 
 export default Form;

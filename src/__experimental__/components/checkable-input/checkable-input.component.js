@@ -16,12 +16,12 @@ class CheckableInput extends React.Component {
 
   render() {
     const {
-      children, onChange, onBlur, ...rest
+      children, onChange, onBlur, required, ...rest
     } = this.props;
     const id = this.inputId;
     const labelId = `${id}-label`;
     const helpId = `${id}-help`;
-
+    const isRadio = this.props.inputType === 'radio';
     const formFieldProps = {
       ...validProps(this, [
         'fieldHelp',
@@ -42,7 +42,10 @@ class CheckableInput extends React.Component {
       labelHelpIcon: 'info',
       labelInline: rest.labelInline,
       name: id,
-      id
+      id,
+      // We don't want an asterisk on each radio control, only the legend
+      // However, we still want the input element to receive the required prop
+      isRequired: isRadio ? undefined : required
     };
 
     const {
@@ -51,7 +54,8 @@ class CheckableInput extends React.Component {
       ...validProps(this, ['checked', 'disabled', 'inputType', 'onChange', 'onBlur', 'tabindex']),
       labelId,
       helpId,
-      id
+      id,
+      required
     };
 
     return (
@@ -119,7 +123,9 @@ CheckableInput.propTypes = {
   /** Margin bottom, given number will be multiplied by base spacing unit (8) */
   mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   /** Margin left, any valid CSS value */
-  ml: PropTypes.string
+  ml: PropTypes.string,
+  /** Flag to configure component as mandatory */
+  required: PropTypes.bool
 };
 
 CheckableInput.defaultProps = {

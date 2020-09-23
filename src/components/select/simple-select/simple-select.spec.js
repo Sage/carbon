@@ -11,6 +11,7 @@ import InputIconToggleStyle from '../../../__experimental__/components/input-ico
 import StyledInput from '../../../__experimental__/components/input/input.style';
 import InputPresentationStyle from '../../../__experimental__/components/input/input-presentation.style';
 import { baseTheme } from '../../../style/themes';
+import Label from '../../../__experimental__/components/label';
 
 describe('SimpleSelect', () => {
   it('the Textbox should have type of "select"', () => {
@@ -644,6 +645,24 @@ describe('SimpleSelect', () => {
       it('then the onChange function should have been called with with the expected value', () => {
         expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
       });
+    });
+  });
+
+  describe('required', () => {
+    let wrapper;
+
+    beforeAll(() => {
+      wrapper = renderSelect({ label: 'required', required: true });
+    });
+
+    it('the required prop is passed to the input', () => {
+      const input = wrapper.find('input');
+      expect(input.prop('required')).toBe(true);
+    });
+
+    it('the isRequired prop is passed to the label', () => {
+      const label = wrapper.find(Label);
+      expect(label.prop('isRequired')).toBe(true);
     });
   });
 });

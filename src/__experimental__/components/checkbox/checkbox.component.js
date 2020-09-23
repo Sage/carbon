@@ -19,6 +19,7 @@ const Checkbox = ({
   labelSpacing = 1,
   ml,
   adaptiveSpacingBreakpoint,
+  required,
   ...props
 }) => {
   const largeScreen = useIsAboveBreakpoint(adaptiveSpacingBreakpoint);
@@ -42,7 +43,8 @@ const Checkbox = ({
     autoFocus,
     labelHelp,
     labelSpacing,
-    ml: marginLeft
+    ml: marginLeft,
+    required
   };
 
   return (
@@ -108,7 +110,9 @@ Checkbox.propTypes = {
   /** The content for the help tooltip, to appear next to the Label */
   labelHelp: PropTypes.node,
   /** Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */
-  adaptiveSpacingBreakpoint: PropTypes.number
+  adaptiveSpacingBreakpoint: PropTypes.number,
+  /** Flag to configure component as mandatory */
+  required: PropTypes.bool
 };
 
 Checkbox.defaultProps = {

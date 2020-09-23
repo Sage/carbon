@@ -61,6 +61,33 @@ A legend can be set for the group, and each radio button can have a label.
   </Story> 
 </Preview>
 
+### Required
+You can use the `required` prop to indicate if the field is mandatory.
+
+<Preview>
+  <Story name="Required">
+    <RadioButtonGroup
+      name="paperless_billing"
+      onChange={ () => console.log('change') }
+      legend="Paperless Billing"
+      required
+    >
+    <RadioButton 
+      value="y"
+      label="Yes"
+    />
+    <RadioButton 
+      value="n" 
+      label="No"
+    />
+    <RadioButton 
+      value="d" 
+      label="Debts only"
+    />
+  </RadioButtonGroup>
+  </Story> 
+</Preview>
+
 ### With inline legend
 The legend can be made inline. Its width can be changed with the `legendWidth` prop, its text alignment with `legendAlign`. 
 
