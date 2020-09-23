@@ -35,7 +35,7 @@ This component has the same options and properties as the Dialog component.
 Import the component and use as shown below:
 
 ```jsx
-import Alert from "carbon-react/lib/components/alert"
+import Alert from "carbon-react/lib/components/alert";
 
 const MyComponent = ({ isOpen, handleClose }) => (
   <Alert
@@ -52,7 +52,7 @@ const MyComponent = ({ isOpen, handleClose }) => (
 ### Default
 
 <Preview>
-  <Story name="default">
+  <Story name="default" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const [isOpen, setIsOpen] = useState(true);
       return (

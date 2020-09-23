@@ -19,6 +19,9 @@ export default {
     info: {
       disable: true
     },
+    chromatic: {
+      disable: true
+    },
     knobs: { escapeHTML: false }
   }
 };
@@ -122,12 +125,4 @@ export const Default = () => {
       </Dialog>
     </div>
   );
-};
-
-Default.story = {
-  parameters: {
-    chromatic: {
-      disable: true
-    }
-  }
 };

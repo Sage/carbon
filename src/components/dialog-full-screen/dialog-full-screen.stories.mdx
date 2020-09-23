@@ -18,7 +18,7 @@ Useful to perform an action in context without navigating the user to a separate
 
 Whilst a standard Dialog component’s width might constrain what you can do, the full screen dialog uses the full width and height available.
 
-A good example could be importing a large volume of data, and checking for errors, in the context of an underlying Table of data.
+A good example could be importing a large volume of data, and checking for errors, in the context of an underlying table of data.
 
 ## Related Components
 - Simple task in context? [Try Dialog](/?path=/docs/dialog--default-story "Dialog").
@@ -29,7 +29,7 @@ A good example could be importing a large volume of data, and checking for error
 Import the component and use as shown below:
 
 ```jsx
-import DialogFullScreen from "carbon-react/lib/components/dialog-full-screen"
+import DialogFullScreen from "carbon-react/lib/components/dialog-full-screen";
 
 const MyComponent = ({ isOpen, handleClose }) => (
   <DialogFullScreen
@@ -46,7 +46,7 @@ const MyComponent = ({ isOpen, handleClose }) => (
 ### Default
 
 <Preview>
-  <Story name="default">
+  <Story name="default" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const [isOpen, setIsOpen] = useState(true);
       return (

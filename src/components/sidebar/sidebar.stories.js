@@ -13,6 +13,9 @@ export default {
     themeSelector: dlsThemeSelector,
     info: {
       disable: true
+    },
+    chromatic: {
+      disable: true
     }
   }
 };
@@ -50,12 +53,4 @@ export const Default = () => {
       </Sidebar>
     </>
   );
-};
-
-Default.story = {
-  parameters: {
-    chromatic: {
-      disable: true
-    }
-  }
 };

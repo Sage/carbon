@@ -34,7 +34,7 @@ A good example could be confirming deletion of a large number of records.
 Import the component and use as shown below:
 
 ```jsx
-import Confirm from "carbon-react/lib/components/confirm"
+import Confirm from "carbon-react/lib/components/confirm";
 
 const MyComponent = ({ isOpen, handleClose, handleConfirm }) => (
   <Confirm
@@ -52,7 +52,7 @@ const MyComponent = ({ isOpen, handleClose, handleConfirm }) => (
 ### Default
 
 <Preview>
-  <Story name="default">
+  <Story name="default" parameters={{ chromatic: { disable: true }}}>
     {() => {
       const [isOpen, setIsOpen] = useState(true);
       return (
