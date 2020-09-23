@@ -117,6 +117,20 @@
           },
           "required": false,
           "description": ""
+        },
+        "destructive": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Set this prop to true to have a destructive primary button."
+        },
+        "iconType": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Controls the icon on the header. Possible values include: 'error', 'warning' or null"
         }
       }
     }

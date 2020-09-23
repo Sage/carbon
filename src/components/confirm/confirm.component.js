@@ -3,8 +3,9 @@ import I18n from 'i18n-js';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import Dialog from '../dialog';
-import StyledConfirmButtons from './confirm.style';
+import { StyledConfirmButtons, StyledConfirmHeading } from './confirm.style';
 import Button from '../button/button.component';
+import Icon from '../icon';
 
 class Confirm extends Dialog {
   // ** Returns main classes for the component combined with dialog main classes. */
@@ -25,11 +26,28 @@ class Confirm extends Dialog {
         <Button
           onClick={ this.props.onConfirm } data-element='confirm'
           buttonType='primary'
+          destructive={ this.props.destructive }
         >
           {this.props.confirmLabel || I18n.t('confirm.yes', { defaultValue: 'Yes' })}
         </Button>
       </StyledConfirmButtons>
     );
+  }
+
+  getTitle(title) {
+    const { iconType } = this.props;
+    if (this.props.iconType) {
+      return (
+        <StyledConfirmHeading type={ iconType } data-element={ iconType }>
+          <Icon
+            type={ iconType }
+            fontSize='large'
+          />
+          {title}
+        </StyledConfirmHeading>
+      );
+    }
+    return title;
   }
 
   componentTags(props) {
@@ -44,7 +62,9 @@ class Confirm extends Dialog {
 Confirm.defaultProps = {
   ...Dialog.defaultProps,
   size: 'extra-small',
-  showCloseIcon: false
+  showCloseIcon: false,
+  destructive: false,
+  iconType: null
 };
 
 Confirm.propTypes = {
@@ -56,7 +76,13 @@ Confirm.propTypes = {
   confirmLabel: PropTypes.string,
 
   // ** Customise the cancel button label */
-  cancelLabel: PropTypes.string
+  cancelLabel: PropTypes.string,
+
+  /** Apply destructive style to the button */
+  destructive: PropTypes.bool,
+
+  /** Defines an Icon type within the button (see Icon for options) */
+  iconType: PropTypes.oneOf(['error', 'warning'])
 };
 
 export default Confirm;

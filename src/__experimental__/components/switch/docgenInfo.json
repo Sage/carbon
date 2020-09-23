@@ -325,6 +325,13 @@
           },
           "required": true,
           "description": "the value of the checkbox, passed on form submit"
+        },
+        "adaptiveLabelBreakpoint": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set"
         }
       }
     }

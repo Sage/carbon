@@ -25,6 +25,7 @@ const Textbox = ({
   labelWidth,
   inputWidth,
   prefix,
+  adaptiveLabelBreakpoint,
   ...props
 }) => {
   if (!deprecatedWarnTriggered) {
@@ -40,6 +41,7 @@ const Textbox = ({
         { ...props }
         useValidationIcon={ validationOnLabel }
         labelWidth={ labelWidth }
+        adaptiveLabelBreakpoint={ adaptiveLabelBreakpoint }
         styleOverride={ styleOverride }
       >
         <InputPresentation
@@ -157,6 +159,8 @@ Textbox.propTypes = {
   prefix: PropTypes.string,
   /** Margin bottom, given number will be multiplied by base spacing unit (8) */
   mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
+  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  adaptiveLabelBreakpoint: PropTypes.number,
   /** Allows to override existing component styles */
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),

@@ -8,7 +8,8 @@ import {
   cancelButtonIFrame,
   dialogPreviewIFrame,
 } from '../../locators/confirm';
-import { getDataElementByValue } from '../../locators';
+import { getDataElementByValue, icon } from '../../locators';
+import { positionOfElement } from '../helper';
 
 Then('component subtitle on preview is {word}', (subtitle) => {
   dialogSubtitle().should('have.text', subtitle);
@@ -61,4 +62,20 @@ Then('Confirm dialog input height is {int}', (height) => {
 
 Then('Confirm dialog size property on preview is {int}', (size) => {
   dialogPreview().should('have.css', 'width', `${size}px`);
+});
+
+Then('Button type is {word}', (buttonType) => {
+  if (buttonType === 'destructive') {
+    confirmButton().should('have.css', 'background-color', 'rgb(199, 56, 79)');
+  } else {
+    confirmButton().should('have.css', 'background-color', 'rgb(0, 129, 93)');
+  }
+});
+
+Then('{word} icon is displayed on the header', (iconType) => {
+  if (iconType === 'empty') {
+    icon().should('not.exist');
+  } else {
+    icon().eq(positionOfElement('first')).should('have.attr', 'data-element', iconType);
+  }
 });

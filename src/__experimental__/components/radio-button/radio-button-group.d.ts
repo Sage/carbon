@@ -41,6 +41,10 @@ export interface RadioButtonGroupProps {
   mb?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
   /** Spacing between labels and radio buttons, given number will be multiplied by base spacing unit (8) */
   labelSpacing?: 1 | 2;
+  /** Breakpoint for adaptive legend (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  adaptiveLegendBreakpoint?: number;
+  /** Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */
+  adaptiveSpacingBreakpoint?: number;
   /** Allows to override existing component styles */
   styleOverride?: {
     root?: object;

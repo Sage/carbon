@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "40.3.1",
+  "version": "41.1.1",
   "description": "A library of reusable React components for easily building user interfaces.",
   "engineStrict": true,
   "engines": {
@@ -86,9 +86,9 @@
     "cpx": "^1.5.0",
     "cross-env": "^5.2.0",
     "css-loader": "1.0.0",
-    "cypress": "5.0.0",
+    "cypress": "5.2.0",
     "cypress-axe": "^0.8.1",
-    "cypress-cucumber-preprocessor": "2.5.4",
+    "cypress-cucumber-preprocessor": "2.5.5",
     "cz-conventional-changelog": "^3.0.2",
     "draft-js": "^0.11.5",
     "enzyme": "^3.3.0",

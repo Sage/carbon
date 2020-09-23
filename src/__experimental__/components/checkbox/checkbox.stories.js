@@ -83,7 +83,9 @@ function defaultKnobs(type, autoFocusDefault = false) {
     }, type),
     labelSpacing: select('labelSpacing', [1, 2], 1),
     size: select('size', OptionsHelper.sizesBinary, 'small', type),
-    value: text('value', type, type)
+    value: text('value', type, type),
+    ml: text('ml', '0', type),
+    adaptiveSpacingBreakpoint: number('adaptiveSpacingBreakpoint')
   });
 }
 

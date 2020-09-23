@@ -6,12 +6,17 @@ import {
 
 import { InputGroupContext } from '../../__internal__/input-behaviour';
 
-function ButtonToggleInput(props) {
+const ButtonToggleInput = React.forwardRef((props, forwardRef) => {
   const { onFocus, onBlur } = useContext(InputGroupContext);
 
   const handleBlur = (ev) => {
     if (props.onBlur) { props.onBlur(ev); }
     if (onBlur) onBlur(ev);
+  };
+
+  const handleFocus = (ev) => {
+    if (props.onFocus) { props.onFocus(ev); }
+    if (onFocus) onFocus(ev);
   };
 
   return (
@@ -23,11 +28,12 @@ function ButtonToggleInput(props) {
       checked={ props.checked }
       onChange={ props.onChange }
       onBlur={ handleBlur }
-      onFocus={ onFocus }
+      onFocus={ handleFocus }
       value={ props.value }
+      ref={ forwardRef }
     />
   );
-}
+});
 
 ButtonToggleInput.propTypes = {
   /** Set the checked value of the radio button */
@@ -43,7 +49,9 @@ ButtonToggleInput.propTypes = {
   /** Callback triggered by change event on the input. */
   onChange: PropTypes.func,
   /** Callback triggered by blur event on the input. */
-  onBlur: PropTypes.func
+  onBlur: PropTypes.func,
+  /** Callback triggered by focus event on the input. */
+  onFocus: PropTypes.func
 };
 
 export default ButtonToggleInput;

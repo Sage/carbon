@@ -1,4 +1,7 @@
+import { mount } from 'enzyme';
+
 import { carbonThemeList } from '../style/themes';
+import { mockMatchMedia } from './mock-match-media';
 
 const isUpper = char => char.toUpperCase() === char;
 const humpToDash = (acc, char) => `${acc}${isUpper(char) ? `-${char.toLowerCase()}` : char}`;
@@ -97,6 +100,122 @@ const assertHoverTraversal = assertCorrectTraversal(wrapper => hoverList(wrapper
 
 const carbonThemesJestTable = carbonThemeList.map(theme => [theme.name, theme]);
 
+const spacingProps = [
+  ['m', 'margin'],
+  ['ml', 'marginLeft'],
+  ['mr', 'marginRight'],
+  ['mt', 'marginTop'],
+  ['mb', 'marginBottom'],
+  ['mx', 'marginLeft'],
+  ['mx', 'marginRight'],
+  ['my', 'marginTop'],
+  ['my', 'marginBottom'],
+  ['p', 'padding'],
+  ['pl', 'paddingLeft'],
+  ['pr', 'paddingRight'],
+  ['pt', 'paddingTop'],
+  ['pb', 'paddingBottom'],
+  ['px', 'paddingLeft'],
+  ['px', 'paddingRight'],
+  ['py', 'paddingTop'],
+  ['py', 'paddingBottom']
+];
+
+const getDefaultValue = (value) => {
+  if (typeof value === 'number') {
+    return `${value * 8}px`;
+  }
+  return value;
+};
+
+const testStyledSystemSpacing = (component, defaults, styleContainer) => {
+  describe('default props', () => {
+    const wrapper = mount(component());
+    const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
+
+    it('should set the correct margins', () => {
+      let margin;
+      let marginLeft;
+      let marginRight;
+      let marginTop;
+      let marginBottom;
+
+      if (defaults) {
+        margin = getDefaultValue(defaults.m || undefined);
+        marginLeft = getDefaultValue(defaults.ml || defaults.mx || undefined);
+        marginRight = getDefaultValue(defaults.mr || defaults.mx || undefined);
+        marginTop = getDefaultValue(defaults.mt || defaults.my || undefined);
+        marginBottom = getDefaultValue(defaults.mb || defaults.my || undefined);
+
+        expect(assertStyleMatch(
+          {
+            margin,
+            marginLeft,
+            marginRight,
+            marginTop,
+            marginBottom
+          },
+          StyleElement
+        ));
+      } else {
+        expect(StyleElement).not.toHaveStyleRule('marginLeft');
+        expect(StyleElement).not.toHaveStyleRule('marginRight');
+        expect(StyleElement).not.toHaveStyleRule('marginTop');
+        expect(StyleElement).not.toHaveStyleRule('marginBottom');
+        expect(StyleElement).not.toHaveStyleRule('margin');
+      }
+    });
+
+    it('should set the correct paddings', () => {
+      let padding;
+      let paddingLeft;
+      let paddingRight;
+      let paddingTop;
+      let paddingBottom;
+
+      if (defaults) {
+        padding = getDefaultValue(defaults.p || undefined);
+        paddingLeft = getDefaultValue(defaults.pl || defaults.px || undefined);
+        paddingRight = getDefaultValue(defaults.pr || defaults.px || undefined);
+        paddingTop = getDefaultValue(defaults.pt || defaults.py || undefined);
+        paddingBottom = getDefaultValue(defaults.pb || defaults.py || undefined);
+
+        expect(assertStyleMatch(
+          {
+            padding,
+            paddingLeft,
+            paddingRight,
+            paddingTop,
+            paddingBottom
+          },
+          StyleElement
+        ));
+      } else {
+        expect(StyleElement).not.toHaveStyleRule('paddingLeft');
+        expect(StyleElement).not.toHaveStyleRule('paddingRight');
+        expect(StyleElement).not.toHaveStyleRule('paddingTop');
+        expect(StyleElement).not.toHaveStyleRule('paddingBottom');
+        expect(StyleElement).not.toHaveStyleRule('padding');
+      }
+    });
+  });
+
+  describe.each(spacingProps)('when a custom spacing is specified using the "%s" styled system props',
+    (styledSystemProp, propName) => {
+      it(`then that ${propName} should have been set correctly`, () => {
+        let wrapper = mount(component());
+
+        const props = { [styledSystemProp]: 2 };
+        wrapper = mount(component({ ...props }));
+
+        expect(assertStyleMatch(
+          { [propName]: '16px' },
+          styleContainer ? styleContainer(wrapper) : wrapper
+        ));
+      });
+    });
+};
+
 export {
   assertStyleMatch,
   toCSSCase,
@@ -110,5 +229,7 @@ export {
   listFrom,
   click,
   simulate,
-  carbonThemesJestTable
+  carbonThemesJestTable,
+  mockMatchMedia,
+  testStyledSystemSpacing
 };
