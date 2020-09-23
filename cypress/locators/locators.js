@@ -2,6 +2,7 @@
 export const FORM = '#storybook-panel-root';
 export const TAB_LIST = '[role="tablist"]';
 export const CLOSE_ICON_BUTTON = 'button[data-element="close"]';
+export const INPUT_TAG = 'input';
 
 // component preview locators
 export const HELP_ICON_PREVIEW = '[data-component="help"]';

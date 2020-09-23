@@ -8,6 +8,17 @@ const LabelStyle = styled.label`
   display: block;
   font-weight: 600;
 
+  ${({
+    isRequired, theme
+  }) => isRequired && css`
+    ::after {
+      content: '*';
+      color: ${theme.colors.asterisk};
+      font-weight: 350;
+      margin-left: 5px;
+    }
+  `}
+
   ${({ disabled, theme }) => disabled && css`
     color: ${theme.disabled.disabled};
   `}

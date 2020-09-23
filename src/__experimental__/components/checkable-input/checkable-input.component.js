@@ -53,11 +53,15 @@ class CheckableInput extends React.Component {
       helpId,
       id
     };
-
+    const noAsterisk = this.props.inputType === 'radio';
     return (
       <StyledCheckableInputWrapper { ...rest }>
         <InputBehaviour>
-          <FormField { ...formFieldProps }>
+          <FormField
+            noAsterisk={ noAsterisk }
+            { ...formFieldProps }
+            isRequired={ formFieldProps.required || formFieldProps['aria-required'] }
+          >
             <StyledCheckableInput>
               <HiddenCheckableInput { ...inputProps } />
               {children}

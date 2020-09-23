@@ -131,3 +131,8 @@ Feature: Experimental GroupedCharacter component
   Scenario: Check icon inside of input is visible
     When I open default "Experimental GroupedCharacter" component in noIFrame with "groupedCharacter" json from "experimental" using "inputIconAdd" object name
     Then icon name in noIframe on preview is "add"
+
+  @positive
+  Scenario: Check mandatory field of dateInput is visible 
+    When I open required "Experimental GroupedCharacter" component in noIFrame with "groupedCharacter" json from "experimental" using "required" object name
+    Then the field must have the required property

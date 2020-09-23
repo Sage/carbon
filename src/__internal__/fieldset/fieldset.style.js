@@ -50,6 +50,17 @@ const StyledLegendContainer = styled.div`
     line-height: 24px;
   }
 
+  ${({
+    isRequired, theme
+  }) => isRequired && css`
+    ::after {
+      content: '*';
+      color: ${theme.colors.asterisk};
+      font-weight: 350;
+      margin-left: 5px;
+    }
+  `}
+
   ${({ styleOverride }) => styleOverride};
 `;
 

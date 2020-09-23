@@ -53,5 +53,8 @@
     "label": "label",
     "labelInline": true,
     "labelWidth": 100
+  },
+  "required": {
+    "required": true
   }
 }

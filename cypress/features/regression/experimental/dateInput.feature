@@ -108,3 +108,8 @@ Feature: Experimental Date Input component
     Given I open "Experimental Date Input" component page
     When I click onto date icon twice
     Then dayPickerDay is not visible
+
+  @positive
+  Scenario: Check mandatory field of dateInput is visible 
+    When I open required "Experimental Date Input" component in noIFrame with "dateInput" json from "experimental" using "required" object name
+    Then the field must have the required property

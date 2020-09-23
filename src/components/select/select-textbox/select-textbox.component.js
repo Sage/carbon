@@ -14,6 +14,8 @@ const SelectTextbox = ({
   onFocus,
   onBlur,
   selectedValue,
+  required,
+  'aria-required': ariaRequired,
   ...restProps
 }) => {
   const defaultPlaceholder = I18n.t('select.placeholder', {
@@ -49,6 +51,8 @@ const SelectTextbox = ({
       placeholder: placeholder || defaultPlaceholder,
       disabled,
       readOnly,
+      required,
+      'aria-required': ariaRequired,
       onClick: handleTextboxClick,
       onFocus: handleTextboxFocus,
       onBlur: handleTextboxBlur,
@@ -104,7 +108,11 @@ const formInputPropTypes = {
   /** Callback function for when the key is pressed when focused on Select Textbox. */
   onKeyDown: PropTypes.func,
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
-  adaptiveLabelBreakpoint: PropTypes.number
+  adaptiveLabelBreakpoint: PropTypes.number,
+  /** Flag to configure component as mandatory HTML 5 */
+  required: PropTypes.bool,
+  /** Flag to configure component as mandatory */
+  'aria-required': PropTypes.bool
 };
 
 SelectTextbox.propTypes = {

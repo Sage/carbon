@@ -43,6 +43,70 @@ const groupStore = new Store({
   three: false
 });
 
+function defaultRequiredKnobs(isRequiredProp) {
+  const {
+    key,
+    disabled,
+    fieldHelp,
+    fieldHelpInline,
+    reverse,
+    autoFocus,
+    label,
+    labelHelp,
+    onBlur,
+    inputWidth,
+    labelWidth,
+    labelSpacing,
+    size,
+    value,
+    ml,
+    adaptiveSpacingBreakpoint
+  } = defaultKnobs();
+  if (isRequiredProp) {
+    return (
+      {
+        key,
+        disabled,
+        fieldHelp,
+        fieldHelpInline,
+        reverse,
+        autoFocus,
+        label,
+        labelHelp,
+        onBlur,
+        inputWidth,
+        labelWidth,
+        labelSpacing,
+        size,
+        value,
+        ml,
+        adaptiveSpacingBreakpoint,
+        required: boolean('required', true)
+      }
+    );
+  }
+  return (
+    {
+      key,
+      disabled,
+      fieldHelp,
+      fieldHelpInline,
+      reverse,
+      autoFocus,
+      label,
+      labelHelp,
+      onBlur,
+      inputWidth,
+      labelWidth,
+      labelSpacing,
+      size,
+      value,
+      ml,
+      adaptiveSpacingBreakpoint,
+      'aria-required': boolean('aria-required', true)
+    }
+  );
+}
 
 function defaultKnobs(type, autoFocusDefault = false) {
   let theType = '';
@@ -57,6 +121,7 @@ function defaultKnobs(type, autoFocusDefault = false) {
     key: 'checkbox',
     autoFocus: autoFocusDefault
   };
+
   const key = AutoFocus.getKey(autoFocus, previous);
 
   return ({
@@ -88,6 +153,7 @@ function defaultKnobs(type, autoFocusDefault = false) {
     adaptiveSpacingBreakpoint: number('adaptiveSpacingBreakpoint')
   });
 }
+
 
 function makeStory(name, themeSelector, component, disableChromatic = false) {
   const metadata = {
@@ -127,6 +193,17 @@ function handleGroupChange(ev, id) {
     [id]: checked
   });
 }
+
+const requiredCheckboxComponent = (isRequiredProp = false) => () => {
+  return (
+    <State store={ checkboxes.default.store }>
+      <Checkbox
+        onChange={ ev => handleChange(ev, 'default') }
+        { ...defaultRequiredKnobs(isRequiredProp) }
+      />
+    </State>
+  );
+};
 
 const checkboxComponent = (autoFocus = false) => () => {
   return (
@@ -238,4 +315,6 @@ storiesOf('Experimental/Checkbox', module)
   .add(...makeStory('classic', classicThemeSelector, checkboxComponent(), true))
   .add(...makeStory('validations', dlsThemeSelector, checkboxValidations))
   .add(...makeStory('validations classic', classicThemeSelector, checkboxValidations, true))
-  .add(...makeStory('autoFocus', dlsThemeSelector, checkboxComponent(true)));
+  .add(...makeStory('autoFocus', dlsThemeSelector, checkboxComponent(true)))
+  .add(...makeStory('required', dlsThemeSelector, requiredCheckboxComponent(true)))
+  .add(...makeStory('aria-required', dlsThemeSelector, requiredCheckboxComponent(false)));

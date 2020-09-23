@@ -24,6 +24,32 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   z-index: 999;
 }
 
+.c15 {
+  color: rgba(0,0,0,0.9);
+  display: block;
+  font-weight: 600;
+}
+
+.c14 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+  margin-bottom: 0;
+  padding-left: 8px;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  width: 30%;
+}
+
 .c9 {
   display: inline-block;
   position: relative;
@@ -36,7 +62,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   display: flex;
 }
 
-.c3 .c14 {
+.c3 .c13 {
   -webkit-box-pack: start;
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
@@ -45,20 +71,20 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   width: auto;
 }
 
-.c3 .c14 .c15,
-.c3 .c14 .c16 {
+.c3 .c13 .c17,
+.c3 .c13 .c18 {
   color: rgba(0,0,0,0.65);
   vertical-align: middle;
 }
 
-.c3 .c14 .c15:hover,
-.c3 .c14 .c16:hover,
-.c3 .c14 .c15:focus,
-.c3 .c14 .c16:focus {
+.c3 .c13 .c17:hover,
+.c3 .c13 .c18:hover,
+.c3 .c13 .c17:focus,
+.c3 .c13 .c18:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c3 .c13 {
+.c3 .c16 {
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
@@ -103,20 +129,20 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   box-shadow: 0 0 0 3px #FFB500;
 }
 
-.c2 .c14 {
+.c2 .c13 {
   width: auto;
   -webkit-flex: 0 1 auto;
   -ms-flex: 0 1 auto;
   flex: 0 1 auto;
 }
 
-.c2 .c13 {
+.c2 .c16 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 8px;
 }
 
-.c2 .c16 {
+.c2 .c18 {
   position: relative;
   display: inline-block;
 }
@@ -150,7 +176,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
   r: 5;
 }
 
-.c2 .c14 {
+.c2 .c13 {
   -webkit-flex: 1 1 calc(100% - 44px);
   -ms-flex: 1 1 calc(100% - 44px);
   flex: 1 1 calc(100% - 44px);
@@ -214,11 +240,13 @@ exports[`RadioButtonGroup renders as expected 1`] = `
         className="c2"
         data-component="radio-button"
         name="test-group"
+        required={true}
       >
         <div
           checked={false}
           className="c3"
           name="test-group"
+          required={true}
         >
           <div
             className="c4 c5"
@@ -242,6 +270,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
                   onFocus={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
+                  required={true}
                   role="radio"
                   type="radio"
                   value="test-1"
@@ -270,6 +299,21 @@ exports[`RadioButtonGroup renders as expected 1`] = `
                   </svg>
                 </div>
               </div>
+              <div
+                className="c13 c14"
+                width={30}
+              >
+                <label
+                  className="c15"
+                  data-element="label"
+                  htmlFor="rId-0"
+                  id="rId-0-label"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                >
+                  test
+                </label>
+              </div>
             </div>
           </div>
         </div>
@@ -279,11 +323,13 @@ exports[`RadioButtonGroup renders as expected 1`] = `
         className="c2"
         data-component="radio-button"
         name="test-group"
+        required={true}
       >
         <div
           checked={false}
           className="c3"
           name="test-group"
+          required={true}
         >
           <div
             className="c4 c5"
@@ -307,6 +353,7 @@ exports[`RadioButtonGroup renders as expected 1`] = `
                   onFocus={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
+                  required={true}
                   role="radio"
                   type="radio"
                   value="test-2"
@@ -334,6 +381,21 @@ exports[`RadioButtonGroup renders as expected 1`] = `
                     </g>
                   </svg>
                 </div>
+              </div>
+              <div
+                className="c13 c14"
+                width={30}
+              >
+                <label
+                  className="c15"
+                  data-element="label"
+                  htmlFor="rId-1"
+                  id="rId-1-label"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                >
+                  test
+                </label>
               </div>
             </div>
           </div>

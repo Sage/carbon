@@ -130,3 +130,8 @@ Feature: Experimental Textbox component
   Scenario: Check icon inside of Textbox is visible
     When I open default "Experimental-Textbox" component in noIFrame with "textbox" json from "experimental" using "inputIconAdd" object name
     Then icon name in noIframe on preview is "add"
+
+  @positive
+  Scenario: Check mandatory field of Textbox is visible 
+    When I open required "Experimental textbox" component in noIFrame with "textbox" json from "experimental" using "required" object name
+    Then the field must have the required property

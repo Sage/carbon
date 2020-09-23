@@ -181,6 +181,20 @@
           "required": false,
           "description": "Flag to configure component as optional in Form"
         },
+        "required": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Flag to configure if a component is mandatory (HTML 5). It adds a red asterix at the end of the label"
+        },
+        "aria-required": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Flag to configure if a component is mandatory. It adds a red asterix at the end of the label"
+        },
         "error": {
           "type": {
             "name": "union",

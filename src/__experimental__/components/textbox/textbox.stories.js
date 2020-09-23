@@ -103,6 +103,22 @@ const multipleTextboxAutoFocus = () => {
   boolean('autoFocus', true);
   return multipleTextbox();
 };
+const requiredTextbox = () => {
+  return (
+    <Textbox
+      placeholder={ text('placeholder') }
+      { ...getCommonRequiredTextboxProps(defaultStoryPropsConfig, true) }
+    />
+  );
+};
+const ariaRequiredTextbox = () => {
+  return (
+    <Textbox
+      placeholder={ text('placeholder') }
+      { ...getCommonRequiredTextboxProps(defaultStoryPropsConfig, false) }
+    />
+  );
+};
 
 
 function makeValidationsStory(name, themeSelector, disableChromatic = false) {
@@ -201,8 +217,72 @@ storiesOf('Experimental/Textbox', module)
   .add(...makeValidationsStory('validations', dlsThemeSelector))
   .add(...makeValidationsStory('validations classic', classicThemeSelector, true))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusTextbox))
-  .add(...makeStory('multiple autoFocus', dlsThemeSelector, multipleTextboxAutoFocus));
+  .add(...makeStory('multiple autoFocus', dlsThemeSelector, multipleTextboxAutoFocus))
+  .add(...makeStory('aria-required', dlsThemeSelector, ariaRequiredTextbox))
+  .add(...makeStory('required', dlsThemeSelector, requiredTextbox));
 
+// eslint-disable-next-line
+export function getCommonRequiredTextboxProps(config = defaultStoryPropsConfig, isRequired) {
+  const {
+    key,
+    disabled,
+    readOnly,
+    autoFocus,
+    inputWidth,
+    fieldHelp,
+    label,
+    labelHelp,
+    labelInline,
+    adaptiveLabelBreakpoint,
+    labelWidth,
+    labelAlign,
+    size,
+    onClick,
+    iconOnClick,
+    inputIcon
+  } = getCommonTextboxProps(config);
+
+  if (isRequired) {
+    return ({
+      key,
+      disabled,
+      readOnly,
+      autoFocus,
+      inputWidth,
+      fieldHelp,
+      label,
+      labelHelp,
+      labelInline,
+      adaptiveLabelBreakpoint,
+      labelWidth,
+      labelAlign,
+      size,
+      onClick,
+      iconOnClick,
+      inputIcon,
+      required: boolean('required', true)
+    });
+  }
+  return {
+    key,
+    disabled,
+    readOnly,
+    autoFocus,
+    inputWidth,
+    fieldHelp,
+    label,
+    labelHelp,
+    labelInline,
+    adaptiveLabelBreakpoint,
+    labelWidth,
+    labelAlign,
+    size,
+    onClick,
+    iconOnClick,
+    inputIcon,
+    'aria-required': boolean('aria-required', true)
+  };
+}
 // eslint-disable-next-line
 export function getCommonTextboxProps(config = defaultStoryPropsConfig, autoFocusDefault = false, disabledDefault = false, readOnlyDefault = false) {
   const previous = {

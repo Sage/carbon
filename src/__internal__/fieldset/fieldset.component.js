@@ -7,7 +7,7 @@ import { InputGroupBehaviour, InputGroupContext } from '../input-behaviour';
 
 const Fieldset = ({
   legend, children, inline, legendWidth, legendAlign = 'right', legendSpacing = 2, error,
-  warning, info, ml, mb, styleOverride, ...rest
+  warning, info, ml, mb, styleOverride, isRequired, ...rest
 }) => (
   <InputGroupBehaviour>
     <StyledFieldset
@@ -25,6 +25,7 @@ const Fieldset = ({
             width={ legendWidth }
             align={ legendAlign }
             rightPadding={ legendSpacing }
+            isRequired={ isRequired }
           >
             <InputGroupContext.Consumer>
               {({ onMouseEnter, onMouseLeave }) => (
@@ -79,7 +80,9 @@ Fieldset.propTypes = {
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     legend: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
-  })
+  }),
+  /** Flag to configure component as mandatory */
+  isRequired: PropTypes.bool
 };
 
 Fieldset.defaultProps = {

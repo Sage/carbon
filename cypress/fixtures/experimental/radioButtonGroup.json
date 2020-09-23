@@ -70,5 +70,8 @@
   },
   "labelAlignLeft": {
     "labelAlign_weekly": "left"
+  },
+  "required": {
+    "required": true
   }
 }

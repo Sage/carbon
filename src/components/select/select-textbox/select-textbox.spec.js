@@ -35,6 +35,18 @@ describe('SelectTextbox', () => {
     });
   });
 
+  it('the required prop is conserved', () => {
+    const wrapper = mount(
+      <SelectTextbox required />
+    );
+    expect(wrapper.find(SelectTextbox).prop('required')).toBe(true);
+  });
+  it('the aria-required prop is conserved', () => {
+    const wrapper = mount(
+      <SelectTextbox aria-required />
+    );
+    expect(wrapper.find(SelectTextbox).prop('aria-required')).toBe(true);
+  });
   // coverage filler for else path
   const wrapper = mount(<SelectTextbox />);
   wrapper.find('input').simulate('blur');

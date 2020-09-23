@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { array, withKnobs } from '@storybook/addon-knobs';
+import { array, withKnobs, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import NumeralDate from '.';
 
@@ -40,6 +40,7 @@ export const Basic = () => {
       value={ dateValue }
       name='numeralDate_name'
       id='numeralDate_id'
+      aria-required={ boolean('aria-required', false) }
     />
   );
 };
@@ -72,6 +73,7 @@ export const Validations = () => {
           value={ dateValue }
           name='numeralDate_name'
           id={ `numeralDate_id_${validation}-string` }
+          aria-required={ boolean('aria-required', false) }
         />
       ))}
 
@@ -87,6 +89,7 @@ export const Validations = () => {
           value={ dateValue }
           name='numeralDate_name'
           id={ `numeralDate_id_${validation}-boolean` }
+          aria-required={ boolean('aria-required', false) }
         />
       ))}
 

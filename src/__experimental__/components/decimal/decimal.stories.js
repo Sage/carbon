@@ -8,7 +8,10 @@ import { State, Store } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import Decimal from './decimal.component';
 import { OriginalTextbox } from '../textbox';
-import { getCommonTextboxProps } from '../textbox/textbox.stories';
+import {
+  getCommonTextboxProps,
+  getCommonRequiredTextboxProps
+} from '../textbox/textbox.stories';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import { info, notes } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
@@ -70,6 +73,28 @@ const commonProps = () => {
     autoFocus,
     allowEmptyValue
   };
+};
+
+const defaultRequiredComponent = (isRequiredProp) => {
+  return (
+    <State store={ store }>
+      <Decimal
+        { ...commonProps() }
+        { ...getCommonRequiredTextboxProps({ inputWidthEnabled: true }, isRequiredProp) }
+        value={ store.get('value') }
+        onChange={ setValue }
+        onBlur={ action('onBlur') }
+      />
+    </State>
+  );
+};
+
+const requiredComponent = () => {
+  return defaultRequiredComponent(true);
+};
+
+const ariaRequiredComponent = () => {
+  return defaultRequiredComponent(false);
 };
 
 const defaultComponent = () => {
@@ -164,4 +189,6 @@ storiesOf('Experimental/Decimal Input', module)
   .add(...makeStory('default', dlsThemeSelector, defaultComponent))
   .add(...makeStory('classic', classicThemeSelector, defaultComponent, true))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent))
-  .add(...makeStory('validations', dlsThemeSelector, componentWithValidations));
+  .add(...makeStory('validations', dlsThemeSelector, componentWithValidations))
+  .add(...makeStory('required', dlsThemeSelector, requiredComponent))
+  .add(...makeStory('aria-required', dlsThemeSelector, ariaRequiredComponent));

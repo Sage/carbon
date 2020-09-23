@@ -90,5 +90,8 @@
   },
   "inputIconAdd": {
     "inputIcon": "add"
+  },
+  "required": {
+    "required": true
   }
 }

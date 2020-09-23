@@ -24,6 +24,7 @@ import {
   getElementNoIframe,
   labelByPosition,
   helpIcon,
+  getInputTag,
 } from '../../locators';
 import { dialogTitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
@@ -441,7 +442,9 @@ Then('label Align on preview is {string} in NoIFrame', (direction) => {
 Then('icon name in noIframe on preview is {string}', (iconName) => {
   getElementNoIframe(iconName);
 });
-
+Then('the field must have the required property', () => {
+  getInputTag().should('have.attr', 'required');
+});
 When('I click {string} icon in iFrame', (iconName) => {
   getDataElementByValueIframe(iconName).click();
 });

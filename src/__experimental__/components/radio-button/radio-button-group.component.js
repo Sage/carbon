@@ -36,9 +36,10 @@ const RadioButtonGroup = (props) => {
     labelSpacing = 1,
     adaptiveLegendBreakpoint,
     adaptiveSpacingBreakpoint,
+    required,
+    'aria-required': ariaRequired,
     styleOverride = {}
   } = props;
-
   const isAboveLegendBreakpoint = useIsAboveBreakpoint(adaptiveLegendBreakpoint);
   const isAboveSpacingBreakpoint = useIsAboveBreakpoint(adaptiveSpacingBreakpoint);
 
@@ -66,6 +67,7 @@ const RadioButtonGroup = (props) => {
       ml={ marginLeft }
       mb={ mb }
       styleOverride={ styleOverride }
+      isRequired={ required || ariaRequired }
       { ...tagComponent('radiogroup', props) }
     >
       <RadioButtonGroupStyle
@@ -144,7 +146,11 @@ RadioButtonGroup.propTypes = {
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     content: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     legend: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
-  })
+  }),
+  /** Flag to configure component as mandatory */
+  required: PropTypes.bool,
+  /** Flag to configure component as mandatory */
+  'aria-required': PropTypes.bool
 };
 
 export default RadioButtonGroup;

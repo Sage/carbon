@@ -9,7 +9,10 @@ import {
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import Number from './number.component';
 import { OriginalTextbox } from '../textbox';
-import { getCommonTextboxProps } from '../textbox/textbox.stories';
+import {
+  getCommonTextboxProps,
+  getCommonRequiredTextboxProps
+} from '../textbox/textbox.stories';
 import notes from './documentation/notes.md';
 import info from './documentation/info';
 
@@ -22,6 +25,32 @@ const store = new Store(
 const setValue = (ev) => {
   action('onChange')(ev);
   store.set({ value: ev.target.value });
+};
+
+const defaultRequiredComponent = (required) => {
+  const onChangeDeferredEnabled = boolean('Enable "onChangeDeferred" Action', false);
+  const onKeyDownEnabled = boolean('Enable "onKeyDown" Action', false);
+  const deferTimeout = onChangeDeferredEnabled ? number('deferTimeout') : undefined;
+
+  return (
+    <Number
+      { ...getCommonRequiredTextboxProps({ inputWidthEnabled: false }, required) }
+      value={ store.get('value') }
+      onChange={ setValue }
+      onKeyDown={ onKeyDownEnabled ? action('onKeyDown') : undefined }
+      onChangeDeferred={ onChangeDeferredEnabled ? action('onChangeDeferred') : undefined }
+      deferTimeout={ deferTimeout }
+    />
+  );
+};
+
+
+const ariaRequiredComponent = () => {
+  return defaultRequiredComponent(false);
+};
+
+const requiredComponent = () => {
+  return defaultRequiredComponent(true);
 };
 
 const defaultComponent = () => {
@@ -109,4 +138,6 @@ storiesOf('Experimental/Number Input', module)
   .add(...makeStory('default', dlsThemeSelector, defaultComponent))
   .add(...makeStory('classic', classicThemeSelector, defaultComponent, true))
   .add(...makeStory('validations', dlsThemeSelector, validationsComponent))
-  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent));
+  .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent))
+  .add(...makeStory('required', dlsThemeSelector, requiredComponent))
+  .add(...makeStory('aria-required', dlsThemeSelector, ariaRequiredComponent));

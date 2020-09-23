@@ -26,6 +26,8 @@ const Textbox = ({
   inputWidth,
   prefix,
   adaptiveLabelBreakpoint,
+  required,
+  'aria-required': ariaRequired,
   ...props
 }) => {
   if (!deprecatedWarnTriggered) {
@@ -43,6 +45,7 @@ const Textbox = ({
         labelWidth={ labelWidth }
         adaptiveLabelBreakpoint={ adaptiveLabelBreakpoint }
         styleOverride={ styleOverride }
+        isRequired={ required || ariaRequired }
       >
         <InputPresentation
           type='text'
@@ -53,6 +56,8 @@ const Textbox = ({
           { leftChildren }
           { prefix ? <StyledPrefix data-element='textbox-prefix'>{ prefix }</StyledPrefix> : null }
           <Input
+            { ...(required && { required }) }
+            { ...(ariaRequired && { 'aria-required': ariaRequired }) }
             { ...removeParentProps(props) }
             placeholder={ (props.disabled || props.readOnly) ? '' : props.placeholder }
             aria-invalid={ !!props.error }
@@ -161,6 +166,10 @@ Textbox.propTypes = {
   mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint: PropTypes.number,
+  /** Flag to configure component as required HTML 5 */
+  required: PropTypes.bool,
+  /** Flag to configure component as required */
+  'aria-required': PropTypes.bool,
   /** Allows to override existing component styles */
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),

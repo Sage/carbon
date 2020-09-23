@@ -73,3 +73,8 @@ Feature: Experimental Checkbox component
     Given I open "Experimental Checkbox" component page
     When I mark checkbox on preview
     Then Checkbox tick has color "rgba(0, 0, 0, 0.9)"
+
+  @positive
+  Scenario: Check mandatory field of checkbox is visible 
+    When I open required "Experimental Checkbox" component in noIFrame with "checkbox" json from "experimental" using "required" object name
+    Then the field must have the required property

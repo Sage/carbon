@@ -507,4 +507,24 @@ describe('Checkbox', () => {
       });
     });
   });
+  it('the required prop is conserved', () => {
+    const wrapper = mount(
+      <Checkbox
+        name='my-checkbox'
+        value='test'
+        required
+      />
+    );
+    expect(wrapper.find(Checkbox).prop('required')).toBe(true);
+  });
+  it('the aria-required prop is conserved', () => {
+    const wrapper = mount(
+      <Checkbox
+        name='my-checkbox'
+        value='test'
+        aria-required
+      />
+    );
+    expect(wrapper.find(Checkbox).prop('aria-required')).toBe(true);
+  });
 });

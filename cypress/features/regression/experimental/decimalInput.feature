@@ -101,3 +101,9 @@ Feature: Decimal input component
       | label                     |
       | mpú¿¡üßä                  |
       | !@#$%^*()_+=~[];:?{}&"'<> |
+  
+
+  @positive
+  Scenario: Check mandatory field of decimalInput is visible 
+    When I open required "Experimental Decimal-Input" component in noIFrame with "decimal" json from "experimental" using "required" object name
+    Then the field must have the required property

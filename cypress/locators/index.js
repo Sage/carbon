@@ -2,7 +2,7 @@ import {
   HELP_ICON_PREVIEW, FIELD_HELP_PREVIEW, TOOLTIP_PREVIEW,
   FORM, STORY_ROOT, CLOSE_ICON_BUTTON, BACKGROUND_UI_LOCATOR, LINK, ICON, INPUT_WIDTH_PREVIEW,
   COMMMON_DATA_ELEMENT_INPUT, LABEL,
-  TAB_LIST, DLS_ROOT,
+  TAB_LIST, DLS_ROOT, INPUT_TAG,
 } from './locators';
 
 // actions locators
@@ -58,3 +58,4 @@ export const helpIconByPositionNoIFrame = position => cy.get(HELP_ICON_PREVIEW).
 export const tooltipPreview = () => cy.get(TOOLTIP_PREVIEW);
 export const tooltipPreviewByPositionNoIFrame = position => cy.get(TOOLTIP_PREVIEW).eq(position);
 export const link = () => cy.get(LINK);
+export const getInputTag = () => cy.get(INPUT_TAG);

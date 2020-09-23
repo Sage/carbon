@@ -41,6 +41,8 @@ const FormField = ({
   mb,
   adaptiveLabelBreakpoint,
   styleOverride = {},
+  noAsterisk,
+  isRequired,
   ...props
 }) => {
   if (!deprecatedWarnTriggered) {
@@ -55,7 +57,6 @@ const FormField = ({
   if (adaptiveLabelBreakpoint) {
     inlineLabel = largeScreen;
   }
-
   useEffect(() => {
     if (context && context.setError && context.setWarning && context.setInfo) {
       context.setError(id, !!error);
@@ -63,7 +64,6 @@ const FormField = ({
       context.setInfo(id, !!info);
     }
   }, [id, context, error, warning, info]);
-
   return (
     <FormFieldStyle
       { ...tagComponent(props['data-component'], props) }
@@ -97,6 +97,7 @@ const FormField = ({
             pr={ !reverse ? labelSpacing : undefined }
             pl={ reverse ? labelSpacing : undefined }
             styleOverride={ styleOverride.label }
+            isRequired={ isRequired && !noAsterisk }
           >
             {label}
           </Label>
@@ -164,6 +165,8 @@ FormField.propTypes = {
   mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint: PropTypes.number,
+  noAsterisk: PropTypes.bool,
+  isRequired: PropTypes.bool,
   /** Allows to override existing component styles */
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),

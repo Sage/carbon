@@ -110,6 +110,42 @@ describe('Textbox', () => {
     });
   });
 
+  it('then a StyledPrefix should be rendered with this prop value', () => {
+    const prefixValue = 'bar';
+    const wrapper = mount(
+      <Textbox
+        value='foo'
+        prefix={ prefixValue }
+      />
+    );
+    expect(wrapper.find(StyledPrefix).exists()).toBe(true);
+    expect(wrapper.find(StyledPrefix).text()).toBe(prefixValue);
+  });
+
+  it('the required prop is conserved', () => {
+    const prefixValue = 'bar';
+    const wrapper = mount(
+      <Textbox
+        value='foo'
+        prefix={ prefixValue }
+        required
+      />
+    );
+    expect(wrapper.find(Textbox).prop('required')).toBe(true);
+  });
+
+  it('the aria-required prop is conserved', () => {
+    const prefixValue = 'bar';
+    const wrapper = mount(
+      <Textbox
+        value='foo'
+        prefix={ prefixValue }
+        aria-required
+      />
+    );
+    expect(wrapper.find(Textbox).prop('aria-required')).toBe(true);
+  });
+
   describe('Prefix', () => {
     it('should have expected styles', () => {
       assertStyleMatch({

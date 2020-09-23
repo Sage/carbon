@@ -34,6 +34,8 @@ export interface FieldsetProps {
     root?: object;
     legend?: object;
   };
+  /** Flag to configure component as mandatory */
+  isRequired: boolean;
 }
 
 declare const Fieldset: React.ComponentClass<FieldsetProps>;

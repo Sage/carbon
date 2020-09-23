@@ -115,6 +115,23 @@ describe('Label', () => {
         paddingRight: '16px'
       }, render({ inline: true, pr: 2 }, TestRenderer.create).toJSON());
     });
+
+    it('applies styling for an inline "isRequired" label', () => {
+      const wrapper = render({
+        inline: true,
+        childOfForm: false,
+        isRequired: true,
+        theme: mintTheme
+      });
+
+      assertStyleMatch({
+        content: "'*'",
+        color: '#C7384F',
+        fontWeight: '350',
+        marginLeft: '5px'
+      }, wrapper.find(StyledLabel),
+      { modifier: '::after' });
+    });
   });
 
   describe('when left aligned', () => {

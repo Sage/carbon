@@ -47,7 +47,8 @@ export default (palette) => {
       warning: palette.carrotOrange,
       destructive: {
         hover: palette.errorRedShade(20)
-      }
+      },
+      asterisk: palette.errorRed
     },
 
     anchorNavigation: {

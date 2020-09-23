@@ -38,6 +38,7 @@ const Label = ({
   htmlFor,
   pr,
   pl,
+  isRequired,
   styleOverride = {}
 }) => {
   if (!deprecatedWarnTriggered) {
@@ -113,6 +114,7 @@ const Label = ({
         htmlFor={ htmlFor }
         onMouseEnter={ handleMouseEnter }
         onMouseLeave={ handleMouseLeave }
+        isRequired={ isRequired }
       >
         {children}
       </StyledLabel>
@@ -165,7 +167,9 @@ Label.propTypes = {
   /** Padding left, integer multiplied by base spacing constant (8) */
   pl: PropTypes.oneOf([1, 2]),
   /** Allows to override existing component styles */
-  styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+  styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  /** Flag to configure component as mandatory */
+  isRequired: PropTypes.bool
 };
 
 export default React.memo(Label);

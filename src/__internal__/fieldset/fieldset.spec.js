@@ -126,4 +126,16 @@ describe('Fieldset', () => {
       expect(icon.props()[validationType]).toEqual('Message');
     });
   });
+  it('add an asterisk after the text when the field is mandatory', () => {
+    assertStyleMatch(
+      {
+        content: "'*'",
+        color: '#C7384F',
+        fontWeight: '350',
+        marginLeft: '5px'
+      },
+      mount(<StyledLegendContainer isRequired />),
+      { modifier: '::after' }
+    );
+  });
 });

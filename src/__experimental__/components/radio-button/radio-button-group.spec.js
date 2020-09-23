@@ -15,6 +15,8 @@ function render(props, renderer = TestRenderer.create) {
     <RadioButton
       id={ `rId-${index}` } key={ `radio-key-${value}` }
       onChange={ jest.fn() } value={ value }
+      label='test'
+      required
     />
   ));
 
@@ -162,6 +164,28 @@ describe('RadioButtonGroup', () => {
 
     it('renders legend element with properly assigned styles', () => {
       assertStyleMatch(customStyleObject, wrapper.find(StyledLegendContainer));
+    });
+    it('the required prop is conserved', () => {
+      const wrapperRequired = mount(
+        <RadioButtonGroup name='radio' required>
+          <RadioButton
+            name='my-radio'
+            value='test'
+          />
+        </RadioButtonGroup>
+      );
+      expect(wrapperRequired.find(RadioButtonGroup).prop('required')).toBe(true);
+    });
+    it('the aria-required prop is conserved', () => {
+      const wrapperRequired = mount(
+        <RadioButtonGroup name='radio' aria-required>
+          <RadioButton
+            name='my-radio'
+            value='test'
+          />
+        </RadioButtonGroup>
+      );
+      expect(wrapperRequired.find(RadioButtonGroup).prop('aria-required')).toBe(true);
     });
   });
 });

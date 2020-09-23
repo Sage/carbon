@@ -19,6 +19,8 @@ const Checkbox = ({
   labelSpacing = 1,
   ml,
   adaptiveSpacingBreakpoint,
+  required,
+  'aria-required': ariaRequired,
   ...props
 }) => {
   const largeScreen = useIsAboveBreakpoint(adaptiveSpacingBreakpoint);
@@ -44,14 +46,17 @@ const Checkbox = ({
     labelSpacing,
     ml: marginLeft
   };
-
   return (
     <CheckboxStyle
       { ...tagComponent('checkbox', props) }
       { ...props }
       labelSpacing={ labelSpacing }
     >
-      <CheckableInput { ...inputProps }>
+      <CheckableInput
+        { ...(required && { required }) }
+        { ...(ariaRequired && { 'aria-required': ariaRequired }) }
+        { ...inputProps }
+      >
         <CheckboxSvg />
       </CheckableInput>
     </CheckboxStyle>
@@ -108,7 +113,11 @@ Checkbox.propTypes = {
   /** The content for the help tooltip, to appear next to the Label */
   labelHelp: PropTypes.node,
   /** Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */
-  adaptiveSpacingBreakpoint: PropTypes.number
+  adaptiveSpacingBreakpoint: PropTypes.number,
+  /** Flag to configure component as mandatory HTML 5 */
+  required: PropTypes.bool,
+  /** Flag to configure component as mandatory */
+  'aria-required': PropTypes.bool
 };
 
 Checkbox.defaultProps = {
