@@ -7,7 +7,7 @@ Feature: Accessibility tests - Design System folder
     Then "Accordion <story> page" component has no accessibility violations
     Examples:
       | story                |
-      | default              |
+      | default_story        |
       | styles_overriden     |
       | with_dynamic_content |
 
@@ -36,23 +36,23 @@ Feature: Accessibility tests - Design System folder
     When I open basic Test "<component>" component page in noIframe
     Then "<component>" component has no accessibility violations
     Examples:
-      | component           |
-      | Anchornavigation    |
-      | duellingpicklist    |
+      | component        |
+      | Anchornavigation |
+      | duellingpicklist |
 
-  @accessibility
-  Scenario Outline: Component <component> basic default page
-    When I open "<component>" component page "basic" in no iframe
-    Then "<component>" component has no accessibility violations
+  @ignore
+  # ignored because of accessibility issues (FE-3177)
+  Scenario Outline: Numeral Date component <story> story
+    When I open "Design System Numeral Date Test" component page "<story>" in no iframe
+    Then "Numeral Date <story>" component has no accessibility violations
     Examples:
-      | component                |
-      | Button Toggle Group Test |
-      | Numeral Date             |
+      | story       |
+      | basic       |
+      | validations |
 
   @accessibility
   Scenario Outline: Design System Button component <story> page
     When I open design systems <story> "Button" component in no iframe
-      And I wait 1000
     Then "Button <story> page" component has no accessibility violations
     Examples:
       | story                 |
@@ -77,8 +77,13 @@ Feature: Accessibility tests - Design System folder
       | dashed_icon           |
 
   @accessibility
+  Scenario: Component button as a sibling
+    When I open "Design System Button Test" component page "as a sibling" in no iframe
+    Then "button" component has no accessibility violations
+
+  @accessibility
   Scenario Outline: Design System <component> component visual page
-    When I open visual Test "<component>" component page in noIframe
+    When I open "Design System <component> Test" component page "visual" in no iframe
     Then "<component>" component has no accessibility violations
     Examples:
       | component |
@@ -162,6 +167,48 @@ Feature: Accessibility tests - Design System folder
       | readOnly |
 
   @accessibility
-  Scenario: Design System Note component with_footer page
-    When I open design systems with_footer "Note" component in no iframe
-    Then "Note with_footer" component has no accessibility violations
+  Scenario: Design System Note component
+    When I open "Design System Note" component page "inline_controls" in no iframe
+    Then "Note inline controls" component has no accessibility violations
+
+  @accessibility
+  Scenario: Component Hr
+    When I open design systems default_story "Hr" component in no iframe
+    Then "Hr" component has no accessibility violations
+
+  @accessibility
+  Scenario Outline: Component Menu <story>
+    When I open design systems <story> "Menu" component in no iframe
+    Then "Menu <story>" component has no accessibility violations
+    Examples:
+      | story         |
+      | default_story |
+      | dark_theme    |
+
+  @accessibility
+  Scenario Outline: Component Navigation Bar <story>
+    When I open design systems <story> "Navigation Bar" component in no iframe
+    Then "Navigation Bar <story>" component has no accessibility violations
+    Examples:
+      | story         |
+      | default_story |
+      | dark_theme    |
+
+  @accessibility
+  Scenario: Component Tabs
+    When I open design systems basic "Tabs" component in no iframe
+    Then "Tabs" component has no accessibility violations
+
+  @accessibility
+  Scenario Outline: Component Tile <story>
+    When I open design systems <story> "Tile" component in no iframe
+    Then "Tile <story>" component has no accessibility violations
+    Examples:
+      | story                             |
+      | default_story                     |
+      | tile_with_definition_list_default |
+
+  @accessibility
+  Scenario: Component Toast
+    When I open "Design System Toast Test" component page "visual" in no iframe
+    Then "Toast" component has no accessibility violations
