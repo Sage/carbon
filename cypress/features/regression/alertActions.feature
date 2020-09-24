@@ -7,7 +7,7 @@ Feature: Alert component actions
   @positive
   Scenario: Clicking close icon, closes Alert dialog
     When I open component preview
-    Then closeIcon is visible
+    Then closeIcon is visible in iframe
       And I click closeIcon in IFrame
       And Alert is not visible
 
