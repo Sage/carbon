@@ -398,7 +398,7 @@ When('I press {string} key times {int}', (key, times) => {
   }
 });
 
-When('I click onto root in Test directory in iFrame', () => {
+When('I click onto root in Test directory in no iFrame', () => {
   cy.get('#root').click({ force: true });
 });
 
