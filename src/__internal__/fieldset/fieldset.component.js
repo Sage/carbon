@@ -81,7 +81,7 @@ Fieldset.propTypes = {
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     legend: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
   }),
-  /** Flag to configure component as mandatory */
+  /** If true, an asterisk will be added to the label */
   isRequired: PropTypes.bool
 };
 

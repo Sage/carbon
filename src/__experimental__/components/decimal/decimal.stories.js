@@ -8,10 +8,7 @@ import { State, Store } from '@sambego/storybook-state';
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import Decimal from './decimal.component';
 import { OriginalTextbox } from '../textbox';
-import {
-  getCommonTextboxProps,
-  getCommonRequiredTextboxProps
-} from '../textbox/textbox.stories';
+import { getCommonTextboxProps } from '../textbox/textbox.stories';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import { info, notes } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
@@ -75,28 +72,28 @@ const commonProps = () => {
   };
 };
 
-const defaultRequiredComponent = (isRequiredProp) => {
+const requiredComponent = () => {
   return (
     <State store={ store }>
       <Decimal
         { ...commonProps() }
-        { ...getCommonRequiredTextboxProps({ inputWidthEnabled: true }, isRequiredProp) }
+        { ...getCommonTextboxProps({ requiredKnobs: false }) }
         value={ store.get('value') }
         onChange={ setValue }
         onBlur={ action('onBlur') }
+        required
+      />
+      <Decimal
+        { ...commonProps() }
+        { ...getCommonTextboxProps({ requiredKnobs: false }) }
+        value={ store.get('value') }
+        onChange={ setValue }
+        onBlur={ action('onBlur') }
+        aria-required
       />
     </State>
   );
 };
-
-const requiredComponent = () => {
-  return defaultRequiredComponent(true);
-};
-
-const ariaRequiredComponent = () => {
-  return defaultRequiredComponent(false);
-};
-
 const defaultComponent = () => {
   return (
     <State store={ store }>
@@ -190,5 +187,4 @@ storiesOf('Experimental/Decimal Input', module)
   .add(...makeStory('classic', classicThemeSelector, defaultComponent, true))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent))
   .add(...makeStory('validations', dlsThemeSelector, componentWithValidations))
-  .add(...makeStory('required', dlsThemeSelector, requiredComponent))
-  .add(...makeStory('aria-required', dlsThemeSelector, ariaRequiredComponent));
+  .add(...makeStory('required', dlsThemeSelector, requiredComponent));

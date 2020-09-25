@@ -51,8 +51,10 @@ export interface RadioButtonGroupProps {
     content?: object;
     legend?: object;
   };
+  /** Flag to configure component as mandatory HTML 5 */
+  required: boolean,
   /** Flag to configure component as mandatory */
-  required?: boolean;
+  'aria-required': boolean
 }
 
 declare const RadioButtonGroup: React.ComponentClass<RadioButtonGroupProps>;

@@ -57,6 +57,7 @@ const FormField = ({
   if (adaptiveLabelBreakpoint) {
     inlineLabel = largeScreen;
   }
+
   useEffect(() => {
     if (context && context.setError && context.setWarning && context.setInfo) {
       context.setError(id, !!error);
@@ -64,6 +65,7 @@ const FormField = ({
       context.setInfo(id, !!info);
     }
   }, [id, context, error, warning, info]);
+
   return (
     <FormFieldStyle
       { ...tagComponent(props['data-component'], props) }

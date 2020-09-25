@@ -13,7 +13,6 @@ import Button from '../button';
 import DateInput from '../../__experimental__/components/date';
 import { Checkbox } from '../../__experimental__/components/checkbox';
 import { Select, Option } from '../../__experimental__/components/select';
-import { RadioButton, RadioButtonGroup } from '../../__experimental__/components/radio-button';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Dialog.__docgenInfo = getDocGenInfo(
@@ -198,8 +197,8 @@ function makeButtonStory(name, themeSelector, stickyFooter, disableChromatic = f
               leftSideButtons={ <Button onClick={ handleCancel }>Cancel</Button> }
               saveButton={ <Button buttonType='primary' type='submit'>Save</Button> }
             >
-              <Textbox label='First Name' required />
-              <Textbox label='Middle Name' aria-required />
+              <Textbox label='First Name' />
+              <Textbox label='Middle Name' />
               <Textbox label='Surname' />
               <Textbox label='Birth Place' />
               <Textbox label='Favourite Colour' />
@@ -208,9 +207,8 @@ function makeButtonStory(name, themeSelector, stickyFooter, disableChromatic = f
                 name='date' label='Birthday'
                 value={ date }
                 onChange={ e => setDate(e.target.value.rawValue) }
-                aria-required
               />
-              <Select label='Color' aria-required>
+              <Select label='Color'>
                 {selectOptions.map(option => (
                   <Option
                     key={ option.name }
@@ -225,35 +223,7 @@ function makeButtonStory(name, themeSelector, stickyFooter, disableChromatic = f
                 value={ date }
                 onChange={ e => setDate(e.target.value.rawValue) }
               />
-              <Checkbox
-                name='checkbox'
-                label='Do you like my Dog'
-                required
-              />
-              <RadioButtonGroup
-                name='mybuttongroup'
-                onChange={ () => console.log('change') }
-                legend='Do you like animals?'
-                required
-                aria-required
-              >
-                <RadioButton
-                  id='radio1'
-                  value='radio1'
-                  label='Dog'
-                  required
-                />
-                <RadioButton
-                  id='radio2'
-                  value='radio2'
-                  label='Cat'
-                />
-                <RadioButton
-                  id='radio3'
-                  value='radio3'
-                  label='Other'
-                />
-              </RadioButtonGroup>
+              <Checkbox name='checkbox' label='Do you like my Dog' />
               <div>This is an example of a dialog with a Form as content</div>
             </Form>
           </Dialog>

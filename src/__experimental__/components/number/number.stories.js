@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { StateDecorator, Store, State } from '@sambego/storybook-state';
@@ -9,10 +9,7 @@ import {
 import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/theme-selectors';
 import Number from './number.component';
 import { OriginalTextbox } from '../textbox';
-import {
-  getCommonTextboxProps,
-  getCommonRequiredTextboxProps
-} from '../textbox/textbox.stories';
+import { getCommonTextboxProps } from '../textbox/textbox.stories';
 import notes from './documentation/notes.md';
 import info from './documentation/info';
 
@@ -27,30 +24,33 @@ const setValue = (ev) => {
   store.set({ value: ev.target.value });
 };
 
-const defaultRequiredComponent = (required) => {
-  const onChangeDeferredEnabled = boolean('Enable "onChangeDeferred" Action', false);
-  const onKeyDownEnabled = boolean('Enable "onKeyDown" Action', false);
-  const deferTimeout = onChangeDeferredEnabled ? number('deferTimeout') : undefined;
 
+const RequiredComponent = () => {
+  const [state, setState] = useState({
+    one: '',
+    two: ''
+  });
+
+  const onChange = attr => e => setState({
+    ...state,
+    [attr]: e.target.value
+  });
   return (
-    <Number
-      { ...getCommonRequiredTextboxProps({ inputWidthEnabled: false }, required) }
-      value={ store.get('value') }
-      onChange={ setValue }
-      onKeyDown={ onKeyDownEnabled ? action('onKeyDown') : undefined }
-      onChangeDeferred={ onChangeDeferredEnabled ? action('onChangeDeferred') : undefined }
-      deferTimeout={ deferTimeout }
-    />
+    <>
+
+      <Number
+        label='required'
+        required
+        onChange={ onChange('one') }
+      />
+
+      <Number
+        label='aria-required'
+        aria-required
+        onChange={ onChange('two') }
+      />
+    </>
   );
-};
-
-
-const ariaRequiredComponent = () => {
-  return defaultRequiredComponent(false);
-};
-
-const requiredComponent = () => {
-  return defaultRequiredComponent(true);
 };
 
 const defaultComponent = () => {
@@ -139,5 +139,4 @@ storiesOf('Experimental/Number Input', module)
   .add(...makeStory('classic', classicThemeSelector, defaultComponent, true))
   .add(...makeStory('validations', dlsThemeSelector, validationsComponent))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusComponent))
-  .add(...makeStory('required', dlsThemeSelector, requiredComponent))
-  .add(...makeStory('aria-required', dlsThemeSelector, ariaRequiredComponent));
+  .add(...makeStory('required', dlsThemeSelector, RequiredComponent));

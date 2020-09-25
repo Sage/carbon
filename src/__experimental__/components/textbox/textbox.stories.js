@@ -23,7 +23,8 @@ OriginalTextbox.__docgenInfo = getDocGenInfo(
 Textbox.displayName = 'Textbox';
 
 const defaultStoryPropsConfig = {
-  inputWidthEnabled: true
+  inputWidthEnabled: true,
+  requiredKnobs: true
 };
 
 function makeStory(name, themeSelector, component, disableChromatic = false) {
@@ -105,21 +106,27 @@ const multipleTextboxAutoFocus = () => {
 };
 const requiredTextbox = () => {
   return (
-    <Textbox
-      placeholder={ text('placeholder') }
-      { ...getCommonRequiredTextboxProps(defaultStoryPropsConfig, true) }
-    />
-  );
-};
-const ariaRequiredTextbox = () => {
-  return (
-    <Textbox
-      placeholder={ text('placeholder') }
-      { ...getCommonRequiredTextboxProps(defaultStoryPropsConfig, false) }
-    />
-  );
-};
+    <>
+      <Textbox
+        placeholder='required'
+        { ...getCommonTextboxProps({
+          ...defaultStoryPropsConfig,
+          requiredKnobs: false
+        }) }
+        required
+      />
 
+      <Textbox
+        placeholder='aria-required'
+        { ...getCommonTextboxProps({
+          ...defaultStoryPropsConfig,
+          requiredKnobs: false
+        }) }
+        aria-required
+      />
+    </>
+  );
+};
 
 function makeValidationsStory(name, themeSelector, disableChromatic = false) {
   const validationTypes = ['error', 'warning', 'info'];
@@ -218,73 +225,15 @@ storiesOf('Experimental/Textbox', module)
   .add(...makeValidationsStory('validations classic', classicThemeSelector, true))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusTextbox))
   .add(...makeStory('multiple autoFocus', dlsThemeSelector, multipleTextboxAutoFocus))
-  .add(...makeStory('aria-required', dlsThemeSelector, ariaRequiredTextbox))
   .add(...makeStory('required', dlsThemeSelector, requiredTextbox));
 
 // eslint-disable-next-line
-export function getCommonRequiredTextboxProps(config = defaultStoryPropsConfig, isRequired) {
-  const {
-    key,
-    disabled,
-    readOnly,
-    autoFocus,
-    inputWidth,
-    fieldHelp,
-    label,
-    labelHelp,
-    labelInline,
-    adaptiveLabelBreakpoint,
-    labelWidth,
-    labelAlign,
-    size,
-    onClick,
-    iconOnClick,
-    inputIcon
-  } = getCommonTextboxProps(config);
+export function getCommonTextboxProps(overrides = {}, autoFocusDefault = false, disabledDefault = false, readOnlyDefault = false) {
 
-  if (isRequired) {
-    return ({
-      key,
-      disabled,
-      readOnly,
-      autoFocus,
-      inputWidth,
-      fieldHelp,
-      label,
-      labelHelp,
-      labelInline,
-      adaptiveLabelBreakpoint,
-      labelWidth,
-      labelAlign,
-      size,
-      onClick,
-      iconOnClick,
-      inputIcon,
-      required: boolean('required', true)
-    });
-  }
-  return {
-    key,
-    disabled,
-    readOnly,
-    autoFocus,
-    inputWidth,
-    fieldHelp,
-    label,
-    labelHelp,
-    labelInline,
-    adaptiveLabelBreakpoint,
-    labelWidth,
-    labelAlign,
-    size,
-    onClick,
-    iconOnClick,
-    inputIcon,
-    'aria-required': boolean('aria-required', true)
+  const config = {
+    ...defaultStoryPropsConfig,
+    ...overrides
   };
-}
-// eslint-disable-next-line
-export function getCommonTextboxProps(config = defaultStoryPropsConfig, autoFocusDefault = false, disabledDefault = false, readOnlyDefault = false) {
   const previous = {
     key: 'textbox',
     autoFocus: autoFocusDefault
@@ -313,6 +262,9 @@ export function getCommonTextboxProps(config = defaultStoryPropsConfig, autoFocu
   const iconOnClick = action('iconOnClick');
   const inputIcon = select('inputIcon', ['', ...OptionsHelper.icons]);
 
+  const required = config.requiredKnobs ? boolean('required', false) : undefined;
+  const ariaRequired = config.requiredKnobs ? boolean('ariaRequired', false) : undefined;
+
   return {
     key,
     disabled,
@@ -330,6 +282,8 @@ export function getCommonTextboxProps(config = defaultStoryPropsConfig, autoFocu
     onClick,
     iconOnClick,
     inputIcon,
-    prefix
+    prefix,
+    required,
+    'aria-required': ariaRequired
   };
 }

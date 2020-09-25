@@ -40,6 +40,7 @@ const RadioButtonGroup = (props) => {
     'aria-required': ariaRequired,
     styleOverride = {}
   } = props;
+
   const isAboveLegendBreakpoint = useIsAboveBreakpoint(adaptiveLegendBreakpoint);
   const isAboveSpacingBreakpoint = useIsAboveBreakpoint(adaptiveSpacingBreakpoint);
 
@@ -147,7 +148,7 @@ RadioButtonGroup.propTypes = {
     content: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     legend: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
   }),
-  /** Flag to configure component as mandatory */
+  /** Flag to configure component as mandatory HTML 5 */
   required: PropTypes.bool,
   /** Flag to configure component as mandatory */
   'aria-required': PropTypes.bool

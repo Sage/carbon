@@ -110,18 +110,6 @@ describe('Textbox', () => {
     });
   });
 
-  it('then a StyledPrefix should be rendered with this prop value', () => {
-    const prefixValue = 'bar';
-    const wrapper = mount(
-      <Textbox
-        value='foo'
-        prefix={ prefixValue }
-      />
-    );
-    expect(wrapper.find(StyledPrefix).exists()).toBe(true);
-    expect(wrapper.find(StyledPrefix).text()).toBe(prefixValue);
-  });
-
   it('the required prop is conserved', () => {
     const prefixValue = 'bar';
     const wrapper = mount(

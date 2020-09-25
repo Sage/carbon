@@ -56,14 +56,15 @@ import { FilterableSelect, Option } from "carbon-react/lib/components/select";
   </Story>
 </Preview>
 
-### Basic required usage:
+### Required
 
 <Preview>
-  <Story name="basic required" parameters={{ info: { disable: true }}} >
-    <FilterableSelect
+  <Story name="required" parameters={{ info: { disable: true }}} >
+    <>
+      <FilterableSelect
       name='simple'
       id='simple'
-      label='label'
+      label='required'
       labelInline
       required
       onOpen={ action('onOpen') }
@@ -85,17 +86,10 @@ import { FilterableSelect, Option } from "carbon-react/lib/components/select";
       <Option text='White' value='10' />
       <Option text='Yellow' value='11' />
     </FilterableSelect>
-  </Story>
-</Preview>
-
-### Basic required usage:
-
-<Preview>
-  <Story name="basic aria-required" parameters={{ info: { disable: true }}} >
     <FilterableSelect
       name='simple'
       id='simple'
-      label='label'
+      label='aria-required'
       labelInline
       aria-required
       onOpen={ action('onOpen') }
@@ -117,6 +111,7 @@ import { FilterableSelect, Option } from "carbon-react/lib/components/select";
       <Option text='White' value='10' />
       <Option text='Yellow' value='11' />
     </FilterableSelect>
+    </>
   </Story>
 </Preview>
 

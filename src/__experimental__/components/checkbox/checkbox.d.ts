@@ -33,7 +33,7 @@ interface CheckboxProps {
   /** Flag to configure component as mandatory HTML 5 */
   required?: boolean;
   /** Flag to configure component as mandatory */
-  'aria-required?': boolean;
+  'aria-required'?: boolean;
 }
 
 declare const Checkbox: React.ComponentClass<CheckboxProps>;

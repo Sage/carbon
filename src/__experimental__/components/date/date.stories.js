@@ -10,10 +10,7 @@ import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/t
 import DateInput from './date.component';
 import { OriginalTextbox } from '../textbox';
 import Button from '../../../components/button';
-import {
-  getCommonTextboxProps,
-  getCommonRequiredTextboxProps
-} from '../textbox/textbox.stories';
+import { getCommonTextboxProps } from '../textbox/textbox.stories';
 import { notes, info } from './documentation';
 import getDocGenInfo from '../../../utils/helpers/docgen-info';
 
@@ -133,7 +130,6 @@ const ValidationDateComponent = () => {
           onChange={ setDateValue }
           onBlur={ ev => action('onBlur')(ev) }
           allowEmptyValue={ boolean('allowEmptyValue', false) }
-          aria-required={ boolean('aria-required', false) }
         />
       ))}
       <h6>readOnly</h6>
@@ -192,34 +188,13 @@ const EmptyDateComponent = () => {
   );
 };
 
-const commonRequiredDateComponent = (required) => {
-  const minDate = text('minDate', '');
-  const maxDate = text('maxDate', '');
-  const allowEmptyValue = boolean('allowEmptyValue', false);
-  const autoFocus = boolean('autoFocus', false);
-
+const RequiredDateComponent = () => {
   return (
-    <DateInput
-      { ...getCommonRequiredTextboxProps({ inputWidthEnabled: false }, required) }
-      name='dateinput'
-      autoFocus={ autoFocus }
-      minDate={ minDate }
-      maxDate={ maxDate }
-      value={ store.get('value') }
-      onChange={ setValue }
-      onBlur={ ev => action('onBlur')(ev) }
-      onKeyDown={ ev => action('onKeyDown')(ev) }
-      allowEmptyValue={ allowEmptyValue }
-    />
+    <>
+      <DateInput label='required' required />
+      <DateInput label='aria-required' aria-required />
+    </>
   );
-};
-
-const requiredDateComponent = () => {
-  return (commonRequiredDateComponent(true));
-};
-
-const ariaRequiredDateComponent = () => {
-  return (commonRequiredDateComponent(false));
 };
 
 
@@ -230,5 +205,4 @@ storiesOf('Experimental/Date Input', module)
   .add(...makeStory('empty', dlsThemeSelector, EmptyDateComponent))
   .add(...makeStory('validations', dlsThemeSelector, ValidationDateComponent))
   .add(...makeStory('autoFocus', dlsThemeSelector, autoFocusDateComponent, true))
-  .add(...makeStory('required', dlsThemeSelector, requiredDateComponent))
-  .add(...makeStory('aria-required', dlsThemeSelector, ariaRequiredDateComponent));
+  .add(...makeStory('required', dlsThemeSelector, RequiredDateComponent));

@@ -34,7 +34,7 @@ export interface FieldsetProps {
     root?: object;
     legend?: object;
   };
-  /** Flag to configure component as mandatory */
+  /** If true, an asterisk will be added to the label */
   isRequired: boolean;
 }
 
