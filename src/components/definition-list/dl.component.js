@@ -11,20 +11,39 @@ const Dl = ({
   dtTextAlign = 'right',
   ddTextAlign = 'left'
 }) => {
-  const dtLabels = React.Children.toArray(children).filter(child => child.type === Dt);
-  const ddContent = React.Children.toArray(children).filter(child => child.type === Dd);
+  const dlComponent = [];
+  const listChildren = React.Children.toArray(children);
+  let dtLabel;
+  let ddContent = [];
+
+  listChildren.forEach((child, index) => {
+    if (child.type === Dt) {
+      dtLabel = child;
+    }
+    if (child.type === Dd) {
+      ddContent.push(child);
+    }
+
+    if (dtLabel && (index === (listChildren.length - 1) || listChildren[index + 1].type === Dt)) {
+      dlComponent.push(
+        <React.Fragment key={ `dl_row_${String(index)}` }>
+          <StyledDtDiv dtTextAlign={ dtTextAlign }>
+            {dtLabel}
+          </StyledDtDiv>
+
+          <StyledDdDiv ddTextAlign={ ddTextAlign }>
+            {ddContent}
+          </StyledDdDiv>
+        </React.Fragment>
+      );
+      dtLabel = undefined;
+      ddContent = [];
+    }
+  });
 
   return (
-    <StyledDl data-component='dl'>
-
-      <StyledDtDiv w={ w } dtTextAlign={ dtTextAlign }>
-        {dtLabels}
-      </StyledDtDiv>
-
-      <StyledDdDiv w={ w } ddTextAlign={ ddTextAlign }>
-        {ddContent}
-      </StyledDdDiv>
-
+    <StyledDl w={ w } data-component='dl'>
+      {dlComponent}
     </StyledDl>
   );
 };

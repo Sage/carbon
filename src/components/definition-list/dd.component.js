@@ -5,11 +5,13 @@ import { StyledDd } from './definition-list.style';
 
 const Dd = ({
   mb = 2,
-  children
+  children,
+  align = 'right'
 }) => {
   return (
     <StyledDd
       mb={ mb }
+      align={ align }
     >
       {children}
     </StyledDd>

@@ -36,11 +36,13 @@ describe('DefinitionList', () => {
     it('matches the expected default styles of Dl', () => {
       wrapper = renderWrapper('Dl', { });
       assertStyleMatch({
-        display: 'inline-flex',
+        display: 'grid',
         height: 'auto',
         width: '100%',
         backgroundColor: 'transparent',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        gridTemplateRows: 'auto',
+        gridTemplateColumns: '50% auto'
       }, wrapper);
     });
 
@@ -63,6 +65,13 @@ describe('DefinitionList', () => {
         color: 'rgba(0,0,0,0.65)',
         marginBottom: '16px',
         marginLeft: '0px'
+      }, wrapper);
+    });
+
+    it('matches the custom styles applied to Dl', () => {
+      wrapper = renderWrapper('Dl', { w: '45' });
+      assertStyleMatch({
+        gridTemplateColumns: '45% auto'
       }, wrapper);
     });
 
@@ -100,7 +109,7 @@ describe('DefinitionList', () => {
       wrapper = renderWrapper('Dl', { });
     });
     it('should contain dt', () => {
-      expect(wrapper.find(StyledDtDiv).props().children.length).toEqual(1);
+      expect(wrapper.find(StyledDtDiv).props().children.type).toEqual(Dt);
     });
 
     it('should contain dd', () => {
