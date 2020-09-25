@@ -5,7 +5,7 @@ import { dlsThemeSelector, classicThemeSelector } from '../../../../.storybook/t
 import StepSequenceItem from './step-sequence-item.component';
 import OptionsHelper from '../../../utils/helpers/options-helper/options-helper';
 
-function makeStory(name, themeSelector) {
+function makeStory(name, themeSelector, disableChromatic = false) {
   const component = () => {
     const indicator = text('indicator', '1');
     const status = select('status', OptionsHelper.steps, StepSequenceItem.defaultProps.status);
@@ -29,7 +29,10 @@ function makeStory(name, themeSelector) {
 
   const metadata = {
     themeSelector,
-    knobs: { escapeHTML: false }
+    knobs: { escapeHTML: false },
+    chromatic: {
+      disable: disableChromatic
+    }
   };
 
   return [name, component, metadata];
@@ -37,4 +40,4 @@ function makeStory(name, themeSelector) {
 
 storiesOf('Step Sequence Item', module)
   .add(...makeStory('default', dlsThemeSelector))
-  .add(...makeStory('classic', classicThemeSelector));
+  .add(...makeStory('classic', classicThemeSelector, true));
