@@ -69,7 +69,7 @@ describe('DefinitionList', () => {
     });
 
     it('matches the custom styles applied to Dl', () => {
-      wrapper = renderWrapper('Dl', { w: '45' });
+      wrapper = renderWrapper('Dl', { w: 45 });
       assertStyleMatch({
         gridTemplateColumns: '45% auto'
       }, wrapper);

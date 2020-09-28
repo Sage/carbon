@@ -20,13 +20,16 @@ const Dl = ({
     if (child.type === Dt) {
       dtLabel = child;
     }
+
     if (child.type === Dd) {
       ddContent.push(child);
     }
+    const isLastChild = index === (listChildren.length - 1);
+    const nextItemIsDt = !isLastChild && listChildren[index + 1].type === Dt;
 
-    if (dtLabel && (index === (listChildren.length - 1) || listChildren[index + 1].type === Dt)) {
+    if (dtLabel && (nextItemIsDt || isLastChild)) {
       dlComponent.push(
-        <React.Fragment key={ `dl_row_${String(index)}` }>
+        <React.Fragment key={ child.props.key || index }>
           <StyledDtDiv dtTextAlign={ dtTextAlign }>
             {dtLabel}
           </StyledDtDiv>
