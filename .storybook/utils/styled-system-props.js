@@ -143,7 +143,7 @@ const generateStyledSystemProps = (
 const StyledSystemProps = ({
   of,
   spacing,
-  spacingDefaults,
+  spacingDefaults = {},
   noHeader
 }) => {
   const rows = spacing ? generateStyledSystemProps(spacingDefaults) : null;

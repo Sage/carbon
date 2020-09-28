@@ -14,9 +14,9 @@ Feature: Accessibility tests - Common list
       | sidebar   |
 
   @accessibility
-  Scenario: Component button as a sibling
-    When I open "Design System Button Test" component page "as a sibling" in no iframe
-    Then "button" component has no accessibility violations
+  Scenario: Component button toggle
+    When I open "Button-Toggle-Group" component page "basic" in no iframe
+    Then "Button Toggle Group" component has no accessibility violations
 
   @ignore
   # ignored because of accessibility issues after
@@ -38,45 +38,36 @@ Feature: Accessibility tests - Common list
     When I open "<component>" component page in noIFrame
     Then "<component>" component has no accessibility violations
     Examples:
-      | component                        |
-      | app wrapper                      |
-      | button toggle                    |
-      | carousel                         |
-      | card                             |
-      | configurable-items               |
-      | content                          |
-      | detail                           |
-      | draggableContext                 |
-      | heading                          |
-      | help                             |
-      | i18ncomponent                    |
-      | icon                             |
-      | link                             |
-      | loader                           |
-      | menulist                         |
-      | menu                             |
-      | message                          |
-      | mount-in-app                     |
-      | multi-action-button              |
-      | navigation-bar                   |
-      | pill                             |
-      | pod                              |
-      | portrait                         |
-      | preview                          |
-      | profile                          |
-      | row                              |
-      | showeditpod                      |
-      | settingsrow                      |
-      | split-button                     |
-      | step-sequence-item               |
-      | step-sequence                    |
-      | table-ajax                       |
-      | table                            |
-      | tabs                             |
-      | tile                             |
-      | tooltip                          |
-
-  @accessibility
-  Scenario: Component Menu dark story
-    When I open dark theme "Menu" component page in noIFrame
-    Then "Menu dark theme" component has no accessibility violations
+      | component           |
+      | app wrapper         |
+      | button toggle       |
+      | carousel            |
+      | card                |
+      | configurable-items  |
+      | content             |
+      | detail              |
+      | draggableContext    |
+      | heading             |
+      | help                |
+      | i18ncomponent       |
+      | icon                |
+      | link                |
+      | loader              |
+      | menulist            |
+      | message             |
+      | mount-in-app        |
+      | multi-action-button |
+      | pill                |
+      | pod                 |
+      | portrait            |
+      | preview             |
+      | profile             |
+      | row                 |
+      | showeditpod         |
+      | settingsrow         |
+      | split-button        |
+      | step-sequence-item  |
+      | step-sequence       |
+      | table-ajax          |
+      | table               |
+      | tooltip             |
