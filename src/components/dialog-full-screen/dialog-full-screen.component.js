@@ -20,6 +20,7 @@ class DialogFullScreen extends Modal {
      */
     this.document = Browser.getDocument();
     this.originalOverflow = undefined;
+    this.contentRef = React.createRef();
   }
 
   static state = {
@@ -61,6 +62,7 @@ class DialogFullScreen extends Modal {
           hasHeader={ this.props.title !== undefined }
           headingHeight={ this.state.headingHeight }
           data-element='content'
+          ref={ this.contentRef }
         >
           <AppWrapper>
             { this.props.children }
