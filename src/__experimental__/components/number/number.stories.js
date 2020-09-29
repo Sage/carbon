@@ -97,6 +97,7 @@ function makeStory(name, themeSelector, component, disableChromatic = false) {
     chromatic: {
       disable: disableChromatic
     },
+    knobs: { escapeHTML: false },
     notes: { markdown: notes }
   };
 

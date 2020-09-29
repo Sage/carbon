@@ -33,7 +33,8 @@ function makeStory(name, themeSelector, disableChromatic = false) {
     notes: { markdown: notes },
     chromatic: {
       disable: disableChromatic
-    }
+    },
+    knobs: { escapeHTML: false }
   };
 
   return [name, component, metadata];

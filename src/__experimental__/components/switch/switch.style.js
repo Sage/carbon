@@ -11,7 +11,7 @@ import { FieldLineStyle } from '../form-field/form-field.style';
 
 const StyledSwitch = styled.div`
   ${({
-    fieldHelpInline, labelInline, labelWidth, reverse, size, theme
+    fieldHelpInline, labelInline, labelSpacing, reverse, size, theme
   }) => css`
     ${FieldLineStyle} {
       display: flex;
@@ -27,8 +27,6 @@ const StyledSwitch = styled.div`
       margin-left: 0;
     }
 
-    margin-bottom: 24px;
-
     ${HiddenCheckableInputStyle}:not([disabled]) {
       &:focus + ${StyledSwitchSlider},
       &:hover + ${StyledSwitchSlider} {
@@ -41,14 +39,13 @@ const StyledSwitch = styled.div`
     }
 
     ${StyledLabelContainer} {
+      ${!labelInline && css`padding: 0;`};
+      margin-bottom: 8px;
+
       ${StyledValidationIcon} {
         position: relative;
         display: inline-block;
       }
-
-      ${labelWidth && css`
-        margin-right: ${100 - labelWidth}%;
-      `}
     }
 
     ${fieldHelpInline && css`
@@ -82,9 +79,6 @@ const StyledSwitch = styled.div`
 
       ${StyledLabelContainer} {
         margin-bottom: 0;
-        padding-right: 0;
-        margin-right: 32px;
-        width: auto;
       }
 
       ${FieldHelpStyle} {
@@ -98,13 +92,10 @@ const StyledSwitch = styled.div`
           margin-top: 0;
         }
 
-        ${StyledLabelContainer} {
-          margin-left: 10px;
-        }
-
         ${!fieldHelpInline && `
           ${FieldHelpStyle} {
-            margin-left: 70px;
+            margin-left: 60px;
+            padding-left: ${labelSpacing * theme.spacing}px;
           }
         `}
       `}
@@ -135,8 +126,23 @@ const StyledSwitch = styled.div`
 
       ${labelInline && !fieldHelpInline && reverse && css`
         ${FieldHelpStyle} {
-          margin-left: 88px;
+          padding: 10px 0;
         }
+      `}
+
+      ${labelInline && css`
+        ${StyledLabelContainer} {
+          margin-top: 1px;
+          padding-top: 10px;
+          padding-bottom: 10px;
+        }
+
+        ${!fieldHelpInline && reverse && `
+          ${FieldHelpStyle} {
+            margin-left: 78px;
+            padding-left: ${labelSpacing * theme.spacing}px;
+          }
+        `}
       `}
     `}
   `}

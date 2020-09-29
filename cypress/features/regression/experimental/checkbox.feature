@@ -31,13 +31,13 @@ Feature: Experimental Checkbox component
 
   @positive
   Scenario: Enable fieldHelpInline
-    When I open Default "Experimental Checkbox Test" component in noIFrame with "checkbox" json from "experimental" using "fieldHelpInlineDisabled" object name
-    Then Checkbox is set to fieldHelpInline and has marginLeft set to "24px"
+    When I open default "Experimental Checkbox Test" component in noIFrame with "checkbox" json from "experimental" using "fieldHelpInline" object name
+    Then Checkbox field help is inline
 
   @positive
   Scenario: Enable and disable fieldHelpInline
-    When I open Default "Experimental Checkbox Test" component in noIFrame with "checkbox" json from "experimental" using "fieldHelpInline" object name
-    Then Checkbox is not set to fieldHelpInline and has marginTop set to "0px"
+    When I open default "Experimental Checkbox Test" component in noIFrame with "checkbox" json from "experimental" using "fieldHelpInlineDisabled" object name
+    Then Checkbox field help is not inline
 
   @positive
   Scenario: Enable reverse checkbox
@@ -58,15 +58,6 @@ Feature: Experimental Checkbox component
       | labelHelp                    | nameOfObject              |
       | mp150ú¿¡üßä                  | labelHelpOtherLanguage    |
       | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelHelpSpecialCharacter |
-
-  @positive
-  Scenario Outline: Change Checkbox label align to <direction>
-    When I open Default "Experimental Checkbox Test" component in noIFrame with "checkbox" json from "experimental" using "<nameOfObject>" object name
-    Then label Align on preview is "<direction>" in NoIFrame
-    Examples:
-      | direction | nameOfObject    |
-      | left      | labelAlignLeft  |
-      | right     | labelAlignRight |
 
   @positive
   Scenario Outline: Change Checkbox size to <size>

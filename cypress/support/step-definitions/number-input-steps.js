@@ -1,8 +1,10 @@
 import { enableOnChangeDeferredAction, enableKeyDownAction } from '../../locators/number-input';
-import { commonDataElementInputPreview, 
-  commonDataElementInputPreviewNoIframe, 
-  labelNoIFrame } 
-  from '../../locators';
+import {
+  commonDataElementInputPreview,
+  commonDataElementInputPreviewNoIframe,
+  labelNoIFrame,
+} from '../../locators';
+
 const TEXT_ALIGN_START = 'flex-start';
 
 When('I check Enable onChangeDeferred Action property', () => {

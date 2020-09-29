@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
 import OptionsHelper from '../../../utils/helpers/options-helper';
-import sizes from '../input/input-sizes.style';
 
 const LabelStyle = styled.label`
   color: ${({ theme }) => theme.text.color};
@@ -28,11 +27,12 @@ export const StyledLabelContainer = styled.div`
   margin-bottom: 8px;
 
   ${({
-    align, inline, inputSize, width
+    align, inline, pr, pl, width, theme
   }) => inline && css`
     box-sizing: border-box;
-    padding-right: ${sizes[inputSize].horizontalPadding};
     margin-bottom: 0;
+    ${pr && css`padding-right: ${pr * theme.spacing}px;`};
+    ${pl && css`padding-left: ${pl * theme.spacing}px;`};
     justify-content: ${align === 'right' ? 'flex-end' : 'flex-start'};
     width: ${width === 0 ? StyledLabelContainer.defaultProps.width : width}%;
   `}
@@ -64,7 +64,7 @@ export const StyledLabelContainer = styled.div`
 `;
 
 StyledLabelContainer.defaultProps = {
-  align: 'left',
+  align: 'right',
   inputSize: 'medium',
   theme: BaseTheme,
   width: 30
@@ -76,6 +76,8 @@ StyledLabelContainer.propTypes = {
   inputSize: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   width: PropTypes.number,
   readOnly: PropTypes.bool,
+  pr: PropTypes.number,
+  pl: PropTypes.number,
   styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 };
 

@@ -40,8 +40,7 @@ const Help = (props) => {
   }
 
   function handleFocusBlur(bool) {
-    return (ev) => {
-      ev.stopPropagation();
+    return () => {
       updateTooltipVisible(bool);
     };
   }
@@ -56,8 +55,7 @@ const Help = (props) => {
       target='_blank'
       rel='noopener noreferrer'
       ref={ helpElement }
-      onClick={ (e) => {
-        e.preventDefault();
+      onClick={ () => {
         helpElement.current.focus();
       } }
       onFocus={ handleFocusBlur(true) }

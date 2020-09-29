@@ -29,6 +29,22 @@ export interface RadioButtonGroupProps {
   inline?: boolean;
   /** When true, legend is placed in line with the radiobuttons */
   legendInline: boolean;
+  /** Percentage width of legend (only when legend is inline)  */
+  legendWidth?: number;
+  /** Text alignment of legend when inline */
+  legendAlign?: 'left' | 'right';
+  /** Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
+  legendSpacing?: 1 | 2;
+  /** Margin left, any valid CSS value */
+  ml?: string;
+  /** Margin bottom, given number will be multiplied by base spacing unit (8) */
+  mb?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+  /** Spacing between labels and radio buttons, given number will be multiplied by base spacing unit (8) */
+  labelSpacing?: 1 | 2;
+  /** Breakpoint for adaptive legend (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  adaptiveLegendBreakpoint?: number;
+  /** Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */
+  adaptiveSpacingBreakpoint?: number;
   /** Allows to override existing component styles */
   styleOverride?: {
     root?: object;

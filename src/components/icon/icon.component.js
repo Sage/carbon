@@ -51,6 +51,8 @@ class Icon extends React.Component {
           this._target = comp;
         } }
         data-element={ this.type }
+        mr={ this.props.mr }
+        ml={ this.props.ml }
       />,
       this.tooltipHTML
     ];
@@ -73,7 +75,11 @@ Icon.propTypes = {
   /** Icon color */
   iconColor: PropTypes.oneOf(OptionsHelper.iconColors),
   /** Sets the icon in the disabled state */
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  /** Margin right, given number will be multiplied by base spacing unit (8) */
+  mr: PropTypes.number,
+  /** Margin left, given number will be multiplied by base spacing unit (8) */
+  ml: PropTypes.number
 };
 
 Icon.defaultProps = {

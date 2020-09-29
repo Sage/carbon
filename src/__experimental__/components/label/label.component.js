@@ -7,9 +7,11 @@ import IconWrapperStyle from './icon-wrapper.style';
 import Logger from '../../../utils/logger/logger';
 import { InputContext, InputGroupContext } from '../../../__internal__/input-behaviour';
 
-const shouldDisplayValidationIcon = ({ error, warning, info }) => {
-  const validation = error || warning || info;
-  return typeof validation === 'string';
+const shouldDisplayValidationIcon = ({
+  error, warning, info, disabled
+}) => {
+  const validation = (error || warning || info);
+  return disabled ? false : typeof validation === 'string';
 };
 
 let deprecatedWarnTriggered = false;
@@ -17,7 +19,7 @@ let deprecatedWarnTriggered = false;
 const Label = ({
   disabled,
   inline,
-  align,
+  align = 'right',
   inputSize,
   width,
   childOfForm,
@@ -34,6 +36,8 @@ const Label = ({
   helpTabIndex,
   useValidationIcon = true,
   htmlFor,
+  pr,
+  pl,
   styleOverride = {}
 }) => {
   if (!deprecatedWarnTriggered) {
@@ -60,7 +64,9 @@ const Label = ({
       onBlur: () => setFocus(false)
     };
 
-    if (useValidationIcon && shouldDisplayValidationIcon({ error, warning, info })) {
+    if (useValidationIcon && shouldDisplayValidationIcon({
+      error, warning, info, disabled
+    })) {
       return (
         <IconWrapperStyle>
           <ValidationIcon
@@ -96,6 +102,8 @@ const Label = ({
       width={ width }
       optional={ optional }
       childOfForm={ childOfForm }
+      pr={ pr }
+      pl={ pl }
       styleOverride={ styleOverride }
     >
       <StyledLabel
@@ -152,6 +160,10 @@ Label.propTypes = {
   useValidationIcon: PropTypes.bool,
   /** A string that represents the ID of another form element */
   htmlFor: PropTypes.string,
+  /** Padding right, integer multiplied by base spacing constant (8) */
+  pr: PropTypes.oneOf([1, 2]),
+  /** Padding left, integer multiplied by base spacing constant (8) */
+  pl: PropTypes.oneOf([1, 2]),
   /** Allows to override existing component styles */
   styleOverride: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 };

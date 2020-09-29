@@ -96,11 +96,13 @@ input:focus ~ .c2 {
 <div
   className="c0"
   data-component="button-toggle"
+  onClick={[Function]}
 >
   <input
     className="c1"
     id="guid-12345"
     onBlur={[Function]}
+    onFocus={[Function]}
     type="radio"
   />
   <label
@@ -236,11 +238,13 @@ input:focus ~ .c2 {
   <div
     className="c0"
     data-component="button-toggle"
+    onClick={[Function]}
   >
     <input
       className="c1"
       id="guid-12345"
       onBlur={[Function]}
+      onFocus={[Function]}
       type="radio"
     />
     <label
@@ -258,11 +262,13 @@ input:focus ~ .c2 {
   <div
     className="c0"
     data-component="button-toggle"
+    onClick={[Function]}
   >
     <input
       className="c1"
       id="guid-12345"
       onBlur={[Function]}
+      onFocus={[Function]}
       type="radio"
     />
     <label
@@ -360,11 +366,13 @@ input:focus ~ .c2 {
 <div
   className="c0"
   data-component="button-toggle"
+  onClick={[Function]}
 >
   <input
     className="c1"
     id="guid-12345"
     onBlur={[Function]}
+    onFocus={[Function]}
     type="radio"
   />
   <label
@@ -455,11 +463,13 @@ input:focus ~ .c2 {
 <div
   className="c0"
   data-component="button-toggle"
+  onClick={[Function]}
 >
   <input
     className="c1"
     id="guid-12345"
     onBlur={[Function]}
+    onFocus={[Function]}
     type="radio"
   />
   <label

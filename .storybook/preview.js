@@ -10,6 +10,7 @@ import { addParameters } from '@storybook/react';
 import { configureActions } from '@storybook/addon-actions';
 import sageTheme from './sageTheme';
 import "../src/utils/css";
+import isChromatic from 'chromatic/isChromatic';
 
 // Temporary fix for issue mentioned in FE-2565 ticket
 // Should be solved by the storybook team in foreseeable future
@@ -51,9 +52,11 @@ addParameters({
 setupI18n();
 
 addDecorator(withKnobs);
-addDecorator(withInfo({
-  header: false,
-  inline: true,
-}));
+if (!isChromatic()) {
+  addDecorator(withInfo({
+    header: false,
+    inline: true,
+  }));
+}
 addDecorator(withA11y);
 addDecorator(withThemeSelector);

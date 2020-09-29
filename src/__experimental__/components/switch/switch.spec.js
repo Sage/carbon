@@ -14,10 +14,17 @@ import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input
 import { StyledLabelContainer } from '../label/label.style';
 import StyledSwitchSlider from './switch-slider.style';
 import guid from '../../../utils/helpers/guid';
-import { assertStyleMatch, carbonThemesJestTable } from '../../../__spec_helper__/test-utils';
+import {
+  assertStyleMatch,
+  carbonThemesJestTable,
+  mockMatchMedia
+} from '../../../__spec_helper__/test-utils';
 import StyledValidationIcon from '../../../components/validations/validation-icon.style';
 import { baseTheme } from '../../../style/themes';
 import SwitchSliderPanel from './switch-slider-panel.style';
+import SwitchStyle from './switch.style';
+import SwitchSlider from './switch-slider.component';
+
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -146,16 +153,6 @@ describe('Switch', () => {
         });
       });
 
-      describe('and labelInline=true', () => {
-        const wrapper = render({ reverse: false, labelInline: true }).toJSON();
-
-        it('applies the correct Label styles', () => {
-          assertStyleMatch({
-            marginLeft: '10px'
-          }, wrapper, { modifier: css`${StyledLabelContainer}` });
-        });
-      });
-
       describe('and fieldHelpInline=true', () => {
         const wrapper = render({ reverse: false, fieldHelpInline: true }).toJSON();
 
@@ -172,7 +169,7 @@ describe('Switch', () => {
 
         it('applies the correct FieldHelp styles', () => {
           assertStyleMatch({
-            marginLeft: '70px'
+            marginLeft: '60px'
           }, wrapper, { modifier: css`${FieldHelpStyle}` });
         });
       });
@@ -189,20 +186,56 @@ describe('Switch', () => {
     });
 
     describe('when labelInline=true', () => {
-      const wrapper = render({ labelInline: true }).toJSON();
-
       it('applies the correct Label styles', () => {
+        const wrapper = render({ labelInline: true }).toJSON();
         assertStyleMatch({
-          marginBottom: '0',
-          marginRight: '32px',
-          width: 'auto'
+          marginBottom: '0'
         }, wrapper, { modifier: css`${StyledLabelContainer}` });
       });
 
       it('applies the correct FieldHelp styles', () => {
+        const wrapper = render({ labelInline: true }).toJSON();
         assertStyleMatch({
           marginTop: '0'
         }, wrapper, { modifier: css`${FieldHelpStyle}` });
+      });
+
+      describe('when adaptiveLabelBreakpoint prop is set', () => {
+        describe('when screen bigger than breakpoint', () => {
+          beforeEach(() => {
+            mockMatchMedia(true);
+          });
+
+          it('should pass labelInline to its children', () => {
+            const wrapper = render({
+              label: 'Label',
+              labelInline: true,
+              adaptiveLabelBreakpoint: 1000
+            }, mount);
+
+            expect(wrapper.find(SwitchStyle).props().labelInline).toEqual(true);
+            expect(wrapper.find(CheckableInput).props().labelInline).toEqual(true);
+            expect(wrapper.find(SwitchSlider).props().labelInline).toEqual(true);
+          });
+        });
+
+        describe('when screen smaller than breakpoint', () => {
+          beforeEach(() => {
+            mockMatchMedia(false);
+          });
+
+          it('should pass labelInline as false to its children', () => {
+            const wrapper = render({
+              label: 'Label',
+              labelInline: true,
+              adaptiveLabelBreakpoint: 1000
+            }, mount);
+
+            expect(wrapper.find(SwitchStyle).props().labelInline).toEqual(false);
+            expect(wrapper.find(CheckableInput).props().labelInline).toEqual(false);
+            expect(wrapper.find(SwitchSlider).props().labelInline).toEqual(false);
+          });
+        });
       });
     });
 
@@ -225,16 +258,6 @@ describe('Switch', () => {
         assertStyleMatch({
           marginLeft: '0'
         }, wrapper, { modifier: css`${FieldHelpStyle}` });
-      });
-    });
-
-    describe('when setting a custom labelWidth', () => {
-      it('renders the correct Label styles', () => {
-        const wrapper = render({ labelWidth: 60 }).toJSON();
-
-        assertStyleMatch({
-          marginRight: '40%'
-        }, wrapper, { modifier: css`${StyledLabelContainer}` });
       });
     });
 
@@ -261,12 +284,22 @@ describe('Switch', () => {
       });
 
       describe('and labelInline=true', () => {
+        it('applies the correct Label styles', () => {
+          const wrapper = render({ size: 'large', labelInline: true }).toJSON();
+
+          assertStyleMatch({
+            marginTop: '1px',
+            paddingTop: '10px',
+            paddingBottom: '10px'
+          }, wrapper, { modifier: css`${StyledLabelContainer}` });
+        });
+
         describe('and reverse=false', () => {
           const wrapper = render({ size: 'large', labelInline: true, reverse: false }).toJSON();
 
           it('applies the correct FieldHelp styles', () => {
             assertStyleMatch({
-              marginLeft: '88px'
+              marginLeft: '78px'
             }, wrapper, { modifier: css`${FieldHelpStyle}` });
           });
         });

@@ -10,10 +10,6 @@ Then('Button label on preview is {word}', (label) => {
   buttonDataComponent().should('have.text', label);
 });
 
-Then('Button label on preview is {word} in IFrame', (label) => {
-  buttonDataComponentIFrame().should('have.text', label);
-});
-
 Then('Button as a sibling label on preview is {word}', (label) => {
   buttonDataComponent().eq(positionOfElement('first')).should('have.text', label);
   buttonDataComponent().eq(positionOfElement('second')).should('have.text', label);
@@ -45,15 +41,7 @@ Then('Button as a sibling height is {int}', (height) => {
   buttonDataComponent().eq(positionOfElement('second')).should('have.css', 'height', `${height}px`);
 });
 
-Then('Button width is {string}', (width) => {
-  buttonDataComponentIFrame().should('have.css', 'width', width);
-});
-
 Then('Button subtext on preview is {word}', (subtext) => {
-  buttonSubtextPreview().should('have.text', subtext);
-});
-
-Then('Button subtext on preview is {word} in IFrame', (subtext) => {
   buttonSubtextPreview().should('have.text', subtext);
 });
 
@@ -66,17 +54,8 @@ Then('Button font color is {string}', (color) => {
   buttonDataComponent().should('have.css', 'color', color);
 });
 
-Then('Button as a sibling font color is {string}', (color) => {
-  buttonDataComponentIFrame().eq(positionOfElement('first')).should('have.css', 'color', color);
-  buttonDataComponentIFrame().eq(positionOfElement('second')).should('have.css', 'color', color);
-});
-
 Then('Button background color is {string}', (color) => {
   buttonDataComponent().should('have.css', 'background-color', color);
-});
-
-Then('Button background style is {string}', (style) => {
-  buttonDataComponentIFrame().should('have.css', 'border-style', style);
 });
 
 Then('Button as a sibling background color is {string}', (color) => {

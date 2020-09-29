@@ -11,6 +11,7 @@ exports[`Textarea when rendered should render default 1`] = `
   flex-grow: 1;
   font-size: 14px;
   outline: none;
+  padding: 0;
   width: 30px;
 }
 
@@ -65,13 +66,8 @@ exports[`Textarea when rendered should render default 1`] = `
   padding-right: 11px;
 }
 
-.c4 .c5 {
-  height: calc(40px - 4px);
-}
-
 .c4 .c5:-webkit-autofill {
   margin-top: 2px;
-  height: calc(40px - 8px);
 }
 
 .c4 input::-ms-clear {
@@ -82,31 +78,16 @@ exports[`Textarea when rendered should render default 1`] = `
   display: none!important;
 }
 
-.c7 .c5 {
-  height: calc(40px - 4px);
-}
-
 .c7 .c5:-webkit-autofill {
   margin-top: 2px;
-  height: calc(40px - 8px);
-}
-
-.c8 .c5 {
-  height: calc(40px - 4px);
 }
 
 .c8 .c5:-webkit-autofill {
   margin-top: 2px;
-  height: calc(40px - 8px);
-}
-
-.c9 .c5 {
-  height: calc(40px - 4px);
 }
 
 .c9 .c5:-webkit-autofill {
   margin-top: 2px;
-  height: calc(40px - 8px);
 }
 
 .c2 + .c1 {

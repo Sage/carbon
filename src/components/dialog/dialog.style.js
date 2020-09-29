@@ -93,6 +93,7 @@ const DialogTitleStyle = styled.div`
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    padding: ${({ hasSubtitle }) => !hasSubtitle && '4px 0px'};
   }
 `;
 

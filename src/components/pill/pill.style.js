@@ -7,12 +7,9 @@ import { isClassic } from '../../utils/helpers/style-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import StyledIcon from '../icon/icon.style';
 
-function addStyleToPillIcon(padding, fontSize, margin) {
+function addStyleToPillIcon(fontSize) {
   return `
     ${StyledIcon} {
-      padding: ${padding};
-      margin-top: ${margin};
-
       &:before {
         font-size: ${fontSize};
       }
@@ -22,7 +19,7 @@ function addStyleToPillIcon(padding, fontSize, margin) {
 
 const PillStyle = styled.span`
  ${({
-    colorVariant, theme, inFill, isDeletable, pillRole, size
+    colorVariant, theme, inFill, isDeletable, pillRole, size, ml, mr
   }) => {
     const { colors, text } = baseTheme;
 
@@ -39,8 +36,10 @@ const PillStyle = styled.span`
       letter-spacing: 0.7px;
       font-weight: 600;
       position: relative;
-      display: inline-block;
+      display: inline-flex;
       text-align: center;
+      align-items: center;
+      justify-content: center;
 
       ${hasCarbonColorVariant(carbonColor) && css`
         border: 2px solid ${varietyColor};
@@ -143,7 +142,7 @@ const PillStyle = styled.span`
               border-radius: 0 8px 8px 0;
               line-height: 14px;
 
-              ${addStyleToPillIcon('0', '7px')}
+              ${addStyleToPillIcon('7px')}
             }
           `}
 
@@ -157,7 +156,7 @@ const PillStyle = styled.span`
               border-radius: 0 10px 10px 0;
               line-height: 15px;
 
-              ${addStyleToPillIcon('2px 7px 3px 7px', '10px')}
+              ${addStyleToPillIcon('10px')}
             }
           `}
 
@@ -171,7 +170,7 @@ const PillStyle = styled.span`
               border-radius: 0 11px 11px 0;
               line-height: 16px;
 
-              ${addStyleToPillIcon('3px 8px 4px 8px', '12px', '1px')}
+              ${addStyleToPillIcon('12px')}
             }
           `}
 
@@ -185,7 +184,7 @@ const PillStyle = styled.span`
               border-radius: 0 12px 12px 0;
               line-height: 18px;
 
-              ${addStyleToPillIcon('3px 9px 5px 9px', '13px', '1px')}
+              ${addStyleToPillIcon('13px')}
             }
           `}
         `}
@@ -233,6 +232,9 @@ const PillStyle = styled.span`
           `}
         `}
       `}
+
+      ${ml && css`margin-left: ${ml * theme.spacing}px`};
+      ${mr && css`margin-right: ${mr * theme.spacing}px`};
 
       ${isClassic(theme) && classicThemeForPill(colorVariant, inFill, isDeletable, size)}
     `;

@@ -61,14 +61,11 @@ function defaultKnobs(type, autoFocusDefault = false) {
       max: 100,
       step: 1
     }, type),
-    labelAlign: select(
-      'labelAlign',
-      OptionsHelper.alignBinary,
-      OptionsHelper.alignBinary[0],
-      type
-    ),
+    labelSpacing: select('labelSpacing', [1, 2], 1),
     size: select('size', OptionsHelper.sizesBinary, 'small', type),
-    value: text('value', type, type)
+    value: text('value', type, type),
+    ml: text('ml', '0', type),
+    adaptiveSpacingBreakpoint: number('adaptiveSpacingBreakpoint')
   });
 }
 
