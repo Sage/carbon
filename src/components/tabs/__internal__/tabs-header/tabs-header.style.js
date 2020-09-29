@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import { space } from 'styled-system';
 import OptionsHelper from '../../../../utils/helpers/options-helper/options-helper';
 import baseTheme from '../../../../style/themes/base';
 
@@ -18,6 +19,7 @@ const StyledTabHeaders = styled.ul`
   list-style: none;
   margin: 0 0 10px;
   padding: 0;
+  ${space};
 
   ${({ align }) => align === 'right' && css`
     justify-content: flex-end;
@@ -37,6 +39,7 @@ const StyledTabHeaders = styled.ul`
     ${!hasCustomTarget && css`
       width: 20%;
       margin: 0 10px 0;
+      ${space}
     `}
 
     ${hasCustomTarget && css`

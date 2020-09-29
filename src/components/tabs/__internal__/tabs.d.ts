@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { SpacingProps } from 'utils/helpers/options-helper/options-helper';
 import Tab from './tab';
 
-export interface TabsProps {
+export interface TabsProps extends SpacingProps {
   className?: string;
   renderHiddenTabs: boolean;
   selectedTabId: string;

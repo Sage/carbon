@@ -104,6 +104,7 @@ const TabTitle = React.forwardRef(({
         isTabSelected={ isTabSelected }
         hasCustomLayout={ !!customLayout }
         alternateStyling={ alternateStyling || hasCustomTarget }
+        { ...tabTitleProps }
       >
         { renderContent() }
 

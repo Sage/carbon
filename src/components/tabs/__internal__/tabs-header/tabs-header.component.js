@@ -10,7 +10,8 @@ const TabsHeader = ({
   extendedLine,
   alternateStyling,
   noRightBorder = false,
-  hasCustomTarget = false
+  hasCustomTarget = false,
+  ...rest
 }) => {
   return (
     <StyledTabsHeader
@@ -21,6 +22,7 @@ const TabsHeader = ({
       alternateStyling={ alternateStyling }
       noRightBorder={ noRightBorder }
       hasCustomTarget={ hasCustomTarget }
+      { ...rest }
     >
       {children}
     </StyledTabsHeader>

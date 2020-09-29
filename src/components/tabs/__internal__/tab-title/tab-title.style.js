@@ -1,12 +1,13 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import { space } from 'styled-system';
 import BaseTheme from '../../../../style/themes/base';
 import StyledIcon from '../../../icon/icon.style';
 import StyledValidationIcon from '../../../validations/validation-icon.style';
 
 const StyledTitleContent = styled.div`
   outline: none;
-
+  
   ${({
     theme,
     size,
@@ -54,6 +55,8 @@ const StyledTitleContent = styled.div`
       padding: 10px 16px;
       ${isTabSelected && !(error || warning || info) && position === 'top' && css`padding-bottom: 8px;`}
     `}
+    
+    ${space};
   `}
 
   ${({

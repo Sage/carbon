@@ -6,6 +6,7 @@ import Icon from '../../icon';
 import Pill from '../../pill';
 import { Row, Column } from '../../row';
 import { ActionPopover, ActionPopoverItem } from '../../action-popover';
+import StyledSystemProps from '../../../../.storybook/utils/styled-system-props';
 
 <Meta title="Design System/Tabs" parameters={{ info: { disable: true } }} />
 
@@ -1460,8 +1461,16 @@ By setting the `variant` prop to "alternate" it is possible to apply some additi
   </Story>
 </Preview>
 
-### Tabs Props
-<Props of={Tabs} />
+### Tab
 
-### Tab Props
-<Props of={Tab} />
+<StyledSystemProps
+  of={Tab}
+  spacing
+/>
+
+### Tabs
+
+<StyledSystemProps
+  of={Tabs}
+  spacing
+/>

@@ -4,6 +4,7 @@ import React, {
   useState
 } from 'react';
 import PropTypes from 'prop-types';
+import propTypes from '@styled-system/prop-types';
 import StyledTab from './tab.style';
 import tagComponent from '../../../../utils/helpers/tags/tags';
 
@@ -88,6 +89,7 @@ const Tab = ({
 };
 
 Tab.propTypes = {
+  ...propTypes.space,
   title: PropTypes.string,
   /** A unique ID to identify this specific tab. */
   tabId: PropTypes.string.isRequired,

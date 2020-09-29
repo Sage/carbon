@@ -201,6 +201,7 @@ const Tabs = ({
         infoMessage,
         customLayout
       } = child.props;
+
       const refId = `${tabId}-tab`;
 
       const errors = tabsErrors[tabId] ? Object.entries(tabsErrors[tabId]).filter(tab => tab[1] === true).length : 0;
@@ -247,6 +248,7 @@ const Tabs = ({
           noRightBorder={ ['no right side', 'no sides'].includes(borders) }
           customLayout={ customLayout }
           hasCustomTarget={ hasCustomTarget.current }
+          { ...child.props }
         />
       );
 
@@ -262,6 +264,7 @@ const Tabs = ({
         alternateStyling={ variant === 'alternate' || hasCustomTarget.current }
         noRightBorder={ ['no right side', 'no sides'].includes(borders) }
         hasCustomTarget={ hasCustomTarget.current }
+        { ...rest }
       >
         { tabTitles }
       </TabsHeader>
