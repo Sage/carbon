@@ -1,3 +1,10 @@
+## [41.2.0](https://github.com/Sage/carbon/compare/v41.1.1...v41.2.0) (2020-09-29)
+
+
+### Features
+
+* **vertical-divider:** add new component ([3b2eb23](https://github.com/Sage/carbon/commit/3b2eb2384ef8e924f5cda90e36b5abafe05ebbcb))
+
 ### [41.1.1](https://github.com/Sage/carbon/compare/v41.1.0...v41.1.1) (2020-09-21)
 
 
