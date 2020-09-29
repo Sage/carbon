@@ -29,6 +29,7 @@ Basic.story = {
   parameters: {
     chromatic: {
       disable: false
-    }
+    },
+    knobs: { escapeHTML: false }
   }
 };

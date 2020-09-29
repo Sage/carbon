@@ -5,8 +5,11 @@ import 'jest-styled-components';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import classicTheme from '../../style/themes/classic';
 import Confirm from './confirm.component';
-import StyledConfirmButtons from './confirm.style';
-
+import { StyledConfirmButtons, StyledConfirmHeading } from './confirm.style';
+import Button from '../button/button.component';
+import baseTheme from '../../style/themes/base';
+import StyledIcon from '../icon/icon.style';
+import Icon from '../icon';
 
 describe('Confirm', () => {
   let wrapper, onCancel, onConfirm;
@@ -35,6 +38,7 @@ describe('Confirm', () => {
       expect(wrapper.instance().props.subtitle).toEqual('Confirm Subtitle');
       expect(wrapper.instance().props['data-element']).toEqual('bar');
       expect(wrapper.instance().props['data-role']).toEqual('baz');
+      expect(wrapper.instance().props.destructive).toBeFalsy();
     });
   });
 
@@ -62,6 +66,22 @@ describe('Confirm', () => {
         expect(button.type()).toEqual('button');
         button.simulate('click');
         expect(onConfirm).toHaveBeenCalled();
+      });
+    });
+
+    describe('yes button destructive', () => {
+      it('check confirmButton is destructive', () => {
+        wrapper = mount(<Confirm
+          open
+          onCancel={ onCancel }
+          onConfirm={ onConfirm }
+          confirmLabel='Delete'
+          cancelLabel='Cancel'
+          destructive
+        />);
+        expect(wrapper.instance().props.destructive).toBeTruthy();
+        const button = wrapper.find(Button).find('[data-element="confirm"]').at(0);
+        expect(button.props().destructive).toBeTruthy();
       });
     });
 
@@ -112,6 +132,54 @@ describe('Confirm', () => {
       assertStyleMatch({
         marginTop: '20px'
       }, wrapper.toJSON());
+    });
+
+    it('confirm icon error should match snapshot', () => {
+      wrapper = mount(
+        <Confirm
+          open
+          onCancel={ onCancel }
+          onConfirm={ onConfirm }
+          confirmLabel='Delete'
+          cancelLabel='Cancel'
+          title='Confirm title'
+          iconType='error'
+          showCloseIcon={ false }
+        />
+      );
+      const iconError = wrapper.find(StyledConfirmHeading).at(0);
+      expect(iconError.find(Icon).props().type).toBe('error');
+
+      assertStyleMatch({
+        marginRight: '16px',
+        marginBottom: '20px',
+        color: baseTheme.colors.error
+      }, mount(<StyledConfirmHeading type='error' />),
+      { modifier: `${StyledIcon}` });
+    });
+
+    it('confirm icon warning should match snapshot', () => {
+      wrapper = mount(
+        <Confirm
+          open
+          onCancel={ onCancel }
+          onConfirm={ onConfirm }
+          confirmLabel='Delete'
+          cancelLabel='Cancel'
+          title='Confirm title'
+          iconType='warning'
+          showCloseIcon={ false }
+        />
+      );
+      const iconError = wrapper.find(StyledConfirmHeading).at(0);
+      expect(iconError.find(Icon).props().type).toBe('warning');
+
+      assertStyleMatch({
+        marginRight: '16px',
+        marginBottom: '20px',
+        color: baseTheme.colors.warning
+      }, mount(<StyledConfirmHeading type='warning' />),
+      { modifier: `${StyledIcon}` });
     });
   });
 });

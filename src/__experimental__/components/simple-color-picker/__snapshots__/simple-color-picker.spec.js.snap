@@ -25,7 +25,6 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   padding: 0;
   font-weight: 600;
   line-height: 24px;
-  margin-right: 4px;
 }
 
 .c10 {
@@ -164,6 +163,7 @@ exports[`SimpleColorPicker renders as expected 1`] = `
   flex-grow: 1;
   font-size: 14px;
   outline: none;
+  padding: 0;
   width: 30px;
 }
 

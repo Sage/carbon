@@ -7,6 +7,7 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import tagComponent from '../../../utils/helpers/tags';
 import Logger from '../../../utils/logger/logger';
 import { TabContext } from '../../../components/tabs/__internal__/tab';
+import useIsAboveBreakpoint from '../../../hooks/__internal__/useIsAboveBreakpoint';
 
 let deprecatedWarnTriggered = false;
 
@@ -27,16 +28,19 @@ const FormField = ({
   labelHelp,
   labelHelpIcon,
   labelInline,
+  labelSpacing = 2,
   labelWidth,
   name,
   id,
   reverse,
-  size,
+  size = 'medium',
   childOfForm,
   isOptional,
   readOnly,
   useValidationIcon,
-  styleOverride,
+  mb,
+  adaptiveLabelBreakpoint,
+  styleOverride = {},
   ...props
 }) => {
   if (!deprecatedWarnTriggered) {
@@ -46,6 +50,11 @@ const FormField = ({
   }
 
   const context = useContext(TabContext);
+  const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
+  let inlineLabel = labelInline;
+  if (adaptiveLabelBreakpoint) {
+    inlineLabel = largeScreen;
+  }
 
   useEffect(() => {
     if (context && context.setError && context.setWarning && context.setInfo) {
@@ -56,8 +65,12 @@ const FormField = ({
   }, [id, context, error, warning, info]);
 
   return (
-    <FormFieldStyle { ...tagComponent(props['data-component'], props) } styleOverride={ styleOverride.root }>
-      <FieldLineStyle inline={ labelInline }>
+    <FormFieldStyle
+      { ...tagComponent(props['data-component'], props) }
+      styleOverride={ styleOverride.root }
+      mb={ mb }
+    >
+      <FieldLineStyle inline={ inlineLabel }>
         {reverse && children}
 
         {label && (
@@ -75,12 +88,14 @@ const FormField = ({
             helpTabIndex={ helpTabIndex }
             htmlFor={ id }
             helpIcon={ labelHelpIcon }
-            inline={ labelInline }
+            inline={ inlineLabel }
             inputSize={ size }
             width={ labelWidth }
             childOfForm={ childOfForm }
             optional={ isOptional }
             useValidationIcon={ useValidationIcon }
+            pr={ !reverse ? labelSpacing : undefined }
+            pl={ reverse ? labelSpacing : undefined }
             styleOverride={ styleOverride.label }
           >
             {label}
@@ -88,7 +103,7 @@ const FormField = ({
         )}
 
         {fieldHelp && fieldHelpInline && (
-          <FieldHelp labelInline={ labelInline } labelWidth={ labelWidth }>
+          <FieldHelp labelInline={ inlineLabel } labelWidth={ labelWidth }>
             {fieldHelp}
           </FieldHelp>
         )}
@@ -97,7 +112,7 @@ const FormField = ({
       </FieldLineStyle>
 
       {fieldHelp && !fieldHelpInline && (
-        <FieldHelp labelInline={ labelInline } labelWidth={ labelWidth }>
+        <FieldHelp labelInline={ inlineLabel } labelWidth={ labelWidth }>
           {fieldHelp}
         </FieldHelp>
       )}
@@ -105,9 +120,15 @@ const FormField = ({
   );
 };
 
-FormField.defaultProps = {
-  size: 'medium',
-  styleOverride: {}
+const errorPropType = (props, propName, componentName, ...rest) => {
+  if (props[propName] && props.disabled) {
+    return new Error(
+      `Prop \`${propName}\` cannot be used in conjunction with \`disabled\`. `
+      + 'Use `readOnly` if you require users to see validations with a non-interactive field'
+    );
+  }
+
+  return PropTypes.oneOfType([PropTypes.bool, PropTypes.string])(props, propName, componentName, ...rest);
 };
 
 FormField.propTypes = {
@@ -117,9 +138,9 @@ FormField.propTypes = {
   'data-component': PropTypes.string,
   fieldHelp: PropTypes.node,
   fieldHelpInline: PropTypes.bool,
-  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  info: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  error: errorPropType,
+  warning: errorPropType,
+  info: errorPropType,
   helpId: PropTypes.string,
   helpTag: PropTypes.string,
   helpTabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -132,11 +153,17 @@ FormField.propTypes = {
   labelHelp: PropTypes.node,
   labelHelpIcon: PropTypes.string,
   labelInline: PropTypes.bool,
+  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
+  labelSpacing: PropTypes.oneOf([1, 2]),
   labelWidth: PropTypes.number,
   readOnly: PropTypes.bool,
   reverse: PropTypes.bool,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   useValidationIcon: PropTypes.bool,
+  /** Override form spacing (margin bottom) */
+  mb: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 7]),
+  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  adaptiveLabelBreakpoint: PropTypes.number,
   /** Allows to override existing component styles */
   styleOverride: PropTypes.shape({
     root: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),

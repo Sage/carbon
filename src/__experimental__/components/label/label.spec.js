@@ -82,8 +82,7 @@ describe('Label', () => {
       assertStyleMatch({
         boxSizing: 'border-box',
         marginBottom: '0',
-        paddingRight: '11px',
-        justifyContent: 'flex-start',
+        justifyContent: 'flex-end',
         width: '30%'
       }, wrapper.find(StyledLabelContainer));
     });
@@ -109,6 +108,21 @@ describe('Label', () => {
         marginLeft: '4px'
       }, wrapper.find(StyledLabelContainer),
       { modifier: '::after' });
+    });
+
+    it('applies styling when pr prop set', () => {
+      assertStyleMatch({
+        paddingRight: '16px'
+      }, render({ inline: true, pr: 2 }, TestRenderer.create).toJSON());
+    });
+  });
+
+  describe('when left aligned', () => {
+    it('aligns the label correctly', () => {
+      const wrapper = render({ inline: true, align: 'left' });
+      assertStyleMatch({
+        justifyContent: 'flex-start'
+      }, wrapper.find(StyledLabelContainer));
     });
   });
 

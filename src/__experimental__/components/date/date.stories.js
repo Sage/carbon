@@ -74,6 +74,7 @@ function makeStory(name, themeSelector, component, disableChromatic = false) {
     chromatic: {
       disable: disableChromatic
     },
+    knobs: { escapeHTML: false },
     notes: { markdown: notes }
   };
 
@@ -103,6 +104,19 @@ const ValidationDateComponent = () => {
           allowEmptyValue={ boolean('allowEmptyValue', false) }
         />
       ))}
+      <h6>readOnly</h6>
+      <DateInput
+        name='dateinput'
+        placeholder={ text('placeholder') }
+        label='Label'
+        error='Message'
+        readOnly
+        value={ date }
+        onChange={ setDateValue }
+        onBlur={ ev => action('onBlur')(ev) }
+        allowEmptyValue={ boolean('allowEmptyValue', false) }
+      />
+
       <h6>On label</h6>
       {validationTypes.map(validation => (
         <DateInput
@@ -118,6 +132,19 @@ const ValidationDateComponent = () => {
           allowEmptyValue={ boolean('allowEmptyValue', false) }
         />
       ))}
+      <h6>readOnly</h6>
+      <DateInput
+        name='dateinput'
+        placeholder={ text('placeholder') }
+        label='Label'
+        error='Message'
+        readOnly
+        validationOnLabel
+        value={ date }
+        onChange={ setDateValue }
+        onBlur={ ev => action('onBlur')(ev) }
+        allowEmptyValue={ boolean('allowEmptyValue', false) }
+      />
 
       <h4>Validation as boolean</h4>
       {validationTypes.map(validation => (

@@ -11,6 +11,7 @@ import {
   StyledFooterContent
 } from './note.style.js';
 import StatusWithTooltip from './status-with-tooltip';
+import { ActionPopover } from '../../action-popover';
 
 const Note = ({
   noteContent,
@@ -30,7 +31,7 @@ const Note = ({
   invariant(noteContent, '<Note> noteContent is required');
   invariant(!status || status.text, '<Note> status.text is required');
   invariant(!status || status.timeStamp, '<Note> status.timeStamp is required');
-  invariant(!inlineControl || inlineControl.type.name === 'ActionPopover',
+  invariant(!inlineControl || inlineControl.type === ActionPopover,
     '<Note> inlineControl must be an instance of <ActionPopover>');
 
   const renderStatus = () => {

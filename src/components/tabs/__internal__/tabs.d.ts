@@ -14,6 +14,13 @@ export interface TabsProps {
   extendedLine: boolean;
   borders: 'off' | 'on' | 'no left side' | 'no right side' | 'no sides';
   variant: 'default' | 'alternate';
+  validationStatusOverride?: {
+    id?: {
+      error?: boolean;
+      warning?: boolean;
+      info?: boolean;
+    };
+  };
 }
 
 declare const Tabs: React.ComponentType<TabsProps>;

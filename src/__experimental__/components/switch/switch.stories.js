@@ -63,6 +63,7 @@ export const Default = () => {
       OptionsHelper.alignBinary,
       OptionsHelper.alignBinary[0]
     ),
+    labelSpacing: select('labelSpacing', [1, 2], 1),
     reverse: boolean('reverse', BaseSwitch.defaultProps.reverse),
     value: text('value', 'test-value'),
     disabled: boolean('disabled', false),

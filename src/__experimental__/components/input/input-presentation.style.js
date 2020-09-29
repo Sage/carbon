@@ -22,12 +22,8 @@ const InputPresentationStyle = styled.div`
   padding-right: ${({ size }) => sizes[size].horizontalPadding};
 
   ${StyledInput} {
-    /* this is required for an IE11 fix: */
-    height: calc(${({ size }) => sizes[size].height} - 4px);
-
     &:-webkit-autofill {
       margin-top: 2px;
-      height: calc(${({ size }) => sizes[size].height} - 8px);
     }
   }
 
@@ -53,7 +49,6 @@ const InputPresentationStyle = styled.div`
   ${({ readOnly, theme }) => readOnly && css`
     background-color: ${theme.readOnly.textboxBackground};
     border-color: ${theme.readOnly.textboxBorder};
-    box-shadow: none;
   `}
 
   ${({ align }) => align === 'right' && 'flex-direction: row-reverse'}
@@ -74,9 +69,14 @@ function stylingForValidations({
   theme,
   error,
   warning,
-  info
+  info,
+  disabled
 }) {
   let validationColor;
+
+  if (disabled) {
+    return '';
+  }
 
   if (error) {
     validationColor = theme.colors.error;

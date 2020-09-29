@@ -44,22 +44,18 @@ Feature: Split Button component
     When I open default "Split Button" component in noIFrame with "splitButton" json from "commonComponents" using "<nameOfObject>" object name
     Then Button label on preview is <text>
     Examples:
-      | text                    | nameOfObject         |
-      | mp150ú¿¡üßä             | textOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | textSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | text                         | nameOfObject         |
+      | mp150ú¿¡üßä                  | textOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | textSpecialCharacter |
 
   @positive
   Scenario Outline: I set subtext to <subtext>
     When I open default "Split Button" component in noIFrame with "splitButton" json from "commonComponents" using "<nameOfObject>" object name
     Then Button subtext on preview is <subtext>
     Examples:
-      | subtext                 | nameOfObject            |
-      | mp150ú¿¡üßä             | subtextOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | subtextSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | subtext                      | nameOfObject            |
+      | mp150ú¿¡üßä                  | subtextOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | subtextSpecialCharacter |
 
   @positive
   Scenario Outline: I check icon positioning to <iconPosition>

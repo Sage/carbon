@@ -64,22 +64,18 @@ Feature: Experimental Textarea component
     When I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "<nameOfObject>" object name
     Then placeholder is set to <placeholder>
     Examples:
-      | placeholder             | nameOfObject                |
-      | mp150ú¿¡üßä             | placeholderOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | placeholderSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | placeholder                  | nameOfObject                |
+      | mp150ú¿¡üßä                  | placeholderOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | placeholderSpecialCharacter |
 
   @positive
   Scenario Outline: Set fieldHelp to <fieldHelp>
     When I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "<nameOfObject>" object name
     Then fieldHelp on preview is set to <fieldHelp> in NoIFrame
     Examples:
-      | fieldHelp               | nameOfObject              |
-      | mp150ú¿¡üßä             | fieldHelpOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | fieldHelpSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | fieldHelp                    | nameOfObject              |
+      | mp150ú¿¡üßä                  | fieldHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | fieldHelpSpecialCharacter |
 
   @positive
   Scenario Outline: Set characterLimit to <characterLimit>
@@ -101,13 +97,11 @@ Feature: Experimental Textarea component
     When I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "<nameOfObject>" object name
     Then characterLimit for default Textarea is not set to <characterLimit>
     Examples:
-      | characterLimit          | nameOfObject                   |
-      | mp150ú¿¡üßä             | characterLimitOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | characterLimitSpecialCharacter |
-      | -0,112                  | characterLimit-0,112           |
-      | 0.1112333               | characterLimit0.1112333        |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | characterLimit               | nameOfObject                   |
+      | mp150ú¿¡üßä                  | characterLimitOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | characterLimitSpecialCharacter |
+      | -0,112                       | characterLimit-0,112           |
+      | 0.1112333                    | characterLimit0.1112333        |
 
   @positive
   Scenario Outline: Set inputWidth to <inputWidth>
@@ -124,11 +118,9 @@ Feature: Experimental Textarea component
     When I open default "Experimental-Textarea" component in noIFrame with "textarea" json from "experimental" using "<nameOfObject>" object name
     Then label on preview is <label> in NoIFrame
     Examples:
-      | label                   | nameOfObject          |
-      | mp150ú¿¡üßä             | labelOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | labelSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | label                        | nameOfObject          |
+      | mp150ú¿¡üßä                  | labelOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelSpecialCharacter |
 
   @positive
   Scenario Outline: Set labelHelp to <labelHelp>
@@ -136,11 +128,9 @@ Feature: Experimental Textarea component
       And I hover mouse onto "question" icon in no iFrame
     Then tooltipPreview on preview is set to <labelHelp>
     Examples:
-      | labelHelp               | nameOfObject              |
-      | mp150ú¿¡üßä             | labelHelpOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | labelHelpSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | labelHelp                    | nameOfObject              |
+      | mp150ú¿¡üßä                  | labelHelpOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | labelHelpSpecialCharacter |
 
   @positive
   Scenario: Enable labelInline checkbox for a Textarea component
@@ -223,8 +213,6 @@ Feature: Experimental Textarea component
     When I input <input> into Textarea
     Then Textarea input on preview is set to <input>
     Examples:
-      | input                   |
-      | mp150ú¿¡üßä             |
-      | !@#$%^*()_+-=~[];:.,?{} |
-# @ignore because of FE-2782
-# | &"'<>|
+      | input                        |
+      | mp150ú¿¡üßä                  |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> |

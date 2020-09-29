@@ -16,9 +16,6 @@ When('I focus the Text Editor', () => {
   textEditorInput().focus();
 });
 
-When('Text Editor is focused', () => {
-  textEditorInput().should('be.focused');
-});
 
 Then('Text Editor counter shows {string} characters left', (charactersLeft) => {
   textEditorCounter().should('have.text', charactersLeft);

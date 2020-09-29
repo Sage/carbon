@@ -56,11 +56,9 @@ Feature: Table With Inputs component
     When I open default_with_inputs "Table" component in noIFrame with "table" json from "commonComponents" using "<nameOfObject>" object name
     Then caption is set to <caption>
     Examples:
-      | caption                 | nameOfObject            |
-      | mp150ú¿¡üßä             | captionOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | captionSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | caption                      | nameOfObject            |
+      | mp150ú¿¡üßä                  | captionOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | captionSpecialCharacter |
 
   @positive
   Scenario Outline: TotalRecords is set to <totalRecords> items

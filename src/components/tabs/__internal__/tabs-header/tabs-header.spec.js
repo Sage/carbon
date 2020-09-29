@@ -117,4 +117,11 @@ describe('TabsHeader', () => {
       );
     });
   });
+
+  describe('custom target styling', () => {
+    assertStyleMatch({
+      width: '100%',
+      margin: 'auto'
+    }, renderStyles({ hasCustomTarget: true, position: 'left' }));
+  });
 });

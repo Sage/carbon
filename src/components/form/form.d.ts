@@ -1,5 +1,6 @@
 
 import * as React from 'react';
+import { FormFieldSpacing } from '../../utils/helpers/options-helper/options-helper';
 
 export interface FormProps {
  /** Alignment of buttons */
@@ -28,6 +29,9 @@ export interface FormProps {
 
  /** The total number of warnings present in the form */
  warningCount?: number;
+
+  /** Spacing between form fields, given number will be multiplied by base spacing unit (8) */
+  fieldSpacing?: FormFieldSpacing;
 }
 
 declare const Form: React.FunctionComponent<FormProps>;

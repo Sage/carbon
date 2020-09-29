@@ -352,7 +352,11 @@ class BaseDateInput extends React.Component {
 
   render() {
     const {
-      minDate, maxDate, labelInline, ...inputProps
+      minDate,
+      maxDate,
+      labelInline,
+      adaptiveLabelBreakpoint,
+      ...inputProps
     } = this.props;
 
     let events = {};
@@ -382,6 +386,7 @@ class BaseDateInput extends React.Component {
           labelInline={ labelInline }
           rawValue={ isoFormattedValueString(this.state.visibleValue) }
           inputRef={ this.assignInput }
+          adaptiveLabelBreakpoint={ adaptiveLabelBreakpoint }
           { ...events }
         />
         { this.renderHiddenInput() }
@@ -439,7 +444,9 @@ BaseDateInput.propTypes = {
   /** Name of the input */
   name: PropTypes.string,
   /** The current date YYYY-MM-DD */
-  value: PropTypes.string
+  value: PropTypes.string,
+  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  adaptiveLabelBreakpoint: PropTypes.number
 };
 
 export { defaultDateFormat, BaseDateInput };

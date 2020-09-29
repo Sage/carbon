@@ -13,6 +13,7 @@ const FlatTableCheckbox = ({ as, checked, onChange }) => {
         checked={ checked }
         onChange={ onChange }
         name='flat-table-checkbox'
+        mb={ 0 }
       />
     </StyledFlatTableCheckbox>
   );

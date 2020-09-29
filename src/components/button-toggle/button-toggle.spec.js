@@ -36,8 +36,41 @@ describe('ButtonToggle', () => {
       wrapper.find(ButtonToggleInput).prop('onBlur')();
       expect(onBlurMock.mock.calls.length).toBe(1);
     });
+
+    it('pass onFocus props to input', () => {
+      const onFocusMock = jest.fn();
+      const wrapper = renderWithTheme({
+        theme: baseTheme,
+        onFocus: onFocusMock
+      });
+
+      wrapper.find(ButtonToggleInput).simulate('focus');
+      expect(onFocusMock.mock.calls.length).toBe(1);
+    });
   });
 
+  describe('when a label is clicked', () => {
+    const onClickMock = jest.fn();
+    let wrapper;
+    let domWrapper;
+
+    beforeEach(() => {
+      domWrapper = document.createElement('div');
+      document.body.appendChild(domWrapper);
+      wrapper = mount(<ButtonToggle onClick={ onClickMock }>Button</ButtonToggle>,
+        { attachTo: domWrapper });
+    });
+
+    afterEach(() => {
+      wrapper.detach();
+      document.body.removeChild(domWrapper);
+    });
+
+    it('then the input should be focused', () => {
+      wrapper.find(StyledButtonToggleLabel).simulate('click');
+      expect(wrapper.update().find(ButtonToggleInput).getDOMNode()).toEqual(document.activeElement);
+    });
+  });
 
   describe('HiddenCheckableInput', () => {
     let propOnBlur;
@@ -102,8 +135,14 @@ describe('ButtonToggle', () => {
 
       inputProps.onBlur();
     });
-  });
 
+    it('does nothing if onFocus callbacks are not provided', () => {
+      wrapper = renderWithContext();
+      const inputProps = wrapper.find(StyledButtonToggleInput).props();
+
+      inputProps.onFocus();
+    });
+  });
 
   describe('Classic theme', () => {
     it('renders correctly with default settings', () => {

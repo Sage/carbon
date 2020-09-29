@@ -16,11 +16,9 @@ Feature: Button as a sibling component
     When I open Test test_button_as_sibling "Button" component in noIFrame with "buttonAsSibling" json from "test" using "<nameOfObject>" object name
     Then Button as a sibling subtext on preview is <subtext>
     Examples:
-      | subtext                 | nameOfObject            |
-      | mp150ú¿¡üßä             | subtextOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | subtextSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | subtext                      | nameOfObject            |
+      | mp150ú¿¡üßä                  | subtextOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | subtextSpecialCharacter |
 
   @positive
   Scenario Outline: Set Button as a sibling Type as <buttonType>
@@ -39,11 +37,9 @@ Feature: Button as a sibling component
     When I open Test test_button_as_sibling "Button" component in noIFrame with "buttonAsSibling" json from "test" using "<nameOfObject>" object name
     Then Button as a sibling label on preview is <label>
     Examples:
-      | label                   | nameOfObject             |
-      | mp150ú¿¡üßä             | childrenOtherLanguage    |
-      | !@#$%^*()_+-=~[];:.,?{} | childrenSpecialCharacter |
-  # @ignore because of FE-2782
-  # | &"'<>|
+      | label                        | nameOfObject             |
+      | mp150ú¿¡üßä                  | childrenOtherLanguage    |
+      | !@#$%^*()_+-=~[];:.,?{}&"'<> | childrenSpecialCharacter |
 
   @positive
   Scenario: Disable Button as a sibling

@@ -1,11 +1,11 @@
-{ 
+{
   "cancelLabelOtherLanguage": {
     "open": true,
     "cancelLabel": "mp150ú¿¡üßä"
   },
   "cancelLabelSpecialCharacter": {
     "open": true,
-    "cancelLabel": "!@#$%^*()_+-=~[];:.,?{}"
+    "cancelLabel": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "confirmLabelOtherLanguage": {
     "open": true,
@@ -13,7 +13,7 @@
   },
   "confirmLabelSpecialCharacter": {
     "open": true,
-    "confirmLabel": "!@#$%^*()_+-=~[];:.,?{}"
+    "confirmLabel": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "titleOtherLanguage": {
     "open": true,
@@ -21,7 +21,7 @@
   },
   "titleSpecialCharacter": {
     "open": true,
-    "title": "!@#$%^*()_+-=~[];:.,?{}"
+    "title": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "subtitleOtherLanguage": {
     "open": true,
@@ -29,7 +29,7 @@
   },
   "subtitleSpecialCharacter": {
     "open": true,
-    "subtitle": "!@#$%^*()_+-=~[];:.,?{}"
+    "subtitle": "!@#$%^*()_+-=~[];:.,?{}&\"'<>"
   },
   "height0": {
     "open": true,
@@ -86,5 +86,20 @@
   "showCloseIconFalse": {
     "open": true,
     "showCloseIcon": false
+  },
+  "destructive": {
+    "open": true,
+    "destructive": true
+  },
+  "iconError": {
+    "open": true,
+    "iconType": "error"
+  },
+  "iconWarning": {
+    "open": true,
+    "iconType": "warning"
+  },
+  "iconEmpty": {
+    "open": true
   }
 }

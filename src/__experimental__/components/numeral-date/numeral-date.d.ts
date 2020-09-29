@@ -1,5 +1,27 @@
 import * as React from 'react';
 
+interface DayMonthDate {
+   dd: string;
+   mm: string;
+}
+
+interface MonthYearDate {
+   mm: string;
+   yyyy: string;
+}
+
+interface FullDate extends DayMonthDate {
+   yyyy: string;
+}
+
+interface NumeralDateEvent {
+  target: {
+    name: string,
+    id: string,
+    value: DayMonthDate | MonthYearDate |  FullDate,
+  };
+}
+
 export interface NumeralDateProps {
   /* Array of strings to define custom input layout.
   Allowed formats:
@@ -26,9 +48,9 @@ export interface NumeralDateProps {
   Pass true boolean to only display blue border */
   info?: boolean | string;
   /** Blur event handler  */
-  onBlur?: () => void;
+  onBlur?: (ev: NumeralDateEvent) => void;
   /** Change event handler */
-  onChange?: () => void;
+  onChange?: (ev: NumeralDateEvent) => void;
   /** `id` for events */
   id?: string;
   /** `name` for events */
@@ -47,6 +69,8 @@ export interface NumeralDateProps {
   labelWidth?: number;
   /** Help content to be displayed under an input */
   fieldHelp?: string;
+  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  adaptiveLabelBreakpoint?: number;
 }
 
 declare const NumeralDate: React.ComponentType<NumeralDateProps>;
