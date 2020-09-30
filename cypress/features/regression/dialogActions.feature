@@ -2,8 +2,7 @@ Feature: Dialog component actions in IFrame
   I want to test Dialog component - actions in IFrame
 
   Background: Open Dialog component page
-    Given I open "Dialog" component page with button
-      And I open component preview
+    Given I open "Dialog Test" component page
 
   @positive
   Scenario: Disable escape key
@@ -47,13 +46,6 @@ Feature: Dialog component actions in IFrame
       | top      |
       | topRight |
       | right    |
-
-  @positive
-  Scenario: Open dialog event
-    Given I click closeIcon in IFrame
-      And clear all actions in Actions Tab
-    When I open component preview
-    Then open action was called in Actions Tab
 
   @positive
   Scenario: Cancel event
