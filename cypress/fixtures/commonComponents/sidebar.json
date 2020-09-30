@@ -1,52 +1,41 @@
 {
   "sizeExtraSmall": {
-    "open": true,
     "size": "extra-small"
   },
   "sizeSmall": {
-    "open": true,
     "size": "small"
   },
   "sizeMediumSmall": {
-    "open": true,
     "size": "medium-small"
   },
   "sizeMedium": {
-    "open": true,
     "size": "medium"
   },
   "sizeMediumLarge": {
-    "open": true,
     "size": "medium-large"
   },
   "sizeLarge": {
-    "open": true,
     "size": "large"
   },
   "sizeExtraLarge": {
-    "open": true,
     "size": "extra-large"
   },
   "positionLeft": {
-    "open": true,
     "position": "left"
   },
   "positionRight": {
-    "open": true,
     "position": "right"
   },
   "enableBackgroundUIFalse": {
-    "open": true,
     "enableBackgroundUI": false
   },
   "enableBackgroundUI": {
-    "open": true,
     "enableBackgroundUI": true
   },
   "openFalse": {
     "open": false
   },
-  "open": {
-    "open": true
+  "default": {
+
   }
 }
