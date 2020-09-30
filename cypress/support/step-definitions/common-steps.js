@@ -24,6 +24,8 @@ import {
   getElementNoIframe,
   labelByPosition,
   helpIcon,
+  storyRoot,
+  dlsRoot,
 } from '../../locators';
 import { dialogTitle } from '../../locators/dialog';
 import { DEBUG_FLAG } from '..';
@@ -291,12 +293,20 @@ Then('I click closeIcon', () => {
   closeIconButton().click();
 });
 
+When('I click {string} button into iFrame', (text) => {
+  commonButtonPreviewNoIframe().contains(text).click();
+});
+
 Then('closeIcon is not visible in IFrame', () => {
   closeIconButtonIFrame().should('not.exist');
 });
 
 Then('closeIcon is not visible', () => {
   closeIconButton().should('not.exist');
+});
+
+Then('I focus closeIcon', () => {
+  closeIconButton().focus();
 });
 
 Then('closeIcon has the border outline color {string} and width {string} in IFrame', (color, width) => {
@@ -311,6 +321,18 @@ Then('closeIcon has the border outline color {string} and width {string}', (colo
 
 Then('closeIcon is focused', () => {
   closeIconButtonIFrame().focus();
+});
+
+When('I click outside of the component', () => {
+  storyRoot().click();
+});
+
+When('I click outside of the component in DLS directory', () => {
+  dlsRoot().click();
+});
+
+When('I click above of the component in no iFrame', () => {
+  storyRootNoIframe().click('top');
 });
 
 When('I hit ESC key', () => {
