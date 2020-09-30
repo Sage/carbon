@@ -1,23 +1,23 @@
 import {
-  searchInput, searchIcon, searchInputNoiFrame,
-  searchDefaultInputDS, searchCrossIconDS, searchButtonDS, 
-  searchWitchButtonInputDS, searchDefaultInnerIconDS, searchInnerIconDS,
+  searchInput, searchIcon,
+  searchDefaultInput, searchCrossIcon, searchButton, 
+  searchWitchButtonInput, searchDefaultInnerIcon, searchInnerIcon,
 } from '../../locators/search';
 
 Then('Search component placeholder is set to {word}', (placeholder) => {
-  searchInputNoiFrame().should('have.attr', 'placeholder', placeholder);
+  searchDefaultInput().should('have.attr', 'placeholder', placeholder);
 });
 
 When('I clear default search input', () => {
-  searchDefaultInputDS().clear();
+  searchDefaultInput().clear();
 });
 
 When('Type {string} text into default search input', (text) => {
-  searchDefaultInputDS().clear().type(text);
+  searchDefaultInput().clear().type(text);
 });
 
 When('Type {string} text into search with button input', (text) => {
-  searchWitchButtonInputDS().clear().type(text);
+  searchWitchButtonInput().clear().type(text);
 });
 
 When('Type {string} text into search input', (text) => {
@@ -25,17 +25,17 @@ When('Type {string} text into search input', (text) => {
 });
 
 Then('Search component has input and {string} as icon', (iconType) => {
-  searchDefaultInputDS().should('have.attr', 'data-element', 'input').and('be.visible');
-  searchDefaultInnerIconDS().should('have.attr', 'data-element', iconType)
+  searchDefaultInput().should('have.attr', 'data-element', 'input').and('be.visible');
+  searchDefaultInnerIcon().should('have.attr', 'data-element', iconType)
     .and('be.visible');
 });
 
 Then('I click on cross icon', () => {
-  searchCrossIconDS().click();
+  searchCrossIcon().click();
 });
 
 When('search input is empty', () => {
-  searchDefaultInputDS().should('be.empty');
+  searchDefaultInput().should('be.empty');
 });
 
 Then('Search component input has golden border', () => {
@@ -43,7 +43,7 @@ Then('Search component input has golden border', () => {
 });
 
 When('I click on search icon', () => {
-  searchButtonDS().click({ force: true });
+  searchButton().click({ force: true });
 });
 
 When('I click onto search icon', () => {
@@ -55,7 +55,7 @@ When('I click inside input', () => {
 });
 
 Then('search icon has golden border', () => {
-  searchButtonDS().should('have.css', 'outline', 'rgb(255, 181, 0) solid 3px');
+  searchButton().should('have.css', 'outline', 'rgb(255, 181, 0) solid 3px');
 });
 
 Then('search icon has proper inner color', () => {
@@ -65,9 +65,9 @@ Then('search icon has proper inner color', () => {
 });
 
 Then('search icon as button is visible', () => {
-  searchButtonDS().should('exist').and('be.visible');
+  searchButton().should('exist').and('be.visible');
 });
 
 Then('search icon as button is not visible', () => {
-  searchInnerIconDS().should('not.exist');
+  searchInnerIcon().should('not.exist');
 });
