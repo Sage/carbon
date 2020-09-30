@@ -2,7 +2,7 @@ Feature: Design System TileSelect component
   I want to test Design System TileSelect component
 
   Background: Open Design System Search component page
-    Given I open Design Systems basic "Tile Select" component docs page
+    Given I open design systems single_tile "Tile Select" component in no iframe
 
   @positive
   Scenario: Single tile is checked
