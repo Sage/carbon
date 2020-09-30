@@ -1,7 +1,7 @@
 import {
   searchInput, searchIcon,
   searchDefaultInput, searchCrossIcon, searchButton, 
-  searchWitchButtonInput, searchDefaultInnerIcon, searchInnerIcon,
+  searchWitchButtonInput, searchDefaultInnerIcon, searchInnerIcon, searchInputIframe, searchIconIframe,
 } from '../../locators/search';
 
 Then('Search component placeholder is set to {word}', (placeholder) => {
@@ -21,7 +21,7 @@ When('Type {string} text into search with button input', (text) => {
 });
 
 When('Type {string} text into search input', (text) => {
-  searchInput().clear().type(text);
+  searchInputIframe().clear().type(text);
 });
 
 Then('Search component has input and {string} as icon', (iconType) => {
@@ -47,11 +47,11 @@ When('I click on search icon', () => {
 });
 
 When('I click onto search icon', () => {
-  searchIcon().click({ force: true });
+  searchIconIframe().click({ force: true });
 });
 
 When('I click inside input', () => {
-  searchInput().click();
+  searchInputIframe().click();
 });
 
 Then('search icon has golden border', () => {
@@ -60,7 +60,7 @@ Then('search icon has golden border', () => {
 
 Then('search icon has proper inner color', () => {
   const mintColor = 'rgb(0, 129, 93)';
-  searchIcon().should('have.css', 'background-color', mintColor)
+  searchIconIframe().should('have.css', 'background-color', mintColor)
     .and('have.css', 'border-color', mintColor);
 });
 

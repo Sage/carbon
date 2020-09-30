@@ -11,3 +11,6 @@ export const searchWitchButtonInput = () => searchDefault().find('input');
 export const searchButton = () => searchDefault().find(BUTTON_DATA_COMPONENT_PREVIEW);
 export const searchInput = () => cy.get(SEARCH_COMPONENT).find('input');
 export const searchIcon = () => cy.get('button[type="button"]');
+
+export const searchInputIframe = () => cy.iFrame(SEARCH_COMPONENT).find('input');
+export const searchIconIframe = () => cy.iFrame('button[type="button"]');
