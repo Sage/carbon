@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import sidebarHeaderClassicStyle from './sidebar-header-classic.style';
 import baseTheme from '../../../style/themes/base';
 
 const SidebarHeaderStyle = styled.div`
@@ -13,8 +12,6 @@ const SidebarHeaderStyle = styled.div`
   width: 100%;
   color: ${({ theme }) => theme.text.color};
   transition: all 0.2s ease;
-
-  ${sidebarHeaderClassicStyle}
 `;
 
 SidebarHeaderStyle.defaultProps = {

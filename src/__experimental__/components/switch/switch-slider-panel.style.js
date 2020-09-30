@@ -1,10 +1,8 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
-import ClassicSwitchSliderPanelStyles from './switch-slider-panel-classic.style';
 import StyledLoader from '../../../components/loader/loader.style';
 import StyledLoaderSquare from '../../../components/loader/loader-square.style';
-import ClassicSwitchLoaderSquareStyles from './switch-classic-loader-square.style';
 
 const SwitchSliderPanel = styled.div`
   ${({
@@ -26,8 +24,6 @@ const SwitchSliderPanel = styled.div`
       margin-right: 6px;
     }
 
-    ${ClassicSwitchSliderPanelStyles}
-
     ${isLoading && css`
       ${StyledLoader} {
         {
@@ -38,8 +34,6 @@ const SwitchSliderPanel = styled.div`
             margin-bottom: 2px;
             margin-right: 2px;
             width: 5px;
-
-            ${ClassicSwitchLoaderSquareStyles}
           }
         }
       }
