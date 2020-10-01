@@ -2,14 +2,46 @@
 
 exports[`Tile renders base styles 1`] = `
 .c2 {
+  padding-right: 24px;
+  padding-left: 24px;
   position: relative;
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
+  display: inline;
+}
+
+.c2:last-of-type {
+  padding-right: 0;
+}
+
+.c2:first-of-type {
+  padding-left: 0;
+}
+
+.c2 + .c1 {
+  margin-top: 0;
+  border-left: solid 1px #E6EBED;
+}
+
+.c3 + .c1 {
+  margin-top: 0;
+  border-top: solid 1px #E6EBED;
+}
+
+.c4 + .c1 {
+  margin-top: 0;
+  border-left: solid 1px #E6EBED;
+}
+
+.c5 + .c1 {
+  margin-top: 0;
+  border-top: solid 1px #E6EBED;
 }
 
 .c0 {
+  padding: 24px;
   background-color: #FFFFFF;
   border: 1px solid #CCD6DB;
   display: -webkit-box;
@@ -19,45 +51,13 @@ exports[`Tile renders base styles 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  padding: 24px;
   position: relative;
   width: 100%;
-}
-
-.c0 .c1 {
-  box-sizing: border-box;
-  display: inline;
-}
-
-.c0 .c1:not(:last-of-type) {
-  padding-right: 24px;
-}
-
-.c0 .c1 + .c1 {
-  margin-top: 0;
-  border-left: solid 1px #E6EBED;
-  padding-left: 24px;
-}
-
-.c3 .c1 {
-  box-sizing: border-box;
-  width: auto;
-}
-
-.c3 .c1:not(:last-of-type) {
-  padding-bottom: 24px;
-}
-
-.c3 .c1 + .c1 {
-  margin-top: 0;
-  border-top: solid 1px #E6EBED;
-  padding-top: 24px;
 }
 
 <div
   className="c0"
   data-component="tile"
-  orientation="horizontal"
 >
   <div
     className="c1 c2"

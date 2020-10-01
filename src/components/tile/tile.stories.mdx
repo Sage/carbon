@@ -2,14 +2,17 @@ import { Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Tile from '.';
 import Content from '../content';
-import { info, notes } from './documentation';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
 import { dlsThemeSelector } from '../../../.storybook/theme-selectors';
+import StyledSystemProps from '../../../.storybook/utils/styled-system-props';
 import { action } from '@storybook/addon-actions';
 import { Dl, Dt, Dd } from '../definition-list';
 import Link from '../link';
 import Button from '../button';
 import Heading from '../heading';
+import Link from '../link/link.component';
+import Button from '../button/button.component';
+import Heading from '../heading/heading';
+import {Accordion} from '../accordion';
 
 <Meta title="Design System/Tile" parameters={{ info: { disable: true }}} />
 
@@ -151,8 +154,13 @@ The Tile component can also have inline styling applied to the content.
     </Story>
 </Preview>
 
-## Props of Tile
-<Props of={ Tile } />
+## Tile Props
+
+<StyledSystemProps
+  of={Tile}
+  spacing
+  spacingDefaults={{p: 3}}
+/>
 
 # Tile with Definition List
 The Definition List component should only be used inside of the Tile component. The purpose of the Definition List component is to mimic
@@ -276,3 +284,46 @@ In this example `dtTextAlign` has been provided the string 'left' and `ddTextAli
 
 ### Props of Dt:
 <Props of={ Dt } />
+
+# Tile with Accordion and Definition List
+
+<Preview>
+  <Story name="Tile with Accordion">
+    <Tile orientation="horizontal">
+      <Accordion title="Accordion">
+        <Dl dtTextAlign='left' ddTextAlign='right'>
+        <Dt>Coffee Subscription</Dt>
+        <Dd>£7.00 a month</Dd>
+        <Dt>Grind Size</Dt>
+        <Dd>Espresso</Dd>
+        <Dt>Quantity</Dt>
+        <Dd>3kg</Dd>
+        <Dd> 
+          <Button 
+            buttonType='tertiary' 
+            href='https://goo.gl/maps/GMReLoBpbn9mdZVZ7'>
+            Have a promo code?
+          </Button> 
+        </Dd>
+      </Dl>
+      </Accordion>  
+      <Accordion title="Accordion 2">
+        <Dl dtTextAlign='left' ddTextAlign='right'>
+          <Dt>Coffee Subscription</Dt>
+          <Dd>£7.00 a month</Dd>
+          <Dt>Grind Size</Dt>
+          <Dd>Espresso</Dd>
+          <Dt>Quantity</Dt>
+          <Dd>3kg</Dd>
+          <Dd> 
+            <Button 
+              buttonType='tertiary' 
+              href='https://goo.gl/maps/GMReLoBpbn9mdZVZ7'>
+              Have a promo code?
+            </Button> 
+          </Dd>
+        </Dl>
+      </Accordion>
+    </Tile>
+  </Story>
+</Preview>

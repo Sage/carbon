@@ -1,22 +1,50 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import { space } from 'styled-system';
 import baseTheme from '../../style/themes/base';
 
-const paddingSizes = {
-  XS: '8px',
-  S: '16px',
-  M: '24px',
-  L: '32px',
-  XL: '40px'
-};
-
-const isHorizontal = orientation => orientation === 'horizontal';
-const isVertical = orientation => orientation === 'vertical';
-
 const TileContent = styled.div`
-  ${({ width }) => css`
+  ${({
+    width, isHorizontal, isVertical, theme
+  }) => css`
+    ${space}
+  
     position: relative;
     flex-grow: 1;
+
+    ${isHorizontal && css`
+      display: inline;
+
+      :last-of-type{
+        padding-right: 0;
+      }
+    
+      :first-of-type{
+        padding-left: 0;
+      }
+
+      & + & {
+        margin-top: 0;
+        border-left: solid 1px ${theme.tile.separator};
+      }
+    `}
+
+    ${isVertical && css`
+      width: auto;
+
+      :last-of-type{
+        padding-bottom: 0;
+      }
+
+      :first-of-type{
+        padding-top: 0;
+      }
+
+      & + & {
+        margin-top: 0;
+        border-top: solid 1px ${theme.tile.separator};
+      }
+    `}
 
     ${(width && width !== 0) ? `
       flex-grow: 0;
@@ -27,49 +55,29 @@ const TileContent = styled.div`
 
 const StyledTile = styled.div`
   ${({
-    orientation, padding, pixelWidth, tileTheme, theme, width
+    isHorizontal, pixelWidth, tileTheme, theme, width
   }) => css`
+    ${space};
+    
     background-color: ${tileTheme === 'tile' ? theme.colors.white : 'transparent'};
     border: 1px solid ${theme.tile.border};
     display: flex;
-    flex-direction: ${isHorizontal(orientation) ? 'row' : 'column'};
-    padding: ${paddingSizes[padding]};
+    flex-direction: ${isHorizontal ? 'row' : 'column'};
     position: relative;
     width: 100%;
 
     ${(width && width !== 0) ? `width: ${width}%;` : ''}
     ${(pixelWidth && pixelWidth !== 0) ? `width: ${pixelWidth}px;` : ''}
-
-    ${TileContent} {
-      box-sizing: border-box;
-
-      ${isHorizontal(orientation) && 'display: inline;'}
-
-      ${isVertical(orientation) && 'width: auto;'}
-
-      &:not(:last-of-type) {
-        padding-${isHorizontal(orientation) ? 'right' : 'bottom'}: ${paddingSizes[padding]};
-      }
-
-      & + ${TileContent} {
-        margin-top: 0;
-
-        ${isHorizontal(orientation) && css`
-          border-left: solid 1px ${theme.tile.separator};
-          padding-left: ${paddingSizes[padding]};
-        `}
-
-        ${isVertical(orientation) && css`
-          border-top: solid 1px ${theme.tile.separator};
-          padding-top: ${paddingSizes[padding]};
-        `}
-      }
     }
   `}
 `;
 
 TileContent.propTypes = {
   width: PropTypes.number
+};
+
+TileContent.defaultProps = {
+  theme: baseTheme
 };
 
 StyledTile.propTypes = {
