@@ -233,17 +233,6 @@
           "required": false,
           "description": "Action to be called on slide change"
         },
-        "transition": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "Controls which transition to use.",
-          "defaultValue": {
-            "value": "'slide'",
-            "computed": false
-          }
-        },
         "theme": {
           "type": {
             "name": "object"

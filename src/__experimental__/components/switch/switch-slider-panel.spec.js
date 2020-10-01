@@ -6,8 +6,6 @@ import { assertStyleMatch, carbonThemesJestTable } from '../../../__spec_helper_
 import StyledLoader from '../../../components/loader/loader.style';
 import StyledLoaderSquare from '../../../components/loader/loader-square.style';
 import SwitchSliderPanel from './switch-slider-panel.style';
-import StyledIcon from '../../../components/icon/icon.style';
-import { baseTheme, classicTheme } from '../../../style/themes';
 
 function render(props) {
   return TestRenderer.create(<SwitchSliderPanel { ...props } />);
@@ -40,47 +38,6 @@ describe('SwitchSliderPanel', () => {
           },
           render({ isLoading: true }).toJSON(),
           { modifier: css`${`${StyledLoader} ${StyledLoaderSquare}`}` }
-        );
-      });
-    });
-  });
-
-  describe('Classic theme', () => {
-    describe('default', () => {
-      it('sets the correct styles', () => {
-        const wrapper = render({ isLoading: false, theme: classicTheme }).toJSON();
-
-        assertStyleMatch({
-          color: baseTheme.colors.white,
-          marginRight: '9px'
-        }, wrapper, { modifier: "[type='off']" });
-      });
-    });
-
-    describe('when loading === true', () => {
-      it('sets the correct classic LoaderSquare styles', () => {
-        assertStyleMatch(
-          {
-            backgroundColor: baseTheme.colors.white,
-            borderRadius: '100%',
-            height: '4px',
-            width: '4px',
-            marginBottom: '0'
-          },
-          render({ isLoading: true, theme: classicTheme }).toJSON(),
-          { modifier: css`${`${StyledLoader} ${StyledLoaderSquare}`}` }
-        );
-      });
-    });
-
-    describe('Icon', () => {
-      it('applies the expected style', () => {
-        assertStyleMatch(
-          {
-            color: baseTheme.colors.white
-          },
-          render({ isLoading: true, theme: classicTheme }).toJSON(),
-          { modifier: css`${StyledIcon}` }
         );
       });
     });
