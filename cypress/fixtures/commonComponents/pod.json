@@ -26,20 +26,20 @@
   "paddingExtraLarge": {
     "padding": "extra-large"
   },
-  "podTypePrimary": {
-    "podType": "primary"
+  "variantPrimary": {
+    "variant": "primary"
   },
-  "podTypeSecondary": {
-    "podType": "secondary"
+  "variantSecondary": {
+    "variant": "secondary"
   },
-  "podTypeTetiary": {
-    "podType": "tertiary"
+  "variantTetiary": {
+    "variant": "tertiary"
   },
-  "podTypeTile": {
-    "podType": "tile"
+  "variantTile": {
+    "variant": "tile"
   },
-  "podTypeTransparent": {
-    "podType": "transparent"
+  "variantTransparent": {
+    "variant": "transparent"
   },
   "titleOtherLanguage": {
     "title": "mp150ú¿¡üßä"
