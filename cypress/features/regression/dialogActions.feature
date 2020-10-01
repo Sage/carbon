@@ -21,7 +21,7 @@ Feature: Dialog component actions in IFrame
   Scenario: ShowCloseIcon can close Dialog
     Given I uncheck showCloseIcon checkbox
     When I check showCloseIcon checkbox
-    Then closeIcon is visible
+    Then closeIcon is visible in iframe
       And I click closeIcon in IFrame
       And Dialog is not visible in IFrame
 

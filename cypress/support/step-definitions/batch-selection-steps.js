@@ -1,7 +1,7 @@
 import {
   batchSelectionComponent,
   batchSelectionCounter,
-  batchSelectionButtonsDS,
+  batchSelectionButtonsByPosition,
 } from '../../locators/batch-selection';
 import { positionOfElement } from '../helper';
 
@@ -14,9 +14,9 @@ Then('Batch selection component selectedCount is set to {string}', (value) => {
 });
 
 When('I focus Batch selection {string} button', (index) => {
-  batchSelectionButtonsDS(positionOfElement(index)).parent().focus();
+  batchSelectionButtonsByPosition(positionOfElement(index)).parent().focus();
 });
 
 Then('Batch selection component {string} button is focused', (index) => {
-  batchSelectionButtonsDS(positionOfElement(index)).parent().should('have.css', 'outline', 'rgb(255, 181, 0) solid 3px');
+  batchSelectionButtonsByPosition(positionOfElement(index)).parent().should('have.css', 'outline', 'rgb(255, 181, 0) solid 3px');
 });

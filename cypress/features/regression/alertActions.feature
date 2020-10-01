@@ -8,7 +8,7 @@ Feature: Alert component actions
   Scenario: Clicking close icon, closes Alert dialog
     # commented because of BDD default scenario Given - When - Then
     # When I open "Alert Test" component page
-    Then closeIcon is visible
+    Then closeIcon is visible in iframe
       And I click closeIcon in IFrame
       And Alert is not visible
 
