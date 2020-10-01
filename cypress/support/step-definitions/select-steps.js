@@ -16,6 +16,11 @@ import {
   multiSelectPillByPosition,
   selectInputIframe,
   selectPillIframe,
+  dropdownButtonInIframe,
+  selectDataComponentInIframe,
+  selectListInIframe,
+  selectOptionInIframe,
+  multiSelectDataComponentInIframe,
 } from '../../locators/select';
 import { positionOfElement, keyCode } from '../helper';
 import { label } from '../../locators';
@@ -130,24 +135,34 @@ When('I focus openOnFocus Select input', () => {
   openOnFocusID().focus();
 });
 
-Then('{string} {string} Select list is opened', (index, name) => {
-  selectDataComponent(positionOfElement(index), name).should('have.attr', 'aria-expanded', 'true');
+Then('{string} Select list is opened', (name) => {
+  selectDataComponent(name).should('have.attr', 'aria-expanded', 'true');
   selectList().should('be.visible');
 });
 
-Then('{string} {string} Select list is closed', (index, name) => {
-  selectDataComponent(positionOfElement(index), name).should('have.attr', 'aria-expanded', 'false');
+Then('{string} Select list is closed', (name) => {
+  selectDataComponent(name).should('have.attr', 'aria-expanded', 'false');
   selectList().should('not.be.visible');
 });
 
-Then('{string} multi Select list is opened', (index) => {
-  multiSelectDataComponent(positionOfElement(index)).should('have.attr', 'aria-expanded', 'true');
+Then('{string} Select list is closed in iframe', (name) => {
+  selectDataComponentInIframe(name).should('have.attr', 'aria-expanded', 'false');
+  selectListInIframe().should('not.be.visible');
+});
+
+Then('multi Select list is opened', () => {
+  multiSelectDataComponent().should('have.attr', 'aria-expanded', 'true');
   selectList().should('be.visible');
 });
 
-Then('{string} multi Select list is closed', (index) => {
-  multiSelectDataComponent(positionOfElement(index)).should('have.attr', 'aria-expanded', 'false');
+Then('multi Select list is closed', () => {
+  multiSelectDataComponent().should('have.attr', 'aria-expanded', 'false');
   selectList().should('not.be.visible');
+});
+
+Then('multi Select list is closed in iframe', () => {
+  multiSelectDataComponentInIframe().should('have.attr', 'aria-expanded', 'false');
+  selectListInIframe().should('not.be.visible');
 });
 
 When('I click on Select input', () => {
@@ -191,8 +206,12 @@ Then('Multi select input has not any value', () => {
   multiSelectDataComponent(1).should('not.have.attr', 'data-component', 'pill');
 });
 
-When('I click on {string} dropdown button', (position) => {
-  dropdownButton(positionOfElement(position)).click();
+When('I click on dropdown button', () => {
+  dropdownButton().click();
+});
+
+When('I click on dropdown button in iframe', () => {
+  dropdownButtonInIframe().click();
 });
 
 When('I click out of controlled input', () => {
@@ -221,6 +240,10 @@ When('{string} option on Select list is {string}', (position, text) => {
 
 When('I click on {string} option on Select list', (position) => {
   selectOption(positionOfElement(position)).click();
+});
+
+When('I click on {string} option on Select list in iframe', (position) => {
+  selectOptionInIframe(positionOfElement(position)).click();
 });
 
 When('I click on Select label', () => {

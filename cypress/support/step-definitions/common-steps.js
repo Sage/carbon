@@ -281,8 +281,12 @@ Then('Background UI is disabled', () => {
   backgroundUILocator().should('exist');
 });
 
-Then('closeIcon is visible', () => {
+Then('closeIcon is visible in iframe', () => {
   closeIconButtonIFrame().should('be.visible');
+});
+
+Then('closeIcon is visible', () => {
+  closeIconButton().should('be.visible');
 });
 
 Then('I click closeIcon in IFrame', () => {
@@ -321,6 +325,10 @@ Then('closeIcon has the border outline color {string} and width {string}', (colo
 
 Then('closeIcon is focused', () => {
   closeIconButtonIFrame().focus();
+});
+
+Then('closeIcon is focused in no iframe', () => {
+  closeIconButton().focus();
 });
 
 When('I click outside of the component', () => {
@@ -412,7 +420,7 @@ When('I press {string} key times {int}', (key, times) => {
   }
 });
 
-When('I click onto root in Test directory in iFrame', () => {
+When('I click onto root in Test directory in no iFrame', () => {
   cy.get('#root').click({ force: true });
 });
 

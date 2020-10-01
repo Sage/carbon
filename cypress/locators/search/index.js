@@ -1,20 +1,17 @@
-import { SEARCH_COMPONENT, SEARCH_DEFAULT_ID, CROSS_ICON,
-  SEARCH_WITH_SEARCH_BUTTON_ID } from './locators';
+import { SEARCH_COMPONENT, CROSS_ICON } from './locators';
 import { BUTTON_DATA_COMPONENT_PREVIEW } from '../button/locators';
-
-// DS locators
-export const searchDefaultDS = () => cy.iFrame(SEARCH_DEFAULT_ID);
-export const searchWithButtonDS = () => cy.iFrame(SEARCH_WITH_SEARCH_BUTTON_ID);
-export const searchDefaultInputDS = () => searchDefaultDS().find('input');
-export const searchDefaultInnerIconDS = () => searchDefaultDS().find('span:nth-child(1)');
-export const searchCrossIconDS = () => searchDefaultDS().find(CROSS_ICON);
-export const searchInnerIconDS = () => searchDefaultDS().find('button[type="button"]');
-export const searchWitchButtonInputDS = () => searchWithButtonDS().find('input');
-export const searchButtonDS = () => searchWithButtonDS().find(BUTTON_DATA_COMPONENT_PREVIEW);
+import { BUTTON } from '../locators';
 
 // component preview locators
-export const searchInput = () => cy.iFrame(SEARCH_COMPONENT).find('input');
-export const searchIcon = () => cy.iFrame('button[type="button"]');
+export const searchDefault = () => cy.get(SEARCH_COMPONENT);
+export const searchDefaultInput = () => searchDefault().find('input');
+export const searchDefaultInnerIcon = () => searchDefault().find('span:nth-child(1)');
+export const searchCrossIcon = () => searchDefault().find(CROSS_ICON);
+export const searchInnerIcon = () => searchDefault().find(BUTTON);
+export const searchWitchButtonInput = () => searchDefault().find('input');
+export const searchButton = () => searchDefault().find(BUTTON_DATA_COMPONENT_PREVIEW);
+export const searchInput = () => cy.get(SEARCH_COMPONENT).find('input');
+export const searchIcon = () => cy.get(BUTTON);
 
-// component preview locators in no iFrame
-export const searchInputNoiFrame = () => cy.get(SEARCH_COMPONENT).find('input');
+export const searchInputIframe = () => cy.iFrame(SEARCH_COMPONENT).find('input');
+export const searchIconIframe = () => cy.iFrame(BUTTON);

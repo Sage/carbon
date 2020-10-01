@@ -16,7 +16,7 @@ Feature: Design System Simple Select component
   Scenario: Check the onChange event by clicking mouse on the select list option
     Given I click on basic Select input
       And clear all actions in Actions Tab
-    When I click on "first" option on Select list
+    When I click on "first" option on Select list in iframe
     Then onChange action was called in Actions Tab
 
   @positive
@@ -48,3 +48,9 @@ Feature: Design System Simple Select component
       And I focus basic Select input
     When I click on Select label
     Then onBlur action was called in Actions Tab
+
+  @positive
+  Scenario: Close Select list using Esc keyboard
+    Given I click on basic Select input
+    When I hit ESC key
+    Then "simple" Select list is closed in iframe
