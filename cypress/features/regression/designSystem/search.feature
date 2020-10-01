@@ -1,10 +1,6 @@
 Feature: Design System Search component
   I want to test Design System Search component
 
-  Background: Open Design System Search component page
-    # Given I open design systems default_story "Search" component in no iframe
-
-
   @positive
   Scenario: Search input is empty after click on cross icon
     Given I open design systems default_story "Search" component in no iframe

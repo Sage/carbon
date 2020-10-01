@@ -16,3 +16,4 @@ export const INPUT_WIDTH_PREVIEW = '.common-input__field';
 export const COMMMON_DATA_ELEMENT_INPUT = 'input[data-element="input"]';
 export const LABEL = '[data-element="label"]';
 export const COMMON_INPUT = '.common-input__';
+export const BUTTON = 'button[type="button"]';
